@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { api, type ExamCode, type Subject } from '../api';
-import { Badge, Empty, ErrorBox, Loading, PageHeader, PreviewBadge, useLoad } from '../ui';
+import { Badge, Empty, ErrorBox, Loading, PageHeader, useLoad } from '../ui';
 
 const YEAR = 2026;
 
@@ -70,7 +70,6 @@ function SubjectRow({ s }: { s: Subject }) {
           <span className="num hidden text-xs text-zinc-500 sm:inline">
             {s.units} units · {s.topics} topics · {s.questions} questions
           </span>
-          {s.preview && <PreviewBadge what="syllabus" />}
         </>
       ) : (
         <Badge>Syllabus under verification</Badge>

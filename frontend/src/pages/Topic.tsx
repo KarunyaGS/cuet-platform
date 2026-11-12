@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api } from '../api';
-import { Badge, Button, Empty, ErrorBox, kindLabel, Loading, PreviewBadge, useAuth, useLoad } from '../ui';
-
-const originLabel: Record<string, string> = {
-  AUTHORED: 'Written by our team', AI_ASSISTED: 'AI-assisted draft', LICENSED: 'Licensed', OFFICIAL_SOURCE: 'Official source', PAST_PAPER: 'Previous-year paper', OFFICIAL_SAMPLE: 'Official sample',
-};
+import { Badge, Button, Empty, ErrorBox, kindLabel, Loading, useAuth, useLoad } from '../ui';
 
 /** Topic page: the official syllabus wording with its source page, subtopics, learning material and practice. */
 export function TopicPage() {
@@ -58,7 +54,6 @@ export function TopicPage() {
             {kindLabel(d.topic.kind, d.topic.label) && <span className="text-zinc-500">{kindLabel(d.topic.kind, d.topic.label)} · </span>}
             {d.topic.title}
           </h1>
-          {d.topic.preview && <PreviewBadge what="syllabus" />}
         </div>
 
         <section className="mb-4 rounded-lg border border-zinc-200 bg-white px-3 py-2.5">
@@ -101,10 +96,8 @@ export function TopicPage() {
                   <Link to={`/learn/${r.id}`} className="block rounded-lg border border-zinc-200 bg-white px-3 py-2 hover:border-[var(--color-accent)]">
                     <div className="flex items-center gap-1.5">
                       <Badge tone="accent">{r.type.toLowerCase()}</Badge>
-                      {r.status !== 'PUBLISHED' && <PreviewBadge />}
                     </div>
                     <div className="mt-1 text-sm font-medium">{r.title}</div>
-                    <div className="text-[11px] text-zinc-500">{originLabel[r.origin] ?? r.origin}</div>
                   </Link>
                 </li>
               ))}

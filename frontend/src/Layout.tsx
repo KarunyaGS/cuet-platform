@@ -6,7 +6,7 @@ const nav = ({ isActive }: { isActive: boolean }) =>
   `rounded-md px-2.5 py-1 text-sm font-medium ${isActive ? 'bg-zinc-900 text-white' : 'text-zinc-600 hover:bg-zinc-100'}`;
 
 export function Layout() {
-  const { user, preview, refresh } = useAuth();
+  const { user, refresh } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   return (
@@ -60,11 +60,6 @@ export function Layout() {
             )}
           </div>
         </div>
-        {preview && (
-          <div className="border-t border-amber-200 bg-amber-50 px-4 py-1 text-center text-xs text-amber-800">
-            Local preview: showing machine-verified syllabus and draft content that a subject expert has not yet reviewed.
-          </div>
-        )}
       </header>
       <main className={`mx-auto px-4 py-5 ${location.pathname.startsWith('/review') ? 'max-w-[96rem]' : 'max-w-6xl'}`}>
         <Outlet />

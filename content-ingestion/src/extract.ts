@@ -19,6 +19,8 @@ export interface ExtractOptions {
   figuresDir: string; // storage/local/figures
   reviewDir: string; // storage/local/review-pages
   refresh?: boolean;
+  /** Pages the independent visual check found the text layer wrong on (words missing): read them by OCR instead. */
+  forceOcrPages?: number[];
 }
 
 const MIN_FIGURE_SIDE = 80;
@@ -54,7 +56,9 @@ export async function extractPaper(paper: OfficialPaper, opts: ExtractOptions): 
   const imageOrLegacy = [...new Set([...pagesNeedingOcr(pdf), ...legacy])];
   const devanagari = pagesWithBrokenDevanagari(pdf, dl.localFile, imageOrLegacy);
   const popplerPages = devanagari.filter((d) => d.useTextFrom === 'poppler').map((d) => d.page);
-  const scanned = [...new Set([...imageOrLegacy, ...devanagari.filter((d) => d.useTextFrom === 'ocr').map((d) => d.page)])].sort((a, b) => a - b);
+  const forced = (opts.forceOcrPages ?? []).filter((p) => p >= 1 && p <= pdf.pageCount);
+  const scanned = [...new Set([...imageOrLegacy, ...devanagari.filter((d) => d.useTextFrom === 'ocr').map((d) => d.page), ...forced])].sort((a, b) => a - b);
+  if (forced.length) documentFlags.push(`visual_check_pages_read_by_ocr(${forced.join(',')})`);
   if (legacy.length) documentFlags.push(`legacy_font_pages_read_by_ocr(${legacy.join(',')})`);
   if (devanagari.length)
     documentFlags.push(`devanagari_visual_order_in_pdfjs(${devanagari.map((d) => `p${d.page}:${d.orphanSignsPdfjs}/${d.devanagariWords}->${d.useTextFrom}`).join(',')})`);

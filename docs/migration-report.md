@@ -12,7 +12,7 @@ Every remote step below waits for explicit approval, and the scripts refuse to r
 | URL | https://cuet.ceo-3a7.workers.dev |
 | Config | `backend/wrangler.jsonc`, environment `production` (`--env production`) |
 | Code | `backend/src/index.ts` (Hono): `/api/learn`, `/api/auth`, `/api/student`, `/api/review`, `/api/admin`, `/api/public`, `/api/health` + the built React app as static assets |
-| Vars | `APP_ENV=production`, `CONTENT_PREVIEW=false`, `MAX_PAGE_SIZE=100`, `MAX_UPLOAD_BYTES=26214400`, `SESSION_TTL_HOURS=168` |
+| Vars | `APP_ENV=production`, `CONTENT_PREVIEW=true` (owner's decision, see 8.1), `MAX_PAGE_SIZE=100`, `MAX_UPLOAD_BYTES=26214400`, `SESSION_TTL_HOURS=168` |
 | Secret | `ADMIN_API_TOKEN` (to be set with `wrangler secret put`; never in files) |
 | Build check | `wrangler deploy --env production --dry-run`: 4,951 KiB, **1,423 KiB gzip** (Workers limit 3 MiB free / 10 MiB paid) |
 | Local development | unchanged top-level config (`cuet-platform-dev`, local only, never deployed) |
@@ -126,10 +126,9 @@ The 1 local account is a student test account created during development. Record
 
 ## 8. Open decisions and blockers
 
-1. **What students see in production.** With `CONTENT_PREVIEW=false`, students see only syllabus and content a person
-   has verified and published. Today that is **nothing** (0 human-verified rows). Either keep it so until reviewers
-   sign off (recommended for accuracy), or decide to show machine-verified syllabus and AI-assisted drafts with the
-   same "not reviewed" labels used locally.
+1. **What students see in production — decided 2026-11-12 (owner):** machine-verified syllabus and AI-assisted
+   lessons/questions are shown without status labels (`CONTENT_PREVIEW=true`). Flagged or rejected items and
+   unverified syllabus rows stay hidden; internal statuses are unchanged.
 2. **Reviewer accounts** in production: sign up, then grant the role (`POST /api/admin/users/roles` with the token).
 3. **Content packs** (lessons/questions/diagrams) are being written now; they are not in the export yet. Re-run
    export + import after they are imported locally (idempotent; nothing already reviewed is overwritten).

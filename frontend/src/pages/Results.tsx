@@ -1,6 +1,8 @@
 import { Link, useParams } from 'react-router';
 import { api } from '../api';
 import { Badge, ErrorBox, Loading, PageHeader, useLoad } from '../ui';
+import { QuestionStem } from '../question';
+import { Rich } from '../rich';
 
 export function ResultsPage() {
   const { sessionId = '' } = useParams();
@@ -47,21 +49,21 @@ export function ResultsPage() {
               <div className="flex items-start gap-2">
                 <span className="num mt-0.5 w-6 shrink-0 text-xs text-zinc-400">{q.number}.</span>
                 <div className="min-w-0 flex-1">
-                  <p className="whitespace-pre-line text-sm">{q.stem}</p>
+                  <QuestionStem stem={q.stem} structure={q.structure} compact />
                   <ul className="mt-1.5 grid gap-1 sm:grid-cols-2">
                     {q.options.map((o) => {
                       const right = rv.correctOptionPositions?.includes(o.position);
                       const chosen = q.answer?.selectedPositions?.includes(o.position);
                       return (
                         <li key={o.position} className={`rounded px-2 py-1 text-xs ${right ? 'bg-emerald-50 text-emerald-900' : chosen ? 'bg-red-50 text-red-900' : 'text-zinc-600'}`}>
-                          <span className="font-semibold">{o.label}.</span> {o.text}
+                          <span className="font-semibold">{o.label}.</span> <Rich text={o.text} inline />
                           {right && ' ✓'}
                           {chosen && !right && ' (your answer)'}
                         </li>
                       );
                     })}
                   </ul>
-                  {rv.explanation && <p className="mt-1.5 whitespace-pre-line rounded bg-zinc-50 px-2 py-1.5 text-xs leading-relaxed text-zinc-700">{rv.explanation}</p>}
+                  {rv.explanation && <Rich text={rv.explanation} className="mt-1.5 rounded bg-zinc-50 px-2 py-1.5 text-xs text-zinc-700" />}
                 </div>
                 <Badge tone={tone}>
                   {rv.outcome.toLowerCase()} {rv.score > 0 ? `+${rv.score}` : rv.score}

@@ -7,7 +7,7 @@ import { notFound } from '../lib/errors';
 
 export const VISIBLE_SYLLABUS = (alias: string) => `${alias}.verification IN ('MACHINE_VERIFIED','VERIFIED') AND (${alias}.status = 'PUBLISHED' OR ?1 = 1)`;
 export const VISIBLE_CONTENT = (alias: string) =>
-  `${alias}.is_demonstration = 0 AND ${alias}.verification != 'REJECTED' AND (${alias}.status = 'PUBLISHED' OR (?1 = 1 AND ${alias}.status != 'ARCHIVED'))`;
+  `${alias}.is_demonstration = 0 AND ${alias}.verification NOT IN ('REJECTED','NEEDS_CHANGES') AND (${alias}.status = 'PUBLISHED' OR (?1 = 1 AND ${alias}.status != 'ARCHIVED'))`;
 
 const LATEST_VISIBLE_VERSION = `
   SELECT sv.* FROM syllabus_versions sv

@@ -4,7 +4,7 @@ import { conflict, invalid, notFound } from '../lib/errors';
 import { newId, normaliseText, sha256Hex } from '../lib/hash';
 import { insertRows, nowIso } from '../lib/sql';
 
-const BLOCK_TYPES = ['HEADING', 'TEXT', 'OFFICIAL_TEXT', 'DEFINITION', 'CONCEPT', 'IMPORTANT_FACT', 'KEY_POINT', 'EXAMPLE', 'FORMULA', 'TABLE', 'DIAGRAM', 'IMAGE', 'VIDEO', 'CALLOUT'] as const;
+const BLOCK_TYPES = ['HEADING', 'SOLVED_PROBLEM', 'TEXT', 'OFFICIAL_TEXT', 'DEFINITION', 'CONCEPT', 'IMPORTANT_FACT', 'KEY_POINT', 'EXAMPLE', 'FORMULA', 'TABLE', 'DIAGRAM', 'IMAGE', 'VIDEO', 'CALLOUT'] as const;
 
 export const resourceInputSchema = z
   .object({
@@ -31,10 +31,15 @@ export const resourceInputSchema = z
       }
       if (b.type === 'TABLE') {
         try {
-          const rows = JSON.parse(b.body) as unknown;
-          if (!Array.isArray(rows) || !rows.every(Array.isArray)) throw new Error();
+          // Either [[header...], [row...]] or { caption?, columns: [...], rows: [[...]] } with equal-width rows.
+          const t = JSON.parse(b.body) as unknown;
+          const ok = Array.isArray(t)
+            ? t.every(Array.isArray)
+            : typeof t === 'object' && t !== null && Array.isArray((t as { columns?: unknown }).columns) && Array.isArray((t as { rows?: unknown }).rows) &&
+              (t as { rows: unknown[] }).rows.every((r) => Array.isArray(r) && r.length === (t as { columns: unknown[] }).columns.length);
+          if (!ok) throw new Error();
         } catch {
-          ctx.addIssue({ code: 'custom', message: 'TABLE blocks must be a JSON array of rows' });
+          ctx.addIssue({ code: 'custom', message: 'TABLE blocks must be JSON: an array of rows, or { columns, rows } with every row as wide as the columns' });
         }
       }
     }

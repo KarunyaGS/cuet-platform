@@ -16,6 +16,7 @@ import { discover } from './discover';
 import { extractPaper } from './extract';
 import { adminToken, runImport } from './importer';
 import { importPacks, renderSvg, snapshot, validateAll } from './content';
+import { parseCsv } from './verify';
 import type { ExtractionResult, Registry } from './types';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -117,7 +118,7 @@ async function cmdExtract() {
     const t0 = Date.now();
     let result: ExtractionResult;
     try {
-      result = await extractPaper(paper, { cacheDir: PATHS.cache, figuresDir: PATHS.figures, reviewDir: PATHS.review, refresh: flag('refresh') });
+      result = await extractPaper(paper, { cacheDir: PATHS.cache, figuresDir: PATHS.figures, reviewDir: PATHS.review, refresh: flag('refresh'), forceOcrPages: forcedOcrPages(paper.exam, paper.code) });
     } catch (e) {
       result = {
         paper, status: 'FAILED', reason: `Unexpected error: ${(e as Error).message}`, source: null, method: null, nodes: [], tables: [], figures: [],
@@ -195,6 +196,13 @@ export function cmdStatus() {
   }
 }
 
+/** Pages where the visual (OCR) cross-check found words the text layer lacks: those pages are re-read by OCR. */
+function forcedOcrPages(exam: string, code: string): number[] {
+  const f = join(PATHS.audit, 'visual-crosscheck.csv');
+  if (!flag('ocr-flagged-pages') || !existsSync(f)) return [];
+  return parseCsv(readFileSync(f, 'utf8')).filter((r) => r['exam'] === exam && r['code'] === code && r['status'] === 'CHECK').map((r) => Number(r['page']));
+}
+
 const cmd = args[0];
 try {
   if (cmd === 'discover') await cmdDiscover();
@@ -204,7 +212,7 @@ try {
   else if (cmd === 'crosscheck') printCrosscheck(await runCrosscheck(loadRegistry(), { extracted: PATHS.extracted, audit: PATHS.audit, cache: PATHS.cache }));
   else if (cmd === 'trace') await runTrace(loadRegistry(), { extracted: PATHS.extracted, audit: PATHS.audit, verification: PATHS.verification }, option('api') ?? 'http://127.0.0.1:8787');
   else if (cmd === 'verify') printVerification(await runVerification(loadRegistry(), { extracted: PATHS.extracted, audit: PATHS.audit, out: PATHS.verification }));
-  else if (cmd === 'import') await runImport({ registry: loadRegistry(), api: option('api') ?? 'http://127.0.0.1:8787', paths: { extracted: PATHS.extracted, verification: PATHS.verification, audit: PATHS.audit } });
+  else if (cmd === 'import') await runImport({ registry: loadRegistry(), api: option('api') ?? 'http://127.0.0.1:8787', paths: { extracted: PATHS.extracted, verification: PATHS.verification, audit: PATHS.audit }, supersedeDrafts: flag('supersede-drafts'), onlyPapers: (option('paper') ?? '').split(',').filter(Boolean) });
   else if (cmd === 'content-snapshot') {
     const exam = option('exam') ?? 'CUET_UG';
     for (const paper of (option('paper') ?? '').split(',').filter(Boolean)) {

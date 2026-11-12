@@ -71,8 +71,10 @@
         "APP_ENV": "production",
         "MAX_PAGE_SIZE": "100",
         "MAX_UPLOAD_BYTES": "26214400",
-        // Students see only PUBLISHED syllabus and content (approved by a person) in production.
-        "CONTENT_PREVIEW": "false",
+        // Owner's decision (2026-11-12): students see machine-verified syllabus and AI-assisted lessons and questions
+        // before expert review, without status labels. Records keep their real status (AI_ASSISTED, UNVERIFIED)
+        // internally; nothing is marked VERIFIED without a reviewer; flagged or rejected items stay hidden.
+        "CONTENT_PREVIEW": "true",
         "SESSION_TTL_HOURS": "168"
       }
     }

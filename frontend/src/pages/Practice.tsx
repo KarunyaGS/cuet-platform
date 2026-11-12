@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api, type Feedback, type PracticeSession, type SessionQuestion } from '../api';
-import { Badge, Button, ErrorBox, Loading, PreviewBadge, useLoad } from '../ui';
+import { Badge, Button, ErrorBox, Loading, useLoad } from '../ui';
+import { QuestionStem } from '../question';
+import { Rich } from '../rich';
 
 function useCountdown(deadline: string | null) {
   const [now, setNow] = useState(Date.now());
@@ -77,8 +79,6 @@ export function PracticePage() {
           </span>
           <span className="flex items-center gap-1.5">
             <Badge>{q.difficulty.toLowerCase()}</Badge>
-            {q.origin === 'AI_ASSISTED' && <Badge tone="amber">AI-assisted draft</Badge>}
-            {q.preview && <PreviewBadge what="question" />}
           </span>
         </div>
         <div className="px-3 py-3">
@@ -88,7 +88,7 @@ export function PracticePage() {
               {q.passage.body}
             </div>
           )}
-          <p className="whitespace-pre-line text-[15px] leading-relaxed">{q.stem}</p>
+          <QuestionStem stem={q.stem} structure={q.structure} />
           <ul className="mt-3 space-y-1.5" role="radiogroup" aria-label="Options">
             {q.options.map((o) => {
               const chosen = q.answer?.selectedPositions?.includes(o.position);
@@ -98,7 +98,7 @@ export function PracticePage() {
                 <li key={o.position}>
                   <button role="radio" aria-checked={Boolean(chosen)} onClick={() => choose(q, o.position)} className={`flex w-full items-start gap-2 rounded-md border px-2.5 py-1.5 text-left text-sm transition ${state}`}>
                     <span className="mt-px grid size-5 shrink-0 place-items-center rounded-full border border-current text-[11px] font-semibold">{o.label}</span>
-                    <span>{o.text}</span>
+                    <Rich text={o.text} inline className="min-w-0" />
                   </button>
                 </li>
               );
@@ -116,7 +116,7 @@ export function PracticePage() {
               <div className="font-semibold">
                 {fb.outcome === 'CORRECT' ? 'Correct' : fb.outcome === 'INCORRECT' ? 'Not quite' : 'Skipped'} <span className="num font-normal">({fb.score! > 0 ? '+' : ''}{fb.score} marks)</span>
               </div>
-              {fb.explanation && <p className="mt-1 whitespace-pre-line text-zinc-800">{fb.explanation}</p>}
+              {fb.explanation && <Rich text={fb.explanation} className="mt-1 text-zinc-800" />}
             </div>
           )}
           {err && <ErrorBox error={err} />}

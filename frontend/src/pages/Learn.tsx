@@ -34,12 +34,12 @@ function TableBlock({ body }: { body: string }) {
       {caption && <figcaption className="border-b border-zinc-100 px-3 py-1.5 text-xs font-medium text-zinc-600">{caption}</figcaption>}
       <table className="w-full text-left text-sm">
         <thead className="bg-zinc-50">
-          <tr>{columns.map((c, i) => <th key={i} className="px-3 py-1.5 font-semibold"><Rich text={c} /></th>)}</tr>
+          <tr>{columns.map((c, i) => <th key={i} className="px-3 py-1.5 font-semibold"><Rich text={c} inline /></th>)}</tr>
         </thead>
         <tbody>
           {rows.map((r, i) => (
             <tr key={i} className="border-t border-zinc-100 align-top">
-              {r.map((c, k) => <td key={k} className="px-3 py-1.5"><Rich text={c} /></td>)}
+              {r.map((c, k) => <td key={k} className="px-3 py-1.5"><Rich text={c} inline /></td>)}
             </tr>
           ))}
         </tbody>
@@ -64,7 +64,7 @@ function Solved({ body, n }: { body: string; n: number }) {
       {open && (
         <div className="space-y-2 border-t border-amber-100 bg-amber-50/40 px-3 py-2 text-sm">
           <Rich text={j.solution} />
-          <div className="rounded bg-white px-2 py-1 text-sm"><span className="font-semibold">Answer: </span><Rich text={j.answer} className="inline" /></div>
+          <div className="rounded bg-white px-2 py-1 text-sm"><span className="font-semibold">Answer: </span><Rich text={j.answer} inline /></div>
         </div>
       )}
     </div>
@@ -164,9 +164,6 @@ export function LearnPage() {
           <h1 className="mt-1 text-xl font-semibold tracking-tight">{d.resource.title}</h1>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             <Badge tone="accent">Lesson</Badge>
-            {d.resource.origin === 'AI_ASSISTED' && <Badge tone="amber" title="Written with AI assistance; a subject expert has not yet reviewed it.">AI-assisted draft · not expert-reviewed</Badge>}
-            {d.resource.verification === 'VERIFIED' && <Badge tone="green">Expert-verified</Badge>}
-            {d.resource.preview && <Badge tone="amber">Not published</Badge>}
           </div>
         </div>
         <div className="space-y-3">

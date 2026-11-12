@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api, type OutlineNode } from '../api';
-import { Button, Empty, ErrorBox, kindLabel, Loading, PageHeader, PreviewBadge, useAuth, useLoad } from '../ui';
+import { Button, Empty, ErrorBox, kindLabel, Loading, PageHeader, useAuth, useLoad } from '../ui';
 
 /** Subject page: units on the left, the selected unit's topics and subtopics on the right. */
 export function SubjectPage() {
@@ -47,7 +47,6 @@ export function SubjectPage() {
         title={
           <span className="flex items-center gap-2">
             {String(p.name)} <span className="font-mono text-sm font-normal text-zinc-500">{String(p.code)}</span>
-            {p.version_status !== 'PUBLISHED' && p.version_id && <PreviewBadge what="syllabus" />}
           </span>
         }
         subtitle={

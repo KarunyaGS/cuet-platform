@@ -281,7 +281,9 @@ export function validatePack(file: string, snapshotCache = new Map<string, Sylla
     if (!['conceptual', 'numerical', 'application', 'analytical'].includes(q.skill)) err(`${at}: skill must be conceptual, numerical, application or analytical`);
     if (!Array.isArray(q.options) || q.options.length !== 4) err(`${at}: CUET questions have exactly 4 options`);
     else {
-      if (new Set(q.options.map(norm)).size !== 4 && q.type !== 'MATCH_THE_FOLLOWING') err(`${at}: options must all be different`);
+      // Compare options with their maths kept: "$2\pi$" and "$4\pi$" are different options.
+      const optKey = (o: string) => o.normalize('NFKC').toLowerCase().replace(/\s+/g, ' ').trim();
+      if (new Set(q.options.map(optKey)).size !== 4 && q.type !== 'MATCH_THE_FOLLOWING') err(`${at}: options must all be different`);
       if (q.options.some((o) => !o?.trim())) err(`${at}: empty option`);
     }
     if (!Number.isInteger(q.answer) || q.answer < 1 || q.answer > 4) err(`${at}: answer must be the option number 1-4`);
@@ -325,7 +327,42 @@ export function validateAll(exam?: string, paper?: string) {
   const cache = new Map<string, SyllabusSnapshot>();
   const stems = new Map<string, string>();
   const keys = new Map<string, string>();
-  return packFiles(exam, paper).map((f) => validatePack(f, cache, stems, keys));
+  const reports = packFiles(exam, paper).map((f) => validatePack(f, cache, stems, keys));
+  nearDuplicates(reports);
+  return reports;
+}
+
+/**
+ * Reworded copies: questions in the same paper whose stem + options share at least 70% of their words
+ * (Jaccard >= 0.7; numbers count, so the same idea with different values scores lower). Reported as warnings
+ * for a person to judge: two questions may legitimately test the same idea from different angles.
+ */
+function nearDuplicates(reports: PackReport[]) {
+  const items: { file: string; key: string; paper: string; words: Set<string> }[] = [];
+  for (const r of reports) {
+    try {
+      const p = JSON.parse(readFileSync(r.file, 'utf8')) as Pack;
+      for (const q of p.questions ?? []) {
+        // Standard assertion-reason options and match codes are shared by design, so they are left out.
+        const own = q.type === 'ASSERTION_REASON' ? '' : q.type === 'MATCH_THE_FOLLOWING' ? [...(q.list?.left ?? []), ...(q.list?.right ?? [])].join(' ') : (q.options ?? []).join(' ');
+        const text = `${q.stem} ${own}`.normalize('NFKC').toLowerCase();
+        items.push({ file: r.file, key: q.key, paper: `${p.exam}/${p.paperCode}`, words: new Set(text.match(/[\p{L}\p{N}]{2,}/gu) ?? []) });
+      }
+    } catch {
+      /* invalid JSON is already reported */
+    }
+  }
+  for (let i = 0; i < items.length; i++) {
+    for (let j = i + 1; j < items.length; j++) {
+      const a = items[i]!;
+      const b = items[j]!;
+      if (a.paper !== b.paper || a.words.size < 6 || b.words.size < 6) continue;
+      let inter = 0;
+      for (const w of a.words) if (b.words.has(w)) inter++;
+      const sim = inter / (a.words.size + b.words.size - inter);
+      if (sim >= 0.7) reports.find((r) => r.file === b.file)!.warnings.push(`question ${b.key} is ${Math.round(sim * 100)}% similar to ${a.key} (${basename(a.file)}): check it is not a reworded copy`);
+    }
+  }
 }
 
 // ------------------------------------------------------------------ SVG preview (for authors to look at their diagram)

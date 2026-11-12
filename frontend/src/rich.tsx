@@ -38,8 +38,10 @@ function inline(text: string, key = 0): ReactNode[] {
 
 const lines = (block: string) => block.split('\n');
 
-export function Rich({ text, className = '' }: { text: string | null | undefined; className?: string }) {
+export function Rich({ text, className = '', inline: asInline = false }: { text: string | null | undefined; className?: string; inline?: boolean }) {
   if (!text) return null;
+  // Short single-paragraph text (options, table cells, answers) renders inline.
+  if (asInline && !/\n\s*\n|^\s*([-*•]|\d+[.)])\s|\$\$/m.test(text)) return <span className={className}>{inline(text.replace(/\n/g, ' '))}</span>;
   // Display maths first, so $$ blocks may contain blank lines.
   const parts = text.split(/(\$\$[\s\S]+?\$\$)/g);
   const blocks: ReactNode[] = [];

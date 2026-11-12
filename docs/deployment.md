@@ -9,7 +9,7 @@ assets). Configuration: `backend/wrangler.jsonc`.
 | Worker name | `cuet-platform-dev` (never deployed) | **`cuet`** (the CUET Worker; Wrangler 4 rejects upper-case names, so `CUET` cannot be used verbatim) |
 | D1 binding `DB` | local copy in `.wrangler/state` | database `cuet` (**not created yet**) |
 | R2 binding `MEDIA` | local copy in `.wrangler/state` | bucket `cuet-media` (**not created yet**) |
-| `CONTENT_PREVIEW` | `true` (drafts visible, labelled) | `false` (students see only approved, published content) |
+| `CONTENT_PREVIEW` | `true` | `true` (owner's decision 2026-11-12: machine-verified syllabus and AI-assisted content visible before expert review, without status labels) |
 | Cookies | not `Secure` (http://localhost) | `Secure; HttpOnly; SameSite=Lax` |
 | Admin token | `backend/.dev.vars` (git-ignored) | Wrangler secret `ADMIN_API_TOKEN` |
 
@@ -54,5 +54,9 @@ npm run dev:production-config -w @cuet/api                   # http://127.0.0.1:
 
 ## What students will see in production
 
-Only syllabus versions and content that a person has verified **and** published. Machine-verified syllabus and
-AI-assisted drafts stay invisible in production until reviewed (they are visible, labelled, only in local preview).
+Owner's decision (2026-11-12): machine-verified syllabus rows and AI-assisted lessons, diagrams and questions are
+shown to students before expert review, without status labels. Internally every record keeps its true status
+(`origin = AI_ASSISTED`, `verification = UNVERIFIED` / `MACHINE_VERIFIED`), reviewers still see and work through
+all of it, nothing becomes `VERIFIED` without a signed-in reviewer, and anything a reviewer flags
+(`NEEDS_CHANGES`) or rejects is hidden from students immediately. Syllabus rows that failed the automatic checks
+(review drafts) stay hidden until a reviewer verifies them.

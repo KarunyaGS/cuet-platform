@@ -11,6 +11,7 @@
  *    and no person has decided on the row yet.
  * Re-running is safe: the API deduplicates by SHA-256 and idempotency key.
  */
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { ExtractionResult, Registry } from './types';
@@ -18,6 +19,9 @@ import { parseCsv, type PaperVerification } from './verify';
 
 interface ImportOptions {
   registry: Registry;
+  /** Replace untouched review drafts whose re-extraction changed (only papers listed in onlyPapers, if given). */
+  supersedeDrafts?: boolean;
+  onlyPapers?: string[];
   api: string;
   paths: { extracted: string; verification: string; audit: string };
 }
@@ -70,7 +74,7 @@ export async function runImport(opts: ImportOptions) {
   }
 
   const counts = { machineVerified: 0, review: 0, transcription: 0, alreadyPresent: 0, rowsCreated: 0, pageChecks: 0, corrections: 0, correctionsSkipped: [] as string[] };
-  for (const p of registry.papers) {
+  for (const p of registry.papers.filter((x) => !opts.onlyPapers?.length || opts.onlyPapers.includes(x.code))) {
     const v = verdicts.get(`${p.exam}:${p.code}`);
     const f = join(opts.paths.extracted, p.exam, `${p.code}.json`);
     const r = existsSync(f) ? (JSON.parse(readFileSync(f, 'utf8')) as ExtractionResult) : null;
@@ -114,8 +118,11 @@ export async function runImport(opts: ImportOptions) {
       counts.transcription++;
     } else if (v.verdict === 'NEEDS_REVIEW') {
       await job('VALIDATED', 'PENDING', { blockerReason: `Needs review: ${v.reasons.join('; ')}`.slice(0, 500), stats: { rows: v.metrics.rows, recordsPassing: v.metrics.recordsPassing } });
+      // --supersede-drafts: a changed re-extraction replaces an untouched review draft (new version; old one archived).
+      const datasetHash = createHash('sha256').update(JSON.stringify(r.nodes.map((n) => [n.kind, n.label, n.title, n.body, n.depth, n.sourcePage]))).digest('hex').slice(0, 16);
       res = await call(api, token, 'POST', '/api/admin/imports/syllabus', {
-        idempotencyKey: `syllabus-review:${p.exam}:${p.year}:${p.code}:${r.source.sha256}`,
+        idempotencyKey: opts.supersedeDrafts ? `syllabus-review:${p.exam}:${p.year}:${p.code}:${r.source.sha256}:${datasetHash}` : `syllabus-review:${p.exam}:${p.year}:${p.code}:${r.source.sha256}`,
+        supersedeUntouchedDraft: Boolean(opts.supersedeDrafts),
         exam: p.exam, year: p.year, paperCode: p.code, source,
         extractor: { ...EXTRACTOR, mode: r.method ?? 'unknown' },
         notes: `Needs human review: ${v.reasons.join('; ').slice(0, 2500)}`,

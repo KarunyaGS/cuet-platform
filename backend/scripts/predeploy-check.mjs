@@ -18,7 +18,8 @@ else if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(
   problems.push('env.production D1 database_id is still a placeholder: create the database (approved) and put its id in wrangler.jsonc');
 }
 if (!bucket || bucket.binding !== 'MEDIA' || !bucket.bucket_name) problems.push('env.production needs the R2 binding "MEDIA"');
-if (prod.vars?.CONTENT_PREVIEW === 'true') problems.push('CONTENT_PREVIEW must not be "true" in production');
+// CONTENT_PREVIEW="true" in production is the owner's decision of 2026-11-12 (see docs/deployment.md); it must be set explicitly.
+if (!['true', 'false'].includes(prod.vars?.CONTENT_PREVIEW)) problems.push('CONTENT_PREVIEW must be set explicitly to "true" or "false" in production');
 if (prod.vars?.APP_ENV !== 'production') problems.push('APP_ENV must be "production"');
 if (!existsSync(join(root, '..', 'frontend', 'dist', 'index.html'))) problems.push('frontend/dist is missing: run npm run build -w @cuet/web first');
 const migrations = readdirSync(join(root, '..', 'database', 'migrations')).filter((f) => f.endsWith('.sql'));

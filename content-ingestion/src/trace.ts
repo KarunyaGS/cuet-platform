@@ -69,7 +69,8 @@ export async function runTrace(registry: Registry, paths: { extracted: string; a
     `SELECT n.id, p.code AS paper_code, e.code AS exam, n.kind, n.label, n.title, n.body, n.source_page, n.depth, n.position, n.verification, d.url, d.sha256, d.r2_key,
        (n.authored_by IS NOT NULL OR n.edited_by IS NOT NULL) AS person
      FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id JOIN test_papers p ON p.id = v.test_paper_id
-     JOIN exam_cycles c ON c.id = p.exam_cycle_id JOIN exams e ON e.id = c.exam_id JOIN source_documents d ON d.id = v.source_document_id`,
+     JOIN exam_cycles c ON c.id = p.exam_cycle_id JOIN exams e ON e.id = c.exam_id JOIN source_documents d ON d.id = v.source_document_id
+     WHERE v.status != 'ARCHIVED'`,
   );
   const byPaper = new Map<string, typeof rows>();
   for (const r of rows) byPaper.set(`${r.exam}:${r.paper_code}`, [...(byPaper.get(`${r.exam}:${r.paper_code}`) ?? []), r]);
