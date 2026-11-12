@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { api } from '../api';
 import { Empty, ErrorBox, Loading, PageHeader, useLoad } from '../ui';
+import { SubjectTable } from './Dashboard';
 
 function Bar({ value }: { value: number }) {
   const color = value >= 75 ? 'bg-emerald-500' : value >= 60 ? 'bg-amber-400' : 'bg-red-500';
@@ -32,6 +33,10 @@ export function ProgressPage() {
           </div>
         ))}
       </div>
+      <section className="mb-4">
+        <h2 className="mb-1.5 text-sm font-semibold">By subject</h2>
+        {d.subjects.length === 0 ? <Empty>Submit a practice set or test to see subject-wise progress.</Empty> : <SubjectTable subjects={d.subjects} />}
+      </section>
       <div className="grid gap-4 lg:grid-cols-2">
         <section>
           <h2 className="mb-1.5 text-sm font-semibold">Weak topics to revise</h2>
@@ -48,7 +53,10 @@ export function ProgressPage() {
                     <span className="num shrink-0 text-xs text-red-700">{t.accuracy}%</span>
                   </div>
                   <div className="text-[11px] text-zinc-500">
-                    {t.paper} · {t.correct}/{t.attempted} correct
+                    {t.paper} · {t.correct}/{t.attempted} correct ·{' '}
+                    <Link to={`/revise/${t.id}`} className="text-[var(--color-accent)] hover:underline">
+                      Revise
+                    </Link>
                   </div>
                 </li>
               ))}

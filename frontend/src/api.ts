@@ -63,7 +63,41 @@ export interface Progress {
   topics: { id: string; title: string; kind: string; paper: string; paper_code: string; attempted: number; correct: number; incorrect: number; accuracy: number; last_attempt_at: string }[];
   weakTopics: Progress['topics'];
   recentSessions: { id: string; mode: string; status: string; score: number | null; max_score: number | null; correct_count: number; incorrect_count: number; unattempted_count: number; started_at: string; paper: string | null }[];
+  subjects: SubjectProgress[];
 }
+export interface SubjectProgress { paper: string; paperCode: string; topics: number; attempted: number; correct: number; accuracy: number | null }
+export interface Profile { id: string; email: string; displayName: string; memberSince: string; lastLogin: string | null; testsTaken: number; bookmarks: number }
+export type BookmarkKind = 'TOPIC' | 'LESSON' | 'QUESTION';
+export interface Bookmark { id: string; kind: BookmarkKind; entityId: string; title: string; nodeId: string | null; paper: string | null; createdAt: string }
+export interface Goal { questionsPerDay: number; lessonsPerDay: number; custom: boolean }
+export type PlanKind = 'TOPIC' | 'LESSON' | 'PRACTICE' | 'MOCK' | 'CUSTOM';
+export interface PlanItem { id: string; day: string; kind: PlanKind; refId: string | null; title: string; done: boolean }
+export interface Dashboard {
+  continueLearning: { kind: 'TOPIC_VIEW' | 'LESSON_VIEW'; nodeId: string | null; resourceId: string | null; title: string | null; paper: string | null; paperCode: string | null; at: string }[];
+  inProgress: { id: string; mode: string; paper: string | null; topic: string | null; startedAt: string }[];
+  today: { questionsAnswered: number; lessonsOpened: number; goal: Goal };
+  plan: PlanItem[];
+  weakTopics: Progress['topics'];
+  subjects: SubjectProgress[];
+  totals: Progress['totals'];
+  bookmarks: number;
+}
+export interface RevisionNotes {
+  topic: { id: string; title: string; kind: string; label: string | null; paperId: string; paper: string };
+  lessons: { resourceId: string; lesson: string; blocks: { type: string; body: string; position: number }[] }[];
+}
+
+/** The student's local calendar day (YYYY-MM-DD) and the moment it started, for "today" counts. */
+export function localDay(d = new Date()) {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+export const startOfToday = () => {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  return d.toISOString();
+};
+
 
 export const api = {
   me: () => request<{ user: User | null; preview: boolean }>('GET', '/api/auth/me'),
@@ -80,4 +114,21 @@ export const api = {
   answer: (id: string, b: { questionId: string; selectedPositions?: number[]; numericAnswer?: number | null }) => request<Feedback>('POST', `/api/student/practice/${id}/answers`, b),
   submit: (id: string) => request<PracticeSession>('POST', `/api/student/practice/${id}/submit`),
   progress: () => request<Progress>('GET', '/api/student/progress'),
+  dailyPractice: (b: { paperId?: string; count?: number } = {}) => request<PracticeSession>('POST', '/api/student/practice/daily', b),
+  dashboard: () => request<Dashboard>('GET', `/api/student/dashboard?day=${localDay()}&since=${encodeURIComponent(startOfToday())}`),
+  profile: () => request<Profile>('GET', '/api/student/profile'),
+  updateProfile: (b: { displayName: string }) => request<Profile>('PUT', '/api/student/profile', b),
+  changePassword: (b: { currentPassword: string; newPassword: string }) => request<{ changed: boolean }>('POST', '/api/student/password', b),
+  goals: () => request<Goal>('GET', '/api/student/goals'),
+  setGoals: (b: { questionsPerDay: number; lessonsPerDay: number }) => request<Goal>('PUT', '/api/student/goals', b),
+  activity: (b: { kind: 'TOPIC_VIEW' | 'LESSON_VIEW'; nodeId?: string; resourceId?: string }) => request<{ recorded: boolean }>('POST', '/api/student/activity', b),
+  bookmarks: () => request<Bookmark[]>('GET', '/api/student/bookmarks'),
+  bookmarkState: (kind: BookmarkKind, ids: string[]) => request<string[]>('GET', `/api/student/bookmarks/state?kind=${kind}&ids=${ids.map(encodeURIComponent).join(',')}`),
+  addBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks', b),
+  removeBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks/remove', b),
+  plan: (from: string, to: string) => request<PlanItem[]>('GET', `/api/student/plan?from=${from}&to=${to}`),
+  addPlan: (b: { day: string; kind: PlanKind; refId?: string | null; title: string }) => request<{ id: string }>('POST', '/api/student/plan', b),
+  updatePlan: (id: string, b: { day?: string; title?: string; done?: boolean }) => request<{ id: string }>('PATCH', `/api/student/plan/${id}`, b),
+  deletePlan: (id: string) => request<{ deleted: boolean }>('DELETE', `/api/student/plan/${id}`),
+  revision: (nodeId: string) => request<RevisionNotes>('GET', `/api/learn/topics/${nodeId}/revision`),
 };

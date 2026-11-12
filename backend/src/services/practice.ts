@@ -66,15 +66,29 @@ export async function startSession(db: D1Database, preview: boolean, userId: str
         .bind(preview ? 1 : 0, paperId, want)
         .all<{ id: string }>();
   if (!results.length) throw new ApiError(404, 'NO_QUESTIONS', 'No questions are available for this selection yet');
-  const ids = results.map((r) => r.id);
-  // Timing follows the real exam: the full paper's time scaled to the number of questions; plain practice is untimed.
+  return createSession(db, userId, { mode: input.mode, paperId, nodeId: input.nodeId ?? null, ids: results.map((r) => r.id) }, { rulesJson, rules });
+}
+
+/**
+ * Creates a session over a fixed list of questions of one subject (used by topic/mock tests and daily practice).
+ * Timing follows the real exam: the full paper's time scaled to the number of questions; plain practice is untimed.
+ */
+export async function createSession(
+  db: D1Database,
+  userId: string,
+  s: { mode: 'PRACTICE' | 'TOPIC_TEST' | 'MOCK_TEST'; paperId: string; nodeId: string | null; ids: string[] },
+  known?: { rulesJson: string | null; rules: Rules },
+) {
+  const { rulesJson, rules } = known ?? (await paperAndRules(db, undefined, s.paperId));
+  const marking = markingFromRules(rulesJson);
+  const full = rules.questionsPerPaper ?? 50;
   const perQuestion = ((rules.durationMinutes ?? 60) * 60) / full;
-  const duration = input.mode === 'PRACTICE' ? null : Math.ceil(perQuestion * ids.length);
+  const duration = s.mode === 'PRACTICE' ? null : Math.ceil(perQuestion * s.ids.length);
   const id = newId('ps');
   await db.batch(
     insertRows(db, 'practice_sessions', [{
-      id, user_id: userId, mode: input.mode, test_paper_id: paperId, curriculum_node_id: input.nodeId ?? null, status: 'IN_PROGRESS',
-      question_ids_json: JSON.stringify(ids), duration_seconds: duration, marks_correct: marking.correct, marks_incorrect: marking.incorrect,
+      id, user_id: userId, mode: s.mode, test_paper_id: s.paperId, curriculum_node_id: s.nodeId, status: 'IN_PROGRESS',
+      question_ids_json: JSON.stringify(s.ids), duration_seconds: duration, marks_correct: marking.correct, marks_incorrect: marking.incorrect,
       score: null, max_score: null, correct_count: 0, incorrect_count: 0, unattempted_count: 0, started_at: nowIso(), submitted_at: null,
     }]),
   );
@@ -232,11 +246,24 @@ export async function progress(db: D1Database, userId: string) {
       .all<Record<string, unknown>>(),
     db.prepare(`SELECT ps.id, ps.mode, ps.status, ps.score, ps.max_score, ps.correct_count, ps.incorrect_count, ps.unattempted_count, ps.started_at, ps.submitted_at, p.name AS paper FROM practice_sessions ps LEFT JOIN test_papers p ON p.id = ps.test_paper_id WHERE ps.user_id = ? ORDER BY ps.started_at DESC LIMIT 20`).bind(userId).all(),
   ]);
+  const bySubject = new Map<string, { paper: string; paperCode: string; topics: number; attempted: number; correct: number }>();
+  for (const t of topics.results) {
+    const k = String(t.paper_code);
+    const cur = bySubject.get(k) ?? { paper: String(t.paper), paperCode: k, topics: 0, attempted: 0, correct: 0 };
+    cur.topics++;
+    cur.attempted += Number(t.attempted);
+    cur.correct += Number(t.correct);
+    bySubject.set(k, cur);
+  }
+  const subjects = [...bySubject.values()]
+    .map((x) => ({ ...x, accuracy: x.attempted ? Math.round((1000 * x.correct) / x.attempted) / 10 : null }))
+    .sort((x, y) => y.attempted - x.attempted);
   const answered = (totals?.correct ?? 0) + (totals?.incorrect ?? 0);
   return {
     totals: { ...totals, answered, accuracy: answered ? Math.round((1000 * (totals?.correct ?? 0)) / answered) / 10 : null },
     topics: topics.results,
     weakTopics: topics.results.filter((t) => Number(t.attempted) >= 3 && Number(t.accuracy) < 60),
     recentSessions: recent.results,
+    subjects,
   };
 }

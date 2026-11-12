@@ -14,6 +14,14 @@ export function Home() {
           and track weak topics. Answers are checked against stored answer keys.
         </p>
       </div>
+      {user && (
+        <Link to="/dashboard" className="mb-4 flex items-center justify-between rounded-lg border border-[var(--color-accent)]/40 bg-[var(--color-accent-soft)] px-4 py-3 text-sm hover:border-[var(--color-accent)]">
+          <span>
+            <span className="font-semibold">Welcome back, {user.displayName}.</span> Continue where you left off, see today’s plan and start daily practice.
+          </span>
+          <span className="shrink-0 font-medium text-[var(--color-accent)]">Open today →</span>
+        </Link>
+      )}
       {exams.loading && <Loading />}
       {exams.error && <ErrorBox error={exams.error} onRetry={exams.reload} />}
       <div className="grid gap-3 sm:grid-cols-2">

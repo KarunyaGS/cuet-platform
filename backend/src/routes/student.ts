@@ -10,7 +10,12 @@ import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import type { AppEnv } from '../types';
 import { invalid } from '../lib/errors';
 import { readJson } from '../lib/http';
-import { login, loginSchema, logout, registerSchema, registerStudent, SESSION_COOKIE, studentAuth, userFromToken } from '../services/accounts';
+import { changePassword, login, loginSchema, logout, passwordSchema, registerSchema, registerStudent, SESSION_COOKIE, studentAuth, userFromToken } from '../services/accounts';
+import { sha256Hex } from '../lib/hash';
+import {
+  activitySchema, addBookmark, addPlanItem, bookmarkSchema, bookmarkState, dailySchema, dashboard, dashboardQuery, deletePlanItem, getGoal, getProfile, goalSchema, listBookmarks,
+  listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
+} from '../services/student-tools';
 import { listExams, listSubjects, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { answerSchema, getSession, progress, saveAnswer, startSchema, startSession, submitSession } from '../services/practice';
 
@@ -44,6 +49,7 @@ learn.get('/subjects/:paperId', async (c) => c.json(await paperOutline(c.env.DB,
 learn.get('/topics/:nodeId', async (c) => c.json(await topicDetail(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 learn.get('/resources/:id', async (c) => c.json(await resourceDetail(c.env.DB, preview(c.env), c.req.param('id'))));
 learn.get('/media/:id', async (c) => mediaObject(c.env.DB, c.env.MEDIA, preview(c.env), c.req.param('id')));
+learn.get('/topics/:nodeId/revision', async (c) => c.json(await revisionNotes(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 
 export const student = new Hono<AppEnv>();
 student.use('*', studentAuth);
@@ -52,3 +58,34 @@ student.get('/practice/:id', async (c) => c.json(await getSession(c.env.DB, c.ge
 student.post('/practice/:id/answers', async (c) => c.json(await saveAnswer(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, answerSchema))));
 student.post('/practice/:id/submit', async (c) => c.json(await submitSession(c.env.DB, c.get('user').id, c.req.param('id'))));
 student.get('/progress', async (c) => c.json(await progress(c.env.DB, c.get('user').id)));
+student.post('/practice/daily', async (c) => c.json(await startDailyPractice(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, dailySchema)), 201));
+
+// Profile and password
+student.get('/profile', async (c) => c.json(await getProfile(c.env.DB, c.get('user').id)));
+student.put('/profile', async (c) => c.json(await updateProfile(c.env.DB, c.get('user').id, await readJson(c, profileSchema))));
+student.post('/password', async (c) => {
+  const token = getCookie(c, SESSION_COOKIE) ?? c.req.header('authorization')?.replace(/^Bearer\s+/i, '');
+  return c.json(await changePassword(c.env.DB, c.get('user').id, await readJson(c, passwordSchema), token ? await sha256Hex(token) : null));
+});
+
+// Dashboard, goals, activity
+student.get('/dashboard', async (c) => c.json(await dashboard(c.env.DB, c.get('user').id, dashboardQuery.parse({ day: c.req.query('day'), since: c.req.query('since') }))));
+student.get('/goals', async (c) => c.json(await getGoal(c.env.DB, c.get('user').id)));
+student.put('/goals', async (c) => c.json(await setGoal(c.env.DB, c.get('user').id, await readJson(c, goalSchema))));
+student.post('/activity', async (c) => c.json(await recordActivity(c.env.DB, c.get('user').id, await readJson(c, activitySchema))));
+
+// Bookmarks
+student.get('/bookmarks', async (c) => c.json(await listBookmarks(c.env.DB, c.get('user').id)));
+student.get('/bookmarks/state', async (c) => {
+  const kind = c.req.query('kind') ?? '';
+  if (!['TOPIC', 'LESSON', 'QUESTION'].includes(kind)) throw invalid('kind must be TOPIC, LESSON or QUESTION');
+  return c.json(await bookmarkState(c.env.DB, c.get('user').id, kind, (c.req.query('ids') ?? '').split(',').filter(Boolean).slice(0, 100)));
+});
+student.post('/bookmarks', async (c) => c.json(await addBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema)), 201));
+student.post('/bookmarks/remove', async (c) => c.json(await removeBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema))));
+
+// Study planner
+student.get('/plan', async (c) => c.json(await listPlan(c.env.DB, c.get('user').id, c.req.query('from') ?? '', c.req.query('to') ?? '')));
+student.post('/plan', async (c) => c.json(await addPlanItem(c.env.DB, c.get('user').id, await readJson(c, planItemSchema)), 201));
+student.patch('/plan/:id', async (c) => c.json(await updatePlanItem(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, planUpdateSchema))));
+student.delete('/plan/:id', async (c) => c.json(await deletePlanItem(c.env.DB, c.get('user').id, c.req.param('id'))));

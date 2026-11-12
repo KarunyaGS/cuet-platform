@@ -4,11 +4,16 @@ import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 import { Layout } from './Layout';
 import { AuthPage } from './pages/Auth';
+import { BookmarksPage } from './pages/Bookmarks';
+import { DashboardPage } from './pages/Dashboard';
 import { Home } from './pages/Home';
 import { LearnPage } from './pages/Learn';
+import { PlannerPage } from './pages/Planner';
 import { PracticePage } from './pages/Practice';
+import { ProfilePage } from './pages/Profile';
 import { ProgressPage } from './pages/Progress';
 import { ResultsPage } from './pages/Results';
+import { RevisePage } from './pages/Revise';
 import { SubjectPage } from './pages/Subject';
 import { Subjects } from './pages/Subjects';
 import { TopicPage } from './pages/Topic';
@@ -28,7 +33,12 @@ const router = createBrowserRouter([
       { path: '/', element: <Home /> },
       { path: '/signin', element: <AuthPage mode="signin" /> },
       { path: '/signup', element: <AuthPage mode="signup" /> },
+      { path: '/dashboard', element: <DashboardPage /> },
+      { path: '/planner', element: <PlannerPage /> },
+      { path: '/bookmarks', element: <BookmarksPage /> },
+      { path: '/profile', element: <ProfilePage /> },
       { path: '/progress', element: <ProgressPage /> },
+      { path: '/revise/:nodeId', element: <RevisePage /> },
       { path: '/review', element: lazyPage(<ReviewQueue />) },
       { path: '/review/paper/:paperId', element: lazyPage(<ReviewWorkspace />) },
       { path: '/topic/:nodeId', element: <TopicPage /> },

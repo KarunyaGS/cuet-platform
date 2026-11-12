@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { api, type Feedback, type PracticeSession, type SessionQuestion } from '../api';
 import { Badge, Button, ErrorBox, Loading, useLoad } from '../ui';
 import { QuestionStem } from '../question';
+import { BookmarkButton } from '../tools';
 import { Rich } from '../rich';
 
 function useCountdown(deadline: string | null) {
@@ -79,6 +80,7 @@ export function PracticePage() {
           </span>
           <span className="flex items-center gap-1.5">
             <Badge>{q.difficulty.toLowerCase()}</Badge>
+            <BookmarkButton kind="QUESTION" id={q.id} compact />
           </span>
         </div>
         <div className="px-3 py-3">

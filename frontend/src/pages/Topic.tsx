@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api } from '../api';
+import { AddToPlan, BookmarkButton, useTrackView } from '../tools';
 import { Badge, Button, Empty, ErrorBox, kindLabel, Loading, useAuth, useLoad } from '../ui';
 
 /** Topic page: the official syllabus wording with its source page, subtopics, learning material and practice. */
@@ -10,6 +11,7 @@ export function TopicPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [err, setErr] = useState<Error | null>(null);
+  useTrackView('TOPIC_VIEW', t.data ? nodeId : null);
 
   const start = async (mode: 'PRACTICE' | 'TOPIC_TEST') => {
     if (!user) return navigate('/signin');
@@ -54,6 +56,10 @@ export function TopicPage() {
             {kindLabel(d.topic.kind, d.topic.label) && <span className="text-zinc-500">{kindLabel(d.topic.kind, d.topic.label)} · </span>}
             {d.topic.title}
           </h1>
+          <span className="flex flex-wrap gap-1.5">
+            <BookmarkButton kind="TOPIC" id={d.topic.id} />
+            <AddToPlan kind="TOPIC" refId={d.topic.id} title={d.topic.title} />
+          </span>
         </div>
 
         <section className="mb-4 rounded-lg border border-zinc-200 bg-white px-3 py-2.5">
@@ -121,6 +127,12 @@ export function TopicPage() {
           {!d.questionCount && <p className="mt-2 text-xs text-zinc-500">Questions for this topic are still being written.</p>}
           {err && <ErrorBox error={err} />}
         </div>
+        {d.resources.length > 0 && (
+          <Link to={`/revise/${d.topic.id}`} className="block rounded-lg border border-zinc-200 bg-white p-3 hover:border-[var(--color-accent)]">
+            <div className="text-sm font-semibold">Quick revision</div>
+            <p className="mt-0.5 text-xs text-zinc-500">Definitions, formulas, key points and exam tips from this topic’s lessons, on one page.</p>
+          </Link>
+        )}
       </aside>
     </div>
   );

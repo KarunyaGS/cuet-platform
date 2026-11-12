@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router';
 import { api } from '../api';
 import { Badge, ErrorBox, Loading, PageHeader, useLoad } from '../ui';
 import { QuestionStem } from '../question';
+import { BookmarkButton } from '../tools';
 import { Rich } from '../rich';
 
 export function ResultsPage() {
@@ -49,6 +50,9 @@ export function ResultsPage() {
               <div className="flex items-start gap-2">
                 <span className="num mt-0.5 w-6 shrink-0 text-xs text-zinc-400">{q.number}.</span>
                 <div className="min-w-0 flex-1">
+                  <div className="float-right ml-2">
+                    <BookmarkButton kind="QUESTION" id={q.id} compact />
+                  </div>
                   <QuestionStem stem={q.stem} structure={q.structure} compact />
                   <ul className="mt-1.5 grid gap-1 sm:grid-cols-2">
                     {q.options.map((o) => {

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api, type Block } from '../api';
 import { DisplayMath, parseBody, Rich } from '../rich';
+import { AddToPlan, BookmarkButton, useTrackView } from '../tools';
 import { Badge, Button, ErrorBox, Loading, useAuth, useLoad } from '../ui';
 
 const tone: Record<string, { label: string; cls: string }> = {
@@ -71,7 +72,7 @@ function Solved({ body, n }: { body: string; n: number }) {
   );
 }
 
-function BlockView({ b, solvedNo }: { b: Block; solvedNo: number }) {
+export function BlockView({ b, solvedNo }: { b: Block; solvedNo: number }) {
   switch (b.type) {
     case 'HEADING':
       return <h2 id={slug(b.body)} className="scroll-mt-16 pt-3 text-base font-semibold tracking-tight">{b.body}</h2>;
@@ -136,6 +137,7 @@ export function LearnPage() {
   const navigate = useNavigate();
   const r = useLoad(() => api.resource(resourceId), [resourceId]);
   const [starting, setStarting] = useState(false);
+  useTrackView('LESSON_VIEW', r.data ? resourceId : null);
   const toc = useMemo(() => (r.data?.blocks ?? []).filter((b) => b.type === 'HEADING').map((b) => b.body), [r.data]);
   if (r.loading) return <Loading />;
   if (r.error) return <ErrorBox error={r.error} onRetry={r.reload} />;
@@ -164,6 +166,10 @@ export function LearnPage() {
           <h1 className="mt-1 text-xl font-semibold tracking-tight">{d.resource.title}</h1>
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             <Badge tone="accent">Lesson</Badge>
+            <span className="ml-auto flex flex-wrap gap-1.5">
+              <BookmarkButton kind="LESSON" id={d.resource.id} />
+              <AddToPlan kind="LESSON" refId={d.resource.id} title={d.resource.title} />
+            </span>
           </div>
         </div>
         <div className="space-y-3">

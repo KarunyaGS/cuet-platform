@@ -17,14 +17,27 @@ export function Layout() {
             <span className="grid size-6 place-items-center rounded bg-[var(--color-accent)] text-[11px] font-bold text-white">CU</span>
             CUET Prep
           </Link>
-          <nav className="ml-2 flex items-center gap-1" aria-label="Main">
+          <nav className="ml-2 flex min-w-0 items-center gap-1 overflow-x-auto" aria-label="Main">
             <NavLink to="/CUET_UG" className={nav}>
               UG
             </NavLink>
             <NavLink to="/CUET_PG" className={nav}>
               PG
             </NavLink>
-            <NavLink to="/progress" className={nav}>
+            {user && (
+              <>
+                <NavLink to="/dashboard" className={nav}>
+                  Today
+                </NavLink>
+                <NavLink to="/planner" className={nav}>
+                  Planner
+                </NavLink>
+                <NavLink to="/bookmarks" className={`${nav({ isActive: location.pathname === '/bookmarks' })} hidden sm:inline`}>
+                  Bookmarks
+                </NavLink>
+              </>
+            )}
+            <NavLink to="/progress" className={(a) => `${nav(a)} hidden sm:inline`}>
               Progress
             </NavLink>
             {user?.roles.some((r) => ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'].includes(r)) && (
@@ -36,7 +49,9 @@ export function Layout() {
           <div className="ml-auto flex items-center gap-2 text-sm">
             {user ? (
               <>
-                <span className="hidden text-zinc-500 sm:inline">{user.displayName}</span>
+                <Link to="/profile" className="hidden rounded-md px-2 py-1 text-zinc-600 hover:bg-zinc-100 sm:inline" title="My profile">
+                  {user.displayName}
+                </Link>
                 <button
                   className="rounded-md px-2 py-1 text-zinc-600 hover:bg-zinc-100"
                   onClick={async () => {

@@ -905,18 +905,22 @@ model AuditLog {
 // ---------------------------------------------------------------------------
 
 model User {
-  id          String            @id @default(cuid())
-  email       String            @unique
-  displayName String            @map("display_name")
-  status      UserStatus        @default(ACTIVE)
-  lastLoginAt DateTime?         @map("last_login_at")
-  createdAt   DateTime          @default(now()) @map("created_at")
-  updatedAt   DateTime          @updatedAt @map("updated_at")
+  id          String             @id @default(cuid())
+  email       String             @unique
+  displayName String             @map("display_name")
+  status      UserStatus         @default(ACTIVE)
+  lastLoginAt DateTime?          @map("last_login_at")
+  createdAt   DateTime           @default(now()) @map("created_at")
+  updatedAt   DateTime           @updatedAt @map("updated_at")
   roles       UserRole[]
   credential  UserCredential?
   sessions    UserSession[]
   practice    PracticeSession[]
   progress    TopicProgress[]
+  bookmarks   Bookmark[]
+  activity    LearningActivity[]
+  dailyGoal   DailyGoal?
+  planItems   StudyPlanItem[]
 
   @@map("users")
 }
@@ -1068,4 +1072,65 @@ model SourcePageText {
 
   @@unique([sourceDocumentId, page, method])
   @@map("source_page_texts")
+}
+
+/// Something a student saved to come back to: a syllabus topic, a lesson or a question.
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  /// TOPIC (curriculum_nodes.id), LESSON (learning_resources.id) or QUESTION (questions.id).
+  kind      String
+  entityId  String   @map("entity_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, kind, entityId])
+  @@index([userId, createdAt])
+  @@map("bookmarks")
+}
+
+/// A topic or lesson a signed-in student opened: powers "continue learning" and daily lesson goals.
+model LearningActivity {
+  id               String   @id @default(cuid())
+  userId           String   @map("user_id")
+  /// TOPIC_VIEW or LESSON_VIEW.
+  kind             String
+  curriculumNodeId String?  @map("curriculum_node_id")
+  resourceId       String?  @map("resource_id")
+  testPaperId      String?  @map("test_paper_id")
+  createdAt        DateTime @default(now()) @map("created_at")
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@map("learning_activity")
+}
+
+/// A student's own daily targets.
+model DailyGoal {
+  userId          String   @id @map("user_id")
+  questionsPerDay Int      @default(20) @map("questions_per_day")
+  lessonsPerDay   Int      @default(1) @map("lessons_per_day")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("daily_goals")
+}
+
+/// One entry in a student's study planner, on a calendar day.
+model StudyPlanItem {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  /// YYYY-MM-DD in the student's own calendar.
+  day       String
+  /// TOPIC, LESSON, PRACTICE, MOCK or CUSTOM.
+  kind      String
+  refId     String?  @map("ref_id")
+  title     String
+  done      Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, day])
+  @@map("study_plan_items")
 }

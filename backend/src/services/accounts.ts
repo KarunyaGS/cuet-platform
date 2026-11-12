@@ -63,6 +63,25 @@ export async function login(db: D1Database, input: z.infer<typeof loginSchema>, 
   return { token, expires, user: { id: row.id, email: row.email, displayName: row.display_name } };
 }
 
+export const passwordSchema = z.object({ currentPassword: z.string().min(1).max(200), newPassword: z.string().min(10, 'Use at least 10 characters').max(200) });
+
+/** Changes the password after checking the current one; signs out every other session of the account. */
+export async function changePassword(db: D1Database, userId: string, input: z.infer<typeof passwordSchema>, keepTokenHash: string | null) {
+  const row = await db.prepare('SELECT password_hash, salt, iterations FROM user_credentials WHERE user_id = ?').bind(userId).first<{ password_hash: string; salt: string; iterations: number }>();
+  if (!row) throw new ApiError(404, 'NOT_FOUND', 'Account not found');
+  const check = await pbkdf2(input.currentPassword, fromB64(row.salt), row.iterations);
+  if (!crypto.subtle.timingSafeEqual(fromB64(check), fromB64(row.password_hash))) throw new ApiError(400, 'WRONG_PASSWORD', 'The current password is incorrect');
+  if (input.currentPassword === input.newPassword) throw new ApiError(400, 'SAME_PASSWORD', 'Choose a password different from the current one');
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const hash = await pbkdf2(input.newPassword, salt, ITERATIONS);
+  const now = nowIso();
+  await db.batch([
+    db.prepare('UPDATE user_credentials SET password_hash = ?, salt = ?, iterations = ?, updated_at = ? WHERE user_id = ?').bind(hash, b64(salt), ITERATIONS, now, userId),
+    db.prepare('UPDATE user_sessions SET revoked_at = ? WHERE user_id = ? AND revoked_at IS NULL AND token_hash IS NOT ?').bind(now, userId, keepTokenHash),
+  ]);
+  return { changed: true };
+}
+
 export async function logout(db: D1Database, token: string | undefined) {
   if (token) await db.prepare('UPDATE user_sessions SET revoked_at = ? WHERE token_hash = ? AND revoked_at IS NULL').bind(nowIso(), await sha256Hex(token)).run();
 }

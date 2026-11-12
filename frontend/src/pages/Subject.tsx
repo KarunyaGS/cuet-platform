@@ -24,12 +24,12 @@ export function SubjectPage() {
   const active = roots.find((r) => r.id === activeId);
   const countQuestions = (id: string): number => (childrenOf.get(id) ?? []).reduce((n, c) => n + c.questions + countQuestions(c.id), 0);
 
-  const startMock = async () => {
+  const startMock = async (unit?: string) => {
     if (!user) return navigate('/signin');
     setBusy(true);
     setErr(null);
     try {
-      const s = await api.startPractice({ mode: 'MOCK_TEST', paperId });
+      const s = await api.startPractice(unit ? { mode: 'TOPIC_TEST', nodeId: unit } : { mode: 'MOCK_TEST', paperId });
       navigate(`/practice/${s.session.id}`);
     } catch (e) {
       setErr(e as Error);
@@ -65,7 +65,7 @@ export function SubjectPage() {
           </span>
         }
         actions={
-          <Button onClick={startMock} disabled={busy || !p.version_id}>
+          <Button onClick={() => startMock()} disabled={busy || !p.version_id}>
             {busy ? 'Starting…' : `Mock test · ${String(p.question_count ?? '')} Q / ${String(p.duration_minutes ?? '')} min`}
           </Button>
         }
@@ -96,8 +96,15 @@ export function SubjectPage() {
                 <Link to={`/topic/${active.id}`} className="min-w-0 truncate font-medium hover:underline">
                   {kindLabel(active.kind, active.label)} · {active.title}
                 </Link>
-                <span className="num shrink-0 text-xs text-zinc-500">
-                  p. {active.source_page} · {countQuestions(active.id) + active.questions} questions
+                <span className="flex shrink-0 items-center gap-2">
+                  <span className="num text-xs text-zinc-500">
+                    p. {active.source_page} · {countQuestions(active.id) + active.questions} questions
+                  </span>
+                  {countQuestions(active.id) + active.questions > 0 && (
+                    <Button kind="secondary" onClick={() => startMock(active.id)} disabled={busy}>
+                      Unit test
+                    </Button>
+                  )}
                 </span>
               </div>
             )}
