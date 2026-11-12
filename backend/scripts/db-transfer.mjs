@@ -79,10 +79,26 @@ if (cmd === 'backup') {
 } else if (cmd === 'export') {
   const tables = tablesInOrder(DEV);
   const byTable = exportData(DEV, file, tables);
+  // --exclude-users id1,id2: local test accounts that must not exist in production. Their credentials, roles,
+  // sessions, answers and progress are left out too. Recorded in the manifest; nothing else is filtered.
+  const excludeUsers = args.includes('--exclude-users') ? args[args.indexOf('--exclude-users') + 1].split(',').filter(Boolean) : [];
+  const excluded = {};
+  if (excludeUsers.length) {
+    const sessions = q(DEV, `SELECT id FROM practice_sessions WHERE user_id IN (${excludeUsers.map((u) => `'${u.replace(/'/g, '')}'`).join(',')})`).map((r) => r.id);
+    const drop = (table, ids) => {
+      const before = byTable.get(table)?.length ?? 0;
+      if (!before) return;
+      byTable.set(table, byTable.get(table).filter((l) => !ids.some((id) => l.includes(`'${id}'`))));
+      if (before !== byTable.get(table).length) excluded[table] = before - byTable.get(table).length;
+    };
+    for (const t of ['users', 'user_credentials', 'user_roles', 'practice_sessions', 'topic_progress']) drop(t, excludeUsers);
+    drop('practice_answers', sessions);
+  }
   const lines = ['PRAGMA defer_foreign_keys = true;', ...tables.flatMap((t) => byTable.get(t).map((l) => l.replace(/^INSERT INTO /, 'INSERT OR IGNORE INTO ')))];
   writeFileSync(file, lines.join('\n') + '\n');
   const counts = Object.fromEntries(tables.map((t) => [t, byTable.get(t).length]));
-  writeFileSync(`${file}.manifest.json`, JSON.stringify({ exportedAt: new Date().toISOString(), tables, counts, sha256: createHash('sha256').update(readFileSync(file)).digest('hex') }, null, 1));
+  writeFileSync(`${file}.manifest.json`, JSON.stringify({ exportedAt: new Date().toISOString(), tables, counts, excludedTables: [...EXCLUDE], excludedTestAccounts: excludeUsers, excludedRows: excluded, sha256: createHash('sha256').update(readFileSync(file)).digest('hex') }, null, 1));
+  if (Object.keys(excluded).length) console.log(`excluded (test accounts): ${JSON.stringify(excluded)}`);
   console.log(`${tables.length} tables, ${Object.values(counts).reduce((a, b) => a + b, 0)} rows -> ${file}`);
   console.log(JSON.stringify(counts));
 } else if (cmd === 'load') {
@@ -90,8 +106,91 @@ if (cmd === 'backup') {
     console.error('Refused: importing into the remote production database (cuet-db) needs explicit approval. Set CUET_REMOTE_DATA_APPROVED=yes only after approval.');
     process.exit(1);
   }
-  const out = w(['d1', 'execute', 'DB', ...TARGET, '--file', file, '--yes']);
-  console.log(out.split('\n').filter((l) => /executed|rows|error|Imported|Processed/i.test(l)).join('\n'));
+  // Remote file execution stops after 15,000 statements, so load in chunks well below that. Every statement is
+  // INSERT OR IGNORE, so re-running a chunk never changes a row that is already there.
+  const lines = readFileSync(file, 'utf8').split('\n').filter((l) => l.startsWith('INSERT'));
+  const CHUNK = 5000;
+  let executed = 0;
+  for (let i = 0; i < lines.length; i += CHUNK) {
+    const n = Math.floor(i / CHUNK) + 1;
+    const slice = lines.slice(i, i + CHUNK);
+    const part = `${file}.part${n}.sql`;
+    writeFileSync(part, ['PRAGMA defer_foreign_keys = true;', ...slice].join('\n') + '\n');
+    const out = w(['d1', 'execute', 'DB', ...TARGET, '--file', part, '--yes']);
+    // Wrangler's "Executed N" count is not a statement count for remote imports, so it proves nothing.
+    // Success is proven only by the row-by-row `delta` / `compare` afterwards.
+    if (/error/i.test(out) && !/"success":\s*true/.test(out)) throw new Error(`Chunk ${n} reported an error; stopping`);
+    executed += slice.length;
+    console.log(`chunk ${n}: ${slice.length} inserts sent`);
+  }
+  console.log(`statements sent ${executed}; verify with: node scripts/db-transfer.mjs delta <export> <out> --target ${target}`);
+} else if (cmd === 'delta') {
+  // delta <localExport.sql> <out.sql> --target remote|local
+  // Splits a local export into: rows already in the target (identical), seed rows that differ only in
+  // created_at/updated_at, rows missing from the target (written to <out.sql>), and CONFLICTS (same primary key,
+  // different content). Any conflict stops the run with a non-zero exit. Never prints row content.
+  const out = args[2];
+  const parseTuple = (sql) => {
+    const m = /^INSERT(?: OR IGNORE)? INTO "?([A-Za-z_]+)"? \(([^)]*)\) VALUES\((.*)\);$/.exec(sql.trim());
+    if (!m) throw new Error('Unparseable INSERT');
+    const cols = m[2].split(',').map((c) => c.trim().replace(/"/g, ''));
+    const vals = [];
+    let i = 0;
+    const s = m[3];
+    while (i < s.length) {
+      if (s[i] === "'") {
+        let v = '';
+        i++;
+        for (;;) {
+          if (s[i] === "'" && s[i + 1] === "'") { v += "'"; i += 2; } else if (s[i] === "'") { i++; break; } else { v += s[i]; i++; }
+        }
+        vals.push(v);
+      } else {
+        let j = i;
+        while (j < s.length && s[j] !== ',') j++;
+        const raw = s.slice(i, j).trim();
+        vals.push(raw === 'NULL' ? null : raw);
+        i = j;
+      }
+      while (i < s.length && (s[i] === ',' || s[i] === ' ')) i++;
+    }
+    return { table: m[1], cols, row: Object.fromEntries(cols.map((c, k) => [c, vals[k]])) };
+  };
+  const localLines = readFileSync(file, 'utf8').split('\n').filter((l) => l.startsWith('INSERT'));
+  const tables = [...new Set(localLines.map((l) => parseTuple(l).table))];
+  const remote = exportData(TARGET, 'D:/tmp/cuet-delta-target.sql', tables);
+  const pkOf = new Map(tables.map((t) => [t, q(DEV, `SELECT name FROM pragma_table_info('${t}') WHERE pk > 0 ORDER BY pk`).map((r) => r.name)]));
+  const summary = {};
+  const missing = [];
+  const conflicts = [];
+  for (const t of tables) {
+    const pk = pkOf.get(t);
+    const key = (row) => pk.map((c) => String(row[c])).join('\u0001');
+    const there = new Map(remote.get(t).map((l) => { const p = parseTuple(l); return [key(p.row), p.row]; }));
+    const s = { local: 0, identical: 0, seedTimestampOnly: 0, missing: 0, conflicts: 0 };
+    for (const l of localLines.filter((x) => x.includes(`INTO "${t}" `) || x.includes(`INTO ${t} `))) {
+      const p = parseTuple(l);
+      if (p.table !== t) continue;
+      s.local++;
+      const r = there.get(key(p.row));
+      if (!r) { s.missing++; missing.push(l); continue; }
+      const diff = p.cols.filter((c) => String(p.row[c]) !== String(r[c]));
+      if (!diff.length) s.identical++;
+      else if (diff.every((c) => c === 'created_at' || c === 'updated_at')) s.seedTimestampOnly++;
+      else { s.conflicts++; conflicts.push(`${t} [${pk.join(',')}=${key(p.row).replace(/\u0001/g, '|')}] differs in: ${diff.join(', ')}`); }
+    }
+    s.extraInTarget = there.size - s.identical - s.seedTimestampOnly - s.conflicts;
+    summary[t] = s;
+  }
+  writeFileSync(out, ['PRAGMA defer_foreign_keys = true;', ...missing].join('\n') + '\n');
+  const totals = Object.values(summary).reduce((a, s) => ({ local: a.local + s.local, identical: a.identical + s.identical, seed: a.seed + s.seedTimestampOnly, missing: a.missing + s.missing, conflicts: a.conflicts + s.conflicts, extra: a.extra + s.extraInTarget }), { local: 0, identical: 0, seed: 0, missing: 0, conflicts: 0, extra: 0 });
+  writeFileSync(`${out}.summary.json`, JSON.stringify({ totals, summary, conflicts }, null, 1));
+  console.log(JSON.stringify(totals));
+  for (const [t, s] of Object.entries(summary)) if (s.missing || s.conflicts || s.extraInTarget) console.log(`  ${t}: ${JSON.stringify(s)}`);
+  if (conflicts.length) {
+    console.error(`STOP: ${conflicts.length} conflicting row(s) (same key, different content):\n` + conflicts.slice(0, 20).join('\n'));
+    process.exit(2);
+  }
 } else if (cmd === 'compare') {
   const report = { target, schema: null, tables: {}, foreignKeyViolations: null, identical: true };
   const a = schemaOf(DEV);

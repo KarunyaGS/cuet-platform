@@ -119,6 +119,51 @@ export async function machineCorrection(db: D1Database, id: string, input: z.inf
   return { id, changed: true };
 }
 
+// ---------------------------------------------------------------- machine re-verification of a corrected version
+
+export const machineVerifySchema = z.object({
+  method: z.string().min(3).max(120),
+  /** Every row of the version with its record-level check result; all must pass. */
+  rows: z.array(z.object({ id: z.string().max(100), wordsOnPagePct: z.number(), secondExtractorPct: z.number() })).min(1).max(5000),
+  metrics: z.record(z.string(), z.unknown()),
+});
+
+/**
+ * Marks a corrected (page-image reviewed) version MACHINE_VERIFIED when the same automatic evidence as the original
+ * machine verification holds for every row. Never VERIFIED; never a version a person has worked on; never
+ * transcriptions or rows whose text the sources do not confirm.
+ */
+export async function machineVerifyVersion(db: D1Database, versionId: string, input: z.infer<typeof machineVerifySchema>, actor: string) {
+  const v = await db.prepare('SELECT id, status, verification FROM syllabus_versions WHERE id = ?').bind(versionId).first<{ id: string; status: string; verification: string }>();
+  if (!v) throw notFound('Syllabus version');
+  if (v.verification === 'MACHINE_VERIFIED') return { changed: false };
+  if (v.status !== 'DRAFT' || v.verification !== 'UNVERIFIED') throw conflict(`Only an unverified draft can be machine-verified (is ${v.status}/${v.verification})`);
+  const { results: rows } = await db
+    .prepare('SELECT id, verification, extraction_flags, authored_by, edited_by FROM curriculum_nodes WHERE syllabus_version_id = ?')
+    .bind(versionId)
+    .all<{ id: string; verification: string; extraction_flags: string | null; authored_by: string | null; edited_by: string | null }>();
+  const human = await db
+    .prepare(`SELECT 1 FROM review_records r JOIN curriculum_nodes n ON n.id = r.entity_id WHERE n.syllabus_version_id = ? AND r.actor LIKE 'user:%' LIMIT 1`)
+    .bind(versionId)
+    .first();
+  const bad = rows.filter((r) => r.verification !== 'UNVERIFIED' || r.authored_by || r.edited_by || /ai_transcription|text_not_in_sources|(^|,)ocr/.test(r.extraction_flags ?? ''));
+  if (human || bad.length) throw conflict('This version has rows a person worked on, transcriptions, OCR text or unconfirmed text; it cannot be machine-verified', { rows: bad.length });
+  const given = new Map(input.rows.map((r) => [r.id, r]));
+  const failing = rows.filter((r) => { const g = given.get(r.id); return !g || g.wordsOnPagePct < 100 || g.secondExtractorPct < 98; });
+  if (failing.length) throw conflict(`${failing.length} row(s) have no passing record-level check`);
+  const now = nowIso();
+  await db.batch([
+    db.prepare(`UPDATE curriculum_nodes SET verification = 'MACHINE_VERIFIED', updated_at = ? WHERE syllabus_version_id = ? AND verification = 'UNVERIFIED'`).bind(now, versionId),
+    db.prepare(`UPDATE syllabus_versions SET verification = 'MACHINE_VERIFIED', notes = COALESCE(notes, '') || ?, updated_at = ? WHERE id = ? AND verification = 'UNVERIFIED'`)
+      .bind(` Machine-verified by ${input.method}. Not yet signed off by a person.`, now, versionId),
+    db.prepare(`INSERT INTO verification_evidence (id, entity_type, entity_id, level, method, metrics_json, verified_by, created_at) VALUES (?, 'SYLLABUS_VERSION', ?, 'MACHINE', ?, ?, ?, ?)`)
+      .bind(newId('ver'), versionId, input.method, JSON.stringify({ ...input.metrics, rows: input.rows.length }), actor, now),
+    db.prepare(`INSERT INTO review_records (id, entity_type, entity_id, action, from_status, to_status, actor, comment, created_at) VALUES (?, 'SYLLABUS_VERSION', ?, 'VERIFIED', 'DRAFT/UNVERIFIED', 'DRAFT/MACHINE_VERIFIED', ?, ?, ?)`)
+      .bind(newId('rev'), versionId, actor, `Machine verification (${input.method}); not a person's decision`, now),
+  ]);
+  return { changed: true, rows: rows.length };
+}
+
 // ---------------------------------------------------------------- additive imports of already-processed data
 
 export const pageTextsSchema = z.object({

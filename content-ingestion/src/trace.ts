@@ -57,12 +57,14 @@ export async function runTrace(registry: Registry, paths: { extracted: string; a
   const docs = d1<{ id: string; url: string; sha256: string; r2_key: string | null; page_count: number }>(`SELECT id, url, sha256, r2_key, page_count FROM source_documents`);
   const token = process.env['CUET_ADMIN_TOKEN'] ?? /^ADMIN_API_TOKEN\s*=\s*"?([^"\r\n]+)"?/m.exec(readFileSync(join(repo, 'backend', '.dev.vars'), 'utf8'))?.[1];
   const missingR2: string[] = [];
-  for (const d of docs) {
+  // CUET_TRACE_SKIP_R2=1: the file copies are verified separately (e.g. remote R2 checksums before the app is deployed).
+  const skipR2 = process.env['CUET_TRACE_SKIP_R2'] === '1';
+  for (const d of skipR2 ? [] : docs) {
     const res = d.r2_key ? await fetch(`${api}/api/admin/files/${d.r2_key}`, { headers: { 'x-admin-token': token ?? '' } }).catch(() => null) : null;
     if (!res?.ok) missingR2.push(d.url);
     else await res.arrayBuffer();
   }
-  check('source documents whose PDF copy is missing from local R2', missingR2);
+  check(skipR2 ? 'source documents whose PDF copy is missing from R2 (SKIPPED: verified separately by checksum)' : 'source documents whose PDF copy is missing from local R2', missingR2);
 
   // ---- every stored row against the extraction dataset and the original PDF page ----
   const rows = d1<{ id: string; paper_code: string; exam: string; kind: string; label: string | null; title: string; body: string | null; source_page: number; depth: number; position: number; verification: string; url: string; sha256: string; r2_key: string; person: number }>(
