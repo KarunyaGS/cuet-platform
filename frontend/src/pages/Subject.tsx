@@ -21,8 +21,16 @@ export function SubjectPage() {
     for (const list of childrenOf.values()) list.sort((a, b) => a.position - b.position);
     return { roots: childrenOf.get(null) ?? [], childrenOf };
   }, [outline.data]);
-  const activeId = unitId ?? roots.find((r) => r.kind !== 'NOTE')?.id ?? roots[0]?.id ?? null;
-  const active = roots.find((r) => r.id === activeId);
+  // The syllabus itself, without the "Note" box (question-paper instructions). A NOTE row with nothing under it is a
+  // cover-page title picked up by extraction, so it is not shown.
+  const contentRoots = roots.filter((r) => r.kind !== 'NOTE');
+  const notes = roots.filter((r) => r.kind === 'NOTE' && (childrenOf.get(r.id) ?? []).length > 0);
+  // Many official syllabi list topics directly with no units: show those as one list, not as "units".
+  const flat = contentRoots.length > 0 && contentRoots.every((r) => !(childrenOf.get(r.id) ?? []).length);
+  const groupWord = contentRoots.some((r) => r.kind === 'UNIT' || r.kind === 'CHAPTER') ? 'Units' : contentRoots.some((r) => ['PART', 'SECTION', 'COURSE'].includes(r.kind)) ? 'Sections' : 'Topics';
+  const activeId = unitId ?? contentRoots[0]?.id ?? null;
+  const active = contentRoots.find((r) => r.id === activeId);
+  const testWord = active && (active.kind === 'UNIT' || active.kind === 'CHAPTER') ? 'Unit test' : active && ['PART', 'SECTION', 'COURSE'].includes(active.kind) ? 'Section test' : 'Topic test';
   const countQuestions = (id: string): number => (childrenOf.get(id) ?? []).reduce((n, c) => n + c.questions + countQuestions(c.id), 0);
 
   const startMock = async (unit?: string) => {
@@ -70,14 +78,38 @@ export function SubjectPage() {
         }
       />
       {err && <ErrorBox error={err} />}
-      {roots.length === 0 ? (
+      {notes.length > 0 && (
+        <details className="mb-6 rounded-xl border border-rule bg-surface">
+          <summary className="cursor-pointer px-5 py-3 text-sm font-medium text-ink-2 hover:text-ink">About the question paper</summary>
+          <ul className="list-disc space-y-1 px-10 pb-4 text-sm text-ink-2">
+            {notes.flatMap((n) => childrenOf.get(n.id) ?? []).map((i) => (
+              <li key={i.id}>{i.title}</li>
+            ))}
+          </ul>
+        </details>
+      )}
+      {contentRoots.length === 0 ? (
+        <Empty>The syllabus topics for this paper are still being checked. Please come back soon.</Empty>
+      ) : flat ? (
+        <section className="overflow-hidden rounded-xl border border-rule bg-surface" aria-labelledby="flat-title">
+          <div className="border-b border-rule px-5 py-4">
+            <h2 id="flat-title" className="text-lg font-semibold text-ink">
+              Syllabus topics
+            </h2>
+            <p className="mt-0.5 text-sm text-ink-3">
+              The official syllabus lists {contentRoots.length} {contentRoots.length === 1 ? 'topic' : 'topics'} directly, without units.
+            </p>
+          </div>
+          <Tree nodes={contentRoots} childrenOf={childrenOf} />
+        </section>
+      ) : roots.length === 0 ? (
         <Empty>The syllabus for this paper is still being checked. Please come back soon.</Empty>
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-[17rem_minmax(0,1fr)]">
-          <nav aria-label="Units" className="md:sticky md:top-20 md:self-start">
-            <h2 className="mb-2 px-3 text-sm font-medium text-ink-2">Units</h2>
+          <nav aria-label={groupWord} className="md:sticky md:top-20 md:self-start">
+            <h2 className="mb-2 px-3 text-sm font-medium text-ink-2">{groupWord}</h2>
             <ul className="space-y-0.5">
-              {roots.map((r) => {
+              {contentRoots.map((r) => {
                 const on = r.id === activeId;
                 return (
                   <li key={r.id}>
@@ -113,14 +145,14 @@ export function SubjectPage() {
                   </Link>
                   {unitQuestions > 0 && (
                     <Button kind="secondary" size="sm" onClick={() => startMock(active.id)} disabled={busy} icon={<Timer aria-hidden />}>
-                      Unit test
+                      {testWord}
                     </Button>
                   )}
                 </div>
               </div>
             )}
             <Tree nodes={childrenOf.get(activeId) ?? []} childrenOf={childrenOf} />
-            {(childrenOf.get(activeId) ?? []).length === 0 && <p className="px-5 py-4 text-sm text-ink-3">This unit has no listed subtopics in the official syllabus.</p>}
+            {(childrenOf.get(activeId) ?? []).length === 0 && <p className="px-5 py-4 text-sm text-ink-3">The official syllabus lists no further topics under this heading.</p>}
           </section>
         </div>
       )}

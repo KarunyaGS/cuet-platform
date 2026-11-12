@@ -75,6 +75,16 @@ export function Subjects() {
   );
 }
 
+/** The syllabus shape in words, exactly as stored: units, sections and topics, leaving out what the syllabus does not have. */
+function structure(s: Subject) {
+  const parts = [
+    s.units ? `${s.units} ${s.units === 1 ? 'unit' : 'units'}` : '',
+    s.sections ? `${s.sections} ${s.sections === 1 ? 'section' : 'sections'}` : '',
+    s.topics ? `${s.topics} ${s.topics === 1 ? 'topic' : 'topics'}` : '',
+  ].filter(Boolean);
+  return parts.length ? parts.join(', ') : 'No topics listed yet';
+}
+
 function SubjectRow({ s }: { s: Subject }) {
   return (
     <>
@@ -83,18 +93,14 @@ function SubjectRow({ s }: { s: Subject }) {
         <span className={`block truncate text-[15px] font-medium ${s.available ? 'text-ink group-hover:text-accent' : 'text-ink-3'}`}>{s.name}</span>
         {s.available && (
           <span className="num mt-0.5 block text-xs text-ink-3 sm:hidden">
-            {s.units} units, {s.topics} topics{s.questions ? `, ${s.questions} questions` : ''}
+            {structure(s)}
+            {s.questions ? `, ${s.questions} questions` : ''}
           </span>
         )}
       </span>
       {s.available ? (
         <span className="num hidden shrink-0 gap-5 text-sm text-ink-2 sm:flex">
-          <span>
-            <span className="font-medium text-ink">{s.units}</span> units
-          </span>
-          <span>
-            <span className="font-medium text-ink">{s.topics}</span> topics
-          </span>
+          <span className="w-44 text-right">{structure(s)}</span>
           <span className="w-28 text-right">{s.questions ? <><span className="font-medium text-ink">{s.questions}</span> questions</> : <span className="text-ink-3">No questions yet</span>}</span>
         </span>
       ) : (

@@ -24,10 +24,13 @@ export async function listExams(db: D1Database) {
 export async function listSubjects(db: D1Database, preview: boolean, exam: string, year: number) {
   const { results } = await db
     .prepare(
-      `WITH v AS (${LATEST_VISIBLE_VERSION})
+      `WITH RECURSIVE v AS (${LATEST_VISIBLE_VERSION}),
+       -- Rows inside a "Note" box (question-paper instructions such as "75 questions") are not syllabus content.
+       note_rows(id) AS (SELECT id FROM curriculum_nodes WHERE kind = 'NOTE' UNION ALL SELECT c.id FROM curriculum_nodes c JOIN note_rows ON c.parent_id = note_rows.id)
        SELECT tp.id, tp.code, tp.name, cat.code AS category_code, cat.name AS category_name, v.id AS version_id, v.verification, v.status AS version_status,
-         (SELECT COUNT(*) FROM curriculum_nodes n WHERE n.syllabus_version_id = v.id AND n.kind IN ('UNIT','CHAPTER')) AS units,
-         (SELECT COUNT(*) FROM curriculum_nodes n WHERE n.syllabus_version_id = v.id AND n.kind IN ('TOPIC','SUBTOPIC','ITEM')) AS topics,
+         (SELECT COUNT(*) FROM curriculum_nodes n WHERE n.syllabus_version_id = v.id AND n.kind IN ('UNIT','CHAPTER') AND n.id NOT IN (SELECT id FROM note_rows)) AS units,
+         (SELECT COUNT(*) FROM curriculum_nodes n WHERE n.syllabus_version_id = v.id AND n.kind IN ('PART','SECTION','COURSE') AND n.id NOT IN (SELECT id FROM note_rows)) AS sections,
+         (SELECT COUNT(*) FROM curriculum_nodes n WHERE n.syllabus_version_id = v.id AND n.kind IN ('TOPIC','SUBTOPIC','ITEM') AND n.id NOT IN (SELECT id FROM note_rows)) AS topics,
          (SELECT COUNT(DISTINCT qt.question_id) FROM question_topics qt JOIN curriculum_nodes n ON n.id = qt.curriculum_node_id JOIN questions q ON q.id = qt.question_id
             WHERE n.syllabus_version_id = v.id AND ${VISIBLE_CONTENT('q')}) AS questions
        FROM test_papers tp
@@ -42,7 +45,7 @@ export async function listSubjects(db: D1Database, preview: boolean, exam: strin
   return results.map((r) => ({
     paperId: r.id, code: r.code, name: r.name, category: { code: r.category_code, name: r.category_name },
     available: Boolean(r.version_id), versionId: r.version_id, verification: r.verification, preview: r.version_status !== 'PUBLISHED' && Boolean(r.version_id),
-    units: Number(r.units ?? 0), topics: Number(r.topics ?? 0), questions: Number(r.questions ?? 0),
+    units: Number(r.units ?? 0), sections: Number(r.sections ?? 0), topics: Number(r.topics ?? 0), questions: Number(r.questions ?? 0),
   }));
 }
 

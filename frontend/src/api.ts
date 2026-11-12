@@ -34,7 +34,7 @@ export type ExamCode = 'CUET_UG' | 'CUET_PG';
 export interface Exam { code: ExamCode; name: string; level: string; year: number; label: string; rules: Record<string, number | string | boolean> }
 export interface Subject {
   paperId: string; code: string; name: string; category: { code: string | null; name: string | null };
-  available: boolean; preview: boolean; verification: string | null; units: number; topics: number; questions: number;
+  available: boolean; preview: boolean; verification: string | null; units: number; sections: number; topics: number; questions: number;
 }
 export interface OutlineNode { id: string; parent_id: string | null; kind: string; label: string | null; title: string; depth: number; position: number; source_page: number | null; resources: number; questions: number }
 export interface Outline { paper: Record<string, string | number | null>; nodes: OutlineNode[] }
