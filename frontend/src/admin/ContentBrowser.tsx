@@ -474,6 +474,7 @@ function QuestionForm({ q, onCancel, onSaved }: { q: QuestionFull; onCancel: () 
         <textarea className={`${inputClass} min-h-28`} value={explanation} onChange={(e) => setExplanation(e.target.value)} />
       </label>
       {err && <ErrorBox error={err} />}
+      <p className="text-sm text-ink-2">Saving returns the question to draft, and a reviewer must approve it again.</p>
       <div className="flex gap-2">
         <Button onClick={() => void save()} disabled={busy}>
           {busy ? 'Saving…' : 'Save question'}

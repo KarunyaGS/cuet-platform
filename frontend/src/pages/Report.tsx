@@ -97,7 +97,7 @@ export function ReportPage() {
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
             <section aria-labelledby="by-day">
               <SectionTitle id="by-day">Day by day</SectionTitle>
-              <div className="rounded-xl border border-rule bg-surface p-5">
+              <div className="relative rounded-xl border border-rule bg-surface p-5">
                 <div className="relative flex h-44 items-end gap-3" aria-hidden>
                   {d.goal.questionsPerDay > 0 && (
                     <div className="pointer-events-none absolute inset-x-0 border-t border-dashed border-ink-3/60" style={{ bottom: `${(100 * d.goal.questionsPerDay) / max}%` }}>
@@ -134,7 +134,8 @@ export function ReportPage() {
                     Goal met on {d.totals.goalDays} of 7 days. Active on {d.totals.activeDays} days.
                   </span>
                 </div>
-                <table className="sr-only">
+                <div className="sr-only">
+                <table>
                   <caption>Questions answered each day</caption>
                   <thead>
                     <tr>
@@ -155,6 +156,7 @@ export function ReportPage() {
                     ))}
                   </tbody>
                 </table>
+                </div>
               </div>
               {d.totals.planTotal > 0 && (
                 <div className="mt-4 rounded-xl border border-rule bg-surface p-5">
@@ -173,9 +175,9 @@ export function ReportPage() {
 
             <div className="space-y-10">
               <section aria-labelledby="w-subjects">
-                <SectionTitle id="w-subjects">Subjects this week</SectionTitle>
+                <SectionTitle id="w-subjects">Subjects</SectionTitle>
                 {d.subjects.length === 0 ? (
-                  <Empty>No questions answered this week.</Empty>
+                  <Empty>No questions answered in this week.</Empty>
                 ) : (
                   <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
                     {d.subjects.map((s) => (

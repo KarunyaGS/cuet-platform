@@ -94,10 +94,11 @@ export function SubjectPage() {
         <section className="overflow-hidden rounded-xl border border-rule bg-surface" aria-labelledby="flat-title">
           <div className="border-b border-rule px-5 py-4">
             <h2 id="flat-title" className="text-lg font-semibold text-ink">
-              Syllabus topics
+              Syllabus
             </h2>
             <p className="mt-0.5 text-sm text-ink-3">
-              The official syllabus lists {contentRoots.length} {contentRoots.length === 1 ? 'topic' : 'topics'} directly, without units.
+              The official syllabus lists {contentRoots.length} {groupWord === 'Topics' ? (contentRoots.length === 1 ? 'topic' : 'topics') : contentRoots.length === 1 ? groupWord.toLowerCase().slice(0, -1) : groupWord.toLowerCase()}
+              {groupWord === 'Topics' ? ' directly, without units' : ', with no further topics under them'}.
             </p>
           </div>
           <Tree nodes={contentRoots} childrenOf={childrenOf} />

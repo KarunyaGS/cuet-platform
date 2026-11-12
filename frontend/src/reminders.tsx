@@ -53,7 +53,7 @@ export function RemindersBell() {
         {items.length > 0 && (
           <span className="num absolute top-1 right-1 grid min-w-4 place-items-center rounded-full bg-wrong px-1 text-[10px] leading-4 font-semibold text-white">{items.length}</span>
         )}
-        <span className="sr-only">{items.length ? `${items.length} reminders` : 'No reminders'}</span>
+        <span className="sr-only">{items.length ? `${items.length} ${items.length === 1 ? 'reminder' : 'reminders'}` : 'No reminders'}</span>
       </button>
       {open && (
         <div role="dialog" aria-label="Reminders" className="absolute right-0 z-40 mt-2 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-rule bg-surface shadow-lg shadow-ink/5">

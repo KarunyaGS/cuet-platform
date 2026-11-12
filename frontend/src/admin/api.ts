@@ -117,6 +117,10 @@ export const ACTION_LABEL: Record<string, string> = {
   ACCOUNT_SUSPENDED: 'Suspended an account', ACCOUNT_RESTORED: 'Restored an account', ROLE_GRANTED: 'Granted a role', ROLE_REVOKED: 'Removed a role', CREATE_RESET_LINK: 'Created a password reset link',
   RESET_PASSWORD: 'Reset their password', REVIEW_ASSIGNED: 'Assigned a paper to a reviewer', REVIEW_UNASSIGNED: 'Removed a reviewer assignment', IMPORT_OFFICIAL_INFO: 'Imported official exam information',
   DELETE_QUESTION: 'Deleted a question', DELETE_RESOURCE: 'Deleted a lesson',
+  CREATE_QUESTION: 'Created a question', UPDATE_QUESTION: 'Edited a question', CREATE_RESOURCE: 'Created a lesson', UPDATE_RESOURCE: 'Edited a lesson', CREATE_MEDIA: 'Added a diagram or image',
+  IMPORT_SYLLABUS: 'Imported a syllabus', REGISTER_PAPERS: 'Registered papers', SOURCE_DOCUMENT_ISSUE: 'Recorded a source document issue', SOURCE_FIGURE_STORED: 'Stored a source figure',
+  REVIEW_VERIFIED: 'Approved content as reviewer', REVIEW_CHANGES_REQUESTED: 'Requested changes to content', REVIEW_REJECTED: 'Rejected content', REVIEW_SUBMITTED: 'Sent content for review',
+  REVIEW_APPROVED: 'Approved content for publishing', REVIEW_PUBLISHED: 'Published content', REVIEW_UNPUBLISHED: 'Unpublished content', REVIEW_ARCHIVED: 'Archived content', EDIT_NODE: 'Edited a syllabus row',
 };
 export const actionLabel = (a: string) => ACTION_LABEL[a] ?? a.charAt(0) + a.slice(1).toLowerCase().replace(/_/g, ' ');
 export const when = (iso: string | null) => (iso ? new Date(iso.includes('T') ? iso : `${iso.replace(' ', 'T')}Z`).toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }) : 'Never');

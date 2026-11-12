@@ -282,7 +282,7 @@ export function AdminStudent() {
             { label: 'Tests submitted', value: d.totals.sessions },
             { label: 'Questions answered', value: d.totals.answered },
             { label: 'Accuracy', value: d.totals.accuracy === null ? '–' : `${d.totals.accuracy}%` },
-            { label: 'Bookmarks', value: d.bookmarks, hint: `${d.planItems} plan items` },
+            { label: 'Bookmarks', value: d.bookmarks, hint: `${d.planItems} plan ${d.planItems === 1 ? 'item' : 'items'}` },
             { label: 'Signed-in devices', value: d.openSessions },
           ]}
         />

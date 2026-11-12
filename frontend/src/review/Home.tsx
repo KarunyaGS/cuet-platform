@@ -2,7 +2,7 @@
 import { ClipboardList } from 'lucide-react';
 import { Link, NavLink, Outlet } from 'react-router';
 import { ApiError } from '../api';
-import { reviewContentApi, VERIFICATION, when } from '../admin/api';
+import { reviewContentApi, when } from '../admin/api';
 import { ContentBrowser } from '../admin/ContentBrowser';
 import { Empty, ErrorBox, Loading, Meter, PageHeader, SectionTitle, StatGroup, useLoad } from '../ui';
 
@@ -88,7 +88,7 @@ export function ReviewDashboard() {
                 <li key={r.id} className="px-4 py-2.5 text-sm">
                   <span className="text-ink">
                     {{ CURRICULUM_NODE: 'Syllabus row', QUESTION: 'Question', LEARNING_RESOURCE: 'Lesson', SYLLABUS_VERSION: 'Syllabus' }[r.entity_type] ?? r.entity_type}:{' '}
-                    <span className="font-medium">{VERIFICATION[r.to_status ?? '']?.label ?? r.action.toLowerCase().replace(/_/g, ' ')}</span>
+                    <span className="font-medium">{{ VERIFIED: 'approved', CHANGES_REQUESTED: 'changes requested', REJECTED: 'rejected', EDITED: 'edited' }[r.action] ?? r.action.toLowerCase().replace(/_/g, ' ')}</span>
                   </span>
                   <span className="num ml-2 text-xs text-ink-3">{when(r.created_at)}</span>
                   {r.comment && <p className="text-ink-2">{r.comment}</p>}
