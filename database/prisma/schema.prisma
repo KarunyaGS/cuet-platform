@@ -361,6 +361,12 @@ model CurriculumNode {
   /// sha256 of the normalised path + kind + label + title + body. Unique per version: blocks duplicate imports.
   contentHash       String               @map("content_hash")
   verification      VerificationStatus   @default(UNVERIFIED)
+  /// JSON text: this row's automatic check against its source page (words not found there, second-extractor agreement, blocking flags).
+  checkJson         String?              @map("check_json")
+  /// User id of the person who typed this row (manual transcription or an added row). NULL for machine-extracted rows.
+  authoredBy        String?              @map("authored_by")
+  /// User id of the last person who corrected this row.
+  editedBy          String?              @map("edited_by")
   createdAt         DateTime             @default(now()) @map("created_at")
   updatedAt         DateTime             @updatedAt @map("updated_at")
   syllabusVersion   SyllabusVersion      @relation(fields: [syllabusVersionId], references: [id], onDelete: Cascade)
@@ -377,6 +383,8 @@ model CurriculumNode {
 
   @@unique([syllabusVersionId, contentHash])
   @@index([syllabusVersionId, parentId, position])
+  /// Children of a row and recursive subtree walks (topic pages, unit-wide practice).
+  @@index([parentId, position])
   @@index([syllabusVersionId, verification])
   @@map("curriculum_nodes")
 }
@@ -453,10 +461,31 @@ model SourceDocument {
   importRuns        ImportRun[]
   sourceTables      SourceTable[]
   extractionJobs    ExtractionJob[]
+  pageChecks        SourcePageCheck[]
 
   @@index([kind])
   @@index([url])
   @@map("source_documents")
+}
+
+/// Independent visual check of one page of a source document: OCR of the rendered page compared with the extracted text.
+model SourcePageCheck {
+  id               String         @id @default(cuid())
+  sourceDocumentId String         @map("source_document_id")
+  page             Int
+  method           String
+  /// OK (nothing missing), CHECK (words seen on the page are missing from the extraction) or NO_TEXT.
+  status           String
+  ocrWords         Int            @map("ocr_words")
+  foundWords       Int            @map("found_words")
+  foundPct         Float?         @map("found_pct")
+  /// Words the visual check saw on the page that the extraction does not contain (sample, space-separated).
+  missingSample    String?        @map("missing_sample")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  sourceDocument   SourceDocument @relation(fields: [sourceDocumentId], references: [id], onDelete: Cascade)
+
+  @@unique([sourceDocumentId, page, method])
+  @@map("source_page_checks")
 }
 
 /// Points any record (by type and id) at the place in a source document it came from.
@@ -488,6 +517,8 @@ model LearningResource {
   verification      VerificationStatus @default(UNVERIFIED)
   isDemonstration   Boolean            @default(false) @map("is_demonstration")
   contentHash       String             @unique @map("content_hash")
+  /// Stable key of the authored content pack item (re-imports update this record instead of duplicating it).
+  externalKey       String?            @unique @map("external_key")
   version           Int                @default(1)
   createdAt         DateTime           @default(now()) @map("created_at")
   updatedAt         DateTime           @updatedAt @map("updated_at")
@@ -544,6 +575,8 @@ model MediaAsset {
   /// Curriculum node the figure belongs to (nearest heading on its page), if known.
   curriculumNodeId  String?            @map("curriculum_node_id")
   origin            ContentOrigin      @default(AUTHORED)
+  /// Stable key of the authored content pack item (re-imports update this record instead of duplicating it).
+  externalKey       String?            @unique @map("external_key")
   status            PublishStatus      @default(DRAFT)
   verification      VerificationStatus @default(UNVERIFIED)
   createdAt         DateTime           @default(now()) @map("created_at")
@@ -624,6 +657,8 @@ model Question {
   isDemonstration    Boolean            @default(false) @map("is_demonstration")
   /// sha256 of normalised stem + options; unique so the same question cannot be imported twice.
   contentHash        String             @unique @map("content_hash")
+  /// Stable key of the authored content pack item (re-imports update this record instead of duplicating it).
+  externalKey        String?            @unique @map("external_key")
   version            Int                @default(1)
   createdAt          DateTime           @default(now()) @map("created_at")
   updatedAt          DateTime           @updatedAt @map("updated_at")
@@ -725,7 +760,8 @@ model QuestionTopic {
   curriculumNode   CurriculumNode @relation(fields: [curriculumNodeId], references: [id], onDelete: Cascade)
 
   @@id([questionId, curriculumNodeId])
-  @@index([curriculumNodeId])
+  /// Topic -> its questions, covering (no lookup into the table).
+  @@index([curriculumNodeId, questionId])
   @@map("question_topics")
 }
 

@@ -10,7 +10,15 @@ async function call(method: string, path: string, body?: unknown, headers: Recor
   const res = await app.request(path, { method, headers, body: body === undefined ? undefined : typeof body === 'string' || body instanceof ArrayBuffer ? (body as BodyInit) : JSON.stringify(body) }, env, ctx);
   await waitOnExecutionContext(ctx);
   const text = await res.text();
-  return { status: res.status, json: text ? JSON.parse(text) : null };
+  return { status: res.status, json: text ? JSON.parse(text) : null, cookie: res.headers.get('set-cookie') };
+}
+
+async function reviewer(email: string) {
+  const json = { 'content-type': 'application/json' };
+  await call('POST', '/api/auth/register', { email, password: 'correct horse battery', displayName: 'Reviewer' }, json);
+  await call('POST', '/api/admin/users/roles', { email, role: 'REVIEWER' });
+  const res = await call('POST', '/api/auth/login', { email, password: 'correct horse battery' }, json);
+  return { ...json, cookie: res.cookie!.split(';')[0]! };
 }
 
 const sha = (c: string) => c.repeat(64);
@@ -180,7 +188,10 @@ describe('question bank and deterministic answering', () => {
     const id = created.json.id;
     expect((await call('POST', '/api/admin/review', { entityType: 'QUESTION', entityIds: [id], action: 'SUBMITTED' })).status).toBe(200);
     expect((await call('POST', '/api/admin/review', { entityType: 'QUESTION', entityIds: [id], action: 'APPROVED' })).status).toBe(409); // not verified yet
-    expect((await call('POST', '/api/admin/review', { entityType: 'QUESTION', entityIds: [id], action: 'VERIFIED' })).status).toBe(200);
+    // VERIFIED only by a signed-in reviewer, never through the admin token.
+    expect((await call('POST', '/api/admin/review', { entityType: 'QUESTION', entityIds: [id], action: 'VERIFIED' })).status).toBe(403);
+    const person = await reviewer('reviewer-publish@example.test');
+    expect((await call('POST', '/api/review/decide', { entityType: 'QUESTION', entityIds: [id], action: 'VERIFIED', checklist: { answerChecked: true } }, person)).status).toBe(200);
     expect((await call('POST', '/api/admin/review', { entityType: 'QUESTION', entityIds: [id], action: 'APPROVED' })).status).toBe(200);
     const pub = await call('POST', '/api/admin/review', { entityType: 'QUESTION', entityIds: [id], action: 'PUBLISHED' });
     expect(pub.status).toBe(409);

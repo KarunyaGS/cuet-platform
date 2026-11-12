@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { lazy, StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
@@ -12,8 +12,14 @@ import { ResultsPage } from './pages/Results';
 import { SubjectPage } from './pages/Subject';
 import { Subjects } from './pages/Subjects';
 import { TopicPage } from './pages/Topic';
-import { AuthProvider } from './ui';
+import { AuthProvider, Loading } from './ui';
+import 'katex/dist/katex.min.css';
 import './styles.css';
+
+// Reviewer screens (pdf.js) load only when a reviewer opens them.
+const ReviewQueue = lazy(() => import('./review/Queue').then((m) => ({ default: m.ReviewQueue })));
+const ReviewWorkspace = lazy(() => import('./review/Workspace').then((m) => ({ default: m.ReviewWorkspace })));
+const lazyPage = (el: React.ReactNode) => <Suspense fallback={<Loading />}>{el}</Suspense>;
 
 const router = createBrowserRouter([
   {
@@ -23,6 +29,8 @@ const router = createBrowserRouter([
       { path: '/signin', element: <AuthPage mode="signin" /> },
       { path: '/signup', element: <AuthPage mode="signup" /> },
       { path: '/progress', element: <ProgressPage /> },
+      { path: '/review', element: lazyPage(<ReviewQueue />) },
+      { path: '/review/paper/:paperId', element: lazyPage(<ReviewWorkspace />) },
       { path: '/topic/:nodeId', element: <TopicPage /> },
       { path: '/learn/:resourceId', element: <LearnPage /> },
       { path: '/practice/:sessionId', element: <PracticePage /> },

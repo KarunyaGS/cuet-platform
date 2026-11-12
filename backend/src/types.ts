@@ -17,7 +17,7 @@ export interface Bindings {
 export interface Variables {
   prisma: PrismaClient;
   actor: string;
-  user: { id: string; email: string; displayName: string; roles: string[] };
+  user: { id: string; email: string; displayName: string; roles: string[]; permissions?: string[] };
 }
 
 export type AppEnv = { Bindings: Bindings; Variables: Variables };

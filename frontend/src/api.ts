@@ -5,7 +5,7 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
+export async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
   const res = await fetch(path, {
     method,
     credentials: 'same-origin',
@@ -36,7 +36,11 @@ export interface TopicDetail {
   questionCount: number;
 }
 export interface Block { position: number; type: string; body: string; media_asset_id: string | null; alt_text: string | null; caption: string | null; media_kind: string | null }
-export interface ResourceDetail { resource: { id: string; type: string; title: string; origin: string; verification: string; status: string; preview: boolean }; blocks: Block[] }
+export interface ResourceDetail {
+  resource: { id: string; type: string; title: string; origin: string; verification: string; status: string; preview: boolean; updatedAt?: string };
+  topic: { id: string; title: string; kind: string; label: string | null; paper_id: string } | null;
+  blocks: Block[];
+}
 export interface User { id: string; email: string; displayName: string; roles: string[] }
 export interface SessionQuestion {
   number: number; id: string; type: string; stem: string; difficulty: string; preview: boolean; origin: string;

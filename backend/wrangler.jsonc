@@ -1,9 +1,12 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  // Local development configuration. Nothing here is deployed by the scripts in this repo.
-  // The database_id below is a placeholder used only for the local D1 copy that Wrangler
-  // keeps in .wrangler/state. Remote commands will fail until a real development database
-  // is created and its id is put here (see docs/database.md).
+  // ONE Worker for CUET. Two configurations:
+  //  - top level: LOCAL DEVELOPMENT ONLY (`npm run dev:api`). Never deployed. Its D1 id is a placeholder that
+  //    only names the local copy in .wrangler/state, so a remote deploy of this configuration fails safely.
+  //  - env.production: the production Worker, named "cuet" (CUET; Wrangler requires lower case). Deployed only with
+  //    `npm run deploy:production -w @cuet/api`, which refuses to run until docs/deployment.md is completed
+  //    and CUET_DEPLOY_APPROVED=yes is set by the person approving the release.
+  // No account id, token or secret belongs in this file. Secrets: `wrangler secret put <NAME> --env production`.
   "name": "cuet-platform-dev",
   "main": "src/index.ts",
   "compatibility_date": "2026-11-12",
@@ -38,5 +41,40 @@
     // Must be "false" (or absent) anywhere real students use the app.
     "CONTENT_PREVIEW": "true",
     "SESSION_TTL_HOURS": "168"
+  },
+  "env": {
+    "production": {
+      // The production Worker "CUET". Wrangler 4 accepts only lowercase names, so it is created as "cuet"
+      // (Cloudflare dashboard and URL: cuet). The exact upper-case name "CUET" is rejected by Wrangler.
+      "name": "cuet",
+      // https://cuet.ceo-3a7.workers.dev until a custom domain is chosen.
+      "workers_dev": true,
+      "preview_urls": false,
+      "d1_databases": [
+        {
+          "binding": "DB",
+          // Created manually in the company account on 2026-11-12 (D1 database ids are not secrets).
+          "database_name": "cuet-db",
+          "database_id": "c2902e7e-d77a-49fc-ae05-f18a513df22a",
+          "migrations_dir": "../database/migrations"
+        }
+      ],
+      "r2_buckets": [
+        {
+          // Private bucket (no public access), created manually on 2026-11-12. Files are served only through the
+          // Worker: official PDFs to reviewers (/api/review/sources/:id/file), published media to students (/api/learn/media/:id).
+          "binding": "MEDIA",
+          "bucket_name": "cuet-storage"
+        }
+      ],
+      "vars": {
+        "APP_ENV": "production",
+        "MAX_PAGE_SIZE": "100",
+        "MAX_UPLOAD_BYTES": "26214400",
+        // Students see only PUBLISHED syllabus and content (approved by a person) in production.
+        "CONTENT_PREVIEW": "false",
+        "SESSION_TTL_HOURS": "168"
+      }
+    }
   }
 }

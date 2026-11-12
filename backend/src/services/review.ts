@@ -62,6 +62,10 @@ function target(action: ReviewInput['action'], cur: Current, hasStatus: boolean)
 
 export async function applyReview(db: D1Database, input: ReviewInput, actor: string) {
   const cfg = ENTITIES[input.entityType];
+  // VERIFIED means a person checked it. Scripts, imports and the shared admin token can never set it.
+  if (input.action === 'VERIFIED' && !actor.startsWith('user:')) {
+    throw new ApiError(403, 'HUMAN_REVIEW_REQUIRED', 'Only a signed-in reviewer can mark content VERIFIED (use the reviewer screen)');
+  }
   const statusActions = ['SUBMITTED', 'APPROVED', 'PUBLISHED', 'UNPUBLISHED', 'ARCHIVED'];
   if (!cfg.hasStatus && statusActions.includes(input.action)) {
     throw invalid(`${input.entityType} has no publishing status; publish its syllabus version instead`);
@@ -88,8 +92,8 @@ export async function applyReview(db: D1Database, input: ReviewInput, actor: str
     .all<Current>();
   if (results.length !== ids.length) throw notFound(`${ids.length - results.length} of the ${input.entityType} records`);
 
-  // Extra gates before approval.
-  if (input.action === 'APPROVED' && input.entityType === 'SYLLABUS_VERSION') {
+  // Extra gates before verification and approval.
+  if ((input.action === 'APPROVED' || input.action === 'VERIFIED') && input.entityType === 'SYLLABUS_VERSION') {
     const pending = await db
       .prepare(`SELECT syllabus_version_id, COUNT(*) AS n FROM curriculum_nodes WHERE syllabus_version_id IN (${placeholders}) AND verification IN ('UNVERIFIED','NEEDS_CHANGES') GROUP BY syllabus_version_id`)
       .bind(...ids)

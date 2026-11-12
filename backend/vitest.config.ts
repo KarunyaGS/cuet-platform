@@ -13,6 +13,7 @@ export default defineConfig(async () => {
         miniflare: { bindings: { TEST_MIGRATIONS: migrations, ADMIN_API_TOKEN: 'test-admin-token' } },
       }),
     ],
-    test: { setupFiles: ['./test/setup.ts'] },
+    // Password hashing (PBKDF2, 100k iterations) makes sign-in tests slow on a busy machine.
+    test: { setupFiles: ['./test/setup.ts'], testTimeout: 30_000 },
   };
 });

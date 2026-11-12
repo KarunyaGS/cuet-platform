@@ -119,7 +119,14 @@ export async function resourceDetail(db: D1Database, preview: boolean, id: strin
     .prepare(`SELECT b.position, b.type, b.body, b.media_asset_id, m.alt_text, m.caption, m.kind AS media_kind FROM content_blocks b LEFT JOIN media_assets m ON m.id = b.media_asset_id WHERE b.resource_id = ? ORDER BY b.position`)
     .bind(id)
     .all();
-  return { resource: { id: r.id, type: r.type, title: r.title, origin: r.origin, verification: r.verification, status: r.status, preview: r.status !== 'PUBLISHED' }, blocks: results };
+  const node = r.curriculum_node_id
+    ? await db.prepare('SELECT n.id, n.title, n.kind, n.label, v.test_paper_id AS paper_id FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id WHERE n.id = ?').bind(r.curriculum_node_id).first()
+    : null;
+  return {
+    resource: { id: r.id, type: r.type, title: r.title, origin: r.origin, verification: r.verification, status: r.status, preview: r.status !== 'PUBLISHED', updatedAt: r.updated_at },
+    topic: node,
+    blocks: results,
+  };
 }
 
 export async function mediaObject(db: D1Database, bucket: R2Bucket, preview: boolean, id: string) {
@@ -127,5 +134,7 @@ export async function mediaObject(db: D1Database, bucket: R2Bucket, preview: boo
   if (!m || !m.r2_key || m.verification === 'REJECTED' || (m.status !== 'PUBLISHED' && !preview)) throw notFound('Media');
   const obj = await bucket.get(m.r2_key);
   if (!obj) throw notFound('Media file');
-  return new Response(obj.body, { headers: { 'content-type': m.mime_type, 'cache-control': 'public, max-age=86400' } });
+  return new Response(obj.body, {
+    headers: { 'content-type': m.mime_type, 'cache-control': 'public, max-age=86400', 'x-content-type-options': 'nosniff', 'content-security-policy': "default-src 'none'; style-src 'unsafe-inline'; sandbox" },
+  });
 }

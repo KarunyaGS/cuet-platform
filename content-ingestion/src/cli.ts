@@ -14,7 +14,8 @@ import { runTrace } from './trace';
 import { printVerification, runVerification } from './verify';
 import { discover } from './discover';
 import { extractPaper } from './extract';
-import { runImport } from './importer';
+import { adminToken, runImport } from './importer';
+import { importPacks, renderSvg, snapshot, validateAll } from './content';
 import type { ExtractionResult, Registry } from './types';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -203,7 +204,29 @@ try {
   else if (cmd === 'crosscheck') printCrosscheck(await runCrosscheck(loadRegistry(), { extracted: PATHS.extracted, audit: PATHS.audit, cache: PATHS.cache }));
   else if (cmd === 'trace') await runTrace(loadRegistry(), { extracted: PATHS.extracted, audit: PATHS.audit, verification: PATHS.verification }, option('api') ?? 'http://127.0.0.1:8787');
   else if (cmd === 'verify') printVerification(await runVerification(loadRegistry(), { extracted: PATHS.extracted, audit: PATHS.audit, out: PATHS.verification }));
-  else if (cmd === 'import') await runImport({ registry: loadRegistry(), api: option('api') ?? 'http://127.0.0.1:8787', paths: { extracted: PATHS.extracted, verification: PATHS.verification } });
+  else if (cmd === 'import') await runImport({ registry: loadRegistry(), api: option('api') ?? 'http://127.0.0.1:8787', paths: { extracted: PATHS.extracted, verification: PATHS.verification, audit: PATHS.audit } });
+  else if (cmd === 'content-snapshot') {
+    const exam = option('exam') ?? 'CUET_UG';
+    for (const paper of (option('paper') ?? '').split(',').filter(Boolean)) {
+      const r = await snapshot(option('api') ?? 'http://127.0.0.1:8787', adminToken(), exam, 2026, paper);
+      console.log(`${exam} ${paper}: ${r.rows} verified rows -> ${r.file}`);
+    }
+  } else if (cmd === 'content-validate') {
+    const reports = validateAll(option('exam'), option('paper'));
+    for (const r of reports) {
+      console.log(`${r.ok ? 'OK  ' : 'FAIL'} ${r.file.replace(/^.*packs[\/]/, '')}  words ${r.stats.lessonWords}, solved ${r.stats.solved}, formulas ${r.stats.formulas}, diagrams ${r.stats.diagrams}, tables ${r.stats.tables}, questions ${r.stats.questions} ${JSON.stringify(r.stats.byDifficulty)}`);
+      for (const e of r.errors) console.log(`     x ${e}`);
+      for (const w of r.warnings) console.log(`     ! ${w}`);
+    }
+    console.log(`${reports.filter((r) => r.ok).length} of ${reports.length} packs valid`);
+    if (reports.some((r) => !r.ok)) process.exitCode = 1;
+  } else if (cmd === 'render-svg') {
+    const r = await renderSvg(args[1]!, args[2]!, Number(option('width') ?? 900));
+    console.log(`Rendered ${args[1]} -> ${args[2]} (${r.width}x${r.height})`);
+  } else if (cmd === 'content-import') {
+    const r = await importPacks(option('api') ?? 'http://127.0.0.1:8787', adminToken(), option('exam'), option('paper'));
+    console.log(JSON.stringify(r, null, 1));
+  }
   else console.log('Commands: discover | extract [--exam X] [--paper CODE] [--only-unfinished] [--refresh] | status | import [--allow-incomplete]');
 } catch (e) {
   console.error((e as Error).message);

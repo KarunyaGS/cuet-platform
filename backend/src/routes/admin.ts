@@ -12,6 +12,8 @@ import {
 import { jobReportSchema, paperRegistrySchema, registerPapers, reportJob } from '../services/registry';
 import { createResource, deleteResource, getResource, listResources, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
+import { machineCorrection, machineCorrectionSchema, pageChecksSchema, roleSchema, setRole, storePageChecks } from '../services/maintenance';
+import { upsertMedia, upsertQuestion, upsertResource } from '../services/content-packs';
 import { storeObject } from '../services/storage';
 
 const admin = new Hono<AppEnv>();
@@ -77,7 +79,14 @@ admin.get('/coverage/papers', async (c) => {
 });
 admin.get('/coverage/papers/:id/topics', async (c) => c.json(await topicCoverage(c.env.DB, c.req.param('id'))));
 
-// Review and publishing
+// Accounts, page checks and machine corrections (ingestion CLI)
+admin.post('/users/roles', async (c) => c.json(await setRole(c.env.DB, await readJson(c, roleSchema), c.get('actor'))));
+admin.put('/page-checks', async (c) => c.json(await storePageChecks(c.env.DB, await readJson(c, pageChecksSchema))));
+admin.post('/nodes/:id/machine-correction', async (c) =>
+  c.json(await machineCorrection(c.env.DB, c.req.param('id'), await readJson(c, machineCorrectionSchema), c.get('actor'))),
+);
+
+// Review and publishing. VERIFIED is refused here: only a signed-in reviewer can set it (/api/review/decide).
 admin.post('/review', async (c) => c.json(await applyReview(c.env.DB, await readJson(c, reviewSchema), c.get('actor'))));
 admin.get('/review/history', async (c) => {
   const q = z.object({ entityType: z.string().max(40), entityId: z.string().max(100) }).parse({ entityType: c.req.query('entityType'), entityId: c.req.query('entityId') });
@@ -98,6 +107,11 @@ admin.delete('/questions/:id', async (c) => c.json(await deleteQuestion(c.env.DB
 admin.post('/questions/:id/preview-evaluate', async (c) =>
   c.json(await evaluateQuestion(c.get('prisma'), c.req.param('id'), await readJson(c, evaluateSchema), { allowUnpublished: true })),
 );
+
+// Content packs: idempotent upserts by stable key (never overwrite content a person has reviewed)
+admin.put('/content/resources/:key', async (c) => c.json(await upsertResource(c.env.DB, c.req.param('key'), await c.req.json(), c.get('actor'))));
+admin.put('/content/questions/:key', async (c) => c.json(await upsertQuestion(c.env.DB, c.req.param('key'), await c.req.json(), c.get('actor'))));
+admin.put('/content/media/:key', async (c) => c.json(await upsertMedia(c.env.DB, c.env.MEDIA, c.req.param('key'), await c.req.json(), c.get('actor'))));
 
 // Learning resources
 admin.get('/resources', async (c) =>

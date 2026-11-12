@@ -45,7 +45,7 @@ export interface PaperVerification {
 const BLOCKING_FLAGS = ['heading_inferred_from_formatting', 'heading_found_inside_body', 'symbols_lost_in_pdf_text', 'formula_text_check_layout', 'ocr'];
 const tokens = (s: string) => s.normalize('NFKC').toLowerCase().match(/[\p{L}\p{M}\p{N}]{2,}/gu) ?? [];
 
-function parseCsv(text: string): Record<string, string>[] {
+export function parseCsv(text: string): Record<string, string>[] {
   const rows: string[][] = [];
   let row: string[] = [];
   let cell = '';

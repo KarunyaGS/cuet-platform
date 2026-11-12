@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet, useNavigate } from 'react-router';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router';
 import { api } from './api';
 import { useAuth } from './ui';
 
@@ -8,6 +8,7 @@ const nav = ({ isActive }: { isActive: boolean }) =>
 export function Layout() {
   const { user, preview, refresh } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   return (
     <div className="min-h-dvh">
       <header className="sticky top-0 z-20 border-b border-zinc-200 bg-white/90 backdrop-blur">
@@ -26,6 +27,11 @@ export function Layout() {
             <NavLink to="/progress" className={nav}>
               Progress
             </NavLink>
+            {user?.roles.some((r) => ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'].includes(r)) && (
+              <NavLink to="/review" className={nav}>
+                Review
+              </NavLink>
+            )}
           </nav>
           <div className="ml-auto flex items-center gap-2 text-sm">
             {user ? (
@@ -60,7 +66,7 @@ export function Layout() {
           </div>
         )}
       </header>
-      <main className="mx-auto max-w-6xl px-4 py-5">
+      <main className={`mx-auto px-4 py-5 ${location.pathname.startsWith('/review') ? 'max-w-[96rem]' : 'max-w-6xl'}`}>
         <Outlet />
       </main>
     </div>

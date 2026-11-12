@@ -16,7 +16,12 @@
     "typecheck": "tsc -p tsconfig.json",
     "types": "wrangler types",
     "prebuild": "node scripts/ensure-assets-dir.mjs",
-    "build": "wrangler deploy --dry-run --outdir dist"
+    "build": "wrangler deploy --dry-run --outdir dist",
+    "build:production": "wrangler deploy --env production --dry-run --outdir dist-production",
+    "dev:production-config": "wrangler dev --env production --local --port 8788",
+    "migrate:production-config:local": "wrangler d1 migrations apply DB --env production --local",
+    "migrate:production": "wrangler d1 migrations apply DB --env production --remote",
+    "deploy:production": "node scripts/predeploy-check.mjs && wrangler deploy --env production"
   },
   "dependencies": {
     "@cuet/database": "*",

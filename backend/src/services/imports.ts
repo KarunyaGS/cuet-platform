@@ -25,6 +25,8 @@ export const syllabusBundleSchema = z.object({
     r2Key: z.string().max(300).optional(),
   }),
   extractor: z.object({ name: z.string().max(80), version: z.string().max(40), mode: z.string().max(40) }),
+  /** Why this version needs a person (review reasons, or why extraction is blocked). Stored on the version. */
+  notes: z.string().max(4000).optional(),
   /** Machine verification evidence. Without it, rows arrive UNVERIFIED. Human verification never comes through imports. */
   verification: z
     .object({
@@ -46,6 +48,15 @@ export const syllabusBundleSchema = z.object({
         depth: z.number().int().min(1).max(12),
         sourcePage: z.number().int().min(1).nullable(),
         flags: z.array(z.string().max(120)).max(20),
+        /** This row's automatic check against its source page, kept so reviewers can see exactly what failed. */
+        check: z
+          .object({
+            ok: z.boolean(),
+            missingOnPage: z.array(z.string().max(200)).max(200),
+            secondExtractorAgreementPct: z.number().min(0).max(100),
+            flags: z.array(z.string().max(120)).max(20),
+          })
+          .optional(),
       }),
     )
     .max(5000),
@@ -193,7 +204,7 @@ export async function importSyllabus(prisma: PrismaClient, db: D1Database, bundl
     nodeRows.push({
       id, syllabus_version_id: versionId, parent_id: n.parentRef ? idByRef.get(n.parentRef)! : null, kind: n.kind,
       label: n.label, title: n.title, body: n.body, position: n.position, depth: n.depth, source_page: n.sourcePage,
-      extraction_flags: n.flags.length ? n.flags.join(',') : null, content_hash: hash, verification,
+      extraction_flags: n.flags.length ? n.flags.join(',') : null, content_hash: hash, verification, check_json: n.check ? JSON.stringify(n.check) : null,
       created_at: now, updated_at: now,
     });
   }
@@ -255,7 +266,7 @@ export async function importSyllabus(prisma: PrismaClient, db: D1Database, bundl
       verification, is_demonstration: false, extracted_at: now, published_at: null,
       notes: bundle.verification
         ? `Machine-extracted by ${bundle.extractor.name} ${bundle.extractor.version} (${bundle.extractor.mode}); machine-verified by ${bundle.verification.method}. Not yet signed off by a person.`
-        : `Machine-extracted by ${bundle.extractor.name} ${bundle.extractor.version} (${bundle.extractor.mode}). Not verified.`,
+        : `Machine-extracted by ${bundle.extractor.name} ${bundle.extractor.version} (${bundle.extractor.mode}). Not verified.${bundle.notes ? ` ${bundle.notes}` : ''}`,
       created_at: now, updated_at: now,
     }]),
     ...(bundle.verification

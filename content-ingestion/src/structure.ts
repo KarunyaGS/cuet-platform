@@ -44,7 +44,11 @@ const RULES: Rule[] = [
   { kind: 'ITEM', rank: 4, re: /^\(((?:(?![A-Za-z])\p{L}\p{M}*){1,2}|\p{Nd}{1,2})\)\s*(\S.*)$/u },
 ];
 
-const NOISE = /^(?:for the year 20\d\d\b.*|syllabus for\b.*|cuet\s*\((?:ug|pg)\).*|\((?:ug|pg)\)|(?:\d+\s*\|\s*)?pa\s*ge(?:\s*\d+)?|page\s*\|?\s*\d+(?:\s*of\s*\d+)?|\d{1,3}|[()]|syllabus|for)$/i;
+const NOISE = /^(?:for the year 20\d\d\b.*|syllabus for\b.*|cuet\s*\((?:ug|pg)\).*|\((?:ug|pg)\)|(?:\d+\s*\|\s*)?p\s*a\s*g\s*e(?:\s*\d+)?|page\s*\|?\s*\d+(?:\s*of\s*\d+)?|\d{1,3}|[()]|syllabus|for)$/i;
+
+/** Page footers such as "2 | P a g e" that the PDF layout merged into the middle of a text line. */
+export const INLINE_FOOTER = /(?:^|\s)\d{1,3}\s*\|\s*P\s?a\s?g\s?e(?=\s|$)/gi;
+export const stripInlineFooter = (text: string) => text.replace(INLINE_FOOTER, ' ').replace(/\s{2,}/g, ' ').trim();
 
 export function isNoise(line: string, paperCode: string, paperName: string): boolean {
   const t = line.trim();
@@ -82,7 +86,7 @@ export const ANCHOR_PREFIX = '\u0000ANCHOR:';
 
 export function buildTree(lines: SourceLine[], paperCode: string, paperName: string): StructureResult {
   const all = lines.map((l) =>
-    l.text.startsWith(ANCHOR_PREFIX) ? l : { ...l, text: l.text.normalize('NFC').replace(/\s+/g, ' ').trim() },
+    l.text.startsWith(ANCHOR_PREFIX) ? l : { ...l, text: stripInlineFooter(l.text.normalize('NFC').replace(/\s+/g, ' ')) },
   );
   const entries = all.filter((l) => l.text.startsWith(ANCHOR_PREFIX) || !isNoise(l.text, paperCode, paperName));
   const textOnly = entries.filter((l) => !l.text.startsWith(ANCHOR_PREFIX));
