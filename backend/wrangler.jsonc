@@ -1,0 +1,42 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Local development configuration. Nothing here is deployed by the scripts in this repo.
+  // The database_id below is a placeholder used only for the local D1 copy that Wrangler
+  // keeps in .wrangler/state. Remote commands will fail until a real development database
+  // is created and its id is put here (see docs/database.md).
+  "name": "cuet-platform-dev",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-12",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "../frontend/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "cuet-platform-dev",
+      "database_id": "00000000-0000-4000-8000-000000000000",
+      "migrations_dir": "../database/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      // Locally Wrangler stores these objects on disk under .wrangler/state (no Cloudflare account needed).
+      "binding": "MEDIA",
+      "bucket_name": "cuet-platform-media-dev"
+    }
+  ],
+  "vars": {
+    "APP_ENV": "development",
+    "MAX_PAGE_SIZE": "100",
+    "MAX_UPLOAD_BYTES": "26214400",
+    // Local development only: lets students see machine-verified syllabus and draft content, labelled "preview".
+    // Must be "false" (or absent) anywhere real students use the app.
+    "CONTENT_PREVIEW": "true",
+    "SESSION_TTL_HOURS": "168"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "@cuet/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CUET platform API on Cloudflare Workers (Hono + Prisma + D1 + R2)",
+  "scripts": {
+    "predev": "node scripts/ensure-assets-dir.mjs",
+    "dev": "wrangler dev --local --port 8787",
+    "migrate:local": "wrangler d1 migrations apply DB --local",
+    "migrations:list:local": "wrangler d1 migrations list DB --local",
+    "seed:local": "node scripts/seed-local.mjs",
+    "db:query:local": "wrangler d1 execute DB --local --command",
+    "pretest": "node scripts/ensure-assets-dir.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json",
+    "types": "wrangler types",
+    "prebuild": "node scripts/ensure-assets-dir.mjs",
+    "build": "wrangler deploy --dry-run --outdir dist"
+  },
+  "dependencies": {
+    "@cuet/database": "*",
+    "hono": "^4.13.18",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.8.0",
+    "vitest": "~4.1.12",
+    "wrangler": "^4.160.1"
+  }
+}

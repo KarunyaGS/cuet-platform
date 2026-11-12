@@ -1,0 +1,47 @@
+{
+  "note": "Problems found in the official NTA syllabus documents themselves (not extraction errors). Evidence is what a person can check in the PDF.",
+  "issues": [
+    {
+      "exam": "CUET_UG",
+      "code": "111",
+      "issue": "Header under 'TAMIL - 111' also shows '- 102' (Hindi's code).",
+      "evidence": "Page 1 header of the official Tamil syllabus PDF."
+    },
+    {
+      "exam": "CUET_UG",
+      "code": "102-113",
+      "issue": "The 12 non-English language papers publish the same English template as English (101): reading comprehension (factual, narrative, literary) and verbal ability. No language-specific topics are published.",
+      "evidence": "Pages 1-2 of each official language syllabus PDF."
+    },
+    {
+      "exam": "CUET_PG",
+      "code": "LAQP37",
+      "issue": "The scanned body of the official Urdu syllabus is headed (in Urdu) 'Department of Urdu, Central University of Kashmir - syllabus for M.A. Urdu admission (2017 onwards)'. NTA appears to reuse a university's 2017 syllabus.",
+      "evidence": "Page 2 image of the official Urdu syllabus PDF."
+    },
+    {
+      "exam": "CUET_PG",
+      "code": "LAQP17,LAQP37",
+      "issue": "Syllabus body is a scanned image in Nastaliq script (Kashmiri, Urdu). No reliable local OCR model exists; needs human transcription.",
+      "evidence": "storage/local/review-pages/<code>-page<N>.png"
+    },
+    {
+      "exam": "CUET_PG",
+      "code": "COQP14",
+      "issue": "The official 2026 Law (LLM) syllabus cites legislation that has been replaced: Criminal Procedure Code, 1973 (replaced by the Bharatiya Nagarik Suraksha Sanhita, 2023 from 1 July 2024), Companies Act, 1956 (largely replaced by the Companies Act, 2013) and Juvenile Justice Act, 2000 (replaced by the Juvenile Justice Act, 2015). Keep the official text verbatim; learning content must address both the syllabus wording and current law.",
+      "evidence": "pdftotext of the official COQP14 PDF, Units on Company Law, Criminal Law II and Juvenile Justice."
+    },
+    {
+      "exam": "CUET_PG",
+      "code": "LAQP33",
+      "issue": "The official 2026 Punjabi syllabus PDF was created on 2023-12-12 (Microsoft Word 2016), two years before the cycle; every other PG syllabus PDF was created in December 2025. Likely carried over from an earlier cycle.",
+      "evidence": "PDF metadata CreationDate/ModDate D:20231212."
+    },
+    {
+      "exam": "CUET_PG",
+      "code": "ACQP06,ACQP07,ACQP14,ACQP23,ACQP25,LAQP33",
+      "issue": "Text typed in legacy non-Unicode fonts (Kruti Dev / old Gurmukhi): the PDF text layer holds Latin letters instead of Devanagari/Gurmukhi, so copying text from these PDFs gives garbage.",
+      "evidence": "e.g. ACQP23 page 2 text layer reads 'osnkUr n’kZu dk bfrgkl' for 'वेदान्त दर्शन का इतिहास'."
+    }
+  ]
+}

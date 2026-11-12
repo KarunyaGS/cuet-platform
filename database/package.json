@@ -1,0 +1,24 @@
+{
+  "name": "@cuet/database",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Prisma schema, D1 migrations and the Prisma client factory for Cloudflare D1",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "generate": "prisma generate",
+    "validate": "prisma validate && prisma format --check",
+    "migration:new": "node scripts/new-migration.mjs",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@prisma/adapter-d1": "7.10.1",
+    "@prisma/client": "7.10.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261112.1",
+    "prisma": "7.10.1"
+  }
+}

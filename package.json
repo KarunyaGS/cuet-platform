@@ -1,0 +1,35 @@
+{
+  "name": "cuet-platform",
+  "private": true,
+  "type": "module",
+  "description": "CUET-UG and CUET-PG preparation platform on Cloudflare Workers, D1 and R2",
+  "workspaces": [
+    "database",
+    "backend",
+    "frontend",
+    "content-ingestion"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "postinstall": "npm run generate -w @cuet/database",
+    "db:generate": "npm run generate -w @cuet/database",
+    "db:validate": "npm run validate -w @cuet/database",
+    "db:migration:new": "npm run migration:new -w @cuet/database --",
+    "db:migrate:local": "npm run migrate:local -w @cuet/api",
+    "db:migrations:list:local": "npm run migrations:list:local -w @cuet/api",
+    "dev:api": "npm run dev -w @cuet/api",
+    "dev:web": "npm run dev -w @cuet/web",
+    "dev": "concurrently -n api,web -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
+    "ingest": "npm run ingest -w @cuet/ingestion --",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "build": "npm run build -w @cuet/web && npm run build -w @cuet/api",
+    "check": "npm run db:validate && npm run typecheck && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.7",
+    "typescript": "^7.0.2"
+  }
+}

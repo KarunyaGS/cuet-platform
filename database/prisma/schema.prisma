@@ -1,0 +1,1017 @@
+// CUET platform schema for Cloudflare D1 (SQLite).
+//
+// Rules that shape this file:
+// - D1 is SQLite: enums are stored as TEXT, JSON is stored as TEXT (validated in the API).
+// - Media never lives in D1. Rows hold R2 object keys and metadata only.
+// - Answer keys live in their own table (answer_keys) so ordinary question reads cannot leak them.
+// - Every content row carries a publishing status and a verification status. Nothing extracted
+//   automatically is ever created as VERIFIED.
+// - Migrations are SQL files in ../migrations, generated with `prisma migrate diff` and applied with Wrangler.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  runtime  = "cloudflare"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ---------------------------------------------------------------------------
+// Shared enums
+// ---------------------------------------------------------------------------
+
+enum ExamLevel {
+  UG
+  PG
+}
+
+enum CycleStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+/// Publishing lifecycle for anything a student could eventually see.
+enum PublishStatus {
+  DRAFT
+  IN_REVIEW
+  APPROVED
+  PUBLISHED
+  ARCHIVED
+}
+
+/// Whether a person has checked the record against its source.
+enum VerificationStatus {
+  UNVERIFIED
+  /// Checked automatically against the source by independent evidence; not yet signed off by a person.
+  MACHINE_VERIFIED
+  /// Signed off by a person.
+  VERIFIED
+  NEEDS_CHANGES
+  REJECTED
+}
+
+enum CurriculumNodeKind {
+  PART
+  SECTION
+  COURSE
+  UNIT
+  CHAPTER
+  TOPIC
+  SUBTOPIC
+  ITEM
+  NOTE
+}
+
+enum CurriculumRelationType {
+  PREREQUISITE
+  RELATED
+  SAME_AS
+}
+
+enum SourceKind {
+  OFFICIAL_SYLLABUS
+  OFFICIAL_BULLETIN
+  OFFICIAL_NOTICE
+  PAST_PAPER
+  TEXTBOOK
+  OPEN_EDUCATIONAL_RESOURCE
+  LICENSED_PUBLISHER
+  COMMISSIONED
+  UNIVERSITY_DOCUMENT
+  OTHER
+}
+
+enum ResourceType {
+  LESSON
+  NOTE
+  READING
+  VIDEO
+}
+
+enum ContentBlockType {
+  HEADING
+  SOLVED_PROBLEM
+  TEXT
+  OFFICIAL_TEXT
+  DEFINITION
+  CONCEPT
+  IMPORTANT_FACT
+  KEY_POINT
+  EXAMPLE
+  FORMULA
+  TABLE
+  DIAGRAM
+  IMAGE
+  VIDEO
+  CALLOUT
+}
+
+enum MediaKind {
+  DIAGRAM
+  IMAGE
+  VIDEO
+  PDF
+  AUDIO
+}
+
+enum QuestionType {
+  MCQ_SINGLE
+  MCQ_MULTI
+  ASSERTION_REASON
+  MATCH_THE_FOLLOWING
+  STATEMENT_BASED
+  PASSAGE_BASED
+  DIAGRAM_BASED
+  NUMERICAL
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum ContentOrigin {
+  OFFICIAL_SOURCE
+  OFFICIAL_SAMPLE
+  AUTHORED
+  LICENSED
+  PAST_PAPER
+  AI_ASSISTED
+  DEMONSTRATION
+}
+
+enum QuestionMediaRole {
+  STEM
+  OPTION
+  EXPLANATION
+}
+
+enum ReviewEntityType {
+  SYLLABUS_VERSION
+  CURRICULUM_NODE
+  SOURCE_DOCUMENT
+  LEARNING_RESOURCE
+  MEDIA_ASSET
+  PASSAGE
+  QUESTION
+}
+
+enum ReviewAction {
+  SUBMITTED
+  VERIFIED
+  CHANGES_REQUESTED
+  REJECTED
+  APPROVED
+  PUBLISHED
+  UNPUBLISHED
+  ARCHIVED
+  EDITED
+}
+
+enum ImportStatus {
+  RUNNING
+  SUCCEEDED
+  FAILED
+  DUPLICATE
+}
+
+enum PipelineStage {
+  DISCOVERED
+  DOWNLOADED
+  STORED
+  EXTRACTED
+  VALIDATED
+  IMPORTED
+  VERIFIED
+}
+
+enum JobStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  BLOCKED
+}
+
+enum VerificationLevel {
+  MACHINE
+  HUMAN
+}
+
+enum PracticeMode {
+  PRACTICE
+  TOPIC_TEST
+  MOCK_TEST
+}
+
+enum SessionStatus {
+  IN_PROGRESS
+  SUBMITTED
+  EXPIRED
+}
+
+enum UserStatus {
+  ACTIVE
+  DISABLED
+}
+
+// ---------------------------------------------------------------------------
+// A. Examination management
+// ---------------------------------------------------------------------------
+
+model Exam {
+  id         String            @id
+  code       String            @unique /// CUET_UG or CUET_PG
+  name       String
+  level      ExamLevel
+  createdAt  DateTime          @default(now()) @map("created_at")
+  updatedAt  DateTime          @updatedAt @map("updated_at")
+  cycles     ExamCycle[]
+  categories SubjectCategory[]
+  subjects   Subject[]
+
+  @@map("exams")
+}
+
+model ExamCycle {
+  id               String          @id @default(cuid())
+  examId           String          @map("exam_id")
+  year             Int
+  label            String
+  status           CycleStatus     @default(DRAFT)
+  /// JSON text: marking scheme, paper limits, durations. Validated by the API.
+  rulesJson        String?         @map("rules_json")
+  sourceDocumentId String?         @map("source_document_id")
+  createdAt        DateTime        @default(now()) @map("created_at")
+  updatedAt        DateTime        @updatedAt @map("updated_at")
+  exam             Exam            @relation(fields: [examId], references: [id], onDelete: Restrict)
+  sourceDocument   SourceDocument? @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+  testPapers       TestPaper[]
+
+  @@unique([examId, year])
+  @@map("exam_cycles")
+}
+
+/// UG sections (Language / Domain / General Aptitude) and PG families (COQP, HUQP, LAQP, SCQP, MTQP, ACQP).
+model SubjectCategory {
+  id        String    @id @default(cuid())
+  examId    String    @map("exam_id")
+  code      String
+  name      String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  exam      Exam      @relation(fields: [examId], references: [id], onDelete: Restrict)
+  subjects  Subject[]
+
+  @@unique([examId, code])
+  @@map("subject_categories")
+}
+
+/// A subject that persists across cycles (for example Physics); papers attach to a cycle.
+model Subject {
+  id         String           @id @default(cuid())
+  examId     String           @map("exam_id")
+  categoryId String?          @map("category_id")
+  slug       String
+  name       String
+  createdAt  DateTime         @default(now()) @map("created_at")
+  updatedAt  DateTime         @updatedAt @map("updated_at")
+  exam       Exam             @relation(fields: [examId], references: [id], onDelete: Restrict)
+  category   SubjectCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  testPapers TestPaper[]
+
+  @@unique([examId, slug])
+  @@index([categoryId])
+  @@map("subjects")
+}
+
+/// One paper in one cycle, for example CUET-UG 2026 paper 322 or CUET-PG 2026 paper SCQP08.
+model TestPaper {
+  id                  String             @id @default(cuid())
+  examCycleId         String             @map("exam_cycle_id")
+  subjectId           String             @map("subject_id")
+  code                String
+  name                String
+  questionCount       Int?               @map("question_count")
+  durationMinutes     Int?               @map("duration_minutes")
+  marksCorrect        Int?               @map("marks_correct")
+  marksIncorrect      Int?               @map("marks_incorrect")
+  mediumNote          String?            @map("medium_note")
+  /// Link to the official NTA syllabus PDF for this paper (the denominator for coverage).
+  officialSyllabusUrl String?            @map("official_syllabus_url")
+  status              PublishStatus      @default(DRAFT)
+  createdAt           DateTime           @default(now()) @map("created_at")
+  updatedAt           DateTime           @updatedAt @map("updated_at")
+  examCycle           ExamCycle          @relation(fields: [examCycleId], references: [id], onDelete: Restrict)
+  subject             Subject            @relation(fields: [subjectId], references: [id], onDelete: Restrict)
+  syllabusVersions    SyllabusVersion[]
+  questions           Question[]
+  resources           LearningResource[]
+  extractionJobs      ExtractionJob[]
+  practiceSessions    PracticeSession[]
+
+  @@unique([examCycleId, code])
+  @@index([subjectId])
+  @@map("test_papers")
+}
+
+model SyllabusVersion {
+  id               String             @id @default(cuid())
+  testPaperId      String             @map("test_paper_id")
+  versionNumber    Int                @map("version_number")
+  sourceDocumentId String?            @map("source_document_id")
+  status           PublishStatus      @default(DRAFT)
+  verification     VerificationStatus @default(UNVERIFIED)
+  /// True for records created only to demonstrate the system. Never shown as real curriculum.
+  isDemonstration  Boolean            @default(false) @map("is_demonstration")
+  extractedAt      DateTime?          @map("extracted_at")
+  publishedAt      DateTime?          @map("published_at")
+  notes            String?
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @updatedAt @map("updated_at")
+  testPaper        TestPaper          @relation(fields: [testPaperId], references: [id], onDelete: Restrict)
+  sourceDocument   SourceDocument?    @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+  nodes            CurriculumNode[]
+
+  @@unique([testPaperId, versionNumber])
+  @@index([sourceDocumentId])
+  @@map("syllabus_versions")
+}
+
+// ---------------------------------------------------------------------------
+// B. Curriculum (one tree per syllabus version: parts, sections, units, chapters, topics, subtopics)
+// ---------------------------------------------------------------------------
+
+model CurriculumNode {
+  id                String               @id @default(cuid())
+  syllabusVersionId String               @map("syllabus_version_id")
+  parentId          String?              @map("parent_id")
+  kind              CurriculumNodeKind
+  label             String?
+  title             String
+  body              String?
+  position          Int
+  depth             Int
+  sourcePage        Int?                 @map("source_page")
+  /// Comma-separated extraction warnings, e.g. heading_inferred_from_formatting.
+  extractionFlags   String?              @map("extraction_flags")
+  /// sha256 of the normalised path + kind + label + title + body. Unique per version: blocks duplicate imports.
+  contentHash       String               @map("content_hash")
+  verification      VerificationStatus   @default(UNVERIFIED)
+  createdAt         DateTime             @default(now()) @map("created_at")
+  updatedAt         DateTime             @updatedAt @map("updated_at")
+  syllabusVersion   SyllabusVersion      @relation(fields: [syllabusVersionId], references: [id], onDelete: Cascade)
+  parent            CurriculumNode?      @relation("NodeTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children          CurriculumNode[]     @relation("NodeTree")
+  outgoingRelations CurriculumRelation[] @relation("RelationFrom")
+  incomingRelations CurriculumRelation[] @relation("RelationTo")
+  learningResources LearningResource[]
+  questionTopics    QuestionTopic[]
+  mediaAssets       MediaAsset[]
+  sourceTables      SourceTable[]
+  practiceSessions  PracticeSession[]
+  progress          TopicProgress[]
+
+  @@unique([syllabusVersionId, contentHash])
+  @@index([syllabusVersionId, parentId, position])
+  @@index([syllabusVersionId, verification])
+  @@map("curriculum_nodes")
+}
+
+model CurriculumRelation {
+  id         String                 @id @default(cuid())
+  fromNodeId String                 @map("from_node_id")
+  toNodeId   String                 @map("to_node_id")
+  type       CurriculumRelationType
+  createdAt  DateTime               @default(now()) @map("created_at")
+  fromNode   CurriculumNode         @relation("RelationFrom", fields: [fromNodeId], references: [id], onDelete: Cascade)
+  toNode     CurriculumNode         @relation("RelationTo", fields: [toNodeId], references: [id], onDelete: Cascade)
+
+  @@unique([fromNodeId, toNodeId, type])
+  @@index([toNodeId])
+  @@map("curriculum_relations")
+}
+
+// ---------------------------------------------------------------------------
+// C. Sources, permissions and learning content
+// ---------------------------------------------------------------------------
+
+/// What we are allowed to do with material from a source.
+model UsagePermission {
+  id                  String             @id
+  code                String             @unique
+  name                String
+  licenceUrl          String?            @map("licence_url")
+  allowsCommercialUse Boolean?           @map("allows_commercial_use")
+  allowsAdaptation    Boolean?           @map("allows_adaptation")
+  requiresAttribution Boolean            @default(true) @map("requires_attribution")
+  shareAlike          Boolean?           @map("share_alike")
+  /// False means the material may be used for reference only and must never be shown to students.
+  publicDisplay       Boolean            @default(false) @map("public_display")
+  notes               String?
+  createdAt           DateTime           @default(now()) @map("created_at")
+  updatedAt           DateTime           @updatedAt @map("updated_at")
+  sourceDocuments     SourceDocument[]
+  learningResources   LearningResource[]
+  mediaAssets         MediaAsset[]
+  passages            Passage[]
+  questions           Question[]
+
+  @@map("usage_permissions")
+}
+
+model SourceDocument {
+  id                String             @id @default(cuid())
+  kind              SourceKind
+  title             String
+  publisher         String
+  url               String
+  /// Page that listed the document, e.g. the NTA syllabus index page.
+  listedOnUrl       String?            @map("listed_on_url")
+  retrievedAt       DateTime           @map("retrieved_at")
+  sha256            String             @unique
+  byteSize          Int                @map("byte_size")
+  mimeType          String             @map("mime_type")
+  pageCount         Int?               @map("page_count")
+  /// R2 object key of our private archived copy, if stored.
+  r2Key             String?            @unique @map("r2_key")
+  usagePermissionId String             @map("usage_permission_id")
+  verification      VerificationStatus @default(UNVERIFIED)
+  notes             String?
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  usagePermission   UsagePermission    @relation(fields: [usagePermissionId], references: [id], onDelete: Restrict)
+  examCycles        ExamCycle[]
+  syllabusVersions  SyllabusVersion[]
+  references        SourceReference[]
+  mediaAssets       MediaAsset[]
+  passages          Passage[]
+  questions         Question[]
+  importRuns        ImportRun[]
+  sourceTables      SourceTable[]
+  extractionJobs    ExtractionJob[]
+
+  @@index([kind])
+  @@index([url])
+  @@map("source_documents")
+}
+
+/// Points any record (by type and id) at the place in a source document it came from.
+model SourceReference {
+  id               String           @id @default(cuid())
+  sourceDocumentId String           @map("source_document_id")
+  entityType       ReviewEntityType @map("entity_type")
+  entityId         String           @map("entity_id")
+  page             Int?
+  locator          String?
+  createdAt        DateTime         @default(now()) @map("created_at")
+  sourceDocument   SourceDocument   @relation(fields: [sourceDocumentId], references: [id], onDelete: Restrict)
+
+  @@unique([sourceDocumentId, entityType, entityId, page])
+  @@index([entityType, entityId])
+  @@map("source_references")
+}
+
+model LearningResource {
+  id                String             @id @default(cuid())
+  curriculumNodeId  String?            @map("curriculum_node_id")
+  testPaperId       String?            @map("test_paper_id")
+  type              ResourceType
+  title             String
+  language          String             @default("en")
+  origin            ContentOrigin
+  usagePermissionId String             @map("usage_permission_id")
+  status            PublishStatus      @default(DRAFT)
+  verification      VerificationStatus @default(UNVERIFIED)
+  isDemonstration   Boolean            @default(false) @map("is_demonstration")
+  contentHash       String             @unique @map("content_hash")
+  version           Int                @default(1)
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  curriculumNode    CurriculumNode?    @relation(fields: [curriculumNodeId], references: [id], onDelete: SetNull)
+  testPaper         TestPaper?         @relation(fields: [testPaperId], references: [id], onDelete: SetNull)
+  usagePermission   UsagePermission    @relation(fields: [usagePermissionId], references: [id], onDelete: Restrict)
+  blocks            ContentBlock[]
+
+  @@index([curriculumNodeId])
+  @@index([testPaperId])
+  @@index([status, language])
+  @@map("learning_resources")
+}
+
+model ContentBlock {
+  id           String           @id @default(cuid())
+  resourceId   String           @map("resource_id")
+  position     Int
+  type         ContentBlockType
+  /// Markdown (TEXT, KEY_POINT, EXAMPLE, CALLOUT), LaTeX (FORMULA) or JSON (TABLE). Size-capped by the API.
+  body         String
+  mediaAssetId String?          @map("media_asset_id")
+  createdAt    DateTime         @default(now()) @map("created_at")
+  updatedAt    DateTime         @updatedAt @map("updated_at")
+  resource     LearningResource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  mediaAsset   MediaAsset?      @relation(fields: [mediaAssetId], references: [id], onDelete: SetNull)
+
+  @@unique([resourceId, position])
+  @@index([mediaAssetId])
+  @@map("content_blocks")
+}
+
+/// Diagrams, images, PDFs, audio (bytes in R2) and video references (external URL or R2).
+model MediaAsset {
+  id                String             @id @default(cuid())
+  kind              MediaKind
+  r2Key             String?            @unique @map("r2_key")
+  externalUrl       String?            @map("external_url")
+  mimeType          String             @map("mime_type")
+  byteSize          Int?               @map("byte_size")
+  sha256            String?            @unique
+  width             Int?
+  height            Int?
+  durationSeconds   Int?               @map("duration_seconds")
+  altText           String             @map("alt_text")
+  caption           String?
+  longDescription   String?            @map("long_description")
+  language          String             @default("en")
+  attribution       String?
+  usagePermissionId String             @map("usage_permission_id")
+  sourceDocumentId  String?            @map("source_document_id")
+  /// Page of the source document the figure was extracted from.
+  sourcePage        Int?               @map("source_page")
+  /// Curriculum node the figure belongs to (nearest heading on its page), if known.
+  curriculumNodeId  String?            @map("curriculum_node_id")
+  origin            ContentOrigin      @default(AUTHORED)
+  status            PublishStatus      @default(DRAFT)
+  verification      VerificationStatus @default(UNVERIFIED)
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  usagePermission   UsagePermission    @relation(fields: [usagePermissionId], references: [id], onDelete: Restrict)
+  sourceDocument    SourceDocument?    @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+  curriculumNode    CurriculumNode?    @relation(fields: [curriculumNodeId], references: [id], onDelete: SetNull)
+  labels            DiagramLabel[]
+  contentBlocks     ContentBlock[]
+  questionMedia     QuestionMedia[]
+  options           QuestionOption[]
+
+  @@index([kind, status])
+  @@index([curriculumNodeId])
+  @@index([sourceDocumentId, sourcePage])
+  @@map("media_assets")
+}
+
+/// A labelled point on a diagram. x and y are fractions (0 to 1) of width and height.
+model DiagramLabel {
+  id           String     @id @default(cuid())
+  mediaAssetId String     @map("media_asset_id")
+  label        String
+  x            Float
+  y            Float
+  description  String?
+  createdAt    DateTime   @default(now()) @map("created_at")
+  mediaAsset   MediaAsset @relation(fields: [mediaAssetId], references: [id], onDelete: Cascade)
+
+  @@index([mediaAssetId])
+  @@map("diagram_labels")
+}
+
+/// Shared stimulus for passage-based and case-study questions.
+model Passage {
+  id                String             @id @default(cuid())
+  title             String?
+  body              String
+  language          String             @default("en")
+  origin            ContentOrigin
+  usagePermissionId String             @map("usage_permission_id")
+  sourceDocumentId  String?            @map("source_document_id")
+  status            PublishStatus      @default(DRAFT)
+  verification      VerificationStatus @default(UNVERIFIED)
+  contentHash       String             @unique @map("content_hash")
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  usagePermission   UsagePermission    @relation(fields: [usagePermissionId], references: [id], onDelete: Restrict)
+  sourceDocument    SourceDocument?    @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+  questions         Question[]
+
+  @@map("passages")
+}
+
+// ---------------------------------------------------------------------------
+// D. Question bank
+// ---------------------------------------------------------------------------
+
+model Question {
+  id                 String             @id @default(cuid())
+  testPaperId        String?            @map("test_paper_id")
+  type               QuestionType
+  stem               String
+  language           String             @default("en")
+  /// Questions that are translations of each other share this id.
+  translationGroupId String?            @map("translation_group_id")
+  passageId          String?            @map("passage_id")
+  difficulty         Difficulty
+  learningObjective  String?            @map("learning_objective")
+  /// JSON text for structured types, e.g. the two columns of a match-the-following question.
+  structureJson      String?            @map("structure_json")
+  origin             ContentOrigin
+  usagePermissionId  String             @map("usage_permission_id")
+  sourceDocumentId   String?            @map("source_document_id")
+  sourceLocator      String?            @map("source_locator")
+  status             PublishStatus      @default(DRAFT)
+  verification       VerificationStatus @default(UNVERIFIED)
+  isDemonstration    Boolean            @default(false) @map("is_demonstration")
+  /// sha256 of normalised stem + options; unique so the same question cannot be imported twice.
+  contentHash        String             @unique @map("content_hash")
+  version            Int                @default(1)
+  createdAt          DateTime           @default(now()) @map("created_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+  testPaper          TestPaper?         @relation(fields: [testPaperId], references: [id], onDelete: SetNull)
+  passage            Passage?           @relation(fields: [passageId], references: [id], onDelete: SetNull)
+  usagePermission    UsagePermission    @relation(fields: [usagePermissionId], references: [id], onDelete: Restrict)
+  sourceDocument     SourceDocument?    @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+  options            QuestionOption[]
+  answerKey          AnswerKey?
+  explanations       Explanation[]
+  topics             QuestionTopic[]
+  tags               QuestionTag[]
+  media              QuestionMedia[]
+  practiceAnswers    PracticeAnswer[]
+
+  @@index([status, type])
+  @@index([testPaperId])
+  @@index([translationGroupId])
+  @@index([passageId])
+  @@map("questions")
+}
+
+model QuestionOption {
+  id           String      @id @default(cuid())
+  questionId   String      @map("question_id")
+  position     Int
+  label        String
+  text         String
+  mediaAssetId String?     @map("media_asset_id")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+  question     Question    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  mediaAsset   MediaAsset? @relation(fields: [mediaAssetId], references: [id], onDelete: SetNull)
+
+  @@unique([questionId, position])
+  @@map("question_options")
+}
+
+/// The correct answer. Kept apart from questions and options; only the admin API and the scoring module read it.
+model AnswerKey {
+  id                     String    @id @default(cuid())
+  questionId             String    @unique @map("question_id")
+  /// JSON array of correct option positions, e.g. [2] or [1,3].
+  correctOptionPositions String?   @map("correct_option_positions")
+  numericAnswer          Float?    @map("numeric_answer")
+  numericTolerance       Float?    @map("numeric_tolerance")
+  verifiedBy             String?   @map("verified_by")
+  verifiedAt             DateTime? @map("verified_at")
+  createdAt              DateTime  @default(now()) @map("created_at")
+  updatedAt              DateTime  @updatedAt @map("updated_at")
+  question               Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@map("answer_keys")
+}
+
+model Explanation {
+  id                  String             @id @default(cuid())
+  questionId          String             @map("question_id")
+  language            String             @default("en")
+  body                String
+  /// JSON object: option position -> why that option is right or wrong.
+  optionRationaleJson String?            @map("option_rationale_json")
+  status              PublishStatus      @default(DRAFT)
+  verification        VerificationStatus @default(UNVERIFIED)
+  createdAt           DateTime           @default(now()) @map("created_at")
+  updatedAt           DateTime           @updatedAt @map("updated_at")
+  question            Question           @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([questionId, language])
+  @@map("explanations")
+}
+
+model Tag {
+  id        String        @id @default(cuid())
+  slug      String        @unique
+  name      String
+  createdAt DateTime      @default(now()) @map("created_at")
+  questions QuestionTag[]
+
+  @@map("tags")
+}
+
+model QuestionTag {
+  questionId String   @map("question_id")
+  tagId      String   @map("tag_id")
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  tag        Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([questionId, tagId])
+  @@index([tagId])
+  @@map("question_tags")
+}
+
+model QuestionTopic {
+  questionId       String         @map("question_id")
+  curriculumNodeId String         @map("curriculum_node_id")
+  isPrimary        Boolean        @default(false) @map("is_primary")
+  question         Question       @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  curriculumNode   CurriculumNode @relation(fields: [curriculumNodeId], references: [id], onDelete: Cascade)
+
+  @@id([questionId, curriculumNodeId])
+  @@index([curriculumNodeId])
+  @@map("question_topics")
+}
+
+model QuestionMedia {
+  questionId   String            @map("question_id")
+  mediaAssetId String            @map("media_asset_id")
+  role         QuestionMediaRole
+  position     Int               @default(0)
+  question     Question          @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  mediaAsset   MediaAsset        @relation(fields: [mediaAssetId], references: [id], onDelete: Restrict)
+
+  @@id([questionId, mediaAssetId, role])
+  @@index([mediaAssetId])
+  @@map("question_media")
+}
+
+// ---------------------------------------------------------------------------
+// E. Verification, review history, imports and audit
+// ---------------------------------------------------------------------------
+
+/// One row per review step: verification, approval, publishing. Append-only.
+model ReviewRecord {
+  id            String           @id @default(cuid())
+  entityType    ReviewEntityType @map("entity_type")
+  entityId      String           @map("entity_id")
+  action        ReviewAction
+  fromStatus    String?          @map("from_status")
+  toStatus      String?          @map("to_status")
+  actor         String
+  comment       String?
+  checklistJson String?          @map("checklist_json")
+  createdAt     DateTime         @default(now()) @map("created_at")
+
+  @@index([entityType, entityId, createdAt])
+  @@index([actor, createdAt])
+  @@map("review_records")
+}
+
+model ImportRun {
+  id               String          @id @default(cuid())
+  /// Same key = same import. A repeated run returns the earlier result instead of writing twice.
+  idempotencyKey   String          @unique @map("idempotency_key")
+  kind             String
+  sourceDocumentId String?         @map("source_document_id")
+  status           ImportStatus
+  statsJson        String?         @map("stats_json")
+  errorsJson       String?         @map("errors_json")
+  actor            String
+  startedAt        DateTime        @default(now()) @map("started_at")
+  finishedAt       DateTime?       @map("finished_at")
+  sourceDocument   SourceDocument? @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+
+  @@index([sourceDocumentId])
+  @@map("import_runs")
+}
+
+/// A table found in a source document, kept as rows of cell text.
+model SourceTable {
+  id               String             @id @default(cuid())
+  sourceDocumentId String             @map("source_document_id")
+  curriculumNodeId String?            @map("curriculum_node_id")
+  page             Int
+  /// JSON text: array of rows, each an array of cell strings. Capped by the API.
+  rowsJson         String             @map("rows_json")
+  rowCount         Int                @map("row_count")
+  columnCount      Int                @map("column_count")
+  contentHash      String             @map("content_hash")
+  verification     VerificationStatus @default(UNVERIFIED)
+  createdAt        DateTime           @default(now()) @map("created_at")
+  sourceDocument   SourceDocument     @relation(fields: [sourceDocumentId], references: [id], onDelete: Cascade)
+  curriculumNode   CurriculumNode?    @relation(fields: [curriculumNodeId], references: [id], onDelete: SetNull)
+
+  @@unique([sourceDocumentId, contentHash])
+  @@index([curriculumNodeId])
+  @@map("source_tables")
+}
+
+/// One row per discovered official document: where it is in the pipeline and why it stopped.
+model ExtractionJob {
+  id               String          @id @default(cuid())
+  examCode         String          @map("exam_code")
+  cycleYear        Int             @map("cycle_year")
+  paperCode        String?         @map("paper_code")
+  paperName        String?         @map("paper_name")
+  documentTitle    String          @map("document_title")
+  sourceUrl        String          @unique @map("source_url")
+  listedOnUrl      String?         @map("listed_on_url")
+  testPaperId      String?         @map("test_paper_id")
+  sourceDocumentId String?         @map("source_document_id")
+  stage            PipelineStage
+  status           JobStatus
+  attempts         Int             @default(0)
+  sha256           String?
+  blockerReason    String?         @map("blocker_reason")
+  lastError        String?         @map("last_error")
+  statsJson        String?         @map("stats_json")
+  createdAt        DateTime        @default(now()) @map("created_at")
+  updatedAt        DateTime        @updatedAt @map("updated_at")
+  testPaper        TestPaper?      @relation(fields: [testPaperId], references: [id], onDelete: SetNull)
+  sourceDocument   SourceDocument? @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+
+  @@index([examCode, cycleYear, status])
+  @@index([testPaperId])
+  @@map("extraction_jobs")
+}
+
+/// Evidence behind a verification decision (machine reconciliation metrics, or a person's sign-off).
+model VerificationEvidence {
+  id          String            @id @default(cuid())
+  entityType  ReviewEntityType  @map("entity_type")
+  entityId    String            @map("entity_id")
+  level       VerificationLevel
+  method      String
+  /// JSON text: the measurements that justified the decision.
+  metricsJson String            @map("metrics_json")
+  verifiedBy  String            @map("verified_by")
+  createdAt   DateTime          @default(now()) @map("created_at")
+
+  @@index([entityType, entityId])
+  @@map("verification_evidence")
+}
+
+/// Append-only log of administrative actions.
+model AuditLog {
+  id         String   @id @default(cuid())
+  actor      String
+  action     String
+  entityType String   @map("entity_type")
+  entityId   String?  @map("entity_id")
+  detailJson String?  @map("detail_json")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([entityType, entityId])
+  @@index([actor, createdAt])
+  @@map("audit_logs")
+}
+
+// ---------------------------------------------------------------------------
+// F. Administration
+// ---------------------------------------------------------------------------
+
+model User {
+  id          String            @id @default(cuid())
+  email       String            @unique
+  displayName String            @map("display_name")
+  status      UserStatus        @default(ACTIVE)
+  lastLoginAt DateTime?         @map("last_login_at")
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @updatedAt @map("updated_at")
+  roles       UserRole[]
+  credential  UserCredential?
+  sessions    UserSession[]
+  practice    PracticeSession[]
+  progress    TopicProgress[]
+
+  @@map("users")
+}
+
+/// Password login for students and parents (staff use a separate admin login).
+model UserCredential {
+  userId       String   @id @map("user_id")
+  /// PBKDF2-SHA256 hash, base64.
+  passwordHash String   @map("password_hash")
+  salt         String
+  iterations   Int
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_credentials")
+}
+
+/// A signed-in session. Only a hash of the token is stored.
+model UserSession {
+  id        String    @id @default(cuid())
+  userId    String    @map("user_id")
+  tokenHash String    @unique @map("token_hash")
+  expiresAt DateTime  @map("expires_at")
+  revokedAt DateTime? @map("revoked_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("user_sessions")
+}
+
+/// One practice set, topic test or timed mock exam taken by a student.
+model PracticeSession {
+  id               String           @id @default(cuid())
+  userId           String           @map("user_id")
+  mode             PracticeMode
+  testPaperId      String?          @map("test_paper_id")
+  curriculumNodeId String?          @map("curriculum_node_id")
+  status           SessionStatus    @default(IN_PROGRESS)
+  /// JSON array of question ids, in the order shown.
+  questionIdsJson  String           @map("question_ids_json")
+  durationSeconds  Int?             @map("duration_seconds")
+  marksCorrect     Int              @map("marks_correct")
+  marksIncorrect   Int              @map("marks_incorrect")
+  score            Float?
+  maxScore         Float?           @map("max_score")
+  correctCount     Int              @default(0) @map("correct_count")
+  incorrectCount   Int              @default(0) @map("incorrect_count")
+  unattemptedCount Int              @default(0) @map("unattempted_count")
+  startedAt        DateTime         @default(now()) @map("started_at")
+  submittedAt      DateTime?        @map("submitted_at")
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  testPaper        TestPaper?       @relation(fields: [testPaperId], references: [id], onDelete: SetNull)
+  curriculumNode   CurriculumNode?  @relation(fields: [curriculumNodeId], references: [id], onDelete: SetNull)
+  answers          PracticeAnswer[]
+
+  @@index([userId, startedAt])
+  @@map("practice_sessions")
+}
+
+model PracticeAnswer {
+  id                    String          @id @default(cuid())
+  sessionId             String          @map("session_id")
+  questionId            String          @map("question_id")
+  selectedPositionsJson String?         @map("selected_positions_json")
+  numericAnswer         Float?          @map("numeric_answer")
+  outcome               String
+  score                 Float
+  answeredAt            DateTime        @default(now()) @map("answered_at")
+  session               PracticeSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  question              Question        @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, questionId])
+  @@index([questionId])
+  @@map("practice_answers")
+}
+
+/// Running per-topic performance for a student (drives weak-topic detection).
+model TopicProgress {
+  userId           String         @map("user_id")
+  curriculumNodeId String         @map("curriculum_node_id")
+  attempted        Int            @default(0)
+  correct          Int            @default(0)
+  incorrect        Int            @default(0)
+  lastAttemptAt    DateTime       @map("last_attempt_at")
+  user             User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  curriculumNode   CurriculumNode @relation(fields: [curriculumNodeId], references: [id], onDelete: Cascade)
+
+  @@id([userId, curriculumNodeId])
+  @@index([curriculumNodeId])
+  @@map("topic_progress")
+}
+
+model Role {
+  id          String           @id
+  code        String           @unique
+  name        String
+  createdAt   DateTime         @default(now()) @map("created_at")
+  users       UserRole[]
+  permissions RolePermission[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          String           @id
+  code        String           @unique
+  description String
+  createdAt   DateTime         @default(now()) @map("created_at")
+  roles       RolePermission[]
+
+  @@map("permissions")
+}
+
+model UserRole {
+  userId String @map("user_id")
+  roleId String @map("role_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@index([roleId])
+  @@map("user_roles")
+}
+
+model RolePermission {
+  roleId       String     @map("role_id")
+  permissionId String     @map("permission_id")
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@index([permissionId])
+  @@map("role_permissions")
+}
