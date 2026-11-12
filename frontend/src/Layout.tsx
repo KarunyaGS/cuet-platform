@@ -1,4 +1,4 @@
-import { Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
@@ -115,10 +115,16 @@ function UserMenu() {
               <Info aria-hidden />
               Official exam information
             </Link>
+            {user.roles.some((r) => r === 'SUPER_ADMIN' || r === 'CONTENT_ADMIN') && (
+              <Link role="menuitem" to="/admin" className={item}>
+                <ShieldCheck aria-hidden />
+                Admin console
+              </Link>
+            )}
             {reviewer && (
               <Link role="menuitem" to="/review" className={item}>
                 <ClipboardCheck aria-hidden />
-                Syllabus review
+                Review work
               </Link>
             )}
           </div>
@@ -139,7 +145,7 @@ export function Layout() {
   const path = location.pathname;
   // Tests run in focus mode: no app navigation, only the way out.
   const focus = path.startsWith('/practice/');
-  const wide = path.startsWith('/review');
+  const wide = path.startsWith('/review') || path.startsWith('/admin');
 
   return (
     <div className="min-h-dvh">

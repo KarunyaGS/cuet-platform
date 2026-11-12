@@ -251,7 +251,7 @@ export function ReviewWorkspace() {
     <div>
       <div className="mb-3 flex flex-wrap items-start justify-between gap-3 border-b border-rule pb-2.5">
         <div className="min-w-0">
-          <Link to="/review" className="text-xs font-medium text-accent hover:underline">← Review queue</Link>
+          <Link to="/review/syllabus" className="text-xs font-medium text-accent hover:underline">← Review queue</Link>
           <h1 className="truncate text-lg font-semibold tracking-tight"><span className="mr-1.5 font-mono text-sm text-ink-3">{w.paper.code}</span>{w.paper.name}</h1>
           <div className="mt-1 flex flex-wrap items-center gap-1.5 text-xs text-ink-2">
             <Badge tone={v?.verification === 'VERIFIED' ? 'green' : v?.verification === 'MACHINE_VERIFIED' ? 'accent' : 'amber'}>{v ? `v${v.version_number} · ${v.verification.replace('_', '-').toLowerCase()}` : 'no version'}</Badge>

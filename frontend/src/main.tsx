@@ -36,6 +36,17 @@ import './styles.css';
 // Reviewer screens (pdf.js) load only when a reviewer opens them.
 const ReviewQueue = lazy(() => import('./review/Queue').then((m) => ({ default: m.ReviewQueue })));
 const ReviewWorkspace = lazy(() => import('./review/Workspace').then((m) => ({ default: m.ReviewWorkspace })));
+const AdminLayout = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminLayout })));
+const AdminOverview = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminOverview })));
+const AdminStudents = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminStudents })));
+const AdminStudent = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminStudent })));
+const AdminContent = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminContent })));
+const AdminCompletion = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminCompletion })));
+const AdminStaff = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminStaff })));
+const AdminActivity = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminActivity })));
+const ReviewLayout = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewLayout })));
+const ReviewDashboard = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewDashboard })));
+const ReviewContent = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewContent })));
 const lazyPage = (el: React.ReactNode) => <Suspense fallback={<Loading />}>{el}</Suspense>;
 
 const router = createBrowserRouter([
@@ -69,8 +80,29 @@ const router = createBrowserRouter([
       { path: '/progress', element: <ProgressPage /> },
       { path: '/report', element: <ReportPage /> },
       { path: '/revise/:nodeId', element: <RevisePage /> },
-      { path: '/review', element: lazyPage(<ReviewQueue />) },
+      {
+        path: '/review',
+        element: lazyPage(<ReviewLayout />),
+        children: [
+          { index: true, element: lazyPage(<ReviewDashboard />) },
+          { path: 'syllabus', element: lazyPage(<ReviewQueue />) },
+          { path: 'content', element: lazyPage(<ReviewContent />) },
+        ],
+      },
       { path: '/review/paper/:paperId', element: lazyPage(<ReviewWorkspace />) },
+      {
+        path: '/admin',
+        element: lazyPage(<AdminLayout />),
+        children: [
+          { index: true, element: lazyPage(<AdminOverview />) },
+          { path: 'students', element: lazyPage(<AdminStudents />) },
+          { path: 'students/:id', element: lazyPage(<AdminStudent />) },
+          { path: 'content', element: lazyPage(<AdminContent />) },
+          { path: 'completion', element: lazyPage(<AdminCompletion />) },
+          { path: 'staff', element: lazyPage(<AdminStaff />) },
+          { path: 'activity', element: lazyPage(<AdminActivity />) },
+        ],
+      },
       { path: '/topic/:nodeId', element: <TopicPage /> },
       { path: '/learn/:resourceId', element: <LearnPage /> },
       { path: '/practice/:sessionId', element: <PracticePage /> },
