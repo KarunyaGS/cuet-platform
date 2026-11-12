@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="Arial, Helvetica, sans-serif">
+  <!-- ============ Panel (a): osmosis with a thistle funnel ============ -->
+  <!-- water in beaker -->
+  <rect x="72" y="262" width="256" height="156" fill="#dbeafe"/>
+  <!-- beaker -->
+  <polyline points="70,200 70,420 330,420 330,200" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+  <line x1="72" y1="262" x2="328" y2="262" stroke="#2563eb" stroke-width="1.5"/>
+  <!-- solution inside the funnel and up the stem -->
+  <polygon points="142,358 190,302 190,140 210,140 210,302 258,358" fill="#fde68a"/>
+  <!-- funnel walls and stem -->
+  <polyline points="140,360 190,300 190,80" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+  <polyline points="260,360 210,300 210,80" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+  <line x1="190" y1="140" x2="210" y2="140" stroke="#d97706" stroke-width="2"/>
+  <!-- semipermeable membrane -->
+  <line x1="136" y1="361" x2="264" y2="361" stroke="#059669" stroke-width="4" stroke-dasharray="6 3"/>
+  <!-- solvent flow arrows through membrane -->
+  <line x1="165" y1="398" x2="165" y2="378" stroke="#2563eb" stroke-width="2"/>
+  <polygon points="165,368 160,380 170,380" fill="#2563eb"/>
+  <line x1="200" y1="398" x2="200" y2="378" stroke="#2563eb" stroke-width="2"/>
+  <polygon points="200,368 195,380 205,380" fill="#2563eb"/>
+  <line x1="235" y1="398" x2="235" y2="378" stroke="#2563eb" stroke-width="2"/>
+  <polygon points="235,368 230,380 240,380" fill="#2563eb"/>
+  <!-- height h -->
+  <line x1="222" y1="262" x2="246" y2="262" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="222" y1="140" x2="246" y2="140" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="238" y1="152" x2="238" y2="250" stroke="#1f2937" stroke-width="1.8"/>
+  <polygon points="238,142 233,154 243,154" fill="#1f2937"/>
+  <polygon points="238,260 233,248 243,248" fill="#1f2937"/>
+  <text x="248" y="206" font-size="16" fill="#1f2937" font-style="italic">h</text>
+  <!-- labels -->
+  <text x="220" y="74" font-size="14" fill="#1f2937">level of solution</text>
+  <text x="220" y="91" font-size="14" fill="#1f2937">rises in the stem</text>
+  <line x1="108" y1="180" x2="186" y2="232" stroke="#d97706" stroke-width="1.2"/>
+  <text x="40" y="160" font-size="14" fill="#d97706">sugar solution</text>
+  <text x="40" y="177" font-size="14" fill="#d97706">(in thistle funnel)</text>
+  <text x="270" y="300" font-size="14" fill="#2563eb">pure water</text>
+  <text x="200" y="448" font-size="14" fill="#059669" text-anchor="middle">semipermeable membrane (SPM) over the mouth</text>
+  <text x="96" y="410" font-size="13" fill="#2563eb">water enters</text>
+  <text x="200" y="478" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(a) Osmosis</text>
+
+  <!-- ============ Panel (b): osmotic pressure ============ -->
+  <rect x="502" y="242" width="126" height="176" fill="#dbeafe"/>
+  <rect x="634" y="242" width="164" height="176" fill="#fde68a"/>
+  <polyline points="500,170 500,420 800,420 800,170" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+  <line x1="502" y1="242" x2="628" y2="242" stroke="#2563eb" stroke-width="1.5"/>
+  <!-- membrane -->
+  <line x1="631" y1="170" x2="631" y2="420" stroke="#059669" stroke-width="4" stroke-dasharray="6 3"/>
+  <!-- piston -->
+  <rect x="636" y="226" width="160" height="16" fill="#9ca3af" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="716" y1="226" x2="716" y2="150" stroke="#1f2937" stroke-width="4"/>
+  <!-- applied pressure arrow -->
+  <line x1="760" y1="120" x2="760" y2="208" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="760,220 754,206 766,206" fill="#dc2626"/>
+  <text x="672" y="96" font-size="14" fill="#dc2626">pressure π applied</text>
+  <text x="672" y="113" font-size="14" fill="#dc2626">on the solution side</text>
+  <!-- tendency of flow -->
+  <line x1="566" y1="330" x2="680" y2="330" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 4"/>
+  <polygon points="692,330 680,324 680,336" fill="#2563eb"/>
+  <text x="512" y="358" font-size="13" fill="#2563eb">solvent tends</text>
+  <text x="512" y="374" font-size="13" fill="#2563eb">to flow in</text>
+  <text x="508" y="276" font-size="14" fill="#1f2937">pure</text>
+  <text x="508" y="293" font-size="14" fill="#1f2937">solvent</text>
+  <text x="716" y="276" font-size="14" fill="#1f2937" text-anchor="middle">solution</text>
+  <text x="560" y="160" font-size="14" fill="#059669" text-anchor="middle">SPM</text>
+  <line x1="580" y1="156" x2="626" y2="180" stroke="#059669" stroke-width="1.2"/>
+  <text x="650" y="448" font-size="14" fill="#1f2937" text-anchor="middle">pressure that just stops the net flow = osmotic pressure π</text>
+  <text x="650" y="478" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(b) Osmotic pressure</text>
+</svg>

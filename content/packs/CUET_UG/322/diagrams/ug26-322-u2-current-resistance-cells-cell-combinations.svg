@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400" font-family="Arial, Helvetica, sans-serif">
+  <!-- ================= Panel (a): series ================= -->
+  <!-- external resistor -->
+  <line x1="50" y1="230" x2="50" y2="80" stroke="#1f2937" stroke-width="2"/>
+  <line x1="50" y1="80" x2="150" y2="80" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="150,80 158,66 174,94 190,66 206,94 222,66 238,94 246,80" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <line x1="246" y1="80" x2="370" y2="80" stroke="#1f2937" stroke-width="2"/>
+  <line x1="370" y1="80" x2="370" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <text x="198" y="56" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">R</text>
+  <polygon points="112,80 98,73 98,87" fill="#d97706"/>
+  <text x="96" y="68" font-size="15" fill="#d97706" font-weight="bold">I</text>
+  <polygon points="50,150 43,164 57,164" fill="#d97706"/>
+  <!-- cell 1 -->
+  <line x1="50" y1="230" x2="80" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <line x1="80" y1="205" x2="80" y2="255" stroke="#1f2937" stroke-width="2"/>
+  <line x1="94" y1="217" x2="94" y2="243" stroke="#1f2937" stroke-width="5"/>
+  <line x1="94" y1="230" x2="110" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="110,230 115,219 125,241 135,219 145,241 155,219 165,241 170,230" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <line x1="170" y1="230" x2="210" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <text x="74" y="200" font-size="14" fill="#1f2937" text-anchor="middle">+</text>
+  <text x="87" y="280" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="bold">ε<tspan font-size="11" dy="4">1</tspan></text>
+  <text x="140" y="212" font-size="15" fill="#dc2626" text-anchor="middle" font-weight="bold">r<tspan font-size="11" dy="4">1</tspan></text>
+  <!-- cell 2 -->
+  <line x1="210" y1="230" x2="230" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <line x1="230" y1="205" x2="230" y2="255" stroke="#1f2937" stroke-width="2"/>
+  <line x1="244" y1="217" x2="244" y2="243" stroke="#1f2937" stroke-width="5"/>
+  <line x1="244" y1="230" x2="260" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="260,230 265,219 275,241 285,219 295,241 305,219 315,241 320,230" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <line x1="320" y1="230" x2="370" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <text x="224" y="200" font-size="14" fill="#1f2937" text-anchor="middle">+</text>
+  <text x="237" y="280" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="bold">ε<tspan font-size="11" dy="4">2</tspan></text>
+  <text x="290" y="212" font-size="15" fill="#dc2626" text-anchor="middle" font-weight="bold">r<tspan font-size="11" dy="4">2</tspan></text>
+  <!-- nodes -->
+  <circle cx="50" cy="230" r="5" fill="#1f2937"/>
+  <circle cx="200" cy="230" r="5" fill="#1f2937"/>
+  <circle cx="370" cy="230" r="5" fill="#1f2937"/>
+  <text x="38" y="258" font-size="15" fill="#1f2937" text-anchor="middle">A</text>
+  <text x="200" y="258" font-size="15" fill="#1f2937" text-anchor="middle">B</text>
+  <text x="382" y="258" font-size="15" fill="#1f2937" text-anchor="middle">C</text>
+  <text x="210" y="330" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(a) Cells in series (− of one to + of next)</text>
+  <text x="210" y="358" font-size="14" fill="#1f2937" text-anchor="middle">ε<tspan font-size="10" dy="4">eq</tspan><tspan dy="-4"> = ε</tspan><tspan font-size="10" dy="4">1</tspan><tspan dy="-4"> + ε</tspan><tspan font-size="10" dy="4">2</tspan><tspan dy="-4"> ,   r</tspan><tspan font-size="10" dy="4">eq</tspan><tspan dy="-4"> = r</tspan><tspan font-size="10" dy="4">1</tspan><tspan dy="-4"> + r</tspan><tspan font-size="10" dy="4">2</tspan></text>
+
+  <!-- ================= Panel (b): parallel ================= -->
+  <!-- external resistor -->
+  <line x1="520" y1="150" x2="520" y2="70" stroke="#1f2937" stroke-width="2"/>
+  <line x1="520" y1="70" x2="620" y2="70" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="620,70 628,56 644,84 660,56 676,84 692,56 708,84 716,70" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <line x1="716" y1="70" x2="820" y2="70" stroke="#1f2937" stroke-width="2"/>
+  <line x1="820" y1="70" x2="820" y2="150" stroke="#1f2937" stroke-width="2"/>
+  <text x="668" y="46" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">R</text>
+  <polygon points="582,70 568,63 568,77" fill="#d97706"/>
+  <text x="566" y="58" font-size="15" fill="#d97706" font-weight="bold">I</text>
+  <!-- buses -->
+  <line x1="520" y1="150" x2="520" y2="270" stroke="#1f2937" stroke-width="2"/>
+  <line x1="820" y1="150" x2="820" y2="270" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="520" cy="150" r="5" fill="#1f2937"/>
+  <circle cx="820" cy="150" r="5" fill="#1f2937"/>
+  <text x="502" y="215" font-size="15" fill="#1f2937" text-anchor="middle">B<tspan font-size="11" dy="4">1</tspan></text>
+  <text x="840" y="215" font-size="15" fill="#1f2937" text-anchor="middle">B<tspan font-size="11" dy="4">2</tspan></text>
+  <!-- top branch: cell 1 -->
+  <line x1="520" y1="150" x2="600" y2="150" stroke="#1f2937" stroke-width="2"/>
+  <line x1="600" y1="127" x2="600" y2="173" stroke="#1f2937" stroke-width="2"/>
+  <line x1="614" y1="139" x2="614" y2="161" stroke="#1f2937" stroke-width="5"/>
+  <line x1="614" y1="150" x2="640" y2="150" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="640,150 645,139 655,161 665,139 675,161 685,139 695,161 700,150" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <line x1="700" y1="150" x2="820" y2="150" stroke="#1f2937" stroke-width="2"/>
+  <text x="594" y="122" font-size="14" fill="#1f2937" text-anchor="middle">+</text>
+  <text x="607" y="195" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="bold">ε<tspan font-size="11" dy="4">1</tspan></text>
+  <text x="670" y="132" font-size="15" fill="#dc2626" text-anchor="middle" font-weight="bold">r<tspan font-size="11" dy="4">1</tspan></text>
+  <polygon points="752,150 766,143 766,157" fill="#d97706"/>
+  <text x="770" y="140" font-size="15" fill="#d97706" font-weight="bold">I<tspan font-size="11" dy="4">1</tspan></text>
+  <!-- bottom branch: cell 2 -->
+  <line x1="520" y1="270" x2="600" y2="270" stroke="#1f2937" stroke-width="2"/>
+  <line x1="600" y1="247" x2="600" y2="293" stroke="#1f2937" stroke-width="2"/>
+  <line x1="614" y1="259" x2="614" y2="281" stroke="#1f2937" stroke-width="5"/>
+  <line x1="614" y1="270" x2="640" y2="270" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="640,270 645,259 655,281 665,259 675,281 685,259 695,281 700,270" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <line x1="700" y1="270" x2="820" y2="270" stroke="#1f2937" stroke-width="2"/>
+  <text x="594" y="242" font-size="14" fill="#1f2937" text-anchor="middle">+</text>
+  <text x="607" y="315" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="bold">ε<tspan font-size="11" dy="4">2</tspan></text>
+  <text x="670" y="252" font-size="15" fill="#dc2626" text-anchor="middle" font-weight="bold">r<tspan font-size="11" dy="4">2</tspan></text>
+  <polygon points="752,270 766,263 766,277" fill="#d97706"/>
+  <text x="770" y="260" font-size="15" fill="#d97706" font-weight="bold">I<tspan font-size="11" dy="4">2</tspan></text>
+  <text x="670" y="345" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(b) Cells in parallel (+ to +, − to −)</text>
+  <text x="670" y="373" font-size="14" fill="#1f2937" text-anchor="middle">I = I<tspan font-size="10" dy="4">1</tspan><tspan dy="-4"> + I</tspan><tspan font-size="10" dy="4">2</tspan><tspan dy="-4"> ;  1/r</tspan><tspan font-size="10" dy="4">eq</tspan><tspan dy="-4"> = 1/r</tspan><tspan font-size="10" dy="4">1</tspan><tspan dy="-4"> + 1/r</tspan><tspan font-size="10" dy="4">2</tspan><tspan dy="-4"> ;  ε</tspan><tspan font-size="10" dy="4">eq</tspan><tspan dy="-4">/r</tspan><tspan font-size="10" dy="4">eq</tspan><tspan dy="-4"> = ε</tspan><tspan font-size="10" dy="4">1</tspan><tspan dy="-4">/r</tspan><tspan font-size="10" dy="4">1</tspan><tspan dy="-4"> + ε</tspan><tspan font-size="10" dy="4">2</tspan><tspan dy="-4">/r</tspan><tspan font-size="10" dy="4">2</tspan></text>
+</svg>

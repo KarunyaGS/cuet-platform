@@ -1,0 +1,267 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_1ad20c7dd9ed4fe088b24563cd315c84",
+    "title": "Energy bands in conductors, semiconductors and insulators (qualitative ideas only)."
+  },
+  "lesson": {
+    "key": "ug26-322-u9-energy-bands",
+    "title": "Energy bands in conductors, semiconductors and insulators",
+    "coverage": [
+      { "phrase": "Energy bands (qualitative ideas only)", "section": "From energy levels to energy bands" },
+      { "phrase": "Valence band, conduction band and band gap", "section": "Valence band, conduction band and the forbidden energy gap" },
+      { "phrase": "Energy bands in conductors", "section": "Energy bands in conductors (metals)" },
+      { "phrase": "Energy bands in insulators", "section": "Energy bands in insulators" },
+      { "phrase": "Energy bands in semiconductors", "section": "Energy bands in semiconductors" },
+      { "phrase": "Comparison of conductors, semiconductors and insulators", "section": "Comparing conductors, semiconductors and insulators" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Classifying solids by how well they conduct" },
+      { "type": "TEXT", "text": "Solids differ enormously in how easily they carry an electric current. Two quantities are used to compare them: the **resistivity** $\\rho$ (SI unit $\\Omega\\,\\text{m}$) and its reciprocal, the **conductivity** $\\sigma = 1/\\rho$ (SI unit $\\text{S m}^{-1}$, where S is the siemens, $1\\,\\text{S} = 1\\,\\Omega^{-1}$).\n\nOn the basis of resistivity, solids fall into three broad groups: **metals (conductors)** with very low resistivity, **insulators** with very high resistivity, and **semiconductors** whose resistivity lies in between. The ranges overlap only loosely and are quoted to orders of magnitude, as in the table below." },
+      { "type": "TABLE", "caption": "Typical resistivity and conductivity ranges at room temperature", "columns": ["Class of solid", "Resistivity $\\rho$ ($\\Omega\\,\\text{m}$)", "Conductivity $\\sigma$ ($\\text{S m}^{-1}$)", "Examples"], "rows": [
+        ["Metals (conductors)", "$10^{-2}$ to $10^{-8}$", "$10^{2}$ to $10^{8}$", "Copper, silver, aluminium"],
+        ["Semiconductors", "$10^{-5}$ to $10^{6}$", "$10^{5}$ to $10^{-6}$", "Silicon, germanium, GaAs, CdS"],
+        ["Insulators", "$10^{11}$ to $10^{19}$", "$10^{-11}$ to $10^{-19}$", "Diamond, glass, mica"]
+      ] },
+      { "type": "TEXT", "text": "Semiconductors come in several kinds:\n\n- **Elemental semiconductors:** silicon (Si) and germanium (Ge), both from group 14 with four valence electrons.\n- **Compound semiconductors (inorganic):** gallium arsenide (GaAs), cadmium sulphide (CdS), cadmium selenide (CdSe), indium phosphide (InP).\n- **Organic semiconductors and conducting polymers:** anthracene, doped phthalocyanines, polypyrrole, polyaniline.\n\nMost present-day devices (diodes, transistors, integrated circuits, solar cells) are built from silicon, germanium or inorganic compound semiconductors.\n\nA resistivity table only *describes* the difference between the three classes. To *explain* it, for example why diamond and silicon have the same crystal structure but one is an insulator and the other a semiconductor, we need the idea of **energy bands**." },
+
+      { "type": "HEADING", "text": "From energy levels to energy bands" },
+      { "type": "TEXT", "text": "In an **isolated atom**, each electron occupies a sharp, discrete energy level (as in the Bohr picture of hydrogen). All isolated atoms of the same element have exactly the same set of levels.\n\nIn a **crystal**, atoms are packed only about 0.2 to 0.3 nm apart. At such small separations the outer orbitals of neighbouring atoms overlap, and each outer electron feels the pull of many nuclei, not just its own. The electrons now belong to the crystal as a whole.\n\nThe **Pauli exclusion principle** says that no two electrons in the same system can occupy the same quantum state. If N atoms each had an identical level, N electrons would be crowded into the same state, which is not allowed. Nature resolves this by **splitting each atomic level into N slightly different levels**. Because N is enormous (about $5\\times10^{28}$ atoms in one cubic metre of silicon), the levels are so close together that they form an almost continuous range of allowed energies called an **energy band**.\n\nHow much a level spreads depends on how strongly the orbitals overlap:\n\n- **Outer (valence) and higher levels** overlap strongly, so they broaden into wide bands (a few eV wide).\n- **Inner-shell levels** are tightly bound to their own nucleus and hardly overlap, so they remain very narrow, almost like the atomic levels.\n\nBetween two allowed bands there may be a range of energies with **no allowed levels at all**. This is the **forbidden energy gap**." },
+      { "type": "DEFINITION", "term": "Energy band", "text": "A range of very closely spaced allowed electron energy levels in a crystal, formed when an atomic energy level of N identical atoms splits into N levels because of orbital overlap and the Pauli exclusion principle. The spacing between levels within a band is so small that the band is treated as a continuous range of energies." },
+      { "type": "DIAGRAM", "diagram": "band-formation" },
+      { "type": "EXAMPLE", "text": "**Bands in silicon.** A silicon atom has 14 electrons, arranged as $1s^2\\,2s^2\\,2p^6\\,3s^2\\,3p^2$. Its four outer electrons ($3s^2\\,3p^2$) are the valence electrons. The 3s and 3p sub-shells together have room for 8 electrons per atom (2 in 3s and 6 in 3p).\n\nIn a crystal of N atoms these $8N$ states mix and regroup into **two bands of $4N$ states each**, separated by a gap. There are exactly $4N$ valence electrons (four per atom), so at 0 K they fill the **lower band completely**, while the **upper band is completely empty**. The lower band is the valence band and the upper one is the conduction band. This is why perfectly pure silicon at 0 K has no electron that can move freely." },
+      { "type": "KEY_POINT", "text": "Energy bands form because (i) atoms in a solid are close enough for outer orbitals to overlap and (ii) the Pauli exclusion principle forbids two electrons from sharing a state. One atomic level of N atoms becomes a band of N closely spaced levels. Outer levels broaden into wide bands; inner levels stay narrow." },
+
+      { "type": "HEADING", "text": "Valence band, conduction band and the forbidden energy gap" },
+      { "type": "DEFINITION", "term": "Valence band", "text": "The band formed from the levels of the valence electrons; it is the highest band that is filled (completely or partly) with electrons at 0 K. In semiconductors and insulators the valence band is completely filled at 0 K." },
+      { "type": "DEFINITION", "term": "Conduction band", "text": "The band of allowed levels lying just above the valence band. Electrons in the conduction band can move through the crystal and gain energy from an applied electric field, so they carry current. In semiconductors and insulators the conduction band is completely empty at 0 K." },
+      { "type": "DEFINITION", "term": "Forbidden energy gap (band gap) $E_g$", "text": "The range of energy between the top of the valence band ($E_V$) and the bottom of the conduction band ($E_C$) in which a perfect crystal has no allowed electron levels. An electron must receive at least $E_g$ to jump from the valence band to the conduction band. It is usually quoted in electron volts: $1\\,\\text{eV} = 1.6\\times10^{-19}\\,\\text{J}$." },
+      { "type": "FORMULA", "latex": "E_g = E_C - E_V", "text": "$E_C$ = energy of the bottom of the conduction band, $E_V$ = energy of the top of the valence band, $E_g$ = band gap (in eV or J). For a conductor whose bands overlap, $E_g = 0$." },
+      { "type": "CONCEPT", "text": "**Why a full band and an empty band cannot conduct.** An electric field can drive a current only if electrons can take up small amounts of energy from the field, which means moving into slightly higher **empty** levels in the same band. In a completely filled band every level is already occupied, so the field cannot change the state of the electrons and the net current is zero. A completely empty band has no electrons to move. Conduction therefore needs a **partly filled band**: either electrons in the conduction band or vacancies (holes) in the valence band." },
+      { "type": "TEXT", "text": "Whether a solid is a conductor, an insulator or a semiconductor depends on two things: how full the bands are at 0 K, and how wide the gap $E_g$ is compared with the thermal energy available at the working temperature. The three possibilities are shown side by side below and discussed one by one in the next sections." },
+      { "type": "DIAGRAM", "diagram": "three-classes" },
+      { "type": "FORMULA", "latex": "k_B T \\approx 0.026\\ \\text{eV} \\quad (T = 300\\ \\text{K})", "text": "$k_B = 1.38\\times10^{-23}\\,\\text{J K}^{-1}$ is Boltzmann's constant and $T$ the absolute temperature. $k_B T$ is the typical thermal energy of a particle at temperature $T$; at room temperature it is only about 0.026 eV. It is the yardstick for judging whether a band gap is small or large." },
+
+      { "type": "HEADING", "text": "Energy bands in conductors (metals)" },
+      { "type": "TEXT", "text": "In a metal the band picture takes one of two forms:\n\n1. **The conduction band is only partly filled**, so the topmost electrons have empty levels just above them.\n2. **The valence band and the conduction band overlap**, so there is no gap between them and electrons spread freely over both bands.\n\nIn both cases $E_g = 0$: the highest occupied electrons have empty states immediately above them. Even a very weak electric field can give them a little extra energy, so they drift and carry current. Metals therefore have a very large number of free electrons (about $8.5\\times10^{28}\\,\\text{m}^{-3}$ in copper) and a very low resistivity. They conduct even at 0 K.\n\n**Effect of temperature.** In a metal the number of free electrons is fixed by the band structure and hardly changes with temperature. When the metal is heated, the ions of the lattice vibrate more strongly and the electrons collide with them more often. The average time between collisions falls, so the resistivity **increases**. Metals therefore have a **positive temperature coefficient of resistance**." },
+      { "type": "KEY_POINT", "text": "Conductor: bands overlap or the conduction band is partly filled, $E_g = 0$, a huge number of free electrons at all temperatures, resistivity rises with temperature because collisions increase, not because the number of carriers changes." },
+
+      { "type": "HEADING", "text": "Energy bands in insulators" },
+      { "type": "TEXT", "text": "In an insulator the valence band is **completely filled** and the conduction band is **completely empty**, and the two are separated by a **large gap, $E_g > 3\\,\\text{eV}$**. Diamond, for example, has $E_g \\approx 5.4\\,\\text{eV}$.\n\nAt room temperature the typical thermal energy is only about 0.026 eV, roughly 200 times smaller than the gap of diamond. The chance that an electron gains enough energy to cross such a gap is so small that practically **no electron reaches the conduction band**. With a full valence band and an empty conduction band, no current flows, so the resistivity is extremely high ($10^{11}$ to $10^{19}\\,\\Omega\\,\\text{m}$).\n\nThe large gap also explains why pure diamond is **transparent**: photons of visible light carry only about 1.8 eV to 3.1 eV, which is less than 5.4 eV, so they cannot lift electrons across the gap and pass through without being absorbed.\n\nOnly an extremely strong electric field or a very high temperature can force an insulator to conduct; this is called **dielectric breakdown** and usually damages the material." },
+      { "type": "IMPORTANT_FACT", "text": "Diamond and silicon have the same type of crystal structure (each atom bonded to four neighbours), yet diamond is an insulator ($E_g \\approx 5.4\\,\\text{eV}$) and silicon is a semiconductor ($E_g \\approx 1.1\\,\\text{eV}$). What decides the class is the width of the band gap, not the crystal structure." },
+
+      { "type": "HEADING", "text": "Energy bands in semiconductors" },
+      { "type": "TEXT", "text": "At 0 K a semiconductor has the same arrangement as an insulator: a completely filled valence band and a completely empty conduction band. The difference is that the gap is **small, $E_g < 3\\,\\text{eV}$**. Typical values are $E_g \\approx 1.1\\,\\text{eV}$ for silicon, $0.7\\,\\text{eV}$ for germanium and $1.4\\,\\text{eV}$ for gallium arsenide.\n\n**At 0 K** there is no thermal energy to lift electrons across the gap, so a pure semiconductor **behaves as an insulator**.\n\n**At room temperature** the thermal energy of the electrons is not the same for every electron: it is spread over a range, and a small fraction of electrons have energies many times $k_B T$. Because the valence band contains an enormous number of electrons, even this tiny fraction is a significant number of electrons that gain at least $E_g$ and jump into the conduction band. Each jump produces two charge carriers:\n\n- a **free electron** in the conduction band, which can move under a field, and\n- a **hole** (vacancy) left behind in the valence band, which also allows conduction because neighbouring valence electrons can move into it.\n\nIn a pure semiconductor electrons and holes are always created in pairs, so their numbers are equal." },
+      { "type": "DEFINITION", "term": "Hole", "text": "The vacancy left in the valence band (in a broken covalent bond) when an electron is excited to the conduction band. A hole behaves as a mobile positive charge carrier of charge $+e = +1.6\\times10^{-19}\\,\\text{C}$. It is not a real particle: when a hole moves one way, it is really valence electrons that move the opposite way." },
+      { "type": "DIAGRAM", "diagram": "temperature" },
+      { "type": "TEXT", "text": "**Effect of temperature.** As temperature rises, many more electrons are excited across the small gap, so the number of electrons and holes grows very rapidly. This increase in carriers far outweighs the extra collisions, so the resistivity of a semiconductor **decreases** with temperature: a semiconductor has a **negative temperature coefficient of resistance**, the opposite of a metal.\n\n**Effect of light.** A photon whose energy $h\\nu$ is at least $E_g$ can also lift an electron from the valence band to the conduction band and create an electron-hole pair. Shining such light on a semiconductor increases its conductivity (photoconductivity). This is the basis of photodiodes, light sensors and solar cells. Photons with $h\\nu < E_g$ cannot do this, so the material is transparent to them." },
+      { "type": "FORMULA", "latex": "\\lambda_{\\max} = \\frac{hc}{E_g} \\quad\\Longrightarrow\\quad \\lambda_{\\max}\\,(\\text{nm}) \\approx \\frac{1240}{E_g\\,(\\text{eV})}", "text": "$\\lambda_{\\max}$ = longest wavelength (lowest photon energy) that can create an electron-hole pair; $h = 6.63\\times10^{-34}\\,\\text{J s}$ is Planck's constant; $c = 3\\times10^{8}\\,\\text{m s}^{-1}$; $E_g$ in joules for the first form. The shortcut uses $hc \\approx 1240\\,\\text{eV nm}$." },
+      { "type": "SOLVED_PROBLEM", "problem": "The band gap of silicon is 1.1 eV. Find the longest wavelength of light that can excite an electron from the valence band to the conduction band of silicon. In which region of the spectrum does it lie? Take $h = 6.63\\times10^{-34}\\,\\text{J s}$, $c = 3\\times10^{8}\\,\\text{m s}^{-1}$ and $1\\,\\text{eV} = 1.6\\times10^{-19}\\,\\text{J}$.", "solution": "Step 1: Convert the band gap to joules: $E_g = 1.1 \\times 1.6\\times10^{-19} = 1.76\\times10^{-19}\\,\\text{J}$.\n\nStep 2: The photon must carry at least $E_g$, so $hc/\\lambda \\ge E_g$, which gives $\\lambda \\le hc/E_g$.\n\nStep 3: $hc = 6.63\\times10^{-34} \\times 3\\times10^{8} = 1.989\\times10^{-25}\\,\\text{J m}$.\n\nStep 4: $\\lambda_{\\max} = \\dfrac{1.989\\times10^{-25}}{1.76\\times10^{-19}} = 1.13\\times10^{-6}\\,\\text{m} = 1130\\,\\text{nm}$.\n\nCheck with the shortcut: $1240/1.1 \\approx 1127\\,\\text{nm}$, which agrees.\n\nStep 5: Visible light lies between about 400 nm and 700 nm, so 1130 nm is in the **near infrared**. All visible light (shorter wavelength, higher energy) can therefore create electron-hole pairs in silicon, which is why silicon absorbs visible light and is used in solar cells and camera sensors.", "answer": "$\\lambda_{\\max} \\approx 1.13\\,\\mu\\text{m}$ (about 1130 nm), in the near infrared." },
+      { "type": "SOLVED_PROBLEM", "problem": "At room temperature (300 K) the thermal energy $k_B T$ is about 0.026 eV. Compare it with the band gaps of silicon (1.1 eV) and diamond (5.4 eV) by finding the ratio $E_g / k_B T$ in each case, and use the result to explain why one is a semiconductor and the other an insulator. ($k_B = 1.38\\times10^{-23}\\,\\text{J K}^{-1}$, $1\\,\\text{eV} = 1.6\\times10^{-19}\\,\\text{J}$.)", "solution": "Step 1: Thermal energy at 300 K: $k_B T = 1.38\\times10^{-23} \\times 300 = 4.14\\times10^{-21}\\,\\text{J}$. In eV: $4.14\\times10^{-21} / 1.6\\times10^{-19} = 0.0259\\,\\text{eV} \\approx 0.026\\,\\text{eV}$.\n\nStep 2: Silicon: $E_g / k_B T = 1.1 / 0.0259 \\approx 42$.\n\nStep 3: Diamond: $E_g / k_B T = 5.4 / 0.0259 \\approx 209$.\n\nStep 4: Interpretation. The fraction of electrons with energy several tens of times $k_B T$ is very small but, because there are about $10^{28}$ to $10^{29}$ valence electrons per cubic metre, a gap of about $42\\,k_B T$ still lets a measurable number of electrons (roughly $10^{16}$ per cubic metre in silicon) reach the conduction band. A gap of about $209\\,k_B T$ makes the fraction so astronomically small that essentially no electron crosses it. Silicon therefore conducts a little (semiconductor) while diamond does not conduct at all (insulator).", "answer": "$E_g/k_BT \\approx 42$ for silicon and $\\approx 209$ for diamond; the gap of diamond is about five times wider in units of $k_BT$, so thermal excitation is negligible in diamond but significant in silicon." },
+      { "type": "SOLVED_PROBLEM", "problem": "Cadmium sulphide has a band gap of about 2.4 eV. Light of wavelength (i) 600 nm and (ii) 400 nm falls on a thin CdS film. Which of the two can create electron-hole pairs and so increase the conductivity of the film? Use $hc \\approx 1240\\,\\text{eV nm}$.", "solution": "Step 1: Photon energy $E = hc/\\lambda$. With $hc \\approx 1240\\,\\text{eV nm}$, $E\\,(\\text{eV}) = 1240/\\lambda\\,(\\text{nm})$.\n\nStep 2: For 600 nm: $E = 1240/600 \\approx 2.07\\,\\text{eV}$. This is less than $E_g = 2.4\\,\\text{eV}$, so the photon cannot lift an electron across the gap. The film is transparent to this light and its conductivity does not change.\n\nStep 3: For 400 nm: $E = 1240/400 = 3.1\\,\\text{eV}$. This exceeds 2.4 eV, so each absorbed photon can create an electron-hole pair, and the conductivity of the film rises.\n\nStep 4: Equivalently, the cut-off wavelength is $\\lambda_{\\max} = 1240/2.4 \\approx 517\\,\\text{nm}$; only light of shorter wavelength than this is effective.", "answer": "Only the 400 nm light (3.1 eV > 2.4 eV) creates electron-hole pairs; 600 nm light (2.07 eV) does not." },
+      { "type": "KEY_POINT", "text": "Semiconductor: filled valence band and empty conduction band at 0 K, small gap ($E_g < 3\\,\\text{eV}$). Insulator at 0 K; at room temperature some electrons cross the gap, creating equal numbers of free electrons and holes. Resistivity falls as temperature rises (negative temperature coefficient)." },
+
+      { "type": "HEADING", "text": "Comparing conductors, semiconductors and insulators" },
+      { "type": "TABLE", "caption": "Band-theory comparison of the three classes of solids", "columns": ["Property", "Conductor (metal)", "Semiconductor", "Insulator"], "rows": [
+        ["Band arrangement", "Valence and conduction bands overlap, or conduction band partly filled", "Filled valence band and empty conduction band at 0 K, separated by a small gap", "Filled valence band and empty conduction band, separated by a large gap"],
+        ["Band gap $E_g$", "$0$", "Less than about 3 eV (Si 1.1 eV, Ge 0.7 eV)", "More than about 3 eV (diamond 5.4 eV)"],
+        ["Charge carriers at room temperature", "Very many free electrons ($\\sim10^{28}$ to $10^{29}\\,\\text{m}^{-3}$)", "A modest number of electrons (conduction band) and holes (valence band)", "Practically none"],
+        ["Behaviour at 0 K", "Conducts", "Insulator", "Insulator"],
+        ["Resistivity ($\\Omega\\,\\text{m}$)", "$10^{-2}$ to $10^{-8}$", "$10^{-5}$ to $10^{6}$", "$10^{11}$ to $10^{19}$"],
+        ["Effect of raising temperature", "Resistivity increases (more collisions, same number of carriers)", "Resistivity decreases sharply (many more carriers)", "Remains a very poor conductor"],
+        ["Temperature coefficient of resistance", "Positive", "Negative", "Negative, but conduction is negligible"]
+      ] },
+      { "type": "IMPORTANT_FACT", "text": "The 3 eV dividing line between semiconductors and insulators is a convention, not a sharp physical boundary. What really matters is how $E_g$ compares with $k_B T$ (about 0.026 eV at room temperature): a gap of a few tens of $k_B T$ allows some thermal excitation, while a gap of hundreds of $k_B T$ allows practically none." },
+      { "type": "KEY_POINT", "text": "Quick revision:\n\n- Energy level (atom) becomes energy band (crystal); N atoms give N levels per band.\n- $E_g = E_C - E_V$; conduction needs a partly filled band.\n- Conductor: $E_g = 0$. Semiconductor: $E_g < 3\\,\\text{eV}$. Insulator: $E_g > 3\\,\\text{eV}$.\n- Si 1.1 eV, Ge 0.7 eV, diamond 5.4 eV.\n- Metal: $\\rho$ rises with $T$. Semiconductor: $\\rho$ falls with $T$.\n- $\\lambda_{\\max}\\,(\\text{nm}) \\approx 1240/E_g\\,(\\text{eV})$." },
+      { "type": "CALLOUT", "text": "**Exam tips.** Questions on this row are usually conceptual: identify the class from a band diagram, give the band gap of Si/Ge/diamond, explain the effect of temperature, or explain why a full band does not conduct. Numerical questions mostly use $E = hc/\\lambda$ with the band gap; remember $hc \\approx 1240\\,\\text{eV nm}$ to save time." },
+      { "type": "CALLOUT", "text": "**Common mistakes.**\n\n- Saying that electrons in a pure semiconductor sit *in* the forbidden gap. A perfect crystal has no allowed levels there; electrons are either in the valence band or in the conduction band.\n- Thinking a semiconductor conducts at 0 K. At 0 K a pure semiconductor is an insulator.\n- Explaining the rise in a metal's resistance by a fall in the number of electrons. The number stays the same; collisions with the vibrating lattice increase.\n- Treating a hole as a real positive particle like a positron. A hole is an empty state; its motion is the motion of valence electrons in the opposite direction.\n- Mixing up the band gap of germanium (about 0.7 eV) with the knee voltage of a silicon diode (about 0.7 V). They are different quantities that happen to have similar numbers." }
+    ]
+  },
+  "diagrams": [
+    { "key": "band-formation", "file": "diagrams/ug26-322-u9-energy-bands-band-formation.svg", "alt": "Discrete energy levels of an isolated atom splitting into energy bands in a crystal of N atoms, with a forbidden gap between the valence and conduction bands", "caption": "Atomic energy levels broaden into energy bands when N atoms form a crystal", "description": "Left: an isolated atom with three sharp levels, an empty outer level at the top, the valence level in the middle and an inner level at the bottom, on a vertical electron-energy axis. Dashed lines fan out to the right, showing each level splitting into N levels. Right: in the crystal, the empty outer level becomes a wide conduction band (empty at 0 K), the valence level becomes a wide valence band (filled at 0 K, shaded blue), and the inner level becomes a very narrow inner band. A red double arrow between the conduction and valence bands marks the forbidden gap with no allowed levels. A note says about 10^23 closely spaced levels form an almost continuous band." },
+    { "key": "three-classes", "file": "diagrams/ug26-322-u9-energy-bands-three-classes.svg", "alt": "Energy band diagrams of (a) a conductor with overlapping bands, (b) an insulator with a gap greater than 3 eV and (c) a semiconductor with a gap less than 3 eV", "caption": "Band pictures of a conductor, an insulator and a semiconductor", "description": "Three panels on a common vertical energy axis. (a) Conductor (metal): the conduction band overlaps the top of the valence band; the overlap region is shaded and marked no gap, Eg = 0. (b) Insulator (diamond): an empty conduction band at the top and a completely filled valence band at the bottom, separated by a wide forbidden energy gap marked Eg > 3 eV. (c) Semiconductor (Si, Ge): an empty conduction band and a filled valence band separated by a narrow gap marked Eg < 3 eV (Si 1.1 eV); a few electrons (black dots) are shown at the bottom of the conduction band and the same number of holes (open red circles) at the top of the valence band, labelled as occurring at T > 0 K." },
+    { "key": "temperature", "file": "diagrams/ug26-322-u9-energy-bands-temperature.svg", "alt": "A semiconductor at 0 K with filled valence band and empty conduction band, and at room temperature with electrons thermally excited to the conduction band leaving holes", "caption": "A pure semiconductor at 0 K (insulator) and at room temperature (electron-hole pairs)", "description": "Left panel, At T = 0 K: an empty conduction band above a completely filled valence band, separated by a gap Eg; caption says no free carriers, behaves as an insulator. Right panel, At room temperature: three green arrows show electrons being thermally excited from the valence band to the conduction band. Three black dots (free electrons) sit at the bottom of the conduction band and three open red circles (holes) at the top of the valence band. Caption: electrons (conduction band) and holes (valence band) both carry current; conductivity rises with temperature." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u9-energy-bands-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In terms of energy bands, which description fits a metallic conductor such as copper?",
+      "options": [
+        "The valence band is completely filled, the conduction band is empty and the gap between them is about 5 eV.",
+        "The valence band is completely filled, the conduction band is empty and the gap between them is about 1 eV.",
+        "The valence and conduction bands overlap (or the conduction band is partly filled), so there is no energy gap.",
+        "All the bands are completely filled, so electrons cannot gain energy from a field."
+      ],
+      "answer": 3,
+      "explanation": "In a metal either the conduction band is only partly filled or the valence and conduction bands overlap. Either way $E_g = 0$ and the highest-energy electrons have empty levels immediately above them, so even a weak field can accelerate them. This gives a very large number of free electrons and a very low resistivity.",
+      "optionRationale": { "1": "A full valence band, an empty conduction band and a gap of about 5 eV describe an insulator such as diamond.", "2": "A filled valence band and an empty conduction band with a gap of about 1 eV describe a semiconductor such as silicon.", "4": "If all bands were completely full no current could flow; this is the opposite of a conductor." },
+      "objective": "Describe the band structure of a conductor"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The forbidden energy gap of silicon at room temperature is closest to which value?",
+      "options": ["1.1 eV", "0.026 eV", "5.4 eV", "0.7 eV"],
+      "answer": 1,
+      "explanation": "Silicon is a semiconductor with a band gap of about 1.1 eV. This is small enough (less than about 3 eV) for some electrons to be thermally excited into the conduction band at room temperature, but large enough that pure silicon conducts only weakly. Germanium has the smaller gap of about 0.7 eV and diamond the much larger gap of about 5.4 eV.",
+      "optionRationale": { "2": "0.026 eV is the thermal energy $k_BT$ at 300 K, not a band gap.", "3": "5.4 eV is the band gap of diamond, an insulator.", "4": "About 0.7 eV is the band gap of germanium (and, as a voltage, the knee voltage of a silicon diode), not the band gap of silicon." },
+      "objective": "Recall typical band gap values of common semiconductors"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q03", "type": "MATCH_THE_FOLLOWING", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Match each material in List-I with its band description in List-II.",
+      "list": {
+        "left": ["A. Copper", "B. Silicon", "C. Diamond", "D. Germanium"],
+        "right": ["I. Band gap about 5.4 eV", "II. Valence and conduction bands overlap, no gap", "III. Band gap about 1.1 eV", "IV. Band gap about 0.7 eV"]
+      },
+      "options": ["A-II, B-IV, C-I, D-III", "A-I, B-III, C-II, D-IV", "A-III, B-II, C-IV, D-I", "A-II, B-III, C-I, D-IV"],
+      "answer": 4,
+      "explanation": "Copper is a metal, so its bands overlap and there is no gap (A-II). Silicon is a semiconductor with a gap of about 1.1 eV (B-III). Diamond is an insulator with a wide gap of about 5.4 eV (C-I). Germanium is a semiconductor with a smaller gap of about 0.7 eV (D-IV). Hence A-II, B-III, C-I, D-IV.",
+      "optionRationale": { "1": "This swaps the band gaps of silicon and germanium: silicon has the larger gap (1.1 eV).", "2": "Copper does not have a 5.4 eV gap and diamond does not have overlapping bands; these two are interchanged.", "3": "Copper has no band gap, so it cannot be matched with 1.1 eV; every pairing here is wrong." },
+      "objective": "Associate materials with their band structure"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q04", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Why does perfectly pure silicon behave as an insulator at 0 K?",
+      "options": [
+        "Its band gap becomes larger than 3 eV at 0 K.",
+        "Its valence band is completely filled and its conduction band completely empty, and no thermal energy is available to lift electrons across the gap.",
+        "All its electrons are in the conduction band but they cannot move at 0 K.",
+        "Its valence and conduction bands overlap at 0 K, so the electrons are trapped."
+      ],
+      "answer": 2,
+      "explanation": "At 0 K the 4N valence electrons of N silicon atoms exactly fill the valence band and the conduction band is empty. A full band cannot carry current, and an empty band has no electrons. Since there is no thermal energy at 0 K, no electron crosses the 1.1 eV gap, so there are no free electrons or holes and silicon behaves as an insulator.",
+      "optionRationale": { "1": "The gap of silicon changes only slightly with temperature (it stays close to 1.1 to 1.2 eV); it never becomes larger than 3 eV.", "3": "At 0 K the conduction band of silicon is empty, not full.", "4": "Overlapping bands describe a metal, which conducts even at 0 K." },
+      "objective": "Explain the behaviour of a semiconductor at 0 K using band theory"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q05", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about the formation of energy bands in a crystal of N identical atoms.\nA. Each atomic energy level splits into N closely spaced levels.\nB. The levels of inner-shell electrons broaden much more than those of the outermost electrons.\nC. In a perfect crystal there are no allowed electron energy levels inside the forbidden gap.\nD. The splitting happens because the Pauli exclusion principle does not allow two electrons of the crystal to occupy the same quantum state.\nWhich of the statements are correct?",
+      "options": ["A, B and C only", "B and D only", "A, C and D only", "A, B, C and D"],
+      "answer": 3,
+      "explanation": "A is correct: one level of N atoms becomes N levels forming a band. C is correct: in a perfect crystal the gap contains no allowed levels. D is correct: the exclusion principle is the reason identical levels must split once orbitals overlap. B is wrong: inner-shell orbitals hardly overlap, so inner levels stay narrow while outer levels broaden into wide bands. So A, C and D are correct.",
+      "optionRationale": { "1": "Includes B, which is false, and leaves out D, which is true.", "2": "B is false, and A and C, which are true, are left out.", "4": "B is false: inner levels broaden least, not most." },
+      "objective": "Explain how energy bands form from atomic levels"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q06", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The resistivity of a pure semiconductor decreases as its temperature increases.\nReason (R): At higher temperature more electrons are excited across the band gap into the conduction band, increasing the number of free electrons and holes available for conduction.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Both statements are true. Heating a semiconductor gives more valence electrons enough energy to cross the small gap, so the number of conduction electrons and holes rises very rapidly. This increase in carriers outweighs the extra lattice collisions, so the conductivity rises and the resistivity falls. R is exactly the reason for A, so option 1 is correct.",
+      "optionRationale": { "2": "R is not an unrelated true fact; the increase in carrier number is precisely why the resistivity falls.", "3": "R is true: thermal excitation across the gap does increase with temperature.", "4": "A is true: semiconductors have a negative temperature coefficient of resistance." },
+      "objective": "Explain the effect of temperature on a semiconductor's resistivity"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q07", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): The resistivity of a metal such as copper increases when its temperature is raised.\nReason (R): In a metal, the number of free electrons increases rapidly as the temperature rises.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "A is true: metals have a positive temperature coefficient of resistance. R is false: in a metal ($E_g = 0$) the number of free electrons is fixed by the band structure and is almost independent of temperature. The resistivity rises because the lattice ions vibrate more strongly and electrons collide with them more often, shortening the time between collisions. An increase in carriers would lower the resistivity, not raise it.",
+      "optionRationale": { "1": "R is false, and even if the carrier number did rise it would reduce the resistivity, the opposite of A.", "2": "R is not true for metals; the free-electron density hardly changes with temperature.", "4": "A is true: the resistance of a metal wire increases on heating." },
+      "objective": "Distinguish the temperature dependence of conductors and semiconductors"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q08", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The band gap of germanium is 0.7 eV. What is the longest wavelength of light that can create electron-hole pairs in germanium? Take $hc = 1240\\,\\text{eV nm}$.",
+      "options": ["0.89 µm", "1.13 µm", "3.54 µm", "1.77 µm"],
+      "answer": 4,
+      "explanation": "A photon can lift an electron across the gap only if $hc/\\lambda \\ge E_g$, so $\\lambda_{\\max} = hc/E_g = 1240\\,\\text{eV nm} / 0.7\\,\\text{eV} = 1771\\,\\text{nm} \\approx 1.77\\,\\mu\\text{m}$. Light of any longer wavelength carries less than 0.7 eV per photon and passes through without creating electron-hole pairs.",
+      "optionRationale": { "1": "$0.89\\,\\mu\\text{m}$ corresponds to a gap of about 1.4 eV (twice the given value).", "2": "$1.13\\,\\mu\\text{m}$ is the cut-off for silicon (1.1 eV), not germanium.", "3": "$3.54\\,\\mu\\text{m}$ is twice the correct value; it would correspond to a gap of 0.35 eV." },
+      "objective": "Relate band gap to the threshold wavelength for creating electron-hole pairs"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q09", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "Optical-fibre links commonly use infrared light of wavelength $1.5\\,\\mu\\text{m}$. A detector works only if each photon can lift an electron across the band gap of its material. Which of these materials can detect this light? Take $hc = 1240\\,\\text{eV nm}$.",
+      "options": ["Silicon ($E_g \\approx 1.1\\,\\text{eV}$)", "Germanium ($E_g \\approx 0.7\\,\\text{eV}$)", "Gallium arsenide ($E_g \\approx 1.4\\,\\text{eV}$)", "Diamond ($E_g \\approx 5.4\\,\\text{eV}$)"],
+      "answer": 2,
+      "explanation": "Photon energy $E = hc/\\lambda = 1240\\,\\text{eV nm} / 1500\\,\\text{nm} \\approx 0.83\\,\\text{eV}$. The photon can create an electron-hole pair only in a material with $E_g \\le 0.83\\,\\text{eV}$. Of the four, only germanium ($0.7\\,\\text{eV}$) qualifies. Silicon, gallium arsenide and diamond have gaps larger than 0.83 eV, so they are transparent to this light.",
+      "optionRationale": { "1": "1.1 eV is larger than the 0.83 eV photon energy, so silicon cannot absorb $1.5\\,\\mu\\text{m}$ light (its cut-off is about $1.13\\,\\mu\\text{m}$).", "3": "1.4 eV is far larger than 0.83 eV; GaAs absorbs only below about $0.89\\,\\mu\\text{m}$.", "4": "Diamond's 5.4 eV gap needs ultraviolet photons (below about 230 nm)." },
+      "objective": "Apply the band-gap condition to choose a photodetector material"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q10", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "diagram": "three-classes",
+      "stem": "Refer to panel (a) of the figure. Why can the material shown in panel (a) conduct electricity even at 0 K?",
+      "options": [
+        "Because the overlapping bands leave the highest-energy electrons with empty levels immediately above them, so no thermal energy is needed for them to respond to a field.",
+        "Because its band gap is about 1 eV, which electrons can cross easily even at 0 K.",
+        "Because holes are created in its valence band by thermal excitation at 0 K.",
+        "Because the overlap region acts as a forbidden gap that stores electrons until a field is applied."
+      ],
+      "answer": 1,
+      "explanation": "Panel (a) shows a metal whose valence and conduction bands overlap, so $E_g = 0$. The topmost electrons have unoccupied levels right next to them in energy, so an electric field can give them small amounts of energy and set them drifting without any thermal excitation. That is why a metal conducts at all temperatures, including 0 K.",
+      "optionRationale": { "2": "Panel (a) has no gap at all; a 1 eV gap would make it a semiconductor, which does not conduct at 0 K.", "3": "At 0 K there is no thermal energy, so no thermal excitation can occur.", "4": "The overlap region is a range of allowed levels, not a forbidden gap." },
+      "objective": "Interpret a band diagram to explain conduction in metals"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q11", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "At 300 K the typical thermal energy $k_BT$ is only about 0.026 eV, yet pure silicon ($E_g \\approx 1.1\\,\\text{eV}$) has a measurable number of conduction electrons at room temperature. Which statement best explains this?",
+      "options": [
+        "The band gap of silicon shrinks to about 0.026 eV at room temperature.",
+        "Thermal energies are spread over a range; a tiny fraction of the enormous number of valence electrons have energies many times $k_BT$, enough to cross the gap.",
+        "Electrons cross the gap by stepping through allowed levels that exist inside the forbidden gap of pure silicon.",
+        "At room temperature every silicon atom gives up one valence electron to the conduction band."
+      ],
+      "answer": 2,
+      "explanation": "$k_BT$ is only a typical value; the energies of electrons are distributed, and a very small fraction have energies tens of times larger. Silicon has about $10^{29}$ valence electrons per cubic metre, so even a fraction of order $10^{-13}$ gives about $10^{16}$ conduction electrons per cubic metre, which is measurable. Pure silicon has no levels in its gap, and its gap stays close to 1.1 eV.",
+      "optionRationale": { "1": "The band gap of silicon depends only weakly on temperature; it stays near 1.1 eV.", "3": "A pure crystal has no allowed levels in the forbidden gap (levels in the gap appear only with impurities).", "4": "If every atom released an electron, silicon would conduct like a metal; in fact only about one atom in $10^{12}$ to $10^{13}$ does so." },
+      "objective": "Explain thermal excitation across a band gap much larger than kT"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q12", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "In a crystal of N silicon atoms (outer configuration $3s^2\\,3p^2$), the 3s and 3p levels regroup into two bands separated by a gap. At 0 K, the lower of these two bands:",
+      "options": [
+        "contains 4N states and is completely filled by the 4N valence electrons",
+        "contains 8N states and is half filled by the 4N valence electrons",
+        "contains 2N states and is completely filled, leaving 2N electrons in the upper band",
+        "contains 4N states but only 2N of them are occupied"
+      ],
+      "answer": 1,
+      "explanation": "The 3s and 3p sub-shells provide $2 + 6 = 8$ states per atom, so $8N$ states in all. These regroup into a lower band of $4N$ states and an upper band of $4N$ states. Each atom contributes 4 valence electrons, giving $4N$ electrons, which exactly fill the lower (valence) band at 0 K and leave the upper (conduction) band empty.",
+      "optionRationale": { "2": "The 8N states are shared between two bands of 4N each; no single band holds 8N states here.", "3": "If 2N electrons were in the upper band at 0 K, silicon would conduct at 0 K, which it does not.", "4": "There are 4N valence electrons, enough to fill all 4N states of the lower band." },
+      "objective": "Apply band formation to the case of silicon"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q13", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which option correctly gives the sign of the temperature coefficient of resistance of a metal and of a pure semiconductor?",
+      "options": [
+        "Metal: positive; semiconductor: positive",
+        "Metal: negative; semiconductor: positive",
+        "Metal: negative; semiconductor: negative",
+        "Metal: positive; semiconductor: negative"
+      ],
+      "answer": 4,
+      "explanation": "A metal's resistance increases with temperature because more lattice vibration means more collisions, while its number of free electrons stays the same: positive coefficient. A semiconductor's resistance decreases with temperature because many more electrons cross the small gap, creating more electrons and holes: negative coefficient.",
+      "optionRationale": { "1": "A semiconductor's resistance falls with temperature, so its coefficient is negative.", "2": "Both signs are reversed.", "3": "A metal's resistance rises with temperature, so its coefficient is positive." },
+      "objective": "Compare the temperature dependence of resistance in metals and semiconductors"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-q14", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "Pure diamond ($E_g \\approx 5.4\\,\\text{eV}$) is transparent to visible light (wavelengths about 400 nm to 700 nm), while silicon ($E_g \\approx 1.1\\,\\text{eV}$) absorbs it. Taking $hc = 1240\\,\\text{eV nm}$, which statement best explains this?",
+      "options": [
+        "Visible photons carry more energy than diamond's band gap, so they pass straight through diamond.",
+        "Diamond's valence and conduction bands overlap, so it reflects visible light instead of absorbing it.",
+        "Visible photons carry about 1.8 eV to 3.1 eV, less than diamond's gap but more than silicon's, so they excite electrons in silicon but not in diamond.",
+        "Silicon's band gap is larger than the energy of visible photons, so silicon absorbs them."
+      ],
+      "answer": 3,
+      "explanation": "Photon energies: $1240/700 \\approx 1.8\\,\\text{eV}$ and $1240/400 = 3.1\\,\\text{eV}$. All visible photons therefore carry less than 5.4 eV, so they cannot lift an electron across diamond's gap and are not absorbed: diamond is transparent. All of them carry more than 1.1 eV, so in silicon they create electron-hole pairs and are absorbed: silicon looks opaque.",
+      "optionRationale": { "1": "Visible photons carry less energy than 5.4 eV, not more; and a photon with more energy than the gap would be absorbed, not transmitted.", "2": "Diamond is an insulator with a wide gap; its bands do not overlap.", "4": "Silicon's 1.1 eV gap is smaller than visible photon energies; that is exactly why it absorbs visible light." },
+      "objective": "Use band gaps to explain optical absorption and transparency"
+    }
+  ]
+}

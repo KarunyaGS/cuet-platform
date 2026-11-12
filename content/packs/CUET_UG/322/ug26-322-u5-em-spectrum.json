@@ -1,0 +1,370 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": { "id": "cn_3df2042bb00e4548ae4ec2fe8925d429", "title": "Electromagnetic spectrum (radio waves, microwaves, infrared, visible, ultraviolet, X-rays," },
+  "lesson": {
+    "key": "ug26-322-u5-em-spectrum",
+    "title": "The electromagnetic spectrum and the uses of its bands",
+    "coverage": [
+      { "phrase": "Electromagnetic spectrum: ordering by wavelength and frequency", "section": "The electromagnetic spectrum" },
+      { "phrase": "Radio waves", "section": "Radio waves" },
+      { "phrase": "Microwaves", "section": "Microwaves" },
+      { "phrase": "Infrared", "section": "Infrared waves" },
+      { "phrase": "Visible light", "section": "Visible light" },
+      { "phrase": "Ultraviolet", "section": "Ultraviolet rays" },
+      { "phrase": "X-rays", "section": "X-rays" },
+      { "phrase": "Gamma rays", "section": "Gamma rays" },
+      { "phrase": "Elementary facts about their uses (production, detection and uses of each band)", "section": "Production, detection and uses at a glance" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "The electromagnetic spectrum" },
+      { "type": "TEXT", "text": "Maxwell's theory places no limit on the frequency of an electromagnetic wave. Arranging all known EM waves in order of frequency (or wavelength) gives the **electromagnetic spectrum**. It stretches from radio waves many kilometres long down to gamma rays with wavelengths comparable to the size of an atomic nucleus — a range of roughly twenty powers of ten. The part our eyes detect, visible light, is a very narrow slice in the middle.\n\nThe spectrum is divided, by convention, into seven named bands. In order of **increasing frequency** (decreasing wavelength) they are:\n\n**radio waves → microwaves → infrared → visible light → ultraviolet → X-rays → gamma rays**" },
+      { "type": "DEFINITION", "term": "Electromagnetic spectrum", "text": "The complete, continuous range of electromagnetic waves arranged in order of their frequency or wavelength. Frequency is measured in hertz (Hz) and wavelength in metres (m); in vacuum they are linked by $c = \\nu\\lambda$." },
+      { "type": "FORMULA", "latex": "c = \\nu\\lambda = 3.0\\times10^{8}\\,\\text{m s}^{-1}\\ \\ (\\text{in vacuum})", "text": "$\\nu$ = frequency (Hz), $\\lambda$ = wavelength (m). Since $c$ is the same for every band, a higher frequency always means a proportionally shorter wavelength." },
+      { "type": "DIAGRAM", "diagram": "chart" },
+      { "type": "TEXT", "text": "**What all the bands share.** Every band is the same physical thing — transverse, mutually perpendicular electric and magnetic fields oscillating in phase. So all of them\n\n- travel through vacuum at the same speed $c = 3\\times10^8\\,\\text{m s}^{-1}$;\n- need no material medium;\n- carry energy and momentum and are not deflected by electric or magnetic fields;\n- show reflection, refraction, interference, diffraction and polarisation.\n\n**What changes from band to band** is the frequency and wavelength, and therefore the way the waves are produced, the way they interact with matter, the instruments that detect them and the jobs they are useful for.\n\n**The bands overlap.** The boundaries are not sharp physical walls; they are conventions, and different books quote slightly different limits. In particular, X-rays and gamma rays overlap in wavelength. They are named by **origin**: X-rays come from fast electrons (or inner-shell electron transitions), gamma rays from atomic nuclei. An X-ray and a gamma ray of the same wavelength are physically identical." },
+      { "type": "TEXT", "text": "**Photon energy (an elementary fact).** In the particle picture you will meet in the unit on dual nature of radiation, EM radiation of frequency $\\nu$ comes in packets (photons) of energy $E = h\\nu$, where $h = 6.63\\times10^{-34}\\,\\text{J s}$ is Planck's constant. Higher frequency means more energetic photons. Photons of the high-frequency end — ultraviolet (its shorter-wavelength part), X-rays and gamma rays — carry enough energy to knock electrons out of atoms. These are called **ionising radiations** and can damage living cells. Radio waves, microwaves, infrared and visible light are non-ionising." },
+      { "type": "FORMULA", "latex": "E = h\\nu = \\frac{hc}{\\lambda}\\quad\\Rightarrow\\quad E\\,(\\text{in eV}) \\approx \\frac{1240}{\\lambda\\,(\\text{in nm})}", "text": "Photon energy. $h$ = Planck's constant; $1\\,\\text{eV} = 1.6\\times10^{-19}\\,\\text{J}$. The shortcut $hc \\approx 1240\\,\\text{eV nm}$ gives quick comparisons between bands." },
+      { "type": "TABLE", "caption": "Standard wavelength and frequency ranges (approximate; band edges overlap)", "columns": ["Band", "Wavelength range", "Frequency range (Hz)"], "rows": [
+        ["Radio waves", "$> 0.1\\,\\text{m}$", "$< 3\\times10^{9}$ (broadcasting uses about $5\\times10^{5}$ to $10^{9}$)"],
+        ["Microwaves", "$0.1\\,\\text{m}$ to $1\\,\\text{mm}$", "$3\\times10^{9}$ to $3\\times10^{11}$"],
+        ["Infrared", "$1\\,\\text{mm}$ to $700\\,\\text{nm}$", "$3\\times10^{11}$ to $4.3\\times10^{14}$"],
+        ["Visible light", "$700\\,\\text{nm}$ to $400\\,\\text{nm}$", "$4.3\\times10^{14}$ to $7.5\\times10^{14}$"],
+        ["Ultraviolet", "$400\\,\\text{nm}$ to $1\\,\\text{nm}$", "$7.5\\times10^{14}$ to $3\\times10^{17}$"],
+        ["X-rays", "$1\\,\\text{nm}$ to $10^{-3}\\,\\text{nm}$", "$3\\times10^{17}$ to $3\\times10^{20}$"],
+        ["Gamma rays", "$< 10^{-3}\\,\\text{nm}$ ($< 10^{-12}\\,\\text{m}$)", "$> 3\\times10^{20}$"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "Identify the band of the electromagnetic spectrum to which each of the following waves (in vacuum) belongs: (a) $1.0\\times10^{8}\\,\\text{Hz}$, (b) $2.0\\times10^{13}\\,\\text{Hz}$, (c) $5.0\\times10^{14}\\,\\text{Hz}$, (d) $1.0\\times10^{16}\\,\\text{Hz}$, (e) $1.0\\times10^{18}\\,\\text{Hz}$, (f) $6.0\\times10^{21}\\,\\text{Hz}$.", "solution": "Convert each frequency to a wavelength using $\\lambda = c/\\nu$ with $c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$, then compare with the standard ranges.\n\n(a) $\\lambda = 3.0\\times10^{8}/1.0\\times10^{8} = 3.0\\,\\text{m}$. This is longer than 0.1 m, so it is a **radio wave** (in fact inside the FM/TV region).\n\n(b) $\\lambda = 3.0\\times10^{8}/2.0\\times10^{13} = 1.5\\times10^{-5}\\,\\text{m} = 15\\,\\mu\\text{m}$. This lies between 1 mm and 700 nm, so it is **infrared**.\n\n(c) $\\lambda = 3.0\\times10^{8}/5.0\\times10^{14} = 6.0\\times10^{-7}\\,\\text{m} = 600\\,\\text{nm}$, inside 400–700 nm: **visible** (orange light).\n\n(d) $\\lambda = 3.0\\times10^{-8}\\,\\text{m} = 30\\,\\text{nm}$, between 400 nm and 1 nm: **ultraviolet**.\n\n(e) $\\lambda = 3.0\\times10^{-10}\\,\\text{m} = 0.30\\,\\text{nm}$, between 1 nm and $10^{-3}$ nm: **X-rays**.\n\n(f) $\\lambda = 3.0\\times10^{8}/6.0\\times10^{21} = 5.0\\times10^{-14}\\,\\text{m}$, shorter than $10^{-12}$ m: **gamma rays**.", "answer": "(a) radio, (b) infrared, (c) visible, (d) ultraviolet, (e) X-rays, (f) gamma rays" },
+
+      { "type": "HEADING", "text": "Radio waves" },
+      { "type": "TEXT", "text": "**Range:** wavelengths longer than about 0.1 m (frequencies below about 3 GHz). Practical radio communication uses roughly 500 kHz to 1000 MHz.\n\n**Production:** by the accelerated (oscillating) motion of charges in conducting wires — electrons surging back and forth in a transmitting **antenna (aerial)** driven by an oscillator circuit.\n\n**Detection:** a receiving aerial, in which the incoming wave drives small oscillating currents that a tuned circuit picks up.\n\n**Uses:** radio and television communication and mobile phones. The radio region is divided into bands for different services:" },
+      { "type": "TABLE", "caption": "How the radio band is shared", "columns": ["Service", "Frequency range", "Wavelength (approx.)"], "rows": [
+        ["AM (amplitude modulated) radio", "530 kHz to 1710 kHz", "566 m to 175 m"],
+        ["Short-wave radio", "up to 54 MHz", "down to about 5.6 m"],
+        ["Television (TV) broadcasting", "54 MHz to 890 MHz", "5.6 m to 0.34 m"],
+        ["FM (frequency modulated) radio", "88 MHz to 108 MHz", "3.4 m to 2.8 m"],
+        ["Cellular (mobile) phones", "ultra high frequency (UHF) band", "of the order of tens of centimetres"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "The AM radio band extends from 530 kHz to 1710 kHz and the TV band from 54 MHz to 890 MHz. Find the range of wavelengths in each band. Which band uses the longer waves?", "solution": "Use $\\lambda = c/\\nu$ with $c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$. The lowest frequency gives the longest wavelength.\n\nAM band: at 530 kHz, $\\lambda = 3.0\\times10^{8}/5.30\\times10^{5} = 566\\,\\text{m}$; at 1710 kHz, $\\lambda = 3.0\\times10^{8}/1.71\\times10^{6} = 175\\,\\text{m}$.\n\nTV band: at 54 MHz, $\\lambda = 3.0\\times10^{8}/5.4\\times10^{7} = 5.56\\,\\text{m}$; at 890 MHz, $\\lambda = 3.0\\times10^{8}/8.9\\times10^{8} = 0.337\\,\\text{m}$.\n\nAM radio waves are hundreds of metres long, while TV waves range from a few metres down to about a third of a metre. Both lie in the radio region, but AM uses waves roughly 30 to 1700 times longer than TV.", "answer": "AM: about 566 m to 175 m; TV: about 5.6 m to 0.34 m; AM uses the longer waves" },
+      { "type": "CALLOUT", "text": "**Common confusion:** mobile phones use **radio waves** (UHF band), not microwaves, in the NCERT classification — even though their frequencies are close to the microwave region. If a question asks which band carries cellular phone signals, answer radio waves (UHF)." },
+
+      { "type": "HEADING", "text": "Microwaves" },
+      { "type": "TEXT", "text": "**Range:** about 0.1 m down to 1 mm (frequencies in the gigahertz range, roughly $3\\times10^{9}$ to $3\\times10^{11}\\,\\text{Hz}$). They are often described as short-wavelength radio waves.\n\n**Production:** special vacuum tubes called **klystrons** and **magnetrons**, and solid-state **Gunn diodes**.\n\n**Detection:** **point-contact (crystal) diodes**.\n\n**Uses:**\n\n- **Radar** for aircraft navigation and weather tracking. Their short wavelength lets them be sent out as narrow, well-directed beams and reflected strongly by objects such as aircraft; the time for the echo to return gives the distance.\n- **Speed guns** that time fast balls, tennis serves and moving vehicles work on the same radar principle.\n- **Microwave ovens.** The oscillating electric field of the microwaves (usually about 2.45 GHz) keeps twisting the polar water molecules in food back and forth; this energy becomes the random kinetic energy of the molecules, so the food heats up from within. Textbooks often say that the oven frequency is chosen to match a resonant frequency of water molecules — remember that phrase for the exam; the essential point is that water in the food absorbs the microwave energy strongly.\n- Satellite communication links also use microwaves, because they pass through the ionosphere." },
+      { "type": "FORMULA", "latex": "d = \\frac{c\\,t}{2}", "text": "Radar ranging: $d$ = distance of the target (m), $t$ = time between sending a pulse and receiving its echo (s), $c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$. The factor 2 appears because the pulse travels to the target and back." },
+      { "type": "SOLVED_PROBLEM", "problem": "A radar station sends a short pulse of microwaves towards an aircraft. The reflected pulse is received $2.0\\times10^{-4}\\,\\text{s}$ after it was sent. How far away is the aircraft? Why are microwaves, rather than long radio waves, used for radar?", "solution": "Step 1 — The pulse travels to the aircraft and back, so in time $t$ it covers twice the distance $d$: $2d = ct$.\n\nStep 2 — Total path: $ct = (3.0\\times10^{8}\\,\\text{m s}^{-1})(2.0\\times10^{-4}\\,\\text{s}) = 6.0\\times10^{4}\\,\\text{m}$.\n\nStep 3 — One-way distance: $d = 6.0\\times10^{4}/2 = 3.0\\times10^{4}\\,\\text{m} = 30\\,\\text{km}$.\n\nWhy microwaves: their wavelength (centimetres) is short, so an antenna of reasonable size can send them out as a narrow, directed beam, and objects the size of an aircraft reflect them strongly; this gives both the direction and the distance of the target. Waves hundreds of metres long would spread out and bend around such objects.", "answer": "$d = 3.0\\times10^{4}\\,\\text{m} = 30\\,\\text{km}$; microwaves form narrow beams and reflect well from aircraft" },
+
+      { "type": "HEADING", "text": "Infrared waves" },
+      { "type": "TEXT", "text": "**Range:** about 1 mm down to 700 nm, lying just beyond the red (long-wavelength) end of the visible spectrum — hence the name *infra*-red, 'below red' in frequency.\n\n**Production:** by hot bodies and by the **vibrations of atoms and molecules**. Every warm object, including the human body, emits infrared.\n\n**Detection:** **thermopiles**, **bolometers** and infrared-sensitive photographic film; also the special sensors in night-vision and thermal cameras.\n\n**Why 'heat waves'?** Infrared is readily absorbed by water molecules, which are present in most materials (carbon dioxide and ammonia also absorb it). After absorption the thermal motion of the molecules increases, so the material warms up and heats its surroundings. That is why infrared is often called **heat radiation**.\n\n**Uses and facts:**\n\n- **Infrared lamps in physiotherapy** warm muscles and joints.\n- **Greenhouse effect:** visible sunlight passes through the atmosphere and warms the ground; the warm ground radiates infrared, much of which is absorbed by greenhouse gases (carbon dioxide, water vapour) and partly sent back, keeping the Earth's average temperature comfortable.\n- **Earth satellites** carry infrared detectors for military surveillance and for monitoring the growth of crops.\n- **Remote controls** of TVs and other appliances use infrared light from semiconductor LEDs.\n- Night-vision and thermal-imaging cameras 'see' warm bodies in the dark.\n- Some animals, such as snakes, can detect infrared from warm prey." },
+      { "type": "CALLOUT", "text": "**Trap:** infrared is called 'heat waves' because it is easily **absorbed** by water and other molecules, raising their thermal motion — not because it has the longest wavelength (radio waves are far longer) and not because only infrared carries energy (every band does)." },
+
+      { "type": "HEADING", "text": "Visible light" },
+      { "type": "TEXT", "text": "**Range:** about 700 nm (red) to 400 nm (violet), i.e. frequencies of about $4.3\\times10^{14}$ to $7.5\\times10^{14}\\,\\text{Hz}$. It is the only part of the spectrum the human eye can detect. Within it the colours run, from longest to shortest wavelength, red, orange, yellow, green, blue, indigo, violet; the eye is most sensitive to yellow-green light near 555 nm.\n\n**Production:** when electrons in atoms move from a higher energy level to a lower one, the energy difference is emitted as light; very hot bodies (the Sun, a lamp filament) also glow.\n\n**Detection:** the eye (the retina), photocells and photographic film.\n\n**Uses:** vision, photography, optical instruments and communication through optical fibres; sunlight drives photosynthesis in plants.\n\n**Other animals see differently.** 'Visible' is defined by the human eye. Snakes can sense infrared, and the visible range of many insects (such as bees) extends well into the ultraviolet." },
+
+      { "type": "HEADING", "text": "Ultraviolet rays" },
+      { "type": "TEXT", "text": "**Range:** from about 400 nm down to about 1 nm (some books quote 0.6 nm), beyond the violet end of the visible spectrum.\n\n**Production:** in the NCERT summary, by **inner-shell electrons in atoms moving from one energy level to a lower level**; transitions of outer electrons with large energy changes also give UV. In practice it comes from special lamps (such as mercury-vapour lamps) and very hot bodies. **The Sun is a major source.**\n\n**Detection:** photocells and photographic film (and fluorescent materials, which glow when UV falls on them).\n\n**Facts and uses:**\n\n- **The ozone layer** high in the atmosphere (NCERT gives an altitude of about 40–50 km) absorbs most of the Sun's ultraviolet and protects life. Its depletion by chlorofluorocarbon gases (CFCs, such as freon) is therefore an international concern.\n- In large doses UV is harmful. Exposure stimulates the skin to produce more **melanin**, causing **tanning**; excessive exposure causes sunburn and can damage the eyes.\n- **Ordinary glass absorbs UV.** So you cannot get tanned or sunburnt through a glass window. Welders wear goggles or face masks with special glass windows to protect their eyes from the intense UV of welding arcs.\n- Because of its short wavelength, UV can be focussed into very narrow beams for precision work such as **LASIK eye surgery**.\n- **UV lamps kill germs**, for example in water purifiers and for sterilising surfaces." },
+      { "type": "IMPORTANT_FACT", "text": "Glass absorbs ultraviolet but transmits visible light; quartz transmits ultraviolet. This is why UV lamps and instruments use quartz rather than ordinary glass." },
+
+      { "type": "HEADING", "text": "X-rays" },
+      { "type": "TEXT", "text": "**Range:** about 1 nm down to $10^{-3}$ nm in the standard table (some books extend the region from about 10 nm to $10^{-4}$ nm, overlapping both ultraviolet and gamma rays).\n\n**Production:** the usual method is to bombard a metal target with high-energy electrons in an **X-ray tube**; the electrons are suddenly stopped and also knock out inner-shell electrons of the target atoms, and X-rays are emitted.\n\n**Detection:** photographic film, Geiger (Geiger–Müller) tubes and ionisation chambers.\n\n**Uses and facts:**\n\n- **Medical diagnosis:** X-rays pass through soft tissue more easily than through bone, so an X-ray photograph shows fractures and other internal problems.\n- **Treatment of certain cancers** (radiotherapy).\n- Checking luggage at airports and studying the arrangement of atoms in crystals.\n- X-rays are ionising: they damage or destroy living tissue, so unnecessary or excessive exposure must be avoided." },
+      { "type": "SOLVED_PROBLEM", "problem": "Compare the photon energy of green light of wavelength 500 nm with that of X-rays of wavelength 0.10 nm. Use $hc \\approx 1240\\,\\text{eV nm}$. Why are X-rays dangerous to living cells while visible light is not?", "solution": "Step 1 — Photon energy is $E = hc/\\lambda$, so with $\\lambda$ in nanometres, $E$ in electronvolts is $1240/\\lambda$.\n\nStep 2 — Green light: $E = 1240/500 = 2.48\\,\\text{eV}$.\n\nStep 3 — X-rays: $E = 1240/0.10 = 12\\,400\\,\\text{eV} = 12.4\\,\\text{keV}$.\n\nStep 4 — Ratio: $12\\,400/2.48 = 5000$, which is simply the ratio of the wavelengths, $500/0.10$.\n\nA few electronvolts can excite an atom but is too little to tear an electron out of the molecules of a cell. Each X-ray photon carries thousands of electronvolts, enough to ionise many atoms and break chemical bonds, including those in DNA. That is why X-rays (and gamma rays) are ionising and harmful, while visible light is not.", "answer": "Green light: about 2.5 eV; X-rays: about 12.4 keV, roughly 5000 times more; X-ray photons can ionise atoms in cells" },
+
+      { "type": "HEADING", "text": "Gamma rays" },
+      { "type": "TEXT", "text": "**Range:** the highest-frequency end of the spectrum, wavelengths shorter than about $10^{-3}$ nm ($10^{-12}\\,\\text{m}$); some books give from about $10^{-10}$ m down to less than $10^{-14}$ m.\n\n**Production:** in **nuclear reactions** and by the **radioactive decay of nuclei** — they are emitted when a nucleus drops from an excited state to a lower energy state.\n\n**Detection:** the same detectors as X-rays — Geiger tubes, ionisation chambers and photographic film.\n\n**Uses and facts:**\n\n- In medicine gamma rays are used to **destroy cancer cells** (radiotherapy).\n- They are also used to sterilise medical equipment and to preserve some foods by killing microbes.\n- They are the most energetic photons and are highly penetrating and ionising, so sources must be well shielded (thick lead or concrete)." },
+
+      { "type": "HEADING", "text": "Production, detection and uses at a glance" },
+      { "type": "TABLE", "caption": "How each band is produced and detected", "columns": ["Band", "Produced by", "Detected by"], "rows": [
+        ["Radio waves", "Rapid acceleration and deceleration of electrons in aerials (oscillating circuits)", "Receiver's aerial"],
+        ["Microwaves", "Klystron or magnetron valves; Gunn diodes", "Point-contact diodes"],
+        ["Infrared", "Vibrations of atoms and molecules; hot bodies", "Thermopiles, bolometers, infrared photographic film"],
+        ["Visible light", "Electrons in atoms moving from higher to lower energy levels", "The eye, photocells, photographic film"],
+        ["Ultraviolet", "Inner-shell electrons in atoms moving from one energy level to a lower level; special lamps; very hot bodies such as the Sun", "Photocells, photographic film"],
+        ["X-rays", "X-ray tubes (fast electrons hitting a metal target); inner-shell electron transitions", "Photographic film, Geiger tubes, ionisation chambers"],
+        ["Gamma rays", "Radioactive decay of nuclei; nuclear reactions", "Photographic film, Geiger tubes, ionisation chambers"]
+      ] },
+      { "type": "TABLE", "caption": "Elementary facts about the uses of each band", "columns": ["Band", "Important uses and facts"], "rows": [
+        ["Radio waves", "Radio and TV broadcasting (AM 530–1710 kHz, FM 88–108 MHz, TV 54–890 MHz); cellular phones (UHF)"],
+        ["Microwaves", "Radar for aircraft navigation; speed guns; microwave ovens; satellite communication"],
+        ["Infrared", "Physiotherapy lamps; greenhouse effect keeps Earth warm; satellite monitoring of crops; remote controls; night vision"],
+        ["Visible light", "Vision; photography and optical instruments; photosynthesis"],
+        ["Ultraviolet", "Killing germs in water purifiers; LASIK eye surgery; absorbed by the ozone layer and by glass; causes tanning"],
+        ["X-rays", "Diagnosis of fractures; cancer treatment; airport security; crystal structure"],
+        ["Gamma rays", "Destroying cancer cells; sterilising medical equipment; emitted by radioactive nuclei"]
+      ] },
+      { "type": "KEY_POINT", "text": "**Quick revision**\n\n- Order of increasing frequency: radio, micro, infrared, visible, UV, X, gamma (reverse for increasing wavelength).\n- All bands: same speed $c$ in vacuum, transverse, no medium needed; they differ in $\\nu$ and $\\lambda$.\n- Key boundaries: 0.1 m, 1 mm, 700 nm, 400 nm, 1 nm, $10^{-3}$ nm.\n- Radio — communication; microwaves — radar and ovens; infrared — heat, remote controls, greenhouse effect; visible — vision; UV — germ-killing, LASIK, ozone, glass absorbs it; X-rays — bone imaging; gamma — cancer treatment, from nuclei.\n- Ionising: UV (partly), X-rays and gamma rays." },
+
+      { "type": "HEADING", "text": "Exam tips and memory aids" },
+      { "type": "CALLOUT", "text": "**Memory aid** for increasing frequency: '**R**aging **M**artians **I**nvaded **V**enus **U**sing **X**-ray **G**uns' — Radio, Microwave, Infrared, Visible, Ultraviolet, X-rays, Gamma.\n\n**Traps to avoid**\n\n- 'X-rays travel faster than radio waves' — false; all EM waves have the same speed in vacuum.\n- Cathode rays, beta rays and alpha rays are streams of charged particles, **not** EM waves; sound is a mechanical wave.\n- X-rays and gamma rays are distinguished by origin (electrons versus nuclei), not by a fixed wavelength boundary.\n- When converting, keep track of units: 1 nm $= 10^{-9}$ m, 1 μm $= 10^{-6}$ m, 1 MHz $= 10^{6}$ Hz, 1 GHz $= 10^{9}$ Hz.\n- In radar problems remember the pulse makes a round trip: $d = ct/2$." },
+      { "type": "IMPORTANT_FACT", "text": "Frequency is the true 'identity card' of an EM wave: it does not change when the wave enters a medium, whereas its wavelength does. Band ranges are therefore always quoted for vacuum (air is practically the same)." }
+    ]
+  },
+  "diagrams": [
+    {
+      "key": "chart",
+      "file": "diagrams/ug26-322-u5-em-spectrum-chart.svg",
+      "alt": "Band chart of the electromagnetic spectrum from radio waves to gamma rays, with a logarithmic frequency scale above, a wavelength scale below and an enlarged strip of visible light",
+      "caption": "The electromagnetic spectrum on logarithmic frequency and wavelength scales",
+      "description": "A horizontal bar divided into seven bands, left to right: radio waves, microwaves, infrared, a very narrow rainbow-coloured visible band, ultraviolet, X-rays and gamma rays. The frequency scale above runs from 10^6 Hz to 10^22 Hz, increasing to the right; the wavelength scale below runs from 10^4 m to 10^-14 m, decreasing to the right. Boundaries are at 0.1 m, 1 mm, 700 nm, 400 nm, 1 nm and 10^-3 nm. Dashed lines lead from the visible band to an enlarged strip running from 700 nm (red) to 400 nm (violet). An arrow notes that frequency and photon energy increase to the right. Notes say all bands travel at c in vacuum, band edges are approximate, and X-rays and gamma rays overlap and are named by origin."
+    }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u5-em-spectrum-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which of the following lists electromagnetic radiations in order of increasing wavelength?",
+      "options": ["radio waves, microwaves, infrared, visible, ultraviolet, X-rays, gamma rays", "X-rays, gamma rays, ultraviolet, visible, infrared, radio waves, microwaves", "gamma rays, X-rays, ultraviolet, visible, infrared, microwaves, radio waves", "gamma rays, ultraviolet, X-rays, visible, microwaves, infrared, radio waves"],
+      "answer": 3,
+      "explanation": "Gamma rays have the shortest wavelengths (below about $10^{-12}$ m), followed by X-rays, ultraviolet, visible light (400–700 nm), infrared, microwaves (1 mm to 0.1 m) and finally radio waves, which are longer than 0.1 m. Increasing wavelength means decreasing frequency, so this is the reverse of the frequency order.",
+      "optionRationale": { "1": "This is the order of decreasing wavelength (increasing frequency).", "2": "X-rays and gamma rays are swapped, and so are radio waves and microwaves.", "4": "Ultraviolet and X-rays are swapped, and so are microwaves and infrared." },
+      "objective": "Arrange the bands of the EM spectrum by wavelength"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Cellular (mobile) phones transmit voice signals using electromagnetic waves of which kind?",
+      "options": ["X-rays", "radio waves in the UHF band", "ultraviolet rays", "gamma rays"],
+      "answer": 2,
+      "explanation": "Mobile phones communicate using radio waves in the ultra high frequency (UHF) band, of the order of hundreds of megahertz to a few gigahertz. Radio waves are produced and detected easily by aerials and are non-ionising, which makes them suitable for communication. X-rays, ultraviolet and gamma rays are ionising and are not used for communication.",
+      "optionRationale": { "1": "X-rays are used for medical imaging, not communication.", "3": "Ultraviolet is used for germ-killing and surgery, not for phone signals.", "4": "Gamma rays come from nuclei and are used to destroy cancer cells." },
+      "objective": "State a communication use of radio waves"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q03", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Lamps fitted in many household water purifiers kill germs in the water. Which radiation do they use?",
+      "options": ["infrared", "microwaves", "radio waves", "ultraviolet"],
+      "answer": 4,
+      "explanation": "Ultraviolet radiation has enough photon energy to damage the genetic material of bacteria and viruses, so UV lamps are used to kill germs in water purifiers and to sterilise surfaces. Infrared, microwaves and radio waves are much lower in frequency and do not destroy microbes in this way; they mainly heat or carry signals.",
+      "optionRationale": { "1": "Infrared heats materials but does not sterilise water in purifiers.", "2": "Microwaves heat food containing water; they are not used in water purifiers.", "3": "Radio waves are used for communication." },
+      "objective": "Recall the germicidal use of ultraviolet radiation"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q04", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The remote control of a television set sends signals to the TV using which radiation?",
+      "options": ["infrared", "ultraviolet", "X-rays", "gamma rays"],
+      "answer": 1,
+      "explanation": "A TV remote contains a semiconductor light-emitting diode that emits infrared radiation, invisible to the eye, in coded pulses that a sensor on the TV detects. This is one of the most common everyday uses of infrared; ultraviolet, X-rays and gamma rays would be harmful and are not used in remotes.",
+      "optionRationale": { "2": "Ultraviolet is not used in remote controls and in large doses is harmful.", "3": "X-rays are ionising and used in medical imaging.", "4": "Gamma rays come from nuclei and are dangerous; they are never used in remotes." },
+      "objective": "Recall the use of infrared in remote controls"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q05", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In medicine, gamma rays are mainly used to",
+      "options": ["take photographs with ordinary cameras", "destroy cancer cells", "warm sore muscles in physiotherapy", "operate radar systems"],
+      "answer": 2,
+      "explanation": "Gamma rays are emitted by radioactive nuclei and carry very high photon energy. A carefully aimed beam can kill cancer cells, which is why gamma radiation is used in radiotherapy. Warming muscles is done with infrared lamps, radar uses microwaves, and ordinary photography uses visible light.",
+      "optionRationale": { "1": "Ordinary photography uses visible light.", "3": "Physiotherapy heating uses infrared lamps.", "4": "Radar uses microwaves." },
+      "objective": "Recall the medical use of gamma rays"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q06", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "An electromagnetic wave in vacuum has a frequency of $3.0\\times10^{13}\\,\\text{Hz}$. To which part of the electromagnetic spectrum does it belong?",
+      "options": ["microwaves", "visible light", "infrared", "ultraviolet"],
+      "answer": 3,
+      "explanation": "Convert the frequency to a wavelength: $\\lambda = c/\\nu = 3.0\\times10^{8}/3.0\\times10^{13} = 1.0\\times10^{-5}\\,\\text{m} = 10\\,\\mu\\text{m}$. The infrared band runs from 1 mm down to 700 nm, and 10 micrometres lies inside it. This is close to the wavelength at which warm objects such as the human body radiate most strongly.",
+      "optionRationale": { "1": "Microwaves are 1 mm or longer; 10 μm is a hundred times shorter than 1 mm.", "2": "Visible light is 400–700 nm; 10 μm is about 15 times longer than red light.", "4": "Ultraviolet is shorter than 400 nm." },
+      "objective": "Identify a band from its frequency"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q07", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Radiation of frequency $1.5\\times10^{18}\\,\\text{Hz}$ is emitted when fast electrons strike a metal target. To which band does it belong?",
+      "options": ["ultraviolet", "X-rays", "gamma rays", "infrared"],
+      "answer": 2,
+      "explanation": "The wavelength is $\\lambda = c/\\nu = 3.0\\times10^{8}/1.5\\times10^{18} = 2.0\\times10^{-10}\\,\\text{m} = 0.20\\,\\text{nm}$, which lies between 1 nm and $10^{-3}$ nm, the X-ray range. The method of production, fast electrons striking a metal target, is also exactly how an X-ray tube works, which confirms the answer.",
+      "optionRationale": { "1": "Ultraviolet is longer than about 1 nm; 0.20 nm is too short.", "3": "Gamma rays come from nuclei and have wavelengths below about $10^{-3}$ nm.", "4": "Infrared is longer than 700 nm, thousands to millions of times longer than 0.20 nm." },
+      "objective": "Identify X-rays from frequency and origin"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q08", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The FM radio band extends from 88 MHz to 108 MHz. What is the corresponding range of wavelengths in air?",
+      "options": ["about 3.4 m to 2.8 m", "about 340 m to 280 m", "about 34 cm to 28 cm", "about 3.4 km to 2.8 km"],
+      "answer": 1,
+      "explanation": "Use $\\lambda = c/\\nu$ after converting megahertz to hertz (1 MHz is one million hertz). At 88 MHz, $\\lambda = 3.0\\times10^{8}/8.8\\times10^{7} = 3.41\\,\\text{m}$; at 108 MHz, $\\lambda = 3.0\\times10^{8}/1.08\\times10^{8} = 2.78\\,\\text{m}$. So FM radio waves are roughly 3.4 m to 2.8 m long, and the higher frequency gives the shorter wavelength.",
+      "optionRationale": { "2": "Too long by a factor of 100: megahertz has been taken as $10^{4}$ Hz.", "3": "Too short by a factor of 10: this would need frequencies near 1 GHz.", "4": "Too long by a factor of 1000: megahertz has been treated as kilohertz." },
+      "objective": "Calculate wavelengths of a radio band"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q09", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Microwaves used in radar and microwave ovens are usually produced by",
+      "options": ["radioactive decay of nuclei", "vibrations of atoms in hot bodies", "X-ray tubes", "klystron and magnetron valves"],
+      "answer": 4,
+      "explanation": "Microwaves are generated by special vacuum tubes called klystrons and magnetrons (and by Gunn diodes), in which electrons are made to oscillate at gigahertz frequencies. A magnetron is the source inside every microwave oven. Radioactive decay gives gamma rays, hot bodies give mainly infrared, and X-ray tubes give X-rays.",
+      "optionRationale": { "1": "Radioactive decay of nuclei produces gamma rays.", "2": "Vibrations of atoms and molecules in hot bodies produce infrared.", "3": "X-ray tubes produce X-rays by stopping fast electrons." },
+      "objective": "Recall how microwaves are produced"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q10", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each radiation in List-I with one of its uses in List-II.",
+      "list": {
+        "left": ["A. Radio waves", "B. Microwaves", "C. Ultraviolet rays", "D. X-rays"],
+        "right": ["I. LASIK eye surgery", "II. Radar for aircraft navigation", "III. Imaging broken bones", "IV. AM and FM broadcasting"]
+      },
+      "options": ["A-II, B-IV, C-III, D-I", "A-IV, B-II, C-I, D-III", "A-IV, B-I, C-II, D-III", "A-III, B-II, C-I, D-IV"],
+      "answer": 2,
+      "explanation": "Radio waves carry AM and FM broadcasts (A-IV). Microwaves, which form narrow beams, are used in radar for aircraft navigation (B-II). Ultraviolet can be focussed into very fine beams for LASIK eye surgery (C-I). X-rays pass through soft tissue more easily than bone, so they are used to image fractures (D-III).",
+      "optionRationale": { "1": "Swaps radio with microwaves and UV with X-rays.", "3": "Radio and X-rays are right, but UV is not used for radar and microwaves are not used in LASIK.", "4": "Radio waves do not image bones, and X-rays are not used for broadcasting." },
+      "objective": "Match EM bands to their uses"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q11", "type": "MATCH_THE_FOLLOWING", "difficulty": "HARD", "skill": "conceptual",
+      "stem": "Match each radiation in List-I with a detector commonly used for it in List-II.",
+      "list": {
+        "left": ["A. Radio waves", "B. Microwaves", "C. Infrared", "D. Visible light"],
+        "right": ["I. Thermopile or bolometer", "II. Human eye", "III. Point-contact diode", "IV. Receiver's aerial"]
+      },
+      "options": ["A-IV, B-III, C-I, D-II", "A-III, B-IV, C-I, D-II", "A-IV, B-I, C-III, D-II", "A-II, B-III, C-IV, D-I"],
+      "answer": 1,
+      "explanation": "Radio waves induce oscillating currents in a receiving aerial (A-IV). Microwaves are detected with point-contact (crystal) diodes (B-III). Infrared is detected through its heating effect by thermopiles and bolometers (C-I). Visible light is the only band detected by the human eye (D-II).",
+      "optionRationale": { "2": "Swaps the detectors for radio waves and microwaves.", "3": "Swaps the detectors for microwaves and infrared; a bolometer measures heating, which suits infrared.", "4": "The eye cannot detect radio waves, and an aerial is not used for visible light." },
+      "objective": "Match EM bands to their detectors"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q12", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each radiation in List-I with the way it is produced in List-II.",
+      "list": {
+        "left": ["A. Radio waves", "B. Infrared", "C. Visible light", "D. Gamma rays"],
+        "right": ["I. Radioactive decay of nuclei", "II. Electrons in atoms dropping to lower energy levels", "III. Vibrations of atoms and molecules", "IV. Rapidly accelerated electrons in an aerial"]
+      },
+      "options": ["A-III, B-IV, C-II, D-I", "A-IV, B-II, C-III, D-I", "A-I, B-III, C-II, D-IV", "A-IV, B-III, C-II, D-I"],
+      "answer": 4,
+      "explanation": "Radio waves come from electrons accelerated back and forth in a transmitting aerial (A-IV). Infrared is produced by vibrations of atoms and molecules in warm bodies (B-III). Visible light is emitted when electrons in atoms fall from higher to lower energy levels (C-II). Gamma rays are emitted by nuclei during radioactive decay (D-I).",
+      "optionRationale": { "1": "Swaps the sources of radio waves and infrared.", "2": "Swaps the sources of infrared and visible light.", "3": "Swaps the sources of radio waves and gamma rays." },
+      "objective": "Match EM bands to their methods of production"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q13", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "analytical",
+      "stem": "Assertion (A): A person sitting in the sun behind a closed glass window does not get sunburnt.\n\nReason (R): The ozone layer in the atmosphere absorbs most of the ultraviolet radiation coming from the Sun.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 2,
+      "explanation": "Both statements are true, but R does not explain A. Some ultraviolet always gets through the ozone layer, which is why people do get sunburnt outdoors. A person behind a window is protected because ordinary glass absorbs ultraviolet. The correct explanation of A is the absorption of UV by glass, not by ozone.",
+      "optionRationale": { "1": "R is true but is not the reason the window protects you; the glass absorbs the remaining UV.", "3": "R is true; the ozone layer does absorb most of the Sun's UV.", "4": "A is true; ordinary glass absorbs ultraviolet." },
+      "objective": "Explain why glass protects against sunburn"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q14", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): Infrared radiation is often called heat radiation.\n\nReason (R): Infrared radiation has the longest wavelength of all electromagnetic waves.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "A is true: infrared is readily absorbed by water molecules and many other molecules present in most materials, which increases their thermal motion and warms them, so it is called heat radiation. R is false: radio waves have far longer wavelengths than infrared, and microwaves are longer too. So A is true and R is false.",
+      "optionRationale": { "1": "R is false, so it cannot be the explanation.", "2": "R is false, not merely irrelevant.", "4": "A is true; infrared is widely known as heat radiation." },
+      "objective": "Explain why infrared is called heat radiation"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q15", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): Microwaves are used in radar systems for aircraft navigation.\n\nReason (R): Because of their short wavelength, microwaves can be sent out as narrow, well-directed beams that are reflected strongly by objects such as aircraft.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Radar needs a narrow beam to find the direction of a target and a strong echo to find its distance. Microwaves, with wavelengths of a few centimetres, can be focused into narrow beams by antennas of reasonable size and are reflected well by aircraft. So R is the correct explanation of A; long radio waves would spread out and bend around such targets.",
+      "optionRationale": { "2": "R gives the actual reason radar uses microwaves, so it does explain A.", "3": "R is true: short wavelength allows narrow beams and good reflection.", "4": "A is true: radar is a standard use of microwaves." },
+      "objective": "Explain why microwaves are suitable for radar"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q16", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): An X-ray photon and a gamma-ray photon of exactly the same wavelength have different physical properties.\n\nReason (R): X-rays and gamma rays are named according to their origin: X-rays from fast or inner-shell electrons, gamma rays from atomic nuclei.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 4,
+      "explanation": "The properties of electromagnetic radiation depend only on its frequency (or wavelength). An X-ray and a gamma ray of the same wavelength are therefore physically identical, so A is false. R is true: because the X-ray and gamma-ray ranges overlap, the two names indicate where the radiation came from, electrons or nuclei, not a difference in the radiation itself.",
+      "optionRationale": { "1": "A is false, so R cannot explain it.", "2": "A is false; equal wavelengths mean identical radiation.", "3": "R is true; the names are based on origin." },
+      "objective": "Distinguish X-rays and gamma rays by origin"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q17", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "conceptual",
+      "stem": "Consider the following statements about ultraviolet radiation.\n\nA. It is produced by special lamps and by very hot bodies such as the Sun.\nB. It can be focussed into very narrow beams and is used in LASIK eye surgery.\nC. Welders wear special glass goggles to protect their eyes from the ultraviolet produced by welding arcs.\nD. It has a longer wavelength than visible light.\n\nWhich of the statements are correct?",
+      "options": ["A and B only", "B, C and D only", "A, B and C only", "A, B, C and D"],
+      "answer": 3,
+      "explanation": "A is correct: UV comes from special lamps and very hot sources, the Sun being the most important. B is correct: its short wavelength allows very narrow beams for LASIK. C is correct: welding arcs emit intense UV and the special glass in goggles absorbs it. D is wrong: ultraviolet lies beyond violet, at shorter wavelengths (below 400 nm) than visible light.",
+      "optionRationale": { "1": "C is also correct and has been left out.", "2": "D is false and A is true.", "4": "D is false: UV is shorter in wavelength than visible light." },
+      "objective": "Recall the sources, uses and protection related to ultraviolet"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q18", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about infrared radiation.\n\nA. It is mainly produced by klystron and magnetron valves.\nB. Infrared lamps are used in physiotherapy.\nC. It plays an important role in keeping the Earth warm through the greenhouse effect.\nD. Infrared detectors on Earth satellites are used to observe the growth of crops.\n\nWhich of the statements are correct?",
+      "options": ["A and B only", "B and C only", "A, C and D only", "B, C and D only"],
+      "answer": 4,
+      "explanation": "A is wrong: klystrons and magnetrons produce microwaves; infrared comes from hot bodies and the vibrations of atoms and molecules. B is correct: infrared lamps warm muscles in physiotherapy. C is correct: the Earth's surface re-radiates infrared that greenhouse gases absorb, keeping the planet warm. D is correct: satellites use infrared detectors to monitor crops and for military purposes.",
+      "optionRationale": { "1": "A is false, and C and D are true but omitted.", "2": "D is also correct and has been left out.", "3": "A is false; klystrons produce microwaves." },
+      "objective": "Recall facts about the production and uses of infrared"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q19", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A radar pulse is reflected from an aeroplane and the echo is received $4.0\\times10^{-4}\\,\\text{s}$ after the pulse was sent. How far away is the aeroplane?",
+      "options": ["120 km", "12 km", "60 km", "6.0 km"],
+      "answer": 3,
+      "explanation": "In the given time the pulse travels to the aeroplane and back, a total distance of $ct = (3.0\\times10^{8})(4.0\\times10^{-4}) = 1.2\\times10^{5}\\,\\text{m}$, that is 120 km. The aeroplane is at half this distance, $d = ct/2 = 6.0\\times10^{4}\\,\\text{m}$, which is 60 km.",
+      "optionRationale": { "1": "This is the round-trip distance; it must be halved.", "2": "A power-of-ten error in the round-trip distance.", "4": "A power-of-ten error after halving." },
+      "objective": "Apply c = distance/time to a radar echo"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q20", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "What is the ratio of the frequency of orange light of wavelength 600 nm to the frequency of microwaves of wavelength 3.0 cm (both in vacuum)?",
+      "options": ["2.0 × $10^{-5}$", "5.0 × $10^{4}$", "50", "1"],
+      "answer": 2,
+      "explanation": "All EM waves travel at the same speed c in vacuum, so frequency is inversely proportional to wavelength: $\\nu_1/\\nu_2 = \\lambda_2/\\lambda_1$. Converting both wavelengths to metres, $\\lambda_2/\\lambda_1 = (3.0\\times10^{-2})/(6.0\\times10^{-7}) = 5.0\\times10^{4}$. The light therefore oscillates fifty thousand times faster than the microwave.",
+      "optionRationale": { "1": "This is the inverse ratio, microwave frequency to light frequency.", "3": "This treats nanometres as micrometres ($10^{-6}$ m).", "4": "Speed, not frequency, is the same for all EM waves in vacuum." },
+      "objective": "Compare frequencies of different bands using c = νλ"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q21", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application",
+      "diagram": "chart",
+      "stem": "Using the spectrum chart, identify the band of radiation whose wavelength in vacuum is $10^{-10}$ m, and give its approximate frequency.",
+      "options": ["X-rays, about 3 × 10¹⁸ Hz", "ultraviolet, about 3 × 10¹⁸ Hz", "X-rays, about 3 × 10¹⁰ Hz", "gamma rays, about 3 × 10²² Hz"],
+      "answer": 1,
+      "explanation": "On the wavelength scale, $10^{-10}$ m (0.1 nm) falls inside the X-ray band, which lies between 1 nm and $10^{-3}$ nm. Reading straight up to the frequency scale, or calculating $\\nu = c/\\lambda = 3.0\\times10^{8}/10^{-10} = 3\\times10^{18}\\,\\text{Hz}$, confirms the frequency. Ultraviolet ends at about 1 nm, ten times longer.",
+      "optionRationale": { "2": "The frequency is right, but $10^{-10}$ m is below the ultraviolet limit of about 1 nm.", "3": "The band is right, but $3\\times10^{10}$ Hz would be a microwave of wavelength 1 cm.", "4": "Gamma rays are shorter than $10^{-12}$ m; this frequency belongs to a wavelength of $10^{-14}$ m." },
+      "objective": "Read band and frequency from a spectrum chart"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q22", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which one of the following is NOT an electromagnetic wave?",
+      "options": ["gamma rays", "infrared rays", "X-rays", "cathode rays"],
+      "answer": 4,
+      "explanation": "Cathode rays are streams of fast-moving electrons, which are charged particles with mass; they are deflected by electric and magnetic fields. Gamma rays, infrared rays and X-rays are all bands of the electromagnetic spectrum, consisting of oscillating electric and magnetic fields that travel at the speed of light and are not deflected.",
+      "optionRationale": { "1": "Gamma rays are the highest-frequency EM waves.", "2": "Infrared lies between microwaves and visible light in the EM spectrum.", "3": "X-rays lie between ultraviolet and gamma rays in the EM spectrum." },
+      "objective": "Distinguish EM waves from particle beams"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q23", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In vacuum, how does the speed of X-rays compare with the speed of radio waves?",
+      "options": ["X-rays are faster, because their frequency is higher", "radio waves are faster, because their wavelength is longer", "both travel at the same speed", "it depends on the intensity of each beam"],
+      "answer": 3,
+      "explanation": "Every electromagnetic wave travels through vacuum at the same speed, $c = 1/\\sqrt{\\mu_0\\varepsilon_0} \\approx 3\\times10^{8}\\,\\text{m s}^{-1}$, whatever its frequency. X-rays have higher frequency and shorter wavelength than radio waves, but the product of frequency and wavelength is the same c for both.",
+      "optionRationale": { "1": "Higher frequency is matched by shorter wavelength; the speed stays c.", "2": "Longer wavelength is matched by lower frequency; the speed stays c.", "4": "Intensity affects the energy carried, not the speed." },
+      "objective": "Recognise that all EM waves share the speed c in vacuum"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q24", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "conceptual",
+      "stem": "Consider the following statements.\n\nA. X-rays are produced when high-energy electrons strike a metal target.\nB. Both X-rays and gamma rays can be detected with Geiger tubes and photographic film.\nC. X-rays can damage living tissue, so unnecessary exposure must be avoided.\nD. X-rays have longer wavelengths than ultraviolet rays.\n\nWhich of the statements are correct?",
+      "options": ["A, B and C only", "A and D only", "B, C and D only", "A, B, C and D"],
+      "answer": 1,
+      "explanation": "A is correct: this is how an X-ray tube works. B is correct: both are ionising radiations and are detected by Geiger tubes, ionisation chambers and photographic film. C is correct: X-rays ionise atoms in cells and can damage or destroy tissue. D is wrong: X-rays (about 1 nm to $10^{-3}$ nm) are shorter in wavelength than ultraviolet (400 nm to 1 nm).",
+      "optionRationale": { "2": "D is false, and B and C are true.", "3": "D is false and A is true.", "4": "D is false, so all four cannot be correct." },
+      "objective": "Recall the production, detection and hazards of X-rays"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q25", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "In a microwave oven, food containing water gets heated mainly because",
+      "options": ["the oscillating electric field of the microwaves makes water molecules oscillate, raising their kinetic energy", "the microwaves ionise the molecules of the food", "the metal walls of the oven glow red hot and radiate heat", "the microwaves start nuclear reactions in the food"],
+      "answer": 1,
+      "explanation": "Water molecules are polar. The rapidly oscillating electric field of the microwaves keeps twisting them back and forth, and the energy absorbed in this way becomes random kinetic energy of the molecules, so the food warms up. Microwave photons have far too little energy to ionise molecules or cause nuclear changes, and the oven walls stay cool.",
+      "optionRationale": { "2": "Microwave photons carry only about $10^{-5}$ eV, far too little to ionise anything.", "3": "The metal walls reflect the microwaves and do not become hot.", "4": "Nuclear processes involve energies of the order of MeV, about $10^{11}$ times the energy of a microwave photon." },
+      "objective": "Explain how a microwave oven heats food"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q26", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Snakes can locate warm-blooded prey in total darkness because they can sense",
+      "options": ["ultraviolet rays", "infrared rays", "X-rays", "microwaves"],
+      "answer": 2,
+      "explanation": "Warm bodies emit infrared radiation because of the vibrations of their atoms and molecules. Snakes have special organs that sense this infrared, so they can detect warm prey even without visible light. Different animals are sensitive to different ranges; many insects, for example, see into the ultraviolet.",
+      "optionRationale": { "1": "Many insects, not snakes, extend their vision into the ultraviolet; warm prey emits infrared.", "3": "Animals do not emit or sense X-rays.", "4": "Warm bodies radiate mainly infrared, not microwaves, and snakes do not sense microwaves." },
+      "objective": "Recall that warm bodies emit infrared"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-q27", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The visible spectrum extends from about 700 nm to 400 nm. What is the corresponding range of frequencies?",
+      "options": ["about 4.3 × 10¹¹ Hz to 7.5 × 10¹¹ Hz", "about 120 Hz to 210 Hz", "about 4.3 × 10¹⁴ Hz to 7.5 × 10¹⁴ Hz", "about 4.3 × 10¹⁷ Hz to 7.5 × 10¹⁷ Hz"],
+      "answer": 3,
+      "explanation": "Use $\\nu = c/\\lambda$ with the wavelengths converted to metres, remembering that 1 nm is $10^{-9}$ m. For red light, $\\nu = 3.0\\times10^{8}/7.0\\times10^{-7} = 4.3\\times10^{14}\\,\\text{Hz}$; for violet light, $\\nu = 3.0\\times10^{8}/4.0\\times10^{-7} = 7.5\\times10^{14}\\,\\text{Hz}$. Red, with the longest wavelength, has the lowest frequency of all the visible colours, and violet the highest.",
+      "optionRationale": { "1": "Nanometres have been treated as micrometres ($10^{-6}$ m).", "2": "This multiplies c by the wavelength instead of dividing.", "4": "Nanometres have been treated as picometres ($10^{-12}$ m)." },
+      "objective": "Convert the visible wavelength range to frequencies"
+    }
+  ]
+}

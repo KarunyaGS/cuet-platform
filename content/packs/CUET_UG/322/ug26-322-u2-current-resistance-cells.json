@@ -1,0 +1,598 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_f43dd857ea08475b8f58d310d3b8d2ab",
+    "title": "Electric current, flow of electric charges in a metallic conductor, drift velocity, mobility"
+  },
+  "lesson": {
+    "key": "ug26-322-u2-current-resistance-cells",
+    "title": "Electric current, drift velocity, Ohm's law, resistivity, electrical power and cells",
+    "coverage": [
+      { "phrase": "Electric current", "section": "Electric current" },
+      { "phrase": "Flow of electric charges in a metallic conductor", "section": "Flow of electric charges in a metallic conductor" },
+      { "phrase": "Drift velocity", "section": "Drift velocity and relaxation time" },
+      { "phrase": "Relation of drift velocity with electric current", "section": "Relation between current and drift velocity" },
+      { "phrase": "Mobility and its relation with electric current", "section": "Mobility and its relation with current" },
+      { "phrase": "Ohm's law", "section": "Ohm's law and resistance" },
+      { "phrase": "Electrical resistivity and conductivity", "section": "Electrical resistivity and conductivity" },
+      { "phrase": "V-I characteristics (linear and non-linear)", "section": "V-I characteristics: linear and non-linear" },
+      { "phrase": "Temperature dependence of resistance", "section": "Temperature dependence of resistance" },
+      { "phrase": "Electrical energy and power", "section": "Electrical energy and power" },
+      { "phrase": "Potential difference and emf of a cell", "section": "Potential difference and emf of a cell" },
+      { "phrase": "Internal resistance of a cell", "section": "Internal resistance of a cell" },
+      { "phrase": "Combination of cells in series", "section": "Combination of cells in series" },
+      { "phrase": "Combination of cells in parallel", "section": "Combination of cells in parallel" }
+    ],
+    "blocks": [
+      { "type": "TEXT", "text": "This lesson builds the whole first half of Current Electricity, step by step. We start with what an electric current is, look inside a metal wire to see how electrons actually move, derive the link between current and the slow *drift* of electrons, and use it to explain Ohm's law, resistivity and its change with temperature. Then we study electrical energy and power, the emf and internal resistance of a cell, and finally how cells behave when they are joined in series and in parallel. Every formula is followed by worked problems of the kind CUET asks." },
+
+      { "type": "HEADING", "text": "Electric current" },
+      { "type": "TEXT", "text": "Whenever electric charges move in a definite direction we have an electric current. The moving charges are called *charge carriers*. In a metal wire the carriers are free electrons; in an electrolyte (for example the acid inside a car battery) positive and negative ions move in opposite directions; in a gas discharge tube or a lightning stroke both electrons and ions move. In every case, what matters is the **net** charge that crosses a chosen cross-section in a given time." },
+      { "type": "DEFINITION", "term": "Electric current", "text": "The rate of flow of net electric charge through a cross-section of a conductor. If a net charge $\\Delta q$ crosses the section in time $\\Delta t$, the average current is $I = \\Delta q/\\Delta t$. SI unit: ampere (A), where $1\\,\\text{A} = 1\\,\\text{C s}^{-1}$. The ampere is one of the seven SI base units." },
+      { "type": "FORMULA", "latex": "I = \\lim_{\\Delta t \\to 0} \\frac{\\Delta q}{\\Delta t} = \\frac{dq}{dt}, \\qquad q = \\int I\\,dt", "text": "I = instantaneous current (A); q = net charge that has crossed the section (C); t = time (s). For a steady (constant) current, q = It. Since charge is carried in units of e = 1.6 × 10⁻¹⁹ C, the number of carriers crossing in time t is N = It/e." },
+      { "type": "TEXT", "text": "**Direction.** By convention the direction of current is the direction in which *positive* charge would move. In a metal wire the electrons move the other way, so the conventional current points opposite to the electron flow. In an electrolyte, positive ions moving to the right and negative ions moving to the left both carry charge to the right, so their contributions *add*: $I = (q_+ + |q_-|)/t$.\n\n**Current is a scalar.** A current has a sense along the wire, yet it is not a vector. When wires meet at a junction, the currents add algebraically (2 A and 3 A entering give 5 A leaving, whatever the angle between the wires); they do not combine by the parallelogram law. The related quantity *current density* is a vector.\n\n**Typical sizes.** Lightning strokes carry tens of thousands of amperes, household appliances a few amperes, and signals in our nerves only microamperes. A current that does not change with time is called a *steady current*; the cells and batteries in this unit produce steady currents." },
+      { "type": "DEFINITION", "term": "Current density", "text": "The current per unit area of a cross-section held perpendicular to the flow: $j = I/A$. It is a vector along the direction of flow of positive charge. SI unit: ampere per square metre (A m⁻²). If the area is tilted, $I = \\vec{j}\\cdot\\vec{A}$." },
+      { "type": "SOLVED_PROBLEM", "problem": "The current in a wire varies with time as $I = (4 + 2t)$ A, where t is in seconds. Find (a) the charge that passes a cross-section between t = 0 and t = 3 s, (b) the number of electrons that cross it in this time, and (c) the average current over the interval.", "solution": "(a) Because the current is not constant we cannot simply multiply by time; we integrate the current over the interval:\n\n$$q = \\int_0^3 (4 + 2t)\\,dt = \\Big[4t + t^2\\Big]_0^3 = 12 + 9 = 21\\,\\text{C}$$\n\n(b) Each electron carries a charge of magnitude e, so the number of electrons is\n\n$$N = \\frac{q}{e} = \\frac{21}{1.6\\times10^{-19}} \\approx 1.3\\times10^{20}$$\n\n(c) The average current is the total charge divided by the total time: $I_{av} = 21/3 = 7\\,\\text{A}$. Notice that this equals the current at the middle of the interval (t = 1.5 s) only because the current rises linearly.", "answer": "(a) 21 C (b) about 1.3 × 10²⁰ electrons (c) 7 A" },
+      { "type": "KEY_POINT", "text": "A steady current of 1 A means about 6.25 × 10¹⁸ electrons cross a section every second (1 / 1.6 × 10⁻¹⁹). Current is a scalar; current density is a vector." },
+
+      { "type": "HEADING", "text": "Flow of electric charges in a metallic conductor" },
+      { "type": "TEXT", "text": "A metal is a regular arrangement (lattice) of positive ions held in place, with one or two outer electrons from each atom no longer tied to any particular atom. These **free electrons** (conduction electrons) can wander through the whole volume of the metal. Their number per unit volume, *n*, is enormous: about $8.5\\times10^{28}\\,\\text{m}^{-3}$ for copper.\n\n**With no applied field.** The free electrons move in random directions with very high speeds (of the order of $10^5$ to $10^6\\,\\text{m s}^{-1}$), colliding again and again with the vibrating ions. After each collision the direction is random. Averaged over all electrons, the velocity is zero, so as many electrons cross any section from left to right as from right to left. The *net* charge crossing is zero, and there is no current, even though the electrons are moving fast.\n\n**With an applied field.** When the ends of the wire are connected to a cell, an electric field $\\vec{E}$ is set up inside the conductor (for a uniform wire $E = V/l$). Each electron feels a force $-e\\vec{E}$ and accelerates opposite to the field, $\\vec{a} = -e\\vec{E}/m$. It gains a little extra velocity against the field between collisions, but every collision randomises its direction again. The result is a slow, steady **drift** of the whole electron cloud opposite to $\\vec{E}$, superimposed on the fast random motion. The energy the electrons pick up from the field between collisions is handed to the ions in collisions, which is why a current-carrying wire becomes warm." },
+      { "type": "DIAGRAM", "diagram": "drift" },
+      { "type": "TEXT", "text": "Other conductors carry charge differently: in electrolytes the carriers are positive and negative ions; in ionised gases they are electrons and positive ions; in semiconductors they are electrons and holes. The ideas of drift velocity and mobility apply to all of them." },
+      { "type": "CALLOUT", "text": "**Common misconception:** when you switch on a lamp, electrons do not travel from the battery to the lamp. The electrons that light the lamp are the ones already in its filament. The electric field spreads along the wires at nearly the speed of light, so electrons everywhere in the circuit start drifting almost at the same instant, and the lamp glows at once even though each electron creeps along at a fraction of a millimetre per second." },
+
+      { "type": "HEADING", "text": "Drift velocity and relaxation time" },
+      { "type": "DEFINITION", "term": "Drift velocity", "text": "The average velocity with which the free electrons of a conductor move, opposite to the applied electric field, when a potential difference is applied across it. It is superposed on their random thermal motion. SI unit: m s⁻¹. Typical value in a metal wire: about 10⁻⁴ m s⁻¹." },
+      { "type": "DEFINITION", "term": "Relaxation time", "text": "The average time interval between two successive collisions of a free electron with the ions of the conductor, written $\\tau$. SI unit: second (s). For metals at room temperature it is of the order of 10⁻¹⁴ s." },
+      { "type": "TEXT", "text": "**Derivation of the drift velocity.** Consider N free electrons at some instant. Let the i-th electron have velocity $\\vec{u}_i$ just after its last collision, and let $t_i$ be the time elapsed since that collision. During this time it has been accelerated by the field, so its present velocity is\n\n$$\\vec{v}_i = \\vec{u}_i - \\frac{e\\vec{E}}{m}\\,t_i$$\n\nAverage this over all N electrons. The velocities just after collisions point in random directions, so their average is zero. The average of the times $t_i$ since the last collision is the relaxation time $\\tau$. Hence the average velocity, which is the drift velocity, is\n\n$$\\vec{v}_d = \\frac{1}{N}\\sum \\vec{v}_i = 0 - \\frac{e\\vec{E}}{m}\\,\\tau$$\n\nThe minus sign shows that electrons drift opposite to the field. The drift speed is proportional to the field: double the potential difference across a given wire and the drift speed doubles." },
+      { "type": "FORMULA", "latex": "\\vec{v}_d = -\\frac{e\\,\\vec{E}}{m}\\,\\tau, \\qquad v_d = \\frac{eE\\tau}{m} = \\frac{eV\\tau}{ml}", "text": "v_d = drift speed (m s⁻¹); e = 1.6 × 10⁻¹⁹ C, magnitude of electron charge; E = electric field in the conductor (V m⁻¹); m = 9.1 × 10⁻³¹ kg, electron mass; τ = relaxation time (s); V = potential difference across a uniform wire of length l." },
+      { "type": "KEY_POINT", "text": "For a given wire, v_d ∝ E = V/l. The drift speed does not depend on the thickness of the wire when V and l are fixed. Drift speeds (~10⁻⁴ m s⁻¹) are about a billion times smaller than the random speeds of the electrons." },
+
+      { "type": "HEADING", "text": "Relation between current and drift velocity" },
+      { "type": "TEXT", "text": "**Derivation of $I = neAv_d$.** Take a conductor of uniform cross-sectional area A with n free electrons per unit volume, all drifting with speed $v_d$. In a short time $\\Delta t$ each electron moves a distance $v_d\\,\\Delta t$. So every electron that is within a distance $v_d\\,\\Delta t$ behind the chosen cross-section will cross it during $\\Delta t$ (the shaded slab in the figure above).\n\n- Volume of the slab = $A\\,v_d\\,\\Delta t$\n- Number of free electrons in it = $n\\,A\\,v_d\\,\\Delta t$\n- Charge carried across the section = $e\\,n\\,A\\,v_d\\,\\Delta t$\n\nDividing the charge by the time gives the current:\n\n$$I = \\frac{neAv_d\\,\\Delta t}{\\Delta t} = neAv_d$$\n\nDividing by the area gives the current density $j = nev_d$. In vector form $\\vec{j} = -ne\\vec{v}_d$, so $\\vec{j}$ points along the conventional current, opposite to the electron drift." },
+      { "type": "FORMULA", "latex": "I = n\\,e\\,A\\,v_d, \\qquad j = \\frac{I}{A} = n\\,e\\,v_d", "text": "n = number density of free electrons (m⁻³); e = electron charge (C); A = cross-sectional area (m²); v_d = drift speed (m s⁻¹); j = current density (A m⁻²)." },
+      { "type": "IMPORTANT_FACT", "text": "In a wire of non-uniform thickness carrying a steady current, the current I is the same through every cross-section (charge cannot pile up). Therefore v_d ∝ 1/A and j ∝ 1/A: electrons drift faster, and the field is stronger, in the narrower part." },
+      { "type": "SOLVED_PROBLEM", "problem": "A copper wire of cross-sectional area 2.0 mm² carries a current of 4.0 A. Copper has $8.5\\times10^{28}$ free electrons per cubic metre. Find the drift speed of the electrons, and estimate how long an electron takes to drift 1.0 m along the wire.", "solution": "Convert the area to SI units first: $A = 2.0\\,\\text{mm}^2 = 2.0\\times10^{-6}\\,\\text{m}^2$.\n\nFrom $I = neAv_d$,\n\n$$v_d = \\frac{I}{neA} = \\frac{4.0}{(8.5\\times10^{28})(1.6\\times10^{-19})(2.0\\times10^{-6})} = \\frac{4.0}{2.72\\times10^{4}} \\approx 1.5\\times10^{-4}\\,\\text{m s}^{-1}$$\n\nThe time needed to drift 1.0 m is\n\n$$t = \\frac{1.0}{1.47\\times10^{-4}} \\approx 6.8\\times10^{3}\\,\\text{s} \\approx 1.9\\,\\text{h}$$\n\nSo an individual electron needs nearly two hours to drift one metre, which shows again that the instant response of electrical devices is due to the field being established quickly, not to fast-moving electrons.", "answer": "v_d ≈ 1.5 × 10⁻⁴ m s⁻¹; about 6.8 × 10³ s (≈ 1.9 h) to drift 1 m" },
+
+      { "type": "HEADING", "text": "Mobility and its relation with current" },
+      { "type": "DEFINITION", "term": "Mobility", "text": "The magnitude of the drift velocity of a charge carrier per unit electric field: $\\mu = |v_d|/E$. It measures how easily a carrier moves through the material under a field. SI unit: m² V⁻¹ s⁻¹ (metre squared per volt per second). Mobility is taken as a positive quantity." },
+      { "type": "FORMULA", "latex": "\\mu = \\frac{v_d}{E} = \\frac{e\\,\\tau}{m}", "text": "Obtained by dividing v_d = eEτ/m by E. μ depends only on the relaxation time τ and the mass m of the carrier (for electrons, the charge is fixed at e). A longer time between collisions means a larger mobility." },
+      { "type": "TEXT", "text": "**Relation with current.** Substituting $v_d = \\mu E$ into $I = neAv_d$ gives\n\n$$I = neA\\mu E, \\qquad j = ne\\mu E$$\n\nComparing with $j = \\sigma E$ (see the resistivity section), the conductivity is $\\sigma = ne\\mu$. In a semiconductor both electrons (number density $n_e$, mobility $\\mu_e$) and holes ($n_h$, $\\mu_h$) carry current, and the conductivities add: $\\sigma = e(n_e\\mu_e + n_h\\mu_h)$. Electrons in a semiconductor usually have a larger mobility than holes.\n\nWhen the temperature of a metal rises, the ions vibrate more strongly and collisions become more frequent, so $\\tau$ falls and the mobility decreases." },
+      { "type": "SOLVED_PROBLEM", "problem": "The resistivity of copper at room temperature is $1.7\\times10^{-8}\\,\\Omega\\,\\text{m}$ and it has $8.5\\times10^{28}$ free electrons per m³. Estimate (a) the relaxation time of its free electrons and (b) their mobility. Take $m = 9.1\\times10^{-31}$ kg and $e = 1.6\\times10^{-19}$ C.", "solution": "(a) From the free-electron model, $\\rho = m/(ne^2\\tau)$, so\n\n$$\\tau = \\frac{m}{ne^2\\rho} = \\frac{9.1\\times10^{-31}}{(8.5\\times10^{28})(1.6\\times10^{-19})^2(1.7\\times10^{-8})} \\approx 2.5\\times10^{-14}\\,\\text{s}$$\n\n(b) The mobility follows from its definition in terms of the relaxation time:\n\n$$\\mu = \\frac{e\\tau}{m} = \\frac{(1.6\\times10^{-19})(2.46\\times10^{-14})}{9.1\\times10^{-31}} \\approx 4.3\\times10^{-3}\\,\\text{m}^2\\,\\text{V}^{-1}\\,\\text{s}^{-1}$$\n\nAs a check, $\\mu = 1/(ne\\rho)$ gives the same value, because $\\sigma = 1/\\rho = ne\\mu$. With this mobility, a field of 0.05 V/m gives a drift speed of only about $2\\times10^{-4}$ m/s.", "answer": "(a) τ ≈ 2.5 × 10⁻¹⁴ s (b) μ ≈ 4.3 × 10⁻³ m² V⁻¹ s⁻¹" },
+
+      { "type": "HEADING", "text": "Ohm's law and resistance" },
+      { "type": "CONCEPT", "text": "**Ohm's law:** for a metallic conductor kept at constant temperature (and other physical conditions such as strain unchanged), the current through it is directly proportional to the potential difference across its ends: $V \\propto I$, that is, $V = IR$, where the constant R is the resistance of the conductor." },
+      { "type": "DEFINITION", "term": "Resistance", "text": "The ratio of the potential difference across a conductor to the current through it, $R = V/I$; it measures the opposition the conductor offers to current. SI unit: ohm (Ω), where $1\\,\\Omega = 1\\,\\text{V A}^{-1}$." },
+      { "type": "FORMULA", "latex": "V = I\\,R, \\qquad R = \\rho\\,\\frac{l}{A}", "text": "V = potential difference (V); I = current (A); R = resistance (Ω); l = length of the conductor (m); A = cross-sectional area (m²); ρ = resistivity of the material (Ω m)." },
+      { "type": "TEXT", "text": "**How R depends on size.** Imagine two identical wires joined end to end: to drive the same current through both, you need twice the voltage, so resistance is proportional to length, $R \\propto l$. Now place two identical wires side by side: the same voltage drives the same current through each, so the pair carries twice the current, meaning the resistance halves; hence $R \\propto 1/A$. Together, $R = \\rho l/A$, where the constant ρ depends only on the material and its temperature.\n\n**Ohm's law from the drift model.** For a uniform wire, $E = V/l$. Using $I = neAv_d$ and $v_d = eE\\tau/m$:\n\n$$I = neA\\,\\frac{e\\tau}{m}\\,\\frac{V}{l} \\quad\\Rightarrow\\quad V = \\left(\\frac{m}{ne^2\\tau}\\right)\\frac{l}{A}\\,I = R\\,I$$\n\nSo $R = \\dfrac{m}{ne^2\\tau}\\cdot\\dfrac{l}{A}$ and $\\rho = \\dfrac{m}{ne^2\\tau}$. Because n and τ do not depend on V (at fixed temperature), R is a constant: that is exactly Ohm's law.\n\n**Recap from Class 10 (needed in problems).** Resistors in series carry the same current and $R_s = R_1 + R_2 + \\ldots$; resistors in parallel have the same potential difference and $1/R_p = 1/R_1 + 1/R_2 + \\ldots$." },
+      { "type": "SOLVED_PROBLEM", "problem": "A nichrome wire is 2.0 m long and 0.40 mm in diameter. The resistivity of nichrome is $1.0\\times10^{-6}\\,\\Omega\\,\\text{m}$. (a) Find its resistance. (b) The wire is now stretched uniformly to twice its length. Find its new resistance and resistivity.", "solution": "(a) The radius is 0.20 mm = $2.0\\times10^{-4}$ m, so the area is $A = \\pi r^2 = \\pi(2.0\\times10^{-4})^2 \\approx 1.26\\times10^{-7}\\,\\text{m}^2$. Then\n\n$$R = \\rho\\frac{l}{A} = \\frac{(1.0\\times10^{-6})(2.0)}{1.26\\times10^{-7}} \\approx 15.9\\,\\Omega$$\n\n(b) Stretching does not change the volume, so $lA$ stays constant. If the length becomes 2l, the area becomes A/2. Then $R' = \\rho(2l)/(A/2) = 4\\rho l/A = 4R \\approx 63.7\\,\\Omega$. The resistivity is a property of the material and stays $1.0\\times10^{-6}\\,\\Omega$ m.", "answer": "(a) about 15.9 Ω (b) about 63.7 Ω (four times); resistivity unchanged at 1.0 × 10⁻⁶ Ω m" },
+      { "type": "KEY_POINT", "text": "Stretching a wire at constant volume: if the length becomes k times, R becomes k² times. If the radius becomes 1/k times (length k² times), R becomes k⁴ times. Cutting a wire into k equal pieces gives each piece R/k. In all these cases the resistivity does not change." },
+
+      { "type": "HEADING", "text": "Electrical resistivity and conductivity" },
+      { "type": "DEFINITION", "term": "Resistivity (specific resistance)", "text": "The resistance of a conductor of the material having unit length and unit cross-sectional area: $\\rho = RA/l$. It depends on the material and on temperature, not on the shape or size of the sample. SI unit: ohm metre (Ω m)." },
+      { "type": "DEFINITION", "term": "Conductivity", "text": "The reciprocal of resistivity, $\\sigma = 1/\\rho$. SI unit: siemens per metre (S m⁻¹), where 1 S = 1 Ω⁻¹ (so Ω⁻¹ m⁻¹ is the same unit)." },
+      { "type": "FORMULA", "latex": "\\rho = \\frac{m}{n e^2 \\tau}, \\qquad \\sigma = \\frac{1}{\\rho} = \\frac{n e^2 \\tau}{m} = n e \\mu", "text": "Resistivity is small when there are many free electrons (large n) and when they travel a long time between collisions (large τ). This is why ρ depends on the material (through n and τ) and on temperature (mainly through τ in metals and through n in semiconductors)." },
+      { "type": "FORMULA", "latex": "\\vec{j} = \\sigma\\,\\vec{E} \\qquad \\text{or} \\qquad \\vec{E} = \\rho\\,\\vec{j}", "text": "This is Ohm's law written for a point inside the material (the microscopic or vector form). It follows from V = IR: putting V = El, I = jA and R = ρl/A gives El = jA·ρl/A, i.e. E = ρj. j = current density (A m⁻²), E = electric field (V m⁻¹)." },
+      { "type": "TABLE", "caption": "Approximate resistivities at room temperature (values rounded) and how they change with temperature", "columns": ["Class", "Examples", "Resistivity ρ (Ω m)", "Effect of heating"], "rows": [
+        ["Metals (good conductors)", "Silver, copper, aluminium, tungsten", "About 1.6 × 10⁻⁸ (Ag), 1.7 × 10⁻⁸ (Cu), 2.7 × 10⁻⁸ (Al), 5.6 × 10⁻⁸ (W)", "ρ increases (α positive, of order 10⁻³ K⁻¹)"],
+        ["Alloys", "Manganin, constantan, nichrome", "About 5 × 10⁻⁷ to 1 × 10⁻⁶", "ρ increases only slightly (very small α)"],
+        ["Semiconductors", "Germanium, silicon", "About 0.5 (Ge) to 2 × 10³ (Si)", "ρ decreases (α negative)"],
+        ["Insulators", "Glass, hard rubber, mica", "10¹⁰ to 10¹⁶ and more", "ρ decreases, but stays very large"]
+      ] },
+      { "type": "TEXT", "text": "**Choosing materials.** Connecting wires are made of copper or aluminium because their resistivity is very low, so little energy is wasted. Heating elements of irons, toasters and room heaters use nichrome: its resistivity is high, its melting point is high and it does not oxidise easily when red hot. Standard resistors and resistance boxes use manganin or constantan, whose resistivity hardly changes with temperature. Lamp filaments use tungsten because of its very high melting point." },
+
+      { "type": "HEADING", "text": "V-I characteristics: linear and non-linear" },
+      { "type": "TEXT", "text": "A **V-I characteristic** is the graph of current through a device against the potential difference across it (or the other way round). It tells us at a glance whether the device obeys Ohm's law.\n\n**Linear (ohmic) characteristic.** For a metallic conductor at constant temperature the graph is a straight line through the origin. Reversing the polarity simply reverses the current with the same magnitude, so the line continues into the third quadrant. On an I–V graph (I on the vertical axis), the slope $\\Delta I/\\Delta V$ equals $1/R$; on a V–I graph (V on the vertical axis), the slope equals R.\n\n**Effect of temperature on the line.** If the same metal wire is used at a higher temperature its resistance is larger, so on an I–V graph its line is *less steep*." },
+      { "type": "DIAGRAM", "diagram": "vi-linear" },
+      { "type": "TEXT", "text": "**Non-linear (non-ohmic) characteristics.** Ohm's law is not a law of nature like conservation of charge; it is an approximate rule that many materials obey. Devices that do not obey it show three kinds of departure:\n\n1. **V is not proportional to I.** The graph is curved. A filament lamp is the classic example: as the current increases the filament gets hotter and its resistance rises, so equal steps in V give smaller and smaller steps in I.\n2. **The relation depends on the sign of V.** If the polarity is reversed, the size of the current changes, not just its direction. A semiconductor diode passes a large current for one polarity (forward bias) and almost none for the other (reverse bias).\n3. **The relation is not unique.** For some materials, such as gallium arsenide (GaAs), the same current can occur at more than one value of V. In the region where the current falls while V rises, the device has a negative dynamic resistance.\n\nFor a non-ohmic device, two resistances are used: the *static resistance* $V/I$ at a point and the *dynamic (incremental) resistance* $r = dV/dI$, which is the reciprocal of the slope of the I–V graph at that point. Both change from point to point along the curve." },
+      { "type": "DIAGRAM", "diagram": "vi-nonlinear" },
+      { "type": "TABLE", "caption": "Ohmic versus non-ohmic devices", "columns": ["Feature", "Ohmic conductor", "Non-ohmic device"], "rows": [
+        ["Shape of I–V graph", "Straight line through the origin", "Curved, or depends on polarity, or not single-valued"],
+        ["Resistance V/I", "Constant (at fixed temperature)", "Changes with V or I"],
+        ["Effect of reversing V", "Current reverses, same magnitude", "Magnitude may change (diode)"],
+        ["Examples", "Metal wires, nichrome and manganin coils at constant temperature", "Filament lamp, diode, thermistor, GaAs device, electrolytes"]
+      ] },
+      { "type": "CALLOUT", "text": "**Read the axes first.** If I is on the vertical axis, a steeper line means a *smaller* resistance (slope = 1/R). If V is on the vertical axis, a steeper line means a *larger* resistance (slope = R). For a line making angle θ with the V-axis on an I–V graph, R = 1/tan θ = cot θ." },
+
+      { "type": "HEADING", "text": "Temperature dependence of resistance" },
+      { "type": "TEXT", "text": "The resistivity of a metal increases as it is heated. Over a moderate range of temperature, the increase is close to linear and is described by a temperature coefficient α." },
+      { "type": "FORMULA", "latex": "\\rho_T = \\rho_0\\left[1 + \\alpha\\,(T - T_0)\\right], \\qquad R_T = R_0\\left[1 + \\alpha\\,(T - T_0)\\right]", "text": "ρ₀, R₀ = resistivity and resistance at the reference temperature T₀; ρ_T, R_T = values at temperature T; α = temperature coefficient of resistivity. The second form neglects the tiny change in length and area of the wire on heating. α has the same numerical value per kelvin and per degree Celsius, because a temperature difference of 1 K equals 1 °C." },
+      { "type": "DEFINITION", "term": "Temperature coefficient of resistivity", "text": "The fractional change in resistivity per unit rise in temperature: $\\alpha = \\dfrac{\\rho_T - \\rho_0}{\\rho_0\\,(T - T_0)}$. SI unit: K⁻¹ (equivalently °C⁻¹). It is positive for metals and negative for semiconductors and insulators." },
+      { "type": "TEXT", "text": "**Why metals and semiconductors behave oppositely.** Recall $\\rho = m/(ne^2\\tau)$.\n\n- **Metals:** n is fixed by the number of atoms and hardly changes with temperature. As the temperature rises the ions vibrate with larger amplitude, the electrons collide with them more often, τ decreases, and ρ increases. Near absolute zero the resistivity of a metal does not fall to zero but settles to a small residual value set by impurities and defects, so the graph is curved at low temperatures and almost straight at higher ones.\n- **Semiconductors and insulators:** at higher temperature, more electrons gain enough energy to break free from their bonds, so n increases very rapidly. This increase outweighs the decrease of τ, and ρ falls (α is negative). This is why a thermistor's resistance drops as it warms.\n- **Alloys such as nichrome, manganin and constantan** have a high resistivity and a very weak temperature dependence (small α), which makes manganin and constantan ideal for standard resistors.\n\nSome materials lose their resistance completely below a critical temperature; this is called superconductivity." },
+      { "type": "DIAGRAM", "diagram": "rho-temperature" },
+      { "type": "SOLVED_PROBLEM", "problem": "A copper coil has a resistance of 4.00 Ω at 20 °C. Taking the temperature coefficient of resistivity of copper as $3.9\\times10^{-3}\\,^\\circ\\text{C}^{-1}$ (referred to 20 °C), find (a) its resistance at 70 °C and (b) the temperature at which its resistance becomes 5.00 Ω.", "solution": "(a) Use $R_T = R_0[1 + \\alpha(T - T_0)]$ with $R_0 = 4.00\\,\\Omega$ at $T_0 = 20\\,^\\circ$C:\n\n$$R_{70} = 4.00\\left[1 + (3.9\\times10^{-3})(70 - 20)\\right] = 4.00 \\times 1.195 \\approx 4.78\\,\\Omega$$\n\n(b) Rearranging the same relation for the temperature rise:\n\n$$T - 20 = \\frac{R_T/R_0 - 1}{\\alpha} = \\frac{5.00/4.00 - 1}{3.9\\times10^{-3}} = \\frac{0.25}{3.9\\times10^{-3}} \\approx 64\\,^\\circ\\text{C}$$\n\nso the coil must be heated to about 84 °C. The resistance rises by about 0.4 per cent for every degree, which is typical of pure metals.", "answer": "(a) about 4.78 Ω (b) about 84 °C" },
+      { "type": "SOLVED_PROBLEM", "problem": "A room heater with a nichrome element is connected to 220 V mains. At the moment it is switched on, when the element is at room temperature 25 °C, it draws 4.4 A. After some minutes the current settles at 4.0 A. Taking α for nichrome as $1.7\\times10^{-4}\\,^\\circ\\text{C}^{-1}$ over this range, find the steady temperature of the element.", "solution": "First find the resistance at the two temperatures from Ohm's law.\n\nAt room temperature: $R_0 = 220/4.4 = 50\\,\\Omega$. At the steady temperature: $R_T = 220/4.0 = 55\\,\\Omega$.\n\nNow apply $R_T = R_0[1 + \\alpha(T - T_0)]$:\n\n$$T - 25 = \\frac{R_T - R_0}{R_0\\,\\alpha} = \\frac{55 - 50}{50 \\times 1.7\\times10^{-4}} = \\frac{5}{8.5\\times10^{-3}} \\approx 588\\,^\\circ\\text{C}$$\n\nHence $T \\approx 25 + 588 \\approx 613\\,^\\circ$C. The current falls as the element warms because its resistance increases; that is why the current settles at a lower value.", "answer": "about 613 °C (rounded to 610 °C)" },
+      { "type": "CALLOUT", "text": "**Exam tip:** if α is defined with respect to 0 °C and you are given R₁ at t₁ and asked for R₂ at t₂, the exact relation is R₂/R₁ = (1 + αt₂)/(1 + αt₁). The shortcut R₂ = R₁[1 + α(t₂ − t₁)] is acceptable only when α(t₂ − t₁) is small. Also remember: forgetting to add the room temperature to the calculated rise is the most common slip in heater problems." },
+
+      { "type": "HEADING", "text": "Electrical energy and power" },
+      { "type": "TEXT", "text": "**Derivation of P = VI.** Let a steady current I flow through a conductor from end A to end B, with A at the higher potential; the potential difference is $V = V_A - V_B$. In a time $\\Delta t$ a charge $\\Delta Q = I\\,\\Delta t$ moves from A to B. Its potential energy falls by\n\n$$\\Delta U = \\Delta Q\\,V = I\\,V\\,\\Delta t$$\n\nIf the charges moved freely, this energy would appear as kinetic energy. Inside a conductor, however, the carriers keep colliding with the ions and move with a constant average (drift) velocity, so the energy is passed to the lattice and appears as heat. The energy dissipated per unit time, the power, is therefore $P = \\Delta U/\\Delta t = VI$. Using Ohm's law this can be written in two other ways." },
+      { "type": "FORMULA", "latex": "P = V I = I^2 R = \\frac{V^2}{R}, \\qquad W = V I t = I^2 R t", "text": "P = power (W); V = potential difference (V); I = current (A); R = resistance (Ω); W = electrical energy converted in time t (J). The heat produced in a resistor, H = I²Rt, is Joule's law of heating." },
+      { "type": "DEFINITION", "term": "Electric power", "text": "The rate at which electrical energy is converted into other forms (heat, light, mechanical work) in a circuit element. SI unit: watt (W), where 1 W = 1 J s⁻¹ = 1 V A." },
+      { "type": "DEFINITION", "term": "Kilowatt-hour (kWh)", "text": "The commercial unit of electrical energy (one 'unit' on an electricity bill): the energy used by a 1 kW device in 1 hour. 1 kWh = 1000 W × 3600 s = 3.6 × 10⁶ J." },
+      { "type": "TEXT", "text": "**Which formula to use.** In a series circuit all elements carry the same current, so use $P = I^2R$: the larger resistance dissipates more power. In a parallel circuit all elements have the same voltage, so use $P = V^2/R$: the smaller resistance dissipates more power.\n\n**Rated values.** A lamp marked 100 W, 220 V has resistance $R = V^2/P = 220^2/100 = 484\\,\\Omega$. On a different supply voltage V', assuming R does not change, it consumes $P' = (V'/V)^2 P$; on 110 V it would give only a quarter of its rated power.\n\n**Power transmission.** A power station delivers power P at voltage V through cables of resistance $R_c$. The current is $I = P/V$, so the power wasted as heat in the cables is $P_c = I^2R_c = P^2R_c/V^2$. Raising the transmission voltage ten times cuts the loss a hundred times. That is why electricity is sent over long distances at very high voltage and stepped down by transformers near the consumers.\n\n**Power delivered by a cell to an external resistor.** A cell of emf ε and internal resistance r drives $I = \\varepsilon/(R + r)$ through R, so the power delivered to R is $P_R = \\varepsilon^2R/(R + r)^2$. Setting $dP_R/dR = 0$ gives $R = r$. The maximum power is $\\varepsilon^2/(4r)$; at this condition an equal amount is wasted inside the cell, so the efficiency is only 50 per cent." },
+      { "type": "FORMULA", "latex": "P_R = \\frac{\\varepsilon^2 R}{(R + r)^2}, \\qquad P_{\\max} = \\frac{\\varepsilon^2}{4r} \\;\\text{ when } R = r", "text": "ε = emf of the source (V); r = its internal resistance (Ω); R = external (load) resistance (Ω). This is the maximum power transfer condition: the load receives the greatest power when its resistance equals the internal resistance of the source." },
+      { "type": "SOLVED_PROBLEM", "problem": "Two lamps rated 100 W, 220 V and 60 W, 220 V are connected in series across a 220 V supply. Which lamp glows brighter, and what is the total power drawn? (Assume the resistances do not change with temperature.)", "solution": "First find each lamp's resistance from its rating, using $R = V^2/P$:\n\n$$R_1 = \\frac{220^2}{100} = 484\\,\\Omega, \\qquad R_2 = \\frac{220^2}{60} \\approx 806.7\\,\\Omega$$\n\nIn series the same current flows through both: $I = 220/(484 + 806.7) = 220/1290.7 \\approx 0.170\\,\\text{A}$.\n\nNow apply $P = I^2R$ to each lamp: $P_1 = (0.1705)^2(484) \\approx 14.1\\,\\text{W}$ and $P_2 = (0.1705)^2(806.7) \\approx 23.4\\,\\text{W}$.\n\nThe 60 W lamp, which has the larger resistance, dissipates more power and glows brighter. The total power is $V^2/(R_1 + R_2) = 220^2/1290.7 \\approx 37.5$ W, much less than either rating. If the two lamps were connected in parallel instead, each would get 220 V and the 100 W lamp would be brighter.", "answer": "The 60 W lamp glows brighter (≈ 23.4 W against ≈ 14.1 W); total power ≈ 37.5 W" },
+      { "type": "EXAMPLE", "text": "An electric iron rated 1000 W is used for 2 hours every day. In a 30-day month it uses 1 kW × 2 h × 30 = 60 kWh, that is, 60 units, or 60 × 3.6 × 10⁶ J = 2.16 × 10⁸ J. At ₹6 per unit the cost is ₹360." },
+      { "type": "IMPORTANT_FACT", "text": "Lamps of the same voltage rating: in series, the lamp of lower rated power (higher resistance) glows brighter; in parallel, the lamp of higher rated power glows brighter. For two lamps of rated powers P₁ and P₂ in series on the rated voltage, the total power is P₁P₂/(P₁ + P₂)." },
+      { "type": "CALLOUT", "text": "**No contradiction:** P = I²R seems to say power grows with R, while P = V²/R seems to say it falls with R. Both are right; use I²R when the current is fixed (series) and V²/R when the voltage is fixed (parallel)." },
+
+      { "type": "HEADING", "text": "Potential difference and emf of a cell" },
+      { "type": "TEXT", "text": "An electrolytic cell has two electrodes, a positive one (P) and a negative one (N), dipped in an electrolyte. Chemical reactions at the electrodes push charges in a way that electric forces alone never could: they keep the positive electrode at a potential $V_+$ above the electrolyte next to it and the negative electrode at a potential $V_-$ below the electrolyte next to it. When no current is drawn, the electrolyte itself has the same potential throughout, so the potential difference between the terminals P and N is $V_+ + V_-$. This is the **emf** of the cell, written ε.\n\nInside the cell, the chemical (non-electrostatic) forces carry positive charge from the negative terminal to the positive terminal, against the electric field. The work they do per unit charge is the emf. In the external circuit, the electric field does work on the charges as they flow from the positive terminal through the resistors back to the negative terminal." },
+      { "type": "DEFINITION", "term": "Electromotive force (emf)", "text": "The work done by the source (by its non-electrostatic, e.g. chemical, forces) per unit positive charge in taking the charge from the negative to the positive terminal inside the source. It equals the potential difference between the terminals when no current is drawn (open circuit). SI unit: volt (V) = J C⁻¹. Despite its name, emf is not a force." },
+      { "type": "DEFINITION", "term": "Terminal potential difference", "text": "The potential difference V between the terminals of a cell while it is supplying a current: the work done per unit charge in the external circuit, V = W/q. SI unit: volt (V). It is less than the emf when the cell is discharging, because part of the emf is used up driving current through the cell itself." },
+      { "type": "TABLE", "caption": "Emf versus terminal potential difference", "columns": ["Point of comparison", "Emf ε", "Terminal potential difference V"], "rows": [
+        ["Meaning", "Work done by the source per unit charge in moving charge through the whole circuit", "Work done per unit charge in the external part of the circuit"],
+        ["Depends on", "Chemistry of the cell only; independent of the current", "The current drawn: V = ε − Ir"],
+        ["Value on open circuit (I = 0)", "ε", "V = ε"],
+        ["While discharging (current leaves the + terminal)", "ε", "V = ε − Ir, less than ε"],
+        ["While being charged (current enters the + terminal)", "ε", "V = ε + Ir, more than ε"],
+        ["Short-circuited terminals", "ε", "V = 0, current ε/r"]
+      ] },
+      { "type": "IMPORTANT_FACT", "text": "The terminal voltage of a cell can be greater than its emf, but only while the cell is being charged by an external source that forces current into its positive terminal: then V = ε + Ir." },
+
+      { "type": "HEADING", "text": "Internal resistance of a cell" },
+      { "type": "DEFINITION", "term": "Internal resistance", "text": "The resistance offered to the flow of current by the electrolyte and electrodes inside a cell, written r. SI unit: ohm (Ω). An ideal cell would have r = 0." },
+      { "type": "TEXT", "text": "**What r depends on.** The internal resistance of an electrolytic cell\n\n- increases when the separation between the electrodes increases;\n- decreases when a larger area of the electrodes is dipped in the electrolyte;\n- depends on the nature and concentration of the electrolyte;\n- usually decreases as the temperature of the electrolyte rises (ions move more freely);\n- increases as the cell ages and is used up.\n\n**Current and terminal voltage.** Connect a cell (ε, r) to an external resistor R. The same current I flows through R and through the cell, and the total resistance of the loop is R + r, so\n\n$$I = \\frac{\\varepsilon}{R + r}$$\n\nThe terminal voltage is the potential drop across R: $V = IR = \\varepsilon - Ir$. The quantity Ir is the 'lost volts', the part of the emf used to push current through the cell itself. Eliminating I gives a handy formula for the internal resistance: $r = (\\varepsilon - V)/I = R(\\varepsilon/V - 1)$." },
+      { "type": "FORMULA", "latex": "I = \\frac{\\varepsilon}{R + r}, \\qquad V = \\varepsilon - I r = \\frac{\\varepsilon R}{R + r}, \\qquad r = R\\left(\\frac{\\varepsilon}{V} - 1\\right)", "text": "ε = emf (V); r = internal resistance (Ω); R = external resistance (Ω); I = current (A); V = terminal potential difference (V). When R ≫ r, V ≈ ε; when R = 0 (short circuit), I = ε/r is the maximum current the cell can give." },
+      { "type": "DIAGRAM", "diagram": "internal-resistance" },
+      { "type": "TEXT", "text": "**Reading the V–I graph of a cell.** Since $V = \\varepsilon - Ir$, the graph of terminal voltage against current is a straight line. Its intercept on the V-axis is the emf ε (no current), its slope is −r, and its intercept on the I-axis is the short-circuit current ε/r. So one graph gives both the emf and the internal resistance.\n\n**Practical consequences.** A car battery must supply a very large current (over 100 A) to the starter motor, so it is built with a very small internal resistance. When the starter is switched on, the large Ir drop makes the headlights dim for a moment. A high-voltage supply used in laboratories, on the other hand, is deliberately given a very large internal resistance, so that if it is accidentally short-circuited the current stays within safe limits." },
+      { "type": "SOLVED_PROBLEM", "problem": "A battery of emf 12 V and internal resistance 0.50 Ω is connected to a 5.5 Ω resistor. Find (a) the current, (b) the terminal voltage, (c) the power delivered to the resistor and the power wasted inside the battery, and (d) the current if the terminals are short-circuited.", "solution": "(a) The total resistance of the circuit is R + r, so\n\n$$I = \\frac{\\varepsilon}{R + r} = \\frac{12}{5.5 + 0.5} = 2.0\\,\\text{A}$$\n\n(b) The terminal voltage is the emf minus the drop inside the battery: $V = \\varepsilon - Ir = 12 - (2.0)(0.50) = 11\\,\\text{V}$. As a check, $IR = 2.0 \\times 5.5 = 11$ V.\n\n(c) Power in the resistor: $I^2R = (2.0)^2(5.5) = 22\\,\\text{W}$. Power wasted in the battery: $I^2r = (2.0)^2(0.50) = 2.0\\,\\text{W}$. The battery supplies $\\varepsilon I = 24$ W in total, which equals 22 W + 2 W, as energy conservation requires.\n\n(d) With R = 0 the only resistance is r, so $I_{sc} = \\varepsilon/r = 12/0.50 = 24\\,\\text{A}$.", "answer": "(a) 2.0 A (b) 11 V (c) 22 W in the resistor, 2.0 W in the battery (d) 24 A" },
+      { "type": "SOLVED_PROBLEM", "problem": "When a cell supplies a current of 0.20 A its terminal voltage is 1.40 V; when it supplies 0.40 A its terminal voltage is 1.30 V. Find the emf and internal resistance of the cell.", "solution": "Write $V = \\varepsilon - Ir$ for both readings:\n\n$$1.40 = \\varepsilon - 0.20\\,r \\qquad\\text{and}\\qquad 1.30 = \\varepsilon - 0.40\\,r$$\n\nSubtracting the second equation from the first eliminates the emf: $0.10 = 0.20\\,r$, so $r = 0.50\\,\\Omega$. Substituting back into the first equation gives $\\varepsilon = 1.40 + 0.20 \\times 0.50 = 1.50\\,\\text{V}$. Graphically, these are two points on the straight V–I line of the cell; the slope gives −r and the V-intercept gives ε.", "answer": "ε = 1.50 V, r = 0.50 Ω" },
+      { "type": "CALLOUT", "text": "**Common mistakes:** (1) Using the terminal voltage in place of the emf in I = ε/(R + r). (2) Forgetting the internal resistance when finding the current. (3) Thinking a voltmeter connected across a cell always reads its emf; it reads the emf only when the cell supplies (almost) no current." },
+
+      { "type": "HEADING", "text": "Combination of cells in series" },
+      { "type": "TEXT", "text": "In a **series** combination the negative terminal of one cell is joined to the positive terminal of the next, and the same current flows through all the cells.\n\n**Derivation.** Let cell 1 (ε₁, r₁) lie between points A and B and cell 2 (ε₂, r₂) between B and C, as in panel (a) of the figure, with a current I flowing. For each cell, terminal voltage = emf − I × internal resistance:\n\n$$V_{AB} = \\varepsilon_1 - I r_1, \\qquad V_{BC} = \\varepsilon_2 - I r_2$$\n\nAdding, $V_{AC} = V_{AB} + V_{BC} = (\\varepsilon_1 + \\varepsilon_2) - I(r_1 + r_2)$. A single equivalent cell between A and C would give $V_{AC} = \\varepsilon_{eq} - I r_{eq}$. Comparing the two expressions:\n\n$$\\varepsilon_{eq} = \\varepsilon_1 + \\varepsilon_2, \\qquad r_{eq} = r_1 + r_2$$\n\n**A cell connected the wrong way round.** If cell 2 is reversed (its positive terminal joined to the positive terminal of cell 1), then $V_{BC} = -\\varepsilon_2 - I r_2$ and $\\varepsilon_{eq} = \\varepsilon_1 - \\varepsilon_2$, while the internal resistances still add: $r_{eq} = r_1 + r_2$." },
+      { "type": "FORMULA", "latex": "\\varepsilon_{eq} = \\varepsilon_1 + \\varepsilon_2 + \\cdots, \\qquad r_{eq} = r_1 + r_2 + \\cdots, \\qquad I = \\frac{n\\varepsilon}{R + n r}\\;\\;(n \\text{ identical cells})", "text": "For n identical cells (emf ε, internal resistance r each) in series with an external resistance R. If p of the n cells are connected in reverse, the net emf becomes (n − 2p)ε, but the internal resistance is still nr." },
+      { "type": "DIAGRAM", "diagram": "cell-combinations" },
+      { "type": "TEXT", "text": "**When is a series combination useful?** If $R \\gg nr$, then $I \\approx n\\varepsilon/R$, about n times the current one cell would give: series grouping helps when the external resistance is large. If $R \\ll nr$, then $I \\approx \\varepsilon/r$, the same as one cell short-circuited: adding cells in series gains nothing." },
+      { "type": "SOLVED_PROBLEM", "problem": "Ten identical cells, each of emf 1.5 V and internal resistance 0.50 Ω, are meant to be connected in series to a 7.0 Ω resistor, but one cell is accidentally connected the wrong way round. Find the current, and compare it with the current when all cells are connected correctly.", "solution": "The reversed cell opposes the others. Its emf cancels the emf of one correctly connected cell and also removes its own contribution, so the net emf is that of 10 − 2 = 8 cells:\n\n$$\\varepsilon_{eq} = (10 - 2)(1.5) = 12\\,\\text{V}$$\n\nThe internal resistances all add, whichever way the cells face: $r_{eq} = 10 \\times 0.50 = 5.0\\,\\Omega$. The current is\n\n$$I = \\frac{12}{7.0 + 5.0} = 1.0\\,\\text{A}$$\n\nWith all cells correct, $\\varepsilon_{eq} = 15$ V and $I = 15/12 = 1.25$ A. One reversed cell therefore reduces the current by 20 per cent.", "answer": "1.0 A with one cell reversed (1.25 A if all are correct)" },
+
+      { "type": "HEADING", "text": "Combination of cells in parallel" },
+      { "type": "TEXT", "text": "In a **parallel** combination all positive terminals are joined together (point B₁) and all negative terminals together (point B₂). The potential difference across every cell is the same, while the currents from the cells add up.\n\n**Derivation.** Let cell 1 (ε₁, r₁) supply current I₁ and cell 2 (ε₂, r₂) supply I₂, so the current in the external circuit is $I = I_1 + I_2$. Let $V = V(B_1) - V(B_2)$. Each cell's terminal voltage is V, so\n\n$$V = \\varepsilon_1 - I_1 r_1 \\;\\Rightarrow\\; I_1 = \\frac{\\varepsilon_1 - V}{r_1}, \\qquad I_2 = \\frac{\\varepsilon_2 - V}{r_2}$$\n\nAdding: $I = \\left(\\dfrac{\\varepsilon_1}{r_1} + \\dfrac{\\varepsilon_2}{r_2}\\right) - V\\left(\\dfrac{1}{r_1} + \\dfrac{1}{r_2}\\right)$. Solving for V:\n\n$$V = \\frac{\\varepsilon_1 r_2 + \\varepsilon_2 r_1}{r_1 + r_2} - I\\,\\frac{r_1 r_2}{r_1 + r_2}$$\n\nComparing with $V = \\varepsilon_{eq} - I r_{eq}$ for a single equivalent cell gives the results below. If one cell is connected the other way round, replace its emf by its negative." },
+      { "type": "FORMULA", "latex": "\\varepsilon_{eq} = \\frac{\\varepsilon_1 r_2 + \\varepsilon_2 r_1}{r_1 + r_2}, \\qquad r_{eq} = \\frac{r_1 r_2}{r_1 + r_2}", "text": "For two cells in parallel. For any number of cells: 1/r_eq = Σ(1/r_i) and ε_eq/r_eq = Σ(ε_i/r_i). The equivalent emf is a weighted average, so it always lies between the smallest and largest emf." },
+      { "type": "FORMULA", "latex": "\\varepsilon_{eq} = \\varepsilon, \\qquad r_{eq} = \\frac{r}{n}, \\qquad I = \\frac{\\varepsilon}{R + r/n} = \\frac{n\\varepsilon}{nR + r}", "text": "For n identical cells in parallel. The emf does not increase, but the internal resistance becomes n times smaller, so this grouping helps when the external resistance R is small compared with r. It also lets each cell supply only a fraction of the total current." },
+      { "type": "SOLVED_PROBLEM", "problem": "Two cells, one of emf 6.0 V and internal resistance 1.0 Ω and the other of emf 3.0 V and internal resistance 2.0 Ω, are connected in parallel (positive to positive) across a 4.0 Ω resistor. Find the current in the resistor and the current through each cell.", "solution": "Equivalent cell:\n\n$$\\varepsilon_{eq} = \\frac{(6.0)(2.0) + (3.0)(1.0)}{1.0 + 2.0} = \\frac{15}{3} = 5.0\\,\\text{V}, \\qquad r_{eq} = \\frac{(1.0)(2.0)}{3.0} = \\frac{2}{3}\\,\\Omega$$\n\nCurrent in the resistor: $I = 5.0/(4.0 + 0.667) \\approx 1.07$ A, and the common terminal voltage is $V = IR \\approx 4.29$ V.\n\nCell 1: $I_1 = (6.0 - 4.29)/1.0 \\approx 1.71$ A, flowing out of its positive terminal.\n\nCell 2: $I_2 = (3.0 - 4.29)/2.0 \\approx -0.64$ A. The negative sign means this current flows *into* the positive terminal of the 3.0 V cell: the stronger cell is charging the weaker one. Check: 1.71 − 0.64 = 1.07 A, which matches the external current.", "answer": "1.07 A in the resistor; 1.71 A from the 6.0 V cell; 0.64 A flows into the 3.0 V cell (it is being charged)" },
+      { "type": "KEY_POINT", "text": "Series grouping adds emfs and internal resistances (good for large R). Parallel grouping keeps the emf (for identical cells) but divides the internal resistance (good for small R). Unequal cells in parallel can make the weaker cell charge instead of discharge." },
+      { "type": "TEXT", "text": "**Mixed grouping (an extension often asked).** Suppose N = mn identical cells are arranged as m parallel rows, each row having n cells in series. Each row has emf nε and internal resistance nr; m such rows in parallel have emf nε and internal resistance nr/m. The current in an external resistance R is\n\n$$I = \\frac{n\\varepsilon}{R + nr/m} = \\frac{mn\\,\\varepsilon}{mR + nr}$$\n\nFor a fixed total number of cells, this current is maximum when $R = nr/m$, that is, when the external resistance equals the total internal resistance of the battery." },
+      { "type": "SOLVED_PROBLEM", "problem": "Twelve identical cells, each of emf 2.0 V and internal resistance 1.0 Ω, are to send the largest possible current through a 3.0 Ω resistor. How should they be grouped, and what is the maximum current? Compare with all-series and all-parallel groupings.", "solution": "For maximum current with mixed grouping, the internal resistance of the battery must equal R, so $nr/m = 3.0$ with $nm = 12$.\n\nSince r = 1.0 Ω, n = 3m. Substituting, $3m \\times m = 12$, so $m = 2$ and $n = 6$: two parallel rows of six cells in series.\n\nMaximum current: $I = \\dfrac{n\\varepsilon}{R + nr/m} = \\dfrac{6 \\times 2.0}{3.0 + 3.0} = 2.0$ A.\n\nAll twelve in series: $I = 24/(3.0 + 12) = 1.6$ A. All twelve in parallel: $I = 2.0/(3.0 + 1/12) \\approx 0.65$ A. The mixed grouping is clearly the best for this load.", "answer": "Two rows of 6 cells in series (connected in parallel); maximum current 2.0 A" },
+
+      { "type": "HEADING", "text": "Quick revision" },
+      { "type": "TABLE", "caption": "Formula sheet for this topic", "columns": ["Quantity or law", "Formula", "SI unit"], "rows": [
+        ["Current", "$I = dq/dt$, $I = neAv_d$", "A"],
+        ["Current density", "$j = I/A = nev_d = \\sigma E$", "A m⁻²"],
+        ["Drift velocity", "$v_d = eE\\tau/m$", "m s⁻¹"],
+        ["Mobility", "$\\mu = v_d/E = e\\tau/m$", "m² V⁻¹ s⁻¹"],
+        ["Ohm's law, resistance", "$V = IR$, $R = \\rho l/A$", "Ω"],
+        ["Resistivity, conductivity", "$\\rho = m/(ne^2\\tau)$, $\\sigma = 1/\\rho = ne\\mu$", "Ω m, S m⁻¹"],
+        ["Temperature dependence", "$\\rho_T = \\rho_0[1 + \\alpha(T - T_0)]$", "α in K⁻¹"],
+        ["Power and energy", "$P = VI = I^2R = V^2/R$, $W = VIt$", "W, J (1 kWh = 3.6 MJ)"],
+        ["Cell with internal resistance", "$I = \\varepsilon/(R + r)$, $V = \\varepsilon - Ir$", "A, V"],
+        ["Cells in series", "$\\varepsilon_{eq} = \\Sigma\\varepsilon_i$, $r_{eq} = \\Sigma r_i$", "V, Ω"],
+        ["Cells in parallel", "$1/r_{eq} = \\Sigma(1/r_i)$, $\\varepsilon_{eq}/r_{eq} = \\Sigma(\\varepsilon_i/r_i)$", "V, Ω"]
+      ] },
+      { "type": "KEY_POINT", "text": "Five ideas to remember: (1) electrons drift slowly opposite to E, but the field acts everywhere at once; (2) I = neAv_d and v_d = eEτ/m together give Ohm's law with ρ = m/(ne²τ); (3) in metals heating lowers τ so ρ rises, in semiconductors heating raises n so ρ falls; (4) V = ε − Ir while discharging and V = ε + Ir while charging; (5) series cells add emfs and internal resistances, parallel identical cells keep ε but give r/n." }
+    ]
+  },
+  "diagrams": [
+    { "key": "drift", "file": "diagrams/ug26-322-u2-current-resistance-cells-drift.svg", "alt": "A cylindrical metal conductor with an electric field pointing from end P to end Q, free electrons drifting opposite to the field, a shaded slab of length v_d Δt behind a cross-section of area A, and arrows showing conventional current along the field and electron drift against it", "caption": "Drift of free electrons in a conductor: all electrons in the shaded slab of length v_d Δt cross the area A in time Δt", "description": "A metal conductor drawn as a horizontal cylinder. End P on the left is at higher potential and end Q on the right at lower potential, so the electric field E points from left to right. A green zig-zag line shows the random path of one electron between collisions, ending to the left of where it started, showing a net drift opposite to the field. Blue circles marked with minus signs are free electrons. A cross-section of area A is highlighted, and a shaded slab of length v_d Δt lies just behind it; the electrons in this slab cross the section in time Δt. Below the conductor a red arrow pointing right is labelled conventional current I, and a blue arrow pointing left is labelled electron drift velocity v_d." },
+    { "key": "vi-linear", "file": "diagrams/ug26-322-u2-current-resistance-cells-vi-linear.svg", "alt": "Two I-V graphs: (a) a straight line through the origin for an ohmic conductor with slope 1/R marked; (b) two straight lines through the origin for the same metal wire at temperatures T1 and T2, the T2 line being less steep", "caption": "Linear (ohmic) V-I characteristics: slope of the I-V line is 1/R, and the line becomes less steep at higher temperature", "description": "Panel (a): current I in ampere on the vertical axis against potential difference V in volt on the horizontal axis, with both axes crossing at the origin O. A straight line passes through the origin from the third quadrant to the first; a dashed slope triangle shows ΔV and ΔI with slope ΔI/ΔV = 1/R. Panel (b): first-quadrant I-V graph for the same metal wire at two temperatures. The line for T1 is steeper than the line for T2, and the note says T2 is greater than T1, giving a smaller slope and a larger resistance." },
+    { "key": "vi-nonlinear", "file": "diagrams/ug26-322-u2-current-resistance-cells-vi-nonlinear.svg", "alt": "Three non-linear I-V graphs: a filament lamp curve whose slope decreases with V, a diode curve with almost no current for negative V and a steep rise for positive V, and a GaAs curve that rises, falls and rises again so one current value occurs at three voltages", "caption": "Non-linear (non-ohmic) V-I characteristics of a filament lamp, a diode and a GaAs device", "description": "Panel (c), filament lamp: an S-shaped curve through the origin, symmetric for positive and negative V; its slope falls as V increases because the filament's resistance rises as it heats. Panel (d), diode: for negative V the current is almost zero; for positive V the current stays small at first and then rises steeply, so the current depends on the sign of V. Panel (e), GaAs device: the current rises to a peak, falls to a valley and then rises again as V increases; a dashed horizontal line at current I0 cuts the curve at three different voltages, showing the V-I relation is not unique." },
+    { "key": "rho-temperature", "file": "diagrams/ug26-322-u2-current-resistance-cells-rho-temperature.svg", "alt": "Three graphs of resistivity against absolute temperature: copper rising almost linearly after a flat low-temperature part, nichrome high and nearly flat with a slight rise, and a semiconductor falling steeply with temperature", "caption": "Resistivity against temperature for a metal (copper), an alloy (nichrome) and a semiconductor", "description": "Each panel plots resistivity ρ in ohm metre against temperature T in kelvin. Panel (a) copper: near 0 K the resistivity levels off at a small residual value, then rises almost linearly with temperature, so α is positive. Panel (b) nichrome: the resistivity is large and rises only very slowly with temperature, showing a small α. Panel (c) semiconductor such as silicon or germanium: the resistivity is very large at low temperature and falls steeply as temperature rises, so α is negative." },
+    { "key": "internal-resistance", "file": "diagrams/ug26-322-u2-current-resistance-cells-internal-resistance.svg", "alt": "Circuit of a cell of emf epsilon with internal resistance r inside a dashed box, connected to an external resistor R, with a voltmeter across terminals A and B reading V = epsilon minus Ir, and a graph of terminal voltage against current that is a straight line from epsilon on the V axis to epsilon over r on the I axis", "caption": "A cell of emf ε and internal resistance r: terminal voltage V = ε − Ir falls linearly with the current drawn", "description": "Panel (a): a dashed box represents the cell; inside it are the cell symbol with emf ε and a red resistor r in series, between terminals A (positive side) and B. An external resistor R joins A to B through the upper wire; arrows show the current I leaving A, passing through R and returning to B. A voltmeter V is connected across A and B and reads V = ε − Ir. Panel (b): terminal voltage V on the vertical axis against current I on the horizontal axis. A straight line starts at ε on the V-axis (open circuit, I = 0) and falls with slope −r to meet the I-axis at ε/r (short circuit, V = 0)." },
+    { "key": "cell-combinations", "file": "diagrams/ug26-322-u2-current-resistance-cells-cell-combinations.svg", "alt": "Panel (a) two cells with emfs epsilon1 and epsilon2 and internal resistances r1 and r2 in series between points A, B and C driving current I through R; panel (b) the same two cells in parallel between junctions B1 and B2 with branch currents I1 and I2 combining into I through R", "caption": "Cells in series (emfs and internal resistances add) and in parallel (positive terminals joined, currents add)", "description": "Panel (a): cell 1 (emf ε1, internal resistance r1) lies between points A and B, and cell 2 (emf ε2, internal resistance r2) between B and C, with the negative side of cell 1 joined to the positive side of cell 2. An external resistor R connects A back to C and the current I flows from A through R. The equivalent emf is ε1 + ε2 and the equivalent internal resistance is r1 + r2. Panel (b): two cells are connected between a left junction B1, which joins both positive terminals, and a right junction B2, which joins both negative terminals. Branch currents I1 and I2 flow through the cells towards B1 and combine into I = I1 + I2, which flows through the external resistor R. The relations 1/r_eq = 1/r1 + 1/r2 and ε_eq/r_eq = ε1/r1 + ε2/r2 are written below." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "A wire carries a steady current of 1.6 A. How many electrons cross any cross-section of the wire in one second? (Take e = 1.6 × 10⁻¹⁹ C.)",
+      "options": ["6.25 × 10¹⁸", "1.0 × 10¹⁹", "1.6 × 10¹⁹", "2.56 × 10⁻¹⁹"],
+      "answer": 2,
+      "explanation": "In one second the charge that crosses the section is q = It = 1.6 × 1 = 1.6 C. Each electron carries a charge of magnitude 1.6 × 10⁻¹⁹ C, so the number of electrons is N = q/e = 1.6 / (1.6 × 10⁻¹⁹) = 1.0 × 10¹⁹.",
+      "optionRationale": { "1": "6.25 × 10¹⁸ is the number of electrons per second for a current of 1 A, not 1.6 A.", "3": "This would follow only if e were taken as 1 × 10⁻¹⁹ C; dividing 1.6 C by 1.6 × 10⁻¹⁹ C gives 1.0 × 10¹⁹.", "4": "This multiplies the charge by e instead of dividing; a count of electrons cannot be a tiny fraction." },
+      "objective": "Relate current to the number of electrons crossing a section per second"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Electric current in a wire has a direction, yet it is treated as a scalar quantity. The correct reason is that",
+      "options": ["it is defined as charge per unit time, and time is a scalar", "it can flow only along the length of a wire", "its magnitude is the same at every point of every circuit", "currents meeting at a junction add algebraically and do not obey the law of vector addition"],
+      "answer": 4,
+      "explanation": "A quantity is a vector only if it combines by the parallelogram (vector) law. When two wires carrying 2 A and 3 A meet at a junction, the outgoing current is 5 A whatever the angle between the wires, so currents add algebraically. Hence current is a scalar, although current density is a vector.",
+      "optionRationale": { "1": "Being a ratio involving scalars does not decide the matter; current density is also built from charge and time, yet it is a vector.", "2": "Flowing along a wire gives current a sense, but that alone does not make it a scalar or a vector.", "3": "Current can be different in different branches of a circuit, so this statement is false." },
+      "objective": "Explain why electric current is a scalar quantity"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q03", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The charge that has passed through a cross-section of a conductor varies with time as $q = 3t^2 + 2t$, where q is in coulomb and t in second. The current at t = 2 s is",
+      "options": ["16 A", "8 A", "14 A", "12 A"],
+      "answer": 3,
+      "explanation": "Instantaneous current is the rate of flow of charge, $I = dq/dt = 6t + 2$. At t = 2 s this gives I = 12 + 2 = 14 A. The other values come from confusing charge with current or from using an average instead of the instantaneous rate.",
+      "optionRationale": { "1": "16 is the charge q at t = 2 s (in coulomb), not the current.", "2": "8 A is the average current q/t over the first 2 s, not the current at the instant t = 2 s.", "4": "12 A drops the constant term 2 that comes from differentiating 2t." },
+      "objective": "Find instantaneous current as the time derivative of charge"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q04", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In a metal wire that is not connected to any source of potential difference, the free electrons",
+      "options": ["move randomly at high speeds, but the net charge crossing any cross-section is zero", "are at rest because there is no electric field inside the wire", "drift slowly in one direction, producing a small current", "move only along the outer surface of the wire"],
+      "answer": 1,
+      "explanation": "Free electrons in a metal always move with large random thermal speeds and keep colliding with the ions. Because their directions are random, as many electrons cross any section in one direction as in the other, so the net charge transported is zero and there is no current until a field is applied.",
+      "optionRationale": { "2": "The electrons are never at rest; they have random speeds of the order of 10⁵ to 10⁶ m/s even without a field.", "3": "A net drift in one direction needs an electric field; without it there is no drift and no current.", "4": "Free electrons move throughout the volume of the metal, not only on its surface." },
+      "objective": "Describe the motion of free electrons in a metal without an applied field"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q05", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): An electric lamp starts glowing almost as soon as the switch is closed, even though the drift speed of electrons in the connecting wires is only about 10⁻⁴ m s⁻¹.\nReason (R): When the circuit is closed, an electric field is set up throughout the circuit almost instantly, so free electrons everywhere, including those in the filament, start drifting at practically the same time.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Both statements are true. The lamp does not wait for electrons to travel from the switch; the electric field spreads along the wires at nearly the speed of light, and the electrons already present in the filament begin drifting at once and heat it. So the reason correctly explains the assertion.",
+      "optionRationale": { "2": "R is not an unrelated fact; it is exactly why the lamp responds instantly, so it does explain A.", "3": "R is true: the field is established throughout the circuit almost instantaneously.", "4": "A is true: the lamp glows almost immediately despite the very small drift speed." },
+      "objective": "Explain the instant response of a circuit despite the small drift speed"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q06", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "A copper wire of cross-sectional area 1.0 mm² carries a current of 2.4 A. If the number density of free electrons in copper is $8.0\\times10^{28}\\,\\text{m}^{-3}$, the drift speed of the electrons is about",
+      "options": ["1.9 × 10⁻⁶ m s⁻¹", "5.3 × 10³ m s⁻¹", "1.9 × 10⁻⁴ m s⁻¹", "1.9 × 10⁻⁷ m s⁻¹"],
+      "answer": 3,
+      "explanation": "Using $I = neAv_d$ with A = 1.0 mm² = 1.0 × 10⁻⁶ m², the drift speed is $v_d = I/(neA) = 2.4 / (8.0\\times10^{28} \\times 1.6\\times10^{-19} \\times 1.0\\times10^{-6}) = 2.4/(1.28\\times10^{4}) \\approx 1.9\\times10^{-4}$ m/s. This is the typical size of drift speeds in metal wires, a small fraction of a millimetre per second; the key step is converting square millimetres to square metres correctly.",
+      "optionRationale": { "1": "This value results from taking the area as 1 cm² = 10⁻⁴ m² instead of 1 mm² = 10⁻⁶ m².", "2": "This is neA/I, the reciprocal of the correct expression; drift speeds are never thousands of metres per second.", "4": "This value results from converting 1 mm² as if it were 10⁻³ m²." },
+      "objective": "Calculate drift speed from I = neAv_d"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q07", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "A metal wire of non-uniform thickness carries a steady current. Its cross-sectional area at section P is twice its area at section Q. Which of the following correctly compares the currents and the electron drift speeds at P and Q?",
+      "options": ["current ratio P : Q = 2 : 1; drift-speed ratio P : Q = 1 : 1", "current ratio P : Q = 1 : 1; drift-speed ratio P : Q = 1 : 2", "current ratio P : Q = 1 : 1; drift-speed ratio P : Q = 2 : 1", "current ratio P : Q = 1 : 2; drift-speed ratio P : Q = 1 : 4"],
+      "answer": 2,
+      "explanation": "For a steady current, charge cannot accumulate anywhere in the wire, so the same current flows through every cross-section: the current ratio is 1 : 1. From $I = neAv_d$ with I and n the same, the drift speed is inversely proportional to the area, so the drift speed at P (twice the area) is half that at Q, a ratio of 1 : 2.",
+      "optionRationale": { "1": "The current cannot be larger at P; a steady current is the same through every section of a single wire.", "3": "This reverses the inverse relation; the wider section has the smaller drift speed.", "4": "Both ratios are wrong: the current is equal at P and Q, and the drift speed varies as 1/A, not 1/A²." },
+      "objective": "Apply I = neAv_d to a conductor of non-uniform cross-section"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q08", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A fixed potential difference V is maintained across a copper wire of length l. The wire is replaced by another copper wire of the same length but twice the diameter, with the same V and the same temperature. Compared with the first wire, the drift speed of the electrons and the current in the second wire are",
+      "options": ["drift speed halved; current doubled", "drift speed one-fourth; current unchanged", "drift speed doubled; current four times", "drift speed unchanged; current four times"],
+      "answer": 4,
+      "explanation": "The field in the wire is E = V/l, which is unchanged, so the drift speed $v_d = eE\\tau/m$ is unchanged. Doubling the diameter makes the area four times larger, so $I = neAv_d$ becomes four times. The same result follows from $R = \\rho l/A$: the resistance becomes one-fourth, so I = V/R becomes four times.",
+      "optionRationale": { "1": "Drift speed depends on the field E = V/l, not on the area, so it does not halve.", "2": "This assumes the current stays constant, but with fixed V a thicker wire has less resistance and carries more current.", "3": "The drift speed is fixed by E = V/l and does not double when only the diameter changes." },
+      "objective": "Analyse how drift speed and current depend on wire dimensions at fixed potential difference"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q09", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Free electrons in a conductor acquire a drift speed of $2.0\\times10^{-4}$ m/s in an electric field of 0.050 V/m. Their mobility and relaxation time are (take $m = 9.1\\times10^{-31}$ kg and $e = 1.6\\times10^{-19}$ C)",
+      "options": ["μ = 4.0 × 10⁻³ m² V⁻¹ s⁻¹ and τ ≈ 2.3 × 10⁻¹⁴ s", "μ = 1.0 × 10⁻⁵ m² V⁻¹ s⁻¹ and τ ≈ 5.7 × 10⁻¹⁷ s", "μ = 250 m² V⁻¹ s⁻¹ and τ ≈ 1.4 × 10⁻⁹ s", "μ = 4.0 × 10⁻³ m² V⁻¹ s⁻¹ and τ ≈ 7.0 × 10⁸ s"],
+      "answer": 1,
+      "explanation": "Mobility is drift speed per unit field: $\\mu = v_d/E = (2.0\\times10^{-4})/0.050 = 4.0\\times10^{-3}$ m² V⁻¹ s⁻¹. Since $\\mu = e\\tau/m$, the relaxation time is $\\tau = \\mu m/e = (4.0\\times10^{-3})(9.1\\times10^{-31})/(1.6\\times10^{-19}) \\approx 2.3\\times10^{-14}$ s. This is the usual order of magnitude of the time between collisions for electrons in metals, which is a useful check on the answer.",
+      "optionRationale": { "2": "This multiplies v_d by E instead of dividing; mobility is v_d/E.", "3": "This divides E by v_d, giving the reciprocal of the mobility.", "4": "The mobility is right, but τ was found as μe/m instead of μm/e." },
+      "objective": "Calculate mobility and relaxation time from drift speed and field"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q10", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about the mobility μ of free electrons in a metal.\nA. μ = eτ/m, where τ is the relaxation time.\nB. The mobility increases when the metal is heated.\nC. The conductivity of the metal is σ = neμ.\nD. Mobility is defined as the drift velocity per unit current.\nWhich of the statements are correct?",
+      "options": ["A and B only", "B and D only", "A and C only", "A, C and D only"],
+      "answer": 3,
+      "explanation": "A is correct: dividing $v_d = eE\\tau/m$ by E gives $\\mu = e\\tau/m$. C is correct: $j = nev_d = ne\\mu E$, and comparing with $j = \\sigma E$ gives $\\sigma = ne\\mu$. B is wrong because heating shortens the relaxation time, so mobility falls. D is wrong because mobility is drift velocity per unit electric field, not per unit current.",
+      "optionRationale": { "1": "B is false: heating a metal makes collisions more frequent, which reduces τ and hence the mobility.", "2": "Both B and D are false statements.", "4": "D is false: mobility is defined per unit electric field, with unit m² V⁻¹ s⁻¹." },
+      "objective": "Identify correct relations involving mobility, relaxation time and conductivity"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q11", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A wire of resistance 8.0 Ω is stretched uniformly until its length becomes three times its original length. Its new resistance is",
+      "options": ["24 Ω", "72 Ω", "2.7 Ω", "216 Ω"],
+      "answer": 2,
+      "explanation": "Stretching keeps the volume lA constant, so when the length becomes 3l the area becomes A/3. Then $R' = \\rho(3l)/(A/3) = 9\\rho l/A = 9R = 9 \\times 8.0 = 72\\,\\Omega$. In general, stretching to k times the length multiplies the resistance by k². The resistivity, being a property of the material, does not change.",
+      "optionRationale": { "1": "24 Ω accounts for the longer length but forgets that the area also decreases three times.", "3": "Resistance increases on stretching; dividing by 3 is the wrong direction.", "4": "216 Ω (27 times) would require the area to fall nine times, which does not happen at constant volume." },
+      "objective": "Find the change in resistance when a wire is stretched at constant volume"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q12", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A wire of resistance 5.0 Ω is drawn out, keeping its volume constant, until its radius becomes half its original value. Its new resistance and the resistivity of its material are",
+      "options": ["20 Ω; resistivity doubles", "10 Ω; resistivity unchanged", "80 Ω; resistivity unchanged", "80 Ω; resistivity becomes four times"],
+      "answer": 3,
+      "explanation": "Halving the radius makes the area one-fourth. At constant volume the length therefore becomes four times. Using $R = \\rho l/A$, the resistance becomes 4 ÷ (1/4) = 16 times, so R' = 16 × 5.0 = 80 Ω. Resistivity depends only on the material and temperature, so it is unchanged.",
+      "optionRationale": { "1": "20 Ω counts only the four-fold decrease of area and ignores the four-fold increase of length; resistivity also does not change.", "2": "10 Ω has no basis; both the length and the area change by a factor of four.", "4": "The resistance is right, but resistivity is a material property and does not change on drawing the wire." },
+      "objective": "Analyse resistance change when a wire's radius is reduced at constant volume"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q13", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A wire 3.0 m long with a cross-sectional area of 0.50 mm² has a resistance of 0.102 Ω at room temperature. The resistivity of its material is",
+      "options": ["1.7 × 10⁻⁸ Ω m", "1.7 × 10⁻⁶ Ω m", "1.7 × 10⁻⁵ Ω m", "6.1 × 10⁵ Ω m"],
+      "answer": 1,
+      "explanation": "From $R = \\rho l/A$, $\\rho = RA/l$. With A = 0.50 mm² = 0.50 × 10⁻⁶ m², $\\rho = (0.102)(0.50\\times10^{-6})/3.0 = 1.7\\times10^{-8}\\,\\Omega$ m. This value is typical of copper, a good conductor. Remember that 1 mm² equals 10⁻⁶ m², because each millimetre is 10⁻³ m and the conversion factor is squared.",
+      "optionRationale": { "2": "This treats 0.50 mm² as 0.50 cm² (0.50 × 10⁻⁴ m²).", "3": "This converts mm² to m² using 10⁻³ instead of 10⁻⁶.", "4": "This computes Rl/A instead of RA/l." },
+      "objective": "Calculate resistivity from resistance and dimensions"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q14", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "According to the free-electron model, the resistivity of a metal is given by which expression? (n = number density of free electrons, e = electronic charge, m = electron mass, τ = relaxation time)",
+      "options": ["n e² τ / m", "m / (n e τ)", "m τ / (n e²)", "m / (n e² τ)"],
+      "answer": 4,
+      "explanation": "Combining $I = neAv_d$ with $v_d = eE\\tau/m$ and E = V/l gives $V = \\frac{m}{ne^2\\tau}\\frac{l}{A}I$. Comparing with $R = \\rho l/A$ shows $\\rho = m/(ne^2\\tau)$. So the resistivity is small when there are many free carriers per unit volume and when they travel for a long time between collisions. Its reciprocal is the conductivity.",
+      "optionRationale": { "1": "n e² τ / m is the conductivity σ, the reciprocal of the resistivity.", "2": "One factor of e is missing; e enters once through the charge per carrier and once through the drift speed.", "3": "τ belongs in the denominator: a longer time between collisions lowers the resistivity." },
+      "objective": "Recall the expression for resistivity in terms of microscopic quantities"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q15", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The current density in a copper wire is $2.0\\times10^{6}$ A m⁻². If the resistivity of copper is $1.7\\times10^{-8}\\,\\Omega$ m, the electric field inside the wire is",
+      "options": ["1.2 × 10¹⁴ V m⁻¹", "3.4 × 10⁻² V m⁻¹", "3.4 V m⁻¹", "8.5 × 10⁻¹⁵ V m⁻¹"],
+      "answer": 2,
+      "explanation": "The microscopic form of Ohm's law is $E = \\rho j$. Substituting, $E = (1.7\\times10^{-8})(2.0\\times10^{6}) = 3.4\\times10^{-2}$ V/m. The field inside a good conductor carrying an ordinary current is this small because the resistivity of the metal is so low; over a 1 m length it corresponds to a potential drop of only 0.034 V.",
+      "optionRationale": { "1": "This divides j by ρ; that gives neither the field nor any physical quantity here.", "3": "This is 100 times too large, a slip in handling the powers of ten.", "4": "This divides ρ by j instead of multiplying them." },
+      "objective": "Apply the microscopic form of Ohm's law E = ρj"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q16", "type": "MATCH_THE_FOLLOWING", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Match each quantity related to conduction in List-I with its SI unit in List-II and choose the correct code.",
+      "list": { "left": ["A. Resistivity", "B. Conductivity", "C. Mobility", "D. Current density"], "right": ["I. A m⁻²", "II. m² V⁻¹ s⁻¹", "III. Ω m", "IV. S m⁻¹"] },
+      "options": ["A-III, B-II, C-IV, D-I", "A-IV, B-III, C-II, D-I", "A-III, B-IV, C-II, D-I", "A-III, B-IV, C-I, D-II"],
+      "answer": 3,
+      "explanation": "Resistivity ρ = RA/l has unit Ω m (A-III). Conductivity σ = 1/ρ has unit Ω⁻¹ m⁻¹, i.e. siemens per metre (B-IV). Mobility μ = v_d/E has unit (m/s)/(V/m) = m² V⁻¹ s⁻¹ (C-II). Current density j = I/A has unit A m⁻² (D-I).",
+      "optionRationale": { "1": "Conductivity is not m² V⁻¹ s⁻¹ and mobility is not S m⁻¹; these two are swapped.", "2": "Resistivity and conductivity are swapped; resistivity is Ω m.", "4": "Mobility and current density are swapped." },
+      "objective": "Recall SI units of resistivity, conductivity, mobility and current density"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q17", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "The I–V graphs (current on the vertical axis, potential difference on the horizontal axis) of the same metal wire at two different temperatures are straight lines through the origin making angles of 60° and 30° with the V-axis. Which statement is correct?",
+      "options": ["R(60° line) : R(30° line) = 1 : 3, and the 30° line is at the higher temperature", "R(60° line) : R(30° line) = 3 : 1, and the 60° line is at the higher temperature", "R(60° line) : R(30° line) = 1 : 3, and the 60° line is at the higher temperature", "R(60° line) : R(30° line) = 1 : √3 (about 1 : 1.73), and the 30° line is at the higher temperature"],
+      "answer": 1,
+      "explanation": "On an I–V graph the slope tan θ equals 1/R, so R = cot θ. Thus R(60°) = cot 60° = 1/√3 and R(30°) = cot 30° = √3, giving a ratio of 1 : 3. The resistance of a metal increases with temperature, so the line with the larger resistance, the 30° line, corresponds to the higher temperature.",
+      "optionRationale": { "2": "This treats the slope as R, which is true only when V is on the vertical axis.", "3": "The ratio is right, but a metal has the larger resistance at the higher temperature, which is the 30° line.", "4": "The ratio of cot 60° to cot 30° is (1/√3)/√3 = 1/3, not 1/√3." },
+      "objective": "Interpret the slopes of I–V graphs of a metal at different temperatures"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q18", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "For which of the following does the magnitude of the current change when the polarity of the applied potential difference is reversed?",
+      "options": ["A nichrome wire at constant temperature", "A manganin standard resistor", "A semiconductor diode", "A copper connecting wire"],
+      "answer": 3,
+      "explanation": "A semiconductor diode is a non-ohmic device whose V–I relation depends on the sign of V: it passes a large current in forward bias and almost no current in reverse bias. Metallic conductors and alloys at constant temperature are ohmic, so reversing V only reverses the direction of the current, not its size.",
+      "optionRationale": { "1": "Nichrome at constant temperature obeys Ohm's law, so the current has the same magnitude for both polarities.", "2": "Manganin is an ohmic alloy; reversing V reverses I with the same magnitude.", "4": "Copper is ohmic; its I–V line passes symmetrically through the origin." },
+      "objective": "Identify a device whose V–I relation depends on the sign of V"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q19", "type": "DIAGRAM_BASED", "difficulty": "HARD", "skill": "analytical", "diagram": "vi-nonlinear",
+      "stem": "The figure shows the I–V characteristics of three devices, (c), (d) and (e). Which device has a region in which its dynamic resistance dV/dI is negative?",
+      "options": ["Device (c), the filament lamp", "Device (d), the diode", "Device (e), the GaAs device", "None of the three devices"],
+      "answer": 3,
+      "explanation": "Dynamic resistance dV/dI is the reciprocal of the slope of the I–V graph. It is negative where the current decreases while the voltage increases. Only curve (e) has such a falling portion, between its peak and its valley. The lamp's slope becomes smaller but stays positive, and the diode's slope is positive everywhere.",
+      "optionRationale": { "1": "For the lamp the slope decreases as V rises, so dV/dI increases, but it never becomes negative.", "2": "The diode current always increases with V, so its slope and dynamic resistance stay positive.", "4": "Device (e) clearly has a falling part where the current drops as V rises." },
+      "objective": "Interpret non-linear V–I characteristics and dynamic resistance"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q20", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about V–I characteristics.\nA. For an ohmic conductor at constant temperature, the I–V graph is a straight line through the origin.\nB. For a filament lamp, the ratio V/I increases as the current increases.\nC. A semiconductor diode conducts equally well for both polarities of the applied voltage.\nD. The slope of the V–I graph (V on the vertical axis) of an ohmic conductor equals its resistance.\nWhich of the statements are correct?",
+      "options": ["A and C only", "B, C and D only", "A, B, C and D", "A, B and D only"],
+      "answer": 4,
+      "explanation": "A is true: an ohmic conductor has I proportional to V. B is true: the filament heats up as the current increases, so its resistance V/I rises. D is true: with V on the vertical axis the slope is V/I = R. C is false: a diode conducts strongly in forward bias but hardly at all in reverse bias.",
+      "optionRationale": { "1": "C is false, and the true statements B and D are left out.", "2": "C is false and the true statement A is left out.", "3": "C is false: a diode's conduction depends strongly on the polarity of V." },
+      "objective": "Distinguish linear and non-linear V–I characteristics"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q21", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The resistance of a copper wire increases when its temperature rises. The main reason is that",
+      "options": ["the number of free electrons per unit volume increases", "the relaxation time of the free electrons decreases", "the charge on each electron decreases", "the mass of each electron increases"],
+      "answer": 2,
+      "explanation": "Resistivity of a metal is $\\rho = m/(ne^2\\tau)$. In copper the free-electron density n is practically constant. Heating makes the ions vibrate with larger amplitude, so electrons collide more often and the relaxation time τ decreases. A smaller τ means a larger resistivity and therefore a larger resistance.",
+      "optionRationale": { "1": "In a metal n is essentially fixed; besides, a larger n would lower the resistivity, not raise it.", "3": "The electronic charge is a constant of nature and does not change with temperature.", "4": "The electron mass does not change with temperature at these energies." },
+      "objective": "Explain the increase of resistance of a metal with temperature"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q22", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A platinum wire has a resistance of 2.0 Ω at 0 °C and 2.8 Ω at 100 °C. Assuming that its resistance varies linearly with temperature, at what temperature will its resistance be 3.4 Ω?",
+      "options": ["175 °C", "154 °C", "350 °C", "75 °C"],
+      "answer": 1,
+      "explanation": "First find α: $\\alpha = (2.8 - 2.0)/(2.0 \\times 100) = 4.0\\times10^{-3}$ per °C. Then $3.4 = 2.0(1 + 4.0\\times10^{-3}\\,t)$ gives $1 + 0.004t = 1.7$, so t = 0.7/0.004 = 175 °C. Equivalently, the resistance rises 0.8 Ω per 100 °C, and a rise of 1.4 Ω needs 175 °C.",
+      "optionRationale": { "2": "This uses 2.8 Ω at 100 °C as the reference with the same α, which is not consistent with α defined from 0 °C.", "3": "This divides the rise of 1.4 Ω by α alone and forgets to divide by R₀ = 2.0 Ω.", "4": "75 °C is only the extra rise above 100 °C; the 100 °C must be added." },
+      "objective": "Use R_T = R_0(1 + αT) to find a temperature"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q23", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A heating element connected to 220 V mains draws 5.5 A at the instant it is switched on, when it is at room temperature (20 °C). When it reaches its steady temperature the current is 5.0 A. If the temperature coefficient of resistance of the element is $2.0\\times10^{-4}\\,^\\circ\\text{C}^{-1}$, its steady temperature is",
+      "options": ["500 °C", "475 °C", "2.0 × 10⁴ °C", "520 °C"],
+      "answer": 4,
+      "explanation": "The resistance at 20 °C is R₀ = 220/5.5 = 40 Ω and at the steady temperature R = 220/5.0 = 44 Ω. From $R = R_0[1 + \\alpha(T - 20)]$, $T - 20 = (44 - 40)/(40 \\times 2.0\\times10^{-4}) = 4/0.008 = 500\\,^\\circ$C, so the steady temperature is 20 + 500 = 520 °C.",
+      "optionRationale": { "1": "500 °C is the temperature rise; the room temperature of 20 °C must be added.", "2": "This uses the hot resistance 44 Ω instead of the room-temperature value 40 Ω as the reference.", "3": "This divides the change in resistance by α without dividing by R₀." },
+      "objective": "Find the operating temperature of a heater from its current change"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q24", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): Manganin is preferred for making standard resistance coils and resistance boxes.\nReason (R): The resistivity of manganin changes very little with temperature.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "A standard resistor must keep the same value even if it warms slightly while current flows or the room temperature changes. Manganin, an alloy, has a very small temperature coefficient of resistivity, so its resistance stays almost constant. That is exactly why it is chosen, so both statements are true and R explains A.",
+      "optionRationale": { "2": "The small temperature coefficient is the very reason manganin is used, so R does explain A.", "3": "R is true: manganin's temperature coefficient is extremely small.", "4": "A is true: manganin and constantan are the usual materials for standard resistors." },
+      "objective": "Relate the choice of resistor material to its temperature coefficient"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q25", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): The resistivity of a semiconductor such as silicon decreases as its temperature rises.\nReason (R): The relaxation time of the charge carriers decreases as the temperature rises.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 2,
+      "explanation": "Both statements are true. However, from $\\rho = m/(ne^2\\tau)$ a shorter relaxation time would by itself increase the resistivity. The resistivity of a semiconductor falls because heating frees many more charge carriers, so n rises sharply and outweighs the decrease of τ. Hence R is true but does not explain A.",
+      "optionRationale": { "1": "A decrease in τ would raise ρ, so it cannot be the explanation of a falling resistivity; the cause is the rise in n.", "3": "R is true: collisions become more frequent at higher temperature in semiconductors as well.", "4": "A is true: semiconductors have a negative temperature coefficient of resistivity." },
+      "objective": "Explain the negative temperature coefficient of semiconductors"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q26", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "Match each material in List-I with the property or use in List-II that best describes it.",
+      "list": { "left": ["A. Nichrome", "B. Copper", "C. Silicon", "D. Tungsten"], "right": ["I. Resistivity decreases as temperature rises", "II. High resistivity and high melting point; used in heating elements", "III. Very low resistivity; used for connecting wires", "IV. Extremely high melting point; used for lamp filaments"] },
+      "options": ["A-III, B-II, C-I, D-IV", "A-II, B-III, C-IV, D-I", "A-IV, B-III, C-I, D-II", "A-II, B-III, C-I, D-IV"],
+      "answer": 4,
+      "explanation": "Nichrome has a high resistivity, a high melting point and resists oxidation, so it is used in heaters (A-II). Copper has very low resistivity and is used for connecting wires (B-III). Silicon is a semiconductor whose resistivity falls as temperature rises (C-I). Tungsten has an extremely high melting point and is used for filaments (D-IV).",
+      "optionRationale": { "1": "Nichrome and copper are swapped; copper is the low-resistivity wiring metal.", "2": "Silicon and tungsten are swapped; it is silicon whose resistivity falls with temperature.", "3": "Nichrome and tungsten are swapped; nichrome is the heating-element alloy." },
+      "objective": "Connect materials with their resistivity behaviour and uses"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q27", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "An electric lamp is rated 60 W, 220 V. Its resistance when it is glowing normally is about",
+      "options": ["807 Ω", "3.7 Ω", "13 200 Ω", "0.27 Ω"],
+      "answer": 1,
+      "explanation": "At its rated voltage the lamp dissipates its rated power, and $P = V^2/R$. So $R = V^2/P = 220^2/60 = 48400/60 \\approx 807\\,\\Omega$. The normal operating current is P/V ≈ 0.27 A, which is a current, not a resistance. Note that the resistance of a cold filament is much lower than this hot value.",
+      "optionRationale": { "2": "This is V/P, which has no physical meaning as a resistance.", "3": "This is V × P, not V²/P.", "4": "0.27 is the current in ampere (P/V), not the resistance." },
+      "objective": "Find the resistance of an appliance from its power and voltage rating"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q28", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A lamp rated 100 W, 220 V is operated on a 110 V supply. Assuming its resistance does not change, the power it consumes is",
+      "options": ["50 W", "25 W", "100 W", "12.5 W"],
+      "answer": 2,
+      "explanation": "The resistance is fixed by the rating: $R = 220^2/100 = 484\\,\\Omega$. On 110 V, $P = V^2/R = 110^2/484 = 25$ W. In short, $P' = (V'/V)^2 P = (1/2)^2 \\times 100 = 25$ W, because power varies as the square of the voltage when the resistance stays constant. Halving the supply voltage therefore cuts the power to one quarter, not one half.",
+      "optionRationale": { "1": "Halving the voltage does not halve the power; since P = V²/R, the power falls to one-fourth.", "3": "The rated power is obtained only at the rated voltage of 220 V.", "4": "12.5 W would need the power to fall eight times; it falls only four times." },
+      "objective": "Calculate power consumed at a voltage different from the rated voltage"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q29", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "Lamps rated 40 W, 220 V and 100 W, 220 V are connected in series across a 220 V supply. Assuming their resistances do not change, which statement is correct?",
+      "options": ["The 100 W lamp glows brighter, and the total power is about 28.6 W", "The 100 W lamp glows brighter, and the total power is 140 W", "The 40 W lamp glows brighter, and the total power is about 28.6 W", "The 40 W lamp glows brighter, and the total power is 140 W"],
+      "answer": 3,
+      "explanation": "Resistances: R(40 W) = 220²/40 = 1210 Ω and R(100 W) = 220²/100 = 484 Ω. The series current is I = 220/1694 ≈ 0.130 A. Then I²R gives about 20.4 W for the 40 W lamp and 8.2 W for the 100 W lamp, so the 40 W lamp is brighter. The total power is 220²/1694 ≈ 28.6 W, which also equals 40 × 100/140.",
+      "optionRationale": { "1": "In series the same current flows through both, so the lamp with the larger resistance (the 40 W lamp) dissipates more power.", "2": "Neither lamp gets its rated voltage in series, so the powers cannot add to 140 W; and the 40 W lamp is brighter.", "4": "The brighter lamp is correct, but 140 W would be the total only if both lamps were in parallel on 220 V." },
+      "objective": "Compare powers of rated lamps connected in series"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q30", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "A 1.5 kW room heater is used for 40 minutes every day. How much electrical energy does it use in 30 days?",
+      "options": ["45 kWh", "1800 kWh", "1.0 kWh", "30 kWh"],
+      "answer": 4,
+      "explanation": "Energy = power × time. Each day it runs for 40/60 = 2/3 h, so it uses 1.5 kW × 2/3 h = 1.0 kWh per day. In 30 days the energy is 30 kWh, which is 30 × 3.6 × 10⁶ J = 1.08 × 10⁸ J, or 30 units on the electricity bill.",
+      "optionRationale": { "1": "45 kWh assumes the heater runs for one full hour each day.", "2": "This multiplies kilowatts by minutes without converting minutes to hours.", "3": "1.0 kWh is the energy for one day only, not for 30 days." },
+      "objective": "Compute electrical energy in kilowatt-hours"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q31", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "A power station supplies 200 kW to a town through transmission cables of total resistance 0.40 Ω. The power lost as heat in the cables when the power is transmitted at 20 kV, and when it is transmitted at 2.0 kV, is respectively",
+      "options": ["40 W and 4.0 kW", "4.0 W and 400 W", "400 W and 4.0 kW", "40 W and 400 W"],
+      "answer": 1,
+      "explanation": "The line current is I = P/V. At 20 kV, I = 200 000/20 000 = 10 A and the loss is I²R = 100 × 0.40 = 40 W. At 2.0 kV, I = 100 A and the loss is 10 000 × 0.40 = 4000 W = 4.0 kW. The loss varies as 1/V², so a ten-fold lower voltage gives a hundred-fold larger loss.",
+      "optionRationale": { "2": "These values are ten times too small; the line currents are 10 A and 100 A.", "3": "The loss at 20 kV is wrong: (10 A)² × 0.40 Ω = 40 W.", "4": "This assumes loss ∝ 1/V; in fact P_loss = P²R/V², which varies as 1/V²." },
+      "objective": "Explain why power is transmitted at high voltage using I²R loss"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q32", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): When the same potential difference is applied across two wires of the same material and the same length, the thicker wire produces more heat per second.\nReason (R): The resistance of a wire is directly proportional to its area of cross-section.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "With the same V, the power is $P = V^2/R$, so the wire with the smaller resistance produces more heat per second. A thicker wire has a smaller resistance, so the assertion is true. The reason is false: $R = \\rho l/A$ shows that resistance is inversely, not directly, proportional to the area of cross-section.",
+      "optionRationale": { "1": "R is false, so it cannot be the explanation.", "2": "R is false: resistance is inversely proportional to the cross-sectional area.", "4": "A is true: at the same voltage, the thicker (lower-resistance) wire dissipates more power." },
+      "objective": "Apply P = V²/R and R = ρl/A to compare heating in wires"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q33", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A cell of emf 6.0 V and internal resistance 2.0 Ω is connected to a variable external resistor R. What is the maximum power that can be delivered to R, and for what value of R does it occur?",
+      "options": ["9.0 W at R = 2.0 Ω", "4.5 W at R = 2.0 Ω", "18 W at R = 0", "4.5 W at R = 4.0 Ω"],
+      "answer": 2,
+      "explanation": "The power in R is $P = \\varepsilon^2R/(R + r)^2$, which is greatest when R = r = 2.0 Ω. Then the current is 6.0/4.0 = 1.5 A and $P_{max} = I^2R = (1.5)^2(2.0) = 4.5$ W, which matches $\\varepsilon^2/(4r) = 36/8 = 4.5$ W.",
+      "optionRationale": { "1": "9.0 W is ε²/(2r); the correct maximum is ε²/(4r).", "3": "With R = 0 no power is delivered to R; 18 W (ε²/r) is all dissipated inside the cell.", "4": "At R = 4.0 Ω the power is 36 × 4/36 = 4.0 W, less than the maximum, which occurs at R = r." },
+      "objective": "Apply the maximum power transfer condition R = r"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q34", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which of the following best describes the emf of a cell?",
+      "options": ["The force with which the cell pushes electrons round the circuit", "The terminal potential difference when the cell supplies its maximum current", "The total chemical energy stored in the cell", "The work done by the cell per unit charge in taking charge from its negative to its positive terminal, equal to its terminal voltage on open circuit"],
+      "answer": 4,
+      "explanation": "Emf is work done per unit charge by the non-electrostatic (chemical) forces of the cell in moving charge from the negative to the positive terminal. When no current is drawn there is no drop across the internal resistance, so the terminal voltage equals the emf. Its unit is the volt, so it is not a force.",
+      "optionRationale": { "1": "Despite its name, emf is energy per unit charge (volt), not a force (newton).", "2": "At maximum current (short circuit) the terminal voltage is zero, not the emf.", "3": "Emf is energy per unit charge, not the total energy stored in the cell." },
+      "objective": "Define the emf of a cell"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q35", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A battery of emf 12 V and internal resistance 0.20 Ω is being charged with a current of 5.0 A. The potential difference between its terminals during charging is",
+      "options": ["11 V", "13 V", "12 V", "1.0 V"],
+      "answer": 2,
+      "explanation": "During charging, the external source forces current into the positive terminal, against the battery's emf. It must overcome both the emf and the drop across the internal resistance, so V = ε + Ir = 12 + (5.0)(0.20) = 13 V. The formula V = ε − Ir applies only while the battery is discharging.",
+      "optionRationale": { "1": "11 V uses V = ε − Ir, which applies to a discharging battery, not one being charged.", "3": "12 V ignores the drop across the internal resistance.", "4": "1.0 V is only the drop Ir across the internal resistance." },
+      "objective": "Find terminal voltage of a battery while it is being charged"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q36", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The potential difference across the terminals of a cell can never be greater than its emf.\nReason (R): When a cell is being charged by an external source, the current enters at its positive terminal and its terminal voltage is ε + Ir.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 4,
+      "explanation": "R is a correct statement: while charging, the source must drive current against the emf and through the internal resistance, so V = ε + Ir. This directly shows that the terminal voltage can exceed the emf, so A is false. The terminal voltage is less than ε only while the cell is discharging.",
+      "optionRationale": { "1": "A is false, because a cell being charged has a terminal voltage greater than its emf.", "2": "A is false, so this option cannot be correct.", "3": "A is false and R is true; this option has them the wrong way round." },
+      "objective": "Recognise when the terminal voltage exceeds the emf"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q37", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A cell of emf 2.0 V is connected to a 9.0 Ω resistor, and the potential difference across its terminals is then 1.8 V. The internal resistance of the cell is",
+      "options": ["0.90 Ω", "10 Ω", "1.0 Ω", "0.11 Ω"],
+      "answer": 3,
+      "explanation": "The current is I = V/R = 1.8/9.0 = 0.20 A. The lost volts are ε − V = 0.20 V, so r = 0.20/0.20 = 1.0 Ω. The same answer follows from $r = R(\\varepsilon/V - 1) = 9.0 \\times (2.0/1.8 - 1) = 1.0\\,\\Omega$.",
+      "optionRationale": { "1": "This uses R(1 − V/ε) instead of R(ε/V − 1).", "2": "10 Ω is ε/I, the total resistance R + r, not the internal resistance alone.", "4": "This is ε/V − 1 without multiplying by R." },
+      "objective": "Determine internal resistance from emf, terminal voltage and load"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q38", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "internal-resistance",
+      "stem": "Panel (b) of the figure shows how the terminal voltage of a cell varies with the current it supplies. For a particular cell, the line meets the V-axis at 1.5 V and the I-axis at 3.0 A. What are its internal resistance, and its terminal voltage when it is connected to a 1.0 Ω resistor?",
+      "options": ["r = 0.50 Ω; V = 1.0 V", "r = 2.0 Ω; V = 0.50 V", "r = 0.50 Ω; V = 1.5 V", "r = 4.5 Ω; V = 0.27 V"],
+      "answer": 1,
+      "explanation": "The V-intercept is the emf, ε = 1.5 V, and the I-intercept is the short-circuit current ε/r = 3.0 A, so r = 1.5/3.0 = 0.50 Ω (the magnitude of the slope). With a 1.0 Ω load, I = 1.5/(1.0 + 0.50) = 1.0 A and V = IR = 1.0 V, which is also ε − Ir = 1.5 − 0.5.",
+      "optionRationale": { "2": "This takes r as the I-intercept divided by the V-intercept, the reciprocal of the correct value.", "3": "The internal resistance is right, but 1.5 V is the open-circuit voltage; with a current flowing, V = ε − Ir is less.", "4": "This multiplies the intercepts; r is their ratio ε ÷ (ε/r)." },
+      "objective": "Read emf and internal resistance from the V–I graph of a cell"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q39", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about the internal resistance of an electrolytic cell.\nA. It increases when the separation between the electrodes is increased.\nB. It increases when a larger area of the electrodes is immersed in the electrolyte.\nC. For an ideal cell it is zero, so the terminal voltage equals the emf for any current.\nD. A high-voltage laboratory supply is deliberately given a very large internal resistance for safety.\nWhich of the statements are correct?",
+      "options": ["A and B only", "A, C and D only", "B, C and D only", "A and D only"],
+      "answer": 2,
+      "explanation": "A is true: a longer path through the electrolyte means more resistance. C is true: with r = 0, V = ε − Ir = ε for every current. D is true: a large internal resistance limits the current if the high-voltage terminals are accidentally shorted. B is false: a larger immersed area gives the current a wider path, which lowers the internal resistance.",
+      "optionRationale": { "1": "B is false (larger electrode area lowers r), and the true statements C and D are left out.", "3": "B is false and the true statement A is left out.", "4": "Statement C is also true and has been left out." },
+      "objective": "Identify the factors that affect internal resistance"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q40", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "Three identical cells, each of emf 1.5 V and internal resistance 0.20 Ω, are connected in series across a 2.4 Ω resistor. The current in the resistor is",
+      "options": ["0.58 A", "0.63 A", "1.9 A", "1.5 A"],
+      "answer": 4,
+      "explanation": "In series the emfs add and so do the internal resistances: ε_eq = 3 × 1.5 = 4.5 V and r_eq = 3 × 0.20 = 0.60 Ω. The current is I = ε_eq/(R + r_eq) = 4.5/(2.4 + 0.60) = 4.5/3.0 = 1.5 A.",
+      "optionRationale": { "1": "This is the current from a single cell, 1.5/(2.4 + 0.20).", "2": "This uses one cell's emf and ignores internal resistance, 1.5/2.4.", "3": "This uses the total emf but ignores the internal resistances, 4.5/2.4." },
+      "objective": "Calculate the current from identical cells in series"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q41", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Eight identical cells, each of emf 2.0 V and internal resistance 0.25 Ω, are connected in series to a 4.0 Ω resistor, but two of the cells are connected the wrong way round. The current in the resistor is about",
+      "options": ["2.7 A", "2.0 A", "1.3 A", "1.6 A"],
+      "answer": 3,
+      "explanation": "Each reversed cell cancels the emf of one correct cell and removes its own, so the net emf is that of 8 − 2 × 2 = 4 cells: 4 × 2.0 = 8.0 V. Internal resistances add regardless of orientation: 8 × 0.25 = 2.0 Ω. Hence I = 8.0/(4.0 + 2.0) ≈ 1.3 A.",
+      "optionRationale": { "1": "This is the current with all cells correctly connected, 16/6 A.", "2": "This subtracts the reversed cells only once, giving 12 V instead of 8 V.", "4": "The net emf is right, but the internal resistance of all eight cells still acts, not just of four." },
+      "objective": "Handle reversed cells in a series combination"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q42", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Two identical cells, each of emf 1.5 V and internal resistance 1.0 Ω, are connected in parallel across a 2.5 Ω resistor. The current through the resistor is",
+      "options": ["0.50 A", "0.43 A", "0.67 A", "1.0 A"],
+      "answer": 1,
+      "explanation": "For identical cells in parallel the emf stays 1.5 V and the internal resistance becomes r/2 = 0.50 Ω. Therefore I = 1.5/(2.5 + 0.50) = 0.50 A. Each cell supplies half of this current, 0.25 A.",
+      "optionRationale": { "2": "This uses the internal resistance of one cell, 1.5/3.5, forgetting that parallel cells halve it.", "3": "This is the series result, 3.0/(2.5 + 2.0).", "4": "This doubles the emf as in series while halving the internal resistance as in parallel; the emf does not add in parallel." },
+      "objective": "Calculate the current from identical cells in parallel"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q43", "type": "DIAGRAM_BASED", "difficulty": "HARD", "skill": "analytical", "diagram": "cell-combinations",
+      "stem": "In panel (b) of the figure, cell 1 has $\\varepsilon_1 = 4.0$ V and $r_1 = 2.0\\,\\Omega$, cell 2 has $\\varepsilon_2 = 2.0$ V and $r_2 = 2.0\\,\\Omega$, and the external resistance is R = 4.0 Ω. What is the current through cell 2?",
+      "options": ["0.30 A, out of its positive terminal (cell 2 discharging)", "0.20 A, into its positive terminal (cell 2 being charged)", "0.20 A, out of its positive terminal (cell 2 discharging)", "0.80 A, into its positive terminal (cell 2 being charged)"],
+      "answer": 2,
+      "explanation": "Equivalent cell: ε_eq = (4.0 × 2.0 + 2.0 × 2.0)/4.0 = 3.0 V and r_eq = 1.0 Ω, so I = 3.0/5.0 = 0.60 A and the common terminal voltage is V = IR = 2.4 V. For cell 2, I₂ = (ε₂ − V)/r₂ = (2.0 − 2.4)/2.0 = −0.20 A. The negative sign means 0.20 A flows into its positive terminal: cell 1 (I₁ = 0.80 A) is charging cell 2.",
+      "optionRationale": { "1": "0.30 A assumes the external current divides equally; with unequal emfs it does not.", "3": "The size is right but the direction is wrong: the terminal voltage 2.4 V exceeds ε₂, so current is forced into cell 2.", "4": "0.80 A is the current supplied by cell 1, not the current through cell 2." },
+      "objective": "Analyse unequal cells in parallel and identify a cell being charged"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q44", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Each arrangement in List-I drives a current through an external resistance R; every cell has emf ε and internal resistance r. Match each arrangement with the current it produces, given in List-II.",
+      "list": { "left": ["A. n cells in series", "B. n cells in parallel", "C. m parallel rows, each having n cells in series", "D. A single cell whose terminals are joined by a thick wire (R = 0)"], "right": ["I. $\\varepsilon/r$", "II. $n\\varepsilon/(R + nr)$", "III. $\\varepsilon/(R + r/n)$", "IV. $mn\\varepsilon/(mR + nr)$"] },
+      "options": ["A-III, B-II, C-IV, D-I", "A-II, B-III, C-I, D-IV", "A-II, B-III, C-IV, D-I", "A-IV, B-III, C-II, D-I"],
+      "answer": 3,
+      "explanation": "In series the emfs and internal resistances add, giving nε/(R + nr) (A-II). In parallel the emf stays ε and the internal resistance becomes r/n, giving ε/(R + r/n) (B-III). Mixed grouping gives nε/(R + nr/m) = mnε/(mR + nr) (C-IV). A short-circuited single cell gives ε/r (D-I).",
+      "optionRationale": { "1": "Series and parallel are swapped.", "2": "Mixed grouping and the short-circuit case are swapped.", "4": "Series and mixed grouping are swapped; with m = 1 the mixed formula reduces to the series one, but they are different arrangements." },
+      "objective": "Match cell groupings with the current they deliver"
+    },
+    {
+      "key": "ug26-322-u2-current-resistance-cells-q45", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "Sixteen identical cells, each of emf 1.5 V and internal resistance 0.50 Ω, are to be arranged in m parallel rows with n cells in series in each row so as to send the maximum possible current through a 2.0 Ω resistor. The best arrangement and the maximum current are",
+      "options": ["n = 4, m = 4; I = 2.4 A", "n = 16, m = 1; I = 2.4 A", "n = 2, m = 8; I = 1.4 A", "n = 8, m = 2; I = 3.0 A"],
+      "answer": 4,
+      "explanation": "The current is maximum when the battery's internal resistance nr/m equals R: 0.50n/m = 2.0, so n = 4m. With nm = 16, 4m² = 16, giving m = 2 and n = 8. Then I = nε/(R + nr/m) = 12/(2.0 + 2.0) = 3.0 A. The other groupings give 2.4 A, 2.4 A and about 1.4 A.",
+      "optionRationale": { "1": "With 4 rows of 4, the internal resistance is 0.50 Ω, not equal to R; the current is 6.0/2.5 = 2.4 A.", "2": "All in series gives internal resistance 8.0 Ω; the current is 24/10 = 2.4 A.", "3": "With 8 rows of 2, the emf is only 3.0 V; the current is 3.0/2.125 ≈ 1.4 A." },
+      "objective": "Choose the mixed grouping of cells that gives maximum current"
+    }
+  ]
+}

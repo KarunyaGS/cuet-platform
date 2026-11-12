@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 370" font-family="Arial, Helvetica, sans-serif">
+  <!-- uniform field lines -->
+  <g stroke="#93c5fd" stroke-width="1.8">
+    <line x1="30" y1="30" x2="630" y2="30"/>
+    <line x1="30" y1="60" x2="630" y2="60"/>
+    <line x1="30" y1="300" x2="630" y2="300"/>
+    <line x1="30" y1="330" x2="630" y2="330"/>
+  </g>
+  <g fill="#93c5fd">
+    <polygon points="610,30 598,24 598,36"/>
+    <polygon points="610,60 598,54 598,66"/>
+    <polygon points="610,300 598,294 598,306"/>
+    <polygon points="610,330 598,324 598,336"/>
+  </g>
+  <text x="40" y="50" font-size="15" font-weight="bold" fill="#2563eb">Uniform field E</text>
+  <!-- reference direction through centre -->
+  <line x1="200" y1="180" x2="470" y2="180" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <!-- dipole rod -->
+  <line x1="256.3" y1="231.6" x2="403.7" y2="128.4" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="330" cy="180" r="3" fill="#1f2937"/>
+  <!-- angle arc -->
+  <path d="M380,180 A50,50 0 0,0 370.96,151.32" fill="none" stroke="#d97706" stroke-width="2"/>
+  <text x="388" y="168" font-size="16" font-style="italic" fill="#d97706">θ</text>
+  <!-- lines of action and lever arm -->
+  <line x1="494" y1="128.4" x2="548" y2="128.4" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+  <line x1="272" y1="231.6" x2="548" y2="231.6" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+  <line x1="540" y1="140" x2="540" y2="220" stroke="#1f2937" stroke-width="1.5"/>
+  <polygon points="540,129.5 535,141 545,141" fill="#1f2937"/>
+  <polygon points="540,230.5 535,219 545,219" fill="#1f2937"/>
+  <text x="550" y="185" font-size="14" fill="#1f2937">2a sin θ</text>
+  <!-- force on +q (along E) -->
+  <line x1="419" y1="128.4" x2="480" y2="128.4" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="492,128.4 479,122.4 479,134.4" fill="#dc2626"/>
+  <text x="452" y="118" font-size="14" fill="#dc2626" text-anchor="middle">qE</text>
+  <!-- force on -q (opposite to E) -->
+  <line x1="241" y1="231.6" x2="180" y2="231.6" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="168,231.6 181,225.6 181,237.6" fill="#2563eb"/>
+  <text x="206" y="256" font-size="14" fill="#2563eb" text-anchor="middle">qE</text>
+  <!-- dipole moment -->
+  <line x1="416.0" y1="119.8" x2="445.5" y2="99.1" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="454.5,92.8 448.4,103.2 442.6,95.0" fill="#059669"/>
+  <text x="460" y="92" font-size="15" font-weight="bold" fill="#059669">p</text>
+  <!-- charges -->
+  <circle cx="403.7" cy="128.4" r="14" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="403.7" y="134.4" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">+</text>
+  <circle cx="256.3" cy="231.6" r="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="256.3" y="238.6" font-size="18" font-weight="bold" fill="#2563eb" text-anchor="middle">−</text>
+  <text x="386" y="112" font-size="14" fill="#dc2626" text-anchor="end">+q</text>
+  <text x="274" y="262" font-size="14" fill="#2563eb" text-anchor="start">−q</text>
+  <!-- result -->
+  <text x="330" y="362" font-size="14" fill="#1f2937" text-anchor="middle">Net force = 0; torque τ = pE sin θ turns p towards E (clockwise here)</text>
+</svg>

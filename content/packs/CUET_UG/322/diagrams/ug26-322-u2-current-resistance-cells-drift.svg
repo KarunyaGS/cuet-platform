@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" width="760" height="380" font-family="Arial, Helvetica, sans-serif">
+  <!-- Electric field arrow (points from higher to lower potential) -->
+  <line x1="400" y1="62" x2="604" y2="62" stroke="#d97706" stroke-width="2.5"/>
+  <polygon points="620,62 602,54 602,70" fill="#d97706"/>
+  <text x="510" y="44" font-size="15" fill="#d97706" text-anchor="middle" font-weight="bold">Electric field E</text>
+
+  <!-- Conductor body -->
+  <rect x="80" y="110" width="560" height="120" fill="#f3f4f6" stroke="none"/>
+  <line x1="80" y1="110" x2="640" y2="110" stroke="#1f2937" stroke-width="2"/>
+  <line x1="80" y1="230" x2="640" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <ellipse cx="80" cy="170" rx="22" ry="60" fill="#e5e7eb" stroke="#1f2937" stroke-width="2"/>
+  <path d="M640,110 A22,60 0 0 1 640,230" fill="#f3f4f6" stroke="#1f2937" stroke-width="2"/>
+
+  <!-- Slab of length vd*dt behind cross-section A -->
+  <rect x="400" y="110" width="100" height="120" fill="#dbeafe" stroke="none"/>
+  <ellipse cx="400" cy="170" rx="22" ry="60" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+  <path d="M500,110 A22,60 0 0 1 500,230" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <path d="M500,110 A22,60 0 0 0 500,230" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+  <!-- Random path of one electron (net drift to the left) -->
+  <polyline points="330,140 300,205 280,128 245,212 222,145 190,200 160,135" fill="none" stroke="#059669" stroke-width="2"/>
+  <circle cx="330" cy="140" r="4" fill="#059669"/>
+  <circle cx="160" cy="135" r="4" fill="#059669"/>
+  <text x="215" y="98" font-size="13" fill="#059669" text-anchor="middle">Zig-zag path of one electron: net drift to the left</text>
+
+  <!-- Electrons -->
+  <g font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <circle cx="430" cy="140" r="9" fill="#2563eb"/><text x="430" y="145">−</text>
+    <circle cx="470" cy="195" r="9" fill="#2563eb"/><text x="470" y="200">−</text>
+    <circle cx="445" cy="170" r="9" fill="#2563eb"/><text x="445" y="175">−</text>
+    <circle cx="545" cy="145" r="9" fill="#2563eb"/><text x="545" y="150">−</text>
+    <circle cx="585" cy="200" r="9" fill="#2563eb"/><text x="585" y="205">−</text>
+    <circle cx="610" cy="155" r="9" fill="#2563eb"/><text x="610" y="160">−</text>
+    <circle cx="360" cy="190" r="9" fill="#2563eb"/><text x="360" y="195">−</text>
+  </g>
+
+  <!-- Cross-section label -->
+  <line x1="385" y1="222" x2="345" y2="282" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="340" y="298" font-size="14" fill="#2563eb" text-anchor="end">Cross-section, area A</text>
+
+  <!-- End labels -->
+  <text x="80" y="262" font-size="14" fill="#1f2937" text-anchor="middle">End P (higher potential)</text>
+  <text x="640" y="262" font-size="14" fill="#1f2937" text-anchor="middle">End Q (lower potential)</text>
+
+  <!-- Dimension vd dt -->
+  <line x1="400" y1="285" x2="500" y2="285" stroke="#1f2937" stroke-width="1.5"/>
+  <polygon points="400,285 410,280 410,290" fill="#1f2937"/>
+  <polygon points="500,285 490,280 490,290" fill="#1f2937"/>
+  <line x1="400" y1="275" x2="400" y2="295" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="500" y1="275" x2="500" y2="295" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="450" y="310" font-size="15" fill="#1f2937" text-anchor="middle">v<tspan font-size="11" dy="4">d</tspan><tspan dy="-4"> Δt</tspan></text>
+
+  <!-- Current and drift arrows -->
+  <line x1="110" y1="335" x2="290" y2="335" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="306,335 288,327 288,343" fill="#dc2626"/>
+  <text x="200" y="365" font-size="15" fill="#dc2626" text-anchor="middle">Conventional current I</text>
+
+  <line x1="680" y1="335" x2="560" y2="335" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="544,335 562,327 562,343" fill="#2563eb"/>
+  <text x="612" y="365" font-size="15" fill="#2563eb" text-anchor="middle">Electron drift velocity v<tspan font-size="11" dy="4">d</tspan></text>
+</svg>

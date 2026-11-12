@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 370" font-family="Arial, Helvetica, sans-serif">
+  <!-- conductor -->
+  <path d="M 30 280 L 380 280 Q 430 280 452 340" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+  <polygon points="120,280 106,273 106,287" fill="#1f2937"/>
+  <text x="96" y="268" font-size="15" font-weight="bold" fill="#1f2937">I</text>
+  <text x="30" y="312" font-size="13" fill="#1f2937">conductor carrying steady current I</text>
+  <!-- dashed extension of the line of dl -->
+  <line x1="380" y1="280" x2="640" y2="280" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <!-- current element dl -->
+  <line x1="268" y1="280" x2="330" y2="280" stroke="#2563eb" stroke-width="5"/>
+  <polygon points="344,280 328,272 328,288" fill="#2563eb"/>
+  <text x="282" y="306" font-size="15" font-weight="bold" fill="#2563eb">dl</text>
+  <circle cx="305" cy="280" r="3.5" fill="#1f2937"/>
+  <!-- position vector r from element to P -->
+  <line x1="305" y1="280" x2="510" y2="108" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="520,100 503,104 512,116" fill="#059669"/>
+  <text x="392" y="182" font-size="15" font-weight="bold" fill="#059669">r</text>
+  <!-- angle theta -->
+  <path d="M 360 280 A 55 55 0 0 0 347.1 244.7" fill="none" stroke="#d97706" stroke-width="2"/>
+  <text x="366" y="262" font-size="15" font-weight="bold" fill="#d97706">θ</text>
+  <!-- point P with dB out of the page -->
+  <circle cx="532" cy="92" r="11" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <circle cx="532" cy="92" r="3" fill="#dc2626"/>
+  <text x="550" y="88" font-size="15" font-weight="bold" fill="#1f2937">P</text>
+  <text x="550" y="108" font-size="13" fill="#dc2626">dB points out of the page</text>
+  <text x="550" y="124" font-size="13" fill="#dc2626">(perpendicular to dl and r)</text>
+  <!-- point Q on the line of dl -->
+  <circle cx="620" cy="280" r="4" fill="#1f2937"/>
+  <text x="620" y="268" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">Q</text>
+  <text x="705" y="306" font-size="13" fill="#1f2937" text-anchor="end">At Q (on the line of dl):</text>
+  <text x="705" y="324" font-size="13" fill="#1f2937" text-anchor="end">θ = 0, so dB = 0</text>
+  <!-- formula -->
+  <text x="30" y="40" font-size="15" fill="#1f2937">dB = (μ0 / 4π) · I dl sin θ / r²</text>
+  <text x="30" y="62" font-size="13" fill="#4b5563">Direction of dB: along dl × r (right-hand screw rule)</text>
+</svg>

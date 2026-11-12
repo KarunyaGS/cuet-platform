@@ -1,0 +1,679 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_627d4b57dfb248899bba95465057602c",
+    "title": "Wave front and Huygen’s principle, reflection and refraction of plane waves at a plane"
+  },
+  "lesson": {
+    "key": "ug26-322-u6-wavefronts-huygens",
+    "title": "Wavefronts and Huygens' principle: reflection and refraction of plane waves",
+    "coverage": [
+      {
+        "phrase": "Wave front",
+        "section": "What is a wavefront?"
+      },
+      {
+        "phrase": "Huygen’s principle",
+        "section": "Huygens' principle and the construction of a new wavefront"
+      },
+      {
+        "phrase": "reflection of plane waves at a plane surface using wave fronts",
+        "section": "Reflection of plane waves at a plane surface using wavefronts"
+      },
+      {
+        "phrase": "refraction of plane waves at a plane surface using wave fronts",
+        "section": "Refraction of plane waves at a plane surface using wavefronts"
+      },
+      {
+        "phrase": "wave fronts through prisms, lenses and mirrors",
+        "section": "Wavefronts through prisms, lenses and mirrors"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "What is a wavefront?"
+      },
+      {
+        "type": "TEXT",
+        "text": "Ray optics explains mirrors and lenses, but it cannot explain interference, diffraction or polarisation. For those we need the **wave model** of light, first put forward by Christiaan Huygens in 1678. In this model light is a wave travelling outwards from the source, and the most useful way to picture such a wave is through its **wavefronts**.\n\nImagine a small source sending out light. At any instant, the disturbance at different points around the source has different phases. If we join all the points where the disturbance has exactly the same phase (for example, all points that are at a crest at that instant), we get a surface. That surface is a wavefront. As time passes the wavefront moves outward with the speed of the wave in that medium."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Wavefront",
+        "text": "The locus of all points that oscillate in the same phase at a given instant; that is, a surface of constant phase. A wavefront moves outward with the speed of the wave. Successive wavefronts that are in the same phase are separated by one wavelength."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Ray (in the wave picture)",
+        "text": "A line drawn perpendicular to the wavefronts at every point, in the direction in which the wave travels. A ray shows the direction of propagation of energy. Rays are always normal to wavefronts."
+      },
+      {
+        "type": "TEXT",
+        "text": "The shape of a wavefront depends on the source and on how far away it is:\n\n- A **point source** in a uniform medium sends out **spherical wavefronts**, concentric spheres centred on the source. The rays are radial and diverge.\n- A **linear source**, such as a long illuminated slit, sends out **cylindrical wavefronts** coaxial with the source.\n- Far from any source, a small part of a huge sphere or cylinder is practically flat, so we get **plane wavefronts**. The rays are parallel. Light reaching us from the Sun or a star is treated as plane wavefronts.\n\nAs a spherical wavefront spreads, the same power is spread over a larger area $4\\pi r^2$, so the intensity falls as $1/r^2$ and the amplitude as $1/r$. A cylindrical wavefront spreads over an area proportional to r, so its intensity falls as $1/r$. A plane wavefront does not spread, so its intensity stays constant if the medium does not absorb light. A converging lens or a concave mirror can also produce **converging** spherical wavefronts, which shrink towards a point (a focus)."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "wavefront-types"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Types of wavefronts",
+        "columns": [
+          "Source",
+          "Shape of wavefront",
+          "Rays",
+          "Intensity at distance r"
+        ],
+        "rows": [
+          [
+            "Point source (nearby)",
+            "Spherical (diverging)",
+            "Radial, diverging",
+            "Proportional to 1/r²"
+          ],
+          [
+            "Linear source, e.g. an illuminated slit",
+            "Cylindrical",
+            "Radial in a plane perpendicular to the source",
+            "Proportional to 1/r"
+          ],
+          [
+            "Very distant source (Sun, star)",
+            "Plane",
+            "Parallel",
+            "Constant (no spreading)"
+          ],
+          [
+            "Plane wave after a convex lens or concave mirror",
+            "Spherical (converging)",
+            "Converging to the focus",
+            "Increases towards the focus"
+          ]
+        ]
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Three facts about wavefronts that are tested again and again: (1) all points on a wavefront have the same phase; (2) rays are perpendicular to wavefronts; (3) the angle between two wavefronts (or between a wavefront and a surface) equals the angle between the corresponding rays (or between the ray and the normal to that surface)."
+      },
+      {
+        "type": "HEADING",
+        "text": "Huygens' principle and the construction of a new wavefront"
+      },
+      {
+        "type": "TEXT",
+        "text": "Knowing a wavefront at one instant, how do we find where it will be a little later? Huygens answered with a simple geometrical rule. It treats every point of the wavefront as a tiny new source."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Huygens' principle",
+        "text": "(1) Every point on a given wavefront acts as a fresh source of secondary wavelets, which spread out in all forward directions with the speed of the wave in that medium. (2) The new position of the wavefront after a time τ is the surface that touches all these secondary wavelets in the forward direction, that is their forward envelope (common tangent surface)."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Construction, step by step.**\n\n1. Draw the wavefront at time t (for example, the arc AB of a spherical wavefront from a point source S, or the line AB of a plane wavefront).\n2. Choose several points on it. With each point as centre, draw a sphere (in a figure, a circle) of radius $v\\tau$, where v is the speed of the wave in the medium and τ the time interval.\n3. Draw the common tangent to these wavelets on the forward side. This is the wavefront at time t + τ.\n\nFor a spherical wavefront of radius r the construction gives a concentric sphere of radius $r + v\\tau$. For a plane wavefront it gives a parallel plane displaced by $v\\tau$ in the direction of propagation.\n\n**What about the backward wave?** The wavelets drawn as full spheres would also have a common tangent on the backward side, which would mean a wave travelling back towards the source. No such wave is observed. Huygens simply ignored the backward envelope. The later, more complete theory (due to Fresnel and Kirchhoff) showed that the amplitude of a secondary wavelet is greatest in the forward direction and becomes zero in the backward direction, which justifies drawing only the forward halves."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "construction"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "d = v\\tau = \\frac{c}{n}\\,\\tau",
+        "text": "d = distance by which a wavefront advances (radius of each secondary wavelet) in time τ; v = speed of light in the medium, c = 3.0 x 10^8 m/s, n = refractive index of the medium. A spherical wavefront of radius r becomes one of radius r + vτ."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A tiny lamp flashes briefly. (a) What is the radius of the spherical wavefront 5.0 ns after the flash if the lamp is in air, and if it is under water (n = 4/3)? (b) In air, compare the intensities of the light at distances of 1.5 m and 3.0 m from the lamp.",
+        "solution": "(a) In time τ the wavefront advances a distance vτ.\n\nIn air, $v \\approx c = 3.0 \\times 10^8\\,\\text{m s}^{-1}$, so the radius is $3.0 \\times 10^8 \\times 5.0 \\times 10^{-9} = 1.5$ m.\n\nIn water, $v = \\frac{c}{n} = \\frac{3.0 \\times 10^8}{4/3} = 2.25 \\times 10^8\\,\\text{m s}^{-1}$, so the radius is $2.25 \\times 10^8 \\times 5.0 \\times 10^{-9} = 1.125$ m. The wavelets are smaller in water because the wave is slower there.\n\n(b) For a spherical wavefront the power is spread over the area $4\\pi r^2$, so $I \\propto 1/r^2$. Doubling the distance from 1.5 m to 3.0 m reduces the intensity to $(1.5/3.0)^2 = 1/4$ of its value, and the amplitude to one half.",
+        "answer": "(a) 1.5 m in air, 1.125 m in water; (b) the intensity at 3.0 m is one quarter of that at 1.5 m."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistakes: (1) using c instead of c/n for the radius of wavelets in a medium; (2) calling a ray a wavefront: a wavefront is a surface of constant phase, a ray is a line normal to it; (3) thinking the backward envelope gives a reflected wave: reflection happens only at a boundary between two media."
+      },
+      {
+        "type": "HEADING",
+        "text": "Reflection of plane waves at a plane surface using wavefronts"
+      },
+      {
+        "type": "TEXT",
+        "text": "Let a plane wavefront AB fall obliquely on a plane reflecting surface MN, with its rays making angle i with the normal. Because rays are normal to wavefronts, the wavefront AB itself makes the same angle i with the surface.\n\n**What happens, in the wavefront picture.** The end A of the wavefront touches the surface first. From that moment, A becomes a source of secondary wavelets that travel back into the **same medium**, with the **same speed** v. The other points of the wavefront reach the surface one after another; each starts its own wavelet when it arrives. Let τ be the time the far end B takes to reach the surface at C, so BC = vτ. By then the wavelet from A has radius vτ, the wavelets from points in between have smaller radii, and the wavelet from C has only just started. The common tangent drawn from C to all these wavelets is the **reflected wavefront** CE.\n\nBecause every wavelet travels at the same speed as the incident wave, the reflected wavefront is again a plane and it slopes away from the surface at the same angle as the incident wavefront approached it. The normals to the reflected wavefront, which are the reflected rays, therefore make an angle with the normal to the surface equal to i: the angle of reflection equals the angle of incidence. (The complete geometric proof, with congruent triangles, is worked out step by step in the next lesson, on proving the laws of reflection and refraction.)"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "reflection-wavefronts"
+      },
+      {
+        "type": "TEXT",
+        "text": "**Consequences of the wavefront picture of reflection.**\n\n- The reflected wave is in the same medium, so its speed is unchanged. The frequency is set by the source, so it is also unchanged, and therefore the wavelength (the spacing of the wavefronts) does not change on reflection.\n- Near the surface, at any instant, each wavefront is bent into a V shape: the part that has already met the surface is travelling back, while the rest is still arriving.\n- If the reflecting surface is curved, the wavelets start at different times in a different pattern, and the reflected wavefront is curved. A concave mirror turns a plane wavefront into a converging spherical one; a convex mirror turns it into a diverging spherical one.\n- When light is reflected from the surface of an optically denser medium, the reflected wave undergoes a phase change of $\\pi$ (half a wavelength). This does not change the direction of the wavefront, but it matters in interference."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "On reflection the wavefront keeps its speed, frequency and wavelength; only its direction changes, so that the reflected wavefront makes the same angle with the surface as the incident wavefront."
+      },
+      {
+        "type": "HEADING",
+        "text": "Refraction of plane waves at a plane surface using wavefronts"
+      },
+      {
+        "type": "TEXT",
+        "text": "Now let the plane surface separate two transparent media, with speeds of light v1 in the first and v2 in the second. A plane wavefront AB meets the surface obliquely; again A arrives first. This time each point that reaches the surface sends secondary wavelets **into the second medium**, where they travel with speed v2.\n\nWhile the end B travels the distance BC = v1τ in medium 1, the wavelet from A grows to radius v2τ in medium 2. The tangent from C to the wavelets in medium 2 is the **refracted wavefront** CE.\n\n- If medium 2 is optically denser (v2 < v1), the wavelets in it are smaller than the distance B covers, so the wavefront swings round: the refracted wavefront makes a smaller angle r with the surface, and the rays bend **towards** the normal.\n- If medium 2 is optically rarer (v2 > v1), the wavelets are larger, the wavefront tilts the other way and the rays bend **away from** the normal.\n\nThe figure shows the result as a sequence of wavefronts. Each wavefront remains a single continuous surface: at the boundary, the part in medium 1 and the part in medium 2 meet at the same point. The incident wavefronts therefore meet the boundary at points spaced $\\lambda_1/\\sin i$ apart, and the refracted wavefronts must meet it at exactly the same points, spaced $\\lambda_2/\\sin r$ apart. Equating the two spacings gives $\\sin i/\\sin r = \\lambda_1/\\lambda_2$. Since the frequency is unchanged, $\\lambda_1/\\lambda_2 = v_1/v_2$, which leads to Snell's law (the full Huygens proof follows in the next lesson)."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "refraction-wavefronts"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\frac{\\sin i}{\\sin r} = \\frac{v_1}{v_2} = \\frac{\\lambda_1}{\\lambda_2} = \\frac{n_2}{n_1}",
+        "text": "i, r = angles of incidence and refraction (equal to the angles the incident and refracted wavefronts make with the surface); v1, v2 = speeds, λ1, λ2 = wavelengths, n1, n2 = refractive indices of the two media. The frequency is the same in both media."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\nu_2 = \\nu_1, \\qquad \\lambda_2 = \\lambda_1\\,\\frac{v_2}{v_1}, \\qquad v = \\frac{c}{n}",
+        "text": "On refraction the frequency ν does not change; the speed and wavelength change in the same ratio. In a medium of refractive index n, λ = λ0/n where λ0 is the wavelength in vacuum."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Refraction into a rarer medium and total internal reflection.** When light goes from a denser to a rarer medium, v2 > v1 and the wavelets in medium 2 are larger than BC. As the angle of incidence grows, the wavelet from A grows relative to the boundary distance AC. When $v_2\\tau = AC$ (that is, $\\sin i = v_1/v_2$), the refracted wavefront CE is perpendicular to the surface and the refracted ray grazes it: this is the critical angle, $\\sin C = v_1/v_2 = n_2/n_1$. For larger angles of incidence the wavelet from A would reach beyond C, no tangent can be drawn from C to the wavelets in medium 2, and there is no refracted wavefront at all. All the energy goes into the reflected wave: total internal reflection."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Yellow sodium light of wavelength 589 nm in air enters glass of refractive index 1.5. Find its frequency, speed and wavelength in the glass.",
+        "solution": "Frequency (the same in air and glass): $\\nu = \\frac{c}{\\lambda_0} = \\frac{3.0 \\times 10^8}{589 \\times 10^{-9}} = 5.09 \\times 10^{14}$ Hz.\n\nSpeed in glass: $v = \\frac{c}{n} = \\frac{3.0 \\times 10^8}{1.5} = 2.0 \\times 10^8\\,\\text{m s}^{-1}$.\n\nWavelength in glass: $\\lambda = \\frac{\\lambda_0}{n} = \\frac{589}{1.5} = 393$ nm.\n\nCheck: $v = \\nu\\lambda = 5.09 \\times 10^{14} \\times 393 \\times 10^{-9} = 2.0 \\times 10^8$ m/s. In the wavefront picture, the wavefronts inside the glass are packed 1.5 times closer together than in air, while the same number of them crosses the boundary every second.",
+        "answer": "5.09 x 10^14 Hz; 2.0 x 10^8 m/s; 393 nm (the light still looks yellow)."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Plane wavefronts of wavelength 500 nm in air strike a flat glass surface (n = √3) so that the rays make 60 degrees with the normal. Find (a) the angle the refracted wavefronts make with the surface, (b) the wavelength in the glass, (c) the spacing, along the surface, of the points where successive wavefronts meet it, calculated from each side.",
+        "solution": "(a) The angle between a wavefront and the surface equals the angle between its ray and the normal. Using $\\frac{\\sin i}{\\sin r} = n$: $\\sin r = \\frac{\\sin 60^\\circ}{\\sqrt{3}} = \\frac{0.866}{1.732} = 0.5$, so $r = 30^\\circ$. The refracted wavefronts make 30 degrees with the surface.\n\n(b) $\\lambda_2 = \\frac{\\lambda_1}{n} = \\frac{500}{1.732} = 288.7$ nm.\n\n(c) From the air side the spacing is $\\frac{\\lambda_1}{\\sin i} = \\frac{500}{0.866} = 577.4$ nm. From the glass side it is $\\frac{\\lambda_2}{\\sin r} = \\frac{288.7}{0.5} = 577.4$ nm. The two agree, as they must, because each wavefront is continuous across the boundary.",
+        "answer": "(a) 30°; (b) 288.7 nm; (c) 577.4 nm from both sides."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Light travelling in glass (n = 1.5) meets a glass–air surface. Using the wavefront picture, find the angle of refraction for an angle of incidence of 30 degrees, and decide what happens for an angle of incidence of 45 degrees.",
+        "solution": "Here the light goes from the slower medium (glass) to the faster one (air), so the wavelets in air are 1.5 times larger than the distance the wavefront moves in glass in the same time.\n\nFor i = 30 degrees: $\\sin r = \\frac{v_2}{v_1}\\sin i = 1.5 \\times 0.5 = 0.75$, so $r = 48.6^\\circ$: the wavefront bends away from the normal.\n\nFor i = 45 degrees: $1.5 \\times \\sin 45^\\circ = 1.06$, which is greater than 1. No angle r satisfies this: the wavelet from the first point would already reach beyond the point where the last part of the incident wavefront arrives, so no tangent plane can be drawn. There is no refracted wavefront and the light is totally reflected. This agrees with the critical angle $C = \\sin^{-1}(1/1.5) = 41.8^\\circ$.",
+        "answer": "48.6° at i = 30°; total internal reflection at i = 45°."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Exam tip: in wavefront questions, 'the wavefront makes angle θ with the surface' and 'the ray makes angle θ with the normal' mean the same thing. Also remember the direction rule: wavelets are smaller in the denser (slower) medium, so the wavefront there turns to become more nearly parallel to the surface."
+      },
+      {
+        "type": "HEADING",
+        "text": "Wavefronts through prisms, lenses and mirrors"
+      },
+      {
+        "type": "TEXT",
+        "text": "The wavefront picture explains in a single idea what prisms, lenses and mirrors do: light is slower in glass, so the part of a wavefront that spends more time in glass falls behind.\n\n- **Thin prism.** A plane wavefront meets the prism. The part passing near the base crosses more glass than the part near the apex, so it is delayed more. The emerging wavefront is still plane but tilted, and the rays (normal to it) are bent towards the base.\n- **Convex lens.** The centre of the lens is thickest, so the central part of a plane wavefront is delayed most. The emerging wavefront is curved with its centre lagging: a converging spherical wavefront that shrinks to a point, the focus.\n- **Concave lens.** It is thinnest at the centre, so the edges are delayed more and the emerging wavefront is a diverging spherical wavefront, appearing to come from the focus on the incident side.\n- **Concave mirror.** The edges of the mirror are nearer the incoming wavefront, so the edges reflect first and the centre last. The reflected wavefront is curved with its edges ahead of its centre: a converging spherical wavefront centred on the focus.\n\nThis also explains why a lens forms a sharp image. Every point of a wavefront from an object point takes the same time to reach the image point: a path through the thick centre of a lens is shorter in air but longer in slow glass, and a path near the edge is the other way round, so the total times are equal. Rays from one object point therefore arrive in phase and reinforce at the image."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "transformations"
+      },
+      {
+        "type": "TABLE",
+        "caption": "What happens to an incident plane wavefront",
+        "columns": [
+          "Optical element",
+          "Emerging (or reflected) wavefront",
+          "Effect on rays"
+        ],
+        "rows": [
+          [
+            "Thin prism",
+            "Plane, tilted",
+            "Deviated towards the base"
+          ],
+          [
+            "Convex lens",
+            "Spherical, converging",
+            "Brought to a real focus"
+          ],
+          [
+            "Concave lens",
+            "Spherical, diverging",
+            "Appear to come from a virtual focus"
+          ],
+          [
+            "Concave mirror",
+            "Spherical, converging (reflected)",
+            "Brought to a real focus"
+          ],
+          [
+            "Convex mirror",
+            "Spherical, diverging (reflected)",
+            "Appear to come from a virtual focus behind the mirror"
+          ],
+          [
+            "Plane mirror",
+            "Plane, reflected",
+            "Reflected with angle of reflection equal to angle of incidence"
+          ]
+        ]
+      },
+      {
+        "type": "IMPORTANT_FACT",
+        "text": "Summary: a wavefront is a surface of constant phase; rays are normal to it; Huygens' principle builds the next wavefront as the forward envelope of secondary wavelets of radius vτ; on reflection the speed, frequency and wavelength stay the same and the wavefront leaves at the same angle; on refraction the frequency stays the same while speed and wavelength change by the factor v2/v1, so sin i / sin r = v1/v2 = n2/n1."
+      }
+    ]
+  },
+  "diagrams": [
+    {
+      "key": "wavefront-types",
+      "file": "diagrams/ug26-322-u6-wavefronts-huygens-wavefront-types.svg",
+      "alt": "Three panels: diverging spherical wavefronts from a point source, plane wavefronts with parallel rays, and converging spherical wavefronts towards a focus",
+      "caption": "Types of wavefronts: (a) diverging spherical from a point source, (b) plane from a very distant source, (c) converging spherical after a convex lens. Rays (red) are normal to wavefronts (blue).",
+      "description": "Left panel: a point source S with four concentric blue arcs and three red radial rays spreading out. Middle panel: five parallel vertical blue lines a wavelength apart with three horizontal red rays crossing them at right angles. Right panel: three blue arcs centred on a focus F on the right, with three red rays converging to F."
+    },
+    {
+      "key": "construction",
+      "file": "diagrams/ug26-322-u6-wavefronts-huygens-construction.svg",
+      "alt": "Huygens' construction showing secondary wavelets from points on a spherical and a plane wavefront and the new wavefront as their forward envelope",
+      "caption": "Huygens' construction: each point of the old wavefront (blue) emits secondary wavelets of radius vτ (dashed); their forward envelope is the new wavefront (red).",
+      "description": "Left: a point source S, a blue arc wavefront, five points on it each with a dashed forward semicircular wavelet, and a larger red arc touching all wavelets, with red rays pointing outward. Right: a vertical blue plane wavefront AB with five dashed semicircular wavelets drawn to the right, and a parallel red line A'B' touching them at distance vτ, with horizontal red rays."
+    },
+    {
+      "key": "reflection-wavefronts",
+      "file": "diagrams/ug26-322-u6-wavefronts-huygens-reflection-wavefronts.svg",
+      "alt": "Incident and reflected plane wavefronts of a beam at a plane mirror, bent into V shapes near the mirror, with the central ray obeying i = r",
+      "caption": "Reflection of plane wavefronts: incident wavefronts (blue) and reflected wavefronts (red) make equal angles with the mirror; the wavelength is unchanged.",
+      "description": "A horizontal mirror at the bottom. Blue parallel wavefronts approach from the upper left; red parallel wavefronts leave towards the upper right. Close to the mirror the wavefronts form V shapes where the part already reflected meets the part still arriving. An amber central ray comes down at angle i to the dashed normal and leaves at an equal angle r."
+    },
+    {
+      "key": "refraction-wavefronts",
+      "file": "diagrams/ug26-322-u6-wavefronts-huygens-refraction-wavefronts.svg",
+      "alt": "Plane wavefronts bending at a boundary into a slower medium where they are closer together, with a ray bending towards the normal",
+      "caption": "Refraction of plane wavefronts into a slower medium (v1 = 1.5 v2): each wavefront is continuous at the boundary, so it bends; the spacing falls from λ1 to λ2.",
+      "description": "Upper half: blue parallel wavefronts at 45 degrees in medium 1. Lower shaded half: green parallel wavefronts, closer together and at a shallower angle (28.1 degrees), in medium 2. Each blue line meets a green line at the boundary. A red ray perpendicular to the wavefronts comes in at angle i to the dashed normal and continues at a smaller angle r."
+    },
+    {
+      "key": "transformations",
+      "file": "diagrams/ug26-322-u6-wavefronts-huygens-transformations.svg",
+      "alt": "Plane wavefronts passing through a thin prism, a convex lens, and reflected by a concave mirror, showing the emerging wavefront shapes",
+      "caption": "A thin prism tilts a plane wavefront; a convex lens and a concave mirror turn it into a converging spherical wavefront.",
+      "description": "Panel a: vertical plane wavefronts enter a thin prism with its base at the bottom; the emerging wavefronts are tilted and red rays bend slightly downward towards the base. Panel b: plane wavefronts enter a convex lens; emerging wavefronts are arcs centred on the focus F where three red rays converge. Panel c: plane wavefronts travel right to a concave mirror; red rays reflect back towards a focus F, and dashed arcs centred on F show the reflected converging wavefronts."
+    }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following best describes a wavefront?",
+      "options": [
+        "The path along which light energy travels",
+        "The locus of all points vibrating in the same phase at a given instant",
+        "The boundary between two transparent media",
+        "A surface on which the amplitude of the wave is zero"
+      ],
+      "answer": 2,
+      "explanation": "A wavefront is defined as a surface of constant phase: at a given instant every point on it is in the same state of oscillation. Rays, which show the direction of energy flow, are lines perpendicular to wavefronts. Wavefronts have nothing to do with zero amplitude or with boundaries between media.",
+      "optionRationale": {
+        "1": "This describes a ray, which is normal to the wavefront.",
+        "3": "A boundary between media is an interface, not a wavefront.",
+        "4": "The amplitude on a wavefront is generally not zero; only the phase is the same."
+      },
+      "objective": "Define a wavefront"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Light from a distant star reaches a telescope on Earth. The wavefronts entering the telescope are",
+      "options": [
+        "spherical and diverging",
+        "cylindrical",
+        "spherical and converging",
+        "plane"
+      ],
+      "answer": 4,
+      "explanation": "The star sends out spherical wavefronts, but at such enormous distances any small portion of the huge sphere, such as the part entering a telescope, is practically flat. So the wavefronts are plane and the rays are parallel, which is why a telescope objective focuses starlight in its focal plane.",
+      "optionRationale": {
+        "1": "True near a point source, but not at astronomical distances.",
+        "2": "Cylindrical wavefronts come from a linear source such as a slit.",
+        "3": "Converging spherical wavefronts are produced by a convex lens or concave mirror, not by distance."
+      },
+      "objective": "Identify the wavefront from a distant source"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "A long illuminated slit acts as a linear source of light. How does the intensity of light vary with perpendicular distance r from the slit, ignoring absorption?",
+      "options": [
+        "Proportional to 1/r",
+        "Proportional to 1/r²",
+        "Independent of r",
+        "Proportional to 1/√r"
+      ],
+      "answer": 1,
+      "explanation": "A linear source produces cylindrical wavefronts. The power through a cylinder of length l and radius r is spread over an area 2πrl, which grows in proportion to r. So the intensity falls as 1/r and the amplitude as 1/√r.",
+      "optionRationale": {
+        "2": "1/r² applies to spherical wavefronts from a point source.",
+        "3": "Constant intensity applies to plane wavefronts.",
+        "4": "1/√r describes the amplitude of a cylindrical wave, not its intensity."
+      },
+      "objective": "Relate wavefront shape to the fall of intensity with distance"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "According to Huygens' construction, a plane wavefront travelling in a medium in which the speed of light is v moves forward in a time τ by a distance of",
+      "options": [
+        "cτ",
+        "vτ/2",
+        "vτ",
+        "2vτ"
+      ],
+      "answer": 3,
+      "explanation": "Every point of the wavefront sends out secondary wavelets that travel at the speed v of the wave in that medium. After time τ each wavelet has radius vτ, and their forward envelope, the new wavefront, is a parallel plane displaced by exactly vτ.",
+      "optionRationale": {
+        "1": "c is the speed in vacuum; in a medium the wavelets travel at v = c/n.",
+        "2": "There is no factor of one half; the wavelet radius is the full vτ.",
+        "4": "Doubling would apply to a round-trip path, which does not occur here."
+      },
+      "objective": "Apply Huygens' construction to find the new position of a wavefront"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q05",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about Huygens' principle.\nA. Every point on a wavefront acts as a source of secondary wavelets.\nB. The secondary wavelets spread out with the speed of the wave in that medium.\nC. The backward envelope of the wavelets gives a wave travelling back towards the source.\nD. The new wavefront is the forward envelope (common tangent) of the secondary wavelets.\nWhich statements are correct?",
+      "options": [
+        "A and D only",
+        "A, B and D only",
+        "A, B and C only",
+        "B, C and D only"
+      ],
+      "answer": 2,
+      "explanation": "A, B and D together state Huygens' principle and the construction: points on a wavefront act as sources, wavelets travel at the speed in that medium, and their forward envelope is the new wavefront. C is wrong: no backward wave is observed, and the full theory shows the wavelet amplitude is zero in the backward direction.",
+      "optionRationale": {
+        "1": "Omits B, which is an essential part of the principle.",
+        "3": "Includes C, which is false.",
+        "4": "Includes C and omits A."
+      },
+      "objective": "State Huygens' principle correctly"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q06",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): In Huygens' construction only the forward envelope of the secondary wavelets is taken as the new wavefront.\nReason (R): The amplitude of the secondary wavelets is maximum in the forward direction and zero in the backward direction.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Huygens ignored the backward envelope because no backward wave is seen in a uniform medium. The later wave theory of Fresnel and Kirchhoff showed that the secondary wavelets have their greatest amplitude forward and zero amplitude backward, which is exactly why the backward envelope carries no wave. R explains A.",
+      "optionRationale": {
+        "2": "R is the physical justification for A, not a separate fact.",
+        "3": "R is a correct result of the wave theory.",
+        "4": "A correctly describes the construction."
+      },
+      "objective": "Justify ignoring the backward wave in Huygens' construction"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A plane wavefront travels through glass of refractive index 1.5. What is the radius of the secondary wavelets used to construct the wavefront 2.0 ns later?",
+      "options": [
+        "60 cm",
+        "90 cm",
+        "40 cm",
+        "26.7 cm"
+      ],
+      "answer": 3,
+      "explanation": "The wavelets travel at the speed of light in glass: v = c/n = (3.0 × 10⁸)/1.5 = 2.0 × 10⁸ m/s. In 2.0 ns their radius is vτ = 2.0 × 10⁸ × 2.0 × 10⁻⁹ = 0.40 m = 40 cm.",
+      "optionRationale": {
+        "1": "Uses the vacuum speed c instead of c/n.",
+        "2": "Multiplies by n instead of dividing.",
+        "4": "Divides by n twice."
+      },
+      "objective": "Calculate the radius of Huygens wavelets in a medium"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "A plane wavefront of light is reflected from a plane mirror. Compared with the incident wavefront, the reflected wavefront has",
+      "options": [
+        "the same speed but a shorter wavelength",
+        "a higher frequency and the same wavelength",
+        "a lower speed and the same frequency",
+        "the same speed, frequency and wavelength"
+      ],
+      "answer": 4,
+      "explanation": "The reflected wavelets travel back into the same medium, so their speed is unchanged. The frequency is fixed by the source and never changes on reflection. Since λ = v/ν, the wavelength, which is the spacing of the wavefronts, is also unchanged; only the direction of travel changes.",
+      "optionRationale": {
+        "1": "Same speed and frequency force the same wavelength.",
+        "2": "Reflection cannot change the frequency.",
+        "3": "The wave stays in the same medium, so its speed is unchanged."
+      },
+      "objective": "Identify which properties of a wavefront are unchanged on reflection"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q09",
+      "type": "DIAGRAM_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "diagram": "reflection-wavefronts",
+      "stem": "In the figure, the incident wavefronts make an angle of 40° with the mirror surface. What angle do the reflected wavefronts make with the mirror, and what is the angle of reflection of the rays?",
+      "options": [
+        "40° and 40°",
+        "50° and 40°",
+        "40° and 50°",
+        "80° and 40°"
+      ],
+      "answer": 1,
+      "explanation": "The angle between a wavefront and the surface equals the angle between the ray and the normal, so the angle of incidence is 40°. All secondary wavelets travel at the same speed, so the reflected wavefronts make the same angle, 40°, with the mirror, and the reflected rays make 40° with the normal: angle of reflection = 40°.",
+      "optionRationale": {
+        "2": "50° is the angle between the incident ray and the mirror surface, not between the reflected wavefront and the mirror.",
+        "3": "The angle of reflection equals the wavefront's angle with the surface, not its complement.",
+        "4": "80° is the angle between incident and reflected rays or wavefronts, not either one with the mirror."
+      },
+      "objective": "Relate wavefront angles to the angles of incidence and reflection"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Plane wavefronts of wavelength 600 nm in air fall on a glass surface (n = √2) with the rays at 45° to the normal. The wavelength in the glass and the angle between the refracted wavefronts and the surface are",
+      "options": [
+        "600 nm and 30°",
+        "424 nm and 30°",
+        "424 nm and 45°",
+        "849 nm and 60°"
+      ],
+      "answer": 2,
+      "explanation": "Wavelength in glass: λ = λ0/n = 600/1.414 = 424 nm (frequency unchanged). Angle of refraction: sin r = sin 45°/√2 = 0.707/1.414 = 0.5, so r = 30°. The angle between the refracted wavefronts and the surface equals the angle of refraction, 30°.",
+      "optionRationale": {
+        "1": "The wavelength must shrink in the slower medium.",
+        "3": "The wavefronts turn towards the surface in glass; they do not keep the 45° angle.",
+        "4": "Multiplies the wavelength by n and uses the complement of the angle."
+      },
+      "objective": "Calculate wavelength and wavefront angle after refraction"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q11",
+      "type": "DIAGRAM_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "diagram": "refraction-wavefronts",
+      "stem": "The figure shows wavefronts entering a medium in which light is slower. If instead the second medium were one in which light travels faster than in the first, the wavefronts in the second medium would be",
+      "options": [
+        "closer together, with rays bending towards the normal",
+        "unchanged in spacing and direction",
+        "farther apart, with rays bending away from the normal",
+        "farther apart, with rays bending towards the normal"
+      ],
+      "answer": 3,
+      "explanation": "In a faster medium the secondary wavelets are larger than the distance the incident wavefront covers in the same time. The wavelength λ2 = λ1 v2/v1 becomes larger, so the wavefronts are farther apart, and the refracted wavefront tilts so that rays bend away from the normal (r > i).",
+      "optionRationale": {
+        "1": "This is what happens in a slower (denser) medium, as in the figure.",
+        "2": "Spacing and direction change whenever the speed changes.",
+        "4": "Larger wavelets make the rays bend away from, not towards, the normal."
+      },
+      "objective": "Predict wavefront spacing and bending for refraction into a faster medium"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A plane wavefront passes from glass (n = 1.50) into water (n = 1.33). The ratio of the wavelength in water to the wavelength in glass is about",
+      "options": [
+        "0.89",
+        "1.00",
+        "2.00",
+        "1.13"
+      ],
+      "answer": 4,
+      "explanation": "The frequency is unchanged, so λ is proportional to the speed v = c/n. λ(water)/λ(glass) = v(water)/v(glass) = n(glass)/n(water) = 1.50/1.33 ≈ 1.13. The wavefronts spread slightly farther apart in the water, which is the faster medium.",
+      "optionRationale": {
+        "1": "This is the inverse ratio n(water)/n(glass).",
+        "2": "Wavelength does change because the speed changes.",
+        "3": "Adds the indices; not a valid relation."
+      },
+      "objective": "Use the wavefront picture to relate wavelengths in two media"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q13",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the source or situation in List-I with the shape of the wavefront in List-II.",
+      "list": {
+        "left": [
+          "A. Small lamp a short distance away",
+          "B. Light from the Sun reaching the Earth",
+          "C. Light from a long, narrow illuminated slit",
+          "D. Plane wave after passing through a convex lens"
+        ],
+        "right": [
+          "I. Cylindrical",
+          "II. Plane",
+          "III. Converging spherical",
+          "IV. Diverging spherical"
+        ]
+      },
+      "options": [
+        "A-II, B-IV, C-I, D-III",
+        "A-IV, B-II, C-I, D-III",
+        "A-IV, B-II, C-III, D-I",
+        "A-I, B-II, C-IV, D-III"
+      ],
+      "answer": 2,
+      "explanation": "A nearby point-like lamp gives diverging spherical wavefronts (A-IV). Sunlight at the Earth is effectively plane (B-II). A long slit is a linear source and gives cylindrical wavefronts (C-I). A convex lens delays the centre of a plane wavefront most, making it converging spherical (D-III).",
+      "optionRationale": {
+        "1": "Swaps the nearby lamp and the Sun.",
+        "3": "Swaps the slit and the lens.",
+        "4": "Swaps the lamp and the slit."
+      },
+      "objective": "Associate sources with wavefront shapes"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q14",
+      "type": "DIAGRAM_BASED",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "diagram": "transformations",
+      "stem": "In panel (a) of the figure, a plane wavefront passes through a thin prism and emerges tilted, with the rays bent towards the base. Which explanation is correct?",
+      "options": [
+        "The prism reflects part of the wavefront back towards the source",
+        "The frequency of light rises inside the glass, so the wavefront speeds up near the apex",
+        "The apex region absorbs more light, so that part of the wavefront is weakened",
+        "The part of the wavefront near the base travels a longer distance in glass, where light is slower, so it lags behind the part near the apex"
+      ],
+      "answer": 4,
+      "explanation": "Light travels at c/n inside glass, so any part of the wavefront that spends longer in the glass falls behind. Near the base the glass is thickest, so that part of the wavefront is delayed most; the emerging plane wavefront is tilted and its normals, the rays, turn towards the base.",
+      "optionRationale": {
+        "1": "Reflection does not produce the tilt of the transmitted wavefront.",
+        "2": "Frequency never changes on refraction.",
+        "3": "Absorption changes intensity, not the direction of the wavefront."
+      },
+      "objective": "Explain deviation by a prism using wavefronts"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A plane wavefront travelling in glass (n = 1.5) meets a glass–air boundary with its rays at 45° to the normal. In Huygens' construction, what happens to the secondary wavelets that enter the air?",
+      "options": [
+        "They are so large that no common tangent can be drawn from the last point of arrival, so there is no refracted wavefront and the light is totally reflected",
+        "They form a refracted wavefront at 28° to the boundary",
+        "They form a refracted wavefront at 45° to the boundary",
+        "They are smaller than in glass, so the wavefront bends towards the normal"
+      ],
+      "answer": 1,
+      "explanation": "In air the wavelets travel 1.5 times faster than the wavefront moves in glass. The condition for a refracted wavefront is sin r = 1.5 sin 45° = 1.06, which is impossible. Geometrically, the wavelet from the first point already extends beyond the point where the last part of the wavefront arrives, so no tangent exists. All the light is reflected (critical angle 41.8°).",
+      "optionRationale": {
+        "2": "28° would correspond to refraction into a denser medium, not glass to air.",
+        "3": "The wavefront cannot pass undeviated at oblique incidence when speeds differ.",
+        "4": "Wavelets in air are larger than in glass, not smaller."
+      },
+      "objective": "Interpret total internal reflection with Huygens' construction"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q16",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): When a plane wavefront is reflected from a plane mirror, its wavelength does not change.\nReason (R): The angle of reflection is equal to the angle of incidence.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 2,
+      "explanation": "Both statements are true. The wavelength is unchanged because the reflected wave travels in the same medium (same speed) and has the same frequency as the incident wave, so λ = v/ν is the same. R is the law about the direction of the reflected wave; it says nothing about speed or frequency, so it does not explain A.",
+      "optionRationale": {
+        "1": "R concerns the direction of the reflected wavefront, not its wavelength, so it is not the explanation.",
+        "3": "R is the law of reflection and is true.",
+        "4": "A is true: speed and frequency are unchanged, so wavelength is unchanged."
+      },
+      "objective": "Separate the reasons for unchanged wavelength and for the law of reflection"
+    },
+    {
+      "key": "ug26-322-u6-wavefronts-huygens-q17",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Light from a distant star arrives at the Earth as plane wavefronts.\nReason (R): The Earth's atmosphere flattens spherical wavefronts into plane ones.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "A is true: the star's spherical wavefront has an enormous radius, so the small part reaching us is practically plane. R is false: the flatness comes from the huge distance, not from the atmosphere; the same would be true in empty space, and the atmosphere actually adds small random distortions.",
+      "optionRationale": {
+        "1": "R is false, so it cannot explain A.",
+        "2": "R is false.",
+        "4": "A is true."
+      },
+      "objective": "Explain why distant sources give plane wavefronts"
+    }
+  ]
+}

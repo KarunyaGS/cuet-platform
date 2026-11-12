@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="Arial, Helvetica, sans-serif">
+  <!-- Panel (a): zero order [R] vs t. x = 70 + 7.5 t, y = 320 - 300 c ; [R]0 = 0.80 M, k = 0.020 M/s -->
+  <text x="70" y="30" font-size="15" fill="#1f2937" font-weight="bold">(a) Zero order: [R] = [R]₀ − kt</text>
+  <line x1="70" y1="320" x2="396" y2="320" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="406,320 394,314 394,326" fill="#1f2937"/>
+  <line x1="70" y1="320" x2="70" y2="62" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="70,52 64,64 76,64" fill="#1f2937"/>
+  <text x="80" y="60" font-size="14" fill="#1f2937">[R] (mol L⁻¹)</text>
+  <text x="406" y="356" font-size="14" fill="#1f2937" text-anchor="end">Time t (s)</text>
+  <line x1="70" y1="80" x2="370" y2="320" stroke="#2563eb" stroke-width="2.5"/>
+  <circle cx="70" cy="80" r="4" fill="#2563eb"/>
+  <line x1="70" y1="200" x2="220" y2="200" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="220" y1="200" x2="220" y2="320" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <circle cx="220" cy="200" r="4" fill="#dc2626"/>
+  <text x="62" y="85" font-size="14" fill="#1f2937" text-anchor="end">[R]₀</text>
+  <text x="62" y="205" font-size="14" fill="#1f2937" text-anchor="end">[R]₀/2</text>
+  <text x="220" y="340" font-size="14" fill="#dc2626" text-anchor="middle">t½ = [R]₀/2k</text>
+  <text x="370" y="340" font-size="14" fill="#1f2937" text-anchor="middle">[R]₀/k</text>
+  <text x="200" y="128" font-size="14" fill="#2563eb">straight line,</text>
+  <text x="200" y="146" font-size="14" fill="#2563eb">slope = −k</text>
+  <text x="200" y="164" font-size="14" fill="#2563eb">intercept = [R]₀</text>
+  <text x="84" y="262" font-size="13" fill="#1f2937">reaction stops when</text>
+  <text x="84" y="278" font-size="13" fill="#1f2937">[R] = 0 at t = [R]₀/k</text>
+
+  <!-- Panel (b): t1/2 vs [R]0 -->
+  <text x="500" y="30" font-size="15" fill="#1f2937" font-weight="bold">(b) Half-life against [R]₀</text>
+  <line x1="500" y1="320" x2="836" y2="320" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="846,320 834,314 834,326" fill="#1f2937"/>
+  <line x1="500" y1="320" x2="500" y2="62" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="500,52 494,64 506,64" fill="#1f2937"/>
+  <text x="510" y="60" font-size="14" fill="#1f2937">Half-life t½ (s)</text>
+  <text x="846" y="356" font-size="14" fill="#1f2937" text-anchor="end">Initial concentration [R]₀ (mol L⁻¹)</text>
+  <line x1="500" y1="320" x2="790" y2="100" stroke="#dc2626" stroke-width="2.5"/>
+  <line x1="500" y1="230" x2="810" y2="230" stroke="#059669" stroke-width="2.5"/>
+  <text x="640" y="160" font-size="14" fill="#dc2626" text-anchor="end">zero order:</text>
+  <text x="640" y="178" font-size="14" fill="#dc2626" text-anchor="end">t½ = [R]₀/2k ∝ [R]₀</text>
+  <text x="620" y="256" font-size="14" fill="#059669">first order: t½ = 0.693/k</text>
+  <text x="620" y="274" font-size="14" fill="#059669">(independent of [R]₀)</text>
+</svg>

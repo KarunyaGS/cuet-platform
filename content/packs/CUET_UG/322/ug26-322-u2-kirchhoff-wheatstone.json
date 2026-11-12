@@ -1,0 +1,285 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_77f37e3596da4cd385cfb7d23e8aaefc",
+    "title": "Kirchhoff's rules, Wheatstone bridge."
+  },
+  "lesson": {
+    "key": "ug26-322-u2-kirchhoff-wheatstone",
+    "title": "Kirchhoff's rules and the Wheatstone bridge",
+    "coverage": [
+      { "phrase": "Kirchhoff's rules: the junction rule", "section": "Kirchhoff's first rule: the junction rule" },
+      { "phrase": "Kirchhoff's rules: the loop rule", "section": "Kirchhoff's second rule: the loop rule" },
+      { "phrase": "Applying Kirchhoff's rules to circuits", "section": "Solving circuits with Kirchhoff's rules" },
+      { "phrase": "Wheatstone bridge", "section": "The Wheatstone bridge" },
+      { "phrase": "Balance condition of the Wheatstone bridge", "section": "Balance condition of the Wheatstone bridge" },
+      { "phrase": "Unbalanced Wheatstone bridge and its applications", "section": "Unbalanced bridge, sensitivity and applications" }
+    ],
+    "blocks": [
+      { "type": "TEXT", "text": "Series and parallel rules let us simplify many circuits, but they fail for networks in which cells sit in different branches or in which resistors are connected neither in series nor in parallel. In 1845 Gustav Kirchhoff gave two simple rules that solve *any* network carrying steady currents. In this lesson we learn both rules, their sign conventions and a step-by-step method of using them, and then apply them to the most famous network of all, the Wheatstone bridge." },
+
+      { "type": "HEADING", "text": "Junctions, branches and loops" },
+      { "type": "DEFINITION", "term": "Junction (node)", "text": "A point in a circuit where three or more conductors meet, so that current can divide or combine there." },
+      { "type": "DEFINITION", "term": "Branch and loop (mesh)", "text": "A branch is a part of a circuit between two junctions; the same current flows all along a branch. A loop is any closed conducting path in the network; a mesh is a loop that does not enclose any other branch." },
+      { "type": "TEXT", "text": "To solve a network means to find the current in every branch (and from these, any potential difference or power we need). Each branch needs one unknown current. Kirchhoff's two rules give exactly enough independent equations to find them all: the junction rule tells us how currents are shared at junctions, and the loop rule tells us how the potential changes around closed paths." },
+
+      { "type": "HEADING", "text": "Kirchhoff's first rule: the junction rule" },
+      { "type": "CONCEPT", "text": "**Junction rule (current law):** at any junction of a circuit, the sum of the currents flowing into the junction is equal to the sum of the currents flowing out of it. Equivalently, taking currents towards the junction as positive and those away from it as negative, the algebraic sum of the currents at a junction is zero." },
+      { "type": "FORMULA", "latex": "\\sum I_{\\text{in}} = \\sum I_{\\text{out}} \\qquad \\text{or} \\qquad \\sum I = 0", "text": "I = current in each conductor meeting at the junction (A). Currents into the junction are counted positive and currents out of it negative (or the other way round, consistently)." },
+      { "type": "TEXT", "text": "**Why it is true.** In a steady state no charge piles up anywhere in a circuit. If more charge flowed into a junction per second than flowed out, charge would accumulate there and the currents would keep changing. So the junction rule is simply the **law of conservation of charge** applied to a junction. It holds just as well for junctions of non-ohmic devices, because it does not depend on how the current is related to the voltage.\n\nIn panel (a) of the figure, currents I₁ and I₂ enter the junction while I₃ and I₄ leave it, so $I_1 + I_2 = I_3 + I_4$.\n\n**Unknown directions are not a problem.** If you do not know which way a current flows, assume a direction and apply the rule. If the answer comes out negative, the current simply flows the other way, with the magnitude you found." },
+      { "type": "DIAGRAM", "diagram": "rules" },
+      { "type": "EXAMPLE", "text": "Four wires meet at a junction. Currents of 5 A and 2 A flow in through two of them, and 4 A flows out through the third. By the junction rule, 5 + 2 = 4 + I, so the fourth wire carries I = 3 A *out* of the junction." },
+
+      { "type": "HEADING", "text": "Kirchhoff's second rule: the loop rule" },
+      { "type": "CONCEPT", "text": "**Loop rule (voltage law):** the algebraic sum of the changes in potential around any closed loop of a circuit is zero. In a loop containing cells and resistors this means: the sum of the emfs (with signs) equals the sum of the IR products (with signs)." },
+      { "type": "FORMULA", "latex": "\\sum \\Delta V = 0 \\qquad\\Longrightarrow\\qquad \\sum \\varepsilon = \\sum I R", "text": "ΔV = change in potential across each element met while going once round the loop (V); ε = emf of each cell (V), with sign fixed by the direction of travel; I R = potential drop across each resistor (V), with sign fixed by the direction of current relative to the direction of travel." },
+      { "type": "TEXT", "text": "**Why it is true.** The potential at any point of a circuit has a single definite value. If you start at a point, walk round a closed loop and come back, you must return to the same potential, so the rises and drops on the way must cancel. In terms of energy: the electrostatic field is conservative, so the net work it does on a charge carried round a closed path is zero. The loop rule is therefore an expression of the **law of conservation of energy**: the energy given to each coulomb by the cells equals the energy it gives up in the resistors.\n\n**Sign rules.** Choose a direction in which to go round the loop (clockwise or anticlockwise) and keep to it for that whole loop. Then:" },
+      { "type": "TABLE", "caption": "Sign rules for writing the loop equation", "columns": ["Element crossed", "Direction of travel", "Change in potential ΔV"], "rows": [
+        ["Resistor R carrying current I", "Same direction as the current (from high to low potential)", "−IR (a drop)"],
+        ["Resistor R carrying current I", "Opposite to the current", "+IR (a rise)"],
+        ["Cell of emf ε", "From negative terminal to positive terminal", "+ε (a rise)"],
+        ["Cell of emf ε", "From positive terminal to negative terminal", "−ε (a drop)"],
+        ["Internal resistance r of a cell", "Treat exactly like a resistor", "−Ir or +Ir"]
+      ] },
+      { "type": "CALLOUT", "text": "**Common mistakes:** (1) The sign of an emf depends only on which terminal you meet first while travelling, *not* on the direction of the current through the cell. (2) Once you choose a direction of travel for a loop, do not switch it halfway round. (3) Do not forget internal resistances; they are resistors inside the loop. (4) A wire of negligible resistance gives no change in potential." },
+      { "type": "SOLVED_PROBLEM", "problem": "A battery of emf 12 V and internal resistance 0.50 Ω and a battery of emf 6.0 V and internal resistance 0.50 Ω are connected in a single loop with a 5.0 Ω resistor, with their positive terminals joined to each other (so that the batteries oppose each other). Find the current and the terminal voltage of each battery.", "solution": "There is only one loop, so one current I flows everywhere. The 12 V battery drives current out of its positive terminal, so take that as the direction of I and travel round the loop in the same direction.\n\nGoing through the 12 V battery from − to +: $+12$ V. Across its internal resistance: $-0.50I$. Across the resistor: $-5.0I$. Through the 6.0 V battery we meet its positive terminal first, so: $-6.0$ V; across its internal resistance: $-0.50I$. The loop rule gives\n\n$$12 - 0.50I - 5.0I - 6.0 - 0.50I = 0 \\quad\\Rightarrow\\quad I = \\frac{6.0}{6.0} = 1.0\\,\\text{A}$$\n\nThe 12 V battery is discharging: its terminal voltage is $12 - (1.0)(0.50) = 11.5$ V. Current is forced into the positive terminal of the 6.0 V battery, so it is being charged and its terminal voltage is $6.0 + (1.0)(0.50) = 6.5$ V. Check: 11.5 − 6.5 = 5.0 V, the drop across the 5.0 Ω resistor.", "answer": "I = 1.0 A; terminal voltages 11.5 V (12 V battery, discharging) and 6.5 V (6.0 V battery, being charged)" },
+
+      { "type": "HEADING", "text": "Solving circuits with Kirchhoff's rules" },
+      { "type": "TEXT", "text": "**A reliable step-by-step method**\n\n1. Mark every junction and give each branch a current with an assumed direction. Use the junction rule at once to cut down the number of unknowns (for example, call the current in a shared branch $I_1 + I_2$).\n2. Pick enough independent loops so that every branch is included in at least one of them. For a flat circuit drawn without crossing wires, the meshes (the 'windows' of the drawing) are a convenient independent set.\n3. Go round each loop in a chosen direction and write the loop equation with the sign rules.\n4. Solve the simultaneous equations. A negative current means the true direction is opposite to the one you assumed.\n5. Check your answer with a loop you did not use, or by checking that the power supplied by the cells equals the power dissipated in all the resistances." },
+      { "type": "DIAGRAM", "diagram": "two-loop" },
+      { "type": "TEXT", "text": "**Equations for the two-loop circuit above.** Branch currents: $I_1$ upward through the left branch, $I_2$ upward through the right branch, so by the junction rule at A the middle branch carries $I_1 + I_2$ downward through $R_3$. Both cells have their positive terminals at the top.\n\n- **Loop 1** (left mesh, clockwise from the bottom-left corner): up through $R_1$ along $I_1$ gives $-I_1R_1$; through cell 1 from − to + gives $+\\varepsilon_1$; down through $R_3$ along the current gives $-(I_1 + I_2)R_3$. So $\\varepsilon_1 - I_1R_1 - (I_1 + I_2)R_3 = 0$.\n- **Loop 2** (right mesh, clockwise from A): down through cell 2 from + to − gives $-\\varepsilon_2$; down through $R_2$ against $I_2$ gives $+I_2R_2$; up through $R_3$ against its current gives $+(I_1 + I_2)R_3$. So $\\varepsilon_2 - I_2R_2 - (I_1 + I_2)R_3 = 0$.\n\nThe outer loop gives $\\varepsilon_1 - \\varepsilon_2 - I_1R_1 + I_2R_2 = 0$, which is just Loop 1 minus Loop 2, so it adds no new information. Two unknowns need exactly two independent loop equations." },
+      { "type": "SOLVED_PROBLEM", "problem": "In the two-loop circuit shown above, $\\varepsilon_1 = 6.0$ V, $R_1 = 1.0\\,\\Omega$, $\\varepsilon_2 = 2.0$ V, $R_2 = 2.0\\,\\Omega$ and $R_3 = 4.0\\,\\Omega$ (the cells have negligible internal resistance). Find the current in each branch and the potential difference between A and B.", "solution": "Substitute the values into the two loop equations written above.\n\nLoop 1: $6.0 - 1.0\\,I_1 - 4.0(I_1 + I_2) = 0$, which simplifies to $5I_1 + 4I_2 = 6$.\n\nLoop 2: $2.0 - 2.0\\,I_2 - 4.0(I_1 + I_2) = 0$, which simplifies to $4I_1 + 6I_2 = 2$.\n\nMultiply the first equation by 3 and the second by 2: $15I_1 + 12I_2 = 18$ and $8I_1 + 12I_2 = 4$. Subtracting, $7I_1 = 14$, so $I_1 = 2.0$ A. Then $4I_2 = 6 - 10 = -4$, so $I_2 = -1.0$ A.\n\nThe negative sign tells us that 1.0 A actually flows *downward* through the right branch, that is, into the positive terminal of the 2.0 V cell, which is being charged. The current in $R_3$ is $I_1 + I_2 = 1.0$ A downward, so $V_A - V_B = (1.0)(4.0) = 4.0$ V.\n\nCheck with the outer loop: $6.0 - 2.0 - (2.0)(1.0) + (-1.0)(2.0) = 0$. The equations are satisfied.", "answer": "I₁ = 2.0 A (up the left branch); 1.0 A down the right branch (I₂ = −1.0 A, charging the 2.0 V cell); 1.0 A down through R₃; V_A − V_B = 4.0 V" },
+      { "type": "TEXT", "text": "**Using symmetry.** In networks with symmetry, Kirchhoff's rules become very easy, because points that are symmetric must carry equal currents. A classic example is a cube made of twelve equal resistors, with current fed in at one corner A and taken out at the diagonally opposite corner B." },
+      { "type": "DIAGRAM", "diagram": "cube" },
+      { "type": "SOLVED_PROBLEM", "problem": "Twelve resistors, each of 6.0 Ω, form the edges of a cube. A 10 V battery of negligible internal resistance is connected between two diagonally opposite corners A and B. Find the equivalent resistance of the network, the current drawn from the battery and the current in each edge.", "solution": "Let the battery current be I. The three edges leaving A are identical by symmetry, so by the junction rule each carries I/3. Each of the three far-end corners shares its I/3 equally between two further edges, so the six middle edges carry I/6 each. These currents recombine at the three corners next to B, so the three edges entering B carry I/3 each.\n\nApply the loop rule along any path from A to B through three edges, closed through the battery:\n\n$$10 - \\frac{I}{3}R - \\frac{I}{6}R - \\frac{I}{3}R = 0 \\quad\\Rightarrow\\quad 10 = \\frac{5}{6}IR$$\n\nSo the equivalent resistance is $R_{eq} = \\frac{5}{6}R = \\frac{5}{6}(6.0) = 5.0\\,\\Omega$ and the battery current is $I = 10/5.0 = 2.0$ A.\n\nEdge currents: the six edges at A and B carry $I/3 \\approx 0.67$ A; the six middle edges carry $I/6 \\approx 0.33$ A.", "answer": "R_eq = 5.0 Ω (= 5R/6); I = 2.0 A; 0.67 A in each of the six edges meeting A or B, 0.33 A in each of the six middle edges" },
+      { "type": "FORMULA", "latex": "R_{eq} = \\frac{I R/3 + I R/6 + I R/3}{I} = \\frac{5}{6}\\,R", "text": "Equivalent resistance of a cube of twelve equal resistors R measured between two diagonally opposite corners. It follows from the junction rule (currents I/3, I/6, I/3 along any path) and the loop rule along that path." },
+      { "type": "KEY_POINT", "text": "Junction rule = conservation of charge; loop rule = conservation of energy (the electrostatic field is conservative). Assume current directions freely: a negative answer just reverses the direction. For n unknown branch currents you need n independent equations from junctions and loops together." },
+
+      { "type": "HEADING", "text": "The Wheatstone bridge" },
+      { "type": "TEXT", "text": "The Wheatstone bridge is an arrangement of four resistances used to measure an unknown resistance very accurately. It was devised by Samuel Christie and popularised by Charles Wheatstone in 1843.\n\nFour resistances P, Q, R and S form the sides of a quadrilateral ABCD: P between A and B, Q between B and C, R between A and D, and S between D and C. A cell (with a key) is connected between A and C; this is the **battery arm**. A galvanometer G is connected between B and D; this is the **galvanometer arm**. The current I from the cell divides at A: I₁ goes through P and I₂ through R. A current I_g may cross from B to D through the galvanometer, so Q carries I₁ − I_g and S carries I₂ + I_g." },
+      { "type": "DIAGRAM", "diagram": "bridge" },
+      { "type": "DEFINITION", "term": "Balanced Wheatstone bridge", "text": "A Wheatstone bridge whose resistances are adjusted so that the galvanometer shows no deflection (I_g = 0). Points B and D are then at the same potential." },
+
+      { "type": "HEADING", "text": "Balance condition of the Wheatstone bridge" },
+      { "type": "TEXT", "text": "**Derivation using Kirchhoff's rules.** Use the currents marked in the figure.\n\nLoop ABDA (travelling A → B → D → A): along P with the current gives $-I_1P$; down through G with $I_g$ gives $-I_gG$; from D back to A against $I_2$ through R gives $+I_2R$. So\n\n$$-I_1P - I_gG + I_2R = 0$$\n\nLoop BCDB (travelling B → C → D → B): along Q with its current gives $-(I_1 - I_g)Q$; from C to D against the current in S gives $+(I_2 + I_g)S$; from D up to B against $I_g$ gives $+I_gG$. So\n\n$$-(I_1 - I_g)Q + (I_2 + I_g)S + I_gG = 0$$\n\nAt balance $I_g = 0$, and the equations reduce to $I_1P = I_2R$ and $I_1Q = I_2S$. Dividing the first by the second gives the balance condition." },
+      { "type": "FORMULA", "latex": "\\frac{P}{Q} = \\frac{R}{S} \\qquad \\text{or} \\qquad P\\,S = Q\\,R", "text": "P = resistance of arm AB, Q = arm BC, R = arm AD, S = arm DC (all in Ω). P and Q are the two arms meeting at B; R and S meet at D. Equivalently, the products of opposite arms are equal. If S is unknown, S = QR/P." },
+      { "type": "TEXT", "text": "**What the balance condition tells us.**\n\n- At balance the potential drop across P equals that across R ($I_1P = I_2R$), so B and D are at the same potential and no current crosses between them.\n- The condition contains neither the emf of the cell nor the resistance of the galvanometer. Balance therefore does not depend on them: this is a **null method**, and its accuracy does not depend on the calibration of the meter.\n- If the cell and the galvanometer are interchanged, the new balance condition is $P/R = Q/S$, which is the same equation rearranged. So a balanced bridge stays balanced; the two arms are called conjugate arms.\n- Because no current flows in the galvanometer arm at balance, that arm can be removed, or B and D can be joined by a wire, without changing any other current. Both ways give the same equivalent resistance between A and C:\n\n$$R_{AC} = \\frac{(P + Q)(R + S)}{P + Q + R + S}$$\n\nThis makes many 'bridge-shaped' networks easy to simplify in problems: first check whether P/Q = R/S." },
+      { "type": "SOLVED_PROBLEM", "problem": "In a Wheatstone bridge, P = 10 Ω, Q = 30 Ω and R = 12 Ω. What value of S balances the bridge? If the battery and galvanometer are then interchanged, is the bridge still balanced?", "solution": "The balance condition is $P/Q = R/S$, so\n\n$$S = \\frac{QR}{P} = \\frac{(30)(12)}{10} = 36\\,\\Omega$$\n\nCheck: P/Q = 10/30 = 1/3 and R/S = 12/36 = 1/3, so the two ratios are equal.\n\nAfter interchanging the battery and galvanometer, balance requires $P/R = Q/S$. Here P/R = 10/12 = 5/6 and Q/S = 30/36 = 5/6. The ratios are still equal, so the bridge remains balanced, as expected for conjugate arms.", "answer": "S = 36 Ω; yes, the bridge stays balanced" },
+      { "type": "FORMULA", "latex": "R_{AC} = \\frac{(P + Q)(R + S)}{P + Q + R + S} \\qquad (\\text{balanced bridge})", "text": "Equivalent resistance between A and C of a balanced bridge, whatever resistor is in the galvanometer arm BD: the arm carries no current, so the network is just the path P + Q in parallel with the path R + S." },
+      { "type": "SOLVED_PROBLEM", "problem": "A network has resistances AB = 2.0 Ω, BC = 4.0 Ω, AD = 3.0 Ω, DC = 6.0 Ω, and a 7.0 Ω resistor between B and D. Find the equivalent resistance between A and C.", "solution": "The network is a Wheatstone bridge with the 7.0 Ω resistor in the galvanometer position. Test the balance condition: P/Q = 2.0/4.0 = 0.5 and R/S = 3.0/6.0 = 0.5. The ratios are equal, so the bridge is balanced and no current flows through the 7.0 Ω resistor; it can be ignored.\n\nThe network is then two paths in parallel between A and C: A–B–C with 2.0 + 4.0 = 6.0 Ω and A–D–C with 3.0 + 6.0 = 9.0 Ω. Hence\n\n$$R_{AC} = \\frac{(6.0)(9.0)}{6.0 + 9.0} = \\frac{54}{15} = 3.6\\,\\Omega$$\n\nAs a check, joining B and D instead gives (2.0 ∥ 3.0) + (4.0 ∥ 6.0) = 1.2 + 2.4 = 3.6 Ω, the same result, which confirms that the bridge is balanced.", "answer": "3.6 Ω (the 7.0 Ω resistor carries no current)" },
+      { "type": "IMPORTANT_FACT", "text": "Balance condition: P/Q = R/S, i.e. product of opposite arms equal (PS = QR). Balance is independent of the cell's emf, the galvanometer's resistance and of interchanging the cell and galvanometer." },
+
+      { "type": "HEADING", "text": "Unbalanced bridge, sensitivity and applications" },
+      { "type": "TEXT", "text": "**Which way does the galvanometer current flow?** Take C as zero potential and ignore, for the moment, the small effect of the galvanometer current. Then $V_B = \\varepsilon\\,Q/(P + Q)$ and $V_D = \\varepsilon\\,S/(R + S)$. If $P/Q > R/S$, the fraction $Q/(P + Q)$ is smaller than $S/(R + S)$, so B is at a lower potential than D and current flows through the galvanometer from D to B. If $P/Q < R/S$, it flows from B to D. To find the actual value of $I_g$ you must solve the full Kirchhoff equations, as in the next problem.\n\n**Sensitivity.** A bridge is most sensitive (gives the largest galvanometer deflection for a small departure from balance) when the four resistances are of comparable magnitude. With one very large and one very small arm, a small error in setting the balance hardly shows on the galvanometer.\n\n**Applications.**\n\n- *Measuring an unknown resistance:* place it as S, use known ratio arms P and Q, and adjust R until the galvanometer reads zero; then S = QR/P.\n- *Meter bridge (slide-wire bridge):* a practical form in which P and Q are the two parts of a uniform wire 1 m long divided by a sliding jockey, so P/Q is replaced by the ratio of lengths $l/(100 - l)$ (with l in cm).\n- *Resistance thermometers and strain gauges:* a platinum coil or a strain-sensitive wire forms one arm. A change in temperature or strain changes its resistance and upsets the balance, so the bridge detects very small changes." },
+      { "type": "FORMULA", "latex": "V_B - V_C = \\frac{\\varepsilon\\,Q}{P + Q}, \\qquad V_D - V_C = \\frac{\\varepsilon\\,S}{R + S} \\qquad (\\text{galvanometer disconnected})", "text": "Potentials of B and D relative to C when the cell (emf ε, negligible internal resistance) drives current through the two halves of the bridge and no current crosses BD. Comparing them tells which way current will flow when the galvanometer is connected: from the point at higher potential to the one at lower potential." },
+      { "type": "FORMULA", "latex": "\\frac{R}{S} = \\frac{l}{100 - l} \\quad\\Rightarrow\\quad S = R\\,\\frac{100 - l}{l}", "text": "Meter bridge: R = known resistance in the left gap, S = unknown resistance in the right gap, l = balancing length (in cm) of the uniform 100 cm wire measured from the end next to R. The two parts of the wire play the role of the ratio arms because resistance of a uniform wire is proportional to its length." },
+      { "type": "SOLVED_PROBLEM", "problem": "In a Wheatstone bridge, P (arm AB) = 1.0 Ω, Q (arm BC) = 6.0 Ω, R (arm AD) = 4.0 Ω and S (arm DC) = 2.0 Ω. A galvanometer of resistance 2.0 Ω is connected between B and D, and a cell of emf 8.0 V with negligible internal resistance is connected between A and C. Find the current through the galvanometer and the current drawn from the cell.", "solution": "The bridge is unbalanced, since P/Q = 1/6 while R/S = 2. Use the currents of the figure: I₁ in P, I₁ − I_g in Q, I₂ in R, I₂ + I_g in S, I_g from B to D.\n\nLoop ABDA: $-1.0\\,I_1 - 2.0\\,I_g + 4.0\\,I_2 = 0$, so $I_1 = 4I_2 - 2I_g$.\n\nLoop BCDB: $-6.0(I_1 - I_g) + 2.0(I_2 + I_g) + 2.0\\,I_g = 0$, so $-6I_1 + 2I_2 + 10I_g = 0$.\n\nLoop ADCA through the cell: $-4.0\\,I_2 - 2.0(I_2 + I_g) + 8.0 = 0$, so $6I_2 + 2I_g = 8$.\n\nSubstitute the first result into the second: $-24I_2 + 12I_g + 2I_2 + 10I_g = 0$, which gives $I_2 = I_g$. The third equation then gives $8I_g = 8$, so $I_g = 1.0$ A and $I_2 = 1.0$ A. Finally $I_1 = 4(1.0) - 2(1.0) = 2.0$ A.\n\nThe current from the cell is $I_1 + I_2 = 3.0$ A. Since $I_g$ came out positive, it flows from B to D, consistent with P/Q < R/S. Check at B: 2.0 A in, 1.0 A to Q and 1.0 A to G.", "answer": "I_g = 1.0 A from B to D; current from the cell = 3.0 A" },
+      { "type": "CALLOUT", "text": "**Exam tips:** (1) Before solving any bridge-shaped network, test P/Q = R/S; if it holds, delete the middle resistor. (2) Pair the arms correctly: the two arms that meet at the galvanometer end B form one ratio, the two that meet at D form the other. (3) In multiple-choice questions about a balanced bridge, the answer never depends on the cell's emf or the galvanometer's resistance." },
+
+      { "type": "HEADING", "text": "Quick revision" },
+      { "type": "TABLE", "caption": "Kirchhoff's rules and the Wheatstone bridge at a glance", "columns": ["Idea", "Statement or formula", "Based on"], "rows": [
+        ["Junction rule", "Sum of currents in = sum of currents out at any junction", "Conservation of charge"],
+        ["Loop rule", "Sum of potential changes round a closed loop = 0, i.e. Σε = ΣIR", "Conservation of energy (conservative electrostatic field)"],
+        ["Sign rules", "Resistor along I: −IR; against I: +IR; cell − to +: +ε; + to −: −ε", "Potential falls in the direction of current through a resistor"],
+        ["Wheatstone bridge balance", "P/Q = R/S (PS = QR), no current through G", "B and D at equal potential"],
+        ["Equivalent resistance of a balanced bridge", "(P + Q)(R + S)/(P + Q + R + S)", "Galvanometer arm carries no current"],
+        ["Cube of 12 equal resistors, body diagonal", "R_eq = 5R/6", "Symmetry plus Kirchhoff's rules"]
+      ] },
+      { "type": "KEY_POINT", "text": "To solve any network: assign branch currents using the junction rule, write one loop equation per independent loop with consistent signs, solve, and interpret negative currents as reversed directions. For a Wheatstone bridge, balance means P/Q = R/S and zero galvanometer current." }
+    ]
+  },
+  "diagrams": [
+    { "key": "rules", "file": "diagrams/ug26-322-u2-kirchhoff-wheatstone-rules.svg", "alt": "Panel (a) a junction where currents I1 and I2 enter and I3 and I4 leave, with I1 + I2 = I3 + I4; panel (b) four rows showing the potential change when crossing a resistor along or against the current and a cell from minus to plus or plus to minus", "caption": "Kirchhoff's junction rule and the sign rules used with the loop rule", "description": "Panel (a): four wires meet at a junction. Currents I1 from the left and I2 from the top flow into the junction; currents I3 to the right and I4 down to the lower right flow out. The text below states I1 + I2 = I3 + I4, current in equals current out, because charge is conserved. Panel (b): moving along a green arrow from left to right. Row 1: a resistor carrying current I in the same direction as the travel; potential change −IR. Row 2: a resistor with current opposite to the travel; potential change +IR. Row 3: a cell crossed from its negative to its positive terminal; change +ε. Row 4: a cell crossed from positive to negative; change −ε. The note says the sum of all potential changes round a closed loop is zero." },
+    { "key": "two-loop", "file": "diagrams/ug26-322-u2-kirchhoff-wheatstone-two-loop.svg", "alt": "Two-loop circuit with cell epsilon1 and resistor R1 in the left branch, resistor R3 in the middle branch between junctions A and B, and cell epsilon2 with resistor R2 in the right branch; currents I1 and I2 flow towards A and I1 + I2 flows down through R3; clockwise loop arrows in both meshes", "caption": "A two-loop network: branch currents I₁ and I₂ meet at junction A and flow down through R₃", "description": "A rectangular circuit with three vertical branches between a top wire and a bottom wire. The left branch contains a cell of emf ε1 with its positive terminal at the top and a resistor R1 below it; an arrow shows current I1 flowing up this branch and to the right along the top wire to junction A. The right branch contains a cell of emf ε2, positive terminal at the top, and a resistor R2; current I2 flows up it and to the left along the top wire to junction A. The middle branch from A down to junction B contains resistor R3 carrying current I1 + I2 downward. Grey circular arrows mark Loop 1 in the left mesh and Loop 2 in the right mesh, both clockwise." },
+    { "key": "cube", "file": "diagrams/ug26-322-u2-kirchhoff-wheatstone-cube.svg", "alt": "Cube of twelve equal resistors with current I entering at corner A and leaving at the diagonally opposite corner B; the three edges at A carry I/3, the six middle edges carry I/6 and the three edges at B carry I/3", "caption": "Current distribution in a cube of twelve equal resistors between diagonally opposite corners", "description": "A cube drawn in perspective, with three hidden edges dashed. Current I enters at the front bottom-left corner A and leaves at the back top-right corner B. Arrows on the three edges leaving A are labelled I/3. Arrows on the six middle edges, which connect the corners next to A with the corners next to B, are labelled I/6. Arrows on the three edges entering B are labelled I/3. Each edge has resistance R." },
+    { "key": "bridge", "file": "diagrams/ug26-322-u2-kirchhoff-wheatstone-bridge.svg", "alt": "Wheatstone bridge: resistors P from A to B, Q from B to C, R from A to D and S from D to C, a galvanometer G between B and D, and a cell between A and C; currents I1 in P, I1 minus Ig in Q, I2 in R, I2 plus Ig in S and Ig from B to D", "caption": "The Wheatstone bridge with its currents; at balance I_g = 0 and P/Q = R/S", "description": "Four resistors form a diamond ABCD with A on the left, B at the top, C on the right and D at the bottom: P in arm AB, Q in arm BC, R in arm AD and S in arm DC. A galvanometer G is connected vertically between B and D, with current Ig shown flowing from B to D. A cell of emf ε is connected between A and C through a wire running below the diamond, its positive terminal towards A, so the total current I = I1 + I2 enters the bridge at A. Current I1 flows through P and I1 − Ig through Q; current I2 flows through R and I2 + Ig through S." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Kirchhoff's junction rule, which states that the total current entering a junction equals the total current leaving it, is a consequence of the",
+      "options": ["conservation of energy", "conservation of linear momentum", "conservation of electric charge", "constancy of resistance at fixed temperature"],
+      "answer": 3,
+      "explanation": "In a steady state, charge cannot accumulate at a junction. Whatever charge flows in per second must flow out per second, otherwise the junction would keep gaining or losing charge. The junction rule is therefore the law of conservation of electric charge applied to a point of the circuit.",
+      "optionRationale": { "1": "Conservation of energy is the basis of the loop rule, not the junction rule.", "2": "Momentum conservation plays no role in either of Kirchhoff's rules.", "4": "Constant resistance is Ohm's law; the junction rule holds even for non-ohmic devices." },
+      "objective": "State the physical basis of Kirchhoff's junction rule"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "Four wires meet at a junction. Currents of 3.0 A and 2.0 A flow into the junction through two of them, and a current of 1.5 A flows out through the third. The current in the fourth wire is",
+      "options": ["3.5 A, flowing out of the junction", "3.5 A, flowing into the junction", "6.5 A, flowing out of the junction", "0.5 A, flowing into the junction"],
+      "answer": 1,
+      "explanation": "By the junction rule, total current in equals total current out. The current in is 3.0 + 2.0 = 5.0 A, and 1.5 A already leaves through the third wire. So the fourth wire must carry 5.0 − 1.5 = 3.5 A out of the junction to keep the totals equal.",
+      "optionRationale": { "2": "If 3.5 A also flowed in, 8.5 A would enter and only 1.5 A leave, violating charge conservation.", "3": "6.5 A is the sum of all three given currents, which ignores that 1.5 A is already leaving.", "4": "0.5 A has no basis; the unbalanced current is 3.5 A and it must leave the junction." },
+      "objective": "Apply the junction rule to find an unknown current"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q03", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Kirchhoff's loop rule, that the algebraic sum of potential changes around a closed loop is zero, is based on the",
+      "options": ["conservation of electric charge", "conservation of energy, because the electrostatic field is conservative", "fact that the current is the same in every branch of a circuit", "fact that every circuit element obeys Ohm's law"],
+      "answer": 2,
+      "explanation": "Potential has a single value at each point, so a charge carried round a closed loop returns to its starting potential and the electrostatic field does no net work on it. The energy supplied by the cells per unit charge must equal the energy given up in the resistances, which is the law of conservation of energy.",
+      "optionRationale": { "1": "Conservation of charge is the basis of the junction rule.", "3": "Currents in different branches are generally different; the loop rule does not assume they are equal.", "4": "The loop rule holds for any elements, ohmic or not, because it rests on the single-valued potential." },
+      "objective": "State the physical basis of Kirchhoff's loop rule"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q04", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The algebraic sum of the changes in potential around any closed loop of a circuit carrying steady currents is zero.\nReason (R): The electrostatic field is conservative, so the net work done by it on a charge taken once round a closed path is zero.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "The assertion is Kirchhoff's loop rule, which is true. It holds precisely because the electrostatic field is conservative: the work per unit charge round a closed path is zero, so the potential returns to its starting value and all rises and drops cancel. Hence R is true and is the correct explanation of A.",
+      "optionRationale": { "2": "R is not an unrelated fact; the conservative nature of the field is exactly why the loop rule holds.", "3": "R is true: the work done by an electrostatic field round any closed path is zero.", "4": "A is true; it is the statement of Kirchhoff's second rule." },
+      "objective": "Connect the loop rule to the conservative nature of the electrostatic field"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q05", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "While writing Kirchhoff's loop equation, a loop is traversed in a fixed direction. Match each element crossed in List-I with the change in potential in List-II.",
+      "list": { "left": ["A. Resistor R crossed in the direction of its current I", "B. Resistor R crossed opposite to its current I", "C. Cell of emf ε crossed from its negative to its positive terminal", "D. Cell of emf ε crossed from its positive to its negative terminal"], "right": ["I. +ε", "II. −ε", "III. +IR", "IV. −IR"] },
+      "options": ["A-III, B-IV, C-I, D-II", "A-IV, B-III, C-II, D-I", "A-III, B-IV, C-II, D-I", "A-IV, B-III, C-I, D-II"],
+      "answer": 4,
+      "explanation": "Current in a resistor flows from higher to lower potential, so moving along the current gives a drop −IR (A-IV) and moving against it gives a rise +IR (B-III). Inside a cell the positive terminal is at the higher potential, so going from − to + is a rise +ε (C-I) and from + to − a drop −ε (D-II).",
+      "optionRationale": { "1": "The resistor signs are reversed: moving along the current through a resistor is a drop, −IR.", "2": "The cell signs are reversed: going from the negative to the positive terminal is a rise, +ε.", "3": "Both the resistor signs and the cell signs are reversed." },
+      "objective": "Apply sign conventions for the loop rule"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q06", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A battery of emf 10 V and internal resistance 1.0 Ω and another battery of emf 4.0 V and internal resistance 1.0 Ω are connected in a single loop with a 4.0 Ω resistor, with their positive terminals joined to each other. What are the current in the loop and the terminal voltage of the 4.0 V battery?",
+      "options": ["1.0 A; 5.0 V", "1.0 A; 3.0 V", "2.3 A; 1.7 V", "1.5 A; 4.0 V"],
+      "answer": 1,
+      "explanation": "The batteries oppose each other, so the loop rule gives 10 − 4.0 − I(1.0 + 4.0 + 1.0) = 0, hence I = 6.0/6.0 = 1.0 A. This current is driven into the positive terminal of the 4.0 V battery, which is therefore being charged, and its terminal voltage is ε + Ir = 4.0 + 1.0 × 1.0 = 5.0 V.",
+      "optionRationale": { "2": "The current is right, but 3.0 V uses ε − Ir; the 4.0 V battery is being charged, so V = ε + Ir.", "3": "This adds the emfs as if the batteries aided each other, but they are connected in opposition.", "4": "This ignores both internal resistances; the internal resistances are part of the loop." },
+      "objective": "Apply the loop rule to a single loop with opposing cells"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q07", "type": "DIAGRAM_BASED", "difficulty": "HARD", "skill": "numerical", "diagram": "two-loop",
+      "stem": "In the circuit shown, $\\varepsilon_1 = 6.0$ V, $R_1 = 3.0\\,\\Omega$, $\\varepsilon_2 = 4.0$ V, $R_2 = 2.0\\,\\Omega$ and $R_3 = 2.0\\,\\Omega$. The cells have negligible internal resistance. The current through $R_3$ is",
+      "options": ["1.0 A", "0.50 A", "1.5 A", "2.0 A"],
+      "answer": 3,
+      "explanation": "Loop 1: $6 - 3I_1 - 2(I_1 + I_2) = 0$, so $5I_1 + 2I_2 = 6$. Loop 2: $4 - 2I_2 - 2(I_1 + I_2) = 0$, so $2I_1 + 4I_2 = 4$. Solving, $I_1 = 1.0$ A and $I_2 = 0.50$ A. By the junction rule at A, the current flowing down through $R_3$ is the sum of the two branch currents, $I_1 + I_2 = 1.5$ A. As a check, the potential difference $V_A - V_B = 1.5 \\times 2.0 = 3.0$ V also equals $\\varepsilon_1 - I_1R_1 = 6.0 - 3.0$ for the left branch.",
+      "optionRationale": { "1": "1.0 A is I₁, the current in the left branch only.", "2": "0.50 A is I₂, the current in the right branch only.", "4": "This treats the two cells and R₁, R₂ as one series loop, (6 + 4)/(3 + 2); the cells actually feed R₃ in parallel." },
+      "objective": "Solve a two-loop network using Kirchhoff's rules"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q08", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A branch XY of a circuit contains a 2.0 Ω resistor next to X, followed by a cell of emf 6.0 V (negligible internal resistance) whose positive terminal faces Y. A current of 1.5 A flows through the branch from X to Y. How do the potentials of X and Y compare?",
+      "options": ["X is 3.0 V above Y", "X is 3.0 V below Y", "X is 9.0 V above Y", "X is 9.0 V below Y"],
+      "answer": 2,
+      "explanation": "Walk from X to Y. Crossing the resistor in the direction of the current, the potential falls by IR = 1.5 × 2.0 = 3.0 V. Crossing the cell from its negative to its positive terminal, it rises by 6.0 V. So $V_Y = V_X - 3.0 + 6.0 = V_X + 3.0$ V, and X is 3.0 V below Y.",
+      "optionRationale": { "1": "This reverses both signs, as if the resistor gave a rise and the cell a drop.", "3": "This adds the 3.0 V and 6.0 V as if both were drops from X to Y.", "4": "This treats the resistor as a rise of 3.0 V; crossing a resistor along the current is a drop." },
+      "objective": "Find the potential difference across a branch containing a cell and a resistor"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q09", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "two-loop",
+      "stem": "In the circuit shown, $\\varepsilon_1 = 10$ V, $R_1 = 2.0\\,\\Omega$, $R_2 = 4.0\\,\\Omega$ and $R_3 = 3.0\\,\\Omega$, and the cells have negligible internal resistance. For what value of $\\varepsilon_2$ will no current flow through $R_2$?",
+      "options": ["10 V", "4.0 V", "5.0 V", "6.0 V"],
+      "answer": 4,
+      "explanation": "If $I_2 = 0$, the right branch has no drop across $R_2$, so the loop rule for loop 2 gives $\\varepsilon_2 = V_A - V_B$. Meanwhile cell 1 drives $I_1 = 10/(2.0 + 3.0) = 2.0$ A through $R_1$ and $R_3$ in series, so $V_A - V_B = I_1R_3 = 2.0 \\times 3.0 = 6.0$ V. Hence the required emf is 6.0 V.",
+      "optionRationale": { "1": "With ε₂ = 10 V, cell 2's emf would exceed V_A − V_B = 6.0 V and it would drive current through R₂.", "2": "4.0 V is the drop across R₁; the cell must match the potential difference across R₃.", "3": "5.0 V is half of ε₁, which would apply only if R₁ and R₃ were equal." },
+      "objective": "Use the loop rule to find the condition for zero current in a branch"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q10", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "When a Wheatstone bridge is balanced, the galvanometer shows no deflection because",
+      "options": ["the two ends of the galvanometer (points B and D) are at the same potential", "the cell stops supplying current to the bridge", "the galvanometer resistance becomes infinitely large", "equal currents flow through all four arms of the bridge"],
+      "answer": 1,
+      "explanation": "At balance the potential drop across P equals that across R, so points B and D, the two ends of the galvanometer arm, are at the same potential. With no potential difference across it, no current flows through the galvanometer, although the cell still drives current through the four arms.",
+      "optionRationale": { "2": "The cell keeps driving current through the arms; only the galvanometer branch carries none.", "3": "The galvanometer's resistance does not change; the current is zero because there is no potential difference across it.", "4": "The arm currents are generally unequal; only the ratios of the resistances matter for balance." },
+      "objective": "Explain the null condition of a balanced Wheatstone bridge"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q11", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "numerical", "diagram": "bridge",
+      "stem": "In the Wheatstone bridge shown, P = 8.0 Ω, Q = 12 Ω and R = 10 Ω. What value of S will make the galvanometer current zero?",
+      "options": ["15 Ω", "6.7 Ω", "9.6 Ω", "10 Ω"],
+      "answer": 1,
+      "explanation": "For balance, $P/Q = R/S$, so $S = QR/P = (12)(10)/8.0 = 15\\,\\Omega$. Check: P/Q = 8/12 = 2/3 and R/S = 10/15 = 2/3, so the ratios are equal and points B and D are at the same potential.",
+      "optionRationale": { "2": "This uses S = PR/Q, which pairs the arms wrongly.", "3": "This uses S = PQ/R, which does not follow from the balance condition.", "4": "S = R would balance the bridge only if P were equal to Q." },
+      "objective": "Use the balance condition to find an unknown resistance"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q12", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "analytical",
+      "stem": "Assertion (A): If the cell and the galvanometer of a balanced Wheatstone bridge are interchanged, the galvanometer still shows no deflection.\nReason (R): In a balanced Wheatstone bridge, no current flows through the galvanometer arm.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 2,
+      "explanation": "Both statements are true. After the interchange, the new balance condition is P/R = Q/S, which is the same equation as P/Q = R/S rearranged, so the bridge remains balanced. That is why A is true. R merely describes what balance means; it does not show why balance survives the interchange, so R is not the correct explanation.",
+      "optionRationale": { "1": "The reason A holds is that the balance condition is symmetric (P/R = Q/S is equivalent to P/Q = R/S), which R does not state.", "3": "R is true: zero galvanometer current is the definition of balance.", "4": "A is true: the battery and galvanometer arms are conjugate, so balance is kept." },
+      "objective": "Analyse the effect of interchanging the cell and galvanometer in a balanced bridge"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q13", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "In a network, AB = 2.0 Ω, BC = 4.0 Ω, AD = 3.0 Ω and DC = 6.0 Ω, and a 7.0 Ω resistor is connected between B and D. The equivalent resistance between A and C is",
+      "options": ["15 Ω", "2.4 Ω", "3.6 Ω", "22 Ω"],
+      "answer": 3,
+      "explanation": "This is a Wheatstone bridge with the 7.0 Ω resistor in the galvanometer arm. Since 2.0/4.0 = 3.0/6.0, the bridge is balanced and the 7.0 Ω resistor carries no current. The remaining paths, 6.0 Ω (A–B–C) and 9.0 Ω (A–D–C), are in parallel: 6.0 × 9.0/15 = 3.6 Ω.",
+      "optionRationale": { "1": "15 Ω adds the four arms in series; the two paths A–B–C and A–D–C are in parallel.", "2": "This wrongly treats the 7.0 Ω resistor as a third parallel path between A and C.", "4": "22 Ω adds all five resistors in series, which ignores how they are actually connected." },
+      "objective": "Simplify a balanced bridge network to find equivalent resistance"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q14", "type": "DIAGRAM_BASED", "difficulty": "HARD", "skill": "numerical", "diagram": "bridge",
+      "stem": "In the bridge shown, P = 1.0 Ω, Q = 4.0 Ω, R = 5.0 Ω and S = 2.0 Ω. The galvanometer has a resistance of 6.0 Ω, and the cell has emf 8.0 V with negligible internal resistance. The current through the galvanometer is",
+      "options": ["zero, because the bridge is balanced", "0.50 A, from D to B", "1.5 A, from B to D", "0.50 A, from B to D"],
+      "answer": 4,
+      "explanation": "Here P/Q = 0.25 but R/S = 2.5, so the bridge is not balanced. Taking C at 0 V and A at 8.0 V, the junction equations at B and D give $V_B = 6.0$ V and $V_D = 3.0$ V (check: 2.0 A through P equals 1.5 A through Q plus 0.50 A through G). So $I_g = (6.0 - 3.0)/6.0 = 0.50$ A, flowing from B to D.",
+      "optionRationale": { "1": "The bridge is unbalanced because P/Q is not equal to R/S.", "2": "The size is right, but B is at the higher potential, so the current flows from B to D.", "3": "1.5 A is the current in arm Q (and in arm S), not in the galvanometer." },
+      "objective": "Calculate the galvanometer current in an unbalanced Wheatstone bridge"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q15", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about a Wheatstone bridge with arms P (AB), Q (BC), R (AD) and S (DC).\nA. At balance, the resistance of the galvanometer does not affect the balance condition.\nB. The balance condition does not depend on the emf of the cell.\nC. The bridge is most sensitive when all four resistances are of comparable magnitude.\nD. At balance, the current through P equals the current through R.\nWhich of the statements are correct?",
+      "options": ["A and D only", "B and D only", "A, B and C only", "A, B, C and D"],
+      "answer": 3,
+      "explanation": "A and B are true because the balance condition P/Q = R/S contains neither the galvanometer resistance nor the emf. C is true: a bridge with comparable arms gives the largest deflection for a small imbalance. D is false: at balance the current in P equals the current in Q (no current leaves through G), and the current in R equals that in S.",
+      "optionRationale": { "1": "D is false, and the true statements B and C are omitted.", "2": "D is false; at balance P and Q carry the same current, not P and R.", "4": "D is false, so not all four statements are correct." },
+      "objective": "Evaluate statements about the balance and sensitivity of a Wheatstone bridge"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q16", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Twelve resistors, each of 12 Ω, form the edges of a cube. A 20 V battery of negligible internal resistance is connected across two diagonally opposite corners. The current in each of the six edges that do not touch either of these two corners is about",
+      "options": ["0.67 A", "2.0 A", "0.17 A", "0.33 A"],
+      "answer": 4,
+      "explanation": "Between diagonally opposite corners the equivalent resistance is 5R/6 = 5 × 12/6 = 10 Ω, so the battery current is I = 20/10 = 2.0 A. By symmetry it splits into I/3 in each of the three edges at the entry corner, and each of these shares equally into two middle edges, giving I/6 = 2.0/6 ≈ 0.33 A in each middle edge.",
+      "optionRationale": { "1": "0.67 A (I/3) flows in the edges that touch the two corners, not in the middle edges.", "2": "2.0 A is the total current drawn from the battery.", "3": "0.17 A would be I/12; each middle edge actually carries I/6." },
+      "objective": "Use symmetry and Kirchhoff's rules to find currents in a cube network"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q17", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each statement or result in List-I with the principle or reason in List-II on which it rests.",
+      "list": { "left": ["A. Sum of currents into a junction equals the sum out of it", "B. Sum of potential changes round a closed loop is zero", "C. No current in the galvanometer of a balanced bridge", "D. Middle resistor of a balanced bridge can be removed without changing the equivalent resistance"], "right": ["I. Electrostatic field is conservative (energy conservation)", "II. Conservation of charge", "III. The middle resistor carries no current at balance", "IV. Points B and D are at the same potential"] },
+      "options": ["A-I, B-II, C-IV, D-III", "A-II, B-I, C-IV, D-III", "A-II, B-I, C-III, D-IV", "A-II, B-IV, C-I, D-III"],
+      "answer": 2,
+      "explanation": "The junction rule comes from conservation of charge (A-II) and the loop rule from the conservative electrostatic field, i.e. energy conservation (B-I). The galvanometer reads zero because B and D are at equal potential (C-IV). Since the middle resistor then carries no current, removing it changes nothing (D-III).",
+      "optionRationale": { "1": "The bases of the two Kirchhoff rules are swapped.", "3": "C and D are swapped: zero galvanometer current is caused by equal potentials at B and D.", "4": "The loop rule is not explained by equal potentials at B and D, and the galvanometer result is not a statement of energy conservation." },
+      "objective": "Link Kirchhoff's rules and bridge results to their underlying principles"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q18", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "A platinum resistance thermometer forms arm S of a Wheatstone bridge in which P = Q. With the thermometer in melting ice (0 °C), balance is obtained with R = 2.0 Ω. With the thermometer in a hot liquid, balance needs R = 2.6 Ω. If the temperature coefficient of resistance of platinum is $4.0\\times10^{-3}\\,^\\circ\\text{C}^{-1}$, the temperature of the liquid is",
+      "options": ["150 °C", "58 °C", "75 °C", "7.5 °C"],
+      "answer": 3,
+      "explanation": "With P = Q, the balance condition P/Q = R/S gives S = R. So the thermometer's resistance is 2.0 Ω at 0 °C and 2.6 Ω in the liquid. Using $R_T = R_0(1 + \\alpha T)$: $2.6 = 2.0(1 + 4.0\\times10^{-3}\\,T)$, so $T = 0.30/(4.0\\times10^{-3}) = 75\\,^\\circ$C.",
+      "optionRationale": { "1": "This divides the change 0.6 Ω by α without dividing by R₀ = 2.0 Ω, which doubles the answer.", "2": "This uses the hot resistance 2.6 Ω instead of the 0 °C value as the reference.", "4": "This is a power-of-ten slip; 0.30/0.004 = 75." },
+      "objective": "Apply the Wheatstone bridge to resistance thermometry"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q19", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about Kirchhoff's rules.\nA. They can be applied only to circuits in which every element obeys Ohm's law.\nB. If a current calculated with them comes out negative, the assumed direction of that current was opposite to the actual direction.\nC. The sign given to the emf of a cell in a loop equation depends on the direction in which the loop is traversed, not on the direction of current through the cell.\nD. For a circuit with two unknown branch currents, two independent loop equations (with the junction rule already used) are sufficient.\nWhich of the statements are correct?",
+      "options": ["A and B only", "A, C and D only", "B and D only", "B, C and D only"],
+      "answer": 4,
+      "explanation": "B is true: a negative result simply means the current flows opposite to the assumed direction. C is true: going from − to + inside a cell is always +ε, whatever the current. D is true: two unknowns need two independent equations. A is false: the rules come from conservation of charge and energy and hold for non-ohmic elements too.",
+      "optionRationale": { "1": "A is false, and the true statements C and D are left out.", "2": "A is false, and the true statement B is left out.", "3": "C is also true and has been left out." },
+      "objective": "Evaluate statements on the use of Kirchhoff's rules"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-q20", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "analytical",
+      "stem": "In a Wheatstone bridge with arms P (AB), Q (BC), R (AD) and S (DC), the cell is connected so that A is at a higher potential than C, and the galvanometer is connected between B and D. If P/Q > R/S, the current through the galvanometer flows",
+      "options": ["from B to D", "from D to B", "nowhere, since no current flows through the galvanometer", "in a direction that depends only on the resistance of the galvanometer"],
+      "answer": 2,
+      "explanation": "Taking C at zero potential, B is at about εQ/(P + Q) and D at about εS/(R + S). If P/Q > R/S, then Q/(P + Q) is smaller than S/(R + S), so B is at a lower potential than D. Current through the galvanometer therefore flows from the higher potential D to the lower potential B.",
+      "optionRationale": { "1": "Current from B to D would require B to be at the higher potential, which happens when P/Q < R/S.", "3": "Zero current occurs only at balance, when P/Q = R/S exactly.", "4": "The galvanometer's resistance affects the size of the current, but the direction is set by which of B and D is at the higher potential." },
+      "objective": "Predict the direction of galvanometer current in an unbalanced bridge"
+    }
+  ]
+}

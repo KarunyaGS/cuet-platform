@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380" font-family="Arial, Helvetica, sans-serif">
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#1f2937">Concave lens: image is virtual, erect and diminished</text>
+  <!-- axis -->
+  <line x1="60" y1="200" x2="680" y2="200" stroke="#1f2937" stroke-width="1.5"/>
+  <!-- lens -->
+  <path d="M384 80 L416 80 Q396 200 416 320 L384 320 Q404 200 384 80 Z" fill="#2563eb" fill-opacity="0.10" stroke="#1f2937" stroke-width="2"/>
+  <!-- points -->
+  <circle cx="280" cy="200" r="3.5" fill="#1f2937"/>
+  <circle cx="400" cy="200" r="3.5" fill="#1f2937"/>
+  <circle cx="520" cy="200" r="3.5" fill="#1f2937"/>
+  <text x="262" y="224" font-size="14" fill="#1f2937">F1</text>
+  <text x="410" y="224" font-size="14" fill="#1f2937">O</text>
+  <text x="512" y="224" font-size="14" fill="#1f2937">F2</text>
+  <!-- object -->
+  <line x1="200" y1="200" x2="200" y2="136" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="200,128 195,140 205,140" fill="#059669"/>
+  <text x="172" y="118" font-size="14" fill="#059669">Object</text>
+  <!-- image -->
+  <line x1="325" y1="200" x2="325" y2="181" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <polygon points="325,173.8 320.5,184.8 329.5,184.8" fill="#dc2626"/>
+  <text x="300" y="252" font-size="14" fill="#dc2626">Image</text>
+  <line x1="325" y1="238" x2="325" y2="204" stroke="#dc2626" stroke-width="1"/>
+  <!-- ray 1: parallel, diverges as if from F1 -->
+  <line x1="200" y1="130" x2="400" y2="130" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="320,130 309,134.5 309,125.5" fill="#2563eb"/>
+  <line x1="400" y1="130" x2="600" y2="13.3" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="520,60 512.8,69.4 508.2,61.6" fill="#2563eb"/>
+  <line x1="400" y1="130" x2="280" y2="200" stroke="#2563eb" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <!-- ray 2: through optical centre -->
+  <line x1="200" y1="130" x2="600" y2="270" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="310,168.5 298.1,169.1 301.1,160.6" fill="#2563eb"/>
+  <polygon points="520,242 508.1,242.6 511.1,234.1" fill="#2563eb"/>
+  <!-- ray 3: aimed at F2, emerges parallel -->
+  <line x1="200" y1="130" x2="400" y2="173.75" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="350,162.8 338.3,164.9 340.2,156.1" fill="#2563eb"/>
+  <line x1="400" y1="173.75" x2="520" y2="200" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="3 4" stroke-opacity="0.7"/>
+  <line x1="400" y1="173.75" x2="640" y2="173.75" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="544,173.8 533,178.3 533,169.3" fill="#2563eb"/>
+  <line x1="400" y1="173.75" x2="325" y2="173.75" stroke="#2563eb" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <!-- notes -->
+  <text x="20" y="350" font-size="14" fill="#1f2937">f = −120 units, u = −200 units: v = −75 units, m = +0.375.</text>
+  <text x="20" y="370" font-size="14" fill="#1f2937">The image lies between F1 and O on the same side as the object.</text>
+</svg>

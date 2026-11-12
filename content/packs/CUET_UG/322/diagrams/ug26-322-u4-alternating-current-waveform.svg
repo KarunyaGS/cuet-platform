@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="Arial, Helvetica, sans-serif" fill="none">
+  <!-- axes -->
+  <line x1="80" y1="190" x2="718" y2="190" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="730,190 718,184 718,196" fill="#1f2937"/>
+  <line x1="80" y1="340" x2="80" y2="42" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="80,30 74,42 86,42" fill="#1f2937"/>
+  <text x="725" y="215" text-anchor="end" font-size="14" fill="#1f2937">time t (s)</text>
+  <text x="36" y="190" text-anchor="middle" font-size="14" fill="#1f2937" transform="rotate(-90 36 190)">current i (A)</text>
+
+  <!-- peak and rms guide lines -->
+  <line x1="80" y1="70" x2="208" y2="70" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="80" y1="310" x2="472" y2="310" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="80" y1="105.2" x2="700" y2="105.2" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="7 5"/>
+  <text x="72" y="75" text-anchor="end" font-size="15" fill="#1f2937">+I<tspan font-size="11" dy="4">0</tspan></text>
+  <text x="72" y="315" text-anchor="end" font-size="15" fill="#1f2937">−I<tspan font-size="11" dy="4">0</tspan></text>
+  <text x="72" y="110" text-anchor="end" font-size="15" fill="#dc2626">I<tspan font-size="11" dy="4">rms</tspan></text>
+  <text x="300" y="97" font-size="14" fill="#dc2626">rms value: I<tspan font-size="10" dy="4">rms</tspan><tspan dy="-4"> = I</tspan><tspan font-size="10" dy="4">0</tspan><tspan dy="-4">/√2 ≈ 0.707 I</tspan><tspan font-size="10" dy="4">0</tspan></text>
+
+  <!-- sinusoid i = I0 sin(wt) -->
+  <polyline stroke="#2563eb" stroke-width="2.5" points="80.0,190.0 88.0,178.4 96.0,166.9 104.0,155.7 112.0,144.7 120.0,134.2 128.0,124.2 136.0,114.9 144.0,106.2 152.0,98.3 160.0,91.2 168.0,85.1 176.0,80.0 184.0,75.9 192.0,72.8 200.0,70.9 208.0,70.0 216.0,70.3 224.0,71.7 232.0,74.2 240.0,77.8 248.0,82.4 256.0,88.1 264.0,94.7 272.0,102.1 280.0,110.4 288.0,119.5 296.0,129.2 304.0,139.4 312.0,150.2 320.0,161.3 328.0,172.7 336.0,184.2 344.0,195.8 352.0,207.3 360.0,218.7 368.0,229.8 376.0,240.6 384.0,250.8 392.0,260.5 400.0,269.6 408.0,277.9 416.0,285.3 424.0,291.9 432.0,297.6 440.0,302.2 448.0,305.8 456.0,308.3 464.0,309.7 472.0,310.0 480.0,309.1 488.0,307.2 496.0,304.1 504.0,300.0 512.0,294.9 520.0,288.8 528.0,281.7 536.0,273.8 544.0,265.1 552.0,255.8 560.0,245.8 568.0,235.3 576.0,224.3 584.0,213.1 592.0,201.6 600.0,190.0 608.0,178.4 616.0,166.9 624.0,155.7 632.0,144.7 640.0,134.2 648.0,124.2 656.0,114.9 664.0,106.2 672.0,98.3 680.0,91.2"/>
+  <text x="250" y="62" font-size="15" fill="#2563eb">i = I<tspan font-size="11" dy="4">0</tspan><tspan dy="-4"> sin ωt</tspan></text>
+
+  <!-- time ticks -->
+  <g stroke="#1f2937" stroke-width="1.5">
+    <line x1="210" y1="185" x2="210" y2="195"/><line x1="340" y1="185" x2="340" y2="195"/><line x1="470" y1="185" x2="470" y2="195"/><line x1="600" y1="185" x2="600" y2="195"/>
+  </g>
+  <text x="210" y="212" text-anchor="middle" font-size="14" fill="#1f2937">T/4</text>
+  <text x="334" y="212" text-anchor="end" font-size="14" fill="#1f2937">T/2</text>
+  <text x="470" y="180" text-anchor="middle" font-size="14" fill="#1f2937">3T/4</text>
+  <text x="594" y="180" text-anchor="end" font-size="14" fill="#1f2937">T</text>
+
+  <!-- period -->
+  <line x1="92" y1="350" x2="588" y2="350" stroke="#059669" stroke-width="1.8"/>
+  <polygon points="80,350 92,344 92,356" fill="#059669"/>
+  <polygon points="600,350 588,344 588,356" fill="#059669"/>
+  <text x="340" y="372" text-anchor="middle" font-size="14" fill="#059669">one period T = 1/ν = 2π/ω</text>
+</svg>

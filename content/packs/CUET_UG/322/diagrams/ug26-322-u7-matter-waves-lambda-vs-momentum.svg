@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 390" font-family="Arial, Helvetica, sans-serif">
+  <!-- panel (a): lambda vs p, x = 80 + 250p, y = 290 - 220*lambda -->
+  <line x1="80" y1="290" x2="342" y2="290" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="352,290 340,284 340,296" fill="#1f2937"/>
+  <line x1="80" y1="290" x2="80" y2="52" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="80,42 74,54 86,54" fill="#1f2937"/>
+  <text x="88" y="46" font-size="15" fill="#1f2937">Wavelength λ (m)</text>
+  <text x="352" y="314" font-size="14" fill="#1f2937" text-anchor="end">Momentum p (kg m s⁻¹)</text>
+  <text x="72" y="306" font-size="14" fill="#1f2937" text-anchor="end">O</text>
+  <polyline fill="none" stroke="#2563eb" stroke-width="2.5" points="117.5,70.0 123.8,101.4 130.0,125.0 136.3,143.3 142.5,158.0 148.8,170.0 155.0,180.0 161.3,188.5 167.5,195.7 173.8,202.0 180.0,207.5 186.3,212.4 192.5,216.7 198.8,220.5 205.0,224.0 211.3,227.1 217.5,230.0 223.8,232.6 230.0,235.0 236.3,237.2 242.5,239.2 248.8,241.1 255.0,242.9 261.3,244.5 267.5,246.0 273.8,247.4 280.0,248.8 286.3,250.0 292.5,251.2 298.8,252.3 305.0,253.3 311.3,254.3 317.5,255.3 323.8,256.2 330.0,257.0"/>
+  <text x="170" y="120" font-size="15" fill="#2563eb">λ = h/p</text>
+  <text x="170" y="140" font-size="13" fill="#1f2937">(rectangular hyperbola:</text>
+  <text x="170" y="157" font-size="13" fill="#1f2937">λ × p = h = constant)</text>
+  <text x="215" y="350" font-size="15" fill="#1f2937" text-anchor="middle">(a) λ against momentum p</text>
+
+  <!-- panel (b): lambda vs 1/p -->
+  <line x1="470" y1="290" x2="732" y2="290" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="742,290 730,284 730,296" fill="#1f2937"/>
+  <line x1="470" y1="290" x2="470" y2="52" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="470,42 464,54 476,54" fill="#1f2937"/>
+  <text x="478" y="46" font-size="15" fill="#1f2937">Wavelength λ (m)</text>
+  <text x="742" y="314" font-size="14" fill="#1f2937" text-anchor="end">1/p (kg⁻¹ m⁻¹ s)</text>
+  <text x="462" y="306" font-size="14" fill="#1f2937" text-anchor="end">O</text>
+  <line x1="470" y1="290" x2="700" y2="80" stroke="#059669" stroke-width="2.5"/>
+  <line x1="560" y1="207.8" x2="640" y2="207.8" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="640" y1="207.8" x2="640" y2="134.8" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="600" y="226" font-size="14" fill="#1f2937" text-anchor="middle">Δ(1/p)</text>
+  <text x="648" y="176" font-size="14" fill="#1f2937">Δλ</text>
+  <text x="645" y="252" font-size="15" fill="#059669" text-anchor="middle">slope = Δλ / Δ(1/p) = h</text>
+  <text x="645" y="272" font-size="13" fill="#1f2937" text-anchor="middle">straight line through the origin</text>
+  <text x="605" y="350" font-size="15" fill="#1f2937" text-anchor="middle">(b) λ against 1/p</text>
+</svg>

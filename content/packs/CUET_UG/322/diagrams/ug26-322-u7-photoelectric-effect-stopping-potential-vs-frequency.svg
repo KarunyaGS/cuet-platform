@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 460" font-family="Arial, Helvetica, sans-serif">
+  <!-- axes: x = 80 + 32*nu(1e14 Hz), y = 290 - 50*V -->
+  <line x1="80" y1="290" x2="612" y2="290" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="622,290 610,284 610,296" fill="#1f2937"/>
+  <line x1="80" y1="420" x2="80" y2="52" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="80,42 74,54 86,54" fill="#1f2937"/>
+  <text x="90" y="46" font-size="15" fill="#1f2937">Stopping potential V₀ (volt)</text>
+  <text x="640" y="340" font-size="15" fill="#1f2937" text-anchor="end">Frequency ν (× 10¹⁴ Hz)</text>
+
+  <!-- ticks -->
+  <g stroke="#1f2937" stroke-width="1.5">
+    <line x1="144" y1="290" x2="144" y2="296"/><line x1="208" y1="290" x2="208" y2="296"/>
+    <line x1="272" y1="290" x2="272" y2="296"/><line x1="336" y1="290" x2="336" y2="296"/>
+    <line x1="400" y1="290" x2="400" y2="296"/><line x1="464" y1="290" x2="464" y2="296"/>
+    <line x1="528" y1="290" x2="528" y2="296"/><line x1="592" y1="290" x2="592" y2="296"/>
+    <line x1="74" y1="390" x2="80" y2="390"/><line x1="74" y1="340" x2="80" y2="340"/>
+    <line x1="74" y1="240" x2="80" y2="240"/><line x1="74" y1="190" x2="80" y2="190"/>
+    <line x1="74" y1="140" x2="80" y2="140"/><line x1="74" y1="90" x2="80" y2="90"/>
+  </g>
+  <g font-size="13" fill="#1f2937" text-anchor="middle">
+    <text x="144" y="312">2</text><text x="208" y="312">4</text><text x="272" y="312">6</text>
+    <text x="336" y="312">8</text><text x="400" y="312">10</text><text x="464" y="312">12</text>
+    <text x="528" y="312">14</text><text x="592" y="312">16</text>
+  </g>
+  <g font-size="13" fill="#1f2937" text-anchor="end">
+    <text x="70" y="394">−2</text><text x="70" y="344">−1</text><text x="70" y="294">0</text>
+    <text x="70" y="244">1</text><text x="70" y="194">2</text><text x="70" y="144">3</text><text x="70" y="94">4</text>
+  </g>
+
+  <!-- metal 1: phi = 2.14 eV, nu0 = 5.16e14 Hz -->
+  <line x1="80" y1="397" x2="245.2" y2="290" stroke="#2563eb" stroke-width="2" stroke-dasharray="7 5"/>
+  <line x1="245.2" y1="290" x2="576" y2="75.8" stroke="#2563eb" stroke-width="2.5"/>
+  <circle cx="80" cy="397" r="4" fill="#2563eb"/>
+  <text x="90" y="420" font-size="13" fill="#2563eb">intercept −φ₀/e = −2.14 V (metal 1)</text>
+  <text x="240" y="282" font-size="15" fill="#2563eb" text-anchor="end">ν₀₁</text>
+
+  <!-- metal 2: phi = 4.28 eV, nu0 = 10.33e14 Hz -->
+  <line x1="410.6" y1="290" x2="576" y2="182.9" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="405" y="282" font-size="15" fill="#dc2626" text-anchor="end">ν₀₂</text>
+
+  <!-- slope triangle on metal 1 -->
+  <line x1="304" y1="252" x2="400" y2="252" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="400" y1="252" x2="400" y2="189.8" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="352" y="270" font-size="14" fill="#1f2937" text-anchor="middle">Δν</text>
+  <text x="406" y="228" font-size="14" fill="#1f2937">ΔV₀</text>
+
+  <!-- legend -->
+  <line x1="100" y1="76" x2="132" y2="76" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="140" y="81" font-size="14" fill="#1f2937">Metal 1: φ₀ = 2.14 eV, ν₀₁ ≈ 5.2 × 10¹⁴ Hz</text>
+  <line x1="100" y1="100" x2="132" y2="100" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="140" y="105" font-size="14" fill="#1f2937">Metal 2: φ₀ = 4.28 eV, ν₀₂ ≈ 10.3 × 10¹⁴ Hz</text>
+  <text x="100" y="128" font-size="13" fill="#1f2937">V₀ = (h/e)ν − φ₀/e ; no emission for ν &lt; ν₀</text>
+  <text x="100" y="148" font-size="13" fill="#1f2937">slope ΔV₀/Δν = h/e ≈ 4.14 × 10⁻¹⁵ V s, same for all metals</text>
+</svg>

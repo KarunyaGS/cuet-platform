@@ -1,0 +1,543 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_d5755ecc30d8489a8b616bd79029b434",
+    "title": "Composition and size of nucleus, atomic number , atomic mass number, isotopes, isobars"
+  },
+  "lesson": {
+    "key": "ug26-322-u8-nuclei",
+    "title": "Nuclei: composition, size, nuclear force, mass defect, binding energy, fission and fusion",
+    "coverage": [
+      { "phrase": "Composition of nucleus", "section": "Composition of the nucleus" },
+      { "phrase": "Atomic number, atomic mass number", "section": "Atomic number, mass number and the atomic mass unit" },
+      { "phrase": "Isotopes, isobars and isotones", "section": "Isotopes, isobars and isotones" },
+      { "phrase": "Size of nucleus", "section": "Size of the nucleus and nuclear density" },
+      { "phrase": "Nuclear force", "section": "Nuclear force" },
+      { "phrase": "Mass-energy relation", "section": "Mass-energy relation" },
+      { "phrase": "Mass defect", "section": "Mass defect and binding energy" },
+      { "phrase": "Binding energy per nucleon and its variation with mass number", "section": "Binding energy per nucleon and its variation with mass number" },
+      { "phrase": "Nuclear fission", "section": "Nuclear fission" },
+      { "phrase": "Nuclear fusion", "section": "Nuclear fusion" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Composition of the nucleus" },
+      { "type": "TEXT", "text": "Rutherford's scattering experiment showed that an atom has a tiny central nucleus that carries all its positive charge and more than 99.9% of its mass. The next question was: what is the nucleus made of?\n\n- **Protons.** The nucleus of the hydrogen atom is a single positively charged particle, the proton. Every nucleus contains protons, and the number of protons fixes the nuclear charge.\n- **Neutrons.** The masses of nuclei are roughly twice (or more than twice) what their protons alone could account for, so something neutral and heavy must also be present. In 1932 James Chadwick bombarded beryllium with α-particles and found a very penetrating, uncharged radiation that could knock protons out of paraffin wax. By applying conservation of energy and momentum to these collisions he showed that the radiation consisted of neutral particles with almost the same mass as a proton: the **neutron**.\n\nSo every nucleus is made of protons and neutrons, which are together called **nucleons**. The only exception is the ordinary hydrogen nucleus, which is a single proton with no neutron. A free neutron outside a nucleus is unstable: it decays into a proton, an electron and an antineutrino with a mean life of about 15 minutes. Inside a stable nucleus, however, neutrons are stable." },
+      { "type": "DEFINITION", "term": "Nucleon", "text": "Common name for the two particles that make up a nucleus, the proton and the neutron. The total number of nucleons in a nucleus is its mass number $A$." },
+      { "type": "TABLE", "caption": "Properties of the particles in an atom", "columns": ["Particle", "Charge", "Mass (u)", "Mass (kg)", "Rest-mass energy"], "rows": [
+        ["Proton (p)", "$+e = +1.602\\times10^{-19}$ C", "1.007276", "$1.6726\\times10^{-27}$", "938.3 MeV"],
+        ["Neutron (n)", "0", "1.008665", "$1.6749\\times10^{-27}$", "939.6 MeV"],
+        ["Electron (e)", "$-e$", "0.000549", "$9.109\\times10^{-31}$", "0.511 MeV"],
+        ["Hydrogen atom (¹H)", "0", "1.007825", "$1.6735\\times10^{-27}$", "938.8 MeV"]
+      ] },
+      { "type": "CALLOUT", "text": "**Note:** the neutron is slightly **heavier** than the proton (by about 0.0014 u, or 1.3 MeV). Both are about 1840 times heavier than the electron, which is why the nucleus holds almost all the mass of an atom." },
+
+      { "type": "HEADING", "text": "Atomic number, mass number and the atomic mass unit" },
+      { "type": "DEFINITION", "term": "Atomic number (Z)", "text": "The number of protons in the nucleus. It equals the number of electrons in the neutral atom, fixes the nuclear charge $+Ze$ and decides which element the atom is (and hence its chemistry)." },
+      { "type": "DEFINITION", "term": "Mass number (A)", "text": "The total number of nucleons (protons plus neutrons) in the nucleus. It is a whole number and is close to, but not exactly equal to, the mass of the atom expressed in atomic mass units." },
+      { "type": "DEFINITION", "term": "Neutron number (N)", "text": "The number of neutrons in the nucleus, $N = A - Z$." },
+      { "type": "FORMULA", "latex": "A = Z + N, \\qquad \\text{nuclide symbol: } {}^{A}_{Z}\\text{X}", "text": "$A$ = mass number, $Z$ = atomic number, $N$ = neutron number; X is the chemical symbol. Example: ${}^{197}_{79}\\text{Au}$ has $Z = 79$ protons and $N = 197 - 79 = 118$ neutrons; the neutral atom has 79 electrons." },
+      { "type": "DEFINITION", "term": "Atomic mass unit (u)", "text": "One-twelfth of the mass of one neutral atom of carbon-12: $1\\,\\text{u} = 1.660539\\times10^{-27}\\,\\text{kg}$. Atomic and nuclear masses are conveniently expressed in this unit." },
+      { "type": "FORMULA", "latex": "1\\,\\text{u} = \\frac{\\text{mass of one } {}^{12}\\text{C atom}}{12} = 1.660539\\times10^{-27}\\,\\text{kg}", "text": "Definition of the unified atomic mass unit. On this scale the carbon-12 atom has a mass of exactly 12 u." },
+      { "type": "TEXT", "text": "When atomic masses are measured accurately (with a mass spectrometer), the mass of each individual nuclide turns out to be very close to its mass number: hydrogen-1 is 1.007825 u, helium-4 is 4.002603 u, oxygen-16 is 15.994915 u. They are *close to* but *not exactly* whole numbers. That small departure is the key to nuclear energy and is studied below under mass defect.\n\nThe atomic mass listed for an element in the periodic table is different: it is the average over the natural mixture of its isotopes. That is why it can be far from a whole number, as the next example shows." },
+      { "type": "SOLVED_PROBLEM", "problem": "Natural chlorine is a mixture of 75.8% chlorine-35 (atomic mass 34.969 u) and 24.2% chlorine-37 (atomic mass 36.966 u). Find the average atomic mass of chlorine.", "solution": "The average atomic mass is the weighted mean of the isotopic masses, each multiplied by its fractional abundance:\n\n$$\\bar{m} = (0.758)(34.969\\,\\text{u}) + (0.242)(36.966\\,\\text{u})$$\n\n$$\\bar{m} = 26.507\\,\\text{u} + 8.946\\,\\text{u} = 35.453\\,\\text{u}$$\n\nThe answer lies much closer to 35 than to 37 because chlorine-35 is about three times as abundant. This explains why the periodic-table value for chlorine (35.45 u) is not near a whole number, although each individual isotope has a mass close to its mass number.", "answer": "About 35.45 u." },
+      { "type": "EXAMPLE", "text": "The sodium ion ${}^{23}_{11}\\text{Na}^{+}$ contains 11 protons and $23 - 11 = 12$ neutrons in its nucleus, and $11 - 1 = 10$ electrons outside it. Forming an ion changes only the number of electrons; the nucleus, and therefore $Z$ and $A$, are unchanged." },
+
+      { "type": "HEADING", "text": "Isotopes, isobars and isotones" },
+      { "type": "DEFINITION", "term": "Isotopes", "text": "Nuclides of the same element, having the same atomic number $Z$ but different neutron numbers $N$ and hence different mass numbers $A$. Example: ${}^{1}_{1}\\text{H}$, ${}^{2}_{1}\\text{H}$ (deuterium) and ${}^{3}_{1}\\text{H}$ (tritium)." },
+      { "type": "DEFINITION", "term": "Isobars", "text": "Nuclides of different elements having the same mass number $A$ but different atomic numbers $Z$. Example: ${}^{3}_{1}\\text{H}$ and ${}^{3}_{2}\\text{He}$." },
+      { "type": "DEFINITION", "term": "Isotones", "text": "Nuclides having the same neutron number $N = A - Z$ but different $Z$ (and different $A$). Example: ${}^{2}_{1}\\text{H}$ and ${}^{3}_{2}\\text{He}$, both with $N = 1$." },
+      { "type": "TABLE", "caption": "Isotopes, isobars and isotones compared", "columns": ["Type", "Same", "Different", "Examples"], "rows": [
+        ["Isotopes", "Z (same element)", "N and A", "${}^{1}_{1}\\text{H}$, ${}^{2}_{1}\\text{H}$, ${}^{3}_{1}\\text{H}$; ${}^{35}_{17}\\text{Cl}$, ${}^{37}_{17}\\text{Cl}$; ${}^{235}_{92}\\text{U}$, ${}^{238}_{92}\\text{U}$; ${}^{12}_{6}\\text{C}$, ${}^{14}_{6}\\text{C}$"],
+        ["Isobars", "A", "Z and N", "${}^{3}_{1}\\text{H}$, ${}^{3}_{2}\\text{He}$; ${}^{14}_{6}\\text{C}$, ${}^{14}_{7}\\text{N}$; ${}^{40}_{18}\\text{Ar}$, ${}^{40}_{19}\\text{K}$, ${}^{40}_{20}\\text{Ca}$"],
+        ["Isotones", "N = A − Z", "Z and A", "${}^{2}_{1}\\text{H}$, ${}^{3}_{2}\\text{He}$ (N = 1); ${}^{14}_{6}\\text{C}$, ${}^{15}_{7}\\text{N}$, ${}^{16}_{8}\\text{O}$ (N = 8); ${}^{37}_{17}\\text{Cl}$, ${}^{39}_{19}\\text{K}$, ${}^{40}_{20}\\text{Ca}$ (N = 20)"]
+      ] },
+      { "type": "TEXT", "text": "**Why these groupings matter.**\n\n- Isotopes have the same number of electrons, so their **chemical properties are practically identical**; they cannot be separated by chemical methods. Their masses and nuclear properties (for example, stability) differ: carbon-12 is stable while carbon-14 is radioactive, and only uranium-235 (not uranium-238) undergoes fission easily with slow neutrons.\n- Isobars belong to different elements, so their chemistry is completely different even though their masses are nearly equal.\n- Isotones show how nuclear properties depend on the number of neutrons when the number of protons changes." },
+      { "type": "SOLVED_PROBLEM", "problem": "Classify each pair as isotopes, isobars, isotones or none of these: (a) ${}^{16}_{8}\\text{O}$ and ${}^{17}_{8}\\text{O}$; (b) ${}^{23}_{11}\\text{Na}$ and ${}^{23}_{12}\\text{Mg}$; (c) ${}^{30}_{14}\\text{Si}$ and ${}^{31}_{15}\\text{P}$; (d) ${}^{16}_{8}\\text{O}$ and ${}^{19}_{9}\\text{F}$.", "solution": "For each nuclide find Z, A and N = A − Z, then compare.\n\n(a) Both have Z = 8; A = 16 and 17 differ. Same element, different mass number: **isotopes**.\n\n(b) Both have A = 23; Z = 11 and 12 differ. Different elements, same mass number: **isobars**. (Their neutron numbers are 12 and 11.)\n\n(c) Si: N = 30 − 14 = 16; P: N = 31 − 15 = 16. Same neutron number, different Z and A: **isotones**.\n\n(d) O: Z = 8, A = 16, N = 8. F: Z = 9, A = 19, N = 10. Z, A and N are all different: **none of these**.", "answer": "(a) isotopes; (b) isobars; (c) isotones; (d) none of these." },
+      { "type": "CALLOUT", "text": "**Memory trick:** isoto**p**es have the same number of **p**rotons; isob**a**rs have the same **A**; isoto**n**es have the same number of **n**eutrons. In any question, first write $Z$, $A$ and $N = A - Z$ for each nuclide, then compare." },
+
+      { "type": "HEADING", "text": "Size of the nucleus and nuclear density" },
+      { "type": "TEXT", "text": "Rutherford's experiment gave only an **upper limit** on the size of the nucleus. A 5 MeV α-particle turns back at about 45 fm from a gold nucleus without touching it, so the gold nucleus must be smaller than about $4.5\\times10^{-14}\\,\\text{m}$. To find the actual size, physicists needed projectiles that could get much closer. Later experiments used very fast electrons (with energies of hundreds of MeV) scattered by nuclei. These, and other methods, showed that the radius of a nucleus depends on its mass number in a simple way." },
+      { "type": "DEFINITION", "term": "Femtometre (fermi)", "text": "The unit of length used for nuclear sizes: $1\\,\\text{fm} = 10^{-15}\\,\\text{m}$. Nuclear radii range from about 1 fm to about 7.5 fm." },
+      { "type": "FORMULA", "latex": "R = R_0\\,A^{1/3}, \\qquad R_0 \\approx 1.2\\times10^{-15}\\,\\text{m} = 1.2\\,\\text{fm}", "text": "$R$ = radius of a nucleus of mass number $A$; $R_0$ = an empirical constant obtained from scattering experiments (same for all nuclei). Examples: aluminium-27, $R = 1.2 \\times 3 = 3.6$ fm; tellurium-125, $R = 1.2 \\times 5 = 6.0$ fm; uranium-238, $R = 1.2 \\times 238^{1/3} \\approx 7.4$ fm." },
+      { "type": "TEXT", "text": "**Why $A^{1/3}$? (Derivation of the dependence.)** Experiments show that nucleons are packed inside every nucleus at the same density, a bit like molecules in a drop of an incompressible liquid. Each nucleon therefore takes up roughly the same volume $v$, so the volume of the nucleus is proportional to the number of nucleons:\n\n$$V = \\frac{4}{3}\\pi R^3 = A\\,v \\quad\\Rightarrow\\quad R^3 \\propto A \\quad\\Rightarrow\\quad R \\propto A^{1/3}$$\n\nWriting the constant of proportionality as $R_0$ gives $R = R_0 A^{1/3}$. Note the consequence: a nucleus with 8 times as many nucleons is only twice as large in radius, and one with 27 times as many is three times as large." },
+      { "type": "TEXT", "text": "**Nuclear density.** The mass of a nucleus is very nearly $A\\,m$, where $m \\approx 1.67\\times10^{-27}$ kg is the mass of a nucleon (we may ignore the small mass defect). Its volume is $\\frac{4}{3}\\pi R^3 = \\frac{4}{3}\\pi R_0^3 A$. So\n\n$$\\rho = \\frac{A\\,m}{\\frac{4}{3}\\pi R_0^3 A} = \\frac{3m}{4\\pi R_0^3}$$\n\nThe mass number $A$ cancels: **every nucleus, light or heavy, has the same density.**" },
+      { "type": "FORMULA", "latex": "\\rho_{\\text{nucleus}} = \\frac{3m}{4\\pi R_0^3} \\approx \\frac{1.67\\times10^{-27}\\,\\text{kg}}{\\frac{4}{3}\\pi\\,(1.2\\times10^{-15}\\,\\text{m})^3} \\approx 2.3\\times10^{17}\\,\\text{kg m}^{-3}", "text": "$\\rho$ = density of nuclear matter; $m$ = mass of a nucleon; $R_0$ = 1.2 fm. The result is independent of $A$." },
+      { "type": "IMPORTANT_FACT", "text": "Nuclear matter is about $2.3\\times10^{14}$ times denser than water ($10^3$ kg m⁻³). A teaspoon (5 cm³) of nuclear matter would have a mass of about $10^{12}$ kg, roughly a billion tonnes. Neutron stars are made of matter of about this density." },
+      { "type": "SOLVED_PROBLEM", "problem": "Compare the radii of the nuclei of aluminium-27 and tellurium-125, and find each radius. Take $R_0 = 1.2$ fm.", "solution": "Using $R = R_0 A^{1/3}$, the ratio of the radii depends only on the ratio of the mass numbers:\n\n$$\\frac{R_{\\text{Te}}}{R_{\\text{Al}}} = \\left(\\frac{125}{27}\\right)^{1/3} = \\frac{5}{3}$$\n\nbecause $125 = 5^3$ and $27 = 3^3$. Now the actual radii:\n\nAluminium: $R = 1.2\\,\\text{fm} \\times 27^{1/3} = 1.2 \\times 3 = 3.6$ fm.\n\nTellurium: $R = 1.2\\,\\text{fm} \\times 125^{1/3} = 1.2 \\times 5 = 6.0$ fm.\n\nCheck: $6.0/3.6 = 5/3$. Although tellurium has more than four times as many nucleons, its radius is less than twice as large, because volume (not radius) grows in proportion to A.", "answer": "Ratio $R_{\\text{Te}} : R_{\\text{Al}} = 5 : 3$; $R_{\\text{Al}} = 3.6$ fm, $R_{\\text{Te}} = 6.0$ fm." },
+      { "type": "SOLVED_PROBLEM", "problem": "Calculate the density of the nucleus of iron-56 and show that it is the same as that of a helium-4 nucleus. Take the nucleon mass as $1.67\\times10^{-27}$ kg and $R_0 = 1.2$ fm.", "solution": "Iron-56: radius $R = 1.2 \\times 56^{1/3} = 1.2 \\times 3.826 = 4.59$ fm $= 4.59\\times10^{-15}$ m.\n\nVolume $V = \\frac{4}{3}\\pi R^3 = \\frac{4}{3}\\pi (4.59\\times10^{-15})^3 = 4.05\\times10^{-43}\\,\\text{m}^3$.\n\nMass $M \\approx 56 \\times 1.67\\times10^{-27} = 9.35\\times10^{-26}$ kg.\n\nDensity $\\rho = M/V = \\frac{9.35\\times10^{-26}}{4.05\\times10^{-43}} \\approx 2.3\\times10^{17}$ kg m⁻³.\n\nFor helium-4 both the mass and the volume are smaller by the same factor 56/4 = 14, because the volume is proportional to A. So the density is again about $2.3\\times10^{17}$ kg m⁻³: nuclear density does not depend on the mass number.", "answer": "About $2.3\\times10^{17}$ kg m⁻³ for both nuclei." },
+
+      { "type": "HEADING", "text": "Nuclear force" },
+      { "type": "TEXT", "text": "A nucleus packs several positively charged protons into a region a few femtometres across. At such small distances the electrostatic repulsion is enormous: two protons 1 fm apart repel each other with a force of about 230 N, which is huge for particles of mass $1.67\\times10^{-27}$ kg. Their gravitational attraction is about $10^{36}$ times weaker than this repulsion and cannot possibly hold them together. So there must be a third, very strong attractive force acting between nucleons. It is called the **nuclear force** (or strong nuclear force)." },
+      { "type": "CONCEPT", "text": "The nuclear force is a strong, short-range force that acts between all nucleons (p–p, n–n and n–p) and binds them into a nucleus despite the Coulomb repulsion between protons." },
+      { "type": "TEXT", "text": "**Properties of the nuclear force**\n\n1. **Very strong.** Within its range it is the strongest of the known forces, far stronger than the Coulomb repulsion between protons at separations of about 1 fm.\n2. **Short range.** It is appreciable only up to a few femtometres and falls to practically zero beyond about 2 to 3 fm. A nucleon therefore interacts only with its immediate neighbours, not with every other nucleon in a large nucleus. This is called **saturation** of the nuclear force.\n3. **Attractive, but repulsive at very short distances.** For separations greater than about 0.8 fm the force is attractive; when two nucleons are pushed closer than about 0.8 fm it becomes strongly repulsive. This repulsive core keeps nucleons from crowding together and is why nuclear density is the same for all nuclei.\n4. **Charge independent.** The nuclear force between two neutrons, two protons, or a neutron and a proton is very nearly the same. It does not depend on electric charge.\n5. **No simple formula.** Unlike gravity and the Coulomb force, it does not follow an inverse-square law; it is not a simple central force, and it also depends on the spins of the nucleons." },
+      { "type": "DIAGRAM", "diagram": "nuclear-potential" },
+      { "type": "TEXT", "text": "**Reading the potential-energy curve.** The graph shows (schematically) the potential energy $U$ of a pair of nucleons as a function of the distance $r$ between their centres. The force is related to the slope by $F = -dU/dr$.\n\n- At $r_0 \\approx 0.8$ fm, $U$ is a minimum, so the slope and the force are zero. This is the equilibrium separation.\n- For $r > r_0$, $U$ increases (towards zero) as $r$ increases. The slope is positive, so $F$ is negative, pointing towards smaller $r$: **attraction**.\n- For $r < r_0$, $U$ rises very steeply as $r$ decreases. The slope is negative, so $F$ is positive, pushing the nucleons apart: strong **repulsion**.\n- Beyond about 2 to 3 fm the curve is almost flat at zero: the force has practically vanished (short range)." },
+      { "type": "FORMULA", "latex": "F = -\\frac{dU}{dr}", "text": "$F$ = force between the two nucleons along the line joining them (positive = repulsive, negative = attractive); $U(r)$ = potential energy of the pair; $r$ = separation. The force is zero where $U$ is a minimum." },
+      { "type": "TABLE", "caption": "Comparison of gravitational, Coulomb and nuclear forces", "columns": ["Property", "Gravitational", "Electrostatic (Coulomb)", "Nuclear"], "rows": [
+        ["Acts between", "All masses", "Charged particles", "Nucleons (p–p, n–n, n–p)"],
+        ["Range", "Infinite (inverse square)", "Infinite (inverse square)", "Short, a few fm"],
+        ["Nature", "Always attractive", "Attractive or repulsive", "Attractive beyond about 0.8 fm, repulsive closer"],
+        ["Relative strength", "Weakest", "Intermediate", "Strongest (within its range)"],
+        ["Depends on charge?", "No", "Yes", "No (charge independent)"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "Two protons in a nucleus are 2.0 fm apart. (a) Find the electrostatic force between them. (b) How many times larger is it than their gravitational attraction? Take $\\frac{1}{4\\pi\\varepsilon_0} = 9\\times10^9$ N m² C⁻², $e = 1.6\\times10^{-19}$ C, $G = 6.67\\times10^{-11}$ N m² kg⁻² and proton mass $1.67\\times10^{-27}$ kg.", "solution": "(a) Coulomb's law with $r = 2.0\\times10^{-15}$ m:\n\n$$F_e = \\frac{1}{4\\pi\\varepsilon_0}\\frac{e^2}{r^2} = \\frac{(9\\times10^{9})(1.6\\times10^{-19})^2}{(2.0\\times10^{-15})^2} = \\frac{2.30\\times10^{-28}}{4.0\\times10^{-30}}\\,\\text{N} \\approx 57.6\\,\\text{N}$$\n\n(b) The ratio of the two forces does not depend on $r$, because both follow the inverse-square law:\n\n$$\\frac{F_e}{F_g} = \\frac{e^2/(4\\pi\\varepsilon_0)}{G m_p^2} = \\frac{(9\\times10^{9})(1.6\\times10^{-19})^2}{(6.67\\times10^{-11})(1.67\\times10^{-27})^2} \\approx 1.2\\times10^{36}$$\n\nSo gravity is utterly negligible, and the protons are held together only because the attractive nuclear force at this distance is stronger still.", "answer": "(a) About 58 N (repulsive); (b) about $10^{36}$ times the gravitational force." },
+      { "type": "KEY_POINT", "text": "- The nuclear force is the strongest force, short-ranged (a few fm) and charge independent.\n- Attractive for $r > 0.8$ fm, strongly repulsive for $r < 0.8$ fm; zero force at the minimum of $U$.\n- Short range leads to saturation: each nucleon binds only to its neighbours." },
+
+      { "type": "HEADING", "text": "Mass-energy relation" },
+      { "type": "TEXT", "text": "In 1905 Einstein showed, as a consequence of his special theory of relativity, that mass is a form of energy. A mass $m$ is equivalent to an energy $mc^2$, and whenever a system gives out energy $E$ its mass decreases by $E/c^2$. Because $c^2$ is enormous ($9\\times10^{16}$ m² s⁻²), a tiny change in mass corresponds to a huge amount of energy.\n\nIn chemical reactions the energy released is so small that the change in mass (about one part in $10^{10}$) cannot be detected, so mass appears to be conserved. In nuclear reactions the energies are about a million times larger per atom and the change in mass is easily measured. The correct conservation law is the **conservation of mass-energy**: the total of (rest-mass energy + other forms of energy) is conserved; mass alone is not." },
+      { "type": "FORMULA", "latex": "E = mc^2", "text": "$E$ = energy equivalent (J) of mass $m$ (kg); $c = 3\\times10^{8}$ m s⁻¹ is the speed of light in vacuum. 1 kg of mass is equivalent to $9\\times10^{16}$ J." },
+      { "type": "FORMULA", "latex": "1\\,\\text{u} \\times c^2 = (1.6605\\times10^{-27}\\,\\text{kg})(2.998\\times10^{8}\\,\\text{m s}^{-1})^2 = 1.4924\\times10^{-10}\\,\\text{J} = 931.5\\,\\text{MeV}", "text": "Energy equivalent of one atomic mass unit, using $1\\,\\text{MeV} = 1.602\\times10^{-13}$ J. So a mass expressed in u is converted to energy in MeV by multiplying by 931.5; we often write $1\\,\\text{u} = 931.5\\,\\text{MeV}/c^2$." },
+      { "type": "SOLVED_PROBLEM", "problem": "(a) Find the energy equivalent of 1 g of matter. (b) Find the rest-mass energy of an electron (mass 0.000549 u) in MeV.", "solution": "(a) Use $E = mc^2$ with $m = 1\\,\\text{g} = 1\\times10^{-3}$ kg:\n\n$$E = (1\\times10^{-3})(3\\times10^{8})^2\\,\\text{J} = 9\\times10^{13}\\,\\text{J}$$\n\nIn electrical units ($1\\,\\text{kWh} = 3.6\\times10^{6}$ J) this is $9\\times10^{13}/3.6\\times10^{6} = 2.5\\times10^{7}$ kWh, enough to supply about 25 million units of electricity.\n\n(b) Convert using 1 u = 931.5 MeV:\n\n$$E = 0.000549 \\times 931.5\\,\\text{MeV} = 0.511\\,\\text{MeV}$$\n\nThis 0.511 MeV is the familiar rest energy of the electron.", "answer": "(a) $9\\times10^{13}$ J (about $2.5\\times10^{7}$ kWh); (b) 0.511 MeV." },
+
+      { "type": "HEADING", "text": "Mass defect and binding energy" },
+      { "type": "TEXT", "text": "Accurate measurements show a striking fact: **the mass of every stable nucleus is less than the total mass of the protons and neutrons that make it up.** For oxygen-16, for example, 8 free protons and 8 free neutrons have a total mass of 16.127528 u, but the oxygen-16 nucleus has a mass of only 15.990523 u. The missing 0.137005 u has not vanished: it is the mass equivalent of the energy released when the nucleons came together and bound themselves into a nucleus. To pull the nucleus apart again, the same energy must be supplied." },
+      { "type": "DEFINITION", "term": "Mass defect (ΔM)", "text": "The difference between the total mass of the separated nucleons of a nucleus and the actual mass of the nucleus. It is always positive for a bound nucleus. Unit: kg, or more conveniently u." },
+      { "type": "FORMULA", "latex": "\\Delta M = \\left[Z\\,m_p + (A - Z)\\,m_n\\right] - M_{\\text{nucleus}}", "text": "$Z$ = number of protons, $A - Z$ = number of neutrons; $m_p = 1.007276$ u, $m_n = 1.008665$ u; $M_{\\text{nucleus}}$ = measured mass of the nucleus." },
+      { "type": "FORMULA", "latex": "\\Delta M = \\left[Z\\,m_{\\text{H}} + (A - Z)\\,m_n\\right] - M_{\\text{atom}}", "text": "The same mass defect computed from **atomic** masses (as tables usually give): $m_{\\text{H}} = 1.007825$ u is the mass of a hydrogen atom and $M_{\\text{atom}}$ the mass of the neutral atom. The $Z$ electron masses appear on both sides and cancel (the tiny electron binding energies are neglected)." },
+      { "type": "DEFINITION", "term": "Binding energy ($E_b$)", "text": "The minimum energy needed to separate a nucleus completely into its individual protons and neutrons; equivalently, the energy released when the nucleus is formed from them. It equals the mass defect multiplied by $c^2$. Unit: J, usually expressed in MeV." },
+      { "type": "FORMULA", "latex": "E_b = \\Delta M\\,c^2 = \\Delta M\\,(\\text{in u}) \\times 931.5\\,\\text{MeV}", "text": "$E_b$ = binding energy of the nucleus; $\\Delta M$ = mass defect. For oxygen-16: $E_b = 0.137005 \\times 931.5 = 127.6$ MeV." },
+      { "type": "SOLVED_PROBLEM", "problem": "Find the mass defect, binding energy and binding energy per nucleon of helium-4. Atomic mass of ${}^{4}_{2}\\text{He}$ = 4.002603 u, $m_{\\text{H}}$ = 1.007825 u, $m_n$ = 1.008665 u, 1 u = 931.5 MeV/c².", "solution": "Helium-4 has $Z = 2$ protons and $N = 4 - 2 = 2$ neutrons.\n\nMass of the separated constituents (using hydrogen-atom masses so that the electrons cancel):\n\n$$2m_{\\text{H}} + 2m_n = 2(1.007825) + 2(1.008665) = 2.015650 + 2.017330 = 4.032980\\,\\text{u}$$\n\nMass defect: $\\Delta M = 4.032980 - 4.002603 = 0.030377$ u.\n\nBinding energy: $E_b = 0.030377 \\times 931.5 \\approx 28.3$ MeV.\n\nBinding energy per nucleon: $28.3/4 \\approx 7.07$ MeV.\n\nSo about 28.3 MeV of energy would be needed to break a helium-4 nucleus into two protons and two neutrons.", "answer": "$\\Delta M = 0.030377$ u, $E_b \\approx 28.3$ MeV, $E_b/A \\approx 7.07$ MeV per nucleon." },
+      { "type": "SOLVED_PROBLEM", "problem": "Calculate the binding energy and binding energy per nucleon of iron-56. Atomic mass of ${}^{56}_{26}\\text{Fe}$ = 55.934939 u; $m_{\\text{H}}$ = 1.007825 u; $m_n$ = 1.008665 u.", "solution": "Iron-56 has $Z = 26$ protons and $N = 56 - 26 = 30$ neutrons.\n\nMass of the 26 hydrogen atoms: $26 \\times 1.007825 = 26.203450$ u.\n\nMass of the 30 neutrons: $30 \\times 1.008665 = 30.259950$ u.\n\nTotal mass of the constituents: $56.463400$ u.\n\nMass defect: $\\Delta M = 56.463400 - 55.934939 = 0.528461$ u.\n\nBinding energy: $E_b = 0.528461 \\times 931.5 \\approx 492.3$ MeV.\n\nBinding energy per nucleon: $492.3/56 \\approx 8.79$ MeV. This is one of the highest values for any nucleus, which is why iron-56 lies close to the peak of the binding-energy curve.", "answer": "$E_b \\approx 492$ MeV; $E_b/A \\approx 8.79$ MeV per nucleon." },
+      { "type": "CALLOUT", "text": "**Common mistakes:** (1) Mixing atomic and nuclear masses: if the atomic mass of the nuclide is given, use $m_{\\text{H}}$ = 1.007825 u, not $m_p$. (2) Forgetting to multiply by 931.5 to get MeV. (3) Thinking that a nucleus with a larger **total** binding energy is more stable. Stability is judged by binding energy **per nucleon**: uranium-238 has a total of about 1802 MeV but only 7.57 MeV per nucleon, less than iron-56." },
+
+      { "type": "HEADING", "text": "Binding energy per nucleon and its variation with mass number" },
+      { "type": "DEFINITION", "term": "Binding energy per nucleon ($E_{bn}$)", "text": "The binding energy of a nucleus divided by its mass number, $E_{bn} = E_b/A$. It is the average energy needed to remove one nucleon from the nucleus and is a measure of how tightly the nucleus is bound: the larger it is, the more stable the nucleus." },
+      { "type": "FORMULA", "latex": "E_{bn} = \\frac{E_b}{A} = \\frac{\\Delta M\\,c^2}{A}", "text": "$E_{bn}$ = binding energy per nucleon (MeV per nucleon); $E_b$ = total binding energy; $A$ = mass number." },
+      { "type": "TABLE", "caption": "Binding energies of some nuclides (from measured masses)", "columns": ["Nuclide", "Total binding energy (MeV)", "Binding energy per nucleon (MeV)"], "rows": [
+        ["${}^{2}_{1}\\text{H}$ (deuteron)", "2.22", "1.11"],
+        ["${}^{4}_{2}\\text{He}$", "28.3", "7.07"],
+        ["${}^{7}_{3}\\text{Li}$", "39.2", "5.61"],
+        ["${}^{12}_{6}\\text{C}$", "92.2", "7.68"],
+        ["${}^{16}_{8}\\text{O}$", "127.6", "7.98"],
+        ["${}^{56}_{26}\\text{Fe}$", "492.3", "8.79"],
+        ["${}^{120}_{50}\\text{Sn}$", "1020.5", "8.50"],
+        ["${}^{238}_{92}\\text{U}$", "1801.7", "7.57"]
+      ] },
+      { "type": "DIAGRAM", "diagram": "binding-energy-curve" },
+      { "type": "TEXT", "text": "**Main features of the binding-energy curve**\n\n1. **Light nuclei (A below about 30):** $E_{bn}$ is small and rises steeply with $A$, from 1.1 MeV for the deuteron. The curve is jagged: helium-4 (7.07 MeV), carbon-12 (7.68 MeV) and oxygen-16 (7.98 MeV) stand out as especially tightly bound compared with their neighbours.\n2. **Middle nuclei (30 < A < 170):** $E_{bn}$ is nearly constant, about 8 MeV, varying only between roughly 8.0 and 8.8 MeV.\n3. **Maximum:** about 8.8 MeV near $A = 56$ to $62$ (iron-56, nickel-62). These are the most tightly bound nuclei.\n4. **Heavy nuclei (A above about 170):** $E_{bn}$ decreases slowly, to about 7.6 MeV for uranium." },
+      { "type": "TEXT", "text": "**Explaining the shape**\n\n- **Why nearly constant? (saturation)** Because the nuclear force has a short range, each nucleon interacts only with the few nucleons next to it. Adding more nucleons to a large nucleus does not increase the binding of each one, so the total binding energy grows in proportion to $A$ and $E_{bn}$ stays about the same. If every nucleon attracted every other nucleon, the total binding energy would grow roughly as $A^2$ and $E_{bn}$ would keep increasing with $A$, which is not observed.\n- **Why low for light nuclei?** In a small nucleus a large fraction of the nucleons sit at the surface and have fewer neighbours to bind to, so the average binding per nucleon is smaller.\n- **Why does it fall for heavy nuclei?** The Coulomb repulsion acts between **every** pair of protons (it is long-ranged), so its total effect grows roughly as $Z^2$, while the nuclear attraction on each nucleon is limited to its neighbours. In heavy nuclei the growing repulsion reduces the binding energy per nucleon." },
+      { "type": "TEXT", "text": "**Consequences for nuclear energy.** Energy is released whenever nucleons rearrange themselves into nuclei with a **higher** binding energy per nucleon, because the increase in total binding energy is given out. On the curve this means moving towards the peak at $A \\approx 56$:\n\n- **Fission:** a heavy nucleus (about 7.6 MeV per nucleon) splits into two middle-mass nuclei (about 8.5 MeV per nucleon). Energy released ≈ $0.9\\,\\text{MeV} \\times A$.\n- **Fusion:** two very light nuclei join into a heavier one with much larger binding energy per nucleon, for example deuterium (1.1 MeV) fusing towards helium-4 (7.07 MeV).\n\nIn both cases the products are more tightly bound, their total mass is less than that of the reactants, and the difference appears as energy (the Q-value)." },
+      { "type": "FORMULA", "latex": "Q = \\left(\\sum m_{\\text{reactants}} - \\sum m_{\\text{products}}\\right)c^2 = \\sum E_b(\\text{products}) - \\sum E_b(\\text{reactants})", "text": "$Q$ = energy released in a nuclear reaction (MeV when masses are in u and multiplied by 931.5). $Q > 0$ means energy is released; this happens when the products have more total binding energy (less total mass) than the reactants." },
+      { "type": "SOLVED_PROBLEM", "problem": "The total binding energy of ${}^{238}_{92}\\text{U}$ is 1801.7 MeV and that of ${}^{56}_{26}\\text{Fe}$ is 492.3 MeV. Which nucleus is more stable? Explain.", "solution": "Stability is measured by the binding energy per nucleon, not by the total binding energy, because the total simply grows with the number of nucleons.\n\nUranium-238: $E_{bn} = \\frac{1801.7}{238} = 7.57$ MeV per nucleon.\n\nIron-56: $E_{bn} = \\frac{492.3}{56} = 8.79$ MeV per nucleon.\n\nEach nucleon in iron-56 is bound more tightly (by about 1.2 MeV more on average), so **iron-56 is more stable**, even though uranium-238 has more than three times the total binding energy. This is also why a uranium nucleus can release energy by splitting, while an iron nucleus cannot release energy by either splitting or fusing.", "answer": "Iron-56 is more stable (8.79 MeV per nucleon against 7.57 MeV per nucleon for uranium-238)." },
+      { "type": "KEY_POINT", "text": "- $E_{bn}$ rises quickly for light nuclei, is nearly constant (about 8 MeV) for $30 < A < 170$, peaks at about 8.8 MeV near $A = 56$ and falls to about 7.6 MeV for uranium.\n- The plateau is due to the short range (saturation) of the nuclear force; the fall for heavy nuclei is due to Coulomb repulsion.\n- Moving towards the peak, by fission of heavy nuclei or fusion of light nuclei, releases energy." },
+
+      { "type": "HEADING", "text": "Nuclear fission" },
+      { "type": "DEFINITION", "term": "Nuclear fission", "text": "The splitting of a heavy nucleus (such as uranium-235) into two nuclei of intermediate mass, usually together with two or three neutrons and the release of a large amount of energy (about 200 MeV per fission)." },
+      { "type": "TEXT", "text": "Fission was discovered in 1938 by Otto Hahn and Fritz Strassmann, who found barium among the products when uranium was bombarded with neutrons; Lise Meitner and Otto Frisch explained that the uranium nucleus had split in two. When a slow (thermal) neutron is absorbed by uranium-235, it forms the compound nucleus uranium-236 in a highly excited state. This nucleus oscillates like a disturbed liquid drop, becomes elongated and splits into two fragments, releasing a few neutrons." },
+      { "type": "FORMULA", "latex": "{}^{1}_{0}\\text{n} + {}^{235}_{92}\\text{U} \\rightarrow {}^{236}_{92}\\text{U}^{*} \\rightarrow {}^{141}_{56}\\text{Ba} + {}^{92}_{36}\\text{Kr} + 3\\,{}^{1}_{0}\\text{n} + Q", "text": "A typical fission of uranium-235. Check the balance: mass numbers $1 + 235 = 141 + 92 + 3 = 236$; charges $92 = 56 + 36$. The asterisk marks an excited nucleus. Other splittings occur too, for example ${}^{140}_{54}\\text{Xe} + {}^{94}_{38}\\text{Sr} + 2\\,{}^{1}_{0}\\text{n}$; on average about 2.5 neutrons are released per fission. $Q \\approx 200$ MeV." },
+      { "type": "DIAGRAM", "diagram": "fission" },
+      { "type": "SOLVED_PROBLEM", "problem": "Use the binding-energy curve to estimate the energy released when a uranium-236 nucleus ($E_{bn} \\approx 7.6$ MeV) splits into two fragments of about equal size ($E_{bn} \\approx 8.5$ MeV).", "solution": "The number of nucleons is unchanged (236), but each becomes more tightly bound.\n\nTotal binding energy before fission: $236 \\times 7.6 \\approx 1794$ MeV.\n\nTotal binding energy after fission: $236 \\times 8.5 \\approx 2006$ MeV.\n\nThe increase in binding energy is released:\n\n$$Q \\approx 2006 - 1794 = 212\\,\\text{MeV} \\quad (= 236 \\times 0.9\\,\\text{MeV})$$\n\nThis estimate agrees with the measured value of about 200 MeV per fission. Most of it (roughly 170 MeV) appears as kinetic energy of the two fragments, which fly apart because of their strong Coulomb repulsion; the rest is carried by the neutrons, by γ-rays, and by the later radioactive decay of the fragments.", "answer": "About 200 MeV (estimate about 210 MeV) per fission." },
+      { "type": "TEXT", "text": "**Chain reaction (brief).** The two or three neutrons released in each fission can be absorbed by other uranium-235 nuclei and cause further fissions. If, on average, more than one neutron from each fission causes another fission, the number of fissions grows extremely fast and an enormous amount of energy is released in a fraction of a second (uncontrolled chain reaction, as in an atom bomb). In a **nuclear reactor** the reaction is controlled so that, on average, exactly one neutron per fission causes a further fission, giving a steady release of energy. A moderator (such as heavy water or graphite) slows the neutrons down, because slow neutrons are far more likely than fast ones to cause fission of uranium-235, and control rods (of cadmium or boron) absorb extra neutrons." },
+      { "type": "IMPORTANT_FACT", "text": "Complete fission of 1 kg of uranium-235 would release about $8.2\\times10^{13}$ J, roughly 3 million times the energy obtained by burning 1 kg of coal (about $3\\times10^{7}$ J)." },
+      { "type": "SOLVED_PROBLEM", "problem": "A nuclear reactor produces thermal power of 200 MW from the fission of uranium-235. Each fission releases 200 MeV. Find (a) the number of fissions per second and (b) the mass of uranium-235 used up in one day. ($1\\,\\text{MeV} = 1.602\\times10^{-13}$ J, $N_A = 6.022\\times10^{23}$ mol⁻¹)", "solution": "(a) Energy per fission $= 200 \\times 1.602\\times10^{-13} = 3.204\\times10^{-11}$ J.\n\nPower $= 200$ MW $= 2.0\\times10^{8}$ J per second, so\n\n$$\\text{fissions per second} = \\frac{2.0\\times10^{8}}{3.204\\times10^{-11}} \\approx 6.24\\times10^{18}$$\n\n(b) Fissions in one day ($86\\,400$ s): $6.24\\times10^{18} \\times 86\\,400 \\approx 5.39\\times10^{23}$.\n\nEach fission uses up one uranium-235 nucleus. Moles used $= \\frac{5.39\\times10^{23}}{6.022\\times10^{23}} = 0.896$ mol. Mass $= 0.896 \\times 235\\,\\text{g} \\approx 210$ g.\n\nSo a 200 MW reactor consumes only about 0.21 kg of uranium-235 per day, compared with thousands of tonnes of coal for a coal-fired plant of similar output.", "answer": "(a) About $6.2\\times10^{18}$ fissions per second; (b) about 0.21 kg of uranium-235 per day." },
+
+      { "type": "HEADING", "text": "Nuclear fusion" },
+      { "type": "DEFINITION", "term": "Nuclear fusion", "text": "The joining together of two light nuclei to form a heavier nucleus, with the release of energy. Energy is released because the product has a larger binding energy per nucleon than the original light nuclei." },
+      { "type": "TEXT", "text": "Some important fusion reactions and the energy each releases:\n\n- ${}^{1}_{1}\\text{H} + {}^{1}_{1}\\text{H} \\rightarrow {}^{2}_{1}\\text{H} + e^{+} + \\nu + 0.42\\,\\text{MeV}$ (first step of the proton–proton cycle in the Sun)\n- ${}^{2}_{1}\\text{H} + {}^{2}_{1}\\text{H} \\rightarrow {}^{3}_{2}\\text{He} + {}^{1}_{0}\\text{n} + 3.27\\,\\text{MeV}$\n- ${}^{2}_{1}\\text{H} + {}^{2}_{1}\\text{H} \\rightarrow {}^{3}_{1}\\text{H} + {}^{1}_{1}\\text{H} + 4.03\\,\\text{MeV}$\n- ${}^{2}_{1}\\text{H} + {}^{3}_{1}\\text{H} \\rightarrow {}^{4}_{2}\\text{He} + {}^{1}_{0}\\text{n} + 17.6\\,\\text{MeV}$ (deuterium–tritium, D–T)\n\nHere $e^{+}$ is a positron and $\\nu$ a neutrino. Each equation balances in both mass number and charge." },
+      { "type": "TEXT", "text": "**Why fusion needs very high temperature.** Both nuclei are positively charged, so they repel each other. To fuse, they must come close enough (a few femtometres) for the short-range nuclear attraction to take over. This requires them to climb a Coulomb potential barrier of a few hundred keV. Particles get such energies from random thermal motion only when the material is extremely hot, of the order of $10^7$ to $10^8$ K; the gas is then a plasma of bare nuclei and free electrons. Fusion brought about by high temperature is called **thermonuclear fusion**. In practice fusion occurs at somewhat lower temperatures than a simple estimate suggests, because a few nuclei in the gas move much faster than average and because quantum-mechanical tunnelling lets nuclei pass through the barrier." },
+      { "type": "DIAGRAM", "diagram": "fusion" },
+      { "type": "TEXT", "text": "**Energy of the Sun and stars.** The Sun's core is at about $1.5\\times10^{7}$ K. There, in a series of reactions called the proton–proton cycle, four protons are effectively converted into one helium-4 nucleus:\n\n$$4\\,{}^{1}_{1}\\text{H} + 2e^{-} \\rightarrow {}^{4}_{2}\\text{He} + 2\\nu + 6\\gamma + 26.7\\,\\text{MeV}$$\n\nThe Sun has been shining in this way for about 4.5 billion years. In older, hotter stars helium itself fuses into carbon and heavier elements; fusion in stars can build elements up to about iron, where the binding-energy curve peaks.\n\n**On Earth.** The hydrogen bomb uses uncontrolled fusion. **Controlled thermonuclear fusion** for electricity is still being developed: the challenge is to hold a plasma at around $10^8$ K long enough, for example with strong magnetic fields in a tokamak, since no material container can touch it. Its attractions are an almost unlimited fuel supply (deuterium from sea water) and much less long-lived radioactive waste than fission." },
+      { "type": "SOLVED_PROBLEM", "problem": "Calculate the energy released in the D–T fusion reaction ${}^{2}_{1}\\text{H} + {}^{3}_{1}\\text{H} \\rightarrow {}^{4}_{2}\\text{He} + {}^{1}_{0}\\text{n}$. Atomic masses: ${}^{2}\\text{H}$ = 2.014102 u, ${}^{3}\\text{H}$ = 3.016049 u, ${}^{4}\\text{He}$ = 4.002603 u; $m_n$ = 1.008665 u. Also find the energy released per nucleon.", "solution": "Total mass of the reactants: $2.014102 + 3.016049 = 5.030151$ u.\n\nTotal mass of the products: $4.002603 + 1.008665 = 5.011268$ u.\n\n(The electrons balance: one on each hydrogen isotope on the left, two on helium on the right.)\n\nMass lost: $\\Delta m = 5.030151 - 5.011268 = 0.018883$ u.\n\nEnergy released: $Q = 0.018883 \\times 931.5\\,\\text{MeV} \\approx 17.6$ MeV.\n\nFive nucleons take part, so the energy per nucleon is $17.6/5 \\approx 3.5$ MeV. Compare fission: $200/236 \\approx 0.85$ MeV per nucleon. Per kilogram of fuel, D–T fusion releases about four times as much energy as fission.", "answer": "$Q \\approx 17.6$ MeV, about 3.5 MeV per nucleon." },
+      { "type": "SOLVED_PROBLEM", "problem": "Estimate the height of the Coulomb barrier for two deuterons just touching each other, treating each as a sphere of radius $R = R_0 A^{1/3}$ with $R_0 = 1.2$ fm. Then estimate the temperature at which the average thermal kinetic energy of the pair equals this barrier. Take $\\frac{e^2}{4\\pi\\varepsilon_0} = 1.44$ MeV fm and $k_B = 8.62\\times10^{-5}$ eV K⁻¹.", "solution": "Radius of a deuteron: $R = 1.2 \\times 2^{1/3} = 1.2 \\times 1.26 = 1.51$ fm. When they touch, the distance between centres is $2R = 3.02$ fm.\n\nCoulomb potential energy at this separation (each has charge $+e$):\n\n$$U = \\frac{e^2}{4\\pi\\varepsilon_0 (2R)} = \\frac{1.44\\,\\text{MeV fm}}{3.02\\,\\text{fm}} \\approx 0.48\\,\\text{MeV} = 480\\,\\text{keV}$$\n\nEach deuteron has average kinetic energy $\\frac{3}{2}k_BT$, so in a head-on approach the pair brings $3k_BT$. Setting $3k_BT = U$:\n\n$$T = \\frac{U}{3k_B} = \\frac{4.8\\times10^{5}\\,\\text{eV}}{3 \\times 8.62\\times10^{-5}\\,\\text{eV K}^{-1}} \\approx 1.8\\times10^{9}\\,\\text{K}$$\n\nThis simple estimate is too high: fusion actually becomes significant at about $10^7$ to $10^8$ K, because some nuclei move much faster than the average and because of quantum tunnelling through the barrier. The estimate still shows why fusion needs enormous temperatures.", "answer": "Barrier about 0.48 MeV (480 keV); simple estimate of temperature about $2\\times10^{9}$ K (fusion actually occurs at $10^7$ to $10^8$ K)." },
+      { "type": "TABLE", "caption": "Nuclear fission and nuclear fusion compared", "columns": ["Feature", "Fission", "Fusion"], "rows": [
+        ["Process", "Heavy nucleus splits into two middle-mass nuclei", "Light nuclei join to form a heavier nucleus"],
+        ["Typical fuel", "Uranium-235, plutonium-239", "Isotopes of hydrogen (deuterium, tritium)"],
+        ["Energy per reaction", "About 200 MeV", "Typically a few MeV (17.6 MeV for D–T)"],
+        ["Energy per nucleon", "About 0.85 MeV", "About 3.5 MeV for D–T (larger)"],
+        ["Condition needed", "Slow neutrons; critical amount of fuel", "Very high temperature and density (plasma)"],
+        ["Where it happens", "Nuclear reactors, atom bomb", "Sun and stars, hydrogen bomb, experimental reactors"],
+        ["Waste", "Radioactive fission fragments", "Much less long-lived radioactive waste"]
+      ] },
+      { "type": "CALLOUT", "text": "**Exam tips:** (1) Always check that mass number and charge balance in a nuclear equation; this quickly finds a missing particle. (2) Energy released = increase in total binding energy = decrease in total mass × 931.5 MeV per u. (3) Fission releases more energy **per event** (200 MeV) but fusion releases more energy **per nucleon or per kilogram** of fuel. (4) Both fission and fusion move nuclei towards the iron peak of the curve." },
+
+      { "type": "HEADING", "text": "Quick revision of nuclei" },
+      { "type": "TABLE", "caption": "Key formulas and values for nuclei", "columns": ["Quantity", "Formula or value"], "rows": [
+        ["Neutron number", "$N = A - Z$"],
+        ["Atomic mass unit", "$1\\,\\text{u} = 1.660539\\times10^{-27}$ kg $= 931.5\\,\\text{MeV}/c^2$"],
+        ["Nuclear radius", "$R = R_0A^{1/3}$, $R_0 = 1.2$ fm"],
+        ["Nuclear density", "$\\rho = 3m/(4\\pi R_0^3) \\approx 2.3\\times10^{17}$ kg m⁻³, same for all nuclei"],
+        ["Mass-energy", "$E = mc^2$"],
+        ["Mass defect", "$\\Delta M = Zm_{\\text{H}} + (A - Z)m_n - M_{\\text{atom}}$"],
+        ["Binding energy", "$E_b = \\Delta M \\times 931.5$ MeV (ΔM in u)"],
+        ["Binding energy per nucleon", "$E_b/A$: maximum about 8.8 MeV near A = 56"],
+        ["Fission of U-235", "About 200 MeV per fission"],
+        ["D–T fusion", "17.6 MeV per reaction"]
+      ] },
+      { "type": "KEY_POINT", "text": "- A nucleus contains $Z$ protons and $N = A - Z$ neutrons; isotopes share $Z$, isobars share $A$, isotones share $N$.\n- $R = R_0 A^{1/3}$, so all nuclei have the same density, about $2.3\\times10^{17}$ kg m⁻³.\n- The nuclear force is strong, short-ranged, charge independent and repulsive below about 0.8 fm.\n- Mass defect $\\times\\, c^2$ = binding energy; stability depends on binding energy per nucleon.\n- Fission of heavy nuclei and fusion of light nuclei both release energy because the products are more tightly bound." }
+    ]
+  },
+  "diagrams": [
+    { "key": "nuclear-potential", "file": "diagrams/ug26-322-u8-nuclei-nuclear-potential.svg", "alt": "Schematic graph of the potential energy of a pair of nucleons against their separation r in femtometres, with a deep minimum near r0 = 0.8 fm, steep repulsive wall at smaller r and attractive region tending to zero beyond about 3 fm", "caption": "Potential energy of a pair of nucleons versus separation (schematic)", "description": "The vertical axis is the potential energy U in MeV and the horizontal axis is the separation r in femtometres, with ticks at 1, 2 and 3 fm. The curve rises very steeply for r less than about 0.8 fm (strong repulsion), has a deep minimum at r0 about 0.8 fm where the force is zero, and then rises gradually towards zero for larger r (attraction), becoming practically zero beyond about 2 to 3 fm, showing the short range of the nuclear force." },
+    { "key": "binding-energy-curve", "file": "diagrams/ug26-322-u8-nuclei-binding-energy-curve.svg", "alt": "Graph of binding energy per nucleon in MeV against mass number A from 0 to 250, rising steeply for light nuclei, peaking at about 8.8 MeV near iron-56 and falling slowly to about 7.6 MeV for uranium-238", "caption": "Binding energy per nucleon versus mass number", "description": "The curve is drawn through measured values. It starts at 1.1 MeV for hydrogen-2, rises steeply with a sharp peak at helium-4 (7.07 MeV), dips at lithium-7 (5.6 MeV), and passes carbon-12 (7.68 MeV) and oxygen-16 (7.98 MeV). It reaches a maximum of about 8.8 MeV near A = 56 to 62 (iron and nickel), stays nearly constant at about 8 to 8.8 MeV for A between 30 and 170, and decreases slowly to 7.57 MeV for uranium-238. A green arrow from the light end towards the peak marks fusion, and an amber arrow from the heavy end towards the peak marks fission; both increase the binding energy per nucleon and release energy." },
+    { "key": "fission", "file": "diagrams/ug26-322-u8-nuclei-fission.svg", "alt": "Schematic of uranium-235 fission: a slow neutron is absorbed by U-235, forming an excited deformed U-236 nucleus, which splits into Ba-141 and Kr-92 with three fast neutrons", "caption": "Fission of uranium-235 by a slow neutron", "description": "A slow neutron strikes a uranium-235 nucleus (92 protons, 143 neutrons). The resulting uranium-236 compound nucleus is excited and deformed into a dumbbell shape. It splits into barium-141 (56 protons, 85 neutrons) and krypton-92 (36 protons, 56 neutrons), which fly apart with large kinetic energy, and three fast neutrons, which can cause further fissions in a chain reaction. The equation n + U-235 gives U-236 star gives Ba-141 + Kr-92 + 3n + about 200 MeV is shown with a check of mass numbers and charges." },
+    { "key": "fusion", "file": "diagrams/ug26-322-u8-nuclei-fusion.svg", "alt": "Schematic of deuterium-tritium fusion: a deuteron (one proton, one neutron) and a triton (one proton, two neutrons) fuse into helium-4 with 3.5 MeV and a neutron with 14.1 MeV", "caption": "Deuterium–tritium fusion releasing 17.6 MeV", "description": "A deuteron, drawn as one red proton and one blue neutron, and a triton, drawn as one proton and two neutrons, approach each other and fuse after overcoming their Coulomb repulsion at very high temperature. The products are a helium-4 nucleus (two protons and two neutrons) with kinetic energy of about 3.5 MeV and a neutron with about 14.1 MeV. The equation H-2 + H-3 gives He-4 + n + 17.6 MeV is shown, with a note that the lighter neutron carries about four fifths of the energy because the products have equal and opposite momenta." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u8-nuclei-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "How many protons and neutrons are there in the nucleus of ${}^{197}_{79}\\text{Au}$, the common isotope of gold?",
+      "options": ["79 protons and 197 neutrons", "118 protons and 79 neutrons", "79 protons and 118 neutrons", "197 protons and 79 neutrons"],
+      "answer": 3,
+      "explanation": "The subscript is the atomic number Z = 79, which is the number of protons. The superscript is the mass number A = 197, the total number of nucleons. The number of neutrons is N = A − Z = 197 − 79 = 118. So the gold nucleus contains 79 protons and 118 neutrons.",
+      "optionRationale": { "1": "197 is the total number of nucleons, not the number of neutrons.", "2": "Swaps the numbers of protons and neutrons; Z = 79 is the proton number.", "4": "Treats the mass number as the proton number." },
+      "objective": "Use Z and A to find the numbers of protons and neutrons"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q02", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Which of the following statements about the proton and the neutron is correct?",
+      "options": ["The neutron carries a charge of −e and is lighter than the proton", "The neutron is electrically neutral and slightly heavier than the proton", "The proton and the neutron have exactly equal masses", "The proton is about 1836 times heavier than the neutron"],
+      "answer": 2,
+      "explanation": "Measured masses are 1.007276 u for the proton and 1.008665 u for the neutron, so the neutron is heavier by about 0.0014 u (about 1.3 MeV of energy). The neutron has no electric charge, while the proton carries +e. Both are about 1836 times heavier than an electron, not than each other.",
+      "optionRationale": { "1": "The neutron is uncharged, and it is heavier, not lighter, than the proton.", "3": "Their masses are close but not equal; the neutron is about 0.14% heavier.", "4": "1836 is the ratio of the proton mass to the electron mass." },
+      "objective": "Compare the properties of protons and neutrons"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q03", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Natural chlorine contains 75.8% chlorine-35 (atomic mass 34.969 u) and 24.2% chlorine-37 (atomic mass 36.966 u). What is the average atomic mass of natural chlorine?",
+      "options": ["35.97 u", "36.48 u", "35.00 u", "35.45 u"],
+      "answer": 4,
+      "explanation": "The average atomic mass is the abundance-weighted mean: 0.758 × 34.969 u + 0.242 × 36.966 u = 26.507 u + 8.946 u ≈ 35.45 u. The value is closer to 35 than to 37 because chlorine-35 is about three times as abundant, which is why chlorine's atomic mass is not close to a whole number.",
+      "optionRationale": { "1": "This is the simple average of the two masses, ignoring their abundances.", "2": "The abundances have been attached to the wrong isotopes.", "3": "This is just the mass number of the more abundant isotope." },
+      "objective": "Calculate an average atomic mass from isotopic abundances"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q04", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "How is one unified atomic mass unit (1 u) defined?",
+      "options": ["One-twelfth of the mass of one neutral carbon-12 atom", "The mass of one proton", "The mass of one hydrogen atom", "One-sixteenth of the mass of one oxygen-16 atom"],
+      "answer": 1,
+      "explanation": "By international agreement 1 u is exactly one-twelfth of the mass of a neutral carbon-12 atom, which is 1.660539 × 10⁻²⁷ kg. On this scale the proton is 1.007276 u, the neutron 1.008665 u and the hydrogen atom 1.007825 u, so none of them is exactly 1 u.",
+      "optionRationale": { "2": "The proton's mass is 1.007276 u, not exactly 1 u.", "3": "The hydrogen atom's mass is 1.007825 u.", "4": "An older chemical scale was based on oxygen, but the unified atomic mass unit is defined using carbon-12." },
+      "objective": "Define the atomic mass unit"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q05", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "How many electrons, protons and neutrons are present in the ion ${}^{56}_{26}\\text{Fe}^{3+}$?",
+      "options": ["26 electrons, 26 protons, 30 neutrons", "23 electrons, 26 protons, 30 neutrons", "29 electrons, 26 protons, 30 neutrons", "23 electrons, 23 protons, 33 neutrons"],
+      "answer": 2,
+      "explanation": "Z = 26, so the nucleus has 26 protons, and N = A − Z = 56 − 26 = 30 neutrons. A neutral iron atom has 26 electrons; the 3+ ion has lost three electrons, leaving 23. Forming an ion changes only the electrons, never the numbers of protons or neutrons in the nucleus.",
+      "optionRationale": { "1": "This describes the neutral atom; the 3+ ion has three fewer electrons.", "3": "A positive ion has lost electrons, not gained them.", "4": "Ionisation does not change the number of protons; Z stays 26." },
+      "objective": "Apply Z, A and charge to count particles in an ion"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q06", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The nuclei ${}^{3}_{1}\\text{H}$ (tritium) and ${}^{3}_{2}\\text{He}$ (helium-3) are an example of which kind of pair?",
+      "options": ["Isotopes", "Isobars", "Isotones", "Identical nuclides"],
+      "answer": 2,
+      "explanation": "Both nuclei have mass number A = 3, but their atomic numbers differ (Z = 1 for tritium and Z = 2 for helium-3), so they belong to different elements. Nuclides of different elements with the same mass number are isobars. Their neutron numbers (2 and 1) also differ, so they are not isotones.",
+      "optionRationale": { "1": "Isotopes must have the same Z; here Z is 1 and 2.", "3": "Isotones must have the same N; here N is 2 and 1.", "4": "They differ in Z and N, so they are different nuclides." },
+      "objective": "Identify isobars"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q07", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "analytical",
+      "stem": "Match each pair of nuclides in List-I with the correct description in List-II.",
+      "list": { "left": ["A. ${}^{12}_{6}\\text{C}$ and ${}^{14}_{6}\\text{C}$", "B. ${}^{14}_{6}\\text{C}$ and ${}^{14}_{7}\\text{N}$", "C. ${}^{14}_{6}\\text{C}$ and ${}^{16}_{8}\\text{O}$", "D. ${}^{16}_{8}\\text{O}$ and ${}^{19}_{9}\\text{F}$"], "right": ["I. Isobars", "II. Isotones", "III. Isotopes", "IV. None of these (Z, N and A all different)"] },
+      "options": ["A-III, B-I, C-II, D-IV", "A-I, B-III, C-II, D-IV", "A-III, B-II, C-I, D-IV", "A-III, B-I, C-IV, D-II"],
+      "answer": 1,
+      "explanation": "A: both Z = 6, different A, so isotopes (III). B: both A = 14, Z = 6 and 7, so isobars (I). C: carbon-14 has N = 14 − 6 = 8 and oxygen-16 has N = 16 − 8 = 8, so isotones (II). D: oxygen-16 (Z 8, N 8, A 16) and fluorine-19 (Z 9, N 10, A 19) share nothing, so none of these (IV).",
+      "optionRationale": { "2": "Swaps isotopes and isobars for pairs A and B.", "3": "Swaps isobars and isotones for pairs B and C.", "4": "Carbon-14 and oxygen-16 have the same N = 8, so they are isotones; oxygen-16 and fluorine-19 are not isotones." },
+      "objective": "Classify pairs of nuclides as isotopes, isobars or isotones"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q08", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "Which one of the following pairs of nuclides are isotones?",
+      "options": ["Cl-35 (Z = 17) and Cl-37 (Z = 17)", "Ar-40 (Z = 18) and Ca-40 (Z = 20)", "Si-30 (Z = 14) and P-31 (Z = 15)", "O-16 (Z = 8) and F-19 (Z = 9)"],
+      "answer": 3,
+      "explanation": "Isotones have the same neutron number N = A − Z. Silicon-30 has N = 30 − 14 = 16 and phosphorus-31 has N = 31 − 15 = 16, so they are isotones. The chlorine pair has the same Z (isotopes), the argon–calcium pair has the same A (isobars), and oxygen-16 (N = 8) and fluorine-19 (N = 10) share none of Z, N or A.",
+      "optionRationale": { "1": "Same Z, different A: these are isotopes.", "2": "Same A = 40, different Z: these are isobars (N = 22 and 20).", "4": "N = 8 and N = 10 are different, so they are not isotones." },
+      "objective": "Identify isotones by computing neutron numbers"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q09", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Consider the following statements:\nA. Isotopes of an element have practically identical chemical properties.\nB. Isotopes of an element contain the same number of neutrons.\nC. Isobars have the same mass number but different atomic numbers.\nD. ${}^{2}_{1}\\text{H}$ and ${}^{3}_{2}\\text{He}$ are isotones.\nWhich of the statements are correct?",
+      "options": ["A and B only", "A, C and D only", "B, C and D only", "C and D only"],
+      "answer": 2,
+      "explanation": "A is true: chemical behaviour depends on the number of electrons, which equals Z and is the same for all isotopes. B is false: isotopes have the same Z but different N, which is why their masses differ. C is the definition of isobars. D is true: hydrogen-2 has N = 2 − 1 = 1 and helium-3 has N = 3 − 2 = 1, so they are isotones.",
+      "optionRationale": { "1": "B is false and the true statements C and D are left out.", "3": "B is false; isotopes differ in neutron number.", "4": "Leaves out A, which is true." },
+      "objective": "Distinguish isotopes, isobars and isotones and their properties"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q10", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "Taking R₀ = 1.2 fm, what is the radius of a nucleus whose mass number is 64?",
+      "options": ["4.8 fm", "76.8 fm", "9.6 fm", "19.2 fm"],
+      "answer": 1,
+      "explanation": "Use $R = R_0A^{1/3}$. The cube root of 64 is 4, so R = 1.2 fm × 4 = 4.8 fm = 4.8 × 10⁻¹⁵ m. The radius grows only as the cube root of the mass number, because it is the volume of the nucleus, not its radius, that is proportional to the number of nucleons.",
+      "optionRationale": { "2": "Multiplies R₀ by A itself instead of by its cube root.", "3": "Uses the square root of 64 (8) instead of the cube root.", "4": "Uses A raised to the power 2/3 (16) instead of 1/3." },
+      "objective": "Calculate nuclear radius from R = R₀A^(1/3)"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q11", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "What is the ratio of the nuclear radius of polonium-216 to the nuclear radius of aluminium-27?",
+      "options": ["8", "4", "2.83", "2"],
+      "answer": 4,
+      "explanation": "The nuclear radius grows as the cube root of the mass number, $R = R_0A^{1/3}$, so the constant $R_0$ cancels in a ratio. The ratio of radii is therefore $(216/27)^{1/3} = 8^{1/3} = 2$. The polonium nucleus has 8 times as many nucleons and therefore 8 times the volume, but its radius is only twice as large.",
+      "optionRationale": { "1": "8 is the ratio of the mass numbers (and of the volumes), not of the radii.", "2": "4 is 8 raised to the power 2/3, the ratio of surface areas.", "3": "2.83 is the square root of 8; the radius goes as the cube root." },
+      "objective": "Compare nuclear radii using the A^(1/3) law"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q12", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The density of nuclear matter is practically the same for all nuclei.\nReason (R): The nuclear radius varies as $R = R_0A^{1/3}$, so the volume of a nucleus is proportional to its mass number.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Both are true and R explains A. The mass of a nucleus is about A times the nucleon mass, and from R we get volume (4/3)πR₀³A, which is also proportional to A. Dividing, A cancels, leaving density = 3m/(4πR₀³) ≈ 2.3 × 10¹⁷ kg m⁻³ for every nucleus.",
+      "optionRationale": { "2": "The constant density follows directly from mass and volume both being proportional to A, so R does explain A.", "3": "R is the experimentally established radius law and is true.", "4": "A is true; nuclear density does not depend on A." },
+      "objective": "Explain why nuclear density is independent of mass number"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q13", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Taking R₀ = 1.2 fm and the mass of a nucleon as 1.67 × 10⁻²⁷ kg, the density of nuclear matter is approximately",
+      "options": ["2.3 × 10¹⁴ kg m⁻³", "9.7 × 10¹⁷ kg m⁻³", "2.3 × 10¹⁷ kg m⁻³", "2.3 × 10³ kg m⁻³"],
+      "answer": 3,
+      "explanation": "Mass of a nucleus ≈ A × 1.67 × 10⁻²⁷ kg and volume = (4/3)πR₀³A. So density = 3m/(4πR₀³) = 1.67 × 10⁻²⁷ kg ÷ [(4/3)π(1.2 × 10⁻¹⁵ m)³] = 1.67 × 10⁻²⁷ ÷ 7.24 × 10⁻⁴⁵ ≈ 2.3 × 10¹⁷ kg m⁻³, independent of A and about 10¹⁴ times the density of water.",
+      "optionRationale": { "1": "Too small by a factor of 1000; 2.3 × 10¹⁴ is the ratio of nuclear density to the density of water, a pure number.", "2": "Leaves out the factor 4π/3 in the volume of a sphere.", "4": "This is the density of ordinary rock, about 10¹⁴ times too small." },
+      "objective": "Calculate nuclear density"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q14", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which property of the nuclear force explains why it has practically no effect between nucleons that are more than a few femtometres apart?",
+      "options": ["It is charge independent", "It is repulsive at very small separations", "It is much stronger than gravity", "It is short-ranged"],
+      "answer": 4,
+      "explanation": "The nuclear force is short-ranged: it is very strong within about 2 to 3 fm but falls to practically zero beyond that. So two nucleons on opposite sides of a large nucleus, or in different nuclei, do not attract each other appreciably. This short range also leads to saturation of the nuclear force.",
+      "optionRationale": { "1": "Charge independence means p–p, n–n and n–p forces are equal; it says nothing about range.", "2": "The repulsive core matters at very small separations (below 0.8 fm), not at large ones.", "3": "Being strong does not explain why the force vanishes at larger distances." },
+      "objective": "State the short-range nature of the nuclear force"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q15", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about the nuclear force:\nA. The nuclear force between two neutrons is about the same as that between two protons or between a neutron and a proton.\nB. The nuclear force varies as the inverse square of the separation, like the Coulomb force.\nC. The nuclear force becomes strongly repulsive when two nucleons are pushed closer than about 0.8 fm.\nD. At a separation of about 1 fm, the nuclear attraction between two protons is much stronger than their Coulomb repulsion.\nWhich of the statements are correct?",
+      "options": ["A, C and D only", "A and B only", "B and C only", "B, C and D only"],
+      "answer": 1,
+      "explanation": "A is true (charge independence). C is true: below about 0.8 fm a strong repulsive core appears. D is true: otherwise the protons could not stay together in the nucleus. B is false: the nuclear force does not follow an inverse-square law; it falls off much more rapidly and becomes negligible beyond a few femtometres.",
+      "optionRationale": { "2": "B is false, and C and D, which are true, are left out.", "3": "B is false.", "4": "B is false, and A, which is true, is left out." },
+      "objective": "Recall the properties of the nuclear force"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q16", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "analytical", "diagram": "nuclear-potential",
+      "stem": "According to the potential-energy graph shown, what kind of force acts between two nucleons when their separation r is between about 1 fm and 2 fm?",
+      "options": ["Repulsive, because U increases as r decreases below r₀", "Attractive, because U increases towards zero as r increases", "Zero, because the curve lies below the r-axis", "Repulsive, because the potential energy is negative"],
+      "answer": 2,
+      "explanation": "The force is F = −dU/dr. Between about 1 fm and 2 fm the curve rises towards zero as r increases, so dU/dr is positive and F is negative, that is, directed towards smaller r: the nucleons attract each other. Only for r less than r₀ ≈ 0.8 fm does U rise steeply as r decreases, giving repulsion.",
+      "optionRationale": { "1": "That describes the region r < r₀, not the region from 1 fm to 2 fm.", "3": "The force depends on the slope of U, not on its sign; the slope is not zero here.", "4": "A negative potential energy does not by itself mean repulsion; the slope decides the direction of the force." },
+      "objective": "Interpret the nucleon–nucleon potential-energy curve"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q17", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): The binding energy per nucleon is nearly constant, about 8 MeV, for nuclei with mass numbers between about 30 and 170.\nReason (R): The nuclear force between two nucleons is nearly the same whether they are protons or neutrons.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 2,
+      "explanation": "Both statements are true. A is explained by the short range of the nuclear force: each nucleon attracts only its nearest neighbours, so the binding contributed per nucleon saturates and the total binding energy grows in proportion to A. R, charge independence, is a true property of the nuclear force but does not explain this saturation; a charge-independent long-range force would make B/A keep increasing with A.",
+      "optionRationale": { "1": "The plateau is due to the short range (saturation) of the force, not its charge independence.", "3": "R is true: p–p, n–n and n–p nuclear forces are nearly equal.", "4": "A is true, as the binding-energy curve shows." },
+      "objective": "Explain the plateau of the binding-energy curve"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q18", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Two protons inside a nucleus are 2.0 fm apart. What is the electrostatic force of repulsion between them? (Take 1/4πε₀ = 9 × 10⁹ N m² C⁻² and e = 1.6 × 10⁻¹⁹ C.)",
+      "options": ["230 N", "57.6 N", "1.2 × 10⁻¹³ N", "14.4 N"],
+      "answer": 2,
+      "explanation": "Coulomb's law: F = (1/4πε₀)e²/r² = (9 × 10⁹)(1.6 × 10⁻¹⁹)² ÷ (2.0 × 10⁻¹⁵)² = (2.30 × 10⁻²⁸) ÷ (4.0 × 10⁻³⁰) N ≈ 57.6 N. This is an enormous force on particles of mass about 10⁻²⁷ kg, so an even stronger attractive nuclear force is needed to hold the nucleus together.",
+      "optionRationale": { "1": "This is the force at 1 fm, not 2 fm.", "3": "Divides by r instead of r².", "4": "This would be the force at 4 fm; the separation has been doubled." },
+      "objective": "Estimate the Coulomb repulsion inside a nucleus"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q19", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "If 1 g of matter were converted completely into energy, how much energy would be released? (c = 3 × 10⁸ m s⁻¹)",
+      "options": ["9 × 10¹⁶ J", "3 × 10⁵ J", "9 × 10¹³ J", "9 × 10¹⁰ J"],
+      "answer": 3,
+      "explanation": "Using E = mc² with m = 1 g = 10⁻³ kg: E = 10⁻³ × (3 × 10⁸)² J = 10⁻³ × 9 × 10¹⁶ J = 9 × 10¹³ J. That is roughly the energy obtained by burning about three thousand tonnes of coal, showing how much energy is locked up in mass.",
+      "optionRationale": { "1": "This is the energy equivalent of 1 kg, not 1 g.", "2": "Multiplies the mass by c instead of c².", "4": "A power-of-ten error; 10⁻³ × 9 × 10¹⁶ is 9 × 10¹³." },
+      "objective": "Apply E = mc²"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q20", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The mass of an electron is 0.000549 u. Using 1 u = 931.5 MeV/c², what is the rest-mass energy of an electron?",
+      "options": ["5.11 MeV", "931.5 MeV", "0.0511 MeV", "0.511 MeV"],
+      "answer": 4,
+      "explanation": "To convert a mass in u into energy in MeV, multiply by 931.5. So E = 0.000549 × 931.5 MeV = 0.511 MeV. This is the well-known rest energy of the electron, about 1/1836 of the rest energy of a proton (938 MeV).",
+      "optionRationale": { "1": "Ten times too large; a decimal-place error.", "2": "This is the energy equivalent of 1 u, not of 0.000549 u.", "3": "Ten times too small; a decimal-place error." },
+      "objective": "Convert mass in u to energy in MeV"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q21", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "A nuclear power station releases energy at the rate of 1000 MW (thermal). How much mass is converted into energy every second? (c = 3 × 10⁸ m s⁻¹)",
+      "options": ["1.1 × 10⁻⁸ kg", "3.3 kg", "1.1 × 10⁻⁵ kg", "9.0 × 10²⁵ kg"],
+      "answer": 1,
+      "explanation": "Energy released each second is 10⁹ J. From E = mc², m = E/c² = 10⁹ ÷ (3 × 10⁸)² kg = 10⁹ ÷ 9 × 10¹⁶ kg ≈ 1.1 × 10⁻⁸ kg, about 11 micrograms per second. Over a whole year (about 3.15 × 10⁷ s) this adds up to only about 0.35 kg of mass converted.",
+      "optionRationale": { "2": "Divides by c instead of c².", "3": "A power-of-ten error; 10⁹ divided by 9 × 10¹⁶ is about 10⁻⁸.", "4": "Multiplies by c² instead of dividing." },
+      "objective": "Relate power output to rate of mass conversion"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q22", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "What is meant by the binding energy of a nucleus?",
+      "options": ["The energy needed to remove one electron from the atom", "The average kinetic energy of the nucleons inside the nucleus", "The energy needed to separate the nucleus completely into its individual protons and neutrons", "The energy equivalent of the whole mass of the nucleus"],
+      "answer": 3,
+      "explanation": "Binding energy is the minimum energy required to break a nucleus into its separate protons and neutrons, which equals the energy released when the nucleus is formed from them. It is the mass defect multiplied by c², for example 28.3 MeV for helium-4.",
+      "optionRationale": { "1": "That is the ionisation energy of the atom, an electronic property.", "2": "Binding energy is not the kinetic energy of the nucleons.", "4": "Only the mass defect, not the whole mass, corresponds to the binding energy." },
+      "objective": "Define nuclear binding energy"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q23", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Using m(¹H) = 1.007825 u, m(n) = 1.008665 u, m(²H) = 2.014102 u and 1 u = 931.5 MeV/c², what is the binding energy of the deuteron?",
+      "options": ["1.11 MeV", "4.45 MeV", "2.22 MeV", "0.511 MeV"],
+      "answer": 3,
+      "explanation": "Mass defect ΔM = m(¹H) + m(n) − m(²H) = 1.007825 + 1.008665 − 2.014102 = 0.002388 u. Binding energy = 0.002388 × 931.5 MeV ≈ 2.22 MeV. This agrees with experiment: a γ-ray photon needs at least 2.22 MeV to break a deuteron into a proton and a neutron.",
+      "optionRationale": { "1": "This is the binding energy per nucleon (2.22/2), not the total.", "2": "Double the correct value.", "4": "0.511 MeV is the rest energy of an electron." },
+      "objective": "Calculate binding energy from the mass defect"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q24", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Using m(¹H) = 1.007825 u, m(n) = 1.008665 u, the atomic mass of ${}^{7}_{3}\\text{Li}$ = 7.016004 u and 1 u = 931.5 MeV/c², what is the binding energy per nucleon of lithium-7?",
+      "options": ["39.2 MeV", "13.1 MeV", "9.81 MeV", "5.61 MeV"],
+      "answer": 4,
+      "explanation": "Lithium-7 has Z = 3 and N = 4. Mass of the separate constituents = 3 × 1.007825 + 4 × 1.008665 = 3.023475 + 4.034660 = 7.058135 u. Mass defect = 7.058135 − 7.016004 = 0.042131 u. Binding energy = 0.042131 × 931.5 ≈ 39.2 MeV, and per nucleon 39.2/7 ≈ 5.61 MeV.",
+      "optionRationale": { "1": "This is the total binding energy, not the value per nucleon.", "2": "Divides by Z = 3 instead of A = 7.", "3": "Divides by N = 4 instead of A = 7." },
+      "objective": "Calculate binding energy per nucleon from atomic masses"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q25", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The binding energy of a nucleus is the energy required to separate it completely into its constituent protons and neutrons.\nReason (R): The mass of a nucleus is greater than the sum of the masses of its free protons and neutrons.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "A is the correct definition of binding energy. R is false: a bound nucleus is always lighter than its separated nucleons. The difference, the mass defect ΔM, multiplied by c² equals the binding energy; energy must be supplied to pull the nucleons apart, which increases the total mass.",
+      "optionRationale": { "1": "R is false, so it cannot explain A.", "2": "R is false; the nucleus has less mass than its free nucleons.", "4": "A is true; it is the standard definition." },
+      "objective": "Relate mass defect and binding energy"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q26", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which of the following nuclei has the largest binding energy per nucleon?",
+      "options": ["Helium-4", "Oxygen-16", "Iron-56", "Uranium-238"],
+      "answer": 3,
+      "explanation": "The binding energy per nucleon rises from about 7.07 MeV for helium-4 and 7.98 MeV for oxygen-16 to a maximum of about 8.8 MeV near A = 56 to 62 (iron-56 has 8.79 MeV), then falls slowly to about 7.57 MeV for uranium-238. Iron-56 is therefore the most tightly bound of these four.",
+      "optionRationale": { "1": "Helium-4 is tightly bound for a light nucleus (7.07 MeV) but below iron.", "2": "Oxygen-16 has about 7.98 MeV per nucleon, less than iron.", "4": "Uranium-238 has a large total binding energy but only about 7.57 MeV per nucleon." },
+      "objective": "Identify the peak of the binding-energy curve"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q27", "type": "DIAGRAM_BASED", "difficulty": "HARD", "skill": "application", "diagram": "binding-energy-curve",
+      "stem": "Using the binding-energy curve, estimate the energy released when a nucleus of mass number 240 (binding energy per nucleon 7.6 MeV) splits into two nuclei of mass number 120 each (binding energy per nucleon 8.5 MeV).",
+      "options": ["0.9 MeV", "108 MeV", "216 MeV", "2040 MeV"],
+      "answer": 3,
+      "explanation": "Total binding energy before = 240 × 7.6 = 1824 MeV. After = 2 × 120 × 8.5 = 2040 MeV. The increase in binding energy is released: 2040 − 1824 = 216 MeV, which is 0.9 MeV per nucleon × 240 nucleons. This is the origin of the roughly 200 MeV released per fission.",
+      "optionRationale": { "1": "0.9 MeV is the gain per nucleon; it must be multiplied by 240 nucleons.", "2": "Uses only 120 nucleons, half the nucleus.", "4": "This is the total binding energy after fission, not the energy released." },
+      "objective": "Use the binding-energy curve to estimate fission energy"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q28", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Why does the binding energy per nucleon decrease gradually for nuclei heavier than about A = 60?",
+      "options": ["The nuclear force becomes repulsive in heavy nuclei", "Heavy nuclei contain fewer neutrons than protons", "The mass of each nucleon increases with A", "The Coulomb repulsion acts between every pair of protons and grows faster than the short-range nuclear attraction"],
+      "answer": 4,
+      "explanation": "The nuclear attraction on each nucleon is limited to its near neighbours (short range), so it does not grow as the nucleus gets bigger. The Coulomb repulsion, however, acts between every pair of protons, so its total effect grows roughly as Z². In heavy nuclei this growing repulsion lowers the binding energy per nucleon, to about 7.6 MeV for uranium.",
+      "optionRationale": { "1": "The nuclear force stays attractive at normal nucleon separations; it is repulsive only below about 0.8 fm.", "2": "Heavy nuclei have more neutrons than protons (uranium-238 has 146 neutrons and 92 protons).", "3": "The masses of protons and neutrons do not depend on the nucleus they are in." },
+      "objective": "Explain the fall of binding energy per nucleon for heavy nuclei"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q29", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each nuclide in List-I with its approximate binding energy per nucleon in List-II.",
+      "list": { "left": ["A. ${}^{2}_{1}\\text{H}$", "B. ${}^{4}_{2}\\text{He}$", "C. ${}^{56}_{26}\\text{Fe}$", "D. ${}^{238}_{92}\\text{U}$"], "right": ["I. about 7.6 MeV", "II. about 1.1 MeV", "III. about 8.8 MeV", "IV. about 7.1 MeV"] },
+      "options": ["A-II, B-IV, C-III, D-I", "A-II, B-I, C-III, D-IV", "A-IV, B-II, C-III, D-I", "A-II, B-IV, C-I, D-III"],
+      "answer": 1,
+      "explanation": "The deuteron is very loosely bound: 2.22 MeV/2 ≈ 1.1 MeV per nucleon (A-II). Helium-4 has 28.3 MeV/4 ≈ 7.1 MeV (B-IV). Iron-56 is near the peak at about 8.8 MeV (C-III). Uranium-238 has about 7.6 MeV per nucleon (D-I). Code: A-II, B-IV, C-III, D-I.",
+      "optionRationale": { "2": "Swaps helium-4 and uranium-238; uranium is the slightly larger of the two (7.6 against 7.1 MeV).", "3": "Swaps the deuteron and helium-4.", "4": "Swaps iron-56 and uranium-238; iron is at the peak." },
+      "objective": "Recall key values of binding energy per nucleon"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q30", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "When a uranium-235 nucleus absorbs a slow neutron and undergoes fission, the products are typically",
+      "options": ["two nuclei of intermediate mass, two or three neutrons and a large amount of energy", "an α-particle and a thorium nucleus", "a heavier nucleus and a γ-ray only", "two protons and a lead nucleus"],
+      "answer": 1,
+      "explanation": "In fission the excited uranium-236 compound nucleus splits into two medium-mass fragments (for example barium-141 and krypton-92), releasing two or three neutrons and about 200 MeV of energy. The neutrons can go on to cause further fissions in a chain reaction.",
+      "optionRationale": { "2": "This describes α-decay of uranium, not fission.", "3": "This describes simple neutron capture, not splitting.", "4": "Fission does not produce lead plus two protons; the fragments are two medium-mass nuclei." },
+      "objective": "Describe the products of nuclear fission"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q31", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "In the fission reaction ${}^{1}_{0}\\text{n} + {}^{235}_{92}\\text{U} \\rightarrow {}^{144}_{56}\\text{Ba} + \\text{X} + 3\\,{}^{1}_{0}\\text{n}$, the unknown nucleus X is",
+      "options": ["Kr-92 (Z = 36)", "Kr-89 (Z = 36)", "Sr-89 (Z = 38)", "Kr-91 (Z = 36)"],
+      "answer": 2,
+      "explanation": "Mass number and charge must balance. Mass numbers: 1 + 235 = 144 + A + 3, so A = 89. Charges: 0 + 92 = 56 + Z + 0, so Z = 36, which is krypton. Therefore X is krypton-89 with Z = 36.",
+      "optionRationale": { "1": "With krypton-92 the mass numbers would not balance: 144 + 92 + 3 = 239, not 236.", "3": "Z = 38 would make the charges unbalanced (56 + 38 = 94).", "4": "Mass numbers would not balance (144 + 91 + 3 = 238)." },
+      "objective": "Balance a nuclear fission equation"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q32", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A reactor produces thermal power of 320 MW from the fission of uranium-235. If each fission releases 200 MeV, about how many fissions occur per second? (1 MeV = 1.6 × 10⁻¹³ J)",
+      "options": ["2.0 × 10²¹", "1.0 × 10²⁵", "1.0 × 10¹⁶", "1.0 × 10¹⁹"],
+      "answer": 4,
+      "explanation": "Energy per fission = 200 × 1.6 × 10⁻¹³ J = 3.2 × 10⁻¹¹ J. Power = 320 MW = 3.2 × 10⁸ J per second. Number of fissions per second = (3.2 × 10⁸) ÷ (3.2 × 10⁻¹¹) = 1.0 × 10¹⁹.",
+      "optionRationale": { "1": "Uses 1 MeV per fission instead of 200 MeV.", "2": "Uses 200 eV instead of 200 MeV per fission.", "3": "Takes 1 MW as 10³ W instead of 10⁶ W." },
+      "objective": "Calculate fission rate from reactor power"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q33", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about the fission of uranium-235:\nA. About 200 MeV of energy is released per fission.\nB. Most of this energy appears as kinetic energy of the fission fragments.\nC. Slow (thermal) neutrons are more effective than fast neutrons in causing fission of uranium-235.\nD. The fission fragments have a smaller binding energy per nucleon than uranium-235.\nWhich of the statements are correct?",
+      "options": ["A and B only", "A, B and C only", "B, C and D only", "A, C and D only"],
+      "answer": 2,
+      "explanation": "A, B and C are correct: each fission releases about 200 MeV, of which roughly 170 MeV is kinetic energy of the fragments, and slow neutrons are much more likely to be captured by uranium-235 and cause fission. D is false: the fragments have a larger binding energy per nucleon (about 8.5 MeV against 7.6 MeV), which is exactly why energy is released.",
+      "optionRationale": { "1": "Leaves out C, which is true.", "3": "D is false and A, which is true, is left out.", "4": "D is false and B, which is true, is left out." },
+      "objective": "Recall the energy and conditions of fission"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q34", "type": "DIAGRAM_BASED", "difficulty": "EASY", "skill": "conceptual", "diagram": "fission",
+      "stem": "In the fission process shown in the figure, why are the two or three neutrons released in each fission important?",
+      "options": ["They can be absorbed by other uranium-235 nuclei and cause further fissions, making a chain reaction possible", "They carry away almost all of the 200 MeV released", "They are needed to keep the fragments electrically neutral", "They combine with each other to form a new uranium nucleus"],
+      "answer": 1,
+      "explanation": "Each fission is started by one neutron but releases two or three. If at least one of these is captured by another uranium-235 nucleus and causes fission, the process sustains itself as a chain reaction. Controlling the number of such neutrons is the basis of a nuclear reactor.",
+      "optionRationale": { "2": "Most of the energy is carried by the fission fragments, not the neutrons.", "3": "Neutrons are uncharged and have no role in neutralising the fragments.", "4": "Free neutrons do not combine to form uranium." },
+      "objective": "Explain the role of neutrons in a chain reaction"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q35", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "What is the main source of the energy radiated by the Sun?",
+      "options": ["Fission of heavy nuclei in the Sun's core", "Chemical burning of hydrogen with oxygen", "Radioactive decay of uranium", "Fusion of hydrogen nuclei into helium"],
+      "answer": 4,
+      "explanation": "In the Sun's core, at about 1.5 × 10⁷ K, hydrogen nuclei fuse into helium through the proton–proton cycle: effectively four protons become one helium-4 nucleus, releasing about 26.7 MeV. This thermonuclear fusion has powered the Sun for about 4.5 billion years.",
+      "optionRationale": { "1": "The Sun is made mainly of hydrogen and helium; fission of heavy nuclei is not its energy source.", "2": "Chemical burning could power the Sun for only a few thousand years, and there is no free oxygen supply for it.", "3": "Radioactive decay contributes negligibly to the Sun's output." },
+      "objective": "Identify fusion as the energy source of stars"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q36", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): Nuclear fusion takes place only at extremely high temperatures, of the order of 10⁷ K or more.\nReason (R): The fusing nuclei must have enough kinetic energy to overcome their mutual Coulomb repulsion and come within the range of the nuclear force.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Both are true and R explains A. Light nuclei are positively charged and repel each other; to fuse they must approach within a few femtometres, climbing a Coulomb barrier of a few hundred keV. Only at temperatures of about 10⁷ to 10⁸ K do enough nuclei have such kinetic energies (with help from tunnelling), which is why the process is called thermonuclear fusion.",
+      "optionRationale": { "2": "The need to overcome Coulomb repulsion is exactly why high temperature is required, so R explains A.", "3": "R is true; the nuclear force acts only at very short range.", "4": "A is true; fusion in the Sun's core occurs at about 1.5 × 10⁷ K." },
+      "objective": "Explain why fusion needs very high temperatures"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q37", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): In the fusion of two light nuclei, the mass of the product nucleus is greater than the sum of the masses of the fusing nuclei.\nReason (R): Energy is released in the fusion of light nuclei because the product has a greater binding energy per nucleon.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 4,
+      "explanation": "A is false: when energy is released, the total mass of the products is less than that of the reactants; for example in D–T fusion 0.018883 u of mass disappears as 17.6 MeV. R is true: the product (such as helium-4, 7.07 MeV per nucleon) is more tightly bound than the light reactants (deuterium, 1.1 MeV per nucleon).",
+      "optionRationale": { "1": "A is false, so R cannot explain it.", "2": "A is false.", "3": "A is false and R is true; it is the other way round." },
+      "objective": "Relate mass change and binding energy in fusion"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q38", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Using the atomic masses ²H = 2.014102 u, ³H = 3.016049 u, ⁴He = 4.002603 u, neutron = 1.008665 u and 1 u = 931.5 MeV/c², what is the energy released in the reaction ${}^{2}_{1}\\text{H} + {}^{3}_{1}\\text{H} \\rightarrow {}^{4}_{2}\\text{He} + {}^{1}_{0}\\text{n}$?",
+      "options": ["3.27 MeV", "23.8 MeV", "28.3 MeV", "17.6 MeV"],
+      "answer": 4,
+      "explanation": "Q = (mass of reactants − mass of products) × 931.5 MeV per u. Reactants: 2.014102 + 3.016049 = 5.030151 u. Products: 4.002603 + 1.008665 = 5.011268 u. Mass lost = 0.018883 u, so Q = 0.018883 × 931.5 ≈ 17.6 MeV.",
+      "optionRationale": { "1": "3.27 MeV is the energy of the D–D reaction giving helium-3 and a neutron.", "2": "23.8 MeV is the energy that would be released if two deuterons fused directly into helium-4.", "3": "28.3 MeV is the total binding energy of helium-4, not the energy released in this reaction." },
+      "objective": "Calculate the Q-value of a fusion reaction"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q39", "type": "DIAGRAM_BASED", "difficulty": "HARD", "skill": "analytical", "diagram": "fusion",
+      "stem": "In the D–T fusion reaction shown, the 17.6 MeV released is shared so that the neutron gets about 14.1 MeV and the helium-4 nucleus about 3.5 MeV. Why does the neutron receive the larger share?",
+      "options": ["The neutron is uncharged, so the Coulomb force pushes it away harder", "The products fly apart with equal and opposite momenta, and for equal momentum the kinetic energy p²/2m is larger for the lighter particle", "The neutron is formed first and so gains energy for a longer time", "The helium nucleus loses most of its energy as γ-rays"],
+      "answer": 2,
+      "explanation": "The reacting nuclei carry very little momentum, so the helium-4 nucleus and the neutron move apart with equal and opposite momenta p. Kinetic energy K = p²/2m is inversely proportional to mass. With a mass ratio of about 4 : 1, the neutron gets 4/5 of 17.6 MeV ≈ 14.1 MeV and the helium-4 nucleus 1/5 ≈ 3.5 MeV.",
+      "optionRationale": { "1": "An uncharged neutron feels no Coulomb force at all, so this cannot be the reason.", "3": "Both products are formed together; the share is fixed by momentum conservation.", "4": "In D–T fusion the energy is carried as kinetic energy of the two products, not mainly as γ-rays." },
+      "objective": "Apply momentum conservation to the products of fusion"
+    },
+    {
+      "key": "ug26-322-u8-nuclei-q40", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "analytical",
+      "stem": "Fission of one uranium-235 nucleus releases about 200 MeV, while one D–T fusion releases about 17.6 MeV. Compared per nucleon of fuel, the energy released by D–T fusion is roughly",
+      "options": ["one-tenth of that released by fission", "the same as that released by fission", "four times that released by fission", "a hundred times that released by fission"],
+      "answer": 3,
+      "explanation": "Per nucleon, fission gives about 200 MeV ÷ 236 ≈ 0.85 MeV, while D–T fusion gives 17.6 MeV ÷ 5 ≈ 3.5 MeV. The ratio is about 3.5 ÷ 0.85 ≈ 4. So, kilogram for kilogram of fuel, fusion releases about four times as much energy, although a single fusion releases much less energy than a single fission.",
+      "optionRationale": { "1": "This compares energy per reaction (17.6 against 200 MeV), not per nucleon.", "2": "The per-nucleon values (3.5 MeV and 0.85 MeV) are clearly different.", "4": "The ratio is about 4, not 100." },
+      "objective": "Compare energy yields of fission and fusion per unit mass"
+    }
+  ]
+}

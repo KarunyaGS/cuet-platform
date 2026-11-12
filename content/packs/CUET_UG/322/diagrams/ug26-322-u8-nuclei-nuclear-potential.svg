@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 470" width="800" height="470" font-family="Arial, Helvetica, sans-serif">
+  <!-- axes -->
+  <line x1="110" y1="440" x2="110" y2="48" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="110,36 104,48 116,48" fill="#1f2937"/>
+  <line x1="110" y1="190" x2="752" y2="190" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="764,190 752,184 752,196" fill="#1f2937"/>
+  <text x="44" y="240" font-size="15" fill="#1f2937" text-anchor="middle" transform="rotate(-90 44 240)">Potential energy U (MeV)</text>
+  <text x="764" y="214" font-size="15" fill="#1f2937" text-anchor="end">r (fm)</text>
+  <text x="98" y="195" font-size="14" fill="#1f2937" text-anchor="end">0</text>
+  <text x="98" y="70" font-size="14" fill="#1f2937" text-anchor="end">+</text>
+  <text x="98" y="420" font-size="14" fill="#1f2937" text-anchor="end">−</text>
+  <!-- r ticks -->
+  <line x1="290" y1="184" x2="290" y2="196" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="470" y1="184" x2="470" y2="196" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="650" y1="184" x2="650" y2="196" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="290" y="178" font-size="14" fill="#1f2937" text-anchor="middle">1</text>
+  <text x="470" y="178" font-size="14" fill="#1f2937" text-anchor="middle">2</text>
+  <text x="650" y="178" font-size="14" fill="#1f2937" text-anchor="middle">3</text>
+  <!-- potential energy curve (schematic) -->
+  <polyline fill="none" stroke="#2563eb" stroke-width="2.5" points="219.6,63.0 223.2,165.2 226.8,240.0 230.4,294.1 234.0,332.9 237.6,360.0 241.2,378.3 244.8,390.0 248.4,396.7 252.0,399.6 255.6,399.8 259.2,397.8 262.8,394.4 266.4,389.9 270.0,384.5 273.6,378.7 277.2,372.6 280.8,366.2 284.4,359.8 288.0,353.5 291.6,347.2 295.2,341.0 298.8,335.0 302.4,329.1 306.0,323.5 309.6,318.1 313.2,312.8 316.8,307.8 320.4,303.0 324.0,298.4 327.6,294.1 331.2,289.9 334.8,285.9 338.4,282.0 342.0,278.4 345.6,274.9 360.0,262.6 374.4,252.4 388.8,243.9 403.2,236.8 417.6,230.9 432.0,225.9 446.4,221.6 460.8,218.0 475.2,215.0 489.6,212.3 504.0,210.0 518.4,208.0 532.8,206.3 547.2,204.7 561.6,203.4 576.0,202.2 590.4,201.2 604.8,200.2 619.2,199.4 633.6,198.6 648.0,198.0 662.4,197.4 676.8,196.8 691.2,196.3 705.6,195.9 720.0,195.5"/>
+  <!-- r0 marker -->
+  <line x1="254" y1="190" x2="254" y2="400" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <circle cx="254" cy="400" r="4" fill="#dc2626"/>
+  <text x="254" y="424" font-size="14" fill="#dc2626" text-anchor="middle">r₀ ≈ 0.8 fm</text>
+  <text x="254" y="441" font-size="13" fill="#dc2626" text-anchor="middle">(minimum of U: force = 0)</text>
+  <!-- regions -->
+  <text x="160" y="96" font-size="14" fill="#1f2937" text-anchor="middle">r &lt; r₀:</text>
+  <text x="160" y="113" font-size="14" fill="#1f2937" text-anchor="middle">strong</text>
+  <text x="160" y="130" font-size="14" fill="#1f2937" text-anchor="middle">repulsion</text>
+  <text x="430" y="300" font-size="14" fill="#1f2937">r &gt; r₀: attraction</text>
+  <text x="430" y="318" font-size="13" fill="#4b5563">(U rises towards 0 as r increases,</text>
+  <text x="430" y="335" font-size="13" fill="#4b5563">so the force pulls the nucleons together)</text>
+  <text x="560" y="240" font-size="13" fill="#4b5563">beyond about 2–3 fm: force</text>
+  <text x="560" y="257" font-size="13" fill="#4b5563">becomes negligible (short range)</text>
+</svg>

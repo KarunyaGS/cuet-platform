@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 330" font-family="Arial, Helvetica, sans-serif">
+  <!-- uniform field lines -->
+  <g stroke="#93c5fd" stroke-width="1.8">
+    <line x1="30" y1="50" x2="630" y2="50"/>
+    <line x1="30" y1="100" x2="630" y2="100"/>
+    <line x1="30" y1="150" x2="630" y2="150"/>
+    <line x1="30" y1="200" x2="630" y2="200"/>
+    <line x1="30" y1="250" x2="630" y2="250"/>
+    <line x1="30" y1="300" x2="630" y2="300"/>
+  </g>
+  <g fill="#60a5fa">
+    <polygon points="140,50 128,44 128,56"/>
+    <polygon points="140,100 128,94 128,106"/>
+    <polygon points="140,150 128,144 128,156"/>
+    <polygon points="140,200 128,194 128,206"/>
+    <polygon points="140,250 128,244 128,256"/>
+    <polygon points="140,300 128,294 128,306"/>
+    <polygon points="620,50 608,44 608,56"/>
+    <polygon points="620,100 608,94 608,106"/>
+    <polygon points="620,150 608,144 608,156"/>
+    <polygon points="620,200 608,194 608,206"/>
+    <polygon points="620,250 608,244 608,256"/>
+    <polygon points="620,300 608,294 608,306"/>
+  </g>
+  <text x="40" y="30" font-size="15" font-weight="bold" fill="#2563eb">Uniform field E</text>
+  <!-- surface seen edge-on -->
+  <line x1="259.3" y1="85.7" x2="400.7" y2="254.3" stroke="#d97706" stroke-width="6"/>
+  <text x="404" y="282" font-size="14" fill="#d97706">surface of area ΔS (seen edge-on)</text>
+  <!-- reference line along E -->
+  <line x1="330" y1="170" x2="470" y2="170" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <!-- normal (area vector) -->
+  <line x1="330" y1="170" x2="390.4" y2="119.3" stroke="#059669" stroke-width="3"/>
+  <polygon points="399.6,111.6 393.8,123.4 386.1,114.2" fill="#059669"/>
+  <text x="404" y="106" font-size="15" font-weight="bold" fill="#059669">ΔS (normal)</text>
+  <!-- angle arc -->
+  <path d="M390,170 A60,60 0 0,0 376.0,131.4" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <text x="398" y="158" font-size="16" font-style="italic" fill="#dc2626">θ</text>
+  <circle cx="330" cy="170" r="3.5" fill="#1f2937"/>
+  <!-- result -->
+  <text x="40" y="324" font-size="14" fill="#1f2937">Flux ΔΦ = E · ΔS = E ΔS cos θ   (θ = angle between E and the normal)</text>
+</svg>

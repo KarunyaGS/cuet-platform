@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 440" font-family="Arial, Helvetica, sans-serif">
+  <!-- axes -->
+  <line x1="40" y1="340" x2="632" y2="340" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="642,340 630,334 630,346" fill="#1f2937"/>
+  <line x1="360" y1="350" x2="360" y2="52" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="360,42 354,54 366,54" fill="#1f2937"/>
+  <text x="370" y="50" font-size="15" fill="#1f2937">Photocurrent i (μA)</text>
+  <text x="352" y="358" font-size="14" fill="#1f2937" text-anchor="end">O</text>
+
+  <!-- curves: same frequency, different intensities -->
+  <polyline fill="none" stroke="#dc2626" stroke-width="2.5" points="170,340.0 180,329.6 190,315.2 200,299.5 210,283.5 220,267.6 230,252.3 240,237.7 250,223.9 260,211.1 270,199.2 280,188.3 290,178.3 300,169.3 310,161.1 320,153.7 330,147.1 340,141.2 350,136.0 360,131.4 370,127.3 380,123.6 390,120.5 400,117.7 410,115.2 420,113.1 430,111.3 440,109.7 450,108.3 460,107.1 470,106.0 480,105.1 490,104.4 500,103.7 510,103.1 520,102.7 530,102.2 540,101.9 550,101.6 560,101.3 570,101.1 580,101.0 590,100.8 600,100.7 610,100.6 620,100.5"/>
+  <polyline fill="none" stroke="#2563eb" stroke-width="2.5" points="170,340.0 180,332.6 190,322.4 200,311.3 210,300.0 220,288.7 230,277.9 240,267.5 250,257.8 260,248.7 270,240.3 280,232.5 290,225.5 300,219.1 310,213.3 320,208.1 330,203.4 340,199.2 350,195.5 360,192.2 370,189.3 380,186.7 390,184.5 400,182.5 410,180.8 420,179.3 430,178.0 440,176.8 450,175.9 460,175.0 470,174.3 480,173.6 490,173.1 500,172.6 510,172.2 520,171.9 530,171.6 540,171.3 550,171.1 560,171.0 570,170.8 580,170.7 590,170.6 600,170.5 610,170.4 620,170.3"/>
+  <polyline fill="none" stroke="#059669" stroke-width="2.5" points="170,340.0 180,335.7 190,329.7 200,323.1 210,316.5 220,309.9 230,303.5 240,297.4 250,291.6 260,286.3 270,281.3 280,276.8 290,272.6 300,268.9 310,265.5 320,262.4 330,259.6 340,257.2 350,255.0 360,253.1 370,251.4 380,249.8 390,248.5 400,247.4 410,246.3 420,245.5 430,244.7 440,244.0 450,243.4 460,242.9 470,242.5 480,242.1 490,241.8 500,241.5 510,241.3 520,241.1 530,240.9 540,240.8 550,240.7 560,240.6 570,240.5 580,240.4 590,240.3 600,240.3 610,240.2 620,240.2"/>
+  <text x="620" y="92" font-size="15" fill="#dc2626" text-anchor="end">I₃</text>
+  <text x="620" y="162" font-size="15" fill="#2563eb" text-anchor="end">I₂</text>
+  <text x="620" y="232" font-size="15" fill="#059669" text-anchor="end">I₁</text>
+  <text x="440" y="74" font-size="14" fill="#1f2937">Saturation currents (∝ intensity)</text>
+
+  <!-- stopping potential -->
+  <line x1="170" y1="334" x2="170" y2="346" stroke="#1f2937" stroke-width="2"/>
+  <text x="170" y="362" font-size="15" fill="#1f2937" text-anchor="middle">−V₀</text>
+  <text x="48" y="262" font-size="14" fill="#1f2937">Stopping potential −V₀</text>
+  <text x="48" y="279" font-size="14" fill="#1f2937">is the same for all</text>
+  <text x="48" y="296" font-size="14" fill="#1f2937">three intensities</text>
+  <line x1="120" y1="302" x2="164" y2="333" stroke="#1f2937" stroke-width="1.5"/>
+  <polygon points="168,336 157,333 162,326" fill="#1f2937"/>
+
+  <text x="48" y="74" font-size="14" fill="#1f2937">Frequency ν fixed (ν &gt; ν₀)</text>
+  <text x="48" y="94" font-size="14" fill="#1f2937">Intensity: I₃ &gt; I₂ &gt; I₁</text>
+
+  <!-- axis captions -->
+  <text x="48" y="388" font-size="13" fill="#1f2937">← Retarding (A negative)</text>
+  <text x="632" y="388" font-size="13" fill="#1f2937" text-anchor="end">Accelerating (A positive) →</text>
+  <text x="340" y="418" font-size="15" fill="#1f2937" text-anchor="middle">Collector plate potential V (volt)</text>
+</svg>

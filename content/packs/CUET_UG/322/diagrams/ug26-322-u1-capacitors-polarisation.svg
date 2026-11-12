@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 350" font-family="Arial, Helvetica, sans-serif">
+  <!-- applied field outside the slab -->
+  <g stroke="#2563eb" stroke-width="1.8">
+    <line x1="30" y1="80" x2="234" y2="80"/><line x1="30" y1="130" x2="234" y2="130"/><line x1="30" y1="180" x2="234" y2="180"/><line x1="30" y1="230" x2="234" y2="230"/>
+    <line x1="426" y1="80" x2="630" y2="80"/><line x1="426" y1="130" x2="630" y2="130"/><line x1="426" y1="180" x2="630" y2="180"/><line x1="426" y1="230" x2="630" y2="230"/>
+  </g>
+  <g fill="#2563eb">
+    <polygon points="140,80 128,74 128,86"/><polygon points="140,130 128,124 128,136"/><polygon points="140,180 128,174 128,186"/><polygon points="140,230 128,224 128,236"/>
+    <polygon points="540,80 528,74 528,86"/><polygon points="540,130 528,124 528,136"/><polygon points="540,180 528,174 528,186"/><polygon points="540,230 528,224 528,236"/>
+  </g>
+  <text x="40" y="60" font-size="14" font-weight="bold" fill="#2563eb">applied field E₀</text>
+  <!-- slab -->
+  <rect x="238" y="55" width="184" height="207" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <line x1="238" y1="55" x2="238" y2="262" stroke="#2563eb" stroke-width="4"/>
+  <line x1="422" y1="55" x2="422" y2="262" stroke="#dc2626" stroke-width="4"/>
+  <text x="238" y="46" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">−σ<tspan font-size="10" dy="3">p</tspan></text>
+  <text x="422" y="46" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">+σ<tspan font-size="10" dy="3">p</tspan></text>
+  <text x="330" y="44" font-size="13" fill="#b45309" text-anchor="middle">dielectric slab</text>
+  <!-- aligned molecular dipoles -->
+  <g fill="#ffffff" stroke="#6b7280" stroke-width="1.2">
+    <ellipse cx="270" cy="78" rx="15" ry="8"/><ellipse cx="270" cy="118" rx="15" ry="8"/><ellipse cx="270" cy="158" rx="15" ry="8"/><ellipse cx="270" cy="198" rx="15" ry="8"/><ellipse cx="270" cy="238" rx="15" ry="8"/><ellipse cx="310" cy="78" rx="15" ry="8"/><ellipse cx="310" cy="118" rx="15" ry="8"/><ellipse cx="310" cy="158" rx="15" ry="8"/><ellipse cx="310" cy="198" rx="15" ry="8"/><ellipse cx="310" cy="238" rx="15" ry="8"/><ellipse cx="350" cy="78" rx="15" ry="8"/><ellipse cx="350" cy="118" rx="15" ry="8"/><ellipse cx="350" cy="158" rx="15" ry="8"/><ellipse cx="350" cy="198" rx="15" ry="8"/><ellipse cx="350" cy="238" rx="15" ry="8"/><ellipse cx="390" cy="78" rx="15" ry="8"/><ellipse cx="390" cy="118" rx="15" ry="8"/><ellipse cx="390" cy="158" rx="15" ry="8"/><ellipse cx="390" cy="198" rx="15" ry="8"/><ellipse cx="390" cy="238" rx="15" ry="8"/>
+  </g>
+  <g font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">
+    <text x="263" y="82">−</text><text x="263" y="122">−</text><text x="263" y="162">−</text><text x="263" y="202">−</text><text x="263" y="242">−</text><text x="303" y="82">−</text><text x="303" y="122">−</text><text x="303" y="162">−</text><text x="303" y="202">−</text><text x="303" y="242">−</text><text x="343" y="82">−</text><text x="343" y="122">−</text><text x="343" y="162">−</text><text x="343" y="202">−</text><text x="343" y="242">−</text><text x="383" y="82">−</text><text x="383" y="122">−</text><text x="383" y="162">−</text><text x="383" y="202">−</text><text x="383" y="242">−</text>
+  </g>
+  <g font-size="11" font-weight="bold" fill="#dc2626" text-anchor="middle">
+    <text x="277" y="82">+</text><text x="277" y="122">+</text><text x="277" y="162">+</text><text x="277" y="202">+</text><text x="277" y="242">+</text><text x="317" y="82">+</text><text x="317" y="122">+</text><text x="317" y="162">+</text><text x="317" y="202">+</text><text x="317" y="242">+</text><text x="357" y="82">+</text><text x="357" y="122">+</text><text x="357" y="162">+</text><text x="357" y="202">+</text><text x="357" y="242">+</text><text x="397" y="82">+</text><text x="397" y="122">+</text><text x="397" y="162">+</text><text x="397" y="202">+</text><text x="397" y="242">+</text>
+  </g>
+  <!-- field comparison -->
+  <line x1="250" y1="284" x2="398" y2="284" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="410,284 397,278 397,290" fill="#2563eb"/>
+  <text x="240" y="289" font-size="13" fill="#2563eb" text-anchor="end">applied E₀</text>
+  <line x1="410" y1="309" x2="342" y2="309" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="330,309 343,303 343,315" fill="#dc2626"/>
+  <text x="240" y="314" font-size="13" fill="#dc2626" text-anchor="end">field of bound charges</text>
+  <line x1="250" y1="334" x2="318" y2="334" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="330,334 317,328 317,340" fill="#059669"/>
+  <text x="240" y="339" font-size="13" fill="#059669" text-anchor="end">net field E = E₀/K</text>
+  <text x="430" y="320" font-size="13" fill="#1f2937">Bound charges on the faces</text>
+  <text x="430" y="338" font-size="13" fill="#1f2937">oppose E₀ and weaken it.</text>
+</svg>

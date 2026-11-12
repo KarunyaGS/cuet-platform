@@ -1,0 +1,504 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_d2ed10aab8884bceb19bf2cca864d508",
+    "title": "Intrinsic and extrinsic semiconductors, p-type and n-type, p-n junction Semiconductor diode its I-V characteristics in forward and reverse bias."
+  },
+  "lesson": {
+    "key": "ug26-322-u9-semiconductors-pn-diode",
+    "title": "Intrinsic and extrinsic semiconductors, the p-n junction and the junction diode",
+    "coverage": [
+      { "phrase": "Intrinsic semiconductors", "section": "Intrinsic semiconductors" },
+      { "phrase": "Extrinsic semiconductors", "section": "Extrinsic semiconductors and doping" },
+      { "phrase": "n-type semiconductor", "section": "n-type semiconductors" },
+      { "phrase": "p-type semiconductor", "section": "p-type semiconductors" },
+      { "phrase": "p-n junction", "section": "Formation of a p-n junction" },
+      { "phrase": "Semiconductor diode", "section": "The semiconductor diode" },
+      { "phrase": "Diode in forward bias", "section": "Semiconductor diode in forward bias" },
+      { "phrase": "Diode in reverse bias", "section": "Semiconductor diode in reverse bias" },
+      { "phrase": "I-V characteristics in forward and reverse bias", "section": "I-V characteristics of a junction diode" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Intrinsic semiconductors" },
+      { "type": "TEXT", "text": "Silicon (Si) and germanium (Ge) belong to group 14 of the periodic table: each atom has **four valence electrons**. In the crystal, every atom is surrounded by four nearest neighbours arranged at the corners of a tetrahedron (the diamond structure). Each atom shares one of its valence electrons with each neighbour, and receives one in return, so every pair of neighbouring atoms is held together by a **covalent bond** made of two shared electrons.\n\nThe figure below flattens this three-dimensional structure into a two-dimensional picture that is easy to draw: every circle is a silicon atom, and every line carries a shared pair of electrons.\n\n**At 0 K** every bond is complete. All valence electrons are locked in bonds, there are no free charges, and the crystal is an insulator.\n\n**At room temperature** the lattice vibrates, and a few bonds receive enough thermal energy to break. The electron released from a broken bond is free to wander through the crystal: it is a **conduction electron** (in the band picture, it has jumped from the valence band into the conduction band across the gap $E_g$). The broken bond is left one electron short. This vacancy is called a **hole**, and it behaves like a positive charge $+e$, because the region around it now has a net positive charge." },
+      { "type": "DEFINITION", "term": "Intrinsic semiconductor", "text": "A pure semiconductor, free of any significant impurity, in which the only charge carriers are the electrons and holes produced in pairs by breaking covalent bonds (thermal or optical excitation). In it the free-electron density equals the hole density: $n_e = n_h = n_i$." },
+      { "type": "DIAGRAM", "diagram": "intrinsic-lattice" },
+      { "type": "FORMULA", "latex": "n_e = n_h = n_i", "text": "$n_e$ = number of free electrons per unit volume, $n_h$ = number of holes per unit volume, $n_i$ = intrinsic carrier concentration (unit $\\text{m}^{-3}$). At 300 K, $n_i \\approx 1.5\\times10^{16}\\,\\text{m}^{-3}$ for silicon and about $2.4\\times10^{19}\\,\\text{m}^{-3}$ for germanium. $n_i$ rises very rapidly with temperature." },
+      { "type": "TEXT", "text": "**How a hole moves.** Suppose a bond at site 1 has a hole. An electron from a neighbouring bond at site 2 can jump into it without needing to become free. The hole is now at site 2. If an electron from site 3 fills that, the hole moves to site 3, and so on. The hole drifts through the crystal although only *bound* electrons have moved, each a short distance in the opposite direction.\n\nUnder an applied electric field, free electrons drift opposite to the field and holes drift along the field. Because the two carry opposite charges and move in opposite directions, both give a conventional current in the **same** direction, and the total current is the sum of the two parts." },
+      { "type": "FORMULA", "latex": "I = I_e + I_h", "text": "$I_e$ = current carried by free (conduction) electrons, $I_h$ = current carried by holes (really by bound valence electrons hopping from bond to bond). Both are in the direction of the applied field." },
+      { "type": "TEXT", "text": "**Generation and recombination.** Electron-hole pairs are created continually by thermal energy. At the same time, a free electron that meets a hole can drop back into the broken bond, so both carriers disappear; this is **recombination**. At a steady temperature the rate of generation equals the rate of recombination, so $n_i$ stays constant.\n\n**Why pure silicon is not enough.** Silicon has about $5\\times10^{28}$ atoms per cubic metre but only about $1.5\\times10^{16}$ free electrons per cubic metre at room temperature, roughly one for every $3\\times10^{12}$ atoms. Such a small and strongly temperature-dependent carrier density is of little use in devices. We need a way to control the number and type of carriers, and that way is doping." },
+      { "type": "KEY_POINT", "text": "Intrinsic semiconductor: pure Si or Ge; carriers created only in electron-hole pairs, so $n_e = n_h = n_i$; insulator at 0 K; $n_i$ small (Si: $1.5\\times10^{16}\\,\\text{m}^{-3}$) and increases steeply with temperature; total current $I = I_e + I_h$." },
+
+      { "type": "HEADING", "text": "Extrinsic semiconductors and doping" },
+      { "type": "TEXT", "text": "The conductivity of a semiconductor can be raised enormously, and its main type of carrier chosen, by adding a very small, controlled amount of a suitable impurity. This process is called **doping**, the impurity atoms are **dopants**, and the doped material is an **extrinsic semiconductor**.\n\nTwo rules guide the choice of dopant:\n\n- The dopant atom must be **about the same size** as the host atom, so that it can take the place of a host atom in the lattice without distorting the crystal.\n- It must have **one more or one fewer valence electron** than the host. For tetravalent Si or Ge this means:\n  - **pentavalent** atoms (group 15: phosphorus P, arsenic As, antimony Sb), which give **n-type** semiconductors;\n  - **trivalent** atoms (group 13: boron B, aluminium Al, gallium Ga, indium In), which give **p-type** semiconductors.\n\nTypical doping levels are tiny, often about 1 dopant atom per million host atoms (1 ppm). Even so, 1 ppm of a donor in silicon supplies about $5\\times10^{22}$ free electrons per cubic metre, more than three million times the intrinsic value $1.5\\times10^{16}\\,\\text{m}^{-3}$." },
+      { "type": "DEFINITION", "term": "Doping", "text": "The deliberate addition of a small, controlled concentration of a suitable impurity (a pentavalent or trivalent element) to a pure semiconductor in order to increase its conductivity and fix the type of its majority charge carriers." },
+      { "type": "DEFINITION", "term": "Extrinsic semiconductor", "text": "A doped semiconductor, whose charge carriers come mainly from the impurity atoms rather than from thermally broken bonds. In it $n_e \\ne n_h$: it is n-type if $n_e \\gg n_h$ and p-type if $n_h \\gg n_e$." },
+      { "type": "FORMULA", "latex": "n_e\\, n_h = n_i^2", "text": "Mass-action law: in thermal equilibrium the product of the electron density and the hole density equals the square of the intrinsic carrier density, for intrinsic and extrinsic semiconductors alike (at a given temperature). Increasing one type of carrier by doping increases the rate of recombination, which pushes the other type below $n_i$." },
+
+      { "type": "HEADING", "text": "n-type semiconductors" },
+      { "type": "TEXT", "text": "When a pentavalent atom such as arsenic replaces a silicon atom, four of its five valence electrons form covalent bonds with the four silicon neighbours. The **fifth electron** is not needed for bonding. It is held only weakly by the arsenic ion: the energy needed to free it is about **0.01 eV in germanium and about 0.05 eV in silicon**, far less than the band gap. At room temperature practically every such electron is freed and becomes a conduction electron.\n\nThe arsenic atom, having given away an electron, becomes a **positive ion fixed in the lattice**; it cannot move and does not carry current. Because it donates an electron, the pentavalent impurity is called a **donor**. Freeing the donor electron does **not** create a hole.\n\nThe result:\n\n- **Electrons are the majority carriers**: almost all come from donors, so $n_e \\approx N_D$ (the donor concentration).\n- **Holes are the minority carriers**: only the few thermally generated ones, made even fewer by recombination with the many electrons ($n_h = n_i^2/n_e$).\n- The material is still **electrically neutral**: the negative charge of the free electrons is balanced by the positive charge of the donor ions plus the holes ($n_e = N_D + n_h$)." },
+      { "type": "DEFINITION", "term": "Donor impurity", "text": "A pentavalent impurity atom (P, As, Sb) in Si or Ge that provides one extra, loosely bound electron which is easily freed to the conduction band, leaving behind an immobile positive donor ion." },
+      { "type": "DIAGRAM", "diagram": "doped-lattices" },
+      { "type": "FORMULA", "latex": "\\text{n-type:}\\quad n_e \\approx N_D \\gg n_h, \\qquad n_h \\approx \\frac{n_i^2}{N_D}", "text": "$N_D$ = number of donor atoms per unit volume (all ionised at room temperature, and much larger than $n_i$). The hole density follows from the mass-action law." },
+
+      { "type": "HEADING", "text": "p-type semiconductors" },
+      { "type": "TEXT", "text": "When a trivalent atom such as boron replaces a silicon atom, it has only **three valence electrons** to share with four neighbours. Three bonds are completed, but the fourth bond is **one electron short**: there is a hole next to the boron atom.\n\nAn electron from a neighbouring silicon-silicon bond needs only a small energy (about 0.01 eV in Ge to about 0.05 eV in Si) to jump into this vacancy. When it does, the boron atom acquires an extra electron and becomes a **negative ion fixed in the lattice**, while the hole moves to the bond the electron came from and is now free to wander. Because it accepts an electron, the trivalent impurity is called an **acceptor**.\n\nThe result:\n\n- **Holes are the majority carriers**: $n_h \\approx N_A$ (the acceptor concentration).\n- **Electrons are the minority carriers** ($n_e = n_i^2/n_h$).\n- The material is **electrically neutral**: the positive charge of the holes is balanced by the negative acceptor ions plus the free electrons ($n_h = N_A + n_e$)." },
+      { "type": "DEFINITION", "term": "Acceptor impurity", "text": "A trivalent impurity atom (B, Al, Ga, In) in Si or Ge that leaves one covalent bond incomplete and readily accepts an electron from a neighbouring bond, creating a mobile hole and becoming an immobile negative acceptor ion." },
+      { "type": "FORMULA", "latex": "\\text{p-type:}\\quad n_h \\approx N_A \\gg n_e, \\qquad n_e \\approx \\frac{n_i^2}{N_A}", "text": "$N_A$ = number of acceptor atoms per unit volume (much larger than $n_i$). The electron density follows from the mass-action law." },
+      { "type": "CALLOUT", "text": "**Common mistake:** calling an n-type semiconductor negatively charged and a p-type semiconductor positively charged. Both are electrically **neutral**. The letters n and p describe the sign of the **majority mobile carriers**, not the net charge of the material. Every extra free electron in n-type material is matched by a fixed positive donor ion, and every extra hole in p-type material by a fixed negative acceptor ion." },
+
+      { "type": "HEADING", "text": "Energy band picture of doped semiconductors" },
+      { "type": "TEXT", "text": "Doping adds new energy levels inside the forbidden gap, close to one edge of it.\n\n- In n-type material the loosely bound donor electrons occupy a **donor level $E_D$** just **below the bottom of the conduction band** (about 0.01 eV below in Ge, 0.05 eV in Si). Very little thermal energy lifts them into the conduction band, leaving positive donor ions behind.\n- In p-type material the acceptors create an empty **acceptor level $E_A$** just **above the top of the valence band**. Valence electrons easily jump up into it, leaving holes in the valence band and negative acceptor ions behind.\n\nIn both cases thermal generation across the full gap $E_g$ still happens, producing a small number of minority carriers." },
+      { "type": "DIAGRAM", "diagram": "impurity-levels" },
+      { "type": "TABLE", "caption": "Intrinsic and extrinsic semiconductors compared", "columns": ["Feature", "Intrinsic semiconductor", "Extrinsic semiconductor"], "rows": [
+        ["Composition", "Pure Si or Ge", "Si or Ge doped with a pentavalent or trivalent impurity"],
+        ["Carrier densities", "$n_e = n_h = n_i$", "$n_e \\ne n_h$ (but $n_e n_h = n_i^2$ still holds)"],
+        ["Source of carriers", "Thermally broken bonds only", "Mainly impurity atoms, plus a few broken bonds"],
+        ["Conductivity at room temperature", "Low", "Much higher, set by the doping level"],
+        ["Dependence on temperature", "Very strong", "Much weaker over the normal working range (carriers mostly from dopants)"],
+        ["Energy levels in the gap", "None", "Donor level near $E_C$ or acceptor level near $E_V$"]
+      ] },
+      { "type": "TABLE", "caption": "n-type and p-type semiconductors compared", "columns": ["Feature", "n-type", "p-type"], "rows": [
+        ["Dopant", "Pentavalent (P, As, Sb): donor", "Trivalent (B, Al, Ga, In): acceptor"],
+        ["Majority carriers", "Electrons", "Holes"],
+        ["Minority carriers", "Holes", "Electrons"],
+        ["Immobile ions formed", "Positive donor ions", "Negative acceptor ions"],
+        ["Carrier densities", "$n_e \\approx N_D \\gg n_h$", "$n_h \\approx N_A \\gg n_e$"],
+        ["Impurity level", "Donor level just below the conduction band", "Acceptor level just above the valence band"],
+        ["Net charge", "Neutral", "Neutral"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "A silicon crystal contains $5.0\\times10^{28}$ atoms per cubic metre. It is doped with boron at a level of one boron atom for every $10^{8}$ silicon atoms. Given $n_i = 1.5\\times10^{16}\\,\\text{m}^{-3}$, find the hole and electron densities. What type of semiconductor is obtained, and how many times more holes than electrons does it contain?", "solution": "Step 1: Acceptor density. $N_A = \\dfrac{5.0\\times10^{28}}{10^{8}} = 5.0\\times10^{20}\\,\\text{m}^{-3}$.\n\nStep 2: Each boron atom produces one hole, and $N_A \\gg n_i$, so $n_h \\approx N_A = 5.0\\times10^{20}\\,\\text{m}^{-3}$.\n\nStep 3: Use the mass-action law for the electrons: $n_e = \\dfrac{n_i^2}{n_h} = \\dfrac{(1.5\\times10^{16})^2}{5.0\\times10^{20}} = \\dfrac{2.25\\times10^{32}}{5.0\\times10^{20}} = 4.5\\times10^{11}\\,\\text{m}^{-3}$.\n\nStep 4: Boron is trivalent, holes are the majority carriers, so the material is **p-type**.\n\nStep 5: Ratio $\\dfrac{n_h}{n_e} = \\dfrac{5.0\\times10^{20}}{4.5\\times10^{11}} \\approx 1.1\\times10^{9}$.", "answer": "$n_h \\approx 5.0\\times10^{20}\\,\\text{m}^{-3}$, $n_e \\approx 4.5\\times10^{11}\\,\\text{m}^{-3}$; p-type; about $1.1\\times10^{9}$ times more holes than electrons." },
+      { "type": "SOLVED_PROBLEM", "problem": "In pure germanium at 300 K, $n_i = 2.4\\times10^{19}\\,\\text{m}^{-3}$. After doping, the electron density becomes $4.8\\times10^{21}\\,\\text{m}^{-3}$ at the same temperature. Find the new hole density, name the type of semiconductor, and state by what factor the hole density has changed.", "solution": "Step 1: Mass-action law: $n_e n_h = n_i^2$, so $n_h = \\dfrac{n_i^2}{n_e}$.\n\nStep 2: $n_i^2 = (2.4\\times10^{19})^2 = 5.76\\times10^{38}\\,\\text{m}^{-6}$.\n\nStep 3: $n_h = \\dfrac{5.76\\times10^{38}}{4.8\\times10^{21}} = 1.2\\times10^{17}\\,\\text{m}^{-3}$.\n\nStep 4: Electrons now greatly outnumber holes, so the germanium has been doped with a pentavalent (donor) impurity: it is **n-type**.\n\nStep 5: Before doping $n_h = n_i = 2.4\\times10^{19}\\,\\text{m}^{-3}$. Factor $= \\dfrac{2.4\\times10^{19}}{1.2\\times10^{17}} = 200$. The hole density has **fallen** 200 times, because the many extra electrons recombine with holes much more often.", "answer": "$n_h = 1.2\\times10^{17}\\,\\text{m}^{-3}$; n-type; the hole density decreases by a factor of 200." },
+
+      { "type": "HEADING", "text": "Formation of a p-n junction" },
+      { "type": "TEXT", "text": "A **p-n junction** is a single crystal of semiconductor that is p-type on one side and n-type on the other. It is made, for example, by diffusing or implanting acceptor atoms into one part of an n-type wafer. It cannot be made by simply pressing a p-type slab against an n-type slab: no surface is smooth on the atomic scale, and the gap would be thousands of times larger than the spacing between atoms, so carriers could not flow across.\n\nTwo processes take place as soon as the junction forms." },
+      { "type": "TEXT", "text": "**1. Diffusion of majority carriers.** The p-side has far more holes than the n-side, and the n-side far more electrons than the p-side. Just as a gas spreads from high to low concentration, holes **diffuse from p to n** and electrons **diffuse from n to p**. Both motions give a conventional current from p to n, called the **diffusion current**.\n\n**2. Uncovered ions and the barrier field.** Every hole that leaves the p-side uncovers a fixed negative acceptor ion near the junction; every electron that leaves the n-side uncovers a fixed positive donor ion. The diffused carriers soon recombine with majority carriers on the other side. A thin layer of **negative ions on the p-side** and **positive ions on the n-side** builds up. This layer has practically no mobile carriers, so it is called the **depletion region**; its thickness is typically about 0.1 µm to 1 µm.\n\nThe ion layers produce an electric field directed **from the positive ions (n-side) to the negative ions (p-side)**. This field opposes further diffusion of majority carriers. At the same time it sweeps the few **minority carriers** that wander into the region across the junction: electrons from the p-side are pulled to the n-side and holes from the n-side to the p-side. This gives a conventional current from n to p, called the **drift current**.\n\n**3. Equilibrium.** At first the diffusion current is large and the drift current small. As more ions are uncovered, the field grows, diffusion is held back and drift is helped, until the two currents become **equal and opposite**. In equilibrium there is **no net current** through an unconnected junction." },
+      { "type": "DEFINITION", "term": "Depletion region", "text": "The thin space-charge layer on both sides of a p-n junction, containing immobile negative acceptor ions (p-side) and positive donor ions (n-side) but practically no mobile electrons or holes. Typical thickness: about $10^{-7}$ to $10^{-6}$ m." },
+      { "type": "DEFINITION", "term": "Barrier potential $V_0$", "text": "The potential difference that develops across the depletion region of an unbiased p-n junction at equilibrium, with the n-side at the higher potential. It opposes the diffusion of majority carriers. Typical values: about 0.7 V for silicon and about 0.2 V to 0.3 V for germanium; it depends on the doping and the temperature." },
+      { "type": "DIAGRAM", "diagram": "junction" },
+      { "type": "FORMULA", "latex": "E \\approx \\frac{V_0}{d}", "text": "Average electric field across the depletion region: $V_0$ = barrier potential (V), $d$ = width of the depletion region (m), $E$ in $\\text{V m}^{-1}$. The field points from the n-side to the p-side." },
+      { "type": "SOLVED_PROBLEM", "problem": "An unbiased silicon p-n junction has a barrier potential of 0.7 V and a depletion region 0.5 µm wide. (a) Estimate the average electric field in the depletion region and state its direction. (b) What is the minimum kinetic energy, in eV and in joules, that a conduction electron on the n-side must have to cross over to the p-side?", "solution": "Step 1: Convert the width: $d = 0.5\\,\\mu\\text{m} = 0.5\\times10^{-6}\\,\\text{m}$.\n\nStep 2: $E \\approx \\dfrac{V_0}{d} = \\dfrac{0.7}{0.5\\times10^{-6}} = 1.4\\times10^{6}\\,\\text{V m}^{-1}$. The field points from the positive donor ions (n-side) to the negative acceptor ions (p-side), i.e. from n to p.\n\nStep 3: The n-side is 0.7 V higher in potential than the p-side. An electron (charge $-e$) moving from n to p goes to a lower potential, so its potential energy $U = -eV$ increases by $e V_0$, and its kinetic energy must decrease by the same amount.\n\nStep 4: Minimum kinetic energy $= eV_0 = 0.7\\,\\text{eV} = 0.7\\times1.6\\times10^{-19} = 1.12\\times10^{-19}\\,\\text{J}$.\n\nNote how large the field is: about $1.4\\times10^{6}\\,\\text{V m}^{-1}$, produced by less than a volt across a very thin layer.", "answer": "(a) About $1.4\\times10^{6}\\,\\text{V m}^{-1}$, directed from n-side to p-side. (b) 0.7 eV, i.e. $1.12\\times10^{-19}\\,\\text{J}$." },
+      { "type": "IMPORTANT_FACT", "text": "The barrier potential cannot be measured by connecting a voltmeter across an unbiased diode. Contact potentials appear at the metal-semiconductor contacts and exactly cancel it, so the voltmeter reads zero. (If it did not, a diode could drive a current with no energy input, which is impossible.)" },
+
+      { "type": "HEADING", "text": "The semiconductor diode" },
+      { "type": "TEXT", "text": "A p-n junction with metal contacts attached to its two ends, so that a voltage can be applied across it, is a **semiconductor (junction) diode**. It has two terminals: the p-side is the **anode** and the n-side is the **cathode**.\n\nIn the circuit symbol the arrowhead points from p to n. It shows the direction of **conventional current** when the diode conducts, i.e. when it is forward biased.\n\nThe external voltage applied across the diode is called its **bias**. The barrier potential $V_0$ can be lowered or raised by the bias, and this is what makes the diode useful: it conducts easily in one direction (forward bias) and hardly at all in the other (reverse bias). This **one-way (unidirectional) conduction** is the basis of rectification, the conversion of AC into DC." },
+      { "type": "DEFINITION", "term": "Semiconductor diode", "text": "A two-terminal device consisting of a p-n junction with metal contacts on the p-side (anode) and n-side (cathode). It conducts a large current when forward biased (p at higher potential) and only a tiny current when reverse biased." },
+      { "type": "DIAGRAM", "diagram": "bias" },
+
+      { "type": "HEADING", "text": "Semiconductor diode in forward bias" },
+      { "type": "TEXT", "text": "A diode is **forward biased** when its **p-side is connected to the positive terminal** and its **n-side to the negative terminal** of a battery (usually through a current-limiting resistor).\n\nThe depletion region has almost no free carriers, so its resistance is much higher than that of the p and n regions. Almost all of the applied voltage $V$ therefore appears across the junction. Since the applied voltage is opposite in direction to the built-in barrier, the effective barrier falls to $V_0 - V$, and the depletion layer becomes **narrower**.\n\nWith the barrier lowered, many more majority carriers can cross the junction: holes go from p to n, and electrons from n to p. Once across, each of them is a minority carrier on the other side, so this is called **minority carrier injection**. The injected carriers diffuse away from the junction and recombine. The forward current is therefore mainly a **diffusion current of majority carriers**, flowing from p to n inside the diode.\n\nAs long as $V$ is well below $V_0$ the barrier is still high and the current is tiny. When $V$ approaches the barrier potential, the current starts to rise sharply, and beyond about 0.7 V (Si) or 0.2 V to 0.3 V (Ge) it becomes large, typically several milliamperes or more, increasing very steeply (exponentially) with voltage." },
+      { "type": "FORMULA", "latex": "V_{\\text{barrier}} = V_0 - V \\ \\ (\\text{forward}), \\qquad V_{\\text{barrier}} = V_0 + V \\ \\ (\\text{reverse})", "text": "$V_0$ = barrier potential of the unbiased junction, $V$ = magnitude of the applied bias voltage that appears across the junction." },
+      { "type": "KEY_POINT", "text": "Forward bias: p to +, n to −; barrier lowered to $V_0 - V$; depletion layer narrows; majority carriers diffuse across; large current (mA) once $V$ exceeds the threshold voltage." },
+
+      { "type": "HEADING", "text": "Semiconductor diode in reverse bias" },
+      { "type": "TEXT", "text": "A diode is **reverse biased** when its **p-side is connected to the negative terminal** and its **n-side to the positive terminal** of the battery.\n\nNow the applied voltage acts in the same direction as the barrier, so the effective barrier rises to $V_0 + V$, and the depletion layer becomes **wider**. Diffusion of majority carriers across the junction practically stops.\n\nThe larger field across the junction still sweeps **minority carriers** across: electrons from the p-side to the n-side and holes from the n-side to the p-side. This gives a small **drift current** from n to p inside the diode. Its size is limited by the number of minority carriers, which are produced by thermal generation near the junction, and not by the applied voltage. As soon as the reverse voltage is a fraction of a volt, essentially every minority carrier that reaches the junction is swept across, so the current stops growing: it **saturates**. It is called the **reverse saturation current** and is typically of the order of microamperes (nanoamperes for silicon). Because it comes from thermally generated carriers, it **increases with temperature**.\n\n**Breakdown.** If the reverse voltage is raised to a critical value $V_{br}$, the **breakdown voltage**, the reverse current suddenly rises sharply. An ordinary diode can then be destroyed by overheating unless an external resistor limits the current. (Specially made Zener diodes are designed to work in this region.)" },
+      { "type": "DEFINITION", "term": "Reverse saturation current", "text": "The small, nearly constant current (of the order of µA or less) that flows through a reverse-biased p-n junction below breakdown. It is the drift current of thermally generated minority carriers and is almost independent of the applied reverse voltage, but increases with temperature." },
+      { "type": "DEFINITION", "term": "Breakdown voltage $V_{br}$", "text": "The reverse-bias voltage at which the reverse current of a junction diode suddenly increases sharply. Ordinary diodes are operated below this voltage." },
+      { "type": "KEY_POINT", "text": "Reverse bias: p to −, n to +; barrier raised to $V_0 + V$; depletion layer widens; only minority carriers drift across; tiny, almost constant current (µA) until breakdown at $V_{br}$." },
+
+      { "type": "HEADING", "text": "I-V characteristics of a junction diode" },
+      { "type": "TEXT", "text": "The **I-V characteristic** is the graph of the current $I$ through the diode against the voltage $V$ across it.\n\n**How it is measured.** For the forward characteristic, the diode is connected with a battery through a rheostat (or potential divider) so that the voltage can be varied; a voltmeter is connected across the diode and a **milliammeter** in series with it. For the reverse characteristic, the battery connections are reversed and a **microammeter** replaces the milliammeter, since the reverse current is so small. The voltage is changed in small steps and the current noted each time.\n\nBecause the forward current is in mA while the reverse current is in µA, and the reverse voltages are much larger than the forward ones, the four half-axes are drawn to **different scales**." },
+      { "type": "DIAGRAM", "diagram": "iv-curve" },
+      { "type": "TEXT", "text": "**Features of the graph.**\n\n1. **Forward bias, below the threshold:** the current is almost zero, because the barrier has not yet been overcome.\n2. **Threshold (knee) voltage:** at about 0.7 V for silicon (about 0.2 V to 0.3 V for germanium) the current begins to rise sharply.\n3. **Forward bias, beyond the knee:** the current increases very steeply (roughly exponentially) for small increases of voltage. The graph is curved, so the diode does **not** obey Ohm's law.\n4. **Reverse bias:** a tiny reverse saturation current (µA) that stays nearly constant as the reverse voltage increases.\n5. **Breakdown:** at the breakdown voltage $V_{br}$ the reverse current suddenly increases sharply." },
+      { "type": "DEFINITION", "term": "Threshold (knee or cut-in) voltage", "text": "The forward voltage beyond which the current through a junction diode starts to increase sharply. It is about 0.7 V for a silicon diode and about 0.2 V to 0.3 V for a germanium diode." },
+      { "type": "FORMULA", "latex": "r_d = \\frac{\\Delta V}{\\Delta I}", "text": "Dynamic (a.c.) resistance of the diode at a point on its I-V curve: $\\Delta V$ = small change in voltage, $\\Delta I$ = resulting change in current; unit ohm. Because the curve is non-linear, $r_d$ is different at different points: small (a few ohms) beyond the forward knee and very large (megaohms) in reverse bias." },
+      { "type": "TEXT", "text": "**Ideal and practical diode models.** An **ideal diode** has zero resistance in forward bias (it behaves like a closed switch) and infinite resistance in reverse bias (an open switch). A more practical model, used in most numerical problems, treats a forward-biased silicon diode as a fixed drop of about 0.7 V (germanium about 0.3 V) and a reverse-biased diode as an open switch." },
+      { "type": "SOLVED_PROBLEM", "problem": "The following readings are taken for a silicon diode. Forward bias: at 0.70 V the current is 10 mA, and at 0.80 V it is 30 mA. Reverse bias: at a reverse voltage of 10 V the current is 1.0 µA, and at 20 V it is 1.2 µA. Find the dynamic resistance of the diode (a) in forward bias between these two points and (b) in reverse bias between these two points. Comment on the result.", "solution": "Step 1: Forward bias. $\\Delta V = 0.80 - 0.70 = 0.10\\,\\text{V}$, $\\Delta I = 30 - 10 = 20\\,\\text{mA} = 0.020\\,\\text{A}$.\n\n$r_{fb} = \\dfrac{\\Delta V}{\\Delta I} = \\dfrac{0.10}{0.020} = 5\\,\\Omega$.\n\nStep 2: Reverse bias. $\\Delta V = 20 - 10 = 10\\,\\text{V}$, $\\Delta I = 1.2 - 1.0 = 0.2\\,\\mu\\text{A} = 0.2\\times10^{-6}\\,\\text{A}$.\n\n$r_{rb} = \\dfrac{10}{0.2\\times10^{-6}} = 5\\times10^{7}\\,\\Omega = 50\\,\\text{M}\\Omega$.\n\nStep 3: Comment. The reverse resistance is ten million times the forward resistance. The diode conducts easily one way and practically blocks the other way, which is why it can be used as a rectifier.", "answer": "(a) $5\\,\\Omega$; (b) $5\\times10^{7}\\,\\Omega$ (50 MΩ). The diode is a nearly one-way conductor." },
+      { "type": "SOLVED_PROBLEM", "problem": "A silicon diode, a 430 Ω resistor and a 5.0 V battery are connected in series, with the diode forward biased. Taking the forward voltage drop of the diode as 0.7 V, find (a) the current, (b) the power dissipated in the diode and in the resistor. (c) What is the current if the battery is reversed?", "solution": "Step 1: Kirchhoff's loop rule: battery voltage = diode drop + voltage across the resistor, so $5.0 = 0.7 + I \\times 430$.\n\nStep 2: $I = \\dfrac{5.0 - 0.7}{430} = \\dfrac{4.3}{430} = 0.010\\,\\text{A} = 10\\,\\text{mA}$.\n\nStep 3: Power in the diode: $P_D = V_D I = 0.7 \\times 0.010 = 7\\times10^{-3}\\,\\text{W} = 7\\,\\text{mW}$.\n\nStep 4: Power in the resistor: $P_R = I^2 R = (0.010)^2 \\times 430 = 0.043\\,\\text{W} = 43\\,\\text{mW}$. Check: total $= 50\\,\\text{mW} = 5.0\\,\\text{V} \\times 10\\,\\text{mA}$, which is the power supplied by the battery.\n\nStep 5: With the battery reversed the diode is reverse biased (5 V is far below a typical breakdown voltage), so only the tiny reverse saturation current flows: practically zero (of the order of µA or less).", "answer": "(a) 10 mA; (b) 7 mW in the diode, 43 mW in the resistor; (c) practically zero." },
+      { "type": "TABLE", "caption": "Forward bias and reverse bias compared", "columns": ["Feature", "Forward bias", "Reverse bias"], "rows": [
+        ["Connection", "p to +, n to −", "p to −, n to +"],
+        ["Barrier height", "Lowered to $V_0 - V$", "Raised to $V_0 + V$"],
+        ["Depletion layer", "Narrows", "Widens"],
+        ["Main process", "Diffusion of majority carriers (injection)", "Drift of minority carriers"],
+        ["Current", "Large (mA), rises steeply beyond about 0.7 V (Si)", "Tiny (µA), nearly constant until breakdown"],
+        ["Resistance", "Low (a few ohms beyond the knee)", "Very high (megaohms)"],
+        ["Effect of temperature", "Current increases", "Saturation current increases"]
+      ] },
+
+      { "type": "HEADING", "text": "Exam revision: semiconductors and the junction diode" },
+      { "type": "KEY_POINT", "text": "Revision list:\n\n- Intrinsic: $n_e = n_h = n_i$. Extrinsic: $n_e n_h = n_i^2$.\n- n-type: pentavalent donor (P, As, Sb), electrons majority, fixed positive ions, donor level just below $E_C$.\n- p-type: trivalent acceptor (B, Al, Ga, In), holes majority, fixed negative ions, acceptor level just above $E_V$.\n- Both n-type and p-type are electrically neutral.\n- Junction: diffusion (p to n) balanced by drift (n to p); depletion region of fixed ions; field from n to p; $V_0 \\approx 0.7\\,\\text{V}$ (Si).\n- Forward bias: barrier $V_0 - V$, narrow depletion, mA current. Reverse bias: barrier $V_0 + V$, wide depletion, µA current, breakdown at $V_{br}$.\n- $r_d = \\Delta V/\\Delta I$; the diode is non-ohmic." },
+      { "type": "IMPORTANT_FACT", "text": "In a reverse-biased diode the current is controlled by temperature (which sets the number of minority carriers), not by the applied voltage. That is why the reverse saturation current stays nearly constant as the reverse voltage rises, yet roughly doubles for every 10 °C rise in temperature in a typical diode." },
+      { "type": "CALLOUT", "text": "**Exam tips.**\n\n- To decide whether a diode in a circuit is forward or reverse biased, compare the potentials of its p-side (anode) and n-side (cathode): forward if the anode is at the higher potential (by more than the knee voltage for a practical diode).\n- In numericals, unless told otherwise, treat a silicon diode as a 0.7 V drop when forward biased and as an open switch when reverse biased; treat an ideal diode as a short circuit in forward bias.\n- Use $n_e n_h = n_i^2$ for the minority carrier density; the majority density is roughly the dopant density." },
+      { "type": "CALLOUT", "text": "**Common mistakes.**\n\n- Writing that the depletion region contains no charge. It has no **mobile** charge, but it is full of fixed ions; that is what creates the barrier field.\n- Getting the field direction wrong: it points from the n-side (positive ions) to the p-side (negative ions).\n- Saying that no current flows in reverse bias. A small reverse saturation current always flows.\n- Thinking the forward current starts at 0 V. It is negligible until the knee voltage is approached.\n- Using Ohm's law with a single fixed resistance for a diode: its resistance depends on the operating point." }
+    ]
+  },
+  "diagrams": [
+    { "key": "intrinsic-lattice", "file": "diagrams/ug26-322-u9-semiconductors-pn-diode-intrinsic-lattice.svg", "alt": "Two-dimensional picture of a silicon crystal with covalent bonds, one broken bond releasing a free electron and leaving a hole", "caption": "Pure (intrinsic) silicon: a broken covalent bond gives one free electron and one hole", "description": "A 3 by 3 grid of silicon atoms, each joined to its four neighbours by bonds carrying two electron dots (a shared pair); bonds at the edges continue as dashed lines. In the bond between the centre atom and its right-hand neighbour, one electron is missing and its place is shown by an open red circle labelled hole. A green arrow shows the released electron moving up into the space between atoms, drawn as a black dot labelled free electron. A key explains: bonding electron (each bond is a shared pair), free electron (charge -e), hole (acts as +e), bond broken by thermal energy. A note says each Si atom shares its 4 valence electrons with 4 neighbours, and in a pure crystal every broken bond gives one electron and one hole, so ne = nh = ni." },
+    { "key": "doped-lattices", "file": "diagrams/ug26-322-u9-semiconductors-pn-diode-doped-lattices.svg", "alt": "Silicon lattice doped with arsenic showing an extra free electron (n-type), and doped with boron showing a hole in an incomplete bond (p-type)", "caption": "Doping silicon: arsenic (donor) gives n-type, boron (acceptor) gives p-type", "description": "Two panels, each a 3 by 3 grid of silicon atoms joined by bonds with two electron dots. (a) n-type: the centre atom is arsenic (amber); all four of its bonds are complete and an extra black electron dot, labelled extra electron, sits in the space next to it. Caption: pentavalent donor, 4 electrons bond, the 5th is loosely bound and set free. (b) p-type: the centre atom is boron (green); the bond to its right-hand neighbour has one electron dot replaced by an open red circle labelled hole. Caption: trivalent acceptor, one bond lacks an electron, which is a hole." },
+    { "key": "impurity-levels", "file": "diagrams/ug26-322-u9-semiconductors-pn-diode-impurity-levels.svg", "alt": "Energy band diagrams of n-type material with a donor level just below the conduction band and p-type material with an acceptor level just above the valence band", "caption": "Donor and acceptor levels in the band gap of doped semiconductors", "description": "Two band diagrams on a vertical energy axis. (a) n-type: conduction band with many electrons at its bottom; a dashed amber donor level ED just below the conduction band edge EC with plus signs (ionised donors, fixed) under it; text says ED lies about 0.01 eV (Ge) to 0.05 eV (Si) below EC; the valence band contains one hole. Caption: many electrons in the conduction band, few holes in the valence band. (b) p-type: conduction band with one electron; a dashed green acceptor level EA just above the valence band edge EV with minus signs (ionised acceptors, fixed) above it; text says EA lies about 0.01 eV (Ge) to 0.05 eV (Si) above EV; the valence band has many holes at its top. Caption: many holes in the valence band, few electrons in the conduction band. A key shows electron as a black dot and hole as an open red circle." },
+    { "key": "junction", "file": "diagrams/ug26-322-u9-semiconductors-pn-diode-junction.svg", "alt": "Unbiased p-n junction with holes on the p-side, electrons on the n-side, a depletion region of fixed ions, the barrier field from n to p and the potential rising by V0 across the junction", "caption": "An unbiased p-n junction: depletion region, barrier field and barrier potential", "description": "Top: a rectangle with the p-side on the left (filled with holes, open red circles) and the n-side on the right (filled with electrons, black dots). Around the junction line is a shaded depletion region: on the p-side of it are fixed negative acceptor ions (blue circles with minus), on the n-side fixed positive donor ions (red circles with plus). A bracket labels the depletion region. A red arrow below points from the n-side to the p-side, labelled barrier field E (from n to p). A note says holes diffuse from p to n and electrons diffuse from n to p. A key identifies hole, electron, fixed acceptor ion and fixed donor ion. Bottom: a graph of potential V against distance x: flat and low on the p-side, rising smoothly through the depletion region, flat and high on the n-side; the rise is marked V0 (barrier)." },
+    { "key": "bias", "file": "diagrams/ug26-322-u9-semiconductors-pn-diode-bias.svg", "alt": "Diode symbol, and p-n junction circuits in forward bias (p to positive terminal, narrow depletion layer, mA current) and reverse bias (p to negative terminal, wide depletion layer, microampere current)", "caption": "Forward and reverse biasing of a p-n junction diode", "description": "Top: the diode symbol, a triangle pointing towards a bar, with the p-side (anode) on the left and the n-side (cathode) on the right; the arrow points in the direction of forward conventional current. (a) Forward bias: a p-n block with a narrow shaded depletion layer; the p-side is connected to the positive (long) plate of a battery and the n-side through a resistor R to the negative plate. A red arrow on the wire shows current I in mA flowing into the p-side. Text: p to +, n to −, barrier falls to V0 − V; large current, many mA (majority carriers). (b) Reverse bias: the same block with a wide depletion layer; the p-side goes to the negative (short) plate and the n-side through R to the positive plate. A red arrow shows a small current I in microamperes entering the n-side. Text: p to −, n to +, barrier rises to V0 + V; tiny current, µA (minority carriers)." },
+    { "key": "iv-curve", "file": "diagrams/ug26-322-u9-semiconductors-pn-diode-iv-curve.svg", "alt": "I-V characteristic of a junction diode showing almost no forward current until a knee near 0.7 V, a steep rise beyond it, a tiny reverse saturation current and breakdown at Vbr", "caption": "I-V characteristic of a silicon junction diode (different scales on the four half-axes)", "description": "Axes with voltage V (volt) horizontal and current vertical: upward labelled I in mA, downward labelled I in microamperes. In the forward-bias quadrant the blue curve stays almost on the axis (almost no current) until about 0.7 V, marked as the threshold (knee) voltage for Si, then rises steeply. In the reverse-bias quadrant the red curve drops slightly below the axis to a tiny, nearly constant reverse saturation current, and at the breakdown voltage Vbr turns sharply downward (current rises sharply). A note says the scales differ: forward current in mA, reverse current in microamperes, reverse voltage in tens of volts." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In a pure (intrinsic) semiconductor at room temperature, how does the free-electron density $n_e$ compare with the hole density $n_h$?",
+      "options": ["The electron density is greater than the hole density", "The electron density is equal to the hole density", "The electron density is less than the hole density", "Both are zero at room temperature"],
+      "answer": 2,
+      "explanation": "In an intrinsic semiconductor carriers are produced only when covalent bonds break. Every broken bond releases one free electron and leaves exactly one hole, so electrons and holes are always created (and destroyed by recombination) in pairs. Hence $n_e = n_h = n_i$, the intrinsic carrier concentration.",
+      "optionRationale": { "1": "More electrons than holes is the situation in n-type (doped) material, not in a pure crystal.", "3": "More holes than electrons describes p-type material.", "4": "Both are zero only at 0 K; at room temperature some bonds are broken." },
+      "objective": "State the carrier balance in an intrinsic semiconductor"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q02", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): In a semiconductor, the motion of a hole in one direction is really the motion of bound valence electrons in the opposite direction.\nReason (R): A hole moves when an electron from a neighbouring covalent bond jumps into the vacancy, leaving a new vacancy at the bond it came from.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "A hole is a vacancy in a bond. It moves only because a bound electron from a neighbouring bond hops into it, which shifts the vacancy to the bond the electron left. Repeating this step moves the hole one way while electrons move the other way. R describes exactly this mechanism, so it correctly explains A.",
+      "optionRationale": { "2": "R is not merely a true side fact; it is the mechanism that makes A true.", "3": "R is a correct description of how a hole moves.", "4": "A is true: hole current is carried by valence electrons hopping between bonds." },
+      "objective": "Explain the motion of holes in a semiconductor"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q03", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Read the following statements about intrinsic silicon.\nA. At 0 K it behaves as an insulator.\nB. At room temperature, the number of free electrons per cubic metre is comparable to the number of silicon atoms per cubic metre.\nC. Electron-hole pairs are generated and recombine continually; at a steady temperature the two rates are equal.\nD. A hole behaves as a positive charge carrier of charge $+e$.\nWhich of these statements are correct?",
+      "options": ["A, B and D only", "B and C only", "A and C only", "A, C and D only"],
+      "answer": 4,
+      "explanation": "A is true: at 0 K all bonds are intact, so there are no carriers. C is true: generation and recombination balance at equilibrium, keeping $n_i$ constant. D is true: the vacancy behaves as a charge $+e$. B is false: silicon has about $5\\times10^{28}$ atoms per cubic metre but only about $1.5\\times10^{16}$ free electrons per cubic metre at 300 K, roughly one per $3\\times10^{12}$ atoms.",
+      "optionRationale": { "1": "B is false, and C, which is true, is left out.", "2": "B is false, and A and D, which are true, are left out.", "3": "D is also true, so this answer is incomplete." },
+      "objective": "Describe the properties of an intrinsic semiconductor"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q04", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Silicon is doped with a pentavalent impurity so that the donor concentration is $1.0\\times10^{22}\\,\\text{m}^{-3}$. If $n_i = 1.5\\times10^{16}\\,\\text{m}^{-3}$, what is the hole concentration in the doped crystal?",
+      "options": ["1.5 × 10¹⁶ m⁻³", "2.25 × 10¹⁰ m⁻³", "1.0 × 10²² m⁻³", "6.7 × 10⁵ m⁻³"],
+      "answer": 2,
+      "explanation": "At room temperature practically all donors are ionised, and the donor concentration is much larger than $n_i$, so the electron density is $n_e \\approx 1.0\\times10^{22}\\,\\text{m}^{-3}$. By the mass-action law, $n_h = n_i^2/n_e = (1.5\\times10^{16})^2 / (1.0\\times10^{22}) = 2.25\\times10^{32}/1.0\\times10^{22} = 2.25\\times10^{10}\\,\\text{m}^{-3}$. This is far below $n_i$, because the many extra electrons recombine with holes; holes are now the minority carriers.",
+      "optionRationale": { "1": "This assumes doping leaves the hole density at $n_i$; in fact recombination with the extra electrons reduces it.", "3": "This is the electron (majority carrier) density, not the hole density.", "4": "This is the ratio $N_D/n_i$, which is a pure number, not the hole density." },
+      "objective": "Apply the mass-action law to find minority carrier density"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q05", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A germanium sample at 300 K has $n_i = 2.4\\times10^{19}\\,\\text{m}^{-3}$. After doping, its hole density is found to be four times its electron density. What are the electron density $n_e$ and hole density $n_h$?",
+      "options": [
+        "nₑ = 6.0 × 10¹⁸ m⁻³, nₕ = 2.4 × 10¹⁹ m⁻³",
+        "nₑ = 4.8 × 10¹⁹ m⁻³, nₕ = 1.2 × 10¹⁹ m⁻³",
+        "nₑ = 1.2 × 10¹⁹ m⁻³, nₕ = 4.8 × 10¹⁹ m⁻³",
+        "nₑ = 2.4 × 10¹⁹ m⁻³, nₕ = 9.6 × 10¹⁹ m⁻³"
+      ],
+      "answer": 3,
+      "explanation": "The mass-action law $n_e n_h = n_i^2$ still holds after doping. Substituting $n_h = 4n_e$ gives $4n_e^2 = n_i^2$, so $n_e = n_i/2 = 1.2\\times10^{19}\\,\\text{m}^{-3}$ and then $n_h = 4n_e = 4.8\\times10^{19}\\,\\text{m}^{-3}$. Check the product: $1.2\\times10^{19}\\times4.8\\times10^{19} = 5.76\\times10^{38} = (2.4\\times10^{19})^2$, as required. Holes are the majority carriers, so the sample is lightly doped p-type material.",
+      "optionRationale": { "1": "This wrongly keeps $n_h = n_i$; then the product is $1.44\\times10^{38}$, not $n_i^2$.", "2": "The values are swapped: here electrons would be four times the holes.", "4": "This wrongly keeps $n_e = n_i$; the product $2.3\\times10^{39}$ is four times $n_i^2$." },
+      "objective": "Solve for carrier densities using the mass-action law"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q06", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "For a semiconductor in thermal equilibrium, whether intrinsic or doped, the product $n_e n_h$ of the electron and hole densities is equal to:",
+      "options": ["nᵢ, the intrinsic carrier concentration", "2nᵢ, twice the intrinsic carrier concentration", "nᵢ², the square of the intrinsic carrier concentration", "zero, because electrons and holes recombine"],
+      "answer": 3,
+      "explanation": "The mass-action law states $n_e n_h = n_i^2$ at a given temperature. In a pure crystal $n_e = n_h = n_i$, so the product is $n_i^2$; doping raises one density and, through extra recombination, lowers the other so that the product stays the same.",
+      "optionRationale": { "1": "The product of two densities has the dimensions of density squared, so it cannot equal $n_i$.", "2": "$n_e + n_h$ equals $2n_i$ in an intrinsic crystal, but the question asks for the product.", "4": "Recombination is balanced by generation, so neither density is zero." },
+      "objective": "State the mass-action law"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q07", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which one of the following impurities, added in a small amount to pure silicon, produces an n-type semiconductor?",
+      "options": ["Boron", "Indium", "Arsenic", "Aluminium"],
+      "answer": 3,
+      "explanation": "Arsenic is pentavalent (group 15). Four of its five valence electrons form bonds with silicon and the fifth is easily freed, so arsenic acts as a donor and electrons become the majority carriers: the silicon becomes n-type. Boron, indium and aluminium are trivalent acceptors.",
+      "optionRationale": { "1": "Boron is trivalent; it creates holes and gives p-type silicon.", "2": "Indium is trivalent; it is an acceptor (p-type).", "4": "Aluminium is trivalent; it is an acceptor (p-type)." },
+      "objective": "Identify donor impurities"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q08", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "In a p-type semiconductor, what are the majority charge carriers, and what kind of immobile ions are present in the lattice?",
+      "options": ["Electrons; positive donor ions", "Holes; negative acceptor ions", "Holes; positive donor ions", "Electrons; negative acceptor ions"],
+      "answer": 2,
+      "explanation": "A trivalent acceptor leaves one bond incomplete. When a neighbouring electron fills it, the acceptor becomes a fixed negative ion and a mobile hole is created. So in p-type material holes are the majority carriers and the lattice contains immobile negative acceptor ions; the material as a whole remains neutral.",
+      "optionRationale": { "1": "This describes n-type material.", "3": "Positive donor ions belong to n-type material; p-type material has negative acceptor ions.", "4": "Electrons are the minority carriers in p-type material." },
+      "objective": "Distinguish carriers and ions in p-type material"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q09", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): An n-type semiconductor is electrically neutral as a whole.\nReason (R): In an n-type semiconductor, the number of free electrons is equal to the number of holes.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "A is true: the dopant atoms are neutral when added, so the crystal stays neutral. R is false: in n-type material $n_e \\gg n_h$. Neutrality comes from a different balance, $n_e = N_D + n_h$: the negative charge of the free electrons equals the positive charge of the fixed donor ions plus the holes.",
+      "optionRationale": { "1": "R is false, so it cannot explain A.", "2": "R is false: electrons greatly outnumber holes in n-type material.", "4": "A is true: doping with neutral atoms cannot give the crystal a net charge." },
+      "objective": "Explain charge neutrality of a doped semiconductor"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q10", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Why are dopant atoms for silicon chosen to be roughly the same size as silicon atoms, and added only in tiny amounts (about one part per million)?",
+      "options": [
+        "So that they replace silicon atoms without distorting the crystal, while still supplying far more carriers than the intrinsic concentration",
+        "So that the band gap of silicon is reduced to zero, making it a metal",
+        "So that the dopant atoms form a separate metallic layer that carries the current",
+        "So that the numbers of electrons and holes remain exactly equal after doping"
+      ],
+      "answer": 1,
+      "explanation": "A dopant of similar size can take the place of a silicon atom in the lattice without straining or distorting the crystal structure. Even 1 ppm of dopant gives about $5\\times10^{22}$ carriers per cubic metre, millions of times $n_i$, so a tiny amount is enough to control the conductivity without destroying the crystal's semiconducting nature.",
+      "optionRationale": { "2": "Light doping adds levels near a band edge; it does not close the band gap.", "3": "Dopant atoms are scattered individually through the lattice; they do not form a separate layer.", "4": "Doping is done precisely to make one type of carrier greatly outnumber the other." },
+      "objective": "Explain the conditions for doping"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q11", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "When pure silicon is doped with phosphorus, what happens to its hole concentration (at the same temperature)?",
+      "options": [
+        "It increases, because each phosphorus atom also creates a hole",
+        "It remains equal to nᵢ, because doping affects only electrons",
+        "It becomes exactly zero, because donor electrons fill every hole",
+        "It falls below nᵢ, because the extra electrons recombine with holes more often"
+      ],
+      "answer": 4,
+      "explanation": "Phosphorus is a donor, so $n_e$ rises far above $n_i$. With many more electrons around, holes recombine more often, and the hole density settles at $n_h = n_i^2/n_e$, which is much less than $n_i$. Holes become the minority carriers, but they do not vanish completely.",
+      "optionRationale": { "1": "Freeing a donor electron does not create a hole; the donor becomes a fixed positive ion instead.", "2": "By the mass-action law, raising $n_e$ must lower $n_h$.", "3": "Thermal generation keeps producing holes, so $n_h$ is small but not zero." },
+      "objective": "Predict the effect of doping on minority carriers"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q12", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "In the energy band diagram of n-type silicon, where does the donor energy level $E_D$ lie?",
+      "options": [
+        "Slightly below the bottom of the conduction band, about 0.05 eV below it",
+        "Slightly above the top of the valence band",
+        "Exactly in the middle of the forbidden gap",
+        "Inside the conduction band, about 1 eV above its bottom"
+      ],
+      "answer": 1,
+      "explanation": "The fifth electron of a donor is only weakly bound, needing about 0.05 eV in silicon (about 0.01 eV in germanium) to be freed. Its level therefore lies just below the bottom of the conduction band, and very little thermal energy lifts these electrons into the conduction band at room temperature.",
+      "optionRationale": { "2": "A level just above the valence band is the acceptor level of p-type material.", "3": "A level in mid-gap would need about 0.55 eV to ionise, so donors would not be ionised at room temperature.", "4": "The donor level is inside the forbidden gap, not inside the conduction band." },
+      "objective": "Locate donor levels in the band diagram"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q13", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each item in List-I with the correct description in List-II.",
+      "list": {
+        "left": ["A. Pentavalent impurity (As) in Si", "B. Trivalent impurity (B) in Si", "C. Depletion region", "D. Reverse saturation current"],
+        "right": ["I. Acceptor that creates holes", "II. Donor that supplies free electrons", "III. Layer of immobile ions with practically no mobile carriers", "IV. Drift of thermally generated minority carriers"]
+      },
+      "options": ["A-I, B-II, C-III, D-IV", "A-II, B-I, C-IV, D-III", "A-II, B-I, C-III, D-IV", "A-III, B-IV, C-I, D-II"],
+      "answer": 3,
+      "explanation": "Arsenic, with five valence electrons, is a donor that supplies free electrons (A-II). Boron, with three, is an acceptor that creates holes (B-I). The depletion region holds fixed donor and acceptor ions but almost no mobile carriers (C-III). The reverse saturation current is the drift of thermally generated minority carriers across a reverse-biased junction (D-IV).",
+      "optionRationale": { "1": "Donor and acceptor are interchanged: arsenic donates electrons, boron accepts them.", "2": "The descriptions of the depletion region and the reverse current are interchanged.", "4": "None of the pairings is correct; for example, arsenic is not a layer of ions." },
+      "objective": "Connect doping and junction terms with their meanings"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q14", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The depletion region of an unbiased p-n junction contains:",
+      "options": ["only free electrons", "only holes", "equal numbers of free electrons and holes", "immobile donor and acceptor ions, with practically no mobile charge carriers"],
+      "answer": 4,
+      "explanation": "Near the junction, holes diffuse out of the p-side and electrons out of the n-side, and they recombine. What remains are the fixed negative acceptor ions on the p-side and fixed positive donor ions on the n-side. The region is depleted of mobile carriers, hence the name, but it is not free of charge.",
+      "optionRationale": { "1": "Free electrons have diffused out of this region and recombined.", "2": "Holes have also left this region.", "3": "Mobile carriers of both kinds are almost absent from the depletion region." },
+      "objective": "Describe the depletion region"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q15", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "When a p-n junction is formed and reaches equilibrium with no external voltage applied, which statement is correct?",
+      "options": [
+        "Only diffusion occurs, and it continues until all the holes have crossed to the n-side",
+        "Diffusion of majority carriers sets up a field that causes drift of minority carriers; at equilibrium the diffusion and drift currents are equal and opposite",
+        "Only drift occurs, because the barrier field exists before the junction is formed",
+        "A steady current flows from p to n through the junction even without a battery"
+      ],
+      "answer": 2,
+      "explanation": "Diffusion of holes (p to n) and electrons (n to p) uncovers fixed ions, which create a field from n to p. The field opposes further diffusion and drives minority carriers across the other way (drift). Diffusion falls and drift rises until the two currents are equal and opposite, so the net current is zero.",
+      "optionRationale": { "1": "Diffusion is soon held back by the growing barrier field; it does not continue until all holes cross.", "3": "The field is created by diffusion; it does not exist before the carriers diffuse.", "4": "In equilibrium the net current is zero; otherwise energy would be produced from nothing." },
+      "objective": "Explain diffusion and drift during junction formation"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q16", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "diagram": "junction",
+      "stem": "The figure shows an unbiased p-n junction with its depletion region and potential profile. Which statement about the electric field in the depletion region and the potentials of the two sides is correct?",
+      "options": [
+        "The field points from the n-side to the p-side, and the n-side is at the higher potential",
+        "The field points from the p-side to the n-side, and the p-side is at the higher potential",
+        "The field points from the n-side to the p-side, but the p-side is at the higher potential",
+        "There is no field, because the junction as a whole is electrically neutral"
+      ],
+      "answer": 1,
+      "explanation": "The n-side of the depletion region holds positive donor ions and the p-side negative acceptor ions. The field points from positive to negative charge, i.e. from n to p. A field always points from higher to lower potential, so the n-side is at the higher potential, exactly as the potential graph shows with the step $V_0$.",
+      "optionRationale": { "2": "Both the field direction and the higher-potential side are reversed.", "3": "A field from n to p means the potential falls from n to p, so the n-side, not the p-side, is higher.", "4": "The junction is neutral overall, but the separated ion layers produce a strong local field." },
+      "objective": "Interpret the field and potential across a p-n junction"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q17", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A germanium p-n junction has a barrier potential of 0.3 V across a depletion region 0.2 µm wide. What is the average electric field in the depletion region?",
+      "options": ["1.5 × 10³ V m⁻¹", "6.7 × 10⁻⁷ V m⁻¹", "6.0 × 10⁻⁸ V m⁻¹", "1.5 × 10⁶ V m⁻¹"],
+      "answer": 4,
+      "explanation": "First convert the width of the depletion region to metres: $d = 0.2\\,\\mu\\text{m} = 2\\times10^{-7}\\,\\text{m}$. The average field is the potential difference divided by the distance over which it acts: $E \\approx V_0/d = 0.3/(2\\times10^{-7}) = 1.5\\times10^{6}\\,\\text{V m}^{-1}$. A fraction of a volt across a very thin layer gives a very strong field, which points from the n-side to the p-side of the junction.",
+      "optionRationale": { "1": "This takes the width as 0.2 mm instead of 0.2 µm (a factor of 1000 error).", "2": "This divides the width by the voltage ($d/V_0$) instead of $V_0/d$.", "3": "This multiplies $V_0$ by $d$; the field is the potential difference divided by the distance." },
+      "objective": "Estimate the barrier field from barrier potential and depletion width"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q18", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "A silicon p-n junction has a barrier potential of 0.7 V. It is forward biased with 0.4 V. A conduction electron on the n-side moves towards the junction with a kinetic energy of 1.0 eV. With what kinetic energy does it arrive on the p-side (ignore collisions)?",
+      "options": ["0.3 eV", "0.6 eV", "0.7 eV", "1.3 eV"],
+      "answer": 3,
+      "explanation": "Forward bias lowers the barrier to $V_0 - V = 0.7 - 0.4 = 0.3\\,\\text{V}$. Moving from n (higher potential) to p (lower potential), the electron's potential energy rises by $e \\times 0.3\\,\\text{V} = 0.3\\,\\text{eV}$, so its kinetic energy falls by 0.3 eV: $1.0 - 0.3 = 0.7\\,\\text{eV}$.",
+      "optionRationale": { "1": "This uses the full unbiased barrier of 0.7 V, ignoring the forward bias.", "2": "This subtracts the bias voltage itself (0.4 V) instead of the reduced barrier.", "4": "This adds the barrier energy; an electron loses kinetic energy when it climbs the barrier from n to p." },
+      "objective": "Apply the effect of forward bias on the barrier to carrier energies"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q19", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "A p-n junction diode is said to be forward biased when it is connected with:",
+      "options": [
+        "its p-side to the positive terminal and its n-side to the negative terminal of the battery",
+        "its p-side to the negative terminal and its n-side to the positive terminal of the battery",
+        "both its sides to the positive terminal of the battery",
+        "its p-side to the battery and its n-side left unconnected"
+      ],
+      "answer": 1,
+      "explanation": "Forward bias means the p-side (anode) is at a higher potential than the n-side (cathode): p to the positive terminal, n to the negative terminal. The applied voltage then opposes the barrier potential, lowering it to $V_0 - V$ and allowing a large current once the threshold is crossed.",
+      "optionRationale": { "2": "This is reverse bias.", "3": "With both sides at the same potential no bias voltage is applied.", "4": "With one side open there is no closed circuit, so the diode is not biased at all." },
+      "objective": "Identify forward-bias connections"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q20", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "When a p-n junction is forward biased, what happens to the height of the potential barrier and the width of the depletion layer?",
+      "options": [
+        "The barrier height increases and the depletion layer widens",
+        "The barrier height decreases and the depletion layer narrows",
+        "The barrier height decreases but the depletion layer widens",
+        "Neither the barrier height nor the depletion width changes"
+      ],
+      "answer": 2,
+      "explanation": "In forward bias the applied voltage acts against the built-in barrier, so the effective barrier falls to $V_0 - V$. Fewer fixed ions are needed to support this smaller potential difference, so the depletion layer becomes narrower. Majority carriers then cross easily and a large current flows.",
+      "optionRationale": { "1": "This is what happens in reverse bias.", "3": "A lower barrier is always accompanied by a narrower depletion layer, not a wider one.", "4": "The bias changes both quantities; that is how the diode controls the current." },
+      "objective": "Describe the effect of forward bias on the junction"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q21", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In the circuit symbol of a junction diode, what does the arrowhead indicate?",
+      "options": [
+        "It points from the n-side to the p-side, the direction in which electrons flow in forward bias",
+        "It shows the direction of the reverse saturation current through the diode",
+        "It shows the direction of the electric field in the depletion region",
+        "It points from the p-side (anode) to the n-side (cathode), the direction of conventional current in forward bias"
+      ],
+      "answer": 4,
+      "explanation": "The triangle of the symbol represents the p-side (anode) and the bar the n-side (cathode). The arrowhead points from p to n, which is the direction of conventional current when the diode is forward biased and conducting. Electrons inside the diode move the opposite way, from n to p.",
+      "optionRationale": { "1": "The arrow does not point from n to p; electron flow is opposite to the arrow.", "2": "The reverse saturation current flows from n to p inside the diode, against the arrow.", "3": "The barrier field points from n to p, opposite to the arrow." },
+      "objective": "Interpret the diode circuit symbol"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q22", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "The small current that flows through a reverse-biased p-n junction (below breakdown) is mainly due to:",
+      "options": [
+        "drift of minority carriers across the junction under the field",
+        "diffusion of majority carriers across a lowered barrier",
+        "electrons tunnelling straight from the battery through the depletion layer",
+        "motion of the fixed donor and acceptor ions"
+      ],
+      "answer": 1,
+      "explanation": "Reverse bias raises the barrier to $V_0 + V$, which blocks diffusion of majority carriers. The strong field across the junction still sweeps minority carriers (electrons on the p-side, holes on the n-side) across it. Their number is small and set by thermal generation, so the reverse current is tiny and nearly constant.",
+      "optionRationale": { "2": "In reverse bias the barrier is raised, not lowered, and majority diffusion is blocked.", "3": "Below breakdown, carriers do not tunnel through the depletion layer of an ordinary diode.", "4": "Donor and acceptor ions are fixed in the lattice and cannot carry current." },
+      "objective": "Explain the origin of the reverse current"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q23", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "analytical",
+      "stem": "Assertion (A): The reverse saturation current of a junction diode increases when its temperature rises.\nReason (R): The depletion region of a junction diode widens when the reverse bias voltage is increased.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 2,
+      "explanation": "A is true: the reverse current is carried by minority carriers produced by thermal generation, and their number rises rapidly with temperature. R is also true: a larger reverse bias uncovers more fixed ions and widens the depletion region. But R is about the effect of voltage, not temperature, so it does not explain A.",
+      "optionRationale": { "1": "R is true, but widening of the depletion region with voltage does not explain the temperature dependence in A.", "3": "R is true: reverse bias does widen the depletion region.", "4": "A is true: more thermally generated minority carriers mean a larger reverse current." },
+      "objective": "Relate reverse current to temperature and minority carriers"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q24", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): When a p-n junction diode is reverse biased, no current at all flows through it.\nReason (R): Reverse bias raises the potential barrier, which almost stops the diffusion of majority carriers across the junction.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "R is true: in reverse bias the barrier rises to $V_0 + V$ and majority-carrier diffusion is practically stopped. A is false: minority carriers are still swept across by the field, giving a small reverse saturation current (µA or less) that is not zero. Hence A is false and R is true.",
+      "optionRationale": { "1": "A is false, so it cannot be explained by R.", "2": "A is false; a small reverse current always flows.", "3": "This has it the wrong way round: A is false and R is true." },
+      "objective": "Recognise that a reverse-biased diode conducts a small current"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q25", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The threshold (knee) voltage of a silicon junction diode, beyond which the forward current rises sharply, is about:",
+      "options": ["0.07 V", "0.3 V", "0.7 V", "7 V"],
+      "answer": 3,
+      "explanation": "For silicon the forward current is negligible until the applied voltage nearly cancels the barrier, and then rises steeply at about 0.7 V. For germanium, whose barrier is lower, the knee is at about 0.2 V to 0.3 V. That is why a forward-biased silicon diode is usually modelled as a 0.7 V drop.",
+      "optionRationale": { "1": "0.07 V is ten times too small; at this voltage a silicon diode carries almost no current.", "2": "About 0.3 V is typical of germanium diodes, not silicon.", "4": "7 V is ten times too large; a silicon diode conducts heavily well before this." },
+      "objective": "Recall the knee voltage of a silicon diode"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q26", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "analytical",
+      "diagram": "iv-curve",
+      "stem": "In the I-V characteristic shown, beyond the knee (about 0.7 V) a small increase in forward voltage produces a large increase in current. What does this tell you about the diode's dynamic resistance in this region?",
+      "options": [
+        "It is very large, of the order of megaohms",
+        "It is small, typically a few ohms, and it decreases as the current increases",
+        "It is constant at all voltages, so the diode obeys Ohm's law",
+        "It is negative, because the current falls as the voltage rises"
+      ],
+      "answer": 2,
+      "explanation": "Dynamic resistance is $r_d = \\Delta V/\\Delta I$, the inverse of the slope of the I-V curve. Beyond the knee the curve is very steep, so a small $\\Delta V$ gives a large $\\Delta I$ and $r_d$ is small, a few ohms. Because the curve keeps getting steeper, $r_d$ becomes even smaller at larger currents.",
+      "optionRationale": { "1": "Megaohm resistances occur in reverse bias, where the current barely changes.", "3": "The curve is not a straight line through the origin, so the diode does not obey Ohm's law.", "4": "The current rises with voltage throughout the forward region, so the slope is positive." },
+      "objective": "Interpret the slope of the forward I-V characteristic"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q27", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "When the forward voltage across a silicon diode is increased from 0.70 V to 0.72 V, the current increases from 10 mA to 20 mA. What is the dynamic resistance of the diode in this range?",
+      "options": ["2 Ω", "36 Ω", "0.5 Ω", "72 Ω"],
+      "answer": 1,
+      "explanation": "Dynamic resistance is the ratio of a small change in voltage to the resulting change in current: $r_d = \\Delta V/\\Delta I = (0.72 - 0.70)\\,\\text{V} / (20 - 10)\\,\\text{mA} = 0.02\\,\\text{V} / 0.010\\,\\text{A} = 2\\,\\Omega$. It uses the changes in voltage and current between the two readings, not their values at a single point, which would give the much larger static resistance.",
+      "optionRationale": { "2": "36 Ω is the static resistance $V/I = 0.72/0.020$ at one point, not the dynamic resistance.", "3": "0.5 is $\\Delta I/\\Delta V$ in A/V, the reciprocal of the required quantity.", "4": "72 Ω wrongly divides 0.72 V by 10 mA." },
+      "objective": "Calculate dynamic resistance from I-V data"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q28", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Two identical silicon diodes, both forward biased, are connected in series with a 1.0 kΩ resistor across a 6.0 V battery. Taking the forward drop of each diode as 0.7 V, what is the current in the circuit?",
+      "options": ["5.3 mA", "6.0 mA", "4.6 mA", "1.4 mA"],
+      "answer": 3,
+      "explanation": "Apply Kirchhoff's loop rule: the battery voltage equals the sum of the two diode drops and the voltage across the resistor, $6.0 = 0.7 + 0.7 + I \\times 1000$. So $I = (6.0 - 1.4)/1000 = 4.6\\times10^{-3}\\,\\text{A} = 4.6\\,\\text{mA}$. Each forward-biased silicon diode takes about 0.7 V, and only the remaining 4.6 V of the battery voltage drives the current through the resistor.",
+      "optionRationale": { "1": "5.3 mA allows for only one 0.7 V diode drop.", "2": "6.0 mA treats both diodes as ideal (zero drop).", "4": "1.4 mA divides the total diode drop by the resistance, which is not the current." },
+      "objective": "Solve a series circuit with forward-biased diodes"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q29", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "A 5.0 V battery, a 1.0 kΩ resistor and two identical silicon diodes D1 and D2 are connected in series. D1 is connected so that it is forward biased, but D2 is connected the opposite way round. What is the current in the circuit, approximately?",
+      "options": ["4.3 mA", "3.6 mA", "5.0 mA", "Practically zero (only the tiny reverse saturation current of D2)"],
+      "answer": 4,
+      "explanation": "In a series circuit the same current must pass through every element. D2 is reverse biased, so it allows only its tiny reverse saturation current (µA or less, since 5 V is far below a typical breakdown voltage). This blocks the circuit, so the current is practically zero even though D1 is forward biased.",
+      "optionRationale": { "1": "4.3 mA would flow only if D2 were absent or also forward biased with D1 alone dropping 0.7 V.", "2": "3.6 mA assumes both diodes conduct, each dropping 0.7 V.", "3": "5.0 mA assumes neither diode has any effect." },
+      "objective": "Analyse a circuit containing a reverse-biased diode"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q30", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Consider these statements about the I-V characteristics of a p-n junction diode.\nA. The forward current (beyond the knee) is mainly due to diffusion of majority carriers across the lowered barrier.\nB. The reverse current (below breakdown) is mainly due to drift of minority carriers.\nC. Below the threshold voltage the forward current is negligibly small.\nD. In reverse bias below breakdown, the current increases in direct proportion to the applied voltage, as Ohm's law predicts.\nWhich statements are correct?",
+      "options": ["A and B only", "A, B and C only", "C and D only", "A, B, C and D"],
+      "answer": 2,
+      "explanation": "A is true: forward bias lowers the barrier so majority carriers diffuse across in large numbers. B is true: in reverse bias only minority carriers are swept across. C is true: the current is negligible until the barrier is nearly overcome. D is false: the reverse current saturates and stays almost constant with voltage until breakdown; the diode is non-ohmic.",
+      "optionRationale": { "1": "C is also correct, so this is incomplete.", "3": "D is false, and A and B, which are true, are left out.", "4": "D is false: the reverse current is nearly independent of voltage." },
+      "objective": "Analyse the carrier processes behind the diode characteristic"
+    },
+    {
+      "key": "ug26-322-u9-semiconductors-pn-diode-q31", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "What happens when the reverse voltage across an ordinary junction diode is increased up to its breakdown voltage?",
+      "options": [
+        "The diode automatically switches over to forward bias",
+        "The reverse current drops to exactly zero",
+        "The depletion layer disappears and the barrier returns to 0.7 V",
+        "The reverse current increases sharply, and the diode can be damaged by overheating unless the current is limited"
+      ],
+      "answer": 4,
+      "explanation": "Up to the breakdown voltage the reverse current stays tiny and nearly constant. At $V_{br}$ it suddenly rises sharply, as the steep part of the reverse characteristic shows. The large current multiplied by the large reverse voltage can dissipate enough power to destroy an ordinary diode unless an external resistor limits the current.",
+      "optionRationale": { "1": "The polarity of the applied voltage does not change, so the diode stays reverse biased.", "2": "At breakdown the current increases sharply, not decreases.", "3": "The depletion layer does not disappear; a large reverse voltage still appears across the junction." },
+      "objective": "Describe reverse breakdown"
+    }
+  ]
+}

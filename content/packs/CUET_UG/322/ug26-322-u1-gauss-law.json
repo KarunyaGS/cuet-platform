@@ -1,0 +1,301 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_30f8e8208fb7487cac7e6209033f02f4",
+    "title": "Electric flux, statement of Gauss's theorem and its applications to find field due to infinitely"
+  },
+  "lesson": {
+    "key": "ug26-322-u1-gauss-law",
+    "title": "Electric flux and Gauss's theorem: fields of a long wire, an infinite sheet and a thin spherical shell",
+    "coverage": [
+      { "phrase": "Electric flux", "section": "Electric flux" },
+      { "phrase": "Statement of Gauss's theorem", "section": "Gauss's theorem: statement and meaning" },
+      { "phrase": "Applications of Gauss's theorem to find the field", "section": "Applying Gauss's theorem: the method" },
+      { "phrase": "Field due to an infinitely long straight wire", "section": "Field of an infinitely long straight uniformly charged wire" },
+      { "phrase": "Uniformly charged infinite plane sheet", "section": "Field of a uniformly charged infinite plane sheet" },
+      { "phrase": "Uniformly charged thin spherical shell (field inside and outside)", "section": "Field of a uniformly charged thin spherical shell" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Electric flux" },
+      { "type": "TEXT", "text": "Think of water flowing steadily through a wire loop. The amount of water passing through the loop each second depends on three things: how fast the water flows, how large the loop is, and how the loop is tilted. If the loop faces the flow squarely, the most water passes; if it is turned edge-on, none passes. **Electric flux** is the same idea for an electric field. Nothing actually flows, but the flux measures \"how much field\" passes through a surface, and it is proportional to the **number of field lines** crossing that surface.\n\nTo describe the tilt of a small flat surface we use its **area vector** $\\Delta\\vec{S}$: a vector whose magnitude is the area and whose direction is along the **normal** (perpendicular) to the surface. For a closed surface, the normal is always taken pointing **outward**." },
+      { "type": "DEFINITION", "term": "Electric flux", "text": "The electric flux through a small surface element is the scalar product of the electric field and the area vector of the element: $\\Delta\\Phi = \\vec{E} \\cdot \\Delta\\vec{S} = E\\,\\Delta S\\cos\\theta$, where θ is the angle between $\\vec{E}$ and the normal. Flux is a scalar. SI unit: N m² C⁻¹ (equivalently V m)." },
+      { "type": "FORMULA", "latex": "\\Phi = \\int \\vec{E} \\cdot d\\vec{S}, \\qquad \\Phi = EA\\cos\\theta \\;\\; \\text{(uniform field, flat area)}", "text": "Φ = electric flux (N m² C⁻¹); E = electric field (N C⁻¹); A or dS = area (m²); θ = angle between E and the normal to the surface. For a closed surface the integral is written with a circle, ∮, and the normal points outward." },
+      { "type": "DIAGRAM", "diagram": "flux-area" },
+      { "type": "TEXT", "text": "**Special cases and sign rules**\n\n- $\\theta = 0^\\circ$ (field along the normal, surface facing the field): $\\Phi = EA$, the maximum.\n- $\\theta = 90^\\circ$ (field parallel to the surface, surface edge-on): $\\Phi = 0$; no field lines cross it.\n- $\\theta = 180^\\circ$: $\\Phi = -EA$.\n- For a **closed** surface: field lines coming **out** give positive flux, lines going **in** give negative flux. The total flux counts lines leaving minus lines entering.\n\nA common trap: if a question gives the angle between the field and the **plane** of the surface, the angle with the normal is $90^\\circ$ minus that angle." },
+      { "type": "SOLVED_PROBLEM", "problem": "A flat square of side 10 cm is placed in a uniform electric field of $2 \\times 10^{3}\\,\\text{N C}^{-1}$. Find the flux through it when (a) its normal makes $60^\\circ$ with the field, (b) its plane is parallel to the field, (c) its plane is perpendicular to the field.", "solution": "Step 1 (area): $A = (0.10)^2 = 0.01\\,\\text{m}^2$, so $EA = (2 \\times 10^{3})(0.01) = 20\\,\\text{N m}^2\\,\\text{C}^{-1}$.\n\nStep 2 (a): $\\Phi = EA\\cos 60^\\circ = 20 \\times 0.5 = 10\\,\\text{N m}^2\\,\\text{C}^{-1}$.\n\nStep 3 (b): if the plane is parallel to the field, the normal is perpendicular to it, $\\theta = 90^\\circ$, so $\\Phi = 0$. No field lines pass through.\n\nStep 4 (c): if the plane is perpendicular to the field, the normal is along the field, $\\theta = 0^\\circ$, so $\\Phi = EA = 20\\,\\text{N m}^2\\,\\text{C}^{-1}$, the maximum possible.", "answer": "(a) 10 N m² C⁻¹; (b) zero; (c) 20 N m² C⁻¹." },
+      { "type": "SOLVED_PROBLEM", "problem": "A cube of side 10 cm is placed in a uniform field $\\vec{E} = 500\\,\\hat{i}\\;\\text{N C}^{-1}$ with its faces parallel to the coordinate planes. Find the flux through each face and the net flux through the cube.", "solution": "Step 1 (area of each face): $A = 0.01\\,\\text{m}^2$, so $EA = 500 \\times 0.01 = 5\\,\\text{N m}^2\\,\\text{C}^{-1}$.\n\nStep 2 (face facing +x): its outward normal is along $+\\hat{i}$, parallel to $\\vec{E}$, so $\\Phi = +5\\,\\text{N m}^2\\,\\text{C}^{-1}$ (lines leave).\n\nStep 3 (face facing −x): its outward normal is along $-\\hat{i}$, opposite to $\\vec{E}$, so $\\Phi = -5\\,\\text{N m}^2\\,\\text{C}^{-1}$ (lines enter).\n\nStep 4 (other four faces): their normals are perpendicular to $\\vec{E}$, so the flux through each is zero.\n\nStep 5 (net): $+5 - 5 + 0 = 0$. Every line that enters also leaves; there is no charge inside the cube.", "answer": "+5 and −5 N m² C⁻¹ through the two faces perpendicular to x, zero through the other four; net flux zero." },
+      { "type": "HEADING", "text": "Gauss's theorem: statement and meaning" },
+      { "type": "CONCEPT", "text": "**Gauss's theorem (Gauss's law):** the total electric flux through any closed surface is equal to $\\frac{1}{\\varepsilon_0}$ times the net charge enclosed by that surface." },
+      { "type": "FORMULA", "latex": "\\oint_S \\vec{E} \\cdot d\\vec{S} = \\frac{q_{\\text{enc}}}{\\varepsilon_0}", "text": "S = any closed surface (the Gaussian surface); E = total electric field at each point of S, produced by ALL charges inside and outside; dS = outward area element; q_enc = algebraic sum of the charges inside S; ε₀ = 8.85 × 10⁻¹² C² N⁻¹ m⁻²." },
+      { "type": "TEXT", "text": "**Why it is true: the simplest case.** Surround a point charge q by a sphere of radius r centred on it. On the sphere the field has the same magnitude $E = \\frac{q}{4\\pi\\varepsilon_0 r^2}$ everywhere and points along the outward normal, so\n$$\\Phi = E \\times 4\\pi r^2 = \\frac{q}{4\\pi\\varepsilon_0 r^2} \\times 4\\pi r^2 = \\frac{q}{\\varepsilon_0}$$\nThe radius has cancelled. As the sphere grows, the field weakens as $\\frac{1}{r^2}$ but the area grows as $r^2$, so the flux stays the same. In terms of field lines: the same number of lines leaves the charge whatever surface we draw around it, so the flux does not depend on the size or shape of the surface. Gauss's law is a direct consequence of the inverse-square nature of the Coulomb field.\n\n**Important points about Gauss's law**\n\n- It holds for **any** closed surface, of any shape and size.\n- $q_{\\text{enc}}$ is the algebraic sum of charges **inside** only. Charges outside contribute **zero net flux**: their lines enter the surface and leave it again.\n- But the field $\\vec{E}$ in the integral is the **total** field, due to charges inside and outside. Outside charges change E at points of the surface even though they do not change the total flux.\n- Zero flux through a closed surface means zero net charge inside; it does **not** necessarily mean the field is zero on the surface.\n- The Gaussian surface should not pass through a point charge, where the field is undefined." },
+      { "type": "DIAGRAM", "diagram": "gaussian-surface" },
+      { "type": "SOLVED_PROBLEM", "problem": "A point charge of $5.31\\,\\mu\\text{C}$ is placed at the centre of a cube of side 20 cm. Find (a) the total flux through the cube, (b) the flux through one face. (c) Would the answers change if the cube's side were 40 cm?", "solution": "Step 1 (total flux by Gauss's law): $\\Phi = \\frac{q}{\\varepsilon_0} = \\frac{5.31 \\times 10^{-6}}{8.85 \\times 10^{-12}} = 6.0 \\times 10^{5}\\,\\text{N m}^2\\,\\text{C}^{-1}$.\n\nStep 2 (one face): the charge is at the centre, so by symmetry all six faces receive equal flux: $\\Phi_{\\text{face}} = \\frac{6.0 \\times 10^{5}}{6} = 1.0 \\times 10^{5}\\,\\text{N m}^2\\,\\text{C}^{-1}$.\n\nStep 3 (bigger cube): the flux depends only on the enclosed charge, not on the size of the surface, so both answers stay the same.", "answer": "(a) $6.0 \\times 10^{5}$ N m² C⁻¹; (b) $1.0 \\times 10^{5}$ N m² C⁻¹; (c) no change." },
+      { "type": "TABLE", "caption": "Flux due to a point charge q placed at special positions relative to a cube (a favourite exam pattern)", "columns": ["Position of q", "How many identical cubes would surround q completely", "Flux through the given cube"], "rows": [
+        ["At the centre of the cube", "1", "q/ε₀ (q/6ε₀ through each face)"],
+        ["At the centre of a face", "2", "q/(2ε₀)"],
+        ["At the midpoint of an edge", "4", "q/(4ε₀)"],
+        ["At a corner", "8", "q/(8ε₀)"],
+        ["Outside the cube", "—", "0"]
+      ] },
+      { "type": "CALLOUT", "text": "**How to handle the cube trick.** Imagine identical cubes stacked around the charge until it is completely enclosed. The total flux $\\frac{q}{\\varepsilon_0}$ is shared equally among them. For a charge at a corner, 8 cubes meet there, so each gets $\\frac{q}{8\\varepsilon_0}$. (The three faces that touch the corner carry zero flux, because the field lies along them; the other three faces of the cube each carry $\\frac{q}{24\\varepsilon_0}$.)" },
+      { "type": "HEADING", "text": "Applying Gauss's theorem: the method" },
+      { "type": "TEXT", "text": "Gauss's law is true for every closed surface, but it gives the field directly only when the charge distribution has enough **symmetry** that we can pull E out of the integral. The method:\n\n1. Use symmetry to decide the **direction** of $\\vec{E}$ and which variables its magnitude can depend on.\n2. Choose a **Gaussian surface** through the point of interest such that on each part of it either $\\vec{E}$ is perpendicular to the surface with constant magnitude (flux $= EA$), or $\\vec{E}$ is parallel to the surface (flux $= 0$).\n3. Write the total flux in terms of the unknown E.\n4. Find the charge enclosed, $q_{\\text{enc}}$.\n5. Set flux $= \\frac{q_{\\text{enc}}}{\\varepsilon_0}$ and solve for E." },
+      { "type": "TABLE", "caption": "Matching the Gaussian surface to the symmetry", "columns": ["Charge distribution", "Symmetry", "Gaussian surface"], "rows": [
+        ["Point charge or spherical shell", "Spherical", "Concentric sphere"],
+        ["Infinitely long straight line of charge", "Cylindrical", "Coaxial cylinder with flat end caps"],
+        ["Infinite plane sheet", "Planar", "Cylinder (pillbox) or box crossing the sheet, with its axis perpendicular to the sheet"]
+      ] },
+      { "type": "HEADING", "text": "Field of an infinitely long straight uniformly charged wire" },
+      { "type": "TEXT", "text": "Consider a very long straight wire with uniform linear charge density λ (C m⁻¹). We want the field at a point P at perpendicular distance r from the wire.\n\n**Symmetry.** Because the wire is infinitely long and uniform, nothing distinguishes one point along it from another, and nothing distinguishes one direction around it from another. So the field must point **radially** outward from the wire (for λ > 0), at right angles to it, and its magnitude can depend only on r.\n\n**Gaussian surface.** Take a cylinder of radius r and length l, coaxial with the wire, passing through P.\n\n- **Curved surface:** $\\vec{E}$ is along the outward normal and has the same magnitude everywhere on it. Flux $= E \\times (2\\pi r l)$.\n- **Two flat end faces:** $\\vec{E}$ is radial, so it lies along these faces and is perpendicular to their normals. Flux $= 0$.\n\n**Charge enclosed:** the length l of wire inside the cylinder carries $q_{\\text{enc}} = \\lambda l$.\n\n**Gauss's law:** $E(2\\pi r l) = \\frac{\\lambda l}{\\varepsilon_0}$, so $E = \\frac{\\lambda}{2\\pi\\varepsilon_0 r}$. The length l cancels, as it must." },
+      { "type": "DIAGRAM", "diagram": "wire-cylinder" },
+      { "type": "FORMULA", "latex": "\\vec{E} = \\frac{\\lambda}{2\\pi\\varepsilon_0 r}\\,\\hat{n} = \\frac{2k\\lambda}{r}\\,\\hat{n}", "text": "E = field at perpendicular distance r from an infinitely long straight wire (N C⁻¹); λ = linear charge density (C m⁻¹); n̂ = unit vector pointing radially away from the wire (field points towards the wire if λ < 0); k = 9 × 10⁹ N m² C⁻². E ∝ 1/r." },
+      { "type": "SOLVED_PROBLEM", "problem": "A long straight wire carries a uniform linear charge density of $5\\,\\text{nC m}^{-1}$. (a) Find the field 10 cm from the wire. (b) At what distance is the field half as large? (c) What force acts on an electron 10 cm from the wire?", "solution": "Step 1 (field at 10 cm): $E = \\frac{2k\\lambda}{r} = \\frac{2(9 \\times 10^{9})(5 \\times 10^{-9})}{0.10} = \\frac{90}{0.10} = 900\\,\\text{N C}^{-1}$, pointing radially away from the wire.\n\nStep 2 (half the field): since $E \\propto \\frac{1}{r}$, halving E needs double the distance: $r = 20\\,\\text{cm}$. Check: $\\frac{90}{0.20} = 450\\,\\text{N C}^{-1}$.\n\nStep 3 (force on an electron): $F = eE = (1.6 \\times 10^{-19})(900) = 1.44 \\times 10^{-16}\\,\\text{N}$. The electron is negative, so the force is radially **towards** the wire.", "answer": "(a) 900 N C⁻¹ radially outward; (b) 20 cm; (c) $1.44 \\times 10^{-16}$ N towards the wire." },
+      { "type": "HEADING", "text": "Field of a uniformly charged infinite plane sheet" },
+      { "type": "TEXT", "text": "Consider an infinite thin plane sheet with uniform surface charge density σ (C m⁻²).\n\n**Symmetry.** Every point of an infinite uniform sheet looks the same, so the field cannot have any component along the sheet. It must be **perpendicular** to the sheet, pointing away from it on both sides (for σ > 0), and its magnitude can depend at most on the distance from the sheet.\n\n**Gaussian surface.** Take a small cylinder (a \"pillbox\") with flat ends of area A, its axis perpendicular to the sheet, passing through the sheet so that one end is on each side, at equal distances.\n\n- **Curved surface:** $\\vec{E}$ is parallel to it. Flux $= 0$.\n- **Two flat ends:** $\\vec{E}$ is along the outward normal on each end. Flux $= EA + EA = 2EA$.\n\n**Charge enclosed:** the patch of sheet inside the pillbox, $q_{\\text{enc}} = \\sigma A$.\n\n**Gauss's law:** $2EA = \\frac{\\sigma A}{\\varepsilon_0}$, so $E = \\frac{\\sigma}{2\\varepsilon_0}$." },
+      { "type": "DIAGRAM", "diagram": "sheet-pillbox" },
+      { "type": "FORMULA", "latex": "\\vec{E} = \\frac{\\sigma}{2\\varepsilon_0}\\,\\hat{n}", "text": "E = field of an infinite plane sheet (N C⁻¹); σ = surface charge density (C m⁻²); n̂ = unit vector normal to the sheet, pointing away from it on each side (towards it if σ < 0). The field does NOT depend on the distance from the sheet: it is uniform on each side." },
+      { "type": "TEXT", "text": "**Why no dependence on distance?** Moving away from an infinite sheet does not make it look any smaller: it still fills half of the view. (For a real, finite sheet, the formula holds at distances small compared with its size and away from its edges.)\n\n**Two parallel sheets.** Use superposition of the two uniform fields $\\frac{\\sigma}{2\\varepsilon_0}$:\n\n- Charges $+\\sigma$ and $-\\sigma$: between the sheets the two fields point the same way and add to $\\frac{\\sigma}{\\varepsilon_0}$; outside they point opposite ways and cancel, giving **zero**. This is the arrangement inside a parallel-plate capacitor.\n- Charges $+\\sigma$ and $+\\sigma$: between the sheets the fields cancel (**zero**); outside they add to $\\frac{\\sigma}{\\varepsilon_0}$, pointing away from the pair." },
+      { "type": "SOLVED_PROBLEM", "problem": "(a) A large thin sheet carries a uniform charge density of $17.7\\,\\text{nC m}^{-2}$. Find the field near it. (b) A second sheet with $-17.7\\,\\text{nC m}^{-2}$ is placed parallel to the first. Find the field between the sheets and outside them.", "solution": "Step 1 (one sheet): $E = \\frac{\\sigma}{2\\varepsilon_0} = \\frac{17.7 \\times 10^{-9}}{2(8.85 \\times 10^{-12})} = \\frac{17.7 \\times 10^{-9}}{1.77 \\times 10^{-11}} = 1000\\,\\text{N C}^{-1}$, perpendicular to the sheet and away from it on both sides.\n\nStep 2 (between oppositely charged sheets): the field of the positive sheet points away from it, towards the negative sheet; the field of the negative sheet points towards the negative sheet. Both point the same way, so $E = 1000 + 1000 = 2000\\,\\text{N C}^{-1}$ (that is, $\\frac{\\sigma}{\\varepsilon_0}$), from the positive towards the negative sheet.\n\nStep 3 (outside): the two fields have equal size and opposite directions, so $E = 0$.", "answer": "(a) 1000 N C⁻¹; (b) 2000 N C⁻¹ between the sheets (from + to −), zero outside." },
+      { "type": "CALLOUT", "text": "**Do not confuse $\\frac{\\sigma}{2\\varepsilon_0}$ with $\\frac{\\sigma}{\\varepsilon_0}$.**\n\n- A thin isolated sheet of charge: field $\\frac{\\sigma}{2\\varepsilon_0}$ on **each** side.\n- Just outside the surface of a charged **conductor** (where σ is the charge per unit area on that surface and the field inside the metal is zero): field $\\frac{\\sigma}{\\varepsilon_0}$, because all the flux leaves through one side.\n- Between two oppositely charged parallel sheets: $\\frac{\\sigma}{\\varepsilon_0}$." },
+      { "type": "HEADING", "text": "Field of a uniformly charged thin spherical shell" },
+      { "type": "TEXT", "text": "A thin spherical shell of radius R carries a total charge q spread uniformly over its surface, so $\\sigma = \\frac{q}{4\\pi R^2}$. By spherical symmetry, the field at any point must be **radial** and its magnitude can depend only on the distance r from the centre.\n\n**(a) Outside the shell ($r > R$).** Take a concentric Gaussian sphere $S_2$ of radius r. On it, E is radial and the same everywhere, so the flux is $E \\times 4\\pi r^2$. The whole shell is inside: $q_{\\text{enc}} = q$. Hence\n$$E \\times 4\\pi r^2 = \\frac{q}{\\varepsilon_0} \\;\\Rightarrow\\; E = \\frac{1}{4\\pi\\varepsilon_0}\\frac{q}{r^2}$$\nOutside, the shell behaves exactly as if all its charge were a **point charge at the centre**.\n\n**(b) On the surface ($r = R$, just outside).** $E = \\frac{q}{4\\pi\\varepsilon_0 R^2} = \\frac{\\sigma}{\\varepsilon_0}$, the largest value.\n\n**(c) Inside the shell ($r < R$).** Take a concentric Gaussian sphere $S_1$ of radius r < R. It encloses **no charge**, so $E \\times 4\\pi r^2 = 0$ and therefore $E = 0$ at every point inside. (Symmetry tells us E has the same magnitude all over $S_1$, so zero flux really does mean zero field here.)" },
+      { "type": "DIAGRAM", "diagram": "spherical-shell" },
+      { "type": "FORMULA", "latex": "E = \\begin{cases} \\dfrac{1}{4\\pi\\varepsilon_0}\\dfrac{q}{r^2} = \\dfrac{\\sigma R^2}{\\varepsilon_0 r^2}, & r > R \\\\[2mm] \\dfrac{\\sigma}{\\varepsilon_0}, & r = R \\;(\\text{just outside}) \\\\[2mm] 0, & r < R \\end{cases}", "text": "Field of a uniformly charged thin spherical shell. q = total charge (C); R = radius of the shell (m); r = distance from the centre (m); σ = q/(4πR²) = surface charge density (C m⁻²). The field is radial: outward for q > 0." },
+      { "type": "TEXT", "text": "**The graph of E against r** (shown above, right) is zero from the centre up to R, jumps to its maximum $\\frac{kq}{R^2}$ at the surface, then falls off as $\\frac{1}{r^2}$. The jump at r = R equals $\\frac{\\sigma}{\\varepsilon_0}$, which is a general feature of crossing a charged surface.\n\n**Consequences.**\n\n- A charge placed anywhere inside a uniformly charged shell feels **no force** from the shell.\n- This is the idea behind **electrostatic shielding**: the region enclosed by a closed conducting surface is free of the field of outside charges (studied with conductors)." },
+      { "type": "SOLVED_PROBLEM", "problem": "A thin spherical shell of radius 10 cm carries a charge of $2\\,\\text{nC}$ spread uniformly. Find the electric field (a) 5 cm from the centre, (b) just outside the surface, (c) 20 cm from the centre. (d) Find the surface charge density and check part (b) with it.", "solution": "Step 1 (inside, r = 5 cm < R): no charge is enclosed by a Gaussian sphere of radius 5 cm, so $E = 0$.\n\nStep 2 (just outside, r = R = 0.10 m): $E = \\frac{kq}{R^2} = \\frac{(9 \\times 10^{9})(2 \\times 10^{-9})}{0.01} = 1800\\,\\text{N C}^{-1}$.\n\nStep 3 (outside, r = 0.20 m): $E = \\frac{kq}{r^2} = \\frac{18}{0.04} = 450\\,\\text{N C}^{-1}$, one quarter of the surface value because the distance has doubled.\n\nStep 4 (charge density): $\\sigma = \\frac{q}{4\\pi R^2} = \\frac{2 \\times 10^{-9}}{4\\pi(0.01)} \\approx 1.59 \\times 10^{-8}\\,\\text{C m}^{-2}$. Then $\\frac{\\sigma}{\\varepsilon_0} = \\frac{1.59 \\times 10^{-8}}{8.85 \\times 10^{-12}} \\approx 1.8 \\times 10^{3}\\,\\text{N C}^{-1}$, agreeing with Step 2.", "answer": "(a) 0; (b) 1800 N C⁻¹; (c) 450 N C⁻¹; (d) about $1.59 \\times 10^{-8}$ C m⁻², giving σ/ε₀ ≈ 1800 N C⁻¹." },
+      { "type": "HEADING", "text": "Revision summary" },
+      { "type": "TABLE", "caption": "Fields obtained from Gauss's theorem", "columns": ["Charge distribution", "Gaussian surface", "Field", "Dependence on distance"], "rows": [
+        ["Point charge q", "Sphere of radius r", "kq/r²", "∝ 1/r²"],
+        ["Infinitely long straight wire, λ", "Coaxial cylinder", "λ/(2πε₀r) = 2kλ/r", "∝ 1/r"],
+        ["Infinite plane sheet, σ", "Pillbox through the sheet", "σ/(2ε₀)", "Independent of distance"],
+        ["Thin spherical shell, outside (r > R)", "Concentric sphere", "kq/r²", "∝ 1/r²"],
+        ["Thin spherical shell, surface", "—", "σ/ε₀ = kq/R²", "Maximum value"],
+        ["Thin spherical shell, inside (r < R)", "Concentric sphere", "0", "Zero everywhere inside"]
+      ] },
+      { "type": "KEY_POINT", "text": "- Flux $\\Phi = \\vec{E} \\cdot \\vec{A} = EA\\cos\\theta$ (θ measured from the normal); unit N m² C⁻¹; outward flux positive.\n- Gauss's theorem: $\\oint \\vec{E} \\cdot d\\vec{S} = \\frac{q_{\\text{enc}}}{\\varepsilon_0}$ for every closed surface.\n- Only enclosed charge affects the total flux; outside charges change E on the surface but add zero net flux.\n- Net flux through a closed surface in a uniform field is zero.\n- Choose the Gaussian surface to match the symmetry; on each part E must be either constant and normal, or parallel.\n- Wire: $E = \\frac{\\lambda}{2\\pi\\varepsilon_0 r}$. Sheet: $E = \\frac{\\sigma}{2\\varepsilon_0}$. Shell: $\\frac{kq}{r^2}$ outside, zero inside." },
+      { "type": "IMPORTANT_FACT", "text": "Gauss's law is equivalent to Coulomb's law for static charges, and it relies on the field falling exactly as $\\frac{1}{r^2}$. If the electrostatic force followed any other power of r, the flux through a sphere around a point charge would depend on the radius and Gauss's law would fail." },
+      { "type": "CALLOUT", "text": "**Exam checklist.**\n\n- Angle with the plane given? Use $\\cos(90^\\circ - \\alpha) = \\sin\\alpha$.\n- Doubling the size of a Gaussian surface around the same charge does not change the flux.\n- Charge q at the centre of a cube: $\\frac{q}{6\\varepsilon_0}$ per face. At a corner: $\\frac{q}{8\\varepsilon_0}$ through the cube.\n- Field of a long wire halves when the distance doubles; field of a point charge or outside a shell becomes a quarter; field of an infinite sheet does not change." }
+    ]
+  },
+  "diagrams": [
+    { "key": "flux-area", "file": "diagrams/ug26-322-u1-gauss-law-flux-area.svg", "alt": "Flat surface seen edge-on in a uniform horizontal field, with its normal area vector making angle theta with the field direction", "caption": "Electric flux through a flat surface: ΔΦ = E ΔS cos θ", "description": "Horizontal field lines with arrows to the right fill the picture and are labelled uniform field E. A flat surface of area delta S is drawn edge-on as a thick orange line tilted from upper left to lower right. From its centre a green arrow labelled delta S (normal) points up and to the right, perpendicular to the surface. A dashed line from the centre along the field and a red arc mark the angle theta between the field and the normal. The caption gives the flux as E delta S cos theta." },
+    { "key": "gaussian-surface", "file": "diagrams/ug26-322-u1-gauss-law-gaussian-surface.svg", "alt": "Irregular closed Gaussian surface with outward area vectors, a positive charge q1 and a negative charge q2 inside, and a positive charge q3 outside whose field line enters and leaves the surface", "caption": "Gauss's theorem: only the enclosed charges q₁ and q₂ determine the total flux through S", "description": "A dashed green irregular closed curve represents the Gaussian surface S, with outward arrows dS drawn at three places. Inside are a positive charge q1 and a negative charge q2. Outside on the right is a positive charge q3. A red field line from q3 crosses S twice: it enters on the right and leaves on the left. The note explains that the total flux through S is (q1 + q2)/epsilon nought and that q3 adds zero net flux, though it changes the field at points on S." },
+    { "key": "wire-cylinder", "file": "diagrams/ug26-322-u1-gauss-law-wire.svg", "alt": "Long vertical line charge with a coaxial cylindrical Gaussian surface of radius r and length l, with field arrows pointing radially outward from the curved surface", "caption": "Gaussian cylinder around an infinitely long line charge", "description": "A long vertical red line carries positive charge with linear density lambda. A green cylinder of radius r and length l surrounds it coaxially. Blue arrows labelled E point horizontally outward from the curved surface on both sides. Notes explain that on the end faces E lies along the face so the flux there is zero, that the curved surface has flux E times 2 pi r l, that the enclosed charge is lambda l, and that therefore E equals lambda over 2 pi epsilon nought r." },
+    { "key": "sheet-pillbox", "file": "diagrams/ug26-322-u1-gauss-law-sheet.svg", "alt": "Infinite positively charged sheet seen edge-on, crossed by a cylindrical pillbox with end faces of area A on each side and field arrows pointing away from the sheet on both sides", "caption": "Pillbox Gaussian surface for an infinite plane sheet of charge", "description": "A vertical strip marked with plus signs represents an infinite sheet with surface charge density sigma, seen edge-on. A horizontal green cylinder passes through it, with an elliptical end face of area A on each side. Blue arrows labelled E point away from the sheet, to the left from the left face and to the right from the right face. Notes state that the curved side has no flux, the two ends give 2EA, the enclosed charge is sigma A, so E equals sigma over 2 epsilon nought at every distance." },
+    { "key": "spherical-shell", "file": "diagrams/ug26-322-u1-gauss-law-shell.svg", "alt": "Charged thin spherical shell with a dashed Gaussian sphere inside and another outside, and a graph of E against r that is zero up to R, jumps to kq over R squared, then falls as 1 over r squared", "caption": "Uniformly charged thin spherical shell: Gaussian surfaces and the graph of E against r", "description": "Left: a red circle of radius R with plus signs around it is the charged shell. A small dashed green circle S1 inside it encloses no charge; a large dashed green circle S2 outside it encloses the full charge q. Right: a graph with E in newtons per coulomb on the vertical axis and distance from the centre r in metres on the horizontal axis. The field is zero from r = 0 to r = R, jumps to kq over R squared at r = R, and then decreases as kq over r squared." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u1-gauss-law-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "What is the SI unit of electric flux?",
+      "options": ["N C⁻¹ m⁻²", "N m² C⁻¹", "N m C⁻²", "C N⁻¹ m⁻²"],
+      "answer": 2,
+      "explanation": "Electric flux is the product of electric field and area, $\\Phi = EA\\cos\\theta$. The field is measured in newton per coulomb and the area in square metres, so the unit of flux is N C⁻¹ × m², written N m² C⁻¹. This is the same as volt metre, since one volt per metre equals one newton per coulomb.",
+      "optionRationale": { "1": "This divides by area instead of multiplying by it.", "3": "This has the wrong powers of metre and coulomb.", "4": "C² N⁻¹ m⁻² type units belong to permittivity, not flux; this one is not a flux unit." },
+      "objective": "State the SI unit of electric flux"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q02", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A flat surface of area 0.02 m² is placed in a uniform electric field of 500 N C⁻¹. The field makes an angle of 30° with the plane of the surface. What is the electric flux through the surface?",
+      "options": ["8.66 N m² C⁻¹", "10 N m² C⁻¹", "5 N m² C⁻¹", "zero"],
+      "answer": 3,
+      "explanation": "Flux uses the angle between the field and the normal to the surface. The field makes 30° with the plane, so it makes $90^\\circ - 30^\\circ = 60^\\circ$ with the normal. Then $\\Phi = EA\\cos 60^\\circ = (500)(0.02)(0.5) = 5\\,\\text{N m}^2\\,\\text{C}^{-1}$. Taking 30° as the angle with the normal is the most common mistake here.",
+      "optionRationale": { "1": "8.66 uses cos 30°, treating the angle with the plane as if it were the angle with the normal.", "2": "10 is EA, the flux only when the field is along the normal.", "4": "The flux is zero only if the field is parallel to the plane." },
+      "objective": "Calculate flux when the angle is given with the plane of the surface"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q03", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The net electric flux through a closed cube placed in a uniform electric field is zero.\nReason (R): The electric flux through every face of the cube is zero.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "A is true: the cube encloses no charge, and every field line that enters through one face leaves through the opposite face, so the total is zero. R is false: the two faces perpendicular to the field have flux +EA and −EA, which are not zero; they cancel each other. Only the four faces parallel to the field have zero flux.",
+      "optionRationale": { "1": "R is false, so it cannot explain A.", "2": "R is not true; two faces have non-zero flux.", "4": "A is true; the net flux through a closed surface in a uniform field is zero." },
+      "objective": "Distinguish zero net flux from zero flux through every part of a surface"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q04", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "A hemispherical bowl of radius R is placed in a uniform electric field E so that the field is perpendicular to its flat circular rim. What is the magnitude of the flux through the curved surface of the bowl?",
+      "options": ["πR²E", "2πR²E", "4πR²E", "zero"],
+      "answer": 1,
+      "explanation": "Close the bowl with its flat circular face. The closed hemisphere encloses no charge, so the total flux is zero. The flat face has area $\\pi R^2$ and the field is perpendicular to it, so its flux has magnitude $\\pi R^2 E$. The curved surface must carry an equal and opposite flux, so its magnitude is also $\\pi R^2 E$: every line through the circle also passes through the bowl.",
+      "optionRationale": { "2": "2πR² is the area of the curved surface, but the field is not along its normal everywhere.", "3": "4πR² is the area of a whole sphere and is not relevant here.", "4": "Zero is the flux through the closed hemisphere (bowl plus flat face), not through the curved surface alone." },
+      "objective": "Use Gauss's law to find the flux through an open curved surface"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q05", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "According to Gauss's theorem, the total electric flux through a closed surface depends on",
+      "options": ["the shape and size of the surface", "the charges both inside and outside the surface", "the positions of the charges inside the surface", "only the total charge enclosed by the surface"],
+      "answer": 4,
+      "explanation": "Gauss's theorem states that $\\oint \\vec{E} \\cdot d\\vec{S} = \\frac{q_{\\text{enc}}}{\\varepsilon_0}$. The total flux therefore depends only on the algebraic sum of the charges enclosed. The shape and size of the surface, the positions of the charges inside it and the charges outside it do not change the total flux.",
+      "optionRationale": { "1": "The same number of field lines crosses any closed surface around the same charge, whatever its shape or size.", "2": "Charges outside give zero net flux: their lines enter and leave.", "3": "Moving charges around inside the surface does not change the total flux." },
+      "objective": "State Gauss's theorem correctly"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q06", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A closed surface encloses charges of +3 μC and −5 μC, and a charge of +4 μC lies outside it. What is the net electric flux through the closed surface?",
+      "options": ["2.26 × 10⁵ N m² C⁻¹, net flux outward", "2.26 × 10⁵ N m² C⁻¹, net flux inward", "3.39 × 10⁵ N m² C⁻¹, net flux outward", "9.04 × 10⁵ N m² C⁻¹, net flux inward"],
+      "answer": 2,
+      "explanation": "By Gauss's theorem only the charge enclosed by the surface decides the total flux, so first add the inside charges with their signs: $q_{\\text{enc}} = +3 - 5 = -2\\,\\mu\\text{C}$. The charge lying outside contributes no net flux, because its field lines enter and then leave the surface. So $\\Phi = \\frac{q_{\\text{enc}}}{\\varepsilon_0} = \\frac{-2 \\times 10^{-6}}{8.85 \\times 10^{-12}} \\approx -2.26 \\times 10^{5}\\,\\text{N m}^2\\,\\text{C}^{-1}$. The negative sign means more field lines enter than leave, so the net flux is inward.",
+      "optionRationale": { "1": "This wrongly includes the outside charge (+3 − 5 + 4 = +2 μC).", "3": "This counts only the +3 μC charge and ignores the −5 μC charge inside.", "4": "This adds the magnitudes of all charges instead of taking the algebraic sum of the enclosed ones." },
+      "objective": "Apply Gauss's law with charges inside and outside a surface"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q07", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A point charge of 10.62 μC is placed at the centre of a cube. What is the electric flux through any one face of the cube?",
+      "options": ["1.2 × 10⁶ N m² C⁻¹", "6 × 10⁵ N m² C⁻¹", "1 × 10⁵ N m² C⁻¹", "2 × 10⁵ N m² C⁻¹"],
+      "answer": 4,
+      "explanation": "First use Gauss's theorem for the whole closed cube: the total flux through it is $\\frac{q}{\\varepsilon_0} = \\frac{10.62 \\times 10^{-6}}{8.85 \\times 10^{-12}} = 1.2 \\times 10^{6}\\,\\text{N m}^2\\,\\text{C}^{-1}$, whatever the size of the cube. With the charge at the centre, the six faces are equivalent by symmetry and share this equally, so each face carries $\\frac{1.2 \\times 10^{6}}{6} = 2 \\times 10^{5}\\,\\text{N m}^2\\,\\text{C}^{-1}$.",
+      "optionRationale": { "1": "This is the total flux through all six faces, not one face.", "2": "This divides the total by 2 instead of by 6.", "3": "This divides the total by 12 instead of by 6." },
+      "objective": "Use symmetry with Gauss's law for a charge at the centre of a cube"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q08", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A point charge q is placed at one corner of a cube. What is the total electric flux through the surface of the cube?",
+      "options": ["q/6ε₀", "q/8ε₀", "q/24ε₀", "q/4ε₀"],
+      "answer": 2,
+      "explanation": "Imagine eight identical cubes arranged around the corner so that they completely enclose the charge. Together they form a closed surface around q, with total flux $\\frac{q}{\\varepsilon_0}$, and by symmetry each cube gets an equal share. So the flux through one cube is $\\frac{q}{8\\varepsilon_0}$. The three faces meeting at the corner carry no flux, because the field lies along them.",
+      "optionRationale": { "1": "q/6ε₀ is the flux through one face when the charge is at the centre of the cube.", "3": "q/24ε₀ is the flux through each of the three far faces, not the total through the cube.", "4": "q/4ε₀ applies when the charge is at the midpoint of an edge (4 cubes share it)." },
+      "objective": "Apply Gauss's law with symmetry for a charge at the corner of a cube"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q09", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "conceptual",
+      "stem": "Read the following statements about Gauss's theorem.\nA. The field E in the surface integral is the total field due to all charges, both inside and outside the surface.\nB. Charges outside the closed surface contribute to the net flux through it.\nC. The total flux through a closed surface depends on its shape and size.\nD. Gauss's theorem is valid for any closed surface.\nWhich statements are correct?",
+      "options": ["A and D only", "B and C only", "A, C and D only", "A, B, C and D"],
+      "answer": 1,
+      "explanation": "A is true: the field at each point of the surface is produced by every charge present. D is true: Gauss's law holds for every closed surface. B is false: outside charges change the field on the surface, but their lines enter and leave, giving zero net flux. C is false: the flux depends only on the enclosed charge. Hence A and D only.",
+      "optionRationale": { "2": "Both B and C are false.", "3": "C is false; the flux does not depend on the surface's shape or size.", "4": "B and C are false, so all four cannot be correct." },
+      "objective": "Interpret the terms in Gauss's theorem"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q10", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): If the radius of a spherical Gaussian surface centred on a point charge is doubled, the electric flux through it does not change.\nReason (R): When the radius is doubled, the field on the surface becomes one-quarter while the area of the surface becomes four times larger.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "The flux through a sphere around a point charge is $E \\times 4\\pi r^2$. Doubling r makes $E = \\frac{kq}{r^2}$ one quarter and makes the area four times larger, so the product, which equals $\\frac{q}{\\varepsilon_0}$, is unchanged. Both statements are true and R is exactly the reason A holds.",
+      "optionRationale": { "2": "R is precisely why the flux stays the same, so it is the correct explanation.", "3": "R is true: E ∝ 1/r² and area ∝ r².", "4": "A is true; the flux depends only on the enclosed charge." },
+      "objective": "Explain why the flux is independent of the size of the Gaussian surface"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q11", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each charge distribution in List-I with the way its electric field depends on distance in List-II.",
+      "list": { "left": ["A. Point charge", "B. Infinitely long uniformly charged straight wire", "C. Uniformly charged infinite plane sheet", "D. Point inside a uniformly charged thin spherical shell"], "right": ["I. E ∝ 1/r", "II. E independent of distance", "III. E = 0", "IV. E ∝ 1/r²"] },
+      "options": ["A-I, B-IV, C-II, D-III", "A-IV, B-II, C-I, D-III", "A-IV, B-I, C-II, D-III", "A-IV, B-I, C-III, D-II"],
+      "answer": 3,
+      "explanation": "A point charge gives $E = \\frac{kq}{r^2}$, so A-IV. A long wire gives $E = \\frac{\\lambda}{2\\pi\\varepsilon_0 r}$, so B-I. An infinite sheet gives $\\frac{\\sigma}{2\\varepsilon_0}$, independent of distance, so C-II. Inside a thin shell the field is zero, so D-III. The correct code is A-IV, B-I, C-II, D-III.",
+      "optionRationale": { "1": "This swaps the point charge and the wire; the wire's field falls as 1/r.", "2": "This swaps the wire and the sheet; the sheet's field does not depend on distance.", "4": "This swaps the sheet and the shell; the field inside a shell is zero." },
+      "objective": "Recall the distance dependence of fields obtained from Gauss's law"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q12", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "A long straight wire carries a uniform linear charge density of 2 nC m⁻¹. What is the electric field at a perpendicular distance of 6 cm from the wire?",
+      "options": ["300 N C⁻¹", "1200 N C⁻¹", "60 N C⁻¹", "600 N C⁻¹"],
+      "answer": 4,
+      "explanation": "For an infinitely long wire, applying Gauss's theorem to a coaxial cylinder gives $E = \\frac{\\lambda}{2\\pi\\varepsilon_0 r} = \\frac{2k\\lambda}{r}$. Convert the distance to metres (6 cm = 0.06 m) and the charge density to coulombs per metre, then substitute: $E = \\frac{2(9 \\times 10^{9})(2 \\times 10^{-9})}{0.06} = \\frac{36}{0.06} = 600\\,\\text{N C}^{-1}$. The field points radially away from the wire because the wire is positively charged.",
+      "optionRationale": { "1": "300 N C⁻¹ uses kλ/r, dropping the factor 2 in 2kλ/r.", "2": "1200 N C⁻¹ doubles the correct value.", "3": "60 N C⁻¹ is off by a factor of 10; check the conversion of 6 cm." },
+      "objective": "Calculate the field of a long charged wire"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q13", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "The electric field at a distance r from a very long uniformly charged straight wire is E. What is the field at a distance 3r from the wire?",
+      "options": ["E/9", "3E", "E (unchanged)", "E/3"],
+      "answer": 4,
+      "explanation": "Gauss's theorem with a cylindrical surface gives $E = \\frac{\\lambda}{2\\pi\\varepsilon_0 r}$, so the field of a long wire falls off as $\\frac{1}{r}$, not as $\\frac{1}{r^2}$. Tripling the distance therefore reduces the field to one third, giving $\\frac{E}{3}$.",
+      "optionRationale": { "1": "E/9 would be correct for a point charge (1/r²), not for a long wire.", "2": "The field decreases with distance; it does not increase.", "3": "Only the field of an infinite sheet is independent of distance." },
+      "objective": "Use the 1/r dependence of the field of a line charge"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q14", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "The electric field at a perpendicular distance of 18 cm from a long uniformly charged straight wire is 9 × 10⁴ N C⁻¹. What is the linear charge density of the wire?",
+      "options": ["1.8 μC m⁻¹", "0.45 μC m⁻¹", "0.9 μC m⁻¹", "9 μC m⁻¹"],
+      "answer": 3,
+      "explanation": "The field of a long straight wire, found from Gauss's theorem, is $E = \\frac{2k\\lambda}{r}$. Make the linear charge density the subject and substitute the distance in metres: $\\lambda = \\frac{Er}{2k} = \\frac{(9 \\times 10^{4})(0.18)}{2(9 \\times 10^{9})} = \\frac{1.62 \\times 10^{4}}{1.8 \\times 10^{10}} = 9 \\times 10^{-7}\\,\\text{C m}^{-1}$. Since one microcoulomb is a millionth of a coulomb, this is 0.9 microcoulomb per metre.",
+      "optionRationale": { "1": "1.8 μC m⁻¹ forgets the factor 2 in the denominator (uses λ = Er/k).", "2": "0.45 μC m⁻¹ divides by 4k instead of 2k.", "4": "9 μC m⁻¹ is out by a factor of 10." },
+      "objective": "Find the linear charge density from the field of a long wire"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q15", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "How does the electric field due to a uniformly charged infinite plane sheet vary with the distance from the sheet?",
+      "options": ["it decreases as 1/r²", "it decreases as 1/r", "it does not depend on the distance from the sheet", "it increases linearly with distance"],
+      "answer": 3,
+      "explanation": "Applying Gauss's theorem with a pillbox gives $2EA = \\frac{\\sigma A}{\\varepsilon_0}$, so $E = \\frac{\\sigma}{2\\varepsilon_0}$. The distance from the sheet does not appear anywhere in this result, so the field is uniform on each side of an infinite sheet, at any distance.",
+      "optionRationale": { "1": "1/r² is the behaviour of a point charge, not of an infinite sheet.", "2": "1/r is the behaviour of a long line charge.", "4": "No electrostatic field of a charged sheet grows with distance." },
+      "objective": "Recall that the field of an infinite sheet is uniform"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q16", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Two large parallel plane sheets carry uniform surface charge densities of +8.85 × 10⁻⁸ C m⁻² and −8.85 × 10⁻⁸ C m⁻². What is the electric field between the sheets and outside them?",
+      "options": ["10⁴ N C⁻¹ between the sheets and zero outside", "5 × 10³ N C⁻¹ between the sheets and zero outside", "zero between the sheets and 10⁴ N C⁻¹ outside", "10⁴ N C⁻¹ both between and outside the sheets"],
+      "answer": 1,
+      "explanation": "Use superposition of the two sheet fields. Each sheet alone gives a uniform field of $\\frac{\\sigma}{2\\varepsilon_0} = 5 \\times 10^{3}\\,\\text{N C}^{-1}$. Between oppositely charged sheets both fields point from the positive sheet towards the negative one, so they add to $\\frac{\\sigma}{\\varepsilon_0} = \\frac{8.85 \\times 10^{-8}}{8.85 \\times 10^{-12}} = 10^{4}\\,\\text{N C}^{-1}$. Outside, the fields point in opposite directions and cancel to zero.",
+      "optionRationale": { "2": "5 × 10³ N C⁻¹ is the field of only one sheet.", "3": "This is the pattern for two sheets with the same sign of charge.", "4": "Outside oppositely charged sheets, the two fields cancel." },
+      "objective": "Superpose the fields of two oppositely charged sheets"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q17", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Two large parallel plane sheets both carry the same positive uniform surface charge density σ. What is the electric field between the sheets and outside them?",
+      "options": ["σ/ε₀ between the sheets and zero outside", "zero between the sheets and σ/ε₀ outside", "σ/2ε₀ everywhere", "σ/ε₀ everywhere"],
+      "answer": 2,
+      "explanation": "Each sheet produces $\\frac{\\sigma}{2\\varepsilon_0}$ pointing away from itself. Between the sheets, the field of one points towards the other sheet and vice versa, so they are opposite and cancel to zero. Outside, both fields point away from the pair in the same direction and add to $\\frac{\\sigma}{\\varepsilon_0}$.",
+      "optionRationale": { "1": "This is the result for oppositely charged sheets, not for like charges.", "3": "σ/2ε₀ is the field of a single sheet; the two fields must be superposed.", "4": "Between like sheets the fields cancel, so the field cannot be σ/ε₀ there." },
+      "objective": "Superpose the fields of two like-charged sheets"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q18", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "What is the electric field at a point inside a uniformly charged thin spherical shell of radius R?",
+      "options": ["kq/R², directed outward", "kq/r², where r is the distance from the centre", "infinite at the centre", "zero at every point inside"],
+      "answer": 4,
+      "explanation": "A spherical Gaussian surface drawn inside the shell, concentric with it, encloses no charge. By Gauss's theorem the flux through it is zero, and since symmetry makes the field the same in magnitude everywhere on that sphere, the field itself must be zero at every point inside the shell.",
+      "optionRationale": { "1": "kq/R² is the field just outside the surface, not inside.", "2": "kq/r² applies outside the shell (r > R) only.", "3": "There is no charge at the centre; the field there is zero." },
+      "objective": "State the field inside a uniformly charged thin shell"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q19", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A thin spherical shell of radius 10 cm carries a charge of 4 nC spread uniformly. What are the magnitudes of the electric field at 5 cm and at 20 cm from its centre?",
+      "options": ["900 N C⁻¹ and 900 N C⁻¹", "3600 N C⁻¹ and 900 N C⁻¹", "zero and 900 N C⁻¹", "zero and 3600 N C⁻¹"],
+      "answer": 3,
+      "explanation": "At 5 cm the point is inside the shell, where a concentric Gaussian sphere encloses no charge, so the field is zero. At 20 cm the point is outside, and the shell acts like a point charge at its centre: $E = \\frac{kq}{r^2} = \\frac{(9 \\times 10^{9})(4 \\times 10^{-9})}{(0.20)^2} = \\frac{36}{0.04} = 900\\,\\text{N C}^{-1}$.",
+      "optionRationale": { "1": "The field inside a thin shell is zero, not equal to the outside value.", "2": "3600 N C⁻¹ is the value just outside the surface (r = R), and the inside field is zero.", "4": "3600 N C⁻¹ uses r = 10 cm instead of 20 cm for the outside point." },
+      "objective": "Calculate the field inside and outside a charged thin shell"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q20", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "spherical-shell",
+      "stem": "The figure shows a uniformly charged thin spherical shell (charge q) with two concentric Gaussian spheres, S₁ inside the shell and S₂ outside it. Which statement is correct?",
+      "options": ["The flux through S₁ is q/ε₀ and through S₂ is zero", "The flux through both S₁ and S₂ is q/ε₀", "The flux through S₁ is zero, but the field on S₁ is non-zero because the shell's charge lies outside S₁", "The flux through S₁ is zero and the field is zero at every point of S₁; the flux through S₂ is q/ε₀"],
+      "answer": 4,
+      "explanation": "S₁ encloses no charge, so its flux is zero; spherical symmetry makes the field equal in size all over S₁, so zero flux means the field itself is zero there. S₂ encloses the whole shell, so its flux is $\\frac{q}{\\varepsilon_0}$. The graph in the figure shows the same thing: E = 0 for r < R.",
+      "optionRationale": { "1": "This reverses the two surfaces: S₁ encloses no charge, S₂ encloses q.", "2": "S₁ lies inside the shell and encloses no charge.", "3": "For a uniform shell, symmetry forces the field inside to be zero, not merely the flux." },
+      "objective": "Apply Gauss's theorem to Gaussian surfaces inside and outside a shell"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q21", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A thin spherical shell of radius R carries a uniform surface charge density of 8.85 × 10⁻⁷ C m⁻². What is the electric field at a distance 2R from its centre?",
+      "options": ["2.5 × 10⁴ N C⁻¹", "5 × 10⁴ N C⁻¹", "1 × 10⁵ N C⁻¹", "1.25 × 10⁴ N C⁻¹"],
+      "answer": 1,
+      "explanation": "Just outside the surface the field is $\\frac{\\sigma}{\\varepsilon_0} = \\frac{8.85 \\times 10^{-7}}{8.85 \\times 10^{-12}} = 1 \\times 10^{5}\\,\\text{N C}^{-1}$. Outside, the field falls as $\\frac{1}{r^2}$ because the shell behaves like a point charge at its centre, so at $r = 2R$ it is one quarter of this: $2.5 \\times 10^{4}\\,\\text{N C}^{-1}$.",
+      "optionRationale": { "2": "5 × 10⁴ N C⁻¹ halves the surface value, as if E ∝ 1/r.", "3": "1 × 10⁵ N C⁻¹ is the field at the surface, not at 2R.", "4": "1.25 × 10⁴ N C⁻¹ starts from σ/2ε₀, the field of a flat sheet, instead of σ/ε₀." },
+      "objective": "Relate the field of a shell to its surface charge density"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q22", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The electric field inside a uniformly charged thin spherical shell is zero.\nReason (R): The electric field of a uniformly charged infinite plane sheet does not depend on the distance from the sheet.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 2,
+      "explanation": "A is true: a concentric Gaussian sphere inside the shell encloses no charge, so by symmetry the field there is zero. R is also true: the field of an infinite sheet is $\\frac{\\sigma}{2\\varepsilon_0}$ at every distance. But R describes a different charge distribution and says nothing about why the field inside a shell vanishes, so it is not the explanation of A.",
+      "optionRationale": { "1": "R is true but concerns a plane sheet; it does not explain the zero field inside a shell.", "3": "R is true; the sheet's field is independent of distance.", "4": "A is true; the field inside a uniformly charged thin shell is zero." },
+      "objective": "Judge whether a true statement explains another in Gauss's-law results"
+    },
+    {
+      "key": "ug26-322-u1-gauss-law-q23", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "conceptual", "diagram": "wire-cylinder",
+      "stem": "The figure shows the cylindrical Gaussian surface used to find the field of a long charged wire. Why do the two flat end faces of the cylinder contribute no flux?",
+      "options": ["E lies along the end faces, so it is perpendicular to their area vectors", "the field is zero on the end faces", "the end faces do not enclose any charge", "the fluxes through the two end faces are equal and opposite and cancel"],
+      "answer": 1,
+      "explanation": "By symmetry the field of a long wire points radially, at right angles to the wire. On the flat end faces this radial field lies in the plane of the face, so it is perpendicular to the face's area vector, which points along the wire. The dot product $\\vec{E} \\cdot d\\vec{S}$ is therefore zero at every point of each end face.",
+      "optionRationale": { "2": "The field on the end faces is not zero; it simply has no component along their normals.", "3": "Enclosing charge is a property of the whole closed surface, not of individual faces.", "4": "Each end face separately has zero flux; it is not a cancellation between non-zero values." },
+      "objective": "Explain the choice of Gaussian surface for a line charge"
+    }
+  ]
+}

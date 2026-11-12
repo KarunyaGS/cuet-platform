@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="Arial, Helvetica, sans-serif">
+  <!-- axis line -->
+  <line x1="40" y1="270" x2="720" y2="270" stroke="#9ca3af" stroke-width="1.3" stroke-dasharray="6 5"/>
+  <text x="690" y="292" font-size="13" fill="#6b7280">axis</text>
+  <!-- magnet -->
+  <rect x="200" y="258" width="60" height="24" fill="#2563eb" stroke="#1f2937" stroke-width="1.5"/>
+  <rect x="260" y="258" width="60" height="24" fill="#dc2626" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="230" y="276" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+  <text x="290" y="276" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">N</text>
+  <circle cx="260" cy="270" r="3" fill="#1f2937"/>
+  <text x="252" y="304" font-size="14" font-weight="bold" fill="#1f2937">O</text>
+  <!-- 2l bracket -->
+  <line x1="210" y1="318" x2="310" y2="318" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="210" y1="311" x2="210" y2="325" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="310" y1="311" x2="310" y2="325" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="260" y="340" font-size="14" font-weight="bold" fill="#1f2937" text-anchor="middle">2l</text>
+  <!-- magnetic moment -->
+  <line x1="150" y1="240" x2="196" y2="240" stroke="#d97706" stroke-width="3"/>
+  <polygon points="208,240 194,233 194,247" fill="#d97706"/>
+  <text x="126" y="245" font-size="15" font-weight="bold" fill="#d97706">m</text>
+
+  <!-- axial point P -->
+  <circle cx="560" cy="270" r="4" fill="#1f2937"/>
+  <text x="552" y="300" font-size="15" font-weight="bold" fill="#1f2937">P</text>
+  <text x="410" y="292" font-size="14" font-weight="bold" fill="#1f2937">r</text>
+  <line x1="564" y1="256" x2="630" y2="256" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="644,256 630,249 630,263" fill="#dc2626"/>
+  <text x="600" y="246" font-size="13" fill="#dc2626">from N (away from N)</text>
+  <line x1="556" y1="284" x2="530" y2="284" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="518,284 532,277 532,291" fill="#2563eb"/>
+  <text x="440" y="312" font-size="13" fill="#2563eb">from S (towards S)</text>
+  <text x="600" y="330" font-size="13" font-weight="bold" fill="#1f2937">Resultant along m</text>
+
+  <!-- equatorial point Q -->
+  <line x1="260" y1="270" x2="260" y2="134" stroke="#9ca3af" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <text x="266" y="210" font-size="14" font-weight="bold" fill="#1f2937">r</text>
+  <line x1="260" y1="130" x2="310" y2="270" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <line x1="260" y1="130" x2="210" y2="270" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <circle cx="260" cy="130" r="4" fill="#1f2937"/>
+  <text x="270" y="126" font-size="15" font-weight="bold" fill="#1f2937">Q</text>
+  <!-- B from N at Q: away from N (up-left) -->
+  <line x1="260" y1="130" x2="241.2" y2="77.3" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="236.5,64.1 234.6,79.7 247.8,75.0" fill="#dc2626"/>
+  <text x="140" y="70" font-size="13" fill="#dc2626">from N</text>
+  <!-- B from S at Q: towards S (down-left) -->
+  <line x1="260" y1="130" x2="241.2" y2="182.7" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="236.5,195.9 234.6,180.3 247.8,185.0" fill="#2563eb"/>
+  <text x="150" y="200" font-size="13" fill="#2563eb">from S</text>
+  <!-- resultant at Q -->
+  <line x1="256" y1="130" x2="198" y2="130" stroke="#d97706" stroke-width="4"/>
+  <polygon points="182,130 200,121 200,139" fill="#d97706"/>
+  <text x="40" y="126" font-size="13" font-weight="bold" fill="#d97706">Resultant opposite to m</text>
+
+  <!-- formulas -->
+  <text x="40" y="372" font-size="14" fill="#1f2937">On the axis (P):  B = (μ0/4π) · 2mr / (r² − l²)²  ≈ (μ0/4π) · 2m / r³, along m</text>
+  <text x="40" y="396" font-size="14" fill="#1f2937">On the equatorial line (Q):  B = (μ0/4π) · m / (r² + l²)^(3/2)  ≈ (μ0/4π) · m / r³, opposite to m</text>
+</svg>

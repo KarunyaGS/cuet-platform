@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 95 640 265" font-family="Arial, Helvetica, sans-serif" fill="none">
+  <!-- completion lines -->
+  <line x1="333" y1="140" x2="333" y2="289.1" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="120" y1="289.1" x2="333" y2="289.1" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- voltage phasor (reference) -->
+  <line x1="120" y1="140" x2="548" y2="140" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="560,140 548,134 548,146" fill="#2563eb"/>
+  <text x="568" y="146" font-size="16" font-weight="bold" fill="#2563eb">V</text>
+
+  <!-- active component along V -->
+  <line x1="120" y1="140" x2="321" y2="140" stroke="#059669" stroke-width="5"/>
+  <polygon points="333,140 321,133 321,147" fill="#059669"/>
+  <text x="226" y="126" text-anchor="middle" font-size="14" fill="#059669">I cos φ (active, in phase with V)</text>
+
+  <!-- current phasor -->
+  <line x1="120" y1="140" x2="323.1" y2="282.2" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="333.0,289.1 319.7,287.2 326.6,277.3" fill="#dc2626"/>
+  <text x="345" y="306" font-size="16" font-weight="bold" fill="#dc2626">I</text>
+  <text x="264" y="216" text-anchor="middle" font-size="13" fill="#dc2626" transform="rotate(35 264 216)">current lags V by φ</text>
+
+  <!-- wattless component -->
+  <line x1="120" y1="140" x2="120" y2="277" stroke="#d97706" stroke-width="4"/>
+  <polygon points="120,289.1 113,277 127,277" fill="#d97706"/>
+  <text x="110" y="214" text-anchor="end" font-size="14" fill="#d97706">I sin φ</text>
+  <text x="110" y="232" text-anchor="end" font-size="14" fill="#d97706">(wattless)</text>
+
+  <!-- angle -->
+  <path d="M180,140 A60,60 0 0 1 169.1,174.4" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="188" y="168" font-size="15" font-style="italic" fill="#1f2937">φ</text>
+
+  <text x="320" y="330" text-anchor="middle" font-size="13" fill="#1f2937">Average power P = V(I cos φ) = VI cos φ</text>
+  <text x="320" y="348" text-anchor="middle" font-size="13" fill="#1f2937">I sin φ is 90° out of phase with V and gives zero average power</text>
+</svg>

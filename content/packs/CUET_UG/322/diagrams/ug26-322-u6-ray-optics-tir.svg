@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="Arial, Helvetica, sans-serif">
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#1f2937">Critical angle and total internal reflection (glass to air, n = 1.50)</text>
+  <!-- denser medium -->
+  <rect x="20" y="170" width="720" height="165" fill="#2563eb" fill-opacity="0.07"/>
+  <line x1="20" y1="170" x2="740" y2="170" stroke="#1f2937" stroke-width="2"/>
+  <text x="560" y="70" font-size="14" fill="#1f2937">Air (rarer), n = 1.00</text>
+  <text x="560" y="355" font-size="14" fill="#1f2937">Glass (denser), n = 1.50</text>
+  <!-- normals -->
+  <line x1="229.9" y1="110" x2="229.9" y2="235" stroke="#1f2937" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <line x1="294.2" y1="110" x2="294.2" y2="235" stroke="#1f2937" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <line x1="419.8" y1="110" x2="419.8" y2="235" stroke="#1f2937" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <!-- source -->
+  <circle cx="160" cy="320" r="5" fill="#d97706"/>
+  <text x="128" y="326" font-size="15" fill="#d97706">S</text>
+  <!-- ray along the normal -->
+  <line x1="160" y1="320" x2="160" y2="70" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="160,245 164.5,256 155.5,256" fill="#2563eb"/>
+  <polygon points="160,110 164.5,121 155.5,121" fill="#2563eb"/>
+  <!-- i = 25 deg: refracted away from normal + weak reflection -->
+  <line x1="160" y1="320" x2="229.9" y2="170" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="195,245 194.4,256.9 186.2,253.1" fill="#2563eb"/>
+  <line x1="229.9" y1="170" x2="299.7" y2="84.9" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="271.8,119 268.3,130.3 261.3,124.6" fill="#2563eb"/>
+  <line x1="229.9" y1="170" x2="259.5" y2="233.4" stroke="#2563eb" stroke-width="1.2" stroke-opacity="0.6"/>
+  <polygon points="250.7,214.4 241.9,206.3 250.1,202.5" fill="#2563eb" fill-opacity="0.6"/>
+  <text x="236" y="130" font-size="13" fill="#1f2937">r</text>
+  <text x="196" y="210" font-size="13" fill="#1f2937">i &lt; C</text>
+  <!-- i = C: grazing emergence -->
+  <line x1="160" y1="320" x2="294.2" y2="170" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="227.1,245 223.1,256.2 216.4,250.2" fill="#2563eb"/>
+  <line x1="294.2" y1="168" x2="380" y2="168" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="364,168 353,172.5 353,163.5" fill="#2563eb"/>
+  <line x1="294.2" y1="170" x2="340.8" y2="222.2" stroke="#2563eb" stroke-width="1.2" stroke-opacity="0.6"/>
+  <polygon points="326.8,206.5 316.1,201.3 322.9,195.3" fill="#2563eb" fill-opacity="0.6"/>
+  <text x="306" y="158" font-size="13" fill="#1f2937">r = 90°</text>
+  <text x="300" y="300" font-size="13" fill="#1f2937">i = C = 41.8°</text>
+  <line x1="300" y1="290" x2="262" y2="215" stroke="#1f2937" stroke-width="1"/>
+  <!-- i = 60 deg: total internal reflection -->
+  <line x1="160" y1="320" x2="419.8" y2="170" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="289.9,245 282.6,254.4 278.1,246.6" fill="#2563eb"/>
+  <line x1="419.8" y1="170" x2="679.6" y2="320" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="562.7,252.5 550.9,250.9 555.4,243.1" fill="#2563eb"/>
+  <text x="430" y="300" font-size="13" fill="#1f2937">i = 60° &gt; C</text>
+  <text x="560" y="215" font-size="14" fill="#dc2626">total internal</text>
+  <text x="560" y="232" font-size="14" fill="#dc2626">reflection</text>
+  <text x="20" y="104" font-size="13" fill="#1f2937">along the normal:</text>
+  <text x="20" y="120" font-size="13" fill="#1f2937">no bending</text>
+  <text x="430" y="130" font-size="13" fill="#1f2937">no refracted ray</text>
+  <text x="430" y="146" font-size="13" fill="#1f2937">when i &gt; C</text>
+</svg>

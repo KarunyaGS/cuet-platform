@@ -1,0 +1,269 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": { "id": "cn_aac793c6759e4416a4dd8fffaecceb65", "title": "Concept of displacement current." },
+  "lesson": {
+    "key": "ug26-322-u5-displacement-current",
+    "title": "Displacement current and the Ampère–Maxwell law",
+    "coverage": [
+      { "phrase": "Need for displacement current: inconsistency of Ampère's circuital law", "section": "Why Ampère's circuital law needs a correction" },
+      { "phrase": "Concept of displacement current (definition, unit, meaning)", "section": "The concept of displacement current" },
+      { "phrase": "Displacement current in a charging capacitor equals the conduction current", "section": "Displacement current in a charging capacitor" },
+      { "phrase": "Ampère–Maxwell law with conduction and displacement current", "section": "The Ampère–Maxwell law" },
+      { "phrase": "Magnetic field produced by displacement current", "section": "Magnetic field between the plates of a charging capacitor" },
+      { "phrase": "Comparison of conduction current and displacement current", "section": "Conduction current versus displacement current" },
+      { "phrase": "Consequence of displacement current: Maxwell's equations and electromagnetic waves", "section": "Maxwell's equations and the road to electromagnetic waves" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Why Ampère's circuital law needs a correction" },
+      { "type": "TEXT", "text": "In the unit on magnetic effects of current you met **Ampère's circuital law**. Take any closed loop in space. Add up the component of the magnetic field along the loop, element by element; this line integral equals $\\mu_0$ times the current that passes through *any* surface whose boundary is that loop.\n\nThe law works perfectly for **steady currents** — a long straight wire, a solenoid, a toroid. Trouble appears the moment the current is *not* steady, that is, when charge is piling up somewhere. The classic example is a capacitor that is being charged by a battery." },
+      { "type": "FORMULA", "latex": "\\oint \\vec{B}\\cdot d\\vec{l} = \\mu_0\\, i", "text": "Ampère's circuital law in its original form. $\\vec{B}$ = magnetic field (tesla, T); $d\\vec{l}$ = a small element of the closed loop (m); $i$ = conduction current crossing any surface bounded by the loop (A); $\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$ is the permeability of free space. Valid for steady currents." },
+      { "type": "TEXT", "text": "**The charging-capacitor puzzle.** A parallel-plate capacitor is being charged, so a current $i$ flows in the wire leading to its left plate. Draw a circular loop C around this wire, just before the capacitor. Because the arrangement is symmetric, the magnetic field on C has the same magnitude $B$ at every point and is tangent to the loop, so the left-hand side of Ampère's law is simply $B(2\\pi r)$, where $r$ is the radius of the loop.\n\nNow choose two different surfaces that share the same boundary C (see the figure):\n\n- **Surface S1** is the flat disc enclosed by C. The wire pierces it, so the current through it is $i$. Ampère's law gives $B(2\\pi r) = \\mu_0 i$.\n- **Surface S2** is shaped like a pot (a bag). Its rim is the loop C, but it bulges forward so that its bottom lies in the gap between the plates. No wire passes through S2 and no charge jumps across the gap, so the current through it is zero. Ampère's law now gives $B(2\\pi r) = 0$." },
+      { "type": "DIAGRAM", "diagram": "ampere-surfaces" },
+      { "type": "TEXT", "text": "The magnetic field on the loop is a single physical quantity; it cannot be both $\\mu_0 i/(2\\pi r)$ and zero. Experiments confirm that a magnetic field does exist around the wire (and even around the gap). So the original law is **incomplete**: whenever currents change with time, something other than moving charge must be crossing surface S2. James Clerk Maxwell (1864) identified that missing quantity." },
+      { "type": "CONCEPT", "text": "Ampère's law in its original form is self-contradictory for time-varying currents, because the current through a surface bounded by a loop then depends on which surface is chosen. A consistent law must include a second source of magnetic field that passes through the surfaces where conduction current does not." },
+
+      { "type": "HEADING", "text": "The concept of displacement current" },
+      { "type": "TEXT", "text": "What *does* pass through surface S2 while the capacitor charges? The **electric field** between the plates. As charge builds up on the plates, the field in the gap grows, so the **electric flux** through the bottom of the pot-shaped surface increases with time.\n\nMaxwell proposed that a changing electric flux produces a magnetic field, just as a current does. This is the mirror image of Faraday's law of induction: a changing magnetic flux produces an electric field; by symmetry, a changing electric flux produces a magnetic field. To make the bookkeeping work he defined a quantity with the dimensions of current, called the **displacement current**." },
+      { "type": "DEFINITION", "term": "Electric flux", "text": "The electric flux through a surface is $\\Phi_E = \\int \\vec{E}\\cdot d\\vec{A}$. For a uniform field $E$ normal to a flat area $A$, $\\Phi_E = EA$. SI unit: $\\text{N m}^2\\,\\text{C}^{-1}$ (equivalently V m)." },
+      { "type": "DEFINITION", "term": "Displacement current", "text": "The displacement current through a surface is $\\varepsilon_0$ times the rate of change of the electric flux through that surface: $i_d = \\varepsilon_0\\, d\\Phi_E/dt$. It is not a flow of charge; it is a time-varying electric field that produces a magnetic field exactly as a conduction current of the same size would. SI unit: ampere (A)." },
+      { "type": "FORMULA", "latex": "i_d = \\varepsilon_0\\,\\frac{d\\Phi_E}{dt}", "text": "$i_d$ = displacement current (A); $\\varepsilon_0 = 8.854\\times10^{-12}\\,\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$ = permittivity of free space; $\\Phi_E$ = electric flux through the chosen surface ($\\text{N m}^2\\,\\text{C}^{-1}$); $t$ = time (s). Inside a dielectric of permittivity $\\varepsilon$, replace $\\varepsilon_0$ by $\\varepsilon$." },
+      { "type": "TEXT", "text": "**Unit check.** The unit of $\\varepsilon_0\\Phi_E$ is $(\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2})(\\text{N m}^2\\,\\text{C}^{-1}) = \\text{C}$. Dividing by time gives $\\text{C s}^{-1} = \\text{A}$. So $\\varepsilon_0\\, d\\Phi_E/dt$ really is a current, dimensionally $[\\text{A}]$.\n\n**Why the odd name?** Maxwell pictured space as filled with a medium whose charges were slightly *displaced* by an electric field; a changing field meant moving charges, hence a 'current'. That picture was abandoned, but the name stayed. In vacuum nothing at all is displaced — the displacement current is simply the changing electric field itself, doing the job of a current in producing $\\vec B$.\n\nIt is often useful to talk about the displacement current per unit area, the **displacement current density**." },
+      { "type": "FORMULA", "latex": "j_d = \\frac{i_d}{A} = \\varepsilon_0\\,\\frac{dE}{dt}", "text": "Displacement current density for a uniform field normal to area $A$. $j_d$ in $\\text{A m}^{-2}$; $dE/dt$ = rate of change of the electric field ($\\text{V m}^{-1}\\,\\text{s}^{-1}$). Its direction is the direction of $d\\vec{E}/dt$, not necessarily that of $\\vec E$." },
+      { "type": "CALLOUT", "text": "**Common mistake:** 'Displacement current is charge leaking or sparking across the gap.' No — the gap may be a perfect vacuum. The displacement current exists only because the electric field is *changing*. A large but constant field gives zero displacement current." },
+
+      { "type": "HEADING", "text": "Displacement current in a charging capacitor" },
+      { "type": "DIAGRAM", "diagram": "charging-capacitor" },
+      { "type": "TEXT", "text": "Let us show that the displacement current in the gap is exactly equal to the conduction current in the wires. Take a parallel-plate capacitor with plate area $A$ and let the charge on the plates at time $t$ be $+Q$ and $-Q$. Ignore fringing at the edges.\n\n1. The field between the plates is uniform: $E = \\sigma/\\varepsilon_0 = Q/(\\varepsilon_0 A)$, pointing from the positive plate to the negative plate.\n2. Take a surface in the gap that covers the full plate area (for example the bottom of surface S2). The electric flux through it is $\\Phi_E = EA = Q/\\varepsilon_0$.\n3. Differentiate with respect to time and multiply by $\\varepsilon_0$. Since $dQ/dt$ is the rate at which charge arrives on the plate through the wire, it equals the conduction current $i$." },
+      { "type": "FORMULA", "latex": "\\Phi_E = EA = \\frac{Q}{\\varepsilon_0 A}\\,A = \\frac{Q}{\\varepsilon_0}", "text": "Electric flux in the gap of a parallel-plate capacitor carrying charge $Q$ (fringing neglected). It depends only on $Q$, not on the plate area or separation." },
+      { "type": "FORMULA", "latex": "i_d = \\varepsilon_0\\,\\frac{d}{dt}\\left(\\frac{Q}{\\varepsilon_0}\\right) = \\frac{dQ}{dt} = i", "text": "The displacement current in the gap equals the conduction current $i$ in the connecting wires at every instant." },
+      { "type": "TEXT", "text": "This is the key result. The current is **continuous** around the whole circuit: it is carried by moving charges in the wires and by the changing electric field in the gap. The total current never 'stops' at the capacitor.\n\nBecause $Q = CV$ for a capacitor of capacitance $C$ with potential difference $V$ across it, there is a very convenient form for numericals:" },
+      { "type": "FORMULA", "latex": "i_d = \\frac{dQ}{dt} = C\\,\\frac{dV}{dt}", "text": "$C$ = capacitance (F); $dV/dt$ = rate of change of the potential difference across the capacitor ($\\text{V s}^{-1}$). Use it whenever the question gives a rate of change of voltage." },
+      { "type": "EXAMPLE", "text": "**Direction of the displacement current.** The displacement current points along $d\\vec E/dt$.\n\n- *Charging:* $E$ (from + plate to − plate) is growing, so $i_d$ points from the + plate to the − plate — the same direction as the conduction current flowing into the + plate.\n- *Discharging:* $E$ still points from + to −, but it is shrinking, so $d\\vec E/dt$ and $i_d$ point from the − plate to the + plate, opposite to $\\vec E$. This matches the conduction current, which now flows *out* of the + plate.\n\nIn both cases conduction current and displacement current join smoothly into one continuous loop." },
+      { "type": "SOLVED_PROBLEM", "problem": "The potential difference across a $2.0\\,\\mu\\text{F}$ capacitor is increasing at a steady rate of $3.0\\times10^{4}\\,\\text{V s}^{-1}$. Find (a) the displacement current between the plates and (b) the conduction current in the connecting wires.", "solution": "Step 1 — Write the relation between charge and voltage: $Q = CV$, so $dQ/dt = C\\,dV/dt$ because $C$ is constant.\n\nStep 2 — The displacement current equals $\\varepsilon_0\\,d\\Phi_E/dt = dQ/dt$, so $i_d = C\\,\\dfrac{dV}{dt} = (2.0\\times10^{-6}\\,\\text{F})(3.0\\times10^{4}\\,\\text{V s}^{-1})$.\n\nStep 3 — Multiply: $i_d = 6.0\\times10^{-2}\\,\\text{A} = 60\\,\\text{mA}$.\n\nStep 4 — Continuity of current: the charge arriving on the plate per second through the wire is the same $dQ/dt$, so the conduction current in the wires is also $60\\,\\text{mA}$.", "answer": "(a) $i_d = 6.0\\times10^{-2}\\,\\text{A} = 60\\,\\text{mA}$; (b) the conduction current is also $60\\,\\text{mA}$." },
+      { "type": "SOLVED_PROBLEM", "problem": "A parallel-plate capacitor with plate area $0.020\\,\\text{m}^2$ (air between the plates) is being charged by a current of $0.50\\,\\text{A}$. At what rate is the electric field between the plates changing? Take $\\varepsilon_0 = 8.854\\times10^{-12}\\,\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$.", "solution": "Step 1 — The displacement current in the gap equals the charging current: $i_d = 0.50\\,\\text{A}$.\n\nStep 2 — For a uniform field over the plate area, $\\Phi_E = EA$, so $i_d = \\varepsilon_0 A\\,\\dfrac{dE}{dt}$.\n\nStep 3 — Rearrange: $\\dfrac{dE}{dt} = \\dfrac{i_d}{\\varepsilon_0 A} = \\dfrac{0.50}{(8.854\\times10^{-12})(0.020)}$.\n\nStep 4 — The denominator is $1.771\\times10^{-13}$, so $\\dfrac{dE}{dt} = 2.82\\times10^{12}\\,\\text{V m}^{-1}\\,\\text{s}^{-1}$.\n\nThe huge number shows why displacement currents are hard to notice in everyday life: an enormous rate of change of field is needed for an ordinary current.", "answer": "$dE/dt \\approx 2.8\\times10^{12}\\,\\text{V m}^{-1}\\,\\text{s}^{-1}$" },
+
+      { "type": "HEADING", "text": "The Ampère–Maxwell law" },
+      { "type": "TEXT", "text": "Maxwell's correction is to replace the current on the right-hand side of Ampère's law by the **total current** — conduction current plus displacement current. The resulting law is called the **Ampère–Maxwell law**." },
+      { "type": "FORMULA", "latex": "\\oint \\vec{B}\\cdot d\\vec{l} = \\mu_0\\left(i_c + i_d\\right) = \\mu_0\\, i_c + \\mu_0\\varepsilon_0\\,\\frac{d\\Phi_E}{dt}", "text": "$i_c$ = conduction current through a surface bounded by the loop; $\\Phi_E$ = electric flux through the *same* surface; $i_d = \\varepsilon_0\\,d\\Phi_E/dt$. Both kinds of current produce magnetic fields in exactly the same way." },
+      { "type": "TEXT", "text": "**The puzzle resolved.** Apply the new law to the loop C with both surfaces:\n\n- Through S1 (flat disc): $i_c = i$, and practically no electric field crosses it, so $d\\Phi_E/dt = 0$. Right-hand side $= \\mu_0 i$.\n- Through S2 (pot): $i_c = 0$, but $\\varepsilon_0\\,d\\Phi_E/dt = dQ/dt = i$. Right-hand side $= \\mu_0 i$.\n\nBoth surfaces now give $B(2\\pi r) = \\mu_0 i$. The contradiction is gone.\n\n**Special cases worth remembering:**\n\n1. *Steady currents (DC, after transients die out):* the fields do not change, $d\\Phi_E/dt = 0$, and the law reduces to Ampère's original form.\n2. *Empty space with a changing electric field:* $i_c = 0$, yet $\\oint \\vec B\\cdot d\\vec l \\neq 0$. A magnetic field is produced with no charges moving at all. This is the property that makes electromagnetic waves possible.\n3. *Fully charged capacitor in a DC circuit:* the charge is constant, so both the conduction current in the wires and the displacement current in the gap are zero." },
+      { "type": "KEY_POINT", "text": "For any closed loop, the total current $i_c + i_d$ is the same through every surface bounded by that loop. Conduction current flows where charges move; displacement current 'flows' where the electric field changes; together they form one continuous current." },
+
+      { "type": "HEADING", "text": "Magnetic field between the plates of a charging capacitor" },
+      { "type": "TEXT", "text": "The displacement current is not just an accounting trick — it produces a real, measurable magnetic field in the gap. Consider circular plates of radius $R$ with a uniform field $E$ between them that is changing at the rate $dE/dt$. Choose a circular loop of radius $r$ in the gap, coaxial with the plates. By symmetry $B$ is tangent to the loop and has the same value everywhere on it; the field lines are circles around the axis, just like the field around a straight wire. No conduction current crosses the flat disc bounded by the loop, so only the displacement current counts.\n\n**Inside the plates ($r \\le R$):** the flux through the disc of radius $r$ is $\\Phi_E = E\\,\\pi r^2$. The Ampère–Maxwell law gives $B(2\\pi r) = \\mu_0\\varepsilon_0\\,\\pi r^2\\,dE/dt$. Writing the total displacement current as $i_d = \\varepsilon_0\\,\\pi R^2\\,dE/dt$, the loop encloses the fraction $r^2/R^2$ of it." },
+      { "type": "FORMULA", "latex": "B = \\frac{\\mu_0\\varepsilon_0\\, r}{2}\\,\\frac{dE}{dt} = \\frac{\\mu_0\\, i_d\\, r}{2\\pi R^2}\\qquad (r \\le R)", "text": "Field inside the region of the plates. $B$ grows linearly with $r$: zero on the axis, largest at the edge $r = R$." },
+      { "type": "FORMULA", "latex": "B = \\frac{\\mu_0\\, i_d}{2\\pi r}\\qquad (r \\ge R)", "text": "Field outside the edge of the plates (in the plane of the gap). The loop now encloses the whole displacement current, so the result is the same as for a long straight wire carrying current $i_d$; $B \\propto 1/r$." },
+      { "type": "DIAGRAM", "diagram": "b-vs-r" },
+      { "type": "TEXT", "text": "The direction of $\\vec B$ follows the right-hand rule: point the thumb along $d\\vec E/dt$ (the direction of $i_d$) and the curled fingers give the sense of the circular field lines. The maximum value, at $r = R$, is $B_{\\max} = \\mu_0 i_d/(2\\pi R)$." },
+      { "type": "SOLVED_PROBLEM", "problem": "A capacitor has circular plates of radius $4.0\\,\\text{cm}$ with vacuum between them. During charging, the electric field in the gap increases at a steady rate of $1.5\\times10^{12}\\,\\text{V m}^{-1}\\,\\text{s}^{-1}$. Find (a) the displacement current, (b) the magnetic field at $2.0\\,\\text{cm}$ from the axis, and (c) the magnetic field at $8.0\\,\\text{cm}$ from the axis, in the plane midway between the plates. ($\\varepsilon_0 = 8.854\\times10^{-12}\\,\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$, $\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$.)", "solution": "(a) Plate area $A = \\pi R^2 = \\pi(0.040)^2 = 5.027\\times10^{-3}\\,\\text{m}^2$. Then $i_d = \\varepsilon_0 A\\,dE/dt = (8.854\\times10^{-12})(5.027\\times10^{-3})(1.5\\times10^{12}) = 6.68\\times10^{-2}\\,\\text{A}$.\n\n(b) $r = 2.0\\,\\text{cm}$ is inside the plates ($r < R$). Use $B = \\dfrac{\\mu_0 i_d r}{2\\pi R^2}$. Since $\\mu_0/(2\\pi) = 2\\times10^{-7}$, $B = (2\\times10^{-7})(6.68\\times10^{-2})\\dfrac{0.020}{(0.040)^2} = (2\\times10^{-7})(6.68\\times10^{-2})(12.5) = 1.67\\times10^{-7}\\,\\text{T}$.\n\nCheck with the other form: $B = \\dfrac{\\mu_0\\varepsilon_0 r}{2}\\dfrac{dE}{dt} = \\dfrac{r}{2c^2}\\dfrac{dE}{dt} = \\dfrac{0.020\\times1.5\\times10^{12}}{2\\times9\\times10^{16}} \\approx 1.67\\times10^{-7}\\,\\text{T}$. ✓\n\n(c) $r = 8.0\\,\\text{cm}$ is outside ($r > R$), so the loop encloses all of $i_d$: $B = \\dfrac{\\mu_0 i_d}{2\\pi r} = \\dfrac{(2\\times10^{-7})(6.68\\times10^{-2})}{0.080} = 1.67\\times10^{-7}\\,\\text{T}$.\n\nNotice that (b) and (c) are equal. Inside, $B \\propto r$; outside, $B \\propto 1/r$. At $r = R/2$ the field is half its peak value, and at $r = 2R$ it is again half the peak value.", "answer": "(a) $i_d \\approx 6.7\\times10^{-2}\\,\\text{A}$ (67 mA); (b) $B \\approx 1.7\\times10^{-7}\\,\\text{T}$; (c) $B \\approx 1.7\\times10^{-7}\\,\\text{T}$" },
+      { "type": "CALLOUT", "text": "**Exam trap:** inside the plate region, do not use the full $i_d$ — use only the enclosed part, $i_d\\,r^2/R^2$. Outside the plates use the full $i_d$. On the axis ($r = 0$) the magnetic field is zero even though the displacement current density there is not." },
+
+      { "type": "HEADING", "text": "Conduction current versus displacement current" },
+      { "type": "TABLE", "caption": "Conduction current and displacement current compared", "columns": ["Feature", "Conduction current $i_c$", "Displacement current $i_d$"], "rows": [
+        ["What it is", "Actual drift of charge carriers (electrons, ions)", "A time-varying electric field; no charge carriers move"],
+        ["Expression", "$i_c = dq/dt$ through a cross-section", "$i_d = \\varepsilon_0\\, d\\Phi_E/dt$"],
+        ["Where it exists", "In conductors: wires, electrolytes, ionised gases", "Wherever $\\vec E$ changes: vacuum, dielectrics, the gap of a capacitor"],
+        ["Magnetic field", "Produces a magnetic field", "Produces a magnetic field in exactly the same way"],
+        ["Heating", "Causes Joule heating ($I^2R$) in resistors", "No Joule heating in vacuum"],
+        ["In a DC circuit after a long time", "May be steady and non-zero (zero in the branch of a charged capacitor)", "Zero, because the fields no longer change"],
+        ["SI unit", "ampere (A)", "ampere (A)"]
+      ] },
+      { "type": "TEXT", "text": "**Capacitors in AC circuits.** A capacitor blocks steady DC once it is charged, yet an AC current flows 'through' it. The displacement current explains this: with an alternating voltage the charge on the plates keeps changing, so the electric field in the gap keeps changing, and the displacement current in the gap equals the alternating conduction current in the wires. If $V = V_0\\sin\\omega t$, then $i_d = C\\,dV/dt = \\omega C V_0\\cos\\omega t$, a current of peak value $\\omega C V_0$ that leads the voltage by $\\pi/2$ — exactly the capacitor behaviour you studied in alternating currents.\n\nIf the gap is filled with a dielectric of permittivity $\\varepsilon = K\\varepsilon_0$, the field and flux are reduced by the factor $K$, the displacement current is written $\\varepsilon\\, d\\Phi_E/dt$, and it still equals the conduction current $dQ/dt$." },
+      { "type": "SOLVED_PROBLEM", "problem": "A $5.0\\,\\mu\\text{F}$ capacitor is connected across a $220\\,\\text{V}$ (rms), $50\\,\\text{Hz}$ AC supply. Find the rms and peak values of the displacement current between its plates.", "solution": "Step 1 — For $V = V_0\\sin\\omega t$, the displacement current is $i_d = C\\,dV/dt = \\omega C V_0\\cos\\omega t$, so the peak value is $\\omega C V_0$ and the rms value is $\\omega C V_{\\text{rms}}$.\n\nStep 2 — Angular frequency: $\\omega = 2\\pi f = 2\\pi(50) = 314.2\\,\\text{rad s}^{-1}$.\n\nStep 3 — rms displacement current: $i_{d,\\text{rms}} = \\omega C V_{\\text{rms}} = (314.2)(5.0\\times10^{-6})(220) = 0.346\\,\\text{A}$.\n\nStep 4 — Peak value: multiply by $\\sqrt{2}$: $i_{d,0} = 0.346\\times1.414 = 0.489\\,\\text{A}$.\n\nThis equals the current an AC ammeter in the supply line would show, because conduction and displacement currents are equal.", "answer": "rms $\\approx 0.35\\,\\text{A}$; peak $\\approx 0.49\\,\\text{A}$" },
+
+      { "type": "HEADING", "text": "Maxwell's equations and the road to electromagnetic waves" },
+      { "type": "TEXT", "text": "With the displacement-current term added, the basic laws of electricity and magnetism form a complete, consistent set known as **Maxwell's equations**. Together with the Lorentz force law $\\vec F = q(\\vec E + \\vec v\\times\\vec B)$, they describe every electromagnetic phenomenon at the level of this course." },
+      { "type": "TABLE", "caption": "Maxwell's equations in integral form", "columns": ["Law", "Equation", "Physical meaning"], "rows": [
+        ["Gauss's law for electricity", "$\\oint \\vec{E}\\cdot d\\vec{A} = Q/\\varepsilon_0$", "Electric flux through a closed surface is set by the charge enclosed; charges are sources of $\\vec E$"],
+        ["Gauss's law for magnetism", "$\\oint \\vec{B}\\cdot d\\vec{A} = 0$", "Isolated magnetic poles do not exist; magnetic field lines form closed loops"],
+        ["Faraday's law", "$\\oint \\vec{E}\\cdot d\\vec{l} = -\\dfrac{d\\Phi_B}{dt}$", "A changing magnetic flux produces an electric field (induced emf)"],
+        ["Ampère–Maxwell law", "$\\oint \\vec{B}\\cdot d\\vec{l} = \\mu_0 i_c + \\mu_0\\varepsilon_0\\dfrac{d\\Phi_E}{dt}$", "A conduction current and a changing electric flux both produce a magnetic field"]
+      ] },
+      { "type": "TEXT", "text": "Look at the last two laws side by side. A changing magnetic field creates an electric field (Faraday), and a changing electric field creates a magnetic field (Maxwell). So a varying electric field in empty space produces a varying magnetic field, which in turn produces a varying electric field, and so on. The two fields can keep regenerating each other and travel through space on their own, with no charges or wires needed. This self-sustaining disturbance is an **electromagnetic wave**.\n\nFrom his equations Maxwell calculated the speed of such waves in vacuum and found it to be $1/\\sqrt{\\mu_0\\varepsilon_0}$. Putting in the measured constants gives about $3\\times10^8\\,\\text{m s}^{-1}$, the measured speed of light. He concluded that **light itself is an electromagnetic wave** — one of the great unifications of physics, linking electricity, magnetism and optics. Heinrich Hertz confirmed the existence of electromagnetic waves experimentally in 1887. (The properties of these waves are developed in the next lesson.)" },
+      { "type": "FORMULA", "latex": "c = \\frac{1}{\\sqrt{\\mu_0\\varepsilon_0}} = \\frac{1}{\\sqrt{(4\\pi\\times10^{-7})(8.854\\times10^{-12})}} \\approx 3.0\\times10^{8}\\,\\text{m s}^{-1}", "text": "Speed of electromagnetic waves in vacuum predicted from Maxwell's equations; $\\mu_0$ in $\\text{T m A}^{-1}$, $\\varepsilon_0$ in $\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$. Equivalently $\\mu_0\\varepsilon_0 = 1/c^2$, a handy substitution in numericals." },
+      { "type": "IMPORTANT_FACT", "text": "Without the displacement-current term there would be no electromagnetic waves: it is the changing electric field producing a magnetic field in empty space that allows the fields to sustain each other and propagate. Light, radio waves and X-rays all owe their existence to it." },
+
+      { "type": "HEADING", "text": "Revision and exam tips" },
+      { "type": "KEY_POINT", "text": "**Quick revision**\n\n- Original Ampère's law fails for time-varying currents (the charging-capacitor paradox with two surfaces S1 and S2).\n- Displacement current: $i_d = \\varepsilon_0\\, d\\Phi_E/dt$, SI unit ampere; caused by a changing electric field, not by moving charges.\n- In a charging capacitor: $\\Phi_E = Q/\\varepsilon_0$, so $i_d = dQ/dt = i = C\\,dV/dt$. Conduction current in the wires = displacement current in the gap.\n- Ampère–Maxwell law: $\\oint \\vec B\\cdot d\\vec l = \\mu_0 i_c + \\mu_0\\varepsilon_0\\, d\\Phi_E/dt$.\n- Between circular plates: $B = \\mu_0 i_d r/(2\\pi R^2)$ inside, $B = \\mu_0 i_d/(2\\pi r)$ outside; peak at the plate edge.\n- Steady DC state: $i_d = 0$. AC: $i_d = \\omega C V_0\\cos\\omega t$.\n- Displacement current + Faraday's law ⇒ electromagnetic waves travelling at $c = 1/\\sqrt{\\mu_0\\varepsilon_0}$." },
+      { "type": "CALLOUT", "text": "**Exam tips**\n\n- If a question gives $dV/dt$ and $C$, use $i_d = C\\,dV/dt$; if it gives $dE/dt$ and plate area, use $i_d = \\varepsilon_0 A\\, dE/dt$.\n- Convert μF, cm and mm to SI before substituting.\n- 'Which surface gives which current?' — flat surface through the wire: conduction current; surface through the gap: displacement current. Both give the same total.\n- Direction: $i_d$ is along $d\\vec E/dt$. While discharging it is *opposite* to $\\vec E$.\n- A constant electric field, however strong, gives zero displacement current." },
+      { "type": "IMPORTANT_FACT", "text": "Useful constants: $\\varepsilon_0 = 8.854\\times10^{-12}\\,\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$; $\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$, so $\\mu_0/(2\\pi) = 2\\times10^{-7}\\,\\text{T m A}^{-1}$; $\\mu_0\\varepsilon_0 = 1/c^2 \\approx 1.11\\times10^{-17}\\,\\text{s}^2\\,\\text{m}^{-2}$." }
+    ]
+  },
+  "diagrams": [
+    {
+      "key": "charging-capacitor",
+      "file": "diagrams/ug26-322-u5-displacement-current-charging-capacitor.svg",
+      "alt": "A battery charging a parallel-plate capacitor: conduction current I flows in the wires, growing electric field lines cross the gap, and a dashed displacement current i_d continues the current between the plates",
+      "caption": "Charging a capacitor: conduction current I in the wires continues as displacement current i_d in the gap",
+      "description": "A battery, with its positive terminal on the left, is connected by wires to a parallel-plate capacitor. Red arrows labelled I show conduction current leaving the positive terminal, flowing up the left wire into the left plate (charge +Q), and flowing out of the right plate (charge −Q) back to the negative terminal. Between the plates, green arrows labelled E point from the positive to the negative plate and are growing. A thick dashed blue arrow labelled i_d crosses the gap in the same direction as the current. The heading states i_d = ε0 dΦE/dt = I."
+    },
+    {
+      "key": "ampere-surfaces",
+      "file": "diagrams/ug26-322-u5-displacement-current-ampere-surfaces.svg",
+      "alt": "An Ampère loop C around the wire of a charging capacitor with two surfaces: a flat disc S1 pierced by the wire and a pot-shaped surface S2 whose bottom lies between the plates",
+      "caption": "One loop, two surfaces: S1 is crossed by conduction current, S2 only by changing electric flux",
+      "description": "A wire carrying current i to the left plate of a capacitor. A circular loop C encircles the wire. Surface S1 is the flat disc bounded by C, pierced by the wire. Surface S2, drawn dashed in amber, has the same rim C but bulges to the right around the left plate so that its bottom lies in the gap, where green electric field lines cross it. No wire crosses S2. Notes explain that the conduction current crosses S1 while only the growing electric flux crosses S2, and that the line integral of B around C must be the same for both."
+    },
+    {
+      "key": "b-vs-r",
+      "file": "diagrams/ug26-322-u5-displacement-current-b-vs-r.svg",
+      "alt": "Graph of magnetic field B against distance r from the axis of circular capacitor plates: B rises linearly to a peak at r = R, then falls as 1/r",
+      "caption": "Magnetic field produced by the displacement current between circular plates of radius R",
+      "description": "Horizontal axis: distance from the axis of the plates, r in metres, with ticks at R/2, R, 2R and 3R. Vertical axis: magnetic field B in tesla. The curve rises in a straight line from the origin to a peak B_max = μ0 i_d/(2πR) at r = R, then decreases as 1/r. Dashed guide lines show that B equals B_max/2 both at r = R/2 and at r = 2R."
+    }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u5-displacement-current-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Maxwell's displacement current in the gap between the plates of a capacitor that is being charged is caused by",
+      "options": ["electrons jumping from one plate to the other across the gap", "the rate of change of the electric flux in the gap", "the steady magnetic field produced by the connecting wires", "slow leakage of charge through the air between the plates"],
+      "answer": 2,
+      "explanation": "The displacement current is defined as $i_d = \\varepsilon_0\\, d\\Phi_E/dt$. While the capacitor charges, the charge on the plates grows, so the electric field and hence the electric flux in the gap increase with time. No charges cross the gap (it may even be a vacuum); it is this changing electric flux that acts as a current and produces a magnetic field.",
+      "optionRationale": { "1": "No charge crosses the gap of an ideal capacitor; if it did, the capacitor would not store charge.", "3": "A steady magnetic field does not create any current; displacement current depends on a changing electric field.", "4": "Leakage is an imperfection of real capacitors and is a conduction current, not Maxwell's displacement current." },
+      "objective": "State the physical origin of displacement current"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The quantity $\\varepsilon_0\\,\\dfrac{d\\Phi_E}{dt}$, where $\\Phi_E$ is electric flux, has the same SI unit as which of the following?",
+      "options": ["electric flux", "magnetic flux", "electric field", "electric current"],
+      "answer": 4,
+      "explanation": "$\\varepsilon_0$ has unit $\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$ and electric flux has unit $\\text{N m}^2\\,\\text{C}^{-1}$, so $\\varepsilon_0\\Phi_E$ has unit coulomb. Dividing by time (s) gives $\\text{C s}^{-1}$ = ampere. This is why $\\varepsilon_0\\, d\\Phi_E/dt$ is called the displacement current: it has the dimensions of current.",
+      "optionRationale": { "1": "Electric flux is $\\text{N m}^2\\,\\text{C}^{-1}$; multiplying by $\\varepsilon_0$ and dividing by time changes the unit.", "2": "Magnetic flux is measured in weber, which is unrelated to $\\varepsilon_0\\,d\\Phi_E/dt$.", "3": "Electric field is $\\text{N C}^{-1}$ or $\\text{V m}^{-1}$, not ampere." },
+      "objective": "Show that displacement current has the unit of current"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q03", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The potential difference across a $4.0\\,\\mu\\text{F}$ capacitor is increasing at a steady rate of $2.5\\times10^{4}\\,\\text{V s}^{-1}$. What is the displacement current between its plates?",
+      "options": ["0.010 A", "1.0 A", "0.10 A", "1.6 × $10^{-10}$ A"],
+      "answer": 3,
+      "explanation": "For a capacitor $Q = CV$, and the capacitance is constant, so the displacement current is $i_d = dQ/dt = C\\,dV/dt$. Substituting the values gives $(4.0\\times10^{-6}\\,\\text{F})(2.5\\times10^{4}\\,\\text{V s}^{-1}) = 0.10\\,\\text{A}$. Remember to convert microfarad to farad first. This displacement current in the gap is equal to the conduction current flowing in the connecting wires at the same moment.",
+      "optionRationale": { "1": "A power-of-ten slip: $4\\times2.5 = 10$, and $10\\times10^{-6}\\times10^{4} = 0.10$, not 0.010.", "2": "Another power-of-ten slip, treating microfarad as $10^{-5}\\,\\text{F}$.", "4": "This divides $C$ by $dV/dt$ instead of multiplying them." },
+      "objective": "Calculate displacement current from the rate of change of capacitor voltage"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q04", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Between the plates of a parallel-plate capacitor of plate area $0.050\\,\\text{m}^2$, the electric field is changing at $2.0\\times10^{12}\\,\\text{V m}^{-1}\\,\\text{s}^{-1}$. Taking $\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$, the displacement current is about",
+      "options": ["8.9 A", "0.89 A", "0.044 A", "354 A"],
+      "answer": 2,
+      "explanation": "For a uniform field spread over the plate area the electric flux is $\\Phi_E = EA$, and the area does not change, so the displacement current is $i_d = \\varepsilon_0 A\\,dE/dt$. Substituting, $(8.85\\times10^{-12})(0.050)(2.0\\times10^{12})$: first $8.85\\times10^{-12}\\times2.0\\times10^{12} = 17.7$, then $17.7\\times0.050 = 0.885$. So the displacement current is about 0.89 A, the same as the current in the charging wires.",
+      "optionRationale": { "1": "Ten times too large: the area 0.050 was taken as 0.50.", "3": "This is half of 0.089 A — wrong power of ten and an unwanted factor of 1/2.", "4": "This divides by the area instead of multiplying by it." },
+      "objective": "Calculate displacement current from the rate of change of electric field"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q05", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A capacitor with circular plates of radius $5.0\\,\\text{cm}$ is being charged by a current of $0.20\\,\\text{A}$. Neglecting fringing, what is the magnitude of the magnetic field in the gap at a distance of $2.5\\,\\text{cm}$ from the axis of the plates? ($\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$)",
+      "options": ["8.0 × $10^{-7}$ T", "1.6 × $10^{-6}$ T", "4.0 × $10^{-7}$ T", "2.0 × $10^{-7}$ T"],
+      "answer": 3,
+      "explanation": "The displacement current in the gap equals the charging current, $i_d = 0.20\\,\\text{A}$, spread uniformly over the plate area. A loop of radius $r = 2.5\\,\\text{cm}$ encloses the fraction $r^2/R^2 = 1/4$ of it, i.e. 0.050 A. Then $B = \\dfrac{\\mu_0 (0.050)}{2\\pi r} = \\dfrac{(2\\times10^{-7})(0.050)}{0.025} = 4.0\\times10^{-7}\\,\\text{T}$. Equivalently $B = \\mu_0 i_d r/(2\\pi R^2)$.",
+      "optionRationale": { "1": "This is the field at the edge of the plates ($r = R$), where it is largest.", "2": "This uses the full 0.20 A at $r = 2.5\\,\\text{cm}$, as for a wire, ignoring that only a quarter of $i_d$ is enclosed.", "4": "This uses the enclosed current 0.050 A but divides by $2\\pi R$ instead of $2\\pi r$." },
+      "objective": "Use the Ampère–Maxwell law to find the magnetic field inside the plate region"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q06", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): After a capacitor connected to a DC battery has become fully charged, there is no displacement current between its plates.\n\nReason (R): Displacement current is proportional to the rate of change of electric flux through the region.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Once fully charged, the charge on the plates no longer changes, so the electric field and the electric flux in the gap are constant. Since $i_d = \\varepsilon_0\\, d\\Phi_E/dt$, a constant flux gives zero displacement current, even though the field itself is strong. R states exactly this dependence on the rate of change, so it correctly explains A.",
+      "optionRationale": { "2": "R is not a separate fact; the zero rate of change of flux is precisely why A is true.", "3": "R is the definition of displacement current, so it is true.", "4": "A is true: with constant charge, nothing changes in the gap." },
+      "objective": "Relate displacement current to the rate of change of electric flux"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q07", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The displacement current between the plates of a charging capacitor produces a magnetic field around the gap.\n\nReason (R): The displacement current consists of charge carriers moving across the gap from one plate to the other.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "A is true: by the Ampère–Maxwell law the changing electric flux in the gap produces a magnetic field, with circular field lines around the axis just like those around a wire. R is false: no charge carriers cross the gap of an ideal capacitor (it can be a vacuum). The displacement current is a changing electric field, not a flow of charge.",
+      "optionRationale": { "1": "R is false, so it cannot explain A.", "2": "R is false, not merely irrelevant.", "4": "A is true; the magnetic field in the gap has been measured and follows from the Ampère–Maxwell law." },
+      "objective": "Distinguish displacement current from a flow of charge"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q08", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Consider the Ampère–Maxwell law $\\oint \\vec B\\cdot d\\vec l = \\mu_0 i_c + \\mu_0\\varepsilon_0\\,\\dfrac{d\\Phi_E}{dt}$. Which of the following statements are correct?\n\nA. For steady currents and unchanging fields it reduces to Ampère's original circuital law.\nB. A magnetic field can be produced in a region of empty space where no conduction current flows.\nC. For a given closed loop, the value of $i_c + i_d$ depends on which surface bounded by the loop is chosen.\nD. The term $\\mu_0\\varepsilon_0\\, d\\Phi_E/dt$ is essential for the existence of electromagnetic waves.",
+      "options": ["A and C only", "A, B and D only", "B and C only", "A, B, C and D"],
+      "answer": 2,
+      "explanation": "A is correct: with unchanging fields $d\\Phi_E/dt = 0$ and the original law remains. B is correct: a changing electric field in vacuum produces a magnetic field even when $i_c = 0$. C is wrong: the whole point of Maxwell's correction is that $i_c + i_d$ is the same through every surface bounded by the loop (surfaces S1 and S2 give the same answer). D is correct: the mutual generation of changing E and B fields, which needs this term, is what lets electromagnetic waves travel.",
+      "optionRationale": { "1": "C is false, and B and D are both true but omitted.", "3": "C is false; A and D are omitted though they are true.", "4": "C is false, so 'all four' cannot be right." },
+      "objective": "Interpret the terms and consequences of the Ampère–Maxwell law"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q09", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application",
+      "diagram": "ampere-surfaces",
+      "stem": "In the figure, loop C surrounds the wire leading to the left plate of a capacitor that is being charged. S1 is the flat disc bounded by C; S2 is a pot-shaped surface with the same rim whose bottom lies between the plates. Which description of what crosses each surface is correct?",
+      "options": ["S1: displacement current only; S2: conduction current only", "S1 and S2: conduction current only, so the magnetic field on C is the same", "S1: conduction current; S2: nothing at all, so the magnetic field on C must be zero", "S1: conduction current only; S2: displacement current only, and the two are equal"],
+      "answer": 4,
+      "explanation": "The wire pierces S1, so conduction current $i$ crosses it, while the electric field near the wire is negligible. S2 passes through the gap, where no charge flows but the electric flux $Q/\\varepsilon_0$ grows; its displacement current is $\\varepsilon_0\\, d\\Phi_E/dt = dQ/dt = i$. Both surfaces therefore carry the same total current, and the Ampère–Maxwell law gives the same magnetic field on C either way.",
+      "optionRationale": { "1": "This swaps the two surfaces: the wire passes through S1, not S2.", "2": "No conduction current crosses S2, because no charge moves across the gap.", "3": "This is the paradox of the original Ampère's law; the changing electric flux through S2 resolves it, and B on C is not zero." },
+      "objective": "Apply the Ampère–Maxwell law to two surfaces bounded by the same loop"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q10", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A charged parallel-plate capacitor is discharging through a resistor. In the gap, the electric field points from the positive plate P to the negative plate N. The displacement current in the gap is directed",
+      "options": ["from N to P, opposite to the electric field", "from P to N, along the electric field", "parallel to the plates", "nowhere, because no charge crosses the gap"],
+      "answer": 1,
+      "explanation": "The displacement current density is $\\varepsilon_0\\, d\\vec E/dt$, so it points along the change of the field, not along the field itself. During discharge the field from P to N is decreasing, so $d\\vec E/dt$ points from N to P. This matches the conduction current, which flows out of the positive plate P into the resistor and back into N, so the total current forms a continuous loop.",
+      "optionRationale": { "2": "This would be correct while charging, when the field is increasing.", "3": "The field and its rate of change are perpendicular to the plates, so the displacement current cannot be parallel to them.", "4": "Displacement current does not need moving charges; it exists whenever the field changes." },
+      "objective": "Determine the direction of displacement current during discharge"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q11", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Ampère's circuital law in its original form, $\\oint \\vec B\\cdot d\\vec l = \\mu_0 i$, leads to a contradiction when it is applied to",
+      "options": ["a long straight wire carrying a steady current", "a toroid carrying a steady current", "the wire of a circuit in which a capacitor is being charged", "a long solenoid carrying a steady current"],
+      "answer": 3,
+      "explanation": "The original law needs steady currents. While a capacitor charges, the current is not steady because charge accumulates on the plates. A surface pierced by the wire gives a non-zero current but a surface passing through the gap gives zero, although both share the same loop. Maxwell removed this contradiction by adding the displacement current.",
+      "optionRationale": { "1": "A steady current in a straight wire is the textbook case where the original law works.", "2": "A toroid with steady current is handled correctly by the original law.", "4": "A solenoid with steady current is handled correctly by the original law." },
+      "objective": "Identify where the original Ampère's law fails"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q12", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each of Maxwell's equations in List-I with its physical meaning in List-II.",
+      "list": {
+        "left": ["A. $\\oint \\vec E\\cdot d\\vec A = Q/\\varepsilon_0$", "B. $\\oint \\vec B\\cdot d\\vec A = 0$", "C. $\\oint \\vec E\\cdot d\\vec l = -d\\Phi_B/dt$", "D. $\\oint \\vec B\\cdot d\\vec l = \\mu_0 i_c + \\mu_0\\varepsilon_0\\, d\\Phi_E/dt$"],
+        "right": ["I. Isolated magnetic poles do not exist", "II. A changing electric flux produces a magnetic field", "III. Electric charges are the sources of electric flux", "IV. A changing magnetic flux produces an electric field"]
+      },
+      "options": ["A-I, B-III, C-II, D-IV", "A-III, B-I, C-II, D-IV", "A-II, B-IV, C-I, D-III", "A-III, B-I, C-IV, D-II"],
+      "answer": 4,
+      "explanation": "Gauss's law for electricity (A) says the flux through a closed surface comes from the charge enclosed: III. Gauss's law for magnetism (B) gives zero net flux because there are no magnetic monopoles: I. Faraday's law (C) says a changing magnetic flux induces an electric field: IV. The Ampère–Maxwell law (D) contains the displacement-current term, so a changing electric flux produces a magnetic field: II.",
+      "optionRationale": { "1": "Swaps the two Gauss laws and the two circulation laws.", "2": "The Gauss laws are right, but Faraday's law and the Ampère–Maxwell law are swapped.", "3": "Every pair is mismatched." },
+      "objective": "Recognise Maxwell's equations and their physical content"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q13", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A $20\\,\\mu\\text{F}$ capacitor is connected to an AC source whose voltage is $V = 100\\sin(500\\,t)$ volt, with $t$ in seconds. What is the peak value of the displacement current between its plates?",
+      "options": ["1.0 A", "0.71 A", "6.3 A", "0.16 A"],
+      "answer": 1,
+      "explanation": "Because the charge on the plates is $Q = CV$, the displacement current in the gap is $i_d = C\\,dV/dt$. Differentiating $V = V_0\\sin\\omega t$ gives $dV/dt = \\omega V_0\\cos\\omega t$, so the displacement current oscillates with peak value $\\omega C V_0$. In the given expression the number multiplying t is already the angular frequency, $\\omega = 500\\,\\text{rad s}^{-1}$, and $V_0 = 100\\,\\text{V}$. Hence the peak value is $(500)(20\\times10^{-6})(100) = 1.0\\,\\text{A}$.",
+      "optionRationale": { "2": "0.71 A is the rms value, $1.0/\\sqrt{2}$, not the peak value.", "3": "This treats 500 as the frequency $f$ and multiplies by $2\\pi$ again.", "4": "This divides $\\omega$ by $2\\pi$, using $f \\approx 79.6\\,\\text{Hz}$ in place of $\\omega$." },
+      "objective": "Calculate displacement current in a capacitor connected to an AC source"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q14", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A capacitor with circular plates of radius $R$ is being charged so that the uniform electric field between the plates increases at a steady rate. In the plane midway between the plates, what is the ratio of the magnetic field at distance $R/2$ from the axis to the magnetic field at distance $3R$ from the axis?",
+      "options": ["1 : 6", "2 : 3", "3 : 2", "6 : 1"],
+      "answer": 3,
+      "explanation": "Inside the plate region the loop of radius r encloses only the fraction $r^2/R^2$ of the displacement current, giving $B = \\mu_0 i_d r/(2\\pi R^2)$; at $r = R/2$ this becomes $\\mu_0 i_d/(4\\pi R)$. Outside the plates the loop encloses the whole displacement current, so $B = \\mu_0 i_d/(2\\pi r)$; at $r = 3R$ this becomes $\\mu_0 i_d/(6\\pi R)$. Dividing, the ratio is $\\dfrac{1/4}{1/6} = \\dfrac{6}{4}$, that is 3 : 2.",
+      "optionRationale": { "1": "This assumes B grows linearly with r everywhere ($\\tfrac{1}{2}R : 3R$), ignoring the $1/r$ fall-off outside the plates.", "2": "This is the inverse of the correct ratio.", "4": "This applies the $1/r$ law everywhere, as if the full current were enclosed even inside the plates." },
+      "objective": "Compare magnetic fields inside and outside the plate region of a charging capacitor"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q15", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which of the following kinds of current can exist in a region of perfect vacuum that contains no charges at all?",
+      "options": ["conduction current", "drift current of free electrons", "ionic current in an electrolyte", "displacement current"],
+      "answer": 4,
+      "explanation": "Conduction, drift and ionic currents all need charge carriers that move. A displacement current needs only a changing electric field, $i_d = \\varepsilon_0\\, d\\Phi_E/dt$, which can exist in empty space — for example in the evacuated gap of a capacitor or in an electromagnetic wave travelling through space.",
+      "optionRationale": { "1": "Conduction current requires moving charges, which a perfect vacuum does not contain.", "2": "Drift current is the motion of free electrons in a conductor.", "3": "Ionic current requires ions moving in an electrolyte." },
+      "objective": "Recognise that displacement current does not require charge carriers"
+    },
+    {
+      "key": "ug26-322-u5-displacement-current-q16", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "application",
+      "stem": "At a certain instant, the conduction current in the wire charging a parallel-plate capacitor is 3 mA. What is the displacement current between the plates at that instant?",
+      "options": ["3 mA", "zero, because no charge crosses the gap", "less than 3 mA, because the gap opposes the current", "it cannot be found without the plate area and separation"],
+      "answer": 1,
+      "explanation": "The flux in the gap is $\\Phi_E = Q/\\varepsilon_0$, so the displacement current is $i_d = \\varepsilon_0\\, d\\Phi_E/dt = dQ/dt$, which is exactly the conduction current bringing charge to the plate. Hence $i_d = 3\\,\\text{mA}$ at the same instant, independent of the plate area or separation.",
+      "optionRationale": { "2": "Displacement current does not need charge to cross the gap; it comes from the changing field.", "3": "Total current is continuous; the displacement current in the gap equals the conduction current, it is not reduced.", "4": "Area and separation cancel out: $\\Phi_E = Q/\\varepsilon_0$ depends only on the charge." },
+      "objective": "Use the equality of conduction and displacement currents in a capacitor circuit"
+    }
+  ]
+}

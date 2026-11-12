@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 330" font-family="Arial, Helvetica, sans-serif">
+  <!-- sheet seen edge-on -->
+  <rect x="322" y="30" width="16" height="220" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <g font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">
+    <text x="330" y="52">+</text><text x="330" y="78">+</text><text x="330" y="104">+</text>
+    <text x="330" y="236">+</text>
+  </g>
+  <text x="330" y="20" font-size="14" fill="#dc2626" text-anchor="middle">infinite sheet, charge density σ</text>
+  <!-- pillbox (Gaussian cylinder) crossing the sheet -->
+  <line x1="230" y1="115" x2="430" y2="115" stroke="#059669" stroke-width="2.2"/>
+  <line x1="230" y1="215" x2="430" y2="215" stroke="#059669" stroke-width="2.2"/>
+  <ellipse cx="230" cy="165" rx="16" ry="50" fill="#f0fdf4" stroke="#059669" stroke-width="2.2"/>
+  <ellipse cx="430" cy="165" rx="16" ry="50" fill="#f0fdf4" stroke="#059669" stroke-width="2.2"/>
+  <text x="430" y="238" font-size="14" fill="#059669" text-anchor="middle">area A</text>
+  <text x="230" y="238" font-size="14" fill="#059669" text-anchor="middle">area A</text>
+  <!-- field leaving both faces -->
+  <line x1="448" y1="165" x2="512" y2="165" stroke="#2563eb" stroke-width="2.8"/>
+  <polygon points="526,165 512,158 512,172" fill="#2563eb"/>
+  <text x="518" y="152" font-size="15" font-weight="bold" fill="#2563eb">E</text>
+  <line x1="212" y1="165" x2="148" y2="165" stroke="#2563eb" stroke-width="2.8"/>
+  <polygon points="134,165 148,158 148,172" fill="#2563eb"/>
+  <text x="142" y="152" font-size="15" font-weight="bold" fill="#2563eb">E</text>
+  <!-- notes -->
+  <text x="20" y="276" font-size="14" fill="#1f2937">Curved side: E is parallel to it, so no flux.</text>
+  <text x="20" y="296" font-size="14" fill="#1f2937">Two flat ends: flux EA each, total 2EA. Charge enclosed σA.</text>
+  <text x="20" y="322" font-size="15" font-weight="bold" fill="#1f2937">2EA = σA/ε₀  ⟹  E = σ/(2ε₀), the same at every distance</text>
+</svg>

@@ -1,0 +1,345 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_d72ef290910048d696b250a12cd5ef47",
+    "title": "Electric charges, Conservation of charge, Coulomb's law-force between two- point"
+  },
+  "lesson": {
+    "key": "ug26-322-u1-charges-coulomb",
+    "title": "Electric charges, conservation of charge, Coulomb's law, superposition and the electric dipole",
+    "coverage": [
+      { "phrase": "Electric charges", "section": "Electric charge and its basic properties" },
+      { "phrase": "Conservation of charge", "section": "Conservation and quantisation of charge" },
+      { "phrase": "Coulomb's law - force between two point charges", "section": "Coulomb's law: force between two point charges" },
+      { "phrase": "Forces between multiple charges", "section": "Forces between multiple charges: the superposition principle" },
+      { "phrase": "Superposition principle", "section": "Forces between multiple charges: the superposition principle" },
+      { "phrase": "Continuous charge distribution", "section": "Continuous charge distributions" },
+      { "phrase": "Electric dipole", "section": "The electric dipole" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Electric charge and its basic properties" },
+      { "type": "TEXT", "text": "Electrostatics is the study of electric charges **at rest** and the forces, fields and potentials they produce. Everything in this unit grows out of one simple observation: rub two suitable materials together and they start to attract or repel light objects.\n\nA glass rod rubbed with silk and a plastic (or ebonite) rod rubbed with fur or wool both become electrified, but they behave differently: two glass rods rubbed with silk repel each other, two plastic rods rubbed with fur repel each other, yet a glass rod attracts a plastic rod. This shows that there are **two kinds of charge**. Following Benjamin Franklin, the charge on the glass rod is called **positive** and that on the plastic rod **negative**. The names are a convention only; they simply let us add charges with signs.\n\n- Like charges repel; unlike charges attract.\n- An uncharged (neutral) body contains equal amounts of positive and negative charge.\n- At the atomic level, an electron carries charge $-e$, a proton $+e$ and a neutron carries no charge, where $e = 1.6 \\times 10^{-19}\\,\\text{C}$.\n\nWhen glass is rubbed with silk, some electrons move from the glass to the silk. The glass is left with a deficit of electrons (positive) and the silk has an excess (negative). Charging therefore never creates charge; it only **transfers electrons**. Because electrons have mass, a body that gains electrons becomes very slightly heavier and a body that loses electrons becomes very slightly lighter." },
+      { "type": "DEFINITION", "term": "Electric charge", "text": "Electric charge is the intrinsic property of particles such as electrons and protons because of which they exert electric (and magnetic) forces on one another. It is a scalar. SI unit: coulomb (C). One coulomb is the charge that passes through any cross-section of a wire in one second when a steady current of one ampere flows, so $1\\,\\text{C} = 1\\,\\text{A s}$. Smaller practical units: $1\\,\\mu\\text{C} = 10^{-6}\\,\\text{C}$, $1\\,\\text{nC} = 10^{-9}\\,\\text{C}$, $1\\,\\text{pC} = 10^{-12}\\,\\text{C}$." },
+      { "type": "TEXT", "text": "**Conductors and insulators (a first look).** Materials such as metals, the human body and the earth allow charge to move through them easily; they are **conductors**. Materials such as glass, plastic, rubber and dry wood do not; they are **insulators**. A charged insulator keeps its charge where it was placed, while charge given to a conductor spreads over its outer surface. Connecting a conductor to the earth (earthing or grounding) lets charge flow between it and the earth until the conductor is neutral. These ideas are developed fully in the lesson on conductors and capacitors.\n\n**Charging by induction.** A conductor can be charged without touching it with the charged body:\n\n1. Bring a negatively charged rod near an insulated metal sphere. Free electrons in the sphere are pushed to the far side, leaving the near side positive. The sphere is still neutral overall.\n2. Earth the sphere while the rod is still near. Electrons from the far side flow to the earth.\n3. Remove the earth connection, then remove the rod. The sphere is left with a net **positive** charge, which spreads uniformly over it.\n\nThe induced charge is always opposite in sign to the inducing charge. Induction also explains why a charged comb attracts small neutral bits of paper: the comb induces opposite charge on the near side of the paper, and the attraction to the nearer charge is stronger than the repulsion from the farther charge." },
+      { "type": "TABLE", "caption": "Basic properties of electric charge", "columns": ["Property", "What it means", "Example or consequence"], "rows": [
+        ["Two kinds", "Charge is positive or negative; like charges repel, unlike attract", "Glass rubbed with silk is positive; plastic rubbed with fur is negative"],
+        ["Additivity", "Total charge is the algebraic sum of individual charges (a scalar sum with signs)", "+5 μC, −2 μC and +1 μC together give +4 μC"],
+        ["Conservation", "The total charge of an isolated system never changes", "Charge lost by glass = charge gained by silk"],
+        ["Quantisation", "Every free charge is an integer multiple of e", "No body can carry 2.4 × 10⁻¹⁹ C (that would be 1.5e)"],
+        ["Charge needs a carrier", "Charge always resides on particles such as electrons and protons", "A charged body gains or loses mass with the electrons it gains or loses"]
+      ] },
+      { "type": "HEADING", "text": "Conservation and quantisation of charge" },
+      { "type": "DEFINITION", "term": "Law of conservation of charge", "text": "The total electric charge of an isolated system remains constant in every physical process. Charge can be transferred from one body to another, and charged particles can be created or destroyed, but only in ways that keep the algebraic sum of charges unchanged." },
+      { "type": "TEXT", "text": "Conservation of charge holds in every process ever observed, from rubbing rods to nuclear reactions:\n\n- **Rubbing:** the positive charge on the glass is exactly equal in size to the negative charge on the silk.\n- **Beta decay:** a neutron changes into a proton, an electron and an antineutrino, $n \\to p + e^- + \\bar{\\nu}$. Charge before $= 0$; charge after $= (+e) + (-e) + 0 = 0$.\n- **Pair production:** a high-energy photon, which is uncharged, can create an electron and a positron, $\\gamma \\to e^- + e^+$. Net charge created $= 0$.\n- **Annihilation:** an electron and a positron destroy each other to give photons, $e^- + e^+ \\to 2\\gamma$; charge before and after is zero.\n- **Alpha decay:** ${}^{238}_{92}\\text{U} \\to {}^{234}_{90}\\text{Th} + {}^{4}_{2}\\text{He}$; the atomic numbers (charges) balance, $92 = 90 + 2$.\n\nSo particles can appear and disappear, but always in pairs or groups whose total charge is zero." },
+      { "type": "DEFINITION", "term": "Quantisation of charge", "text": "The charge on any body is always an integral multiple of the elementary charge e, that is, $q = \\pm ne$ with $n = 0, 1, 2, 3, \\dots$ and $e = 1.6 \\times 10^{-19}\\,\\text{C}$. Charge cannot be divided into amounts smaller than e on a free particle." },
+      { "type": "FORMULA", "latex": "q = \\pm\\, n e, \\qquad n = 0, 1, 2, 3, \\dots", "text": "q = charge on the body (C); n = number of electrons gained (negative charge) or lost (positive charge); e = magnitude of the charge of an electron = 1.6 × 10⁻¹⁹ C." },
+      { "type": "TEXT", "text": "Quantisation was first shown clearly by R. A. Millikan's oil-drop experiment. Quarks inside protons and neutrons carry charges of $\\pm\\frac{1}{3}e$ or $\\pm\\frac{2}{3}e$, but they are never found free, so the rule $q = ne$ holds for every body we can actually charge.\n\nAt the everyday (macroscopic) level quantisation is hard to notice. A charge of only $1\\,\\mu\\text{C}$ corresponds to $n = \\frac{10^{-6}}{1.6 \\times 10^{-19}} = 6.25 \\times 10^{12}$ electrons, so adding or removing one electron changes the charge by an unmeasurably small fraction. For this reason we treat large charges as if they could vary continuously, which is exactly what we do when we describe charge by a density later in this lesson." },
+      { "type": "SOLVED_PROBLEM", "problem": "A neutral metal sphere is given a charge of $+3.2\\,\\mu\\text{C}$. (a) How many electrons were removed from it? (b) By how much did its mass change? (mass of an electron $= 9.1 \\times 10^{-31}\\,\\text{kg}$)", "solution": "Step 1 (sign): a positive charge means electrons were **removed**.\n\nStep 2 (number): from $q = ne$,\n$$n = \\frac{q}{e} = \\frac{3.2 \\times 10^{-6}}{1.6 \\times 10^{-19}} = 2.0 \\times 10^{13}$$\n\nStep 3 (mass change): each removed electron takes its mass with it, so\n$$\\Delta m = n m_e = (2.0 \\times 10^{13})(9.1 \\times 10^{-31}) = 1.82 \\times 10^{-17}\\,\\text{kg}$$\n\nThe sphere becomes lighter by this amount, which is far too small to detect with an ordinary balance.", "answer": "(a) $2.0 \\times 10^{13}$ electrons removed; (b) mass decreases by $1.82 \\times 10^{-17}\\,\\text{kg}$." },
+      { "type": "CALLOUT", "text": "**Common mistakes on quantisation.**\n\n- Checking a charge value: divide it by $1.6 \\times 10^{-19}$ C. If the result is not a whole number, that charge cannot exist on an isolated body (for example $2.4 \\times 10^{-19}$ C gives 1.5).\n- Positive charge means electrons were **lost**, not that protons were gained. Protons are locked in nuclei and do not move during charging by friction or induction.\n- Quantisation allows negative multiples too: $q = -5e$ is perfectly possible." },
+      { "type": "HEADING", "text": "Coulomb's law: force between two point charges" },
+      { "type": "CONCEPT", "text": "**Coulomb's law:** the electrostatic force between two stationary point charges is directly proportional to the product of the magnitudes of the charges and inversely proportional to the square of the distance between them. The force acts along the line joining the two charges; it is repulsive for like charges and attractive for unlike charges." },
+      { "type": "TEXT", "text": "A **point charge** is a charged body whose size is negligible compared with the distances involved. Charles-Augustin de Coulomb found this law in 1785 using a torsion balance: he measured the twist of a suspended fibre produced by the force between small charged metal spheres. Writing the proportionality as an equation needs a constant, written $k$ or $\\frac{1}{4\\pi\\varepsilon_0}$." },
+      { "type": "FORMULA", "latex": "F = k\\,\\frac{|q_1 q_2|}{r^2} = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{|q_1 q_2|}{r^2}", "text": "F = magnitude of the force on each charge (N); q₁, q₂ = the charges (C); r = distance between them (m); k = 1/(4πε₀) ≈ 9 × 10⁹ N m² C⁻²; ε₀ = permittivity of free space = 8.85 × 10⁻¹² C² N⁻¹ m⁻². Valid for point charges at rest in vacuum (air is very nearly the same)." },
+      { "type": "FORMULA", "latex": "\\vec{F}_{21} = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{q_1 q_2}{r_{21}^{2}}\\,\\hat{r}_{21}, \\qquad \\vec{F}_{12} = -\\vec{F}_{21}", "text": "Vector form. F₂₁ = force on q₂ due to q₁; r̂₂₁ = unit vector pointing from q₁ to q₂. Keep the signs of q₁ and q₂: if q₁q₂ > 0 the force on q₂ points away from q₁ (repulsion); if q₁q₂ < 0 it points towards q₁ (attraction). The two forces are equal and opposite (Newton's third law)." },
+      { "type": "DIAGRAM", "diagram": "coulomb-forces" },
+      { "type": "TEXT", "text": "**What one coulomb means.** Put $q_1 = q_2 = 1\\,\\text{C}$ and $r = 1\\,\\text{m}$ in vacuum: $F = 9 \\times 10^{9}\\,\\text{N}$. One coulomb is therefore a huge charge; the charges met in the laboratory are microcoulombs or less.\n\n**Coulomb's law in a medium.** If the space between the charges is filled with an insulating medium (a dielectric) such as water, oil or glass, the force becomes smaller. The medium is described by its **permittivity** $\\varepsilon = K\\varepsilon_0$, where $K$ is the **dielectric constant** (relative permittivity) of the medium. The force in the medium is $K$ times weaker than in vacuum, because the medium itself becomes polarised and partly screens the charges (this is explained in the lesson on dielectrics)." },
+      { "type": "FORMULA", "latex": "F_{\\text{medium}} = \\frac{1}{4\\pi\\varepsilon_0 K}\\,\\frac{|q_1 q_2|}{r^2} = \\frac{F_{\\text{vacuum}}}{K}", "text": "K = dielectric constant (relative permittivity) of the medium, a pure number ≥ 1; ε = Kε₀ is the absolute permittivity of the medium. For vacuum K = 1, for air K ≈ 1.0006, for water K ≈ 80." },
+      { "type": "DEFINITION", "term": "Dielectric constant (relative permittivity) K", "text": "The ratio of the electrostatic force between two charges in vacuum to the force between the same charges at the same separation in the medium: $K = \\frac{F_{\\text{vacuum}}}{F_{\\text{medium}}} = \\frac{\\varepsilon}{\\varepsilon_0}$. It is dimensionless (no unit)." },
+      { "type": "TEXT", "text": "**Important features of the Coulomb force**\n\n- It is a **central force**: it acts along the line joining the two charges.\n- It obeys **Newton's third law**: the forces on the two charges are equal in size and opposite in direction, whatever the sizes of the charges.\n- It is an **inverse-square** force: doubling r makes the force one quarter.\n- It can be attractive or repulsive (gravity is only attractive).\n- It depends on the medium between the charges.\n- It is a **conservative** force, which is why an electric potential energy can be defined (next lessons).\n- In this simple form it applies to charges **at rest** (electrostatics)." },
+      { "type": "TABLE", "caption": "Comparing the Coulomb force with the gravitational force", "columns": ["Feature", "Coulomb (electrostatic) force", "Gravitational force"], "rows": [
+        ["Acts between", "Charges", "Masses"],
+        ["Nature", "Attractive or repulsive", "Always attractive"],
+        ["Distance dependence", "Inverse square, 1/r²", "Inverse square, 1/r²"],
+        ["Constant", "k = 9 × 10⁹ N m² C⁻²", "G = 6.67 × 10⁻¹¹ N m² kg⁻²"],
+        ["Effect of medium", "Reduced by the factor K", "Independent of the medium"],
+        ["Relative strength (electron–proton)", "About 2.3 × 10³⁹ times stronger", "Extremely weak"],
+        ["Both", "Central and conservative", "Central and conservative"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "Point charges of $+2\\,\\mu\\text{C}$ and $-3\\,\\mu\\text{C}$ are 30 cm apart in air. (a) Find the magnitude and nature of the force between them. (b) What would the force be if the same charges were at the same separation in a medium of dielectric constant 4?", "solution": "Step 1 (convert to SI): $q_1 = 2 \\times 10^{-6}\\,\\text{C}$, $q_2 = 3 \\times 10^{-6}\\,\\text{C}$ (magnitude), $r = 0.30\\,\\text{m}$, so $r^2 = 0.09\\,\\text{m}^2$.\n\nStep 2 (Coulomb's law):\n$$F = \\frac{k|q_1 q_2|}{r^2} = \\frac{(9 \\times 10^{9})(2 \\times 10^{-6})(3 \\times 10^{-6})}{0.09} = \\frac{0.054}{0.09} = 0.6\\,\\text{N}$$\n\nStep 3 (nature): the charges have opposite signs, so the force is **attractive**; each charge is pulled towards the other with 0.6 N.\n\nStep 4 (medium): $F_m = \\frac{F}{K} = \\frac{0.6}{4} = 0.15\\,\\text{N}$, still attractive.", "answer": "(a) 0.6 N, attractive; (b) 0.15 N, attractive." },
+      { "type": "EXAMPLE", "text": "**How much stronger is the electric force than gravity?** For an electron and a proton at any separation r, both forces vary as $1/r^2$, so their ratio does not depend on r:\n$$\\frac{F_e}{F_g} = \\frac{k e^2}{G m_e m_p} = \\frac{(9 \\times 10^{9})(1.6 \\times 10^{-19})^2}{(6.67 \\times 10^{-11})(9.11 \\times 10^{-31})(1.67 \\times 10^{-27})} \\approx 2.3 \\times 10^{39}$$\nFor two protons the ratio is about $1.2 \\times 10^{36}$. Electric forces dominate atoms and molecules; gravity matters only for huge, nearly neutral bodies such as planets." },
+      { "type": "CALLOUT", "text": "**Exam tips for Coulomb's law.**\n\n- Convert every quantity to SI first: cm to m, μC to $10^{-6}$ C, nC to $10^{-9}$ C. Squaring a distance in cm by mistake makes the answer wrong by $10^4$.\n- Use magnitudes to find the size of the force, and decide the direction separately from the signs (like: repel; unlike: attract).\n- Ratio questions are fastest with proportionality: $F \\propto \\frac{q_1 q_2}{K r^2}$. For example, doubling one charge and halving r gives $2 \\times 4 = 8$ times the force.\n- To keep the force unchanged in a medium of dielectric constant K, the separation must be reduced to $r/\\sqrt{K}$." },
+      { "type": "HEADING", "text": "Forces between multiple charges: the superposition principle" },
+      { "type": "CONCEPT", "text": "**Superposition principle:** when several charges act on a given charge, the force due to each one is exactly what it would be if the others were absent. The net force is the **vector sum** of these individual Coulomb forces. The presence of other charges does not change the force between any particular pair." },
+      { "type": "FORMULA", "latex": "\\vec{F}_1 = \\vec{F}_{12} + \\vec{F}_{13} + \\dots + \\vec{F}_{1n} = \\frac{q_1}{4\\pi\\varepsilon_0} \\sum_{i=2}^{n} \\frac{q_i}{r_{1i}^{2}}\\,\\hat{r}_{i1}", "text": "F₁ = net force on charge q₁ due to charges q₂, q₃, …, qₙ; r₁ᵢ = distance between q₁ and qᵢ; r̂ᵢ₁ = unit vector from qᵢ towards q₁. Each term is an ordinary two-charge Coulomb force; the terms are added as vectors, not as plain numbers." },
+      { "type": "TEXT", "text": "**Method for multi-charge problems**\n\n1. Draw the charges and mark the charge on which you want the net force.\n2. For each other charge, find the magnitude of its force with Coulomb's law.\n3. Mark the direction of each force (away from like charges, towards unlike charges).\n4. Add the forces as vectors. For two forces of sizes $F_1$ and $F_2$ at angle $\\theta$, $F_{\\text{net}} = \\sqrt{F_1^2 + F_2^2 + 2F_1F_2\\cos\\theta}$. For more forces, resolve along x and y, add components, and recombine.\n5. Use symmetry wherever possible: equal forces at equal angles on either side of a line have components across that line which cancel." },
+      { "type": "DIAGRAM", "diagram": "superposition-triangle" },
+      { "type": "SOLVED_PROBLEM", "problem": "Three point charges, each $+1\\,\\mu\\text{C}$, are placed at the corners A, B and C of an equilateral triangle of side 10 cm in air. Find the net force on the charge at A.", "solution": "Step 1 (each force): A is 0.10 m from B and from C, so\n$$F_{AB} = F_{AC} = \\frac{(9 \\times 10^{9})(1 \\times 10^{-6})^2}{(0.10)^2} = \\frac{9 \\times 10^{-3}}{0.01} = 0.9\\,\\text{N}$$\n\nStep 2 (directions): both forces are repulsive. $F_{AB}$ acts along BA produced (away from B) and $F_{AC}$ along CA produced (away from C). The angle between them is the angle of the triangle, $60^\\circ$.\n\nStep 3 (vector sum): by symmetry the components parallel to BC cancel and the components along the bisector of angle A add. Each makes $30^\\circ$ with the bisector:\n$$F_{\\text{net}} = 2F\\cos 30^\\circ = 2(0.9)\\left(\\frac{\\sqrt{3}}{2}\\right) = 0.9\\sqrt{3} \\approx 1.56\\,\\text{N}$$\n\nCheck with the parallelogram formula: $\\sqrt{0.81 + 0.81 + 2(0.81)\\cos 60^\\circ} = \\sqrt{2.43} = 1.56\\,\\text{N}$.\n\nStep 4 (direction): along the bisector of angle A, pointing away from side BC.", "answer": "About 1.56 N ($0.9\\sqrt{3}$ N), along the bisector of angle A, directed away from BC." },
+      { "type": "SOLVED_PROBLEM", "problem": "Charges of $+4\\,\\mu\\text{C}$ and $+1\\,\\mu\\text{C}$ are fixed 30 cm apart. Where on the line joining them should a third charge be placed so that the net force on it is zero? Does the answer depend on the sign of the third charge?", "solution": "Step 1 (region): for two like charges, the forces on a third charge can be opposite only **between** them. Let the point be at distance x from the $4\\,\\mu\\text{C}$ charge, so it is $(0.30 - x)$ m from the $1\\,\\mu\\text{C}$ charge.\n\nStep 2 (balance the forces on a test charge $q$):\n$$\\frac{k(4\\,\\mu\\text{C})q}{x^2} = \\frac{k(1\\,\\mu\\text{C})q}{(0.30 - x)^2} \\;\\Rightarrow\\; \\frac{x}{0.30 - x} = \\sqrt{\\frac{4}{1}} = 2$$\n\nStep 3 (solve): $x = 0.60 - 2x$, so $3x = 0.60$ and $x = 0.20\\,\\text{m}$.\n\nStep 4 (sign of q): q cancels from both sides, so the position does not depend on the size or sign of the third charge. A negative charge would be pulled towards both charges with equal forces instead of being pushed, but the forces still cancel.", "answer": "20 cm from the $4\\,\\mu\\text{C}$ charge (10 cm from the $1\\,\\mu\\text{C}$ charge), for any third charge." },
+      { "type": "KEY_POINT", "text": "**Null-point rules for two fixed charges $q_1$ and $q_2$ (zero net force on a third charge):**\n\n- Like charges: the null point lies **between** them, nearer the smaller charge.\n- Unlike charges of different magnitude: it lies **outside**, on the side of the smaller charge.\n- Equal and opposite charges: there is no null point at a finite distance.\n- Distances from the charges are in the ratio $\\sqrt{|q_1|} : \\sqrt{|q_2|}$.\n\n**Three free charges in equilibrium:** two charges +Q a distance d apart are in equilibrium with a charge q at the midpoint only if $q = -\\frac{Q}{4}$ (because $\\frac{kQ^2}{d^2} + \\frac{kQq}{(d/2)^2} = 0$)." },
+      { "type": "CALLOUT", "text": "**Common mistake:** adding the magnitudes of forces from different charges as ordinary numbers. Forces are vectors; only forces along the same line can be added or subtracted directly. Also remember that the net force on a charge at the centre of any symmetric arrangement of equal charges (square, regular polygon, ring) is zero." },
+      { "type": "HEADING", "text": "Continuous charge distributions" },
+      { "type": "TEXT", "text": "Real charged objects such as a charged wire, plate or sphere contain an enormous number of elementary charges. Since quantisation is unnoticeable at this scale, we treat the charge as spread **continuously** and describe it with a **charge density**: how much charge sits on each unit of length, area or volume. We then split the body into tiny elements, each carrying charge $dq$ small enough to act like a point charge, apply Coulomb's law to each element, and add (integrate) the vector contributions. This is the superposition principle applied to an infinite number of tiny charges." },
+      { "type": "TABLE", "caption": "Charge densities", "columns": ["Distribution", "Density", "Definition", "SI unit", "Charge on an element"], "rows": [
+        ["Along a line (wire, ring, rod)", "Linear charge density λ", "λ = dq/dl", "C m⁻¹", "dq = λ dl"],
+        ["Over a surface (sheet, plate, shell)", "Surface charge density σ", "σ = dq/dA", "C m⁻²", "dq = σ dA"],
+        ["Through a volume (solid sphere, cylinder)", "Volume charge density ρ", "ρ = dq/dV", "C m⁻³", "dq = ρ dV"]
+      ] },
+      { "type": "FORMULA", "latex": "\\vec{F} = \\frac{q_0}{4\\pi\\varepsilon_0} \\int \\frac{dq}{r^2}\\,\\hat{r}", "text": "F = net force on a point charge q₀ due to a continuous distribution; dq = λ dl, σ dA or ρ dV; r = distance from the element dq to q₀; r̂ = unit vector from the element towards q₀. The integral is a vector sum, so use symmetry to decide which components cancel before integrating." },
+      { "type": "DIAGRAM", "diagram": "charged-ring" },
+      { "type": "SOLVED_PROBLEM", "problem": "A thin ring of radius R carries a charge Q spread uniformly. (a) Show that the force on a point charge $q_0$ placed on its axis at distance x from the centre is $F = \\frac{kQq_0x}{(R^2 + x^2)^{3/2}}$ along the axis. (b) Evaluate it for $R = 0.3\\,\\text{m}$, $x = 0.4\\,\\text{m}$, $Q = 5\\,\\mu\\text{C}$, $q_0 = 2\\,\\mu\\text{C}$. (c) What is the force when $q_0$ is at the centre?", "solution": "Step 1 (one element): every element dq of the ring is at the same distance $r = \\sqrt{R^2 + x^2}$ from the point P on the axis. Its force on $q_0$ has magnitude $dF = \\frac{k\\,dq\\,q_0}{r^2}$, along the line from dq to P.\n\nStep 2 (symmetry): the element diametrically opposite gives a force of the same size whose component perpendicular to the axis is opposite. So all perpendicular components cancel. Only the components along the axis, $dF\\cos\\theta$ with $\\cos\\theta = \\frac{x}{r}$, survive and add.\n\nStep 3 (add up): $F = \\int \\frac{k\\,q_0\\,dq}{r^2}\\cdot\\frac{x}{r} = \\frac{kq_0x}{r^3}\\int dq = \\frac{kQq_0x}{(R^2 + x^2)^{3/2}}$, directed along the axis away from the ring (for like charges).\n\nStep 4 (numbers): $R^2 + x^2 = 0.09 + 0.16 = 0.25$, so $r = 0.5\\,\\text{m}$ and $r^3 = 0.125\\,\\text{m}^3$.\n$$F = \\frac{(9 \\times 10^{9})(5 \\times 10^{-6})(2 \\times 10^{-6})(0.4)}{0.125} = \\frac{0.036}{0.125} = 0.288\\,\\text{N}$$\n\nStep 5 (centre): at $x = 0$ the formula gives zero, as symmetry demands: every element is balanced by the opposite one.", "answer": "(b) 0.288 N along the axis, away from the ring; (c) zero at the centre." },
+      { "type": "KEY_POINT", "text": "- Linear, surface and volume charge densities λ, σ and ρ are measured in C m⁻¹, C m⁻² and C m⁻³.\n- Total charge: $Q = \\int \\lambda\\,dl$, $\\int \\sigma\\,dA$ or $\\int \\rho\\,dV$. For uniform distributions, $Q = \\lambda L$, $Q = \\sigma A$, $Q = \\rho V$.\n- Symmetry decides which components cancel; never integrate a component that symmetry tells you is zero.\n- Far from the ring ($x \\gg R$) the ring formula becomes $\\frac{kQq_0}{x^2}$: from far away any finite charged body looks like a point charge." },
+      { "type": "HEADING", "text": "The electric dipole" },
+      { "type": "DEFINITION", "term": "Electric dipole", "text": "A pair of equal and opposite point charges, +q and −q, separated by a small fixed distance 2a. The line through the two charges is the dipole axis; the point midway between them is the centre of the dipole." },
+      { "type": "DEFINITION", "term": "Electric dipole moment", "text": "A vector whose magnitude is the product of either charge and the separation between the charges, $p = q \\times 2a$, and whose direction is along the dipole axis **from the negative charge to the positive charge**. SI unit: coulomb metre (C m)." },
+      { "type": "FORMULA", "latex": "\\vec{p} = q\\,(2\\vec{a})", "text": "p = electric dipole moment (C m); q = magnitude of either charge (C); 2a = vector from −q to +q, of length equal to the separation (m)." },
+      { "type": "DIAGRAM", "diagram": "dipole" },
+      { "type": "TEXT", "text": "**Why a dipole matters even though its net charge is zero.** The total charge of a dipole is $(+q) + (-q) = 0$, but the two charges are at different places. A test charge near the dipole is closer to one charge than to the other, so the two Coulomb forces on it do not cancel. The dipole therefore exerts a net force, which falls off faster with distance than the force of a single charge.\n\n**Ideal (point) dipole.** If $q \\to \\infty$ and $2a \\to 0$ with $p = q(2a)$ fixed, the dipole becomes a point dipole. Real dipoles behave like this whenever the distance r of interest is much greater than a.\n\n**Dipoles in nature.**\n\n- **Polar molecules** such as $\\text{H}_2\\text{O}$, $\\text{HCl}$ and $\\text{NH}_3$ have the centres of their positive and negative charge at different points, so they carry a **permanent** dipole moment (about $6 \\times 10^{-30}$ C m for water).\n- **Non-polar molecules** such as $\\text{O}_2$, $\\text{N}_2$ and $\\text{CO}_2$ have the two centres coinciding, so their dipole moment is zero. An external electric field pushes the centres apart and gives them an **induced** dipole moment.\n\nThe behaviour of a dipole in an electric field (torque and alignment) is taken up in the next lesson." },
+      { "type": "TEXT", "text": "**Force exerted by a dipole on a point charge (an application of superposition).** Place a point charge Q on the dipole's axial line at a distance r from its centre, on the side of +q. The charge +q is at distance $(r - a)$ and −q at $(r + a)$, so\n$$F = kqQ\\left[\\frac{1}{(r - a)^2} - \\frac{1}{(r + a)^2}\\right] = \\frac{kqQ\\,(4ar)}{(r^2 - a^2)^2} = \\frac{2kpQ\\,r}{(r^2 - a^2)^2}$$\nFor a short dipole ($r \\gg a$) this becomes $F \\approx \\frac{2kpQ}{r^3}$. On the equatorial line the two forces have equal size and their components combine to give $F \\approx \\frac{kpQ}{r^3}$ for $r \\gg a$, directed antiparallel to $\\vec{p}$ for positive Q. The key result is the $\\frac{1}{r^3}$ dependence, compared with $\\frac{1}{r^2}$ for a single charge." },
+      { "type": "FORMULA", "latex": "F_{\\text{axial}} \\approx \\frac{2kpQ}{r^3}, \\qquad F_{\\text{equatorial}} \\approx \\frac{kpQ}{r^3} \\qquad (r \\gg a)", "text": "Force on a point charge Q at distance r from the centre of a short dipole of moment p; k = 9 × 10⁹ N m² C⁻². On the axis the force on a positive Q is along p; on the equatorial line it is opposite to p. Doubling r reduces either force to 1/8." },
+      { "type": "SOLVED_PROBLEM", "problem": "Charges of $+2\\,\\text{nC}$ and $-2\\,\\text{nC}$ are 3 mm apart. (a) Find the dipole moment. (b) Find the force on a $+1\\,\\mu\\text{C}$ charge placed on the axis 10 cm from the centre of the dipole, first exactly and then with the short-dipole formula.", "solution": "Step 1 (dipole moment): $p = q(2a) = (2 \\times 10^{-9})(3 \\times 10^{-3}) = 6 \\times 10^{-12}\\,\\text{C m}$, pointing from −2 nC to +2 nC.\n\nStep 2 (exact force by superposition): $a = 1.5 \\times 10^{-3}\\,\\text{m}$, $r = 0.1\\,\\text{m}$, $Q = 10^{-6}\\,\\text{C}$, $kqQ = (9 \\times 10^{9})(2 \\times 10^{-9})(10^{-6}) = 1.8 \\times 10^{-5}\\,\\text{N m}^2$.\n$$F = 1.8 \\times 10^{-5}\\left[\\frac{1}{(0.0985)^2} - \\frac{1}{(0.1015)^2}\\right] = 1.8 \\times 10^{-5}(103.07 - 97.07) \\approx 1.08 \\times 10^{-4}\\,\\text{N}$$\n\nStep 3 (short-dipole formula): $F = \\frac{2kpQ}{r^3} = \\frac{2(9 \\times 10^{9})(6 \\times 10^{-12})(10^{-6})}{(0.1)^3} = \\frac{1.08 \\times 10^{-7}}{10^{-3}} = 1.08 \\times 10^{-4}\\,\\text{N}$.\n\nThe two results agree to better than 0.1%, because r is about 67 times a.", "answer": "(a) $6 \\times 10^{-12}$ C m; (b) about $1.08 \\times 10^{-4}$ N, directed along $\\vec{p}$ (away from the dipole on the +q side)." },
+      { "type": "IMPORTANT_FACT", "text": "In a **uniform** external electric field the forces $+q\\vec{E}$ and $-q\\vec{E}$ on the two charges of a dipole are equal and opposite, so the **net force on the dipole is zero**. (They can still produce a torque, studied in the next lesson.) In a non-uniform field the net force is not zero." },
+      { "type": "HEADING", "text": "Revision summary" },
+      { "type": "TABLE", "caption": "Formula sheet for this lesson", "columns": ["Quantity", "Formula", "Unit"], "rows": [
+        ["Quantised charge", "q = ±ne", "C"],
+        ["Coulomb force in vacuum", "F = k|q₁q₂|/r²,  k = 1/(4πε₀) = 9 × 10⁹", "N"],
+        ["Coulomb force in a medium", "F = |q₁q₂|/(4πε₀K r²) = F_vacuum/K", "N"],
+        ["Superposition", "F₁ = F₁₂ + F₁₃ + … (vector sum)", "N"],
+        ["Charge densities", "λ = dq/dl, σ = dq/dA, ρ = dq/dV", "C m⁻¹, C m⁻², C m⁻³"],
+        ["Force on q₀ on the axis of a ring", "kQq₀x/(R² + x²)^(3/2)", "N"],
+        ["Dipole moment", "p = q × 2a, from −q to +q", "C m"],
+        ["Force on Q due to a short dipole", "2kpQ/r³ (axial), kpQ/r³ (equatorial)", "N"]
+      ] },
+      { "type": "KEY_POINT", "text": "- Charge is additive, conserved and quantised ($q = ne$).\n- Charging by rubbing or induction transfers electrons; it never creates net charge.\n- Coulomb force: $\\propto q_1q_2$, $\\propto 1/r^2$, along the line joining the charges, equal and opposite on the two charges, reduced by K in a medium.\n- Net force on a charge = vector sum of the individual Coulomb forces (superposition).\n- Continuous bodies: use λ, σ or ρ, split into elements dq, add vectorially using symmetry.\n- A dipole has zero net charge but a non-zero dipole moment $p = q(2a)$ directed from −q to +q; its force on a distant charge falls as $1/r^3$." },
+      { "type": "IMPORTANT_FACT", "text": "Values to remember: $e = 1.6 \\times 10^{-19}\\,\\text{C}$; $k = \\frac{1}{4\\pi\\varepsilon_0} = 9 \\times 10^{9}\\,\\text{N m}^2\\,\\text{C}^{-2}$; $\\varepsilon_0 = 8.85 \\times 10^{-12}\\,\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$; one microcoulomb contains $6.25 \\times 10^{12}$ elementary charges; dielectric constant of water ≈ 80." },
+      { "type": "CALLOUT", "text": "**Last-minute exam checklist.**\n\n- When two identical conducting spheres touch, the total charge is shared **equally**: $q' = \\frac{q_1 + q_2}{2}$ (use signs). The force afterwards may change from attractive to repulsive.\n- A charge Q split into q and (Q − q) gives maximum repulsion when $q = Q/2$.\n- For four equal charges at the corners of a square of side a, the force on each is $\\left(\\sqrt{2} + \\frac{1}{2}\\right)\\frac{kq^2}{a^2}$ along the diagonal, outward.\n- Dipole moment points from − to +; the electric field between the charges points from + to −." }
+    ]
+  },
+  "diagrams": [
+    { "key": "coulomb-forces", "file": "diagrams/ug26-322-u1-charges-coulomb-forces.svg", "alt": "Two panels: two positive charges q1 and q2 a distance r apart pushing each other outward, and a positive and a negative charge a distance r apart pulling towards each other", "caption": "Coulomb forces between like and unlike point charges", "description": "Panel (a) shows two positive point charges q1 and q2 separated by a distance r. The force F12 on q1 points to the left, away from q2, and the force F21 on q2 points to the right, away from q1: like charges repel. Panel (b) shows a positive charge q1 and a negative charge q2 separated by r. F12 on q1 points right towards q2 and F21 on q2 points left towards q1: unlike charges attract. In both cases F21 = -F12, equal and opposite along the line joining the charges." },
+    { "key": "superposition-triangle", "file": "diagrams/ug26-322-u1-charges-coulomb-triangle.svg", "alt": "Equilateral triangle ABC of side a with a +q charge at each corner; at A two repulsive force arrows 60 degrees apart and their resultant pointing straight up along the bisector", "caption": "Superposition: net force on one of three equal charges at the corners of an equilateral triangle", "description": "Three equal positive charges sit at corners A (top), B (bottom left) and C (bottom right) of an equilateral triangle of side a. At A, the force F_AB due to B points away from B, up and to the right; the force F_AC due to C points away from C, up and to the left. The two forces are equal, kq squared over a squared, and 60 degrees apart. A dashed parallelogram completes them, and their resultant F_net equals root 3 times F, pointing vertically upward along the bisector of angle A, away from side BC." },
+    { "key": "charged-ring", "file": "diagrams/ug26-322-u1-charges-coulomb-ring.svg", "alt": "Uniformly charged ring of radius R with elements dq at the top and dq' at the bottom, a point charge q0 at P on the axis at distance x, and the two element forces whose perpendicular parts cancel", "caption": "Continuous charge distribution: force on a point charge on the axis of a charged ring", "description": "A ring of radius R and total charge Q is drawn edge-on with its centre O. A point P on the axis at distance x from O holds a positive test charge q0. An element dq at the top of the ring and the diametrically opposite element dq' at the bottom are each at distance r equal to root of R squared plus x squared from P. The force dF from dq points away from dq, down and to the right; the force dF' from dq' points up and to the right. Their perpendicular parts cancel and their parts along the axis add, so the net force is along the axis." },
+    { "key": "dipole", "file": "diagrams/ug26-322-u1-charges-coulomb-dipole.svg", "alt": "Electric dipole with charge -q on the left and +q on the right separated by 2a, centre O, dipole moment arrow p pointing from -q to +q, axial and equatorial lines dashed", "caption": "An electric dipole and its dipole moment p = q(2a), directed from -q to +q", "description": "A negative charge -q on the left and a positive charge +q on the right lie on a horizontal dashed axial line, a distance a on either side of the centre O, so their separation is 2a. A vertical dashed line through O is the equatorial line, the perpendicular bisector. Above the charges, a green arrow labelled p points from left to right, from -q towards +q, showing the direction of the dipole moment of magnitude q times 2a." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u1-charges-coulomb-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which of the following values can NOT be the charge on an isolated body? (Take e = 1.6 × 10⁻¹⁹ C.)",
+      "options": ["3.2 × 10⁻¹⁹ C", "4.8 × 10⁻¹⁹ C", "2.4 × 10⁻¹⁹ C", "8.0 × 10⁻¹⁹ C"],
+      "answer": 3,
+      "explanation": "By quantisation of charge, any charge on a body must be $q = ne$ with n a whole number. Dividing each value by $1.6 \\times 10^{-19}$ C gives 2, 3, 1.5 and 5. Only $2.4 \\times 10^{-19}$ C gives a non-integer (1.5), so it cannot exist on an isolated body.",
+      "optionRationale": { "1": "3.2 × 10⁻¹⁹ C = 2e, an allowed whole-number multiple.", "2": "4.8 × 10⁻¹⁹ C = 3e, an allowed whole-number multiple.", "4": "8.0 × 10⁻¹⁹ C = 5e, an allowed whole-number multiple." },
+      "objective": "Apply quantisation of charge to decide whether a charge value is possible"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "How many electrons must be added to a neutral body to give it a charge of −1 μC?",
+      "options": ["6.25 × 10¹²", "1.6 × 10¹³", "6.25 × 10¹⁸", "1.6 × 10⁻¹³"],
+      "answer": 1,
+      "explanation": "Charge is quantised, so the number of electrons is the size of the charge divided by the elementary charge: $n = \\frac{|q|}{e} = \\frac{1 \\times 10^{-6}}{1.6 \\times 10^{-19}} = 6.25 \\times 10^{12}$. The body is to become negative, so these electrons are added to it. Even one microcoulomb therefore needs trillions of electrons.",
+      "optionRationale": { "2": "This multiplies instead of dividing correctly; 1.6 × 10¹³ does not equal 10⁻⁶/1.6 × 10⁻¹⁹.", "3": "6.25 × 10¹⁸ electrons make one full coulomb, not one microcoulomb.", "4": "A number of electrons cannot be a tiny fraction; this inverts the ratio." },
+      "objective": "Use q = ne to find the number of electrons transferred"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q03", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): When a glass rod is rubbed with a silk cloth, the glass rod becomes positively charged.\nReason (R): During rubbing, protons are transferred from the silk cloth to the glass rod.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "The assertion is true: glass rubbed with silk is positive by convention. The reason is false: protons are bound inside nuclei and do not move during rubbing. What actually happens is that electrons move from the glass to the silk, leaving the glass with a deficit of electrons (positive) and the silk with an equal excess (negative), conserving total charge.",
+      "optionRationale": { "1": "R is false, so it cannot explain A.", "2": "R is not true at all; protons do not move in charging by friction.", "4": "A is true; glass rubbed with silk does become positive." },
+      "objective": "Explain charging by friction as a transfer of electrons that conserves charge"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q04", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about electric charge.\nA. The total charge of an isolated system remains constant in every process.\nB. A body that becomes negatively charged gains a tiny amount of mass.\nC. Quantisation of charge means that charge can only be a positive whole-number multiple of e.\nD. A body carrying +5 μC and −2 μC has a net charge of +3 μC.\nChoose the correct option.",
+      "options": ["A and C only", "A, B and D only", "B, C and D only", "A, B, C and D"],
+      "answer": 2,
+      "explanation": "A is the law of conservation of charge (true). B is true because a body becomes negative by gaining electrons, which have mass. D is true because charges add algebraically: $+5 - 2 = +3\\,\\mu\\text{C}$. C is false: quantisation means $q = \\pm ne$, so negative multiples such as $-3e$ are equally allowed. Hence A, B and D only.",
+      "optionRationale": { "1": "C is false (negative multiples are allowed) and B and D, which are true, are left out.", "3": "C is false and A, which is the conservation law, is left out.", "4": "C is false, so all four cannot be correct." },
+      "objective": "Distinguish additivity, conservation and quantisation of charge"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q05", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "Two point charges of +4 μC and +5 μC are kept 30 cm apart in vacuum. What is the magnitude of the electrostatic force between them?",
+      "options": ["0.6 N", "6.0 N", "0.2 N", "2.0 N"],
+      "answer": 4,
+      "explanation": "First convert to SI units: the charges are $4 \\times 10^{-6}$ C and $5 \\times 10^{-6}$ C and the separation is 0.30 m. Then apply Coulomb's law: $F = \\frac{k q_1 q_2}{r^2} = \\frac{(9 \\times 10^{9})(4 \\times 10^{-6})(5 \\times 10^{-6})}{(0.30)^2} = \\frac{0.18}{0.09} = 2.0\\,\\text{N}$. The force is repulsive because both charges are positive, and each charge feels the same 2.0 N.",
+      "optionRationale": { "1": "0.6 N comes from using r instead of r² in the denominator (0.18/0.30).", "2": "6.0 N is out by a factor of 3; check the product of the charges and r².", "3": "0.2 N is too small by a factor of 10; check the powers of ten." },
+      "objective": "Calculate the Coulomb force between two point charges"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q06", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "The electrostatic force between two point charges is F. If one of the charges is doubled and the distance between them is halved, the new force becomes",
+      "options": ["2F", "4F", "8F", "F/2"],
+      "answer": 3,
+      "explanation": "Coulomb's law says the force is proportional to the product of the charges and inversely proportional to the square of the distance, $F \\propto \\frac{q_1 q_2}{r^2}$. Doubling one charge multiplies the force by 2. Halving the distance multiplies it by $\\frac{1}{(1/2)^2} = 4$. Both changes act together, so the new force is $2 \\times 4 = 8F$.",
+      "optionRationale": { "1": "This accounts only for doubling the charge and ignores the change in distance.", "2": "This accounts only for halving the distance and ignores doubling the charge.", "4": "This treats the force as increasing with distance; the Coulomb force decreases with distance." },
+      "objective": "Use proportional reasoning with Coulomb's law"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q07", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "Two point charges placed 1 m apart in air repel each other with force F. At what separation will they exert the same force on each other when immersed in a liquid of dielectric constant 4?",
+      "options": ["0.25 m", "0.5 m", "2 m", "4 m"],
+      "answer": 2,
+      "explanation": "A medium of dielectric constant K weakens the force by the factor K, so in the liquid $F_m = \\frac{kq_1q_2}{Kr'^2}$. For the force to stay the same as in air, set this equal to $\\frac{kq_1q_2}{r^2}$. This gives $Kr'^2 = r^2$, so $r' = \\frac{r}{\\sqrt{K}} = \\frac{1}{\\sqrt{4}} = 0.5\\,\\text{m}$. The charges must be brought closer together to make up for the weakening.",
+      "optionRationale": { "1": "0.25 m divides r by K instead of by √K.", "3": "2 m increases the separation, which would reduce the force even further.", "4": "4 m multiplies by K; the force would then be 64 times smaller." },
+      "objective": "Apply Coulomb's law in a dielectric medium"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q08", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "Two identical small metal spheres carry charges of +6 μC and −2 μC and attract each other with a force F when kept a distance r apart. They are touched together and then placed back at the same distance r. The force between them is now",
+      "options": ["F/3, attractive", "3F, repulsive", "zero", "F/3, repulsive"],
+      "answer": 4,
+      "explanation": "When the spheres touch, charge is conserved and, because they are identical, the total is shared equally. Total charge $= +6 - 2 = +4\\,\\mu\\text{C}$, so each sphere ends with $+2\\,\\mu\\text{C}$. Originally the force was proportional to $6 \\times 2 = 12$; now it is proportional to $2 \\times 2 = 4$. So $F' = \\frac{4}{12}F = \\frac{F}{3}$, and since both spheres are now positive the force has become repulsive.",
+      "optionRationale": { "1": "The magnitude is right, but after contact both spheres are positive, so they repel.", "2": "The force decreases, not increases; 4/12 = 1/3.", "3": "The charges do not cancel completely; +4 μC remains to be shared." },
+      "objective": "Combine conservation of charge with Coulomb's law"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q09", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): At the same separation, the force between two charges is much smaller when they are immersed in water than when they are in air.\nReason (R): Water has a dielectric constant of about 80, and the Coulomb force in a medium equals the force in vacuum divided by the dielectric constant.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Both statements are true. The force in a medium is $F_m = \\frac{F_{\\text{vacuum}}}{K}$, and for water $K \\approx 80$ while for air $K \\approx 1$. So the force in water is about 80 times smaller, which is exactly what R explains.",
+      "optionRationale": { "2": "R directly gives the reason for the reduction, so it is the correct explanation.", "3": "R is true; water's dielectric constant is about 80.", "4": "A is true; the force in water is far smaller than in air." },
+      "objective": "Relate the Coulomb force in a medium to its dielectric constant"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q10", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Point charges of +2 μC each are fixed at x = 0 and at x = 0.3 m. What is the net force on a +1 μC charge placed at x = 0.1 m?",
+      "options": ["1.35 N, pointing towards the charge at x = 0.3 m", "2.25 N, pointing towards the charge at x = 0.3 m", "1.35 N, pointing towards the charge at x = 0", "0.45 N, pointing towards the charge at x = 0"],
+      "answer": 1,
+      "explanation": "Force from the charge at x = 0 (distance 0.1 m): $\\frac{(9 \\times 10^9)(2 \\times 10^{-6})(1 \\times 10^{-6})}{0.01} = 1.8\\,\\text{N}$, repulsive, so it pushes the test charge along +x, towards x = 0.3 m. Force from the charge at x = 0.3 m (distance 0.2 m): $\\frac{0.018}{0.04} = 0.45\\,\\text{N}$, pushing along −x. Net force $= 1.8 - 0.45 = 1.35\\,\\text{N}$ along +x.",
+      "optionRationale": { "2": "2.25 N adds the two forces, but they act in opposite directions.", "3": "The larger force comes from the nearer charge at x = 0, which pushes along +x.", "4": "0.45 N is only the force from the farther charge." },
+      "objective": "Apply the superposition principle to collinear charges"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q11", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Four identical point charges q are placed at the corners of a square of side a. What is the magnitude of the net electrostatic force on any one of the charges? (k = 1/4πε₀)",
+      "options": ["√2 kq²/a²", "(1 + √2) kq²/a²", "(√2 + ½) kq²/a²", "2√2 kq²/a²"],
+      "answer": 3,
+      "explanation": "Let $F = \\frac{kq^2}{a^2}$. The two adjacent charges each exert F, at $90^\\circ$ to each other, giving $\\sqrt{2}F$ along the outward diagonal. The opposite corner is at distance $\\sqrt{2}a$ and exerts $\\frac{kq^2}{2a^2} = \\frac{F}{2}$, also along the outward diagonal. Total $= \\left(\\sqrt{2} + \\frac{1}{2}\\right)\\frac{kq^2}{a^2}$.",
+      "optionRationale": { "1": "This leaves out the force from the charge at the opposite corner.", "2": "This uses distance a for the diagonal charge; it is √2 a away, so its force is F/2, not F.", "4": "This doubles the resultant of the adjacent forces incorrectly and ignores the diagonal charge." },
+      "objective": "Add Coulomb forces as vectors for a symmetric arrangement"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q12", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "A charge of +9 μC is fixed at x = 0 and a charge of −4 μC is fixed at x = 1 m. At which point on the x-axis will a third charge experience zero net force?",
+      "options": ["x = 0.6 m", "x = 3 m", "x = −2 m", "x = 1.5 m"],
+      "answer": 2,
+      "explanation": "For unlike charges the forces on a third charge oppose each other only outside the pair, on the side of the smaller charge (x > 1 m). Balance: $\\frac{9}{x^2} = \\frac{4}{(x - 1)^2}$, so $\\frac{3}{x} = \\frac{2}{x - 1}$, giving $3x - 3 = 2x$ and $x = 3\\,\\text{m}$.",
+      "optionRationale": { "1": "Between unlike charges the two forces point the same way and cannot cancel.", "3": "At x = −2 m the nearer charge is the larger one, so the forces cannot balance (9/4 ≠ 4/9).", "4": "At x = 1.5 m, 9/2.25 = 4 but 4/0.25 = 16; the forces are unequal." },
+      "objective": "Locate the null point for two unlike charges"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q13", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each quantity in List-I with its SI unit in List-II.",
+      "list": { "left": ["A. Linear charge density", "B. Surface charge density", "C. Volume charge density", "D. Electric dipole moment"], "right": ["I. C m", "II. C m⁻²", "III. C m⁻¹", "IV. C m⁻³"] },
+      "options": ["A-I, B-II, C-III, D-IV", "A-III, B-IV, C-II, D-I", "A-II, B-III, C-IV, D-I", "A-III, B-II, C-IV, D-I"],
+      "answer": 4,
+      "explanation": "Linear density λ is charge per unit length (C m⁻¹, III); surface density σ is charge per unit area (C m⁻², II); volume density ρ is charge per unit volume (C m⁻³, IV); dipole moment p = q × 2a is charge times length (C m, I). So A-III, B-II, C-IV, D-I.",
+      "optionRationale": { "1": "Dipole moment is charge times distance (C m), not charge per volume.", "2": "Surface density is per unit area (m⁻²), not per unit volume.", "3": "Linear density is per unit length (m⁻¹), not per unit area." },
+      "objective": "Recall the definitions and units of charge densities and dipole moment"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q14", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "A thin rod 40 cm long carries a charge of 8 μC spread uniformly along its length. How much charge is on a 5 cm piece of the rod?",
+      "options": ["0.5 μC", "1 μC", "2 μC", "1.6 μC"],
+      "answer": 2,
+      "explanation": "Because the charge is spread uniformly, every centimetre of the rod carries the same charge. The linear charge density is $\\lambda = \\frac{Q}{L} = \\frac{8\\,\\mu\\text{C}}{0.40\\,\\text{m}} = 20\\,\\mu\\text{C m}^{-1}$. The charge on a 5 cm piece is therefore $\\lambda\\,l = 20 \\times 0.05 = 1\\,\\mu\\text{C}$, which is one-eighth of the total, as 5 cm is one-eighth of 40 cm.",
+      "optionRationale": { "1": "0.5 μC corresponds to a 2.5 cm piece.", "3": "2 μC corresponds to a 10 cm piece.", "4": "1.6 μC divides 8 by 5 instead of using the fraction 5/40 of the length." },
+      "objective": "Use linear charge density for a uniform continuous distribution"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q15", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A thin ring of radius 4 cm carries a charge of 1 μC spread uniformly. A point charge of 1 μC is placed on the axis of the ring 3 cm from its centre. What is the magnitude of the force on the point charge?",
+      "options": ["3.6 N", "2.88 N", "2.16 N", "zero"],
+      "answer": 3,
+      "explanation": "Every element of the ring is the same distance $r = \\sqrt{4^2 + 3^2} = 5\\,\\text{cm}$ from the point charge. By symmetry the components of the element forces perpendicular to the axis cancel, and only the axial components (a fraction x/r of each) add up. So $F = \\frac{kQq\\,x}{r^3} = \\frac{(9 \\times 10^{9})(10^{-6})(10^{-6})(0.03)}{(0.05)^3} = \\frac{2.7 \\times 10^{-4}}{1.25 \\times 10^{-4}} = 2.16\\,\\text{N}$ along the axis, away from the ring.",
+      "optionRationale": { "1": "3.6 N treats the whole ring as a point charge 5 cm away and forgets that only the axial components (factor x/r = 0.6) survive.", "2": "2.88 N uses the factor R/r = 0.8 instead of x/r = 0.6.", "4": "The force is zero only at the centre of the ring, not at points on the axis." },
+      "objective": "Find the force due to a continuous ring distribution using symmetry"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q16", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The electric dipole moment vector of an electric dipole is directed",
+      "options": ["from the positive charge to the negative charge", "from the negative charge to the positive charge", "perpendicular to the line joining the two charges", "along the electric field at the centre of the dipole"],
+      "answer": 2,
+      "explanation": "The dipole moment is defined as $\\vec{p} = q(2\\vec{a})$, where the separation vector $2\\vec{a}$ is drawn from the negative charge to the positive charge. So the dipole moment lies along the dipole axis and points from −q to +q. This is a convention worth memorising, because the electric field between the two charges points the opposite way, from + to −.",
+      "optionRationale": { "1": "This is the reverse of the convention used for the dipole moment.", "3": "The dipole moment lies along the axis, not perpendicular to it.", "4": "The field at the centre points from +q to −q, which is opposite to p." },
+      "objective": "State the direction of the electric dipole moment"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q17", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "Charges of +3 nC and −3 nC are held 2 mm apart. What is the magnitude of the electric dipole moment of this pair?",
+      "options": ["6 × 10⁻¹² C m", "3 × 10⁻¹² C m", "1.2 × 10⁻¹¹ C m", "6 × 10⁻⁹ C m"],
+      "answer": 1,
+      "explanation": "The dipole moment is the magnitude of either charge multiplied by the full distance between the charges. Here $p = q \\times (2a) = (3 \\times 10^{-9}\\,\\text{C})(2 \\times 10^{-3}\\,\\text{m}) = 6 \\times 10^{-12}\\,\\text{C m}$. Note that the given 2 mm is already the full separation 2a, so it must not be halved or doubled.",
+      "optionRationale": { "2": "This uses half the separation (1 mm) instead of the full separation.", "3": "This doubles the correct value, using 4 mm or 6 nC by mistake.", "4": "This forgets to convert 2 mm to metres." },
+      "objective": "Calculate an electric dipole moment"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q18", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): Because the net charge of an electric dipole is zero, a dipole exerts no force on a point charge placed near it.\nReason (R): The total charge of an electric dipole is (+q) + (−q) = 0.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 4,
+      "explanation": "R is true: the net charge of a dipole is zero. A is false: a nearby point charge is at different distances from +q and −q, so the two Coulomb forces are unequal and do not cancel. For a short dipole the net force on a charge Q on the axis is about $\\frac{2kpQ}{r^3}$, which is small but not zero.",
+      "optionRationale": { "1": "A is false, so this combination is impossible.", "2": "A is false; a dipole does exert a net force on a nearby charge.", "3": "R is true and A is false, the reverse of this option." },
+      "objective": "Recognise that a dipole exerts a force despite zero net charge"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q19", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "A point charge placed on the axial line of a short electric dipole, at a distance r from its centre, experiences a force F. If the charge is moved along the axis to a distance 2r, the force on it becomes",
+      "options": ["F/2", "F/4", "F/16", "F/8"],
+      "answer": 4,
+      "explanation": "For a short dipole the forces from +q and −q nearly cancel, and what is left falls off faster than for a single charge. The force on a point charge Q on the axis is $F = \\frac{2kpQ}{r^3}$, so $F \\propto \\frac{1}{r^3}$. Doubling the distance therefore gives $\\frac{F}{2^3} = \\frac{F}{8}$.",
+      "optionRationale": { "1": "This assumes F ∝ 1/r.", "2": "This uses the inverse-square law of a single point charge, not of a dipole.", "3": "This assumes F ∝ 1/r⁴." },
+      "objective": "Use the 1/r³ dependence of the dipole's force on a point charge"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q20", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "superposition-triangle",
+      "stem": "The figure shows three equal charges +q at the corners A, B and C of an equilateral triangle of side a. What is the net electrostatic force on the charge at A? (k = 1/4πε₀)",
+      "options": ["√3 kq²/a², along the bisector of angle A, away from BC", "2kq²/a², along the bisector of angle A, away from BC", "√3 kq²/a², along the bisector of angle A, towards BC", "kq²/a², parallel to BC"],
+      "answer": 1,
+      "explanation": "Each of B and C repels A with $F = \\frac{kq^2}{a^2}$, and the two forces are $60^\\circ$ apart. Their components parallel to BC cancel; the components along the bisector add: $F_{\\text{net}} = 2F\\cos 30^\\circ = \\sqrt{3}\\frac{kq^2}{a^2}$, pointing away from BC because both forces are repulsive.",
+      "optionRationale": { "2": "2F would be correct only if the two forces were parallel; they are 60° apart.", "3": "The forces are repulsive, so the resultant points away from BC, not towards it.", "4": "The components parallel to BC cancel by symmetry, so the resultant cannot be parallel to BC." },
+      "objective": "Use superposition and symmetry to find the net force on a charge"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q21", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "conceptual",
+      "stem": "Read the following statements about the Coulomb force.\nA. The forces that two charges exert on each other remain equal and opposite even when other charges are present nearby.\nB. Coulomb's law in its basic form applies to point charges at rest.\nC. For given charges and separation, the force depends on the medium between the charges.\nD. The Coulomb force between two point charges acts at an angle to the line joining them.\nWhich statements are correct?",
+      "options": ["A and D only", "B and C only", "A, B and C only", "A, B, C and D"],
+      "answer": 3,
+      "explanation": "A is true by the superposition principle: other charges add their own forces but do not change the force between a given pair, which obeys Newton's third law. B is true: the law is for stationary point charges. C is true: in a medium the force is divided by K. D is false: the Coulomb force is central, acting along the line joining the charges.",
+      "optionRationale": { "1": "D is false, because the Coulomb force is central; and B and C are true but left out.", "2": "A is also true; the pair force is unchanged by other charges.", "4": "D is false, so all four cannot be correct." },
+      "objective": "Identify the characteristics of the Coulomb force"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q22", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Which one of the following processes would violate the law of conservation of charge?",
+      "options": ["n → p + e⁻ + antineutrino (beta decay)", "γ → e⁻ + e⁺ (pair production)", "p → n + e⁻ + neutrino", "e⁻ + e⁺ → 2γ (annihilation)"],
+      "answer": 3,
+      "explanation": "Check the total charge on each side. Beta decay: 0 → (+e) + (−e) + 0 = 0. Pair production: 0 → (−e) + (+e) = 0. Annihilation: (−e) + (+e) = 0 → 0. For p → n + e⁻ + neutrino: before +e, after 0 + (−e) + 0 = −e. The charge changes, so this process is forbidden.",
+      "optionRationale": { "1": "Charge is 0 before and 0 after, so charge is conserved.", "2": "The photon is neutral and the electron–positron pair has total charge zero.", "4": "The pair has total charge zero, and photons are neutral." },
+      "objective": "Apply conservation of charge to particle processes"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q23", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Two free point charges, each +Q, are placed a distance d apart. What charge q placed at the midpoint between them will keep all three charges in equilibrium?",
+      "options": ["negative, of magnitude Q/2", "positive, of magnitude Q/4", "negative, of magnitude Q/8", "negative, of magnitude Q/4"],
+      "answer": 4,
+      "explanation": "The middle charge is always in equilibrium by symmetry, whatever its value. For an end charge, the repulsion from the other +Q is $\\frac{kQ^2}{d^2}$ and the force from q at distance d/2 is $\\frac{kQq}{(d/2)^2} = \\frac{4kQq}{d^2}$. For zero net force, $Q + 4q = 0$, so $q = -\\frac{Q}{4}$.",
+      "optionRationale": { "1": "With −Q/2 the attraction (2kQ²/d²) would be twice the repulsion.", "2": "A positive middle charge would push the end charges outward, adding to the repulsion.", "3": "With −Q/8 the attraction would be only half of the repulsion." },
+      "objective": "Use superposition to find the condition for equilibrium of three charges"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q24", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "What is the SI unit of the permittivity of free space ε₀?",
+      "options": ["N m² C⁻²", "C² N⁻¹ m⁻²", "C N⁻¹ m⁻¹", "N C⁻² m⁻²"],
+      "answer": 2,
+      "explanation": "Rearrange Coulomb's law to make the permittivity the subject. From $F = \\frac{q_1q_2}{4\\pi\\varepsilon_0 r^2}$ we get $\\varepsilon_0 = \\frac{q_1q_2}{4\\pi F r^2}$. The number 4π has no unit, so the unit of ε₀ is coulomb squared divided by newton times metre squared, that is $\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$.",
+      "optionRationale": { "1": "N m² C⁻² is the unit of k = 1/(4πε₀), the reciprocal.", "3": "This has only one power of charge and length; it is dimensionally wrong.", "4": "This places N in the numerator; ε₀ has N in the denominator." },
+      "objective": "Derive the unit of ε₀ from Coulomb's law"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-q25", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A charge Q is to be divided into two parts, q and (Q − q), which are then placed a fixed distance apart. For the repulsive force between the two parts to be maximum, q should be",
+      "options": ["Q/2", "Q/3", "Q/4", "about 0.71 Q (that is, Q divided by √2)"],
+      "answer": 1,
+      "explanation": "The force between the parts is $F = \\frac{k\\,q(Q - q)}{r^2}$, and only the product $q(Q - q)$ can change. For a maximum, set the derivative to zero: $\\frac{dF}{dq} = \\frac{k(Q - 2q)}{r^2} = 0$, so $q = \\frac{Q}{2}$. In words, the product of two numbers with a fixed sum is greatest when the two numbers are equal.",
+      "optionRationale": { "2": "With Q/3 the product q(Q − q) is 2Q²/9, smaller than Q²/4.", "3": "With Q/4 the product is 3Q²/16, smaller than Q²/4.", "4": "With about 0.71 Q the product is about 0.207Q², smaller than 0.25Q²." },
+      "objective": "Maximise the Coulomb force between two parts of a fixed charge"
+    }
+  ]
+}

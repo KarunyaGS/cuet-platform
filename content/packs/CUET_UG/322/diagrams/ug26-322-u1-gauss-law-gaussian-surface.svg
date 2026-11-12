@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 340" font-family="Arial, Helvetica, sans-serif">
+  <!-- closed Gaussian surface -->
+  <path d="M120,170 C110,90 210,40 300,60 C390,80 440,60 470,120 C500,180 460,270 370,280 C280,290 240,300 180,270 C130,245 125,215 120,170 Z" fill="#f0fdf4" stroke="#059669" stroke-width="2.5" stroke-dasharray="8,5"/>
+  <text x="20" y="26" font-size="15" font-weight="bold" fill="#059669">closed Gaussian surface S</text>
+  <!-- outward area vectors -->
+  <line x1="300" y1="60" x2="296" y2="22" stroke="#059669" stroke-width="2"/>
+  <polygon points="295,12 290,25 302,24" fill="#059669"/>
+  <line x1="485" y1="155" x2="525" y2="150" stroke="#059669" stroke-width="2"/>
+  <polygon points="536,149 524,143 525,156" fill="#059669"/>
+  <text x="530" y="140" font-size="14" fill="#059669">dS (outward)</text>
+  <line x1="121" y1="175" x2="82" y2="178" stroke="#059669" stroke-width="2"/>
+  <polygon points="71,179 83,172 84,184" fill="#059669"/>
+  <!-- charges inside -->
+  <circle cx="240" cy="160" r="15" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="240" y="166" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">+</text>
+  <text x="240" y="196" font-size="15" fill="#1f2937" text-anchor="middle">q₁</text>
+  <circle cx="360" cy="200" r="15" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="360" y="207" font-size="18" font-weight="bold" fill="#2563eb" text-anchor="middle">−</text>
+  <text x="360" y="178" font-size="15" fill="#1f2937" text-anchor="middle">q₂</text>
+  <!-- charge outside with a field line passing through S -->
+  <circle cx="590" cy="250" r="15" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="590" y="256" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">+</text>
+  <text x="590" y="290" font-size="15" fill="#1f2937" text-anchor="middle">q₃ (outside)</text>
+  <path d="M574,248 C520,240 470,230 420,226 C330,220 230,226 100,240" fill="none" stroke="#dc2626" stroke-width="1.8"/>
+  <polygon points="451,228 462,222 462,234" fill="#dc2626"/>
+  <polygon points="140,236 151,230 152,242" fill="#dc2626"/>
+  <text x="500" y="250" font-size="13" fill="#dc2626" text-anchor="middle">enters</text>
+  <text x="146" y="226" font-size="13" fill="#dc2626" text-anchor="middle">leaves</text>
+  <!-- summary -->
+  <text x="20" y="318" font-size="14" fill="#1f2937">Total flux through S = (q₁ + q₂)/ε₀. A line from q₃ enters and leaves S,</text>
+  <text x="20" y="336" font-size="14" fill="#1f2937">so q₃ adds zero net flux (though it does change E at points on S).</text>
+</svg>

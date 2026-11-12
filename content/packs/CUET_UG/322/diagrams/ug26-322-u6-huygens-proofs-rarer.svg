@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 540" font-family="Arial, Helvetica, sans-serif">
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#1f2937">Refraction into a rarer medium (v2 &gt; v1): the wavelet from A is larger</text>
+  <rect x="40" y="40" width="560" height="200" fill="#2563eb" fill-opacity="0.07"/>
+  <line x1="40" y1="240" x2="600" y2="240" stroke="#1f2937" stroke-width="2.2"/>
+  <text x="450" y="70" font-size="14" fill="#1f2937">glass: speed v1, n1 = 1.5</text>
+  <text x="450" y="470" font-size="14" fill="#1f2937">air: speed v2 = 1.5 v1</text>
+  <!-- normals -->
+  <line x1="150" y1="100" x2="150" y2="420" stroke="#1f2937" stroke-width="1.1" stroke-dasharray="5 4"/>
+  <line x1="450" y1="110" x2="450" y2="380" stroke="#1f2937" stroke-width="1.1" stroke-dasharray="5 4"/>
+  <!-- wavelet from A in air -->
+  <path d="M373.6 265.1 A225 225 0 0 1 202.9 458.7" fill="none" stroke="#1f2937" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <!-- incident rays -->
+  <line x1="85" y1="127.4" x2="150" y2="240" stroke="#2563eb" stroke-width="1.6"/>
+  <polygon points="120.8,189.3 111.4,182.1 119.1,177.6" fill="#2563eb"/>
+  <line x1="345" y1="58.1" x2="450" y2="240" stroke="#2563eb" stroke-width="1.6"/>
+  <polygon points="402.8,158.1 393.4,150.8 401.1,146.3" fill="#2563eb"/>
+  <!-- incident wavefront AB -->
+  <line x1="150" y1="240" x2="375" y2="110.1" stroke="#2563eb" stroke-width="3"/>
+  <!-- refracted rays -->
+  <line x1="150" y1="240" x2="371.2" y2="435.1" stroke="#dc2626" stroke-width="1.6"/>
+  <polygon points="350.2,416.6 339,412.7 345,406" fill="#dc2626"/>
+  <line x1="450" y1="240" x2="532.5" y2="312.8" stroke="#dc2626" stroke-width="1.6"/>
+  <polygon points="507.8,290.9 496.5,287 502.5,280.3" fill="#dc2626"/>
+  <!-- refracted wavefront CE -->
+  <line x1="450" y1="240" x2="318.7" y2="388.8" stroke="#dc2626" stroke-width="3"/>
+  <!-- right angles -->
+  <path d="M366.3 115.1 L371.3 123.8 L380 118.8" fill="none" stroke="#1f2937" stroke-width="1.2"/>
+  <path d="M311.2 382.2 L317.9 374.7 L325.4 381.3" fill="none" stroke="#1f2937" stroke-width="1.2"/>
+  <!-- angle arcs -->
+  <path d="M184.6 220 A40 40 0 0 1 190 240" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="196" y="232" font-size="15" fill="#2563eb">i</text>
+  <path d="M410 240 A40 40 0 0 0 423.5 270" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="392" y="266" font-size="15" fill="#dc2626">r</text>
+  <!-- points -->
+  <circle cx="150" cy="240" r="3.5" fill="#1f2937"/>
+  <circle cx="450" cy="240" r="3.5" fill="#1f2937"/>
+  <circle cx="375" cy="110.1" r="3.5" fill="#1f2937"/>
+  <circle cx="318.7" cy="388.8" r="3.5" fill="#1f2937"/>
+  <text x="128" y="234" font-size="15" fill="#1f2937">A</text>
+  <text x="456" y="234" font-size="15" fill="#1f2937">C</text>
+  <text x="380" y="104" font-size="15" fill="#1f2937">B</text>
+  <text x="322" y="410" font-size="15" fill="#1f2937">E</text>
+  <text x="360" y="205" font-size="13" fill="#2563eb">BC = v1τ</text>
+  <text x="168" y="330" font-size="13" fill="#dc2626">AE = v2τ</text>
+  <text x="20" y="500" font-size="12" fill="#1f2937">Drawn to scale for i = 30°, v2/v1 = 1.5: sin r = (v2/v1) sin i = 0.75, r = 48.6°. The ray bends away from the normal.</text>
+  <text x="20" y="518" font-size="12" fill="#1f2937">If v2τ exceeded AC (sin i &gt; v1/v2), no tangent could be drawn from C: total internal reflection.</text>
+</svg>

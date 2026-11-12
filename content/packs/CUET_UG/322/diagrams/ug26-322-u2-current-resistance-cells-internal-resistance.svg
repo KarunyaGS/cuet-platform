@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 400" width="840" height="400" font-family="Arial, Helvetica, sans-serif">
+  <!-- Panel (a): circuit -->
+  <!-- external resistor R on top branch -->
+  <line x1="60" y1="70" x2="160" y2="70" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="160,70 168,56 184,84 200,56 216,84 232,56 248,84 256,70" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <line x1="256" y1="70" x2="360" y2="70" stroke="#1f2937" stroke-width="2"/>
+  <text x="208" y="44" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">R</text>
+  <!-- side wires -->
+  <line x1="60" y1="70" x2="60" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <line x1="360" y1="70" x2="360" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <line x1="60" y1="230" x2="120" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <line x1="300" y1="230" x2="360" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <!-- the cell: dashed box with emf and internal resistance -->
+  <rect x="100" y="178" width="180" height="104" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="120" y1="230" x2="138" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <line x1="138" y1="205" x2="138" y2="255" stroke="#1f2937" stroke-width="2"/>
+  <line x1="152" y1="217" x2="152" y2="243" stroke="#1f2937" stroke-width="5"/>
+  <line x1="152" y1="230" x2="176" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="176,230 182,218 194,242 206,218 218,242 230,218 242,242 248,230" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <line x1="248" y1="230" x2="300" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <text x="130" y="200" font-size="15" fill="#1f2937" text-anchor="middle">+</text>
+  <text x="162" y="210" font-size="15" fill="#1f2937">−</text>
+  <text x="145" y="275" font-size="16" fill="#2563eb" text-anchor="middle" font-weight="bold">ε</text>
+  <text x="212" y="212" font-size="16" fill="#dc2626" text-anchor="middle" font-weight="bold">r</text>
+  <!-- terminals -->
+  <circle cx="80" cy="230" r="5" fill="#1f2937"/>
+  <circle cx="300" cy="230" r="5" fill="#1f2937"/>
+  <text x="74" y="220" font-size="15" fill="#1f2937" text-anchor="end">A</text>
+  <text x="306" y="220" font-size="15" fill="#1f2937">B</text>
+  <!-- current arrows -->
+  <polygon points="118,70 104,63 104,77" fill="#d97706"/>
+  <text x="104" y="58" font-size="15" fill="#d97706" font-weight="bold">I</text>
+  <polygon points="60,140 53,154 67,154" fill="#d97706"/>
+  <polygon points="360,154 353,140 367,140" fill="#d97706"/>
+  <!-- voltmeter across the terminals -->
+  <line x1="80" y1="230" x2="80" y2="320" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="80" y1="320" x2="172" y2="320" stroke="#1f2937" stroke-width="1.5"/>
+  <circle cx="190" cy="320" r="18" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <text x="190" y="326" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">V</text>
+  <line x1="208" y1="320" x2="300" y2="320" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="300" y1="320" x2="300" y2="230" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="190" y="360" font-size="14" fill="#1f2937" text-anchor="middle">voltmeter reads V = ε − Ir</text>
+  <text x="210" y="390" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(a) Cell (ε, r) driving current through R</text>
+
+  <!-- Panel (b): V against I for the cell -->
+  <line x1="500" y1="300" x2="800" y2="300" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="810,300 798,294 798,306" fill="#1f2937"/>
+  <line x1="500" y1="300" x2="500" y2="45" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="500,35 494,47 506,47" fill="#1f2937"/>
+  <text x="510" y="45" font-size="14" fill="#1f2937">V (volt), terminal voltage</text>
+  <text x="808" y="325" font-size="14" fill="#1f2937" text-anchor="end">I (ampere)</text>
+  <line x1="500" y1="90" x2="760" y2="300" stroke="#2563eb" stroke-width="2.5"/>
+  <circle cx="500" cy="90" r="4" fill="#2563eb"/>
+  <circle cx="760" cy="300" r="4" fill="#2563eb"/>
+  <text x="492" y="95" font-size="16" fill="#2563eb" text-anchor="end" font-weight="bold">ε</text>
+  <text x="515" y="80" font-size="13" fill="#1f2937">open circuit (I = 0): V = ε</text>
+  <text x="770" y="288" font-size="15" fill="#2563eb">ε / r</text>
+  <text x="662" y="275" font-size="13" fill="#1f2937" text-anchor="middle">short circuit: V = 0</text>
+  <text x="652" y="170" font-size="14" fill="#dc2626">slope = −r</text>
+  <text x="655" y="390" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(b) V = ε − Ir: straight line</text>
+</svg>

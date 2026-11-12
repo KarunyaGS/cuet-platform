@@ -1,0 +1,420 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_dcbfc11db07147338acc2a68952ab397",
+    "title": "Conductors and insulators, free charges and bound charges inside a conductor. Dielectrics"
+  },
+  "lesson": {
+    "key": "ug26-322-u1-capacitors",
+    "title": "Conductors, dielectrics and polarisation, capacitors, their combinations and stored energy",
+    "coverage": [
+      { "phrase": "Conductors and insulators", "section": "Conductors and insulators" },
+      { "phrase": "Free charges and bound charges", "section": "Free charges and bound charges" },
+      { "phrase": "Field and charge inside a conductor", "section": "Electrostatic properties of a conductor" },
+      { "phrase": "Dielectrics and electric polarization", "section": "Dielectrics and electric polarisation" },
+      { "phrase": "Capacitors and capacitance", "section": "Capacitors and capacitance" },
+      { "phrase": "Capacitance of a parallel plate capacitor with and without dielectric medium between the plates", "section": "Parallel plate capacitor without and with a dielectric medium" },
+      { "phrase": "Combination of capacitors in series and in parallel", "section": "Combination of capacitors in series and in parallel" },
+      { "phrase": "Energy stored in a capacitor", "section": "Energy stored in a capacitor" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Conductors and insulators" },
+      { "type": "TEXT", "text": "Materials respond to electric fields in two very different ways, depending on whether their charges can travel through them.\n\n- In **conductors** (metals, graphite, the human body, the earth, salt solutions) some charges are free to move through the whole material. A field makes these charges drift, so conductors carry current and spread out any charge placed on them.\n- In **insulators** (glass, plastic, rubber, mica, dry wood, porcelain, pure water) almost no charge is free to move. Charge placed on an insulator stays where it was put. Insulators used in electric fields are called **dielectrics**.\n\nBetween these lie **semiconductors** such as silicon and germanium, whose ability to conduct can be controlled; they are studied in a later unit." },
+      { "type": "DEFINITION", "term": "Conductor", "text": "A material containing a large number of charge carriers (free electrons in metals, ions in electrolytes) that can move freely through it under the action of an electric field." },
+      { "type": "DEFINITION", "term": "Insulator (dielectric)", "text": "A material in which the charges are bound to their atoms or molecules and cannot move through the material; an applied field can only displace them slightly. An insulator placed in an electric field is called a dielectric." },
+      { "type": "TABLE", "caption": "Conductors compared with insulators", "columns": ["Feature", "Conductor", "Insulator (dielectric)"], "rows": [
+        ["Charge carriers", "Many free charges (free electrons in metals)", "Almost none; charges are bound"],
+        ["Response to a field", "Free charges move until the field inside becomes zero", "Bound charges shift slightly; the material becomes polarised"],
+        ["Charge placed on it", "Spreads over the outer surface", "Stays where it is placed"],
+        ["Field inside (static)", "Zero", "Reduced to E₀/K, not zero"],
+        ["Examples", "Copper, silver, aluminium, graphite, human body, earth", "Glass, mica, paper, rubber, plastic, porcelain"]
+      ] },
+      { "type": "HEADING", "text": "Free charges and bound charges" },
+      { "type": "TEXT", "text": "In a metal each atom gives up one or more of its outermost electrons. These electrons are not attached to any particular atom; they wander through the whole lattice of positive ions like the molecules of a gas. They are the **free charges** of the conductor. The positive ions themselves stay at their lattice sites. Because free electrons are present everywhere inside, a conductor responds to even a tiny field: the electrons drift until the field inside is cancelled.\n\nIn an insulator the electrons are held tightly by their own atoms or molecules. An applied field can pull the electron cloud of each molecule slightly to one side and the nucleus slightly to the other, or can turn a molecule that is already a dipole, but it cannot carry the charges away. These charges, which can only be displaced locally, are **bound charges**. Their small displacements produce the effect called **polarisation**, described below." },
+      { "type": "DEFINITION", "term": "Free charge", "text": "A charge (such as a conduction electron in a metal, or an ion in an electrolyte) that can move through the whole body of a material under the action of an electric field." },
+      { "type": "DEFINITION", "term": "Bound charge", "text": "A charge that is held within an atom or molecule and can only be displaced through a very small distance (much less than an atomic size) by an electric field; the surface charge that appears on a polarised dielectric is made of bound charges." },
+      { "type": "HEADING", "text": "Electrostatic properties of a conductor" },
+      { "type": "TEXT", "text": "When a conductor is placed in a field, or given a charge, its free charges move for a very short time and then settle. In this state of **electrostatic equilibrium** the following results hold.\n\n1. **The electric field inside the material of a conductor is zero.** If it were not, the free electrons would feel a force and keep moving, so the conductor would not be in equilibrium. In an external field the electrons pile up on one side (leaving positive charge on the other) until the field of these **induced charges** exactly cancels the external field inside.\n2. **The field just outside the surface is normal (perpendicular) to the surface.** A component along the surface would push the free charges along it.\n3. **Any net charge resides only on the outer surface.** Draw a Gaussian surface just inside the conductor's surface. The field on it is zero, so the flux is zero and the enclosed charge is zero. Hence there is no net charge in the interior.\n4. **The whole conductor is at one potential.** Since $E = 0$ inside and E has no component along the surface, no work is done in moving a charge anywhere in or on the conductor: its volume and surface form one equipotential.\n5. **The field just outside is $\\frac{\\sigma}{\\varepsilon_0}$**, where σ is the local surface charge density (apply Gauss's law to a small pillbox half inside the metal).\n6. **A cavity with no charge in it has zero field inside**, whatever charges or fields are outside the conductor. This is **electrostatic shielding**.\n7. On an irregular conductor the charge density, and so the field, is greatest where the surface is most sharply curved (at points and edges)." },
+      { "type": "DIAGRAM", "diagram": "conductor-field" },
+      { "type": "FORMULA", "latex": "\\vec{E}_{\\text{inside}} = 0, \\qquad \\vec{E}_{\\text{surface}} = \\frac{\\sigma}{\\varepsilon_0}\\,\\hat{n}", "text": "σ = local surface charge density (C m⁻²); n̂ = unit vector along the outward normal; ε₀ = 8.85 × 10⁻¹² C² N⁻¹ m⁻². Valid for any conductor in electrostatic equilibrium." },
+      { "type": "SOLVED_PROBLEM", "problem": "A metal sphere of radius 10 cm carries charge spread uniformly with surface density $8.85 \\times 10^{-7}\\,\\text{C m}^{-2}$. Find (a) the field just outside the surface, (b) the field at its centre, (c) the potential of the sphere, which is also the potential at its centre.", "solution": "Step 1 (field just outside): for any conductor, $E = \\frac{\\sigma}{\\varepsilon_0} = \\frac{8.85 \\times 10^{-7}}{8.85 \\times 10^{-12}} = 1.0 \\times 10^{5}\\,\\text{V m}^{-1}$, along the outward normal.\n\nStep 2 (field at the centre): the centre lies inside the conductor, where the field in electrostatic equilibrium is zero.\n\nStep 3 (potential): outside, the sphere acts like a point charge $Q = 4\\pi R^2\\sigma$ at its centre, so at the surface $V = \\frac{Q}{4\\pi\\varepsilon_0 R} = \\frac{\\sigma R}{\\varepsilon_0} = \\frac{(8.85 \\times 10^{-7})(0.10)}{8.85 \\times 10^{-12}} = 1.0 \\times 10^{4}\\,\\text{V}$. Since the whole conductor is one equipotential, the centre is also at this potential, even though the field there is zero.", "answer": "(a) $1.0 \\times 10^{5}$ V m⁻¹; (b) zero; (c) $1.0 \\times 10^{4}$ V everywhere in the sphere." },
+      { "type": "CALLOUT", "text": "**Electrostatic shielding in daily life.** A person inside a car or an aircraft struck by lightning is protected because the metal body acts as a closed conducting shell: the field inside it due to outside charges is zero (the rubber tyres are not the reason). Sensitive instruments are kept in metal boxes for the same reason. Lightning conductors use the opposite effect: charge crowds onto sharp points, the field there becomes very large and the surrounding air is ionised." },
+      { "type": "HEADING", "text": "Dielectrics and electric polarisation" },
+      { "type": "TEXT", "text": "A dielectric has no free charges, yet it changes the field in which it is placed. The reason is that its molecules become **electric dipoles** that line up with the field.\n\n- **Non-polar molecules** (O₂, N₂, H₂, CO₂, CH₄) have the centre of positive charge and the centre of negative charge at the same point, so their dipole moment is zero. In a field the electron cloud is pulled one way and the nuclei the other, giving each molecule a small **induced dipole moment** along the field.\n- **Polar molecules** (H₂O, HCl, NH₃) have a **permanent dipole moment**. Without a field their dipoles point in random directions because of thermal motion, so the material has no net dipole moment. A field produces a torque on each dipole and partly aligns them along the field.\n\nEither way, the dielectric acquires a net dipole moment in the direction of the field: it is **polarised**. Inside the material the neighbouring + and − ends of the dipoles cancel, but on the faces of the dielectric there is uncancelled charge: a layer of negative bound charge on the face where the field enters and positive bound charge on the face where it leaves. These **bound surface charges** ($\\pm\\sigma_p$) produce a field that **opposes** the applied field, so the field inside the dielectric is reduced." },
+      { "type": "DIAGRAM", "diagram": "dielectric-polarisation" },
+      { "type": "DEFINITION", "term": "Polarisation (P)", "text": "The electric dipole moment per unit volume of a dielectric. For most materials (linear, isotropic dielectrics) it is proportional to the field: $\\vec{P} = \\chi_e\\varepsilon_0\\vec{E}$, where $\\chi_e$ is the electric susceptibility (a pure number). SI unit of P: C m⁻², the same as surface charge density. For a uniformly polarised slab, the bound surface charge density equals P." },
+      { "type": "FORMULA", "latex": "\\vec{P} = \\chi_e\\,\\varepsilon_0\\,\\vec{E}, \\qquad K = 1 + \\chi_e, \\qquad E = E_0 - \\frac{\\sigma_p}{\\varepsilon_0} = \\frac{E_0}{K}", "text": "P = polarisation (C m⁻²); χₑ = electric susceptibility (dimensionless); E = net field inside the dielectric; E₀ = applied field; σₚ = bound surface charge density (C m⁻²); K = dielectric constant (relative permittivity), always greater than 1 for a material medium. The last relation holds for a slab placed perpendicular to a uniform field." },
+      { "type": "TABLE", "caption": "Polar and non-polar dielectrics", "columns": ["Feature", "Non-polar molecules", "Polar molecules"], "rows": [
+        ["Dipole moment without a field", "Zero (charge centres coincide)", "Permanent, but randomly oriented"],
+        ["What the field does", "Induces a dipole by separating the charge centres", "Aligns the permanent dipoles (and induces a little extra)"],
+        ["Examples", "O₂, N₂, H₂, CO₂, CH₄", "H₂O, HCl, NH₃, alcohol"],
+        ["Typical dielectric constant", "Small (close to 1 for gases)", "Can be large (water ≈ 80)"]
+      ] },
+      { "type": "TABLE", "caption": "Dielectric constants (approximate, at room temperature)", "columns": ["Medium", "K"], "rows": [
+        ["Vacuum", "1 (exactly)"],
+        ["Air", "1.0006"],
+        ["Paper", "about 3.5"],
+        ["Mica", "about 6"],
+        ["Glass", "5 to 10"],
+        ["Water", "about 80"]
+      ] },
+      { "type": "IMPORTANT_FACT", "text": "Every dielectric can withstand only a certain maximum field before its bound electrons are torn free and it conducts: this is its **dielectric strength** (about $3 \\times 10^{6}\\,\\text{V m}^{-1}$ for dry air). Above it the dielectric breaks down, which is why capacitors carry a maximum working voltage." },
+      { "type": "HEADING", "text": "Capacitors and capacitance" },
+      { "type": "TEXT", "text": "A **capacitor** is a device for storing charge, and with it electrical energy. It consists of two conductors (the plates), close together and separated by an insulator. When it is connected to a battery, charge is moved from one plate to the other, leaving the plates with equal and opposite charges, $+Q$ and $-Q$, and a potential difference V between them. The charge of a capacitor means Q, the charge on its positive plate (the total charge is zero).\n\nDoubling Q doubles the field everywhere between the plates and hence doubles V, so $Q \\propto V$. The constant of proportionality is the **capacitance** C. It depends only on the sizes, shapes and separation of the conductors and on the medium between them, not on Q or V. The circuit symbol is two short parallel lines.\n\nA single isolated conductor also has capacitance, taking the other \"plate\" to be at infinity. For an isolated sphere of radius R, $V = \\frac{Q}{4\\pi\\varepsilon_0 R}$, so $C = 4\\pi\\varepsilon_0 R$." },
+      { "type": "DEFINITION", "term": "Capacitance", "text": "The ratio of the charge Q on either conductor of a capacitor to the potential difference V between the conductors: $C = \\frac{Q}{V}$. SI unit: farad (F), where $1\\,\\text{F} = 1\\,\\text{C V}^{-1}$. Practical units: $1\\,\\mu\\text{F} = 10^{-6}\\,\\text{F}$, $1\\,\\text{nF} = 10^{-9}\\,\\text{F}$, $1\\,\\text{pF} = 10^{-12}\\,\\text{F}$." },
+      { "type": "FORMULA", "latex": "C = \\frac{Q}{V}, \\qquad C_{\\text{sphere}} = 4\\pi\\varepsilon_0 R = \\frac{R}{k}", "text": "C = capacitance (F); Q = charge on the positive plate (C); V = potential difference between the plates (V). For an isolated conducting sphere of radius R (m) in air, C = 4πε₀R, with k = 9 × 10⁹ N m² C⁻²." },
+      { "type": "SOLVED_PROBLEM", "problem": "Find the capacitance of (a) an isolated metal sphere of radius 9 cm, (b) the earth, treated as an isolated conducting sphere of radius $6.4 \\times 10^{6}$ m. What do the answers say about the size of one farad?", "solution": "Step 1 (formula): for an isolated sphere $C = 4\\pi\\varepsilon_0 R = \\frac{R}{k}$, with $k = 9 \\times 10^{9}\\,\\text{N m}^2\\,\\text{C}^{-2}$.\n\nStep 2 (small sphere): $C = \\frac{0.09}{9 \\times 10^{9}} = 1 \\times 10^{-11}\\,\\text{F} = 10\\,\\text{pF}$.\n\nStep 3 (the earth): $C = \\frac{6.4 \\times 10^{6}}{9 \\times 10^{9}} \\approx 7.1 \\times 10^{-4}\\,\\text{F} = 711\\,\\mu\\text{F}$.\n\nStep 4 (comment): even a body as large as the earth has a capacitance far below one farad, so the farad is an enormous unit. Laboratory capacitors are rated in microfarads, nanofarads or picofarads.", "answer": "(a) 10 pF; (b) about 711 μF; one farad is a very large capacitance." },
+      { "type": "HEADING", "text": "Parallel plate capacitor without and with a dielectric medium" },
+      { "type": "TEXT", "text": "**Without a dielectric.** Two large flat conducting plates, each of area A, are placed parallel to each other a small distance d apart in vacuum (or air). One plate carries $+Q$ and the other $-Q$, so the surface charge densities are $\\pm\\sigma$ with $\\sigma = \\frac{Q}{A}$. Because d is small compared with the size of the plates, each plate behaves like an infinite sheet, and the edge effects (fringing) can be ignored.\n\n- **Between the plates** the fields of the two sheets, each $\\frac{\\sigma}{2\\varepsilon_0}$, point the same way (from + to −) and add: $E_0 = \\frac{\\sigma}{\\varepsilon_0} = \\frac{Q}{\\varepsilon_0 A}$, uniform.\n- **Outside the plates** the two fields cancel: $E = 0$.\n\nThe potential difference is field × distance for a uniform field: $V_0 = E_0 d = \\frac{Qd}{\\varepsilon_0 A}$. Therefore\n$$C_0 = \\frac{Q}{V_0} = \\frac{\\varepsilon_0 A}{d}$$\n\n**With a dielectric filling the gap.** Insert a slab of dielectric constant K that fills the space. It becomes polarised, and its bound charges $\\mp\\sigma_p$ appear right next to the plates, partly cancelling the plates' free charge. The field inside is reduced to $E = \\frac{E_0}{K}$, so the potential difference for the same Q becomes $V = \\frac{V_0}{K}$, and the capacitance rises to\n$$C = \\frac{Q}{V} = \\frac{K\\varepsilon_0 A}{d} = KC_0$$\nThis gives a practical definition: **the dielectric constant is the factor by which the capacitance increases when the space between the plates is completely filled with the dielectric**, $K = \\frac{C}{C_0}$." },
+      { "type": "DIAGRAM", "diagram": "parallel-plate" },
+      { "type": "FORMULA", "latex": "C_0 = \\frac{\\varepsilon_0 A}{d}, \\qquad C = \\frac{K\\varepsilon_0 A}{d} = KC_0", "text": "C₀ = capacitance with vacuum (or air) between the plates (F); C = capacitance when the gap is completely filled with a dielectric of constant K; A = area of each plate (m²); d = separation of the plates (m); ε₀ = 8.85 × 10⁻¹² F m⁻¹." },
+      { "type": "FORMULA", "latex": "C = \\frac{\\varepsilon_0 A}{d - t + \\dfrac{t}{K}} \\;\\;(\\text{dielectric slab of thickness } t), \\qquad C = \\frac{\\varepsilon_0 A}{d - t} \\;\\;(\\text{metal slab of thickness } t)", "text": "For a slab of thickness t < d placed parallel to the plates: the gap of width d − t has field E₀, the slab has field E₀/K, so V = E₀(d − t + t/K). A metal slab has zero field inside (K effectively infinite), so it simply reduces the gap to d − t. The position of the slab between the plates does not matter." },
+      { "type": "TABLE", "caption": "Inserting a dielectric slab (constant K) that fills the gap", "columns": ["Quantity", "Battery kept connected (V fixed)", "Battery disconnected first (Q fixed)"], "rows": [
+        ["Capacitance", "Becomes KC₀", "Becomes KC₀"],
+        ["Potential difference", "Stays V₀", "Falls to V₀/K"],
+        ["Charge on the plates", "Rises to KQ₀ (battery supplies more)", "Stays Q₀"],
+        ["Field between the plates", "Stays E₀ = V₀/d", "Falls to E₀/K"],
+        ["Energy stored", "Rises to KU₀", "Falls to U₀/K"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "A parallel plate capacitor has plates of area 0.02 m² separated by 1 mm of air. (a) Find its capacitance. (b) It is charged to 100 V. Find its charge. (c) The battery is disconnected and a dielectric of K = 5 is slid in to fill the gap. Find the new capacitance and potential difference.", "solution": "Step 1 (air capacitor): $C_0 = \\frac{\\varepsilon_0 A}{d} = \\frac{(8.85 \\times 10^{-12})(0.02)}{1 \\times 10^{-3}} = 1.77 \\times 10^{-10}\\,\\text{F} = 177\\,\\text{pF}$.\n\nStep 2 (charge): $Q_0 = C_0V_0 = (1.77 \\times 10^{-10})(100) = 1.77 \\times 10^{-8}\\,\\text{C}$.\n\nStep 3 (with the dielectric): $C = KC_0 = 5 \\times 177 = 885\\,\\text{pF}$.\n\nStep 4 (new voltage): the battery was removed first, so the charge cannot change: $V = \\frac{Q_0}{C} = \\frac{1.77 \\times 10^{-8}}{8.85 \\times 10^{-10}} = 20\\,\\text{V}$, which is $\\frac{V_0}{K}$ as expected.", "answer": "(a) 177 pF; (b) $1.77 \\times 10^{-8}$ C; (c) 885 pF and 20 V." },
+      { "type": "SOLVED_PROBLEM", "problem": "A parallel plate capacitor has plates of area 0.02 m² separated by 4 mm. A dielectric slab of thickness 2 mm and K = 4 is placed between the plates, parallel to them. Find the capacitance with and without the slab.", "solution": "Step 1 (without slab): $C_0 = \\frac{\\varepsilon_0 A}{d} = \\frac{(8.85 \\times 10^{-12})(0.02)}{0.004} = 4.425 \\times 10^{-11}\\,\\text{F} \\approx 44.3\\,\\text{pF}$.\n\nStep 2 (effective gap with slab): $d - t + \\frac{t}{K} = 0.004 - 0.002 + \\frac{0.002}{4} = 0.002 + 0.0005 = 0.0025\\,\\text{m}$. The slab behaves like an air gap only a quarter of its real thickness.\n\nStep 3 (capacitance with slab): $C = \\frac{\\varepsilon_0 A}{0.0025} = \\frac{1.77 \\times 10^{-13}}{0.0025} = 7.08 \\times 10^{-11}\\,\\text{F} \\approx 70.8\\,\\text{pF}$, an increase by a factor of 1.6 (less than K, because the slab fills only half the gap).", "answer": "Without the slab about 44.3 pF; with the slab about 70.8 pF." },
+      { "type": "CALLOUT", "text": "**Common mistakes with parallel plate capacitors.**\n\n- Using the field of one sheet, $\\frac{\\sigma}{2\\varepsilon_0}$, between the plates. Between oppositely charged plates the field is $\\frac{\\sigma}{\\varepsilon_0}$.\n- Forgetting to convert mm to m or cm² to m² (1 cm² = $10^{-4}$ m²).\n- Not checking whether the battery is still connected before deciding what stays constant: connected means V constant; disconnected means Q constant.\n- Thinking capacitance depends on Q or V. It depends only on A, d and K." },
+      { "type": "HEADING", "text": "Combination of capacitors in series and in parallel" },
+      { "type": "TEXT", "text": "**Series combination.** Capacitors are joined one after another, so the same path runs through all of them. When a potential difference V is applied, the battery puts $+Q$ on the first plate; this induces $-Q$ on the facing plate, which leaves $+Q$ on the next plate, and so on. Hence **every capacitor in series carries the same charge Q**. The potential differences add:\n$$V = V_1 + V_2 + V_3 = \\frac{Q}{C_1} + \\frac{Q}{C_2} + \\frac{Q}{C_3}$$\nDefining the equivalent capacitance by $V = \\frac{Q}{C}$ gives $\\frac{1}{C} = \\frac{1}{C_1} + \\frac{1}{C_2} + \\frac{1}{C_3}$. The series combination is **smaller than the smallest** capacitor, and the largest capacitor takes the smallest share of the voltage ($V_i = \\frac{Q}{C_i}$). For two capacitors, $C = \\frac{C_1C_2}{C_1 + C_2}$.\n\n**Parallel combination.** Each capacitor is connected directly across the same two points, so **every capacitor has the same potential difference V**. Their charges add:\n$$Q = Q_1 + Q_2 + Q_3 = C_1V + C_2V + C_3V$$\nso $C = C_1 + C_2 + C_3$. The parallel combination is **larger than the largest** capacitor, and the charge divides in proportion to capacitance.\n\nFor n identical capacitors C: in series $\\frac{C}{n}$, in parallel $nC$; the ratio of parallel to series is $n^2$." },
+      { "type": "DIAGRAM", "diagram": "combinations" },
+      { "type": "FORMULA", "latex": "\\frac{1}{C_{\\text{series}}} = \\frac{1}{C_1} + \\frac{1}{C_2} + \\dots + \\frac{1}{C_n}, \\qquad C_{\\text{parallel}} = C_1 + C_2 + \\dots + C_n", "text": "Equivalent capacitance of capacitors C₁, C₂, …, Cₙ (F). Series: same charge on each, voltages add. Parallel: same voltage across each, charges add. (Note that these rules are the reverse of those for resistors.)" },
+      { "type": "TABLE", "caption": "Series and parallel combinations of capacitors", "columns": ["Feature", "Series", "Parallel"], "rows": [
+        ["Common quantity", "Charge Q", "Potential difference V"],
+        ["Quantity that adds", "Potential differences", "Charges"],
+        ["Equivalent capacitance", "1/C = Σ 1/Cᵢ (less than the smallest)", "C = Σ Cᵢ (more than the largest)"],
+        ["Division", "Vᵢ = Q/Cᵢ: smallest C gets the largest V", "Qᵢ = CᵢV: largest C gets the largest Q"],
+        ["Use", "To share a high voltage among capacitors", "To obtain a large capacitance"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "Capacitors of 2 μF and 3 μF are connected in series, and this pair is connected in parallel with a 4 μF capacitor. The network is connected to a 10 V battery. Find the equivalent capacitance, the total charge drawn, and the charge on and voltage across each capacitor.", "solution": "Step 1 (series pair): $C_s = \\frac{2 \\times 3}{2 + 3} = 1.2\\,\\mu\\text{F}$.\n\nStep 2 (whole network): the pair is in parallel with 4 μF, so $C = 1.2 + 4 = 5.2\\,\\mu\\text{F}$.\n\nStep 3 (total charge): $Q = CV = 5.2 \\times 10 = 52\\,\\mu\\text{C}$.\n\nStep 4 (4 μF branch): it has the full 10 V across it, so $Q_4 = 4 \\times 10 = 40\\,\\mu\\text{C}$.\n\nStep 5 (series branch): it also has 10 V across it and carries $Q_s = 1.2 \\times 10 = 12\\,\\mu\\text{C}$ on each capacitor. Voltages: $V_2 = \\frac{12}{2} = 6\\,\\text{V}$ and $V_3 = \\frac{12}{3} = 4\\,\\text{V}$, which add to 10 V as they must. Check: $40 + 12 = 52\\,\\mu\\text{C}$.", "answer": "5.2 μF; 52 μC in total; 4 μF: 40 μC at 10 V; 2 μF and 3 μF: 12 μC each, at 6 V and 4 V." },
+      { "type": "HEADING", "text": "Energy stored in a capacitor" },
+      { "type": "TEXT", "text": "Charging a capacitor means carrying charge from one plate to the other against the growing potential difference between them, and this work is stored as **electrostatic potential energy**.\n\nSuppose that at some stage the capacitor holds charge q, so the potential difference is $v = \\frac{q}{C}$. Transferring a further small charge dq needs work $dW = v\\,dq = \\frac{q}{C}dq$. Charging from 0 to Q needs\n$$W = \\int_0^Q \\frac{q}{C}\\,dq = \\frac{Q^2}{2C}$$\nThis is the stored energy U. Using $Q = CV$, it can be written in three equivalent forms. On a graph of charge against potential difference (a straight line through the origin of slope C), the energy is the area of the triangle between the line and the charge axis, $\\frac{1}{2}QV$. Note that a battery that charges a capacitor supplies energy QV, but only half of it is stored; the other half is dissipated as heat (and radiation) in the connecting wires, whatever their resistance." },
+      { "type": "FORMULA", "latex": "U = \\frac{Q^2}{2C} = \\frac{1}{2}CV^2 = \\frac{1}{2}QV", "text": "U = energy stored (J); Q = charge (C); V = potential difference (V); C = capacitance (F). Use Q²/2C when Q is fixed (isolated capacitor) and ½CV² when V is fixed (battery connected)." },
+      { "type": "DIAGRAM", "diagram": "energy-graph" },
+      { "type": "TEXT", "text": "**Where is the energy? Energy density of the field.** For a parallel plate capacitor, $U = \\frac{1}{2}CV^2 = \\frac{1}{2}\\frac{\\varepsilon_0 A}{d}(Ed)^2 = \\frac{1}{2}\\varepsilon_0E^2(Ad)$. Since Ad is the volume of the region between the plates where the field exists, the energy per unit volume is $u = \\frac{1}{2}\\varepsilon_0E^2$. This result is general: wherever there is an electric field, there is stored energy with this density. In a dielectric it becomes $\\frac{1}{2}K\\varepsilon_0E^2$.\n\n**Sharing charge between two capacitors.** If a capacitor $C_1$ charged to $V_1$ is joined (+ to +) to a capacitor $C_2$ at $V_2$, charge flows until both have the same potential. Charge is conserved, so the common potential is $V = \\frac{C_1V_1 + C_2V_2}{C_1 + C_2}$. Energy is **not** conserved in the capacitors: the loss is $\\Delta U = \\frac{C_1C_2(V_1 - V_2)^2}{2(C_1 + C_2)}$, which appears as heat and radiation in the connecting wires." },
+      { "type": "FORMULA", "latex": "u = \\frac{1}{2}\\varepsilon_0 E^2, \\qquad V_{\\text{common}} = \\frac{C_1V_1 + C_2V_2}{C_1 + C_2}, \\qquad \\Delta U = \\frac{C_1C_2(V_1 - V_2)^2}{2(C_1 + C_2)}", "text": "u = energy density of the electric field (J m⁻³); E = field (V m⁻¹). V_common = potential after two capacitors are joined plate to plate (like-signed plates together); ΔU = energy lost in the process (J)." },
+      { "type": "SOLVED_PROBLEM", "problem": "(a) A 4 μF capacitor is charged to 200 V. Find its charge and stored energy. (b) Find the energy density in a region where the electric field is $1 \\times 10^{6}\\,\\text{V m}^{-1}$ in air.", "solution": "Step 1 (charge): $Q = CV = (4 \\times 10^{-6})(200) = 8 \\times 10^{-4}\\,\\text{C}$.\n\nStep 2 (energy): $U = \\frac{1}{2}CV^2 = \\frac{1}{2}(4 \\times 10^{-6})(200)^2 = \\frac{1}{2}(4 \\times 10^{-6})(4 \\times 10^{4}) = 0.08\\,\\text{J}$. As a check, $\\frac{1}{2}QV = \\frac{1}{2}(8 \\times 10^{-4})(200) = 0.08\\,\\text{J}$.\n\nStep 3 (energy density): $u = \\frac{1}{2}\\varepsilon_0E^2 = \\frac{1}{2}(8.85 \\times 10^{-12})(1 \\times 10^{6})^2 = 4.4\\,\\text{J m}^{-3}$, so every cubic metre of space with this field stores about 4.4 J.", "answer": "(a) $8 \\times 10^{-4}$ C and 0.08 J; (b) about 4.4 J m⁻³." },
+      { "type": "SOLVED_PROBLEM", "problem": "A 2 μF capacitor charged to 100 V is disconnected from the supply and then connected across an uncharged 3 μF capacitor. Find the common potential and the energy lost.", "solution": "Step 1 (charge available): $Q = C_1V_1 = (2 \\times 10^{-6})(100) = 2 \\times 10^{-4}\\,\\text{C}$. Charge is conserved when the capacitors are joined.\n\nStep 2 (common potential): the total capacitance is now $5\\,\\mu\\text{F}$, so $V = \\frac{2 \\times 10^{-4}}{5 \\times 10^{-6}} = 40\\,\\text{V}$.\n\nStep 3 (energies): before, $U_i = \\frac{1}{2}(2 \\times 10^{-6})(100)^2 = 0.010\\,\\text{J}$. After, $U_f = \\frac{1}{2}(5 \\times 10^{-6})(40)^2 = 0.004\\,\\text{J}$.\n\nStep 4 (loss): $\\Delta U = 0.010 - 0.004 = 0.006\\,\\text{J}$. The formula gives the same: $\\frac{(2)(3) \\times 10^{-12}(100)^2}{2(5 \\times 10^{-6})} = 0.006\\,\\text{J}$. The lost energy is dissipated in the connecting wires.", "answer": "Common potential 40 V; energy lost 0.006 J (6 mJ)." },
+      { "type": "HEADING", "text": "Revision summary" },
+      { "type": "TABLE", "caption": "Formula sheet for this lesson", "columns": ["Quantity", "Formula", "Remarks"], "rows": [
+        ["Field at a conductor", "E = 0 inside; σ/ε₀ just outside, normal", "Charge on the outer surface; conductor is an equipotential"],
+        ["Polarisation", "P = χₑε₀E; K = 1 + χₑ", "Bound charges reduce the field: E = E₀/K"],
+        ["Capacitance", "C = Q/V", "Unit farad; depends on geometry and medium only"],
+        ["Isolated sphere", "C = 4πε₀R", "Earth ≈ 711 μF"],
+        ["Parallel plate", "C₀ = ε₀A/d; C = Kε₀A/d", "With dielectric filling the gap"],
+        ["Partial slab", "C = ε₀A/(d − t + t/K)", "Metal slab: ε₀A/(d − t)"],
+        ["Series", "1/C = Σ 1/Cᵢ", "Same Q"],
+        ["Parallel", "C = Σ Cᵢ", "Same V"],
+        ["Energy", "U = Q²/2C = ½CV² = ½QV", "Energy density u = ½ε₀E²"]
+      ] },
+      { "type": "KEY_POINT", "text": "- Conductors have free charges; insulators (dielectrics) have only bound charges.\n- In electrostatic equilibrium a conductor has zero field inside, all excess charge on its outer surface, a surface field $\\frac{\\sigma}{\\varepsilon_0}$ normal to it, and the same potential throughout.\n- A dielectric in a field becomes polarised; its bound surface charges reduce the field inside by the factor K.\n- $C = \\frac{Q}{V}$; parallel plates: $C = \\frac{K\\varepsilon_0A}{d}$.\n- Series: same Q, $\\frac{1}{C} = \\sum\\frac{1}{C_i}$. Parallel: same V, $C = \\sum C_i$.\n- Stored energy $U = \\frac{1}{2}CV^2$; it resides in the field with density $\\frac{1}{2}\\varepsilon_0E^2$." },
+      { "type": "CALLOUT", "text": "**Exam shortcuts.**\n\n- Two capacitors in series: $C = \\frac{C_1C_2}{C_1 + C_2}$ (product over sum).\n- Disconnected capacitor (Q fixed): increasing d or removing a dielectric increases V and U. Connected capacitor (V fixed): inserting a dielectric increases Q and U by K.\n- Joining a charged capacitor to an identical uncharged one halves the voltage and loses half the energy.\n- Metal slab of thickness t: replace d by d − t. Dielectric slab: replace d by $d - t + \\frac{t}{K}$." }
+    ]
+  },
+  "diagrams": [
+    { "key": "conductor-field", "file": "diagrams/ug26-322-u1-capacitors-conductor-field.svg", "alt": "Conducting sphere in a uniform field pointing right: computed field lines bend to meet its left surface at right angles and leave the right surface at right angles; negative induced charges on the left, positive on the right, and E = 0 inside", "caption": "A conductor in an external electric field: induced surface charges make the field inside zero", "description": "Horizontal field lines with arrows pointing right approach a grey conducting sphere from the left. Near the sphere the lines curve so that they meet its surface at right angles, ending on a layer of negative induced charge on the left surface. Matching lines start at right angles from positive induced charge on the right surface and continue to the right. The lines passing above and below the sphere bend towards it. Inside the sphere is the label E = 0. The notes explain that free electrons shift to the left surface." },
+    { "key": "dielectric-polarisation", "file": "diagrams/ug26-322-u1-capacitors-polarisation.svg", "alt": "Dielectric slab in an applied field pointing right, with rows of molecular dipoles aligned minus-left plus-right, a negative bound charge layer on the left face and a positive layer on the right face, and arrows showing the net field reduced to E0 over K", "caption": "Polarisation of a dielectric: aligned dipoles leave bound charges −σₚ and +σₚ on the faces", "description": "Field lines of the applied field E0 point to the right on both sides of a rectangular dielectric slab. Inside, twenty small molecular dipoles are drawn as ellipses with a minus sign on the left and a plus sign on the right, all aligned with the field. The left face is marked minus sigma p and the right face plus sigma p, the bound surface charges. Below, three arrows compare a long blue arrow for the applied field E0 pointing right, a red arrow for the field of the bound charges pointing left, and a shorter green arrow for the net field E = E0/K pointing right." },
+    { "key": "parallel-plate", "file": "diagrams/ug26-322-u1-capacitors-parallel-plate.svg", "alt": "Two panels of a parallel plate capacitor with plates +Q and -Q a distance d apart: with air, many uniform field lines between the plates and zero field outside; with a dielectric filling the gap, fewer field lines and bound charges next to the plates", "caption": "Parallel plate capacitor without and with a dielectric between the plates", "description": "Panel (a): a red plate with charge +Q on the left and a blue plate with charge -Q on the right, separated by d. Seven equally spaced horizontal field lines point from the positive to the negative plate; outside the plates the field is marked zero. The formulas E0 = sigma over epsilon nought and C0 = epsilon nought A over d are given. Panel (b): the same plates with the gap filled by a dielectric slab of constant K. Negative bound charges appear next to the positive plate and positive bound charges next to the negative plate; only three field lines cross the gap, showing E = E0/K, and C = K epsilon nought A over d." },
+    { "key": "combinations", "file": "diagrams/ug26-322-u1-capacitors-combinations.svg", "alt": "Circuit diagrams of three capacitors C1, C2, C3 in series with a battery V, each carrying +Q and -Q, and three capacitors in parallel across a battery V with charges Q1, Q2, Q3", "caption": "Capacitors in series (same charge) and in parallel (same potential difference)", "description": "Left: a battery V drives a single loop containing capacitors C1, C2 and C3 one after another; each has +Q on its left plate and -Q on its right plate, with voltages V1, V2 and V3. The notes give V = V1 + V2 + V3 and 1/C = 1/C1 + 1/C2 + 1/C3. Right: a battery V is connected across three capacitors C1, C2 and C3 on separate rungs between the same two rails, with charges Q1, Q2 and Q3. The notes give Q = Q1 + Q2 + Q3 and C = C1 + C2 + C3." },
+    { "key": "energy-graph", "file": "diagrams/ug26-322-u1-capacitors-energy-graph.svg", "alt": "Graph of charge q against potential difference v for a capacitor: a straight line of slope C through the origin, with the triangle between the line and the charge axis shaded to show the stored energy one half QV", "caption": "Charging a capacitor: the shaded area ½QV is the stored energy", "description": "The horizontal axis is potential difference v in volts and the vertical axis is charge q in coulombs. A red straight line q = Cv rises from the origin with slope C to the point (V, Q). The triangle between this line and the charge axis, up to height Q, is shaded; its area is one half QV, the energy U. A thin horizontal strip at height q, reaching from the charge axis to the line, has area v dq, the work needed to add a small charge dq." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u1-capacitors-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In electrostatic equilibrium, what is the electric field inside the material of a conductor?",
+      "options": ["equal to the field just outside the conductor", "directed along the surface of the conductor", "zero", "σ/ε₀, where σ is the surface charge density"],
+      "answer": 3,
+      "explanation": "A conductor has free electrons everywhere inside it. If there were any field inside, these electrons would feel a force and keep moving, so the conductor could not be in equilibrium. The free charges therefore rearrange themselves on the surface until their field exactly cancels any applied field inside, leaving zero field in the material.",
+      "optionRationale": { "1": "The field outside is not zero in general, but inside it must vanish.", "2": "A field along the surface would make charges move, so it cannot exist in equilibrium.", "4": "σ/ε₀ is the field just outside the surface, not inside." },
+      "objective": "State the field inside a conductor in electrostatic equilibrium"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q02", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about free and bound charges.\nA. In a metal, conduction electrons can move throughout the material.\nB. In an insulator, electrons are bound to their atoms or molecules and can only be displaced slightly by a field.\nC. Bound charges in a dielectric can flow through it to form a steady current.\nD. When a dielectric is placed in a field, its bound charges shift slightly and the dielectric becomes polarised.\nWhich statements are correct?",
+      "options": ["A, B and D only", "A and C only", "B, C and D only", "A, B, C and D"],
+      "answer": 1,
+      "explanation": "A is true: conduction electrons in a metal are free charges. B is true: in insulators the charges are bound and only shift by tiny distances. D is true: these small shifts give the dielectric a dipole moment, which is polarisation. C is false: bound charges cannot travel through the material, so they cannot carry a steady current. Hence A, B and D only.",
+      "optionRationale": { "2": "C is false, and B and D, which are true, are left out.", "3": "C is false, and A is true.", "4": "C is false, so all four cannot be correct." },
+      "objective": "Distinguish free charges from bound charges"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q03", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): Any excess charge given to an isolated conductor resides entirely on its outer surface.\nReason (R): The field inside a conductor in electrostatic equilibrium is zero, so a Gaussian surface drawn just inside its surface encloses no net charge.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Inside the material of the conductor the field is zero, so the flux through any closed surface drawn entirely within the material is zero. By Gauss's law the charge enclosed must then be zero, wherever the surface is drawn. So there can be no net charge in the interior, and the excess charge must sit on the outer surface. R gives exactly this argument.",
+      "optionRationale": { "2": "R is the Gauss's-law argument that proves A, so it is the explanation.", "3": "R is true; the field inside a conductor is zero in equilibrium.", "4": "A is true; the excess charge resides on the outer surface." },
+      "objective": "Use Gauss's law to locate the charge on a conductor"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q04", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "A charged conductor has surface charge density σ at a certain point of its surface. What is the electric field just outside the conductor at that point?",
+      "options": ["σ/2ε₀, normal to the surface", "σ/ε₀, normal to the surface", "σ/ε₀, along the surface", "zero"],
+      "answer": 2,
+      "explanation": "Apply Gauss's law to a small pillbox half inside the conductor. No flux passes through the inner face because the field inside is zero, and none passes through the sides because the field outside has no component along the surface. So $EA = \\frac{\\sigma A}{\\varepsilon_0}$, giving $E = \\frac{\\sigma}{\\varepsilon_0}$, directed along the normal to the surface.",
+      "optionRationale": { "1": "σ/2ε₀ is the field of an isolated thin sheet, where flux leaves through both faces.", "3": "In equilibrium the field at a conductor's surface has no component along the surface.", "4": "The field is zero inside the conductor, not just outside a charged surface." },
+      "objective": "Find the field just outside a charged conductor"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q05", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A metal sphere of radius 10 cm has a uniform surface charge density of 8.85 × 10⁻⁷ C m⁻². What is the electric potential at the centre of the sphere?",
+      "options": ["zero", "10⁵ V", "10⁴ V", "5 × 10³ V"],
+      "answer": 3,
+      "explanation": "A conductor in equilibrium is an equipotential, so the centre has the same potential as the surface. Outside, the sphere acts like a point charge $Q = 4\\pi R^2\\sigma$ at its centre, so the surface potential is $V = \\frac{Q}{4\\pi\\varepsilon_0R} = \\frac{\\sigma R}{\\varepsilon_0} = \\frac{(8.85 \\times 10^{-7})(0.1)}{8.85 \\times 10^{-12}} = 10^{4}\\,\\text{V}$. The field at the centre is zero, but the potential is not.",
+      "optionRationale": { "1": "The field at the centre is zero, but the potential equals the surface potential, which is not zero.", "2": "10⁵ is the field just outside in V m⁻¹, not the potential.", "4": "There is no factor of one half; the potential is σR/ε₀." },
+      "objective": "Relate the potential of a charged conductor to its surface charge density"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q06", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "application",
+      "stem": "A person sitting inside a closed metal car is safe from the strong electric fields of a nearby lightning strike mainly because",
+      "options": ["the field inside a closed conducting shell due to outside charges is zero", "rubber tyres are good insulators", "metal absorbs electric charge", "the car battery cancels the outside field"],
+      "answer": 1,
+      "explanation": "The metal body of the car is a closed conducting shell. Free charges in it rearrange on its outer surface so that the field inside the cavity due to outside charges is zero. This is electrostatic shielding. The tyres are not the reason; a lightning discharge easily crosses a few centimetres of rubber.",
+      "optionRationale": { "2": "A lightning discharge can easily cross the tyres; they are not what protects the occupants.", "3": "Metal does not absorb charge; the charge simply rearranges on its outer surface.", "4": "A car battery has nothing to do with screening external fields." },
+      "objective": "Explain electrostatic shielding"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q07", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "On an irregularly shaped charged conductor in electrostatic equilibrium, where is the surface charge density greatest?",
+      "options": ["where the surface is flattest", "at sharp points and edges, where the curvature is greatest", "it is uniform over the whole surface", "on the inner surface of any empty cavity"],
+      "answer": 2,
+      "explanation": "The whole conductor is at one potential. A sharply curved region behaves like a small sphere, and for the same potential a small sphere needs a larger charge density, because $V = \\frac{\\sigma R}{\\varepsilon_0}$ gives $\\sigma \\propto \\frac{1}{R}$. So charge crowds onto points and edges, where the field also becomes strongest.",
+      "optionRationale": { "1": "Flat regions have the smallest curvature and the lowest charge density.", "3": "The density is uniform only for a sphere, not for an irregular shape.", "4": "An empty cavity has no charge on its inner surface at all." },
+      "objective": "Relate surface charge density to curvature on a conductor"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q08", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which one of the following is made of polar molecules, which have a permanent electric dipole moment?",
+      "options": ["Oxygen (O₂)", "Carbon dioxide (CO₂)", "Water (H₂O)", "Nitrogen (N₂)"],
+      "answer": 3,
+      "explanation": "In a water molecule the two O–H bonds are at an angle of about 104°, so the centre of positive charge and the centre of negative charge do not coincide. The molecule therefore has a permanent dipole moment. In O₂, N₂ and the linear CO₂ molecule, the charge centres coincide by symmetry, so their dipole moment is zero.",
+      "optionRationale": { "1": "O₂ is symmetric, so its charge centres coincide and it is non-polar.", "2": "CO₂ is linear and symmetric; its two bond dipoles cancel.", "4": "N₂ is a symmetric diatomic molecule with zero dipole moment." },
+      "objective": "Distinguish polar from non-polar molecules"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q09", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A slab of dielectric constant 3 is placed perpendicular to a uniform electric field of 6 × 10⁴ V m⁻¹. What is the electric field inside the slab?",
+      "options": ["6 × 10⁴ V m⁻¹", "1.8 × 10⁵ V m⁻¹", "zero", "2 × 10⁴ V m⁻¹"],
+      "answer": 4,
+      "explanation": "The slab becomes polarised, and the bound charges on its faces produce a field opposing the applied field. The net field inside is reduced by the factor K: $E = \\frac{E_0}{K} = \\frac{6 \\times 10^{4}}{3} = 2 \\times 10^{4}\\,\\text{V m}^{-1}$. It is reduced but not zero, because a dielectric has no free charges to cancel the field completely.",
+      "optionRationale": { "1": "This ignores the polarisation of the dielectric.", "2": "The field inside a dielectric is reduced, not increased.", "3": "Only a conductor makes the internal field zero." },
+      "objective": "Calculate the field inside a dielectric"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q10", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): A dielectric slab placed in an external electric field reduces the field inside it.\nReason (R): The free electrons of the dielectric move to its surfaces and completely cancel the field inside.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "A is true: the field inside becomes $\\frac{E_0}{K}$. R is false on two counts: a dielectric has no free electrons, only bound charges that shift slightly; and the field inside is reduced, not cancelled. Complete cancellation by free electrons is what happens in a conductor, not in a dielectric.",
+      "optionRationale": { "1": "R is false, so it cannot explain A.", "2": "R is not true; dielectrics have bound, not free, charges.", "4": "A is true; a dielectric does reduce the field inside it." },
+      "objective": "Explain the reduction of field in a dielectric through bound charges"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q11", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A dielectric has an electric susceptibility of 3. A slab of it is placed perpendicular to a uniform field of 8 × 10⁴ V m⁻¹. What are its dielectric constant and the field inside it?",
+      "options": ["3 and 2.67 × 10⁴ V m⁻¹", "4 and 3.2 × 10⁵ V m⁻¹", "2 and 4 × 10⁴ V m⁻¹", "4 and 2 × 10⁴ V m⁻¹"],
+      "answer": 4,
+      "explanation": "The dielectric constant is one more than the electric susceptibility, so $K = 1 + \\chi_e = 1 + 3 = 4$. When the slab is placed across the field, its bound surface charges oppose the applied field and reduce it by exactly this factor. The field inside is therefore $E = \\frac{E_0}{K} = \\frac{8 \\times 10^{4}}{4} = 2 \\times 10^{4}\\,\\text{V m}^{-1}$, a quarter of the applied field.",
+      "optionRationale": { "1": "This takes K equal to the susceptibility; in fact K = 1 + χ.", "2": "K is right, but the field inside is divided by K, not multiplied.", "3": "K = 1 + χ = 4, not 2." },
+      "objective": "Relate susceptibility, dielectric constant and the field in a dielectric"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q12", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each quantity in List-I with its SI unit in List-II.",
+      "list": { "left": ["A. Capacitance", "B. Polarisation", "C. Dielectric constant", "D. Energy density of an electric field"], "right": ["I. J m⁻³", "II. C m⁻²", "III. No unit (a pure number)", "IV. C V⁻¹ (farad)"] },
+      "options": ["A-IV, B-II, C-III, D-I", "A-II, B-IV, C-III, D-I", "A-IV, B-I, C-III, D-II", "A-III, B-II, C-IV, D-I"],
+      "answer": 1,
+      "explanation": "Capacitance is charge per volt, the farad (A-IV). Polarisation is dipole moment per unit volume, C m divided by m³, which is C m⁻² (B-II). Dielectric constant is a ratio of permittivities, a pure number (C-III). Energy density is energy per unit volume, J m⁻³ (D-I).",
+      "optionRationale": { "2": "This swaps capacitance and polarisation.", "3": "This swaps polarisation and energy density.", "4": "Capacitance has a unit (the farad); the dielectric constant does not." },
+      "objective": "Recall the units of quantities in this lesson"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q13", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The capacitance of a capacitor depends on",
+      "options": ["the charge given to it", "the potential difference across it", "the size, shape and separation of its conductors and the medium between them", "the metal from which the plates are made"],
+      "answer": 3,
+      "explanation": "Capacitance is defined as $C = \\frac{Q}{V}$, but Q and V always change together in the same proportion, so their ratio is fixed by the arrangement. For parallel plates, $C = \\frac{K\\varepsilon_0A}{d}$: it depends on the area, the separation and the dielectric constant of the medium, not on the charge, the voltage or which metal is used.",
+      "optionRationale": { "1": "Doubling Q doubles V, so the ratio C is unchanged.", "2": "Doubling V doubles Q, so C is unchanged.", "4": "Any metal acts as an equipotential conductor; its type does not enter the formula." },
+      "objective": "Identify what capacitance depends on"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q14", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "What is the capacitance of an isolated conducting sphere of radius 18 cm in air?",
+      "options": ["2 pF", "20 pF", "200 pF", "0.2 μF"],
+      "answer": 2,
+      "explanation": "An isolated sphere with charge Q has the same potential as a point charge at its centre, $V = \\frac{Q}{4\\pi\\varepsilon_0R}$. Its capacitance is therefore $C = \\frac{Q}{V} = 4\\pi\\varepsilon_0R = \\frac{R}{k}$, which depends only on the radius. Substituting the radius in metres, $C = \\frac{0.18}{9 \\times 10^{9}} = 2 \\times 10^{-11}\\,\\text{F}$. Since one picofarad is a millionth of a millionth of a farad, this is 20 pF.",
+      "optionRationale": { "1": "2 pF is ten times too small; check the power of ten.", "3": "200 pF is ten times too large.", "4": "0.2 μF is 10⁴ times too large." },
+      "objective": "Calculate the capacitance of an isolated sphere"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q15", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "A 5 μF capacitor is connected across a 12 V battery. How much charge is stored on its positive plate?",
+      "options": ["60 μC", "2.4 μC", "0.42 μC", "17 μC"],
+      "answer": 1,
+      "explanation": "From the definition of capacitance, $Q = CV = (5\\,\\mu\\text{F})(12\\,\\text{V}) = 60\\,\\mu\\text{C}$. The negative plate carries an equal charge of −60 μC, so the total charge of the capacitor is zero; we always quote the charge on the positive plate.",
+      "optionRationale": { "2": "2.4 μC divides V by C instead of multiplying.", "3": "0.42 μC divides C by V.", "4": "17 μC adds C and V, which is dimensionally meaningless." },
+      "objective": "Use Q = CV"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q16", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "A parallel plate capacitor has plates of area 0.1 m² separated by 0.885 mm of air. What is its capacitance?",
+      "options": ["10 nF", "0.1 nF", "1 μF", "1 nF"],
+      "answer": 4,
+      "explanation": "For a parallel plate capacitor with air between the plates, the capacitance is the permittivity of free space times the plate area divided by the separation. First convert the separation to metres (0.885 mm is $0.885 \\times 10^{-3}$ m), then substitute: $C = \\frac{\\varepsilon_0A}{d} = \\frac{(8.85 \\times 10^{-12})(0.1)}{0.885 \\times 10^{-3}} = \\frac{8.85 \\times 10^{-13}}{8.85 \\times 10^{-4}} = 1 \\times 10^{-9}\\,\\text{F}$, which is one nanofarad.",
+      "optionRationale": { "1": "10 nF results from a power-of-ten slip in converting 0.885 mm.", "2": "0.1 nF results from using 8.85 mm instead of 0.885 mm.", "3": "1 μF is a thousand times too large." },
+      "objective": "Calculate the capacitance of a parallel plate capacitor"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q17", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "A parallel plate capacitor has capacitance C. If the separation between its plates is doubled and the area of each plate is halved, the new capacitance is",
+      "options": ["C", "4C", "C/4", "C/2"],
+      "answer": 3,
+      "explanation": "The capacitance is $C = \\frac{\\varepsilon_0A}{d}$, so it is proportional to the area and inversely proportional to the separation. Halving A multiplies C by one half, and doubling d multiplies it by one half again. The new capacitance is $\\frac{1}{2} \\times \\frac{1}{2} \\times C = \\frac{C}{4}$.",
+      "optionRationale": { "1": "The two changes do not cancel; both reduce C.", "2": "This treats C as proportional to d, which is wrong.", "4": "This includes only one of the two changes." },
+      "objective": "Use proportional reasoning with C = ε₀A/d"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q18", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A parallel plate capacitor remains connected to a battery while a dielectric slab of constant K is inserted to fill the space between its plates.\nA. The charge on the plates becomes K times larger.\nB. The potential difference between the plates stays the same.\nC. The energy stored in the capacitor decreases.\nD. The electric field between the plates stays the same.\nWhich statements are correct?",
+      "options": ["A and B only", "A, B and D only", "B, C and D only", "A, B, C and D"],
+      "answer": 2,
+      "explanation": "With the battery connected, V is fixed (B true). The capacitance becomes KC₀, so the charge Q = CV becomes K times larger (A true). The field between the plates is V/d, which is unchanged (D true). The energy ½CV² becomes K times larger, so C is false. Hence A, B and D only.",
+      "optionRationale": { "1": "D is also true: E = V/d and both V and d are unchanged.", "3": "C is false (energy increases) and A is true.", "4": "C is false, so all four cannot be correct." },
+      "objective": "Analyse the effect of a dielectric on a capacitor connected to a battery"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q19", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A parallel plate capacitor has plates of area 0.01 m² separated by 6 mm of air. A dielectric slab of thickness 3 mm and dielectric constant 3 is placed between the plates, parallel to them. What is the new capacitance?",
+      "options": ["14.8 pF", "44.3 pF", "22.1 pF", "29.5 pF"],
+      "answer": 3,
+      "explanation": "Inside the slab the field is reduced by the factor K, so the slab behaves like an air gap of only t/K. The effective air gap is therefore $d - t + \\frac{t}{K} = 0.006 - 0.003 + \\frac{0.003}{3} = 0.004\\,\\text{m}$. So $C = \\frac{\\varepsilon_0A}{0.004} = \\frac{(8.85 \\times 10^{-12})(0.01)}{0.004} = 2.21 \\times 10^{-11}\\,\\text{F}$, about 22.1 pF. Without the slab it would be only about 14.8 pF.",
+      "optionRationale": { "1": "14.8 pF is the capacitance without the slab.", "2": "44.3 pF assumes the dielectric fills the whole gap (K times C₀).", "4": "29.5 pF treats the slab as if it were a conductor, reducing the gap to d − t." },
+      "objective": "Calculate the capacitance with a partially filling dielectric slab"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q20", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "A parallel plate air capacitor has capacitance C₀ and plate separation d. An uncharged metal slab of thickness d/2 is inserted between the plates, parallel to them, without touching them. What is the new capacitance?",
+      "options": ["2C₀", "C₀/2", "C₀", "infinitely large"],
+      "answer": 1,
+      "explanation": "The field inside a metal is zero, so there is no potential drop across the slab; only the remaining air gap of $d - \\frac{d}{2} = \\frac{d}{2}$ contributes. The capacitance becomes $\\frac{\\varepsilon_0A}{d/2} = \\frac{2\\varepsilon_0A}{d} = 2C_0$, whatever the slab's position between the plates.",
+      "optionRationale": { "2": "A metal slab reduces the effective gap, which increases C, not decreases it.", "3": "The slab does change the capacitance by removing part of the gap.", "4": "C becomes infinite only if the slab touches both plates, shorting them." },
+      "objective": "Find the effect of a metal slab on capacitance"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q21", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The capacitance of a parallel plate capacitor increases when a dielectric slab is inserted between its plates.\nReason (R): The polarised dielectric reduces the field between the plates, so a smaller potential difference is needed to hold the same charge.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "The bound charges of the polarised dielectric partly cancel the field of the plates, so for the same charge Q the field becomes $\\frac{E_0}{K}$ and the potential difference $\\frac{V_0}{K}$. Since $C = \\frac{Q}{V}$, a smaller V for the same Q means a larger capacitance, $KC_0$. R explains exactly why A happens.",
+      "optionRationale": { "2": "R is the mechanism behind A, so it is the correct explanation.", "3": "R is true; the field and voltage fall by the factor K.", "4": "A is true; the capacitance rises to KC₀." },
+      "objective": "Explain why a dielectric increases capacitance"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q22", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "conceptual", "diagram": "parallel-plate",
+      "stem": "Panel (a) of the figure shows a charged parallel plate capacitor with surface charge densities +σ and −σ on its plates, with air between them. What is the electric field between the plates and outside them (ignoring edge effects)?",
+      "options": ["σ/2ε₀ between the plates and σ/2ε₀ outside", "σ/ε₀ between the plates and zero outside", "zero between the plates and σ/ε₀ outside", "σ/ε₀ both between and outside the plates"],
+      "answer": 2,
+      "explanation": "Each plate acts like a large sheet producing $\\frac{\\sigma}{2\\varepsilon_0}$ on both sides. Between the plates, the field of the positive plate (away from it) and that of the negative plate (towards it) point the same way and add to $\\frac{\\sigma}{\\varepsilon_0}$. Outside, the two fields point in opposite directions and cancel, which is why the figure shows E = 0 there.",
+      "optionRationale": { "1": "σ/2ε₀ is the field of only one plate; between the plates the two fields add.", "3": "This is the pattern for two sheets with the same sign of charge.", "4": "Outside the plates the two fields cancel." },
+      "objective": "Find the field inside and outside a parallel plate capacitor"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q23", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "Capacitors of 2 μF and 3 μF are connected in series. What is their equivalent capacitance?",
+      "options": ["5 μF", "6 μF", "1.2 μF", "0.83 μF"],
+      "answer": 3,
+      "explanation": "In series the capacitors carry the same charge and their voltages add, so the reciprocals of the capacitances add: $\\frac{1}{C} = \\frac{1}{C_1} + \\frac{1}{C_2}$. For two capacitors this gives the product over the sum: $C = \\frac{C_1C_2}{C_1 + C_2} = \\frac{2 \\times 3}{2 + 3} = 1.2\\,\\mu\\text{F}$. As expected, the series combination is smaller than the smaller of the two capacitors.",
+      "optionRationale": { "1": "5 μF is the parallel combination, not series.", "2": "6 μF is the product C₁C₂ without dividing by the sum.", "4": "0.83 μF is 1/C (in μF⁻¹), not C itself." },
+      "objective": "Calculate the equivalent capacitance of capacitors in series"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q24", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Capacitors of 6 μF and 3 μF are connected in series, and this pair is connected in parallel with a 1 μF capacitor. The network is connected across a 12 V battery. What is the potential difference across the 3 μF capacitor?",
+      "options": ["4 V", "12 V", "6 V", "8 V"],
+      "answer": 4,
+      "explanation": "The series branch has the full 12 V across it, so the 1 μF capacitor does not affect it. The branch's capacitance is $\\frac{6 \\times 3}{6 + 3} = 2\\,\\mu\\text{F}$, so it carries $Q = 2 \\times 12 = 24\\,\\mu\\text{C}$ on each of its capacitors. The voltage across the 3 μF capacitor is $\\frac{24}{3} = 8\\,\\text{V}$, and across the 6 μF it is 4 V.",
+      "optionRationale": { "1": "4 V is the voltage across the 6 μF capacitor, not the 3 μF one.", "2": "12 V is shared between the two series capacitors, not across each.", "3": "6 V would be an equal split, but series voltages divide inversely to capacitance." },
+      "objective": "Analyse charge and voltage in a series-parallel network"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q25", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "Four identical capacitors are first connected in parallel and then in series. What is the ratio of the equivalent capacitance in parallel to that in series?",
+      "options": ["4", "16", "8", "2"],
+      "answer": 2,
+      "explanation": "For n identical capacitors of capacitance C, the parallel combination is nC and the series combination is $\\frac{C}{n}$. The ratio is $\\frac{nC}{C/n} = n^2$. With four capacitors this gives $4^2 = 16$, so the parallel arrangement has sixteen times the capacitance of the series one.",
+      "optionRationale": { "1": "4 is the factor for parallel compared with a single capacitor, not parallel compared with series.", "3": "8 has no basis; the ratio is n².", "4": "2 does not follow from nC ÷ (C/n) = n²; for n = 4 the ratio is 16." },
+      "objective": "Compare series and parallel combinations of identical capacitors"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q26", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "You have three capacitors of 3 μF each. How should they be connected to obtain an equivalent capacitance of 2 μF?",
+      "options": ["all three in series", "all three in parallel", "two in series, then this pair in parallel with the third", "two in parallel, then this pair in series with the third"],
+      "answer": 4,
+      "explanation": "Check each arrangement. Two in parallel give 6 μF; putting this in series with 3 μF gives $\\frac{6 \\times 3}{6 + 3} = 2\\,\\mu\\text{F}$, as required. All three in series give 1 μF; all three in parallel give 9 μF; two in series (1.5 μF) in parallel with the third give 4.5 μF.",
+      "optionRationale": { "1": "Three 3 μF capacitors in series give 1 μF.", "2": "Three in parallel give 9 μF.", "3": "1.5 μF in parallel with 3 μF gives 4.5 μF." },
+      "objective": "Design a capacitor combination for a required capacitance"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q27", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "conceptual", "diagram": "combinations",
+      "stem": "In circuit (a) of the figure, capacitors C₁, C₂ and C₃ of different capacitances are connected in series across a battery. Which statement about them is correct?",
+      "options": ["All three carry the same charge, and the one with the largest capacitance has the smallest potential difference", "All three have the same potential difference across them", "The largest capacitor carries the largest charge", "The equivalent capacitance is C₁ + C₂ + C₃"],
+      "answer": 1,
+      "explanation": "In series the same charge Q appears on every capacitor, because each plate's charge is induced by the neighbouring plate, as marked +Q and −Q in the figure. The potential difference across each is $V_i = \\frac{Q}{C_i}$, so the largest capacitance takes the smallest share of the battery voltage.",
+      "optionRationale": { "2": "Equal potential differences describe the parallel circuit (b), not the series circuit.", "3": "In series all charges are equal; unequal charges occur in parallel.", "4": "C₁ + C₂ + C₃ is the parallel rule; for series the reciprocals add." },
+      "objective": "Interpret a series circuit of capacitors"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q28", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "A 10 μF capacitor is charged to a potential difference of 100 V. How much energy is stored in it?",
+      "options": ["0.1 J", "0.05 J", "5 × 10⁻⁴ J", "500 J"],
+      "answer": 2,
+      "explanation": "The energy stored in a capacitor is $U = \\frac{1}{2}CV^2 = \\frac{1}{2}(10 \\times 10^{-6})(100)^2 = \\frac{1}{2}(10 \\times 10^{-6})(10^{4}) = 0.05\\,\\text{J}$. Do not forget the factor of one half: only half of the energy supplied by the battery ends up stored in the capacitor.",
+      "optionRationale": { "1": "0.1 J forgets the factor ½ (it is CV²).", "3": "5 × 10⁻⁴ J uses V instead of V².", "4": "500 J forgets to convert microfarads to farads." },
+      "objective": "Calculate the energy stored in a capacitor"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q29", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "A parallel plate capacitor is charged and then disconnected from the battery. If the separation between its plates is now doubled, the energy stored in it",
+      "options": ["halves", "stays the same", "doubles", "becomes four times"],
+      "answer": 3,
+      "explanation": "Once the battery is disconnected the charge Q cannot change. Doubling d halves the capacitance, since $C = \\frac{\\varepsilon_0A}{d}$. With Q fixed, the energy $U = \\frac{Q^2}{2C}$ therefore doubles. The extra energy comes from the work done in pulling the attracting plates apart.",
+      "optionRationale": { "1": "Halving would follow from ½CV² with V fixed, but here Q, not V, is fixed.", "2": "The capacitance changes, so with Q fixed the energy must change.", "4": "U is proportional to 1/C, and C only halves, so U doubles." },
+      "objective": "Analyse energy changes in an isolated capacitor"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q30", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A 4 μF capacitor charged to 50 V is disconnected from the supply and connected across an identical uncharged 4 μF capacitor. How much energy is lost in the process?",
+      "options": ["5 × 10⁻³ J", "2.5 × 10⁻³ J", "1.25 × 10⁻³ J", "zero"],
+      "answer": 2,
+      "explanation": "Charge is conserved: $Q = 4 \\times 50 = 200\\,\\mu\\text{C}$ is shared by 8 μF, so the common potential is 25 V. Energy before is $\\frac{1}{2}(4 \\times 10^{-6})(50)^2 = 5 \\times 10^{-3}\\,\\text{J}$; after it is $\\frac{1}{2}(8 \\times 10^{-6})(25)^2 = 2.5 \\times 10^{-3}\\,\\text{J}$. The loss, $2.5 \\times 10^{-3}$ J, is half the original energy and is dissipated in the connecting wires.",
+      "optionRationale": { "1": "5 × 10⁻³ J is the initial energy, not the loss.", "3": "1.25 × 10⁻³ J is the final energy of one capacitor, not the loss.", "4": "Energy is not conserved when charge flows between capacitors; some is dissipated." },
+      "objective": "Find the energy lost when capacitors share charge"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q31", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "What is the energy density of the electric field in air at a point where the field strength is 3 × 10⁶ V m⁻¹?",
+      "options": ["79.7 J m⁻³", "1.33 × 10⁻⁵ J m⁻³", "19.9 J m⁻³", "39.8 J m⁻³"],
+      "answer": 4,
+      "explanation": "Wherever there is an electric field there is stored energy, and the energy per unit volume in air is half the permittivity of free space times the square of the field. So $u = \\frac{1}{2}\\varepsilon_0E^2 = \\frac{1}{2}(8.85 \\times 10^{-12})(3 \\times 10^{6})^2 = \\frac{1}{2}(8.85 \\times 10^{-12})(9 \\times 10^{12}) \\approx 39.8\\,\\text{J m}^{-3}$. This field is close to the breakdown strength of air.",
+      "optionRationale": { "1": "79.7 J m⁻³ forgets the factor ½.", "2": "1.33 × 10⁻⁵ J m⁻³ uses E instead of E².", "3": "19.9 J m⁻³ includes an extra factor of ½." },
+      "objective": "Calculate the energy density of an electric field"
+    },
+    {
+      "key": "ug26-322-u1-capacitors-q32", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): When a charged capacitor is connected across an identical uncharged capacitor, the total energy stored in the two capacitors stays the same.\nReason (R): The total charge is conserved when the two capacitors are connected.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 4,
+      "explanation": "R is true: no charge is created or destroyed, so the charge Q is simply shared, Q/2 on each. A is false: the energy becomes $2 \\times \\frac{(Q/2)^2}{2C} = \\frac{Q^2}{4C}$, which is half of the original $\\frac{Q^2}{2C}$. Conservation of charge does not imply conservation of stored energy; the missing half is dissipated in the wires.",
+      "optionRationale": { "1": "A is false; half of the energy is lost.", "2": "A is false, so both cannot be true.", "3": "R is true and A is false, the reverse of this option." },
+      "objective": "Distinguish conservation of charge from conservation of stored energy"
+    }
+  ]
+}

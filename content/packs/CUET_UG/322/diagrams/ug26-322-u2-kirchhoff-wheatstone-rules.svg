@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" width="820" height="420" font-family="Arial, Helvetica, sans-serif">
+  <!-- ============ Panel (a): junction rule ============ -->
+  <line x1="40" y1="200" x2="170" y2="200" stroke="#1f2937" stroke-width="2"/>
+  <line x1="170" y1="60" x2="170" y2="200" stroke="#1f2937" stroke-width="2"/>
+  <line x1="170" y1="200" x2="300" y2="200" stroke="#1f2937" stroke-width="2"/>
+  <line x1="170" y1="200" x2="260" y2="320" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="170" cy="200" r="6" fill="#1f2937"/>
+  <polygon points="110,200 96,193 96,207" fill="#d97706"/>
+  <polygon points="170,130 163,116 177,116" fill="#d97706"/>
+  <polygon points="255,200 241,193 241,207" fill="#2563eb"/>
+  <polygon points="221.0,268.0 206.4,262.6 217.6,254.2" fill="#2563eb"/>
+  <text x="96" y="186" font-size="17" fill="#d97706" text-anchor="middle" font-weight="bold">I<tspan font-size="12" dy="5">1</tspan></text>
+  <text x="184" y="122" font-size="17" fill="#d97706" font-weight="bold">I<tspan font-size="12" dy="5">2</tspan></text>
+  <text x="246" y="186" font-size="17" fill="#2563eb" text-anchor="middle" font-weight="bold">I<tspan font-size="12" dy="5">3</tspan></text>
+  <text x="234" y="262" font-size="17" fill="#2563eb" font-weight="bold">I<tspan font-size="12" dy="5">4</tspan></text>
+  <text x="170" y="362" font-size="16" fill="#1f2937" text-anchor="middle">I<tspan font-size="11" dy="4">1</tspan><tspan dy="-4"> + I</tspan><tspan font-size="11" dy="4">2</tspan><tspan dy="-4"> = I</tspan><tspan font-size="11" dy="4">3</tspan><tspan dy="-4"> + I</tspan><tspan font-size="11" dy="4">4</tspan></text>
+  <text x="170" y="384" font-size="13" fill="#1f2937" text-anchor="middle">current in = current out (charge conserved)</text>
+  <text x="170" y="410" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(a) Junction rule</text>
+
+  <!-- ============ Panel (b): sign rules for the loop rule ============ -->
+  <text x="590" y="36" font-size="14" fill="#059669" text-anchor="middle">Potential change when moving along the green arrow</text>
+
+  <!-- Row 1: resistor, traverse along current -->
+  <line x1="420" y1="80" x2="455" y2="80" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="455,80 461,70 473,90 485,70 497,90 509,70 521,90 525,80" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <line x1="525" y1="80" x2="560" y2="80" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="445,62 433,56 433,68" fill="#d97706"/>
+  <text x="420" y="66" font-size="14" fill="#d97706" font-weight="bold">I</text>
+  <line x1="430" y1="104" x2="540" y2="104" stroke="#059669" stroke-width="2"/>
+  <polygon points="552,104 540,98 540,110" fill="#059669"/>
+  <text x="600" y="86" font-size="16" fill="#1f2937">ΔV = − IR</text>
+
+  <!-- Row 2: resistor, traverse against current -->
+  <line x1="420" y1="160" x2="455" y2="160" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="455,160 461,150 473,170 485,150 497,170 509,150 521,170 525,160" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <line x1="525" y1="160" x2="560" y2="160" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="433,142 445,136 445,148" fill="#d97706"/>
+  <text x="452" y="146" font-size="14" fill="#d97706" font-weight="bold">I</text>
+  <line x1="430" y1="184" x2="540" y2="184" stroke="#059669" stroke-width="2"/>
+  <polygon points="552,184 540,178 540,190" fill="#059669"/>
+  <text x="600" y="166" font-size="16" fill="#1f2937">ΔV = + IR</text>
+
+  <!-- Row 3: cell, traverse from - to + -->
+  <line x1="420" y1="240" x2="484" y2="240" stroke="#1f2937" stroke-width="2"/>
+  <line x1="484" y1="230" x2="484" y2="250" stroke="#1f2937" stroke-width="5"/>
+  <line x1="498" y1="222" x2="498" y2="258" stroke="#1f2937" stroke-width="2"/>
+  <line x1="498" y1="240" x2="560" y2="240" stroke="#1f2937" stroke-width="2"/>
+  <text x="476" y="222" font-size="15" fill="#1f2937" text-anchor="middle">−</text>
+  <text x="508" y="222" font-size="15" fill="#1f2937">+</text>
+  <text x="530" y="230" font-size="15" fill="#2563eb" font-weight="bold">ε</text>
+  <line x1="430" y1="268" x2="540" y2="268" stroke="#059669" stroke-width="2"/>
+  <polygon points="552,268 540,262 540,274" fill="#059669"/>
+  <text x="600" y="246" font-size="16" fill="#1f2937">ΔV = + ε</text>
+
+  <!-- Row 4: cell, traverse from + to - -->
+  <line x1="420" y1="320" x2="484" y2="320" stroke="#1f2937" stroke-width="2"/>
+  <line x1="484" y1="302" x2="484" y2="338" stroke="#1f2937" stroke-width="2"/>
+  <line x1="498" y1="310" x2="498" y2="330" stroke="#1f2937" stroke-width="5"/>
+  <line x1="498" y1="320" x2="560" y2="320" stroke="#1f2937" stroke-width="2"/>
+  <text x="474" y="302" font-size="15" fill="#1f2937" text-anchor="end">+</text>
+  <text x="508" y="302" font-size="15" fill="#1f2937">−</text>
+  <text x="530" y="310" font-size="15" fill="#2563eb" font-weight="bold">ε</text>
+  <line x1="430" y1="348" x2="540" y2="348" stroke="#059669" stroke-width="2"/>
+  <polygon points="552,348 540,342 540,354" fill="#059669"/>
+  <text x="600" y="326" font-size="16" fill="#1f2937">ΔV = − ε</text>
+
+  <text x="590" y="384" font-size="13" fill="#1f2937" text-anchor="middle">Loop rule: sum of all ΔV around a closed loop = 0</text>
+  <text x="590" y="410" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(b) Sign rules for the loop rule</text>
+</svg>

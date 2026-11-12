@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="Arial, Helvetica, sans-serif" fill="none">
+  <!-- divider -->
+  <line x1="450" y1="15" x2="450" y2="390" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+
+  <!-- ================= Panel (a): N pole approaching ================= -->
+  <text x="220" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2937">(a) N pole moved towards the coil</text>
+  <!-- magnet -->
+  <rect x="30" y="125" width="65" height="40" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/>
+  <rect x="95" y="125" width="65" height="40" fill="#fee2e2" stroke="#1f2937" stroke-width="2"/>
+  <text x="62" y="151" text-anchor="middle" font-size="16" font-weight="bold" fill="#2563eb">S</text>
+  <text x="127" y="151" text-anchor="middle" font-size="16" font-weight="bold" fill="#dc2626">N</text>
+  <!-- velocity -->
+  <line x1="55" y1="105" x2="128" y2="105" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="140,105 128,99 128,111" fill="#059669"/>
+  <text x="95" y="95" text-anchor="middle" font-size="15" font-style="italic" fill="#059669">v</text>
+  <!-- magnet field arrow -->
+  <line x1="168" y1="145" x2="226" y2="145" stroke="#dc2626" stroke-width="2"/>
+  <polygon points="237,145 226,140 226,150" fill="#dc2626"/>
+  <text x="199" y="216" text-anchor="middle" font-size="13" fill="#dc2626">B (magnet)</text>
+  <text x="199" y="231" text-anchor="middle" font-size="13" fill="#dc2626">increasing</text>
+  <!-- coil -->
+  <ellipse cx="250" cy="145" rx="9" ry="50" stroke="#1f2937" stroke-width="2"/>
+  <ellipse cx="268" cy="145" rx="9" ry="50" stroke="#1f2937" stroke-width="2"/>
+  <ellipse cx="286" cy="145" rx="9" ry="50" stroke="#1f2937" stroke-width="2"/>
+  <ellipse cx="304" cy="145" rx="9" ry="50" stroke="#1f2937" stroke-width="2"/>
+  <ellipse cx="322" cy="145" rx="9" ry="50" stroke="#1f2937" stroke-width="2"/>
+  <text x="250" y="84" text-anchor="middle" font-size="16" font-weight="bold" fill="#dc2626">N</text>
+  <text x="322" y="84" text-anchor="middle" font-size="16" font-weight="bold" fill="#2563eb">S</text>
+  <text x="286" y="66" text-anchor="middle" font-size="13" fill="#1f2937">coil faces</text>
+  <!-- induced field arrow -->
+  <line x1="405" y1="145" x2="346" y2="145" stroke="#2563eb" stroke-width="2"/>
+  <polygon points="335,145 346,140 346,150" fill="#2563eb"/>
+  <text x="378" y="133" text-anchor="middle" font-size="13" fill="#2563eb">B (induced)</text>
+  <!-- galvanometer -->
+  <polyline points="250,195 250,262 271,262" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="322,195 322,262 301,262" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="286" cy="262" r="15" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <text x="286" y="267" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2937">G</text>
+  <!-- force on magnet -->
+  <line x1="135" y1="190" x2="60" y2="190" stroke="#d97706" stroke-width="2.5"/>
+  <polygon points="48,190 60,184 60,196" fill="#d97706"/>
+  <text x="95" y="210" text-anchor="middle" font-size="13" fill="#d97706">force on magnet</text>
+  <text x="95" y="225" text-anchor="middle" font-size="13" fill="#d97706">(repulsion)</text>
+  <!-- inset: current seen from the magnet -->
+  <text x="95" y="258" text-anchor="middle" font-size="13" fill="#1f2937">coil current seen</text>
+  <text x="95" y="273" text-anchor="middle" font-size="13" fill="#1f2937">from the magnet</text>
+  <circle cx="95" cy="310" r="24" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="86,286 98,280 98,292" fill="#dc2626"/>
+  <text x="95" y="316" text-anchor="middle" font-size="16" font-weight="bold" fill="#dc2626">N</text>
+  <text x="95" y="352" text-anchor="middle" font-size="13" fill="#1f2937">anticlockwise</text>
+  <!-- summary -->
+  <text x="225" y="385" text-anchor="middle" font-size="13" fill="#1f2937">Flux increases → induced current opposes it → coil repels magnet</text>
+
+  <!-- ================= Panel (b): N pole receding ================= -->
+  <text x="670" y="32" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2937">(b) N pole moved away from the coil</text>
+  <rect x="480" y="125" width="65" height="40" fill="#dbeafe" stroke="#1f2937" stroke-width="2"/>
+  <rect x="545" y="125" width="65" height="40" fill="#fee2e2" stroke="#1f2937" stroke-width="2"/>
+  <text x="512" y="151" text-anchor="middle" font-size="16" font-weight="bold" fill="#2563eb">S</text>
+  <text x="577" y="151" text-anchor="middle" font-size="16" font-weight="bold" fill="#dc2626">N</text>
+  <line x1="590" y1="105" x2="517" y2="105" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="505,105 517,99 517,111" fill="#059669"/>
+  <text x="550" y="95" text-anchor="middle" font-size="15" font-style="italic" fill="#059669">v</text>
+  <line x1="618" y1="145" x2="676" y2="145" stroke="#dc2626" stroke-width="2"/>
+  <polygon points="687,145 676,140 676,150" fill="#dc2626"/>
+  <text x="649" y="216" text-anchor="middle" font-size="13" fill="#dc2626">B (magnet)</text>
+  <text x="649" y="231" text-anchor="middle" font-size="13" fill="#dc2626">decreasing</text>
+  <ellipse cx="700" cy="145" rx="9" ry="50" stroke="#1f2937" stroke-width="2"/>
+  <ellipse cx="718" cy="145" rx="9" ry="50" stroke="#1f2937" stroke-width="2"/>
+  <ellipse cx="736" cy="145" rx="9" ry="50" stroke="#1f2937" stroke-width="2"/>
+  <ellipse cx="754" cy="145" rx="9" ry="50" stroke="#1f2937" stroke-width="2"/>
+  <ellipse cx="772" cy="145" rx="9" ry="50" stroke="#1f2937" stroke-width="2"/>
+  <text x="700" y="84" text-anchor="middle" font-size="16" font-weight="bold" fill="#2563eb">S</text>
+  <text x="772" y="84" text-anchor="middle" font-size="16" font-weight="bold" fill="#dc2626">N</text>
+  <text x="736" y="66" text-anchor="middle" font-size="13" fill="#1f2937">coil faces</text>
+  <line x1="790" y1="145" x2="848" y2="145" stroke="#2563eb" stroke-width="2"/>
+  <polygon points="859,145 848,140 848,150" fill="#2563eb"/>
+  <text x="826" y="133" text-anchor="middle" font-size="13" fill="#2563eb">B (induced)</text>
+  <polyline points="700,195 700,262 721,262" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="772,195 772,262 751,262" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="736" cy="262" r="15" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <text x="736" y="267" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2937">G</text>
+  <line x1="510" y1="190" x2="585" y2="190" stroke="#d97706" stroke-width="2.5"/>
+  <polygon points="597,190 585,184 585,196" fill="#d97706"/>
+  <text x="550" y="210" text-anchor="middle" font-size="13" fill="#d97706">force on magnet</text>
+  <text x="550" y="225" text-anchor="middle" font-size="13" fill="#d97706">(attraction)</text>
+  <text x="545" y="258" text-anchor="middle" font-size="13" fill="#1f2937">coil current seen</text>
+  <text x="545" y="273" text-anchor="middle" font-size="13" fill="#1f2937">from the magnet</text>
+  <circle cx="545" cy="310" r="24" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="554,286 542,280 542,292" fill="#2563eb"/>
+  <text x="545" y="316" text-anchor="middle" font-size="16" font-weight="bold" fill="#2563eb">S</text>
+  <text x="545" y="352" text-anchor="middle" font-size="13" fill="#1f2937">clockwise</text>
+  <text x="675" y="385" text-anchor="middle" font-size="13" fill="#1f2937">Flux decreases → induced current opposes it → coil attracts magnet</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" font-family="Arial, Helvetica, sans-serif">
+  <!-- axes -->
+  <line x1="80" y1="170" x2="590" y2="170" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="600,170 588,164 588,176" fill="#1f2937"/>
+  <line x1="80" y1="300" x2="80" y2="40" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="80,30 74,42 86,42" fill="#1f2937"/>
+  <text x="92" y="36" font-size="14" fill="#1f2937">U (J)</text>
+  <text x="600" y="196" font-size="14" fill="#1f2937" text-anchor="end">angle θ between p and E (degrees)</text>
+  <!-- ticks -->
+  <g stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,4">
+    <line x1="80" y1="60" x2="560" y2="60"/>
+    <line x1="80" y1="280" x2="560" y2="280"/>
+  </g>
+  <g font-size="13" fill="#1f2937" text-anchor="end">
+    <text x="72" y="64">+pE</text><text x="72" y="174">0</text><text x="72" y="284">−pE</text>
+  </g>
+  <g font-size="13" fill="#1f2937" text-anchor="middle">
+    <text x="200" y="160">90</text><text x="320" y="160">180</text><text x="440" y="160">270</text><text x="560" y="160">360</text>
+  </g>
+  <!-- curve U = -pE cos(theta) -->
+  <polyline points="80.0,280.0 93.3,278.3 106.7,273.4 120.0,265.3 133.3,254.3 146.7,240.7 160.0,225.0 173.3,207.6 186.7,189.1 200.0,170.0 213.3,150.9 226.7,132.4 240.0,115.0 253.3,99.3 266.7,85.7 280.0,74.7 293.3,66.6 306.7,61.7 320.0,60.0 333.3,61.7 346.7,66.6 360.0,74.7 373.3,85.7 386.7,99.3 400.0,115.0 413.3,132.4 426.7,150.9 440.0,170.0 453.3,189.1 466.7,207.6 480.0,225.0 493.3,240.7 506.7,254.3 520.0,265.3 533.3,273.4 546.7,278.3 560.0,280.0" fill="none" stroke="#2563eb" stroke-width="3"/>
+  <!-- key points -->
+  <circle cx="80" cy="280" r="5" fill="#059669"/>
+  <circle cx="560" cy="280" r="5" fill="#059669"/>
+  <circle cx="320" cy="60" r="5" fill="#dc2626"/>
+  <text x="98" y="306" font-size="13" fill="#059669">θ = 0°: U = −pE (minimum), stable</text>
+  <text x="330" y="52" font-size="13" fill="#dc2626">θ = 180°: U = +pE (maximum), unstable</text>
+  <text x="210" y="190" font-size="13" fill="#1f2937">θ = 90°: U = 0</text>
+  <text x="430" y="250" font-size="15" font-weight="bold" fill="#2563eb">U = −pE cos θ</text>
+  <text x="320" y="332" font-size="13" fill="#1f2937" text-anchor="middle">Work needed to turn the dipole from 0° to 180° = U(180°) − U(0°) = 2pE</text>
+</svg>

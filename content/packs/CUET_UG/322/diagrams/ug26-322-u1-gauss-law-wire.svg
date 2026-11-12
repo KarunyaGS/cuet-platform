@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 350" font-family="Arial, Helvetica, sans-serif">
+  <!-- cylinder back edges -->
+  <path d="M120,100 A80,20 0 0,1 280,100" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <path d="M120,260 A80,20 0 0,1 280,260" fill="none" stroke="#059669" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <!-- line charge -->
+  <line x1="200" y1="20" x2="200" y2="335" stroke="#dc2626" stroke-width="4"/>
+  <text x="212" y="40" font-size="14" font-weight="bold" fill="#dc2626">+ + +</text>
+  <text x="212" y="330" font-size="14" font-weight="bold" fill="#dc2626">+ + +</text>
+  <text x="196" y="16" font-size="14" fill="#dc2626" text-anchor="end">line charge λ</text>
+  <!-- cylinder front edges and sides -->
+  <path d="M120,100 A80,20 0 0,0 280,100" fill="none" stroke="#059669" stroke-width="2.2"/>
+  <path d="M120,260 A80,20 0 0,0 280,260" fill="none" stroke="#059669" stroke-width="2.2"/>
+  <line x1="120" y1="100" x2="120" y2="260" stroke="#059669" stroke-width="2.2"/>
+  <line x1="280" y1="100" x2="280" y2="260" stroke="#059669" stroke-width="2.2"/>
+  <!-- radius on top face -->
+  <line x1="200" y1="100" x2="280" y2="100" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="240" y="94" font-size="15" font-style="italic" fill="#1f2937" text-anchor="middle">r</text>
+  <!-- length l -->
+  <line x1="60" y1="100" x2="60" y2="260" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="52" y1="100" x2="68" y2="100" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="52" y1="260" x2="68" y2="260" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="46" y="186" font-size="15" font-style="italic" fill="#1f2937" text-anchor="end">l</text>
+  <!-- radial field on curved surface -->
+  <g stroke="#2563eb" stroke-width="2.5">
+    <line x1="282" y1="150" x2="326" y2="150"/>
+    <line x1="282" y1="215" x2="326" y2="215"/>
+    <line x1="118" y1="150" x2="84" y2="150"/>
+    <line x1="118" y1="215" x2="84" y2="215"/>
+  </g>
+  <g fill="#2563eb">
+    <polygon points="338,150 325,144 325,156"/>
+    <polygon points="338,215 325,209 325,221"/>
+    <polygon points="72,150 85,144 85,156"/>
+    <polygon points="72,215 85,209 85,221"/>
+  </g>
+  <text x="344" y="155" font-size="15" font-weight="bold" fill="#2563eb">E</text>
+  <!-- notes -->
+  <text x="380" y="80" font-size="14" fill="#1f2937">End faces: E lies along the face,</text>
+  <text x="380" y="98" font-size="14" fill="#1f2937">so E ⊥ dS and the flux is zero.</text>
+  <text x="380" y="140" font-size="14" fill="#1f2937">Curved surface: E ∥ dS, same E everywhere:</text>
+  <text x="380" y="158" font-size="14" fill="#1f2937">Φ = E (2πrl)</text>
+  <text x="380" y="196" font-size="14" fill="#1f2937">Charge enclosed: q = λl</text>
+  <text x="380" y="234" font-size="15" font-weight="bold" fill="#1f2937">E (2πrl) = λl/ε₀</text>
+  <text x="380" y="256" font-size="15" font-weight="bold" fill="#1f2937">⟹ E = λ/(2πε₀r)</text>
+</svg>

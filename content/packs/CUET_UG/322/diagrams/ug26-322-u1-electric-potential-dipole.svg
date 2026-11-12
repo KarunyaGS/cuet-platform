@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 340" font-family="Arial, Helvetica, sans-serif">
+  <!-- axis -->
+  <line x1="140" y1="220" x2="405" y2="220" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <!-- lines to P -->
+  <line x1="280" y1="220" x2="448.5" y2="78.6" stroke="#1f2937" stroke-width="2"/>
+  <line x1="340" y1="220" x2="448.5" y2="78.6" stroke="#dc2626" stroke-width="1.6"/>
+  <line x1="220" y1="220" x2="448.5" y2="78.6" stroke="#2563eb" stroke-width="1.6"/>
+  <text x="352" y="138" font-size="15" font-style="italic" fill="#1f2937">r</text>
+  <text x="404" y="168" font-size="15" font-style="italic" fill="#dc2626">r<tspan font-size="11" dy="4">1</tspan></text>
+  <text x="300" y="118" font-size="15" font-style="italic" fill="#2563eb">r<tspan font-size="11" dy="4">2</tspan></text>
+  <!-- projections a cos theta -->
+  <line x1="340" y1="220" x2="315.2" y2="190.4" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="280" y1="220" x2="244.8" y2="249.6" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="220" y1="220" x2="244.8" y2="249.6" stroke="#059669" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="232" y="276" font-size="13" fill="#059669" text-anchor="middle">a cos θ</text>
+  <!-- angle -->
+  <path d="M320,220 A40,40 0 0,0 310.6,194.3" fill="none" stroke="#d97706" stroke-width="2"/>
+  <text x="326" y="210" font-size="15" font-style="italic" fill="#d97706">θ</text>
+  <!-- charges -->
+  <circle cx="220" cy="220" r="13" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="220" y="227" font-size="17" font-weight="bold" fill="#2563eb" text-anchor="middle">−</text>
+  <circle cx="340" cy="220" r="13" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="340" y="226" font-size="15" font-weight="bold" fill="#dc2626" text-anchor="middle">+</text>
+  <text x="196" y="210" font-size="14" fill="#2563eb" text-anchor="end">−q</text>
+  <text x="362" y="242" font-size="14" fill="#dc2626">+q</text>
+  <circle cx="280" cy="220" r="3" fill="#1f2937"/>
+  <text x="280" y="242" font-size="14" fill="#1f2937" text-anchor="middle">O</text>
+  <!-- dipole moment -->
+  <line x1="262" y1="296" x2="308" y2="296" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="320,296 307,290 307,302" fill="#059669"/>
+  <text x="330" y="301" font-size="15" font-weight="bold" fill="#059669">p (from −q to +q)</text>
+  <!-- point P -->
+  <circle cx="448.5" cy="78.6" r="4.5" fill="#1f2937"/>
+  <text x="458" y="74" font-size="16" font-weight="bold" fill="#1f2937">P</text>
+  <!-- result -->
+  <text x="420" y="200" font-size="14" fill="#1f2937">For r ≫ a:</text>
+  <text x="420" y="220" font-size="14" fill="#1f2937">r₁ ≈ r − a cos θ</text>
+  <text x="420" y="240" font-size="14" fill="#1f2937">r₂ ≈ r + a cos θ</text>
+  <text x="420" y="266" font-size="15" font-weight="bold" fill="#1f2937">V = kp cos θ / r²</text>
+</svg>

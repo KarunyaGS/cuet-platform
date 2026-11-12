@@ -1,0 +1,280 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_bd879cbe57b44afb9745718077e8c858",
+    "title": "Application of junction diode -diode as a rectifier."
+  },
+  "lesson": {
+    "key": "ug26-322-u9-diode-rectifier",
+    "title": "Application of the junction diode: the diode as a rectifier",
+    "coverage": [
+      { "phrase": "Application of junction diode", "section": "Rectification: an application of the junction diode" },
+      { "phrase": "Diode as a half-wave rectifier", "section": "Half-wave rectifier" },
+      { "phrase": "Diode as a full-wave rectifier", "section": "Full-wave rectifier" },
+      { "phrase": "Smoothing the rectifier output with a filter", "section": "Filtering the rectified output" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Rectification: an application of the junction diode" },
+      { "type": "TEXT", "text": "The electricity supplied to homes in India is **alternating**: about 230 V (rms), often taken as 220 V in problems, at a frequency of **50 Hz**. Its polarity reverses 100 times every second. Most electronic equipment, however, such as mobile chargers, computers, radios and LED drivers, needs a **steady direct voltage** of a few volts. Converting AC into DC is therefore one of the most common jobs in electronics. The process is called **rectification**, and the circuit that does it is a **rectifier**.\n\nThe junction diode is ideal for this job because of the property seen in its I-V characteristic: it conducts easily when **forward biased** and allows only a negligible current (µA or less) when **reverse biased**. If an alternating voltage is applied to a diode in series with a load, current can flow through the load only during the half-cycles in which the diode is forward biased, and always in the **same direction**. The load current is then **unidirectional**, although it rises and falls; such a current is called **pulsating DC**.\n\nTwo practical points:\n\n- A **transformer** is normally used first, to step the 230 V mains down (or up) to the voltage required, and to isolate the circuit from the mains.\n- The diode must be able to withstand the largest reverse voltage that appears across it (its **peak inverse voltage**) without breaking down." },
+      { "type": "DEFINITION", "term": "Rectification", "text": "The conversion of an alternating current or voltage into a unidirectional (direct) current or voltage." },
+      { "type": "DEFINITION", "term": "Rectifier", "text": "A circuit, usually built with one or more junction diodes, that converts AC into unidirectional (pulsating) DC by allowing current through the load in one direction only." },
+      { "type": "FORMULA", "latex": "V_m = \\sqrt{2}\\,V_{\\text{rms}}, \\qquad \\frac{V_s}{V_p} = \\frac{N_s}{N_p}", "text": "$V_m$ = peak (maximum) value of a sinusoidal voltage, $V_{\\text{rms}}$ = its rms value. For an ideal transformer, $V_s$ and $V_p$ are the secondary and primary voltages and $N_s$, $N_p$ the numbers of turns in the secondary and primary coils." },
+      { "type": "CONCEPT", "text": "**The diode as a switch.** In rectifier problems the diode is usually treated as **ideal**: a closed switch (zero resistance, zero voltage drop) when forward biased and an open switch (no current) when reverse biased. For a real silicon diode, subtract about 0.7 V from the peak output, because that much voltage is dropped across the conducting diode." },
+
+      { "type": "HEADING", "text": "Half-wave rectifier" },
+      { "type": "TEXT", "text": "**Circuit.** The secondary coil AB of a transformer, a junction diode D and a load resistance $R_L$ are connected in series. The output is taken across $R_L$ (terminals X and Y).\n\n**Positive half-cycle.** While A is positive with respect to B, the p-side of the diode is at the higher potential, so D is **forward biased** and conducts. Current flows from A through D and through $R_L$ from X to Y, then back to B. With an ideal diode, the output voltage follows the input voltage exactly.\n\n**Negative half-cycle.** While A is negative with respect to B, D is **reverse biased** and practically no current flows (only the tiny reverse saturation current). The voltage across $R_L$ is zero. The whole secondary voltage now appears across the diode in the reverse direction; its largest value is $V_m$, the **peak inverse voltage**.\n\n**Output.** A series of positive half-sine pulses separated by gaps of zero voltage: one pulse for every cycle of the input. Only half of each input cycle is used, which is why the circuit is called a half-wave rectifier. The output is unidirectional but far from steady." },
+      { "type": "DIAGRAM", "diagram": "half-wave" },
+      { "type": "DEFINITION", "term": "Peak inverse voltage (PIV)", "text": "The maximum reverse voltage that appears across a diode in a rectifier during the half-cycle in which it does not conduct. The diode chosen must have a breakdown voltage greater than this value. For a half-wave rectifier (without a filter) PIV $= V_m$." },
+      { "type": "TEXT", "text": "**Average (DC) value of the output.** Over one full cycle, the output is $V_m \\sin\\theta$ for $0 \\le \\theta \\le \\pi$ and zero for $\\pi < \\theta < 2\\pi$. Its average is\n\n$$V_{dc} = \\frac{1}{2\\pi}\\int_0^{\\pi} V_m \\sin\\theta\\, d\\theta = \\frac{V_m}{2\\pi}\\Big[-\\cos\\theta\\Big]_0^{\\pi} = \\frac{2V_m}{2\\pi} = \\frac{V_m}{\\pi}$$\n\nThis is the value a DC (moving-coil) voltmeter connected across $R_L$ would read. It is only about 32% of the peak value." },
+      { "type": "FORMULA", "latex": "V_{dc} = \\frac{V_m}{\\pi} \\approx 0.318\\,V_m, \\qquad I_{dc} = \\frac{I_m}{\\pi}, \\qquad I_m = \\frac{V_m}{R_L}", "text": "Half-wave rectifier with an ideal diode: $V_{dc}$ and $I_{dc}$ are the average output voltage and current; $V_m$ is the peak of the input (secondary) voltage and $I_m$ the peak load current." },
+      { "type": "FORMULA", "latex": "f_{\\text{ripple}} = f \\quad (\\text{half-wave}), \\qquad \\text{PIV} = V_m", "text": "$f$ = frequency of the AC input. The output contains one pulse per input cycle, so the basic frequency of the output variation (the ripple) equals the input frequency: 50 Hz for Indian mains." },
+      { "type": "TEXT", "text": "**Drawbacks of the half-wave rectifier.**\n\n- Half of the input power is wasted, because nothing is delivered during alternate half-cycles. Its maximum efficiency is only about 40.6%.\n- The output is zero for half of the time, so it contains a large ripple (alternating component) and is hard to smooth.\n- The average output is small: only $V_m/\\pi$.\n\nThese drawbacks are removed by the full-wave rectifier." },
+      { "type": "SOLVED_PROBLEM", "problem": "The 220 V (rms), 50 Hz mains is applied to the primary of a step-down transformer with a turns ratio $N_p : N_s = 10 : 1$. The secondary feeds a half-wave rectifier with an ideal diode and a load resistance of 1.0 kΩ. Find (a) the peak voltage across the load and the peak load current, (b) the average (DC) output voltage and current, (c) the frequency of the output pulses, (d) the peak inverse voltage across the diode. (e) What would the peak load voltage be with a silicon diode (forward drop 0.7 V)?", "solution": "Step 1: Secondary rms voltage: $V_s = V_p \\times \\dfrac{N_s}{N_p} = 220 \\times \\dfrac{1}{10} = 22\\,\\text{V}$.\n\nStep 2: (a) Peak secondary voltage: $V_m = \\sqrt{2}\\times 22 = 31.1\\,\\text{V}$. With an ideal diode the peak load voltage is also 31.1 V. Peak current $I_m = V_m / R_L = 31.1 / 1000 = 31.1\\,\\text{mA}$.\n\nStep 3: (b) $V_{dc} = V_m/\\pi = 31.1/3.1416 = 9.90\\,\\text{V}$, and $I_{dc} = V_{dc}/R_L = 9.90\\,\\text{mA}$.\n\nStep 4: (c) There is one output pulse per input cycle, so the pulses repeat at 50 Hz (once every 20 ms).\n\nStep 5: (d) During the negative half-cycle the entire secondary voltage appears across the reverse-biased diode, so PIV $= V_m = 31.1\\,\\text{V}$.\n\nStep 6: (e) A silicon diode drops about 0.7 V while conducting, so the peak load voltage is $31.1 - 0.7 = 30.4\\,\\text{V}$.", "answer": "(a) 31.1 V, 31.1 mA; (b) 9.90 V, 9.90 mA; (c) 50 Hz; (d) 31.1 V; (e) about 30.4 V." },
+      { "type": "KEY_POINT", "text": "Half-wave rectifier: one diode; conducts only in alternate half-cycles; output frequency (ripple) $= f$; $V_{dc} = V_m/\\pi$; PIV $= V_m$; simple but wasteful and with large ripple." },
+
+      { "type": "HEADING", "text": "Full-wave rectifier" },
+      { "type": "TEXT", "text": "A full-wave rectifier uses **both** half-cycles of the input. The common form uses a **centre-tapped transformer** and **two diodes**.\n\n**Circuit.** The secondary coil has an extra connection C at its midpoint, the **centre tap**. End A of the secondary goes to the p-side of diode $D_1$, end B to the p-side of diode $D_2$. The n-sides of the two diodes are joined at a common point P. The load $R_L$ is connected between P and the centre tap C, and the output is taken across $R_L$.\n\nMeasured from the centre tap, the voltages at A and at B are always **equal and opposite**: when A is at $+V$, B is at $-V$. Each half of the secondary supplies a voltage of peak value $V_m$.\n\n**First half-cycle (A positive, B negative with respect to C).** $D_1$ is forward biased and conducts; $D_2$ is reverse biased and blocks. Current flows from A through $D_1$ to P, through $R_L$ from P to C, and back to the centre tap.\n\n**Second half-cycle (B positive, A negative with respect to C).** Now $D_2$ conducts and $D_1$ blocks. Current flows from B through $D_2$ to P, and again through $R_L$ **from P to C**.\n\n**Output.** In both half-cycles the current through the load is in the **same direction**, so the output is a continuous train of positive half-sine pulses with no gaps: one pulse in every half-cycle, produced alternately by $D_1$ and $D_2$. The output pulses repeat at **twice the input frequency** (100 Hz for 50 Hz mains)." },
+      { "type": "DIAGRAM", "diagram": "full-wave" },
+      { "type": "TEXT", "text": "**Average output.** The full-wave output is the half-wave output with the gaps filled by a second pulse, so its average is doubled:\n\n$$V_{dc} = \\frac{1}{\\pi}\\int_0^{\\pi} V_m \\sin\\theta\\, d\\theta = \\frac{2V_m}{\\pi}$$\n\n**Peak inverse voltage.** Consider $D_1$ when it is off, at the moment of peak input. Its p-side is at end A, which is at $-V_m$ with respect to C. Its n-side is at P, which (through the conducting $D_2$) is at $+V_m$ with respect to C. The reverse voltage across $D_1$ is therefore $V_m - (-V_m) = 2V_m$, the peak voltage of the **whole** secondary. Each diode in a centre-tap rectifier must withstand **PIV $= 2V_m$**." },
+      { "type": "FORMULA", "latex": "V_{dc} = \\frac{2V_m}{\\pi} \\approx 0.637\\,V_m, \\qquad I_{dc} = \\frac{2I_m}{\\pi}", "text": "Centre-tap full-wave rectifier with ideal diodes. $V_m$ is the peak voltage of **each half** of the secondary (from an end to the centre tap), not of the whole secondary." },
+      { "type": "FORMULA", "latex": "f_{\\text{ripple}} = 2f \\quad (\\text{full-wave}), \\qquad \\text{PIV} = 2V_m \\ \\ (\\text{centre-tap})", "text": "The output has one pulse per half-cycle, so its basic ripple frequency is twice the input frequency: 100 Hz for 50 Hz mains." },
+      { "type": "TABLE", "caption": "Half-wave and full-wave (centre-tap) rectifiers compared (ideal diodes, input frequency f, peak voltage V_m per diode circuit)", "columns": ["Feature", "Half-wave rectifier", "Full-wave rectifier (centre-tap)"], "rows": [
+        ["Number of diodes", "One", "Two"],
+        ["Transformer", "Ordinary", "Centre-tapped secondary"],
+        ["Part of input cycle used", "Only one half-cycle", "Both half-cycles"],
+        ["Output pulses per input cycle", "One", "Two"],
+        ["Ripple (output) frequency", "$f$ (50 Hz)", "$2f$ (100 Hz)"],
+        ["Average output voltage", "$V_m/\\pi \\approx 0.318\\,V_m$", "$2V_m/\\pi \\approx 0.637\\,V_m$"],
+        ["Peak inverse voltage per diode", "$V_m$", "$2V_m$"],
+        ["Maximum efficiency", "About 40.6%", "About 81.2%"],
+        ["Ripple and ease of filtering", "Large ripple, harder to smooth", "Smaller ripple, easier to smooth"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "A centre-tapped transformer gives 12 V (rms) between the centre tap and each end of its secondary. It is used in a full-wave rectifier with two ideal diodes and a load of 500 Ω, on 50 Hz mains. Find (a) the peak output voltage, (b) the average output voltage and current, (c) the frequency of the output ripple, (d) the peak inverse voltage across each diode.", "solution": "Step 1: (a) Each half of the secondary has peak voltage $V_m = \\sqrt{2}\\times12 = 16.97 \\approx 17.0\\,\\text{V}$. In each half-cycle one diode connects one half of the secondary across the load, so the peak output voltage is $V_m \\approx 17.0\\,\\text{V}$.\n\nStep 2: (b) $V_{dc} = \\dfrac{2V_m}{\\pi} = \\dfrac{2\\times16.97}{3.1416} = 10.8\\,\\text{V}$.\n\n$I_{dc} = \\dfrac{V_{dc}}{R_L} = \\dfrac{10.8}{500} = 0.0216\\,\\text{A} = 21.6\\,\\text{mA}$.\n\nStep 3: (c) There are two output pulses per input cycle, so the ripple frequency is $2 \\times 50 = 100\\,\\text{Hz}$.\n\nStep 4: (d) PIV $= 2V_m = 2\\times16.97 = 33.9\\,\\text{V}$. Each diode must therefore be rated for at least about 34 V in reverse, even though the output peak is only 17 V.", "answer": "(a) about 17.0 V; (b) 10.8 V and 21.6 mA; (c) 100 Hz; (d) about 33.9 V." },
+      { "type": "TEXT", "text": "**For reference: the bridge rectifier.** Full-wave rectification can also be obtained without a centre tap by using four diodes arranged in a bridge. In each half-cycle two diodes conduct in series with the load, and the current through the load is again always in the same direction. The output is the same full-wave waveform (ripple frequency $2f$), each diode has PIV $= V_m$, and the whole secondary voltage is used. This circuit is very common in practice, but questions based on NCERT usually concentrate on the centre-tap circuit." },
+      { "type": "KEY_POINT", "text": "Full-wave (centre-tap) rectifier: two diodes conduct in alternate half-cycles; load current always in the same direction; output frequency (ripple) $= 2f$; $V_{dc} = 2V_m/\\pi$, twice that of half-wave; PIV $= 2V_m$." },
+
+      { "type": "HEADING", "text": "Filtering the rectified output" },
+      { "type": "TEXT", "text": "The output of a rectifier is unidirectional but **pulsating**. It can be thought of as a steady DC voltage with an alternating part, the **ripple**, superimposed on it. A circuit that removes most of the ripple and leaves a nearly steady DC voltage is called a **filter**.\n\n**Capacitor filter.** The simplest filter is a capacitor of large capacitance C connected **in parallel with the load** $R_L$.\n\n1. As the rectified voltage rises towards its peak, the diode conducts and the capacitor **charges** quickly to nearly the peak value $V_m$.\n2. When the rectified voltage starts to fall, the capacitor voltage is higher than the input, so the diode becomes reverse biased and stops conducting. The capacitor now **discharges slowly through $R_L$**, keeping the current flowing in the load.\n3. Before the capacitor has lost much charge, the next pulse arrives and charges it back up to $V_m$.\n\nThe output therefore stays close to $V_m$, with only a small saw-tooth ripple. The ripple is small when the capacitor discharges only a little between pulses, i.e. when the time constant $R_L C$ is much longer than the time between pulses. Because the pulses of a full-wave rectifier arrive twice as often, its output is easier to smooth than that of a half-wave rectifier.\n\nOther filters use an **inductor in series** with the load (it opposes changes in current) or combinations such as LC and π filters. With a capacitor filter the output voltage rises from about $V_{dc}$ to nearly $V_m$." },
+      { "type": "DIAGRAM", "diagram": "filter" },
+      { "type": "FORMULA", "latex": "R_L C \\gg T_r = \\frac{1}{f_{\\text{ripple}}}", "text": "Condition for small ripple: the discharge time constant $R_L C$ (in seconds, with $R_L$ in ohms and $C$ in farads) must be much larger than the ripple period $T_r$: 20 ms for a half-wave and 10 ms for a full-wave rectifier on 50 Hz mains." },
+      { "type": "SOLVED_PROBLEM", "problem": "A full-wave rectifier working on 50 Hz mains feeds a load of 1.0 kΩ. A capacitor is placed across the load. What minimum capacitance is needed so that the time constant $R_L C$ is at least ten times the ripple period? What capacitance would a half-wave rectifier need for the same condition?", "solution": "Step 1: Full-wave ripple frequency $f_r = 2 \\times 50 = 100\\,\\text{Hz}$, so the ripple period is $T_r = 1/100 = 0.010\\,\\text{s}$.\n\nStep 2: Required time constant: $R_L C \\ge 10\\,T_r = 0.10\\,\\text{s}$.\n\nStep 3: $C \\ge \\dfrac{0.10}{R_L} = \\dfrac{0.10}{1000} = 1.0\\times10^{-4}\\,\\text{F} = 100\\,\\mu\\text{F}$.\n\nStep 4: Half-wave: $f_r = 50\\,\\text{Hz}$, $T_r = 0.020\\,\\text{s}$, so $R_L C \\ge 0.20\\,\\text{s}$ and $C \\ge 0.20/1000 = 2.0\\times10^{-4}\\,\\text{F} = 200\\,\\mu\\text{F}$.\n\nThe half-wave rectifier needs twice the capacitance for the same smoothing, one more advantage of the full-wave circuit.", "answer": "At least 100 µF for the full-wave rectifier; at least 200 µF for a half-wave rectifier." },
+      { "type": "KEY_POINT", "text": "Capacitor filter: C in parallel with $R_L$; charges to about $V_m$ during each pulse and discharges slowly through $R_L$ between pulses; larger $C$ (or larger $R_L$) and higher ripple frequency give smaller ripple." },
+
+      { "type": "HEADING", "text": "Exam revision: the diode as a rectifier" },
+      { "type": "IMPORTANT_FACT", "text": "A rectifier works only because the junction diode conducts in one direction. With an ideal diode: half-wave output frequency $= f$, full-wave output frequency $= 2f$; $V_{dc}$ is $V_m/\\pi$ (half-wave) and $2V_m/\\pi$ (full-wave); PIV is $V_m$ (half-wave) and $2V_m$ (centre-tap full-wave)." },
+      { "type": "KEY_POINT", "text": "Step-by-step method for rectifier numericals:\n\n1. Find the secondary rms voltage from the turns ratio (for a centre-tap circuit, the voltage of each half).\n2. Convert to peak: $V_m = \\sqrt{2}\\,V_{\\text{rms}}$; subtract 0.7 V per conducting silicon diode if a practical diode is specified.\n3. Use $V_{dc} = V_m/\\pi$ or $2V_m/\\pi$, and $I = V/R_L$.\n4. Output frequency: $f$ or $2f$. PIV: $V_m$ or $2V_m$." },
+      { "type": "CALLOUT", "text": "**Exam tips.** The most frequently asked facts are the output (ripple) frequencies for 50 Hz mains (50 Hz and 100 Hz), the identification of which diode conducts in which half-cycle, the direction of current through the load, and the role of the filter capacitor. Read carefully whether a voltage is rms or peak, and whether a centre-tap voltage is given for the whole secondary or for each half." },
+      { "type": "CALLOUT", "text": "**Common mistakes.**\n\n- Saying that a rectifier produces steady DC. Without a filter the output is pulsating DC.\n- Giving the full-wave output frequency as 50 Hz. For 50 Hz mains it is 100 Hz.\n- Thinking that both diodes of a full-wave rectifier conduct together. They conduct in alternate half-cycles.\n- Thinking that the current through the load reverses in the second half-cycle. It flows in the same direction in both halves; that is the whole point.\n- Using the whole-secondary voltage as $V_m$ in the centre-tap formula $V_{dc} = 2V_m/\\pi$. $V_m$ is the peak of one half.\n- Forgetting that a capacitor filter is connected in parallel with the load, not in series." }
+    ]
+  },
+  "diagrams": [
+    { "key": "half-wave", "file": "diagrams/ug26-322-u9-diode-rectifier-half-wave.svg", "alt": "Half-wave rectifier circuit with transformer, diode and load resistor, and its sinusoidal input and half-wave pulsed output waveforms", "caption": "Half-wave rectifier: circuit, input and output", "description": "Left: AC mains feeds the primary coil of a transformer. The secondary has ends A (top) and B (bottom). From A a wire goes through diode D, pointing to the right, to output terminal X; a load resistor RL connects X to Y, and Y returns to B. A red arrow beside RL shows current from X to Y, flowing only while A is positive and D is forward biased. Right, top: the input voltage of A with respect to B, a sine wave of peak Vm, positive and negative halves marked. Right, bottom: the output voltage across RL, positive half-sine pulses during the positive half-cycles (labelled D on) and zero during the negative half-cycles (labelled D off). Dotted lines align the two graphs. Note: one pulse per input cycle, output frequency = f." },
+    { "key": "full-wave", "file": "diagrams/ug26-322-u9-diode-rectifier-full-wave.svg", "alt": "Centre-tap full-wave rectifier with two diodes and a load between their common point and the centre tap, with waveforms at A, at B and across the load", "caption": "Full-wave (centre-tap) rectifier: circuit and waveforms", "description": "Left: AC mains feeds a transformer whose secondary has ends A and B and a centre tap C. A connects to diode D1 and B to diode D2; both diodes point to the right and their outputs join at point P. The load RL is connected between P and the centre tap C. A red arrow under RL points from P towards C, labelled I (same direction in both half-cycles). Notes: C is the centre tap; output is the voltage across RL between P and C; each half of the secondary has peak voltage Vm. Right: three graphs against time. Top, voltage of A with respect to C, a sine wave of peak Vm. Middle, voltage of B with respect to C, an equal sine wave in antiphase. Bottom, the output across RL, a continuous train of positive half-sine pulses, labelled alternately D1 and D2. Note: one pulse per half-cycle, output frequency = 2f." },
+    { "key": "filter", "file": "diagrams/ug26-322-u9-diode-rectifier-filter.svg", "alt": "Capacitor filter across the load of a full-wave rectifier and the output waveform with and without the filter, showing a small ripple", "caption": "Capacitor filter: smoothing the output of a full-wave rectifier", "description": "Left: a block labelled full-wave rectifier (pulsating DC) feeds two output rails; a capacitor C and the load resistor RL are both connected between the rails, in parallel, and the output terminals are marked + and −. Right: graph of output voltage against time. The dashed grey curve is the unfiltered full-wave output, a series of half-sine pulses reaching Vm. The solid blue curve with the capacitor rises with the first pulse to Vm, then falls slowly along a gentle slope until the next pulse rises above it and recharges it to Vm, giving a nearly steady voltage just below Vm. A red double arrow marks the small ripple between the maximum and minimum of the solid curve. Caption: C charges to the peak, then discharges slowly through RL until the next pulse recharges it." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u9-diode-rectifier-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "A rectifier is an electronic circuit that converts:",
+      "options": [
+        "direct current into alternating current",
+        "alternating current into unidirectional (direct) current",
+        "a low alternating voltage into a high alternating voltage",
+        "alternating current of one frequency into another frequency"
+      ],
+      "answer": 2,
+      "explanation": "A rectifier uses one or more junction diodes to let current pass through the load in only one direction. An alternating input therefore produces a unidirectional, pulsating output, which can then be smoothed into a steady DC voltage by a filter. This is the main application of the junction diode named in the syllabus.",
+      "optionRationale": { "1": "Converting DC to AC is done by an inverter or oscillator, not a rectifier.", "3": "Changing the size of an AC voltage is the job of a transformer.", "4": "A rectifier does not convert one AC frequency into another; its output is unidirectional." },
+      "objective": "Define rectification"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which property of a p-n junction diode makes it suitable for use as a rectifier?",
+      "options": [
+        "It conducts easily when forward biased but hardly at all when reverse biased",
+        "Its resistance is the same in both directions",
+        "It stores electric charge like a capacitor",
+        "It amplifies the input voltage"
+      ],
+      "answer": 1,
+      "explanation": "A junction diode has a low resistance in forward bias and a very high resistance in reverse bias, so it behaves almost like a one-way valve for current. Connected in series with a load across an AC supply, it lets current flow only in the half-cycles that forward-bias it, which rectifies the alternating input.",
+      "optionRationale": { "2": "If its resistance were the same in both directions it would pass AC unchanged, like an ordinary resistor.", "3": "Storing charge is the job of the filter capacitor, not the rectifying diode.", "4": "A junction diode does not amplify; amplification needs a transistor or similar device." },
+      "objective": "Relate the diode characteristic to rectification"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q03", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The AC mains frequency is 50 Hz. What are the basic frequencies of the ripple in the outputs of a half-wave rectifier and a full-wave rectifier, respectively?",
+      "options": ["50 Hz and 50 Hz", "100 Hz and 50 Hz", "25 Hz and 50 Hz", "50 Hz and 100 Hz"],
+      "answer": 4,
+      "explanation": "A half-wave rectifier gives one output pulse per input cycle, so its output repeats 50 times per second: 50 Hz. A full-wave rectifier gives a pulse in every half-cycle, i.e. two pulses per input cycle, so its output repeats 100 times per second: 100 Hz.",
+      "optionRationale": { "1": "The full-wave output has two pulses per input cycle, so its frequency is doubled to 100 Hz.", "2": "The two values are interchanged.", "3": "Rectification never halves the frequency; the half-wave output repeats once per input cycle." },
+      "objective": "State the output frequencies of half-wave and full-wave rectifiers"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q04", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A sinusoidal voltage of peak value 20 V is applied to a half-wave rectifier with an ideal diode. What is the average (DC) value of the output voltage across the load?",
+      "options": ["12.7 V", "14.1 V", "6.37 V", "10.0 V"],
+      "answer": 3,
+      "explanation": "For a half-wave rectifier the output is a half-sine pulse in one half-cycle and zero in the other, so its average over a full cycle is $V_{dc} = V_m/\\pi = 20/3.1416 = 6.37\\,\\text{V}$. This is about 32% of the peak value, and it is what a DC voltmeter across the load would read.",
+      "optionRationale": { "1": "12.7 V is $2V_m/\\pi$, the average output of a full-wave rectifier.", "2": "14.1 V is $V_m/\\sqrt{2}$, the rms value of the full sinusoidal input.", "4": "10.0 V is $V_m/2$, which is the rms value of a half-wave output, not its average." },
+      "objective": "Calculate the average output of a half-wave rectifier"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q05", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "The secondary of a centre-tapped transformer gives 30 V (rms) between its two ends. It is used in a full-wave rectifier with two ideal diodes. What is the average (DC) output voltage across the load?",
+      "options": ["27.0 V", "13.5 V", "6.75 V", "15.0 V"],
+      "answer": 2,
+      "explanation": "The centre tap divides the secondary into two equal halves, so each half (from an end to the centre tap) gives $30/2 = 15\\,\\text{V}$ rms, and its peak is $V_m = \\sqrt{2}\\times15 = 21.2\\,\\text{V}$. In each half-cycle only one diode conducts and connects one half of the secondary across the load, so the average output is $V_{dc} = 2V_m/\\pi = 2\\times21.2/3.1416 = 13.5\\,\\text{V}$.",
+      "optionRationale": { "1": "27.0 V wrongly uses the peak of the whole secondary (42.4 V) as $V_m$ in $2V_m/\\pi$.", "3": "6.75 V is $V_m/\\pi$, the half-wave formula, applied to one half of the secondary.", "4": "15.0 V is just the rms voltage of one half of the secondary, not the average output." },
+      "objective": "Apply the full-wave average formula with a centre-tapped transformer"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q06", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "In a centre-tap full-wave rectifier, each half of the transformer secondary gives a sinusoidal voltage of peak value 25 V. Assuming ideal diodes, what is the peak inverse voltage across each diode?",
+      "options": ["25 V", "12.5 V", "35.4 V", "50 V"],
+      "answer": 4,
+      "explanation": "When $D_1$ is off, its p-side (end A) is at $-25\\,\\text{V}$ with respect to the centre tap, while its n-side (point P) is held at $+25\\,\\text{V}$ through the conducting $D_2$. The reverse voltage across $D_1$ is $25 - (-25) = 50\\,\\text{V} = 2V_m$, the peak voltage of the whole secondary.",
+      "optionRationale": { "1": "25 V is the PIV of a half-wave (or bridge) rectifier, where it equals $V_m$.", "2": "12.5 V is half of $V_m$; the reverse voltage is larger, not smaller, than $V_m$.", "3": "35.4 V is $\\sqrt{2}\\times25$; the peak value is already given, so no further factor of $\\sqrt{2}$ applies." },
+      "objective": "Determine the peak inverse voltage in a centre-tap rectifier"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q07", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): In a centre-tap full-wave rectifier, the current through the load flows in the same direction during both half-cycles of the input.\nReason (R): In each half-cycle one diode is forward biased and the other reverse biased, and both diodes deliver their current to the same end (point P) of the load.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "In one half-cycle $D_1$ conducts and in the other $D_2$ conducts. Both diodes have their n-sides joined at P, the same end of the load, so in either half-cycle current enters the load at P and leaves at the centre tap C. That is exactly why the load current is unidirectional, so R correctly explains A.",
+      "optionRationale": { "2": "R is not an unrelated fact; it is the reason the load current keeps one direction.", "3": "R is true: the diodes conduct alternately and both feed point P.", "4": "A is true: the full-wave output has the same polarity in both half-cycles." },
+      "objective": "Explain how a full-wave rectifier keeps the load current unidirectional"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q08", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The output of a diode rectifier without any filter is a steady DC voltage.\nReason (R): A junction diode conducts appreciably only when it is forward biased.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "R is true: the diode conducts in forward bias only, which makes the output unidirectional. But A is false: the unfiltered output follows the shape of the input half-cycles, rising and falling between zero and $V_m$. It is pulsating DC with a large ripple, and a filter is needed to make it nearly steady.",
+      "optionRationale": { "1": "A is false, so it cannot be explained by R.", "2": "A is false; the unfiltered output is pulsating, not steady.", "3": "The truth values are reversed: R is true and A is false." },
+      "objective": "Distinguish unidirectional pulsating DC from steady DC"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q09", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application",
+      "diagram": "half-wave",
+      "stem": "In the half-wave rectifier shown, consider the instant during the negative half-cycle when the voltage of A with respect to B is at its most negative value, $-V_m$. Assuming an ideal diode, what are the voltage across the load $R_L$ and the reverse voltage across the diode D at this instant?",
+      "options": [
+        "Both are equal to half of the peak voltage",
+        "Zero across the load; the full peak voltage across the diode",
+        "The full peak voltage across the load; zero across the diode",
+        "The full peak voltage across the load but with reversed polarity; zero across the diode"
+      ],
+      "answer": 2,
+      "explanation": "With A negative, the diode is reverse biased and acts as an open switch, so no current flows through $R_L$ and the voltage across it is zero. By Kirchhoff's loop rule, the whole secondary voltage then appears across the diode in the reverse direction: $V_m$ at this instant. This maximum reverse voltage is the peak inverse voltage of the half-wave rectifier.",
+      "optionRationale": { "1": "With no current, there is no voltage across $R_L$, so the voltage is not shared equally.", "3": "This would require current through the load, but the reverse-biased diode blocks it.", "4": "A reversed output would mean the diode conducts in reverse, which an ideal diode does not do." },
+      "objective": "Analyse the half-wave rectifier during the non-conducting half-cycle"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q10", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application",
+      "diagram": "full-wave",
+      "stem": "In the full-wave rectifier shown, during the half-cycle in which B is positive with respect to the centre tap C, which diode conducts, and in which direction does current pass through $R_L$?",
+      "options": [
+        "D1 conducts; current flows through the load from C to P",
+        "Both diodes conduct; current flows through the load from C to P",
+        "D2 conducts; current flows through the load from P to C, the same direction as in the other half-cycle",
+        "Neither diode conducts, so no current flows through the load"
+      ],
+      "answer": 3,
+      "explanation": "When B is positive with respect to C, A is equally negative. The p-side of $D_2$ is at the higher potential, so $D_2$ is forward biased and conducts, while $D_1$ is reverse biased. Current flows from B through $D_2$ to P and through $R_L$ from P to C, the same direction as when $D_1$ conducts in the other half-cycle.",
+      "optionRationale": { "1": "With A negative, $D_1$ is reverse biased and cannot conduct.", "2": "The diodes conduct alternately; one is always reverse biased while the other conducts.", "4": "One of the diodes is always forward biased (except at the zero crossings), so current flows in every half-cycle." },
+      "objective": "Trace current flow in a centre-tap full-wave rectifier"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q11", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Why does a capacitor connected in parallel with the load reduce the ripple in the output of a rectifier?",
+      "options": [
+        "It charges to nearly the peak voltage while the diode conducts and then discharges slowly through the load as the rectified voltage falls, filling in the gaps between pulses",
+        "It blocks the DC component and passes only the AC component to the load",
+        "It raises the frequency of the AC mains so that the pulses come faster",
+        "It reverses the polarity of every second output pulse"
+      ],
+      "answer": 1,
+      "explanation": "During each pulse the capacitor charges quickly to almost $V_m$. When the rectified voltage falls, the diode stops conducting and the capacitor supplies the load by discharging slowly through $R_L$. If $R_L C$ is much longer than the time between pulses, its voltage drops only slightly before the next pulse recharges it, so the output stays close to $V_m$.",
+      "optionRationale": { "2": "A capacitor in series would block DC; a capacitor in parallel with the load bypasses the ripple and keeps the DC.", "3": "A capacitor cannot change the mains frequency.", "4": "Reversing pulses is not what a capacitor does; the rectifier output is already of one polarity." },
+      "objective": "Explain the action of a capacitor filter"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q12", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "For a rectifier followed by a capacitor filter, which one of the following changes will reduce the ripple in the output voltage?",
+      "options": [
+        "Reducing the load resistance, so that a larger current is drawn",
+        "Replacing the full-wave rectifier by a half-wave rectifier",
+        "Increasing the capacitance of the filter capacitor",
+        "Using a smaller capacitor on a supply of lower frequency"
+      ],
+      "answer": 3,
+      "explanation": "Ripple is small when the capacitor loses little charge between pulses, i.e. when the time constant $R_L C$ is much longer than the ripple period. Increasing $C$ increases $R_L C$, so the capacitor discharges more slowly and the ripple falls. Each of the other changes either shortens the time constant or lengthens the gap between pulses.",
+      "optionRationale": { "1": "A smaller $R_L$ shortens $R_L C$; the capacitor discharges faster and the ripple grows.", "2": "A half-wave rectifier doubles the time between pulses, so the capacitor discharges for longer and the ripple grows.", "4": "A smaller $C$ and a longer gap between pulses both increase the ripple." },
+      "objective": "Predict how circuit changes affect ripple"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q13", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A half-wave rectifier on 50 Hz mains feeds a 500 Ω load. A capacitor is connected across the load. What is the minimum capacitance for which the time constant $R_L C$ is at least ten times the ripple period?",
+      "options": ["40 µF", "200 µF", "4 µF", "400 µF"],
+      "answer": 4,
+      "explanation": "For a half-wave rectifier there is one pulse per input cycle, so the ripple frequency equals the input frequency, 50 Hz, and the ripple period is $T_r = 1/50 = 0.020\\,\\text{s}$. The required condition is $R_L C \\ge 10\\times0.020 = 0.20\\,\\text{s}$, which gives $C \\ge 0.20/500 = 4.0\\times10^{-4}\\,\\text{F} = 400\\,\\mu\\text{F}$. A full-wave rectifier would need only half this capacitance.",
+      "optionRationale": { "1": "40 µF leaves out the factor of ten: it makes $R_L C$ equal to just one ripple period.", "2": "200 µF uses the full-wave ripple period of 10 ms instead of 20 ms.", "3": "4 µF is a hundred times too small; it gives $R_L C = 2\\,\\text{ms}$, much shorter than one ripple period." },
+      "objective": "Choose a filter capacitor from the ripple period"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q14", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "A rectifier is fed with a sinusoidal input of frequency $f$ and peak voltage $V_m$ (ideal diodes; for the centre-tap circuit, $V_m$ is the peak voltage of each half of the secondary). Match each quantity in List-I with its value in List-II.",
+      "list": {
+        "left": ["A. Ripple frequency of a half-wave rectifier", "B. Ripple frequency of a full-wave rectifier", "C. Peak inverse voltage across each diode of a centre-tap full-wave rectifier", "D. Average output voltage of a half-wave rectifier"],
+        "right": ["I. $2f$", "II. $f$", "III. $2V_m$", "IV. $V_m/\\pi$"]
+      },
+      "options": ["A-I, B-II, C-III, D-IV", "A-II, B-I, C-III, D-IV", "A-II, B-I, C-IV, D-III", "A-I, B-II, C-IV, D-III"],
+      "answer": 2,
+      "explanation": "A half-wave rectifier gives one pulse per cycle, so its ripple frequency is $f$ (A-II); a full-wave rectifier gives two pulses per cycle, so $2f$ (B-I). In the centre-tap circuit the non-conducting diode faces the whole secondary peak, $2V_m$ (C-III). The half-wave average output is $V_m/\\pi$ (D-IV).",
+      "optionRationale": { "1": "The ripple frequencies of the half-wave and full-wave rectifiers are interchanged.", "3": "The PIV and the average output are interchanged: the PIV is $2V_m$ and the average is $V_m/\\pi$.", "4": "Both pairs are interchanged." },
+      "objective": "Recall key quantities of half-wave and full-wave rectifiers"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q15", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Consider the following statements comparing half-wave and full-wave (centre-tap) rectifiers.\nA. A full-wave rectifier uses both half-cycles of the AC input.\nB. In a centre-tap full-wave rectifier each diode conducts only during alternate half-cycles.\nC. For the same peak voltage $V_m$, the average output of a half-wave rectifier is twice that of a full-wave rectifier.\nD. The output of a full-wave rectifier is easier to smooth because its ripple frequency is higher.\nWhich of the statements are correct?",
+      "options": ["A, B and D only", "A and B only", "B, C and D only", "A, B, C and D"],
+      "answer": 1,
+      "explanation": "A is true: both halves of each cycle produce output. B is true: $D_1$ and $D_2$ take turns, each conducting for one half-cycle. D is true: the pulses come twice as often (2f), so a filter capacitor has less time to discharge between them. C is false: the half-wave average $V_m/\\pi$ is half, not twice, the full-wave average $2V_m/\\pi$.",
+      "optionRationale": { "2": "D is also true, so this answer is incomplete.", "3": "C is false and A, which is true, is left out.", "4": "C is false: the full-wave average is the larger one." },
+      "objective": "Compare half-wave and full-wave rectifiers"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q16", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "A half-wave rectifier uses a silicon diode with a forward voltage drop of 0.7 V. It is fed with a sinusoidal voltage of peak value 10 V. What is the peak voltage across the load?",
+      "options": ["10.7 V", "9.3 V", "7.07 V", "0.7 V"],
+      "answer": 2,
+      "explanation": "While the diode conducts, about 0.7 V is dropped across the silicon junction and the rest appears across the load. At the peak of the input, the load voltage is therefore $10 - 0.7 = 9.3\\,\\text{V}$. With an ideal diode the answer would be the full 10 V; the 0.7 V correction matters most when the input voltage is small.",
+      "optionRationale": { "1": "The diode drop must be subtracted from the input, not added to it.", "3": "7.07 V is the rms value of the 10 V peak input, not the peak load voltage.", "4": "0.7 V is the voltage across the diode, not across the load." },
+      "objective": "Include the diode voltage drop in rectifier output"
+    },
+    {
+      "key": "ug26-322-u9-diode-rectifier-q17", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In a half-wave rectifier with an ideal diode, for what part of each cycle of the AC input does the diode conduct?",
+      "options": ["One quarter of each cycle", "The whole cycle", "Half of each cycle", "Only at the instant of peak voltage"],
+      "answer": 3,
+      "explanation": "The diode is forward biased whenever the input makes its p-side positive, which happens throughout one half-cycle; during the other half-cycle it is reverse biased and blocks the current. So an ideal diode conducts for exactly half of each cycle, and the output consists of one half-sine pulse per cycle.",
+      "optionRationale": { "1": "An ideal diode conducts for the whole of the forward half-cycle, not just a quarter of the cycle.", "2": "During the negative half-cycle the diode is reverse biased and does not conduct.", "4": "It conducts throughout the positive half-cycle, not only at the peak (that happens only with a filter capacitor, and even then for a short interval)." },
+      "objective": "Describe conduction in a half-wave rectifier"
+    }
+  ]
+}

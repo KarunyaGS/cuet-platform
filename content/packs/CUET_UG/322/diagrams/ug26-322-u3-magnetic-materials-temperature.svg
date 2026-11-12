@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="Arial, Helvetica, sans-serif">
+  <!-- Panel (a): susceptibility against temperature -->
+  <text x="200" y="24" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">(a) Susceptibility χ against T</text>
+  <line x1="70" y1="230" x2="365" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="377,230 363,223 363,237" fill="#1f2937"/>
+  <line x1="70" y1="300" x2="70" y2="52" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="70,40 63,54 77,54" fill="#1f2937"/>
+  <text x="80" y="48" font-size="14" fill="#1f2937">χ (no unit)</text>
+  <text x="330" y="254" font-size="14" fill="#1f2937">T (K)</text>
+  <text x="60" y="235" font-size="13" fill="#1f2937" text-anchor="end">0</text>
+  <polyline points="100,70.0 110,110.0 120,134.0 130,150.0 140,161.4 150,170.0 160,176.7 170,182.0 180,186.4 190,190.0 200,193.1 210,195.7 220,198.0 230,200.0 240,201.8 250,203.3 260,204.7 270,206.0 280,207.1 290,208.2 300,209.1 310,210.0 320,210.8 330,211.5 340,212.2 350,212.9 360,213.4 370,214.0" fill="none" stroke="#d97706" stroke-width="3"/>
+  <text x="130" y="110" font-size="13" font-weight="bold" fill="#d97706">paramagnetic:</text>
+  <text x="130" y="126" font-size="13" fill="#d97706">χ = C / T (Curie's law)</text>
+  <line x1="70" y1="268" x2="360" y2="268" stroke="#2563eb" stroke-width="3"/>
+  <text x="90" y="290" font-size="13" font-weight="bold" fill="#2563eb">diamagnetic: χ small, negative,</text>
+  <text x="90" y="306" font-size="13" fill="#2563eb">independent of T (not to scale)</text>
+
+  <line x1="395" y1="40" x2="395" y2="340" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+
+  <!-- Panel (b): inverse susceptibility against temperature -->
+  <text x="585" y="24" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">(b) 1/χ against T</text>
+  <rect x="452" y="60" width="108" height="238" fill="#fee2e2"/>
+  <text x="506" y="90" font-size="13" fill="#dc2626" text-anchor="middle">ferromagnetic</text>
+  <text x="506" y="106" font-size="13" fill="#dc2626" text-anchor="middle">(T &lt; Tc)</text>
+  <line x1="450" y1="300" x2="735" y2="300" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="747,300 733,293 733,307" fill="#1f2937"/>
+  <line x1="450" y1="300" x2="450" y2="52" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="450,40 443,54 457,54" fill="#1f2937"/>
+  <text x="460" y="48" font-size="14" fill="#1f2937">1/χ</text>
+  <text x="700" y="324" font-size="14" fill="#1f2937">T (K)</text>
+  <text x="442" y="318" font-size="13" fill="#1f2937">0</text>
+  <line x1="560" y1="300" x2="560" y2="307" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="560" y="322" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">Tc</text>
+  <!-- paramagnet line through origin -->
+  <line x1="450" y1="300" x2="720" y2="120" stroke="#d97706" stroke-width="3"/>
+  <text x="600" y="150" font-size="13" font-weight="bold" fill="#d97706" text-anchor="end">paramagnet:</text>
+  <text x="600" y="166" font-size="13" fill="#d97706" text-anchor="end">1/χ = T / C</text>
+  <!-- ferromagnet above Tc -->
+  <line x1="560" y1="300" x2="720" y2="193.3" stroke="#dc2626" stroke-width="3"/>
+  <text x="642" y="272" font-size="12" font-weight="bold" fill="#dc2626">ferromagnet, T &gt; Tc:</text>
+  <text x="642" y="290" font-size="12" fill="#dc2626">1/χ = (T − Tc) / C</text>
+  <!-- notes -->
+  <text x="380" y="362" font-size="13" fill="#1f2937" text-anchor="middle">Curie's law: a paramagnet's susceptibility falls as temperature rises.</text>
+  <text x="380" y="382" font-size="13" fill="#1f2937" text-anchor="middle">Above its Curie temperature Tc a ferromagnet becomes paramagnetic (Curie–Weiss law).</text>
+</svg>

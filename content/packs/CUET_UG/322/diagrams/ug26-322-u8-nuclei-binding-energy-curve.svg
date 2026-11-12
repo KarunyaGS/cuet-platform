@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 540" width="840" height="540" font-family="Arial, Helvetica, sans-serif">
+  <!-- grid -->
+  <g stroke="#e5e7eb" stroke-width="1">
+    <line x1="90" y1="390" x2="800" y2="390"/>
+    <line x1="90" y1="310" x2="800" y2="310"/>
+    <line x1="90" y1="230" x2="800" y2="230"/>
+    <line x1="90" y1="150" x2="800" y2="150"/>
+    <line x1="90" y1="70" x2="800" y2="70"/>
+  </g>
+  <!-- axes -->
+  <line x1="90" y1="470" x2="805" y2="470" stroke="#1f2937" stroke-width="2"/>
+  <line x1="90" y1="470" x2="90" y2="55" stroke="#1f2937" stroke-width="2"/>
+  <g stroke="#1f2937" stroke-width="1.5">
+    <line x1="230" y1="470" x2="230" y2="477"/><line x1="370" y1="470" x2="370" y2="477"/><line x1="510" y1="470" x2="510" y2="477"/><line x1="650" y1="470" x2="650" y2="477"/><line x1="790" y1="470" x2="790" y2="477"/>
+    <line x1="83" y1="390" x2="90" y2="390"/><line x1="83" y1="310" x2="90" y2="310"/><line x1="83" y1="230" x2="90" y2="230"/><line x1="83" y1="150" x2="90" y2="150"/><line x1="83" y1="70" x2="90" y2="70"/>
+  </g>
+  <g font-size="14" fill="#1f2937" text-anchor="middle">
+    <text x="90" y="493">0</text><text x="230" y="493">50</text><text x="370" y="493">100</text><text x="510" y="493">150</text><text x="650" y="493">200</text><text x="790" y="493">250</text>
+  </g>
+  <g font-size="14" fill="#1f2937" text-anchor="end">
+    <text x="78" y="475">0</text><text x="78" y="395">2</text><text x="78" y="315">4</text><text x="78" y="235">6</text><text x="78" y="155">8</text><text x="78" y="75">10</text>
+  </g>
+  <text x="445" y="525" font-size="15" fill="#1f2937" text-anchor="middle">Mass number A</text>
+  <text x="34" y="270" font-size="15" fill="#1f2937" text-anchor="middle" transform="rotate(-90 34 270)">Binding energy per nucleon B/A (MeV)</text>
+  <!-- curve through measured values -->
+  <polyline fill="none" stroke="#2563eb" stroke-width="2.5" points="95.6,425.5 98.4,356.9 101.2,187.0 106.8,256.7 109.6,245.8 115.2,211.5 120.8,192.9 123.6,162.8 129.2,171.0 134.8,151.0 143.2,158.8 146.0,148.7 157.2,139.6 168.4,132.1 179.6,130.3 202.0,128.0 246.8,118.4 263.6,118.2 325.2,121.3 389.6,127.8 426.0,129.8 476.4,134.3 515.6,140.2 554.8,144.3 605.2,149.8 641.6,153.4 672.4,155.3 739.6,165.4 756.4,167.2"/>
+  <!-- marked nuclides -->
+  <g fill="#dc2626">
+    <circle cx="95.6" cy="425.5" r="4"/><circle cx="101.2" cy="187.0" r="4"/><circle cx="109.6" cy="245.8" r="4"/><circle cx="123.6" cy="162.8" r="4"/><circle cx="134.8" cy="151.0" r="4"/><circle cx="246.8" cy="118.4" r="4.5"/><circle cx="756.4" cy="167.2" r="4"/>
+  </g>
+  <g stroke="#6b7280" stroke-width="1">
+    <line x1="101.5" y1="182" x2="106" y2="102"/>
+    <line x1="125" y1="158" x2="146" y2="82"/>
+    <line x1="137" y1="147" x2="184" y2="105"/>
+  </g>
+  <g font-size="14" fill="#1f2937">
+    <text x="104" y="432">H-2</text>
+    <text x="96" y="97">He-4</text>
+    <text x="138" y="77">C-12</text>
+    <text x="180" y="100">O-16</text>
+    <text x="117" y="266">Li-7</text>
+    <text x="247" y="104" text-anchor="middle">Fe-56</text>
+    <text x="756" y="153" text-anchor="middle">U-238</text>
+  </g>
+  <text x="280" y="100" font-size="14" fill="#dc2626">maximum ≈ 8.8 MeV near A = 56 to 62 (Fe, Ni)</text>
+  <text x="300" y="178" font-size="14" fill="#1f2937">nearly constant, about 8 to 8.8 MeV, for 30 &lt; A &lt; 170</text>
+  <!-- fusion and fission arrows -->
+  <line x1="125" y1="330" x2="232" y2="330" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="244,330 232,324 232,336" fill="#059669"/>
+  <text x="125" y="356" font-size="14" fill="#059669">Fusion: light nuclei join,</text>
+  <text x="125" y="373" font-size="14" fill="#059669">B/A increases, energy released</text>
+  <line x1="770" y1="330" x2="622" y2="330" stroke="#d97706" stroke-width="2.5"/>
+  <polygon points="610,330 622,324 622,336" fill="#d97706"/>
+  <text x="790" y="356" font-size="14" fill="#d97706" text-anchor="end">Fission: heavy nucleus splits,</text>
+  <text x="790" y="373" font-size="14" fill="#d97706" text-anchor="end">B/A increases, energy released</text>
+</svg>

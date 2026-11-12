@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="Arial, Helvetica, sans-serif">
+  <!-- x = 80 + 440 c ; zero: y = 270 ; first: y = 360 - 220 c ; second: y = 360 - 290 c^2 -->
+  <line x1="80" y1="360" x2="556" y2="360" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="566,360 554,354 554,366" fill="#1f2937"/>
+  <line x1="80" y1="360" x2="80" y2="52" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="80,42 74,54 86,54" fill="#1f2937"/>
+  <text x="92" y="46" font-size="15" fill="#1f2937">Rate (mol L⁻¹ s⁻¹)</text>
+  <text x="566" y="398" font-size="15" fill="#1f2937" text-anchor="end">Concentration of reactant [R] (mol L⁻¹)</text>
+  <text x="72" y="378" font-size="13" fill="#1f2937" text-anchor="end">0</text>
+
+  <line x1="80" y1="270" x2="520" y2="270" stroke="#059669" stroke-width="2.5"/>
+  <line x1="80" y1="360" x2="520" y2="140" stroke="#2563eb" stroke-width="2.5"/>
+  <path d="M80.0,360.0 L94.7,359.7 L109.3,358.7 L124.0,357.1 L138.7,354.8 L153.3,351.9 L168.0,348.4 L182.7,344.2 L197.3,339.4 L212.0,333.9 L226.7,327.8 L241.3,321.0 L256.0,313.6 L270.7,305.5 L285.3,296.8 L300.0,287.5 L314.7,277.5 L329.3,266.9 L344.0,255.6 L358.7,243.7 L373.3,231.1 L388.0,217.9 L402.7,204.0 L417.3,189.5 L432.0,174.4 L446.7,158.6 L461.3,142.2 L476.0,125.1 L490.7,107.4 L505.3,89.0 L520.0,70.0" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+
+  <text x="530" y="75" font-size="14" fill="#dc2626">second order</text>
+  <text x="530" y="93" font-size="14" fill="#dc2626">rate = k[R]²</text>
+  <text x="530" y="140" font-size="14" fill="#2563eb">first order</text>
+  <text x="530" y="158" font-size="14" fill="#2563eb">rate = k[R]</text>
+  <text x="530" y="268" font-size="14" fill="#059669">zero order</text>
+  <text x="530" y="286" font-size="14" fill="#059669">rate = k</text>
+
+  <text x="100" y="250" font-size="13" fill="#059669">horizontal: rate does not depend on [R]</text>
+  <text x="250" y="216" font-size="13" fill="#2563eb" transform="rotate(-26.6 250 216)">straight line through origin, slope = k</text>
+  <text x="300" y="330" font-size="13" fill="#dc2626">parabola: doubling [R] makes rate 4 times</text>
+</svg>

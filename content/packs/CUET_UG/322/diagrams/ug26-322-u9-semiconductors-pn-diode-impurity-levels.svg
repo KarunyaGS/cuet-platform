@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 410" font-family="Arial, Helvetica, sans-serif">
+  <!-- energy axis -->
+  <line x1="24" y1="330" x2="24" y2="62" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="24,50 18,64 30,64" fill="#1f2937"/>
+  <text x="12" y="200" font-size="14" fill="#1f2937" text-anchor="middle" transform="rotate(-90 12 200)">Electron energy</text>
+
+  <!-- (a) n-type -->
+  <rect x="50" y="60" width="230" height="60" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <text x="165" y="85" font-size="14" fill="#1f2937" text-anchor="middle">Conduction band</text>
+  <circle cx="75" cy="106" r="4.5" fill="#1f2937"/>
+  <circle cx="110" cy="106" r="4.5" fill="#1f2937"/>
+  <circle cx="145" cy="106" r="4.5" fill="#1f2937"/>
+  <circle cx="180" cy="106" r="4.5" fill="#1f2937"/>
+  <circle cx="215" cy="106" r="4.5" fill="#1f2937"/>
+  <circle cx="255" cy="106" r="4.5" fill="#1f2937"/>
+  <line x1="60" y1="140" x2="270" y2="140" stroke="#d97706" stroke-width="2.5" stroke-dasharray="8 5"/>
+  <g font-size="16" font-weight="bold" fill="#d97706" text-anchor="middle">
+    <text x="75" y="158">+</text><text x="110" y="158">+</text><text x="145" y="158">+</text>
+    <text x="180" y="158">+</text><text x="215" y="158">+</text>
+  </g>
+  <text x="165" y="190" font-size="13" fill="#d97706" text-anchor="middle">E<tspan dy="4" font-size="10">D</tspan><tspan dy="-4"> lies about 0.01 eV (Ge)</tspan></text>
+  <text x="165" y="206" font-size="13" fill="#d97706" text-anchor="middle">to 0.05 eV (Si) below E<tspan dy="4" font-size="10">C</tspan></text>
+  <text x="165" y="234" font-size="13" fill="#1f2937" text-anchor="middle">+ = ionised donor (fixed)</text>
+  <rect x="50" y="260" width="230" height="60" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+  <text x="165" y="300" font-size="14" fill="#1e3a8a" text-anchor="middle">Valence band</text>
+  <circle cx="240" cy="272" r="4.5" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <text x="290" y="125" font-size="14" fill="#1f2937">E<tspan dy="4" font-size="11">C</tspan></text>
+  <text x="290" y="145" font-size="14" fill="#d97706">E<tspan dy="4" font-size="11">D</tspan><tspan dy="-4"> (donor level)</tspan></text>
+  <text x="290" y="266" font-size="14" fill="#1f2937">E<tspan dy="4" font-size="11">V</tspan></text>
+  <text x="165" y="355" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">(a) n-type</text>
+  <text x="165" y="374" font-size="13" fill="#1f2937" text-anchor="middle">many electrons in CB, few holes in VB</text>
+
+  <!-- (b) p-type -->
+  <rect x="470" y="60" width="230" height="60" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <text x="585" y="85" font-size="14" fill="#1f2937" text-anchor="middle">Conduction band</text>
+  <circle cx="670" cy="108" r="4.5" fill="#1f2937"/>
+  <text x="585" y="172" font-size="13" fill="#059669" text-anchor="middle">E<tspan dy="4" font-size="10">A</tspan><tspan dy="-4"> lies about 0.01 eV (Ge)</tspan></text>
+  <text x="585" y="188" font-size="13" fill="#059669" text-anchor="middle">to 0.05 eV (Si) above E<tspan dy="4" font-size="10">V</tspan></text>
+  <text x="585" y="212" font-size="13" fill="#1f2937" text-anchor="middle">− = ionised acceptor (fixed)</text>
+  <g font-size="17" font-weight="bold" fill="#059669" text-anchor="middle">
+    <text x="495" y="234">−</text><text x="530" y="234">−</text><text x="565" y="234">−</text>
+    <text x="600" y="234">−</text><text x="635" y="234">−</text>
+  </g>
+  <line x1="480" y1="242" x2="690" y2="242" stroke="#059669" stroke-width="2.5" stroke-dasharray="8 5"/>
+  <rect x="470" y="260" width="230" height="60" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+  <text x="585" y="305" font-size="14" fill="#1e3a8a" text-anchor="middle">Valence band</text>
+  <circle cx="495" cy="272" r="4.5" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <circle cx="530" cy="272" r="4.5" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <circle cx="565" cy="272" r="4.5" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <circle cx="600" cy="272" r="4.5" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <circle cx="635" cy="272" r="4.5" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <circle cx="675" cy="272" r="4.5" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <text x="710" y="125" font-size="14" fill="#1f2937">E<tspan dy="4" font-size="11">C</tspan></text>
+  <text x="710" y="244" font-size="14" fill="#059669">E<tspan dy="4" font-size="11">A</tspan><tspan dy="-4"> (acceptor level)</tspan></text>
+  <text x="710" y="268" font-size="14" fill="#1f2937">E<tspan dy="4" font-size="11">V</tspan></text>
+  <text x="585" y="355" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">(b) p-type</text>
+  <text x="585" y="374" font-size="13" fill="#1f2937" text-anchor="middle">many holes in VB, few electrons in CB</text>
+
+  <!-- key -->
+  <circle cx="352" cy="398" r="4.5" fill="#1f2937"/>
+  <text x="362" y="403" font-size="13" fill="#1f2937">electron</text>
+  <circle cx="452" cy="398" r="4.5" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <text x="462" y="403" font-size="13" fill="#1f2937">hole</text>
+</svg>

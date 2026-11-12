@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" width="900" height="360" font-family="Arial, Helvetica, sans-serif">
+  <!-- Panel (a): copper (metal) -->
+  <line x1="60" y1="270" x2="275" y2="270" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="285,270 273,264 273,276" fill="#1f2937"/>
+  <line x1="60" y1="270" x2="60" y2="45" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="60,35 54,47 66,47" fill="#1f2937"/>
+  <text x="70" y="45" font-size="14" fill="#1f2937">ρ (Ω m)</text>
+  <text x="282" y="293" font-size="14" fill="#1f2937" text-anchor="end">T (K)</text>
+  <text x="52" y="287" font-size="13" fill="#1f2937" text-anchor="end">O</text>
+  <path d="M62,252 C100,252 122,247 145,226 L268,92" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <line x1="88" y1="254" x2="150" y2="252" stroke="#1f2937" stroke-width="1"/><text x="154" y="257" font-size="12" fill="#1f2937">small residual ρ near 0 K</text>
+  <text x="190" y="120" font-size="13" fill="#dc2626" text-anchor="end">nearly linear rise</text>
+  <text x="170" y="325" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(a) Copper (metal)</text>
+  <text x="170" y="345" font-size="13" fill="#1f2937" text-anchor="middle">ρ increases with T (α &gt; 0)</text>
+
+  <!-- Panel (b): nichrome (alloy) -->
+  <line x1="350" y1="270" x2="565" y2="270" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="575,270 563,264 563,276" fill="#1f2937"/>
+  <line x1="350" y1="270" x2="350" y2="45" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="350,35 344,47 356,47" fill="#1f2937"/>
+  <text x="360" y="45" font-size="14" fill="#1f2937">ρ (Ω m)</text>
+  <text x="572" y="293" font-size="14" fill="#1f2937" text-anchor="end">T (K)</text>
+  <text x="342" y="287" font-size="13" fill="#1f2937" text-anchor="end">O</text>
+  <line x1="352" y1="118" x2="560" y2="98" stroke="#d97706" stroke-width="2.5"/>
+  <text x="455" y="150" font-size="13" fill="#d97706" text-anchor="middle">large ρ, very slow rise</text>
+  <text x="460" y="325" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(b) Nichrome (alloy)</text>
+  <text x="460" y="345" font-size="13" fill="#1f2937" text-anchor="middle">weak dependence on T (small α)</text>
+
+  <!-- Panel (c): semiconductor -->
+  <line x1="640" y1="270" x2="855" y2="270" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="865,270 853,264 853,276" fill="#1f2937"/>
+  <line x1="640" y1="270" x2="640" y2="45" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="640,35 634,47 646,47" fill="#1f2937"/>
+  <text x="650" y="45" font-size="14" fill="#1f2937">ρ (Ω m)</text>
+  <text x="862" y="293" font-size="14" fill="#1f2937" text-anchor="end">T (K)</text>
+  <text x="632" y="287" font-size="13" fill="#1f2937" text-anchor="end">O</text>
+  <path d="M668,60 C690,175 725,235 850,252" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="730" y="150" font-size="13" fill="#2563eb">ρ falls steeply</text>
+  <text x="750" y="325" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(c) Semiconductor (Si, Ge)</text>
+  <text x="750" y="345" font-size="13" fill="#1f2937" text-anchor="middle">ρ decreases with T (α &lt; 0)</text>
+</svg>

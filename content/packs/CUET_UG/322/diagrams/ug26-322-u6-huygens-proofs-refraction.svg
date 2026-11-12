@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 540" font-family="Arial, Helvetica, sans-serif">
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#1f2937">Proof of Snell's law: refraction into a denser medium (v2 &lt; v1)</text>
+  <rect x="40" y="260" width="560" height="200" fill="#059669" fill-opacity="0.07"/>
+  <line x1="40" y1="260" x2="600" y2="260" stroke="#1f2937" stroke-width="2.2"/>
+  <text x="470" y="80" font-size="14" fill="#1f2937">medium 1: speed v1, n1</text>
+  <text x="430" y="440" font-size="14" fill="#1f2937">medium 2: speed v2, n2 (n2 &gt; n1)</text>
+  <!-- normals -->
+  <line x1="150" y1="120" x2="150" y2="420" stroke="#1f2937" stroke-width="1.1" stroke-dasharray="5 4"/>
+  <line x1="450" y1="140" x2="450" y2="400" stroke="#1f2937" stroke-width="1.1" stroke-dasharray="5 4"/>
+  <!-- wavelet from A in medium 2 -->
+  <path d="M289.6 323 A153.2 153.2 0 0 1 138.5 412.8" fill="none" stroke="#1f2937" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <!-- incident rays -->
+  <line x1="50.4" y1="176.4" x2="150" y2="260" stroke="#2563eb" stroke-width="1.6"/>
+  <polygon points="105.2,222.4 93.9,218.8 99.7,211.9" fill="#2563eb"/>
+  <line x1="228" y1="73.7" x2="450" y2="260" stroke="#2563eb" stroke-width="1.6"/>
+  <polygon points="361.2,185.5 349.9,181.9 355.7,175" fill="#2563eb"/>
+  <!-- incident wavefront AB -->
+  <line x1="150" y1="260" x2="274" y2="112.3" stroke="#2563eb" stroke-width="3"/>
+  <!-- refracted rays -->
+  <line x1="150" y1="260" x2="264" y2="451.9" stroke="#dc2626" stroke-width="1.6"/>
+  <polygon points="249.7,427.8 240.2,420.7 247.9,416.1" fill="#dc2626"/>
+  <line x1="450" y1="260" x2="506.2" y2="354.6" stroke="#dc2626" stroke-width="1.6"/>
+  <polygon points="489.3,326.2 479.8,319 487.6,314.4" fill="#dc2626"/>
+  <!-- refracted wavefront CE -->
+  <line x1="450" y1="260" x2="228.2" y2="391.7" stroke="#dc2626" stroke-width="3"/>
+  <!-- right angles -->
+  <path d="M267.5 119.9 L275.2 126.4 L281.6 118.7" fill="none" stroke="#1f2937" stroke-width="1.2"/>
+  <path d="M223.1 383.1 L231.7 378 L236.8 386.6" fill="none" stroke="#1f2937" stroke-width="1.2"/>
+  <!-- angle arcs -->
+  <path d="M175.7 229.4 A40 40 0 0 1 190 260" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="194" y="246" font-size="15" fill="#2563eb">i</text>
+  <path d="M410 260 A40 40 0 0 0 415.6 280.4" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="394" y="282" font-size="15" fill="#dc2626">r</text>
+  <!-- points and labels -->
+  <circle cx="150" cy="260" r="3.5" fill="#1f2937"/>
+  <circle cx="450" cy="260" r="3.5" fill="#1f2937"/>
+  <circle cx="274" cy="112.3" r="3.5" fill="#1f2937"/>
+  <circle cx="228.2" cy="391.7" r="3.5" fill="#1f2937"/>
+  <text x="128" y="254" font-size="15" fill="#1f2937">A</text>
+  <text x="456" y="254" font-size="15" fill="#1f2937">C</text>
+  <text x="280" y="106" font-size="15" fill="#1f2937">B</text>
+  <text x="204" y="392" font-size="15" fill="#1f2937">E</text>
+  <text x="290" y="200" font-size="13" fill="#2563eb">BC = v1τ</text>
+  <text x="196" y="330" font-size="13" fill="#dc2626">AE = v2τ</text>
+  <!-- legend -->
+  <line x1="20" y1="480" x2="44" y2="480" stroke="#2563eb" stroke-width="3"/>
+  <text x="50" y="485" font-size="13" fill="#1f2937">incident wavefront AB</text>
+  <line x1="220" y1="480" x2="244" y2="480" stroke="#dc2626" stroke-width="3"/>
+  <text x="250" y="485" font-size="13" fill="#1f2937">refracted wavefront CE</text>
+  <line x1="430" y1="480" x2="454" y2="480" stroke="#1f2937" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="460" y="485" font-size="13" fill="#1f2937">wavelet from A</text>
+  <text x="20" y="510" font-size="12" fill="#1f2937">Drawn to scale for i = 50°, v1/v2 = 1.5: sin i = BC/AC, sin r = AE/AC, so sin i / sin r = v1/v2 and r = 30.7°.</text>
+  <text x="20" y="528" font-size="12" fill="#1f2937">∠BAC = i and ∠ECA = r: each wavefront is perpendicular to its rays, and the surface to the normal.</text>
+</svg>

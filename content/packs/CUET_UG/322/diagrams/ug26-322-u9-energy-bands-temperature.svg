@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" font-family="Arial, Helvetica, sans-serif">
+  <!-- energy axis -->
+  <line x1="30" y1="320" x2="30" y2="62" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="30,50 24,64 36,64" fill="#1f2937"/>
+  <text x="16" y="190" font-size="14" fill="#1f2937" text-anchor="middle" transform="rotate(-90 16 190)">Electron energy</text>
+
+  <!-- panel 1: T = 0 K -->
+  <text x="160" y="36" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">At T = 0 K</text>
+  <rect x="70" y="70" width="180" height="70" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <text x="160" y="102" font-size="14" fill="#1f2937" text-anchor="middle">Conduction band</text>
+  <text x="160" y="121" font-size="13" fill="#1f2937" text-anchor="middle">completely empty</text>
+  <rect x="70" y="210" width="180" height="70" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+  <text x="160" y="241" font-size="14" fill="#1e3a8a" text-anchor="middle">Valence band</text>
+  <text x="160" y="260" font-size="13" fill="#1e3a8a" text-anchor="middle">completely filled</text>
+  <line x1="270" y1="147" x2="270" y2="203" stroke="#dc2626" stroke-width="2"/>
+  <polygon points="270,141 265,151 275,151" fill="#dc2626"/>
+  <polygon points="270,209 265,199 275,199" fill="#dc2626"/>
+  <text x="280" y="180" font-size="14" fill="#dc2626">Eg</text>
+  <text x="160" y="312" font-size="14" fill="#1f2937" text-anchor="middle">no free carriers:</text>
+  <text x="160" y="330" font-size="14" fill="#1f2937" text-anchor="middle">behaves as an insulator</text>
+
+  <!-- panel 2: T > 0 K -->
+  <text x="520" y="36" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">At room temperature (T &gt; 0 K)</text>
+  <rect x="430" y="70" width="180" height="70" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <text x="520" y="98" font-size="14" fill="#1f2937" text-anchor="middle">Conduction band</text>
+  <rect x="430" y="210" width="180" height="70" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+  <text x="520" y="265" font-size="14" fill="#1e3a8a" text-anchor="middle">Valence band</text>
+  <!-- electrons excited -->
+  <circle cx="460" cy="128" r="5" fill="#1f2937"/>
+  <circle cx="520" cy="128" r="5" fill="#1f2937"/>
+  <circle cx="580" cy="128" r="5" fill="#1f2937"/>
+  <!-- holes left behind -->
+  <circle cx="460" cy="222" r="5" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+  <circle cx="520" cy="222" r="5" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+  <circle cx="580" cy="222" r="5" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+  <!-- excitation arrows -->
+  <g stroke="#059669" stroke-width="2">
+    <line x1="460" y1="214" x2="460" y2="142"/>
+    <line x1="520" y1="214" x2="520" y2="142"/>
+    <line x1="580" y1="214" x2="580" y2="142"/>
+  </g>
+  <polygon points="460,135 455,146 465,146" fill="#059669"/>
+  <polygon points="520,135 515,146 525,146" fill="#059669"/>
+  <polygon points="580,135 575,146 585,146" fill="#059669"/>
+  <text x="620" y="170" font-size="13" fill="#059669">thermal</text>
+  <text x="620" y="186" font-size="13" fill="#059669">excitation</text>
+  <text x="620" y="133" font-size="13" fill="#1f2937">free electrons</text>
+  <text x="620" y="227" font-size="13" fill="#dc2626">holes</text>
+  <text x="520" y="312" font-size="14" fill="#1f2937" text-anchor="middle">electrons (CB) and holes (VB) both</text>
+  <text x="520" y="330" font-size="14" fill="#1f2937" text-anchor="middle">carry current: conductivity rises with T</text>
+</svg>

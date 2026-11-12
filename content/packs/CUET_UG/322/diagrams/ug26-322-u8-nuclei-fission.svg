@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="900" height="380" font-family="Arial, Helvetica, sans-serif">
+  <!-- slow neutron -->
+  <circle cx="50" cy="170" r="12" fill="#2563eb"/>
+  <text x="50" y="175" font-size="13" fill="#ffffff" text-anchor="middle">n</text>
+  <text x="50" y="124" font-size="13" fill="#1f2937" text-anchor="middle">slow</text>
+  <text x="50" y="140" font-size="13" fill="#1f2937" text-anchor="middle">neutron</text>
+  <line x1="66" y1="170" x2="128" y2="170" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="140,170 128,164 128,176" fill="#1f2937"/>
+  <!-- U-235 -->
+  <circle cx="205" cy="170" r="55" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+  <text x="205" y="167" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">U-235</text>
+  <text x="205" y="187" font-size="13" fill="#1f2937" text-anchor="middle">92 p, 143 n</text>
+  <line x1="266" y1="170" x2="318" y2="170" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="330,170 318,164 318,176" fill="#1f2937"/>
+  <!-- excited compound nucleus U-236* -->
+  <circle cx="380" cy="170" r="42" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+  <circle cx="440" cy="170" r="38" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+  <rect x="384" y="150" width="52" height="40" fill="#fde68a"/>
+  <text x="410" y="175" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">U-236*</text>
+  <text x="410" y="238" font-size="13" fill="#1f2937" text-anchor="middle">excited, deformed</text>
+  <text x="410" y="255" font-size="13" fill="#1f2937" text-anchor="middle">compound nucleus</text>
+  <!-- split -->
+  <line x1="484" y1="150" x2="584" y2="111" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="595,107 586.6,117.0 582.2,105.8" fill="#1f2937"/>
+  <line x1="484" y1="190" x2="586" y2="232" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="597,237 583.8,237.6 588.4,226.5" fill="#1f2937"/>
+  <!-- fragments -->
+  <circle cx="645" cy="95" r="42" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+  <text x="645" y="92" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">Ba-141</text>
+  <text x="645" y="111" font-size="13" fill="#1f2937" text-anchor="middle">56 p, 85 n</text>
+  <circle cx="645" cy="255" r="36" fill="#bbf7d0" stroke="#059669" stroke-width="2"/>
+  <text x="645" y="252" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">Kr-92</text>
+  <text x="645" y="270" font-size="13" fill="#1f2937" text-anchor="middle">36 p, 56 n</text>
+  <!-- three fast neutrons -->
+  <circle cx="752" cy="130" r="12" fill="#2563eb"/>
+  <text x="752" y="135" font-size="13" fill="#ffffff" text-anchor="middle">n</text>
+  <circle cx="752" cy="175" r="12" fill="#2563eb"/>
+  <text x="752" y="180" font-size="13" fill="#ffffff" text-anchor="middle">n</text>
+  <circle cx="752" cy="220" r="12" fill="#2563eb"/>
+  <text x="752" y="225" font-size="13" fill="#ffffff" text-anchor="middle">n</text>
+  <g stroke="#2563eb" stroke-width="2">
+    <line x1="768" y1="124" x2="800" y2="112"/>
+    <line x1="768" y1="175" x2="802" y2="175"/>
+    <line x1="768" y1="226" x2="800" y2="238"/>
+  </g>
+  <g fill="#2563eb">
+    <polygon points="811,108 801.3,117.0 797.1,105.8"/>
+    <polygon points="814,175 802,169 802,181"/>
+    <polygon points="811,242 797.1,244.2 801.3,233.0"/>
+  </g>
+  <text x="790" y="85" font-size="13" fill="#1f2937" text-anchor="middle">2 or 3 fast neutrons</text>
+  <text x="790" y="275" font-size="13" fill="#1f2937" text-anchor="middle">(can cause more fissions:</text>
+  <text x="790" y="291" font-size="13" fill="#1f2937" text-anchor="middle">chain reaction)</text>
+  <!-- energy -->
+  <text x="645" y="25" font-size="14" fill="#dc2626" text-anchor="middle">fragments fly apart with large kinetic energy</text>
+  <!-- equation -->
+  <text x="450" y="345" font-size="16" fill="#1f2937" text-anchor="middle">n + U-235 → U-236* → Ba-141 + Kr-92 + 3n + about 200 MeV</text>
+  <text x="450" y="368" font-size="13" fill="#4b5563" text-anchor="middle">Check: mass numbers 1 + 235 = 141 + 92 + 3 = 236; charges 92 = 56 + 36</text>
+</svg>

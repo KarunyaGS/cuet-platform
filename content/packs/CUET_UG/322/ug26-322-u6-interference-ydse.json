@@ -1,0 +1,258 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_af32a51b80a8489da32e42a32ac7f7f3",
+    "title": "Coherent sources and interference of light, Young's double slit experiment and expression"
+  },
+  "lesson": {
+    "key": "ug26-322-u6-interference-ydse",
+    "title": "Coherent sources, interference of light and Young's double slit experiment",
+    "coverage": [
+      { "phrase": "interference of light", "section": "Superposition and interference of light" },
+      { "phrase": "Coherent sources", "section": "Coherent and incoherent sources" },
+      { "phrase": "Young's double slit experiment", "section": "Young's double slit experiment" },
+      { "phrase": "expression for fringe width", "section": "Expression for fringe width" },
+      { "phrase": "shift of fringes when a thin sheet covers one slit", "section": "Shifting the fringe pattern with a thin sheet" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Superposition and interference of light" },
+      { "type": "TEXT", "text": "When two or more waves pass through the same point, the resultant disturbance at that point is the sum of the disturbances that each wave would produce on its own. This is the **principle of superposition**. For light, the disturbance is the electric field of the wave.\n\nSuppose two light waves of the same frequency reach a point P with amplitudes a1 and a2 and a phase difference φ. Their displacements can be written $y_1 = a_1\\cos\\omega t$ and $y_2 = a_2\\cos(\\omega t + \\phi)$. Adding them (for example with a phasor diagram, where the two amplitudes are added as vectors at angle φ) gives a resultant oscillation of the same frequency with amplitude A given by $A^2 = a_1^2 + a_2^2 + 2a_1a_2\\cos\\phi$. Since intensity is proportional to the square of the amplitude, the intensity at P is given by the formula below.\n\nThe term $2\\sqrt{I_1 I_2}\\cos\\phi$ is the **interference term**. Where it is positive the light is brighter than $I_1 + I_2$; where it is negative the light is dimmer. Energy is not created or destroyed: it is only **redistributed** from the dark regions to the bright ones, and the average intensity over the pattern is still $I_1 + I_2$." },
+      { "type": "DEFINITION", "term": "Interference of light", "text": "The modification (redistribution) of intensity produced when two or more coherent light waves overlap, giving points of maximum intensity (constructive interference) and points of minimum intensity (destructive interference)." },
+      { "type": "FORMULA", "latex": "I = I_1 + I_2 + 2\\sqrt{I_1 I_2}\\,\\cos\\phi", "text": "I = resultant intensity at a point; I1, I2 = intensities of the two waves separately; φ = phase difference between them at that point. Valid for coherent waves of the same frequency." },
+      { "type": "FORMULA", "latex": "\\phi = \\frac{2\\pi}{\\lambda}\\,\\Delta x", "text": "Relation between phase difference φ (in radians) and path difference Δx: a path difference of one wavelength λ corresponds to a phase difference of 2π." },
+      { "type": "TABLE", "caption": "Conditions for constructive and destructive interference", "columns": ["Quantity", "Constructive (bright)", "Destructive (dark)"], "rows": [
+        ["Phase difference φ", "0, 2π, 4π, ... = 2nπ", "π, 3π, 5π, ... = (2n + 1)π"],
+        ["Path difference Δx", "0, λ, 2λ, ... = nλ", "λ/2, 3λ/2, ... = (n + 1/2)λ"],
+        ["Resultant amplitude", "a1 + a2", "|a1 − a2|"],
+        ["Intensity", "Imax = (√I1 + √I2)²", "Imin = (√I1 − √I2)²"],
+        ["Equal intensities I0", "4I0", "0 (complete darkness)"]
+      ] },
+      { "type": "DIAGRAM", "diagram": "superposition" },
+      { "type": "TEXT", "text": "For two waves of equal intensity I0, the formula becomes $I = 2I_0(1 + \\cos\\phi) = 4I_0\\cos^2(\\phi/2)$. The maxima are four times as bright as either wave alone and the minima are completely dark, which gives the sharpest contrast. If the intensities are unequal, the minima are not completely dark and the fringes are less distinct. The ratio of maximum to minimum intensity is often asked:\n\n$\\dfrac{I_{max}}{I_{min}} = \\left(\\dfrac{\\sqrt{I_1} + \\sqrt{I_2}}{\\sqrt{I_1} - \\sqrt{I_2}}\\right)^2 = \\left(\\dfrac{a_1 + a_2}{a_1 - a_2}\\right)^2$." },
+      { "type": "SOLVED_PROBLEM", "problem": "(a) Two coherent waves have intensities in the ratio 9 : 1. Find the ratio of the maximum to the minimum intensity where they interfere. (b) Two coherent waves each of intensity I0 meet at a point with a phase difference of π/3. Find the resultant intensity.", "solution": "(a) Intensity is proportional to amplitude squared, so the amplitudes are in the ratio $a_1 : a_2 = \\sqrt{9} : \\sqrt{1} = 3 : 1$.\n\nMaximum: amplitude $a_1 + a_2 = 4$ units, intensity proportional to 16. Minimum: amplitude $a_1 - a_2 = 2$ units, intensity proportional to 4.\n\nSo $I_{max} : I_{min} = 16 : 4 = 4 : 1$.\n\n(b) For equal intensities $I = 4I_0\\cos^2(\\phi/2) = 4I_0\\cos^2(\\pi/6) = 4I_0 \\times (0.866)^2 = 4I_0 \\times 0.75 = 3I_0$. Check with the general formula: $I = I_0 + I_0 + 2I_0\\cos(\\pi/3) = 2I_0 + I_0 = 3I_0$.", "answer": "(a) 4 : 1; (b) 3I0." },
+
+      { "type": "HEADING", "text": "Coherent and incoherent sources" },
+      { "type": "TEXT", "text": "An interference pattern can be seen only if the phase difference φ at each point stays **constant in time**. If φ keeps changing, the bright and dark regions move about so fast that the eye sees only their average.\n\nLight from an ordinary source is emitted by enormous numbers of atoms, each sending out a short burst of waves. The phase of the emitted light changes randomly and abruptly in times of the order of $10^{-10}$ s or less. Two separate lamps, even identical ones, therefore have a phase difference that fluctuates randomly many millions of times during the roughly 0.1 s that the eye needs to register an image. The average of $\\cos\\phi$ over all these random values is zero, so the observed intensity is simply $I = I_1 + I_2$ everywhere: uniform illumination with no fringes." },
+      { "type": "DEFINITION", "term": "Coherent sources", "text": "Two sources are coherent if they emit light waves of the same frequency (and wavelength) with a phase difference that remains constant with time. Only coherent sources produce a sustained (stationary) interference pattern." },
+      { "type": "DEFINITION", "term": "Incoherent sources", "text": "Sources whose phase difference changes randomly with time, such as two independent lamps. Their intensities simply add, $I = I_1 + I_2$, and no lasting interference pattern is seen." },
+      { "type": "TEXT", "text": "**How coherent sources are obtained.** Since two independent sources are never coherent, coherent sources are always derived from a **single** source, so that any random phase change in the original source appears equally in both derived waves and their phase difference stays fixed.\n\n- **Division of wavefront:** two parts of the same wavefront are used, as in Young's double slit experiment, Fresnel's biprism and Lloyd's mirror.\n- **Division of amplitude:** a light wave is partly reflected and partly transmitted, and the two parts are made to meet again, as in thin films (colours of soap bubbles and oil films) and the Michelson interferometer.\n\nA laser produces light with a very stable phase over long stretches of the beam, which is why lasers make interference experiments easy. Even so, two separate lasers are not, in general, coherent with each other." },
+      { "type": "FORMULA", "latex": "\\langle\\cos\\phi\\rangle = 0 \\;\\Rightarrow\\; I = I_1 + I_2 \\quad (\\text{incoherent sources})", "text": "When the phase difference varies randomly, the time average of cos φ is zero, so the interference term vanishes and intensities add." },
+      { "type": "TABLE", "caption": "Coherent and incoherent sources compared", "columns": ["Feature", "Coherent sources", "Incoherent sources"], "rows": [
+        ["Phase difference", "Constant in time", "Changes randomly"],
+        ["Resultant intensity", "I1 + I2 + 2√(I1I2) cos φ", "I1 + I2"],
+        ["Pattern", "Stationary bright and dark fringes", "Uniform illumination"],
+        ["How obtained", "From one source (division of wavefront or amplitude)", "Any two independent sources"],
+        ["Examples", "Two slits lit by the same source; reflections from a thin film", "Two bulbs; two candles"]
+      ] },
+      { "type": "KEY_POINT", "text": "Conditions for a good, sustained interference pattern: the sources must be coherent; they should have equal (or nearly equal) amplitudes for dark minima; they should be close together (small d) and the screen far away (large D) so that the fringes are wide enough to see; and the light should be monochromatic, otherwise the fringes of different colours overlap." },
+
+      { "type": "HEADING", "text": "Young's double slit experiment" },
+      { "type": "TEXT", "text": "In 1801 Thomas Young gave the first convincing demonstration of the wave nature of light. In the modern form of his experiment:\n\n1. Monochromatic light illuminates a narrow slit S, which acts as a small source.\n2. Light from S falls on two very narrow, parallel slits S1 and S2, a small distance d apart and equidistant from S. Because S1 and S2 are lit by the same wavefront, they act as **two coherent sources** in phase with each other.\n3. The waves spreading out from S1 and S2 overlap on a screen at a distance D (with D much larger than d). Alternate bright and dark bands, called **interference fringes**, appear on the screen, parallel to the slits.\n\nThe point O on the screen, on the perpendicular bisector of S1S2, is equidistant from both slits, so the path difference there is zero and O is always the centre of a bright fringe, the **central maximum**." },
+      { "type": "DIAGRAM", "diagram": "ydse-geometry" },
+      { "type": "TEXT", "text": "**Derivation of the path difference.** Let P be a point on the screen at distance y from O. The slits are at heights +d/2 and −d/2 relative to the central line. Then\n\n$(S_2P)^2 = D^2 + \\left(y + \\dfrac{d}{2}\\right)^2$ and $(S_1P)^2 = D^2 + \\left(y - \\dfrac{d}{2}\\right)^2$.\n\nSubtracting, $(S_2P)^2 - (S_1P)^2 = 2yd$, so $(S_2P - S_1P)(S_2P + S_1P) = 2yd$.\n\nIn practice D is about a metre while y and d are only millimetres, so $S_2P + S_1P \\approx 2D$. Hence the path difference is $\\Delta x = S_2P - S_1P = \\dfrac{yd}{D}$. In terms of the angle θ that OP subtends at the slits, this is $\\Delta x = d\\sin\\theta \\approx d\\tan\\theta = yd/D$ for small θ." },
+      { "type": "FORMULA", "latex": "\\Delta x = S_2P - S_1P = \\frac{y\\,d}{D}", "text": "Δx = path difference at a point P a distance y from the central point O; d = separation of the two slits; D = distance from the slits to the screen (D much larger than y and d)." },
+      { "type": "TEXT", "text": "**Positions of the fringes.**\n\n- Bright fringe where $\\dfrac{yd}{D} = n\\lambda$, that is at $y_n = \\dfrac{n\\lambda D}{d}$, with n = 0, ±1, ±2, ... The integer n is the order of the bright fringe; n = 0 is the central bright fringe.\n- Dark fringe where $\\dfrac{yd}{D} = \\left(n + \\dfrac{1}{2}\\right)\\lambda$, that is at $y_n' = \\left(n + \\dfrac{1}{2}\\right)\\dfrac{\\lambda D}{d}$. The first dark fringe on each side (n = 0) is at λD/2d, the second (n = 1) at 3λD/2d, and so on." },
+      { "type": "FORMULA", "latex": "y_n = \\frac{n\\lambda D}{d}\\ (\\text{bright}), \\qquad y_n' = \\left(n + \\tfrac{1}{2}\\right)\\frac{\\lambda D}{d}\\ (\\text{dark})", "text": "n = 0, ±1, ±2, ...; λ = wavelength of the light used; D = slit–screen distance; d = slit separation. Distances are measured from the central bright fringe O." },
+      { "type": "CALLOUT", "text": "Counting trap: the 'third dark fringe' is the one with n = 2, at (2 + 1/2)λD/d = 2.5β, because the first dark fringe has n = 0. The 'third bright fringe' (not counting the central one) is at 3β. Always write out the first two or three to check." },
+
+      { "type": "HEADING", "text": "Expression for fringe width" },
+      { "type": "DEFINITION", "term": "Fringe width", "text": "The distance between the centres of two consecutive bright fringes (or of two consecutive dark fringes) on the screen. It is denoted β and measured in metres (usually quoted in millimetres)." },
+      { "type": "TEXT", "text": "**Derivation.** The (n + 1)th and nth bright fringes are at $y_{n+1} = \\dfrac{(n+1)\\lambda D}{d}$ and $y_n = \\dfrac{n\\lambda D}{d}$. Their separation is $\\beta = y_{n+1} - y_n = \\dfrac{\\lambda D}{d}$. The same result is obtained for consecutive dark fringes: $y'_{n+1} - y'_n = \\lambda D/d$. Since β does not depend on n, all the fringes are **equally spaced**, and bright and dark fringes have the same width.\n\nDividing by D gives the **angular fringe width**, the angle subtended at the slits by one fringe: $\\theta_\\beta = \\beta/D = \\lambda/d$. It does not depend on the distance of the screen." },
+      { "type": "FORMULA", "latex": "\\beta = \\frac{\\lambda D}{d}, \\qquad \\theta_\\beta = \\frac{\\beta}{D} = \\frac{\\lambda}{d}", "text": "β = fringe width, λ = wavelength, D = distance from the slits to the screen, d = slit separation, θβ = angular fringe width in radians." },
+      { "type": "DIAGRAM", "diagram": "ydse-fringes" },
+      { "type": "TEXT", "text": "**Intensity distribution.** With equal slits each giving intensity I0 on the screen, the phase difference at y is $\\phi = \\dfrac{2\\pi}{\\lambda}\\cdot\\dfrac{yd}{D} = \\dfrac{2\\pi y}{\\beta}$, so $I = 4I_0\\cos^2\\left(\\dfrac{\\pi y}{\\beta}\\right)$. All the maxima have the same intensity 4I0 (as long as the slits are narrow enough that the spreading from each slit is nearly uniform over the region seen), and the minima are zero.\n\n**What changes the fringe width.**\n\n- β is proportional to λ: red fringes are wider than blue ones.\n- β is proportional to D: moving the screen away widens the fringes.\n- β is inversely proportional to d: moving the slits closer together widens the fringes.\n- If the whole apparatus is immersed in a liquid of refractive index μ, the wavelength becomes λ/μ, so β becomes β/μ.\n- β does not depend on the width of each slit (provided the slits stay narrow) or on the intensity of the light.\n\n**White light.** At O the path difference is zero for every colour, so all colours are bright there and the central fringe is white. On either side, the fringes are coloured, the inner edge of each bright fringe being bluish (shorter λ, smaller β) and the outer edge reddish. After a few fringes the different colours overlap so much that the screen looks uniformly white.\n\n**Other observations.** If one slit is covered, the interference fringes disappear and only the much broader spreading (diffraction) pattern of a single slit remains. If the source slit S is made too wide, the fringe patterns from different parts of it overlap and the fringes fade; for clear fringes the source size s and its distance S from the slits should satisfy $s/S < \\lambda/d$. If the source S is moved slightly upward, the whole pattern shifts downward (the central fringe stays on the line through S and the midpoint of the slits)." },
+      { "type": "FORMULA", "latex": "I(y) = 4I_0\\cos^2\\!\\left(\\frac{\\pi y}{\\beta}\\right)", "text": "Intensity at distance y from the central maximum for two equal coherent slits; I0 = intensity due to one slit alone; β = fringe width." },
+      { "type": "SOLVED_PROBLEM", "problem": "In a Young's double slit experiment, light of wavelength 600 nm is used, the slits are 0.30 mm apart and the screen is 1.5 m away. Find (a) the fringe width, (b) the distances of the third bright fringe and the third dark fringe from the central maximum, (c) the angular fringe width.", "solution": "(a) $\\beta = \\frac{\\lambda D}{d} = \\frac{600 \\times 10^{-9} \\times 1.5}{0.30 \\times 10^{-3}} = 3.0 \\times 10^{-3}$ m = 3.0 mm.\n\n(b) Third bright fringe (n = 3): $y_3 = 3\\beta = 9.0$ mm. Third dark fringe (n = 2, since the first dark fringe has n = 0): $y_2' = (2 + 0.5)\\beta = 2.5 \\times 3.0 = 7.5$ mm.\n\n(c) $\\theta_\\beta = \\frac{\\lambda}{d} = \\frac{600 \\times 10^{-9}}{0.30 \\times 10^{-3}} = 2.0 \\times 10^{-3}$ rad, about 0.115 degrees. Check: $\\beta/D = 3.0 \\times 10^{-3}/1.5 = 2.0 \\times 10^{-3}$ rad.", "answer": "(a) 3.0 mm; (b) 9.0 mm and 7.5 mm; (c) 2.0 x 10^-3 rad." },
+      { "type": "SOLVED_PROBLEM", "problem": "A double slit with d = 2.0 mm and a screen at D = 1.2 m is illuminated with light containing two wavelengths, 650 nm and 520 nm. Find (a) the distance of the third bright fringe of the 520 nm light from the centre, (b) the least distance from the central maximum at which bright fringes of the two wavelengths coincide.", "solution": "(a) $y_3 = \\frac{3\\lambda D}{d} = \\frac{3 \\times 520 \\times 10^{-9} \\times 1.2}{2.0 \\times 10^{-3}} = 9.36 \\times 10^{-4}$ m = 0.936 mm.\n\n(b) Bright fringes coincide where $n_1\\lambda_1 = n_2\\lambda_2$, that is $650\\,n_1 = 520\\,n_2$, or $5n_1 = 4n_2$. The smallest whole numbers are n1 = 4 and n2 = 5 (both equal 2600 nm of path difference). The distance is $y = \\frac{n_1\\lambda_1 D}{d} = \\frac{4 \\times 650 \\times 10^{-9} \\times 1.2}{2.0 \\times 10^{-3}} = 1.56 \\times 10^{-3}$ m = 1.56 mm.", "answer": "(a) 0.936 mm; (b) 1.56 mm." },
+      { "type": "SOLVED_PROBLEM", "problem": "The apparatus of the first example (fringe width 3.0 mm in air) is completely immersed in water of refractive index 4/3. (a) What is the new fringe width? (b) To what distance must the screen be moved (slit separation unchanged) to restore the original fringe width?", "solution": "(a) In water the wavelength becomes $\\lambda/\\mu$, so $\\beta' = \\frac{\\beta}{\\mu} = \\frac{3.0}{4/3} = 2.25$ mm. The fringes come closer together.\n\n(b) To restore 3.0 mm, D must be increased by the factor μ, because β is proportional to D: $D' = \\mu D = \\frac{4}{3} \\times 1.5 = 2.0$ m. Check: $\\frac{(600/1.333) \\times 10^{-9} \\times 2.0}{0.30 \\times 10^{-3}} = \\frac{450 \\times 10^{-9} \\times 2.0}{0.30 \\times 10^{-3}} = 3.0 \\times 10^{-3}$ m.", "answer": "(a) 2.25 mm; (b) D = 2.0 m." },
+
+      { "type": "HEADING", "text": "Shifting the fringe pattern with a thin sheet" },
+      { "type": "TEXT", "text": "This application goes slightly beyond the NCERT text but follows directly from the path-difference idea. If a thin transparent sheet of thickness t and refractive index μ is placed in front of slit S1, light passing through it takes the time it would need to travel an extra distance $(\\mu - 1)t$ in air. The **optical path** of the ray from S1 increases by $(\\mu - 1)t$. The central bright fringe now lies where the geometric path difference compensates this extra optical path, so the whole pattern shifts towards the covered slit. The fringe width does not change, because λ, D and d are unchanged." },
+      { "type": "FORMULA", "latex": "\\Delta y = \\frac{(\\mu - 1)\\,t\\,D}{d}, \\qquad N = \\frac{(\\mu - 1)\\,t}{\\lambda}", "text": "Δy = shift of the whole fringe pattern towards the slit covered by the sheet; μ = refractive index and t = thickness of the sheet; N = number of fringe widths by which the pattern shifts." },
+      { "type": "SOLVED_PROBLEM", "problem": "A mica sheet of refractive index 1.5 and thickness 6.0 μm is placed over one slit of a double slit illuminated with light of wavelength 600 nm. By how many fringes does the pattern shift, and in which direction?", "solution": "Extra optical path introduced by the sheet: $(\\mu - 1)t = (1.5 - 1) \\times 6.0 \\times 10^{-6} = 3.0 \\times 10^{-6}$ m.\n\nNumber of fringes shifted: $N = \\frac{(\\mu - 1)t}{\\lambda} = \\frac{3.0 \\times 10^{-6}}{600 \\times 10^{-9}} = 5$.\n\nThe pattern shifts by 5 fringe widths towards the covered slit; the central bright fringe moves to where the fifth bright fringe was. The fringe width is unchanged, so the pattern simply slides sideways. This method is used to measure the thickness or refractive index of thin sheets.", "answer": "5 fringes, towards the slit covered by the mica sheet." },
+      { "type": "TABLE", "caption": "Effect of changes on the double-slit pattern", "columns": ["Change made", "Effect on fringe width β", "Other effect"], "rows": [
+        ["Screen moved farther (D doubled)", "Doubles", "Fringes wider, dimmer"],
+        ["Slit separation d doubled", "Halves", "Fringes closer"],
+        ["Red light replaced by blue", "Decreases", "Fringes closer"],
+        ["Apparatus immersed in liquid of index μ", "Becomes β/μ", "Fringes closer"],
+        ["Thin sheet over one slit", "Unchanged", "Pattern shifts towards that slit"],
+        ["One slit covered", "No interference fringes", "Single-slit diffraction pattern only"],
+        ["White light used", "Different for each colour", "White central fringe, coloured fringes beside it"]
+      ] },
+      { "type": "IMPORTANT_FACT", "text": "Revision: I = I1 + I2 + 2√(I1I2) cos φ; φ = (2π/λ)Δx; bright for Δx = nλ, dark for Δx = (n + 1/2)λ; Δx = yd/D; β = λD/d; angular width λ/d; in a medium β/μ; I = 4I0 cos²(πy/β); coherent sources have constant phase difference and are derived from one source." },
+      { "type": "CALLOUT", "text": "Common mistakes: (1) mixing up d (slit separation, millimetres) and D (screen distance, metres); always convert to metres. (2) Thinking dark fringes mean energy is destroyed: it is only redistributed. (3) Using the slit width instead of the slit separation in β = λD/d. (4) Forgetting that immersing the apparatus in water reduces β (wavelength decreases)." }
+    ]
+  },
+  "diagrams": [
+    { "key": "superposition", "file": "diagrams/ug26-322-u6-interference-superposition.svg", "alt": "Two graphs of displacement against time showing two equal waves adding to amplitude 2a when in phase and cancelling to zero when in opposite phase", "caption": "Superposition: waves in phase add (amplitude 2a, intensity 4I0); waves in opposite phase cancel (intensity 0).", "description": "Top graph: a dashed blue sine wave of amplitude a and a solid green resultant wave of amplitude 2a with the same phase, marked constructive interference for path difference n lambda. Bottom graph: a dashed blue wave and a dotted red wave of equal amplitude in opposite phase, with a flat green resultant along the time axis, marked destructive interference for path difference (n + 1/2) lambda." },
+    { "key": "ydse-geometry", "file": "diagrams/ug26-322-u6-interference-ydse-geometry.svg", "alt": "Young's double slit geometry showing source S, slits S1 and S2 separated by d, screen at distance D, and point P at height y with path difference S2N", "caption": "Geometry of Young's double slit experiment: the path difference at P is S2P − S1P ≈ d sin θ ≈ yd/D.", "description": "A source S on the left sends light to two slits S1 and S2 in a barrier, separated by d. From the slits, blue lines go to a point P on a distant screen at height y above the central point O; the screen is a distance D from the slits. A dashed green arc centred at P from S1 meets S2P at N, so S2N is the path difference. The angle theta between the central line and the line to P is marked." },
+    { "key": "ydse-fringes", "file": "diagrams/ug26-322-u6-interference-ydse-fringes.svg", "alt": "Graph of intensity against position on the screen showing equally spaced cos-squared fringes with maxima 4I0 and fringe width beta, above a strip showing bright and dark bands", "caption": "Double-slit fringe pattern: I = 4I0 cos²(πy/β), maxima at 0, ±β, ±2β and zero intensity at ±β/2, ±3β/2.", "description": "At the top, a dark strip with five evenly spaced bright amber bands represents the fringes on the screen. Below, a graph of intensity I (vertical axis) against position y on the screen (horizontal axis) shows identical peaks of height 4I0 at y = 0, plus and minus beta, plus and minus 2 beta, falling to zero at half-integer multiples of beta. A green arrow marks beta = lambda D/d between two neighbouring maxima." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u6-interference-ydse-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Two light sources are said to be coherent when they emit waves that have",
+      "options": ["the same amplitude only", "different frequencies but the same intensity", "the same frequency and a constant phase difference", "a phase difference that changes randomly with time"], "answer": 3,
+      "explanation": "Coherence requires waves of the same frequency whose phase difference stays constant in time; only then is the interference term 2√(I1I2) cos φ steady and a stationary fringe pattern visible. Equal amplitudes improve the contrast of fringes but are not what defines coherence.",
+      "optionRationale": { "1": "Equal amplitudes help contrast but do not make sources coherent.", "2": "Different frequencies give a continually changing phase difference.", "4": "A randomly changing phase difference is the mark of incoherent sources." },
+      "objective": "Define coherent sources"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Light from two identical, independent sodium lamps falls on the same region of a screen. No interference fringes are seen because",
+      "options": ["the phase difference between the two sources changes randomly and very rapidly", "sodium light is not a wave", "the two lamps emit light of very different wavelengths", "light from two sources cannot overlap"], "answer": 1,
+      "explanation": "Each lamp emits light in short random bursts from many atoms, so the phase difference between the two lamps changes randomly in times of about 10⁻¹⁰ s. The eye averages over these changes; the average of cos φ is zero and the intensities simply add, giving uniform illumination.",
+      "optionRationale": { "2": "Sodium light is a wave; it can interfere with itself in a double-slit set-up.", "3": "Identical sodium lamps emit the same wavelengths.", "4": "Light beams overlap freely; the issue is the lack of a fixed phase relation." },
+      "objective": "Explain why independent sources do not interfere"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q03", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Two coherent waves of intensities I0 and 4I0 interfere. The maximum and minimum intensities in the pattern are",
+      "options": ["5I0 and 3I0", "5I0 and I0", "4I0 and 0", "9I0 and I0"], "answer": 4,
+      "explanation": "Imax = (√I1 + √I2)² = (√I0 + 2√I0)² = 9I0 and Imin = (√I1 − √I2)² = (2√I0 − √I0)² = I0. Intensities are not simply added: the amplitudes add (1 + 2 = 3 units, squared gives 9) or subtract (2 − 1 = 1 unit).",
+      "optionRationale": { "1": "Adds and subtracts intensities instead of amplitudes.", "2": "5I0 is the average intensity I1 + I2, not the maximum.", "3": "Complete darkness needs equal intensities." },
+      "objective": "Calculate maximum and minimum intensities in interference"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q04", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Two coherent waves, each of intensity I0, arrive at a point with a path difference of λ/4. The resultant intensity there is",
+      "options": ["4I0", "2I0", "I0", "zero"], "answer": 2,
+      "explanation": "Phase difference φ = (2π/λ)(λ/4) = π/2. For equal intensities I = 4I0 cos²(φ/2) = 4I0 cos²(π/4) = 4I0 × 1/2 = 2I0. Equivalently, I = I0 + I0 + 2I0 cos(π/2) = 2I0, since the interference term is zero at this phase.",
+      "optionRationale": { "1": "4I0 occurs for zero path difference (or any whole number of wavelengths).", "3": "I0 occurs for a phase difference of 2π/3, not π/2.", "4": "Zero occurs for a path difference of λ/2." },
+      "objective": "Use path difference to find intensity"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q05", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "In an interference pattern the ratio of maximum to minimum intensity is 9 : 1. The ratio of the intensities of the two interfering waves is",
+      "options": ["4 : 1", "3 : 1", "9 : 1", "2 : 1"], "answer": 1,
+      "explanation": "Imax/Imin = ((a1 + a2)/(a1 − a2))² = 9, so (a1 + a2)/(a1 − a2) = 3. Then a1 + a2 = 3a1 − 3a2, giving a1 = 2a2. The intensities are in the ratio a1² : a2² = 4 : 1.",
+      "optionRationale": { "2": "3 : 1 is the ratio (a1 + a2)/(a1 − a2), not of intensities.", "3": "9 : 1 is the given Imax/Imin, not I1/I2.", "4": "2 : 1 is the amplitude ratio; intensities go as amplitude squared." },
+      "objective": "Work backwards from intensity ratios to wave intensities"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q06", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "In a Young's double slit experiment, light of wavelength 500 nm is used, the slits are 0.5 mm apart and the screen is 1.0 m away. The fringe width is",
+      "options": ["0.25 mm", "0.5 mm", "1.0 mm", "2.5 mm"], "answer": 3,
+      "explanation": "β = λD/d = (500 × 10⁻⁹ m × 1.0 m)/(0.5 × 10⁻³ m) = 1.0 × 10⁻³ m = 1.0 mm. Converting d to metres before substituting avoids the most common error.",
+      "optionRationale": { "1": "Divides by an extra factor of 4.", "2": "Halves the correct value.", "4": "Results from a unit slip with the wavelength." },
+      "objective": "Apply β = λD/d"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q07", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "In Young's experiment, the separation of the slits is halved and the distance of the screen from the slits is doubled. The fringe width becomes",
+      "options": ["unchanged", "four times", "twice", "one quarter"], "answer": 2,
+      "explanation": "β = λD/d. Doubling D doubles β, and halving d doubles it again, so the new fringe width is 2 × 2 = 4 times the original. Both changes act in the same direction.",
+      "optionRationale": { "1": "The two changes do not cancel; both increase β.", "3": "Accounts for only one of the two changes.", "4": "Inverts both effects." },
+      "objective": "Predict how fringe width depends on D and d"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q08", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "A Young's double slit apparatus gives a fringe width β in air. If the entire apparatus is immersed in water of refractive index 4/3, the fringe width becomes",
+      "options": ["4β/3", "β", "16β/9", "3β/4"], "answer": 4,
+      "explanation": "In water the wavelength becomes λ/μ = 3λ/4 while D and d are unchanged. Since β = λD/d is proportional to the wavelength, the new fringe width is 3β/4: the fringes come closer together.",
+      "optionRationale": { "1": "The wavelength decreases in water, so β cannot increase.", "2": "The wavelength changes, so β changes.", "3": "Squares the factor; β depends on λ linearly." },
+      "objective": "Find the effect of a medium on fringe width"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q09", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A double slit (d = 1.0 mm, D = 1.0 m) is illuminated with light of wavelengths 600 nm and 480 nm together. The least distance from the central maximum at which a bright fringe of one wavelength coincides with a bright fringe of the other is",
+      "options": ["0.48 mm", "0.60 mm", "2.4 mm", "4.8 mm"], "answer": 3,
+      "explanation": "Coincidence needs n1λ1 = n2λ2: 600n1 = 480n2, so 5n1 = 4n2, giving n1 = 4 and n2 = 5 (path difference 2400 nm). Then y = n1λ1D/d = (4 × 600 × 10⁻⁹ × 1.0)/(1.0 × 10⁻³) = 2.4 × 10⁻³ m = 2.4 mm.",
+      "optionRationale": { "1": "This is just the fringe width for 480 nm.", "2": "This is just the fringe width for 600 nm.", "4": "Uses n1 = 8, the second coincidence, not the first." },
+      "objective": "Find where fringes of two wavelengths coincide"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q10", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "In a double slit experiment the fringe width is 2.0 mm. The distance of the fifth dark fringe from the central bright fringe is",
+      "options": ["10 mm", "9 mm", "11 mm", "8 mm"], "answer": 2,
+      "explanation": "Dark fringes lie at (n + 1/2)β with n = 0 for the first. The fifth dark fringe has n = 4, so y = 4.5β = 4.5 × 2.0 mm = 9.0 mm. The answer 10 mm would be the fifth bright fringe.",
+      "optionRationale": { "1": "10 mm = 5β is the fifth bright fringe.", "3": "11 mm = 5.5β is the sixth dark fringe.", "4": "8 mm = 4β is the fourth bright fringe." },
+      "objective": "Locate dark fringes of a given order"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q11", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): When white light is used in Young's double slit experiment, the central fringe is white.\nReason (R): At the centre of the screen the path difference between the waves from the two slits is zero for every wavelength.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 1,
+      "explanation": "Zero path difference means constructive interference for every colour at the same point, so all colours are bright at the centre and combine to white. Away from the centre, the bright fringes of different colours fall at different places, producing coloured fringes. R correctly explains A.",
+      "optionRationale": { "2": "R is precisely the reason for A.", "3": "R is true; the central point is equidistant from both slits.", "4": "A is true; the central fringe is white." },
+      "objective": "Explain the white central fringe with white light"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q12", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): Two independent sodium lamps placed side by side cannot produce a sustained interference pattern.\nReason (R): Two sodium lamps emit light of different frequencies.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 3,
+      "explanation": "A is true: independent lamps are incoherent, so no steady fringes form. R is false: both lamps emit the same characteristic sodium wavelengths. The real reason is that the phase difference between the two lamps changes randomly and rapidly, so the interference term averages to zero.",
+      "optionRationale": { "1": "R is false, so it cannot be the explanation.", "2": "R is false.", "4": "A is true." },
+      "objective": "Identify the true reason two lamps are incoherent"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q13", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): In Young's experiment, the fringes come closer together when the screen is moved farther from the slits.\nReason (R): The fringe width is directly proportional to the distance D between the slits and the screen.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 4,
+      "explanation": "R is correct: β = λD/d, so β is proportional to D. Moving the screen farther away increases D and therefore makes the fringes wider, not closer. So A is false and R is true.",
+      "optionRationale": { "1": "A is false.", "2": "A is false.", "3": "R is the correct formula; A is the false statement." },
+      "objective": "Apply β ∝ D correctly"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q14", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): In an interference pattern, light energy is not destroyed at the dark fringes.\nReason (R): In Young's double slit experiment, the fringe width does not depend on the order of the fringe.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 2,
+      "explanation": "A is true: energy missing from the dark fringes appears in the bright ones (maxima of 4I0, average 2I0 = I1 + I2), so energy is conserved and only redistributed. R is also true, since β = λD/d contains no n. But equal spacing says nothing about energy conservation, so R does not explain A.",
+      "optionRationale": { "1": "R is unrelated to energy redistribution.", "3": "R is a correct property of double-slit fringes.", "4": "A is correct; energy is redistributed, not destroyed." },
+      "objective": "Recognise energy redistribution in interference"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q15", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "Match each change in a Young's double slit experiment (List-I) with its effect (List-II).",
+      "list": { "left": ["A. Screen distance D doubled", "B. Slit separation d doubled", "C. Apparatus immersed in a liquid of refractive index 1.5", "D. One of the two slits covered"], "right": ["I. Fringe width halved", "II. Fringe width doubled", "III. Fringe width becomes two-thirds", "IV. Interference fringes disappear"] },
+      "options": ["A-II, B-I, C-III, D-IV", "A-I, B-II, C-III, D-IV", "A-II, B-I, C-IV, D-III", "A-III, B-I, C-II, D-IV"], "answer": 1,
+      "explanation": "β = λD/d: doubling D doubles β (A-II); doubling d halves β (B-I). In a liquid of index 1.5 the wavelength becomes λ/1.5, so β becomes 2β/3 (C-III). With one slit covered there is no second coherent source, so the interference fringes disappear (D-IV).",
+      "optionRationale": { "2": "Swaps the effects of D and d.", "3": "Swaps the liquid and the covered slit.", "4": "Mismatches A and C." },
+      "objective": "Relate experimental changes to fringe width"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q16", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "ydse-geometry",
+      "stem": "In the figure, the path difference S2N for the point P equals 2.5λ. What is observed at P?",
+      "options": ["The second bright fringe", "The central bright fringe", "The third bright fringe", "The third dark fringe"], "answer": 4,
+      "explanation": "A path difference of (n + 1/2)λ gives a dark fringe. Here 2.5λ = (2 + 1/2)λ, so n = 2. Since the first dark fringe has n = 0 (path difference λ/2), n = 2 is the third dark fringe, at a distance 2.5β from O.",
+      "optionRationale": { "1": "The second bright fringe needs a path difference of exactly 2λ.", "2": "The central fringe has zero path difference.", "3": "The third bright fringe needs 3λ." },
+      "objective": "Identify a fringe from the path difference"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q17", "type": "DIAGRAM_BASED", "difficulty": "EASY", "skill": "conceptual", "diagram": "ydse-fringes",
+      "stem": "On the intensity graph, the point marked 3β/2 is a position of zero intensity. What is the path difference between the waves from the two slits at that point?",
+      "options": ["3λ/2", "3λ", "3λ/4", "λ/2"], "answer": 1,
+      "explanation": "Path difference Δx = yd/D and β = λD/d, so Δx = (y/β)λ. At y = 3β/2, Δx = 3λ/2 = (1 + 1/2)λ, which is an odd multiple of λ/2: destructive interference, the second dark fringe, as the zero of the graph shows.",
+      "optionRationale": { "2": "3λ would be the bright fringe at 3β.", "3": "3λ/4 gives intensity 2I0, not zero.", "4": "λ/2 is the path difference at the first dark fringe, y = β/2." },
+      "objective": "Connect position on the screen with path difference"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q18", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A thin film of refractive index 1.6 and thickness 5.0 μm is placed over one slit of a double slit illuminated with light of wavelength 500 nm. The fringe pattern shifts by",
+      "options": ["10 fringes, towards the uncovered slit", "6 fringes, towards the covered slit", "16 fringes, towards the covered slit", "3 fringes, towards the uncovered slit"], "answer": 2,
+      "explanation": "The film adds an optical path (μ − 1)t = 0.6 × 5.0 × 10⁻⁶ = 3.0 × 10⁻⁶ m. Number of fringes shifted N = (μ − 1)t/λ = 3.0 × 10⁻⁶/500 × 10⁻⁹ = 6. The central fringe moves towards the covered slit, where the extra optical path is compensated by a shorter geometric path.",
+      "optionRationale": { "1": "Uses t/λ without the factor (μ − 1) and gives the wrong direction.", "3": "Uses μt instead of (μ − 1)t.", "4": "Halves the correct shift and reverses the direction." },
+      "objective": "Calculate the fringe shift caused by a thin sheet"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q19", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about the fringes in Young's double slit experiment.\nA. The fringe width is independent of the order of the fringe.\nB. Bright and dark fringes are equally spaced.\nC. The fringe width decreases if the distance between the slits is decreased.\nD. The angular fringe width is λ/d.\nWhich statements are correct?",
+      "options": ["A and B only", "B, C and D only", "A, B and D only", "A, C and D only"], "answer": 3,
+      "explanation": "β = λD/d has no n in it, so A and B are true. Angular width = β/D = λ/d, so D is true. C is false: decreasing d increases β (fringes widen), because β is inversely proportional to the slit separation.",
+      "optionRationale": { "1": "Omits D, which is also correct.", "2": "Includes C, which is false, and omits A.", "4": "Includes C and omits B." },
+      "objective": "Evaluate properties of double-slit fringes"
+    },
+    {
+      "key": "ug26-322-u6-interference-ydse-q20", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "In a double slit experiment with d = 0.80 mm and D = 1.6 m, the distance between the 1st and the 11th bright fringes on the same side of the centre is 12 mm. The wavelength of the light is",
+      "options": ["545 nm", "660 nm", "750 nm", "600 nm"], "answer": 4,
+      "explanation": "From the 1st to the 11th bright fringe there are 10 fringe widths, so β = 12 mm/10 = 1.2 mm. Then λ = βd/D = (1.2 × 10⁻³ × 0.80 × 10⁻³)/1.6 = 6.0 × 10⁻⁷ m = 600 nm.",
+      "optionRationale": { "1": "Divides 12 mm by 11 fringes instead of 10.", "2": "Results from an arithmetic slip of 10% in β.", "3": "Uses D = 1.28 m or a similar substitution error." },
+      "objective": "Determine wavelength from measured fringe spacing"
+    }
+  ]
+}

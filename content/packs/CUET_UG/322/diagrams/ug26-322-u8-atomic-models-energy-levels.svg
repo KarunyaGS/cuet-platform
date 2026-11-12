@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 760" width="820" height="760" font-family="Arial, Helvetica, sans-serif">
+  <!-- energy axis (linear scale: 45 px per eV) -->
+  <line x1="70" y1="700" x2="70" y2="58" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="70,46 64,58 76,58" fill="#1f2937"/>
+  <text x="40" y="380" font-size="15" fill="#1f2937" text-anchor="middle" transform="rotate(-90 40 380)">Energy E (eV), drawn to scale</text>
+  <!-- continuum -->
+  <text x="400" y="66" font-size="13" fill="#6b7280" text-anchor="middle">E &gt; 0: electron is free (ionised atom)</text>
+  <!-- levels -->
+  <line x1="170" y1="80" x2="640" y2="80" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="170" y1="104.5" x2="640" y2="104.5" stroke="#1f2937" stroke-width="1.8"/>
+  <line x1="170" y1="118.3" x2="640" y2="118.3" stroke="#1f2937" stroke-width="1.8"/>
+  <line x1="170" y1="148" x2="640" y2="148" stroke="#1f2937" stroke-width="1.8"/>
+  <line x1="170" y1="233" x2="640" y2="233" stroke="#1f2937" stroke-width="1.8"/>
+  <line x1="170" y1="692" x2="640" y2="692" stroke="#1f2937" stroke-width="2.2"/>
+  <text x="160" y="84.5" font-size="13" fill="#1f2937" text-anchor="end">n = ∞</text>
+  <text x="160" y="109" font-size="13" fill="#1f2937" text-anchor="end">n = 5</text>
+  <text x="160" y="123" font-size="13" fill="#1f2937" text-anchor="end">n = 4</text>
+  <text x="160" y="152.5" font-size="13" fill="#1f2937" text-anchor="end">n = 3</text>
+  <text x="160" y="237.5" font-size="13" fill="#1f2937" text-anchor="end">n = 2</text>
+  <text x="160" y="696.5" font-size="13" fill="#1f2937" text-anchor="end">n = 1</text>
+  <text x="650" y="84.5" font-size="13" fill="#1f2937">0</text>
+  <text x="650" y="109" font-size="13" fill="#1f2937">−0.54 eV</text>
+  <text x="650" y="123" font-size="13" fill="#1f2937">−0.85 eV</text>
+  <text x="650" y="152.5" font-size="13" fill="#1f2937">−1.51 eV</text>
+  <text x="650" y="237.5" font-size="13" fill="#1f2937">−3.40 eV</text>
+  <text x="650" y="696.5" font-size="13" fill="#1f2937">−13.6 eV</text>
+  <text x="650" y="713" font-size="13" fill="#1f2937">(ground state)</text>
+  <!-- Lyman series: to n = 1 -->
+  <g stroke="#7c3aed" stroke-width="2">
+    <line x1="205" y1="233" x2="205" y2="681"/>
+    <line x1="230" y1="148" x2="230" y2="681"/>
+    <line x1="255" y1="118.3" x2="255" y2="681"/>
+    <line x1="280" y1="104.5" x2="280" y2="681"/>
+  </g>
+  <g fill="#7c3aed">
+    <polygon points="205,692 200,680 210,680"/>
+    <polygon points="230,692 225,680 235,680"/>
+    <polygon points="255,692 250,680 260,680"/>
+    <polygon points="280,692 275,680 285,680"/>
+  </g>
+  <text x="242" y="722" font-size="14" fill="#7c3aed" text-anchor="middle">Lyman series</text>
+  <text x="242" y="740" font-size="13" fill="#7c3aed" text-anchor="middle">(ultraviolet)</text>
+  <!-- Balmer series: to n = 2 -->
+  <g stroke="#dc2626" stroke-width="2">
+    <line x1="360" y1="148" x2="360" y2="222"/>
+    <line x1="385" y1="118.3" x2="385" y2="222"/>
+    <line x1="410" y1="104.5" x2="410" y2="222"/>
+  </g>
+  <g fill="#dc2626">
+    <polygon points="360,233 355,221 365,221"/>
+    <polygon points="385,233 380,221 390,221"/>
+    <polygon points="410,233 405,221 415,221"/>
+  </g>
+  <text x="385" y="258" font-size="14" fill="#dc2626" text-anchor="middle">Balmer series</text>
+  <text x="385" y="276" font-size="13" fill="#dc2626" text-anchor="middle">(visible)</text>
+  <text x="352" y="196" font-size="12" fill="#dc2626" text-anchor="end">Hα</text>
+  <!-- Paschen series: to n = 3 -->
+  <g stroke="#d97706" stroke-width="2">
+    <line x1="510" y1="118.3" x2="510" y2="138"/>
+    <line x1="535" y1="104.5" x2="535" y2="138"/>
+  </g>
+  <g fill="#d97706">
+    <polygon points="510,148 506,137 514,137"/>
+    <polygon points="535,148 531,137 539,137"/>
+  </g>
+  <text x="522" y="172" font-size="14" fill="#d97706" text-anchor="middle">Paschen series</text>
+  <text x="522" y="190" font-size="13" fill="#d97706" text-anchor="middle">(infrared)</text>
+  <!-- ionisation energy -->
+  <line x1="600" y1="92" x2="600" y2="680" stroke="#059669" stroke-width="1.8"/>
+  <polygon points="600,80 595,92 605,92" fill="#059669"/>
+  <polygon points="600,692 595,680 605,680" fill="#059669"/>
+  <text x="612" y="420" font-size="13" fill="#059669">ionisation</text>
+  <text x="612" y="437" font-size="13" fill="#059669">energy</text>
+  <text x="612" y="454" font-size="13" fill="#059669">13.6 eV</text>
+  <!-- note -->
+  <text x="450" y="420" font-size="13" fill="#1f2937" text-anchor="middle">Each downward arrow is one spectral line:</text>
+  <text x="450" y="438" font-size="13" fill="#1f2937" text-anchor="middle">hν = E(upper) − E(lower).</text>
+  <text x="450" y="456" font-size="13" fill="#1f2937" text-anchor="middle">Longer arrow = more energy = shorter λ.</text>
+</svg>

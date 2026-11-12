@@ -1,0 +1,498 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_49e25f8f7ef343aaa0677937c5a6f5ce",
+    "title": "Dual nature of radiation, Photoelectric effect, Hertz and Lenard's observations; Einstein's photoelectric equation-particle nature of light. Experimental study of photoelectric effect."
+  },
+  "lesson": {
+    "key": "ug26-322-u7-photoelectric-effect",
+    "title": "Dual nature of radiation and the photoelectric effect",
+    "coverage": [
+      { "phrase": "Dual nature of radiation", "section": "Dual nature of radiation" },
+      { "phrase": "Photoelectric effect", "section": "Photoelectric effect: Hertz's and Lenard's observations" },
+      { "phrase": "Hertz and Lenard's observations", "section": "Photoelectric effect: Hertz's and Lenard's observations" },
+      { "phrase": "Einstein's photoelectric equation", "section": "Einstein's photoelectric equation" },
+      { "phrase": "Particle nature of light", "section": "Particle nature of light: the photon" },
+      { "phrase": "Experimental study of photoelectric effect", "section": "Experimental study of the photoelectric effect" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Dual nature of radiation" },
+      { "type": "TEXT", "text": "By the end of the nineteenth century the wave theory of light looked complete. Young's double-slit experiment, diffraction and polarisation could all be explained if light is a wave, and Maxwell's equations identified that wave as a transverse electromagnetic wave travelling at $c = 3 \\times 10^8\\,\\text{m s}^{-1}$ in vacuum. Hertz confirmed experimentally that electromagnetic waves exist.\n\nYet a group of experiments about the **emission and absorption** of radiation refused to fit this picture. Planck (1900) could explain the spectrum of black-body radiation only by assuming that energy is exchanged in packets of size $h\\nu$. The photoelectric effect (explained by Einstein in 1905) and the Compton effect (1923) showed that, when light gives energy to matter, it behaves as a stream of particles, each carrying energy $h\\nu$ and momentum $h/\\lambda$.\n\nSo radiation has a **dual nature**: it shows wave behaviour while it propagates (interference, diffraction, polarisation) and particle behaviour when it interacts with matter (photoelectric effect, Compton scattering). The two descriptions are complementary. A single experiment reveals one aspect or the other, never both at the same time." },
+      { "type": "CONCEPT", "text": "Electromagnetic radiation is neither a pure wave nor a pure stream of particles. Its wave properties (wavelength $\\lambda$, frequency $\\nu$) and particle properties (energy $E$, momentum $p$) are tied together by Planck's constant through $E = h\\nu$ and $p = h/\\lambda$." },
+      { "type": "TABLE", "caption": "Wave picture and particle (photon) picture of light", "columns": ["Feature", "Wave picture", "Particle (photon) picture"], "rows": [
+        ["What light is", "A continuous transverse electromagnetic wave", "A stream of discrete energy packets called photons"],
+        ["Energy", "Spread continuously over the wavefront; depends on amplitude (intensity)", "Comes in quanta of $E = h\\nu$; depends only on frequency"],
+        ["Intensity means", "Square of the amplitude of the wave", "Number of photons crossing unit area per second, times $h\\nu$"],
+        ["Phenomena explained", "Interference, diffraction, polarisation, reflection, refraction", "Photoelectric effect, Compton effect, black-body radiation, line spectra"],
+        ["Energy transfer to an electron", "Gradual and continuous, so a time lag is expected", "All at once, one photon to one electron, so no time lag"],
+        ["Key quantities", "$\\lambda$, $\\nu$, amplitude, phase", "$E = h\\nu$, $p = h/\\lambda$, photon flux"]
+      ] },
+      { "type": "KEY_POINT", "text": "Propagation shows the wave nature of light; emission and absorption show its particle nature. Planck's constant $h = 6.63 \\times 10^{-34}\\,\\text{J s}$ is the bridge between the two pictures." },
+
+      { "type": "HEADING", "text": "Electron emission and the work function" },
+      { "type": "TEXT", "text": "A metal contains a large number of free (conduction) electrons that move randomly through the lattice of positive ions. At room temperature they do not leave the metal on their own. If an electron tries to escape, the positive ions it leaves behind pull it back, so there is a **potential barrier** at the surface. An electron can leave only if it is given at least a certain minimum energy, which is different for different metals.\n\nThis minimum energy is called the **work function** $\\phi_0$. It depends on the metal and also on the condition of its surface (an oxide layer, dirt or an adsorbed gas film changes it). It is usually expressed in electron volts." },
+      { "type": "DEFINITION", "term": "Work function ($\\phi_0$)", "text": "The minimum energy that must be supplied to an electron to just remove it from the surface of a metal. SI unit: joule (J); in practice expressed in electron volts (eV). It is a property of the metal and of its surface condition." },
+      { "type": "DEFINITION", "term": "Electron volt (eV)", "text": "The kinetic energy gained by an electron when it is accelerated through a potential difference of 1 volt: $1\\,\\text{eV} = 1.6 \\times 10^{-19}\\,\\text{J}$." },
+      { "type": "TEXT", "text": "The energy needed to cross the surface barrier can be supplied in three main ways:\n\n- **Thermionic emission**: heating the metal gives the electrons enough thermal energy (used in the filament of an electron gun).\n- **Field emission**: a very strong electric field (about $10^8\\,\\text{V m}^{-1}$) pulls electrons out of the metal (used in some displays and electron microscopes).\n- **Photoelectric emission**: light of suitable frequency falling on the metal gives the electrons the energy. The electrons released this way are called **photoelectrons**.\n\nThe table lists approximate work functions. The threshold wavelength $\\lambda_0 = hc/\\phi_0$ is the longest wavelength that can still eject electrons; it is worked out with $hc \\approx 1240\\,\\text{eV nm}$." },
+      { "type": "TABLE", "caption": "Approximate work functions and threshold wavelengths (values depend on surface condition)", "columns": ["Metal", "Work function (eV)", "Threshold wavelength (nm)", "Region of threshold"], "rows": [
+        ["Caesium (Cs)", "2.14", "579", "Visible (yellow)"],
+        ["Potassium (K)", "2.30", "539", "Visible (green)"],
+        ["Sodium (Na)", "2.75", "451", "Visible (blue)"],
+        ["Calcium (Ca)", "3.20", "388", "Near ultraviolet"],
+        ["Aluminium (Al)", "4.28", "290", "Ultraviolet"],
+        ["Zinc (Zn)", "about 4.3", "about 288", "Ultraviolet"],
+        ["Copper (Cu)", "4.65", "267", "Ultraviolet"],
+        ["Platinum (Pt)", "5.65", "219", "Ultraviolet"]
+      ] },
+      { "type": "CALLOUT", "text": "**Exam tip:** the lower the work function, the longer the threshold wavelength. Alkali metals (Cs, K, Na) have small work functions, so they emit electrons even with visible light and are used in photocells. Zinc, copper and platinum need ultraviolet light." },
+
+      { "type": "HEADING", "text": "Photoelectric effect: Hertz's and Lenard's observations" },
+      { "type": "TEXT", "text": "**Hertz (1887).** While producing and detecting electromagnetic waves with spark gaps, Heinrich Hertz noticed that the sparks across the detector gap jumped more easily when the emitter plate was illuminated by **ultraviolet light from an arc lamp**. Light falling on the metal was somehow helping charged particles to leave its surface. Hertz recorded the effect but could not explain it; the electron had not yet been discovered (J. J. Thomson, 1897).\n\n**Hallwachs (1888).** Wilhelm Hallwachs connected a clean zinc plate to a gold-leaf electroscope and shone ultraviolet light on it:\n\n- a **negatively charged** plate lost its charge (the leaves collapsed);\n- an **uncharged** plate became **positively** charged;\n- a **positively charged** plate became even more positive.\n\nAll three results mean the same thing: ultraviolet light makes the zinc plate **emit negatively charged particles**.\n\n**Lenard (around 1900–1902).** Philipp Lenard placed two electrodes, an emitter and a collector, in an **evacuated glass tube** connected to a battery and a current meter. When ultraviolet light fell on the emitter, a current flowed in the circuit although there was empty space between the plates; when the light was cut off, the current stopped at once. The light was releasing charged particles from the emitter, and these crossed the vacuum to the collector. Measurements of their charge-to-mass ratio showed that they were **electrons**.\n\nThese studies (1886–1902) also showed that:\n\n- zinc, cadmium and magnesium respond only to ultraviolet light, whereas the alkali metals (lithium, sodium, potassium, rubidium, caesium) respond even to visible light;\n- for a given surface there is a minimum frequency of light below which **no** electrons are emitted, however intense the light is." },
+      { "type": "DEFINITION", "term": "Photoelectric effect", "text": "The emission of electrons from a metal surface when electromagnetic radiation of sufficiently high frequency (above the threshold frequency of that metal) falls on it." },
+      { "type": "DEFINITION", "term": "Photoelectrons and photocurrent", "text": "Electrons emitted by the photoelectric effect are photoelectrons. The current they produce in an external circuit is the photocurrent (SI unit: ampere; usually microamperes)." },
+      { "type": "DEFINITION", "term": "Threshold frequency ($\\nu_0$)", "text": "The minimum frequency of incident radiation that can eject photoelectrons from a given metal surface. It is related to the work function by $\\phi_0 = h\\nu_0$. SI unit: hertz (Hz)." },
+      { "type": "DEFINITION", "term": "Threshold wavelength ($\\lambda_0$)", "text": "The maximum wavelength of incident radiation that can eject photoelectrons from a given metal: $\\lambda_0 = c/\\nu_0 = hc/\\phi_0$. Radiation of wavelength longer than $\\lambda_0$ produces no emission." },
+      { "type": "KEY_POINT", "text": "Hertz: ultraviolet light made sparks jump more easily. Hallwachs: ultraviolet light discharges a negatively charged zinc plate and charges a neutral plate positively. Lenard: in an evacuated tube, ultraviolet light on the emitter drives a current; the emitted particles are electrons; there is a threshold frequency." },
+
+      { "type": "HEADING", "text": "Experimental study of the photoelectric effect" },
+      { "type": "TEXT", "text": "The laws of the photoelectric effect are found with the arrangement shown below.\n\n- An **evacuated glass tube** contains a photosensitive plate C (the **emitter**) and a second plate A (the **collector**). The vacuum lets electrons travel from C to A without colliding with gas molecules.\n- Monochromatic light enters through a **quartz window**. Quartz is used because ordinary glass absorbs ultraviolet light.\n- A battery with a **potential divider** sets the potential of A relative to C; a **commutator** reverses the polarity, so A can be made positive (accelerating) or negative (retarding).\n- A **voltmeter** reads the potential of A relative to C, and a **microammeter** reads the photocurrent.\n\nThe experimenter varies, one at a time: (1) the intensity of light, (2) the potential of A relative to C, (3) the frequency of light, and (4) the material of C." },
+      { "type": "DIAGRAM", "diagram": "apparatus" },
+      { "type": "CALLOUT", "text": "When A is positive, electrons emitted from C are pulled towards A: this is an **accelerating** potential. When A is negative, it repels the electrons: this is a **retarding** potential. The stopping potential is measured with A negative." },
+
+      { "type": "HEADING", "text": "Effect of intensity of light on photocurrent" },
+      { "type": "TEXT", "text": "Keep the frequency of the light fixed (above threshold) and keep A at a large enough positive potential that every emitted electron is collected. Now vary the intensity, for example by moving the lamp. The photocurrent increases **linearly** with intensity, and the graph of photocurrent against intensity is a straight line through the origin (panel a below).\n\nSince the photocurrent equals (number of electrons reaching A per second) × $e$, this result means that **the number of photoelectrons emitted per second is directly proportional to the intensity of the incident light**. On the other hand, the stopping potential does not change when only the intensity changes (panel b)." },
+      { "type": "DIAGRAM", "diagram": "intensity-graphs" },
+      { "type": "IMPORTANT_FACT", "text": "For light of a given frequency above threshold, the number of photoelectrons emitted per second, and hence the saturation current, is proportional to the intensity. Intensity changes how many electrons come out, not how fast the fastest ones move." },
+
+      { "type": "HEADING", "text": "Effect of potential on photocurrent: saturation current and stopping potential" },
+      { "type": "TEXT", "text": "Keep both the frequency and the intensity fixed and vary the potential $V$ of A relative to C.\n\n1. **A positive.** As $V$ increases, more and more of the emitted electrons are drawn to A and the current rises. At a certain potential every electron emitted per second reaches A, and the current stops increasing. This maximum value is the **saturation current**.\n2. **A at zero potential.** The current does not fall to zero. Photoelectrons leave C with some kinetic energy, so many of them reach A even without an accelerating field.\n3. **A negative (retarding).** The field now opposes the electrons. Only those with kinetic energy greater than $e|V|$ can reach A, so the current decreases as $|V|$ grows.\n4. At one particular retarding potential, $-V_0$, the current becomes **zero**. Even the fastest electrons are turned back. $V_0$ is the **stopping potential** (also called the cut-off potential).\n\nAt the stopping potential the work done by the retarding field on the most energetic electron equals its kinetic energy, giving the result below." },
+      { "type": "DEFINITION", "term": "Saturation current", "text": "The maximum photocurrent, reached when the collector is positive enough to collect every photoelectron emitted per second. For a given frequency it is proportional to the intensity of the light." },
+      { "type": "DEFINITION", "term": "Stopping potential ($V_0$)", "text": "The minimum negative (retarding) potential of the collector relative to the emitter at which the photocurrent becomes zero. It measures the maximum kinetic energy of the photoelectrons: $K_{max} = eV_0$. SI unit: volt (V)." },
+      { "type": "FORMULA", "latex": "K_{max} = \\frac{1}{2} m v_{max}^{2} = e V_0", "text": "$K_{max}$ = maximum kinetic energy of the photoelectrons (J or eV); $m = 9.1 \\times 10^{-31}\\,\\text{kg}$ = electron mass; $v_{max}$ = maximum speed (m/s); $e = 1.6 \\times 10^{-19}\\,\\text{C}$; $V_0$ = stopping potential (V). A stopping potential of $V_0$ volt means $K_{max} = V_0$ eV." },
+      { "type": "TEXT", "text": "Now repeat the experiment at the same frequency but with higher intensities $I_2$ and $I_3$. The curves have larger saturation currents, but they all reach zero at the **same** stopping potential. So the maximum kinetic energy of the photoelectrons does not depend on the intensity of the light.\n\nWhy do the electrons have a spread of energies from zero up to $K_{max}$? Electrons are released from different depths and from different energy levels. Electrons from below the surface lose energy in collisions on their way out, so they emerge slower. Only the least tightly bound electrons right at the surface leave with the full $K_{max}$. This is also why the current falls gradually, not suddenly, as the retarding potential approaches $V_0$." },
+      { "type": "DIAGRAM", "diagram": "current-vs-potential-intensity" },
+      { "type": "CALLOUT", "text": "**Common mistake:** writing $K_{max} = V_0$ in joules. The correct relation is $K_{max} = eV_0$. Only when energy is in electron volts is the number the same, e.g. $V_0 = 1.5\\,\\text{V}$ gives $K_{max} = 1.5\\,\\text{eV} = 2.4 \\times 10^{-19}\\,\\text{J}$." },
+
+      { "type": "HEADING", "text": "Effect of frequency of incident radiation on stopping potential" },
+      { "type": "TEXT", "text": "Now use light of different frequencies $\\nu_1 < \\nu_2 < \\nu_3$ (all above threshold), adjusting the sources so that the same number of photons per second falls on C. Plotting photocurrent against collector potential gives curves with the **same saturation current** but **different stopping potentials**: the higher the frequency, the larger the stopping potential ($V_{03} > V_{02} > V_{01}$). Higher-frequency light therefore gives electrons a larger maximum kinetic energy." },
+      { "type": "DIAGRAM", "diagram": "current-vs-potential-frequency" },
+      { "type": "CALLOUT", "text": "**Careful reading:** many textbooks describe this graph as being taken at 'the same intensity'. What must actually be the same for equal saturation currents is the **photon flux** (photons per second). At equal energy intensity, a higher-frequency beam carries fewer photons, because each photon has more energy. In a question about this graph, focus on the stopping potentials: they depend only on the frequency." },
+      { "type": "TEXT", "text": "When the stopping potential is plotted against frequency for one metal, the result is a **straight line** (see figure).\n\n- The line cuts the frequency axis at the **threshold frequency** $\\nu_0$. For $\\nu < \\nu_0$ there is no emission at all, however intense the light.\n- Above $\\nu_0$, $V_0$ increases linearly with $\\nu$. It is linear but **not proportional**, because the line does not pass through the origin.\n- For a different metal the line is **parallel** (same slope) but shifted: a metal with a larger work function has a larger $\\nu_0$.\n- The slope is the same universal constant $h/e$ for every metal, and the line extended backwards meets the $V_0$ axis at $-\\phi_0/e$." },
+      { "type": "DIAGRAM", "diagram": "stopping-potential-vs-frequency" },
+      { "type": "KEY_POINT", "text": "Experimental laws of photoelectric emission:\n\n1. For a given metal and a frequency above threshold, the photocurrent (number of photoelectrons per second) is proportional to the intensity.\n2. The saturation current depends on intensity, but the stopping potential (maximum kinetic energy) does not.\n3. Every metal has a threshold frequency $\\nu_0$. Below it there is no emission whatever the intensity; above it the maximum kinetic energy increases linearly with frequency.\n4. Emission begins without measurable delay (within about $10^{-9}\\,\\text{s}$), even for very dim light." },
+
+      { "type": "HEADING", "text": "Why the wave theory of light fails" },
+      { "type": "TEXT", "text": "In the wave picture, the energy of light is spread continuously and evenly over the wavefront. Every electron near the surface would keep absorbing energy until it had enough to escape. A brighter beam (larger amplitude) would deliver energy faster. This picture makes three predictions that disagree with experiment." },
+      { "type": "TABLE", "caption": "Wave-theory predictions compared with experiment and with the photon explanation", "columns": ["Observation", "Wave-theory prediction", "What is observed and why (photon picture)"], "rows": [
+        ["Maximum kinetic energy", "Should increase with intensity, since brighter light carries more energy", "Independent of intensity, because each electron absorbs one photon of energy $h\\nu$"],
+        ["Threshold frequency", "None: light of any frequency should eject electrons if intense enough or if we wait long enough", "No emission below $\\nu_0$, because a photon with $h\\nu < \\phi_0$ cannot free an electron"],
+        ["Time lag", "Weak light should need a measurable time (even hours) before emission starts", "Emission is practically instantaneous, because one photon delivers its energy at once"],
+        ["Dependence on frequency", "Energy depends on amplitude, not frequency", "$K_{max}$ increases linearly with $\\nu$: $K_{max} = h\\nu - \\phi_0$"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "Estimate, using the wave picture, how long an electron in a sodium surface ($\\phi_0 = 2.75\\,\\text{eV}$) would take to collect enough energy to escape when light of intensity $1.0 \\times 10^{-5}\\,\\text{W m}^{-2}$ falls on it. Assume that the electron collects energy over an area of $1.0 \\times 10^{-19}\\,\\text{m}^2$ (about the size of an atom).", "solution": "Step 1: Energy needed. $\\phi_0 = 2.75 \\times 1.6 \\times 10^{-19} = 4.4 \\times 10^{-19}\\,\\text{J}$.\n\nStep 2: Power received by one electron in the wave picture is intensity × area: $P = (1.0 \\times 10^{-5})(1.0 \\times 10^{-19}) = 1.0 \\times 10^{-24}\\,\\text{W}$.\n\nStep 3: Time needed: $t = \\phi_0 / P = (4.4 \\times 10^{-19}) / (1.0 \\times 10^{-24}) = 4.4 \\times 10^{5}\\,\\text{s}$.\n\nStep 4: Convert to days: $4.4 \\times 10^5 / 86400 \\approx 5.1$ days.\n\nIn experiments, emission starts within about $10^{-9}\\,\\text{s}$ even with such dim light. The wave picture is wrong by a factor of more than $10^{14}$. In the photon picture there is no waiting, because a single photon gives all its energy to one electron.", "answer": "About $4.4 \\times 10^5\\,\\text{s}$ (about 5 days) according to wave theory, whereas the observed delay is less than $10^{-9}\\,\\text{s}$." },
+
+      { "type": "HEADING", "text": "Einstein's photoelectric equation" },
+      { "type": "TEXT", "text": "In 1905 Albert Einstein extended Planck's quantum idea. He proposed that radiation itself consists of discrete **quanta** of energy, each carrying $E = h\\nu$. His picture of photoelectric emission was:\n\n- An electron absorbs **one whole quantum** or nothing; it cannot absorb a fraction of a quantum, and the chance of it absorbing two quanta is negligible.\n- Part of the absorbed energy, at least $\\phi_0$, is used to escape from the surface. The rest appears as the electron's kinetic energy.\n- Electrons from inside the metal lose some energy before reaching the surface. Only electrons at the surface leave with the maximum kinetic energy.\n\nEnergy conservation for the most energetic electron gives Einstein's photoelectric equation." },
+      { "type": "FORMULA", "latex": "h\\nu = \\phi_0 + K_{max}", "text": "Einstein's photoelectric equation. $h\\nu$ = energy of one incident photon; $\\phi_0$ = work function of the metal; $K_{max} = \\frac{1}{2}mv_{max}^2$ = maximum kinetic energy of the emitted electrons. All terms in J (or all in eV)." },
+      { "type": "FORMULA", "latex": "K_{max} = h\\nu - \\phi_0 = h(\\nu - \\nu_0) = hc\\left(\\frac{1}{\\lambda} - \\frac{1}{\\lambda_0}\\right)", "text": "Uses $\\phi_0 = h\\nu_0 = hc/\\lambda_0$. If $\\nu < \\nu_0$ (or $\\lambda > \\lambda_0$) the right-hand side is negative, which means no emission." },
+      { "type": "FORMULA", "latex": "eV_0 = h\\nu - \\phi_0 \\quad\\Rightarrow\\quad V_0 = \\frac{h}{e}\\,\\nu - \\frac{\\phi_0}{e}", "text": "Stopping-potential form. A graph of $V_0$ against $\\nu$ is a straight line with slope $h/e \\approx 4.14 \\times 10^{-15}\\,\\text{V s}$ (the same for every metal), $\\nu$-intercept $\\nu_0$ and $V_0$-intercept $-\\phi_0/e$." },
+      { "type": "FORMULA", "latex": "E\\,(\\text{in eV}) = \\frac{hc}{\\lambda} \\approx \\frac{1240}{\\lambda\\,(\\text{in nm})}", "text": "Shortcut: $hc = 6.63 \\times 10^{-34} \\times 3 \\times 10^{8} = 1.989 \\times 10^{-25}\\,\\text{J m} \\approx 1240\\,\\text{eV nm}$. For example, a 620 nm photon has energy $1240/620 = 2.0\\,\\text{eV}$." },
+      { "type": "TEXT", "text": "**How the equation explains every observation**\n\n- **Threshold frequency.** Since $K_{max} \\ge 0$, emission needs $h\\nu \\ge \\phi_0$, i.e. $\\nu \\ge \\nu_0 = \\phi_0/h$. A photon below threshold cannot free an electron. Raising the intensity only sends more such photons, and none of them is enough on its own.\n- **$K_{max}$ is independent of intensity.** Each electron receives the energy of a single photon, $h\\nu$, which is fixed by the frequency.\n- **$K_{max}$ increases linearly with frequency.** $K_{max} = h\\nu - \\phi_0$ is a straight line with slope $h$.\n- **Photocurrent ∝ intensity.** Intensity (at fixed frequency) is proportional to the number of photons arriving per second. More photons free more electrons per second.\n- **No time lag.** Absorbing a photon is a single event, so emission begins as soon as the light arrives.\n\n**Experimental verification.** Between 1906 and 1916 R. A. Millikan measured stopping potentials for sodium and other metals with great care, in order to test the equation. His $V_0$–$\\nu$ graphs were straight lines, and their slope gave a value of $h$ that agreed with Planck's value. Einstein received the 1921 Nobel Prize in Physics for the law of the photoelectric effect." },
+      { "type": "SOLVED_PROBLEM", "problem": "Light of wavelength 400 nm falls on a potassium surface (work function 2.30 eV). Find (a) the energy of each photon in eV, (b) the maximum kinetic energy of the photoelectrons, (c) the stopping potential, (d) the maximum speed of the photoelectrons and (e) the threshold wavelength of potassium. Use $hc = 1240\\,\\text{eV nm}$, $m_e = 9.1 \\times 10^{-31}\\,\\text{kg}$, $e = 1.6 \\times 10^{-19}\\,\\text{C}$.", "solution": "(a) Photon energy: $E = 1240/400 = 3.10\\,\\text{eV}$.\n\n(b) Einstein's equation: $K_{max} = E - \\phi_0 = 3.10 - 2.30 = 0.80\\,\\text{eV}$. In joules, $0.80 \\times 1.6 \\times 10^{-19} = 1.28 \\times 10^{-19}\\,\\text{J}$.\n\n(c) $eV_0 = K_{max}$, so $V_0 = 0.80\\,\\text{V}$.\n\n(d) $\\frac{1}{2}mv^2 = K_{max}$ gives $v = \\sqrt{2K_{max}/m} = \\sqrt{(2 \\times 1.28 \\times 10^{-19})/(9.1 \\times 10^{-31})} = \\sqrt{2.81 \\times 10^{11}} \\approx 5.3 \\times 10^{5}\\,\\text{m s}^{-1}$.\n\n(e) $\\lambda_0 = hc/\\phi_0 = 1240/2.30 \\approx 539\\,\\text{nm}$. Since 400 nm is shorter than 539 nm, emission does occur, which agrees with the positive $K_{max}$.", "answer": "(a) 3.10 eV (b) 0.80 eV (c) 0.80 V (d) about $5.3 \\times 10^5\\,\\text{m s}^{-1}$ (e) about 539 nm" },
+      { "type": "SOLVED_PROBLEM", "problem": "In a photoelectric experiment the stopping potential is 0.35 V for light of frequency $6.0 \\times 10^{14}\\,\\text{Hz}$ and 1.18 V for light of frequency $8.0 \\times 10^{14}\\,\\text{Hz}$. Find (a) Planck's constant, (b) the threshold frequency and (c) the work function of the metal. Take $e = 1.6 \\times 10^{-19}\\,\\text{C}$.", "solution": "From $V_0 = (h/e)\\nu - \\phi_0/e$, the $V_0$–$\\nu$ graph is a straight line of slope $h/e$.\n\n(a) Slope $= \\Delta V_0/\\Delta\\nu = (1.18 - 0.35)/(8.0 - 6.0) \\times 10^{14} = 0.83/(2.0 \\times 10^{14}) = 4.15 \\times 10^{-15}\\,\\text{V s}$. Therefore $h = e \\times \\text{slope} = 1.6 \\times 10^{-19} \\times 4.15 \\times 10^{-15} = 6.64 \\times 10^{-34}\\,\\text{J s}$.\n\n(b) On the line, $V_0 = (h/e)(\\nu - \\nu_0)$. Using the first point: $0.35 = 4.15 \\times 10^{-15}(6.0 \\times 10^{14} - \\nu_0)$, so $6.0 \\times 10^{14} - \\nu_0 = 0.843 \\times 10^{14}$ and $\\nu_0 \\approx 5.16 \\times 10^{14}\\,\\text{Hz}$.\n\n(c) $\\phi_0 = h\\nu_0$. In eV, $\\phi_0 = (h/e)\\nu_0 = 4.15 \\times 10^{-15} \\times 5.16 \\times 10^{14} \\approx 2.14\\,\\text{eV}$, which is close to the value for caesium. Check with the second point: $4.15 \\times 10^{-15} \\times 8.0 \\times 10^{14} - 2.14 = 3.32 - 2.14 = 1.18\\,\\text{V}$, as given.", "answer": "(a) $h \\approx 6.64 \\times 10^{-34}\\,\\text{J s}$ (b) $\\nu_0 \\approx 5.16 \\times 10^{14}\\,\\text{Hz}$ (c) $\\phi_0 \\approx 2.14\\,\\text{eV}$" },
+      { "type": "SOLVED_PROBLEM", "problem": "For the potassium surface of the earlier problem ($\\phi_0 = 2.30\\,\\text{eV}$) the stopping potential is 0.80 V with 400 nm light. What happens to the stopping potential and to the saturation current if (a) the intensity is doubled at the same wavelength, (b) the wavelength is halved to 200 nm at the same photon flux? Use $hc = 1240\\,\\text{eV nm}$.", "solution": "(a) Doubling the intensity at the same wavelength doubles the number of photons per second but leaves the energy of each photon at 3.10 eV. So $K_{max}$ stays $3.10 - 2.30 = 0.80\\,\\text{eV}$ and the stopping potential remains 0.80 V. Twice as many electrons are emitted per second, so the saturation current doubles.\n\n(b) At 200 nm each photon has energy $1240/200 = 6.20\\,\\text{eV}$. Then $K_{max} = 6.20 - 2.30 = 3.90\\,\\text{eV}$, so $V_0 = 3.90\\,\\text{V}$. Halving the wavelength did **not** double the stopping potential (0.80 V to 3.90 V, nearly five times), because $V_0$ depends linearly, not proportionally, on $1/\\lambda$. The photon flux is unchanged, so the saturation current is unchanged.", "answer": "(a) $V_0$ stays 0.80 V and the saturation current doubles. (b) $V_0$ becomes 3.90 V and the saturation current is unchanged." },
+      { "type": "CALLOUT", "text": "**Common mistakes with Einstein's equation**\n\n- Assuming $V_0 \\propto \\nu$ or $V_0 \\propto 1/\\lambda$. Because of the $\\phi_0$ term, you must recompute $V_0$ from $hc/\\lambda - \\phi_0$.\n- Mixing units. Keep everything in eV (with $hc = 1240\\,\\text{eV nm}$ and $\\lambda$ in nm), or everything in joules.\n- Forgetting to check the threshold first. If $hc/\\lambda < \\phi_0$ there is no emission, and a negative answer for $K_{max}$ is meaningless.\n- Treating intensity as if it changes $K_{max}$. It changes only the number of electrons." },
+
+      { "type": "HEADING", "text": "Particle nature of light: the photon" },
+      { "type": "TEXT", "text": "The photoelectric effect shows that, in its interaction with matter, radiation behaves as if it is made of particles. These particles are called **photons** (a name given by G. N. Lewis in 1926). In 1923 the Compton effect, the scattering of X-rays by electrons, confirmed that photons carry momentum as well as energy, and that energy and momentum are both conserved when a photon collides with an electron." },
+      { "type": "DEFINITION", "term": "Photon", "text": "A quantum (discrete packet) of electromagnetic radiation. A photon of frequency $\\nu$ has energy $E = h\\nu$ and momentum $p = h\\nu/c = h/\\lambda$, travels at $c$ in vacuum and has zero rest mass." },
+      { "type": "FORMULA", "latex": "E = h\\nu = \\frac{hc}{\\lambda}", "text": "Energy of a photon. $h = 6.63 \\times 10^{-34}\\,\\text{J s}$; $\\nu$ = frequency (Hz); $c = 3 \\times 10^8\\,\\text{m s}^{-1}$; $\\lambda$ = wavelength (m). E is in joules (divide by $1.6 \\times 10^{-19}$ for eV)." },
+      { "type": "FORMULA", "latex": "p = \\frac{E}{c} = \\frac{h\\nu}{c} = \\frac{h}{\\lambda}", "text": "Momentum of a photon, in $\\text{kg m s}^{-1}$. It follows from the relativistic relation $E = pc$ for a particle of zero rest mass." },
+      { "type": "TEXT", "text": "**Properties of photons**\n\n1. All photons of radiation of frequency $\\nu$ have the same energy $h\\nu$ and the same momentum $h\\nu/c$, whatever the intensity of the radiation.\n2. Increasing the intensity of light of a given wavelength increases only the **number** of photons crossing a given area per second. The energy of each photon stays the same.\n3. Photons are electrically neutral, so electric and magnetic fields do not deflect them.\n4. In a collision between a photon and a particle such as an electron, total energy and total momentum are conserved. The **number** of photons need not be conserved: a photon can be absorbed and disappear, or a new photon can be created.\n5. Photons travel at $c$ in vacuum and have zero rest mass. They can never be brought to rest." },
+      { "type": "FORMULA", "latex": "N = \\frac{P}{h\\nu} = \\frac{P\\lambda}{hc}", "text": "Number of photons emitted (or arriving) per second by a monochromatic source of power $P$ (W). Photon flux per unit area = intensity $I$ (W m⁻²) divided by $h\\nu$." },
+      { "type": "SOLVED_PROBLEM", "problem": "Find the energy (in J and eV) and the momentum of a photon of green light of wavelength 500 nm. Take $h = 6.63 \\times 10^{-34}\\,\\text{J s}$, $c = 3 \\times 10^8\\,\\text{m s}^{-1}$.", "solution": "Step 1: Convert the wavelength to metres: $\\lambda = 500\\,\\text{nm} = 5.0 \\times 10^{-7}\\,\\text{m}$.\n\nStep 2: Energy from $E = hc/\\lambda$: $E = (6.63 \\times 10^{-34} \\times 3 \\times 10^{8})/(5.0 \\times 10^{-7}) = (1.989 \\times 10^{-25})/(5.0 \\times 10^{-7}) = 3.98 \\times 10^{-19}\\,\\text{J}$.\n\nStep 3: Convert to electron volts by dividing by the charge of an electron: $3.98 \\times 10^{-19}/1.6 \\times 10^{-19} \\approx 2.49\\,\\text{eV}$. The shortcut $1240/500 = 2.48\\,\\text{eV}$ agrees to within rounding, so either method may be used in the exam.\n\nStep 4: Momentum from $p = h/\\lambda$: $p = 6.63 \\times 10^{-34}/5.0 \\times 10^{-7} = 1.33 \\times 10^{-27}\\,\\text{kg m s}^{-1}$. As a check, $E/c = 3.98 \\times 10^{-19}/3 \\times 10^8 = 1.33 \\times 10^{-27}$, the same value. The momentum of a single visible photon is tiny, which is why light pressure is hard to notice in daily life.", "answer": "$E \\approx 3.98 \\times 10^{-19}\\,\\text{J} \\approx 2.5\\,\\text{eV}$; $p \\approx 1.33 \\times 10^{-27}\\,\\text{kg m s}^{-1}$" },
+      { "type": "SOLVED_PROBLEM", "problem": "A laser emits light of wavelength 660 nm with power 10 mW. How many photons does it emit per second? ($h = 6.63 \\times 10^{-34}\\,\\text{J s}$, $c = 3 \\times 10^8\\,\\text{m s}^{-1}$)", "solution": "Energy of one photon: $E = hc/\\lambda = 1.989 \\times 10^{-25}/(660 \\times 10^{-9}) = 3.01 \\times 10^{-19}\\,\\text{J}$.\n\nPower is the energy emitted per second, so the number of photons per second is $N = P/E = (10 \\times 10^{-3})/(3.01 \\times 10^{-19}) \\approx 3.3 \\times 10^{16}$.\n\nThis enormous number explains why light from everyday sources looks continuous. The 'graininess' of photons shows up only in experiments with single electrons or very weak light.", "answer": "About $3.3 \\times 10^{16}$ photons per second" },
+      { "type": "SOLVED_PROBLEM", "problem": "Light of wavelength 400 nm and power 1.0 mW falls on the emitter of a photocell. On average, 1 photon in 100 ejects an electron (quantum efficiency 1%). Find the saturation photocurrent. ($hc = 1.989 \\times 10^{-25}\\,\\text{J m}$, $e = 1.6 \\times 10^{-19}\\,\\text{C}$)", "solution": "Step 1: Energy per photon: $E = hc/\\lambda = 1.989 \\times 10^{-25}/(4.0 \\times 10^{-7}) = 4.97 \\times 10^{-19}\\,\\text{J}$.\n\nStep 2: Photons per second: $N = P/E = 1.0 \\times 10^{-3}/4.97 \\times 10^{-19} = 2.01 \\times 10^{15}\\,\\text{s}^{-1}$.\n\nStep 3: Electrons emitted per second: $n = 0.01 \\times 2.01 \\times 10^{15} = 2.01 \\times 10^{13}\\,\\text{s}^{-1}$.\n\nStep 4: At saturation every emitted electron is collected, so $i = ne = 2.01 \\times 10^{13} \\times 1.6 \\times 10^{-19} = 3.2 \\times 10^{-6}\\,\\text{A}$.", "answer": "About $3.2\\,\\mu\\text{A}$" },
+      { "type": "IMPORTANT_FACT", "text": "Useful values: $h = 6.63 \\times 10^{-34}\\,\\text{J s}$; $e = 1.6 \\times 10^{-19}\\,\\text{C}$; $1\\,\\text{eV} = 1.6 \\times 10^{-19}\\,\\text{J}$; $hc \\approx 1240\\,\\text{eV nm}$; $h/e \\approx 4.14 \\times 10^{-15}\\,\\text{V s}$. Visible photons have energies from about 1.8 eV (red, 700 nm) to 3.1 eV (violet, 400 nm)." },
+
+      { "type": "HEADING", "text": "Revision: graphs, formulas and common mistakes" },
+      { "type": "TABLE", "caption": "Photoelectric graphs to recognise in the exam", "columns": ["Graph (y against x)", "Shape", "What it shows"], "rows": [
+        ["Photocurrent against intensity (fixed $\\nu > \\nu_0$)", "Straight line through the origin", "Number of photoelectrons per second ∝ intensity"],
+        ["Photocurrent against collector potential, different intensities", "Different saturation levels, same cut-off point $-V_0$", "Stopping potential (and $K_{max}$) is independent of intensity"],
+        ["Photocurrent against collector potential, different frequencies (same photon flux)", "Same saturation level, cut-off further left for higher $\\nu$", "Stopping potential increases with frequency"],
+        ["Stopping potential against frequency", "Straight line, slope $h/e$, starts at $\\nu_0$; extension meets $V_0$ axis at $-\\phi_0/e$", "Einstein's equation; parallel lines for different metals"],
+        ["$K_{max}$ against frequency", "Straight line, slope $h$, $y$-intercept $-\\phi_0$", "Same law in energy form"],
+        ["Stopping potential (or $K_{max}$) against intensity", "Horizontal line", "No dependence on intensity"]
+      ] },
+      { "type": "CALLOUT", "text": "**Exam tips**\n\n- 'Which depends on intensity?' Only the photocurrent (number of electrons). 'Which depends on frequency?' The stopping potential and $K_{max}$.\n- The slope of the $V_0$–$\\nu$ graph is always $h/e$, whatever the metal. The intercept changes with the metal.\n- A ratio question such as 'stopping potential $V_0$ for $\\lambda$ and $3V_0$ for $\\lambda/2$' is solved by writing Einstein's equation twice and subtracting, which eliminates $\\phi_0$.\n- The difference between two stopping potentials for the same metal does not depend on the metal: $e\\,\\Delta V_0 = h\\,\\Delta\\nu$." },
+      { "type": "KEY_POINT", "text": "One-line summary: a photon of energy $h\\nu$ gives all its energy to one electron; $\\phi_0$ of it is spent in escaping and the rest, at most $h\\nu - \\phi_0 = eV_0$, is kinetic energy. Intensity controls how many electrons are emitted; frequency controls how energetic they are." }
+    ]
+  },
+  "diagrams": [
+    { "key": "apparatus", "file": "diagrams/ug26-322-u7-photoelectric-effect-apparatus.svg", "alt": "Evacuated glass tube with emitter plate C and collector plate A; monochromatic light enters through a quartz window and falls on C; photoelectrons move from C to A; external circuit with microammeter, voltmeter, variable DC source and commutator", "caption": "Experimental arrangement for studying the photoelectric effect", "description": "An evacuated glass tube contains a photosensitive emitter plate C on the left and a collector plate A on the right. Monochromatic light of frequency nu and intensity I passes through a quartz window at the top of the tube and falls on C. Photoelectrons, shown as small circles with arrows, travel from C towards A. Plate C is connected through a microammeter to one end of a circuit containing a variable DC source (potential divider) and a commutator that reverses the polarity of A relative to C; plate A is connected to the other end. A voltmeter is connected between the leads of C and A." },
+    { "key": "current-vs-potential-intensity", "file": "diagrams/ug26-322-u7-photoelectric-effect-current-vs-potential-intensity.svg", "alt": "Graph of photocurrent against collector plate potential for three intensities I1 < I2 < I3 at the same frequency; all curves start from the same stopping potential −V0 and level off at different saturation currents", "caption": "Photocurrent versus collector potential for different intensities (same frequency)", "description": "The horizontal axis is the collector plate potential V in volt, negative (retarding) to the left of the origin and positive (accelerating) to the right. The vertical axis is photocurrent in microampere. Three curves, for intensities I1, I2 and I3 with I3 the largest, all leave the horizontal axis at the same point −V0. They rise through the vertical axis and flatten into horizontal saturation levels, the highest for I3 and the lowest for I1. Saturation current is proportional to intensity while the stopping potential is the same." },
+    { "key": "current-vs-potential-frequency", "file": "diagrams/ug26-322-u7-photoelectric-effect-current-vs-potential-frequency.svg", "alt": "Graph of photocurrent against collector plate potential for three frequencies ν1 < ν2 < ν3 with the same photon flux; the curves reach the same saturation current but cut the potential axis at −V01, −V02, −V03 with V03 largest", "caption": "Photocurrent versus collector potential for different frequencies (same photon flux)", "description": "The axes are collector plate potential V in volt (horizontal) and photocurrent in microampere (vertical). Three curves for frequencies nu1, nu2 and nu3, with nu3 the highest, all saturate at the same current level at positive potentials. On the negative side they meet the axis at different stopping potentials: −V03 farthest from the origin for the highest frequency nu3, then −V02, then −V01 closest to the origin for nu1." },
+    { "key": "stopping-potential-vs-frequency", "file": "diagrams/ug26-322-u7-photoelectric-effect-stopping-potential-vs-frequency.svg", "alt": "Graph of stopping potential against frequency for two metals: parallel straight lines starting at threshold frequencies of about 5.2 and 10.3 × 10^14 Hz, slope h/e; the first line extended backwards meets the V0 axis at −2.14 V", "caption": "Stopping potential versus frequency for two metals", "description": "The horizontal axis is frequency nu in units of 10^14 hertz from 0 to 16, and the vertical axis is stopping potential V0 in volt from −2 to 4. Metal 1 (work function 2.14 eV) has a straight line starting on the frequency axis at its threshold frequency of about 5.2 × 10^14 Hz and rising with slope h/e of about 4.14 × 10^-15 V s; its dashed backward extension meets the vertical axis at −2.14 V, which is −phi0/e. Metal 2 (work function 4.28 eV) has a parallel line starting at about 10.3 × 10^14 Hz. A slope triangle marks delta nu and delta V0." },
+    { "key": "intensity-graphs", "file": "diagrams/ug26-322-u7-photoelectric-effect-intensity-graphs.svg", "alt": "Two graphs: (a) photocurrent against intensity is a straight line through the origin; (b) stopping potential against intensity is a horizontal line for each frequency, higher for the higher frequency ν2", "caption": "Effect of intensity: photocurrent rises linearly, stopping potential does not change", "description": "Panel (a): horizontal axis intensity I in watt per square metre, vertical axis photocurrent i in microampere; the graph is a straight line through the origin, for a fixed frequency above threshold with the collector at a saturating positive potential. Panel (b): horizontal axis intensity, vertical axis stopping potential V0 in volt; two horizontal lines, the upper one for frequency nu2 and the lower one for nu1 where nu2 is greater than nu1, showing that the stopping potential depends on frequency but not on intensity." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which one of the following phenomena can be explained only by treating light as a stream of particles (photons) and not by the wave theory?",
+      "options": ["Interference of light", "Diffraction of light", "Photoelectric effect", "Polarisation of light"],
+      "answer": 3,
+      "explanation": "The photoelectric effect shows a threshold frequency, a maximum kinetic energy that does not depend on intensity, and no time lag. None of these can be explained if light energy is spread continuously over a wave. They follow naturally if light delivers energy in photons of energy hν, each absorbed by one electron. Interference, diffraction and polarisation are explained by the wave theory.",
+      "optionRationale": { "1": "Interference is a wave phenomenon (superposition of waves), explained fully by the wave theory.", "2": "Diffraction (bending around obstacles) is explained by Huygens' wave theory.", "4": "Polarisation shows that light is a transverse wave; it is a wave property." },
+      "objective": "Identify phenomena that show the particle nature of radiation"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In his 1887 experiments with spark gaps, Hertz found that sparks across the detector gap jumped more readily when the emitter plate was illuminated by:",
+      "options": ["X-rays from a discharge tube", "ultraviolet light from an arc lamp", "infrared radiation from a hot body", "radio waves produced by the transmitter itself"],
+      "answer": 2,
+      "explanation": "Hertz noticed that when ultraviolet light from an arc lamp fell on the emitter plate, the sparks across the detector gap occurred more easily. The light was helping charged particles (later identified as electrons) to leave the metal surface. This was the first observation of the photoelectric effect, though Hertz could not explain it.",
+      "optionRationale": { "1": "X-rays were discovered only in 1895, eight years after Hertz's observation.", "3": "Infrared photons have too little energy to free electrons from ordinary metals; Hertz used ultraviolet light.", "4": "Radio waves were what Hertz was producing and detecting; they were not the cause of the enhanced sparking." },
+      "objective": "Recall Hertz's observation of the photoelectric effect"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q03", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about the early experiments of Hallwachs and Lenard on photoelectric emission:\nA. A negatively charged zinc plate connected to an electroscope loses its charge when ultraviolet light falls on it.\nB. An uncharged zinc plate becomes negatively charged when ultraviolet light falls on it.\nC. In an evacuated tube, a current flowed between the emitter and the collector when ultraviolet light fell on the emitter, and it stopped when the light was cut off.\nD. Zinc did not emit electrons when illuminated by visible light, however intense the light was.\nWhich of the statements given above are correct?",
+      "options": ["A and C only", "A, C and D only", "B and D only", "A, B, C and D"],
+      "answer": 2,
+      "explanation": "Ultraviolet light makes zinc emit electrons (negative charges). A negatively charged plate therefore loses its negative charge (A correct), and an uncharged plate loses electrons and becomes positively charged, not negatively charged (B wrong). Lenard's evacuated tube showed a current that started and stopped with the ultraviolet light (C correct). Zinc's work function is about 4.3 eV, more than any visible photon carries (at most about 3.1 eV), so visible light of any intensity ejects no electrons (D correct).",
+      "optionRationale": { "1": "Leaves out D, which is correct: visible photons (at most about 3.1 eV) cannot overcome zinc's work function of about 4.3 eV.", "3": "B is wrong (a neutral plate becomes positive by losing electrons), and the option leaves out the correct statements A and C.", "4": "Includes B, which is wrong because losing electrons makes a neutral plate positive." },
+      "objective": "Interpret Hallwachs' and Lenard's observations"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q04", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The work function of a metal is best described as:",
+      "options": ["the maximum kinetic energy of the photoelectrons emitted from the metal", "the energy of the incident photon at which the photocurrent reaches saturation", "the minimum energy that must be supplied to an electron to just remove it from the metal surface", "the energy needed to remove the most tightly bound electron from an atom of the metal"],
+      "answer": 3,
+      "explanation": "The work function φ₀ is the minimum energy an electron needs to just escape through the surface potential barrier of the metal. It depends on the metal and its surface condition and is usually quoted in eV. In Einstein's equation hν = φ₀ + K_max it is the part of the photon energy used for escape.",
+      "optionRationale": { "1": "The maximum kinetic energy is hν − φ₀; it depends on the frequency of light and is not a property of the metal alone.", "2": "Saturation depends on the collector potential and intensity, not on a particular photon energy.", "4": "Removing the most tightly bound (inner-shell) electron needs far more energy; the work function concerns the least tightly bound free electrons." },
+      "objective": "Define the work function of a metal"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q05", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "The work function of a metal is 2.48 eV. What is its threshold wavelength? (Take hc = 1240 eV nm.)",
+      "options": ["200 nm", "310 nm", "400 nm", "500 nm"],
+      "answer": 4,
+      "explanation": "The threshold wavelength is the longest wavelength whose photons just supply the work function: λ₀ = hc/φ₀ = 1240 eV nm ÷ 2.48 eV = 500 nm. Light of wavelength longer than 500 nm cannot eject electrons from this metal; shorter wavelengths can.",
+      "optionRationale": { "1": "200 nm photons have 6.2 eV, far more than the work function; 200 nm is not the threshold.", "2": "310 nm corresponds to 4.0 eV, not 2.48 eV.", "3": "400 nm corresponds to 3.1 eV; this wavelength would eject electrons but it is not the threshold." },
+      "objective": "Calculate the threshold wavelength from the work function"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q06", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The threshold frequency of a metal is 5.0 × 10¹⁴ Hz. Light of frequency 8.0 × 10¹⁴ Hz falls on it. What is the maximum kinetic energy of the emitted photoelectrons? (h = 6.63 × 10⁻³⁴ J s, 1 eV = 1.6 × 10⁻¹⁹ J)",
+      "options": ["1.99 eV", "1.24 eV", "2.07 eV", "3.31 eV"],
+      "answer": 2,
+      "explanation": "Einstein's equation: K_max = h(ν − ν₀) = 6.63 × 10⁻³⁴ × (8.0 − 5.0) × 10¹⁴ = 6.63 × 10⁻³⁴ × 3.0 × 10¹⁴ = 1.99 × 10⁻¹⁹ J. Converting: 1.99 × 10⁻¹⁹ ÷ 1.6 × 10⁻¹⁹ ≈ 1.24 eV.",
+      "optionRationale": { "1": "1.99 is the energy in units of 10⁻¹⁹ J (1.99 × 10⁻¹⁹ J); it has not been converted to eV.", "3": "2.07 eV is hν₀, the work function, not the kinetic energy.", "4": "3.31 eV is hν, the whole photon energy; the work function must be subtracted." },
+      "objective": "Apply K_max = h(ν − ν₀)"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q07", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "Ultraviolet light of wavelength 310 nm falls on a metal surface of work function 2.5 eV. What is the stopping potential? (hc = 1240 eV nm)",
+      "options": ["2.5 V", "4.0 V", "1.5 V", "6.5 V"],
+      "answer": 3,
+      "explanation": "Photon energy E = 1240/310 = 4.0 eV. Maximum kinetic energy K_max = E − φ₀ = 4.0 − 2.5 = 1.5 eV. Since eV₀ = K_max, the stopping potential is V₀ = 1.5 V. Emission occurs because 4.0 eV is more than the 2.5 eV work function.",
+      "optionRationale": { "1": "2.5 V is the work function expressed as a potential, not the stopping potential.", "2": "4.0 V corresponds to the full photon energy; the work function has not been subtracted.", "4": "6.5 V comes from adding the work function to the photon energy instead of subtracting it." },
+      "objective": "Calculate the stopping potential with Einstein's equation"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q08", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Light of wavelength 250 nm falls on a metal whose work function is 2.0 eV. What is the maximum speed of the emitted photoelectrons? (hc = 1240 eV nm, mₑ = 9.1 × 10⁻³¹ kg, e = 1.6 × 10⁻¹⁹ C)",
+      "options": ["7.2 × 10⁵ m s⁻¹", "8.4 × 10⁵ m s⁻¹", "1.0 × 10⁶ m s⁻¹", "1.3 × 10⁶ m s⁻¹"],
+      "answer": 3,
+      "explanation": "Photon energy E = 1240/250 = 4.96 eV. K_max = 4.96 − 2.0 = 2.96 eV = 2.96 × 1.6 × 10⁻¹⁹ = 4.74 × 10⁻¹⁹ J. From ½mv² = K_max: v = √(2K_max/m) = √(2 × 4.74 × 10⁻¹⁹ / 9.1 × 10⁻³¹) = √(1.04 × 10¹²) ≈ 1.02 × 10⁶ m s⁻¹.",
+      "optionRationale": { "1": "7.2 × 10⁵ m s⁻¹ results from dropping the factor 2 in v = √(2K/m).", "2": "8.4 × 10⁵ m s⁻¹ is the speed corresponding to 2.0 eV, i.e. using the work function as the kinetic energy.", "4": "1.3 × 10⁶ m s⁻¹ uses the full photon energy 4.96 eV without subtracting the work function." },
+      "objective": "Find the maximum speed of photoelectrons"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q09", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): For a given metal and light of a fixed frequency above threshold, doubling the intensity of the light does not change the stopping potential.\nReason (R): The maximum kinetic energy of a photoelectron is decided by the energy of a single photon, and the energy of each photon depends only on the frequency.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Doubling the intensity at a fixed frequency doubles the number of photons per second but leaves the energy hν of each photon unchanged. Each electron absorbs one photon, so K_max = hν − φ₀ and the stopping potential V₀ = K_max/e stay the same; only the photocurrent doubles. R gives exactly this reason, so both are true and R explains A.",
+      "optionRationale": { "2": "R is not an unrelated true fact; it is the very reason the stopping potential is independent of intensity.", "3": "R is true: photon energy E = hν depends only on frequency.", "4": "A is true; experiments show the same stopping potential for all intensities at a given frequency." },
+      "objective": "Explain why stopping potential is independent of intensity"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q10", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The saturation photocurrent increases when the intensity of light of a fixed frequency (above threshold) is increased.\nReason (R): Increasing the intensity of light increases the energy of each photon.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "A is true: at a fixed frequency, a greater intensity means more photons arrive per second, so more electrons are emitted per second and the saturation current is larger (it is proportional to intensity). R is false: the energy of each photon is hν and depends only on frequency. Intensity changes the number of photons, not their individual energy.",
+      "optionRationale": { "1": "R is false, so it cannot explain A.", "2": "R is false; photon energy does not depend on intensity.", "4": "A is true; the saturation current is directly proportional to intensity." },
+      "objective": "Relate intensity to the number of photons and the saturation current"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q11", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): Light whose frequency is below the threshold frequency of a metal can eject photoelectrons from it if the light is made sufficiently intense.\nReason (R): The threshold frequency ν₀ of a metal is related to its work function φ₀ by φ₀ = hν₀.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 4,
+      "explanation": "A is false. Below threshold each photon has energy hν < φ₀ and cannot free an electron, and an electron cannot add the energies of several photons in ordinary light. More intensity only sends more photons that are each too weak, so there is no emission at any intensity. R is true: the threshold frequency is the frequency at which the photon energy just equals the work function, φ₀ = hν₀.",
+      "optionRationale": { "1": "A is false; increasing intensity cannot make up for frequency below threshold.", "2": "A is false, so this option cannot be right.", "3": "R is true; φ₀ = hν₀ is the definition of the threshold condition." },
+      "objective": "Use the threshold condition to reject the wave-theory expectation"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q12", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "analytical",
+      "stem": "Assertion (A): The graphs of stopping potential against frequency for two different metals are parallel straight lines.\nReason (R): For light of a given frequency above threshold, the photoelectric current is directly proportional to the intensity of the light.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 2,
+      "explanation": "A is true because V₀ = (h/e)ν − φ₀/e: every metal gives a straight line of the same slope h/e, and only the intercept (set by φ₀) changes, so the lines are parallel. R is also a true experimental law, but it is about the photocurrent and intensity, not the slope of the V₀–ν graph. So R does not explain A.",
+      "optionRationale": { "1": "R is true but unrelated to the slope of the V₀–ν line; the correct explanation is that the slope h/e is a universal constant.", "3": "R is true; photocurrent is proportional to intensity above threshold.", "4": "A is true; the slope h/e is the same for all metals, so the lines are parallel." },
+      "objective": "Interpret the slope of the stopping potential–frequency graph"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q13", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "In a photoelectric experiment the intensity of the incident light is doubled while its frequency (above threshold) is kept the same. Which of the following is the correct result?",
+      "options": ["The stopping potential doubles", "The maximum kinetic energy of the photoelectrons doubles", "The threshold frequency of the metal is halved", "The saturation current doubles and the stopping potential is unchanged"],
+      "answer": 4,
+      "explanation": "Doubling the intensity at a fixed frequency doubles the number of photons striking the metal per second, so twice as many photoelectrons are emitted per second and the saturation current doubles. Each photon still has energy hν, so K_max = hν − φ₀ and the stopping potential do not change. The threshold frequency is a property of the metal and is unaffected.",
+      "optionRationale": { "1": "The stopping potential depends on frequency, not on intensity.", "2": "K_max = hν − φ₀ is independent of intensity.", "3": "The threshold frequency depends only on the work function of the metal, ν₀ = φ₀/h." },
+      "objective": "Predict the effect of changing intensity"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q14", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The frequency of light falling on a photosensitive surface is increased (staying above threshold) while the number of photons striking it per second is kept the same. What happens?",
+      "options": ["The maximum kinetic energy of the photoelectrons increases and the saturation current stays the same", "The maximum kinetic energy stays the same and the saturation current increases", "Both the maximum kinetic energy and the saturation current increase", "Both the maximum kinetic energy and the saturation current decrease"],
+      "answer": 1,
+      "explanation": "Raising the frequency raises the energy of every photon, so K_max = hν − φ₀ increases (linearly with ν) and the stopping potential rises. The number of photons per second is unchanged, so the number of electrons emitted per second, and hence the saturation current, stays the same.",
+      "optionRationale": { "2": "K_max must change because each photon now carries more energy hν.", "3": "With the same photon flux, the number of photoelectrons per second, and so the saturation current, does not increase.", "4": "Higher frequency means higher photon energy; nothing decreases here." },
+      "objective": "Predict the effect of changing frequency at constant photon flux"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q15", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "When light of wavelength 400 nm falls on a metal surface, the stopping potential is 0.80 V. What will the stopping potential be when light of wavelength 300 nm falls on the same surface? (hc = 1240 eV nm)",
+      "options": ["1.07 V", "1.83 V", "1.03 V", "0.60 V"],
+      "answer": 2,
+      "explanation": "First find the work function: φ₀ = 1240/400 − 0.80 = 3.10 − 0.80 = 2.30 eV. At 300 nm the photon energy is 1240/300 = 4.13 eV, so K_max = 4.13 − 2.30 = 1.83 eV and the stopping potential is 1.83 V. The stopping potential is not proportional to 1/λ, because the work function is subtracted.",
+      "optionRationale": { "1": "1.07 V assumes V₀ ∝ 1/λ (0.80 × 400/300), which ignores the work function.", "3": "1.03 V is only the increase in photon energy (4.13 − 3.10); it must be added to the original 0.80 V.", "4": "0.60 V would mean a smaller stopping potential for shorter wavelength, which is impossible." },
+      "objective": "Use Einstein's equation twice to find a new stopping potential"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q16", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "When a metal is illuminated with light of wavelength λ, the stopping potential is 3V₀. When it is illuminated with light of wavelength 2λ, the stopping potential is V₀. What is the threshold wavelength of the metal?",
+      "options": ["4λ", "2λ", "3λ", "6λ"],
+      "answer": 1,
+      "explanation": "Write Einstein's equation for each case: 3eV₀ = hc/λ − φ₀ and eV₀ = hc/(2λ) − φ₀. Subtracting gives 2eV₀ = hc/(2λ), so eV₀ = hc/(4λ). Substituting back: φ₀ = hc/(2λ) − hc/(4λ) = hc/(4λ). The threshold wavelength is λ₀ = hc/φ₀ = 4λ.",
+      "optionRationale": { "2": "2λ still gives emission (stopping potential V₀ > 0), so the threshold must be longer than 2λ.", "3": "3λ does not satisfy both equations; the work function works out to hc/(4λ).", "4": "6λ would give a work function hc/(6λ), which does not fit the ratio 3 : 1 of the stopping potentials." },
+      "objective": "Eliminate the work function between two applications of Einstein's equation"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q17", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In a graph of stopping potential V₀ (y-axis) against frequency ν of incident light (x-axis) for a photosensitive metal, the slope of the straight line is equal to:",
+      "options": ["e/h", "φ₀/e", "h", "h/e"],
+      "answer": 4,
+      "explanation": "From Einstein's equation eV₀ = hν − φ₀ we get V₀ = (h/e)ν − φ₀/e. This is the equation of a straight line y = mx + c with slope m = h/e (about 4.14 × 10⁻¹⁵ V s) and intercept −φ₀/e. The slope is the same for all metals.",
+      "optionRationale": { "1": "e/h is the reciprocal of the slope.", "2": "φ₀/e is the magnitude of the intercept on the V₀ axis, not the slope.", "3": "h is the slope of the K_max–ν graph, not the V₀–ν graph." },
+      "objective": "Identify the slope of the V₀–ν graph"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q18", "type": "DIAGRAM_BASED", "difficulty": "HARD", "skill": "analytical", "diagram": "stopping-potential-vs-frequency",
+      "stem": "The figure shows stopping potential against frequency for two metals. Light of frequency 10 × 10¹⁴ Hz falls on each metal in turn. Using the graph (h/e ≈ 4.14 × 10⁻¹⁵ V s), which statement is correct?",
+      "options": ["Both metals emit electrons, and those from metal 2 have the larger maximum kinetic energy", "Metal 1 emits electrons with a maximum kinetic energy of about 2.0 eV, while metal 2 emits no electrons", "Metal 1 emits electrons with a maximum kinetic energy of about 4.1 eV, and metal 2 with about 2.0 eV", "Neither metal emits electrons at this frequency"],
+      "answer": 2,
+      "explanation": "Photon energy hν = (h/e)ν in eV = 4.14 × 10⁻¹⁵ × 10 × 10¹⁴ ≈ 4.14 eV. For metal 1 (φ₀ = 2.14 eV, ν₀ ≈ 5.2 × 10¹⁴ Hz) K_max = 4.14 − 2.14 ≈ 2.0 eV, which matches V₀ ≈ 2 V read from the graph at 10 × 10¹⁴ Hz. Metal 2 has ν₀ ≈ 10.3 × 10¹⁴ Hz (φ₀ = 4.28 eV), so 10 × 10¹⁴ Hz is below its threshold and it emits nothing.",
+      "optionRationale": { "1": "Metal 2's threshold (about 10.3 × 10¹⁴ Hz) is above 10 × 10¹⁴ Hz, so it does not emit.", "3": "4.1 eV is the photon energy; the work function must be subtracted. Metal 2 does not emit at all.", "4": "Metal 1's threshold is about 5.2 × 10¹⁴ Hz, well below 10 × 10¹⁴ Hz, so it does emit." },
+      "objective": "Read threshold frequencies and stopping potentials from a V₀–ν graph"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q19", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "analytical", "diagram": "current-vs-potential-intensity",
+      "stem": "The figure shows photocurrent against collector plate potential for light of one frequency at three intensities I₁ < I₂ < I₃. All three curves reach zero current at the same potential −V₀. What does this common cut-off point tell us?",
+      "options": ["The work function of the metal increases with intensity", "The number of photoelectrons emitted per second is independent of intensity", "The saturation current is independent of intensity", "The maximum kinetic energy of the photoelectrons is independent of intensity"],
+      "answer": 4,
+      "explanation": "The current becomes zero at the stopping potential, where eV₀ = K_max. Since all three curves cut off at the same −V₀, the maximum kinetic energy of the photoelectrons is the same for all three intensities. This is because each electron receives the energy of one photon, hν, fixed by the frequency. The different saturation levels show that the number of electrons per second does depend on intensity.",
+      "optionRationale": { "1": "The work function is a property of the metal and does not depend on the light used.", "2": "The different saturation levels show that the number of electrons per second increases with intensity.", "3": "The saturation currents are clearly different (largest for I₃)." },
+      "objective": "Interpret photocurrent–potential curves for different intensities"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q20", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "analytical", "diagram": "current-vs-potential-frequency",
+      "stem": "The figure shows photocurrent against collector plate potential for light of three frequencies ν₁, ν₂ and ν₃ falling on the same metal with the same photon flux. Which conclusion follows from the figure?",
+      "options": ["The photoelectrons produced by ν₁ have the greatest maximum kinetic energy", "The saturation current is greatest for ν₃", "Since V₀₃ is the largest stopping potential, ν₃ is the highest frequency and gives the most energetic photoelectrons", "The work function of the metal is different for each of the three frequencies"],
+      "answer": 3,
+      "explanation": "The curve for ν₃ cuts off at −V₀₃, the most negative potential, so the largest retarding potential is needed to stop its fastest electrons: K_max = eV₀₃ is the largest. From eV₀ = hν − φ₀ with the same φ₀, the largest V₀ means the highest frequency. The saturation currents are equal because the photon flux is the same.",
+      "optionRationale": { "1": "ν₁ has the smallest stopping potential, so its photoelectrons have the smallest maximum kinetic energy.", "2": "All three curves saturate at the same level because the photon flux is the same.", "4": "The metal is the same, so the work function is the same; the frequency is what changes." },
+      "objective": "Interpret photocurrent–potential curves for different frequencies"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q21", "type": "DIAGRAM_BASED", "difficulty": "EASY", "skill": "conceptual", "diagram": "intensity-graphs",
+      "stem": "Panel (a) of the figure shows that photocurrent is a straight line through the origin when plotted against intensity, and panel (b) shows a horizontal line for stopping potential against intensity. Together these graphs show that:",
+      "options": ["intensity changes the number of photoelectrons emitted per second but not their maximum kinetic energy", "intensity changes the maximum kinetic energy of the photoelectrons but not their number", "intensity changes neither the number nor the energy of the photoelectrons", "a minimum intensity is needed before any photoelectrons are emitted"],
+      "answer": 1,
+      "explanation": "Panel (a): photocurrent ∝ intensity, so the number of electrons emitted per second is proportional to intensity. Panel (b): the stopping potential does not change with intensity, so K_max = eV₀ is independent of intensity and depends only on frequency. The line in (a) passes through the origin, so there is no minimum intensity.",
+      "optionRationale": { "2": "This reverses the facts: number depends on intensity, energy does not.", "3": "Panel (a) shows that the photocurrent, and hence the number of electrons, does change with intensity.", "4": "The straight line passes through the origin, so even very weak light (above threshold frequency) produces some current; there is no threshold intensity." },
+      "objective": "Read photocurrent–intensity and stopping potential–intensity graphs"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q22", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "apparatus",
+      "stem": "In the apparatus shown, the commutator is used to make the collector A negative with respect to the emitter C, and this negative potential is slowly increased in magnitude. Frequency and intensity of the light are kept constant. How does the reading of the microammeter change?",
+      "options": ["It increases steadily until it reaches the saturation value", "It stays constant, because the number of photoelectrons emitted is unchanged", "It reverses direction once A becomes negative", "It decreases and becomes zero at a definite potential that does not depend on the intensity of light"],
+      "answer": 4,
+      "explanation": "A negative collector repels the photoelectrons, so only those with kinetic energy greater than e|V| can reach A and the current falls. At the stopping potential V₀, where eV₀ = K_max, even the fastest electrons are turned back and the current becomes zero. Because K_max = hν − φ₀, this potential depends on the frequency, not on the intensity. The current never reverses, since electrons are emitted only from C.",
+      "optionRationale": { "1": "The current rises to saturation when A is made more positive, not more negative.", "2": "Emission is unchanged, but fewer electrons reach A against the retarding field, so the measured current falls.", "3": "A cannot emit electrons (no light falls on it), so the current only decreases to zero; it does not reverse." },
+      "objective": "Describe the effect of a retarding potential in the experimental set-up"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q23", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each quantity in List-I with its expression in List-II (symbols have their usual meanings in the photoelectric effect).",
+      "list": { "left": ["A. Work function of the metal", "B. Maximum kinetic energy of photoelectrons", "C. Momentum of a photon", "D. Slope of the stopping potential–frequency graph"], "right": ["I. h/e", "II. eV₀", "III. hν₀", "IV. h/λ"] },
+      "options": ["A-III, B-II, C-IV, D-I", "A-II, B-III, C-IV, D-I", "A-III, B-II, C-I, D-IV", "A-I, B-II, C-IV, D-III"],
+      "answer": 1,
+      "explanation": "The work function equals the energy of a photon at the threshold frequency, φ₀ = hν₀ (A-III). The maximum kinetic energy is measured by the stopping potential, K_max = eV₀ (B-II). A photon's momentum is p = h/λ (C-IV). From V₀ = (h/e)ν − φ₀/e, the slope of the V₀–ν graph is h/e (D-I).",
+      "optionRationale": { "2": "Swaps A and B: the work function is hν₀, while eV₀ is the maximum kinetic energy.", "3": "Swaps C and D: photon momentum is h/λ and the slope of the V₀–ν graph is h/e.", "4": "Swaps A and D: h/e is a slope, not an energy, and hν₀ is the work function." },
+      "objective": "Connect photoelectric quantities to their expressions"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q24", "type": "MATCH_THE_FOLLOWING", "difficulty": "HARD", "skill": "application",
+      "stem": "Light of frequency above threshold falls on a metal in a photocell. Match each change in List-I with its effect in List-II.",
+      "list": { "left": ["A. Intensity doubled, frequency unchanged", "B. Frequency increased, photon flux unchanged", "C. Metal replaced by one with a larger work function (frequency still above its threshold)", "D. Frequency reduced below the threshold frequency"], "right": ["I. Stopping potential decreases but stays non-zero", "II. Photocurrent becomes zero for every intensity", "III. Saturation current doubles, stopping potential unchanged", "IV. Stopping potential increases, saturation current unchanged"] },
+      "options": ["A-IV, B-III, C-I, D-II", "A-III, B-IV, C-II, D-I", "A-III, B-IV, C-I, D-II", "A-I, B-IV, C-III, D-II"],
+      "answer": 3,
+      "explanation": "A: more photons per second, same photon energy, so the saturation current doubles and V₀ is unchanged (III). B: each photon has more energy, so K_max and V₀ rise; the same photon flux keeps the saturation current the same (IV). C: a larger φ₀ in eV₀ = hν − φ₀ lowers V₀, which stays positive while ν is above the new threshold (I). D: below threshold no photon can free an electron, so the current is zero at any intensity (II).",
+      "optionRationale": { "1": "Swaps A and B: intensity affects the number of electrons, frequency affects their energy.", "2": "Swaps C and D: a larger work function only reduces V₀, while frequency below threshold stops emission completely.", "4": "A larger work function lowers V₀; it does not double the saturation current, and doubling intensity does not lower V₀." },
+      "objective": "Predict how changes in intensity, frequency and metal affect photoemission"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q25", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each scientist in List-I with their contribution to the photoelectric effect in List-II.",
+      "list": { "left": ["A. Heinrich Hertz", "B. Philipp Lenard", "C. Albert Einstein", "D. R. A. Millikan"], "right": ["I. Careful measurements of stopping potential against frequency that confirmed the photoelectric equation and gave a value of h", "II. Proposed that radiation consists of quanta of energy hν, each absorbed whole by one electron", "III. Noticed that sparks across a detector gap jumped more easily under ultraviolet illumination", "IV. Showed with an evacuated two-electrode tube that ultraviolet light on the emitter drives a current carried by electrons"] },
+      "options": ["A-IV, B-III, C-II, D-I", "A-III, B-IV, C-I, D-II", "A-III, B-II, C-IV, D-I", "A-III, B-IV, C-II, D-I"],
+      "answer": 4,
+      "explanation": "Hertz (1887) observed that ultraviolet light made sparks jump more readily (A-III). Lenard used an evacuated tube with an emitter and a collector and found that ultraviolet light on the emitter produced a current carried by electrons (B-IV). Einstein (1905) explained the effect with light quanta of energy hν (C-II). Millikan (1906–1916) verified Einstein's equation experimentally and obtained h from the slope of the V₀–ν graph (D-I).",
+      "optionRationale": { "1": "Swaps Hertz and Lenard: Hertz saw the spark effect, Lenard used the evacuated tube.", "2": "Swaps Einstein and Millikan: Einstein gave the theory, Millikan the experimental confirmation.", "3": "Wrongly credits the quantum hypothesis to Lenard and the evacuated tube to Einstein." },
+      "objective": "Recall the historical observations and their authors"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q26", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Read the following statements about photons:\nA. The energy of a photon depends on the frequency of the radiation and not on its intensity.\nB. Photons are deflected by electric and magnetic fields because they carry energy.\nC. In a collision between a photon and an electron, the total energy and the total momentum are conserved.\nD. The total number of photons is conserved in every interaction of radiation with matter.\nWhich of the statements given above are correct?",
+      "options": ["A and C only", "A, B and C only", "A, C and D only", "B and D only"],
+      "answer": 1,
+      "explanation": "A is correct: E = hν, and intensity only changes the number of photons. B is wrong: photons are electrically neutral, so electric and magnetic fields do not deflect them. C is correct: photon–electron collisions (as in the Compton effect) conserve total energy and momentum. D is wrong: photons can be absorbed (as in the photoelectric effect) or created (in emission), so their number is not conserved.",
+      "optionRationale": { "2": "Includes B; photons carry no charge and are not deflected by electric or magnetic fields.", "3": "Includes D; in the photoelectric effect a photon is absorbed and disappears, so the photon number changes.", "4": "B and D are both false statements." },
+      "objective": "State the properties of photons"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q27", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "What is the momentum of a photon of wavelength 663 nm? (h = 6.63 × 10⁻³⁴ J s)",
+      "options": ["1.0 × 10⁻³⁶ kg m s⁻¹", "3.0 × 10⁻¹⁹ kg m s⁻¹", "1.0 × 10⁻²⁷ kg m s⁻¹", "4.4 × 10⁻⁴⁰ kg m s⁻¹"],
+      "answer": 3,
+      "explanation": "The momentum of a photon is p = h/λ = 6.63 × 10⁻³⁴ J s ÷ 663 × 10⁻⁹ m = 6.63 × 10⁻³⁴ ÷ 6.63 × 10⁻⁷ = 1.0 × 10⁻²⁷ kg m s⁻¹. The same value comes from E/c, since E = hc/λ = 3.0 × 10⁻¹⁹ J and dividing by 3 × 10⁸ m s⁻¹ gives 1.0 × 10⁻²⁷ kg m s⁻¹.",
+      "optionRationale": { "1": "1.0 × 10⁻³⁶ comes from dividing h by 663, i.e. forgetting to convert nanometres to metres.", "2": "3.0 × 10⁻¹⁹ is the photon's energy in joules, not its momentum.", "4": "4.4 × 10⁻⁴⁰ comes from multiplying h by λ instead of dividing." },
+      "objective": "Calculate photon momentum p = h/λ"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q28", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A monochromatic source emits light of wavelength 600 nm with a power of 2.0 W. How many photons does it emit per second? (h = 6.63 × 10⁻³⁴ J s, c = 3 × 10⁸ m s⁻¹)",
+      "options": ["6.0 × 10¹⁸", "3.0 × 10¹⁸", "1.2 × 10¹⁹", "6.0 × 10¹⁵"],
+      "answer": 1,
+      "explanation": "Energy of one photon: E = hc/λ = (6.63 × 10⁻³⁴ × 3 × 10⁸)/(600 × 10⁻⁹) = 3.3 × 10⁻¹⁹ J. Number per second: N = P/E = 2.0 ÷ 3.3 × 10⁻¹⁹ ≈ 6.0 × 10¹⁸ photons per second. Equivalently N = Pλ/(hc) = 2.0 × 6 × 10⁻⁷ ÷ 1.989 × 10⁻²⁵ ≈ 6.0 × 10¹⁸.",
+      "optionRationale": { "2": "3.0 × 10¹⁸ is the number for 1.0 W; the power 2.0 W has not been used correctly.", "3": "1.2 × 10¹⁹ doubles the correct answer, e.g. by using 1200 nm.", "4": "6.0 × 10¹⁵ results from treating the power as 2.0 mW instead of 2.0 W." },
+      "objective": "Calculate photon emission rate N = Pλ/(hc)"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q29", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Light of wavelength 500 nm and power 4.0 mW falls on the cathode of a photocell. Only 0.5% of the incident photons eject electrons. What is the saturation photocurrent? (hc = 1.989 × 10⁻²⁵ J m, e = 1.6 × 10⁻¹⁹ C)",
+      "options": ["1.6 mA", "0.80 μA", "16 μA", "8.0 μA"],
+      "answer": 4,
+      "explanation": "Photon energy: E = hc/λ = 1.989 × 10⁻²⁵ ÷ 5.0 × 10⁻⁷ = 3.98 × 10⁻¹⁹ J. Photons per second: N = 4.0 × 10⁻³ ÷ 3.98 × 10⁻¹⁹ = 1.0 × 10¹⁶. Electrons per second: 0.005 × 1.0 × 10¹⁶ = 5.0 × 10¹³. Saturation current: i = ne = 5.0 × 10¹³ × 1.6 × 10⁻¹⁹ ≈ 8.0 × 10⁻⁶ A = 8.0 μA.",
+      "optionRationale": { "1": "1.6 mA assumes every photon ejects an electron; the 0.5% efficiency has been ignored.", "2": "0.80 μA is ten times too small, from using 0.05% instead of 0.5%.", "3": "16 μA is twice the correct value, from using 1% instead of 0.5%." },
+      "objective": "Relate saturation current to photon rate and quantum efficiency"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q30", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "analytical",
+      "stem": "The classical wave theory of light makes several predictions about photoelectric emission. Consider:\nA. The maximum kinetic energy of photoelectrons should increase with the intensity of light.\nB. There should be a threshold frequency below which no electrons are emitted.\nC. With very weak light there should be a measurable delay before emission begins.\nD. The photocurrent should not depend on the intensity of light.\nWhich of these are predictions of the wave theory that experiments contradict?",
+      "options": ["A and B only", "A and C only", "B and D only", "A, C and D only"],
+      "answer": 2,
+      "explanation": "In the wave picture, brighter light delivers energy faster, so K_max should increase with intensity (A). Weak light would need time to build up the escape energy, giving a delay (C). Experiments show that K_max is independent of intensity and that emission is instantaneous, so both A and C are contradicted. B is not a wave prediction: the wave theory predicts no threshold. D is not a wave prediction either.",
+      "optionRationale": { "1": "B is the opposite of the wave prediction; the wave theory expects no threshold frequency.", "3": "Neither B nor D is predicted by the wave theory.", "4": "D is not a wave-theory prediction; the observed proportionality of photocurrent to intensity does not contradict wave ideas." },
+      "objective": "Identify the failures of the wave theory in explaining photoemission"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q31", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A metal surface is illuminated first with light of wavelength 250 nm and then with light of wavelength 350 nm. The work function of the metal is not given, but both wavelengths cause emission. What is the difference between the two stopping potentials? (hc = 1240 eV nm)",
+      "options": ["1.24 V", "2.84 V", "It cannot be found without the work function", "1.42 V"],
+      "answer": 4,
+      "explanation": "eV₁ = hc/λ₁ − φ₀ and eV₂ = hc/λ₂ − φ₀. Subtracting removes φ₀: e(V₁ − V₂) = hc(1/λ₁ − 1/λ₂). In eV: 1240/250 − 1240/350 = 4.96 − 3.54 = 1.42 eV, so V₁ − V₂ = 1.42 V. The difference is the same for every metal for which both wavelengths cause emission.",
+      "optionRationale": { "1": "1.24 V does not follow from hc(1/λ₁ − 1/λ₂); it misuses the constant 1240.", "2": "2.84 V is twice the correct difference.", "3": "The work function cancels when the two equations are subtracted, so it is not needed." },
+      "objective": "Use the fact that the work function cancels in differences of stopping potential"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q32", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "In a photoelectric experiment, the stopping potential is 0.60 V for light of frequency 6.0 × 10¹⁴ Hz and 1.85 V for light of frequency 9.0 × 10¹⁴ Hz. What is the threshold frequency of the metal?",
+      "options": ["4.56 × 10¹⁴ Hz", "6.00 × 10¹⁴ Hz", "2.90 × 10¹⁴ Hz", "1.44 × 10¹⁴ Hz"],
+      "answer": 1,
+      "explanation": "Slope h/e = ΔV₀/Δν = (1.85 − 0.60)/(3.0 × 10¹⁴) = 4.17 × 10⁻¹⁵ V s. The work function in eV is φ₀ = (h/e)ν − V₀ = 4.17 × 10⁻¹⁵ × 6.0 × 10¹⁴ − 0.60 = 2.50 − 0.60 = 1.90 eV. Threshold frequency: ν₀ = φ₀/(h/e) = 1.90 ÷ 4.17 × 10⁻¹⁵ ≈ 4.56 × 10¹⁴ Hz. Check: 4.17 × 10⁻¹⁵ × (9.0 − 4.56) × 10¹⁴ ≈ 1.85 V.",
+      "optionRationale": { "2": "6.0 × 10¹⁴ Hz already gives a stopping potential of 0.60 V, so the threshold must be lower.", "3": "2.90 × 10¹⁴ Hz does not lie on the line through the two data points.", "4": "1.44 × 10¹⁴ Hz is the frequency interval corresponding to 0.60 V (0.60 ÷ 4.17 × 10⁻¹⁵), not the threshold itself." },
+      "objective": "Find threshold frequency from stopping-potential data"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q33", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "The work functions of five metals are: caesium 2.14 eV, potassium 2.30 eV, sodium 2.75 eV, calcium 3.20 eV and copper 4.65 eV. Light of wavelength 500 nm falls on each. Which metals emit photoelectrons? (hc = 1240 eV nm)",
+      "options": ["Caesium only", "Caesium and potassium only", "Caesium, potassium and sodium only", "All five metals"],
+      "answer": 2,
+      "explanation": "Each 500 nm photon has energy 1240/500 = 2.48 eV. Emission needs photon energy greater than the work function. Caesium (2.14 eV) and potassium (2.30 eV) satisfy this. Sodium (2.75 eV), calcium (3.20 eV) and copper (4.65 eV) need more energy than 2.48 eV, so no electrons are emitted from them, however intense the light.",
+      "optionRationale": { "1": "Potassium's work function, 2.30 eV, is also less than 2.48 eV, so it emits too.", "3": "Sodium needs 2.75 eV, which is more than the 2.48 eV photon energy.", "4": "Calcium and copper (and sodium) have work functions above 2.48 eV." },
+      "objective": "Decide whether emission occurs by comparing photon energy with work function"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q34", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Very dim ultraviolet light of frequency above the threshold is switched on and falls on a zinc plate. When does photoelectric emission begin?",
+      "options": ["Only after the light has been on long enough for the electrons to store energy, possibly hours", "Only if the intensity exceeds a certain threshold intensity", "Practically instantly, within about 10⁻⁹ s", "After a delay that is inversely proportional to the frequency"],
+      "answer": 3,
+      "explanation": "Experiments show that photoemission starts without measurable delay (within about 10⁻⁹ s), however dim the light is, provided its frequency is above threshold. In the photon picture, one photon gives all its energy hν to one electron in a single event, so no time is needed to accumulate energy. Dim light simply means fewer such events per second.",
+      "optionRationale": { "1": "A long delay is what the wave theory predicts, and experiments contradict it.", "2": "There is a threshold frequency, not a threshold intensity.", "4": "There is no delay to depend on frequency; emission is instantaneous." },
+      "objective": "Recall that photoelectric emission is instantaneous"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q35", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "In the photoelectric experiment, a photocurrent flows even when the potential of the collector plate relative to the emitter is zero. The reason is that:",
+      "options": ["the light itself carries charge to the collector", "the collector is also illuminated and emits electrons towards the emitter", "the emitter acquires a positive charge which pushes electrons to the collector", "the photoelectrons leave the emitter with kinetic energy, so many of them reach the collector without any accelerating field"],
+      "answer": 4,
+      "explanation": "Photoelectrons are emitted with kinetic energies from zero up to K_max = hν − φ₀. Even with no field between the plates, many of them travel across the tube and reach the collector, so there is a current at V = 0. An accelerating (positive) potential is needed only to collect all of them and reach saturation, while a retarding potential reduces the current.",
+      "optionRationale": { "1": "Photons are electrically neutral and carry no charge.", "2": "In this arrangement light falls on the emitter; even if the collector emitted, the current would be in the opposite sense.", "3": "A positively charged emitter would attract electrons back, not push them away." },
+      "objective": "Explain the photocurrent at zero collector potential"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q36", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "conceptual",
+      "stem": "Monochromatic light falls on a metal, yet the photoelectrons come out with a range of kinetic energies from zero up to a maximum value K_max. Why do they not all have the same kinetic energy?",
+      "options": ["Electrons come from different depths and energy levels, and those from inside lose energy before escaping; only the least bound surface electrons leave with K_max", "Different photons in monochromatic light have different energies", "Each electron absorbs a different number of photons", "The work function differs from electron to electron because of their different charges"],
+      "answer": 1,
+      "explanation": "Every photon brings the same energy hν. Electrons that are less tightly bound and sit at the surface need only φ₀ to escape and leave with the maximum energy hν − φ₀. Electrons from deeper inside, or more tightly bound, use up more energy (in collisions and in escaping) and come out slower. This produces a spread from zero to K_max, and only K_max appears in Einstein's equation.",
+      "optionRationale": { "2": "All photons of monochromatic light have the same energy hν.", "3": "An electron absorbs one photon; multi-photon absorption is negligible for ordinary light.", "4": "All electrons have the same charge; the work function is the minimum escape energy for the metal surface." },
+      "objective": "Explain why photoelectrons have a spread of kinetic energies"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q37", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "A V₀–ν graph is drawn for a metal. The metal is then replaced by another metal of larger work function and the graph is drawn again. How does the new line compare with the first?",
+      "options": ["It has a larger slope and passes through the same threshold frequency", "It has a smaller slope and a larger threshold frequency", "It is parallel to the first line and shifted to the right, with a larger threshold frequency", "It is parallel to the first line and shifted to the left, with a smaller threshold frequency"],
+      "answer": 3,
+      "explanation": "V₀ = (h/e)ν − φ₀/e. The slope h/e is a universal constant, so the new line is parallel to the first. A larger φ₀ gives a larger threshold frequency ν₀ = φ₀/h and a more negative intercept −φ₀/e, so the line shifts to the right. At any given frequency the second metal gives a smaller stopping potential.",
+      "optionRationale": { "1": "The slope h/e does not depend on the metal, and the threshold frequency must change with the work function.", "2": "The slope cannot change; only the intercept depends on the metal.", "4": "A larger work function means a larger, not smaller, threshold frequency." },
+      "objective": "Predict how the V₀–ν line depends on the work function"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q38", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "What is the energy, in electron volts, of a photon of frequency 1.5 × 10¹⁵ Hz? (h = 6.63 × 10⁻³⁴ J s, 1 eV = 1.6 × 10⁻¹⁹ J)",
+      "options": ["6.2 eV", "9.9 eV", "3.1 eV", "0.62 eV"],
+      "answer": 1,
+      "explanation": "E = hν = 6.63 × 10⁻³⁴ × 1.5 × 10¹⁵ = 9.95 × 10⁻¹⁹ J. Converting to electron volts: 9.95 × 10⁻¹⁹ ÷ 1.6 × 10⁻¹⁹ ≈ 6.2 eV. This photon lies in the ultraviolet (wavelength 200 nm), so it could eject electrons even from copper (φ₀ = 4.65 eV).",
+      "optionRationale": { "2": "9.9 is the energy in units of 10⁻¹⁹ J; it has not been converted to eV.", "3": "3.1 eV is half the correct value.", "4": "0.62 eV is an order-of-magnitude error in the conversion." },
+      "objective": "Convert photon frequency to energy in eV"
+    },
+    {
+      "key": "ug26-322-u7-photoelectric-effect-q39", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A metal has threshold frequency ν₀. It is illuminated first with light of frequency 2ν₀ and then with light of frequency 5ν₀. What is the ratio of the maximum speeds of the photoelectrons in the two cases?",
+      "options": ["1 : 4", "1 : 2", "2 : 5", "1 : √5"],
+      "answer": 2,
+      "explanation": "K_max = h(ν − ν₀). For 2ν₀: K₁ = hν₀. For 5ν₀: K₂ = 4hν₀. So K₁ : K₂ = 1 : 4. Since K = ½mv², the speed is proportional to √K, giving v₁ : v₂ = √1 : √4 = 1 : 2.",
+      "optionRationale": { "1": "1 : 4 is the ratio of kinetic energies, not of speeds.", "3": "2 : 5 is the ratio of frequencies; the threshold must be subtracted.", "4": "1 : √5 ignores the work function and takes √(2ν₀/5ν₀) wrongly." },
+      "objective": "Relate maximum speed to frequency through Einstein's equation"
+    }
+  ]
+}

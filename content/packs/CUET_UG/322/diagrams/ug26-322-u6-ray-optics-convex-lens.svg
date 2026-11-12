@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 370" font-family="Arial, Helvetica, sans-serif">
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#1f2937">Convex lens: object between F1 and 2F1</text>
+  <!-- axis -->
+  <line x1="60" y1="200" x2="760" y2="200" stroke="#1f2937" stroke-width="1.5"/>
+  <!-- lens -->
+  <path d="M400 76 Q428 200 400 324 Q372 200 400 76 Z" fill="#2563eb" fill-opacity="0.10" stroke="#1f2937" stroke-width="2"/>
+  <!-- points -->
+  <circle cx="200" cy="200" r="3.5" fill="#1f2937"/>
+  <circle cx="300" cy="200" r="3.5" fill="#1f2937"/>
+  <circle cx="400" cy="200" r="3.5" fill="#1f2937"/>
+  <circle cx="500" cy="200" r="3.5" fill="#1f2937"/>
+  <circle cx="600" cy="200" r="3.5" fill="#1f2937"/>
+  <text x="186" y="222" font-size="14" fill="#1f2937">2F1</text>
+  <text x="272" y="222" font-size="14" fill="#1f2937">F1</text>
+  <text x="366" y="222" font-size="14" fill="#1f2937">O</text>
+  <text x="503" y="190" font-size="14" fill="#1f2937">F2</text>
+  <text x="590" y="190" font-size="14" fill="#1f2937">2F2</text>
+  <!-- object -->
+  <line x1="250" y1="200" x2="250" y2="156" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="250,148 245,160 255,160" fill="#059669"/>
+  <text x="222" y="138" font-size="14" fill="#059669">Object</text>
+  <!-- image -->
+  <line x1="700" y1="200" x2="700" y2="292" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="700,300 695,288 705,288" fill="#dc2626"/>
+  <text x="676" y="322" font-size="14" fill="#dc2626">Image</text>
+  <!-- ray 1: parallel, then through F2 -->
+  <line x1="250" y1="150" x2="400" y2="150" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="340,150 329,154.5 329,145.5" fill="#2563eb"/>
+  <line x1="400" y1="150" x2="740" y2="320" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="475,187.5 463.2,186.6 467.2,178.6" fill="#2563eb"/>
+  <!-- ray 2: through optical centre, undeviated -->
+  <line x1="250" y1="150" x2="740" y2="313.3" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="340,180 328.1,180.8 331,172.3" fill="#2563eb"/>
+  <polygon points="625,275 613.1,275.8 616,267.3" fill="#2563eb"/>
+  <!-- ray 3: through F1, emerges parallel -->
+  <line x1="250" y1="150" x2="400" y2="300" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="290,190 279,185.4 285.4,179" fill="#2563eb"/>
+  <line x1="400" y1="300" x2="740" y2="300" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="550,300 539,304.5 539,295.5" fill="#2563eb"/>
+  <!-- notes -->
+  <text x="20" y="344" font-size="14" fill="#1f2937">u = −1.5f gives v = +3f, m = −2: image beyond 2F2, real, inverted, magnified.</text>
+  <text x="20" y="362" font-size="13" fill="#1f2937">Drawn to scale with f = 100 units; heights measured upward from the principal axis are positive.</text>
+</svg>

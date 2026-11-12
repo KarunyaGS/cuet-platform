@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 440" font-family="Arial, Helvetica, sans-serif">
+  <!-- axes -->
+  <line x1="40" y1="340" x2="632" y2="340" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="642,340 630,334 630,346" fill="#1f2937"/>
+  <line x1="360" y1="350" x2="360" y2="52" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="360,42 354,54 366,54" fill="#1f2937"/>
+  <text x="370" y="50" font-size="15" fill="#1f2937">Photocurrent i (μA)</text>
+  <text x="352" y="358" font-size="14" fill="#1f2937" text-anchor="end">O</text>
+
+  <!-- curves: same photon flux, different frequencies -->
+  <polyline fill="none" stroke="#2563eb" stroke-width="2.5" points="130,340.0 140,331.3 150,319.3 160,306.3 170,292.9 180,279.7 190,266.9 200,254.7 210,243.3 220,232.6 230,222.7 240,213.6 250,205.3 260,197.7 270,190.9 280,184.8 290,179.3 300,174.4 310,170.0 320,166.1 330,162.7 340,159.7 350,157.0 360,154.7 370,152.7 380,150.9 390,149.4 400,148.0 410,146.9 420,145.9 430,145.0 440,144.3 450,143.6 460,143.1 470,142.6 480,142.2 490,141.9 500,141.6 510,141.3 520,141.1 530,140.9 540,140.8 550,140.7 560,140.6 570,140.5 580,140.4 590,140.3 600,140.3 610,140.2 620,140.2"/>
+  <polyline fill="none" stroke="#059669" stroke-width="2.5" points="190,340.0 200,331.3 210,319.3 220,306.3 230,292.9 240,279.7 250,266.9 260,254.7 270,243.3 280,232.6 290,222.7 300,213.6 310,205.3 320,197.7 330,190.9 340,184.8 350,179.3 360,174.4 370,170.0 380,166.1 390,162.7 400,159.7 410,157.0 420,154.7 430,152.7 440,150.9 450,149.4 460,148.0 470,146.9 480,145.9 490,145.0 500,144.3 510,143.6 520,143.1 530,142.6 540,142.2 550,141.9 560,141.6 570,141.3 580,141.1 590,140.9 600,140.8 610,140.7 620,140.6"/>
+  <polyline fill="none" stroke="#dc2626" stroke-width="2.5" points="250,340.0 260,331.3 270,319.3 280,306.3 290,292.9 300,279.7 310,266.9 320,254.7 330,243.3 340,232.6 350,222.7 360,213.6 370,205.3 380,197.7 390,190.9 400,184.8 410,179.3 420,174.4 430,170.0 440,166.1 450,162.7 460,159.7 470,157.0 480,154.7 490,152.7 500,150.9 510,149.4 520,148.0 530,146.9 540,145.9 550,145.0 560,144.3 570,143.6 580,143.1 590,142.6 600,142.2 610,141.9 620,141.6"/>
+
+  <!-- stopping potentials -->
+  <line x1="130" y1="334" x2="130" y2="346" stroke="#2563eb" stroke-width="2"/>
+  <line x1="190" y1="334" x2="190" y2="346" stroke="#059669" stroke-width="2"/>
+  <line x1="250" y1="334" x2="250" y2="346" stroke="#dc2626" stroke-width="2"/>
+  <text x="130" y="364" font-size="15" fill="#2563eb" text-anchor="middle">−V₀₃</text>
+  <text x="190" y="364" font-size="15" fill="#059669" text-anchor="middle">−V₀₂</text>
+  <text x="250" y="364" font-size="15" fill="#dc2626" text-anchor="middle">−V₀₁</text>
+
+  <!-- legend -->
+  <line x1="60" y1="128" x2="92" y2="128" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="100" y="133" font-size="14" fill="#1f2937">frequency ν₃</text>
+  <line x1="60" y1="150" x2="92" y2="150" stroke="#059669" stroke-width="2.5"/>
+  <text x="100" y="155" font-size="14" fill="#1f2937">frequency ν₂</text>
+  <line x1="60" y1="172" x2="92" y2="172" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="100" y="177" font-size="14" fill="#1f2937">frequency ν₁</text>
+
+  <text x="420" y="104" font-size="14" fill="#1f2937">Same saturation current</text>
+  <text x="420" y="122" font-size="14" fill="#1f2937">(same photon flux)</text>
+
+  <text x="48" y="74" font-size="14" fill="#1f2937">Frequencies: ν₃ &gt; ν₂ &gt; ν₁ (all &gt; ν₀)</text>
+  <text x="48" y="94" font-size="14" fill="#1f2937">Stopping potentials: V₀₃ &gt; V₀₂ &gt; V₀₁</text>
+
+  <!-- axis captions -->
+  <text x="48" y="392" font-size="13" fill="#1f2937">← Retarding (A negative)</text>
+  <text x="632" y="392" font-size="13" fill="#1f2937" text-anchor="end">Accelerating (A positive) →</text>
+  <text x="340" y="420" font-size="15" fill="#1f2937" text-anchor="middle">Collector plate potential V (volt)</text>
+</svg>

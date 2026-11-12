@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 450" width="820" height="450" font-family="Arial, Helvetica, sans-serif">
+  <!-- circular scale on which the detector moves -->
+  <circle cx="470" cy="220" r="170" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <!-- lead block with source -->
+  <rect x="40" y="180" width="80" height="80" fill="#9ca3af" stroke="#1f2937" stroke-width="2"/>
+  <rect x="88" y="214" width="32" height="12" fill="#ffffff" stroke="none"/>
+  <circle cx="84" cy="220" r="7" fill="#dc2626"/>
+  <!-- collimator plates with slits -->
+  <rect x="170" y="180" width="12" height="34" fill="#9ca3af" stroke="#1f2937" stroke-width="1.5"/>
+  <rect x="170" y="226" width="12" height="34" fill="#9ca3af" stroke="#1f2937" stroke-width="1.5"/>
+  <rect x="228" y="180" width="12" height="34" fill="#9ca3af" stroke="#1f2937" stroke-width="1.5"/>
+  <rect x="228" y="226" width="12" height="34" fill="#9ca3af" stroke="#1f2937" stroke-width="1.5"/>
+  <!-- alpha beam -->
+  <line x1="92" y1="220" x2="462" y2="220" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="330,220 318,214 318,226" fill="#2563eb"/>
+  <!-- gold foil -->
+  <rect x="466" y="160" width="8" height="120" fill="#d97706" stroke="#1f2937" stroke-width="1"/>
+  <!-- undeflected and slightly deflected particles -->
+  <line x1="474" y1="220" x2="655" y2="220" stroke="#2563eb" stroke-width="2"/>
+  <polygon points="667,220 655,214 655,226" fill="#2563eb"/>
+  <line x1="474" y1="221" x2="630" y2="254" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="641.7,256.5 628.6,259.4 631.0,247.7" fill="#2563eb"/>
+  <!-- back-scattered particle (rare) -->
+  <line x1="466" y1="219" x2="378" y2="187" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="366.6,182.4 379.9,181.0 375.8,192.2" fill="#2563eb"/>
+  <!-- particle scattered towards the detector at angle theta -->
+  <line x1="474" y1="216" x2="556" y2="117" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="5 4"/>
+  <!-- angle theta -->
+  <line x1="474" y1="220" x2="545" y2="220" stroke="#1f2937" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M530,220 A60,60 0 0 0 508.6,174.0" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <text x="535" y="196" font-size="16" fill="#dc2626" font-style="italic">θ</text>
+  <!-- ZnS screen and microscope (detector) -->
+  <line x1="551.1" y1="92.2" x2="581.7" y2="118.0" stroke="#059669" stroke-width="4"/>
+  <polygon points="576.6,107.1 562.8,95.5 601.3,49.5 615.1,61.1" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+  <!-- labels -->
+  <text x="80" y="284" font-size="14" fill="#1f2937" text-anchor="middle">α-source in</text>
+  <text x="80" y="301" font-size="14" fill="#1f2937" text-anchor="middle">lead block</text>
+  <text x="205" y="284" font-size="14" fill="#1f2937" text-anchor="middle">lead</text>
+  <text x="205" y="301" font-size="14" fill="#1f2937" text-anchor="middle">collimators</text>
+  <text x="330" y="245" font-size="14" fill="#2563eb" text-anchor="middle">α-particle beam</text>
+  <text x="470" y="302" font-size="14" fill="#1f2937" text-anchor="middle">thin gold foil</text>
+  <text x="470" y="319" font-size="14" fill="#1f2937" text-anchor="middle">(about 0.2 μm thick)</text>
+  <text x="675" y="214" font-size="14" fill="#1f2937">most pass</text>
+  <text x="675" y="231" font-size="14" fill="#1f2937">undeflected</text>
+  <text x="652" y="275" font-size="14" fill="#1f2937">some: small θ</text>
+  <text x="352" y="160" font-size="14" fill="#1f2937" text-anchor="end">very few bounce back</text>
+  <text x="352" y="177" font-size="14" fill="#1f2937" text-anchor="end">(θ &gt; 90°)</text>
+  <text x="626" y="46" font-size="14" fill="#059669">ZnS screen + microscope</text>
+  <text x="626" y="63" font-size="14" fill="#059669">(rotates about the foil)</text>
+  <text x="470" y="416" font-size="14" fill="#6b7280" text-anchor="middle">circular scale for the detector angle θ</text>
+  <text x="20" y="440" font-size="13" fill="#1f2937">Top view; the whole apparatus is kept in an evacuated chamber so that air does not stop the α-particles.</text>
+</svg>

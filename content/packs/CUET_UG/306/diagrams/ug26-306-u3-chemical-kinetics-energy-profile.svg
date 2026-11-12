@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 450" font-family="Arial, Helvetica, sans-serif">
+  <line x1="70" y1="400" x2="616" y2="400" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="626,400 614,394 614,406" fill="#1f2937"/>
+  <line x1="70" y1="400" x2="70" y2="52" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="70,42 64,54 76,54" fill="#1f2937"/>
+  <text x="80" y="46" font-size="15" fill="#1f2937">Potential energy (kJ mol⁻¹)</text>
+  <text x="626" y="430" font-size="15" fill="#1f2937" text-anchor="end">Reaction coordinate (progress of reaction)</text>
+
+  <!-- reactant level extended (dashed) -->
+  <line x1="170" y1="250" x2="600" y2="250" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 5"/>
+  <!-- guide lines for peaks -->
+  <line x1="110" y1="90" x2="320" y2="90" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <line x1="140" y1="170" x2="320" y2="170" stroke="#059669" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+  <!-- uncatalysed path -->
+  <path d="M90,250 L170,250 C230,250 260,90 320,90 C380,90 410,320 470,320 L580,320" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+  <!-- catalysed path -->
+  <path d="M170,250 C230,250 260,170 320,170 C380,170 410,320 470,320" fill="none" stroke="#059669" stroke-width="2.5" stroke-dasharray="9 5"/>
+
+  <!-- Ea arrow (uncatalysed) at x = 110 -->
+  <line x1="110" y1="248" x2="110" y2="102" stroke="#2563eb" stroke-width="2"/>
+  <polygon points="110,92 104,104 116,104" fill="#2563eb"/>
+  <polygon points="110,250 104,238 116,238" fill="#2563eb"/>
+  <text x="102" y="176" font-size="15" fill="#2563eb" text-anchor="end">Eₐ</text>
+  <!-- Ea' arrow (catalysed) at x = 140 -->
+  <line x1="140" y1="248" x2="140" y2="182" stroke="#059669" stroke-width="2"/>
+  <polygon points="140,172 134,184 146,184" fill="#059669"/>
+  <polygon points="140,250 134,238 146,238" fill="#059669"/>
+  <text x="148" y="214" font-size="15" fill="#059669">Eₐ′</text>
+
+  <!-- dH arrow -->
+  <line x1="560" y1="252" x2="560" y2="310" stroke="#dc2626" stroke-width="2"/>
+  <polygon points="560,320 554,308 566,308" fill="#dc2626"/>
+  <text x="552" y="290" font-size="15" fill="#dc2626" text-anchor="end">ΔH &lt; 0</text>
+
+  <text x="94" y="272" font-size="14" fill="#1f2937">Reactants</text>
+  <text x="490" y="342" font-size="14" fill="#1f2937">Products</text>
+  <text x="320" y="78" font-size="14" fill="#1f2937" text-anchor="middle">Activated complex (transition state)</text>
+  <text x="320" y="196" font-size="13" fill="#059669" text-anchor="middle">catalysed</text>
+
+  <!-- legend -->
+  <line x1="420" y1="110" x2="452" y2="110" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="460" y="115" font-size="14" fill="#1f2937">without catalyst (Eₐ)</text>
+  <line x1="420" y1="134" x2="452" y2="134" stroke="#059669" stroke-width="2.5" stroke-dasharray="9 5"/>
+  <text x="460" y="139" font-size="14" fill="#1f2937">with catalyst (Eₐ′ &lt; Eₐ)</text>
+  <text x="420" y="163" font-size="13" fill="#1f2937">ΔH is the same for both paths</text>
+</svg>

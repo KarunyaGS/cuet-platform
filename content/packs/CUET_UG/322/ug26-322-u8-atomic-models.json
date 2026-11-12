@@ -1,0 +1,469 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_674de34a2dbb49aa8bf0eec88bd9df39",
+    "title": "Alpha-particle scattering experiment; Rutherford's model of atom; Bohr model of hydrogen"
+  },
+  "lesson": {
+    "key": "ug26-322-u8-atomic-models",
+    "title": "Atoms: alpha-particle scattering, Rutherford's nuclear model and the Bohr model of hydrogen",
+    "coverage": [
+      { "phrase": "Alpha-particle scattering experiment", "section": "Alpha-particle scattering experiment (Geiger and Marsden)" },
+      { "phrase": "Alpha-particle scattering: distance of closest approach and impact parameter", "section": "Distance of closest approach and impact parameter" },
+      { "phrase": "Rutherford's model of atom", "section": "Rutherford's nuclear model of the atom" },
+      { "phrase": "Bohr model of hydrogen atom", "section": "Bohr model of the hydrogen atom: the postulates" },
+      { "phrase": "Expression for radius of an orbit", "section": "Radius of the nth orbit" },
+      { "phrase": "Velocity of electron in an orbit", "section": "Velocity of the electron in the nth orbit" },
+      { "phrase": "Energy of electron in an orbit", "section": "Energy of the electron in the nth orbit" },
+      { "phrase": "Hydrogen line spectra (qualitative treatment only)", "section": "Hydrogen line spectra" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Why a model of the atom was needed" },
+      { "type": "TEXT", "text": "By about 1900 two facts about atoms were firmly established. First, every atom contains electrons, which carry negative charge and are extremely light (an electron has about 1/1836 of the mass of a hydrogen atom). Second, atoms as a whole are electrically neutral. So an atom must also contain positive charge exactly equal to the total electronic charge, and almost all of its mass must go along with that positive charge. The real question was **how the positive charge and the mass are arranged inside the atom**.\n\nJ. J. Thomson suggested in 1898 that the positive charge is spread evenly throughout a sphere of atomic size (radius about $10^{-10}\\,\\text{m}$), with the electrons embedded in it like seeds in a watermelon. This is often called the plum-pudding model. In a spread-out cloud of charge the electric field is never very strong, so a fast and heavy charged particle shot through such an atom should be deflected by at most a small fraction of a degree. The alpha-particle scattering experiment was designed to test exactly this prediction, and its result changed our picture of the atom completely." },
+      { "type": "DEFINITION", "term": "Alpha particle (α-particle)", "text": "The nucleus of a helium-4 atom, ${}^{4}_{2}\\text{He}^{2+}$: two protons and two neutrons bound together. It carries charge $+2e = +3.2\\times10^{-19}\\,\\text{C}$ and has mass about $4\\,\\text{u}$, roughly 7300 times the mass of an electron. Some radioactive nuclei emit α-particles with kinetic energies of a few MeV." },
+
+      { "type": "HEADING", "text": "Alpha-particle scattering experiment (Geiger and Marsden)" },
+      { "type": "TEXT", "text": "In 1911, working on a suggestion of Ernest Rutherford, Hans Geiger and Ernest Marsden fired a narrow beam of α-particles at a very thin gold foil and counted how many were scattered in different directions. The main parts of the apparatus were:\n\n- **Source:** a radioactive material (for example ${}^{214}_{83}\\text{Bi}$) giving α-particles of about 5.5 MeV, placed inside a thick lead block so that α-particles leave only through a narrow channel.\n- **Collimator:** lead plates with narrow slits that select a fine, parallel beam.\n- **Target:** a gold foil only about $2.1\\times10^{-7}\\,\\text{m}$ thick. Gold is chosen because it can be beaten into extremely thin foils and because its nucleus is heavy and highly charged ($Z = 79$).\n- **Detector:** a zinc sulphide (ZnS) screen. Each α-particle hitting it gives a tiny flash of light (a scintillation), which is seen through a microscope. The screen and microscope rotate together about the foil, so the number of α-particles arriving at any scattering angle $\\theta$ can be counted.\n- **Vacuum:** the whole arrangement is kept in an evacuated chamber so that the α-particles are not slowed down or scattered by air molecules." },
+      { "type": "DIAGRAM", "diagram": "scattering-setup" },
+      { "type": "TEXT", "text": "Counting scintillations at many angles over long periods, Geiger and Marsden found:\n\n1. Most α-particles passed straight through the foil or were deflected by only one or two degrees.\n2. Only about 0.14% of the incident α-particles were scattered by more than $1^\\circ$.\n3. About 1 α-particle in 8000 was deflected by more than $90^\\circ$, and a few came back almost along the direction from which they had come ($\\theta$ close to $180^\\circ$).\n\nRutherford compared the third result to firing a heavy shell at a sheet of tissue paper and seeing it bounce back. A spread-out positive charge, as in Thomson's model, can never exert a force large enough to turn an α-particle round. Nor can the electrons of the gold atoms: an α-particle is thousands of times heavier than an electron, so colliding with an electron changes its momentum only slightly, just as a bowling ball rolls on almost undisturbed after hitting a table-tennis ball. The large deflections must therefore come from something that is small, carries a large positive charge and is also very heavy." },
+      { "type": "TABLE", "caption": "Observations of the α-particle scattering experiment and what they tell us", "columns": ["Observation", "Conclusion about the atom"], "rows": [
+        ["Most α-particles pass through undeflected or with very small deflection", "Most of the volume of an atom is empty space"],
+        ["A small fraction is deflected through large angles", "The positive charge is concentrated in a tiny region, where the electric field is extremely strong"],
+        ["About 1 in 8000 is turned back by more than $90^\\circ$", "The same tiny region also holds almost all the mass of the atom (a light target would simply be pushed aside)"],
+        ["The number scattered falls off steeply with angle, as $1/\\sin^4(\\theta/2)$", "The scattering centre behaves as a point charge obeying Coulomb's inverse-square law"]
+      ] },
+      { "type": "FORMULA", "latex": "N(\\theta) \\propto \\frac{1}{\\sin^4(\\theta/2)}", "text": "Rutherford's scattering result. $N(\\theta)$ is the number of α-particles reaching a detector of fixed size placed at scattering angle $\\theta$, for a given beam, foil and α-particle energy. Rutherford derived it by assuming a point-like positive nucleus and Coulomb repulsion; the close agreement with Geiger and Marsden's counts confirmed the nuclear model. The count is very large at small angles and smallest near $\\theta = 180^\\circ$." },
+      { "type": "CALLOUT", "text": "**Exam tip - why these choices?** Gold: it gives an extremely thin foil and its nucleus is heavy ($Z = 79$), so the repulsion is strong and the nucleus hardly recoils. Thin foil: each α-particle then suffers at most one close encounter (single scattering), so the measured angle comes from one nucleus. Vacuum: air would absorb and scatter the α-particles. α-particles: they are heavy and fast, so electrons cannot deflect them appreciably." },
+
+      { "type": "HEADING", "text": "Distance of closest approach and impact parameter" },
+      { "type": "TEXT", "text": "Consider an α-particle of kinetic energy $K$ moving straight towards a nucleus of charge $Ze$ (a head-on approach). As it comes closer, the Coulomb repulsion slows it down. At a certain distance $d_0$ it stops for an instant and is then pushed back along the same line. The gold nucleus is about 50 times heavier than the α-particle, so we treat it as fixed, and we ignore the electrons, which have negligible effect. By conservation of energy, all the initial kinetic energy has become electrostatic potential energy at the turning point." },
+      { "type": "FORMULA", "latex": "K = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{(2e)(Ze)}{d_0} \\quad\\Rightarrow\\quad d_0 = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{2Ze^2}{K}", "text": "$d_0$ = distance of closest approach (m); $K$ = initial kinetic energy of the α-particle (J); $Z$ = atomic number of the target nucleus; $2e$ = charge of the α-particle; $e = 1.6\\times10^{-19}\\,\\text{C}$; $\\frac{1}{4\\pi\\varepsilon_0} = 9\\times10^{9}\\,\\text{N m}^2\\,\\text{C}^{-2}$. A very handy combination is $\\frac{e^2}{4\\pi\\varepsilon_0} = 1.44\\,\\text{MeV fm}$, so $d_0\\,(\\text{fm}) = 2.88\\,Z / K\\,(\\text{MeV})$. Since the α-particle turns back before touching the nucleus, $d_0$ gives an upper limit for the size of the nucleus." },
+      { "type": "DEFINITION", "term": "Impact parameter (b)", "text": "The perpendicular distance between the line of the initial velocity of the α-particle and the centre of the nucleus, that is, how far off-centre the particle is aimed. It is a length (SI unit: metre; usually quoted in femtometres, $1\\,\\text{fm} = 10^{-15}\\,\\text{m}$)." },
+      { "type": "TEXT", "text": "The angle through which an α-particle is scattered depends on its impact parameter:\n\n- $b = 0$ (head-on): the force acts exactly along the line of motion, the particle stops at $d_0$ and returns along its own path, so $\\theta = 180^\\circ$.\n- Small $b$: the particle passes close to the nucleus, feels a very strong repulsion for a long time and is turned through a **large** angle.\n- Large $b$: the particle stays far from the nucleus, the force on it is weak and the deflection is **small**.\n\nIn a beam, the particles are spread uniformly over the cross-section, so only a tiny fraction happen to be aimed within a very small distance of some nucleus. That is why large-angle scattering is so rare. Each path is a hyperbola, the shape produced by any inverse-square repulsive force." },
+      { "type": "DIAGRAM", "diagram": "alpha-trajectories" },
+      { "type": "FORMULA", "latex": "b = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{Ze^2\\cot(\\theta/2)}{K} = \\frac{d_0}{2}\\cot\\frac{\\theta}{2}", "text": "Relation between impact parameter $b$ and scattering angle $\\theta$ for an α-particle of kinetic energy $K$ scattered by a nucleus of charge $Ze$ (useful for numericals; NCERT treats it qualitatively). As $\\theta$ increases from $0^\\circ$ to $180^\\circ$, $\\cot(\\theta/2)$ falls from infinity to zero, so $b$ decreases: at $\\theta = 180^\\circ$, $b = 0$." },
+      { "type": "SOLVED_PROBLEM", "problem": "An α-particle of kinetic energy 4.8 MeV moves head-on towards a gold nucleus ($Z = 79$). Find the distance of closest approach. Take $\\frac{e^2}{4\\pi\\varepsilon_0} = 1.44\\,\\text{MeV fm}$, and compare the answer with the radius of the gold nucleus (about 7 fm).", "solution": "At the closest point the α-particle is momentarily at rest, so all its kinetic energy has become electrostatic potential energy:\n\n$$K = \\frac{1}{4\\pi\\varepsilon_0}\\frac{(2e)(Ze)}{d_0} \\;\\Rightarrow\\; d_0 = \\frac{2Z}{K}\\cdot\\frac{e^2}{4\\pi\\varepsilon_0}$$\n\nSubstituting the values:\n\n$$d_0 = \\frac{2 \\times 79 \\times 1.44\\,\\text{MeV fm}}{4.8\\,\\text{MeV}} = \\frac{227.5}{4.8}\\,\\text{fm} \\approx 47.4\\,\\text{fm}$$\n\nCheck in SI units: $d_0 = \\frac{(9\\times10^{9})(2)(79)(1.6\\times10^{-19})^2}{4.8 \\times 1.6\\times10^{-13}}\\,\\text{m} \\approx 4.7\\times10^{-14}\\,\\text{m}$, the same result (1 MeV = $1.6\\times10^{-13}$ J).\n\nComparison: $47.4/7 \\approx 7$. The α-particle turns back at about seven nuclear radii from the centre, so it never touches the nucleus. This is why the purely Coulomb calculation of Rutherford matched the experiment.", "answer": "$d_0 \\approx 47\\,\\text{fm} = 4.7\\times10^{-14}\\,\\text{m}$, about 7 times the radius of the gold nucleus." },
+      { "type": "SOLVED_PROBLEM", "problem": "α-particles of kinetic energy 5.0 MeV are scattered by gold nuclei ($Z = 79$). Find the impact parameter for scattering through (a) $90^\\circ$ and (b) $60^\\circ$. Use $\\frac{e^2}{4\\pi\\varepsilon_0} = 1.44\\,\\text{MeV fm}$.", "solution": "Use $b = \\frac{Ze^2}{4\\pi\\varepsilon_0 K}\\cot\\frac{\\theta}{2}$.\n\nFirst, $\\frac{Ze^2}{4\\pi\\varepsilon_0 K} = \\frac{79 \\times 1.44\\,\\text{MeV fm}}{5.0\\,\\text{MeV}} = \\frac{113.8}{5.0}\\,\\text{fm} = 22.75\\,\\text{fm}$.\n\n(a) $\\theta = 90^\\circ$: $\\cot 45^\\circ = 1$, so $b = 22.75 \\times 1 \\approx 22.8\\,\\text{fm}$.\n\n(b) $\\theta = 60^\\circ$: $\\cot 30^\\circ = \\sqrt{3} = 1.732$, so $b = 22.75 \\times 1.732 \\approx 39.4\\,\\text{fm}$.\n\nThe α-particle aimed farther from the nucleus (larger $b$) is deflected through the smaller angle, as expected. For comparison, the head-on distance of closest approach at this energy is $d_0 = 2 \\times 22.75 = 45.5\\,\\text{fm}$.", "answer": "(a) $b \\approx 22.8\\,\\text{fm}$ for $90^\\circ$; (b) $b \\approx 39.4\\,\\text{fm}$ for $60^\\circ$." },
+      { "type": "KEY_POINT", "text": "- Head-on collision: $b = 0$, $\\theta = 180^\\circ$, closest distance $d_0 = \\frac{2Ze^2}{4\\pi\\varepsilon_0 K}$.\n- $d_0 \\propto Z/K$: a more energetic α-particle comes closer; a target of larger $Z$ keeps it farther away.\n- Smaller impact parameter means larger scattering angle; $b \\propto \\cot(\\theta/2)$.\n- $d_0$ is an upper limit on the nuclear radius (tens of fm for gold with a few MeV α-particles)." },
+
+      { "type": "HEADING", "text": "Rutherford's nuclear model of the atom" },
+      { "type": "TEXT", "text": "To explain the scattering results, Rutherford proposed in 1911 the **nuclear model** (also called the planetary model) of the atom:\n\n1. All the positive charge and almost all the mass of an atom are concentrated in a very small central region, the **nucleus**.\n2. The nucleus is extremely small: its radius is about $10^{-15}$ to $10^{-14}\\,\\text{m}$, while the atom is about $10^{-10}\\,\\text{m}$ across. The atom is therefore mostly empty space.\n3. The electrons, with total charge $-Ze$, move around the nucleus at comparatively large distances, much as planets move round the Sun, so that the atom as a whole is neutral.\n4. The electrostatic attraction between the nucleus and an electron supplies the centripetal force that keeps the electron in its orbit." },
+      { "type": "IMPORTANT_FACT", "text": "If an atom were enlarged to the size of a cricket stadium, its nucleus would be about the size of a small pea at the centre. The nuclear radius is about $10^4$ to $10^5$ times smaller than the atomic radius, so the nucleus occupies only about $10^{-12}$ to $10^{-15}$ of the atom's volume." },
+      { "type": "FORMULA", "latex": "\\frac{mv^2}{r} = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{e^2}{r^2} \\qquad\\Rightarrow\\qquad E = K + U = \\frac{e^2}{8\\pi\\varepsilon_0 r} - \\frac{e^2}{4\\pi\\varepsilon_0 r} = -\\frac{e^2}{8\\pi\\varepsilon_0 r}", "text": "Electron of mass $m$ and charge $-e$ in a circular orbit of radius $r$ around a proton (hydrogen). Kinetic energy $K = \\frac{1}{2}mv^2 = \\frac{e^2}{8\\pi\\varepsilon_0 r}$, potential energy $U = -\\frac{e^2}{4\\pi\\varepsilon_0 r}$. The total energy is negative, meaning the electron is bound. Rutherford's model, however, puts no restriction on $r$: any radius would be allowed." },
+      { "type": "TEXT", "text": "Rutherford's model correctly located the nucleus, but its picture of the electrons ran into two serious difficulties:\n\n1. **The atom should collapse.** An electron moving in a circle is always accelerating towards the centre. According to classical electromagnetic theory, an accelerating charge radiates electromagnetic waves. The electron would therefore keep losing energy, spiral inwards and fall into the nucleus in a tiny fraction of a second (a classical estimate for hydrogen gives about $10^{-11}\\,\\text{s}$). Real atoms are stable.\n2. **It predicts the wrong spectrum.** As the electron spirals in, its frequency of revolution changes continuously, so the radiation it emits should contain all frequencies: a continuous spectrum. Real atoms, such as hydrogen in a discharge tube, emit only a set of sharp, separate wavelengths: a **line spectrum**." },
+      { "type": "CALLOUT", "text": "**Common mistake:** saying that Rutherford's model was \"disproved\". Its central idea, a tiny massive positive nucleus, is correct and is kept in every later model. What fails is the classical description of the electrons moving round it. Bohr fixed this by adding quantum conditions." },
+
+      { "type": "HEADING", "text": "Bohr model of the hydrogen atom: the postulates" },
+      { "type": "TEXT", "text": "In 1913 Niels Bohr kept Rutherford's nucleus and circular orbits but combined them with the new quantum ideas of Planck and Einstein. His model applies to hydrogen and to other one-electron (hydrogen-like) ions such as $\\text{He}^+$ and $\\text{Li}^{2+}$. It rests on three postulates:\n\n1. **Stationary orbits.** The electron can revolve only in certain circular orbits without radiating energy. Each such orbit has a definite energy, and the corresponding states are called stationary states. The centripetal force is supplied by the Coulomb attraction of the nucleus.\n2. **Quantisation of angular momentum.** The allowed orbits are those for which the orbital angular momentum of the electron is a whole-number multiple of $h/2\\pi$, where $h$ is Planck's constant.\n3. **Frequency condition.** When the electron jumps from an orbit of energy $E_i$ to one of lower energy $E_f$, the atom emits one photon whose energy equals the difference of the two energies. In absorption, a photon of exactly this energy lifts the electron from the lower to the higher orbit." },
+      { "type": "FORMULA", "latex": "L = m v_n r_n = \\frac{nh}{2\\pi}, \\qquad n = 1, 2, 3, \\ldots", "text": "$L$ = angular momentum of the electron ($\\text{J s}$); $m$ = electron mass; $v_n$, $r_n$ = speed and radius in the $n$th orbit; $h = 6.63\\times10^{-34}\\,\\text{J s}$; $n$ = principal quantum number. The smallest angular momentum is $h/2\\pi \\approx 1.05\\times10^{-34}\\,\\text{J s}$." },
+      { "type": "FORMULA", "latex": "h\\nu = E_i - E_f", "text": "$\\nu$ = frequency of the emitted photon (Hz); $E_i$, $E_f$ = energies of the initial (higher) and final (lower) stationary states (J). Since only certain energies are allowed, only certain frequencies can be emitted." },
+      { "type": "DEFINITION", "term": "Principal quantum number (n)", "text": "The positive integer $n = 1, 2, 3, \\ldots$ that labels the allowed Bohr orbits and the corresponding energy levels. $n = 1$ is the ground state; $n = 2, 3, \\ldots$ are excited states." },
+      { "type": "DIAGRAM", "diagram": "bohr-orbits" },
+      { "type": "TEXT", "text": "**Why is angular momentum quantised? de Broglie's explanation (1923).** De Broglie proposed that an electron has a wave associated with it, of wavelength $\\lambda = h/mv$. An electron moving round an orbit can exist steadily only if its wave closes smoothly on itself after one revolution, forming a standing wave. This requires the circumference of the orbit to be an exact whole number of wavelengths. Writing this condition out gives Bohr's second postulate directly, so the quantisation that Bohr assumed is a natural consequence of the wave nature of the electron. In the $n$th orbit, exactly $n$ wavelengths fit round the circumference." },
+      { "type": "FORMULA", "latex": "2\\pi r_n = n\\lambda = n\\,\\frac{h}{m v_n} \\quad\\Rightarrow\\quad m v_n r_n = \\frac{nh}{2\\pi}", "text": "Standing-wave condition: circumference $2\\pi r_n$ equals $n$ de Broglie wavelengths $\\lambda = h/(m v_n)$. Rearranging gives Bohr's quantisation of angular momentum." },
+
+      { "type": "HEADING", "text": "Radius of the nth orbit" },
+      { "type": "TEXT", "text": "We now find the allowed radii of hydrogen ($Z = 1$). Two conditions must hold together in the $n$th orbit.\n\n**Condition (i), dynamics:** the Coulomb attraction provides the centripetal force,\n\n$$\\frac{m v_n^2}{r_n} = \\frac{1}{4\\pi\\varepsilon_0}\\frac{e^2}{r_n^2} \\quad\\Rightarrow\\quad m v_n^2 r_n = \\frac{e^2}{4\\pi\\varepsilon_0}$$\n\n**Condition (ii), quantisation:** $m v_n r_n = \\frac{nh}{2\\pi}$, so $v_n = \\frac{nh}{2\\pi m r_n}$.\n\n**Step 1.** Substitute $v_n$ from (ii) into (i):\n\n$$m\\,r_n\\left(\\frac{nh}{2\\pi m r_n}\\right)^2 = \\frac{e^2}{4\\pi\\varepsilon_0} \\quad\\Rightarrow\\quad \\frac{n^2h^2}{4\\pi^2 m\\,r_n} = \\frac{e^2}{4\\pi\\varepsilon_0}$$\n\n**Step 2.** Solve for $r_n$:\n\n$$r_n = \\frac{n^2 h^2}{4\\pi^2 m}\\cdot\\frac{4\\pi\\varepsilon_0}{e^2} = \\frac{\\varepsilon_0 h^2}{\\pi m e^2}\\,n^2$$" },
+      { "type": "FORMULA", "latex": "r_n = \\frac{\\varepsilon_0 h^2}{\\pi m e^2}\\,n^2 = n^2 a_0, \\qquad a_0 = \\frac{\\varepsilon_0 h^2}{\\pi m e^2} \\approx 5.29\\times10^{-11}\\,\\text{m} = 0.529\\,\\mathring{A}", "text": "$r_n$ = radius of the $n$th orbit (m); $a_0$ = Bohr radius, the radius of the ground-state orbit, obtained with $\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^2\\,\\text{N}^{-1}\\text{m}^{-2}$, $h = 6.63\\times10^{-34}\\,\\text{J s}$, $m = 9.11\\times10^{-31}\\,\\text{kg}$, $e = 1.60\\times10^{-19}\\,\\text{C}$. This value, about 0.5 Å, agrees with the known size of the hydrogen atom." },
+      { "type": "TEXT", "text": "**What the result tells us:**\n\n- $r_n \\propto n^2$: the radii are in the ratio $1 : 4 : 9 : 16 : \\ldots$, so $r_2 = 2.12$ Å, $r_3 = 4.76$ Å, $r_4 = 8.46$ Å.\n- The gap between successive orbits grows with $n$: $r_2 - r_1 = 3a_0$, $r_3 - r_2 = 5a_0$, and so on.\n- $r_n \\propto 1/m$: a heavier orbiting particle of the same charge would sit much closer to the nucleus.\n- For a hydrogen-like ion with nuclear charge $Ze$, the Coulomb force is $Z$ times larger, and the same steps give $r_n = a_0 n^2/Z$. For example, the ground-state radius of $\\text{He}^+$ is $0.529/2 \\approx 0.265$ Å." },
+
+      { "type": "HEADING", "text": "Velocity of the electron in the nth orbit" },
+      { "type": "TEXT", "text": "Divide condition (i), $m v_n^2 r_n = \\frac{e^2}{4\\pi\\varepsilon_0}$, by condition (ii), $m v_n r_n = \\frac{nh}{2\\pi}$. The factors $m$ and $r_n$ cancel and one power of $v_n$ remains:\n\n$$v_n = \\frac{e^2}{4\\pi\\varepsilon_0}\\cdot\\frac{2\\pi}{nh} = \\frac{e^2}{2\\varepsilon_0 h}\\cdot\\frac{1}{n}$$" },
+      { "type": "FORMULA", "latex": "v_n = \\frac{e^2}{2\\varepsilon_0 h}\\cdot\\frac{1}{n} = \\frac{v_1}{n}, \\qquad v_1 = \\frac{e^2}{2\\varepsilon_0 h} \\approx 2.19\\times10^{6}\\,\\text{m s}^{-1} \\approx \\frac{c}{137}", "text": "$v_n$ = orbital speed in the $n$th orbit (m/s); $v_1$ = speed in the ground state. The speed is independent of the electron's mass and falls as $1/n$. Since $v_1$ is less than 1% of the speed of light $c$, the non-relativistic treatment is justified. For a hydrogen-like ion, $v_n = v_1 Z/n$." },
+      { "type": "TEXT", "text": "Two related quantities often appear in questions:\n\n- **Time period** of revolution $T_n = 2\\pi r_n / v_n$. Since $r_n \\propto n^2$ and $v_n \\propto 1/n$, $T_n \\propto n^3$. In the ground state $T_1 = \\frac{2\\pi(0.529\\times10^{-10})}{2.19\\times10^{6}} \\approx 1.52\\times10^{-16}\\,\\text{s}$.\n- **Frequency** of revolution $f_n = 1/T_n \\propto 1/n^3$, and the equivalent current $I_n = e f_n \\propto 1/n^3$.\n\nNote that the frequency of revolution is **not** the frequency of the light emitted. Light is emitted only during a jump between orbits, with $\\nu = (E_i - E_f)/h$." },
+      { "type": "FORMULA", "latex": "T_n = \\frac{2\\pi r_n}{v_n} \\propto n^3, \\qquad f_n = \\frac{v_n}{2\\pi r_n} \\propto \\frac{1}{n^3}", "text": "$T_n$ = time for one revolution (s); $f_n$ = number of revolutions per second (Hz). Both follow from $r_n \\propto n^2$ and $v_n \\propto 1/n$." },
+      { "type": "SOLVED_PROBLEM", "problem": "How many revolutions per second does the electron make in the ground state of hydrogen? Take $r_1 = 0.529\\,\\text{Å}$ and $v_1 = 2.19\\times10^{6}\\,\\text{m s}^{-1}$.", "solution": "The distance covered in one revolution is the circumference:\n\n$$2\\pi r_1 = 2\\pi \\times 0.529\\times10^{-10}\\,\\text{m} = 3.32\\times10^{-10}\\,\\text{m}$$\n\nNumber of revolutions per second = speed / circumference:\n\n$$f_1 = \\frac{v_1}{2\\pi r_1} = \\frac{2.19\\times10^{6}}{3.32\\times10^{-10}}\\,\\text{s}^{-1} \\approx 6.6\\times10^{15}\\,\\text{s}^{-1}$$\n\nSo the time period is $T_1 = 1/f_1 \\approx 1.5\\times10^{-16}\\,\\text{s}$. In the $n = 2$ orbit the frequency would be $2^3 = 8$ times smaller.", "answer": "About $6.6\\times10^{15}$ revolutions per second (period about $1.5\\times10^{-16}$ s)." },
+
+      { "type": "HEADING", "text": "Energy of the electron in the nth orbit" },
+      { "type": "TEXT", "text": "From condition (i), $m v_n^2 = \\frac{e^2}{4\\pi\\varepsilon_0 r_n}$, so the kinetic energy is $K_n = \\frac{1}{2} m v_n^2 = \\frac{e^2}{8\\pi\\varepsilon_0 r_n}$. The electrostatic potential energy of the electron (charge $-e$) at distance $r_n$ from the proton (charge $+e$), taking zero at infinite separation, is $U_n = -\\frac{e^2}{4\\pi\\varepsilon_0 r_n}$. Adding them gives the total energy. Finally we put in $r_n = \\frac{\\varepsilon_0 h^2 n^2}{\\pi m e^2}$:\n\n$$E_n = -\\frac{e^2}{8\\pi\\varepsilon_0}\\cdot\\frac{\\pi m e^2}{\\varepsilon_0 h^2 n^2} = -\\frac{m e^4}{8\\varepsilon_0^2 h^2}\\cdot\\frac{1}{n^2}$$" },
+      { "type": "FORMULA", "latex": "K_n = \\frac{e^2}{8\\pi\\varepsilon_0 r_n}, \\qquad U_n = -\\frac{e^2}{4\\pi\\varepsilon_0 r_n}, \\qquad E_n = K_n + U_n = -\\frac{e^2}{8\\pi\\varepsilon_0 r_n}", "text": "$K_n$, $U_n$, $E_n$ = kinetic, potential and total energy of the electron in the $n$th orbit (J). The zero of potential energy is taken with the electron at rest infinitely far from the nucleus." },
+      { "type": "FORMULA", "latex": "E_n = -\\frac{m e^4}{8\\varepsilon_0^2 h^2}\\cdot\\frac{1}{n^2} = -\\frac{13.6}{n^2}\\,\\text{eV}", "text": "Energy levels of hydrogen. Substituting the constants gives $\\frac{me^4}{8\\varepsilon_0^2h^2} = 2.18\\times10^{-18}\\,\\text{J} = 13.6\\,\\text{eV}$ (1 eV = $1.6\\times10^{-19}$ J). So $E_1 = -13.6$ eV, $E_2 = -3.40$ eV, $E_3 = -1.51$ eV, $E_4 = -0.85$ eV, and $E_n \\to 0$ as $n \\to \\infty$. For a hydrogen-like ion, $E_n = -13.6\\,Z^2/n^2$ eV." },
+      { "type": "FORMULA", "latex": "K_n = -E_n, \\qquad U_n = 2E_n", "text": "Useful shortcut for any Bohr orbit: kinetic energy equals the magnitude of the total energy, and potential energy is twice the total energy. In the ground state of hydrogen: $E = -13.6$ eV, $K = +13.6$ eV, $U = -27.2$ eV." },
+      { "type": "TEXT", "text": "**Interpreting the energy levels.**\n\n- The energy is **negative** because the electron is bound: energy must be supplied to pull it away to infinity, where its energy is zero.\n- The **lowest** energy, $-13.6$ eV, is the ground state ($n = 1$). The atom normally stays in this state.\n- As $n$ increases the energy rises (becomes less negative) and the levels get closer together, crowding towards $E = 0$.\n- At $n = \\infty$ the electron is just free. Any extra energy appears as kinetic energy of the free electron, which can take any value (a continuum).\n- An electron in a higher orbit has **more** total energy but **less** kinetic energy and a smaller speed." },
+      { "type": "DEFINITION", "term": "Ionisation energy", "text": "The minimum energy needed to remove the electron completely from an atom in its ground state. For hydrogen it is $0 - (-13.6\\,\\text{eV}) = 13.6\\,\\text{eV}$; the corresponding ionisation potential is 13.6 V." },
+      { "type": "DEFINITION", "term": "Excitation energy", "text": "The energy needed to raise the electron from the ground state to a particular excited state. For hydrogen, $n = 1 \\to 2$ needs $10.2$ eV (first excitation energy) and $n = 1 \\to 3$ needs $12.09$ eV." },
+      { "type": "TABLE", "caption": "Bohr-model values for hydrogen (Z = 1)", "columns": ["$n$", "Radius $r_n$", "Speed $v_n$ (m/s)", "Total energy $E_n$", "Kinetic energy $K_n$", "Potential energy $U_n$"], "rows": [
+        ["1 (ground state)", "0.529 Å", "$2.19\\times10^{6}$", "−13.6 eV", "13.6 eV", "−27.2 eV"],
+        ["2 (first excited)", "2.12 Å", "$1.09\\times10^{6}$", "−3.40 eV", "3.40 eV", "−6.80 eV"],
+        ["3 (second excited)", "4.76 Å", "$7.30\\times10^{5}$", "−1.51 eV", "1.51 eV", "−3.02 eV"],
+        ["4 (third excited)", "8.46 Å", "$5.48\\times10^{5}$", "−0.85 eV", "0.85 eV", "−1.70 eV"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "For the electron of a hydrogen atom in the $n = 3$ orbit, find (a) the radius of the orbit, (b) its speed, and (c) its total, kinetic and potential energies. Use $r_1 = 0.529$ Å, $v_1 = 2.19\\times10^{6}$ m/s and $E_1 = -13.6$ eV.", "solution": "(a) Radius: $r_n = n^2 r_1$, so $r_3 = 9 \\times 0.529$ Å $= 4.76$ Å $= 4.76\\times10^{-10}$ m.\n\n(b) Speed: $v_n = v_1/n$, so $v_3 = \\frac{2.19\\times10^{6}}{3} = 7.30\\times10^{5}$ m/s.\n\n(c) Total energy: $E_n = -13.6/n^2$ eV, so $E_3 = -13.6/9 = -1.51$ eV.\n\nKinetic energy: $K_3 = -E_3 = +1.51$ eV.\n\nPotential energy: $U_3 = 2E_3 = -3.02$ eV.\n\nCheck: $K_3 + U_3 = 1.51 - 3.02 = -1.51$ eV, equal to $E_3$.", "answer": "$r_3 = 4.76$ Å, $v_3 = 7.30\\times10^{5}$ m/s, $E_3 = -1.51$ eV, $K_3 = 1.51$ eV, $U_3 = -3.02$ eV." },
+      { "type": "SOLVED_PROBLEM", "problem": "For the singly ionised helium ion $\\text{He}^+$ ($Z = 2$), find the radius of the ground-state orbit, the ground-state energy and the ionisation energy. Also find the energy of the photon emitted when its electron falls from $n = 2$ to $n = 1$.", "solution": "$\\text{He}^+$ has one electron, so Bohr's results apply with nuclear charge $2e$.\n\nRadius: $r_n = \\frac{0.529\\,n^2}{Z}$ Å, so $r_1 = \\frac{0.529 \\times 1}{2} = 0.265$ Å.\n\nEnergy: $E_n = -\\frac{13.6\\,Z^2}{n^2}$ eV, so $E_1 = -13.6 \\times 4 = -54.4$ eV.\n\nIonisation energy = $0 - E_1 = 54.4$ eV.\n\nFor $n = 2$: $E_2 = -\\frac{13.6 \\times 4}{4} = -13.6$ eV. The photon energy for $2 \\to 1$ is $E_2 - E_1 = -13.6 - (-54.4) = 40.8$ eV. This is four times the corresponding hydrogen value of 10.2 eV, because energies scale as $Z^2$.", "answer": "$r_1 = 0.265$ Å, $E_1 = -54.4$ eV, ionisation energy 54.4 eV, photon energy for $2 \\to 1$: 40.8 eV." },
+
+      { "type": "HEADING", "text": "Hydrogen line spectra" },
+      { "type": "TEXT", "text": "When hydrogen gas in a discharge tube is excited by an electric discharge, many atoms are raised to higher energy levels. Each excited atom soon returns towards the ground state in one or more jumps. Every jump from a level $n_i$ down to a level $n_f$ releases one photon of energy $E_{n_i} - E_{n_f}$. Because the levels have definite energies, only definite photon energies, and hence definite wavelengths, can come out. Seen through a spectrometer, the light is a set of sharp bright lines on a dark background: an **emission line spectrum**.\n\nIf white light is passed through cool hydrogen gas, atoms in the ground state absorb only those photons whose energies exactly match an upward jump from $n = 1$. These wavelengths are missing from the transmitted light and appear as dark lines: an **absorption spectrum**. At room temperature almost all atoms are in the ground state, so the absorption lines are mainly those that start from $n = 1$ (the Lyman lines, in the ultraviolet)." },
+      { "type": "FORMULA", "latex": "\\frac{1}{\\lambda} = \\frac{E_{n_i} - E_{n_f}}{hc} = R\\left(\\frac{1}{n_f^2} - \\frac{1}{n_i^2}\\right), \\qquad R = \\frac{m e^4}{8\\varepsilon_0^2 h^3 c} \\approx 1.097\\times10^{7}\\,\\text{m}^{-1}", "text": "$\\lambda$ = wavelength of the emitted line (m); $n_f$ = lower (final) level, $n_i$ = upper (initial) level, $n_i > n_f$; $R$ = Rydberg constant; $c$ = speed of light. This formula had been found from measured wavelengths (Balmer, 1885; Rydberg) before Bohr; his model explained it and gave the value of $R$ from fundamental constants. A useful shortcut: $\\lambda\\,(\\text{nm}) \\approx 1240 / \\Delta E\\,(\\text{eV})$." },
+      { "type": "DEFINITION", "term": "Spectral series", "text": "The group of all lines of hydrogen whose transitions end on the same lower level $n_f$. Each series is named after its discoverer: Lyman ($n_f = 1$), Balmer ($n_f = 2$), Paschen ($n_f = 3$), Brackett ($n_f = 4$) and Pfund ($n_f = 5$)." },
+      { "type": "TABLE", "caption": "Spectral series of hydrogen (wavelengths calculated with R = 1.097 × 10⁷ m⁻¹)", "columns": ["Series", "Lower level $n_f$", "Upper levels $n_i$", "Region", "First line (longest λ)", "Series limit (shortest λ)"], "rows": [
+        ["Lyman", "1", "2, 3, 4, …", "Ultraviolet", "121.5 nm", "91.2 nm"],
+        ["Balmer", "2", "3, 4, 5, …", "Visible (limit in near ultraviolet)", "656.3 nm (Hα, red)", "364.6 nm"],
+        ["Paschen", "3", "4, 5, 6, …", "Infrared", "1875 nm", "820.4 nm"],
+        ["Brackett", "4", "5, 6, 7, …", "Infrared", "4051 nm", "1459 nm"],
+        ["Pfund", "5", "6, 7, 8, …", "Far infrared", "7458 nm", "2279 nm"]
+      ] },
+      { "type": "DIAGRAM", "diagram": "energy-levels" },
+      { "type": "TEXT", "text": "**Features of the spectrum to remember (qualitative):**\n\n1. Each line corresponds to one downward arrow in the energy-level diagram; the longer the arrow, the larger the photon energy and the shorter the wavelength.\n2. Within a series, the **first line** (from the nearest upper level) has the smallest energy and the **longest** wavelength. As $n_i$ increases, the lines get closer and closer together and converge to the **series limit** ($n_i \\to \\infty$), which has the shortest wavelength.\n3. Every Lyman photon (at least 10.2 eV) is more energetic than every Balmer photon (at most 3.4 eV), so the Lyman series lies in the ultraviolet and the Balmer series mostly in the visible.\n4. The visible Balmer lines are $\\text{H}_\\alpha$ (656.3 nm, red, $3 \\to 2$), $\\text{H}_\\beta$ (486 nm, blue-green, $4 \\to 2$), $\\text{H}_\\gamma$ (434 nm, violet, $5 \\to 2$) and $\\text{H}_\\delta$ (410 nm, violet, $6 \\to 2$).\n5. A single atom emits one photon per jump. From level $n$ it can give at most $n - 1$ photons (cascading one level at a time), but a large sample of atoms excited to level $n$ produces every possible line between the levels below it." },
+      { "type": "FORMULA", "latex": "N_{\\text{lines}} = \\frac{n(n-1)}{2}", "text": "Maximum number of different spectral lines emitted by a sample of hydrogen atoms excited to level $n$ (counting all pairs of levels from 1 to $n$). For $n = 4$: 6 lines; for $n = 5$: 10 lines." },
+      { "type": "SOLVED_PROBLEM", "problem": "Find the wavelength and photon energy of the $\\text{H}_\\beta$ line of hydrogen (transition $n = 4 \\to n = 2$). Use $R = 1.097\\times10^{7}\\,\\text{m}^{-1}$.", "solution": "The electron falls from the fourth level to the second level, so the line belongs to the Balmer series, whose lower level is $n = 2$. Apply the Rydberg formula with lower level $n_f = 2$ and upper level $n_i = 4$:\n\n$$\\frac{1}{\\lambda} = R\\left(\\frac{1}{2^2} - \\frac{1}{4^2}\\right) = R\\left(\\frac{1}{4} - \\frac{1}{16}\\right) = \\frac{3R}{16}$$\n\n$$\\lambda = \\frac{16}{3R} = \\frac{16}{3 \\times 1.097\\times10^{7}}\\,\\text{m} = 4.86\\times10^{-7}\\,\\text{m} = 486\\,\\text{nm}$$\n\nThe photon energy follows directly from the energy levels, which also gives an independent check: $E_4 - E_2 = -0.85 - (-3.40) = 2.55$ eV, and using the shortcut $\\lambda\\,(\\text{nm}) = 1240/E\\,(\\text{eV})$ we get $1240/2.55 \\approx 486$ nm, the same wavelength. This blue-green line is the second line of the Balmer series and lies in the visible region.", "answer": "$\\lambda \\approx 486$ nm, photon energy $\\approx 2.55$ eV." },
+      { "type": "SOLVED_PROBLEM", "problem": "A sample of hydrogen atoms is excited to the $n = 4$ level. (a) How many different lines can appear in its emission spectrum? (b) Which transition gives the longest wavelength, and which the shortest? Find both wavelengths ($R = 1.097\\times10^{7}\\,\\text{m}^{-1}$).", "solution": "(a) Every line joins one pair of levels chosen from the four levels n = 1, 2, 3 and 4, so we count the pairs. Number of lines $= \\frac{n(n-1)}{2} = \\frac{4 \\times 3}{2} = 6$. They are $4\\to3$, $4\\to2$, $4\\to1$, $3\\to2$, $3\\to1$ and $2\\to1$.\n\n(b) Wavelength is inversely proportional to photon energy, so the longest wavelength comes from the smallest energy gap, which is between the two highest levels: $4 \\to 3$ (Paschen series):\n\n$$\\frac{1}{\\lambda} = R\\left(\\frac{1}{9} - \\frac{1}{16}\\right) = \\frac{7R}{144} \\Rightarrow \\lambda = \\frac{144}{7 \\times 1.097\\times10^{7}}\\,\\text{m} = 1.875\\times10^{-6}\\,\\text{m} = 1875\\,\\text{nm}$$\n\nThe shortest wavelength comes from the largest energy gap, the jump all the way down to the ground state: $4 \\to 1$ (Lyman series):\n\n$$\\frac{1}{\\lambda} = R\\left(1 - \\frac{1}{16}\\right) = \\frac{15R}{16} \\Rightarrow \\lambda = \\frac{16}{15 \\times 1.097\\times10^{7}}\\,\\text{m} = 9.72\\times10^{-8}\\,\\text{m} = 97.2\\,\\text{nm}$$", "answer": "(a) 6 lines; (b) longest: $4 \\to 3$, about 1875 nm (infrared); shortest: $4 \\to 1$, about 97.2 nm (ultraviolet)." },
+      { "type": "SOLVED_PROBLEM", "problem": "Hydrogen atoms in the ground state are bombarded with electrons of kinetic energy 12.5 eV. Which energy levels can the atoms reach, and which spectral lines will then be emitted?", "solution": "An atom can absorb from the electron only an amount of energy that exactly matches a jump between its levels. Energies needed from $n = 1$:\n\n- to $n = 2$: $-3.40 - (-13.6) = 10.2$ eV (possible, less than 12.5 eV)\n- to $n = 3$: $-1.51 - (-13.6) = 12.09$ eV (possible)\n- to $n = 4$: $-0.85 - (-13.6) = 12.75$ eV (not possible, more than 12.5 eV)\n\nSo atoms can be raised to $n = 2$ or $n = 3$ at most. On returning, the possible transitions are $3 \\to 2$ (Balmer, 1.89 eV, 656 nm), $3 \\to 1$ (Lyman, 12.09 eV, about 103 nm) and $2 \\to 1$ (Lyman, 10.2 eV, about 122 nm). That is $\\frac{3 \\times 2}{2} = 3$ lines.", "answer": "Atoms reach n = 2 and n = 3; three lines are emitted: 3→2 (656 nm), 3→1 (about 103 nm) and 2→1 (about 122 nm)." },
+      { "type": "CALLOUT", "text": "**Common mistakes in spectra questions:**\n\n- \"First excited state\" means $n = 2$, \"second excited state\" means $n = 3$. Do not confuse them with $n = 1, 2$.\n- The longest wavelength of a series comes from the **smallest** energy gap (its first line), not the largest.\n- Energy and wavelength are inversely related: $E = hc/\\lambda$.\n- One atom gives one photon per jump; the formula $n(n-1)/2$ counts lines from a **large number** of atoms.\n- A free electron colliding with an atom can give up only part of its energy, but a photon is absorbed only if its energy exactly matches a jump (or exceeds 13.6 eV, which ionises the atom)." },
+
+      { "type": "HEADING", "text": "Limitations of the Bohr model" },
+      { "type": "TEXT", "text": "Bohr's model was a major success: it explained the stability of the hydrogen atom, its size, its ionisation energy and the exact wavelengths of all its spectral series. But it has clear limits:\n\n- It works only for hydrogen and hydrogen-like ions with a single electron. It fails even for neutral helium, where the two electrons interact with each other.\n- It cannot explain the relative intensities of spectral lines (why some lines are brighter than others).\n- With better spectrometers, many lines turn out to be groups of closely spaced lines (fine structure), and lines split in magnetic fields; the simple model does not account for these.\n- It mixes classical mechanics (circular orbits, Newton's laws) with quantum rules that are simply assumed. Modern quantum mechanics replaces definite orbits by probability clouds, while keeping Bohr's energy levels for hydrogen." },
+
+      { "type": "HEADING", "text": "Quick revision: dependence on n and Z" },
+      { "type": "TABLE", "caption": "How Bohr-model quantities depend on the quantum number n and the nuclear charge Z (hydrogen-like atom)", "columns": ["Quantity", "Expression", "Dependence"], "rows": [
+        ["Radius", "$r_n = 0.529\\,n^2/Z$ Å", "$\\propto n^2/Z$"],
+        ["Speed", "$v_n = 2.19\\times10^{6}\\,Z/n$ m/s", "$\\propto Z/n$"],
+        ["Total energy", "$E_n = -13.6\\,Z^2/n^2$ eV", "$\\propto -Z^2/n^2$"],
+        ["Kinetic energy", "$K_n = -E_n$", "$\\propto Z^2/n^2$"],
+        ["Potential energy", "$U_n = 2E_n$", "$\\propto -Z^2/n^2$"],
+        ["Angular momentum", "$L_n = nh/2\\pi$", "$\\propto n$ (independent of Z)"],
+        ["Time period", "$T_n = 2\\pi r_n/v_n$", "$\\propto n^3/Z^2$"],
+        ["Frequency of revolution", "$f_n = 1/T_n$", "$\\propto Z^2/n^3$"]
+      ] },
+      { "type": "KEY_POINT", "text": "- α-scattering showed that the atom is mostly empty with a tiny, heavy, positive nucleus (radius about $10^{-15}$ to $10^{-14}$ m).\n- Distance of closest approach $d_0 = 2Ze^2/(4\\pi\\varepsilon_0 K)$; impact parameter $b \\propto \\cot(\\theta/2)$.\n- Rutherford's model fails on stability and on line spectra; Bohr adds stationary orbits, $mvr = nh/2\\pi$ and $h\\nu = E_i - E_f$.\n- Hydrogen: $r_n = 0.529\\,n^2$ Å, $v_n = 2.19\\times10^{6}/n$ m/s, $E_n = -13.6/n^2$ eV; $K = -E$, $U = 2E$.\n- $1/\\lambda = R(1/n_f^2 - 1/n_i^2)$: Lyman (UV), Balmer (visible), Paschen, Brackett, Pfund (infrared)." },
+      { "type": "CALLOUT", "text": "**Exam shortcuts:** (1) For any ratio question, write the power of $n$ first: $r \\propto n^2$, $v \\propto 1/n$, $E \\propto 1/n^2$, $T \\propto n^3$. (2) Photon energies of hydrogen lines: $13.6\\,(1/n_f^2 - 1/n_i^2)$ eV, then $\\lambda$(nm) $= 1240/E$(eV). (3) For $\\text{He}^+$ and $\\text{Li}^{2+}$ multiply energies by $Z^2$ (4 and 9) and divide radii by $Z$." }
+    ]
+  },
+  "diagrams": [
+    { "key": "scattering-setup", "file": "diagrams/ug26-322-u8-atomic-models-scattering-setup.svg", "alt": "Top view of the Geiger-Marsden apparatus: alpha source in a lead block, lead collimators, a thin gold foil at the centre of a circular scale, and a rotatable zinc sulphide screen with microscope at scattering angle theta", "caption": "Geiger-Marsden α-particle scattering set-up (top view)", "description": "A radioactive source inside a lead block on the left sends α-particles through two lead collimator plates with slits, forming a narrow beam that strikes a thin gold foil (about 0.2 micrometre thick). Most particles pass straight through, some are deflected by small angles and very few bounce back by more than 90 degrees. A zinc sulphide screen with a microscope can be rotated on a circular scale about the foil to count particles scattered at angle theta. The apparatus is in an evacuated chamber." },
+    { "key": "alpha-trajectories", "file": "diagrams/ug26-322-u8-atomic-models-alpha-trajectories.svg", "alt": "Hyperbolic paths of alpha particles passing a gold nucleus for several impact parameters, showing that smaller impact parameter gives larger scattering angle and head-on approach turns back", "caption": "α-particle trajectories near a nucleus for different impact parameters b", "description": "Alpha particles of equal energy approach a positive nucleus from the left along parallel lines at different perpendicular distances (impact parameters). The head-on particle (b = 0) stops at the distance of closest approach d0 and returns along its path, theta = 180 degrees. Particles with small b are deflected through large angles; particles with large b are deflected only slightly. The impact parameter b is marked for the outermost path and the scattering angle theta is shown between its incoming direction and outgoing direction. The paths were computed for a Coulomb repulsion." },
+    { "key": "bohr-orbits", "file": "diagrams/ug26-322-u8-atomic-models-bohr-orbits.svg", "alt": "Bohr orbits n = 1, 2, 3 of hydrogen drawn to scale with radii in ratio 1:4:9, showing an electron jumping from n = 3 to n = 2 and emitting a photon", "caption": "Bohr orbits of hydrogen drawn to scale, with a 3 → 2 jump emitting a photon", "description": "Three concentric circular orbits around a proton have radii in the ratio 1 to 4 to 9. An electron in the n = 2 orbit shows its velocity v tangent to the orbit and the Coulomb force F pointing to the nucleus. An electron in the n = 3 orbit jumps to n = 2 and a photon of energy h nu = 1.89 eV (the H-alpha line, 656 nm) is emitted. A side panel lists r_n = n squared times 0.529 angstrom, v_n = 2.19 times 10 to the 6 m/s divided by n, and E_n = minus 13.6 eV divided by n squared." },
+    { "key": "energy-levels", "file": "diagrams/ug26-322-u8-atomic-models-energy-levels.svg", "alt": "Energy-level diagram of hydrogen drawn to scale with levels n = 1 to 5 and infinity, and downward arrows for the Lyman, Balmer and Paschen series", "caption": "Energy levels of hydrogen (to scale) and the Lyman, Balmer and Paschen series", "description": "Horizontal lines mark the energy levels of hydrogen on a linear energy scale: n = 1 at minus 13.6 eV, n = 2 at minus 3.40 eV, n = 3 at minus 1.51 eV, n = 4 at minus 0.85 eV, n = 5 at minus 0.54 eV and n = infinity at 0. Violet arrows from n = 2, 3, 4, 5 down to n = 1 form the Lyman series (ultraviolet). Red arrows from n = 3, 4, 5 down to n = 2 form the Balmer series (visible), with the 3 to 2 arrow labelled H-alpha. Amber arrows from n = 4 and 5 down to n = 3 form the Paschen series (infrared). A green double arrow from n = 1 to infinity marks the ionisation energy of 13.6 eV." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u8-atomic-models-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In the Geiger–Marsden experiment, most α-particles passed through the thin gold foil without any noticeable deflection. What does this observation show about the atom?",
+      "options": ["The positive charge of the atom is spread uniformly over its whole volume", "Most of the volume of the atom is empty space", "Electrons are heavier than α-particles", "The gold atom carries a net negative charge"],
+      "answer": 2,
+      "explanation": "An α-particle is deflected noticeably only when it passes very close to a strong concentration of charge. Since the great majority went straight through, they met nothing able to exert a large force on them. So almost the whole volume of an atom is empty, with the charge and mass concentrated in a tiny nucleus.",
+      "optionRationale": { "1": "This is Thomson's picture. It cannot explain the rare large-angle deflections seen in the same experiment, so it is not what the experiment shows.", "3": "An electron is about 7300 times lighter than an α-particle.", "4": "Atoms are electrically neutral; undeflected passage says nothing about a net negative charge." },
+      "objective": "Interpret the main observation of the α-particle scattering experiment"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q02", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about the α-particle scattering experiment:\nA. Roughly 1 in 8000 α-particles is deflected by more than 90°.\nB. The large-angle deflections are caused mainly by collisions with the electrons of the gold atoms.\nC. A very thin foil is used so that each α-particle undergoes at most one close encounter with a nucleus.\nD. The apparatus is evacuated so that the α-particles are not stopped by air.\nWhich of the statements are correct?",
+      "options": ["A and B only", "B, C and D only", "A, C and D only", "A, B, C and D"],
+      "answer": 3,
+      "explanation": "A, C and D are correct. Only about one α-particle in 8000 turns through more than 90°. A thin foil ensures single scattering, so each measured angle comes from one nucleus, and the vacuum prevents α-particles being absorbed or scattered by air. B is false: an α-particle is about 7300 times heavier than an electron, so electrons can deflect it only through tiny angles; large deflections are due to the heavy, positively charged nucleus.",
+      "optionRationale": { "1": "Includes the false statement B and leaves out the true statements C and D.", "2": "B is false: electrons are far too light to turn an α-particle through a large angle.", "4": "B is false, so not all four statements are correct." },
+      "objective": "Recall the observations and experimental conditions of Geiger–Marsden scattering"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q03", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Why do the electrons of the gold atoms have practically no effect on the large-angle scattering of α-particles in Rutherford's experiment?",
+      "options": ["Electrons lose their charge when they are bound inside atoms", "Electrons are absorbed by the α-particles as they pass", "Electrons are located only inside the nucleus", "An α-particle is about 7300 times heavier than an electron, so a collision with an electron hardly changes its momentum"],
+      "answer": 4,
+      "explanation": "In a collision a very light particle cannot reverse the motion of a much heavier one; it can deflect it only by a tiny angle, as a table-tennis ball barely affects a moving bowling ball. The α-particle has mass about 4 u, roughly 7300 electron masses, so the electrons' effect is negligible and only the heavy, positive nucleus can produce large deflections.",
+      "optionRationale": { "1": "Bound electrons still carry charge −e each.", "2": "α-particles are not absorbed by electrons in this experiment; they emerge and are counted on the screen.", "3": "Electrons move around the nucleus, outside it, not inside it." },
+      "objective": "Explain why atomic electrons do not cause large-angle α-scattering"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q04", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "In a scattering experiment the number of α-particles counted per minute at angle θ varies as $N \\propto 1/\\sin^4(\\theta/2)$. If 90 α-particles per minute are counted at θ = 60°, how many per minute would be counted at θ = 120° under the same conditions?",
+      "options": ["10", "30", "45", "810"],
+      "answer": 1,
+      "explanation": "Take the ratio: $\\frac{N(120^\\circ)}{N(60^\\circ)} = \\frac{\\sin^4 30^\\circ}{\\sin^4 60^\\circ} = \\frac{(1/2)^4}{(\\sqrt{3}/2)^4} = \\frac{1/16}{9/16} = \\frac{1}{9}$. So N(120°) = 90/9 = 10 per minute. Fewer particles reach larger angles because a larger deflection needs a smaller impact parameter, which only a few particles have.",
+      "optionRationale": { "2": "Uses sin² instead of sin⁴, giving a ratio of 1/3.", "3": "Simply halves the count; N does not fall linearly with θ.", "4": "Inverts the ratio; the count must decrease at the larger angle, not increase." },
+      "objective": "Apply Rutherford's angular dependence of the number of scattered α-particles"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q05", "type": "DIAGRAM_BASED", "difficulty": "EASY", "skill": "conceptual", "diagram": "scattering-setup",
+      "stem": "In the experimental arrangement shown in the figure, what is the function of the ZnS screen together with the microscope?",
+      "options": ["It produces the α-particles that strike the foil", "It narrows the α-particles into a fine parallel beam", "It detects α-particles scattered at angle θ, each producing a tiny flash of light that is counted", "It absorbs the electrons knocked out of the gold foil"],
+      "answer": 3,
+      "explanation": "Zinc sulphide is a scintillator: each α-particle striking it produces a tiny flash of light. Geiger and Marsden watched these flashes through the microscope and rotated the screen and microscope together about the foil, so they could count the α-particles scattered at each angle θ.",
+      "optionRationale": { "1": "The α-particles come from the radioactive source inside the lead block.", "2": "The beam is narrowed by the lead collimator plates with slits.", "4": "The detector is meant to count α-particles, not to absorb electrons." },
+      "objective": "Identify the parts of the Geiger–Marsden apparatus and their roles"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q06", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "An α-particle of kinetic energy 7.2 MeV moves head-on towards a gold nucleus (Z = 79). Taking $\\frac{e^2}{4\\pi\\varepsilon_0} = 1.44\\,\\text{MeV fm}$, its distance of closest approach is about",
+      "options": ["15.8 fm", "31.6 fm", "63.2 fm", "3.16 fm"],
+      "answer": 2,
+      "explanation": "At the distance of closest approach the α-particle stops for an instant, so all of its kinetic energy has turned into electrostatic potential energy: $K = \\frac{1}{4\\pi\\varepsilon_0}\\frac{(2e)(Ze)}{d_0}$. Solving, $d_0 = \\frac{2Z}{K}\\cdot\\frac{e^2}{4\\pi\\varepsilon_0} = \\frac{2 \\times 79 \\times 1.44}{7.2}\\,\\text{fm} = \\frac{227.5}{7.2}\\,\\text{fm} \\approx 31.6\\,\\text{fm}$. The factor 2 comes from the charge 2e of the α-particle, and the answer is about 3.2 × 10⁻¹⁴ m.",
+      "optionRationale": { "1": "Leaves out the factor 2 for the α-particle's charge 2e.", "3": "Double the correct value; the charge factor has been counted twice.", "4": "A slip of a factor of 10; the answer is about 3.2 × 10⁻¹⁴ m, i.e. 31.6 fm." },
+      "objective": "Calculate the distance of closest approach for a head-on α-particle"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q07", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "An α-particle moving with speed v approaches a nucleus head-on, and its distance of closest approach is d. If the speed of the α-particle is doubled, with everything else unchanged, the distance of closest approach becomes",
+      "options": ["2d", "d/2", "4d", "d/4"],
+      "answer": 4,
+      "explanation": "The distance of closest approach is $d_0 = \\frac{1}{4\\pi\\varepsilon_0}\\frac{2Ze^2}{K}$, so $d_0 \\propto 1/K$. Kinetic energy $K = \\frac{1}{2}mv^2$, so doubling the speed makes K four times larger. Therefore the new distance is d/4: the faster particle gets much closer to the nucleus.",
+      "optionRationale": { "1": "A faster particle gets closer, not farther away.", "2": "d varies inversely as K, which is proportional to v², not to v.", "3": "Both the direction and the factor are wrong; d decreases when the speed increases." },
+      "objective": "Relate the distance of closest approach to the speed of the α-particle"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q08", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The smaller the impact parameter of an α-particle, the larger is the angle through which it is scattered by a nucleus.\nReason (R): An α-particle with a small impact parameter passes close to the nucleus and experiences a strong Coulomb repulsion.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Both statements are true. The Coulomb force varies as 1/r², so an α-particle aimed almost at the nucleus (small b) comes very close to it, feels a very large repulsive force and is turned through a large angle; at b = 0 it bounces straight back (θ = 180°). A particle aimed far off feels only a weak force and is deflected slightly. R gives the physical reason for A, consistent with b ∝ cot(θ/2).",
+      "optionRationale": { "2": "R is exactly the physical cause of the behaviour described in A, so it does explain A.", "3": "R is true: a closer approach means a stronger repulsive force.", "4": "A is true: θ = 180° for b = 0 and θ tends to zero for large b." },
+      "objective": "Relate impact parameter to scattering angle"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q09", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "analytical", "diagram": "alpha-trajectories",
+      "stem": "The figure shows the paths of α-particles of the same kinetic energy passing near a gold nucleus. Which statement about these paths is correct?",
+      "options": ["The α-particle with the largest impact parameter is scattered through the largest angle", "The α-particle aimed head-on (b = 0) turns back along its own path, so θ = 180°", "The paths bend towards the nucleus because the nucleus attracts the α-particles", "The distance d₀ shown would increase if the α-particles had more kinetic energy"],
+      "answer": 2,
+      "explanation": "For b = 0 the repulsive force acts exactly along the line of motion, so the α-particle slows down, stops for an instant at distance d₀ and is pushed straight back: θ = 180°. The figure also shows that a larger b gives a smaller deflection, that the paths curve away from the nucleus (repulsion of like charges), and d₀ = 2Ze²/(4πε₀K) gets smaller when K increases.",
+      "optionRationale": { "1": "The opposite is true: a large impact parameter gives a small scattering angle.", "3": "Both the nucleus and the α-particle are positive, so the force is repulsive and the paths curve away.", "4": "d₀ is inversely proportional to K; more energetic α-particles come closer." },
+      "objective": "Read α-particle trajectories in terms of impact parameter and scattering angle"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q10", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "An α-particle of kinetic energy 5.0 MeV is scattered by a gold nucleus (Z = 79) through 90°. Using $b = \\frac{1}{4\\pi\\varepsilon_0}\\frac{Ze^2\\cot(\\theta/2)}{K}$ with $\\frac{e^2}{4\\pi\\varepsilon_0} = 1.44\\,\\text{MeV fm}$, the impact parameter is about",
+      "options": ["45.5 fm", "11.4 fm", "39.4 fm", "22.8 fm"],
+      "answer": 4,
+      "explanation": "With θ = 90°, cot 45° = 1. So b = (79 × 1.44 MeV fm × 1)/(5.0 MeV) = 113.8/5.0 fm ≈ 22.8 fm. This is half of the head-on distance of closest approach at the same energy (d₀ = 45.5 fm), as expected from b = (d₀/2) cot(θ/2).",
+      "optionRationale": { "1": "45.5 fm is the head-on distance of closest approach d₀ = 2Z(1.44)/K, not the impact parameter.", "2": "Half the correct value; no extra factor 1/2 is needed when θ = 90°.", "3": "Uses cot 30° = √3, which corresponds to θ = 60°, not 90°." },
+      "objective": "Calculate the impact parameter for a given scattering angle"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q11", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which of the following correctly describes Rutherford's nuclear model of the atom?",
+      "options": ["All the positive charge and almost all the mass are concentrated in a tiny central nucleus, with electrons moving around it", "Electrons are embedded in a uniformly charged positive sphere of atomic size", "The atom is a solid, indivisible sphere with no internal structure", "Protons and electrons are spread uniformly throughout the atom"],
+      "answer": 1,
+      "explanation": "To explain large-angle α-scattering, Rutherford proposed that all the positive charge and nearly all the mass of the atom are packed into a tiny nucleus (radius about 10⁻¹⁵ to 10⁻¹⁴ m), with electrons revolving around it at comparatively large distances, held by electrostatic attraction. This is the nuclear (planetary) model.",
+      "optionRationale": { "2": "This is Thomson's plum-pudding model, which the scattering results ruled out.", "3": "This is Dalton's early idea; atoms are known to contain electrons and a nucleus.", "4": "A uniform spread of charge could not turn α-particles back." },
+      "objective": "State Rutherford's nuclear model of the atom"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q12", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): Rutherford's nuclear model, combined with classical physics, cannot explain why atoms are stable.\nReason (R): According to classical electromagnetic theory, an accelerating charged particle radiates electromagnetic energy.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Both are true and R explains A. An electron in a circular orbit has centripetal acceleration. Classical theory says it must radiate energy continuously, so it should spiral into the nucleus in a tiny fraction of a second and the atom would collapse. Real atoms are stable, so the classical Rutherford picture fails for exactly the reason stated in R.",
+      "optionRationale": { "2": "R is precisely the reason the model predicts collapse, so it does explain A.", "3": "R is a standard result of classical electromagnetism and is true.", "4": "A is true: the model with classical physics predicts collapse, contrary to observation." },
+      "objective": "Explain the instability problem of Rutherford's model"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q13", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The radius of an atom is about 10⁻¹⁰ m and the radius of its nucleus is about 10⁻¹⁴ m. Roughly what fraction of the volume of the atom is occupied by the nucleus?",
+      "options": ["10⁻⁴", "10⁻⁸", "10⁻¹²", "10⁻¹⁶"],
+      "answer": 3,
+      "explanation": "Volume is proportional to the cube of the radius. Fraction = (R_nucleus/R_atom)³ = (10⁻¹⁴/10⁻¹⁰)³ = (10⁻⁴)³ = 10⁻¹². This tiny fraction is why most α-particles pass through a gold foil without coming anywhere near a nucleus.",
+      "optionRationale": { "1": "This is the ratio of radii, not of volumes.", "2": "This squares the ratio of radii (a ratio of areas), not cubes it.", "4": "Raises the ratio of radii to the fourth power instead of the third." },
+      "objective": "Estimate how small the nucleus is compared with the atom"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q14", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "According to Bohr's second postulate, which quantity of the electron in a stationary orbit of the hydrogen atom is quantised in integral multiples of h/2π?",
+      "options": ["Angular momentum", "Linear momentum", "Kinetic energy", "Orbital radius"],
+      "answer": 1,
+      "explanation": "Bohr's quantisation condition is L = mvr = nh/2π with n = 1, 2, 3, …. Only orbits whose angular momentum is a whole-number multiple of h/2π are allowed. Energies and radii then turn out to be restricted too, but they are not integral multiples of h/2π.",
+      "optionRationale": { "2": "Linear momentum mv changes as 1/n but is not quantised in units of h/2π (which has units of angular momentum).", "3": "Kinetic energy is restricted to values 13.6/n² eV, not multiples of h/2π.", "4": "Radius goes as n² times 0.529 Å; h/2π is not a length." },
+      "objective": "State Bohr's quantisation condition"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q15", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "According to de Broglie's explanation of Bohr's quantisation condition, how many complete de Broglie wavelengths of the electron fit around the circumference of the third Bohr orbit of hydrogen?",
+      "options": ["1", "9", "3", "6"],
+      "answer": 3,
+      "explanation": "de Broglie argued that an allowed orbit is one whose circumference holds a whole number of electron wavelengths, forming a standing wave: 2πr_n = nλ. Using λ = h/mv this gives mvr = nh/2π, Bohr's condition. For the third orbit (n = 3) exactly three wavelengths fit around the circumference.",
+      "optionRationale": { "1": "One wavelength fits around the first orbit, not the third.", "2": "9 = n² is the ratio of the radius to the Bohr radius, not the number of wavelengths.", "4": "6 = 2n; the condition is 2πr = nλ, not 2πr = 2nλ." },
+      "objective": "Interpret Bohr's quantisation using de Broglie waves"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q16", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Which of the following are postulates of Bohr's model of the hydrogen atom?\nA. An electron in a stationary orbit does not radiate energy.\nB. When the electron jumps from a higher orbit to a lower one, it emits a photon whose energy equals the difference of the energies of the two orbits.\nC. The electron can revolve in a circular orbit of any radius.\nD. The angular momentum of the electron in an allowed orbit is an integral multiple of h/2π.",
+      "options": ["A and C only", "A, B and D only", "B, C and D only", "A, B, C and D"],
+      "answer": 2,
+      "explanation": "Bohr's three postulates are: stationary, non-radiating orbits (A); quantisation of angular momentum, mvr = nh/2π (D); and the frequency condition hν = E_i − E_f (B). Statement C contradicts the model: only orbits that satisfy the quantisation condition are allowed, so the radii are restricted to r_n = n² × 0.529 Å.",
+      "optionRationale": { "1": "Leaves out B and D, which are postulates, and includes the false statement C.", "3": "C is false; orbits of arbitrary radius are what Rutherford's model allowed, not Bohr's.", "4": "C is false, so all four cannot be correct." },
+      "objective": "Identify Bohr's postulates"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q17", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "The radius of the first Bohr orbit of hydrogen is 0.529 Å. What is the radius of the orbit with n = 2?",
+      "options": ["1.06 Å", "4.76 Å", "0.265 Å", "2.12 Å"],
+      "answer": 4,
+      "explanation": "Bohr's model gives r_n = n² r₁ because r_n = ε₀n²h²/(πme²). For n = 2: r₂ = 2² × 0.529 Å = 4 × 0.529 Å = 2.116 Å ≈ 2.12 Å. The radius grows as the square of the quantum number.",
+      "optionRationale": { "1": "Multiplies by n instead of n².", "2": "This is the n = 3 radius (9 × 0.529 Å).", "3": "Divides by n instead of multiplying by n²." },
+      "objective": "Use r_n = n² r₁ for hydrogen"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q18", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Using Bohr's model, what is the radius of the ground-state orbit of the doubly ionised lithium ion Li²⁺ (Z = 3)? (Bohr radius of hydrogen = 0.529 Å)",
+      "options": ["0.176 Å", "1.59 Å", "0.0588 Å", "4.76 Å"],
+      "answer": 1,
+      "explanation": "Li²⁺ has a single electron, so Bohr's model applies with nuclear charge Ze. The Coulomb force is Z times larger and the derivation gives r_n = (0.529 Å) n²/Z. For n = 1 and Z = 3: r₁ = 0.529/3 Å ≈ 0.176 Å. A larger nuclear charge pulls the electron in closer.",
+      "optionRationale": { "2": "Multiplies by Z instead of dividing (0.529 × 3).", "3": "Divides by Z² = 9; Z² appears in the energy, not the radius.", "4": "This is the n = 3 radius of hydrogen (9 × 0.529 Å)." },
+      "objective": "Apply the Bohr radius formula to a hydrogen-like ion"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q19", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "Suppose the electron in a hydrogen atom were replaced by a particle with the same charge but 200 times the mass of the electron. Treating the proton as fixed, what would be the radius of the first Bohr orbit? (Bohr radius of hydrogen = 5.29 × 10⁻¹¹ m)",
+      "options": ["1.06 × 10⁻⁸ m", "5.29 × 10⁻¹¹ m", "2.65 × 10⁻¹³ m", "3.74 × 10⁻¹² m"],
+      "answer": 3,
+      "explanation": "From the derivation, r_n = ε₀n²h²/(πme²), so for the same charges the radius is inversely proportional to the mass of the orbiting particle. Hence r₁ = (5.29 × 10⁻¹¹ m)/200 ≈ 2.65 × 10⁻¹³ m. A heavier particle orbits much closer to the nucleus.",
+      "optionRationale": { "1": "Multiplies by 200; a heavier particle gives a smaller orbit, not a larger one.", "2": "Assumes the radius does not depend on mass, but r ∝ 1/m.", "4": "Divides by √200; the dependence is 1/m, not 1/√m." },
+      "objective": "Use the dependence of Bohr radius on the mass of the orbiting particle"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q20", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In Bohr's model of hydrogen, the speeds of the electron in the first three orbits (n = 1, 2, 3) are in the ratio",
+      "options": ["6 : 3 : 2", "1 : 2 : 3", "1 : 4 : 9", "9 : 4 : 1"],
+      "answer": 1,
+      "explanation": "The orbital speed is v_n = e²/(2ε₀nh), so v_n ∝ 1/n. Hence v₁ : v₂ : v₃ = 1 : 1/2 : 1/3. Multiplying each term by 6 gives 6 : 3 : 2. The electron moves fastest in the innermost orbit.",
+      "optionRationale": { "2": "This would mean v ∝ n; the speed actually decreases as n increases.", "3": "This is the ratio of the radii (∝ n²).", "4": "9 : 4 : 1 is the squares of n taken in reverse order; v ∝ 1/n gives 6 : 3 : 2 instead." },
+      "objective": "Use v_n ∝ 1/n"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q21", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The speed of the electron in the ground state of hydrogen is 2.19 × 10⁶ m/s. What is the speed of the electron in the ground state of the He⁺ ion (Z = 2)?",
+      "options": ["1.09 × 10⁶ m/s", "8.76 × 10⁶ m/s", "2.19 × 10⁶ m/s", "4.38 × 10⁶ m/s"],
+      "answer": 4,
+      "explanation": "For a hydrogen-like ion the Coulomb force is Z times larger and Bohr's model gives v_n = v₁ Z/n, where v₁ = 2.19 × 10⁶ m/s for hydrogen. For He⁺ in the ground state, Z = 2 and n = 1: v = 2 × 2.19 × 10⁶ m/s = 4.38 × 10⁶ m/s.",
+      "optionRationale": { "1": "Divides by Z instead of multiplying.", "2": "Multiplies by Z² = 4; the speed is proportional to Z, not Z².", "3": "This is the hydrogen value; it ignores the larger nuclear charge." },
+      "objective": "Apply v_n = v₁Z/n to a hydrogen-like ion"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q22", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "The electron revolving in a Bohr orbit is equivalent to a small current loop. If the equivalent current is I when the electron of a hydrogen atom is in the n = 2 orbit, what is the equivalent current when it is in the n = 1 orbit?",
+      "options": ["I/8", "4I", "8I", "16I"],
+      "answer": 3,
+      "explanation": "Equivalent current = charge passing a point per second = e/T = ev/(2πr). Since v ∝ 1/n and r ∝ n², the period T = 2πr/v ∝ n³, so the current ∝ 1/n³. Going from n = 2 to n = 1 the current increases by a factor (2/1)³ = 8, so it becomes 8I.",
+      "optionRationale": { "1": "Inverts the ratio; the period is shorter in the inner orbit, so the current there is larger.", "2": "Uses I ∝ 1/n²; the period goes as n³, so the current goes as 1/n³.", "4": "Uses 1/n⁴, which is how the centripetal acceleration (v²/r) varies, not the current." },
+      "objective": "Derive the n-dependence of period and orbital current from r_n and v_n"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q23", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "Using Bohr's model, what is the total energy of the electron in the n = 3 orbit of a hydrogen atom?",
+      "options": ["−13.6 eV", "−4.53 eV", "−0.85 eV", "−1.51 eV"],
+      "answer": 4,
+      "explanation": "The energy levels of hydrogen are E_n = −13.6/n² eV. For n = 3: E₃ = −13.6/9 eV = −1.51 eV. The energy is negative because the electron is bound, and it becomes less negative (higher) as n increases.",
+      "optionRationale": { "1": "This is the ground-state energy (n = 1).", "2": "Divides by n instead of n² (−13.6/3).", "3": "This is the energy of the n = 4 level (−13.6/16)." },
+      "objective": "Calculate hydrogen energy levels using E_n = −13.6/n² eV"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q24", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "The total energy of the electron in a certain Bohr orbit of hydrogen is −3.4 eV. What are its kinetic energy K and potential energy U in this orbit?",
+      "options": ["K = 3.4 eV and U = −6.8 eV", "K = 6.8 eV and U = −10.2 eV", "K = 1.7 eV and U = −5.1 eV", "K = 0 and U = −3.4 eV"],
+      "answer": 1,
+      "explanation": "In a Bohr orbit, K = e²/(8πε₀r) and U = −e²/(4πε₀r), so K = −E and U = 2E. With E = −3.4 eV: K = +3.4 eV and U = −6.8 eV. Check: K + U = 3.4 − 6.8 = −3.4 eV, which is the given total energy.",
+      "optionRationale": { "2": "Here K + U = −3.4 eV, but K is not equal to −E; the relation K = −E is violated.", "3": "Here K + U = −3.4 eV, but U should be exactly twice E.", "4": "An orbiting electron always has kinetic energy; K cannot be zero." },
+      "objective": "Use K = −E and U = 2E for a Bohr orbit"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q25", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The total energy of the electron in any Bohr orbit of the hydrogen atom is negative.\nReason (R): The kinetic energy of the electron in a Bohr orbit is negative.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "A is true: E_n = −13.6/n² eV is negative because the electron is bound; work must be done to free it, and the zero of energy is taken with the electron at rest at infinity. R is false: kinetic energy ½mv² can never be negative. The total energy is negative because the potential energy (−e²/4πε₀r) is negative and twice as large in magnitude as the kinetic energy.",
+      "optionRationale": { "1": "R is false, so it cannot explain A.", "2": "R is false; kinetic energy is always positive.", "4": "A is true: bound states have negative total energy." },
+      "objective": "Explain why bound-state energies are negative"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q26", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "What is the minimum energy that must be given to a hydrogen atom in its ground state to raise it to its second excited state?",
+      "options": ["10.2 eV", "1.89 eV", "13.6 eV", "12.09 eV"],
+      "answer": 4,
+      "explanation": "The ground state is n = 1, the first excited state is n = 2 and the second excited state is n = 3. Required energy = E₃ − E₁ = (−13.6/9) − (−13.6) = −1.51 + 13.6 = 12.09 eV. Students often wrongly take the second excited state as n = 2.",
+      "optionRationale": { "1": "10.2 eV raises the atom only to the first excited state (n = 2).", "2": "1.89 eV is the gap between n = 3 and n = 2, not from the ground state.", "3": "13.6 eV would ionise the atom completely." },
+      "objective": "Calculate excitation energies of hydrogen"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q27", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match the Bohr-model quantity of the hydrogen atom in List-I with how it depends on the principal quantum number n in List-II.",
+      "list": { "left": ["A. Radius of the orbit, r_n", "B. Speed of the electron, v_n", "C. Magnitude of the total energy, |E_n|", "D. Angular momentum of the electron, L_n"], "right": ["I. Proportional to n", "II. Proportional to 1/n", "III. Proportional to n²", "IV. Proportional to 1/n²"] },
+      "options": ["A-I, B-II, C-III, D-IV", "A-III, B-II, C-IV, D-I", "A-III, B-IV, C-II, D-I", "A-II, B-III, C-I, D-IV"],
+      "answer": 2,
+      "explanation": "From Bohr's results: r_n = 0.529 n² Å, so r ∝ n² (A-III); v_n = 2.19 × 10⁶/n m/s, so v ∝ 1/n (B-II); |E_n| = 13.6/n² eV, so |E| ∝ 1/n² (C-IV); and L = nh/2π, so L ∝ n (D-I). The correct code is A-III, B-II, C-IV, D-I.",
+      "optionRationale": { "1": "Radius is not proportional to n, and energy is not proportional to n².", "3": "Swaps the dependences of speed (1/n) and energy (1/n²).", "4": "Radius does not vary as 1/n and speed does not vary as n²." },
+      "objective": "Summarise how Bohr-model quantities depend on n"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q28", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In which region of the electromagnetic spectrum do the prominent lines of the Balmer series of hydrogen lie?",
+      "options": ["Infrared", "Ultraviolet", "Microwave", "Visible"],
+      "answer": 4,
+      "explanation": "Balmer lines are transitions ending on n = 2. Their photon energies range from 1.89 eV (Hα, 656.3 nm, red) up to 3.4 eV at the series limit (364.6 nm). The prominent lines Hα, Hβ, Hγ and Hδ (656, 486, 434 and 410 nm) are all visible light.",
+      "optionRationale": { "1": "Infrared lines belong to the Paschen, Brackett and Pfund series.", "2": "The Lyman series (ending on n = 1) lies in the ultraviolet.", "3": "Microwave photons have energies thousands of times smaller than the Balmer photon energies (1.89 eV to 3.4 eV)." },
+      "objective": "Identify the spectral region of each hydrogen series"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q29", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "A sample of hydrogen gas is excited so that electrons occupy the n = 5 level. How many different spectral lines can be emitted as the atoms return to the ground state by all possible routes?",
+      "options": ["4", "5", "10", "15"],
+      "answer": 3,
+      "explanation": "Each line corresponds to one pair of levels (upper, lower) chosen from n = 1 to 5. Number of pairs = n(n − 1)/2 = 5 × 4/2 = 10. They are 4 Lyman lines (to n = 1), 3 Balmer (to n = 2), 2 Paschen (to n = 3) and 1 Brackett line (5 → 4).",
+      "optionRationale": { "1": "4 is the largest number of photons one atom can emit by stepping down one level at a time, not the number of different lines from the sample.", "2": "There is no simple rule giving n lines; count the pairs of levels.", "4": "15 = n(n + 1)/2; the correct count is n(n − 1)/2." },
+      "objective": "Count the possible spectral lines from a given level"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q30", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "What is the ratio of the longest wavelength of the Lyman series to the longest wavelength of the Balmer series of hydrogen?",
+      "options": ["5/27", "27/5", "4/9", "5/36"],
+      "answer": 1,
+      "explanation": "The longest wavelength of a series is its first line (smallest energy gap). Lyman (2 → 1): 1/λ = R(1 − 1/4) = 3R/4, so λ_L = 4/(3R). Balmer (3 → 2): 1/λ = R(1/4 − 1/9) = 5R/36, so λ_B = 36/(5R). Ratio λ_L/λ_B = (4/3)/(36/5) = 20/108 = 5/27 (that is, 121.5 nm/656.3 nm).",
+      "optionRationale": { "2": "This is the inverse ratio, Balmer to Lyman.", "3": "4/9 = 2²/3² compares only the upper levels of the two lines and ignores the full Rydberg factors.", "4": "Uses 5R/36 for Balmer but takes 1/R for Lyman (the series limit) instead of 4/(3R)." },
+      "objective": "Use the Rydberg formula to compare spectral lines"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q31", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "analytical", "diagram": "energy-levels",
+      "stem": "Among the Balmer-series transitions drawn in the energy-level diagram, which one emits the photon of greatest energy?",
+      "options": ["n = 3 → n = 2", "n = 5 → n = 2", "n = 4 → n = 3", "n = 2 → n = 1"],
+      "answer": 2,
+      "explanation": "Balmer lines end on n = 2. Of the Balmer arrows drawn (starting from n = 3, 4 and 5), the one from n = 5 spans the largest energy gap: E₅ − E₂ = −0.54 − (−3.40) = 2.86 eV. It therefore has the greatest photon energy and the shortest wavelength (about 434 nm, Hγ).",
+      "optionRationale": { "1": "3 → 2 (Hα, 1.89 eV) is the smallest Balmer gap, giving the longest wavelength.", "3": "4 → 3 ends on n = 3, so it is a Paschen line, not a Balmer line.", "4": "2 → 1 ends on n = 1, so it is a Lyman line." },
+      "objective": "Read photon energies from the hydrogen energy-level diagram"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q32", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each spectral series of hydrogen in List-I with its lower level and spectral region in List-II.",
+      "list": { "left": ["A. Lyman series", "B. Balmer series", "C. Paschen series", "D. Pfund series"], "right": ["I. n_f = 3, infrared", "II. n_f = 1, ultraviolet", "III. n_f = 5, far infrared", "IV. n_f = 2, visible"] },
+      "options": ["A-IV, B-II, C-I, D-III", "A-II, B-IV, C-III, D-I", "A-II, B-IV, C-I, D-III", "A-I, B-IV, C-II, D-III"],
+      "answer": 3,
+      "explanation": "Lyman transitions end on n = 1 and give ultraviolet lines (A-II). Balmer transitions end on n = 2 and are mainly visible (B-IV). Paschen transitions end on n = 3 and are infrared (C-I). Pfund transitions end on n = 5 and lie in the far infrared (D-III). Code: A-II, B-IV, C-I, D-III.",
+      "optionRationale": { "1": "Swaps Lyman and Balmer.", "2": "Swaps Paschen (n_f = 3) and Pfund (n_f = 5).", "4": "Swaps Lyman (n_f = 1) and Paschen (n_f = 3)." },
+      "objective": "Associate each hydrogen series with its final level and region"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q33", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Taking the Rydberg constant R = 1.097 × 10⁷ m⁻¹, the shortest wavelength in the Balmer series of hydrogen is about",
+      "options": ["656.3 nm", "91.2 nm", "820.4 nm", "364.6 nm"],
+      "answer": 4,
+      "explanation": "The shortest wavelength of a series is its limit, n_i → ∞. For Balmer, n_f = 2: 1/λ = R(1/4 − 0) = R/4, so λ = 4/R = 4/(1.097 × 10⁷) m = 3.646 × 10⁻⁷ m ≈ 364.6 nm, just beyond the violet end of the visible spectrum.",
+      "optionRationale": { "1": "656.3 nm is the longest Balmer wavelength (Hα, 3 → 2).", "2": "91.2 nm = 1/R is the series limit of the Lyman series.", "3": "820.4 nm = 9/R is the series limit of the Paschen series." },
+      "objective": "Calculate the series limit of a hydrogen spectral series"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q34", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The emission spectrum of atomic hydrogen consists of sharp, discrete lines rather than a continuous band.\nReason (R): In its simple form, Bohr's model applies only to hydrogen and hydrogen-like (one-electron) ions.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 2,
+      "explanation": "Both statements are true. A is explained by the existence of discrete energy levels: each line comes from a jump between two definite levels, so only definite photon energies hν = E_i − E_f appear. R is a true statement about the limitation of Bohr's model, but it does not explain why the spectrum is discrete.",
+      "optionRationale": { "1": "R describes the range of validity of the model, not the cause of discrete lines.", "3": "R is true: the simple model fails for atoms with more than one electron.", "4": "A is true: hydrogen gives a line spectrum." },
+      "objective": "Explain the origin of hydrogen line spectra"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q35", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Consider the following statements about the spectrum of hydrogen:\nA. Within each series, the lines crowd closer together towards the short-wavelength end (the series limit).\nB. The first line of the Lyman series has a longer wavelength than the first line of the Balmer series.\nC. When white light containing ultraviolet passes through cool hydrogen gas, the absorption lines observed are mainly those of the Lyman series.\nD. Every photon of the Balmer series has energy less than 3.4 eV.\nWhich of the statements are correct?",
+      "options": ["A and B only", "A, C and D only", "B and C only", "B, C and D only"],
+      "answer": 2,
+      "explanation": "A is true: as n_i increases the levels crowd together, so the lines converge to the series limit. B is false: Lyman 2 → 1 is 121.5 nm, much shorter than Balmer 3 → 2 at 656.3 nm. C is true: in cool gas almost all atoms are in n = 1, so they absorb only photons that start transitions from n = 1 (Lyman lines). D is true: Balmer photon energy is 13.6(1/4 − 1/n²) eV, always below 3.4 eV for finite n.",
+      "optionRationale": { "1": "B is false and the true statements C and D are left out.", "3": "B is false; a Lyman photon has more energy and so a shorter wavelength.", "4": "B is false, and A, which is true, is left out." },
+      "objective": "Analyse qualitative features of hydrogen emission and absorption spectra"
+    },
+    {
+      "key": "ug26-322-u8-atomic-models-q36", "type": "DIAGRAM_BASED", "difficulty": "EASY", "skill": "conceptual", "diagram": "bohr-orbits",
+      "stem": "In the figure, the electron of a hydrogen atom jumps from the n = 3 orbit to the n = 2 orbit. Which statement about this jump is correct?",
+      "options": ["A photon of 12.09 eV is absorbed by the atom", "A photon of 1.89 eV is emitted; it is the Hα line of the Balmer series", "A photon of 1.89 eV is emitted; it belongs to the Lyman series", "No photon is involved because both orbits are stationary states"],
+      "answer": 2,
+      "explanation": "Moving from a higher to a lower level, the atom emits a photon of energy E₃ − E₂ = (−1.51) − (−3.40) = 1.89 eV. Its wavelength is about 1240/1.89 ≈ 656 nm, the red Hα line. All transitions that end on n = 2 belong to the Balmer series.",
+      "optionRationale": { "1": "A downward jump emits energy; 12.09 eV is the gap between n = 1 and n = 3.", "3": "Lyman transitions end on n = 1, not on n = 2.", "4": "Electrons do not radiate while in a stationary orbit, but a jump between orbits emits a photon (third postulate)." },
+      "objective": "Apply Bohr's frequency condition to a transition"
+    }
+  ]
+}

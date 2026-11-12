@@ -1,0 +1,324 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_32108127612a4c31a6f9dc9d23e45f9f",
+    "title": "Matter waves-wave nature of particles, de-Broglie relation."
+  },
+  "lesson": {
+    "key": "ug26-322-u7-matter-waves",
+    "title": "Matter waves and the de Broglie relation",
+    "coverage": [
+      { "phrase": "Matter waves", "section": "Matter waves: de Broglie's hypothesis" },
+      { "phrase": "Wave nature of particles", "section": "Wave nature of particles: when can it be noticed?" },
+      { "phrase": "de-Broglie relation", "section": "The de Broglie relation" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Matter waves: de Broglie's hypothesis" },
+      { "type": "TEXT", "text": "The photoelectric effect and the Compton effect showed that radiation, long thought of as a wave, also behaves like a stream of particles (photons). In 1924 the French physicist **Louis de Broglie** turned this idea around. Nature tends to be symmetric, he argued. If waves can behave like particles, then particles such as electrons, protons and neutrons should also show wave behaviour.\n\nHe proposed that **every moving material particle has a wave associated with it**. These waves are called **matter waves** or **de Broglie waves**. They are not electromagnetic waves; a neutral neutron has a matter wave just as an electron does. They are also not mechanical waves in a medium; they travel through vacuum. Their meaning is explained later in this lesson: the wave tells us where the particle is likely to be found.\n\nDe Broglie's idea was bold, because no experiment had yet shown particles behaving as waves. It was confirmed in 1927, when electrons were found to be diffracted by crystals, just like X-rays. De Broglie received the Nobel Prize in Physics in 1929." },
+      { "type": "DEFINITION", "term": "Matter waves (de Broglie waves)", "text": "Waves associated with moving material particles such as electrons, protons, neutrons, atoms and molecules. Their wavelength is fixed by the particle's momentum through $\\lambda = h/p$. They are neither electromagnetic nor mechanical waves." },
+      { "type": "CONCEPT", "text": "Dual nature is a property of both radiation and matter. Light, usually thought of as a wave, can act as particles (photons). Electrons, usually thought of as particles, can act as waves. Which aspect appears depends on the experiment." },
+
+      { "type": "HEADING", "text": "The de Broglie relation" },
+      { "type": "TEXT", "text": "De Broglie took the wavelength–momentum relation that holds for a photon and assumed it holds for every particle.\n\n**Step 1: Photon.** A photon of frequency $\\nu$ has energy $E = h\\nu$. A particle of zero rest mass moving at speed $c$ has $E = pc$. So the photon's momentum is $p = E/c = h\\nu/c$.\n\n**Step 2: Write it in terms of wavelength.** Since $c = \\nu\\lambda$, $\\nu/c = 1/\\lambda$, so $p = h/\\lambda$, or $\\lambda = h/p$.\n\n**Step 3: De Broglie's hypothesis.** The same relation applies to any moving particle of mass $m$ and speed $v$ (with $v \\ll c$), whose momentum is $p = mv$. The wavelength of its matter wave is therefore $\\lambda = h/(mv)$.\n\nThe left side, $\\lambda$, is a wave property and the right side, $p$, is a particle property. Planck's constant links them, exactly as $E = h\\nu$ links photon energy to frequency." },
+      { "type": "FORMULA", "latex": "\\lambda = \\frac{h}{p} = \\frac{h}{mv}", "text": "The de Broglie relation. $\\lambda$ = de Broglie wavelength (m); $h = 6.63 \\times 10^{-34}\\,\\text{J s}$; $p$ = magnitude of momentum ($\\text{kg m s}^{-1}$); $m$ = mass (kg); $v$ = speed ($\\text{m s}^{-1}$). Valid for any particle; $p = mv$ applies when $v \\ll c$." },
+      { "type": "DEFINITION", "term": "de Broglie wavelength", "text": "The wavelength of the matter wave associated with a moving particle, equal to Planck's constant divided by the magnitude of the particle's momentum: $\\lambda = h/p$. SI unit: metre (often quoted in nm or Å)." },
+      { "type": "TEXT", "text": "**What the relation tells us**\n\n- $\\lambda \\propto 1/p$: the larger the momentum, the shorter the wavelength. The graph of $\\lambda$ against $p$ is a rectangular hyperbola ($\\lambda p = h$), and the graph of $\\lambda$ against $1/p$ is a straight line through the origin with slope $h$.\n- For the same speed, a heavier particle has a shorter wavelength ($\\lambda \\propto 1/m$).\n- For the same momentum, all particles (electron, proton, photon, cricket ball) have the **same** de Broglie wavelength.\n- $\\lambda$ depends only on momentum, not on charge. Uncharged particles such as neutrons and whole atoms also have matter waves.\n- As $v \\to 0$, $\\lambda \\to \\infty$. A particle at rest has no definite de Broglie wavelength, so a matter wave is associated only with motion." },
+      { "type": "DIAGRAM", "diagram": "lambda-vs-momentum" },
+      { "type": "TABLE", "caption": "Photon compared with a material particle", "columns": ["Property", "Photon", "Material particle (e.g. electron)"], "rows": [
+        ["Rest mass", "Zero", "Non-zero, $m$"],
+        ["Speed in vacuum", "Always $c$", "Any speed less than $c$"],
+        ["Energy–momentum relation", "$E = pc$", "$K = p^2/2m$ (for $v \\ll c$)"],
+        ["Wavelength from momentum", "$\\lambda = h/p$", "$\\lambda = h/p$ (same relation)"],
+        ["Wavelength from energy", "$\\lambda = hc/E$", "$\\lambda = h/\\sqrt{2mK}$"],
+        ["Charge", "Neutral", "May be charged (electron, proton) or neutral (neutron)"],
+        ["Type of wave", "Electromagnetic", "Matter wave (not electromagnetic)"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "Compare the de Broglie wavelength of (a) a cricket ball of mass 0.15 kg moving at 30 m/s with that of (b) an electron moving at $2.0 \\times 10^{6}\\,\\text{m s}^{-1}$. ($h = 6.63 \\times 10^{-34}\\,\\text{J s}$, $m_e = 9.1 \\times 10^{-31}\\,\\text{kg}$)", "solution": "(a) Momentum of the ball: $p = mv = 0.15 \\times 30 = 4.5\\,\\text{kg m s}^{-1}$. Its wavelength is $\\lambda = h/p = 6.63 \\times 10^{-34}/4.5 = 1.47 \\times 10^{-34}\\,\\text{m}$.\n\n(b) Momentum of the electron: $p = 9.1 \\times 10^{-31} \\times 2.0 \\times 10^{6} = 1.82 \\times 10^{-24}\\,\\text{kg m s}^{-1}$. Its wavelength is $\\lambda = 6.63 \\times 10^{-34}/1.82 \\times 10^{-24} = 3.64 \\times 10^{-10}\\,\\text{m} = 0.364\\,\\text{nm}$.\n\nThe ball's wavelength is about $10^{-19}$ times the diameter of an atomic nucleus (about $10^{-15}$ m), so no slit or obstacle could ever diffract it. The electron's wavelength is comparable to the spacing of atoms in a crystal (about 0.1–0.4 nm), so a crystal can diffract electrons.", "answer": "(a) about $1.5 \\times 10^{-34}\\,\\text{m}$ (far too small to observe); (b) about $3.6 \\times 10^{-10}\\,\\text{m} = 0.36\\,\\text{nm}$ (observable with crystals)" },
+
+      { "type": "HEADING", "text": "Wave nature of particles: when can it be noticed?" },
+      { "type": "TEXT", "text": "Every wave shows diffraction and interference, but these effects are noticeable only when the wavelength is **comparable to the size of the slit, obstacle or spacing** it meets. Light (about 500 nm) is diffracted by slits a few micrometres wide. X-rays (about 0.1 nm) are diffracted by the regular rows of atoms in a crystal.\n\nFor everyday objects, $m$ is so large that $\\lambda = h/mv$ is many orders of magnitude smaller than any physical aperture. Such objects therefore always appear to move as particles along definite paths, and their wave nature, though present in principle, can never be detected. For electrons, neutrons and atoms, $\\lambda$ can be of the order of $10^{-10}\\,\\text{m}$, and their wave nature shows up clearly." },
+      { "type": "TABLE", "caption": "de Broglie wavelengths of some moving objects", "columns": ["Object", "Mass", "Speed or energy", "de Broglie wavelength"], "rows": [
+        ["Cricket ball", "0.15 kg", "30 m/s", "$1.5 \\times 10^{-34}$ m"],
+        ["Dust particle", "$1.0 \\times 10^{-9}$ kg", "1.0 mm/s", "$6.6 \\times 10^{-22}$ m"],
+        ["Electron", "$9.1 \\times 10^{-31}$ kg", "$2.0 \\times 10^{6}$ m/s", "0.36 nm"],
+        ["Electron accelerated through 100 V", "$9.1 \\times 10^{-31}$ kg", "100 eV", "0.123 nm"],
+        ["Thermal neutron at 300 K", "$1.675 \\times 10^{-27}$ kg", "0.039 eV", "0.145 nm"]
+      ] },
+      { "type": "TEXT", "text": "**Experimental confirmation.** In 1927 C. J. Davisson and L. H. Germer, in the USA, directed a beam of electrons accelerated through 54 V at a nickel crystal. They found a strong reflected beam at one particular angle, exactly as in X-ray diffraction. The wavelength worked out from the diffraction (about 0.165 nm) agreed closely with the de Broglie value $h/p \\approx 0.167\\,\\text{nm}$. In the same year G. P. Thomson passed fast electrons through thin metal foils and obtained diffraction rings like those of X-rays. Later, neutrons, helium atoms and even large molecules were diffracted.\n\n**Applications.** The **electron microscope** uses the short wavelength of fast electrons (much less than 1 nm, compared with about 500 nm for visible light) to resolve far finer detail than an optical microscope. **Neutron diffraction** is used to study the structure of crystals and magnetic materials." },
+      { "type": "TABLE", "caption": "Evidence for the dual nature of radiation and of matter", "columns": ["Entity", "Particle behaviour shown by", "Wave behaviour shown by"], "rows": [
+        ["Light (photons)", "Photoelectric effect; Compton scattering of X-rays by electrons", "Interference (Young's double slit), diffraction, polarisation"],
+        ["Electrons", "Deflection in electric and magnetic fields (e/m measurement); a fixed charge e (Millikan); single tracks and single spots on a screen", "Diffraction by crystals (Davisson–Germer) and by thin foils (G. P. Thomson); image formation in the electron microscope"],
+        ["Neutrons", "Collisions with nuclei in a reactor, in which they behave like small billiard balls", "Diffraction of thermal neutrons by crystals"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "How fast must an electron move so that its de Broglie wavelength equals 589 nm, the wavelength of yellow sodium light? What is its kinetic energy? ($h = 6.63 \\times 10^{-34}\\,\\text{J s}$, $m_e = 9.1 \\times 10^{-31}\\,\\text{kg}$)", "solution": "Step 1: Rearrange $\\lambda = h/mv$ for the speed: $v = h/(m\\lambda)$.\n\nStep 2: Substitute: $v = 6.63 \\times 10^{-34}/(9.1 \\times 10^{-31} \\times 589 \\times 10^{-9}) = 6.63 \\times 10^{-34}/5.36 \\times 10^{-37} \\approx 1.24 \\times 10^{3}\\,\\text{m s}^{-1}$.\n\nStep 3: Kinetic energy: $K = \\frac{1}{2}mv^2 = 0.5 \\times 9.1 \\times 10^{-31} \\times (1.24 \\times 10^{3})^2 \\approx 7.0 \\times 10^{-25}\\,\\text{J}$, which is only about $4.4 \\times 10^{-6}\\,\\text{eV}$.\n\nSo an electron has a wavelength as long as visible light only when it is extremely slow, about 1 km/s. Electrons in an electron microscope are millions of times more energetic and have wavelengths far shorter than light, which is why they reveal much finer detail.", "answer": "About $1.2 \\times 10^{3}\\,\\text{m s}^{-1}$; kinetic energy about $7 \\times 10^{-25}$ J (about $4 \\times 10^{-6}$ eV)" },
+      { "type": "IMPORTANT_FACT", "text": "Wave nature becomes observable only when $\\lambda$ is comparable to the dimensions of the apparatus. For macroscopic bodies $\\lambda$ is unimaginably small, so classical mechanics works perfectly. For electrons and other microscopic particles it is about the size of atomic spacings, so their wave nature cannot be ignored." },
+
+      { "type": "HEADING", "text": "de Broglie wavelength in terms of kinetic energy" },
+      { "type": "TEXT", "text": "In many problems we know the kinetic energy $K$ of the particle rather than its speed. For a non-relativistic particle,\n\n$$K = \\frac{1}{2}mv^2 = \\frac{p^2}{2m} \\quad\\Rightarrow\\quad p = \\sqrt{2mK}.$$\n\nSubstituting into $\\lambda = h/p$ gives the result below." },
+      { "type": "FORMULA", "latex": "\\lambda = \\frac{h}{\\sqrt{2mK}}", "text": "$K$ = kinetic energy (J); $m$ = mass (kg). For particles with the same kinetic energy, $\\lambda \\propto 1/\\sqrt{m}$, so the lighter particle has the longer wavelength." },
+      { "type": "TABLE", "caption": "How λ compares for two particles (masses m₁ and m₂) under different conditions", "columns": ["Same quantity", "Relation", "Electron compared with proton"], "rows": [
+        ["Same momentum $p$", "$\\lambda_1 = \\lambda_2$", "Equal wavelengths"],
+        ["Same speed $v$", "$\\lambda \\propto 1/m$", "$\\lambda_e/\\lambda_p = m_p/m_e \\approx 1835$"],
+        ["Same kinetic energy $K$", "$\\lambda \\propto 1/\\sqrt{m}$", "$\\lambda_e/\\lambda_p = \\sqrt{m_p/m_e} \\approx 43$"],
+        ["Same accelerating potential $V$", "$\\lambda \\propto 1/\\sqrt{mq}$", "$\\lambda_e/\\lambda_p \\approx 43$ (equal charges)"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "An electron and a proton have the same kinetic energy. Find the ratio of their de Broglie wavelengths, $\\lambda_e/\\lambda_p$. ($m_e = 9.1 \\times 10^{-31}\\,\\text{kg}$, $m_p = 1.67 \\times 10^{-27}\\,\\text{kg}$)", "solution": "For each particle, $\\lambda = h/\\sqrt{2mK}$. The kinetic energy $K$ is the same, so dividing the two expressions cancels $h$, the factor 2 and $K$:\n\n$\\lambda_e/\\lambda_p = \\sqrt{m_p/m_e}$.\n\nThe mass ratio is $m_p/m_e = 1.67 \\times 10^{-27}/9.1 \\times 10^{-31} \\approx 1835$, and its square root is $\\sqrt{1835} \\approx 42.8$.\n\nSo the electron's wavelength is about 43 times the proton's. Note that this is not 1835: the wavelength depends on the square root of the mass when the kinetic energies are equal.", "answer": "$\\lambda_e/\\lambda_p \\approx 43$" },
+      { "type": "TEXT", "text": "**Particles in thermal equilibrium.** A gas molecule or a neutron in equilibrium with surroundings at absolute temperature $T$ has an average kinetic energy $K = \\frac{3}{2}k_BT$, where $k_B = 1.38 \\times 10^{-23}\\,\\text{J K}^{-1}$ is Boltzmann's constant. Its typical de Broglie wavelength is then given by the formula below." },
+      { "type": "FORMULA", "latex": "\\lambda = \\frac{h}{\\sqrt{3mk_BT}}", "text": "Obtained by putting $K = \\frac{3}{2}k_BT$ into $\\lambda = h/\\sqrt{2mK}$. $T$ in kelvin, $m$ in kg. Heavier particles or higher temperatures give shorter wavelengths." },
+      { "type": "SOLVED_PROBLEM", "problem": "Neutrons that have come into thermal equilibrium with matter at 300 K are called thermal neutrons. Find their typical de Broglie wavelength. ($m_n = 1.675 \\times 10^{-27}\\,\\text{kg}$, $k_B = 1.38 \\times 10^{-23}\\,\\text{J K}^{-1}$, $h = 6.63 \\times 10^{-34}\\,\\text{J s}$)", "solution": "Step 1: Average kinetic energy. $K = \\frac{3}{2}k_BT = 1.5 \\times 1.38 \\times 10^{-23} \\times 300 = 6.21 \\times 10^{-21}\\,\\text{J}$, which is about 0.039 eV.\n\nStep 2: Momentum. $p = \\sqrt{2m_nK} = \\sqrt{2 \\times 1.675 \\times 10^{-27} \\times 6.21 \\times 10^{-21}} = \\sqrt{2.08 \\times 10^{-47}} = 4.56 \\times 10^{-24}\\,\\text{kg m s}^{-1}$.\n\nStep 3: Wavelength. $\\lambda = h/p = 6.63 \\times 10^{-34}/4.56 \\times 10^{-24} = 1.45 \\times 10^{-10}\\,\\text{m} = 0.145\\,\\text{nm}$.\n\nThis is comparable to the spacing between atoms in solids, which is why beams of thermal neutrons are diffracted by crystals and are used to study crystal structures.", "answer": "About $1.45 \\times 10^{-10}\\,\\text{m}$ (0.145 nm)" },
+
+      { "type": "HEADING", "text": "de Broglie wavelength of an electron accelerated through a potential difference" },
+      { "type": "TEXT", "text": "In an electron gun, electrons released from a heated cathode start almost from rest. A potential difference $V$ between cathode and anode accelerates them. Their wavelength can be derived step by step.\n\n1. Work done by the field on the electron = gain in kinetic energy: $K = eV$.\n2. Momentum from kinetic energy: $p = \\sqrt{2mK} = \\sqrt{2meV}$.\n3. de Broglie relation: $\\lambda = h/p = h/\\sqrt{2meV}$.\n4. Substitute the constants $h = 6.63 \\times 10^{-34}\\,\\text{J s}$, $m = 9.1 \\times 10^{-31}\\,\\text{kg}$, $e = 1.6 \\times 10^{-19}\\,\\text{C}$: $\\sqrt{2me} = \\sqrt{2 \\times 9.1 \\times 10^{-31} \\times 1.6 \\times 10^{-19}} = 5.40 \\times 10^{-25}$, so $\\lambda = (6.63 \\times 10^{-34}/5.40 \\times 10^{-25})/\\sqrt{V} \\approx 1.23 \\times 10^{-9}/\\sqrt{V}\\,\\text{m}$.\n\nWith more precise values of the constants the number is 1.227, which gives the standard result below." },
+      { "type": "FORMULA", "latex": "\\lambda = \\frac{h}{\\sqrt{2meV}} \\approx \\frac{1.227}{\\sqrt{V}}\\,\\text{nm}", "text": "For an electron accelerated from rest through $V$ volt (non-relativistic, i.e. up to a few kilovolts). Equivalent forms: $12.27/\\sqrt{V}$ Å, or $1.227 \\times 10^{-9}/\\sqrt{V}$ m. Increasing $V$ four times halves $\\lambda$." },
+      { "type": "FORMULA", "latex": "\\lambda = \\frac{h}{\\sqrt{2mqV}}", "text": "General form for a particle of mass $m$ and charge $q$ accelerated from rest through $V$. For a proton, $\\lambda \\approx 0.0286/\\sqrt{V}$ nm; for an alpha particle ($m \\approx 4m_p$, $q = 2e$), $\\lambda \\approx 0.0101/\\sqrt{V}$ nm." },
+      { "type": "DIAGRAM", "diagram": "electron-gun" },
+      { "type": "DIAGRAM", "diagram": "lambda-vs-voltage" },
+      { "type": "SOLVED_PROBLEM", "problem": "An electron is accelerated from rest through a potential difference of 100 V. Find (a) its kinetic energy, (b) its momentum, (c) its speed and (d) its de Broglie wavelength. ($h = 6.63 \\times 10^{-34}\\,\\text{J s}$, $m = 9.1 \\times 10^{-31}\\,\\text{kg}$, $e = 1.6 \\times 10^{-19}\\,\\text{C}$)", "solution": "(a) Kinetic energy: $K = eV = 1.6 \\times 10^{-19} \\times 100 = 1.6 \\times 10^{-17}\\,\\text{J}$ (that is, 100 eV).\n\n(b) Momentum: $p = \\sqrt{2mK} = \\sqrt{2 \\times 9.1 \\times 10^{-31} \\times 1.6 \\times 10^{-17}} = \\sqrt{2.91 \\times 10^{-47}} = 5.40 \\times 10^{-24}\\,\\text{kg m s}^{-1}$.\n\n(c) Speed: $v = p/m = 5.40 \\times 10^{-24}/9.1 \\times 10^{-31} = 5.93 \\times 10^{6}\\,\\text{m s}^{-1}$, which is only about 2% of $c$, so the non-relativistic formula is fine.\n\n(d) Wavelength: $\\lambda = h/p = 6.63 \\times 10^{-34}/5.40 \\times 10^{-24} = 1.23 \\times 10^{-10}\\,\\text{m} = 0.123\\,\\text{nm}$. The shortcut gives the same: $1.227/\\sqrt{100} = 0.1227\\,\\text{nm}$. This is about the wavelength of X-rays, so such electrons can be diffracted by crystals.", "answer": "(a) $1.6 \\times 10^{-17}$ J (100 eV) (b) $5.4 \\times 10^{-24}\\,\\text{kg m s}^{-1}$ (c) $5.9 \\times 10^{6}\\,\\text{m s}^{-1}$ (d) about 0.123 nm" },
+      { "type": "SOLVED_PROBLEM", "problem": "Through what potential difference must an electron (starting from rest) be accelerated so that its de Broglie wavelength is 0.10 nm?", "solution": "Step 1: Start from the electron shortcut $\\lambda = 1.227/\\sqrt{V}$ nm, which is valid because the electron starts from rest. Rearranging for the voltage gives $\\sqrt{V} = 1.227/\\lambda$, so $V = (1.227/\\lambda)^2$ with $\\lambda$ in nm.\n\nStep 2: Put in the required wavelength $\\lambda = 0.10$ nm: $\\sqrt{V} = 1.227/0.10 = 12.27$, so $V = 12.27^2 \\approx 150.6\\,\\text{V}$, i.e. about 150 V.\n\nStep 3: Check the answer with the full formula: $\\lambda = h/\\sqrt{2meV} = 6.63 \\times 10^{-34}/\\sqrt{2 \\times 9.1 \\times 10^{-31} \\times 1.6 \\times 10^{-19} \\times 150} = 6.63 \\times 10^{-34}/6.61 \\times 10^{-24} \\approx 1.0 \\times 10^{-10}\\,\\text{m}$, which is the required wavelength. A wavelength of 0.1 nm is typical of X-rays, so a modest voltage of about 150 V is enough to make electrons that diffract like X-rays.", "answer": "About 150 V" },
+      { "type": "CALLOUT", "text": "**Common mistakes**\n\n- Using $\\lambda = 1.227/\\sqrt{V}$ nm for protons or alpha particles. This shortcut is for electrons only; for other particles use $h/\\sqrt{2mqV}$.\n- Forgetting the square root: doubling $V$ does **not** halve $\\lambda$; it divides it by $\\sqrt{2}$. To halve $\\lambda$, $V$ must be made four times as large.\n- Using $\\lambda = hc/E$ (the photon formula) for an electron. For a material particle, $\\lambda = h/\\sqrt{2mK}$.\n- Forgetting that the formula assumes the particle starts from rest. If it already had kinetic energy $K_0$, the total is $K = K_0 + qV$." },
+
+      { "type": "HEADING", "text": "Photon and electron of the same wavelength" },
+      { "type": "TEXT", "text": "If a photon and an electron have the same de Broglie wavelength, they have the **same momentum** ($p = h/\\lambda$). Their energies, however, are very different, because energy depends on momentum differently for the two:\n\n- photon: $E = pc$;\n- slow electron: $K = p^2/2m$.\n\nThe ratio is $E_{photon}/K_{electron} = 2mc/p = 2c/v$, which is much greater than 1 whenever $v \\ll c$. For the same wavelength, a photon therefore carries far more energy than an electron. This is one reason electron microscopes can use short wavelengths without the high energies that X-rays of the same wavelength would carry." },
+      { "type": "SOLVED_PROBLEM", "problem": "A photon and an electron each have a wavelength of 0.20 nm. Find (a) their momenta and (b) their energies in eV. ($h = 6.63 \\times 10^{-34}\\,\\text{J s}$, $c = 3 \\times 10^8\\,\\text{m s}^{-1}$, $m_e = 9.1 \\times 10^{-31}\\,\\text{kg}$)", "solution": "(a) For both, $p = h/\\lambda = 6.63 \\times 10^{-34}/(0.20 \\times 10^{-9}) = 3.32 \\times 10^{-24}\\,\\text{kg m s}^{-1}$. The momenta are equal.\n\n(b) Photon: $E = pc = 3.32 \\times 10^{-24} \\times 3 \\times 10^{8} = 9.95 \\times 10^{-16}\\,\\text{J}$. Dividing by $1.6 \\times 10^{-19}$ gives about $6.2 \\times 10^{3}\\,\\text{eV}$ (6.2 keV, an X-ray photon).\n\nElectron: $K = p^2/2m = (3.32 \\times 10^{-24})^2/(2 \\times 9.1 \\times 10^{-31}) = 1.10 \\times 10^{-47}/1.82 \\times 10^{-30} = 6.04 \\times 10^{-18}\\,\\text{J}$, which is about 37.7 eV.\n\nThe photon has roughly 165 times more energy than the electron with the same wavelength.", "answer": "(a) Both $3.3 \\times 10^{-24}\\,\\text{kg m s}^{-1}$ (b) photon about 6.2 keV; electron about 38 eV" },
+      { "type": "KEY_POINT", "text": "Same wavelength means same momentum, for any particles. It does not mean the same energy: a photon always has much more energy than a slow electron of the same wavelength." },
+
+      { "type": "HEADING", "text": "Meaning of matter waves: probability and uncertainty" },
+      { "type": "TEXT", "text": "What exactly is 'waving' in a matter wave? According to Max Born's interpretation (1926), the matter wave is a **probability wave**. The square of its amplitude at a point is proportional to the probability of finding the particle at that point. Where the wave is large, the particle is likely to be found; where it is zero, the particle is never found. In electron diffraction, each electron lands at one spot, but the spots build up into a pattern of bright and dark rings that follows the intensity of the matter wave.\n\nA particle that is fairly well localised is described by a **wave packet**, a group of waves that adds up to a large amplitude only in a small region. Building a narrow packet requires a spread of wavelengths, and therefore a spread of momenta. This leads to **Heisenberg's uncertainty principle**: the uncertainty in position $\\Delta x$ and the uncertainty in momentum $\\Delta p$ satisfy, roughly, $\\Delta x\\,\\Delta p \\approx \\hbar = h/2\\pi$. A particle with a perfectly definite momentum (a single wavelength) would be completely spread out.\n\nMatter waves also explain Bohr's rule for atomic orbits. An electron in a stable orbit is pictured as a standing wave that fits a whole number of wavelengths around the circumference: $2\\pi r = n\\lambda = nh/mv$, which gives $mvr = nh/2\\pi$. (This is developed further in the unit on atoms.)" },
+      { "type": "EXAMPLE", "text": "**How fast does an electron move inside an atom? An uncertainty estimate.** An electron in an atom is confined to a region about $\\Delta x \\approx 1 \\times 10^{-10}\\,\\text{m}$ across. The uncertainty principle then requires a momentum spread of about $\\Delta p \\approx \\hbar/\\Delta x = (6.63 \\times 10^{-34}/2\\pi)/10^{-10} \\approx 1.1 \\times 10^{-24}\\,\\text{kg m s}^{-1}$. Dividing by the electron's mass gives a speed of the order of $1.1 \\times 10^{-24}/9.1 \\times 10^{-31} \\approx 1 \\times 10^{6}\\,\\text{m s}^{-1}$. An electron confined in an atom cannot be at rest; it must move at roughly a million metres per second, which matches the speeds found from Bohr's model." },
+      { "type": "IMPORTANT_FACT", "text": "Matter waves are probability waves. They are not electromagnetic, carry no charge, and do not travel at the speed of light. A particle's de Broglie wavelength depends only on its momentum." },
+
+      { "type": "HEADING", "text": "Revision: formulas and exam tips" },
+      { "type": "TABLE", "caption": "de Broglie wavelength formulas", "columns": ["Situation", "Formula", "Remember"], "rows": [
+        ["Any particle with momentum $p$", "$\\lambda = h/p$", "Basic de Broglie relation"],
+        ["Mass $m$, speed $v$", "$\\lambda = h/mv$", "Same speed: $\\lambda \\propto 1/m$"],
+        ["Mass $m$, kinetic energy $K$", "$\\lambda = h/\\sqrt{2mK}$", "Same $K$: $\\lambda \\propto 1/\\sqrt{m}$"],
+        ["Charge $q$ accelerated through $V$ from rest", "$\\lambda = h/\\sqrt{2mqV}$", "$\\lambda \\propto 1/\\sqrt{V}$"],
+        ["Electron accelerated through $V$", "$\\lambda \\approx 1.227/\\sqrt{V}$ nm", "100 V gives 0.123 nm"],
+        ["Particle at temperature $T$", "$\\lambda = h/\\sqrt{3mk_BT}$", "Uses $K = \\frac{3}{2}k_BT$"],
+        ["Photon of energy $E$", "$\\lambda = hc/E$", "$\\lambda(\\text{nm}) \\approx 1240/E(\\text{eV})$"]
+      ] },
+      { "type": "CALLOUT", "text": "**Exam tips**\n\n- In ratio questions, first decide what is common: momentum, speed, kinetic energy or accelerating voltage. Then use the matching proportionality from the table instead of calculating each wavelength.\n- Percentage changes: if $K$ increases by 44%, then $\\lambda \\propto 1/\\sqrt{K}$ becomes $\\lambda/\\sqrt{1.44} = \\lambda/1.2$, a decrease of about 16.7%.\n- If a graph of $\\lambda$ against $1/p$ is asked for, it is a straight line through the origin with slope $h$, the same for every particle.\n- Read units carefully: $1\\,\\text{nm} = 10^{-9}\\,\\text{m}$ and $1\\,\\text{Å} = 10^{-10}\\,\\text{m}$." },
+      { "type": "KEY_POINT", "text": "Summary: every moving particle has a matter wave of wavelength $\\lambda = h/p$. The wave is noticeable only for microscopic particles, whose $\\lambda$ is comparable to atomic spacings. For an electron accelerated through $V$ volt, $\\lambda \\approx 1.227/\\sqrt{V}$ nm. Electron diffraction (1927) confirmed de Broglie's hypothesis." }
+    ]
+  },
+  "diagrams": [
+    { "key": "lambda-vs-momentum", "file": "diagrams/ug26-322-u7-matter-waves-lambda-vs-momentum.svg", "alt": "Two graphs: (a) de Broglie wavelength against momentum is a falling rectangular hyperbola λ = h/p; (b) wavelength against 1/p is a straight line through the origin with slope h", "caption": "de Broglie wavelength plotted against p and against 1/p", "description": "Panel (a): horizontal axis momentum p in kilogram metre per second, vertical axis wavelength lambda in metre. The curve falls steeply at small p and flattens at large p, a rectangular hyperbola lambda times p equals h. Panel (b): horizontal axis 1/p, vertical axis wavelength; a straight line through the origin with a slope triangle marked delta lambda over delta (1/p) equal to h." },
+    { "key": "electron-gun", "file": "diagrams/ug26-322-u7-matter-waves-electron-gun.svg", "alt": "Electron gun: electrons from a heated cathode are accelerated towards an anode with a hole by a potential difference V; the emerging beam carries a matter wave of wavelength λ = h/√(2meV)", "caption": "An electron accelerated through a potential difference V and its matter wave", "description": "On the left a heated filament warms a cathode connected to the negative terminal of a battery; an anode with a central hole is connected to the positive terminal, so the potential difference V accelerates the electrons, drawn as dots with arrows that get longer. After passing through the hole, the electron beam moves to the right and a sinusoidal wave drawn along it represents its matter wave, with one wavelength lambda marked between two crests. A box states: starting from rest, K = half m v squared = eV; p = square root of 2meV; lambda = h/p = h divided by square root of 2meV, approximately 1.227/square root of V nanometre." },
+    { "key": "lambda-vs-voltage", "file": "diagrams/ug26-322-u7-matter-waves-lambda-vs-voltage.svg", "alt": "Graph of the de Broglie wavelength of an electron against accelerating potential from 0 to 500 V; λ falls as 1/√V, marked points 25 V at 0.245 nm, 100 V at 0.123 nm and 400 V at 0.0614 nm", "caption": "de Broglie wavelength of an electron against accelerating potential", "description": "The horizontal axis is accelerating potential V in volt from 0 to 500; the vertical axis is de Broglie wavelength lambda in nanometre from 0 to 0.30. A decreasing curve lambda = 1.227 divided by square root of V nanometre is drawn. Three points are marked with dashed lines to the axes: 25 V gives about 0.245 nm, 100 V gives about 0.123 nm and 400 V gives about 0.0614 nm, showing that four times the voltage halves the wavelength." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u7-matter-waves-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which of the following correctly states de Broglie's hypothesis of matter waves?",
+      "options": ["Only charged particles moving in electric fields behave like waves", "Every moving material particle has a wave associated with it, of wavelength λ = h/p", "Electrons in atoms emit matter waves whenever they jump between orbits", "Light consists of particles called photons, each of energy hν"],
+      "answer": 2,
+      "explanation": "In 1924 de Broglie proposed that, just as radiation has particle properties, every moving material particle has wave properties. The wave associated with a particle of momentum p has wavelength λ = h/p. This applies to charged and uncharged particles alike and was confirmed by electron diffraction in 1927.",
+      "optionRationale": { "1": "The hypothesis applies to all moving particles, charged or neutral (e.g. neutrons).", "3": "Emission of radiation in orbital jumps is part of Bohr's model, not de Broglie's hypothesis.", "4": "This is the photon (Planck–Einstein) idea about light, not de Broglie's idea about matter." },
+      "objective": "State de Broglie's hypothesis"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "A particle has momentum 6.63 × 10⁻²⁴ kg m s⁻¹. What is its de Broglie wavelength? (h = 6.63 × 10⁻³⁴ J s)",
+      "options": ["1.0 × 10¹⁰ m", "4.4 × 10⁻⁵⁷ m", "1.0 × 10⁻¹⁰ m", "1.0 × 10⁻⁹ m"],
+      "answer": 3,
+      "explanation": "Using the de Broglie relation λ = h/p = 6.63 × 10⁻³⁴ ÷ 6.63 × 10⁻²⁴ = 1.0 × 10⁻¹⁰ m, i.e. 0.1 nm. This is comparable to the spacing of atoms in a crystal, so such a particle could be diffracted by a crystal.",
+      "optionRationale": { "1": "1.0 × 10¹⁰ m is p/h, the reciprocal of the correct expression.", "2": "4.4 × 10⁻⁵⁷ m comes from multiplying h by p instead of dividing.", "4": "1.0 × 10⁻⁹ m is ten times too large, an error in the powers of ten." },
+      "objective": "Apply λ = h/p"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q03", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Why is the wave nature of a moving cricket ball never observed?",
+      "options": ["A cricket ball has no matter wave because it carries no charge", "Its de Broglie wavelength is too large to be measured", "Matter waves exist only for particles moving close to the speed of light", "Its de Broglie wavelength (of the order of 10⁻³⁴ m) is far smaller than any slit or obstacle, so diffraction cannot be detected"],
+      "answer": 4,
+      "explanation": "For a 0.15 kg ball at 30 m/s, λ = h/mv = 6.63 × 10⁻³⁴/4.5 ≈ 1.5 × 10⁻³⁴ m. Wave effects such as diffraction are noticeable only when λ is comparable to the size of the aperture or obstacle. No object is anywhere near that small, so the ball always behaves as a particle.",
+      "optionRationale": { "1": "Matter waves do not depend on charge; neutrons, which are uncharged, show wave behaviour.", "2": "The wavelength is extremely small, not large, because the mass is large.", "3": "Matter waves exist at all speeds; slow electrons show diffraction clearly." },
+      "objective": "Explain why wave nature is not seen for macroscopic objects"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q04", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "An electron starting from rest is accelerated through a potential difference of 400 V. What is its de Broglie wavelength approximately?",
+      "options": ["0.0614 nm", "0.123 nm", "0.0307 nm", "0.245 nm"],
+      "answer": 1,
+      "explanation": "For an electron accelerated from rest through V volt, λ = h/√(2meV) ≈ 1.227/√V nm. With V = 400 V, √V = 20, so λ ≈ 1.227/20 = 0.0614 nm. As a check, this is half the 100 V value of 0.123 nm, since four times the voltage halves the wavelength.",
+      "optionRationale": { "2": "0.123 nm is the wavelength for 100 V, not 400 V.", "3": "0.0307 nm would require 1600 V (λ ∝ 1/√V).", "4": "0.245 nm is the wavelength for 25 V." },
+      "objective": "Use λ = 1.227/√V nm for an accelerated electron"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q05", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "An electron and a proton are moving with the same speed. What is the ratio of the de Broglie wavelength of the electron to that of the proton? (mₑ = 9.1 × 10⁻³¹ kg, mₚ = 1.67 × 10⁻²⁷ kg)",
+      "options": ["1", "about 1835", "about 42.8", "about 1/1835"],
+      "answer": 2,
+      "explanation": "λ = h/(mv). With the same speed v, λ ∝ 1/m, so λₑ/λₚ = mₚ/mₑ = 1.67 × 10⁻²⁷ ÷ 9.1 × 10⁻³¹ ≈ 1835. The lighter electron has the much longer wavelength.",
+      "optionRationale": { "1": "Equal wavelengths need equal momenta, not equal speeds.", "3": "42.8 = √1835 is the ratio when the kinetic energies (or accelerating voltages) are equal, not the speeds.", "4": "This inverts the ratio; the lighter particle has the longer wavelength." },
+      "objective": "Compare de Broglie wavelengths at equal speed"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q06", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "An electron and a proton, each starting from rest, are accelerated through the same potential difference. What is the ratio λₑ/λₚ of their de Broglie wavelengths? (mₚ/mₑ ≈ 1835)",
+      "options": ["about 1835", "about 1/42.8", "1", "about 42.8"],
+      "answer": 4,
+      "explanation": "Both have charge of magnitude e, so each gains kinetic energy eV, the same for both. With equal kinetic energies, λ = h/√(2mK) ∝ 1/√m, so λₑ/λₚ = √(mₚ/mₑ) = √1835 ≈ 42.8.",
+      "optionRationale": { "1": "1835 is the ratio for equal speeds, where λ ∝ 1/m.", "2": "This inverts the ratio; the lighter electron has the longer wavelength.", "3": "The wavelengths would be equal only for equal momenta; here the kinetic energies are equal." },
+      "objective": "Compare wavelengths for particles accelerated through the same voltage"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q07", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A proton and an alpha particle, each starting from rest, are accelerated through the same potential difference V. Taking the mass of the alpha particle as 4mₚ and its charge as 2e, what is the ratio λₚ/λ_α of their de Broglie wavelengths?",
+      "options": ["2", "√2 (about 1.41)", "2√2 (about 2.83)", "4"],
+      "answer": 3,
+      "explanation": "For a charge q accelerated through V, K = qV and λ = h/√(2mqV), so λ ∝ 1/√(mq). Hence λₚ/λ_α = √(m_α q_α/(mₚ qₚ)) = √(4mₚ × 2e/(mₚ × e)) = √8 = 2√2 ≈ 2.83.",
+      "optionRationale": { "1": "2 = √4 accounts for the mass ratio but ignores the doubled charge (and hence doubled kinetic energy) of the alpha particle.", "2": "√2 accounts only for the charge ratio and ignores the mass ratio.", "4": "4 is the mass ratio itself; for equal accelerating voltage the wavelength goes as 1/√(mq), not 1/m." },
+      "objective": "Use λ = h/√(2mqV) for different charged particles"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q08", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "The kinetic energy of a free electron is increased by 44%. By what percentage does its de Broglie wavelength change?",
+      "options": ["It decreases by about 30.6%", "It decreases by about 16.7%", "It decreases by 20%", "It decreases by 22%"],
+      "answer": 2,
+      "explanation": "λ = h/√(2mK), so λ ∝ 1/√K. The new kinetic energy is 1.44K, so λ' = λ/√1.44 = λ/1.2 = 0.833λ. The wavelength therefore decreases by 1 − 0.833 = 0.167, i.e. about 16.7%.",
+      "optionRationale": { "1": "30.6% follows from λ ∝ 1/K (λ/1.44); the correct dependence is on √K.", "3": "20% is the increase in momentum (√1.44 = 1.2), not the decrease in wavelength.", "4": "22% simply halves 44%; the change must be found from λ' = λ/√1.44." },
+      "objective": "Find the percentage change of λ when kinetic energy changes"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q09", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The de Broglie wavelength of an electron decreases when the potential difference through which it is accelerated is increased.\nReason (R): For an electron accelerated from rest through a potential difference V, λ = h/√(2meV).",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "A larger accelerating voltage gives the electron more kinetic energy eV and hence more momentum √(2meV). Since λ = h/p = h/√(2meV), the wavelength falls as 1/√V. So A is true, R is true, and R is exactly the relation that explains A.",
+      "optionRationale": { "2": "R is the formula from which A follows directly, so it does explain A.", "3": "R is the standard, correct formula for an electron accelerated from rest.", "4": "A is true: λ ∝ 1/√V decreases as V increases." },
+      "objective": "Relate de Broglie wavelength to accelerating potential"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q10", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): A neutron, being electrically neutral, has no de Broglie wave associated with it.\nReason (R): The de Broglie wavelength of a particle depends only on its momentum, λ = h/p.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 4,
+      "explanation": "R is true: the de Broglie relation involves only momentum, not charge. A is therefore false: a moving neutron has momentum and hence a matter wave. Thermal neutrons (λ ≈ 0.145 nm at 300 K) are routinely diffracted by crystals in neutron-diffraction studies.",
+      "optionRationale": { "1": "A is false; neutral particles also have matter waves.", "2": "A is false, so this option cannot be right.", "3": "R is true; λ = h/p contains no charge." },
+      "objective": "Recognise that matter waves do not depend on charge"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q11", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): A photon and an electron (v ≪ c) that have the same de Broglie wavelength do not have the same energy; the photon has much more energy.\nReason (R): A photon has a greater momentum than an electron of the same de Broglie wavelength.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "Equal wavelengths mean equal momenta, because p = h/λ for both, so R is false. A is true because energy depends on momentum differently: the photon has E = pc while the slow electron has K = p²/2m. Their ratio is E/K = 2c/v, which is much greater than 1. For λ = 0.20 nm, for example, the photon has about 6.2 keV and the electron only about 38 eV.",
+      "optionRationale": { "1": "R is false: the momenta are equal when the wavelengths are equal.", "2": "R is false, so both cannot be true.", "4": "A is true: E = pc for the photon is much larger than p²/2m for a slow electron." },
+      "objective": "Compare a photon and an electron of equal wavelength"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q12", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "analytical",
+      "stem": "Assertion (A): Electrons accelerated through about 50–100 V are diffracted by a crystal, much as X-rays are.\nReason (R): Electrons are negatively charged particles.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 2,
+      "explanation": "A is true: such electrons have de Broglie wavelengths of about 0.12–0.17 nm, comparable to the spacing of atoms in a crystal, so the crystal acts as a diffraction grating (as in the Davisson–Germer experiment). R is also true, but charge has nothing to do with diffraction; uncharged neutrons are diffracted too. The correct explanation is the size of λ = h/p, so R does not explain A.",
+      "optionRationale": { "1": "Diffraction depends on wavelength, not charge, so R is not the explanation.", "3": "R is true; electrons do carry negative charge.", "4": "A is true; electron diffraction by crystals is well established." },
+      "objective": "Explain electron diffraction in terms of de Broglie wavelength"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q13", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each situation in List-I with the expression for the associated wavelength in List-II (k_B is Boltzmann's constant).",
+      "list": { "left": ["A. Photon of energy E", "B. Particle of mass m with kinetic energy K", "C. Particle of mass m and charge q accelerated from rest through potential difference V", "D. Gas molecule of mass m in thermal equilibrium at temperature T"], "right": ["I. $h/\\sqrt{2mqV}$", "II. $h/\\sqrt{3mk_BT}$", "III. $hc/E$", "IV. $h/\\sqrt{2mK}$"] },
+      "options": ["A-IV, B-III, C-I, D-II", "A-III, B-IV, C-II, D-I", "A-III, B-I, C-IV, D-II", "A-III, B-IV, C-I, D-II"],
+      "answer": 4,
+      "explanation": "Photon: E = hc/λ gives λ = hc/E (A-III). Material particle: p = √(2mK), so λ = h/√(2mK) (B-IV). Accelerated charge: K = qV, so λ = h/√(2mqV) (C-I). Thermal particle: K = (3/2)k_BT, so λ = h/√(3mk_BT) (D-II).",
+      "optionRationale": { "1": "Swaps A and B: hc/E is for photons only; a massive particle uses h/√(2mK).", "2": "Swaps C and D: the 3k_BT form comes from thermal energy, the 2mqV form from an accelerating voltage.", "3": "Swaps B and C: kinetic energy K gives h/√(2mK); qV appears only for an accelerated charge." },
+      "objective": "Select the correct wavelength formula for each situation"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q14", "type": "MATCH_THE_FOLLOWING", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Electrons starting from rest are accelerated through the potential differences in List-I. Match each with the approximate de Broglie wavelength in List-II.",
+      "list": { "left": ["A. 16 V", "B. 100 V", "C. 400 V", "D. 10 000 V"], "right": ["I. 0.0123 nm", "II. 0.307 nm", "III. 0.0614 nm", "IV. 0.123 nm"] },
+      "options": ["A-II, B-IV, C-III, D-I", "A-IV, B-II, C-III, D-I", "A-II, B-III, C-IV, D-I", "A-I, B-IV, C-III, D-II"],
+      "answer": 1,
+      "explanation": "Use λ ≈ 1.227/√V nm. 16 V: 1.227/4 = 0.307 nm (A-II). 100 V: 1.227/10 = 0.123 nm (B-IV). 400 V: 1.227/20 = 0.0614 nm (C-III). 10 000 V: 1.227/100 = 0.0123 nm (D-I). The wavelength falls as the voltage rises, by a factor equal to the square root of the voltage ratio.",
+      "optionRationale": { "2": "Swaps A and B; the lower voltage must give the longer wavelength.", "3": "Swaps B and C; 400 V is four times 100 V, so its wavelength is half of 0.123 nm.", "4": "Swaps A and D; the highest voltage gives the shortest wavelength." },
+      "objective": "Calculate electron wavelengths for several accelerating voltages"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q15", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about matter waves:\nA. Matter waves are electromagnetic waves emitted by moving particles.\nB. The de Broglie wavelength of a particle depends on its momentum and not on its charge.\nC. For the same kinetic energy, a lighter particle has a longer de Broglie wavelength.\nD. The de Broglie wavelength of a particle increases when its speed increases.\nWhich of the statements given above are correct?",
+      "options": ["A and B only", "B and C only", "B, C and D only", "A, C and D only"],
+      "answer": 2,
+      "explanation": "A is wrong: matter waves are probability waves, not electromagnetic waves, and neutral particles have them too. B is right: λ = h/p contains no charge. C is right: λ = h/√(2mK) ∝ 1/√m at fixed K. D is wrong: a higher speed means more momentum and so a shorter wavelength (λ = h/mv).",
+      "optionRationale": { "1": "A is wrong; matter waves are not electromagnetic.", "3": "D is wrong; wavelength decreases as speed increases.", "4": "A and D are both false statements." },
+      "objective": "Identify correct properties of matter waves"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q16", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Read the following statements:\nA. Diffraction of electrons by crystals, observed by Davisson and Germer and by G. P. Thomson in 1927, confirmed de Broglie's hypothesis.\nB. The square of the amplitude of a particle's matter wave at a point is proportional to the probability of finding the particle there.\nC. An electron accelerated from rest through 54 V has a de Broglie wavelength of about 0.167 nm.\nD. The matter waves of all particles travel at the speed of light in vacuum.\nWhich of the statements given above are correct?",
+      "options": ["A, B and C only", "A and B only", "B, C and D only", "A, B, C and D"],
+      "answer": 1,
+      "explanation": "A is correct: electron diffraction (1927) was the experimental proof of matter waves. B is correct: this is Born's probability interpretation. C is correct: λ = 1.227/√54 = 1.227/7.35 ≈ 0.167 nm. D is wrong: matter waves are not electromagnetic waves and a particle with mass always moves slower than light.",
+      "optionRationale": { "2": "Leaves out C, which is correct (1.227/√54 ≈ 0.167 nm).", "3": "Includes D, which is false, and leaves out A, which is true.", "4": "D is false; matter waves do not travel at the speed of light." },
+      "objective": "Evaluate evidence for and interpretation of matter waves"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q17", "type": "DIAGRAM_BASED", "difficulty": "EASY", "skill": "conceptual", "diagram": "lambda-vs-momentum",
+      "stem": "Panel (b) of the figure shows the de Broglie wavelength λ plotted against 1/p, where p is the momentum of the particle. The graph is a straight line through the origin. What does its slope represent?",
+      "options": ["The mass of the particle", "The reciprocal of Planck's constant, 1/h", "Planck's constant h", "The speed of the particle"],
+      "answer": 3,
+      "explanation": "The de Broglie relation λ = h/p can be written λ = h × (1/p). This is of the form y = mx with y = λ and x = 1/p, so the graph is a straight line through the origin with slope h. The slope is the same for every kind of particle.",
+      "optionRationale": { "1": "Mass does not appear in λ = h × (1/p); the slope is independent of the particle.", "2": "The slope is h itself, not its reciprocal.", "4": "Speed does not appear when λ is written in terms of p." },
+      "objective": "Interpret the λ–1/p graph"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q18", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "lambda-vs-voltage",
+      "stem": "The graph shows the de Broglie wavelength of an electron against the accelerating potential. At 100 V the wavelength is about 0.123 nm. What accelerating potential would make the wavelength about 0.0307 nm, one-quarter of this value?",
+      "options": ["400 V", "800 V", "6400 V", "1600 V"],
+      "answer": 4,
+      "explanation": "The graph follows λ ∝ 1/√V (λ ≈ 1.227/√V nm). To divide λ by 4, √V must be multiplied by 4, so V must be multiplied by 16: 16 × 100 V = 1600 V. Check: 1.227/√1600 = 1.227/40 ≈ 0.0307 nm.",
+      "optionRationale": { "1": "400 V (four times 100 V) only halves the wavelength, to 0.0614 nm, as the graph shows.", "2": "800 V divides λ by √8 ≈ 2.83, not by 4.", "3": "6400 V would divide λ by 8, giving about 0.0153 nm." },
+      "objective": "Use λ ∝ 1/√V read from a graph"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q19", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "numerical", "diagram": "electron-gun",
+      "stem": "In the electron gun shown, electrons leave the cathode practically at rest and emerge through the anode with a de Broglie wavelength of 0.0388 nm. What is the accelerating potential difference V?",
+      "options": ["100 V", "1000 V", "31.6 V", "10 000 V"],
+      "answer": 2,
+      "explanation": "For electrons, λ ≈ 1.227/√V nm, so √V = 1.227/λ = 1.227/0.0388 ≈ 31.6. Squaring gives V = 31.6² ≈ 1000 V. Check: 1.227/√1000 = 1.227/31.6 ≈ 0.0388 nm.",
+      "optionRationale": { "1": "100 V gives λ ≈ 0.123 nm, about three times longer.", "3": "31.6 is √V; it must be squared to get V.", "4": "10 000 V gives λ ≈ 0.0123 nm." },
+      "objective": "Find the accelerating voltage from the de Broglie wavelength"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q20", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "An electron has a de Broglie wavelength of 1.0 nm. What is its kinetic energy? (h = 6.63 × 10⁻³⁴ J s, mₑ = 9.1 × 10⁻³¹ kg, 1 eV = 1.6 × 10⁻¹⁹ J)",
+      "options": ["1240 eV", "3.02 eV", "1.51 eV", "0.75 eV"],
+      "answer": 3,
+      "explanation": "Momentum: p = h/λ = 6.63 × 10⁻³⁴/1.0 × 10⁻⁹ = 6.63 × 10⁻²⁵ kg m s⁻¹. Kinetic energy: K = p²/2m = (6.63 × 10⁻²⁵)²/(2 × 9.1 × 10⁻³¹) = 4.40 × 10⁻⁴⁹/1.82 × 10⁻³⁰ = 2.42 × 10⁻¹⁹ J. In eV: 2.42 × 10⁻¹⁹ ÷ 1.6 × 10⁻¹⁹ ≈ 1.51 eV.",
+      "optionRationale": { "1": "About 1240 eV is the energy of a photon of wavelength 1.0 nm (hc/λ); the photon formula does not apply to an electron.", "2": "3.02 eV results from using K = p²/m, forgetting the factor 2 in the denominator.", "4": "0.75 eV is half the correct value, from an extra factor of 2." },
+      "objective": "Find kinetic energy from the de Broglie wavelength"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q21", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "What is the de Broglie wavelength of an electron moving with a speed of 1.0 × 10⁶ m s⁻¹? (h = 6.63 × 10⁻³⁴ J s, mₑ = 9.1 × 10⁻³¹ kg)",
+      "options": ["7.3 nm", "0.073 nm", "1.46 nm", "0.73 nm"],
+      "answer": 4,
+      "explanation": "Momentum p = mv = 9.1 × 10⁻³¹ × 1.0 × 10⁶ = 9.1 × 10⁻²⁵ kg m s⁻¹. Then λ = h/p = 6.63 × 10⁻³⁴/9.1 × 10⁻²⁵ = 7.3 × 10⁻¹⁰ m = 0.73 nm.",
+      "optionRationale": { "1": "7.3 nm is ten times too large, a slip in converting 7.3 × 10⁻¹⁰ m.", "2": "0.073 nm is ten times too small, a power-of-ten error.", "3": "1.46 nm is double the correct value, as if the momentum were halved." },
+      "objective": "Calculate λ = h/mv for an electron"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q22", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "If the momentum of a particle is doubled, its de Broglie wavelength is:",
+      "options": ["halved", "doubled", "unchanged", "reduced to one-fourth"],
+      "answer": 1,
+      "explanation": "The de Broglie wavelength is λ = h/p, so it is inversely proportional to momentum. Doubling the momentum p therefore halves the wavelength. (By contrast, doubling the kinetic energy would reduce λ by a factor of only √2, because p = √(2mK).)",
+      "optionRationale": { "2": "λ decreases, not increases, as momentum increases.", "3": "λ depends directly on p, so it must change.", "4": "One-fourth would need the momentum to be made four times as large." },
+      "objective": "Use the inverse proportionality of λ to momentum"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-q23", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "analytical",
+      "stem": "An electron and a proton have equal de Broglie wavelengths. Which of them has the greater kinetic energy?",
+      "options": ["The proton, because it is heavier", "Both have equal kinetic energy because they have equal momentum", "The electron, because K = p²/2m and its mass is much smaller", "It cannot be decided without knowing their speeds"],
+      "answer": 3,
+      "explanation": "Equal wavelengths mean equal momenta, since p = h/λ. With the same p, kinetic energy K = p²/2m is inversely proportional to mass. The electron is about 1835 times lighter, so its kinetic energy is about 1835 times that of the proton.",
+      "optionRationale": { "1": "With equal momenta, the heavier particle has less kinetic energy.", "2": "Equal momentum does not mean equal kinetic energy when the masses differ.", "4": "λ fixes the momentum, and the masses are known, so K can be compared directly." },
+      "objective": "Compare kinetic energies of particles with equal wavelengths"
+    }
+  ]
+}

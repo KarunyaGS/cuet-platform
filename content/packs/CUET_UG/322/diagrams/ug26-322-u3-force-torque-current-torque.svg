@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" font-family="Arial, Helvetica, sans-serif">
+  <text x="380" y="24" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">Top view: rectangular loop (seen edge-on) in a uniform horizontal field B</text>
+  <!-- field lines -->
+  <line x1="30" y1="50" x2="720" y2="50" stroke="#059669" stroke-width="1.8"/>
+  <polygon points="734,50 720,43 720,57" fill="#059669"/>
+  <line x1="30" y1="392" x2="720" y2="392" stroke="#059669" stroke-width="1.8"/>
+  <polygon points="734,392 720,385 720,399" fill="#059669"/>
+  <text x="40" y="42" font-size="15" font-weight="bold" fill="#059669">B</text>
+  <!-- lines of action -->
+  <line x1="276.1" y1="62" x2="276.1" y2="372" stroke="#9ca3af" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <line x1="483.9" y1="62" x2="483.9" y2="372" stroke="#9ca3af" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <!-- loop edge-on -->
+  <line x1="276.1" y1="150" x2="483.9" y2="270" stroke="#1f2937" stroke-width="4"/>
+  <text x="318" y="200" font-size="15" font-weight="bold" fill="#1f2937">b</text>
+  <!-- side PQ: current out of page -->
+  <circle cx="276.1" cy="150" r="11" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="276.1" cy="150" r="3" fill="#1f2937"/>
+  <text x="256" y="155" font-size="13" fill="#1f2937" text-anchor="end">side PQ, I out of page</text>
+  <!-- side RS: current into page -->
+  <circle cx="483.9" cy="270" r="11" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <path d="M 477.5 263.6 L 490.3 276.4 M 490.3 263.6 L 477.5 276.4" stroke="#1f2937" stroke-width="2"/>
+  <text x="504" y="275" font-size="13" fill="#1f2937">side RS, I into page</text>
+  <!-- forces -->
+  <line x1="276.1" y1="138" x2="276.1" y2="94" stroke="#dc2626" stroke-width="3"/>
+  <polygon points="276.1,80 268.1,96 284.1,96" fill="#dc2626"/>
+  <text x="286" y="96" font-size="15" font-weight="bold" fill="#dc2626">F = I l B</text>
+  <line x1="483.9" y1="282" x2="483.9" y2="326" stroke="#dc2626" stroke-width="3"/>
+  <polygon points="483.9,340 475.9,324 491.9,324" fill="#dc2626"/>
+  <text x="494" y="334" font-size="15" font-weight="bold" fill="#dc2626">F = I l B</text>
+  <!-- normal / magnetic moment -->
+  <circle cx="380" cy="210" r="3.5" fill="#1f2937"/>
+  <line x1="380" y1="210" x2="423" y2="135.5" stroke="#d97706" stroke-width="3"/>
+  <polygon points="430,123.4 416.9,134.2 430.7,142.2" fill="#d97706"/>
+  <text x="436" y="124" font-size="14" font-weight="bold" fill="#d97706">m (normal to the loop)</text>
+  <line x1="380" y1="210" x2="470" y2="210" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <path d="M 420 210 A 40 40 0 0 0 400 175.4" fill="none" stroke="#1f2937" stroke-width="1.8"/>
+  <text x="426" y="196" font-size="15" font-weight="bold" fill="#1f2937">θ</text>
+  <text x="362" y="232" font-size="14" font-weight="bold" fill="#1f2937">O</text>
+  <!-- arm of the couple -->
+  <line x1="276.1" y1="362" x2="483.9" y2="362" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="276.1" y1="354" x2="276.1" y2="370" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="483.9" y1="354" x2="483.9" y2="370" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="380" y="380" font-size="14" font-weight="bold" fill="#1f2937" text-anchor="middle">arm = b sin θ</text>
+  <text x="380" y="420" font-size="13" fill="#1f2937" text-anchor="middle">Torque = (I l B)(b sin θ) = I A B sin θ; the couple turns m towards B (clockwise in this view)</text>
+</svg>

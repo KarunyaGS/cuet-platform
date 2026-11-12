@@ -1,0 +1,259 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_aefaa3fa1f7d4255aa7b0dfd20a43872",
+    "title": "Optical instruments: Microscopes and astronomical telescopes (reflecting and refracting)"
+  },
+  "lesson": {
+    "key": "ug26-322-u6-optical-instruments",
+    "title": "Optical instruments: microscopes and astronomical telescopes and their magnifying powers",
+    "coverage": [
+      { "phrase": "Optical instruments", "section": "Optical instruments and angular magnification" },
+      { "phrase": "Microscopes: simple microscope", "section": "Simple microscope" },
+      { "phrase": "Microscopes: compound microscope", "section": "Compound microscope" },
+      { "phrase": "astronomical telescopes (refracting)", "section": "Refracting astronomical telescope" },
+      { "phrase": "astronomical telescopes (reflecting)", "section": "Reflecting telescopes" },
+      { "phrase": "their magnifying powers", "section": "Magnifying powers compared" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Optical instruments and angular magnification" },
+      { "type": "TEXT", "text": "How large an object looks depends not on its actual size but on the **angle it subtends at the eye** (the visual angle). A coin held at arm's length can hide the full Moon because both subtend about the same angle. To see a small object in more detail we can bring it closer, which increases the visual angle, but the eye lens cannot focus on an object closer than a certain distance. For a normal adult eye this **near point** is about 25 cm. Optical instruments such as microscopes and telescopes use lenses and mirrors to make the final image subtend a larger angle at the eye than the object would subtend on its own.\n\nBecause the instruments act on the angle rather than on the size, their performance is measured by **angular magnification**, called **magnifying power**. It is different from the linear magnification h'/h of a single lens: a telescope forms an image of the Moon that is far smaller than the Moon itself, yet it makes the Moon look much bigger because the image subtends a much larger angle at the eye." },
+      { "type": "DEFINITION", "term": "Least distance of distinct vision (near point)", "text": "The smallest distance from the eye at which an object can be seen clearly without strain. For a normal eye it is taken as D = 25 cm. The far point of a normal eye is at infinity; an image at infinity is viewed with a fully relaxed eye." },
+      { "type": "DEFINITION", "term": "Magnifying power (angular magnification)", "text": "The ratio $m = \\beta/\\alpha$, where $\\beta$ is the angle subtended at the eye by the final image formed by the instrument and $\\alpha$ is the angle subtended at the unaided eye by the object. For microscopes the object is imagined at the near point D; for telescopes the object is at its actual (very large) distance. It is a pure number, often written with a times sign, for example 300x." },
+      { "type": "KEY_POINT", "text": "Two standard viewing settings appear in every formula: (1) final image at the near point (D = 25 cm), which gives the largest magnifying power but strains the eye; (2) final image at infinity, called normal adjustment, which is viewed with a relaxed eye and gives slightly smaller magnifying power." },
+
+      { "type": "HEADING", "text": "Simple microscope" },
+      { "type": "TEXT", "text": "A **simple microscope** (magnifying glass, reading lens) is a single converging lens of short focal length held close to the eye. The object is placed between the lens and its first focal point, so the lens forms a virtual, erect and magnified image on the same side as the object. The lens is moved until this image lies anywhere between the near point and infinity.\n\n**Derivation: final image at the near point.** Let the image be at v = -D (on the object side). The thin lens formula $\\dfrac{1}{v} - \\dfrac{1}{u} = \\dfrac{1}{f}$ gives the linear magnification $m = \\dfrac{v}{u} = 1 - \\dfrac{v}{f} = 1 + \\dfrac{D}{f}$. With the eye close to the lens, the image of height h' at distance D subtends $\\beta = h'/D$, and the object placed at the near point would subtend $\\alpha = h/D$. So the angular magnification $\\beta/\\alpha = h'/h$ equals the linear magnification $1 + D/f$.\n\n**Derivation: final image at infinity.** Now the object is placed at the focal point, u = -f, and the emerging rays are parallel. The image subtends $\\beta \\approx \\tan\\beta = h/f$ (rays from the top of the object through the optical centre), while the object at the near point subtends $\\alpha = h/D$. Therefore $m = \\beta/\\alpha = D/f$, exactly one less than in the near-point case." },
+      { "type": "FORMULA", "latex": "m = 1 + \\frac{D}{f} \\ \\ (\\text{image at near point}), \\qquad m = \\frac{D}{f} \\ \\ (\\text{image at infinity})", "text": "m = magnifying power of a simple microscope, D = least distance of distinct vision (25 cm), f = focal length of the convex lens (same unit as D)." },
+      { "type": "DIAGRAM", "diagram": "simple-microscope" },
+      { "type": "TEXT", "text": "The formulas show that a lens of shorter focal length magnifies more. In practice a single lens of very short focal length shows strong aberrations and has to be held impractically close to the object, so a simple magnifier gives a useful magnifying power of only up to about 10. Larger magnifying powers need two lens systems, which is the idea of the compound microscope." },
+      { "type": "SOLVED_PROBLEM", "problem": "A watchmaker uses a convex lens of focal length 5.0 cm as a simple microscope. (a) What is its magnifying power when the final image is at the near point (25 cm) and when it is at infinity? (b) How far from the lens must the object be placed in the first case?", "solution": "(a) Near point: $m = 1 + \\frac{D}{f} = 1 + \\frac{25}{5.0} = 6$. Infinity (normal adjustment): $m = \\frac{D}{f} = \\frac{25}{5.0} = 5$.\n\n(b) For the near-point setting the image is virtual and on the object side: v = -25 cm, f = +5.0 cm. From $\\frac{1}{v} - \\frac{1}{u} = \\frac{1}{f}$: $\\frac{1}{u} = \\frac{1}{v} - \\frac{1}{f} = -\\frac{1}{25} - \\frac{1}{5} = -\\frac{6}{25}$, so $u = -4.17$ cm. The object is placed 4.17 cm in front of the lens, just inside its focal length, as expected for a virtual, magnified image.", "answer": "(a) 6 at the near point, 5 at infinity; (b) 4.17 cm from the lens." },
+
+      { "type": "HEADING", "text": "Compound microscope" },
+      { "type": "TEXT", "text": "A **compound microscope** uses two converging lens systems on a common axis inside a tube.\n\n- The **objective**, nearer the object, has a very short focal length (a few millimetres) and a small aperture.\n- The **eyepiece** (ocular), nearer the eye, has a somewhat larger focal length (a centimetre or two) and works like a simple microscope.\n\nThe object is placed just beyond the first focal point of the objective. The objective forms a **real, inverted and magnified** image A'B' inside the tube. The eyepiece is placed so that A'B' lies just inside its first focal point (final image at the near point) or exactly at its first focal point (final image at infinity). The eyepiece then forms a virtual, further magnified final image A''B''. The final image is inverted with respect to the object." },
+      { "type": "DIAGRAM", "diagram": "compound-microscope" },
+      { "type": "TEXT", "text": "**Derivation of the magnifying power.** The total magnifying power is the product of the linear magnification of the objective and the angular magnification of the eyepiece: $m = m_o\\, m_e$.\n\n*Objective.* Consider the ray from the top of the object travelling parallel to the axis; after the objective it passes through the second focal point Fo' of the objective and reaches the top of the first image. The two right triangles on either side of Fo' (one with legs h and fo, the other with legs h' and L) are similar, so $\\tan\\theta = \\dfrac{h}{f_o} = \\dfrac{h'}{L}$ (where $\\theta$ is the angle this ray makes with the axis after the objective), and the magnitude of the linear magnification is $m_o = \\dfrac{h'}{h} = \\dfrac{L}{f_o}$. Here L, the **tube length**, is the distance between the second focal point of the objective and the first focal point of the eyepiece. This expression is exact when the first image lies at Fe (normal adjustment) and a good approximation otherwise.\n\n*Eyepiece.* It acts as a simple microscope on the first image: $m_e = 1 + \\dfrac{D}{f_e}$ when the final image is at the near point and $m_e = \\dfrac{D}{f_e}$ when it is at infinity.\n\nCombining the two gives the formulas below. When the object and image distances of the objective are known, use $m_o = v_o/|u_o|$ directly." },
+      { "type": "FORMULA", "latex": "m = m_o\\,m_e \\approx \\frac{L}{f_o}\\cdot\\frac{D}{f_e} \\quad (\\text{final image at infinity})", "text": "Magnitude of the magnifying power of a compound microscope in normal adjustment. L = tube length (second focus of objective to first focus of eyepiece), fo and fe = focal lengths of objective and eyepiece, D = 25 cm. The final image is inverted." },
+      { "type": "FORMULA", "latex": "m = \\frac{v_o}{|u_o|}\\left(1 + \\frac{D}{f_e}\\right) \\quad (\\text{final image at near point})", "text": "vo and uo = image and object distances for the objective (vo/|uo| is the magnitude of its linear magnification); fe = focal length of the eyepiece; D = 25 cm. The separation of the lenses is vo + |ue|, where ue is the object distance for the eyepiece." },
+      { "type": "TEXT", "text": "To obtain a large magnifying power both focal lengths should be small and the tube length large. Typical laboratory microscopes have a tube length of about 16 cm; an objective marked 40x with an eyepiece marked 10x gives a total magnifying power of about 400. Very short focal lengths increase aberrations, so real objectives are carefully designed combinations of several lenses." },
+      { "type": "SOLVED_PROBLEM", "problem": "A compound microscope has an objective of focal length 2.0 cm and an eyepiece of focal length 5.0 cm. An object is placed 2.5 cm from the objective, and the final image is formed at the near point (25 cm). Find (a) the magnifying power, (b) the separation of the two lenses.", "solution": "(a) Objective: u_o = -2.5 cm, f_o = +2.0 cm. $\\frac{1}{v_o} = \\frac{1}{2.0} - \\frac{1}{2.5} = 0.5 - 0.4 = 0.1$, so v_o = +10 cm. Linear magnification $m_o = \\frac{v_o}{u_o} = \\frac{10}{-2.5} = -4$ (real, inverted).\n\nEyepiece (final image at the near point): $m_e = 1 + \\frac{D}{f_e} = 1 + \\frac{25}{5.0} = 6$.\n\nTotal: $m = m_o m_e = -4 \\times 6 = -24$. The magnifying power is 24 and the final image is inverted.\n\n(b) For the eyepiece the final image is at v_e = -25 cm: $\\frac{1}{u_e} = \\frac{1}{v_e} - \\frac{1}{f_e} = -\\frac{1}{25} - \\frac{1}{5} = -\\frac{6}{25}$, so u_e = -4.17 cm. The first image is therefore 4.17 cm in front of the eyepiece, and the lens separation is 10 + 4.17 = 14.17 cm.", "answer": "(a) Magnifying power 24 (final image inverted); (b) about 14.2 cm." },
+      { "type": "SOLVED_PROBLEM", "problem": "A microscope has an objective of focal length 4.0 mm, an eyepiece of focal length 2.5 cm and a tube length of 16 cm. Estimate its magnifying power in normal adjustment.", "solution": "In normal adjustment the final image is at infinity, so $m \\approx \\frac{L}{f_o}\\cdot\\frac{D}{f_e}$.\n\nConvert to one unit: f_o = 4.0 mm = 0.40 cm.\n\nObjective: $m_o = \\frac{L}{f_o} = \\frac{16}{0.40} = 40$.\n\nEyepiece: $m_e = \\frac{D}{f_e} = \\frac{25}{2.5} = 10$.\n\nTotal magnifying power $m = 40 \\times 10 = 400$. This is the familiar 40x objective with 10x eyepiece combination; the final image is inverted relative to the specimen.", "answer": "About 400." },
+      { "type": "CALLOUT", "text": "Common mistakes: (1) using D/fe when the question says the final image is at the near point (use 1 + D/fe); (2) mixing millimetres and centimetres for fo; (3) forgetting that tube length L is measured between the inner focal points, not between the lenses; (4) thinking the final image of a microscope is erect: it is inverted." },
+
+      { "type": "HEADING", "text": "Refracting astronomical telescope" },
+      { "type": "TEXT", "text": "A telescope gives angular magnification of **distant** objects. A refracting astronomical telescope has two converging lenses:\n\n- an **objective** of large focal length and large aperture, which collects as much light as possible and forms a real image of the distant object in its focal plane;\n- an **eyepiece** of short focal length, which magnifies this image like a simple microscope.\n\nRays from one point of a very distant object arrive as a parallel beam. A beam from the top of the object, inclined at a small angle $\\alpha$ to the axis, is focused by the objective to a point in its second focal plane, giving a real, inverted image of height h. In **normal adjustment** this image lies exactly at the first focal point of the eyepiece, so the rays leave the eyepiece parallel, inclined at angle $\\beta$, and the final image is at infinity. The tube length is then $f_o + f_e$." },
+      { "type": "DIAGRAM", "diagram": "refracting-telescope" },
+      { "type": "TEXT", "text": "**Derivation of the magnifying power.** The object subtends $\\alpha$ at the objective, which equals the angle it subtends at the eye because the object is so far away. The image of height h lies in the focal plane of the objective, so $\\alpha \\approx \\tan\\alpha = \\dfrac{h}{f_o}$. The same image lies at the focal point of the eyepiece, so the final parallel rays make $\\beta \\approx \\tan\\beta = \\dfrac{h}{f_e}$ with the axis. Hence $m = \\dfrac{\\beta}{\\alpha} = \\dfrac{f_o}{f_e}$.\n\n**Final image at the near point.** The eyepiece now forms the final image at distance D, so the first image lies at distance |ue| from the eyepiece with $\\dfrac{1}{|u_e|} = \\dfrac{1}{f_e} + \\dfrac{1}{D}$. Then $\\beta = \\dfrac{h}{|u_e|} = h\\left(\\dfrac{1}{f_e} + \\dfrac{1}{D}\\right)$ and $m = \\dfrac{\\beta}{\\alpha} = \\dfrac{f_o}{f_e}\\left(1 + \\dfrac{f_e}{D}\\right)$, with tube length $f_o + |u_e|$." },
+      { "type": "FORMULA", "latex": "m = \\frac{f_o}{f_e}, \\qquad L = f_o + f_e \\quad (\\text{normal adjustment})", "text": "m = magnifying power of an astronomical telescope with the final image at infinity; fo = focal length of the objective, fe = focal length of the eyepiece; L = distance between the lenses. The final image is inverted." },
+      { "type": "FORMULA", "latex": "m = \\frac{f_o}{f_e}\\left(1 + \\frac{f_e}{D}\\right), \\qquad L = f_o + |u_e| \\quad (\\text{final image at near point})", "text": "D = 25 cm; |ue| = object distance for the eyepiece, found from 1/|ue| = 1/fe + 1/D. This setting gives a slightly larger magnifying power and a slightly shorter tube." },
+      { "type": "TEXT", "text": "For high magnifying power fo must be large and fe small. The **aperture** (diameter) of the objective does not affect the magnifying power, but it decides how much light is collected (light-gathering power is proportional to the area, that is to the square of the diameter) and how fine a detail can be resolved. That is why objectives are made as wide as possible.\n\nThe inverted final image does not matter in astronomy. For viewing objects on Earth a terrestrial telescope adds an erecting lens between objective and eyepiece (making the instrument longer), while a Galilean telescope uses a diverging eyepiece to give an erect image.\n\nLarge refracting telescopes have serious limitations. A big lens is heavy and can be supported only at its rim, so it sags under its own weight; it must be free of bubbles and strain throughout its thickness; and it suffers from chromatic aberration. The largest working refractor, at the Yerkes Observatory in the USA, has an objective about 1 m (40 inches) in diameter. Bigger telescopes are therefore reflecting telescopes." },
+      { "type": "SOLVED_PROBLEM", "problem": "An astronomical telescope has an objective of focal length 150 cm and an eyepiece of focal length 5.0 cm. Find the magnifying power and the separation of the lenses (a) in normal adjustment, (b) when the final image is formed at the near point (25 cm).", "solution": "(a) Normal adjustment: $m = \\frac{f_o}{f_e} = \\frac{150}{5.0} = 30$. Separation L = f_o + f_e = 150 + 5.0 = 155 cm.\n\n(b) Near point: $m = \\frac{f_o}{f_e}\\left(1 + \\frac{f_e}{D}\\right) = 30\\left(1 + \\frac{5.0}{25}\\right) = 30 \\times 1.2 = 36$.\n\nFor the eyepiece, v_e = -25 cm and f_e = +5.0 cm: $\\frac{1}{u_e} = \\frac{1}{v_e} - \\frac{1}{f_e} = -\\frac{1}{25} - \\frac{1}{5.0} = -0.24$, so u_e = -4.17 cm. Separation L = 150 + 4.17 = 154.17 cm, about 1.2 cm shorter than in normal adjustment.", "answer": "(a) 30, 155 cm; (b) 36, about 154.2 cm." },
+      { "type": "SOLVED_PROBLEM", "problem": "The objective of a large telescope has a focal length of 15 m. The Moon has a diameter of 3.48 x 10^6 m and is 3.8 x 10^8 m away. Find the diameter of the Moon's image formed by the objective.", "solution": "The Moon subtends an angle $\\alpha = \\frac{\\text{diameter}}{\\text{distance}} = \\frac{3.48 \\times 10^6}{3.8 \\times 10^8} = 9.16 \\times 10^{-3}$ rad (about 0.52 degrees).\n\nThe objective forms the image in its focal plane, and a ray through the optical centre is undeviated, so the image subtends the same angle at the objective. Image diameter $= f_o \\times \\alpha = 15 \\times 9.16 \\times 10^{-3} = 0.137$ m, about 13.7 cm.\n\nThe image is real and inverted. An eyepiece then magnifies the angle it subtends; the image itself is much smaller than the Moon, which shows that magnifying power is about angles, not sizes.", "answer": "About 13.7 cm." },
+
+      { "type": "HEADING", "text": "Reflecting telescopes" },
+      { "type": "TEXT", "text": "A **reflecting telescope** uses a large concave mirror as its objective. Parallel light from a distant object is reflected by this **primary mirror** and brought to a focus; an eyepiece then magnifies the image. To get the image out of the incoming beam a second mirror is used:\n\n- In a **Newtonian** telescope a small plane mirror inclined at 45 degrees sends the converging beam sideways to an eyepiece at the side of the tube.\n- In a **Cassegrain** telescope a small **convex secondary mirror** intercepts the converging beam before the primary focus and reflects it back through a hole in the centre of the primary mirror, where the eyepiece (or a camera) is placed. Folding the light path in this way gives a long effective focal length in a short tube." },
+      { "type": "DIAGRAM", "diagram": "cassegrain" },
+      { "type": "TEXT", "text": "**Advantages of reflecting telescopes over refractors.**\n\n1. No chromatic aberration: reflection does not depend on wavelength, so all colours focus at the same point.\n2. Spherical aberration is removed by giving the primary mirror a paraboloidal shape.\n3. Only one surface has to be ground and polished, and the glass need not be optically perfect inside.\n4. A mirror can be supported over its whole back surface, so it does not sag; very large apertures (several metres) are possible and cheaper than equivalent lenses. Larger aperture means more light gathered and finer resolution.\n\nThe main drawback is that the secondary mirror (or the observer's cage) blocks a small part of the incoming light. Examples in India include the 2.34 m reflecting telescope at the Vainu Bappu Observatory, Kavalur (Tamil Nadu), and the 3.6 m Devasthal Optical Telescope near Nainital (Uttarakhand).\n\n**Magnifying power.** For a reflecting telescope in normal adjustment the same derivation gives $m = f_o/f_e$, where fo is the focal length of the objective mirror ($f_o = R/2$ for a primary of radius of curvature R in a Newtonian arrangement). In a Cassegrain telescope fo is replaced by the effective focal length of the primary and secondary together, which is larger than that of the primary alone." },
+      { "type": "FORMULA", "latex": "m = \\frac{f_o}{f_e} = \\frac{R}{2 f_e}", "text": "Magnifying power of a reflecting telescope in normal adjustment: fo = focal length of the concave objective mirror (R = its radius of curvature), fe = focal length of the eyepiece." },
+      { "type": "SOLVED_PROBLEM", "problem": "In a Cassegrain telescope the concave primary mirror has a focal length of 30 cm. A convex secondary mirror of focal length 11.2 cm is placed 22 cm in front of the primary, so it meets the converging beam 8.0 cm before the primary focus. Where is the final image formed by the two mirrors?", "solution": "Light reflected by the primary converges towards its focus F1, 30 cm from the primary. The secondary is 22 cm from the primary, so F1 lies 30 - 22 = 8.0 cm beyond the secondary. For the secondary, F1 is a virtual object.\n\nTake the direction of the light travelling towards the secondary as positive. Then the virtual object is at u = +8.0 cm and the convex mirror has f = +11.2 cm.\n\nMirror formula: $\\frac{1}{v} = \\frac{1}{f} - \\frac{1}{u} = \\frac{1}{11.2} - \\frac{1}{8.0} = 0.0893 - 0.125 = -0.0357$, so v = -28 cm.\n\nThe negative sign means the image is real and formed on the side from which the light came, that is 28 cm from the secondary, back towards the primary. Since the primary is 22 cm from the secondary, the final image is 28 - 22 = 6.0 cm behind the primary, reached through its central hole, where the eyepiece is placed.", "answer": "A real image 6.0 cm behind the primary mirror (28 cm from the secondary)." },
+      { "type": "TABLE", "caption": "Refracting and reflecting astronomical telescopes", "columns": ["Feature", "Refracting telescope", "Reflecting telescope"], "rows": [
+        ["Objective", "Large converging lens", "Large concave (paraboloidal) mirror"],
+        ["Chromatic aberration", "Present", "Absent"],
+        ["Spherical aberration", "Present unless corrected", "Removed by paraboloidal shape"],
+        ["Support of objective", "Only at the rim; large lenses sag", "Over the whole back; very large mirrors possible"],
+        ["Surfaces to be finished", "Two surfaces and a flawless interior", "One reflecting surface"],
+        ["Magnifying power (normal adjustment)", "fo/fe", "fo/fe (fo = R/2 of primary)"],
+        ["Typical largest apertures", "About 1 m", "About 10 m"]
+      ] },
+
+      { "type": "HEADING", "text": "Magnifying powers compared" },
+      { "type": "TABLE", "caption": "Compound microscope compared with astronomical telescope", "columns": ["Feature", "Compound microscope", "Astronomical telescope"], "rows": [
+        ["Purpose", "Magnify tiny nearby objects", "Magnify the angle of distant objects"],
+        ["Objective", "Very short focal length, small aperture", "Very long focal length, large aperture"],
+        ["Eyepiece", "Short focal length (larger than objective's)", "Short focal length (much smaller than objective's)"],
+        ["Object position", "Just beyond Fo", "Effectively at infinity"],
+        ["First image", "Real, inverted, magnified", "Real, inverted, diminished, at Fo"],
+        ["m, final image at infinity", "(L/fo)(D/fe)", "fo/fe"],
+        ["m, final image at near point", "(vo/|uo|)(1 + D/fe)", "(fo/fe)(1 + fe/D)"],
+        ["Lens separation (normal adjustment)", "vo + fe", "fo + fe"],
+        ["Final image", "Virtual, inverted", "Virtual, inverted"]
+      ] },
+      { "type": "IMPORTANT_FACT", "text": "In a microscope the objective has the shorter focal length; in a telescope the objective has the longer focal length. If the lenses of a telescope are interchanged, its magnifying power becomes fe/fo, which is less than 1, so it diminishes instead of magnifying." },
+      { "type": "CALLOUT", "text": "Exam tips: (1) Normal adjustment means final image at infinity: use D/fe for the eyepiece of a microscope and fo/fe for a telescope. (2) Near-point setting adds 1 inside the bracket: 1 + D/fe for microscopes, 1 + fe/D for telescopes. (3) Telescope length questions: normal adjustment length = fo + fe. (4) Light-gathering power depends on the square of the objective diameter, not on the focal lengths." },
+      { "type": "KEY_POINT", "text": "Revision: simple microscope m = 1 + D/f or D/f; compound microscope m = mo me ≈ (L/fo)(D/fe); telescope m = fo/fe (normal) or (fo/fe)(1 + fe/D); reflecting telescope uses a paraboloidal concave mirror (fo = R/2), free of chromatic aberration; Cassegrain uses a convex secondary and a hole in the primary." }
+    ]
+  },
+  "diagrams": [
+    { "key": "simple-microscope", "file": "diagrams/ug26-322-u6-optical-instruments-simple-microscope.svg", "alt": "Simple microscope: object inside the focal point of a convex lens forming a virtual, erect, magnified image at the near point", "caption": "Simple microscope: the object is inside F1 and the virtual, erect, magnified image is at the near point D = 25 cm (drawn for m = 4).", "description": "A convex lens with optical centre O and focal points F1 and F2 on the axis. A small green object stands between F1 and the lens. A ray parallel to the axis refracts through F2, and a ray through O goes straight; both diverge towards the eye on the right. Their dashed backward extensions meet far to the left at the top of a large red dashed upright image, 25 cm (D) from the lens." },
+    { "key": "compound-microscope", "file": "diagrams/ug26-322-u6-optical-instruments-compound-microscope.svg", "alt": "Compound microscope ray diagram with objective, eyepiece, first real image A'B' and final virtual image A''B''", "caption": "Compound microscope: the objective forms a real, inverted, magnified image A'B'; the eyepiece forms the final virtual image A''B'' at the near point.", "description": "On the left a small object just beyond the focal point Fo of a short-focus objective lens. Two rays from the object tip pass through the objective and meet below the axis at the first image A'B', which lies just inside the first focal point Fe of the larger eyepiece on the right. The rays continue through the eyepiece and travel upward to the eye; dashed backward extensions meet at the large inverted final image A''B''. The tube length L is marked between Fo' and Fe." },
+    { "key": "refracting-telescope", "file": "diagrams/ug26-322-u6-optical-instruments-refracting-telescope.svg", "alt": "Refracting astronomical telescope in normal adjustment with parallel rays at angle alpha in and parallel rays at angle beta out", "caption": "Refracting telescope in normal adjustment: the objective focuses a parallel beam to a small inverted image at the common focus; the eyepiece sends it out as a parallel beam at a larger angle β.", "description": "Three parallel blue rays from the top of a distant object enter a large objective lens on the left at a small angle alpha below the horizontal. They converge to a small inverted image at the common focal point Fo = Fe, then diverge to a smaller eyepiece on the right and emerge as three parallel rays sloping upward at a larger angle beta towards the eye. Distances fo and fe are marked; the figure is drawn for fo = 4fe." },
+    { "key": "cassegrain", "file": "diagrams/ug26-322-u6-optical-instruments-cassegrain.svg", "alt": "Cassegrain reflecting telescope with concave primary mirror, convex secondary mirror and eyepiece behind a hole in the primary", "caption": "Cassegrain telescope: the convex secondary intercepts the beam converging to F1 and sends it back through the hole in the primary to a focus F2 at the eyepiece.", "description": "Two parallel rays from a distant star travel right to a large concave primary mirror with a central hole. They reflect towards the primary focus F1 but are intercepted by a small convex secondary mirror before F1 (dashed lines continue to F1). The secondary reflects them back to the right, through the hole in the primary, to a focus F2 just behind it, followed by an eyepiece and the eye." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u6-optical-instruments-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "A convex lens of focal length 5 cm is used as a simple microscope. Its maximum magnifying power (final image at the near point, D = 25 cm) is",
+      "options": ["5", "6", "25", "4"], "answer": 2,
+      "explanation": "The largest magnifying power of a simple microscope is obtained when the final image is at the near point: m = 1 + D/f = 1 + 25/5 = 6. With the image at infinity it would be D/f = 5, one less.",
+      "optionRationale": { "1": "This is the magnifying power for the image at infinity (normal adjustment), not the maximum.", "3": "This is D in centimetres, not a magnifying power.", "4": "Obtained by subtracting 1 instead of adding it." },
+      "objective": "Calculate the maximum magnifying power of a simple microscope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q02", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "A reading lens has a power of +10 D. As the user moves it so that the final image shifts from infinity to the near point (25 cm), the magnifying power changes between",
+      "options": ["10 and 11", "0.25 and 1.25", "2.5 and 25", "2.5 and 3.5"], "answer": 4,
+      "explanation": "Power +10 D means f = 1/10 m = 10 cm. With the image at infinity m = D/f = 25/10 = 2.5; with the image at the near point m = 1 + D/f = 3.5. Any intermediate image position gives a value between these two.",
+      "optionRationale": { "1": "Treats the power in dioptres as the magnifying power.", "2": "Uses f in metres with D in centimetres, mixing units.", "3": "The upper limit is 1 + D/f, not D itself." },
+      "objective": "Relate lens power to the range of magnifying power of a magnifier"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q03", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In a compound microscope, the objective lens should have",
+      "options": ["a short focal length and a small aperture", "a long focal length and a large aperture", "a long focal length and a small aperture", "the same focal length as the eyepiece"], "answer": 1,
+      "explanation": "The objective's linear magnification is about L/fo, so a very short focal length gives a large magnified first image. The object is very close and tiny, so a small aperture suffices and keeps aberrations low. A long focal length and large aperture are the requirements of a telescope objective instead.",
+      "optionRationale": { "2": "These are the properties of a telescope objective.", "3": "A long focal length would make the objective's magnification small.", "4": "Equal focal lengths are not required; the objective is usually shorter." },
+      "objective": "Identify the design requirements of a microscope objective"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q04", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A compound microscope has an objective of focal length 0.5 cm, an eyepiece of focal length 2.5 cm and a tube length of 15 cm. Its magnifying power in normal adjustment is about",
+      "options": ["30", "40", "300", "330"], "answer": 3,
+      "explanation": "In normal adjustment m ≈ (L/fo)(D/fe). L/fo = 15/0.5 = 30 and D/fe = 25/2.5 = 10, so m = 30 × 10 = 300. The final image is at infinity and inverted.",
+      "optionRationale": { "1": "This is only the objective's contribution L/fo.", "2": "Adds the two contributions (30 + 10) instead of multiplying.", "4": "Uses 1 + D/fe = 11 for the eyepiece, which applies to the near-point setting." },
+      "objective": "Apply the normal-adjustment formula for a compound microscope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q05", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "In a compound microscope the objective (focal length 1.0 cm) forms an image of an object placed 1.2 cm from it. The eyepiece has a focal length of 3.0 cm and the final image is formed at the near point (25 cm). The magnifying power is about",
+      "options": ["41.7", "46.7", "5.0", "56.0"], "answer": 2,
+      "explanation": "Objective: 1/vo = 1/1.0 − 1/1.2 = 1/6, so vo = 6.0 cm and |mo| = 6.0/1.2 = 5. Eyepiece at the near-point setting: me = 1 + 25/3.0 = 9.33. Total m = 5 × 9.33 ≈ 46.7 (final image inverted).",
+      "optionRationale": { "1": "Uses D/fe = 8.33 for the eyepiece, which is the normal-adjustment value.", "3": "This is only the objective's magnification.", "4": "Multiplies vo (6.0 cm) by me instead of using vo/|uo|." },
+      "objective": "Compute the magnifying power of a compound microscope from object distance"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q06", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The objective of a compound microscope is made of very short focal length.\nReason (R): The linear magnification produced by the objective is approximately L/fo, so a smaller fo produces a larger first image.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 1,
+      "explanation": "The total magnifying power is (L/fo)(D/fe). For a given tube length the objective's contribution L/fo grows as fo becomes smaller, which is precisely why objectives have focal lengths of a few millimetres. A is true and R gives the correct reason.",
+      "optionRationale": { "2": "R is the actual reason for the design choice in A.", "3": "R correctly states mo ≈ L/fo.", "4": "A is a correct design feature of microscopes." },
+      "objective": "Explain why microscope objectives have short focal lengths"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q07", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "An astronomical telescope in normal adjustment has an objective of focal length 100 cm and an eyepiece of focal length 4 cm. Its magnifying power and the distance between the lenses are",
+      "options": ["25 and 96 cm", "0.04 and 104 cm", "25 and 104 cm", "400 and 104 cm"], "answer": 3,
+      "explanation": "In normal adjustment m = fo/fe = 100/4 = 25 and the separation is fo + fe = 100 + 4 = 104 cm, since the image formed by the objective lies at the common focal point of the two lenses.",
+      "optionRationale": { "1": "The length is fo + fe, not fo − fe.", "2": "fe/fo is the result if the lenses are interchanged.", "4": "Multiplies the focal lengths instead of dividing." },
+      "objective": "Calculate magnifying power and length of a telescope in normal adjustment"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q08", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A telescope has an objective of focal length 90 cm and an eyepiece of focal length 5 cm. If the final image is formed at the near point (25 cm), the magnifying power is",
+      "options": ["21.6", "18.0", "19.0", "108"], "answer": 1,
+      "explanation": "For the near-point setting m = (fo/fe)(1 + fe/D) = (90/5)(1 + 5/25) = 18 × 1.2 = 21.6. This is larger than the normal-adjustment value of 18 because the first image is brought inside the focal point of the eyepiece.",
+      "optionRationale": { "2": "This is the normal-adjustment value fo/fe.", "3": "Adds 1 to fo/fe instead of multiplying by (1 + fe/D).", "4": "Uses the microscope-type factor (1 + D/fe) = 6." },
+      "objective": "Apply the near-point formula for an astronomical telescope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q09", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "An astronomical telescope in normal adjustment is 105 cm long and has a magnifying power of 20. The focal lengths of the objective and eyepiece are",
+      "options": ["fo = 84 cm, fe = 21 cm", "fo = 95 cm, fe = 10 cm", "fo = 20 cm, fe = 85 cm", "fo = 100 cm, fe = 5 cm"], "answer": 4,
+      "explanation": "Normal adjustment gives fo + fe = 105 cm and fo/fe = 20. Substituting fo = 20fe: 21fe = 105, so fe = 5 cm and fo = 100 cm. Check: 100/5 = 20 and 100 + 5 = 105 cm.",
+      "optionRationale": { "1": "These add to 105 but their ratio is only 4.", "2": "These add to 105 but their ratio is 9.5.", "3": "The objective must have the longer focal length." },
+      "objective": "Solve for focal lengths from telescope length and magnifying power"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q10", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Which of the following are advantages of a reflecting telescope over a refracting telescope of the same aperture?\nA. Its objective produces no chromatic aberration.\nB. A paraboloidal mirror objective is free from spherical aberration.\nC. The mirror can be supported over its entire back surface, so very large apertures are practical.\nD. It always gives an erect final image.",
+      "options": ["A and B only", "A, B and C only", "B, C and D only", "A, C and D only"], "answer": 2,
+      "explanation": "A: reflection is independent of wavelength, so a mirror has no chromatic aberration. B: a paraboloidal mirror focuses all parallel axial rays to one point. C: support over the whole back stops sagging, so mirrors of several metres can be built. D is false: an astronomical reflecting telescope, like a refractor, gives an inverted image.",
+      "optionRationale": { "1": "Leaves out C, a major practical advantage.", "3": "Includes D, which is false, and omits A.", "4": "Includes D and omits B." },
+      "objective": "List the advantages of reflecting telescopes"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q11", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The objective of an astronomical telescope is given a large aperture.\nReason (R): A larger aperture increases the magnifying power of the telescope.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 3,
+      "explanation": "A large aperture is used so that the objective gathers more light (proportional to the square of its diameter) and resolves finer detail, which lets faint and close objects be seen. The magnifying power fo/fe does not depend on the aperture at all, so R is false.",
+      "optionRationale": { "1": "R is false: magnifying power depends on the focal lengths only.", "2": "R is not true, so this option fails.", "4": "A is true; large apertures are standard for telescope objectives." },
+      "objective": "Distinguish the roles of aperture and focal length in a telescope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q12", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): In normal adjustment, the final image formed by an astronomical telescope is at infinity.\nReason (R): In normal adjustment, the image formed by the objective lies at the first focal point of the eyepiece.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 1,
+      "explanation": "Rays diverging from a point in the first focal plane of a converging lens leave it parallel. Because the objective's image lies at the eyepiece's focal point, every bundle emerges parallel and the final image is at infinity, viewed with a relaxed eye. So R correctly explains A.",
+      "optionRationale": { "2": "R is the direct reason the final image is at infinity.", "3": "R correctly describes normal adjustment.", "4": "A correctly describes normal adjustment." },
+      "objective": "Explain normal adjustment of a telescope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q13", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "analytical",
+      "stem": "Assertion (A): If the objective and eyepiece of an astronomical telescope are interchanged, the instrument has the same magnifying power.\nReason (R): The magnifying power of a telescope in normal adjustment is fo/fe.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 4,
+      "explanation": "R is the standard result m = fo/fe. Interchanging the lenses makes the new 'objective' the short-focus lens, so the magnifying power becomes fe/fo, the reciprocal, which is less than 1. The instrument then makes distant objects look smaller, so A is false.",
+      "optionRationale": { "1": "A is false; the power becomes the reciprocal.", "2": "A is false, so both cannot be true.", "3": "R is the correct formula; it is A that is false." },
+      "objective": "Analyse the effect of interchanging telescope lenses"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q14", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each instrument setting in List-I with its magnifying power in List-II (D = least distance of distinct vision).",
+      "list": { "left": ["A. Simple microscope, image at infinity", "B. Compound microscope, normal adjustment", "C. Astronomical telescope, normal adjustment", "D. Astronomical telescope, image at near point"], "right": ["I. fo/fe", "II. D/f", "III. (fo/fe)(1 + fe/D)", "IV. (L/fo)(D/fe)"] },
+      "options": ["A-IV, B-II, C-III, D-I", "A-II, B-IV, C-III, D-I", "A-II, B-IV, C-I, D-III", "A-I, B-III, C-II, D-IV"], "answer": 3,
+      "explanation": "A simple microscope with the image at infinity gives D/f (A-II). A compound microscope in normal adjustment gives (L/fo)(D/fe) (B-IV). A telescope in normal adjustment gives fo/fe (C-I), and with the image at the near point (fo/fe)(1 + fe/D) (D-III).",
+      "optionRationale": { "1": "Swaps the two microscope formulas and the two telescope formulas.", "2": "Swaps the two telescope settings.", "4": "Every pair is mismatched." },
+      "objective": "Recall magnifying power formulas for optical instruments"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q15", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "refracting-telescope",
+      "stem": "The telescope in the figure has fo = 60 cm and fe = 15 cm and is in normal adjustment. If the eyepiece is replaced by one of focal length 7.5 cm and the telescope is again set for normal adjustment, its magnifying power and length become",
+      "options": ["4 and 75 cm", "8 and 67.5 cm", "8 and 75 cm", "2 and 67.5 cm"], "answer": 2,
+      "explanation": "Initially m = 60/15 = 4 and length = 75 cm. With fe = 7.5 cm, m = fo/fe = 60/7.5 = 8, and the eyepiece must be moved so that its focal point again coincides with the objective's focus: length = 60 + 7.5 = 67.5 cm. Halving fe doubles the angle β in the figure.",
+      "optionRationale": { "1": "These are the original values before the change.", "3": "The length must be reduced to fo + new fe.", "4": "Halving fe doubles, not halves, the magnifying power." },
+      "objective": "Predict the effect of changing the eyepiece of a telescope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q16", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "compound-microscope",
+      "stem": "In the figure the first image A'B' lies just inside the first focal point Fe of the eyepiece, so the final image A''B'' is at the near point. To switch the microscope to normal adjustment (final image at infinity), where must A'B' be formed?",
+      "options": ["At the second focal point of the objective", "At the optical centre of the eyepiece", "At twice the focal length of the eyepiece", "Exactly at the first focal point Fe of the eyepiece"], "answer": 4,
+      "explanation": "An object at the first focal point of a converging lens sends out parallel rays, so its image is at infinity. Placing A'B' exactly at Fe (by moving the eyepiece slightly away) gives a final image at infinity, and the eyepiece magnification becomes D/fe instead of 1 + D/fe.",
+      "optionRationale": { "1": "The first image is formed far beyond the objective's focal point, near the eyepiece.", "2": "An object at the lens would give an image at the lens with no magnification.", "3": "An object at 2fe gives a real, same-size image, not one at infinity." },
+      "objective": "Relate the position of the first image to the final image in a microscope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q17", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "In a Cassegrain telescope the light reflected by the concave primary would converge at its focus F1, but a convex secondary mirror of focal length 12 cm intercepts it 10 cm before F1. The secondary is 30 cm in front of the primary. Where is the final image formed?",
+      "options": ["30 cm behind the primary mirror", "60 cm behind the primary mirror", "10 cm in front of the secondary mirror", "At the focus F1 of the primary"], "answer": 1,
+      "explanation": "For the secondary, F1 is a virtual object 10 cm beyond it: u = +10 cm (direction of the converging light taken positive), f = +12 cm. 1/v = 1/12 − 1/10 = −1/60, so v = −60 cm: a real image 60 cm from the secondary, back towards the primary. The primary is 30 cm away, so the image is 60 − 30 = 30 cm behind the primary, through its hole.",
+      "optionRationale": { "2": "This is the distance from the secondary, not from the primary.", "3": "Treats the virtual object distance as the image distance.", "4": "The secondary intercepts the beam, so the light never reaches F1." },
+      "objective": "Locate the final image in a Cassegrain telescope using the mirror formula"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q18", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The objective of a Newtonian reflecting telescope is a concave mirror of radius of curvature 5.0 m. With an eyepiece of focal length 2.0 cm, its magnifying power in normal adjustment is",
+      "options": ["250", "2.5", "125", "62.5"], "answer": 3,
+      "explanation": "The focal length of the mirror is fo = R/2 = 5.0/2 = 2.5 m = 250 cm. Magnifying power m = fo/fe = 250/2.0 = 125. Using R instead of R/2 is the most common error here.",
+      "optionRationale": { "1": "Uses the radius of curvature R instead of fo = R/2.", "2": "Mixes metres and centimetres.", "4": "Uses fo = R/4, halving once too often." },
+      "objective": "Calculate the magnifying power of a reflecting telescope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q19", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "If the diameter of a telescope's objective is doubled while its focal length is unchanged, the amount of light it collects from a star becomes",
+      "options": ["half", "the same", "twice as much", "four times as much"], "answer": 4,
+      "explanation": "Light collected is proportional to the area of the objective, which is proportional to the square of its diameter. Doubling the diameter multiplies the area by 2² = 4, so four times as much light is gathered. The magnifying power fo/fe is unchanged.",
+      "optionRationale": { "1": "A larger objective collects more light, not less.", "2": "Only the magnifying power stays the same; light-gathering increases.", "3": "Light-gathering depends on area (diameter squared), not on diameter." },
+      "objective": "Relate light-gathering power to objective aperture"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-q20", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A compound microscope in normal adjustment has an objective of focal length 1.0 cm and an eyepiece of focal length 2.0 cm placed 20 cm apart. Its magnifying power (D = 25 cm) is about",
+      "options": ["212", "225", "250", "17"], "answer": 1,
+      "explanation": "Normal adjustment: the first image is at Fe, so vo = 20 − 2.0 = 18 cm. Then 1/uo = 1/18 − 1/1.0, so |uo| = 18/17 cm and |mo| = 18/(18/17) = 17 (equal to L/fo with L = 20 − 1 − 2 = 17 cm). Eyepiece: D/fe = 12.5. Total m = 17 × 12.5 = 212.5.",
+      "optionRationale": { "2": "Uses vo = 18 cm in place of the objective magnification.", "3": "Takes the lens separation 20 cm as the tube length.", "4": "This is only the objective's magnification." },
+      "objective": "Find object distance and magnifying power of a microscope in normal adjustment"
+    }
+  ]
+}

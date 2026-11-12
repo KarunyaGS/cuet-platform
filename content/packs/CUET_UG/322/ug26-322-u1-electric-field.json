@@ -1,0 +1,300 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_13825fd8eba54af8837b4c9a4512a881",
+    "title": "Electric field, electric field lines electric field due to a point charge, electric field due to a"
+  },
+  "lesson": {
+    "key": "ug26-322-u1-electric-field",
+    "title": "Electric field, field lines, fields of a point charge and a dipole, and torque on a dipole",
+    "coverage": [
+      { "phrase": "Electric field", "section": "The electric field and its definition" },
+      { "phrase": "Electric field lines", "section": "Electric field lines" },
+      { "phrase": "Electric field due to a point charge", "section": "Electric field due to a point charge" },
+      { "phrase": "Electric field due to a dipole", "section": "Electric field due to an electric dipole" },
+      { "phrase": "Torque on a dipole in a uniform electric field", "section": "Torque on an electric dipole in a uniform electric field" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "The electric field and its definition" },
+      { "type": "TEXT", "text": "Coulomb's law tells us the force between two charges, but it does not say how one charge \"knows\" that the other is there. Physics answers this with the idea of a **field**. A charge (the **source charge**) changes the space around it by setting up an electric field. Any other charge placed in that space feels a force because of the field at its own location. The field exists at every point around the source whether or not another charge is present to feel it.\n\nTo measure the field at a point we place a small positive **test charge** $q_0$ there and measure the force on it. Dividing by $q_0$ gives a quantity that depends only on the source charges and the position of the point, not on the test charge." },
+      { "type": "DEFINITION", "term": "Electric field (electric field intensity)", "text": "The electric field at a point is the force experienced per unit positive test charge placed at that point, the test charge being so small that it does not disturb the charges producing the field: $\\vec{E} = \\lim_{q_0 \\to 0} \\frac{\\vec{F}}{q_0}$. It is a vector. SI unit: newton per coulomb (N C⁻¹), which is the same as volt per metre (V m⁻¹)." },
+      { "type": "FORMULA", "latex": "\\vec{E} = \\frac{\\vec{F}}{q_0}, \\qquad \\vec{F} = q\\vec{E}", "text": "E = electric field (N C⁻¹); F = force on the test charge (N); q₀ = small positive test charge (C). Once E is known, the force on ANY charge q placed at that point is F = qE: along E if q is positive, opposite to E if q is negative." },
+      { "type": "TEXT", "text": "**Why must the test charge be small?** A large test charge would push or pull the source charges (for example, redistribute the charge on a nearby conductor) and so change the very field we are trying to measure. Note that the field itself does **not** depend on the test charge: doubling $q_0$ doubles $\\vec{F}$, and the ratio stays the same.\n\n**Physical significance.** The field picture separates a problem into two steps: (1) the sources create a field; (2) the field acts on whatever charge is placed in it. In electrostatics this is just a convenient bookkeeping device, but for changing charges and currents the field becomes a physical reality: changes in the field travel outwards at the speed of light, and electromagnetic fields carry energy and momentum. This is why the field concept is central to the rest of electricity and magnetism.\n\n**Motion of a charge in a uniform field.** A charge q of mass m in a uniform field E feels a constant force qE, so it has constant acceleration $a = \\frac{qE}{m}$. Electrons accelerate opposite to E; protons accelerate along E. Because the electron's mass is so small, its acceleration is enormous." },
+      { "type": "SOLVED_PROBLEM", "problem": "An electron is placed in a uniform electric field of $2 \\times 10^{4}\\,\\text{N C}^{-1}$ directed vertically upward. Find (a) the force on it, (b) its acceleration, and (c) the acceleration a proton would have in the same field. ($m_e = 9.1 \\times 10^{-31}\\,\\text{kg}$, $m_p = 1.67 \\times 10^{-27}\\,\\text{kg}$)", "solution": "Step 1 (force): $F = |q|E = (1.6 \\times 10^{-19})(2 \\times 10^{4}) = 3.2 \\times 10^{-15}\\,\\text{N}$. The electron is negative, so the force is **downward**, opposite to the field.\n\nStep 2 (electron's acceleration): $a_e = \\frac{F}{m_e} = \\frac{3.2 \\times 10^{-15}}{9.1 \\times 10^{-31}} \\approx 3.5 \\times 10^{15}\\,\\text{m s}^{-2}$, downward. Gravity ($9.8\\,\\text{m s}^{-2}$) is completely negligible in comparison.\n\nStep 3 (proton): the proton feels the same size of force but upward (along E), and its mass is about 1836 times larger: $a_p = \\frac{3.2 \\times 10^{-15}}{1.67 \\times 10^{-27}} \\approx 1.9 \\times 10^{12}\\,\\text{m s}^{-2}$, upward.", "answer": "(a) $3.2 \\times 10^{-15}$ N downward; (b) about $3.5 \\times 10^{15}\\,\\text{m s}^{-2}$ downward; (c) about $1.9 \\times 10^{12}\\,\\text{m s}^{-2}$ upward." },
+      { "type": "HEADING", "text": "Electric field due to a point charge" },
+      { "type": "TEXT", "text": "Place a test charge $q_0$ at distance r from a point charge q. By Coulomb's law the force on it is $\\vec{F} = \\frac{1}{4\\pi\\varepsilon_0}\\frac{q q_0}{r^2}\\hat{r}$, where $\\hat{r}$ is the unit vector from q towards the point. Dividing by $q_0$ gives the field of the point charge." },
+      { "type": "FORMULA", "latex": "\\vec{E} = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{q}{r^2}\\,\\hat{r}, \\qquad E = \\frac{k|q|}{r^2}", "text": "E = field at distance r from the point charge q (N C⁻¹); r̂ = unit vector from the charge to the point; k = 1/(4πε₀) = 9 × 10⁹ N m² C⁻². For q > 0 the field points radially outward; for q < 0 it points radially inward." },
+      { "type": "TEXT", "text": "**Features of the point-charge field**\n\n- It is **radial**: along the line from the charge to the point.\n- It is **spherically symmetric**: the same magnitude at every point of a sphere centred on the charge.\n- It obeys an **inverse-square law**: $E \\propto \\frac{1}{r^2}$. Doubling the distance makes the field one quarter; tripling it makes it one ninth.\n- It becomes very large near the charge and tends to zero far away.\n\n**Field of a system of charges (superposition).** The fields of several charges simply add as vectors:\n$$\\vec{E} = \\vec{E}_1 + \\vec{E}_2 + \\dots = \\frac{1}{4\\pi\\varepsilon_0}\\sum_i \\frac{q_i}{r_i^2}\\hat{r}_i$$\nwhere $r_i$ is the distance from charge $q_i$ to the point and $\\hat{r}_i$ points from $q_i$ to the point. Work out each field's magnitude and direction separately (away from positive charges, towards negative charges), then add them as vectors." },
+      { "type": "SOLVED_PROBLEM", "problem": "Point charges of $+4\\,\\mu\\text{C}$ and $-4\\,\\mu\\text{C}$ are 20 cm apart in air. Find the electric field at the midpoint between them.", "solution": "Step 1 (distances): the midpoint is 0.10 m from each charge.\n\nStep 2 (each field): $E_1 = E_2 = \\frac{kq}{r^2} = \\frac{(9 \\times 10^{9})(4 \\times 10^{-6})}{(0.10)^2} = 3.6 \\times 10^{6}\\,\\text{N C}^{-1}$.\n\nStep 3 (directions): the field of the positive charge points away from it, towards the negative charge. The field of the negative charge points towards the negative charge. Both point the **same way**.\n\nStep 4 (add): $E = 3.6 \\times 10^{6} + 3.6 \\times 10^{6} = 7.2 \\times 10^{6}\\,\\text{N C}^{-1}$, directed from the positive charge towards the negative charge. (In general the midpoint field of $\\pm q$ separated by d is $\\frac{8kq}{d^2}$.)", "answer": "$7.2 \\times 10^{6}\\,\\text{N C}^{-1}$, pointing towards the $-4\\,\\mu\\text{C}$ charge." },
+      { "type": "SOLVED_PROBLEM", "problem": "A charge of $+4\\,\\text{nC}$ is at the point (0.3 m, 0) and a charge of $-3\\,\\text{nC}$ is at (0, 0.3 m). Find the magnitude and direction of the electric field at the origin.", "solution": "Step 1 (field of the +4 nC charge): distance 0.3 m, so $E_1 = \\frac{(9 \\times 10^{9})(4 \\times 10^{-9})}{0.09} = 400\\,\\text{N C}^{-1}$. It points away from the charge, which from the origin is along the $-x$ direction.\n\nStep 2 (field of the −3 nC charge): $E_2 = \\frac{(9 \\times 10^{9})(3 \\times 10^{-9})}{0.09} = 300\\,\\text{N C}^{-1}$. It points towards the negative charge, along $+y$.\n\nStep 3 (resultant of perpendicular fields): $E = \\sqrt{400^2 + 300^2} = 500\\,\\text{N C}^{-1}$.\n\nStep 4 (direction): $\\tan\\alpha = \\frac{300}{400}$, so $\\alpha \\approx 36.9^\\circ$ measured from the $-x$ direction towards $+y$.", "answer": "$500\\,\\text{N C}^{-1}$, at about $36.9^\\circ$ from the $-x$ axis, tilted towards $+y$." },
+      { "type": "CALLOUT", "text": "**Common mistakes with fields of point charges.**\n\n- Using the sign of q in the magnitude formula and then also flipping the direction: use $|q|$ for the size and decide the direction from the sign.\n- Forgetting that the field of a negative charge points **towards** it.\n- Adding field magnitudes of charges in different directions as plain numbers. Fields are vectors.\n- Between two **unlike** charges the fields add; between two **like** charges they subtract (and the field is zero at the neutral point between equal like charges)." },
+      { "type": "HEADING", "text": "Electric field lines" },
+      { "type": "DEFINITION", "term": "Electric field line", "text": "An imaginary curve drawn in a region of electric field such that the tangent to it at any point gives the direction of the electric field at that point. The arrow on the line shows the direction in which a free positive test charge would be pushed." },
+      { "type": "TEXT", "text": "Field lines, introduced by Michael Faraday, give a picture of a field at a glance. They show **direction** through their tangents and **strength** through how crowded they are: where lines are close together the field is strong, and where they spread apart it is weak. For a point charge, the lines spread over spheres of area $4\\pi r^2$, so the number crossing unit area falls as $\\frac{1}{r^2}$, exactly matching the inverse-square law. This is why the picture works in three dimensions.\n\nThe number of lines drawn from or into a charge is chosen proportional to the size of the charge. So if 12 lines leave $q_1$ and 6 end on $q_2$, then $|q_1| = 2|q_2|$." },
+      { "type": "DIAGRAM", "diagram": "field-lines-basic" },
+      { "type": "TABLE", "caption": "Properties of electrostatic field lines", "columns": ["Property", "Reason"], "rows": [
+        ["Start on positive charges and end on negative charges (or start/end at infinity for a single charge)", "The field points away from positive and towards negative charges"],
+        ["Continuous, smooth curves in a charge-free region", "The field changes smoothly from point to point"],
+        ["Two field lines never cross", "At a crossing the field would have two directions at the same point, which is impossible"],
+        ["Do not form closed loops", "The electrostatic field is conservative"],
+        ["Closer lines mean a stronger field", "Line density is proportional to E"],
+        ["Parallel, equally spaced lines mean a uniform field", "E has the same magnitude and direction everywhere"],
+        ["Meet the surface of a conductor at right angles", "In equilibrium there is no field component along a conductor's surface"]
+      ] },
+      { "type": "DIAGRAM", "diagram": "field-lines-pairs" },
+      { "type": "TEXT", "text": "**Reading the two pictures above.**\n\n- **Dipole (−q and +q):** every line that leaves +q curves round and ends on −q. Lines are crowded between the charges (strong field) and the field on the perpendicular bisector is parallel to the axis, pointing from the + side towards the − side.\n- **Two equal positive charges:** the lines repel each other and bend away; no line passes from one charge to the other. Midway between the charges the two fields cancel exactly: this is the **neutral point N**, where $E = 0$ and no line passes.\n\nField lines are **not** the paths of charged particles in general. A particle released from rest moves along a straight field line, but on a curved line its inertia carries it off the line." },
+      { "type": "CALLOUT", "text": "**Exam tips on field lines.**\n\n- \"Lines never cross\" and \"lines never form closed loops\" are the two most-asked properties; know the reason for each.\n- From a diagram, the charge with more lines attached has the larger magnitude; lines leaving show positive, lines entering show negative.\n- Uniform field = parallel and equally spaced. Converging or diverging lines mean a non-uniform field." },
+      { "type": "HEADING", "text": "Electric field due to an electric dipole" },
+      { "type": "TEXT", "text": "An electric dipole is a pair of charges +q and −q separated by 2a, with dipole moment $\\vec{p} = q(2\\vec{a})$ pointing from −q to +q. The net charge is zero, but the field is not, because any point is at different distances from the two charges. We find the field by superposition at two important positions." },
+      { "type": "DIAGRAM", "diagram": "dipole-field" },
+      { "type": "TEXT", "text": "**(a) Point P on the axial line**, at distance r from the centre O, on the side of +q. The charge +q is at distance $(r - a)$ and its field points away from it, along $\\vec{p}$. The charge −q is at distance $(r + a)$ and its field points towards it, opposite to $\\vec{p}$. The nearer charge wins:\n$$E_{\\text{axial}} = \\frac{kq}{(r - a)^2} - \\frac{kq}{(r + a)^2} = kq\\,\\frac{(r + a)^2 - (r - a)^2}{(r^2 - a^2)^2} = \\frac{kq\\,(4ar)}{(r^2 - a^2)^2} = \\frac{2kp\\,r}{(r^2 - a^2)^2}$$\nFor a short dipole ($r \\gg a$), $r^2 - a^2 \\approx r^2$, so $E_{\\text{axial}} \\approx \\frac{2kp}{r^3}$, directed **along** $\\vec{p}$.\n\n**(b) Point Q on the equatorial line** (perpendicular bisector), at distance r from O. Both charges are at the same distance $\\sqrt{r^2 + a^2}$, so the two fields have equal magnitude $\\frac{kq}{r^2 + a^2}$. The field of +q points away from +q and the field of −q points towards −q. Their components perpendicular to the axis cancel, and their components parallel to the axis add, both pointing from the + side to the − side. Each component is the magnitude times $\\cos\\theta = \\frac{a}{\\sqrt{r^2 + a^2}}$:\n$$E_{\\text{eq}} = 2\\cdot\\frac{kq}{r^2 + a^2}\\cdot\\frac{a}{\\sqrt{r^2 + a^2}} = \\frac{kp}{(r^2 + a^2)^{3/2}}$$\nFor $r \\gg a$, $E_{\\text{eq}} \\approx \\frac{kp}{r^3}$, directed **opposite** to $\\vec{p}$." },
+      { "type": "FORMULA", "latex": "\\vec{E}_{\\text{axial}} = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{2\\vec{p}}{r^3}, \\qquad \\vec{E}_{\\text{equatorial}} = -\\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{\\vec{p}}{r^3} \\qquad (r \\gg a)", "text": "Fields of a short dipole of moment p at distance r from its centre. On the axis the field is along p and twice as strong as on the equatorial line, where it is opposite to p. Units: p in C m, r in m, E in N C⁻¹." },
+      { "type": "TABLE", "caption": "Point charge versus short dipole", "columns": ["Feature", "Point charge q", "Short dipole p"], "rows": [
+        ["Net charge", "q", "Zero"],
+        ["Dependence on distance", "E ∝ 1/r²", "E ∝ 1/r³"],
+        ["Field on the axis", "kq/r², radial", "2kp/r³, along p"],
+        ["Field on the equatorial line", "Not applicable (no axis)", "kp/r³, opposite to p"],
+        ["Symmetry", "Spherical", "Axial (about the dipole axis)"],
+        ["Ratio axial : equatorial at the same r", "Not applicable", "2 : 1"]
+      ] },
+      { "type": "IMPORTANT_FACT", "text": "At a general point at distance r from a short dipole, where the line from the centre makes angle θ with $\\vec{p}$, the field magnitude is $E = \\frac{kp}{r^3}\\sqrt{3\\cos^2\\theta + 1}$. Putting $\\theta = 0$ gives the axial value $\\frac{2kp}{r^3}$ and $\\theta = 90^\\circ$ gives the equatorial value $\\frac{kp}{r^3}$. At the exact centre of a dipole (between the charges) the field is $\\frac{2kq}{a^2}$, directed from +q to −q, i.e. opposite to $\\vec{p}$; it is not zero even though the net charge is zero." },
+      { "type": "SOLVED_PROBLEM", "problem": "Charges of $+5\\,\\text{nC}$ and $-5\\,\\text{nC}$ are 4 mm apart. Find (a) the dipole moment, (b) the field at a point on the axis 20 cm from the centre, and (c) the field at a point on the equatorial line 20 cm from the centre.", "solution": "Step 1 (dipole moment): $p = q(2a) = (5 \\times 10^{-9})(4 \\times 10^{-3}) = 2 \\times 10^{-11}\\,\\text{C m}$.\n\nStep 2 (check the short-dipole condition): $a = 2\\,\\text{mm}$ and $r = 200\\,\\text{mm}$, so $r \\gg a$ and the short-dipole formulas apply.\n\nStep 3 (axial field): $E_{\\text{axial}} = \\frac{2kp}{r^3} = \\frac{2(9 \\times 10^{9})(2 \\times 10^{-11})}{(0.2)^3} = \\frac{0.36}{0.008} = 45\\,\\text{N C}^{-1}$, along $\\vec{p}$. (The exact formula gives 45.009 N C⁻¹, confirming the approximation.)\n\nStep 4 (equatorial field): $E_{\\text{eq}} = \\frac{kp}{r^3} = \\frac{0.18}{0.008} = 22.5\\,\\text{N C}^{-1}$, opposite to $\\vec{p}$.", "answer": "(a) $2 \\times 10^{-11}$ C m; (b) 45 N C⁻¹ along p; (c) 22.5 N C⁻¹ opposite to p." },
+      { "type": "HEADING", "text": "Torque on an electric dipole in a uniform electric field" },
+      { "type": "TEXT", "text": "Place a dipole of moment $\\vec{p}$ in a **uniform** field $\\vec{E}$, with $\\vec{p}$ making angle θ with $\\vec{E}$.\n\n- The charge +q feels a force $q\\vec{E}$ along the field.\n- The charge −q feels a force $-q\\vec{E}$, opposite to the field.\n\n**Net force.** The two forces are equal in size and opposite in direction, so the net force is zero: the centre of the dipole does not accelerate.\n\n**Torque.** The two forces do not act along the same line, so they form a **couple**. The torque of a couple equals one force times the perpendicular distance between their lines of action. The lines of action are parallel to E, and the perpendicular distance between them is $2a\\sin\\theta$. So\n$$\\tau = (qE)(2a\\sin\\theta) = (q \\cdot 2a)E\\sin\\theta = pE\\sin\\theta$$\nThe torque tries to rotate the dipole so that $\\vec{p}$ lines up with $\\vec{E}$." },
+      { "type": "DIAGRAM", "diagram": "dipole-torque" },
+      { "type": "FORMULA", "latex": "\\vec{\\tau} = \\vec{p} \\times \\vec{E}, \\qquad \\tau = pE\\sin\\theta", "text": "τ = torque on the dipole (N m); p = dipole moment (C m); E = uniform field (N C⁻¹); θ = angle between p and E. The direction of τ is perpendicular to the plane of p and E (right-hand rule) and tends to reduce θ." },
+      { "type": "TABLE", "caption": "Torque on a dipole at different orientations", "columns": ["Angle θ between p and E", "Torque", "State"], "rows": [
+        ["0°", "0", "Stable equilibrium: if disturbed, the torque brings it back"],
+        ["30°", "pE/2", "Rotates towards θ = 0°"],
+        ["90°", "pE (maximum)", "Strongest turning effect"],
+        ["180°", "0", "Unstable equilibrium: a slight disturbance makes it turn round"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "An electric dipole consists of charges $\\pm 2\\,\\mu\\text{C}$ separated by 1 cm. It is placed in a uniform field of $5 \\times 10^{4}\\,\\text{N C}^{-1}$ with its axis at $30^\\circ$ to the field. Find (a) the dipole moment, (b) the net force, (c) the torque, and (d) the maximum torque it could experience in this field.", "solution": "Step 1 (dipole moment): $p = q(2a) = (2 \\times 10^{-6})(0.01) = 2 \\times 10^{-8}\\,\\text{C m}$.\n\nStep 2 (net force): in a uniform field the forces $+qE$ and $-qE$ cancel, so the net force is zero.\n\nStep 3 (torque): $\\tau = pE\\sin\\theta = (2 \\times 10^{-8})(5 \\times 10^{4})\\sin 30^\\circ = (1 \\times 10^{-3})(0.5) = 5 \\times 10^{-4}\\,\\text{N m}$.\n\nStep 4 (maximum torque): at $\\theta = 90^\\circ$, $\\tau_{\\max} = pE = 1 \\times 10^{-3}\\,\\text{N m}$.", "answer": "(a) $2 \\times 10^{-8}$ C m; (b) zero; (c) $5 \\times 10^{-4}$ N m; (d) $1 \\times 10^{-3}$ N m." },
+      { "type": "TEXT", "text": "**Dipole in a non-uniform field.** If the field is stronger at one charge than at the other, the forces no longer cancel and the dipole feels a **net force** as well as (in general) a torque. When $\\vec{p}$ is parallel to $\\vec{E}$, the torque is zero and the net force points towards the region of **stronger** field; when $\\vec{p}$ is antiparallel, the force points towards the weaker field. This explains a familiar effect: a charged comb induces dipoles in small neutral bits of paper, the dipoles align with the comb's non-uniform field, and they are pulled towards the comb, where the field is strongest." },
+      { "type": "CALLOUT", "text": "**Common mistakes with torque on a dipole.**\n\n- Using $\\cos\\theta$ instead of $\\sin\\theta$: the torque is maximum at $90^\\circ$, not at $0^\\circ$.\n- Saying a dipole in a uniform field accelerates: it only rotates; the net force is zero.\n- Mixing up stable and unstable equilibrium: $\\vec{p}$ parallel to $\\vec{E}$ is stable, antiparallel is unstable, though the torque is zero in both.\n- Forgetting that θ is the angle between $\\vec{p}$ and $\\vec{E}$, not between the dipole and the field lines' perpendicular." },
+      { "type": "HEADING", "text": "Revision summary" },
+      { "type": "TABLE", "caption": "Formula sheet for this lesson", "columns": ["Quantity", "Formula", "Direction"], "rows": [
+        ["Electric field (definition)", "E = F/q₀ (q₀ → 0)", "Direction of force on a positive charge"],
+        ["Force on a charge in a field", "F = qE", "Along E for q > 0, opposite for q < 0"],
+        ["Point charge", "E = kq/r²", "Radially outward (q > 0) or inward (q < 0)"],
+        ["Short dipole, axial line", "E = 2kp/r³", "Along p"],
+        ["Short dipole, equatorial line", "E = kp/r³", "Opposite to p"],
+        ["Torque on a dipole", "τ = pE sin θ (τ = p × E)", "Turns p towards E"],
+        ["Net force on a dipole in a uniform field", "Zero", "—"]
+      ] },
+      { "type": "KEY_POINT", "text": "- The electric field is force per unit positive test charge; unit N C⁻¹ = V m⁻¹.\n- Point charge: $E = \\frac{kq}{r^2}$, radial, inverse square.\n- Fields of several charges add as vectors (superposition).\n- Field lines: start on +, end on −, never cross, never close on themselves in electrostatics, crowd where the field is strong.\n- Short dipole: $E \\propto \\frac{1}{r^3}$; axial field $\\frac{2kp}{r^3}$ along p is twice the equatorial field $\\frac{kp}{r^3}$, which is opposite to p.\n- In a uniform field a dipole feels zero net force and torque $\\tau = pE\\sin\\theta$; stable at $0^\\circ$, unstable at $180^\\circ$, maximum torque at $90^\\circ$." },
+      { "type": "CALLOUT", "text": "**Quick ratio tricks.** Point charge: $E_2/E_1 = (r_1/r_2)^2$. Dipole: $E_2/E_1 = (r_1/r_2)^3$. Going from the equatorial line at r to the axial line at 2r: the factor 2 from the axis and the factor $\\frac{1}{8}$ from doubling r give $\\frac{2}{8} = \\frac{1}{4}$ of the original field." }
+    ]
+  },
+  "diagrams": [
+    { "key": "field-lines-basic", "file": "diagrams/ug26-322-u1-electric-field-lines-basic.svg", "alt": "Three panels: radial field lines pointing outward from an isolated positive charge, radial lines pointing inward to an isolated negative charge, and parallel equally spaced lines of a uniform field", "caption": "Field lines of an isolated positive charge, an isolated negative charge and a uniform field", "description": "Panel (a) shows a positive charge with eight straight field lines spreading radially outward, each with an arrow pointing away from the charge. Panel (b) shows a negative charge with eight radial lines whose arrows point inward towards the charge. Panel (c) shows five parallel, equally spaced horizontal lines with arrows pointing to the right, labelled E, representing a uniform electric field." },
+    { "key": "field-lines-pairs", "file": "diagrams/ug26-322-u1-electric-field-lines-pairs.svg", "alt": "Computed field lines for a dipole, with lines curving from the positive to the negative charge, and for two equal positive charges, with lines bending away from each other and a neutral point N midway", "caption": "Field lines of an electric dipole and of two equal positive charges", "description": "Panel (a): a negative charge on the left and a positive charge on the right. Field lines leave the positive charge and curve round to end on the negative charge; the lines are crowded between the charges. Lines on the far sides go off the picture. Panel (b): two equal positive charges. Their lines all point outward and bend away from each other; no line joins the two charges. The point N midway between them is the neutral point where the field is zero." },
+    { "key": "dipole-field", "file": "diagrams/ug26-322-u1-electric-field-dipole-field.svg", "alt": "Dipole with -q and +q, an axial point P where the field of +q to the right exceeds the field of -q to the left, and an equatorial point Q where the two fields combine into a net field pointing opposite to p", "caption": "Field of a dipole on its axial line (point P) and equatorial line (point Q)", "description": "A dipole with -q on the left and +q on the right has its moment p pointing right. At point P on the axis, a distance r to the right of the centre O, the field of +q (red, pointing right, away from +q) is longer than the field of -q (blue, pointing left, towards -q), so the net axial field 2kp over r cubed points along p. At point Q on the perpendicular bisector, a distance r above O, the field of +q points up and to the left, the field of -q points down and to the left; their vertical parts cancel and the net field kp over r cubed points to the left, opposite to p." },
+    { "key": "dipole-torque", "file": "diagrams/ug26-322-u1-electric-field-torque.svg", "alt": "Dipole tilted at angle theta to a uniform field pointing right, with force qE to the right on +q and qE to the left on -q, separated by a lever arm 2a sin theta", "caption": "Torque on a dipole in a uniform electric field: τ = pE sin θ", "description": "Horizontal field lines point to the right. A dipole is tilted so that +q is at the upper right and -q at the lower left, with its moment p making angle theta with the field direction. The force on +q is qE to the right and the force on -q is qE to the left. These equal and opposite forces have zero resultant but act along parallel lines separated by 2a sin theta, forming a couple of torque pE sin theta that turns the dipole clockwise towards the field direction." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u1-electric-field-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which of the following is the SI unit of electric field intensity?",
+      "options": ["N C⁻¹", "N C", "C N⁻¹", "N m C⁻¹"],
+      "answer": 1,
+      "explanation": "Electric field is defined as force per unit test charge, $E = \\frac{F}{q_0}$. Force is measured in newtons and charge in coulombs, so the unit of the field is newton per coulomb, N C⁻¹. This is equivalent to volt per metre, which you will meet in the lesson on potential.",
+      "optionRationale": { "2": "N C would be force multiplied by charge, not force divided by charge.", "3": "C N⁻¹ is the reciprocal of the correct unit.", "4": "N m C⁻¹ is the unit of potential (J C⁻¹ = volt), not of field." },
+      "objective": "State the SI unit of electric field"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q02", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "An electron is released in a uniform electric field of 5 × 10³ N C⁻¹. What is its acceleration? (mₑ = 9.1 × 10⁻³¹ kg)",
+      "options": ["8.8 × 10¹⁴ m s⁻², along the field", "8.8 × 10¹⁴ m s⁻², opposite to the field", "4.8 × 10¹¹ m s⁻², opposite to the field", "8.0 × 10⁻¹⁶ m s⁻², opposite to the field"],
+      "answer": 2,
+      "explanation": "In a uniform field the force on the electron is constant, so its acceleration is constant too. The force has magnitude $eE = (1.6 \\times 10^{-19})(5 \\times 10^{3}) = 8.0 \\times 10^{-16}\\,\\text{N}$, so by Newton's second law its acceleration is $a = \\frac{eE}{m_e} = \\frac{8.0 \\times 10^{-16}}{9.1 \\times 10^{-31}} \\approx 8.8 \\times 10^{14}\\,\\text{m s}^{-2}$. Because the electron is negatively charged, the force and hence the acceleration point opposite to the field.",
+      "optionRationale": { "1": "The size is right, but a negative charge accelerates opposite to E.", "3": "This uses the mass of a proton instead of an electron.", "4": "This is the force in newtons, not the acceleration." },
+      "objective": "Use F = qE and Newton's second law for a charge in a uniform field"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q03", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): A test charge used to measure an electric field should be very small.\nReason (R): The electric field at a point depends on the magnitude of the test charge placed there.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "The assertion is true: a large test charge would disturb the source charges, for example by redistributing charge on nearby conductors, and so change the field being measured. The reason is false: the field is the force per unit charge, and if the sources are undisturbed the ratio F/q₀ is the same for any test charge. The field depends only on the sources and the position.",
+      "optionRationale": { "1": "R is false, so it cannot be the explanation.", "2": "R is not true; E does not depend on the test charge.", "4": "A is true; the test charge must be small so as not to disturb the sources." },
+      "objective": "Explain why a small test charge is used to define the electric field"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q04", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "What is the magnitude of the electric field at a distance of 30 cm from a point charge of 2 μC in air?",
+      "options": ["6 × 10⁴ N C⁻¹", "2 × 10³ N C⁻¹", "2 × 10⁵ N C⁻¹", "6 × 10⁵ N C⁻¹"],
+      "answer": 3,
+      "explanation": "For a point charge the field is $E = \\frac{kq}{r^2} = \\frac{(9 \\times 10^{9})(2 \\times 10^{-6})}{(0.30)^2} = \\frac{1.8 \\times 10^{4}}{0.09} = 2 \\times 10^{5}\\,\\text{N C}^{-1}$. Remember to convert 30 cm to 0.30 m and the charge to coulombs, and to square the distance, because the field of a point charge follows an inverse-square law. The field points away from the positive charge.",
+      "optionRationale": { "1": "6 × 10⁴ N C⁻¹ divides by r (0.3) instead of r².", "2": "2 × 10³ N C⁻¹ results from a slip of 10² in the powers of ten.", "4": "6 × 10⁵ N C⁻¹ is three times too large; recheck the division by 0.09." },
+      "objective": "Calculate the field of a point charge"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q05", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The electric field at a distance of 20 cm from a point charge is 450 N C⁻¹. What is the charge, and what is the field at a distance of 60 cm from it?",
+      "options": ["2 nC and 150 N C⁻¹", "20 nC and 50 N C⁻¹", "0.2 nC and 150 N C⁻¹", "2 nC and 50 N C⁻¹"],
+      "answer": 4,
+      "explanation": "Rearrange the point-charge formula $E = \\frac{kq}{r^2}$ to find the charge: $q = \\frac{Er^2}{k} = \\frac{(450)(0.04)}{9 \\times 10^{9}} = 2 \\times 10^{-9}\\,\\text{C} = 2\\,\\text{nC}$. For the second part there is no need to recalculate from scratch: tripling the distance from 20 cm to 60 cm reduces the field by a factor of $3^2 = 9$, so the new field is $\\frac{450}{9} = 50\\,\\text{N C}^{-1}$.",
+      "optionRationale": { "1": "150 N C⁻¹ divides by 3 instead of 9; the field falls as 1/r².", "2": "The charge is out by a factor of 10.", "3": "Both the charge and the field are wrong; recheck q = Er²/k and the inverse-square scaling." },
+      "objective": "Use the inverse-square law for the field of a point charge"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q06", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Two point charges of +1 nC each are placed at the corners B and C of an equilateral triangle ABC of side 30 cm. What is the magnitude of the electric field at the corner A?",
+      "options": ["100 N C⁻¹", "200 N C⁻¹", "173 N C⁻¹", "zero"],
+      "answer": 3,
+      "explanation": "Each charge produces a field of $\\frac{kq}{a^2} = \\frac{(9 \\times 10^{9})(10^{-9})}{0.09} = 100\\,\\text{N C}^{-1}$ at A, pointing away from it. The two fields are $60^\\circ$ apart, so their components along BC cancel and those along the bisector add: $E = 2(100)\\cos 30^\\circ = 100\\sqrt{3} \\approx 173\\,\\text{N C}^{-1}$, directed away from BC.",
+      "optionRationale": { "1": "100 N C⁻¹ is the field of only one charge.", "2": "200 N C⁻¹ adds the magnitudes as if the fields were parallel.", "4": "The fields cancel only at the midpoint of BC, not at A." },
+      "objective": "Add the fields of two charges as vectors"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q07", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Charges +q and −q are placed a distance d apart, and the electric field at the midpoint between them is E. If the charge −q is replaced by +q, the field at the midpoint becomes",
+      "options": ["zero", "2E", "E/2", "E, in the opposite direction"],
+      "answer": 1,
+      "explanation": "With unlike charges, the fields at the midpoint both point towards the negative charge and add up to $E = \\frac{8kq}{d^2}$. With two equal positive charges, the two fields at the midpoint have equal size but point away from their own charges, which is in opposite directions. They cancel completely, so the midpoint becomes a neutral point and the field there is zero.",
+      "optionRationale": { "2": "The fields of like charges at the midpoint subtract rather than add.", "3": "There is no partial cancellation; equal like charges cancel exactly at the midpoint.", "4": "Each field still has the same magnitude, but they now cancel instead of adding." },
+      "objective": "Apply superposition to fields of like and unlike charges"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q08", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Two electric field lines can never cross each other because",
+      "options": ["field lines repel each other like charges", "field lines are always straight lines", "the field is zero where two lines meet", "at the crossing point the field would have two directions at once, which is impossible"],
+      "answer": 4,
+      "explanation": "The tangent to a field line gives the direction of the electric field. If two lines crossed, there would be two tangents, and hence two different field directions, at the same point. But the net field at a point is a single vector with one direction, so field lines cannot cross. This is one of the basic properties of field lines.",
+      "optionRationale": { "1": "Field lines are a drawing aid; they do not exert forces on each other.", "2": "Field lines can be curved, as in the field of a dipole.", "3": "At a neutral point no line passes through at all; this is not the reason lines cannot cross." },
+      "objective": "Explain why electric field lines do not intersect"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q09", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about electrostatic field lines.\nA. They start on positive charges and end on negative charges.\nB. They form closed loops around charges.\nC. Where they are closer together, the field is stronger.\nD. The tangent to a field line at a point gives the direction of the field there.\nWhich of these statements are correct?",
+      "options": ["A, C and D only", "A and B only", "B, C and D only", "A, B, C and D"],
+      "answer": 1,
+      "explanation": "A is true: lines begin on positive and end on negative charges (or at infinity). C is true: the density of lines represents the strength of the field. D is true: this is the definition of a field line. B is false: electrostatic field lines never form closed loops, because the electrostatic field is conservative. So A, C and D only.",
+      "optionRationale": { "2": "B is false, and C and D, which are true, are left out.", "3": "B is false and A is true.", "4": "B is false, so not all four statements are correct." },
+      "objective": "Recall the properties of electrostatic field lines"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q10", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "dipole-field",
+      "stem": "In the figure, P is on the axial line and Q is on the equatorial line of a short electric dipole, both at the same distance r from its centre (r much greater than a). Which statement about the fields at P and Q is correct?",
+      "options": ["Field at P is half the field at Q; both are along p", "Field at P is twice the field at Q; at P it is along p and at Q it is opposite to p", "Field at P is twice the field at Q; both are along p", "Fields at P and Q are equal; at P it is along p and at Q it is opposite to p"],
+      "answer": 2,
+      "explanation": "For a short dipole the axial field is $\\frac{2kp}{r^3}$ along $\\vec{p}$, because the nearer charge +q dominates. The equatorial field is $\\frac{kp}{r^3}$, and the two charge fields there combine to point from the + side to the − side, opposite to $\\vec{p}$. At equal distances the axial field is therefore twice the equatorial field.",
+      "optionRationale": { "1": "The axial field is the larger one, and the equatorial field is opposite to p.", "3": "The magnitudes are right, but the equatorial field points opposite to p, as the figure shows.", "4": "The fields are not equal; the axial field is twice the equatorial field." },
+      "objective": "Compare the axial and equatorial fields of a dipole"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q11", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): In a region where the electric field lines are parallel and equally spaced, a given charge experiences the same force at every point.\nReason (R): Parallel, equally spaced field lines represent a uniform electric field.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Parallel lines mean the field has the same direction everywhere, and equal spacing means it has the same magnitude everywhere, so the field is uniform (R is true). Since the force on a charge is $\\vec{F} = q\\vec{E}$, a uniform field gives the same force at every point (A is true). R is exactly the reason for A.",
+      "optionRationale": { "2": "R directly explains A, because F = qE and E is the same everywhere.", "3": "R is true; parallel, equally spaced lines describe a uniform field.", "4": "A is true; with E the same everywhere, F = qE is the same everywhere." },
+      "objective": "Interpret a uniform field from its field-line pattern"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q12", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "In a field-line diagram of two point charges q₁ and q₂, twelve lines leave q₁, six of them end on q₂ and the other six go off to infinity. No other lines are attached to q₂. What can be concluded?",
+      "options": ["q₁ is negative, q₂ is positive and |q₁| = 2|q₂|", "both charges are positive and q₁ = 2q₂", "q₁ is positive, q₂ is negative and |q₁| = 2|q₂|", "q₁ is positive, q₂ is negative and |q₂| = 2|q₁|"],
+      "answer": 3,
+      "explanation": "Lines leave positive charges and end on negative charges, so q₁ is positive and q₂ is negative. The number of lines attached to a charge is proportional to its magnitude: 12 lines for q₁ and 6 for q₂, so $|q_1| = 2|q_2|$. The six extra lines from q₁ go to infinity because the net charge of the pair is positive.",
+      "optionRationale": { "1": "Lines leaving a charge show it is positive, not negative.", "2": "Lines ending on q₂ show that q₂ is negative.", "4": "q₁ has more lines attached, so it is the larger charge, not the smaller." },
+      "objective": "Deduce the signs and relative sizes of charges from a field-line diagram"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q13", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "For a short electric dipole, what is the ratio of the field magnitude on the axial line to that on the equatorial line at the same distance from the centre?",
+      "options": ["1 : 2", "2 : 1", "1 : 1", "4 : 1"],
+      "answer": 2,
+      "explanation": "The axial field of a short dipole is $\\frac{2kp}{r^3}$ and the equatorial field is $\\frac{kp}{r^3}$. At the same distance r, the ratio of axial to equatorial is therefore 2 : 1. Both fields fall off as the inverse cube of the distance, so the ratio stays the same at every distance.",
+      "optionRationale": { "1": "This inverts the ratio; the axial field is the larger.", "3": "The two fields are not equal in magnitude.", "4": "There is a factor of 2, not 4, between the two fields." },
+      "objective": "Recall the ratio of axial to equatorial dipole fields"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q14", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A short electric dipole has a dipole moment of 3 × 10⁻⁹ C m. What is the electric field at a point on its equatorial line 30 cm from its centre?",
+      "options": ["1000 N C⁻¹, opposite to p", "2000 N C⁻¹, along p", "1000 N C⁻¹, along p", "300 N C⁻¹, opposite to p"],
+      "answer": 1,
+      "explanation": "The point is far from a short dipole, so the short-dipole formula applies. On the equatorial line, $E = \\frac{kp}{r^3} = \\frac{(9 \\times 10^{9})(3 \\times 10^{-9})}{(0.3)^3} = \\frac{27}{0.027} = 1000\\,\\text{N C}^{-1}$. The equatorial field always points opposite to the dipole moment, that is, from the positive charge's side towards the negative charge's side.",
+      "optionRationale": { "2": "2000 N C⁻¹ along p would be the axial field at this distance, not the equatorial one.", "3": "The magnitude is right, but on the equatorial line the field is opposite to p.", "4": "300 N C⁻¹ comes from dividing by r² instead of r³ (27/0.09); a dipole field falls as 1/r³." },
+      "objective": "Calculate the equatorial field of a short dipole"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q15", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "The electric field at a point on the equatorial line of a short dipole, at distance r from its centre, is E. What is the field at a point on the axial line at distance 2r from the centre?",
+      "options": ["E/8", "E/2", "E", "E/4"],
+      "answer": 4,
+      "explanation": "On the equatorial line, $E = \\frac{kp}{r^3}$. On the axial line at distance 2r, $E' = \\frac{2kp}{(2r)^3} = \\frac{2kp}{8r^3} = \\frac{1}{4}\\cdot\\frac{kp}{r^3} = \\frac{E}{4}$. The factor 2 gained by moving to the axis is outweighed by the factor 8 lost by doubling the distance.",
+      "optionRationale": { "1": "This accounts for doubling the distance but forgets that the axial field has an extra factor of 2.", "2": "This treats the field as falling like 1/r², not 1/r³.", "3": "The factor 2 from the axis does not cancel the factor 8 from doubling r." },
+      "objective": "Combine the axial factor and the 1/r³ dependence of a dipole field"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q16", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "An electric dipole consists of charges +q and −q separated by a distance 2a. What is the electric field at the centre of the dipole?",
+      "options": ["zero, because the net charge of the dipole is zero", "2kq/a², directed opposite to p", "2kq/a², directed along p", "kq/a², directed opposite to p"],
+      "answer": 2,
+      "explanation": "The centre is a distance a from each charge. The field of +q there is $\\frac{kq}{a^2}$ pointing away from +q, towards −q; the field of −q is also $\\frac{kq}{a^2}$ pointing towards −q. Both point from +q to −q, so they add to $\\frac{2kq}{a^2}$. Since $\\vec{p}$ points from −q to +q, this field is opposite to $\\vec{p}$.",
+      "optionRationale": { "1": "Zero net charge does not mean zero field; at the centre the two fields add.", "3": "Between the charges the field points from +q to −q, which is opposite to p.", "4": "This includes the field of only one of the two charges." },
+      "objective": "Find the field at the centre of a dipole by superposition"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q17", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "A dipole of moment 4 × 10⁻⁹ C m is placed in a uniform field of 5 × 10⁴ N C⁻¹ with its axis at 30° to the field. What torque acts on it?",
+      "options": ["2 × 10⁻⁴ N m", "1.73 × 10⁻⁴ N m", "zero", "1 × 10⁻⁴ N m"],
+      "answer": 4,
+      "explanation": "The torque on a dipole in a uniform field depends on the sine of the angle between the dipole moment and the field: $\\tau = pE\\sin\\theta = (4 \\times 10^{-9})(5 \\times 10^{4})\\sin 30^\\circ = (2 \\times 10^{-4})(0.5) = 1 \\times 10^{-4}\\,\\text{N m}$. The torque tends to rotate the dipole so that its moment lines up with the field, while the net force on it is zero.",
+      "optionRationale": { "1": "2 × 10⁻⁴ N m is the maximum torque pE, which occurs at 90°, not 30°.", "2": "1.73 × 10⁻⁴ N m uses cos 30° instead of sin 30°.", "3": "The torque is zero only when p is parallel or antiparallel to E." },
+      "objective": "Calculate the torque on a dipole using τ = pE sin θ"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q18", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "A dipole of moment p is placed in a uniform electric field E. Match the angle between p and E in List-I with the description in List-II.",
+      "list": { "left": ["A. θ = 0°", "B. θ = 90°", "C. θ = 180°", "D. θ = 30°"], "right": ["I. Maximum torque, equal to pE", "II. Zero torque, stable equilibrium", "III. Zero torque, unstable equilibrium", "IV. Torque equal to pE/2"] },
+      "options": ["A-I, B-II, C-III, D-IV", "A-II, B-I, C-IV, D-III", "A-II, B-I, C-III, D-IV", "A-III, B-I, C-II, D-IV"],
+      "answer": 3,
+      "explanation": "Using $\\tau = pE\\sin\\theta$: at $0^\\circ$ the torque is zero and any small twist brings the dipole back, so it is stable (A-II). At $90^\\circ$ the torque is the maximum pE (B-I). At $180^\\circ$ the torque is again zero, but a small twist makes the dipole turn right round, so it is unstable (C-III). At $30^\\circ$, $\\sin 30^\\circ = 0.5$, giving pE/2 (D-IV).",
+      "optionRationale": { "1": "At 0° the torque is zero, not maximum.", "2": "At 180° the torque is zero (unstable), and pE/2 belongs to 30°.", "4": "Parallel alignment (0°) is stable and antiparallel (180°) is unstable, not the other way round." },
+      "objective": "Relate the orientation of a dipole to its torque and equilibrium"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q19", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "An electric dipole is placed with its dipole moment parallel to a non-uniform electric field whose strength increases in the direction of the field. The dipole experiences",
+      "options": ["a net force towards the weaker-field region and no torque", "a net force towards the stronger-field region and no torque", "a torque but no net force", "neither a net force nor a torque"],
+      "answer": 2,
+      "explanation": "With $\\vec{p}$ parallel to $\\vec{E}$, the angle is zero, so the torque $pE\\sin\\theta$ is zero. The +q end lies further along the field, where the field is stronger, so the force $qE$ on it (along the field) is larger than the opposite force on −q at the weaker end. The net force therefore points along the field, towards the stronger-field region.",
+      "optionRationale": { "1": "The larger force acts on +q, which sits in the stronger field, so the net force is towards the stronger field.", "3": "With p parallel to E there is no torque, and in a non-uniform field the forces do not cancel.", "4": "In a non-uniform field the forces on the two charges are unequal, so there is a net force." },
+      "objective": "Analyse a dipole in a non-uniform electric field"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q20", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "An electric dipole with charges ±q separated by 2 cm is placed at 30° to a uniform field of 2 × 10⁵ N C⁻¹ and experiences a torque of 4 × 10⁻³ N m. What is the value of q?",
+      "options": ["1 μC", "4 μC", "2/√3 μC", "2 μC"],
+      "answer": 4,
+      "explanation": "The dipole moment is the charge times the full separation, so write the torque in terms of q: $\\tau = pE\\sin\\theta = q(2a)E\\sin\\theta$. Rearranging, $q = \\frac{\\tau}{(2a)E\\sin\\theta} = \\frac{4 \\times 10^{-3}}{(0.02)(2 \\times 10^{5})(0.5)} = \\frac{4 \\times 10^{-3}}{2000} = 2 \\times 10^{-6}\\,\\text{C}$. Each charge of the dipole is therefore 2 μC in magnitude.",
+      "optionRationale": { "1": "1 μC results from using twice the separation (4 cm) in place of 2a = 2 cm.", "2": "4 μC results from using half the separation (1 cm) in place of 2a = 2 cm.", "3": "2/√3 μC (about 1.15 μC) uses cos 30° instead of sin 30°." },
+      "objective": "Rearrange the torque formula to find the dipole charge"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q21", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): An electric dipole placed in a uniform electric field experiences no net force but may experience a torque.\nReason (R): The forces on the two charges of the dipole are equal and opposite, but in general they act along different lines.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "In a uniform field the forces $+q\\vec{E}$ and $-q\\vec{E}$ are equal and opposite, so they add to zero net force. Unless the dipole lies along the field, the two forces act along parallel but separate lines and form a couple whose torque is $pE\\sin\\theta$. R states exactly this and so correctly explains A.",
+      "optionRationale": { "2": "R is precisely the reason for both parts of A.", "3": "R is true; the forces are equal, opposite and generally not collinear.", "4": "A is true for any dipole in a uniform field." },
+      "objective": "Explain why a dipole in a uniform field feels a couple"
+    },
+    {
+      "key": "ug26-322-u1-electric-field-q22", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "dipole-torque",
+      "stem": "The figure shows an electric dipole held at an angle θ to a uniform electric field and then released. What will the dipole do immediately after release?",
+      "options": ["move along E without rotating", "rotate anticlockwise, increasing θ", "rotate clockwise, reducing θ, with no net force acting on it", "stay at rest, because the net force on it is zero"],
+      "answer": 3,
+      "explanation": "In the figure +q is at the upper right and is pushed to the right by qE, while −q at the lower left is pushed to the left by qE. These equal and opposite forces give zero net force, so the centre does not move, but they form a couple that turns the dipole clockwise. This rotation reduces θ and swings p towards the field direction.",
+      "optionRationale": { "1": "The net force in a uniform field is zero, so the dipole does not translate.", "2": "The couple turns p towards E, which is clockwise here and reduces θ.", "4": "Zero net force does not mean zero torque; the dipole rotates." },
+      "objective": "Predict the motion of a dipole in a uniform field from a diagram"
+    }
+  ]
+}

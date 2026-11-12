@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" width="820" height="420" font-family="Arial, Helvetica, sans-serif">
+  <!-- orbits drawn to scale: r1 : r2 : r3 = 1 : 4 : 9 -->
+  <circle cx="220" cy="220" r="18" fill="none" stroke="#1f2937" stroke-width="1.8"/>
+  <circle cx="220" cy="220" r="72" fill="none" stroke="#1f2937" stroke-width="1.8"/>
+  <circle cx="220" cy="220" r="162" fill="none" stroke="#1f2937" stroke-width="1.8"/>
+  <!-- nucleus -->
+  <circle cx="220" cy="220" r="6" fill="#dc2626"/>
+  <!-- orbit labels -->
+  <text x="220" y="196" font-size="13" fill="#1f2937" text-anchor="middle">n = 1</text>
+  <text x="220" y="141" font-size="14" fill="#1f2937" text-anchor="middle">n = 2</text>
+  <text x="220" y="51" font-size="14" fill="#1f2937" text-anchor="middle">n = 3</text>
+  <!-- electrons -->
+  <circle cx="232.7" cy="232.7" r="5" fill="#2563eb"/>
+  <circle cx="256" cy="282.4" r="5" fill="#2563eb"/>
+  <circle cx="344.1" cy="115.9" r="5" fill="#2563eb"/>
+  <!-- velocity of the n = 2 electron (tangent) -->
+  <line x1="256" y1="282.4" x2="285.9" y2="265.1" stroke="#059669" stroke-width="2"/>
+  <polygon points="295.5,259.6 288.4,269.4 283.4,260.7" fill="#059669"/>
+  <text x="298" y="276" font-size="15" fill="#059669" font-style="italic">v</text>
+  <!-- electrostatic (centripetal) force on the n = 2 electron -->
+  <line x1="254" y1="279" x2="243.5" y2="260.8" stroke="#d97706" stroke-width="2"/>
+  <polygon points="238.5,252.1 247.8,258.3 239.2,263.3" fill="#d97706"/>
+  <text x="226" y="268" font-size="15" fill="#d97706" font-style="italic" text-anchor="end">F</text>
+  <!-- quantum jump n = 3 to n = 2 -->
+  <line x1="344.1" y1="115.9" x2="283.6" y2="166.6" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4"/>
+  <polygon points="275.2,173.7 280.4,162.8 286.8,170.4" fill="#dc2626"/>
+  <!-- emitted photon -->
+  <path d="M312,150 q5,-8 10,0 t10,0 t10,0 t10,0 t10,0 t10,0 t10,0" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <polygon points="394,150 383,145 383,155" fill="#7c3aed"/>
+  <text x="398" y="155" font-size="15" fill="#7c3aed">hν</text>
+  <!-- labels with leaders -->
+  <line x1="214" y1="216" x2="140" y2="178" stroke="#6b7280" stroke-width="1"/>
+  <text x="136" y="175" font-size="13" fill="#1f2937" text-anchor="end">nucleus</text>
+  <text x="136" y="191" font-size="13" fill="#1f2937" text-anchor="end">(proton)</text>
+  <text x="244" y="306" font-size="13" fill="#2563eb" text-anchor="middle">electron</text>
+  <!-- information panel -->
+  <text x="470" y="60" font-size="16" fill="#1f2937" font-weight="bold">Bohr model of hydrogen</text>
+  <text x="470" y="90" font-size="14" fill="#1f2937">Orbits drawn to scale: r<tspan font-size="10" dy="4">1</tspan><tspan dy="-4"> : r</tspan><tspan font-size="10" dy="4">2</tspan><tspan dy="-4"> : r</tspan><tspan font-size="10" dy="4">3</tspan><tspan dy="-4"> = 1 : 4 : 9</tspan></text>
+  <text x="470" y="118" font-size="14" fill="#1f2937">Allowed orbits: L = mvr = nh/2π</text>
+  <text x="470" y="146" font-size="14" fill="#1f2937">r<tspan font-size="10" dy="4">n</tspan><tspan dy="-4"> = n² × 0.529 Å</tspan></text>
+  <text x="470" y="174" font-size="14" fill="#1f2937">v<tspan font-size="10" dy="4">n</tspan><tspan dy="-4"> = (2.19 × 10</tspan><tspan font-size="10" dy="-6">6</tspan><tspan dy="6"> m/s) / n</tspan></text>
+  <text x="470" y="202" font-size="14" fill="#1f2937">E<tspan font-size="10" dy="4">n</tspan><tspan dy="-4"> = −13.6 eV / n²</tspan></text>
+  <text x="470" y="240" font-size="14" fill="#dc2626">Jump n = 3 → n = 2 emits one photon:</text>
+  <text x="470" y="262" font-size="14" fill="#dc2626">hν = E<tspan font-size="10" dy="4">3</tspan><tspan dy="-4"> − E</tspan><tspan font-size="10" dy="4">2</tspan><tspan dy="-4"> = 1.89 eV (Hα line, 656 nm)</tspan></text>
+  <text x="470" y="300" font-size="14" fill="#059669">v: orbital velocity (tangent to orbit)</text>
+  <text x="470" y="324" font-size="14" fill="#d97706">F: Coulomb attraction = centripetal force</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400" font-family="Arial, Helvetica, sans-serif">
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#1f2937">Simple microscope: object inside F, image at the near point</text>
+  <!-- axis -->
+  <line x1="120" y1="260" x2="680" y2="260" stroke="#1f2937" stroke-width="1.5"/>
+  <!-- lens -->
+  <path d="M480 170 Q498 260 480 350 Q462 260 480 170 Z" fill="#2563eb" fill-opacity="0.10" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="380" cy="260" r="3.5" fill="#1f2937"/>
+  <circle cx="580" cy="260" r="3.5" fill="#1f2937"/>
+  <text x="372" y="282" font-size="14" fill="#1f2937">F1</text>
+  <text x="572" y="248" font-size="14" fill="#1f2937">F2</text>
+  <text x="490" y="282" font-size="14" fill="#1f2937">O</text>
+  <!-- object -->
+  <line x1="405" y1="260" x2="405" y2="238" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="405,230 400.5,241 409.5,241" fill="#059669"/>
+  <text x="388" y="300" font-size="14" fill="#059669">object</text>
+  <line x1="405" y1="288" x2="405" y2="264" stroke="#059669" stroke-width="1"/>
+  <!-- image -->
+  <line x1="180" y1="260" x2="180" y2="148" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5 4"/>
+  <polygon points="180,140 175,152 185,152" fill="#dc2626"/>
+  <text x="130" y="128" font-size="14" fill="#dc2626">virtual, erect, magnified image</text>
+  <!-- ray parallel to axis, refracted through F2 -->
+  <line x1="405" y1="230" x2="480" y2="230" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="457.5,230 446.5,234.5 446.5,225.5" fill="#2563eb"/>
+  <line x1="480" y1="230" x2="620" y2="272" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="550,251 538.2,252.1 540.8,243.5" fill="#2563eb"/>
+  <line x1="480" y1="230" x2="180" y2="140" stroke="#2563eb" stroke-width="1.3" stroke-dasharray="6 4"/>
+  <!-- ray through optical centre -->
+  <line x1="405" y1="230" x2="620" y2="316" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="457.5,251 445.6,251.1 449,242.7" fill="#2563eb"/>
+  <polygon points="550,288 538.1,288.1 541.5,279.7" fill="#2563eb"/>
+  <line x1="405" y1="230" x2="180" y2="140" stroke="#2563eb" stroke-width="1.3" stroke-dasharray="6 4"/>
+  <!-- eye -->
+  <ellipse cx="642" cy="292" rx="13" ry="22" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="634" cy="292" r="5" fill="#1f2937"/>
+  <text x="628" y="332" font-size="14" fill="#1f2937">eye</text>
+  <!-- D -->
+  <line x1="180" y1="352" x2="480" y2="352" stroke="#1f2937" stroke-width="1.2"/>
+  <polygon points="180,352 190,348 190,356" fill="#1f2937"/>
+  <polygon points="480,352 470,348 470,356" fill="#1f2937"/>
+  <text x="222" y="344" font-size="14" fill="#1f2937">D = 25 cm (near point)</text>
+  <text x="20" y="386" font-size="14" fill="#1f2937">Drawn to scale for m = 1 + D/f = 4 (f = 8.3 cm). The eye is held close to the lens.</text>
+</svg>

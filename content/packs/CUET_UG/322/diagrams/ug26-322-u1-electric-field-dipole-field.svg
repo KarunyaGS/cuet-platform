@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 320" font-family="Arial, Helvetica, sans-serif">
+  <!-- axis and equatorial line -->
+  <line x1="190" y1="230" x2="665" y2="230" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <line x1="300" y1="230" x2="300" y2="100" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,5"/>
+  <line x1="240" y1="230" x2="300" y2="100" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,4"/>
+  <line x1="360" y1="230" x2="300" y2="100" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,4"/>
+  <text x="308" y="172" font-size="15" font-style="italic" fill="#1f2937">r</text>
+  <!-- dipole moment -->
+  <line x1="268" y1="204" x2="324" y2="204" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="336,204 323,198 323,210" fill="#059669"/>
+  <text x="330" y="196" font-size="15" font-weight="bold" fill="#059669">p</text>
+  <!-- charges -->
+  <circle cx="240" cy="230" r="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="240" y="237" font-size="18" font-weight="bold" fill="#2563eb" text-anchor="middle">−</text>
+  <circle cx="360" cy="230" r="14" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="360" y="236" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">+</text>
+  <text x="240" y="262" font-size="14" fill="#2563eb" text-anchor="middle">−q</text>
+  <text x="360" y="262" font-size="14" fill="#dc2626" text-anchor="middle">+q</text>
+  <circle cx="300" cy="230" r="3" fill="#1f2937"/>
+  <text x="300" y="250" font-size="14" fill="#1f2937" text-anchor="middle">O</text>
+  <!-- axial point P -->
+  <circle cx="560" cy="230" r="4" fill="#1f2937"/>
+  <text x="560" y="254" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">P</text>
+  <line x1="564" y1="230" x2="631" y2="230" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="643,230 630,224 630,236" fill="#dc2626"/>
+  <text x="604" y="219" font-size="14" fill="#dc2626">E<tspan font-size="10" dy="3">+q</tspan></text>
+  <line x1="556" y1="230" x2="542" y2="230" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="530,230 543,224 543,236" fill="#2563eb"/>
+  <text x="522" y="219" font-size="14" fill="#2563eb">E<tspan font-size="10" dy="3">−q</tspan></text>
+  <!-- OP distance -->
+  <line x1="300" y1="282" x2="560" y2="282" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="300" y1="274" x2="300" y2="290" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="560" y1="274" x2="560" y2="290" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="430" y="300" font-size="15" font-style="italic" fill="#1f2937" text-anchor="middle">r</text>
+  <!-- equatorial point Q -->
+  <circle cx="300" cy="100" r="4" fill="#1f2937"/>
+  <text x="312" y="96" font-size="15" font-weight="bold" fill="#1f2937">Q</text>
+  <line x1="298.3" y1="96.4" x2="279.5" y2="55.5" stroke="#dc2626" stroke-width="2.2"/>
+  <polygon points="274.9,45.5 284.4,53.3 275.3,57.5" fill="#dc2626"/>
+  <text x="258" y="52" font-size="14" fill="#dc2626" text-anchor="end">E<tspan font-size="10" dy="3">+q</tspan></text>
+  <line x1="298.3" y1="103.6" x2="279.5" y2="144.5" stroke="#2563eb" stroke-width="2.2"/>
+  <polygon points="274.9,154.5 275.3,142.5 284.4,146.7" fill="#2563eb"/>
+  <text x="258" y="156" font-size="14" fill="#2563eb" text-anchor="end">E<tspan font-size="10" dy="3">−q</tspan></text>
+  <line x1="296" y1="100" x2="262" y2="100" stroke="#059669" stroke-width="3"/>
+  <polygon points="249,100 262,94 262,106" fill="#059669"/>
+  <text x="243" y="105" font-size="14" fill="#059669" text-anchor="end">E<tspan font-size="10" dy="3">net</tspan></text>
+  <!-- results -->
+  <text x="20" y="24" font-size="14" fill="#1f2937">At Q (equatorial): E = kp/r³, directed opposite to p</text>
+  <text x="660" y="186" font-size="14" fill="#1f2937" text-anchor="end">At P (axial):</text>
+  <text x="660" y="204" font-size="14" fill="#1f2937" text-anchor="end">E = 2kp/r³, along p</text>
+</svg>

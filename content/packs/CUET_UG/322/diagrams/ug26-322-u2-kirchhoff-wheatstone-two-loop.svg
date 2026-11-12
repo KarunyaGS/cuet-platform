@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400" width="700" height="400" font-family="Arial, Helvetica, sans-serif">
+  <!-- top and bottom wires -->
+  <line x1="100" y1="80" x2="600" y2="80" stroke="#1f2937" stroke-width="2"/>
+  <line x1="100" y1="330" x2="600" y2="330" stroke="#1f2937" stroke-width="2"/>
+
+  <!-- left branch: cell e1 (+ at top) and R1 -->
+  <line x1="100" y1="80" x2="100" y2="150" stroke="#1f2937" stroke-width="2"/>
+  <line x1="76" y1="150" x2="124" y2="150" stroke="#1f2937" stroke-width="2"/>
+  <line x1="88" y1="164" x2="112" y2="164" stroke="#1f2937" stroke-width="5"/>
+  <line x1="100" y1="164" x2="100" y2="220" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="100,220 112,226 88,238 112,250 88,262 112,274 100,280" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <line x1="100" y1="280" x2="100" y2="330" stroke="#1f2937" stroke-width="2"/>
+  <text x="134" y="146" font-size="14" fill="#1f2937">+</text>
+  <text x="66" y="163" font-size="17" fill="#2563eb" text-anchor="end" font-weight="bold">ε<tspan font-size="12" dy="5">1</tspan></text>
+  <text x="122" y="256" font-size="17" fill="#1f2937" font-weight="bold">R<tspan font-size="12" dy="5">1</tspan></text>
+
+  <!-- middle branch: R3 -->
+  <line x1="350" y1="80" x2="350" y2="170" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="350,170 362,177 338,191 362,205 338,219 362,233 338,247 350,250" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <line x1="350" y1="250" x2="350" y2="330" stroke="#1f2937" stroke-width="2"/>
+  <text x="372" y="216" font-size="17" fill="#1f2937" font-weight="bold">R<tspan font-size="12" dy="5">3</tspan></text>
+
+  <!-- right branch: cell e2 (+ at top) and R2 -->
+  <line x1="600" y1="80" x2="600" y2="150" stroke="#1f2937" stroke-width="2"/>
+  <line x1="576" y1="150" x2="624" y2="150" stroke="#1f2937" stroke-width="2"/>
+  <line x1="588" y1="164" x2="612" y2="164" stroke="#1f2937" stroke-width="5"/>
+  <line x1="600" y1="164" x2="600" y2="220" stroke="#1f2937" stroke-width="2"/>
+  <polyline points="600,220 612,226 588,238 612,250 588,262 612,274 600,280" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <line x1="600" y1="280" x2="600" y2="330" stroke="#1f2937" stroke-width="2"/>
+  <text x="566" y="146" font-size="14" fill="#1f2937" text-anchor="end">+</text>
+  <text x="634" y="163" font-size="17" fill="#2563eb" font-weight="bold">ε<tspan font-size="12" dy="5">2</tspan></text>
+  <text x="578" y="256" font-size="17" fill="#1f2937" text-anchor="end" font-weight="bold">R<tspan font-size="12" dy="5">2</tspan></text>
+
+  <!-- junctions -->
+  <circle cx="350" cy="80" r="5" fill="#1f2937"/>
+  <circle cx="350" cy="330" r="5" fill="#1f2937"/>
+  <text x="350" y="62" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">A</text>
+  <text x="350" y="358" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">B</text>
+
+  <!-- branch currents -->
+  <polygon points="236,80 222,73 222,87" fill="#d97706"/>
+  <text x="226" y="66" font-size="16" fill="#d97706" text-anchor="middle" font-weight="bold">I<tspan font-size="12" dy="5">1</tspan></text>
+  <polygon points="100,185 93,199 107,199" fill="#d97706"/>
+  <polygon points="464,80 478,73 478,87" fill="#dc2626"/>
+  <text x="474" y="66" font-size="16" fill="#dc2626" text-anchor="middle" font-weight="bold">I<tspan font-size="12" dy="5">2</tspan></text>
+  <polygon points="600,185 593,199 607,199" fill="#dc2626"/>
+  <polygon points="350,142 343,128 357,128" fill="#059669"/>
+  <text x="362" y="128" font-size="15" fill="#059669" font-weight="bold">I<tspan font-size="11" dy="4">1</tspan><tspan dy="-4"> + I</tspan><tspan font-size="11" dy="4">2</tspan></text>
+
+  <!-- loop traversal arrows (clockwise) -->
+  <path d="M225,165 A42,42 0 1,1 183,207" fill="none" stroke="#6b7280" stroke-width="1.8"/>
+  <polygon points="183,196 177,209 189,209" fill="#6b7280"/>
+  <text x="225" y="212" font-size="14" fill="#6b7280" text-anchor="middle">Loop 1</text>
+  <path d="M475,165 A42,42 0 1,1 433,207" fill="none" stroke="#6b7280" stroke-width="1.8"/>
+  <polygon points="433,196 427,209 439,209" fill="#6b7280"/>
+  <text x="475" y="212" font-size="14" fill="#6b7280" text-anchor="middle">Loop 2</text>
+</svg>

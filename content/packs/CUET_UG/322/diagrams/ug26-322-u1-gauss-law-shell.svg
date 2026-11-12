@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 350" font-family="Arial, Helvetica, sans-serif">
+  <!-- left panel: shell with Gaussian spheres -->
+  <circle cx="170" cy="180" r="140" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="7,5"/>
+  <circle cx="170" cy="180" r="95" fill="#fef2f2" stroke="#dc2626" stroke-width="3.5"/>
+  <circle cx="170" cy="180" r="50" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="7,5"/>
+  <g font-size="15" font-weight="bold" fill="#dc2626" text-anchor="middle">
+    <text x="170" y="77">+</text><text x="170" y="293">+</text><text x="62" y="185">+</text><text x="278" y="185">+</text>
+    <text x="93.6" y="108.6">+</text><text x="246.4" y="108.6">+</text><text x="93.6" y="261.4">+</text><text x="246.4" y="261.4">+</text>
+  </g>
+  <circle cx="170" cy="180" r="3" fill="#1f2937"/>
+  <line x1="170" y1="180" x2="237" y2="247" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="186" y="238" font-size="14" font-style="italic" fill="#1f2937">R</text>
+  <text x="170" y="152" font-size="13" fill="#059669" text-anchor="middle">S₁ (r &lt; R)</text>
+  <text x="170" y="170" font-size="13" fill="#059669" text-anchor="middle">q<tspan font-size="10" dy="3">enc</tspan><tspan dy="-3"> = 0</tspan></text>
+  <text x="170" y="30" font-size="13" fill="#059669" text-anchor="middle">S₂ (r &gt; R): q<tspan font-size="10" dy="3">enc</tspan><tspan dy="-3"> = q</tspan></text>
+  <text x="170" y="342" font-size="13" fill="#dc2626" text-anchor="middle">red: thin shell, radius R, charge q</text>
+  <!-- right panel: graph of E against r -->
+  <line x1="400" y1="300" x2="660" y2="300" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="668,300 656,294 656,306" fill="#1f2937"/>
+  <line x1="400" y1="300" x2="400" y2="60" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="400,52 394,64 406,64" fill="#1f2937"/>
+  <text x="650" y="326" font-size="14" fill="#1f2937" text-anchor="end">distance from centre r (m)</text>
+  <text x="408" y="62" font-size="14" fill="#1f2937">E (N C⁻¹)</text>
+  <line x1="400" y1="300" x2="470" y2="300" stroke="#dc2626" stroke-width="4"/>
+  <line x1="470" y1="300" x2="470" y2="100" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <polyline points="470,100.0 475,125.8 480,146.9 485,164.4 490,179.0 495,191.4 500,202.0 505,211.1 510,219.0 515,225.9 520,231.9 525,237.3 530,242.0 535,246.2 540,250.0 545,253.4 550,256.4 555,259.2 560,261.7 565,264.0 570,266.1 575,268.0 580,269.8 585,271.4 590,272.9 595,274.2 600,275.5 605,276.7 610,277.8 615,278.8 620,279.8 625,280.6 630,281.5 635,282.3" fill="none" stroke="#dc2626" stroke-width="3"/>
+  <circle cx="470" cy="100" r="4" fill="#dc2626"/>
+  <line x1="400" y1="100" x2="466" y2="100" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+  <text x="392" y="105" font-size="13" fill="#1f2937" text-anchor="end">kq/R²</text>
+  <text x="470" y="318" font-size="14" fill="#1f2937" text-anchor="middle">R</text>
+  <text x="400" y="318" font-size="14" fill="#1f2937" text-anchor="middle">0</text>
+  <text x="435" y="290" font-size="12" fill="#dc2626" text-anchor="middle">E = 0</text>
+  <text x="560" y="230" font-size="13" fill="#dc2626">E = kq/r²</text>
+</svg>

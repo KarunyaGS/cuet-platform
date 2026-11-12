@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 370" font-family="Arial, Helvetica, sans-serif">
+  <!-- energy axis -->
+  <line x1="40" y1="350" x2="40" y2="48" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="40,36 34,50 46,50" fill="#1f2937"/>
+  <text x="24" y="200" font-size="15" fill="#1f2937" text-anchor="middle" transform="rotate(-90 24 200)">Electron energy</text>
+
+  <!-- left: isolated atom -->
+  <text x="135" y="30" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">Isolated atom</text>
+  <line x1="75" y1="90" x2="195" y2="90" stroke="#1f2937" stroke-width="2.5" stroke-dasharray="7 4"/>
+  <line x1="75" y1="195" x2="195" y2="195" stroke="#2563eb" stroke-width="3"/>
+  <line x1="75" y1="300" x2="195" y2="300" stroke="#1f2937" stroke-width="2.5"/>
+  <text x="135" y="80" font-size="13" fill="#1f2937" text-anchor="middle">empty outer level</text>
+  <text x="135" y="185" font-size="13" fill="#2563eb" text-anchor="middle">valence level</text>
+  <text x="135" y="290" font-size="13" fill="#1f2937" text-anchor="middle">inner level</text>
+  <text x="135" y="335" font-size="13" fill="#1f2937" text-anchor="middle">sharp, discrete levels</text>
+
+  <!-- connectors -->
+  <line x1="200" y1="90" x2="330" y2="68" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="200" y1="90" x2="330" y2="122" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="200" y1="195" x2="330" y2="168" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="200" y1="195" x2="330" y2="222" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="200" y1="300" x2="330" y2="296" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="200" y1="300" x2="330" y2="304" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="265" y="258" font-size="13" fill="#1f2937" text-anchor="middle">each level splits</text>
+  <text x="265" y="274" font-size="13" fill="#1f2937" text-anchor="middle">into N levels</text>
+
+  <!-- right: crystal -->
+  <text x="400" y="30" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">Crystal of N atoms</text>
+  <!-- conduction band (empty) -->
+  <rect x="330" y="68" width="140" height="54" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <g stroke="#9ca3af" stroke-width="1">
+    <line x1="330" y1="74" x2="470" y2="74"/><line x1="330" y1="80" x2="470" y2="80"/>
+    <line x1="330" y1="86" x2="470" y2="86"/><line x1="330" y1="92" x2="470" y2="92"/>
+    <line x1="330" y1="98" x2="470" y2="98"/><line x1="330" y1="104" x2="470" y2="104"/>
+    <line x1="330" y1="110" x2="470" y2="110"/><line x1="330" y1="116" x2="470" y2="116"/>
+  </g>
+  <!-- valence band (filled at 0 K) -->
+  <rect x="330" y="168" width="140" height="54" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+  <g stroke="#2563eb" stroke-width="1">
+    <line x1="330" y1="174" x2="470" y2="174"/><line x1="330" y1="180" x2="470" y2="180"/>
+    <line x1="330" y1="186" x2="470" y2="186"/><line x1="330" y1="192" x2="470" y2="192"/>
+    <line x1="330" y1="198" x2="470" y2="198"/><line x1="330" y1="204" x2="470" y2="204"/>
+    <line x1="330" y1="210" x2="470" y2="210"/><line x1="330" y1="216" x2="470" y2="216"/>
+  </g>
+  <!-- inner band (narrow) -->
+  <rect x="330" y="296" width="140" height="8" fill="#d1d5db" stroke="#1f2937" stroke-width="1.5"/>
+
+  <!-- band gap arrow -->
+  <line x1="490" y1="128" x2="490" y2="162" stroke="#dc2626" stroke-width="2"/>
+  <polygon points="490,122 485,132 495,132" fill="#dc2626"/>
+  <polygon points="490,168 485,158 495,158" fill="#dc2626"/>
+  <text x="500" y="141" font-size="14" fill="#dc2626">forbidden gap</text>
+  <text x="500" y="158" font-size="14" fill="#dc2626">(no allowed levels)</text>
+
+  <!-- labels -->
+  <text x="490" y="88" font-size="14" fill="#1f2937">Conduction band</text>
+  <text x="490" y="105" font-size="13" fill="#1f2937">(empty at 0 K)</text>
+  <text x="490" y="190" font-size="14" fill="#2563eb">Valence band</text>
+  <text x="490" y="207" font-size="13" fill="#2563eb">(filled at 0 K)</text>
+  <text x="490" y="298" font-size="14" fill="#1f2937">Inner band</text>
+  <text x="490" y="315" font-size="13" fill="#1f2937">(hardly broadened)</text>
+  <text x="400" y="335" font-size="13" fill="#1f2937" text-anchor="middle">N ~ 10<tspan dy="-6" font-size="10">23</tspan><tspan dy="6"> closely spaced levels</tspan></text>
+  <text x="400" y="351" font-size="13" fill="#1f2937" text-anchor="middle">form an almost continuous band</text>
+</svg>

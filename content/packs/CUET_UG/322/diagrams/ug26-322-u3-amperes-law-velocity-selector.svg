@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 370" font-family="Arial, Helvetica, sans-serif">
+  <!-- plates -->
+  <rect x="200" y="70" width="400" height="8" fill="#dc2626"/>
+  <text x="400" y="60" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">+  +  +  +  +  +  +  +</text>
+  <rect x="200" y="262" width="400" height="8" fill="#2563eb"/>
+  <text x="400" y="292" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">−  −  −  −  −  −  −  −</text>
+  <!-- E field arrows (downward) -->
+  <line x1="590" y1="86" x2="590" y2="140" stroke="#d97706" stroke-width="2"/>
+  <polygon points="590,152 583,138 597,138" fill="#d97706"/>
+  <line x1="590" y1="190" x2="590" y2="244" stroke="#d97706" stroke-width="2"/>
+  <polygon points="590,256 583,242 597,242" fill="#d97706"/>
+  <text x="566" y="126" font-size="15" font-weight="bold" fill="#d97706">E</text>
+  <!-- B into the page -->
+  <g stroke="#6b7280" stroke-width="1.5" fill="none">
+    <circle cx="260" cy="100" r="7"/><path d="M 256 96 L 264 104 M 264 96 L 256 104"/>
+    <circle cx="340" cy="100" r="7"/><path d="M 336 96 L 344 104 M 344 96 L 336 104"/>
+    <circle cx="420" cy="100" r="7"/><path d="M 416 96 L 424 104 M 424 96 L 416 104"/>
+    <circle cx="260" cy="240" r="7"/><path d="M 256 236 L 264 244 M 264 236 L 256 244"/>
+    <circle cx="340" cy="240" r="7"/><path d="M 336 236 L 344 244 M 344 236 L 336 244"/>
+    <circle cx="420" cy="240" r="7"/><path d="M 416 236 L 424 244 M 424 236 L 416 244"/>
+    <circle cx="540" cy="130" r="7"/><path d="M 536 126 L 544 134 M 544 126 L 536 134"/>
+    <circle cx="540" cy="210" r="7"/><path d="M 536 206 L 544 214 M 544 206 L 536 214"/>
+  </g>
+  <text x="440" y="330" font-size="13" fill="#6b7280">B into the page (crosses)</text>
+  <!-- source and entry slit -->
+  <rect x="30" y="152" width="62" height="36" fill="#f3f4f6" stroke="#1f2937" stroke-width="1.8"/>
+  <text x="61" y="175" font-size="13" fill="#1f2937" text-anchor="middle">source</text>
+  <line x1="130" y1="135" x2="130" y2="163" stroke="#1f2937" stroke-width="4"/>
+  <line x1="130" y1="177" x2="130" y2="205" stroke="#1f2937" stroke-width="4"/>
+  <!-- paths -->
+  <line x1="92" y1="170" x2="676" y2="170" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="700,170 686,163 686,177" fill="#059669"/>
+  <path d="M 200 170 Q 380 168 520 82" fill="none" stroke="#dc2626" stroke-width="2.2" stroke-dasharray="7 4"/>
+  <path d="M 200 170 Q 380 172 520 258" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-dasharray="7 4"/>
+  <!-- exit slit -->
+  <line x1="680" y1="135" x2="680" y2="163" stroke="#1f2937" stroke-width="4"/>
+  <line x1="680" y1="177" x2="680" y2="205" stroke="#1f2937" stroke-width="4"/>
+  <text x="680" y="226" font-size="13" fill="#1f2937" text-anchor="middle">exit slit</text>
+  <!-- labels for paths -->
+  <text x="610" y="190" font-size="13" font-weight="bold" fill="#059669">v = E/B</text>
+  <text x="528" y="104" font-size="13" font-weight="bold" fill="#dc2626">v &gt; E/B</text>
+  <text x="528" y="246" font-size="13" font-weight="bold" fill="#2563eb">v &lt; E/B</text>
+  <!-- forces on a positive charge on the straight path -->
+  <circle cx="300" cy="170" r="6" fill="#1f2937"/>
+  <line x1="300" y1="162" x2="300" y2="132" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="300,120 293,134 307,134" fill="#dc2626"/>
+  <text x="308" y="134" font-size="14" font-weight="bold" fill="#dc2626">qvB</text>
+  <line x1="300" y1="178" x2="300" y2="208" stroke="#d97706" stroke-width="2.5"/>
+  <polygon points="300,220 293,206 307,206" fill="#d97706"/>
+  <text x="308" y="216" font-size="14" font-weight="bold" fill="#d97706">qE</text>
+  <!-- notes -->
+  <text x="30" y="330" font-size="13" fill="#1f2937">Positive charge moving right:</text>
+  <text x="30" y="348" font-size="13" fill="#1f2937">qE acts down, qvB acts up. Undeflected when qE = qvB, so v = E/B.</text>
+</svg>

@@ -1,0 +1,283 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": { "id": "cn_f9e062fd6d144d7790dd047accc0c062", "title": "Electromagnetic waves, their characteristics, and their transverse nature." },
+  "lesson": {
+    "key": "ug26-322-u5-em-waves",
+    "title": "Electromagnetic waves: production, characteristics and transverse nature",
+    "coverage": [
+      { "phrase": "Electromagnetic waves: what they are and how accelerated charges produce them", "section": "What is an electromagnetic wave?" },
+      { "phrase": "Transverse nature of electromagnetic waves", "section": "Transverse nature of electromagnetic waves" },
+      { "phrase": "Speed of electromagnetic waves in vacuum and the ratio of field amplitudes", "section": "Speed of electromagnetic waves and the ratio E0/B0" },
+      { "phrase": "Characteristics of electromagnetic waves", "section": "Characteristics of electromagnetic waves" },
+      { "phrase": "Energy density and intensity carried by electromagnetic waves", "section": "Energy carried by electromagnetic waves" },
+      { "phrase": "Momentum and radiation pressure of electromagnetic waves", "section": "Momentum and radiation pressure" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "What is an electromagnetic wave?" },
+      { "type": "TEXT", "text": "An **electromagnetic (EM) wave** is a travelling disturbance made of an electric field and a magnetic field that vary in time and space and keep regenerating each other. Faraday's law says a changing magnetic field produces an electric field; the Ampère–Maxwell law (with displacement current) says a changing electric field produces a magnetic field. Once started, this pair of changing fields can move away from its source through empty space, carrying energy and momentum with it. No material medium is needed.\n\nLight, radio waves, microwaves, X-rays and gamma rays are all electromagnetic waves. They differ only in frequency (and therefore wavelength); their basic physics is the same." },
+      { "type": "DEFINITION", "term": "Electromagnetic wave", "text": "A wave consisting of mutually perpendicular, time-varying electric and magnetic fields that sustain each other and propagate, in vacuum, at the speed $c = 1/\\sqrt{\\mu_0\\varepsilon_0} \\approx 3\\times10^8\\,\\text{m s}^{-1}$, perpendicular to both fields." },
+      { "type": "TEXT", "text": "**Source: accelerated charges.** Compare three situations:\n\n1. *A charge at rest* produces only a static electric field. Nothing changes, so nothing radiates.\n2. *A charge moving with constant velocity* (a steady current) produces an electric field and a steady magnetic field, but these simply travel along with the charge; no wave carries energy away to infinity.\n3. *An accelerated charge* produces changing electric and magnetic fields that detach and travel outward as an electromagnetic wave. **Only accelerated charges radiate.**\n\nAn oscillating charge is continuously accelerated. If a charge oscillates with frequency $\\nu$, it produces an oscillating electric field of frequency $\\nu$, which produces an oscillating magnetic field of the same frequency, and so on. **The frequency of the EM wave equals the frequency of oscillation of the charge.** The energy carried away by the wave is supplied by whatever keeps the charge oscillating — for example the oscillator circuit that drives a transmitting antenna." },
+      { "type": "EXAMPLE", "text": "An LC circuit or a transmitting antenna in which electrons surge back and forth at $1.0\\times10^{6}\\,\\text{Hz}$ radiates EM waves of frequency $1.0\\times10^{6}\\,\\text{Hz}$ and wavelength $\\lambda = c/\\nu = 300\\,\\text{m}$ (a medium-wave radio signal). Visible light, with frequencies near $10^{14}$–$10^{15}\\,\\text{Hz}$, cannot be made with ordinary LC circuits: the circuit would have to be of atomic size. Instead, light is emitted when electrons in atoms jump from higher to lower energy levels." },
+      { "type": "IMPORTANT_FACT", "text": "**History you may be asked about.** Maxwell predicted EM waves theoretically (1864). **Heinrich Hertz** (1887) produced and detected them in the laboratory using an oscillating spark-gap circuit, obtaining waves a few metres long, and showed that they reflect, refract, interfere and can be polarised, just like light. **Jagadish Chandra Bose** in Kolkata produced and studied much shorter EM waves, of wavelength 25 mm to 5 mm. **Guglielmo Marconi** used EM waves to send signals over many kilometres, the beginning of radio communication." },
+
+      { "type": "HEADING", "text": "Transverse nature of electromagnetic waves" },
+      { "type": "TEXT", "text": "Far from its source, a small portion of an EM wave behaves as a **plane wave**: the fields have the same value everywhere on any plane perpendicular to the direction of travel. For a plane wave in free space:\n\n- the electric field $\\vec E$ is perpendicular to the direction of propagation;\n- the magnetic field $\\vec B$ is perpendicular to the direction of propagation;\n- $\\vec E$ and $\\vec B$ are perpendicular to each other.\n\nNeither field has any component along the direction of travel. A wave in which the oscillating quantity is perpendicular to the direction of propagation is called **transverse**, so EM waves are transverse waves. The figure shows a wave travelling along $x$ with $\\vec E$ along $y$ and $\\vec B$ along $z$." },
+      { "type": "DIAGRAM", "diagram": "fields" },
+      { "type": "FORMULA", "latex": "E_y = E_0\\sin(kx - \\omega t),\\qquad B_z = B_0\\sin(kx - \\omega t)", "text": "A plane EM wave travelling in the $+x$ direction. $E_0$ = amplitude of the electric field ($\\text{V m}^{-1}$); $B_0$ = amplitude of the magnetic field (T); $k = 2\\pi/\\lambda$ = angular wave number ($\\text{rad m}^{-1}$); $\\omega = 2\\pi\\nu$ = angular frequency ($\\text{rad s}^{-1}$). The same phase $(kx - \\omega t)$ in both means the fields are **in phase**: they reach maxima and zeros together. (Many books write the equivalent form $E_x = E_0\\sin(kz - \\omega t)$, $B_y = B_0\\sin(kz - \\omega t)$ for a wave along $z$.)" },
+      { "type": "FORMULA", "latex": "\\omega = ck \\quad\\Longleftrightarrow\\quad c = \\nu\\lambda", "text": "Relation between angular frequency and wave number for a wave travelling at speed $c$. Read it from an equation: speed $= \\omega/k$ (coefficient of $t$ divided by coefficient of $x$)." },
+      { "type": "TEXT", "text": "**Direction of propagation.** The wave travels along $\\vec E\\times\\vec B$. Use the right-hand rule: turn the fingers from $\\vec E$ towards $\\vec B$; the thumb points along the propagation direction. Two quick rules for questions:\n\n- In $\\sin(kx - \\omega t)$ the wave moves towards $+x$; in $\\sin(kx + \\omega t)$ it moves towards $-x$.\n- Given $\\vec E$ and the propagation direction $\\hat n$, the magnetic field direction is $\\hat n\\times\\hat E$. Example: travel along $+x$, $\\vec E$ along $+y$ gives $\\hat x\\times\\hat y = \\hat z$, so $\\vec B$ is along $+z$ (as in the figure)." },
+      { "type": "FORMULA", "latex": "\\vec{B} = \\frac{1}{c}\\,\\hat{n}\\times\\vec{E},\\qquad \\hat{n} \\parallel \\vec{E}\\times\\vec{B}", "text": "Vector relation for a plane wave in vacuum; $\\hat n$ = unit vector along the direction of propagation. It gives both the size ($B = E/c$) and the direction of the magnetic field at any point and instant." },
+      { "type": "TEXT", "text": "**Evidence for transverse nature: polarisation.** Only transverse waves can be polarised. When light passes through a polaroid, only the component of the electric field along one direction gets through; rotating a second polaroid in front of the first changes the transmitted intensity, and at one orientation cuts it off almost completely. Longitudinal waves such as sound in air cannot show this effect, because their vibration is along the direction of travel and looks the same from every side. Hertz showed that his radio-frequency waves could also be polarised — direct evidence that they were transverse, just like light." },
+      { "type": "CALLOUT", "text": "**Common mistake:** drawing $\\vec B$ a quarter of a cycle behind $\\vec E$ (as in an LC circuit, where energy swaps between capacitor and inductor). In a travelling EM wave in free space the fields are **in phase** — both are maximum at the same point at the same instant." },
+
+      { "type": "HEADING", "text": "Speed of electromagnetic waves and the ratio E0/B0" },
+      { "type": "TEXT", "text": "Maxwell's equations predict the speed of EM waves. Here is a simple argument that needs only the two circulation laws (for understanding; at CUET level you must remember the results).\n\nImagine a flat wavefront moving along $+x$ with speed $v$ through empty space. Behind the front the fields are uniform — $\\vec E$ along $y$ and $\\vec B$ along $z$; ahead of it both are zero.\n\n**Step 1 — Faraday's law (panel a).** Take a rectangle in the $x$–$y$ plane, of height $h$, whose left side is behind the front and whose right side is ahead of it. Only the left side lies in a field, so $\\oint \\vec E\\cdot d\\vec l = Eh$. In time $dt$ the front advances $v\\,dt$, so the area filled with magnetic field grows by $hv\\,dt$ and $d\\Phi_B/dt = Bhv$. Faraday's law (magnitudes) gives $Eh = Bhv$, i.e. $E = vB$.\n\n**Step 2 — Ampère–Maxwell law (panel b).** Take a similar rectangle in the $x$–$z$ plane. Now only its left side lies in the magnetic field, so $\\oint \\vec B\\cdot d\\vec l = Bh$. There is no conduction current, but the electric flux through the rectangle grows at the rate $d\\Phi_E/dt = Ehv$. So $Bh = \\mu_0\\varepsilon_0 Ehv$, i.e. $B = \\mu_0\\varepsilon_0 vE$.\n\n**Step 3 — Combine.** Substitute $B$ from step 2 into step 1: $E = v(\\mu_0\\varepsilon_0 vE)$, so $v^2\\mu_0\\varepsilon_0 = 1$." },
+      { "type": "DIAGRAM", "diagram": "wavefront" },
+      { "type": "FORMULA", "latex": "c = \\frac{1}{\\sqrt{\\mu_0\\varepsilon_0}} = \\frac{1}{\\sqrt{(4\\pi\\times10^{-7})(8.854\\times10^{-12})}} = 2.998\\times10^{8}\\,\\text{m s}^{-1}", "text": "Speed of EM waves in vacuum. $\\mu_0$ = permeability of free space ($\\text{T m A}^{-1}$), $\\varepsilon_0$ = permittivity of free space ($\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$). This agrees with the measured speed of light, which is how Maxwell concluded that light is an electromagnetic wave. It is the same for all frequencies." },
+      { "type": "FORMULA", "latex": "\\frac{E}{B} = c \\qquad\\text{and}\\qquad \\frac{E_0}{B_0} = c", "text": "Step 1 with $v = c$. At every point and instant of a plane wave in vacuum the ratio of the field magnitudes is $c$; hence the amplitudes satisfy $E_0 = cB_0$. $E$ in $\\text{V m}^{-1}$, $B$ in T." },
+      { "type": "TEXT", "text": "Since $c$ is huge, the magnetic field of an EM wave is numerically tiny compared with its electric field: a wave with $E_0 = 30\\,\\text{V m}^{-1}$ has $B_0 = 1.0\\times10^{-7}\\,\\text{T}$. This does **not** mean the magnetic field is less important — as you will see, it carries exactly half the energy.\n\n**Speed in a material medium.** In a medium of permittivity $\\varepsilon = \\varepsilon_r\\varepsilon_0$ and permeability $\\mu = \\mu_r\\mu_0$, the same argument gives a smaller speed. Comparing with $c$ gives the refractive index $n$ of the medium. Because $\\varepsilon_r$ of a material depends on frequency, the speed in matter varies with frequency (this is dispersion, which splits white light in a prism); in vacuum, every frequency travels at the same $c$." },
+      { "type": "FORMULA", "latex": "v = \\frac{1}{\\sqrt{\\mu\\varepsilon}} = \\frac{c}{\\sqrt{\\mu_r\\varepsilon_r}},\\qquad n = \\frac{c}{v} = \\sqrt{\\mu_r\\varepsilon_r}", "text": "$v$ = speed of EM waves in the medium; $\\mu_r$, $\\varepsilon_r$ = relative permeability and relative permittivity (dimensionless). For most transparent materials $\\mu_r \\approx 1$, so $n \\approx \\sqrt{\\varepsilon_r}$ (with $\\varepsilon_r$ measured at the frequency of the wave)." },
+      { "type": "SOLVED_PROBLEM", "problem": "A plane EM wave of frequency $40\\,\\text{MHz}$ travels in vacuum along the $+x$ direction. At a certain point and instant its electric field is $9.0\\,\\text{V m}^{-1}$ along $+y$. Find (a) the wavelength and period, and (b) the magnitude and direction of the magnetic field at that point and instant.", "solution": "(a) Wavelength: $\\lambda = c/\\nu = (3.0\\times10^{8}\\,\\text{m s}^{-1})/(40\\times10^{6}\\,\\text{Hz}) = 7.5\\,\\text{m}$. Period: $T = 1/\\nu = 1/(4.0\\times10^{7}) = 2.5\\times10^{-8}\\,\\text{s}$.\n\n(b) Magnitude: in vacuum $B = E/c = 9.0/(3.0\\times10^{8}) = 3.0\\times10^{-8}\\,\\text{T}$.\n\nDirection: the wave travels along $\\vec E\\times\\vec B$, so $\\vec B$ is along $\\hat n\\times\\hat E$ with $\\hat n = \\hat x$ and $\\hat E = \\hat y$. Since $\\hat x\\times\\hat y = \\hat z$, the magnetic field points along $+z$. Check: $\\hat y\\times\\hat z = \\hat x$, the direction of travel. ✓", "answer": "(a) $\\lambda = 7.5\\,\\text{m}$, $T = 2.5\\times10^{-8}\\,\\text{s}$; (b) $B = 3.0\\times10^{-8}\\,\\text{T}$ along $+z$" },
+      { "type": "SOLVED_PROBLEM", "problem": "The electric field of an EM wave in vacuum is $\\vec E = 60\\sin\\left(2.0\\times10^{3}\\,x - 6.0\\times10^{11}\\,t\\right)\\hat j\\ \\text{V m}^{-1}$, with $x$ in metres and $t$ in seconds. Find (a) the direction of propagation, (b) the speed, wavelength and frequency, and (c) an expression for the magnetic field.", "solution": "(a) The phase has the form $(kx - \\omega t)$, so the wave travels along $+x$.\n\n(b) Compare with $E_0\\sin(kx - \\omega t)$: $k = 2.0\\times10^{3}\\,\\text{rad m}^{-1}$ and $\\omega = 6.0\\times10^{11}\\,\\text{rad s}^{-1}$. Speed $v = \\omega/k = 6.0\\times10^{11}/2.0\\times10^{3} = 3.0\\times10^{8}\\,\\text{m s}^{-1}$, as expected in vacuum. Wavelength $\\lambda = 2\\pi/k = 6.283/2000 = 3.14\\times10^{-3}\\,\\text{m}$ (about 3 mm, a microwave). Frequency $\\nu = \\omega/2\\pi = 6.0\\times10^{11}/6.283 = 9.55\\times10^{10}\\,\\text{Hz}$.\n\n(c) Amplitude $B_0 = E_0/c = 60/(3.0\\times10^{8}) = 2.0\\times10^{-7}\\,\\text{T}$. Direction: $\\hat n\\times\\hat E = \\hat i\\times\\hat j = \\hat k$. The fields are in phase, so $\\vec B = 2.0\\times10^{-7}\\sin\\left(2.0\\times10^{3}\\,x - 6.0\\times10^{11}\\,t\\right)\\hat k\\ \\text{T}$.", "answer": "(a) $+x$; (b) $3.0\\times10^{8}\\,\\text{m s}^{-1}$, $\\lambda \\approx 3.1\\,\\text{mm}$, $\\nu \\approx 9.5\\times10^{10}\\,\\text{Hz}$; (c) $\\vec B = 2.0\\times10^{-7}\\sin(2.0\\times10^{3}x - 6.0\\times10^{11}t)\\,\\hat k\\ \\text{T}$" },
+
+      { "type": "HEADING", "text": "Characteristics of electromagnetic waves" },
+      { "type": "CONCEPT", "text": "Every property of EM waves follows from Maxwell's equations: the fields are transverse and in phase, they travel at $c$ in vacuum whatever their frequency, and they carry energy and momentum but no charge." },
+      { "type": "KEY_POINT", "text": "**The characteristics to remember**\n\n1. **Produced by accelerated charges**; the wave frequency equals the frequency of the oscillating source.\n2. **No medium needed** — they travel through vacuum (sunlight crosses empty space to reach Earth).\n3. **Transverse**: $\\vec E \\perp \\vec B$, and both are perpendicular to the direction of propagation, which is along $\\vec E\\times\\vec B$.\n4. **In phase**: $\\vec E$ and $\\vec B$ reach their maximum and zero values at the same place and time.\n5. **Speed in vacuum** $c = 1/\\sqrt{\\mu_0\\varepsilon_0} \\approx 3\\times10^{8}\\,\\text{m s}^{-1}$ for all frequencies; in a medium $v = 1/\\sqrt{\\mu\\varepsilon} < c$.\n6. **Field ratio** $E/B = c$ in vacuum.\n7. **Frequency is fixed by the source** and does not change when the wave passes from one medium to another; the speed and wavelength change ($\\lambda = v/\\nu$).\n8. **Carry energy** — shared equally between the electric and magnetic fields.\n9. **Carry momentum** and exert pressure (radiation pressure) on surfaces they strike.\n10. **Uncharged**: EM waves are not deflected by electric or magnetic fields.\n11. **Show all wave behaviour**: reflection, refraction, interference, diffraction and polarisation; they obey the superposition principle." },
+      { "type": "TABLE", "caption": "Electromagnetic waves compared with sound waves in air", "columns": ["Property", "Electromagnetic waves", "Sound waves in air"], "rows": [
+        ["What oscillates", "Electric and magnetic fields", "Pressure and density of the air"],
+        ["Medium", "Not needed; travel through vacuum", "Needed; cannot travel through vacuum"],
+        ["Type of wave", "Transverse", "Longitudinal"],
+        ["Speed", "$3\\times10^{8}\\,\\text{m s}^{-1}$ in vacuum; less in matter", "About $340\\,\\text{m s}^{-1}$ at room temperature; more in liquids and solids"],
+        ["Polarisation", "Possible", "Not possible"],
+        ["Deflection by E or B fields", "None", "None"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "Light of frequency $5.0\\times10^{14}\\,\\text{Hz}$ passes from vacuum into a transparent plastic with $\\varepsilon_r = 2.25$ and $\\mu_r = 1.0$ (at this frequency). Find (a) the speed of the light in the plastic, (b) the refractive index, and (c) the wavelength in vacuum and in the plastic.", "solution": "(a) In a medium the speed is reduced by the factor $\\sqrt{\\mu_r\\varepsilon_r}$, so $v = \\dfrac{c}{\\sqrt{\\mu_r\\varepsilon_r}} = \\dfrac{3.0\\times10^{8}}{\\sqrt{1.0\\times2.25}} = \\dfrac{3.0\\times10^{8}}{1.5} = 2.0\\times10^{8}\\,\\text{m s}^{-1}$.\n\n(b) The refractive index is the ratio of the speed in vacuum to the speed in the medium: $n = c/v = 3.0\\times10^{8}/2.0\\times10^{8} = 1.5$ (the same as $\\sqrt{2.25}$).\n\n(c) In vacuum: $\\lambda_0 = c/\\nu = 3.0\\times10^{8}/5.0\\times10^{14} = 6.0\\times10^{-7}\\,\\text{m} = 600\\,\\text{nm}$. On entering the plastic the frequency stays $5.0\\times10^{14}\\,\\text{Hz}$ (it is set by the source), so $\\lambda = v/\\nu = 2.0\\times10^{8}/5.0\\times10^{14} = 4.0\\times10^{-7}\\,\\text{m} = 400\\,\\text{nm}$, which is $\\lambda_0/n$.", "answer": "(a) $2.0\\times10^{8}\\,\\text{m s}^{-1}$; (b) $n = 1.5$; (c) 600 nm in vacuum, 400 nm in the plastic (frequency unchanged)" },
+
+      { "type": "HEADING", "text": "Energy carried by electromagnetic waves" },
+      { "type": "TEXT", "text": "Energy is stored in any region where there is an electric or a magnetic field. You have already met both energy densities: from the energy of a charged capacitor, $u_E = \\tfrac12\\varepsilon_0E^2$; from the energy of a current-carrying inductor, $u_B = B^2/2\\mu_0$. In an EM wave both fields are present, so the total energy density is their sum.\n\n**The two shares are equal.** Put $B = E/c$ and $c^2 = 1/(\\mu_0\\varepsilon_0)$ into $u_B$: $u_B = \\dfrac{E^2}{2\\mu_0c^2} = \\dfrac{\\varepsilon_0E^2}{2} = u_E$. So in an EM wave the electric and magnetic fields always carry **equal** amounts of energy, even though $E$ is numerically much larger than $B$." },
+      { "type": "FORMULA", "latex": "u = u_E + u_B = \\frac{1}{2}\\varepsilon_0E^2 + \\frac{B^2}{2\\mu_0} = \\varepsilon_0E^2 = \\frac{B^2}{\\mu_0}", "text": "Instantaneous energy density (energy per unit volume) of an EM wave in vacuum, in $\\text{J m}^{-3}$. $E$ and $B$ are the instantaneous field values at the point." },
+      { "type": "TEXT", "text": "**Average over a cycle.** The fields oscillate as $\\sin(kx - \\omega t)$, and the average of $\\sin^2$ over a full cycle is $\\tfrac12$. So the time-averaged value of $E^2$ is $E_0^2/2 = E_{\\text{rms}}^2$." },
+      { "type": "FORMULA", "latex": "\\langle u\\rangle = \\frac{1}{2}\\varepsilon_0E_0^2 = \\frac{B_0^2}{2\\mu_0} = \\varepsilon_0E_{\\text{rms}}^2", "text": "Average energy density of the wave; $E_0$, $B_0$ = amplitudes; $E_{\\text{rms}} = E_0/\\sqrt2$. Half of it is electric and half magnetic: average electric energy density $= \\tfrac14\\varepsilon_0E_0^2$, and the same for the magnetic part." },
+      { "type": "DEFINITION", "term": "Intensity of an EM wave", "text": "The average energy crossing unit area, held perpendicular to the direction of propagation, per unit time. It equals the average energy density times the wave speed: $I = \\langle u\\rangle c$. SI unit: $\\text{W m}^{-2}$." },
+      { "type": "FORMULA", "latex": "I = \\langle u\\rangle\\,c = \\frac{1}{2}c\\,\\varepsilon_0E_0^2 = \\frac{cB_0^2}{2\\mu_0} = \\frac{E_0B_0}{2\\mu_0}", "text": "Intensity of a plane EM wave in vacuum ($\\text{W m}^{-2}$). Useful for finding field amplitudes from the power of a source: $E_0 = \\sqrt{2I/(c\\varepsilon_0)}$." },
+      { "type": "SOLVED_PROBLEM", "problem": "A $2.0\\,\\text{mW}$ laser produces a beam of cross-sectional area $1.0\\,\\text{mm}^2$. Treating the beam as a plane wave of uniform intensity, find (a) the intensity, (b) the amplitudes of the electric and magnetic fields, and (c) the average energy density in the beam. ($c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$, $\\varepsilon_0 = 8.854\\times10^{-12}\\,\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$)", "solution": "(a) Intensity is power per unit area. Convert the area to square metres first: $1.0\\,\\text{mm}^2 = 1.0\\times10^{-6}\\,\\text{m}^2$. Then $I = P/A = (2.0\\times10^{-3}\\,\\text{W})/(1.0\\times10^{-6}\\,\\text{m}^2) = 2.0\\times10^{3}\\,\\text{W m}^{-2}$.\n\n(b) Rearrange the intensity formula $I = \\tfrac12 c\\varepsilon_0E_0^2$ to make the electric field amplitude the subject, then substitute: $E_0 =\\sqrt{\\dfrac{2I}{c\\varepsilon_0}} = \\sqrt{\\dfrac{4.0\\times10^{3}}{(3.0\\times10^{8})(8.854\\times10^{-12})}} = \\sqrt{\\dfrac{4.0\\times10^{3}}{2.656\\times10^{-3}}} = \\sqrt{1.506\\times10^{6}} \\approx 1.23\\times10^{3}\\,\\text{V m}^{-1}$.\n\nThe magnetic amplitude follows from the field ratio in vacuum: $B_0 = E_0/c = 1.227\\times10^{3}/3.0\\times10^{8} \\approx 4.1\\times10^{-6}\\,\\text{T}$.\n\n(c) Intensity equals the average energy density multiplied by the speed of the wave, so $\\langle u\\rangle = I/c = 2.0\\times10^{3}/3.0\\times10^{8} \\approx 6.7\\times10^{-6}\\,\\text{J m}^{-3}$. As a check, the direct formula gives the same value: $\\tfrac12\\varepsilon_0E_0^2 = 0.5(8.854\\times10^{-12})(1.506\\times10^{6}) = 6.7\\times10^{-6}\\,\\text{J m}^{-3}$. ✓", "answer": "(a) $2.0\\times10^{3}\\,\\text{W m}^{-2}$; (b) $E_0 \\approx 1.2\\times10^{3}\\,\\text{V m}^{-1}$, $B_0 \\approx 4.1\\times10^{-6}\\,\\text{T}$; (c) $\\approx 6.7\\times10^{-6}\\,\\text{J m}^{-3}$" },
+
+      { "type": "HEADING", "text": "Momentum and radiation pressure" },
+      { "type": "TEXT", "text": "An EM wave carries momentum as well as energy. If a wave delivers energy $U$ to a surface that **absorbs it completely**, it also delivers momentum $U/c$ along its direction of travel. If the surface **reflects it completely** at normal incidence, the momentum of the wave is reversed, so the surface receives twice as much, $2U/c$.\n\nA steady stream of momentum is a force. For a beam of intensity $I$ falling normally on area $A$, the energy arriving per second is $IA$, so the force on an absorbing surface is $IA/c$; dividing by area gives the **radiation pressure**." },
+      { "type": "FORMULA", "latex": "p = \\frac{U}{c}\\ (\\text{absorbed}),\\qquad p = \\frac{2U}{c}\\ (\\text{reflected});\\qquad P_{\\text{rad}} = \\frac{I}{c}\\ \\text{or}\\ \\frac{2I}{c}", "text": "$p$ = momentum delivered ($\\text{kg m s}^{-1}$) when energy $U$ (J) arrives at normal incidence; $P_{\\text{rad}}$ = radiation pressure (Pa) for intensity $I$ ($\\text{W m}^{-2}$), on a perfectly absorbing or perfectly reflecting surface respectively." },
+      { "type": "SOLVED_PROBLEM", "problem": "Sunlight of intensity $1.2\\times10^{3}\\,\\text{W m}^{-2}$ falls normally on a flat panel of area $2.0\\,\\text{m}^2$. Find the force exerted by the light if the panel (a) absorbs all of it, (b) reflects all of it. Also find the momentum delivered in one minute in case (a).", "solution": "(a) Power arriving: $IA = (1.2\\times10^{3})(2.0) = 2.4\\times10^{3}\\,\\text{W}$, i.e. $2.4\\times10^{3}$ J of energy each second. For complete absorption the momentum delivered per second, which is the force, is $F = IA/c = 2.4\\times10^{3}/3.0\\times10^{8} = 8.0\\times10^{-6}\\,\\text{N}$.\n\n(b) For complete reflection the momentum change is doubled: $F = 2IA/c = 1.6\\times10^{-5}\\,\\text{N}$.\n\nMomentum in one minute, case (a): energy $U = 2.4\\times10^{3}\\times60 = 1.44\\times10^{5}\\,\\text{J}$, so $p = U/c = 1.44\\times10^{5}/3.0\\times10^{8} = 4.8\\times10^{-4}\\,\\text{kg m s}^{-1}$ (which is also $F\\times t = 8.0\\times10^{-6}\\times60$).\n\nThe forces are tiny for everyday light, which is why we never feel sunlight pushing us — but over large areas in space (solar sails, comet tails) they matter.", "answer": "(a) $8.0\\times10^{-6}\\,\\text{N}$; (b) $1.6\\times10^{-5}\\,\\text{N}$; momentum in one minute (absorbing) $= 4.8\\times10^{-4}\\,\\text{kg m s}^{-1}$" },
+
+      { "type": "HEADING", "text": "Summary and exam tips" },
+      { "type": "IMPORTANT_FACT", "text": "Formula sheet: $c = 1/\\sqrt{\\mu_0\\varepsilon_0}$; $c = \\nu\\lambda = \\omega/k$; $E_0 = cB_0$; $v = 1/\\sqrt{\\mu\\varepsilon} = c/n$; $u_E = u_B$; $\\langle u\\rangle = \\tfrac12\\varepsilon_0E_0^2$; $I = \\tfrac12 c\\varepsilon_0E_0^2$; $p = U/c$ (absorbed), $2U/c$ (reflected)." },
+      { "type": "CALLOUT", "text": "**Exam tips and traps**\n\n- 'Which field carries more energy?' — neither; they share it equally.\n- When a wave enters a new medium, **frequency stays the same**; speed and wavelength change by the factor $n$.\n- Read wave equations carefully: $(kx - \\omega t)$ means $+x$, $(kx + \\omega t)$ means $-x$; speed $= \\omega/k$; $\\lambda = 2\\pi/k$; $\\nu = \\omega/2\\pi$.\n- The direction of $\\vec B$ follows from $\\hat n\\times\\hat E$; check with $\\vec E\\times\\vec B \\parallel \\hat n$.\n- $E_0$ and $E_{\\text{rms}}$ differ by $\\sqrt2$; intensity formulas use $\\tfrac12E_0^2$ or $E_{\\text{rms}}^2$, never $E_0^2$ alone.\n- EM waves carry no charge, so no electric or magnetic field can deflect them; 'they travel fast' is not the reason." },
+      { "type": "KEY_POINT", "text": "One-line summary: EM waves are transverse, self-sustaining oscillations of $\\vec E$ and $\\vec B$, in phase and mutually perpendicular, produced by accelerated charges, travelling through vacuum at $c = 1/\\sqrt{\\mu_0\\varepsilon_0}$ with $E/B = c$, and carrying energy (shared equally by the two fields) and momentum." }
+    ]
+  },
+  "diagrams": [
+    {
+      "key": "fields",
+      "file": "diagrams/ug26-322-u5-em-waves-fields.svg",
+      "alt": "A plane electromagnetic wave: the electric field oscillates along y, the magnetic field along z, in phase, and the wave travels along x with speed c",
+      "caption": "A plane electromagnetic wave: E along y, B along z, travelling along x (E × B)",
+      "description": "Three-dimensional sketch with x to the right, y up and z towards the viewer. A red sine curve with vertical red arrows shows the electric field oscillating in the x–y plane. A blue sine curve with arrows drawn towards and away from the viewer shows the magnetic field oscillating in the x–z plane. Both curves peak at the same positions, showing that the fields are in phase. A double-headed arrow between successive electric-field crests is labelled λ. A green arrow labelled velocity c points along +x, the direction of E × B. A note says the amplitudes are not to scale because B0 = E0/c."
+    },
+    {
+      "key": "wavefront",
+      "file": "diagrams/ug26-322-u5-em-waves-wavefront.svg",
+      "alt": "Two panels showing a wavefront moving with speed v, with rectangles straddling the front used to apply Faraday's law and the Ampère–Maxwell law, leading to v = 1/√(μ0ε0)",
+      "caption": "Deriving the speed of EM waves: a moving wavefront and two rectangles",
+      "description": "Panel (a) shows the x–y plane: behind a dashed vertical wavefront moving right at speed v, red arrows show a uniform electric field pointing up and blue dot symbols show the magnetic field pointing out of the page. A rectangle of height h has its left side behind the front and its right side ahead of it. The note reads E·h = dΦB/dt = B·h·v, so E = vB. Panel (b) shows the x–z plane: blue arrows show the magnetic field pointing down the page along z and red dots show the electric field out of the page; the note reads B·h = μ0ε0·E·h·v, so B = μ0ε0 vE. The bottom line combines these to give v² = 1/(μ0ε0), v = c and E/B = c."
+    }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u5-em-waves-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which of the following is a source of electromagnetic waves?",
+      "options": ["a charge at rest", "a charge moving with constant velocity", "an accelerated charge", "a steady current in a long straight wire"],
+      "answer": 3,
+      "explanation": "Only an accelerated charge produces changing electric and magnetic fields that detach from the source and travel outward as an electromagnetic wave. A charge at rest gives only a static electric field, while uniform motion or a steady current gives steady fields that move with the charges and carry no radiated energy away.",
+      "optionRationale": { "1": "A charge at rest produces only an electrostatic field; nothing changes, so nothing radiates.", "2": "A uniformly moving charge carries its fields along with it but does not radiate.", "4": "A steady current produces a constant magnetic field, not a wave." },
+      "objective": "Identify accelerated charges as the source of EM waves"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "The amplitude of the electric field in a plane electromagnetic wave travelling in vacuum is $30\\,\\text{V m}^{-1}$. What is the amplitude of its magnetic field?",
+      "options": ["9.0 × $10^{9}$ T", "30 T", "7.1 × $10^{-8}$ T", "1.0 × $10^{-7}$ T"],
+      "answer": 4,
+      "explanation": "In vacuum the field amplitudes are related by $E_0 = cB_0$. Therefore $B_0 = E_0/c = 30/(3.0\\times10^{8}) = 1.0\\times10^{-7}\\,\\text{T}$. The magnetic field of an EM wave is always numerically much smaller than the electric field in SI units, although the two carry equal energy.",
+      "optionRationale": { "1": "This multiplies by c instead of dividing by it.", "2": "This assumes $E_0 = B_0$, which is not true in SI units.", "3": "This also divides by $\\sqrt2$, which would give an rms value; the question asks for the amplitude." },
+      "objective": "Use E0 = cB0 for a plane EM wave"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q03", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "A plane electromagnetic wave travels in vacuum along the positive z direction. At a certain point and instant its electric field points along the positive x direction. Along which direction is the magnetic field at that point and instant?",
+      "options": ["negative y direction", "positive z direction", "positive y direction", "negative x direction"],
+      "answer": 3,
+      "explanation": "The wave travels along $\\vec E\\times\\vec B$, and the magnetic field direction is $\\hat n\\times\\hat E$, where $\\hat n$ is the direction of travel. Here $\\hat n = \\hat k$ and $\\hat E = \\hat i$, so $\\hat k\\times\\hat i = \\hat j$: the magnetic field points along positive y. Check: $\\hat i\\times\\hat j = \\hat k$, the direction of travel.",
+      "optionRationale": { "1": "Negative y would give $\\vec E\\times\\vec B$ along negative z, so the wave would travel the wrong way.", "2": "B cannot be along the direction of propagation; EM waves are transverse.", "4": "B must be perpendicular to E, so it cannot lie along the x axis." },
+      "objective": "Find the direction of B from E and the direction of propagation"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q04", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "The electric field of a plane electromagnetic wave in vacuum is $\\vec E = E_0\\sin(kx + \\omega t)\\,\\hat j$. In which direction does the wave travel, and at an instant when the electric field at a point is along the positive y direction, which way does the magnetic field at that point point?",
+      "options": ["travels along positive x; B along positive z", "travels along negative x; B along negative z", "travels along negative x; B along positive z", "travels along positive x; B along negative z"],
+      "answer": 2,
+      "explanation": "A phase of the form $(kx + \\omega t)$ stays constant when x decreases as t increases, so the wave travels along negative x. The magnetic field must satisfy $\\vec E\\times\\vec B \\parallel -\\hat i$. With $\\vec E$ along $+\\hat j$, we need $\\hat j\\times\\hat B = -\\hat i$; since $\\hat j\\times\\hat k = +\\hat i$, the field must be along $-\\hat k$, the negative z direction.",
+      "optionRationale": { "1": "A $(kx + \\omega t)$ phase means motion towards negative x, not positive x.", "3": "The direction of travel is right, but with B along positive z, $\\vec E\\times\\vec B$ would point along positive x.", "4": "The direction of B is right, but a $(kx + \\omega t)$ phase means the wave travels along negative x, not positive x." },
+      "objective": "Read the direction of travel from a wave equation and deduce the direction of B"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q05", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The electric field of an electromagnetic wave in vacuum is $E_y = E_0\\sin\\left[(2\\pi\\times10^{2})\\,x - \\omega t\\right]$, with x in metres. What is the frequency of the wave?",
+      "options": ["1.9 × $10^{11}$ Hz", "3.0 × $10^{10}$ Hz", "100 Hz", "6.0 × $10^{10}$ Hz"],
+      "answer": 2,
+      "explanation": "Compare the equation with the standard form $E_0\\sin(kx - \\omega t)$. The coefficient of x is the angular wave number, $k = 2\\pi\\times10^{2}\\,\\text{rad m}^{-1}$, so the wavelength is $\\lambda = 2\\pi/k = 1.0\\times10^{-2}\\,\\text{m} = 1\\,\\text{cm}$. In vacuum every EM wave travels at c, so the frequency is $\\nu = c/\\lambda = 3.0\\times10^{8}/1.0\\times10^{-2} = 3.0\\times10^{10}\\,\\text{Hz}$, which lies in the microwave region.",
+      "optionRationale": { "1": "This is the angular frequency $\\omega = ck \\approx 1.9\\times10^{11}\\,\\text{rad s}^{-1}$, not the frequency.", "3": "100 is $k/2\\pi$, which is $1/\\lambda$ in $\\text{m}^{-1}$, not a frequency.", "4": "This doubles the correct value, as if $\\lambda$ were 0.5 cm." },
+      "objective": "Extract wavelength and frequency from the equation of an EM wave"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q06", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A non-magnetic medium ($\\mu_r = 1$) has relative permittivity $\\varepsilon_r = 4.0$ at the frequency of a certain electromagnetic wave. What is the speed of that wave in the medium?",
+      "options": ["1.5 × $10^{8}$ m/s", "7.5 × $10^{7}$ m/s", "1.2 × $10^{9}$ m/s", "6.0 × $10^{8}$ m/s"],
+      "answer": 1,
+      "explanation": "In a material medium the speed of an EM wave is $v = 1/\\sqrt{\\mu\\varepsilon} = c/\\sqrt{\\mu_r\\varepsilon_r}$. Here the medium is non-magnetic, so $\\sqrt{\\mu_r\\varepsilon_r} = \\sqrt{1\\times4.0} = 2$. Dividing the speed in vacuum by this factor gives $v = 3.0\\times10^{8}/2 = 1.5\\times10^{8}\\,\\text{m s}^{-1}$, which also means the refractive index of the medium is 2 at this frequency.",
+      "optionRationale": { "2": "This divides c by 4, forgetting the square root.", "3": "This multiplies c by 4; waves in a medium are slower than in vacuum.", "4": "This multiplies c by 2 instead of dividing." },
+      "objective": "Calculate the speed of EM waves in a medium"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q07", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "Light of frequency $5.0\\times10^{14}\\,\\text{Hz}$ travels from vacuum into glass of refractive index 1.5. What are its frequency and wavelength inside the glass?",
+      "options": ["3.3 × $10^{14}$ Hz and 400 nm", "5.0 × $10^{14}$ Hz and 900 nm", "7.5 × $10^{14}$ Hz and 600 nm", "5.0 × $10^{14}$ Hz and 400 nm"],
+      "answer": 4,
+      "explanation": "The frequency of a wave is fixed by its source and does not change at a boundary, so it remains $5.0\\times10^{14}\\,\\text{Hz}$. The speed in glass is $c/n = 2.0\\times10^{8}\\,\\text{m s}^{-1}$, so the wavelength becomes $\\lambda = v/\\nu = 2.0\\times10^{8}/5.0\\times10^{14} = 4.0\\times10^{-7}\\,\\text{m} = 400\\,\\text{nm}$, compared with 600 nm in vacuum.",
+      "optionRationale": { "1": "The wavelength is right but the frequency does not change in the glass.", "2": "This multiplies the vacuum wavelength by n instead of dividing.", "3": "This changes the frequency by n and keeps the vacuum wavelength — both wrong." },
+      "objective": "Apply the invariance of frequency when an EM wave changes medium"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q08", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): Electromagnetic waves can be polarised.\n\nReason (R): Electromagnetic waves are transverse: their electric and magnetic fields oscillate perpendicular to the direction of propagation.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Polarisation means restricting the oscillation to one particular direction perpendicular to the direction of travel. This is possible only for transverse waves, whose oscillations have a direction across the beam. EM waves are transverse, so they can be polarised — R is exactly why A is true. Longitudinal waves such as sound in air cannot be polarised.",
+      "optionRationale": { "2": "R is the very reason polarisation is possible, so it does explain A.", "3": "R is true: E and B are both perpendicular to the direction of travel.", "4": "A is true: light and radio waves can both be polarised." },
+      "objective": "Link polarisation to the transverse nature of EM waves"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q09", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): In a plane electromagnetic wave in vacuum, the electric field carries far more energy than the magnetic field, because $E_0$ is numerically c times $B_0$.\n\nReason (R): In a plane electromagnetic wave in vacuum, $E_0/B_0 = c$.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 4,
+      "explanation": "R is true. But A is false: the energy densities are $u_E = \\tfrac12\\varepsilon_0E^2$ and $u_B = B^2/2\\mu_0$. Substituting $B = E/c$ and $c^2 = 1/(\\mu_0\\varepsilon_0)$ gives $u_B = \\tfrac12\\varepsilon_0E^2 = u_E$. The fields share the energy equally; comparing the bare numbers E and B is meaningless because they have different units and different energy formulas.",
+      "optionRationale": { "1": "A is false, so R cannot explain it.", "2": "A is false; the energy is shared equally.", "3": "R is a correct property of plane EM waves in vacuum." },
+      "objective": "Show that electric and magnetic energy densities are equal in an EM wave"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q10", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): Electromagnetic waves are not deflected by electric or magnetic fields.\n\nReason (R): Electromagnetic waves travel through vacuum with the speed $c = 1/\\sqrt{\\mu_0\\varepsilon_0}$.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 2,
+      "explanation": "Both statements are true. EM waves are not deflected because they carry no electric charge, so electric and magnetic fields exert no force on them. Their speed in vacuum is indeed $1/\\sqrt{\\mu_0\\varepsilon_0}$, but a high speed is not the reason — fast charged particles are still deflected by fields. So R does not explain A.",
+      "optionRationale": { "1": "Speed is not the reason; the absence of charge is.", "3": "R is a correct statement of the speed of EM waves.", "4": "A is true: EM waves are uncharged and pass straight through such fields." },
+      "objective": "Explain why EM waves are not deflected by fields"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q11", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "The electric field amplitude of a plane electromagnetic wave in vacuum is $300\\,\\text{V m}^{-1}$. What is the intensity of the wave? ($\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$, $c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$)",
+      "options": ["240 W/m²", "120 W/m²", "60 W/m²", "4.0 × $10^{-7}$ W/m²"],
+      "answer": 2,
+      "explanation": "The intensity is the average energy density multiplied by the speed of the wave, so $I = \\tfrac12 c\\varepsilon_0E_0^2 = 0.5\\times(3.0\\times10^{8})\\times(8.85\\times10^{-12})\\times(300)^2$. First $3.0\\times10^{8}\\times8.85\\times10^{-12} = 2.655\\times10^{-3}$; multiplying by $9.0\\times10^{4}$ gives about 239; taking half of that leaves about 120 W per square metre. The factor one half comes from averaging the square of a sine over one full cycle.",
+      "optionRationale": { "1": "This omits the factor 1/2 from averaging $\\sin^2$ over a cycle.", "3": "This includes an extra factor 1/2, counting only the electric-field share of the energy.", "4": "This is the average energy density in $\\text{J m}^{-3}$ (about $4\\times10^{-7}$); it has not been multiplied by c." },
+      "objective": "Calculate intensity from the field amplitude"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q12", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A plane electromagnetic wave in vacuum has an electric field amplitude of $60\\,\\text{V m}^{-1}$. What is the time-averaged total energy density of the wave? ($\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$)",
+      "options": ["1.6 × $10^{-8}$ J/m³", "3.2 × $10^{-8}$ J/m³", "8.0 × $10^{-9}$ J/m³", "4.8 J/m³"],
+      "answer": 1,
+      "explanation": "The instantaneous total energy density is $\\varepsilon_0E^2$, and averaging $E^2$ over a cycle gives $E_0^2/2$. So the total average energy density, electric plus magnetic, is $\\langle u\\rangle = \\tfrac12\\varepsilon_0E_0^2 = 0.5\\times8.85\\times10^{-12}\\times3600 = 1.59\\times10^{-8}\\,\\text{J m}^{-3}$, about 1.6 in units of $10^{-8}$ joule per cubic metre. Half of this is stored in the electric field and half in the magnetic field.",
+      "optionRationale": { "2": "This uses $\\varepsilon_0E_0^2$, the peak instantaneous value, without averaging over a cycle.", "3": "This is only the electric (or only the magnetic) share, $\\tfrac14\\varepsilon_0E_0^2$.", "4": "This multiplies by c, giving an intensity in $\\text{W m}^{-2}$, not an energy density." },
+      "objective": "Calculate the average energy density of an EM wave"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q13", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A pulse of light carrying $4.5\\,\\text{J}$ of energy falls normally on a perfectly reflecting mirror and is reflected straight back. How much momentum is transferred to the mirror?",
+      "options": ["1.5 × $10^{-8}$ kg m/s", "zero, because the light is not absorbed", "3.0 × $10^{-8}$ kg m/s", "1.35 × $10^{9}$ kg m/s"],
+      "answer": 3,
+      "explanation": "Light carrying energy U also carries momentum U/c in its direction of travel, so the incident pulse has momentum $U/c = 4.5/(3.0\\times10^{8}) = 1.5\\times10^{-8}\\,\\text{kg m s}^{-1}$. On reflection its momentum is reversed in direction, so the change of momentum of the light, and hence by conservation the momentum given to the mirror, is $2U/c = 3.0\\times10^{-8}\\,\\text{kg m s}^{-1}$. An absorbing surface would receive only half as much.",
+      "optionRationale": { "1": "This is the momentum transferred to a perfectly absorbing surface, not a reflecting one.", "2": "Reflection reverses the light's momentum, so the mirror receives twice as much as an absorber, not zero.", "4": "This multiplies the energy by c instead of dividing." },
+      "objective": "Calculate momentum transferred by EM radiation on reflection"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q14", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Read the following statements about electromagnetic waves.\n\nA. They need a material medium for their propagation.\nB. Their electric and magnetic fields oscillate in phase.\nC. All of them travel with the same speed in vacuum, whatever their frequency.\nD. Their frequency changes when they pass from air into glass.\n\nWhich statements are correct?",
+      "options": ["A and B only", "B and C only", "C and D only", "A, B and C only"],
+      "answer": 2,
+      "explanation": "A is false: EM waves travel through vacuum, as sunlight does on its way to Earth. B is true: E and B reach their maxima and zeros together. C is true: every EM wave travels at $c = 1/\\sqrt{\\mu_0\\varepsilon_0}$ in vacuum. D is false: frequency is set by the source and stays the same in every medium; only the speed and wavelength change.",
+      "optionRationale": { "1": "A is false; EM waves need no medium.", "3": "D is false; the frequency does not change at a boundary.", "4": "A is false, so this combination is wrong." },
+      "objective": "Recall the basic characteristics of EM waves"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q15", "type": "MATCH_THE_FOLLOWING", "difficulty": "HARD", "skill": "conceptual",
+      "stem": "Match each quantity for an electromagnetic wave in List-I with its expression in List-II.",
+      "list": {
+        "left": ["A. Speed in a medium of permittivity ε and permeability μ", "B. Time-averaged total energy density in vacuum", "C. Momentum delivered to a perfectly absorbing surface by energy U", "D. Intensity of a plane wave in vacuum"],
+        "right": ["I. $\\tfrac12 c\\,\\varepsilon_0E_0^2$", "II. $U/c$", "III. $1/\\sqrt{\\mu\\varepsilon}$", "IV. $\\tfrac12\\varepsilon_0E_0^2$"]
+      },
+      "options": ["A-III, B-I, C-II, D-IV", "A-I, B-IV, C-III, D-II", "A-III, B-IV, C-II, D-I", "A-IV, B-III, C-I, D-II"],
+      "answer": 3,
+      "explanation": "The speed in a medium is $1/\\sqrt{\\mu\\varepsilon}$ (A-III). The time-averaged energy density is $\\tfrac12\\varepsilon_0E_0^2$ (B-IV). An absorbing surface receives momentum $U/c$ (C-II). The intensity is the average energy density times c, $\\tfrac12c\\varepsilon_0E_0^2$ (D-I). Note that intensity and energy density differ by the factor c.",
+      "optionRationale": { "1": "Energy density and intensity are swapped; they differ by a factor of c.", "2": "Speed is not $\\tfrac12c\\varepsilon_0E_0^2$, and momentum is not $1/\\sqrt{\\mu\\varepsilon}$.", "4": "Every pair is mismatched." },
+      "objective": "Associate EM-wave quantities with their formulas"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q16", "type": "DIAGRAM_BASED", "difficulty": "EASY", "skill": "application",
+      "diagram": "fields",
+      "stem": "The figure shows a plane electromagnetic wave whose electric field oscillates along the y axis and whose magnetic field oscillates along the z axis, as drawn. In which direction is the wave travelling?",
+      "options": ["positive x direction", "negative x direction", "positive y direction", "negative z direction"],
+      "answer": 1,
+      "explanation": "At the first crest the electric field points along positive y and the magnetic field, at the same place, along positive z (towards the viewer). The wave travels along $\\vec E\\times\\vec B$, and $\\hat j\\times\\hat k = \\hat i$, so the propagation is along positive x, as the velocity arrow in the figure shows. It cannot be along y or z, because the wave is transverse.",
+      "optionRationale": { "2": "$\\hat j\\times\\hat k$ is $+\\hat i$, not $-\\hat i$.", "3": "The electric field oscillates along y; a transverse wave cannot travel along its own field.", "4": "The magnetic field oscillates along z; the wave cannot travel along that axis." },
+      "objective": "Identify the direction of propagation from the directions of E and B"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q17", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In a plane electromagnetic wave travelling through vacuum, what is the ratio of the average electric energy density to the average magnetic energy density?",
+      "options": ["c : 1", "1 : c", "c² : 1", "1 : 1"],
+      "answer": 4,
+      "explanation": "The electric energy density is $\\tfrac12\\varepsilon_0E^2$ and the magnetic energy density is $B^2/2\\mu_0$. Using $B = E/c$ and $c^2 = 1/(\\mu_0\\varepsilon_0)$, the magnetic energy density becomes $\\tfrac12\\varepsilon_0E^2$ as well. So the energy of the wave is shared equally and the ratio is 1 : 1 at every point and instant.",
+      "optionRationale": { "1": "c is the ratio of the field magnitudes E/B, not of the energy densities.", "2": "This inverts the field ratio; neither applies to energies.", "3": "This would follow from comparing $E^2$ with $B^2$ without the different constants $\\varepsilon_0$ and $1/\\mu_0$." },
+      "objective": "Recall that the two fields carry equal energy"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q18", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "The magnetic field amplitude of a plane electromagnetic wave in vacuum is $4.0\\times10^{-8}\\,\\text{T}$. What is the intensity of the wave? ($\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^2\\,\\text{N}^{-1}\\,\\text{m}^{-2}$)",
+      "options": ["0.38 W/m²", "0.095 W/m²", "0.19 W/m²", "12 W/m²"],
+      "answer": 3,
+      "explanation": "First use the field ratio in vacuum to find the electric field amplitude: $E_0 = cB_0 = (3.0\\times10^{8})(4.0\\times10^{-8}) = 12\\,\\text{V m}^{-1}$. Then the intensity, which is the average energy density times the speed of the wave, is $I = \\tfrac12c\\varepsilon_0E_0^2 = 0.5\\times(3.0\\times10^{8})\\times(8.85\\times10^{-12})\\times144 \\approx 0.19\\,\\text{W m}^{-2}$. The same result follows directly from the magnetic form $I = cB_0^2/2\\mu_0$.",
+      "optionRationale": { "1": "This omits the factor 1/2 that comes from averaging over a cycle.", "2": "This halves the answer again, counting only the electric share of the energy.", "4": "12 is $E_0$ in $\\text{V m}^{-1}$, not the intensity." },
+      "objective": "Calculate intensity from the magnetic field amplitude"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q19", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Jagadish Chandra Bose produced and studied electromagnetic waves in Kolkata. In which wavelength range were the waves he produced?",
+      "options": ["25 m to 5 m", "25 mm to 5 mm", "700 nm to 400 nm", "1 nm to 0.1 nm"],
+      "answer": 2,
+      "explanation": "J. C. Bose produced electromagnetic waves of much shorter wavelength than Hertz, in the range 25 mm to 5 mm, which today we call microwaves. Hertz's earlier waves were a few metres long, visible light lies between 700 nm and 400 nm, and the shortest range listed belongs to X-rays.",
+      "optionRationale": { "1": "Metre-long waves are closer to the radio waves of Hertz's experiments.", "3": "This is the visible range, which is produced by atoms, not by electrical circuits.", "4": "This is the X-ray region, not produced in Bose's experiments." },
+      "objective": "Recall the historical production of EM waves"
+    },
+    {
+      "key": "ug26-322-u5-em-waves-q20", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "Electrons in a transmitting antenna oscillate with a frequency of $1.0\\times10^{9}\\,\\text{Hz}$. What is the wavelength of the electromagnetic waves radiated into air (take the speed as $3.0\\times10^{8}\\,\\text{m s}^{-1}$)?",
+      "options": ["3.0 m", "0.030 m", "0.30 m", "300 m"],
+      "answer": 3,
+      "explanation": "An oscillating charge radiates EM waves of the same frequency as its own oscillation, so the radiated wave has frequency $1.0\\times10^{9}\\,\\text{Hz}$. Using the wave relation speed equals frequency times wavelength, $\\lambda = c/\\nu = 3.0\\times10^{8}/1.0\\times10^{9} = 0.30\\,\\text{m}$, that is 30 cm. Waves of this length are used, for example, in mobile communication.",
+      "optionRationale": { "1": "A power-of-ten error: this would correspond to $1.0\\times10^{8}\\,\\text{Hz}$.", "2": "A power-of-ten error: this would correspond to $1.0\\times10^{10}\\,\\text{Hz}$.", "4": "This corresponds to $1.0\\times10^{6}\\,\\text{Hz}$, a thousand times lower in frequency." },
+      "objective": "Relate the frequency of an oscillating source to the wavelength it radiates"
+    }
+  ]
+}

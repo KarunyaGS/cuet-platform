@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 400" font-family="Arial, Helvetica, sans-serif">
+  <!-- ring (seen slightly from the side) -->
+  <ellipse cx="180" cy="200" rx="36" ry="120" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="96" y="210" font-size="14" fill="#dc2626" text-anchor="middle">ring,</text>
+  <text x="96" y="228" font-size="14" fill="#dc2626" text-anchor="middle">charge Q</text>
+  <!-- axis -->
+  <line x1="180" y1="200" x2="490" y2="200" stroke="#1f2937" stroke-width="1.5"/>
+  <circle cx="180" cy="200" r="3.5" fill="#1f2937"/>
+  <text x="190" y="218" font-size="14" fill="#1f2937">O</text>
+  <!-- radius -->
+  <line x1="180" y1="200" x2="180" y2="80" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="168" y="148" font-size="15" font-style="italic" fill="#1f2937" text-anchor="end">R</text>
+  <!-- elements -->
+  <circle cx="180" cy="80" r="5" fill="#dc2626"/>
+  <text x="168" y="70" font-size="15" fill="#dc2626" text-anchor="end">dq</text>
+  <circle cx="180" cy="320" r="5" fill="#dc2626"/>
+  <text x="168" y="340" font-size="15" fill="#dc2626" text-anchor="end">dq′</text>
+  <!-- lines to P -->
+  <line x1="180" y1="80" x2="500" y2="200" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="180" y1="320" x2="500" y2="200" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="362" y="114" font-size="14" fill="#1f2937" text-anchor="middle">r = √(R² + x²)</text>
+  <!-- point P with test charge -->
+  <circle cx="500" cy="200" r="12" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="500" y="205" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">+</text>
+  <text x="488" y="234" font-size="15" fill="#1f2937" text-anchor="end">P (q₀)</text>
+  <!-- dF from dq: away from dq -->
+  <line x1="513.1" y1="204.9" x2="573.1" y2="227.4" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="584.3,231.6 571.0,233.0 575.2,221.8" fill="#2563eb"/>
+  <text x="590" y="252" font-size="14" fill="#2563eb">dF (from dq)</text>
+  <!-- dF' from dq': away from dq' -->
+  <line x1="513.1" y1="195.1" x2="573.1" y2="172.6" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="584.3,168.4 575.2,178.2 571.0,167.0" fill="#2563eb"/>
+  <text x="590" y="158" font-size="14" fill="#2563eb">dF′ (from dq′)</text>
+  <!-- net along axis -->
+  <line x1="590" y1="200" x2="636" y2="200" stroke="#059669" stroke-width="3"/>
+  <polygon points="650,200 635,193 635,207" fill="#059669"/>
+  <text x="620" y="190" font-size="13" fill="#059669" text-anchor="middle">net</text>
+  <!-- distance x -->
+  <line x1="180" y1="368" x2="500" y2="368" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="180" y1="360" x2="180" y2="376" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="500" y1="360" x2="500" y2="376" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="340" y="390" font-size="15" font-style="italic" fill="#1f2937" text-anchor="middle">x</text>
+  <text x="430" y="296" font-size="13" fill="#1f2937" text-anchor="middle">Perpendicular parts of dF and dF′ cancel;</text>
+  <text x="430" y="314" font-size="13" fill="#1f2937" text-anchor="middle">parts along the axis add.</text>
+</svg>

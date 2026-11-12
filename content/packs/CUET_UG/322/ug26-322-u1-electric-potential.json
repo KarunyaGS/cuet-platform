@@ -1,0 +1,358 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_4e96fadf91bd4165b0499837cb56fbfe",
+    "title": "Electric potential, potential difference, electric potential due to a point charge, a dipole and"
+  },
+  "lesson": {
+    "key": "ug26-322-u1-electric-potential",
+    "title": "Electric potential, equipotential surfaces and electrostatic potential energy",
+    "coverage": [
+      { "phrase": "Electric potential", "section": "Electric potential and potential difference" },
+      { "phrase": "Potential difference", "section": "Electric potential and potential difference" },
+      { "phrase": "Electric potential due to a point charge", "section": "Potential due to a point charge" },
+      { "phrase": "Potential due to a dipole", "section": "Potential due to an electric dipole" },
+      { "phrase": "Potential due to a system of charges", "section": "Potential due to a system of charges" },
+      { "phrase": "Equipotential surfaces", "section": "Equipotential surfaces" },
+      { "phrase": "Electrical potential energy of a system of two point charges", "section": "Electrical potential energy of a system of point charges" },
+      { "phrase": "Potential energy of an electric dipole in an electrostatic field", "section": "Potential energy of a dipole in an electrostatic field" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Electric potential and potential difference" },
+      { "type": "TEXT", "text": "Lifting a stone against gravity stores energy in it, and that energy depends only on how high the stone is, not on the route taken. The same is true for a charge in an electrostatic field, because the Coulomb force, like gravity, is a **conservative force**: the work it does between two points does not depend on the path.\n\nSuppose an external agent moves a test charge $q_0$ from point A to point B in an electrostatic field, so slowly that it gains no kinetic energy. The agent must balance the electric force at every step, so the work it does equals the increase in the **electrostatic potential energy** of the charge: $W_{AB} = U_B - U_A$. Dividing by $q_0$ gives a quantity that belongs to the points themselves, not to the test charge. This is the **potential difference**. Only differences in energy have physical meaning, so we choose a reference: the potential is taken as **zero at infinity**." },
+      { "type": "DEFINITION", "term": "Electric potential", "text": "The electric potential at a point is the work done by an external force in bringing a unit positive test charge from infinity to that point, slowly and without acceleration, against the electrostatic field: $V = \\frac{W_{\\infty \\to P}}{q_0}$. It is a scalar. SI unit: volt (V), where $1\\,\\text{V} = 1\\,\\text{J C}^{-1}$." },
+      { "type": "DEFINITION", "term": "Potential difference", "text": "The potential difference between points B and A is the work done by an external force in moving a unit positive charge from A to B without acceleration: $V_B - V_A = \\frac{W_{AB}}{q_0}$. SI unit: volt. It does not depend on the path followed between A and B." },
+      { "type": "FORMULA", "latex": "V_B - V_A = \\frac{W_{AB}}{q_0} = -\\int_A^B \\vec{E} \\cdot d\\vec{l}", "text": "W_AB = work done by the external agent (J); q₀ = test charge (C); E = electric field (V m⁻¹ = N C⁻¹); dl = small displacement along any path from A to B. The minus sign shows that the potential falls as you move along the field." },
+      { "type": "TEXT", "text": "**Key consequences**\n\n- The work needed to move any charge q between two points is $W = q(V_B - V_A)$, and the change in its potential energy is $\\Delta U = q\\Delta V$.\n- The field points from **higher to lower potential**. A positive charge left free accelerates towards lower potential (losing potential energy, gaining kinetic energy); a negative charge accelerates towards higher potential.\n- A convenient energy unit is the **electron volt**: the kinetic energy an electron gains when accelerated through a potential difference of 1 V. $1\\,\\text{eV} = 1.6 \\times 10^{-19}\\,\\text{J}$.\n- Because the field is conservative, the work done in moving a charge round any **closed path** is zero." },
+      { "type": "SOLVED_PROBLEM", "problem": "(a) How much work is needed to move a charge of $2\\,\\mu\\text{C}$ from a point A at potential 10 V to a point B at potential 60 V? (b) An electron starting from rest is accelerated through a potential difference of 100 V. Find its kinetic energy and speed. ($m_e = 9.1 \\times 10^{-31}$ kg)", "solution": "Step 1 (part a): $W = q(V_B - V_A) = (2 \\times 10^{-6})(60 - 10) = (2 \\times 10^{-6})(50) = 1 \\times 10^{-4}\\,\\text{J}$. The work is positive: a positive charge must be pushed towards higher potential.\n\nStep 2 (kinetic energy in eV): the electron loses potential energy $e \\times 100\\,\\text{V}$, so it gains $K = 100\\,\\text{eV} = 100 \\times 1.6 \\times 10^{-19} = 1.6 \\times 10^{-17}\\,\\text{J}$.\n\nStep 3 (speed): $\\frac{1}{2}mv^2 = K$ gives\n$$v = \\sqrt{\\frac{2K}{m}} = \\sqrt{\\frac{2(1.6 \\times 10^{-17})}{9.1 \\times 10^{-31}}} \\approx 5.9 \\times 10^{6}\\,\\text{m s}^{-1}$$", "answer": "(a) $1 \\times 10^{-4}$ J; (b) 100 eV = $1.6 \\times 10^{-17}$ J, speed about $5.9 \\times 10^{6}\\,\\text{m s}^{-1}$." },
+      { "type": "HEADING", "text": "Potential due to a point charge" },
+      { "type": "TEXT", "text": "Take a point charge q at the origin and a point P at distance r. Bring a unit positive charge from infinity to P along the radial line. At distance x the field is $E = \\frac{kq}{x^2}$ outward, so the external force needed is $\\frac{kq}{x^2}$ inward. Using the integral definition with the zero at infinity:\n$$V(r) = -\\int_{\\infty}^{r} \\frac{kq}{x^2}\\,dx = kq\\left[\\frac{1}{x}\\right]_{\\infty}^{r} = \\frac{kq}{r}$$\nBecause the work is path-independent, this result holds for any route from infinity to P." },
+      { "type": "FORMULA", "latex": "V = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{q}{r} = \\frac{kq}{r}", "text": "V = potential at distance r from a point charge q (V); keep the sign of q: V is positive around a positive charge and negative around a negative charge. k = 9 × 10⁹ N m² C⁻². V is the same at all points at the same distance (spherical symmetry)." },
+      { "type": "DIAGRAM", "diagram": "v-e-graph" },
+      { "type": "TEXT", "text": "**Comparing V and E for a point charge.** The potential falls as $\\frac{1}{r}$, while the field falls faster, as $\\frac{1}{r^2}$. Doubling the distance halves V but makes E a quarter. Note also that $V = E \\times r$ for a point charge, which lets you find both r and q if V and E at a point are known." },
+      { "type": "SOLVED_PROBLEM", "problem": "(a) Find the potential at a point 9 cm from a charge of $+4\\,\\text{nC}$. (b) How much work is needed to bring a charge of $+2\\,\\text{nC}$ from infinity to that point?", "solution": "Step 1 (potential): $V = \\frac{kq}{r} = \\frac{(9 \\times 10^{9})(4 \\times 10^{-9})}{0.09} = \\frac{36}{0.09} = 400\\,\\text{V}$.\n\nStep 2 (work): by definition, the work to bring a charge q from infinity (where V = 0) to a point at potential V is $W = q(V - 0)$:\n$$W = (2 \\times 10^{-9})(400) = 8 \\times 10^{-7}\\,\\text{J}$$\nThis work is stored as the potential energy of the pair of charges.", "answer": "(a) 400 V; (b) $8 \\times 10^{-7}$ J." },
+      { "type": "HEADING", "text": "Potential due to an electric dipole" },
+      { "type": "TEXT", "text": "Take a dipole with charges −q and +q a distance 2a apart, dipole moment $p = q(2a)$ pointing from −q to +q. Let P be a point at distance r from the centre O, where OP makes angle θ with $\\vec{p}$. Let $r_1$ and $r_2$ be the distances of P from +q and −q. Because potential is a scalar, we simply add:\n$$V = \\frac{kq}{r_1} - \\frac{kq}{r_2} = kq\\,\\frac{r_2 - r_1}{r_1 r_2}$$\nFor a far point ($r \\gg a$), the figure shows that $r_1 \\approx r - a\\cos\\theta$ and $r_2 \\approx r + a\\cos\\theta$, so $r_2 - r_1 \\approx 2a\\cos\\theta$ and $r_1 r_2 \\approx r^2$. Therefore\n$$V \\approx \\frac{kq(2a)\\cos\\theta}{r^2} = \\frac{kp\\cos\\theta}{r^2}$$" },
+      { "type": "DIAGRAM", "diagram": "dipole-potential" },
+      { "type": "FORMULA", "latex": "V = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{p\\cos\\theta}{r^2} = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{\\vec{p} \\cdot \\hat{r}}{r^2} \\qquad (r \\gg a)", "text": "V = potential of a short dipole (V); p = dipole moment (C m); r = distance from the centre of the dipole (m); θ = angle between p and the line from the centre to the point." },
+      { "type": "TABLE", "caption": "Potential of a short dipole at special positions (distance r from the centre)", "columns": ["Position", "θ", "Potential"], "rows": [
+        ["Axial line, on the +q side", "0°", "+kp/r² (maximum)"],
+        ["Axial line, on the −q side", "180°", "−kp/r² (minimum)"],
+        ["Equatorial line (perpendicular bisector)", "90°", "0 (even though E ≠ 0 there)"],
+        ["General point", "θ", "kp cos θ / r²"]
+      ] },
+      { "type": "TEXT", "text": "**How the dipole potential differs from that of a point charge**\n\n- It falls as $\\frac{1}{r^2}$, not $\\frac{1}{r}$: from far away the two charges almost cancel.\n- It depends on the direction θ as well as on r; it is not spherically symmetric.\n- It is zero at every point of the equatorial plane. Bringing a test charge in from infinity along that plane needs no work, yet the field there is not zero (it is $\\frac{kp}{r^3}$, antiparallel to $\\vec{p}$). Zero potential does not mean zero field." },
+      { "type": "SOLVED_PROBLEM", "problem": "A short dipole has dipole moment $5 \\times 10^{-9}$ C m. Find the potential at a distance of 30 cm from its centre (a) on its axis on the side of the positive charge, (b) on a line making $60^\\circ$ with $\\vec{p}$, (c) on its equatorial line.", "solution": "Step 1 (common factor): $\\frac{kp}{r^2} = \\frac{(9 \\times 10^{9})(5 \\times 10^{-9})}{(0.3)^2} = \\frac{45}{0.09} = 500\\,\\text{V}$.\n\nStep 2 (axis, θ = 0°): $V = 500\\cos 0^\\circ = 500\\,\\text{V}$.\n\nStep 3 (θ = 60°): $V = 500\\cos 60^\\circ = 500 \\times 0.5 = 250\\,\\text{V}$.\n\nStep 4 (equatorial line, θ = 90°): $V = 500\\cos 90^\\circ = 0$. The equal and opposite contributions of the two charges cancel exactly.", "answer": "(a) 500 V; (b) 250 V; (c) 0 V." },
+      { "type": "HEADING", "text": "Potential due to a system of charges" },
+      { "type": "TEXT", "text": "Potential obeys the **superposition principle**, and since it is a scalar the contributions add as ordinary numbers (with signs). No directions or components are needed, which makes potential much easier to calculate than the field.\n\nFor a **continuous distribution**, split it into elements $dq$ and integrate: $V = k\\int \\frac{dq}{r}$. Two useful results:\n\n- **Ring** of radius R and charge Q, at a point on its axis at distance x from the centre: every element is at the same distance $\\sqrt{R^2 + x^2}$, so $V = \\frac{kQ}{\\sqrt{R^2 + x^2}}$. At the centre, $V = \\frac{kQ}{R}$ (not zero, although the field there is zero).\n- **Thin spherical shell** of radius R and charge Q: outside, $V = \\frac{kQ}{r}$, as for a point charge at the centre; on the surface and everywhere inside, $V = \\frac{kQ}{R}$, constant. A constant potential means zero field inside, matching Gauss's law." },
+      { "type": "FORMULA", "latex": "V = \\frac{1}{4\\pi\\varepsilon_0}\\sum_{i=1}^{n} \\frac{q_i}{r_i} = k\\left(\\frac{q_1}{r_1} + \\frac{q_2}{r_2} + \\dots + \\frac{q_n}{r_n}\\right)", "text": "V = potential at a point due to charges q₁, q₂, …, qₙ (V); rᵢ = distance from charge qᵢ to the point (m). Each qᵢ is used with its sign; the terms are added algebraically, never as vectors." },
+      { "type": "SOLVED_PROBLEM", "problem": "Charges of +2 nC, +3 nC, −4 nC and +5 nC are placed at the four corners of a square whose diagonal is 20 cm. Find the potential at the centre of the square and the work needed to bring a +1 nC charge from infinity to the centre.", "solution": "Step 1 (distances): the centre is half a diagonal, $r = 0.10\\,\\text{m}$, from every corner.\n\nStep 2 (add the potentials as scalars): since all distances are equal,\n$$V = \\frac{k(q_1 + q_2 + q_3 + q_4)}{r} = \\frac{(9 \\times 10^{9})(2 + 3 - 4 + 5) \\times 10^{-9}}{0.10} = \\frac{9 \\times 6}{0.10} = 540\\,\\text{V}$$\n\nStep 3 (work): $W = qV = (1 \\times 10^{-9})(540) = 5.4 \\times 10^{-7}\\,\\text{J}$.\n\nNote: the field at the centre is not zero in general, because the charges are not equal; the potential and the field must be worked out separately.", "answer": "540 V; $5.4 \\times 10^{-7}$ J." },
+      { "type": "SOLVED_PROBLEM", "problem": "A charge of +3 nC is at x = 0 and a charge of −1 nC is at x = 0.4 m. Find all points on the x-axis where the electric potential is zero.", "solution": "Step 1 (condition): $\\frac{k(3)}{|x|} + \\frac{k(-1)}{|x - 0.4|} = 0$, that is $\\frac{3}{|x|} = \\frac{1}{|x - 0.4|}$. The point must be nearer the smaller charge.\n\nStep 2 (between the charges, 0 < x < 0.4): $\\frac{3}{x} = \\frac{1}{0.4 - x}$ gives $1.2 - 3x = x$, so $x = 0.3\\,\\text{m}$.\n\nStep 3 (beyond the −1 nC charge, x > 0.4): $\\frac{3}{x} = \\frac{1}{x - 0.4}$ gives $3x - 1.2 = x$, so $x = 0.6\\,\\text{m}$.\n\nStep 4 (left of x = 0): the point would be nearer the larger charge, so the potentials cannot cancel.\n\nCompare with fields: for unlike charges the **field** can vanish only outside the pair, but the **potential** vanishes at one point between and one point outside.", "answer": "x = 0.3 m and x = 0.6 m." },
+      { "type": "CALLOUT", "text": "**Common mistakes with potential.**\n\n- Adding potentials as vectors or using $\\frac{1}{r^2}$: potential of a point charge is $\\frac{kq}{r}$ and contributions add as signed numbers.\n- Dropping the sign of a negative charge: its potential is negative.\n- Thinking $V = 0$ means $E = 0$ (false at the midpoint of a dipole) or $E = 0$ means $V = 0$ (false inside a charged shell, where V is constant but not zero)." },
+      { "type": "HEADING", "text": "Equipotential surfaces" },
+      { "type": "DEFINITION", "term": "Equipotential surface", "text": "A surface on which the electric potential has the same value at every point. No work is done in moving a charge between any two points of the same equipotential surface." },
+      { "type": "TEXT", "text": "**Field and equipotentials are always perpendicular.** Move a charge q through a small displacement $d\\vec{l}$ along an equipotential surface. The work done by the field is $q\\vec{E} \\cdot d\\vec{l}$, and this must be zero because the potential does not change. Since neither q, E nor dl is zero, $\\vec{E}$ must be perpendicular to $d\\vec{l}$. So at every point the field is **normal to the equipotential surface** through that point, and it points towards the surface of **lower** potential.\n\n**Relation between field and potential.** Consider two equipotential surfaces with potentials V and $V + dV$, a small perpendicular distance $dr$ apart. Moving a unit positive charge from the higher to the lower surface along the field, the field does work $E\\,dr = -dV$. Hence the field equals the rate at which the potential falls with distance, measured perpendicular to the equipotentials." },
+      { "type": "FORMULA", "latex": "E = -\\frac{dV}{dr}, \\qquad |E| = \\frac{|\\Delta V|}{\\Delta r}, \\qquad E = \\frac{V}{d} \\;(\\text{uniform field})", "text": "E = field magnitude (V m⁻¹); dV/dr = rate of change of potential with distance measured along the normal to the equipotentials. The minus sign means E points in the direction in which V decreases fastest. For a uniform field between two plates a distance d apart with potential difference V, E = V/d." },
+      { "type": "DIAGRAM", "diagram": "equipotentials" },
+      { "type": "TABLE", "caption": "Properties and examples of equipotential surfaces", "columns": ["Property or case", "Details"], "rows": [
+        ["Work along an equipotential", "Zero, for any charge"],
+        ["Direction of E", "Perpendicular to the equipotential, towards lower potential"],
+        ["Spacing", "Close together where the field is strong; far apart where it is weak (for equal steps of V)"],
+        ["Intersection", "Two equipotential surfaces never intersect (a point cannot have two potentials)"],
+        ["Isolated point charge", "Concentric spheres centred on the charge, spaced further apart going outward"],
+        ["Uniform field", "Equally spaced parallel planes perpendicular to the field"],
+        ["Long line charge", "Coaxial cylinders"],
+        ["Dipole", "Closed surfaces round each charge; the equatorial plane is the V = 0 surface"],
+        ["Conductor in electrostatic equilibrium", "Its whole volume and surface are at one potential"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "Three parallel equipotential planes have potentials 30 V, 20 V and 10 V, and neighbouring planes are 5 cm apart. Find the magnitude and direction of the electric field, and the work done by the field when a charge of $+3\\,\\mu\\text{C}$ moves from the 30 V plane to the 10 V plane.", "solution": "Step 1 (field magnitude): the potential falls by 10 V over each 0.05 m, so $E = \\frac{\\Delta V}{\\Delta r} = \\frac{10}{0.05} = 200\\,\\text{V m}^{-1}$.\n\nStep 2 (direction): perpendicular to the planes, pointing from the 30 V plane towards the 10 V plane (towards lower potential).\n\nStep 3 (work by the field): $W_{\\text{field}} = q(V_{\\text{initial}} - V_{\\text{final}}) = (3 \\times 10^{-6})(30 - 10) = 6 \\times 10^{-5}\\,\\text{J}$. It is positive because a positive charge moving towards lower potential loses potential energy.", "answer": "200 V m⁻¹, perpendicular to the planes towards the 10 V plane; work by the field $6 \\times 10^{-5}$ J." },
+      { "type": "HEADING", "text": "Electrical potential energy of a system of point charges" },
+      { "type": "TEXT", "text": "The **potential energy of a system of charges** is the work done by an external agent in assembling the charges, bringing them one by one from infinity (where they are far apart and do not interact) to their final positions, without acceleration.\n\n**Two charges.** Bringing the first charge $q_1$ needs no work, because there is no field yet. Bringing $q_2$ from infinity to a point at distance $r_{12}$ from $q_1$ requires work $q_2 V_1 = q_2 \\frac{kq_1}{r_{12}}$. This work is stored as potential energy:\n$$U = \\frac{kq_1q_2}{r_{12}}$$\nThe same result is obtained whichever charge is brought first: U belongs to the **pair**, not to either charge.\n\n**Sign of U.**\n\n- Like charges: $U > 0$. Work had to be done to push them together; if released, they fly apart and U turns into kinetic energy.\n- Unlike charges: $U < 0$. They attract; an external agent must supply energy $|U|$ to pull them apart to infinity. The system is **bound**.\n\n**Three or more charges.** Add the energies of every distinct pair; each pair is counted once." },
+      { "type": "FORMULA", "latex": "U = \\frac{1}{4\\pi\\varepsilon_0}\\,\\frac{q_1 q_2}{r_{12}}, \\qquad U_{\\text{3 charges}} = k\\left(\\frac{q_1q_2}{r_{12}} + \\frac{q_2q_3}{r_{23}} + \\frac{q_1q_3}{r_{13}}\\right)", "text": "U = electrostatic potential energy of the system (J), with zero when the charges are infinitely far apart; qᵢ = charges with sign (C); rᵢⱼ = distance between charges i and j (m). The work needed to change the arrangement is W = U_final − U_initial." },
+      { "type": "IMPORTANT_FACT", "text": "**Potential energy of a single charge in an external field.** If a charge q sits at a point where an external field (from other, fixed sources) has potential V, its potential energy is $U = qV$. For two charges in an external field, $U = q_1V(\\vec{r}_1) + q_2V(\\vec{r}_2) + \\frac{kq_1q_2}{r_{12}}$: each charge's energy in the external field plus their mutual energy." },
+      { "type": "SOLVED_PROBLEM", "problem": "Charges of $+1\\,\\mu\\text{C}$, $+1\\,\\mu\\text{C}$ and $-2\\,\\mu\\text{C}$ are placed at the corners of an equilateral triangle of side 10 cm. Find the potential energy of the system and explain the sign.", "solution": "Step 1 (pairs): there are three pairs, all 0.10 m apart: $(+1)(+1)$, $(+1)(-2)$ and $(+1)(-2)$, in units of $\\mu\\text{C}^2 = 10^{-12}\\,\\text{C}^2$.\n\nStep 2 (sum of products): $1 - 2 - 2 = -3$, so $\\sum q_iq_j = -3 \\times 10^{-12}\\,\\text{C}^2$.\n\nStep 3 (energy):\n$$U = \\frac{k}{a}\\sum q_iq_j = \\frac{9 \\times 10^{9}}{0.10}(-3 \\times 10^{-12}) = -0.27\\,\\text{J}$$\n\nStep 4 (meaning): U is negative, so the attractions dominate. An external agent would have to supply 0.27 J to pull the three charges apart to infinity.", "answer": "−0.27 J (a bound system)." },
+      { "type": "SOLVED_PROBLEM", "problem": "Two charges of $+3\\,\\mu\\text{C}$ and $+4\\,\\mu\\text{C}$ are 30 cm apart. How much work must be done to bring them to 10 cm apart?", "solution": "Step 1 (initial energy): $U_i = \\frac{kq_1q_2}{r_i} = \\frac{(9 \\times 10^{9})(12 \\times 10^{-12})}{0.30} = \\frac{0.108}{0.30} = 0.36\\,\\text{J}$.\n\nStep 2 (final energy): $U_f = \\frac{0.108}{0.10} = 1.08\\,\\text{J}$.\n\nStep 3 (work by the external agent): $W = U_f - U_i = 1.08 - 0.36 = 0.72\\,\\text{J}$. It is positive because like charges must be pushed together against their repulsion.", "answer": "0.72 J." },
+      { "type": "HEADING", "text": "Potential energy of a dipole in an electrostatic field" },
+      { "type": "TEXT", "text": "A dipole of moment $\\vec{p}$ in a uniform field $\\vec{E}$ feels a torque $\\tau = pE\\sin\\theta$ that tries to line it up with the field. To turn it slowly through a small angle $d\\theta$ against this torque, an external agent does work $dW = pE\\sin\\theta\\,d\\theta$. Turning it from $\\theta_1$ to $\\theta_2$ needs\n$$W = \\int_{\\theta_1}^{\\theta_2} pE\\sin\\theta\\,d\\theta = pE(\\cos\\theta_1 - \\cos\\theta_2)$$\nThis work is stored as potential energy. Choosing the zero of energy at $\\theta = 90^\\circ$ (dipole perpendicular to the field) gives $U(\\theta) = -pE\\cos\\theta$.\n\nThe same result follows from $U = qV$: the +q end and the −q end sit at potentials differing by $-E(2a\\cos\\theta)$, so $U = q\\Delta V = -q(2a)E\\cos\\theta = -pE\\cos\\theta$." },
+      { "type": "FORMULA", "latex": "U(\\theta) = -\\vec{p} \\cdot \\vec{E} = -pE\\cos\\theta, \\qquad W_{\\theta_1 \\to \\theta_2} = pE(\\cos\\theta_1 - \\cos\\theta_2)", "text": "U = potential energy of the dipole (J); p = dipole moment (C m); E = uniform field (N C⁻¹); θ = angle between p and E. W = work done by an external agent to rotate the dipole slowly from θ₁ to θ₂." },
+      { "type": "DIAGRAM", "diagram": "dipole-energy" },
+      { "type": "TABLE", "caption": "Energy and torque of a dipole at key orientations", "columns": ["θ", "U = −pE cos θ", "Torque pE sin θ", "Equilibrium"], "rows": [
+        ["0° (p along E)", "−pE (minimum)", "0", "Stable"],
+        ["90°", "0", "pE (maximum)", "Not in equilibrium"],
+        ["180° (p opposite to E)", "+pE (maximum)", "0", "Unstable"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "A dipole of moment $2 \\times 10^{-8}$ C m is in a uniform field of $5 \\times 10^{4}\\,\\text{N C}^{-1}$. Find (a) its potential energy when $\\theta = 60^\\circ$, (b) the work needed to turn it from the stable position to the unstable position, (c) the work needed to turn it from $\\theta = 0^\\circ$ to $\\theta = 90^\\circ$.", "solution": "Step 1 (the product pE, which appears in every part): $pE = (2 \\times 10^{-8})(5 \\times 10^{4}) = 1 \\times 10^{-3}\\,\\text{J}$.\n\nStep 2 (a): use $U = -pE\\cos\\theta$ with the angle given: $U = -pE\\cos 60^\\circ = -(1 \\times 10^{-3})(0.5) = -5 \\times 10^{-4}\\,\\text{J}$. The energy is negative because the dipole is closer to the aligned position than to the perpendicular one.\n\nStep 3 (b): the stable position is $0^\\circ$ and the unstable position is $180^\\circ$, so the work is $W = pE(\\cos 0^\\circ - \\cos 180^\\circ) = pE(1 + 1) = 2pE = 2 \\times 10^{-3}\\,\\text{J}$.\n\nStep 4 (c): turning from the aligned position to the perpendicular position needs $W = pE(\\cos 0^\\circ - \\cos 90^\\circ) = pE = 1 \\times 10^{-3}\\,\\text{J}$, half of the work needed in part (b).", "answer": "(a) $-5 \\times 10^{-4}$ J; (b) $2 \\times 10^{-3}$ J; (c) $1 \\times 10^{-3}$ J." },
+      { "type": "CALLOUT", "text": "**Exam tips on dipole energy.** The minimum energy (stable) and zero torque occur together at $\\theta = 0^\\circ$; the maximum torque occurs at $90^\\circ$, where U is zero, not minimum. Work done to rotate = final U − initial U. Turning a dipole right round from stable to unstable always costs $2pE$." },
+      { "type": "HEADING", "text": "Revision summary" },
+      { "type": "TABLE", "caption": "Formula sheet for this lesson", "columns": ["Quantity", "Formula", "Notes"], "rows": [
+        ["Potential difference", "V_B − V_A = W_AB/q₀", "Path-independent; unit volt = J C⁻¹"],
+        ["Work to move a charge", "W = q(V_B − V_A)", "Change in potential energy ΔU = qΔV"],
+        ["Point charge", "V = kq/r", "Falls as 1/r; sign of q kept"],
+        ["Short dipole", "V = kp cos θ / r²", "Zero on the equatorial line"],
+        ["System of charges", "V = k Σ qᵢ/rᵢ", "Scalar sum"],
+        ["Field from potential", "E = −dV/dr; E = V/d (uniform)", "E points towards lower V"],
+        ["Two charges", "U = kq₁q₂/r", "Positive for like, negative for unlike"],
+        ["Dipole in a field", "U = −pE cos θ", "Minimum at 0°, maximum at 180°"],
+        ["Energy unit", "1 eV = 1.6 × 10⁻¹⁹ J", "Energy gained by e through 1 V"]
+      ] },
+      { "type": "KEY_POINT", "text": "- Potential is work per unit positive charge brought from infinity; it is a scalar measured in volts.\n- Only potential differences matter physically; the field points from high to low potential.\n- Point charge: $V = \\frac{kq}{r}$. Short dipole: $V = \\frac{kp\\cos\\theta}{r^2}$. System: add $\\frac{kq_i}{r_i}$ with signs.\n- Equipotential surfaces are perpendicular to field lines; no work is done moving along them; they never intersect.\n- $E = -\\frac{dV}{dr}$: closely spaced equipotentials mean a strong field.\n- $U = \\frac{kq_1q_2}{r}$ for a pair; for many charges add over all pairs.\n- Dipole in a uniform field: $U = -pE\\cos\\theta$; rotating from 0° to 180° needs 2pE." },
+      { "type": "CALLOUT", "text": "**Distinguish carefully.** Potential V (volt) is a property of a point in the field. Potential energy U (joule) belongs to a charge at that point, or to a system of charges: $U = qV$. Potential difference is what a voltmeter measures; the electron volt is a unit of energy, not of potential." }
+    ]
+  },
+  "diagrams": [
+    { "key": "v-e-graph", "file": "diagrams/ug26-322-u1-electric-potential-graph.svg", "alt": "Graph of potential V and field E against distance r from a positive point charge; V falls as 1 over r and E falls faster as 1 over r squared", "caption": "Potential (∝ 1/r) and field (∝ 1/r²) of a positive point charge", "description": "Horizontal axis: distance from the charge r in metres. Vertical axis: V in volts and E in newtons per coulomb, drawn qualitatively and not to the same scale. A solid blue curve labelled V = kq/r decreases gradually. A dashed red curve labelled E = kq/r squared starts higher and falls much more steeply, lying below the V curve at larger distances. Both approach zero far from the charge." },
+    { "key": "dipole-potential", "file": "diagrams/ug26-322-u1-electric-potential-dipole.svg", "alt": "Dipole with -q and +q a distance 2a apart, centre O, a far point P at distance r and angle theta from the axis, with distances r1 from +q and r2 from -q", "caption": "Geometry for the potential of a dipole at a point P (r, θ)", "description": "A dipole lies on a horizontal dashed axis with -q on the left and +q on the right, centre O, dipole moment p pointing right. A point P lies up and to the right at distance r from O, the line OP making angle theta with the axis. Red line r1 joins +q to P and blue line r2 joins -q to P. Dashed perpendiculars show that r1 is shorter than r by about a cos theta and r2 is longer than r by about a cos theta. The note gives V = kp cos theta over r squared for r much greater than a." },
+    { "key": "equipotentials", "file": "diagrams/ug26-322-u1-electric-potential-equipotentials.svg", "alt": "Three panels of dashed equipotentials with field lines: concentric circles around a point charge, parallel vertical planes in a uniform field, and closed curves around each charge of a dipole with a straight zero-potential line between them", "caption": "Equipotential surfaces (dashed) and field lines (solid) for a point charge, a uniform field and a dipole", "description": "Panel (a): a positive point charge with radial field lines and three dashed concentric circles at 90 V, 60 V and 30 V from inner to outer; the spacing grows outward. Panel (b): horizontal field lines pointing right crossed at right angles by four vertical dashed equipotential planes labelled 40 V, 30 V, 20 V and 10 V from left to right. Panel (c): a dipole with computed curved field lines from the positive to the negative charge and dashed closed equipotential curves around each charge; the vertical perpendicular bisector is the V = 0 equipotential. In every panel the field lines cross the equipotentials at right angles." },
+    { "key": "dipole-energy", "file": "diagrams/ug26-322-u1-electric-potential-dipole-energy.svg", "alt": "Graph of potential energy U = -pE cos theta of a dipole against angle theta from 0 to 360 degrees, minimum -pE at 0 degrees and maximum +pE at 180 degrees", "caption": "Potential energy of a dipole in a uniform field, U = −pE cos θ", "description": "The horizontal axis is the angle theta between p and E in degrees, from 0 to 360; the vertical axis is the potential energy U in joules, from -pE to +pE. The blue curve starts at its minimum -pE at 0 degrees (marked stable), rises through zero at 90 degrees, reaches its maximum +pE at 180 degrees (marked unstable), and returns to -pE at 360 degrees. A note states that the work needed to turn the dipole from 0 to 180 degrees is 2pE." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u1-electric-potential-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "One volt, the SI unit of electric potential, is equal to",
+      "options": ["1 N C⁻¹", "1 J C⁻¹", "1 C J⁻¹", "1 J C"],
+      "answer": 2,
+      "explanation": "Potential is defined as work done per unit charge, $V = \\frac{W}{q}$. Work is measured in joules and charge in coulombs, so one volt is one joule per coulomb. A potential difference of 1 V means that 1 J of work is needed to move 1 C of positive charge between the two points.",
+      "optionRationale": { "1": "N C⁻¹ is the unit of electric field, not potential.", "3": "This is the reciprocal of the correct unit.", "4": "Joule times coulomb has no physical meaning here." },
+      "objective": "Define the volt from the definition of potential"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q02", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A charge of −2 μC is moved slowly from a point A at potential 50 V to a point B at potential 10 V. What work is done by the external agent?",
+      "options": ["1.2 × 10⁻⁴ J (positive)", "8 × 10⁻⁵ J in magnitude, but negative", "8 × 10⁻⁵ J (positive)", "2 × 10⁻⁵ J (positive)"],
+      "answer": 3,
+      "explanation": "The work done by the external agent equals the change in potential energy: $W = q(V_B - V_A) = (-2 \\times 10^{-6})(10 - 50) = (-2 \\times 10^{-6})(-40) = +8 \\times 10^{-5}\\,\\text{J}$. The work is positive because a negative charge is attracted towards higher potential, so the agent has to push it towards the lower potential.",
+      "optionRationale": { "1": "1.2 × 10⁻⁴ J adds the two potentials (60 V) instead of taking their difference.", "2": "The sign of the charge was dropped; with q negative and ΔV negative, the work is positive.", "4": "2 × 10⁻⁵ J uses only the final potential, 10 V." },
+      "objective": "Calculate work done in moving a charge between two potentials, with signs"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q03", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): A positive charge released from rest in an electrostatic field moves from a region of higher potential to a region of lower potential.\nReason (R): The electric field points in the direction in which the potential decreases.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Since $E = -\\frac{dV}{dr}$, the field points towards decreasing potential (R is true). A positive charge is pushed along the field by the force qE, so when released from rest it moves along the field, which is towards lower potential (A is true). R is the reason the charge moves that way, so R correctly explains A.",
+      "optionRationale": { "2": "The direction of the force follows directly from R, so R is the explanation.", "3": "R is true; E = −dV/dr.", "4": "A is true for positive charges; negative charges move the other way." },
+      "objective": "Relate the direction of the field to the change in potential"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q04", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "An electron starting from rest is accelerated through a potential difference of 200 V. What kinetic energy does it gain?",
+      "options": ["1.6 × 10⁻¹⁹ J", "200 J", "1.25 × 10²¹ J", "3.2 × 10⁻¹⁷ J"],
+      "answer": 4,
+      "explanation": "The kinetic energy gained equals the loss of potential energy, $K = eV$. Here $K = (1.6 \\times 10^{-19}\\,\\text{C})(200\\,\\text{V}) = 3.2 \\times 10^{-17}\\,\\text{J}$, which is 200 electron volts. One electron volt is the energy gained by an electron through a potential difference of one volt.",
+      "optionRationale": { "1": "1.6 × 10⁻¹⁹ J is 1 eV, the energy for 1 V, not 200 V.", "2": "200 J treats the charge as 1 C; the charge of an electron is 1.6 × 10⁻¹⁹ C.", "3": "This divides 200 by e instead of multiplying." },
+      "objective": "Use K = eV and the electron volt"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q05", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "What is the electric potential at a point 30 cm away from a point charge of +5 nC?",
+      "options": ["150 V", "500 V", "45 V", "1500 V"],
+      "answer": 1,
+      "explanation": "The potential of a point charge is the charge divided by the distance, multiplied by k. Converting to SI units, $V = \\frac{kq}{r} = \\frac{(9 \\times 10^{9})(5 \\times 10^{-9})}{0.30} = \\frac{45}{0.30} = 150\\,\\text{V}$. Potential uses the first power of the distance, unlike the field, which uses the square. The potential is positive because the charge is positive.",
+      "optionRationale": { "2": "500 V divides by r² (0.09) instead of r; that would be the field in N C⁻¹.", "3": "45 V forgets to divide by the distance.", "4": "1500 V uses 3 cm instead of 30 cm." },
+      "objective": "Calculate the potential of a point charge"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q06", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "At a certain point near an isolated point charge, the electric potential is 600 V and the electric field is 200 N C⁻¹. What are the distance of the point from the charge and the size of the charge?",
+      "options": ["3 m and 2 μC", "0.33 m and 0.2 μC", "3 m and 0.2 μC", "9 m and 0.6 μC"],
+      "answer": 3,
+      "explanation": "For a point charge the potential and the field share the same factor kq: $V = \\frac{kq}{r}$ and $E = \\frac{kq}{r^2}$. Dividing one by the other removes the unknown charge and gives the distance directly: $r = \\frac{V}{E} = \\frac{600}{200} = 3\\,\\text{m}$. Then the charge follows from the potential: $q = \\frac{Vr}{k} = \\frac{(600)(3)}{9 \\times 10^{9}} = 2 \\times 10^{-7}\\,\\text{C}$, which is 0.2 microcoulomb.",
+      "optionRationale": { "1": "The distance is right, but the charge is ten times too large.", "2": "0.33 m comes from E/V instead of V/E.", "4": "9 m squares the ratio; r = V/E, not (V/E)²." },
+      "objective": "Use V = Er for a point charge to find distance and charge"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q07", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "At a distance r from a point charge the potential is V and the field is E. At a distance 2r from the charge, the potential and field become",
+      "options": ["V/4 and E/2", "V/2 and E/2", "V/2 and E/4", "V/4 and E/4"],
+      "answer": 3,
+      "explanation": "The potential of a point charge varies as $\\frac{1}{r}$, so doubling the distance halves it to $\\frac{V}{2}$. The field varies as $\\frac{1}{r^2}$, so doubling the distance reduces it to a quarter, $\\frac{E}{4}$. The field always falls off faster than the potential for a point charge.",
+      "optionRationale": { "1": "This swaps the dependences: V goes as 1/r and E as 1/r².", "2": "The field falls as 1/r², not 1/r.", "4": "The potential falls as 1/r, not 1/r²." },
+      "objective": "Compare the distance dependence of V and E for a point charge"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q08", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A short electric dipole has a dipole moment of 2 × 10⁻⁹ C m. What is the potential at a point on its axis, 20 cm from its centre, on the side of the positive charge?",
+      "options": ["90 V", "450 V", "900 V", "zero"],
+      "answer": 2,
+      "explanation": "For a short dipole the potential is $V = \\frac{kp\\cos\\theta}{r^2}$. On the axis, on the side of the positive charge, the angle between the dipole moment and the line to the point is zero, so the cosine equals one. Then $V = \\frac{(9 \\times 10^{9})(2 \\times 10^{-9})}{(0.2)^2} = \\frac{18}{0.04} = 450\\,\\text{V}$. Remember that the dipole potential falls as the inverse square of distance.",
+      "optionRationale": { "1": "90 V divides by r instead of r²; the dipole potential falls as 1/r².", "3": "900 V wrongly includes a factor 2, which belongs to the axial field formula, not the potential.", "4": "The potential is zero on the equatorial line, not on the axis." },
+      "objective": "Calculate the potential of a dipole on its axis"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q09", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "What is the electric potential at a point on the equatorial line of an electric dipole of moment p, at distance r from its centre?",
+      "options": ["kp/r²", "2kp/r²", "kp/r³", "zero"],
+      "answer": 4,
+      "explanation": "Every point of the equatorial line (the perpendicular bisector) is equally distant from +q and −q. Their potentials, $+\\frac{kq}{r'}$ and $-\\frac{kq}{r'}$, cancel exactly. Equivalently, $\\theta = 90^\\circ$ in $V = \\frac{kp\\cos\\theta}{r^2}$ gives zero. Note that the field at these points is not zero.",
+      "optionRationale": { "1": "kp/r² is the potential on the axis (θ = 0°), not on the equatorial line.", "2": "2kp/r² is not a correct dipole potential anywhere.", "3": "kp/r³ is the magnitude of the field on the equatorial line, not the potential." },
+      "objective": "State the potential on the equatorial line of a dipole"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q10", "type": "STATEMENT_BASED", "difficulty": "HARD", "skill": "conceptual",
+      "stem": "Consider the following statements about the electric potential of a short electric dipole.\nA. At large distances it falls off as 1/r².\nB. On the equatorial line both the potential and the electric field are zero.\nC. It depends on the angle between the dipole moment and the line joining the centre to the point.\nD. At a given distance it has its greatest value on the axial line on the side of the positive charge.\nWhich statements are correct?",
+      "options": ["A, C and D only", "A and B only", "B and C only", "A, B, C and D"],
+      "answer": 1,
+      "explanation": "From $V = \\frac{kp\\cos\\theta}{r^2}$: A is true (1/r²); C is true (cos θ dependence); D is true because cos θ is largest (= 1) at θ = 0°, on the axis on the +q side. B is false: on the equatorial line the potential is zero, but the field is $\\frac{kp}{r^3}$, directed opposite to p. So A, C and D only.",
+      "optionRationale": { "2": "B is false, and C and D, which are true, are left out.", "3": "B is false and A is true.", "4": "B is false, so all four cannot be correct." },
+      "objective": "Analyse the features of the dipole potential"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q11", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Charges of +2 μC, −3 μC, +4 μC and −1 μC are placed at the four corners of a square, each 20 cm from the centre of the square. What is the electric potential at the centre?",
+      "options": ["zero", "9 × 10⁴ V", "4.5 × 10⁵ V", "1.8 × 10⁴ V"],
+      "answer": 2,
+      "explanation": "Potential is a scalar, so the contributions of the four charges are simply added with their signs; no directions are involved. All four charges are the same distance, 0.20 m, from the centre, so the common factor k/r can be taken out and only the net charge matters: $V = \\frac{k(q_1 + q_2 + q_3 + q_4)}{r} = \\frac{(9 \\times 10^{9})(2 - 3 + 4 - 1) \\times 10^{-6}}{0.20} = \\frac{(9 \\times 10^{9})(2 \\times 10^{-6})}{0.20} = 9 \\times 10^{4}\\,\\text{V}$.",
+      "optionRationale": { "1": "The net charge is +2 μC, not zero, so the potential does not cancel.", "3": "4.5 × 10⁵ V adds the magnitudes of all charges, ignoring the negative signs.", "4": "1.8 × 10⁴ V is k × (net charge) without dividing by r = 0.20 m." },
+      "objective": "Add potentials of several charges as scalars"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q12", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "A charge of +4 nC is at x = 0 and a charge of −2 nC is at x = 0.6 m. At which points on the x-axis is the electric potential zero?",
+      "options": ["x = 0.4 m only", "x = 0.3 m and x = 1.2 m", "x = 0.2 m and x = −0.6 m", "x = 0.4 m and x = 1.2 m"],
+      "answer": 4,
+      "explanation": "We need $\\frac{4}{|x|} = \\frac{2}{|x - 0.6|}$, with the point nearer the smaller charge. Between the charges: $\\frac{4}{x} = \\frac{2}{0.6 - x}$ gives $2.4 - 4x = 2x$, so $x = 0.4\\,\\text{m}$. Beyond the −2 nC charge: $\\frac{4}{x} = \\frac{2}{x - 0.6}$ gives $4x - 2.4 = 2x$, so $x = 1.2\\,\\text{m}$. To the left of x = 0 no solution exists.",
+      "optionRationale": { "1": "There is a second zero-potential point outside the pair, at x = 1.2 m.", "2": "x = 0.3 m is the midpoint; the potentials there are 4/0.3 and 2/0.3, which do not cancel.", "3": "Left of x = 0 the point is nearer the larger charge, so the potentials cannot cancel." },
+      "objective": "Locate points of zero potential for two unlike charges"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q13", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): At the midpoint between two equal positive point charges, both the electric field and the electric potential are zero.\nReason (R): Electric potential is a scalar quantity.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 4,
+      "explanation": "R is true: potential is a scalar. A is false: at the midpoint the fields of the two equal charges are equal and opposite, so the field is zero, but the potentials are both positive and add, giving $V = \\frac{2kq}{r} \\neq 0$. Because potential is a scalar, the contributions cannot cancel by direction.",
+      "optionRationale": { "1": "A is false, because the potential at the midpoint is 2kq/r, not zero.", "2": "A is false, so both cannot be true.", "3": "A is false and R is true; this option says the reverse." },
+      "objective": "Distinguish zero field from zero potential"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q14", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A thin ring of radius 0.3 m carries a charge of 2 nC spread uniformly. What is the electric potential at a point on its axis 0.4 m from the centre of the ring?",
+      "options": ["36 V", "60 V", "45 V", "21.6 V"],
+      "answer": 1,
+      "explanation": "Every small element of the ring is the same distance from the point on the axis, $\\sqrt{0.3^2 + 0.4^2} = 0.5\\,\\text{m}$. Since potential is a scalar, the contributions of all the elements simply add, exactly as if the whole charge sat at that distance: $V = \\frac{kQ}{0.5} = \\frac{(9 \\times 10^{9})(2 \\times 10^{-9})}{0.5} = 36\\,\\text{V}$. No components are needed, unlike the field calculation.",
+      "optionRationale": { "2": "60 V is the potential at the centre of the ring (distance 0.3 m).", "3": "45 V uses the axial distance 0.4 m instead of the distance to the ring.", "4": "21.6 V multiplies by a cosine factor; potential is a scalar and needs no components." },
+      "objective": "Find the potential of a continuous charge distribution (ring)"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q15", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The work done in moving a charge q between two points on the same equipotential surface is",
+      "options": ["equal to qV, where V is the potential of the surface", "equal to qE multiplied by the distance moved", "zero", "dependent on the path taken"],
+      "answer": 3,
+      "explanation": "The work done is $W = q(V_B - V_A)$. On an equipotential surface every point has the same potential, so $V_B - V_A = 0$ and the work is zero. This is also why the field is perpendicular to the surface: moving along it there is no component of force in the direction of motion.",
+      "optionRationale": { "1": "qV is the potential energy of the charge at the surface, not the work to move along it.", "2": "There is no component of E along an equipotential surface, so this product is not the work.", "4": "Electrostatic work depends only on the end points, and here it is zero by any path." },
+      "objective": "Use the defining property of an equipotential surface"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q16", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match each charge configuration in List-I with the shape of its equipotential surfaces in List-II.",
+      "list": { "left": ["A. Isolated point charge", "B. Uniform electric field", "C. Long straight line of charge", "D. Electric dipole"], "right": ["I. Coaxial cylinders", "II. Concentric spheres", "III. Closed surfaces round each charge, with a plane of zero potential between them", "IV. Parallel planes perpendicular to the field"] },
+      "options": ["A-I, B-IV, C-II, D-III", "A-II, B-IV, C-I, D-III", "A-II, B-I, C-IV, D-III", "A-III, B-IV, C-I, D-II"],
+      "answer": 2,
+      "explanation": "Equipotentials are always perpendicular to the field lines. Radial lines of a point charge give concentric spheres (A-II). Parallel lines of a uniform field give perpendicular planes (B-IV). Radial lines from a long wire give coaxial cylinders (C-I). A dipole gives closed surfaces round each charge with the equatorial plane at zero potential (D-III).",
+      "optionRationale": { "1": "A point charge has spherical, not cylindrical, symmetry.", "3": "A uniform field has planar equipotentials, not cylinders.", "4": "The dipole pattern and the point-charge spheres are swapped." },
+      "objective": "Identify equipotential surfaces for standard charge configurations"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q17", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Two large parallel metal plates 5 mm apart are connected to a 100 V supply. What is the magnitude of the uniform electric field between them?",
+      "options": ["2 × 10⁴ V m⁻¹", "500 V m⁻¹", "2 × 10² V m⁻¹", "5 × 10⁵ V m⁻¹"],
+      "answer": 1,
+      "explanation": "In a uniform field the potential falls steadily from one plate to the other, so $E = \\frac{V}{d} = \\frac{100\\,\\text{V}}{5 \\times 10^{-3}\\,\\text{m}} = 2 \\times 10^{4}\\,\\text{V m}^{-1}$. The field points from the higher-potential plate to the lower-potential plate, perpendicular to the plates.",
+      "optionRationale": { "2": "500 V m⁻¹ multiplies V by d instead of dividing.", "3": "2 × 10² V m⁻¹ uses 0.5 m instead of 5 mm.", "4": "5 × 10⁵ V m⁻¹ would need a gap of only 0.2 mm; recheck the conversion of 5 mm to metres." },
+      "objective": "Use E = V/d for a uniform field"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q18", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application", "diagram": "equipotentials",
+      "stem": "In panel (b) of the figure, the equipotential planes marked 40 V, 30 V, 20 V and 10 V are equally spaced, with neighbouring planes 2 cm apart. What is the electric field in this region?",
+      "options": ["500 V m⁻¹, from the 10 V plane towards the 40 V plane", "5 V m⁻¹, from the 40 V plane towards the 10 V plane", "500 V m⁻¹, from the 40 V plane towards the 10 V plane", "2000 V m⁻¹, from the 40 V plane towards the 10 V plane"],
+      "answer": 3,
+      "explanation": "The potential drops by 10 V for every 0.02 m, so $E = \\frac{\\Delta V}{\\Delta r} = \\frac{10}{0.02} = 500\\,\\text{V m}^{-1}$. The field is perpendicular to the planes and points towards decreasing potential, from the 40 V plane towards the 10 V plane, which matches the field arrows drawn in the figure.",
+      "optionRationale": { "1": "The field points towards lower potential, not higher.", "2": "5 V m⁻¹ uses 2 m instead of 2 cm.", "4": "2000 V m⁻¹ uses the full 40 V drop over only 2 cm." },
+      "objective": "Find the field from equally spaced equipotentials"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q19", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "The electric potential along the x-axis in a region is V = 4x² volts, where x is in metres. What is the electric field at x = 1 m?",
+      "options": ["8 V m⁻¹, pointing towards the origin", "8 V m⁻¹, pointing away from the origin", "4 V m⁻¹, pointing towards the origin", "16 V m⁻¹, pointing away from the origin"],
+      "answer": 1,
+      "explanation": "The field is the negative gradient of the potential: $E_x = -\\frac{dV}{dx} = -8x$. At $x = 1\\,\\text{m}$, $E_x = -8\\,\\text{V m}^{-1}$. The magnitude is 8 V m⁻¹ and the negative sign means it points along −x, which at x = 1 m is towards the origin, in the direction of decreasing potential.",
+      "optionRationale": { "2": "This forgets the minus sign in E = −dV/dx.", "3": "4 V m⁻¹ uses V/x instead of the derivative dV/dx.", "4": "16 V m⁻¹ doubles the derivative incorrectly and has the wrong direction." },
+      "objective": "Use E = −dV/dx to find the field from a potential function"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q20", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "numerical",
+      "stem": "What is the electrostatic potential energy of a system of two point charges, +2 μC and −3 μC, kept 30 cm apart?",
+      "options": ["0.18 J in magnitude, positive in sign", "0.18 J in magnitude, negative in sign", "0.6 J in magnitude, negative in sign", "0.054 J in magnitude, negative in sign"],
+      "answer": 2,
+      "explanation": "The potential energy of a pair of point charges is $U = \\frac{kq_1q_2}{r}$, and the signs of the charges must be kept. Here $U = \\frac{(9 \\times 10^{9})(2 \\times 10^{-6})(-3 \\times 10^{-6})}{0.30} = \\frac{-0.054}{0.30} = -0.18\\,\\text{J}$. The energy is negative because unlike charges attract each other: an external agent would have to supply 0.18 J to separate them completely.",
+      "optionRationale": { "1": "For unlike charges the product q₁q₂ is negative, so U is negative.", "3": "0.6 divides by r² (0.09); that is the force in newtons, not the energy.", "4": "0.054 forgets to divide by the distance." },
+      "objective": "Calculate the potential energy of two point charges with sign"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q21", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Two point charges of +2 μC each are 40 cm apart. How much work must an external agent do to bring them slowly to 20 cm apart?",
+      "options": ["0.18 J", "0.27 J", "0.045 J", "0.09 J"],
+      "answer": 4,
+      "explanation": "When the charges are moved slowly, the work done by the external agent equals the increase in the potential energy of the pair. Initially $U_i = \\frac{(9 \\times 10^{9})(4 \\times 10^{-12})}{0.40} = 0.09\\,\\text{J}$; finally $U_f = \\frac{0.036}{0.20} = 0.18\\,\\text{J}$. So $W = U_f - U_i = 0.18 - 0.09 = 0.09\\,\\text{J}$. It is positive because like charges repel and must be pushed together.",
+      "optionRationale": { "1": "0.18 J is the final energy, not the change in energy.", "2": "0.27 J adds the two energies instead of subtracting.", "3": "0.045 J halves the correct change for no reason." },
+      "objective": "Find work done as the change in potential energy of a pair of charges"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q22", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Four equal point charges q are placed at the corners of a square of side a. What is the electrostatic potential energy of the system? (k = 1/4πε₀)",
+      "options": ["4 kq²/a", "(2 + √2) kq²/a", "(4 + √2) kq²/a", "6 kq²/a"],
+      "answer": 3,
+      "explanation": "The energy of a system of charges is the sum of the energies of every distinct pair, each pair counted once. Four charges form six pairs. Four pairs are along the sides, at distance a, contributing $4\\frac{kq^2}{a}$. Two pairs are across the diagonals, at distance $\\sqrt{2}a$, contributing $2\\frac{kq^2}{\\sqrt{2}a} = \\sqrt{2}\\frac{kq^2}{a}$. Total $U = (4 + \\sqrt{2})\\frac{kq^2}{a}$.",
+      "optionRationale": { "1": "This counts only the four side pairs and forgets the two diagonal pairs.", "2": "This counts only two side pairs instead of four.", "4": "This treats all six pairs as if they were a distance a apart." },
+      "objective": "Calculate the potential energy of several charges by summing over pairs"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q23", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The electrostatic potential energy of a system of two unlike point charges is negative.\nReason (R): An external agent must do positive work to separate two unlike charges to an infinite distance apart.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "With the zero of energy at infinite separation, $U = \\frac{kq_1q_2}{r}$ is negative when the charges are unlike (A is true). Unlike charges attract, so pulling them apart to infinity needs positive work, raising U to zero (R is true). Since U must rise to reach zero, it must start below zero, so R explains A.",
+      "optionRationale": { "2": "R directly accounts for the negative sign, so it is the explanation.", "3": "R is true; unlike charges attract and must be pulled apart.", "4": "A is true; q₁q₂ < 0 makes U negative." },
+      "objective": "Interpret the sign of electrostatic potential energy"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q24", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "An electric dipole is placed in a uniform electric field. For which angle θ between the dipole moment and the field is the potential energy of the dipole minimum?",
+      "options": ["θ = 90°", "θ = 180°", "θ = 45°", "θ = 0°, with p parallel to E"],
+      "answer": 4,
+      "explanation": "The potential energy is $U = -pE\\cos\\theta$. This is most negative, that is minimum, when $\\cos\\theta = 1$, which happens at $\\theta = 0^\\circ$, with the dipole moment pointing along the field. This is the stable equilibrium position, and the torque there is zero.",
+      "optionRationale": { "1": "At 90° the energy is zero, which is not the minimum.", "2": "At 180° the energy is +pE, the maximum (unstable).", "3": "At 45° the energy is −0.71pE, higher than −pE." },
+      "objective": "Identify the orientation of minimum potential energy of a dipole"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q25", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A dipole of moment 3 × 10⁻⁹ C m lies along a uniform field of 2 × 10⁵ N C⁻¹. How much work is needed to turn it so that it points opposite to the field?",
+      "options": ["6 × 10⁻⁴ J", "1.2 × 10⁻³ J", "zero", "2.4 × 10⁻³ J"],
+      "answer": 2,
+      "explanation": "The work done in turning the dipole slowly equals the change in its potential energy, from $-pE$ when it lies along the field to $+pE$ when it points opposite to the field: $W = pE(\\cos 0^\\circ - \\cos 180^\\circ) = 2pE$. Here $pE = (3 \\times 10^{-9})(2 \\times 10^{5}) = 6 \\times 10^{-4}\\,\\text{J}$, so $W = 1.2 \\times 10^{-3}\\,\\text{J}$. The dipole is taken from its stable to its unstable position.",
+      "optionRationale": { "1": "6 × 10⁻⁴ J is pE, the work to turn it only through 90°.", "3": "The energy changes from −pE to +pE, so the work is not zero.", "4": "2.4 × 10⁻³ J is 4pE, double the correct value." },
+      "objective": "Calculate work done in rotating a dipole in a uniform field"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q26", "type": "DIAGRAM_BASED", "difficulty": "HARD", "skill": "application", "diagram": "dipole-energy",
+      "stem": "Using the graph of the potential energy of a dipole in a uniform field shown in the figure, how much work must be done to turn the dipole slowly from θ = 60° to θ = 180°?",
+      "options": ["1.5 pE", "0.5 pE", "2 pE", "pE"],
+      "answer": 1,
+      "explanation": "The curve in the figure is $U = -pE\\cos\\theta$, so read off the energy at the start and at the end of the rotation. At $60^\\circ$ the energy is $-pE\\cos 60^\\circ = -0.5\\,pE$, below the axis; at $180^\\circ$ it is $+pE$, the top of the curve. The work done by the external agent equals the rise in energy, $W = pE - (-0.5\\,pE) = 1.5\\,pE$.",
+      "optionRationale": { "2": "0.5 pE ignores the sign of U at 60°, subtracting 0.5pE instead of adding it.", "3": "2 pE is the work from 0° to 180°, not from 60°.", "4": "pE is only the final energy, not the change in energy." },
+      "objective": "Use the U–θ graph of a dipole to find work done"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-q27", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Read the following statements about an electric dipole of moment p in a uniform electric field E.\nA. Its potential energy is minimum when p is parallel to E.\nB. The torque on it is maximum where its potential energy is minimum.\nC. Its potential energy is zero when p is perpendicular to E, with the usual choice of zero.\nD. The work done in turning it from θ₁ to θ₂ is pE(cos θ₁ − cos θ₂).\nWhich statements are correct?",
+      "options": ["A and C only", "A, C and D only", "B and D only", "A, B, C and D"],
+      "answer": 2,
+      "explanation": "A is true: $U = -pE\\cos\\theta$ is least at $\\theta = 0^\\circ$. C is true: $U = 0$ at $90^\\circ$. D is true: the work equals $U_2 - U_1 = pE(\\cos\\theta_1 - \\cos\\theta_2)$. B is false: at minimum energy ($0^\\circ$) the torque $pE\\sin\\theta$ is zero; the torque is maximum at $90^\\circ$. So A, C and D only.",
+      "optionRationale": { "1": "D is also true; it is the work formula.", "3": "B is false, and A and C are true but left out.", "4": "B is false, so all four cannot be correct." },
+      "objective": "Connect the torque, energy and work for a dipole in a field"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" font-family="Arial, Helvetica, sans-serif">
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#1f2937">Convex mirror: object anywhere in front</text>
+  <!-- principal axis -->
+  <line x1="60" y1="200" x2="680" y2="200" stroke="#1f2937" stroke-width="1.5"/>
+  <!-- mirror (bulges towards the object) -->
+  <path d="M401.8 100 A240 240 0 0 0 401.8 300" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+  <path d="M397.5 289.9 l10 -8 M389.3 266.2 l10 -8 M383.6 241.7 l10 -8 M380.6 216.7 l10 -8 M380.1 191.6 l10 -8 M382.3 166.6 l10 -8 M387.1 141.9 l10 -8 M394.5 117.9 l10 -8" stroke="#1f2937" stroke-width="1.5"/>
+  <!-- points -->
+  <circle cx="380" cy="200" r="3.5" fill="#1f2937"/>
+  <circle cx="500" cy="200" r="3.5" fill="#1f2937"/>
+  <circle cx="620" cy="200" r="3.5" fill="#1f2937"/>
+  <text x="356" y="226" font-size="15" fill="#1f2937">P</text>
+  <text x="495" y="224" font-size="15" fill="#1f2937">F</text>
+  <text x="615" y="224" font-size="15" fill="#1f2937">C</text>
+  <text x="520" y="260" font-size="13" fill="#1f2937">F and C lie behind the mirror</text>
+  <!-- object -->
+  <line x1="180" y1="200" x2="180" y2="146" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="180,138 175,150 185,150" fill="#059669"/>
+  <text x="152" y="128" font-size="14" fill="#059669">Object</text>
+  <!-- image (virtual) -->
+  <line x1="456.8" y1="200" x2="456.8" y2="184" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <polygon points="456.8,177 452.3,188 461.3,188" fill="#dc2626"/>
+  <text x="468" y="168" font-size="14" fill="#dc2626">Image</text>
+  <!-- ray 1: parallel, reflects as if from F -->
+  <line x1="180" y1="140" x2="387.6" y2="140" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="283.8,140 272.8,144.5 272.8,135.5" fill="#2563eb"/>
+  <line x1="387.6" y1="140" x2="237.7" y2="59.9" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="297.6,92 309.5,93.2 305.2,101.1" fill="#2563eb"/>
+  <line x1="387.6" y1="140" x2="500" y2="200" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <!-- ray 2: at the pole, reflects symmetrically -->
+  <line x1="180" y1="140" x2="380" y2="200" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="290,173 278.2,174.1 280.8,165.5" fill="#2563eb"/>
+  <line x1="380" y1="200" x2="190" y2="257" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="275.5,231.4 284.7,223.9 287.3,232.5" fill="#2563eb"/>
+  <line x1="380" y1="200" x2="462" y2="175.4" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <!-- notes -->
+  <text x="20" y="298" font-size="14" fill="#1f2937">Dashed lines: reflected rays traced back behind the mirror.</text>
+  <text x="20" y="318" font-size="14" fill="#1f2937">Image between P and F: virtual, erect, diminished (f and v positive).</text>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" font-family="Arial, Helvetica, sans-serif">
+  <!-- Panel (a): x = 70 + 6.4 t (min), y = 330 - 260 c/[R]0 ; t1/2 = 10 min -->
+  <text x="70" y="30" font-size="15" fill="#1f2937" font-weight="bold">(a) First order: [R] = [R]₀e^(−kt)</text>
+  <line x1="70" y1="330" x2="404" y2="330" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="414,330 402,324 402,336" fill="#1f2937"/>
+  <line x1="70" y1="330" x2="70" y2="58" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="70,48 64,60 76,60" fill="#1f2937"/>
+  <text x="80" y="54" font-size="14" fill="#1f2937">[R] (mol L⁻¹)</text>
+  <text x="414" y="374" font-size="14" fill="#1f2937" text-anchor="end">Time t (min)</text>
+  <path d="M70.0,70.0 L78.0,91.6 L86.0,111.4 L94.0,129.5 L102.0,146.2 L110.0,161.4 L118.0,175.4 L126.0,188.2 L134.0,200.0 L142.0,210.8 L150.0,220.7 L158.0,229.8 L166.0,238.1 L174.0,245.7 L182.0,252.7 L190.0,259.1 L198.0,265.0 L206.0,270.4 L214.0,275.3 L222.0,279.9 L230.0,284.0 L238.0,287.9 L246.0,291.4 L254.0,294.6 L262.0,297.5 L270.0,300.2 L278.0,302.7 L286.0,304.9 L294.0,307.0 L302.0,308.9 L310.0,310.7 L318.0,312.3 L326.0,313.8 L334.0,315.1 L342.0,316.3 L350.0,317.5 L358.0,318.5 L366.0,319.5 L374.0,320.3 L382.0,321.1 L390.0,321.9" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+  <g stroke="#1f2937" stroke-width="1.2" stroke-dasharray="4 4">
+    <line x1="70" y1="200" x2="134" y2="200"/><line x1="134" y1="200" x2="134" y2="330"/>
+    <line x1="70" y1="265" x2="198" y2="265"/><line x1="198" y1="265" x2="198" y2="330"/>
+    <line x1="70" y1="297.5" x2="262" y2="297.5"/><line x1="262" y1="297.5" x2="262" y2="330"/>
+  </g>
+  <g fill="#dc2626"><circle cx="134" cy="200" r="4"/><circle cx="198" cy="265" r="4"/><circle cx="262" cy="297.5" r="4"/></g>
+  <g font-size="13" fill="#1f2937" text-anchor="end">
+    <text x="62" y="75">[R]₀</text><text x="62" y="205">[R]₀/2</text><text x="62" y="270">[R]₀/4</text><text x="62" y="302">[R]₀/8</text>
+  </g>
+  <g font-size="13" fill="#dc2626" text-anchor="middle">
+    <text x="134" y="350">t½</text><text x="198" y="350">2t½</text><text x="262" y="350">3t½</text>
+  </g>
+  <text x="170" y="140" font-size="14" fill="#2563eb">exponential decay:</text>
+  <text x="170" y="158" font-size="14" fill="#2563eb">equal time t½ halves [R]</text>
+  <text x="170" y="176" font-size="14" fill="#2563eb">every time</text>
+
+  <!-- Panel (b): ln[R] vs t -->
+  <text x="500" y="30" font-size="15" fill="#1f2937" font-weight="bold">(b) ln[R] = ln[R]₀ − kt</text>
+  <line x1="500" y1="330" x2="836" y2="330" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="846,330 834,324 834,336" fill="#1f2937"/>
+  <line x1="500" y1="330" x2="500" y2="58" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="500,48 494,60 506,60" fill="#1f2937"/>
+  <text x="510" y="54" font-size="14" fill="#1f2937">ln [R]  ([R] in mol L⁻¹)</text>
+  <text x="846" y="374" font-size="14" fill="#1f2937" text-anchor="end">Time t (min)</text>
+  <line x1="500" y1="90" x2="810" y2="300" stroke="#2563eb" stroke-width="2.5"/>
+  <circle cx="500" cy="90" r="4" fill="#2563eb"/>
+  <text x="492" y="95" font-size="13" fill="#1f2937" text-anchor="end">ln[R]₀</text>
+  <line x1="600" y1="157.7" x2="720" y2="157.7" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="720" y1="157.7" x2="720" y2="239" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="660" y="149" font-size="14" fill="#1f2937" text-anchor="middle">Δt</text>
+  <text x="728" y="204" font-size="14" fill="#1f2937">Δ ln[R]</text>
+  <text x="600" y="260" font-size="14" fill="#dc2626">slope = −k</text>
+  <text x="600" y="278" font-size="14" fill="#dc2626">(k in min⁻¹)</text>
+</svg>

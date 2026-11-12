@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 460" font-family="Arial, Helvetica, sans-serif">
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#1f2937">Compound microscope: final image at the near point</text>
+  <!-- axis -->
+  <line x1="60" y1="200" x2="600" y2="200" stroke="#1f2937" stroke-width="1.5"/>
+  <!-- objective -->
+  <path d="M180 150 Q194 200 180 250 Q166 200 180 150 Z" fill="#2563eb" fill-opacity="0.10" stroke="#1f2937" stroke-width="2"/>
+  <text x="138" y="140" font-size="14" fill="#1f2937">objective</text>
+  <!-- eyepiece -->
+  <path d="M428 100 Q448 200 428 300 Q408 200 428 100 Z" fill="#2563eb" fill-opacity="0.10" stroke="#1f2937" stroke-width="2"/>
+  <text x="398" y="90" font-size="14" fill="#1f2937">eyepiece</text>
+  <!-- focal points -->
+  <circle cx="140" cy="200" r="3" fill="#1f2937"/>
+  <circle cx="220" cy="200" r="3" fill="#1f2937"/>
+  <circle cx="348" cy="200" r="3" fill="#1f2937"/>
+  <circle cx="508" cy="200" r="3" fill="#1f2937"/>
+  <text x="128" y="222" font-size="13" fill="#1f2937">Fo</text>
+  <text x="222" y="190" font-size="13" fill="#1f2937">Fo'</text>
+  <text x="338" y="190" font-size="13" fill="#1f2937">Fe</text>
+  <text x="500" y="190" font-size="13" fill="#1f2937">Fe'</text>
+  <!-- object -->
+  <line x1="130" y1="200" x2="130" y2="192" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="130,184 126,193 134,193" fill="#059669"/>
+  <text x="70" y="182" font-size="14" fill="#059669">object</text>
+  <!-- intermediate image -->
+  <line x1="380" y1="200" x2="380" y2="252" stroke="#d97706" stroke-width="2.5"/>
+  <polygon points="380,260 375.5,249 384.5,249" fill="#d97706"/>
+  <text x="388" y="250" font-size="14" fill="#d97706">A'B'</text>
+  <!-- final image -->
+  <line x1="308" y1="200" x2="308" y2="342" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5 4"/>
+  <polygon points="308,350 303,338 313,338" fill="#dc2626"/>
+  <text x="252" y="356" font-size="14" fill="#dc2626">A''B''</text>
+  <!-- ray a: parallel, through Fo', on through eyepiece -->
+  <polyline points="130,185 180,185 380,260 428,278 520,222.8" fill="none" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="160,185 149,189.5 149,180.5" fill="#2563eb"/>
+  <polygon points="300,230 288.1,230.4 291.3,221.9" fill="#2563eb"/>
+  <polygon points="483.2,244.9 476.1,254.4 471.5,246.7" fill="#2563eb"/>
+  <!-- ray b: through centre of objective -->
+  <polyline points="130,185 380,260 428,274.4 520,216.4" fill="none" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="242.5,218.8 230.7,219.9 233.3,211.3" fill="#2563eb"/>
+  <polygon points="469.4,248.3 462.5,258 457.7,250.4" fill="#2563eb"/>
+  <!-- backward extensions to the final image -->
+  <line x1="428" y1="278" x2="308" y2="350" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <line x1="428" y1="274.4" x2="308" y2="350" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <!-- eye -->
+  <ellipse cx="548" cy="210" rx="12" ry="20" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="541" cy="210" r="4.5" fill="#1f2937"/>
+  <text x="560" y="248" font-size="13" fill="#1f2937">eye</text>
+  <!-- tube length L -->
+  <line x1="220" y1="120" x2="348" y2="120" stroke="#1f2937" stroke-width="1.2"/>
+  <polygon points="220,120 230,116 230,124" fill="#1f2937"/>
+  <polygon points="348,120 338,116 338,124" fill="#1f2937"/>
+  <line x1="220" y1="114" x2="220" y2="196" stroke="#1f2937" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="348" y1="114" x2="348" y2="196" stroke="#1f2937" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <text x="238" y="112" font-size="13" fill="#1f2937">L (tube length)</text>
+  <text x="20" y="386" font-size="13" fill="#d97706">A'B': first image formed by the objective (real, inverted, magnified), just inside Fe.</text>
+  <text x="20" y="404" font-size="13" fill="#dc2626">A''B'': final image formed by the eyepiece (virtual, at the near point). Here mo = −4, me = 2.5, m = −10.</text>
+  <text x="20" y="422" font-size="13" fill="#1f2937">L is measured from the second focus of the objective to the first focus of the eyepiece.</text>
+</svg>

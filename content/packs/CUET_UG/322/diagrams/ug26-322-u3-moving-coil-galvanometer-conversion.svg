@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="Arial, Helvetica, sans-serif">
+  <!-- Panel (a): ammeter -->
+  <text x="190" y="26" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">(a) Ammeter: small shunt S in parallel</text>
+  <g stroke="#1f2937" stroke-width="2.2" fill="none">
+    <line x1="30" y1="170" x2="90" y2="170"/>
+    <polyline points="90,170 90,110 173,110"/>
+    <polyline points="217,110 300,110 300,170"/>
+    <polyline points="90,170 90,230 150,230"/>
+    <polyline points="150,230 155.6,221 166.9,239 178.1,221 189.4,239 200.6,221 211.9,239 223.1,221 234.4,239 240,230"/>
+    <polyline points="240,230 300,230 300,170"/>
+    <line x1="300" y1="170" x2="350" y2="170"/>
+  </g>
+  <circle cx="195" cy="110" r="22" fill="#ffffff" stroke="#1f2937" stroke-width="2.2"/>
+  <text x="195" y="116" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">G</text>
+  <circle cx="90" cy="170" r="4" fill="#1f2937"/>
+  <circle cx="300" cy="170" r="4" fill="#1f2937"/>
+  <circle cx="30" cy="170" r="5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="350" cy="170" r="5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <!-- current labels -->
+  <polygon points="66,170 52,163 52,177" fill="#dc2626"/>
+  <text x="44" y="158" font-size="14" font-weight="bold" fill="#dc2626">I</text>
+  <polygon points="140,110 126,103 126,117" fill="#dc2626"/>
+  <text x="122" y="98" font-size="14" font-weight="bold" fill="#dc2626">Ig</text>
+  <polygon points="276,230 262,223 262,237" fill="#dc2626"/>
+  <text x="246" y="216" font-size="14" font-weight="bold" fill="#dc2626">I − Ig</text>
+  <text x="195" y="264" font-size="14" fill="#1f2937" text-anchor="middle">S (low resistance)</text>
+  <text x="195" y="146" font-size="13" fill="#1f2937" text-anchor="middle">resistance G</text>
+  <text x="190" y="300" font-size="14" fill="#1f2937" text-anchor="middle">Ig G = (I − Ig) S, so S = Ig G / (I − Ig)</text>
+  <text x="190" y="322" font-size="13" fill="#1f2937" text-anchor="middle">connected in series with the circuit</text>
+
+  <line x1="385" y1="40" x2="385" y2="330" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+
+  <!-- Panel (b): voltmeter -->
+  <text x="575" y="26" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">(b) Voltmeter: large R in series</text>
+  <g stroke="#1f2937" stroke-width="2.2" fill="none">
+    <line x1="420" y1="170" x2="458" y2="170"/>
+    <line x1="502" y1="170" x2="540" y2="170"/>
+    <polyline points="540,170 545.5,161 556.5,179 567.5,161 578.5,179 589.5,161 600.5,179 611.5,161 622.5,179 633.5,161 644.5,179 650,170"/>
+    <line x1="650" y1="170" x2="720" y2="170"/>
+  </g>
+  <circle cx="480" cy="170" r="22" fill="#ffffff" stroke="#1f2937" stroke-width="2.2"/>
+  <text x="480" y="176" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">G</text>
+  <circle cx="420" cy="170" r="5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <circle cx="720" cy="170" r="5" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="530,170 516,163 516,177" fill="#dc2626"/>
+  <text x="512" y="200" font-size="14" font-weight="bold" fill="#dc2626">Ig</text>
+  <text x="595" y="206" font-size="14" fill="#1f2937" text-anchor="middle">R (high resistance)</text>
+  <!-- voltage bracket -->
+  <line x1="420" y1="110" x2="720" y2="110" stroke="#2563eb" stroke-width="1.8"/>
+  <line x1="420" y1="102" x2="420" y2="118" stroke="#2563eb" stroke-width="1.8"/>
+  <line x1="720" y1="102" x2="720" y2="118" stroke="#2563eb" stroke-width="1.8"/>
+  <text x="570" y="100" font-size="15" font-weight="bold" fill="#2563eb" text-anchor="middle">V (full-scale reading)</text>
+  <text x="575" y="300" font-size="14" fill="#1f2937" text-anchor="middle">V = Ig (G + R), so R = V / Ig − G</text>
+  <text x="575" y="322" font-size="13" fill="#1f2937" text-anchor="middle">connected in parallel across the element</text>
+</svg>

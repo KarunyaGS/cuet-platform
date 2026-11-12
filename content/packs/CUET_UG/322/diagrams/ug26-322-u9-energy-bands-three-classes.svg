@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" font-family="Arial, Helvetica, sans-serif">
+  <!-- shared energy axis -->
+  <line x1="26" y1="340" x2="26" y2="62" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="26,50 20,64 32,64" fill="#1f2937"/>
+  <text x="14" y="200" font-size="14" fill="#1f2937" text-anchor="middle" transform="rotate(-90 14 200)">Electron energy</text>
+
+  <!-- (a) conductor: overlapping bands -->
+  <rect x="50" y="200" width="130" height="110" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+  <rect x="50" y="130" width="130" height="100" fill="#ffffff" fill-opacity="0.35" stroke="#1f2937" stroke-width="2"/>
+  <rect x="50" y="200" width="130" height="30" fill="#93c5fd" stroke="none"/>
+  <line x1="50" y1="200" x2="180" y2="200" stroke="#2563eb" stroke-width="2" stroke-dasharray="5 3"/>
+  <line x1="50" y1="230" x2="180" y2="230" stroke="#1f2937" stroke-width="2"/>
+  <text x="115" y="160" font-size="13" fill="#1f2937" text-anchor="middle">Conduction band</text>
+  <text x="115" y="220" font-size="13" fill="#1f2937" text-anchor="middle">overlap</text>
+  <text x="115" y="275" font-size="13" fill="#1e3a8a" text-anchor="middle">Valence band</text>
+  <line x1="190" y1="200" x2="200" y2="200" stroke="#dc2626" stroke-width="2"/>
+  <line x1="200" y1="200" x2="200" y2="230" stroke="#dc2626" stroke-width="2"/>
+  <line x1="190" y1="230" x2="200" y2="230" stroke="#dc2626" stroke-width="2"/>
+  <text x="206" y="212" font-size="14" fill="#dc2626">no gap</text>
+  <text x="206" y="229" font-size="14" fill="#dc2626">Eg = 0</text>
+  <text x="140" y="370" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">(a) Conductor (metal)</text>
+
+  <!-- (b) insulator: wide gap -->
+  <rect x="310" y="70" width="130" height="60" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <rect x="310" y="270" width="130" height="60" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+  <text x="375" y="98" font-size="13" fill="#1f2937" text-anchor="middle">Conduction band</text>
+  <text x="375" y="115" font-size="13" fill="#1f2937" text-anchor="middle">(empty)</text>
+  <text x="375" y="298" font-size="13" fill="#1e3a8a" text-anchor="middle">Valence band</text>
+  <text x="375" y="315" font-size="13" fill="#1e3a8a" text-anchor="middle">(completely filled)</text>
+  <text x="375" y="195" font-size="13" fill="#1f2937" text-anchor="middle">forbidden</text>
+  <text x="375" y="212" font-size="13" fill="#1f2937" text-anchor="middle">energy gap</text>
+  <line x1="460" y1="138" x2="460" y2="262" stroke="#dc2626" stroke-width="2"/>
+  <polygon points="460,131 455,141 465,141" fill="#dc2626"/>
+  <polygon points="460,269 455,259 465,259" fill="#dc2626"/>
+  <text x="470" y="196" font-size="14" fill="#dc2626">Eg</text>
+  <text x="470" y="213" font-size="14" fill="#dc2626">&gt; 3 eV</text>
+  <text x="400" y="370" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">(b) Insulator (diamond)</text>
+
+  <!-- (c) semiconductor: small gap -->
+  <rect x="570" y="120" width="130" height="60" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <rect x="570" y="225" width="130" height="60" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
+  <text x="635" y="148" font-size="13" fill="#1f2937" text-anchor="middle">Conduction band</text>
+  <text x="635" y="263" font-size="13" fill="#1e3a8a" text-anchor="middle">Valence band</text>
+  <!-- a few electrons in CB and holes in VB -->
+  <circle cx="590" cy="170" r="4" fill="#1f2937"/>
+  <circle cx="625" cy="171" r="4" fill="#1f2937"/>
+  <circle cx="668" cy="170" r="4" fill="#1f2937"/>
+  <circle cx="595" cy="234" r="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <circle cx="630" cy="235" r="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <circle cx="673" cy="234" r="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <line x1="720" y1="187" x2="720" y2="218" stroke="#dc2626" stroke-width="2"/>
+  <polygon points="720,181 715,191 725,191" fill="#dc2626"/>
+  <polygon points="720,224 715,214 725,214" fill="#dc2626"/>
+  <text x="730" y="200" font-size="14" fill="#dc2626">Eg &lt; 3 eV</text>
+  <text x="730" y="217" font-size="13" fill="#dc2626">(Si 1.1 eV)</text>
+  <circle cx="584" cy="312" r="4" fill="#1f2937"/>
+  <text x="594" y="317" font-size="13" fill="#1f2937">electron</text>
+  <circle cx="660" cy="312" r="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.8"/>
+  <text x="670" y="317" font-size="13" fill="#1f2937">hole (at T &gt; 0 K)</text>
+  <text x="665" y="370" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">(c) Semiconductor (Si, Ge)</text>
+</svg>

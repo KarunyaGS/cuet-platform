@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" font-family="Arial, Helvetica, sans-serif">
+  <text x="20" y="28" font-size="16" font-weight="bold" fill="#1f2937">Concave mirror: object beyond C</text>
+  <!-- principal axis -->
+  <line x1="60" y1="200" x2="660" y2="200" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="62" y="192" font-size="13" fill="#1f2937">principal axis</text>
+  <!-- mirror -->
+  <path d="M597.5 90 A280 280 0 0 1 597.5 310" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+  <path d="M601.4 99.7 l10 -8 M610.5 127.5 l10 -8 M616.6 156.2 l10 -8 M619.6 185.3 l10 -8 M619.6 214.7 l10 -8 M616.6 243.8 l10 -8 M610.5 272.5 l10 -8 M601.4 300.3 l10 -8" stroke="#1f2937" stroke-width="1.5"/>
+  <!-- points -->
+  <circle cx="340" cy="200" r="3.5" fill="#1f2937"/>
+  <circle cx="480" cy="200" r="3.5" fill="#1f2937"/>
+  <circle cx="620" cy="200" r="3.5" fill="#1f2937"/>
+  <text x="334" y="222" font-size="15" fill="#1f2937">C</text>
+  <text x="478" y="216" font-size="14" fill="#1f2937">F</text>
+  <text x="634" y="222" font-size="15" fill="#1f2937">P</text>
+  <!-- object -->
+  <line x1="240" y1="200" x2="240" y2="146" stroke="#059669" stroke-width="2.5"/>
+  <polygon points="240,138 235,150 245,150" fill="#059669"/>
+  <text x="212" y="130" font-size="14" fill="#059669">Object</text>
+  <!-- image -->
+  <line x1="404.2" y1="200" x2="404.2" y2="227" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="404.2,235 399.2,223 409.2,223" fill="#dc2626"/>
+  <text x="372" y="272" font-size="14" fill="#dc2626">Image</text>
+  <!-- ray 1: parallel, reflects through F -->
+  <line x1="240" y1="140" x2="613.5" y2="140" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="426.7,140 415.7,144.5 415.7,135.5" fill="#2563eb"/>
+  <line x1="613.5" y1="140" x2="372.8" y2="248.2" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="519.3,182.3 527.5,173.7 531.2,181.9" fill="#2563eb"/>
+  <!-- ray 2: through F, reflects parallel -->
+  <line x1="240" y1="140" x2="617.9" y2="234.5" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="372.3,173.1 360.5,174.8 362.7,166" fill="#2563eb"/>
+  <line x1="617.9" y1="234.5" x2="372" y2="234.5" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="532.4,234.5 543.4,230 543.4,239" fill="#2563eb"/>
+  <!-- ray 3: at pole, reflects symmetrically -->
+  <line x1="240" y1="140" x2="620" y2="200" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="468,176 456.4,178.7 457.8,169.8" fill="#2563eb"/>
+  <line x1="620" y1="200" x2="371.8" y2="239.2" stroke="#2563eb" stroke-width="1.8"/>
+  <polygon points="512.1,217 522.3,210.9 523.7,219.8" fill="#2563eb"/>
+  <!-- notes -->
+  <text x="20" y="308" font-size="14" fill="#1f2937">Image lies between C and F: real, inverted, diminished.</text>
+  <text x="20" y="328" font-size="13" fill="#1f2937">PF = f = R/2,  PC = R  (both negative for a concave mirror in the Cartesian convention)</text>
+</svg>

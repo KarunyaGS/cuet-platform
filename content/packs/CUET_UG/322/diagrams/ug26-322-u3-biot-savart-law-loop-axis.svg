@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" font-family="Arial, Helvetica, sans-serif">
+  <!-- axis -->
+  <line x1="40" y1="200" x2="705" y2="200" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="680" y="190" font-size="13" fill="#6b7280">axis</text>
+  <!-- loop: front half solid (left), back half dashed (right) -->
+  <path d="M 190 80 A 42 120 0 0 0 190 320" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+  <path d="M 190 320 A 42 120 0 0 0 190 80" fill="none" stroke="#1f2937" stroke-width="2" stroke-dasharray="6 5"/>
+  <!-- current arrows (anticlockwise as seen from P) -->
+  <polygon points="148,214 141,198 155,198" fill="#2563eb"/>
+  <polygon points="232,186 225,202 239,202" fill="#2563eb"/>
+  <text x="112" y="214" font-size="15" font-weight="bold" fill="#2563eb">I</text>
+  <text x="252" y="190" font-size="15" font-weight="bold" fill="#2563eb">I</text>
+  <!-- centre and radius -->
+  <circle cx="190" cy="200" r="3.5" fill="#1f2937"/>
+  <text x="172" y="222" font-size="15" font-weight="bold" fill="#1f2937">O</text>
+  <line x1="190" y1="200" x2="190" y2="80" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="196" y="150" font-size="15" font-weight="bold" fill="#1f2937">R</text>
+  <!-- current elements -->
+  <circle cx="190" cy="80" r="4" fill="#2563eb"/>
+  <text x="150" y="72" font-size="14" font-weight="bold" fill="#2563eb">dl</text>
+  <circle cx="190" cy="320" r="4" fill="#2563eb"/>
+  <text x="146" y="346" font-size="14" font-weight="bold" fill="#2563eb">dl'</text>
+  <!-- r lines -->
+  <line x1="190" y1="80" x2="560" y2="200" stroke="#059669" stroke-width="2"/>
+  <line x1="190" y1="320" x2="560" y2="200" stroke="#059669" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="400" y="118" font-size="14" fill="#059669">r = √(R² + x²)</text>
+  <!-- x distance -->
+  <text x="370" y="222" font-size="15" font-weight="bold" fill="#1f2937">x</text>
+  <!-- point P -->
+  <circle cx="560" cy="200" r="4" fill="#1f2937"/>
+  <text x="532" y="226" font-size="15" font-weight="bold" fill="#1f2937">P</text>
+  <!-- right angle between r and dB -->
+  <path d="M 548.6 196.3 L 552.3 184.9 L 563.7 188.6" fill="none" stroke="#1f2937" stroke-width="1.5"/>
+  <!-- dB from top element -->
+  <line x1="560" y1="200" x2="586.6" y2="118.2" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="590.9,104.9 592.3,120.1 580.9,116.4" fill="#dc2626"/>
+  <text x="598" y="112" font-size="14" font-weight="bold" fill="#dc2626">dB (from dl)</text>
+  <!-- dB' from bottom element -->
+  <line x1="560" y1="200" x2="586.6" y2="281.8" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <polygon points="590.9,295.1 592.3,280.0 580.9,283.7" fill="#dc2626"/>
+  <text x="598" y="300" font-size="14" font-weight="bold" fill="#dc2626">dB' (from dl')</text>
+  <!-- resultant -->
+  <line x1="562" y1="200" x2="650" y2="200" stroke="#d97706" stroke-width="4"/>
+  <polygon points="666,200 648,191 648,209" fill="#d97706"/>
+  <text x="604" y="244" font-size="14" font-weight="bold" fill="#d97706">B along the axis</text>
+  <!-- notes -->
+  <text x="40" y="372" font-size="13" fill="#1f2937">Perpendicular components of dB and dB' cancel in pairs; axial components add.</text>
+  <text x="40" y="394" font-size="13" fill="#1f2937">Current anticlockwise as seen from P, so B at P points away from the loop.</text>
+  <text x="40" y="34" font-size="15" fill="#1f2937">B = μ0 I R² / [ 2 (R² + x²)^(3/2) ]</text>
+</svg>

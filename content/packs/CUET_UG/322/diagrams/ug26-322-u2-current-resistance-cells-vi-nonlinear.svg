@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="900" height="380" font-family="Arial, Helvetica, sans-serif">
+  <!-- Panel (c): filament lamp -->
+  <line x1="25" y1="175" x2="265" y2="175" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="275,175 263,169 263,181" fill="#1f2937"/>
+  <line x1="145" y1="305" x2="145" y2="45" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="145,35 139,47 151,47" fill="#1f2937"/>
+  <text x="272" y="198" font-size="14" fill="#1f2937" text-anchor="end">V (volt)</text>
+  <text x="155" y="45" font-size="14" fill="#1f2937">I (ampere)</text>
+  <path d="M145,175 C165,125 200,95 262,82" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+  <path d="M145,175 C125,225 90,255 28,268" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="155" y="290" font-size="13" fill="#1f2937">slope falls as V rises</text>
+  <text x="145" y="340" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(c) Filament lamp</text>
+  <text x="145" y="360" font-size="13" fill="#1f2937" text-anchor="middle">R increases as the filament heats</text>
+
+  <!-- Panel (d): diode-like device -->
+  <line x1="320" y1="240" x2="575" y2="240" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="585,240 573,234 573,246" fill="#1f2937"/>
+  <line x1="450" y1="305" x2="450" y2="45" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="450,35 444,47 456,47" fill="#1f2937"/>
+  <text x="582" y="263" font-size="14" fill="#1f2937" text-anchor="end">V (volt)</text>
+  <text x="460" y="45" font-size="14" fill="#1f2937">I (mA)</text>
+  <path d="M325,246 C380,245 420,243 450,240 C485,239 505,232 518,205 C530,170 538,110 545,55" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <text x="505" y="110" font-size="13" fill="#dc2626" text-anchor="end">V &gt; 0: large I</text>
+  <text x="330" y="275" font-size="13" fill="#dc2626">V &lt; 0: almost no current</text>
+  <text x="450" y="340" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(d) Diode</text>
+  <text x="450" y="360" font-size="13" fill="#1f2937" text-anchor="middle">I depends on the sign of V</text>
+
+  <!-- Panel (e): GaAs-like, non-unique V for a given I -->
+  <line x1="640" y1="290" x2="880" y2="290" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="890,290 878,284 878,296" fill="#1f2937"/>
+  <line x1="640" y1="290" x2="640" y2="45" stroke="#1f2937" stroke-width="2"/>
+  <polygon points="640,35 634,47 646,47" fill="#1f2937"/>
+  <text x="885" y="313" font-size="14" fill="#1f2937" text-anchor="end">V (volt)</text>
+  <text x="650" y="45" font-size="14" fill="#1f2937">I (ampere)</text>
+  <path d="M640,290 C670,210 690,120 715,118 C740,116 755,215 790,218 C820,221 838,170 862,62" fill="none" stroke="#059669" stroke-width="2.5"/>
+  <line x1="640" y1="170" x2="880" y2="170" stroke="#1f2937" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="635" y="174" font-size="13" fill="#1f2937" text-anchor="end">I<tspan font-size="10" dy="4">0</tspan></text>
+  <text x="760" y="100" font-size="13" fill="#059669">one I, three V</text>
+  <text x="760" y="340" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(e) GaAs device</text>
+  <text x="760" y="360" font-size="13" fill="#1f2937" text-anchor="middle">V–I relation is not unique</text>
+</svg>

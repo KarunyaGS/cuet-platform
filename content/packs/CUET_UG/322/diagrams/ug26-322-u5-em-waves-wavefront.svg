@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" font-family="Arial, Helvetica, sans-serif">
+  <!-- ===== panel (a): x-y plane, viewed along z ===== -->
+  <text x="200" y="24" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(a) Seen along z: E up the page, B out of the page</text>
+  <rect x="30" y="60" width="220" height="200" fill="#dc2626" fill-opacity="0.06"/>
+  <line x1="250" y1="52" x2="250" y2="268" stroke="#059669" stroke-width="2.2" stroke-dasharray="7 5"/>
+  <line x1="250" y1="44" x2="300" y2="44" stroke="#059669" stroke-width="2.2"/>
+  <polygon points="314,44 300,37 300,51" fill="#059669"/>
+  <text x="320" y="49" font-size="15" fill="#059669" font-style="italic">v</text>
+  <text x="250" y="286" font-size="13" fill="#059669" text-anchor="middle">wavefront</text>
+  <!-- E arrows -->
+  <g stroke="#dc2626" stroke-width="2"><line x1="55" y1="245" x2="55" y2="96"/><line x1="95" y1="245" x2="95" y2="96"/><line x1="195" y1="245" x2="195" y2="96"/><line x1="235" y1="245" x2="235" y2="96"/></g>
+  <g fill="#dc2626"><polygon points="55,82 49,97 61,97"/><polygon points="95,82 89,97 101,97"/><polygon points="195,82 189,97 201,97"/><polygon points="235,82 229,97 241,97"/></g>
+  <text x="62" y="80" font-size="15" fill="#dc2626" font-weight="bold">E</text>
+  <!-- B out of page -->
+  <g fill="none" stroke="#2563eb" stroke-width="1.8"><circle cx="75" cy="170" r="7"/><circle cx="215" cy="170" r="7"/><circle cx="75" cy="235" r="7"/></g>
+  <g fill="#2563eb"><circle cx="75" cy="170" r="2"/><circle cx="215" cy="170" r="2"/><circle cx="75" cy="235" r="2"/></g>
+  <text x="118" y="250" font-size="15" fill="#2563eb" font-weight="bold">B ⊙</text>
+  <!-- rectangle for Faraday's law -->
+  <rect x="150" y="120" width="170" height="100" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <text x="328" y="175" font-size="15" fill="#1f2937" font-style="italic">h</text>
+  <text x="300" y="246" font-size="13" fill="#4b5563" text-anchor="middle">no field yet</text>
+  <text x="30" y="318" font-size="14" fill="#1f2937">Faraday: only the left side lies in E, so</text>
+  <text x="30" y="340" font-size="14" fill="#1f2937">E·h = dΦ<tspan font-size="11" dy="3">B</tspan><tspan dy="-3">/dt = B·h·v   ⇒   E = vB</tspan></text>
+
+  <!-- ===== panel (b): x-z plane, viewed along y ===== -->
+  <text x="600" y="24" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(b) Seen along y: B down the page, E out of the page</text>
+  <rect x="430" y="60" width="220" height="200" fill="#2563eb" fill-opacity="0.06"/>
+  <line x1="650" y1="52" x2="650" y2="268" stroke="#059669" stroke-width="2.2" stroke-dasharray="7 5"/>
+  <line x1="650" y1="44" x2="700" y2="44" stroke="#059669" stroke-width="2.2"/>
+  <polygon points="714,44 700,37 700,51" fill="#059669"/>
+  <text x="720" y="49" font-size="15" fill="#059669" font-style="italic">v</text>
+  <text x="650" y="286" font-size="13" fill="#059669" text-anchor="middle">wavefront</text>
+  <!-- B arrows pointing down (+z) -->
+  <g stroke="#2563eb" stroke-width="2"><line x1="455" y1="76" x2="455" y2="232"/><line x1="495" y1="76" x2="495" y2="232"/><line x1="595" y1="76" x2="595" y2="232"/><line x1="635" y1="76" x2="635" y2="232"/></g>
+  <g fill="#2563eb"><polygon points="455,246 449,231 461,231"/><polygon points="495,246 489,231 501,231"/><polygon points="595,246 589,231 601,231"/><polygon points="635,246 629,231 641,231"/></g>
+  <text x="462" y="76" font-size="15" fill="#2563eb" font-weight="bold">B</text>
+  <!-- E out of page -->
+  <g fill="none" stroke="#dc2626" stroke-width="1.8"><circle cx="475" cy="170" r="7"/><circle cx="615" cy="170" r="7"/><circle cx="475" cy="105" r="7"/></g>
+  <g fill="#dc2626"><circle cx="475" cy="170" r="2"/><circle cx="615" cy="170" r="2"/><circle cx="475" cy="105" r="2"/></g>
+  <text x="510" y="100" font-size="15" fill="#dc2626" font-weight="bold">E ⊙</text>
+  <!-- rectangle for the Ampere-Maxwell law -->
+  <rect x="550" y="120" width="170" height="100" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <text x="728" y="175" font-size="15" fill="#1f2937" font-style="italic">h</text>
+  <text x="700" y="246" font-size="13" fill="#4b5563" text-anchor="middle">no field yet</text>
+  <text x="430" y="318" font-size="14" fill="#1f2937">Ampère–Maxwell: only the left side lies in B, so</text>
+  <text x="430" y="340" font-size="14" fill="#1f2937">B·h = μ<tspan font-size="11" dy="3">0</tspan><tspan dy="-3">ε</tspan><tspan font-size="11" dy="3">0</tspan><tspan dy="-3"> dΦ</tspan><tspan font-size="11" dy="3">E</tspan><tspan dy="-3">/dt = μ</tspan><tspan font-size="11" dy="3">0</tspan><tspan dy="-3">ε</tspan><tspan font-size="11" dy="3">0</tspan><tspan dy="-3">·E·h·v   ⇒   B = μ</tspan><tspan font-size="11" dy="3">0</tspan><tspan dy="-3">ε</tspan><tspan font-size="11" dy="3">0</tspan><tspan dy="-3">vE</tspan></text>
+
+  <!-- combined result -->
+  <line x1="30" y1="362" x2="770" y2="362" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="400" y="392" font-size="16" fill="#1f2937" text-anchor="middle">Combine: E = vB = v(μ<tspan font-size="12" dy="3">0</tspan><tspan dy="-3">ε</tspan><tspan font-size="12" dy="3">0</tspan><tspan dy="-3">vE)  ⇒  v² = 1/(μ</tspan><tspan font-size="12" dy="3">0</tspan><tspan dy="-3">ε</tspan><tspan font-size="12" dy="3">0</tspan><tspan dy="-3">)  ⇒  v = c ≈ 3 × 10⁸ m/s,  and E/B = c</tspan></text>
+</svg>

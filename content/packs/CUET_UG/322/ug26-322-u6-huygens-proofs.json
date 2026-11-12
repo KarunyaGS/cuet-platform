@@ -1,0 +1,209 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_c17f9f5f66834e2abf9226aa4930ffc9",
+    "title": "Proof of laws of reflection and refraction using Huygen’s principle."
+  },
+  "lesson": {
+    "key": "ug26-322-u6-huygens-proofs",
+    "title": "Proving the laws of reflection and refraction with Huygens' principle",
+    "coverage": [
+      { "phrase": "Proof of laws using Huygen’s principle: the set-up", "section": "Setting up a Huygens proof" },
+      { "phrase": "Proof of laws of reflection using Huygen’s principle", "section": "Proof of the law of reflection" },
+      { "phrase": "Proof of laws of refraction using Huygen’s principle", "section": "Proof of Snell's law of refraction" },
+      { "phrase": "refraction into a rarer medium", "section": "Refraction into a rarer medium and the critical angle" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "Setting up a Huygens proof" },
+      { "type": "TEXT", "text": "The laws of reflection and refraction were first found by experiment. Huygens' principle lets us **derive** them from the wave nature of light. Both proofs follow the same pattern, so it pays to learn the set-up once:\n\n1. A **plane wavefront AB** meets a plane boundary obliquely. Its rays make an angle i with the normal to the boundary. The end A touches the boundary first, at time t = 0.\n2. Let τ be the time taken by the other end B to reach the boundary at the point C. During this time B travels in the first medium, so BC = (speed in medium 1) × τ.\n3. As soon as A touches the boundary it starts a **secondary wavelet**. After time τ this wavelet is a hemisphere centred at A whose radius is (speed of the wavelet) × τ. The wavelet travels back into medium 1 for reflection, or into medium 2 for refraction.\n4. Points between A and C reach the boundary at intermediate times, so their wavelets are smaller. The new wavefront at time τ is the plane drawn **from C tangent to the wavelet centred at A**; it touches all the intermediate wavelets too. Call the point of contact E. Because a radius is perpendicular to a tangent, AE is perpendicular to CE.\n5. Two right-angled triangles now appear, both with the boundary segment AC as hypotenuse: triangle ABC (right angle at B, because the ray BC is perpendicular to the wavefront AB) and triangle AEC (right angle at E)." },
+      { "type": "IMPORTANT_FACT", "text": "Angle lemma used in both proofs: the angle between a wavefront and the boundary equals the angle between the corresponding ray and the normal. The wavefront is perpendicular to its ray and the boundary is perpendicular to its normal; turning both lines through 90 degrees does not change the angle between them. So in the figures ∠BAC = i and ∠ECA = r (the angle of reflection or refraction)." },
+      { "type": "DEFINITION", "term": "Plane of incidence", "text": "The plane containing the incident ray and the normal to the surface at the point of incidence. In the Huygens construction the incident wavefront, the wavelets' centres and the tangent plane are all symmetric about this plane, so the reflected and refracted rays also lie in it." },
+      { "type": "CALLOUT", "text": "Notation to keep straight: BC is the distance travelled by the incident wavefront in medium 1 (v1τ). AE is the radius of the secondary wavelet from A (vτ for reflection, v2τ for refraction). AC is the common hypotenuse. Mixing up which speed belongs to which segment is the commonest error in this proof." },
+
+      { "type": "HEADING", "text": "Proof of the law of reflection" },
+      { "type": "DIAGRAM", "diagram": "reflection" },
+      { "type": "TEXT", "text": "Let a plane wavefront AB be incident on a reflecting surface MN, with its rays at angle i to the normal. Let v be the speed of light in the medium in which both the incident and the reflected waves travel.\n\n**Step 1.** The end A of the wavefront touches the surface first. The end B must still travel the distance BC to reach the surface at C. If this takes time τ, then $BC = v\\tau$.\n\n**Step 2.** During the same time τ, the secondary wavelet from A spreads back into the **same** medium with the **same** speed v. With A as centre, draw a hemisphere of radius $AE = v\\tau$.\n\n**Step 3.** From C draw the tangent plane CE to this hemisphere, touching it at E. This is the reflected wavefront at the instant B reaches C. Since AE is a radius and CE a tangent, $\\angle AEC = 90^\\circ$. Also $\\angle ABC = 90^\\circ$, because the incident ray BC is perpendicular to the incident wavefront AB.\n\n**Step 4.** Compare the right-angled triangles ABC and AEC:\n\n- $\\angle ABC = \\angle AEC = 90^\\circ$;\n- the hypotenuse AC is common;\n- $BC = AE = v\\tau$.\n\nSo the triangles are congruent by the RHS (right angle–hypotenuse–side) criterion.\n\n**Step 5.** Corresponding angles of congruent triangles are equal, so $\\angle BAC = \\angle ECA$. By the angle lemma, $\\angle BAC = i$ (incident wavefront to surface) and $\\angle ECA = r$ (reflected wavefront to surface). Therefore $i = r$: **the angle of reflection equals the angle of incidence.**\n\n**Step 6.** The incident ray, the normal and the reflected ray all lie in the plane of the figure, which is the plane of incidence. This is the second law of reflection." },
+      { "type": "FORMULA", "latex": "\\sin i = \\frac{BC}{AC} = \\frac{v\\tau}{AC} = \\frac{AE}{AC} = \\sin r \\;\\Rightarrow\\; i = r", "text": "The same conclusion written with sines: in right triangle ABC, sin i = BC/AC; in right triangle AEC, sin r = AE/AC. Since BC = AE = vτ, sin i = sin r and, both angles being acute, i = r." },
+      { "type": "TEXT", "text": "**Why the plane CE touches every wavelet, not just the one from A.** Take a point P on AC at distance x from A. The incident wavefront reaches P a time $x\\sin i/v$ after it reaches A, because P lies a distance $x\\sin i$ further along the ray direction. By the time B reaches C, the wavelet from P has radius $v\\tau - x\\sin i$. The perpendicular distance from P to the plane CE is $PC\\sin r = (AC - x)\\sin r$. With $AC\\sin r = AE = v\\tau$ and $r = i$, this distance is $v\\tau - x\\sin i$, exactly the radius of P's wavelet. So CE is tangent to every wavelet and is truly the envelope required by Huygens' principle." },
+      { "type": "SOLVED_PROBLEM", "problem": "A plane wavefront of light in air strikes a mirror with its rays at 30 degrees to the normal. In the Huygens construction the length AC along the mirror is 10 cm. Find BC, the time τ, the radius AE of the wavelet from A, and the widths AB and CE of the incident and reflected wavefronts. (Speed of light 3.0 x 10^8 m/s.)", "solution": "In right triangle ABC the angle at A is i = 30 degrees, so $BC = AC\\sin i = 10 \\times 0.5 = 5.0$ cm.\n\nTime for B to reach C: $\\tau = \\frac{BC}{v} = \\frac{0.050}{3.0 \\times 10^8} = 1.67 \\times 10^{-10}$ s, about 0.17 ns.\n\nThe wavelet from A travels in air for the same time: $AE = v\\tau = 5.0$ cm, equal to BC as the proof requires.\n\nWidth of the incident wavefront: $AB = AC\\cos i = 10 \\times 0.866 = 8.66$ cm. In triangle AEC, $CE = AC\\cos r$, and since r = i = 30 degrees, CE = 8.66 cm. The reflected beam has the same width as the incident beam, another consequence of the congruent triangles.", "answer": "BC = AE = 5.0 cm, τ = 1.67 x 10^-10 s, AB = CE = 8.66 cm." },
+
+      { "type": "HEADING", "text": "Proof of Snell's law of refraction" },
+      { "type": "DIAGRAM", "diagram": "refraction" },
+      { "type": "TEXT", "text": "Now let the plane surface separate medium 1, where light travels with speed v1, from medium 2, where it travels with speed v2. A plane wavefront AB is incident with its rays at angle i to the normal.\n\n**Step 1.** A touches the boundary first. B travels in medium 1 and reaches C after time τ, so $BC = v_1\\tau$.\n\n**Step 2.** The secondary wavelet from A now travels **into medium 2** with speed v2. With A as centre, draw a hemisphere of radius $AE = v_2\\tau$ in medium 2.\n\n**Step 3.** From C draw the tangent plane CE to this hemisphere. CE is the refracted wavefront at time τ. As before, $\\angle ABC = 90^\\circ$ and $\\angle AEC = 90^\\circ$, and both triangles have AC as hypotenuse. This time the triangles are **not** congruent, because BC and AE are different lengths.\n\n**Step 4.** From right triangle ABC, with $\\angle BAC = i$: $\\sin i = \\dfrac{BC}{AC} = \\dfrac{v_1\\tau}{AC}$.\n\n**Step 5.** From right triangle AEC, with $\\angle ECA = r$ (the angle of refraction, by the angle lemma): $\\sin r = \\dfrac{AE}{AC} = \\dfrac{v_2\\tau}{AC}$.\n\n**Step 6.** Dividing, the unknown AC and τ cancel: $\\dfrac{\\sin i}{\\sin r} = \\dfrac{v_1}{v_2}$. For two given media v1 and v2 are fixed, so the ratio is a constant. This is Snell's law.\n\n**Step 7.** Using $v_1 = c/n_1$ and $v_2 = c/n_2$: $\\dfrac{v_1}{v_2} = \\dfrac{n_2}{n_1}$, so $n_1\\sin i = n_2\\sin r$. The incident ray, refracted ray and normal again lie in the plane of incidence.\n\nThe same check as for reflection shows that CE touches every intermediate wavelet: a point P at distance x from A starts its wavelet a time $x\\sin i/v_1$ late, so its radius at time τ is $v_2\\tau - x(v_2/v_1)\\sin i$, and the distance from P to CE is $(AC - x)\\sin r = v_2\\tau - x\\sin r$; these agree because $\\sin r = (v_2/v_1)\\sin i$." },
+      { "type": "FORMULA", "latex": "\\frac{\\sin i}{\\sin r} = \\frac{BC}{AE} = \\frac{v_1}{v_2} = \\frac{n_2}{n_1} = n_{21}", "text": "Snell's law as derived from Huygens' principle: i = angle of incidence, r = angle of refraction, v1 and v2 = speeds of light in the first and second media, n1 and n2 = their refractive indices, n21 = refractive index of medium 2 relative to medium 1." },
+      { "type": "FORMULA", "latex": "\\frac{\\lambda_1}{\\lambda_2} = \\frac{v_1}{v_2}, \\qquad \\nu_1 = \\nu_2", "text": "The frequency of the refracted wave equals that of the incident wave (each wavelet oscillates at the frequency of the wave that started it). Hence the wavelengths are in the ratio of the speeds: the wavefronts are closer together in the slower medium." },
+      { "type": "SOLVED_PROBLEM", "problem": "A plane wavefront in air (speed 3.0 x 10^8 m/s) falls on glass in which light travels at 2.0 x 10^8 m/s; its rays make 60 degrees with the normal. In the Huygens construction AC = 4.0 cm. Find (a) BC and the time τ, (b) the wavelet radius AE, (c) the angle of refraction, (d) the widths of the incident and refracted wavefronts AB and CE.", "solution": "(a) $BC = AC\\sin i = 4.0 \\times \\sin 60^\\circ = 4.0 \\times 0.866 = 3.46$ cm. Time $\\tau = \\frac{BC}{v_1} = \\frac{0.0346}{3.0 \\times 10^8} = 1.15 \\times 10^{-10}$ s.\n\n(b) The wavelet from A moves in glass: $AE = v_2\\tau = 2.0 \\times 10^8 \\times 1.15 \\times 10^{-10} = 0.0231$ m = 2.31 cm. Equivalently $AE = BC \\times \\frac{v_2}{v_1} = 3.46 \\times \\frac{2}{3}$.\n\n(c) $\\sin r = \\frac{AE}{AC} = \\frac{2.31}{4.0} = 0.577$, so $r = 35.3^\\circ$. Check with Snell's law: $\\sin r = \\frac{\\sin 60^\\circ}{1.5} = 0.577$.\n\n(d) $AB = AC\\cos i = 4.0 \\times 0.5 = 2.0$ cm and $CE = AC\\cos r = 4.0 \\times 0.816 = 3.27$ cm. The refracted beam is wider than the incident one, because the refracted wavefront is more nearly parallel to the surface.", "answer": "(a) 3.46 cm, 1.15 x 10^-10 s; (b) 2.31 cm; (c) 35.3°; (d) AB = 2.0 cm, CE = 3.27 cm." },
+      { "type": "KEY_POINT", "text": "Reflection proof: wavelet in the same medium, AE = BC, triangles congruent, i = r. Refraction proof: wavelet in the second medium, AE/BC = v2/v1, triangles only share the hypotenuse, sin i / sin r = v1/v2." },
+
+      { "type": "HEADING", "text": "Refraction into a rarer medium and the critical angle" },
+      { "type": "TEXT", "text": "The same construction works when light passes from a denser medium into a rarer one (for example from glass into air), but now $v_2 > v_1$, so the wavelet from A has radius $AE = v_2\\tau$ **larger** than $BC = v_1\\tau$. Since $\\sin r = AE/AC$ and $\\sin i = BC/AC$, we get $\\sin r > \\sin i$: the refracted ray bends **away from** the normal, as observed.\n\n**Critical angle.** As i increases, BC = AC sin i grows, and AE = (v2/v1) BC grows faster. When AE becomes equal to AC, the point C lies on the wavelet itself. The tangent plane at C is then perpendicular to AC, so the refracted wavefront stands perpendicular to the boundary and the refracted ray travels along the boundary: r = 90 degrees. This happens when $\\dfrac{v_2}{v_1}\\sin i = 1$, that is at the critical angle C given by $\\sin C = \\dfrac{v_1}{v_2} = \\dfrac{n_2}{n_1}$.\n\n**Total internal reflection.** For still larger angles of incidence, AE would be longer than AC: C lies **inside** the wavelet, and no plane through C can be tangent to it. There is no refracted wavefront at all. The energy goes entirely into the reflected wave, whose construction (wavelets in medium 1) still works. This is total internal reflection, now explained by the wave theory." },
+      { "type": "DIAGRAM", "diagram": "rarer" },
+      { "type": "FORMULA", "latex": "\\sin C = \\frac{v_1}{v_2} = \\frac{n_2}{n_1} \\quad (v_2 > v_1)", "text": "C = critical angle for light travelling from medium 1 (slower, index n1) to medium 2 (faster, index n2). It is the angle of incidence at which the wavelet from A just reaches C (AE = AC)." },
+      { "type": "SOLVED_PROBLEM", "problem": "Light travels in glass (speed 2.0 x 10^8 m/s) and meets a glass–air boundary with its rays at 30 degrees to the normal. In the construction AC = 6.0 cm. Find BC, τ, AE and the angle of refraction. At what angle of incidence would AE become equal to AC?", "solution": "BC is travelled in glass: $BC = AC\\sin i = 6.0 \\times 0.5 = 3.0$ cm, so $\\tau = \\frac{0.030}{2.0 \\times 10^8} = 1.5 \\times 10^{-10}$ s.\n\nThe wavelet from A travels in air at $3.0 \\times 10^8$ m/s: $AE = 3.0 \\times 10^8 \\times 1.5 \\times 10^{-10} = 0.045$ m = 4.5 cm, which is larger than BC.\n\n$\\sin r = \\frac{AE}{AC} = \\frac{4.5}{6.0} = 0.75$, so $r = 48.6^\\circ$ (bent away from the normal).\n\nAE equals AC when $\\frac{v_2}{v_1}\\sin i = 1$, that is $\\sin i = \\frac{2.0}{3.0} = 0.667$, giving $i = 41.8^\\circ$, the critical angle for glass of refractive index 1.5. Beyond this angle no refracted wavefront can be drawn.", "answer": "BC = 3.0 cm, τ = 1.5 x 10^-10 s, AE = 4.5 cm, r = 48.6°; AE = AC at i = 41.8° (critical angle)." },
+      { "type": "TABLE", "caption": "The two Huygens proofs compared", "columns": ["Feature", "Reflection", "Refraction"], "rows": [
+        ["Medium of the secondary wavelet from A", "Same medium (speed v)", "Second medium (speed v2)"],
+        ["BC (path of B)", "vτ", "v1τ"],
+        ["AE (radius of wavelet)", "vτ", "v2τ"],
+        ["Relation between triangles ABC and AEC", "Congruent (RHS)", "Share hypotenuse AC only"],
+        ["Result", "i = r", "sin i / sin r = v1/v2 = n2/n1"],
+        ["Wavelength after the boundary", "Unchanged", "λ2 = λ1 v2/v1"]
+      ] },
+      { "type": "TEXT", "text": "**What the proofs tell us about the nature of light.** The wave theory predicts that $n_{21} = v_1/v_2$: light bends towards the normal on entering glass or water because it travels **more slowly** there. Newton's corpuscular theory explained the same bending by supposing that the surface attracts the light particles, increasing the component of their velocity perpendicular to the surface while the parallel component stays the same ($v_1\\sin i = v_2\\sin r$). That gives $\\sin i/\\sin r = v_2/v_1$, so bending towards the normal would need light to travel **faster** in water. In 1850 Foucault measured the speed of light in water and found it smaller than in air, which settled the question in favour of the wave theory." },
+      { "type": "TABLE", "caption": "Wave theory and corpuscular theory on refraction", "columns": ["Prediction", "Huygens' wave theory", "Newton's corpuscular theory"], "rows": [
+        ["sin i / sin r for air to water", "v(air)/v(water)", "v(water)/v(air)"],
+        ["Speed of light in water compared with air", "Smaller", "Larger"],
+        ["Agreement with Foucault's measurement (1850)", "Agrees", "Disagrees"]
+      ] },
+      { "type": "CALLOUT", "text": "Exam tips: (1) Always state why ∠BAC = i (wavefront perpendicular to ray, surface perpendicular to normal). (2) In the reflection proof name the congruence criterion: RHS. (3) In the refraction proof do not claim congruence; use the two sines. (4) Remember that the wavelet from A travels in the medium the light is going into: same medium for reflection, second medium for refraction." },
+      { "type": "IMPORTANT_FACT", "text": "Revision: BC = v1τ, AE = vτ (reflection) or v2τ (refraction); sin i = BC/AC, sin r = AE/AC; reflection gives i = r; refraction gives sin i / sin r = v1/v2 = n2/n1 and λ1/λ2 = v1/v2 with unchanged frequency; AE = AC defines the critical angle sin C = v1/v2; if AE would exceed AC, there is total internal reflection." }
+    ]
+  },
+  "diagrams": [
+    { "key": "reflection", "file": "diagrams/ug26-322-u6-huygens-proofs-reflection.svg", "alt": "Huygens construction for the law of reflection showing incident wavefront AB, wavelet of radius AE = BC from A, and reflected wavefront CE", "caption": "Proof of the law of reflection: BC = AE = vτ, right angles at B and E, common hypotenuse AC, so triangles ABC and AEC are congruent and i = r.", "description": "A horizontal mirror MN with points A and C on it and dashed normals at both. A thick blue incident wavefront AB rises from A to B; the ray through B continues to C (BC = vτ). A dashed arc centred at A of radius vτ passes through E, and a thick red reflected wavefront joins C to E. Right-angle marks are at B and E. The angle i is marked at A between AB and the mirror, and r at C between CE and the mirror. Reflected rays leave from A through E and from C." },
+    { "key": "refraction", "file": "diagrams/ug26-322-u6-huygens-proofs-refraction.svg", "alt": "Huygens construction for Snell's law with BC = v1 tau in medium 1 and wavelet AE = v2 tau in the denser medium 2", "caption": "Proof of Snell's law: sin i = BC/AC = v1τ/AC and sin r = AE/AC = v2τ/AC, so sin i / sin r = v1/v2 (drawn for i = 50°, v1/v2 = 1.5).", "description": "A horizontal boundary with medium 1 above and shaded denser medium 2 below; points A and C lie on it with dashed normals. The blue incident wavefront AB rises from A to B, and the ray from B reaches C (BC = v1 tau). Below the boundary a dashed arc centred at A of radius v2 tau passes through E, and a thick red refracted wavefront joins C to E. Right angles at B and E. Angle i is at A above the boundary, angle r at C below it. Refracted rays bend towards the normal." },
+    { "key": "rarer", "file": "diagrams/ug26-322-u6-huygens-proofs-rarer.svg", "alt": "Huygens construction for refraction from glass into air where the wavelet radius AE is larger than BC and the ray bends away from the normal", "caption": "Refraction into a faster medium (glass to air, i = 30°): AE = v2τ is larger than BC = v1τ, so r = 48.6° and the ray bends away from the normal.", "description": "Shaded glass above a horizontal boundary and air below. The blue incident wavefront AB and the ray from B to C lie in the glass. A large dashed arc centred at A in the air passes through E, with AE = v2 tau larger than BC = v1 tau. The red refracted wavefront CE is steep, and refracted rays from A and C bend away from the normal. A note explains that if AE exceeded AC no tangent from C would exist, giving total internal reflection." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u6-huygens-proofs-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In the Huygens proof of the law of reflection, with incident wavefront AB, reflected wavefront CE and A, C on the mirror, which two triangles are shown to be congruent?",
+      "options": ["ABE and CBE", "ABC and AEC", "ABC and BEC", "AEB and AEC"], "answer": 2,
+      "explanation": "Triangle ABC is formed by the incident wavefront AB, the path BC of the far end, and the mirror segment AC; triangle AEC is formed by the wavelet radius AE, the reflected wavefront CE and the same AC. Both are right-angled (at B and at E), share AC and have BC = AE, so they are congruent.",
+      "optionRationale": { "1": "These triangles do not appear in the construction.", "3": "BEC is not a right triangle with the needed equal sides.", "4": "AEB does not contain the incident path BC." },
+      "objective": "Identify the triangles used in the Huygens proof of reflection"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q02", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The congruence of triangles ABC and AEC in the Huygens proof of the law of reflection is established by which criterion?",
+      "options": ["SSS (three sides)", "ASA (two angles and the included side)", "RHS (right angle, hypotenuse and one side)", "AAA (three angles)"], "answer": 3,
+      "explanation": "Both triangles have a right angle (at B because the ray BC is perpendicular to the wavefront AB, and at E because the radius AE is perpendicular to the tangent CE). They share the hypotenuse AC, and BC = AE = vτ. These are exactly the conditions of the RHS criterion.",
+      "optionRationale": { "1": "Only two pairs of sides are known to be equal at this stage.", "2": "The other angles are what we want to prove equal, so they cannot be used.", "4": "Equal angles alone show similarity, not congruence, and they are the conclusion here." },
+      "objective": "State the congruence criterion in the reflection proof"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q03", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "In Huygens' construction, why is the angle BAC between the incident wavefront AB and the reflecting surface equal to the angle of incidence i?",
+      "options": ["Because AB is parallel to the normal", "Because the wavefront is perpendicular to the ray and the surface is perpendicular to the normal, so the angle between them equals the angle between ray and normal", "Because all wavefronts meet surfaces at 45°", "Because the wavelet from A has radius equal to AB"], "answer": 2,
+      "explanation": "The angle i is defined between the incident ray and the normal. The wavefront AB is perpendicular to the ray, and the surface AC is perpendicular to the normal. Rotating both lines of a pair through 90° keeps the angle between them, so ∠BAC = i. The same reasoning gives ∠ECA = r.",
+      "optionRationale": { "1": "AB is perpendicular to the ray, not parallel to the normal in general.", "3": "The angle depends on the direction of incidence; there is no fixed 45°.", "4": "AE, not AB, is the wavelet radius, and lengths do not define this angle." },
+      "objective": "Justify the angle relation between wavefront and surface"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q04", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): In the Huygens proof of the law of reflection, the radius AE of the wavelet from A equals the distance BC travelled by the far end of the incident wavefront.\nReason (R): The wavelet from A and the point B travel for the same time τ in the same medium with the same speed.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 1,
+      "explanation": "B needs time τ = BC/v to reach C. In exactly that time the reflected wavelet from A spreads back into the same medium at the same speed v, so its radius is AE = vτ = BC. Equal time and equal speed are precisely why AE = BC, so R explains A.",
+      "optionRationale": { "2": "R is exactly the reason for A.", "3": "R correctly describes the construction for reflection.", "4": "A is correct; AE = BC is the key equality of the proof." },
+      "objective": "Explain the equality AE = BC in the reflection proof"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q05", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "In the Huygens proof of refraction, light travels with speed v1 in the first medium and v2 in the second. If B takes time τ to reach the boundary, the radius of the secondary wavelet from A is",
+      "options": ["v1τ", "(v1 + v2)τ/2", "v1τ²/v2", "v2τ"], "answer": 4,
+      "explanation": "Once A has reached the boundary, its secondary wavelet spreads into the second medium, where the speed is v2. After time τ its radius is AE = v2τ, while BC = v1τ. The ratio BC/AE = v1/v2 is what leads to Snell's law.",
+      "optionRationale": { "1": "v1τ is the distance BC travelled in the first medium.", "2": "No averaging of speeds occurs; the wavelet is entirely in medium 2.", "3": "This expression is not even a length with the right dependence on τ." },
+      "objective": "Identify the wavelet radius in the refraction proof"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q06", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "In Huygens' construction for refraction, AC = 10 cm along the boundary and the angle of incidence is 30°. If v1/v2 = 1.5, the radius AE of the wavelet from A is about",
+      "options": ["7.5 cm", "5.0 cm", "3.3 cm", "15 cm"], "answer": 3,
+      "explanation": "BC = AC sin i = 10 × 0.5 = 5.0 cm. The wavelet in medium 2 covers AE = BC × v2/v1 = 5.0/1.5 = 3.3 cm. Then sin r = AE/AC = 0.333 and r = 19.5°, smaller than i, as expected for a slower medium.",
+      "optionRationale": { "1": "Multiplies BC by 1.5 instead of dividing, which would apply to a faster second medium.", "2": "This is BC, the distance in the first medium.", "4": "Multiplies AC by 1.5; not part of the construction." },
+      "objective": "Compute the wavelet radius in the refraction construction"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q07", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A plane wavefront in air enters glass (n = √3) with its rays at 60° to the normal. In the Huygens construction, the ratio CE/AB of the width of the refracted wavefront to that of the incident wavefront is",
+      "options": ["√3", "1/√3", "1.5", "1"], "answer": 1,
+      "explanation": "sin r = sin 60°/√3 = 0.866/1.732 = 0.5, so r = 30°. In triangle ABC, AB = AC cos i = AC cos 60°; in triangle AEC, CE = AC cos r = AC cos 30°. So CE/AB = cos 30°/cos 60° = 0.866/0.5 = √3 ≈ 1.73: the refracted beam is wider.",
+      "optionRationale": { "2": "This is the inverse ratio AB/CE.", "3": "1.5 is not related to these angles; it confuses with a common refractive index.", "4": "Equal widths occur only for reflection, where i = r." },
+      "objective": "Use the construction geometry to compare beam widths"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q08", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider these statements about the Huygens proof of Snell's law (incident wavefront AB, refracted wavefront CE, A and C on the boundary).\nA. BC = v1τ and AE = v2τ.\nB. sin i = BC/AC and sin r = AE/AC.\nC. Triangles ABC and AEC are congruent.\nD. Dividing the two sine relations gives sin i / sin r = v1/v2.\nWhich statements are correct?",
+      "options": ["A, B and D only", "A and C only", "B, C and D only", "All four"], "answer": 1,
+      "explanation": "A: B travels in medium 1 and the wavelet from A in medium 2, so A is correct. B: both are right triangles with hypotenuse AC, giving these sines. D follows by division, cancelling AC and τ. C is false: BC ≠ AE when v1 ≠ v2, so the triangles only share the hypotenuse and are not congruent.",
+      "optionRationale": { "2": "Omits B and D and includes the false statement C.", "3": "Includes C and omits A.", "4": "C is false, so not all four are correct." },
+      "objective": "Check the steps of the Huygens proof of refraction"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q09", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Newton's corpuscular theory assumed that at the surface only the velocity component perpendicular to the surface changes. According to that theory, for light passing from air into water, sin i / sin r equals",
+      "options": ["v(air)/v(water)", "v(water)/v(air)", "1", "c/v(air)"], "answer": 2,
+      "explanation": "If the parallel component is unchanged, v(air) sin i = v(water) sin r, so sin i/sin r = v(water)/v(air). Since light bends towards the normal (sin i > sin r), this theory needs v(water) > v(air), the opposite of the wave theory's v(air)/v(water). Foucault found light slower in water, supporting Huygens.",
+      "optionRationale": { "1": "This is the wave-theory result from Huygens' construction, not the corpuscular one.", "3": "A ratio of 1 would mean no refraction.", "4": "This is just the refractive index of air, about 1." },
+      "objective": "Contrast the wave and corpuscular predictions for refraction"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q10", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The wave theory requires light to travel more slowly in glass than in air.\nReason (R): The Huygens construction gives sin i / sin r = v1/v2, and light entering glass from air bends towards the normal, so sin i > sin r.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 1,
+      "explanation": "From the Huygens proof, sin i/sin r = v1/v2. Observation shows that light bends towards the normal entering glass, so sin i/sin r > 1, which forces v1 > v2: light must be slower in glass. R is therefore exactly the argument that establishes A.",
+      "optionRationale": { "2": "R is the logical reason for A, not an unrelated fact.", "3": "Both parts of R are correct.", "4": "A is correct; it is a direct prediction of the wave theory." },
+      "objective": "Deduce the relative speed of light from the Huygens proof"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q11", "type": "DIAGRAM_BASED", "difficulty": "HARD", "skill": "application", "diagram": "rarer",
+      "stem": "In the figure light goes from glass into air, with v2 = 1.5 v1. As the angle of incidence is increased, the wavelet radius AE grows faster than BC. At what angle of incidence does AE become equal to AC?",
+      "options": ["41.8°", "48.6°", "30.0°", "60.0°"], "answer": 1,
+      "explanation": "AE = (v2/v1) BC = 1.5 AC sin i. Setting AE = AC gives sin i = 1/1.5 = 0.667, so i = 41.8°. At this angle the tangent from C is perpendicular to AC, the refracted ray grazes the surface, and 41.8° is the critical angle; beyond it no refracted wavefront exists.",
+      "optionRationale": { "2": "48.6° is the angle of refraction shown in the figure for i = 30°.", "3": "30° is the angle of incidence drawn, where AE is still less than AC.", "4": "At 60° AE would already exceed AC; there would be no refracted wave." },
+      "objective": "Derive the critical angle from the Huygens construction"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q12", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "numerical", "diagram": "refraction",
+      "stem": "In the figure AC = 300 units, the angle of incidence is 50° and v1/v2 = 1.5. The length of AE is about",
+      "options": ["229.8 units", "344.7 units", "200.0 units", "153.2 units"], "answer": 4,
+      "explanation": "BC = AC sin i = 300 × sin 50° = 300 × 0.766 = 229.8 units. The wavelet in the slower medium has AE = BC × v2/v1 = 229.8/1.5 = 153.2 units. Then sin r = 153.2/300 = 0.511 and r = 30.7°, matching the figure.",
+      "optionRationale": { "1": "This is BC, travelled in medium 1.", "2": "Multiplies BC by 1.5 instead of dividing.", "3": "Not derived from the construction; it would give r = 41.8°." },
+      "objective": "Read and compute lengths in the refraction construction"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q13", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "In the Huygens construction for refraction, match each quantity in List-I with its value in List-II.",
+      "list": { "left": ["A. BC", "B. AE", "C. BC/AC", "D. AE/AC"], "right": ["I. sin r", "II. v2τ", "III. sin i", "IV. v1τ"] },
+      "options": ["A-II, B-IV, C-III, D-I", "A-IV, B-II, C-I, D-III", "A-IV, B-II, C-III, D-I", "A-III, B-I, C-IV, D-II"], "answer": 3,
+      "explanation": "BC is covered by the incident wavefront in medium 1, so BC = v1τ (A-IV). AE is the wavelet radius in medium 2, v2τ (B-II). In right triangle ABC, BC/AC = sin i (C-III); in right triangle AEC, AE/AC = sin r (D-I).",
+      "optionRationale": { "1": "Swaps the two speeds.", "2": "Swaps sin i and sin r.", "4": "Confuses lengths with sines throughout." },
+      "objective": "Relate the segments of the construction to speeds and angles"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q14", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "In the Huygens proof of reflection (speed v, angle of incidence i), a point P lies on AC at distance x from A. When B reaches C after time τ, what is the radius of the secondary wavelet that started from P?",
+      "options": ["vτ", "vτ − x cos i", "x sin i", "vτ − x sin i"], "answer": 4,
+      "explanation": "P lies a distance x sin i further along the ray direction than A, so the incident wavefront reaches P a time x sin i/v after it reaches A. P's wavelet therefore grows for τ − x sin i/v, giving radius vτ − x sin i. This equals the distance from P to the plane CE, so CE touches every wavelet.",
+      "optionRationale": { "1": "This is the radius of the wavelet from A only, which started first.", "2": "Uses cos i; the extra path along the ray is x sin i.", "3": "This is the delay distance, not the radius of the wavelet." },
+      "objective": "Show that the reflected wavefront is tangent to all wavelets"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q15", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In the Huygens proof of the law of reflection, the reflected wavefront CE is drawn as",
+      "options": ["a line from C parallel to the incident wavefront AB", "the tangent from C to the secondary wavelet centred at A", "the line joining C to the midpoint of AB", "a line from C perpendicular to the mirror"], "answer": 2,
+      "explanation": "By Huygens' principle the new wavefront is the envelope of the secondary wavelets. At the instant B reaches C, the wavelet from A has radius vτ and the one from C has zero radius, so the reflected wavefront is the tangent plane drawn from C to the wavelet centred at A, touching it at E.",
+      "optionRationale": { "1": "A line parallel to AB would mean no change of direction.", "3": "The midpoint of AB has no special role in the construction.", "4": "A perpendicular from C would correspond to grazing reflection, not the general case." },
+      "objective": "Describe how the reflected wavefront is constructed"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q16", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): In the Huygens proof of refraction into a denser medium, triangles ABC and AEC are congruent.\nReason (R): Triangles ABC and AEC are both right-angled and have the common hypotenuse AC.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 4,
+      "explanation": "R is true: both triangles have right angles (at B and E) and share AC. But congruence also needs another equal side, and here BC = v1τ while AE = v2τ, which differ. So the triangles are not congruent and A is false; this is why refraction gives sin i/sin r = v1/v2 instead of i = r.",
+      "optionRationale": { "1": "A is false, so R cannot explain it.", "2": "A is false.", "3": "R is a true description of the triangles." },
+      "objective": "Distinguish the geometry of the refraction proof from the reflection proof"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-q17", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): Huygens' proof of refraction shows that the refractive index of medium 2 relative to medium 1 is n21 = v1/v2.\nReason (R): The frequency of light changes when it enters an optically denser medium.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."], "answer": 3,
+      "explanation": "A is true: dividing sin i = v1τ/AC by sin r = v2τ/AC gives sin i/sin r = v1/v2 = n21. R is false: every secondary wavelet oscillates at the frequency of the wave that started it, so the frequency is unchanged; only the speed and wavelength change.",
+      "optionRationale": { "1": "R is false, so it cannot explain A.", "2": "R is false.", "4": "A is true; it is the main result of the proof." },
+      "objective": "State the result of the refraction proof and the invariance of frequency"
+    }
+  ]
+}

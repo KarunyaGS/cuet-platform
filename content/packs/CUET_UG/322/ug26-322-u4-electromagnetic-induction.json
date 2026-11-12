@@ -1,0 +1,367 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_29766fcef6dd468cbf537b53afad18c5",
+    "title": "Electromagnetic induction; Faraday's laws, induced emf and current; Lenz's Law, Self and"
+  },
+  "lesson": {
+    "key": "ug26-322-u4-electromagnetic-induction",
+    "title": "Electromagnetic induction: Faraday's laws, Lenz's law, self and mutual induction",
+    "coverage": [
+      { "phrase": "Electromagnetic induction", "section": "What is electromagnetic induction?" },
+      { "phrase": "Faraday's laws", "section": "Faraday's laws of electromagnetic induction" },
+      { "phrase": "induced emf and current", "section": "Induced emf and induced current" },
+      { "phrase": "Lenz's Law", "section": "Lenz's law and conservation of energy" },
+      { "phrase": "Self induction", "section": "Self-induction" },
+      { "phrase": "mutual induction", "section": "Mutual induction" },
+      { "phrase": "magnetic flux", "section": "Magnetic flux" },
+      { "phrase": "motional emf", "section": "Motional emf: a conductor moving in a magnetic field" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "What is electromagnetic induction?" },
+      { "type": "TEXT", "text": "In 1820 Oersted discovered that an electric current produces a magnetic field. About ten years later Michael Faraday in England and Joseph Henry in the USA independently asked the opposite question: can a magnetic field produce an electric current? Their experiments showed that it can, but only when the magnetic field linked with a circuit is **changing**. A magnet resting beside a coil does nothing; a magnet moving near the coil drives a current through it.\n\nThis effect is called electromagnetic induction (EMI). It is the working principle of electric generators, transformers, induction cooktops, metal detectors, electric guitar pick-ups and wireless phone chargers. Nearly all the electrical energy used in homes and industry is produced by it." },
+      { "type": "DEFINITION", "term": "Electromagnetic induction", "text": "The production of an emf in a conductor or coil (and of a current, if the circuit is closed) whenever the magnetic flux linked with it changes. The emf so produced is the **induced emf** (SI unit: volt, V) and the current is the **induced current** (SI unit: ampere, A)." },
+      { "type": "HEADING", "text": "The experiments of Faraday and Henry" },
+      { "type": "TEXT", "text": "**Experiment 1: a magnet and a coil.** A coil is connected to a sensitive galvanometer G. When the north pole of a bar magnet is pushed towards the coil, G deflects. While the magnet is held still, G reads zero, however strong the magnet. When the magnet is pulled away, G deflects in the opposite direction. Using the south pole reverses both deflections, and moving the magnet faster gives a larger deflection. Keeping the magnet fixed and moving the coil gives the same results, so only the **relative motion** matters.\n\n**Experiment 2: two coils, one moving.** The bar magnet is replaced by a second coil carrying a steady current from a battery. Moving this coil towards or away from the first coil again deflects G. A current-carrying coil acts like a magnet.\n\n**Experiment 3: two coils, nothing moving.** Two coils are kept fixed close to each other. When the key in the circuit of one coil is pressed (current switched on), G in the other coil gives a brief kick; when the key is released (current switched off), G kicks briefly the other way. While a steady current flows, G reads zero. Pushing a soft-iron rod through both coils makes the kicks much larger.\n\nIn all three experiments the galvanometer responds only while the **magnetic field through the coil is changing**. Faraday expressed this precisely using the idea of magnetic flux." },
+      { "type": "KEY_POINT", "text": "An emf is induced only while the magnetic flux through a circuit is changing. A strong but steady field induces nothing; a weak field that changes rapidly can induce a large emf." },
+      { "type": "HEADING", "text": "Magnetic flux" },
+      { "type": "DEFINITION", "term": "Magnetic flux", "text": "The magnetic flux through a surface is the scalar product of the magnetic field and the area vector of the surface, $\\Phi_B = \\vec{B}\\cdot\\vec{A} = BA\\cos\\theta$. It is a scalar quantity. SI unit: weber (Wb), with $1\\,\\text{Wb} = 1\\,\\text{T m}^2$. Dimensions: $[\\text{M L}^2\\text{T}^{-2}\\text{A}^{-1}]$." },
+      { "type": "FORMULA", "latex": "\\Phi_B = \\vec{B}\\cdot\\vec{A} = BA\\cos\\theta \\qquad \\Phi_B = \\int \\vec{B}\\cdot d\\vec{A}", "text": "$B$ = magnetic field (T); $A$ = area of the surface ($\\text{m}^2$); $\\theta$ = angle between $\\vec{B}$ and the area vector, i.e. the normal to the surface. The integral form is used when $B$ varies over the surface. For a coil of $N$ identical turns the total flux linkage is $N\\Phi_B$." },
+      { "type": "TEXT", "text": "The **area vector** $\\vec{A}$ has a magnitude equal to the area and points along the normal to the surface. Therefore:\n\n- $\\theta = 0^\\circ$ (field perpendicular to the plane of the coil): $\\Phi_B = BA$, the largest possible value.\n- $\\theta = 90^\\circ$ (field parallel to the plane of the coil): $\\Phi_B = 0$, because no field line passes through the coil.\n- $\\theta = 180^\\circ$: $\\Phi_B = -BA$, the flux has reversed.\n\nThe flux through a circuit can thus be changed in three ways: by changing the strength of the field $B$, by changing the area $A$ that lies in the field, or by changing the angle $\\theta$ (rotating the coil). Each of them produces an induced emf, and each is the basis of a practical device." },
+      { "type": "CALLOUT", "text": "**Common mistake:** in $\\Phi_B = BA\\cos\\theta$ the angle is measured from the **normal** to the coil, not from its plane. If a question says the plane of the coil makes $30^\\circ$ with the field, then $\\theta = 60^\\circ$ and $\\Phi_B = BA\\cos 60^\\circ = BA\\sin 30^\\circ$." },
+      { "type": "SOLVED_PROBLEM", "problem": "A circular coil of 50 turns and radius 10 cm is placed in a uniform magnetic field of 0.20 T so that the normal to the coil makes an angle of $60^\\circ$ with the field. Find (a) the flux through each turn, (b) the total flux linkage, and (c) the flux through each turn if the coil is turned so that its plane is perpendicular to the field.", "solution": "Area of each turn: $A = \\pi r^2 = \\pi (0.10\\,\\text{m})^2 = 3.14\\times10^{-2}\\,\\text{m}^2$.\n\n(a) The angle between $\\vec{B}$ and the normal is $60^\\circ$, so $\\Phi_B = BA\\cos 60^\\circ = 0.20 \\times 3.14\\times10^{-2} \\times 0.5 = 3.14\\times10^{-3}\\,\\text{Wb}$.\n\n(b) Flux linkage $= N\\Phi_B = 50 \\times 3.14\\times10^{-3} = 0.157\\,\\text{Wb}$.\n\n(c) With the plane perpendicular to the field, the normal is along the field, $\\theta = 0^\\circ$, and $\\Phi_B = BA = 0.20 \\times 3.14\\times10^{-2} = 6.28\\times10^{-3}\\,\\text{Wb}$, twice the value in (a).", "answer": "(a) 3.14 mWb (b) 0.157 Wb (c) 6.28 mWb" },
+      { "type": "HEADING", "text": "Faraday's laws of electromagnetic induction" },
+      { "type": "CONCEPT", "text": "**First law (qualitative):** whenever the magnetic flux linked with a circuit changes, an emf is induced in the circuit. The emf lasts only as long as the flux keeps changing.\n\n**Second law (quantitative):** the magnitude of the induced emf is equal to the time rate of change of the magnetic flux linkage of the circuit." },
+      { "type": "FORMULA", "latex": "\\varepsilon = -\\frac{d\\Phi_B}{dt} \\qquad \\varepsilon = -N\\,\\frac{d\\Phi_B}{dt}", "text": "$\\varepsilon$ = induced emf (V); $\\Phi_B$ = flux through one turn (Wb); $N$ = number of turns, so $N\\Phi_B$ is the flux linkage; $t$ = time (s). The minus sign gives the direction of the emf (Lenz's law). For the average emf over a finite interval use $\\varepsilon_{\\text{avg}} = -N\\,\\Delta\\Phi_B/\\Delta t$." },
+      { "type": "TEXT", "text": "Faraday's law explains every observation of the experiments. Moving the magnet faster makes the flux change faster, so the emf is larger. Holding the magnet still means $d\\Phi_B/dt = 0$, so there is no emf. Pulling the magnet away makes the flux decrease instead of increase, so the emf changes sign. An iron rod inside the coils makes the field, and so the change of flux, many times larger.\n\nNotice that the emf depends on the **rate of change** of flux, not on the flux itself. A coil can have zero flux through it at some instant and still have the largest emf at that instant, which is exactly what happens in an AC generator when the plane of the coil is parallel to the field." },
+      { "type": "IMPORTANT_FACT", "text": "Unit check: $1\\,\\text{Wb s}^{-1} = 1\\,\\text{T m}^2\\,\\text{s}^{-1} = 1\\,\\text{V}$. An induced emf is measured in volts, exactly like the emf of a cell." },
+      { "type": "HEADING", "text": "Induced emf and induced current" },
+      { "type": "TEXT", "text": "An induced emf appears whether or not the circuit is closed; it behaves like a cell that exists only while the flux is changing. A current flows only if the circuit is closed. If the total resistance of the closed circuit is $R$, the induced current is $I = |\\varepsilon|/R$.\n\nA very useful result follows for the **charge** that flows. Since $I = dq/dt$ and $|\\varepsilon| = N\\,|d\\Phi_B/dt|$, we get $dq = (N/R)\\,|d\\Phi_B|$. So while the flux through each turn changes by $\\Delta\\Phi_B$, the total charge that passes through the circuit is $\\Delta q = N|\\Delta\\Phi_B|/R$. This charge depends only on the change in flux and on the resistance, **not** on how quickly the change happens. Pulling a coil out of a field quickly gives a large current for a short time; pulling it out slowly gives a small current for a long time; the charge is the same." },
+      { "type": "FORMULA", "latex": "I = \\frac{|\\varepsilon|}{R} = \\frac{N}{R}\\left|\\frac{d\\Phi_B}{dt}\\right| \\qquad \\Delta q = \\frac{N\\,|\\Delta\\Phi_B|}{R}", "text": "$I$ = induced current (A); $R$ = total resistance of the closed circuit ($\\Omega$); $\\Delta q$ = charge (C) that flows while the flux through each of the $N$ turns changes by $\\Delta\\Phi_B$ (Wb). $\\Delta q$ does not depend on the time taken." },
+      { "type": "TABLE", "caption": "Three ways of changing the flux, and the devices based on them", "columns": ["What changes", "Example", "Resulting emf"], "rows": [
+        ["Magnitude of $B$", "Magnet pushed towards a fixed coil; current switched on or off in a neighbouring coil", "emf due to a changing field; basis of mutual induction and the transformer"],
+        ["Area $A$ lying in the field", "Rod sliding on rails; loop entering or leaving a field region", "Motional emf, $\\varepsilon = Blv$"],
+        ["Angle $\\theta$ between $\\vec{B}$ and the normal", "Coil rotating in a uniform field", "Sinusoidal emf $NBA\\omega\\sin\\omega t$; basis of the AC generator"]
+      ] },
+      { "type": "SOLVED_PROBLEM", "problem": "A coil of 100 turns, area $50\\,\\text{cm}^2$ and resistance $4\\,\\Omega$ is held with its plane perpendicular to a magnetic field. The field increases uniformly from 0.10 T to 0.50 T in 0.020 s. Find the induced emf, the induced current and the charge that flows through the coil.", "solution": "Area $A = 50\\,\\text{cm}^2 = 5.0\\times10^{-3}\\,\\text{m}^2$. Since the plane is perpendicular to the field, $\\theta = 0^\\circ$ and $\\Phi_B = BA$.\n\nChange of flux through each turn: $\\Delta\\Phi_B = (0.50 - 0.10) \\times 5.0\\times10^{-3} = 2.0\\times10^{-3}\\,\\text{Wb}$.\n\nInduced emf (magnitude): $\\varepsilon = N\\,\\dfrac{\\Delta\\Phi_B}{\\Delta t} = 100 \\times \\dfrac{2.0\\times10^{-3}}{0.020} = 10\\,\\text{V}$.\n\nInduced current: $I = \\varepsilon/R = 10/4 = 2.5\\,\\text{A}$.\n\nCharge: $\\Delta q = I\\,\\Delta t = 2.5 \\times 0.020 = 0.050\\,\\text{C}$. Check with the time-free formula: $\\Delta q = N\\Delta\\Phi_B/R = 100 \\times 2.0\\times10^{-3}/4 = 0.050\\,\\text{C}$, the same.", "answer": "emf = 10 V, current = 2.5 A, charge = 0.050 C" },
+      { "type": "HEADING", "text": "Motional emf: a conductor moving in a magnetic field" },
+      { "type": "TEXT", "text": "Consider a straight metal rod PQ of length $l$ lying across two parallel conducting rails. The rails are joined at one end through a resistor $R$. A uniform magnetic field $B$ points into the page, perpendicular to the plane of the rails. The rod is pulled to the right with a constant velocity $v$. If $x$ is the distance of the rod from the closed end, the area enclosed by the rod, the rails and the resistor is $lx$." },
+      { "type": "DIAGRAM", "diagram": "sliding-rod" },
+      { "type": "TEXT", "text": "**Derivation from Faraday's law.** The flux through the circuit is $\\Phi_B = Blx$. As the rod moves, $x$ increases at the rate $dx/dt = v$, so\n\n$$\\varepsilon = -\\frac{d\\Phi_B}{dt} = -Bl\\,\\frac{dx}{dt} = -Blv$$\n\nThe magnitude of this motional emf is $Blv$.\n\n**Derivation from the Lorentz force.** Every free charge $q$ in the rod moves with the rod at velocity $v$, so it experiences a magnetic force of magnitude $qvB$ directed along the rod. In the figure this force pushes positive charges towards P (and electrons towards Q). The work done by this force in carrying a charge $q$ along the whole length $l$ is $qvBl$, so the work done per unit charge, which is the emf, is $Blv$. The two derivations agree: a motional emf is simply the magnetic Lorentz force acting on the charges of a moving conductor.\n\nThe moving rod therefore behaves like a cell of emf $Blv$ with P as its positive terminal and Q as its negative terminal. Inside the rod the current flows from Q to P; in the external circuit it flows from P through $R$ back to Q." },
+      { "type": "FORMULA", "latex": "\\varepsilon = Blv \\qquad I = \\frac{Blv}{R} \\qquad F = \\frac{B^2l^2v}{R} \\qquad P = \\frac{B^2l^2v^2}{R}", "text": "Valid when $\\vec{B}$, the rod and $\\vec{v}$ are mutually perpendicular. $\\varepsilon$ = motional emf (V); $B$ in T; $l$ = length of the rod in the field (m); $v$ = speed (m/s); $R$ = total resistance ($\\Omega$); $F$ = magnetic force on the rod, which opposes its motion (N); $P$ = mechanical power needed to keep the rod moving at constant speed, equal to the Joule heating in $R$ (W)." },
+      { "type": "TEXT", "text": "**Energy view.** The rod carries current $I$ in the field $B$, so it feels a force $F = BIl = B^2l^2v/R$, which (by Fleming's left-hand rule) points opposite to $v$. To keep the rod moving steadily, an external agent must push with an equal and opposite force, supplying mechanical power $Fv = B^2l^2v^2/R$. The electrical power dissipated in the resistor is $I^2R = B^2l^2v^2/R$, exactly the same. Mechanical energy is converted into electrical energy, and then into heat. Nothing is obtained for free; this is Lenz's law at work, as the next section shows.\n\n**A rotating rod.** If a metal rod of length $l$ rotates with angular speed $\\omega$ about an axis through one end, in a plane perpendicular to a uniform field $B$, different parts of the rod move at different speeds, $v = \\omega r$. Adding up the emfs of small elements of length $dr$ gives $\\varepsilon = \\int_0^l B\\omega r\\,dr = \\tfrac{1}{2}B\\omega l^2$. This emf appears between the fixed end (centre) and the free end of the rod. It equals $Blv$ with $v$ replaced by the average speed $\\omega l/2$." },
+      { "type": "FORMULA", "latex": "\\varepsilon = \\tfrac{1}{2}B\\omega l^2", "text": "emf between the ends of a rod of length $l$ (m) rotating about one end with angular speed $\\omega$ (rad/s) in a plane perpendicular to a uniform field $B$ (T). The same result holds between the centre and the rim of a rotating metal disc of radius $l$." },
+      { "type": "SOLVED_PROBLEM", "problem": "A metal rod 25 cm long slides at a constant speed of $2.0\\,\\text{m s}^{-1}$ along two parallel rails joined by a $0.50\\,\\Omega$ resistor. A uniform field of 0.80 T acts perpendicular to the plane of the rails. Neglecting the resistance of the rod and rails, find (a) the induced emf, (b) the current, (c) the force needed to keep the rod moving, and (d) show that the mechanical power equals the power dissipated in the resistor.", "solution": "(a) $\\varepsilon = Blv = 0.80 \\times 0.25 \\times 2.0 = 0.40\\,\\text{V}$.\n\n(b) $I = \\varepsilon/R = 0.40/0.50 = 0.80\\,\\text{A}$.\n\n(c) The magnetic force on the rod is $F = BIl = 0.80 \\times 0.80 \\times 0.25 = 0.16\\,\\text{N}$, directed opposite to the velocity. At constant speed the net force is zero, so the external force must also be 0.16 N, along the velocity.\n\n(d) Mechanical power supplied: $Fv = 0.16 \\times 2.0 = 0.32\\,\\text{W}$. Power dissipated in the resistor: $I^2R = (0.80)^2 \\times 0.50 = 0.32\\,\\text{W}$. The two are equal, as conservation of energy requires.", "answer": "(a) 0.40 V (b) 0.80 A (c) 0.16 N (d) both are 0.32 W" },
+      { "type": "HEADING", "text": "Lenz's law and conservation of energy" },
+      { "type": "DEFINITION", "term": "Lenz's law", "text": "The induced emf, and the induced current it drives, always act in such a direction as to oppose the change in magnetic flux that produces them (H. F. E. Lenz, 1834). It is the meaning of the minus sign in $\\varepsilon = -N\\,d\\Phi_B/dt$." },
+      { "type": "TEXT", "text": "**Finding the direction of an induced current in four steps**\n\n1. Find the direction of the original magnetic field through the loop.\n2. Decide whether the flux through the loop is increasing or decreasing.\n3. The induced current sets up its own field, pointing **opposite** to the original field if the flux is increasing and **along** it if the flux is decreasing.\n4. Use the right-hand thumb rule (curl the fingers along the current; the thumb gives the field inside the loop) to find the direction of the current.\n\n**Panel (a) of the figure.** The N pole of a magnet approaches a coil. The magnet's field through the coil points away from the magnet and is increasing. The induced field must point back towards the magnet, so the face of the coil nearer the magnet becomes a **north pole**, and the current in that face is anticlockwise as seen from the magnet. Like poles repel, so the coil pushes the approaching magnet back.\n\n**Panel (b).** The N pole is pulled away. The flux is now decreasing, so the induced field points along the magnet's field. The near face becomes a **south pole**, the current is clockwise as seen from the magnet, and the coil attracts the magnet, trying to hold it back. In both cases the coil resists the motion that causes the induction." },
+      { "type": "DIAGRAM", "diagram": "lenz-magnet" },
+      { "type": "TABLE", "caption": "Lenz's law for a bar magnet and a coil (current as seen from the magnet's side)", "columns": ["Motion of magnet", "Flux through coil", "Near face of coil becomes", "Current seen from magnet", "Force on magnet"], "rows": [
+        ["N pole approaching", "Increasing", "North pole", "Anticlockwise", "Repulsion"],
+        ["N pole receding", "Decreasing", "South pole", "Clockwise", "Attraction"],
+        ["S pole approaching", "Increasing", "South pole", "Clockwise", "Repulsion"],
+        ["S pole receding", "Decreasing", "North pole", "Anticlockwise", "Attraction"]
+      ] },
+      { "type": "TEXT", "text": "**Why Lenz's law must hold: conservation of energy.** Suppose the induced current flowed the other way, so that an approaching N pole met a south pole on the coil. The coil would then pull the magnet in, the magnet would speed up, the flux would change faster, the induced current would grow, and the pull would grow still more. A tiny initial push would produce unlimited kinetic energy and unlimited electrical energy, a perpetual-motion machine that conservation of energy forbids. Because the induced current always opposes the change, we must do work against an opposing force to move the magnet, and it is precisely this mechanical work that appears as electrical energy and finally as heat in the circuit. Lenz's law is therefore a consequence of the law of conservation of energy.\n\nFor a straight conductor moving through a field, the direction of the induced current can be found quickly with **Fleming's right-hand rule**: hold the thumb, forefinger and middle finger of the right hand mutually perpendicular. If the thumb points along the motion of the conductor and the forefinger along the field, the middle finger points along the induced current. Apply it to the rod in the sliding-rod figure: thumb to the right, forefinger into the page, and the middle finger points from Q to P." },
+      { "type": "EXAMPLE", "text": "A strong magnet dropped down a vertical copper tube falls noticeably slower than a stone. As the magnet falls, the flux through each ring of copper below it increases and through each ring above it decreases. The induced currents oppose the relative motion, giving an upward magnetic force on the magnet, so its acceleration is less than $g$. The gravitational potential energy lost appears as heat in the copper rather than as kinetic energy of the magnet." },
+      { "type": "CALLOUT", "text": "**Lenz's law opposes the change, not the flux.** When the flux is decreasing, the induced field points in the **same** direction as the original field, trying to keep the flux from falling. Students who always draw the induced field opposite to the original field get half of these questions wrong." },
+      { "type": "HEADING", "text": "Inductance" },
+      { "type": "TEXT", "text": "When the current in a coil changes, the magnetic flux produced by that current changes too, so emfs are induced both in the coil itself and in any coil near it. For coils without an iron core, the flux linkage is directly proportional to the current that produces it, $N\\Phi_B \\propto I$. The constant of proportionality is called **inductance**. It depends only on the geometry of the coils (number of turns, size, shape, separation and orientation) and on the material of the core; it does **not** depend on the current or on the flux.\n\nInductance is a scalar. Its SI unit is the **henry** (H): $1\\,\\text{H} = 1\\,\\text{Wb A}^{-1} = 1\\,\\text{V s A}^{-1} = 1\\,\\Omega\\,\\text{s}$, with dimensions $[\\text{M L}^2\\text{T}^{-2}\\text{A}^{-2}]$. Induction caused by a coil's own changing current is **self-induction**; induction caused in a neighbouring coil is **mutual induction**." },
+      { "type": "HEADING", "text": "Self-induction" },
+      { "type": "DEFINITION", "term": "Self-inductance (coefficient of self-induction), L", "text": "The flux linkage of a coil per unit current in that same coil, $L = N\\Phi_B/I$. Equivalently, the emf induced in the coil per unit rate of change of its own current, $|\\varepsilon| = L\\,|dI/dt|$. A coil has a self-inductance of 1 henry if a current changing at $1\\,\\text{A s}^{-1}$ induces an emf of 1 V in it. SI unit: henry (H)." },
+      { "type": "FORMULA", "latex": "N\\Phi_B = LI \\qquad \\varepsilon = -L\\,\\frac{dI}{dt}", "text": "$L$ = self-inductance (H); $I$ = current in the coil (A); $\\varepsilon$ = self-induced emf, also called back emf (V). The minus sign shows that the emf opposes the change in current." },
+      { "type": "TEXT", "text": "The self-induced emf is called a **back emf** because it always opposes a change in current. When a circuit containing a coil is switched on, the back emf opposes the rise of current, so the current grows gradually instead of jumping to its final value. When the circuit is switched off, the back emf tries to keep the current flowing, which can produce a spark across the switch. A steady current produces no back emf at all.\n\nSelf-inductance therefore acts as **electrical inertia**. It is the electrical analogue of mass: just as mass resists a change in velocity, inductance resists a change in current." },
+      { "type": "TEXT", "text": "**Self-inductance of a long solenoid.** Take an air-cored solenoid of length $l$, cross-sectional area $A$ and $N$ turns in all, so that it has $n = N/l$ turns per unit length. With a current $I$, the field inside (end effects neglected) is uniform, $B = \\mu_0 nI$. The flux through each turn is $BA$, so the total flux linkage is\n\n$$N\\Phi_B = (nl)(\\mu_0 nI)A = \\mu_0 n^2 A l\\, I$$\n\nComparing with $N\\Phi_B = LI$ gives\n\n$$L = \\mu_0 n^2 A l = \\frac{\\mu_0 N^2 A}{l}$$\n\nIf the solenoid is filled with a material of relative permeability $\\mu_r$, such as soft iron, $L = \\mu_r\\mu_0 n^2 A l$. So $L$ grows as the square of the number of turns, in proportion to the cross-sectional area, and enormously when an iron core is inserted, and it does not depend on the current." },
+      { "type": "FORMULA", "latex": "L = \\mu_0 n^2 A l = \\frac{\\mu_0 N^2 A}{l} \\qquad L = \\mu_r\\mu_0 n^2 A l", "text": "$\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$ (permeability of free space); $n$ = turns per metre; $N$ = total number of turns; $A$ = cross-sectional area ($\\text{m}^2$); $l$ = length (m); $\\mu_r$ = relative permeability of the core material." },
+      { "type": "TEXT", "text": "**Energy stored in an inductor.** To build the current up from zero to $I$, the source must do work against the back emf. When the current is $i$ and rising at the rate $di/dt$, the power delivered against the back emf is $|\\varepsilon|\\,i = L i\\,(di/dt)$. The total work done is\n\n$$W = \\int_0^I L i\\,di = \\frac{1}{2}LI^2$$\n\nThis energy is stored in the magnetic field of the inductor and is given back when the current falls to zero. Compare $\\tfrac{1}{2}LI^2$ with the kinetic energy $\\tfrac{1}{2}mv^2$: $L$ plays the role of mass and $I$ the role of velocity." },
+      { "type": "FORMULA", "latex": "U = \\frac{1}{2}LI^2", "text": "$U$ = energy stored in the magnetic field of the inductor (J); $L$ in henry; $I$ = current (A). Doubling the current makes the stored energy four times larger." },
+      { "type": "SOLVED_PROBLEM", "problem": "An air-cored solenoid is 40 cm long, has a cross-sectional area of $5.0\\,\\text{cm}^2$ and 800 turns. (a) Find its self-inductance. (b) The current in it rises uniformly from 0 to 4.0 A in 0.010 s; find the back emf. (c) How much energy is stored when the current is 4.0 A? Take $\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$.", "solution": "First convert the data to SI units: length $l = 0.40\\,\\text{m}$ and area $A = 5.0\\,\\text{cm}^2 = 5.0\\times10^{-4}\\,\\text{m}^2$.\n\n(a) For a long air-cored solenoid, $L = \\dfrac{\\mu_0 N^2 A}{l} = \\dfrac{4\\pi\\times10^{-7} \\times (800)^2 \\times 5.0\\times10^{-4}}{0.40}$. Working in steps, $(800)^2 \\times 5.0\\times10^{-4} = 320$ and $320/0.40 = 800$, so $L = 4\\pi\\times10^{-7}\\times 800 = 1.0\\times10^{-3}\\,\\text{H}$, that is 1.0 mH.\n\n(b) The current rises at the rate $dI/dt = 4.0/0.010 = 400\\,\\text{A s}^{-1}$. The back emf is therefore $|\\varepsilon| = L\\,dI/dt = 1.0\\times10^{-3} \\times 400 = 0.40\\,\\text{V}$, and by Lenz's law it opposes the rise of the current.\n\n(c) The energy stored in the magnetic field at the final current is $U = \\tfrac{1}{2}LI^2 = 0.5 \\times 1.0\\times10^{-3} \\times (4.0)^2 = 8.0\\times10^{-3}\\,\\text{J}$.", "answer": "(a) 1.0 mH (b) 0.40 V (c) 8.0 mJ" },
+      { "type": "HEADING", "text": "Mutual induction" },
+      { "type": "DEFINITION", "term": "Mutual inductance, M", "text": "For two coils placed near each other, the flux linkage of coil 1 per unit current in coil 2, $M_{12} = N_1\\Phi_1/I_2$. Equivalently, the emf induced in coil 1 per unit rate of change of current in coil 2, $|\\varepsilon_1| = M\\,|dI_2/dt|$. Two coils have a mutual inductance of 1 henry if a current changing at $1\\,\\text{A s}^{-1}$ in one induces an emf of 1 V in the other. SI unit: henry (H)." },
+      { "type": "FORMULA", "latex": "N_1\\Phi_1 = M_{12}\\,I_2 \\qquad \\varepsilon_1 = -M\\,\\frac{dI_2}{dt}", "text": "$N_1\\Phi_1$ = flux linkage of coil 1 (Wb) due to current $I_2$ (A) in coil 2; $\\varepsilon_1$ = emf induced in coil 1 (V). For every pair of coils $M_{12} = M_{21} = M$." },
+      { "type": "TEXT", "text": "**Mutual inductance of two long coaxial solenoids.** Let the inner solenoid $S_1$ have radius $r_1$ and $n_1$ turns per unit length, and the outer solenoid $S_2$ have radius $r_2$ and $n_2$ turns per unit length. Both have the same length $l$ (see the figure).\n\n*Current in the outer coil.* A current $I_2$ in $S_2$ sets up a uniform field $B_2 = \\mu_0 n_2 I_2$ inside it. Each turn of $S_1$ encloses an area $\\pi r_1^2$, so the flux linkage of $S_1$ is\n\n$$N_1\\Phi_1 = (n_1 l)(\\pi r_1^2)(\\mu_0 n_2 I_2) \\;\\Rightarrow\\; M_{12} = \\mu_0 n_1 n_2 \\pi r_1^2 l$$\n\n*Current in the inner coil.* A current $I_1$ in $S_1$ sets up $B_1 = \\mu_0 n_1 I_1$, but only inside $S_1$, since the field outside a long solenoid is negligible. So the flux through each turn of $S_2$ is $B_1\\pi r_1^2$, not $B_1\\pi r_2^2$, and\n\n$$N_2\\Phi_2 = (n_2 l)(\\pi r_1^2)(\\mu_0 n_1 I_1) \\;\\Rightarrow\\; M_{21} = \\mu_0 n_1 n_2 \\pi r_1^2 l$$\n\nThe two results are identical: $M_{12} = M_{21}$. This reciprocity holds for any pair of coils, not just solenoids. Notice that the **smaller radius** $r_1$ appears in both. If the space inside is filled with a material of relative permeability $\\mu_r$, then $M = \\mu_r\\mu_0 n_1 n_2 \\pi r_1^2 l$." },
+      { "type": "DIAGRAM", "diagram": "coaxial-solenoids" },
+      { "type": "FORMULA", "latex": "M = \\mu_0 n_1 n_2 \\pi r_1^2 l = \\frac{\\mu_0 N_1 N_2 \\pi r_1^2}{l}", "text": "Mutual inductance (H) of two coaxial solenoids of common length $l$ (m); $n_1, n_2$ = turns per metre; $N_1, N_2$ = total turns; $r_1$ = radius of the **inner** solenoid (m)." },
+      { "type": "TEXT", "text": "**What mutual inductance depends on:** the numbers of turns of both coils, their sizes and shapes, the distance between them, their relative orientation (two coils with perpendicular axes have a very small $M$), and the material of the core. It does not depend on the currents in the coils. For any two coils $M \\le \\sqrt{L_1L_2}$; one writes $M = k\\sqrt{L_1L_2}$, where the coupling coefficient $k$ lies between 0 and 1 and is close to 1 when nearly all the flux of one coil passes through the other, as in a well-made transformer.\n\nMutual induction is the working principle of the transformer, of the induction coil used in older car ignition systems, and of wireless (inductive) phone chargers." },
+      { "type": "SOLVED_PROBLEM", "problem": "Two coaxial solenoids are each 50 cm long. The inner one has radius 2.0 cm and 400 turns; the outer one has 1000 turns. (a) Find their mutual inductance. (b) If the current in the outer solenoid changes at $50\\,\\text{A s}^{-1}$, find the emf induced in the inner solenoid. Take $\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$.", "solution": "(a) Use the coaxial-solenoid result in terms of total turns, $M = \\dfrac{\\mu_0 N_1 N_2 \\pi r_1^2}{l}$, with $N_1 = 400$, $N_2 = 1000$, $r_1 = 0.020\\,\\text{m}$ and $l = 0.50\\,\\text{m}$. Only the radius of the inner solenoid enters, because only its cross-section is threaded by the common flux.\n\nArea of the inner solenoid: $\\pi r_1^2 = \\pi \\times (0.020)^2 = 1.257\\times10^{-3}\\,\\text{m}^2$.\n\nProduct of the constants: $\\mu_0 N_1 N_2 = 4\\pi\\times10^{-7} \\times 4.0\\times10^{5} = 0.5027$.\n\nSo $M = 0.5027 \\times 1.257\\times10^{-3}/0.50 = 1.26\\times10^{-3}\\,\\text{H}$, about 1.26 mH. The same answer follows from $\\mu_0 n_1 n_2 \\pi r_1^2 l$ with $n_1 = 800\\,\\text{m}^{-1}$ and $n_2 = 2000\\,\\text{m}^{-1}$.\n\n(b) The emf in the inner coil is the mutual inductance times the rate of change of current in the outer coil: $|\\varepsilon_1| = 1.26\\times10^{-3} \\times 50 = 6.3\\times10^{-2}\\,\\text{V}$, about 63 mV.", "answer": "(a) about 1.26 mH (b) about 63 mV" },
+      { "type": "HEADING", "text": "Self and mutual induction compared" },
+      { "type": "TABLE", "caption": "Self-induction versus mutual induction", "columns": ["Feature", "Self-induction", "Mutual induction"], "rows": [
+        ["Cause", "Changing current in the same coil", "Changing current in a neighbouring coil"],
+        ["Defining relation", "$N\\Phi = LI$", "$N_1\\Phi_1 = MI_2$"],
+        ["Induced emf", "$\\varepsilon = -L\\,dI/dt$", "$\\varepsilon_1 = -M\\,dI_2/dt$"],
+        ["Long solenoid / coaxial solenoids", "$L = \\mu_0 n^2 A l$", "$M = \\mu_0 n_1 n_2 \\pi r_1^2 l$"],
+        ["Depends on", "Turns, area, length, core material", "Turns of both coils, sizes, separation, orientation, core"],
+        ["Typical use", "Chokes, smoothing filters, energy storage", "Transformers, induction coils, wireless chargers"]
+      ] },
+      { "type": "TABLE", "caption": "Formula sheet: electromagnetic induction", "columns": ["Quantity", "Formula", "SI unit"], "rows": [
+        ["Magnetic flux", "$\\Phi_B = BA\\cos\\theta$", "Wb"],
+        ["Faraday's law", "$\\varepsilon = -N\\,d\\Phi_B/dt$", "V"],
+        ["Charge through a coil", "$\\Delta q = N\\Delta\\Phi_B/R$", "C"],
+        ["Motional emf", "$\\varepsilon = Blv$", "V"],
+        ["Rod rotating about one end", "$\\varepsilon = \\tfrac{1}{2}B\\omega l^2$", "V"],
+        ["Self-induced emf", "$\\varepsilon = -L\\,dI/dt$", "V"],
+        ["Energy in an inductor", "$U = \\tfrac{1}{2}LI^2$", "J"],
+        ["Mutually induced emf", "$\\varepsilon_1 = -M\\,dI_2/dt$", "V"]
+      ] },
+      { "type": "KEY_POINT", "text": "- Induced emf depends on the **rate** of change of flux linkage, $\\varepsilon = -N\\,d\\Phi_B/dt$, not on the flux itself.\n- The charge driven round a circuit, $\\Delta q = N\\Delta\\Phi_B/R$, depends only on the change of flux, not on the time taken.\n- Lenz's law: the induced current opposes the **change** of flux; it follows from conservation of energy.\n- Self-inductance $L$ and mutual inductance $M$ depend only on geometry and core material, never on the current.\n- For coaxial solenoids, $M$ uses the radius of the **inner** solenoid, and $M_{12} = M_{21}$." },
+      { "type": "IMPORTANT_FACT", "text": "Inductance is the electrical analogue of mass: the back emf $-L\\,dI/dt$ resists changes of current just as inertia resists changes of velocity, and the stored energy $\\tfrac{1}{2}LI^2$ matches $\\tfrac{1}{2}mv^2$." },
+      { "type": "CALLOUT", "text": "**Exam tips.**\n- Read the angle carefully: 'plane makes $\\theta$ with the field' means the normal makes $90^\\circ - \\theta$.\n- In numericals, convert $\\text{cm}^2$ to $\\text{m}^2$ (divide by $10^4$) and mH to H before substituting.\n- For a flux given as a function of time, differentiate first and then put in the time value.\n- A loop moving with constant velocity entirely inside a uniform field has no induced current, because its flux does not change; current appears only while it is entering or leaving the field.\n- If both $N$ and $l$ of a solenoid change, use $L \\propto N^2A/l$ and work out the ratio rather than the full formula." }
+    ]
+  },
+  "diagrams": [
+    { "key": "lenz-magnet", "file": "diagrams/ug26-322-u4-electromagnetic-induction-lenz-magnet.svg", "alt": "Two panels: a bar magnet's N pole moving towards a coil makes the near face of the coil a north pole and the coil repels it; the N pole moving away makes the near face a south pole and the coil attracts it", "caption": "Lenz's law: the induced current always opposes the motion of the magnet", "description": "Panel (a): a bar magnet with its north pole facing a coil moves towards the coil. The magnet's field through the coil points to the right and is increasing, so the induced field inside the coil points to the left. The face of the coil nearer the magnet becomes a north pole, the current in it is anticlockwise as seen from the magnet, and the force on the magnet is a repulsion. Panel (b): the magnet moves away. The flux is decreasing, the induced field points to the right, the near face becomes a south pole, the current is clockwise as seen from the magnet, and the force on the magnet is an attraction. A galvanometer G is connected across the coil in both panels." },
+    { "key": "sliding-rod", "file": "diagrams/ug26-322-u4-electromagnetic-induction-sliding-rod.svg", "alt": "A rod PQ slides to the right with velocity v on two parallel rails joined through a resistor R in a magnetic field into the page; the induced current flows up the rod from Q to P", "caption": "Motional emf: a rod sliding on rails in a uniform magnetic field", "description": "Two horizontal rails a distance l apart are joined on the left by a resistor R. A uniform magnetic field B points into the page, shown by crosses. A rod PQ lies across the rails at a distance x from the resistor and moves to the right with velocity v. The induced current flows upward in the rod from Q to P, to the left along the top rail, down through R and to the right along the bottom rail, which is anticlockwise as seen by the viewer. End P is at the higher potential. The magnetic force F on the rod points to the left, opposite to the velocity." },
+    { "key": "coaxial-solenoids", "file": "diagrams/ug26-322-u4-electromagnetic-induction-coaxial-solenoids.svg", "alt": "Longitudinal section of two coaxial solenoids of length l: inner solenoid S1 of radius r1 inside outer solenoid S2 of radius r2, with the field B2 of the outer coil along the axis", "caption": "Two long coaxial solenoids used to derive the mutual inductance", "description": "Cross-section along the common axis of two long coaxial solenoids of the same length l. The outer solenoid S2 has radius r2 and n2 turns per metre; its wires are shown with current coming out of the page at the top and going into the page at the bottom, which gives a uniform field B2 equal to mu0 n2 I2 pointing to the right along the axis. The inner solenoid S1 has radius r1 and n1 turns per metre. Only the area pi r1 squared of each inner turn is threaded by the field, so the flux through each turn of S1 is B2 times pi r1 squared." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "The SI unit of magnetic flux is",
+      "options": ["tesla (T)", "weber (Wb)", "henry (H)", "tesla per square metre (T m⁻²)"],
+      "answer": 2,
+      "explanation": "Magnetic flux is $\\Phi_B = BA\\cos\\theta$, the product of a magnetic field (tesla) and an area (square metre). Its unit is therefore $\\text{T m}^2$, which is given the special name weber: $1\\,\\text{Wb} = 1\\,\\text{T m}^2$. So option 2 is correct.",
+      "optionRationale": { "1": "The tesla is the unit of magnetic field $B$, i.e. flux per unit area, not of flux.", "3": "The henry is the unit of inductance, $\\text{Wb A}^{-1}$.", "4": "Flux is field multiplied by area, so the unit is $\\text{T m}^2$, not $\\text{T m}^{-2}$." },
+      "objective": "Recall the definition and SI unit of magnetic flux"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q02", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A flat coil of area $200\\,\\text{cm}^2$ is placed in a uniform magnetic field of 0.5 T so that the plane of the coil makes an angle of $30^\\circ$ with the direction of the field. The magnetic flux through the coil is",
+      "options": ["5 mWb", "8.66 mWb", "10 mWb", "zero"],
+      "answer": 1,
+      "explanation": "The angle in $\\Phi_B = BA\\cos\\theta$ is measured between the field and the normal to the coil, not its plane. If the plane makes $30^\\circ$ with the field, the normal makes $90^\\circ - 30^\\circ = 60^\\circ$ with it. Converting the area, $A = 200\\,\\text{cm}^2 = 0.02\\,\\text{m}^2$, so the flux is $\\Phi_B = 0.5 \\times 0.02 \\times \\cos 60^\\circ = 0.005\\,\\text{Wb}$, which is 5 mWb.",
+      "optionRationale": { "2": "This uses $\\cos 30^\\circ$, wrongly taking $30^\\circ$ as the angle between the field and the normal.", "3": "This is $BA$, the flux only when the field is perpendicular to the plane of the coil.", "4": "The flux is zero only when the field is parallel to the plane of the coil." },
+      "objective": "Calculate magnetic flux when the angle is given with respect to the plane of the coil"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q03", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The magnetic flux through each turn of a 50-turn coil decreases uniformly from 6 mWb to 1 mWb in 0.1 s. The magnitude of the emf induced in the coil is",
+      "options": ["0.05 V", "3.5 V", "25 V", "2.5 V"],
+      "answer": 4,
+      "explanation": "By Faraday's law the magnitude of the average induced emf equals the number of turns times the change of flux per turn divided by the time taken, $|\\varepsilon| = N\\,\\Delta\\Phi_B/\\Delta t$. The flux through each turn changes by $6 - 1 = 5\\,\\text{mWb} = 5\\times10^{-3}\\,\\text{Wb}$, so $|\\varepsilon| = 50 \\times 5\\times10^{-3}/0.1 = 2.5\\,\\text{V}$.",
+      "optionRationale": { "1": "This is the emf of a single turn; the factor $N = 50$ has been left out.", "2": "This adds the two flux values (7 mWb) instead of taking their difference.", "3": "This is ten times too large; check the powers of ten when converting mWb to Wb." },
+      "objective": "Apply Faraday's law to a coil of N turns with a uniformly changing flux"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q04", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The magnetic flux through a single-turn loop of resistance $2\\,\\Omega$ varies with time as $\\Phi_B = (5t^2 - 4t + 1)\\times10^{-3}\\,\\text{Wb}$, where $t$ is in seconds. The induced current in the loop at $t = 1\\,\\text{s}$ is",
+      "options": ["1 mA", "3 mA", "6 mA", "12 mA"],
+      "answer": 2,
+      "explanation": "The induced emf equals the rate of change of the flux, so first differentiate the given expression with respect to time: $d\\Phi_B/dt = (10t - 4)\\times10^{-3}\\,\\text{V}$. Substituting $t = 1\\,\\text{s}$ gives an emf of $6\\times10^{-3}\\,\\text{V}$, that is 6 mV. Dividing by the resistance, the current is $I = 6\\,\\text{mV}/2\\,\\Omega = 3\\,\\text{mA}$.",
+      "optionRationale": { "1": "This divides the flux at $t = 1\\,\\text{s}$ (2 mWb) by $R$; the emf depends on the rate of change of flux, not on the flux.", "3": "This is the emf in millivolts; it has not been divided by the resistance.", "4": "This multiplies the emf by $R$ instead of dividing." },
+      "objective": "Find induced emf and current when flux is a given function of time"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q05", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A 100-turn coil of area $100\\,\\text{cm}^2$ and resistance $5\\,\\Omega$ lies with its plane perpendicular to a uniform magnetic field of 0.4 T. It is pulled completely out of the field in 0.2 s, and a charge $q_1$ flows through it. In a repeat of the experiment it is pulled out in 2 s, and a charge $q_2$ flows. Which of the following is correct?",
+      "options": ["q₁ = 0.8 C and q₂ = 0.08 C", "q₁ = 0.08 C and q₂ = 0.008 C", "q₁ = q₂ = 0.08 C", "q₁ = q₂ = 0.008 C"],
+      "answer": 3,
+      "explanation": "The charge that flows is $\\Delta q = N\\,\\Delta\\Phi_B/R$, which does not depend on the time taken. Here $\\Delta\\Phi_B = BA = 0.4 \\times 0.01 = 4\\times10^{-3}\\,\\text{Wb}$ per turn, so $\\Delta q = 100 \\times 4\\times10^{-3}/5 = 0.08\\,\\text{C}$ in both cases. Pulling faster gives a larger current for a shorter time.",
+      "optionRationale": { "1": "The charge does not change with the time taken; also 0.8 C is ten times the correct value.", "2": "This wrongly assumes that the charge falls when the coil is pulled out more slowly.", "4": "The time-independence is right, but the value is ten times too small; check the area conversion $100\\,\\text{cm}^2 = 0.01\\,\\text{m}^2$." },
+      "objective": "Use the time-independence of induced charge, q = N(change in flux)/R"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q06", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Lenz's law, which gives the direction of an induced current, is a consequence of the law of conservation of",
+      "options": ["electric charge", "linear momentum", "energy", "angular momentum"],
+      "answer": 3,
+      "explanation": "Because the induced current always opposes the change that produces it, work must be done against an opposing force to change the flux, and this work is what appears as electrical energy. If the induced current aided the change, energy would be created from nothing. Hence Lenz's law follows from conservation of energy.",
+      "optionRationale": { "1": "Conservation of charge underlies Kirchhoff's junction rule, not the direction of induced currents.", "2": "Linear momentum conservation does not fix the direction of the induced emf.", "4": "Angular momentum conservation is unrelated to the direction of induced currents." },
+      "objective": "Relate Lenz's law to the conservation of energy"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q07", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): When the north pole of a bar magnet is moved towards a closed coil, the coil repels the magnet.\nReason (R): The current induced in the coil makes the face of the coil nearer the magnet behave as a north pole.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "As the N pole approaches, the flux through the coil increases. By Lenz's law the induced current opposes this increase, so its field points back towards the magnet and the near face of the coil becomes a north pole. Two north poles repel, which is exactly why the coil repels the magnet. Both statements are true and R explains A.",
+      "optionRationale": { "2": "R is not merely true; the north pole formed on the near face is the direct cause of the repulsion.", "3": "R is true: an approaching N pole always induces a north pole on the near face.", "4": "A is true: the coil does repel an approaching magnet." },
+      "objective": "Apply Lenz's law to a magnet approaching a coil"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q08", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application",
+      "diagram": "sliding-rod",
+      "stem": "The figure shows the rod PQ sliding to the right on rails in a uniform magnetic field directed into the page. Suppose instead that the rod is moved to the LEFT, towards R, with the same speed. Which statement is then correct?",
+      "options": ["The current in the rod flows from Q to P and the magnetic force on the rod points to the left", "The current in the rod flows from P to Q and the magnetic force on the rod points to the right", "The current in the rod flows from P to Q and the magnetic force on the rod points to the left", "No current flows because the field is uniform"],
+      "answer": 2,
+      "explanation": "Moving left, the enclosed area and hence the inward flux decrease, so the induced current must create an inward field inside the loop: the current is clockwise as seen, i.e. downward in the rod, from P to Q (Q becomes the positive end). The force $I\\vec{l}\\times\\vec{B}$ on this current points to the right, opposing the leftward motion, as Lenz's law requires.",
+      "optionRationale": { "1": "This is the situation for motion to the right; reversing the motion reverses the current and the force.", "3": "The force must oppose the motion; a leftward force on a leftward-moving rod would accelerate it and violate energy conservation.", "4": "The field is uniform but the enclosed area changes, so the flux changes and a current is induced." },
+      "objective": "Determine the direction of a motional emf and the opposing force using Lenz's law"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q09", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A conducting rod of length 0.4 m slides with a constant speed of $5\\,\\text{m s}^{-1}$ on a pair of frictionless parallel rails connected through a $2\\,\\Omega$ resistor. A uniform magnetic field of 0.5 T acts perpendicular to the plane of the rails. Neglecting the resistance of the rod and the rails, the mechanical power needed to keep the rod moving at constant speed is",
+      "options": ["0.1 W", "0.25 W", "1.0 W", "0.5 W"],
+      "answer": 4,
+      "explanation": "The motional emf is $\\varepsilon = Blv = 0.5 \\times 0.4 \\times 5 = 1\\,\\text{V}$, so the current is $I = 1/2 = 0.5\\,\\text{A}$. This current in the field gives an opposing force $F = BIl = 0.5 \\times 0.5 \\times 0.4 = 0.1\\,\\text{N}$, which the external agent must balance. The power it supplies is $P = Fv = 0.1 \\times 5 = 0.5\\,\\text{W}$, and this agrees with the heat produced in the resistor, $I^2R = 0.25 \\times 2 = 0.5\\,\\text{W}$.",
+      "optionRationale": { "1": "0.1 is the force in newtons, not the power; multiply by the speed.", "2": "This is $I^2$ without multiplying by $R$, or $\\varepsilon I/2$; the full power is $\\varepsilon I = 0.5\\,\\text{W}$.", "3": "This is $\\varepsilon^2/R$ with $R$ taken as $1\\,\\Omega$; with $R = 2\\,\\Omega$ the power is 0.5 W." },
+      "objective": "Compute motional emf, current, force and power for a rod on rails"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q10", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A metal rod of length 0.6 m rotates with an angular speed of $50\\,\\text{rad s}^{-1}$ about an axis through one of its ends, in a plane perpendicular to a uniform magnetic field of 0.4 T. The emf induced between the ends of the rod is",
+      "options": ["1.8 V", "3.6 V", "7.2 V", "12 V"],
+      "answer": 2,
+      "explanation": "Different points of the rod move with different speeds, $v = \\omega r$, increasing from zero at the pivot to the largest value at the free end. Adding the emfs of small elements gives $\\varepsilon = \\int_0^l B\\omega r\\,dr = \\tfrac{1}{2}B\\omega l^2$. Substituting the values, $\\varepsilon = 0.5 \\times 0.4 \\times 50 \\times (0.6)^2 = 3.6\\,\\text{V}$, which is the same as using the average speed of the rod.",
+      "optionRationale": { "1": "This halves the correct answer a second time.", "3": "This omits the factor $\\tfrac{1}{2}$, effectively using the speed of the free end for the whole rod.", "4": "This is $B\\omega l$; the length must appear squared." },
+      "objective": "Calculate the emf across a rod rotating about one end in a magnetic field"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q11", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Which of the following is equivalent to one henry, the SI unit of inductance?",
+      "options": ["1 Wb A", "1 V A s⁻¹", "1 Wb A⁻¹", "1 T m² s⁻¹"],
+      "answer": 3,
+      "explanation": "Self-inductance is defined by $N\\Phi_B = LI$, so it is the flux linkage per unit current and its unit is the weber per ampere: $1\\,\\text{H} = 1\\,\\text{Wb A}^{-1}$. The relation $\\varepsilon = L\\,dI/dt$ gives the same unit in another form, the volt second per ampere, which is also equal to the ohm second.",
+      "optionRationale": { "1": "Inductance is flux divided by current, not multiplied by it.", "2": "The correct combination is $\\text{V s A}^{-1}$; $\\text{V A s}^{-1}$ has the wrong powers.", "4": "$\\text{T m}^2\\,\\text{s}^{-1} = \\text{Wb s}^{-1}$, which is the volt, the unit of emf." },
+      "objective": "Express the henry in terms of other SI units"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q12", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "The current in a coil of self-inductance 0.3 H falls uniformly from 5 A to 1 A in 0.2 s. The magnitude of the self-induced emf in the coil is",
+      "options": ["6 V", "1.5 V", "9 V", "0.24 V"],
+      "answer": 1,
+      "explanation": "The self-induced emf equals the inductance times the rate of change of current. The current changes by $5 - 1 = 4\\,\\text{A}$ in 0.2 s, a rate of $20\\,\\text{A s}^{-1}$, so $|\\varepsilon| = 0.3 \\times 20 = 6\\,\\text{V}$. By Lenz's law this emf opposes the fall of current, that is, it tries to keep the current flowing.",
+      "optionRationale": { "2": "This uses $\\Delta I = 1\\,\\text{A}$ (the final current) instead of the change $4\\,\\text{A}$.", "3": "This adds the currents ($6\\,\\text{A}$) instead of subtracting them.", "4": "This multiplies $L$, $\\Delta I$ and $\\Delta t$; the change of current must be divided by the time." },
+      "objective": "Calculate self-induced emf from the rate of change of current"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q13", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "An inductor of inductance 40 mH carries a steady current of 5 A. How much additional energy must be supplied to it to raise the current to 10 A?",
+      "options": ["0.5 J", "1.0 J", "2.0 J", "1.5 J"],
+      "answer": 4,
+      "explanation": "The energy stored in an inductor is $U = \\tfrac{1}{2}LI^2$, which depends on the square of the current. At 5 A it is $U_1 = 0.5 \\times 0.040 \\times 25 = 0.5\\,\\text{J}$, and at 10 A it is $U_2 = 0.5 \\times 0.040 \\times 100 = 2.0\\,\\text{J}$. The additional energy that must be supplied is the difference, $2.0 - 0.5 = 1.5\\,\\text{J}$.",
+      "optionRationale": { "1": "This is the initial energy, or $\\tfrac{1}{2}L(\\Delta I)^2$, which is not the change in energy because $U$ depends on $I^2$.", "2": "This is $LI\\,\\Delta I$ evaluated at the initial current, a linear estimate that fails for such a large change; the exact change is $\\tfrac{1}{2}L(I_2^2 - I_1^2)$.", "3": "2.0 J is the final stored energy, not the additional energy." },
+      "objective": "Use U = (1/2)LI^2 to find a change in magnetic energy"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q14", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "An air-cored solenoid has 500 turns, a length of 0.5 m and a cross-sectional area of $4\\,\\text{cm}^2$. Taking $\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$, its self-inductance is closest to",
+      "options": ["0.13 mH", "0.25 mH", "0.50 mH", "2.5 mH"],
+      "answer": 2,
+      "explanation": "For a long solenoid the self-inductance is $L = \\mu_0 N^2 A/l$. First convert the area: $4\\,\\text{cm}^2 = 4\\times10^{-4}\\,\\text{m}^2$. Then $(500)^2 \\times 4\\times10^{-4} = 100$, and dividing by the length 0.5 m gives 200. Multiplying by the permeability of free space, $L = 4\\pi\\times10^{-7}\\times200 = 2.51\\times10^{-4}\\,\\text{H}$, which is about 0.25 mH.",
+      "optionRationale": { "1": "This multiplies by the length instead of dividing by it.", "3": "This is double the correct value; check the division by $l = 0.5\\,\\text{m}$ against the factor 200.", "4": "This is ten times too large; $4\\,\\text{cm}^2 = 4\\times10^{-4}\\,\\text{m}^2$, not $4\\times10^{-3}\\,\\text{m}^2$." },
+      "objective": "Calculate the self-inductance of a long solenoid"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q15", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A long air-cored solenoid has self-inductance $L$. A second solenoid has the same cross-sectional area but is wound with twice as many turns spread over twice the length. The self-inductance of the second solenoid is",
+      "options": ["2L", "L", "4L", "L/2"],
+      "answer": 1,
+      "explanation": "For a long solenoid $L = \\mu_0 N^2 A/l$, so the inductance is proportional to the square of the number of turns and inversely proportional to the length. Doubling the turns multiplies it by four and doubling the length halves it, giving $\\mu_0 (2N)^2 A/(2l) = 2L$. Equivalently, the turns per metre are unchanged and $L = \\mu_0 n^2 A l$ grows in proportion to the length.",
+      "optionRationale": { "2": "The turns per unit length are unchanged, but $L = \\mu_0 n^2 A l$ still doubles because the length has doubled.", "3": "This counts the doubling of $N$ (giving $4L$) but forgets the division by the doubled length.", "4": "Inductance increases, not decreases, with more turns." },
+      "objective": "Use the dependence of a solenoid's inductance on turns and length"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q16", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "Two coils have a mutual inductance of 1.5 H. If the current in the primary coil rises steadily from 0 to 20 A in 0.5 s, the magnitude of the emf induced in the secondary coil is",
+      "options": ["15 V", "30 V", "600 V", "60 V"],
+      "answer": 4,
+      "explanation": "The emf induced in the secondary equals the mutual inductance times the rate of change of current in the primary. The primary current changes by 20 A in 0.5 s, a rate of $40\\,\\text{A s}^{-1}$, so $|\\varepsilon_2| = 1.5 \\times 40 = 60\\,\\text{V}$. This emf exists only while the primary current is changing; once it becomes steady the secondary emf falls to zero.",
+      "optionRationale": { "1": "This is $M \\times \\Delta I \\times \\Delta t$; the change of current must be divided by the time.", "2": "This is $M\\,\\Delta I$ without dividing by 0.5 s.", "3": "This is ten times too large; the rate of change is $40\\,\\text{A s}^{-1}$." },
+      "objective": "Calculate the emf due to mutual induction"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q17", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "Two long coaxial solenoids are each 0.5 m long. The inner one has radius 1 cm and 1000 turns per metre; the outer one has radius 2 cm and 2000 turns per metre. Taking $\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$, their mutual inductance is approximately",
+      "options": ["0.39 mH", "0.79 mH", "1.58 mH", "3.95 mH"],
+      "answer": 1,
+      "explanation": "For coaxial solenoids $M = \\mu_0 n_1 n_2 \\pi r_1^2 l$, where the radius is that of the inner solenoid because only its area is threaded by the common flux. Step by step: $\\mu_0 n_1 n_2 = 4\\pi\\times10^{-7} \\times 2\\times10^{6} = 2.513$, and the inner area is $\\pi r_1^2 = 3.14\\times10^{-4}\\,\\text{m}^2$. So $M = 2.513 \\times 3.14\\times10^{-4} \\times 0.5 = 3.95\\times10^{-4}\\,\\text{H}$, about 0.39 mH.",
+      "optionRationale": { "2": "This leaves out the length factor $l = 0.5\\,\\text{m}$.", "3": "This uses the outer radius $r_2 = 2\\,\\text{cm}$; only the area of the inner solenoid is linked by the common flux.", "4": "This is ten times the correct value; check the conversion of 1 cm to $10^{-2}\\,\\text{m}$." },
+      "objective": "Calculate the mutual inductance of two coaxial solenoids"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q18", "type": "MATCH_THE_FOLLOWING", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Match the physical quantity in List-I with its SI unit in List-II and choose the correct option.",
+      "list": { "left": ["Magnetic flux", "Self-inductance", "Rate of change of magnetic flux linkage", "Energy stored in an inductor, $\\tfrac{1}{2}LI^2$"], "right": ["$\\text{Wb A}^{-1}$", "$\\text{T m}^2$", "$\\text{H A}^2$", "$\\text{Wb s}^{-1}$"] },
+      "options": ["A-I, B-II, C-IV, D-III", "A-II, B-I, C-III, D-IV", "A-II, B-I, C-IV, D-III", "A-IV, B-I, C-II, D-III"],
+      "answer": 3,
+      "explanation": "Flux is field times area, $\\text{T m}^2$ (A-II). Self-inductance is flux linkage per ampere, $\\text{Wb A}^{-1}$ (B-I). Rate of change of flux linkage is $\\text{Wb s}^{-1}$, which is the volt (C-IV). Energy $\\tfrac{1}{2}LI^2$ has units $\\text{H A}^2$, which is the joule (D-III).",
+      "optionRationale": { "1": "Flux and inductance are swapped; flux is $\\text{T m}^2$ and inductance is $\\text{Wb A}^{-1}$.", "2": "C and D are swapped; the rate of change of flux is $\\text{Wb s}^{-1}$ (volt) and the energy is $\\text{H A}^2$ (joule).", "4": "Flux is not $\\text{Wb s}^{-1}$; that is the unit of emf." },
+      "objective": "Identify SI units of flux, inductance, induced emf and magnetic energy"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q19", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about the mutual inductance M of a pair of coils:\nA. M depends on the numbers of turns, the shapes and sizes of the coils and their separation.\nB. The mutual inductance of coil 1 with respect to coil 2 equals that of coil 2 with respect to coil 1.\nC. M increases when the current in the primary coil is increased.\nD. Inserting a soft-iron core common to both coils increases M.\nWhich of the statements are correct?",
+      "options": ["A and C only", "A, B and D only", "B, C and D only", "A, B, C and D"],
+      "answer": 2,
+      "explanation": "Mutual inductance is a geometric and material property: it depends on the turns, size, shape, separation and orientation of the coils and on the core (A and D true). The reciprocity $M_{12} = M_{21}$ holds for any pair of coils (B true). M does not depend on the current, so C is false. Hence A, B and D only.",
+      "optionRationale": { "1": "C is false (M is independent of the current), and B and D are true.", "3": "C is false; M does not change with the current.", "4": "C is false, so not all four statements are correct." },
+      "objective": "Identify the factors on which mutual inductance depends"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q20", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about induced emf and induced current:\nA. An emf is induced in a coil whose flux is changing even if the coil is not part of a closed circuit.\nB. The induced emf at an instant depends on the magnitude of the magnetic flux linked with the coil at that instant.\nC. The charge that flows through a closed coil for a given change of flux does not depend on how quickly the change occurs.\nD. Moving a magnet faster towards a coil increases the induced emf.\nWhich of the statements are correct?",
+      "options": ["A and B only", "B and D only", "A, C and D only", "B, C and D only"],
+      "answer": 3,
+      "explanation": "An emf is induced whenever the flux changes, closed circuit or not; only the current needs a closed path (A true). The emf depends on the rate of change of flux, not on its value (B false). The charge $N\\Delta\\Phi_B/R$ is independent of time (C true). A faster magnet changes the flux faster, giving a larger emf (D true).",
+      "optionRationale": { "1": "B is false: a coil can have large flux and zero emf if the flux is steady.", "2": "B is false, and A and C are true.", "4": "B is false and A is true; an open coil still has an induced emf." },
+      "objective": "Distinguish induced emf from induced current and apply Faraday's law qualitatively"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q21", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): The self-inductance of a long air-cored solenoid is proportional to the square of its total number of turns, for a fixed length and area.\nReason (R): The emf induced in a coil is proportional to the rate of change of the magnetic flux linked with it.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 2,
+      "explanation": "A is true: $L = \\mu_0 N^2 A/l$. The square arises because the field inside is proportional to N and the flux is linked N times. R is Faraday's law and is also true, but it does not explain why L varies as $N^2$; that comes from the solenoid's field and flux linkage. So both are true but R is not the explanation.",
+      "optionRationale": { "1": "Faraday's law alone does not produce the $N^2$ dependence; that comes from $B = \\mu_0 nI$ combined with linkage $N\\Phi$.", "3": "R is a correct statement of Faraday's law.", "4": "A is true: $L \\propto N^2$ for fixed $A$ and $l$." },
+      "objective": "Analyse the dependence of self-inductance on the number of turns"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q22", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): Inserting a soft-iron core into a coil increases its self-inductance.\nReason (R): The self-inductance of a coil depends on the current flowing through it.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "A is true: with a core of relative permeability $\\mu_r$, $L = \\mu_r\\mu_0 n^2 A l$, and $\\mu_r$ of soft iron is very large. R is false: self-inductance depends only on the geometry of the coil and the core material, not on the current through it.",
+      "optionRationale": { "1": "R is false, so it cannot explain A.", "2": "R is false; L does not depend on the current.", "4": "A is true; an iron core greatly increases L." },
+      "objective": "Identify the factors that affect self-inductance"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q23", "type": "ASSERTION_REASON", "difficulty": "HARD", "skill": "analytical",
+      "stem": "Assertion (A): Lenz's law violates the principle of conservation of energy.\nReason (R): The induced current always flows in a direction that opposes the change in magnetic flux that produces it.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 4,
+      "explanation": "R is the correct statement of Lenz's law. Because of this opposition, an external agent must do work to change the flux, and that work becomes the electrical energy of the induced current. Lenz's law is therefore required by conservation of energy rather than violating it, so A is false.",
+      "optionRationale": { "1": "A is false; Lenz's law is a consequence of energy conservation.", "2": "A is false, so this option cannot be right.", "3": "R is the correct statement of Lenz's law, and A is the false one." },
+      "objective": "Explain why Lenz's law is consistent with conservation of energy"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q24", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "A rectangular conducting loop lies in the plane of the page to the right of a long straight wire, which is also in the plane of the page and carries a current directed up the page. If the current in the wire is increasing, the current induced in the loop, as seen by a viewer looking at the page, is",
+      "options": ["clockwise", "anticlockwise", "zero, because the loop does not move", "clockwise at first and then anticlockwise"],
+      "answer": 2,
+      "explanation": "By the right-hand rule, an upward current produces a field into the page on its right, where the loop is. As the current increases, the inward flux through the loop increases, so the induced current must produce an outward field inside the loop. An outward field inside a loop corresponds to an anticlockwise current as seen by the viewer.",
+      "optionRationale": { "1": "A clockwise current would add to the inward flux, aiding the change instead of opposing it.", "3": "A changing current changes the field, so the flux changes even though the loop is at rest.", "4": "The current increases steadily in one sense, so the induced current keeps one direction." },
+      "objective": "Apply Lenz's law to a loop near a wire carrying a changing current"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q25", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A bar magnet is held vertically with its north pole pointing down and is dropped along the axis of a fixed horizontal copper ring. As seen from above, the current induced in the ring is",
+      "options": ["clockwise throughout the fall", "anticlockwise throughout the fall", "clockwise while the magnet approaches the ring and anticlockwise after it has passed through", "anticlockwise while the magnet approaches the ring and clockwise after it has passed through"],
+      "answer": 4,
+      "explanation": "The magnet's field at the ring points downward throughout. While the N pole approaches, this downward flux increases, so the induced field points up: anticlockwise as seen from above. After the magnet passes, its S pole is nearest the ring and receding; the downward flux now decreases, so the induced field points down: clockwise as seen from above.",
+      "optionRationale": { "1": "The current reverses because the flux first increases and then decreases.", "2": "The induced current reverses once the magnet has passed through the ring.", "3": "The sequence is reversed: an increasing downward flux needs an upward induced field, which is anticlockwise from above." },
+      "objective": "Track the reversal of induced current as a magnet passes through a ring"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q26", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "A strong bar magnet is held at rest near a coil connected to a galvanometer. The galvanometer shows",
+      "options": ["zero deflection", "a steady deflection that depends on the strength of the magnet", "a deflection that keeps increasing with time", "a deflection whose direction depends on which pole faces the coil"],
+      "answer": 1,
+      "explanation": "An emf is induced only while the magnetic flux through the coil changes. With the magnet and coil both at rest, the flux is constant however strong the magnet is, so $d\\Phi_B/dt = 0$ and there is no induced emf or current: the galvanometer reads zero.",
+      "optionRationale": { "2": "A steady flux, however large, induces no emf.", "3": "Nothing is changing, so there is no reason for any deflection to grow.", "4": "The pole facing the coil matters only when the magnet moves; at rest there is no deflection at all." },
+      "objective": "Recognise that only a changing flux induces an emf"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-q27", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "Self-inductance plays a role in an electric circuit similar to the role played in mechanics by",
+      "options": ["mass", "force", "momentum", "velocity"],
+      "answer": 1,
+      "explanation": "A self-inductance resists any change in current through its back emf, just as mass (inertia) resists any change in velocity. The analogy extends to energy: $\\tfrac{1}{2}LI^2$ corresponds to $\\tfrac{1}{2}mv^2$, with current playing the role of velocity.",
+      "optionRationale": { "2": "Force causes a change of motion; it corresponds to emf or voltage, not to inductance.", "3": "Momentum corresponds to flux linkage $LI$, not to $L$ itself.", "4": "Velocity corresponds to current, not to inductance." },
+      "objective": "Interpret self-inductance as electrical inertia"
+    }
+  ]
+}

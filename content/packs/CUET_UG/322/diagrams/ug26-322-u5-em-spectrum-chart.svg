@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" width="960" height="330" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <linearGradient id="vis" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#dc2626"/>
+      <stop offset="0.18" stop-color="#f97316"/>
+      <stop offset="0.36" stop-color="#facc15"/>
+      <stop offset="0.54" stop-color="#16a34a"/>
+      <stop offset="0.72" stop-color="#2563eb"/>
+      <stop offset="0.86" stop-color="#4338ca"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+
+  <!-- zoom on the visible band -->
+  <text x="540" y="30" font-size="14" fill="#1f2937" text-anchor="middle">Visible light (enlarged): about 700 nm (red) to 400 nm (violet)</text>
+  <rect x="400" y="42" width="280" height="24" fill="url(#vis)" stroke="#1f2937" stroke-width="1.5"/>
+  <text x="400" y="84" font-size="13" fill="#1f2937" text-anchor="middle">700 nm</text>
+  <text x="680" y="84" font-size="13" fill="#1f2937" text-anchor="middle">400 nm</text>
+  <polyline points="535.4,132 535.4,96 400,66" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <polyline points="547.1,132 547.1,96 680,66" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <!-- frequency axis (top) -->
+  <text x="48" y="100" font-size="14" fill="#1f2937">frequency ν (Hz), increasing →</text>
+  <line x1="48" y1="128" x2="912" y2="128" stroke="#1f2937" stroke-width="1.5"/>
+  <g stroke="#1f2937" stroke-width="1.5">
+    <line x1="121.1" y1="128" x2="121.1" y2="121"/><line x1="217.1" y1="128" x2="217.1" y2="121"/><line x1="313.1" y1="128" x2="313.1" y2="121"/>
+    <line x1="409.1" y1="128" x2="409.1" y2="121"/><line x1="505.1" y1="128" x2="505.1" y2="121"/><line x1="601.1" y1="128" x2="601.1" y2="121"/>
+    <line x1="697.1" y1="128" x2="697.1" y2="121"/><line x1="793.1" y1="128" x2="793.1" y2="121"/><line x1="889.1" y1="128" x2="889.1" y2="121"/>
+  </g>
+  <g font-size="13" fill="#1f2937" text-anchor="middle">
+    <text x="121.1" y="116">10<tspan dy="-6" font-size="10">6</tspan></text>
+    <text x="217.1" y="116">10<tspan dy="-6" font-size="10">8</tspan></text>
+    <text x="313.1" y="116">10<tspan dy="-6" font-size="10">10</tspan></text>
+    <text x="409.1" y="116">10<tspan dy="-6" font-size="10">12</tspan></text>
+    <text x="505.1" y="116">10<tspan dy="-6" font-size="10">14</tspan></text>
+    <text x="601.1" y="116">10<tspan dy="-6" font-size="10">16</tspan></text>
+    <text x="697.1" y="116">10<tspan dy="-6" font-size="10">18</tspan></text>
+    <text x="793.1" y="116">10<tspan dy="-6" font-size="10">20</tspan></text>
+    <text x="889.1" y="116">10<tspan dy="-6" font-size="10">22</tspan></text>
+  </g>
+
+  <!-- the bands -->
+  <g stroke="#1f2937" stroke-width="1.5">
+    <rect x="48" y="132" width="240" height="50" fill="#dbeafe"/>
+    <rect x="288" y="132" width="96" height="50" fill="#e0e7ff"/>
+    <rect x="384" y="132" width="151.4" height="50" fill="#fee2e2"/>
+    <rect x="535.4" y="132" width="11.7" height="50" fill="url(#vis)"/>
+    <rect x="547.1" y="132" width="124.9" height="50" fill="#ede9fe"/>
+    <rect x="672" y="132" width="144" height="50" fill="#fef3c7"/>
+    <rect x="816" y="132" width="96" height="50" fill="#d1fae5"/>
+  </g>
+  <g font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">
+    <text x="168" y="162">Radio waves</text>
+    <text x="336" y="162">Microwaves</text>
+    <text x="459.7" y="162">Infrared</text>
+    <text x="609.5" y="162">Ultraviolet</text>
+    <text x="744" y="162">X-rays</text>
+    <text x="864" y="162">Gamma rays</text>
+  </g>
+
+  <!-- wavelength axis (bottom) -->
+  <line x1="48" y1="186" x2="912" y2="186" stroke="#1f2937" stroke-width="1.5"/>
+  <g stroke="#1f2937" stroke-width="1.5">
+    <line x1="48" y1="186" x2="48" y2="193"/><line x1="144" y1="186" x2="144" y2="193"/><line x1="240" y1="186" x2="240" y2="193"/>
+    <line x1="336" y1="186" x2="336" y2="193"/><line x1="432" y1="186" x2="432" y2="193"/><line x1="528" y1="186" x2="528" y2="193"/>
+    <line x1="624" y1="186" x2="624" y2="193"/><line x1="720" y1="186" x2="720" y2="193"/><line x1="816" y1="186" x2="816" y2="193"/>
+    <line x1="912" y1="186" x2="912" y2="193"/>
+  </g>
+  <g font-size="13" fill="#1f2937" text-anchor="middle">
+    <text x="48" y="212">10<tspan dy="-6" font-size="10">4</tspan></text>
+    <text x="144" y="212">10<tspan dy="-6" font-size="10">2</tspan></text>
+    <text x="240" y="212">1</text>
+    <text x="336" y="212">10<tspan dy="-6" font-size="10">−2</tspan></text>
+    <text x="432" y="212">10<tspan dy="-6" font-size="10">−4</tspan></text>
+    <text x="528" y="212">10<tspan dy="-6" font-size="10">−6</tspan></text>
+    <text x="624" y="212">10<tspan dy="-6" font-size="10">−8</tspan></text>
+    <text x="720" y="212">10<tspan dy="-6" font-size="10">−10</tspan></text>
+    <text x="816" y="212">10<tspan dy="-6" font-size="10">−12</tspan></text>
+    <text x="905" y="212">10<tspan dy="-6" font-size="10">−14</tspan></text>
+  </g>
+  <text x="48" y="236" font-size="14" fill="#1f2937">wavelength λ (m), decreasing →     (boundaries: 0.1 m, 1 mm, 700 nm, 400 nm, 1 nm, 10<tspan dy="-6" font-size="10">−3</tspan><tspan dy="6"> nm)</tspan></text>
+
+  <!-- trends -->
+  <line x1="48" y1="266" x2="896" y2="266" stroke="#dc2626" stroke-width="2"/>
+  <polygon points="912,266 896,259 896,273" fill="#dc2626"/>
+  <text x="480" y="260" font-size="14" fill="#dc2626" text-anchor="middle">frequency and photon energy increase (wavelength decreases)</text>
+  <text x="48" y="296" font-size="13" fill="#4b5563">All bands travel at c = 3 × 10⁸ m/s in vacuum and c = νλ throughout. Band edges are approximate; the X-ray and gamma-ray</text>
+  <text x="48" y="314" font-size="13" fill="#4b5563">ranges overlap and are named by origin (X-rays from electrons, gamma rays from nuclei).</text>
+</svg>

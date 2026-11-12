@@ -1,0 +1,289 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_a55799b900d44868b5dd94e8405c80b2",
+    "title": "AC generator, Transformer."
+  },
+  "lesson": {
+    "key": "ug26-322-u4-ac-generator-transformer",
+    "title": "AC generator and transformer",
+    "coverage": [
+      { "phrase": "AC generator", "section": "AC generator: principle" },
+      { "phrase": "AC generator construction and working", "section": "Working of the AC generator and the induced emf" },
+      { "phrase": "Transformer", "section": "Transformer: principle and construction" },
+      { "phrase": "transformer turns ratio", "section": "Working of a transformer: the turns ratio" },
+      { "phrase": "transformer losses and efficiency", "section": "Energy losses in a transformer and efficiency" }
+    ],
+    "blocks": [
+      { "type": "HEADING", "text": "AC generator: principle" },
+      { "type": "TEXT", "text": "Almost all the electrical energy we use is produced by generators in power stations, where turbines driven by falling water, steam or wind turn large coils in strong magnetic fields. An AC generator converts **mechanical energy into electrical energy** using electromagnetic induction.\n\nIn the earlier lesson on induction, flux was changed by moving a magnet or a rod. In a generator, the flux through a coil changes because the **orientation** of the coil in a magnetic field changes continuously. A coil of $N$ turns and area $A$ rotates with constant angular speed $\\omega$ in a uniform field $B$, about an axis perpendicular to $B$. The angle $\\theta$ between the field and the normal to the coil changes steadily, so the flux $BA\\cos\\theta$ keeps changing and an emf is induced. Because the flux rises and falls periodically, the emf it produces is alternating." },
+      { "type": "DEFINITION", "term": "AC generator (alternator)", "text": "A device that converts mechanical energy into electrical energy in the form of an alternating emf, by rotating a coil (or a magnet) so that the magnetic flux linked with the coil changes periodically. Its working principle is electromagnetic induction. Its output is measured in volts (V) and its frequency in hertz (Hz)." },
+      { "type": "HEADING", "text": "Construction of an AC generator" },
+      { "type": "TEXT", "text": "A simple AC generator has four main parts, shown in the figure.\n\n1. **Armature coil.** A rectangular coil of many turns of insulated copper wire, wound on a soft-iron core. The iron concentrates the magnetic field and increases the flux through the coil.\n2. **Field magnets.** Strong permanent magnets or electromagnets whose pole pieces N and S produce a nearly uniform magnetic field $B$ in the space where the coil rotates.\n3. **Slip rings.** Two metal rings fixed to the axle and insulated from it and from each other. Each end of the coil is joined to one ring, so the rings turn with the coil.\n4. **Brushes.** Two carbon (or metal) brushes press lightly against the rotating slip rings. They connect the rotating coil to the stationary external circuit without the leads getting twisted.\n\nThe axle is turned by an external source of mechanical energy, such as a turbine or an engine." },
+      { "type": "DIAGRAM", "diagram": "generator" },
+      { "type": "TABLE", "caption": "Parts of an AC generator and their functions", "columns": ["Part", "Function"], "rows": [
+        ["Armature coil (N turns, on soft-iron core)", "The conductor in which the emf is induced as it rotates"],
+        ["Field magnets", "Provide a strong, nearly uniform magnetic field"],
+        ["Slip rings", "Rotate with the coil and keep each coil end in continuous contact with one brush"],
+        ["Carbon brushes", "Stationary contacts that carry the current from the slip rings to the external load"],
+        ["Axle with turbine or engine", "Supplies the mechanical energy that is converted into electrical energy"]
+      ] },
+      { "type": "HEADING", "text": "Working of the AC generator and the induced emf" },
+      { "type": "TEXT", "text": "Let the coil rotate with constant angular speed $\\omega$, and measure time from an instant when the normal to the coil is parallel to $B$ (the plane of the coil is perpendicular to the field). After time $t$ the normal has turned through $\\theta = \\omega t$, so the flux through each turn is\n\n$$\\Phi_B = BA\\cos\\omega t$$\n\nBy Faraday's law the emf induced in the $N$ turns is\n\n$$\\varepsilon = -N\\frac{d\\Phi_B}{dt} = -NBA\\frac{d}{dt}(\\cos\\omega t) = NBA\\omega\\sin\\omega t$$\n\nThe emf is sinusoidal, with peak value $\\varepsilon_0 = NBA\\omega$. Its frequency equals the frequency of rotation: one complete turn of the coil produces one complete cycle of emf. If the coil is connected to an external resistance, an alternating current flows, with the same frequency." },
+      { "type": "FORMULA", "latex": "\\varepsilon = NBA\\omega\\sin\\omega t = \\varepsilon_0\\sin\\omega t \\qquad \\varepsilon_0 = NBA\\omega = 2\\pi\\nu NBA", "text": "$\\varepsilon$ = instantaneous emf (V); $N$ = number of turns; $B$ = magnetic field (T); $A$ = area of each turn ($\\text{m}^2$); $\\omega = 2\\pi\\nu$ = angular speed of rotation ($\\text{rad s}^{-1}$); $\\nu$ = number of rotations per second = frequency of the AC (Hz); $\\omega t$ = angle between the normal to the coil and $B$." },
+      { "type": "DIAGRAM", "diagram": "emf-graph" },
+      { "type": "TEXT", "text": "**Reading the graph.** The flux linkage $NBA\\cos\\omega t$ (dashed) and the emf $NBA\\omega\\sin\\omega t$ (solid) are a quarter of a cycle out of phase.\n\n- When the plane of the coil is **perpendicular** to $B$ ($\\theta = 0^\\circ$ or $180^\\circ$), the flux through it has its largest magnitude, but at that instant the flux is not changing, so the emf is **zero**. The sides of the coil are moving parallel to the field lines and cut none of them.\n- When the plane of the coil is **parallel** to $B$ ($\\theta = 90^\\circ$ or $270^\\circ$), the flux through it is zero, but it is changing fastest, so the emf is **maximum**. The sides of the coil now move perpendicular to the field lines.\n\nAfter every half rotation each side of the coil moves in the opposite direction through the field, so (by Fleming's right-hand rule) the current in the coil reverses. Each brush is therefore alternately positive and negative: the output is AC.\n\n**Average emf.** Over a complete cycle the average emf is zero. Over half a rotation, from $\\theta = 0$ to $\\theta = 180^\\circ$, the flux linkage changes by $2NBA$ in time $T/2$, so the average emf over that half cycle is $2NBA/(T/2) = (2/\\pi)\\varepsilon_0 \\approx 0.637\\,\\varepsilon_0$." },
+      { "type": "TABLE", "caption": "Flux and emf at different positions of the rotating coil", "columns": ["Angle between normal and $B$", "Position of plane of coil", "Flux through coil", "Induced emf"], "rows": [
+        ["$0^\\circ$", "Perpendicular to $B$", "Maximum, $+NBA$", "Zero"],
+        ["$90^\\circ$", "Parallel to $B$", "Zero", "Maximum, $+\\varepsilon_0$"],
+        ["$180^\\circ$", "Perpendicular to $B$", "Maximum, $-NBA$", "Zero"],
+        ["$270^\\circ$", "Parallel to $B$", "Zero", "Maximum, $-\\varepsilon_0$"],
+        ["$360^\\circ$", "Perpendicular to $B$", "Maximum, $+NBA$", "Zero"]
+      ] },
+      { "type": "TEXT", "text": "**Where the energy comes from.** When current flows, the coil carries a current in a magnetic field and feels a torque. By Lenz's law this torque always opposes the rotation, so the turbine must keep doing work to keep the coil turning. The more current is drawn from the generator, the larger the opposing torque and the more mechanical power the turbine must supply. Electrical energy is not created; it is converted from mechanical energy.\n\n**Practical generators.** In large power-station alternators the arrangement is reversed: the heavy armature coils are fixed (the stator) and an electromagnet is rotated inside them (the rotor). This avoids passing very large currents through sliding contacts. The physics is the same, because only the relative rotation matters. In India the turbines turn so that the supply frequency is 50 Hz. Turbines are driven by falling water in hydroelectric plants, by steam from burning coal or from nuclear fission in thermal and nuclear plants, and by moving air in wind turbines." },
+      { "type": "KEY_POINT", "text": "- Principle of the AC generator: electromagnetic induction produced by continuously changing the orientation of a coil in a magnetic field.\n- $\\varepsilon = NBA\\omega\\sin\\omega t$; peak emf $\\varepsilon_0 = NBA\\omega$; frequency of the AC = rotation frequency.\n- Emf is maximum when the plane of the coil is parallel to $B$ (flux zero) and zero when the plane is perpendicular to $B$ (flux maximum).\n- Doubling the speed of rotation doubles both the peak emf and the frequency." },
+      { "type": "CALLOUT", "text": "**Angle trap.** In $\\varepsilon = \\varepsilon_0\\sin\\omega t$, the angle $\\omega t$ is measured between the **normal** to the coil and $B$. If a question says the **plane** of the coil makes $30^\\circ$ with the field, then $\\omega t = 60^\\circ$ and $\\varepsilon = \\varepsilon_0\\sin 60^\\circ = 0.866\\,\\varepsilon_0$. If it says the plane makes $30^\\circ$ with the plane perpendicular to the field (normal at $30^\\circ$ to $B$), then $\\varepsilon = 0.5\\,\\varepsilon_0$. Draw a quick sketch before substituting." },
+      { "type": "SOLVED_PROBLEM", "problem": "A rectangular coil of 200 turns, each of area $0.020\\,\\text{m}^2$, rotates at 50 revolutions per second about an axis perpendicular to a uniform magnetic field of 0.10 T. Find (a) the maximum flux linkage, (b) the peak and rms values of the induced emf, (c) the frequency of the AC, and (d) the instantaneous emf when the plane of the coil makes an angle of $30^\\circ$ with the field.", "solution": "(a) The flux linkage is largest when the plane of the coil is perpendicular to the field: $NBA = 200 \\times 0.10 \\times 0.020 = 0.40\\,\\text{Wb}$.\n\n(b) The angular speed is $\\omega = 2\\pi\\nu = 2\\pi \\times 50 = 314\\,\\text{rad s}^{-1}$. The peak emf is the maximum flux linkage times the angular speed, $\\varepsilon_0 = NBA\\omega = 0.40 \\times 314 = 126\\,\\text{V}$. The rms value is $\\varepsilon_0/\\sqrt{2} = 126/1.414 = 88.9\\,\\text{V}$.\n\n(c) One revolution gives one cycle, so the frequency equals the rotation rate, 50 Hz.\n\n(d) If the plane of the coil makes $30^\\circ$ with the field, the normal makes $60^\\circ$ with it, so $\\omega t = 60^\\circ$. The emf at that instant is $\\varepsilon = \\varepsilon_0\\sin 60^\\circ = 126 \\times 0.866 = 109\\,\\text{V}$.", "answer": "(a) 0.40 Wb (b) 126 V peak, 88.9 V rms (c) 50 Hz (d) about 109 V" },
+      { "type": "SOLVED_PROBLEM", "problem": "A small generator must deliver an rms emf of 220 V at 50 Hz. Its coil has an area of $0.025\\,\\text{m}^2$ and rotates in a field of 0.40 T. (a) How many turns are needed? (b) If the turbine slows down so that the coil turns at 25 revolutions per second, what are the new peak emf and frequency?", "solution": "(a) The required peak emf is $\\varepsilon_0 = \\sqrt{2} \\times 220 = 311\\,\\text{V}$. The angular speed for 50 Hz is $\\omega = 2\\pi \\times 50 = 314\\,\\text{rad s}^{-1}$. From $\\varepsilon_0 = NBA\\omega$, the number of turns is $N = \\varepsilon_0/(BA\\omega) = 311/(0.40 \\times 0.025 \\times 314) = 311/3.14 = 99$. In practice a coil of about 100 turns would be used.\n\n(b) The peak emf is proportional to the angular speed, so halving the speed halves it: with 99 turns the new peak is about 156 V (rms about 110 V). The frequency equals the rotation rate, so it falls to 25 Hz. Both the amplitude and the frequency of the output depend on the speed of the turbine, which is why power stations control the speed of their turbines carefully.", "answer": "(a) about 99 (practically 100) turns (b) peak about 156 V, frequency 25 Hz" },
+      { "type": "HEADING", "text": "Transformer: principle and construction" },
+      { "type": "TEXT", "text": "Power stations generate electricity at about 11 kV, long-distance lines carry it at hundreds of kilovolts, and homes use 220 V. The device that changes an alternating voltage from one value to another is the **transformer**. It works on the principle of **mutual induction**: an alternating current in one coil produces a changing flux that induces an emf in a second coil linked with the same flux.\n\n**Construction.** Two coils of insulated copper wire are wound on a common soft-iron core.\n\n- The **primary coil**, of $N_p$ turns, is connected to the AC input voltage $V_p$.\n- The **secondary coil**, of $N_s$ turns, delivers the output voltage $V_s$ to the load.\n- The **core** is made of soft iron, which is easily magnetised and demagnetised, so that almost all the flux produced by the primary passes through the secondary. It is built from thin **laminated** sheets insulated from one another, which greatly reduces eddy currents in the core.\n\nThe two coils may be wound on separate limbs of the core, as in the figure, or one on top of the other on the same limb, which reduces flux leakage further. There is no electrical connection between primary and secondary; energy passes from one to the other only through the changing magnetic flux." },
+      { "type": "DEFINITION", "term": "Transformer", "text": "A static device that increases (steps up) or decreases (steps down) an alternating voltage, without changing its frequency, by mutual induction between two coils wound on a common soft-iron core. A step-up transformer has $N_s > N_p$; a step-down transformer has $N_s < N_p$." },
+      { "type": "DIAGRAM", "diagram": "transformer" },
+      { "type": "HEADING", "text": "Working of a transformer: the turns ratio" },
+      { "type": "TEXT", "text": "Consider an **ideal transformer**: no flux leaks out of the core, the windings have no resistance, and there are no energy losses in the core. When an alternating voltage is applied to the primary, an alternating current flows and sets up an alternating flux $\\Phi$ in the core. Because the same core carries this flux through both coils, the flux through each turn is the same in the primary and the secondary.\n\nThe emf induced in the secondary is $\\varepsilon_s = -N_s\\,d\\Phi/dt$. The changing flux also induces a back emf in the primary, $\\varepsilon_p = -N_p\\,d\\Phi/dt$. With negligible resistance in the primary, this back emf balances the applied voltage, so $V_p = N_p\\,d\\Phi/dt$ in magnitude; and with a small current drawn from the secondary, $V_s = N_s\\,d\\Phi/dt$. Dividing,\n\n$$\\frac{V_s}{V_p} = \\frac{N_s}{N_p}$$\n\nThe voltage per turn is the same in both coils. If no energy is lost, the input power equals the output power, $I_pV_p = I_sV_s$, so\n\n$$\\frac{I_s}{I_p} = \\frac{V_p}{V_s} = \\frac{N_p}{N_s}$$\n\nIn a **step-up transformer** ($N_s > N_p$) the voltage is raised and the current is lowered in the same ratio. In a **step-down transformer** ($N_s < N_p$) the voltage is lowered and the current is raised. A transformer never increases power: what it gains in voltage it loses in current." },
+      { "type": "FORMULA", "latex": "\\frac{V_s}{V_p} = \\frac{N_s}{N_p} = \\frac{I_p}{I_s} \\qquad V_pI_p = V_sI_s \\;(\\text{ideal})", "text": "$V_p, V_s$ = primary and secondary voltages (V, rms); $N_p, N_s$ = numbers of turns; $I_p, I_s$ = primary and secondary currents (A, rms). The ratio $N_s/N_p$ is the turns ratio (transformation ratio). The current relation assumes an ideal, loss-free transformer." },
+      { "type": "TABLE", "caption": "Step-up and step-down transformers compared", "columns": ["Feature", "Step-up transformer", "Step-down transformer"], "rows": [
+        ["Turns", "$N_s > N_p$", "$N_s < N_p$"],
+        ["Output voltage", "Greater than input", "Less than input"],
+        ["Output current", "Less than input current", "Greater than input current"],
+        ["Thicker wire used in", "Primary (larger current)", "Secondary (larger current)"],
+        ["Frequency", "Unchanged", "Unchanged"],
+        ["Typical use", "At power stations, before long-distance transmission", "At substations and in mobile chargers, doorbells, adaptors"]
+      ] },
+      { "type": "CALLOUT", "text": "**Common mistakes.**\n- A transformer does **not** work on steady DC. A steady current produces a constant flux, $d\\Phi/dt = 0$, and no emf is induced in the secondary. (A DC supply connected to a primary would also drive a very large current, limited only by the small winding resistance, and could burn the coil.)\n- A transformer does not change the frequency and does not increase power.\n- The current ratio is the **inverse** of the turns ratio. A step-up transformer steps the current down." },
+      { "type": "SOLVED_PROBLEM", "problem": "A step-down transformer reduces the 220 V mains to 11 V for a doorbell circuit. Its primary has 2000 turns. (a) How many turns does the secondary have? (b) If the bell draws 4.4 A, what current flows in the primary, assuming the transformer is ideal?", "solution": "(a) From the turns-ratio relation, $N_s = N_p \\times V_s/V_p = 2000 \\times 11/220 = 100$ turns. The voltage is reduced by a factor of 20, so the turns are reduced by the same factor.\n\n(b) For an ideal transformer the input power equals the output power. The output power is $V_sI_s = 11 \\times 4.4 = 48.4\\,\\text{W}$, so the primary current is $I_p = 48.4/220 = 0.22\\,\\text{A}$. Equivalently, the current is stepped up by the same factor of 20 that the voltage is stepped down: $I_p = I_s/20 = 0.22\\,\\text{A}$.", "answer": "(a) 100 turns (b) 0.22 A" },
+      { "type": "HEADING", "text": "Energy losses in a transformer and efficiency" },
+      { "type": "TEXT", "text": "Real transformers are not ideal, though large ones come close, with efficiencies of 95 to 99 percent. The output power is a little less than the input power because of the following losses." },
+      { "type": "TABLE", "caption": "Energy losses in a transformer and how they are reduced", "columns": ["Loss", "Cause", "How it is reduced"], "rows": [
+        ["Flux leakage", "Some flux of the primary does not pass through the secondary", "Winding the primary and secondary one over the other; good core design"],
+        ["Copper (resistance) loss", "Joule heating $I^2R$ in the resistance of the windings", "Using thick copper wire, especially for the winding carrying the larger current"],
+        ["Eddy-current loss", "The alternating flux induces circulating currents in the iron core, which heat it", "Using a laminated core of thin, mutually insulated sheets"],
+        ["Hysteresis loss", "Energy used up in repeatedly magnetising and demagnetising the core in each cycle", "Using a core of soft iron (or special alloy) with a narrow hysteresis loop"],
+        ["Mechanical (humming) loss", "Vibration of the laminations in the alternating field", "Clamping the laminations tightly"]
+      ] },
+      { "type": "DEFINITION", "term": "Efficiency of a transformer", "text": "The ratio of the output power delivered by the secondary to the input power taken by the primary, usually expressed as a percentage: $\\eta = (P_{\\text{out}}/P_{\\text{in}}) \\times 100\\% = (V_sI_s/V_pI_p) \\times 100\\%$. It is a pure number (no unit) and is always less than 100% for a real transformer." },
+      { "type": "FORMULA", "latex": "\\eta = \\frac{P_{\\text{out}}}{P_{\\text{in}}}\\times 100\\% = \\frac{V_sI_s}{V_pI_p}\\times 100\\%", "text": "$\\eta$ = efficiency; $P_{\\text{out}}, P_{\\text{in}}$ = output and input powers (W); with a resistive load, $V_s I_s$ and $V_p I_p$ are taken as the powers. For an ideal transformer $\\eta = 100\\%$." },
+      { "type": "SOLVED_PROBLEM", "problem": "A step-up transformer raises 220 V to 2200 V. It delivers 4.4 kW to a load and has an efficiency of 88%. Find (a) the turns ratio, (b) the secondary current, (c) the input power, and (d) the primary current. Compare (d) with the value for an ideal transformer.", "solution": "(a) The turns ratio equals the voltage ratio, $N_s/N_p = 2200/220 = 10$.\n\n(b) The secondary current is the output power divided by the secondary voltage, $I_s = 4400/2200 = 2.0\\,\\text{A}$.\n\n(c) Since the efficiency is 88%, the input power is $P_{\\text{in}} = P_{\\text{out}}/\\eta = 4400/0.88 = 5000\\,\\text{W}$. The difference, 600 W, is lost as heat in the windings and core.\n\n(d) The primary current is $I_p = 5000/220 = 22.7\\,\\text{A}$. An ideal transformer would need only $4400/220 = 20\\,\\text{A}$, ten times the secondary current, in the inverse of the turns ratio. The extra 2.7 A supplies the losses.", "answer": "(a) 10 (b) 2.0 A (c) 5000 W (d) 22.7 A, compared with 20 A if ideal" },
+      { "type": "HEADING", "text": "Transformers in long-distance power transmission" },
+      { "type": "TEXT", "text": "Electrical power reaches consumers through long transmission lines whose total resistance $R_{\\text{line}}$ cannot be made negligible. To deliver a power $P$ at voltage $V$, the line must carry a current $I = P/V$, and the power wasted as heat in the line is\n\n$$P_{\\text{loss}} = I^2R_{\\text{line}} = \\frac{P^2R_{\\text{line}}}{V^2}$$\n\nFor a given power, the loss falls as the **square** of the transmission voltage. Raising the voltage 20 times cuts the current 20 times and the line loss 400 times. This is the main reason electricity is distributed as AC: transformers can raise and lower AC voltages easily and efficiently.\n\nA typical chain is: the generator produces about 11 kV; a step-up transformer at the power station raises it to 220 kV or 400 kV for long-distance lines; step-down transformers at grid substations reduce it in stages to 33 kV and 11 kV for local distribution; finally a distribution transformer near the consumers lowers it to 220 V for homes." },
+      { "type": "FORMULA", "latex": "P_{\\text{loss}} = I^2R_{\\text{line}} = \\left(\\frac{P}{V}\\right)^2 R_{\\text{line}}", "text": "$P_{\\text{loss}}$ = power lost as heat in the line (W); $P$ = power transmitted (W); $V$ = transmission voltage (V); $R_{\\text{line}}$ = total resistance of the line ($\\Omega$). For fixed $P$ and $R_{\\text{line}}$, $P_{\\text{loss}} \\propto 1/V^2$." },
+      { "type": "SOLVED_PROBLEM", "problem": "A power station sends 100 kW to a town through lines of total resistance $5\\,\\Omega$. Find the power lost in the lines if the power is transmitted (a) at 1 kV, (b) at 20 kV. Express each loss as a percentage of the power sent.", "solution": "(a) At 1 kV the line current is $I = P/V = 100\\,000/1000 = 100\\,\\text{A}$. The power lost is $I^2R = (100)^2 \\times 5 = 50\\,000\\,\\text{W} = 50\\,\\text{kW}$, which is half of the power sent. Such a system would be useless.\n\n(b) At 20 kV the current is only $100\\,000/20\\,000 = 5\\,\\text{A}$, and the loss is $(5)^2 \\times 5 = 125\\,\\text{W}$, just 0.125% of the power sent.\n\nRaising the voltage 20 times reduced the loss by a factor of $20^2 = 400$, from 50 kW to 125 W. A step-down transformer at the town then lowers the voltage to a safe level for use.", "answer": "(a) 50 kW, 50% (b) 125 W, 0.125%" },
+      { "type": "HEADING", "text": "Revision summary" },
+      { "type": "TABLE", "caption": "AC generator and transformer at a glance", "columns": ["Feature", "AC generator", "Transformer"], "rows": [
+        ["Principle", "Electromagnetic induction (changing orientation of a coil in a field)", "Mutual induction between two coils on a common core"],
+        ["Energy conversion", "Mechanical energy to electrical energy", "Electrical to electrical (changes V and I, not power)"],
+        ["Key relation", "$\\varepsilon = NBA\\omega\\sin\\omega t$, $\\varepsilon_0 = NBA\\omega$", "$V_s/V_p = N_s/N_p = I_p/I_s$"],
+        ["Moving parts", "Rotating coil (or magnet), slip rings, brushes", "None (static device)"],
+        ["Frequency of output", "Equals rotation frequency", "Same as input frequency"],
+        ["Works with DC input?", "Not applicable (input is mechanical)", "No; needs a changing flux"]
+      ] },
+      { "type": "IMPORTANT_FACT", "text": "A transformer changes voltage and current in inverse ratio but never changes frequency or increases power. Long-distance transmission at high voltage works because line loss is $(P/V)^2R_{\\text{line}}$, which falls as the square of the voltage." },
+      { "type": "KEY_POINT", "text": "- Generator: peak emf $NBA\\omega$, emf maximum when the plane of the coil is parallel to $B$.\n- Slip rings and brushes connect the rotating coil to the fixed external circuit.\n- Transformer: works on mutual induction; laminated soft-iron core; $V_s/V_p = N_s/N_p$; ideal $V_pI_p = V_sI_s$.\n- Losses: flux leakage, copper ($I^2R$), eddy currents (reduced by lamination), hysteresis (reduced by soft iron).\n- Efficiency $\\eta = P_{\\text{out}}/P_{\\text{in}}$, typically 95 to 99% for large transformers." },
+      { "type": "CALLOUT", "text": "**Exam tips.**\n- 'Rotates at 50 rev/s' means $\\nu = 50\\,\\text{Hz}$ and $\\omega = 100\\pi\\,\\text{rad s}^{-1}$; 'rotates at 600 rpm' means 10 rev/s.\n- In generator problems check whether peak or rms emf is asked for.\n- In transformer problems, first find the turns ratio, then use it directly for voltage and inversely for current.\n- If an efficiency is given, use it on the powers, not on the voltages: $V_s/V_p = N_s/N_p$ still holds." }
+    ]
+  },
+  "diagrams": [
+    { "key": "generator", "file": "diagrams/ug26-322-u4-ac-generator-transformer-generator.svg", "alt": "Schematic AC generator: a rectangular armature coil on a vertical axle rotates between N and S pole pieces; its ends go to two slip rings touched by carbon brushes connected to an external load", "caption": "Construction of a simple AC generator", "description": "A north pole piece on the left and a south pole piece on the right produce a uniform horizontal magnetic field B, shown by dashed arrows from N to S. A rectangular armature coil, drawn in perspective, is mounted on a vertical axle that is turned by a turbine with angular speed omega. The two ends of the coil run down along the axle to two slip rings fixed on the axle. Two carbon brushes press against the slip rings and are joined through an external load resistor R, across which the AC output appears." },
+    { "key": "emf-graph", "file": "diagrams/ug26-322-u4-ac-generator-transformer-emf-graph.svg", "alt": "Graph of induced emf (sine) and flux linkage (cosine) against time over one rotation, with sketches of the coil edge-on at 0, 90, 180, 270 and 360 degrees", "caption": "Emf and flux linkage of a rotating coil over one rotation", "description": "Above the graph, the coil is drawn edge-on at five positions with its normal shown as a green arrow and the field B pointing to the right. At 0 degrees the coil plane is perpendicular to B: flux maximum and emf zero. At 90 degrees the plane is parallel to B: flux zero and emf maximum positive. At 180 degrees: flux maximum negative and emf zero. At 270 degrees: flux zero and emf maximum negative. At 360 degrees the cycle repeats. Below, the emf epsilon = NBA omega sin omega t is drawn as a solid blue sine curve with peak epsilon0 at T/4, and the flux linkage NBA cos omega t as a dashed red cosine curve, a quarter of a cycle out of phase with the emf." },
+    { "key": "transformer", "file": "diagrams/ug26-322-u4-ac-generator-transformer-transformer.svg", "alt": "Transformer with a rectangular laminated soft-iron core; the primary coil on the left limb is connected to an AC source and the secondary coil with more turns on the right limb is connected to a load", "caption": "A step-up transformer: two coils on a common laminated soft-iron core", "description": "A rectangular soft-iron core with a central window is drawn with lamination lines. The red primary coil of Np turns is wound on the left limb and connected to an AC input voltage Vp. The blue secondary coil, with more turns Ns, is wound on the right limb and connected to a load, giving the output voltage Vs. Green arrows show the alternating flux circulating around the core, and a label states that the same flux links both coils. A note says that because Ns is greater than Np this is a step-up transformer, with Vs/Vp = Ns/Np." }
+  ],
+  "questions": [
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q01", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "An AC generator works on the principle of",
+      "options": ["electromagnetic induction", "the force on a current-carrying conductor in a magnetic field", "electrostatic induction", "the heating effect of electric current"],
+      "answer": 1,
+      "explanation": "In an AC generator a coil is rotated in a magnetic field, so the magnetic flux linked with it changes continuously. By Faraday's law of electromagnetic induction this changing flux induces an alternating emf in the coil. Mechanical energy is thus converted into electrical energy.",
+      "optionRationale": { "2": "The force on a current-carrying conductor is the principle of the electric motor, the reverse device.", "3": "Electrostatic induction concerns charges on conductors near other charges, not generators.", "4": "The heating effect is used in heaters and fuses, not in generating electricity." },
+      "objective": "State the principle of the AC generator"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q02", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A coil of 100 turns, each of area $0.05\\,\\text{m}^2$, rotates at 50 revolutions per second in a uniform magnetic field of 0.4 T, about an axis perpendicular to the field. The peak value of the induced emf is about",
+      "options": ["444 V", "200 V", "628 V", "6.28 V"],
+      "answer": 3,
+      "explanation": "The peak emf of a rotating coil is the maximum flux linkage multiplied by the angular speed, $\\varepsilon_0 = NBA\\omega$. Fifty revolutions per second means an angular speed of $2\\pi \\times 50 = 314\\,\\text{rad s}^{-1}$, and the maximum flux linkage is $NBA = 100 \\times 0.4 \\times 0.05 = 2\\,\\text{Wb}$. Multiplying these gives a peak emf of $2 \\times 314 = 628\\,\\text{V}$, whose rms value would be about 444 V.",
+      "optionRationale": { "1": "444 V is the rms value, $\\varepsilon_0/\\sqrt{2}$, not the peak value.", "2": "This uses an angular speed of 100 rad/s instead of $2\\pi \\times 50 = 314$ rad/s.", "4": "This leaves out the 100 turns of the coil." },
+      "objective": "Calculate the peak emf of an AC generator"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q03", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "The emf induced in the coil of an AC generator is maximum at the instant when",
+      "options": ["the plane of the coil is perpendicular to the magnetic field", "the plane of the coil is parallel to the magnetic field", "the magnetic flux through the coil is maximum", "the coil momentarily stops rotating"],
+      "answer": 2,
+      "explanation": "The emf is $\\varepsilon = NBA\\omega\\sin\\omega t$, where $\\omega t$ is the angle between the normal and the field. It is maximum when this angle is $90^\\circ$, that is, when the plane of the coil is parallel to the field. At that instant the flux through the coil is zero but changing at its fastest rate.",
+      "optionRationale": { "1": "With the plane perpendicular to the field the flux is maximum but momentarily constant, so the emf is zero.", "3": "Maximum flux corresponds to zero emf, because the rate of change of flux is then zero.", "4": "The coil rotates at constant angular speed; it never stops." },
+      "objective": "Identify the coil position of maximum emf in an AC generator"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q04", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "The speed of rotation of the coil of an AC generator is doubled, with everything else unchanged. The effect on the peak emf and on the frequency of the output is:",
+      "options": ["the peak emf doubles but the frequency is unchanged", "the peak emf is unchanged but the frequency doubles", "both the peak emf and the frequency double", "the peak emf becomes four times and the frequency doubles"],
+      "answer": 3,
+      "explanation": "The peak emf is $\\varepsilon_0 = NBA\\omega$, which is directly proportional to the angular speed, so it doubles. The frequency of the alternating emf equals the number of rotations per second, so it also doubles. A faster coil cuts the field lines faster and also completes more cycles each second.",
+      "optionRationale": { "1": "The frequency of the AC is the rotation frequency, so it must change too.", "2": "The peak emf $NBA\\omega$ depends on the angular speed, so it cannot stay the same.", "4": "The peak emf depends on the first power of $\\omega$, not its square." },
+      "objective": "Analyse how the speed of rotation affects a generator's output"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q05", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): In an AC generator, the emf induced in the rotating coil is maximum at the instant when the magnetic flux through the coil is zero.\nReason (R): The induced emf depends on the rate of change of magnetic flux, not on the value of the flux.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "The flux $NBA\\cos\\omega t$ passes through zero when the plane of the coil is parallel to the field, and at that instant its slope, and hence its rate of change, is greatest. By Faraday's law the emf equals the rate of change of flux linkage, so the emf is then maximum. R states exactly why A happens.",
+      "optionRationale": { "2": "R is the direct reason for A, not an unrelated true statement.", "3": "R is a correct statement of Faraday's law.", "4": "A is true: zero flux coincides with maximum emf in a rotating coil." },
+      "objective": "Explain why maximum emf occurs at zero flux in a generator"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q06", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "In an AC generator, the function of the slip rings is",
+      "options": ["to reverse the direction of current in the external circuit every half rotation", "to increase the strength of the magnetic field", "to convert the alternating current into direct current", "to keep the rotating coil continuously connected to the external circuit without twisting the leads"],
+      "answer": 4,
+      "explanation": "Each end of the coil is joined to a slip ring that turns with the axle. Stationary brushes press on the rings, so the rotating coil stays connected to the fixed external circuit throughout the rotation and the connecting leads never get twisted. The output remains alternating; slip rings do not rectify it.",
+      "optionRationale": { "1": "Reversing the connections every half turn is the job of a split-ring commutator in a DC generator.", "2": "The field is produced by the field magnets, not by the slip rings.", "3": "Slip rings keep the output alternating; converting to DC would need a commutator or a rectifier." },
+      "objective": "State the function of slip rings and brushes"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q07", "type": "DIAGRAM_BASED", "difficulty": "MEDIUM", "skill": "application",
+      "diagram": "emf-graph",
+      "stem": "Using the graph and the coil sketches, which statement correctly describes the rotating coil at the instant $t = T/2$?",
+      "options": ["The emf is maximum and the flux linkage is zero, with the plane of the coil parallel to B", "The emf and the flux linkage are both zero", "The emf is zero and the flux linkage has its maximum magnitude, with the plane of the coil perpendicular to B", "The emf is zero because the coil is momentarily at rest"],
+      "answer": 3,
+      "explanation": "At $t = T/2$ the coil has turned through $180^\\circ$. The sketch shows its plane perpendicular to the field, and the dashed curve shows the flux linkage at its most negative value, $-NBA$. At that instant the flux is momentarily not changing, so the solid emf curve passes through zero.",
+      "optionRationale": { "1": "This describes $t = T/4$ or $3T/4$, when the plane is parallel to B.", "2": "Emf and flux linkage are never zero together; they are a quarter cycle out of phase.", "4": "The coil rotates at constant speed; the emf is zero because the flux is momentarily constant, not because the coil stops." },
+      "objective": "Interpret emf and flux graphs for a rotating coil"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q08", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "application",
+      "stem": "The peak emf of an AC generator is $\\varepsilon_0$. At the instant when the plane of the rotating coil makes an angle of $30^\\circ$ with the direction of the magnetic field, the magnitude of the induced emf is",
+      "options": ["0.5 ε₀", "0.866 ε₀", "ε₀", "zero"],
+      "answer": 2,
+      "explanation": "In $\\varepsilon = \\varepsilon_0\\sin\\theta$ the angle $\\theta$ is between the normal to the coil and the field. If the plane makes $30^\\circ$ with the field, the normal makes $60^\\circ$ with it. So the emf is $\\varepsilon_0\\sin 60^\\circ = 0.866\\,\\varepsilon_0$, close to its maximum because the coil is nearly parallel to the field.",
+      "optionRationale": { "1": "This takes $30^\\circ$ as the angle between the normal and the field; it is the angle with the plane.", "3": "The maximum occurs when the plane is exactly parallel to the field, not at $30^\\circ$ to it.", "4": "The emf is zero only when the plane is perpendicular to the field." },
+      "objective": "Find the instantaneous emf of a generator for a given coil orientation"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q09", "type": "MCQ_SINGLE", "difficulty": "EASY", "skill": "conceptual",
+      "stem": "A transformer works on the principle of",
+      "options": ["self-induction", "mutual induction", "electrostatic induction", "the heating effect of current"],
+      "answer": 2,
+      "explanation": "The alternating current in the primary coil produces an alternating magnetic flux in the core. This flux also passes through the secondary coil and induces an emf in it. Producing an emf in one coil by changing the current in a neighbouring coil is mutual induction.",
+      "optionRationale": { "1": "Self-induction occurs in each winding, but the transfer of energy to the secondary is due to mutual induction.", "3": "Electrostatic induction involves static charges, not changing magnetic flux.", "4": "Heating in the windings is a loss in a transformer, not its working principle." },
+      "objective": "State the principle of the transformer"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q10", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "A transformer steps the 220 V mains down to 11 V. If its primary coil has 2000 turns, the number of turns in its secondary coil is",
+      "options": ["100", "200", "40000", "1000"],
+      "answer": 1,
+      "explanation": "For a transformer the voltage ratio equals the turns ratio, $V_s/V_p = N_s/N_p$. Therefore $N_s = N_p \\times V_s/V_p = 2000 \\times 11/220 = 100$. The voltage is reduced by a factor of 20, so the secondary has 20 times fewer turns than the primary.",
+      "optionRationale": { "2": "This corresponds to a voltage ratio of 1/10, not 1/20.", "3": "This inverts the ratio, which would give a step-up transformer.", "4": "This corresponds to halving the voltage, not reducing it to one twentieth." },
+      "objective": "Use the turns ratio of a transformer"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q11", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "numerical",
+      "stem": "An ideal transformer has 220 V across its primary. Its secondary supplies a current of 4 A at 11 V to a load. The current in the primary coil is",
+      "options": ["80 A", "0.2 A", "4 A", "0.05 A"],
+      "answer": 2,
+      "explanation": "In an ideal transformer the input power equals the output power, $V_pI_p = V_sI_s$. The output power is $11 \\times 4 = 44\\,\\text{W}$, so the primary current is $44/220 = 0.2\\,\\text{A}$. A step-down transformer raises the current in the same ratio in which it lowers the voltage.",
+      "optionRationale": { "1": "This multiplies the secondary current by the voltage ratio instead of dividing.", "3": "The currents differ by the turns ratio; they are equal only when the voltages are equal.", "4": "This is just the voltage ratio 11/220; it must be multiplied by the secondary current of 4 A." },
+      "objective": "Use power balance in an ideal transformer to find currents"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q12", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A transformer takes 5 A from 220 V mains and delivers 9 A at 110 V to a resistive load. Its efficiency is",
+      "options": ["90%", "81%", "111%", "45%"],
+      "answer": 1,
+      "explanation": "The input power is $V_pI_p = 220 \\times 5 = 1100\\,\\text{W}$, and the output power is $V_sI_s = 110 \\times 9 = 990\\,\\text{W}$. Efficiency is the ratio of output power to input power, $990/1100 = 0.90$, which is 90 percent. The remaining 110 W is lost as heat in the core and windings.",
+      "optionRationale": { "2": "This squares the efficiency or compares the wrong quantities.", "3": "This inverts the ratio; no real transformer can have an efficiency above 100 percent.", "4": "This compares the secondary current with the primary power or omits a factor of 2." },
+      "objective": "Calculate the efficiency of a transformer"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q13", "type": "MATCH_THE_FOLLOWING", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Match the energy loss in a transformer (List-I) with the method used to reduce it (List-II).",
+      "list": { "left": ["Flux leakage", "Copper (I²R) loss", "Eddy-current loss", "Hysteresis loss"], "right": ["Using thick copper wire for the windings", "Using a laminated core", "Using a core of soft iron with a narrow hysteresis loop", "Winding the primary and secondary one over the other"] },
+      "options": ["A-I, B-IV, C-II, D-III", "A-IV, B-I, C-III, D-II", "A-II, B-I, C-IV, D-III", "A-IV, B-I, C-II, D-III"],
+      "answer": 4,
+      "explanation": "Flux leakage is reduced by winding the coils one over the other so that the same flux links both (A-IV). Copper loss is reduced by using thick wire of low resistance (B-I). Eddy currents are reduced by laminating the core (C-II). Hysteresis loss is reduced by using soft iron with a narrow hysteresis loop (D-III).",
+      "optionRationale": { "1": "Thick wire reduces resistance (copper) loss, not flux leakage.", "2": "Lamination reduces eddy currents and soft iron reduces hysteresis; these two are swapped.", "3": "A laminated core does not reduce flux leakage; it reduces eddy currents." },
+      "objective": "Relate each transformer loss to its remedy"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q14", "type": "STATEMENT_BASED", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Consider the following statements about transformers:\nA. A transformer can be used to step up a steady DC voltage.\nB. In a step-up transformer, the current in the secondary is less than the current in the primary.\nC. An ideal transformer changes the frequency of the AC in the ratio of the turns.\nD. The core is laminated to reduce energy loss due to eddy currents.\nWhich of the statements are correct?",
+      "options": ["A and B only", "B, C and D only", "B and D only", "A, C and D only"],
+      "answer": 3,
+      "explanation": "A steady DC produces a constant flux, which induces no emf in the secondary, so A is false. A step-up transformer raises voltage and lowers current, so B is true. The frequency of the output always equals that of the input, so C is false. Lamination breaks up the paths of eddy currents, so D is true. Hence B and D only.",
+      "optionRationale": { "1": "A is false: a transformer needs a changing flux and cannot work on steady DC.", "2": "C is false: a transformer never changes the frequency.", "4": "A and C are both false." },
+      "objective": "Evaluate statements about the working and design of transformers"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q15", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Assertion (A): A transformer cannot be used to step up a steady DC voltage.\nReason (R): In a transformer, a steady current in the primary produces a constant magnetic flux that induces a steady emf in the secondary.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 3,
+      "explanation": "A is true. R is false: a steady current produces a constant flux, and a constant flux induces no emf at all, because the induced emf depends on the rate of change of flux. It is precisely this absence of any induced emf that makes a transformer useless with steady DC.",
+      "optionRationale": { "1": "R is false, so it cannot explain A.", "2": "R is false: a constant flux induces no emf.", "4": "A is true: transformers need alternating (changing) currents." },
+      "objective": "Explain why transformers do not work with steady DC"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q16", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "analytical",
+      "stem": "A fixed amount of electrical power is sent through a transmission line of fixed resistance. If the transmission voltage is raised from 11 kV to 220 kV using a transformer, the power lost as heat in the line becomes",
+      "options": ["1/20 of its earlier value", "1/400 of its earlier value", "20 times its earlier value", "400 times its earlier value"],
+      "answer": 2,
+      "explanation": "For a fixed power the line current is $I = P/V$, and the heat loss is $I^2R = P^2R/V^2$. Raising the voltage by a factor of $220/11 = 20$ reduces the current to one twentieth, and the loss to $1/20^2 = 1/400$ of its earlier value. That is why power is transmitted at very high voltages.",
+      "optionRationale": { "1": "The current falls by 20 times, but the loss depends on the square of the current.", "3": "Raising the voltage reduces, not increases, the current and the loss.", "4": "The loss decreases by this factor; it does not increase." },
+      "objective": "Analyse the effect of transmission voltage on line losses"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q17", "type": "ASSERTION_REASON", "difficulty": "MEDIUM", "skill": "application",
+      "stem": "Assertion (A): Electric power is transmitted over long distances at very high voltages.\nReason (R): For a given power, a higher transmission voltage means a smaller current, so the $I^2R$ loss in the transmission lines is reduced.",
+      "options": ["Both (A) and (R) are true and (R) is the correct explanation of (A).", "Both (A) and (R) are true but (R) is not the correct explanation of (A).", "(A) is true but (R) is false.", "(A) is false but (R) is true."],
+      "answer": 1,
+      "explanation": "Power is transmitted at hundreds of kilovolts, so A is true. Since $P = VI$, a higher voltage means a smaller current for the same power, and the heat loss $I^2R$ in the line falls as the square of the current. This is the reason for using high voltages, so R correctly explains A.",
+      "optionRationale": { "2": "R is the actual reason for high-voltage transmission.", "3": "R is true: line loss falls as the current is reduced.", "4": "A is true: long-distance lines operate at very high voltages." },
+      "objective": "Explain why power is transmitted at high voltage"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q18", "type": "MCQ_SINGLE", "difficulty": "MEDIUM", "skill": "conceptual",
+      "stem": "Which of the following is NOT a cause of energy loss in a transformer?",
+      "options": ["Eddy currents induced in the core", "Hysteresis in the core material", "Resistance of the copper windings", "A change in the frequency of the AC between primary and secondary"],
+      "answer": 4,
+      "explanation": "Eddy currents in the core, hysteresis as the core is repeatedly magnetised, and Joule heating in the resistance of the windings all waste energy in a real transformer. The frequency of the output is always the same as that of the input, so a change of frequency is not something that happens, and it cannot be a source of loss.",
+      "optionRationale": { "1": "Eddy currents heat the core and are a real loss, reduced by lamination.", "2": "Hysteresis wastes energy in each magnetisation cycle and is a real loss.", "3": "Winding resistance causes $I^2R$ heating, a real loss." },
+      "objective": "Identify the sources of energy loss in a transformer"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q19", "type": "DIAGRAM_BASED", "difficulty": "EASY", "skill": "conceptual",
+      "diagram": "transformer",
+      "stem": "The transformer in the figure has more turns on its secondary than on its primary. Compared with the primary, the secondary of this (ideal) transformer has",
+      "options": ["a higher voltage and a higher current", "a higher voltage and a lower current", "a lower voltage and a higher current", "the same voltage but a higher frequency"],
+      "answer": 2,
+      "explanation": "With more secondary turns than primary turns, the output voltage is larger in the ratio $N_s/N_p$: this is a step-up transformer. Because an ideal transformer does not create power, $V_pI_p = V_sI_s$, the secondary current must be smaller in the same ratio. The frequency is unchanged.",
+      "optionRationale": { "1": "Raising both voltage and current would increase the power, which a transformer cannot do.", "3": "This describes a step-down transformer, which has fewer secondary turns.", "4": "A transformer never changes the frequency, and with more turns the voltage changes." },
+      "objective": "Relate the turns of a transformer to its output voltage and current"
+    },
+    {
+      "key": "ug26-322-u4-ac-generator-transformer-q20", "type": "MCQ_SINGLE", "difficulty": "HARD", "skill": "numerical",
+      "stem": "A generator coil of 500 turns, each of area $0.04\\,\\text{m}^2$, rotates in a uniform field of 0.25 T. To produce a peak emf of 314 V, the coil must rotate at about",
+      "options": ["100 rpm", "60 rpm", "3000 rpm", "600 rpm"],
+      "answer": 4,
+      "explanation": "Rearrange the peak-emf relation to find the angular speed: $\\omega = \\varepsilon_0/(NBA)$. The maximum flux linkage is $500 \\times 0.25 \\times 0.04 = 5\\,\\text{Wb}$, so $\\omega = 314/5 = 62.8\\,\\text{rad s}^{-1}$. Dividing by $2\\pi$ gives about 10 revolutions per second, and multiplying by 60 seconds gives about 600 revolutions per minute.",
+      "optionRationale": { "1": "100 rpm is only about 1.7 rev/s, six times too slow; 62.8 rad/s has not been converted correctly into revolutions per minute.", "2": "This uses 1 rev/s; the required speed is 10 rev/s.", "3": "3000 rpm corresponds to 50 rev/s, which would give a peak emf five times larger." },
+      "objective": "Find the rotation speed needed for a given generator output"
+    }
+  ]
+}
