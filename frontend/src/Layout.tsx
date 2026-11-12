@@ -1,4 +1,4 @@
-import { ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { Search, ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
@@ -178,6 +178,14 @@ export function Layout() {
                 <TopLink to="/progress">Progress</TopLink>
               </nav>
               <div className="ml-auto flex items-center gap-1">
+                <NavLink
+                  to="/search"
+                  title="Search the syllabus"
+                  className={({ isActive }) => `grid size-9 place-items-center rounded-full transition-colors ${isActive ? 'bg-accent-soft text-accent' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
+                >
+                  <Search aria-hidden className="size-[18px]" />
+                  <span className="sr-only">Search the syllabus</span>
+                </NavLink>
                 <RemindersBell />
                 <NavLink
                   to="/bookmarks"

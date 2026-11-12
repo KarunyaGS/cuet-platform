@@ -124,6 +124,12 @@ export interface WeeklyReport {
 export interface Reminder { key: string; kind: 'TEST' | 'PLAN' | 'GOAL' | 'REVISE' | 'NOTICE' | 'SETUP'; title: string; body: string; link: string; external?: boolean }
 export interface RecentItem { kind: 'TOPIC_VIEW' | 'LESSON_VIEW'; nodeId: string | null; resourceId: string | null; title: string | null; paper: string | null; at: string }
 
+export interface SearchResults {
+  query: string; more: boolean;
+  subjects: { paperId: string; code: string; name: string; exam: ExamCode; available: boolean }[];
+  topics: { id: string; kind: string; label: string | null; title: string; snippet: string | null; parentTitle: string | null; paperId: string; paperCode: string; paper: string; exam: ExamCode }[];
+}
+
 /** The student's local calendar day (YYYY-MM-DD) and the moment it started, for "today" counts. */
 export function localDay(d = new Date()) {
   const pad = (n: number) => String(n).padStart(2, '0');
@@ -179,6 +185,7 @@ export const api = {
   dismissReminder: (key: string) => request<{ dismissed: boolean }>('POST', '/api/student/reminders/dismiss', { key }),
   recent: () => request<RecentItem[]>('GET', '/api/student/recent'),
   resetPassword: (b: { token: string; newPassword: string }) => request<{ reset: boolean }>('POST', '/api/auth/reset-password', b),
+  search: (q: string, exam?: ExamCode | '') => request<SearchResults>('GET', `/api/learn/search?q=${encodeURIComponent(q)}${exam ? `&exam=${exam}` : ''}`),
   officialInfo: (exam: ExamCode) => request<OfficialInfo>('GET', `/api/public/info/${exam}`),
   universities: (exam: ExamCode, q?: string, type?: string) =>
     request<UniversityList>('GET', `/api/public/universities?exam=${exam}${q ? `&q=${encodeURIComponent(q)}` : ''}${type ? `&type=${encodeURIComponent(type)}` : ''}`),

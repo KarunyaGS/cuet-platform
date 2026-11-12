@@ -47,4 +47,40 @@ describe('syllabus shape on the subject list', () => {
     expect(list.find((s: { code: string }) => s.code === 'ZZQP01')).toMatchObject({ units: 0, sections: 0, topics: 4 });
     expect(list.find((s: { code: string }) => s.code === 'ZZQP02')).toMatchObject({ units: 0, sections: 2, topics: 2 });
   });
+
+  it('refuses an import that stores syllabus topics inside the Note box or a cover title as a row', async () => {
+    await call('POST', '/api/admin/registry/papers', { exam: 'CUET_PG', year: 2026, papers: [{ code: 'ZZQP03', name: 'Guarded', categoryCode: 'ACQP', officialSyllabusUrl: `${PDF}?g`, listedOnUrl: 'https://exams.nta.nic.in/cuet-pg/' }] }, ADMIN);
+    const send = (nodes: unknown[], d: string) => call('POST', '/api/admin/imports/syllabus', {
+      idempotencyKey: `storage-guard-${d}`, exam: 'CUET_PG', year: 2026, paperCode: 'ZZQP03',
+      source: { kind: 'OFFICIAL_SYLLABUS', title: 'Guarded', publisher: 'NTA', url: `${PDF}?g`, retrievedAt: '2026-11-12T00:00:00.000Z', sha256: d.repeat(64), byteSize: 10, mimeType: 'application/pdf', pageCount: 2 },
+      extractor: { name: 'test', version: '1', mode: 'text_layer' }, nodes, tables: [], figures: [],
+    }, ADMIN);
+    const inNote = Array.from({ length: 10 }, (_, i) => ({ ref: `x${i}`, parentRef: 'n', kind: 'ITEM', label: null, title: `Dance history ${i}`, body: null, position: i + 2, depth: 2, sourcePage: 2, flags: [] as string[] }));
+    const a = await send([...note('n'), ...inNote], 'c');
+    expect(a.status, JSON.stringify(a.json).slice(0, 400)).toBe(422);
+    expect(a.json.error.message).toContain('Note box');
+    const b = await send([{ ref: 'c', parentRef: null, kind: 'NOTE', label: null, title: 'Guarded Studies', body: null, position: 0, depth: 1, sourcePage: 1, flags: [] as string[] }], 'd');
+    expect(b.status).toBe(422);
+    expect(b.json.error.message).toContain('cover-page title');
+  });
+
+  it('searches subjects and syllabus rows, but not the Note lines or hidden syllabi', async () => {
+    await importPaper('ZZQP04', 'Searchable Philosophy', 'e', [
+      ...note('n'),
+      { ref: 'u', parentRef: null, kind: 'UNIT', label: 'I', title: 'Epistemology', body: null, position: 1, depth: 1, sourcePage: 2, flags: [] as string[] },
+      { ref: 't', parentRef: 'u', kind: 'TOPIC', label: '1', title: 'Theories of truth', body: 'Correspondence, coherence and pragmatic accounts of knowledge.', position: 0, depth: 2, sourcePage: 2, flags: [] as string[] },
+    ]);
+    const find = async (q: string, exam = '') => (await call('GET', `/api/learn/search?q=${encodeURIComponent(q)}${exam ? `&exam=${exam}` : ''}`)).json;
+    expect((await find('searchable')).subjects).toEqual([expect.objectContaining({ code: 'ZZQP04', exam: 'CUET_PG', available: true })]);
+    const byTitle = await find('theories truth');
+    expect(byTitle.topics.filter((t: { paperCode: string }) => t.paperCode === 'ZZQP04')).toEqual([expect.objectContaining({ title: 'Theories of truth', parentTitle: 'Epistemology', snippet: null })]);
+    const byText = await find('pragmatic');
+    expect(byText.topics[0]).toMatchObject({ title: 'Theories of truth' });
+    expect(byText.topics[0].snippet).toContain('pragmatic');
+    expect((await find('compulsory')).topics).toEqual([]); // Note lines are not syllabus
+    expect((await find('truth', 'CUET_UG')).topics).toEqual([]); // exam filter
+    expect((await find('a')).topics).toEqual([]); // too short
+    expect((await find('100%_')).topics).toEqual([]); // wildcards are literal
+    expect((await call('GET', '/api/learn/search?q=x&exam=NEET')).status).toBe(422);
+  });
 });

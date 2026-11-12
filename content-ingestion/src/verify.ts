@@ -9,6 +9,7 @@
  *     duplicate rows or figure/image questions.
  * MACHINE_VERIFIED is not human verification. Publishing still requires a person's approval.
  */
+import { checkStructure } from './structure-checks';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { readPdf } from './pdf';
@@ -125,6 +126,10 @@ export async function runVerification(registry: Registry, paths: { extracted: st
     if ((a?.duplicateRows ?? 0) > 0) reasons.push(`${a!.duplicateRows} duplicate row(s)`);
     const reviewIssues = r.issues.filter((i) => !i.startsWith('SOURCE_ISSUE'));
     if (reviewIssues.length) reasons.push(`review flags: ${[...new Set(reviewIssues.map((i) => i.split(':')[0]))].join(', ')}`);
+    // Structure: text stored in the wrong place passes every word-level check above, so it is checked on its own.
+    const structure = checkStructure(r.nodes, { pageCount: r.source?.pageCount });
+    for (const e of structure.errors) reasons.push(`structure: ${e}`);
+    if (structure.warnings.length) reasons.push(`structure warnings to check against the PDF: ${structure.warnings.slice(0, 4).join('; ')}${structure.warnings.length > 4 ? ` (+${structure.warnings.length - 4} more)` : ''}`);
     if (!cross) reasons.push('visual cross-check not run');
     else if (crossStats.check || crossStats.missing) reasons.push(`visual cross-check: ${crossStats.check} page(s) to check, ${crossStats.missing} page(s) not checked`);
     // Pages with Indian-script (or other non-Latin) text must be positively confirmed by the visual check:

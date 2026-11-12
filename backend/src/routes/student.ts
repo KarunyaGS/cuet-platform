@@ -17,7 +17,7 @@ import {
   listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
 } from '../services/student-tools';
 import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
-import { listExams, listSubjects, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
+import { listExams, listSubjects, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { answerSchema, getSession, progress, saveAnswer, startSchema, startSession, submitSession } from '../services/practice';
 
 const preview = (env: AppEnv['Bindings']) => env.CONTENT_PREVIEW === 'true';
@@ -52,6 +52,12 @@ learn.get('/subjects/:paperId', async (c) => c.json(await paperOutline(c.env.DB,
 learn.get('/topics/:nodeId', async (c) => c.json(await topicDetail(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 learn.get('/resources/:id', async (c) => c.json(await resourceDetail(c.env.DB, preview(c.env), c.req.param('id'))));
 learn.get('/media/:id', async (c) => mediaObject(c.env.DB, c.env.MEDIA, preview(c.env), c.req.param('id')));
+learn.get('/search', async (c) => {
+  const q = (c.req.query('q') ?? '').trim().slice(0, 100);
+  const exam = c.req.query('exam');
+  if (exam && exam !== 'CUET_UG' && exam !== 'CUET_PG') throw invalid('exam must be CUET_UG or CUET_PG');
+  return c.json(await searchSyllabus(c.env.DB, preview(c.env), q, exam || undefined));
+});
 learn.get('/topics/:nodeId/revision', async (c) => c.json(await revisionNotes(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 
 export const student = new Hono<AppEnv>();

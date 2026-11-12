@@ -60,6 +60,10 @@
 | Student portal | Saved revision materials | Save button on revision pages; "Revision notes" tab | Bookmark kind `REVISION` | `bookmarks` | — | COMPLETED (local) |
 | Student portal | Recently viewed lessons and topics | "Recently viewed" tab on Saved and recent | `/api/student/recent` | `learning_activity` | — | COMPLETED (local) |
 | Learning | Syllabus explorer | Done | `/api/learn/*` | Syllabus tables | 92 of 194 papers visible. PG structure audit (12 Nov): subject-list counts fixed (Note lines no longer counted, sections counted; flat syllabi shown as one list); still open: 17 visible PG papers store their syllabus inside the Note box; see `CUET_PG_SYLLABUS_STRUCTURE_AUDIT.md` | PARTIALLY COMPLETED; fixes need approval |
+| Learning | Syllabus search | `/search` (subjects, units, topics, subtopics; exam filter; shareable address) | `GET /api/learn/search` | Existing syllabus tables | Visible syllabi only | COMPLETED (local, browser-checked) |
+| Learning | Page not found screen | Unknown addresses, unknown exams and unknown papers | — | — | — | COMPLETED (local, browser-checked) |
+| Pipeline | Structure checks against wrong-place storage | — | Import refuses topics in the Note box, text on Note lines, cover-title rows | — | `ingest structure-check`; wired into verify and review-validate; flags 55 faulty machine extractions | COMPLETED |
+| Syllabus | Reviewed corrections import | — | Trial run on a copy only | Local database NOT changed | See `CUET_SYLLABUS_CORRECTIONS_TRIAL_REPORT.md`: as designed it hides 52 visible papers | NEEDS APPROVAL (choose option A, B or C) |
 | Learning | Lessons and diagrams | Done | `/api/learn/resources`, `/media` | Lessons, blocks, R2 | Physics 21 lessons in the database | PARTIALLY COMPLETED |
 | Learning | Quick revision | Done | `/api/learn/topics/:id/revision` | Existing | Where lessons exist | COMPLETED (local) |
 | Exams | Practice, topic tests, unit tests, daily practice | Done | `/api/student/practice*` | Practice tables | Physics only (552 questions) | COMPLETED (local), content-limited |
@@ -162,10 +166,10 @@ The syllabus is "Visible" when it is machine-checked and shown to students, and 
 | Measure | CUET-UG | CUET-PG |
 |---|---|---|
 | Subjects with any lessons | 1 of 37 (Physics) | 0 of 157 |
-| Lessons in the database | 21 | 0 |
-| Lessons ready in Git, not imported | 10 (Physics) | 0 |
-| Questions in the database | 552 | 0 |
-| Questions ready in Git, not imported | 235 (Physics) | 0 |
+| Lessons in the database | 31 (all 31 packs loaded locally) | 0 |
+| Lessons ready in Git, not imported | 0 | 0 |
+| Questions in the database | 787 (local) | 0 |
+| Questions ready in Git, not imported | 0 | 0 |
 | Lessons or questions approved by a person | 0 | 0 |
 
 ---

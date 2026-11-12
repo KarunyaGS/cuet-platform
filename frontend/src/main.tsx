@@ -18,6 +18,7 @@ import { ResultsPage } from './pages/Results';
 import { ReportPage } from './pages/Report';
 import { ForgotPasswordPage, ResetPasswordPage } from './pages/Reset';
 import { RevisePage } from './pages/Revise';
+import { NotFoundPage, SearchPage } from './pages/Search';
 import { SubjectPage } from './pages/Subject';
 import { Subjects } from './pages/Subjects';
 import { TopicPage } from './pages/Topic';
@@ -78,6 +79,7 @@ const router = createBrowserRouter([
       { path: '/bookmarks', element: <BookmarksPage /> },
       { path: '/profile', element: <ProfilePage /> },
       { path: '/progress', element: <ProgressPage /> },
+      { path: '/search', element: <SearchPage /> },
       { path: '/report', element: <ReportPage /> },
       { path: '/revise/:nodeId', element: <RevisePage /> },
       {
@@ -109,6 +111,7 @@ const router = createBrowserRouter([
       { path: '/results/:sessionId', element: <ResultsPage /> },
       { path: '/:exam', element: <Subjects /> },
       { path: '/:exam/subject/:paperId', element: <SubjectPage /> },
+      { path: '*', element: <NotFoundPage /> },
     ],
   },
 ]);

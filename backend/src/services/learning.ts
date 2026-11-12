@@ -49,6 +49,62 @@ export async function listSubjects(db: D1Database, preview: boolean, exam: strin
   }));
 }
 
+/**
+ * Search across subjects and the syllabus students can see: units, sections, topics and subtopics (titles and text).
+ * The question-paper "Note" lines are not searched. Every word of the query must appear in the row.
+ */
+export async function searchSyllabus(db: D1Database, preview: boolean, query: string, exam?: string) {
+  const words = query.toLowerCase().split(/\s+/).filter((w) => w.length >= 2).slice(0, 6);
+  if (!words.length) return { query, subjects: [], topics: [], more: false };
+  // "!" is the LIKE escape character, so a typed % or _ is matched literally.
+  const like = (w: string) => `%${w.replace(/[!%_]/g, (c) => `!${c}`)}%`;
+  const LIMIT = 40;
+  const examFilter = exam ? 'AND e.code = ?2' : 'AND ?2 = ?2';
+  const wordSql = (cols: string[], from: number) => words.map((_, i) => `(${cols.map((c) => `${c} LIKE ?${from + i} ESCAPE '!'`).join(' OR ')})`).join(' AND ');
+  const [subjects, topics] = await Promise.all([
+    db
+      .prepare(
+        `WITH v AS (${LATEST_VISIBLE_VERSION})
+         SELECT tp.id, tp.code, tp.name, e.code AS exam, (v.id IS NOT NULL) AS available
+         FROM test_papers tp JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id LEFT JOIN v ON v.test_paper_id = tp.id
+         WHERE ${wordSql(["tp.name", "tp.code"], 3)} ${examFilter}
+         ORDER BY available DESC, tp.name LIMIT 12`,
+      )
+      .bind(preview ? 1 : 0, exam ?? '', ...words.map(like))
+      .all<{ id: string; code: string; name: string; exam: string; available: number }>(),
+    db
+      .prepare(
+        `WITH RECURSIVE v AS (${LATEST_VISIBLE_VERSION}),
+         note_rows(id) AS (SELECT id FROM curriculum_nodes WHERE kind = 'NOTE' UNION ALL SELECT c.id FROM curriculum_nodes c JOIN note_rows ON c.parent_id = note_rows.id)
+         SELECT n.id, n.kind, n.label, n.title, n.body, tp.id AS paper_id, tp.code AS paper_code, tp.name AS paper, e.code AS exam,
+           (SELECT p.title FROM curriculum_nodes p WHERE p.id = n.parent_id) AS parent_title,
+           (${wordSql(["n.title"], 3)}) AS in_title
+         FROM curriculum_nodes n JOIN v ON v.id = n.syllabus_version_id JOIN test_papers tp ON tp.id = v.test_paper_id
+         JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id
+         WHERE n.verification IN ('MACHINE_VERIFIED','VERIFIED') AND n.id NOT IN (SELECT id FROM note_rows)
+           AND ${wordSql(["n.title", "COALESCE(n.body, '')"], 3)} ${examFilter}
+         ORDER BY in_title DESC, LENGTH(n.title), tp.name LIMIT ${LIMIT + 1}`,
+      )
+      .bind(preview ? 1 : 0, exam ?? '', ...words.map(like))
+      .all<Record<string, string | number | null>>(),
+  ]);
+  const snippet = (title: string, body: string | null) => {
+    if (words.every((w) => title.toLowerCase().includes(w)) || !body) return null;
+    const at = Math.max(0, ...words.map((w) => body.toLowerCase().indexOf(w)).filter((i) => i >= 0).slice(0, 1));
+    const start = Math.max(0, at - 60);
+    return `${start > 0 ? '…' : ''}${body.slice(start, start + 200).replace(/\s+/g, ' ').trim()}${start + 200 < body.length ? '…' : ''}`;
+  };
+  return {
+    query,
+    subjects: subjects.results.map((r) => ({ paperId: r.id, code: r.code, name: r.name, exam: r.exam, available: Boolean(r.available) })),
+    topics: topics.results.slice(0, LIMIT).map((r) => ({
+      id: r.id, kind: r.kind, label: r.label, title: r.title, snippet: snippet(String(r.title), r.body as string | null), parentTitle: r.parent_title,
+      paperId: r.paper_id, paperCode: r.paper_code, paper: r.paper, exam: r.exam,
+    })),
+    more: topics.results.length > LIMIT,
+  };
+}
+
 export async function paperOutline(db: D1Database, preview: boolean, paperId: string) {
   const paper = await db
     .prepare(

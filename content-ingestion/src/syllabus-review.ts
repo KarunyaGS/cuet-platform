@@ -17,6 +17,7 @@
  *
  * Nothing here marks anything VERIFIED. Rows stay UNVERIFIED until a signed-in reviewer verifies them.
  */
+import { checkStructure } from './structure-checks';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -139,6 +140,12 @@ export async function reviewValidate(registry: Registry, paths: Paths, exam?: st
       if (!n.title?.trim()) errors.push(`row ${n.ref}: empty title`);
       if (!Number.isInteger(n.sourcePage) || n.sourcePage < 1 || n.sourcePage > input.pageCount) errors.push(`row ${n.ref}: sourcePage ${n.sourcePage} outside 1..${input.pageCount}`);
       else if (['cover', 'blank'].includes(classified.get(n.sourcePage) ?? '')) warnings.push(`row ${n.ref} cites page ${n.sourcePage}, classified ${classified.get(n.sourcePage)}`);
+    }
+    // Structure: the Note box holds only instructions, no cover-page rows, printed units are units, numbering is whole.
+    const structure = nodes.length ? checkStructure(nodes, { pageCount: input.pageCount }) : null;
+    if (structure) {
+      errors.push(...structure.errors.map((e) => `structure: ${e}`));
+      warnings.push(...structure.warnings.map((w) => `structure: ${w}`));
     }
     // Text evidence: each row's words found in the page's (and next page's) independent text sources.
     const pageTokens = new Map(input.pages.map((pg) => [pg.page, new Set(tokens(`${pg.pdfjsText}\n${pg.popplerText}\n${pg.ocrText}\n${pg.visualCheck?.missingSample ?? ''}`))]));

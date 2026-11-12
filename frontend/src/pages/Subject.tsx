@@ -1,7 +1,8 @@
 import { ChevronRight, FileText, ListChecks, Timer } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
-import { api, type OutlineNode } from '../api';
+import { api, ApiError, type OutlineNode } from '../api';
+import { NotFoundPage } from './Search';
 import { Button, Empty, ErrorBox, kindLabel, Loading, PageHeader, useAuth, useLoad } from '../ui';
 
 /** Subject page: units on the left, the selected unit's topics and subtopics on the right. */
@@ -47,7 +48,9 @@ export function SubjectPage() {
     }
   };
 
+  if (exam !== 'CUET_UG' && exam !== 'CUET_PG') return <NotFoundPage />;
   if (outline.loading) return <Loading />;
+  if (outline.error instanceof ApiError && outline.error.status === 404) return <NotFoundPage />;
   if (outline.error) return <ErrorBox error={outline.error} onRetry={outline.reload} />;
   const p = outline.data!.paper;
   const examName = exam === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG';

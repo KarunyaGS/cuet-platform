@@ -2,6 +2,7 @@ import { ChevronRight, SearchX } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { api, type ExamCode, type Subject } from '../api';
+import { NotFoundPage } from './Search';
 import { Badge, Empty, ErrorBox, Loading, PageHeader, SearchInput, Segmented, useLoad } from '../ui';
 
 const YEAR = 2026;
@@ -9,7 +10,8 @@ const YEAR = 2026;
 /** All official papers of one exam, grouped by category, with the ones that can be opened first-class. */
 export function Subjects() {
   const exam = (useParams().exam ?? 'CUET_UG') as ExamCode;
-  const subjects = useLoad(() => api.subjects(exam, YEAR), [exam]);
+  const known = exam === 'CUET_UG' || exam === 'CUET_PG';
+  const subjects = useLoad(() => (known ? api.subjects(exam, YEAR) : Promise.resolve([])), [exam]);
   const [q, setQ] = useState('');
   const [show, setShow] = useState<'all' | 'ready'>('all');
   const groups = useMemo(() => {
@@ -21,6 +23,7 @@ export function Subjects() {
     return [...m];
   }, [subjects.data, q, show]);
   const ready = subjects.data?.filter((s) => s.available).length ?? 0;
+  if (!known) return <NotFoundPage />;
   const name = exam === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG';
   return (
     <div>

@@ -50,7 +50,7 @@ export const syllabusBundleSchema = z.object({
         parentRef: z.string().max(40).nullable(),
         kind: z.enum(NODE_KINDS),
         label: z.string().max(40).nullable(),
-        title: z.string().min(1).max(1000),
+        title: z.string().min(1).max(2000),
         body: z.string().max(20000).nullable(),
         position: z.number().int().min(0),
         depth: z.number().int().min(1).max(12),
@@ -132,6 +132,19 @@ export function validateBundleStructure(bundle: SyllabusBundle): string[] {
   for (const t of bundle.tables) if (t.nodeRef && !refs.has(t.nodeRef)) throw invalid(`Table points at unknown node ${t.nodeRef}`);
   for (const f of bundle.figures) if (f.nodeRef && !refs.has(f.nodeRef)) throw invalid(`Figure points at unknown node ${f.nodeRef}`);
   if (bundle.nodes.length === 0) warnings.push('No curriculum nodes were extracted from this document');
+  // Storage guard: the "Note" box (question-paper instructions) may not hold syllabus text, and cover-page titles are not rows.
+  // Word-level checks pass such trees, so they are refused here whatever tool sends them.
+  const childCount = new Map<string, number>();
+  for (const n of bundle.nodes) if (n.parentRef) childCount.set(n.parentRef, (childCount.get(n.parentRef) ?? 0) + 1);
+  const byRef = new Map(bundle.nodes.map((n) => [n.ref, n]));
+  for (const n of bundle.nodes) {
+    const parent = n.parentRef ? byRef.get(n.parentRef) : undefined;
+    if (n.kind === 'NOTE' && (childCount.get(n.ref) ?? 0) > 8) throw invalid(`The Note box "${n.title.slice(0, 60)}" holds ${childCount.get(n.ref)} rows; syllabus topics may not be stored inside the instruction box`);
+    if ((n.kind === 'NOTE' || parent?.kind === 'NOTE') && (n.body ?? '').length > 300) throw invalid(`A Note line carries ${(n.body ?? '').length} characters of text; syllabus text may not be stored on an instruction line`);
+    if (n.kind === 'NOTE' && !n.parentRef && n.sourcePage === 1 && !(childCount.get(n.ref) ?? 0) && !(n.body ?? '').trim() && n.title.trim().toLowerCase() !== 'note') {
+      throw invalid(`The cover-page title "${n.title.slice(0, 60)}" may not be stored as a syllabus row`);
+    }
+  }
   if (bundle.verification && bundle.nodes.some((n) => n.flags.some((f) => f.startsWith('heading_inferred') || f === 'ocr' || f.startsWith('ocr_')))) {
     throw invalid('A machine-verified import cannot contain guessed headings or OCR rows');
   }

@@ -5,6 +5,7 @@
  *   npm run ingest -- status                   summarise the last extraction report
  *   npm run ingest -- import [--allow-incomplete] [--api http://127.0.0.1:8787]
  */
+import { checkStructure } from './structure-checks';
 import { appendFileSync, existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -241,6 +242,29 @@ try {
   else if (cmd === 'import-missing') {
     const r = await importMissing(loadRegistry(), { extracted: PATHS.extracted, review: PATHS.syllabusReview, registryDir: dirname(PATHS.registry) }, option('api') ?? 'http://127.0.0.1:8787', adminToken());
     console.log(JSON.stringify(r, null, 1));
+  }
+  else if (cmd === 'structure-check') {
+    // Structure checks over every machine extraction and every page-image review. Read-only.
+    let bad = 0;
+    let warned = 0;
+    for (const p of loadRegistry().papers.filter((x) => !option('exam') || x.exam === option('exam'))) {
+      const sources: [string, string][] = [['extracted', join(PATHS.extracted, p.exam, `${p.code}.json`)], ['reviewed', join(PATHS.syllabusReview, p.exam, p.code, 'reviewed.json')]];
+      for (const [what, f] of sources) {
+        if (!existsSync(f)) continue;
+        const j = JSON.parse(readFileSync(f, 'utf8')) as { nodes?: Parameters<typeof checkStructure>[0]; source?: { pageCount: number } | null };
+        if (!j.nodes?.length) continue;
+        const r = checkStructure(j.nodes, { pageCount: j.source?.pageCount });
+        if (r.errors.length) bad++;
+        if (r.warnings.length) warned++;
+        if (r.errors.length || (flag('warnings') && r.warnings.length)) {
+          console.log(`${r.errors.length ? 'FAIL' : 'WARN'} ${p.exam} ${p.code} (${what})`);
+          for (const e of r.errors) console.log(`     x ${e}`);
+          if (flag('warnings')) for (const w of r.warnings) console.log(`     ! ${w}`);
+        }
+      }
+    }
+    console.log(`${bad} file(s) with structure errors, ${warned} with warnings`);
+    if (bad) process.exitCode = 1;
   }
   else if (cmd === 'review-export' || cmd === 'review-validate' || cmd === 'review-import') {
     const rp = { extracted: PATHS.extracted, audit: PATHS.audit, verification: PATHS.verification, review: PATHS.syllabusReview };
