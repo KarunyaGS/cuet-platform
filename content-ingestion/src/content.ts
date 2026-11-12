@@ -75,7 +75,13 @@ export const AR_OPTIONS = [
 
 // ------------------------------------------------------------------ helpers
 const norm = (s: string) => s.normalize('NFKC').toLowerCase().replace(/\$[^$]*\$/g, ' ').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
-const words = (s: string) => (s.replace(/\$\$[\s\S]*?\$\$|\$[^$]*\$/g, ' ').match(/[\p{L}\p{N}][\p{L}\p{N}'’-]*/gu) ?? []).length;
+// Words of text plus the symbols and numbers inside maths ($...$), so explanations that work in formulas are not
+// pushed into padding by the minimum-length rules.
+const words = (s: string) => {
+  const maths = [...s.matchAll(/\$\$([\s\S]*?)\$\$|\$([^$]*)\$/g)].map((m) => (m[1] ?? m[2] ?? '').replace(/\[a-zA-Z]+/g, ' ')).join(' ');
+  const prose = s.replace(/\$\$[\s\S]*?\$\$|\$[^$]*\$/g, ' ');
+  return (prose.match(/[\p{L}\p{N}][\p{L}\p{N}'’-]*/gu) ?? []).length + (maths.match(/[A-Za-z]+|\d+(?:\.\d+)?/g) ?? []).length;
+};
 const STOP = new Set('the and for with from that this their them its into onto using use used only ideas idea including include elementary facts about qualitative treatment expression simple between due through under along also other such which where what when than then there these those each both some very more most much many have has had been being were was are is be of in on at to by as an or a its it'.split(' '));
 const sig = (s: string) => [...new Set((norm(s).match(/[\p{L}]{4,}/gu) ?? []).filter((w) => !STOP.has(w)))];
 const PLACEHOLDER = /\b(lorem ipsum|placeholder|todo|tbd|to be added|coming soon|insert (?:diagram|image|figure) here|xxx)\b/i;

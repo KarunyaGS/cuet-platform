@@ -31,6 +31,8 @@ export const syllabusBundleSchema = z.object({
    * The old version is archived, never deleted.
    */
   supersedeUntouchedDraft: z.boolean().default(false),
+  /** Add the rows to the existing version of the same PDF when it is an untouched draft with NO rows (additive only). */
+  appendToEmptyDraft: z.boolean().default(false),
   /** Why this version needs a person (review reasons, or why extraction is blocked). Stored on the version. */
   notes: z.string().max(4000).optional(),
   /** Machine verification evidence. Without it, rows arrive UNVERIFIED. Human verification never comes through imports. */
@@ -156,6 +158,7 @@ export async function importSyllabus(prisma: PrismaClient, db: D1Database, bundl
   const importRunId = newId('imp');
   const verification = bundle.verification ? 'MACHINE_VERIFIED' : 'UNVERIFIED';
   let supersededVersionId: string | null = null;
+  let appendToVersion: { id: string; versionNumber: number } | null = null;
 
   // 2. Duplicate document: same bytes already imported for this paper -> no new rows.
   const existingSource = await prisma.sourceDocument.findUnique({ where: { sha256: bundle.source.sha256 } });
@@ -165,10 +168,12 @@ export async function importSyllabus(prisma: PrismaClient, db: D1Database, bundl
       orderBy: { versionNumber: 'desc' },
     });
     let supersede = false;
-    if (existingVersion && bundle.supersedeUntouchedDraft && !bundle.verification && existingVersion.verification === 'UNVERIFIED' && existingVersion.status === 'DRAFT') {
+    // A machine-verified version may be replaced too, but only while no lesson or question is linked to its rows.
+    if (existingVersion && bundle.supersedeUntouchedDraft && !bundle.verification && ['UNVERIFIED', 'MACHINE_VERIFIED'].includes(existingVersion.verification) && existingVersion.status === 'DRAFT') {
       const touched = await db
         .prepare(
-          `SELECT 1 FROM curriculum_nodes n WHERE n.syllabus_version_id = ?1 AND (n.authored_by IS NOT NULL OR n.edited_by IS NOT NULL OR n.verification != 'UNVERIFIED'
+          `SELECT 1 FROM curriculum_nodes n WHERE n.syllabus_version_id = ?1 AND (n.authored_by IS NOT NULL OR n.edited_by IS NOT NULL OR n.verification NOT IN ('UNVERIFIED','MACHINE_VERIFIED')
+             OR EXISTS (SELECT 1 FROM learning_resources lr WHERE lr.curriculum_node_id = n.id) OR EXISTS (SELECT 1 FROM question_topics qt WHERE qt.curriculum_node_id = n.id) OR EXISTS (SELECT 1 FROM media_assets m WHERE m.curriculum_node_id = n.id)
              OR EXISTS (SELECT 1 FROM review_records r WHERE r.entity_type = 'CURRICULUM_NODE' AND r.entity_id = n.id AND r.actor LIKE 'user:%')) LIMIT 1`,
         )
         .bind(existingVersion.id)
@@ -176,7 +181,11 @@ export async function importSyllabus(prisma: PrismaClient, db: D1Database, bundl
       supersede = !touched;
       if (supersede) supersededVersionId = existingVersion.id;
     }
-    if (existingVersion && !supersede) {
+    if (existingVersion && !supersede && bundle.appendToEmptyDraft && !bundle.verification && existingVersion.verification === 'UNVERIFIED' && existingVersion.status === 'DRAFT') {
+      const has = await db.prepare('SELECT COUNT(*) AS n FROM curriculum_nodes WHERE syllabus_version_id = ?').bind(existingVersion.id).first<{ n: number }>();
+      if (!has?.n) appendToVersion = { id: existingVersion.id, versionNumber: existingVersion.versionNumber };
+    }
+    if (existingVersion && !supersede && !appendToVersion) {
       const result: ImportResult = {
         status: 'DUPLICATE', importRunId, testPaperId: paper.id, syllabusVersionId: existingVersion.id,
         versionNumber: existingVersion.versionNumber, sourceDocumentId: existingSource.id, nodesCreated: 0,
@@ -196,8 +205,9 @@ export async function importSyllabus(prisma: PrismaClient, db: D1Database, bundl
 
   // 3. New syllabus version for this paper.
   const latest = await prisma.syllabusVersion.findFirst({ where: { testPaperId: paper.id }, orderBy: { versionNumber: 'desc' } });
-  const versionNumber = (latest?.versionNumber ?? 0) + 1;
-  const versionId = newId('sv');
+  // Append mode: the rows go into the existing empty draft of the same PDF; otherwise a new version.
+  const versionNumber = appendToVersion?.versionNumber ?? (latest?.versionNumber ?? 0) + 1;
+  const versionId = appendToVersion?.id ?? newId('sv');
   const sourceId = existingSource?.id ?? newId('src');
 
   // 4. Nodes: hash each one with its ancestor path; skip exact duplicates under the same path.
@@ -280,19 +290,23 @@ export async function importSyllabus(prisma: PrismaClient, db: D1Database, bundl
           r2_key: s.r2Key ?? null, usage_permission_id: 'perm_nta_reference', verification: 'UNVERIFIED',
           notes: 'Official document. Reference copy kept privately; do not republish.', created_at: now, updated_at: now,
         }])),
-    ...insertRows(db, 'syllabus_versions', [{
+    ...(appendToVersion ? [] : insertRows(db, 'syllabus_versions', [{
       id: versionId, test_paper_id: paper.id, version_number: versionNumber, source_document_id: sourceId, status: 'DRAFT',
       verification, is_demonstration: false, extracted_at: now, published_at: null,
       notes: bundle.verification
         ? `Machine-extracted by ${bundle.extractor.name} ${bundle.extractor.version} (${bundle.extractor.mode}); machine-verified by ${bundle.verification.method}. Not yet signed off by a person.`
         : `Machine-extracted by ${bundle.extractor.name} ${bundle.extractor.version} (${bundle.extractor.mode}). Not verified.${bundle.notes ? ` ${bundle.notes}` : ''}`,
       created_at: now, updated_at: now,
-    }]),
+    }])),
+    ...(appendToVersion
+      ? [db.prepare(`INSERT INTO review_records (id, entity_type, entity_id, action, from_status, to_status, actor, comment, created_at) VALUES (?, 'SYLLABUS_VERSION', ?, 'EDITED', 'DRAFT/UNVERIFIED', 'DRAFT/UNVERIFIED', ?, ?, ?)`)
+          .bind(newId('rev'), versionId, actor, `Added ${bundle.nodes.length} machine-extracted row(s) to this empty draft: ${bundle.notes ?? ''}`.slice(0, 3900), now)]
+      : []),
     ...(supersededVersionId
       ? [
           db.prepare(`UPDATE syllabus_versions SET status = 'ARCHIVED', notes = COALESCE(notes, '') || ?, updated_at = ? WHERE id = ? AND status = 'DRAFT'`)
-            .bind(` Superseded by version ${versionNumber} (re-extraction of the same PDF).`, now, supersededVersionId),
-          db.prepare(`INSERT INTO review_records (id, entity_type, entity_id, action, from_status, to_status, actor, comment, created_at) VALUES (?, 'SYLLABUS_VERSION', ?, 'ARCHIVED', 'DRAFT/UNVERIFIED', 'ARCHIVED/UNVERIFIED', ?, ?, ?)`)
+            .bind(` Superseded by version ${versionNumber} (corrected extraction of the same PDF).`, now, supersededVersionId),
+          db.prepare(`INSERT INTO review_records (id, entity_type, entity_id, action, from_status, to_status, actor, comment, created_at) VALUES (?, 'SYLLABUS_VERSION', ?, 'ARCHIVED', 'DRAFT', 'ARCHIVED', ?, ?, ?)`)
             .bind(newId('rev'), supersededVersionId, actor, `Superseded by version ${versionNumber}: ${bundle.extractor.name} ${bundle.extractor.version} (${bundle.extractor.mode})`, now),
         ]
       : []),
@@ -305,10 +319,10 @@ export async function importSyllabus(prisma: PrismaClient, db: D1Database, bundl
     ...insertRows(db, 'curriculum_nodes', nodeRows),
     ...insertRows(db, 'source_tables', tableRows),
     ...insertRows(db, 'media_assets', figureRows),
-    ...insertRows(db, 'source_references', [{
+    ...(appendToVersion ? [] : insertRows(db, 'source_references', [{
       id: newId('ref'), source_document_id: sourceId, entity_type: 'SYLLABUS_VERSION', entity_id: versionId, page: null,
       locator: 'whole document', created_at: now,
-    }]),
+    }])),
     ...insertRows(db, 'import_runs', [{
       id: importRunId, idempotency_key: bundle.idempotencyKey, kind: 'SYLLABUS', source_document_id: sourceId, status: 'SUCCEEDED',
       stats_json: JSON.stringify(result), errors_json: null, actor, started_at: now, finished_at: now,

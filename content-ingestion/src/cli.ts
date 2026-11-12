@@ -17,6 +17,8 @@ import { extractPaper } from './extract';
 import { adminToken, runImport } from './importer';
 import { importPacks, renderSvg, snapshot, validateAll } from './content';
 import { parseCsv } from './verify';
+import { reviewExport, reviewImport, reviewValidate } from './syllabus-review';
+import { importMissing } from './import-missing';
 import type { ExtractionResult, Registry } from './types';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -32,6 +34,7 @@ export const PATHS = {
   report: join(repo, 'storage', 'local', 'extraction-report.json'),
   progressLog: join(repo, 'storage', 'local', 'extraction-progress.log'),
   verification: join(repo, 'storage', 'local', 'verification'),
+  syllabusReview: join(repo, 'storage', 'local', 'syllabus-review'),
 };
 
 const args = process.argv.slice(2);
@@ -234,6 +237,26 @@ try {
   } else if (cmd === 'content-import') {
     const r = await importPacks(option('api') ?? 'http://127.0.0.1:8787', adminToken(), option('exam'), option('paper'));
     console.log(JSON.stringify(r, null, 1));
+  }
+  else if (cmd === 'import-missing') {
+    const r = await importMissing(loadRegistry(), { extracted: PATHS.extracted, review: PATHS.syllabusReview, registryDir: dirname(PATHS.registry) }, option('api') ?? 'http://127.0.0.1:8787', adminToken());
+    console.log(JSON.stringify(r, null, 1));
+  }
+  else if (cmd === 'review-export' || cmd === 'review-validate' || cmd === 'review-import') {
+    const rp = { extracted: PATHS.extracted, audit: PATHS.audit, verification: PATHS.verification, review: PATHS.syllabusReview };
+    const papers = (option('paper') ?? '').split(',').filter(Boolean);
+    const api = option('api') ?? 'http://127.0.0.1:8787';
+    if (cmd === 'review-export') console.log(JSON.stringify(await reviewExport(loadRegistry(), rp, api, adminToken(), option('set') ?? 'review', option('exam'), papers)));
+    else if (cmd === 'review-import') console.log(JSON.stringify(await reviewImport(loadRegistry(), rp, api, adminToken(), option('exam'), papers), null, 1));
+    else {
+      const res = await reviewValidate(loadRegistry(), rp, option('exam'), papers);
+      for (const r of res) {
+        console.log(`${r.ok ? 'OK  ' : 'FAIL'} ${r.exam} ${r.code} ${'decision' in r ? r.decision : ''} rows ${r.rows}${'unconfirmedRows' in r ? `, unconfirmed ${r.unconfirmedRows}` : ''}`);
+        for (const e of r.errors) console.log(`     x ${e}`);
+        for (const w of r.warnings) console.log(`     ! ${w}`);
+      }
+      console.log(`${res.filter((r) => r.ok).length} of ${res.length} reviews valid`);
+    }
   }
   else console.log('Commands: discover | extract [--exam X] [--paper CODE] [--only-unfinished] [--refresh] | status | import [--allow-incomplete]');
 } catch (e) {

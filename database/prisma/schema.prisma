@@ -462,6 +462,7 @@ model SourceDocument {
   sourceTables      SourceTable[]
   extractionJobs    ExtractionJob[]
   pageChecks        SourcePageCheck[]
+  pageTexts         SourcePageText[]
 
   @@index([kind])
   @@index([url])
@@ -1050,4 +1051,21 @@ model RolePermission {
   @@id([roleId, permissionId])
   @@index([permissionId])
   @@map("role_permissions")
+}
+
+/// Text of one page of a source document as each method read it (PDF text layer, pdftotext, OCR). Kept so every
+/// stored syllabus row can be traced to the exact text it came from, without re-running the extraction.
+model SourcePageText {
+  id               String         @id @default(cuid())
+  sourceDocumentId String         @map("source_document_id")
+  page             Int
+  /// pdfjs (PDF text layer), pdftotext (Poppler) or ocr (Tesseract on the rendered page or its images).
+  method           String
+  text             String
+  meanConfidence   Float?         @map("mean_confidence")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  sourceDocument   SourceDocument @relation(fields: [sourceDocumentId], references: [id], onDelete: Cascade)
+
+  @@unique([sourceDocumentId, page, method])
+  @@map("source_page_texts")
 }

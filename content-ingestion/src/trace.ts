@@ -91,6 +91,12 @@ export async function runTrace(registry: Registry, paths: { extracted: string; a
     const r = existsSync(f) ? (JSON.parse(readFileSync(f, 'utf8')) as ExtractionResult) : null;
     const v = verification.get(key);
     const pages = r?.source?.pageCount ?? 0;
+    // Blocked papers store only the rows the extractor read with confidence (see import-missing.ts).
+    if (r && r.status !== 'EXTRACTED') {
+      const keep = new Set<string>();
+      for (const n of r.nodes) if (!n.flags.some((f) => f.startsWith('ocr_low_confidence')) && (n.parentRef === null || keep.has(n.parentRef))) keep.add(n.ref);
+      r.nodes = r.nodes.filter((n) => keep.has(n.ref));
+    }
     if (stored.length && r) {
       const machineRows = stored.filter((s) => !s.person);
       changedByPeople += stored.length - machineRows.length;

@@ -118,3 +118,92 @@ export async function machineCorrection(db: D1Database, id: string, input: z.inf
   ]);
   return { id, changed: true };
 }
+
+// ---------------------------------------------------------------- additive imports of already-processed data
+
+export const pageTextsSchema = z.object({
+  sha256: z.string().regex(/^[0-9a-f]{64}$/),
+  pages: z
+    .array(z.object({ page: z.number().int().min(1), method: z.enum(['pdfjs', 'pdftotext', 'ocr']), text: z.string().max(200_000), meanConfidence: z.number().min(0).max(100).nullable() }))
+    .min(1)
+    .max(1000),
+});
+
+/** Inserts page texts that are not stored yet. Existing rows are never changed. */
+export async function storePageTexts(db: D1Database, input: z.infer<typeof pageTextsSchema>) {
+  const doc = await db.prepare('SELECT id, page_count FROM source_documents WHERE sha256 = ?').bind(input.sha256).first<{ id: string; page_count: number | null }>();
+  if (!doc) throw notFound('Source document with this SHA-256');
+  if (doc.page_count && input.pages.some((p) => p.page > doc.page_count!)) throw invalid(`The document has ${doc.page_count} pages`);
+  const now = nowIso();
+  const res = await db.batch(
+    input.pages.map((p) =>
+      db
+        .prepare('INSERT INTO source_page_texts (id, source_document_id, page, method, text, mean_confidence, created_at) VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT (source_document_id, page, method) DO NOTHING')
+        .bind(newId('ptx'), doc.id, p.page, p.method, p.text, p.meanConfidence, now),
+    ),
+  );
+  const inserted = res.reduce((t, r) => t + (r.meta.changes ?? 0), 0);
+  return { inserted, alreadyStored: input.pages.length - inserted };
+}
+
+export const sourceIssueSchema = z.object({
+  exam: z.enum(['CUET_UG', 'CUET_PG']),
+  code: z.string().min(1).max(20),
+  issue: z.string().min(10).max(4000),
+  evidence: z.string().max(4000).nullable(),
+  key: z.string().regex(/^[a-z0-9:_-]{3,120}$/),
+});
+
+/** Records a problem found in an official document itself (not an extraction error). Insert-only, idempotent by key. */
+export async function storeSourceIssue(db: D1Database, input: z.infer<typeof sourceIssueSchema>, actor: string) {
+  const doc = await db
+    .prepare(
+      `SELECT d.id FROM source_documents d JOIN syllabus_versions v ON v.source_document_id = d.id JOIN test_papers p ON p.id = v.test_paper_id
+       JOIN exam_cycles c ON c.id = p.exam_cycle_id JOIN exams e ON e.id = c.exam_id WHERE e.code = ? AND p.code = ? LIMIT 1`,
+    )
+    .bind(input.exam, input.code)
+    .first<{ id: string }>();
+  if (!doc) throw notFound(`Source document of ${input.exam} ${input.code}`);
+  const res = await db
+    .prepare('INSERT OR IGNORE INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)')
+    .bind(`aud_srcissue_${input.key}`, actor, 'SOURCE_DOCUMENT_ISSUE', 'SOURCE_DOCUMENT', doc.id, JSON.stringify({ exam: input.exam, code: input.code, issue: input.issue, evidence: input.evidence }), nowIso())
+    .run();
+  return { sourceDocumentId: doc.id, inserted: (res.meta.changes ?? 0) > 0 };
+}
+
+export const sourceFigureSchema = z.object({
+  documentSha256: z.string().regex(/^[0-9a-f]{64}$/),
+  page: z.number().int().min(1),
+  nodeId: z.string().max(100).nullable(),
+  r2Key: z.string().regex(/^media\/[0-9a-f]{64}\.(png|jpg|webp)$/),
+  sha256: z.string().regex(/^[0-9a-f]{64}$/),
+  mimeType: z.enum(['image/png', 'image/jpeg', 'image/webp']),
+  byteSize: z.number().int().positive(),
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
+  altText: z.string().min(10).max(1000),
+  caption: z.string().max(1000).nullable(),
+});
+
+/** A figure cut out of an official PDF page, stored with its document, page and syllabus row. Insert-only by sha256. */
+export async function storeSourceFigure(db: D1Database, bucket: R2Bucket, input: z.infer<typeof sourceFigureSchema>, actor: string) {
+  if (!(await bucket.head(input.r2Key))) throw invalid('Upload the image first (PUT /api/admin/files/media)');
+  const doc = await db.prepare('SELECT id, page_count FROM source_documents WHERE sha256 = ?').bind(input.documentSha256).first<{ id: string; page_count: number | null }>();
+  if (!doc) throw notFound('Source document');
+  if (doc.page_count && input.page > doc.page_count) throw invalid(`The document has ${doc.page_count} pages`);
+  if (input.nodeId && !(await db.prepare('SELECT 1 FROM curriculum_nodes WHERE id = ?').bind(input.nodeId).first())) throw invalid('Syllabus row not found');
+  const now = nowIso();
+  const id = newId('med');
+  const res = await db
+    .prepare(
+      `INSERT OR IGNORE INTO media_assets (id, kind, r2_key, external_url, mime_type, byte_size, sha256, width, height, duration_seconds, alt_text, caption, long_description,
+         language, attribution, usage_permission_id, source_document_id, source_page, curriculum_node_id, origin, external_key, status, verification, created_at, updated_at)
+       VALUES (?, 'IMAGE', ?, NULL, ?, ?, ?, ?, ?, NULL, ?, ?, NULL, 'und', 'National Testing Agency (NTA), official syllabus PDF', 'perm_nta_reference', ?, ?, ?, 'OFFICIAL_SOURCE', ?, 'DRAFT', 'UNVERIFIED', ?, ?)`,
+    )
+    .bind(id, input.r2Key, input.mimeType, input.byteSize, input.sha256, input.width, input.height, input.altText, input.caption, doc.id, input.page, input.nodeId, `source-figure:${input.sha256}`, now, now)
+    .run();
+  if (res.meta.changes) {
+    await db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, 'SOURCE_FIGURE_STORED', 'MEDIA_ASSET', id, now).run();
+  }
+  return { inserted: (res.meta.changes ?? 0) > 0 };
+}

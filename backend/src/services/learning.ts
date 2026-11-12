@@ -5,7 +5,7 @@
  */
 import { notFound } from '../lib/errors';
 
-export const VISIBLE_SYLLABUS = (alias: string) => `${alias}.verification IN ('MACHINE_VERIFIED','VERIFIED') AND (${alias}.status = 'PUBLISHED' OR ?1 = 1)`;
+export const VISIBLE_SYLLABUS = (alias: string) => `${alias}.verification IN ('MACHINE_VERIFIED','VERIFIED') AND ${alias}.status != 'ARCHIVED' AND (${alias}.status = 'PUBLISHED' OR ?1 = 1)`;
 export const VISIBLE_CONTENT = (alias: string) =>
   `${alias}.is_demonstration = 0 AND ${alias}.verification NOT IN ('REJECTED','NEEDS_CHANGES') AND (${alias}.status = 'PUBLISHED' OR (?1 = 1 AND ${alias}.status != 'ARCHIVED'))`;
 

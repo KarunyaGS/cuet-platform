@@ -12,7 +12,10 @@ import {
 import { jobReportSchema, paperRegistrySchema, registerPapers, reportJob } from '../services/registry';
 import { createResource, deleteResource, getResource, listResources, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
-import { machineCorrection, machineCorrectionSchema, pageChecksSchema, roleSchema, setRole, storePageChecks } from '../services/maintenance';
+import {
+  machineCorrection, machineCorrectionSchema, pageChecksSchema, pageTextsSchema, roleSchema, setRole, sourceFigureSchema, sourceIssueSchema, storePageChecks, storePageTexts,
+  storeSourceFigure, storeSourceIssue,
+} from '../services/maintenance';
 import { upsertMedia, upsertQuestion, upsertResource } from '../services/content-packs';
 import { storeObject } from '../services/storage';
 
@@ -82,6 +85,9 @@ admin.get('/coverage/papers/:id/topics', async (c) => c.json(await topicCoverage
 // Accounts, page checks and machine corrections (ingestion CLI)
 admin.post('/users/roles', async (c) => c.json(await setRole(c.env.DB, await readJson(c, roleSchema), c.get('actor'))));
 admin.put('/page-checks', async (c) => c.json(await storePageChecks(c.env.DB, await readJson(c, pageChecksSchema))));
+admin.put('/page-texts', async (c) => c.json(await storePageTexts(c.env.DB, await readJson(c, pageTextsSchema))));
+admin.put('/source-issues', async (c) => c.json(await storeSourceIssue(c.env.DB, await readJson(c, sourceIssueSchema), c.get('actor'))));
+admin.put('/source-figures', async (c) => c.json(await storeSourceFigure(c.env.DB, c.env.MEDIA, await readJson(c, sourceFigureSchema), c.get('actor'))));
 admin.post('/nodes/:id/machine-correction', async (c) =>
   c.json(await machineCorrection(c.env.DB, c.req.param('id'), await readJson(c, machineCorrectionSchema), c.get('actor'))),
 );
