@@ -1,18 +1,30 @@
+import { CircleCheck } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router';
 import { api } from '../api';
-import { Button, ErrorBox, Loading, PageHeader, useAuth, useLoad } from '../ui';
+import { Button, ErrorBox, inputClass, Loading, PageHeader, useAuth, useLoad } from '../ui';
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+/** A settings group: title and short description on the left, the form on the right (stacked on phones). */
+function Section({ title, description, children }: { title: string; description: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-lg border border-zinc-200 bg-white p-4">
-      <h2 className="mb-3 text-sm font-semibold">{title}</h2>
-      {children}
+    <section className="grid grid-cols-1 gap-4 border-t border-rule py-8 first:border-t-0 first:pt-0 md:grid-cols-[15rem_minmax(0,1fr)] md:gap-10">
+      <div>
+        <h2 className="text-base font-semibold text-ink">{title}</h2>
+        <p className="mt-1 text-sm text-ink-2">{description}</p>
+      </div>
+      <div className="rounded-xl border border-rule bg-surface p-5">{children}</div>
     </section>
   );
 }
-const input = 'w-full rounded-md border border-zinc-300 px-2.5 py-1.5 text-sm focus:border-[var(--color-accent)] focus:outline-none';
-const Saved = ({ show, children = 'Saved' }: { show: boolean; children?: React.ReactNode }) => (show ? <span className="text-sm text-emerald-700">{children}</span> : null);
+const input = inputClass;
+const label = 'mb-1.5 block text-sm font-medium text-ink';
+const Saved = ({ show, children = 'Saved' }: { show: boolean; children?: React.ReactNode }) =>
+  show ? (
+    <span className="inline-flex items-center gap-1.5 text-sm text-correct" role="status">
+      <CircleCheck aria-hidden className="size-4" />
+      {children}
+    </span>
+  ) : null;
 
 /** Account details, name, password and daily goals. */
 export function ProfilePage() {
@@ -49,12 +61,12 @@ export function ProfilePage() {
   const pwMismatch = pw.confirm.length > 0 && pw.newPassword !== pw.confirm;
 
   return (
-    <div className="max-w-2xl">
-      <PageHeader title="My profile" subtitle={`Member since ${new Date(d.memberSince).toLocaleDateString()} · ${d.testsTaken} tests and practice sets submitted`} />
-      <div className="space-y-4">
-        <Section title="Account">
+    <div className="max-w-4xl">
+      <PageHeader title="Profile and goals" subtitle={`Member since ${new Date(d.memberSince).toLocaleDateString(undefined, { dateStyle: 'long' })}. ${d.testsTaken} tests and practice sets submitted, ${d.bookmarks} bookmarks.`} />
+      <div>
+        <Section title="Account" description="Your name appears on your Today page and in the menu.">
           <form
-            className="space-y-3"
+            className="space-y-4"
             onSubmit={(e) => {
               e.preventDefault();
               void run('name', async () => {
@@ -65,11 +77,11 @@ export function ProfilePage() {
             }}
           >
             <div>
-              <div className="mb-1 text-xs font-medium text-zinc-600">Email</div>
-              <div className="text-sm">{d.email}</div>
+              <div className={label}>Email</div>
+              <div className="text-[15px] text-ink-2">{d.email}</div>
             </div>
             <label className="block">
-              <span className="mb-1 block text-xs font-medium text-zinc-600">Name</span>
+              <span className={label}>Name</span>
               <input className={input} value={name} onChange={(e) => setName(e.target.value)} maxLength={80} required />
             </label>
             <div className="flex items-center gap-3">
@@ -82,9 +94,9 @@ export function ProfilePage() {
           </form>
         </Section>
 
-        <Section title="Daily goals">
+        <Section title="Daily goals" description="Targets for the meters on your Today page. Set what you can keep up every day.">
           <form
-            className="space-y-3"
+            className="space-y-4"
             onSubmit={(e) => {
               e.preventDefault();
               void run('goal', () => api.setGoals(goal));
@@ -92,11 +104,11 @@ export function ProfilePage() {
           >
             <div className="grid grid-cols-2 gap-3">
               <label className="block">
-                <span className="mb-1 block text-xs font-medium text-zinc-600">Questions per day</span>
+                <span className={label}>Questions per day</span>
                 <input className={input} type="number" min={0} max={500} value={goal.questionsPerDay} onChange={(e) => setGoal({ ...goal, questionsPerDay: Number(e.target.value) })} />
               </label>
               <label className="block">
-                <span className="mb-1 block text-xs font-medium text-zinc-600">Lessons per day</span>
+                <span className={label}>Lessons per day</span>
                 <input className={input} type="number" min={0} max={50} value={goal.lessonsPerDay} onChange={(e) => setGoal({ ...goal, lessonsPerDay: Number(e.target.value) })} />
               </label>
             </div>
@@ -108,9 +120,9 @@ export function ProfilePage() {
           </form>
         </Section>
 
-        <Section title="Change password">
+        <Section title="Password" description="Changing your password signs you out on every other device.">
           <form
-            className="space-y-3"
+            className="space-y-4"
             onSubmit={(e) => {
               e.preventDefault();
               if (pwMismatch) return;
@@ -121,17 +133,18 @@ export function ProfilePage() {
             }}
           >
             <label className="block">
-              <span className="mb-1 block text-xs font-medium text-zinc-600">Current password</span>
+              <span className={label}>Current password</span>
               <input className={input} type="password" autoComplete="current-password" value={pw.currentPassword} onChange={(e) => setPw({ ...pw, currentPassword: e.target.value })} required />
             </label>
             <label className="block">
-              <span className="mb-1 block text-xs font-medium text-zinc-600">New password (at least 10 characters)</span>
+              <span className={label}>New password</span>
               <input className={input} type="password" autoComplete="new-password" minLength={10} value={pw.newPassword} onChange={(e) => setPw({ ...pw, newPassword: e.target.value })} required />
+              <span className="mt-1.5 block text-xs text-ink-3">At least 10 characters.</span>
             </label>
             <label className="block">
-              <span className="mb-1 block text-xs font-medium text-zinc-600">Repeat new password</span>
+              <span className={label}>Repeat new password</span>
               <input className={input} type="password" autoComplete="new-password" value={pw.confirm} onChange={(e) => setPw({ ...pw, confirm: e.target.value })} required />
-              {pwMismatch && <span className="mt-1 block text-xs text-red-700">The two new passwords do not match.</span>}
+              {pwMismatch && <span className="mt-1.5 block text-xs text-wrong">The two new passwords do not match.</span>}
             </label>
             <div className="flex items-center gap-3">
               <Button type="submit" disabled={pwMismatch || pw.newPassword.length < 10 || !pw.currentPassword}>

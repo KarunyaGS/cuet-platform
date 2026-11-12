@@ -1,3 +1,4 @@
+import { ChevronRight, FileText, ListChecks, Timer } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api, type OutlineNode } from '../api';
@@ -41,75 +42,85 @@ export function SubjectPage() {
   if (outline.loading) return <Loading />;
   if (outline.error) return <ErrorBox error={outline.error} onRetry={outline.reload} />;
   const p = outline.data!.paper;
+  const examName = exam === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG';
+  const unitQuestions = active ? countQuestions(active.id) + active.questions : 0;
   return (
     <div>
       <PageHeader
+        back={{ to: `/${exam}`, label: `${examName} subjects` }}
         title={
-          <span className="flex items-center gap-2">
-            {String(p.name)} <span className="font-mono text-sm font-normal text-zinc-500">{String(p.code)}</span>
+          <span className="flex flex-wrap items-baseline gap-x-3">
+            {String(p.name)} <span className="num text-base font-normal text-ink-3">{String(p.code)}</span>
           </span>
         }
         subtitle={
-          <span>
-            <Link to={`/${exam}`} className="hover:underline">
-              {exam === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG'}
-            </Link>{' '}
-            · Official syllabus:{' '}
-            {p.source_url ? (
-              <a href={String(p.source_url)} target="_blank" rel="noreferrer" className="text-[var(--color-accent)] hover:underline">
-                NTA PDF ({String(p.page_count)} pages)
-              </a>
-            ) : (
-              'not yet available'
-            )}
-          </span>
+          p.source_url ? (
+            <a href={String(p.source_url)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-accent hover:underline">
+              <FileText aria-hidden className="size-4" />
+              Official NTA syllabus PDF, {String(p.page_count)} pages
+            </a>
+          ) : (
+            'The official syllabus PDF is not yet available.'
+          )
         }
         actions={
-          <Button onClick={() => startMock()} disabled={busy || !p.version_id}>
-            {busy ? 'Starting…' : `Mock test · ${String(p.question_count ?? '')} Q / ${String(p.duration_minutes ?? '')} min`}
+          <Button onClick={() => startMock()} disabled={busy || !p.version_id} icon={<Timer aria-hidden />}>
+            {busy ? 'Starting…' : `Full mock test, ${String(p.question_count ?? '')} questions in ${String(p.duration_minutes ?? '')} min`}
           </Button>
         }
       />
       {err && <ErrorBox error={err} />}
       {roots.length === 0 ? (
-        <Empty>The syllabus for this paper is still being verified.</Empty>
+        <Empty>The syllabus for this paper is still being checked. Please come back soon.</Empty>
       ) : (
-        <div className="grid gap-4 md:grid-cols-[16rem_1fr]">
-          <nav aria-label="Units" className="md:sticky md:top-16 md:self-start">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-[17rem_minmax(0,1fr)]">
+          <nav aria-label="Units" className="md:sticky md:top-20 md:self-start">
+            <h2 className="mb-2 px-3 text-sm font-medium text-ink-2">Units</h2>
             <ul className="space-y-0.5">
-              {roots.map((r) => (
-                <li key={r.id}>
-                  <button
-                    onClick={() => setUnitId(r.id)}
-                    className={`w-full rounded-md px-2.5 py-1.5 text-left text-sm ${r.id === activeId ? 'bg-zinc-900 text-white' : 'hover:bg-zinc-100'}`}
-                  >
-                    <span className={`block text-[11px] ${r.id === activeId ? 'text-zinc-300' : 'text-zinc-500'}`}>{kindLabel(r.kind, r.label)}</span>
-                    <span className="line-clamp-2">{r.title}</span>
-                  </button>
-                </li>
-              ))}
+              {roots.map((r) => {
+                const on = r.id === activeId;
+                return (
+                  <li key={r.id}>
+                    <button
+                      onClick={() => setUnitId(r.id)}
+                      aria-current={on ? 'true' : undefined}
+                      className={`w-full rounded-lg border-l-2 px-3 py-2 text-left text-sm transition-colors ${on ? 'border-accent bg-accent-soft text-ink' : 'border-transparent text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
+                    >
+                      {kindLabel(r.kind, r.label) && <span className={`block text-xs ${on ? 'text-accent' : 'text-ink-3'}`}>{kindLabel(r.kind, r.label)}</span>}
+                      <span className={`line-clamp-2 ${on ? 'font-medium' : ''}`}>{r.title}</span>
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
-          <section className="min-w-0 rounded-lg border border-zinc-200 bg-white">
+          <section className="min-w-0 overflow-hidden rounded-xl border border-rule bg-surface" aria-label="Topics in this unit">
             {active && (
-              <div className="flex items-center justify-between gap-2 border-b border-zinc-100 px-3 py-2">
-                <Link to={`/topic/${active.id}`} className="min-w-0 truncate font-medium hover:underline">
-                  {kindLabel(active.kind, active.label)} · {active.title}
-                </Link>
-                <span className="flex shrink-0 items-center gap-2">
-                  <span className="num text-xs text-zinc-500">
-                    p. {active.source_page} · {countQuestions(active.id) + active.questions} questions
-                  </span>
-                  {countQuestions(active.id) + active.questions > 0 && (
-                    <Button kind="secondary" onClick={() => startMock(active.id)} disabled={busy}>
+              <div className="flex flex-wrap items-start justify-between gap-3 border-b border-rule px-5 py-4">
+                <div className="min-w-0">
+                  {kindLabel(active.kind, active.label) && <div className="text-sm text-ink-3">{kindLabel(active.kind, active.label)}</div>}
+                  <Link to={`/topic/${active.id}`} className="text-lg font-semibold text-ink hover:text-accent">
+                    {active.title}
+                  </Link>
+                  <div className="num mt-1 text-sm text-ink-3">
+                    Syllabus page {active.source_page}, {unitQuestions} {unitQuestions === 1 ? 'question' : 'questions'}
+                  </div>
+                </div>
+                <div className="flex shrink-0 gap-2">
+                  <Link to={`/revise/${active.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-medium text-ink-2 hover:bg-ink/5 hover:text-ink">
+                    <ListChecks aria-hidden className="size-4" />
+                    Revise
+                  </Link>
+                  {unitQuestions > 0 && (
+                    <Button kind="secondary" size="sm" onClick={() => startMock(active.id)} disabled={busy} icon={<Timer aria-hidden />}>
                       Unit test
                     </Button>
                   )}
-                </span>
+                </div>
               </div>
             )}
             <Tree nodes={childrenOf.get(activeId) ?? []} childrenOf={childrenOf} />
-            {(childrenOf.get(activeId) ?? []).length === 0 && <p className="px-3 py-3 text-sm text-zinc-500">This unit has no listed subtopics in the official syllabus.</p>}
+            {(childrenOf.get(activeId) ?? []).length === 0 && <p className="px-5 py-4 text-sm text-ink-3">This unit has no listed subtopics in the official syllabus.</p>}
           </section>
         </div>
       )}
@@ -120,19 +131,19 @@ export function SubjectPage() {
 function Tree({ nodes, childrenOf, depth = 0 }: { nodes: OutlineNode[]; childrenOf: Map<string | null, OutlineNode[]>; depth?: number }) {
   if (!nodes.length) return null;
   return (
-    <ul className={depth ? 'ml-4 border-l border-zinc-100' : 'divide-y divide-zinc-50'}>
+    <ul className={depth ? 'ml-6 border-l border-rule' : 'divide-y divide-rule'}>
       {nodes.map((n) => (
         <li key={n.id}>
-          <Link to={`/topic/${n.id}`} className="flex items-start gap-2 px-3 py-1.5 text-sm hover:bg-zinc-50">
-            <span className="mt-0.5 w-12 shrink-0 text-[11px] text-zinc-400">{kindLabel(n.kind, n.label) || '•'}</span>
-            <span className="min-w-0 flex-1">{n.title}</span>
+          <Link to={`/topic/${n.id}`} className="group flex items-start gap-3 px-5 py-2.5 text-sm transition-colors hover:bg-paper">
+            {kindLabel(n.kind, n.label) ? <span className="mt-px w-14 shrink-0 text-xs text-ink-3">{kindLabel(n.kind, n.label)}</span> : null}
+            <span className="min-w-0 flex-1 text-ink group-hover:text-accent">{n.title}</span>
             {(n.resources > 0 || n.questions > 0) && (
-              <span className="num shrink-0 text-[11px] text-zinc-500">
-                {n.resources ? `${n.resources} notes` : ''}
-                {n.resources && n.questions ? ' · ' : ''}
-                {n.questions ? `${n.questions} Q` : ''}
+              <span className="num flex shrink-0 gap-2 text-xs text-ink-3">
+                {n.resources > 0 && <span className="rounded-md bg-accent-soft px-1.5 py-0.5 text-accent">{n.resources === 1 ? 'Lesson' : `${n.resources} lessons`}</span>}
+                {n.questions > 0 && <span className="rounded-md bg-paper px-1.5 py-0.5 ring-1 ring-rule">{n.questions} Q</span>}
               </span>
             )}
+            <ChevronRight aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-3 opacity-0 transition-opacity group-hover:opacity-100" />
           </Link>
           <Tree nodes={childrenOf.get(n.id) ?? []} childrenOf={childrenOf} depth={depth + 1} />
         </li>

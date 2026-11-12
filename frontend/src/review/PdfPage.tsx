@@ -49,10 +49,10 @@ export function PdfPage({ url, page, zoom, onPageCount }: { url: string; page: n
     };
   }, [url, page, zoom, onPageCount]);
   return (
-    <div ref={box} className="relative overflow-auto rounded-md border border-zinc-200 bg-zinc-100">
-      {busy && <div className="absolute inset-x-0 top-2 text-center text-xs text-zinc-500">Rendering page {page}…</div>}
-      {error && <div className="p-3 text-sm text-red-700">Could not render the PDF: {error}</div>}
-      <canvas ref={canvas} className="mx-auto block bg-white shadow-sm" aria-label={`Original PDF, page ${page}`} />
+    <div ref={box} className="relative overflow-auto rounded-md border border-rule bg-ink/5">
+      {busy && <div className="absolute inset-x-0 top-2 text-center text-xs text-ink-3">Rendering page {page}…</div>}
+      {error && <div className="p-3 text-sm text-wrong">Could not render the PDF: {error}</div>}
+      <canvas ref={canvas} className="mx-auto block bg-surface shadow-sm" aria-label={`Original PDF, page ${page}`} />
     </div>
   );
 }

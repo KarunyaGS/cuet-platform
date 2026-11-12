@@ -1,84 +1,196 @@
-import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router';
-import { api } from './api';
+import { Bookmark, CalendarCheck2, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { useAuth } from './ui';
 
-const nav = ({ isActive }: { isActive: boolean }) =>
-  `rounded-md px-2.5 py-1 text-sm font-medium ${isActive ? 'bg-zinc-900 text-white' : 'text-zinc-600 hover:bg-zinc-100'}`;
+const REVIEW_ROLES = ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'];
 
-export function Layout() {
-  const { user, refresh } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
+export function Logo() {
   return (
-    <div className="min-h-dvh">
-      <header className="sticky top-0 z-20 border-b border-zinc-200 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex h-12 max-w-6xl items-center gap-3 px-4">
-          <Link to="/" className="flex items-center gap-1.5 font-semibold tracking-tight">
-            <span className="grid size-6 place-items-center rounded bg-[var(--color-accent)] text-[11px] font-bold text-white">CU</span>
-            CUET Prep
-          </Link>
-          <nav className="ml-2 flex min-w-0 items-center gap-1 overflow-x-auto" aria-label="Main">
-            <NavLink to="/CUET_UG" className={nav}>
-              UG
-            </NavLink>
-            <NavLink to="/CUET_PG" className={nav}>
-              PG
-            </NavLink>
-            {user && (
-              <>
-                <NavLink to="/dashboard" className={nav}>
-                  Today
-                </NavLink>
-                <NavLink to="/planner" className={nav}>
-                  Planner
-                </NavLink>
-                <NavLink to="/bookmarks" className={`${nav({ isActive: location.pathname === '/bookmarks' })} hidden sm:inline`}>
-                  Bookmarks
-                </NavLink>
-              </>
-            )}
-            <NavLink to="/progress" className={(a) => `${nav(a)} hidden sm:inline`}>
-              Progress
-            </NavLink>
-            {user?.roles.some((r) => ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'].includes(r)) && (
-              <NavLink to="/review" className={nav}>
-                Review
-              </NavLink>
-            )}
-          </nav>
-          <div className="ml-auto flex items-center gap-2 text-sm">
-            {user ? (
-              <>
-                <Link to="/profile" className="hidden rounded-md px-2 py-1 text-zinc-600 hover:bg-zinc-100 sm:inline" title="My profile">
-                  {user.displayName}
-                </Link>
-                <button
-                  className="rounded-md px-2 py-1 text-zinc-600 hover:bg-zinc-100"
-                  onClick={async () => {
-                    await api.logout();
-                    await refresh();
-                    navigate('/');
-                  }}
-                >
-                  Sign out
-                </button>
-              </>
-            ) : (
-              <>
-                <Link to="/signin" className="rounded-md px-2 py-1 text-zinc-600 hover:bg-zinc-100">
-                  Sign in
-                </Link>
-                <Link to="/signup" className="rounded-md bg-zinc-900 px-2.5 py-1 font-medium text-white">
-                  Sign up
-                </Link>
-              </>
+    <span className="flex items-center gap-2 text-[15px] font-semibold text-ink">
+      <span aria-hidden className="grid size-7 place-items-center rounded-lg bg-accent text-[11px] font-bold tracking-wide text-white">
+        CU
+      </span>
+      CUET Prep
+    </span>
+  );
+}
+
+/** Top-bar link: quiet text, with a short accent rule under the current page. */
+function TopLink({ to, children, end }: { to: string; children: ReactNode; end?: boolean }) {
+  return (
+    <NavLink
+      to={to}
+      end={end}
+      className={({ isActive }) =>
+        `relative flex h-14 items-center px-3 text-sm font-medium transition-colors ${
+          isActive ? 'text-ink after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:bg-accent' : 'text-ink-2 hover:text-ink'
+        }`
+      }
+    >
+      {children}
+    </NavLink>
+  );
+}
+
+/** Phone tab bar item. */
+function TabLink({ to, icon, label, end }: { to: string; icon: ReactNode; label: string; end?: boolean }) {
+  return (
+    <NavLink
+      to={to}
+      end={end}
+      className={({ isActive }) => `flex flex-1 flex-col items-center gap-0.5 pt-2 pb-1.5 text-[11px] font-medium ${isActive ? 'text-accent' : 'text-ink-3'}`}
+    >
+      <span aria-hidden className="[&>svg]:size-5">
+        {icon}
+      </span>
+      {label}
+    </NavLink>
+  );
+}
+
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]!.toUpperCase())
+    .join('') || '?';
+
+function UserMenu() {
+  const { user, signOut } = useAuth();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  useEffect(() => setOpen(false), [location.pathname]);
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+  if (!user) return null;
+  const reviewer = user.roles.some((r) => REVIEW_ROLES.includes(r));
+  const item = 'flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-ink hover:bg-paper [&>svg]:size-4 [&>svg]:text-ink-3';
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        className="flex items-center gap-2 rounded-full py-1 pr-1 pl-1 text-sm text-ink-2 transition-colors hover:bg-ink/5 lg:pr-3"
+      >
+        <span aria-hidden className="grid size-8 place-items-center rounded-full bg-accent-soft text-xs font-semibold text-accent">
+          {initials(user.displayName)}
+        </span>
+        <span className="hidden max-w-[10rem] truncate font-medium text-ink lg:inline">{user.displayName}</span>
+        <span className="sr-only">Account menu</span>
+      </button>
+      {open && (
+        <div role="menu" className="absolute right-0 z-40 mt-2 w-64 rounded-xl border border-rule bg-surface p-1.5 shadow-lg shadow-ink/5">
+          <div className="px-2.5 pt-1.5 pb-2.5">
+            <div className="truncate text-sm font-semibold text-ink">{user.displayName}</div>
+            <div className="truncate text-xs text-ink-3">{user.email}</div>
+          </div>
+          <div className="border-t border-rule pt-1.5">
+            <Link role="menuitem" to="/profile" className={item}>
+              <UserRound aria-hidden />
+              Profile and goals
+            </Link>
+            <Link role="menuitem" to="/bookmarks" className={item}>
+              <Bookmark aria-hidden />
+              Bookmarks
+            </Link>
+            {reviewer && (
+              <Link role="menuitem" to="/review" className={item}>
+                <ClipboardCheck aria-hidden />
+                Syllabus review
+              </Link>
             )}
           </div>
+          <div className="mt-1.5 border-t border-rule pt-1.5">
+            <button role="menuitem" onClick={() => void signOut()} className={item}>
+              <LogOut aria-hidden />
+              Sign out
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function Layout() {
+  const location = useLocation();
+  const path = location.pathname;
+  // Tests run in focus mode: no app navigation, only the way out.
+  const focus = path.startsWith('/practice/');
+  const wide = path.startsWith('/review');
+
+  return (
+    <div className="min-h-dvh">
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2 focus:text-sm">
+        Skip to content
+      </a>
+      <header className="sticky top-0 z-30 border-b border-rule bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
+        <div className={`mx-auto flex h-14 items-center gap-2 px-4 sm:px-6 ${wide ? 'max-w-[96rem]' : 'max-w-6xl'}`}>
+          {focus ? (
+            <>
+              <Logo />
+              <Link to="/dashboard" className="ml-auto inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm text-ink-2 hover:bg-ink/5 hover:text-ink" title="Your answers are saved. Resume this test from the Today page.">
+                <X aria-hidden className="size-4" />
+                Leave test
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/" className="mr-4 rounded-lg" aria-label="CUET Prep home">
+                <Logo />
+              </Link>
+              <nav className="hidden items-center md:flex" aria-label="Main">
+                <TopLink to="/" end>
+                  Home
+                </TopLink>
+                <TopLink to="/dashboard">Today</TopLink>
+                <TopLink to="/CUET_UG">CUET-UG</TopLink>
+                <TopLink to="/CUET_PG">CUET-PG</TopLink>
+                <TopLink to="/planner">Planner</TopLink>
+                <TopLink to="/progress">Progress</TopLink>
+              </nav>
+              <div className="ml-auto flex items-center gap-1">
+                <NavLink
+                  to="/bookmarks"
+                  title="Bookmarks"
+                  className={({ isActive }) => `hidden size-9 place-items-center rounded-full transition-colors md:grid ${isActive ? 'bg-accent-soft text-accent' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
+                >
+                  <Bookmark aria-hidden className="size-[18px]" />
+                  <span className="sr-only">Bookmarks</span>
+                </NavLink>
+                <UserMenu />
+              </div>
+            </>
+          )}
         </div>
       </header>
-      <main className={`mx-auto px-4 py-5 ${location.pathname.startsWith('/review') ? 'max-w-[96rem]' : 'max-w-6xl'}`}>
+
+      <main id="main" key={path} className={`page-in mx-auto px-4 pt-6 pb-28 sm:px-6 md:pb-12 ${wide ? 'max-w-[96rem]' : 'max-w-6xl'}`}>
         <Outlet />
       </main>
+
+      {!focus && (
+        <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-30 flex border-t border-rule bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
+          <TabLink to="/" end icon={<House />} label="Home" />
+          <TabLink to="/dashboard" icon={<CalendarCheck2 />} label="Today" />
+          <TabLink to="/planner" icon={<CalendarDays />} label="Planner" />
+          <TabLink to="/bookmarks" icon={<Bookmark />} label="Saved" />
+          <TabLink to="/progress" icon={<ChartNoAxesColumn />} label="Progress" />
+        </nav>
+      )}
     </div>
   );
 }

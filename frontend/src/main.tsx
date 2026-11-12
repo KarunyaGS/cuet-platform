@@ -17,7 +17,15 @@ import { RevisePage } from './pages/Revise';
 import { SubjectPage } from './pages/Subject';
 import { Subjects } from './pages/Subjects';
 import { TopicPage } from './pages/Topic';
-import { AuthProvider, Loading } from './ui';
+import { AuthProvider, GuestOnly, Loading, RequireAuth } from './ui';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/ibm-plex-sans-devanagari/400.css';
+import '@fontsource/ibm-plex-sans-devanagari/600.css';
+import '@fontsource/ibm-plex-serif/400.css';
+import '@fontsource/ibm-plex-serif/400-italic.css';
+import '@fontsource/ibm-plex-serif/600.css';
 import 'katex/dist/katex.min.css';
 import './styles.css';
 
@@ -27,12 +35,18 @@ const ReviewWorkspace = lazy(() => import('./review/Workspace').then((m) => ({ d
 const lazyPage = (el: React.ReactNode) => <Suspense fallback={<Loading />}>{el}</Suspense>;
 
 const router = createBrowserRouter([
+  // Visitors see the welcome / sign-in page first; signed-in students are sent on to the app.
+  { path: '/signin', element: <GuestOnly><AuthPage mode="signin" /></GuestOnly> },
+  { path: '/signup', element: <GuestOnly><AuthPage mode="signup" /></GuestOnly> },
+  // Everything else is for signed-in students only.
   {
-    element: <Layout />,
+    element: (
+      <RequireAuth>
+        <Layout />
+      </RequireAuth>
+    ),
     children: [
       { path: '/', element: <Home /> },
-      { path: '/signin', element: <AuthPage mode="signin" /> },
-      { path: '/signup', element: <AuthPage mode="signup" /> },
       { path: '/dashboard', element: <DashboardPage /> },
       { path: '/planner', element: <PlannerPage /> },
       { path: '/bookmarks', element: <BookmarksPage /> },

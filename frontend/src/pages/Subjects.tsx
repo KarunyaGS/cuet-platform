@@ -1,52 +1,67 @@
+import { ChevronRight, SearchX } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { api, type ExamCode, type Subject } from '../api';
-import { Badge, Empty, ErrorBox, Loading, PageHeader, useLoad } from '../ui';
+import { Badge, Empty, ErrorBox, Loading, PageHeader, SearchInput, Segmented, useLoad } from '../ui';
 
 const YEAR = 2026;
 
+/** All official papers of one exam, grouped by category, with the ones that can be opened first-class. */
 export function Subjects() {
   const exam = (useParams().exam ?? 'CUET_UG') as ExamCode;
   const subjects = useLoad(() => api.subjects(exam, YEAR), [exam]);
   const [q, setQ] = useState('');
+  const [show, setShow] = useState<'all' | 'ready'>('all');
   const groups = useMemo(() => {
-    const list = (subjects.data ?? []).filter((s) => !q || `${s.name} ${s.code}`.toLowerCase().includes(q.toLowerCase()));
+    const list = (subjects.data ?? [])
+      .filter((s) => show === 'all' || s.available)
+      .filter((s) => !q || `${s.name} ${s.code}`.toLowerCase().includes(q.toLowerCase()));
     const m = new Map<string, Subject[]>();
     for (const s of list) m.set(s.category.name ?? 'Other', [...(m.get(s.category.name ?? 'Other') ?? []), s]);
     return [...m];
-  }, [subjects.data, q]);
+  }, [subjects.data, q, show]);
   const ready = subjects.data?.filter((s) => s.available).length ?? 0;
+  const name = exam === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG';
   return (
     <div>
       <PageHeader
-        title={`${exam === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG'} ${YEAR} subjects`}
-        subtitle={subjects.data ? `${subjects.data.length} official papers · ${ready} with a verified syllabus available` : undefined}
-        actions={
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search subjects or codes"
-            aria-label="Search subjects"
-            className="w-56 rounded-md border border-zinc-300 bg-white px-2.5 py-1.5 text-sm"
-          />
-        }
+        title={`${name} ${YEAR} subjects`}
+        subtitle={subjects.data ? `${subjects.data.length} official papers. ${ready} have a checked syllabus you can study now.` : undefined}
+        actions={<SearchInput value={q} onChange={setQ} placeholder="Search by subject or code" label="Search subjects" />}
       />
+      {subjects.data && (
+        <div className="mb-6">
+          <Segmented
+            label="Which subjects to show"
+            value={show}
+            onChange={setShow}
+            options={[
+              { value: 'all', label: `All papers (${subjects.data.length})` },
+              { value: 'ready', label: `Ready to study (${ready})` },
+            ]}
+          />
+        </div>
+      )}
       {subjects.loading && <Loading />}
       {subjects.error && <ErrorBox error={subjects.error} onRetry={subjects.reload} />}
-      {subjects.data && groups.length === 0 && <Empty>No subjects match “{q}”.</Empty>}
-      <div className="space-y-5">
+      {subjects.data && groups.length === 0 && <Empty icon={<SearchX />}>No subjects match “{q}”. Try a shorter word or the paper code.</Empty>}
+      <div className="space-y-8">
         {groups.map(([group, list]) => (
-          <section key={group}>
-            <h2 className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-zinc-500">{group}</h2>
-            <ul className="divide-y divide-zinc-100 overflow-hidden rounded-lg border border-zinc-200 bg-white">
+          <section key={group} aria-labelledby={`g-${group}`}>
+            <h2 id={`g-${group}`} className="mb-2.5 flex items-baseline gap-2 text-base font-semibold text-ink">
+              {group}
+              <span className="num text-sm font-normal text-ink-3">{list.length}</span>
+            </h2>
+            <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
               {list.map((s) => (
                 <li key={s.paperId}>
                   {s.available ? (
-                    <Link to={`/${exam}/subject/${s.paperId}`} className="flex items-center gap-3 px-3 py-2 hover:bg-zinc-50">
+                    <Link to={`/${exam}/subject/${s.paperId}`} className="group flex items-center gap-4 px-4 py-3 transition-colors hover:bg-paper">
                       <SubjectRow s={s} />
+                      <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3 transition-transform group-hover:translate-x-0.5 group-hover:text-accent" />
                     </Link>
                   ) : (
-                    <div className="flex items-center gap-3 px-3 py-2 text-zinc-500" title="The official syllabus for this paper is still being verified.">
+                    <div className="flex items-center gap-4 px-4 py-3" title="The official syllabus for this paper is still being checked.">
                       <SubjectRow s={s} />
                     </div>
                   )}
@@ -63,16 +78,27 @@ export function Subjects() {
 function SubjectRow({ s }: { s: Subject }) {
   return (
     <>
-      <span className="num w-14 shrink-0 font-mono text-xs text-zinc-500">{s.code}</span>
-      <span className="min-w-0 flex-1 truncate text-sm font-medium">{s.name}</span>
-      {s.available ? (
-        <>
-          <span className="num hidden text-xs text-zinc-500 sm:inline">
-            {s.units} units · {s.topics} topics · {s.questions} questions
+      <span className={`num w-16 shrink-0 text-sm ${s.available ? 'text-ink-3' : 'text-ink-3/70'}`}>{s.code}</span>
+      <span className="min-w-0 flex-1">
+        <span className={`block truncate text-[15px] font-medium ${s.available ? 'text-ink group-hover:text-accent' : 'text-ink-3'}`}>{s.name}</span>
+        {s.available && (
+          <span className="num mt-0.5 block text-xs text-ink-3 sm:hidden">
+            {s.units} units, {s.topics} topics{s.questions ? `, ${s.questions} questions` : ''}
           </span>
-        </>
+        )}
+      </span>
+      {s.available ? (
+        <span className="num hidden shrink-0 gap-5 text-sm text-ink-2 sm:flex">
+          <span>
+            <span className="font-medium text-ink">{s.units}</span> units
+          </span>
+          <span>
+            <span className="font-medium text-ink">{s.topics}</span> topics
+          </span>
+          <span className="w-28 text-right">{s.questions ? <><span className="font-medium text-ink">{s.questions}</span> questions</> : <span className="text-ink-3">No questions yet</span>}</span>
+        </span>
       ) : (
-        <Badge>Syllabus under verification</Badge>
+        <Badge>Syllabus being checked</Badge>
       )}
     </>
   );

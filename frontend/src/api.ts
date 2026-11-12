@@ -5,6 +5,9 @@ export class ApiError extends Error {
   }
 }
 
+/** Fired when an API call says the session is missing or expired; the auth provider re-checks and the route guard redirects. */
+export const UNAUTHORIZED_EVENT = 'cuet:unauthorized';
+
 export async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
   const res = await fetch(path, {
     method,
@@ -13,8 +16,17 @@ export async function request<T>(method: string, path: string, body?: unknown): 
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   const text = await res.text();
-  const data = text ? JSON.parse(text) : null;
-  if (!res.ok) throw new ApiError(res.status, data?.error?.code ?? 'ERROR', data?.error?.message ?? `Request failed (${res.status})`);
+  let data: { error?: { code?: string; message?: string } } | null = null;
+  try {
+    data = text ? JSON.parse(text) : null;
+  } catch {
+    if (res.ok) throw new ApiError(res.status, 'BAD_RESPONSE', 'The server sent an unexpected response. Please try again.');
+  }
+  if (!res.ok) {
+    // Sign-in, sign-up and session checks report 401 themselves; any other 401 means the session has ended.
+    if (res.status === 401 && !path.startsWith('/api/auth/')) window.dispatchEvent(new Event(UNAUTHORIZED_EVENT));
+    throw new ApiError(res.status, data?.error?.code ?? 'ERROR', data?.error?.message ?? `Request failed (${res.status})`);
+  }
   return data as T;
 }
 

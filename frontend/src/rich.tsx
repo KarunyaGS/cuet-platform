@@ -29,7 +29,7 @@ function inline(text: string, key = 0): ReactNode[] {
     if (m[1]) out.push(<Math key={k} tex={t.slice(1, -1)} />);
     else if (m[2]) out.push(<strong key={k} className="font-semibold">{inline(t.slice(2, -2), i)}</strong>);
     else if (m[3]) out.push(<em key={k}>{inline(t.slice(1, -1), i)}</em>);
-    else out.push(<code key={k} className="rounded bg-zinc-100 px-1 text-[0.9em]">{t.slice(1, -1)}</code>);
+    else out.push(<code key={k} className="rounded bg-ink/5 px-1 text-[0.9em]">{t.slice(1, -1)}</code>);
     last = m.index + t.length;
   }
   if (last < text.length) out.push(text.slice(last));

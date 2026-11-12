@@ -1,61 +1,117 @@
+import { ChevronRight, GraduationCap, Library, PlayCircle } from 'lucide-react';
 import { Link } from 'react-router';
-import { api } from '../api';
-import { ErrorBox, Loading, useAuth, useLoad } from '../ui';
+import { api, type Exam } from '../api';
+import { ErrorBox, Loading, Meter, SectionTitle, useAuth, useLoad } from '../ui';
 
+const greeting = () => {
+  const h = new Date().getHours();
+  return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+};
+const marks = (n: unknown) => (typeof n === 'number' ? (n < 0 ? `−${Math.abs(n)}` : `+${n}`) : '–');
+
+function ExamCard({ e }: { e: Exam }) {
+  const ug = e.level === 'UG';
+  const facts: [string, string][] = [
+    ['Papers', String(e.rules.papersOffered ?? '–')],
+    ['Questions per paper', String(e.rules.questionsPerPaper ?? '–')],
+    ['Time per paper', e.rules.durationMinutes ? `${e.rules.durationMinutes} min` : '–'],
+    ['Marking', `${marks(e.rules.marksCorrect)} / ${marks(e.rules.marksIncorrect)}`],
+  ];
+  return (
+    <Link to={`/${e.code}`} className="group flex flex-col rounded-xl border border-rule bg-surface p-5 transition-colors hover:border-accent/50 focus-visible:border-accent">
+      <div className="flex items-start gap-3.5">
+        <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
+          {ug ? <Library className="size-5" /> : <GraduationCap className="size-5" />}
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+            <h3 className="text-lg font-semibold text-ink">{e.label}</h3>
+            <span className="text-sm text-ink-3">{ug ? 'Undergraduate admissions' : 'Postgraduate admissions'}</span>
+          </div>
+          <p className="mt-1 text-sm text-ink-2">{ug ? 'Domain subjects, languages and the General Test.' : 'Subject papers for master’s programmes.'}</p>
+        </div>
+      </div>
+      <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-rule pt-4 sm:grid-cols-4">
+        {facts.map(([k, v]) => (
+          <div key={k}>
+            <dt className="text-xs text-ink-3">{k}</dt>
+            <dd className="num mt-0.5 text-[15px] font-semibold text-ink">{v}</dd>
+          </div>
+        ))}
+      </dl>
+      <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+        Browse subjects
+        <ChevronRight aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
+      </span>
+    </Link>
+  );
+}
+
+/** Home for signed-in students: where they left off, today's goal at a glance, and the two exams. */
 export function Home() {
   const exams = useLoad(api.exams, []);
+  const dash = useLoad(api.dashboard, []);
   const { user } = useAuth();
+  const first = user?.displayName.split(/\s+/)[0] ?? '';
+  const d = dash.data;
+  const resume = d?.inProgress[0];
+  const last = d?.continueLearning[0];
+  const goal = d?.today.goal.questionsPerDay ?? 0;
+  const done = d?.today.questionsAnswered ?? 0;
+  const sorted = [...(exams.data ?? [])].sort((a, b) => (a.level === 'UG' ? -1 : 1) - (b.level === 'UG' ? -1 : 1));
+
   return (
     <div>
-      <div className="mb-5">
-        <h1 className="text-xl font-semibold tracking-tight">Prepare for CUET from the official syllabus</h1>
-        <p className="mt-1 max-w-2xl text-sm text-zinc-600">
-          Every subject, unit and topic comes from the official NTA syllabus documents, with a link to the source page. Practise, take timed mocks
-          and track weak topics. Answers are checked against stored answer keys.
-        </p>
-      </div>
-      {user && (
-        <Link to="/dashboard" className="mb-4 flex items-center justify-between rounded-lg border border-[var(--color-accent)]/40 bg-[var(--color-accent-soft)] px-4 py-3 text-sm hover:border-[var(--color-accent)]">
-          <span>
-            <span className="font-semibold">Welcome back, {user.displayName}.</span> Continue where you left off, see today’s plan and start daily practice.
-          </span>
-          <span className="shrink-0 font-medium text-[var(--color-accent)]">Open today →</span>
-        </Link>
+      <header className="mb-8">
+        <h1 className="text-2xl font-semibold text-ink sm:text-[1.75rem]">
+          {greeting()}, {first}
+        </h1>
+        <p className="mt-1 text-[15px] text-ink-2">Every subject, unit and topic here comes from the official NTA syllabus, with a link to the source page.</p>
+      </header>
+
+      {d && (resume || last || goal > 0) && (
+        <section aria-label="Continue" className="grid-cols-1 mb-10 grid overflow-hidden rounded-xl border border-rule bg-surface md:grid-cols-[minmax(0,1fr)_18rem]">
+          <div className="min-w-0 p-5">
+            <div className="text-sm text-ink-2">{resume ? 'Unfinished test' : last ? 'Continue where you left off' : 'Start today'}</div>
+            {resume ? (
+              <Link to={`/practice/${resume.id}`} className="group mt-1 flex items-center gap-2 text-lg font-semibold text-ink hover:text-accent">
+                <PlayCircle aria-hidden className="size-5 shrink-0 text-accent" />
+                <span className="truncate">
+                  {{ PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' }[resume.mode] ?? 'Test'}: {resume.topic ?? resume.paper}
+                </span>
+              </Link>
+            ) : last ? (
+              <Link to={last.kind === 'LESSON_VIEW' ? `/learn/${last.resourceId}` : `/topic/${last.nodeId}`} className="mt-1 block text-lg font-semibold text-ink hover:text-accent">
+                <span className="line-clamp-2">{last.title ?? 'Your last topic'}</span>
+              </Link>
+            ) : (
+              <Link to="/dashboard" className="mt-1 block text-lg font-semibold text-ink hover:text-accent">
+                Open today’s plan and daily practice
+              </Link>
+            )}
+            {!resume && last?.paper && <div className="mt-0.5 text-sm text-ink-3">{last.paper}</div>}
+          </div>
+          <Link to="/dashboard" className="flex flex-col justify-center gap-2 border-t border-rule p-5 transition-colors hover:bg-paper md:border-t-0 md:border-l">
+            <div className="flex items-baseline justify-between text-sm">
+              <span className="text-ink-2">Questions today</span>
+              <span className="num font-semibold text-ink">
+                {done} <span className="font-normal text-ink-3">of {goal}</span>
+              </span>
+            </div>
+            <Meter value={goal ? (100 * done) / goal : 0} tone={goal && done >= goal ? 'correct' : 'accent'} label="Questions answered today against your goal" />
+            <span className="text-sm font-medium text-accent">Open Today</span>
+          </Link>
+        </section>
       )}
+
+      <SectionTitle>Choose an exam</SectionTitle>
       {exams.loading && <Loading />}
       {exams.error && <ErrorBox error={exams.error} onRetry={exams.reload} />}
-      <div className="grid gap-3 sm:grid-cols-2">
-        {exams.data?.map((e) => (
-          <Link key={e.code} to={`/${e.code}`} className="group rounded-lg border border-zinc-200 bg-white p-4 transition hover:border-[var(--color-accent)]">
-            <div className="flex items-baseline justify-between">
-              <span className="text-base font-semibold">{e.label}</span>
-              <span className="text-xs text-zinc-500">{e.level === 'UG' ? 'Undergraduate' : 'Postgraduate'}</span>
-            </div>
-            <dl className="mt-3 grid grid-cols-4 gap-2 text-center text-xs">
-              {[
-                ['Papers', e.rules.papersOffered],
-                ['Questions', e.rules.questionsPerPaper],
-                ['Minutes', e.rules.durationMinutes],
-                ['Marking', `+${e.rules.marksCorrect}/${e.rules.marksIncorrect}`],
-              ].map(([k, v]) => (
-                <div key={String(k)} className="rounded bg-zinc-50 py-1.5">
-                  <dt className="text-zinc-500">{k}</dt>
-                  <dd className="num font-semibold text-zinc-900">{String(v ?? '-')}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="mt-3 text-sm font-medium text-[var(--color-accent)] group-hover:underline">Browse subjects →</div>
-          </Link>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {sorted.map((e) => (
+          <ExamCard key={e.code} e={e} />
         ))}
       </div>
-      {!user && (
-        <p className="mt-4 text-sm text-zinc-600">
-          <Link to="/signup" className="font-medium text-[var(--color-accent)] underline">
-            Create a free account
-          </Link>{' '}
-          to practise questions and track progress.
-        </p>
-      )}
     </div>
   );
 }

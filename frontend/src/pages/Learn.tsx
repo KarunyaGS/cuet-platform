@@ -1,26 +1,34 @@
-import { useMemo, useState } from 'react';
+import { BookMarked, ChevronDown, ChevronLeft, Lightbulb, ListChecks, Sigma, Target } from 'lucide-react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api, type Block } from '../api';
 import { DisplayMath, parseBody, Rich } from '../rich';
 import { AddToPlan, BookmarkButton, useTrackView } from '../tools';
-import { Badge, Button, ErrorBox, Loading, useAuth, useLoad } from '../ui';
+import { Button, ErrorBox, Loading, useAuth, useLoad } from '../ui';
 
-const tone: Record<string, { label: string; cls: string }> = {
-  CONCEPT: { label: 'Concept', cls: 'border-sky-200 bg-sky-50/70' },
-  KEY_POINT: { label: 'Key point', cls: 'border-emerald-200 bg-emerald-50/70' },
-  IMPORTANT_FACT: { label: 'Remember', cls: 'border-emerald-200 bg-emerald-50/70' },
-  EXAMPLE: { label: 'Example', cls: 'border-amber-200 bg-amber-50/60' },
-  CALLOUT: { label: 'Exam tip', cls: 'border-rose-200 bg-rose-50/60' },
+/**
+ * Lesson blocks. Colour is used for meaning only: blue = definitions and concepts, green = what to remember,
+ * amber = exam tips and examples. Everything else stays on the page, not in a box.
+ */
+const tone: Record<string, { label: string; rule: string; icon: ReactNode }> = {
+  CONCEPT: { label: 'Concept', rule: 'border-accent', icon: <Lightbulb /> },
+  KEY_POINT: { label: 'Key point', rule: 'border-correct', icon: <Target /> },
+  IMPORTANT_FACT: { label: 'Remember', rule: 'border-correct', icon: <Target /> },
+  EXAMPLE: { label: 'Example', rule: 'border-marker', icon: <ListChecks /> },
+  CALLOUT: { label: 'Exam tip', rule: 'border-marker', icon: <Lightbulb /> },
 };
 
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-function Card({ label, cls, children }: { label: string; cls: string; children: React.ReactNode }) {
+function Callout({ label, rule, icon, children }: { label: string; rule: string; icon: ReactNode; children: ReactNode }) {
   return (
-    <div className={`rounded-lg border px-3 py-2 ${cls}`}>
-      <div className="mb-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">{label}</div>
-      {children}
-    </div>
+    <aside className={`rounded-r-lg border-l-[3px] bg-surface py-3 pr-4 pl-4 ${rule}`}>
+      <div className="mb-1 flex items-center gap-1.5 text-[13px] font-semibold text-ink-2 [&>svg]:size-3.5">
+        {icon}
+        {label}
+      </div>
+      <div className="text-[15px] leading-relaxed text-ink">{children}</div>
+    </aside>
   );
 }
 
@@ -31,16 +39,26 @@ function TableBlock({ body }: { body: string }) {
   const rows = Array.isArray(j) ? j.slice(1) : j.rows;
   const caption = Array.isArray(j) ? null : j.caption;
   return (
-    <figure className="overflow-x-auto rounded-lg border border-zinc-200 bg-white">
-      {caption && <figcaption className="border-b border-zinc-100 px-3 py-1.5 text-xs font-medium text-zinc-600">{caption}</figcaption>}
+    <figure className="overflow-x-auto rounded-lg border border-rule bg-surface font-sans">
+      {caption && <figcaption className="border-b border-rule px-4 py-2 text-[13px] font-medium text-ink-2">{caption}</figcaption>}
       <table className="w-full text-left text-sm">
-        <thead className="bg-zinc-50">
-          <tr>{columns.map((c, i) => <th key={i} className="px-3 py-1.5 font-semibold"><Rich text={c} inline /></th>)}</tr>
+        <thead className="bg-paper">
+          <tr>
+            {columns.map((c, i) => (
+              <th key={i} scope="col" className="px-4 py-2 font-semibold text-ink">
+                <Rich text={c} inline />
+              </th>
+            ))}
+          </tr>
         </thead>
-        <tbody>
+        <tbody className="divide-y divide-rule">
           {rows.map((r, i) => (
-            <tr key={i} className="border-t border-zinc-100 align-top">
-              {r.map((c, k) => <td key={k} className="px-3 py-1.5"><Rich text={c} inline /></td>)}
+            <tr key={i} className="align-top">
+              {r.map((c, k) => (
+                <td key={k} className="px-4 py-2 text-ink">
+                  <Rich text={c} inline />
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>
@@ -52,20 +70,33 @@ function TableBlock({ body }: { body: string }) {
 function Solved({ body, n }: { body: string; n: number }) {
   const [open, setOpen] = useState(false);
   const j = parseBody<{ problem: string; solution: string; answer: string }>(body);
-  if (!j) return <Card label="Solved problem" cls="border-amber-200 bg-amber-50/60"><Rich text={body} /></Card>;
+  if (!j)
+    return (
+      <Callout label="Solved problem" rule="border-marker" icon={<ListChecks />}>
+        <Rich text={body} />
+      </Callout>
+    );
   return (
-    <div className="rounded-lg border border-amber-200 bg-white">
-      <div className="flex items-start gap-2 px-3 py-2">
-        <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded bg-amber-100 text-[11px] font-bold text-amber-800">{n}</span>
-        <div className="min-w-0 flex-1 text-sm"><Rich text={j.problem} /></div>
+    <div className="overflow-hidden rounded-lg border border-rule bg-surface font-sans">
+      <div className="flex items-start gap-3 px-4 py-3">
+        <span className="num mt-0.5 grid size-6 shrink-0 place-items-center rounded-md bg-marker-soft text-xs font-semibold text-marker" aria-label={`Worked problem ${n}`}>
+          {n}
+        </span>
+        <div className="min-w-0 flex-1 text-[15px] text-ink">
+          <Rich text={j.problem} />
+        </div>
       </div>
-      <button onClick={() => setOpen(!open)} className="w-full border-t border-amber-100 px-3 py-1 text-left text-xs font-medium text-amber-800 hover:bg-amber-50">
-        {open ? 'Hide solution' : 'Show worked solution'}
+      <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex w-full items-center gap-1.5 border-t border-rule px-4 py-2 text-left text-sm font-medium text-accent hover:bg-paper">
+        <ChevronDown aria-hidden className={`size-4 transition-transform ${open ? 'rotate-180' : ''}`} />
+        {open ? 'Hide worked solution' : 'Show worked solution'}
       </button>
       {open && (
-        <div className="space-y-2 border-t border-amber-100 bg-amber-50/40 px-3 py-2 text-sm">
+        <div className="space-y-3 border-t border-rule bg-paper px-4 py-3 text-[15px] text-ink">
           <Rich text={j.solution} />
-          <div className="rounded bg-white px-2 py-1 text-sm"><span className="font-semibold">Answer: </span><Rich text={j.answer} inline /></div>
+          <div className="rounded-md border border-correct/30 bg-correct-soft px-3 py-2">
+            <span className="font-semibold text-correct">Answer: </span>
+            <Rich text={j.answer} inline />
+          </div>
         </div>
       )}
     </div>
@@ -75,9 +106,13 @@ function Solved({ body, n }: { body: string; n: number }) {
 export function BlockView({ b, solvedNo }: { b: Block; solvedNo: number }) {
   switch (b.type) {
     case 'HEADING':
-      return <h2 id={slug(b.body)} className="scroll-mt-16 pt-3 text-base font-semibold tracking-tight">{b.body}</h2>;
+      return (
+        <h2 id={slug(b.body)} className="scroll-mt-24 pt-4 font-sans text-xl font-semibold text-ink">
+          {b.body}
+        </h2>
+      );
     case 'TEXT':
-      return <Rich text={b.body} className="text-[15px]" />;
+      return <Rich text={b.body} className="prose-lesson text-ink" />;
     case 'TABLE':
       return <TableBlock body={b.body} />;
     case 'SOLVED_PROBLEM':
@@ -85,50 +120,73 @@ export function BlockView({ b, solvedNo }: { b: Block; solvedNo: number }) {
     case 'DEFINITION': {
       const j = parseBody<{ term: string; text: string }>(b.body);
       return (
-        <Card label="Definition" cls="border-[var(--color-accent)]/30 bg-[var(--color-accent-soft)]">
-          {j ? <Rich text={`**${j.term}** — ${j.text}`} className="text-sm" /> : <Rich text={b.body} className="text-sm" />}
-        </Card>
+        <Callout label="Definition" rule="border-accent" icon={<BookMarked />}>
+          {j ? <Rich text={`**${j.term}**: ${j.text}`} /> : <Rich text={b.body} />}
+        </Callout>
       );
     }
     case 'FORMULA': {
       const j = parseBody<{ latex: string; text: string | null }>(b.body);
       return (
-        <Card label="Formula" cls="border-violet-200 bg-violet-50/60">
-          {j ? <DisplayMath tex={j.latex} /> : <pre className="whitespace-pre-wrap font-mono text-sm">{b.body}</pre>}
-          {j?.text && <Rich text={j.text} className="text-xs text-zinc-700" />}
-        </Card>
+        <figure className="rounded-lg border border-rule bg-surface px-4 py-3">
+          <div className="mb-1 flex items-center gap-1.5 text-[13px] font-semibold text-ink-2">
+            <Sigma aria-hidden className="size-3.5" />
+            Formula
+          </div>
+          {j ? <DisplayMath tex={j.latex} /> : <pre className="font-mono text-sm whitespace-pre-wrap">{b.body}</pre>}
+          {j?.text && <Rich text={j.text} className="mt-1 text-sm text-ink-2" />}
+        </figure>
       );
     }
     case 'DIAGRAM':
     case 'IMAGE': {
       const src = b.media_asset_id ? `/api/learn/media/${b.media_asset_id}` : b.body;
       return (
-        <figure className="rounded-lg border border-zinc-200 bg-white p-2">
+        <figure className="rounded-lg border border-rule bg-surface p-3">
           <img src={src} alt={b.alt_text ?? ''} loading="lazy" className="mx-auto max-h-[28rem] w-full object-contain" />
-          <figcaption className="mt-1 text-center text-xs text-zinc-500">{b.caption ?? (b.media_asset_id ? b.body : '')}</figcaption>
+          {(b.caption ?? (b.media_asset_id ? b.body : '')) && <figcaption className="mt-2 text-center font-sans text-[13px] text-ink-2">{b.caption ?? (b.media_asset_id ? b.body : '')}</figcaption>}
         </figure>
       );
     }
     case 'OFFICIAL_TEXT': {
       const j = parseBody<{ text: string; page: number | null; paper: string }>(b.body);
       return (
-        <div className="rounded-lg border border-zinc-300 bg-white px-3 py-2">
-          <div className="mb-0.5 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
-            Official syllabus{j?.page ? ` · page ${j.page}` : ''}
-          </div>
-          <p className="text-sm text-zinc-800">{j ? j.text : b.body}</p>
-        </div>
+        <blockquote className="border-l-2 border-rule-strong py-1 pl-4">
+          <div className="mb-0.5 text-[13px] font-medium text-ink-2">Official syllabus{j?.page ? `, page ${j.page}` : ''}</div>
+          <p className="font-serif text-[15px] text-ink">{j ? j.text : b.body}</p>
+        </blockquote>
       );
     }
     default: {
-      const t = tone[b.type] ?? { label: b.type, cls: 'border-zinc-200 bg-white' };
+      const t = tone[b.type] ?? { label: b.type, rule: 'border-rule-strong', icon: <Lightbulb /> };
       return (
-        <Card label={t.label} cls={t.cls}>
-          <Rich text={b.body} className="text-sm" />
-        </Card>
+        <Callout label={t.label} rule={t.rule} icon={t.icon}>
+          <Rich text={b.body} />
+        </Callout>
       );
     }
   }
+}
+
+/** Highlights the table-of-contents entry for the section being read. */
+function useCurrentHeading(ids: string[]) {
+  const [current, setCurrent] = useState<string | null>(null);
+  useEffect(() => {
+    if (!ids.length || typeof IntersectionObserver === 'undefined') return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setCurrent(visible[0].target.id);
+      },
+      { rootMargin: '-80px 0px -70% 0px' },
+    );
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    }
+    return () => obs.disconnect();
+  }, [ids]);
+  return current;
 }
 
 export function LearnPage() {
@@ -137,8 +195,15 @@ export function LearnPage() {
   const navigate = useNavigate();
   const r = useLoad(() => api.resource(resourceId), [resourceId]);
   const [starting, setStarting] = useState(false);
+  const [err, setErr] = useState<Error | null>(null);
   useTrackView('LESSON_VIEW', r.data ? resourceId : null);
   const toc = useMemo(() => (r.data?.blocks ?? []).filter((b) => b.type === 'HEADING').map((b) => b.body), [r.data]);
+  const tocIds = useMemo(() => toc.map(slug), [toc]);
+  const current = useCurrentHeading(tocIds);
+  const minutes = useMemo(() => {
+    const words = (r.data?.blocks ?? []).reduce((n, b) => n + b.body.split(/\s+/).length, 0);
+    return Math.max(1, Math.round(words / 180));
+  }, [r.data]);
   if (r.loading) return <Loading />;
   if (r.error) return <ErrorBox error={r.error} onRetry={r.reload} />;
   const d = r.data!;
@@ -147,52 +212,71 @@ export function LearnPage() {
     if (!d.topic) return;
     if (!user) return navigate('/signin');
     setStarting(true);
+    setErr(null);
     try {
       const s = await api.startPractice({ mode: 'PRACTICE', nodeId: d.topic.id, count: 10 });
       navigate(`/practice/${s.session.id}`);
+    } catch (e) {
+      setErr(e as Error);
     } finally {
       setStarting(false);
     }
   };
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_14rem]">
-      <article className="min-w-0 max-w-3xl">
-        <div className="mb-3 border-b border-zinc-200 pb-3">
+    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_15rem]">
+      <article className="min-w-0 max-w-[44rem]">
+        <header className="mb-8 border-b border-rule pb-6">
           {d.topic && (
-            <Link to={`/topic/${d.topic.id}`} className="text-xs font-medium text-[var(--color-accent)] hover:underline">
-              ← {d.topic.title.length > 80 ? `${d.topic.title.slice(0, 80)}…` : d.topic.title}
+            <Link to={`/topic/${d.topic.id}`} className="inline-flex max-w-full items-center gap-1 text-sm text-ink-2 hover:text-accent">
+              <ChevronLeft aria-hidden className="size-4 shrink-0" />
+              <span className="truncate">{d.topic.title}</span>
             </Link>
           )}
-          <h1 className="mt-1 text-xl font-semibold tracking-tight">{d.resource.title}</h1>
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            <Badge tone="accent">Lesson</Badge>
-            <span className="ml-auto flex flex-wrap gap-1.5">
+          <h1 className="mt-2 text-[1.75rem] leading-tight font-semibold text-ink">{d.resource.title}</h1>
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <span className="num text-sm text-ink-3">Lesson, about {minutes} min read</span>
+            <span className="flex flex-wrap gap-2 sm:ml-auto">
               <BookmarkButton kind="LESSON" id={d.resource.id} />
               <AddToPlan kind="LESSON" refId={d.resource.id} title={d.resource.title} />
             </span>
           </div>
-        </div>
-        <div className="space-y-3">
+        </header>
+        <div className="space-y-5">
           {d.blocks.map((b) => {
             if (b.type === 'SOLVED_PROBLEM') solved++;
             return <BlockView key={b.position} b={b} solvedNo={solved} />;
           })}
         </div>
         {d.topic && (
-          <div className="mt-6 flex items-center justify-between rounded-lg border border-zinc-200 bg-white px-3 py-2">
-            <span className="text-sm text-zinc-600">Finished reading? Test yourself on this topic.</span>
-            <Button onClick={practise} disabled={starting}>{starting ? 'Starting…' : 'Practise 10 questions'}</Button>
+          <div className="mt-10 rounded-xl border border-rule bg-surface p-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <div className="font-semibold text-ink">Finished reading?</div>
+                <div className="text-sm text-ink-2">Check what you learnt with 10 questions on this topic.</div>
+              </div>
+              <Button onClick={practise} disabled={starting}>
+                {starting ? 'Starting…' : 'Practise 10 questions'}
+              </Button>
+            </div>
+            {err && <ErrorBox error={err} />}
           </div>
         )}
       </article>
       {toc.length > 0 && (
         <nav aria-label="On this page" className="hidden lg:block">
-          <div className="sticky top-16 rounded-lg border border-zinc-200 bg-white p-3">
-            <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">On this page</div>
-            <ol className="space-y-1 text-xs">
-              {toc.map((h) => (
-                <li key={h}><a href={`#${slug(h)}`} className="text-zinc-600 hover:text-[var(--color-accent)]">{h}</a></li>
-              ))}
+          <div className="sticky top-24">
+            <div className="mb-2 text-sm font-semibold text-ink">On this page</div>
+            <ol className="space-y-0.5 border-l border-rule text-sm">
+              {toc.map((h, i) => {
+                const on = current === tocIds[i];
+                return (
+                  <li key={h}>
+                    <a href={`#${tocIds[i]}`} aria-current={on ? 'location' : undefined} className={`-ml-px block border-l-2 py-1 pl-3 transition-colors ${on ? 'border-accent text-accent' : 'border-transparent text-ink-2 hover:text-ink'}`}>
+                      {h}
+                    </a>
+                  </li>
+                );
+              })}
             </ol>
           </div>
         </nav>

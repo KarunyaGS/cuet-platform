@@ -17,16 +17,16 @@ export function QuestionStem({ stem, structure, compact = false }: { stem: strin
         <div className="mt-2 overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="bg-zinc-50 text-left">
-                <th className="border border-zinc-200 px-2 py-1 font-semibold">List-I</th>
-                <th className="border border-zinc-200 px-2 py-1 font-semibold">List-II</th>
+              <tr className="bg-paper text-left">
+                <th className="border border-rule px-2 py-1 font-semibold">List-I</th>
+                <th className="border border-rule px-2 py-1 font-semibold">List-II</th>
               </tr>
             </thead>
             <tbody>
               {s.left.map((l, i) => (
                 <tr key={i} className="align-top">
-                  <td className="border border-zinc-200 px-2 py-1"><span className="mr-1 font-semibold">{String.fromCharCode(65 + i)}.</span><Rich text={l} inline /></td>
-                  <td className="border border-zinc-200 px-2 py-1">{s.right![i] !== undefined && <><span className="mr-1 font-semibold">{ROMAN[i]}.</span><Rich text={s.right![i]!} inline /></>}</td>
+                  <td className="border border-rule px-2 py-1"><span className="mr-1 font-semibold">{String.fromCharCode(65 + i)}.</span><Rich text={l} inline /></td>
+                  <td className="border border-rule px-2 py-1">{s.right![i] !== undefined && <><span className="mr-1 font-semibold">{ROMAN[i]}.</span><Rich text={s.right![i]!} inline /></>}</td>
                 </tr>
               ))}
             </tbody>
@@ -34,7 +34,7 @@ export function QuestionStem({ stem, structure, compact = false }: { stem: strin
         </div>
       )}
       {s.mediaAssetId && (
-        <img src={`/api/learn/media/${s.mediaAssetId}`} alt="Diagram for this question" className="mx-auto mt-2 max-h-72 w-auto rounded border border-zinc-200 bg-white p-1" loading="lazy" />
+        <img src={`/api/learn/media/${s.mediaAssetId}`} alt="Diagram for this question" className="mx-auto mt-2 max-h-72 w-auto rounded border border-rule bg-surface p-1" loading="lazy" />
       )}
     </div>
   );

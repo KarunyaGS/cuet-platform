@@ -1,17 +1,12 @@
+import { ChartNoAxesColumn, CircleCheck, History } from 'lucide-react';
 import { Link } from 'react-router';
 import { api } from '../api';
-import { Empty, ErrorBox, Loading, PageHeader, useLoad } from '../ui';
+import { accuracyTone, Empty, ErrorBox, Loading, Meter, PageHeader, SectionTitle, StatGroup, useLoad } from '../ui';
 import { SubjectTable } from './Dashboard';
 
-function Bar({ value }: { value: number }) {
-  const color = value >= 75 ? 'bg-emerald-500' : value >= 60 ? 'bg-amber-400' : 'bg-red-500';
-  return (
-    <div className="h-1.5 w-full overflow-hidden rounded bg-zinc-100" aria-hidden>
-      <div className={`h-full ${color}`} style={{ width: `${Math.min(100, value)}%` }} />
-    </div>
-  );
-}
+const MODE: Record<string, string> = { PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' };
 
+/** Performance built from submitted practice sets and tests: totals, subjects, weak topics, every topic, recent sessions. */
 export function ProgressPage() {
   const p = useLoad(api.progress, []);
   if (p.loading) return <Loading />;
@@ -19,86 +14,100 @@ export function ProgressPage() {
   const d = p.data!;
   return (
     <div>
-      <PageHeader title="My progress" subtitle="Built from your submitted practice sets and tests" />
-      <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-        {[
-          ['Sessions', d.totals.sessions],
-          ['Questions answered', d.totals.answered],
-          ['Accuracy', d.totals.accuracy === null ? '–' : `${d.totals.accuracy}%`],
-          ['Weak topics', d.weakTopics.length],
-        ].map(([k, v]) => (
-          <div key={String(k)} className="rounded-lg border border-zinc-200 bg-white px-3 py-2">
-            <div className="text-[11px] uppercase tracking-wide text-zinc-500">{k}</div>
-            <div className="num text-lg font-semibold">{String(v)}</div>
-          </div>
-        ))}
+      <PageHeader title="Progress" subtitle="Built from the practice sets and tests you have submitted." />
+      <div className="mb-10">
+        <StatGroup
+          items={[
+            { label: 'Sessions submitted', value: d.totals.sessions },
+            { label: 'Questions answered', value: d.totals.answered, hint: d.totals.unattempted ? `${d.totals.unattempted} left unanswered` : undefined },
+            { label: 'Accuracy', value: d.totals.accuracy === null ? '–' : `${d.totals.accuracy}%`, hint: `${d.totals.correct} correct, ${d.totals.incorrect} wrong` },
+            { label: 'Weak topics', value: d.weakTopics.length, tone: d.weakTopics.length ? 'wrong' : undefined, hint: 'Under 60% after 3 or more attempts' },
+          ]}
+        />
       </div>
-      <section className="mb-4">
-        <h2 className="mb-1.5 text-sm font-semibold">By subject</h2>
-        {d.subjects.length === 0 ? <Empty>Submit a practice set or test to see subject-wise progress.</Empty> : <SubjectTable subjects={d.subjects} />}
+
+      <section className="mb-10" aria-labelledby="by-subject">
+        <SectionTitle id="by-subject">By subject</SectionTitle>
+        {d.subjects.length === 0 ? <Empty icon={<ChartNoAxesColumn />}>Submit a practice set or test to see your progress by subject.</Empty> : <SubjectTable subjects={d.subjects} />}
       </section>
-      <div className="grid gap-4 lg:grid-cols-2">
-        <section>
-          <h2 className="mb-1.5 text-sm font-semibold">Weak topics to revise</h2>
+
+      <div className="grid-cols-1 mb-10 grid gap-x-8 gap-y-10 lg:grid-cols-2">
+        <section aria-labelledby="weak">
+          <SectionTitle id="weak">Weak topics to revise</SectionTitle>
           {d.weakTopics.length === 0 ? (
-            <Empty>No weak topics yet. A topic appears here when your accuracy is under 60% after at least 3 attempts.</Empty>
+            <Empty icon={<CircleCheck />}>No weak topics yet. A topic appears here when your accuracy is under 60% after at least 3 attempts.</Empty>
           ) : (
-            <ul className="divide-y divide-zinc-100 rounded-lg border border-zinc-200 bg-white">
+            <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
               {d.weakTopics.map((t) => (
-                <li key={t.id} className="px-3 py-2">
-                  <div className="flex items-baseline justify-between gap-2 text-sm">
-                    <Link to={`/topic/${t.id}`} className="min-w-0 truncate font-medium hover:underline">
+                <li key={t.id} className="flex items-center gap-3 px-4 py-3 text-sm">
+                  <span className="min-w-0 flex-1">
+                    <Link to={`/topic/${t.id}`} className="block truncate text-ink hover:text-accent">
                       {t.title}
                     </Link>
-                    <span className="num shrink-0 text-xs text-red-700">{t.accuracy}%</span>
-                  </div>
-                  <div className="text-[11px] text-zinc-500">
-                    {t.paper} · {t.correct}/{t.attempted} correct ·{' '}
-                    <Link to={`/revise/${t.id}`} className="text-[var(--color-accent)] hover:underline">
-                      Revise
-                    </Link>
-                  </div>
+                    <span className="num mt-0.5 block text-xs text-ink-3">
+                      {t.paper}, {t.correct} of {t.attempted} correct
+                    </span>
+                  </span>
+                  <span className="num shrink-0 text-sm font-semibold text-wrong">{t.accuracy}%</span>
+                  <Link to={`/revise/${t.id}`} className="shrink-0 text-sm font-medium text-accent hover:underline">
+                    Revise
+                  </Link>
                 </li>
               ))}
             </ul>
           )}
         </section>
-        <section>
-          <h2 className="mb-1.5 text-sm font-semibold">All practised topics</h2>
+
+        <section aria-labelledby="all-topics">
+          <SectionTitle id="all-topics">All practised topics</SectionTitle>
           {d.topics.length === 0 ? (
             <Empty>Practise a topic to start building your progress.</Empty>
           ) : (
-            <ul className="divide-y divide-zinc-100 rounded-lg border border-zinc-200 bg-white">
+            <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
               {d.topics.map((t) => (
-                <li key={t.id} className="grid grid-cols-[1fr_5rem_3rem] items-center gap-2 px-3 py-1.5 text-sm">
-                  <Link to={`/topic/${t.id}`} className="truncate hover:underline">
+                <li key={t.id} className="grid grid-cols-[minmax(0,1fr)_6rem_3rem] items-center gap-3 px-4 py-2.5 text-sm">
+                  <Link to={`/topic/${t.id}`} className="truncate text-ink hover:text-accent" title={t.title}>
                     {t.title}
                   </Link>
-                  <Bar value={t.accuracy} />
-                  <span className="num text-right text-xs">{t.accuracy}%</span>
+                  <Meter value={t.accuracy} tone={accuracyTone(t.accuracy)} label={`Accuracy in ${t.title}`} />
+                  <span className="num text-right text-xs text-ink-2">{t.accuracy}%</span>
                 </li>
               ))}
             </ul>
           )}
         </section>
       </div>
-      <section className="mt-4">
-        <h2 className="mb-1.5 text-sm font-semibold">Recent sessions</h2>
+
+      <section aria-labelledby="recent">
+        <SectionTitle id="recent">Recent sessions</SectionTitle>
         {d.recentSessions.length === 0 ? (
-          <Empty>No sessions yet.</Empty>
+          <Empty icon={<History />}>No sessions yet. Start with a topic practice set or a mock test.</Empty>
         ) : (
-          <ul className="divide-y divide-zinc-100 rounded-lg border border-zinc-200 bg-white">
-            {d.recentSessions.map((s) => (
-              <li key={s.id}>
-                <Link to={s.status === 'IN_PROGRESS' ? `/practice/${s.id}` : `/results/${s.id}`} className="flex items-center gap-3 px-3 py-1.5 text-sm hover:bg-zinc-50">
-                  <span className="w-24 shrink-0 text-xs text-zinc-500">{new Date(s.started_at).toLocaleDateString()}</span>
-                  <span className="min-w-0 flex-1 truncate">
-                    {{ PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' }[s.mode] ?? s.mode} · {s.paper ?? ''}
-                  </span>
-                  <span className="num shrink-0 text-xs">{s.status === 'IN_PROGRESS' ? 'in progress' : `${s.score} / ${s.max_score}`}</span>
-                </Link>
-              </li>
-            ))}
+          <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+            {d.recentSessions.map((s) => {
+              const pct = s.max_score ? Math.round((100 * (s.score ?? 0)) / s.max_score) : null;
+              return (
+                <li key={s.id}>
+                  <Link to={s.status === 'IN_PROGRESS' ? `/practice/${s.id}` : `/results/${s.id}`} className="flex items-center gap-4 px-4 py-3 text-sm transition-colors hover:bg-paper">
+                    <span className="num w-24 shrink-0 text-ink-3">{new Date(s.started_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}</span>
+                    <span className="min-w-0 flex-1 truncate text-ink">
+                      {MODE[s.mode] ?? s.mode}
+                      {s.paper ? <span className="text-ink-3">, {s.paper}</span> : null}
+                    </span>
+                    {s.status === 'IN_PROGRESS' ? (
+                      <span className="shrink-0 text-sm font-medium text-marker">Unfinished</span>
+                    ) : (
+                      <span className="num shrink-0 text-right">
+                        <span className="font-semibold text-ink">
+                          {s.score} / {s.max_score}
+                        </span>
+                        {pct !== null && <span className="ml-2 text-ink-3">{pct}%</span>}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         )}
       </section>
