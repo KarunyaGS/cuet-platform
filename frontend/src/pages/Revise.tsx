@@ -55,7 +55,7 @@ export function RevisePage() {
         }
         actions={
           <>
-            <BookmarkButton kind="TOPIC" id={d.topic.id} />
+            <BookmarkButton kind="REVISION" id={d.topic.id} />
             <AddToPlan kind="TOPIC" refId={d.topic.id} title={`Revise: ${d.topic.title}`} />
           </>
         }

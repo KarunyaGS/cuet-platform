@@ -1,6 +1,6 @@
 # CUET Platform: Project Completion Tracker
 
-**Last updated:** 12 November 2026, after Batch P1 (public website)
+**Last updated:** 12 November 2026, after Batch P2 (student portal)
 **Repository:** `KarunyaGS/cuet-platform`, branch `main`
 **Live site:** not deployed. The Worker `cuet` still serves "Hello World!". Going live needs the owner's approval.
 
@@ -22,7 +22,8 @@
 | 1 | Student tools: Today page, bookmarks, planner, goals, profile, password change, daily practice, revision, unit tests | `ba0bc65` | 12 Nov 2026 |
 | Audit | Status report and integration audit | `b12e9c0` | 12 Nov 2026 |
 | UX | Sign-in-first entry flow and full UI/UX redesign | `eba6918` | 12 Nov 2026 |
-| P1 | Public website: official CUET-UG and CUET-PG information pages, notices, FAQs, participating universities | this batch | 12 Nov 2026 |
+| P1 | Public website: official CUET-UG and CUET-PG information pages, notices, FAQs, participating universities | `d608ea5` | 12 Nov 2026 |
+| P2 | Student portal: preferences, account recovery, weekly report, reminders, recently viewed, saved revision notes | this batch | 12 Nov 2026 |
 
 ---
 
@@ -45,7 +46,7 @@
 | Public website | Participating universities list | Done (search, type filter) | `GET /api/public/universities` | `participating_universities` | 244 UG, 198 PG; NTA gives no state | COMPLETED (local) |
 | Public website | Official data import | Admin API only | `PUT /api/admin/official-info/:exam`, `scripts/import-official-info.mjs` | Migration `0010` | — | NEEDS APPROVAL for live |
 | Authentication | Sign-in-first entry, sign up, sign in, sign out, expired sessions | Done | `/api/auth/*` | users, credentials, sessions | — | COMPLETED (local) |
-| Authentication | Forgot password / reset by email | — | — | — | — | BLOCKED: needs an email service |
+| Authentication | Forgot password / account recovery | `/forgot-password`, `/reset-password` | Admin `POST /api/admin/users/reset-link`, `POST /api/auth/reset-password` | `password_reset_tokens` (hash only, 1 hour, single use) | — | PARTIALLY COMPLETED: one-time links work (admin gives the link); sending them by email is BLOCKED until an email service is chosen |
 | Authentication | Email verification | — | — | — | — | BLOCKED: needs an email service |
 | Student portal | Today page (dashboard) | Done | `/api/student/dashboard` | Migration 0009 tables | — | COMPLETED (local); live needs 0009 |
 | Student portal | Continue learning, recently opened | Done (Today and home) | `/api/student/activity` | `learning_activity` | — | COMPLETED (local) |
@@ -53,10 +54,11 @@
 | Student portal | Bookmarks (topics, lessons, questions) | Done | `/api/student/bookmarks*` | `bookmarks` | — | COMPLETED (local) |
 | Student portal | Study planner | Done | `/api/student/plan*` | `study_plan_items` | — | COMPLETED (local) |
 | Student portal | Profile and password change | Done | `/api/student/profile`, `/password` | users, credentials | — | COMPLETED (local) |
-| Student portal | Academic preferences (exam, subjects) | — | — | — | — | PENDING |
-| Student portal | Weekly performance report | — | — | — | — | PENDING |
-| Student portal | Notifications and reminders | — | — | — | — | PENDING (in-app first; email or SMS needs a provider) |
-| Student portal | Saved revision materials | Bookmarks of topics and lessons; revision pages | Existing | Existing | — | PARTIALLY COMPLETED |
+| Student portal | Academic preferences (exam, year, up to 10 subjects) | Profile, home "My subjects", Today subject chooser | `/api/student/preferences` | `student_preferences` | — | COMPLETED (local) |
+| Student portal | Weekly performance report | `/report` (day chart, vs last week, subjects, weak topics, plan) | `/api/student/report/weekly` | Existing activity tables | — | COMPLETED (local) |
+| Student portal | Notifications and reminders | Header bell with dismiss | `/api/student/reminders`, `/reminders/dismiss` | `reminder_dismissals` | Unfinished tests, plan, goal, weak topic, new NTA notices, setup | COMPLETED (local, in-app); email or SMS reminders BLOCKED (needs a provider) |
+| Student portal | Saved revision materials | Save button on revision pages; "Revision notes" tab | Bookmark kind `REVISION` | `bookmarks` | — | COMPLETED (local) |
+| Student portal | Recently viewed lessons and topics | "Recently viewed" tab on Saved and recent | `/api/student/recent` | `learning_activity` | — | COMPLETED (local) |
 | Learning | Syllabus explorer | Done | `/api/learn/*` | Syllabus tables | 92 of 194 papers visible | PARTIALLY COMPLETED |
 | Learning | Lessons and diagrams | Done | `/api/learn/resources`, `/media` | Lessons, blocks, R2 | Physics 21 lessons in the database | PARTIALLY COMPLETED |
 | Learning | Quick revision | Done | `/api/learn/topics/:id/revision` | Existing | Where lessons exist | COMPLETED (local) |
@@ -79,7 +81,7 @@
 | University | Admission, counselling, merit lists, cut-offs, application links | — | — | — | Needs verified university sources | PENDING |
 | UI/UX | Design system, app shell, all student, reviewer and public screens | Done | — | — | — | COMPLETED |
 | Infrastructure | Deploy Worker and app | Build ready (dry run OK) | — | — | — | NEEDS APPROVAL |
-| Infrastructure | Apply migrations 0009 and 0010 to `cuet-db` | — | — | Prepared | — | NEEDS APPROVAL |
+| Infrastructure | Apply migrations 0009, 0010 and 0011 to `cuet-db` | — | — | Prepared (new tables only) | — | NEEDS APPROVAL |
 | Infrastructure | Import official information to `cuet-db` | — | Script ready | — | — | NEEDS APPROVAL |
 | Infrastructure | Production secret `ADMIN_API_TOKEN` | — | — | — | — | NEEDS APPROVAL (owner sets it) |
 
@@ -90,7 +92,7 @@
 | Area | Status | Notes |
 |---|---|---|
 | Public website | COMPLETED (local) | All 12 requested pages, for UG and PG separately, with sources, cycle and last-checked date. Live after approval |
-| Student portal | PARTIALLY COMPLETED | Core tools done. Preferences, weekly report, notifications and password reset are pending or blocked |
+| Student portal | COMPLETED (local), except email delivery | All requested features work locally; reset links and reminders by email wait for an email service |
 | Learning content | PARTIALLY COMPLETED | Physics only: 21 of 32 topics in the database, 31 packs in Git |
 | Question bank | PARTIALLY COMPLETED | Physics 552 in the database (787 in packs); other subjects 0 |
 | Admin portal | PENDING | 38 backend APIs exist; no screens |
@@ -171,7 +173,7 @@ The syllabus is "Visible" when it is machine-checked and shown to students, and 
 ## Decisions and approvals needed
 
 1. **Go live:**
-   - apply migrations `0009` and `0010` to `cuet-db`;
+   - apply migrations `0009`, `0010` and `0011` to `cuet-db`;
    - import the official information;
    - set `ADMIN_API_TOKEN`;
    - deploy the Worker.

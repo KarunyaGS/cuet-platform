@@ -1,7 +1,7 @@
 import { CircleCheck } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router';
-import { api } from '../api';
+import { api, type ExamCode } from '../api';
 import { Button, ErrorBox, inputClass, Loading, PageHeader, useAuth, useLoad } from '../ui';
 
 /** A settings group: title and short description on the left, the form on the right (stacked on phones). */
@@ -25,6 +25,109 @@ const Saved = ({ show, children = 'Saved' }: { show: boolean; children?: React.R
       {children}
     </span>
   ) : null;
+
+/** Exam, target year and up to 10 subjects: used for "My subjects" on the home page and daily practice. */
+function PreferencesForm() {
+  const prefs = useLoad(api.preferences, []);
+  const [exam, setExam] = useState<ExamCode | ''>('');
+  const [year, setYear] = useState<number | ''>('');
+  const [ids, setIds] = useState<string[]>([]);
+  const [q, setQ] = useState('');
+  const [state, setState] = useState<'idle' | 'saving' | 'saved'>('idle');
+  const [err, setErr] = useState<Error | null>(null);
+  const subs = useLoad(() => (exam ? api.subjects(exam, 2026) : Promise.resolve([])), [exam]);
+  useEffect(() => {
+    if (prefs.data) {
+      setExam(prefs.data.examCode ?? '');
+      setYear(prefs.data.targetYear ?? '');
+      setIds(prefs.data.papers.map((p) => p.id));
+    }
+  }, [prefs.data]);
+  if (prefs.loading && !prefs.data) return <Loading />;
+  const list = (subs.data ?? []).filter((x) => !q || `${x.name} ${x.code}`.toLowerCase().includes(q.toLowerCase()));
+  const toggle = (id: string) => {
+    setState('idle');
+    setIds((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : cur.length >= 10 ? cur : [...cur, id]));
+  };
+  const save = async () => {
+    setErr(null);
+    setState('saving');
+    try {
+      await api.setPreferences({ examCode: exam || null, targetYear: year === '' ? null : year, paperIds: ids });
+      setState('saved');
+      prefs.reload();
+    } catch (e) {
+      setErr(e as Error);
+      setState('idle');
+    }
+  };
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <label className="block">
+          <span className={label}>Exam</span>
+          <select
+            className={input}
+            value={exam}
+            onChange={(e) => {
+              setExam(e.target.value as ExamCode | '');
+              setIds([]);
+              setState('idle');
+            }}
+          >
+            <option value="">Not chosen yet</option>
+            <option value="CUET_UG">CUET-UG (undergraduate)</option>
+            <option value="CUET_PG">CUET-PG (postgraduate)</option>
+          </select>
+        </label>
+        <label className="block">
+          <span className={label}>Year you will take it</span>
+          <select className={input} value={year} onChange={(e) => (setYear(e.target.value ? Number(e.target.value) : ''), setState('idle'))}>
+            <option value="">Not sure yet</option>
+            {[2026, 2027, 2028, 2029, 2030].map((y) => (
+              <option key={y} value={y}>
+                {y}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      {exam && (
+        <fieldset>
+          <legend className={label}>
+            Subjects <span className="font-normal text-ink-3">({ids.length} of up to 10 chosen)</span>
+          </legend>
+          <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search subjects or codes" aria-label="Search subjects" className={`${input} mb-2`} />
+          {subs.loading && !subs.data ? (
+            <Loading />
+          ) : (
+            <div className="max-h-72 divide-y divide-rule overflow-y-auto rounded-lg border border-rule">
+              {list.map((x) => {
+                const on = ids.includes(x.paperId);
+                return (
+                  <label key={x.paperId} className={`flex cursor-pointer items-center gap-3 px-3 py-2 text-sm ${on ? 'bg-accent-soft' : 'hover:bg-paper'}`}>
+                    <input type="checkbox" checked={on} onChange={() => toggle(x.paperId)} disabled={!on && ids.length >= 10} className="size-4 accent-accent" />
+                    <span className="num w-14 shrink-0 text-ink-3">{x.code}</span>
+                    <span className="min-w-0 flex-1 truncate text-ink">{x.name}</span>
+                    {!x.available && <span className="shrink-0 text-xs text-ink-3">Syllabus being checked</span>}
+                  </label>
+                );
+              })}
+              {list.length === 0 && <p className="px-3 py-3 text-sm text-ink-3">No subjects match.</p>}
+            </div>
+          )}
+        </fieldset>
+      )}
+      <div className="flex items-center gap-3">
+        <Button onClick={save} disabled={state === 'saving'}>
+          {state === 'saving' ? 'Saving…' : 'Save exam and subjects'}
+        </Button>
+        <Saved show={state === 'saved'} />
+      </div>
+      {err && <ErrorBox error={err} />}
+    </div>
+  );
+}
 
 /** Account details, name, password and daily goals. */
 export function ProfilePage() {
@@ -92,6 +195,10 @@ export function ProfilePage() {
             </div>
             {errFor('name')}
           </form>
+        </Section>
+
+        <Section title="Exam and subjects" description="What you are preparing for. Your home page and daily practice start with these subjects.">
+          <PreferencesForm />
         </Section>
 
         <Section title="Daily goals" description="Targets for the meters on your Today page. Set what you can keep up every day.">

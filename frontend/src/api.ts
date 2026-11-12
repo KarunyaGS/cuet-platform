@@ -79,7 +79,7 @@ export interface Progress {
 }
 export interface SubjectProgress { paper: string; paperCode: string; topics: number; attempted: number; correct: number; accuracy: number | null }
 export interface Profile { id: string; email: string; displayName: string; memberSince: string; lastLogin: string | null; testsTaken: number; bookmarks: number }
-export type BookmarkKind = 'TOPIC' | 'LESSON' | 'QUESTION';
+export type BookmarkKind = 'TOPIC' | 'LESSON' | 'QUESTION' | 'REVISION';
 export interface Bookmark { id: string; kind: BookmarkKind; entityId: string; title: string; nodeId: string | null; paper: string | null; createdAt: string }
 export interface Goal { questionsPerDay: number; lessonsPerDay: number; custom: boolean }
 export type PlanKind = 'TOPIC' | 'LESSON' | 'PRACTICE' | 'MOCK' | 'CUSTOM';
@@ -110,6 +110,19 @@ export interface UniversityList {
   exam: ExamCode; cycle: string | null; total: number; types: { type: string; count: number }[];
   universities: { name: string; type: string; state: string | null; sourceUrl: string }[];
 }
+
+export interface Preferences { examCode: ExamCode | null; targetYear: number | null; papers: { id: string; code: string; name: string }[]; set: boolean }
+export interface WeeklyReport {
+  start: string; end: string;
+  days: { day: string; answered: number; correct: number; lessons: number }[];
+  totals: { answered: number; correct: number; accuracy: number | null; lessonsOpened: number; sessionsSubmitted: number; mocks: number; averageScorePct: number | null; activeDays: number; goalDays: number; planTotal: number; planDone: number };
+  previous: { answered: number; accuracy: number | null; lessonsOpened: number; sessionsSubmitted: number };
+  goal: Goal;
+  subjects: { paper: string; code: string; answered: number; correct: number; accuracy: number | null }[];
+  weakTopics: { id: string; title: string; attempted: number; correct: number; accuracy: number | null }[];
+}
+export interface Reminder { key: string; kind: 'TEST' | 'PLAN' | 'GOAL' | 'REVISE' | 'NOTICE' | 'SETUP'; title: string; body: string; link: string; external?: boolean }
+export interface RecentItem { kind: 'TOPIC_VIEW' | 'LESSON_VIEW'; nodeId: string | null; resourceId: string | null; title: string | null; paper: string | null; at: string }
 
 /** The student's local calendar day (YYYY-MM-DD) and the moment it started, for "today" counts. */
 export function localDay(d = new Date()) {
@@ -155,6 +168,17 @@ export const api = {
   updatePlan: (id: string, b: { day?: string; title?: string; done?: boolean }) => request<{ id: string }>('PATCH', `/api/student/plan/${id}`, b),
   deletePlan: (id: string) => request<{ deleted: boolean }>('DELETE', `/api/student/plan/${id}`),
   revision: (nodeId: string) => request<RevisionNotes>('GET', `/api/learn/topics/${nodeId}/revision`),
+  preferences: () => request<Preferences>('GET', '/api/student/preferences'),
+  setPreferences: (b: { examCode: ExamCode | null; targetYear: number | null; paperIds: string[] }) => request<Preferences>('PUT', '/api/student/preferences', b),
+  weeklyReport: (start: string) => {
+    const [y, m, d] = start.split('-').map(Number);
+    const from = new Date(y!, m! - 1, d!).toISOString();
+    return request<WeeklyReport>('GET', `/api/student/report/weekly?start=${start}&from=${encodeURIComponent(from)}&tz=${-new Date(y!, m! - 1, d!).getTimezoneOffset()}`);
+  },
+  reminders: () => request<Reminder[]>('GET', `/api/student/reminders?day=${localDay()}&since=${encodeURIComponent(startOfToday())}`),
+  dismissReminder: (key: string) => request<{ dismissed: boolean }>('POST', '/api/student/reminders/dismiss', { key }),
+  recent: () => request<RecentItem[]>('GET', '/api/student/recent'),
+  resetPassword: (b: { token: string; newPassword: string }) => request<{ reset: boolean }>('POST', '/api/auth/reset-password', b),
   officialInfo: (exam: ExamCode) => request<OfficialInfo>('GET', `/api/public/info/${exam}`),
   universities: (exam: ExamCode, q?: string, type?: string) =>
     request<UniversityList>('GET', `/api/public/universities?exam=${exam}${q ? `&q=${encodeURIComponent(q)}` : ''}${type ? `&type=${encodeURIComponent(type)}` : ''}`),

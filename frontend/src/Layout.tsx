@@ -1,6 +1,7 @@
 import { Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
+import { RemindersBell } from './reminders';
 import { useAuth } from './ui';
 
 const REVIEW_ROLES = ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'];
@@ -106,6 +107,10 @@ function UserMenu() {
               <Bookmark aria-hidden />
               Bookmarks
             </Link>
+            <Link role="menuitem" to="/report" className={item}>
+              <ChartNoAxesColumn aria-hidden />
+              Weekly report
+            </Link>
             <Link role="menuitem" to="/cuet" className={item}>
               <Info aria-hidden />
               Official exam information
@@ -167,6 +172,7 @@ export function Layout() {
                 <TopLink to="/progress">Progress</TopLink>
               </nav>
               <div className="ml-auto flex items-center gap-1">
+                <RemindersBell />
                 <NavLink
                   to="/bookmarks"
                   title="Bookmarks"

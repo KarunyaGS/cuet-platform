@@ -1,4 +1,4 @@
-import { ChevronRight, GraduationCap, Info, Library, PlayCircle } from 'lucide-react';
+import { ChevronRight, GraduationCap, Info, Library, PlayCircle, Settings2 } from 'lucide-react';
 import { Link } from 'react-router';
 import { api, type Exam } from '../api';
 import { ErrorBox, Loading, Meter, SectionTitle, useAuth, useLoad } from '../ui';
@@ -51,6 +51,7 @@ function ExamCard({ e }: { e: Exam }) {
 export function Home() {
   const exams = useLoad(api.exams, []);
   const dash = useLoad(api.dashboard, []);
+  const prefs = useLoad(api.preferences, []);
   const { user } = useAuth();
   const first = user?.displayName.split(/\s+/)[0] ?? '';
   const d = dash.data;
@@ -102,6 +103,40 @@ export function Home() {
             <span className="text-sm font-medium text-accent">Open Today</span>
           </Link>
         </section>
+      )}
+
+      {prefs.data && prefs.data.papers.length > 0 && prefs.data.examCode && (
+        <section aria-labelledby="my-subjects" className="mb-10">
+          <SectionTitle
+            id="my-subjects"
+            action={
+              <Link to="/profile" className="font-medium text-accent hover:underline">
+                Change
+              </Link>
+            }
+          >
+            My subjects{prefs.data.targetYear ? `, ${prefs.data.examCode === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG'} ${prefs.data.targetYear}` : ''}
+          </SectionTitle>
+          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {prefs.data.papers.map((p) => (
+              <li key={p.id}>
+                <Link to={`/${prefs.data!.examCode}/subject/${p.id}`} className="group flex items-center gap-3 rounded-xl border border-rule bg-surface px-4 py-3 transition-colors hover:border-accent/50">
+                  <span className="num w-12 shrink-0 text-sm text-ink-3">{p.code}</span>
+                  <span className="min-w-0 flex-1 truncate font-medium text-ink group-hover:text-accent">{p.name}</span>
+                  <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      {prefs.data && !prefs.data.set && (
+        <Link to="/profile" className="mb-10 flex items-center gap-3 rounded-xl border border-dashed border-rule-strong px-5 py-4 text-sm text-ink-2 hover:border-accent/50 hover:text-ink">
+          <Settings2 aria-hidden className="size-5 shrink-0 text-accent" />
+          <span>
+            <span className="font-medium text-ink">Choose your exam and subjects.</span> Your home page and daily practice will start with them.
+          </span>
+        </Link>
       )}
 
       <SectionTitle>Choose an exam</SectionTitle>

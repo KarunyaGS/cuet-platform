@@ -1,4 +1,4 @@
-import { Bookmark as BookmarkIcon, BookOpen, CircleHelp, Layers, Trash2 } from 'lucide-react';
+import { Bookmark as BookmarkIcon, BookOpen, CircleHelp, History, Layers, ListChecks, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router';
 import { api, type Bookmark, type BookmarkKind } from '../api';
@@ -9,19 +9,24 @@ const KIND: Record<BookmarkKind, { label: string; icon: React.ReactNode }> = {
   TOPIC: { label: 'Topic', icon: <Layers aria-hidden className="size-[18px]" /> },
   LESSON: { label: 'Lesson', icon: <BookOpen aria-hidden className="size-[18px]" /> },
   QUESTION: { label: 'Question', icon: <CircleHelp aria-hidden className="size-[18px]" /> },
+  REVISION: { label: 'Revision notes', icon: <ListChecks aria-hidden className="size-[18px]" /> },
 };
 
 function target(b: Bookmark) {
   if (b.kind === 'TOPIC') return `/topic/${b.entityId}`;
+  if (b.kind === 'REVISION') return `/revise/${b.entityId}`;
   if (b.kind === 'LESSON') return `/learn/${b.entityId}`;
   return b.nodeId ? `/topic/${b.nodeId}` : null;
 }
 
-/** Everything the student has bookmarked: topics, lessons and questions to come back to. */
+type Tab = BookmarkKind | 'ALL' | 'RECENT';
+
+/** Saved items (topics, lessons, questions, revision notes) and recently viewed lessons and topics. */
 export function BookmarksPage() {
   const { user, ready } = useAuth();
   const list = useLoad(api.bookmarks, [user?.id]);
-  const [tab, setTab] = useState<BookmarkKind | 'ALL'>('ALL');
+  const recent = useLoad(api.recent, [user?.id]);
+  const [tab, setTab] = useState<Tab>('ALL');
   const [err, setErr] = useState<Error | null>(null);
   if (ready && !user) return <Navigate to="/signin" replace />;
   if (list.loading && !list.data) return <Loading />;
@@ -40,23 +45,51 @@ export function BookmarksPage() {
   };
   return (
     <div>
-      <PageHeader title="Bookmarks" subtitle="Topics, lessons and questions you saved to come back to." />
+      <PageHeader title="Saved and recent" subtitle="Topics, lessons, questions and revision notes you saved, and what you opened recently." />
       <div className="mb-5">
         <Segmented
-          label="Which bookmarks to show"
+          label="Which items to show"
           value={tab}
           onChange={setTab}
           options={[
-            { value: 'ALL', label: `All (${all.length})` },
+            { value: 'ALL', label: `All saved (${all.length})` },
             { value: 'TOPIC', label: `Topics (${count('TOPIC')})` },
             { value: 'LESSON', label: `Lessons (${count('LESSON')})` },
+            { value: 'REVISION', label: `Revision notes (${count('REVISION')})` },
             { value: 'QUESTION', label: `Questions (${count('QUESTION')})` },
+            { value: 'RECENT', label: 'Recently viewed' },
           ]}
         />
       </div>
       {err && <ErrorBox error={err} />}
-      {shown.length === 0 ? (
-        <Empty icon={<BookmarkIcon />}>Nothing saved here yet. Use the bookmark button on a topic, a lesson or a practice question.</Empty>
+
+      {tab === 'RECENT' ? (
+        recent.loading && !recent.data ? (
+          <Loading />
+        ) : recent.error ? (
+          <ErrorBox error={recent.error} onRetry={recent.reload} />
+        ) : recent.data!.length === 0 ? (
+          <Empty icon={<History />}>Nothing opened yet. Lessons and topics you open appear here.</Empty>
+        ) : (
+          <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+            {recent.data!.map((r) => (
+              <li key={`${r.kind}-${r.resourceId ?? r.nodeId}`}>
+                <Link to={r.kind === 'LESSON_VIEW' ? `/learn/${r.resourceId}` : `/topic/${r.nodeId}`} className="flex items-start gap-3 px-4 py-3.5 transition-colors hover:bg-paper">
+                  <span className="mt-0.5 shrink-0 text-ink-3">{r.kind === 'LESSON_VIEW' ? KIND.LESSON.icon : KIND.TOPIC.icon}</span>
+                  <span className="min-w-0 flex-1">
+                    <span className="line-clamp-2 text-[15px] text-ink">{r.title ?? '(no longer available)'}</span>
+                    <span className="mt-0.5 block text-xs text-ink-3">
+                      {r.kind === 'LESSON_VIEW' ? 'Lesson' : 'Topic'}
+                      {r.paper ? `, ${r.paper}` : ''}, opened {new Date(r.at).toLocaleString(undefined, { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })}
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )
+      ) : shown.length === 0 ? (
+        <Empty icon={<BookmarkIcon />}>Nothing saved here yet. Use the bookmark button on a topic, a lesson, a revision page or a practice question.</Empty>
       ) : (
         <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
           {shown.map((b) => {

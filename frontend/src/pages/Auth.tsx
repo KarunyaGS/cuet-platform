@@ -188,7 +188,18 @@ export function AuthPage({ mode }: { mode: Mode }) {
             <Field label="Email">
               <input required type="email" maxLength={200} value={form.email} onChange={(e) => set('email')(e.target.value)} autoComplete="email" inputMode="email" disabled={busy} className={input} />
             </Field>
-            <Field label="Password" hint={signup ? 'At least 10 characters.' : undefined}>
+            <Field
+              label="Password"
+              hint={
+                signup ? (
+                  'At least 10 characters.'
+                ) : (
+                  <Link to="/forgot-password" className="font-medium text-accent hover:underline">
+                    Forgot password?
+                  </Link>
+                )
+              }
+            >
               <PasswordInput id={`pw-${mode}`} value={form.password} onChange={set('password')} autoComplete={signup ? 'new-password' : 'current-password'} minLength={signup ? 10 : 1} disabled={busy} />
             </Field>
             {signup && (

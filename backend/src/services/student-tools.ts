@@ -34,10 +34,11 @@ export async function updateProfile(db: D1Database, userId: string, input: z.inf
 
 // ---------------------------------------------------------------- bookmarks
 
-const KINDS = ['TOPIC', 'LESSON', 'QUESTION'] as const;
+const KINDS = ['TOPIC', 'LESSON', 'QUESTION', 'REVISION'] as const;
 export const bookmarkSchema = z.object({ kind: z.enum(KINDS), entityId: z.string().min(1).max(100) });
 
-const TABLE = { TOPIC: 'curriculum_nodes', LESSON: 'learning_resources', QUESTION: 'questions' } as const;
+/** REVISION saves a topic's quick-revision page (the entity is the topic). */
+const TABLE = { TOPIC: 'curriculum_nodes', LESSON: 'learning_resources', QUESTION: 'questions', REVISION: 'curriculum_nodes' } as const;
 
 export async function addBookmark(db: D1Database, userId: string, input: z.infer<typeof bookmarkSchema>) {
   if (!(await db.prepare(`SELECT 1 FROM ${TABLE[input.kind]} WHERE id = ?`).bind(input.entityId).first())) throw notFound('Item to bookmark');
@@ -57,11 +58,11 @@ export async function listBookmarks(db: D1Database, userId: string) {
   const { results } = await db
     .prepare(
       `SELECT b.id, b.kind, b.entity_id, b.created_at,
-         CASE b.kind WHEN 'TOPIC' THEN n.title WHEN 'LESSON' THEN r.title ELSE SUBSTR(q.stem, 1, 180) END AS title,
+         CASE WHEN b.kind IN ('TOPIC','REVISION') THEN n.title WHEN b.kind = 'LESSON' THEN r.title ELSE SUBSTR(q.stem, 1, 180) END AS title,
          COALESCE(n.id, r.curriculum_node_id, (SELECT qt.curriculum_node_id FROM question_topics qt WHERE qt.question_id = q.id LIMIT 1)) AS node_id,
          COALESCE(tp1.name, tp2.name, tp3.name) AS paper
        FROM bookmarks b
-       LEFT JOIN curriculum_nodes n ON b.kind = 'TOPIC' AND n.id = b.entity_id
+       LEFT JOIN curriculum_nodes n ON b.kind IN ('TOPIC','REVISION') AND n.id = b.entity_id
        LEFT JOIN syllabus_versions v1 ON v1.id = n.syllabus_version_id LEFT JOIN test_papers tp1 ON tp1.id = v1.test_paper_id
        LEFT JOIN learning_resources r ON b.kind = 'LESSON' AND r.id = b.entity_id LEFT JOIN test_papers tp2 ON tp2.id = r.test_paper_id
        LEFT JOIN questions q ON b.kind = 'QUESTION' AND q.id = b.entity_id LEFT JOIN test_papers tp3 ON tp3.id = q.test_paper_id
@@ -234,7 +235,10 @@ export async function startDailyPractice(db: D1Database, preview: boolean, userI
         .bind(userId)
         .first<{ paper_id: string }>()
     )?.paper_id;
-  if (!paperId) throw new ApiError(404, 'NO_SUBJECT_YET', 'Open a subject or practise a topic first, then daily practice can pick questions for you');
+  const chosen =
+    paperId ??
+    JSON.parse((await db.prepare('SELECT paper_ids_json FROM student_preferences WHERE user_id = ?').bind(userId).first<{ paper_ids_json: string }>())?.paper_ids_json ?? '[]')[0];
+  if (!chosen) throw new ApiError(404, 'NO_SUBJECT_YET', 'Choose your subjects on your profile, or open a subject first, then daily practice can pick questions for you');
   const { results } = await db
     .prepare(
       `SELECT q.id,
@@ -246,10 +250,10 @@ export async function startDailyPractice(db: D1Database, preview: boolean, userI
          AND q.id NOT IN (SELECT a.question_id FROM practice_answers a JOIN practice_sessions s ON s.id = a.session_id WHERE s.user_id = ?3 AND a.outcome = 'CORRECT' AND a.answered_at > datetime('now', '-3 days'))
        GROUP BY q.id ORDER BY bucket, random() LIMIT ?4`,
     )
-    .bind(preview ? 1 : 0, paperId, userId, input.count)
+    .bind(preview ? 1 : 0, chosen, userId, input.count)
     .all<{ id: string }>();
   if (!results.length) throw new ApiError(404, 'NO_QUESTIONS', 'No practice questions are available for this subject yet');
-  return createSession(db, userId, { mode: 'PRACTICE', paperId, nodeId: null, ids: results.map((r) => r.id) });
+  return createSession(db, userId, { mode: 'PRACTICE', paperId: chosen, nodeId: null, ids: results.map((r) => r.id) });
 }
 
 // ---------------------------------------------------------------- revision notes

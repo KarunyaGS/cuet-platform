@@ -1,8 +1,8 @@
-import { BookOpen, CalendarPlus, CircleCheck, Layers, PlayCircle, Zap } from 'lucide-react';
+import { BookOpen, CalendarPlus, CalendarRange, CircleCheck, Layers, PlayCircle, Zap } from 'lucide-react';
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router';
 import { api, type Dashboard } from '../api';
-import { accuracyTone, Button, Empty, ErrorBox, Loading, Meter, PageHeader, SectionTitle, useAuth, useLoad } from '../ui';
+import { accuracyTone, Button, ButtonLink, Empty, ErrorBox, Loading, Meter, PageHeader, SectionTitle, useAuth, useLoad } from '../ui';
 
 const MODE: Record<string, string> = { PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' };
 const today = () => new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
@@ -44,6 +44,8 @@ const row = 'flex items-center gap-3 px-4 py-3 text-sm';
 export function DashboardPage() {
   const { user, ready } = useAuth();
   const d = useLoad(api.dashboard, [user?.id]);
+  const prefs = useLoad(api.preferences, [user?.id]);
+  const [paperId, setPaperId] = useState('');
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<Error | null>(null);
@@ -56,7 +58,7 @@ export function DashboardPage() {
     setBusy(true);
     setErr(null);
     try {
-      const s = await api.dailyPractice({ count: 10 });
+      const s = await api.dailyPractice({ count: 10, ...(paperId ? { paperId } : {}) });
       navigate(`/practice/${s.session.id}`);
     } catch (e) {
       setErr(e as Error);
@@ -81,9 +83,27 @@ export function DashboardPage() {
         title="Today"
         subtitle={today()}
         actions={
-          <Button onClick={daily} disabled={busy} icon={<Zap aria-hidden />}>
-            {busy ? 'Picking questions…' : 'Daily practice, 10 questions'}
-          </Button>
+          <>
+            <ButtonLink to="/report" icon={<CalendarRange aria-hidden />}>
+              Weekly report
+            </ButtonLink>
+            {(prefs.data?.papers.length ?? 0) > 0 && (
+              <label className="flex items-center gap-2 text-sm text-ink-2">
+                <span className="sr-only">Subject for daily practice</span>
+                <select value={paperId} onChange={(e) => setPaperId(e.target.value)} className="h-9 max-w-[14rem] rounded-lg border border-rule-strong bg-surface px-2.5 text-sm text-ink focus:border-accent focus:outline-none">
+                  <option value="">Most recent subject</option>
+                  {prefs.data!.papers.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+            <Button onClick={daily} disabled={busy} icon={<Zap aria-hidden />}>
+              {busy ? 'Picking questions…' : 'Daily practice, 10 questions'}
+            </Button>
+          </>
         }
       />
       {err && <ErrorBox error={err} />}

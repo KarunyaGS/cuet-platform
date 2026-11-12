@@ -19,6 +19,7 @@ import {
 import { upsertMedia, upsertQuestion, upsertResource } from '../services/content-packs';
 import { storeObject } from '../services/storage';
 import { importOfficialInfo, officialInfoSchema } from '../services/official-info';
+import { createResetLink, resetLinkSchema } from '../services/accounts';
 
 const admin = new Hono<AppEnv>();
 const examYear = (c: { req: { query(k: string): string | undefined } }) => {
@@ -84,6 +85,7 @@ admin.get('/coverage/papers', async (c) => {
 admin.get('/coverage/papers/:id/topics', async (c) => c.json(await topicCoverage(c.env.DB, c.req.param('id'))));
 
 // Accounts, page checks and machine corrections (ingestion CLI)
+admin.post('/users/reset-link', async (c) => c.json(await createResetLink(c.env.DB, await readJson(c, resetLinkSchema), c.get('actor')), 201));
 admin.post('/users/roles', async (c) => c.json(await setRole(c.env.DB, await readJson(c, roleSchema), c.get('actor'))));
 admin.put('/page-checks', async (c) => c.json(await storePageChecks(c.env.DB, await readJson(c, pageChecksSchema))));
 admin.put('/page-texts', async (c) => c.json(await storePageTexts(c.env.DB, await readJson(c, pageTextsSchema))));

@@ -1,7 +1,7 @@
-import { ChartNoAxesColumn, CircleCheck, History } from 'lucide-react';
+import { CalendarRange, ChartNoAxesColumn, CircleCheck, History } from 'lucide-react';
 import { Link } from 'react-router';
 import { api } from '../api';
-import { accuracyTone, Empty, ErrorBox, Loading, Meter, PageHeader, SectionTitle, StatGroup, useLoad } from '../ui';
+import { accuracyTone, ButtonLink, Empty, ErrorBox, Loading, Meter, PageHeader, SectionTitle, StatGroup, useLoad } from '../ui';
 import { SubjectTable } from './Dashboard';
 
 const MODE: Record<string, string> = { PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' };
@@ -14,7 +14,7 @@ export function ProgressPage() {
   const d = p.data!;
   return (
     <div>
-      <PageHeader title="Progress" subtitle="Built from the practice sets and tests you have submitted." />
+      <PageHeader title="Progress" subtitle="Built from the practice sets and tests you have submitted." actions={<ButtonLink to="/report" icon={<CalendarRange aria-hidden />}>Weekly report</ButtonLink>} />
       <div className="mb-10">
         <StatGroup
           items={[

@@ -65,9 +65,9 @@ all of it, nothing becomes `VERIFIED` without a signed-in reviewer, and anything
 
 These were built and tested locally after `cuet-db` was migrated (migrations 0001–0008):
 
-1. **Apply migrations `0009_student_tools` and `0010_official_info`** to `cuet-db`. Both only create new tables
-   (bookmarks, learning activity, daily goals, study plan; official information, notices, participating
-   universities). Nothing existing is changed:
+1. **Apply migrations `0009_student_tools`, `0010_official_info` and `0011_student_portal`** to `cuet-db`. All only
+   create new tables (bookmarks, learning activity, daily goals, study plan; official information, notices,
+   participating universities; student preferences, password reset links, dismissed reminders). Nothing existing is changed:
    `CUET_REMOTE_DATA_APPROVED=yes npx wrangler d1 migrations apply DB --env production --remote` (from `backend/`).
    Without 0009, the Today page, bookmarks, planner, goals, continue learning, daily practice and the profile page fail.
 2. **Import the official exam information** (public `/cuet` pages) after the Worker is deployed:
@@ -75,3 +75,6 @@ These were built and tested locally after `cuet-db` was migrated (migrations 000
    It replaces each exam's information for the cycle in one batch and writes an audit log entry.
 3. **Smoke test the new pages**: `/cuet`, `/cuet/ug`, `/cuet/pg/universities` (no sign-in needed) and
    `/api/public/info/CUET_UG`.
+4. **Account recovery without email**: an admin creates a one-time link with
+   `POST /api/admin/users/reset-link {"email": ...}` (admin token) and gives the student the returned
+   `/reset-password#<token>` path on the site's address. It expires after an hour and works once.

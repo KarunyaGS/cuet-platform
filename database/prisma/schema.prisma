@@ -921,6 +921,9 @@ model User {
   activity    LearningActivity[]
   dailyGoal   DailyGoal?
   planItems   StudyPlanItem[]
+  preferences StudentPreference?
+  resetTokens PasswordResetToken[]
+  dismissals  ReminderDismissal[]
 
   @@map("users")
 }
@@ -1192,4 +1195,46 @@ model ParticipatingUniversity {
   @@unique([examCode, cycle, name])
   @@index([examCode, cycle, type])
   @@map("participating_universities")
+}
+
+/// What a student is preparing for: drives "My subjects" and the daily-practice subject choice.
+model StudentPreference {
+  userId     String   @id @map("user_id")
+  /// CUET_UG or CUET_PG; null until chosen.
+  examCode   String?  @map("exam_code")
+  targetYear Int?     @map("target_year")
+  /// JSON array of test_papers ids (at most 10), in the student's order.
+  paperIds   String   @default("[]") @map("paper_ids_json")
+  updatedAt  DateTime @map("updated_at")
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("student_preferences")
+}
+
+/// One-time password reset link (only a SHA-256 hash of the token is stored). Created by an admin for a
+/// student who asks for help, or later sent by email; expires after an hour and works once.
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String    @map("user_id")
+  tokenHash String    @unique @map("token_hash")
+  expiresAt DateTime  @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  /// Who created it, e.g. "admin:token" or "user:<id>".
+  createdBy String    @map("created_by")
+  createdAt DateTime  @default(now()) @map("created_at")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@map("password_reset_tokens")
+}
+
+/// A reminder the student dismissed (reminders themselves are worked out from their data).
+model ReminderDismissal {
+  userId      String   @map("user_id")
+  key         String
+  dismissedAt DateTime @map("dismissed_at")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, key])
+  @@map("reminder_dismissals")
 }

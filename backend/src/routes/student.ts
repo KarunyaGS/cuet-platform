@@ -10,12 +10,13 @@ import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import type { AppEnv } from '../types';
 import { invalid } from '../lib/errors';
 import { readJson } from '../lib/http';
-import { changePassword, login, loginSchema, logout, passwordSchema, registerSchema, registerStudent, SESSION_COOKIE, studentAuth, userFromToken } from '../services/accounts';
+import { changePassword, login, loginSchema, logout, passwordSchema, resetPassword, resetPasswordSchema, registerSchema, registerStudent, SESSION_COOKIE, studentAuth, userFromToken } from '../services/accounts';
 import { sha256Hex } from '../lib/hash';
 import {
   activitySchema, addBookmark, addPlanItem, bookmarkSchema, bookmarkState, dailySchema, dashboard, dashboardQuery, deletePlanItem, getGoal, getProfile, goalSchema, listBookmarks,
   listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
 } from '../services/student-tools';
+import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
 import { listExams, listSubjects, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { answerSchema, getSession, progress, saveAnswer, startSchema, startSession, submitSession } from '../services/practice';
 
@@ -29,6 +30,8 @@ auth.post('/login', async (c) => {
   setCookie(c, SESSION_COOKIE, s.token, { httpOnly: true, sameSite: 'Lax', secure: c.env.APP_ENV !== 'development', path: '/', maxAge: ttl * 3600 });
   return c.json({ user: s.user, expires: s.expires });
 });
+// A one-time reset link (made by an admin, or emailed once an email service exists) sets a new password.
+auth.post('/reset-password', async (c) => c.json(await resetPassword(c.env.DB, await readJson(c, resetPasswordSchema))));
 auth.post('/logout', async (c) => {
   await logout(c.env.DB, getCookie(c, SESSION_COOKIE));
   deleteCookie(c, SESSION_COOKIE, { path: '/' });
@@ -78,11 +81,19 @@ student.post('/activity', async (c) => c.json(await recordActivity(c.env.DB, c.g
 student.get('/bookmarks', async (c) => c.json(await listBookmarks(c.env.DB, c.get('user').id)));
 student.get('/bookmarks/state', async (c) => {
   const kind = c.req.query('kind') ?? '';
-  if (!['TOPIC', 'LESSON', 'QUESTION'].includes(kind)) throw invalid('kind must be TOPIC, LESSON or QUESTION');
+  if (!['TOPIC', 'LESSON', 'QUESTION', 'REVISION'].includes(kind)) throw invalid('kind must be TOPIC, LESSON, QUESTION or REVISION');
   return c.json(await bookmarkState(c.env.DB, c.get('user').id, kind, (c.req.query('ids') ?? '').split(',').filter(Boolean).slice(0, 100)));
 });
 student.post('/bookmarks', async (c) => c.json(await addBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema)), 201));
 student.post('/bookmarks/remove', async (c) => c.json(await removeBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema))));
+
+// Preferences, weekly report, reminders, recently viewed
+student.get('/preferences', async (c) => c.json(await getPreferences(c.env.DB, c.get('user').id)));
+student.put('/preferences', async (c) => c.json(await setPreferences(c.env.DB, c.get('user').id, await readJson(c, preferencesSchema))));
+student.get('/report/weekly', async (c) => c.json(await weeklyReport(c.env.DB, c.get('user').id, weeklyQuery.parse({ start: c.req.query('start'), from: c.req.query('from'), tz: c.req.query('tz') }))));
+student.get('/reminders', async (c) => c.json(await reminders(c.env.DB, c.get('user').id, remindersQuery.parse({ day: c.req.query('day'), since: c.req.query('since') }))));
+student.post('/reminders/dismiss', async (c) => c.json(await dismissReminder(c.env.DB, c.get('user').id, await readJson(c, dismissSchema))));
+student.get('/recent', async (c) => c.json(await recentlyViewed(c.env.DB, c.get('user').id)));
 
 // Study planner
 student.get('/plan', async (c) => c.json(await listPlan(c.env.DB, c.get('user').id, c.req.query('from') ?? '', c.req.query('to') ?? '')));

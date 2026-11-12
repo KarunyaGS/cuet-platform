@@ -82,6 +82,48 @@ export async function changePassword(db: D1Database, userId: string, input: z.in
   return { changed: true };
 }
 
+export const resetLinkSchema = z.object({ email: z.email().max(200).transform((e) => e.trim().toLowerCase()) });
+export const resetPasswordSchema = z.object({ token: z.string().min(20).max(200), newPassword: z.string().min(10, 'Use at least 10 characters').max(200) });
+const RESET_TTL_MINUTES = 60;
+
+/**
+ * Creates a one-time password reset link for an account (only the token's hash is stored). Used by an admin
+ * helping a student; when an email service is added, the same link is what gets emailed.
+ */
+export async function createResetLink(db: D1Database, input: z.infer<typeof resetLinkSchema>, createdBy: string) {
+  const user = await db.prepare("SELECT id FROM users WHERE email = ? AND status = 'ACTIVE'").bind(input.email).first<{ id: string }>();
+  if (!user) throw new ApiError(404, 'NOT_FOUND', 'No active account uses this email');
+  const token = b64(crypto.getRandomValues(new Uint8Array(32))).replace(/[+/=]/g, (c) => ({ '+': '-', '/': '_', '=': '' })[c]!);
+  const expiresAt = new Date(Date.now() + RESET_TTL_MINUTES * 60_000).toISOString();
+  const now = nowIso();
+  await db.batch([
+    // Older unused links for the account stop working when a new one is made.
+    db.prepare('UPDATE password_reset_tokens SET used_at = ? WHERE user_id = ? AND used_at IS NULL').bind(now, user.id),
+    db.prepare('INSERT INTO password_reset_tokens (id, user_id, token_hash, expires_at, used_at, created_by, created_at) VALUES (?, ?, ?, ?, NULL, ?, ?)').bind(newId('prt'), user.id, await sha256Hex(token), expiresAt, createdBy, now),
+    db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(newId('aud'), createdBy, 'CREATE_RESET_LINK', 'USER', user.id, now),
+  ]);
+  return { path: `/reset-password#${token}`, expiresAt };
+}
+
+/** Sets a new password with a valid reset link, marks the link used and signs the account out everywhere. */
+export async function resetPassword(db: D1Database, input: z.infer<typeof resetPasswordSchema>) {
+  const now = nowIso();
+  const row = await db
+    .prepare('SELECT id, user_id FROM password_reset_tokens WHERE token_hash = ? AND used_at IS NULL AND expires_at > ?')
+    .bind(await sha256Hex(input.token), now)
+    .first<{ id: string; user_id: string }>();
+  if (!row) throw new ApiError(400, 'INVALID_RESET_LINK', 'This reset link is not valid. It may have expired or been used already. Ask for a new link.');
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const hash = await pbkdf2(input.newPassword, salt, ITERATIONS);
+  await db.batch([
+    db.prepare('UPDATE user_credentials SET password_hash = ?, salt = ?, iterations = ?, updated_at = ? WHERE user_id = ?').bind(hash, b64(salt), ITERATIONS, now, row.user_id),
+    db.prepare('UPDATE password_reset_tokens SET used_at = ? WHERE id = ?').bind(now, row.id),
+    db.prepare('UPDATE user_sessions SET revoked_at = ? WHERE user_id = ? AND revoked_at IS NULL').bind(now, row.user_id),
+    db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(newId('aud'), `user:${row.user_id}`, 'RESET_PASSWORD', 'USER', row.user_id, now),
+  ]);
+  return { reset: true };
+}
+
 export async function logout(db: D1Database, token: string | undefined) {
   if (token) await db.prepare('UPDATE user_sessions SET revoked_at = ? WHERE token_hash = ? AND revoked_at IS NULL').bind(nowIso(), await sha256Hex(token)).run();
 }

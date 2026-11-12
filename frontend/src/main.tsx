@@ -15,6 +15,8 @@ import { PracticePage } from './pages/Practice';
 import { ProfilePage } from './pages/Profile';
 import { ProgressPage } from './pages/Progress';
 import { ResultsPage } from './pages/Results';
+import { ReportPage } from './pages/Report';
+import { ForgotPasswordPage, ResetPasswordPage } from './pages/Reset';
 import { RevisePage } from './pages/Revise';
 import { SubjectPage } from './pages/Subject';
 import { Subjects } from './pages/Subjects';
@@ -40,6 +42,8 @@ const router = createBrowserRouter([
   // Visitors see the welcome / sign-in page first; signed-in students are sent on to the app.
   { path: '/signin', element: <GuestOnly><AuthPage mode="signin" /></GuestOnly> },
   { path: '/signup', element: <GuestOnly><AuthPage mode="signup" /></GuestOnly> },
+  { path: '/forgot-password', element: <ForgotPasswordPage /> },
+  { path: '/reset-password', element: <ResetPasswordPage /> },
   // Official exam information: public, no sign-in needed.
   {
     element: <PublicLayout />,
@@ -63,6 +67,7 @@ const router = createBrowserRouter([
       { path: '/bookmarks', element: <BookmarksPage /> },
       { path: '/profile', element: <ProfilePage /> },
       { path: '/progress', element: <ProgressPage /> },
+      { path: '/report', element: <ReportPage /> },
       { path: '/revise/:nodeId', element: <RevisePage /> },
       { path: '/review', element: lazyPage(<ReviewQueue />) },
       { path: '/review/paper/:paperId', element: lazyPage(<ReviewWorkspace />) },
