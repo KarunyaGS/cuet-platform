@@ -12,6 +12,9 @@ import type { AppEnv } from '../types';
 import { invalid } from '../lib/errors';
 import { readJson } from '../lib/http';
 import { reviewerAuth } from '../lib/reviewer';
+import { contentPapers, contentQuery, listContent, reviewerDashboard } from '../services/admin-console';
+import { getQuestionAdmin } from '../services/questions';
+import { getResource } from '../services/resources';
 import {
   addRows, addRowsSchema, decide, decideSchema, editRow, editSchema, history, moveRow, moveSchema, paperWorkspace, reviewQueue, signOff, signOffSchema, sourceFile,
   type Reviewer,
@@ -25,6 +28,12 @@ const me = (c: { get(k: 'user'): AppEnv['Variables']['user'] }): Reviewer => {
 };
 
 review.get('/me', (c) => c.json(c.get('user')));
+// Lessons and questions to review (decisions go through /decide; history through /history)
+review.get('/dashboard', async (c) => c.json(await reviewerDashboard(c.env.DB, c.get('user').id)));
+review.get('/content', async (c) => c.json(await listContent(c.env.DB, contentQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
+review.get('/content/papers', async (c) => c.json(await contentPapers(c.env.DB)));
+review.get('/content/QUESTION/:id', async (c) => c.json(await getQuestionAdmin(c.get('prisma'), c.req.param('id'))));
+review.get('/content/LEARNING_RESOURCE/:id', async (c) => c.json(await getResource(c.get('prisma'), c.req.param('id'))));
 review.get('/queue', async (c) => {
   const exam = c.req.query('exam');
   const year = Number(c.req.query('year'));

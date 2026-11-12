@@ -924,6 +924,7 @@ model User {
   preferences StudentPreference?
   resetTokens PasswordResetToken[]
   dismissals  ReminderDismissal[]
+  assignments ReviewAssignment[]
 
   @@map("users")
 }
@@ -1237,4 +1238,20 @@ model ReminderDismissal {
 
   @@id([userId, key])
   @@map("reminder_dismissals")
+}
+
+/// A paper given to a reviewer to check: its syllabus (SYLLABUS) or its lessons and questions (CONTENT).
+model ReviewAssignment {
+  id          String   @id @default(cuid())
+  userId      String   @map("user_id")
+  testPaperId String   @map("test_paper_id")
+  scope       String
+  note        String?
+  assignedBy  String   @map("assigned_by")
+  createdAt   DateTime @default(now()) @map("created_at")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, testPaperId, scope])
+  @@index([testPaperId])
+  @@map("review_assignments")
 }

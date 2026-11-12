@@ -6,6 +6,7 @@ import { prismaMiddleware } from './lib/prisma';
 import admin from './routes/admin';
 import pub from './routes/public';
 import review from './routes/review';
+import consoleApi from './routes/console';
 import { auth, learn, student } from './routes/student';
 
 const app = new Hono<AppEnv>();
@@ -21,6 +22,7 @@ app.use('/api/admin/*', adminAuth);
 app.route('/api/admin', admin);
 app.route('/api/public', pub);
 app.route('/api/review', review);
+app.route('/api/console', consoleApi);
 app.route('/api/auth', auth);
 app.route('/api/learn', learn);
 app.route('/api/student', student);
