@@ -59,7 +59,7 @@
 | Student portal | Notifications and reminders | Header bell with dismiss | `/api/student/reminders`, `/reminders/dismiss` | `reminder_dismissals` | Unfinished tests, plan, goal, weak topic, new NTA notices, setup | COMPLETED (local, in-app); email or SMS reminders BLOCKED (needs a provider) |
 | Student portal | Saved revision materials | Save button on revision pages; "Revision notes" tab | Bookmark kind `REVISION` | `bookmarks` | — | COMPLETED (local) |
 | Student portal | Recently viewed lessons and topics | "Recently viewed" tab on Saved and recent | `/api/student/recent` | `learning_activity` | — | COMPLETED (local) |
-| Learning | Syllabus explorer | Done | `/api/learn/*` | Syllabus tables | 92 of 194 papers visible | PARTIALLY COMPLETED |
+| Learning | Syllabus explorer | Done | `/api/learn/*` | Syllabus tables | 92 of 194 papers visible. PG structure audit (12 Nov): counts on the subject list are wrong for all PG papers (Note lines counted as topics, sections not counted); 17 visible PG papers store their syllabus inside the Note box; see `CUET_PG_SYLLABUS_STRUCTURE_AUDIT.md` | PARTIALLY COMPLETED; fixes need approval |
 | Learning | Lessons and diagrams | Done | `/api/learn/resources`, `/media` | Lessons, blocks, R2 | Physics 21 lessons in the database | PARTIALLY COMPLETED |
 | Learning | Quick revision | Done | `/api/learn/topics/:id/revision` | Existing | Where lessons exist | COMPLETED (local) |
 | Exams | Practice, topic tests, unit tests, daily practice | Done | `/api/student/practice*` | Practice tables | Physics only (552 questions) | COMPLETED (local), content-limited |
@@ -177,7 +177,14 @@ The syllabus is "Visible" when it is machine-checked and shown to students, and 
    - import the official information;
    - set `ADMIN_API_TOKEN`;
    - deploy the Worker.
-2. **Syllabus:** import the page-image corrections, and decide the 38 open items.
+2. **Syllabus:**
+   - Fix the subject-list counts (code only).
+   - Correct the SCQP08 review file.
+   - Import the page-image corrections.
+   - Decide the open items.
+   - Decide on the Lepcha transcription.
+   
+   Details are in `CUET_PG_SYLLABUS_STRUCTURE_AUDIT.md`.
 3. **Content:** resume content generation (owner had paused it), and in which subject order. Who reviews it?
 4. **Email service** for password reset, verification and reminders.
 5. **Subscriptions:** plans, prices and payment provider.
