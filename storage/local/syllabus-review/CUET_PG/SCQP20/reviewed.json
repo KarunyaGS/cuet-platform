@@ -1,0 +1,160 @@
+{
+ "schema": "cuet-syllabus-review/1",
+ "exam": "CUET_PG",
+ "code": "SCQP20",
+ "decision": "CORRECTED",
+ "pages": [
+  {
+   "page": 1,
+   "content": "cover",
+   "note": "Title page: Syllabus for Medical Laboratory Technology (SCQP20)"
+  },
+  {
+   "page": 2,
+   "content": "syllabus",
+   "note": "Note box (i-iv) then syllabus box (box title repeats the paper title, not a row) with 10 bullets"
+  }
+ ],
+ "nodes": [
+  {
+   "ref": "cn_0b5d054f00d440e7ab8b54080967753c",
+   "parentRef": null,
+   "kind": "NOTE",
+   "label": null,
+   "title": "Note",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_f9372fa2de7e41ff9123619a483797e2",
+   "parentRef": "cn_0b5d054f00d440e7ab8b54080967753c",
+   "kind": "ITEM",
+   "label": "i",
+   "title": "The Question Paper will have 75 questions.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_12c37c5b508a4c1bbd2af57a7280efe6",
+   "parentRef": "cn_0b5d054f00d440e7ab8b54080967753c",
+   "kind": "ITEM",
+   "label": "ii",
+   "title": "All questions will be based on Subject-Specific Knowledge.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_14455396f8594244a12f0798ab227a1a",
+   "parentRef": "cn_0b5d054f00d440e7ab8b54080967753c",
+   "kind": "ITEM",
+   "label": "iii",
+   "title": "All questions are compulsory.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_ee4b070491f04d9aa1421c2e5f685add",
+   "parentRef": "cn_0b5d054f00d440e7ab8b54080967753c",
+   "kind": "ITEM",
+   "label": "iv",
+   "title": "The Questions will be Bilingual (English/Hindi).",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_4de3eb3162c44a4ab32da786446fb920",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Anatomy",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_81a2f1313af94e839fa18d6b6a6fda65",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Physiology",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_c594e9c386c54b6e8e84c0957aab7386",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Clinical Pathology Hematology",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_76f543cf729448e68177f1215a7d8821",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Clinical Biochemistry",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_bc87123f25b64c4c8b89b5880dd5402c",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Medical Microbiology",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_bba5ec13a85c4543b5dac03cba08fecd",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Serology, Histopathology",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_fec5768edc72491180d10693ed061912",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Biostatics",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_72d308b823c0453eb091b59154c89c98",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Molecular Biology Applied Genetics",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_5d6262d8d77840808a99f32633155b36",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Immunology and Immunological Techniques",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_5c26e2a376b241faa2c185761a0d6ed3",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Biotechnology and Biomedical Techniques",
+   "body": null,
+   "sourcePage": 2
+  }
+ ],
+ "changes": [
+  "Wrong nesting: the 10 syllabus bullets (Anatomy ... Biotechnology and Biomedical Techniques) were stored as ITEM rows under the 'Note' box; made top-level TOPIC rows, wording unchanged (incl. 'Biostatics' as printed)",
+  "Introductory NOTE row 'Medical Laboratory Technology' (page 1) removed: it is the cover/running-header title, not syllabus text"
+ ],
+ "unresolved": []
+}

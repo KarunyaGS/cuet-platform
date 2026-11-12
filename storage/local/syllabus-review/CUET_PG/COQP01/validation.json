@@ -1,0 +1,120 @@
+{
+ "exam": "CUET_PG",
+ "code": "COQP01",
+ "decision": "CORRECTED",
+ "ok": true,
+ "errors": [],
+ "warnings": [],
+ "rows": 19,
+ "unconfirmedRows": 0,
+ "pageCoverage": {
+  "2": 98.7,
+  "3": 99
+ },
+ "rowChecks": {
+  "cn_067c1669f86c427c9e00da907dd50d14": {
+   "words": 1,
+   "found": 1,
+   "pct": 100
+  },
+  "cn_7f8b1cd9ec2e41faa035838d14b8561a": {
+   "words": 7,
+   "found": 7,
+   "pct": 100
+  },
+  "cn_a936a9f7c8ec4756b799787096be08d5": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "cn_00f0ed78418142a7ad103bb670188b76": {
+   "words": 5,
+   "found": 5,
+   "pct": 100
+  },
+  "cn_878ff75bdc5b472fb9671593bb68890f": {
+   "words": 8,
+   "found": 8,
+   "pct": 100
+  },
+  "cn_ccaf03db95d64a98861156a6720763fa": {
+   "words": 44,
+   "found": 44,
+   "pct": 100
+  },
+  "cn_7849aaa2f460430194b97c4b7c4d0ed8": {
+   "words": 19,
+   "found": 19,
+   "pct": 100
+  },
+  "cn_3c41a096a72e4cad9dffc4718354f7cd": {
+   "words": 50,
+   "found": 50,
+   "pct": 100
+  },
+  "cn_a895b939237a4be3859c0bd09548679a": {
+   "words": 50,
+   "found": 50,
+   "pct": 100
+  },
+  "new1": {
+   "words": 33,
+   "found": 33,
+   "pct": 100
+  },
+  "cn_9c7478f105b443509687b4d0c15f658b": {
+   "words": 41,
+   "found": 41,
+   "pct": 100
+  },
+  "new2": {
+   "words": 78,
+   "found": 78,
+   "pct": 100
+  },
+  "new3": {
+   "words": 37,
+   "found": 37,
+   "pct": 100
+  },
+  "cn_fe5e37ebffd54d1a8aed61e185713301": {
+   "words": 80,
+   "found": 80,
+   "pct": 100
+  },
+  "cn_4df0a89b90654e7eb75947f45da2f99c": {
+   "words": 38,
+   "found": 38,
+   "pct": 100
+  },
+  "new4": {
+   "words": 20,
+   "found": 20,
+   "pct": 100
+  },
+  "cn_ce1272bca8c64492aa7e0b2e8dd9aba0": {
+   "words": 28,
+   "found": 28,
+   "pct": 100
+  },
+  "new5": {
+   "words": 42,
+   "found": 42,
+   "pct": 100
+  },
+  "cn_62d0b635eaed4ccaaf914b419649097a": {
+   "words": 20,
+   "found": 20,
+   "pct": 100
+  }
+ },
+ "changes": [
+  "removed the NOTE row 'Agribusiness Management' (page 1): it is the cover title, not syllabus text",
+  "five bold run-in paragraph headings had been absorbed into the body of the preceding heading: split out as their own SUBTOPIC rows (title = the bold words, body = the rest of that paragraph) under the large heading they are printed beneath - Pedological and ethnological concepts of soil (p2), Credit Analysis and Introduction to Soil and Water Conservation (p3, still under Agricultural Economics), Rural Development (p3), Mineral nutrition of Plants (p3)",
+  "printed typos kept (Architec ture, conceptsand, Introductionto, programmed, Spiro plasmas, viroid’s)",
+  "line-break join fixed: 'Post- Harvest' -> 'Post-Harvest' (word hyphenated across the printed line)"
+ ],
+ "unresolved": [
+  "structure, for a person to confirm: the 5 bold run-in paragraph headings are nested as SUBTOPIC under the large heading printed above them (page layout); by subject some of them (Pedological and ethnological concepts of soil, Rural Development, Mineral nutrition of Plants) do not belong to that heading and could instead be top-level TOPIC rows"
+ ]
+}

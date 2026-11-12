@@ -1,0 +1,80 @@
+{
+ "schema": "cuet-syllabus-review/1",
+ "exam": "CUET_UG",
+ "code": "501",
+ "decision": "CORRECTED",
+ "pages": [
+  {
+   "page": 1,
+   "content": "cover",
+   "note": ""
+  },
+  {
+   "page": 2,
+   "content": "syllabus",
+   "note": ""
+  }
+ ],
+ "nodes": [
+  {
+   "ref": "cn_dc7f15e2841f4a6fbf553f10e76a4060",
+   "parentRef": null,
+   "kind": "NOTE",
+   "label": null,
+   "title": "The Question paper will contain questions from the following topics:",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_fd7a7e008a014f78899ff48f163e5d79",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "General Knowledge, Current Affairs,",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_a607bde15f374516b5c95045bba40f5f",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "General Mental Ability, Numerical Ability,",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_ab99edbefa594099bf35bb8b063dc6a2",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Reasoning (Simple application of basic mathematical concepts Quantitative arithmetic / algebra geometry / mensuration / statistics)",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_9271adf32b01400da11a9cb7c24cd2c5",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Logical and Analytical Reasoning.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_eb1eb4d54c4f46b2ae5fc51aa9332c45",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "General Science and Environment Literacy",
+   "body": null,
+   "sourcePage": 2
+  }
+ ],
+ "changes": [
+  "Row 'General' (title) was a fragment of the cover-page title 'General Test- 501' wrongly made a heading, with page 2's lead-in sentence as its body and page 1 as source; the cover fragment is dropped and the row now holds the printed lead-in 'The Question paper will contain questions from the following topics:' as a NOTE on page 2.",
+  "The five bullet topics are now root TOPIC rows (they were nested under the cover fragment).",
+  "Bullet 'Reasoning (Simple application of basic mathematical concepts ...)' was split into title/body at the line wrap; joined into one title."
+ ],
+ "unresolved": []
+}

@@ -1,0 +1,108 @@
+{
+ "exam": "CUET_PG",
+ "code": "LAQP37",
+ "decision": "TRANSCRIBED",
+ "ok": true,
+ "errors": [],
+ "warnings": [
+  "page 3: rows hold only 0% of the page's words (best text source)"
+ ],
+ "rows": 16,
+ "unconfirmedRows": 11,
+ "pageCoverage": {
+  "2": 95.7,
+  "3": 0
+ },
+ "rowChecks": {
+  "cn_d85a75e7ec564a6091aead588f8a6d5d": {
+   "words": 1,
+   "found": 1,
+   "pct": 100
+  },
+  "cn_9db22e4fb1fa4f679cf176f3d93d2b11": {
+   "words": 7,
+   "found": 7,
+   "pct": 100
+  },
+  "cn_5f8e9b6b5ff847fc90dabdd2e30af416": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "cn_86aca37a00d944a8a58ce17ee37b672a": {
+   "words": 5,
+   "found": 5,
+   "pct": 100
+  },
+  "new1": {
+   "words": 8,
+   "found": 8,
+   "pct": 100
+  },
+  "new2": {
+   "words": 16,
+   "found": 1,
+   "pct": 6.3
+  },
+  "new3": {
+   "words": 10,
+   "found": 1,
+   "pct": 10
+  },
+  "new4": {
+   "words": 13,
+   "found": 1,
+   "pct": 7.7
+  },
+  "new5": {
+   "words": 22,
+   "found": 0,
+   "pct": 0
+  },
+  "new6": {
+   "words": 9,
+   "found": 0,
+   "pct": 0
+  },
+  "new7": {
+   "words": 15,
+   "found": 0,
+   "pct": 0
+  },
+  "new8": {
+   "words": 15,
+   "found": 0,
+   "pct": 0
+  },
+  "new9": {
+   "words": 11,
+   "found": 0,
+   "pct": 0
+  },
+  "new10": {
+   "words": 17,
+   "found": 0,
+   "pct": 0
+  },
+  "new11": {
+   "words": 28,
+   "found": 0,
+   "pct": 0
+  },
+  "new12": {
+   "words": 20,
+   "found": 0,
+   "pct": 0
+  }
+ },
+ "changes": [
+  "Kept the 4 stored English note rows (refs unchanged); 'Note' given its printed colon; added the missing printed note item 'iv. The Question paper will be in Urdu.'.",
+  "Transcribed the Urdu (Nastaliq) syllabus of pages 2-3 from the page images (also rendered at 4x/6x with PDFium for reading): the two header lines of the syllabus box as one NOTE row, and the 10 numbered topics as TOPIC rows (printed number as label, heading as title, the line(s) under it as body). The Tesseract altOcr text was not used as a source (it is unreadable noise).",
+  "Letters as printed, no spelling normalised (e.g. شعرأ kept with the printed letters); Urdu letters used throughout (ک ی ہ ے ں ھ ٹ ڈ), Urdu comma ، and Urdu full stop ۔ as printed."
+ ],
+ "unresolved": [
+  "Pages 2-3, all Urdu rows: word spacing. Nastaliq print does not show reliably whether a space is typed after a non-joining letter or around ، and ۔ (e.g. printed 'اورارتقا', 'وادب', 'طنزومزاح', 'نذیراحمد', 'اخترالایمان', 'اصناف ۔تعریف'). Rows use standard Urdu word division: one space between words, ، and ۔ attached to the preceding word and followed by one space. A person should confirm or adjust.",
+  "Pages 2-3, labels: the printed topic numbers are Urdu digits; stored as Extended Arabic-Indic digits ۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹ ۱۰ (U+06F1...). The printed shape of 6 (topic 6, page 2, lower part) could also be the Arabic-Indic ٦ (U+0666); the two cannot be told apart with certainty in this font.",
+  "Page 2 header line 1 'شعبۂ' and page 3 topic 10 body 'نقطۂ': printed as he with a small hamza above; stored as ۂ (U+06C2). Page 2 topics 5 and 6 'شعرأ': printed as alef with a small hamza above; stored as أ (U+0623). The exact code points cannot be determined from the print."
+ ]
+}

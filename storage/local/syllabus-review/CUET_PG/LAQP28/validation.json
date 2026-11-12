@@ -1,0 +1,76 @@
+{
+ "exam": "CUET_PG",
+ "code": "LAQP28",
+ "decision": "CORRECTED",
+ "ok": true,
+ "errors": [],
+ "warnings": [
+  "1 row(s) have under 90% of their words in the page's text sources (marked for a person)",
+  "page 2: rows hold only 85.8% of the page's words (best text source)"
+ ],
+ "rows": 10,
+ "unconfirmedRows": 1,
+ "pageCoverage": {
+  "2": 85.8
+ },
+ "rowChecks": {
+  "cn_f715a6422db143478182f3fc9d945fe7": {
+   "words": 1,
+   "found": 1,
+   "pct": 100
+  },
+  "cn_59b67787d8c84baa99024528f6094328": {
+   "words": 7,
+   "found": 7,
+   "pct": 100
+  },
+  "cn_fa6d2e5cff274f6f9075f370767a541e": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "cn_80de9a0e904547ccbcaa45c86fbd1287": {
+   "words": 5,
+   "found": 5,
+   "pct": 100
+  },
+  "cn_fe9cf34cb8234283bf6eb57b60aabe7b": {
+   "words": 8,
+   "found": 8,
+   "pct": 100
+  },
+  "cn_e389cbfdbb404533a3173f770a9e2772": {
+   "words": 21,
+   "found": 21,
+   "pct": 100
+  },
+  "cn_ccc3cbede1ae4683925fd8b6a11782d2": {
+   "words": 16,
+   "found": 14,
+   "pct": 87.5
+  },
+  "cn_08009a74dfd94fbea08caa81b5f3eb39": {
+   "words": 11,
+   "found": 10,
+   "pct": 90.9
+  },
+  "cn_2a2637fa7a624765b62f081af6ae4db7": {
+   "words": 36,
+   "found": 34,
+   "pct": 94.4
+  },
+  "cn_347873005ebd47cbb60769926df19c25": {
+   "words": 15,
+   "found": 14,
+   "pct": 93.3
+  }
+ },
+ "changes": [
+  "Pages classified: p1 cover, p2 syllabus (Note box then UNIT 1-5).",
+  "Removed NOTE row \"दा\" / \"Pali (LAQP2S) |\" (OCR noise plus the page header).",
+  "Note box OCR misreads fixed from the image and the page text layer: \"441 questions\" -> \"All questions\" (items ii and iii); Note title kept with its printed colon.",
+  "All five units re-read word by word from the image (the PDF text layer is garbled for this font and the OCR had misreads): each UNIT row now holds the bold heading (with its printed \" -\") as title and the paragraph as body, instead of a split at the line wrap.",
+  "OCR misreads fixed, e.g. \"वुद्धस्स\" -> \"बुद्धस्स\", \"अट्टकथाय\"/\"अट्रकथा\" -> \"अट्ठकथाय\"/\"अट्ठकथा\", \"सस\" -> \"वंससाहिच्चे\", \"पेटकस्स\" -> \"तिपिटकस्स\", \"गन्धा\" -> \"गन्था\", \"अद्रङ्गिको\" -> \"अट्ठङ्गिको\", \"दुक्छा\" -> \"दुक्खा\", \"सन्ने धम्मा\" -> \"सब्बे धम्मा अनत्ता\", \"सदरूपाणि\" -> \"सद्दरूपाणि\", \"पसग्गा\" -> \"उपसग्गा\", \"|\" -> \"।\" (danda); missing words restored (\"च\" after \"महावग्गो\" in UNIT 1, \"अनत्ता\" in UNIT 4); \"अरिय-\" + \"अट्ठङ्गिको\" joined across the line break as printed."
+ ],
+ "unresolved": []
+}

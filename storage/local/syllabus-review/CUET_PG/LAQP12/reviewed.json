@@ -1,0 +1,118 @@
+{
+ "schema": "cuet-syllabus-review/1",
+ "exam": "CUET_PG",
+ "code": "LAQP12",
+ "decision": "CORRECTED",
+ "pages": [
+  {
+   "page": 1,
+   "content": "cover",
+   "note": "title page: Syllabus for German (LAQP12)"
+  },
+  {
+   "page": 2,
+   "content": "syllabus",
+   "note": "Note box (i-iv) then syllabus box; box title 'German (LAQP12)' repeats the paper title and is not a row; five plain paragraphs"
+  }
+ ],
+ "nodes": [
+  {
+   "ref": "cn_82d2b12b60c84eeabcf4a6c82b4fcff0",
+   "parentRef": null,
+   "kind": "NOTE",
+   "label": null,
+   "title": "Note",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_dbc9735828994b85b780366fba2bb6b7",
+   "parentRef": "cn_82d2b12b60c84eeabcf4a6c82b4fcff0",
+   "kind": "ITEM",
+   "label": "i",
+   "title": "The Question Paper will have 75 questions.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_826fb52423fe4851813ce0ae0b88890b",
+   "parentRef": "cn_82d2b12b60c84eeabcf4a6c82b4fcff0",
+   "kind": "ITEM",
+   "label": "ii",
+   "title": "All questions will be based on Subject-Specific Knowledge.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_519636454a464142acc3b98b6e8254ad",
+   "parentRef": "cn_82d2b12b60c84eeabcf4a6c82b4fcff0",
+   "kind": "ITEM",
+   "label": "iii",
+   "title": "All questions are compulsory.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_e77dd25168cf4f07a07e243459648e3b",
+   "parentRef": "cn_82d2b12b60c84eeabcf4a6c82b4fcff0",
+   "kind": "ITEM",
+   "label": "iv",
+   "title": "The Question paper will be in German.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "new1",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "German language Grammar and Syntax, Idiomatic, Proverbial, Vocabulary, linguistic understanding, poetic metric, collocational aspects.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_fc1f265a4fad436889cdde01a37f6146",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Culture and Civilization of German speaking countries",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "new2",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Great Personalities and organisations in political, cultural, historical and geographic fields.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "new3",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "German Literature, Famous German authors and their works, literaryterms, important expressions and movements.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "new4",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Translation techniques and strategies.",
+   "body": null,
+   "sourcePage": 2
+  }
+ ],
+ "changes": [
+  "Syllabus paragraph 'German language Grammar and Syntax, ...collocational aspects.' was wrongly absorbed into Note item iv's body: removed from the Note and made its own TOPIC row",
+  "'Culture and Civilization of German speaking countries' had been made a heading holding the next three paragraphs as its body; the page prints it as a plain paragraph like the others (no bold, same size and spacing), so it and the three following paragraphs are now five sibling TOPIC rows in printed order",
+  "Glued word 'literaryterms' kept: printed that way"
+ ],
+ "unresolved": [
+  "p2, third paragraph of the syllabus box: 'Culture and Civilization of German speaking countries' (no final full stop) could be meant as a heading over the next paragraph(s), but it carries no heading formatting (not bold, same size and spacing as the other paragraphs), so it is stored as a sibling TOPIC; a person may decide whether 'Great Personalities ...' (and possibly the following paragraphs) should sit under it"
+ ]
+}

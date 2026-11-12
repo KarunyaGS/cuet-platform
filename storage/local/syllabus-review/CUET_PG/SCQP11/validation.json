@@ -1,0 +1,126 @@
+{
+ "exam": "CUET_PG",
+ "code": "SCQP11",
+ "decision": "CORRECTED",
+ "ok": true,
+ "errors": [],
+ "warnings": [],
+ "rows": 20,
+ "unconfirmedRows": 0,
+ "pageCoverage": {
+  "2": 97.8,
+  "3": 95.5
+ },
+ "rowChecks": {
+  "cn_c17a364070b9483983f6b4523aedd3e1": {
+   "words": 1,
+   "found": 1,
+   "pct": 100
+  },
+  "cn_50becd84dda046ca9d83c54050c7ae5d": {
+   "words": 7,
+   "found": 7,
+   "pct": 100
+  },
+  "cn_37628a954b074e44afac3180996dadcf": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "cn_896928060b104c4b86ca26ff6ec32f08": {
+   "words": 5,
+   "found": 5,
+   "pct": 100
+  },
+  "cn_2e80c3eca6f24cf4a84643eca1351417": {
+   "words": 8,
+   "found": 8,
+   "pct": 100
+  },
+  "new1": {
+   "words": 35,
+   "found": 35,
+   "pct": 100
+  },
+  "new2": {
+   "words": 47,
+   "found": 47,
+   "pct": 100
+  },
+  "cn_e2cba190289c4bb0a746b66cd4602b9b": {
+   "words": 2,
+   "found": 2,
+   "pct": 100
+  },
+  "new3": {
+   "words": 26,
+   "found": 26,
+   "pct": 100
+  },
+  "new4": {
+   "words": 20,
+   "found": 20,
+   "pct": 100
+  },
+  "new5": {
+   "words": 9,
+   "found": 9,
+   "pct": 100
+  },
+  "new6": {
+   "words": 21,
+   "found": 21,
+   "pct": 100
+  },
+  "new7": {
+   "words": 28,
+   "found": 28,
+   "pct": 100
+  },
+  "new8": {
+   "words": 24,
+   "found": 24,
+   "pct": 100
+  },
+  "new9": {
+   "words": 29,
+   "found": 29,
+   "pct": 100
+  },
+  "new10": {
+   "words": 19,
+   "found": 19,
+   "pct": 100
+  },
+  "new11": {
+   "words": 14,
+   "found": 14,
+   "pct": 100
+  },
+  "new12": {
+   "words": 11,
+   "found": 11,
+   "pct": 100
+  },
+  "new13": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "new14": {
+   "words": 18,
+   "found": 18,
+   "pct": 100
+  }
+ },
+ "changes": [
+  "Pages classified: p1 cover, p2-p3 syllabus (p2 starts with the Note box).",
+  "Removed the cover-page NOTE row \"Environmental Sciences/Studies\" (paper title, not a syllabus line).",
+  "The whole syllabus had been glued into two bodies (Note item iv and a single \"Life Sciences\" row): Note item iv body cleared; \"Earth Sciences:\" and \"Physical and Chemical Sciences:\" restored as TOPIC rows (heading as title, text as body); \"Life Sciences:\" kept as a TOPIC with each printed bold sub-heading as a SUBTOPIC (heading with colon as title, text as body).",
+  "Two lines printed without bold heading (\"Photosynthesis, Plant growth hormones, ...\"; \"Animal systematics, physiology and diseases: ...\") kept as SUBTOPIC rows with the whole line as title.",
+  "Note title kept with its printed colon (\"Note:\"); glued words \"Apoptosisand\", \"andits\", \"Blottingand\", \"aberrations,extra-\" kept as printed."
+ ],
+ "unresolved": [
+  "Structure for a person to confirm: only \"Earth Sciences:\", \"Physical and Chemical Sciences:\" and \"Life Sciences:\" are printed in the large heading size; every later bold heading on p2-p3 (Origin of life: ... Instrumentation:) is in the smaller size, so all of them were nested under \"Life Sciences:\". Ecology and Environment, Microbiology and Biotechnology, Natural resources and Management, Global Environmental issues, Environmental Pollution, Waste Management and Instrumentation may be meant as separate top-level areas."
+ ]
+}

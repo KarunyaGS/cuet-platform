@@ -1,0 +1,77 @@
+{
+ "exam": "CUET_PG",
+ "code": "LAQP22",
+ "decision": "CORRECTED",
+ "ok": true,
+ "errors": [],
+ "warnings": [],
+ "rows": 11,
+ "unconfirmedRows": 0,
+ "pageCoverage": {
+  "2": 98
+ },
+ "rowChecks": {
+  "cn_35212b64b9ab4cf08297eea612fcc679": {
+   "words": 1,
+   "found": 1,
+   "pct": 100
+  },
+  "cn_567f70f6260a499785c28cdefd01765f": {
+   "words": 7,
+   "found": 7,
+   "pct": 100
+  },
+  "cn_4d32270f36c84757afbbd2d0c8e95ae0": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "cn_010b6c4ba0554701834a43ff2127435e": {
+   "words": 5,
+   "found": 5,
+   "pct": 100
+  },
+  "cn_5a498630c12f4e5bbde575411da92df4": {
+   "words": 8,
+   "found": 8,
+   "pct": 100
+  },
+  "cn_3403910008fd4bc8878e0fd62ee54a4f": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "cn_4125ce25b91f4e81bd3314424e820a2b": {
+   "words": 41,
+   "found": 41,
+   "pct": 100
+  },
+  "cn_3666c3c7fcdf4e88a0b64443d9b9bf97": {
+   "words": 61,
+   "found": 61,
+   "pct": 100
+  },
+  "cn_9f298a1402324d83a85cdcf2d16ca738": {
+   "words": 31,
+   "found": 31,
+   "pct": 100
+  },
+  "cn_2b0c1a67eeb04862a90b8c3596138c81": {
+   "words": 8,
+   "found": 8,
+   "pct": 100
+  },
+  "cn_b5799a889e1e45828c1b4d332d89fbf9": {
+   "words": 24,
+   "found": 24,
+   "pct": 100
+  }
+ },
+ "changes": [
+  "items 2, 3, 4 and 6: the title had been cut at the printed line end, putting part of the list into the title and the rest into the body; title now ends at the printed colon that closes the item heading, the list after it is the body (wording unchanged)",
+  "item 2: stray space removed in 'ᤂᤧᤍᤠᤠ᤹ᤒᤢᤱ' (third line of item 2); the image shows one unbroken word and poppler has no space there"
+ ],
+ "unresolved": [
+  "page 2, items 1-6 (all Limbu text): wording kept exactly as the PDF text layer (pdfjs); the page is set in a legacy Limbu font whose glyphs this reviewer could not verify letter by letter against the image. Word grouping was checked against the image (poppler's extra spaces before final-consonant signs, e.g. 'ᤛᤠᤠ ᤵᤐᤠᤏ᤻', are not on the page). The text layer repeats vowel signs (e.g. 'ᤕᤠᤠᤰᤌᤢᤱ', 'ᤐᤧᤧᤴᤇᤡᤢᤱ') which may be an artefact of the font's ToUnicode mapping; a Limbu reader should confirm the spelling"
+ ]
+}

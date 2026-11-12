@@ -1,0 +1,179 @@
+{
+ "paper": {
+  "exam": "CUET_PG",
+  "code": "LAQP08",
+  "name": "Bhutia",
+  "officialSyllabusUrl": "https://cdnbbsr.s3waas.gov.in/s388a839f2f6f1427879fc33ee4acf4f66/uploads/2025/12/20251213214429590.pdf"
+ },
+ "pageCount": 2,
+ "machineVerdict": "NEEDS_REVIEW",
+ "reasons": [
+  "text not from a clean text layer (method ocr, OCR pages 1,2)",
+  "10 of 10 rows fail the record-level check (ocr, ocr_low_confidence)",
+  "review flags: OCR_LOW_CONFIDENCE, SEQUENCE_GAP"
+ ],
+ "extractionFlags": [
+  "ocr_pages(1,2)",
+  "ocr_languages(bod+eng)",
+  "ocr_language_basis(paper language (Bhutia))",
+  "figures_on_scanned_pages_not_separated"
+ ],
+ "issues": [
+  "OCR_LOW_CONFIDENCE: 6 of 18 OCR lines below 75% confidence",
+  "SEQUENCE_GAP: ITEM \"i\" is followed by \"iii\" on page 2"
+ ],
+ "pages": [
+  {
+   "page": 1,
+   "image": "pages/p1.png",
+   "pdfjsText": "",
+   "popplerText": "\f",
+   "ocrText": "Syllabus\nfor\nBhutia (LAQPOS8)",
+   "visualCheck": {
+    "status": "NO_TEXT",
+    "ocrWords": 0,
+    "found": 0,
+    "missingSample": ""
+   }
+  },
+  {
+   "page": 2,
+   "image": "pages/p2.png",
+   "pdfjsText": "",
+   "popplerText": "\f",
+   "ocrText": "Bhutia (LAQPO0S8)\nNote:\ni. The Question Paper will have 75 questions.\nit. ⁄4// questions will be based on Subject-Specific Knowledge.\niii. All questions are compulsory.\niv. The Question paper will be in Bhutia.\nBhutia (LAQPO0S8)\n༡༽ སྐད་ཡིག་ དང་ རྩོམ་རིག་ རིག་ཀོའི་ ངོ་སྤོད།\nRD སུམ་རྟགས་ དང་བྲི་རྩོམ།\nA བཟོ་རིག་ དང་ ལག་ཚུལ་སྐོར།\n༤ ནང་ཆོས་ རིག་ཀོ་ དང་ སྟན་ངག་སྐོར།\n༥༽འབྲས་ཟྫོངས་ ལྷོ་པའི་ གནའ་སྲོལ་ སྐོར།\n༦ འབྲས་ལྗོངས་ རྒྱལ་རབས།\n༧༽ ཞིབ་འཇུག་ ཐབས་ཤེས། (Research Methodology)\n2",
+   "visualCheck": {
+    "status": "OK",
+    "ocrWords": 38,
+    "found": 37,
+    "missingSample": "སྤྲོད"
+   }
+  }
+ ],
+ "stored": {
+  "versionId": "sv_06655aa41bb94cc486d5ceec5ab480b9",
+  "verification": "UNVERIFIED",
+  "nodes": [
+   {
+    "id": "cn_dcd506a29e9b4347bc8cbae54c491759",
+    "parentId": null,
+    "kind": "NOTE",
+    "label": null,
+    "title": "Bhutia (LAQPOS8)",
+    "body": "Bhutia (LAQPO0S8)",
+    "sourcePage": 1,
+    "depth": 1,
+    "position": 0,
+    "flags": "introductory_text,ocr"
+   },
+   {
+    "id": "cn_63d1eafebc79445f8fd9eacfb26e9ffe",
+    "parentId": null,
+    "kind": "NOTE",
+    "label": null,
+    "title": "Note",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 1,
+    "position": 1,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_6a2e17226f094e09b373fc3bf4f8135a",
+    "parentId": null,
+    "kind": "TOPIC",
+    "label": "༡",
+    "title": "སྐད་ཡིག་ དང་ རྩོམ་རིག་ རིག་ཀོའི་ ངོ་སྤོད།",
+    "body": "RD སུམ་རྟགས་ དང་བྲི་རྩོམ། A བཟོ་རིག་ དང་ ལག་ཚུལ་སྐོར།",
+    "sourcePage": 2,
+    "depth": 1,
+    "position": 2,
+    "flags": "ocr,ocr_low_confidence(73)"
+   },
+   {
+    "id": "cn_4ba42e1db8634769ba011c00e540ceda",
+    "parentId": null,
+    "kind": "TOPIC",
+    "label": "༤",
+    "title": "ནང་ཆོས་ རིག་ཀོ་ དང་ སྟན་ངག་སྐོར།",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 1,
+    "position": 3,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_c0cb1a7b3c9c460c8c5af1b3ad048ab7",
+    "parentId": null,
+    "kind": "TOPIC",
+    "label": "༥",
+    "title": "འབྲས་ཟྫོངས་ ལྷོ་པའི་ གནའ་སྲོལ་ སྐོར།",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 1,
+    "position": 4,
+    "flags": "ocr,ocr_low_confidence(67)"
+   },
+   {
+    "id": "cn_fbe6f263f4c94baf9f0dbac284cfd7ed",
+    "parentId": null,
+    "kind": "TOPIC",
+    "label": "༦",
+    "title": "འབྲས་ལྗོངས་ རྒྱལ་རབས།",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 1,
+    "position": 5,
+    "flags": "ocr,ocr_low_confidence(62)"
+   },
+   {
+    "id": "cn_98b7baf78cbd48e58f9bb00c21d96271",
+    "parentId": null,
+    "kind": "TOPIC",
+    "label": "༧",
+    "title": "ཞིབ་འཇུག་ ཐབས་ཤེས། (Research Methodology)",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 1,
+    "position": 6,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_67b42f03b6074e4a935b55ad21bb6227",
+    "parentId": "cn_63d1eafebc79445f8fd9eacfb26e9ffe",
+    "kind": "ITEM",
+    "label": "i",
+    "title": "The Question Paper will have 75 questions.",
+    "body": "it. ⁄4// questions will be based on Subject-Specific Knowledge.",
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 0,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_3002feab638c433b94e52c85c25d3511",
+    "parentId": "cn_63d1eafebc79445f8fd9eacfb26e9ffe",
+    "kind": "ITEM",
+    "label": "iii",
+    "title": "All questions are compulsory.",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 1,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_98d7ba8d5fa749fe82f8aa431a2ea815",
+    "parentId": "cn_63d1eafebc79445f8fd9eacfb26e9ffe",
+    "kind": "ITEM",
+    "label": "iv",
+    "title": "The Question paper will be in Bhutia.",
+    "body": "Bhutia (LAQPO0S8)",
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 2,
+    "flags": "ocr,ocr_low_confidence(70)"
+   }
+  ]
+ }
+}

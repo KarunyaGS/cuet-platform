@@ -1,0 +1,136 @@
+{
+ "schema": "cuet-syllabus-review/1",
+ "exam": "CUET_PG",
+ "code": "LAQP08",
+ "decision": "CORRECTED",
+ "pages": [
+  {
+   "page": 1,
+   "content": "cover",
+   "note": "title page"
+  },
+  {
+   "page": 2,
+   "content": "syllabus",
+   "note": "Note box (exam pattern) then the syllabus box (heading repeats the paper title) with Tibetan-script topics ༡-༧; page text is vector outlines (no text layer), read at high zoom"
+  }
+ ],
+ "nodes": [
+  {
+   "ref": "cn_63d1eafebc79445f8fd9eacfb26e9ffe",
+   "parentRef": null,
+   "kind": "NOTE",
+   "label": null,
+   "title": "Note",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_67b42f03b6074e4a935b55ad21bb6227",
+   "parentRef": "cn_63d1eafebc79445f8fd9eacfb26e9ffe",
+   "kind": "ITEM",
+   "label": "i",
+   "title": "The Question Paper will have 75 questions.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "new1",
+   "parentRef": "cn_63d1eafebc79445f8fd9eacfb26e9ffe",
+   "kind": "ITEM",
+   "label": "ii",
+   "title": "All questions will be based on Subject-Specific Knowledge.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_3002feab638c433b94e52c85c25d3511",
+   "parentRef": "cn_63d1eafebc79445f8fd9eacfb26e9ffe",
+   "kind": "ITEM",
+   "label": "iii",
+   "title": "All questions are compulsory.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_98d7ba8d5fa749fe82f8aa431a2ea815",
+   "parentRef": "cn_63d1eafebc79445f8fd9eacfb26e9ffe",
+   "kind": "ITEM",
+   "label": "iv",
+   "title": "The Question paper will be in Bhutia.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_6a2e17226f094e09b373fc3bf4f8135a",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": "༡",
+   "title": "སྐད་ཡིག་ དང་ རྩོམ་རིག་ རིག་ཀོའི་ ངོ་སྤོད།",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "new2",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": "༢",
+   "title": "སུམ་རྟགས་ དང་བྲི་རྩོམ།",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "new3",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": "༣",
+   "title": "བཟོ་རིག་ དང་ ལག་རྩལ་སྐོར།",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_4ba42e1db8634769ba011c00e540ceda",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": "༤",
+   "title": "ནང་ཆོས་ རིག་ཀོ་ དང་ སྟན་ངག་སྐོར།",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_c0cb1a7b3c9c460c8c5af1b3ad048ab7",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": "༥",
+   "title": "འབྲས་ལྗོངས་ ལྷོ་པའི་ གནའ་སྲོལ་ སྐོར།",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_fbe6f263f4c94baf9f0dbac284cfd7ed",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": "༦",
+   "title": "འབྲས་ལྗོངས་ རྒྱལ་རབས།",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_98b7baf78cbd48e58f9bb00c21d96271",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": "༧",
+   "title": "ཞིབ་འཇུག་ ཐབས་ཤེས། (Research Methodology)",
+   "body": null,
+   "sourcePage": 2
+  }
+ ],
+ "changes": [
+  "removed a NOTE row made from the page-1/box title \"Bhutia (LAQP08)\" (OCR \"LAQPOS8\"); also removed the same title captured as the body of Note item iv",
+  "Note item ii was missing (OCR garbage \"it. ⁄4// questions...\" stored as body of item i): added as its own ITEM, item i body cleared",
+  "topics ༢ (སུམ་རྟགས་ དང་བྲི་རྩོམ།) and ༣ (བཟོ་རིག་ དང་ ལག་རྩལ་སྐོར།) were glued into the body of topic ༡ with their numerals misread as \"RD\"/\"A\": split into their own TOPIC rows",
+  "OCR misreads fixed against the page image: ལག་ཚུལ→ལག་རྩལ (topic ༣; stacked ra-mgo over tsa, no vowel u, same glyph as རྩོམ), འབྲས་ཟྫོངས→འབྲས་ལྗོངས (topic ༥; identical glyph to topic ༦)",
+  "checked at high zoom and kept as printed: ངོ་སྤོད། in topic ༡ (no ra-btags under pa, although the usual spelling is སྤྲོད) and སྟན་ངག in topic ༤ (subscript is ta, same form as in རྟགས, although the usual spelling is སྙན)"
+ ],
+ "unresolved": []
+}

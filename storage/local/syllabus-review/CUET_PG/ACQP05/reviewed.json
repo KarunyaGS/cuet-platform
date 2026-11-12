@@ -1,0 +1,27 @@
+{
+ "schema": "cuet-syllabus-review/1",
+ "exam": "CUET_PG",
+ "code": "ACQP05",
+ "decision": "CORRECTED",
+ "pages": [
+  { "page": 1, "content": "cover", "note": "Title page: Syllabus for Dharmashastra, Vastu & Paurohitya (ACQP05)" },
+  { "page": 2, "content": "syllabus", "note": "Note box (i-iv) then syllabus box with UNIT 1-3; box title repeats the paper title and is not a row" }
+ ],
+ "nodes": [
+  { "ref": "cn_6274a7facea74980b2a06f07b0f1e766", "parentRef": null, "kind": "NOTE", "label": null, "title": "Note", "body": null, "sourcePage": 2 },
+  { "ref": "cn_ff9a0b7dfc35473b8243b8a648a7969c", "parentRef": "cn_6274a7facea74980b2a06f07b0f1e766", "kind": "ITEM", "label": "i", "title": "The Question Paper will have 75 questions.", "body": null, "sourcePage": 2 },
+  { "ref": "cn_3a464bf1c9834dd281420562a4127264", "parentRef": "cn_6274a7facea74980b2a06f07b0f1e766", "kind": "ITEM", "label": "ii", "title": "All questions will be based on Subject-Specific Knowledge.", "body": null, "sourcePage": 2 },
+  { "ref": "cn_96027d9705b943d0aa3c52deb9a8c1e3", "parentRef": "cn_6274a7facea74980b2a06f07b0f1e766", "kind": "ITEM", "label": "iii", "title": "All questions are compulsory.", "body": null, "sourcePage": 2 },
+  { "ref": "cn_06673da8a1d441b0bfce65d502de78fe", "parentRef": "cn_6274a7facea74980b2a06f07b0f1e766", "kind": "ITEM", "label": "iv", "title": "The question paper will be in Sanskrit.", "body": null, "sourcePage": 2 },
+  { "ref": "cn_bda00010a4f94028a248b1458d1a6671", "parentRef": null, "kind": "UNIT", "label": "1", "title": "वास्तु", "body": "वास्तुशास्त्रपरिचयः, भूचयनसिद्धान्ताः, कक्षविन्यासः, गृहारम्भगृहप्रवेशमुहूर्तः, आयादिविचारः ।", "sourcePage": 2 },
+  { "ref": "cn_925703cb927644e49d3edec99f97bc5a", "parentRef": null, "kind": "UNIT", "label": "2", "title": "पौरोहित्यम्", "body": "भारतीयकर्मकाण्डस्वरूपविचारः, षोडशसंस्काराः, श्राद्धप्रकाराः स्वरूपञ्च, विधिनिषेधनियमाः।", "sourcePage": 2 },
+  { "ref": "cn_36ec80616f4948b5b2e09b9112925920", "parentRef": null, "kind": "UNIT", "label": "3", "title": "धर्मशास्त्रम्", "body": "धर्मलक्षणम्, आश्रमाः, उपनयनसंस्कारः, विवाहसंस्कारः, विवादपदानि, अग्निहोत्रप्रयोगः।", "sourcePage": 2 }
+ ],
+ "changes": [
+  "removed garbage NOTE row 'Dharmashastra, Vastu &' / 'दा' (cover title + OCR noise, not syllabus text)",
+  "Note items ii and iii: OCR misread 'All' as '441'",
+  "UNIT 1-3: bold unit heading (वास्तु, पौरोहित्यम्, धर्मशास्त्रम्) split from the topic list; the list (wrongly split between title and body at the line break) is now the body",
+  "OCR misreads fixed against the page image and text layer: वास्तुशास्र->वास्तुशास्त्र, धर्मशास्रम्->धर्मशास्त्रम्, गृहप्रवेशमुदूर्तः->गृहप्रवेशमुहूर्तः, अमिहोत्रप्रयोगः->अग्निहोत्रप्रयोगः; stray ZWNJ after halant (पौरोहित्यम्‌, धर्मलक्षणम्‌) removed; ' ।' spacing after आयादिविचारः kept as printed"
+ ],
+ "unresolved": []
+}

@@ -1,0 +1,116 @@
+{
+ "schema": "cuet-syllabus-review/1",
+ "exam": "CUET_PG",
+ "code": "SCQP26",
+ "decision": "CORRECTED",
+ "pages": [
+  {
+   "page": 1,
+   "content": "cover",
+   "note": "title page"
+  },
+  {
+   "page": 2,
+   "content": "syllabus",
+   "note": "Note box (exam pattern) then 5 bold-headed syllabus paragraphs"
+  }
+ ],
+ "nodes": [
+  {
+   "ref": "cn_5cd89b85e2d3408f8e968c5dbad671fd",
+   "parentRef": null,
+   "kind": "NOTE",
+   "label": null,
+   "title": "Note",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_594562c98b0542079d983b1aee0f7e4f",
+   "parentRef": "cn_5cd89b85e2d3408f8e968c5dbad671fd",
+   "kind": "ITEM",
+   "label": "i",
+   "title": "The Question Paper will have 75 questions.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_58bb3aefddb0496781d64c888dd74813",
+   "parentRef": "cn_5cd89b85e2d3408f8e968c5dbad671fd",
+   "kind": "ITEM",
+   "label": "ii",
+   "title": "All questions will be based on Subject-Specific Knowledge.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_571c0e029e7549f0898c4fe4f2bd63f9",
+   "parentRef": "cn_5cd89b85e2d3408f8e968c5dbad671fd",
+   "kind": "ITEM",
+   "label": "iii",
+   "title": "All questions are compulsory.",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "cn_66c6d18fc9764b9f9f2a41bd3ad4f8a3",
+   "parentRef": "cn_5cd89b85e2d3408f8e968c5dbad671fd",
+   "kind": "ITEM",
+   "label": "iv",
+   "title": "The Questions will be Bilingual (English/Hindi).",
+   "body": null,
+   "sourcePage": 2
+  },
+  {
+   "ref": "new1",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Soil and Water Conservation Engineering:",
+   "body": "Forms of precipitation, Hydrology cycle, Point rainfall analysis, frequency analysis, agricultural system, mechanics of water and wind, water management in Agri- Horti-Aquaculture system, mechanics of water and wind erosion, rational method of prediction of peak runoff and its limitation, concept of unit hydrograph and instantaneous hydrograph, factors affecting erosion and runoff, water erosion control measures-contour cultivation, strip cropping, terracing, afforestation, pastures, design of gully control structures- temporary and permanent, steam bank erosion, flood routing, flood amelioration byupstream soil water management, wind erosion control measure and sand dunes stabilization.",
+   "sourcePage": 2
+  },
+  {
+   "ref": "new2",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Irrigation Pump:",
+   "body": "Design, construction, performance characteristics, selection installation, servicing and maintenance of different pumps (reciprocating, centrifugal, gear turbine, submersible, propelled jet). Hydraulic and non-renewable power source for pumping solarpumps.",
+   "sourcePage": 2
+  },
+  {
+   "ref": "new3",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Irrigation and drainage engineering:",
+   "body": "Water wealth and irrigation in India, soil water plant relationship, forms and occurrence of soil water, methods and devices for soil moisture measurement, water requirement of crops, irrigation scheduling irrigation. Concept of irrigationefficiencies, water conveyance and control, design of canals, Lacey and Kennedy’s theories. Drainage needs and its benefits Darcy’s Law, hydraulic conductivity, drainage coefficient drainagemethods, surface drainage (drainage of flat and sloping lands), design of open ditches their alignment and construction, design and layout of subsurface drains, depth and spacing of drainsand drainage outlets, installation of drains and drainage wells, drainage of salt affected areas.",
+   "sourcePage": 2
+  },
+  {
+   "ref": "new4",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Ground Water Hydrology and tube well Engineering:",
+   "body": "Occurrence and movement of ground water, steady and transient flow into wells, well interference, well drilling, design of wellassembly and gravel pack, installation of well screen, completion and development of wells.",
+   "sourcePage": 2
+  },
+  {
+   "ref": "new5",
+   "parentRef": null,
+   "kind": "TOPIC",
+   "label": null,
+   "title": "Use of remote sensing and GIS in planning and development.",
+   "body": null,
+   "sourcePage": 2
+  }
+ ],
+ "changes": [
+  "Row 'Soil Science - Soil & Water' (NOTE, page 1) was a fragment of the cover-page title / running header: removed",
+  "Whole syllabus was stored as the body of Note item iv 'The Questions will be Bilingual (English/Hindi).': removed from the Note item; each bold heading made its own top-level TOPIC row (heading with its printed colon/full stop as title, the text after it as body), wording unchanged",
+  "Plain line 'Drainage needs and its benefits ...' (not bold, no blank line before it) kept in the body of 'Irrigation and drainage engineering:'; glued words kept as printed (byupstream, solarpumps, irrigationefficiencies, drainagemethods, drainsand, wellassembly)"
+ ],
+ "unresolved": []
+}

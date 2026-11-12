@@ -1,0 +1,65 @@
+{
+ "exam": "CUET_PG",
+ "code": "SCQP25",
+ "decision": "CORRECTED",
+ "ok": true,
+ "errors": [],
+ "warnings": [],
+ "rows": 9,
+ "unconfirmedRows": 0,
+ "pageCoverage": {
+  "2": 98.2
+ },
+ "rowChecks": {
+  "cn_f47188079b014cdfaf7c4e5ce74539cf": {
+   "words": 1,
+   "found": 1,
+   "pct": 100
+  },
+  "cn_953188e05e654fa585d7f0def6ceedde": {
+   "words": 7,
+   "found": 7,
+   "pct": 100
+  },
+  "cn_2ac37c793bb94419856cecf37319074a": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "cn_7021e3643c8543a49e1e48b6aadbfc23": {
+   "words": 5,
+   "found": 5,
+   "pct": 100
+  },
+  "cn_7f74c99cbc434c549872f68a12ef507f": {
+   "words": 8,
+   "found": 8,
+   "pct": 100
+  },
+  "cn_d63bc36f5141453181d91b3b8e82e8c9": {
+   "words": 37,
+   "found": 37,
+   "pct": 100
+  },
+  "cn_0241b9fde1d6410db0c70b3c4468226b": {
+   "words": 40,
+   "found": 40,
+   "pct": 100
+  },
+  "cn_a30d24c46198465282cf045551eb3a67": {
+   "words": 36,
+   "found": 36,
+   "pct": 100
+  },
+  "cn_ef3c3b516feb4a9593de92c4d0a254b3": {
+   "words": 21,
+   "found": 21,
+   "pct": 100
+  }
+ },
+ "changes": [
+  "UNIT I-IV are printed as bare headings ('UNIT I', 'UNIT- II', 'UNIT - III', 'UNIT - IV') with no title; the extractor had taken the first line of each unit's paragraph as the unit title (Units I-III cut mid-sentence at the line wrap). Unit titles set to the printed headings and the whole paragraph kept as the unit body, text unchanged and in order.",
+  "UNIT - IV: 'Plant Growth Promoting bacteria.' is printed as plain paragraph text on its own line (not styled as a heading), so it is now the start of the unit body like the other units."
+ ],
+ "unresolved": []
+}

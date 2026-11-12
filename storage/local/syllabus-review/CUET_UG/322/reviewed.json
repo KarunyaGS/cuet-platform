@@ -1,0 +1,32 @@
+{
+ "schema": "cuet-syllabus-review/1",
+ "exam": "CUET_UG",
+ "code": "322",
+ "decision": "CONFIRMED_AS_STORED",
+ "pages": [
+  {
+   "page": 1,
+   "content": "cover",
+   "note": "title page"
+  },
+  {
+   "page": 2,
+   "content": "syllabus",
+   "note": "Units 1-3"
+  },
+  {
+   "page": 3,
+   "content": "syllabus",
+   "note": "Unit 3 (cont.) to Unit 6"
+  },
+  {
+   "page": 4,
+   "content": "syllabus",
+   "note": "Unit 6 (cont.) to Unit 9"
+  }
+ ],
+ "changes": [],
+ "unresolved": [
+  "Kept CONFIRMED_AS_STORED because lessons are linked, but 23 multi-line bullet rows (every SUBTOPIC that has a body, pages 2-4) are split at the printed line wrap: the first printed line of the bullet is stored as title and the rest of the same sentence as body, so the titles end mid-sentence. Example Unit 1 bullet 1 (p2): title ends \"Coulomb's law-force between two- point\", body starts \"charges, forces between multiple charges;\". On the page each bullet is one continuous paragraph, so title + ' ' + body should be the single title with body null. Wording and nesting (Units 1-9, each bullet under the right unit, page-2/3 carry-over of the Unit 3 bullet) are otherwise correct."
+ ]
+}

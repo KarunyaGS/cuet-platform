@@ -1,0 +1,203 @@
+{
+ "paper": {
+  "exam": "CUET_PG",
+  "code": "ACQP08",
+  "name": "Hindu Studies (Bilingual)",
+  "officialSyllabusUrl": "https://cdnbbsr.s3waas.gov.in/s388a839f2f6f1427879fc33ee4acf4f66/uploads/2025/12/20251213150378967.pdf"
+ },
+ "pageCount": 2,
+ "machineVerdict": "NEEDS_REVIEW",
+ "reasons": [
+  "text not from a clean text layer (method ocr, OCR pages 1,2)",
+  "12 of 12 rows fail the record-level check (ocr, heading_inferred_from_formatting, ocr_low_confidence)",
+  "review flags: OCR_LOW_CONFIDENCE, SEQUENCE_GAP"
+ ],
+ "extractionFlags": [
+  "ocr_pages(1,2)",
+  "ocr_languages(san+hin+eng)",
+  "ocr_language_basis(Acharya paper: Devanagari)",
+  "figures_on_scanned_pages_not_separated"
+ ],
+ "issues": [
+  "OCR_LOW_CONFIDENCE: 2 of 19 OCR lines below 75% confidence",
+  "SEQUENCE_GAP: ITEM \"i\" is followed by \"iii\" on page 2"
+ ],
+ "pages": [
+  {
+   "page": 1,
+   "image": "pages/p1.png",
+   "pdfjsText": "",
+   "popplerText": "\f",
+   "ocrText": "लतत\nSyllabus\nfor\nHindu Studies (Bilingual)\n(ACQPO08)",
+   "visualCheck": {
+    "status": "NO_TEXT",
+    "ocrWords": 3,
+    "found": 3,
+    "missingSample": ""
+   }
+  },
+  {
+   "page": 2,
+   "image": "pages/p2.png",
+   "pdfjsText": "",
+   "popplerText": "\f",
+   "ocrText": "| Hindu Studies (Bilingual) (ACQP08) |\nNote:\ni. The Question Paper will have 75 questions.\nit. 441 questions will be based on Subject-Specific Knowledge.\niii. All questions are compulsory.\niv. The question paper will be Bilingual.\nHindu Studies (Bilingual) (ACQP08)\n1. Vedic Studies\n2. Hindu Religious Sects\n3. Hindu Philosophy\n4. Hindu Culture\n1. Hindu Literature\n2. Hindu Ethics\n2",
+   "visualCheck": {
+    "status": "OK",
+    "ocrWords": 33,
+    "found": 33,
+    "missingSample": ""
+   }
+  }
+ ],
+ "stored": {
+  "versionId": "sv_d7ac5409b870411296c314e0c7bcacce",
+  "verification": "UNVERIFIED",
+  "nodes": [
+   {
+    "id": "cn_18f81a4fbe7a49ed913b87094a89fd6a",
+    "parentId": null,
+    "kind": "NOTE",
+    "label": null,
+    "title": "लतत",
+    "body": "Hindu Studies (Bilingual)",
+    "sourcePage": 1,
+    "depth": 1,
+    "position": 0,
+    "flags": "introductory_text,ocr"
+   },
+   {
+    "id": "cn_7c1d4db4e73c4b1caf781343175dbfc4",
+    "parentId": null,
+    "kind": "SECTION",
+    "label": null,
+    "title": "(ACQPO08)",
+    "body": null,
+    "sourcePage": 1,
+    "depth": 1,
+    "position": 1,
+    "flags": "heading_inferred_from_formatting,ocr,ocr_low_confidence(37)"
+   },
+   {
+    "id": "cn_f7a9814e742b4f139f1b654584636c70",
+    "parentId": "cn_7c1d4db4e73c4b1caf781343175dbfc4",
+    "kind": "NOTE",
+    "label": null,
+    "title": "Note",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 0,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_7a0aa96de8c24fa0a715cf5e5472c176",
+    "parentId": "cn_7c1d4db4e73c4b1caf781343175dbfc4",
+    "kind": "TOPIC",
+    "label": "1",
+    "title": "Vedic Studies",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 1,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_e1257c30cb08453b8a005b226d3a0365",
+    "parentId": "cn_7c1d4db4e73c4b1caf781343175dbfc4",
+    "kind": "TOPIC",
+    "label": "2",
+    "title": "Hindu Religious Sects",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 2,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_2d4c170412b943999f7e98865dbc8e8c",
+    "parentId": "cn_7c1d4db4e73c4b1caf781343175dbfc4",
+    "kind": "TOPIC",
+    "label": "3",
+    "title": "Hindu Philosophy",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 3,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_ae313a2509a14ce0bc7d7ffafae7247e",
+    "parentId": "cn_7c1d4db4e73c4b1caf781343175dbfc4",
+    "kind": "TOPIC",
+    "label": "4",
+    "title": "Hindu Culture",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 4,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_8df89b4cfe21434daa0404d937e73946",
+    "parentId": "cn_7c1d4db4e73c4b1caf781343175dbfc4",
+    "kind": "TOPIC",
+    "label": "1",
+    "title": "Hindu Literature",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 5,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_6103617d66f9437393a1fe6b32f9437e",
+    "parentId": "cn_7c1d4db4e73c4b1caf781343175dbfc4",
+    "kind": "TOPIC",
+    "label": "2",
+    "title": "Hindu Ethics",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 6,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_76fd2ea556b5439f88c3b27dfd94d6f1",
+    "parentId": "cn_f7a9814e742b4f139f1b654584636c70",
+    "kind": "ITEM",
+    "label": "i",
+    "title": "The Question Paper will have 75 questions.",
+    "body": "it. 441 questions will be based on Subject-Specific Knowledge.",
+    "sourcePage": 2,
+    "depth": 3,
+    "position": 0,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_5fde1be17683461b95a81200b8de3305",
+    "parentId": "cn_f7a9814e742b4f139f1b654584636c70",
+    "kind": "ITEM",
+    "label": "iii",
+    "title": "All questions are compulsory.",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 3,
+    "position": 1,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_c00a74b6f2c94c668fd07796e0d93c16",
+    "parentId": "cn_f7a9814e742b4f139f1b654584636c70",
+    "kind": "ITEM",
+    "label": "iv",
+    "title": "The question paper will be Bilingual.",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 3,
+    "position": 2,
+    "flags": "ocr"
+   }
+  ]
+ }
+}

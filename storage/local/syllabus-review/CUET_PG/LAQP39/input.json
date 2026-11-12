@@ -1,0 +1,227 @@
+{
+ "paper": {
+  "exam": "CUET_PG",
+  "code": "LAQP39",
+  "name": "Indo-Tibetan",
+  "officialSyllabusUrl": "https://cdnbbsr.s3waas.gov.in/s388a839f2f6f1427879fc33ee4acf4f66/uploads/2025/12/202512131093357087.pdf"
+ },
+ "pageCount": 2,
+ "machineVerdict": "NEEDS_REVIEW",
+ "reasons": [
+  "text not from a clean text layer (method ocr, OCR pages 1,2)",
+  "14 of 14 rows fail the record-level check (ocr, ocr_low_confidence)",
+  "review flags: OCR_LOW_CONFIDENCE, SEQUENCE_GAP"
+ ],
+ "extractionFlags": [
+  "ocr_pages(1,2)",
+  "ocr_languages(eng)",
+  "ocr_language_basis(page image checked: English text)",
+  "figures_on_scanned_pages_not_separated"
+ ],
+ "issues": [
+  "OCR_LOW_CONFIDENCE: 1 of 23 OCR lines below 75% confidence",
+  "SEQUENCE_GAP: ITEM \"i\" is followed by \"iii\" on page 2"
+ ],
+ "pages": [
+  {
+   "page": 1,
+   "image": "pages/p1.png",
+   "pdfjsText": "",
+   "popplerText": "\f",
+   "ocrText": "Syllabus\nfor\nIndo-Tibetan (LAQP39)",
+   "visualCheck": {
+    "status": "NO_TEXT",
+    "ocrWords": 0,
+    "found": 0,
+    "missingSample": ""
+   }
+  },
+  {
+   "page": 2,
+   "image": "pages/p2.png",
+   "pdfjsText": "",
+   "popplerText": "\f",
+   "ocrText": "Indo-Tibetan (LAQP39)\nNote:\ni. The Question Paper will have 75 questions.\nit. All questions will be based on Subject-Specific Knowledge.\niii. All questions are compulsory.\niv. The Question paper will be in Indo-Tibetan.\nIndo-Tibetan (LAQP39)\nSection —I\nHistory and Culture\n1. History of Tibetan Buddhism and its Culture\n2. Indigenous Tibetan Prose and Poetry\n3. Contributions of Indian Pandits and Tibetan Lotsawa (7% to 13™ Century)\n4. Hagiography of Buddhist Acaryas and Buddhist Holy Sites\nSection-II\nBuddhist Philosophy and Logic\n1. Tibetan Buddhist Philosophical Schools\n2. Indo-Tibetan Buddhist Literature\n3. Philosophical Concept of Four Buddhist Schools\n4. Buddhist Logic and Epistemology\n2",
+   "visualCheck": {
+    "status": "OK",
+    "ocrWords": 65,
+    "found": 65,
+    "missingSample": ""
+   }
+  }
+ ],
+ "stored": {
+  "versionId": "sv_eb83eb6a063b499a91e0ce734b1daf73",
+  "verification": "UNVERIFIED",
+  "nodes": [
+   {
+    "id": "cn_c2aaefb4a20f4980aacd8d9c0da104c6",
+    "parentId": null,
+    "kind": "NOTE",
+    "label": null,
+    "title": "Note",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 1,
+    "position": 0,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_3edf113339bf4aafab40a3ff577e41ca",
+    "parentId": null,
+    "kind": "SECTION",
+    "label": "I",
+    "title": "History and Culture",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 1,
+    "position": 1,
+    "flags": "ocr,title_taken_from_next_line"
+   },
+   {
+    "id": "cn_56740a75566344efbf14e5ce288a3563",
+    "parentId": null,
+    "kind": "SECTION",
+    "label": "II",
+    "title": "Buddhist Philosophy and Logic",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 1,
+    "position": 2,
+    "flags": "ocr,ocr_low_confidence(42),title_taken_from_next_line"
+   },
+   {
+    "id": "cn_20735c2819004b77afaf0f700a258bc5",
+    "parentId": "cn_56740a75566344efbf14e5ce288a3563",
+    "kind": "TOPIC",
+    "label": "1",
+    "title": "Tibetan Buddhist Philosophical Schools",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 0,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_913a77adc3414a59a73a05f0efc7478b",
+    "parentId": "cn_3edf113339bf4aafab40a3ff577e41ca",
+    "kind": "TOPIC",
+    "label": "1",
+    "title": "History of Tibetan Buddhism and its Culture",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 0,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_5cae58912ad548feaea5abbf6abebc3b",
+    "parentId": "cn_c2aaefb4a20f4980aacd8d9c0da104c6",
+    "kind": "ITEM",
+    "label": "i",
+    "title": "The Question Paper will have 75 questions.",
+    "body": "it. All questions will be based on Subject-Specific Knowledge.",
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 0,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_0245da60a3604a10b2b9ad744b9a1d04",
+    "parentId": "cn_3edf113339bf4aafab40a3ff577e41ca",
+    "kind": "TOPIC",
+    "label": "2",
+    "title": "Indigenous Tibetan Prose and Poetry",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 1,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_086e2aa8f0664d5ba03f7e72597f6f40",
+    "parentId": "cn_c2aaefb4a20f4980aacd8d9c0da104c6",
+    "kind": "ITEM",
+    "label": "iii",
+    "title": "All questions are compulsory.",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 1,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_5f343b7a941d405284263376968482c8",
+    "parentId": "cn_56740a75566344efbf14e5ce288a3563",
+    "kind": "TOPIC",
+    "label": "2",
+    "title": "Indo-Tibetan Buddhist Literature",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 1,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_a85ee7f7eb674f719ab67a4a37fe3f44",
+    "parentId": "cn_56740a75566344efbf14e5ce288a3563",
+    "kind": "TOPIC",
+    "label": "3",
+    "title": "Philosophical Concept of Four Buddhist Schools",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 2,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_b97343f335ef44e28f9e609f1ecf4dd3",
+    "parentId": "cn_3edf113339bf4aafab40a3ff577e41ca",
+    "kind": "TOPIC",
+    "label": "3",
+    "title": "Contributions of Indian Pandits and Tibetan Lotsawa (7% to 13™ Century)",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 2,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_da3ad3b1910d404aaad800f7cde5d254",
+    "parentId": "cn_c2aaefb4a20f4980aacd8d9c0da104c6",
+    "kind": "ITEM",
+    "label": "iv",
+    "title": "The Question paper will be in Indo-Tibetan.",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 2,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_f7402efee951404d8d00ca0621ab9843",
+    "parentId": "cn_3edf113339bf4aafab40a3ff577e41ca",
+    "kind": "TOPIC",
+    "label": "4",
+    "title": "Hagiography of Buddhist Acaryas and Buddhist Holy Sites",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 3,
+    "flags": "ocr"
+   },
+   {
+    "id": "cn_7081d125277640ea9a00f6b0c32ef47c",
+    "parentId": "cn_56740a75566344efbf14e5ce288a3563",
+    "kind": "TOPIC",
+    "label": "4",
+    "title": "Buddhist Logic and Epistemology",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 3,
+    "flags": "ocr"
+   }
+  ]
+ }
+}

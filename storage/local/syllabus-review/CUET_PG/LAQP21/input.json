@@ -1,0 +1,112 @@
+{
+ "paper": {
+  "exam": "CUET_PG",
+  "code": "LAQP21",
+  "name": "Lepcha",
+  "officialSyllabusUrl": "https://cdnbbsr.s3waas.gov.in/s388a839f2f6f1427879fc33ee4acf4f66/uploads/2025/12/20251213699341970.pdf"
+ },
+ "pageCount": 2,
+ "machineVerdict": "BLOCKED",
+ "reasons": [
+  "BLOCK: part of the syllabus is text inside an image that OCR cannot read; needs human transcription"
+ ],
+ "extractionFlags": [],
+ "issues": [
+  "CONTENT_IMAGE_UNREADABLE: page 2 has an image that may hold syllabus text OCR cannot read (31 words, mean confidence 27%, models eng; Lepcha script (no Tesseract model)). Needs human transcription from D:\\cuet-platform\\storage\\local\\review-pages\\LAQP21-page2-image1.png",
+  "FIGURE_REVIEW: page 2 image 527x272 kept as a figure (OCR found no readable text); confirm it is a diagram, not text"
+ ],
+ "pages": [
+  {
+   "page": 1,
+   "image": "pages/p1.png",
+   "pdfjsText": "Lepcha (LAQP21)\n)\nSyllabus\nfor\nLepcha (LAQP21)\n1",
+   "popplerText": "                          Lepcha (LAQP21)\r\n                                        )\r\n\r\n      Syllabus\r\n          for\r\n\r\nLepcha (LAQP21)\r\n\r\n                                        1\r\n\f",
+   "ocrText": "",
+   "visualCheck": {
+    "status": "SKIPPED",
+    "ocrWords": 0,
+    "found": 0,
+    "missingSample": ""
+   }
+  },
+  {
+   "page": 2,
+   "image": "pages/p2.png",
+   "pdfjsText": "Lepcha (LAQP21)\nNote:\ni. The Question Paper will have 75 questions.\nii. All questions will be based on Subject-Specific Knowledge.\niii. All questions are compulsory.\niv. The Question paper will be in Lepcha.\nLepcha (LAQP21)\n2",
+   "popplerText": "                                              Lepcha (LAQP21)\r\nNote:\r\n\r\n  i. The Question Paper will have 75 questions.\r\n  ii. All questions will be based on Subject-Specific Knowledge.\r\n iii. All questions are compulsory.\r\n iv. The Question paper will be in Lepcha.\r\n\r\n                            Lepcha (LAQP21)\r\n\r\n                                                                 2\r\n\f",
+   "ocrText": "",
+   "visualCheck": {
+    "status": "SKIPPED",
+    "ocrWords": 0,
+    "found": 0,
+    "missingSample": ""
+   }
+  }
+ ],
+ "stored": {
+  "versionId": "sv_c737d9cfac434e1d828658c047fbbc67",
+  "verification": "UNVERIFIED",
+  "nodes": [
+   {
+    "id": "cn_a353e44bb6da41838b6424a82c4aaf76",
+    "parentId": null,
+    "kind": "NOTE",
+    "label": null,
+    "title": "Note",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 1,
+    "position": 0,
+    "flags": "partial_extraction_of_blocked_paper"
+   },
+   {
+    "id": "cn_9f298241500d4c5d871296e584ac85bd",
+    "parentId": "cn_a353e44bb6da41838b6424a82c4aaf76",
+    "kind": "ITEM",
+    "label": "i",
+    "title": "The Question Paper will have 75 questions.",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 0,
+    "flags": "partial_extraction_of_blocked_paper"
+   },
+   {
+    "id": "cn_7dfb1f96958c45bc906908170d4fd634",
+    "parentId": "cn_a353e44bb6da41838b6424a82c4aaf76",
+    "kind": "ITEM",
+    "label": "ii",
+    "title": "All questions will be based on Subject-Specific Knowledge.",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 1,
+    "flags": "partial_extraction_of_blocked_paper"
+   },
+   {
+    "id": "cn_7df316f81a4b45c8920211a67ae16b5a",
+    "parentId": "cn_a353e44bb6da41838b6424a82c4aaf76",
+    "kind": "ITEM",
+    "label": "iii",
+    "title": "All questions are compulsory.",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 2,
+    "flags": "partial_extraction_of_blocked_paper"
+   },
+   {
+    "id": "cn_13bfde3fef51420cafe64eca842477c6",
+    "parentId": "cn_a353e44bb6da41838b6424a82c4aaf76",
+    "kind": "ITEM",
+    "label": "iv",
+    "title": "The Question paper will be in Lepcha.",
+    "body": null,
+    "sourcePage": 2,
+    "depth": 2,
+    "position": 3,
+    "flags": "partial_extraction_of_blocked_paper"
+   }
+  ]
+ }
+}

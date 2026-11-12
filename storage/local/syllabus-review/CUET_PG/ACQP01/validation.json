@@ -1,0 +1,66 @@
+{
+ "exam": "CUET_PG",
+ "code": "ACQP01",
+ "decision": "CORRECTED",
+ "ok": true,
+ "errors": [],
+ "warnings": [
+  "2 row(s) have under 90% of their words in the page's text sources (marked for a person)",
+  "page 2: rows hold only 80% of the page's words (best text source)"
+ ],
+ "rows": 8,
+ "unconfirmedRows": 2,
+ "pageCoverage": {
+  "2": 80
+ },
+ "rowChecks": {
+  "cn_ec07d63202014bf585465b3413136028": {
+   "words": 1,
+   "found": 1,
+   "pct": 100
+  },
+  "cn_0d3b0ddebcf84b5a934aa06627c26482": {
+   "words": 7,
+   "found": 7,
+   "pct": 100
+  },
+  "cn_a641b4788d524c53af2000b40a5f9350": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "cn_48b5f2ccc2cd48c89f92778095825c58": {
+   "words": 5,
+   "found": 5,
+   "pct": 100
+  },
+  "cn_a9a25974b903437d9ba53d744c977c27": {
+   "words": 8,
+   "found": 8,
+   "pct": 100
+  },
+  "cn_6e21260ac4e640b688ce8b94cf98767f": {
+   "words": 40,
+   "found": 36,
+   "pct": 90
+  },
+  "cn_682bd3418db54fa3a90af1fac8509e7b": {
+   "words": 19,
+   "found": 15,
+   "pct": 78.9
+  },
+  "cn_119423a0e5d2498d9d928e02cef222c5": {
+   "words": 21,
+   "found": 17,
+   "pct": 81
+  }
+ },
+ "changes": [
+  "Pages classified: p1 cover, p2 syllabus (Note box then Sections 1-3).",
+  "Note box OCR misreads fixed from the page text layer and image: \"441 questions\" -> \"All questions\" (items ii and iii); Note title kept with its printed colon.",
+  "The three Sanskrit paragraphs re-read word by word from the image (the PDF text layer is garbled for this font and the OCR had dropped or misread words): restored the first word of each paragraph that OCR had lost or cut (\"शब्दरूपाणि\", \"कारकम्\", \"वैदिकवाङ्मयम्\", \"शिक्षा\") and fixed misreads, e.g. \"द्रनद्रः्रिगुः\" -> \"द्वन्द्वः/द्विगुः\", \"बहुत्रीहिः\" -> \"बहुव्रीहिः\", \"मतुप्(वतुप् खीप्रत्ययाः\" -> \"मतुप्/वतुप्,स्त्रीप्रत्ययाः\", \"डीप्, डीषू\" -> \"ङीप्, ङीष्\", \"चम्पूःआधुनिकस्चनाः रचनाकाराश्र\" -> \"चम्पू,आधुनिकरचनाः रचनाकाराश्च\", \"उदेश्यम्\" -> \"उद्देश्यम्\", \"शिक्षणाभिवत्तिः\" -> \"शिक्षणाभिवृत्तिः\", \"शिक्षासमाजशाखं\" -> \"शिक्षासमाजशास्त्रं\"; restored the missing \"शिक्षणोद्देश्यानि\" and \"च\"; OCR \".\" separators replaced by the printed commas.",
+  "\"नाट\" / \"कम्\" printed across a line break joined as one word \"नाटकम्\"; other line breaks joined with a space.",
+  "Invisible zero-width non-joiners added by OCR after final virama are gone with the re-read text (letters unchanged)."
+ ],
+ "unresolved": []
+}

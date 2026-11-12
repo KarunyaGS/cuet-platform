@@ -1,0 +1,65 @@
+{
+ "exam": "CUET_PG",
+ "code": "ACQP05",
+ "decision": "CORRECTED",
+ "ok": true,
+ "errors": [],
+ "warnings": [
+  "2 row(s) have under 90% of their words in the page's text sources (marked for a person)",
+  "page 2: rows hold only 76.6% of the page's words (best text source)"
+ ],
+ "rows": 8,
+ "unconfirmedRows": 2,
+ "pageCoverage": {
+  "2": 76.6
+ },
+ "rowChecks": {
+  "cn_6274a7facea74980b2a06f07b0f1e766": {
+   "words": 1,
+   "found": 1,
+   "pct": 100
+  },
+  "cn_ff9a0b7dfc35473b8243b8a648a7969c": {
+   "words": 7,
+   "found": 7,
+   "pct": 100
+  },
+  "cn_3a464bf1c9834dd281420562a4127264": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "cn_96027d9705b943d0aa3c52deb9a8c1e3": {
+   "words": 5,
+   "found": 5,
+   "pct": 100
+  },
+  "cn_06673da8a1d441b0bfce65d502de78fe": {
+   "words": 8,
+   "found": 8,
+   "pct": 100
+  },
+  "cn_bda00010a4f94028a248b1458d1a6671": {
+   "words": 6,
+   "found": 5,
+   "pct": 83.3
+  },
+  "cn_925703cb927644e49d3edec99f97bc5a": {
+   "words": 6,
+   "found": 6,
+   "pct": 100
+  },
+  "cn_36ec80616f4948b5b2e09b9112925920": {
+   "words": 7,
+   "found": 5,
+   "pct": 71.4
+  }
+ },
+ "changes": [
+  "removed garbage NOTE row 'Dharmashastra, Vastu &' / 'दा' (cover title + OCR noise, not syllabus text)",
+  "Note items ii and iii: OCR misread 'All' as '441'",
+  "UNIT 1-3: bold unit heading (वास्तु, पौरोहित्यम्, धर्मशास्त्रम्) split from the topic list; the list (wrongly split between title and body at the line break) is now the body",
+  "OCR misreads fixed against the page image and text layer: वास्तुशास्र->वास्तुशास्त्र, धर्मशास्रम्->धर्मशास्त्रम्, गृहप्रवेशमुदूर्तः->गृहप्रवेशमुहूर्तः, अमिहोत्रप्रयोगः->अग्निहोत्रप्रयोगः; stray ZWNJ after halant (पौरोहित्यम्‌, धर्मलक्षणम्‌) removed; ' ।' spacing after आयादिविचारः kept as printed"
+ ],
+ "unresolved": []
+}

@@ -1,0 +1,124 @@
+{
+ "exam": "CUET_UG",
+ "code": "323",
+ "decision": "CORRECTED",
+ "ok": true,
+ "errors": [],
+ "warnings": [],
+ "rows": 20,
+ "unconfirmedRows": 0,
+ "pageCoverage": {
+  "2": 100,
+  "3": 100
+ },
+ "rowChecks": {
+  "cn_c01b36d5c12d4561a9bcedec0572f395": {
+   "words": 5,
+   "found": 5,
+   "pct": 100
+  },
+  "cn_36c750c9b84e4d618ea7009bf98bed4d": {
+   "words": 2,
+   "found": 2,
+   "pct": 100
+  },
+  "cn_9a950f89af1b4aa68cbb234d74dac466": {
+   "words": 30,
+   "found": 30,
+   "pct": 100
+  },
+  "cn_85a80b646789404a87e48fc38e698541": {
+   "words": 29,
+   "found": 29,
+   "pct": 100
+  },
+  "cn_85c49bbac96e4ebabf8d04cdad4399f5": {
+   "words": 18,
+   "found": 18,
+   "pct": 100
+  },
+  "cn_a9c23f689df04abe9d0a36ed47f0ac47": {
+   "words": 27,
+   "found": 27,
+   "pct": 100
+  },
+  "cn_3b642a9ced65472ea4eecb5e91ed5210": {
+   "words": 30,
+   "found": 30,
+   "pct": 100
+  },
+  "cn_992dba7de84e47eba09acb2e95f58fe6": {
+   "words": 42,
+   "found": 42,
+   "pct": 100
+  },
+  "cn_0d01ab849d3a4fadb58d34ba28eed1fb": {
+   "words": 27,
+   "found": 27,
+   "pct": 100
+  },
+  "cn_74a52ca6dbb1493ba8579a7159111fe3": {
+   "words": 39,
+   "found": 39,
+   "pct": 100
+  },
+  "cn_1e5c195ef4f949f6ba2a49d902ffdfca": {
+   "words": 36,
+   "found": 36,
+   "pct": 100
+  },
+  "new1": {
+   "words": 3,
+   "found": 3,
+   "pct": 100
+  },
+  "new2": {
+   "words": 2,
+   "found": 2,
+   "pct": 100
+  },
+  "cn_6b6e1c363f674a3f99a524253d8e7c76": {
+   "words": 41,
+   "found": 41,
+   "pct": 100
+  },
+  "cn_4c29b3a3c9b34d779bd8619ef42fbca0": {
+   "words": 34,
+   "found": 34,
+   "pct": 100
+  },
+  "cn_037df1b08275461a9e0fcb10583c9648": {
+   "words": 41,
+   "found": 41,
+   "pct": 100
+  },
+  "cn_55827da599a54ede899f3e3ca7bb7e62": {
+   "words": 39,
+   "found": 39,
+   "pct": 100
+  },
+  "cn_730fd4548e1e463fb0230507cbe3ff9d": {
+   "words": 28,
+   "found": 28,
+   "pct": 100
+  },
+  "cn_a928a0b8405f424f881180ad4075d2d3": {
+   "words": 32,
+   "found": 32,
+   "pct": 100
+  },
+  "cn_fa96a1c575094e45959b151cc69e0c18": {
+   "words": 30,
+   "found": 30,
+   "pct": 100
+  }
+ },
+ "changes": [
+  "Pages classified: p1 cover, p2-p3 syllabus.",
+  "Stored NOTE row mixed the cover line \"Political Science –\" with the p2 heading \"Political in India Since Independence.\" (printed as is, without \"Politics\"): made that heading a PART row on p2; the cover title is not kept as a row.",
+  "Heading \"Contemporary World Politics.\" had been glued into the body of p2 item 9: made its own PART row on p3 holding items 1-7, which had hung at top level.",
+  "\"Course Content\" is printed twice in the PDF (once under each part, p2 and p3); the second had been dropped as a duplicate: restored, each as a SECTION row holding the numbered items of its part.",
+  "Numbered items: underlined heading with its colon as title, text after it as body (they had been split at the PDF line wrap); words broken at a line-end hyphen rejoined as printed (\"post-communist\", \"post-Mao\", \"extra-constitutional\")."
+ ],
+ "unresolved": []
+}

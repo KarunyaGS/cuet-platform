@@ -1,0 +1,68 @@
+{
+ "exam": "CUET_PG",
+ "code": "LAQP25",
+ "decision": "CORRECTED",
+ "ok": true,
+ "errors": [],
+ "warnings": [],
+ "rows": 9,
+ "unconfirmedRows": 0,
+ "pageCoverage": {
+  "2": 95.1
+ },
+ "rowChecks": {
+  "cn_30152cbc4b2241a1b8a2758bc6e65766": {
+   "words": 1,
+   "found": 1,
+   "pct": 100
+  },
+  "cn_2d540db245c34e5480d65d2f0d3b5983": {
+   "words": 7,
+   "found": 7,
+   "pct": 100
+  },
+  "cn_32b684ffb0a04af1aa4fdec3063aab38": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "cn_2c51987b590e4fab8b1836bd3b58b25d": {
+   "words": 5,
+   "found": 5,
+   "pct": 100
+  },
+  "cn_7537725431a447ea9315509812098b33": {
+   "words": 8,
+   "found": 8,
+   "pct": 100
+  },
+  "new1": {
+   "words": 35,
+   "found": 35,
+   "pct": 100
+  },
+  "new2": {
+   "words": 34,
+   "found": 32,
+   "pct": 94.1
+  },
+  "new3": {
+   "words": 28,
+   "found": 28,
+   "pct": 100
+  },
+  "new4": {
+   "words": 16,
+   "found": 16,
+   "pct": 100
+  }
+ },
+ "changes": [
+  "Note heading given its printed colon ('Note:').",
+  "Syllabus restructured: the whole syllabus had been stored as body text of the instruction 'The Question paper will be in Marathi.'; that NOTE item now has no body, and the four printed paragraphs are their own TOPIC rows, each with its bold lead-in heading as title (मराठी भाषा –, मराठी साहित्य परिचय –, मराठी साहित्य प्रकार –, मराठी भाषा वज्ञान –) and the text after it as body.",
+  "OCR misreadings corrected from the page image: 'JE'→शुद्ध, पं उती→पं डती, आधुलिक→आधुनिक, वाडमय→वाङमय (2x); the printed en dashes (–) restored where OCR had '-'."
+ ],
+ "unresolved": [
+  "Page 2, all four paragraphs: the PDF prints several words with the vowel sign ि (and possibly ी) as a blank glyph (seen identically in the pdf.js and PDFium renderings; the text layer encodes a glyph there). Rows keep the words as visibly printed, with the gap: 'आ ण' (3x: paragraphs 1 and 4), 'वशेषणे', 'क्रयापदे' (paragraph 1), '( लळाचरित्र', 'पं डती', 'क वता', 'द लत' (paragraph 2), 'ल लत', 'क वता', 'ल लत्तेतर', 'भा षक' (paragraph 3), 'वज्ञान' (heading of paragraph 4 and 3x in its body). A person must decide whether to store the intended forms (e.g. आणि, विशेषणे, क्रियापदे, विज्ञान) instead."
+ ]
+}

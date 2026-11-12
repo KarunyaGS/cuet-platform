@@ -167,7 +167,17 @@ database/.local/
 
 # Local content cache (official PDFs, extracted text). Real copies live in R2.
 storage/cache/
-storage/local/
+# Local working files: keep the review and extraction results (small JSON/CSV reports that cannot be
+# re-created without hours of OCR and review work); leave out page images, which are re-rendered from the PDFs.
+storage/local/*
+!storage/local/syllabus-review/
+storage/local/syllabus-review/**/*.png
+!storage/local/extracted/
+!storage/local/audit/
+!storage/local/verification/
+!storage/local/figures/
+!storage/local/extraction-report.json
+!storage/local/extraction-progress.log
 
 # Python (future tooling)
 .venv/

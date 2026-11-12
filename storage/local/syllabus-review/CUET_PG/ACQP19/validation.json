@@ -1,0 +1,58 @@
+{
+ "exam": "CUET_PG",
+ "code": "ACQP19",
+ "decision": "CORRECTED",
+ "ok": true,
+ "errors": [],
+ "warnings": [
+  "2 row(s) have under 90% of their words in the page's text sources (marked for a person)",
+  "page 2: rows hold only 67.6% of the page's words (best text source)"
+ ],
+ "rows": 7,
+ "unconfirmedRows": 2,
+ "pageCoverage": {
+  "2": 67.6
+ },
+ "rowChecks": {
+  "cn_a445cd194c0746d6bde1be93601e4c12": {
+   "words": 1,
+   "found": 1,
+   "pct": 100
+  },
+  "cn_aa921e99872c454b933a4851cddd9b88": {
+   "words": 7,
+   "found": 7,
+   "pct": 100
+  },
+  "cn_3846435a40a84d36b0b1ebf2aed8237e": {
+   "words": 10,
+   "found": 10,
+   "pct": 100
+  },
+  "cn_dbfc21d0766a45f580e694fdfaaccf85": {
+   "words": 5,
+   "found": 5,
+   "pct": 100
+  },
+  "cn_ab8af373fa584fa1a771fb845de44df6": {
+   "words": 8,
+   "found": 8,
+   "pct": 100
+  },
+  "cn_87672e608d864ad8a9b22ad4f1926675": {
+   "words": 6,
+   "found": 2,
+   "pct": 33.3
+  },
+  "cn_a82f11a6e677422bb6db440924706331": {
+   "words": 2,
+   "found": 1,
+   "pct": 50
+  }
+ },
+ "changes": [
+  "Removed NOTE row \"Sahitya (Alankara and Kavya\" cited to page 1: cover/header title captured as a row, not syllabus text.",
+  "Devanagari glyph-mapping errors of the PDF text layer (identical in pdf.js and poppler) fixed against the enlarged page image: काव्यभेदााः→काव्यभेदाः, श्रव्यकाव्यावि→श्रव्यकाव्यानि, दृश्यकाव्यावि→दृश्यकाव्यानि, काव्यस्िरूपम्→काव्यस्वरूपम्, अलङ्कारााः→अलङ्काराः (these two rows will show under 90% word match because the text layer itself is wrong)."
+ ],
+ "unresolved": []
+}
