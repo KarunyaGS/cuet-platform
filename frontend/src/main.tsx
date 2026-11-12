@@ -7,6 +7,8 @@ import { AuthPage } from './pages/Auth';
 import { BookmarksPage } from './pages/Bookmarks';
 import { DashboardPage } from './pages/Dashboard';
 import { Home } from './pages/Home';
+import { ExamInfo, InfoHub } from './pages/info/InfoPages';
+import { PublicLayout } from './pages/info/shared';
 import { LearnPage } from './pages/Learn';
 import { PlannerPage } from './pages/Planner';
 import { PracticePage } from './pages/Practice';
@@ -38,6 +40,15 @@ const router = createBrowserRouter([
   // Visitors see the welcome / sign-in page first; signed-in students are sent on to the app.
   { path: '/signin', element: <GuestOnly><AuthPage mode="signin" /></GuestOnly> },
   { path: '/signup', element: <GuestOnly><AuthPage mode="signup" /></GuestOnly> },
+  // Official exam information: public, no sign-in needed.
+  {
+    element: <PublicLayout />,
+    children: [
+      { path: '/cuet', element: <InfoHub /> },
+      { path: '/cuet/:exam', element: <ExamInfo /> },
+      { path: '/cuet/:exam/:page', element: <ExamInfo /> },
+    ],
+  },
   // Everything else is for signed-in students only.
   {
     element: (

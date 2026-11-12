@@ -1134,3 +1134,62 @@ model StudyPlanItem {
   @@index([userId, day])
   @@map("study_plan_items")
 }
+
+/// One fact from the official NTA information for an exam cycle (eligibility, pattern, dates, fees, ...),
+/// with the document and page it came from. Shown on the public information pages; replaced as a whole
+/// for an exam and cycle when NTA publishes new information.
+model OfficialInfoItem {
+  id              String   @id @default(cuid())
+  /// CUET_UG or CUET_PG.
+  examCode        String   @map("exam_code")
+  /// Examination year the fact belongs to, e.g. "2026".
+  cycle           String
+  sectionKey      String   @map("section_key")
+  sectionTitle    String   @map("section_title")
+  sectionPosition Int      @map("section_position")
+  position        Int
+  text            String
+  sourceUrl       String?  @map("source_url")
+  sourcePage      Int?     @map("source_page")
+  note            String?
+  /// Date the sources were last checked (YYYY-MM-DD).
+  asOf            String   @map("as_of")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@unique([examCode, cycle, sectionKey, position])
+  @@index([examCode, cycle, sectionPosition, position])
+  @@map("official_info_items")
+}
+
+/// A public notice published by NTA for an exam (links to nta.ac.in / the exam website).
+model OfficialNotice {
+  id         String   @id @default(cuid())
+  examCode   String   @map("exam_code")
+  /// Date printed on, or encoded in, the notice (YYYY-MM-DD) when known.
+  noticeDate String?  @map("notice_date")
+  title      String
+  url        String
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@unique([examCode, url])
+  @@index([examCode, noticeDate])
+  @@map("official_notices")
+}
+
+/// A university listed by NTA as participating in an exam cycle, exactly as NTA lists it.
+model ParticipatingUniversity {
+  id        String   @id @default(cuid())
+  examCode  String   @map("exam_code")
+  cycle     String
+  name      String
+  /// NTA's own "type of university" wording, e.g. "Central University".
+  type      String
+  /// Empty when NTA's list does not give it.
+  state     String?
+  sourceUrl String   @map("source_url")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([examCode, cycle, name])
+  @@index([examCode, cycle, type])
+  @@map("participating_universities")
+}

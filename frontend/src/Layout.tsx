@@ -1,4 +1,4 @@
-import { Bookmark, CalendarCheck2, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { useAuth } from './ui';
@@ -105,6 +105,10 @@ function UserMenu() {
             <Link role="menuitem" to="/bookmarks" className={item}>
               <Bookmark aria-hidden />
               Bookmarks
+            </Link>
+            <Link role="menuitem" to="/cuet" className={item}>
+              <Info aria-hidden />
+              Official exam information
             </Link>
             {reviewer && (
               <Link role="menuitem" to="/review" className={item}>

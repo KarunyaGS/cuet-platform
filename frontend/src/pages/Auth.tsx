@@ -154,7 +154,12 @@ export function AuthPage({ mode }: { mode: Mode }) {
             ))}
           </ul>
         </div>
-        <p className="text-xs text-white/60">Syllabus content comes from the official NTA documents.</p>
+        <p className="text-sm text-white/75">
+          Syllabus content comes from the official NTA documents.{' '}
+          <Link to="/cuet" className="font-medium text-white underline underline-offset-2">
+            Read official CUET information
+          </Link>
+        </p>
       </aside>
 
       {/* Sign in / create account */}
@@ -213,6 +218,11 @@ export function AuthPage({ mode }: { mode: Mode }) {
             </button>
           </form>
 
+          <p className="mt-4 text-center text-sm lg:hidden">
+            <Link to="/cuet" className="font-medium text-accent hover:underline">
+              Read official CUET-UG and CUET-PG information
+            </Link>
+          </p>
           <p className="mt-6 text-center text-sm text-ink-2">
             {signup ? 'Already have an account? ' : 'New to CUET Prep? '}
             <Link to={signup ? '/signin' : '/signup'} replace state={location.state} onClick={() => setErr(null)} className="font-semibold text-accent hover:underline">

@@ -18,6 +18,7 @@ import {
 } from '../services/maintenance';
 import { upsertMedia, upsertQuestion, upsertResource } from '../services/content-packs';
 import { storeObject } from '../services/storage';
+import { importOfficialInfo, officialInfoSchema } from '../services/official-info';
 
 const admin = new Hono<AppEnv>();
 const examYear = (c: { req: { query(k: string): string | undefined } }) => {
@@ -118,6 +119,13 @@ admin.post('/questions/:id/preview-evaluate', async (c) =>
 admin.put('/content/resources/:key', async (c) => c.json(await upsertResource(c.env.DB, c.req.param('key'), await c.req.json(), c.get('actor'))));
 admin.put('/content/questions/:key', async (c) => c.json(await upsertQuestion(c.env.DB, c.req.param('key'), await c.req.json(), c.get('actor'))));
 admin.put('/content/media/:key', async (c) => c.json(await upsertMedia(c.env.DB, c.env.MEDIA, c.req.param('key'), await c.req.json(), c.get('actor'))));
+
+// Official NTA information and participating universities (replaces that exam's information for the cycle).
+admin.put('/official-info/:exam', async (c) => {
+  const body = await readJson(c, officialInfoSchema);
+  if (body.exam !== c.req.param('exam')) throw invalid('The exam in the address and in the body must match');
+  return c.json(await importOfficialInfo(c.env.DB, body));
+});
 
 // Learning resources
 admin.get('/resources', async (c) =>

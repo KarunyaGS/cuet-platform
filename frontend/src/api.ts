@@ -99,6 +99,18 @@ export interface RevisionNotes {
   lessons: { resourceId: string; lesson: string; blocks: { type: string; body: string; position: number }[] }[];
 }
 
+export interface OfficialItem { text: string; source: string | null; page: number | null; note: string | null }
+export interface OfficialInfo {
+  exam: ExamCode; cycle: string; asOf: string;
+  sections: { key: string; title: string; items: OfficialItem[] }[];
+  notices: { date: string | null; title: string; url: string }[];
+  universities: { total: number; byType: { type: string; count: number }[] };
+}
+export interface UniversityList {
+  exam: ExamCode; cycle: string | null; total: number; types: { type: string; count: number }[];
+  universities: { name: string; type: string; state: string | null; sourceUrl: string }[];
+}
+
 /** The student's local calendar day (YYYY-MM-DD) and the moment it started, for "today" counts. */
 export function localDay(d = new Date()) {
   const pad = (n: number) => String(n).padStart(2, '0');
@@ -143,4 +155,7 @@ export const api = {
   updatePlan: (id: string, b: { day?: string; title?: string; done?: boolean }) => request<{ id: string }>('PATCH', `/api/student/plan/${id}`, b),
   deletePlan: (id: string) => request<{ deleted: boolean }>('DELETE', `/api/student/plan/${id}`),
   revision: (nodeId: string) => request<RevisionNotes>('GET', `/api/learn/topics/${nodeId}/revision`),
+  officialInfo: (exam: ExamCode) => request<OfficialInfo>('GET', `/api/public/info/${exam}`),
+  universities: (exam: ExamCode, q?: string, type?: string) =>
+    request<UniversityList>('GET', `/api/public/universities?exam=${exam}${q ? `&q=${encodeURIComponent(q)}` : ''}${type ? `&type=${encodeURIComponent(type)}` : ''}`),
 };

@@ -60,3 +60,18 @@ shown to students before expert review, without status labels. Internally every 
 all of it, nothing becomes `VERIFIED` without a signed-in reviewer, and anything a reviewer flags
 (`NEEDS_CHANGES`) or rejects is hidden from students immediately. Syllabus rows that failed the automatic checks
 (review drafts) stay hidden until a reviewer verifies them.
+
+## Pending production steps added after the first migration (each needs explicit approval)
+
+These were built and tested locally after `cuet-db` was migrated (migrations 0001–0008):
+
+1. **Apply migrations `0009_student_tools` and `0010_official_info`** to `cuet-db`. Both only create new tables
+   (bookmarks, learning activity, daily goals, study plan; official information, notices, participating
+   universities). Nothing existing is changed:
+   `CUET_REMOTE_DATA_APPROVED=yes npx wrangler d1 migrations apply DB --env production --remote` (from `backend/`).
+   Without 0009, the Today page, bookmarks, planner, goals, continue learning, daily practice and the profile page fail.
+2. **Import the official exam information** (public `/cuet` pages) after the Worker is deployed:
+   `CUET_API_BASE=https://<worker address> CUET_ADMIN_TOKEN=<token> CUET_REMOTE_DATA_APPROVED=yes node scripts/import-official-info.mjs`.
+   It replaces each exam's information for the cycle in one batch and writes an audit log entry.
+3. **Smoke test the new pages**: `/cuet`, `/cuet/ug`, `/cuet/pg/universities` (no sign-in needed) and
+   `/api/public/info/CUET_UG`.

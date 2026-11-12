@@ -1,4 +1,4 @@
-import { ChevronRight, GraduationCap, Library, PlayCircle } from 'lucide-react';
+import { ChevronRight, GraduationCap, Info, Library, PlayCircle } from 'lucide-react';
 import { Link } from 'react-router';
 import { api, type Exam } from '../api';
 import { ErrorBox, Loading, Meter, SectionTitle, useAuth, useLoad } from '../ui';
@@ -112,6 +112,14 @@ export function Home() {
           <ExamCard key={e.code} e={e} />
         ))}
       </div>
+      <Link to="/cuet" className="group mt-6 flex items-center gap-3 rounded-xl border border-rule bg-surface px-5 py-4 transition-colors hover:border-accent/50">
+        <Info aria-hidden className="size-5 shrink-0 text-accent" />
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold text-ink group-hover:text-accent">Official exam information</span>
+          <span className="block text-sm text-ink-2">Eligibility, pattern, dates, notices, admit card, results and participating universities, from NTA sources.</span>
+        </span>
+        <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />
+      </Link>
     </div>
   );
 }
