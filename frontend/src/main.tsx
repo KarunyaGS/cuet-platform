@@ -5,7 +5,7 @@ import { RouterProvider } from 'react-router/dom';
 import { Layout } from './Layout';
 import { AuthPage } from './pages/Auth';
 import { BookmarksPage } from './pages/Bookmarks';
-import { FlashcardReviewPage, FlashcardsPage } from './pages/Flashcards';
+import { FlashcardReviewPage, OldFlashcardsLink } from './pages/Flashcards';
 import { UpdatesPage } from './pages/Updates';
 import { PyqPage, PyqViewerPage } from './pages/Pyq';
 import { DashboardPage } from './pages/Dashboard';
@@ -94,8 +94,10 @@ const router = createBrowserRouter([
       { path: '/updates', element: <UpdatesPage /> },
       { path: '/pyq', element: <PyqPage /> },
       { path: '/pyq/view/:id', element: <PyqViewerPage /> },
-      { path: '/flashcards', element: <FlashcardsPage /> },
-      { path: '/flashcards/review', element: <FlashcardReviewPage /> },
+      { path: '/bookmarks/review', element: <FlashcardReviewPage /> },
+      // Old addresses: flashcards are part of My bookmarks now.
+      { path: '/flashcards', element: <OldFlashcardsLink to="/bookmarks" /> },
+      { path: '/flashcards/review', element: <OldFlashcardsLink to="/bookmarks/review" /> },
       { path: '/profile', element: <ProfilePage /> },
       { path: '/progress', element: <ProgressPage /> },
       { path: '/search', element: <SearchPage /> },

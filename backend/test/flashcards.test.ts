@@ -465,3 +465,79 @@ describe('counts for the subject and topic pages', () => {
     expect((await call('GET', `/api/student/flashcards/topic/${s.topic1}?day=2020-01-01`, undefined, h)).status).toBe(422);
   });
 });
+
+describe('one revision system: saved items are the revision cards', () => {
+  it('a saved formula and a saved definition become cards with front, back, subject, chapter, topic, lesson, source and saved date; repeated saves make no duplicate', async () => {
+    const s = await seed('unified', 'e');
+    const lessonId = await lesson(s.topic1, 'Electric charge and Coulomb (unified)', lessonBlocks('unified'));
+    const blocks = await blocksOf(lessonId);
+    const me = await signIn('unified-1@example.com');
+    const formula = await call('POST', '/api/student/flashcards', { conceptKey: keyOf(blocks, 'FORMULA'), day: TODAY }, me);
+    const definition = await call('POST', '/api/student/flashcards', { conceptKey: keyOf(blocks, 'DEFINITION'), day: TODAY }, me);
+    expect([formula.json.created, definition.json.created]).toEqual([true, true]);
+    expect(formula.json.card).toMatchObject({ type: 'FORMULA', latex: 'F = k\\frac{q_1 q_2}{r^2}', paper: 'Physics', chapter: 'Electrostatics', topic: "Coulomb's law", topicId: s.topic1, lesson: 'Electric charge and Coulomb (unified)', resourceId: lessonId, status: 'NEW' });
+    expect(formula.json.card.front.length).toBeGreaterThan(0);
+    expect(definition.json.card).toMatchObject({ type: 'DEFINITION', front: 'Electric charge', chapter: 'Electrostatics', topic: "Coulomb's law", status: 'NEW' });
+    expect(definition.json.card.back).toContain('property of matter');
+    expect(definition.json.card.anchor).toMatch(/^c-[0-9a-f]{16}$/);
+    expect(Date.parse(definition.json.card.savedAt)).not.toBeNaN();
+    // Repeated clicks: the same card comes back, nothing new is stored.
+    for (let i = 0; i < 3; i++) expect((await call('POST', '/api/student/flashcards', { conceptKey: keyOf(blocks, 'FORMULA'), day: TODAY }, me)).json).toMatchObject({ created: false, card: { id: formula.json.card.id } });
+    expect((await call('GET', `/api/student/flashcards?day=${TODAY}`, undefined, me)).json).toHaveLength(2);
+    // A concept save makes no separate bookmark record.
+    expect((await call('GET', '/api/student/bookmarks', undefined, me)).json).toEqual([]);
+  });
+
+  it('lists the cards saved from one lesson, and marks a card Know or Need revision before its due day without losing its schedule', async () => {
+    const s = await seed('unified2', 'f');
+    const a = await lesson(s.topic1, 'Lesson A (unified2)', lessonBlocks('unified2-a'));
+    const b = await lesson(s.topic2, 'Lesson B (unified2)', lessonBlocks('unified2-b'));
+    const me = await signIn('unified-2@example.com');
+    await call('POST', '/api/student/flashcards/import', { resourceId: a, day: TODAY }, me);
+    await call('POST', '/api/student/flashcards/import', { resourceId: b, types: ['DEFINITION'], day: TODAY }, me);
+    const inA = (await call('GET', `/api/student/flashcards?day=${TODAY}&resourceId=${a}`, undefined, me)).json;
+    const inB = (await call('GET', `/api/student/flashcards?day=${TODAY}&resourceId=${b}`, undefined, me)).json;
+    expect([inA.length, inB.length]).toEqual([5, 1]);
+    expect(inB[0]).toMatchObject({ chapter: 'Current Electricity', topic: "Ohm's law" });
+
+    // Know, on its day: scheduled for tomorrow. Marking it again today needs `early`.
+    const card = inA[0];
+    const first = await call('POST', `/api/student/flashcards/${card.id}/review`, { rating: 'GOOD', day: TODAY }, me);
+    expect(first.json).toMatchObject({ status: 'KNOW', due: false });
+    expect((await call('POST', `/api/student/flashcards/${card.id}/review`, { rating: 'GOOD', day: TODAY }, me)).json.error.code).toBe('NOT_DUE');
+    // Early "Know" records the answer and leaves the schedule exactly as it was.
+    const early = await call('POST', `/api/student/flashcards/${card.id}/review`, { rating: 'GOOD', day: TODAY, early: true }, me);
+    expect(early.json).toMatchObject({ status: 'KNOW', dueOn: first.json.dueOn, intervalDays: first.json.intervalDays, reps: first.json.reps });
+    // Early "Need revision" brings it back tomorrow, and the status is kept.
+    const need = await call('POST', `/api/student/flashcards/${card.id}/review`, { rating: 'AGAIN', day: TODAY, early: true }, me);
+    expect(need.json).toMatchObject({ status: 'NEED_REVISION', dueOn: addDays(TODAY, 1), lapses: 1 });
+    // It persists: a fresh sign-in reads the same status and history.
+    const again = await signIn('unified-2@example.com');
+    const reread = (await call('GET', `/api/student/flashcards?day=${TODAY}&resourceId=${a}`, undefined, again)).json.find((c: { id: string }) => c.id === card.id);
+    expect(reread).toMatchObject({ status: 'NEED_REVISION', lastRating: 'AGAIN' });
+    expect((await env.DB.prepare('SELECT COUNT(*) AS n FROM flashcard_reviews WHERE card_id = ?').bind(card.id).first<{ n: number }>())!.n).toBe(3);
+
+    // Review mode puts cards needing revision first.
+    await daysPass(card.id, 0);
+    const queue = (await call('GET', `/api/student/flashcards/queue?day=${TODAY}`, undefined, me)).json;
+    expect(queue.cards[0].id).toBe(card.id);
+    expect((await call('GET', `/api/student/flashcards/queue?day=${TODAY}&resourceId=${b}`, undefined, me)).json.due).toBe(1);
+  });
+
+  it('removing a saved card leaves the lesson, other cards and page shortcuts alone; removing a page shortcut leaves the cards', async () => {
+    const s = await seed('unified3', 'a');
+    const lessonId = await lesson(s.topic1, 'Lesson (unified3)', lessonBlocks('unified3'));
+    const me = await signIn('unified-3@example.com');
+    await call('POST', '/api/student/flashcards/import', { resourceId: lessonId, day: TODAY }, me);
+    await call('POST', '/api/student/bookmarks', { kind: 'LESSON', entityId: lessonId }, me);
+    const cards = (await call('GET', `/api/student/flashcards?day=${TODAY}`, undefined, me)).json;
+    const blocksBefore = (await blocksOf(lessonId)).length;
+    expect((await call('DELETE', `/api/student/flashcards/${cards[0].id}`, undefined, me)).json).toMatchObject({ deleted: true });
+    expect((await call('GET', `/api/student/flashcards?day=${TODAY}`, undefined, me)).json).toHaveLength(cards.length - 1);
+    expect((await blocksOf(lessonId)).length).toBe(blocksBefore);
+    expect((await call('GET', '/api/student/bookmarks', undefined, me)).json).toHaveLength(1);
+    await call('POST', '/api/student/bookmarks/remove', { kind: 'LESSON', entityId: lessonId }, me);
+    expect((await call('GET', '/api/student/bookmarks', undefined, me)).json).toHaveLength(0);
+    expect((await call('GET', `/api/student/flashcards?day=${TODAY}`, undefined, me)).json).toHaveLength(cards.length - 1);
+  });
+});

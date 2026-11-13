@@ -2,7 +2,8 @@ import { BookOpen, ChevronRight, FileText, ListChecks, PencilLine, Timer } from 
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api } from '../api';
-import { AddToPlan, BookmarkButton, TopicCardsPanel, useTrackView } from '../tools';
+import { SavedForRevision } from '../revision';
+import { AddToPlan, BookmarkButton, useTrackView } from '../tools';
 import { Button, Empty, ErrorBox, kindLabel, Loading, SectionTitle, useAuth, useLoad } from '../ui';
 
 /** Topic page: the official syllabus wording with its source page, subtopics, learning material and practice. */
@@ -140,7 +141,7 @@ export function TopicPage() {
             {!d.questionCount && <p className="mt-3 text-sm text-ink-3">Questions for this topic are still being written.</p>}
             {err && <ErrorBox error={err} />}
           </div>
-          <TopicCardsPanel nodeId={d.topic.id} />
+          <SavedForRevision scope={{ nodeId: d.topic.id }} />
           {d.resources.length > 0 && (
             <Link to={`/revise/${d.topic.id}`} className="group flex items-start gap-3 rounded-xl border border-rule bg-surface p-5 transition-colors hover:border-accent/50">
               <ListChecks aria-hidden className="mt-0.5 size-[18px] shrink-0 text-accent" />

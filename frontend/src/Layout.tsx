@@ -1,4 +1,4 @@
-import { CreditCard, FileText, GalleryVerticalEnd, Megaphone, Search, ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { CreditCard, FileText, Megaphone, Search, ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
@@ -105,15 +105,11 @@ function UserMenu() {
             </Link>
             <Link role="menuitem" to="/bookmarks" className={item}>
               <Bookmark aria-hidden />
-              Bookmarks
+              My bookmarks
             </Link>
             <Link role="menuitem" to="/updates" className={item}>
               <Megaphone aria-hidden />
               Government updates
-            </Link>
-            <Link role="menuitem" to="/flashcards" className={item}>
-              <GalleryVerticalEnd aria-hidden />
-              My flashcards
             </Link>
             <Link role="menuitem" to="/report" className={item}>
               <ChartNoAxesColumn aria-hidden />
@@ -191,9 +187,6 @@ export function Layout() {
                 <TopLink to="/CUET_UG">CUET-UG</TopLink>
                 <TopLink to="/CUET_PG">CUET-PG</TopLink>
                 <TopLink to="/practice-centre">Practice</TopLink>
-                <span className="hidden lg:contents">
-                  <TopLink to="/flashcards">Flashcards</TopLink>
-                </span>
                 <TopLink to="/planner">Planner</TopLink>
                 <TopLink to="/progress">Progress</TopLink>
                 <span className="hidden 2xl:contents">
@@ -220,11 +213,11 @@ export function Layout() {
                 <RemindersBell />
                 <NavLink
                   to="/bookmarks"
-                  title="Bookmarks"
+                  title="My bookmarks"
                   className={({ isActive }) => `hidden size-9 place-items-center rounded-full transition-colors md:grid ${isActive ? 'bg-accent-soft text-accent' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
                 >
                   <Bookmark aria-hidden className="size-[18px]" />
-                  <span className="sr-only">Bookmarks</span>
+                  <span className="sr-only">My bookmarks</span>
                 </NavLink>
                 <UserMenu />
               </div>

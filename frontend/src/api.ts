@@ -128,7 +128,8 @@ export interface Bookmark { id: string; kind: BookmarkKind; entityId: string; ti
 export type CardRating = 'AGAIN' | 'HARD' | 'GOOD' | 'EASY';
 export interface Flashcard {
   id: string; conceptKey: string; resourceId: string; anchor: string; lesson: string; section: string | null; type: string;
-  paperId: string | null; paper: string | null; chapterId: string | null; chapter: string | null;
+  paperId: string | null; paper: string | null; chapterId: string | null; chapter: string | null; chapterPosition: number | null;
+  topicId: string | null; topic: string | null; topicPosition: number | null; savedAt: string; status: 'NEW' | 'NEED_REVISION' | 'KNOW';
   front: string; back: string; latex: string | null;
   dueOn: string; due: boolean; intervalDays: number; reps: number; lapses: number; lastRating: CardRating | null; lastReviewedAt: string | null;
   stage: 'NEW' | 'LEARNING' | 'KNOWN';
@@ -257,16 +258,17 @@ export const api = {
   addBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks', b),
   removeBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks/remove', b),
   // Flashcards and revision. The day is the student's own calendar day.
-  cards: (f: { paperId?: string | null; chapterId?: string | null; nodeId?: string | null; due?: boolean } = {}) =>
-    request<Flashcard[]>('GET', `/api/student/flashcards?day=${localDay()}${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}${f.nodeId ? `&nodeId=${encodeURIComponent(f.nodeId)}` : ''}${f.due ? '&due=1' : ''}`),
+  cards: (f: { paperId?: string | null; chapterId?: string | null; nodeId?: string | null; resourceId?: string | null; due?: boolean; limit?: number } = {}) =>
+    request<Flashcard[]>('GET', `/api/student/flashcards?day=${localDay()}${f.resourceId ? `&resourceId=${encodeURIComponent(f.resourceId)}` : ''}${f.limit ? `&limit=${f.limit}` : ''}${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}${f.nodeId ? `&nodeId=${encodeURIComponent(f.nodeId)}` : ''}${f.due ? '&due=1' : ''}`),
   topicCards: (nodeId: string) => request<TopicCards>('GET', `/api/student/flashcards/topic/${encodeURIComponent(nodeId)}?day=${localDay()}`),
   cardSummary: () => request<CardSummary>('GET', `/api/student/flashcards/summary?day=${localDay()}`),
-  cardQueue: (f: { paperId?: string | null; chapterId?: string | null; nodeId?: string | null } = {}) =>
-    request<{ day: string; due: number; cards: Flashcard[] }>('GET', `/api/student/flashcards/queue?day=${localDay()}&limit=100${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}${f.nodeId ? `&nodeId=${encodeURIComponent(f.nodeId)}` : ''}`),
+  cardQueue: (f: { paperId?: string | null; chapterId?: string | null; nodeId?: string | null; resourceId?: string | null } = {}) =>
+    request<{ day: string; due: number; cards: Flashcard[] }>('GET', `/api/student/flashcards/queue?day=${localDay()}&limit=100${f.resourceId ? `&resourceId=${encodeURIComponent(f.resourceId)}` : ''}${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}${f.nodeId ? `&nodeId=${encodeURIComponent(f.nodeId)}` : ''}`),
   cardState: (keys: string[]) => request<{ conceptKey: string; id: string; reviewed: boolean }[]>('POST', '/api/student/flashcards/state', { keys }),
   createCard: (conceptKey: string) => request<{ created: boolean; card: Flashcard }>('POST', '/api/student/flashcards', { conceptKey, day: localDay() }),
   importCards: (from: { resourceId: string } | { nodeId: string }, types?: ConceptType[]) => request<CardImport>('POST', '/api/student/flashcards/import', { ...from, ...(types ? { types } : {}), day: localDay() }),
-  reviewCard: (id: string, rating: CardRating) => request<Flashcard>('POST', `/api/student/flashcards/${id}/review`, { rating, day: localDay() }),
+  /** `early`: marked from a list before the card's due day. */
+  reviewCard: (id: string, rating: CardRating, early = false) => request<Flashcard>('POST', `/api/student/flashcards/${id}/review`, { rating, day: localDay(), ...(early ? { early: true } : {}) }),
   /** A card that has been revised is removed only with `confirm` (the student agreed to lose its progress). */
   deleteCard: (id: string, confirm = false) => request<{ deleted: boolean; reviewsRemoved: number }>('DELETE', `/api/student/flashcards/${id}${confirm ? '?confirm=1' : ''}`),
   plan: (from: string, to: string) => request<PlanItem[]>('GET', `/api/student/plan?from=${from}&to=${to}`),

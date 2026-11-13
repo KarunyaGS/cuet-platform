@@ -1,219 +1,22 @@
-import { BookOpen, Check, ChevronDown, ChevronRight, GalleryVerticalEnd, RotateCcw, Trash2 } from 'lucide-react';
+import { BookOpen, Check, RotateCcw } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useSearchParams } from 'react-router';
 import { api, type CardRating, type Flashcard } from '../api';
 import { DisplayMath, Rich } from '../rich';
-import { Badge, Button, ButtonLink, buttonClass, Empty, ErrorBox, Loading, Meter, PageHeader, SectionTitle, Segmented, StatGroup, useAuth, useLoad } from '../ui';
+import { Button, ButtonLink, Empty, ErrorBox, Loading, Meter, PageHeader, StatGroup, useAuth, useLoad } from '../ui';
 
-const TYPE: Record<string, string> = { DEFINITION: 'Definition', FORMULA: 'Formula', KEY_POINT: 'Key point', IMPORTANT_FACT: 'Fact', CONCEPT: 'Concept' };
 const PROMPT: Record<string, string> = { DEFINITION: 'Define', FORMULA: 'Recall the formula', KEY_POINT: 'Explain', IMPORTANT_FACT: 'Recall', CONCEPT: 'Explain' };
 
 const dayLabel = (day: string) => new Date(`${day}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
-const dueLabel = (c: Flashcard) => (c.due ? (c.stage === 'NEW' ? 'New, due today' : 'Due today') : `Next on ${dayLabel(c.dueOn)}`);
 const sourceLink = (c: Flashcard) => `/learn/${c.resourceId}#${c.anchor}`;
-const scopeQuery = (paperId?: string | null, chapterId?: string | null, nodeId?: string | null) =>
-  nodeId ? `?nodeId=${encodeURIComponent(nodeId)}` : paperId ? `?paperId=${encodeURIComponent(paperId)}${chapterId ? `&chapterId=${encodeURIComponent(chapterId)}` : ''}` : '';
-const reviewLink = (paperId?: string | null, chapterId?: string | null, nodeId?: string | null) => `/flashcards/review${scopeQuery(paperId, chapterId, nodeId)}`;
+const scopeQuery = (paperId?: string | null, chapterId?: string | null, nodeId?: string | null, resourceId?: string | null) =>
+  resourceId ? `?resourceId=${encodeURIComponent(resourceId)}` : nodeId ? `?nodeId=${encodeURIComponent(nodeId)}` : paperId ? `?paperId=${encodeURIComponent(paperId)}${chapterId ? `&chapterId=${encodeURIComponent(chapterId)}` : ''}` : '';
 
-/** My Flashcards: every card the student has made, by subject and chapter, with what is due today. */
-export function FlashcardsPage() {
-  const { user, ready } = useAuth();
-  const [params, setParams] = useSearchParams();
-  const paperId = params.get('paperId');
-  const chapterId = params.get('chapterId');
-  // Arriving from a topic page: only that topic's cards.
-  const nodeId = params.get('nodeId');
-  const [show, setShow] = useState<'ALL' | 'DUE'>(params.get('show') === 'due' ? 'DUE' : 'ALL');
-  const summary = useLoad(api.cardSummary, [user?.id]);
-  const topic = useLoad(() => (nodeId ? api.topicCards(nodeId) : Promise.resolve(null)), [user?.id, nodeId]);
-  const cards = useLoad(() => api.cards({ paperId, chapterId, nodeId, due: show === 'DUE' }), [user?.id, paperId, chapterId, nodeId, show]);
-  const [open, setOpen] = useState<string | null>(null);
-  const [err, setErr] = useState<Error | null>(null);
-  // A card that has been revised is removed only after the student confirms.
-  const [asking, setAsking] = useState<string | null>(null);
-  if (ready && !user) return <Navigate to="/signin" replace />;
-  if (summary.loading && !summary.data) return <Loading />;
-  if (summary.error) return <ErrorBox error={summary.error} onRetry={summary.reload} />;
-  const s = summary.data!;
-  const choose = (p: string | null, ch: string | null) => {
-    const next = new URLSearchParams();
-    if (p) next.set('paperId', p);
-    if (p && ch) next.set('chapterId', ch);
-    setParams(next, { replace: true });
-  };
-  const remove = async (c: Flashcard, confirmed = false) => {
-    setErr(null);
-    if (c.lastReviewedAt !== null && !confirmed) return setAsking(c.id);
-    try {
-      await api.deleteCard(c.id, confirmed);
-      setAsking(null);
-      cards.reload();
-      summary.reload();
-      topic.reload();
-    } catch (e) {
-      setErr(e as Error);
-    }
-  };
-  const subject = s.subjects.find((x) => x.paperId === paperId);
-  const chapter = subject?.chapters.find((x) => x.chapterId === chapterId);
-  const scope = nodeId ? (topic.data ? `Topic: ${topic.data.title}` : 'Topic') : chapter ? chapter.chapter : subject ? subject.paper : 'All subjects';
-  const scopeDue = nodeId ? (topic.data?.due ?? 0) : chapter ? chapter.due : subject ? subject.due : s.due;
-
-  return (
-    <div>
-      <PageHeader
-        title="My flashcards"
-        subtitle="Definitions, formulas and key points you saved. Each card comes back on the day you need to see it again."
-        actions={
-          scopeDue > 0 ? (
-            <Link to={reviewLink(paperId, chapterId, nodeId)} className={buttonClass('primary')}>
-              Revise {scopeDue} due {scopeDue === 1 ? 'card' : 'cards'}
-            </Link>
-          ) : undefined
-        }
-      />
-      {s.total === 0 ? (
-        <Empty
-          icon={<GalleryVerticalEnd />}
-          action={
-            <span className="flex flex-wrap justify-center gap-2">
-              <ButtonLink to="/CUET_UG">Browse CUET-UG subjects</ButtonLink>
-              <ButtonLink to="/search">Search for a concept</ButtonLink>
-            </span>
-          }
-        >
-          You have no flashcards yet. Open a lesson and tap the bookmark icon under a definition, a formula or a key point. It is saved here as a flashcard.
-        </Empty>
-      ) : (
-        <>
-          <div className="mb-8 max-w-md">
-            <StatGroup
-              items={[
-                { label: 'Due today', value: s.due, tone: s.due === 0 ? 'correct' : undefined },
-                { label: 'Total cards', value: s.total },
-              ]}
-            />
-          </div>
-
-          <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)]">
-            <section aria-labelledby="fc-subjects">
-              <SectionTitle id="fc-subjects">By subject and chapter</SectionTitle>
-              <ul className="overflow-hidden rounded-xl border border-rule bg-surface">
-                <li>
-                  <button type="button" onClick={() => choose(null, null)} aria-pressed={!paperId && !nodeId} className={`flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-paper ${!paperId && !nodeId ? 'bg-accent-soft font-semibold text-accent' : 'text-ink'}`}>
-                    <span className="min-w-0 flex-1 truncate">All subjects</span>
-                    <span className="num text-sm text-ink-2">{s.total}</span>
-                  </button>
-                </li>
-                {s.subjects.map((sub) => {
-                  const id = sub.paperId ?? 'none';
-                  const expanded = open === id || paperId === sub.paperId;
-                  return (
-                    <li key={id} className="border-t border-rule">
-                      <div className="flex items-stretch">
-                        <button type="button" aria-expanded={expanded} aria-label={`${expanded ? 'Hide' : 'Show'} chapters of ${sub.paper}`} onClick={() => setOpen(expanded && open === id ? null : id)} className="grid w-10 shrink-0 place-items-center text-ink-3 hover:bg-paper hover:text-ink">
-                          {expanded ? <ChevronDown aria-hidden className="size-4" /> : <ChevronRight aria-hidden className="size-4" />}
-                        </button>
-                        <button type="button" onClick={() => (choose(sub.paperId, null), setOpen(id))} aria-pressed={paperId === sub.paperId && !chapterId} className={`flex min-w-0 flex-1 items-center gap-2 py-3 pr-4 text-left text-[15px] transition-colors hover:bg-paper ${paperId === sub.paperId && !chapterId ? 'font-semibold text-accent' : 'text-ink'}`}>
-                          <span className="min-w-0 flex-1 truncate">{sub.paper}</span>
-                          <span className="num text-sm text-ink-2">{sub.total}</span>
-                        </button>
-                      </div>
-                      {expanded && (
-                        <ul className="border-t border-rule bg-paper/60">
-                          {sub.chapters.map((ch) => {
-                            const on = paperId === sub.paperId && chapterId === ch.chapterId;
-                            return (
-                              <li key={ch.chapterId ?? 'none'}>
-                                <button type="button" onClick={() => choose(sub.paperId, ch.chapterId)} aria-pressed={on} className={`flex w-full items-center gap-2 py-2.5 pr-4 pl-10 text-left text-sm transition-colors hover:bg-paper ${on ? 'font-semibold text-accent' : 'text-ink-2'}`}>
-                                  <span className="min-w-0 flex-1">
-                                    <span className="line-clamp-2">{ch.chapter}</span>
-                                    <span className="mt-1 block max-w-[10rem]">
-                                      <Meter value={ch.total ? Math.round((ch.known / ch.total) * 100) : 0} tone="correct" label={`${ch.known} of ${ch.total} known well`} />
-                                    </span>
-                                  </span>
-                                  <span className="num text-ink-3">{ch.total}</span>
-                                </button>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-
-            <section aria-labelledby="fc-cards" className="min-w-0">
-              <SectionTitle id="fc-cards">{scope}</SectionTitle>
-              <div className="mb-4">
-                <Segmented label="Which cards to show" value={show} onChange={setShow} options={[{ value: 'ALL', label: 'All cards' }, { value: 'DUE', label: 'Due today' }]} />
-              </div>
-              {err && <ErrorBox error={err} />}
-              {cards.loading && !cards.data ? (
-                <Loading />
-              ) : cards.error ? (
-                <ErrorBox error={cards.error} onRetry={cards.reload} />
-              ) : cards.data!.length === 0 ? (
-                <Empty icon={<Check />} action={nodeId && show !== 'DUE' ? <ButtonLink to={`/revise/${nodeId}`}>See this topic’s concepts</ButtonLink> : undefined}>
-                  {show === 'DUE' ? 'No cards are due here today.' : nodeId ? 'You have not saved any cards from this topic yet.' : 'No cards here yet.'}
-                </Empty>
-              ) : (
-                <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
-                  {cards.data!.map((c) => (
-                    <li key={c.id} className="flex items-start gap-3 px-4 py-3.5">
-                      <span className="min-w-0 flex-1">
-                        {c.type === 'FORMULA' && c.section && c.front !== `Formula: ${c.section}` ? (
-                          <>
-                            <span className="line-clamp-1 text-[15px] text-ink">{c.section}</span>
-                            <span className="mt-0.5 line-clamp-1 text-sm text-ink-2">
-                              <Rich text={c.front} inline />
-                            </span>
-                          </>
-                        ) : (
-                          <span className="line-clamp-2 text-[15px] text-ink">
-                            <Rich text={c.front} inline />
-                          </span>
-                        )}
-                        <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-3">
-                          <Badge>{TYPE[c.type] ?? c.type}</Badge>
-                          <span className={c.due ? 'font-medium text-marker' : ''}>{dueLabel(c)}</span>
-                          <Link to={sourceLink(c)} className="inline-flex min-w-0 items-center gap-1 text-accent hover:underline">
-                            <BookOpen aria-hidden className="size-3.5 shrink-0" />
-                            <span className="truncate">{c.lesson}</span>
-                          </Link>
-                        </span>
-                      </span>
-                      {asking === c.id ? (
-                        <span role="alertdialog" aria-label="Remove this flashcard?" className="flex max-w-[15rem] shrink-0 flex-col items-end gap-1.5 text-right text-[13px] text-ink">
-                          <span>You have revised this card. Removing it also removes its revision progress.</span>
-                          <span className="flex gap-1.5">
-                            <button type="button" onClick={() => remove(c, true)} className="rounded-md bg-surface px-2 py-0.5 font-medium text-wrong ring-1 ring-inset ring-wrong/30 hover:bg-wrong-soft">
-                              Remove card
-                            </button>
-                            <button type="button" onClick={() => setAsking(null)} className="rounded-md bg-surface px-2 py-0.5 font-medium text-ink ring-1 ring-inset ring-rule-strong hover:bg-paper">
-                              Keep
-                            </button>
-                          </span>
-                        </span>
-                      ) : (
-                        <button type="button" onClick={() => remove(c)} className="inline-flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-[13px] text-ink-3 transition-colors hover:bg-wrong-soft hover:text-wrong" aria-label={`Remove card: ${c.front.slice(0, 60)}`}>
-                          <Trash2 aria-hidden className="size-4" />
-                          <span className="hidden sm:inline">Remove</span>
-                        </button>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {cards.data && cards.data.length >= 200 && <p className="mt-3 text-sm text-ink-2">Showing the first 200 cards. Choose a subject or a chapter to see the rest.</p>}
-            </section>
-          </div>
-        </>
-      )}
-    </div>
-  );
+/** Old "/flashcards" addresses lead to My bookmarks, keeping the subject, chapter or topic they named. */
+export function OldFlashcardsLink({ to }: { to: string }) {
+  const [params] = useSearchParams();
+  const q = params.toString();
+  return <Navigate to={`${to}${q ? `?${q}` : ''}`} replace />;
 }
 
 /** One side of a card. Both sides sit in the same grid cell, so the card keeps one height while it turns. */
@@ -242,7 +45,8 @@ export function FlashcardReviewPage() {
   const paperId = params.get('paperId');
   const chapterId = params.get('chapterId');
   const nodeId = params.get('nodeId');
-  const q = useLoad(() => api.cardQueue({ paperId, chapterId, nodeId }), [user?.id, paperId, chapterId, nodeId]);
+  const resourceId = params.get('resourceId');
+  const q = useLoad(() => api.cardQueue({ paperId, chapterId, nodeId, resourceId }), [user?.id, paperId, chapterId, nodeId, resourceId]);
   const [steps, setSteps] = useState<Step[] | null>(null);
   const [at, setAt] = useState(0);
   const [flipped, setFlipped] = useState(false);
@@ -302,14 +106,16 @@ export function FlashcardReviewPage() {
   if (ready && !user) return <Navigate to="/signin" replace />;
   if (q.loading || steps === null) return <Loading />;
   if (q.error) return <ErrorBox error={q.error} onRetry={q.reload} />;
-  const back = `/flashcards${scopeQuery(paperId, chapterId, nodeId)}`;
+  // From a lesson, "back" returns to it; otherwise to My bookmarks.
+  const back = resourceId ? `/learn/${resourceId}` : `/bookmarks${scopeQuery(paperId, chapterId, nodeId)}`;
+  const backLabel = resourceId ? 'Back to the lesson' : 'My bookmarks';
 
   if (steps.length === 0)
     return (
       <div className="mx-auto max-w-xl">
-        <PageHeader back={{ to: back, label: 'My flashcards' }} title="Revise" />
-        <Empty icon={<Check />} action={<ButtonLink to={back}>Back to my flashcards</ButtonLink>}>
-          No cards are due today. Cards you add, and cards whose day has come, appear here.
+        <PageHeader back={{ to: back, label: backLabel }} title="Revise" />
+        <Empty icon={<Check />} action={<ButtonLink to={back}>{backLabel}</ButtonLink>}>
+          No saved cards are due today. Cards you save, and cards whose day has come, appear here.
         </Empty>
       </div>
     );
@@ -317,7 +123,7 @@ export function FlashcardReviewPage() {
   if (!step)
     return (
       <div className="mx-auto max-w-xl">
-        <PageHeader back={{ to: back, label: 'My flashcards' }} title="Done for now" subtitle={`You revised ${total} ${total === 1 ? 'card' : 'cards'}.`} />
+        <PageHeader back={{ to: back, label: backLabel }} title="Done for now" subtitle={`You revised ${total} ${total === 1 ? 'card' : 'cards'}.`} />
         <StatGroup
           items={[
             { label: 'Knew', value: tally.know, tone: 'correct' },
@@ -338,7 +144,7 @@ export function FlashcardReviewPage() {
               Revise more
             </Button>
           )}
-          <ButtonLink to={back}>My flashcards</ButtonLink>
+          <ButtonLink to={back}>{backLabel}</ButtonLink>
           <ButtonLink to="/dashboard">Today</ButtonLink>
         </div>
       </div>
@@ -347,7 +153,7 @@ export function FlashcardReviewPage() {
   const c = step.card;
   return (
     <div className="mx-auto max-w-2xl">
-      <PageHeader back={{ to: back, label: 'My flashcards' }} title="Revise" subtitle={[c.paper, c.chapter].filter(Boolean).join(', ') || undefined} />
+      <PageHeader back={{ to: back, label: backLabel }} title="Revise" subtitle={[c.paper, c.chapter].filter(Boolean).join(', ') || undefined} />
       <div className="mb-4">
         <div className="num mb-1.5 flex items-center justify-between text-sm text-ink-2">
           <span>{step.again ? 'One more look' : `Card ${Math.min(done + 1, total)} of ${total}`}</span>

@@ -143,7 +143,7 @@ export function ConceptActions({ id, c }: { id: string; c: Concepts }) {
   return (
     <div className="mt-1.5 flex flex-wrap items-center justify-end gap-x-2 gap-y-1.5" data-concept-actions>
       {note === 'confirm' ? (
-        <span role="alertdialog" aria-label="Remove this flashcard?" className="flex flex-wrap items-center justify-end gap-1.5 rounded-lg bg-marker-soft px-2.5 py-1.5 text-[13px] text-ink ring-1 ring-inset ring-marker/30">
+        <span role="alertdialog" aria-label="Remove this saved card?" className="flex flex-wrap items-center justify-end gap-1.5 rounded-lg bg-marker-soft px-2.5 py-1.5 text-[13px] text-ink ring-1 ring-inset ring-marker/30">
           <span>You have revised this card. Removing it also removes its revision progress.</span>
           <button type="button" onClick={() => c.confirmRemove(id)} disabled={c.busy === id} className="rounded-md bg-surface px-2 py-0.5 font-medium text-wrong ring-1 ring-inset ring-wrong/30 hover:bg-wrong-soft disabled:opacity-60">
             Remove card
@@ -157,12 +157,12 @@ export function ConceptActions({ id, c }: { id: string; c: Concepts }) {
           {note === 'saved' && (
             <>
               Saved to{' '}
-              <Link to="/flashcards" className="font-medium text-accent hover:underline">
-                My flashcards
+              <Link to="/bookmarks" className="font-medium text-accent hover:underline">
+                My bookmarks
               </Link>
             </>
           )}
-          {note === 'removed' && 'Removed from your flashcards'}
+          {note === 'removed' && 'Removed from your bookmarks'}
           {note === 'error' && <span className="text-wrong">That did not work. Try again.</span>}
         </span>
       )}
@@ -171,8 +171,8 @@ export function ConceptActions({ id, c }: { id: string; c: Concepts }) {
         onClick={() => c.toggle(id)}
         disabled={c.busy === id}
         aria-pressed={on}
-        title={on ? 'Saved as a flashcard. Tap to remove.' : 'Save as a flashcard'}
-        aria-label={on ? 'Saved as a flashcard. Remove' : 'Save as a flashcard'}
+        title={on ? 'Saved to bookmarks. Tap to remove.' : 'Save to bookmarks'}
+        aria-label={on ? 'Saved to bookmarks. Remove' : 'Save to bookmarks'}
         className={`inline-flex size-8 items-center justify-center rounded-lg transition-colors disabled:opacity-60 ${
           on ? 'bg-marker-soft text-marker ring-1 ring-inset ring-marker/30' : 'bg-surface text-ink-2 ring-1 ring-inset ring-rule-strong hover:bg-paper hover:text-ink'
         }`}
@@ -220,10 +220,10 @@ export function AddCards({ from, onDone }: { from: { resourceId: string } | { no
         className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-surface px-2.5 text-[13px] font-medium text-ink-2 ring-1 ring-inset ring-rule-strong transition-colors hover:bg-paper hover:text-ink"
       >
         <GalleryVerticalEnd aria-hidden className="size-4" />
-        Add to my cards
+        Save all for revision
       </button>
       {open && (
-        <span role="group" aria-label="What to add as flashcards" className="flex flex-wrap items-center gap-1.5 rounded-lg bg-surface p-1.5 text-[13px] ring-1 ring-inset ring-accent/40">
+        <span role="group" aria-label="What to save for revision" className="flex flex-wrap items-center gap-1.5 rounded-lg bg-surface p-1.5 text-[13px] ring-1 ring-inset ring-accent/40">
           {IMPORT_CHOICES.map((ch) => (
             <button key={ch.label} type="button" disabled={busy} onClick={() => run(ch.types)} className="rounded-md px-2.5 py-1 font-medium text-ink ring-1 ring-inset ring-rule hover:bg-accent-soft hover:text-accent disabled:opacity-50">
               {ch.label}
@@ -236,9 +236,9 @@ export function AddCards({ from, onDone }: { from: { resourceId: string } | { no
         <span role="status" className="text-[13px] text-ink-2">
           {result.total === 0
             ? 'Nothing of that kind here.'
-            : `${result.added} ${result.added === 1 ? 'card' : 'cards'} added${result.existing ? `, ${result.existing} already in your cards` : ''}${result.notAdded ? `. ${result.notAdded} more can be added next time (up to ${result.limit} at once)` : ''}.`}{' '}
-          <Link to="/flashcards" className="font-medium text-accent hover:underline">
-            Open my flashcards
+            : `${result.added} ${result.added === 1 ? 'card' : 'cards'} saved${result.existing ? `, ${result.existing} already in your bookmarks` : ''}${result.notAdded ? `. ${result.notAdded} more can be added next time (up to ${result.limit} at once)` : ''}.`}{' '}
+          <Link to="/bookmarks" className="font-medium text-accent hover:underline">
+            Open My bookmarks
           </Link>
         </span>
       )}
@@ -276,61 +276,24 @@ export function SubjectCards({ paperId }: { paperId: string }) {
     };
   }, [user, paperId]);
   if (!user || !d) return null;
-  const to = `/flashcards?paperId=${encodeURIComponent(paperId)}`;
+  const to = `/bookmarks?paperId=${encodeURIComponent(paperId)}`;
   return (
-    <section aria-label="Your flashcards from this subject" data-cards="subject" className="mb-6 overflow-hidden rounded-xl border border-rule bg-surface">
+    <section aria-label="Your saved revision cards from this subject" data-cards="subject" className="mb-6 overflow-hidden rounded-xl border border-rule bg-surface">
       {d.total === 0 ? (
         <p className="flex items-start gap-2.5 px-4 py-3 text-sm text-ink-2">
           <GalleryVerticalEnd aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-3" />
           <span>
-            You have no flashcards from this subject yet. Open a lesson and tap the bookmark icon under a definition or a formula.{' '}
-            <Link to="/flashcards" className="font-medium text-accent hover:underline">
-              My flashcards
+            Nothing saved from this subject yet. Open a lesson and tap the bookmark icon under a definition or a formula.{' '}
+            <Link to="/bookmarks" className="font-medium text-accent hover:underline">
+              My bookmarks
             </Link>
           </span>
         </p>
       ) : (
         <div className="flex divide-x divide-rule">
-          <Count to={to} label="Flashcards saved" value={d.total} hint="Open in My flashcards" />
+          <Count to={to} label="Saved for revision" value={d.total} hint="Open in My bookmarks" />
           <Count to={`${to}&show=due`} label="Due today" value={d.due} hint={d.due > 0 ? 'See what is due' : 'Nothing due today'} tone={d.due > 0} />
         </div>
-      )}
-    </section>
-  );
-}
-
-/** Topic page: concepts in this topic's lessons, how many the student saved as cards, and how many are due today. */
-export function TopicCardsPanel({ nodeId }: { nodeId: string }) {
-  const { user } = useAuth();
-  const [d, setD] = useState<{ concepts: number; cards: number; due: number } | null>(null);
-  useEffect(() => {
-    if (!user) return;
-    let live = true;
-    setD(null);
-    api.topicCards(nodeId).then((r) => live && setD(r), () => undefined);
-    return () => {
-      live = false;
-    };
-  }, [user, nodeId]);
-  if (!user || !d) return null;
-  const to = `/flashcards?nodeId=${encodeURIComponent(nodeId)}`;
-  return (
-    <section aria-labelledby="topic-cards" data-cards="topic" className="overflow-hidden rounded-xl border border-rule bg-surface">
-      <h2 id="topic-cards" className="flex items-center gap-2 px-5 pt-4 text-base font-semibold text-ink">
-        <GalleryVerticalEnd aria-hidden className="size-[18px] text-accent" />
-        Flashcards
-      </h2>
-      {d.concepts === 0 && d.cards === 0 ? (
-        <p className="px-5 pt-1 pb-4 text-sm text-ink-2">This topic has no lesson concepts to save yet. Cards can be made once its lesson is written.</p>
-      ) : (
-        <>
-          <div className="mt-2 flex divide-x divide-rule border-t border-rule">
-            <Count to={`/revise/${nodeId}`} label="Concepts" value={d.concepts} hint="See them all" />
-            <Count to={to} label="Saved" value={d.cards} hint="My flashcards" />
-            <Count to={`${to}&show=due`} label="Due today" value={d.due} hint={d.due > 0 ? 'See due' : 'None due'} tone={d.due > 0} />
-          </div>
-          {d.cards === 0 && <p className="border-t border-rule px-5 py-3 text-sm text-ink-2">None saved yet. Open “Concepts” and tap the bookmark icon under any one of them.</p>}
-        </>
       )}
     </section>
   );

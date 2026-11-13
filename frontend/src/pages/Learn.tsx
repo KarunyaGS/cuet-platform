@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { api, type Block } from '../api';
 import { DisplayMath, parseBody, Rich } from '../rich';
+import { SavedForRevision } from '../revision';
 import { AddCards, AddToPlan, BookmarkButton, ConceptActions, useConcepts, useTrackView } from '../tools';
 import { Button, ErrorBox, Loading, useAuth, useLoad } from '../ui';
 
@@ -257,6 +258,11 @@ export function LearnPage() {
             </span>
           </div>
         </header>
+        {conceptKeys.length > 0 && (
+          <div className="mb-8">
+            <SavedForRevision scope={{ resourceId: d.resource.id }} version={concepts.saved.size} />
+          </div>
+        )}
         {wanted && !found && (
           <p role="status" className="mb-6 rounded-lg border border-marker/30 bg-marker-soft px-4 py-3 text-sm text-ink">
             The concept you saved has been updated in this lesson since then. The lesson below shows how it reads now.

@@ -216,7 +216,7 @@ student.post('/bookmarks/remove', async (c) => c.json(await removeBookmark(c.env
 
 // Flashcards and spaced revision. Every card belongs to the signed-in student; card text is copied from the lesson by the server.
 const cardFilters = (c: { req: { query(name: string): string | undefined } }) =>
-  cardQuery.parse(Object.fromEntries(['day', 'paperId', 'chapterId', 'nodeId', 'due', 'limit'].map((k) => [k, c.req.query(k) || undefined])));
+  cardQuery.parse(Object.fromEntries(['day', 'paperId', 'chapterId', 'nodeId', 'resourceId', 'due', 'limit'].map((k) => [k, c.req.query(k) || undefined])));
 student.get('/flashcards', async (c) => c.json(await listCards(c.env.DB, c.get('user').id, cardFilters(c))));
 student.get('/flashcards/summary', async (c) => c.json(await cardSummary(c.env.DB, c.get('user').id, assertDay(cardFilters(c).day))));
 student.get('/flashcards/topic/:nodeId', async (c) => c.json(await topicCards(c.env.DB, preview(c.env), c.get('user').id, c.req.param('nodeId'), assertDay(cardFilters(c).day))));

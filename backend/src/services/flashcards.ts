@@ -38,15 +38,18 @@ export const importCardsSchema = z
     day: daySchema,
   })
   .refine((v) => Boolean(v.resourceId) !== Boolean(v.nodeId), { message: 'Give either a lesson or a topic' });
-export const reviewSchema = z.object({ rating: z.enum(RATINGS), day: daySchema });
+/** `early`: the student marked a card from a list before its due day (My Bookmarks, or a lesson's "Saved for revision"). */
+export const reviewSchema = z.object({ rating: z.enum(RATINGS), day: daySchema, early: z.boolean().optional() });
 export const cardQuery = z.object({
   day: daySchema,
   paperId: z.string().max(100).optional(),
   chapterId: z.string().max(100).optional(),
   /** A topic: cards from lessons on that topic or anything under it. */
   nodeId: z.string().max(100).optional(),
+  /** One lesson: the cards saved from it. */
+  resourceId: z.string().max(100).optional(),
   due: z.enum(['1']).optional(),
-  limit: z.coerce.number().int().min(1).max(200).optional(),
+  limit: z.coerce.number().int().min(1).max(1000).optional(),
 });
 
 const DAY_MS = 86_400_000;
@@ -129,8 +132,9 @@ export async function findConcept(db: D1Database, preview: boolean, key: string)
 const CARD_SELECT = `
   SELECT f.id, f.concept_key, f.resource_id, f.curriculum_node_id, f.chapter_node_id, f.test_paper_id, f.block_type, f.lesson_title, f.section,
     f.front, f.back, f.latex, f.due_on, f.interval_days, f.ease, f.reps, f.lapses, f.last_rating, f.last_reviewed_at, f.created_at,
-    tp.name AS paper, ch.title AS chapter
-  FROM flashcards f LEFT JOIN test_papers tp ON tp.id = f.test_paper_id LEFT JOIN curriculum_nodes ch ON ch.id = f.chapter_node_id`;
+    tp.name AS paper, ch.title AS chapter, ch.position AS chapter_position, tn.title AS topic, tn.position AS topic_position
+  FROM flashcards f LEFT JOIN test_papers tp ON tp.id = f.test_paper_id LEFT JOIN curriculum_nodes ch ON ch.id = f.chapter_node_id
+    LEFT JOIN curriculum_nodes tn ON tn.id = f.curriculum_node_id`;
 
 type CardRow = Record<string, string | number | null>;
 const cardOut = (r: CardRow, day: string) => ({
@@ -146,6 +150,14 @@ const cardOut = (r: CardRow, day: string) => ({
   paper: r.paper as string | null,
   chapterId: r.chapter_node_id as string | null,
   chapter: r.chapter as string | null,
+  chapterPosition: r.chapter_position === null ? null : Number(r.chapter_position),
+  /** The topic the lesson belongs to (the same as the chapter when the lesson sits directly on it). */
+  topicId: r.curriculum_node_id as string | null,
+  topic: r.topic as string | null,
+  topicPosition: r.topic_position === null ? null : Number(r.topic_position),
+  savedAt: r.created_at as string,
+  /** What the student last said about it: NEW (not revised yet), NEED_REVISION or KNOW. */
+  status: r.last_rating === null ? 'NEW' : r.last_rating === 'AGAIN' ? 'NEED_REVISION' : 'KNOW',
   front: r.front as string,
   back: r.back as string,
   latex: r.latex as string | null,
@@ -238,8 +250,12 @@ export async function importCards(db: D1Database, preview: boolean, userId: stri
 
 const SUBTREE = '(WITH RECURSIVE sub(id) AS (SELECT ? UNION ALL SELECT n.id FROM curriculum_nodes n JOIN sub ON n.parent_id = sub.id) SELECT id FROM sub)';
 
-function filters(q: { paperId?: string; chapterId?: string; nodeId?: string }, binds: unknown[]) {
+function filters(q: { paperId?: string; chapterId?: string; nodeId?: string; resourceId?: string }, binds: unknown[]) {
   let sql = '';
+  if (q.resourceId) {
+    sql += ' AND f.resource_id = ?';
+    binds.push(q.resourceId);
+  }
   if (q.nodeId) {
     sql += ` AND f.curriculum_node_id IN ${SUBTREE}`;
     binds.push(q.nodeId);
@@ -267,14 +283,14 @@ export async function listCards(db: D1Database, userId: string, q: z.infer<typeo
   return results.map((r) => cardOut(r, q.day));
 }
 
-/** Today's revision queue: every card due on or before the student's day. */
+/** Today's revision queue: every card due on or before the student's day, the ones last marked "Need revision" first. */
 export async function reviewQueue(db: D1Database, userId: string, q: z.infer<typeof cardQuery>) {
   const day = assertDay(q.day);
   const binds: unknown[] = [userId, day];
   const where = filters(q, binds);
   const limit = q.limit ?? 50;
   const [rows, count] = await Promise.all([
-    db.prepare(`${CARD_SELECT} WHERE f.user_id = ? AND f.due_on <= ? ${where} ORDER BY f.due_on, f.created_at, f.id LIMIT ${limit}`).bind(...binds).all<CardRow>(),
+    db.prepare(`${CARD_SELECT} WHERE f.user_id = ? AND f.due_on <= ? ${where} ORDER BY (f.last_rating = 'AGAIN') DESC, f.due_on, f.created_at, f.id LIMIT ${limit}`).bind(...binds).all<CardRow>(),
     db.prepare(`SELECT COUNT(*) AS n FROM flashcards f WHERE f.user_id = ? AND f.due_on <= ? ${where}`).bind(...binds).first<{ n: number }>(),
   ]);
   return { day, due: count?.n ?? 0, cards: rows.results.map((r) => cardOut(r, day)) };
@@ -350,7 +366,7 @@ export async function cardState(db: D1Database, userId: string, keys: string[]) 
   return out;
 }
 
-/** Records one answer and moves the card to its next due day. A card that is not due is refused, so a double tap cannot count twice. */
+/** Records one answer and moves the card to its next due day. A card that is not due is refused (so a double tap cannot count twice) unless it is marked `early`. */
 export async function reviewCard(db: D1Database, userId: string, id: string, input: z.infer<typeof reviewSchema>) {
   const day = assertDay(input.day);
   const cur = await db
@@ -358,9 +374,13 @@ export async function reviewCard(db: D1Database, userId: string, id: string, inp
     .bind(id, userId)
     .first<{ id: string; due_on: string; interval_days: number; ease: number; reps: number; lapses: number }>();
   if (!cur) throw notFound('Flashcard');
-  if (cur.due_on > day) throw new ApiError(409, 'NOT_DUE', `This card is next due on ${cur.due_on}`, { dueOn: cur.due_on });
-  const next = sm2({ intervalDays: cur.interval_days, ease: cur.ease, reps: cur.reps, lapses: cur.lapses }, input.rating);
-  const dueOn = addDays(day, next.intervalDays);
+  const early = cur.due_on > day;
+  if (early && !input.early) throw new ApiError(409, 'NOT_DUE', `This card is next due on ${cur.due_on}`, { dueOn: cur.due_on });
+  const before = { intervalDays: cur.interval_days, ease: cur.ease, reps: cur.reps, lapses: cur.lapses };
+  // Marked before its day: "Need revision" brings the card back tomorrow as usual; anything else only records what the
+  // student said and leaves the schedule alone, so looking at a card early can never push it further away.
+  const next = early && input.rating !== 'AGAIN' ? before : sm2(before, input.rating);
+  const dueOn = early && input.rating !== 'AGAIN' ? cur.due_on : addDays(day, next.intervalDays);
   const now = nowIso();
   const moved = await db
     .prepare(

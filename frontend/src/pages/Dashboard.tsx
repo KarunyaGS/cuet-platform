@@ -129,15 +129,15 @@ export function DashboardPage() {
       </p>
 
       <section aria-label="Revision" className="mb-10 overflow-hidden rounded-xl border border-rule bg-surface">
-        <Link to={x.flashcards.due > 0 ? '/flashcards/review' : '/flashcards'} className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-paper">
+        <Link to={x.flashcards.due > 0 ? '/bookmarks/review' : '/bookmarks'} className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-paper">
           <span className="min-w-0 flex-1">
-            <span className="text-sm text-ink-2">Flashcards due today</span>
+            <span className="text-sm text-ink-2">Saved cards due today</span>
             <span className={`num mt-1 block text-2xl font-semibold ${x.flashcards.due > 0 ? 'text-marker' : 'text-ink'}`}>{x.flashcards.due}</span>
             <span className="mt-1.5 block text-xs text-ink-3">
-              {x.flashcards.total === 0 ? 'Tap the bookmark icon under a definition or a formula in any lesson to save it as a flashcard' : x.flashcards.due > 0 ? `of ${x.flashcards.total} cards in all` : `All ${x.flashcards.total} cards are up to date`}
+              {x.flashcards.total === 0 ? 'Tap the bookmark icon under a definition or a formula in any lesson to save it for revision' : x.flashcards.due > 0 ? `of ${x.flashcards.total} cards in all` : `All ${x.flashcards.total} cards are up to date`}
             </span>
           </span>
-          <span className="shrink-0 text-sm font-medium text-accent">{x.flashcards.due > 0 ? 'Revise now' : 'My flashcards'}</span>
+          <span className="shrink-0 text-sm font-medium text-accent">{x.flashcards.due > 0 ? 'Revise now' : 'My bookmarks'}</span>
         </Link>
       </section>
 
