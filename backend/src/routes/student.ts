@@ -72,7 +72,8 @@ auth.post('/forgot-password', async (c) => {
 auth.get('/email-status', (c) => c.json({ available: emailEnabled(c.env) && Boolean(base(c)) }));
 auth.post('/verify-email', async (c) => c.json(await verifyEmail(c.env.DB, await readJson(c, verifyEmailSchema))));
 auth.post('/logout', async (c) => {
-  await logout(c.env.DB, getCookie(c, SESSION_COOKIE));
+  // API clients send the token as a Bearer header; the browser sends the cookie. Either is revoked.
+  await logout(c.env.DB, getCookie(c, SESSION_COOKIE) ?? c.req.header('authorization')?.replace(/^Bearer\s+/i, ''));
   deleteCookie(c, SESSION_COOKIE, { path: '/' });
   return c.json({ signedOut: true });
 });
