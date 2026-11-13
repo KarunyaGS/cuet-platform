@@ -143,44 +143,74 @@ describe('concept keys', () => {
   });
 });
 
-describe('bookmark, flashcard and their connection', () => {
-  it('bookmarks one concept, turns it into a card in one step, and keeps the two independent', async () => {
+describe('saving a concept is making its flashcard', () => {
+  it('saves a concept as exactly one card, with no separate bookmark record, and removes it again', async () => {
     const s = await seed('connect', '3');
     const id = await lesson(s.topic1, 'Charges (connect)', lessonBlocks('connect'));
     const blocks = await blocksOf(id);
     const key = keyOf(blocks, 'DEFINITION');
     const h = await signIn('connect@example.test');
+    const bookmarkRows = async () => (await env.DB.prepare(`SELECT COUNT(*) AS n FROM bookmarks b JOIN users u ON u.id = b.user_id WHERE u.email = 'connect@example.test'`).first<{ n: number }>())!.n;
+    const cardRows = async () => (await env.DB.prepare(`SELECT COUNT(*) AS n FROM flashcards f JOIN users u ON u.id = f.user_id WHERE u.email = 'connect@example.test'`).first<{ n: number }>())!.n;
 
-    expect((await call('POST', '/api/student/bookmarks', { kind: 'CONCEPT', entityId: `${id}.0000000000000000` }, h)).status).toBe(404);
-    expect((await call('POST', '/api/student/bookmarks', { kind: 'CONCEPT', entityId: key }, h)).status).toBe(201);
-    expect((await call('POST', '/api/student/bookmarks', { kind: 'CONCEPT', entityId: key }, h)).status).toBe(201); // twice is harmless
-    let saved = (await call('GET', '/api/student/bookmarks', undefined, h)).json;
-    expect(saved).toHaveLength(1);
-    expect(saved[0]).toMatchObject({ kind: 'CONCEPT', entityId: key, title: 'Electric charge', resourceId: id, lesson: 'Charges (connect)', anchor: blocks.find((b) => b.type === 'DEFINITION')!.anchor, paper: 'Physics', cardId: null });
-    expect((await call('GET', `/api/student/bookmarks/state?kind=CONCEPT&ids=${blocks.filter((b) => b.conceptKey).map((b) => b.conceptKey).join(',')}`, undefined, h)).json).toEqual([key]);
+    // A concept is not a bookmark kind any more.
+    expect((await call('POST', '/api/student/bookmarks', { kind: 'CONCEPT', entityId: key }, h)).status).toBe(400);
+    expect((await call('GET', '/api/student/bookmarks/state?kind=CONCEPT&ids=x', undefined, h)).status).toBe(422);
 
-    // One step: the card. Its text is the lesson's, and it points back to the lesson and the concept.
+    // Saving: one card. Its text is the lesson's, and it points back to the lesson and the concept.
     const made = await call('POST', '/api/student/flashcards', { conceptKey: key, day: TODAY }, h);
     expect(made.status).toBe(201);
     expect(made.json).toMatchObject({ created: true, card: {
-      conceptKey: key, resourceId: id, anchor: saved[0].anchor, lesson: 'Charges (connect)', section: 'Charge', type: 'DEFINITION', paper: 'Physics', paperId: s.paperId,
+      conceptKey: key, resourceId: id, anchor: blocks.find((b) => b.type === 'DEFINITION')!.anchor, lesson: 'Charges (connect)', section: 'Charge', type: 'DEFINITION', paper: 'Physics', paperId: s.paperId,
       chapterId: s.unit1, chapter: 'Electrostatics', front: 'Electric charge', back: '(connect) The property of matter that causes electric force.', dueOn: TODAY, due: true, stage: 'NEW',
     } });
-    saved = (await call('GET', '/api/student/bookmarks', undefined, h)).json;
-    expect(saved[0].cardId).toBe(made.json.card.id);
-
-    // Removing the bookmark never deletes the card.
-    await call('POST', '/api/student/bookmarks/remove', { kind: 'CONCEPT', entityId: key }, h);
+    // Saving again: the same card, no duplicate.
+    expect((await call('POST', '/api/student/flashcards', { conceptKey: key, day: TODAY }, h)).json).toMatchObject({ created: false, card: { id: made.json.card.id } });
+    expect(await cardRows()).toBe(1);
+    expect(await bookmarkRows()).toBe(0);
+    // The lesson page asks which of its concepts are saved: this one, not yet revised.
+    const keys = blocks.map((b) => b.conceptKey).filter(Boolean);
+    expect((await call('POST', '/api/student/flashcards/state', { keys }, h)).json).toEqual([{ conceptKey: key, id: made.json.card.id, reviewed: false }]);
+    // The saved list of other things (topics, lessons, questions) does not show it, and the dashboard counts it as a card.
     expect((await call('GET', '/api/student/bookmarks', undefined, h)).json).toEqual([]);
-    expect((await call('GET', `/api/student/flashcards?day=${TODAY}`, undefined, h)).json.map((c: { id: string }) => c.id)).toEqual([made.json.card.id]);
+    const dash = (await call('GET', `/api/student/dashboard?day=${TODAY}&since=${new Date(Date.now() - 3600_000).toISOString()}`, undefined, h)).json;
+    expect(dash).toMatchObject({ bookmarks: 0, flashcards: { total: 1, due: 1 } });
+    expect(dash.savedConcepts).toBeUndefined();
 
-    // And deleting the card never removes a bookmark.
-    await call('POST', '/api/student/bookmarks', { kind: 'CONCEPT', entityId: key }, h);
-    expect((await call('DELETE', `/api/student/flashcards/${made.json.card.id}`, undefined, h)).json).toEqual({ deleted: true });
+    // Unsaving a card that was never revised removes it at once.
+    expect((await call('DELETE', `/api/student/flashcards/${made.json.card.id}`, undefined, h)).json).toEqual({ deleted: true, reviewsRemoved: 0 });
+    expect(await cardRows()).toBe(0);
+    expect((await call('POST', '/api/student/flashcards/state', { keys }, h)).json).toEqual([]);
+  });
+
+  it('never removes a revised card without confirmation, and keeps its progress until then', async () => {
+    const s = await seed('protect', 'b');
+    const id = await lesson(s.topic1, 'Charges (protect)', lessonBlocks('protect'));
+    const key = keyOf(await blocksOf(id), 'FORMULA');
+    const h = await signIn('protect@example.test');
+    const card = (await call('POST', '/api/student/flashcards', { conceptKey: key, day: TODAY }, h)).json.card;
+    await call('POST', `/api/student/flashcards/${card.id}/review`, { rating: 'GOOD', day: TODAY }, h);
+    await daysPass(card.id, 0);
+    await call('POST', `/api/student/flashcards/${card.id}/review`, { rating: 'GOOD', day: TODAY }, h);
+    expect((await call('POST', '/api/student/flashcards/state', { keys: [key] }, h)).json).toEqual([{ conceptKey: key, id: card.id, reviewed: true }]);
+
+    const refused = await call('DELETE', `/api/student/flashcards/${card.id}`, undefined, h);
+    expect(refused.status).toBe(409);
+    expect(refused.json.error).toMatchObject({ code: 'HAS_REVIEW_HISTORY', details: { reviews: 2, intervalDays: 6 } });
+    // Nothing was lost: the card, its schedule and both reviews are still there.
+    const kept = (await call('GET', `/api/student/flashcards?day=${TODAY}`, undefined, h)).json;
+    expect(kept).toHaveLength(1);
+    expect(kept[0]).toMatchObject({ id: card.id, reps: 2, intervalDays: 6, dueOn: addDays(TODAY, 6) });
+    expect((await env.DB.prepare('SELECT COUNT(*) AS n FROM flashcard_reviews WHERE card_id = ?').bind(card.id).first<{ n: number }>())!.n).toBe(2);
+    // Saving the same concept again changes nothing either.
+    expect((await call('POST', '/api/student/flashcards', { conceptKey: key, day: TODAY }, h)).json).toMatchObject({ created: false, card: { id: card.id, reps: 2 } });
+    // Another student cannot remove it, confirmed or not.
+    expect((await call('DELETE', `/api/student/flashcards/${card.id}?confirm=1`, undefined, await signIn('protect2@example.test'))).status).toBe(404);
+
+    // With the student's confirmation it goes, with its history.
+    expect((await call('DELETE', `/api/student/flashcards/${card.id}?confirm=1`, undefined, h)).json).toEqual({ deleted: true, reviewsRemoved: 2 });
     expect((await call('GET', `/api/student/flashcards?day=${TODAY}`, undefined, h)).json).toEqual([]);
-    saved = (await call('GET', '/api/student/bookmarks', undefined, h)).json;
-    expect(saved).toHaveLength(1);
-    expect(saved[0]).toMatchObject({ entityId: key, cardId: null });
+    expect((await env.DB.prepare('SELECT COUNT(*) AS n FROM flashcard_reviews WHERE card_id = ?').bind(card.id).first<{ n: number }>())!.n).toBe(0);
   });
 
   it('a formula card asks with the note and answers with the formula; a named point asks with its name', async () => {
@@ -197,12 +227,11 @@ describe('bookmark, flashcard and their connection', () => {
     expect(fact.back).toContain('The charge of an electron');
   });
 
-  it('keeps a card and a bookmark working after their concept is rewritten in the lesson', async () => {
+  it('keeps a card working after its concept is rewritten in the lesson', async () => {
     const s = await seed('survive', '5');
     const id = await lesson(s.topic1, 'Charges (survive)', lessonBlocks('survive'));
     const key = keyOf(await blocksOf(id), 'IMPORTANT_FACT'); // a fact without a name: its key follows its text
     const h = await signIn('survive@example.test');
-    await call('POST', '/api/student/bookmarks', { kind: 'CONCEPT', entityId: key }, h);
     const card = (await call('POST', '/api/student/flashcards', { conceptKey: key, day: TODAY }, h)).json.card;
     const blocks = lessonBlocks('survive');
     blocks[6] = { type: 'IMPORTANT_FACT', body: 'A completely rewritten fact.' };
@@ -213,7 +242,6 @@ describe('bookmark, flashcard and their connection', () => {
     expect(kept).toHaveLength(1);
     expect(kept[0]).toMatchObject({ id: card.id, resourceId: id, back: card.back });
     expect((await call('POST', `/api/student/flashcards/${card.id}/review`, { rating: 'GOOD', day: TODAY }, h)).status).toBe(200);
-    expect((await call('GET', '/api/student/bookmarks', undefined, h)).json[0]).toMatchObject({ entityId: key, resourceId: id, cardId: card.id });
     // Asking again for that concept returns the existing card; a student without it is told the concept has changed.
     expect((await call('POST', '/api/student/flashcards', { conceptKey: key, day: TODAY }, h)).json).toMatchObject({ created: false, card: { id: card.id } });
     const other = await call('POST', '/api/student/flashcards', { conceptKey: key, day: TODAY }, await signIn('survive2@example.test'));
@@ -324,6 +352,7 @@ describe('revision schedule', () => {
     expect(queue.due).toBe(4);
     const summary = (await call('GET', `/api/student/flashcards/summary?day=${TODAY}`, undefined, h)).json;
     expect(summary).toMatchObject({ total: 6, due: 4, reviewedToday: 2, fresh: 4 });
+    expect(summary.savedConcepts).toBeUndefined();
     expect(summary.subjects).toHaveLength(1);
     expect(summary.subjects[0]).toMatchObject({ paperId: s.paperId, paper: 'Physics', total: 6, due: 4 });
     expect(summary.subjects[0].chapters.map((c: { chapter: string; total: number }) => [c.chapter, c.total])).toEqual([['Electrostatics', 5], ['Current Electricity', 1]]);
@@ -369,7 +398,7 @@ describe('each student sees only their own cards', () => {
       expect((await call(method, path, method === 'GET' || method === 'DELETE' ? undefined : {})).status).toBe(401);
     }
     // Deleting the account's card removes its review history with it.
-    await call('DELETE', `/api/student/flashcards/${theirs.card.id}`, undefined, b);
+    await call('DELETE', `/api/student/flashcards/${theirs.card.id}?confirm=1`, undefined, b);
     expect((await env.DB.prepare('SELECT COUNT(*) AS n FROM flashcard_reviews WHERE card_id = ?').bind(theirs.card.id).first<{ n: number }>())!.n).toBe(0);
   });
 });

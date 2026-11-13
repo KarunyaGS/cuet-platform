@@ -29,6 +29,8 @@ export function FlashcardsPage() {
   const cards = useLoad(() => api.cards({ paperId, chapterId, nodeId, due: show === 'DUE' }), [user?.id, paperId, chapterId, nodeId, show]);
   const [open, setOpen] = useState<string | null>(null);
   const [err, setErr] = useState<Error | null>(null);
+  // A card that has been revised is removed only after the student confirms.
+  const [asking, setAsking] = useState<string | null>(null);
   if (ready && !user) return <Navigate to="/signin" replace />;
   if (summary.loading && !summary.data) return <Loading />;
   if (summary.error) return <ErrorBox error={summary.error} onRetry={summary.reload} />;
@@ -39,10 +41,12 @@ export function FlashcardsPage() {
     if (p && ch) next.set('chapterId', ch);
     setParams(next, { replace: true });
   };
-  const remove = async (c: Flashcard) => {
+  const remove = async (c: Flashcard, confirmed = false) => {
     setErr(null);
+    if (c.lastReviewedAt !== null && !confirmed) return setAsking(c.id);
     try {
-      await api.deleteCard(c.id);
+      await api.deleteCard(c.id, confirmed);
+      setAsking(null);
       cards.reload();
       summary.reload();
       topic.reload();
@@ -59,16 +63,13 @@ export function FlashcardsPage() {
     <div>
       <PageHeader
         title="My flashcards"
-        subtitle="Cards you made from definitions, formulas and key points. Each card comes back on the day you are likely to need it again."
+        subtitle="Definitions, formulas and key points you saved. Each card comes back on the day you need to see it again."
         actions={
-          <>
-            <ButtonLink to="/bookmarks?tab=CONCEPT">Saved concepts ({s.savedConcepts})</ButtonLink>
-            {s.due > 0 ? (
-              <Link to={reviewLink()} className={buttonClass('primary')}>
-                Revise {s.due} due {s.due === 1 ? 'card' : 'cards'}
-              </Link>
-            ) : null}
-          </>
+          scopeDue > 0 ? (
+            <Link to={reviewLink(paperId, chapterId, nodeId)} className={buttonClass('primary')}>
+              Revise {scopeDue} due {scopeDue === 1 ? 'card' : 'cards'}
+            </Link>
+          ) : undefined
         }
       />
       {s.total === 0 ? (
@@ -81,17 +82,15 @@ export function FlashcardsPage() {
             </span>
           }
         >
-          You have no flashcards yet. Open a lesson and tap “Make flashcard” under a definition, a formula or a key point, or use “Add to my cards” at the top of a lesson to add them all.
+          You have no flashcards yet. Open a lesson and tap the bookmark icon under a definition, a formula or a key point. It is saved here as a flashcard.
         </Empty>
       ) : (
         <>
-          <div className="mb-8">
+          <div className="mb-8 max-w-md">
             <StatGroup
               items={[
-                { label: 'Due today', value: s.due, hint: s.due === 0 ? 'Nothing left for today' : 'Ready to revise', tone: s.due === 0 ? 'correct' : undefined },
-                { label: 'Revised today', value: s.reviewedToday },
-                { label: 'All cards', value: s.total, hint: `${s.fresh} not revised yet` },
-                { label: 'Known well', value: s.known, hint: 'Next revision 3 weeks or more away', tone: 'correct' },
+                { label: 'Due today', value: s.due, tone: s.due === 0 ? 'correct' : undefined },
+                { label: 'Total cards', value: s.total },
               ]}
             />
           </div>
@@ -117,7 +116,6 @@ export function FlashcardsPage() {
                         </button>
                         <button type="button" onClick={() => (choose(sub.paperId, null), setOpen(id))} aria-pressed={paperId === sub.paperId && !chapterId} className={`flex min-w-0 flex-1 items-center gap-2 py-3 pr-4 text-left text-[15px] transition-colors hover:bg-paper ${paperId === sub.paperId && !chapterId ? 'font-semibold text-accent' : 'text-ink'}`}>
                           <span className="min-w-0 flex-1 truncate">{sub.paper}</span>
-                          {sub.due > 0 && <Badge tone="amber">{sub.due} due</Badge>}
                           <span className="num text-sm text-ink-2">{sub.total}</span>
                         </button>
                       </div>
@@ -134,7 +132,6 @@ export function FlashcardsPage() {
                                       <Meter value={ch.total ? Math.round((ch.known / ch.total) * 100) : 0} tone="correct" label={`${ch.known} of ${ch.total} known well`} />
                                     </span>
                                   </span>
-                                  {ch.due > 0 && <Badge tone="amber">{ch.due} due</Badge>}
                                   <span className="num text-ink-3">{ch.total}</span>
                                 </button>
                               </li>
@@ -149,20 +146,9 @@ export function FlashcardsPage() {
             </section>
 
             <section aria-labelledby="fc-cards" className="min-w-0">
-              <SectionTitle
-                id="fc-cards"
-                action={
-                  scopeDue > 0 ? (
-                    <Link to={reviewLink(paperId, chapterId, nodeId)} className="text-sm font-medium text-accent hover:underline">
-                      Revise {scopeDue} due
-                    </Link>
-                  ) : undefined
-                }
-              >
-                {scope}
-              </SectionTitle>
+              <SectionTitle id="fc-cards">{scope}</SectionTitle>
               <div className="mb-4">
-                <Segmented label="Which cards to show" value={show} onChange={setShow} options={[{ value: 'ALL', label: 'All cards' }, { value: 'DUE', label: `Due today (${scopeDue})` }]} />
+                <Segmented label="Which cards to show" value={show} onChange={setShow} options={[{ value: 'ALL', label: 'All cards' }, { value: 'DUE', label: 'Due today' }]} />
               </div>
               {err && <ErrorBox error={err} />}
               {cards.loading && !cards.data ? (
@@ -199,10 +185,24 @@ export function FlashcardsPage() {
                           </Link>
                         </span>
                       </span>
-                      <button type="button" onClick={() => remove(c)} className="inline-flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-[13px] text-ink-3 transition-colors hover:bg-wrong-soft hover:text-wrong" aria-label={`Remove card: ${c.front.slice(0, 60)}`}>
-                        <Trash2 aria-hidden className="size-4" />
-                        <span className="hidden sm:inline">Remove</span>
-                      </button>
+                      {asking === c.id ? (
+                        <span role="alertdialog" aria-label="Remove this flashcard?" className="flex max-w-[15rem] shrink-0 flex-col items-end gap-1.5 text-right text-[13px] text-ink">
+                          <span>You have revised this card. Removing it also removes its revision progress.</span>
+                          <span className="flex gap-1.5">
+                            <button type="button" onClick={() => remove(c, true)} className="rounded-md bg-surface px-2 py-0.5 font-medium text-wrong ring-1 ring-inset ring-wrong/30 hover:bg-wrong-soft">
+                              Remove card
+                            </button>
+                            <button type="button" onClick={() => setAsking(null)} className="rounded-md bg-surface px-2 py-0.5 font-medium text-ink ring-1 ring-inset ring-rule-strong hover:bg-paper">
+                              Keep
+                            </button>
+                          </span>
+                        </span>
+                      ) : (
+                        <button type="button" onClick={() => remove(c)} className="inline-flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-[13px] text-ink-3 transition-colors hover:bg-wrong-soft hover:text-wrong" aria-label={`Remove card: ${c.front.slice(0, 60)}`}>
+                          <Trash2 aria-hidden className="size-4" />
+                          <span className="hidden sm:inline">Remove</span>
+                        </button>
+                      )}
                     </li>
                   ))}
                 </ul>

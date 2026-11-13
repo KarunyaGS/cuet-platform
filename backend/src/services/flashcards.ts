@@ -5,7 +5,8 @@
  * lesson by the server, never sent by the browser. A student has at most one card per concept: the database refuses a
  * second one, so single cards and bulk imports cannot create duplicates.
  *
- * Bookmarks and cards are separate records that share the concept key. Removing either never touches the other.
+ * Saving a concept (the bookmark icon under it in a lesson) makes its card; there is no separate bookmark record for a
+ * concept. Unsaving removes the card. A card that has been revised is removed only after the student confirms.
  *
  * Scheduling is SM-2. Four ratings are accepted (AGAIN, HARD, GOOD, EASY); the screens currently offer two of them:
  * "Need revision" (AGAIN) and "Know" (GOOD). Days are calendar days in the student's own time zone, sent by the browser
@@ -281,7 +282,7 @@ export async function reviewQueue(db: D1Database, userId: string, q: z.infer<typ
 
 /** Counts for My Flashcards and the dashboard: totals, and cards by subject and chapter. */
 export async function cardSummary(db: D1Database, userId: string, day: string) {
-  const [groups, today, saved] = await Promise.all([
+  const [groups, today] = await Promise.all([
     db
       .prepare(
         `SELECT f.test_paper_id AS paper_id, tp.name AS paper, f.chapter_node_id AS chapter_id, ch.title AS chapter, ch.position AS chapter_position,
@@ -292,7 +293,6 @@ export async function cardSummary(db: D1Database, userId: string, day: string) {
       .bind(userId, day)
       .all<Record<string, string | number | null>>(),
     db.prepare('SELECT COUNT(*) AS reviews, COUNT(DISTINCT card_id) AS cards FROM flashcard_reviews WHERE user_id = ? AND day = ?').bind(userId, day).first<{ reviews: number; cards: number }>(),
-    db.prepare(`SELECT COUNT(*) AS n FROM bookmarks WHERE user_id = ? AND kind = 'CONCEPT'`).bind(userId).first<{ n: number }>(),
   ]);
   const subjects: { paperId: string | null; paper: string; total: number; due: number; known: number; chapters: { chapterId: string | null; chapter: string; total: number; due: number; known: number }[] }[] = [];
   const totals = { total: 0, due: 0, fresh: 0, known: 0 };
@@ -309,7 +309,7 @@ export async function cardSummary(db: D1Database, userId: string, day: string) {
     s.known += n.known;
     s.chapters.push({ chapterId: g.chapter_id as string | null, chapter: (g.chapter as string | null) ?? 'Other', total: n.total, due: n.due, known: n.known });
   }
-  return { day, ...totals, reviewedToday: today?.cards ?? 0, savedConcepts: saved?.n ?? 0, subjects };
+  return { day, ...totals, reviewedToday: today?.cards ?? 0, subjects };
 }
 
 /** For a topic page: how many concepts its lessons hold, how many of them the student has as cards, and how many are due. */
@@ -335,17 +335,17 @@ export async function topicCards(db: D1Database, preview: boolean, userId: strin
   return { nodeId: node.id, title: node.title, paperId: node.paper_id, day, concepts, cards: mine?.cards ?? 0, due: mine?.due ?? 0 };
 }
 
-/** Which of these concepts the student already has a card for. */
+/** Which of these concepts the student has saved: the card's id, and whether it has been revised (so removing it needs a confirmation). */
 export async function cardState(db: D1Database, userId: string, keys: string[]) {
-  const out: string[] = [];
+  const out: { conceptKey: string; id: string; reviewed: boolean }[] = [];
   const clean = [...new Set(keys.filter((k) => CONCEPT_KEY.test(k)))].slice(0, 400);
   for (let i = 0; i < clean.length; i += 80) {
     const part = clean.slice(i, i + 80);
     const { results } = await db
-      .prepare(`SELECT concept_key FROM flashcards WHERE user_id = ? AND concept_key IN (${part.map(() => '?').join(',')})`)
+      .prepare(`SELECT concept_key, id, last_reviewed_at FROM flashcards WHERE user_id = ? AND concept_key IN (${part.map(() => '?').join(',')})`)
       .bind(userId, ...part)
-      .all<{ concept_key: string }>();
-    out.push(...results.map((r) => r.concept_key));
+      .all<{ concept_key: string; id: string; last_reviewed_at: string | null }>();
+    out.push(...results.map((r) => ({ conceptKey: r.concept_key, id: r.id, reviewed: r.last_reviewed_at !== null })));
   }
   return out;
 }
@@ -378,9 +378,18 @@ export async function reviewCard(db: D1Database, userId: string, id: string, inp
   return cardOut(r!, day);
 }
 
-/** Removes a card (and its review history). A bookmark on the same concept is not touched. */
-export async function deleteCard(db: D1Database, userId: string, id: string) {
-  const res = await db.prepare('DELETE FROM flashcards WHERE id = ? AND user_id = ?').bind(id, userId).run();
-  if (!(res.meta.changes ?? 0)) throw notFound('Flashcard');
-  return { deleted: true };
+/**
+ * Removes a card. A card that has been revised carries progress (its schedule and review history): it is removed only
+ * when the student has confirmed, and is otherwise refused with what would be lost.
+ */
+export async function deleteCard(db: D1Database, userId: string, id: string, confirmed = false) {
+  const cur = await db
+    .prepare('SELECT f.id, f.interval_days, f.due_on, (SELECT COUNT(*) FROM flashcard_reviews r WHERE r.card_id = f.id) AS reviews FROM flashcards f WHERE f.id = ? AND f.user_id = ?')
+    .bind(id, userId)
+    .first<{ id: string; interval_days: number; due_on: string; reviews: number }>();
+  if (!cur) throw notFound('Flashcard');
+  if (cur.reviews > 0 && !confirmed)
+    throw new ApiError(409, 'HAS_REVIEW_HISTORY', `This card has been revised ${cur.reviews} ${cur.reviews === 1 ? 'time' : 'times'}. Removing it also removes that progress.`, { reviews: cur.reviews, dueOn: cur.due_on, intervalDays: cur.interval_days });
+  await db.prepare('DELETE FROM flashcards WHERE id = ? AND user_id = ?').bind(id, userId).run();
+  return { deleted: true, reviewsRemoved: cur.reviews };
 }

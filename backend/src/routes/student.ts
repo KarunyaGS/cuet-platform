@@ -195,10 +195,10 @@ student.post('/activity', async (c) => c.json(await recordActivity(c.env.DB, c.g
 student.get('/bookmarks', async (c) => c.json(await listBookmarks(c.env.DB, c.get('user').id)));
 student.get('/bookmarks/state', async (c) => {
   const kind = c.req.query('kind') ?? '';
-  if (!(BOOKMARK_KINDS as readonly string[]).includes(kind)) throw invalid('kind must be TOPIC, LESSON, QUESTION, REVISION or CONCEPT');
+  if (!(BOOKMARK_KINDS as readonly string[]).includes(kind)) throw invalid('kind must be TOPIC, LESSON, QUESTION or REVISION');
   return c.json(await bookmarkState(c.env.DB, c.get('user').id, kind, (c.req.query('ids') ?? '').split(',').filter(Boolean).slice(0, 200)));
 });
-student.post('/bookmarks', async (c) => c.json(await addBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema), preview(c.env)), 201));
+student.post('/bookmarks', async (c) => c.json(await addBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema)), 201));
 student.post('/bookmarks/remove', async (c) => c.json(await removeBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema))));
 
 // Flashcards and spaced revision. Every card belongs to the signed-in student; card text is copied from the lesson by the server.
@@ -219,7 +219,8 @@ student.post('/flashcards', async (c) => {
 });
 student.post('/flashcards/import', async (c) => c.json(await importCards(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, importCardsSchema))));
 student.post('/flashcards/:id/review', async (c) => c.json(await reviewCard(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, reviewSchema))));
-student.delete('/flashcards/:id', async (c) => c.json(await deleteCard(c.env.DB, c.get('user').id, c.req.param('id'))));
+// A card that has been revised is removed only with confirm=1, so review progress is never lost by a stray tap.
+student.delete('/flashcards/:id', async (c) => c.json(await deleteCard(c.env.DB, c.get('user').id, c.req.param('id'), c.req.query('confirm') === '1')));
 
 // Preferences, weekly report, reminders, recently viewed
 student.get('/preferences', async (c) => c.json(await getPreferences(c.env.DB, c.get('user').id)));

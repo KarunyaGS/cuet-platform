@@ -7,7 +7,6 @@ import { ApiError, invalid, notFound } from '../lib/errors';
 import { newId } from '../lib/hash';
 import { nowIso } from '../lib/sql';
 import { conceptsOfResources } from './concepts';
-import { findConcept } from './flashcards';
 import { VISIBLE_CONTENT, VISIBLE_SYLLABUS } from './learning';
 import { createSession, progress } from './practice';
 
@@ -20,7 +19,7 @@ export async function getProfile(db: D1Database, userId: string) {
     .prepare(
       `SELECT u.id, u.email, u.display_name, u.created_at, u.last_login_at,
          (SELECT COUNT(*) FROM practice_sessions s WHERE s.user_id = u.id AND s.status = 'SUBMITTED') AS tests_taken,
-         (SELECT COUNT(*) FROM bookmarks b WHERE b.user_id = u.id) AS bookmarks
+         (SELECT COUNT(*) FROM bookmarks b WHERE b.user_id = u.id AND b.kind IN (${KIND_SQL})) AS bookmarks
        FROM users u WHERE u.id = ?`,
     )
     .bind(userId)
@@ -36,27 +35,20 @@ export async function updateProfile(db: D1Database, userId: string, input: z.inf
 
 // ---------------------------------------------------------------- bookmarks
 
-export const BOOKMARK_KINDS = ['TOPIC', 'LESSON', 'QUESTION', 'REVISION', 'CONCEPT'] as const;
+/** A single concept of a lesson is not bookmarked: saving it makes its flashcard (see flashcards.ts). */
+export const BOOKMARK_KINDS = ['TOPIC', 'LESSON', 'QUESTION', 'REVISION'] as const;
+const KIND_SQL = BOOKMARK_KINDS.map((k) => `'${k}'`).join(',');
 const KINDS = BOOKMARK_KINDS;
 export const bookmarkSchema = z.object({ kind: z.enum(KINDS), entityId: z.string().min(1).max(100) });
 
 /** REVISION saves a topic's quick-revision page (the entity is the topic). */
 const TABLE = { TOPIC: 'curriculum_nodes', LESSON: 'learning_resources', QUESTION: 'questions', REVISION: 'curriculum_nodes' } as const;
 
-/**
- * CONCEPT saves one definition, formula, key point or fact of a lesson: the entity is its concept key, and its name is
- * kept on the bookmark. A bookmark and a flashcard on the same concept are separate records; neither removes the other.
- */
-export async function addBookmark(db: D1Database, userId: string, input: z.infer<typeof bookmarkSchema>, preview = false) {
-  let label: string | null = null;
-  if (input.kind === 'CONCEPT') {
-    const found = await findConcept(db, preview, input.entityId);
-    if (!found) throw notFound('Item to bookmark');
-    label = found.concept.title;
-  } else if (!(await db.prepare(`SELECT 1 FROM ${TABLE[input.kind]} WHERE id = ?`).bind(input.entityId).first())) throw notFound('Item to bookmark');
+export async function addBookmark(db: D1Database, userId: string, input: z.infer<typeof bookmarkSchema>) {
+  if (!(await db.prepare(`SELECT 1 FROM ${TABLE[input.kind]} WHERE id = ?`).bind(input.entityId).first())) throw notFound('Item to bookmark');
   await db
-    .prepare('INSERT INTO bookmarks (id, user_id, kind, entity_id, label, created_at) VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT (user_id, kind, entity_id) DO NOTHING')
-    .bind(newId('bm'), userId, input.kind, input.entityId, label, nowIso())
+    .prepare('INSERT INTO bookmarks (id, user_id, kind, entity_id, created_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT (user_id, kind, entity_id) DO NOTHING')
+    .bind(newId('bm'), userId, input.kind, input.entityId, nowIso())
     .run();
   return { bookmarked: true };
 }
@@ -70,26 +62,19 @@ export async function listBookmarks(db: D1Database, userId: string) {
   const { results } = await db
     .prepare(
       `SELECT b.id, b.kind, b.entity_id, b.created_at,
-         CASE WHEN b.kind IN ('TOPIC','REVISION') THEN n.title WHEN b.kind = 'LESSON' THEN r.title WHEN b.kind = 'CONCEPT' THEN b.label ELSE SUBSTR(q.stem, 1, 180) END AS title,
-         COALESCE(n.id, r.curriculum_node_id, rc.curriculum_node_id, (SELECT qt.curriculum_node_id FROM question_topics qt WHERE qt.question_id = q.id LIMIT 1)) AS node_id,
-         COALESCE(tp1.name, tp2.name, tp3.name, tp4.name) AS paper,
-         CASE WHEN b.kind = 'CONCEPT' THEN SUBSTR(b.entity_id, 1, INSTR(b.entity_id, '.') - 1) END AS resource_id, rc.title AS lesson,
-         CASE WHEN b.kind = 'CONCEPT' THEN (SELECT f.id FROM flashcards f WHERE f.user_id = b.user_id AND f.concept_key = b.entity_id) END AS card_id
+         CASE WHEN b.kind IN ('TOPIC','REVISION') THEN n.title WHEN b.kind = 'LESSON' THEN r.title ELSE SUBSTR(q.stem, 1, 180) END AS title,
+         COALESCE(n.id, r.curriculum_node_id, (SELECT qt.curriculum_node_id FROM question_topics qt WHERE qt.question_id = q.id LIMIT 1)) AS node_id,
+         COALESCE(tp1.name, tp2.name, tp3.name) AS paper
        FROM bookmarks b
-       LEFT JOIN learning_resources rc ON b.kind = 'CONCEPT' AND rc.id = SUBSTR(b.entity_id, 1, INSTR(b.entity_id, '.') - 1) LEFT JOIN test_papers tp4 ON tp4.id = COALESCE(rc.test_paper_id, (SELECT v4.test_paper_id FROM curriculum_nodes n4 JOIN syllabus_versions v4 ON v4.id = n4.syllabus_version_id WHERE n4.id = rc.curriculum_node_id))
        LEFT JOIN curriculum_nodes n ON b.kind IN ('TOPIC','REVISION') AND n.id = b.entity_id
        LEFT JOIN syllabus_versions v1 ON v1.id = n.syllabus_version_id LEFT JOIN test_papers tp1 ON tp1.id = v1.test_paper_id
        LEFT JOIN learning_resources r ON b.kind = 'LESSON' AND r.id = b.entity_id LEFT JOIN test_papers tp2 ON tp2.id = r.test_paper_id
        LEFT JOIN questions q ON b.kind = 'QUESTION' AND q.id = b.entity_id LEFT JOIN test_papers tp3 ON tp3.id = q.test_paper_id
-       WHERE b.user_id = ? ORDER BY b.created_at DESC LIMIT 500`,
+       WHERE b.user_id = ? AND b.kind IN (${KIND_SQL}) ORDER BY b.created_at DESC LIMIT 500`,
     )
     .bind(userId)
     .all<Record<string, string | null>>();
-  return results.map((r) => ({
-    id: r.id, kind: r.kind, entityId: r.entity_id, title: r.title ?? '(no longer available)', nodeId: r.node_id, paper: r.paper, createdAt: r.created_at,
-    // CONCEPT only: its lesson, where it sits in the lesson, and the student's flashcard for it if there is one.
-    resourceId: r.resource_id, lesson: r.lesson, anchor: r.kind === 'CONCEPT' ? `c-${String(r.entity_id).slice(String(r.entity_id).lastIndexOf('.') + 1)}` : null, cardId: r.card_id,
-  }));
+  return results.map((r) => ({ id: r.id, kind: r.kind, entityId: r.entity_id, title: r.title ?? '(no longer available)', nodeId: r.node_id, paper: r.paper, createdAt: r.created_at }));
 }
 
 export async function bookmarkState(db: D1Database, userId: string, kind: string, ids: string[]) {
@@ -223,11 +208,11 @@ export async function dashboard(db: D1Database, userId: string, q: z.infer<typeo
     getGoal(db, userId),
     listPlan(db, userId, q.day, q.day),
     progress(db, userId),
-    db.prepare('SELECT COUNT(*) AS n FROM bookmarks WHERE user_id = ?').bind(userId).first<{ n: number }>(),
+    db.prepare(`SELECT COUNT(*) AS n FROM bookmarks WHERE user_id = ? AND kind IN (${KIND_SQL})`).bind(userId).first<{ n: number }>(),
     db
-      .prepare(`SELECT COUNT(*) AS total, COALESCE(SUM(due_on <= ?2), 0) AS due, (SELECT COUNT(*) FROM bookmarks WHERE user_id = ?1 AND kind = 'CONCEPT') AS concepts FROM flashcards WHERE user_id = ?1`)
+      .prepare('SELECT COUNT(*) AS total, COALESCE(SUM(due_on <= ?2), 0) AS due FROM flashcards WHERE user_id = ?1')
       .bind(userId, q.day)
-      .first<{ total: number; due: number; concepts: number }>(),
+      .first<{ total: number; due: number }>(),
   ]);
   const now = Date.now();
   return {
@@ -241,7 +226,6 @@ export async function dashboard(db: D1Database, userId: string, q: z.infer<typeo
     subjects: prog.subjects,
     totals: prog.totals,
     bookmarks: bookmarks?.n ?? 0,
-    savedConcepts: cards?.concepts ?? 0,
     flashcards: { total: cards?.total ?? 0, due: cards?.due ?? 0 },
   };
 }

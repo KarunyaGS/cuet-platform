@@ -123,12 +123,8 @@ export interface Progress {
 }
 export interface SubjectProgress { paper: string; paperCode: string; topics: number; attempted: number; correct: number; accuracy: number | null }
 export interface Profile { id: string; email: string; displayName: string; memberSince: string; lastLogin: string | null; testsTaken: number; bookmarks: number }
-export type BookmarkKind = 'TOPIC' | 'LESSON' | 'QUESTION' | 'REVISION' | 'CONCEPT';
-export interface Bookmark {
-  id: string; kind: BookmarkKind; entityId: string; title: string; nodeId: string | null; paper: string | null; createdAt: string;
-  /** CONCEPT only: its lesson, its place in the lesson, and the student's flashcard for it (if made). */
-  resourceId: string | null; lesson: string | null; anchor: string | null; cardId: string | null;
-}
+export type BookmarkKind = 'TOPIC' | 'LESSON' | 'QUESTION' | 'REVISION';
+export interface Bookmark { id: string; kind: BookmarkKind; entityId: string; title: string; nodeId: string | null; paper: string | null; createdAt: string }
 export type CardRating = 'AGAIN' | 'HARD' | 'GOOD' | 'EASY';
 export interface Flashcard {
   id: string; conceptKey: string; resourceId: string; anchor: string; lesson: string; section: string | null; type: string;
@@ -138,7 +134,7 @@ export interface Flashcard {
   stage: 'NEW' | 'LEARNING' | 'KNOWN';
 }
 export interface CardSummary {
-  day: string; total: number; due: number; fresh: number; known: number; reviewedToday: number; savedConcepts: number;
+  day: string; total: number; due: number; fresh: number; known: number; reviewedToday: number;
   subjects: { paperId: string | null; paper: string; total: number; due: number; known: number; chapters: { chapterId: string | null; chapter: string; total: number; due: number; known: number }[] }[];
 }
 export interface TopicCards { nodeId: string; title: string; paperId: string; day: string; concepts: number; cards: number; due: number }
@@ -156,7 +152,6 @@ export interface Dashboard {
   subjects: SubjectProgress[];
   totals: Progress['totals'];
   bookmarks: number;
-  savedConcepts: number;
   flashcards: { total: number; due: number };
 }
 export interface RevisionNotes {
@@ -243,11 +238,12 @@ export const api = {
   cardSummary: () => request<CardSummary>('GET', `/api/student/flashcards/summary?day=${localDay()}`),
   cardQueue: (f: { paperId?: string | null; chapterId?: string | null; nodeId?: string | null } = {}) =>
     request<{ day: string; due: number; cards: Flashcard[] }>('GET', `/api/student/flashcards/queue?day=${localDay()}&limit=100${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}${f.nodeId ? `&nodeId=${encodeURIComponent(f.nodeId)}` : ''}`),
-  cardState: (keys: string[]) => request<string[]>('POST', '/api/student/flashcards/state', { keys }),
+  cardState: (keys: string[]) => request<{ conceptKey: string; id: string; reviewed: boolean }[]>('POST', '/api/student/flashcards/state', { keys }),
   createCard: (conceptKey: string) => request<{ created: boolean; card: Flashcard }>('POST', '/api/student/flashcards', { conceptKey, day: localDay() }),
   importCards: (from: { resourceId: string } | { nodeId: string }, types?: ConceptType[]) => request<CardImport>('POST', '/api/student/flashcards/import', { ...from, ...(types ? { types } : {}), day: localDay() }),
   reviewCard: (id: string, rating: CardRating) => request<Flashcard>('POST', `/api/student/flashcards/${id}/review`, { rating, day: localDay() }),
-  deleteCard: (id: string) => request<{ deleted: boolean }>('DELETE', `/api/student/flashcards/${id}`),
+  /** A card that has been revised is removed only with `confirm` (the student agreed to lose its progress). */
+  deleteCard: (id: string, confirm = false) => request<{ deleted: boolean; reviewsRemoved: number }>('DELETE', `/api/student/flashcards/${id}${confirm ? '?confirm=1' : ''}`),
   plan: (from: string, to: string) => request<PlanItem[]>('GET', `/api/student/plan?from=${from}&to=${to}`),
   addPlan: (b: { day: string; kind: PlanKind; refId?: string | null; title: string }) => request<{ id: string }>('POST', '/api/student/plan', b),
   updatePlan: (id: string, b: { day?: string; title?: string; done?: boolean }) => request<{ id: string }>('PATCH', `/api/student/plan/${id}`, b),
