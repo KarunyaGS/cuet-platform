@@ -392,21 +392,36 @@ async function run() {
   await call('POST', `/api/student/practice/${marksRun.json.session.id}/answers`, { token: buyer.token, body: { questionId: mQ[0].id, selectedPositions: [] } });
   const marksBack = await call('GET', `/api/student/practice/${marksRun.json.session.id}`, { token: buyer.token });
   check('"mark for review" is kept on the server and a cleared answer counts as unanswered', marksBack.json.session.marked.length === 1 && marksBack.json.session.marked[0] === mQ[1].id && one('SELECT marked_json AS m FROM practice_sessions WHERE id = ?', marksRun.json.session.id).m === JSON.stringify([mQ[1].id]) && one('SELECT outcome FROM practice_answers WHERE session_id = ? AND question_id = ?', marksRun.json.session.id, mQ[0].id).outcome === 'UNATTEMPTED');
-  const offSite = await admin('POST', '/api/admin/official-papers', { schema: 'cuet-official-links/1', links: [{ exam: 'CUET_UG', year: 2026, kind: 'QUESTION_PAPER', availability: 'AVAILABLE', url: 'https://papers.example.com/cuet-2026.pdf', title: 'Copied paper', checkedOn: '2026-11-13' }] });
-  check('a link that is not on the exam body\'s own site is refused', offSite.status === 400 && n('SELECT COUNT(*) FROM official_paper_links') === 0);
+  // Uses the year 2031 so the check does not depend on what the directory already holds.
+  const linksBefore = n('SELECT COUNT(*) FROM official_paper_links');
+  const offSite = await admin('POST', '/api/admin/official-papers', { schema: 'cuet-official-links/1', links: [{ exam: 'CUET_UG', year: 2031, kind: 'QUESTION_PAPER', availability: 'AVAILABLE', url: 'https://papers.example.com/cuet-2031.pdf', title: 'Copied paper', checkedOn: '2026-11-13' }] });
+  check('a link that is not on the exam body\'s own site is refused', offSite.status === 400 && n('SELECT COUNT(*) FROM official_paper_links') === linksBefore);
   const linkPack = { schema: 'cuet-official-links/1', links: [
-    { exam: 'CUET_UG', year: 2026, kind: 'ANSWER_KEY', availability: 'AVAILABLE', url: 'https://cdnbbsr.s3waas.gov.in/s3d1a21da7bca4abff8b0b61b87597de73/uploads/2026/06/202606231857909583.pdf', title: 'CUET (UG) 2026 final answer keys', note: 'Question id and correct option id.', checkedOn: '2026-11-13' },
-    { exam: 'CUET_UG', year: 2026, kind: 'QUESTION_PAPER', availability: 'NOT_AVAILABLE', title: 'CUET (UG) 2026 question papers', note: 'NTA does not publish the question papers openly.', checkedOn: '2026-11-13' } ] };
+    { exam: 'CUET_UG', year: 2031, kind: 'ANSWER_KEY', availability: 'AVAILABLE', url: 'https://cdnbbsr.s3waas.gov.in/s3test/uploads/2031/06/final-keys.pdf', title: 'CUET (UG) 2031 final answer keys', note: 'Question id and correct option id.', checkedOn: '2026-11-13' },
+    { exam: 'CUET_UG', year: 2031, kind: 'QUESTION_PAPER', availability: 'NOT_AVAILABLE', title: 'CUET (UG) 2031 question papers', note: 'NTA does not publish the question papers openly.', checkedOn: '2026-11-13' } ] };
   const linksIn = await admin('POST', '/api/admin/official-papers', linkPack);
-  const visibleLinks = async () => (await call('GET', '/api/learn/official-papers?exam=CUET_UG')).json.years.flatMap((y) => y.items);
-  check('official links are stored as drafts (addresses only) and are not shown to students', linksIn.json?.created === 2 && (await visibleLinks()).length === 0 && n("SELECT COUNT(*) FROM official_paper_links WHERE status = 'DRAFT'") === 2);
-  const keyLink = one("SELECT id FROM official_paper_links WHERE kind = 'ANSWER_KEY'").id;
+  const visibleLinks = async () => (await call('GET', '/api/learn/official-papers?exam=CUET_UG')).json.years.filter((y) => y.year === 2031).flatMap((y) => y.items);
+  check('official links are stored as drafts (addresses only) and are not shown to students', linksIn.json?.created === 2 && (await visibleLinks()).length === 0 && n("SELECT COUNT(*) FROM official_paper_links WHERE year = 2031 AND status = 'DRAFT'") === 2);
+  const keyLink = one("SELECT id FROM official_paper_links WHERE year = 2031 AND kind = 'ANSWER_KEY'").id;
   const noBasis = await call('POST', `/api/console/official-papers/${keyLink}/status`, { token: a.token, body: { action: 'PUBLISH' } });
   check('a link cannot be published without a recorded linking basis', noBasis.status === 409 && noBasis.json.error.code === 'LINKING_BASIS_REQUIRED');
   await call('POST', `/api/console/official-papers/${keyLink}/status`, { token: a.token, body: { action: 'PUBLISH', linkingBasis: 'Trace: sample permission reference', conditionsChecked: true } });
-  await call('POST', `/api/console/official-papers/${one("SELECT id FROM official_paper_links WHERE kind = 'QUESTION_PAPER'").id}/status`, { token: a.token, body: { action: 'PUBLISH' } });
+  await call('POST', `/api/console/official-papers/${one("SELECT id FROM official_paper_links WHERE year = 2031 AND kind = 'QUESTION_PAPER'").id}/status`, { token: a.token, body: { action: 'PUBLISH' } });
   const shownLinks = await visibleLinks();
-  check('once published, students get the link to the original and a clear "not available" notice', shownLinks.length === 2 && shownLinks.some((l) => l.available && l.url.startsWith('https://cdnbbsr.s3waas.gov.in/')) && shownLinks.some((l) => !l.available && l.url === null) && one("SELECT linking_checked_by AS b FROM official_paper_links WHERE kind = 'ANSWER_KEY'").b === `user:${a.id}`);
+  check('once published, students get the link to the original and a clear "not available" notice', shownLinks.length === 2 && shownLinks.some((l) => l.available && l.url.startsWith('https://cdnbbsr.s3waas.gov.in/')) && shownLinks.some((l) => !l.available && l.url === null) && one("SELECT linking_checked_by AS b FROM official_paper_links WHERE year = 2031 AND kind = 'ANSWER_KEY'").b === `user:${a.id}`);
+
+  // The directory of papers actually held: every row is a fact read from the exam body's own answer key.
+  const dirPack = { schema: 'cuet-official-directory/1', exam: 'CUET_UG', year: 2032, key: { title: 'CUET (UG) 2032 : Final Answer Keys', url: 'https://cdnbbsr.s3waas.gov.in/s3test/uploads/2032/06/keys.pdf', version: 'FINAL', sha256: 'e'.repeat(64), pages: 30, retrievedAt: '2026-11-13T06:00:00.000Z' }, paper: { status: 'NOT_PUBLISHED', note: 'NTA does not publish the question papers openly.' },
+    sessions: [{ date: '2032-05-12', shift: 'Shift 2', subjectCode: '322', subjectName: 'Physics', keyPage: 26, keyPages: 1, dropped: 1 }, { date: '2032-05-14', shift: 'Shift 1', subjectCode: '322', subjectName: 'Physics', keyPage: 28, keyPages: 1, dropped: 0 }, { date: '2032-05-11', shift: 'Shift 1', subjectCode: '101', subjectName: 'English', keyPage: 1, keyPages: 1, dropped: 0 }] };
+  const dirIn = await admin('POST', '/api/admin/official-directory', dirPack);
+  const dirYear = (await call('GET', '/api/learn/official-directory?exam=CUET_UG')).json.years.find((y) => y.year === 2032);
+  check('the official directory lists every paper by year and subject, with the question-paper status and the key', dirIn.json?.sessions === 3 && dirYear?.papers === 3 && dirYear.subjects.length === 2 && dirYear.questionPaper.status === 'NOT_PUBLISHED' && dirYear.answerKey.linkPending === true && n('SELECT COUNT(*) FROM official_paper_sessions WHERE year = 2032') === 3);
+  const dirRows = (await call('GET', '/api/learn/official-directory/sessions?exam=CUET_UG&year=2032&subject=322')).json;
+  check('each paper shows its date, shift and key page, and no address before the linking basis is recorded', dirRows.length === 2 && dirRows[0].date === '2032-05-12' && dirRows[0].shift === 'Shift 2' && dirRows[0].answerKey.page === 26 && dirRows[0].answerKey.url === null && dirRows[0].questionPaper.published === false && dirRows[0].dropped === 1);
+  const realDir = (await call('GET', '/api/learn/official-directory?exam=CUET_UG')).json.years.filter((y) => y.year <= 2026);
+  check('the directory on screen equals the stored rows for every real year', realDir.every((y) => y.papers === n("SELECT COUNT(*) FROM official_paper_sessions WHERE exam_code = 'CUET_UG' AND year = ?", y.year)), realDir.map((y) => `${y.year}: ${y.papers}`).join(', ') || 'no real year loaded');
+  check('no directory row stores a document: only facts and a reference to a link row', !all('PRAGMA table_info(official_paper_sessions)').some((c) => /blob|content|text_body|file/i.test(c.name)) && n('SELECT COUNT(*) FROM official_paper_sessions WHERE paper_url IS NOT NULL') === 0);
+
   const readiness = await call('GET', `/api/console/mock-papers/readiness/${physics.paperId}`, { token: a.token });
   const approvedNow = n("SELECT COUNT(*) FROM questions WHERE verification = 'VERIFIED' AND origin != 'PAST_PAPER'");
   check('the mock blueprint follows the exam rules and covers every syllabus unit', readiness.json?.pattern?.questions === 50 && readiness.json.pattern.durationMinutes === 60 && readiness.json.perUnit.length === 9 && readiness.json.perUnit.reduce((x, u) => x + u.needed, 0) === 50 && readiness.json.perUnit.every((u) => u.needed >= 1), readiness.json?.perUnit?.map((u) => u.needed).join(','));

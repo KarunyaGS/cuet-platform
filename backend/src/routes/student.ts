@@ -12,7 +12,7 @@ import { invalid } from '../lib/errors';
 import { readJson } from '../lib/http';
 import { changePassword, login, loginSchema, logout, passwordSchema, resetPassword, resetPasswordSchema, registerSchema, registerStudent, SESSION_COOKIE, studentAuth, userFromToken } from '../services/accounts';
 import { sha256Hex } from '../lib/hash';
-import { listMockPapers, listOfficialLinks, startMockPaper, startMockSchema } from '../services/practice-centre';
+import { directorySessionsQuery, listMockPapers, listOfficialLinks, officialDirectory, officialDirectorySessions, startMockPaper, startMockSchema } from '../services/practice-centre';
 import { listPastPapers, pastPaperDetail, pastPaperQuery, startPastPaper, startPastPaperSchema } from '../services/past-papers';
 import { assertWithinPlan, billingSummary, confirmCheckout, confirmSchema, createOrder, orderSchema, simulatePayment, simulateSchema } from '../services/billing';
 import {
@@ -101,6 +101,13 @@ learn.get('/official-papers', async (c) => {
   if (exam !== 'CUET_UG' && exam !== 'CUET_PG') throw invalid('exam must be CUET_UG or CUET_PG');
   return c.json(await listOfficialLinks(c.env.DB, exam));
 });
+// The directory of papers actually held (subject, date, shift), from the exam body's own answer key.
+learn.get('/official-directory', async (c) => {
+  const exam = c.req.query('exam');
+  if (exam !== 'CUET_UG' && exam !== 'CUET_PG') throw invalid('exam must be CUET_UG or CUET_PG');
+  return c.json(await officialDirectory(c.env.DB, exam));
+});
+learn.get('/official-directory/sessions', async (c) => c.json(await officialDirectorySessions(c.env.DB, directorySessionsQuery.parse(c.req.query()))));
 learn.get('/mock-papers', async (c) => c.json(await listMockPapers(c.env.DB, { exam: c.req.query('exam') || undefined, paperId: c.req.query('paperId') || undefined })));
 // Previous-year papers: only published papers whose licence allows display are ever listed here.
 learn.get('/past-papers', async (c) => c.json(await listPastPapers(c.env.DB, pastPaperQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));

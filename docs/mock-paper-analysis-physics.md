@@ -15,6 +15,8 @@
 
 ## 2. What could not be analysed
 
+> **Correction, 13 November 2026 (later):** a deeper search found question-paper files on NTA's own server for 14 CUET (PG) 2024 subjects. The statement in this document that NTA publishes no CUET question papers is true for 2025 and 2026 only. See `docs/official-directory.md`.
+
 These need the question papers, which are not available:
 
 - How many questions each unit received in past years.

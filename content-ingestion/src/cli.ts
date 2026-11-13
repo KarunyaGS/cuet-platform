@@ -21,6 +21,7 @@ import { parseCsv } from './verify';
 import { reviewExport, reviewImport, reviewMachineCheck, reviewValidate } from './syllabus-review';
 import { importMissing } from './import-missing';
 import { printPastPapers, runPastPapers } from './past-papers';
+import { buildDirectory, importDirectory } from './official-directory';
 import type { ExtractionResult, Registry } from './types';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -243,6 +244,24 @@ try {
   else if (cmd === 'import-missing') {
     const r = await importMissing(loadRegistry(), { extracted: PATHS.extracted, review: PATHS.syllabusReview, registryDir: dirname(PATHS.registry) }, option('api') ?? 'http://127.0.0.1:8787', adminToken());
     console.log(JSON.stringify(r, null, 1));
+  }
+  else if (cmd === 'official-directory-build') {
+    // Reads the exam body's own answer-key file and writes the list of subjects, dates and shifts it names. Facts only; the file is not kept.
+    const exam = option('exam') === 'CUET_PG' ? 'CUET_PG' : 'CUET_UG';
+    const examName = exam === 'CUET_PG' ? 'CUET (PG)' : 'CUET (UG)';
+    const f = await buildDirectory({
+      exam, year: Number(option('year')), url: option('url')!, title: option('title') ?? `${examName} ${option('year')} final answer keys`, version: flag('provisional') ? 'PROVISIONAL' : 'FINAL',
+      paperNote: option('paper-note') ?? 'NTA does not publish the question papers openly. Each candidate can view only their own paper after logging in.', evidenceUrl: option('evidence'),
+      outDir: join(repo, 'content', 'official-papers', 'directory'),
+    });
+    console.log(`${f.exam} ${f.year}: ${f.sessions.length} sessions, ${new Set(f.sessions.map((x) => x.subjectCode)).size} subjects, ${new Set(f.sessions.map((x) => x.date)).size} exam dates, ${f.sessions.reduce((n, x) => n + x.dropped, 0)} dropped questions, ${f.key.pages} pages${f.unreadPages.length ? `, UNREAD pages: ${f.unreadPages.join(',')}` : ''}`);
+  }
+  else if (cmd === 'official-directory-import') {
+    const api = option('api') ?? 'http://127.0.0.1:8787';
+    // The papers held each year (from the answer keys), then the question papers the exam body hosts itself.
+    const r = [...(await importDirectory(join(repo, 'content', 'official-papers', 'directory'), api, adminToken())), ...(await importDirectory(join(repo, 'content', 'official-papers', 'papers'), api, adminToken(), '/api/admin/official-question-papers'))];
+    console.log(JSON.stringify(r, null, 1));
+    if (r.some((x) => !x.ok)) process.exitCode = 1;
   }
   else if (cmd === 'official-links-import') {
     // Links to official documents (addresses only; nothing is downloaded). Stored as drafts; staff publish them in the admin console.

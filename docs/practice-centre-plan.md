@@ -51,6 +51,8 @@ So, on NTA's own stated terms, a link needs permission too. The registry is ther
 
 ### 3.3 What "available" means today
 
+> **Correction, 13 November 2026 (later):** a deeper search found question-paper files on NTA's own server for 14 CUET (PG) 2024 subjects. The statement in this document that NTA publishes no CUET question papers is true for 2025 and 2026 only. See `docs/official-directory.md`.
+
 - **Question papers:** NTA does not publish CUET question papers openly; a candidate sees only their own paper after logging in. Every year's question papers therefore show as "not available".
 - **Answer keys:** published openly. Two were opened and verified today (UG 2026 final key, PG 2025 final key). They are stored as drafts awaiting the linking decision.
 - Nothing is downloaded, copied or re-uploaded. The registry stores an address and a description only.

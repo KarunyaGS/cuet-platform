@@ -67,6 +67,18 @@ export interface Billing {
   passes: { id: string; plan: string; startsAt: string; endsAt: string; source: string; state: string }[];
 }
 export interface OfficialLinkItem { id: string; exam: ExamCode; year: number; subjectCode: string | null; subjectName: string | null; session: string | null; kind: 'QUESTION_PAPER' | 'ANSWER_KEY'; available: boolean; url: string | null; title: string; note: string | null; publisher: string; checkedOn: string }
+export interface DirectoryYear {
+  year: number; papers: number;
+  subjects: { code: string; showCode: boolean; name: string; sessions: number; dropped: number; firstDate: string; lastDate: string; papersPublished: number; paperId: string | null }[];
+  questionPaper: { status: 'NOT_PUBLISHED' | 'SOME_PUBLISHED'; published: number; note: string | null };
+  answerKey: { title: string; publisher: string; checkedOn: string; note: string | null; url: string | null; linkPending: boolean } | null;
+}
+export interface DirectorySession {
+  id: string; subjectCode: string; subjectName: string; date: string; shift: string;
+  questionPaper: { published: boolean; available: boolean; url: string | null; title: string | null; pages: number | null };
+  answerKey: { published: boolean; page: number | null; pages: number; title: string | null; url: string | null };
+  dropped: number;
+}
 export interface MockPaperCard { id: string; paperId: string; subjectCode: string; subjectName: string; exam: ExamCode; number: number; title: string; questions: number; durationMinutes: number; marksCorrect: number; marksIncorrect: number; difficulty: Record<string, number>; units: number }
 export interface PastPaper {
   id: string; exam: ExamCode; year: number; subjectCode: string; subjectName: string; paperId: string | null; examDate: string | null; shift: string | null; language: string; title: string;
@@ -211,6 +223,8 @@ export const api = {
   resetPassword: (b: { token: string; newPassword: string }) => request<{ reset: boolean }>('POST', '/api/auth/reset-password', b),
   pastPapers: (f: { exam?: ExamCode; year?: number; subject?: string }) =>
     request<{ total: number; years: number[]; subjects: { code: string; name: string }[]; papers: PastPaper[] }>('GET', `/api/learn/past-papers?${new URLSearchParams(Object.entries(f).filter(([, v]) => v !== undefined && v !== '').map(([k, v]) => [k, String(v)])).toString()}`),
+  officialDirectory: (exam: ExamCode) => request<{ exam: ExamCode; years: DirectoryYear[] }>('GET', `/api/learn/official-directory?exam=${exam}`),
+  officialSessions: (exam: ExamCode, year: number, subject: string) => request<DirectorySession[]>('GET', `/api/learn/official-directory/sessions?exam=${exam}&year=${year}&subject=${encodeURIComponent(subject)}`),
   officialPapers: (exam: ExamCode) => request<{ exam: ExamCode; years: { year: number; items: OfficialLinkItem[] }[] }>('GET', `/api/learn/official-papers?exam=${exam}`),
   mockPapers: (exam: ExamCode) => request<MockPaperCard[]>('GET', `/api/learn/mock-papers?exam=${exam}`),
   startMockPaper: (id: string, mode: 'PRACTICE' | 'MOCK_TEST') => request<PracticeSession>('POST', `/api/student/mock-papers/${id}/start`, { mode }),

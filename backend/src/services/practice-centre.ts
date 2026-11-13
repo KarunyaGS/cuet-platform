@@ -375,3 +375,192 @@ export async function startMockPaper(db: D1Database, userId: string, id: string,
   const rules = { questionsPerPaper: p.questions, durationMinutes: p.durationMinutes, marksCorrect: p.marksCorrect, marksIncorrect: p.marksIncorrect };
   return createSession(db, userId, { mode: input.mode, paperId: p.paperId as string, nodeId: null, ids: results.map((r) => r.question_id) }, { rulesJson: JSON.stringify(rules), rules }, { kind: 'MOCK_PAPER', id, title: String(p.title) });
 }
+
+// ---------------------------------------------------------------- official paper directory
+
+const directorySchema = z.object({
+  schema: z.literal('cuet-official-directory/1'),
+  exam: z.enum(['CUET_UG', 'CUET_PG']),
+  year: z.number().int().min(2022).max(2100),
+  key: z.object({ title: z.string().trim().min(3).max(200), url: z.string().max(1000), version: z.enum(['FINAL', 'PROVISIONAL']), sha256: z.string().regex(/^[0-9a-f]{64}$/), pages: z.number().int().positive(), retrievedAt: z.iso.datetime() }),
+  paper: z.object({ status: z.literal('NOT_PUBLISHED'), note: z.string().trim().min(10).max(600), evidenceUrl: z.string().max(1000).optional() }),
+  unreadPages: z.array(z.number().int()).max(2000).default([]),
+  sessions: z
+    .array(z.object({ date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), shift: z.string().trim().min(1).max(40), subjectCode: z.string().trim().min(1).max(20), subjectName: z.string().trim().min(1).max(200), keyPage: z.number().int().min(1), keyPages: z.number().int().min(1).default(1), dropped: z.number().int().min(0).default(0) }))
+    .min(1)
+    .max(5000),
+});
+
+/**
+ * Stores the directory of one exam and year, read from the exam body's own answer-key file. Entries are facts
+ * (subject, date, shift, key page) and are shown as soon as they are stored; the ADDRESS of the key file is a
+ * separate link row, which stays a draft until staff record the linking basis.
+ */
+export async function importOfficialDirectory(db: D1Database, body: unknown, actor: string) {
+  const d = directorySchema.parse(body);
+  if (!isOfficialUrl(d.key.url)) throw invalid("The answer-key address must be on the exam body's own site");
+  if (d.paper.evidenceUrl && !isOfficialUrl(d.paper.evidenceUrl)) throw invalid("The evidence address must be on the exam body's own site");
+  if (d.sessions.some((s) => s.keyPage > d.key.pages)) throw invalid('A session cites a page beyond the end of the answer-key file');
+  if (d.sessions.some((s) => !s.date.startsWith(String(d.year)))) throw invalid('A session date does not belong to this exam year');
+  const seen = new Set<string>();
+  for (const s of d.sessions) {
+    const k = `${s.subjectCode}|${s.date}|${s.shift}`;
+    if (seen.has(k)) throw invalid(`The same paper appears twice: ${k}`);
+    seen.add(k);
+  }
+  const checkedOn = d.key.retrievedAt.slice(0, 10);
+  const examName = d.exam === 'CUET_PG' ? 'CUET (PG)' : 'CUET (UG)';
+  // The year's key file and the "question papers are not published" notice: link rows, created as drafts.
+  await importOfficialLinks(
+    db,
+    {
+      schema: 'cuet-official-links/1',
+      links: [
+        { exam: d.exam, year: d.year, kind: 'ANSWER_KEY', availability: 'AVAILABLE', url: d.key.url, title: d.key.title, note: `One file for every paper of the year, ${d.key.pages} pages. It lists the exam body's question id and the correct option id. It does not contain the questions.`, checkedOn },
+        { exam: d.exam, year: d.year, kind: 'QUESTION_PAPER', availability: 'NOT_AVAILABLE', title: `${examName} ${d.year} question papers`, note: d.paper.note, ...(d.paper.evidenceUrl ? { evidenceUrl: d.paper.evidenceUrl } : {}), checkedOn },
+      ],
+    },
+    actor,
+  );
+  const link = await db.prepare(`SELECT id FROM official_paper_links WHERE exam_code = ? AND year = ? AND kind = 'ANSWER_KEY' AND subject_code IS NULL AND session IS NULL`).bind(d.exam, d.year).first<{ id: string }>();
+  const now = nowIso();
+  const rows = d.sessions.map((s) => ({ id: newId('ops'), exam_code: d.exam, year: d.year, subject_code: s.subjectCode, subject_name: s.subjectName, exam_date: s.date, shift: s.shift, paper_status: d.paper.status, paper_url: null, paper_link_id: null, paper_pages: null, key_link_id: link?.id ?? null, key_page: s.keyPage, key_pages: s.keyPages, dropped: s.dropped, source_sha256: d.key.sha256, created_by: actor, created_at: now }));
+  const statements = [
+    db.prepare('DELETE FROM official_paper_sessions WHERE exam_code = ? AND year = ? AND paper_link_id IS NULL').bind(d.exam, d.year),
+    ...insertRows(db, 'official_paper_sessions', rows),
+    db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, 'IMPORT_OFFICIAL_DIRECTORY', 'OFFICIAL_DIRECTORY', `${d.exam}:${d.year}`, JSON.stringify({ sessions: rows.length, sha256: d.key.sha256 }), now),
+  ];
+  await db.batch(statements);
+  return { exam: d.exam, year: d.year, sessions: rows.length, subjects: new Set(d.sessions.map((s) => s.subjectCode)).size, unreadPages: d.unreadPages.length };
+}
+
+const LINK_SHOWN = `l.status = 'PUBLISHED' AND l.linking_basis IS NOT NULL AND l.url IS NOT NULL`;
+
+/** The directory by year and subject, for one exam. Always complete: every paper named in the official key is listed. */
+export async function officialDirectory(db: D1Database, exam: string) {
+  const [subjects, keys, notes] = await Promise.all([
+    db
+      .prepare(
+        `SELECT s.year, s.subject_code, s.subject_name, COUNT(*) AS sessions, SUM(s.dropped) AS dropped, MIN(s.exam_date) AS first_date, MAX(s.exam_date) AS last_date, SUM(s.paper_status = 'AVAILABLE') AS papers_published,
+           (SELECT tp.id FROM test_papers tp JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id WHERE e.code = s.exam_code AND tp.code = s.subject_code ORDER BY ec.year DESC LIMIT 1) AS paper_id
+         FROM official_paper_sessions s WHERE s.exam_code = ? GROUP BY s.year, s.subject_code, s.subject_name ORDER BY s.year DESC, s.subject_name`,
+      )
+      .bind(exam)
+      .all<{ year: number; subject_code: string; subject_name: string; sessions: number; dropped: number; first_date: string; last_date: string; papers_published: number; paper_id: string | null }>(),
+    db
+      .prepare(`SELECT l.year, l.title, l.publisher, l.checked_on, l.note, CASE WHEN ${LINK_SHOWN} THEN l.url END AS url FROM official_paper_links l WHERE l.exam_code = ? AND l.kind = 'ANSWER_KEY' AND l.subject_code IS NULL AND l.status != 'ARCHIVED'`)
+      .bind(exam)
+      .all<{ year: number; title: string; publisher: string; checked_on: string; note: string | null; url: string | null }>(),
+    db.prepare(`SELECT year, note FROM official_paper_links WHERE exam_code = ? AND kind = 'QUESTION_PAPER' AND subject_code IS NULL AND session IS NULL AND status != 'ARCHIVED'`).bind(exam).all<{ year: number; note: string | null }>(),
+  ]);
+  const years = [...new Set(subjects.results.map((r) => r.year))];
+  return {
+    exam,
+    years: years.map((y) => {
+      const rows = subjects.results.filter((r) => r.year === y);
+      const key = keys.results.find((k) => k.year === y);
+      return {
+        year: y,
+        papers: rows.reduce((n, r) => n + r.sessions, 0),
+        // A code starting with "~" is a placeholder made from the subject name, used when the source prints no code.
+        subjects: rows.map((r) => ({ code: r.subject_code, showCode: !r.subject_code.startsWith('~'), name: r.subject_name, sessions: r.sessions, dropped: r.dropped, firstDate: r.first_date, lastDate: r.last_date, papersPublished: r.papers_published, paperId: r.paper_id })),
+        questionPaper: { status: rows.some((r) => r.papers_published > 0) ? ('SOME_PUBLISHED' as const) : ('NOT_PUBLISHED' as const), published: rows.reduce((n, r) => n + r.papers_published, 0), note: notes.results.find((n) => n.year === y)?.note ?? null },
+        answerKey: key ? { title: key.title, publisher: key.publisher, checkedOn: key.checked_on, note: key.note, url: key.url, linkPending: !key.url } : null,
+      };
+    }),
+  };
+}
+
+export const directorySessionsQuery = z.object({ exam: z.enum(['CUET_UG', 'CUET_PG']), year: z.coerce.number().int().min(2022).max(2100), subject: z.string().trim().min(1).max(20) });
+
+/** Every paper of one subject in one year: date, shift, question-paper status and where its official key is. */
+export async function officialDirectorySessions(db: D1Database, f: z.infer<typeof directorySessionsQuery>) {
+  const { results } = await db
+    .prepare(
+      `SELECT s.id, s.subject_code, s.subject_name, s.exam_date, s.shift, s.paper_status, s.paper_pages, s.key_page, s.key_pages, s.dropped, CASE WHEN ${LINK_SHOWN} THEN l.url END AS key_url, l.title AS key_title,
+         (SELECT p.url FROM official_paper_links p WHERE p.id = s.paper_link_id AND p.status = 'PUBLISHED' AND p.linking_basis IS NOT NULL) AS paper_url, (SELECT p.title FROM official_paper_links p WHERE p.id = s.paper_link_id) AS paper_title
+       FROM official_paper_sessions s LEFT JOIN official_paper_links l ON l.id = s.key_link_id WHERE s.exam_code = ? AND s.year = ? AND s.subject_code = ? ORDER BY s.exam_date, s.shift`,
+    )
+    .bind(f.exam, f.year, f.subject)
+    .all<Record<string, string | number | null>>();
+  return results.map((r) => ({
+    id: r['id'], subjectCode: r['subject_code'], subjectName: r['subject_name'], date: r['exam_date'], shift: r['shift'],
+    // published: the exam body hosts the paper. url: sent only when the linking basis for that file is on record.
+    questionPaper: { published: r['paper_status'] === 'AVAILABLE', available: r['paper_status'] === 'AVAILABLE' && Boolean(r['paper_url']), url: r['paper_status'] === 'AVAILABLE' ? r['paper_url'] : null, title: r['paper_title'], pages: r['paper_pages'] },
+    // The key is one file for the whole year; the link opens it at this paper's page.
+    answerKey: { published: r['key_page'] !== null && r['key_title'] !== null, page: r['key_page'], pages: r['key_pages'], title: r['key_title'], url: r['key_url'] ? `${r['key_url']}#page=${r['key_page']}` : null },
+    dropped: r['dropped'],
+  }));
+}
+
+// ---------------------------------------------------------------- question papers the exam body hosts itself
+
+const papersSchema = z.object({
+  schema: z.literal('cuet-official-papers/1'),
+  exam: z.enum(['CUET_UG', 'CUET_PG']),
+  year: z.number().int().min(2022).max(2100),
+  /** Why these files are listed under this exam and year, in plain words. Shown with the year. */
+  attribution: z.string().trim().min(20).max(800),
+  paperNote: z.string().trim().min(10).max(600),
+  papers: z
+    .array(z.object({
+      subjectCode: z.string().trim().max(20).optional(), subjectName: z.string().trim().min(1).max(200), date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), shift: z.string().trim().min(1).max(40),
+      /** The paper's name exactly as its own first page prints it. */
+      title: z.string().trim().min(3).max(200), url: z.string().max(1000), pages: z.number().int().positive(), sha256: z.string().regex(/^[0-9a-f]{64}$/), retrievedAt: z.iso.datetime(),
+    }))
+    .min(1)
+    .max(2000),
+});
+
+const slug = (name: string) => `~${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 18)}`;
+
+/**
+ * Lists question papers that sit on the exam body's own server. Only the address and the facts read from each
+ * file's first page are stored; no file is kept. Each address is a draft link until staff record the linking basis.
+ */
+export async function importOfficialPapers(db: D1Database, body: unknown, actor: string) {
+  const d = papersSchema.parse(body);
+  for (const p of d.papers) if (!isOfficialUrl(p.url)) throw invalid(`The address of "${p.title}" is not on the exam body's own site`);
+  const seen = new Set<string>();
+  for (const p of d.papers) {
+    const k = `${p.subjectCode ?? slug(p.subjectName)}|${p.date}|${p.shift}`;
+    if (seen.has(k)) throw invalid(`The same paper appears twice: ${p.title}`);
+    seen.add(k);
+    if (!p.date.startsWith(String(d.year))) throw invalid(`"${p.title}" is not dated in ${d.year}`);
+  }
+  const examName = d.exam === 'CUET_PG' ? 'CUET (PG)' : 'CUET (UG)';
+  const now = nowIso();
+  await importOfficialLinks(
+    db,
+    {
+      schema: 'cuet-official-links/1',
+      links: d.papers.map((p) => ({ exam: d.exam, year: d.year, subjectCode: p.subjectCode ?? slug(p.subjectName), subjectName: p.subjectName, session: `${p.date} ${p.shift}`, kind: 'QUESTION_PAPER' as const, availability: 'AVAILABLE' as const, url: p.url, title: p.title, note: `${p.pages} pages. ${d.attribution}`.slice(0, 600), checkedOn: p.retrievedAt.slice(0, 10) })),
+    },
+    actor,
+  );
+  // The year's note about question papers: a notice row, replaced only while it is a draft.
+  const noteKey = `${d.exam}:${d.year}:all:all:question_paper`.toLowerCase();
+  const note = await db.prepare('SELECT id, status FROM official_paper_links WHERE external_key = ?').bind(noteKey).first<{ id: string; status: string }>();
+  const noteRow = { exam_code: d.exam, year: d.year, subject_code: null, subject_name: null, session: null, kind: 'QUESTION_PAPER', availability: 'NOT_AVAILABLE', url: null, title: `${examName} ${d.year} question papers`, note: d.paperNote, evidence_url: null, checked_on: now.slice(0, 10), updated_at: now };
+  if (!note) await db.batch(insertRows(db, 'official_paper_links', [{ id: newId('opl'), ...noteRow, publisher: 'National Testing Agency (NTA)', linking_basis: null, linking_checked_by: null, status: 'DRAFT', external_key: noteKey, created_by: actor, created_at: now, published_at: null }]));
+  else if (note.status === 'DRAFT') await db.prepare('UPDATE official_paper_links SET note = ?, updated_at = ? WHERE id = ?').bind(d.paperNote, now, note.id).run();
+  const { results: links } = await db.prepare(`SELECT id, subject_code, session FROM official_paper_links WHERE exam_code = ? AND year = ? AND kind = 'QUESTION_PAPER' AND availability = 'AVAILABLE'`).bind(d.exam, d.year).all<{ id: string; subject_code: string; session: string }>();
+  const statements: D1PreparedStatement[] = [];
+  for (const p of d.papers) {
+    const code = p.subjectCode ?? slug(p.subjectName);
+    const link = links.find((l) => l.subject_code === code && l.session === `${p.date} ${p.shift}`);
+    // A paper may already be listed from the answer key: then the row gains its paper; otherwise the row is new.
+    statements.push(
+      db
+        .prepare(
+          `INSERT INTO official_paper_sessions (id, exam_code, year, subject_code, subject_name, exam_date, shift, paper_status, paper_url, paper_link_id, paper_pages, key_link_id, key_page, key_pages, dropped, source_sha256, created_by, created_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, 'AVAILABLE', NULL, ?, ?, NULL, NULL, 1, 0, ?, ?, ?)
+           ON CONFLICT (exam_code, year, subject_code, exam_date, shift) DO UPDATE SET paper_status = 'AVAILABLE', paper_link_id = excluded.paper_link_id, paper_pages = excluded.paper_pages`,
+        )
+        .bind(newId('ops'), d.exam, d.year, code, p.subjectName, p.date, p.shift, link?.id ?? null, p.pages, p.sha256, actor, now),
+    );
+  }
+  statements.push(db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, 'IMPORT_OFFICIAL_PAPERS', 'OFFICIAL_DIRECTORY', `${d.exam}:${d.year}`, JSON.stringify({ papers: d.papers.length }), now));
+  await db.batch(statements);
+  return { exam: d.exam, year: d.year, papers: d.papers.length };
+}

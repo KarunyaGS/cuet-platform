@@ -1614,3 +1614,39 @@ model MockPaperQuestion {
   @@index([questionId])
   @@map("mock_paper_questions")
 }
+
+/// One paper as it was actually held: a subject on an exam date and shift, as named in the exam body's own
+/// answer-key file. A directory entry is a fact, not a document: it holds no question and no copy of any file.
+model OfficialPaperSession {
+  id          String   @id @default(cuid())
+  examCode    String   @map("exam_code")
+  year        Int
+  subjectCode String   @map("subject_code")
+  subjectName String   @map("subject_name")
+  /// YYYY-MM-DD, as printed in the answer key.
+  examDate    String   @map("exam_date")
+  shift       String
+  /// NOT_PUBLISHED (the exam body does not publish the question paper openly) | AVAILABLE
+  paperStatus String   @map("paper_status")
+  /// Address of the question paper on the exam body's own site, when one is published.
+  paperUrl    String?  @map("paper_url")
+  /// The question paper's own row in official_paper_links, when the exam body publishes the paper. Its address is shown only when that link is published.
+  paperLinkId String?  @map("paper_link_id")
+  /// Pages of the question-paper file, when one is published.
+  paperPages  Int?     @map("paper_pages")
+  /// The year's answer-key row in official_paper_links; its address is shown only when that link is published.
+  keyLinkId   String?  @map("key_link_id")
+  /// Page of the answer-key file where this paper's key starts.
+  keyPage     Int?     @map("key_page")
+  keyPages    Int      @default(1) @map("key_pages")
+  /// Questions the exam body dropped in this paper, counted from the key.
+  dropped     Int      @default(0)
+  /// SHA-256 of the answer-key file the entry was read from.
+  sourceSha   String   @map("source_sha256")
+  createdBy   String   @map("created_by")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@unique([examCode, year, subjectCode, examDate, shift])
+  @@index([examCode, year, subjectCode])
+  @@map("official_paper_sessions")
+}

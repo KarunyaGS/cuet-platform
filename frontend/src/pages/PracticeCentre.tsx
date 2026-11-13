@@ -5,14 +5,13 @@
  *  3. Mock tests: our own full papers, under exam conditions.
  * Official material and our own material are always labelled apart.
  */
-import { ExternalLink, FileText, Landmark, PencilLine, Timer } from 'lucide-react';
+import { Landmark, PencilLine, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { api, type ExamCode, type MockPaperCard } from '../api';
 import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Segmented, useAuth, useLoad } from '../ui';
+import { OfficialDirectory } from './OfficialDirectory';
 
-const KIND: Record<string, string> = { QUESTION_PAPER: 'Question papers', ANSWER_KEY: 'Answer key' };
-const day = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' });
 
 function Section({ id, icon, title, label, tone, children, intro }: { id: string; icon: React.ReactNode; title: string; label: string; tone: 'accent' | 'green' | 'amber'; intro: string; children: React.ReactNode }) {
   return (
@@ -37,7 +36,6 @@ export function PracticeCentrePage() {
   const [params, setParams] = useSearchParams();
   const exam = (params.get('exam') === 'CUET_PG' ? 'CUET_PG' : 'CUET_UG') as ExamCode;
   const examName = exam === 'CUET_PG' ? 'CUET-PG' : 'CUET-UG';
-  const official = useLoad(() => api.officialPapers(exam), [exam]);
   const licensed = useLoad(() => api.pastPapers({ exam }), [exam]);
   const mocks = useLoad(() => api.mockPapers(exam), [exam]);
   const subjects = useLoad(() => api.subjects(exam, 2026), [exam]);
@@ -58,10 +56,9 @@ export function PracticeCentrePage() {
         title="Official previous-year papers"
         label="Official"
         tone="accent"
-        intro={`Documents published by the National Testing Agency for ${examName}. Links open the original on NTA's own site; nothing is copied here.`}
+        intro={`Every ${examName} paper the National Testing Agency held, by year, subject, date and shift, with the status of its question paper and its official answer key.`}
       >
-        {(official.error || licensed.error) && <ErrorBox error={(official.error ?? licensed.error)!} onRetry={() => (official.reload(), licensed.reload())} />}
-        {official.loading && !official.data && <Loading />}
+        {licensed.error && <ErrorBox error={licensed.error} onRetry={licensed.reload} />}
         {licensed.data && licensed.data.papers.length > 0 && (
           <div className="mb-4 rounded-xl border border-rule bg-surface p-4">
             <p className="text-sm text-ink">
@@ -72,47 +69,7 @@ export function PracticeCentrePage() {
             </Link>
           </div>
         )}
-        {official.data &&
-          (official.data.years.length === 0 ? (
-            <Empty icon={<FileText />}>
-              Official {examName} papers are not available here yet. NTA shows each candidate only their own question paper after login and does not publish the papers openly; links to its answer keys will appear once NTA's linking conditions are met.
-            </Empty>
-          ) : (
-            <div className="space-y-4">
-              {official.data.years.map((y) => (
-                <div key={y.year} className="rounded-xl border border-rule bg-surface">
-                  <h3 className="border-b border-rule px-4 py-2.5 text-sm font-semibold text-ink">
-                    {examName} {y.year}
-                  </h3>
-                  <ul className="divide-y divide-rule">
-                    {y.items.map((it) => (
-                      <li key={it.id} className="px-4 py-3 text-sm">
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                          <span className="min-w-0 flex-1">
-                            <span className="block font-medium text-ink">{it.title}</span>
-                            <span className="block text-ink-2">
-                              {[KIND[it.kind], it.subjectName ? `${it.subjectName} (${it.subjectCode})` : 'All subjects', it.session].filter(Boolean).join(' · ')}
-                            </span>
-                          </span>
-                          {it.available && it.url ? (
-                            <a href={it.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-lg border border-rule-strong px-3 py-1.5 font-medium text-accent hover:bg-accent-soft">
-                              Open on NTA's site <ExternalLink aria-hidden className="size-3.5" />
-                            </a>
-                          ) : (
-                            <Badge>Not available</Badge>
-                          )}
-                        </div>
-                        {it.note && <p className="mt-1 text-ink-2">{it.note}</p>}
-                        <p className="mt-1 text-xs text-ink-3">
-                          Source: {it.publisher}. Checked on {day(it.checkedOn)}.
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          ))}
+        <OfficialDirectory exam={exam} practiceSubjects={new Set(withQuestions.map((x) => x.paperId))} />
       </Section>
 
       <Section

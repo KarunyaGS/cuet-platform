@@ -4,6 +4,8 @@ Status on 13 November 2026: the module is built and tested locally. **No paper h
 
 ## Source position
 
+> **Correction, 13 November 2026 (later):** a deeper search found question-paper files on NTA's own server for 14 CUET (PG) 2024 subjects. The statement in this document that NTA publishes no CUET question papers is true for 2025 and 2026 only. See `docs/official-directory.md`.
+
 Read on 13 November 2026 (details in `docs/provider-and-source-research-2026-11-13.md`):
 
 - NTA publishes the **final answer keys** openly. They hold a question id and the correct option id, with no question text.

@@ -21,7 +21,7 @@ import { storeObject } from '../services/storage';
 import { importOfficialInfo, officialInfoSchema } from '../services/official-info';
 import { createResetLink, resetLinkSchema } from '../services/accounts';
 import { importPastPaper, listPastPapersAdmin } from '../services/past-papers';
-import { importOfficialLinks, listOfficialLinksAdmin } from '../services/practice-centre';
+import { importOfficialDirectory, importOfficialLinks, importOfficialPapers, listOfficialLinksAdmin } from '../services/practice-centre';
 
 const admin = new Hono<AppEnv>();
 const examYear = (c: { req: { query(k: string): string | undefined } }) => {
@@ -142,6 +142,10 @@ admin.get('/past-papers', async (c) => c.json(await listPastPapersAdmin(c.env.DB
 // Links to official documents: stored as drafts (addresses only; nothing is downloaded). Publishing is a staff action.
 admin.post('/official-papers', async (c) => c.json(await importOfficialLinks(c.env.DB, await c.req.json(), c.get('actor'))));
 admin.get('/official-papers', async (c) => c.json(await listOfficialLinksAdmin(c.env.DB)));
+// The directory of papers held in one exam and year (facts read from the official answer key; no document is stored).
+admin.post('/official-directory', async (c) => c.json(await importOfficialDirectory(c.env.DB, await c.req.json(), c.get('actor'))));
+// Question papers that sit on the exam body's own server (addresses and first-page facts only).
+admin.post('/official-question-papers', async (c) => c.json(await importOfficialPapers(c.env.DB, await c.req.json(), c.get('actor'))));
 
 // Learning resources
 admin.get('/resources', async (c) =>
