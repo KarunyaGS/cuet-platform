@@ -15,11 +15,20 @@ const day = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString(undefine
 const SECTION: Record<string, string> = { LANGUAGE: 'Languages', DOMAIN: 'Domain subjects', GENERAL: 'General Test' };
 const NOT_STATED = '(not stated)';
 
+/**
+ * Source names shown to students. AglaSem is not named on screen (owner's decision, 13 November 2026): its papers are
+ * labelled as third-party copies, still never as NTA's own, and the link to where each is listed stays.
+ */
+const UNNAMED = new Set(['AglaSem']);
+export const siteName = (site: string) => (UNNAMED.has(site) ? null : site);
+const cleanNote = (note: string | null) => note?.replace(/AglaSem(’s|'s)/g, 'the source’s').replace(/(hosted|listed) by AglaSem/g, '$1 on another website').replace(/AglaSem/g, 'another website') ?? null;
+
 export function kindBadge(d: PyqDoc) {
+  const name = siteName(d.sourceSite);
   if (d.classification === 'OFFICIAL') return <Badge tone="green">NTA’s own file</Badge>;
-  if (d.classification === 'MEMORY_BASED') return <Badge tone="amber">Memory-based, by {d.sourceSite}</Badge>;
-  if (d.classification === 'SAMPLE') return <Badge>Sample paper, by {d.sourceSite}</Badge>;
-  return <Badge tone="accent">Copy on {d.sourceSite}</Badge>;
+  if (d.classification === 'MEMORY_BASED') return <Badge tone="amber">{name ? `Memory-based, by ${name}` : 'Memory-based'}</Badge>;
+  if (d.classification === 'SAMPLE') return <Badge>{name ? `Sample paper, by ${name}` : 'Sample paper'}</Badge>;
+  return <Badge tone="accent">{name ? `Copy on ${name}` : 'Third-party copy'}</Badge>;
 }
 
 /** The one action of a paper. It always opens the paper: in the viewer here when the file's host allows it, otherwise on the source's page. */
@@ -34,7 +43,7 @@ export function OpenPaper({ d, page, label, small = false }: { d: PyqDoc; page?:
       </Link>
     );
   return (
-    <a href={`${d.openUrl}${page ? `#page=${page}` : ''}`} target="_blank" rel="noreferrer noopener" className={cls} data-open="source" title={`Opens on ${d.sourceSite}`}>
+    <a href={`${d.openUrl}${page ? `#page=${page}` : ''}`} target="_blank" rel="noreferrer noopener" className={cls} data-open="source" title={`Opens on ${siteName(d.sourceSite) ?? 'the source website'}`}>
       {text}
       <ExternalLink aria-hidden className="size-3.5" />
     </a>
@@ -51,9 +60,9 @@ export function PaperRow({ d }: { d: PyqDoc }) {
           {facts.length > 0 && <span className="num text-sm font-medium text-ink">{facts.join(' · ')}</span>}
         </span>
         <span className="mt-1 block text-[15px] text-ink">{d.title}</span>
-        {d.note && <span className="mt-0.5 block text-xs text-ink-3">{d.note}</span>}
+        {d.note && <span className="mt-0.5 block text-xs text-ink-3">{cleanNote(d.note)}</span>}
         <span className="mt-0.5 block text-xs text-ink-3">
-          {d.viewer === 'IN_APP' ? `Shown here straight from ${d.sourceSite}’s server.` : `Opens on ${d.sourceSite}’s website in a new tab.`}{' '}
+          {d.viewer === 'IN_APP' ? `Shown here straight from ${siteName(d.sourceSite) ?? 'the source'}’s server.` : siteName(d.sourceSite) ? `Opens on ${siteName(d.sourceSite)}’s website in a new tab.` : 'Opens on the source website in a new tab.'}{' '}
           {d.linkChecked ? `Checked on ${day(d.checkedOn)}.` : 'This link could not be checked automatically.'}{' '}
           <a href={d.sourcePageUrl} target="_blank" rel="noreferrer noopener" className="text-accent hover:underline">
             Where it is listed
@@ -173,7 +182,7 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick }: { y
                 {subject.data.subject.name}, {subject.data.year}: question papers ({filtering ? `${visible.length} of ${papers.length}` : papers.length})
               </SectionTitle>
               <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2" data-pyq-filters>
-                <Filter label="Source" value={f.source} values={values.source} onChange={(v) => setF({ ...f, source: v })} show={(v) => v} />
+                <Filter label="Source" value={f.source} values={values.source} onChange={(v) => setF({ ...f, source: v })} show={(v) => siteName(v) ?? 'Other website'} />
                 <Filter label="Exam date" value={f.date} values={values.date} onChange={(v) => setF({ ...f, date: v })} show={(v) => (v === NOT_STATED ? 'Not stated' : day(v))} />
                 <Filter label="Shift" value={f.shift} values={values.shift} onChange={(v) => setF({ ...f, shift: v })} show={(v) => (v === NOT_STATED ? 'Not stated' : v)} />
                 {filtering && (
@@ -209,7 +218,7 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick }: { y
                           <span className="min-w-0 flex-1 basis-64">
                             {kindBadge(k)}
                             <span className="mt-1 block text-[15px] text-ink">{k.title}</span>
-                            {k.note && <span className="mt-0.5 block text-xs text-ink-3">{k.note}</span>}
+                            {k.note && <span className="mt-0.5 block text-xs text-ink-3">{cleanNote(k.note)}</span>}
                           </span>
                           <OpenPaper d={k} />
                         </div>
@@ -297,18 +306,19 @@ export function PyqViewerPage() {
       <p className="-mt-3 mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-2">
         {kindBadge(d)}
         <span>
-          Source: {d.sourceSite}. {d.note}
+          {siteName(d.sourceSite) ? `Source: ${siteName(d.sourceSite)}. ` : ''}
+          {cleanNote(d.note)}
         </span>
       </p>
       {d.viewer === 'IN_APP' && d.fileUrl ? (
-        <PdfViewer doc={{ fileUrl: d.fileUrl, viewer: 'DIRECT', originalUrl: d.openUrl }} startPage={Math.max(1, Number(params.get('page')) || 1)} site={d.sourceSite} />
+        <PdfViewer doc={{ fileUrl: d.fileUrl, viewer: 'DIRECT', originalUrl: d.openUrl }} startPage={Math.max(1, Number(params.get('page')) || 1)} site={siteName(d.sourceSite) ?? 'the source'} />
       ) : (
         <div className="rounded-xl border border-rule bg-surface p-5">
           <p className="text-[15px] text-ink">
-            {d.sourceSite}’s server does not let other websites display this file, so it opens on {d.sourceSite}’s own website.
+            {siteName(d.sourceSite) ? `${siteName(d.sourceSite)}’s server does not let other websites display this file, so it opens on ${siteName(d.sourceSite)}’s own website.` : 'The website that holds this file does not let other websites display it, so it opens there.'}
           </p>
           <div className="mt-4">
-            <OpenPaper d={d} label={`Open on ${d.sourceSite}`} />
+            <OpenPaper d={d} label={siteName(d.sourceSite) ? `Open on ${siteName(d.sourceSite)}` : 'Open paper'} />
           </div>
         </div>
       )}

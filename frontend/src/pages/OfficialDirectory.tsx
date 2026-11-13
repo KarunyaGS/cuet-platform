@@ -7,7 +7,7 @@ import { ChevronDown, ChevronRight, ExternalLink, FileKey, FileText, FileX } fro
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 import { api, type DirectoryYear, type ExamCode, type PyqDoc, type PyqTree } from '../api';
-import { kindBadge, OpenPaper } from './Pyq';
+import { kindBadge, OpenPaper, siteName } from './Pyq';
 import { Badge, Empty, ErrorBox, Loading, SearchInput, Segmented, useLoad } from '../ui';
 
 const day = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
@@ -218,7 +218,7 @@ function Sessions({ exam, year, code, name, practise, pyqSlug, onOpenPapers }: {
                       {forSession(r.date, r.shift).map((p) => (
                         <span key={p.id} className="flex flex-wrap items-center gap-1.5">
                           <OpenPaper d={p} small />
-                          <span className="text-xs text-ink-2">{p.classification === 'OFFICIAL' ? 'NTA’s own file' : p.classification === 'MEMORY_BASED' ? `Memory-based, ${p.sourceSite}` : `Copy on ${p.sourceSite}`}</span>
+                          <span className="text-xs text-ink-2">{p.classification === 'OFFICIAL' ? 'NTA’s own file' : p.classification === 'MEMORY_BASED' ? (siteName(p.sourceSite) ? `Memory-based, ${siteName(p.sourceSite)}` : 'Memory-based') : siteName(p.sourceSite) ? `Copy on ${siteName(p.sourceSite)}` : 'Third-party copy'}</span>
                         </span>
                       ))}
                     </span>
