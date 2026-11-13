@@ -64,7 +64,7 @@ export function OfficialDirectory({ exam, practiceSubjects, onOpenPapers }: { ex
               <FileX aria-hidden className="size-4 text-ink-3" />
               Question papers
               {pyqYear ? (
-                <Badge tone="green">{pyqYear.papers} papers you can open</Badge>
+                <Badge tone="green">{pyqYear.papers} {pyqYear.papers === 1 ? 'paper' : 'papers'} you can open</Badge>
               ) : y.questionPaper.status === 'SOME_PUBLISHED' ? (
                 <Badge tone="green">{y.questionPaper.published} published by NTA</Badge>
               ) : (
@@ -73,7 +73,7 @@ export function OfficialDirectory({ exam, practiceSubjects, onOpenPapers }: { ex
             </dt>
             {pyqYear ? (
               <dd className="mt-1.5 text-sm text-ink-2" data-pyq-year-note>
-                {pyqYear.papers} question papers in {pyqYear.subjects.length} subjects can be opened for {y.year}: NTA’s own files where it has released them, and copies on other websites, each labelled with its source. Open a subject below, or use the list at the top of this page.
+                {pyqYear.papers} English-medium question {pyqYear.papers === 1 ? 'paper' : 'papers'} in {pyqYear.subjects.length} {pyqYear.subjects.length === 1 ? 'subject' : 'subjects'} can be opened for {y.year}: NTA’s own files where it has released them, and copies on other websites, each labelled with its source. Open a subject below, or use the list at the top of this page.
               </dd>
             ) : (
               <dd className="mt-1.5 text-sm text-ink-2">{y.questionPaper.note ?? 'No question paper for this year has been found on NTA’s website or on the other websites checked.'}</dd>

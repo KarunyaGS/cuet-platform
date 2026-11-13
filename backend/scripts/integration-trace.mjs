@@ -501,13 +501,13 @@ async function run() {
   // ------------------------------------------------------------ previous-year papers index (whatever the local database holds; no site is contacted here)
   group = 'Previous-year papers';
   const pyqTree = await call('GET', '/api/learn/pyq?exam=CUET_UG');
-  const pyqShown = "(working = 1 OR http_status = -1) AND replaced_by_key IS NULL";
+  const pyqShown = "(working = 1 OR http_status = -1) AND replaced_by_key IS NULL AND (kind = 'ANSWER_KEY' OR language = 'English')";
   check('the papers page lists exactly the documents that have a destination', pyqTree.status === 200 && pyqTree.json.total === n(`SELECT COUNT(*) FROM pyq_documents WHERE exam_code = 'CUET_UG' AND ${pyqShown}`) && pyqTree.json.years.every((y) => y.papers > 0 && y.subjects.every((x) => x.papers > 0)));
   check('every stored paper has an https destination, and no third-party copy is marked official', n("SELECT COUNT(*) FROM pyq_documents WHERE file_url NOT LIKE 'https://%' OR (official = 1 AND source_site != 'NTA') OR (classification = 'OFFICIAL' AND source_site != 'NTA')") === 0);
   if (pyqTree.json.years.length) {
     const py = pyqTree.json.years[0];
     const ps = await call('GET', `/api/learn/pyq/${py.year}/${py.subjects[0].slug}`);
-    check('a subject page gives each of its papers a place to open', ps.status === 200 && ps.json.papers.length === py.subjects[0].papers && ps.json.papers.every((d) => /^https:\/\//.test(d.openUrl) && (d.viewer === 'SOURCE' || d.fileUrl)));
+    check('a subject page gives each of its papers a place to open, and every paper shown is English-medium', ps.status === 200 && ps.json.papers.length === py.subjects[0].papers && ps.json.papers.every((d) => d.language === 'English') && ps.json.papers.every((d) => /^https:\/\//.test(d.openUrl) && (d.viewer === 'SOURCE' || d.fileUrl)));
   }
 
   // ------------------------------------------------------------ integrity

@@ -50,7 +50,7 @@ const documentSchema = z.object({
 export const pyqIndexSchema = z.object({ schema: z.literal('cuet-pyq-index/1'), exam: z.enum(['CUET_UG', 'CUET_PG']), builtOn: z.string(), documents: z.array(documentSchema).max(5000) }).passthrough();
 
 /** Replaces the index of one exam with a freshly built one. The index is a list of links, rebuilt from public pages. */
-export async function importPyqIndex(db: D1Database, body: unknown) {
+export async function importPyqIndex(db: D1Database, body: unknown, englishHindi = false) {
   const input = pyqIndexSchema.parse(body);
   const keys = new Set<string>();
   for (const d of input.documents) {
@@ -75,17 +75,41 @@ export async function importPyqIndex(db: D1Database, body: unknown) {
         ),
     );
   for (let i = 0; i < statements.length; i += 40) await db.batch(statements.slice(i, i + 40));
-  const shown = input.documents.filter((d) => (d.working || d.httpStatus === -1) && !d.replacedBy);
-  return { exam: input.exam, stored: input.documents.length, shown: shown.length, checkedWorking: shown.filter((d) => d.working).length, notMachineChecked: shown.filter((d) => d.httpStatus === -1).length,
-    notWorking: input.documents.filter((d) => !d.working && d.httpStatus !== -1).length, replacedByOfficial: input.documents.filter((d) => d.replacedBy).length };
+  const shown = input.documents.filter((d) => isShown(d, englishHindi));
+  const reachable = input.documents.filter((d) => (d.working || d.httpStatus === -1) && !d.replacedBy);
+  return {
+    exam: input.exam, stored: input.documents.length, shown: shown.length, checkedWorking: shown.filter((d) => d.working).length, notMachineChecked: shown.filter((d) => d.httpStatus === -1).length,
+    // Stored but not shown to students: not English-medium (another language, a regional bilingual booklet, or language not verified).
+    hiddenNotEnglish: reachable.length - shown.length,
+    notWorking: input.documents.filter((d) => !d.working && d.httpStatus !== -1).length, replacedByOfficial: input.documents.filter((d) => d.replacedBy).length,
+  };
 }
 
-type Row = Record<string, string | number | null>;
 /**
- * Shown: documents whose destination opened when checked, plus links a site's robots rules did not let us check
- * (http_status -1; these are marked as not checked). Never copies that the exam body's own file replaces.
+ * What students see.
+ * - Only documents whose destination opened when checked, plus links a site's robots rules did not let us check
+ *   (http_status -1; marked as not checked). Never copies that the exam body's own file replaces.
+ * - Only English-medium papers. A question paper or sample paper is shown when its language was verified and recorded
+ *   as exactly "English". With `englishHindi` on, NTA's bilingual computer-based papers are shown as well: they print
+ *   every question in English and again in Hindi, and are recorded and labelled "English + Hindi", never as English.
+ *   Papers in another language, booklets paired with a regional language, and papers whose language could not be
+ *   verified stay in the table and are not shown. Answer keys have no language.
  */
-const SHOWN = '(working = 1 OR http_status = -1) AND replaced_by_key IS NULL';
+export const ENGLISH = 'English';
+export const ENGLISH_HINDI = 'English + Hindi';
+export interface Scope {
+  /** Show the file inside the platform when its host allows it. */
+  inApp: boolean;
+  /** Also show bilingual English + Hindi papers. */
+  englishHindi: boolean;
+}
+const languages = (englishHindi: boolean) => (englishHindi ? [ENGLISH, ENGLISH_HINDI] : [ENGLISH]);
+const shownSql = (englishHindi: boolean) =>
+  `(working = 1 OR http_status = -1) AND replaced_by_key IS NULL AND (kind = 'ANSWER_KEY' OR language IN (${languages(englishHindi).map((l) => `'${l}'`).join(',')}))`;
+const isShown = (d: { working: boolean; httpStatus: number; replacedBy?: string; kind: string; language: string | null }, englishHindi: boolean) =>
+  (d.working || d.httpStatus === -1) && !d.replacedBy && (d.kind === 'ANSWER_KEY' || (d.language !== null && languages(englishHindi).includes(d.language)));
+
+type Row = Record<string, string | number | null>;
 
 const out = (r: Row, inApp: boolean) => {
   const embed = inApp && Boolean(r.embeddable);
@@ -123,7 +147,8 @@ const out = (r: Row, inApp: boolean) => {
 export const pyqExamSchema = z.enum(['CUET_UG', 'CUET_PG']);
 
 /** Years and subjects that actually have a paper. Nothing is listed for a year or subject without one. */
-export async function pyqTree(db: D1Database, exam: string) {
+export async function pyqTree(db: D1Database, exam: string, englishHindi = false) {
+  const SHOWN = shownSql(englishHindi);
   const [subjects, keys, samples, checked] = await Promise.all([
     db
       .prepare(
@@ -156,7 +181,9 @@ export async function pyqTree(db: D1Database, exam: string) {
 }
 
 /** Everything for one subject in one year: its question papers, the year's answer keys (with this subject's pages), and its sample papers. */
-export async function pyqSubject(db: D1Database, exam: string, year: number, slug: string, inApp: boolean) {
+export async function pyqSubject(db: D1Database, exam: string, year: number, slug: string, scope: Scope) {
+  const SHOWN = shownSql(scope.englishHindi);
+  const inApp = scope.inApp;
   const { results } = await db
     .prepare(
       `SELECT * FROM pyq_documents WHERE exam_code = ?1 AND ${SHOWN} AND (
@@ -183,8 +210,9 @@ export async function pyqSubject(db: D1Database, exam: string, year: number, slu
   };
 }
 
-export async function pyqDocument(db: D1Database, id: string, inApp: boolean) {
-  const r = await db.prepare(`SELECT * FROM pyq_documents WHERE id = ? AND ${SHOWN}`).bind(id).first<Row>();
+export async function pyqDocument(db: D1Database, id: string, scope: Scope) {
+  const inApp = scope.inApp;
+  const r = await db.prepare(`SELECT * FROM pyq_documents WHERE id = ? AND ${shownSql(scope.englishHindi)}`).bind(id).first<Row>();
   if (!r) throw notFound('Paper');
   return { exam: r.exam_code as string, ...out(r, inApp) };
 }

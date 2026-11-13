@@ -125,13 +125,14 @@ learn.get('/search', async (c) => {
   return c.json({ ...syllabus, concepts });
 });
 // Previous-year papers found on public websites: years and subjects that have a paper, a subject's papers, and one paper.
-const pyqInApp = (env: AppEnv['Bindings']) => env.PYQ_IN_APP_VIEWING === 'on';
-learn.get('/pyq', async (c) => c.json(await pyqTree(c.env.DB, pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG'))));
-learn.get('/pyq/documents/:id', async (c) => c.json(await pyqDocument(c.env.DB, c.req.param('id'), pyqInApp(c.env))));
+// Students see English-medium papers only; PYQ_ENGLISH_HINDI adds NTA's bilingual English + Hindi papers, labelled as such.
+const pyqScope = (env: AppEnv['Bindings']) => ({ inApp: env.PYQ_IN_APP_VIEWING === 'on', englishHindi: env.PYQ_ENGLISH_HINDI === 'on' });
+learn.get('/pyq', async (c) => c.json(await pyqTree(c.env.DB, pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG'), pyqScope(c.env).englishHindi)));
+learn.get('/pyq/documents/:id', async (c) => c.json(await pyqDocument(c.env.DB, c.req.param('id'), pyqScope(c.env))));
 learn.get('/pyq/:year/:slug', async (c) => {
   const year = Number(c.req.param('year'));
   if (!Number.isInteger(year)) throw invalid('year must be a number');
-  return c.json(await pyqSubject(c.env.DB, pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG'), year, c.req.param('slug'), pyqInApp(c.env)));
+  return c.json(await pyqSubject(c.env.DB, pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG'), year, c.req.param('slug'), pyqScope(c.env)));
 });
 learn.get('/topics/:nodeId/revision', async (c) => c.json(await revisionNotes(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 

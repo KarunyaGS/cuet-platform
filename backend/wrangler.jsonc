@@ -50,6 +50,8 @@
     // Government updates: read the official notice pages on a schedule. Local development only for now.
     // Previous-year papers: show a paper inside CUET Prep when its own host allows other websites to read the file.
     "PYQ_IN_APP_VIEWING": "on",
+    // Papers shown to students: English-medium only. "on" also shows NTA's bilingual English + Hindi papers, labelled as such.
+    "PYQ_ENGLISH_HINDI": "off",
     "NOTICE_FETCH": "on",
     "NOTICE_FETCH_MINUTES": "180",
     "MAX_PAGE_SIZE": "100",
@@ -97,6 +99,7 @@
         // Stays "off" (and no cron runs) until the owner approves fetching official notices in production.
         // Off in production until the owner decides: every paper then opens on its source's own page.
         "PYQ_IN_APP_VIEWING": "off",
+        "PYQ_ENGLISH_HINDI": "off",
         "NOTICE_FETCH": "off",
         "NOTICE_FETCH_MINUTES": "180",
         "MAX_PAGE_SIZE": "100",

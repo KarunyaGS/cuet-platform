@@ -96,14 +96,14 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick }: { y
     if (wantYear !== undefined) setPick({ year: wantYear, slug: wantSubject ?? '' });
   }, [wantYear, wantSubject]);
   const [q, setQ] = useState('');
-  const [f, setF] = useState({ source: '', date: '', shift: '', language: '' });
+  const [f, setF] = useState({ source: '', date: '', shift: '' });
   const year = pick.year || tree.data?.years[0]?.year || 0;
   const slug = pick.slug;
   const subject = useLoad(() => (year && slug ? api.pyqSubject(year, slug) : Promise.resolve(null)), [year, slug]);
   const papers = subject.data?.papers ?? [];
   const values = useMemo(() => {
     const uniq = (xs: (string | null)[]) => [...new Set(xs.map((x) => x ?? NOT_STATED))].sort((a, b) => Number(a === NOT_STATED) - Number(b === NOT_STATED) || a.localeCompare(b));
-    return { source: uniq(papers.map((p) => p.sourceSite)), date: uniq(papers.map((p) => p.examDate)), shift: uniq(papers.map((p) => p.shift)), language: uniq(papers.map((p) => p.language)) };
+    return { source: uniq(papers.map((p) => p.sourceSite)), date: uniq(papers.map((p) => p.examDate)), shift: uniq(papers.map((p) => p.shift)) };
   }, [papers]);
   if (tree.loading && !tree.data) return <Loading />;
   if (tree.error) return <ErrorBox error={tree.error} onRetry={tree.reload} />;
@@ -113,18 +113,18 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick }: { y
   const shown = y.subjects.filter((s) => s.name.toLowerCase().includes(q.trim().toLowerCase()));
   const go = (nextYear: number, nextSlug: string | null) => {
     setPick({ year: nextYear, slug: nextSlug ?? '' });
-    setF({ source: '', date: '', shift: '', language: '' });
+    setF({ source: '', date: '', shift: '' });
     onPick?.(nextYear, nextSlug);
   };
   const match = (v: string | null, want: string) => !want || (v ?? NOT_STATED) === want;
-  const visible = papers.filter((p) => match(p.sourceSite, f.source) && match(p.examDate, f.date) && match(p.shift, f.shift) && match(p.language, f.language));
-  const filtering = Boolean(f.source || f.date || f.shift || f.language);
+  const visible = papers.filter((p) => match(p.sourceSite, f.source) && match(p.examDate, f.date) && match(p.shift, f.shift));
+  const filtering = Boolean(f.source || f.date || f.shift);
   return (
     <div data-pyq-browser>
       <div className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2">
         <Segmented label="Year of the papers" value={String(y.year)} onChange={(v) => go(Number(v), null)} options={t.years.map((x) => ({ value: String(x.year), label: `${x.year} (${x.papers})` }))} />
         <span className="text-sm text-ink-2">
-          {y.papers} question papers in {y.subjects.length} subjects for {y.year}.
+          {y.papers} English-medium question {y.papers === 1 ? 'paper' : 'papers'} in {y.subjects.length} {y.subjects.length === 1 ? 'subject' : 'subjects'} for {y.year}.
         </span>
       </div>
       <div className="grid grid-cols-1 gap-x-8 gap-y-8 lg:grid-cols-[minmax(0,19rem)_minmax(0,1fr)]">
@@ -162,7 +162,7 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick }: { y
 
         <section aria-labelledby="pyq-papers" className="min-w-0">
           {!slug ? (
-            <Empty icon={<ScrollText />}>Choose a subject to see its {y.year} question papers. Each one has an “Open paper” button that opens the paper itself.</Empty>
+            <Empty icon={<ScrollText />}>Choose a subject to see its {y.year} question papers. Only English-medium papers are listed. Each one has an “Open paper” button that opens the paper itself.</Empty>
           ) : subject.loading && !subject.data ? (
             <Loading />
           ) : subject.error ? (
@@ -176,9 +176,8 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick }: { y
                 <Filter label="Source" value={f.source} values={values.source} onChange={(v) => setF({ ...f, source: v })} show={(v) => v} />
                 <Filter label="Exam date" value={f.date} values={values.date} onChange={(v) => setF({ ...f, date: v })} show={(v) => (v === NOT_STATED ? 'Not stated' : day(v))} />
                 <Filter label="Shift" value={f.shift} values={values.shift} onChange={(v) => setF({ ...f, shift: v })} show={(v) => (v === NOT_STATED ? 'Not stated' : v)} />
-                <Filter label="Language" value={f.language} values={values.language} onChange={(v) => setF({ ...f, language: v })} show={(v) => (v === NOT_STATED ? 'Not stated' : v)} />
                 {filtering && (
-                  <button type="button" onClick={() => setF({ source: '', date: '', shift: '', language: '' })} className="text-sm font-medium text-accent hover:underline">
+                  <button type="button" onClick={() => setF({ source: '', date: '', shift: '' })} className="text-sm font-medium text-accent hover:underline">
                     Clear filters
                   </button>
                 )}
@@ -268,7 +267,7 @@ export function PyqPage() {
       <PageHeader
         title="Previous-year question papers"
         back={{ to: '/practice-centre', label: 'Practice Centre' }}
-        subtitle="CUET (UG) 2024, 2025 and 2026. Every “Open paper” opens the paper itself. Only files on NTA’s website are NTA’s own; copies on other websites and memory-based papers are labelled."
+        subtitle="CUET (UG) 2024, 2025 and 2026, English-medium papers only. Every “Open paper” opens the paper itself. Only files on NTA’s website are NTA’s own; copies on other websites are labelled."
       />
       <PyqBrowser
         year={year}

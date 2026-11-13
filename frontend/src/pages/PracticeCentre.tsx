@@ -60,7 +60,7 @@ export function PracticeCentrePage() {
           title="Previous-year question papers"
           label="Open the papers"
           tone="green"
-          intro="CUET (UG) 2024, 2025 and 2026 question papers you can open now: choose a year and a subject, then press “Open paper”. NTA’s own files are marked; copies on other websites and memory-based papers are labelled with their source."
+          intro="CUET (UG) 2024, 2025 and 2026 question papers in English that you can open now: choose a year and a subject, then press “Open paper”. NTA’s own files are marked; copies on other websites are labelled with their source."
         >
           <PyqBrowser year={pyq.year} subject={pyq.subject} onPick={(year, subject) => setPyq({ year, subject: subject ?? '' })} />
         </Section>
