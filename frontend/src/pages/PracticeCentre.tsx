@@ -5,7 +5,8 @@
  *  3. Mock tests: our own full papers, under exam conditions.
  * Official material and our own material are always labelled apart.
  */
-import { Landmark, PencilLine, Timer } from 'lucide-react';
+import { PyqBrowser } from './Pyq';
+import { Landmark, PencilLine, ScrollText, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { api, type ExamCode, type MockPaperCard } from '../api';
@@ -36,6 +37,8 @@ export function PracticeCentrePage() {
   const [params, setParams] = useSearchParams();
   const exam = (params.get('exam') === 'CUET_PG' ? 'CUET_PG' : 'CUET_UG') as ExamCode;
   const examName = exam === 'CUET_PG' ? 'CUET-PG' : 'CUET-UG';
+  // Which year and subject the paper browser shows; the sessions list below can send the student to a subject's papers.
+  const [pyq, setPyq] = useState<{ year?: number; subject: string }>({ subject: '' });
   const licensed = useLoad(() => api.pastPapers({ exam }), [exam]);
   const mocks = useLoad(() => api.mockPapers(exam), [exam]);
   const subjects = useLoad(() => api.subjects(exam, 2026), [exam]);
@@ -45,28 +48,31 @@ export function PracticeCentrePage() {
 
   return (
     <div>
-      <PageHeader title="Practice Centre" subtitle="Official previous-year papers, our own practice questions and full mock tests, in one place. Each is labelled so you always know which is which." />
+      <PageHeader title="Practice Centre" subtitle="Previous-year question papers, official answer keys, our own practice questions and full mock tests, in one place. Each is labelled so you always know which is which." />
       <div className="mb-8">
         <Segmented label="Exam" value={exam} onChange={(v) => setParams({ exam: v }, { replace: true })} options={[{ value: 'CUET_UG', label: 'CUET-UG' }, { value: 'CUET_PG', label: 'CUET-PG' }]} />
       </div>
 
       {exam === 'CUET_UG' && (
-        <Link to="/pyq" data-pyq-entry className="mb-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rule bg-surface px-5 py-4 transition-colors hover:border-accent/50">
-          <span className="min-w-0">
-            <span className="block font-semibold text-ink">Previous-year papers you can open now</span>
-            <span className="mt-0.5 block text-sm text-ink-2">CUET (UG) 2024, 2025 and 2026 papers found on public websites, by year and subject. Each one opens the paper itself.</span>
-          </span>
-          <span className="shrink-0 text-sm font-medium text-accent">Browse papers</span>
-        </Link>
+        <Section
+          id="pc-pyq"
+          icon={<ScrollText />}
+          title="Previous-year question papers"
+          label="Open the papers"
+          tone="green"
+          intro="CUET (UG) 2024, 2025 and 2026 question papers you can open now: choose a year and a subject, then press “Open paper”. NTA’s own files are marked; copies on other websites and memory-based papers are labelled with their source."
+        >
+          <PyqBrowser year={pyq.year} subject={pyq.subject} onPick={(year, subject) => setPyq({ year, subject: subject ?? '' })} />
+        </Section>
       )}
 
       <Section
         id="pc-official"
         icon={<Landmark />}
-        title="Official previous-year papers"
+        title={exam === 'CUET_UG' ? 'Exam sessions and official answer keys' : 'Official previous-year papers'}
         label="Official"
         tone="accent"
-        intro={`Every ${examName} paper the National Testing Agency held, by year, subject, date and shift, with the status of its question paper and its official answer key.`}
+        intro={`Every ${examName} paper the National Testing Agency held, by year, subject, date and shift, with its official answer key${exam === 'CUET_UG' ? ' and the question papers that can be opened for it' : ' and the status of its question paper'}.`}
       >
         {licensed.error && <ErrorBox error={licensed.error} onRetry={licensed.reload} />}
         {licensed.data && licensed.data.papers.length > 0 && (
@@ -79,7 +85,14 @@ export function PracticeCentrePage() {
             </Link>
           </div>
         )}
-        <OfficialDirectory exam={exam} practiceSubjects={new Set(withQuestions.map((x) => x.paperId))} />
+        <OfficialDirectory
+          exam={exam}
+          practiceSubjects={new Set(withQuestions.map((x) => x.paperId))}
+          onOpenPapers={(year, subject) => {
+            setPyq({ year, subject });
+            document.getElementById('pc-pyq')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}
+        />
       </Section>
 
       <Section

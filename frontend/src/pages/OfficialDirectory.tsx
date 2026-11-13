@@ -6,16 +6,19 @@
 import { ChevronDown, ChevronRight, ExternalLink, FileKey, FileText, FileX } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
-import { api, type DirectoryYear, type ExamCode } from '../api';
+import { api, type DirectoryYear, type ExamCode, type PyqDoc, type PyqTree } from '../api';
+import { kindBadge, OpenPaper } from './Pyq';
 import { Badge, Empty, ErrorBox, Loading, SearchInput, Segmented, useLoad } from '../ui';
 
 const day = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
 const longDay = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' });
 const linkClass = 'inline-flex items-center gap-1.5 rounded-lg border border-rule-strong px-2.5 py-1 text-sm font-medium text-accent hover:bg-accent-soft';
 
-export function OfficialDirectory({ exam, practiceSubjects }: { exam: ExamCode; practiceSubjects: Set<string> }) {
+export function OfficialDirectory({ exam, practiceSubjects, onOpenPapers }: { exam: ExamCode; practiceSubjects: Set<string>; onOpenPapers?: (year: number, subject: string) => void }) {
   const examName = exam === 'CUET_PG' ? 'CUET-PG' : 'CUET-UG';
   const dir = useLoad(() => api.officialDirectory(exam), [exam]);
+  // Question papers that can actually be opened (NTA's own files and copies on other websites), by year and subject code.
+  const pyq = useLoad(() => (exam === 'CUET_UG' ? api.pyqTree(exam) : Promise.resolve(null as PyqTree | null)), [exam]);
   const [year, setYear] = useState('');
   const [q, setQ] = useState('');
   const [open, setOpen] = useState('');
@@ -30,6 +33,8 @@ export function OfficialDirectory({ exam, practiceSubjects }: { exam: ExamCode; 
     return (y?.subjects ?? []).filter((s) => words.every((w) => `${s.name} ${s.code}`.toLowerCase().includes(w)));
   }, [y, q]);
 
+  const pyqYear = pyq.data?.years.find((x) => x.year === y?.year);
+  const pyqOf = (code: string) => pyqYear?.subjects.find((x) => x.code === code);
   if (dir.loading && !dir.data) return <Loading />;
   if (dir.error) return <ErrorBox error={dir.error} onRetry={dir.reload} />;
   if (!y)
@@ -58,9 +63,21 @@ export function OfficialDirectory({ exam, practiceSubjects }: { exam: ExamCode; 
             <dt className="flex flex-wrap items-center gap-2 text-sm font-medium text-ink">
               <FileX aria-hidden className="size-4 text-ink-3" />
               Question papers
-              {y.questionPaper.status === 'SOME_PUBLISHED' ? <Badge tone="green">{y.questionPaper.published} published by NTA</Badge> : <Badge tone="amber">Not published by NTA</Badge>}
+              {pyqYear ? (
+                <Badge tone="green">{pyqYear.papers} papers you can open</Badge>
+              ) : y.questionPaper.status === 'SOME_PUBLISHED' ? (
+                <Badge tone="green">{y.questionPaper.published} published by NTA</Badge>
+              ) : (
+                <Badge tone="amber">No paper found</Badge>
+              )}
             </dt>
-            <dd className="mt-1.5 text-sm text-ink-2">{y.questionPaper.note ?? 'NTA does not publish the question papers openly.'}</dd>
+            {pyqYear ? (
+              <dd className="mt-1.5 text-sm text-ink-2" data-pyq-year-note>
+                {pyqYear.papers} question papers in {pyqYear.subjects.length} subjects can be opened for {y.year}: NTA’s own files where it has released them, and copies on other websites, each labelled with its source. Open a subject below, or use the list at the top of this page.
+              </dd>
+            ) : (
+              <dd className="mt-1.5 text-sm text-ink-2">{y.questionPaper.note ?? 'No question paper for this year has been found on NTA’s website or on the other websites checked.'}</dd>
+            )}
           </div>
           <div className="rounded-lg bg-paper p-3">
             <dt className="flex flex-wrap items-center gap-2 text-sm font-medium text-ink">
@@ -109,34 +126,66 @@ export function OfficialDirectory({ exam, practiceSubjects }: { exam: ExamCode; 
                     </span>
                     <span className="block text-sm text-ink-2">{s.firstDate === s.lastDate ? day(s.firstDate) : `${day(s.firstDate)} to ${day(s.lastDate)}`}</span>
                   </span>
-                  {s.papersPublished > 0 && <Badge tone="green">Question paper published</Badge>}
+                  {pyqOf(s.code) ? <Badge tone="green">{pyqOf(s.code)!.papers} {pyqOf(s.code)!.papers === 1 ? 'paper' : 'papers'} to open</Badge> : s.papersPublished > 0 ? <Badge tone="green">Question paper published</Badge> : null}
                   <span className="num text-sm text-ink-2">
-                    {s.sessions} {s.sessions === 1 ? 'paper' : 'papers'}
+                    {s.sessions} {s.sessions === 1 ? 'session' : 'sessions'}
                   </span>
                 </button>
-                {isOpen && <Sessions exam={exam} year={y.year} code={s.code} practise={s.paperId && practiceSubjects.has(s.paperId) ? `/${exam}/subject/${s.paperId}` : null} name={s.name} />}
+                {isOpen && <Sessions exam={exam} year={y.year} code={s.code} practise={s.paperId && practiceSubjects.has(s.paperId) ? `/${exam}/subject/${s.paperId}` : null} name={s.name} pyqSlug={pyqOf(s.code)?.slug ?? null} onOpenPapers={onOpenPapers} />}
               </li>
             );
           })}
         </ul>
       )}
       <p className="mt-3 text-xs text-ink-3">
-        Each row is a paper NTA held, taken from its own answer-key file. CUET Prep stores the date, shift and page number only: no question paper or answer key is copied here.
+        Each row is a session NTA held, taken from its own answer-key file. Question papers are opened on the website that holds them; no question paper or answer key is copied here.
       </p>
     </div>
   );
 }
 
-function Sessions({ exam, year, code, name, practise }: { exam: ExamCode; year: number; code: string; name: string; practise: string | null }) {
+function Sessions({ exam, year, code, name, practise, pyqSlug, onOpenPapers }: { exam: ExamCode; year: number; code: string; name: string; practise: string | null; pyqSlug: string | null; onOpenPapers?: (year: number, subject: string) => void }) {
   const s = useLoad(() => api.officialSessions(exam, year, code), [exam, year, code]);
+  const papers = useLoad(() => (pyqSlug ? api.pyqSubject(year, pyqSlug).then((x) => x.papers) : Promise.resolve([] as PyqDoc[])), [year, pyqSlug]);
+  const list = papers.data ?? [];
+  // A paper belongs to a session only when its source states that session's date and shift.
+  const forSession = (date: string, shift: string) => list.filter((p) => p.examDate === date && p.shift !== null && shift.replace(/\s+/g, '').toLowerCase().startsWith(p.shift.replace(/\s+/g, '').toLowerCase().replace(/[ab]$/, '')));
   if (s.loading && !s.data) return <div className="px-4 pb-4"><Loading /></div>;
   if (s.error) return <div className="px-4 pb-2"><ErrorBox error={s.error} onRetry={s.reload} /></div>;
   return (
     <div className="border-t border-rule bg-paper/60 px-4 py-3">
+      {list.length > 0 && (
+        <div className="mb-4" data-dir-papers>
+          <div className="mb-1.5 flex flex-wrap items-center justify-between gap-2">
+            <h4 className="text-sm font-semibold text-ink">
+              Question papers you can open: {name}, {year} ({list.length})
+            </h4>
+            {onOpenPapers && pyqSlug && (
+              <button type="button" onClick={() => onOpenPapers(year, pyqSlug)} className="text-sm font-medium text-accent hover:underline">
+                See them with filters
+              </button>
+            )}
+          </div>
+          <ul className="divide-y divide-rule overflow-hidden rounded-lg border border-rule bg-surface">
+            {list.map((p) => (
+              <li key={p.id} className="flex flex-wrap items-center gap-x-3 gap-y-2 px-3 py-2.5" data-dir-paper={p.id}>
+                <span className="min-w-0 flex-1 basis-56">
+                  <span className="flex flex-wrap items-center gap-2">
+                    {kindBadge(p)}
+                    <span className="num text-sm text-ink">{[p.examDate ? longDay(p.examDate) : null, p.shift, p.language, p.pages ? `${p.pages} pages` : null].filter(Boolean).join(' · ') || 'Date and shift not stated by the source'}</span>
+                  </span>
+                  <span className="mt-0.5 block text-sm text-ink-2">{p.title}</span>
+                </span>
+                <OpenPaper d={p} small />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <div className="overflow-x-auto">
         <table className="w-full min-w-[34rem] text-sm">
           <caption className="sr-only">
-            {name} papers held in {year}
+            {name} sessions held in {year}
           </caption>
           <thead>
             <tr className="text-left text-ink-2">
@@ -164,10 +213,26 @@ function Sessions({ exam, year, code, name, practise }: { exam: ExamCode; year: 
                       Published by NTA
                       <span className="mt-0.5 block text-xs text-ink-2">{r.questionPaper.pages ? `${r.questionPaper.pages} pages. ` : ''}You will be able to open it on NTA's website here once linking permission is confirmed.</span>
                     </span>
+                  ) : forSession(r.date, r.shift).length > 0 ? (
+                    <span className="flex flex-col items-start gap-1.5">
+                      {forSession(r.date, r.shift).map((p) => (
+                        <span key={p.id} className="flex flex-wrap items-center gap-1.5">
+                          <OpenPaper d={p} small />
+                          <span className="text-xs text-ink-2">{p.classification === 'OFFICIAL' ? 'NTA’s own file' : p.classification === 'MEMORY_BASED' ? `Memory-based, ${p.sourceSite}` : `Copy on ${p.sourceSite}`}</span>
+                        </span>
+                      ))}
+                    </span>
+                  ) : list.length > 0 ? (
+                    <span className="text-ink-2">
+                      No paper is tied to this session.
+                      <span className="mt-0.5 block text-xs">
+                        {list.length} {name} {list.length === 1 ? 'paper' : 'papers'} for {year} can be opened above.
+                      </span>
+                    </span>
                   ) : (
                     <span className="inline-flex items-center gap-1.5 text-ink-2">
                       <FileX aria-hidden className="size-4 text-ink-3" />
-                      Not published by NTA
+                      No paper found
                     </span>
                   )}
                 </td>

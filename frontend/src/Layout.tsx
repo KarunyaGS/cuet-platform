@@ -196,7 +196,7 @@ export function Layout() {
                 </span>
                 <TopLink to="/planner">Planner</TopLink>
                 <TopLink to="/progress">Progress</TopLink>
-                <span className="hidden lg:contents">
+                <span className="hidden 2xl:contents">
                   <TopLink to="/updates">Updates</TopLink>
                 </span>
               </nav>
@@ -212,7 +212,7 @@ export function Layout() {
                 <NavLink
                   to="/updates"
                   title="Latest government updates"
-                  className={({ isActive }) => `grid size-9 place-items-center rounded-full transition-colors lg:hidden ${isActive ? 'bg-accent-soft text-accent' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
+                  className={({ isActive }) => `grid size-9 place-items-center rounded-full transition-colors 2xl:hidden ${isActive ? 'bg-accent-soft text-accent' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
                 >
                   <Megaphone aria-hidden className="size-[18px]" />
                   <span className="sr-only">Latest government updates</span>
