@@ -279,6 +279,11 @@ try {
     const r = await buildNativePaper({ api: option('api') ?? 'http://127.0.0.1:8787', adminToken: adminToken(), paperId, set: Number(option('set') ?? 1), count: Number(option('count') ?? 50), workDir: option('out') ?? join(repo, '.native-papers'), repo });
     console.log(JSON.stringify(r, null, 1));
   }
+  else if (cmd === 'visual-pdf-build') {
+    // The downloadable learning PDF of a visual learning pack (prototype: Gravitation), from our own writing and drawings.
+    const { buildVisualPdf } = await import('./visual-pdf');
+    console.log(JSON.stringify(await buildVisualPdf({ repo, workDir: option('out') ?? join(repo, '.visual-pdf') }), null, 1));
+  }
   else if (cmd === 'pyq-index-import') {
     // The index of previous-year papers found on public websites (addresses only; nothing is downloaded or hosted).
     const file = join(repo, 'content', 'pyq', 'index.json');

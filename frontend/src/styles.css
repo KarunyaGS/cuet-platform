@@ -74,6 +74,37 @@ h3 {
   line-height: 1.7;
 }
 
+/* Visual learning: a gentle entrance for each step, a slow pulse on the current flowchart stage, a clear focus ring on drawn nodes. */
+@keyframes vl-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.vl-fade {
+  animation: vl-fade 0.35s ease-out;
+}
+@keyframes vl-pulse {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+.vl-pulse {
+  animation: vl-pulse 1.8s ease-in-out infinite;
+}
+.vl-node:focus-visible > :first-child {
+  stroke: var(--color-marker);
+  stroke-width: 4px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

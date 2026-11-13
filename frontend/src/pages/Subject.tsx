@@ -83,6 +83,32 @@ export function SubjectPage() {
       />
       {err && <ErrorBox error={err} />}
       <SubjectCards paperId={paperId} />
+      {p.name === 'Physics' && (
+        <section aria-labelledby="visual-learning" data-visual-entry className="mb-6 overflow-hidden rounded-xl border border-rule bg-surface">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 px-4 pt-3">
+            <h2 id="visual-learning" className="text-base font-semibold text-ink">
+              Visual learning
+            </h2>
+            <span className="rounded-md bg-accent-soft px-1.5 py-0.5 text-xs font-medium text-accent">Prototype</span>
+            <span className="text-sm text-ink-2">One topic to try: Gravitation (a Class 11 topic, not in this syllabus)</span>
+          </div>
+          <div className="flex flex-wrap gap-2 px-4 py-3">
+            {[
+              ['/visual/gravitation', 'Visual explanation'],
+              ['/visual/gravitation?view=map', 'Mind map'],
+              ['/visual/gravitation?view=flow', 'Flowchart'],
+              ['/visual/gravitation?view=read', 'Read the notes'],
+            ].map(([to, label]) => (
+              <Link key={to} to={to!} className="inline-flex h-9 items-center rounded-lg bg-surface px-3 text-sm font-medium text-accent ring-1 ring-inset ring-rule-strong hover:bg-accent-soft">
+                {label}
+              </Link>
+            ))}
+            <a href="/visual/gravitation.pdf" download="CUET Prep - Gravitation - learning notes.pdf" className="inline-flex h-9 items-center rounded-lg bg-surface px-3 text-sm font-medium text-accent ring-1 ring-inset ring-rule-strong hover:bg-accent-soft">
+              Download PDF
+            </a>
+          </div>
+        </section>
+      )}
       {notes.length > 0 && (
         <details className="mb-6 rounded-xl border border-rule bg-surface">
           <summary className="cursor-pointer px-5 py-3 text-sm font-medium text-ink-2 hover:text-ink">About the question paper</summary>

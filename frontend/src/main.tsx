@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router/dom';
 import { Layout } from './Layout';
 import { AuthPage } from './pages/Auth';
 import { BookmarksPage } from './pages/Bookmarks';
+import { VisualPage } from './pages/Visual';
 import { FlashcardReviewPage, OldFlashcardsLink } from './pages/Flashcards';
 import { UpdatesPage } from './pages/Updates';
 import { PyqPage, PyqViewerPage } from './pages/Pyq';
@@ -91,6 +92,8 @@ const router = createBrowserRouter([
       { path: '/dashboard', element: <DashboardPage /> },
       { path: '/planner', element: <PlannerPage /> },
       { path: '/bookmarks', element: <BookmarksPage /> },
+      // Visual learning prototype: one Physics topic.
+      { path: '/visual/gravitation', element: <VisualPage /> },
       { path: '/updates', element: <UpdatesPage /> },
       { path: '/pyq', element: <PyqPage /> },
       { path: '/pyq/view/:id', element: <PyqViewerPage /> },
