@@ -8,6 +8,7 @@ import pub from './routes/public';
 import review from './routes/review';
 import consoleApi from './routes/console';
 import { auth, learn, student } from './routes/student';
+import { handleCloudflareEmailEvent, sendDailyReminders } from './services/email';
 
 const app = new Hono<AppEnv>();
 
@@ -28,4 +29,22 @@ app.route('/api/learn', learn);
 app.route('/api/student', student);
 app.notFound((c) => c.json({ error: { code: 'NOT_FOUND', message: 'Not found' } }, 404));
 
-export default app;
+/** Cron Trigger: the daily study-reminder emails. Does nothing while email is not switched on. */
+async function scheduled(_controller: ScheduledController, env: AppEnv['Bindings'], ctx: ExecutionContext) {
+  ctx.waitUntil(sendDailyReminders(env).then((r) => console.log('Daily reminders', JSON.stringify(r))));
+}
+
+/** Queue consumer: Cloudflare Email Sending delivery events (bounces, complaints, deliveries). */
+async function queue(batch: MessageBatch<unknown>, env: AppEnv['Bindings']) {
+  for (const message of batch.messages) {
+    try {
+      await handleCloudflareEmailEvent(env.DB, message.body as Parameters<typeof handleCloudflareEmailEvent>[1]);
+      message.ack();
+    } catch (e) {
+      console.error('Email event failed', (e as Error).message);
+      message.retry();
+    }
+  }
+}
+
+export default Object.assign(app, { scheduled, queue });

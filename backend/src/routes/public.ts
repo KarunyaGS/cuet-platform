@@ -8,6 +8,7 @@ import { readJson } from '../lib/http';
 import { evaluateQuestion, evaluateSchema, getQuestionPublic } from '../services/questions';
 import { getResource } from '../services/resources';
 import { examSchema, getOfficialInfo, listUniversities, universityQuery } from '../services/official-info';
+import { handleResendWebhook, unsubscribe, unsubscribeSchema } from '../services/email';
 
 const pub = new Hono<AppEnv>();
 
@@ -27,5 +28,11 @@ pub.get('/topics/:id/content', async (c) => {
 // Official exam information pages and participating universities: open to everyone, no sign-in.
 pub.get('/info/:exam', async (c) => c.json(await getOfficialInfo(c.env.DB, examSchema.parse(c.req.param('exam')))));
 pub.get('/universities', async (c) => c.json(await listUniversities(c.env.DB, universityQuery.parse({ exam: c.req.query('exam'), q: c.req.query('q') || undefined, type: c.req.query('type') || undefined }))));
+
+// Email: one-click stop for study reminders, and delivery events from the standby provider (signature checked).
+pub.post('/email/unsubscribe', async (c) => c.json(await unsubscribe(c.env.DB, await readJson(c, unsubscribeSchema))));
+pub.post('/email/webhooks/resend', async (c) =>
+  c.json(await handleResendWebhook(c.env, { id: c.req.header('svix-id'), timestamp: c.req.header('svix-timestamp'), signature: c.req.header('svix-signature') }, await c.req.text())),
+);
 
 export default pub;

@@ -905,26 +905,30 @@ model AuditLog {
 // ---------------------------------------------------------------------------
 
 model User {
-  id          String               @id @default(cuid())
-  email       String               @unique
-  displayName String               @map("display_name")
-  status      UserStatus           @default(ACTIVE)
-  lastLoginAt DateTime?            @map("last_login_at")
-  createdAt   DateTime             @default(now()) @map("created_at")
-  updatedAt   DateTime             @updatedAt @map("updated_at")
-  roles       UserRole[]
-  credential  UserCredential?
-  sessions    UserSession[]
-  practice    PracticeSession[]
-  progress    TopicProgress[]
-  bookmarks   Bookmark[]
-  activity    LearningActivity[]
-  dailyGoal   DailyGoal?
-  planItems   StudyPlanItem[]
-  preferences StudentPreference?
-  resetTokens PasswordResetToken[]
-  dismissals  ReminderDismissal[]
-  assignments ReviewAssignment[]
+  id              String                   @id @default(cuid())
+  email           String                   @unique
+  displayName     String                   @map("display_name")
+  status          UserStatus               @default(ACTIVE)
+  lastLoginAt     DateTime?                @map("last_login_at")
+  /// When the owner of the address confirmed it from an emailed link; null until then.
+  emailVerifiedAt DateTime?                @map("email_verified_at")
+  createdAt       DateTime                 @default(now()) @map("created_at")
+  updatedAt       DateTime                 @updatedAt @map("updated_at")
+  roles           UserRole[]
+  credential      UserCredential?
+  sessions        UserSession[]
+  practice        PracticeSession[]
+  progress        TopicProgress[]
+  bookmarks       Bookmark[]
+  activity        LearningActivity[]
+  dailyGoal       DailyGoal?
+  planItems       StudyPlanItem[]
+  preferences     StudentPreference?
+  resetTokens     PasswordResetToken[]
+  dismissals      ReminderDismissal[]
+  assignments     ReviewAssignment[]
+  verifyTokens    EmailVerificationToken[]
+  emails          EmailMessage[]
 
   @@map("users")
 }
@@ -1200,16 +1204,73 @@ model ParticipatingUniversity {
 
 /// What a student is preparing for: drives "My subjects" and the daily-practice subject choice.
 model StudentPreference {
-  userId     String   @id @map("user_id")
+  userId           String   @id @map("user_id")
   /// CUET_UG or CUET_PG; null until chosen.
-  examCode   String?  @map("exam_code")
-  targetYear Int?     @map("target_year")
+  examCode         String?  @map("exam_code")
+  targetYear       Int?     @map("target_year")
   /// JSON array of test_papers ids (at most 10), in the student's order.
-  paperIds   String   @default("[]") @map("paper_ids_json")
-  updatedAt  DateTime @map("updated_at")
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  paperIds         String   @default("[]") @map("paper_ids_json")
+  /// Study reminders by email. Off until the student turns it on; sent only to a confirmed address.
+  emailReminders   Boolean  @default(false) @map("email_reminders")
+  /// Random token for the one-click "stop these emails" link (no sign-in needed).
+  unsubscribeToken String?  @unique @map("unsubscribe_token")
+  updatedAt        DateTime @map("updated_at")
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("student_preferences")
+}
+
+/// One-time link that confirms an email address (only a SHA-256 hash of the token is stored).
+model EmailVerificationToken {
+  id        String    @id @default(cuid())
+  userId    String    @map("user_id")
+  tokenHash String    @unique @map("token_hash")
+  expiresAt DateTime  @map("expires_at")
+  usedAt    DateTime? @map("used_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@map("email_verification_tokens")
+}
+
+/// One row per email the platform tried to send. The body is never stored (it may hold a one-time link).
+model EmailMessage {
+  id                String    @id @default(cuid())
+  userId            String?   @map("user_id")
+  toEmail           String    @map("to_email")
+  /// PASSWORD_RESET | VERIFY_EMAIL | ACCOUNT_NOTICE | STUDY_REMINDER
+  kind              String
+  subject           String
+  /// QUEUED | SENT | DELIVERED | FAILED | BOUNCED | COMPLAINED | SUPPRESSED | NOT_CONFIGURED
+  status            String
+  /// cloudflare | resend; null when nothing was sent.
+  provider          String?
+  providerMessageId String?   @map("provider_message_id")
+  /// Stops the same email being sent twice (e.g. one reminder per student per day).
+  dedupeKey         String?   @unique @map("dedupe_key")
+  attempts          Int       @default(0)
+  lastError         String?   @map("last_error")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  sentAt            DateTime? @map("sent_at")
+  updatedAt         DateTime  @map("updated_at")
+  user              User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([toEmail, kind, createdAt])
+  @@index([providerMessageId])
+  @@index([status, createdAt])
+  @@map("email_messages")
+}
+
+/// Addresses the platform must not email again: hard bounces and spam complaints.
+model EmailSuppression {
+  email     String   @id
+  /// HARD_BOUNCE | COMPLAINT | MANUAL
+  reason    String
+  detail    String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("email_suppressions")
 }
 
 /// One-time password reset link (only a SHA-256 hash of the token is stored). Created by an admin for a

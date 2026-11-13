@@ -53,7 +53,8 @@ export interface ResourceDetail {
   topic: { id: string; title: string; kind: string; label: string | null; paper_id: string } | null;
   blocks: Block[];
 }
-export interface User { id: string; email: string; displayName: string; roles: string[] }
+export interface User { id: string; email: string; displayName: string; roles: string[]; emailVerified?: boolean }
+export interface EmailSettings { email: string; emailVerified: boolean; emailReminders: boolean; emailAvailable: boolean }
 export interface SessionQuestion {
   number: number; id: string; type: string; stem: string; difficulty: string; preview: boolean; origin: string;
   passage: { title: string | null; body: string } | null; structure: unknown;
@@ -185,6 +186,13 @@ export const api = {
   dismissReminder: (key: string) => request<{ dismissed: boolean }>('POST', '/api/student/reminders/dismiss', { key }),
   recent: () => request<RecentItem[]>('GET', '/api/student/recent'),
   resetPassword: (b: { token: string; newPassword: string }) => request<{ reset: boolean }>('POST', '/api/auth/reset-password', b),
+  emailStatus: () => request<{ available: boolean }>('GET', '/api/auth/email-status'),
+  forgotPassword: (email: string) => request<{ ok: boolean; available: boolean }>('POST', '/api/auth/forgot-password', { email }),
+  verifyEmail: (token: string) => request<{ verified: boolean }>('POST', '/api/auth/verify-email', { token }),
+  emailSettings: () => request<EmailSettings>('GET', '/api/student/email'),
+  setEmailSettings: (b: { emailReminders: boolean }) => request<EmailSettings>('PUT', '/api/student/email', b),
+  sendVerification: () => request<{ sent: boolean; reason?: string }>('POST', '/api/student/email/verification'),
+  unsubscribe: (token: string) => request<{ unsubscribed: boolean }>('POST', '/api/public/email/unsubscribe', { token }),
   search: (q: string, exam?: ExamCode | '') => request<SearchResults>('GET', `/api/learn/search?q=${encodeURIComponent(q)}${exam ? `&exam=${exam}` : ''}`),
   officialInfo: (exam: ExamCode) => request<OfficialInfo>('GET', `/api/public/info/${exam}`),
   universities: (exam: ExamCode, q?: string, type?: string) =>

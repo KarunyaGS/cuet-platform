@@ -13,6 +13,9 @@ import { readJson } from '../lib/http';
 import { changePassword, login, loginSchema, logout, passwordSchema, resetPassword, resetPasswordSchema, registerSchema, registerStudent, SESSION_COOKIE, studentAuth, userFromToken } from '../services/accounts';
 import { sha256Hex } from '../lib/hash';
 import {
+  appUrl, emailEnabled, emailSettingsSchema, forgotPasswordSchema, getEmailSettings, notifyPasswordChanged, requestPasswordReset, sendVerificationEmail, setEmailSettings, verifyEmail, verifyEmailSchema,
+} from '../services/email';
+import {
   activitySchema, addBookmark, addPlanItem, bookmarkSchema, bookmarkState, dailySchema, dashboard, dashboardQuery, deletePlanItem, getGoal, getProfile, goalSchema, listBookmarks,
   listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
 } from '../services/student-tools';
@@ -21,9 +24,31 @@ import { listExams, listSubjects, searchSyllabus, mediaObject, paperOutline, res
 import { answerSchema, getSession, progress, saveAnswer, startSchema, startSession, submitSession } from '../services/practice';
 
 const preview = (env: AppEnv['Bindings']) => env.CONTENT_PREVIEW === 'true';
+/** Runs email work after the response is sent, so the answer never waits for (or reveals) the send. A failed send is recorded, never thrown. */
+const later = (c: { executionCtx: { waitUntil(p: Promise<unknown>): void } }, work: Promise<unknown>) => {
+  const safe = work.catch((e) => console.error('Email task failed', (e as Error).message));
+  try {
+    c.executionCtx.waitUntil(safe);
+  } catch {
+    /* no execution context (some tests): the work still runs */
+  }
+  return safe;
+};
+const base = (c: { env: AppEnv['Bindings']; req: { url: string } }) => {
+  try {
+    return appUrl(c.env, c.req.url);
+  } catch {
+    return null;
+  }
+};
 
 export const auth = new Hono<AppEnv>();
-auth.post('/register', async (c) => c.json(await registerStudent(c.env.DB, await readJson(c, registerSchema)), 201));
+auth.post('/register', async (c) => {
+  const user = await registerStudent(c.env.DB, await readJson(c, registerSchema));
+  const b = base(c);
+  if (b && emailEnabled(c.env)) later(c, sendVerificationEmail(c.env, user.id, b));
+  return c.json(user, 201);
+});
 auth.post('/login', async (c) => {
   const ttl = Number(c.env.SESSION_TTL_HOURS) || 168;
   const s = await login(c.env.DB, await readJson(c, loginSchema), ttl);
@@ -31,7 +56,21 @@ auth.post('/login', async (c) => {
   return c.json({ user: s.user, expires: s.expires });
 });
 // A one-time reset link (made by an admin, or emailed once an email service exists) sets a new password.
-auth.post('/reset-password', async (c) => c.json(await resetPassword(c.env.DB, await readJson(c, resetPasswordSchema))));
+auth.post('/reset-password', async (c) => {
+  const r = await resetPassword(c.env.DB, await readJson(c, resetPasswordSchema));
+  later(c, notifyPasswordChanged(c.env, r.userId));
+  return c.json({ reset: true });
+});
+// Always the same answer, whether or not the address has an account. `available: false` means email is not switched on.
+auth.post('/forgot-password', async (c) => {
+  const input = await readJson(c, forgotPasswordSchema);
+  const b = base(c);
+  if (!b || !emailEnabled(c.env)) return c.json({ ok: true, available: false });
+  later(c, requestPasswordReset(c.env, input.email, b));
+  return c.json({ ok: true, available: true });
+});
+auth.get('/email-status', (c) => c.json({ available: emailEnabled(c.env) && Boolean(base(c)) }));
+auth.post('/verify-email', async (c) => c.json(await verifyEmail(c.env.DB, await readJson(c, verifyEmailSchema))));
 auth.post('/logout', async (c) => {
   await logout(c.env.DB, getCookie(c, SESSION_COOKIE));
   deleteCookie(c, SESSION_COOKIE, { path: '/' });
@@ -74,7 +113,18 @@ student.get('/profile', async (c) => c.json(await getProfile(c.env.DB, c.get('us
 student.put('/profile', async (c) => c.json(await updateProfile(c.env.DB, c.get('user').id, await readJson(c, profileSchema))));
 student.post('/password', async (c) => {
   const token = getCookie(c, SESSION_COOKIE) ?? c.req.header('authorization')?.replace(/^Bearer\s+/i, '');
-  return c.json(await changePassword(c.env.DB, c.get('user').id, await readJson(c, passwordSchema), token ? await sha256Hex(token) : null));
+  const r = await changePassword(c.env.DB, c.get('user').id, await readJson(c, passwordSchema), token ? await sha256Hex(token) : null);
+  later(c, notifyPasswordChanged(c.env, c.get('user').id));
+  return c.json(r);
+});
+
+// Email: confirmation of the address and study reminders
+student.get('/email', async (c) => c.json(await getEmailSettings(c.env, c.get('user').id)));
+student.put('/email', async (c) => c.json(await setEmailSettings(c.env, c.get('user').id, await readJson(c, emailSettingsSchema))));
+student.post('/email/verification', async (c) => {
+  const b = base(c);
+  if (!b) return c.json({ sent: false, reason: 'NOT_CONFIGURED' });
+  return c.json(await sendVerificationEmail(c.env, c.get('user').id, b));
 });
 
 // Dashboard, goals, activity

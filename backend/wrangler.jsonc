@@ -33,8 +33,14 @@
       "bucket_name": "cuet-platform-media-dev"
     }
   ],
+  // Email (local): Wrangler simulates this binding. Nothing is sent; each message is written to a local file.
+  "send_email": [{ "name": "EMAIL" }],
+  // Daily study-reminder emails at 19:00 India time (13:30 UTC). The job does nothing while email is switched off.
+  "triggers": { "crons": ["30 13 * * *"] },
   "vars": {
     "APP_ENV": "development",
+    "EMAIL_FROM": "no-reply@cuet.localhost",
+    "EMAIL_FROM_NAME": "CUET Prep (local)",
     "MAX_PAGE_SIZE": "100",
     "MAX_UPLOAD_BYTES": "26214400",
     // Local development only: lets students see machine-verified syllabus and draft content, labelled "preview".
@@ -47,6 +53,10 @@
       // The production Worker "CUET". Wrangler 4 accepts only lowercase names, so it is created as "cuet"
       // (Cloudflare dashboard and URL: cuet). The exact upper-case name "CUET" is rejected by Wrangler.
       "name": "cuet",
+      // Email is OFF in production until the owner approves it. To switch it on (see docs/email.md): onboard a sending
+      // domain, add  "send_email": [{ "name": "EMAIL" }]  here, set EMAIL_FROM and PUBLIC_APP_URL in vars below,
+      // restore the cron, and add the queue consumer for delivery events.
+      "triggers": { "crons": [] },
       // https://cuet.ceo-3a7.workers.dev until a custom domain is chosen.
       "workers_dev": true,
       "preview_urls": false,

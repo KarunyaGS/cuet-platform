@@ -26,6 +26,74 @@ const Saved = ({ show, children = 'Saved' }: { show: boolean; children?: React.R
     </span>
   ) : null;
 
+/** Confirmation of the email address and the study-reminder switch. Hidden while email is not switched on. */
+function EmailSection() {
+  const { user, refresh } = useAuth();
+  const s = useLoad(api.emailSettings, [user?.id]);
+  const [busy, setBusy] = useState(false);
+  const [note, setNote] = useState('');
+  const [err, setErr] = useState<Error | null>(null);
+  if (!s.data || !s.data.emailAvailable) return null;
+  const d = s.data;
+  const act = async (f: () => Promise<string>) => {
+    setBusy(true);
+    setErr(null);
+    setNote('');
+    try {
+      setNote(await f());
+      s.reload();
+      void refresh();
+    } catch (e) {
+      setErr(e as Error);
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <Section title="Email" description="Password reset links and account notices go to this address. Study reminders are optional.">
+      <div className="space-y-4">
+        <div>
+          <p className="break-all text-[15px] font-medium text-ink">{d.email}</p>
+          <p className={`mt-1 text-sm ${d.emailVerified ? 'text-correct' : 'text-ink-2'}`}>{d.emailVerified ? 'Confirmed' : 'Not confirmed yet. Open the link in the email we sent you.'}</p>
+        </div>
+        {!d.emailVerified && (
+          <Button
+            kind="secondary"
+            disabled={busy}
+            onClick={() =>
+              void act(async () => {
+                const r = await api.sendVerification();
+                return r.sent ? 'Confirmation email sent. It can take a minute to arrive.' : r.reason === 'TOO_MANY' ? 'We have sent several already. Try again in an hour.' : 'The email could not be sent just now. Try again later.';
+              })
+            }
+          >
+            Send the confirmation email again
+          </Button>
+        )}
+        <label className="flex items-start gap-3">
+          <input
+            type="checkbox"
+            className="mt-1 size-4 accent-accent"
+            checked={d.emailReminders}
+            disabled={busy || !d.emailVerified}
+            onChange={(e) => void act(async () => ((await api.setEmailSettings({ emailReminders: e.target.checked })).emailReminders ? 'Reminders are on.' : 'Reminders are off.'))}
+          />
+          <span>
+            <span className="block text-sm font-medium text-ink">Email me a study reminder</span>
+            <span className="mt-0.5 block text-sm text-ink-2">At most one a day, in the evening, and only when you have an unfinished test, planned tasks, a daily goal or a weak topic. {d.emailVerified ? '' : 'Confirm your email first.'}</span>
+          </span>
+        </label>
+        {note && (
+          <p className="text-sm text-ink-2" role="status">
+            {note}
+          </p>
+        )}
+        {err && <ErrorBox error={err} />}
+      </div>
+    </Section>
+  );
+}
+
 /** Exam, target year and up to 10 subjects: used for "My subjects" on the home page and daily practice. */
 function PreferencesForm() {
   const prefs = useLoad(api.preferences, []);
@@ -226,6 +294,8 @@ export function ProfilePage() {
             {errFor('goal')}
           </form>
         </Section>
+
+        <EmailSection />
 
         <Section title="Password" description="Changing your password signs you out on every other device.">
           <form

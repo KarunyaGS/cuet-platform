@@ -121,7 +121,7 @@ export async function resetPassword(db: D1Database, input: z.infer<typeof resetP
     db.prepare('UPDATE user_sessions SET revoked_at = ? WHERE user_id = ? AND revoked_at IS NULL').bind(now, row.user_id),
     db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(newId('aud'), `user:${row.user_id}`, 'RESET_PASSWORD', 'USER', row.user_id, now),
   ]);
-  return { reset: true };
+  return { reset: true, userId: row.user_id };
 }
 
 export async function logout(db: D1Database, token: string | undefined) {
@@ -133,20 +133,21 @@ export interface SessionUser {
   email: string;
   displayName: string;
   roles: string[];
+  emailVerified?: boolean;
 }
 
 export async function userFromToken(db: D1Database, token: string | undefined): Promise<SessionUser | null> {
   if (!token) return null;
   const row = await db
     .prepare(
-      `SELECT u.id, u.email, u.display_name, u.status, GROUP_CONCAT(r.code) AS roles FROM user_sessions s
+      `SELECT u.id, u.email, u.display_name, u.status, u.email_verified_at, GROUP_CONCAT(r.code) AS roles FROM user_sessions s
        JOIN users u ON u.id = s.user_id LEFT JOIN user_roles ur ON ur.user_id = u.id LEFT JOIN roles r ON r.id = ur.role_id
        WHERE s.token_hash = ? AND s.revoked_at IS NULL AND s.expires_at > ? GROUP BY u.id`,
     )
     .bind(await sha256Hex(token), nowIso())
-    .first<{ id: string; email: string; display_name: string; status: string; roles: string | null }>();
+    .first<{ id: string; email: string; display_name: string; status: string; email_verified_at: string | null; roles: string | null }>();
   if (!row || row.status !== 'ACTIVE') return null;
-  return { id: row.id, email: row.email, displayName: row.display_name, roles: (row.roles ?? '').split(',').filter(Boolean) };
+  return { id: row.id, email: row.email, displayName: row.display_name, roles: (row.roles ?? '').split(',').filter(Boolean), emailVerified: Boolean(row.email_verified_at) };
 }
 
 /** Requires a signed-in student (cookie, or `Authorization: Bearer <token>` for API clients). */

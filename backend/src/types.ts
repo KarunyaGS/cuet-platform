@@ -12,6 +12,17 @@ export interface Bindings {
   CONTENT_PREVIEW?: string;
   SESSION_TTL_HOURS?: string;
   ADMIN_API_TOKEN?: string;
+  /** Cloudflare Email Sending binding (`send_email`). Absent until email is switched on for the environment. */
+  EMAIL?: { send(message: { to: string; from: { email: string; name?: string }; subject: string; text?: string; html?: string; headers?: Record<string, string> }): Promise<{ messageId: string }> };
+  /** Sender address on the onboarded sending domain, e.g. no-reply@example.com. Email is off while this is unset. */
+  EMAIL_FROM?: string;
+  EMAIL_FROM_NAME?: string;
+  /** Public address of the app, used in emailed links (never taken from the request in production). */
+  PUBLIC_APP_URL?: string;
+  /** Standby provider (secret). */
+  RESEND_API_KEY?: string;
+  /** Signing secret of the Resend webhook (secret). */
+  RESEND_WEBHOOK_SECRET?: string;
 }
 
 export interface Variables {

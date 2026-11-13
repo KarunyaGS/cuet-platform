@@ -16,7 +16,7 @@ import { ProfilePage } from './pages/Profile';
 import { ProgressPage } from './pages/Progress';
 import { ResultsPage } from './pages/Results';
 import { ReportPage } from './pages/Report';
-import { ForgotPasswordPage, ResetPasswordPage } from './pages/Reset';
+import { ForgotPasswordPage, ResetPasswordPage, UnsubscribePage, VerifyEmailPage } from './pages/Reset';
 import { RevisePage } from './pages/Revise';
 import { NotFoundPage, SearchPage } from './pages/Search';
 import { SubjectPage } from './pages/Subject';
@@ -56,6 +56,8 @@ const router = createBrowserRouter([
   { path: '/signup', element: <GuestOnly><AuthPage mode="signup" /></GuestOnly> },
   { path: '/forgot-password', element: <ForgotPasswordPage /> },
   { path: '/reset-password', element: <ResetPasswordPage /> },
+  { path: '/verify-email', element: <VerifyEmailPage /> },
+  { path: '/unsubscribe', element: <UnsubscribePage /> },
   // Official exam information: public, no sign-in needed.
   {
     element: <PublicLayout />,

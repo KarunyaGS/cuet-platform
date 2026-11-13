@@ -20,6 +20,7 @@ import { roleSchema, setRole } from '../services/maintenance';
 import { deleteQuestion, getQuestionAdmin, questionInputSchema, updateQuestion } from '../services/questions';
 import { deleteResource, getResource, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
+import { emailOverview } from '../services/email';
 
 const consoleAuth: MiddlewareHandler<AppEnv> = async (c, next) => {
   const user = await userFromToken(c.env.DB, getCookie(c, SESSION_COOKIE) ?? c.req.header('authorization')?.replace(/^Bearer\s+/i, ''));
@@ -41,6 +42,11 @@ const query = (c: { req: { query(): Record<string, string> } }) => Object.fromEn
 
 admin.get('/me', (c) => c.json(c.get('user')));
 admin.get('/overview', async (c) => c.json(await consoleOverview(c.env.DB)));
+// Email health: what was sent in the last 7 days, failures and suppressed addresses (no message bodies are stored).
+admin.get('/email', async (c) => {
+  needPermission(me(c), 'users:manage', 'see the email log');
+  return c.json(await emailOverview(c.env));
+});
 
 // Students
 admin.get('/students', async (c) => (needPermission(me(c), 'users:manage', 'see student accounts'), c.json(await listStudents(c.env.DB, studentQuery.parse(query(c))))));
