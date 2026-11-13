@@ -1,10 +1,11 @@
-import { ChevronRight, Compass, Library, SearchX } from 'lucide-react';
+import { ChevronRight, Compass, Library, Lightbulb, SearchX } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { api, type ExamCode, type SearchResults } from '../api';
 import { Badge, buttonClass, Empty, ErrorBox, kindLabel, Loading, PageHeader, SearchInput, SectionTitle, Segmented } from '../ui';
 
 const examName = (e: string) => (e === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG');
+const CONCEPT_LABEL: Record<string, string> = { DEFINITION: 'Definition', FORMULA: 'Formula', KEY_POINT: 'Key point', IMPORTANT_FACT: 'Fact', CONCEPT: 'Concept' };
 
 /** Search across subjects and the syllabus: units, sections, topics and subtopics. The query lives in the address, so results can be shared. */
 export function SearchPage() {
@@ -36,10 +37,10 @@ export function SearchPage() {
   }, [q, exam]);
 
   const d = state.data;
-  const none = d && !d.subjects.length && !d.topics.length;
+  const none = d && !d.subjects.length && !d.topics.length && !d.concepts.length;
   return (
     <div className="max-w-4xl">
-      <PageHeader title="Search the syllabus" subtitle="Subjects, units, topics and subtopics from the official syllabi you can open." />
+      <PageHeader title="Search the syllabus" subtitle="Subjects, units and topics from the official syllabi, and single concepts (definitions, formulas, key points) inside lessons." />
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <div className="min-w-0 flex-1 [&>label]:sm:w-full">
           <SearchInput value={text} onChange={setText} placeholder="For example: electric dipole, national income, ethics" label="Search the syllabus" />
@@ -61,7 +62,7 @@ export function SearchPage() {
       {state.loading && !d && <Loading label="Searching" />}
       {none && (
         <Empty icon={<SearchX />}>
-          Nothing in the syllabus matches “{q}”. Try fewer or shorter words. Syllabi that are still being checked are not searched.
+          Nothing in the syllabus or the lessons matches “{q}”. Try fewer or shorter words. Syllabi that are still being checked are not searched.
         </Empty>
       )}
 
@@ -94,6 +95,31 @@ export function SearchPage() {
                 </li>
               );
             })}
+          </ul>
+        </section>
+      )}
+
+      {d && d.concepts.length > 0 && (
+        <section className="mb-8" aria-labelledby="sr-concepts">
+          <SectionTitle id="sr-concepts">Concepts in lessons</SectionTitle>
+          <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+            {d.concepts.map((c) => (
+              <li key={c.key}>
+                <Link to={`/learn/${c.resourceId}#${c.anchor}`} className="group flex items-start gap-3 px-4 py-3 transition-colors hover:bg-paper">
+                  <Lightbulb aria-hidden className="mt-0.5 size-[18px] shrink-0 text-ink-3" />
+                  <span className="min-w-0 flex-1">
+                    <span className="flex flex-wrap items-center gap-2 text-[15px] font-medium text-ink group-hover:text-accent">
+                      <span className="line-clamp-2">{c.title}</span>
+                      <Badge>{CONCEPT_LABEL[c.type] ?? c.type}</Badge>
+                    </span>
+                    {c.snippet && <span className="mt-0.5 line-clamp-2 block text-sm text-ink-2">{c.snippet}</span>}
+                    <span className="mt-1 block text-xs text-ink-3">
+                      {examName(c.exam)}, {c.paper}, in “{c.lesson.length > 70 ? `${c.lesson.slice(0, 70)}…` : c.lesson}”
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            ))}
           </ul>
         </section>
       )}

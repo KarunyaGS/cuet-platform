@@ -127,6 +127,27 @@ export function DashboardPage() {
         .
       </p>
 
+      <section aria-label="Revision" className="mb-10 grid grid-cols-1 divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+        <Link to={x.flashcards.due > 0 ? '/flashcards/review' : '/flashcards'} className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-paper">
+          <span className="min-w-0 flex-1">
+            <span className="text-sm text-ink-2">Flashcards due today</span>
+            <span className={`num mt-1 block text-2xl font-semibold ${x.flashcards.due > 0 ? 'text-marker' : 'text-ink'}`}>{x.flashcards.due}</span>
+            <span className="mt-1.5 block text-xs text-ink-3">
+              {x.flashcards.total === 0 ? 'Make cards from definitions and formulas in any lesson' : x.flashcards.due > 0 ? `of ${x.flashcards.total} cards in all` : `All ${x.flashcards.total} cards are up to date`}
+            </span>
+          </span>
+          <span className="shrink-0 text-sm font-medium text-accent">{x.flashcards.due > 0 ? 'Revise now' : 'My flashcards'}</span>
+        </Link>
+        <Link to="/bookmarks?tab=CONCEPT" className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-paper">
+          <span className="min-w-0 flex-1">
+            <span className="text-sm text-ink-2">Saved concepts</span>
+            <span className="num mt-1 block text-2xl font-semibold text-ink">{x.savedConcepts}</span>
+            <span className="mt-1.5 block text-xs text-ink-3">{x.bookmarks} saved items in all</span>
+          </span>
+          <span className="shrink-0 text-sm font-medium text-accent">Open</span>
+        </Link>
+      </section>
+
       <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-2">
         <section aria-labelledby="continue">
           <SectionTitle id="continue">Continue learning</SectionTitle>

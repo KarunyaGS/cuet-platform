@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router/dom';
 import { Layout } from './Layout';
 import { AuthPage } from './pages/Auth';
 import { BookmarksPage } from './pages/Bookmarks';
+import { FlashcardReviewPage, FlashcardsPage } from './pages/Flashcards';
 import { DashboardPage } from './pages/Dashboard';
 import { Home } from './pages/Home';
 import { ExamInfo, InfoHub } from './pages/info/InfoPages';
@@ -87,6 +88,8 @@ const router = createBrowserRouter([
       { path: '/dashboard', element: <DashboardPage /> },
       { path: '/planner', element: <PlannerPage /> },
       { path: '/bookmarks', element: <BookmarksPage /> },
+      { path: '/flashcards', element: <FlashcardsPage /> },
+      { path: '/flashcards/review', element: <FlashcardReviewPage /> },
       { path: '/profile', element: <ProfilePage /> },
       { path: '/progress', element: <ProgressPage /> },
       { path: '/search', element: <SearchPage /> },

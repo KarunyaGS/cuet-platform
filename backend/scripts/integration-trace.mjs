@@ -442,6 +442,49 @@ async function run() {
   check('a mock paper cannot be built while too few questions are approved by a reviewer', readiness.json.ready === false && readiness.json.bank.approvedByReviewer === approvedNow && tooEarly.status === 409 && n('SELECT COUNT(*) FROM mock_papers') === 0, `${approvedNow} approved`);
   check('no mock paper is shown to students until one is approved and published', (await call('GET', '/api/learn/mock-papers?exam=CUET_UG')).json.length === 0);
 
+  // ------------------------------------------------------------ bookmark -> flashcard -> revision (real lessons)
+  group = 'Flashcards';
+  const fcDay = localDay();
+  const fcLesson = (await call('GET', `/api/learn/resources/${lessonRow.id}`)).json;
+  const fcConcepts = fcLesson.blocks.filter((b) => b.conceptKey);
+  check('a real lesson gives each definition, formula, key point and fact its own concept key', fcConcepts.length > 0 && new Set(fcConcepts.map((b) => b.conceptKey)).size === fcConcepts.length && fcLesson.blocks.filter((b) => b.type === 'HEADING').every((b) => b.conceptKey === null), `${fcConcepts.length} concepts`);
+  const rowIdsBefore = all('SELECT id FROM content_blocks WHERE resource_id = ?', lessonRow.id).map((r) => r.id);
+  const learner = await account('cards');
+  const fcKey = fcConcepts[0].conceptKey;
+  await call('POST', '/api/student/bookmarks', { token: learner.token, body: { kind: 'CONCEPT', entityId: fcKey } });
+  const fcMade = await call('POST', '/api/student/flashcards', { token: learner.token, body: { conceptKey: fcKey, day: fcDay } });
+  const fcTwice = await call('POST', '/api/student/flashcards', { token: learner.token, body: { conceptKey: fcKey, day: fcDay } });
+  check('one concept is bookmarked and made into one card; asking twice gives the same card', fcMade.status === 201 && fcTwice.status === 200 && fcTwice.json.card.id === fcMade.json.card.id && n('SELECT COUNT(*) FROM flashcards WHERE user_id = ?', learner.id) === 1);
+  check('the card points back to its lesson and concept', fcMade.json.card.resourceId === lessonRow.id && fcMade.json.card.anchor === fcConcepts[0].anchor && one('SELECT label FROM bookmarks WHERE user_id = ? AND kind = ?', learner.id, 'CONCEPT')?.label?.length > 0);
+  const fcImport = await call('POST', '/api/student/flashcards/import', { token: learner.token, body: { resourceId: lessonRow.id, day: fcDay } });
+  const fcImportAgain = await call('POST', '/api/student/flashcards/import', { token: learner.token, body: { resourceId: lessonRow.id, day: fcDay } });
+  check('importing the whole lesson adds the rest once; importing again adds nothing', fcImport.json?.added === fcConcepts.length - 1 && fcImport.json.existing === 1 && fcImportAgain.json?.added === 0 && n('SELECT COUNT(*) FROM flashcards WHERE user_id = ?', learner.id) === fcConcepts.length && n('SELECT COUNT(DISTINCT concept_key) FROM flashcards WHERE user_id = ?', learner.id) === fcConcepts.length);
+  await call('POST', '/api/student/bookmarks/remove', { token: learner.token, body: { kind: 'CONCEPT', entityId: fcKey } });
+  check('removing the bookmark leaves the card', n('SELECT COUNT(*) FROM bookmarks WHERE user_id = ? AND kind = ?', learner.id, 'CONCEPT') === 0 && n('SELECT COUNT(*) FROM flashcards WHERE user_id = ? AND concept_key = ?', learner.id, fcKey) === 1);
+  const fcKnow = await call('POST', `/api/student/flashcards/${fcMade.json.card.id}/review`, { token: learner.token, body: { rating: 'GOOD', day: fcDay } });
+  const fcAgainSameDay = await call('POST', `/api/student/flashcards/${fcMade.json.card.id}/review`, { token: learner.token, body: { rating: 'GOOD', day: fcDay } });
+  const fcRow = one('SELECT due_on AS due, interval_days AS i, reps FROM flashcards WHERE id = ?', fcMade.json.card.id);
+  check('"Know" moves the card to tomorrow and is counted once', fcKnow.status === 200 && fcRow.i === 1 && fcRow.reps === 1 && fcRow.due > fcDay && fcAgainSameDay.status === 409 && n('SELECT COUNT(*) FROM flashcard_reviews WHERE card_id = ?', fcMade.json.card.id) === 1);
+  const fcQueue = await call('GET', `/api/student/flashcards/queue?day=${fcDay}&limit=200`, { token: learner.token });
+  const fcDash = await call('GET', `/api/student/dashboard?day=${fcDay}&since=${encodeURIComponent(startOfToday())}`, { token: learner.token });
+  check('the revision queue, the dashboard and the database agree on what is due', fcQueue.json?.due === fcConcepts.length - 1 && fcDash.json?.flashcards?.due === fcConcepts.length - 1 && fcDash.json.flashcards.total === fcConcepts.length && n('SELECT COUNT(*) FROM flashcards WHERE user_id = ? AND due_on <= ?', learner.id, fcDay) === fcConcepts.length - 1);
+  const stranger = await account('cards-other');
+  const fcOther = await call('POST', `/api/student/flashcards/${fcMade.json.card.id}/review`, { token: stranger.token, body: { rating: 'GOOD', day: fcDay } });
+  const fcOtherList = await call('GET', `/api/student/flashcards?day=${fcDay}`, { token: stranger.token });
+  const fcOtherDelete = await call('DELETE', `/api/student/flashcards/${fcMade.json.card.id}`, { token: stranger.token });
+  check('another student cannot see, review or delete these cards', fcOther.status === 404 && fcOtherDelete.status === 404 && Array.isArray(fcOtherList.json) && fcOtherList.json.length === 0 && n('SELECT COUNT(*) FROM flashcard_reviews WHERE card_id = ?', fcMade.json.card.id) === 1 && (await call('GET', `/api/student/flashcards?day=${fcDay}`)).status === 401);
+  // Save the lesson again through the admin API, as a re-import does: every block row gets a new id, the concept keys stay.
+  const fcFull = (await admin('GET', `/api/admin/resources/${lessonRow.id}`)).json;
+  const fcSaved = await admin('PUT', `/api/admin/resources/${lessonRow.id}`, {
+    curriculumNodeId: fcFull.curriculumNodeId, testPaperId: fcFull.testPaperId, type: fcFull.type, title: fcFull.title, language: fcFull.language, origin: fcFull.origin,
+    usagePermissionId: fcFull.usagePermissionId, isDemonstration: fcFull.isDemonstration,
+    blocks: all('SELECT type, body, media_asset_id FROM content_blocks WHERE resource_id = ? ORDER BY position', lessonRow.id).map((b) => ({ type: b.type, body: b.body, mediaAssetId: b.media_asset_id })),
+  });
+  const fcAfter = (await call('GET', `/api/learn/resources/${lessonRow.id}`)).json.blocks.filter((b) => b.conceptKey);
+  check('after the lesson is saved again (every block row gets a new id), every concept key is unchanged', fcSaved.status === 200 && all('SELECT id FROM content_blocks WHERE resource_id = ?', lessonRow.id).every((r) => !rowIdsBefore.includes(r.id)) && fcAfter.map((b) => b.conceptKey).join() === fcConcepts.map((b) => b.conceptKey).join());
+  const fcSearch = await call('GET', `/api/learn/search?q=${encodeURIComponent(fcMade.json.card.front.replace(/[^A-Za-z ]/g, ' ').trim().split(/\s+/).filter((w) => w.length > 3).slice(0, 2).join(' '))}`);
+  check('search finds single concepts inside lessons', Array.isArray(fcSearch.json?.concepts) && fcSearch.json.concepts.length > 0 && fcSearch.json.concepts.every((c) => c.resourceId && c.anchor));
+
   // ------------------------------------------------------------ integrity
   group = 'Integrity';
   check('no foreign-key violations after all of the above', all('PRAGMA foreign_key_check').length === 0);

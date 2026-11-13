@@ -1,4 +1,4 @@
-import { CreditCard, FileText, Search, ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { CreditCard, FileText, GalleryVerticalEnd, Search, ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
@@ -107,6 +107,10 @@ function UserMenu() {
               <Bookmark aria-hidden />
               Bookmarks
             </Link>
+            <Link role="menuitem" to="/flashcards" className={item}>
+              <GalleryVerticalEnd aria-hidden />
+              My flashcards
+            </Link>
             <Link role="menuitem" to="/report" className={item}>
               <ChartNoAxesColumn aria-hidden />
               Weekly report
@@ -183,6 +187,7 @@ export function Layout() {
                 <TopLink to="/CUET_UG">CUET-UG</TopLink>
                 <TopLink to="/CUET_PG">CUET-PG</TopLink>
                 <TopLink to="/practice-centre">Practice</TopLink>
+                <TopLink to="/flashcards">Flashcards</TopLink>
                 <TopLink to="/planner">Planner</TopLink>
                 <TopLink to="/progress">Progress</TopLink>
               </nav>

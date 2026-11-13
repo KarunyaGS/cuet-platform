@@ -47,7 +47,11 @@ export interface TopicDetail {
   resources: { id: string; type: string; title: string; origin: string; status: string; verification: string }[];
   questionCount: number;
 }
-export interface Block { position: number; type: string; body: string; media_asset_id: string | null; alt_text: string | null; caption: string | null; media_kind: string | null }
+export interface Block {
+  position: number; type: string; body: string; media_asset_id: string | null; alt_text: string | null; caption: string | null; media_kind: string | null;
+  /** Set on a definition, formula, key point, fact or concept: it can be bookmarked and made into a flashcard on its own. */
+  conceptKey?: string | null; anchor?: string | null;
+}
 export interface ResourceDetail {
   resource: { id: string; type: string; title: string; origin: string; verification: string; status: string; preview: boolean; updatedAt?: string };
   topic: { id: string; title: string; kind: string; label: string | null; paper_id: string } | null;
@@ -119,8 +123,26 @@ export interface Progress {
 }
 export interface SubjectProgress { paper: string; paperCode: string; topics: number; attempted: number; correct: number; accuracy: number | null }
 export interface Profile { id: string; email: string; displayName: string; memberSince: string; lastLogin: string | null; testsTaken: number; bookmarks: number }
-export type BookmarkKind = 'TOPIC' | 'LESSON' | 'QUESTION' | 'REVISION';
-export interface Bookmark { id: string; kind: BookmarkKind; entityId: string; title: string; nodeId: string | null; paper: string | null; createdAt: string }
+export type BookmarkKind = 'TOPIC' | 'LESSON' | 'QUESTION' | 'REVISION' | 'CONCEPT';
+export interface Bookmark {
+  id: string; kind: BookmarkKind; entityId: string; title: string; nodeId: string | null; paper: string | null; createdAt: string;
+  /** CONCEPT only: its lesson, its place in the lesson, and the student's flashcard for it (if made). */
+  resourceId: string | null; lesson: string | null; anchor: string | null; cardId: string | null;
+}
+export type CardRating = 'AGAIN' | 'HARD' | 'GOOD' | 'EASY';
+export interface Flashcard {
+  id: string; conceptKey: string; resourceId: string; anchor: string; lesson: string; section: string | null; type: string;
+  paperId: string | null; paper: string | null; chapterId: string | null; chapter: string | null;
+  front: string; back: string; latex: string | null;
+  dueOn: string; due: boolean; intervalDays: number; reps: number; lapses: number; lastRating: CardRating | null; lastReviewedAt: string | null;
+  stage: 'NEW' | 'LEARNING' | 'KNOWN';
+}
+export interface CardSummary {
+  day: string; total: number; due: number; fresh: number; known: number; reviewedToday: number; savedConcepts: number;
+  subjects: { paperId: string | null; paper: string; total: number; due: number; known: number; chapters: { chapterId: string | null; chapter: string; total: number; due: number; known: number }[] }[];
+}
+export interface CardImport { total: number; added: number; existing: number; notAdded: number; limit: number }
+export type ConceptType = 'DEFINITION' | 'FORMULA' | 'KEY_POINT' | 'IMPORTANT_FACT' | 'CONCEPT';
 export interface Goal { questionsPerDay: number; lessonsPerDay: number; custom: boolean }
 export type PlanKind = 'TOPIC' | 'LESSON' | 'PRACTICE' | 'MOCK' | 'CUSTOM';
 export interface PlanItem { id: string; day: string; kind: PlanKind; refId: string | null; title: string; done: boolean }
@@ -133,10 +155,12 @@ export interface Dashboard {
   subjects: SubjectProgress[];
   totals: Progress['totals'];
   bookmarks: number;
+  savedConcepts: number;
+  flashcards: { total: number; due: number };
 }
 export interface RevisionNotes {
   topic: { id: string; title: string; kind: string; label: string | null; paperId: string; paper: string };
-  lessons: { resourceId: string; lesson: string; blocks: { type: string; body: string; position: number }[] }[];
+  lessons: { resourceId: string; lesson: string; blocks: { type: string; body: string; position: number; conceptKey: string | null; anchor: string | null }[] }[];
 }
 
 export interface OfficialItem { text: string; source: string | null; page: number | null; note: string | null }
@@ -168,6 +192,8 @@ export interface SearchResults {
   query: string; more: boolean;
   subjects: { paperId: string; code: string; name: string; exam: ExamCode; available: boolean }[];
   topics: { id: string; kind: string; label: string | null; title: string; snippet: string | null; parentTitle: string | null; paperId: string; paperCode: string; paper: string; exam: ExamCode }[];
+  /** Single definitions, formulas, key points and facts inside lessons. */
+  concepts: { key: string; anchor: string; type: ConceptType; title: string; snippet: string; resourceId: string; lesson: string; paperId: string; paper: string; exam: ExamCode }[];
 }
 
 /** The student's local calendar day (YYYY-MM-DD) and the moment it started, for "today" counts. */
@@ -209,6 +235,17 @@ export const api = {
   bookmarkState: (kind: BookmarkKind, ids: string[]) => request<string[]>('GET', `/api/student/bookmarks/state?kind=${kind}&ids=${ids.map(encodeURIComponent).join(',')}`),
   addBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks', b),
   removeBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks/remove', b),
+  // Flashcards and revision. The day is the student's own calendar day.
+  cards: (f: { paperId?: string | null; chapterId?: string | null; due?: boolean } = {}) =>
+    request<Flashcard[]>('GET', `/api/student/flashcards?day=${localDay()}${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}${f.due ? '&due=1' : ''}`),
+  cardSummary: () => request<CardSummary>('GET', `/api/student/flashcards/summary?day=${localDay()}`),
+  cardQueue: (f: { paperId?: string | null; chapterId?: string | null } = {}) =>
+    request<{ day: string; due: number; cards: Flashcard[] }>('GET', `/api/student/flashcards/queue?day=${localDay()}&limit=100${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}`),
+  cardState: (keys: string[]) => request<string[]>('POST', '/api/student/flashcards/state', { keys }),
+  createCard: (conceptKey: string) => request<{ created: boolean; card: Flashcard }>('POST', '/api/student/flashcards', { conceptKey, day: localDay() }),
+  importCards: (from: { resourceId: string } | { nodeId: string }, types?: ConceptType[]) => request<CardImport>('POST', '/api/student/flashcards/import', { ...from, ...(types ? { types } : {}), day: localDay() }),
+  reviewCard: (id: string, rating: CardRating) => request<Flashcard>('POST', `/api/student/flashcards/${id}/review`, { rating, day: localDay() }),
+  deleteCard: (id: string) => request<{ deleted: boolean }>('DELETE', `/api/student/flashcards/${id}`),
   plan: (from: string, to: string) => request<PlanItem[]>('GET', `/api/student/plan?from=${from}&to=${to}`),
   addPlan: (b: { day: string; kind: PlanKind; refId?: string | null; title: string }) => request<{ id: string }>('POST', '/api/student/plan', b),
   updatePlan: (id: string, b: { day?: string; title?: string; done?: boolean }) => request<{ id: string }>('PATCH', `/api/student/plan/${id}`, b),

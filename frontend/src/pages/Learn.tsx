@@ -1,9 +1,9 @@
 import { BookMarked, ChevronDown, ChevronLeft, Lightbulb, ListChecks, Sigma, Target } from 'lucide-react';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { Link, useNavigate, useParams } from 'react-router';
+import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { api, type Block } from '../api';
 import { DisplayMath, parseBody, Rich } from '../rich';
-import { AddToPlan, BookmarkButton, useTrackView } from '../tools';
+import { AddCards, AddToPlan, BookmarkButton, ConceptActions, useConcepts, useTrackView } from '../tools';
 import { Button, ErrorBox, Loading, useAuth, useLoad } from '../ui';
 
 /**
@@ -198,6 +198,21 @@ export function LearnPage() {
   const [err, setErr] = useState<Error | null>(null);
   useTrackView('LESSON_VIEW', r.data ? resourceId : null);
   const toc = useMemo(() => (r.data?.blocks ?? []).filter((b) => b.type === 'HEADING').map((b) => b.body), [r.data]);
+  const conceptKeys = useMemo(() => (r.data?.blocks ?? []).map((b) => b.conceptKey).filter((k): k is string => Boolean(k)), [r.data]);
+  const concepts = useConcepts(conceptKeys);
+  // Arriving from a flashcard, a bookmark or search: go to that concept and mark it for a moment.
+  const { hash } = useLocation();
+  const wanted = hash.startsWith('#c-') ? hash.slice(1) : null;
+  const found = wanted ? (r.data?.blocks ?? []).some((b) => b.anchor === wanted) : false;
+  useEffect(() => {
+    if (!found || !wanted) return;
+    const el = document.getElementById(wanted);
+    if (!el) return;
+    el.scrollIntoView({ block: 'center' });
+    el.setAttribute('data-arrived', '');
+    const t = setTimeout(() => el.removeAttribute('data-arrived'), 2500);
+    return () => clearTimeout(t);
+  }, [found, wanted]);
   const tocIds = useMemo(() => toc.map(slug), [toc]);
   const current = useCurrentHeading(tocIds);
   const minutes = useMemo(() => {
@@ -238,12 +253,25 @@ export function LearnPage() {
             <span className="flex flex-wrap gap-2 sm:ml-auto">
               <BookmarkButton kind="LESSON" id={d.resource.id} />
               <AddToPlan kind="LESSON" refId={d.resource.id} title={d.resource.title} />
+              {conceptKeys.length > 0 && <AddCards from={{ resourceId: d.resource.id }} onDone={concepts.reload} />}
             </span>
           </div>
         </header>
+        {wanted && !found && (
+          <p role="status" className="mb-6 rounded-lg border border-marker/30 bg-marker-soft px-4 py-3 text-sm text-ink">
+            The concept you saved has been updated in this lesson since then. The lesson below shows how it reads now.
+          </p>
+        )}
         <div className="space-y-5">
           {d.blocks.map((b) => {
             if (b.type === 'SOLVED_PROBLEM') solved++;
+            if (b.conceptKey && b.anchor)
+              return (
+                <div key={b.position} id={b.anchor} className="scroll-mt-24 rounded-lg transition-shadow duration-700 data-[arrived]:shadow-[0_0_0_3px_var(--color-accent)]">
+                  <BlockView b={b} solvedNo={solved} />
+                  <ConceptActions id={b.conceptKey} c={concepts} />
+                </div>
+              );
             return <BlockView key={b.position} b={b} solvedNo={solved} />;
           })}
         </div>

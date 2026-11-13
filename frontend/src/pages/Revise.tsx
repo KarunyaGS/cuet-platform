@@ -2,7 +2,7 @@ import { ListChecks } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api } from '../api';
-import { AddToPlan, BookmarkButton } from '../tools';
+import { AddCards, AddToPlan, BookmarkButton, ConceptActions, useConcepts } from '../tools';
 import { Button, Empty, ErrorBox, kindLabel, Loading, PageHeader, Segmented, useAuth, useLoad } from '../ui';
 import { BlockView } from './Learn';
 
@@ -25,6 +25,7 @@ export function RevisePage() {
   const only = filter === 'ALL' ? null : filter;
   const [starting, setStarting] = useState(false);
   const [err, setErr] = useState<Error | null>(null);
+  const concepts = useConcepts((r.data?.lessons ?? []).flatMap((l) => l.blocks.map((b) => b.conceptKey)).filter((k): k is string => Boolean(k)));
   if (r.loading) return <Loading />;
   if (r.error) return <ErrorBox error={r.error} onRetry={r.reload} />;
   const d = r.data!;
@@ -57,6 +58,7 @@ export function RevisePage() {
           <>
             <BookmarkButton kind="REVISION" id={d.topic.id} />
             <AddToPlan kind="TOPIC" refId={d.topic.id} title={`Revise: ${d.topic.title}`} />
+            {count > 0 && <AddCards from={{ nodeId: d.topic.id }} onDone={concepts.reload} />}
           </>
         }
       />
@@ -83,7 +85,10 @@ export function RevisePage() {
                   </h2>
                   <div className="space-y-3">
                     {blocks.map((b) => (
-                      <BlockView key={b.position} b={{ ...b, media_asset_id: null, alt_text: null, caption: null, media_kind: null }} solvedNo={0} />
+                      <div key={b.position}>
+                        <BlockView b={{ ...b, media_asset_id: null, alt_text: null, caption: null, media_kind: null }} solvedNo={0} />
+                        {b.conceptKey && <ConceptActions id={b.conceptKey} c={concepts} />}
+                      </div>
                     ))}
                   </div>
                 </section>
