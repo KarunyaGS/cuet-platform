@@ -1,3 +1,4 @@
+import { Annotatable } from '../annotate';
 import { ChartNoAxesColumn, CircleCheck, CircleMinus, CircleX } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router';
@@ -17,6 +18,8 @@ export function ResultsPage() {
   const s = useLoad(() => api.session(sessionId), [sessionId]);
   const [filter, setFilter] = useState<Filter>('all');
   const ids = useMemo(() => (s.data?.questions ?? []).map((q) => q.id), [s.data]);
+  // The student's highlights and drawings on these questions, in one request.
+  const marks = useLoad(() => (ids.length ? api.annotationsFor('QUESTION', ids) : Promise.resolve([])), [ids.join(',')]);
   const bookmarks = useBookmarks('QUESTION', ids);
   if (s.loading) return <Loading />;
   if (s.error) return <ErrorBox error={s.error} onRetry={s.reload} />;
@@ -142,8 +145,10 @@ export function ResultsPage() {
                   <BookmarkToggle on={bookmarks.marked.has(q.id)} onClick={() => void bookmarks.toggle(q.id)} compact />
                 </span>
               </div>
-              <div className="px-4 py-4">
-                <QuestionStem stem={q.stem} structure={q.structure} compact />
+              <Annotatable kind="QUESTION" id={q.id} preload={marks.data ? marks.data.filter((a) => a.surfaceId === q.id) : null} className="px-4 py-4">
+                <div data-annot-block="stem">
+                  <QuestionStem stem={q.stem} structure={q.structure} compact />
+                </div>
                 <ul className="grid-cols-1 mt-3 grid gap-2 sm:grid-cols-2">
                   {q.options.map((o) => {
                     const right = rv.correctOptionPositions?.includes(o.position);
@@ -154,7 +159,7 @@ export function ResultsPage() {
                         className={`flex items-start gap-2 rounded-lg border px-3 py-2 text-sm ${right ? 'border-correct/40 bg-correct-soft text-ink' : chosen ? 'border-wrong/40 bg-wrong-soft text-ink' : 'border-rule text-ink-2'}`}
                       >
                         <span className="font-semibold">{o.label}.</span>
-                        <span className="min-w-0 flex-1">
+                        <span className="min-w-0 flex-1" data-annot-block={`opt-${o.position}`}>
                           <Rich text={o.text} inline />
                         </span>
                         {right && <span className="shrink-0 text-xs font-medium text-correct">Answer</span>}
@@ -166,10 +171,12 @@ export function ResultsPage() {
                 {rv.explanation && (
                   <div className="mt-3 border-l-2 border-accent pl-3">
                     <div className="text-[13px] font-semibold text-ink-2">Explanation</div>
-                    <Rich text={rv.explanation} className="mt-0.5 text-sm leading-relaxed text-ink" />
+                    <div data-annot-block="explanation">
+                      <Rich text={rv.explanation} className="mt-0.5 text-sm leading-relaxed text-ink" />
+                    </div>
                   </div>
                 )}
-              </div>
+              </Annotatable>
             </li>
           );
         })}

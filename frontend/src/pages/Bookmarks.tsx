@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useSearchParams } from 'react-router';
 import { api, type Bookmark, type BookmarkKind, type Flashcard } from '../api';
 import { applyChange, CardRow } from '../revision';
+import { BookmarkNotes } from './BookmarkNotes';
 import { Rich } from '../rich';
 import { ButtonLink, buttonClass, Empty, ErrorBox, inputClass, Loading, PageHeader, SearchInput, Segmented, StatGroup, useAuth, useLoad } from '../ui';
 
@@ -20,7 +21,7 @@ function target(b: Bookmark) {
   return b.nodeId ? `/topic/${b.nodeId}` : null;
 }
 
-type Tab = 'CARDS' | 'PAGES' | 'RECENT';
+type Tab = 'CARDS' | 'NOTES' | 'PAGES' | 'RECENT';
 type Show = 'ALL' | 'NEED' | 'DUE';
 
 interface Lesson { id: string; title: string; cards: Flashcard[] }
@@ -71,7 +72,12 @@ export function BookmarksPage() {
   useEffect(() => {
     if (loaded.data) setCards(loaded.data);
   }, [loaded.data]);
-  const [tab, setTab] = useState<Tab>('CARDS');
+  const [tab, setTab] = useState<Tab>(params.get('tab') === 'notes' ? 'NOTES' : 'CARDS');
+  // Highlights, drawings and notes: a different kind of saved item, in the same place.
+  const [noteCount, setNoteCount] = useState<number | null>(null);
+  useEffect(() => {
+    if (user) api.allAnnotations().then((r) => setNoteCount(r.length), () => undefined);
+  }, [user]);
   const [show, setShow] = useState<Show>(params.get('show') === 'due' ? 'DUE' : 'ALL');
   const [query, setQuery] = useState('');
   const subjectId = params.get('paperId') ?? '';
@@ -134,7 +140,7 @@ export function BookmarksPage() {
     <div>
       <PageHeader
         title="My bookmarks"
-        subtitle="Everything you saved, in one place. Each saved definition, formula and key point is a revision card: turn it over, then mark Know or Need revision."
+        subtitle="Everything you saved, in one place: revision cards from saved definitions, formulas and key points, and your own highlights and notes."
         actions={
           due > 0 ? (
             <Link to={`/bookmarks/review${reviewQuery}`} className={buttonClass('primary')} data-review>
@@ -150,6 +156,7 @@ export function BookmarksPage() {
           onChange={setTab}
           options={[
             { value: 'CARDS', label: `Revision cards (${cards.length})` },
+            { value: 'NOTES', label: `Highlights and notes${noteCount === null ? '' : ` (${noteCount})`}` },
             { value: 'PAGES', label: `Saved pages (${savedPages.length})` },
             { value: 'RECENT', label: 'Recently viewed' },
           ]}
@@ -279,6 +286,8 @@ export function BookmarksPage() {
             {cards.length >= 1000 && <p className="mt-3 text-sm text-ink-2">Showing your first 1,000 cards.</p>}
           </>
         ))}
+
+      {tab === 'NOTES' && <BookmarkNotes onCount={setNoteCount} />}
 
       {tab === 'PAGES' &&
         (pages.loading && !pages.data ? (

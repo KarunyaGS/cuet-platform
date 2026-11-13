@@ -23,6 +23,7 @@ import {
   listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
 } from '../services/student-tools';
 import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
+import { deleteOne, editOne, editSchema, listAll, listForSurface, listForSurfaces, saveBatch, saveSchema } from '../services/annotations';
 import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, deleteCard, importCards, importCardsSchema, listCards, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
 import { pyqDocument, pyqDocumentFile, pyqExamSchema, pyqSubject, pyqTree } from '../services/pyq';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
@@ -213,6 +214,17 @@ student.get('/bookmarks/state', async (c) => {
 });
 student.post('/bookmarks', async (c) => c.json(await addBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema)), 201));
 student.post('/bookmarks/remove', async (c) => c.json(await removeBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema))));
+
+// Highlights and annotations: the student's own marks on lessons and questions. They never touch content, answers or scores.
+student.get('/annotations', async (c) => {
+  const kind = c.req.query('surface');
+  if (!kind) return c.json(await listAll(c.env.DB, c.get('user').id));
+  const ids = (c.req.query('ids') ?? '').split(',').filter(Boolean);
+  return c.json(ids.length ? await listForSurfaces(c.env.DB, c.get('user').id, kind, ids) : await listForSurface(c.env.DB, c.get('user').id, kind, c.req.query('id') ?? ''));
+});
+student.put('/annotations', async (c) => c.json(await saveBatch(c.env.DB, c.get('user').id, await readJson(c, saveSchema))));
+student.patch('/annotations/:id', async (c) => c.json(await editOne(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, editSchema))));
+student.delete('/annotations/:id', async (c) => c.json(await deleteOne(c.env.DB, c.get('user').id, c.req.param('id'))));
 
 // Flashcards and spaced revision. Every card belongs to the signed-in student; card text is copied from the lesson by the server.
 const cardFilters = (c: { req: { query(name: string): string | undefined } }) =>

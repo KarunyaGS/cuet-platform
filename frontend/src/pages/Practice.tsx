@@ -1,3 +1,4 @@
+import { Annotatable } from '../annotate';
 import { ChevronLeft, ChevronRight, CircleCheck, CircleX, Clock, Flag } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
@@ -216,14 +217,16 @@ export function PracticePage() {
               <BookmarkButton kind="QUESTION" id={q.id} compact />
             </span>
           </div>
-          <div className="px-5 py-5">
+          <Annotatable key={q.id} kind="QUESTION" id={q.id} className="px-5 py-5">
             {q.passage && (
               <div className="mb-4 max-h-64 overflow-y-auto rounded-lg border border-rule bg-paper p-4 font-serif text-[15px] leading-relaxed text-ink">
                 {q.passage.title && <div className="mb-1 font-sans font-semibold">{q.passage.title}</div>}
                 {q.passage.body}
               </div>
             )}
-            <QuestionStem stem={q.stem} structure={q.structure} />
+            <div data-annot-block="stem">
+              <QuestionStem stem={q.stem} structure={q.structure} />
+            </div>
             <ul className="mt-5 space-y-2.5" role={q.type === 'MCQ_MULTI' ? 'group' : 'radiogroup'} aria-label="Options">
               {q.options.map((o, k) => {
                 const chosen = Boolean(q.answer?.selectedPositions?.includes(o.position));
@@ -250,7 +253,7 @@ export function PracticePage() {
                       <span aria-hidden className={`grid size-7 shrink-0 place-items-center rounded-full border text-[13px] font-semibold ${dot}`}>
                         {o.label}
                       </span>
-                      <span className="min-w-0 flex-1 pt-0.5">
+                      <span className="min-w-0 flex-1 pt-0.5" data-annot-block={`opt-${o.position}`}>
                         <Rich text={o.text} inline className="min-w-0" />
                       </span>
                       {showResult && right && <CircleCheck aria-label="Correct answer" className="mt-1 size-5 shrink-0 text-correct" />}
@@ -287,11 +290,15 @@ export function PracticePage() {
                     {fb.score} marks)
                   </span>
                 </div>
-                {fb.explanation && <Rich text={fb.explanation} className="mt-2 text-[15px] leading-relaxed text-ink" />}
+                {fb.explanation && (
+                  <div data-annot-block="explanation">
+                    <Rich text={fb.explanation} className="mt-2 text-[15px] leading-relaxed text-ink" />
+                  </div>
+                )}
               </div>
             )}
             {err && <ErrorBox error={err} />}
-          </div>
+          </Annotatable>
           <div className="flex flex-wrap items-center justify-between gap-2 border-t border-rule px-5 py-3">
             <Button kind="ghost" onClick={() => setI(Math.max(0, i - 1))} disabled={i === 0} icon={<ChevronLeft aria-hidden />}>
               Previous

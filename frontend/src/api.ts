@@ -125,6 +125,18 @@ export interface SubjectProgress { paper: string; paperCode: string; topics: num
 export interface Profile { id: string; email: string; displayName: string; memberSince: string; lastLogin: string | null; testsTaken: number; bookmarks: number }
 export type BookmarkKind = 'TOPIC' | 'LESSON' | 'QUESTION' | 'REVISION';
 export interface Bookmark { id: string; kind: BookmarkKind; entityId: string; title: string; nodeId: string | null; paper: string | null; createdAt: string }
+export type AnnotationKind = 'HIGHLIGHT' | 'PEN' | 'RECT' | 'ELLIPSE' | 'ARROW' | 'LINE' | 'NOTE';
+/** A student's own mark on a lesson or a question. `data`: a text range for a highlight, points (fractions of its block) for a drawing. */
+export interface Annotation {
+  id: string; surfaceKind: 'LESSON' | 'QUESTION'; surfaceId: string; kind: AnnotationKind; blockKey: string; data: unknown; quote: string | null; note: string | null;
+  color: string; opacity: number; strokeWidth: number; z: number; orphaned: boolean; originPath: string | null; createdAt: string; updatedAt: string;
+}
+/** An annotation with where it is, for My bookmarks. */
+export interface AnnotationEntry extends Annotation {
+  examCode: string | null; paperId: string | null; paper: string | null; unitId: string | null; unit: string | null; unitPosition: number | null;
+  chapterId: string | null; chapter: string | null; chapterPosition: number | null; topicId: string | null; topic: string | null;
+  resourceId: string | null; lesson: string | null; questionId: string | null; question: string | null;
+}
 export type CardRating = 'AGAIN' | 'HARD' | 'GOOD' | 'EASY';
 export interface Flashcard {
   id: string; conceptKey: string; resourceId: string; anchor: string; lesson: string; section: string | null; type: string;
@@ -257,6 +269,13 @@ export const api = {
   bookmarkState: (kind: BookmarkKind, ids: string[]) => request<string[]>('GET', `/api/student/bookmarks/state?kind=${kind}&ids=${ids.map(encodeURIComponent).join(',')}`),
   addBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks', b),
   removeBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks/remove', b),
+  // Highlights and annotations.
+  annotations: (kind: 'LESSON' | 'QUESTION', id: string) => request<Annotation[]>('GET', `/api/student/annotations?surface=${kind}&id=${encodeURIComponent(id)}`),
+  annotationsFor: (kind: 'LESSON' | 'QUESTION', ids: string[]) => request<Annotation[]>('GET', `/api/student/annotations?surface=${kind}&ids=${ids.map(encodeURIComponent).join(',')}`),
+  allAnnotations: () => request<AnnotationEntry[]>('GET', '/api/student/annotations'),
+  saveAnnotations: (body: { surfaceKind: string; surfaceId: string; originPath?: string; upserts: unknown[]; deletes: string[] }) => request<{ saved: number; removed: number; changed: number }>('PUT', '/api/student/annotations', body),
+  editAnnotation: (id: string, body: { note?: string | null; color?: string }) => request<{ id: string; note: string | null; color: string }>('PATCH', `/api/student/annotations/${encodeURIComponent(id)}`, body),
+  deleteAnnotation: (id: string) => request<{ deleted: boolean }>('DELETE', `/api/student/annotations/${encodeURIComponent(id)}`),
   // Flashcards and revision. The day is the student's own calendar day.
   cards: (f: { paperId?: string | null; chapterId?: string | null; nodeId?: string | null; resourceId?: string | null; due?: boolean; limit?: number } = {}) =>
     request<Flashcard[]>('GET', `/api/student/flashcards?day=${localDay()}${f.resourceId ? `&resourceId=${encodeURIComponent(f.resourceId)}` : ''}${f.limit ? `&limit=${f.limit}` : ''}${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}${f.nodeId ? `&nodeId=${encodeURIComponent(f.nodeId)}` : ''}${f.due ? '&due=1' : ''}`),

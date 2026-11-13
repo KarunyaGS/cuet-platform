@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { api, type Block } from '../api';
 import { DisplayMath, parseBody, Rich } from '../rich';
+import { Annotatable, blockKey } from '../annotate';
 import { SavedForRevision } from '../revision';
 import { AddCards, AddToPlan, BookmarkButton, ConceptActions, useConcepts, useTrackView } from '../tools';
 import { Button, ErrorBox, Loading, useAuth, useLoad } from '../ui';
@@ -238,6 +239,7 @@ export function LearnPage() {
       setStarting(false);
     }
   };
+  const seenKeys = new Map<string, number>();
   return (
     <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_15rem]">
       <article className="min-w-0 max-w-[44rem]">
@@ -268,19 +270,29 @@ export function LearnPage() {
             The concept you saved has been updated in this lesson since then. The lesson below shows how it reads now.
           </p>
         )}
-        <div className="space-y-5">
-          {d.blocks.map((b) => {
-            if (b.type === 'SOLVED_PROBLEM') solved++;
-            if (b.conceptKey && b.anchor)
+        <Annotatable kind="LESSON" id={d.resource.id}>
+          <div className="space-y-5">
+            {d.blocks.map((b) => {
+              if (b.type === 'SOLVED_PROBLEM') solved++;
+              // Each block carries a key made from its own content, so a highlight or a drawing stays with it.
+              const k = blockKey(b.type, b.body, seenKeys);
+              if (b.conceptKey && b.anchor)
+                return (
+                  <div key={b.position} id={b.anchor} className="scroll-mt-24 rounded-lg transition-shadow duration-700 data-[arrived]:shadow-[0_0_0_3px_var(--color-accent)]">
+                    <div data-annot-block={k}>
+                      <BlockView b={b} solvedNo={solved} />
+                    </div>
+                    <ConceptActions id={b.conceptKey} c={concepts} />
+                  </div>
+                );
               return (
-                <div key={b.position} id={b.anchor} className="scroll-mt-24 rounded-lg transition-shadow duration-700 data-[arrived]:shadow-[0_0_0_3px_var(--color-accent)]">
+                <div key={b.position} data-annot-block={k}>
                   <BlockView b={b} solvedNo={solved} />
-                  <ConceptActions id={b.conceptKey} c={concepts} />
                 </div>
               );
-            return <BlockView key={b.position} b={b} solvedNo={solved} />;
-          })}
-        </div>
+            })}
+          </div>
+        </Annotatable>
         {d.topic && (
           <div className="mt-10 rounded-xl border border-rule bg-surface p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">

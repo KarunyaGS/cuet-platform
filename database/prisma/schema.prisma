@@ -928,6 +928,7 @@ model User {
   progress        TopicProgress[]
   bookmarks       Bookmark[]
   flashcards      Flashcard[]
+  annotations     Annotation[]
   activity        LearningActivity[]
   dailyGoal       DailyGoal?
   planItems       StudyPlanItem[]
@@ -1152,6 +1153,53 @@ model Flashcard {
   @@index([userId, dueOn])
   @@index([userId, testPaperId, chapterNodeId])
   @@map("flashcards")
+}
+
+/// A student's own mark on learning content: a text highlight, a pen stroke, a shape, an arrow, a line or a note.
+/// It belongs to one "surface" (a lesson, or a question) and, inside it, to one content block. Positions are relative
+/// to that block, never to the screen. Plain references (no foreign keys): an annotation outlives changed content,
+/// and is then flagged `orphaned` instead of being attached to other text.
+model Annotation {
+  /// Made by the browser, so a save can be repeated safely.
+  id               String   @id
+  userId           String   @map("user_id")
+  /// LESSON (learning_resources.id) or QUESTION (questions.id).
+  surfaceKind      String   @map("surface_kind")
+  surfaceId        String   @map("surface_id")
+  /// HIGHLIGHT, PEN, RECT, ELLIPSE, ARROW, LINE or NOTE.
+  kind             String
+  /// The content block it sits on: a key made from the block's own content.
+  blockKey         String   @map("block_key")
+  /// JSON. HIGHLIGHT: the text range (start, end, a little text before and after). Others: points as fractions of the block's box.
+  dataJson         String   @map("data_json")
+  /// HIGHLIGHT: exactly the text that was selected.
+  quote            String?
+  /// The student's own note, on any kind.
+  note             String?
+  color            String
+  opacity          Float    @default(1)
+  strokeWidth      Float    @default(3) @map("stroke_width")
+  /// Drawing order: higher is on top.
+  z                Int      @default(0)
+  /// True when the content changed and the annotation could not be placed again.
+  orphaned         Boolean  @default(false)
+  /// Where it was made, to return there: a path inside the app.
+  originPath       String?  @map("origin_path")
+  /// Context, filled in by the server from the surface.
+  examCode         String?  @map("exam_code")
+  testPaperId      String?  @map("test_paper_id")
+  unitNodeId       String?  @map("unit_node_id")
+  chapterNodeId    String?  @map("chapter_node_id")
+  curriculumNodeId String?  @map("curriculum_node_id")
+  resourceId       String?  @map("resource_id")
+  questionId       String?  @map("question_id")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, surfaceKind, surfaceId])
+  @@index([userId, updatedAt])
+  @@map("annotations")
 }
 
 /// One answer given on a flashcard: AGAIN, HARD, GOOD or EASY. Kept for progress figures.
