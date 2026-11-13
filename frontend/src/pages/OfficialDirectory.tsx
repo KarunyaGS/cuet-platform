@@ -3,7 +3,7 @@
  * answer-key files. Every paper that was held is listed with its status. Where the exam body does not publish the
  * question paper, the row says so; nothing is invented and no document is copied here.
  */
-import { ChevronDown, ChevronRight, ExternalLink, FileKey, FileX } from 'lucide-react';
+import { ChevronDown, ChevronRight, ExternalLink, FileKey, FileText, FileX } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 import { api, type DirectoryYear, type ExamCode } from '../api';
@@ -152,12 +152,12 @@ function Sessions({ exam, year, code, name, practise }: { exam: ExamCode; year: 
                 <td className="num py-2.5 pr-4 text-ink">{longDay(r.date)}</td>
                 <td className="py-2.5 pr-4 text-ink">{r.shift}</td>
                 <td className="py-2.5 pr-4">
-                  {r.questionPaper.available && r.questionPaper.url ? (
+                  {r.questionPaper.available && r.questionPaper.linkId ? (
                     <span>
-                      <a href={r.questionPaper.url} target="_blank" rel="noreferrer" className={linkClass}>
-                        View paper <ExternalLink aria-hidden className="size-3.5" />
-                      </a>
-                      <span className="mt-0.5 block text-xs text-ink-2">Opens on NTA's site{r.questionPaper.pages ? ` · ${r.questionPaper.pages} pages` : ''}</span>
+                      <Link to={`/official-papers/view/${r.questionPaper.linkId}`} className={linkClass}>
+                        <FileText aria-hidden className="size-3.5" /> View paper
+                      </Link>
+                      <span className="mt-0.5 block text-xs text-ink-2">NTA's original{r.questionPaper.pages ? ` · ${r.questionPaper.pages} pages` : ''}</span>
                     </span>
                   ) : r.questionPaper.published ? (
                     <span className="text-ink">
@@ -174,10 +174,10 @@ function Sessions({ exam, year, code, name, practise }: { exam: ExamCode; year: 
                 <td className="py-2.5">
                   {!r.answerKey.published ? (
                     <span className="text-ink-2">Not found on NTA's sites</span>
-                  ) : r.answerKey.url ? (
-                    <a href={r.answerKey.url} target="_blank" rel="noreferrer" className={linkClass}>
-                      View key, page {r.answerKey.page} <ExternalLink aria-hidden className="size-3.5" />
-                    </a>
+                  ) : r.answerKey.linkId ? (
+                    <Link to={`/official-papers/view/${r.answerKey.linkId}?page=${r.answerKey.page}`} className={linkClass}>
+                      <FileKey aria-hidden className="size-3.5" /> View key, page {r.answerKey.page}
+                    </Link>
                   ) : (
                     <span className="text-ink">
                       Published <span className="text-ink-2">· page {r.answerKey.page} of NTA's key file</span>

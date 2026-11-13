@@ -73,10 +73,14 @@ export interface DirectoryYear {
   questionPaper: { status: 'NOT_PUBLISHED' | 'SOME_PUBLISHED'; published: number; note: string | null };
   answerKey: { title: string; publisher: string; checkedOn: string; note: string | null; url: string | null; linkPending: boolean } | null;
 }
+export interface OfficialDocument {
+  id: string; exam: ExamCode; year: number; subjectName: string | null; session: string | null; kind: 'QUESTION_PAPER' | 'ANSWER_KEY'; title: string; publisher: string; checkedOn: string;
+  originalUrl: string; viewer: 'DIRECT' | 'PROXY' | 'NEW_TAB'; fileUrl: string | null; reason: string | null;
+}
 export interface DirectorySession {
   id: string; subjectCode: string; subjectName: string; date: string; shift: string;
-  questionPaper: { published: boolean; available: boolean; url: string | null; title: string | null; pages: number | null };
-  answerKey: { published: boolean; page: number | null; pages: number; title: string | null; url: string | null };
+  questionPaper: { published: boolean; available: boolean; url: string | null; linkId: string | null; title: string | null; pages: number | null };
+  answerKey: { published: boolean; page: number | null; pages: number; title: string | null; url: string | null; linkId: string | null };
   dropped: number;
 }
 export interface MockPaperCard { id: string; paperId: string; subjectCode: string; subjectName: string; exam: ExamCode; number: number; title: string; questions: number; durationMinutes: number; marksCorrect: number; marksIncorrect: number; difficulty: Record<string, number>; units: number }
@@ -225,6 +229,7 @@ export const api = {
     request<{ total: number; years: number[]; subjects: { code: string; name: string }[]; papers: PastPaper[] }>('GET', `/api/learn/past-papers?${new URLSearchParams(Object.entries(f).filter(([, v]) => v !== undefined && v !== '').map(([k, v]) => [k, String(v)])).toString()}`),
   officialDirectory: (exam: ExamCode) => request<{ exam: ExamCode; years: DirectoryYear[] }>('GET', `/api/learn/official-directory?exam=${exam}`),
   officialSessions: (exam: ExamCode, year: number, subject: string) => request<DirectorySession[]>('GET', `/api/learn/official-directory/sessions?exam=${exam}&year=${year}&subject=${encodeURIComponent(subject)}`),
+  officialDocument: (id: string) => request<OfficialDocument>('GET', `/api/learn/official-documents/${id}`),
   officialPapers: (exam: ExamCode) => request<{ exam: ExamCode; years: { year: number; items: OfficialLinkItem[] }[] }>('GET', `/api/learn/official-papers?exam=${exam}`),
   mockPapers: (exam: ExamCode) => request<MockPaperCard[]>('GET', `/api/learn/mock-papers?exam=${exam}`),
   startMockPaper: (id: string, mode: 'PRACTICE' | 'MOCK_TEST') => request<PracticeSession>('POST', `/api/student/mock-papers/${id}/start`, { mode }),

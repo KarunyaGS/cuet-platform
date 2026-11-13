@@ -99,4 +99,70 @@ describe('official paper directory', () => {
     await call('POST', `/api/console/official-papers/${link.id}/status`, { action: 'PUBLISH', linkingBasis: 'Owner decision recorded for this file', conditionsChecked: true }, admin.auth);
     expect((await rows())[0]!.questionPaper).toMatchObject({ published: true, available: true, url: 'https://nta.ac.in/Download/ExamPaper/Paper_a.pdf' });
   });
+
+  it('shows a document inside the platform only as the exam body allows: direct, with recorded permission, or on its own site', async () => {
+    const { setOfficialFetchForTests } = await import('../src/services/practice-centre');
+    const admin = await staff();
+    const student = await (async () => {
+      const email = `viewer-${Date.now()}@example.test`;
+      await call('POST', '/api/auth/register', { email, password: 'correct-horse-battery', displayName: 'Viewer' });
+      return { cookie: (await call('POST', '/api/auth/login', { email, password: 'correct-horse-battery' })).cookie };
+    })();
+    await call('POST', '/api/admin/official-papers', { schema: 'cuet-official-links/1', links: [
+      { exam: 'CUET_PG', year: 2035, subjectCode: '~physics', subjectName: 'Physics', session: '2035-03-14 Shift 2', kind: 'QUESTION_PAPER', availability: 'AVAILABLE', url: 'https://nta.ac.in/Download/ExamPaper/Paper_2035.pdf', title: 'Physics 14th March 2035 Shift 2', checkedOn: '2026-11-13' },
+      { exam: 'CUET_PG', year: 2035, kind: 'ANSWER_KEY', availability: 'AVAILABLE', url: 'https://cdnbbsr.s3waas.gov.in/s3test/uploads/2035/key.pdf', title: 'CUET (PG) 2035 final answer keys', checkedOn: '2026-11-13' },
+    ] }, ADMIN);
+    const links = ((await call('GET', '/api/console/official-papers', undefined, admin.auth)).json as { id: string; year: number; kind: string }[]).filter((l) => l.year === 2035);
+    const paper = links.find((l) => l.kind === 'QUESTION_PAPER')!;
+    const key = links.find((l) => l.kind === 'ANSWER_KEY')!;
+    const status = (id: string, body: object) => call('POST', `/api/console/official-papers/${id}/status`, body, admin.auth);
+    const file = async (id: string, headers: Record<string, string> = {}) => {
+      const ctx = createExecutionContext();
+      const res = await app.request(`/api/student/official-documents/${id}/file`, { headers }, env, ctx);
+      await waitOnExecutionContext(ctx);
+      return res;
+    };
+
+    // Before its link is published a document does not exist for students at all.
+    expect((await call('GET', `/api/learn/official-documents/${paper.id}`)).status).toBe(404);
+    expect((await status(paper.id, { action: 'ALLOW_IN_APP', embedBasis: 'NTA letter 12/2035', conditionsChecked: true })).status).toBe(409);
+    await status(paper.id, { action: 'PUBLISH', linkingBasis: 'Owner decision 2035-01', conditionsChecked: true });
+    await status(key.id, { action: 'PUBLISH', linkingBasis: 'Owner decision 2035-01', conditionsChecked: true });
+
+    // The CDN lets other sites read its files: the browser loads the original directly; our server is not involved.
+    expect((await call('GET', `/api/learn/official-documents/${key.id}`)).json).toMatchObject({ viewer: 'DIRECT', fileUrl: 'https://cdnbbsr.s3waas.gov.in/s3test/uploads/2035/key.pdf', kind: 'ANSWER_KEY' });
+    expect((await file(key.id, student)).status).toBe(403);
+
+    // nta.ac.in does not: without recorded permission the paper opens on NTA's own site only.
+    const before = (await call('GET', `/api/learn/official-documents/${paper.id}`)).json;
+    expect(before).toMatchObject({ viewer: 'NEW_TAB', fileUrl: null, originalUrl: 'https://nta.ac.in/Download/ExamPaper/Paper_2035.pdf', reason: expect.stringMatching(/does not allow this document to be shown inside another site/) });
+    let upstream = 0;
+    setOfficialFetchForTests(async (input, init) => {
+      upstream++;
+      expect(String(input)).toBe('https://nta.ac.in/Download/ExamPaper/Paper_2035.pdf');
+      const range = (init?.headers as Record<string, string>)['range'];
+      return new Response(range ? '%PDF-part' : '%PDF-whole', { status: range ? 206 : 200, headers: { 'content-type': 'application/pdf', ...(range ? { 'content-range': 'bytes 0-8/100' } : {}) } });
+    });
+    try {
+      expect((await file(paper.id, student)).status).toBe(403);
+      expect(upstream).toBe(0);
+      expect((await status(paper.id, { action: 'ALLOW_IN_APP', embedBasis: 'short', conditionsChecked: true })).json.error.code).toBe('EMBED_BASIS_REQUIRED');
+      expect((await status(paper.id, { action: 'ALLOW_IN_APP', embedBasis: 'NTA letter ref. 12/2035 dated 1 Jan 2035', conditionsChecked: true })).json).toMatchObject({ viewerMode: 'PROXY', embedBasis: 'NTA letter ref. 12/2035 dated 1 Jan 2035' });
+      expect((await call('GET', `/api/learn/official-documents/${paper.id}`)).json).toMatchObject({ viewer: 'PROXY', fileUrl: `/api/student/official-documents/${paper.id}/file` });
+      // Signed-in students only; the range is passed on; nothing is cached.
+      expect((await file(paper.id)).status).toBe(401);
+      const part = await file(paper.id, { ...student, range: 'bytes=0-8' });
+      expect([part.status, part.headers.get('content-type'), part.headers.get('content-range'), part.headers.get('cache-control'), await part.text()]).toEqual([206, 'application/pdf', 'bytes 0-8/100', 'private, no-store', '%PDF-part']);
+      expect((await file(paper.id, student)).status).toBe(200);
+      // Withdrawing the permission, or unpublishing the link, stops it at once.
+      await status(paper.id, { action: 'DISALLOW_IN_APP' });
+      expect((await file(paper.id, student)).status).toBe(403);
+      await status(paper.id, { action: 'ALLOW_IN_APP', embedBasis: 'NTA letter ref. 12/2035 dated 1 Jan 2035', conditionsChecked: true });
+      await status(paper.id, { action: 'UNPUBLISH' });
+      expect((await file(paper.id, student)).status).toBe(404);
+      expect((await env.DB.prepare('SELECT embed_basis FROM official_paper_links WHERE id = ?').bind(paper.id).first<{ embed_basis: string | null }>())!.embed_basis).toBeNull();
+    } finally {
+      setOfficialFetchForTests(null);
+    }
+  });
 });

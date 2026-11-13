@@ -194,12 +194,14 @@ function OfficialLinks() {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<Error | null>(null);
   const [basis, setBasis] = useState<{ id: string; text: string; checked: boolean } | null>(null);
+  const [embed, setEmbed] = useState<{ id: string; text: string; checked: boolean } | null>(null);
   const act = async (f: () => Promise<unknown>) => {
     setBusy(true);
     setErr(null);
     try {
       await f();
       setBasis(null);
+      setEmbed(null);
       list.reload();
     } catch (e) {
       setErr(e as Error);
@@ -232,11 +234,26 @@ function OfficialLinks() {
                     {l.url && <span className="block break-all text-ink-3">{l.url}</span>}
                     {l.note && <span className="block text-ink-2">{l.note}</span>}
                     {l.linkingBasis && <span className="block text-ink-3">Linking basis: {l.linkingBasis}</span>}
+                    {l.status === 'PUBLISHED' && l.viewerMode && (
+                      <span className="block text-ink-3">
+                        {l.viewerMode === 'DIRECT' ? "Shown inside CUET Prep: NTA's server allows other sites to read this file." : l.viewerMode === 'PROXY' ? `Shown inside CUET Prep. Permission on record: ${l.embedBasis}` : "Opens on NTA's site only: NTA's server does not allow this file to be shown on other sites."}
+                      </span>
+                    )}
                   </span>
                   <Badge tone={STATUS[l.status]?.tone ?? 'zinc'}>{STATUS[l.status]?.label ?? l.status}</Badge>
                   {l.status === 'DRAFT' && (
                     <Button size="sm" disabled={busy} onClick={() => publish(l)}>
                       Publish
+                    </Button>
+                  )}
+                  {l.status === 'PUBLISHED' && l.viewerMode === 'NEW_TAB' && (
+                    <Button kind="secondary" size="sm" disabled={busy} onClick={() => setEmbed({ id: l.id, text: '', checked: false })}>
+                      Allow viewing inside CUET Prep
+                    </Button>
+                  )}
+                  {l.status === 'PUBLISHED' && l.viewerMode === 'PROXY' && (
+                    <Button kind="secondary" size="sm" disabled={busy} onClick={() => void act(() => consoleApi.officialLinkStatus(l.id, { action: 'DISALLOW_IN_APP' }))}>
+                      Stop in-app viewing
                     </Button>
                   )}
                   {l.status === 'PUBLISHED' && (
@@ -245,6 +262,35 @@ function OfficialLinks() {
                     </Button>
                   )}
                 </div>
+                {embed?.id === l.id && (
+                  <form
+                    className="mt-3 space-y-3 rounded-lg bg-paper p-3"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      void act(() => consoleApi.officialLinkStatus(l.id, { action: 'ALLOW_IN_APP', embedBasis: embed.text.trim(), conditionsChecked: embed.checked }));
+                    }}
+                  >
+                    <p className="text-ink-2">
+                      NTA's server does not allow this file to be shown on other sites. To show it inside CUET Prep the file has to pass through our server, which NTA's copyright policy allows only with NTA's permission.
+                    </p>
+                    <label className="block">
+                      <span className="mb-1 block font-medium text-ink">NTA's permission (reference and date)</span>
+                      <input className={`${inputClass} h-9 text-sm`} required minLength={10} maxLength={500} value={embed.text} onChange={(e) => setEmbed({ ...embed, text: e.target.value })} />
+                    </label>
+                    <label className="flex items-start gap-2 text-ink">
+                      <input type="checkbox" className="mt-0.5 size-4 accent-accent" checked={embed.checked} onChange={(e) => setEmbed({ ...embed, checked: e.target.checked })} />
+                      We hold NTA's permission to show this document inside CUET Prep.
+                    </label>
+                    <div className="flex gap-2">
+                      <Button type="submit" size="sm" disabled={busy || !embed.checked || embed.text.trim().length < 10}>
+                        Allow in-app viewing
+                      </Button>
+                      <Button kind="secondary" size="sm" onClick={() => setEmbed(null)}>
+                        Cancel
+                      </Button>
+                    </div>
+                  </form>
+                )}
                 {basis?.id === l.id && (
                   <form
                     className="mt-3 space-y-3 rounded-lg bg-paper p-3"

@@ -110,11 +110,13 @@ export async function listOfficialLinks(db: D1Database, exam: string) {
 
 export async function listOfficialLinksAdmin(db: D1Database) {
   const { results } = await db.prepare('SELECT * FROM official_paper_links ORDER BY exam_code, year DESC, kind DESC, subject_name, session').all<LinkRow>();
-  return results.map((r) => ({ ...linkOut(r), status: r['status'], key: r['external_key'], linkingBasis: r['linking_basis'], linkingCheckedBy: r['linking_checked_by'], publishedAt: r['published_at'] }));
+  return results.map((r) => ({ ...linkOut(r), status: r['status'], key: r['external_key'], linkingBasis: r['linking_basis'], linkingCheckedBy: r['linking_checked_by'], publishedAt: r['published_at'], embedBasis: r['embed_basis'], viewerMode: r['url'] ? viewerMode(String(r['url']), Boolean(r['embed_basis'])) : null }));
 }
 
 export const linkActionSchema = z.object({
-  action: z.enum(['PUBLISH', 'UNPUBLISH', 'ARCHIVE']),
+  action: z.enum(['PUBLISH', 'UNPUBLISH', 'ARCHIVE', 'ALLOW_IN_APP', 'DISALLOW_IN_APP']),
+  /** For ALLOW_IN_APP: the exam body's permission to show the document inside this platform. */
+  embedBasis: z.string().trim().max(500).optional(),
   /** Required to publish a link: the reference of the exam body's permission, or the owner's recorded decision. */
   linkingBasis: z.string().trim().max(500).optional(),
   /** The staff member confirms they read the site's linking conditions. */
@@ -137,8 +139,16 @@ export async function setOfficialLinkStatus(db: D1Database, id: string, input: z
       db.prepare(`UPDATE official_paper_links SET status = 'PUBLISHED', linking_basis = ?, linking_checked_by = ?, published_at = ?, updated_at = ? WHERE id = ? AND status = 'DRAFT'`).bind(cur.availability === 'AVAILABLE' ? input.linkingBasis! : null, cur.availability === 'AVAILABLE' ? actor : null, now, now, id),
       audit('PUBLISH_OFFICIAL_LINK', { linkingBasis: input.linkingBasis ?? null }),
     ]);
+  } else if (input.action === 'ALLOW_IN_APP') {
+    // Only needed where the exam body's server does not itself allow its files to be shown on other sites.
+    if (cur.status !== 'PUBLISHED' || cur.availability !== 'AVAILABLE') throw conflict('Publish the link first; in-app viewing is a further step');
+    if (!input.conditionsChecked || (input.embedBasis ?? '').length < 10) throw new ApiError(409, 'EMBED_BASIS_REQUIRED', 'Showing this document inside CUET Prep passes the file through our server, which the exam body\'s copyright policy allows only with its permission. Record that permission and confirm you have it.');
+    await db.batch([db.prepare('UPDATE official_paper_links SET embed_basis = ?, embed_recorded_by = ?, updated_at = ? WHERE id = ?').bind(input.embedBasis!, actor, now, id), audit('ALLOW_IN_APP_OFFICIAL_LINK', { embedBasis: input.embedBasis })]);
+  } else if (input.action === 'DISALLOW_IN_APP') {
+    await db.batch([db.prepare('UPDATE official_paper_links SET embed_basis = NULL, embed_recorded_by = NULL, updated_at = ? WHERE id = ?').bind(now, id), audit('DISALLOW_IN_APP_OFFICIAL_LINK', {})]);
   } else {
-    await db.batch([db.prepare('UPDATE official_paper_links SET status = ?, updated_at = ? WHERE id = ?').bind(input.action === 'ARCHIVE' ? 'ARCHIVED' : 'DRAFT', now, id), audit(`${input.action}_OFFICIAL_LINK`, {})]);
+    // Unpublishing or archiving also withdraws in-app viewing.
+    await db.batch([db.prepare('UPDATE official_paper_links SET status = ?, embed_basis = NULL, embed_recorded_by = NULL, updated_at = ? WHERE id = ?').bind(input.action === 'ARCHIVE' ? 'ARCHIVED' : 'DRAFT', now, id), audit(`${input.action}_OFFICIAL_LINK`, {})]);
   }
   return (await listOfficialLinksAdmin(db)).find((x) => x.id === id)!;
 }
@@ -478,7 +488,7 @@ export async function officialDirectorySessions(db: D1Database, f: z.infer<typeo
   const { results } = await db
     .prepare(
       `SELECT s.id, s.subject_code, s.subject_name, s.exam_date, s.shift, s.paper_status, s.paper_pages, s.key_page, s.key_pages, s.dropped, CASE WHEN ${LINK_SHOWN} THEN l.url END AS key_url, l.title AS key_title,
-         (SELECT p.url FROM official_paper_links p WHERE p.id = s.paper_link_id AND p.status = 'PUBLISHED' AND p.linking_basis IS NOT NULL) AS paper_url, (SELECT p.title FROM official_paper_links p WHERE p.id = s.paper_link_id) AS paper_title
+         (SELECT p.url FROM official_paper_links p WHERE p.id = s.paper_link_id AND p.status = 'PUBLISHED' AND p.linking_basis IS NOT NULL) AS paper_url, s.paper_link_id, s.key_link_id, (SELECT p.title FROM official_paper_links p WHERE p.id = s.paper_link_id) AS paper_title
        FROM official_paper_sessions s LEFT JOIN official_paper_links l ON l.id = s.key_link_id WHERE s.exam_code = ? AND s.year = ? AND s.subject_code = ? ORDER BY s.exam_date, s.shift`,
     )
     .bind(f.exam, f.year, f.subject)
@@ -486,9 +496,9 @@ export async function officialDirectorySessions(db: D1Database, f: z.infer<typeo
   return results.map((r) => ({
     id: r['id'], subjectCode: r['subject_code'], subjectName: r['subject_name'], date: r['exam_date'], shift: r['shift'],
     // published: the exam body hosts the paper. url: sent only when the linking basis for that file is on record.
-    questionPaper: { published: r['paper_status'] === 'AVAILABLE', available: r['paper_status'] === 'AVAILABLE' && Boolean(r['paper_url']), url: r['paper_status'] === 'AVAILABLE' ? r['paper_url'] : null, title: r['paper_title'], pages: r['paper_pages'] },
+    questionPaper: { published: r['paper_status'] === 'AVAILABLE', available: r['paper_status'] === 'AVAILABLE' && Boolean(r['paper_url']), url: r['paper_status'] === 'AVAILABLE' ? r['paper_url'] : null, linkId: r['paper_url'] ? r['paper_link_id'] : null, title: r['paper_title'], pages: r['paper_pages'] },
     // The key is one file for the whole year; the link opens it at this paper's page.
-    answerKey: { published: r['key_page'] !== null && r['key_title'] !== null, page: r['key_page'], pages: r['key_pages'], title: r['key_title'], url: r['key_url'] ? `${r['key_url']}#page=${r['key_page']}` : null },
+    answerKey: { published: r['key_page'] !== null && r['key_title'] !== null, page: r['key_page'], pages: r['key_pages'], title: r['key_title'], url: r['key_url'] ? `${r['key_url']}#page=${r['key_page']}` : null, linkId: r['key_url'] ? r['key_link_id'] : null },
     dropped: r['dropped'],
   }));
 }
@@ -563,4 +573,73 @@ export async function importOfficialPapers(db: D1Database, body: unknown, actor:
   statements.push(db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, 'IMPORT_OFFICIAL_PAPERS', 'OFFICIAL_DIRECTORY', `${d.exam}:${d.year}`, JSON.stringify({ papers: d.papers.length }), now));
   await db.batch(statements);
   return { exam: d.exam, year: d.year, papers: d.papers.length };
+}
+
+// ---------------------------------------------------------------- viewing an official document inside the platform
+
+/**
+ * How a published official document can be shown.
+ *  DIRECT   the exam body's server lets other sites read the file (it sends Access-Control-Allow-Origin), so the
+ *           student's browser loads it straight from that server into our viewer. Our server never handles the file.
+ *  PROXY    the exam body's server does not allow that (nta.ac.in sends X-Frame-Options: SAMEORIGIN and no
+ *           cross-origin header). The file can be shown here only by passing it through our server, which is
+ *           reproduction: allowed only when staff have recorded the exam body's permission.
+ *  NEW_TAB  neither applies: the document opens on the exam body's own site.
+ * Headers were read on 13 November 2026; see docs/official-directory.md.
+ */
+const CROSS_ORIGIN_READABLE = [/^cdnbbsr\.s3waas\.gov\.in$/];
+export function viewerMode(url: string, embedAllowed: boolean): 'DIRECT' | 'PROXY' | 'NEW_TAB' {
+  let host = '';
+  try {
+    host = new URL(url).hostname;
+  } catch {
+    return 'NEW_TAB';
+  }
+  if (CROSS_ORIGIN_READABLE.some((h) => h.test(host))) return 'DIRECT';
+  return embedAllowed ? 'PROXY' : 'NEW_TAB';
+}
+
+interface DocRow { id: string; exam_code: string; year: number; subject_name: string | null; session: string | null; kind: string; url: string; title: string; publisher: string; checked_on: string; embed_basis: string | null }
+async function visibleDocument(db: D1Database, id: string) {
+  const r = await db
+    .prepare(`SELECT id, exam_code, year, subject_name, session, kind, url, title, publisher, checked_on, embed_basis FROM official_paper_links WHERE id = ? AND status = 'PUBLISHED' AND availability = 'AVAILABLE' AND linking_basis IS NOT NULL AND url IS NOT NULL`)
+    .bind(id)
+    .first<DocRow>();
+  if (!r || !isOfficialUrl(r.url)) throw notFound('Official document');
+  return r;
+}
+
+/** What the viewer page needs. Only for documents whose link is published with its linking basis. */
+export async function officialDocument(db: D1Database, id: string) {
+  const r = await visibleDocument(db, id);
+  const mode = viewerMode(r.url, Boolean(r.embed_basis));
+  return {
+    id: r.id, exam: r.exam_code, year: r.year, subjectName: r.subject_name, session: r.session, kind: r.kind, title: r.title, publisher: r.publisher, checkedOn: r.checked_on,
+    originalUrl: r.url, viewer: mode,
+    // DIRECT: the browser reads the exam body's server. PROXY: our pass-through, signed-in students only.
+    fileUrl: mode === 'DIRECT' ? r.url : mode === 'PROXY' ? `/api/student/official-documents/${r.id}/file` : null,
+    reason: mode === 'NEW_TAB' ? "NTA's server does not allow this document to be shown inside another site, so it opens on NTA's own site." : null,
+  };
+}
+
+let upstreamFetch: typeof fetch = (...a) => fetch(...a);
+/** Tests only: replaces the request to the exam body's server. */
+export function setOfficialFetchForTests(f: typeof fetch | null) {
+  upstreamFetch = f ?? ((...a) => fetch(...a));
+}
+
+/**
+ * Passes one official document through to a signed-in student, for the in-app viewer. Nothing is stored or
+ * cached on the platform. Refused unless the link is published AND the permission to show it here is on record.
+ */
+export async function officialDocumentFile(db: D1Database, id: string, range: string | undefined): Promise<Response> {
+  const r = await visibleDocument(db, id);
+  if (viewerMode(r.url, Boolean(r.embed_basis)) !== 'PROXY') throw new ApiError(403, 'IN_APP_NOT_ALLOWED', 'This document is not cleared to be shown inside CUET Prep; open it on the exam body\'s site');
+  const res = await upstreamFetch(r.url, { headers: { 'user-agent': 'cuet-prep-official-viewer/0.1', ...(range && /^bytes=\d*-\d*$/.test(range) ? { range } : {}) }, redirect: 'manual' });
+  // A redirect is never followed: the document must come from the registered address itself.
+  if (!res.ok && res.status !== 206) throw new ApiError(503, 'SOURCE_UNAVAILABLE', 'The exam body\'s site did not return the document. Try again, or open it on that site.');
+  if (!(res.headers.get('content-type') ?? '').toLowerCase().startsWith('application/pdf')) throw new ApiError(503, 'SOURCE_UNAVAILABLE', 'The exam body\'s site returned something other than the document');
+  const headers = new Headers({ 'content-type': 'application/pdf', 'cache-control': 'private, no-store', 'x-content-type-options': 'nosniff', 'accept-ranges': 'bytes', 'content-disposition': 'inline' });
+  for (const h of ['content-length', 'content-range']) if (res.headers.get(h)) headers.set(h, res.headers.get(h)!);
+  return new Response(res.body, { status: res.status, headers });
 }

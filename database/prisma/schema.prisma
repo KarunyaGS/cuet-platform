@@ -1559,6 +1559,10 @@ model OfficialPaperLink {
   /// A link is never published without it.
   linkingBasis     String?   @map("linking_basis")
   linkingCheckedBy String?   @map("linking_checked_by")
+  /// Why the document may be shown INSIDE the platform when the exam body's server does not allow that by itself
+  /// (its permission reference). Without it such a document only opens on the exam body's own site.
+  embedBasis       String?   @map("embed_basis")
+  embedRecordedBy  String?   @map("embed_recorded_by")
   /// DRAFT | PUBLISHED | ARCHIVED
   status           String    @default("DRAFT")
   externalKey      String    @unique @map("external_key")

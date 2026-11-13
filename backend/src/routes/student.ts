@@ -12,7 +12,7 @@ import { invalid } from '../lib/errors';
 import { readJson } from '../lib/http';
 import { changePassword, login, loginSchema, logout, passwordSchema, resetPassword, resetPasswordSchema, registerSchema, registerStudent, SESSION_COOKIE, studentAuth, userFromToken } from '../services/accounts';
 import { sha256Hex } from '../lib/hash';
-import { directorySessionsQuery, listMockPapers, listOfficialLinks, officialDirectory, officialDirectorySessions, startMockPaper, startMockSchema } from '../services/practice-centre';
+import { directorySessionsQuery, listMockPapers, listOfficialLinks, officialDirectory, officialDirectorySessions, officialDocument, officialDocumentFile, startMockPaper, startMockSchema } from '../services/practice-centre';
 import { listPastPapers, pastPaperDetail, pastPaperQuery, startPastPaper, startPastPaperSchema } from '../services/past-papers';
 import { assertWithinPlan, billingSummary, confirmCheckout, confirmSchema, createOrder, orderSchema, simulatePayment, simulateSchema } from '../services/billing';
 import {
@@ -108,6 +108,8 @@ learn.get('/official-directory', async (c) => {
   return c.json(await officialDirectory(c.env.DB, exam));
 });
 learn.get('/official-directory/sessions', async (c) => c.json(await officialDirectorySessions(c.env.DB, directorySessionsQuery.parse(c.req.query()))));
+// One published official document, for the in-app viewer (how it may be shown, and where the file comes from).
+learn.get('/official-documents/:id', async (c) => c.json(await officialDocument(c.env.DB, c.req.param('id'))));
 learn.get('/mock-papers', async (c) => c.json(await listMockPapers(c.env.DB, { exam: c.req.query('exam') || undefined, paperId: c.req.query('paperId') || undefined })));
 // Previous-year papers: only published papers whose licence allows display are ever listed here.
 learn.get('/past-papers', async (c) => c.json(await listPastPapers(c.env.DB, pastPaperQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
@@ -136,6 +138,9 @@ student.post('/practice/daily', async (c) => {
   await assertWithinPlan(c.env.DB, c.get('user').id, 'PRACTICE');
   return c.json(await startDailyPractice(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, dailySchema)), 201);
 });
+
+// Pass-through of an official document for the in-app viewer: signed-in students only, nothing stored, and only where the exam body's permission is on record.
+student.get('/official-documents/:id/file', async (c) => officialDocumentFile(c.env.DB, c.req.param('id'), c.req.header('range')));
 
 // Our own mock papers: a fixed paper, timed like the exam or untimed. Plan limits apply.
 student.post('/mock-papers/:id/start', async (c) => {

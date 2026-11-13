@@ -15,6 +15,7 @@ import { PlannerPage } from './pages/Planner';
 import { PlansPage } from './pages/Plans';
 import { PracticePage } from './pages/Practice';
 import { PracticeCentrePage } from './pages/PracticeCentre';
+import { OfficialViewerPage } from './pages/OfficialViewer';
 import { ProfilePage } from './pages/Profile';
 import { ProgressPage } from './pages/Progress';
 import { ResultsPage } from './pages/Results';
@@ -92,6 +93,7 @@ const router = createBrowserRouter([
       { path: '/report', element: <ReportPage /> },
       { path: '/plans', element: <PlansPage /> },
       { path: '/practice-centre', element: <PracticeCentrePage /> },
+      { path: '/official-papers/view/:id', element: <OfficialViewerPage /> },
       { path: '/past-papers', element: <PastPapersPage /> },
       { path: '/past-papers/:id', element: <PastPaperPage /> },
       { path: '/revise/:nodeId', element: <RevisePage /> },
