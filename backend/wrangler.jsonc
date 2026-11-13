@@ -36,7 +36,9 @@
   // Email (local): Wrangler simulates this binding. Nothing is sent; each message is written to a local file.
   "send_email": [{ "name": "EMAIL" }],
   // Daily study-reminder emails at 19:00 India time (13:30 UTC). The job does nothing while email is switched off.
-  "triggers": { "crons": ["30 13 * * *"] },
+  // Every 30 minutes the job looks whether an official notice page is due for a check (each page is read every
+  // NOTICE_FETCH_MINUTES; a page that failed is tried again sooner).
+  "triggers": { "crons": ["30 13 * * *", "*/30 * * * *"] },
   "vars": {
     "APP_ENV": "development",
     "EMAIL_FROM": "no-reply@cuet.localhost",
@@ -45,6 +47,9 @@
     "PAYMENTS_MODE": "mock",
     // Official documents open on NTA's own website. Showing them inside CUET Prep stays off until NTA grants permission to display them.
     "OFFICIAL_IN_APP_VIEWING": "off",
+    // Government updates: read the official notice pages on a schedule. Local development only for now.
+    "NOTICE_FETCH": "on",
+    "NOTICE_FETCH_MINUTES": "180",
     "MAX_PAGE_SIZE": "100",
     "MAX_UPLOAD_BYTES": "26214400",
     // Local development only: lets students see machine-verified syllabus and draft content, labelled "preview".
@@ -87,6 +92,9 @@
         "PAYMENTS_MODE": "off",
         // Stays "off" until NTA grants permission to display its documents inside the platform.
         "OFFICIAL_IN_APP_VIEWING": "off",
+        // Stays "off" (and no cron runs) until the owner approves fetching official notices in production.
+        "NOTICE_FETCH": "off",
+        "NOTICE_FETCH_MINUTES": "180",
         "MAX_PAGE_SIZE": "100",
         "MAX_UPLOAD_BYTES": "26214400",
         // Owner's decision (2026-11-12): students see machine-verified syllabus and AI-assisted lessons and questions

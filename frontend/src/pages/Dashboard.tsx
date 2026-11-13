@@ -1,3 +1,4 @@
+import { LatestUpdates } from './Updates';
 import { BookOpen, CalendarPlus, CalendarRange, CircleCheck, Layers, PlayCircle, Zap } from 'lucide-react';
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router';
@@ -139,6 +140,8 @@ export function DashboardPage() {
           <span className="shrink-0 text-sm font-medium text-accent">{x.flashcards.due > 0 ? 'Revise now' : 'My flashcards'}</span>
         </Link>
       </section>
+
+      <LatestUpdates exam={prefs.data?.examCode ?? null} />
 
       <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-2">
         <section aria-labelledby="continue">

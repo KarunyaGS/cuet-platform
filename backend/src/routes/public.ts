@@ -10,6 +10,7 @@ import { getResource } from '../services/resources';
 import { examSchema, getOfficialInfo, listUniversities, universityQuery } from '../services/official-info';
 import { handleResendWebhook, unsubscribe, unsubscribeSchema } from '../services/email';
 import { gatewayState, handleRazorpayWebhook, listPlans } from '../services/billing';
+import { listNotices, noticeQuery } from '../services/gov-notices';
 
 const pub = new Hono<AppEnv>();
 
@@ -25,6 +26,9 @@ pub.get('/topics/:id/content', async (c) => {
   ]);
   return c.json({ topicId: id, resources, questions });
 });
+
+// Government updates: published official notices, the same for everyone. Each links to the exam body's own page and document.
+pub.get('/notices', async (c) => c.json(await listNotices(c.env.DB, noticeQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
 
 // Official exam information pages and participating universities: open to everyone, no sign-in.
 pub.get('/info/:exam', async (c) => c.json(await getOfficialInfo(c.env.DB, examSchema.parse(c.req.param('exam')))));

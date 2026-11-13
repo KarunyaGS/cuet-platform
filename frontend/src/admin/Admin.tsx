@@ -62,6 +62,9 @@ export function AdminLayout() {
             Email
           </NavLink>
         )}
+        <NavLink to="/admin/updates" className={tab}>
+          Government updates
+        </NavLink>
         <NavLink to="/admin/activity" className={tab}>
           Activity
         </NavLink>

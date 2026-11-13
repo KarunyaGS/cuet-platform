@@ -1259,6 +1259,72 @@ model OfficialNotice {
   @@map("official_notices")
 }
 
+/// An official source page that is checked for new notices on a schedule.
+model GovNoticeSource {
+  /// e.g. "cuet-ug-public-notices".
+  key                 String    @id
+  name                String
+  url                 String
+  lastCheckedAt       DateTime? @map("last_checked_at")
+  lastSuccessAt       DateTime? @map("last_success_at")
+  lastError           String?   @map("last_error")
+  lastErrorAt         DateTime? @map("last_error_at")
+  consecutiveFailures Int       @default(0) @map("consecutive_failures")
+  /// Not checked again before this moment (the normal interval, or longer after failures).
+  nextCheckAt         DateTime? @map("next_check_at")
+  /// Counts from the last successful check.
+  lastFound           Int       @default(0) @map("last_found")
+  lastNew             Int       @default(0) @map("last_new")
+  lastUpdated         Int       @default(0) @map("last_updated")
+  lastDuplicates      Int       @default(0) @map("last_duplicates")
+  lastQueued          Int       @default(0) @map("last_queued")
+  /// Hash of the page as last read: an unchanged page is not processed again.
+  pageHash            String?   @map("page_hash")
+  createdAt           DateTime  @default(now()) @map("created_at")
+  updatedAt           DateTime  @updatedAt @map("updated_at")
+
+  @@map("gov_notice_sources")
+}
+
+/// One notice published on an official source page. Only the title, dates and the official addresses are stored:
+/// the document itself is never copied.
+model GovNotice {
+  id                 String    @id @default(cuid())
+  sourceKey          String    @map("source_key")
+  sourceName         String    @map("source_name")
+  /// The official page the notice was listed on.
+  sourceUrl          String    @map("source_url")
+  /// The notice's own official address (usually a PDF). This is its identity: one row per address.
+  documentUrl        String    @unique @map("document_url")
+  isPdf              Boolean   @default(false) @map("is_pdf")
+  title              String
+  description        String?
+  /// ADMIT_CARD, RESULT, ANSWER_KEY, EXAM_SCHEDULE, CITY_INTIMATION, APPLICATION, SYLLABUS, ADVISORY or GENERAL.
+  category           String
+  /// CUET_UG, CUET_PG, or null when it could not be decided.
+  examCode           String?   @map("exam_code")
+  examYear           Int?      @map("exam_year")
+  /// YYYY-MM-DD, read from the official file's own date stamp.
+  publishedOn        String?   @map("published_on")
+  /// PUBLISHED (shown to students), NEEDS_REVIEW (waiting for a member of staff) or REJECTED.
+  verificationStatus String    @map("verification_status")
+  /// Why it is waiting, or who decided.
+  statusNote         String?   @map("status_note")
+  /// Set when the same notice was already held from another official page; such rows are not shown.
+  duplicateOfId      String?   @map("duplicate_of_id")
+  contentHash        String    @map("content_hash")
+  firstDetectedAt    DateTime  @map("first_detected_at")
+  lastCheckedAt      DateTime  @map("last_checked_at")
+  /// When the source changed this notice after it was first detected.
+  changedAt          DateTime? @map("changed_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  @@index([verificationStatus, examCode, publishedOn])
+  @@index([sourceKey])
+  @@index([firstDetectedAt])
+  @@map("gov_notices")
+}
+
 /// A university listed by NTA as participating in an exam cycle, exactly as NTA lists it.
 model ParticipatingUniversity {
   id        String   @id @default(cuid())

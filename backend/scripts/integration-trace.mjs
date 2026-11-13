@@ -489,6 +489,15 @@ async function run() {
   const fcSearch = await call('GET', `/api/learn/search?q=${encodeURIComponent(fcMade.json.card.front.replace(/[^A-Za-z ]/g, ' ').trim().split(/\s+/).filter((w) => w.length > 3).slice(0, 2).join(' '))}`);
   check('search finds single concepts inside lessons', Array.isArray(fcSearch.json?.concepts) && fcSearch.json.concepts.length > 0 && fcSearch.json.concepts.every((c) => c.resourceId && c.anchor));
 
+  // ------------------------------------------------------------ government updates (no page is fetched here; the fetch itself has its own tests)
+  group = 'Government updates';
+  const govList = await call('GET', '/api/public/notices?exam=CUET_UG&limit=5');
+  check('the public list of official notices answers, and shows only published, non-duplicate rows', govList.status === 200 && Array.isArray(govList.json.notices) && govList.json.total === n("SELECT COUNT(*) FROM gov_notices WHERE verification_status = 'PUBLISHED' AND duplicate_of_id IS NULL AND exam_code = 'CUET_UG'"));
+  const govStudent = await call('GET', '/api/console/notices/overview', { token: learner.token });
+  const govStaff = await call('GET', '/api/console/notices/overview', { token: a.token });
+  check('fetch monitoring is for staff only, and lists the three official sources', govStudent.status === 403 && govStaff.status === 200 && govStaff.json.sources.length === 3 && govStaff.json.collected === n('SELECT COUNT(*) FROM gov_notices') && govStaff.json.intervalMinutes === 180);
+  check('every stored notice keeps its official source page and document address', n("SELECT COUNT(*) FROM gov_notices WHERE source_url NOT LIKE 'https://%' OR document_url NOT LIKE 'https://%' OR content_hash = ''") === 0);
+
   // ------------------------------------------------------------ integrity
   group = 'Integrity';
   check('no foreign-key violations after all of the above', all('PRAGMA foreign_key_check').length === 0);

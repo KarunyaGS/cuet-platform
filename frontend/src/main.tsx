@@ -6,6 +6,7 @@ import { Layout } from './Layout';
 import { AuthPage } from './pages/Auth';
 import { BookmarksPage } from './pages/Bookmarks';
 import { FlashcardReviewPage, FlashcardsPage } from './pages/Flashcards';
+import { UpdatesPage } from './pages/Updates';
 import { DashboardPage } from './pages/Dashboard';
 import { Home } from './pages/Home';
 import { ExamInfo, InfoHub } from './pages/info/InfoPages';
@@ -53,6 +54,7 @@ const AdminPracticeCentre = lazy(() => import('./admin/PracticeCentre').then((m)
 const AdminPastPapers = lazy(() => import('./admin/PastPapers').then((m) => ({ default: m.AdminPastPapers })));
 const AdminBilling = lazy(() => import('./admin/Billing').then((m) => ({ default: m.AdminBilling })));
 const AdminEmail = lazy(() => import('./admin/Email').then((m) => ({ default: m.AdminEmail })));
+const AdminNotices = lazy(() => import('./admin/Notices').then((m) => ({ default: m.AdminNotices })));
 const AdminActivity = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminActivity })));
 const ReviewLayout = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewLayout })));
 const ReviewDashboard = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewDashboard })));
@@ -88,6 +90,7 @@ const router = createBrowserRouter([
       { path: '/dashboard', element: <DashboardPage /> },
       { path: '/planner', element: <PlannerPage /> },
       { path: '/bookmarks', element: <BookmarksPage /> },
+      { path: '/updates', element: <UpdatesPage /> },
       { path: '/flashcards', element: <FlashcardsPage /> },
       { path: '/flashcards/review', element: <FlashcardReviewPage /> },
       { path: '/profile', element: <ProfilePage /> },
@@ -124,6 +127,7 @@ const router = createBrowserRouter([
           { path: 'past-papers', element: lazyPage(<AdminPastPapers />) },
           { path: 'billing', element: lazyPage(<AdminBilling />) },
           { path: 'email', element: lazyPage(<AdminEmail />) },
+          { path: 'updates', element: lazyPage(<AdminNotices />) },
           { path: 'activity', element: lazyPage(<AdminActivity />) },
         ],
       },

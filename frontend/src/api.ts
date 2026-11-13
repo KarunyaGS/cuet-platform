@@ -184,6 +184,14 @@ export interface WeeklyReport {
 export interface Reminder { key: string; kind: 'TEST' | 'PLAN' | 'GOAL' | 'REVISE' | 'NOTICE' | 'SETUP'; title: string; body: string; link: string; external?: boolean }
 export interface RecentItem { kind: 'TOPIC_VIEW' | 'LESSON_VIEW'; nodeId: string | null; resourceId: string | null; title: string | null; paper: string | null; at: string }
 
+export type NoticeCategory = 'ADMIT_CARD' | 'RESULT' | 'ANSWER_KEY' | 'EXAM_SCHEDULE' | 'CITY_INTIMATION' | 'APPLICATION' | 'SYLLABUS' | 'ADVISORY' | 'GENERAL';
+/** An official notice. sourceUrl and documentUrl are the exam body's own addresses; nothing is hosted by CUET Prep. */
+export interface GovNotice {
+  id: string; title: string; description: string | null; category: NoticeCategory; exam: ExamCode | null; examYear: number | null; publishedOn: string | null;
+  sourceName: string; sourceUrl: string; documentUrl: string; isPdf: boolean; isNew: boolean; isUpdated: boolean; firstDetectedAt: string; lastCheckedAt: string;
+}
+export interface NoticeList { total: number; lastCheckedAt: string | null; categories: { category: NoticeCategory; count: number }[]; notices: GovNotice[] }
+
 export interface SearchResults {
   query: string; more: boolean;
   subjects: { paperId: string; code: string; name: string; exam: ExamCode; available: boolean }[];
@@ -282,6 +290,8 @@ export const api = {
   setEmailSettings: (b: { emailReminders: boolean }) => request<EmailSettings>('PUT', '/api/student/email', b),
   sendVerification: () => request<{ sent: boolean; reason?: string }>('POST', '/api/student/email/verification'),
   unsubscribe: (token: string) => request<{ unsubscribed: boolean }>('POST', '/api/public/email/unsubscribe', { token }),
+  notices: (f: { exam?: ExamCode; category?: NoticeCategory; limit?: number } = {}) =>
+    request<NoticeList>('GET', `/api/public/notices?limit=${f.limit ?? 30}${f.exam ? `&exam=${f.exam}` : ''}${f.category ? `&category=${f.category}` : ''}`),
   search: (q: string, exam?: ExamCode | '') => request<SearchResults>('GET', `/api/learn/search?q=${encodeURIComponent(q)}${exam ? `&exam=${exam}` : ''}`),
   officialInfo: (exam: ExamCode) => request<OfficialInfo>('GET', `/api/public/info/${exam}`),
   universities: (exam: ExamCode, q?: string, type?: string) =>

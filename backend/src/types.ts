@@ -29,6 +29,10 @@ export interface Bindings {
    * granted permission to display or reproduce its documents.
    */
   OFFICIAL_IN_APP_VIEWING?: string;
+  /** "on" lets the scheduled job read the official notice pages. Anything else (the default) keeps it switched off. */
+  NOTICE_FETCH?: string;
+  /** Minutes between checks of each official notice page (15 to 1440; default 180). */
+  NOTICE_FETCH_MINUTES?: string;
   /** "off" (default), "mock" (local development only), "test" (Razorpay test keys) or "live" (needs PAYMENTS_LIVE_APPROVED=yes). */
   PAYMENTS_MODE?: string;
   /** Must be exactly "yes" before live keys are accepted. Set only with the owner's written approval. */

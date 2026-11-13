@@ -38,6 +38,7 @@ const consoleAuth: MiddlewareHandler<AppEnv> = async (c, next) => {
   await next();
 };
 
+import { decideNotice, noticeDecisionSchema, noticeOverview, noticeQueue, syncNotices } from '../services/gov-notices';
 const admin = new Hono<AppEnv>();
 admin.use('*', consoleAuth);
 const me = (c: { get(k: 'user'): AppEnv['Variables']['user'] }): Staff => {
@@ -64,6 +65,11 @@ admin.post('/students/reset-link', async (c) => {
 });
 
 // Official links: the list, and the publish switch, which needs the linking basis on record (content:publish).
+// Government updates: what the scheduled job collected, what is waiting for a check, and a way to run it now.
+admin.get('/notices/overview', async (c) => c.json(await noticeOverview(c.env.DB, c.env)));
+admin.get('/notices/queue', async (c) => c.json(await noticeQueue(c.env.DB)));
+admin.post('/notices/fetch', async (c) => (needPermission(me(c), 'content:publish', 'fetch official notices'), c.json(await syncNotices(c.env, { force: true }))));
+admin.post('/notices/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'publish official notices'), c.json(await decideNotice(c.env.DB, c.req.param('id'), await readJson(c, noticeDecisionSchema), c.get('actor')))));
 admin.get('/official-papers', async (c) => c.json(await listOfficialLinksAdmin(c.env.DB, c.env.OFFICIAL_IN_APP_VIEWING === 'on')));
 admin.post('/official-papers/:id/status', async (c) => (needPermission(me(c), 'content:publish', 'publish official links'), c.json(await setOfficialLinkStatus(c.env.DB, c.req.param('id'), await readJson(c, linkActionSchema), c.get('actor'), c.env.OFFICIAL_IN_APP_VIEWING === 'on'))));
 // Our own mock papers: what the blueprint needs, building a draft from approved questions, approval and publishing.

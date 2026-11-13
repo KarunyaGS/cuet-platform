@@ -1,5 +1,11 @@
 /** Admin console and reviewer content-review API calls (staff sign in with their own account). */
-import { request, type ExamCode } from '../api';
+import { request, type ExamCode, type GovNotice } from '../api';
+
+export interface NoticeOverview {
+  enabled: boolean; intervalMinutes: number; lastSuccessfulFetch: string | null; nextScheduledFetch: string | null;
+  collected: number; published: number; newInSevenDays: number; updatedInSevenDays: number; duplicates: number; awaitingVerification: number; failedSources: number;
+  sources: { key: string; name: string; url: string; lastCheckedAt: string | null; lastSuccessAt: string | null; lastError: string | null; consecutiveFailures: number; nextCheckAt: string | null; found: number; added: number; updated: number; duplicates: number; queued: number }[];
+}
 
 export interface StaffMe { id: string; email: string; displayName: string; roles: string[]; permissions: string[] }
 export interface ActivityItem { id: string; actor: string; actorName: string; action: string; entityType: string; entityId: string; entityLabel: string | null; detail: string | null; createdAt: string }
@@ -72,6 +78,10 @@ export const consoleApi = {
   me: () => request<StaffMe>('GET', '/api/console/me'),
   overview: () => request<Overview>('GET', '/api/console/overview'),
   email: () => request<EmailOverview>('GET', '/api/console/email'),
+  noticeOverview: () => request<NoticeOverview>('GET', '/api/console/notices/overview'),
+  noticeQueue: () => request<(GovNotice & { statusNote: string | null })[]>('GET', '/api/console/notices/queue'),
+  noticeFetch: () => request<{ ran: boolean }>('POST', '/api/console/notices/fetch', {}),
+  noticeDecision: (id: string, b: { action: 'PUBLISH' | 'REJECT'; exam?: 'CUET_UG' | 'CUET_PG' }) => request<{ id: string; status: string }>('POST', `/api/console/notices/${id}/decision`, b),
   officialLinks: () => request<AdminOfficialLink[]>('GET', '/api/console/official-papers'),
   officialLinkStatus: (id: string, b: { action: 'PUBLISH' | 'UNPUBLISH' | 'ARCHIVE' | 'ALLOW_IN_APP' | 'DISALLOW_IN_APP'; linkingBasis?: string; embedBasis?: string; conditionsChecked?: boolean }) => request<AdminOfficialLink>('POST', `/api/console/official-papers/${id}/status`, b),
   mockReadiness: (paperId: string) => request<MockReadiness>('GET', `/api/console/mock-papers/readiness/${paperId}`),

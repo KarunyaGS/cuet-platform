@@ -10,6 +10,7 @@ import consoleApi from './routes/console';
 import { auth, learn, student } from './routes/student';
 import { handleCloudflareEmailEvent, sendDailyReminders } from './services/email';
 import { gatewayState, reconcileOrders, sendExpiryNotices } from './services/billing';
+import { syncNotices } from './services/gov-notices';
 
 const app = new Hono<AppEnv>();
 
@@ -30,8 +31,15 @@ app.route('/api/learn', learn);
 app.route('/api/student', student);
 app.notFound((c) => c.json({ error: { code: 'NOT_FOUND', message: 'Not found' } }, 404));
 
-/** Cron Trigger: the daily study-reminder emails. Does nothing while email is not switched on. */
-async function scheduled(_controller: ScheduledController, env: AppEnv['Bindings'], ctx: ExecutionContext) {
+const DAILY_CRON = '30 13 * * *';
+
+/**
+ * Cron Triggers. Every run checks the official notice pages that are due (the job paces itself and does nothing while
+ * NOTICE_FETCH is off). The once-a-day run also sends study reminders and looks after payments.
+ */
+async function scheduled(controller: ScheduledController, env: AppEnv['Bindings'], ctx: ExecutionContext) {
+  ctx.waitUntil(syncNotices(env).then((r) => r.ran && console.log('Official notices', JSON.stringify(r)), (e) => console.error('Official notices failed', (e as Error).message)));
+  if (controller?.cron && controller.cron !== DAILY_CRON) return;
   ctx.waitUntil(sendDailyReminders(env).then((r) => console.log('Daily reminders', JSON.stringify(r))));
   // Payments: match unpaid orders with the gateway and tell students whose paid access ends soon. Nothing happens while payments are off.
   if (gatewayState(env).ready) {
