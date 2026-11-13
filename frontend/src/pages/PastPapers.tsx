@@ -3,7 +3,7 @@ import { ExternalLink, FileText, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 import { api, type ExamCode, type PastPaper } from '../api';
-import { Button, Empty, ErrorBox, Loading, PageHeader, Segmented, useLoad } from '../ui';
+import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Segmented, useLoad } from '../ui';
 
 const select = 'h-9 rounded-lg border border-rule-strong bg-surface px-2.5 text-sm text-ink focus:border-accent focus:outline-none';
 const day = (d: string | null) => (d ? new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }) : null);
@@ -25,7 +25,7 @@ export function PastPapersPage() {
   };
   return (
     <div>
-      <PageHeader title="Previous-year papers" subtitle="Official papers from earlier years, with the official answer key. Attempt one under exam conditions, or practise without a timer." />
+      <PageHeader title="Official previous-year papers" subtitle="Official papers from earlier years, with the official answer key. Attempt one under exam conditions, or practise without a timer." back={{ to: `/practice-centre?exam=${exam}`, label: 'Practice Centre' }} />
       <div className="mb-5 flex flex-wrap items-center gap-3">
         <Segmented label="Exam" value={exam} onChange={(v) => set('exam', v)} options={[{ value: 'CUET_UG', label: 'CUET-UG' }, { value: 'CUET_PG', label: 'CUET-PG' }]} />
         {list.data && list.data.years.length > 0 && (
@@ -104,7 +104,10 @@ export function PastPaperPage() {
   const asked = Math.ceil((p.durationMinutes * p.questions) / p.questionsInPaper);
   return (
     <div className="max-w-3xl">
-      <PageHeader title={p.title} subtitle={[p.exam === 'CUET_PG' ? 'CUET-PG' : 'CUET-UG', p.year, when(p)].filter(Boolean).join(' · ')} back={{ to: `/past-papers?exam=${p.exam}`, label: 'Previous-year papers' }} />
+      <PageHeader title={p.title} subtitle={[p.exam === 'CUET_PG' ? 'CUET-PG' : 'CUET-UG', p.year, when(p)].filter(Boolean).join(' · ')} back={{ to: `/past-papers?exam=${p.exam}`, label: 'Official previous-year papers' }} />
+      <p className="-mt-3 mb-4">
+        <Badge tone="accent">Official previous-year paper</Badge>
+      </p>
       <dl className="grid grid-cols-2 gap-x-6 gap-y-4 rounded-xl border border-rule bg-surface p-5 text-sm sm:grid-cols-3">
         <div>
           <dt className="text-ink-2">Questions</dt>

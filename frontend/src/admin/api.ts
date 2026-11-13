@@ -72,6 +72,13 @@ export const consoleApi = {
   me: () => request<StaffMe>('GET', '/api/console/me'),
   overview: () => request<Overview>('GET', '/api/console/overview'),
   email: () => request<EmailOverview>('GET', '/api/console/email'),
+  officialLinks: () => request<AdminOfficialLink[]>('GET', '/api/console/official-papers'),
+  officialLinkStatus: (id: string, b: { action: 'PUBLISH' | 'UNPUBLISH' | 'ARCHIVE'; linkingBasis?: string; conditionsChecked?: boolean }) => request<AdminOfficialLink>('POST', `/api/console/official-papers/${id}/status`, b),
+  mockReadiness: (paperId: string) => request<MockReadiness>('GET', `/api/console/mock-papers/readiness/${paperId}`),
+  mockPapers: (paperId: string) => request<AdminMockPaper[]>('GET', `/api/console/mock-papers?paperId=${paperId}`),
+  mockPaper: (id: string) => request<AdminMockPaper & { items: { position: number; id: string; type: string; difficulty: string; verification: string; stem: string; unit_label: string | null; unit_title: string | null }[] }>('GET', `/api/console/mock-papers/${id}`),
+  buildMock: (paperId: string) => request<AdminMockPaper>('POST', `/api/console/mock-papers/build/${paperId}`),
+  mockStatus: (id: string, action: 'APPROVE' | 'PUBLISH' | 'UNPUBLISH' | 'ARCHIVE', note?: string) => request<AdminMockPaper>('POST', `/api/console/mock-papers/${id}/status`, { action, note }),
   pastPapers: () => request<AdminPastPaper[]>('GET', '/api/console/past-papers'),
   pastPaper: (id: string) => request<AdminPastPaperQuestions>('GET', `/api/console/past-papers/${id}`),
   pastPaperStatus: (id: string, action: 'PUBLISH' | 'UNPUBLISH' | 'ARCHIVE') => request<AdminPastPaper>('POST', `/api/console/past-papers/${id}/status`, { action }),
@@ -160,6 +167,14 @@ export interface AdminPastPaper {
 export interface AdminPastPaperQuestions {
   paper: AdminPastPaper;
   questions: { position: number; dropped: boolean; officialQuestionId: string | null; sourcePage: number | null; questionId: string | null; type: string | null; stem: string | null; verification: string | null; options: { position: number; label: string; text: string }[]; key: number[] | null; numericAnswer: number | null; officialKey: number[] | null }[];
+}
+export interface AdminOfficialLink { id: string; exam: string; year: number; subjectCode: string | null; subjectName: string | null; session: string | null; kind: string; available: boolean; url: string | null; title: string; note: string | null; checkedOn: string; status: string; key: string; linkingBasis: string | null; linkingCheckedBy: string | null; publishedAt: string | null }
+export interface MockBlueprint { basis: string; pattern: { questions: number; durationMinutes: number; marksCorrect: number; marksIncorrect: number; optionsPerQuestion: number }; units: { id: string; label: string | null; title: string; syllabusRows: number; questions: number }[]; result: { difficulty: Record<string, number>; formats: Record<string, number>; topicsCovered: number } }
+export interface AdminMockPaper { id: string; paperId: string; subjectCode: string; subjectName: string; exam: string; number: number; title: string; status: string; questions: number; allQuestionsApproved: boolean; blueprint: MockBlueprint; approvedBy: string | null; approvedAt: string | null; approvalNote: string | null; publishedAt: string | null }
+export interface MockReadiness {
+  subject: { paperId: string; code: string; name: string; exam: string; year: number }; pattern: MockBlueprint['pattern']; basis: string;
+  bank: { questions: number; approvedByReviewer: number; notMatchingOptionCount: number; eligibleUnused: number };
+  perUnit: { id: string; label: string | null; title: string; syllabusRows: number; needed: number; available: number }[]; perDifficulty: { difficulty: string; needed: number; available: number }[]; ready: boolean; shortfalls: string[];
 }
 export interface EmailOverview {
   enabled: boolean; providers: string[]; senderSet: boolean; appUrlSet: boolean;

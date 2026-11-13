@@ -74,6 +74,16 @@ export async function applyReview(db: D1Database, input: ReviewInput, actor: str
     throw invalid('Say what is wrong: a comment is required when requesting changes or rejecting');
   }
   const ids = [...new Set(input.entityIds)];
+  // D1 accepts at most 100 bound values in one statement, so a large selection is applied in parts.
+  if (ids.length > 80) {
+    const total = { applied: 0, changes: [] as { id: string; from: string; to: string }[] };
+    for (let i = 0; i < ids.length; i += 80) {
+      const part = await applyReview(db, { ...input, entityIds: ids.slice(i, i + 80) }, actor);
+      total.applied += part.applied;
+      total.changes.push(...part.changes);
+    }
+    return total;
+  }
   const placeholders = ids.map(() => '?').join(',');
   const extra =
     input.entityType === 'SYLLABUS_VERSION'

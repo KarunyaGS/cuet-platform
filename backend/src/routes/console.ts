@@ -21,6 +21,7 @@ import { deleteQuestion, getQuestionAdmin, questionInputSchema, updateQuestion }
 import { deleteResource, getResource, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
 import { emailOverview } from '../services/email';
+import { buildMockPaper, linkActionSchema, listMockPapersAdmin, listOfficialLinksAdmin, mockActionSchema, mockPaperAdmin, mockPaperReadiness, setMockPaperStatus, setOfficialLinkStatus } from '../services/practice-centre';
 import { listPastPapersAdmin, paperActionSchema, pastPaperQuestionsAdmin, setPastPaperStatus } from '../services/past-papers';
 import {
   billingOverview, cancelSchema, cancelSubscription, createPlan, grantAccess, grantSchema, listOrders, listPlans, listSubscriptions, manualRefundSchema, orderDetail, orderQuery, planCreateSchema,
@@ -61,6 +62,16 @@ admin.post('/students/reset-link', async (c) => {
   needPermission(me(c), 'users:manage', 'create password reset links');
   return c.json(await createResetLink(c.env.DB, await readJson(c, resetLinkSchema), c.get('actor')), 201);
 });
+
+// Official links: the list, and the publish switch, which needs the linking basis on record (content:publish).
+admin.get('/official-papers', async (c) => c.json(await listOfficialLinksAdmin(c.env.DB)));
+admin.post('/official-papers/:id/status', async (c) => (needPermission(me(c), 'content:publish', 'publish official links'), c.json(await setOfficialLinkStatus(c.env.DB, c.req.param('id'), await readJson(c, linkActionSchema), c.get('actor')))));
+// Our own mock papers: what the blueprint needs, building a draft from approved questions, approval and publishing.
+admin.get('/mock-papers', async (c) => c.json(await listMockPapersAdmin(c.env.DB, c.req.query('paperId') || undefined)));
+admin.get('/mock-papers/readiness/:paperId', async (c) => c.json(await mockPaperReadiness(c.env.DB, c.req.param('paperId'))));
+admin.post('/mock-papers/build/:paperId', async (c) => (needPermission(me(c), 'content:write', 'build mock papers'), c.json(await buildMockPaper(c.env.DB, c.req.param('paperId'), c.get('actor')), 201)));
+admin.get('/mock-papers/:id', async (c) => c.json(await mockPaperAdmin(c.env.DB, c.req.param('id'))));
+admin.post('/mock-papers/:id/status', async (c) => c.json(await setMockPaperStatus(c.env.DB, c.req.param('id'), await readJson(c, mockActionSchema), me(c))));
 
 // Previous-year papers: what is stored, what blocks publishing, and the publish switch (content:publish).
 admin.get('/past-papers', async (c) => c.json(await listPastPapersAdmin(c.env.DB)));

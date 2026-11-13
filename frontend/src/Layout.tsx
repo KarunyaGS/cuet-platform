@@ -111,9 +111,9 @@ function UserMenu() {
               <ChartNoAxesColumn aria-hidden />
               Weekly report
             </Link>
-            <Link role="menuitem" to="/past-papers" className={item}>
+            <Link role="menuitem" to="/practice-centre" className={item}>
               <FileText aria-hidden />
-              Previous-year papers
+              Practice Centre
             </Link>
             <Link role="menuitem" to="/plans" className={item}>
               <CreditCard aria-hidden />
@@ -182,6 +182,7 @@ export function Layout() {
                 <TopLink to="/dashboard">Today</TopLink>
                 <TopLink to="/CUET_UG">CUET-UG</TopLink>
                 <TopLink to="/CUET_PG">CUET-PG</TopLink>
+                <TopLink to="/practice-centre">Practice</TopLink>
                 <TopLink to="/planner">Planner</TopLink>
                 <TopLink to="/progress">Progress</TopLink>
               </nav>

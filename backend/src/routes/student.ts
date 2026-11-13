@@ -12,6 +12,7 @@ import { invalid } from '../lib/errors';
 import { readJson } from '../lib/http';
 import { changePassword, login, loginSchema, logout, passwordSchema, resetPassword, resetPasswordSchema, registerSchema, registerStudent, SESSION_COOKIE, studentAuth, userFromToken } from '../services/accounts';
 import { sha256Hex } from '../lib/hash';
+import { listMockPapers, listOfficialLinks, startMockPaper, startMockSchema } from '../services/practice-centre';
 import { listPastPapers, pastPaperDetail, pastPaperQuery, startPastPaper, startPastPaperSchema } from '../services/past-papers';
 import { assertWithinPlan, billingSummary, confirmCheckout, confirmSchema, createOrder, orderSchema, simulatePayment, simulateSchema } from '../services/billing';
 import {
@@ -23,7 +24,7 @@ import {
 } from '../services/student-tools';
 import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
 import { listExams, listSubjects, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
-import { answerSchema, getSession, progress, saveAnswer, startSchema, startSession, submitSession } from '../services/practice';
+import { answerSchema, getSession, marksSchema, progress, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 
 const preview = (env: AppEnv['Bindings']) => env.CONTENT_PREVIEW === 'true';
 /** Runs email work after the response is sent, so the answer never waits for (or reveals) the send. A failed send is recorded, never thrown. */
@@ -94,6 +95,13 @@ learn.get('/subjects/:paperId', async (c) => c.json(await paperOutline(c.env.DB,
 learn.get('/topics/:nodeId', async (c) => c.json(await topicDetail(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 learn.get('/resources/:id', async (c) => c.json(await resourceDetail(c.env.DB, preview(c.env), c.req.param('id'))));
 learn.get('/media/:id', async (c) => mediaObject(c.env.DB, c.env.MEDIA, preview(c.env), c.req.param('id')));
+// Practice Centre: links to official documents (published, with a recorded linking basis) and our own published mock papers.
+learn.get('/official-papers', async (c) => {
+  const exam = c.req.query('exam');
+  if (exam !== 'CUET_UG' && exam !== 'CUET_PG') throw invalid('exam must be CUET_UG or CUET_PG');
+  return c.json(await listOfficialLinks(c.env.DB, exam));
+});
+learn.get('/mock-papers', async (c) => c.json(await listMockPapers(c.env.DB, { exam: c.req.query('exam') || undefined, paperId: c.req.query('paperId') || undefined })));
 // Previous-year papers: only published papers whose licence allows display are ever listed here.
 learn.get('/past-papers', async (c) => c.json(await listPastPapers(c.env.DB, pastPaperQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
 learn.get('/past-papers/:id', async (c) => c.json(await pastPaperDetail(c.env.DB, c.req.param('id'))));
@@ -114,11 +122,19 @@ student.post('/practice', async (c) => {
 });
 student.get('/practice/:id', async (c) => c.json(await getSession(c.env.DB, c.get('user').id, c.req.param('id'))));
 student.post('/practice/:id/answers', async (c) => c.json(await saveAnswer(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, answerSchema))));
+student.put('/practice/:id/marks', async (c) => c.json(await saveMarks(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, marksSchema))));
 student.post('/practice/:id/submit', async (c) => c.json(await submitSession(c.env.DB, c.get('user').id, c.req.param('id'))));
 student.get('/progress', async (c) => c.json(await progress(c.env.DB, c.get('user').id)));
 student.post('/practice/daily', async (c) => {
   await assertWithinPlan(c.env.DB, c.get('user').id, 'PRACTICE');
   return c.json(await startDailyPractice(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, dailySchema)), 201);
+});
+
+// Our own mock papers: a fixed paper, timed like the exam or untimed. Plan limits apply.
+student.post('/mock-papers/:id/start', async (c) => {
+  const input = await readJson(c, startMockSchema);
+  await assertWithinPlan(c.env.DB, c.get('user').id, input.mode);
+  return c.json(await startMockPaper(c.env.DB, c.get('user').id, c.req.param('id'), input), 201);
 });
 
 // Previous-year papers: attempt one as it was set (timed) or as untimed practice. Plan limits apply as for any test.

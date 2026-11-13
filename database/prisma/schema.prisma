@@ -313,6 +313,7 @@ model TestPaper {
   extractionJobs      ExtractionJob[]
   practiceSessions    PracticeSession[]
   pastPapers          PastPaper[]
+  mockPapers          MockPaper[]
 
   @@unique([examCycleId, code])
   @@index([subjectId])
@@ -641,41 +642,42 @@ model Passage {
 // ---------------------------------------------------------------------------
 
 model Question {
-  id                 String             @id @default(cuid())
-  testPaperId        String?            @map("test_paper_id")
+  id                 String              @id @default(cuid())
+  testPaperId        String?             @map("test_paper_id")
   type               QuestionType
   stem               String
-  language           String             @default("en")
+  language           String              @default("en")
   /// Questions that are translations of each other share this id.
-  translationGroupId String?            @map("translation_group_id")
-  passageId          String?            @map("passage_id")
+  translationGroupId String?             @map("translation_group_id")
+  passageId          String?             @map("passage_id")
   difficulty         Difficulty
-  learningObjective  String?            @map("learning_objective")
+  learningObjective  String?             @map("learning_objective")
   /// JSON text for structured types, e.g. the two columns of a match-the-following question.
-  structureJson      String?            @map("structure_json")
+  structureJson      String?             @map("structure_json")
   origin             ContentOrigin
-  usagePermissionId  String             @map("usage_permission_id")
-  sourceDocumentId   String?            @map("source_document_id")
-  sourceLocator      String?            @map("source_locator")
-  status             PublishStatus      @default(DRAFT)
-  verification       VerificationStatus @default(UNVERIFIED)
-  isDemonstration    Boolean            @default(false) @map("is_demonstration")
+  usagePermissionId  String              @map("usage_permission_id")
+  sourceDocumentId   String?             @map("source_document_id")
+  sourceLocator      String?             @map("source_locator")
+  status             PublishStatus       @default(DRAFT)
+  verification       VerificationStatus  @default(UNVERIFIED)
+  isDemonstration    Boolean             @default(false) @map("is_demonstration")
   /// sha256 of normalised stem + options; unique so the same question cannot be imported twice.
-  contentHash        String             @unique @map("content_hash")
+  contentHash        String              @unique @map("content_hash")
   /// Stable key of the authored content pack item (re-imports update this record instead of duplicating it).
-  externalKey        String?            @unique @map("external_key")
-  version            Int                @default(1)
-  createdAt          DateTime           @default(now()) @map("created_at")
-  updatedAt          DateTime           @updatedAt @map("updated_at")
-  testPaper          TestPaper?         @relation(fields: [testPaperId], references: [id], onDelete: SetNull)
-  passage            Passage?           @relation(fields: [passageId], references: [id], onDelete: SetNull)
-  usagePermission    UsagePermission    @relation(fields: [usagePermissionId], references: [id], onDelete: Restrict)
-  sourceDocument     SourceDocument?    @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+  externalKey        String?             @unique @map("external_key")
+  version            Int                 @default(1)
+  createdAt          DateTime            @default(now()) @map("created_at")
+  updatedAt          DateTime            @updatedAt @map("updated_at")
+  testPaper          TestPaper?          @relation(fields: [testPaperId], references: [id], onDelete: SetNull)
+  passage            Passage?            @relation(fields: [passageId], references: [id], onDelete: SetNull)
+  usagePermission    UsagePermission     @relation(fields: [usagePermissionId], references: [id], onDelete: Restrict)
+  sourceDocument     SourceDocument?     @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
   options            QuestionOption[]
   answerKey          AnswerKey?
   explanations       Explanation[]
   topics             QuestionTopic[]
   pastPaperEntry     PastPaperQuestion?
+  mockPaperEntries   MockPaperQuestion[]
   tags               QuestionTag[]
   media              QuestionMedia[]
   practiceAnswers    PracticeAnswer[]
@@ -977,6 +979,10 @@ model PracticeSession {
   status           SessionStatus    @default(IN_PROGRESS)
   /// JSON array of question ids, in the order shown.
   questionIdsJson  String           @map("question_ids_json")
+  /// JSON array of question ids the student marked for review, so the marks survive a reload.
+  markedJson       String?          @map("marked_json")
+  /// What this attempt is, when it is not an ad-hoc set: {"kind":"MOCK_PAPER"|"PAST_PAPER","id","title"}.
+  sourceJson       String?          @map("source_json")
   durationSeconds  Int?             @map("duration_seconds")
   marksCorrect     Int              @map("marks_correct")
   marksIncorrect   Int              @map("marks_incorrect")
@@ -1523,4 +1529,88 @@ model PastPaperQuestion {
 
   @@unique([pastPaperId, position])
   @@map("past_paper_questions")
+}
+
+/// A link to an official document on the exam body's own site, or a notice that a document is not published.
+/// Only the address is stored: the document itself is never downloaded, copied or re-hosted.
+model OfficialPaperLink {
+  id               String    @id @default(cuid())
+  examCode         String    @map("exam_code")
+  year             Int
+  /// Null when the row covers every subject of the exam that year (for example one answer-key file for all papers).
+  subjectCode      String?   @map("subject_code")
+  subjectName      String?   @map("subject_name")
+  /// Exam date and shift as printed, when the document is for one session.
+  session          String?
+  /// QUESTION_PAPER | ANSWER_KEY
+  kind             String
+  /// AVAILABLE (has an address) | NOT_AVAILABLE (the exam body does not publish it openly)
+  availability     String
+  url              String?
+  title            String
+  /// For NOT_AVAILABLE: why, in plain words. For AVAILABLE: what the document contains.
+  note             String?
+  /// Official page or notice that supports the row (for NOT_AVAILABLE, where the exam body says how papers are seen).
+  evidenceUrl      String?   @map("evidence_url")
+  publisher        String    @default("National Testing Agency (NTA)")
+  /// The day a person or tool last opened the address (YYYY-MM-DD).
+  checkedOn        String    @map("checked_on")
+  /// Why linking is allowed: the reference of the exam body's permission, or the owner's recorded decision.
+  /// A link is never published without it.
+  linkingBasis     String?   @map("linking_basis")
+  linkingCheckedBy String?   @map("linking_checked_by")
+  /// DRAFT | PUBLISHED | ARCHIVED
+  status           String    @default("DRAFT")
+  externalKey      String    @unique @map("external_key")
+  createdBy        String    @map("created_by")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @map("updated_at")
+  publishedAt      DateTime? @map("published_at")
+
+  @@index([examCode, year, status])
+  @@map("official_paper_links")
+}
+
+/// One of our own mock papers: a fixed set of original practice questions built to a written blueprint.
+/// It is never an official paper and is never labelled as one.
+model MockPaper {
+  id            String              @id @default(cuid())
+  testPaperId   String              @map("test_paper_id")
+  /// 1, 2, 3 … within the subject.
+  number        Int
+  title         String
+  /// The blueprint the paper was built to (unit quotas, difficulty mix, option count, rules) and how it was met.
+  blueprintJson String              @map("blueprint_json")
+  /// DRAFT | APPROVED | PUBLISHED | ARCHIVED
+  status        String              @default("DRAFT")
+  createdBy     String              @map("created_by")
+  /// The reviewer who approved the paper as a whole (coverage, balance, no errors), under their own account.
+  approvedBy    String?             @map("approved_by")
+  approvedAt    DateTime?           @map("approved_at")
+  approvalNote  String?             @map("approval_note")
+  publishedBy   String?             @map("published_by")
+  publishedAt   DateTime?           @map("published_at")
+  createdAt     DateTime            @default(now()) @map("created_at")
+  updatedAt     DateTime            @map("updated_at")
+  testPaper     TestPaper           @relation(fields: [testPaperId], references: [id], onDelete: Restrict)
+  entries       MockPaperQuestion[]
+
+  @@unique([testPaperId, number])
+  @@index([status])
+  @@map("mock_papers")
+}
+
+model MockPaperQuestion {
+  mockPaperId String    @map("mock_paper_id")
+  position    Int
+  questionId  String    @map("question_id")
+  /// The syllabus unit the question was chosen for.
+  unitNodeId  String?   @map("unit_node_id")
+  mockPaper   MockPaper @relation(fields: [mockPaperId], references: [id], onDelete: Cascade)
+  question    Question  @relation(fields: [questionId], references: [id], onDelete: Restrict)
+
+  @@id([mockPaperId, position])
+  @@unique([mockPaperId, questionId])
+  @@index([questionId])
+  @@map("mock_paper_questions")
 }

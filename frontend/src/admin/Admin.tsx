@@ -46,6 +46,9 @@ export function AdminLayout() {
             Reviewers and roles
           </NavLink>
         )}
+        <NavLink to="/admin/practice-centre" className={tab}>
+          Practice Centre
+        </NavLink>
         <NavLink to="/admin/past-papers" className={tab}>
           Previous-year papers
         </NavLink>

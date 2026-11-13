@@ -271,7 +271,7 @@ export async function startPastPaper(db: D1Database, userId: string, id: string,
   const { results } = await db.prepare('SELECT question_id FROM past_paper_questions WHERE past_paper_id = ? AND dropped = 0 AND question_id IS NOT NULL ORDER BY position').bind(id).all<{ question_id: string }>();
   if (!results.length) throw new ApiError(404, 'NO_QUESTIONS', 'This paper has no questions to attempt');
   const rules = { questionsPerPaper: Number(p['questions_in_paper']), durationMinutes: Number(p['duration_minutes']), marksCorrect: Number(p['marks_correct']), marksIncorrect: Number(p['marks_incorrect']) };
-  return createSession(db, userId, { mode: input.mode, paperId: (p['test_paper_id'] as string | null) ?? null, nodeId: null, ids: results.map((r) => r.question_id) }, { rulesJson: JSON.stringify(rules), rules });
+  return createSession(db, userId, { mode: input.mode, paperId: (p['test_paper_id'] as string | null) ?? null, nodeId: null, ids: results.map((r) => r.question_id) }, { rulesJson: JSON.stringify(rules), rules }, { kind: 'PAST_PAPER', id, title: String(p['title']) });
 }
 
 // ---------------------------------------------------------------- staff

@@ -7,6 +7,7 @@
  *   POST /nodes/:id/edit | /nodes/:id/move | /versions/:id/rows | /decide | /versions/:id/sign-off
  */
 import { Hono } from 'hono';
+import { listMockPapersAdmin, mockActionSchema, mockPaperAdmin, setMockPaperStatus } from '../services/practice-centre';
 import { z } from 'zod';
 import type { AppEnv } from '../types';
 import { invalid } from '../lib/errors';
@@ -50,6 +51,13 @@ review.get('/history', async (c) => {
 review.post('/nodes/:id/edit', async (c) => c.json(await editRow(c.env.DB, c.req.param('id'), await readJson(c, editSchema), me(c))));
 review.post('/nodes/:id/move', async (c) => c.json(await moveRow(c.env.DB, c.req.param('id'), await readJson(c, moveSchema), me(c))));
 review.post('/versions/:id/rows', async (c) => c.json(await addRows(c.env.DB, c.req.param('id'), await readJson(c, addRowsSchema), me(c)), 201));
+// Mock papers: a reviewer reads a draft paper as a whole and approves it (coverage, balance, answer keys).
+review.get('/mock-papers', async (c) => c.json(await listMockPapersAdmin(c.env.DB)));
+review.get('/mock-papers/:id', async (c) => c.json(await mockPaperAdmin(c.env.DB, c.req.param('id'))));
+review.post('/mock-papers/:id/approve', async (c) => {
+  const u = c.get('user');
+  return c.json(await setMockPaperStatus(c.env.DB, c.req.param('id'), { action: 'APPROVE', note: (await readJson(c, mockActionSchema.pick({ note: true }))).note }, { id: u.id, permissions: u.permissions ?? [] }));
+});
 review.post('/decide', async (c) => c.json(await decide(c.env.DB, await readJson(c, decideSchema), me(c))));
 review.post('/versions/:id/sign-off', async (c) => c.json(await signOff(c.env.DB, c.req.param('id'), await readJson(c, signOffSchema), me(c))));
 

@@ -49,7 +49,11 @@ export function PracticePage() {
   const [err, setErr] = useState<Error | null>(null);
   const [busy, setBusy] = useState(false);
   const [confirming, setConfirming] = useState(false);
-  useEffect(() => setData(loaded.data), [loaded.data]);
+  useEffect(() => {
+    setData(loaded.data);
+    // Marks for review are kept on the server, so they come back after a reload or on another device.
+    if (loaded.data) setMarked(new Set(loaded.data.session.marked));
+  }, [loaded.data]);
   const left = useCountdown(data?.session.status === 'IN_PROGRESS' ? data.session.deadline : null);
 
   useEffect(() => {
@@ -142,7 +146,23 @@ export function PracticePage() {
   const counts = data.questions.reduce<Record<string, number>>((c, x) => ((c[cellOf(x)] = (c[cellOf(x)] ?? 0) + 1), c), {});
   const answeredCount = data.questions.filter(answered).length;
   const legend = (practice ? (['correct', 'incorrect', 'answered', 'not-visited'] as const) : (['answered', 'not-answered', 'marked', 'answered-marked', 'not-visited'] as const));
-  const toggleMark = () => setMarked((m) => (m.has(q.id) ? new Set([...m].filter((x) => x !== q.id)) : new Set(m).add(q.id)));
+  const toggleMark = () => {
+    const next = marked.has(q.id) ? new Set([...marked].filter((x) => x !== q.id)) : new Set(marked).add(q.id);
+    setMarked(next);
+    api.saveMarks(sessionId, [...next]).catch((e: Error) => setErr(e));
+  };
+  /** Back to "not answered": matters where a wrong answer costs marks. */
+  const clearResponse = async () => {
+    setErr(null);
+    setData((d) => d && { ...d, questions: d.questions.map((x) => (x.id === q.id ? { ...x, answer: null } : x)) });
+    try {
+      await api.answer(sessionId, { questionId: q.id, selectedPositions: [] });
+    } catch (e) {
+      setErr(e as Error);
+    }
+  };
+  const source = data.session.source;
+  const official = source?.kind === 'PAST_PAPER';
   const timeTone = left === null ? '' : left < 60 ? 'bg-wrong-soft text-wrong ring-wrong/30' : left < 300 ? 'bg-marker-soft text-marker ring-marker/30' : 'bg-surface text-ink ring-rule';
   const startSubmit = () => (practice || answeredCount === total ? void submit() : setConfirming(true));
 
@@ -152,7 +172,10 @@ export function PracticePage() {
       <div className="sticky top-14 z-20 -mx-4 mb-5 border-b border-rule bg-paper/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <div className="min-w-0">
-            <div className="font-semibold text-ink">{MODE[data.session.mode]}</div>
+            <div className="flex flex-wrap items-center gap-2 font-semibold text-ink">
+              {source?.title ?? MODE[data.session.mode]}
+              <Badge tone={official ? 'accent' : 'green'}>{official ? 'Official previous-year paper' : 'Practice questions'}</Badge>
+            </div>
             <div className="num text-xs text-ink-3">
               {total} questions, marking {data.session.marking.correct > 0 ? '+' : ''}
               {data.session.marking.correct} / {data.session.marking.incorrect < 0 ? '−' : ''}
@@ -274,6 +297,11 @@ export function PracticePage() {
               Previous
             </Button>
             <div className="flex items-center gap-2">
+              {!practice && answered(q) && (
+                <Button kind="ghost" onClick={() => void clearResponse()}>
+                  Clear response
+                </Button>
+              )}
               {!practice && (
                 <Button kind={marked.has(q.id) ? 'secondary' : 'ghost'} onClick={toggleMark} icon={<Flag aria-hidden className={marked.has(q.id) ? 'text-marker' : ''} />}>
                   {marked.has(q.id) ? 'Marked for review' : 'Mark for review'}

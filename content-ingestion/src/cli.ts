@@ -244,6 +244,14 @@ try {
     const r = await importMissing(loadRegistry(), { extracted: PATHS.extracted, review: PATHS.syllabusReview, registryDir: dirname(PATHS.registry) }, option('api') ?? 'http://127.0.0.1:8787', adminToken());
     console.log(JSON.stringify(r, null, 1));
   }
+  else if (cmd === 'official-links-import') {
+    // Links to official documents (addresses only; nothing is downloaded). Stored as drafts; staff publish them in the admin console.
+    const file = join(repo, 'content', 'official-papers', 'links.json');
+    const api = option('api') ?? 'http://127.0.0.1:8787';
+    const res = await fetch(`${api}/api/admin/official-papers`, { method: 'POST', headers: { 'x-admin-token': adminToken(), 'x-admin-actor': 'official-links-cli', 'content-type': 'application/json' }, body: readFileSync(file, 'utf8') });
+    console.log(JSON.stringify(await res.json(), null, 1));
+    if (!res.ok) process.exitCode = 1;
+  }
   else if (cmd === 'pyq-validate' || cmd === 'pyq-import') {
     // Previous-year papers: validate packs, or store valid ones as DRAFT papers. Publishing is a staff action in the admin console.
     const dryRun = cmd === 'pyq-validate';

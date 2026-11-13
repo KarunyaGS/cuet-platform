@@ -14,6 +14,7 @@ import { PastPaperPage, PastPapersPage } from './pages/PastPapers';
 import { PlannerPage } from './pages/Planner';
 import { PlansPage } from './pages/Plans';
 import { PracticePage } from './pages/Practice';
+import { PracticeCentrePage } from './pages/PracticeCentre';
 import { ProfilePage } from './pages/Profile';
 import { ProgressPage } from './pages/Progress';
 import { ResultsPage } from './pages/Results';
@@ -46,6 +47,7 @@ const AdminStudent = lazy(() => import('./admin/Admin').then((m) => ({ default: 
 const AdminContent = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminContent })));
 const AdminCompletion = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminCompletion })));
 const AdminStaff = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminStaff })));
+const AdminPracticeCentre = lazy(() => import('./admin/PracticeCentre').then((m) => ({ default: m.AdminPracticeCentre })));
 const AdminPastPapers = lazy(() => import('./admin/PastPapers').then((m) => ({ default: m.AdminPastPapers })));
 const AdminBilling = lazy(() => import('./admin/Billing').then((m) => ({ default: m.AdminBilling })));
 const AdminEmail = lazy(() => import('./admin/Email').then((m) => ({ default: m.AdminEmail })));
@@ -89,6 +91,7 @@ const router = createBrowserRouter([
       { path: '/search', element: <SearchPage /> },
       { path: '/report', element: <ReportPage /> },
       { path: '/plans', element: <PlansPage /> },
+      { path: '/practice-centre', element: <PracticeCentrePage /> },
       { path: '/past-papers', element: <PastPapersPage /> },
       { path: '/past-papers/:id', element: <PastPaperPage /> },
       { path: '/revise/:nodeId', element: <RevisePage /> },
@@ -112,6 +115,7 @@ const router = createBrowserRouter([
           { path: 'content', element: lazyPage(<AdminContent />) },
           { path: 'completion', element: lazyPage(<AdminCompletion />) },
           { path: 'staff', element: lazyPage(<AdminStaff />) },
+          { path: 'practice-centre', element: lazyPage(<AdminPracticeCentre />) },
           { path: 'past-papers', element: lazyPage(<AdminPastPapers />) },
           { path: 'billing', element: lazyPage(<AdminBilling />) },
           { path: 'email', element: lazyPage(<AdminEmail />) },

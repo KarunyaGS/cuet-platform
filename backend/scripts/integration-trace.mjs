@@ -383,6 +383,37 @@ async function run() {
   const attempt = await call('POST', `/api/student/past-papers/${ppId}/start`, { token: buyer.token, body: { mode: 'MOCK_TEST' } });
   check('a paper is attempted with its own questions, order, time and marking', attempt.status === 201 && attempt.json.questions.length === 3 && attempt.json.session.durationSeconds === 360 && attempt.json.session.marking.correct === 5 && attempt.json.questions[2].stem.includes('question 4'));
 
+  // ------------------------------------------------------------ Practice Centre: official links and our own mock papers
+  group = 'Practice Centre';
+  const marksRun = await call('POST', '/api/student/practice', { token: buyer.token, body: { mode: 'TOPIC_TEST', paperId: physics.paperId, count: 3 } });
+  const mQ = marksRun.json.questions;
+  await call('PUT', `/api/student/practice/${marksRun.json.session.id}/marks`, { token: buyer.token, body: { questionIds: [mQ[1].id] } });
+  await call('POST', `/api/student/practice/${marksRun.json.session.id}/answers`, { token: buyer.token, body: { questionId: mQ[0].id, selectedPositions: [1] } });
+  await call('POST', `/api/student/practice/${marksRun.json.session.id}/answers`, { token: buyer.token, body: { questionId: mQ[0].id, selectedPositions: [] } });
+  const marksBack = await call('GET', `/api/student/practice/${marksRun.json.session.id}`, { token: buyer.token });
+  check('"mark for review" is kept on the server and a cleared answer counts as unanswered', marksBack.json.session.marked.length === 1 && marksBack.json.session.marked[0] === mQ[1].id && one('SELECT marked_json AS m FROM practice_sessions WHERE id = ?', marksRun.json.session.id).m === JSON.stringify([mQ[1].id]) && one('SELECT outcome FROM practice_answers WHERE session_id = ? AND question_id = ?', marksRun.json.session.id, mQ[0].id).outcome === 'UNATTEMPTED');
+  const offSite = await admin('POST', '/api/admin/official-papers', { schema: 'cuet-official-links/1', links: [{ exam: 'CUET_UG', year: 2026, kind: 'QUESTION_PAPER', availability: 'AVAILABLE', url: 'https://papers.example.com/cuet-2026.pdf', title: 'Copied paper', checkedOn: '2026-11-13' }] });
+  check('a link that is not on the exam body\'s own site is refused', offSite.status === 400 && n('SELECT COUNT(*) FROM official_paper_links') === 0);
+  const linkPack = { schema: 'cuet-official-links/1', links: [
+    { exam: 'CUET_UG', year: 2026, kind: 'ANSWER_KEY', availability: 'AVAILABLE', url: 'https://cdnbbsr.s3waas.gov.in/s3d1a21da7bca4abff8b0b61b87597de73/uploads/2026/06/202606231857909583.pdf', title: 'CUET (UG) 2026 final answer keys', note: 'Question id and correct option id.', checkedOn: '2026-11-13' },
+    { exam: 'CUET_UG', year: 2026, kind: 'QUESTION_PAPER', availability: 'NOT_AVAILABLE', title: 'CUET (UG) 2026 question papers', note: 'NTA does not publish the question papers openly.', checkedOn: '2026-11-13' } ] };
+  const linksIn = await admin('POST', '/api/admin/official-papers', linkPack);
+  const visibleLinks = async () => (await call('GET', '/api/learn/official-papers?exam=CUET_UG')).json.years.flatMap((y) => y.items);
+  check('official links are stored as drafts (addresses only) and are not shown to students', linksIn.json?.created === 2 && (await visibleLinks()).length === 0 && n("SELECT COUNT(*) FROM official_paper_links WHERE status = 'DRAFT'") === 2);
+  const keyLink = one("SELECT id FROM official_paper_links WHERE kind = 'ANSWER_KEY'").id;
+  const noBasis = await call('POST', `/api/console/official-papers/${keyLink}/status`, { token: a.token, body: { action: 'PUBLISH' } });
+  check('a link cannot be published without a recorded linking basis', noBasis.status === 409 && noBasis.json.error.code === 'LINKING_BASIS_REQUIRED');
+  await call('POST', `/api/console/official-papers/${keyLink}/status`, { token: a.token, body: { action: 'PUBLISH', linkingBasis: 'Trace: sample permission reference', conditionsChecked: true } });
+  await call('POST', `/api/console/official-papers/${one("SELECT id FROM official_paper_links WHERE kind = 'QUESTION_PAPER'").id}/status`, { token: a.token, body: { action: 'PUBLISH' } });
+  const shownLinks = await visibleLinks();
+  check('once published, students get the link to the original and a clear "not available" notice', shownLinks.length === 2 && shownLinks.some((l) => l.available && l.url.startsWith('https://cdnbbsr.s3waas.gov.in/')) && shownLinks.some((l) => !l.available && l.url === null) && one("SELECT linking_checked_by AS b FROM official_paper_links WHERE kind = 'ANSWER_KEY'").b === `user:${a.id}`);
+  const readiness = await call('GET', `/api/console/mock-papers/readiness/${physics.paperId}`, { token: a.token });
+  const approvedNow = n("SELECT COUNT(*) FROM questions WHERE verification = 'VERIFIED' AND origin != 'PAST_PAPER'");
+  check('the mock blueprint follows the exam rules and covers every syllabus unit', readiness.json?.pattern?.questions === 50 && readiness.json.pattern.durationMinutes === 60 && readiness.json.perUnit.length === 9 && readiness.json.perUnit.reduce((x, u) => x + u.needed, 0) === 50 && readiness.json.perUnit.every((u) => u.needed >= 1), readiness.json?.perUnit?.map((u) => u.needed).join(','));
+  const tooEarly = await call('POST', `/api/console/mock-papers/build/${physics.paperId}`, { token: a.token });
+  check('a mock paper cannot be built while too few questions are approved by a reviewer', readiness.json.ready === false && readiness.json.bank.approvedByReviewer === approvedNow && tooEarly.status === 409 && n('SELECT COUNT(*) FROM mock_papers') === 0, `${approvedNow} approved`);
+  check('no mock paper is shown to students until one is approved and published', (await call('GET', '/api/learn/mock-papers?exam=CUET_UG')).json.length === 0);
+
   // ------------------------------------------------------------ integrity
   group = 'Integrity';
   check('no foreign-key violations after all of the above', all('PRAGMA foreign_key_check').length === 0);

@@ -446,6 +446,8 @@ const TABLE: Record<z.infer<typeof decideSchema>['entityType'], string> = {
   CURRICULUM_NODE: 'curriculum_nodes', QUESTION: 'questions', LEARNING_RESOURCE: 'learning_resources', MEDIA_ASSET: 'media_assets',
 };
 
+const REVIEW_CHUNK = 80;
+
 /** A person's decision on rows or content items. This is the only way anything becomes VERIFIED. */
 export async function decide(db: D1Database, input: z.infer<typeof decideSchema>, user: Reviewer) {
   need(user, 'content:review', 'verify, flag or reject content');
@@ -453,6 +455,17 @@ export async function decide(db: D1Database, input: z.infer<typeof decideSchema>
     throw invalid('Confirm what you checked (for example, that the row matches the source page) before verifying');
   }
   const ids = [...new Set(input.entityIds)];
+  // D1 accepts at most 100 bound values in one statement, so a large selection is decided in parts.
+  if (ids.length > REVIEW_CHUNK) {
+    const total = { applied: 0, changes: [] as { id: string; from: string; to: string }[], skipped: 0 };
+    for (let i = 0; i < ids.length; i += REVIEW_CHUNK) {
+      const part = await decide(db, { ...input, entityIds: ids.slice(i, i + REVIEW_CHUNK) }, user);
+      total.applied += part.applied;
+      total.changes.push(...part.changes);
+      total.skipped += part.skipped;
+    }
+    return total;
+  }
   const ph = ids.map(() => '?').join(',');
   const authorCol = input.entityType === 'CURRICULUM_NODE' ? 'authored_by' : 'NULL';
   const { results } = await db

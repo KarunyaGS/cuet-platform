@@ -66,6 +66,8 @@ export interface Billing {
   payments: { id: string; plan: string; amountPaise: number; currency: string; status: string; reference: string; method: string | null; failureReason: string | null; createdAt: string; paidAt: string | null }[];
   passes: { id: string; plan: string; startsAt: string; endsAt: string; source: string; state: string }[];
 }
+export interface OfficialLinkItem { id: string; exam: ExamCode; year: number; subjectCode: string | null; subjectName: string | null; session: string | null; kind: 'QUESTION_PAPER' | 'ANSWER_KEY'; available: boolean; url: string | null; title: string; note: string | null; publisher: string; checkedOn: string }
+export interface MockPaperCard { id: string; paperId: string; subjectCode: string; subjectName: string; exam: ExamCode; number: number; title: string; questions: number; durationMinutes: number; marksCorrect: number; marksIncorrect: number; difficulty: Record<string, number>; units: number }
 export interface PastPaper {
   id: string; exam: ExamCode; year: number; subjectCode: string; subjectName: string; paperId: string | null; examDate: string | null; shift: string | null; language: string; title: string;
   questions: number; dropped: number; questionsInPaper: number; durationMinutes: number; marksCorrect: number; marksIncorrect: number;
@@ -83,6 +85,10 @@ export interface PracticeSession {
   session: {
     id: string; mode: 'PRACTICE' | 'TOPIC_TEST' | 'MOCK_TEST'; status: string; startedAt: string; durationSeconds: number | null; deadline: string | null;
     marking: { correct: number; incorrect: number };
+    /** Question ids marked for review (kept on the server). */
+    marked: string[];
+    /** Set when the attempt is a fixed paper: one of our mock papers, or an official previous-year paper. */
+    source: { kind: 'MOCK_PAPER' | 'PAST_PAPER'; id: string; title: string } | null;
     result: { score: number; maxScore: number; correct: number; incorrect: number; unattempted: number; submittedAt: string } | null;
   };
   questions: SessionQuestion[];
@@ -205,6 +211,10 @@ export const api = {
   resetPassword: (b: { token: string; newPassword: string }) => request<{ reset: boolean }>('POST', '/api/auth/reset-password', b),
   pastPapers: (f: { exam?: ExamCode; year?: number; subject?: string }) =>
     request<{ total: number; years: number[]; subjects: { code: string; name: string }[]; papers: PastPaper[] }>('GET', `/api/learn/past-papers?${new URLSearchParams(Object.entries(f).filter(([, v]) => v !== undefined && v !== '').map(([k, v]) => [k, String(v)])).toString()}`),
+  officialPapers: (exam: ExamCode) => request<{ exam: ExamCode; years: { year: number; items: OfficialLinkItem[] }[] }>('GET', `/api/learn/official-papers?exam=${exam}`),
+  mockPapers: (exam: ExamCode) => request<MockPaperCard[]>('GET', `/api/learn/mock-papers?exam=${exam}`),
+  startMockPaper: (id: string, mode: 'PRACTICE' | 'MOCK_TEST') => request<PracticeSession>('POST', `/api/student/mock-papers/${id}/start`, { mode }),
+  saveMarks: (id: string, questionIds: string[]) => request<{ marked: string[] }>('PUT', `/api/student/practice/${id}/marks`, { questionIds }),
   pastPaper: (id: string) => request<PastPaperDetail>('GET', `/api/learn/past-papers/${id}`),
   startPastPaper: (id: string, mode: 'PRACTICE' | 'MOCK_TEST') => request<PracticeSession>('POST', `/api/student/past-papers/${id}/start`, { mode }),
   billing: () => request<Billing>('GET', '/api/student/billing'),

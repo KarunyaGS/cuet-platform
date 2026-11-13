@@ -78,6 +78,7 @@ export async function createSession(
   userId: string,
   s: { mode: 'PRACTICE' | 'TOPIC_TEST' | 'MOCK_TEST'; paperId: string | null; nodeId: string | null; ids: string[] },
   known?: { rulesJson: string | null; rules: Rules },
+  source?: { kind: 'MOCK_PAPER' | 'PAST_PAPER'; id: string; title: string },
 ) {
   const { rulesJson, rules } = known ?? (await paperAndRules(db, undefined, s.paperId ?? undefined));
   const marking = markingFromRules(rulesJson);
@@ -90,6 +91,7 @@ export async function createSession(
       id, user_id: userId, mode: s.mode, test_paper_id: s.paperId, curriculum_node_id: s.nodeId, status: 'IN_PROGRESS',
       question_ids_json: JSON.stringify(s.ids), duration_seconds: duration, marks_correct: marking.correct, marks_incorrect: marking.incorrect,
       score: null, max_score: null, correct_count: 0, incorrect_count: 0, unattempted_count: 0, started_at: nowIso(), submitted_at: null,
+      marked_json: null, source_json: source ? JSON.stringify(source) : null,
     }]),
   );
   return getSession(db, userId, id);
@@ -102,6 +104,7 @@ async function loadSession(db: D1Database, userId: string, id: string) {
     id: string; mode: string; status: string; question_ids_json: string; duration_seconds: number | null; started_at: string;
     marks_correct: number; marks_incorrect: number; score: number | null; max_score: number | null; correct_count: number;
     incorrect_count: number; unattempted_count: number; submitted_at: string | null; test_paper_id: string | null; curriculum_node_id: string | null;
+    marked_json: string | null; source_json: string | null;
   };
 }
 
@@ -132,6 +135,9 @@ export async function getSession(db: D1Database, userId: string, id: string) {
     session: {
       id: s.id, mode: s.mode, status: s.status, startedAt: s.started_at, durationSeconds: s.duration_seconds,
       deadline: dl?.toISOString() ?? null, marking: { correct: s.marks_correct, incorrect: s.marks_incorrect },
+      // Questions marked for review (kept on the server, so a reload or another device shows them) and what the attempt is.
+      marked: s.marked_json ? (JSON.parse(s.marked_json) as string[]).filter((q) => ids.includes(q)) : [],
+      source: s.source_json ? (JSON.parse(s.source_json) as { kind: string; id: string; title: string }) : null,
       result: submitted ? { score: s.score, maxScore: s.max_score, correct: s.correct_count, incorrect: s.incorrect_count, unattempted: s.unattempted_count, submittedAt: s.submitted_at } : null,
     },
     questions: ids.filter((qid) => byQ.has(qid)).map((qid, i) => {
@@ -190,6 +196,18 @@ export async function saveAnswer(db: D1Database, userId: string, sessionId: stri
     saved: true, outcome: result.outcome, score: result.score, correctOptionPositions: key.correctOptionPositions, correctNumericAnswer: key.numericAnswer,
     explanation: exp?.body ?? null, optionRationale: exp?.option_rationale_json ? JSON.parse(exp.option_rationale_json) : null, answeredBy: 'stored-answer-key',
   };
+}
+
+export const marksSchema = z.object({ questionIds: z.array(z.string().max(100)).max(500) });
+
+/** Saves which questions the student marked for review. Marks never affect the score. */
+export async function saveMarks(db: D1Database, userId: string, sessionId: string, input: z.infer<typeof marksSchema>) {
+  const s = await loadSession(db, userId, sessionId);
+  if (s.status !== 'IN_PROGRESS') throw conflict('This session has already been submitted');
+  const ids = new Set(JSON.parse(s.question_ids_json) as string[]);
+  const marked = [...new Set(input.questionIds)].filter((q) => ids.has(q));
+  await db.prepare('UPDATE practice_sessions SET marked_json = ? WHERE id = ? AND user_id = ?').bind(JSON.stringify(marked), sessionId, userId).run();
+  return { marked };
 }
 
 /** Score the session once and fold the results into the student's per-topic progress. */

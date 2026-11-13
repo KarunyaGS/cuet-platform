@@ -1,0 +1,377 @@
+/**
+ * Practice Centre: links to official documents, and our own mock papers.
+ *
+ * Official links
+ *  - Only an address is stored. Nothing is downloaded, copied or re-hosted.
+ *  - An address must be on the exam body's own sites.
+ *  - A link is shown to students only after a member of staff records why linking is allowed (the exam body's
+ *    site asks for prior permission before other sites link to it). A "not available" notice carries no link and
+ *    needs no such basis.
+ *
+ * Mock papers
+ *  - Our own original practice questions, never official ones, and labelled so.
+ *  - Built only from questions a reviewer has approved, to a written blueprint: every syllabus unit is covered in
+ *    proportion to its share of the syllabus, with a fixed mix of easy, medium and hard questions.
+ *  - The blueprint is based on the syllabus, not on past-paper trends: no official question paper is available to
+ *    measure trends from, and none is claimed.
+ *  - A reviewer approves the paper as a whole, then a member of staff publishes it. A tool can do neither.
+ */
+import { z } from 'zod';
+import { ApiError, conflict, invalid, notFound } from '../lib/errors';
+import { newId } from '../lib/hash';
+import { insertRows, nowIso } from '../lib/sql';
+import { createSession } from './practice';
+
+// ---------------------------------------------------------------- official links
+
+/** The exam body's own sites. A link anywhere else is refused. */
+const OFFICIAL_HOSTS = [/(^|\.)nta\.ac\.in$/, /(^|\.)nta\.nic\.in$/, /^cdnbbsr\.s3waas\.gov\.in$/];
+const isOfficialUrl = (u: string) => {
+  try {
+    const x = new URL(u);
+    return x.protocol === 'https:' && OFFICIAL_HOSTS.some((h) => h.test(x.hostname));
+  } catch {
+    return false;
+  }
+};
+
+const linkSchema = z
+  .object({
+    exam: z.enum(['CUET_UG', 'CUET_PG']),
+    year: z.number().int().min(2022).max(2100),
+    subjectCode: z.string().trim().max(20).optional(),
+    subjectName: z.string().trim().max(200).optional(),
+    session: z.string().trim().max(80).optional(),
+    kind: z.enum(['QUESTION_PAPER', 'ANSWER_KEY']),
+    availability: z.enum(['AVAILABLE', 'NOT_AVAILABLE']),
+    url: z.string().max(1000).optional(),
+    title: z.string().trim().min(3).max(200),
+    note: z.string().trim().max(600).optional(),
+    evidenceUrl: z.string().max(1000).optional(),
+    checkedOn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  })
+  .superRefine((l, ctx) => {
+    const issue = (message: string) => ctx.addIssue({ code: 'custom', message });
+    if (l.availability === 'AVAILABLE') {
+      if (!l.url) issue('An available document needs its address');
+      else if (!isOfficialUrl(l.url)) issue('The address must be an https address on the exam body\'s own site');
+    } else {
+      if (l.url) issue('A document that is not available cannot carry an address');
+      if (!l.note) issue('Say why the document is not available');
+    }
+    if (l.evidenceUrl && !isOfficialUrl(l.evidenceUrl)) issue('The evidence address must be on the exam body\'s own site');
+    if (l.subjectCode && !l.subjectName) issue('Give the subject name with the subject code');
+  });
+export const linksImportSchema = z.object({ schema: z.literal('cuet-official-links/1'), links: z.array(linkSchema).min(1).max(2000) });
+
+const linkKey = (l: z.infer<typeof linkSchema>) => `${l.exam}:${l.year}:${l.subjectCode ?? 'all'}:${(l.session ?? 'all').replace(/\s+/g, '-')}:${l.kind}`.toLowerCase();
+
+/** Stores links as drafts. A row that is already published is left as it is. */
+export async function importOfficialLinks(db: D1Database, body: unknown, actor: string) {
+  const input = linksImportSchema.parse(body);
+  const out = { created: 0, updated: 0, unchanged: 0, skippedPublished: [] as string[] };
+  const now = nowIso();
+  for (const l of input.links) {
+    const key = linkKey(l);
+    const cur = await db.prepare('SELECT id, status, url, title, note, availability, checked_on FROM official_paper_links WHERE external_key = ?').bind(key).first<Record<string, string | null>>();
+    if (cur?.['status'] === 'PUBLISHED') {
+      out.skippedPublished.push(key);
+      continue;
+    }
+    const row = { exam_code: l.exam, year: l.year, subject_code: l.subjectCode ?? null, subject_name: l.subjectName ?? null, session: l.session ?? null, kind: l.kind, availability: l.availability, url: l.url ?? null, title: l.title, note: l.note ?? null, evidence_url: l.evidenceUrl ?? null, checked_on: l.checkedOn, updated_at: now };
+    if (!cur) {
+      await db.batch(insertRows(db, 'official_paper_links', [{ id: newId('opl'), ...row, publisher: 'National Testing Agency (NTA)', linking_basis: null, linking_checked_by: null, status: 'DRAFT', external_key: key, created_by: actor, created_at: now, published_at: null }]));
+      out.created++;
+    } else if (cur['url'] === row.url && cur['title'] === row.title && cur['note'] === row.note && cur['availability'] === row.availability && cur['checked_on'] === row.checked_on) out.unchanged++;
+    else {
+      // A changed address loses its recorded linking basis: it must be checked again.
+      await db.prepare(`UPDATE official_paper_links SET ${Object.keys(row).map((k) => `${k} = ?`).join(', ')}, linking_basis = NULL, linking_checked_by = NULL, status = 'DRAFT' WHERE id = ?`).bind(...(Object.values(row) as (string | number | null)[]), cur['id']).run();
+      out.updated++;
+    }
+  }
+  return out;
+}
+
+type LinkRow = Record<string, string | number | null>;
+const linkOut = (r: LinkRow) => ({
+  id: r['id'], exam: r['exam_code'], year: r['year'], subjectCode: r['subject_code'], subjectName: r['subject_name'], session: r['session'], kind: r['kind'], available: r['availability'] === 'AVAILABLE',
+  url: r['url'], title: r['title'], note: r['note'], evidenceUrl: r['evidence_url'], publisher: r['publisher'], checkedOn: r['checked_on'],
+});
+
+/** What students see: published rows only. A link is included only when its linking basis is on record. */
+export async function listOfficialLinks(db: D1Database, exam: string) {
+  const { results } = await db
+    .prepare(`SELECT * FROM official_paper_links WHERE exam_code = ? AND status = 'PUBLISHED' AND (availability = 'NOT_AVAILABLE' OR (linking_basis IS NOT NULL AND url IS NOT NULL)) ORDER BY year DESC, kind DESC, subject_name, session`)
+    .bind(exam)
+    .all<LinkRow>();
+  const years = [...new Set(results.map((r) => Number(r['year'])))];
+  return { exam, years: years.map((y) => ({ year: y, items: results.filter((r) => r['year'] === y).map(linkOut) })) };
+}
+
+export async function listOfficialLinksAdmin(db: D1Database) {
+  const { results } = await db.prepare('SELECT * FROM official_paper_links ORDER BY exam_code, year DESC, kind DESC, subject_name, session').all<LinkRow>();
+  return results.map((r) => ({ ...linkOut(r), status: r['status'], key: r['external_key'], linkingBasis: r['linking_basis'], linkingCheckedBy: r['linking_checked_by'], publishedAt: r['published_at'] }));
+}
+
+export const linkActionSchema = z.object({
+  action: z.enum(['PUBLISH', 'UNPUBLISH', 'ARCHIVE']),
+  /** Required to publish a link: the reference of the exam body's permission, or the owner's recorded decision. */
+  linkingBasis: z.string().trim().max(500).optional(),
+  /** The staff member confirms they read the site's linking conditions. */
+  conditionsChecked: z.boolean().optional(),
+});
+
+export async function setOfficialLinkStatus(db: D1Database, id: string, input: z.infer<typeof linkActionSchema>, actor: string) {
+  if (!actor.startsWith('user:')) throw new ApiError(403, 'HUMAN_REVIEW_REQUIRED', 'Only a signed-in member of staff can publish an official link');
+  const cur = await db.prepare('SELECT id, status, availability, url FROM official_paper_links WHERE id = ?').bind(id).first<{ id: string; status: string; availability: string; url: string | null }>();
+  if (!cur) throw notFound('Official link');
+  const now = nowIso();
+  const audit = (action: string, detail: object) => db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, action, 'OFFICIAL_LINK', id, JSON.stringify(detail), now);
+  if (input.action === 'PUBLISH') {
+    if (cur.status !== 'DRAFT') throw conflict('Only a draft can be published');
+    if (cur.availability === 'AVAILABLE') {
+      if (!cur.url || !isOfficialUrl(cur.url)) throw invalid('The address is not on the exam body\'s own site');
+      if (!input.conditionsChecked || (input.linkingBasis ?? '').length < 10) throw new ApiError(409, 'LINKING_BASIS_REQUIRED', 'Before a link is shown, record why linking is allowed (for example the reference of the exam body\'s permission) and confirm you checked the site\'s linking conditions');
+    }
+    await db.batch([
+      db.prepare(`UPDATE official_paper_links SET status = 'PUBLISHED', linking_basis = ?, linking_checked_by = ?, published_at = ?, updated_at = ? WHERE id = ? AND status = 'DRAFT'`).bind(cur.availability === 'AVAILABLE' ? input.linkingBasis! : null, cur.availability === 'AVAILABLE' ? actor : null, now, now, id),
+      audit('PUBLISH_OFFICIAL_LINK', { linkingBasis: input.linkingBasis ?? null }),
+    ]);
+  } else {
+    await db.batch([db.prepare('UPDATE official_paper_links SET status = ?, updated_at = ? WHERE id = ?').bind(input.action === 'ARCHIVE' ? 'ARCHIVED' : 'DRAFT', now, id), audit(`${input.action}_OFFICIAL_LINK`, {})]);
+  }
+  return (await listOfficialLinksAdmin(db)).find((x) => x.id === id)!;
+}
+
+// ---------------------------------------------------------------- mock papers
+
+const DIFFICULTIES = ['EASY', 'MEDIUM', 'HARD'] as const;
+type Difficulty = (typeof DIFFICULTIES)[number];
+/** Our own target mix. It is a design choice stated on every paper, not a measured exam trend. */
+const DIFFICULTY_TARGET: Record<Difficulty, number> = { EASY: 0.3, MEDIUM: 0.5, HARD: 0.2 };
+const MAX_PER_TOPIC = 2;
+
+/** Splits `total` across weights so the parts add up exactly (largest remainder). */
+export function apportion(total: number, weights: number[], minEach = 0): number[] {
+  const sum = weights.reduce((a, b) => a + b, 0) || 1;
+  const raw = weights.map((w) => (total * w) / sum);
+  const out = raw.map((r) => Math.max(minEach, Math.floor(r)));
+  let left = total - out.reduce((a, b) => a + b, 0);
+  const order = raw.map((r, i) => ({ i, frac: r - Math.floor(r) })).sort((a, b) => b.frac - a.frac || a.i - b.i);
+  for (let k = 0; left > 0; k = (k + 1) % order.length, left--) out[order[k]!.i]!++;
+  // If the minimum pushed the sum over, take back from the largest parts.
+  for (let guard = 0; left < 0 && guard < 10000; guard++) {
+    const i = out.indexOf(Math.max(...out));
+    if (out[i]! <= minEach) break;
+    out[i]!--;
+    left++;
+  }
+  return out;
+}
+
+interface Rules { questionsPerPaper?: number; durationMinutes?: number; marksCorrect?: number; marksIncorrect?: number; optionsPerQuestion?: number }
+
+async function subjectFrame(db: D1Database, paperId: string) {
+  const paper = await db
+    .prepare(
+      `SELECT tp.id, tp.code, tp.name, e.code AS exam, ec.year, ec.rules_json,
+         (SELECT sv.id FROM syllabus_versions sv WHERE sv.test_paper_id = tp.id AND sv.verification IN ('MACHINE_VERIFIED','VERIFIED') AND sv.status != 'ARCHIVED' ORDER BY sv.version_number DESC LIMIT 1) AS version_id
+       FROM test_papers tp JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id WHERE tp.id = ?`,
+    )
+    .bind(paperId)
+    .first<{ id: string; code: string; name: string; exam: string; year: number; rules_json: string | null; version_id: string | null }>();
+  if (!paper) throw notFound('Subject');
+  if (!paper.version_id) throw conflict('This subject has no checked syllabus yet, so a paper cannot be built to it');
+  const rules = JSON.parse(paper.rules_json ?? '{}') as Rules;
+  // Units = the top-level parts of the syllabus (the question-paper "Note" box is not syllabus). Weight = its rows.
+  const { results: units } = await db
+    .prepare(
+      `WITH RECURSIVE tree(id, root) AS (
+         SELECT id, id FROM curriculum_nodes WHERE syllabus_version_id = ?1 AND parent_id IS NULL AND kind != 'NOTE'
+         UNION ALL SELECT c.id, tree.root FROM curriculum_nodes c JOIN tree ON c.parent_id = tree.id)
+       SELECT r.id, r.label, r.title, r.position, (SELECT COUNT(*) FROM tree t WHERE t.root = r.id) AS weight FROM curriculum_nodes r WHERE r.syllabus_version_id = ?1 AND r.parent_id IS NULL AND r.kind != 'NOTE' ORDER BY r.position`,
+    )
+    .bind(paper.version_id)
+    .all<{ id: string; label: string | null; title: string; position: number; weight: number }>();
+  return { paper, rules, units };
+}
+
+interface Candidate { id: string; difficulty: Difficulty; type: string; unit: string; topic: string; content_hash: string }
+
+async function candidates(db: D1Database, paperId: string, versionId: string, optionsPerQuestion: number, onlyVerified: boolean) {
+  const { results } = await db
+    .prepare(
+      `WITH RECURSIVE tree(id, root) AS (
+         SELECT id, id FROM curriculum_nodes WHERE syllabus_version_id = ?1 AND parent_id IS NULL AND kind != 'NOTE'
+         UNION ALL SELECT c.id, tree.root FROM curriculum_nodes c JOIN tree ON c.parent_id = tree.id)
+       SELECT q.id, q.difficulty, q.type, q.verification, q.content_hash, t.root AS unit, qt.curriculum_node_id AS topic,
+         (SELECT COUNT(*) FROM question_options o WHERE o.question_id = q.id) AS options,
+         EXISTS (SELECT 1 FROM mock_paper_questions m JOIN mock_papers mp ON mp.id = m.mock_paper_id WHERE m.question_id = q.id AND mp.status != 'ARCHIVED') AS used
+       FROM questions q JOIN question_topics qt ON qt.question_id = q.id JOIN tree t ON t.id = qt.curriculum_node_id
+       WHERE q.is_demonstration = 0 AND q.status != 'ARCHIVED' AND q.origin != 'PAST_PAPER' AND (q.test_paper_id = ?2 OR q.test_paper_id IS NULL)
+         AND EXISTS (SELECT 1 FROM answer_keys a WHERE a.question_id = q.id) AND EXISTS (SELECT 1 FROM explanations x WHERE x.question_id = q.id)
+       GROUP BY q.id ORDER BY q.content_hash`,
+    )
+    .bind(versionId, paperId)
+    .all<Candidate & { verification: string; options: number; used: number }>();
+  const fits = results.filter((q) => q.type === 'NUMERICAL' || q.options === optionsPerQuestion);
+  return {
+    bank: results.length,
+    wrongOptionCount: results.length - fits.length,
+    approved: fits.filter((q) => q.verification === 'VERIFIED').length,
+    eligible: fits.filter((q) => (!onlyVerified || q.verification === 'VERIFIED') && !q.used) as Candidate[],
+  };
+}
+
+/** What a paper for this subject must look like, and whether the approved question bank can supply it today. */
+export async function mockPaperReadiness(db: D1Database, paperId: string) {
+  const { paper, rules, units } = await subjectFrame(db, paperId);
+  const total = rules.questionsPerPaper ?? 50;
+  const optionsPerQuestion = rules.optionsPerQuestion ?? 4;
+  const quotas = apportion(total, units.map((u) => u.weight), units.length <= total ? 1 : 0);
+  const c = await candidates(db, paperId, paper.version_id!, optionsPerQuestion, true);
+  const perUnit = units.map((u, i) => ({ id: u.id, label: u.label, title: u.title, syllabusRows: u.weight, needed: quotas[i]!, available: c.eligible.filter((q) => q.unit === u.id).length }));
+  const targets = apportion(total, DIFFICULTIES.map((d) => DIFFICULTY_TARGET[d]));
+  const perDifficulty = DIFFICULTIES.map((d, i) => ({ difficulty: d, needed: targets[i]!, available: c.eligible.filter((q) => q.difficulty === d).length }));
+  const shortfalls = [
+    ...perUnit.filter((u) => u.available < u.needed).map((u) => `Unit ${u.label ?? ''} ${u.title}: ${u.needed} needed, ${u.available} approved and unused`.replace(/\s+/g, ' ')),
+    ...perDifficulty.filter((d) => d.available < d.needed).map((d) => `${d.difficulty.toLowerCase()} questions: ${d.needed} needed, ${d.available} approved and unused`),
+  ];
+  return {
+    subject: { paperId: paper.id, code: paper.code, name: paper.name, exam: paper.exam, year: paper.year },
+    pattern: { questions: total, durationMinutes: rules.durationMinutes ?? 60, marksCorrect: rules.marksCorrect ?? 1, marksIncorrect: rules.marksIncorrect ?? 0, optionsPerQuestion },
+    basis: 'Syllabus-proportional: each unit gets questions in proportion to its share of the official syllabus. No past-paper trend is used, because no official question paper is available to measure one.',
+    bank: { questions: c.bank, approvedByReviewer: c.approved, notMatchingOptionCount: c.wrongOptionCount, eligibleUnused: c.eligible.length },
+    perUnit, perDifficulty, ready: shortfalls.length === 0, shortfalls,
+  };
+}
+
+/** Builds the next mock paper of a subject as a DRAFT. Deterministic: the same bank gives the same paper. */
+export async function buildMockPaper(db: D1Database, paperId: string, actor: string) {
+  const ready = await mockPaperReadiness(db, paperId);
+  if (!ready.ready) throw new ApiError(409, 'NOT_ENOUGH_QUESTIONS', 'There are not enough reviewer-approved questions to build a paper to the blueprint', { shortfalls: ready.shortfalls, bank: ready.bank });
+  const { paper } = await subjectFrame(db, paperId);
+  const pool = (await candidates(db, paperId, paper.version_id!, ready.pattern.optionsPerQuestion, true)).eligible;
+  const need: Record<Difficulty, number> = Object.fromEntries(ready.perDifficulty.map((d) => [d.difficulty, d.needed])) as Record<Difficulty, number>;
+  const chosen: (Candidate & { unitId: string })[] = [];
+  const perTopic = new Map<string, number>();
+  for (const u of ready.perUnit) {
+    const inUnit = pool.filter((q) => q.unit === u.id);
+    for (let slot = 0; slot < u.needed; slot++) {
+      const free = inUnit.filter((q) => !chosen.some((c) => c.id === q.id));
+      // Prefer the difficulty the paper still needs most, then a topic not used twice already.
+      const byNeed = [...DIFFICULTIES].sort((a, b) => need[b] - need[a]);
+      const pick =
+        byNeed.flatMap((d) => free.filter((q) => q.difficulty === d && (perTopic.get(q.topic) ?? 0) < MAX_PER_TOPIC)).find(() => true) ??
+        byNeed.flatMap((d) => free.filter((q) => q.difficulty === d)).find(() => true);
+      if (!pick) throw new ApiError(409, 'NOT_ENOUGH_QUESTIONS', 'There are not enough reviewer-approved questions to build a paper to the blueprint', { shortfalls: [`Unit ${u.label ?? ''} ${u.title}`.trim()] });
+      chosen.push({ ...pick, unitId: u.id });
+      need[pick.difficulty]--;
+      perTopic.set(pick.topic, (perTopic.get(pick.topic) ?? 0) + 1);
+    }
+  }
+  const count = (f: (q: Candidate) => string) => chosen.reduce<Record<string, number>>((a, q) => ((a[f(q)] = (a[f(q)] ?? 0) + 1), a), {});
+  const difficulty = count((q) => q.difficulty);
+  // The mix may miss its target by a few questions when a unit lacks a level; more than 10 points off is refused.
+  const off = DIFFICULTIES.map((d) => Math.abs((difficulty[d] ?? 0) / chosen.length - DIFFICULTY_TARGET[d]));
+  if (Math.max(...off) > 0.1) throw new ApiError(409, 'UNBALANCED', 'The approved questions cannot give a balanced paper yet', { difficulty, target: DIFFICULTY_TARGET });
+  const last = await db.prepare('SELECT COALESCE(MAX(number), 0) AS n FROM mock_papers WHERE test_paper_id = ?').bind(paperId).first<{ n: number }>();
+  const number = (last?.n ?? 0) + 1;
+  const id = newId('mp');
+  const now = nowIso();
+  const blueprint = {
+    basis: ready.basis, pattern: ready.pattern, difficultyTarget: DIFFICULTY_TARGET, maxPerTopic: MAX_PER_TOPIC,
+    units: ready.perUnit.map((u) => ({ id: u.id, label: u.label, title: u.title, syllabusRows: u.syllabusRows, questions: u.needed })),
+    result: { difficulty, formats: count((q) => q.type), topicsCovered: perTopic.size },
+  };
+  await db.batch([
+    ...insertRows(db, 'mock_papers', [{ id, test_paper_id: paperId, number, title: `${ready.subject.name}: Mock Paper ${number}`, blueprint_json: JSON.stringify(blueprint), status: 'DRAFT', created_by: actor, approved_by: null, approved_at: null, approval_note: null, published_by: null, published_at: null, created_at: now, updated_at: now }]),
+    ...insertRows(db, 'mock_paper_questions', chosen.map((q, i) => ({ mock_paper_id: id, position: i + 1, question_id: q.id, unit_node_id: q.unitId }))),
+    db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, 'BUILD_MOCK_PAPER', 'MOCK_PAPER', id, JSON.stringify({ subject: ready.subject.code, number, difficulty }), now),
+  ]);
+  return mockPaperAdmin(db, id);
+}
+
+const ALL_VERIFIED = `NOT EXISTS (SELECT 1 FROM mock_paper_questions m JOIN questions q ON q.id = m.question_id WHERE m.mock_paper_id = mp.id AND (q.verification != 'VERIFIED' OR q.status = 'ARCHIVED'))`;
+
+export async function listMockPapersAdmin(db: D1Database, paperId?: string) {
+  const { results } = await db
+    .prepare(
+      `SELECT mp.id, mp.test_paper_id, mp.number, mp.title, mp.status, mp.blueprint_json, mp.created_by, mp.approved_by, mp.approved_at, mp.approval_note, mp.published_at, tp.code, tp.name, e.code AS exam,
+         (SELECT COUNT(*) FROM mock_paper_questions m WHERE m.mock_paper_id = mp.id) AS questions, ${ALL_VERIFIED} AS all_verified
+       FROM mock_papers mp JOIN test_papers tp ON tp.id = mp.test_paper_id JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id
+       ${paperId ? 'WHERE mp.test_paper_id = ?' : ''} ORDER BY tp.name, mp.number`,
+    )
+    .bind(...(paperId ? [paperId] : []))
+    .all<Record<string, string | number | null>>();
+  return results.map((r) => ({ id: r['id'], paperId: r['test_paper_id'], subjectCode: r['code'], subjectName: r['name'], exam: r['exam'], number: r['number'], title: r['title'], status: r['status'], questions: Number(r['questions']), allQuestionsApproved: Boolean(r['all_verified']), blueprint: JSON.parse(r['blueprint_json'] as string), approvedBy: r['approved_by'], approvedAt: r['approved_at'], approvalNote: r['approval_note'], publishedAt: r['published_at'] }));
+}
+
+export async function mockPaperAdmin(db: D1Database, id: string) {
+  const paper = (await listMockPapersAdmin(db)).find((p) => p.id === id);
+  if (!paper) throw notFound('Mock paper');
+  const { results } = await db
+    .prepare(`SELECT m.position, q.id, q.type, q.difficulty, q.verification, substr(q.stem, 1, 160) AS stem, u.label AS unit_label, u.title AS unit_title FROM mock_paper_questions m JOIN questions q ON q.id = m.question_id LEFT JOIN curriculum_nodes u ON u.id = m.unit_node_id WHERE m.mock_paper_id = ? ORDER BY m.position`)
+    .bind(id)
+    .all();
+  return { ...paper, items: results };
+}
+
+export const mockActionSchema = z.object({ action: z.enum(['APPROVE', 'PUBLISH', 'UNPUBLISH', 'ARCHIVE']), note: z.string().trim().max(1000).optional() });
+
+export async function setMockPaperStatus(db: D1Database, id: string, input: z.infer<typeof mockActionSchema>, staff: { id: string; permissions: string[] }) {
+  const actor = `user:${staff.id}`;
+  const p = (await listMockPapersAdmin(db)).find((x) => x.id === id);
+  if (!p) throw notFound('Mock paper');
+  const need = (perm: string, what: string) => {
+    if (!staff.permissions.includes(perm)) throw new ApiError(403, 'FORBIDDEN', `Your account cannot ${what}`);
+  };
+  const now = nowIso();
+  const audit = (action: string) => db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, action, 'MOCK_PAPER', id, JSON.stringify({ note: input.note ?? null }), now);
+  if (input.action === 'APPROVE') {
+    need('content:review', 'approve a mock paper');
+    if (p.status !== 'DRAFT') throw conflict('Only a draft can be approved');
+    if (!p.allQuestionsApproved) throw conflict('Every question must be approved by a reviewer before the paper is');
+    if ((input.note ?? '').length < 10) throw invalid('Say what you checked (coverage, balance, answer keys): the note is kept with the paper');
+    await db.batch([db.prepare(`UPDATE mock_papers SET status = 'APPROVED', approved_by = ?, approved_at = ?, approval_note = ?, updated_at = ? WHERE id = ? AND status = 'DRAFT'`).bind(actor, now, input.note!, now, id), audit('APPROVE_MOCK_PAPER')]);
+  } else if (input.action === 'PUBLISH') {
+    need('content:publish', 'publish a mock paper');
+    if (p.status !== 'APPROVED') throw conflict('A reviewer must approve the paper before it is published');
+    if (!p.allQuestionsApproved) throw conflict('A question in this paper is no longer approved; the paper cannot be published');
+    await db.batch([db.prepare(`UPDATE mock_papers SET status = 'PUBLISHED', published_by = ?, published_at = ?, updated_at = ? WHERE id = ? AND status = 'APPROVED'`).bind(actor, now, now, id), audit('PUBLISH_MOCK_PAPER')]);
+  } else {
+    need('content:publish', 'unpublish or archive a mock paper');
+    if (input.action === 'UNPUBLISH' && p.status !== 'PUBLISHED') throw conflict('This paper is not published');
+    await db.batch([db.prepare('UPDATE mock_papers SET status = ?, updated_at = ? WHERE id = ?').bind(input.action === 'ARCHIVE' ? 'ARCHIVED' : 'APPROVED', now, id), audit(`${input.action}_MOCK_PAPER`)]);
+  }
+  return mockPaperAdmin(db, id);
+}
+
+/** Published papers whose every question is still approved. The preview setting never widens this. */
+export async function listMockPapers(db: D1Database, f: { exam?: string; paperId?: string }) {
+  const where = [`mp.status = 'PUBLISHED'`, ALL_VERIFIED];
+  const params: string[] = [];
+  if (f.exam) (where.push('e.code = ?'), params.push(f.exam));
+  if (f.paperId) (where.push('mp.test_paper_id = ?'), params.push(f.paperId));
+  const { results } = await db
+    .prepare(
+      `SELECT mp.id, mp.test_paper_id, mp.number, mp.title, mp.blueprint_json, tp.code, tp.name, e.code AS exam, (SELECT COUNT(*) FROM mock_paper_questions m WHERE m.mock_paper_id = mp.id) AS questions
+       FROM mock_papers mp JOIN test_papers tp ON tp.id = mp.test_paper_id JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id WHERE ${where.join(' AND ')} ORDER BY tp.name, mp.number`,
+    )
+    .bind(...params)
+    .all<Record<string, string | number | null>>();
+  return results.map((r) => {
+    const b = JSON.parse(r['blueprint_json'] as string) as { pattern: { durationMinutes: number; marksCorrect: number; marksIncorrect: number }; result: { difficulty: Record<string, number> }; units: unknown[] };
+    return { id: r['id'], paperId: r['test_paper_id'], subjectCode: r['code'], subjectName: r['name'], exam: r['exam'], number: r['number'], title: r['title'], questions: Number(r['questions']), durationMinutes: b.pattern.durationMinutes, marksCorrect: b.pattern.marksCorrect, marksIncorrect: b.pattern.marksIncorrect, difficulty: b.result.difficulty, units: b.units.length };
+  });
+}
+
+export const startMockSchema = z.object({ mode: z.enum(['PRACTICE', 'MOCK_TEST']).default('MOCK_TEST') });
+
+export async function startMockPaper(db: D1Database, userId: string, id: string, input: z.infer<typeof startMockSchema>) {
+  const p = (await listMockPapers(db, {})).find((x) => x.id === id);
+  if (!p) throw notFound('Mock paper');
+  const { results } = await db.prepare('SELECT question_id FROM mock_paper_questions WHERE mock_paper_id = ? ORDER BY position').bind(id).all<{ question_id: string }>();
+  const rules = { questionsPerPaper: p.questions, durationMinutes: p.durationMinutes, marksCorrect: p.marksCorrect, marksIncorrect: p.marksIncorrect };
+  return createSession(db, userId, { mode: input.mode, paperId: p.paperId as string, nodeId: null, ids: results.map((r) => r.question_id) }, { rulesJson: JSON.stringify(rules), rules }, { kind: 'MOCK_PAPER', id, title: String(p.title) });
+}
