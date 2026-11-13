@@ -20,6 +20,7 @@ import { upsertMedia, upsertQuestion, upsertResource } from '../services/content
 import { storeObject } from '../services/storage';
 import { importOfficialInfo, officialInfoSchema } from '../services/official-info';
 import { createResetLink, resetLinkSchema } from '../services/accounts';
+import { importPastPaper, listPastPapersAdmin } from '../services/past-papers';
 
 const admin = new Hono<AppEnv>();
 const examYear = (c: { req: { query(k: string): string | undefined } }) => {
@@ -132,6 +133,10 @@ admin.put('/official-info/:exam', async (c) => {
   if (body.exam !== c.req.param('exam')) throw invalid('The exam in the address and in the body must match');
   return c.json(await importOfficialInfo(c.env.DB, body));
 });
+
+// Previous-year papers: import one paper pack as a DRAFT (?dryRun=1 only validates). Publishing is a staff action in the console.
+admin.post('/past-papers', async (c) => c.json(await importPastPaper(c.env.DB, await c.req.json(), c.get('actor'), c.req.query('dryRun') === '1')));
+admin.get('/past-papers', async (c) => c.json(await listPastPapersAdmin(c.env.DB)));
 
 // Learning resources
 admin.get('/resources', async (c) =>

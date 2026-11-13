@@ -76,10 +76,10 @@ export async function startSession(db: D1Database, preview: boolean, userId: str
 export async function createSession(
   db: D1Database,
   userId: string,
-  s: { mode: 'PRACTICE' | 'TOPIC_TEST' | 'MOCK_TEST'; paperId: string; nodeId: string | null; ids: string[] },
+  s: { mode: 'PRACTICE' | 'TOPIC_TEST' | 'MOCK_TEST'; paperId: string | null; nodeId: string | null; ids: string[] },
   known?: { rulesJson: string | null; rules: Rules },
 ) {
-  const { rulesJson, rules } = known ?? (await paperAndRules(db, undefined, s.paperId));
+  const { rulesJson, rules } = known ?? (await paperAndRules(db, undefined, s.paperId ?? undefined));
   const marking = markingFromRules(rulesJson);
   const full = rules.questionsPerPaper ?? 50;
   const perQuestion = ((rules.durationMinutes ?? 60) * 60) / full;

@@ -312,6 +312,7 @@ model TestPaper {
   resources           LearningResource[]
   extractionJobs      ExtractionJob[]
   practiceSessions    PracticeSession[]
+  pastPapers          PastPaper[]
 
   @@unique([examCycleId, code])
   @@index([subjectId])
@@ -427,6 +428,7 @@ model UsagePermission {
   mediaAssets         MediaAsset[]
   passages            Passage[]
   questions           Question[]
+  pastPapers          PastPaper[]
 
   @@map("usage_permissions")
 }
@@ -462,6 +464,8 @@ model SourceDocument {
   sourceTables      SourceTable[]
   extractionJobs    ExtractionJob[]
   pageChecks        SourcePageCheck[]
+  pastPapers        PastPaper[]        @relation("PastPaperQuestionPaper")
+  pastPaperKeys     PastPaper[]        @relation("PastPaperAnswerKey")
   pageTexts         SourcePageText[]
 
   @@index([kind])
@@ -671,6 +675,7 @@ model Question {
   answerKey          AnswerKey?
   explanations       Explanation[]
   topics             QuestionTopic[]
+  pastPaperEntry     PastPaperQuestion?
   tags               QuestionTag[]
   media              QuestionMedia[]
   practiceAnswers    PracticeAnswer[]
@@ -1445,4 +1450,77 @@ model PaymentEvent {
   @@unique([gateway, eventId])
   @@index([gatewayOrderId])
   @@map("payment_events")
+}
+
+/// One previous-year question paper: one subject, one exam date and shift, one language. It is shown to students
+/// only when PUBLISHED and when its usage permission allows public display; no setting overrides that.
+model PastPaper {
+  id                    String              @id @default(cuid())
+  /// CUET_UG or CUET_PG.
+  examCode              String              @map("exam_code")
+  year                  Int
+  /// The paper code as printed that year, e.g. 322 or SCQP24.
+  subjectCode           String              @map("subject_code")
+  subjectName           String              @map("subject_name")
+  /// The same subject in the current cycle, when there is one (for links from the subject page).
+  testPaperId           String?             @map("test_paper_id")
+  /// YYYY-MM-DD, as printed on the paper or the key.
+  examDate              String?             @map("exam_date")
+  shift                 String?
+  language              String              @default("en")
+  title                 String
+  /// Where the question text came from. Required: a paper is never stored without its source.
+  questionPaperSourceId String              @map("question_paper_source_id")
+  /// The official answer key the stored keys were checked against.
+  answerKeySourceId     String?             @map("answer_key_source_id")
+  /// FINAL or PROVISIONAL. Only a FINAL key may be published.
+  keyVersion            String              @default("FINAL") @map("key_version")
+  usagePermissionId     String              @map("usage_permission_id")
+  questionsInPaper      Int                 @map("questions_in_paper")
+  durationMinutes       Int                 @map("duration_minutes")
+  marksCorrect          Int                 @map("marks_correct")
+  marksIncorrect        Int                 @map("marks_incorrect")
+  /// DRAFT | PUBLISHED | ARCHIVED
+  status                String              @default("DRAFT")
+  /// Stable key of the import pack, so a repeated import updates instead of duplicating.
+  externalKey           String              @unique @map("external_key")
+  notes                 String?
+  createdBy             String              @map("created_by")
+  createdAt             DateTime            @default(now()) @map("created_at")
+  updatedAt             DateTime            @map("updated_at")
+  publishedAt           DateTime?           @map("published_at")
+  publishedBy           String?             @map("published_by")
+  testPaper             TestPaper?          @relation(fields: [testPaperId], references: [id], onDelete: SetNull)
+  questionPaperSource   SourceDocument      @relation("PastPaperQuestionPaper", fields: [questionPaperSourceId], references: [id], onDelete: Restrict)
+  answerKeySource       SourceDocument?     @relation("PastPaperAnswerKey", fields: [answerKeySourceId], references: [id], onDelete: Restrict)
+  usagePermission       UsagePermission     @relation(fields: [usagePermissionId], references: [id], onDelete: Restrict)
+  entries               PastPaperQuestion[]
+
+  @@index([examCode, year, subjectCode])
+  @@index([status])
+  @@index([testPaperId])
+  @@map("past_papers")
+}
+
+/// One numbered question of a previous-year paper. A question NTA dropped keeps its place and number but has no
+/// stored question: it is never asked, and the paper says how many were dropped.
+model PastPaperQuestion {
+  id                 String    @id @default(cuid())
+  pastPaperId        String    @map("past_paper_id")
+  /// Question number in the paper, from 1.
+  position           Int
+  questionId         String?   @unique @map("question_id")
+  /// NTA's own question id from the answer key, when the source gives it.
+  officialQuestionId String?   @map("official_question_id")
+  /// Page of the question paper the question is printed on.
+  sourcePage         Int?      @map("source_page")
+  dropped            Boolean   @default(false)
+  /// Correct option position(s) exactly as the official key gives them (JSON array), kept beside the stored key.
+  officialKeyJson    String?   @map("official_key_json")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  pastPaper          PastPaper @relation(fields: [pastPaperId], references: [id], onDelete: Cascade)
+  question           Question? @relation(fields: [questionId], references: [id], onDelete: SetNull)
+
+  @@unique([pastPaperId, position])
+  @@map("past_paper_questions")
 }

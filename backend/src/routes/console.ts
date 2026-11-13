@@ -21,6 +21,7 @@ import { deleteQuestion, getQuestionAdmin, questionInputSchema, updateQuestion }
 import { deleteResource, getResource, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
 import { emailOverview } from '../services/email';
+import { listPastPapersAdmin, paperActionSchema, pastPaperQuestionsAdmin, setPastPaperStatus } from '../services/past-papers';
 import {
   billingOverview, cancelSchema, cancelSubscription, createPlan, grantAccess, grantSchema, listOrders, listPlans, listSubscriptions, manualRefundSchema, orderDetail, orderQuery, planCreateSchema,
   planInputSchema, reconcileOrders, recordManualRefund, subscriptionQuery, updatePlan,
@@ -60,6 +61,11 @@ admin.post('/students/reset-link', async (c) => {
   needPermission(me(c), 'users:manage', 'create password reset links');
   return c.json(await createResetLink(c.env.DB, await readJson(c, resetLinkSchema), c.get('actor')), 201);
 });
+
+// Previous-year papers: what is stored, what blocks publishing, and the publish switch (content:publish).
+admin.get('/past-papers', async (c) => c.json(await listPastPapersAdmin(c.env.DB)));
+admin.get('/past-papers/:id', async (c) => c.json(await pastPaperQuestionsAdmin(c.env.DB, c.req.param('id'))));
+admin.post('/past-papers/:id/status', async (c) => (needPermission(me(c), 'content:publish', 'publish previous-year papers'), c.json(await setPastPaperStatus(c.env.DB, c.req.param('id'), await readJson(c, paperActionSchema), c.get('actor')))));
 
 // Plans, subscriptions and payments (billing:manage). Prices and limits are data, changed here and logged.
 const billing = (c: Parameters<typeof me>[0], what: string) => needPermission(me(c), 'billing:manage', what);

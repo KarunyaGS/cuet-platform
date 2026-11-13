@@ -20,6 +20,7 @@ import { importPacks, renderSvg, snapshot, validateAll } from './content';
 import { parseCsv } from './verify';
 import { reviewExport, reviewImport, reviewMachineCheck, reviewValidate } from './syllabus-review';
 import { importMissing } from './import-missing';
+import { printPastPapers, runPastPapers } from './past-papers';
 import type { ExtractionResult, Registry } from './types';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -242,6 +243,13 @@ try {
   else if (cmd === 'import-missing') {
     const r = await importMissing(loadRegistry(), { extracted: PATHS.extracted, review: PATHS.syllabusReview, registryDir: dirname(PATHS.registry) }, option('api') ?? 'http://127.0.0.1:8787', adminToken());
     console.log(JSON.stringify(r, null, 1));
+  }
+  else if (cmd === 'pyq-validate' || cmd === 'pyq-import') {
+    // Previous-year papers: validate packs, or store valid ones as DRAFT papers. Publishing is a staff action in the admin console.
+    const dryRun = cmd === 'pyq-validate';
+    const reports = await runPastPapers(join(repo, 'content', 'past-papers'), option('api') ?? 'http://127.0.0.1:8787', adminToken(), { exam: option('exam'), year: option('year'), dryRun });
+    printPastPapers(reports, dryRun);
+    if (reports.some((r) => !r.ok)) process.exitCode = 1;
   }
   else if (cmd === 'structure-check') {
     // Structure checks over every machine extraction and every page-image review. Read-only.

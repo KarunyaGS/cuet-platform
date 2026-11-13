@@ -12,6 +12,7 @@ import { invalid } from '../lib/errors';
 import { readJson } from '../lib/http';
 import { changePassword, login, loginSchema, logout, passwordSchema, resetPassword, resetPasswordSchema, registerSchema, registerStudent, SESSION_COOKIE, studentAuth, userFromToken } from '../services/accounts';
 import { sha256Hex } from '../lib/hash';
+import { listPastPapers, pastPaperDetail, pastPaperQuery, startPastPaper, startPastPaperSchema } from '../services/past-papers';
 import { assertWithinPlan, billingSummary, confirmCheckout, confirmSchema, createOrder, orderSchema, simulatePayment, simulateSchema } from '../services/billing';
 import {
   appUrl, emailEnabled, emailSettingsSchema, forgotPasswordSchema, getEmailSettings, notifyPasswordChanged, requestPasswordReset, sendVerificationEmail, setEmailSettings, verifyEmail, verifyEmailSchema,
@@ -93,6 +94,9 @@ learn.get('/subjects/:paperId', async (c) => c.json(await paperOutline(c.env.DB,
 learn.get('/topics/:nodeId', async (c) => c.json(await topicDetail(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 learn.get('/resources/:id', async (c) => c.json(await resourceDetail(c.env.DB, preview(c.env), c.req.param('id'))));
 learn.get('/media/:id', async (c) => mediaObject(c.env.DB, c.env.MEDIA, preview(c.env), c.req.param('id')));
+// Previous-year papers: only published papers whose licence allows display are ever listed here.
+learn.get('/past-papers', async (c) => c.json(await listPastPapers(c.env.DB, pastPaperQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
+learn.get('/past-papers/:id', async (c) => c.json(await pastPaperDetail(c.env.DB, c.req.param('id'))));
 learn.get('/search', async (c) => {
   const q = (c.req.query('q') ?? '').trim().slice(0, 100);
   const exam = c.req.query('exam');
@@ -115,6 +119,13 @@ student.get('/progress', async (c) => c.json(await progress(c.env.DB, c.get('use
 student.post('/practice/daily', async (c) => {
   await assertWithinPlan(c.env.DB, c.get('user').id, 'PRACTICE');
   return c.json(await startDailyPractice(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, dailySchema)), 201);
+});
+
+// Previous-year papers: attempt one as it was set (timed) or as untimed practice. Plan limits apply as for any test.
+student.post('/past-papers/:id/start', async (c) => {
+  const input = await readJson(c, startPastPaperSchema);
+  await assertWithinPlan(c.env.DB, c.get('user').id, input.mode);
+  return c.json(await startPastPaper(c.env.DB, c.get('user').id, c.req.param('id'), input), 201);
 });
 
 // Plans and payments: the student's plan, what it includes, buying a pass and payment history

@@ -359,6 +359,30 @@ async function run() {
   check('the payment webhook address does not exist for the test gateway', (await call('POST', '/api/public/payments/webhooks/razorpay', { body: { event: 'payment.captured' } })).status === 404);
   check('no payment record holds card, bank or UPI details', !['payment_orders', 'payment_transactions', 'payment_events'].some((t) => all(`PRAGMA table_info(${t})`).some((c) => /card|vpa|upi_id|bank|account|cvv|contact|email/i.test(c.name))));
 
+  // ------------------------------------------------------------ previous-year papers (a made-up sample paper; nothing real is imported)
+  group = 'Previous-year papers';
+  const emptyList = await call('GET', '/api/learn/past-papers?exam=CUET_UG');
+  check('no previous-year paper is shown while none is published', emptyList.status === 200 && emptyList.json.papers.length === 0 && n('SELECT COUNT(*) FROM past_papers') === 0);
+  const ppSrc = (d, title) => ({ title, publisher: 'Trace Board', url: `https://example.test/${d}.pdf`, retrievedAt: '2026-11-13T00:00:00.000Z', sha256: d.repeat(64), byteSize: 1000, mimeType: 'application/pdf', pageCount: 2 });
+  const ppQ = (position, key, official = key) => ({ position, type: 'MCQ_SINGLE', stem: `Trace sample question ${position}: choose the option the sample key marks correct.`, sourcePage: 1, options: ['A', 'B', 'C', 'D'].map((l) => ({ label: l, text: `Option ${l} of question ${position}` })), correctOptionPositions: [key], officialKey: [official] });
+  const samplePack = (questions) => ({ schema: 'cuet-past-paper/1', exam: 'CUET_UG', year: 2025, subjectCode: '322', subjectName: 'Physics', examDate: '2025-05-20', shift: 'Shift 1', language: 'en', title: 'Trace sample paper', rules: { questionsInPaper: 4, durationMinutes: 8, marksCorrect: 5, marksIncorrect: -1 }, usagePermission: 'OWNED_ORIGINAL', questionPaperSource: ppSrc('5', 'Trace sample paper'), answerKeySource: ppSrc('6', 'Trace sample key'), keyVersion: 'FINAL', questions });
+  const wrongKey = await admin('POST', '/api/admin/past-papers', samplePack([ppQ(1, 1, 2), ppQ(2, 2), ppQ(4, 4)]));
+  check('an import is refused when a key differs from the official key or a question is unaccounted for', wrongKey.status === 422 && wrongKey.json.error.details.errors.length === 2 && n('SELECT COUNT(*) FROM past_papers') === 0, wrongKey.json?.error?.details?.errors?.join(' | ').slice(0, 120));
+  const imported = await admin('POST', '/api/admin/past-papers', samplePack([ppQ(1, 1), ppQ(2, 2), { position: 3, dropped: true }, ppQ(4, 4)]));
+  const ppId = imported.json?.id;
+  const ppRow = one('SELECT status, question_paper_source_id AS src FROM past_papers WHERE id = ?', ppId);
+  check('a valid paper is stored as a draft with its source document', imported.json?.outcome === 'CREATED' && ppRow?.status === 'DRAFT' && n('SELECT COUNT(*) FROM source_documents WHERE id = ?', ppRow.src) === 1 && n('SELECT COUNT(*) FROM past_paper_questions WHERE past_paper_id = ?', ppId) === 4);
+  check('a draft paper is hidden from students and its questions are outside ordinary practice', (await call('GET', `/api/learn/past-papers/${ppId}`)).status === 404 && n("SELECT COUNT(*) FROM questions WHERE external_key LIKE 'pyq:%' AND test_paper_id IS NOT NULL") === 0);
+  const early = await call('POST', `/api/console/past-papers/${ppId}/status`, { token: a.token, body: { action: 'PUBLISH' } });
+  check('publishing is refused until a reviewer has verified every question', early.status === 409 && /not yet verified by a reviewer/.test(JSON.stringify(early.json)));
+  const ppQuestions = all('SELECT question_id AS id FROM past_paper_questions WHERE past_paper_id = ? AND question_id IS NOT NULL', ppId).map((x) => x.id);
+  await call('POST', '/api/review/decide', { token: r.token, body: { entityType: 'QUESTION', entityIds: ppQuestions, action: 'VERIFIED', checklist: { matchesSource: true } } });
+  const pub = await call('POST', `/api/console/past-papers/${ppId}/status`, { token: a.token, body: { action: 'PUBLISH' } });
+  const shown = await call('GET', '/api/learn/past-papers?exam=CUET_UG&year=2025&subject=322');
+  check('after review a member of staff publishes it and students can find it by exam, year and subject', pub.json?.status === 'PUBLISHED' && shown.json?.papers?.length === 1 && shown.json.papers[0].dropped === 1, `${shown.json?.papers?.length} paper`);
+  const attempt = await call('POST', `/api/student/past-papers/${ppId}/start`, { token: buyer.token, body: { mode: 'MOCK_TEST' } });
+  check('a paper is attempted with its own questions, order, time and marking', attempt.status === 201 && attempt.json.questions.length === 3 && attempt.json.session.durationSeconds === 360 && attempt.json.session.marking.correct === 5 && attempt.json.questions[2].stem.includes('question 4'));
+
   // ------------------------------------------------------------ integrity
   group = 'Integrity';
   check('no foreign-key violations after all of the above', all('PRAGMA foreign_key_check').length === 0);

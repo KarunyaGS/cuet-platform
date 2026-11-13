@@ -66,6 +66,11 @@ export interface Billing {
   payments: { id: string; plan: string; amountPaise: number; currency: string; status: string; reference: string; method: string | null; failureReason: string | null; createdAt: string; paidAt: string | null }[];
   passes: { id: string; plan: string; startsAt: string; endsAt: string; source: string; state: string }[];
 }
+export interface PastPaper {
+  id: string; exam: ExamCode; year: number; subjectCode: string; subjectName: string; paperId: string | null; examDate: string | null; shift: string | null; language: string; title: string;
+  questions: number; dropped: number; questionsInPaper: number; durationMinutes: number; marksCorrect: number; marksIncorrect: number;
+}
+export interface PastPaperDetail extends PastPaper { source: { title: string; publisher: string; url: string }; answerKey: { title: string; url: string; version: string } | null; permission: string }
 export interface EmailSettings { email: string; emailVerified: boolean; emailReminders: boolean; emailAvailable: boolean }
 export interface SessionQuestion {
   number: number; id: string; type: string; stem: string; difficulty: string; preview: boolean; origin: string;
@@ -198,6 +203,10 @@ export const api = {
   dismissReminder: (key: string) => request<{ dismissed: boolean }>('POST', '/api/student/reminders/dismiss', { key }),
   recent: () => request<RecentItem[]>('GET', '/api/student/recent'),
   resetPassword: (b: { token: string; newPassword: string }) => request<{ reset: boolean }>('POST', '/api/auth/reset-password', b),
+  pastPapers: (f: { exam?: ExamCode; year?: number; subject?: string }) =>
+    request<{ total: number; years: number[]; subjects: { code: string; name: string }[]; papers: PastPaper[] }>('GET', `/api/learn/past-papers?${new URLSearchParams(Object.entries(f).filter(([, v]) => v !== undefined && v !== '').map(([k, v]) => [k, String(v)])).toString()}`),
+  pastPaper: (id: string) => request<PastPaperDetail>('GET', `/api/learn/past-papers/${id}`),
+  startPastPaper: (id: string, mode: 'PRACTICE' | 'MOCK_TEST') => request<PracticeSession>('POST', `/api/student/past-papers/${id}/start`, { mode }),
   billing: () => request<Billing>('GET', '/api/student/billing'),
   createOrder: (planCode: string) => request<Checkout>('POST', '/api/student/billing/orders', { planCode }),
   confirmOrder: (id: string, b: { gatewayPaymentId: string; signature: string }) => request<{ result: string; access: Access }>('POST', `/api/student/billing/orders/${id}/confirm`, b),

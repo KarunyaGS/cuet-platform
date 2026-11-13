@@ -72,6 +72,9 @@ export const consoleApi = {
   me: () => request<StaffMe>('GET', '/api/console/me'),
   overview: () => request<Overview>('GET', '/api/console/overview'),
   email: () => request<EmailOverview>('GET', '/api/console/email'),
+  pastPapers: () => request<AdminPastPaper[]>('GET', '/api/console/past-papers'),
+  pastPaper: (id: string) => request<AdminPastPaperQuestions>('GET', `/api/console/past-papers/${id}`),
+  pastPaperStatus: (id: string, action: 'PUBLISH' | 'UNPUBLISH' | 'ARCHIVE') => request<AdminPastPaper>('POST', `/api/console/past-papers/${id}/status`, { action }),
   billing: () => request<BillingOverview>('GET', '/api/console/billing'),
   plans: () => request<AdminPlan[]>('GET', '/api/console/billing/plans'),
   updatePlan: (id: string, b: PlanInput) => request<AdminPlan>('PUT', `/api/console/billing/plans/${id}`, b),
@@ -150,6 +153,14 @@ export interface AdminOrderDetail {
   pass: { id: string; status: string; starts_at: string; ends_at: string } | null;
 }
 interface Reconciled { checked: number; paid: number; failed: number; expired: number; stillOpen: number; errors: number }
+export interface AdminPastPaper {
+  id: string; exam: string; year: number; subjectCode: string; subjectName: string; title: string; questions: number; dropped: number; status: string; key: string; keyVersion: string; hasOfficialKey: boolean;
+  permission: string; displayAllowed: boolean; sourceUrl: string; verified: number; flagged: number; publishedAt: string | null; blockers: string[];
+}
+export interface AdminPastPaperQuestions {
+  paper: AdminPastPaper;
+  questions: { position: number; dropped: boolean; officialQuestionId: string | null; sourcePage: number | null; questionId: string | null; type: string | null; stem: string | null; verification: string | null; options: { position: number; label: string; text: string }[]; key: number[] | null; numericAnswer: number | null; officialKey: number[] | null }[];
+}
 export interface EmailOverview {
   enabled: boolean; providers: string[]; senderSet: boolean; appUrlSet: boolean;
   last7Days: { kind: string; status: string; n: number }[];
