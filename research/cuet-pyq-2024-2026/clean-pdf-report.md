@@ -5,7 +5,7 @@ Checked on 13 November 2026. Research only: nothing in the student collection wa
 ## The short answer
 
 1. **Clean originals exist, on NTA's own website.** 83 NTA files were found and opened: 38 for 2024, 30 for 2025, 15 for 2026. They carry no watermark and no third-party mark.
-2. **49 of the 83 are new finds from this round**, including the first 15 NTA originals for 2026. They are checked and listed, but **not yet added** to what students see.
+2. **49 of the 83 are new finds from this round**, including the first 15 NTA originals for 2026. On approval (13 November 2026) all 49 were added as links to NTA: 5 English-only ones are shown to students, 44 are stored and hidden. See `nta-added-records.csv`.
 3. **Most clean originals are not English-only.** NTA's 2025 and 2026 papers print every question in English and in Hindi. Only 20 clean originals are English-only: 18 for 2024, 1 for 2025, 1 for 2026.
 4. **No previous-year paper may be re-made as a CUET Prep PDF today.** There is no permission on record from NTA or from any website. Every such paper stays a link to its source.
 5. **Only our own questions are eligible for CUET Prep PDFs.** One sample is made and checked question by question: 50 of 50 match.
@@ -79,7 +79,7 @@ No English-only paper was found anywhere for:
 - 2024: Anthropology, Engineering Graphics, Entrepreneurship, Fine Arts, Knowledge Tradition, Legal Studies, Sanskrit, Teaching Aptitude, Tourism; Environmental Studies and Performing Arts only in non-English-only versions.
 - No NTA file in any year: Knowledge Tradition, Legal Studies, Mass Media, Sanskrit.
 
-The full list by subject and session is in `cuet-pyq-missing.csv`. It was built before the new finds; the four new 2024 English-only papers are not yet counted in it.
+The full list by subject and session is in `cuet-pyq-missing.csv`. It was rebuilt after the 49 new NTA files were added.
 
 ## 7. Sample generated PDF, checked question by question
 

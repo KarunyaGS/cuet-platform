@@ -201,7 +201,7 @@ export async function pyqSubject(db: D1Database, exam: string, year: number, slu
     .prepare(
       `SELECT * FROM pyq_documents WHERE exam_code = ?1 AND ${SHOWN} AND (
          (kind = 'QUESTION_PAPER' AND year = ?2 AND subject_slug = ?3) OR (kind = 'ANSWER_KEY' AND year = ?2) OR (kind IN ('SAMPLE_PAPER','PRACTICE_PAPER') AND subject_slug = ?3))
-       ORDER BY exam_date, shift, language, official DESC, title`,
+       ORDER BY official DESC, exam_date, shift, language, title`, // NTA's own file first: it is the primary source
     )
     .bind(exam, year, slug)
     .all<Row>();

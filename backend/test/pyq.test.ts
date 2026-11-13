@@ -78,6 +78,8 @@ describe('previous-year papers index', () => {
     // Only English-medium papers: the bilingual booklet, the Hindi-medium paper and the unverified one are not listed.
     expect(s.papers.map((p: { language: string }) => p.language)).toEqual(['English', 'English', 'English']);
     expect(s.papers.some((p: { title: string }) => /English and Hindi|Hindi medium|not verified/.test(p.title))).toBe(false);
+    // NTA's own file is the primary source: it is listed first, ahead of an undated third-party copy.
+    expect(s.papers.map((p: { sourceSite: string }) => p.sourceSite)).toEqual(['NTA', 'AglaSem', 'Adda247']);
     expect((await call('GET', '/api/learn/pyq/2025/hindi')).status).toBe(404);
     // Every paper has somewhere to open.
     expect(s.papers.every((p: { openUrl: string }) => /^https:\/\//.test(p.openUrl))).toBe(true);
