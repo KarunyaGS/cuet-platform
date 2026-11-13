@@ -21,3 +21,7 @@ Students open `/pyq` (from Practice Centre): Year, then Subject, then that subje
 ## NTA originals found on other pages (13 November 2026)
 
 `add_new_nta.py` adds the 49 NTA files listed in `research/cuet-pyq-2024-2026/nta-new-candidates.csv` as links to NTA. Each keeps its verified language, so the English-only rule alone decides what students see: 5 are shown, 44 are stored and hidden. `nta-added-records.csv` lists all 49 with the reason each hidden one is hidden. Within a subject, NTA's own files are listed first. No existing record was changed. The draft permission letter to NTA is `docs/nta-permission-request.md`.
+
+## Confirmed duplicates folded under NTA's file (13 November 2026)
+
+`compare_duplicates.py` compares an NTA original with a third-party copy page by page; `fold_confirmed_duplicates.py` (run after `add_new_nta.py`) sets `replacedBy` on a copy only when every page matches and a person has looked at the side-by-side pages. Four copies were folded: 2026 English, and 2024 Home Science, Computer Science and Psychology. The copy's record stays in the database with its source addresses and a note; students see one row, NTA's file. Results: `research/cuet-pyq-2024-2026/duplicate-comparison.csv`.
