@@ -29,6 +29,11 @@ export interface Bindings {
    * granted permission to display or reproduce its documents.
    */
   OFFICIAL_IN_APP_VIEWING?: string;
+  /**
+   * "on" lets a previous-year paper be shown inside the platform's viewer when the file's own host allows other websites
+   * to read it (the student's browser loads it straight from that host). Anything else: every paper opens on its source.
+   */
+  PYQ_IN_APP_VIEWING?: string;
   /** "on" lets the scheduled job read the official notice pages. Anything else (the default) keeps it switched off. */
   NOTICE_FETCH?: string;
   /** Minutes between checks of each official notice page (15 to 1440; default 180). */

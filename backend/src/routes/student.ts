@@ -24,6 +24,7 @@ import {
 } from '../services/student-tools';
 import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
 import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, deleteCard, importCards, importCardsSchema, listCards, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
+import { pyqDocument, pyqExamSchema, pyqSubject, pyqTree } from '../services/pyq';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { answerSchema, getSession, marksSchema, progress, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 
@@ -122,6 +123,15 @@ learn.get('/search', async (c) => {
   if (exam && exam !== 'CUET_UG' && exam !== 'CUET_PG') throw invalid('exam must be CUET_UG or CUET_PG');
   const [syllabus, concepts] = await Promise.all([searchSyllabus(c.env.DB, preview(c.env), q, exam || undefined), searchConcepts(c.env.DB, preview(c.env), q, exam || undefined)]);
   return c.json({ ...syllabus, concepts });
+});
+// Previous-year papers found on public websites: years and subjects that have a paper, a subject's papers, and one paper.
+const pyqInApp = (env: AppEnv['Bindings']) => env.PYQ_IN_APP_VIEWING === 'on';
+learn.get('/pyq', async (c) => c.json(await pyqTree(c.env.DB, pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG'))));
+learn.get('/pyq/documents/:id', async (c) => c.json(await pyqDocument(c.env.DB, c.req.param('id'), pyqInApp(c.env))));
+learn.get('/pyq/:year/:slug', async (c) => {
+  const year = Number(c.req.param('year'));
+  if (!Number.isInteger(year)) throw invalid('year must be a number');
+  return c.json(await pyqSubject(c.env.DB, pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG'), year, c.req.param('slug'), pyqInApp(c.env)));
 });
 learn.get('/topics/:nodeId/revision', async (c) => c.json(await revisionNotes(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 

@@ -48,6 +48,8 @@
     // Official documents open on NTA's own website. Showing them inside CUET Prep stays off until NTA grants permission to display them.
     "OFFICIAL_IN_APP_VIEWING": "off",
     // Government updates: read the official notice pages on a schedule. Local development only for now.
+    // Previous-year papers: show a paper inside CUET Prep when its own host allows other websites to read the file.
+    "PYQ_IN_APP_VIEWING": "on",
     "NOTICE_FETCH": "on",
     "NOTICE_FETCH_MINUTES": "180",
     "MAX_PAGE_SIZE": "100",
@@ -93,6 +95,8 @@
         // Stays "off" until NTA grants permission to display its documents inside the platform.
         "OFFICIAL_IN_APP_VIEWING": "off",
         // Stays "off" (and no cron runs) until the owner approves fetching official notices in production.
+        // Off in production until the owner decides: every paper then opens on its source's own page.
+        "PYQ_IN_APP_VIEWING": "off",
         "NOTICE_FETCH": "off",
         "NOTICE_FETCH_MINUTES": "180",
         "MAX_PAGE_SIZE": "100",

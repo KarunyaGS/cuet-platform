@@ -184,6 +184,21 @@ export interface WeeklyReport {
 export interface Reminder { key: string; kind: 'TEST' | 'PLAN' | 'GOAL' | 'REVISE' | 'NOTICE' | 'SETUP'; title: string; body: string; link: string; external?: boolean }
 export interface RecentItem { kind: 'TOPIC_VIEW' | 'LESSON_VIEW'; nodeId: string | null; resourceId: string | null; title: string | null; paper: string | null; at: string }
 
+/** A previous-year paper, sample paper or answer key found on a public website. openUrl always opens the paper itself. */
+export interface PyqDoc {
+  id: string; kind: 'QUESTION_PAPER' | 'ANSWER_KEY' | 'SAMPLE_PAPER'; classification: 'OFFICIAL' | 'THIRD_PARTY_COPY' | 'MEMORY_BASED' | 'SAMPLE'; official: boolean; year: number | null;
+  subjectCode: string | null; subjectName: string | null; subjectSlug: string | null; section: string | null; title: string; listedAs: string | null;
+  examDate: string | null; shift: string | null; language: string | null; pages: number | null; sourceSite: string; sourcePageUrl: string; note: string | null; checkedOn: string; linkChecked: boolean;
+  viewer: 'IN_APP' | 'SOURCE'; fileUrl: string | null; openUrl: string; alternatives: { site: string; url: string | null; title: string }[];
+}
+export interface PyqTree {
+  exam: ExamCode; total: number; checkedOn: string | null;
+  years: { year: number; papers: number; answerKeys: number; subjects: { slug: string; code: string | null; name: string; section: string | null; papers: number; samplePapers: number }[] }[];
+}
+export interface PyqSubject {
+  exam: ExamCode; year: number; subject: { slug: string; code: string | null; name: string; section: string | null };
+  papers: PyqDoc[]; answerKeys: (PyqDoc & { sessions: { date: string | null; shift: string | null; page: number | null }[] })[]; samplePapers: PyqDoc[];
+}
 export type NoticeCategory = 'ADMIT_CARD' | 'RESULT' | 'ANSWER_KEY' | 'EXAM_SCHEDULE' | 'CITY_INTIMATION' | 'APPLICATION' | 'SYLLABUS' | 'ADVISORY' | 'GENERAL';
 /** An official notice. sourceUrl and documentUrl are the exam body's own addresses; nothing is hosted by CUET Prep. */
 export interface GovNotice {
@@ -290,6 +305,9 @@ export const api = {
   setEmailSettings: (b: { emailReminders: boolean }) => request<EmailSettings>('PUT', '/api/student/email', b),
   sendVerification: () => request<{ sent: boolean; reason?: string }>('POST', '/api/student/email/verification'),
   unsubscribe: (token: string) => request<{ unsubscribed: boolean }>('POST', '/api/public/email/unsubscribe', { token }),
+  pyqTree: (exam: ExamCode) => request<PyqTree>('GET', `/api/learn/pyq?exam=${exam}`),
+  pyqSubject: (year: number, slug: string) => request<PyqSubject>('GET', `/api/learn/pyq/${year}/${encodeURIComponent(slug)}`),
+  pyqDocument: (id: string) => request<PyqDoc & { exam: ExamCode }>('GET', `/api/learn/pyq/documents/${encodeURIComponent(id)}`),
   notices: (f: { exam?: ExamCode; category?: NoticeCategory; limit?: number } = {}) =>
     request<NoticeList>('GET', `/api/public/notices?limit=${f.limit ?? 30}${f.exam ? `&exam=${f.exam}` : ''}${f.category ? `&category=${f.category}` : ''}`),
   search: (q: string, exam?: ExamCode | '') => request<SearchResults>('GET', `/api/learn/search?q=${encodeURIComponent(q)}${exam ? `&exam=${exam}` : ''}`),

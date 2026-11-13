@@ -1259,6 +1259,62 @@ model OfficialNotice {
   @@map("official_notices")
 }
 
+/// One previous-year paper, sample paper or answer key found on a public web page, with a destination that was checked
+/// to open. Only addresses and facts are stored: the file itself is never copied or hosted.
+model PyqDocument {
+  id               String   @id @default(cuid())
+  /// Stable identity from the source, e.g. "aglasem:<document id>" or "nta:final-key:2026".
+  key              String   @unique
+  examCode         String   @map("exam_code")
+  /// Null for a sample paper that belongs to no exam year.
+  year             Int?
+  /// QUESTION_PAPER, ANSWER_KEY or SAMPLE_PAPER.
+  kind             String
+  /// OFFICIAL (the exam body's own file on its own site), THIRD_PARTY_COPY or SAMPLE.
+  classification   String
+  official         Boolean  @default(false)
+  /// LANGUAGE, DOMAIN or GENERAL; null for a year-wide answer key.
+  section          String?
+  subjectCode      String?  @map("subject_code")
+  subjectName      String?  @map("subject_name")
+  subjectSlug      String?  @map("subject_slug")
+  /// What the source calls it.
+  listedAs         String?  @map("listed_as")
+  title            String
+  /// Only when the source states them. Never guessed.
+  examDate         String?  @map("exam_date")
+  shift            String?
+  language         String?
+  sourceSite       String   @map("source_site")
+  sourcePageUrl    String   @map("source_page_url")
+  /// The source's own page for the document, when it has one.
+  documentPageUrl  String?  @map("document_page_url")
+  fileUrl          String   @map("file_url")
+  fileHost         String   @map("file_host")
+  pages            Int?
+  bytes            Int?
+  /// The file answered with a PDF signature when last checked.
+  working          Boolean  @default(false)
+  httpStatus       Int?     @map("http_status")
+  /// The file's host lets other websites read the file, so it can be shown inside the platform's viewer.
+  embeddable       Boolean  @default(false)
+  sourceClaim      String?  @map("source_claim")
+  note             String?
+  /// JSON: other addresses for the same document.
+  alternativesJson String   @default("[]") @map("alternatives_json")
+  /// JSON, official answer keys only: for each subject code, its sessions (date, shift, page of the key).
+  sessionsJson     String?  @map("sessions_json")
+  /// Set on a third-party copy when the exam body's own file is listed instead; such rows are not shown.
+  replacedByKey    String?  @map("replaced_by_key")
+  checkedOn        String   @map("checked_on")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@index([examCode, year, kind])
+  @@index([examCode, subjectSlug])
+  @@map("pyq_documents")
+}
+
 /// An official source page that is checked for new notices on a schedule.
 model GovNoticeSource {
   /// e.g. "cuet-ug-public-notices".

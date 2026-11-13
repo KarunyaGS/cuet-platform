@@ -1,3 +1,4 @@
+import { importPyqIndex } from '../services/pyq';
 import { Hono } from 'hono';
 import { z } from 'zod';
 import type { AppEnv } from '../types';
@@ -140,6 +141,8 @@ admin.post('/past-papers', async (c) => c.json(await importPastPaper(c.env.DB, a
 admin.get('/past-papers', async (c) => c.json(await listPastPapersAdmin(c.env.DB)));
 
 // Links to official documents: stored as drafts (addresses only; nothing is downloaded). Publishing is a staff action.
+// Previous-year papers index (links only, built by research/cuet-pyq-2024-2026): replaces the stored index of one exam.
+admin.post('/pyq-index', async (c) => c.json(await importPyqIndex(c.env.DB, await c.req.json())));
 admin.post('/official-papers', async (c) => c.json(await importOfficialLinks(c.env.DB, await c.req.json(), c.get('actor'))));
 admin.get('/official-papers', async (c) => c.json(await listOfficialLinksAdmin(c.env.DB)));
 // The directory of papers held in one exam and year (facts read from the official answer key; no document is stored).

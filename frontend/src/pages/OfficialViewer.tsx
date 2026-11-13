@@ -54,7 +54,8 @@ export function OfficialViewerPage() {
   );
 }
 
-function PdfViewer({ doc, startPage }: { doc: OfficialDocument; startPage: number }) {
+/** The document viewer itself: pages, zoom, full screen. `site` names whose website the original is on. */
+export function PdfViewer({ doc, startPage, site = 'NTA' }: { doc: Pick<OfficialDocument, 'fileUrl' | 'viewer' | 'originalUrl'>; startPage: number; site?: string }) {
   const frame = useRef<HTMLDivElement>(null);
   const area = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -172,7 +173,7 @@ function PdfViewer({ doc, startPage }: { doc: OfficialDocument; startPage: numbe
 
   const open = (
     <a href={`${doc.originalUrl}#page=${page}`} target="_blank" rel="noreferrer" className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-rule-strong bg-surface px-3 text-sm font-medium text-accent hover:bg-accent-soft">
-      Open on NTA's site <ExternalLink aria-hidden className="size-3.5" />
+      Open on {site}'s site <ExternalLink aria-hidden className="size-3.5" />
     </a>
   );
   if (err)

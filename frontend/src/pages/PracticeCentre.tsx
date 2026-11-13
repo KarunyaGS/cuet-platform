@@ -50,6 +50,16 @@ export function PracticeCentrePage() {
         <Segmented label="Exam" value={exam} onChange={(v) => setParams({ exam: v }, { replace: true })} options={[{ value: 'CUET_UG', label: 'CUET-UG' }, { value: 'CUET_PG', label: 'CUET-PG' }]} />
       </div>
 
+      {exam === 'CUET_UG' && (
+        <Link to="/pyq" data-pyq-entry className="mb-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rule bg-surface px-5 py-4 transition-colors hover:border-accent/50">
+          <span className="min-w-0">
+            <span className="block font-semibold text-ink">Previous-year papers you can open now</span>
+            <span className="mt-0.5 block text-sm text-ink-2">CUET (UG) 2024, 2025 and 2026 papers found on public websites, by year and subject. Each one opens the paper itself.</span>
+          </span>
+          <span className="shrink-0 text-sm font-medium text-accent">Browse papers</span>
+        </Link>
+      )}
+
       <Section
         id="pc-official"
         icon={<Landmark />}

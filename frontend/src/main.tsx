@@ -7,6 +7,7 @@ import { AuthPage } from './pages/Auth';
 import { BookmarksPage } from './pages/Bookmarks';
 import { FlashcardReviewPage, FlashcardsPage } from './pages/Flashcards';
 import { UpdatesPage } from './pages/Updates';
+import { PyqPage, PyqViewerPage } from './pages/Pyq';
 import { DashboardPage } from './pages/Dashboard';
 import { Home } from './pages/Home';
 import { ExamInfo, InfoHub } from './pages/info/InfoPages';
@@ -91,6 +92,8 @@ const router = createBrowserRouter([
       { path: '/planner', element: <PlannerPage /> },
       { path: '/bookmarks', element: <BookmarksPage /> },
       { path: '/updates', element: <UpdatesPage /> },
+      { path: '/pyq', element: <PyqPage /> },
+      { path: '/pyq/view/:id', element: <PyqViewerPage /> },
       { path: '/flashcards', element: <FlashcardsPage /> },
       { path: '/flashcards/review', element: <FlashcardReviewPage /> },
       { path: '/profile', element: <ProfilePage /> },
