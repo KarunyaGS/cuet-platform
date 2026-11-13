@@ -13,7 +13,7 @@ import { jobReportSchema, paperRegistrySchema, registerPapers, reportJob } from 
 import { createResource, deleteResource, getResource, listResources, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
 import {
-  machineCorrection, machineCorrectionSchema, pageChecksSchema, pageTextsSchema, roleSchema, setRole, sourceFigureSchema, sourceIssueSchema, storePageChecks, storePageTexts,
+  machineCorrection, machineCorrectionSchema, machineVerifySchema, machineVerifyVersion, pageChecksSchema, pageTextsSchema, roleSchema, setRole, sourceFigureSchema, sourceIssueSchema, storePageChecks, storePageTexts,
   storeSourceFigure, storeSourceIssue,
 } from '../services/maintenance';
 import { upsertMedia, upsertQuestion, upsertResource } from '../services/content-packs';
@@ -93,6 +93,10 @@ admin.put('/source-issues', async (c) => c.json(await storeSourceIssue(c.env.DB,
 admin.put('/source-figures', async (c) => c.json(await storeSourceFigure(c.env.DB, c.env.MEDIA, await readJson(c, sourceFigureSchema), c.get('actor'))));
 admin.post('/nodes/:id/machine-correction', async (c) =>
   c.json(await machineCorrection(c.env.DB, c.req.param('id'), await readJson(c, machineCorrectionSchema), c.get('actor'))),
+);
+// Marks a corrected version machine-checked when every stored row carries a passing check. Never VERIFIED.
+admin.post('/syllabus-versions/:id/machine-verify', async (c) =>
+  c.json(await machineVerifyVersion(c.env.DB, c.req.param('id'), await readJson(c, machineVerifySchema), c.get('actor'))),
 );
 
 // Review and publishing. VERIFIED is refused here: only a signed-in reviewer can set it (/api/review/decide).

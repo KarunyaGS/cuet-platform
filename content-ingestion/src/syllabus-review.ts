@@ -7,6 +7,9 @@
  *   (a reviewer writes storage/local/syllabus-review/<EXAM>/<code>/reviewed.json — format below)
  *   review-validate [--exam X] [--paper A,B]   -> validation.json per paper + summary
  *   review-import   [--exam X] [--paper A,B]   -> corrected trees stored as a NEW draft version (old one archived)
+ *   review-machine-check [--exam X] [--paper A,B] [--dry-run]
+ *       -> marks an imported CORRECTED version MACHINE_VERIFIED when every row's text is confirmed on its PDF page
+ *          and the structure checks report no errors. Transcriptions and papers with unconfirmed rows stay UNVERIFIED.
  *
  * reviewed.json:
  *   { "schema": "cuet-syllabus-review/1", "exam", "code",
@@ -15,7 +18,7 @@
  *     "nodes": [{ "ref", "parentRef", "kind", "label", "title", "body", "sourcePage" }],   // full tree unless CONFIRMED_AS_STORED
  *     "changes": ["what was corrected and why"], "unresolved": ["anything a person must decide"] }
  *
- * Nothing here marks anything VERIFIED. Rows stay UNVERIFIED until a signed-in reviewer verifies them.
+ * Nothing here marks anything VERIFIED (a person's approval). review-machine-check sets MACHINE_VERIFIED only.
  */
 import { checkStructure } from './structure-checks';
 import { createHash } from 'node:crypto';
@@ -228,4 +231,56 @@ export async function reviewImport(registry: Registry, paths: Paths, api: string
     else { counts.imported++; counts.rows += Number(res['nodesCreated'] ?? 0); }
   }
   return counts;
+}
+
+export const MACHINE_CHECK_METHOD = 'AI_PAGE_IMAGE_REVIEW_TEXT_AND_STRUCTURE_CHECK_v1';
+
+/**
+ * Marks imported page-image corrections MACHINE_VERIFIED when the automatic evidence holds:
+ *   1. the review is CORRECTED (never TRANSCRIBED) and its validation passed;
+ *   2. every row has at least 90% of its words in the text sources of its own PDF page (unconfirmedRows = 0);
+ *   3. the structure checks report no errors;
+ *   4. the version now stored is exactly the reviewed tree, and it is still an untouched draft.
+ * The server repeats the row-level decision from what is stored. Nothing is ever marked VERIFIED here.
+ */
+export async function reviewMachineCheck(registry: Registry, paths: Paths, api: string, token: string, opts: { exam?: string; papers?: string[]; dryRun?: boolean }) {
+  const out = { marked: [] as string[], alreadyMarked: [] as string[], wouldMark: [] as string[], skipped: [] as { code: string; reason: string }[], rows: 0 };
+  const norm = (v: string | null | undefined) => (v ?? '').normalize('NFC').trim();
+  const key = (n: { kind: string; label: string | null; title: string; body: string | null; sourcePage: number | null }) => JSON.stringify([n.kind, norm(n.label), norm(n.title), norm(n.body), n.sourcePage]);
+  for (const p of registry.papers.filter((x) => (!opts.exam || x.exam === opts.exam) && (!opts.papers?.length || opts.papers.includes(x.code)))) {
+    const dir = join(paths.review, p.exam, p.code);
+    if (!existsSync(join(dir, 'validation.json')) || !existsSync(join(dir, 'reviewed.json'))) continue;
+    const val = JSON.parse(readFileSync(join(dir, 'validation.json'), 'utf8')) as { ok: boolean; decision: string; unconfirmedRows: number; rows: number };
+    if (val.decision === 'CONFIRMED_AS_STORED') continue; // nothing was imported for these; they keep their status
+    const skip = (reason: string) => out.skipped.push({ code: p.code, reason });
+    if (!val.ok) { skip('review validation failed'); continue; }
+    if (val.decision !== 'CORRECTED') { skip('transcribed from the page image: needs a person'); continue; }
+    if (val.unconfirmedRows > 0) { skip(`${val.unconfirmedRows} row(s) not confirmed on their PDF page`); continue; }
+    const r = JSON.parse(readFileSync(join(dir, 'reviewed.json'), 'utf8')) as Reviewed;
+    const input = JSON.parse(readFileSync(join(dir, 'input.json'), 'utf8')) as { pageCount: number };
+    const structure = checkStructure(r.nodes ?? [], { pageCount: input.pageCount });
+    if (structure.errors.length) { skip(`structure: ${structure.errors[0]}`); continue; }
+    const cur = await currentVersion(api, token, p.exam, p.code);
+    if (!cur) { skip('no syllabus version stored'); continue; }
+    const stored = new Set(cur.nodes.map(key));
+    const reviewed = new Set((r.nodes ?? []).map(key));
+    const same = stored.size === reviewed.size && [...reviewed].every((k) => stored.has(k));
+    const fromReview = cur.nodes.length > 0 && cur.nodes.every((n) => (n.extractionFlags ?? '').split(',').includes('ai_visual_review'));
+    if (!same || !fromReview) { skip('the stored version is not the reviewed correction (import it first)'); continue; }
+    if (cur.version.verification === 'MACHINE_VERIFIED') { out.alreadyMarked.push(p.code); continue; }
+    if (cur.version.verification !== 'UNVERIFIED' || cur.version.status !== 'DRAFT') { skip(`stored version is ${cur.version.status}/${cur.version.verification}`); continue; }
+    if (opts.dryRun) { out.wouldMark.push(p.code); out.rows += cur.nodes.length; continue; }
+    const treeHash = createHash('sha256').update([...reviewed].sort().join('\n')).digest('hex').slice(0, 16);
+    try {
+      await call(api, token, 'POST', `/api/admin/syllabus-versions/${cur.version.id}/machine-verify`, {
+        method: MACHINE_CHECK_METHOD, expectedRows: cur.nodes.length,
+        metrics: { reviewDecision: val.decision, unconfirmedRows: val.unconfirmedRows, structureErrors: 0, structureWarnings: structure.warnings.length, minRowWordsOnPagePct: 90, treeHash, aiAssistedCorrection: true },
+      });
+      out.marked.push(p.code);
+      out.rows += cur.nodes.length;
+    } catch (e) {
+      skip((e as Error).message.slice(0, 200));
+    }
+  }
+  return out;
 }

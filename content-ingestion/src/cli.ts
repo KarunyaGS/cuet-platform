@@ -18,7 +18,7 @@ import { extractPaper } from './extract';
 import { adminToken, runImport } from './importer';
 import { importPacks, renderSvg, snapshot, validateAll } from './content';
 import { parseCsv } from './verify';
-import { reviewExport, reviewImport, reviewValidate } from './syllabus-review';
+import { reviewExport, reviewImport, reviewMachineCheck, reviewValidate } from './syllabus-review';
 import { importMissing } from './import-missing';
 import type { ExtractionResult, Registry } from './types';
 
@@ -266,11 +266,12 @@ try {
     console.log(`${bad} file(s) with structure errors, ${warned} with warnings`);
     if (bad) process.exitCode = 1;
   }
-  else if (cmd === 'review-export' || cmd === 'review-validate' || cmd === 'review-import') {
+  else if (cmd === 'review-export' || cmd === 'review-validate' || cmd === 'review-import' || cmd === 'review-machine-check') {
     const rp = { extracted: PATHS.extracted, audit: PATHS.audit, verification: PATHS.verification, review: PATHS.syllabusReview };
     const papers = (option('paper') ?? '').split(',').filter(Boolean);
     const api = option('api') ?? 'http://127.0.0.1:8787';
     if (cmd === 'review-export') console.log(JSON.stringify(await reviewExport(loadRegistry(), rp, api, adminToken(), option('set') ?? 'review', option('exam'), papers)));
+    else if (cmd === 'review-machine-check') console.log(JSON.stringify(await reviewMachineCheck(loadRegistry(), rp, api, adminToken(), { exam: option('exam'), papers, dryRun: flag('dry-run') }), null, 1));
     else if (cmd === 'review-import') console.log(JSON.stringify(await reviewImport(loadRegistry(), rp, api, adminToken(), option('exam'), papers), null, 1));
     else {
       const res = await reviewValidate(loadRegistry(), rp, option('exam'), papers);
