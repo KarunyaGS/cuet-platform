@@ -19,11 +19,12 @@ import {
   appUrl, emailEnabled, emailSettingsSchema, forgotPasswordSchema, getEmailSettings, notifyPasswordChanged, requestPasswordReset, sendVerificationEmail, setEmailSettings, verifyEmail, verifyEmailSchema,
 } from '../services/email';
 import {
-  activitySchema, addBookmark, addPlanItem, bookmarkSchema, bookmarkState, dailySchema, dashboard, dashboardQuery, deletePlanItem, getGoal, getProfile, goalSchema, listBookmarks,
+  activitySchema, addBookmark, addPlanItem, BOOKMARK_KINDS, bookmarkSchema, bookmarkState, dailySchema, dashboard, dashboardQuery, deletePlanItem, getGoal, getProfile, goalSchema, listBookmarks,
   listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
 } from '../services/student-tools';
 import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
-import { listExams, listSubjects, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
+import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, deleteCard, importCards, importCardsSchema, listCards, reviewCard, reviewQueue, reviewSchema } from '../services/flashcards';
+import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { answerSchema, getSession, marksSchema, progress, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 
 const preview = (env: AppEnv['Bindings']) => env.CONTENT_PREVIEW === 'true';
@@ -119,7 +120,8 @@ learn.get('/search', async (c) => {
   const q = (c.req.query('q') ?? '').trim().slice(0, 100);
   const exam = c.req.query('exam');
   if (exam && exam !== 'CUET_UG' && exam !== 'CUET_PG') throw invalid('exam must be CUET_UG or CUET_PG');
-  return c.json(await searchSyllabus(c.env.DB, preview(c.env), q, exam || undefined));
+  const [syllabus, concepts] = await Promise.all([searchSyllabus(c.env.DB, preview(c.env), q, exam || undefined), searchConcepts(c.env.DB, preview(c.env), q, exam || undefined)]);
+  return c.json({ ...syllabus, concepts });
 });
 learn.get('/topics/:nodeId/revision', async (c) => c.json(await revisionNotes(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 
@@ -193,11 +195,30 @@ student.post('/activity', async (c) => c.json(await recordActivity(c.env.DB, c.g
 student.get('/bookmarks', async (c) => c.json(await listBookmarks(c.env.DB, c.get('user').id)));
 student.get('/bookmarks/state', async (c) => {
   const kind = c.req.query('kind') ?? '';
-  if (!['TOPIC', 'LESSON', 'QUESTION', 'REVISION'].includes(kind)) throw invalid('kind must be TOPIC, LESSON, QUESTION or REVISION');
-  return c.json(await bookmarkState(c.env.DB, c.get('user').id, kind, (c.req.query('ids') ?? '').split(',').filter(Boolean).slice(0, 100)));
+  if (!(BOOKMARK_KINDS as readonly string[]).includes(kind)) throw invalid('kind must be TOPIC, LESSON, QUESTION, REVISION or CONCEPT');
+  return c.json(await bookmarkState(c.env.DB, c.get('user').id, kind, (c.req.query('ids') ?? '').split(',').filter(Boolean).slice(0, 200)));
 });
-student.post('/bookmarks', async (c) => c.json(await addBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema)), 201));
+student.post('/bookmarks', async (c) => c.json(await addBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema), preview(c.env)), 201));
 student.post('/bookmarks/remove', async (c) => c.json(await removeBookmark(c.env.DB, c.get('user').id, await readJson(c, bookmarkSchema))));
+
+// Flashcards and spaced revision. Every card belongs to the signed-in student; card text is copied from the lesson by the server.
+const cardFilters = (c: { req: { query(name: string): string | undefined } }) =>
+  cardQuery.parse(Object.fromEntries(['day', 'paperId', 'chapterId', 'due', 'limit'].map((k) => [k, c.req.query(k) || undefined])));
+student.get('/flashcards', async (c) => c.json(await listCards(c.env.DB, c.get('user').id, cardFilters(c))));
+student.get('/flashcards/summary', async (c) => c.json(await cardSummary(c.env.DB, c.get('user').id, assertDay(cardFilters(c).day))));
+student.get('/flashcards/queue', async (c) => c.json(await reviewQueue(c.env.DB, c.get('user').id, cardFilters(c))));
+student.post('/flashcards/state', async (c) => {
+  const body = (await c.req.json().catch(() => null)) as { keys?: unknown } | null;
+  const keys = Array.isArray(body?.keys) ? body.keys.filter((k): k is string => typeof k === 'string') : [];
+  return c.json(await cardState(c.env.DB, c.get('user').id, keys));
+});
+student.post('/flashcards', async (c) => {
+  const r = await createCard(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, createCardSchema));
+  return c.json(r, r.created ? 201 : 200);
+});
+student.post('/flashcards/import', async (c) => c.json(await importCards(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, importCardsSchema))));
+student.post('/flashcards/:id/review', async (c) => c.json(await reviewCard(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, reviewSchema))));
+student.delete('/flashcards/:id', async (c) => c.json(await deleteCard(c.env.DB, c.get('user').id, c.req.param('id'))));
 
 // Preferences, weekly report, reminders, recently viewed
 student.get('/preferences', async (c) => c.json(await getPreferences(c.env.DB, c.get('user').id)));

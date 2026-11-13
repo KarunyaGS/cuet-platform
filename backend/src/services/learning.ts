@@ -4,6 +4,7 @@
  * syllabus versions, resources and questions are visible; demonstration and rejected records never are.
  */
 import { notFound } from '../lib/errors';
+import { CONCEPT_TYPES_SQL, conceptsOf, conceptsOfResources, type RawBlock } from './concepts';
 
 export const VISIBLE_SYLLABUS = (alias: string) => `${alias}.verification IN ('MACHINE_VERIFIED','VERIFIED') AND ${alias}.status != 'ARCHIVED' AND (${alias}.status = 'PUBLISHED' OR ?1 = 1)`;
 export const VISIBLE_CONTENT = (alias: string) =>
@@ -105,6 +106,38 @@ export async function searchSyllabus(db: D1Database, preview: boolean, query: st
   };
 }
 
+/** Concepts (single definitions, formulas, key points and facts inside lessons) whose text has every search word. */
+export async function searchConcepts(db: D1Database, preview: boolean, query: string, exam?: string) {
+  const words = query.toLowerCase().split(/\s+/).filter((w) => w.length >= 2).slice(0, 6);
+  if (!words.length) return [];
+  const like = (w: string) => `%${w.replace(/[!%_]/g, (c) => `!${c}`)}%`;
+  const { results } = await db
+    .prepare(
+      `SELECT b.resource_id, b.position, r.title AS lesson, tp.id AS paper_id, tp.name AS paper, e.code AS exam
+       FROM content_blocks b JOIN learning_resources r ON r.id = b.resource_id
+       JOIN test_papers tp ON tp.id = COALESCE(r.test_paper_id, (SELECT v.test_paper_id FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id WHERE n.id = r.curriculum_node_id))
+       JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id
+       WHERE b.type IN (${CONCEPT_TYPES_SQL}) AND ${VISIBLE_CONTENT('r')} ${exam ? 'AND e.code = ?2' : 'AND ?2 = ?2'}
+         AND ${words.map((_, i) => `b.body LIKE ?${3 + i} ESCAPE '!'`).join(' AND ')}
+       ORDER BY LENGTH(b.body), r.title, b.position LIMIT 60`,
+    )
+    .bind(preview ? 1 : 0, exam ?? '', ...words.map(like))
+    .all<{ resource_id: string; position: number; lesson: string; paper_id: string; paper: string; exam: string }>();
+  if (!results.length) return [];
+  const byLesson = await conceptsOfResources(db, results.map((r) => r.resource_id));
+  const plain = (s: string) => s.replace(/\$[^$]*\$/g, ' ').replace(/[*_`#>]/g, '').replace(/\s+/g, ' ').trim();
+  const out = [];
+  for (const r of results) {
+    const c = byLesson.get(r.resource_id)?.find((x) => x.position === r.position);
+    if (!c) continue;
+    const text = plain(c.type === 'FORMULA' ? c.front : c.back);
+    out.push({ key: c.key, anchor: c.anchor, type: c.type, title: c.title, snippet: text.length > 160 ? `${text.slice(0, 159)}…` : text, resourceId: r.resource_id, lesson: r.lesson, paperId: r.paper_id, paper: r.paper, exam: r.exam });
+  }
+  // Names that contain the words come first.
+  const inTitle = (t: string) => (words.every((w) => t.toLowerCase().includes(w)) ? 0 : 1);
+  return out.sort((x, y) => inTitle(x.title) - inTitle(y.title)).slice(0, 20);
+}
+
 export async function paperOutline(db: D1Database, preview: boolean, paperId: string) {
   const paper = await db
     .prepare(
@@ -177,14 +210,16 @@ export async function resourceDetail(db: D1Database, preview: boolean, id: strin
   const { results } = await db
     .prepare(`SELECT b.position, b.type, b.body, b.media_asset_id, m.alt_text, m.caption, m.kind AS media_kind FROM content_blocks b LEFT JOIN media_assets m ON m.id = b.media_asset_id WHERE b.resource_id = ? ORDER BY b.position`)
     .bind(id)
-    .all();
+    .all<RawBlock & Record<string, unknown>>();
+  // A definition, formula, key point or fact can be saved and revised on its own: each gets its concept key.
+  const concepts = new Map((await conceptsOf(id, results)).map((c) => [c.position, c]));
   const node = r.curriculum_node_id
     ? await db.prepare('SELECT n.id, n.title, n.kind, n.label, v.test_paper_id AS paper_id FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id WHERE n.id = ?').bind(r.curriculum_node_id).first()
     : null;
   return {
     resource: { id: r.id, type: r.type, title: r.title, origin: r.origin, verification: r.verification, status: r.status, preview: r.status !== 'PUBLISHED', updatedAt: r.updated_at },
     topic: node,
-    blocks: results,
+    blocks: results.map((b) => ({ ...b, conceptKey: concepts.get(b.position)?.key ?? null, anchor: concepts.get(b.position)?.anchor ?? null })),
   };
 }
 

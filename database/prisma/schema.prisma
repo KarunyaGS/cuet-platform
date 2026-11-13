@@ -927,6 +927,7 @@ model User {
   practice        PracticeSession[]
   progress        TopicProgress[]
   bookmarks       Bookmark[]
+  flashcards      Flashcard[]
   activity        LearningActivity[]
   dailyGoal       DailyGoal?
   planItems       StudyPlanItem[]
@@ -1099,15 +1100,76 @@ model SourcePageText {
 model Bookmark {
   id        String   @id @default(cuid())
   userId    String   @map("user_id")
-  /// TOPIC (curriculum_nodes.id), LESSON (learning_resources.id) or QUESTION (questions.id).
+  /// TOPIC or REVISION (curriculum_nodes.id), LESSON (learning_resources.id), QUESTION (questions.id) or
+  /// CONCEPT (a concept key: one definition, formula, key point or fact inside a lesson).
   kind      String
   entityId  String   @map("entity_id")
+  /// CONCEPT only: the concept's name when it was saved, so the bookmark still reads well if the lesson changes.
+  label     String?
   createdAt DateTime @default(now()) @map("created_at")
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, kind, entityId])
   @@index([userId, createdAt])
   @@map("bookmarks")
+}
+
+/// A student's own flashcard, made from one concept of a lesson. The text is copied from the lesson when the card is
+/// made, so the card keeps working if the lesson is edited or removed. Independent of bookmarks: both carry the same
+/// concept key, and removing one never touches the other.
+model Flashcard {
+  id               String            @id @default(cuid())
+  userId           String            @map("user_id")
+  /// "<lesson id>.<hash of what identifies the concept>": stable across re-imports of the lesson.
+  conceptKey       String            @map("concept_key")
+  /// Plain references (no foreign key): a card outlives its lesson.
+  resourceId       String            @map("resource_id")
+  curriculumNodeId String?           @map("curriculum_node_id")
+  chapterNodeId    String?           @map("chapter_node_id")
+  testPaperId      String?           @map("test_paper_id")
+  /// DEFINITION, FORMULA, KEY_POINT, IMPORTANT_FACT or CONCEPT.
+  blockType        String            @map("block_type")
+  lessonTitle      String            @map("lesson_title")
+  section          String?
+  front            String
+  back             String
+  /// FORMULA cards: the formula itself, shown on the back.
+  latex            String?
+  /// Scheduling (SM-2). dueOn is a calendar day (YYYY-MM-DD) in the student's own time zone.
+  dueOn            String            @map("due_on")
+  intervalDays     Int               @default(0) @map("interval_days")
+  ease             Float             @default(2.5)
+  reps             Int               @default(0)
+  lapses           Int               @default(0)
+  lastRating       String?           @map("last_rating")
+  lastReviewedAt   DateTime?         @map("last_reviewed_at")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reviews          FlashcardReview[]
+
+  @@unique([userId, conceptKey])
+  @@index([userId, dueOn])
+  @@index([userId, testPaperId, chapterNodeId])
+  @@map("flashcards")
+}
+
+/// One answer given on a flashcard: AGAIN, HARD, GOOD or EASY. Kept for progress figures.
+model FlashcardReview {
+  id             String    @id @default(cuid())
+  cardId         String    @map("card_id")
+  userId         String    @map("user_id")
+  rating         String
+  day            String
+  intervalBefore Int       @map("interval_before")
+  intervalAfter  Int       @map("interval_after")
+  easeAfter      Float     @map("ease_after")
+  reviewedAt     DateTime  @default(now()) @map("reviewed_at")
+  card           Flashcard @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@index([userId, day])
+  @@index([cardId])
+  @@map("flashcard_reviews")
 }
 
 /// A topic or lesson a signed-in student opened: powers "continue learning" and daily lesson goals.
