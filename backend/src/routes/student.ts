@@ -24,7 +24,7 @@ import {
 } from '../services/student-tools';
 import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
 import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, deleteCard, importCards, importCardsSchema, listCards, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
-import { pyqDocument, pyqExamSchema, pyqSubject, pyqTree } from '../services/pyq';
+import { pyqDocument, pyqDocumentFile, pyqExamSchema, pyqSubject, pyqTree } from '../services/pyq';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { answerSchema, getSession, marksSchema, progress, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 
@@ -126,8 +126,10 @@ learn.get('/search', async (c) => {
 });
 // Previous-year papers found on public websites: years and subjects that have a paper, a subject's papers, and one paper.
 // Students see English-medium papers only; PYQ_ENGLISH_HINDI adds NTA's bilingual English + Hindi papers, labelled as such.
-const pyqScope = (env: AppEnv['Bindings']) => ({ inApp: env.PYQ_IN_APP_VIEWING === 'on', englishHindi: env.PYQ_ENGLISH_HINDI === 'on' });
-learn.get('/pyq', async (c) => c.json(await pyqTree(c.env.DB, pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG'), pyqScope(c.env).englishHindi)));
+const pyqScope = (env: AppEnv['Bindings']) => ({ inApp: env.PYQ_IN_APP_VIEWING === 'on', englishHindi: env.PYQ_ENGLISH_HINDI === 'on', preview: env.CONTENT_PREVIEW === 'true' });
+learn.get('/pyq', async (c) => c.json(await pyqTree(c.env.DB, pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG'), pyqScope(c.env).englishHindi, pyqScope(c.env).preview)));
+// A CUET Prep document's own file, from our storage (byte ranges for the viewer; ?download=1 to save it).
+learn.get('/pyq/documents/:id/file', async (c) => pyqDocumentFile(c.env.DB, c.env.MEDIA, c.req.param('id'), pyqScope(c.env), c.req.header('range'), c.req.query('download') === '1'));
 learn.get('/pyq/documents/:id', async (c) => c.json(await pyqDocument(c.env.DB, c.req.param('id'), pyqScope(c.env))));
 learn.get('/pyq/:year/:slug', async (c) => {
   const year = Number(c.req.param('year'));

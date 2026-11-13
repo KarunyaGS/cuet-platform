@@ -1304,6 +1304,12 @@ model PyqDocument {
   alternativesJson String   @default("[]") @map("alternatives_json")
   /// JSON, official answer keys only: for each subject code, its sessions (date, shift, page of the key).
   sessionsJson     String?  @map("sessions_json")
+  /// Native documents only: the generated PDF's key in our own storage. Null for documents held on other websites.
+  r2Key            String?  @map("r2_key")
+  /// Native documents only: REVIEWED (every question approved by a reviewer) or UNREVIEWED (shown only in preview).
+  reviewState      String?  @map("review_state")
+  /// Native documents only: why we may reproduce the content (our own content, or a permission on record).
+  rightsBasis      String?  @map("rights_basis")
   /// Set on a third-party copy when the exam body's own file is listed instead; such rows are not shown.
   replacedByKey    String?  @map("replaced_by_key")
   checkedOn        String   @map("checked_on")

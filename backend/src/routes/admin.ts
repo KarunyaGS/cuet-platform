@@ -1,3 +1,4 @@
+import { draftPracticePaper, draftQuery, registerNativeDocument } from '../services/native-papers';
 import { importPyqIndex } from '../services/pyq';
 import { Hono } from 'hono';
 import { z } from 'zod';
@@ -141,6 +142,9 @@ admin.post('/past-papers', async (c) => c.json(await importPastPaper(c.env.DB, a
 admin.get('/past-papers', async (c) => c.json(await listPastPapersAdmin(c.env.DB)));
 
 // Links to official documents: stored as drafts (addresses only; nothing is downloaded). Publishing is a staff action.
+// Native CUET Prep documents: the content of a practice paper made from our own questions, and recording a generated PDF.
+admin.get('/native-papers/draft', async (c) => c.json(await draftPracticePaper(c.env.DB, draftQuery.parse(c.req.query()))));
+admin.post('/native-papers', async (c) => c.json(await registerNativeDocument(c.env.DB, c.env.MEDIA, await c.req.json(), c.get('actor')), 201));
 // Previous-year papers index (links only, built by research/cuet-pyq-2024-2026): replaces the stored index of one exam.
 admin.post('/pyq-index', async (c) => c.json(await importPyqIndex(c.env.DB, await c.req.json(), c.env.PYQ_ENGLISH_HINDI === 'on')));
 admin.post('/official-papers', async (c) => c.json(await importOfficialLinks(c.env.DB, await c.req.json(), c.get('actor'))));

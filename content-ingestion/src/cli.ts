@@ -271,6 +271,14 @@ try {
     console.log(JSON.stringify(await res.json(), null, 1));
     if (!res.ok) process.exitCode = 1;
   }
+  else if (cmd === 'native-paper-build') {
+    // A CUET Prep practice paper as a typeset PDF, from our own questions only: built, stored in our storage and recorded.
+    const paperId = option('paper-id');
+    if (!paperId) throw new Error('Give the subject: --paper-id <id>');
+    const { buildNativePaper } = await import('./native-paper');
+    const r = await buildNativePaper({ api: option('api') ?? 'http://127.0.0.1:8787', adminToken: adminToken(), paperId, set: Number(option('set') ?? 1), count: Number(option('count') ?? 50), workDir: option('out') ?? join(repo, '.native-papers'), repo });
+    console.log(JSON.stringify(r, null, 1));
+  }
   else if (cmd === 'pyq-index-import') {
     // The index of previous-year papers found on public websites (addresses only; nothing is downloaded or hosted).
     const file = join(repo, 'content', 'pyq', 'index.json');

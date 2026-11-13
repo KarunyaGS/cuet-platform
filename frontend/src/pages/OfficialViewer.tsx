@@ -4,7 +4,7 @@
  * the file, the browser loads it straight from that server; where it does not, the document is shown here only if
  * the exam body's permission is on record, and otherwise it opens on the exam body's own site.
  */
-import { ChevronLeft, ChevronRight, ExternalLink, Maximize, Minimize, MoveHorizontal, ZoomIn, ZoomOut } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Download, ExternalLink, Maximize, Minimize, MoveHorizontal, ZoomIn, ZoomOut } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router';
 import { api, type OfficialDocument } from '../api';
@@ -55,7 +55,7 @@ export function OfficialViewerPage() {
 }
 
 /** The document viewer itself: pages, zoom, full screen. `site` names whose website the original is on. */
-export function PdfViewer({ doc, startPage, site = 'NTA' }: { doc: Pick<OfficialDocument, 'fileUrl' | 'viewer' | 'originalUrl'>; startPage: number; site?: string }) {
+export function PdfViewer({ doc, startPage, site = 'NTA', downloadUrl }: { doc: Pick<OfficialDocument, 'fileUrl' | 'viewer' | 'originalUrl'>; startPage: number; site?: string; downloadUrl?: string | null }) {
   const frame = useRef<HTMLDivElement>(null);
   const area = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -171,7 +171,12 @@ export function PdfViewer({ doc, startPage, site = 'NTA' }: { doc: Pick<Official
     return () => window.removeEventListener('keydown', onKey);
   });
 
-  const open = (
+  // A document kept in our own storage is saved with "Download"; one on another website is opened there.
+  const open = downloadUrl ? (
+    <a href={downloadUrl} download data-download className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-rule-strong bg-surface px-3 text-sm font-medium text-accent hover:bg-accent-soft">
+      <Download aria-hidden className="size-3.5" /> Download PDF
+    </a>
+  ) : (
     <a href={`${doc.originalUrl}#page=${page}`} target="_blank" rel="noreferrer" className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-rule-strong bg-surface px-3 text-sm font-medium text-accent hover:bg-accent-soft">
       Open on {site}'s site <ExternalLink aria-hidden className="size-3.5" />
     </a>

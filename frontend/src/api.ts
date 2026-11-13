@@ -186,10 +186,12 @@ export interface RecentItem { kind: 'TOPIC_VIEW' | 'LESSON_VIEW'; nodeId: string
 
 /** A previous-year paper, sample paper or answer key found on a public website. openUrl always opens the paper itself. */
 export interface PyqDoc {
-  id: string; kind: 'QUESTION_PAPER' | 'ANSWER_KEY' | 'SAMPLE_PAPER'; classification: 'OFFICIAL' | 'THIRD_PARTY_COPY' | 'MEMORY_BASED' | 'SAMPLE'; official: boolean; year: number | null;
+  id: string; kind: 'QUESTION_PAPER' | 'ANSWER_KEY' | 'SAMPLE_PAPER' | 'PRACTICE_PAPER'; classification: 'OFFICIAL' | 'THIRD_PARTY_COPY' | 'MEMORY_BASED' | 'SAMPLE' | 'CUET_PREP_ORIGINAL'; official: boolean; year: number | null;
   subjectCode: string | null; subjectName: string | null; subjectSlug: string | null; section: string | null; title: string; listedAs: string | null;
   examDate: string | null; shift: string | null; language: string | null; pages: number | null; sourceSite: string; sourcePageUrl: string; note: string | null; checkedOn: string; linkChecked: boolean;
   viewer: 'IN_APP' | 'SOURCE'; fileUrl: string | null; openUrl: string; alternatives: { site: string; url: string | null; title: string }[];
+  /** A document CUET Prep generated and keeps in its own storage: it opens in the viewer here and can be downloaded. */
+  native: boolean; downloadUrl: string | null; unreviewed: boolean;
 }
 export interface PyqTree {
   exam: ExamCode; total: number; checkedOn: string | null;
@@ -197,7 +199,7 @@ export interface PyqTree {
 }
 export interface PyqSubject {
   exam: ExamCode; year: number; subject: { slug: string; code: string | null; name: string; section: string | null };
-  papers: PyqDoc[]; answerKeys: (PyqDoc & { sessions: { date: string | null; shift: string | null; page: number | null }[] })[]; samplePapers: PyqDoc[];
+  papers: PyqDoc[]; answerKeys: (PyqDoc & { sessions: { date: string | null; shift: string | null; page: number | null }[] })[]; samplePapers: PyqDoc[]; practicePapers: PyqDoc[];
 }
 export type NoticeCategory = 'ADMIT_CARD' | 'RESULT' | 'ANSWER_KEY' | 'EXAM_SCHEDULE' | 'CITY_INTIMATION' | 'APPLICATION' | 'SYLLABUS' | 'ADVISORY' | 'GENERAL';
 /** An official notice. sourceUrl and documentUrl are the exam body's own addresses; nothing is hosted by CUET Prep. */

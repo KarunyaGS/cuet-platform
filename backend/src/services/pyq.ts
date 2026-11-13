@@ -11,6 +11,7 @@ import { z } from 'zod';
 import { notFound } from '../lib/errors';
 import { newId } from '../lib/hash';
 import { nowIso } from '../lib/sql';
+import { nativeFile } from './native-papers';
 
 const KINDS = ['QUESTION_PAPER', 'ANSWER_KEY', 'SAMPLE_PAPER'] as const;
 const httpsUrl = z.string().max(600).refine((u) => /^https:\/\/[^\s/]+\//.test(u), 'Addresses must be https');
@@ -59,7 +60,7 @@ export async function importPyqIndex(db: D1Database, body: unknown, englishHindi
     keys.add(d.key);
   }
   const now = nowIso();
-  const statements: D1PreparedStatement[] = [db.prepare('DELETE FROM pyq_documents WHERE exam_code = ?').bind(input.exam)];
+  const statements: D1PreparedStatement[] = [db.prepare('DELETE FROM pyq_documents WHERE exam_code = ? AND r2_key IS NULL').bind(input.exam)];
   for (const d of input.documents)
     statements.push(
       db
@@ -102,20 +103,27 @@ export interface Scope {
   inApp: boolean;
   /** Also show bilingual English + Hindi papers. */
   englishHindi: boolean;
+  /** Draft content is shown (local preview): include our own documents that are not yet fully reviewed. */
+  preview?: boolean;
 }
 const languages = (englishHindi: boolean) => (englishHindi ? [ENGLISH, ENGLISH_HINDI] : [ENGLISH]);
-const shownSql = (englishHindi: boolean) =>
-  `(working = 1 OR http_status = -1) AND replaced_by_key IS NULL AND (kind = 'ANSWER_KEY' OR language IN (${languages(englishHindi).map((l) => `'${l}'`).join(',')}))`;
+const shownSql = (englishHindi: boolean, preview = false) =>
+  `(working = 1 OR http_status = -1) AND replaced_by_key IS NULL AND (kind = 'ANSWER_KEY' OR language IN (${languages(englishHindi).map((l) => `'${l}'`).join(',')}))` +
+  // Our own generated documents: fully reviewed ones always; unreviewed ones only where draft content is shown.
+  ` AND (review_state IS NULL OR review_state = 'REVIEWED'${preview ? " OR review_state = 'UNREVIEWED'" : ''})`;
 const isShown = (d: { working: boolean; httpStatus: number; replacedBy?: string; kind: string; language: string | null }, englishHindi: boolean) =>
   (d.working || d.httpStatus === -1) && !d.replacedBy && (d.kind === 'ANSWER_KEY' || (d.language !== null && languages(englishHindi).includes(d.language)));
 
 type Row = Record<string, string | number | null>;
 
 const out = (r: Row, inApp: boolean) => {
-  const embed = inApp && Boolean(r.embeddable);
+  // A document in our own storage is always shown here; one on another website only when its host allows it.
+  const native = r.r2_key !== null && r.r2_key !== undefined;
+  const embed = native || (inApp && Boolean(r.embeddable));
+  const ownFile = `/api/learn/pyq/documents/${r.id}/file`;
   return {
     id: r.id as string,
-    kind: r.kind as (typeof KINDS)[number],
+    kind: r.kind as (typeof KINDS)[number] | 'PRACTICE_PAPER',
     classification: r.classification as string,
     official: Boolean(r.official),
     year: r.year as number | null,
@@ -130,16 +138,21 @@ const out = (r: Row, inApp: boolean) => {
     language: r.language as string | null,
     pages: r.pages as number | null,
     sourceSite: r.source_site as string,
-    sourcePageUrl: r.source_page_url as string,
+    sourcePageUrl: native ? '/practice-centre' : (r.source_page_url as string),
     note: r.note as string | null,
     checkedOn: r.checked_on as string,
     /** False when the source's robots rules did not allow the link to be checked automatically. */
     linkChecked: Number(r.http_status) !== -1,
     /** IN_APP: the file's host lets this site show it. SOURCE: it opens on the source's own page. Either way the click opens the paper. */
     viewer: embed ? ('IN_APP' as const) : ('SOURCE' as const),
-    fileUrl: embed ? (r.file_url as string) : null,
+    fileUrl: native ? ownFile : embed ? (r.file_url as string) : null,
+    native,
+    /** Native documents can be saved by the student. */
+    downloadUrl: native ? `${ownFile}?download=1` : null,
+    /** True while some of its questions are not yet approved by a reviewer. */
+    unreviewed: r.review_state === 'UNREVIEWED',
     /** Where the paper itself opens: the source's page for it, or the file. */
-    openUrl: (r.document_page_url ?? r.file_url) as string,
+    openUrl: native ? ownFile : ((r.document_page_url ?? r.file_url) as string),
     alternatives: JSON.parse(String(r.alternatives_json ?? '[]')) as { site: string; url: string | null; title: string }[],
   };
 };
@@ -147,8 +160,8 @@ const out = (r: Row, inApp: boolean) => {
 export const pyqExamSchema = z.enum(['CUET_UG', 'CUET_PG']);
 
 /** Years and subjects that actually have a paper. Nothing is listed for a year or subject without one. */
-export async function pyqTree(db: D1Database, exam: string, englishHindi = false) {
-  const SHOWN = shownSql(englishHindi);
+export async function pyqTree(db: D1Database, exam: string, englishHindi = false, preview = false) {
+  const SHOWN = shownSql(englishHindi, preview);
   const [subjects, keys, samples, checked] = await Promise.all([
     db
       .prepare(
@@ -182,12 +195,12 @@ export async function pyqTree(db: D1Database, exam: string, englishHindi = false
 
 /** Everything for one subject in one year: its question papers, the year's answer keys (with this subject's pages), and its sample papers. */
 export async function pyqSubject(db: D1Database, exam: string, year: number, slug: string, scope: Scope) {
-  const SHOWN = shownSql(scope.englishHindi);
+  const SHOWN = shownSql(scope.englishHindi, scope.preview);
   const inApp = scope.inApp;
   const { results } = await db
     .prepare(
       `SELECT * FROM pyq_documents WHERE exam_code = ?1 AND ${SHOWN} AND (
-         (kind = 'QUESTION_PAPER' AND year = ?2 AND subject_slug = ?3) OR (kind = 'ANSWER_KEY' AND year = ?2) OR (kind = 'SAMPLE_PAPER' AND subject_slug = ?3))
+         (kind = 'QUESTION_PAPER' AND year = ?2 AND subject_slug = ?3) OR (kind = 'ANSWER_KEY' AND year = ?2) OR (kind IN ('SAMPLE_PAPER','PRACTICE_PAPER') AND subject_slug = ?3))
        ORDER BY exam_date, shift, language, official DESC, title`,
     )
     .bind(exam, year, slug)
@@ -207,12 +220,21 @@ export async function pyqSubject(db: D1Database, exam: string, year: number, slu
         return { ...out(r, inApp), sessions: sessions.map((s) => ({ date: s.date ?? null, shift: s.shift ?? null, page: s.keyPage ?? null })) };
       }),
     samplePapers: results.filter((r) => r.kind === 'SAMPLE_PAPER').map((r) => out(r, inApp)),
+    // Our own practice papers for this subject: generated by CUET Prep, kept in our storage, never previous-year papers.
+    practicePapers: results.filter((r) => r.kind === 'PRACTICE_PAPER').map((r) => out(r, inApp)),
   };
 }
 
 export async function pyqDocument(db: D1Database, id: string, scope: Scope) {
   const inApp = scope.inApp;
-  const r = await db.prepare(`SELECT * FROM pyq_documents WHERE id = ? AND ${shownSql(scope.englishHindi)}`).bind(id).first<Row>();
+  const r = await db.prepare(`SELECT * FROM pyq_documents WHERE id = ? AND ${shownSql(scope.englishHindi, scope.preview)}`).bind(id).first<Row>();
   if (!r) throw notFound('Paper');
   return { exam: r.exam_code as string, ...out(r, inApp) };
+}
+
+/** The file of a native document, from our own storage. Only for documents a student is allowed to see. */
+export async function pyqDocumentFile(db: D1Database, bucket: R2Bucket, id: string, scope: Scope, range: string | undefined, download: boolean): Promise<Response> {
+  const r = await db.prepare(`SELECT r2_key, title FROM pyq_documents WHERE id = ? AND r2_key IS NOT NULL AND ${shownSql(scope.englishHindi, scope.preview)}`).bind(id).first<{ r2_key: string; title: string }>();
+  if (!r) throw notFound('Paper');
+  return nativeFile(bucket, r.r2_key, r.title, range, download);
 }

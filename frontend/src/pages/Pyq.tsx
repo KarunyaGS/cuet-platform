@@ -25,6 +25,7 @@ const cleanNote = (note: string | null) => note?.replace(/AglaSem(’s|'s)/g, 't
 
 export function kindBadge(d: PyqDoc) {
   const name = siteName(d.sourceSite);
+  if (d.classification === 'CUET_PREP_ORIGINAL') return <Badge tone="accent">CUET Prep practice paper</Badge>;
   if (d.classification === 'OFFICIAL') return <Badge tone="green">NTA’s own file</Badge>;
   if (d.classification === 'MEMORY_BASED') return <Badge tone="amber">{name ? `Memory-based, by ${name}` : 'Memory-based'}</Badge>;
   if (d.classification === 'SAMPLE') return <Badge>{name ? `Sample paper, by ${name}` : 'Sample paper'}</Badge>;
@@ -57,16 +58,21 @@ export function PaperRow({ d }: { d: PyqDoc }) {
       <span className="min-w-0 flex-1 basis-64">
         <span className="flex flex-wrap items-center gap-2">
           {kindBadge(d)}
+          {d.unreviewed && <Badge tone="amber">Preview, not reviewed</Badge>}
           {facts.length > 0 && <span className="num text-sm font-medium text-ink">{facts.join(' · ')}</span>}
         </span>
         <span className="mt-1 block text-[15px] text-ink">{d.title}</span>
         {d.note && <span className="mt-0.5 block text-xs text-ink-3">{cleanNote(d.note)}</span>}
         <span className="mt-0.5 block text-xs text-ink-3">
-          {d.viewer === 'IN_APP' ? `Shown here straight from ${siteName(d.sourceSite) ?? 'the source'}’s server.` : siteName(d.sourceSite) ? `Opens on ${siteName(d.sourceSite)}’s website in a new tab.` : 'Opens on the source website in a new tab.'}{' '}
-          {d.linkChecked ? `Checked on ${day(d.checkedOn)}.` : 'This link could not be checked automatically.'}{' '}
-          <a href={d.sourcePageUrl} target="_blank" rel="noreferrer noopener" className="text-accent hover:underline">
-            Where it is listed
-          </a>
+          {d.native ? 'Opens here in CUET Prep. You can download it.' : d.viewer === 'IN_APP' ? `Shown here straight from ${siteName(d.sourceSite) ?? 'the source'}’s server.` : siteName(d.sourceSite) ? `Opens on ${siteName(d.sourceSite)}’s website in a new tab.` : 'Opens on the source website in a new tab.'}{' '}
+          {d.native ? null : (
+            <>
+              {d.linkChecked ? `Checked on ${day(d.checkedOn)}.` : 'This link could not be checked automatically.'}{' '}
+              <a href={d.sourcePageUrl} target="_blank" rel="noreferrer noopener" className="text-accent hover:underline">
+                Where it is listed
+              </a>
+            </>
+          )}
         </span>
       </span>
       <OpenPaper d={d} />
@@ -250,6 +256,18 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick }: { y
                 )}
               </div>
 
+              {subject.data.practicePapers.length > 0 && (
+                <div className="mt-8" data-practice-papers>
+                  <SectionTitle>CUET Prep practice papers</SectionTitle>
+                  <p className="mb-2 text-sm text-ink-2">Written by CUET Prep for this subject. They are not previous-year papers. Each opens here and can be downloaded.</p>
+                  <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+                    {subject.data.practicePapers.map((d) => (
+                      <PaperRow key={d.id} d={d} />
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               {subject.data.samplePapers.length > 0 && (
                 <div className="mt-8">
                   <SectionTitle>Sample papers</SectionTitle>
@@ -299,19 +317,20 @@ export function PyqViewerPage() {
   if (doc.loading && !doc.data) return <Loading />;
   if (doc.error) return <ErrorBox error={doc.error} onRetry={doc.reload} />;
   const d = doc.data!;
-  const back = `/pyq?year=${d.year ?? ''}${d.subjectSlug ? `&subject=${d.subjectSlug}` : ''}`;
+  const back = d.year ? `/pyq?year=${d.year}${d.subjectSlug ? `&subject=${d.subjectSlug}` : ''}` : '/practice-centre';
   return (
     <div>
-      <PageHeader title={d.title} back={{ to: back, label: 'Previous-year papers' }} subtitle={[d.year ? `CUET (UG) ${d.year}` : 'CUET (UG)', d.subjectName, d.examDate ? day(d.examDate) : null, d.shift, d.language].filter(Boolean).join(' · ')} />
+      <PageHeader title={d.title} back={{ to: back, label: 'Previous-year papers' }} subtitle={[d.native ? 'For CUET (UG)' : d.year ? `CUET (UG) ${d.year}` : 'CUET (UG)', d.subjectName, d.examDate ? day(d.examDate) : null, d.shift, d.language].filter(Boolean).join(' · ')} />
       <p className="-mt-3 mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-2">
         {kindBadge(d)}
+        {d.unreviewed && <Badge tone="amber">Preview, not reviewed</Badge>}
         <span>
           {siteName(d.sourceSite) ? `Source: ${siteName(d.sourceSite)}. ` : ''}
           {cleanNote(d.note)}
         </span>
       </p>
       {d.viewer === 'IN_APP' && d.fileUrl ? (
-        <PdfViewer doc={{ fileUrl: d.fileUrl, viewer: 'DIRECT', originalUrl: d.openUrl }} startPage={Math.max(1, Number(params.get('page')) || 1)} site={siteName(d.sourceSite) ?? 'the source'} />
+        <PdfViewer doc={{ fileUrl: d.fileUrl, viewer: 'DIRECT', originalUrl: d.openUrl }} startPage={Math.max(1, Number(params.get('page')) || 1)} site={siteName(d.sourceSite) ?? 'the source'} downloadUrl={d.downloadUrl} />
       ) : (
         <div className="rounded-xl border border-rule bg-surface p-5">
           <p className="text-[15px] text-ink">
