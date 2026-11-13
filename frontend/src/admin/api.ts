@@ -71,6 +71,7 @@ const qs = (o: object) => {
 export const consoleApi = {
   me: () => request<StaffMe>('GET', '/api/console/me'),
   overview: () => request<Overview>('GET', '/api/console/overview'),
+  email: () => request<EmailOverview>('GET', '/api/console/email'),
   students: (f: { q?: string; status?: string; page?: number }) => request<{ total: number; items: StudentRow[] }>('GET', `/api/console/students?${qs(f)}`),
   student: (id: string) => request<StudentDetail>('GET', `/api/console/students/${id}`),
   setStatus: (id: string, status: 'ACTIVE' | 'DISABLED', reason?: string) => request<unknown>('POST', `/api/console/students/${id}/status`, { status, reason }),
@@ -123,4 +124,10 @@ export const ACTION_LABEL: Record<string, string> = {
   REVIEW_APPROVED: 'Approved content for publishing', REVIEW_PUBLISHED: 'Published content', REVIEW_UNPUBLISHED: 'Unpublished content', REVIEW_ARCHIVED: 'Archived content', EDIT_NODE: 'Edited a syllabus row',
 };
 export const actionLabel = (a: string) => ACTION_LABEL[a] ?? a.charAt(0) + a.slice(1).toLowerCase().replace(/_/g, ' ');
+export interface EmailOverview {
+  enabled: boolean; providers: string[]; senderSet: boolean; appUrlSet: boolean;
+  last7Days: { kind: string; status: string; n: number }[];
+  suppressions: { reason: string; n: number }[];
+  recentFailures: { kind: string; status: string; provider: string | null; last_error: string | null; created_at: string }[];
+}
 export const when = (iso: string | null) => (iso ? new Date(iso.includes('T') ? iso : `${iso.replace(' ', 'T')}Z`).toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }) : 'Never');

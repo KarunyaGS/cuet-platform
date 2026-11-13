@@ -44,6 +44,7 @@ const AdminStudent = lazy(() => import('./admin/Admin').then((m) => ({ default: 
 const AdminContent = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminContent })));
 const AdminCompletion = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminCompletion })));
 const AdminStaff = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminStaff })));
+const AdminEmail = lazy(() => import('./admin/Email').then((m) => ({ default: m.AdminEmail })));
 const AdminActivity = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminActivity })));
 const ReviewLayout = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewLayout })));
 const ReviewDashboard = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewDashboard })));
@@ -104,6 +105,7 @@ const router = createBrowserRouter([
           { path: 'content', element: lazyPage(<AdminContent />) },
           { path: 'completion', element: lazyPage(<AdminCompletion />) },
           { path: 'staff', element: lazyPage(<AdminStaff />) },
+          { path: 'email', element: lazyPage(<AdminEmail />) },
           { path: 'activity', element: lazyPage(<AdminActivity />) },
         ],
       },

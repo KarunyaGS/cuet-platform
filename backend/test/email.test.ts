@@ -37,6 +37,19 @@ beforeEach(() => {
 });
 afterEach(() => setEmailTransportForTests(null));
 
+describe('sign-out', () => {
+  it('revokes the session whether the token arrives as a cookie or as a Bearer header', async () => {
+    const a = await signUp('signout-cookie@example.test');
+    expect((await call('POST', '/api/auth/logout', undefined, { cookie: a.cookie })).json).toEqual({ signedOut: true });
+    expect((await call('GET', '/api/student/profile', undefined, { cookie: a.cookie })).status).toBe(401);
+    const b = await signUp('signout-bearer@example.test');
+    const bearer = { authorization: `Bearer ${b.cookie.split('=')[1]}` };
+    expect((await call('GET', '/api/student/profile', undefined, bearer)).status).toBe(200);
+    expect((await call('POST', '/api/auth/logout', undefined, bearer)).json).toEqual({ signedOut: true });
+    expect((await call('GET', '/api/student/profile', undefined, bearer)).status).toBe(401);
+  });
+});
+
 describe('email: switched off', () => {
   it('sends nothing and says so while no sender address is configured', async () => {
     const r = await call('POST', '/api/auth/forgot-password', { email: 'nobody@example.test' }, {}, off);

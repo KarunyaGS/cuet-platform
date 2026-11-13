@@ -46,6 +46,11 @@ export function AdminLayout() {
             Reviewers and roles
           </NavLink>
         )}
+        {can(m, 'users:manage') && (
+          <NavLink to="/admin/email" className={tab}>
+            Email
+          </NavLink>
+        )}
         <NavLink to="/admin/activity" className={tab}>
           Activity
         </NavLink>
