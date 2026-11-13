@@ -388,3 +388,51 @@ describe('finding concepts', () => {
     expect((await call('GET', '/api/learn/search?q=')).json.concepts).toEqual([]);
   });
 });
+
+describe('counts for the subject and topic pages', () => {
+  it("gives a topic its concepts, the student's saved cards and cards due, and they follow create, review and delete", async () => {
+    const s = await seed('counts', 'a');
+    const a = await lesson(s.topic1, 'Charges (counts)', lessonBlocks('counts'));
+    await lesson(s.topic2, 'Current (counts)', [DEF('Resistance (counts)', 'Opposition to current.'), FORMULA('V = IR', null)]);
+    const h = await signIn('counts@example.test');
+    const topic = async (id: string, who = h) => (await call('GET', `/api/student/flashcards/topic/${id}?day=${TODAY}`, undefined, who)).json;
+    const subject = async () => ((await call('GET', `/api/student/flashcards/summary?day=${TODAY}`, undefined, h)).json.subjects as { paperId: string; total: number; due: number }[]).find((x) => x.paperId === s.paperId);
+
+    // Nothing saved yet: the concepts are counted, the cards are zero.
+    expect(await topic(s.topic1)).toMatchObject({ nodeId: s.topic1, title: "Coulomb's law", paperId: s.paperId, concepts: 5, cards: 0, due: 0 });
+    expect(await topic(s.unit1)).toMatchObject({ title: 'Electrostatics', concepts: 5, cards: 0, due: 0 }); // a unit counts the lessons under it
+    expect(await topic(s.unit2)).toMatchObject({ concepts: 2, cards: 0, due: 0 });
+    expect(await subject()).toBeUndefined();
+
+    // Create.
+    await call('POST', '/api/student/flashcards/import', { resourceId: a, types: ['DEFINITION', 'FORMULA', 'KEY_POINT'], day: TODAY }, h);
+    await call('POST', '/api/student/flashcards/import', { nodeId: s.unit2, day: TODAY }, h);
+    expect(await topic(s.topic1)).toMatchObject({ concepts: 5, cards: 3, due: 3 });
+    expect(await topic(s.unit2)).toMatchObject({ concepts: 2, cards: 2, due: 2 });
+    expect(await subject()).toMatchObject({ total: 5, due: 5 });
+
+    // The topic filter on the list and the queue matches the counts.
+    const inTopic = (await call('GET', `/api/student/flashcards?day=${TODAY}&nodeId=${s.unit1}`, undefined, h)).json as { id: string; lesson: string }[];
+    expect(inTopic).toHaveLength(3);
+    expect(inTopic.every((c) => c.lesson === 'Charges (counts)')).toBe(true);
+    expect((await call('GET', `/api/student/flashcards/queue?day=${TODAY}&nodeId=${s.topic2}`, undefined, h)).json.due).toBe(2);
+    expect((await call('GET', `/api/student/flashcards?day=${TODAY}&nodeId=nope`, undefined, h)).json).toEqual([]);
+
+    // Review: one fewer due, the same number saved.
+    await call('POST', `/api/student/flashcards/${inTopic[0]!.id}/review`, { rating: 'GOOD', day: TODAY }, h);
+    expect(await topic(s.topic1)).toMatchObject({ cards: 3, due: 2 });
+    expect(await subject()).toMatchObject({ total: 5, due: 4 });
+    expect((await call('GET', `/api/student/flashcards?day=${TODAY}&nodeId=${s.topic1}&due=1`, undefined, h)).json).toHaveLength(2);
+
+    // Delete: one fewer saved.
+    await call('DELETE', `/api/student/flashcards/${inTopic[1]!.id}`, undefined, h);
+    expect(await topic(s.topic1)).toMatchObject({ concepts: 5, cards: 2, due: 1 });
+    expect(await subject()).toMatchObject({ total: 4, due: 3 });
+
+    // Another student's counts are their own; a topic that does not exist is not found; sign-in is needed.
+    expect(await topic(s.topic1, await signIn('counts2@example.test'))).toMatchObject({ concepts: 5, cards: 0, due: 0 });
+    expect((await call('GET', `/api/student/flashcards/topic/nope?day=${TODAY}`, undefined, h)).status).toBe(404);
+    expect((await call('GET', `/api/student/flashcards/topic/${s.topic1}?day=${TODAY}`)).status).toBe(401);
+    expect((await call('GET', `/api/student/flashcards/topic/${s.topic1}?day=2020-01-01`, undefined, h)).status).toBe(422);
+  });
+});

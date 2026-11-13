@@ -141,6 +141,7 @@ export interface CardSummary {
   day: string; total: number; due: number; fresh: number; known: number; reviewedToday: number; savedConcepts: number;
   subjects: { paperId: string | null; paper: string; total: number; due: number; known: number; chapters: { chapterId: string | null; chapter: string; total: number; due: number; known: number }[] }[];
 }
+export interface TopicCards { nodeId: string; title: string; paperId: string; day: string; concepts: number; cards: number; due: number }
 export interface CardImport { total: number; added: number; existing: number; notAdded: number; limit: number }
 export type ConceptType = 'DEFINITION' | 'FORMULA' | 'KEY_POINT' | 'IMPORTANT_FACT' | 'CONCEPT';
 export interface Goal { questionsPerDay: number; lessonsPerDay: number; custom: boolean }
@@ -236,11 +237,12 @@ export const api = {
   addBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks', b),
   removeBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks/remove', b),
   // Flashcards and revision. The day is the student's own calendar day.
-  cards: (f: { paperId?: string | null; chapterId?: string | null; due?: boolean } = {}) =>
-    request<Flashcard[]>('GET', `/api/student/flashcards?day=${localDay()}${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}${f.due ? '&due=1' : ''}`),
+  cards: (f: { paperId?: string | null; chapterId?: string | null; nodeId?: string | null; due?: boolean } = {}) =>
+    request<Flashcard[]>('GET', `/api/student/flashcards?day=${localDay()}${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}${f.nodeId ? `&nodeId=${encodeURIComponent(f.nodeId)}` : ''}${f.due ? '&due=1' : ''}`),
+  topicCards: (nodeId: string) => request<TopicCards>('GET', `/api/student/flashcards/topic/${encodeURIComponent(nodeId)}?day=${localDay()}`),
   cardSummary: () => request<CardSummary>('GET', `/api/student/flashcards/summary?day=${localDay()}`),
-  cardQueue: (f: { paperId?: string | null; chapterId?: string | null } = {}) =>
-    request<{ day: string; due: number; cards: Flashcard[] }>('GET', `/api/student/flashcards/queue?day=${localDay()}&limit=100${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}`),
+  cardQueue: (f: { paperId?: string | null; chapterId?: string | null; nodeId?: string | null } = {}) =>
+    request<{ day: string; due: number; cards: Flashcard[] }>('GET', `/api/student/flashcards/queue?day=${localDay()}&limit=100${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}${f.nodeId ? `&nodeId=${encodeURIComponent(f.nodeId)}` : ''}`),
   cardState: (keys: string[]) => request<string[]>('POST', '/api/student/flashcards/state', { keys }),
   createCard: (conceptKey: string) => request<{ created: boolean; card: Flashcard }>('POST', '/api/student/flashcards', { conceptKey, day: localDay() }),
   importCards: (from: { resourceId: string } | { nodeId: string }, types?: ConceptType[]) => request<CardImport>('POST', '/api/student/flashcards/import', { ...from, ...(types ? { types } : {}), day: localDay() }),

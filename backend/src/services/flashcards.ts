@@ -42,6 +42,8 @@ export const cardQuery = z.object({
   day: daySchema,
   paperId: z.string().max(100).optional(),
   chapterId: z.string().max(100).optional(),
+  /** A topic: cards from lessons on that topic or anything under it. */
+  nodeId: z.string().max(100).optional(),
   due: z.enum(['1']).optional(),
   limit: z.coerce.number().int().min(1).max(200).optional(),
 });
@@ -233,8 +235,14 @@ export async function importCards(db: D1Database, preview: boolean, userId: stri
   return { total, added, existing: total - fresh.length, notAdded: fresh.length - toAdd.length, limit: IMPORT_LIMIT };
 }
 
-function filters(q: { paperId?: string; chapterId?: string }, binds: unknown[]) {
+const SUBTREE = '(WITH RECURSIVE sub(id) AS (SELECT ? UNION ALL SELECT n.id FROM curriculum_nodes n JOIN sub ON n.parent_id = sub.id) SELECT id FROM sub)';
+
+function filters(q: { paperId?: string; chapterId?: string; nodeId?: string }, binds: unknown[]) {
   let sql = '';
+  if (q.nodeId) {
+    sql += ` AND f.curriculum_node_id IN ${SUBTREE}`;
+    binds.push(q.nodeId);
+  }
   if (q.paperId) {
     sql += ' AND f.test_paper_id = ?';
     binds.push(q.paperId);
@@ -302,6 +310,29 @@ export async function cardSummary(db: D1Database, userId: string, day: string) {
     s.chapters.push({ chapterId: g.chapter_id as string | null, chapter: (g.chapter as string | null) ?? 'Other', total: n.total, due: n.due, known: n.known });
   }
   return { day, ...totals, reviewedToday: today?.cards ?? 0, savedConcepts: saved?.n ?? 0, subjects };
+}
+
+/** For a topic page: how many concepts its lessons hold, how many of them the student has as cards, and how many are due. */
+export async function topicCards(db: D1Database, preview: boolean, userId: string, nodeId: string, day: string) {
+  const node = await db
+    .prepare('SELECT n.id, n.title, v.test_paper_id AS paper_id FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id WHERE n.id = ?')
+    .bind(nodeId)
+    .first<{ id: string; title: string; paper_id: string }>();
+  if (!node) throw notFound('Topic');
+  const [lessons, mine] = await Promise.all([
+    db
+      .prepare(`SELECT r.id FROM learning_resources r WHERE r.curriculum_node_id IN ${SUBTREE.replace('?', '?2')} AND ${VISIBLE_CONTENT('r')} LIMIT 80`)
+      .bind(preview ? 1 : 0, nodeId)
+      .all<{ id: string }>(),
+    db
+      .prepare(`SELECT COUNT(*) AS cards, COALESCE(SUM(f.due_on <= ?2), 0) AS due FROM flashcards f WHERE f.user_id = ?1 AND f.curriculum_node_id IN ${SUBTREE.replace('?', '?3')}`)
+      .bind(userId, day, nodeId)
+      .first<{ cards: number; due: number }>(),
+  ]);
+  const byLesson = await conceptsOfResources(db, lessons.results.map((l) => l.id));
+  let concepts = 0;
+  for (const list of byLesson.values()) concepts += list.length;
+  return { nodeId: node.id, title: node.title, paperId: node.paper_id, day, concepts, cards: mine?.cards ?? 0, due: mine?.due ?? 0 };
 }
 
 /** Which of these concepts the student already has a card for. */

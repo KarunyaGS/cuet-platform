@@ -200,6 +200,96 @@ export function AddCards({ from, onDone }: { from: { resourceId: string } | { no
   );
 }
 
+const countLink = 'group flex min-w-0 flex-1 flex-col px-4 py-3 transition-colors hover:bg-paper';
+function Count({ to, label, value, hint, tone }: { to: string; label: string; value: number; hint: string; tone?: boolean }) {
+  return (
+    <Link to={to} className={countLink}>
+      <span className="text-[13px] text-ink-2">{label}</span>
+      <span className={`num mt-0.5 text-xl font-semibold ${tone ? 'text-marker' : 'text-ink'}`}>{value}</span>
+      <span className="mt-0.5 text-xs text-accent group-hover:underline">{hint}</span>
+    </Link>
+  );
+}
+
+/** Subject page: the student's flashcards from this subject, and how many are due today. Read fresh every time the page opens. */
+export function SubjectCards({ paperId }: { paperId: string }) {
+  const { user } = useAuth();
+  const [d, setD] = useState<{ total: number; due: number } | null>(null);
+  useEffect(() => {
+    if (!user) return;
+    let live = true;
+    api.cardSummary().then(
+      (s) => {
+        const mine = s.subjects.find((x) => x.paperId === paperId);
+        if (live) setD({ total: mine?.total ?? 0, due: mine?.due ?? 0 });
+      },
+      () => undefined,
+    );
+    return () => {
+      live = false;
+    };
+  }, [user, paperId]);
+  if (!user || !d) return null;
+  const to = `/flashcards?paperId=${encodeURIComponent(paperId)}`;
+  return (
+    <section aria-label="Your flashcards from this subject" data-cards="subject" className="mb-6 overflow-hidden rounded-xl border border-rule bg-surface">
+      {d.total === 0 ? (
+        <p className="flex items-start gap-2.5 px-4 py-3 text-sm text-ink-2">
+          <GalleryVerticalEnd aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-3" />
+          <span>
+            You have no flashcards from this subject yet. Open a lesson and tap “Make flashcard” under a definition or a formula.{' '}
+            <Link to="/flashcards" className="font-medium text-accent hover:underline">
+              My flashcards
+            </Link>
+          </span>
+        </p>
+      ) : (
+        <div className="flex divide-x divide-rule">
+          <Count to={to} label="Flashcards saved" value={d.total} hint="Open in My flashcards" />
+          <Count to={`${to}&show=due`} label="Due today" value={d.due} hint={d.due > 0 ? 'See what is due' : 'Nothing due today'} tone={d.due > 0} />
+        </div>
+      )}
+    </section>
+  );
+}
+
+/** Topic page: concepts in this topic's lessons, how many the student saved as cards, and how many are due today. */
+export function TopicCardsPanel({ nodeId }: { nodeId: string }) {
+  const { user } = useAuth();
+  const [d, setD] = useState<{ concepts: number; cards: number; due: number } | null>(null);
+  useEffect(() => {
+    if (!user) return;
+    let live = true;
+    setD(null);
+    api.topicCards(nodeId).then((r) => live && setD(r), () => undefined);
+    return () => {
+      live = false;
+    };
+  }, [user, nodeId]);
+  if (!user || !d) return null;
+  const to = `/flashcards?nodeId=${encodeURIComponent(nodeId)}`;
+  return (
+    <section aria-labelledby="topic-cards" data-cards="topic" className="overflow-hidden rounded-xl border border-rule bg-surface">
+      <h2 id="topic-cards" className="flex items-center gap-2 px-5 pt-4 text-base font-semibold text-ink">
+        <GalleryVerticalEnd aria-hidden className="size-[18px] text-accent" />
+        Flashcards
+      </h2>
+      {d.concepts === 0 && d.cards === 0 ? (
+        <p className="px-5 pt-1 pb-4 text-sm text-ink-2">This topic has no lesson concepts to save yet. Cards can be made once its lesson is written.</p>
+      ) : (
+        <>
+          <div className="mt-2 flex divide-x divide-rule border-t border-rule">
+            <Count to={`/revise/${nodeId}`} label="Concepts" value={d.concepts} hint="See them all" />
+            <Count to={to} label="Saved" value={d.cards} hint="My flashcards" />
+            <Count to={`${to}&show=due`} label="Due today" value={d.due} hint={d.due > 0 ? 'See due' : 'None due'} tone={d.due > 0} />
+          </div>
+          {d.cards === 0 && <p className="border-t border-rule px-5 py-3 text-sm text-ink-2">None saved yet. Open “Concepts” and tap “Add to my cards”, or “Make flashcard” under any one of them.</p>}
+        </>
+      )}
+    </section>
+  );
+}
+
 /** "Add to plan": pick a day, the item goes into the study planner. */
 export function AddToPlan({ kind, refId, title }: { kind: PlanKind; refId: string | null; title: string }) {
   const { user } = useAuth();

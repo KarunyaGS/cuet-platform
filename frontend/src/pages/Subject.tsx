@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { api, ApiError, type OutlineNode } from '../api';
 import { NotFoundPage } from './Search';
 import { Button, Empty, ErrorBox, kindLabel, Loading, PageHeader, useAuth, useLoad } from '../ui';
+import { SubjectCards } from '../tools';
 
 /** Subject page: units on the left, the selected unit's topics and subtopics on the right. */
 export function SubjectPage() {
@@ -81,6 +82,7 @@ export function SubjectPage() {
         }
       />
       {err && <ErrorBox error={err} />}
+      <SubjectCards paperId={paperId} />
       {notes.length > 0 && (
         <details className="mb-6 rounded-xl border border-rule bg-surface">
           <summary className="cursor-pointer px-5 py-3 text-sm font-medium text-ink-2 hover:text-ink">About the question paper</summary>

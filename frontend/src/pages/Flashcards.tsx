@@ -11,7 +11,9 @@ const PROMPT: Record<string, string> = { DEFINITION: 'Define', FORMULA: 'Recall 
 const dayLabel = (day: string) => new Date(`${day}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
 const dueLabel = (c: Flashcard) => (c.due ? (c.stage === 'NEW' ? 'New, due today' : 'Due today') : `Next on ${dayLabel(c.dueOn)}`);
 const sourceLink = (c: Flashcard) => `/learn/${c.resourceId}#${c.anchor}`;
-const reviewLink = (paperId?: string | null, chapterId?: string | null) => `/flashcards/review${paperId ? `?paperId=${encodeURIComponent(paperId)}${chapterId ? `&chapterId=${encodeURIComponent(chapterId)}` : ''}` : ''}`;
+const scopeQuery = (paperId?: string | null, chapterId?: string | null, nodeId?: string | null) =>
+  nodeId ? `?nodeId=${encodeURIComponent(nodeId)}` : paperId ? `?paperId=${encodeURIComponent(paperId)}${chapterId ? `&chapterId=${encodeURIComponent(chapterId)}` : ''}` : '';
+const reviewLink = (paperId?: string | null, chapterId?: string | null, nodeId?: string | null) => `/flashcards/review${scopeQuery(paperId, chapterId, nodeId)}`;
 
 /** My Flashcards: every card the student has made, by subject and chapter, with what is due today. */
 export function FlashcardsPage() {
@@ -19,9 +21,12 @@ export function FlashcardsPage() {
   const [params, setParams] = useSearchParams();
   const paperId = params.get('paperId');
   const chapterId = params.get('chapterId');
-  const [show, setShow] = useState<'ALL' | 'DUE'>('ALL');
+  // Arriving from a topic page: only that topic's cards.
+  const nodeId = params.get('nodeId');
+  const [show, setShow] = useState<'ALL' | 'DUE'>(params.get('show') === 'due' ? 'DUE' : 'ALL');
   const summary = useLoad(api.cardSummary, [user?.id]);
-  const cards = useLoad(() => api.cards({ paperId, chapterId, due: show === 'DUE' }), [user?.id, paperId, chapterId, show]);
+  const topic = useLoad(() => (nodeId ? api.topicCards(nodeId) : Promise.resolve(null)), [user?.id, nodeId]);
+  const cards = useLoad(() => api.cards({ paperId, chapterId, nodeId, due: show === 'DUE' }), [user?.id, paperId, chapterId, nodeId, show]);
   const [open, setOpen] = useState<string | null>(null);
   const [err, setErr] = useState<Error | null>(null);
   if (ready && !user) return <Navigate to="/signin" replace />;
@@ -40,14 +45,15 @@ export function FlashcardsPage() {
       await api.deleteCard(c.id);
       cards.reload();
       summary.reload();
+      topic.reload();
     } catch (e) {
       setErr(e as Error);
     }
   };
   const subject = s.subjects.find((x) => x.paperId === paperId);
   const chapter = subject?.chapters.find((x) => x.chapterId === chapterId);
-  const scope = chapter ? chapter.chapter : subject ? subject.paper : 'All subjects';
-  const scopeDue = chapter ? chapter.due : subject ? subject.due : s.due;
+  const scope = nodeId ? (topic.data ? `Topic: ${topic.data.title}` : 'Topic') : chapter ? chapter.chapter : subject ? subject.paper : 'All subjects';
+  const scopeDue = nodeId ? (topic.data?.due ?? 0) : chapter ? chapter.due : subject ? subject.due : s.due;
 
   return (
     <div>
@@ -95,7 +101,7 @@ export function FlashcardsPage() {
               <SectionTitle id="fc-subjects">By subject and chapter</SectionTitle>
               <ul className="overflow-hidden rounded-xl border border-rule bg-surface">
                 <li>
-                  <button type="button" onClick={() => choose(null, null)} aria-pressed={!paperId} className={`flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-paper ${!paperId ? 'bg-accent-soft font-semibold text-accent' : 'text-ink'}`}>
+                  <button type="button" onClick={() => choose(null, null)} aria-pressed={!paperId && !nodeId} className={`flex w-full items-center gap-2 px-4 py-3 text-left text-[15px] transition-colors hover:bg-paper ${!paperId && !nodeId ? 'bg-accent-soft font-semibold text-accent' : 'text-ink'}`}>
                     <span className="min-w-0 flex-1 truncate">All subjects</span>
                     <span className="num text-sm text-ink-2">{s.total}</span>
                   </button>
@@ -147,7 +153,7 @@ export function FlashcardsPage() {
                 id="fc-cards"
                 action={
                   scopeDue > 0 ? (
-                    <Link to={reviewLink(paperId, chapterId)} className="text-sm font-medium text-accent hover:underline">
+                    <Link to={reviewLink(paperId, chapterId, nodeId)} className="text-sm font-medium text-accent hover:underline">
                       Revise {scopeDue} due
                     </Link>
                   ) : undefined
@@ -164,7 +170,9 @@ export function FlashcardsPage() {
               ) : cards.error ? (
                 <ErrorBox error={cards.error} onRetry={cards.reload} />
               ) : cards.data!.length === 0 ? (
-                <Empty icon={<Check />}>{show === 'DUE' ? 'No cards are due here today.' : 'No cards here yet.'}</Empty>
+                <Empty icon={<Check />} action={nodeId && show !== 'DUE' ? <ButtonLink to={`/revise/${nodeId}`}>See this topic’s concepts</ButtonLink> : undefined}>
+                  {show === 'DUE' ? 'No cards are due here today.' : nodeId ? 'You have not saved any cards from this topic yet.' : 'No cards here yet.'}
+                </Empty>
               ) : (
                 <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
                   {cards.data!.map((c) => (
@@ -233,7 +241,8 @@ export function FlashcardReviewPage() {
   const [params] = useSearchParams();
   const paperId = params.get('paperId');
   const chapterId = params.get('chapterId');
-  const q = useLoad(() => api.cardQueue({ paperId, chapterId }), [user?.id, paperId, chapterId]);
+  const nodeId = params.get('nodeId');
+  const q = useLoad(() => api.cardQueue({ paperId, chapterId, nodeId }), [user?.id, paperId, chapterId, nodeId]);
   const [steps, setSteps] = useState<Step[] | null>(null);
   const [at, setAt] = useState(0);
   const [flipped, setFlipped] = useState(false);
@@ -293,7 +302,7 @@ export function FlashcardReviewPage() {
   if (ready && !user) return <Navigate to="/signin" replace />;
   if (q.loading || steps === null) return <Loading />;
   if (q.error) return <ErrorBox error={q.error} onRetry={q.reload} />;
-  const back = `/flashcards${paperId ? `?paperId=${encodeURIComponent(paperId)}${chapterId ? `&chapterId=${encodeURIComponent(chapterId)}` : ''}` : ''}`;
+  const back = `/flashcards${scopeQuery(paperId, chapterId, nodeId)}`;
 
   if (steps.length === 0)
     return (

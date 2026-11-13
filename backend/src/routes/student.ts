@@ -23,7 +23,7 @@ import {
   listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
 } from '../services/student-tools';
 import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
-import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, deleteCard, importCards, importCardsSchema, listCards, reviewCard, reviewQueue, reviewSchema } from '../services/flashcards';
+import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, deleteCard, importCards, importCardsSchema, listCards, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { answerSchema, getSession, marksSchema, progress, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 
@@ -203,9 +203,10 @@ student.post('/bookmarks/remove', async (c) => c.json(await removeBookmark(c.env
 
 // Flashcards and spaced revision. Every card belongs to the signed-in student; card text is copied from the lesson by the server.
 const cardFilters = (c: { req: { query(name: string): string | undefined } }) =>
-  cardQuery.parse(Object.fromEntries(['day', 'paperId', 'chapterId', 'due', 'limit'].map((k) => [k, c.req.query(k) || undefined])));
+  cardQuery.parse(Object.fromEntries(['day', 'paperId', 'chapterId', 'nodeId', 'due', 'limit'].map((k) => [k, c.req.query(k) || undefined])));
 student.get('/flashcards', async (c) => c.json(await listCards(c.env.DB, c.get('user').id, cardFilters(c))));
 student.get('/flashcards/summary', async (c) => c.json(await cardSummary(c.env.DB, c.get('user').id, assertDay(cardFilters(c).day))));
+student.get('/flashcards/topic/:nodeId', async (c) => c.json(await topicCards(c.env.DB, preview(c.env), c.get('user').id, c.req.param('nodeId'), assertDay(cardFilters(c).day))));
 student.get('/flashcards/queue', async (c) => c.json(await reviewQueue(c.env.DB, c.get('user').id, cardFilters(c))));
 student.post('/flashcards/state', async (c) => {
   const body = (await c.req.json().catch(() => null)) as { keys?: unknown } | null;
