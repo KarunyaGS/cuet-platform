@@ -29,6 +29,7 @@ export function Loading({ label = 'Loading' }: { label?: string }) {
 
 export function ErrorBox({ error, onRetry }: { error: Error; onRetry?: () => void }) {
   const signIn = error instanceof ApiError && error.status === 401;
+  const planLimit = error instanceof ApiError && error.code === 'PLAN_LIMIT';
   return (
     <div className="my-4 flex items-start gap-2.5 rounded-lg border border-wrong/25 bg-wrong-soft px-3.5 py-2.5 text-sm text-wrong" role="alert">
       <CircleAlert aria-hidden className="mt-0.5 size-4 shrink-0" />
@@ -39,7 +40,12 @@ export function ErrorBox({ error, onRetry }: { error: Error; onRetry?: () => voi
             Sign in
           </Link>
         )}
-        {onRetry && !signIn && (
+        {planLimit && (
+          <Link to="/plans" className="ml-2 font-semibold underline underline-offset-2">
+            See plans
+          </Link>
+        )}
+        {onRetry && !signIn && !planLimit && (
           <button onClick={onRetry} className="ml-2 font-semibold underline underline-offset-2">
             Try again
           </button>

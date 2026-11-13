@@ -9,6 +9,7 @@ import review from './routes/review';
 import consoleApi from './routes/console';
 import { auth, learn, student } from './routes/student';
 import { handleCloudflareEmailEvent, sendDailyReminders } from './services/email';
+import { gatewayState, reconcileOrders, sendExpiryNotices } from './services/billing';
 
 const app = new Hono<AppEnv>();
 
@@ -32,6 +33,11 @@ app.notFound((c) => c.json({ error: { code: 'NOT_FOUND', message: 'Not found' } 
 /** Cron Trigger: the daily study-reminder emails. Does nothing while email is not switched on. */
 async function scheduled(_controller: ScheduledController, env: AppEnv['Bindings'], ctx: ExecutionContext) {
   ctx.waitUntil(sendDailyReminders(env).then((r) => console.log('Daily reminders', JSON.stringify(r))));
+  // Payments: match unpaid orders with the gateway and tell students whose paid access ends soon. Nothing happens while payments are off.
+  if (gatewayState(env).ready) {
+    ctx.waitUntil(reconcileOrders(env).then((r) => console.log('Payment reconciliation', JSON.stringify(r))));
+    ctx.waitUntil(sendExpiryNotices(env).then((r) => console.log('Expiry notices', JSON.stringify(r))));
+  }
 }
 
 /** Queue consumer: Cloudflare Email Sending delivery events (bounces, complaints, deliveries). */

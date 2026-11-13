@@ -9,6 +9,7 @@ import { evaluateQuestion, evaluateSchema, getQuestionPublic } from '../services
 import { getResource } from '../services/resources';
 import { examSchema, getOfficialInfo, listUniversities, universityQuery } from '../services/official-info';
 import { handleResendWebhook, unsubscribe, unsubscribeSchema } from '../services/email';
+import { gatewayState, handleRazorpayWebhook, listPlans } from '../services/billing';
 
 const pub = new Hono<AppEnv>();
 
@@ -34,5 +35,12 @@ pub.post('/email/unsubscribe', async (c) => c.json(await unsubscribe(c.env.DB, a
 pub.post('/email/webhooks/resend', async (c) =>
   c.json(await handleResendWebhook(c.env, { id: c.req.header('svix-id'), timestamp: c.req.header('svix-timestamp'), signature: c.req.header('svix-signature') }, await c.req.text())),
 );
+
+// Plans on offer (prices come from the database) and the payment gateway's webhook (signature checked on the raw body).
+pub.get('/plans', async (c) => {
+  const plans = await listPlans(c.env.DB, true);
+  return c.json({ paymentsAvailable: gatewayState(c.env).ready, plans: plans.map(({ id: _id, active: _active, sortOrder: _sort, ...p }) => p) });
+});
+pub.post('/payments/webhooks/razorpay', async (c) => c.json(await handleRazorpayWebhook(c.env, await c.req.text(), c.req.header('x-razorpay-signature'), c.req.header('x-razorpay-event-id'))));
 
 export default pub;

@@ -11,6 +11,7 @@ import { ExamInfo, InfoHub } from './pages/info/InfoPages';
 import { PublicLayout } from './pages/info/shared';
 import { LearnPage } from './pages/Learn';
 import { PlannerPage } from './pages/Planner';
+import { PlansPage } from './pages/Plans';
 import { PracticePage } from './pages/Practice';
 import { ProfilePage } from './pages/Profile';
 import { ProgressPage } from './pages/Progress';
@@ -44,6 +45,7 @@ const AdminStudent = lazy(() => import('./admin/Admin').then((m) => ({ default: 
 const AdminContent = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminContent })));
 const AdminCompletion = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminCompletion })));
 const AdminStaff = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminStaff })));
+const AdminBilling = lazy(() => import('./admin/Billing').then((m) => ({ default: m.AdminBilling })));
 const AdminEmail = lazy(() => import('./admin/Email').then((m) => ({ default: m.AdminEmail })));
 const AdminActivity = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminActivity })));
 const ReviewLayout = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewLayout })));
@@ -84,6 +86,7 @@ const router = createBrowserRouter([
       { path: '/progress', element: <ProgressPage /> },
       { path: '/search', element: <SearchPage /> },
       { path: '/report', element: <ReportPage /> },
+      { path: '/plans', element: <PlansPage /> },
       { path: '/revise/:nodeId', element: <RevisePage /> },
       {
         path: '/review',
@@ -105,6 +108,7 @@ const router = createBrowserRouter([
           { path: 'content', element: lazyPage(<AdminContent />) },
           { path: 'completion', element: lazyPage(<AdminCompletion />) },
           { path: 'staff', element: lazyPage(<AdminStaff />) },
+          { path: 'billing', element: lazyPage(<AdminBilling />) },
           { path: 'email', element: lazyPage(<AdminEmail />) },
           { path: 'activity', element: lazyPage(<AdminActivity />) },
         ],

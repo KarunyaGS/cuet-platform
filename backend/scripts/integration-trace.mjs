@@ -324,6 +324,41 @@ async function run() {
   const link = await call('POST', '/api/console/students/reset-link', { token: a.token, body: { email: other.email } });
   check('an administrator can create a one-time reset link (only its hash is stored)', link.status === 201 && n('SELECT COUNT(*) FROM password_reset_tokens WHERE token_hash = ?', sha256(link.json.path.split('#')[1])) === 1);
 
+  // ------------------------------------------------------------ plans and payments (built-in test gateway; no money, no outside calls)
+  group = 'Plans and payments';
+  const outsider = await account('outsider'); // a fresh student: the earlier one was signed out when it was suspended
+  const plansBefore = await call('GET', '/api/public/plans');
+  check('only plans switched on by an administrator are offered, with prices from the database', plansBefore.status === 200 && plansBefore.json.plans.length === n('SELECT COUNT(*) FROM plans WHERE active = 1'), `${plansBefore.json?.plans?.length} on offer`);
+  const monthly = one("SELECT id FROM plans WHERE code = 'MONTHLY'");
+  const planBody = { name: '1 month', description: null, pricePaise: 49900, durationDays: 30, active: true, sortOrder: 1, limits: {}, features: [] };
+  check('a student cannot change plans or prices', (await call('PUT', `/api/console/billing/plans/${monthly.id}`, { token: outsider.token, body: planBody })).status === 403);
+  check('a paid plan cannot be offered at a price of zero', (await call('PUT', `/api/console/billing/plans/${monthly.id}`, { token: a.token, body: { ...planBody, pricePaise: 0 } })).status === 422);
+  const priced = await call('PUT', `/api/console/billing/plans/${monthly.id}`, { token: a.token, body: planBody });
+  check('an administrator sets the price and the change is logged', priced.status === 200 && one("SELECT price_paise AS p FROM plans WHERE code = 'MONTHLY'").p === 49900 && n("SELECT COUNT(*) FROM audit_logs WHERE action = 'UPDATE_PLAN' AND actor = ?", `user:${a.id}`) === 1);
+  const buyer = await account('buyer');
+  const order = await call('POST', '/api/student/billing/orders', { token: buyer.token, body: { planCode: 'MONTHLY' } });
+  const orderRow = one('SELECT amount_paise AS amt, status, gateway FROM payment_orders WHERE id = ?', order.json?.orderId);
+  check('an order copies the plan price at the moment of ordering', order.status === 201 && orderRow?.amt === 49900 && orderRow.status === 'CREATED' && orderRow.gateway === 'mock');
+  check("another student cannot pay or see that order", (await call('POST', `/api/student/billing/orders/${order.json.orderId}/simulate`, { token: outsider.token, body: { outcome: 'success' } })).status === 404);
+  const failedPay = await call('POST', `/api/student/billing/orders/${order.json.orderId}/simulate`, { token: buyer.token, body: { outcome: 'failure' } });
+  check('a failed payment gives no access', failedPay.json?.result === 'FAILED' && n('SELECT COUNT(*) FROM subscriptions WHERE user_id = ?', buyer.id) === 0 && one('SELECT status FROM payment_orders WHERE id = ?', order.json.orderId).status === 'FAILED');
+  const order2 = await call('POST', '/api/student/billing/orders', { token: buyer.token, body: { planCode: 'MONTHLY' } });
+  const paidPay = await call('POST', `/api/student/billing/orders/${order2.json.orderId}/simulate`, { token: buyer.token, body: { outcome: 'success' } });
+  const pass = one('SELECT status, starts_at, ends_at FROM subscriptions WHERE order_id = ?', order2.json.orderId);
+  const passDays = pass ? Math.round((new Date(pass.ends_at) - new Date(pass.starts_at)) / 86400000) : 0;
+  check('a successful payment marks the order paid and gives 30 days of access', paidPay.json?.result === 'PAID' && one('SELECT status FROM payment_orders WHERE id = ?', order2.json.orderId).status === 'PAID' && pass?.status === 'ACTIVE' && passDays === 30, `${passDays} days`);
+  await call('POST', `/api/student/billing/orders/${order2.json.orderId}/simulate`, { token: buyer.token, body: { outcome: 'success' } });
+  check('a repeated payment report never gives a second pass', n('SELECT COUNT(*) FROM subscriptions WHERE user_id = ?', buyer.id) === 1);
+  const bill = await call('GET', '/api/student/billing', { token: buyer.token });
+  check('the student sees the plan, the end date and both payment attempts', bill.json?.access?.paid === true && bill.json.payments.length === 2 && bill.json.access.plan.code === 'MONTHLY');
+  const freePlan = one("SELECT id FROM plans WHERE is_free = 1");
+  await call('PUT', `/api/console/billing/plans/${freePlan.id}`, { token: a.token, body: { name: 'Free', description: null, pricePaise: 0, durationDays: null, active: true, sortOrder: 0, limits: { mockTests: 0 }, features: [] } });
+  const limited = await call('POST', '/api/student/practice', { token: outsider.token, body: { mode: 'MOCK_TEST', paperId: physics.paperId } });
+  const unlimited = await call('POST', '/api/student/practice', { token: buyer.token, body: { mode: 'MOCK_TEST', paperId: physics.paperId } });
+  check('a plan limit stops a free student (402) and not a paid student', limited.status === 402 && limited.json.error.code === 'PLAN_LIMIT' && unlimited.status === 201);
+  check('the payment webhook address does not exist for the test gateway', (await call('POST', '/api/public/payments/webhooks/razorpay', { body: { event: 'payment.captured' } })).status === 404);
+  check('no payment record holds card, bank or UPI details', !['payment_orders', 'payment_transactions', 'payment_events'].some((t) => all(`PRAGMA table_info(${t})`).some((c) => /card|vpa|upi_id|bank|account|cvv|contact|email/i.test(c.name))));
+
   // ------------------------------------------------------------ integrity
   group = 'Integrity';
   check('no foreign-key violations after all of the above', all('PRAGMA foreign_key_check').length === 0);

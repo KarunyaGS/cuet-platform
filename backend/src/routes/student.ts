@@ -12,6 +12,7 @@ import { invalid } from '../lib/errors';
 import { readJson } from '../lib/http';
 import { changePassword, login, loginSchema, logout, passwordSchema, resetPassword, resetPasswordSchema, registerSchema, registerStudent, SESSION_COOKIE, studentAuth, userFromToken } from '../services/accounts';
 import { sha256Hex } from '../lib/hash';
+import { assertWithinPlan, billingSummary, confirmCheckout, confirmSchema, createOrder, orderSchema, simulatePayment, simulateSchema } from '../services/billing';
 import {
   appUrl, emailEnabled, emailSettingsSchema, forgotPasswordSchema, getEmailSettings, notifyPasswordChanged, requestPasswordReset, sendVerificationEmail, setEmailSettings, verifyEmail, verifyEmailSchema,
 } from '../services/email';
@@ -102,12 +103,26 @@ learn.get('/topics/:nodeId/revision', async (c) => c.json(await revisionNotes(c.
 
 export const student = new Hono<AppEnv>();
 student.use('*', studentAuth);
-student.post('/practice', async (c) => c.json(await startSession(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, startSchema)), 201));
+student.post('/practice', async (c) => {
+  const input = await readJson(c, startSchema);
+  await assertWithinPlan(c.env.DB, c.get('user').id, input.mode);
+  return c.json(await startSession(c.env.DB, preview(c.env), c.get('user').id, input), 201);
+});
 student.get('/practice/:id', async (c) => c.json(await getSession(c.env.DB, c.get('user').id, c.req.param('id'))));
 student.post('/practice/:id/answers', async (c) => c.json(await saveAnswer(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, answerSchema))));
 student.post('/practice/:id/submit', async (c) => c.json(await submitSession(c.env.DB, c.get('user').id, c.req.param('id'))));
 student.get('/progress', async (c) => c.json(await progress(c.env.DB, c.get('user').id)));
-student.post('/practice/daily', async (c) => c.json(await startDailyPractice(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, dailySchema)), 201));
+student.post('/practice/daily', async (c) => {
+  await assertWithinPlan(c.env.DB, c.get('user').id, 'PRACTICE');
+  return c.json(await startDailyPractice(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, dailySchema)), 201);
+});
+
+// Plans and payments: the student's plan, what it includes, buying a pass and payment history
+student.get('/billing', async (c) => c.json(await billingSummary(c.env, c.get('user').id)));
+student.post('/billing/orders', async (c) => c.json(await createOrder(c.env, c.get('user').id, await readJson(c, orderSchema)), 201));
+student.post('/billing/orders/:id/confirm', async (c) => c.json(await confirmCheckout(c.env, c.get('user').id, c.req.param('id'), await readJson(c, confirmSchema))));
+// Local development only (mock gateway): stands in for the gateway's payment page.
+student.post('/billing/orders/:id/simulate', async (c) => c.json(await simulatePayment(c.env, c.get('user').id, c.req.param('id'), await readJson(c, simulateSchema))));
 
 // Profile and password
 student.get('/profile', async (c) => c.json(await getProfile(c.env.DB, c.get('user').id)));

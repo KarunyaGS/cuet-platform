@@ -1,4 +1,4 @@
-import { Search, ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { CreditCard, Search, ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
@@ -110,6 +110,10 @@ function UserMenu() {
             <Link role="menuitem" to="/report" className={item}>
               <ChartNoAxesColumn aria-hidden />
               Weekly report
+            </Link>
+            <Link role="menuitem" to="/plans" className={item}>
+              <CreditCard aria-hidden />
+              Plans and payments
             </Link>
             <Link role="menuitem" to="/cuet" className={item}>
               <Info aria-hidden />

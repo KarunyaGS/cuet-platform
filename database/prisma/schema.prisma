@@ -929,6 +929,8 @@ model User {
   assignments     ReviewAssignment[]
   verifyTokens    EmailVerificationToken[]
   emails          EmailMessage[]
+  subscriptions   Subscription[]
+  paymentOrders   PaymentOrder[]
 
   @@map("users")
 }
@@ -1315,4 +1317,132 @@ model ReviewAssignment {
   @@unique([userId, testPaperId, scope])
   @@index([testPaperId])
   @@map("review_assignments")
+}
+
+/// A plan students can be on. Prices, length and limits are data: change them in the admin console, not in code.
+model Plan {
+  id            String         @id @default(cuid())
+  /// Stable short name used in links and logs, e.g. FREE, MONTHLY.
+  code          String         @unique
+  name          String
+  description   String?
+  /// Price in paise (100 paise = 1 rupee). 0 only for the free plan.
+  pricePaise    Int            @default(0) @map("price_paise")
+  currency      String         @default("INR")
+  /// Days of access one purchase gives. Null for the free plan (no end).
+  durationDays  Int?           @map("duration_days")
+  /// The plan every student is on when they have no paid access. Exactly one plan is free.
+  isFree        Boolean        @default(false) @map("is_free")
+  /// Only active plans are offered to students. A paid plan cannot be active with a price of 0.
+  active        Boolean        @default(false)
+  sortOrder     Int            @default(0) @map("sort_order")
+  /// JSON: limits per 30 days, e.g. {"mockTests":2,"topicTests":10}. A missing or null entry means no limit.
+  limitsJson    String         @default("{}") @map("limits_json")
+  /// JSON array of short lines shown to students on the plans page.
+  featuresJson  String         @default("[]") @map("features_json")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @map("updated_at")
+  subscriptions Subscription[]
+  orders        PaymentOrder[]
+
+  @@map("plans")
+}
+
+/// One period of paid access. Access is whatever ACTIVE rows cover the present moment; nothing renews by itself.
+model Subscription {
+  id        String        @id @default(cuid())
+  userId    String        @map("user_id")
+  planId    String        @map("plan_id")
+  /// ACTIVE | CANCELLED | REFUNDED. "Expired" is not stored: it is ACTIVE with ends_at in the past.
+  status    String        @default("ACTIVE")
+  startsAt  DateTime      @map("starts_at")
+  endsAt    DateTime      @map("ends_at")
+  /// ORDER (paid) | ADMIN_GRANT (given by an administrator)
+  source    String
+  orderId   String?       @unique @map("order_id")
+  /// Who created it: "payment:<order id>" or "user:<admin id>".
+  createdBy String        @map("created_by")
+  note      String?
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @map("updated_at")
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan      Plan          @relation(fields: [planId], references: [id])
+  order     PaymentOrder? @relation(fields: [orderId], references: [id])
+
+  @@index([userId, endsAt])
+  @@index([status, endsAt])
+  @@map("subscriptions")
+}
+
+/// One attempt to buy a plan. The amount and plan details are copied at the moment of ordering, so a later
+/// price change never alters what a student was charged for.
+model PaymentOrder {
+  id             String               @id @default(cuid())
+  userId         String               @map("user_id")
+  planId         String               @map("plan_id")
+  amountPaise    Int                  @map("amount_paise")
+  currency       String               @default("INR")
+  /// CREATED | PAID | FAILED | EXPIRED | REFUNDED
+  status         String               @default("CREATED")
+  /// razorpay | mock
+  gateway        String
+  gatewayOrderId String?              @unique @map("gateway_order_id")
+  /// Our own reference sent to the gateway; unique, so a retried request cannot create two orders.
+  receipt        String               @unique
+  planSnapshot   String               @map("plan_snapshot_json")
+  failureReason  String?              @map("failure_reason")
+  createdAt      DateTime             @default(now()) @map("created_at")
+  paidAt         DateTime?            @map("paid_at")
+  updatedAt      DateTime             @map("updated_at")
+  user           User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan           Plan                 @relation(fields: [planId], references: [id])
+  transactions   PaymentTransaction[]
+  subscription   Subscription?
+
+  @@index([userId, createdAt])
+  @@index([status, createdAt])
+  @@map("payment_orders")
+}
+
+/// What the gateway reported for an order: each payment attempt and each refund. Never holds card or bank details.
+model PaymentTransaction {
+  id               String       @id @default(cuid())
+  orderId          String       @map("order_id")
+  /// PAYMENT | REFUND
+  kind             String
+  /// The gateway's own id of the payment or refund; unique, so the same report is never recorded twice.
+  gatewayId        String       @unique @map("gateway_id")
+  /// CAPTURED | FAILED | AUTHORIZED | REFUNDED
+  status           String
+  amountPaise      Int          @map("amount_paise")
+  /// upi | card | netbanking | wallet, as reported by the gateway.
+  method           String?
+  errorCode        String?      @map("error_code")
+  errorDescription String?      @map("error_description")
+  /// CHECKOUT | WEBHOOK | RECONCILIATION | SIMULATED
+  reportedBy       String       @map("reported_by")
+  createdAt        DateTime     @default(now()) @map("created_at")
+  updatedAt        DateTime     @map("updated_at")
+  order            PaymentOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@map("payment_transactions")
+}
+
+/// Every webhook the gateway sent, kept for audit. The event id is unique, so a repeated delivery is processed once.
+model PaymentEvent {
+  id             String   @id @default(cuid())
+  gateway        String
+  eventId        String   @map("event_id")
+  type           String
+  signatureValid Boolean  @map("signature_valid")
+  /// PROCESSED | IGNORED | REJECTED | DUPLICATE | ERROR
+  result         String
+  detail         String?
+  gatewayOrderId String?  @map("gateway_order_id")
+  receivedAt     DateTime @default(now()) @map("received_at")
+
+  @@unique([gateway, eventId])
+  @@index([gatewayOrderId])
+  @@map("payment_events")
 }

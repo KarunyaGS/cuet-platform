@@ -41,6 +41,8 @@
     "APP_ENV": "development",
     "EMAIL_FROM": "no-reply@cuet.localhost",
     "EMAIL_FROM_NAME": "CUET Prep (local)",
+    // Payments (local): a built-in mock gateway. No outside service is called and no money moves.
+    "PAYMENTS_MODE": "mock",
     "MAX_PAGE_SIZE": "100",
     "MAX_UPLOAD_BYTES": "26214400",
     // Local development only: lets students see machine-verified syllabus and draft content, labelled "preview".
@@ -79,6 +81,8 @@
       ],
       "vars": {
         "APP_ENV": "production",
+        // Payments are OFF in production. Test or live payments need the owner's approval (see docs/payments.md).
+        "PAYMENTS_MODE": "off",
         "MAX_PAGE_SIZE": "100",
         "MAX_UPLOAD_BYTES": "26214400",
         // Owner's decision (2026-11-12): students see machine-verified syllabus and AI-assisted lessons and questions

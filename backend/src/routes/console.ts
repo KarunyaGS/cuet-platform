@@ -21,6 +21,10 @@ import { deleteQuestion, getQuestionAdmin, questionInputSchema, updateQuestion }
 import { deleteResource, getResource, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
 import { emailOverview } from '../services/email';
+import {
+  billingOverview, cancelSchema, cancelSubscription, createPlan, grantAccess, grantSchema, listOrders, listPlans, listSubscriptions, manualRefundSchema, orderDetail, orderQuery, planCreateSchema,
+  planInputSchema, reconcileOrders, recordManualRefund, subscriptionQuery, updatePlan,
+} from '../services/billing';
 
 const consoleAuth: MiddlewareHandler<AppEnv> = async (c, next) => {
   const user = await userFromToken(c.env.DB, getCookie(c, SESSION_COOKIE) ?? c.req.header('authorization')?.replace(/^Bearer\s+/i, ''));
@@ -56,6 +60,21 @@ admin.post('/students/reset-link', async (c) => {
   needPermission(me(c), 'users:manage', 'create password reset links');
   return c.json(await createResetLink(c.env.DB, await readJson(c, resetLinkSchema), c.get('actor')), 201);
 });
+
+// Plans, subscriptions and payments (billing:manage). Prices and limits are data, changed here and logged.
+const billing = (c: Parameters<typeof me>[0], what: string) => needPermission(me(c), 'billing:manage', what);
+admin.get('/billing', async (c) => (billing(c, 'see payments'), c.json(await billingOverview(c.env))));
+admin.get('/billing/plans', async (c) => (billing(c, 'see plans'), c.json(await listPlans(c.env.DB, false))));
+admin.post('/billing/plans', async (c) => (billing(c, 'create plans'), c.json(await createPlan(c.env.DB, await readJson(c, planCreateSchema), c.get('actor')), 201)));
+admin.put('/billing/plans/:id', async (c) => (billing(c, 'change plans and prices'), c.json(await updatePlan(c.env.DB, c.req.param('id'), await readJson(c, planInputSchema), c.get('actor')))));
+admin.get('/billing/subscriptions', async (c) => (billing(c, 'see subscriptions'), c.json(await listSubscriptions(c.env.DB, subscriptionQuery.parse(query(c))))));
+admin.post('/billing/subscriptions', async (c) => (billing(c, 'give paid access'), c.json(await grantAccess(c.env.DB, await readJson(c, grantSchema), c.get('actor')), 201)));
+admin.post('/billing/subscriptions/:id/cancel', async (c) => (billing(c, 'cancel paid access'), c.json(await cancelSubscription(c.env.DB, c.req.param('id'), await readJson(c, cancelSchema), c.get('actor')))));
+admin.get('/billing/orders', async (c) => (billing(c, 'see payments'), c.json(await listOrders(c.env.DB, orderQuery.parse(query(c))))));
+admin.get('/billing/orders/:id', async (c) => (billing(c, 'see payments'), c.json(await orderDetail(c.env.DB, c.req.param('id')))));
+admin.post('/billing/orders/:id/reconcile', async (c) => (billing(c, 'check a payment with the gateway'), c.json(await reconcileOrders(c.env, c.req.param('id')))));
+admin.post('/billing/orders/:id/refund', async (c) => (billing(c, 'record refunds'), c.json(await recordManualRefund(c.env.DB, c.req.param('id'), await readJson(c, manualRefundSchema), c.get('actor')))));
+admin.post('/billing/reconcile', async (c) => (billing(c, 'check payments with the gateway'), c.json(await reconcileOrders(c.env))));
 
 // Staff, roles and reviewer assignments
 admin.get('/staff', async (c) => (needPermission(me(c), 'users:manage', 'see staff and roles'), c.json(await listStaff(c.env.DB))));

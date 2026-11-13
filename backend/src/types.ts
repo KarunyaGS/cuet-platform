@@ -23,6 +23,16 @@ export interface Bindings {
   RESEND_API_KEY?: string;
   /** Signing secret of the Resend webhook (secret). */
   RESEND_WEBHOOK_SECRET?: string;
+  /** "off" (default), "mock" (local development only), "test" (Razorpay test keys) or "live" (needs PAYMENTS_LIVE_APPROVED=yes). */
+  PAYMENTS_MODE?: string;
+  /** Must be exactly "yes" before live keys are accepted. Set only with the owner's written approval. */
+  PAYMENTS_LIVE_APPROVED?: string;
+  /** Razorpay key id (public; shown to the browser at checkout). */
+  RAZORPAY_KEY_ID?: string;
+  /** Razorpay key secret (secret). */
+  RAZORPAY_KEY_SECRET?: string;
+  /** Razorpay webhook signing secret (secret). */
+  RAZORPAY_WEBHOOK_SECRET?: string;
 }
 
 export interface Variables {

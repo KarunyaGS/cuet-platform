@@ -54,6 +54,18 @@ export interface ResourceDetail {
   blocks: Block[];
 }
 export interface User { id: string; email: string; displayName: string; roles: string[]; emailVerified?: boolean }
+export interface Checkout { orderId: string; gateway: 'mock' | 'razorpay'; gatewayOrderId: string | null; amountPaise: number; currency: string; planName: string; durationDays: number; keyId: string | null; status: string }
+export interface PlanLimits { mockTests?: number | null; topicTests?: number | null; practiceSets?: number | null }
+export interface Access {
+  plan: { code: string; name: string; isFree: boolean; features: string[] }; paid: boolean; paidUntil: string | null; usageDays: number;
+  limits: { key: string; label: string; limit: number | null; used: number }[];
+}
+export interface Billing {
+  paymentsAvailable: boolean; gateway: 'mock' | 'razorpay' | null; testMode: boolean; access: Access;
+  plans: { code: string; name: string; description: string | null; pricePaise: number; currency: string; durationDays: number | null; isFree: boolean; limits: PlanLimits; features: string[] }[];
+  payments: { id: string; plan: string; amountPaise: number; currency: string; status: string; reference: string; method: string | null; failureReason: string | null; createdAt: string; paidAt: string | null }[];
+  passes: { id: string; plan: string; startsAt: string; endsAt: string; source: string; state: string }[];
+}
 export interface EmailSettings { email: string; emailVerified: boolean; emailReminders: boolean; emailAvailable: boolean }
 export interface SessionQuestion {
   number: number; id: string; type: string; stem: string; difficulty: string; preview: boolean; origin: string;
@@ -186,6 +198,10 @@ export const api = {
   dismissReminder: (key: string) => request<{ dismissed: boolean }>('POST', '/api/student/reminders/dismiss', { key }),
   recent: () => request<RecentItem[]>('GET', '/api/student/recent'),
   resetPassword: (b: { token: string; newPassword: string }) => request<{ reset: boolean }>('POST', '/api/auth/reset-password', b),
+  billing: () => request<Billing>('GET', '/api/student/billing'),
+  createOrder: (planCode: string) => request<Checkout>('POST', '/api/student/billing/orders', { planCode }),
+  confirmOrder: (id: string, b: { gatewayPaymentId: string; signature: string }) => request<{ result: string; access: Access }>('POST', `/api/student/billing/orders/${id}/confirm`, b),
+  simulatePayment: (id: string, outcome: 'success' | 'failure') => request<{ result: string; access: Access }>('POST', `/api/student/billing/orders/${id}/simulate`, { outcome }),
   emailStatus: () => request<{ available: boolean }>('GET', '/api/auth/email-status'),
   forgotPassword: (email: string) => request<{ ok: boolean; available: boolean }>('POST', '/api/auth/forgot-password', { email }),
   verifyEmail: (token: string) => request<{ verified: boolean }>('POST', '/api/auth/verify-email', { token }),

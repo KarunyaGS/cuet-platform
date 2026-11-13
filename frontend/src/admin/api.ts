@@ -72,6 +72,17 @@ export const consoleApi = {
   me: () => request<StaffMe>('GET', '/api/console/me'),
   overview: () => request<Overview>('GET', '/api/console/overview'),
   email: () => request<EmailOverview>('GET', '/api/console/email'),
+  billing: () => request<BillingOverview>('GET', '/api/console/billing'),
+  plans: () => request<AdminPlan[]>('GET', '/api/console/billing/plans'),
+  updatePlan: (id: string, b: PlanInput) => request<AdminPlan>('PUT', `/api/console/billing/plans/${id}`, b),
+  subscriptions: (f: { q?: string; page?: number }) => request<{ total: number; pageSize: number; items: AdminSubscription[] }>('GET', `/api/console/billing/subscriptions?${qs(f)}`),
+  grantAccess: (b: { email: string; planCode: string; days: number; note: string }) => request<{ id: string; startsAt: string; endsAt: string; plan: string }>('POST', '/api/console/billing/subscriptions', b),
+  cancelSubscription: (id: string, reason: string) => request<{ cancelled: boolean }>('POST', `/api/console/billing/subscriptions/${id}/cancel`, { reason }),
+  orders: (f: { q?: string; status?: string; page?: number }) => request<{ total: number; pageSize: number; items: AdminOrder[] }>('GET', `/api/console/billing/orders?${qs(f)}`),
+  order: (id: string) => request<AdminOrderDetail>('GET', `/api/console/billing/orders/${id}`),
+  reconcileOrder: (id: string) => request<Reconciled>('POST', `/api/console/billing/orders/${id}/reconcile`),
+  reconcileAll: () => request<Reconciled>('POST', '/api/console/billing/reconcile'),
+  recordRefund: (id: string, b: { gatewayRefundId: string; amountPaise: number }) => request<{ refunded: boolean }>('POST', `/api/console/billing/orders/${id}/refund`, b),
   students: (f: { q?: string; status?: string; page?: number }) => request<{ total: number; items: StudentRow[] }>('GET', `/api/console/students?${qs(f)}`),
   student: (id: string) => request<StudentDetail>('GET', `/api/console/students/${id}`),
   setStatus: (id: string, status: 'ACTIVE' | 'DISABLED', reason?: string) => request<unknown>('POST', `/api/console/students/${id}/status`, { status, reason }),
@@ -124,6 +135,21 @@ export const ACTION_LABEL: Record<string, string> = {
   REVIEW_APPROVED: 'Approved content for publishing', REVIEW_PUBLISHED: 'Published content', REVIEW_UNPUBLISHED: 'Unpublished content', REVIEW_ARCHIVED: 'Archived content', EDIT_NODE: 'Edited a syllabus row',
 };
 export const actionLabel = (a: string) => ACTION_LABEL[a] ?? a.charAt(0) + a.slice(1).toLowerCase().replace(/_/g, ' ');
+export interface AdminPlan { id: string; code: string; name: string; description: string | null; pricePaise: number; currency: string; durationDays: number | null; isFree: boolean; active: boolean; sortOrder: number; limits: { mockTests?: number | null; topicTests?: number | null; practiceSets?: number | null }; features: string[] }
+export type PlanInput = Omit<AdminPlan, 'id' | 'code' | 'currency' | 'isFree'>;
+export interface BillingOverview {
+  gateway: { mode: string; gateway: string | null; ready: boolean; reason: string | null }; activeSubscribers: number;
+  last30Days: { paidOrders: number; receivedPaise: number; ordersByStatus: { status: string; n: number }[]; webhookResults: { result: string; n: number }[] };
+}
+export interface AdminSubscription { id: string; status: string; state: string; starts_at: string; ends_at: string; source: string; note: string | null; user_id: string; email: string; display_name: string; plan: string }
+export interface AdminOrder { id: string; amount_paise: number; currency: string; status: string; gateway: string; gateway_order_id: string | null; receipt: string; plan: string; failure_reason: string | null; created_at: string; paid_at: string | null; user_id: string; email: string; display_name: string; reports: number }
+export interface AdminOrderDetail {
+  order: Record<string, string | number | null>;
+  reports: { kind: string; gateway_id: string; status: string; amount_paise: number; method: string | null; error_code: string | null; error_description: string | null; reported_by: string; created_at: string }[];
+  webhooks: { type: string; signature_valid: number; result: string; detail: string | null; received_at: string }[];
+  pass: { id: string; status: string; starts_at: string; ends_at: string } | null;
+}
+interface Reconciled { checked: number; paid: number; failed: number; expired: number; stillOpen: number; errors: number }
 export interface EmailOverview {
   enabled: boolean; providers: string[]; senderSet: boolean; appUrlSet: boolean;
   last7Days: { kind: string; status: string; n: number }[];
