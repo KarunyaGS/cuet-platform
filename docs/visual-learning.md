@@ -2,6 +2,17 @@
 
 Status: a **local prototype for one topic**, waiting for review. Not deployed. Screenshots are in `docs/visual-learning/`.
 
+## Redesign (13 November 2026, later)
+
+The first version looked like a cartoon. It was redrawn in a scientific style; the content is unchanged. Before and after screenshots: `docs/visual-learning/before/` and `docs/visual-learning/after/`.
+
+- **Step 2 is now a simulation.** The apple's position is computed from s = ½gt² at every frame, in real time or in slow motion. The student releases the apple, pauses, resumes and resets, and sets the height of the branch (2 to 5 m) and the mass of the apple (0.05 to 0.30 kg). A ruler in metres, the force vector F = mg, the acceleration g and the velocity v are drawn and labelled. A table shows each equation with the present numbers in it, two graphs (distance and speed against time) are traced as it falls, and a log of runs shows that the fall time does not change with mass.
+- **Drawings:** shaded objects with light and shadow, thin labelled vectors, grids and rulers. This is careful 2D drawing, not 3D: no 3D library was added, and a precise 2D diagram was judged better here than an approximate 3D one.
+- **Mind map:** labels on fine rules with small line drawings and a restrained palette, in place of coloured bubbles.
+- **Flowchart:** standard notation (process boxes, a decision diamond, a rounded terminal), numbered stages, straight connectors, a moving dash on the connector into the current stage.
+- **Notes:** a reading column with a side panel for the PDF, the contents and the points to remember.
+- **Equations not from the chapter read:** v = gt and s = ½gt² are the standard equations of motion for constant acceleration (kinematics, an earlier chapter of the same book, which was not read for this work). The page says so. Air resistance is left out, and the page says that too.
+
 ## What a student gets
 
 Open Physics, then the "Visual learning" card, or go to `/visual/gravitation`.

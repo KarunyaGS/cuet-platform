@@ -120,7 +120,7 @@ export function DashboardPage() {
           </div>
         </Link>
       </section>
-      <p className="mb-10 text-xs text-ink-3">
+      <p className="mb-7 text-xs text-ink-3">
         Change your daily goals on your{' '}
         <Link to="/profile" className="underline underline-offset-2 hover:text-accent">
           profile
@@ -128,7 +128,7 @@ export function DashboardPage() {
         .
       </p>
 
-      <section aria-label="Revision" className="mb-10 overflow-hidden rounded-xl border border-rule bg-surface">
+      <section aria-label="Revision" className="mb-7 overflow-hidden rounded-xl border border-rule bg-surface">
         <Link to={x.flashcards.due > 0 ? '/bookmarks/review' : '/bookmarks'} className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-paper">
           <span className="min-w-0 flex-1">
             <span className="text-sm text-ink-2">Saved cards due today</span>
@@ -143,7 +143,7 @@ export function DashboardPage() {
 
       <LatestUpdates exam={prefs.data?.examCode ?? null} />
 
-      <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-x-8 gap-y-7 lg:grid-cols-2">
         <section aria-labelledby="continue">
           <SectionTitle id="continue">Continue learning</SectionTitle>
           {nothingYet ? (

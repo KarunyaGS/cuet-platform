@@ -54,18 +54,20 @@ export function TopicPage() {
         ))}
       </nav>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_19rem]">
-        <div className="min-w-0">
-          <header className="mb-6">
-            {kl && <div className="text-sm text-ink-3">{kl}</div>}
-            <h1 className="text-2xl font-semibold text-ink">{d.topic.title}</h1>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <BookmarkButton kind="TOPIC" id={d.topic.id} />
-              <AddToPlan kind="TOPIC" refId={d.topic.id} title={d.topic.title} />
-            </div>
-          </header>
+      <header className="mb-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-rule pb-4" data-topic-header>
+        <div className="min-w-0 max-w-[58rem]">
+          {kl && <div className="text-sm text-ink-3">{kl}</div>}
+          <h1 className="text-[1.375rem] leading-snug font-semibold text-ink sm:text-2xl">{d.topic.title}</h1>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <BookmarkButton kind="TOPIC" id={d.topic.id} />
+          <AddToPlan kind="TOPIC" refId={d.topic.id} title={d.topic.title} />
+        </div>
+      </header>
 
-          <section aria-label="Official syllabus text" className="mb-8 border-l-2 border-accent bg-surface py-3 pr-4 pl-4">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] xl:gap-8" data-topic-layout>
+        <div className="min-w-0">
+          <section aria-label="Official syllabus text" className="mb-6 rounded-xl border border-rule border-l-2 border-l-accent bg-surface px-4 py-3">
             <div className="mb-1.5 flex flex-wrap items-center justify-between gap-2 text-sm">
               <span className="font-medium text-ink-2">Official syllabus text</span>
               {d.source.url && (
@@ -80,7 +82,7 @@ export function TopicPage() {
           </section>
 
           {d.children.length > 0 && (
-            <section className="mb-8" aria-labelledby="covered">
+            <section className="mb-6" aria-labelledby="covered">
               <SectionTitle id="covered">Covered in this {d.topic.kind.toLowerCase()}</SectionTitle>
               <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
                 {d.children.map((c) => (
@@ -104,15 +106,15 @@ export function TopicPage() {
               <ul className="space-y-2">
                 {d.resources.map((r) => (
                   <li key={r.id}>
-                    <Link to={`/learn/${r.id}`} className="group flex items-center gap-3.5 rounded-xl border border-rule bg-surface px-4 py-3.5 transition-colors hover:border-accent/50">
+                    <Link to={`/learn/${r.id}`} className="group flex items-start gap-3.5 rounded-xl border border-rule bg-surface px-4 py-3.5 transition-colors hover:border-accent/50">
                       <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
                         <BookOpen className="size-[18px]" />
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className="block text-xs text-ink-3">{r.type === 'LESSON' ? 'Lesson' : r.type.charAt(0) + r.type.slice(1).toLowerCase()}</span>
                         <span className="block font-medium text-ink group-hover:text-accent">{r.title}</span>
+                        <span className="mt-0.5 block text-sm text-ink-2">{r.type === 'LESSON' ? 'Lesson: explanations, formulas, worked examples and key points. Highlight and save as you read.' : r.type.charAt(0) + r.type.slice(1).toLowerCase()}</span>
                       </span>
-                      <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />
+                      <ChevronRight aria-hidden className="mt-1 size-4 shrink-0 text-ink-3" />
                     </Link>
                   </li>
                 ))}
@@ -121,8 +123,8 @@ export function TopicPage() {
           </section>
         </div>
 
-        <aside className="space-y-4 lg:sticky lg:top-20 lg:self-start">
-          <div className="rounded-xl border border-rule bg-surface p-5">
+        <aside className="min-w-0 space-y-4 lg:sticky lg:top-20 lg:self-start" data-topic-side>
+          <div className="rounded-xl border border-rule bg-surface p-4">
             <h2 className="flex items-center gap-2 text-base font-semibold text-ink">
               <PencilLine aria-hidden className="size-[18px] text-accent" />
               Practise this topic
@@ -130,7 +132,7 @@ export function TopicPage() {
             <p className="num mt-1 text-sm text-ink-2">
               {d.questionCount} {d.questionCount === 1 ? 'question' : 'questions'} on this topic and its subtopics.
             </p>
-            <div className="mt-4 flex flex-col gap-2">
+            <div className="mt-3 flex flex-col gap-2">
               <Button onClick={() => start('PRACTICE')} disabled={!d.questionCount}>
                 Practise with instant feedback
               </Button>
@@ -141,16 +143,17 @@ export function TopicPage() {
             {!d.questionCount && <p className="mt-3 text-sm text-ink-3">Questions for this topic are still being written.</p>}
             {err && <ErrorBox error={err} />}
           </div>
-          <SavedForRevision scope={{ nodeId: d.topic.id }} />
           {d.resources.length > 0 && (
-            <Link to={`/revise/${d.topic.id}`} className="group flex items-start gap-3 rounded-xl border border-rule bg-surface p-5 transition-colors hover:border-accent/50">
+            <Link to={`/revise/${d.topic.id}`} className="group flex items-start gap-3 rounded-xl border border-rule bg-surface p-4 transition-colors hover:border-accent/50">
               <ListChecks aria-hidden className="mt-0.5 size-[18px] shrink-0 text-accent" />
-              <span>
+              <span className="min-w-0 flex-1">
                 <span className="block font-semibold text-ink group-hover:text-accent">Quick revision</span>
                 <span className="mt-0.5 block text-sm text-ink-2">Definitions, formulas, key points and exam tips from this topic’s lessons on one page.</span>
               </span>
+              <ChevronRight aria-hidden className="mt-1 size-4 shrink-0 text-ink-3" />
             </Link>
           )}
+          <SavedForRevision scope={{ nodeId: d.topic.id }} />
         </aside>
       </div>
     </div>

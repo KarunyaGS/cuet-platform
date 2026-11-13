@@ -39,7 +39,7 @@ export function SearchPage() {
   const d = state.data;
   const none = d && !d.subjects.length && !d.topics.length && !d.concepts.length;
   return (
-    <div className="max-w-4xl">
+    <div className="mx-auto max-w-4xl">
       <PageHeader title="Search the syllabus" subtitle="Subjects, units and topics from the official syllabi, and single concepts (definitions, formulas, key points) inside lessons." />
       <div className="mb-6 flex flex-wrap items-center gap-3">
         <div className="min-w-0 flex-1 [&>label]:sm:w-full">

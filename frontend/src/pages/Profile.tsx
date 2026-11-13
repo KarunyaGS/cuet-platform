@@ -232,7 +232,7 @@ export function ProfilePage() {
   const pwMismatch = pw.confirm.length > 0 && pw.newPassword !== pw.confirm;
 
   return (
-    <div className="max-w-4xl">
+    <div className="mx-auto max-w-4xl">
       <PageHeader title="Profile and goals" subtitle={`Member since ${new Date(d.memberSince).toLocaleDateString(undefined, { dateStyle: 'long' })}. ${d.testsTaken} tests and practice sets submitted, ${d.bookmarks} bookmarks.`} />
       <div>
         <Section title="Account" description="Your name appears on your Today page and in the menu.">

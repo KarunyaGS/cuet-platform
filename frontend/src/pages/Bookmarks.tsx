@@ -72,7 +72,8 @@ export function BookmarksPage() {
   useEffect(() => {
     if (loaded.data) setCards(loaded.data);
   }, [loaded.data]);
-  const [tab, setTab] = useState<Tab>(params.get('tab') === 'notes' ? 'NOTES' : 'CARDS');
+  const tab: Tab = params.get('tab') === 'notes' ? 'NOTES' : params.get('tab') === 'pages' ? 'PAGES' : params.get('tab') === 'recent' ? 'RECENT' : 'CARDS';
+  const setTab = (t: Tab) => setParams(t === 'CARDS' ? {} : { tab: t.toLowerCase() }, { replace: true });
   // Highlights, drawings and notes: a different kind of saved item, in the same place.
   const [noteCount, setNoteCount] = useState<number | null>(null);
   useEffect(() => {

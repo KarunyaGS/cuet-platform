@@ -15,7 +15,7 @@ export function ProgressPage() {
   return (
     <div>
       <PageHeader title="Progress" subtitle="Built from the practice sets and tests you have submitted." actions={<ButtonLink to="/report" icon={<CalendarRange aria-hidden />}>Weekly report</ButtonLink>} />
-      <div className="mb-10">
+      <div className="mb-7">
         <StatGroup
           items={[
             { label: 'Sessions submitted', value: d.totals.sessions },
@@ -26,12 +26,12 @@ export function ProgressPage() {
         />
       </div>
 
-      <section className="mb-10" aria-labelledby="by-subject">
+      <section className="mb-7" aria-labelledby="by-subject">
         <SectionTitle id="by-subject">By subject</SectionTitle>
         {d.subjects.length === 0 ? <Empty icon={<ChartNoAxesColumn />}>Submit a practice set or test to see your progress by subject.</Empty> : <SubjectTable subjects={d.subjects} />}
       </section>
 
-      <div className="grid-cols-1 mb-10 grid gap-x-8 gap-y-10 lg:grid-cols-2">
+      <div className="grid-cols-1 mb-7 grid gap-x-8 gap-y-7 lg:grid-cols-2">
         <section aria-labelledby="weak">
           <SectionTitle id="weak">Weak topics to revise</SectionTitle>
           {d.weakTopics.length === 0 ? (

@@ -44,7 +44,7 @@ export function RevisePage() {
     }
   };
   return (
-    <div className="max-w-[44rem]">
+    <div data-revise>
       <PageHeader
         back={{ to: `/topic/${d.topic.id}`, label: 'Full topic' }}
         title={<>Quick revision: {d.topic.title}</>}
@@ -66,10 +66,10 @@ export function RevisePage() {
         <Empty icon={<ListChecks />}>There are no revision notes for this topic yet. Open the full topic for its lessons and questions.</Empty>
       ) : (
         <>
-          <div className="mb-6">
+          <div className="mb-4">
             <Segmented label="Show notes of one kind" value={filter} onChange={setFilter} options={FILTERS.map((f) => ({ value: f.type, label: f.label }))} />
           </div>
-          <div className="space-y-10">
+          <div className="space-y-7">
             {d.lessons.map((l) => {
               const blocks = l.blocks
                 .filter((b) => !only || b.type === only || (only === 'KEY_POINT' && b.type === 'IMPORTANT_FACT'))
@@ -77,15 +77,18 @@ export function RevisePage() {
               if (!blocks.length) return null;
               return (
                 <section key={l.resourceId}>
-                  <h2 className="mb-3 flex items-baseline justify-between gap-3 text-base font-semibold text-ink">
-                    {l.lesson}
+                  <h2 className="mb-3 flex items-baseline justify-between gap-3 border-b border-rule pb-2 text-base font-semibold text-ink">
+                    <span className="min-w-0">
+                      {l.lesson} <span className="num ml-1 text-sm font-normal text-ink-3">{blocks.length}</span>
+                    </span>
                     <Link to={`/learn/${l.resourceId}`} className="shrink-0 text-sm font-medium text-accent hover:underline">
                       Open lesson
                     </Link>
                   </h2>
-                  <div className="space-y-3">
+                  {/* Two columns on a wide screen: short notes are easy to scan side by side. A note never splits across columns. */}
+                  <div className="gap-x-6 lg:columns-2" data-revise-notes>
                     {blocks.map((b) => (
-                      <div key={b.position}>
+                      <div key={b.position} className="mb-3 break-inside-avoid">
                         <BlockView b={{ ...b, media_asset_id: null, alt_text: null, caption: null, media_kind: null }} solvedNo={0} />
                         {b.conceptKey && <ConceptActions id={b.conceptKey} c={concepts} />}
                       </div>
@@ -97,7 +100,7 @@ export function RevisePage() {
           </div>
         </>
       )}
-      <div className="mt-10 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rule bg-surface p-5">
+      <div className="mt-7 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rule bg-surface px-5 py-4">
         <span>
           <span className="block font-semibold text-ink">Revised?</span>
           <span className="block text-sm text-ink-2">Check yourself with 10 questions on this topic.</span>

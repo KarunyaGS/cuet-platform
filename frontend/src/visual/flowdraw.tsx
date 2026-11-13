@@ -1,19 +1,42 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource react */
 /**
- * Flowchart drawing: stages as round illustrated stops, a decision as a diamond, the result as a ringed badge.
- * No state here: the interactive flowchart and the PDF both use it.
+ * Flowchart drawing, in standard notation: a process is a box, a decision is a diamond, the result is a rounded
+ * terminal. Stages are numbered and joined by straight connectors. No state here: the interactive flowchart and the
+ * PDF both use it.
  */
-import { Glyph, INK } from './art';
+import { Glyph, INK, NAVY, SLATE } from './art';
 import type { FlowNode } from './gravitation';
 
-export const FLOW_BOX = { w: 560, h: 780 };
-const C = { done: '#2347a8', todo: '#c9ced8', now: '#a86100', wrong: '#b42318', result: '#1d7a4b' };
+export const FLOW_BOX = { w: 480, h: 632 };
+const C = { done: NAVY, todo: '#cbd5e1', now: '#b45309', wrong: '#b42318', result: NAVY };
+const MONO = 'ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace';
+const half = (n: FlowNode) => (n.kind === 'decision' ? { w: 122, h: 50 } : n.kind === 'wrong' ? { w: 88, h: 30 } : { w: 118, h: 28 });
 
 const edgePath = (a: FlowNode, b: FlowNode, back = false) => {
-  if (back) return `M${a.x} ${a.y - 34} C${a.x} ${a.y - 96} ${b.x + 70} ${b.y - 96} ${b.x + 44} ${b.y - 30}`;
-  if (a.y === b.y) return `M${a.x + 46} ${a.y} H${b.x - 36}`;
-  return `M${a.x} ${a.y + (a.kind === 'decision' ? 46 : 34)} V${b.y - (b.kind === 'decision' ? 46 : b.kind === 'result' ? 42 : 34)}`;
+  const ha = half(a);
+  const hb = half(b);
+  if (back) {
+    // from the top of the wrong turn, up and back into the decision's upper right side
+    const x = b.x + 66;
+    const y = b.y - hb.h * (1 - 66 / hb.w);
+    return `M${a.x} ${a.y - ha.h} V${b.y - 78} H${x} V${y - 2}`;
+  }
+  if (a.y === b.y) return `M${a.x + ha.w} ${a.y} H${b.x - hb.w - 2}`;
+  return `M${a.x} ${a.y + ha.h} V${b.y - hb.h - 2}`;
+};
+
+const wrap = (label: string, max: number): string[] => {
+  const out: string[] = [];
+  let line = '';
+  for (const w of label.split(' ')) {
+    if (line && (line + ' ' + w).length > max) {
+      out.push(line);
+      line = w;
+    } else line = line ? `${line} ${w}` : w;
+  }
+  if (line) out.push(line);
+  return out;
 };
 
 export function FlowDrawing({ nodes, current, visited, onPick }: { nodes: FlowNode[]; current?: string | null; visited: Set<string>; onPick?: (id: string) => void }) {
@@ -25,21 +48,24 @@ export function FlowDrawing({ nodes, current, visited, onPick }: { nodes: FlowNo
     if (n.yes) edges.push({ from: n, to: by.get(n.yes)!, tag: 'Yes' });
     if (n.no) edges.push({ from: n, to: by.get(n.no)!, tag: 'No' });
   }
+  const stages = nodes.filter((n) => n.kind !== 'wrong');
   return (
     <g>
       <defs>
-        <marker id="vl-flow-head" viewBox="0 0 10 10" refX={8} refY={5} markerWidth={7} markerHeight={7} orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10Z" fill="context-stroke" />
+        <marker id="vl-flow-head" viewBox="0 0 10 10" refX={9} refY={5} markerWidth={7} markerHeight={7} orient="auto-start-reverse">
+          <path d="M0 1 L10 5 L0 9Z" fill="context-stroke" />
         </marker>
       </defs>
       {edges.map((e) => {
         const walked = visited.has(e.from.id) && visited.has(e.to.id) && !e.back;
+        const active = current === e.to.id && walked;
         const colour = e.back ? C.wrong : walked ? C.done : C.todo;
+        const hf = half(e.from);
         return (
           <g key={`${e.from.id}-${e.to.id}`} data-flow-edge={`${e.from.id}-${e.to.id}`} data-walked={walked ? '' : undefined}>
-            <path d={edgePath(e.from, e.to, e.back)} fill="none" stroke={colour} strokeWidth={walked ? 4 : 2.5} strokeDasharray={e.back ? '5 5' : undefined} markerEnd="url(#vl-flow-head)" style={{ transition: 'stroke 0.5s, stroke-width 0.5s' }} />
+            <path d={edgePath(e.from, e.to, e.back)} fill="none" stroke={colour} strokeWidth={walked ? 2 : 1.4} strokeDasharray={e.back ? '4 4' : active ? '6 4' : undefined} markerEnd="url(#vl-flow-head)" className={active ? 'vl-flow' : undefined} style={{ transition: 'stroke 0.4s' }} />
             {e.tag && (
-              <text x={e.from.y === e.to.y ? (e.from.x + e.to.x) / 2 + 4 : e.from.x + 12} y={e.from.y === e.to.y ? e.from.y - 9 : (e.from.y + e.to.y) / 2 + 12} fontSize={13} fontWeight={700} fill={INK} textAnchor={e.from.y === e.to.y ? 'middle' : 'start'}>
+              <text x={e.from.y === e.to.y ? e.from.x + hf.w + 12 : e.from.x + 9} y={e.from.y === e.to.y ? e.from.y - 7 : e.from.y + hf.h + 17} fontFamily={MONO} fontSize={11.5} fontWeight={600} fill={INK}>
                 {e.tag}
               </text>
             )}
@@ -49,9 +75,15 @@ export function FlowDrawing({ nodes, current, visited, onPick }: { nodes: FlowNo
       {nodes.map((n) => {
         const now = current === n.id;
         const seen = visited.has(n.id);
-        const colour = n.kind === 'wrong' ? C.wrong : n.kind === 'result' ? C.result : now ? C.now : seen ? C.done : C.todo;
+        const picture = !onPick;
+        const colour = n.kind === 'wrong' ? C.wrong : now ? C.now : seen || picture ? C.done : C.todo;
         const can = Boolean(onPick) && seen;
-        const lines = n.label.length > 22 ? [n.label.slice(0, n.label.lastIndexOf(' ', 22)), n.label.slice(n.label.lastIndexOf(' ', 22) + 1)] : [n.label];
+        const h = half(n);
+        const lines = wrap(n.label, n.kind === 'decision' ? 16 : n.kind === 'wrong' ? 22 : 24);
+        const fill = n.kind === 'result' ? (seen || picture ? NAVY : 'white') : now ? '#fff7ed' : seen && n.kind !== 'wrong' ? '#f1f5fb' : 'white';
+        const ink = n.kind === 'result' && (seen || picture) ? 'white' : seen || picture || now ? INK : SLATE;
+        const index = stages.indexOf(n);
+        const textX = n.kind === 'decision' || n.kind === 'wrong' ? 0 : -h.w + 44;
         return (
           <g
             key={n.id}
@@ -64,25 +96,30 @@ export function FlowDrawing({ nodes, current, visited, onPick }: { nodes: FlowNo
             aria-current={now ? 'step' : undefined}
             onClick={can ? () => onPick!(n.id) : undefined}
             onKeyDown={can ? (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), onPick!(n.id)) : undefined}
-            style={{ cursor: can ? 'pointer' : 'default', outline: 'none', opacity: seen || !onPick ? 1 : 0.55, transition: 'opacity 0.5s' }}
+            style={{ cursor: can ? 'pointer' : 'default', outline: 'none' }}
             className={can ? 'vl-node' : undefined}
           >
-            {now && <circle r={n.kind === 'decision' ? 58 : 46} fill="none" stroke={C.now} strokeWidth={3} opacity={0.35} className="vl-pulse" />}
             {n.kind === 'decision' ? (
-              <path d="M0 -46 L52 0 L0 46 L-52 0Z" fill="white" stroke={colour} strokeWidth={3.5} style={{ transition: 'stroke 0.5s' }} />
-            ) : n.kind === 'result' ? (
-              <>
-                <circle r={42} fill="white" stroke={colour} strokeWidth={3} />
-                <circle r={33} fill={seen || !onPick ? colour : C.todo} style={{ transition: 'fill 0.5s' }} />
-              </>
+              <path d={`M0 ${-h.h} L${h.w} 0 L0 ${h.h} L${-h.w} 0Z`} fill={fill} stroke={colour} strokeWidth={now ? 2.4 : 1.5} style={{ transition: 'stroke 0.4s, fill 0.4s' }} />
             ) : (
-              <circle r={34} fill={n.kind === 'wrong' ? 'white' : colour} stroke={colour} strokeWidth={3} strokeDasharray={n.kind === 'wrong' ? '5 4' : undefined} style={{ transition: 'fill 0.5s, stroke 0.5s' }} />
+              <rect x={-h.w} y={-h.h} width={h.w * 2} height={h.h * 2} rx={n.kind === 'result' ? h.h : 5} fill={fill} stroke={colour} strokeWidth={now ? 2.4 : 1.5} strokeDasharray={n.kind === 'wrong' ? '5 4' : undefined} style={{ transition: 'stroke 0.4s, fill 0.4s' }} />
             )}
-            <g transform="scale(1.5)">
-              <Glyph name={n.icon} color={n.kind === 'decision' || n.kind === 'wrong' ? colour : 'white'} />
-            </g>
+            {now && n.kind !== 'decision' && <rect x={-h.w - 5} y={-h.h - 5} width={h.w * 2 + 10} height={h.h * 2 + 10} rx={n.kind === 'result' ? h.h + 5 : 8} fill="none" stroke={C.now} strokeWidth={1.2} className="vl-pulse" />}
+            {now && n.kind === 'decision' && <path d={`M0 ${-h.h - 7} L${h.w + 9} 0 L0 ${h.h + 7} L${-h.w - 9} 0Z`} fill="none" stroke={C.now} strokeWidth={1.2} className="vl-pulse" />}
+            {n.kind !== 'decision' && n.kind !== 'wrong' && (
+              <>
+                <g transform={`translate(${-h.w + 22} 0) scale(0.95)`}>
+                  <Glyph name={n.icon} color={n.kind === 'result' && (seen || picture) ? 'white' : colour === C.todo ? SLATE : colour} />
+                </g>
+                {n.kind === 'stage' && index >= 0 && (
+                  <text x={h.w - 8} y={-h.h + 13} textAnchor="end" fontFamily={MONO} fontSize={9.5} fill={SLATE}>
+                    {String(index + 1).padStart(2, '0')}
+                  </text>
+                )}
+              </>
+            )}
             {lines.map((l, i) => (
-              <text key={i} x={n.kind === 'wrong' ? 0 : n.kind === 'decision' ? -64 : 62} y={n.kind === 'wrong' ? 56 + i * 16 : (i - (lines.length - 1) / 2) * 17 + 5} textAnchor={n.kind === 'wrong' ? 'middle' : n.kind === 'decision' ? 'end' : 'start'} fontSize={14} fontWeight={now ? 700 : 600} fill={INK}>
+              <text key={i} x={textX} y={(i - (lines.length - 1) / 2) * 15 + 4.5} textAnchor={textX === 0 ? 'middle' : 'start'} fontSize={n.kind === 'wrong' ? 12 : 13} fontWeight={now || n.kind === 'result' ? 600 : 500} fill={n.kind === 'wrong' ? C.wrong : ink}>
                 {l}
               </text>
             ))}

@@ -57,7 +57,7 @@ export function UpdatesPage() {
   const set = (key: string, value: string) => setParams((p) => (value ? p.set(key, value) : p.delete(key), key === 'exam' && p.delete('category'), p), { replace: true });
   const d = r.data;
   return (
-    <div className="max-w-4xl">
+    <div className="mx-auto max-w-4xl">
       <PageHeader
         title="Latest government updates"
         subtitle={
@@ -120,7 +120,7 @@ export function LatestUpdates({ exam }: { exam: ExamCode | null }) {
   const r = useLoad(() => api.notices({ exam: exam ?? undefined, limit: 4 }), [exam]);
   if (!r.data || r.data.notices.length === 0) return null;
   return (
-    <section aria-labelledby="gov-updates" className="mb-10">
+    <section aria-labelledby="gov-updates" className="mb-7">
       <div className="mb-2.5 flex items-baseline justify-between gap-3">
         <h2 id="gov-updates" className="text-base font-semibold text-ink">
           Latest government updates

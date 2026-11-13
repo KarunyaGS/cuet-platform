@@ -241,9 +241,9 @@ export function LearnPage() {
   };
   const seenKeys = new Map<string, number>();
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_15rem]">
-      <article className="min-w-0 max-w-[44rem]">
-        <header className="mb-8 border-b border-rule pb-6">
+    <div className="grid grid-cols-1 gap-x-10 gap-y-5 lg:grid-cols-[minmax(0,50rem)_minmax(0,20rem)] lg:justify-center xl:gap-x-14" data-lesson-layout>
+      {/* The title first on every screen; on a wide screen it spans the text and the side rail. */}
+      <header className="border-b border-rule pb-4 lg:col-span-2" data-lesson-header>
           {d.topic && (
             <Link to={`/topic/${d.topic.id}`} className="inline-flex max-w-full items-center gap-1 text-sm text-ink-2 hover:text-accent">
               <ChevronLeft aria-hidden className="size-4 shrink-0" />
@@ -259,12 +259,31 @@ export function LearnPage() {
               {conceptKeys.length > 0 && <AddCards from={{ resourceId: d.resource.id }} onDone={concepts.reload} />}
             </span>
           </div>
-        </header>
-        {conceptKeys.length > 0 && (
-          <div className="mb-8">
-            <SavedForRevision scope={{ resourceId: d.resource.id }} version={concepts.saved.size} />
+      </header>
+      {/* The side column: saved cards and the contents list. On a phone it sits between the title and the text. */}
+      <aside className="min-w-0 space-y-5 lg:sticky lg:top-20 lg:col-start-2 lg:row-start-2 lg:self-start" data-lesson-rail>
+        {conceptKeys.length > 0 && <SavedForRevision scope={{ resourceId: d.resource.id }} version={concepts.saved.size} />}
+      {toc.length > 0 && (
+        <nav aria-label="On this page" className="hidden lg:block">
+          <div>
+            <div className="mb-2 text-sm font-semibold text-ink">On this page</div>
+            <ol className="space-y-0.5 border-l border-rule text-sm">
+              {toc.map((h, i) => {
+                const on = current === tocIds[i];
+                return (
+                  <li key={h}>
+                    <a href={`#${tocIds[i]}`} aria-current={on ? 'location' : undefined} className={`-ml-px block border-l-2 py-1 pl-3 transition-colors ${on ? 'border-accent text-accent' : 'border-transparent text-ink-2 hover:text-ink'}`}>
+                      {h}
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
           </div>
-        )}
+        </nav>
+      )}
+      </aside>
+      <article className="min-w-0 lg:col-start-1 lg:row-start-2">
         {wanted && !found && (
           <p role="status" className="mb-6 rounded-lg border border-marker/30 bg-marker-soft px-4 py-3 text-sm text-ink">
             The concept you saved has been updated in this lesson since then. The lesson below shows how it reads now.
@@ -308,25 +327,6 @@ export function LearnPage() {
           </div>
         )}
       </article>
-      {toc.length > 0 && (
-        <nav aria-label="On this page" className="hidden lg:block">
-          <div className="sticky top-24">
-            <div className="mb-2 text-sm font-semibold text-ink">On this page</div>
-            <ol className="space-y-0.5 border-l border-rule text-sm">
-              {toc.map((h, i) => {
-                const on = current === tocIds[i];
-                return (
-                  <li key={h}>
-                    <a href={`#${tocIds[i]}`} aria-current={on ? 'location' : undefined} className={`-ml-px block border-l-2 py-1 pl-3 transition-colors ${on ? 'border-accent text-accent' : 'border-transparent text-ink-2 hover:text-ink'}`}>
-                      {h}
-                    </a>
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
-        </nav>
-      )}
     </div>
   );
 }

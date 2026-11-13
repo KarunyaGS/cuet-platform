@@ -63,8 +63,8 @@ export function CardRow({ card: c, onChange, here = false, grouped = false }: { 
   const title = cardTitle(c);
   return (
     <li className="px-4 py-3" data-card-row={c.id} data-status={c.status}>
-      <div className="flex items-start gap-3">
-        <div className="min-w-0 flex-1">
+      <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
+        <div className="min-w-[12rem] flex-1">
           <div className="text-[15px] leading-snug text-ink">
             <Rich text={title} inline />
           </div>
@@ -166,26 +166,28 @@ export function SavedForRevision({ scope, version = 0, startOpen = false }: { sc
   const sorted = [...cards].sort((a, b) => rank(a) - rank(b));
   return (
     <section aria-labelledby="saved-for-revision" data-saved-for-revision className="overflow-hidden rounded-xl border border-rule bg-surface">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 py-3">
-        <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} disabled={cards.length === 0} className="flex min-w-0 flex-1 items-center gap-2 text-left disabled:cursor-default">
-          {cards.length > 0 && (open ? <ChevronDown aria-hidden className="size-4 shrink-0 text-ink-3" /> : <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />)}
+      <div className="px-4 py-3">
+        <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} disabled={cards.length === 0} className="flex w-full items-center gap-2 text-left disabled:cursor-default">
           <Bookmark aria-hidden className="size-[18px] shrink-0 text-accent" />
-          <h2 id="saved-for-revision" className="text-base font-semibold text-ink">
+          <h2 id="saved-for-revision" className="min-w-0 flex-1 truncate text-base font-semibold text-ink">
             Saved for revision
           </h2>
-          <span className="num text-sm text-ink-2" data-saved-count>
+          <span className="num shrink-0 rounded-md bg-paper px-1.5 py-0.5 text-sm text-ink-2" data-saved-count>
             {cards.length}
           </span>
+          {cards.length > 0 && (open ? <ChevronDown aria-hidden className="size-4 shrink-0 text-ink-3" /> : <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />)}
         </button>
         {cards.length > 0 && (
-          <span className="flex flex-wrap items-center gap-2 text-sm">
-            {need > 0 && <span className="text-wrong">{need} need revision</span>}
+          <div className="mt-2.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-sm" data-saved-summary>
+            <span className="text-ink-2">
+              {due} due today{need > 0 && <span className="text-wrong"> · {need} need revision</span>}
+            </span>
             {due > 0 && (
               <Link to={`/bookmarks/review?${q}`} className={buttonClass('primary', 'sm')}>
                 Revise {due} due
               </Link>
             )}
-          </span>
+          </div>
         )}
       </div>
       {cards.length === 0 ? (

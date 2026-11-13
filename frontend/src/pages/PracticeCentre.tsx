@@ -16,7 +16,7 @@ import { OfficialDirectory } from './OfficialDirectory';
 
 function Section({ id, icon, title, label, tone, children, intro }: { id: string; icon: React.ReactNode; title: string; label: string; tone: 'accent' | 'green' | 'amber'; intro: string; children: React.ReactNode }) {
   return (
-    <section aria-labelledby={id} className="mt-10 first:mt-0">
+    <section aria-labelledby={id} className="mt-7 first:mt-0">
       <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1">
         <span aria-hidden className="text-ink-3 [&>svg]:size-5">
           {icon}
@@ -49,7 +49,7 @@ export function PracticeCentrePage() {
   return (
     <div>
       <PageHeader title="Practice Centre" subtitle="Previous-year question papers, official answer keys, our own practice questions and full mock tests, in one place. Each is labelled so you always know which is which." />
-      <div className="mb-8">
+      <div className="mb-6">
         <Segmented label="Exam" value={exam} onChange={(v) => setParams({ exam: v }, { replace: true })} options={[{ value: 'CUET_UG', label: 'CUET-UG' }, { value: 'CUET_PG', label: 'CUET-PG' }]} />
       </div>
 

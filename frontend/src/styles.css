@@ -100,6 +100,15 @@ h3 {
 .vl-pulse {
   animation: vl-pulse 1.8s ease-in-out infinite;
 }
+/* The connector leading into the current flowchart stage: its dashes move along it. */
+@keyframes vl-flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+.vl-flow {
+  animation: vl-flow 1s linear infinite;
+}
 .vl-node:focus-visible > :first-child {
   stroke: var(--color-marker);
   stroke-width: 4px;

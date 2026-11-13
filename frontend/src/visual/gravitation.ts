@@ -26,6 +26,20 @@ export const SOURCE = {
 };
 
 export const TITLE = 'Gravitation';
+
+/**
+ * The falling-body simulation. g is the chapter's value. The height and the mass are the student's to set; the ranges
+ * are those of a real apple on a real tree. Positions are computed from the equations, in real time.
+ */
+export const SIM = {
+  g: 9.8,
+  height: { min: 2, max: 5, step: 0.5, start: 3 },
+  mass: { min: 0.05, max: 0.3, step: 0.05, start: 0.15 },
+  speeds: [{ value: 1, label: 'Real time' }, { value: 0.5, label: '½ speed' }, { value: 0.25, label: '¼ speed' }],
+  /** Dashed outlines are left at this interval of time, in seconds. */
+  markEvery: 0.1,
+  equationsNote: 'With a constant acceleration g and a start from rest, the equations of motion give v = gt and s = ½gt² (kinematics, an earlier chapter of the same book). The constant acceleration, g and F = mg are from this chapter.',
+};
 export const QUESTION = 'Why does an apple fall towards the ground?';
 
 export const FORMULAS = {
@@ -90,7 +104,8 @@ export const STEPS: Step[] = [
     id: 'fall', scene: 'fall', title: 'Gravity in action',
     lines: [
       'Anything thrown up falls down towards the earth. Raindrops fall from the clouds. Going uphill is more tiring than going downhill. All material objects are attracted towards the earth.',
-      'Galileo recognised that all bodies, irrespective of their masses, are accelerated towards the earth with a constant acceleration. That is why the apple covers more distance in each moment than in the one before.',
+      'Galileo recognised that all bodies, irrespective of their masses, are accelerated towards the earth with a constant acceleration. Release the apple and watch: in each equal interval of time it covers more distance than in the one before.',
+      'The gravitational force on the apple, $F = mg$, points towards the earth. A heavier apple feels a larger force, but its acceleration g is the same, so it takes the same time to fall.',
     ],
     src: [{ section: '7.1', page: 127 }],
   },
@@ -172,20 +187,20 @@ export interface FlowNode {
 }
 export const FLOW_TITLE = 'From the falling apple to the universal law';
 export const FLOW: FlowNode[] = [
-  { id: 'apple', kind: 'stage', icon: 'apple', label: 'An apple falls', x: 250, y: 60, next: 'moon', src: { section: '7.3', page: 129 },
+  { id: 'apple', kind: 'stage', icon: 'apple', label: 'An apple falls', x: 135, y: 50, next: 'moon', src: { section: '7.3', page: 129 },
     title: 'Stage 1: an apple falls', text: 'Legend has it that seeing an apple fall from a tree set Newton thinking. Near the earth’s surface every body falls with the acceleration due to gravity, g ≈ 9.8 m s⁻².' },
-  { id: 'moon', kind: 'stage', icon: 'moon', label: 'The moon goes round', x: 250, y: 180, next: 'compare', formula: 'moon', src: { section: '7.3', page: 129 },
+  { id: 'moon', kind: 'stage', icon: 'moon', label: 'The moon goes round', x: 135, y: 150, next: 'compare', formula: 'moon', src: { section: '7.3', page: 129 },
     title: 'Stage 2: the moon goes round the earth', text: 'The moon moves in an orbit of radius $R_m$, so it has a centripetal acceleration towards the earth. Newton reasoned that this, too, is due to the earth’s gravity. With T ≈ 27.3 days and $R_m$ ≈ 3.84 × 10⁸ m, the formula gives about 0.0027 m s⁻².' },
-  { id: 'compare', kind: 'decision', icon: 'scale', label: 'Same pull at the moon?', x: 250, y: 310, yes: 'same', no: 'weaker', src: { section: '7.3', page: 129 },
+  { id: 'compare', kind: 'decision', icon: 'scale', label: 'Same pull at the moon?', x: 135, y: 265, yes: 'same', no: 'weaker', src: { section: '7.3', page: 129 },
     title: 'Decision: is the earth’s pull the same at the moon’s distance?', ask: 'The apple’s acceleration is 9.8 m s⁻². The moon’s is about 0.0027 m s⁻². Is the earth’s pull the same at both distances?',
     text: 'Compare the two accelerations before you choose.' },
-  { id: 'same', kind: 'wrong', icon: 'apple', label: 'Then the moon would fall like the apple', x: 470, y: 310, next: 'compare', src: { section: '7.3', page: 129 },
+  { id: 'same', kind: 'wrong', icon: 'apple', label: 'Then the moon would fall like the apple', x: 380, y: 265, next: 'compare', src: { section: '7.3', page: 129 },
     title: 'Not this way', text: 'If the pull were the same, the moon’s acceleration would also be 9.8 m s⁻². It is much smaller. Go back and choose again.' },
-  { id: 'weaker', kind: 'stage', icon: 'down', label: 'The pull weakens with distance', x: 250, y: 450, next: 'inverse', src: { section: '7.3', page: 130 },
+  { id: 'weaker', kind: 'stage', icon: 'down', label: 'The pull weakens with distance', x: 135, y: 385, next: 'inverse', src: { section: '7.3', page: 130 },
     title: 'Stage 3: the force due to earth’s gravity decreases with distance', text: 'The moon’s acceleration is much smaller than g. This clearly shows that the force due to the earth’s gravity decreases with distance. The question is: how fast?' },
-  { id: 'inverse', kind: 'stage', icon: 'law', label: 'Try the inverse square', x: 250, y: 570, next: 'law', src: { section: '7.3', page: 130 },
+  { id: 'inverse', kind: 'stage', icon: 'law', label: 'Try the inverse square', x: 135, y: 485, next: 'law', src: { section: '7.3', page: 130 },
     title: 'Stage 4: assume the inverse square of the distance', text: 'If the force falls as the inverse square of the distance from the centre of the earth, then $g / a_m$ should equal $R_m^2 / R_E^2$, which is about 3600. Measured values agree: 9.8 ÷ 0.0027 is about 3600.' },
-  { id: 'law', kind: 'result', icon: 'earth', label: 'Universal law of gravitation', x: 250, y: 690, formula: 'law', src: { section: '7.3', page: 130 },
+  { id: 'law', kind: 'result', icon: 'earth', label: 'Universal law of gravitation', x: 135, y: 585, formula: 'law', src: { section: '7.3', page: 130 },
     title: 'Result: the universal law of gravitation', text: 'These observations led Newton to propose the law: every body in the universe attracts every other body with a force directly proportional to the product of their masses and inversely proportional to the square of the distance between them.' },
 ];
 export const FLOW_CHECK: { question: string; choices: Choice[] } = {

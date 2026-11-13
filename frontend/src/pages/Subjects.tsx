@@ -48,7 +48,7 @@ export function Subjects() {
       {subjects.loading && <Loading />}
       {subjects.error && <ErrorBox error={subjects.error} onRetry={subjects.reload} />}
       {subjects.data && groups.length === 0 && <Empty icon={<SearchX />}>No subjects match “{q}”. Try a shorter word or the paper code.</Empty>}
-      <div className="space-y-8">
+      <div className="space-y-6">
         {groups.map(([group, list]) => (
           <section key={group} aria-labelledby={`g-${group}`}>
             <h2 id={`g-${group}`} className="mb-2.5 flex items-baseline gap-2 text-base font-semibold text-ink">

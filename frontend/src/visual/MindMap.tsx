@@ -9,11 +9,11 @@ import { flatten, layoutMap, MapDrawing } from './mapdraw';
 export function IdeaCard({ node, color, onStep }: { node: MapNode; color: string; onStep?: (step: string) => void }) {
   const f = node.formula ? FORMULAS[node.formula] : null;
   return (
-    <div className="rounded-xl border border-rule bg-surface p-4" data-idea={node.id} aria-live="polite">
+    <div className="rounded-lg border border-rule bg-surface p-4" data-idea={node.id} aria-live="polite">
       <div className="flex items-center gap-2.5">
         <svg viewBox="-16 -16 32 32" className="size-9 shrink-0" aria-hidden>
-          <circle r={15} fill={color} />
-          <Glyph name={node.icon} />
+          <rect x={-15} y={-15} width={30} height={30} rx={5} fill="white" stroke={color} strokeWidth={1.3} />
+          <Glyph name={node.icon} color={color} />
         </svg>
         <h3 className="text-base font-semibold text-ink">{node.label}</h3>
       </div>
@@ -157,7 +157,7 @@ export function MindMap({ root, onStep, startOpen = true }: { root: MapNode; onS
       </div>
 
       {mode === 'map' ? (
-        <div className="overflow-hidden rounded-xl border border-rule bg-[#f8fafd]">
+        <div className="overflow-hidden rounded-lg border border-rule bg-white">
           <svg
             ref={svg}
             viewBox={vb}
@@ -177,13 +177,13 @@ export function MindMap({ root, onStep, startOpen = true }: { root: MapNode; onS
           </svg>
         </div>
       ) : (
-        <ul className="overflow-hidden rounded-xl border border-rule bg-surface" data-map-list>
+        <ul className="overflow-hidden rounded-lg border border-rule bg-surface" data-map-list>
           {all.map((a) => (
             <li key={a.node.id} className="border-t border-rule first:border-t-0">
               <button type="button" onClick={() => setSelected(a.node.id)} aria-pressed={selected === a.node.id} className={`flex w-full items-center gap-2.5 py-2.5 pr-4 text-left hover:bg-paper ${selected === a.node.id ? 'bg-accent-soft' : ''}`} style={{ paddingLeft: 16 + a.depth * 22 }}>
                 <svg viewBox="-16 -16 32 32" className="size-7 shrink-0" aria-hidden>
-                  <circle r={15} fill={a.color} />
-                  <Glyph name={a.node.icon} />
+                  <rect x={-15} y={-15} width={30} height={30} rx={5} fill="white" stroke={a.color} strokeWidth={1.3} />
+                  <Glyph name={a.node.icon} color={a.color} />
                 </svg>
                 <span className={`text-[15px] text-ink ${a.depth < 2 ? 'font-semibold' : ''}`}>{a.node.label}</span>
               </button>

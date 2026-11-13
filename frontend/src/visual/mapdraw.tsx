@@ -2,14 +2,15 @@
 /** @jsxImportSource react */
 /**
  * Mind map: where each idea goes, and how it is drawn. No state here: the interactive map and the PDF both use it.
- * The centre is in the middle; main branches go right and left, each in its own colour; their ideas fan out beyond.
+ * The centre is in the middle; main branches go right and left, each with its own restrained colour; their ideas fan
+ * out beyond. Ideas are set as labels on fine rules, with small line drawings, not as coloured bubbles.
  */
 import type { KeyboardEvent, ReactNode } from 'react';
-import { Glyph, INK } from './art';
+import { Glyph, INK, NAVY } from './art';
 import type { MapNode } from './gravitation';
 
-export const BRANCH_COLORS = ['#2347a8', '#1d7a4b', '#a86100', '#8b3fa8', '#0f766e', '#b42318'];
-const ROW = 62;
+export const BRANCH_COLORS = ['#1f3b73', '#0e7490', '#7a5a1e', '#5b4a8a', '#3f6212', '#9a3412'];
+const ROW = 60;
 const BRANCH_X = 250;
 const LEAF_X = 520;
 
@@ -19,7 +20,7 @@ export interface Placed { node: MapNode; x: number; y: number; depth: number; si
 export function layoutMap(root: MapNode, closed: Set<string>): { nodes: Placed[]; box: { x: number; y: number; w: number; h: number } } {
   const branches = root.children ?? [];
   const half = Math.ceil(branches.length / 2);
-  const centre: Placed = { node: root, x: 0, y: 0, depth: 0, side: 1, color: INK, parent: null, hidden: 0 };
+  const centre: Placed = { node: root, x: 0, y: 0, depth: 0, side: 1, color: NAVY, parent: null, hidden: 0 };
   const nodes: Placed[] = [centre];
   for (const side of [1, -1] as const) {
     const mine = side === 1 ? branches.slice(0, half) : branches.slice(half);
@@ -38,7 +39,7 @@ export function layoutMap(root: MapNode, closed: Set<string>): { nodes: Placed[]
   }
   const xs = nodes.map((n) => n.x);
   const ys = nodes.map((n) => n.y);
-  const pad = { x: 190, y: 80 };
+  const pad = { x: 200, y: 84 };
   const x = Math.min(...xs) - pad.x;
   const y = Math.min(...ys) - pad.y;
   return { nodes, box: { x, y, w: Math.max(...xs) + pad.x - x, h: Math.max(...ys) + pad.y - y } };
@@ -58,8 +59,9 @@ const wrap = (label: string, max: number): string[] => {
 };
 
 export interface MapHandlers { onPick?: (id: string) => void; onToggle?: (id: string) => void }
+const HALF = 104;
 
-/** The drawing: curved, coloured branches and the ideas on them. With handlers it is interactive; without, it is a picture. */
+/** The drawing: fine curved branches and the ideas on them. With handlers it is interactive; without, it is a picture. */
 export function MapDrawing({ nodes, selected, handlers }: { nodes: Placed[]; selected?: string | null; handlers?: MapHandlers }) {
   const live = Boolean(handlers?.onPick);
   const key = (id: string, hasKids: boolean) => (e: KeyboardEvent) => {
@@ -83,10 +85,12 @@ export function MapDrawing({ nodes, selected, handlers }: { nodes: Placed[]; sel
     <g fontFamily="inherit">
       {nodes.filter((p) => p.parent).map((p) => {
         const a = p.parent!;
-        const x1 = a.x + (p.depth === 1 ? p.side * 58 : p.side * 104);
-        const x2 = p.x - p.side * (p.depth === 1 ? 104 : 20);
+        const x1 = a.x + (p.depth === 1 ? p.side * 64 : p.side * HALF);
+        const y1 = p.depth === 1 ? a.y : a.y + 22;
+        const x2 = p.x - p.side * (p.depth === 1 ? HALF : 18);
+        const y2 = p.depth === 1 ? p.y + 22 : p.y;
         const mid = (x1 + x2) / 2;
-        return <path key={`e-${p.node.id}`} d={`M${x1} ${a.y} C${mid} ${a.y} ${mid} ${p.y} ${x2} ${p.y}`} fill="none" stroke={p.color} strokeWidth={p.depth === 1 ? 5 : 2.6} strokeLinecap="round" opacity={0.9} />;
+        return <path key={`e-${p.node.id}`} d={`M${x1} ${y1} C${mid} ${y1} ${mid} ${y2} ${x2} ${y2}`} fill="none" stroke={p.color} strokeWidth={p.depth === 1 ? 2 : 1.3} strokeLinecap="round" opacity={0.85} />;
       })}
       {nodes.map((p) => {
         const on = selected === p.node.id;
@@ -94,16 +98,17 @@ export function MapDrawing({ nodes, selected, handlers }: { nodes: Placed[]; sel
           return interactive(
             p,
             <>
-              <circle r={66} fill={on ? '#1b3888' : '#2347a8'} stroke={on ? '#ffd866' : 'white'} strokeWidth={on ? 5 : 4} />
-              <g transform="translate(0 -14) scale(2)">
-                <Glyph name={p.node.icon} />
+              <circle r={64} fill={on ? '#edf1fa' : 'white'} stroke={NAVY} strokeWidth={on ? 2.6 : 1.6} />
+              <circle r={72} fill="none" stroke={NAVY} strokeWidth={0.7} opacity={0.35} />
+              <g transform="translate(0 -16) scale(1.9)">
+                <Glyph name={p.node.icon} color={NAVY} />
               </g>
-              <text y={30} textAnchor="middle" fontSize={17} fontWeight={700} fill="white">
+              <text y={28} textAnchor="middle" fontSize={16} fontWeight={600} fill={NAVY} letterSpacing={0.2}>
                 {p.node.label}
               </text>
             </>,
           );
-        const lines = wrap(p.node.label, p.depth === 1 ? 18 : 22);
+        const lines = wrap(p.node.label, p.depth === 1 ? 20 : 24);
         if (p.depth === 1) {
           const kids = p.node.children?.length ?? 0;
           return (
@@ -111,22 +116,23 @@ export function MapDrawing({ nodes, selected, handlers }: { nodes: Placed[]; sel
               {interactive(
                 p,
                 <>
-                  <rect x={-104} y={-26} width={208} height={52} rx={26} fill={on ? p.color : 'white'} stroke={p.color} strokeWidth={on ? 3 : 2.5} />
-                  <circle cx={-78} r={19} fill={on ? 'white' : p.color} />
-                  <g transform="translate(-78 0)">
-                    <Glyph name={p.node.icon} color={on ? p.color : 'white'} />
+                  <rect x={-HALF} y={-24} width={HALF * 2} height={46} rx={5} fill={on ? `${p.color}14` : 'transparent'} stroke="transparent" />
+                  <rect x={-HALF + 2} y={-15} width={30} height={30} rx={5} fill="white" stroke={p.color} strokeWidth={1.3} />
+                  <g transform={`translate(${-HALF + 17} 0)`}>
+                    <Glyph name={p.node.icon} color={p.color} />
                   </g>
                   {lines.map((l, i) => (
-                    <text key={i} x={-52} y={(i - (lines.length - 1) / 2) * 16 + 5} fontSize={14} fontWeight={600} fill={on ? 'white' : INK}>
+                    <text key={i} x={-HALF + 42} y={(i - (lines.length - 1) / 2) * 16 + 4.5} fontSize={14} fontWeight={600} fill={INK}>
                       {l}
                     </text>
                   ))}
+                  <line x1={-HALF} x2={HALF} y1={22} y2={22} stroke={p.color} strokeWidth={on ? 3 : 2} strokeLinecap="round" />
                 </>,
               )}
               {kids > 0 && live && (
-                <g role="button" tabIndex={0} aria-label={p.hidden ? `Open ${p.node.label}: ${kids} ideas` : `Fold ${p.node.label}`} data-map-toggle={p.node.id} onClick={() => handlers?.onToggle?.(p.node.id)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), handlers?.onToggle?.(p.node.id))} transform={`translate(${p.side * 118} 0)`} style={{ cursor: 'pointer', outline: 'none' }} className="vl-node">
-                  <circle r={13} fill="white" stroke={p.color} strokeWidth={2} />
-                  <text textAnchor="middle" y={4.5} fontSize={p.hidden ? 12 : 16} fontWeight={700} fill={p.color}>
+                <g role="button" tabIndex={0} aria-label={p.hidden ? `Open ${p.node.label}: ${kids} ideas` : `Fold ${p.node.label}`} data-map-toggle={p.node.id} onClick={() => handlers?.onToggle?.(p.node.id)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), handlers?.onToggle?.(p.node.id))} transform={`translate(${p.side * (HALF + 16)} 22)`} style={{ cursor: 'pointer', outline: 'none' }} className="vl-node">
+                  <circle r={11} fill="white" stroke={p.color} strokeWidth={1.4} />
+                  <text textAnchor="middle" y={4} fontSize={p.hidden ? 11 : 15} fontWeight={600} fill={p.color}>
                     {p.hidden ? `+${p.hidden}` : '−'}
                   </text>
                 </g>
@@ -134,22 +140,24 @@ export function MapDrawing({ nodes, selected, handlers }: { nodes: Placed[]; sel
             </g>
           );
         }
-        // An idea on a branch: a small round badge and its words on a coloured underline. No box.
-        const w = Math.max(...lines.map((l) => l.length)) * 7.2 + 34;
+        // An idea on a branch: a small ringed drawing and its words on a fine rule.
+        const w = Math.max(...lines.map((l) => l.length)) * 7 + 36;
         return (
           <g key={`l-${p.node.id}`} transform={`translate(${p.x} ${p.y})`}>
             {interactive(
               p,
               <>
-                <rect x={p.side === 1 ? -22 : -w + 22} y={-24} width={w} height={48} rx={10} fill={on ? `${p.color}22` : 'transparent'} />
-                <circle r={15} fill={p.color} stroke={on ? '#ffd866' : 'none'} strokeWidth={3} />
-                <Glyph name={p.node.icon} />
+                <rect x={p.side === 1 ? -20 : -w + 20} y={-22} width={w} height={44} rx={5} fill={on ? `${p.color}14` : 'transparent'} stroke="transparent" />
+                <circle r={14} fill="white" stroke={p.color} strokeWidth={on ? 2.2 : 1.2} />
+                <g transform="scale(0.82)">
+                  <Glyph name={p.node.icon} color={p.color} />
+                </g>
                 {lines.map((l, i) => (
-                  <text key={i} x={p.side * 24} y={(i - (lines.length - 1) / 2) * 15 + 4} fontSize={13} fontWeight={on ? 700 : 500} fill={INK} textAnchor={p.side === 1 ? 'start' : 'end'}>
+                  <text key={i} x={p.side * 24} y={(i - (lines.length - 1) / 2) * 15 + 4} fontSize={13} fontWeight={on ? 600 : 500} fill={INK} textAnchor={p.side === 1 ? 'start' : 'end'}>
                     {l}
                   </text>
                 ))}
-                <line x1={p.side * 22} x2={p.side * (w - 14)} y1={lines.length > 1 ? 22 : 13} y2={lines.length > 1 ? 22 : 13} stroke={p.color} strokeWidth={2} strokeLinecap="round" opacity={0.7} />
+                <line x1={p.side * 22} x2={p.side * (w - 16)} y1={lines.length > 1 ? 21 : 13} y2={lines.length > 1 ? 21 : 13} stroke={p.color} strokeWidth={1} opacity={0.7} />
               </>,
             )}
           </g>
@@ -161,7 +169,7 @@ export function MapDrawing({ nodes, selected, handlers }: { nodes: Placed[]; sel
 
 /** Every idea in the map, flat, with its branch colour: for the list view and for looking one up by id. */
 export function flatten(root: MapNode): { node: MapNode; depth: number; color: string; parent: MapNode | null }[] {
-  const out: { node: MapNode; depth: number; color: string; parent: MapNode | null }[] = [{ node: root, depth: 0, color: '#2347a8', parent: null }];
+  const out: { node: MapNode; depth: number; color: string; parent: MapNode | null }[] = [{ node: root, depth: 0, color: NAVY, parent: null }];
   (root.children ?? []).forEach((b, i) => {
     const color = BRANCH_COLORS[i % BRANCH_COLORS.length]!;
     out.push({ node: b, depth: 1, color, parent: root });

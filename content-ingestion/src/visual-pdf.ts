@@ -13,9 +13,9 @@ import { pathToFileURL } from 'node:url';
 import katex from 'katex';
 import { createElement as h, type ReactElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { HeightDepthFigure, InverseSquareFigure, PairScene, TreeScene } from '../../frontend/src/visual/art';
+import { FallScene, fallTime, HeightDepthFigure, InverseSquareFigure, PairScene } from '../../frontend/src/visual/art';
 import { FLOW_BOX, FlowDrawing } from '../../frontend/src/visual/flowdraw';
-import { FLOW, FLOW_CHECK, FLOW_TITLE, FORMULAS, KEY_POINTS, MIND_MAP, NOTES, QUESTION, QUIZ, SOURCE, TITLE } from '../../frontend/src/visual/gravitation';
+import { FLOW, FLOW_CHECK, FLOW_TITLE, FORMULAS, KEY_POINTS, MIND_MAP, NOTES, QUESTION, QUIZ, SIM, SOURCE, TITLE } from '../../frontend/src/visual/gravitation';
 import { flatten, layoutMap, MapDrawing } from '../../frontend/src/visual/mapdraw';
 
 const require = createRequire(import.meta.url);
@@ -38,9 +38,9 @@ export function visualHtml(): string {
   const mapSvg = svg(h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: `${map.box.x} ${map.box.y} ${map.box.w} ${map.box.h}`, style: { fontFamily: '"IBM Plex Sans", sans-serif' } }, h(MapDrawing, { nodes: map.nodes })));
   const flowSvg = svg(h('svg', { xmlns: 'http://www.w3.org/2000/svg', viewBox: `0 0 ${FLOW_BOX.w} ${FLOW_BOX.h}`, style: { fontFamily: '"IBM Plex Sans", sans-serif' } }, h(FlowDrawing, { nodes: FLOW, visited: new Set(FLOW.map((n) => n.id)) })));
   const figure = (kind: string) =>
-    kind === 'fall' ? svg(h(TreeScene, { fallen: true, showForce: true, showMarks: true, still: true })) : kind === 'pair' ? svg(h(PairScene, {})) : kind === 'inverse' ? svg(h(InverseSquareFigure, {})) : svg(h(HeightDepthFigure, {}));
+    kind === 'fall' ? svg(h(FallScene, { id: 'pdf-fall', h: 3, s: 3, v: SIM.g * fallTime(3, SIM.g), m: SIM.mass.start, g: SIM.g, released: true, marks: [1, 2, 3, 4, 5, 6, 7].map((k) => 0.5 * SIM.g * (k * 0.1) ** 2) })) : kind === 'pair' ? svg(h(PairScene, { id: 'pdf-pair' })) : kind === 'inverse' ? svg(h(InverseSquareFigure, {})) : svg(h(HeightDepthFigure, {}));
   const caption: Record<string, string> = {
-    fall: 'Figure: the apple falls straight down. In equal time steps it covers more and more distance, because it accelerates.',
+    fall: 'Figure: an apple dropped from 3 m. The dashed outlines show its position every 0.1 s: the gaps grow, because it accelerates. The force F = mg and the acceleration g point towards the earth.',
     pair: 'Figure: the earth pulls the apple and the apple pulls the earth with forces of the same size, along the line joining them. Not to scale.',
     inverse: 'Figure: the force falls as the square of the distance.',
     heightdepth: 'Figure: a body above the surface and a body below it.',
@@ -104,7 +104,7 @@ export function visualHtml(): string {
   .page { break-before: page; }
   .diagram { break-inside: avoid; border: 1px solid #d5dae2; border-radius: 6pt; background: #f8fafd; padding: 4pt; }
   .diagram svg { display: block; width: 100%; height: auto; }
-  .diagram.flow { width: 82mm; float: left; margin: 0 10pt 6pt 0; }
+  .diagram.flow { width: 76mm; float: left; margin: 0 10pt 6pt 0; }
   .mapblock { break-inside: avoid; margin-top: 4pt; }
   .ideas { columns: 2; column-gap: 14pt; font-size: 9.5pt; margin-top: 6pt; }
   .idea { break-inside: avoid; margin-bottom: 6pt; padding-left: 7pt; border-left: 3pt solid #2347a8; }

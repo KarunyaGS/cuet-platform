@@ -10,7 +10,7 @@ export function Check({ question, choices, name }: { question: string; choices: 
   const [picked, setPicked] = useState<number | null>(null);
   const chosen = picked === null ? null : choices[picked]!;
   return (
-    <fieldset className="rounded-xl border border-rule bg-surface p-4" data-check={name} data-answered={chosen ? (chosen.correct ? 'right' : 'wrong') : undefined}>
+    <fieldset className="rounded-lg border border-rule bg-surface p-4" data-check={name} data-answered={chosen ? (chosen.correct ? 'right' : 'wrong') : undefined}>
       <legend className="px-1 text-[15px] font-semibold text-ink">{question}</legend>
       <div className="mt-1 space-y-2">
         {choices.map((c, i) => {
@@ -22,7 +22,7 @@ export function Check({ question, choices, name }: { question: string; choices: 
               role="radio"
               aria-checked={on}
               onClick={() => setPicked(i)}
-              className={`flex w-full items-start gap-3 rounded-xl border px-3.5 py-2.5 text-left text-[15px] text-ink transition-colors ${on ? (c.correct ? 'border-correct bg-correct-soft' : 'border-wrong bg-wrong-soft') : 'border-rule hover:border-rule-strong hover:bg-paper'}`}
+              className={`flex w-full items-start gap-3 rounded-md border px-3.5 py-2 text-left text-[15px] text-ink transition-colors ${on ? (c.correct ? 'border-correct bg-correct-soft' : 'border-wrong bg-wrong-soft') : 'border-rule hover:border-rule-strong hover:bg-paper'}`}
             >
               <span aria-hidden className={`mt-0.5 grid size-6 shrink-0 place-items-center rounded-full border text-xs font-semibold ${on ? (c.correct ? 'border-correct bg-correct text-white' : 'border-wrong bg-wrong text-white') : 'border-rule-strong text-ink-2'}`}>
                 {String.fromCharCode(65 + i)}
@@ -53,14 +53,14 @@ export function Flowchart({ nodes, title, check }: { nodes: FlowNode[]; title: s
   const stages = nodes.filter((n) => n.kind !== 'wrong');
   const done = current.kind === 'result';
   return (
-    <div className="grid grid-cols-1 gap-5 md:grid-cols-[minmax(0,24rem)_minmax(0,1fr)]" data-flowchart data-current={current.id}>
-      <div className="overflow-hidden rounded-xl border border-rule bg-[#f8fafd]">
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:grid-cols-[minmax(0,29rem)_minmax(0,1fr)]" data-flowchart data-current={current.id}>
+      <div className="overflow-hidden rounded-lg border border-rule bg-white">
         <svg viewBox={`0 0 ${FLOW_BOX.w} ${FLOW_BOX.h}`} className="block h-auto w-full" role="group" aria-label={`Flowchart: ${title}. ${stages.length} stages. You are at: ${current.label}.`}>
           <FlowDrawing nodes={nodes} current={current.id} visited={visited} onPick={go} />
         </svg>
       </div>
       <div className="min-w-0">
-        <div key={current.id} className="vl-fade rounded-xl border border-rule bg-surface p-4" data-flow-panel aria-live="polite">
+        <div key={current.id} className="vl-fade rounded-lg border border-rule bg-surface p-4" data-flow-panel aria-live="polite">
           <h3 className="text-base font-semibold text-ink">{current.title}</h3>
           <p className="mt-2 text-[15px] leading-relaxed text-ink">
             <Rich text={current.kind === 'decision' ? current.ask : current.text} inline />

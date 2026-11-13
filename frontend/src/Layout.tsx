@@ -1,4 +1,4 @@
-import { CreditCard, FileText, Megaphone, Search, ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { BookOpen, ChevronDown, CreditCard, FileText, GalleryVerticalEnd, GraduationCap, Highlighter, Megaphone, PencilLine, Search, ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
@@ -18,14 +18,14 @@ export function Logo() {
 }
 
 /** Top-bar link: quiet text, with a short accent rule under the current page. */
-function TopLink({ to, children, end }: { to: string; children: ReactNode; end?: boolean }) {
+function TopLink({ to, children, end, active }: { to: string; children: ReactNode; end?: boolean; active?: boolean }) {
   return (
     <NavLink
       to={to}
       end={end}
       className={({ isActive }) =>
         `relative flex h-14 items-center px-3 text-sm font-medium transition-colors ${
-          isActive ? 'text-ink after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:bg-accent' : 'text-ink-2 hover:text-ink'
+          (active ?? isActive) ? 'text-ink after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:bg-accent' : 'text-ink-2 hover:text-ink'
         }`
       }
     >
@@ -35,18 +35,110 @@ function TopLink({ to, children, end }: { to: string; children: ReactNode; end?:
 }
 
 /** Phone tab bar item. */
-function TabLink({ to, icon, label, end }: { to: string; icon: ReactNode; label: string; end?: boolean }) {
+function TabLink({ to, icon, label, end, active }: { to: string; icon: ReactNode; label: string; end?: boolean; active?: boolean }) {
   return (
-    <NavLink
-      to={to}
-      end={end}
-      className={({ isActive }) => `flex flex-1 flex-col items-center gap-0.5 pt-2 pb-1.5 text-[11px] font-medium ${isActive ? 'text-accent' : 'text-ink-3'}`}
-    >
+    <NavLink to={to} end={end} className={({ isActive }) => `flex flex-1 flex-col items-center gap-0.5 pt-2 pb-1.5 text-[11px] font-medium ${(active ?? isActive) ? 'text-accent' : 'text-ink-3'}`}>
       <span aria-hidden className="[&>svg]:size-5">
         {icon}
       </span>
       {label}
     </NavLink>
+  );
+}
+
+interface MenuItem { to: string; label: string; hint: string; icon: ReactNode }
+/** Learn: the two examinations. Each opens its subjects, units, chapters and topics. */
+const LEARN: MenuItem[] = [
+  { to: '/CUET_UG', label: 'CUET UG', hint: 'Undergraduate: subjects, units and topics', icon: <BookOpen aria-hidden /> },
+  { to: '/CUET_PG', label: 'CUET PG', hint: 'Postgraduate: subjects, units and topics', icon: <GraduationCap aria-hidden /> },
+];
+/** My Learning: everything that is the student's own. Each item opens a page that already exists. */
+const MY: MenuItem[] = [
+  { to: '/dashboard', label: 'Today', hint: 'What to do next, and what is due', icon: <CalendarCheck2 aria-hidden /> },
+  { to: '/bookmarks', label: 'My Bookmarks', hint: 'Everything you saved', icon: <Bookmark aria-hidden /> },
+  { to: '/bookmarks?tab=notes', label: 'Highlights and Notes', hint: 'What you marked in lessons and questions', icon: <Highlighter aria-hidden /> },
+  { to: '/bookmarks/review', label: 'Revision Cards', hint: 'Revise the cards that are due', icon: <GalleryVerticalEnd aria-hidden /> },
+  { to: '/planner', label: 'Study Planner', hint: 'Your plan, day by day', icon: <CalendarDays aria-hidden /> },
+  { to: '/progress', label: 'Learning Progress', hint: 'Accuracy, coverage and weak topics', icon: <ChartNoAxesColumn aria-hidden /> },
+];
+const startsWithAny = (path: string, list: string[]) => list.some((p) => path === p || path.startsWith(`${p}/`));
+/** Which top-level group the current page belongs to, so the header can show where the student is. */
+export const navGroup = (path: string): 'home' | 'learn' | 'practice' | 'my' | null =>
+  path === '/' ? 'home'
+    : startsWithAny(path, ['/CUET_UG', '/CUET_PG', '/topic', '/learn', '/revise', '/visual', '/search']) ? 'learn'
+    : startsWithAny(path, ['/practice-centre', '/pyq', '/results', '/past-papers']) ? 'practice'
+    : startsWithAny(path, ['/dashboard', '/bookmarks', '/planner', '/progress', '/report', '/flashcards']) ? 'my'
+    : null;
+
+/**
+ * A menu in the navigation. In the top bar it drops down; in the phone's bottom bar (`up`) it opens upward as a sheet.
+ * It closes on a choice, on Escape and on a tap outside, and its items can be reached with the arrow keys.
+ */
+function NavMenu({ label, items, active, up = false, icon }: { label: string; items: MenuItem[]; active: boolean; up?: boolean; icon?: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  useEffect(() => setOpen(false), [location.pathname, location.search]);
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: Event) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        ref.current?.querySelector('button')?.focus();
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        const links = [...(ref.current?.querySelectorAll<HTMLElement>('[role=menuitem]') ?? [])];
+        if (!links.length) return;
+        e.preventDefault();
+        const at = links.indexOf(document.activeElement as HTMLElement);
+        links[(at + (e.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length]!.focus();
+      }
+    };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('touchstart', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('touchstart', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+  const here = `${location.pathname}${location.search}`;
+  return (
+    <div ref={ref} className={up ? 'flex flex-1' : 'relative'} data-nav-menu={label}>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        className={
+          up
+            ? `flex flex-1 flex-col items-center gap-0.5 pt-2 pb-1.5 text-[11px] font-medium ${active || open ? 'text-accent' : 'text-ink-3'}`
+            : `relative flex h-14 items-center gap-1 px-3 text-sm font-medium transition-colors ${active ? 'text-ink after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:bg-accent' : 'text-ink-2 hover:text-ink'}`
+        }
+      >
+        {up && (
+          <span aria-hidden className="[&>svg]:size-5">
+            {icon}
+          </span>
+        )}
+        {label}
+        {!up && <ChevronDown aria-hidden className={`size-3.5 text-ink-3 transition-transform ${open ? 'rotate-180' : ''}`} />}
+      </button>
+      {open && (
+        <div role="menu" aria-label={label} className={up ? 'absolute inset-x-0 bottom-full border-t border-rule bg-surface p-2 shadow-[0_-8px_24px_-12px_rgb(26_34_51/0.25)]' : 'absolute left-0 z-40 mt-0 w-72 rounded-xl border border-rule bg-surface p-1.5 shadow-lg shadow-ink/5'}>
+          {items.map((it) => (
+            <Link key={it.to} role="menuitem" to={it.to} aria-current={here === it.to ? 'page' : undefined} className={`flex items-start gap-3 rounded-lg px-2.5 py-2 hover:bg-paper focus-visible:bg-paper ${here === it.to ? 'bg-accent-soft' : ''}`}>
+              <span className="mt-0.5 shrink-0 text-accent [&>svg]:size-[18px]">{it.icon}</span>
+              <span className="min-w-0">
+                <span className="block text-sm font-medium text-ink">{it.label}</span>
+                <span className="block text-xs text-ink-3">{it.hint}</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -103,10 +195,6 @@ function UserMenu() {
               <UserRound aria-hidden />
               Profile and goals
             </Link>
-            <Link role="menuitem" to="/bookmarks" className={item}>
-              <Bookmark aria-hidden />
-              My bookmarks
-            </Link>
             <Link role="menuitem" to="/updates" className={item}>
               <Megaphone aria-hidden />
               Government updates
@@ -158,6 +246,9 @@ export function Layout() {
   // Tests run in focus mode: no app navigation, only the way out.
   const focus = path.startsWith('/practice/');
   const wide = path.startsWith('/review') || path.startsWith('/admin');
+  const group = navGroup(path);
+  // One page container for the whole app: wide enough to use a desktop screen, with the same gutters everywhere.
+  const shell = wide ? 'max-w-[96rem]' : 'max-w-[84rem]';
 
   return (
     <div className="min-h-dvh">
@@ -165,7 +256,7 @@ export function Layout() {
         Skip to content
       </a>
       <header className="sticky top-0 z-30 border-b border-rule bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
-        <div className={`mx-auto flex h-14 items-center gap-2 px-4 sm:px-6 ${wide ? 'max-w-[96rem]' : 'max-w-6xl'}`}>
+        <div className={`mx-auto flex h-14 items-center gap-2 px-4 sm:px-6 lg:px-8 ${shell}`}>
           {focus ? (
             <>
               <Logo />
@@ -183,15 +274,11 @@ export function Layout() {
                 <TopLink to="/" end>
                   Home
                 </TopLink>
-                <TopLink to="/dashboard">Today</TopLink>
-                <TopLink to="/CUET_UG">CUET-UG</TopLink>
-                <TopLink to="/CUET_PG">CUET-PG</TopLink>
-                <TopLink to="/practice-centre">Practice</TopLink>
-                <TopLink to="/planner">Planner</TopLink>
-                <TopLink to="/progress">Progress</TopLink>
-                <span className="hidden 2xl:contents">
-                  <TopLink to="/updates">Updates</TopLink>
-                </span>
+                <NavMenu label="Learn" items={LEARN} active={group === 'learn'} />
+                <TopLink to="/practice-centre" active={group === 'practice'}>
+                  Practice
+                </TopLink>
+                <NavMenu label="My Learning" items={MY} active={group === 'my'} />
               </nav>
               <div className="ml-auto flex items-center gap-1">
                 <NavLink
@@ -202,19 +289,11 @@ export function Layout() {
                   <Search aria-hidden className="size-[18px]" />
                   <span className="sr-only">Search the syllabus</span>
                 </NavLink>
-                <NavLink
-                  to="/updates"
-                  title="Latest government updates"
-                  className={({ isActive }) => `grid size-9 place-items-center rounded-full transition-colors 2xl:hidden ${isActive ? 'bg-accent-soft text-accent' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
-                >
-                  <Megaphone aria-hidden className="size-[18px]" />
-                  <span className="sr-only">Latest government updates</span>
-                </NavLink>
                 <RemindersBell />
                 <NavLink
                   to="/bookmarks"
                   title="My bookmarks"
-                  className={({ isActive }) => `hidden size-9 place-items-center rounded-full transition-colors md:grid ${isActive ? 'bg-accent-soft text-accent' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
+                  className={({ isActive }) => `grid size-9 place-items-center rounded-full transition-colors ${isActive ? 'bg-accent-soft text-accent' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
                 >
                   <Bookmark aria-hidden className="size-[18px]" />
                   <span className="sr-only">My bookmarks</span>
@@ -226,17 +305,16 @@ export function Layout() {
         </div>
       </header>
 
-      <main id="main" key={path} className={`page-in mx-auto px-4 pt-6 pb-28 sm:px-6 md:pb-12 ${wide ? 'max-w-[96rem]' : 'max-w-6xl'}`}>
+      <main id="main" key={path} className={`page-in mx-auto px-4 pt-5 pb-28 sm:px-6 md:pb-12 lg:px-8 ${shell}`}>
         <Outlet />
       </main>
 
       {!focus && (
         <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-30 flex border-t border-rule bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
           <TabLink to="/" end icon={<House />} label="Home" />
-          <TabLink to="/dashboard" icon={<CalendarCheck2 />} label="Today" />
-          <TabLink to="/planner" icon={<CalendarDays />} label="Planner" />
-          <TabLink to="/bookmarks" icon={<Bookmark />} label="Saved" />
-          <TabLink to="/progress" icon={<ChartNoAxesColumn />} label="Progress" />
+          <NavMenu up label="Learn" items={LEARN} active={group === 'learn'} icon={<BookOpen />} />
+          <TabLink to="/practice-centre" icon={<PencilLine />} label="Practice" active={group === 'practice'} />
+          <NavMenu up label="My Learning" items={MY} active={group === 'my'} icon={<UserRound />} />
         </nav>
       )}
     </div>

@@ -92,7 +92,7 @@ export function PlansPage() {
   };
 
   return (
-    <div className="max-w-4xl">
+    <div className="mx-auto max-w-4xl">
       <PageHeader title="Plans and payments" subtitle="One payment gives access for a fixed time. Nothing renews by itself and no further payment is taken." />
       {d.testMode && d.paymentsAvailable && (
         <p className="mb-5 flex items-start gap-2 rounded-lg border border-marker/30 bg-marker-soft px-3.5 py-2.5 text-sm text-marker">

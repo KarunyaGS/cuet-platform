@@ -103,7 +103,7 @@ export function PastPaperPage() {
   };
   const asked = Math.ceil((p.durationMinutes * p.questions) / p.questionsInPaper);
   return (
-    <div className="max-w-3xl">
+    <div className="mx-auto max-w-3xl">
       <PageHeader title={p.title} subtitle={[p.exam === 'CUET_PG' ? 'CUET-PG' : 'CUET-UG', p.year, when(p)].filter(Boolean).join(' · ')} back={{ to: `/past-papers?exam=${p.exam}`, label: 'Official previous-year papers' }} />
       <p className="-mt-3 mb-4">
         <Badge tone="accent">Official previous-year paper</Badge>

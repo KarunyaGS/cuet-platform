@@ -49,7 +49,7 @@ export function ResultsPage() {
         }
       />
 
-      <section aria-label="Score" className="grid-cols-1 mb-10 grid overflow-hidden rounded-xl border border-rule bg-surface md:grid-cols-[16rem_minmax(0,1fr)]">
+      <section aria-label="Score" className="grid-cols-1 mb-7 grid overflow-hidden rounded-xl border border-rule bg-surface md:grid-cols-[16rem_minmax(0,1fr)]">
         <div className="border-b border-rule p-5 md:border-r md:border-b-0">
           <div className="text-sm text-ink-2">Score</div>
           <div className="num mt-1 text-4xl font-semibold text-ink">

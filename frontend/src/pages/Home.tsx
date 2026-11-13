@@ -63,7 +63,7 @@ export function Home() {
 
   return (
     <div>
-      <header className="mb-8">
+      <header className="mb-6">
         <h1 className="text-2xl font-semibold text-ink sm:text-[1.75rem]">
           {greeting()}, {first}
         </h1>
@@ -71,7 +71,7 @@ export function Home() {
       </header>
 
       {d && (resume || last || goal > 0) && (
-        <section aria-label="Continue" className="grid-cols-1 mb-10 grid overflow-hidden rounded-xl border border-rule bg-surface md:grid-cols-[minmax(0,1fr)_18rem]">
+        <section aria-label="Continue" className="grid-cols-1 mb-7 grid overflow-hidden rounded-xl border border-rule bg-surface md:grid-cols-[minmax(0,1fr)_18rem]">
           <div className="min-w-0 p-5">
             <div className="text-sm text-ink-2">{resume ? 'Unfinished test' : last ? 'Continue where you left off' : 'Start today'}</div>
             {resume ? (
@@ -106,7 +106,7 @@ export function Home() {
       )}
 
       {prefs.data && prefs.data.papers.length > 0 && prefs.data.examCode && (
-        <section aria-labelledby="my-subjects" className="mb-10">
+        <section aria-labelledby="my-subjects" className="mb-7">
           <SectionTitle
             id="my-subjects"
             action={
@@ -131,7 +131,7 @@ export function Home() {
         </section>
       )}
       {prefs.data && !prefs.data.set && (
-        <Link to="/profile" className="mb-10 flex items-center gap-3 rounded-xl border border-dashed border-rule-strong px-5 py-4 text-sm text-ink-2 hover:border-accent/50 hover:text-ink">
+        <Link to="/profile" className="mb-7 flex items-center gap-3 rounded-xl border border-dashed border-rule-strong px-5 py-4 text-sm text-ink-2 hover:border-accent/50 hover:text-ink">
           <Settings2 aria-hidden className="size-5 shrink-0 text-accent" />
           <span>
             <span className="font-medium text-ink">Choose your exam and subjects.</span> Your home page and daily practice will start with them.
