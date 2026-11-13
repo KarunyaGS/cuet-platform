@@ -412,16 +412,16 @@ async function run() {
 
   // Viewing an official document inside the platform, within what the exam body's server and policy allow.
   const viewKey = await call('GET', `/api/learn/official-documents/${keyLink}`);
-  check('a document on NTA\'s CDN is shown in the viewer straight from NTA (our server is not involved)', viewKey.json?.viewer === 'DIRECT' && viewKey.json.fileUrl.startsWith('https://cdnbbsr.s3waas.gov.in/') && (await call('GET', `/api/student/official-documents/${keyLink}/file`, { token: buyer.token })).status === 403);
+  check('in-app viewing is switched off: an official document opens on NTA\'s own website and no file passes through us', viewKey.json?.viewer === 'NEW_TAB' && viewKey.json.fileUrl === null && viewKey.json.originalUrl.startsWith('https://cdnbbsr.s3waas.gov.in/') && (await call('GET', `/api/student/official-documents/${keyLink}/file`, { token: buyer.token })).status === 403);
   await admin('POST', '/api/admin/official-papers', { schema: 'cuet-official-links/1', links: [{ exam: 'CUET_PG', year: 2031, subjectCode: '~physics', subjectName: 'Physics', session: '2031-03-14 Shift 2', kind: 'QUESTION_PAPER', availability: 'AVAILABLE', url: 'https://nta.ac.in/Download/ExamPaper/Paper_trace.pdf', title: 'Physics 14th March 2031 Shift 2', checkedOn: '2026-11-13' }] });
   const paperLink = one("SELECT id FROM official_paper_links WHERE year = 2031 AND exam_code = 'CUET_PG'").id;
   const hiddenDoc = await call('GET', `/api/learn/official-documents/${paperLink}`);
   await call('POST', `/api/console/official-papers/${paperLink}/status`, { token: a.token, body: { action: 'PUBLISH', linkingBasis: 'Trace: sample owner decision', conditionsChecked: true } });
   const paperDoc = await call('GET', `/api/learn/official-documents/${paperLink}`);
   const noFile = await call('GET', `/api/student/official-documents/${paperLink}/file`, { token: buyer.token });
-  check('a paper on nta.ac.in is not embedded without NTA\'s permission: it opens on NTA\'s site, and no file passes through us', hiddenDoc.status === 404 && paperDoc.json?.viewer === 'NEW_TAB' && paperDoc.json.fileUrl === null && paperDoc.json.originalUrl === 'https://nta.ac.in/Download/ExamPaper/Paper_trace.pdf' && noFile.status === 403);
-  const noPermission = await call('POST', `/api/console/official-papers/${paperLink}/status`, { token: a.token, body: { action: 'ALLOW_IN_APP' } });
-  check('in-app viewing of such a paper cannot be switched on without the permission on record', noPermission.status === 409 && noPermission.json.error.code === 'EMBED_BASIS_REQUIRED' && one('SELECT embed_basis AS e FROM official_paper_links WHERE id = ?', paperLink).e === null);
+  check('a question paper on nta.ac.in appears only after its link is published, and then opens on NTA\'s site', hiddenDoc.status === 404 && paperDoc.json?.viewer === 'NEW_TAB' && paperDoc.json.fileUrl === null && paperDoc.json.originalUrl === 'https://nta.ac.in/Download/ExamPaper/Paper_trace.pdf' && noFile.status === 403);
+  const noPermission = await call('POST', `/api/console/official-papers/${paperLink}/status`, { token: a.token, body: { action: 'ALLOW_IN_APP', embedBasis: 'Trace: sample permission text', conditionsChecked: true } });
+  check('in-app viewing cannot be switched on from the console while the master switch is off', noPermission.status === 409 && noPermission.json.error.code === 'IN_APP_VIEWING_OFF' && one('SELECT embed_basis AS e FROM official_paper_links WHERE id = ?', paperLink).e === null);
 
   // The directory of papers actually held: every row is a fact read from the exam body's own answer key.
   const dirPack = { schema: 'cuet-official-directory/1', exam: 'CUET_UG', year: 2032, key: { title: 'CUET (UG) 2032 : Final Answer Keys', url: 'https://cdnbbsr.s3waas.gov.in/s3test/uploads/2032/06/keys.pdf', version: 'FINAL', sha256: 'e'.repeat(64), pages: 30, retrievedAt: '2026-11-13T06:00:00.000Z' }, paper: { status: 'NOT_PUBLISHED', note: 'NTA does not publish the question papers openly.' },

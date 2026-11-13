@@ -94,3 +94,13 @@ Steps to switch on, per document:
 | Table change | migration `0019_official_viewer.sql` (two columns) |
 
 Checked in a browser on a throwaway copy, with sample permission text: the Physics paper (87 pages) loaded from NTA and was paged, zoomed and shown full screen; the UG 2026 key opened at page 26 of 334 straight from NTA's server.
+
+## Current setting: temporary access through NTA's own website (owner's decision, 13 November 2026)
+
+- All 14 CUET-PG 2024 papers stay listed and are marked as published by NTA.
+- A paper's "View paper" action appears once linking permission is confirmed for it and recorded in the admin console. It opens NTA's original on NTA's own website in a new tab.
+- **Embedded viewing is switched off.** The setting `OFFICIAL_IN_APP_VIEWING` is `off` locally and in the production configuration. While it is off, no official document (question paper or answer key, on either NTA host) is shown inside CUET Prep, no file passes through our server, and the admin console does not offer "Allow viewing inside CUET Prep".
+- No PDF is copied, hosted or cached anywhere on the platform. Only the 14 addresses read from NTA's server are stored.
+- Papers NTA has not released keep the label "Not published by NTA".
+
+The integrated viewer is kept in the code and covered by tests. To activate it later, after NTA grants permission to display or reproduce its documents: set `OFFICIAL_IN_APP_VIEWING` to `on`, then record the permission per document in the admin console. Both steps are needed.

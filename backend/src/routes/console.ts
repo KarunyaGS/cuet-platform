@@ -64,8 +64,8 @@ admin.post('/students/reset-link', async (c) => {
 });
 
 // Official links: the list, and the publish switch, which needs the linking basis on record (content:publish).
-admin.get('/official-papers', async (c) => c.json(await listOfficialLinksAdmin(c.env.DB)));
-admin.post('/official-papers/:id/status', async (c) => (needPermission(me(c), 'content:publish', 'publish official links'), c.json(await setOfficialLinkStatus(c.env.DB, c.req.param('id'), await readJson(c, linkActionSchema), c.get('actor')))));
+admin.get('/official-papers', async (c) => c.json(await listOfficialLinksAdmin(c.env.DB, c.env.OFFICIAL_IN_APP_VIEWING === 'on')));
+admin.post('/official-papers/:id/status', async (c) => (needPermission(me(c), 'content:publish', 'publish official links'), c.json(await setOfficialLinkStatus(c.env.DB, c.req.param('id'), await readJson(c, linkActionSchema), c.get('actor'), c.env.OFFICIAL_IN_APP_VIEWING === 'on'))));
 // Our own mock papers: what the blueprint needs, building a draft from approved questions, approval and publishing.
 admin.get('/mock-papers', async (c) => c.json(await listMockPapersAdmin(c.env.DB, c.req.query('paperId') || undefined)));
 admin.get('/mock-papers/readiness/:paperId', async (c) => c.json(await mockPaperReadiness(c.env.DB, c.req.param('paperId'))));

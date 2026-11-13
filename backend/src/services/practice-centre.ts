@@ -108,9 +108,9 @@ export async function listOfficialLinks(db: D1Database, exam: string) {
   return { exam, years: years.map((y) => ({ year: y, items: results.filter((r) => r['year'] === y).map(linkOut) })) };
 }
 
-export async function listOfficialLinksAdmin(db: D1Database) {
+export async function listOfficialLinksAdmin(db: D1Database, inAppViewing = false) {
   const { results } = await db.prepare('SELECT * FROM official_paper_links ORDER BY exam_code, year DESC, kind DESC, subject_name, session').all<LinkRow>();
-  return results.map((r) => ({ ...linkOut(r), status: r['status'], key: r['external_key'], linkingBasis: r['linking_basis'], linkingCheckedBy: r['linking_checked_by'], publishedAt: r['published_at'], embedBasis: r['embed_basis'], viewerMode: r['url'] ? viewerMode(String(r['url']), Boolean(r['embed_basis'])) : null }));
+  return results.map((r) => ({ ...linkOut(r), status: r['status'], key: r['external_key'], linkingBasis: r['linking_basis'], linkingCheckedBy: r['linking_checked_by'], publishedAt: r['published_at'], embedBasis: r['embed_basis'], viewerMode: r['url'] ? viewerMode(String(r['url']), Boolean(r['embed_basis']), inAppViewing) : null, inAppViewing }));
 }
 
 export const linkActionSchema = z.object({
@@ -123,7 +123,7 @@ export const linkActionSchema = z.object({
   conditionsChecked: z.boolean().optional(),
 });
 
-export async function setOfficialLinkStatus(db: D1Database, id: string, input: z.infer<typeof linkActionSchema>, actor: string) {
+export async function setOfficialLinkStatus(db: D1Database, id: string, input: z.infer<typeof linkActionSchema>, actor: string, inAppViewing = false) {
   if (!actor.startsWith('user:')) throw new ApiError(403, 'HUMAN_REVIEW_REQUIRED', 'Only a signed-in member of staff can publish an official link');
   const cur = await db.prepare('SELECT id, status, availability, url FROM official_paper_links WHERE id = ?').bind(id).first<{ id: string; status: string; availability: string; url: string | null }>();
   if (!cur) throw notFound('Official link');
@@ -141,6 +141,7 @@ export async function setOfficialLinkStatus(db: D1Database, id: string, input: z
     ]);
   } else if (input.action === 'ALLOW_IN_APP') {
     // Only needed where the exam body's server does not itself allow its files to be shown on other sites.
+    if (!inAppViewing) throw new ApiError(409, 'IN_APP_VIEWING_OFF', 'Viewing official documents inside CUET Prep is switched off until NTA grants permission to display them. Documents open on NTA\'s own website.');
     if (cur.status !== 'PUBLISHED' || cur.availability !== 'AVAILABLE') throw conflict('Publish the link first; in-app viewing is a further step');
     if (!input.conditionsChecked || (input.embedBasis ?? '').length < 10) throw new ApiError(409, 'EMBED_BASIS_REQUIRED', 'Showing this document inside CUET Prep passes the file through our server, which the exam body\'s copyright policy allows only with its permission. Record that permission and confirm you have it.');
     await db.batch([db.prepare('UPDATE official_paper_links SET embed_basis = ?, embed_recorded_by = ?, updated_at = ? WHERE id = ?').bind(input.embedBasis!, actor, now, id), audit('ALLOW_IN_APP_OFFICIAL_LINK', { embedBasis: input.embedBasis })]);
@@ -150,7 +151,7 @@ export async function setOfficialLinkStatus(db: D1Database, id: string, input: z
     // Unpublishing or archiving also withdraws in-app viewing.
     await db.batch([db.prepare('UPDATE official_paper_links SET status = ?, embed_basis = NULL, embed_recorded_by = NULL, updated_at = ? WHERE id = ?').bind(input.action === 'ARCHIVE' ? 'ARCHIVED' : 'DRAFT', now, id), audit(`${input.action}_OFFICIAL_LINK`, {})]);
   }
-  return (await listOfficialLinksAdmin(db)).find((x) => x.id === id)!;
+  return (await listOfficialLinksAdmin(db, inAppViewing)).find((x) => x.id === id)!;
 }
 
 // ---------------------------------------------------------------- mock papers
@@ -588,7 +589,9 @@ export async function importOfficialPapers(db: D1Database, body: unknown, actor:
  * Headers were read on 13 November 2026; see docs/official-directory.md.
  */
 const CROSS_ORIGIN_READABLE = [/^cdnbbsr\.s3waas\.gov\.in$/];
-export function viewerMode(url: string, embedAllowed: boolean): 'DIRECT' | 'PROXY' | 'NEW_TAB' {
+export function viewerMode(url: string, embedAllowed: boolean, inAppViewing: boolean): 'DIRECT' | 'PROXY' | 'NEW_TAB' {
+  // The master switch: while it is off, nothing is shown inside the platform, whatever is recorded on a link.
+  if (!inAppViewing) return 'NEW_TAB';
   let host = '';
   try {
     host = new URL(url).hostname;
@@ -610,15 +613,15 @@ async function visibleDocument(db: D1Database, id: string) {
 }
 
 /** What the viewer page needs. Only for documents whose link is published with its linking basis. */
-export async function officialDocument(db: D1Database, id: string) {
+export async function officialDocument(db: D1Database, id: string, inAppViewing: boolean) {
   const r = await visibleDocument(db, id);
-  const mode = viewerMode(r.url, Boolean(r.embed_basis));
+  const mode = viewerMode(r.url, Boolean(r.embed_basis), inAppViewing);
   return {
     id: r.id, exam: r.exam_code, year: r.year, subjectName: r.subject_name, session: r.session, kind: r.kind, title: r.title, publisher: r.publisher, checkedOn: r.checked_on,
     originalUrl: r.url, viewer: mode,
     // DIRECT: the browser reads the exam body's server. PROXY: our pass-through, signed-in students only.
     fileUrl: mode === 'DIRECT' ? r.url : mode === 'PROXY' ? `/api/student/official-documents/${r.id}/file` : null,
-    reason: mode === 'NEW_TAB' ? "NTA's server does not allow this document to be shown inside another site, so it opens on NTA's own site." : null,
+    reason: mode === 'NEW_TAB' ? "This document is published by NTA and opens on NTA's own website. It is not shown inside CUET Prep, because NTA has not given permission to display its documents here." : null,
   };
 }
 
@@ -632,9 +635,9 @@ export function setOfficialFetchForTests(f: typeof fetch | null) {
  * Passes one official document through to a signed-in student, for the in-app viewer. Nothing is stored or
  * cached on the platform. Refused unless the link is published AND the permission to show it here is on record.
  */
-export async function officialDocumentFile(db: D1Database, id: string, range: string | undefined): Promise<Response> {
+export async function officialDocumentFile(db: D1Database, id: string, range: string | undefined, inAppViewing: boolean): Promise<Response> {
   const r = await visibleDocument(db, id);
-  if (viewerMode(r.url, Boolean(r.embed_basis)) !== 'PROXY') throw new ApiError(403, 'IN_APP_NOT_ALLOWED', 'This document is not cleared to be shown inside CUET Prep; open it on the exam body\'s site');
+  if (viewerMode(r.url, Boolean(r.embed_basis), inAppViewing) !== 'PROXY') throw new ApiError(403, 'IN_APP_NOT_ALLOWED', 'This document is not cleared to be shown inside CUET Prep; open it on the exam body\'s site');
   const res = await upstreamFetch(r.url, { headers: { 'user-agent': 'cuet-prep-official-viewer/0.1', ...(range && /^bytes=\d*-\d*$/.test(range) ? { range } : {}) }, redirect: 'manual' });
   // A redirect is never followed: the document must come from the registered address itself.
   if (!res.ok && res.status !== 206) throw new ApiError(503, 'SOURCE_UNAVAILABLE', 'The exam body\'s site did not return the document. Try again, or open it on that site.');

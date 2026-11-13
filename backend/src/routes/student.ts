@@ -27,6 +27,7 @@ import { listExams, listSubjects, searchSyllabus, mediaObject, paperOutline, res
 import { answerSchema, getSession, marksSchema, progress, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 
 const preview = (env: AppEnv['Bindings']) => env.CONTENT_PREVIEW === 'true';
+const inApp = (env: AppEnv['Bindings']) => env.OFFICIAL_IN_APP_VIEWING === 'on';
 /** Runs email work after the response is sent, so the answer never waits for (or reveals) the send. A failed send is recorded, never thrown. */
 const later = (c: { executionCtx: { waitUntil(p: Promise<unknown>): void } }, work: Promise<unknown>) => {
   const safe = work.catch((e) => console.error('Email task failed', (e as Error).message));
@@ -109,7 +110,7 @@ learn.get('/official-directory', async (c) => {
 });
 learn.get('/official-directory/sessions', async (c) => c.json(await officialDirectorySessions(c.env.DB, directorySessionsQuery.parse(c.req.query()))));
 // One published official document, for the in-app viewer (how it may be shown, and where the file comes from).
-learn.get('/official-documents/:id', async (c) => c.json(await officialDocument(c.env.DB, c.req.param('id'))));
+learn.get('/official-documents/:id', async (c) => c.json(await officialDocument(c.env.DB, c.req.param('id'), inApp(c.env))));
 learn.get('/mock-papers', async (c) => c.json(await listMockPapers(c.env.DB, { exam: c.req.query('exam') || undefined, paperId: c.req.query('paperId') || undefined })));
 // Previous-year papers: only published papers whose licence allows display are ever listed here.
 learn.get('/past-papers', async (c) => c.json(await listPastPapers(c.env.DB, pastPaperQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
@@ -140,7 +141,7 @@ student.post('/practice/daily', async (c) => {
 });
 
 // Pass-through of an official document for the in-app viewer: signed-in students only, nothing stored, and only where the exam body's permission is on record.
-student.get('/official-documents/:id/file', async (c) => officialDocumentFile(c.env.DB, c.req.param('id'), c.req.header('range')));
+student.get('/official-documents/:id/file', async (c) => officialDocumentFile(c.env.DB, c.req.param('id'), c.req.header('range'), inApp(c.env)));
 
 // Our own mock papers: a fixed paper, timed like the exam or untimed. Plan limits apply.
 student.post('/mock-papers/:id/start', async (c) => {

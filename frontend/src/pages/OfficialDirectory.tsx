@@ -80,7 +80,7 @@ export function OfficialDirectory({ exam, practiceSubjects }: { exam: ExamCode; 
                     Open on NTA's site <ExternalLink aria-hidden className="size-3.5" />
                   </a>
                 ) : (
-                  <span className="mt-1 block text-ink-3">The page of the key for each paper is shown below. A direct link will appear here once NTA's linking condition is met.</span>
+                  <span className="mt-1 block text-ink-3">The page of the key for each paper is shown below. You will be able to open the key on NTA's website here once linking permission is confirmed.</span>
                 )}
               </dd>
             )}
@@ -157,12 +157,12 @@ function Sessions({ exam, year, code, name, practise }: { exam: ExamCode; year: 
                       <Link to={`/official-papers/view/${r.questionPaper.linkId}`} className={linkClass}>
                         <FileText aria-hidden className="size-3.5" /> View paper
                       </Link>
-                      <span className="mt-0.5 block text-xs text-ink-2">NTA's original{r.questionPaper.pages ? ` · ${r.questionPaper.pages} pages` : ''}</span>
+                      <span className="mt-0.5 block text-xs text-ink-2">Published by NTA{r.questionPaper.pages ? ` · ${r.questionPaper.pages} pages` : ''}</span>
                     </span>
                   ) : r.questionPaper.published ? (
                     <span className="text-ink">
                       Published by NTA
-                      <span className="mt-0.5 block text-xs text-ink-2">{r.questionPaper.pages ? `${r.questionPaper.pages} pages. ` : ''}The link will appear once NTA's linking condition is met.</span>
+                      <span className="mt-0.5 block text-xs text-ink-2">{r.questionPaper.pages ? `${r.questionPaper.pages} pages. ` : ''}You will be able to open it on NTA's website here once linking permission is confirmed.</span>
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1.5 text-ink-2">

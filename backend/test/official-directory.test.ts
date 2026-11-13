@@ -135,7 +135,7 @@ describe('official paper directory', () => {
 
     // nta.ac.in does not: without recorded permission the paper opens on NTA's own site only.
     const before = (await call('GET', `/api/learn/official-documents/${paper.id}`)).json;
-    expect(before).toMatchObject({ viewer: 'NEW_TAB', fileUrl: null, originalUrl: 'https://nta.ac.in/Download/ExamPaper/Paper_2035.pdf', reason: expect.stringMatching(/does not allow this document to be shown inside another site/) });
+    expect(before).toMatchObject({ viewer: 'NEW_TAB', fileUrl: null, originalUrl: 'https://nta.ac.in/Download/ExamPaper/Paper_2035.pdf', reason: expect.stringMatching(/opens on NTA's own website/) });
     let upstream = 0;
     setOfficialFetchForTests(async (input, init) => {
       upstream++;
@@ -164,5 +164,36 @@ describe('official paper directory', () => {
     } finally {
       setOfficialFetchForTests(null);
     }
+  });
+
+  it('by default (switch off) no official document is shown inside the platform: each opens on the exam body\u2019s own site', async () => {
+    const off = { ...env, OFFICIAL_IN_APP_VIEWING: 'off' };
+    const admin = await staff();
+    const callOff = async (method: string, path: string, body?: unknown, headers: Record<string, string> = {}) => {
+      const ctx = createExecutionContext();
+      const res = await app.request(path, { method, headers: { 'content-type': 'application/json', ...headers }, body: body === undefined ? undefined : JSON.stringify(body) }, off, ctx);
+      await waitOnExecutionContext(ctx);
+      const text = await res.text();
+      return { status: res.status, json: text ? JSON.parse(text) : null };
+    };
+    await call('POST', '/api/admin/official-papers', { schema: 'cuet-official-links/1', links: [
+      { exam: 'CUET_PG', year: 2036, subjectCode: '~physics', subjectName: 'Physics', session: '2036-03-14 Shift 2', kind: 'QUESTION_PAPER', availability: 'AVAILABLE', url: 'https://nta.ac.in/Download/ExamPaper/Paper_2036.pdf', title: 'Physics 14th March 2036 Shift 2', checkedOn: '2026-11-13' },
+      { exam: 'CUET_PG', year: 2036, kind: 'ANSWER_KEY', availability: 'AVAILABLE', url: 'https://cdnbbsr.s3waas.gov.in/s3test/uploads/2036/key.pdf', title: 'CUET (PG) 2036 final answer keys', checkedOn: '2026-11-13' },
+    ] }, ADMIN);
+    const links = ((await callOff('GET', '/api/console/official-papers', undefined, admin.auth)).json as { id: string; year: number; kind: string; inAppViewing: boolean }[]).filter((l) => l.year === 2036);
+    expect(links.every((l) => l.inAppViewing === false)).toBe(true);
+    for (const l of links) await callOff('POST', `/api/console/official-papers/${l.id}/status`, { action: 'PUBLISH', linkingBasis: 'Linking permission confirmed, ref. 2036-01', conditionsChecked: true }, admin.auth);
+    for (const l of links) {
+      // Even the CDN file, which the exam body\u2019s server lets other sites read, is not shown in the viewer while the switch is off.
+      const d = (await callOff('GET', `/api/learn/official-documents/${l.id}`)).json;
+      expect(d).toMatchObject({ viewer: 'NEW_TAB', fileUrl: null, reason: expect.stringMatching(/opens on NTA's own website/) });
+      expect(d.originalUrl).toMatch(/^https:\/\/(nta\.ac\.in|cdnbbsr\.s3waas\.gov\.in)\//);
+    }
+    // Recording a permission cannot switch it on from the console; the switch itself has to be turned on first.
+    const paper = links.find((l) => l.kind === 'QUESTION_PAPER')!;
+    const tryAllow = await callOff('POST', `/api/console/official-papers/${paper.id}/status`, { action: 'ALLOW_IN_APP', embedBasis: 'NTA letter ref. 12/2036 dated 1 Jan 2036', conditionsChecked: true }, admin.auth);
+    expect(tryAllow.status).toBe(409);
+    expect(tryAllow.json.error.code).toBe('IN_APP_VIEWING_OFF');
+    expect((await env.DB.prepare('SELECT embed_basis FROM official_paper_links WHERE id = ?').bind(paper.id).first<{ embed_basis: string | null }>())!.embed_basis).toBeNull();
   });
 });

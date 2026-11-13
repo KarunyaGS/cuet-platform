@@ -213,7 +213,7 @@ function OfficialLinks() {
   return (
     <div>
       <p className="mb-4 max-w-3xl text-sm text-ink-2">
-        Only an address is stored; no document is copied. NTA's site says prior permission is required before another site links to it, so a link is shown to students only after you record why linking is allowed. A "not available" notice has no link and can be published as it is.
+        Only an address is stored; no document is copied or hosted. NTA's site says prior permission is required before another site links to it, so a link is shown to students only after you record that linking permission is confirmed. Documents open on NTA's own website: showing them inside CUET Prep is switched off until NTA grants permission to display them. A "not available" notice has no link and can be published as it is.
       </p>
       {err && <ErrorBox error={err} />}
       {list.error && <ErrorBox error={list.error} onRetry={list.reload} />}
@@ -236,7 +236,7 @@ function OfficialLinks() {
                     {l.linkingBasis && <span className="block text-ink-3">Linking basis: {l.linkingBasis}</span>}
                     {l.status === 'PUBLISHED' && l.viewerMode && (
                       <span className="block text-ink-3">
-                        {l.viewerMode === 'DIRECT' ? "Shown inside CUET Prep: NTA's server allows other sites to read this file." : l.viewerMode === 'PROXY' ? `Shown inside CUET Prep. Permission on record: ${l.embedBasis}` : "Opens on NTA's site only: NTA's server does not allow this file to be shown on other sites."}
+                        {!l.inAppViewing ? "Opens on NTA's website only. Viewing inside CUET Prep is switched off until NTA grants permission." : l.viewerMode === 'DIRECT' ? "Shown inside CUET Prep: NTA's server allows other sites to read this file." : l.viewerMode === 'PROXY' ? `Shown inside CUET Prep. Permission on record: ${l.embedBasis}` : "Opens on NTA's site only: NTA's server does not allow this file to be shown on other sites."}
                       </span>
                     )}
                   </span>
@@ -246,7 +246,7 @@ function OfficialLinks() {
                       Publish
                     </Button>
                   )}
-                  {l.status === 'PUBLISHED' && l.viewerMode === 'NEW_TAB' && (
+                  {l.status === 'PUBLISHED' && l.inAppViewing && l.viewerMode === 'NEW_TAB' && (
                     <Button kind="secondary" size="sm" disabled={busy} onClick={() => setEmbed({ id: l.id, text: '', checked: false })}>
                       Allow viewing inside CUET Prep
                     </Button>

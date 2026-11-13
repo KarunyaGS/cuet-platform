@@ -10,7 +10,7 @@ export default defineConfig(async () => {
     plugins: [
       cloudflareTest({
         wrangler: { configPath: './wrangler.jsonc' },
-        miniflare: { bindings: { TEST_MIGRATIONS: migrations, ADMIN_API_TOKEN: 'test-admin-token' } },
+        miniflare: { bindings: { TEST_MIGRATIONS: migrations, ADMIN_API_TOKEN: 'test-admin-token', OFFICIAL_IN_APP_VIEWING: 'on' } },
       }),
     ],
     // Password hashing (PBKDF2, 100k iterations) makes sign-in tests slow on a busy machine.
