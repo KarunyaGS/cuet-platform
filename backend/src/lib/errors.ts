@@ -3,7 +3,7 @@ import { ZodError } from 'zod';
 
 export class ApiError extends Error {
   constructor(
-    readonly status: 400 | 401 | 402 | 403 | 404 | 409 | 413 | 422 | 500 | 503,
+    readonly status: 400 | 401 | 402 | 403 | 404 | 409 | 413 | 422 | 429 | 500 | 503,
     readonly code: string,
     message: string,
     readonly details?: unknown,
@@ -18,7 +18,8 @@ export const invalid = (message: string, details?: unknown) => new ApiError(422,
 
 export function errorHandler(err: Error, c: Context): Response {
   if (err instanceof ApiError) {
-    return c.json({ error: { code: err.code, message: err.message, details: err.details } }, err.status);
+    const retry = (err.details as { retryAfterSeconds?: number } | undefined)?.retryAfterSeconds;
+    return c.json({ error: { code: err.code, message: err.message, details: err.details } }, err.status, err.status === 429 && retry ? { 'retry-after': String(retry) } : undefined);
   }
   if (err instanceof ZodError) {
     return c.json({ error: { code: 'VALIDATION_FAILED', message: 'Request did not pass validation', details: err.issues } }, 400);

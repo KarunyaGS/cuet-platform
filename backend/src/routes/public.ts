@@ -4,9 +4,10 @@
  */
 import { admissionFilters, programmeDetail, programmeQuery, programmesList, universityPage } from '../services/admissions';
 import { Hono } from 'hono';
+import { rateLimit } from '../lib/rate-limit';
 import type { AppEnv } from '../types';
 import { readJson } from '../lib/http';
-import { evaluateQuestion, evaluateSchema, getQuestionPublic } from '../services/questions';
+import { getQuestionPublic } from '../services/questions';
 import { getResource } from '../services/resources';
 import { examSchema, getOfficialInfo, listUniversities, universityQuery } from '../services/official-info';
 import { handleResendWebhook, unsubscribe, unsubscribeSchema } from '../services/email';
@@ -16,7 +17,6 @@ import { listNotices, noticeQuery, publicNoticeDetail } from '../services/gov-no
 const pub = new Hono<AppEnv>();
 
 pub.get('/questions/:id', async (c) => c.json(await getQuestionPublic(c.get('prisma'), c.req.param('id'))));
-pub.post('/questions/:id/evaluate', async (c) => c.json(await evaluateQuestion(c.get('prisma'), c.req.param('id'), await readJson(c, evaluateSchema))));
 pub.get('/resources/:id', async (c) => c.json(await getResource(c.get('prisma'), c.req.param('id'), true)));
 pub.get('/topics/:id/content', async (c) => {
   const prisma = c.get('prisma');
@@ -45,6 +45,7 @@ pub.get('/universities', async (c) => c.json(await listUniversities(c.env.DB, un
 // One-click unsubscribe. A mail program posts to the address in the List-Unsubscribe header (token in the query string, form body);
 // the unsubscribe page posts JSON. Either way the answer is the same, whatever the token.
 pub.post('/email/unsubscribe', async (c) => {
+  await rateLimit(c.env, c.req, 'unsubscribe-ip', null, 60, 3600);
   const token = c.req.query('token');
   const input = token ? unsubscribeSchema.parse({ token, scope: (c.req.query('scope') ?? 'reminders').toUpperCase() }) : await readJson(c, unsubscribeSchema);
   return c.json(await unsubscribe(c.env.DB, input));

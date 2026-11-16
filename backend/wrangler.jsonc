@@ -41,6 +41,8 @@
   "triggers": { "crons": ["30 13 * * *", "*/30 * * * *"] },
   "vars": {
     "APP_ENV": "development",
+    // Local development and tests are not throttled. Production does not set this, so the rate limiter is ON there.
+    "RATE_LIMIT": "off",
     "EMAIL_FROM": "no-reply@cuet.localhost",
     "EMAIL_FROM_NAME": "CUET Prep (local)",
     // Payments (local): a built-in mock gateway. No outside service is called and no money moves.

@@ -11,6 +11,8 @@ export interface Bindings {
   /** "true" only in local development: students may see machine-verified and draft content, clearly labelled. */
   CONTENT_PREVIEW?: string;
   SESSION_TTL_HOURS?: string;
+  /** "off" switches the rate limiter off (local development only). Unset or anything else keeps it on. */
+  RATE_LIMIT?: string;
   ADMIN_API_TOKEN?: string;
   /** Cloudflare Email Sending binding (`send_email`). Absent until email is switched on for the environment. */
   EMAIL?: { send(message: { to: string; from: { email: string; name?: string }; subject: string; text?: string; html?: string; headers?: Record<string, string> }): Promise<{ messageId: string }> };

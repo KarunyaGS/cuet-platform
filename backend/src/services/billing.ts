@@ -350,14 +350,17 @@ export async function handleRazorpayWebhook(env: Bindings, rawBody: string, sign
   const db = env.DB;
   if (!env.RAZORPAY_WEBHOOK_SECRET || gatewayState(env).gateway !== 'razorpay') throw notFound('Webhook');
   const valid = Boolean(signature) && sameText(await hmacHex(env.RAZORPAY_WEBHOOK_SECRET, rawBody), signature!.toLowerCase());
-  const id = eventId?.slice(0, 100) || `body:${await hmacHex('event-id', rawBody)}`;
+  // An unsigned request never gets to pick the key it is stored under.
+  const id = valid ? eventId?.slice(0, 100) || `body:${await hmacHex('event-id', rawBody)}` : `rejected:${crypto.randomUUID()}`;
   const log = (type: string, result: string, detail: string | null, gatewayOrderId: string | null) =>
     db
       .prepare(`INSERT INTO payment_events (id, gateway, event_id, type, signature_valid, result, detail, gateway_order_id, received_at) VALUES (?, 'razorpay', ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (gateway, event_id) DO NOTHING`)
       .bind(newId('pev'), id, type.slice(0, 60), valid ? 1 : 0, result, detail?.slice(0, 300) ?? null, gatewayOrderId, nowIso())
       .run();
   if (!valid) {
-    await log('unverified', 'REJECTED', 'Signature did not match', null);
+    // At most 200 rejected requests are written down an hour; the rest are only refused.
+    const recent = await db.prepare("SELECT COUNT(*) AS n FROM payment_events WHERE result = 'REJECTED' AND received_at >= ?").bind(new Date(Date.now() - 3600_000).toISOString()).first<{ n: number }>();
+    if ((recent?.n ?? 0) < 200) await log('unverified', 'REJECTED', 'Signature did not match', null);
     throw new ApiError(401, 'BAD_SIGNATURE', 'The webhook signature is not valid');
   }
   const event = JSON.parse(rawBody) as RazorpayEvent;
@@ -415,10 +418,14 @@ export async function reconcileOrders(env: Bindings, onlyOrderId?: string) {
   const g = gatewayState(env);
   const { results } = onlyOrderId
     ? await db.prepare('SELECT * FROM payment_orders WHERE id = ?').bind(onlyOrderId).all<OrderRow>()
-    : await db.prepare(`SELECT * FROM payment_orders WHERE status = 'CREATED' AND created_at <= ? ORDER BY created_at LIMIT 100`).bind(new Date(Date.now() - 2 * 60_000).toISOString()).all<OrderRow>();
+    : await db
+        .prepare(`SELECT * FROM payment_orders WHERE (status = 'CREATED' AND created_at <= ?1) OR (status = 'FAILED' AND gateway_order_id IS NOT NULL AND created_at >= ?2) ORDER BY created_at LIMIT 100`)
+        .bind(new Date(Date.now() - 2 * 60_000).toISOString(), new Date(Date.now() - 7 * 86400_000).toISOString())
+        .all<OrderRow>();
   for (const o of results) {
     out.checked++;
-    let settled = o.status !== 'CREATED';
+    // A failed order is looked at again for a week: the student may have paid on a later attempt whose report never reached us.
+    let settled = o.status !== 'CREATED' && o.status !== 'FAILED';
     if (!settled && o.gateway === 'razorpay' && o.gateway_order_id && g.gateway === 'razorpay') {
       try {
         const list = await razorpay<{ items: { id: string; status: string; amount: number; method?: string; error_code?: string; error_description?: string }[] }>(env, 'GET', `/orders/${encodeURIComponent(o.gateway_order_id)}/payments`);
@@ -427,7 +434,7 @@ export async function reconcileOrders(env: Bindings, onlyOrderId?: string) {
           const r = await applyPaymentReport(env, o, { gatewayId: captured.id, status: 'CAPTURED', amountPaise: captured.amount, method: captured.method ?? null, reportedBy: 'RECONCILIATION' });
           if (r.result === 'PAID') out.paid++;
           settled = true;
-        } else if (list.items.length && list.items.every((p) => p.status === 'failed')) {
+        } else if (o.status === 'CREATED' && list.items.length && list.items.every((p) => p.status === 'failed')) {
           const f = list.items.at(-1)!;
           await applyPaymentReport(env, o, { gatewayId: f.id, status: 'FAILED', amountPaise: f.amount, method: f.method ?? null, errorCode: f.error_code ?? null, errorDescription: f.error_description ?? null, reportedBy: 'RECONCILIATION' });
           out.failed++;
@@ -439,7 +446,7 @@ export async function reconcileOrders(env: Bindings, onlyOrderId?: string) {
       }
     }
     if (!settled) {
-      if (Date.now() - new Date(o.created_at).getTime() > 86400_000) {
+      if (o.status === 'CREATED' && Date.now() - new Date(o.created_at).getTime() > 86400_000) {
         await db.prepare(`UPDATE payment_orders SET status = 'EXPIRED', failure_reason = 'No payment was made', updated_at = ? WHERE id = ? AND status = 'CREATED'`).bind(nowIso(), o.id).run();
         out.expired++;
       } else out.stillOpen++;
@@ -511,13 +518,22 @@ export async function billingOverview(env: Bindings) {
   const db = env.DB;
   const now = nowIso();
   const since = new Date(Date.now() - 30 * 86400_000).toISOString();
-  const [active, money, open, events] = await Promise.all([
+  const [active, money, open, events, mismatched] = await Promise.all([
     db.prepare(`SELECT COUNT(DISTINCT user_id) AS n FROM subscriptions WHERE status = 'ACTIVE' AND starts_at <= ? AND ends_at > ?`).bind(now, now).first<{ n: number }>(),
     db.prepare(`SELECT COUNT(*) AS orders, COALESCE(SUM(amount_paise), 0) AS paise FROM payment_orders WHERE status = 'PAID' AND paid_at >= ?`).bind(since).first<{ orders: number; paise: number }>(),
     db.prepare(`SELECT status, COUNT(*) AS n FROM payment_orders WHERE created_at >= ? GROUP BY status`).bind(since).all<{ status: string; n: number }>(),
     db.prepare(`SELECT result, COUNT(*) AS n FROM payment_events WHERE received_at >= ? GROUP BY result`).bind(since).all<{ result: string; n: number }>(),
+    // A payment of the wrong amount gave no access; staff must look at it (refund it or correct the order).
+    db
+      .prepare(
+        `SELECT o.id, o.receipt, o.amount_paise AS expected_paise, t.amount_paise AS paid_paise, t.gateway_id, t.created_at
+         FROM payment_transactions t JOIN payment_orders o ON o.id = t.order_id
+         WHERE t.error_code = 'AMOUNT_MISMATCH' AND o.status != 'PAID' AND t.created_at >= ? ORDER BY t.created_at DESC LIMIT 25`,
+      )
+      .bind(since)
+      .all<{ id: string; receipt: string; expected_paise: number; paid_paise: number; gateway_id: string; created_at: string }>(),
   ]);
-  return { gateway: gatewayState(env), activeSubscribers: active?.n ?? 0, last30Days: { paidOrders: money?.orders ?? 0, receivedPaise: money?.paise ?? 0, ordersByStatus: open.results, webhookResults: events.results } };
+  return { gateway: gatewayState(env), activeSubscribers: active?.n ?? 0, needsAttention: mismatched.results.map((m) => ({ orderId: m.id, receipt: m.receipt, expectedPaise: m.expected_paise, paidPaise: m.paid_paise, gatewayPaymentId: m.gateway_id, at: m.created_at })), last30Days: { paidOrders: money?.orders ?? 0, receivedPaise: money?.paise ?? 0, ordersByStatus: open.results, webhookResults: events.results } };
 }
 
 export async function listSubscriptions(db: D1Database, f: z.infer<typeof subscriptionQuery>) {

@@ -39,7 +39,7 @@ Email needs a domain the platform owns. The app has no custom domain yet, so tha
 
 1. Choose the domain and onboard it in the Cloudflare dashboard under Email Service (adds SPF and DKIM records).
 2. Apply migration 0013 to `cuet-db` (adds tables and columns only).
-3. In `backend/wrangler.jsonc`, production section: add `"send_email": [{ "name": "EMAIL" }]`, set `EMAIL_FROM` (for example `no-reply@<domain>`), `EMAIL_FROM_NAME` and `PUBLIC_APP_URL`, and set `"triggers": { "crons": ["30 13 * * *"] }`.
+3. In `backend/wrangler.jsonc`, production section: add `"send_email": [{ "name": "EMAIL" }]`, set `EMAIL_FROM` (for example `no-reply@<domain>`), `EMAIL_FROM_NAME` and `PUBLIC_APP_URL`, and set `"triggers": { "crons": ["30 13 * * *", "*/30 * * * *"] }` (the 30-minute run does the retries). The full, current checklist is `docs/completion/email-go-live.md`.
 4. Create a queue, subscribe it to the sending domain's `message.bounced`, `message.complained`, `message.delivered` and `message.failed` events, and add it as a queue consumer of the Worker.
 5. Optional standby: create a Resend account, verify the same domain, then `wrangler secret put RESEND_API_KEY --env production` and `RESEND_WEBHOOK_SECRET`, and point a Resend webhook at `/api/public/email/webhooks/resend`.
 6. Deploy, then send one reset email to the owner's own address and confirm it arrives and the link works.

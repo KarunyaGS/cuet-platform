@@ -64,7 +64,7 @@ admin.get('/files/*', async (c) => {
   if (!/^(sources|media)\/[0-9a-f]{64}\.\w+$/.test(key)) throw invalid('Unknown file key');
   const obj = await c.env.MEDIA.get(key);
   if (!obj) throw notFound('File');
-  return new Response(obj.body, { headers: { 'content-type': obj.httpMetadata?.contentType ?? 'application/octet-stream', 'cache-control': 'private, max-age=3600' } });
+  return new Response(obj.body, { headers: { 'content-type': obj.httpMetadata?.contentType ?? 'application/octet-stream', 'cache-control': 'private, max-age=3600', 'x-content-type-options': 'nosniff', 'content-security-policy': "sandbox; default-src 'none'; style-src 'unsafe-inline'" } });
 });
 admin.post('/imports/syllabus', async (c) => c.json(await importSyllabus(c.get('prisma'), c.env.DB, await readJson(c, syllabusBundleSchema), c.get('actor'))));
 admin.get('/sources', async (c) => {
@@ -126,9 +126,9 @@ admin.post('/questions/:id/preview-evaluate', async (c) =>
 );
 
 // Content packs: idempotent upserts by stable key (never overwrite content a person has reviewed)
-admin.put('/content/resources/:key', async (c) => c.json(await upsertResource(c.env.DB, c.req.param('key'), await c.req.json(), c.get('actor'))));
-admin.put('/content/questions/:key', async (c) => c.json(await upsertQuestion(c.env.DB, c.req.param('key'), await c.req.json(), c.get('actor'))));
-admin.put('/content/media/:key', async (c) => c.json(await upsertMedia(c.env.DB, c.env.MEDIA, c.req.param('key'), await c.req.json(), c.get('actor'))));
+admin.put('/content/resources/:key', async (c) => c.json(await upsertResource(c.env.DB, c.req.param('key'), await readJson(c, z.unknown()), c.get('actor'))));
+admin.put('/content/questions/:key', async (c) => c.json(await upsertQuestion(c.env.DB, c.req.param('key'), await readJson(c, z.unknown()), c.get('actor'))));
+admin.put('/content/media/:key', async (c) => c.json(await upsertMedia(c.env.DB, c.env.MEDIA, c.req.param('key'), await readJson(c, z.unknown()), c.get('actor'))));
 
 // Official NTA information and participating universities (replaces that exam's information for the cycle).
 admin.put('/official-info/:exam', async (c) => {
@@ -138,21 +138,21 @@ admin.put('/official-info/:exam', async (c) => {
 });
 
 // Previous-year papers: import one paper pack as a DRAFT (?dryRun=1 only validates). Publishing is a staff action in the console.
-admin.post('/past-papers', async (c) => c.json(await importPastPaper(c.env.DB, await c.req.json(), c.get('actor'), c.req.query('dryRun') === '1')));
+admin.post('/past-papers', async (c) => c.json(await importPastPaper(c.env.DB, await readJson(c, z.unknown()), c.get('actor'), c.req.query('dryRun') === '1')));
 admin.get('/past-papers', async (c) => c.json(await listPastPapersAdmin(c.env.DB)));
 
 // Links to official documents: stored as drafts (addresses only; nothing is downloaded). Publishing is a staff action.
 // Native CUET Prep documents: the content of a practice paper made from our own questions, and recording a generated PDF.
 admin.get('/native-papers/draft', async (c) => c.json(await draftPracticePaper(c.env.DB, draftQuery.parse(c.req.query()))));
-admin.post('/native-papers', async (c) => c.json(await registerNativeDocument(c.env.DB, c.env.MEDIA, await c.req.json(), c.get('actor')), 201));
+admin.post('/native-papers', async (c) => c.json(await registerNativeDocument(c.env.DB, c.env.MEDIA, await readJson(c, z.unknown()), c.get('actor')), 201));
 // Previous-year papers index (links only, built by research/cuet-pyq-2024-2026): replaces the stored index of one exam.
-admin.post('/pyq-index', async (c) => c.json(await importPyqIndex(c.env.DB, await c.req.json(), c.env.PYQ_ENGLISH_HINDI === 'on')));
-admin.post('/official-papers', async (c) => c.json(await importOfficialLinks(c.env.DB, await c.req.json(), c.get('actor'))));
+admin.post('/pyq-index', async (c) => c.json(await importPyqIndex(c.env.DB, await readJson(c, z.unknown()), c.env.PYQ_ENGLISH_HINDI === 'on')));
+admin.post('/official-papers', async (c) => c.json(await importOfficialLinks(c.env.DB, await readJson(c, z.unknown()), c.get('actor'))));
 admin.get('/official-papers', async (c) => c.json(await listOfficialLinksAdmin(c.env.DB)));
 // The directory of papers held in one exam and year (facts read from the official answer key; no document is stored).
-admin.post('/official-directory', async (c) => c.json(await importOfficialDirectory(c.env.DB, await c.req.json(), c.get('actor'))));
+admin.post('/official-directory', async (c) => c.json(await importOfficialDirectory(c.env.DB, await readJson(c, z.unknown()), c.get('actor'))));
 // Question papers that sit on the exam body's own server (addresses and first-page facts only).
-admin.post('/official-question-papers', async (c) => c.json(await importOfficialPapers(c.env.DB, await c.req.json(), c.get('actor'))));
+admin.post('/official-question-papers', async (c) => c.json(await importOfficialPapers(c.env.DB, await readJson(c, z.unknown()), c.get('actor'))));
 
 // Learning resources
 admin.get('/resources', async (c) =>

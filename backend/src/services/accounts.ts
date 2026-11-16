@@ -36,11 +36,17 @@ export async function registerStudent(db: D1Database, input: z.infer<typeof regi
   const salt = crypto.getRandomValues(new Uint8Array(16));
   const hash = await pbkdf2(input.password, salt, ITERATIONS);
   const now = nowIso();
-  await db.batch([
-    db.prepare(`INSERT INTO users (id, email, display_name, status, created_at, updated_at) VALUES (?, ?, ?, 'ACTIVE', ?, ?)`).bind(id, input.email, input.displayName, now, now),
-    db.prepare('INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)').bind(id, 'role_student'),
-    db.prepare('INSERT INTO user_credentials (user_id, password_hash, salt, iterations, updated_at) VALUES (?, ?, ?, ?, ?)').bind(id, hash, b64(salt), ITERATIONS, now),
-  ]);
+  try {
+    await db.batch([
+      db.prepare(`INSERT INTO users (id, email, display_name, status, created_at, updated_at) VALUES (?, ?, ?, 'ACTIVE', ?, ?)`).bind(id, input.email, input.displayName, now, now),
+      db.prepare('INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)').bind(id, 'role_student'),
+      db.prepare('INSERT INTO user_credentials (user_id, password_hash, salt, iterations, updated_at) VALUES (?, ?, ?, ?, ?)').bind(id, hash, b64(salt), ITERATIONS, now),
+    ]);
+  } catch (e) {
+    // Two sign-ups with the same address at the same moment: the database lets only one through.
+    if (/UNIQUE constraint failed: users\.email/.test(String((e as Error)?.message) + String((e as { cause?: Error })?.cause?.message))) throw conflict('An account with this email already exists');
+    throw e;
+  }
   return { id, email: input.email, displayName: input.displayName };
 }
 
@@ -113,11 +119,13 @@ export async function resetPassword(db: D1Database, input: z.infer<typeof resetP
     .bind(await sha256Hex(input.token), now)
     .first<{ id: string; user_id: string }>();
   if (!row) throw new ApiError(400, 'INVALID_RESET_LINK', 'This reset link is not valid. It may have expired or been used already. Ask for a new link.');
+  // Claim the link first: of two parallel requests with the same link, only one gets past this line.
+  const claim = await db.prepare('UPDATE password_reset_tokens SET used_at = ? WHERE id = ? AND used_at IS NULL').bind(now, row.id).run();
+  if ((claim.meta.changes ?? 0) !== 1) throw new ApiError(400, 'INVALID_RESET_LINK', 'This reset link is not valid. It may have expired or been used already. Ask for a new link.');
   const salt = crypto.getRandomValues(new Uint8Array(16));
   const hash = await pbkdf2(input.newPassword, salt, ITERATIONS);
   await db.batch([
     db.prepare('UPDATE user_credentials SET password_hash = ?, salt = ?, iterations = ?, updated_at = ? WHERE user_id = ?').bind(hash, b64(salt), ITERATIONS, now, row.user_id),
-    db.prepare('UPDATE password_reset_tokens SET used_at = ? WHERE id = ?').bind(now, row.id),
     db.prepare('UPDATE user_sessions SET revoked_at = ? WHERE user_id = ? AND revoked_at IS NULL').bind(now, row.user_id),
     db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(newId('aud'), `user:${row.user_id}`, 'RESET_PASSWORD', 'USER', row.user_id, now),
   ]);

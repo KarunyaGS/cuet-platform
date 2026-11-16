@@ -6,6 +6,7 @@
  * Answers are scored only against stored answer keys. No external AI service is called.
  */
 import { Hono } from 'hono';
+import { rateLimit } from '../lib/rate-limit';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import type { AppEnv } from '../types';
 import { invalid } from '../lib/errors';
@@ -51,6 +52,7 @@ const base = (c: { env: AppEnv['Bindings']; req: { url: string } }) => {
 
 export const auth = new Hono<AppEnv>();
 auth.post('/register', async (c) => {
+  await rateLimit(c.env, c.req, 'register-ip', null, 8, 3600);
   const user = await registerStudent(c.env.DB, await readJson(c, registerSchema));
   const b = base(c);
   if (b && emailEnabled(c.env)) later(c, sendVerificationEmail(c.env, user.id, b));
@@ -58,12 +60,17 @@ auth.post('/register', async (c) => {
 });
 auth.post('/login', async (c) => {
   const ttl = Number(c.env.SESSION_TTL_HOURS) || 168;
-  const s = await login(c.env.DB, await readJson(c, loginSchema), ttl);
+  const input = await readJson(c, loginSchema);
+  // Checked before the password is hashed, so a flood costs almost nothing.
+  await rateLimit(c.env, c.req, 'login-ip', null, 40, 600);
+  await rateLimit(c.env, c.req, 'login-email', input.email, 10, 600);
+  const s = await login(c.env.DB, input, ttl);
   setCookie(c, SESSION_COOKIE, s.token, { httpOnly: true, sameSite: 'Lax', secure: c.env.APP_ENV !== 'development', path: '/', maxAge: ttl * 3600 });
   return c.json({ user: s.user, expires: s.expires });
 });
 // A one-time reset link (made by an admin, or emailed once an email service exists) sets a new password.
 auth.post('/reset-password', async (c) => {
+  await rateLimit(c.env, c.req, 'reset-ip', null, 20, 3600);
   const r = await resetPassword(c.env.DB, await readJson(c, resetPasswordSchema));
   later(c, notifyPasswordChanged(c.env, r.userId));
   return c.json({ reset: true });
@@ -71,6 +78,8 @@ auth.post('/reset-password', async (c) => {
 // Always the same answer, whether or not the address has an account. `available: false` means email is not switched on.
 auth.post('/forgot-password', async (c) => {
   const input = await readJson(c, forgotPasswordSchema);
+  await rateLimit(c.env, c.req, 'forgot-ip', null, 10, 3600);
+  await rateLimit(c.env, c.req, 'forgot-email', input.email, 4, 3600);
   const b = base(c);
   if (!b || !emailEnabled(c.env)) return c.json({ ok: true, available: false });
   later(c, requestPasswordReset(c.env, input.email, b));
@@ -78,6 +87,7 @@ auth.post('/forgot-password', async (c) => {
 });
 auth.get('/email-status', (c) => c.json({ available: emailEnabled(c.env) && Boolean(base(c)) }));
 auth.post('/verify-email', async (c) => {
+  await rateLimit(c.env, c.req, 'verify-ip', null, 30, 3600);
   const r = await verifyEmail(c.env.DB, await readJson(c, verifyEmailSchema));
   // A first welcome, once; repeating the confirmation never sends another.
   later(c, sendWelcomeEmail(c.env, r.userId, base(c) ?? undefined));
@@ -180,7 +190,7 @@ student.post('/past-papers/:id/start', async (c) => {
 
 // Plans and payments: the student's plan, what it includes, buying a pass and payment history
 student.get('/billing', async (c) => c.json(await billingSummary(c.env, c.get('user').id)));
-student.post('/billing/orders', async (c) => c.json(await createOrder(c.env, c.get('user').id, await readJson(c, orderSchema)), 201));
+student.post('/billing/orders', async (c) => (await rateLimit(c.env, c.req, 'order-user', c.get('user').id, 12, 3600), c.json(await createOrder(c.env, c.get('user').id, await readJson(c, orderSchema)), 201)));
 student.post('/billing/orders/:id/confirm', async (c) => c.json(await confirmCheckout(c.env, c.get('user').id, c.req.param('id'), await readJson(c, confirmSchema))));
 // Local development only (mock gateway): stands in for the gateway's payment page.
 student.post('/billing/orders/:id/simulate', async (c) => c.json(await simulatePayment(c.env, c.get('user').id, c.req.param('id'), await readJson(c, simulateSchema))));
@@ -199,6 +209,7 @@ student.post('/password', async (c) => {
 student.get('/email', async (c) => c.json(await getEmailSettings(c.env, c.get('user').id)));
 student.put('/email', async (c) => c.json(await setEmailSettings(c.env, c.get('user').id, await readJson(c, emailSettingsSchema))));
 student.post('/email/verification', async (c) => {
+  await rateLimit(c.env, c.req, 'verification-user', c.get('user').id, 8, 3600);
   const b = base(c);
   if (!b) return c.json({ sent: false, reason: 'NOT_CONFIGURED' });
   return c.json(await sendVerificationEmail(c.env, c.get('user').id, b));

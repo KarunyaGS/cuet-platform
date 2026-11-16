@@ -152,7 +152,7 @@ admin.post('/assignments', async (c) => c.json(await addAssignment(c.env.DB, awa
 admin.delete('/assignments/:id', async (c) => c.json(await removeAssignment(c.env.DB, c.req.param('id'), me(c))));
 
 // Reports
-admin.get('/activity', async (c) => c.json(await activity(c.env.DB, activityQuery.parse(query(c)))));
+admin.get('/activity', async (c) => (needPermission(me(c), 'users:manage', 'see the activity feed'), c.json(await activity(c.env.DB, activityQuery.parse(query(c))))));
 admin.get('/coverage', async (c) => {
   const exam = c.req.query('exam');
   if (exam !== 'CUET_UG' && exam !== 'CUET_PG') throw invalid('exam must be CUET_UG or CUET_PG');

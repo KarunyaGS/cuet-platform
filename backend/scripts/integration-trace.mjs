@@ -309,9 +309,11 @@ async function run() {
   check('rejecting without a comment is refused', (await call('POST', '/api/review/decide', { token: r.token, body: { entityType: 'QUESTION', entityIds: [q2], action: 'REJECTED' } })).status >= 400);
   const rej = await call('POST', '/api/review/decide', { token: r.token, body: { entityType: 'QUESTION', entityIds: [q2], action: 'REJECTED', comment: 'Trace: rejected to test the flow' } });
   check('a rejection is stored with its comment', rej.status === 200 && one('SELECT verification AS v FROM questions WHERE id = ?', q2).v === 'REJECTED' && n("SELECT COUNT(*) FROM review_records WHERE entity_id = ? AND action = 'REJECTED' AND comment LIKE 'Trace:%'", q2) === 1);
-  const q3 = one("SELECT id FROM questions WHERE verification = 'UNVERIFIED' LIMIT 1").id;
+  // Since the bulk approval every question may already be VERIFIED, so take any question and prove the shared token leaves its state as it was.
+  const q3row = one("SELECT id, verification AS v FROM questions WHERE verification = 'UNVERIFIED' LIMIT 1") ?? one("SELECT id, verification AS v FROM questions WHERE verification = 'VERIFIED' LIMIT 1");
+  const q3 = q3row.id;
   const bad = await admin('POST', '/api/admin/review', { entityType: 'QUESTION', entityIds: [q3], action: 'VERIFIED' });
-  check('the shared admin token cannot mark anything approved', bad.status === 403 && bad.json?.error?.code === 'HUMAN_REVIEW_REQUIRED' && one('SELECT verification AS v FROM questions WHERE id = ?', q3).v === 'UNVERIFIED');
+  check('the shared admin token cannot mark anything approved', bad.status === 403 && bad.json?.error?.code === 'HUMAN_REVIEW_REQUIRED' && one('SELECT verification AS v FROM questions WHERE id = ?', q3).v === q3row.v);
 
   // ------------------------------------------------------------ admin
   group = 'Admin';
@@ -450,7 +452,9 @@ async function run() {
   const approvedNow = n("SELECT COUNT(*) FROM questions WHERE verification = 'VERIFIED' AND origin != 'PAST_PAPER'");
   check('the mock blueprint follows the exam rules and covers every syllabus unit', readiness.json?.pattern?.questions === 50 && readiness.json.pattern.durationMinutes === 60 && readiness.json.perUnit.length === 9 && readiness.json.perUnit.reduce((x, u) => x + u.needed, 0) === 50 && readiness.json.perUnit.every((u) => u.needed >= 1), readiness.json?.perUnit?.map((u) => u.needed).join(','));
   const tooEarly = await call('POST', `/api/console/mock-papers/build/${physics.paperId}`, { token: a.token });
-  check('a mock paper cannot be built while too few questions are approved by a reviewer', readiness.json.ready === false && readiness.json.bank.approvedByReviewer === approvedNow && tooEarly.status === 409 && n('SELECT COUNT(*) FROM mock_papers') === 0, `${approvedNow} approved`);
+  // The expectation depends on how many questions are approved: with few, a mock cannot be built; with enough (the bulk approval), it can, and stays a draft.
+  if (readiness.json.ready === true) check('with enough reviewer-approved questions a mock paper can be built, and it stays a draft', tooEarly.status < 300 && readiness.json.bank.approvedByReviewer === approvedNow && n('SELECT COUNT(*) FROM mock_papers') === 1 && n("SELECT COUNT(*) FROM mock_papers WHERE status = 'PUBLISHED'") === 0, `${approvedNow} approved, status ${tooEarly.status}`);
+  else check('a mock paper cannot be built while too few questions are approved by a reviewer', readiness.json.ready === false && readiness.json.bank.approvedByReviewer === approvedNow && tooEarly.status === 409 && n('SELECT COUNT(*) FROM mock_papers') === 0, `${approvedNow} approved`);
   check('no mock paper is shown to students until one is approved and published', (await call('GET', '/api/learn/mock-papers?exam=CUET_UG')).json.length === 0);
 
   // ------------------------------------------------------------ bookmark -> flashcard -> revision (real lessons)
@@ -560,7 +564,7 @@ async function run() {
   check('the public list of official notices answers, and shows only published, non-duplicate rows', govList.status === 200 && Array.isArray(govList.json.notices) && govList.json.total === n("SELECT COUNT(*) FROM gov_notices WHERE verification_status = 'PUBLISHED' AND duplicate_of_id IS NULL AND exam_code = 'CUET_UG'"));
   const govStudent = await call('GET', '/api/console/notices/overview', { token: learner.token });
   const govStaff = await call('GET', '/api/console/notices/overview', { token: a.token });
-  check('fetch monitoring is for staff only, and lists the three official sources', govStudent.status === 403 && govStaff.status === 200 && govStaff.json.sources.length === 3 && govStaff.json.collected === n('SELECT COUNT(*) FROM gov_notices') && govStaff.json.intervalMinutes === 180);
+  check('fetch monitoring is for staff only, and lists the four official sources (NTA UG, NTA PG, NTA notice board, UGC)', govStudent.status === 403 && govStaff.status === 200 && govStaff.json.sources.length === 4 && govStaff.json.collected === n('SELECT COUNT(*) FROM gov_notices') && govStaff.json.intervalMinutes === 180);
   check('every stored notice keeps its official source page and document address', n("SELECT COUNT(*) FROM gov_notices WHERE source_url NOT LIKE 'https://%' OR document_url NOT LIKE 'https://%' OR content_hash = ''") === 0);
 
   // ------------------------------------------------------------ previous-year papers index (whatever the local database holds; no site is contacted here)

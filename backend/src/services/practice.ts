@@ -16,7 +16,7 @@ export const startSchema = z
     mode: z.enum(['PRACTICE', 'TOPIC_TEST', 'MOCK_TEST']),
     nodeId: z.string().max(100).optional(),
     paperId: z.string().max(100).optional(),
-    count: z.number().int().min(1).max(200).optional(),
+    count: z.number().int().min(1).max(90).optional(), // D1 allows 100 bound values in one statement
   })
   .refine((s) => s.nodeId || s.paperId, 'Choose a topic or a subject');
 

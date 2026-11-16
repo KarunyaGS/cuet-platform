@@ -26,6 +26,16 @@ export function AdminBilling() {
             <Badge tone={o.data.gateway.mode === 'live' ? 'red' : o.data.gateway.ready ? 'amber' : 'zinc'}>{MODE[o.data.gateway.mode] ?? o.data.gateway.mode}</Badge>
             {o.data.gateway.reason && <span>{o.data.gateway.reason}.</span>}
           </div>
+          {o.data.needsAttention.length > 0 && (
+            <div role="alert" data-needs-attention className="mb-4 rounded-xl border border-wrong/30 bg-wrong-soft px-4 py-3 text-sm text-wrong">
+              <p className="font-semibold">{o.data.needsAttention.length} payment{o.data.needsAttention.length === 1 ? '' : 's'} of the wrong amount: access was not given</p>
+              <ul className="mt-1 list-disc pl-5">
+                {o.data.needsAttention.map((m) => (
+                  <li key={m.gatewayPaymentId}>Order {m.receipt}: expected {rupees(m.expectedPaise)}, the gateway reported {rupees(m.paidPaise)} (payment {m.gatewayPaymentId}, {when(m.at)}). Refund it in the gateway, or correct the order.</li>
+                ))}
+              </ul>
+            </div>
+          )}
           <StatGroup
             items={[
               { label: 'Students with paid access', value: o.data.activeSubscribers },

@@ -200,6 +200,7 @@ export interface AdminPlan { id: string; code: string; name: string; description
 export type PlanInput = Omit<AdminPlan, 'id' | 'code' | 'currency' | 'isFree'>;
 export interface BillingOverview {
   gateway: { mode: string; gateway: string | null; ready: boolean; reason: string | null }; activeSubscribers: number;
+  needsAttention: { orderId: string; receipt: string; expectedPaise: number; paidPaise: number; gatewayPaymentId: string; at: string }[];
   last30Days: { paidOrders: number; receivedPaise: number; ordersByStatus: { status: string; n: number }[]; webhookResults: { result: string; n: number }[] };
 }
 export interface AdminSubscription { id: string; status: string; state: string; starts_at: string; ends_at: string; source: string; note: string | null; user_id: string; email: string; display_name: string; plan: string }

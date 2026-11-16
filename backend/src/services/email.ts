@@ -287,9 +287,10 @@ export async function verifyEmail(db: D1Database, input: z.infer<typeof verifyEm
     .bind(await sha256Hex(input.token), now)
     .first<{ id: string; user_id: string }>();
   if (!row) throw new ApiError(400, 'INVALID_VERIFY_LINK', 'This link is not valid. It may have expired or been used already. Sign in and ask for a new one from your profile.');
+  const claim = await db.prepare('UPDATE email_verification_tokens SET used_at = ? WHERE id = ? AND used_at IS NULL').bind(now, row.id).run();
+  if ((claim.meta.changes ?? 0) !== 1) throw new ApiError(400, 'INVALID_VERIFY_LINK', 'This link is not valid. It may have expired or been used already. Sign in and ask for a new one from your profile.');
   await db.batch([
     db.prepare('UPDATE users SET email_verified_at = COALESCE(email_verified_at, ?), updated_at = ? WHERE id = ?').bind(now, now, row.user_id),
-    db.prepare('UPDATE email_verification_tokens SET used_at = ? WHERE id = ?').bind(now, row.id),
     db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(newId('aud'), `user:${row.user_id}`, 'VERIFY_EMAIL', 'USER', row.user_id, now),
   ]);
   return { verified: true, userId: row.user_id };

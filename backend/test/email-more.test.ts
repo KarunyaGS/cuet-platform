@@ -13,7 +13,7 @@ const ADMIN = { 'x-admin-token': 'test-admin-token' };
 
 async function call(method: string, path: string, body?: unknown, headers: Record<string, string> = {}, e: Bindings = mail) {
   const ctx = createExecutionContext();
-  const res = await app.request(path, { method, headers: { 'content-type': 'application/json', origin: 'https://app.example.test', ...headers }, body: body === undefined ? undefined : JSON.stringify(body) }, e, ctx);
+  const res = await app.request(path, { method, headers: { 'content-type': 'application/json', ...(e.PUBLIC_APP_URL ? { origin: 'https://app.example.test' } : {}), ...headers }, body: body === undefined ? undefined : JSON.stringify(body) }, e, ctx);
   await waitOnExecutionContext(ctx);
   const text = await res.text();
   return { status: res.status, json: text ? JSON.parse(text) : null, cookie: res.headers.get('set-cookie')?.split(';')[0] ?? '' };
