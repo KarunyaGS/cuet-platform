@@ -231,12 +231,14 @@ export interface AdmissionFact {
   id: string; universitySlug: string; universityName: string; kind: 'EVENT' | 'ELIGIBILITY' | 'SUBJECTS' | 'PROCEDURE' | 'COUNSELLING' | 'CUTOFF'; exam: ExamCode; year: number; programme: string | null; label: string;
   valueText: string | null; valueNumber: number | null; basis: string | null; category: string | null; round: string | null; eventDate: string | null; sourcePage: number | null;
   sourceLocator: string | null; checkedOn: string; status: string; sourceUrl: string; sourceTitle: string; sourceStatus: string; rejectReason: string | null;
-  programmeId: string | null; subjects: string[] | null; reliability: Reliability;
+  programmeId: string | null; subjects: string[] | null; reliability: Reliability; reviewFlag: string | null; cycle: Cycle;
 }
+/** `PREVIOUS` means the information is about an admission cycle before the one students are preparing for. */
+export interface Cycle { status: 'PREVIOUS' | 'CURRENT' | 'FUTURE'; label: string | null }
 export type Reliability = 'VERIFIED_OFFICIAL' | 'OUTDATED' | 'UNVERIFIED' | 'SOURCE_NOT_APPROVED';
 export interface ProgrammeSummary {
   id: string; universitySlug: string; universityName: string; universityType: string | null; programmeName: string; degree: string | null; level: string; academicYear: string; exam: ExamCode;
-  lastVerifiedOn: string; reliability: Reliability; sourceUrl: string | null; sourceTitle: string | null;
+  lastVerifiedOn: string; reliability: Reliability; sourceUrl: string | null; sourceTitle: string | null; cycle: Cycle;
   subjects: string[] | null; nextDeadline: { date: string; label: string } | null; lastDeadline: { date: string; label: string } | null;
   known: { eligibility: boolean; subjects: boolean; procedure: boolean; counselling: boolean; deadline: boolean; cutoffs: boolean };
 }
@@ -251,7 +253,7 @@ export interface ProgrammeDetail {
 export interface UniversityAdmissions {
   slug: string; name: string; listedBy: { exam: ExamCode; cycle: string; type: string; sourceUrl: string }[];
   officialPages: { url: string; title: string; kind: string; covers: string; format: string; updateFrequency: string | null; lastCheckedOn: string | null }[];
-  programmes: { id: string; programmeName: string; degree: string | null; level: string; academicYear: string; exam: ExamCode }[];
+  programmes: { id: string; programmeName: string; degree: string | null; level: string; academicYear: string; exam: ExamCode; cycle: Cycle }[];
   dates: AdmissionFact[]; eligibility: AdmissionFact[]; cutoffs: AdmissionFact[]; note: string;
 }
 /** An official notice. sourceUrl and documentUrl are the exam body's own addresses; nothing is hosted by CUET Prep. */

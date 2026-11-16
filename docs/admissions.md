@@ -60,3 +60,10 @@ University course finder, eligibility checker, programme rules by CUET paper, ad
 - Students: `/admissions` (filters: university type, CUET subject, year, exam, name) and `/admissions/programmes/:id`. This year's information is kept apart from previous years' cut-offs. Anything not published is shown as "Not yet available" with a link to the official page.
 - Staff: programmes section and a "needs attention: out of date" list in Admin, Admissions.
 - Withdrawing a programme or retiring a source hides its facts from students.
+
+## Previous admission cycle, review flags and the 16 November 2026 import (migration 0033, local only)
+
+- **Cycle label.** `CURRENT_ADMISSION_CYCLE` (now 2027-28) in `backend/src/services/admissions.ts`. Anything about an earlier cycle is returned with `cycle: { status: 'PREVIOUS', label: 'Previous admission cycle – 2026–27' }`. Students see that label instead of the "verified" mark, and a banner on every programme page says it is not confirmed eligibility, requirements or deadlines for the current cycle.
+- **Review flags.** A draft fact may carry `reviewFlag`: something still to be checked against the official documents. A flagged fact cannot be published until a person gives a `reason` saying how it was resolved; the flag and the resolution stay in the record.
+- **Import pack.** `docs/admissions-import-2026-11-16/pack.json` is exactly what was loaded into the local database, with `backend/scripts/import-admissions-pack.mts` (`npx tsx scripts/import-admissions-pack.mts <pack> [--check]`). It uses the same service functions and rules as the admin console, adds only DRAFT records, and cannot change an existing row. It was run against the local database only.
+- **What was loaded.** Three approved sources (Delhi, BHU, JNU, "Official – Use with Care"), 109 programmes and 185 facts, all DRAFT and about the 2026-27 cycle. No cut-offs, no dates, no PG, no individual B.A. combinations.

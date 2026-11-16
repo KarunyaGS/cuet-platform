@@ -24,6 +24,16 @@ export const FACT_KINDS = ['EVENT', 'ELIGIBILITY', 'SUBJECTS', 'PROCEDURE', 'COU
 export const EVENT_TYPES = ['REGISTRATION_OPENS', 'APPLICATION_DEADLINE', 'COUNSELLING_ROUND', 'ALLOCATION_LIST', 'REPORTING', 'OTHER'] as const;
 /** Information not checked for this long, or about an earlier admission year, is marked outdated. */
 export const STALE_DAYS = 180;
+/** The admission cycle students are preparing for. Information about an earlier cycle is kept for reference and is always labelled as such. */
+export const CURRENT_ADMISSION_CYCLE = '2027-28';
+const CURRENT_CYCLE_START = Number(CURRENT_ADMISSION_CYCLE.slice(0, 4));
+export type CycleInfo = { status: 'PREVIOUS' | 'CURRENT' | 'FUTURE'; label: string | null };
+/** `Previous admission cycle – 2026–27` for anything about a cycle before the current one; never shown as current eligibility or a deadline. */
+export function cycleInfo(startYear: number | null): CycleInfo {
+  if (startYear == null || !Number.isFinite(startYear)) return { status: 'CURRENT', label: null };
+  if (startYear >= CURRENT_CYCLE_START) return { status: startYear === CURRENT_CYCLE_START ? 'CURRENT' : 'FUTURE', label: null };
+  return { status: 'PREVIOUS', label: `Previous admission cycle – ${startYear}–${String((startYear + 1) % 100).padStart(2, '0')}` };
+}
 const LEVELS = ['UG', 'PG'] as const;
 /** What a cut-off figure is. Two figures are comparable only when their basis is the same. */
 export const CUTOFF_BASES = ['ALLOCATION_SCORE', 'NORMALISED_SCORE', 'PERCENTILE', 'MARKS', 'RANK'] as const;
@@ -187,6 +197,8 @@ export const factInputSchema = z.object({
   programmeId: z.string().min(1).max(100).nullable().optional(),
   /** Required-subjects facts: the subjects as a list, beside valueText as printed. */
   subjects: z.array(z.string().trim().min(2).max(80)).min(1).max(15).nullable().optional(),
+  /** Something still to be checked against the official documents. A flagged fact cannot be published until a person says how it was resolved. */
+  reviewFlag: z.string().trim().min(5).max(500).nullable().optional(),
 });
 export type FactInput = z.infer<typeof factInputSchema>;
 
@@ -223,7 +235,7 @@ export function factProblems(f: FactInput): string[] {
   if ((f.kind === 'PROCEDURE' || f.kind === 'COUNSELLING') && !f.valueText) out.push(`${f.kind === 'PROCEDURE' ? 'The admission procedure' : 'The counselling procedure'} is quoted as printed: give valueText`);
   if (f.kind === 'EVENT' && f.category && !(EVENT_TYPES as readonly string[]).includes(f.category)) out.push(`The type of a dated step must be one of ${EVENT_TYPES.join(', ')}`);
   if (f.kind !== 'CUTOFF' && f.kind !== 'EVENT' && (f.valueNumber != null || f.basis)) out.push('Only a cut-off has a figure and a basis');
-  const pd = personalDataProblem(f.label, f.valueText, f.programme, f.category, f.round, f.sourceLocator, ...(f.subjects ?? []));
+  const pd = personalDataProblem(f.label, f.valueText, f.programme, f.category, f.round, f.sourceLocator, f.reviewFlag, ...(f.subjects ?? []));
   if (pd) out.push(`The text ${pd}`);
   return out;
 }
@@ -242,9 +254,9 @@ function insertFact(db: D1Database, f: FactInput, actor: string, now: string) {
     stmt: db
       .prepare(
         `INSERT INTO admission_facts (id, university_slug, university_name, source_id, kind, exam_code, cycle_year, programme, label, value_text, value_number, basis, category, round, event_date,
-           source_page, source_locator, checked_on, status, created_by, created_at, updated_at, programme_id, subjects_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'DRAFT', ?, ?, ?, ?, ?)`,
+           source_page, source_locator, checked_on, status, created_by, created_at, updated_at, programme_id, subjects_json, review_flag) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'DRAFT', ?, ?, ?, ?, ?, ?)`,
       )
-      .bind(id, universitySlug(f.universityName), f.universityName, f.sourceId, f.kind, f.exam, f.year, f.programme ?? null, f.label, f.valueText ?? null, f.valueNumber ?? null, f.basis ?? null, f.category ?? null, f.round ?? null, f.eventDate ?? null, f.sourcePage ?? null, f.sourceLocator ?? null, f.checkedOn, actor, now, now, f.programmeId ?? null, f.subjects ? JSON.stringify(f.subjects) : null),
+      .bind(id, universitySlug(f.universityName), f.universityName, f.sourceId, f.kind, f.exam, f.year, f.programme ?? null, f.label, f.valueText ?? null, f.valueNumber ?? null, f.basis ?? null, f.category ?? null, f.round ?? null, f.eventDate ?? null, f.sourcePage ?? null, f.sourceLocator ?? null, f.checkedOn, actor, now, now, f.programmeId ?? null, f.subjects ? JSON.stringify(f.subjects) : null, f.reviewFlag ?? null),
   };
 }
 
@@ -306,7 +318,7 @@ export async function importFacts(db: D1Database, input: z.infer<typeof importSc
 export const factDecisionSchema = z.object({ action: z.enum(['PUBLISH', 'REJECT']), reason: z.string().trim().min(5).max(500).optional() });
 
 export async function decideFact(db: D1Database, id: string, input: z.infer<typeof factDecisionSchema>, actor: string) {
-  const f = await db.prepare('SELECT id, status, source_id FROM admission_facts WHERE id = ?').bind(id).first<{ id: string; status: string; source_id: string }>();
+  const f = await db.prepare('SELECT id, status, source_id, review_flag FROM admission_facts WHERE id = ?').bind(id).first<{ id: string; status: string; source_id: string; review_flag: string | null }>();
   if (!f) throw notFound('Fact');
   if (f.status !== 'DRAFT') throw conflict('This fact has already been settled');
   const now = nowIso();
@@ -316,7 +328,9 @@ export async function decideFact(db: D1Database, id: string, input: z.infer<type
     return { id, status: 'REJECTED' };
   }
   await approvedSource(db, f.source_id);
-  await db.prepare(`UPDATE admission_facts SET status = 'PUBLISHED', published_by = ?, published_at = ?, updated_at = ? WHERE id = ?`).bind(actor, now, now, id).run();
+  if (f.review_flag && !input.reason) throw invalid(`This fact is flagged for checking: ${f.review_flag} Say how it was resolved (reason) before publishing it.`);
+  const resolved = f.review_flag ? `${f.review_flag} [Resolved by ${actor}: ${input.reason}]` : null;
+  await db.prepare(`UPDATE admission_facts SET status = 'PUBLISHED', published_by = ?, published_at = ?, review_flag = COALESCE(?, review_flag), updated_at = ? WHERE id = ?`).bind(actor, now, resolved, now, id).run();
   return { id, status: 'PUBLISHED' };
 }
 
@@ -338,6 +352,8 @@ const factOut = (r: Record<string, string | number | null>) => ({
   category: r.category as string | null, round: r.round as string | null, eventDate: r.event_date as string | null, sourcePage: r.source_page as number | null, sourceLocator: r.source_locator as string | null,
   checkedOn: r.checked_on as string, status: r.status as string, sourceUrl: r.source_url as string, sourceTitle: r.source_title as string, sourceStatus: r.source_status as string,
   rejectReason: r.reject_reason as string | null,
+  reviewFlag: (r.review_flag as string | null) ?? null,
+  cycle: cycleInfo(Number(r.cycle_year)),
   programmeId: (r.programme_id as string | null) ?? null,
   subjects: r.subjects_json ? (JSON.parse(String(r.subjects_json)) as string[]) : null,
   reliability: reliabilityOf({ status: String(r.status), checkedOn: String(r.checked_on), cycleYear: Number(r.cycle_year), kind: String(r.kind), sourceStatus: (r.source_status as string | null) ?? 'APPROVED' }),
@@ -416,7 +432,7 @@ export async function universityPage(db: D1Database, slug: string) {
     name: name as string,
     listedBy: [...new Map(entries.map((e) => [e.exam_code, { exam: e.exam_code, cycle: e.cycle, type: e.type, sourceUrl: e.source_url }])).values()],
     officialPages: sources.results.map((s) => ({ url: s.url, title: s.title, kind: s.kind, covers: s.covers, format: s.format, updateFrequency: s.update_frequency, lastCheckedOn: s.last_checked_on })),
-    programmes: progs.results.map((r) => ({ id: r.id, programmeName: r.programme_name, degree: r.degree, level: r.level, academicYear: r.academic_year, exam: r.exam_code })),
+    programmes: progs.results.map((r) => ({ id: r.id, programmeName: r.programme_name, degree: r.degree, level: r.level, academicYear: r.academic_year, exam: r.exam_code, cycle: cycleInfo(Number(r.academic_year.slice(0, 4))) })),
     dates: out.filter((f) => f.kind === 'EVENT' && !f.programmeId),
     eligibility: out.filter((f) => f.kind === 'ELIGIBILITY' && !f.programmeId),
     cutoffs: out.filter((f) => f.kind === 'CUTOFF'),
@@ -541,6 +557,7 @@ const programmeOut = (r: PRow) => ({
   degree: r.degree as string | null, level: r.level as string, academicYear: r.academic_year as string, exam: r.exam_code as string, lastVerifiedOn: r.last_verified_on as string, status: r.status as string,
   sourceUrl: (r.source_url as string | null) ?? null, sourceTitle: (r.source_title as string | null) ?? null, sourcePage: (r.source_page as number | null) ?? null, sourceLocator: (r.source_locator as string | null) ?? null,
   statusNote: (r.status_note as string | null) ?? null,
+  cycle: cycleInfo(Number(String(r.academic_year).slice(0, 4))),
   reliability: reliabilityOf({ status: String(r.status), checkedOn: String(r.last_verified_on), cycleYear: Number(String(r.academic_year).slice(0, 4)), kind: 'PROGRAMME', sourceStatus: (r.source_status as string | null) ?? 'APPROVED' }),
 });
 

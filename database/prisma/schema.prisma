@@ -2081,6 +2081,7 @@ model AdmissionFact {
   createdAt      DateTime        @default(now()) @map("created_at")
   updatedAt      DateTime        @updatedAt @map("updated_at")
   source         AdmissionSource @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+  reviewFlag     String?         @map("review_flag")
 
   @@index([universitySlug, status])
   @@index([sourceId])

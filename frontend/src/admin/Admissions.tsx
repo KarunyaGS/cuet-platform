@@ -214,6 +214,8 @@ export function AdminAdmissions() {
                     <span className="text-ink-2">{f.programme ?? ''} {f.valueNumber !== null ? `${f.valueNumber} (${f.basis})` : ''} {f.eventDate ?? ''}</span>
                   </div>
                   <div className="mt-0.5 text-sm text-ink-2">{f.label}{f.valueText ? `: ${f.valueText}` : ''}</div>
+                  {f.cycle.label && <div className="mt-0.5 text-xs font-medium text-marker">{f.cycle.label}</div>}
+                  {f.reviewFlag && <div role="note" data-review-flag className="mt-1 rounded-lg border border-wrong/30 bg-wrong-soft px-3 py-1.5 text-xs text-wrong">Flagged for checking: {f.reviewFlag}</div>}
                   <div className="mt-0.5 text-xs text-ink-3">{f.sourceTitle}{f.sourcePage ? `, page ${f.sourcePage}` : f.sourceLocator ? `, ${f.sourceLocator}` : ''} · checked {f.checkedOn}{f.sourceStatus !== 'APPROVED' ? ' · its source is no longer approved' : ''}</div>
                   {f.status === 'DRAFT' && (
                     <div className="mt-2 flex gap-2">

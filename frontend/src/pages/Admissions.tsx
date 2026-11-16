@@ -2,14 +2,16 @@
 import { ExternalLink, Info, SearchX } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
-import { api, ApiError, type AdmissionFact, type ExamCode, type ProgrammeSummary, type Reliability } from '../api';
+import { api, ApiError, type AdmissionFact, type Cycle, type ExamCode, type ProgrammeSummary, type Reliability } from '../api';
 import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Panel, SearchInput, SectionTitle, Segmented, inputClass, useLoad } from '../ui';
 import { BASIS, Source } from './University';
 
 const dayLabel = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
 const examName = (e: ExamCode) => (e === 'CUET_UG' ? 'CUET (UG)' : 'CUET (PG)');
 
-export function ReliabilityBadge({ r, on }: { r: Reliability; on?: string }) {
+export function ReliabilityBadge({ r, on, cycle }: { r: Reliability; on?: string; cycle?: Cycle }) {
+  // Information about an earlier admission cycle is never shown as simply "verified": the cycle comes first.
+  if (cycle?.status === 'PREVIOUS' && cycle.label) return <span data-previous-cycle><Badge tone="amber" title="How the university's earlier admission cycle worked. It is not confirmed eligibility, requirements or deadlines for the cycle you are preparing for.">{cycle.label}</Badge></span>;
   if (r === 'VERIFIED_OFFICIAL') return <Badge tone="green" title="Read from an official page and checked by a person">Verified from an official source{on ? `, ${dayLabel(on)}` : ''}</Badge>;
   if (r === 'OUTDATED') return <Badge tone="amber" title="Not checked recently, or about an earlier admission year. Confirm on the official page.">May be out of date{on ? `, last checked ${dayLabel(on)}` : ''}</Badge>;
   return <Badge tone="zinc">Not verified</Badge>;
@@ -33,7 +35,7 @@ function Card({ p }: { p: ProgrammeSummary }) {
           <div className="flex flex-wrap items-center gap-2 text-xs">
             {p.universityType && <Badge>{p.universityType}</Badge>}
             <Badge tone="accent">{examName(p.exam)} · {p.academicYear}</Badge>
-            <ReliabilityBadge r={p.reliability} on={p.lastVerifiedOn} />
+            <ReliabilityBadge r={p.reliability} on={p.lastVerifiedOn} cycle={p.cycle} />
           </div>
           <h3 className="mt-2 text-base font-semibold text-ink">
             <Link to={`/admissions/programmes/${p.id}`} className="hover:text-accent">
@@ -46,7 +48,7 @@ function Card({ p }: { p: ProgrammeSummary }) {
           <dl className="mt-3 grid gap-x-6 gap-y-1.5 text-sm sm:grid-cols-2">
             <div>
               <dt className="text-xs text-ink-3">Required CUET subjects</dt>
-              <dd className="text-ink">{p.subjects ? p.subjects.join(', ') : <span className="text-ink-3">Not yet available</span>}</dd>
+              <dd className="text-ink">{p.subjects ? p.subjects.join(', ') : p.known.eligibility ? <span className="text-ink-2">A language plus a choice of subjects: see the eligibility on the programme page</span> : <span className="text-ink-3">Not yet available</span>}</dd>
             </div>
             <div>
               <dt className="text-xs text-ink-3">Application deadline</dt>
@@ -161,13 +163,13 @@ export function AdmissionsPage() {
   );
 }
 
-function Facts({ title, id, facts, missing, official }: { title: string; id: string; facts: AdmissionFact[]; missing: boolean; official: string | null }) {
+function Facts({ title, id, facts, missing, official, fallback }: { title: string; id: string; facts: AdmissionFact[]; missing: boolean; official: string | null; fallback?: string }) {
   return (
     <section aria-labelledby={id} className="mb-7" data-section={id}>
       <SectionTitle id={id}>{title}</SectionTitle>
       {facts.length === 0 || missing ? (
         <div className="rounded-xl border border-dashed border-rule-strong bg-surface/60 px-4 py-3 text-sm text-ink-2" data-unavailable>
-          Not yet available. We have not published this for the programme.{' '}
+          {fallback ?? 'Not yet available. We have not published this for the programme.'}{' '}
           {official && (
             <a href={official} target="_blank" rel="noreferrer noopener" className="font-medium text-accent hover:underline">
               Check the university’s official page
@@ -181,9 +183,9 @@ function Facts({ title, id, facts, missing, official }: { title: string; id: str
               <Panel className="p-4">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-sm font-semibold text-ink">{f.kind === 'EVENT' && f.eventDate ? `${dayLabel(f.eventDate)}: ${f.label}` : f.label}</span>
-                  <ReliabilityBadge r={f.reliability} on={f.checkedOn} />
+                  <ReliabilityBadge r={f.reliability} on={f.checkedOn} cycle={f.cycle} />
                 </div>
-                {f.valueText && <blockquote className="mt-1.5 border-l-2 border-accent pl-3 text-[15px] leading-relaxed text-ink">{f.valueText}</blockquote>}
+                {f.valueText && <blockquote className="mt-1.5 whitespace-pre-line border-l-2 border-accent pl-3 text-[15px] leading-relaxed text-ink">{f.valueText.replace(/\s+(?=Combination [IVX]+\s*:)/g, '\n').replace(/\s+(?=(?:OR|AND)\s)/g, '\n')}</blockquote>}
                 {f.kind === 'SUBJECTS' && f.subjects && (
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {f.subjects.map((s) => (
@@ -239,19 +241,25 @@ export function ProgrammePage() {
           </>
         }
       />
-      <div className="mb-6 flex flex-wrap items-center gap-2 text-sm text-ink-2" data-programme-meta>
-        <ReliabilityBadge r={p.reliability} on={p.lastVerifiedOn} />
+      {p.cycle.status === 'PREVIOUS' && (
+        <div role="note" data-previous-cycle-banner className="mb-5 rounded-xl border border-marker/40 bg-marker-soft px-4 py-3 text-sm text-ink">
+          <p className="font-semibold">{p.cycle.label}</p>
+          <p className="mt-0.5 text-ink-2">This is how the university's admission worked in that cycle. It is <strong>not</strong> confirmed eligibility, requirements or deadlines for 2027–28. Check the university's official page when its next bulletin is published.</p>
+        </div>
+      )}
+      <div className="mb-6 flex flex-wrap items-center gap-2 text-sm text-ink-2 [overflow-wrap:anywhere]" data-programme-meta>
+        <ReliabilityBadge r={p.reliability} on={p.lastVerifiedOn} cycle={p.cycle} />
         {p.sourceUrl && (
           <a href={p.sourceUrl} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1 hover:text-accent hover:underline">
             Source: {p.sourceTitle}
-            {p.sourcePage ? `, page ${p.sourcePage}` : p.sourceLocator ? `, ${p.sourceLocator}` : ''}
+            {p.sourcePage ? `, page ${p.sourcePage}` : ''}{p.sourceLocator ? `, ${p.sourceLocator}` : ''}
             <ExternalLink aria-hidden className="size-3" />
           </a>
         )}
       </div>
 
       <h2 className="mb-3 text-lg font-semibold text-ink">This admission year ({p.academicYear})</h2>
-      <Facts title="Required CUET subjects" id="pg-subjects" facts={d.current.subjects} missing={miss('subjects')} official={official} />
+      <Facts title="Required CUET subjects" id="pg-subjects" facts={d.current.subjects} missing={miss('subjects')} official={official} fallback={d.current.eligibility.length ? 'The required subjects depend on the combination you choose. The rule is quoted in the eligibility below.' : undefined} />
       <Facts title="Eligibility, as the university prints it" id="pg-elig" facts={d.current.eligibility} missing={miss('eligibility')} official={official} />
       <Facts title="How to apply" id="pg-proc" facts={d.current.procedure} missing={miss('procedure')} official={official} />
       <Facts title="Counselling" id="pg-couns" facts={d.current.counselling} missing={miss('counselling')} official={official} />

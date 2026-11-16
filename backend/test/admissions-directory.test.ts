@@ -237,3 +237,58 @@ describe('the programme directory, end to end', () => {
     expect(out.items.find((i: { id: string }) => i.id === progState)).toMatchObject({ type: 'PROGRAMME', reason: 'Its source is no longer approved' });
   });
 });
+
+describe('previous admission cycle and flagged facts', () => {
+  let staff: Record<string, string>;
+  let student: Record<string, string>;
+  let src = '';
+  const prog = (over: Record<string, unknown> = {}) => ({ universityName: 'University of Delhi', programmeName: 'B.Sc. (Hons.) Physics', degree: 'B.Sc. (Hons.)', level: 'UG', academicYear: '2026-27', exam: 'CUET_UG', sourceId: src, sourcePage: 41, lastVerifiedOn: TODAY, ...over });
+  const fact = (over: Record<string, unknown>) => ({ universityName: 'University of Delhi', sourceId: src, exam: 'CUET_UG', year: 2026, checkedOn: TODAY, sourcePage: 41, ...over });
+
+  beforeAll(async () => {
+    staff = await login('SUPER_ADMIN');
+    student = await login();
+    await call('POST', '/api/console/admissions/sources/load-reviewed', {}, staff);
+    const list = (await call('GET', '/api/console/admissions/sources', undefined, staff)).json as { id: string; url: string }[];
+    src = list.find((s) => s.url === 'https://admission.uod.ac.in')!.id;
+    await call('POST', `/api/console/admissions/sources/${src}/decision`, { action: 'APPROVE', checkedOn: TODAY, note: 'Official, use with care' }, staff);
+  });
+
+  it('labels anything about an earlier cycle "Previous admission cycle – 2026–27", and never labels the current cycle', async () => {
+    const old = await call('POST', '/api/console/admissions/programmes', prog(), staff);
+    const next = await call('POST', '/api/console/admissions/programmes', prog({ academicYear: '2027-28', programmeName: 'B.Sc. (Hons.) Chemistry' }), staff);
+    expect(old.status).toBe(201);
+    for (const id of [old.json.id, next.json.id]) await call('POST', `/api/console/admissions/programmes/${id}/decision`, { action: 'PUBLISH' }, staff);
+    const eligibility = await call('POST', '/api/console/admissions/facts', fact({ kind: 'ELIGIBILITY', programmeId: old.json.id, label: 'Eligibility (as printed in the bulletin)', valueText: 'Candidates must appear in CUET in the following subject combination: Physics + Chemistry + Mathematics/Applied Mathematics' }), staff);
+    await call('POST', `/api/console/admissions/facts/${eligibility.json.id}/decision`, { action: 'PUBLISH' }, staff);
+    const listRes = await call('GET', '/api/public/admissions/programmes?limit=100', undefined, student);
+    expect(listRes.status, JSON.stringify(listRes.json).slice(0, 200)).toBe(200);
+    const list = listRes.json.programmes as { id: string; cycle: { status: string; label: string | null } }[];
+    expect(list.find((p) => p.id === old.json.id)!.cycle).toEqual({ status: 'PREVIOUS', label: 'Previous admission cycle – 2026–27' });
+    expect(list.find((p) => p.id === next.json.id)!.cycle).toEqual({ status: 'CURRENT', label: null });
+    const detail = (await call('GET', `/api/public/admissions/programmes/${old.json.id}`, undefined, student)).json;
+    expect(detail.programme.cycle.label).toBe('Previous admission cycle – 2026–27');
+    expect(detail.current.eligibility[0].cycle.label).toBe('Previous admission cycle – 2026–27');
+    const uni = (await call('GET', '/api/public/admissions/universities/university-of-delhi', undefined, student)).json;
+    expect(uni.programmes.find((p: { id: string }) => p.id === old.json.id).cycle.status).toBe('PREVIOUS');
+  });
+
+  it('keeps a flagged fact as a draft until a person says how the flag was resolved, and keeps the flag in the record', async () => {
+    const p = await call('POST', '/api/console/admissions/programmes', prog({ programmeName: 'B.Sc. (Hons.) Mathematics' }), staff);
+    const made = await call('POST', '/api/console/admissions/facts', fact({ kind: 'ELIGIBILITY', programmeId: p.json.id, label: 'Eligibility (as printed)', valueText: 'Candidates must appear in CUET in the following subject combination.', reviewFlag: 'Three papers are listed without saying whether any one or all are required.' }), staff);
+    expect(made.status).toBe(201);
+    const shown = (await call('GET', '/api/console/admissions/facts?status=DRAFT', undefined, staff)).json.find((f: { id: string }) => f.id === made.json.id);
+    expect(shown.reviewFlag).toMatch(/without saying whether/);
+    const refused = await call('POST', `/api/console/admissions/facts/${made.json.id}/decision`, { action: 'PUBLISH' }, staff);
+    expect(refused.status).toBe(422);
+    expect(refused.json.error.message).toMatch(/flagged for checking/);
+    expect((await call('POST', `/api/console/admissions/facts/${made.json.id}/decision`, { action: 'PUBLISH', reason: 'Confirmed against the final bulletin' }, staff)).status).toBe(200);
+    const after = (await call('GET', '/api/console/admissions/facts?status=PUBLISHED', undefined, staff)).json.find((f: { id: string }) => f.id === made.json.id);
+    expect(after.reviewFlag).toMatch(/Resolved by .*Confirmed against the final bulletin/);
+  });
+
+  it('refuses a flag that contains candidate details', () => {
+    const f: FactInput = { universityName: 'University of Delhi', sourceId: 's', kind: 'ELIGIBILITY', exam: 'CUET_UG', year: 2026, programme: null, label: 'Eligibility', valueText: 'As printed', valueNumber: null, basis: null, category: null, round: null, eventDate: null, sourcePage: 1, sourceLocator: null, checkedOn: TODAY, reviewFlag: 'Roll no 123456 appears in the list' };
+    expect(factProblems(f).join('|')).toMatch(/Candidate details are never stored/);
+  });
+});

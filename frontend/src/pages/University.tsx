@@ -12,12 +12,12 @@ export const BASIS: Record<string, string> = { ALLOCATION_SCORE: 'allocation sco
 /** Where a fact comes from: the official page, the place on it, and the day it was checked. Shown with every fact. */
 export function Source({ f }: { f: AdmissionFact }) {
   return (
-    <span className="text-xs text-ink-3">
+    <span className="text-xs text-ink-3 [overflow-wrap:anywhere]">
       <a href={f.sourceUrl} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1 text-ink-2 hover:text-accent hover:underline">
         {f.sourceTitle}
         <ExternalLink aria-hidden className="size-3" />
       </a>
-      {f.sourcePage ? `, page ${f.sourcePage}` : f.sourceLocator ? `, ${f.sourceLocator}` : ''}. Checked {dayLabel(f.checkedOn)}.
+      {f.sourcePage ? `, page ${f.sourcePage}` : ''}{f.sourceLocator ? `, ${f.sourceLocator}` : ''}. Checked {dayLabel(f.checkedOn)}.
     </span>
   );
 }
@@ -88,6 +88,7 @@ export function UniversityPage() {
                   {p.programmeName}
                 </Link>
                 <span className="ml-2 text-sm text-ink-3">{p.level} · {p.academicYear}</span>
+                {p.cycle?.label && <span className="ml-2 text-sm font-medium text-marker" data-previous-cycle>{p.cycle.label}</span>}
               </li>
             ))}
           </ul>
