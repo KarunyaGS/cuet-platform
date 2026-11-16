@@ -1470,18 +1470,22 @@ model ParticipatingUniversity {
 
 /// What a student is preparing for: drives "My subjects" and the daily-practice subject choice.
 model StudentPreference {
-  userId           String   @id @map("user_id")
+  userId           String    @id @map("user_id")
   /// CUET_UG or CUET_PG; null until chosen.
-  examCode         String?  @map("exam_code")
-  targetYear       Int?     @map("target_year")
+  examCode         String?   @map("exam_code")
+  targetYear       Int?      @map("target_year")
   /// JSON array of test_papers ids (at most 10), in the student's order.
-  paperIds         String   @default("[]") @map("paper_ids_json")
+  paperIds         String    @default("[]") @map("paper_ids_json")
   /// Study reminders by email. Off until the student turns it on; sent only to a confirmed address.
-  emailReminders   Boolean  @default(false) @map("email_reminders")
+  emailReminders   Boolean   @default(false) @map("email_reminders")
   /// Random token for the one-click "stop these emails" link (no sign-in needed).
-  unsubscribeToken String?  @unique @map("unsubscribe_token")
-  updatedAt        DateTime @map("updated_at")
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  unsubscribeToken String?   @unique @map("unsubscribe_token")
+  /// Emails about new official notices (NTA and UGC). Off until the student turns it on; sent only to a confirmed address.
+  emailNotices     Boolean   @default(false) @map("email_notices")
+  /// Only notices detected after this moment are included in the next alert.
+  noticeCursor     DateTime? @map("notice_cursor")
+  updatedAt        DateTime  @map("updated_at")
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("student_preferences")
 }
@@ -1505,7 +1509,7 @@ model EmailMessage {
   id                String    @id @default(cuid())
   userId            String?   @map("user_id")
   toEmail           String    @map("to_email")
-  /// PASSWORD_RESET | VERIFY_EMAIL | ACCOUNT_NOTICE | STUDY_REMINDER
+  /// PASSWORD_RESET | VERIFY_EMAIL | ACCOUNT_NOTICE | STUDY_REMINDER | NOTICE_ALERT
   kind              String
   subject           String
   /// QUEUED | SENT | DELIVERED | FAILED | BOUNCED | COMPLAINED | SUPPRESSED | NOT_CONFIGURED
@@ -1519,10 +1523,17 @@ model EmailMessage {
   lastError         String?   @map("last_error")
   createdAt         DateTime  @default(now()) @map("created_at")
   sentAt            DateTime? @map("sent_at")
+  /// Later tries after a failed send (harmless kinds only; see migration 0030).
+  retryCount        Int       @default(0) @map("retry_count")
+  nextAttemptAt     DateTime? @map("next_attempt_at")
+  retryUntil        DateTime? @map("retry_until")
+  /// Subject, text and html of a failed email while it waits for a retry. Erased once it is sent, expires or is given up on. Never set for emails with a one-time link.
+  payloadJson       String?   @map("payload_json")
   updatedAt         DateTime  @map("updated_at")
   user              User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([toEmail, kind, createdAt])
+  @@index([status, nextAttemptAt])
   @@index([providerMessageId])
   @@index([status, createdAt])
   @@map("email_messages")

@@ -135,7 +135,11 @@ function TokenPage({ run, titles, done, failed }: { run: (token: string) => Prom
 }
 
 const confirmEmail = (token: string) => api.verifyEmail(token);
-const stopReminders = (token: string) => api.unsubscribe(token);
+const stopEmails = (token: string) => {
+  const scope = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('scope') : null;
+  return api.unsubscribe(token, scope === 'notices' ? 'NOTICES' : 'REMINDERS');
+};
+const isNoticeLink = () => typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('scope') === 'notices';
 
 /** Opened from the confirmation email: /verify-email#<token>. */
 export function VerifyEmailPage() {
@@ -149,14 +153,15 @@ export function VerifyEmailPage() {
   );
 }
 
-/** Opened from a reminder email: /unsubscribe#<token>. No sign-in needed. */
+/** Opened from a reminder or a notice email: /unsubscribe#<token>, or /unsubscribe?scope=notices#<token>. No sign-in needed. */
 export function UnsubscribePage() {
+  const notices = isNoticeLink();
   return (
     <TokenPage
-      run={stopReminders}
-      titles={{ busy: 'Stopping reminder emails', done: 'Reminder emails stopped', failed: 'Link not valid' }}
-      done="You will not get study reminders by email any more. You can turn them on again from your profile. Emails about your account, such as password resets, are still sent."
-      failed="This page needs the full link from a reminder email. You can also turn reminders off on your profile page."
+      run={stopEmails}
+      titles={{ busy: notices ? 'Stopping notice emails' : 'Stopping reminder emails', done: notices ? 'Notice emails stopped' : 'Reminder emails stopped', failed: 'Link not valid' }}
+      done={`You will not get ${notices ? 'emails about new official notices' : 'study reminders by email'} any more. You can turn them on again from your profile. Emails about your account, such as password resets, are still sent.`}
+      failed={`This page needs the full link from ${notices ? 'a notice' : 'a reminder'} email. You can also turn these emails off on your profile page.`}
     />
   );
 }

@@ -83,6 +83,22 @@ function EmailSection() {
             <span className="mt-0.5 block text-sm text-ink-2">At most one a day, in the evening, and only when you have an unfinished test, planned tasks, a daily goal or a weak topic. {d.emailVerified ? '' : 'Confirm your email first.'}</span>
           </span>
         </label>
+        <label className="flex items-start gap-3">
+          <input
+            type="checkbox"
+            className="mt-1 size-4 accent-accent"
+            checked={d.emailNotices}
+            disabled={busy || !d.emailVerified}
+            data-notice-alerts
+            onChange={(e) => void act(async () => ((await api.setEmailSettings({ emailNotices: e.target.checked })).emailNotices ? 'Notice emails are on.' : 'Notice emails are off.'))}
+          />
+          <span>
+            <span className="block text-sm font-medium text-ink">Email me new official notices</span>
+            <span className="mt-0.5 block text-sm text-ink-2">
+              At most one email a day, only when there is something new, from NTA for your exam and from UGC about admissions, regulations and advisories. Each item links to the official notice. You will not get a backlog: only notices that appear after you turn this on. {d.emailVerified ? '' : 'Confirm your email first.'}
+            </span>
+          </span>
+        </label>
         {note && (
           <p className="text-sm text-ink-2" role="status">
             {note}

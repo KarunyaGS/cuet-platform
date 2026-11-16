@@ -3,7 +3,7 @@ import { MailWarning } from 'lucide-react';
 import { Badge, Empty, ErrorBox, Loading, PageHeader, SectionTitle, StatGroup, useLoad } from '../ui';
 import { consoleApi, when } from './api';
 
-const KIND: Record<string, string> = { PASSWORD_RESET: 'Password reset', VERIFY_EMAIL: 'Confirm email', ACCOUNT_NOTICE: 'Account notice', STUDY_REMINDER: 'Study reminder' };
+const KIND: Record<string, string> = { PASSWORD_RESET: 'Password reset', VERIFY_EMAIL: 'Confirm email', ACCOUNT_NOTICE: 'Account notice', STUDY_REMINDER: 'Study reminder', NOTICE_ALERT: 'Notice alert' };
 const STATUS: Record<string, { label: string; tone: 'green' | 'amber' | 'red' | 'zinc' }> = {
   SENT: { label: 'Sent', tone: 'green' },
   DELIVERED: { label: 'Delivered', tone: 'green' },
@@ -28,7 +28,7 @@ export function AdminEmail() {
   const blocked = d.suppressions.reduce((a, r) => a + r.n, 0);
   return (
     <div>
-      <PageHeader title="Email" subtitle="Password resets, address confirmations, account notices and study reminders. Message text is never stored." />
+      <PageHeader title="Email" subtitle="Password resets, address confirmations, account notices, study reminders and notice alerts. Message text is never kept, except briefly for a failed reminder, notice or account email that is waiting to be tried again." />
       <div className="mb-6 flex flex-wrap items-center gap-2 text-sm text-ink-2">
         <Badge tone={d.enabled ? 'green' : 'amber'}>{d.enabled ? 'Email is on' : 'Email is off'}</Badge>
         {d.providers.map((p) => (
@@ -39,6 +39,29 @@ export function AdminEmail() {
         {!d.senderSet && <span>No sender address is set.</span>}
         {!d.appUrlSet && <span>The public address of the app is not set, so reminder emails are not sent.</span>}
       </div>
+      <section aria-labelledby="em-ready" className="mb-8" data-readiness>
+        <SectionTitle id="em-ready">Ready to switch on?</SectionTitle>
+        <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+          {d.readiness.map((r) => (
+            <li key={r.key} className="flex items-center gap-3 px-4 py-2.5 text-sm">
+              <Badge tone={r.ok ? 'green' : 'amber'}>{r.ok ? 'Done' : 'To do'}</Badge>
+              <span className="text-ink">{r.label}</span>
+            </li>
+          ))}
+          <li className="flex items-center gap-3 px-4 py-2.5 text-sm">
+            <Badge tone="zinc">Check by hand</Badge>
+            <span className="text-ink-2">The sending domain's DNS records (SPF, bounce MX, DKIM, DMARC). Run <code>node backend/scripts/check-email-dns.mjs your-domain</code>, then send one real email to an inbox you own.</span>
+          </li>
+        </ul>
+      </section>
+      <StatGroup
+        items={[
+          { label: 'Waiting for a retry', value: d.retries.waiting, hint: `${d.retries.recoveredLast7Days} recovered, ${d.retries.gaveUpLast7Days} given up (7 days)` },
+          { label: 'Asked for study reminders', value: d.optedIn.studyReminders },
+          { label: 'Asked for notice emails', value: d.optedIn.noticeAlerts },
+        ]}
+      />
+      <div className="mt-6" />
       <StatGroup
         items={[
           { label: 'Sent, last 7 days', value: count(['SENT', 'DELIVERED']) },

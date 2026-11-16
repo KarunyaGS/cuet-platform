@@ -203,5 +203,8 @@ export interface EmailOverview {
   last7Days: { kind: string; status: string; n: number }[];
   suppressions: { reason: string; n: number }[];
   recentFailures: { kind: string; status: string; provider: string | null; last_error: string | null; created_at: string }[];
+  retries: { waiting: number; gaveUpLast7Days: number; recoveredLast7Days: number };
+  optedIn: { studyReminders: number; noticeAlerts: number };
+  readiness: { key: string; label: string; ok: boolean }[];
 }
 export const when = (iso: string | null) => (iso ? new Date(iso.includes('T') ? iso : `${iso.replace(' ', 'T')}Z`).toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }) : 'Never');

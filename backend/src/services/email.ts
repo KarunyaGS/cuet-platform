@@ -15,7 +15,7 @@ import { newId, sha256Hex } from '../lib/hash';
 import { nowIso } from '../lib/sql';
 import { reminders } from './student-portal';
 
-export type EmailKind = 'PASSWORD_RESET' | 'VERIFY_EMAIL' | 'ACCOUNT_NOTICE' | 'STUDY_REMINDER';
+export type EmailKind = 'PASSWORD_RESET' | 'VERIFY_EMAIL' | 'ACCOUNT_NOTICE' | 'STUDY_REMINDER' | 'NOTICE_ALERT';
 export interface OutgoingEmail {
   to: string;
   userId: string | null;
@@ -72,6 +72,38 @@ export function appUrl(env: Bindings, requestUrl?: string): string {
 
 export type SendOutcome = 'SENT' | 'FAILED' | 'SUPPRESSED' | 'NOT_CONFIGURED' | 'DUPLICATE';
 
+/**
+ * A failed email is tried again later only for kinds that carry nothing secret, and only while it is still useful. An email
+ * with a one-time link (password reset, address confirmation) is never kept or retried: the student asks again.
+ */
+export const RETRY_POLICY: Partial<Record<EmailKind, { maxAgeMinutes: number }>> = {
+  STUDY_REMINDER: { maxAgeMinutes: 6 * 60 },
+  NOTICE_ALERT: { maxAgeMinutes: 24 * 60 },
+  ACCOUNT_NOTICE: { maxAgeMinutes: 48 * 60 },
+};
+/** Minutes to wait before retry 1, 2, 3 ...; after the last one the email is given up on. */
+export const RETRY_BACKOFF_MINUTES = [5, 30, 120, 720, 1440];
+/** A provider answer that will not change by trying again (a rejected address or request), as opposed to an outage or a rate limit. */
+const PERMANENT = /RESEND_4(?!08|29)\d\d|E_RECIPIENT_SUPPRESSED|E_VALIDATION|E_SENDER|E_INVALID/i;
+const addMinutes = (iso: string, m: number) => new Date(Date.parse(iso) + m * 60_000).toISOString();
+
+/** Tries each provider in turn. Returns who sent it, or the last error. */
+async function deliver(env: Bindings, m: OutgoingEmail, from: { email: string; name: string }): Promise<{ ok: true; provider: string; providerId: string; attempts: number } | { ok: false; error: string; attempts: number }> {
+  let attempts = 0;
+  let lastError = '';
+  for (const p of providers(env)) {
+    attempts++;
+    try {
+      return { ok: true, provider: p.name, providerId: await p.send(env, m, from), attempts };
+    } catch (e) {
+      const err = e as { code?: string; message?: string };
+      lastError = `${p.name}: ${err.code ?? 'ERROR'} ${err.message ?? ''}`.trim();
+      console.error('Email send failed', { kind: m.kind, provider: p.name, code: err.code });
+    }
+  }
+  return { ok: false, error: lastError, attempts };
+}
+
 export async function sendEmail(env: Bindings, m: OutgoingEmail): Promise<{ status: SendOutcome; id: string | null }> {
   const db = env.DB;
   const to = m.to.trim().toLowerCase();
@@ -99,36 +131,91 @@ export async function sendEmail(env: Bindings, m: OutgoingEmail): Promise<{ stat
     return { status: 'SUPPRESSED', id };
   }
   const from = { email: env.EMAIL_FROM!, name: env.EMAIL_FROM_NAME || 'CUET Prep' };
-  let attempts = 0;
-  let lastError = '';
-  for (const p of providers(env)) {
-    attempts++;
-    try {
-      const providerId = await p.send(env, { ...m, to }, from);
-      await record('SENT', p.name, providerId, attempts, lastError || null);
-      return { status: 'SENT', id };
-    } catch (e) {
-      const err = e as { code?: string; message?: string };
-      lastError = `${p.name}: ${err.code ?? 'ERROR'} ${err.message ?? ''}`.trim();
-      console.error('Email send failed', { kind: m.kind, provider: p.name, code: err.code });
+  const r = await deliver(env, { ...m, to }, from);
+  if (r.ok) {
+    await record('SENT', r.provider, r.providerId, r.attempts, null);
+    return { status: 'SENT', id };
+  }
+  await record('FAILED', null, null, r.attempts, r.error);
+  // Keep a harmless email for a later try. The body is erased as soon as it is sent, expires or is given up on.
+  const policy = RETRY_POLICY[m.kind];
+  if (policy && !PERMANENT.test(r.error)) {
+    await db
+      .prepare('UPDATE email_messages SET payload_json = ?, next_attempt_at = ?, retry_until = ? WHERE id = ?')
+      .bind(JSON.stringify({ subject: m.subject, text: m.text, html: m.html, headers: m.headers ?? null }), addMinutes(now, RETRY_BACKOFF_MINUTES[0]!), addMinutes(now, policy.maxAgeMinutes), id)
+      .run();
+  }
+  return { status: 'FAILED', id };
+}
+
+/**
+ * Tries failed emails again, oldest due first. Each is retried at 5 minutes, 30 minutes, 2 hours, 12 hours and 24 hours after the
+ * failure, while it is still within its kind's useful life, and is then given up on. A suppressed address is never retried.
+ * The kept body is erased whenever a message is sent, suppressed, expired or given up on.
+ */
+export async function retryFailedEmails(env: Bindings, at = new Date(), limit = 50) {
+  const out = { due: 0, sent: 0, stillFailing: 0, expired: 0, suppressed: 0, gaveUp: 0, skipped: 0 };
+  if (!emailEnabled(env)) return { ...out, enabled: false };
+  const db = env.DB;
+  const now = at.toISOString();
+  const { results } = await db
+    .prepare(`SELECT id, user_id, to_email, kind, subject, payload_json, retry_count, retry_until, attempts FROM email_messages WHERE status = 'FAILED' AND payload_json IS NOT NULL AND next_attempt_at <= ? ORDER BY next_attempt_at LIMIT ?`)
+    .bind(now, limit)
+    .all<{ id: string; user_id: string | null; to_email: string; kind: EmailKind; subject: string; payload_json: string; retry_count: number; retry_until: string | null; attempts: number }>();
+  out.due = results.length;
+  const from = { email: env.EMAIL_FROM!, name: env.EMAIL_FROM_NAME || 'CUET Prep' };
+  const wipe = (id: string, error: string | null, status = 'FAILED') =>
+    db.prepare('UPDATE email_messages SET status = ?, payload_json = NULL, next_attempt_at = NULL, last_error = COALESCE(?, last_error), updated_at = ? WHERE id = ?').bind(status, error, now, id).run();
+  for (const row of results) {
+    if (row.retry_until && row.retry_until < now) {
+      await wipe(row.id, 'Given up: too old to be useful');
+      out.expired++;
+      continue;
+    }
+    if (await db.prepare('SELECT 1 FROM email_suppressions WHERE email = ?').bind(row.to_email).first()) {
+      await wipe(row.id, null, 'SUPPRESSED');
+      out.suppressed++;
+      continue;
+    }
+    const p = JSON.parse(row.payload_json) as { subject: string; text: string; html: string; headers: Record<string, string> | null };
+    const r = await deliver(env, { to: row.to_email, userId: row.user_id, kind: row.kind, subject: p.subject, text: p.text, html: p.html, headers: p.headers ?? undefined }, from);
+    if (r.ok) {
+      await db
+        .prepare(`UPDATE email_messages SET status = 'SENT', provider = ?, provider_message_id = ?, attempts = attempts + ?, retry_count = retry_count + 1, sent_at = ?, payload_json = NULL, next_attempt_at = NULL, updated_at = ? WHERE id = ?`)
+        .bind(r.provider, r.providerId, r.attempts, now, now, row.id)
+        .run();
+      out.sent++;
+      continue;
+    }
+    const retries = row.retry_count + 1;
+    if (retries >= RETRY_BACKOFF_MINUTES.length || PERMANENT.test(r.error)) {
+      await wipe(row.id, `Given up after ${retries} ${retries === 1 ? 'retry' : 'retries'}: ${r.error}`.slice(0, 500));
+      await db.prepare('UPDATE email_messages SET retry_count = ? WHERE id = ?').bind(retries, row.id).run();
+      out.gaveUp++;
+    } else {
+      await db
+        .prepare('UPDATE email_messages SET retry_count = ?, attempts = attempts + ?, last_error = ?, next_attempt_at = ?, updated_at = ? WHERE id = ?')
+        .bind(retries, r.attempts, r.error.slice(0, 500), addMinutes(now, RETRY_BACKOFF_MINUTES[retries]!), now, row.id)
+        .run();
+      out.stillFailing++;
     }
   }
-  await record('FAILED', null, null, attempts, lastError);
-  return { status: 'FAILED', id };
+  return { ...out, enabled: true };
 }
 
 // ---------------------------------------------------------------- templates
 
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
-function layout(heading: string, paragraphs: string[], button?: { label: string; url: string }, footer?: string) {
-  const text = [heading, '', ...paragraphs, ...(button ? ['', `${button.label}: ${button.url}`] : []), '', footer ?? 'CUET Prep'].join('\n');
+function layout(heading: string, paragraphs: string[], button?: { label: string; url: string }, footer?: string, links?: { label: string; url: string }[]) {
+  const text = [heading, '', ...paragraphs, ...(links ?? []).flatMap((l) => ['', l.label, l.url]), ...(button ? ['', `${button.label}: ${button.url}`] : []), '', footer ?? 'CUET Prep'].join('\n');
   const html = `<!doctype html><html><body style="margin:0;background:#f5f4f0;font-family:Arial,Helvetica,sans-serif;color:#1c1b19">
 <div style="max-width:520px;margin:0 auto;padding:28px 20px">
 <p style="font-size:14px;font-weight:bold;letter-spacing:.04em;margin:0 0 20px">CUET Prep</p>
 <div style="background:#ffffff;border:1px solid #e3e0d8;border-radius:10px;padding:24px">
 <h1 style="font-size:20px;margin:0 0 12px">${esc(heading)}</h1>
 ${paragraphs.map((p) => `<p style="font-size:15px;line-height:1.55;margin:0 0 12px">${esc(p)}</p>`).join('\n')}
+${(links ?? []).map((l) => `<p style="font-size:15px;line-height:1.5;margin:0 0 10px"><a href="${esc(l.url)}" style="color:#1f4fd8">${esc(l.label)}</a></p>`).join('\n')}
 ${button ? `<p style="margin:20px 0 4px"><a href="${esc(button.url)}" style="display:inline-block;background:#1f4fd8;color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;padding:11px 18px;border-radius:8px">${esc(button.label)}</a></p>
 <p style="font-size:12px;line-height:1.5;color:#6b6860;margin:12px 0 0;word-break:break-all">If the button does not work, copy this address into your browser: ${esc(button.url)}</p>` : ''}
 </div>
@@ -232,36 +319,48 @@ export async function verifyEmail(db: D1Database, input: z.infer<typeof verifyEm
 
 // ---------------------------------------------------------------- email settings of a student
 
-export const emailSettingsSchema = z.object({ emailReminders: z.boolean() });
+export const emailSettingsSchema = z
+  .object({ emailReminders: z.boolean().optional(), emailNotices: z.boolean().optional() })
+  .refine((v) => v.emailReminders !== undefined || v.emailNotices !== undefined, 'Say what to change');
 
 export async function getEmailSettings(env: Bindings, userId: string) {
   const row = await env.DB
-    .prepare('SELECT u.email, u.email_verified_at, COALESCE(p.email_reminders, 0) AS email_reminders FROM users u LEFT JOIN student_preferences p ON p.user_id = u.id WHERE u.id = ?')
+    .prepare('SELECT u.email, u.email_verified_at, COALESCE(p.email_reminders, 0) AS email_reminders, COALESCE(p.email_notices, 0) AS email_notices FROM users u LEFT JOIN student_preferences p ON p.user_id = u.id WHERE u.id = ?')
     .bind(userId)
-    .first<{ email: string; email_verified_at: string | null; email_reminders: number }>();
-  return { email: row?.email ?? '', emailVerified: Boolean(row?.email_verified_at), emailReminders: Boolean(row?.email_reminders), emailAvailable: emailEnabled(env) };
+    .first<{ email: string; email_verified_at: string | null; email_reminders: number; email_notices: number }>();
+  return { email: row?.email ?? '', emailVerified: Boolean(row?.email_verified_at), emailReminders: Boolean(row?.email_reminders), emailNotices: Boolean(row?.email_notices), emailAvailable: emailEnabled(env) };
 }
 
 export async function setEmailSettings(env: Bindings, userId: string, input: z.infer<typeof emailSettingsSchema>) {
   const cur = await getEmailSettings(env, userId);
-  if (input.emailReminders && !cur.emailVerified) throw new ApiError(409, 'EMAIL_NOT_VERIFIED', 'Confirm your email address first; reminders are sent only to a confirmed address');
+  if ((input.emailReminders || input.emailNotices) && !cur.emailVerified) throw new ApiError(409, 'EMAIL_NOT_VERIFIED', 'Confirm your email address first; emails are sent only to a confirmed address');
+  const reminders = input.emailReminders ?? cur.emailReminders;
+  const notices = input.emailNotices ?? cur.emailNotices;
+  const now = nowIso();
   await env.DB
     .prepare(
-      `INSERT INTO student_preferences (user_id, paper_ids_json, email_reminders, unsubscribe_token, updated_at) VALUES (?, '[]', ?, ?, ?)
-       ON CONFLICT (user_id) DO UPDATE SET email_reminders = excluded.email_reminders, unsubscribe_token = COALESCE(student_preferences.unsubscribe_token, excluded.unsubscribe_token), updated_at = excluded.updated_at`,
+      `INSERT INTO student_preferences (user_id, paper_ids_json, email_reminders, email_notices, notice_cursor, unsubscribe_token, updated_at) VALUES (?, '[]', ?, ?, ?, ?, ?)
+       ON CONFLICT (user_id) DO UPDATE SET email_reminders = excluded.email_reminders, email_notices = excluded.email_notices,
+         notice_cursor = CASE WHEN excluded.email_notices = 1 AND student_preferences.email_notices = 0 THEN excluded.notice_cursor ELSE student_preferences.notice_cursor END,
+         unsubscribe_token = COALESCE(student_preferences.unsubscribe_token, excluded.unsubscribe_token), updated_at = excluded.updated_at`,
     )
-    .bind(userId, input.emailReminders ? 1 : 0, randomToken(), nowIso())
+    .bind(userId, reminders ? 1 : 0, notices ? 1 : 0, now, randomToken(), now)
     .run();
   return getEmailSettings(env, userId);
 }
 
-export const unsubscribeSchema = z.object({ token: z.string().min(20).max(200) });
+export const unsubscribeSchema = z.object({ token: z.string().min(20).max(200), scope: z.enum(['REMINDERS', 'NOTICES', 'ALL']).default('REMINDERS') });
 
-/** One-click stop from a reminder email; needs no sign-in. Always answers the same way. */
+/** One-click stop from a reminder or a notice alert; needs no sign-in. Always answers the same way, whatever the token. */
 export async function unsubscribe(db: D1Database, input: z.infer<typeof unsubscribeSchema>) {
-  await db.prepare('UPDATE student_preferences SET email_reminders = 0, updated_at = ? WHERE unsubscribe_token = ?').bind(nowIso(), input.token).run();
+  const sets = [...(input.scope !== 'NOTICES' ? ['email_reminders = 0'] : []), ...(input.scope !== 'REMINDERS' ? ['email_notices = 0'] : [])];
+  await db.prepare(`UPDATE student_preferences SET ${sets.join(', ')}, updated_at = ? WHERE unsubscribe_token = ?`).bind(nowIso(), input.token).run();
   return { unsubscribed: true };
 }
+
+/** RFC 8058 one-click unsubscribe headers, so mail programs can offer an "Unsubscribe" button that works without signing in. */
+const unsubscribeHeaders = (base: string, token: string | null, scope: 'REMINDERS' | 'NOTICES'): Record<string, string> =>
+  token ? { 'List-Unsubscribe': `<${base}/api/public/email/unsubscribe?token=${token}&scope=${scope}>`, 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' } : {};
 
 // ---------------------------------------------------------------- daily study reminders (Cron Trigger)
 
@@ -303,7 +402,75 @@ export async function sendDailyReminders(env: Bindings, at = new Date(), limit =
       { label: 'Open CUET Prep', url: `${base}/dashboard` },
       `You asked for study reminders by email. To stop them, open ${stop} or turn them off on your profile page.`,
     );
-    const r = await sendEmail(env, { to: u.email, userId: u.id, kind: 'STUDY_REMINDER', subject: due[0]!.title, dedupeKey: `reminder:${u.id}:${day}`, ...body });
+    const r = await sendEmail(env, { to: u.email, userId: u.id, kind: 'STUDY_REMINDER', subject: due[0]!.title, dedupeKey: `reminder:${u.id}:${day}`, headers: unsubscribeHeaders(base, u.unsubscribe_token, 'REMINDERS'), ...body });
+    if (r.status === 'SENT') out.sent++;
+    else if (r.status === 'FAILED') out.failed++;
+    else out.skipped++;
+  }
+  return { ...out, enabled: true };
+}
+
+// ---------------------------------------------------------------- emails about new official notices
+
+/** UGC letters are mostly about institutions, so only these categories are worth an email to a student. NTA notices are all sent. */
+const UGC_ALERT_CATEGORIES = ['ADMISSION', 'REGULATION', 'ADVISORY'];
+const ALERT_MAX_ITEMS = 8;
+
+/**
+ * At most one email a day to a student who turned notice alerts on and confirmed their address. It lists official NTA notices for the
+ * student's exam (both exams if none is chosen), and the UGC notices about admissions, regulations and advisories, that were detected
+ * after the student turned alerts on or after their last alert. Every item links to the issuing body's own document.
+ */
+export async function sendNoticeAlerts(env: Bindings, at = new Date(), limit = 500) {
+  const out = { candidates: 0, sent: 0, nothingNew: 0, skipped: 0, failed: 0 };
+  if (!emailEnabled(env) || !env.PUBLIC_APP_URL) return { ...out, enabled: false };
+  const base = appUrl(env);
+  const day = istDay(at);
+  const now = at.toISOString();
+  const { results } = await env.DB
+    .prepare(
+      `SELECT u.id, u.email, u.display_name, p.unsubscribe_token, p.notice_cursor, p.exam_code FROM student_preferences p JOIN users u ON u.id = p.user_id
+       WHERE p.email_notices = 1 AND u.status = 'ACTIVE' AND u.email_verified_at IS NOT NULL
+         AND NOT EXISTS (SELECT 1 FROM email_suppressions s WHERE s.email = u.email)
+         AND NOT EXISTS (SELECT 1 FROM email_messages m WHERE m.dedupe_key = 'notices:' || u.id || ':' || ?1)
+       ORDER BY u.id LIMIT ?2`,
+    )
+    .bind(day, limit)
+    .all<{ id: string; email: string; display_name: string; unsubscribe_token: string | null; notice_cursor: string | null; exam_code: string | null }>();
+  out.candidates = results.length;
+  const ugcIn = UGC_ALERT_CATEGORIES.map(() => '?').join(',');
+  for (const u of results) {
+    const cursor = u.notice_cursor ?? now;
+    const { results: found } = await env.DB
+      .prepare(
+        `SELECT title, document_url, published_on, authority FROM gov_notices
+         WHERE verification_status = 'PUBLISHED' AND duplicate_of_id IS NULL AND first_detected_at > ?1 AND first_detected_at <= ?2
+           AND ((authority = 'NTA' AND (?3 IS NULL OR exam_code IS NULL OR exam_code = ?3)) OR (authority = 'UGC' AND category IN (${ugcIn.replace(/\?/g, () => '?')})))
+         ORDER BY published_on DESC, first_detected_at DESC LIMIT ${ALERT_MAX_ITEMS + 1}`,
+      )
+      .bind(cursor, now, u.exam_code, ...UGC_ALERT_CATEGORIES)
+      .all<{ title: string; document_url: string; published_on: string | null; authority: string }>();
+    if (!found.length) {
+      out.nothingNew++;
+      await env.DB.prepare('UPDATE student_preferences SET notice_cursor = ? WHERE user_id = ?').bind(now, u.id).run();
+      continue;
+    }
+    const shown = found.slice(0, ALERT_MAX_ITEMS);
+    const more = found.length > ALERT_MAX_ITEMS;
+    const stop = `${base}/unsubscribe?scope=notices#${u.unsubscribe_token ?? ''}`;
+    const body = layout(
+      shown.length === 1 ? 'A new official notice' : 'New official notices',
+      [`Hello ${u.display_name},`, 'These were published on the official websites of the National Testing Agency (NTA) and the University Grants Commission (UGC). Each link opens the notice itself on the official site.', ...(more ? ['There are more; open the updates page to see all of them.'] : [])],
+      { label: 'All government updates', url: `${base}/updates` },
+      `You asked for emails about new official notices. Rely on the official notice itself for anything that affects you. To stop these emails, open ${stop} or turn them off on your profile page.`,
+      shown.map((n) => ({ label: `${n.authority}${n.published_on ? `, ${n.published_on}` : ''}: ${n.title}`, url: n.document_url })),
+    );
+    const r = await sendEmail(env, {
+      to: u.email, userId: u.id, kind: 'NOTICE_ALERT', subject: shown.length === 1 ? `New official notice: ${shown[0]!.title}`.slice(0, 120) : `${shown.length}${more ? '+' : ''} new official notices`,
+      dedupeKey: `notices:${u.id}:${day}`, headers: unsubscribeHeaders(base, u.unsubscribe_token, 'NOTICES'), ...body,
+    });
+    // A failed alert is kept for a later try, so the student's cursor moves on; one that could not be sent at all (not set up, suppressed) leaves it where it was.
+    if (r.status === 'SENT' || r.status === 'FAILED') await env.DB.prepare('UPDATE student_preferences SET notice_cursor = ? WHERE user_id = ?').bind(now, u.id).run();
     if (r.status === 'SENT') out.sent++;
     else if (r.status === 'FAILED') out.failed++;
     else out.skipped++;
@@ -392,11 +559,17 @@ export async function handleResendWebhook(env: Bindings, headers: { id?: string;
 
 export async function emailOverview(env: Bindings) {
   const since = new Date(Date.now() - 7 * 86400_000).toISOString();
-  const [byStatus, suppressed, recentFailures] = await Promise.all([
+  const [byStatus, suppressed, recentFailures, retry, optedIn] = await Promise.all([
     env.DB.prepare('SELECT kind, status, COUNT(*) AS n FROM email_messages WHERE created_at >= ? GROUP BY kind, status ORDER BY kind, status').bind(since).all<{ kind: string; status: string; n: number }>(),
     env.DB.prepare('SELECT reason, COUNT(*) AS n FROM email_suppressions GROUP BY reason').all<{ reason: string; n: number }>(),
     env.DB.prepare(`SELECT kind, status, provider, last_error, created_at FROM email_messages WHERE status IN ('FAILED','BOUNCED','COMPLAINED') ORDER BY created_at DESC LIMIT 20`).all(),
+    env.DB
+      .prepare(`SELECT COALESCE(SUM(status = 'FAILED' AND payload_json IS NOT NULL), 0) AS waiting, COALESCE(SUM(status = 'FAILED' AND payload_json IS NULL AND retry_count > 0 AND updated_at >= ?1), 0) AS gave_up, COALESCE(SUM(status = 'SENT' AND retry_count > 0 AND updated_at >= ?1), 0) AS recovered FROM email_messages`)
+      .bind(since)
+      .first<{ waiting: number; gave_up: number; recovered: number }>(),
+    env.DB.prepare(`SELECT COALESCE(SUM(email_reminders), 0) AS reminders, COALESCE(SUM(email_notices), 0) AS notices FROM student_preferences`).first<{ reminders: number; notices: number }>(),
   ]);
+  const provs = providers(env).map((p) => p.name);
   return {
     enabled: emailEnabled(env),
     providers: providers(env).map((p) => p.name),
@@ -405,5 +578,16 @@ export async function emailOverview(env: Bindings) {
     last7Days: byStatus.results,
     suppressions: suppressed.results,
     recentFailures: recentFailures.results,
+    retries: { waiting: Number(retry?.waiting ?? 0), gaveUpLast7Days: Number(retry?.gave_up ?? 0), recoveredLast7Days: Number(retry?.recovered ?? 0) },
+    optedIn: { studyReminders: Number(optedIn?.reminders ?? 0), noticeAlerts: Number(optedIn?.notices ?? 0) },
+    // What the Worker can see for itself. Whether the sending domain's DNS records are verified cannot be seen from here:
+    // run `node backend/scripts/check-email-dns.mjs <domain>` (see docs/email-domain-setup.md).
+    readiness: [
+      { key: 'sender', label: 'Sender address (EMAIL_FROM) is set', ok: Boolean(env.EMAIL_FROM) },
+      { key: 'appUrl', label: 'Public address of the app (PUBLIC_APP_URL) is set, so emailed links are correct', ok: Boolean(env.PUBLIC_APP_URL) },
+      { key: 'provider', label: 'A sending provider is connected (Cloudflare Email binding, or a Resend key)', ok: provs.length > 0 },
+      { key: 'standby', label: 'A standby provider is connected (Resend)', ok: provs.includes('cloudflare') && provs.includes('resend') },
+      { key: 'resendWebhook', label: 'Resend delivery events are verified (RESEND_WEBHOOK_SECRET)', ok: Boolean(env.RESEND_WEBHOOK_SECRET) || !env.RESEND_API_KEY },
+    ],
   };
 }

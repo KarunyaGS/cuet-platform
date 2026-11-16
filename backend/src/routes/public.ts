@@ -38,7 +38,13 @@ pub.get('/admissions/universities/:slug', async (c) => c.json(await universityPa
 pub.get('/universities', async (c) => c.json(await listUniversities(c.env.DB, universityQuery.parse({ exam: c.req.query('exam'), q: c.req.query('q') || undefined, type: c.req.query('type') || undefined }))));
 
 // Email: one-click stop for study reminders, and delivery events from the standby provider (signature checked).
-pub.post('/email/unsubscribe', async (c) => c.json(await unsubscribe(c.env.DB, await readJson(c, unsubscribeSchema))));
+// One-click unsubscribe. A mail program posts to the address in the List-Unsubscribe header (token in the query string, form body);
+// the unsubscribe page posts JSON. Either way the answer is the same, whatever the token.
+pub.post('/email/unsubscribe', async (c) => {
+  const token = c.req.query('token');
+  const input = token ? unsubscribeSchema.parse({ token, scope: (c.req.query('scope') ?? 'reminders').toUpperCase() }) : await readJson(c, unsubscribeSchema);
+  return c.json(await unsubscribe(c.env.DB, input));
+});
 pub.post('/email/webhooks/resend', async (c) =>
   c.json(await handleResendWebhook(c.env, { id: c.req.header('svix-id'), timestamp: c.req.header('svix-timestamp'), signature: c.req.header('svix-signature') }, await c.req.text())),
 );
