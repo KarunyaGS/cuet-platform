@@ -3,7 +3,7 @@ import { ExternalLink, FileText, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 import { api, type ExamCode, type PastPaper } from '../api';
-import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Segmented, useLoad } from '../ui';
+import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, useLoad } from '../ui';
 
 const select = 'h-9 rounded-lg border border-rule-strong bg-surface px-2.5 text-sm text-ink focus:border-accent focus:outline-none';
 const day = (d: string | null) => (d ? new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }) : null);
@@ -12,7 +12,7 @@ const marks = (p: PastPaper) => `+${p.marksCorrect} for a correct answer, ${p.ma
 
 export function PastPapersPage() {
   const [params, setParams] = useSearchParams();
-  const exam = (params.get('exam') === 'CUET_PG' ? 'CUET_PG' : 'CUET_UG') as ExamCode;
+  const exam = 'CUET_UG' as ExamCode; // CUET UG is the only active exam
   const year = params.get('year') ?? '';
   const subject = params.get('subject') ?? '';
   const list = useLoad(() => api.pastPapers({ exam, year: year ? Number(year) : undefined, subject: subject || undefined }), [exam, year, subject]);
@@ -27,7 +27,6 @@ export function PastPapersPage() {
     <div>
       <PageHeader title="Official previous-year papers" subtitle="Official papers from earlier years, with the official answer key. Attempt one under exam conditions, or practise without a timer." back={{ to: `/practice-centre?exam=${exam}`, label: 'Practice Centre' }} />
       <div className="mb-5 flex flex-wrap items-center gap-3">
-        <Segmented label="Exam" value={exam} onChange={(v) => set('exam', v)} options={[{ value: 'CUET_UG', label: 'CUET-UG' }, { value: 'CUET_PG', label: 'CUET-PG' }]} />
         {list.data && list.data.years.length > 0 && (
           <>
             <select aria-label="Year" className={select} value={year} onChange={(e) => set('year', e.target.value)}>

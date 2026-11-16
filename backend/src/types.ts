@@ -11,6 +11,10 @@ export interface Bindings {
   /** "true" only in local development: students may see machine-verified and draft content, clearly labelled. */
   CONTENT_PREVIEW?: string;
   SESSION_TTL_HOURS?: string;
+  /** Exams students can see, e.g. "CUET_UG". Unset: all. */
+  ACTIVE_EXAMS?: string;
+  /** "ug-science": only the science-focused CUET UG papers are listed for students. Unset: everything. */
+  CATALOGUE_SCOPE?: string;
   /** "off" switches the rate limiter off (local development only). Unset or anything else keeps it on. */
   RATE_LIMIT?: string;
   ADMIN_API_TOKEN?: string;

@@ -107,7 +107,7 @@ try {
     await page.keyboard.press('Escape');
 
     // ---- every retained link opens a real page
-    const targets = [['/CUET_UG', /CUET/i], ['/CUET_PG', /CUET/i], ['/practice-centre', 'Practice Centre'], ['/bookmarks', /bookmarks/i], ['/bookmarks?tab=notes', /bookmarks/i], ['/bookmarks/review', null], ['/planner', /planner|plan/i], ['/progress', 'Progress'], ['/dashboard', 'Today'], ['/profile', 'Profile and goals'], ['/admissions', /admissions|programmes/i], ['/plans', 'Plans and payments'], ['/updates', /updates/i], ['/cuet', null], ['/search', null]];
+    const targets = [['/CUET_UG', /CUET/i], ['/practice-centre', 'Practice Centre'], ['/bookmarks', /bookmarks/i], ['/bookmarks?tab=notes', /bookmarks/i], ['/bookmarks/review', null], ['/planner', /planner|plan/i], ['/progress', 'Progress'], ['/dashboard', 'Today'], ['/profile', 'Profile and goals'], ['/admissions', /admissions|programmes/i], ['/plans', 'Plans and payments'], ['/updates', /updates/i], ['/cuet', null], ['/search', null]];
     for (const [path, name] of targets) {
       const resp = await page.goto(BASE + path, { waitUntil: 'networkidle' });
       const body = (await page.locator('body').innerText()).slice(0, 4000);

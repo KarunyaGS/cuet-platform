@@ -50,7 +50,6 @@ interface MenuItem { to: string; label: string; hint: string; icon: ReactNode }
 /** Learn: the two examinations. Each opens its subjects, units, chapters and topics. */
 const LEARN: MenuItem[] = [
   { to: '/CUET_UG', label: 'CUET UG', hint: 'Undergraduate: subjects, units and topics', icon: <BookOpen aria-hidden /> },
-  { to: '/CUET_PG', label: 'CUET PG', hint: 'Postgraduate: subjects, units and topics', icon: <GraduationCap aria-hidden /> },
 ];
 /** My Learning: everything that is the student's own. Each item opens a page that already exists. */
 const MY: MenuItem[] = [

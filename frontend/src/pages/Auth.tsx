@@ -7,7 +7,7 @@ import { inputClass, useAuth } from '../ui';
 type Mode = 'signin' | 'signup';
 
 const HIGHLIGHTS = [
-  { icon: <FileCheck2 />, title: 'Official syllabus', text: 'Every CUET-UG and CUET-PG subject, unit and topic, with the NTA source page.' },
+  { icon: <FileCheck2 />, title: 'Official syllabus', text: 'Every CUET-UG subject, unit and topic, with the NTA source page.' },
   { icon: <BookOpen />, title: 'Learn and revise', text: 'Lessons, formulas and quick revision notes for each topic.' },
   { icon: <Timer />, title: 'Practise like the exam', text: 'Instant-feedback practice, unit tests and timed mocks with CUET marking.' },
   { icon: <ChartNoAxesColumn />, title: 'Stay on track', text: 'Daily goals, a study planner, bookmarks and progress by subject.' },
@@ -139,7 +139,7 @@ export function AuthPage({ mode }: { mode: Mode }) {
         <Logo light />
         <div className="max-w-md">
           <h2 className="text-[2rem] leading-tight font-semibold">Prepare for CUET from the official syllabus.</h2>
-          <p className="mt-3 text-base leading-relaxed text-white/80">One place to learn, practise and track your preparation for CUET-UG and CUET-PG.</p>
+          <p className="mt-3 text-base leading-relaxed text-white/80">One place to learn, practise and track your preparation for CUET-UG.</p>
           <ul className="mt-10 space-y-5">
             {HIGHLIGHTS.map((h) => (
               <li key={h.title} className="flex gap-3.5">
@@ -167,7 +167,7 @@ export function AuthPage({ mode }: { mode: Mode }) {
         <div className="w-full max-w-[25rem]">
           <div className="mb-8 lg:hidden">
             <Logo />
-            <p className="mt-3 text-sm text-ink-2">Prepare for CUET-UG and CUET-PG from the official syllabus: lessons, practice, mock tests and progress.</p>
+            <p className="mt-3 text-sm text-ink-2">Prepare for CUET-UG from the official syllabus: lessons, practice, mock tests and progress.</p>
           </div>
 
           <h1 className="text-2xl font-semibold text-ink">{signup ? 'Create your account' : 'Welcome back'}</h1>
@@ -231,7 +231,7 @@ export function AuthPage({ mode }: { mode: Mode }) {
 
           <p className="mt-4 text-center text-sm lg:hidden">
             <Link to="/cuet" className="font-medium text-accent hover:underline">
-              Read official CUET-UG and CUET-PG information
+              Read official CUET-UG information
             </Link>
           </p>
           <p className="mt-6 text-center text-sm text-ink-2">

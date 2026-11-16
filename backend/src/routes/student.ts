@@ -9,7 +9,7 @@ import { Hono } from 'hono';
 import { rateLimit } from '../lib/rate-limit';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import type { AppEnv } from '../types';
-import { invalid } from '../lib/errors';
+import { invalid, notFound } from '../lib/errors';
 import { readJson } from '../lib/http';
 import { changePassword, login, loginSchema, logout, passwordSchema, resetPassword, resetPasswordSchema, registerSchema, registerStudent, SESSION_COOKIE, studentAuth, userFromToken } from '../services/accounts';
 import { sha256Hex } from '../lib/hash';
@@ -27,6 +27,7 @@ import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, rece
 import { deleteOne, editOne, editSchema, listAll, listForSurface, listForSurfaces, saveBatch, saveSchema } from '../services/annotations';
 import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, createQuestionCard, createQuestionCardSchema, deleteCard, importCards, importCardsSchema, listCards, questionCardState, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
 import { pyqDocument, pyqDocumentFile, pyqExamSchema, pyqSubject, pyqTree } from '../services/pyq';
+import { examActive, keeper, paperInScope, scienceOnly, UG_SCIENCE_PAPER_CODES } from '../lib/scope';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { answerSchema, getSession, marksSchema, progress, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 
@@ -103,15 +104,32 @@ auth.post('/logout', async (c) => {
 auth.get('/me', async (c) => c.json({ user: await userFromToken(c.env.DB, getCookie(c, SESSION_COOKIE) ?? c.req.header('authorization')?.replace(/^Bearer\s+/i, '')), preview: preview(c.env) }));
 
 export const learn = new Hono<AppEnv>();
-learn.get('/exams', async (c) => c.json(await listExams(c.env.DB)));
+// Students see only the active exams and papers (lib/scope.ts). Nothing is hidden from administrators or removed from the database.
+learn.get('/exams', async (c) => {
+  const exams = (await listExams(c.env.DB)).filter((x) => examActive(c.env, x.code));
+  if (!scienceOnly(c.env)) return c.json(exams);
+  // The cards say how many papers students can open here, not NTA's figure for the whole exam (37).
+  const marks = UG_SCIENCE_PAPER_CODES.map(() => '?').join(',');
+  const out = [];
+  for (const x of exams) {
+    const n = x.code === 'CUET_UG' ? (await c.env.DB.prepare(`SELECT COUNT(*) AS n FROM test_papers tp JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id WHERE e.code = 'CUET_UG' AND ec.year = ? AND tp.code IN (${marks})`).bind(x.year, ...UG_SCIENCE_PAPER_CODES).first<{ n: number }>())?.n ?? 0 : 0;
+    out.push({ ...x, rules: { ...x.rules, papersOffered: n, catalogue: 'science', papersOfferedByNta: x.rules.papersOffered ?? null } });
+  }
+  return c.json(out);
+});
 learn.get('/exams/:exam/subjects', async (c) => {
   const exam = c.req.param('exam');
   const year = Number(c.req.query('year'));
   if (exam !== 'CUET_UG' && exam !== 'CUET_PG') throw invalid('exam must be CUET_UG or CUET_PG');
   if (!Number.isInteger(year)) throw invalid('year is required');
-  return c.json(await listSubjects(c.env.DB, preview(c.env), exam, year));
+  if (!examActive(c.env, exam)) throw notFound('Exam');
+  return c.json(await listSubjects(c.env.DB, preview(c.env), exam, year, keeper(c.env)));
 });
-learn.get('/subjects/:paperId', async (c) => c.json(await paperOutline(c.env.DB, preview(c.env), c.req.param('paperId'))));
+learn.get('/subjects/:paperId', async (c) => {
+  const out = await paperOutline(c.env.DB, preview(c.env), c.req.param('paperId'));
+  if (!paperInScope(c.env, String(out.paper.exam), String(out.paper.code))) throw notFound('Subject');
+  return c.json(out);
+});
 learn.get('/topics/:nodeId', async (c) => c.json(await topicDetail(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 learn.get('/resources/:id', async (c) => c.json(await resourceDetail(c.env.DB, preview(c.env), c.req.param('id'))));
 learn.get('/media/:id', async (c) => mediaObject(c.env.DB, c.env.MEDIA, preview(c.env), c.req.param('id')));
@@ -119,39 +137,61 @@ learn.get('/media/:id', async (c) => mediaObject(c.env.DB, c.env.MEDIA, preview(
 learn.get('/official-papers', async (c) => {
   const exam = c.req.query('exam');
   if (exam !== 'CUET_UG' && exam !== 'CUET_PG') throw invalid('exam must be CUET_UG or CUET_PG');
-  return c.json(await listOfficialLinks(c.env.DB, exam));
+  if (!examActive(c.env, exam)) throw notFound('Exam');
+  const links = await listOfficialLinks(c.env.DB, exam);
+  return c.json({ ...links, years: links.years.map((y) => ({ ...y, items: y.items.filter((i) => paperInScope(c.env, exam, (i.subjectCode as string | null) ?? null)) })).filter((y) => y.items.length) });
 });
 // The directory of papers actually held (subject, date, shift), from the exam body's own answer key.
 learn.get('/official-directory', async (c) => {
   const exam = c.req.query('exam');
   if (exam !== 'CUET_UG' && exam !== 'CUET_PG') throw invalid('exam must be CUET_UG or CUET_PG');
-  return c.json(await officialDirectory(c.env.DB, exam));
+  if (!examActive(c.env, exam)) throw notFound('Exam');
+  const dir = await officialDirectory(c.env.DB, exam);
+  return c.json({ ...dir, years: dir.years.map((y) => { const subjects = y.subjects.filter((x) => paperInScope(c.env, exam, x.code)); return { ...y, subjects, papers: subjects.reduce((n, x) => n + x.sessions, 0) }; }).filter((y) => y.subjects.length) });
 });
-learn.get('/official-directory/sessions', async (c) => c.json(await officialDirectorySessions(c.env.DB, directorySessionsQuery.parse(c.req.query()))));
+learn.get('/official-directory/sessions', async (c) => {
+  const q = directorySessionsQuery.parse(c.req.query());
+  if (!paperInScope(c.env, q.exam, q.subject)) throw notFound('Subject');
+  return c.json(await officialDirectorySessions(c.env.DB, q));
+});
 // One published official document, for the in-app viewer (how it may be shown, and where the file comes from).
 learn.get('/official-documents/:id', async (c) => c.json(await officialDocument(c.env.DB, c.req.param('id'), inApp(c.env))));
-learn.get('/mock-papers', async (c) => c.json(await listMockPapers(c.env.DB, { exam: c.req.query('exam') || undefined, paperId: c.req.query('paperId') || undefined })));
+learn.get('/mock-papers', async (c) => c.json((await listMockPapers(c.env.DB, { exam: c.req.query('exam') || undefined, paperId: c.req.query('paperId') || undefined })).filter((m) => paperInScope(c.env, String(m.exam), String(m.subjectCode)))));
 // Previous-year papers: only published papers whose licence allows display are ever listed here.
-learn.get('/past-papers', async (c) => c.json(await listPastPapers(c.env.DB, pastPaperQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
+learn.get('/past-papers', async (c) => {
+  const r = await listPastPapers(c.env.DB, pastPaperQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))));
+  return c.json({ ...r, papers: r.papers.filter((p) => paperInScope(c.env, String(p.exam), String(p.subjectCode))), subjects: r.subjects.filter((x) => scienceOnly(c.env) ? UG_SCIENCE_PAPER_CODES.includes(String(x.code)) : true) });
+});
 learn.get('/past-papers/:id', async (c) => c.json(await pastPaperDetail(c.env.DB, c.req.param('id'))));
 learn.get('/search', async (c) => {
   const q = (c.req.query('q') ?? '').trim().slice(0, 100);
   const exam = c.req.query('exam');
   if (exam && exam !== 'CUET_UG' && exam !== 'CUET_PG') throw invalid('exam must be CUET_UG or CUET_PG');
-  const [syllabus, concepts] = await Promise.all([searchSyllabus(c.env.DB, preview(c.env), q, exam || undefined), searchConcepts(c.env.DB, preview(c.env), q, exam || undefined)]);
+  if (exam && !examActive(c.env, exam)) return c.json({ query: q, subjects: [], topics: [], more: false, concepts: [] });
+  const keep = keeper(c.env);
+  const [syllabus, concepts] = await Promise.all([searchSyllabus(c.env.DB, preview(c.env), q, exam || undefined, keep), searchConcepts(c.env.DB, preview(c.env), q, exam || undefined, keep)]);
   return c.json({ ...syllabus, concepts });
 });
 // Previous-year papers found on public websites: years and subjects that have a paper, a subject's papers, and one paper.
 // Students see English-medium papers only; PYQ_ENGLISH_HINDI adds NTA's bilingual English + Hindi papers, labelled as such.
 const pyqScope = (env: AppEnv['Bindings']) => ({ inApp: env.PYQ_IN_APP_VIEWING === 'on', englishHindi: env.PYQ_ENGLISH_HINDI === 'on', preview: env.CONTENT_PREVIEW === 'true' });
-learn.get('/pyq', async (c) => c.json(await pyqTree(c.env.DB, pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG'), pyqScope(c.env).englishHindi, pyqScope(c.env).preview)));
+learn.get('/pyq', async (c) => {
+  const exam = pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG');
+  if (!examActive(c.env, exam)) throw notFound('Exam');
+  const t = await pyqTree(c.env.DB, exam, pyqScope(c.env).englishHindi, pyqScope(c.env).preview);
+  return c.json({ ...t, years: t.years.map((y) => { const subjects = y.subjects.filter((x) => (x.code !== null || !scienceOnly(c.env)) && paperInScope(c.env, exam, x.code)); return { ...y, subjects, papers: subjects.reduce((n, x) => n + x.papers, 0) }; }).filter((y) => y.subjects.length) });
+});
 // A CUET Prep document's own file, from our storage (byte ranges for the viewer; ?download=1 to save it).
 learn.get('/pyq/documents/:id/file', async (c) => pyqDocumentFile(c.env.DB, c.env.MEDIA, c.req.param('id'), pyqScope(c.env), c.req.header('range'), c.req.query('download') === '1'));
 learn.get('/pyq/documents/:id', async (c) => c.json(await pyqDocument(c.env.DB, c.req.param('id'), pyqScope(c.env))));
 learn.get('/pyq/:year/:slug', async (c) => {
   const year = Number(c.req.param('year'));
   if (!Number.isInteger(year)) throw invalid('year must be a number');
-  return c.json(await pyqSubject(c.env.DB, pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG'), year, c.req.param('slug'), pyqScope(c.env)));
+  const exam = pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG');
+  if (!examActive(c.env, exam)) throw notFound('Exam');
+  const r = await pyqSubject(c.env.DB, exam, year, c.req.param('slug'), pyqScope(c.env));
+  if ((r.subject.code === null && scienceOnly(c.env)) || !paperInScope(c.env, exam, r.subject.code)) throw notFound('Papers for this subject and year');
+  return c.json(r);
 });
 learn.get('/topics/:nodeId/revision', async (c) => c.json(await revisionNotes(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 

@@ -28,7 +28,7 @@ function ExamCard({ e }: { e: Exam }) {
             <h3 className="text-lg font-semibold text-ink">{e.label}</h3>
             <span className="text-sm text-ink-3">{ug ? 'Undergraduate admissions' : 'Postgraduate admissions'}</span>
           </div>
-          <p className="mt-1 text-sm text-ink-2">{ug ? 'Domain subjects, languages and the General Test.' : 'Subject papers for master’s programmes.'}</p>
+          <p className="mt-1 text-sm text-ink-2">{e.rules.catalogue === 'science' ? 'Science-focused subjects and the General Aptitude Test.' : ug ? 'Domain subjects, languages and the General Test.' : 'Subject papers for master’s programmes.'}</p>
         </div>
       </div>
       <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-rule pt-4 sm:grid-cols-4">

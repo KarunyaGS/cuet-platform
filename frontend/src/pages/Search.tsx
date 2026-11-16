@@ -2,7 +2,7 @@ import { ChevronRight, Compass, Library, Lightbulb, SearchX } from 'lucide-react
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { api, type ExamCode, type SearchResults } from '../api';
-import { Badge, buttonClass, Empty, ErrorBox, kindLabel, Loading, PageHeader, SearchInput, SectionTitle, Segmented } from '../ui';
+import { Badge, buttonClass, Empty, ErrorBox, kindLabel, Loading, PageHeader, SearchInput, SectionTitle } from '../ui';
 
 const examName = (e: string) => (e === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG');
 const CONCEPT_LABEL: Record<string, string> = { DEFINITION: 'Definition', FORMULA: 'Formula', KEY_POINT: 'Key point', IMPORTANT_FACT: 'Fact', CONCEPT: 'Concept' };
@@ -45,16 +45,6 @@ export function SearchPage() {
         <div className="min-w-0 flex-1 [&>label]:sm:w-full">
           <SearchInput value={text} onChange={setText} placeholder="For example: electric dipole, national income, ethics" label="Search the syllabus" />
         </div>
-        <Segmented
-          label="Exam"
-          value={exam}
-          onChange={(v) => setParams((p) => (v ? p.set('exam', v) : p.delete('exam'), p), { replace: true })}
-          options={[
-            { value: '', label: 'Both exams' },
-            { value: 'CUET_UG', label: 'CUET-UG' },
-            { value: 'CUET_PG', label: 'CUET-PG' },
-          ]}
-        />
       </div>
 
       {q.length < 2 && <Empty icon={<Compass />}>Type at least two letters. Every word you type must appear in the result.</Empty>}

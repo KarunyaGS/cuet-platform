@@ -49,7 +49,7 @@ export function SubjectPage() {
     }
   };
 
-  if (exam !== 'CUET_UG' && exam !== 'CUET_PG') return <NotFoundPage />;
+  if (exam !== 'CUET_UG') return <NotFoundPage />;
   if (outline.loading) return <Loading />;
   if (outline.error instanceof ApiError && outline.error.status === 404) return <NotFoundPage />;
   if (outline.error) return <ErrorBox error={outline.error} onRetry={outline.reload} />;

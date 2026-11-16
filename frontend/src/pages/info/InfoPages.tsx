@@ -7,11 +7,10 @@ import { EXAMS, examSlug, FactList, Freshness, PAGES, sourceLabel } from './shar
 
 const section = (d: OfficialInfo, key: string) => d.sections.find((s) => s.key === key);
 
-/** /cuet: what CUET is, the two exams side by side, and the latest official notices. */
+/** /cuet: what CUET-UG is, and the latest official notices. */
 export function InfoHub() {
   const ug = useLoad(() => api.officialInfo('CUET_UG'), []);
-  const pg = useLoad(() => api.officialInfo('CUET_PG'), []);
-  const notices = [...(ug.data?.notices.map((n) => ({ ...n, exam: 'CUET-UG' })) ?? []), ...(pg.data?.notices.map((n) => ({ ...n, exam: 'CUET-PG' })) ?? [])]
+  const notices = [...(ug.data?.notices.map((n) => ({ ...n, exam: 'CUET-UG' })) ?? [])]
     .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''))
     .slice(0, 6);
   return (
@@ -19,13 +18,12 @@ export function InfoHub() {
       <header className="mb-10 max-w-3xl">
         <h1 className="text-[2rem] leading-tight font-semibold text-ink">About CUET</h1>
         <p className="mt-3 text-base leading-relaxed text-ink-2">
-          The Common University Entrance Test is conducted by the National Testing Agency (NTA). There are two separate exams: CUET-UG for undergraduate admission and CUET-PG for
-          postgraduate admission. Everything below is taken from NTA’s official documents and notices, with a link to each source.
+          The Common University Entrance Test is conducted by the National Testing Agency (NTA). This section covers CUET-UG, the exam for undergraduate admission. Everything below is taken from NTA’s official documents and notices, with a link to each source.
         </p>
       </header>
-      <div className="mb-12 grid grid-cols-1 gap-5 lg:grid-cols-2">
-        {(['ug', 'pg'] as const).map((k) => {
-          const d = k === 'ug' ? ug : pg;
+      <div className="mb-12 grid grid-cols-1 gap-5">
+        {(['ug'] as const).map((k) => {
+          const d = ug;
           const e = EXAMS[k];
           return (
             <section key={k} className="flex flex-col rounded-xl border border-rule bg-surface p-6" aria-labelledby={`hub-${k}`}>
@@ -74,7 +72,7 @@ export function InfoHub() {
       <section aria-labelledby="latest" className="max-w-4xl">
         <SectionTitle id="latest">Latest official notices</SectionTitle>
         {notices.length === 0 ? (
-          ug.loading || pg.loading ? <Loading /> : <Empty icon={<Bell />}>No notices recorded yet.</Empty>
+          ug.loading ? <Loading /> : <Empty icon={<Bell />}>No notices recorded yet.</Empty>
         ) : (
           <NoticeList notices={notices} />
         )}
@@ -121,6 +119,7 @@ const FAQ: { q: string; key: string; page: string }[] = [
 export function ExamInfo() {
   const { exam, page = '' } = useParams();
   const k = examSlug(exam);
+  if (exam === 'pg') return <Navigate to={`/cuet/ug${page ? `/${page}` : ''}`} replace />;
   const code = k ? EXAMS[k].code : 'CUET_UG';
   const d = useLoad(() => api.officialInfo(code), [code]);
   if (!k) return <Navigate to="/cuet" replace />;
@@ -134,9 +133,6 @@ export function ExamInfo() {
       <nav aria-label={`${e.name} information`} className="lg:sticky lg:top-24 lg:self-start">
         <div className="mb-3 flex items-center gap-2 px-3">
           <span className="text-base font-semibold text-ink">{e.name}</span>
-          <Link to={`/cuet/${k === 'ug' ? 'pg' : 'ug'}${page ? `/${page}` : ''}`} className="text-xs text-accent hover:underline">
-            Switch to {k === 'ug' ? 'CUET-PG' : 'CUET-UG'}
-          </Link>
         </div>
         <ul className="flex gap-1 overflow-x-auto pb-1 lg:flex-col lg:gap-0.5 lg:overflow-visible">
           {PAGES.map((p) => (

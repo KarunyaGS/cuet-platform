@@ -5,8 +5,10 @@
 import { admissionFilters, programmeDetail, programmeQuery, programmesList, universityPage } from '../services/admissions';
 import { Hono } from 'hono';
 import { rateLimit } from '../lib/rate-limit';
+import { activeExams, examActive, scienceOnly, scopeInfoSections } from '../lib/scope';
 import type { AppEnv } from '../types';
 import { readJson } from '../lib/http';
+import { notFound } from '../lib/errors';
 import { getQuestionPublic } from '../services/questions';
 import { getResource } from '../services/resources';
 import { examSchema, getOfficialInfo, listUniversities, universityQuery } from '../services/official-info';
@@ -29,17 +31,27 @@ pub.get('/topics/:id/content', async (c) => {
 });
 
 // Government updates: published official notices, the same for everyone. Each links to the exam body's own page and document.
-pub.get('/notices/:id', async (c) => c.json(await publicNoticeDetail(c.env.DB, c.req.param('id'))));
-pub.get('/notices', async (c) => c.json(await listNotices(c.env.DB, noticeQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
+pub.get('/notices/:id', async (c) => c.json(await publicNoticeDetail(c.env.DB, c.req.param('id'), c.env.ACTIVE_EXAMS ? activeExams(c.env) : undefined, scienceOnly(c.env))));
+pub.get('/notices', async (c) => c.json(await listNotices(c.env.DB, noticeQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))), c.env.ACTIVE_EXAMS ? activeExams(c.env) : undefined, scienceOnly(c.env))));
 
 // Official exam information pages and participating universities: open to everyone, no sign-in.
-pub.get('/info/:exam', async (c) => c.json(await getOfficialInfo(c.env.DB, examSchema.parse(c.req.param('exam')))));
+pub.get('/info/:exam', async (c) => {
+  const exam = examSchema.parse(c.req.param('exam'));
+  if (!examActive(c.env, exam)) throw notFound('Exam');
+  const info = await getOfficialInfo(c.env.DB, exam);
+  const papers = (await c.env.DB.prepare(`SELECT tp.code, tp.name FROM test_papers tp JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id WHERE e.code = ? AND ec.year = (SELECT MAX(year) FROM exam_cycles WHERE exam_id = e.id)`).bind(exam).all<{ code: string; name: string }>()).results;
+  return c.json({ ...info, sections: scopeInfoSections(c.env, exam, info.sections, papers) });
+});
 // One university's admission page: its official pages and every published, sourced fact. Open to everyone.
 pub.get('/admissions/filters', async (c) => c.json(await admissionFilters(c.env.DB)));
 pub.get('/admissions/programmes', async (c) => c.json(await programmesList(c.env.DB, programmeQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
 pub.get('/admissions/programmes/:id', async (c) => c.json(await programmeDetail(c.env.DB, c.req.param('id'))));
 pub.get('/admissions/universities/:slug', async (c) => c.json(await universityPage(c.env.DB, c.req.param('slug'))));
-pub.get('/universities', async (c) => c.json(await listUniversities(c.env.DB, universityQuery.parse({ exam: c.req.query('exam'), q: c.req.query('q') || undefined, type: c.req.query('type') || undefined }))));
+pub.get('/universities', async (c) => {
+  const q = universityQuery.parse({ exam: c.req.query('exam'), q: c.req.query('q') || undefined, type: c.req.query('type') || undefined });
+  if (!examActive(c.env, q.exam)) throw notFound('Exam');
+  return c.json(await listUniversities(c.env.DB, q));
+});
 
 // Email: one-click stop for study reminders, and delivery events from the standby provider (signature checked).
 // One-click unsubscribe. A mail program posts to the address in the List-Unsubscribe header (token in the query string, form body);

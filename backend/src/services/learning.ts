@@ -1,3 +1,4 @@
+import type { Keep } from '../lib/scope';
 /**
  * Student-facing reads: exams -> subjects (papers) -> units -> topics -> subtopics, learning resources and
  * media. Only verified syllabus (machine- or human-verified) is shown. Outside local preview, only PUBLISHED
@@ -22,7 +23,7 @@ export async function listExams(db: D1Database) {
   return results.map((r) => ({ code: r.code, name: r.name, level: r.level, year: r.year, label: r.label, rules: JSON.parse(r.rules_json ?? '{}') as Record<string, unknown> }));
 }
 
-export async function listSubjects(db: D1Database, preview: boolean, exam: string, year: number) {
+export async function listSubjects(db: D1Database, preview: boolean, exam: string, year: number, keep: Keep = () => true) {
   const { results } = await db
     .prepare(
       `WITH RECURSIVE v AS (${LATEST_VISIBLE_VERSION}),
@@ -43,7 +44,7 @@ export async function listSubjects(db: D1Database, preview: boolean, exam: strin
     )
     .bind(preview ? 1 : 0, exam, year)
     .all<Record<string, string | number | null>>();
-  return results.map((r) => ({
+  return results.filter((r) => keep(exam, String(r.code))).map((r) => ({
     paperId: r.id, code: r.code, name: r.name, category: { code: r.category_code, name: r.category_name },
     available: Boolean(r.version_id), versionId: r.version_id, verification: r.verification, preview: r.version_status !== 'PUBLISHED' && Boolean(r.version_id),
     units: Number(r.units ?? 0), sections: Number(r.sections ?? 0), topics: Number(r.topics ?? 0), questions: Number(r.questions ?? 0),
@@ -54,7 +55,7 @@ export async function listSubjects(db: D1Database, preview: boolean, exam: strin
  * Search across subjects and the syllabus students can see: units, sections, topics and subtopics (titles and text).
  * The question-paper "Note" lines are not searched. Every word of the query must appear in the row.
  */
-export async function searchSyllabus(db: D1Database, preview: boolean, query: string, exam?: string) {
+export async function searchSyllabus(db: D1Database, preview: boolean, query: string, exam?: string, keep: Keep = () => true) {
   const words = query.toLowerCase().split(/\s+/).filter((w) => w.length >= 2).slice(0, 6);
   if (!words.length) return { query, subjects: [], topics: [], more: false };
   // "!" is the LIKE escape character, so a typed % or _ is matched literally.
@@ -97,8 +98,8 @@ export async function searchSyllabus(db: D1Database, preview: boolean, query: st
   };
   return {
     query,
-    subjects: subjects.results.map((r) => ({ paperId: r.id, code: r.code, name: r.name, exam: r.exam, available: Boolean(r.available) })),
-    topics: topics.results.slice(0, LIMIT).map((r) => ({
+    subjects: subjects.results.filter((r) => keep(r.exam, r.code)).map((r) => ({ paperId: r.id, code: r.code, name: r.name, exam: r.exam, available: Boolean(r.available) })),
+    topics: topics.results.filter((r) => keep(String(r.exam), String(r.paper_code))).slice(0, LIMIT).map((r) => ({
       id: r.id, kind: r.kind, label: r.label, title: r.title, snippet: snippet(String(r.title), r.body as string | null), parentTitle: r.parent_title,
       paperId: r.paper_id, paperCode: r.paper_code, paper: r.paper, exam: r.exam,
     })),
@@ -107,13 +108,13 @@ export async function searchSyllabus(db: D1Database, preview: boolean, query: st
 }
 
 /** Concepts (single definitions, formulas, key points and facts inside lessons) whose text has every search word. */
-export async function searchConcepts(db: D1Database, preview: boolean, query: string, exam?: string) {
+export async function searchConcepts(db: D1Database, preview: boolean, query: string, exam?: string, keep: Keep = () => true) {
   const words = query.toLowerCase().split(/\s+/).filter((w) => w.length >= 2).slice(0, 6);
   if (!words.length) return [];
   const like = (w: string) => `%${w.replace(/[!%_]/g, (c) => `!${c}`)}%`;
   const { results } = await db
     .prepare(
-      `SELECT b.resource_id, b.position, r.title AS lesson, tp.id AS paper_id, tp.name AS paper, e.code AS exam
+      `SELECT b.resource_id, b.position, r.title AS lesson, tp.id AS paper_id, tp.code AS paper_code, tp.name AS paper, e.code AS exam
        FROM content_blocks b JOIN learning_resources r ON r.id = b.resource_id
        JOIN test_papers tp ON tp.id = COALESCE(r.test_paper_id, (SELECT v.test_paper_id FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id WHERE n.id = r.curriculum_node_id))
        JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id
@@ -122,7 +123,8 @@ export async function searchConcepts(db: D1Database, preview: boolean, query: st
        ORDER BY LENGTH(b.body), r.title, b.position LIMIT 60`,
     )
     .bind(preview ? 1 : 0, exam ?? '', ...words.map(like))
-    .all<{ resource_id: string; position: number; lesson: string; paper_id: string; paper: string; exam: string }>();
+    .all<{ resource_id: string; position: number; lesson: string; paper_id: string; paper_code: string; paper: string; exam: string }>()
+    .then((r) => ({ results: r.results.filter((x) => keep(x.exam, x.paper_code)) }));
   if (!results.length) return [];
   const byLesson = await conceptsOfResources(db, results.map((r) => r.resource_id));
   const plain = (s: string) => s.replace(/\$[^$]*\$/g, ' ').replace(/[*_`#>]/g, '').replace(/\s+/g, ' ').trim();

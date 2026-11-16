@@ -3,7 +3,7 @@ import { ExternalLink, Info, SearchX } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
 import { api, ApiError, type AdmissionFact, type Cycle, type ExamCode, type ProgrammeSummary, type Reliability } from '../api';
-import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Panel, SearchInput, SectionTitle, Segmented, inputClass, useLoad } from '../ui';
+import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Panel, SearchInput, SectionTitle, inputClass, useLoad } from '../ui';
 import { BASIS, Source } from './University';
 import { parseRule, ruleLines, type Rule } from '../subject-rule';
 
@@ -134,7 +134,6 @@ export function AdmissionsPage() {
             ))}
           </select>
         </label>
-        <Segmented label="Exam" value={f.exam} onChange={(v) => set('exam', v)} options={[{ value: '', label: 'All' }, { value: 'CUET_UG', label: 'UG' }, { value: 'CUET_PG', label: 'PG' }]} />
       </div>
       {f.university && (
         <p className="mb-3 text-sm text-ink-2">

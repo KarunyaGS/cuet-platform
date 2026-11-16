@@ -16,6 +16,8 @@ import { nowIso } from '../lib/sql';
 import { reminders } from './student-portal';
 import { sampleEmail, templates, TEMPLATE_NAMES, type TemplateName } from './email-templates';
 import { questionVisible } from './flashcards';
+import { studentNoticeScope } from './gov-notices';
+import { activeExams, scienceOnly } from '../lib/scope';
 
 export type EmailKind = 'PASSWORD_RESET' | 'VERIFY_EMAIL' | 'ACCOUNT_NOTICE' | 'STUDY_REMINDER' | 'NOTICE_ALERT' | 'WELCOME' | 'EXAM_REMINDER' | 'REVISION_REMINDER';
 export interface OutgoingEmail {
@@ -533,6 +535,8 @@ export async function sendNoticeAlerts(env: Bindings, at = new Date(), limit = 5
     .all<{ id: string; email: string; display_name: string; unsubscribe_token: string | null; notice_cursor: string | null; exam_code: string | null }>();
   out.candidates = results.length;
   const ugcIn = UGC_ALERT_CATEGORIES.map(() => '?').join(',');
+  // The digest follows the same visibility rule as the student's notice list: nothing is sent that the student could not see on the site.
+  const scope = studentNoticeScope(env.ACTIVE_EXAMS ? activeExams(env) : undefined, scienceOnly(env));
   for (const u of results) {
     const cursor = u.notice_cursor ?? now;
     const { results: found } = await env.DB
@@ -540,9 +544,10 @@ export async function sendNoticeAlerts(env: Bindings, at = new Date(), limit = 5
         `SELECT title, document_url, published_on, authority FROM gov_notices
          WHERE verification_status = 'PUBLISHED' AND duplicate_of_id IS NULL AND first_detected_at > ?1 AND first_detected_at <= ?2
            AND ((authority = 'NTA' AND (?3 IS NULL OR exam_code IS NULL OR exam_code = ?3)) OR (authority = 'UGC' AND category IN (${ugcIn.replace(/\?/g, () => '?')})))
+         ${scope.sql}
          ORDER BY published_on DESC, first_detected_at DESC LIMIT ${ALERT_MAX_ITEMS + 1}`,
       )
-      .bind(cursor, now, u.exam_code, ...UGC_ALERT_CATEGORIES)
+      .bind(cursor, now, u.exam_code, ...UGC_ALERT_CATEGORIES, ...scope.binds)
       .all<{ title: string; document_url: string; published_on: string | null; authority: string }>();
     if (!found.length) {
       out.nothingNew++;

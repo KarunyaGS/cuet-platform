@@ -43,6 +43,9 @@
     "APP_ENV": "development",
     // Local development and tests are not throttled. Production does not set this, so the rate limiter is ON there.
     "RATE_LIMIT": "off",
+    // Active catalogue (16 Nov 2026): CUET UG only, science-focused papers only. Records of everything else stay in the database.
+    "ACTIVE_EXAMS": "CUET_UG",
+    "CATALOGUE_SCOPE": "ug-science",
     "EMAIL_FROM": "no-reply@cuet.localhost",
     "EMAIL_FROM_NAME": "CUET Prep (local)",
     // Payments (local): a built-in mock gateway. No outside service is called and no money moves.
@@ -94,6 +97,8 @@
       ],
       "vars": {
         "APP_ENV": "production",
+        "ACTIVE_EXAMS": "CUET_UG",
+        "CATALOGUE_SCOPE": "ug-science",
         // Payments are OFF in production. Test or live payments need the owner's approval (see docs/payments.md).
         "PAYMENTS_MODE": "off",
         // Stays "off" until NTA grants permission to display its documents inside the platform.

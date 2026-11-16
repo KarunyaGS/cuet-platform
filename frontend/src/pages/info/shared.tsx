@@ -95,7 +95,6 @@ export function PublicLayout() {
         About CUET
       </TopLink>
       <TopLink to="/cuet/ug">CUET-UG</TopLink>
-      <TopLink to="/cuet/pg">CUET-PG</TopLink>
     </>
   );
   return (

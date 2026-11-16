@@ -120,16 +120,6 @@ export function UpdatesPage() {
             { value: 'UGC', label: 'UGC' },
           ]}
         />
-        <Segmented
-          label="Exam"
-          value={exam}
-          onChange={(v) => set('exam', v)}
-          options={[
-            { value: '', label: 'All' },
-            { value: 'CUET_UG', label: 'CUET UG' },
-            { value: 'CUET_PG', label: 'CUET PG' },
-          ]}
-        />
         <label className="flex items-center gap-2 text-sm text-ink-2">
           <span>Category</span>
           <select value={category} onChange={(e) => set('category', e.target.value)} className="h-9 rounded-lg border border-rule-strong bg-surface px-2.5 text-sm text-ink focus:border-accent focus:outline-none">

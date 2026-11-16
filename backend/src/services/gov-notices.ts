@@ -559,9 +559,37 @@ async function withRevisions(db: D1Database, items: NoticeOut[]): Promise<Notice
 }
 
 /** Published notices, newest first. The same for every visitor: nothing here belongs to a student. */
-export async function listNotices(db: D1Database, q: z.infer<typeof noticeQuery>) {
+/**
+ * Words that make a notice relevant to CUET-UG students: the exam itself and its steps (registration, admit card, answer key, result)
+ * and admissions / counselling. Used only to choose which notices students see; the stored notices are not changed.
+ */
+export const RELEVANT_NOTICE_WORDS = ['cuet', 'common university entrance', 'entrance test', 'entrance exam', 'admission', 'counsel', 'admit card', 'answer key', 'scorecard', 'merit list', 'seat allot'];
+
+/**
+ * The one rule for which notices students may see (list, single notice, digest email): notices of the active exams (or of no single exam),
+ * and, when the catalogue is limited, only those of the exam itself plus other-authority notices that mention CUET or admissions.
+ * It selects rows; it never changes them.
+ */
+export function studentNoticeScope(activeExams: string[] | undefined, relevantOnly: boolean, col = ''): { sql: string; binds: unknown[] } {
+  const binds: unknown[] = [];
+  let sql = '';
+  if (activeExams) {
+    sql += ` AND (${col}exam_code IS NULL OR ${col}exam_code IN (${activeExams.map(() => '?').join(',')}))`;
+    binds.push(...activeExams);
+  }
+  if (relevantOnly) {
+    sql += ` AND (${col}exam_code IS NOT NULL OR ${RELEVANT_NOTICE_WORDS.map(() => `LOWER(${col}title || ' ' || COALESCE(${col}description, '')) LIKE ?`).join(' OR ')})`;
+    binds.push(...RELEVANT_NOTICE_WORDS.map((w) => `%${w}%`));
+  }
+  return { sql, binds };
+}
+
+export async function listNotices(db: D1Database, q: z.infer<typeof noticeQuery>, activeExams?: string[], relevantOnly = false) {
   const binds: unknown[] = [];
   let where = `verification_status = 'PUBLISHED' AND duplicate_of_id IS NULL`;
+  const scope = studentNoticeScope(activeExams, relevantOnly);
+  where += scope.sql;
+  binds.push(...scope.binds);
   if (q.exam) {
     where += ' AND exam_code = ?';
     binds.push(q.exam);
@@ -735,8 +763,10 @@ export async function noticeHistory(db: D1Database, id: string) {
 }
 
 /** For students: one notice with its earlier and later versions as the official page showed them, and the notices that correct it. */
-export async function publicNoticeDetail(db: D1Database, id: string) {
-  const row = await db.prepare(`SELECT * FROM gov_notices WHERE id = ? AND verification_status = 'PUBLISHED' AND duplicate_of_id IS NULL`).bind(id).first<Row>();
+export async function publicNoticeDetail(db: D1Database, id: string, activeExams?: string[], relevantOnly = false) {
+  // A notice hidden from the lists is not reachable by its own link either (same rule, so nothing hidden leaks through a bookmark).
+  const scope = studentNoticeScope(activeExams, relevantOnly);
+  const row = await db.prepare(`SELECT * FROM gov_notices WHERE id = ? AND verification_status = 'PUBLISHED' AND duplicate_of_id IS NULL${scope.sql}`).bind(id, ...scope.binds).first<Row>();
   if (!row) throw notFound('Notice');
   const [[notice], versions] = await Promise.all([
     withRevisions(db, [noticeOut(row)]),

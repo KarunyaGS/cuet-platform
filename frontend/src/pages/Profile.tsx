@@ -214,7 +214,6 @@ function PreferencesForm() {
           >
             <option value="">Not chosen yet</option>
             <option value="CUET_UG">CUET-UG (undergraduate)</option>
-            <option value="CUET_PG">CUET-PG (postgraduate)</option>
           </select>
         </label>
         <label className="block">

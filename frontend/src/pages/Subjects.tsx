@@ -10,7 +10,7 @@ const YEAR = 2026;
 /** All official papers of one exam, grouped by category, with the ones that can be opened first-class. */
 export function Subjects() {
   const exam = (useParams().exam ?? 'CUET_UG') as ExamCode;
-  const known = exam === 'CUET_UG' || exam === 'CUET_PG';
+  const known = exam === 'CUET_UG';
   const subjects = useLoad(() => (known ? api.subjects(exam, YEAR) : Promise.resolve([])), [exam]);
   const [q, setQ] = useState('');
   const [show, setShow] = useState<'all' | 'ready'>('all');

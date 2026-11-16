@@ -249,6 +249,23 @@ describe('emails about new official notices', () => {
     await sendNoticeAlerts(mail, minutes(8));
     expect(alertsTo(s.email)).toHaveLength(1);
   });
+  it('in the limited catalogue the digest sends what the site shows: CUET-UG notices and UGC notices about CUET or admissions, not CUET-PG or unrelated UGC notices', async () => {
+    await clean();
+    const scoped = { ...mail, ACTIVE_EXAMS: 'CUET_UG', CATALOGUE_SCOPE: 'ug-science' } as unknown as Bindings;
+    const s = await subscribe(null);
+    await notice({ title: 'Release of Admit Cards for CUET (UG) 2027', category: 'ADMIT_CARD', exam_code: 'CUET_UG' });
+    await notice({ title: 'Release of Admit Cards for CUET (PG) 2027', category: 'ADMIT_CARD', exam_code: 'CUET_PG' });
+    await notice({ title: 'UGC advisory on admission through CUET', category: 'ADVISORY', exam_code: null, authority: 'UGC' });
+    await notice({ title: 'UGC advisory on Vigilance Awareness Week', category: 'ADVISORY', exam_code: null, authority: 'UGC' });
+    const before = (await env.DB.prepare('SELECT COUNT(*) AS n FROM gov_notices').first<{ n: number }>())!.n;
+    await sendNoticeAlerts(scoped, minutes(1));
+    const text = alertsTo(s.email).map((m) => m.text).join(' | ');
+    expect(text).toContain('Admit Cards for CUET (UG)');
+    expect(text).toContain('admission through CUET');
+    expect(text).not.toContain('CUET (PG)');
+    expect(text).not.toContain('Vigilance');
+    expect((await env.DB.prepare('SELECT COUNT(*) AS n FROM gov_notices').first<{ n: number }>())!.n).toBe(before);
+  });
 });
 
 describe('stopping emails', () => {

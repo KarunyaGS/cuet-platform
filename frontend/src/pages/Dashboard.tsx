@@ -149,10 +149,6 @@ export function DashboardPage() {
               <Link to="/CUET_UG" className="font-medium text-accent hover:underline">
                 CUET-UG
               </Link>{' '}
-              or{' '}
-              <Link to="/CUET_PG" className="font-medium text-accent hover:underline">
-                CUET-PG
-              </Link>{' '}
               and open a topic.
             </Empty>
           ) : (

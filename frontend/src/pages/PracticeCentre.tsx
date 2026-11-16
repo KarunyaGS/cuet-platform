@@ -10,7 +10,7 @@ import { Landmark, PencilLine, ScrollText, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router';
 import { api, type ExamCode, type MockPaperCard } from '../api';
-import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Segmented, useAuth, useLoad } from '../ui';
+import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, useAuth, useLoad } from '../ui';
 import { OfficialDirectory } from './OfficialDirectory';
 
 
@@ -35,7 +35,7 @@ function Section({ id, icon, title, label, tone, children, intro }: { id: string
 export function PracticeCentrePage() {
   const { user } = useAuth();
   const [params, setParams] = useSearchParams();
-  const exam = (params.get('exam') === 'CUET_PG' ? 'CUET_PG' : 'CUET_UG') as ExamCode;
+  const exam = 'CUET_UG' as ExamCode; // CUET UG is the only active exam
   const examName = exam === 'CUET_PG' ? 'CUET-PG' : 'CUET-UG';
   // Which year and subject the paper browser shows; the sessions list below can send the student to a subject's papers.
   const [pyq, setPyq] = useState<{ year?: number; subject: string }>({ subject: '' });
@@ -50,7 +50,6 @@ export function PracticeCentrePage() {
     <div>
       <PageHeader title="Practice Centre" subtitle="Previous-year question papers, official answer keys, our own practice questions and full mock tests, in one place. Each is labelled so you always know which is which." />
       <div className="mb-6">
-        <Segmented label="Exam" value={exam} onChange={(v) => setParams({ exam: v }, { replace: true })} options={[{ value: 'CUET_UG', label: 'CUET-UG' }, { value: 'CUET_PG', label: 'CUET-PG' }]} />
       </div>
 
       {exam === 'CUET_UG' && (
