@@ -20,6 +20,7 @@ import { roleSchema, setRole } from '../services/maintenance';
 import { deleteQuestion, getQuestionAdmin, questionInputSchema, updateQuestion } from '../services/questions';
 import { deleteResource, getResource, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
+import { admissionsOverview, createFact, createSource, decideFact, decideSource, factDecisionSchema, factInputSchema, importFacts, importSchema, listFacts, listSources, loadProposedSources, sourceDecisionSchema, sourceInputSchema } from '../services/admissions';
 import { emailOverview } from '../services/email';
 import { buildMockPaper, linkActionSchema, listMockPapersAdmin, listOfficialLinksAdmin, mockActionSchema, mockPaperAdmin, mockPaperReadiness, setMockPaperStatus, setOfficialLinkStatus } from '../services/practice-centre';
 import { listPastPapersAdmin, paperActionSchema, pastPaperQuestionsAdmin, setPastPaperStatus } from '../services/past-papers';
@@ -68,6 +69,16 @@ admin.post('/students/reset-link', async (c) => {
 // Government updates: what the scheduled job collected, what is waiting for a check, and a way to run it now.
 admin.get('/notices/overview', async (c) => c.json(await noticeOverview(c.env.DB, c.env)));
 admin.get('/notices/queue', async (c) => c.json(await noticeQueue(c.env.DB)));
+// Admissions information: sources are approved by staff after opening the page; facts cite an approved source and are published by staff.
+admin.get('/admissions/overview', async (c) => c.json(await admissionsOverview(c.env.DB)));
+admin.get('/admissions/sources', async (c) => c.json(await listSources(c.env.DB)));
+admin.post('/admissions/sources', async (c) => (needPermission(me(c), 'content:write', 'add admission sources'), c.json(await createSource(c.env.DB, await readJson(c, sourceInputSchema), c.get('actor')), 201)));
+admin.post('/admissions/sources/load-reviewed', async (c) => (needPermission(me(c), 'content:write', 'add admission sources'), c.json(await loadProposedSources(c.env.DB, c.get('actor')))));
+admin.post('/admissions/sources/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'approve admission sources'), c.json(await decideSource(c.env.DB, c.req.param('id'), await readJson(c, sourceDecisionSchema), c.get('actor')))));
+admin.get('/admissions/facts', async (c) => c.json(await listFacts(c.env.DB, { status: c.req.query('status') || undefined, slug: c.req.query('university') || undefined })));
+admin.post('/admissions/facts', async (c) => (needPermission(me(c), 'content:write', 'add admission facts'), c.json(await createFact(c.env.DB, await readJson(c, factInputSchema), c.get('actor')), 201)));
+admin.post('/admissions/facts/import', async (c) => (needPermission(me(c), 'content:write', 'import admission facts'), c.json(await importFacts(c.env.DB, await readJson(c, importSchema), c.get('actor'), c.req.query('dryRun') === '1'))));
+admin.post('/admissions/facts/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'publish admission facts'), c.json(await decideFact(c.env.DB, c.req.param('id'), await readJson(c, factDecisionSchema), c.get('actor')))));
 admin.post('/notices/fetch', async (c) => (needPermission(me(c), 'content:publish', 'fetch official notices'), c.json(await syncNotices(c.env, { force: true }))));
 admin.post('/notices/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'publish official notices'), c.json(await decideNotice(c.env.DB, c.req.param('id'), await readJson(c, noticeDecisionSchema), c.get('actor')))));
 admin.get('/official-papers', async (c) => c.json(await listOfficialLinksAdmin(c.env.DB, c.env.OFFICIAL_IN_APP_VIEWING === 'on')));

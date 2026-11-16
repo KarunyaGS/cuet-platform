@@ -79,6 +79,7 @@ export function AdminNotices() {
                     <a href={s.url} target="_blank" rel="noreferrer noopener" className="font-medium text-ink hover:text-accent">
                       {s.name}
                     </a>
+                    <Badge tone={s.authority === 'UGC' ? 'accent' : 'zinc'}>{s.authority}</Badge>
                     <span className="block max-w-[18rem] truncate text-xs text-ink-3">{s.url}</span>
                   </td>
                   <td className="px-4 py-2.5 text-ink-2">{s.lastSuccessAt ? when(s.lastSuccessAt) : 'Never'}</td>

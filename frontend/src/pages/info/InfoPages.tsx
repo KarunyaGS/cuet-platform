@@ -319,7 +319,15 @@ function UniversityBrowser({ k }: { k: 'ug' | 'pg' }) {
               <tbody className="divide-y divide-rule">
                 {list.data.universities.map((u) => (
                   <tr key={u.name}>
-                    <td className="px-5 py-2.5 text-ink">{u.name}</td>
+                    <td className="px-5 py-2.5 text-ink">
+                      {u.hasAdmissionInfo ? (
+                        <Link to={`/universities/${u.slug}`} className="font-medium text-accent hover:underline" data-university-link>
+                          {u.name}
+                        </Link>
+                      ) : (
+                        u.name
+                      )}
+                    </td>
                     <td className="px-5 py-2.5 text-ink-2">{u.type}</td>
                     <td className="px-5 py-2.5 text-right">
                       <a href={u.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[13px] text-ink-3 hover:text-accent">
@@ -334,7 +342,7 @@ function UniversityBrowser({ k }: { k: 'ug' | 'pg' }) {
           </div>
         ))}
       <p className="mt-3 text-sm text-ink-2">
-        <span className="font-medium text-ink">Coming next:</span> programmes, eligibility and admission links for each university. This list is NTA’s participating list only.
+        Universities in blue have an official admission page we have checked, and may show dates, eligibility and cut-offs that were read from it. For the others, this is NTA’s participating list only. <Link to="/updates" className="font-medium text-accent hover:underline">Latest government updates</Link>
       </p>
     </section>
   );

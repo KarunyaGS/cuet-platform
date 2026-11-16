@@ -1,7 +1,7 @@
 import { createExecutionContext, env, waitOnExecutionContext } from 'cloudflare:test';
 import { afterEach, describe, expect, it } from 'vitest';
 import app from '../src/index';
-import { classifyCategory, classifyExam, isOfficialUrl, parseListing, publishedDate, setNoticeFetchForTests, syncNotices } from '../src/services/gov-notices';
+import { classifyCategory, classifyExam, isOfficialUrl, parseListing, publishedDate, setNoticeFetchForTests, syncNotices, titleProblem } from '../src/services/gov-notices';
 
 const ADMIN = { 'x-admin-token': 'test-admin-token', 'content-type': 'application/json' };
 const JSON_H = { 'content-type': 'application/json' };
@@ -35,6 +35,24 @@ const ugPage = (rows: string[]) => `<html><body><table><thead><tr><th>Title</th>
 const pgPage = (links: [string, string][]) => `<html><body><ul>${links.map(([t, u]) => `<li><a href="${u}" target="_blank">${t}</a></li>`).join('')}</ul><a href="https://exams.nta.nic.in/cuet-pg/nta-helpdesk/">Helpdesk</a></body></html>`;
 const boardRow = (n: number, title: string, href: string) => `<tr> <td class="align_centre">${n}</td> <td> <i class="fa"></i> <content style="color:#012B55">${title}&nbsp;</content> </td> <td class="align_centre"> <a href="${href}" class="orange-text" target="_blank"> <strong>Read More&nbsp;</strong> </a> </td> </tr>`;
 const boardPage = (rows: string[]) => `<html><body><table>${rows.join('\n')}</table></body></html>`;
+
+const UGC_HOME = 'https://www.ugc.gov.in/';
+const ugcFile = (name: string) => `https://www.ugc.gov.in/pdfnews/${name}.pdf`;
+const ddmmyyyy = (daysBack: number) => iso(daysBack).split('-').reverse().join('/');
+/** The block layout UGC's home page uses: unquoted href, the title after an icon, and "Published on : DD/MM/YYYY" after each entry. */
+const ugcEntry = (title: string, url: string, date: string) => `<panel>
+  <panel class="text-justify">
+    <a href=${url}>
+      <i class="fa fa-pencil-square-o orange-text" aria-hidden="true"></i>${title}
+    </a>
+  </panel>
+</panel>
+<h6>
+  <i class="fa fa-calendar orange-text" aria-hidden="true"></i> Published on : ${date}
+</h6>`;
+const ugcBlock = (name: string, entries: string[]) => `<div class="box-container text-center"><div class="box-title"><span class="price-top">${name}</span></div><div class="box-body"><marquee direction="up">${entries.join('\n')}</marquee></div></div>`;
+const ugcPage = (entries: [string, string, number][]) =>
+  `<html><body><nav><a href='/Aboutus/UGC_ACT'>UGC Act</a><a href="https://www.ugc.gov.in/pdfnews/UGC Organisational Chart.pdf">UGC Organisational Chart</a></nav>${ugcBlock('Notices', entries.map(([t, u, d]) => ugcEntry(t, u, ddmmyyyy(d))))}${ugcBlock('Circulars', [])}</body></html>`;
 
 type Pages = Record<string, string | number>;
 let requests: string[] = [];
@@ -77,6 +95,7 @@ const standard = (): Pages => ({
     boardRow(4, 'Schedule of CUET (PG) 2027 examination', `/Download/Notice/Notice_${stamp(6)}111111.pdf`),
     boardRow(5, 'Old CUET (UG) notice from years ago', '/Download/Notice/Notice_20220101101010.pdf'),
   ]),
+  [UGC_HOME]: ugcPage([['UGC letter regarding: Admission schedule for the academic session 2027', ugcFile('1111111_Admission-schedule'), 30]]),
 });
 
 describe('reading official pages', () => {
@@ -128,17 +147,18 @@ describe('the scheduled fetch', () => {
       // The board: the vacancy notice is not about CUET and the 2022 one is too old. Of the other three, the admit-card
       // notice is the one already held from the CUET (UG) page, and the one that names no exam waits for a check.
       ['nta-notice-board', true, 2, 1, 1],
+      ['ugc-home-notices', true, 1, 0, 0],
     ]);
     // Every request named itself honestly and went only to the official pages.
-    expect(requests.map((r) => r.split(' | ')[0])).toEqual([UG, UG2, PG, BOARD]);
+    expect(requests.map((r) => r.split(' | ')[0])).toEqual([UG, UG2, PG, BOARD, UGC_HOME]);
     expect(requests.every((r) => /cuet-prep-notice-monitor/.test(r))).toBe(true);
 
     const all = await rows();
-    expect(all).toHaveLength(7);
+    expect(all).toHaveLength(8);
     const admit = all.find((r) => r.document_url === admitUg)!;
     expect(admit).toMatchObject({
       source_key: 'cuet-ug-public-notices', source_name: 'NTA, CUET (UG) public notices', source_url: UG, title: 'Release of Admit Cards for CUET (UG) – 2027', description: 'PDF 159 KB document', category: 'ADMIT_CARD',
-      exam_code: 'CUET_UG', exam_year: 2027, published_on: iso(2), verification_status: 'PUBLISHED', duplicate_of_id: null, is_pdf: 1, changed_at: null,
+      exam_code: 'CUET_UG', exam_year: 2027, published_on: iso(2), verification_status: 'PUBLISHED', duplicate_of_id: null, is_pdf: 1, changed_at: null, authority: 'NTA', auto_published: 1,
     });
     expect(admit.content_hash).toMatch(/^[0-9a-f]{64}$/);
     expect(admit.first_detected_at).toBeTruthy();
@@ -168,7 +188,7 @@ describe('the scheduled fetch', () => {
     // Due, nothing changed: no new rows, no "updated".
     await makeDue();
     const same = await syncNotices(ON);
-    expect(same.sources.map((s) => [s.added, s.updated, s.duplicates])).toEqual([[0, 0, 0], [0, 0, 0], [0, 0, 0]]);
+    expect(same.sources.map((s) => [s.added, s.updated, s.duplicates])).toEqual([[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]);
     expect(await rows()).toHaveLength(before.length);
 
     // The source corrects a title and publishes one more notice.
@@ -197,7 +217,7 @@ describe('the scheduled fetch', () => {
     pages[PG] = 503;
     serve(pages);
     const run = await syncNotices(ON);
-    expect(run.sources.map((s) => [s.key, s.ok])).toEqual([['cuet-ug-public-notices', true], ['cuet-pg-website', false], ['nta-notice-board', true]]);
+    expect(run.sources.map((s) => [s.key, s.ok])).toEqual([['cuet-ug-public-notices', true], ['cuet-pg-website', false], ['nta-notice-board', true], ['ugc-home-notices', true]]);
     expect(run.sources[1]!.error).toMatch(/503/);
     let pg = await source('cuet-pg-website');
     expect(pg).toMatchObject({ consecutive_failures: 1, last_success_at: null });
@@ -235,7 +255,7 @@ describe('the scheduled fetch', () => {
     const odd = (await rows()).find((r) => String(r.document_url).startsWith('https://files.example.com/'))!;
     expect(odd).toMatchObject({ verification_status: 'NEEDS_REVIEW', exam_code: 'CUET_UG' });
     expect(odd.status_note).toMatch(/not on an official website/);
-    expect(requests.every((r) => /^https:\/\/(cuet\.nta\.nic\.in|exams\.nta\.nic\.in|nta\.ac\.in)\//.test(r))).toBe(true);
+    expect(requests.every((r) => /^https:\/\/(cuet\.nta\.nic\.in|exams\.nta\.nic\.in|nta\.ac\.in|www\.ugc\.gov\.in)\//.test(r))).toBe(true);
   });
 
   it('does nothing while fetching is switched off, and runs from the Worker\'s scheduled handler when it is on', async () => {
@@ -255,8 +275,8 @@ describe('the scheduled fetch', () => {
     ctx = createExecutionContext();
     await worker.scheduled({ cron: '*/30 * * * *', scheduledTime: Date.now() }, { ...env, NOTICE_FETCH: 'on' }, ctx);
     await waitOnExecutionContext(ctx);
-    expect(requests.map((r) => r.split(' | ')[0])).toEqual([UG, UG2, PG, BOARD]);
-    expect((await rows()).length).toBe(7);
+    expect(requests.map((r) => r.split(' | ')[0])).toEqual([UG, UG2, PG, BOARD, UGC_HOME]);
+    expect((await rows()).length).toBe(8);
     // The next tick, 30 minutes later, finds nothing due.
     serve(standard());
     ctx = createExecutionContext();
@@ -272,7 +292,7 @@ describe('what students and staff see', () => {
     serve(standard());
     await syncNotices(ON);
     const all = (await call('GET', '/api/public/notices')).json;
-    expect(all.total).toBe(5);
+    expect(all.total).toBe(6);
     expect(all.lastCheckedAt).toBeTruthy();
     const titles = all.notices.map((n: { title: string }) => n.title);
     expect(titles.some((t: string) => t.startsWith('Important notice regarding CUET 2027'))).toBe(false); // waiting for a check
@@ -320,9 +340,9 @@ describe('what students and staff see', () => {
     expect((await call('POST', '/api/console/notices/fetch', {}, student)).status).toBe(403);
 
     const o = (await call('GET', '/api/console/notices/overview', undefined, staff)).json;
-    expect(o).toMatchObject({ enabled: false, intervalMinutes: 180, collected: 6, published: 4, newInSevenDays: 5, duplicates: 1, awaitingVerification: 1, failedSources: 1, nextScheduledFetch: null });
+    expect(o).toMatchObject({ enabled: false, intervalMinutes: 180, collected: 7, published: 5, newInSevenDays: 6, duplicates: 1, awaitingVerification: 1, failedSources: 1, nextScheduledFetch: null });
     expect(o.lastSuccessfulFetch).toBeTruthy();
-    expect(o.sources.map((s: { key: string; consecutiveFailures: number }) => [s.key, s.consecutiveFailures])).toEqual([['cuet-pg-website', 1], ['cuet-ug-public-notices', 0], ['nta-notice-board', 0]]);
+    expect(o.sources.map((s: { key: string; consecutiveFailures: number }) => [s.key, s.consecutiveFailures])).toEqual([['cuet-pg-website', 1], ['cuet-ug-public-notices', 0], ['nta-notice-board', 0], ['ugc-home-notices', 0]]);
     expect(o.sources[0].lastError).toMatch(/500/);
 
     const queue = (await call('GET', '/api/console/notices/queue', undefined, staff)).json;
@@ -341,8 +361,112 @@ describe('what students and staff see', () => {
     serve(standard());
     const now = await call('POST', '/api/console/notices/fetch', {}, staff);
     expect(now.json.ran).toBe(true);
-    expect((await call('GET', '/api/console/notices/overview', undefined, staff)).json).toMatchObject({ failedSources: 0, collected: 7 });
+    expect((await call('GET', '/api/console/notices/overview', undefined, staff)).json).toMatchObject({ failedSources: 0, collected: 8 });
     // The notice a person published is not overwritten or duplicated by later fetches.
     expect((await env.DB.prepare('SELECT verification_status, exam_code FROM gov_notices WHERE id = ?').bind(id).first())).toEqual({ verification_status: 'PUBLISHED', exam_code: 'CUET_UG' });
+  });
+});
+
+
+describe('UGC notices', () => {
+  const REAL_ENTRY_TITLE = 'UGC letter regarding: Kashi Tamil Sangamam (KTS 5.0) from November 28th to December 12th, 2026';
+  it('reads UGC\'s home page: unquoted links, the printed date, and nothing from the menu', () => {
+    const html = ugcPage([[REAL_ENTRY_TITLE, ugcFile('9707555_Kashi-Tamil-Sangamam-KTS'), 3], ['UGC Public Notice: Admission to PhD programmes 2027', ugcFile('0192052_Public-Notice'), 20]]);
+    const found = parseListing('UGC_HOME', html, UGC_HOME);
+    expect(found).toEqual([
+      { title: REAL_ENTRY_TITLE, documentUrl: ugcFile('9707555_Kashi-Tamil-Sangamam-KTS'), description: null, publishedOn: iso(3) },
+      { title: 'UGC Public Notice: Admission to PhD programmes 2027', documentUrl: ugcFile('0192052_Public-Notice'), description: null, publishedOn: iso(20) },
+    ]);
+    // A date that does not exist is not guessed.
+    const impossible = parseListing('UGC_HOME', ugcPage([['UGC letter regarding: an entry with a bad date', ugcFile('1_x'), 1]]).replace(ddmmyyyy(1), '31/02/2026'), UGC_HOME);
+    expect(impossible[0]).toMatchObject({ publishedOn: null });
+    expect(parseListing('UGC_HOME', '<html><body>Under maintenance</body></html>', UGC_HOME)).toEqual([]);
+  });
+
+  it('holds each authority to its own websites, and refuses link labels as titles', () => {
+    expect(isOfficialUrl('https://www.ugc.gov.in/pdfnews/1.pdf', 'UGC')).toBe(true);
+    expect(isOfficialUrl('https://deb.ugc.ac.in/Uploads/x.pdf', 'UGC')).toBe(true);
+    // gov.in is NTA-acceptable but is not UGC's own site; and UGC's site is not NTA's.
+    expect(isOfficialUrl('https://cdnbbsr.s3waas.gov.in/x.pdf', 'UGC')).toBe(false);
+    expect(isOfficialUrl('https://ugc.gov.in.example.com/x.pdf', 'UGC')).toBe(false);
+    expect(isOfficialUrl('http://www.ugc.gov.in/x.pdf', 'UGC')).toBe(false);
+    expect(titleProblem('Click here')).toMatch(/link label/);
+    expect(titleProblem('notice.pdf')).toMatch(/file name|too few/);
+    expect(titleProblem('Short')).toMatch(/too short/);
+    expect(titleProblem('UGC letter regarding: Admission schedule for 2027')).toBeNull();
+    expect(classifyCategory('UGC letter regarding: Admission schedule for the academic session 2027')).toBe('ADMISSION');
+    expect(classifyCategory('Scholarship scheme for research students')).toBe('SCHOLARSHIP');
+    expect(classifyCategory('UGC (Minimum Standards) Regulations, 2026 notified in the Gazette')).toBe('REGULATION');
+    // UGC letters use UGC's own rules, not NTA's examination keywords.
+    expect(classifyCategory('UGC letter regarding Promotion of "Innovation for Bharat" 2027 - Hack for Social Cause and Youth Entrepreneurs Challenge', 'UGC')).toBe('GENERAL');
+    expect(classifyCategory('UGC letter regarding Intervention on Non-Compliance with UGC Fee Refund Policy', 'UGC')).toBe('ADVISORY');
+    expect(classifyCategory('UGC Public Notice regarding: Call for Applications for Stipendium Hungaricum Scholarship Programme.', 'UGC')).toBe('SCHOLARSHIP');
+    expect(classifyCategory('UGC Public Notice regarding Invitation of applications from Eligible HEIs for Recognition to offer programmes', 'UGC')).toBe('APPLICATION');
+    expect(classifyCategory('Final Answer Keys for CUET (UG) 2027 challenge window', 'NTA')).toBe('ANSWER_KEY');
+  });
+
+  it('publishes a verified UGC notice on its own, and queues one whose title or address cannot be trusted', async () => {
+    await reset();
+    const pages = standard();
+    pages[UGC_HOME] = ugcPage([
+      ['UGC letter regarding: Admission schedule for the academic session 2027', ugcFile('1111111_Admission-schedule'), 3],
+      ['Click here', ugcFile('2222222_x'), 4],
+      ['UGC Public Notice: Scholarship for research students 2027', 'https://files.example.com/uploads/3333333.pdf', 5],
+      ['UGC letter regarding: Admission schedule for the academic session 2027', ugcFile('4444444_Admission-schedule-copy'), 3],
+    ]);
+    serve(pages);
+    const run = await syncNotices(ON);
+    expect(run.sources.find((x) => x.key === 'ugc-home-notices')).toMatchObject({ ok: true, added: 3, duplicates: 1, queued: 2 });
+    const ugc = (await rows()).filter((r) => r.authority === 'UGC');
+    const good = ugc.find((r) => String(r.document_url).includes('1111111'))!;
+    expect(good).toMatchObject({ verification_status: 'PUBLISHED', exam_code: null, category: 'ADMISSION', published_on: iso(3), auto_published: 1, source_key: 'ugc-home-notices' });
+    expect(good.status_note).toMatch(/Published automatically.*UGC/);
+    expect(ugc.find((r) => r.title === 'Click here')).toMatchObject({ verification_status: 'NEEDS_REVIEW' });
+    expect(String(ugc.find((r) => r.title === 'Click here')!.status_note)).toMatch(/link label/);
+    expect(String(ugc.find((r) => String(r.document_url).includes('example.com'))!.status_note)).toMatch(/not on UGC's website/);
+    expect(ugc.find((r) => String(r.document_url).includes('4444444'))).toMatchObject({ duplicate_of_id: good.id });
+    // Students see the one that passed, with its authority and original link, and can filter by authority.
+    const all = (await call('GET', '/api/public/notices?authority=UGC')).json;
+    expect(all.total).toBe(1);
+    expect(all.notices[0]).toMatchObject({ authority: 'UGC', exam: null, category: 'ADMISSION', documentUrl: good.document_url, sourceUrl: UGC_HOME, sourceName: 'UGC, notices on the home page' });
+    expect((await call('GET', '/api/public/notices?authority=NTA')).json.notices.every((n: { authority: string }) => n.authority === 'NTA')).toBe(true);
+    expect((await call('GET', '/api/public/notices?authority=XYZ')).status).toBe(400);
+  });
+
+  it('checks a notice again when it changes at the source: a published notice whose new title is not a title goes back to the queue', async () => {
+    await reset();
+    const url = ugcFile('5555555_Original');
+    serve({ ...standard(), [UGC_HOME]: ugcPage([['UGC letter regarding: Admission schedule for the academic session 2027', url, 3]]) });
+    await syncNotices(ON);
+    expect((await rows()).find((r) => r.document_url === url)).toMatchObject({ verification_status: 'PUBLISHED', auto_published: 1 });
+    // A corrected, still valid title stays published and is marked updated.
+    serve({ ...standard(), [UGC_HOME]: ugcPage([['UGC letter regarding: Admission schedule for the academic session 2027 (corrected)', url, 3]]) });
+    await makeDue();
+    await syncNotices(ON);
+    expect((await rows()).find((r) => r.document_url === url)).toMatchObject({ verification_status: 'PUBLISHED' });
+    // A title that is no longer a title is not left on show.
+    serve({ ...standard(), [UGC_HOME]: ugcPage([['Click here', url, 3]]) });
+    await makeDue();
+    const run = await syncNotices(ON);
+    const row = (await rows()).find((r) => r.document_url === url)!;
+    expect(row).toMatchObject({ verification_status: 'NEEDS_REVIEW', auto_published: 0 });
+    expect(String(row.status_note)).toMatch(/no longer passes the checks.*link label/);
+    expect(run.sources.find((x) => x.key === 'ugc-home-notices')).toMatchObject({ updated: 1, queued: 1 });
+    expect((await call('GET', '/api/public/notices?authority=UGC')).json.total).toBe(0);
+  });
+
+  it('lets staff settle a UGC notice without choosing an exam, and refuses one that cannot be published', async () => {
+    await reset();
+    const pages = standard();
+    pages[UGC_HOME] = ugcPage([['Click here to read', ugcFile('6666666_x'), 2]]);
+    serve(pages);
+    await syncNotices(ON);
+    const staff = await account('SUPER_ADMIN');
+    const queue = (await call('GET', '/api/console/notices/queue', undefined, staff)).json as { id: string; title: string; authority: string }[];
+    const ugcItem = queue.find((q) => q.authority === 'UGC')!;
+    expect(ugcItem).toBeTruthy();
+    // A link label is not a title, so even staff cannot publish it as it stands.
+    expect((await call('POST', `/api/console/notices/${ugcItem.id}/decision`, { action: 'PUBLISH' }, staff)).status).toBe(422);
+    expect((await call('POST', `/api/console/notices/${ugcItem.id}/decision`, { action: 'REJECT' }, staff)).json).toEqual({ id: ugcItem.id, status: 'REJECTED' });
   });
 });

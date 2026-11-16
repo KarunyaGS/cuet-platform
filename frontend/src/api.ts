@@ -190,7 +190,7 @@ export interface OfficialInfo {
 }
 export interface UniversityList {
   exam: ExamCode; cycle: string | null; total: number; types: { type: string; count: number }[];
-  universities: { name: string; type: string; state: string | null; sourceUrl: string }[];
+  universities: { name: string; type: string; state: string | null; sourceUrl: string; slug: string; hasAdmissionInfo: boolean }[];
 }
 
 export interface Preferences { examCode: ExamCode | null; targetYear: number | null; papers: { id: string; code: string; name: string }[]; set: boolean }
@@ -223,10 +223,23 @@ export interface PyqSubject {
   exam: ExamCode; year: number; subject: { slug: string; code: string | null; name: string; section: string | null };
   papers: PyqDoc[]; answerKeys: (PyqDoc & { sessions: { date: string | null; shift: string | null; page: number | null }[] })[]; samplePapers: PyqDoc[]; practicePapers: PyqDoc[];
 }
-export type NoticeCategory = 'ADMIT_CARD' | 'RESULT' | 'ANSWER_KEY' | 'EXAM_SCHEDULE' | 'CITY_INTIMATION' | 'APPLICATION' | 'SYLLABUS' | 'ADVISORY' | 'GENERAL';
+export type NoticeCategory = 'ADMIT_CARD' | 'RESULT' | 'ANSWER_KEY' | 'EXAM_SCHEDULE' | 'CITY_INTIMATION' | 'APPLICATION' | 'SYLLABUS' | 'ADMISSION' | 'SCHOLARSHIP' | 'REGULATION' | 'ADVISORY' | 'GENERAL';
+/** Who issued a notice: the National Testing Agency or the University Grants Commission. */
+export type NoticeAuthority = 'NTA' | 'UGC';
+/** One published admissions fact, with where it came from. */
+export interface AdmissionFact {
+  id: string; universitySlug: string; universityName: string; kind: 'EVENT' | 'ELIGIBILITY' | 'CUTOFF'; exam: ExamCode; year: number; programme: string | null; label: string;
+  valueText: string | null; valueNumber: number | null; basis: string | null; category: string | null; round: string | null; eventDate: string | null; sourcePage: number | null;
+  sourceLocator: string | null; checkedOn: string; status: string; sourceUrl: string; sourceTitle: string; sourceStatus: string; rejectReason: string | null;
+}
+export interface UniversityAdmissions {
+  slug: string; name: string; listedBy: { exam: ExamCode; cycle: string; type: string; sourceUrl: string }[];
+  officialPages: { url: string; title: string; kind: string; covers: string; format: string; updateFrequency: string | null; lastCheckedOn: string | null }[];
+  dates: AdmissionFact[]; eligibility: AdmissionFact[]; cutoffs: AdmissionFact[]; note: string;
+}
 /** An official notice. sourceUrl and documentUrl are the exam body's own addresses; nothing is hosted by CUET Prep. */
 export interface GovNotice {
-  id: string; title: string; description: string | null; category: NoticeCategory; exam: ExamCode | null; examYear: number | null; publishedOn: string | null;
+  id: string; title: string; description: string | null; category: NoticeCategory; authority: NoticeAuthority; exam: ExamCode | null; examYear: number | null; publishedOn: string | null;
   sourceName: string; sourceUrl: string; documentUrl: string; isPdf: boolean; isNew: boolean; isUpdated: boolean; firstDetectedAt: string; lastCheckedAt: string;
 }
 export interface NoticeList { total: number; lastCheckedAt: string | null; categories: { category: NoticeCategory; count: number }[]; notices: GovNotice[] }
@@ -343,10 +356,11 @@ export const api = {
   pyqTree: (exam: ExamCode) => request<PyqTree>('GET', `/api/learn/pyq?exam=${exam}`),
   pyqSubject: (year: number, slug: string) => request<PyqSubject>('GET', `/api/learn/pyq/${year}/${encodeURIComponent(slug)}`),
   pyqDocument: (id: string) => request<PyqDoc & { exam: ExamCode }>('GET', `/api/learn/pyq/documents/${encodeURIComponent(id)}`),
-  notices: (f: { exam?: ExamCode; category?: NoticeCategory; limit?: number } = {}) =>
-    request<NoticeList>('GET', `/api/public/notices?limit=${f.limit ?? 30}${f.exam ? `&exam=${f.exam}` : ''}${f.category ? `&category=${f.category}` : ''}`),
+  notices: (f: { exam?: ExamCode; category?: NoticeCategory; authority?: NoticeAuthority; limit?: number } = {}) =>
+    request<NoticeList>('GET', `/api/public/notices?limit=${f.limit ?? 30}${f.exam ? `&exam=${f.exam}` : ''}${f.category ? `&category=${f.category}` : ''}${f.authority ? `&authority=${f.authority}` : ''}`),
   search: (q: string, exam?: ExamCode | '') => request<SearchResults>('GET', `/api/learn/search?q=${encodeURIComponent(q)}${exam ? `&exam=${exam}` : ''}`),
   officialInfo: (exam: ExamCode) => request<OfficialInfo>('GET', `/api/public/info/${exam}`),
+  universityAdmissions: (slug: string) => request<UniversityAdmissions>('GET', `/api/public/admissions/universities/${encodeURIComponent(slug)}`),
   universities: (exam: ExamCode, q?: string, type?: string) =>
     request<UniversityList>('GET', `/api/public/universities?exam=${exam}${q ? `&q=${encodeURIComponent(q)}` : ''}${type ? `&type=${encodeURIComponent(type)}` : ''}`),
 };

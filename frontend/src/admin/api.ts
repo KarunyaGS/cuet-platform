@@ -1,10 +1,15 @@
 /** Admin console and reviewer content-review API calls (staff sign in with their own account). */
-import { request, type ExamCode, type GovNotice } from '../api';
+import { request, type AdmissionFact, type ExamCode, type GovNotice } from '../api';
 
+export interface AdmissionsOverview { sources: { proposed: number; approved: number; retired: number }; facts: { draft: number; published: number; rejected: number } }
+export interface AdmissionSourceRow {
+  id: string; universitySlug: string | null; universityName: string | null; url: string; title: string; kind: string; covers: string; format: string; updateFrequency: string | null;
+  reliabilityNote: string | null; personalDataRisk: string; recommendation: string; status: string; reviewedBy: string | null; reviewedAt: string | null; lastCheckedOn: string | null; publishedFacts: number; draftFacts: number;
+}
 export interface NoticeOverview {
   enabled: boolean; intervalMinutes: number; lastSuccessfulFetch: string | null; nextScheduledFetch: string | null;
   collected: number; published: number; newInSevenDays: number; updatedInSevenDays: number; duplicates: number; awaitingVerification: number; failedSources: number;
-  sources: { key: string; name: string; url: string; lastCheckedAt: string | null; lastSuccessAt: string | null; lastError: string | null; consecutiveFailures: number; nextCheckAt: string | null; found: number; added: number; updated: number; duplicates: number; queued: number }[];
+  sources: { key: string; name: string; url: string; authority: 'NTA' | 'UGC'; lastCheckedAt: string | null; lastSuccessAt: string | null; lastError: string | null; consecutiveFailures: number; nextCheckAt: string | null; found: number; added: number; updated: number; duplicates: number; queued: number }[];
 }
 
 export interface StaffMe { id: string; email: string; displayName: string; roles: string[]; permissions: string[] }
@@ -81,6 +86,13 @@ export const consoleApi = {
   noticeOverview: () => request<NoticeOverview>('GET', '/api/console/notices/overview'),
   noticeQueue: () => request<(GovNotice & { statusNote: string | null })[]>('GET', '/api/console/notices/queue'),
   noticeFetch: () => request<{ ran: boolean }>('POST', '/api/console/notices/fetch', {}),
+  admissions: () => request<AdmissionsOverview>('GET', '/api/console/admissions/overview'),
+  admissionSources: () => request<AdmissionSourceRow[]>('GET', '/api/console/admissions/sources'),
+  loadAdmissionSources: () => request<{ added: number; total: number }>('POST', '/api/console/admissions/sources/load-reviewed', {}),
+  decideAdmissionSource: (id: string, b: { action: 'APPROVE' | 'RETIRE'; checkedOn?: string; note?: string }) => request<unknown>('POST', `/api/console/admissions/sources/${id}/decision`, b),
+  admissionFacts: (status?: string) => request<AdmissionFact[]>('GET', `/api/console/admissions/facts${status ? `?status=${status}` : ''}`),
+  addAdmissionFact: (b: unknown) => request<{ id: string }>('POST', '/api/console/admissions/facts', b),
+  decideAdmissionFact: (id: string, b: { action: 'PUBLISH' | 'REJECT'; reason?: string }) => request<unknown>('POST', `/api/console/admissions/facts/${id}/decision`, b),
   noticeDecision: (id: string, b: { action: 'PUBLISH' | 'REJECT'; exam?: 'CUET_UG' | 'CUET_PG' }) => request<{ id: string; status: string }>('POST', `/api/console/notices/${id}/decision`, b),
   officialLinks: () => request<AdminOfficialLink[]>('GET', '/api/console/official-papers'),
   officialLinkStatus: (id: string, b: { action: 'PUBLISH' | 'UNPUBLISH' | 'ARCHIVE' | 'ALLOW_IN_APP' | 'DISALLOW_IN_APP'; linkingBasis?: string; embedBasis?: string; conditionsChecked?: boolean }) => request<AdminOfficialLink>('POST', `/api/console/official-papers/${id}/status`, b),

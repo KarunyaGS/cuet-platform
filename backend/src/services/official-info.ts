@@ -5,6 +5,7 @@
  * keeps the document link (and page) it was taken from.
  */
 import { z } from 'zod';
+import { universitiesWithInfo, universitySlug } from './admissions';
 import { notFound } from '../lib/errors';
 import { newId } from '../lib/hash';
 import { insertRows, nowIso } from '../lib/sql';
@@ -115,6 +116,7 @@ export async function listUniversities(db: D1Database, query: z.infer<typeof uni
     where.push('type = ?');
     params.push(query.type);
   }
+  const withInfo = await universitiesWithInfo(db);
   const [rows, types] = await Promise.all([
     db
       .prepare(`SELECT name, type, state, source_url FROM participating_universities WHERE ${where.join(' AND ')} ORDER BY name LIMIT 1000`)
@@ -127,6 +129,7 @@ export async function listUniversities(db: D1Database, query: z.infer<typeof uni
     cycle: latest.cycle,
     total: types.results.reduce((t, x) => t + x.n, 0),
     types: types.results.map((t) => ({ type: t.type, count: t.n })),
-    universities: rows.results.map((r) => ({ name: r.name, type: r.type, state: r.state, sourceUrl: r.source_url })),
+    // slug: the address of the university's own page; hasAdmissionInfo: it has an approved official page or a published fact.
+    universities: rows.results.map((r) => ({ name: r.name, type: r.type, state: r.state, sourceUrl: r.source_url, slug: universitySlug(r.name), hasAdmissionInfo: withInfo.has(universitySlug(r.name)) })),
   };
 }

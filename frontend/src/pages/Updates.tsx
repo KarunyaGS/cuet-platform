@@ -1,6 +1,6 @@
 import { ExternalLink, FileText, Megaphone } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router';
-import { api, type ExamCode, type GovNotice, type NoticeCategory } from '../api';
+import { api, type ExamCode, type GovNotice, type NoticeAuthority, type NoticeCategory } from '../api';
 import { Badge, Empty, ErrorBox, Loading, PageHeader, Segmented, useLoad } from '../ui';
 
 export const NOTICE_CATEGORY: Record<NoticeCategory, string> = {
@@ -11,18 +11,22 @@ export const NOTICE_CATEGORY: Record<NoticeCategory, string> = {
   CITY_INTIMATION: 'Exam city',
   APPLICATION: 'Application',
   SYLLABUS: 'Syllabus and bulletin',
+  ADMISSION: 'Admission',
+  SCHOLARSHIP: 'Scholarship',
+  REGULATION: 'Regulation',
   ADVISORY: 'Advisory',
   GENERAL: 'General',
 };
 const examName = (e: ExamCode | null) => (e === 'CUET_UG' ? 'CUET (UG)' : e === 'CUET_PG' ? 'CUET (PG)' : '');
 export const noticeDate = (day: string | null) => (day ? new Date(`${day}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : 'Date not stated');
 
-/** One notice: what it is, when, and the two ways to the exam body's own copy. Nothing is hosted here. */
+/** One notice: who issued it, what it is, when, and the two ways to the issuing body's own copy. Nothing is hosted here. */
 export function NoticeRow({ n, compact = false }: { n: GovNotice; compact?: boolean }) {
   return (
     <li className="px-4 py-3.5" data-notice>
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-3">
         <span className="num text-ink-2">{noticeDate(n.publishedOn)}</span>
+        <Badge tone={n.authority === 'UGC' ? 'accent' : 'zinc'} title={n.authority === 'UGC' ? 'University Grants Commission' : 'National Testing Agency'}>{n.authority}</Badge>
         <Badge>{NOTICE_CATEGORY[n.category] ?? n.category}</Badge>
         {n.exam && <Badge tone="accent">{examName(n.exam)}</Badge>}
         {n.isNew && <Badge tone="green">New</Badge>}
@@ -48,13 +52,14 @@ export function NoticeRow({ n, compact = false }: { n: GovNotice; compact?: bool
   );
 }
 
-/** Latest government updates: official CUET notices, read from NTA's own pages on a schedule. */
+/** Latest government updates: official notices from NTA and UGC, read from their own pages on a schedule. */
 export function UpdatesPage() {
   const [params, setParams] = useSearchParams();
   const exam = (params.get('exam') === 'CUET_UG' || params.get('exam') === 'CUET_PG' ? params.get('exam') : '') as ExamCode | '';
   const category = (params.get('category') ?? '') as NoticeCategory | '';
-  const r = useLoad(() => api.notices({ exam: exam || undefined, category: category || undefined, limit: 60 }), [exam, category]);
-  const set = (key: string, value: string) => setParams((p) => (value ? p.set(key, value) : p.delete(key), key === 'exam' && p.delete('category'), p), { replace: true });
+  const authority = (params.get('authority') === 'NTA' || params.get('authority') === 'UGC' ? params.get('authority') : '') as NoticeAuthority | '';
+  const r = useLoad(() => api.notices({ exam: exam || undefined, category: category || undefined, authority: authority || undefined, limit: 60 }), [exam, category, authority]);
+  const set = (key: string, value: string) => setParams((p) => (value ? p.set(key, value) : p.delete(key), (key === 'exam' || key === 'authority') && p.delete('category'), key === 'authority' && value === 'UGC' && p.delete('exam'), p), { replace: true });
   const d = r.data;
   return (
     <div className="mx-auto max-w-4xl">
@@ -62,12 +67,22 @@ export function UpdatesPage() {
         title="Latest government updates"
         subtitle={
           <>
-            Official CUET notices from the National Testing Agency. Every link opens NTA’s own website.
+            Official notices from the National Testing Agency (NTA) and the University Grants Commission (UGC). Every link opens the issuing body’s own website.
             {d?.lastCheckedAt && <span className="text-ink-3"> Last checked {new Date(d.lastCheckedAt).toLocaleString(undefined, { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })}.</span>}
           </>
         }
       />
       <div className="mb-5 flex flex-wrap items-center gap-3">
+        <Segmented
+          label="Issued by"
+          value={authority}
+          onChange={(v) => set('authority', v)}
+          options={[
+            { value: '', label: 'NTA and UGC' },
+            { value: 'NTA', label: 'NTA' },
+            { value: 'UGC', label: 'UGC' },
+          ]}
+        />
         <Segmented
           label="Exam"
           value={exam}
@@ -97,7 +112,7 @@ export function UpdatesPage() {
         <ErrorBox error={r.error} onRetry={r.reload} />
       ) : d!.notices.length === 0 ? (
         <Empty icon={<Megaphone />}>
-          {d!.lastCheckedAt ? 'No official notices match this choice.' : 'Official notices have not been collected yet. They appear here once NTA’s pages have been checked.'}
+          {d!.lastCheckedAt ? 'No official notices match this choice.' : 'Official notices have not been collected yet. They appear here once the official pages have been checked.'}
         </Empty>
       ) : (
         <>
@@ -107,7 +122,7 @@ export function UpdatesPage() {
             ))}
           </ul>
           <p className="mt-3 text-xs text-ink-3">
-            Showing {d!.notices.length} of {d!.total}. Dates are the dates stamped on NTA’s files. For anything that affects you, rely on the official notice itself.
+            Showing {d!.notices.length} of {d!.total}. NTA dates are stamped on its files; UGC dates are printed next to each notice on its page. For anything that affects you, rely on the official notice itself.
           </p>
         </>
       )}

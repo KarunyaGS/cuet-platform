@@ -57,6 +57,8 @@ const AdminPastPapers = lazy(() => import('./admin/PastPapers').then((m) => ({ d
 const AdminBilling = lazy(() => import('./admin/Billing').then((m) => ({ default: m.AdminBilling })));
 const AdminEmail = lazy(() => import('./admin/Email').then((m) => ({ default: m.AdminEmail })));
 const AdminNotices = lazy(() => import('./admin/Notices').then((m) => ({ default: m.AdminNotices })));
+const AdminAdmissions = lazy(() => import('./admin/Admissions').then((m) => ({ default: m.AdminAdmissions })));
+const UniversityPage = lazy(() => import('./pages/University').then((m) => ({ default: m.UniversityPage })));
 const AdminActivity = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminActivity })));
 const ReviewLayout = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewLayout })));
 const ReviewDashboard = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewDashboard })));
@@ -96,6 +98,7 @@ const router = createBrowserRouter([
       // Visual learning prototype: one Physics topic.
       { path: '/visual/gravitation', element: <VisualPage /> },
       { path: '/updates', element: <UpdatesPage /> },
+      { path: '/universities/:slug', element: lazyPage(<UniversityPage />) },
       { path: '/pyq', element: <PyqPage /> },
       { path: '/pyq/view/:id', element: <PyqViewerPage /> },
       { path: '/bookmarks/review', element: <FlashcardReviewPage /> },
@@ -138,6 +141,7 @@ const router = createBrowserRouter([
           { path: 'billing', element: lazyPage(<AdminBilling />) },
           { path: 'email', element: lazyPage(<AdminEmail />) },
           { path: 'updates', element: lazyPage(<AdminNotices />) },
+          { path: 'admissions', element: lazyPage(<AdminAdmissions />) },
           { path: 'activity', element: lazyPage(<AdminActivity />) },
         ],
       },
