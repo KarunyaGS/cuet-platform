@@ -117,7 +117,7 @@ export function UniversityPage() {
                   <li key={f.id} className="px-4 py-3">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="num font-semibold text-ink">{f.eventDate ? dayLabel(f.eventDate) : ''}</span>
-                      <Badge>{examName(f.exam)} {f.year}</Badge>
+                      {f.cycle.status === 'PREVIOUS' && f.cycle.label ? <span data-previous-cycle><Badge tone="amber">{f.cycle.label}</Badge></span> : <Badge>{examName(f.exam)} {f.year}</Badge>}
                     </div>
                     <div className="mt-0.5 text-[15px] text-ink">{f.label}</div>
                     <Source f={f} />
@@ -133,10 +133,11 @@ export function UniversityPage() {
                 {d.eligibility.map((f) => (
                   <li key={f.id}>
                     <Panel className="p-4">
-                      <div className="text-sm font-semibold text-ink">
-                        {f.programme ?? f.label} <Badge>{examName(f.exam)} {f.year}</Badge>
+                      <div className="flex flex-wrap items-center gap-2 text-sm font-semibold text-ink">
+                        {f.programme ?? f.label}
+                        {f.cycle.status === 'PREVIOUS' && f.cycle.label ? <span data-previous-cycle><Badge tone="amber" title="How the university's earlier admission cycle worked. It is not confirmed for the cycle you are preparing for.">{f.cycle.label}</Badge></span> : <Badge>{examName(f.exam)} {f.year}</Badge>}
                       </div>
-                      <blockquote className="mt-1.5 border-l-2 border-accent pl-3 text-[15px] leading-relaxed text-ink">{f.valueText}</blockquote>
+                      <blockquote className="mt-1.5 whitespace-pre-line border-l-2 border-accent pl-3 text-[15px] leading-relaxed text-ink">{(f.valueText ?? '').replace(/\s+(?=List B:)/, '\n').replace(/\s+(?=General Aptitude Test:)/, '\n')}</blockquote>
                       <div className="mt-1.5">
                         <Source f={f} />
                       </div>
