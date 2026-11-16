@@ -7,10 +7,10 @@ import { Badge, Empty, ErrorBox, Loading, PageHeader, Panel, SectionTitle, useLo
 
 const examName = (e: ExamCode) => (e === 'CUET_UG' ? 'CUET (UG)' : 'CUET (PG)');
 const dayLabel = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
-const BASIS: Record<string, string> = { ALLOCATION_SCORE: 'allocation score', NORMALISED_SCORE: 'normalised score', PERCENTILE: 'percentile', MARKS: 'marks', RANK: 'rank' };
+export const BASIS: Record<string, string> = { ALLOCATION_SCORE: 'allocation score', NORMALISED_SCORE: 'normalised score', PERCENTILE: 'percentile', MARKS: 'marks', RANK: 'rank' };
 
 /** Where a fact comes from: the official page, the place on it, and the day it was checked. Shown with every fact. */
-function Source({ f }: { f: AdmissionFact }) {
+export function Source({ f }: { f: AdmissionFact }) {
   return (
     <span className="text-xs text-ink-3">
       <a href={f.sourceUrl} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1 text-ink-2 hover:text-accent hover:underline">
@@ -74,6 +74,25 @@ export function UniversityPage() {
             ))}
           </ul>
         )}
+      </section>
+
+      <section aria-labelledby="uni-programmes" className="mb-8" data-university-programmes>
+        <SectionTitle id="uni-programmes">Programmes</SectionTitle>
+        {d.programmes.length === 0 ? (
+          <Empty>No programme has been published for this university yet.</Empty>
+        ) : (
+          <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+            {d.programmes.map((p) => (
+              <li key={p.id} className="px-4 py-3">
+                <Link to={`/admissions/programmes/${p.id}`} className="text-[15px] font-medium text-accent hover:underline">
+                  {p.programmeName}
+                </Link>
+                <span className="ml-2 text-sm text-ink-3">{p.level} · {p.academicYear}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        <p className="mt-2 text-sm"><Link to={`/admissions?university=${d.slug}`} className="font-medium text-accent hover:underline">Browse all programmes</Link></p>
       </section>
 
       {nothing ? (

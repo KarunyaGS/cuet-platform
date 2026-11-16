@@ -1409,45 +1409,89 @@ model GovNoticeSource {
 /// One notice published on an official source page. Only the title, dates and the official addresses are stored:
 /// the document itself is never copied.
 model GovNotice {
-  id                 String    @id @default(cuid())
-  sourceKey          String    @map("source_key")
-  sourceName         String    @map("source_name")
+  id                 String             @id @default(cuid())
+  sourceKey          String             @map("source_key")
+  sourceName         String             @map("source_name")
   /// The official page the notice was listed on.
-  sourceUrl          String    @map("source_url")
+  sourceUrl          String             @map("source_url")
   /// The notice's own official address (usually a PDF). This is its identity: one row per address.
-  documentUrl        String    @unique @map("document_url")
-  isPdf              Boolean   @default(false) @map("is_pdf")
+  documentUrl        String             @unique @map("document_url")
+  isPdf              Boolean            @default(false) @map("is_pdf")
   title              String
   description        String?
   /// ADMIT_CARD, RESULT, ANSWER_KEY, EXAM_SCHEDULE, CITY_INTIMATION, APPLICATION, SYLLABUS, ADVISORY or GENERAL.
   category           String
   /// CUET_UG, CUET_PG, or null when it could not be decided.
-  examCode           String?   @map("exam_code")
-  examYear           Int?      @map("exam_year")
+  examCode           String?            @map("exam_code")
+  examYear           Int?               @map("exam_year")
   /// YYYY-MM-DD, read from the official file's own date stamp.
-  publishedOn        String?   @map("published_on")
+  publishedOn        String?            @map("published_on")
   /// PUBLISHED (shown to students), NEEDS_REVIEW (waiting for a member of staff) or REJECTED.
-  verificationStatus String    @map("verification_status")
+  verificationStatus String             @map("verification_status")
   /// Why it is waiting, or who decided.
-  statusNote         String?   @map("status_note")
+  statusNote         String?            @map("status_note")
   /// Set when the same notice was already held from another official page; such rows are not shown.
-  duplicateOfId      String?   @map("duplicate_of_id")
-  contentHash        String    @map("content_hash")
-  firstDetectedAt    DateTime  @map("first_detected_at")
-  lastCheckedAt      DateTime  @map("last_checked_at")
+  duplicateOfId      String?            @map("duplicate_of_id")
+  contentHash        String             @map("content_hash")
+  firstDetectedAt    DateTime           @map("first_detected_at")
+  lastCheckedAt      DateTime           @map("last_checked_at")
   /// When the source changed this notice after it was first detected.
-  changedAt          DateTime? @map("changed_at")
+  changedAt          DateTime?          @map("changed_at")
   /// NTA or UGC: the issuing authority. UGC notices have no exam.
-  authority          String    @default("NTA")
+  authority          String             @default("NTA")
   /// 1 when the reader published it on its own (such a notice is checked again if it changes at the source).
-  autoPublished      Int       @default(0) @map("auto_published")
-  updatedAt          DateTime  @updatedAt @map("updated_at")
+  autoPublished      Int                @default(0) @map("auto_published")
+  /// How many versions the official page has shown (see GovNoticeVersion).
+  versionCount       Int                @default(1) @map("version_count")
+  /// The earlier notice this one corrects or replaces, and how: CORRIGENDUM, ADDENDUM, REVISED, EXTENSION, RESCHEDULED or AMENDMENT.
+  revisionOfId       String?            @map("revision_of_id")
+  revisionKind       String?            @map("revision_kind")
+  /// The checks that made the source count as official, in words.
+  authenticityNote   String?            @map("authenticity_note")
+  versions           GovNoticeVersion[]
+  events             GovNoticeEvent[]
+  updatedAt          DateTime           @updatedAt @map("updated_at")
 
   @@index([verificationStatus, examCode, publishedOn])
   @@index([authority, verificationStatus])
   @@index([sourceKey])
   @@index([firstDetectedAt])
+  @@index([revisionOfId])
   @@map("gov_notices")
+}
+
+/// One version of a notice as the official page showed it.
+model GovNoticeVersion {
+  id          String    @id @default(cuid())
+  noticeId    String    @map("notice_id")
+  version     Int
+  title       String
+  description String?
+  publishedOn String?   @map("published_on")
+  documentUrl String    @map("document_url")
+  contentHash String    @map("content_hash")
+  reason      String
+  detectedAt  DateTime  @map("detected_at")
+  notice      GovNotice @relation(fields: [noticeId], references: [id], onDelete: Cascade)
+
+  @@unique([noticeId, version])
+  @@map("gov_notice_versions")
+}
+
+/// Everything that happened to a notice: found, published on its own, queued, changed at the source, and every decision by staff.
+model GovNoticeEvent {
+  id         String    @id @default(cuid())
+  noticeId   String    @map("notice_id")
+  action     String
+  actor      String
+  fromStatus String?   @map("from_status")
+  toStatus   String?   @map("to_status")
+  note       String?
+  createdAt  DateTime  @default(now()) @map("created_at")
+  notice     GovNotice @relation(fields: [noticeId], references: [id], onDelete: Cascade)
+
+  @@index([noticeId, createdAt])
+  @@map("gov_notice_events")
 }
 
 /// A university listed by NTA as participating in an exam cycle, exactly as NTA lists it.
@@ -1967,32 +2011,33 @@ model BulkApprovalItem {
 
 /// An official page admissions facts may be taken from. PROPOSED until a member of staff approves it.
 model AdmissionSource {
-  id               String          @id @default(cuid())
+  id               String               @id @default(cuid())
   /// Null for a source that covers every university (for example NTA's participating list).
-  universitySlug   String?         @map("university_slug")
-  universityName   String?         @map("university_name")
-  url              String          @unique
+  universitySlug   String?              @map("university_slug")
+  universityName   String?              @map("university_name")
+  url              String               @unique
   title            String
   /// NTA_LIST, UNIVERSITY_ADMISSION, CUTOFF_PAGE, BULLETIN or COUNSELLING_PORTAL.
   kind             String
   covers           String
   /// HTML, PDF or MIXED.
   format           String
-  updateFrequency  String?         @map("update_frequency")
-  reliabilityNote  String?         @map("reliability_note")
+  updateFrequency  String?              @map("update_frequency")
+  reliabilityNote  String?              @map("reliability_note")
   /// NONE_SEEN, LISTS_LINKED (candidate lists exist and must be linked to, never stored) or UNKNOWN.
-  personalDataRisk String          @default("UNKNOWN") @map("personal_data_risk")
+  personalDataRisk String               @default("UNKNOWN") @map("personal_data_risk")
   /// USE, USE_WITH_CARE, NOT_VERIFIED or DO_NOT_USE: the source review's recommendation.
-  recommendation   String          @default("NOT_VERIFIED")
+  recommendation   String               @default("NOT_VERIFIED")
   /// PROPOSED, APPROVED or RETIRED.
-  status           String          @default("PROPOSED")
-  reviewedBy       String?         @map("reviewed_by")
-  reviewedAt       DateTime?       @map("reviewed_at")
-  lastCheckedOn    String?         @map("last_checked_on")
-  createdBy        String          @map("created_by")
-  createdAt        DateTime        @default(now()) @map("created_at")
-  updatedAt        DateTime        @updatedAt @map("updated_at")
+  status           String               @default("PROPOSED")
+  reviewedBy       String?              @map("reviewed_by")
+  reviewedAt       DateTime?            @map("reviewed_at")
+  lastCheckedOn    String?              @map("last_checked_on")
+  createdBy        String               @map("created_by")
+  createdAt        DateTime             @default(now()) @map("created_at")
+  updatedAt        DateTime             @updatedAt @map("updated_at")
   facts            AdmissionFact[]
+  programmes       AdmissionProgramme[]
 
   @@index([universitySlug, status])
   @@map("admission_sources")
@@ -2027,11 +2072,49 @@ model AdmissionFact {
   publishedBy    String?         @map("published_by")
   publishedAt    DateTime?       @map("published_at")
   rejectReason   String?         @map("reject_reason")
+  /// The programme this fact is about (university-wide facts have none).
+  programmeId    String?         @map("programme_id")
+  /// Required-CUET-subjects facts: the subjects as a JSON list, beside the text as printed.
+  subjectsJson   String?         @map("subjects_json")
   createdAt      DateTime        @default(now()) @map("created_at")
   updatedAt      DateTime        @updatedAt @map("updated_at")
   source         AdmissionSource @relation(fields: [sourceId], references: [id], onDelete: Restrict)
 
   @@index([universitySlug, status])
   @@index([sourceId])
+  @@index([programmeId])
   @@map("admission_facts")
+}
+
+/// One programme at one university for one admission year, taken from an approved source. Eligibility, subjects, procedure and so on are AdmissionFacts about it.
+model AdmissionProgramme {
+  id             String          @id @default(cuid())
+  universitySlug String          @map("university_slug")
+  universityName String          @map("university_name")
+  /// As NTA lists the university (Central Universities, State Universities, ...).
+  universityType String?         @map("university_type")
+  programmeName  String          @map("programme_name")
+  degree         String?
+  /// UG or PG.
+  level          String          @default("UG")
+  /// For example 2026-27.
+  academicYear   String          @map("academic_year")
+  examCode       String          @map("exam_code")
+  sourceId       String          @map("source_id")
+  sourcePage     Int?            @map("source_page")
+  sourceLocator  String?         @map("source_locator")
+  lastVerifiedOn String          @map("last_verified_on")
+  /// DRAFT, PUBLISHED, REJECTED or WITHDRAWN.
+  status         String          @default("DRAFT")
+  createdBy      String          @map("created_by")
+  publishedBy    String?         @map("published_by")
+  publishedAt    DateTime?       @map("published_at")
+  statusNote     String?         @map("status_note")
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+  source         AdmissionSource @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+
+  @@unique([universitySlug, programmeName, academicYear, examCode])
+  @@index([status, universityType])
+  @@map("admission_programmes")
 }

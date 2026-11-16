@@ -59,6 +59,9 @@ const AdminEmail = lazy(() => import('./admin/Email').then((m) => ({ default: m.
 const AdminNotices = lazy(() => import('./admin/Notices').then((m) => ({ default: m.AdminNotices })));
 const AdminAdmissions = lazy(() => import('./admin/Admissions').then((m) => ({ default: m.AdminAdmissions })));
 const UniversityPage = lazy(() => import('./pages/University').then((m) => ({ default: m.UniversityPage })));
+const AdmissionsPage = lazy(() => import('./pages/Admissions').then((m) => ({ default: m.AdmissionsPage })));
+const ProgrammePage = lazy(() => import('./pages/Admissions').then((m) => ({ default: m.ProgrammePage })));
+const AdminRegistry = lazy(() => import('./admin/Registry').then((m) => ({ default: m.AdminRegistry })));
 const AdminActivity = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminActivity })));
 const ReviewLayout = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewLayout })));
 const ReviewDashboard = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewDashboard })));
@@ -99,6 +102,8 @@ const router = createBrowserRouter([
       { path: '/visual/gravitation', element: <VisualPage /> },
       { path: '/updates', element: <UpdatesPage /> },
       { path: '/universities/:slug', element: lazyPage(<UniversityPage />) },
+      { path: '/admissions', element: lazyPage(<AdmissionsPage />) },
+      { path: '/admissions/programmes/:id', element: lazyPage(<ProgrammePage />) },
       { path: '/pyq', element: <PyqPage /> },
       { path: '/pyq/view/:id', element: <PyqViewerPage /> },
       { path: '/bookmarks/review', element: <FlashcardReviewPage /> },
@@ -142,6 +147,7 @@ const router = createBrowserRouter([
           { path: 'email', element: lazyPage(<AdminEmail />) },
           { path: 'updates', element: lazyPage(<AdminNotices />) },
           { path: 'admissions', element: lazyPage(<AdminAdmissions />) },
+          { path: 'registry', element: lazyPage(<AdminRegistry />) },
           { path: 'activity', element: lazyPage(<AdminActivity />) },
         ],
       },

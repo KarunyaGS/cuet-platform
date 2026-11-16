@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Panel, SectionTitle, StatGroup, inputClass, useLoad } from '../ui';
 import { consoleApi, when } from './api';
+import { AdminNeedsAttention, AdminProgrammes } from './AdmissionsDirectory';
 
 const REC: Record<string, { label: string; tone: 'green' | 'amber' | 'red' | 'zinc' }> = {
   USE: { label: 'Review: use', tone: 'green' },
@@ -10,12 +11,13 @@ const REC: Record<string, { label: string; tone: 'green' | 'amber' | 'red' | 'zi
   DO_NOT_USE: { label: 'Review: do not use', tone: 'red' },
 };
 const today = () => new Date().toISOString().slice(0, 10);
-const blankFact = { universityName: '', sourceId: '', kind: 'CUTOFF', exam: 'CUET_UG', year: new Date().getFullYear(), programme: '', label: '', valueText: '', valueNumber: '', basis: 'ALLOCATION_SCORE', category: '', round: '', eventDate: '', sourcePage: '', sourceLocator: '', checkedOn: today() };
+const blankFact = { universityName: '', sourceId: '', kind: 'CUTOFF', exam: 'CUET_UG', year: new Date().getFullYear(), programme: '', label: '', valueText: '', valueNumber: '', basis: 'ALLOCATION_SCORE', category: '', round: '', eventDate: '', sourcePage: '', sourceLocator: '', checkedOn: today(), programmeId: '', subjects: '', eventType: '' };
 
 export function AdminAdmissions() {
   const o = useLoad(consoleApi.admissions, []);
   const sources = useLoad(consoleApi.admissionSources, []);
   const facts = useLoad(() => consoleApi.admissionFacts(), []);
+  const programmes = useLoad(consoleApi.admissionProgrammes, []);
   const [busy, setBusy] = useState<string | null>(null);
   const [err, setErr] = useState<Error | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
@@ -48,8 +50,9 @@ export function AdminAdmissions() {
         consoleApi.addAdmissionFact({
           universityName: form.universityName, sourceId: form.sourceId, kind: form.kind, exam: form.exam, year: Number(form.year), programme: form.programme || null, label: form.label,
           valueText: form.valueText || null, valueNumber: form.valueNumber === '' ? null : Number(form.valueNumber), basis: form.kind === 'CUTOFF' ? form.basis : null,
-          category: form.category || null, round: form.round || null, eventDate: form.eventDate || null, sourcePage: form.sourcePage === '' ? null : Number(form.sourcePage),
-          sourceLocator: form.sourceLocator || null, checkedOn: form.checkedOn,
+          category: (form.kind === 'EVENT' ? form.eventType : form.category) || null, round: form.round || null, eventDate: form.eventDate || null, sourcePage: form.sourcePage === '' ? null : Number(form.sourcePage),
+          sourceLocator: form.sourceLocator || null, checkedOn: form.checkedOn, programmeId: form.programmeId || null,
+          subjects: form.kind === 'SUBJECTS' ? form.subjects.split(',').map((x) => x.trim()).filter(Boolean) : null,
         }),
       'Saved as a draft. It is not shown to students until you publish it.',
     );
@@ -147,6 +150,9 @@ export function AdminAdmissions() {
                   <option value="CUTOFF">Cut-off</option>
                   <option value="EVENT">Dated step</option>
                   <option value="ELIGIBILITY">Eligibility (as printed)</option>
+                  <option value="SUBJECTS">Required CUET subjects</option>
+                  <option value="PROCEDURE">Admission procedure (as printed)</option>
+                  <option value="COUNSELLING">Counselling procedure (as printed)</option>
                 </select>
               </label>
               <label className="text-sm text-ink">Exam and year
@@ -156,7 +162,13 @@ export function AdminAdmissions() {
                 </span>
               </label>
               <label className="text-sm text-ink sm:col-span-2">What it is (as the source words it)<input className={`${inputClass} mt-1`} value={form.label} onChange={(e) => set('label', e.target.value)} /></label>
-              <label className="text-sm text-ink">Programme<input className={`${inputClass} mt-1`} value={form.programme} onChange={(e) => set('programme', e.target.value)} /></label>
+              <label className="text-sm text-ink">Programme (a published or draft one)
+                <select data-fact-programme className={`${inputClass} mt-1`} value={form.programmeId} onChange={(e) => set('programmeId', e.target.value)}>
+                  <option value="">None, or type a name below</option>
+                  {(programmes.data ?? []).filter((p) => p.status !== 'REJECTED').map((p) => <option key={p.id} value={p.id}>{p.programmeName} ({p.universityName}, {p.academicYear})</option>)}
+                </select>
+              </label>
+              <label className="text-sm text-ink">Programme name (if none chosen)<input className={`${inputClass} mt-1`} value={form.programme} onChange={(e) => set('programme', e.target.value)} /></label>
               {form.kind === 'CUTOFF' && (
                 <>
                   <label className="text-sm text-ink">Figure and what it measures
@@ -171,8 +183,10 @@ export function AdminAdmissions() {
                   <label className="text-sm text-ink">Round or list<input className={`${inputClass} mt-1`} value={form.round} onChange={(e) => set('round', e.target.value)} /></label>
                 </>
               )}
+              {form.kind === 'EVENT' && <label className="text-sm text-ink">Type of step<select className={`${inputClass} mt-1`} value={form.eventType} onChange={(e) => set('eventType', e.target.value)}><option value="">Other</option><option value="REGISTRATION_OPENS">Registration opens</option><option value="APPLICATION_DEADLINE">Application deadline</option><option value="COUNSELLING_ROUND">Counselling round</option><option value="ALLOCATION_LIST">Allocation list</option><option value="REPORTING">Reporting</option></select></label>}
               {form.kind === 'EVENT' && <label className="text-sm text-ink">Date<input className={`${inputClass} mt-1`} type="date" value={form.eventDate} onChange={(e) => set('eventDate', e.target.value)} /></label>}
-              {form.kind === 'ELIGIBILITY' && <label className="text-sm text-ink sm:col-span-2">Eligibility, exactly as printed<textarea className={`${inputClass} mt-1`} rows={3} value={form.valueText} onChange={(e) => set('valueText', e.target.value)} /></label>}
+              {form.kind === 'SUBJECTS' && <label className="text-sm text-ink sm:col-span-2">The subjects, separated by commas<input data-fact-subjects className={`${inputClass} mt-1`} value={form.subjects} onChange={(e) => set('subjects', e.target.value)} placeholder="English, Mathematics, Economics" /></label>}
+              {['ELIGIBILITY', 'SUBJECTS', 'PROCEDURE', 'COUNSELLING'].includes(form.kind) && <label className="text-sm text-ink sm:col-span-2">The text, exactly as printed<textarea data-fact-text className={`${inputClass} mt-1`} rows={3} value={form.valueText} onChange={(e) => set('valueText', e.target.value)} /></label>}
               <label className="text-sm text-ink">Page in the source<input className={`${inputClass} mt-1`} type="number" value={form.sourcePage} onChange={(e) => set('sourcePage', e.target.value)} /></label>
               <label className="text-sm text-ink">Or a locator (table, heading)<input className={`${inputClass} mt-1`} value={form.sourceLocator} onChange={(e) => set('sourceLocator', e.target.value)} /></label>
               <label className="text-sm text-ink">Day you checked it<input className={`${inputClass} mt-1`} type="date" value={form.checkedOn} onChange={(e) => set('checkedOn', e.target.value)} /></label>
@@ -213,6 +227,8 @@ export function AdminAdmissions() {
           </ul>
         )}
       </section>
+      <AdminProgrammes sources={sources.data ?? []} list={programmes} />
+      <AdminNeedsAttention />
     </div>
   );
 }

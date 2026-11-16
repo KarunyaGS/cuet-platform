@@ -77,3 +77,12 @@ Anything else goes to **Awaiting verification** in the admin console with the re
 - The same notice can carry slightly different dates on two NTA pages; then it is shown twice.
 - If NTA changes a page's layout, that source reports a failure in the admin console until the reader is adjusted.
 - NTA's website says prior permission is required before another site links to it. The existing exam-information pages already link NTA's notices; this feature links more of them. The permission letter is still an open decision.
+
+## Version history, corrigenda and staff actions (migration 0031)
+
+- Every notice keeps its versions (`gov_notice_versions`) and an event trail (`gov_notice_events`): found, changed at the source, taken off show by the reader, published, rejected, flagged, withdrawn. Each event names who did it.
+- A title that says corrigendum, addendum, extension, rescheduled, amendment or revised is marked, and linked to the notice it corrects when that notice is held. When the original is not held, the notice says so and links to nothing.
+- Each notice records why it counts as official (secure link, document on the authority's own host).
+- Staff can publish, reject, flag or withdraw any notice. Flag and withdraw need a reason. A withdrawn notice is never brought back by a later read; only a person can publish it again.
+- Admin console: Updates, All notices (filters, history). Sources page (`/admin/registry`) lists every notice source with data type, reliability, update frequency and last check.
+- Students see a "Corrigendum" mark, a link to the notice it corrects, a note on the original that it was changed later, and the version history.

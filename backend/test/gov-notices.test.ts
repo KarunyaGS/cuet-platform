@@ -470,3 +470,177 @@ describe('UGC notices', () => {
     expect((await call('POST', `/api/console/notices/${ugcItem.id}/decision`, { action: 'REJECT' }, staff)).json).toEqual({ id: ugcItem.id, status: 'REJECTED' });
   });
 });
+
+
+describe('notice history, revisions and staff actions', () => {
+  const admit = ugFile(2, '268704934');
+  const corr = ugFile(1, '777000111');
+  const events = async (id: string) => (await env.DB.prepare('SELECT action, actor, from_status AS f, to_status AS t, note FROM gov_notice_events WHERE notice_id = ? ORDER BY created_at, rowid').bind(id).all<Record<string, string | null>>()).results;
+  const versions = async (id: string) => (await env.DB.prepare('SELECT version, title, reason FROM gov_notice_versions WHERE notice_id = ? ORDER BY version').bind(id).all<Record<string, string | number>>()).results;
+  const idOf = async (url: string) => (await env.DB.prepare('SELECT id FROM gov_notices WHERE document_url = ?').bind(url).first<{ id: string }>())!.id;
+
+  it('keeps every version the official page has shown and every event, and records why the source counts as official', async () => {
+    await reset();
+    serve(standard());
+    await syncNotices(ON);
+    const id = await idOf(admit);
+    expect(await versions(id)).toEqual([{ version: 1, title: 'Release of Admit Cards for CUET (UG) – 2027', reason: 'First detected' }]);
+    expect((await events(id)).map((e) => [e.action, e.actor, e.t])).toEqual([['DETECTED', 'system:notice-reader', 'PUBLISHED']]);
+    const row = (await rows()).find((r) => r.id === id)!;
+    expect(String(row.authenticity_note)).toMatch(/Secure \(https\) link; document on cdnbbsr\.s3waas\.gov\.in, NTA's own website; listed on NTA, CUET \(UG\) public notices \(cuet\.nta\.nic\.in\); date stamped in the file name/);
+    const ugc = (await rows()).find((r) => r.authority === 'UGC')!;
+    expect(String(ugc.authenticity_note)).toMatch(/document on www\.ugc\.gov\.in, UGC's own website; listed on UGC, notices on the home page \(www\.ugc\.gov\.in\); date printed beside the entry/);
+    // The source corrects the title: version 2, and the event says what changed.
+    const pages = standard();
+    pages[UG] = ugPage([ugRow('Release of Admit Cards for CUET (UG) &#8211; 2027 (Revised)', admit)]);
+    serve(pages);
+    await makeDue();
+    await syncNotices(ON);
+    expect(await versions(id)).toEqual([
+      { version: 1, title: 'Release of Admit Cards for CUET (UG) – 2027', reason: 'First detected' },
+      { version: 2, title: 'Release of Admit Cards for CUET (UG) – 2027 (Revised)', reason: 'Changed at the source: title' },
+    ]);
+    expect((await rows()).find((r) => r.id === id)).toMatchObject({ version_count: 2 });
+    expect((await events(id)).map((e) => e.action)).toEqual(['DETECTED', 'CHANGED_AT_SOURCE']);
+    // Students and staff can read the history.
+    const pub = (await call('GET', `/api/public/notices/${id}`)).json;
+    expect(pub.versions.map((v: { version: number }) => v.version)).toEqual([2, 1]);
+    expect(pub.notice).toMatchObject({ versionCount: 2, revisionKind: 'REVISED' });
+    expect((await call('GET', '/api/public/notices/no-such-notice')).status).toBe(404);
+    const staff = await account('SUPER_ADMIN');
+    const h = (await call('GET', `/api/console/notices/${id}/history`, undefined, staff)).json;
+    expect(h.versions).toHaveLength(2);
+    expect(h.events.map((e: { action: string }) => e.action)).toEqual(['CHANGED_AT_SOURCE', 'DETECTED']);
+    expect(h.notice.authenticityNote).toMatch(/NTA's own website/);
+    expect((await call('GET', `/api/console/notices/${id}/history`, undefined, await account())).status).toBe(403);
+  });
+
+  it('fills in the evidence and the revision link of a notice held from before they were recorded, the next time it is seen', async () => {
+    await reset();
+    serve({ ...standard(), [UG]: ugPage([ugRow('Release of Admit Cards for CUET (UG) &#8211; 2027', admit), ugRow('Corrigendum to Release of Admit Cards for CUET (UG) &#8211; 2027', corr)]) });
+    await syncNotices(ON);
+    // Make both look as they did before this was recorded.
+    await env.DB.prepare('UPDATE gov_notices SET authenticity_note = NULL, revision_kind = NULL, revision_of_id = NULL').run();
+    await makeDue();
+    await syncNotices(ON);
+    const original = await idOf(admit);
+    const all = await rows();
+    expect(all.every((r) => r.authenticity_note)).toBe(true);
+    expect(all.find((r) => r.document_url === corr)).toMatchObject({ revision_kind: 'CORRIGENDUM', revision_of_id: original });
+    expect(all.find((r) => r.document_url === admit)).toMatchObject({ revision_kind: null });
+  });
+
+  it('links a corrigendum to the notice it corrects, whether found in the same read or a later one, and says when the original is unknown', async () => {
+    await reset();
+    const pages = standard();
+    pages[UG] = ugPage([
+      ugRow('Release of Admit Cards for CUET (UG) &#8211; 2027', admit),
+      ugRow('Corrigendum to Release of Admit Cards for CUET (UG) &#8211; 2027', corr),
+      ugRow('Corrigendum regarding Something Nobody Has Published Yet in CUET (UG)', ugFile(3, '888000222')),
+    ]);
+    serve(pages);
+    await syncNotices(ON);
+    const original = await idOf(admit);
+    const c1 = (await rows()).find((r) => r.document_url === corr)!;
+    expect(c1).toMatchObject({ revision_kind: 'CORRIGENDUM', revision_of_id: original, verification_status: 'PUBLISHED' });
+    const orphan = (await rows()).find((r) => String(r.title).includes('Nobody Has Published'))!;
+    expect(orphan).toMatchObject({ revision_kind: 'CORRIGENDUM', revision_of_id: null });
+    expect((await events(String(orphan.id)))[0]!.note).toMatch(/corrigendum, but the original was not found/);
+    expect((await events(String(c1.id)))[0]!.note).toMatch(/corrigendum of an earlier notice we hold/);
+    // What students see: the corrigendum names the original, and the original names its corrigendum.
+    const list = (await call('GET', '/api/public/notices?exam=CUET_UG&limit=50')).json.notices;
+    const o = list.find((n: { id: string }) => n.id === original);
+    const c = list.find((n: { id: string }) => n.id === c1.id);
+    expect(c).toMatchObject({ revisionKind: 'CORRIGENDUM', revisionOf: { id: original } });
+    expect(o.revisions).toEqual([expect.objectContaining({ id: c1.id, kind: 'CORRIGENDUM' })]);
+    // A corrigendum found in a later read is linked too.
+    await reset();
+    serve({ ...standard(), [UG]: ugPage([ugRow('Release of Admit Cards for CUET (UG) &#8211; 2027', admit)]) });
+    await syncNotices(ON);
+    serve({ ...standard(), [UG]: ugPage([ugRow('Corrigendum to Release of Admit Cards for CUET (UG) &#8211; 2027', corr), ugRow('Release of Admit Cards for CUET (UG) &#8211; 2027', admit)]) });
+    await makeDue();
+    await syncNotices(ON);
+    expect((await rows()).find((r) => r.document_url === corr)).toMatchObject({ revision_kind: 'CORRIGENDUM', revision_of_id: await idOf(admit) });
+    // An ordinary notice is not taken for a revision.
+    expect((await rows()).find((r) => r.document_url === admit)).toMatchObject({ revision_kind: null, revision_of_id: null });
+  });
+
+  it('lets staff flag, withdraw, reject and publish with a reason, records each decision with the person, and the reader never undoes them', async () => {
+    await reset();
+    serve(standard());
+    await syncNotices(ON);
+    const id = await idOf(admit);
+    const staff = await account('SUPER_ADMIN');
+    const student = await account();
+    const act = (action: string, extra: Record<string, unknown> = {}, who = staff) => call('POST', `/api/console/notices/${id}/decision`, { action, ...extra }, who);
+    expect((await act('FLAG', { reason: 'Looks wrong' }, student)).status).toBe(403);
+    // A reason is needed to take something back.
+    expect((await act('FLAG')).status).toBe(422);
+    expect((await act('WITHDRAW')).status).toBe(422);
+    expect((await act('FLAG', { reason: 'The date looks wrong; check against the PDF' })).json).toEqual({ id, status: 'NEEDS_REVIEW' });
+    expect((await call('GET', '/api/public/notices?exam=CUET_UG')).json.notices.some((n: { id: string }) => n.id === id)).toBe(false);
+    expect((await act('FLAG', { reason: 'Again please' })).status).toBe(409); // only a showing notice can be flagged
+    expect((await act('PUBLISH')).json).toEqual({ id, status: 'PUBLISHED' });
+    expect((await act('WITHDRAW', { reason: 'NTA has withdrawn this notice' })).json).toEqual({ id, status: 'WITHDRAWN' });
+    expect((await call('GET', '/api/public/notices?exam=CUET_UG')).json.notices.some((n: { id: string }) => n.id === id)).toBe(false);
+    // The reader finds the notice on the official page again, and leaves it withdrawn (a changed title is recorded, not published).
+    const pages = standard();
+    pages[UG] = ugPage([ugRow('Release of Admit Cards for CUET (UG) &#8211; 2027 (Revised again)', admit)]);
+    serve(pages);
+    await makeDue();
+    await syncNotices(ON);
+    expect((await rows()).find((r) => r.id === id)).toMatchObject({ verification_status: 'WITHDRAWN', version_count: 2 });
+    expect((await act('REJECT')).status).toBe(409); // only a queued notice can be rejected
+    expect((await act('PUBLISH', { reason: 'Reinstated after checking' })).json).toEqual({ id, status: 'PUBLISHED' });
+    expect((await events(id)).map((e) => e.action)).toEqual(['DETECTED', 'FLAGGED', 'PUBLISHED', 'WITHDRAWN', 'CHANGED_AT_SOURCE', 'PUBLISHED']);
+    const trail = await events(id);
+    expect(trail[1]).toMatchObject({ actor: expect.stringMatching(/^user:/), f: 'PUBLISHED', t: 'NEEDS_REVIEW', note: 'The date looks wrong; check against the PDF' });
+    expect(trail[3]).toMatchObject({ f: 'PUBLISHED', t: 'WITHDRAWN', note: 'NTA has withdrawn this notice' });
+    expect(trail[0]!.actor).toBe('system:notice-reader');
+  });
+
+  it('lists a long page (more notices than one database statement can look up) without failing', async () => {
+    await reset();
+    // 150 published notices, each with a distinct title; one of them is a corrigendum of another.
+    const stmts = Array.from({ length: 150 }, (_, i) => {
+      const id = `gn_long_${i}`;
+      return env.DB.prepare(`INSERT INTO gov_notices (id, source_key, source_name, source_url, document_url, is_pdf, title, category, verification_status, content_hash, first_detected_at, last_checked_at, updated_at, authority, published_on, revision_of_id, revision_kind)
+        VALUES (?, 'k', 'Source', 'https://example.test/', ?, 1, ?, 'GENERAL', 'PUBLISHED', ?, datetime('now'), datetime('now'), datetime('now'), 'NTA', '2026-11-10', ?, ?)`)
+        .bind(id, `https://nta.ac.in/${id}.pdf`, `Notice number ${i} about the examination`, id, i === 149 ? 'gn_long_0' : null, i === 149 ? 'CORRIGENDUM' : null);
+    });
+    for (let i = 0; i < stmts.length; i += 40) await env.DB.batch(stmts.slice(i, i + 40));
+    const staff = await account('SUPER_ADMIN');
+    const all = await call('GET', '/api/console/notices?limit=200', undefined, staff);
+    expect(all.status).toBe(200);
+    expect(all.json.notices).toHaveLength(150);
+    const pub = await call('GET', '/api/public/notices?limit=100');
+    expect(pub.status).toBe(200);
+    expect(pub.json.notices).toHaveLength(100);
+    const first = all.json.notices.find((n: { id: string }) => n.id === 'gn_long_0');
+    expect(first.revisions).toEqual([expect.objectContaining({ id: 'gn_long_149', kind: 'CORRIGENDUM' })]);
+    expect(all.json.notices.find((n: { id: string }) => n.id === 'gn_long_149').revisionOf).toMatchObject({ id: 'gn_long_0' });
+  });
+
+  it('gives staff every notice with filters, and one registry of the sources it reads', async () => {
+    await reset();
+    serve(standard());
+    await syncNotices(ON);
+    const staff = await account('SUPER_ADMIN');
+    const all = (await call('GET', '/api/console/notices?limit=100', undefined, staff)).json;
+    expect(all.total).toBe(8);
+    expect(all.notices[0]).toHaveProperty('statusNote');
+    expect((await call('GET', '/api/console/notices?status=NEEDS_REVIEW', undefined, staff)).json.total).toBe(1);
+    expect((await call('GET', '/api/console/notices?status=DUPLICATE', undefined, staff)).json.total).toBe(1);
+    expect((await call('GET', '/api/console/notices?authority=UGC', undefined, staff)).json.total).toBe(1);
+    expect((await call('GET', '/api/console/notices?q=answer%20key', undefined, staff)).json.notices.every((n: { title: string }) => /answer key/i.test(n.title))).toBe(true);
+    expect((await call('GET', '/api/console/notices', undefined, await account())).status).toBe(403);
+    const reg = (await call('GET', '/api/console/registry', undefined, staff)).json;
+    expect(reg.notices.map((s: { key: string }) => s.key)).toEqual(['cuet-ug-public-notices', 'cuet-pg-website', 'nta-notice-board', 'ugc-home-notices']);
+    expect(reg.notices.every((s: { dataType: string; reliability: string; updateFrequency: string; state: string }) => s.dataType && /^Official/.test(s.reliability) && s.updateFrequency && s.state === 'OK')).toBe(true);
+    expect(reg.notices.find((s: { key: string }) => s.key === 'ugc-home-notices')).toMatchObject({ authority: 'UGC', lastCheckedOn: iso(0) });
+    expect(Array.isArray(reg.admissions)).toBe(true);
+    const o = (await call('GET', '/api/console/notices/overview', undefined, staff)).json;
+    expect(o).toMatchObject({ withdrawn: 0, publishedRevisions: 0 });
+    expect(o.sources[0]).toMatchObject({ dataType: expect.any(String), reliability: expect.stringMatching(/^Official/) });
+  });
+});

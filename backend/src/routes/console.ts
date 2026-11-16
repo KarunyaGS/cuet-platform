@@ -20,7 +20,7 @@ import { roleSchema, setRole } from '../services/maintenance';
 import { deleteQuestion, getQuestionAdmin, questionInputSchema, updateQuestion } from '../services/questions';
 import { deleteResource, getResource, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
-import { admissionsOverview, createFact, createSource, decideFact, decideSource, factDecisionSchema, factInputSchema, importFacts, importSchema, listFacts, listSources, loadProposedSources, sourceDecisionSchema, sourceInputSchema } from '../services/admissions';
+import { admissionsOverview, createFact, createSource, decideFact, decideSource, factDecisionSchema, factInputSchema, importFacts, importSchema, listFacts, listSources, loadProposedSources, sourceDecisionSchema, sourceInputSchema, createProgramme, decideProgramme, importProgrammes, listProgrammesAdmin, outdatedItems, programmeDecisionSchema, programmeImportSchema, programmeInputSchema } from '../services/admissions';
 import { emailOverview } from '../services/email';
 import { buildMockPaper, linkActionSchema, listMockPapersAdmin, listOfficialLinksAdmin, mockActionSchema, mockPaperAdmin, mockPaperReadiness, setMockPaperStatus, setOfficialLinkStatus } from '../services/practice-centre';
 import { listPastPapersAdmin, paperActionSchema, pastPaperQuestionsAdmin, setPastPaperStatus } from '../services/past-papers';
@@ -39,7 +39,7 @@ const consoleAuth: MiddlewareHandler<AppEnv> = async (c, next) => {
   await next();
 };
 
-import { decideNotice, noticeDecisionSchema, noticeOverview, noticeQueue, syncNotices } from '../services/gov-notices';
+import { decideNotice, noticeDecisionSchema, noticeOverview, noticeQueue, syncNotices, adminNotices, adminNoticeQuery, noticeHistory, noticeSourceRegistry } from '../services/gov-notices';
 const admin = new Hono<AppEnv>();
 admin.use('*', consoleAuth);
 const me = (c: { get(k: 'user'): AppEnv['Variables']['user'] }): Staff => {
@@ -78,8 +78,16 @@ admin.post('/admissions/sources/:id/decision', async (c) => (needPermission(me(c
 admin.get('/admissions/facts', async (c) => c.json(await listFacts(c.env.DB, { status: c.req.query('status') || undefined, slug: c.req.query('university') || undefined })));
 admin.post('/admissions/facts', async (c) => (needPermission(me(c), 'content:write', 'add admission facts'), c.json(await createFact(c.env.DB, await readJson(c, factInputSchema), c.get('actor')), 201)));
 admin.post('/admissions/facts/import', async (c) => (needPermission(me(c), 'content:write', 'import admission facts'), c.json(await importFacts(c.env.DB, await readJson(c, importSchema), c.get('actor'), c.req.query('dryRun') === '1'))));
+admin.get('/admissions/programmes', async (c) => c.json(await listProgrammesAdmin(c.env.DB, { status: c.req.query('status') || undefined, slug: c.req.query('university') || undefined })));
+admin.post('/admissions/programmes', async (c) => (needPermission(me(c), 'content:write', 'add programmes'), c.json(await createProgramme(c.env.DB, await readJson(c, programmeInputSchema), c.get('actor')), 201)));
+admin.post('/admissions/programmes/import', async (c) => (needPermission(me(c), 'content:write', 'import programmes'), c.json(await importProgrammes(c.env.DB, await readJson(c, programmeImportSchema), c.get('actor'), c.req.query('dryRun') === '1'))));
+admin.post('/admissions/programmes/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'publish programmes'), c.json(await decideProgramme(c.env.DB, c.req.param('id'), await readJson(c, programmeDecisionSchema), c.get('actor')))));
+admin.get('/admissions/outdated', async (c) => c.json(await outdatedItems(c.env.DB)));
 admin.post('/admissions/facts/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'publish admission facts'), c.json(await decideFact(c.env.DB, c.req.param('id'), await readJson(c, factDecisionSchema), c.get('actor')))));
 admin.post('/notices/fetch', async (c) => (needPermission(me(c), 'content:publish', 'fetch official notices'), c.json(await syncNotices(c.env, { force: true }))));
+admin.get('/notices', async (c) => c.json(await adminNotices(c.env.DB, adminNoticeQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
+admin.get('/notices/:id/history', async (c) => c.json(await noticeHistory(c.env.DB, c.req.param('id'))));
+admin.get('/registry', async (c) => c.json({ notices: await noticeSourceRegistry(c.env.DB, c.env), admissions: await listSources(c.env.DB) }));
 admin.post('/notices/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'publish official notices'), c.json(await decideNotice(c.env.DB, c.req.param('id'), await readJson(c, noticeDecisionSchema), c.get('actor')))));
 admin.get('/official-papers', async (c) => c.json(await listOfficialLinksAdmin(c.env.DB, c.env.OFFICIAL_IN_APP_VIEWING === 'on')));
 admin.post('/official-papers/:id/status', async (c) => (needPermission(me(c), 'content:publish', 'publish official links'), c.json(await setOfficialLinkStatus(c.env.DB, c.req.param('id'), await readJson(c, linkActionSchema), c.get('actor'), c.env.OFFICIAL_IN_APP_VIEWING === 'on'))));

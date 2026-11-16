@@ -199,6 +199,10 @@ function UserMenu() {
               <Megaphone aria-hidden />
               Government updates
             </Link>
+            <Link role="menuitem" to="/admissions" className={item}>
+              <GraduationCap aria-hidden />
+              University admissions
+            </Link>
             <Link role="menuitem" to="/report" className={item}>
               <ChartNoAxesColumn aria-hidden />
               Weekly report

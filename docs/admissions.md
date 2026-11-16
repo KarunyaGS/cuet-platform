@@ -51,3 +51,12 @@ Tables (migration 0029): `admission_sources`, `admission_facts`. The existing `p
 ## Not built
 
 University course finder, eligibility checker, programme rules by CUET paper, admission timeline pages, automatic reading of university PDFs, and any prediction of a student's chances. Reading cut-off PDFs would need the extraction pipeline and a second independent read before a figure is trusted; it is a later step and needs the source list approved first.
+
+## Programme directory (migration 0031)
+
+- `admission_programmes`: one row per university, programme, admission year and exam. It cites an approved source, a page or locator, and the day it was checked. It starts as a draft; staff publish, reject or withdraw it.
+- Facts can be linked to a programme. New kinds: required CUET subjects, admission procedure, counselling procedure. Application deadlines are dated steps. Nothing is invented: text is stored as the source prints it.
+- Reliability on every published item: verified from an official source, may be out of date (not checked for 180 days, or about an earlier year), not verified, or source not approved.
+- Students: `/admissions` (filters: university type, CUET subject, year, exam, name) and `/admissions/programmes/:id`. This year's information is kept apart from previous years' cut-offs. Anything not published is shown as "Not yet available" with a link to the official page.
+- Staff: programmes section and a "needs attention: out of date" list in Admin, Admissions.
+- Withdrawing a programme or retiring a source hides its facts from students.

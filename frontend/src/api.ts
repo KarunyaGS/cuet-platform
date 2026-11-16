@@ -228,20 +228,42 @@ export type NoticeCategory = 'ADMIT_CARD' | 'RESULT' | 'ANSWER_KEY' | 'EXAM_SCHE
 export type NoticeAuthority = 'NTA' | 'UGC';
 /** One published admissions fact, with where it came from. */
 export interface AdmissionFact {
-  id: string; universitySlug: string; universityName: string; kind: 'EVENT' | 'ELIGIBILITY' | 'CUTOFF'; exam: ExamCode; year: number; programme: string | null; label: string;
+  id: string; universitySlug: string; universityName: string; kind: 'EVENT' | 'ELIGIBILITY' | 'SUBJECTS' | 'PROCEDURE' | 'COUNSELLING' | 'CUTOFF'; exam: ExamCode; year: number; programme: string | null; label: string;
   valueText: string | null; valueNumber: number | null; basis: string | null; category: string | null; round: string | null; eventDate: string | null; sourcePage: number | null;
   sourceLocator: string | null; checkedOn: string; status: string; sourceUrl: string; sourceTitle: string; sourceStatus: string; rejectReason: string | null;
+  programmeId: string | null; subjects: string[] | null; reliability: Reliability;
+}
+export type Reliability = 'VERIFIED_OFFICIAL' | 'OUTDATED' | 'UNVERIFIED' | 'SOURCE_NOT_APPROVED';
+export interface ProgrammeSummary {
+  id: string; universitySlug: string; universityName: string; universityType: string | null; programmeName: string; degree: string | null; level: string; academicYear: string; exam: ExamCode;
+  lastVerifiedOn: string; reliability: Reliability; sourceUrl: string | null; sourceTitle: string | null;
+  subjects: string[] | null; nextDeadline: { date: string; label: string } | null; lastDeadline: { date: string; label: string } | null;
+  known: { eligibility: boolean; subjects: boolean; procedure: boolean; counselling: boolean; deadline: boolean; cutoffs: boolean };
+}
+export interface ProgrammeList { total: number; programmes: ProgrammeSummary[] }
+export interface AdmissionFilters { types: { type: string; count: number }[]; years: { year: string; count: number }[]; subjects: { subject: string; count: number }[] }
+export interface ProgrammeDetail {
+  programme: ProgrammeSummary & { sourcePage: number | null; sourceLocator: string | null };
+  current: { eligibility: AdmissionFact[]; subjects: AdmissionFact[]; procedure: AdmissionFact[]; counselling: AdmissionFact[]; dates: AdmissionFact[] };
+  unavailable: string[]; historicalCutoffs: AdmissionFact[];
+  officialPages: { url: string; title: string; kind: string; covers: string; format: string; updateFrequency: string | null; lastCheckedOn: string | null }[]; note: string;
 }
 export interface UniversityAdmissions {
   slug: string; name: string; listedBy: { exam: ExamCode; cycle: string; type: string; sourceUrl: string }[];
   officialPages: { url: string; title: string; kind: string; covers: string; format: string; updateFrequency: string | null; lastCheckedOn: string | null }[];
+  programmes: { id: string; programmeName: string; degree: string | null; level: string; academicYear: string; exam: ExamCode }[];
   dates: AdmissionFact[]; eligibility: AdmissionFact[]; cutoffs: AdmissionFact[]; note: string;
 }
 /** An official notice. sourceUrl and documentUrl are the exam body's own addresses; nothing is hosted by CUET Prep. */
 export interface GovNotice {
   id: string; title: string; description: string | null; category: NoticeCategory; authority: NoticeAuthority; exam: ExamCode | null; examYear: number | null; publishedOn: string | null;
   sourceName: string; sourceUrl: string; documentUrl: string; isPdf: boolean; isNew: boolean; isUpdated: boolean; firstDetectedAt: string; lastCheckedAt: string;
+  versionCount: number; revisionKind: RevisionKind | null; revisionOfId: string | null;
+  /** The notice this one corrects, and the published notices that correct this one. */
+  revisionOf: { id: string; title: string } | null; revisions: { id: string; title: string; kind: RevisionKind | null; publishedOn: string | null }[];
 }
+export type RevisionKind = 'CORRIGENDUM' | 'ADDENDUM' | 'EXTENSION' | 'RESCHEDULED' | 'AMENDMENT' | 'REVISED';
+export interface NoticeDetail { notice: GovNotice; versions: { version: number; title: string; publishedOn: string | null; reason: string; detectedAt: string }[] }
 export interface NoticeList { total: number; lastCheckedAt: string | null; categories: { category: NoticeCategory; count: number }[]; notices: GovNotice[] }
 
 export interface SearchResults {
@@ -360,6 +382,13 @@ export const api = {
     request<NoticeList>('GET', `/api/public/notices?limit=${f.limit ?? 30}${f.exam ? `&exam=${f.exam}` : ''}${f.category ? `&category=${f.category}` : ''}${f.authority ? `&authority=${f.authority}` : ''}`),
   search: (q: string, exam?: ExamCode | '') => request<SearchResults>('GET', `/api/learn/search?q=${encodeURIComponent(q)}${exam ? `&exam=${exam}` : ''}`),
   officialInfo: (exam: ExamCode) => request<OfficialInfo>('GET', `/api/public/info/${exam}`),
+  noticeDetail: (id: string) => request<NoticeDetail>('GET', `/api/public/notices/${encodeURIComponent(id)}`),
+  admissionFilters: () => request<AdmissionFilters>('GET', '/api/public/admissions/filters'),
+  programmes: (f: { type?: string; university?: string; subject?: string; exam?: string; year?: string; q?: string; offset?: number } = {}) => {
+    const qs = new URLSearchParams({ limit: '30', ...Object.fromEntries(Object.entries(f).filter(([, v]) => v !== undefined && v !== '' && v !== 0).map(([k, v]) => [k, String(v)])) });
+    return request<ProgrammeList>('GET', `/api/public/admissions/programmes?${qs}`);
+  },
+  programme: (id: string) => request<ProgrammeDetail>('GET', `/api/public/admissions/programmes/${encodeURIComponent(id)}`),
   universityAdmissions: (slug: string) => request<UniversityAdmissions>('GET', `/api/public/admissions/universities/${encodeURIComponent(slug)}`),
   universities: (exam: ExamCode, q?: string, type?: string) =>
     request<UniversityList>('GET', `/api/public/universities?exam=${exam}${q ? `&q=${encodeURIComponent(q)}` : ''}${type ? `&type=${encodeURIComponent(type)}` : ''}`),

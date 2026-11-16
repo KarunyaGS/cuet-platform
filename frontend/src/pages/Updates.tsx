@@ -1,6 +1,7 @@
 import { ExternalLink, FileText, Megaphone } from 'lucide-react';
+import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
-import { api, type ExamCode, type GovNotice, type NoticeAuthority, type NoticeCategory } from '../api';
+import { api, type ExamCode, type GovNotice, type NoticeAuthority, type NoticeCategory, type RevisionKind } from '../api';
 import { Badge, Empty, ErrorBox, Loading, PageHeader, Segmented, useLoad } from '../ui';
 
 export const NOTICE_CATEGORY: Record<NoticeCategory, string> = {
@@ -17,11 +18,32 @@ export const NOTICE_CATEGORY: Record<NoticeCategory, string> = {
   ADVISORY: 'Advisory',
   GENERAL: 'General',
 };
+export const REVISION_LABEL: Record<RevisionKind, string> = { CORRIGENDUM: 'Corrigendum', ADDENDUM: 'Addendum', EXTENSION: 'Extension', RESCHEDULED: 'Rescheduled', AMENDMENT: 'Amendment', REVISED: 'Revised' };
+
+/** The versions the official page has shown for a notice, loaded when the student asks. */
+function Versions({ id }: { id: string }) {
+  const r = useLoad(() => api.noticeDetail(id), [id]);
+  if (r.loading && !r.data) return <p className="mt-2 text-sm text-ink-3">Loading the history…</p>;
+  if (r.error) return <p className="mt-2 text-sm text-wrong">The history could not be loaded.</p>;
+  return (
+    <ol className="mt-2 space-y-1.5 rounded-lg bg-paper p-3 text-sm" data-notice-versions>
+      {r.data!.versions.map((v) => (
+        <li key={v.version}>
+          <span className="font-medium text-ink">Version {v.version}</span> <span className="text-ink-3">seen {new Date(v.detectedAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+          <div className="text-ink-2">{v.title}</div>
+          <div className="text-xs text-ink-3">{v.reason}</div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 const examName = (e: ExamCode | null) => (e === 'CUET_UG' ? 'CUET (UG)' : e === 'CUET_PG' ? 'CUET (PG)' : '');
 export const noticeDate = (day: string | null) => (day ? new Date(`${day}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : 'Date not stated');
 
 /** One notice: who issued it, what it is, when, and the two ways to the issuing body's own copy. Nothing is hosted here. */
 export function NoticeRow({ n, compact = false }: { n: GovNotice; compact?: boolean }) {
+  const [history, setHistory] = useState(false);
   return (
     <li className="px-4 py-3.5" data-notice>
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-3">
@@ -29,12 +51,27 @@ export function NoticeRow({ n, compact = false }: { n: GovNotice; compact?: bool
         <Badge tone={n.authority === 'UGC' ? 'accent' : 'zinc'} title={n.authority === 'UGC' ? 'University Grants Commission' : 'National Testing Agency'}>{n.authority}</Badge>
         <Badge>{NOTICE_CATEGORY[n.category] ?? n.category}</Badge>
         {n.exam && <Badge tone="accent">{examName(n.exam)}</Badge>}
+        {n.revisionKind && <Badge tone="amber" title="This notice corrects, extends or replaces an earlier one">{REVISION_LABEL[n.revisionKind]}</Badge>}
         {n.isNew && <Badge tone="green">New</Badge>}
         {n.isUpdated && <Badge tone="amber">Updated</Badge>}
       </div>
       <a href={n.documentUrl} target="_blank" rel="noreferrer noopener" className={`mt-1 block text-[15px] text-ink hover:text-accent ${compact ? 'line-clamp-2' : ''}`}>
         {n.title}
       </a>
+      {n.revisionOf && <p className="mt-1 text-sm text-ink-2" data-revision-of>{REVISION_LABEL[n.revisionKind ?? 'REVISED']} to an earlier notice: {n.revisionOf.title}</p>}
+      {n.revisions.length > 0 && (
+        <p className="mt-1 text-sm text-marker" data-revised-by>
+          Later changed by: {n.revisions.map((r) => `${r.kind ? REVISION_LABEL[r.kind] : 'Revision'}${r.publishedOn ? `, ${noticeDate(r.publishedOn)}` : ''}`).join('; ')}. Read the later notice too.
+        </p>
+      )}
+      {!compact && n.versionCount > 1 && (
+        <div className="mt-1">
+          <button type="button" onClick={() => setHistory((h) => !h)} aria-expanded={history} className="text-sm font-medium text-accent hover:underline" data-notice-history-toggle>
+            {history ? 'Hide' : 'Show'} the history ({n.versionCount} versions)
+          </button>
+          {history && <Versions id={n.id} />}
+        </div>
+      )}
       {!compact && (
         <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
           <a href={n.documentUrl} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1.5 font-medium text-accent hover:underline">

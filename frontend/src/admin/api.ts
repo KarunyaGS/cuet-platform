@@ -1,6 +1,22 @@
 /** Admin console and reviewer content-review API calls (staff sign in with their own account). */
-import { request, type AdmissionFact, type ExamCode, type GovNotice } from '../api';
+import { request, type AdmissionFact, type ExamCode, type GovNotice, type RevisionKind } from '../api';
 
+export interface AdminNotice extends GovNotice { status: string; statusNote: string | null; authenticityNote: string | null; autoPublished: boolean; duplicateOfId: string | null }
+export interface AdminNoticeList { total: number; notices: AdminNotice[] }
+export interface NoticeHistory {
+  notice: { id: string; title: string; authority: string; status: string; statusNote: string | null; authenticityNote: string | null; documentUrl: string; sourceUrl: string; revisionKind: RevisionKind | null; revisionOfId: string | null };
+  versions: { version: number; title: string; description: string | null; publishedOn: string | null; documentUrl: string; reason: string; detectedAt: string }[];
+  events: { action: string; actor: string; from: string | null; to: string | null; note: string | null; at: string }[];
+}
+export interface Registry {
+  notices: { registry: 'NOTICES'; key: string; name: string; url: string; authority: string; dataType: string; reliability: string; updateFrequency: string; lastCheckedOn: string | null; state: string; lastError: string | null }[];
+  admissions: AdmissionSourceRow[];
+}
+export interface AdminProgramme {
+  id: string; universitySlug: string; universityName: string; universityType: string | null; programmeName: string; degree: string | null; level: string; academicYear: string; exam: ExamCode;
+  lastVerifiedOn: string; status: string; statusNote: string | null; reliability: string; sourceUrl: string | null; sourceTitle: string | null; sourcePage: number | null; sourceLocator: string | null; publishedFacts: number;
+}
+export interface Outdated { staleAfterDays: number; total: number; items: { type: 'PROGRAMME' | 'FACT' | 'SOURCE'; id: string; label: string; university: string | null; lastVerifiedOn: string | null; reason: string }[] }
 export interface AdmissionsOverview { sources: { proposed: number; approved: number; retired: number }; facts: { draft: number; published: number; rejected: number } }
 export interface AdmissionSourceRow {
   id: string; universitySlug: string | null; universityName: string | null; url: string; title: string; kind: string; covers: string; format: string; updateFrequency: string | null;
@@ -93,7 +109,17 @@ export const consoleApi = {
   admissionFacts: (status?: string) => request<AdmissionFact[]>('GET', `/api/console/admissions/facts${status ? `?status=${status}` : ''}`),
   addAdmissionFact: (b: unknown) => request<{ id: string }>('POST', '/api/console/admissions/facts', b),
   decideAdmissionFact: (id: string, b: { action: 'PUBLISH' | 'REJECT'; reason?: string }) => request<unknown>('POST', `/api/console/admissions/facts/${id}/decision`, b),
-  noticeDecision: (id: string, b: { action: 'PUBLISH' | 'REJECT'; exam?: 'CUET_UG' | 'CUET_PG' }) => request<{ id: string; status: string }>('POST', `/api/console/notices/${id}/decision`, b),
+  adminNotices: (f: { status?: string; authority?: string; revisions?: boolean; q?: string; offset?: number } = {}) => {
+    const qs = new URLSearchParams({ limit: '30', ...Object.fromEntries(Object.entries({ ...f, revisions: f.revisions ? '1' : '' }).filter(([, v]) => v !== undefined && v !== '' && v !== 0).map(([k, v]) => [k, String(v)])) });
+    return request<AdminNoticeList>('GET', `/api/console/notices?${qs}`);
+  },
+  noticeHistory: (id: string) => request<NoticeHistory>('GET', `/api/console/notices/${id}/history`),
+  registry: () => request<Registry>('GET', '/api/console/registry'),
+  admissionProgrammes: () => request<AdminProgramme[]>('GET', '/api/console/admissions/programmes'),
+  addProgramme: (b: unknown) => request<{ id: string }>('POST', '/api/console/admissions/programmes', b),
+  decideProgramme: (id: string, b: { action: 'PUBLISH' | 'REJECT' | 'WITHDRAW'; reason?: string }) => request<unknown>('POST', `/api/console/admissions/programmes/${id}/decision`, b),
+  admissionOutdated: () => request<Outdated>('GET', '/api/console/admissions/outdated'),
+  noticeDecision: (id: string, b: { action: 'PUBLISH' | 'REJECT' | 'FLAG' | 'WITHDRAW'; exam?: 'CUET_UG' | 'CUET_PG'; reason?: string }) => request<{ id: string; status: string }>('POST', `/api/console/notices/${id}/decision`, b),
   officialLinks: () => request<AdminOfficialLink[]>('GET', '/api/console/official-papers'),
   officialLinkStatus: (id: string, b: { action: 'PUBLISH' | 'UNPUBLISH' | 'ARCHIVE' | 'ALLOW_IN_APP' | 'DISALLOW_IN_APP'; linkingBasis?: string; embedBasis?: string; conditionsChecked?: boolean }) => request<AdminOfficialLink>('POST', `/api/console/official-papers/${id}/status`, b),
   mockReadiness: (paperId: string) => request<MockReadiness>('GET', `/api/console/mock-papers/readiness/${paperId}`),

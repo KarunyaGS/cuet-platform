@@ -40,16 +40,19 @@ interface Source {
   authority: Authority;
   /** The exam this page is about; null for a general notice board, where each notice is classified by its title. */
   exam: Exam | null;
+  /** For the source registry: what kind of data it is and how far it is trusted. */
+  dataType: string;
+  reliability: string;
 }
 
 /** Exam-specific pages come first, so the same notice found again on the general board is recorded as a duplicate. */
 export const SOURCES: Source[] = [
-  { key: 'cuet-ug-public-notices', name: 'NTA, CUET (UG) public notices', url: 'https://cuet.nta.nic.in/document-category/public-notice/', morePages: ['page/2/'], parser: 'S3WAAS_TABLE', authority: 'NTA', exam: 'CUET_UG' },
-  { key: 'cuet-pg-website', name: 'NTA, CUET (PG) website', url: 'https://exams.nta.nic.in/cuet-pg/', parser: 'PDF_LINKS', authority: 'NTA', exam: 'CUET_PG' },
-  { key: 'nta-notice-board', name: 'NTA notice board', url: 'https://nta.ac.in/NoticeBoardArchive', parser: 'NTA_ARCHIVE', authority: 'NTA', exam: null },
+  { key: 'cuet-ug-public-notices', name: 'NTA, CUET (UG) public notices', url: 'https://cuet.nta.nic.in/document-category/public-notice/', morePages: ['page/2/'], parser: 'S3WAAS_TABLE', authority: 'NTA', exam: 'CUET_UG', dataType: 'Notice listing (table of PDFs)', reliability: 'Official: NTA\'s own CUET (UG) website' },
+  { key: 'cuet-pg-website', name: 'NTA, CUET (PG) website', url: 'https://exams.nta.nic.in/cuet-pg/', parser: 'PDF_LINKS', authority: 'NTA', exam: 'CUET_PG', dataType: 'Notice links on a web page', reliability: 'Official: NTA\'s own CUET (PG) website' },
+  { key: 'nta-notice-board', name: 'NTA notice board', url: 'https://nta.ac.in/NoticeBoardArchive', parser: 'NTA_ARCHIVE', authority: 'NTA', exam: null, dataType: 'Notice board (rows)', reliability: 'Official: NTA\'s own notice board; only rows naming CUET are kept' },
   // UGC publishes on its own home page (Notices, Circulars, International Cooperation), each entry with its date. UGC states that its
   // official notifications appear only on ugc.gov.in and, for distance and online learning, deb.ugc.ac.in.
-  { key: 'ugc-home-notices', name: 'UGC, notices on the home page', url: 'https://www.ugc.gov.in/', parser: 'UGC_HOME', authority: 'UGC', exam: null },
+  { key: 'ugc-home-notices', name: 'UGC, notices on the home page', url: 'https://www.ugc.gov.in/', parser: 'UGC_HOME', authority: 'UGC', exam: null, dataType: 'Home-page notice blocks (title, date, PDF)', reliability: 'Official: UGC\'s own website; the home page is the only confirmed feed' },
 ];
 
 /** Each authority's own websites. A UGC notice must be on UGC's site, an NTA notice on NTA's or the government's. */
@@ -198,6 +201,51 @@ export function publishedDate(url: string): string | null {
   return Number.isFinite(t) && new Date(t).toISOString().slice(0, 10) === day && t > Date.parse('2015-01-01') && t < Date.now() + 2 * 86_400_000 ? day : null;
 }
 
+// ---------------------------------------------------------------- revisions and corrigenda
+
+export type RevisionKind = 'CORRIGENDUM' | 'ADDENDUM' | 'EXTENSION' | 'RESCHEDULED' | 'AMENDMENT' | 'REVISED';
+const REVISION_RULES: [RevisionKind, RegExp][] = [
+  ['CORRIGENDUM', /corrigend(um|a)/i],
+  ['ADDENDUM', /addend(um|a)/i],
+  ['EXTENSION', /\b(extension\s+of|extended)\b/i],
+  ['RESCHEDULED', /re-?schedul|postpone/i],
+  ['AMENDMENT', /\bamend(ment|ed)\b/i],
+  ['REVISED', /\b(revised|revision|modified|updated)\b/i],
+];
+/** Does the title say it corrects, extends or replaces an earlier notice? */
+export const revisionKindOf = (title: string): RevisionKind | null => REVISION_RULES.find(([, re]) => re.test(title))?.[0] ?? null;
+
+/** The title without the words that mark a revision, so "Corrigendum to X" and "X" share a key. Too short a key is no key. */
+export function baseKey(title: string): string {
+  const k = title
+    .toLowerCase()
+    .normalize('NFKC')
+    .replace(/corrigend(um|a)|addend(um|a)|\b(revised|revision|modified|updated|amended|amendment)\b|extension\s+of|\bextended\b|re-?schedul\w*|postpone\w*/g, ' ')
+    .replace(/\b(to|in|of|the|for|regarding|reg|on|and|a|an)\b/g, ' ')
+    .replace(/[^a-z0-9]+/g, '');
+  return k.length >= 12 ? k : '';
+}
+
+/** In words, why the source counts as official: https, the document's host, the page it was listed on, and where the date came from. */
+function authenticityNote(f: Found, src: Source, published: string | null): string {
+  let host = '';
+  try {
+    host = new URL(f.documentUrl).host;
+  } catch {
+    /* reported below */
+  }
+  const own = isOfficialUrl(f.documentUrl, src.authority);
+  return [
+    f.documentUrl.startsWith('https://') ? 'Secure (https) link' : 'NOT a secure link',
+    `document on ${host || 'an unreadable address'}, ${own ? `${src.authority}'s own website` : `NOT ${src.authority}'s website`}`,
+    `listed on ${src.name} (${new URL(src.url).host})`,
+    published ? `date ${f.publishedOn ? 'printed beside the entry' : 'stamped in the file name'}` : 'date not readable',
+  ].join('; ');
+}
+
+const eventStmt = (db: D1Database, noticeId: string, action: string, actor: string, from: string | null, to: string | null, note: string | null, at: string) =>
+  db.prepare('INSERT INTO gov_notice_events (id, notice_id, action, actor, from_status, to_status, note, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)').bind(newId('gne'), noticeId, action, actor, from, to, note?.slice(0, 500) ?? null, at);
+
 const examYear = (title: string, published: string | null) => {
   const years = (title.match(/\b20[2-4]\d\b/g) ?? []).map(Number);
   return years.length ? Math.max(...years) : published ? Number(published.slice(0, 4)) : null;
@@ -239,6 +287,9 @@ interface Existing {
   verification_status: string;
   auto_published: number;
   exam_code: string | null;
+  authority: string;
+  revision_kind: string | null;
+  authenticity_note: string | null;
 }
 
 async function ensureSources(db: D1Database) {
@@ -251,7 +302,7 @@ async function ensureSources(db: D1Database) {
 }
 
 /** Checks one source and stores what changed. Throws when the source could not be read. */
-async function checkSource(db: D1Database, src: Source, known: Map<string, Existing>, byDup: Map<string, string>) {
+async function checkSource(db: D1Database, src: Source, known: Map<string, Existing>, byDup: Map<string, string>, byBase: Map<string, string>) {
   const found: Found[] = [];
   for (const page of ['', ...(src.morePages ?? [])]) {
     const url = new URL(page, src.url).toString();
@@ -298,13 +349,42 @@ async function checkSource(db: D1Database, src: Source, known: Map<string, Exist
         statements.push(
           db
             .prepare(
-              `UPDATE gov_notices SET title = ?, description = ?, category = ?, published_on = ?, content_hash = ?, changed_at = ?, last_checked_at = ?, updated_at = ?${demote ? ", verification_status = 'NEEDS_REVIEW', auto_published = 0, status_note = ?" : ''} WHERE id = ?`,
+              `UPDATE gov_notices SET title = ?, description = ?, category = ?, published_on = ?, content_hash = ?, changed_at = ?, last_checked_at = ?, updated_at = ?, version_count = version_count + 1${demote ? ", verification_status = 'NEEDS_REVIEW', auto_published = 0, status_note = ?" : ''} WHERE id = ?`,
             )
             .bind(f.title, f.description, category, published, hash, now, now, now, ...(demote ? [`Changed at the source and no longer passes the checks: ${again.join('; ')}.`] : []), cur.id),
         );
+        // History: the new version as the page shows it (its number is the notice's new count), and what changed.
+        const changes = [cur.title !== f.title ? 'title' : '', cur.published_on !== published ? 'date' : ''].filter(Boolean);
+        statements.push(
+          db
+            .prepare(`INSERT INTO gov_notice_versions (id, notice_id, version, title, description, published_on, document_url, content_hash, reason, detected_at) SELECT ?, id, version_count, ?, ?, ?, document_url, ?, ?, ? FROM gov_notices WHERE id = ?`)
+            .bind(newId('gnv'), f.title, f.description, published, hash, changes.length ? `Changed at the source: ${changes.join(' and ')}` : 'Changed at the source', now, cur.id),
+          eventStmt(db, cur.id, 'CHANGED_AT_SOURCE', 'system:notice-reader', cur.verification_status, demote ? 'NEEDS_REVIEW' : cur.verification_status, changes.length ? `Changed: ${changes.join(' and ')}` : 'Changed', now),
+        );
+        if (demote) statements.push(eventStmt(db, cur.id, 'AUTO_WITHDRAWN', 'system:notice-reader', 'PUBLISHED', 'NEEDS_REVIEW', `No longer passes the checks: ${again.join('; ')}`, now));
+        // A title that now says it corrects or revises something is linked to what it corrects.
+        const rk = revisionKindOf(f.title);
+        if (rk && !cur.revision_kind) {
+          const origin = byBase.get(`${src.authority}|${baseKey(f.title)}`);
+          statements.push(db.prepare('UPDATE gov_notices SET revision_kind = ?, revision_of_id = ? WHERE id = ?').bind(rk, origin && origin !== cur.id ? origin : null, cur.id));
+          cur.revision_kind = rk;
+        }
         cur.content_hash = hash;
         cur.title = f.title;
         if (demote) cur.verification_status = 'NEEDS_REVIEW';
+      }
+      // A notice held from before authenticity notes and revision links were recorded gets them the next time it is seen.
+      if (cur.authenticity_note === null) {
+        statements.push(db.prepare('UPDATE gov_notices SET authenticity_note = ? WHERE id = ? AND authenticity_note IS NULL').bind(authenticityNote(f, src, published), cur.id));
+        cur.authenticity_note = 'recorded';
+      }
+      if (!cur.revision_kind && !cur.duplicate_of_id) {
+        const rk0 = revisionKindOf(cur.title);
+        if (rk0) {
+          const origin = baseKey(cur.title) ? byBase.get(`${src.authority}|${baseKey(cur.title)}`) : undefined;
+          statements.push(db.prepare('UPDATE gov_notices SET revision_kind = ?, revision_of_id = ? WHERE id = ? AND revision_kind IS NULL').bind(rk0, origin && origin !== cur.id ? origin : null, cur.id));
+          cur.revision_kind = rk0;
+        }
       }
       continue;
     }
@@ -318,7 +398,12 @@ async function checkSource(db: D1Database, src: Source, known: Map<string, Exist
       if (doubts.length) counts.queued++;
       counts.added++;
     }
-    known.set(f.documentUrl, { id, document_url: f.documentUrl, title: f.title, content_hash: hash, published_on: published, duplicate_of_id: duplicateOf, verification_status: doubts.length ? 'NEEDS_REVIEW' : 'PUBLISHED', auto_published: doubts.length ? 0 : 1, exam_code: exam });
+    const rk = revisionKindOf(f.title);
+    const base = baseKey(f.title);
+    const origin = rk && base ? (byBase.get(`${src.authority}|${base}`) ?? null) : null;
+    known.set(f.documentUrl, { id, document_url: f.documentUrl, title: f.title, content_hash: hash, published_on: published, duplicate_of_id: duplicateOf, verification_status: doubts.length ? 'NEEDS_REVIEW' : 'PUBLISHED', auto_published: doubts.length ? 0 : 1, exam_code: exam, authority: src.authority, revision_kind: rk, authenticity_note: null });
+    // An original notice can be found by its later corrigendum; a corrigendum is never the thing later ones attach to.
+    if (!rk && base && !duplicateOf && !byBase.has(`${src.authority}|${base}`)) byBase.set(`${src.authority}|${base}`, id);
     statements.push(
       db
         .prepare(
@@ -332,6 +417,14 @@ async function checkSource(db: D1Database, src: Source, known: Map<string, Exist
           doubts.length ? `Waiting for a check: ${doubts.join('; ')}.` : `Published automatically: listed on ${src.authority}'s own page, on ${src.authority}'s own website, ${src.authority === 'UGC' ? 'date and title read' : 'exam certain'}.`,
           duplicateOf, hash, now, now, now, src.authority, doubts.length ? 0 : 1,
         ),
+    );
+    // Authenticity evidence, the revision link, version 1 and the first events (written only if this row was really inserted).
+    statements.push(
+      db.prepare('UPDATE gov_notices SET authenticity_note = ?, revision_kind = ?, revision_of_id = ? WHERE id = ?').bind(authenticityNote(f, src, published), rk, origin, id),
+      db
+        .prepare(`INSERT INTO gov_notice_versions (id, notice_id, version, title, description, published_on, document_url, content_hash, reason, detected_at) SELECT ?, id, 1, title, description, published_on, document_url, content_hash, 'First detected', ? FROM gov_notices WHERE id = ? AND first_detected_at = ?`)
+        .bind(newId('gnv'), now, id, now),
+      eventStmt(db, id, 'DETECTED', 'system:notice-reader', null, doubts.length ? 'NEEDS_REVIEW' : 'PUBLISHED', `${duplicateOf ? 'Duplicate of another official listing. ' : ''}${rk ? `Says it is a ${rk.toLowerCase()}${origin ? ' of an earlier notice we hold' : ', but the original was not found'}. ` : ''}${doubts.length ? `Waiting for a check: ${doubts.join('; ')}` : 'Passed every check and published on its own'}`, now),
     );
   }
   statements.push(db.prepare('UPDATE gov_notices SET last_checked_at = ? WHERE source_key = ?').bind(now, src.key));
@@ -361,9 +454,12 @@ export async function syncNotices(env: { DB: D1Database; NOTICE_FETCH?: string; 
   const db = env.DB;
   await ensureSources(db);
   const state = new Map((await db.prepare('SELECT key, next_check_at, consecutive_failures FROM gov_notice_sources').all<{ key: string; next_check_at: string | null; consecutive_failures: number }>()).results.map((r) => [r.key, r]));
-  const all = (await db.prepare('SELECT id, document_url, title, content_hash, published_on, duplicate_of_id, verification_status, auto_published, exam_code FROM gov_notices').all<Existing>()).results;
+  const all = (await db.prepare('SELECT id, document_url, title, content_hash, published_on, duplicate_of_id, verification_status, auto_published, exam_code, authority, revision_kind, authenticity_note FROM gov_notices').all<Existing>()).results;
   const known = new Map(all.map((r) => [r.document_url, r]));
   const byDup = new Map(all.filter((r) => !r.duplicate_of_id).map((r) => [dupKey(r.title, r.published_on), r.id]));
+  // Original notices by their base title, so a later corrigendum can be linked to what it corrects.
+  const byBase = new Map<string, string>();
+  for (const r of all) if (!r.revision_kind && !r.duplicate_of_id && baseKey(r.title) && !byBase.has(`${r.authority}|${baseKey(r.title)}`)) byBase.set(`${r.authority}|${baseKey(r.title)}`, r.id);
   const report: SourceReport[] = [];
   for (const src of SOURCES) {
     const st = state.get(src.key);
@@ -373,7 +469,7 @@ export async function syncNotices(env: { DB: D1Database; NOTICE_FETCH?: string; 
       continue;
     }
     try {
-      const c = await checkSource(db, src, known, byDup);
+      const c = await checkSource(db, src, known, byDup, byBase);
       const next = new Date(now.getTime() + settings.intervalMinutes * 60_000).toISOString();
       await db
         .prepare('UPDATE gov_notice_sources SET last_checked_at = ?1, last_success_at = ?1, last_error = NULL, consecutive_failures = 0, next_check_at = ?2, last_found = ?3, last_new = ?4, last_updated = ?5, last_duplicates = ?6, last_queued = ?7, updated_at = ?1 WHERE key = ?8')
@@ -425,7 +521,42 @@ const noticeOut = (r: Row) => ({
   isUpdated: r.changed_at !== null && String(r.changed_at) >= daysAgo(UPDATED_DAYS),
   firstDetectedAt: r.first_detected_at as string,
   lastCheckedAt: r.last_checked_at as string,
+  versionCount: Number(r.version_count ?? 1),
+  /** CORRIGENDUM, ADDENDUM, EXTENSION, RESCHEDULED, AMENDMENT or REVISED when the title says it changes an earlier notice. */
+  revisionKind: (r.revision_kind as RevisionKind | null) ?? null,
+  revisionOfId: (r.revision_of_id as string | null) ?? null,
+  /** Filled in by withRevisions: the notice this one corrects, and the later notices that correct this one. */
+  revisionOf: null as { id: string; title: string } | null,
+  revisions: [] as { id: string; title: string; kind: RevisionKind | null; publishedOn: string | null }[],
 });
+type NoticeOut = ReturnType<typeof noticeOut>;
+
+/** Adds, to each notice, the earlier notice it corrects and the published notices that correct it. Only published notices are named. */
+async function withRevisions(db: D1Database, items: NoticeOut[]): Promise<NoticeOut[]> {
+  if (!items.length) return items;
+  const ids = items.map((i) => i.id);
+  const parents = [...new Set(items.map((i) => i.revisionOfId).filter((x): x is string => Boolean(x)))];
+  // D1 accepts at most 100 bound values in one statement, so a long page is looked up in parts.
+  const inParts = async (list: string[], sql: (ph: string) => string) => {
+    const out: Row[] = [];
+    for (let i = 0; i < list.length; i += 80) {
+      const part = list.slice(i, i + 80);
+      out.push(...(await db.prepare(sql(part.map(() => '?').join(','))).bind(...part).all<Row>()).results);
+    }
+    return out;
+  };
+  const [kidRows, upRows] = await Promise.all([
+    inParts(ids, (ph) => `SELECT id, title, revision_of_id, revision_kind, published_on FROM gov_notices WHERE revision_of_id IN (${ph}) AND verification_status = 'PUBLISHED' AND duplicate_of_id IS NULL ORDER BY published_on`),
+    inParts(parents, (ph) => `SELECT id, title FROM gov_notices WHERE id IN (${ph}) AND verification_status = 'PUBLISHED' AND duplicate_of_id IS NULL`),
+  ]);
+  const kids = { results: kidRows };
+  const ups = { results: upRows };
+  return items.map((i) => ({
+    ...i,
+    revisionOf: ups.results.find((u) => u.id === i.revisionOfId) ? { id: i.revisionOfId!, title: String(ups.results.find((u) => u.id === i.revisionOfId)!.title) } : null,
+    revisions: kids.results.filter((k) => k.revision_of_id === i.id).map((k) => ({ id: String(k.id), title: String(k.title), kind: (k.revision_kind as RevisionKind | null) ?? null, publishedOn: (k.published_on as string | null) ?? null })),
+  }));
+}
 
 /** Published notices, newest first. The same for every visitor: nothing here belongs to a student. */
 export async function listNotices(db: D1Database, q: z.infer<typeof noticeQuery>) {
@@ -451,7 +582,7 @@ export async function listNotices(db: D1Database, q: z.infer<typeof noticeQuery>
     db.prepare(`SELECT category, COUNT(*) AS n FROM gov_notices WHERE ${whereCounts} GROUP BY category ORDER BY n DESC`).bind(...forCounts).all<{ category: string; n: number }>(),
     db.prepare('SELECT MAX(last_success_at) AS at FROM gov_notice_sources').first<{ at: string | null }>(),
   ]);
-  return { total: total?.n ?? 0, lastCheckedAt: checked?.at ?? null, categories: cats.results.map((c) => ({ category: c.category, count: c.n })), notices: rows.results.map(noticeOut) };
+  return { total: total?.n ?? 0, lastCheckedAt: checked?.at ?? null, categories: cats.results.map((c) => ({ category: c.category, count: c.n })), notices: await withRevisions(db, rows.results.map(noticeOut)) };
 }
 
 // ---------------------------------------------------------------- staff
@@ -465,7 +596,8 @@ export async function noticeOverview(db: D1Database, env: { NOTICE_FETCH?: strin
       .prepare(
         `SELECT COUNT(*) AS collected, COALESCE(SUM(verification_status = 'PUBLISHED' AND duplicate_of_id IS NULL), 0) AS published,
            COALESCE(SUM(first_detected_at >= ?1 AND duplicate_of_id IS NULL), 0) AS new_7d, COALESCE(SUM(duplicate_of_id IS NOT NULL), 0) AS duplicates,
-           COALESCE(SUM(verification_status = 'NEEDS_REVIEW' AND duplicate_of_id IS NULL), 0) AS waiting, COALESCE(SUM(changed_at >= ?1), 0) AS updated_7d
+           COALESCE(SUM(verification_status = 'NEEDS_REVIEW' AND duplicate_of_id IS NULL), 0) AS waiting, COALESCE(SUM(changed_at >= ?1), 0) AS updated_7d,
+           COALESCE(SUM(verification_status = 'WITHDRAWN'), 0) AS withdrawn, COALESCE(SUM(revision_kind IS NOT NULL AND duplicate_of_id IS NULL AND verification_status = 'PUBLISHED'), 0) AS revisions
          FROM gov_notices`,
       )
       .bind(daysAgo(7))
@@ -486,9 +618,13 @@ export async function noticeOverview(db: D1Database, env: { NOTICE_FETCH?: strin
     updatedInSevenDays: totals?.updated_7d ?? 0,
     duplicates: totals?.duplicates ?? 0,
     awaitingVerification: totals?.waiting ?? 0,
+    withdrawn: totals?.withdrawn ?? 0,
+    publishedRevisions: totals?.revisions ?? 0,
+    // A source that has not been read successfully for three times its interval (only counted while scheduled fetching is on).
+    staleSources: settings.enabled ? list.filter((s) => !s.last_success_at || Date.now() - Date.parse(String(s.last_success_at)) > settings.intervalMinutes * 3 * 60_000).length : 0,
     failedSources: list.filter((s) => Number(s.consecutive_failures) > 0).length,
     sources: list.map((s) => ({
-      key: s.key, name: s.name, url: s.url, authority: s.authority, lastCheckedAt: s.last_checked_at, lastSuccessAt: s.last_success_at, lastError: s.last_error, lastErrorAt: s.last_error_at,
+      key: s.key, name: s.name, url: s.url, authority: s.authority, dataType: SOURCES.find((x) => x.key === s.key)?.dataType ?? null, reliability: SOURCES.find((x) => x.key === s.key)?.reliability ?? null, lastCheckedAt: s.last_checked_at, lastSuccessAt: s.last_success_at, lastError: s.last_error, lastErrorAt: s.last_error_at,
       consecutiveFailures: Number(s.consecutive_failures), nextCheckAt: s.next_check_at, found: Number(s.last_found), added: Number(s.last_new), updated: Number(s.last_updated),
       duplicates: Number(s.last_duplicates), queued: Number(s.last_queued),
     })),
@@ -500,25 +636,132 @@ export async function noticeQueue(db: D1Database) {
   return results.map((r) => ({ ...noticeOut(r), statusNote: r.status_note as string | null }));
 }
 
-export const noticeDecisionSchema = z.object({ action: z.enum(['PUBLISH', 'REJECT']), exam: z.enum(EXAMS).optional(), category: z.enum(NOTICE_CATEGORIES).optional() });
+export const noticeDecisionSchema = z.object({
+  action: z.enum(['PUBLISH', 'REJECT', 'FLAG', 'WITHDRAW']),
+  exam: z.enum(EXAMS).optional(),
+  category: z.enum(NOTICE_CATEGORIES).optional(),
+  /** Why. Required to flag or withdraw a notice; optional otherwise. Recorded in the notice's history. */
+  reason: z.string().trim().min(5).max(500).optional(),
+});
 
-/** A member of staff settles a notice that could not be published on its own. */
+/**
+ * A member of staff settles a notice, or takes back one that is showing.
+ *   PUBLISH  a queued, rejected or withdrawn notice goes on show (its checks are made again)
+ *   REJECT   a queued notice is turned down
+ *   FLAG     a showing notice is taken off show and put back in the queue for a second look (a reason is needed)
+ *   WITHDRAW a showing notice is taken off show for good, until someone publishes it again (a reason is needed)
+ * Every decision is written to the notice's history with who made it. The reader never publishes a notice staff have rejected or withdrawn.
+ */
 export async function decideNotice(db: D1Database, id: string, input: z.infer<typeof noticeDecisionSchema>, actor: string) {
-  const cur = await db.prepare('SELECT id, exam_code, document_url, verification_status, authority, title FROM gov_notices WHERE id = ?').bind(id).first<{ id: string; exam_code: string | null; document_url: string; verification_status: string; authority: Authority; title: string }>();
+  const cur = await db
+    .prepare('SELECT id, exam_code, document_url, verification_status, authority, title FROM gov_notices WHERE id = ?')
+    .bind(id)
+    .first<{ id: string; exam_code: string | null; document_url: string; verification_status: string; authority: Authority; title: string }>();
   if (!cur) throw notFound('Notice');
-  if (cur.verification_status !== 'NEEDS_REVIEW') throw new ApiError(409, 'CONFLICT', 'This notice has already been settled');
+  const from = cur.verification_status;
   const now = nowIso();
+  const settled = () => new ApiError(409, 'CONFLICT', 'This notice has already been settled');
+  const move = async (to: string, note: string, action: string, set = '', bind: (string | null)[] = []) => {
+    await db.batch([
+      db.prepare(`UPDATE gov_notices SET verification_status = ?, auto_published = 0, status_note = ?, updated_at = ?${set} WHERE id = ?`).bind(to, note, now, ...bind, id),
+      eventStmt(db, id, action, actor, from, to, input.reason ?? note, now),
+    ]);
+    return { id, status: to };
+  };
   if (input.action === 'REJECT') {
-    await db.prepare(`UPDATE gov_notices SET verification_status = 'REJECTED', status_note = ?, updated_at = ? WHERE id = ?`).bind(`Rejected by ${actor}`, now, id).run();
-    return { id, status: 'REJECTED' };
+    if (from !== 'NEEDS_REVIEW') throw settled();
+    return move('REJECTED', `Rejected by ${actor}${input.reason ? `: ${input.reason}` : ''}`, 'REJECTED');
   }
+  if (input.action === 'FLAG' || input.action === 'WITHDRAW') {
+    if (from !== 'PUBLISHED') throw new ApiError(409, 'CONFLICT', `Only a notice that is showing can be ${input.action === 'FLAG' ? 'flagged' : 'withdrawn'}`);
+    if (!input.reason) throw invalid(`Say why you are ${input.action === 'FLAG' ? 'flagging' : 'withdrawing'} it (reason)`);
+    return input.action === 'FLAG'
+      ? move('NEEDS_REVIEW', `Flagged by ${actor}: ${input.reason}`, 'FLAGGED')
+      : move('WITHDRAWN', `Withdrawn by ${actor}: ${input.reason}`, 'WITHDRAWN');
+  }
+  // PUBLISH
+  if (!['NEEDS_REVIEW', 'REJECTED', 'WITHDRAWN'].includes(from)) throw settled();
   const exam = cur.authority === 'UGC' ? null : (input.exam ?? cur.exam_code);
   if (cur.authority === 'NTA' && !exam) throw invalid('Say whether this notice is for CUET (UG) or CUET (PG)');
   if (!isOfficialUrl(cur.document_url, cur.authority)) throw invalid(`This document is not on ${cur.authority}'s own website, so it cannot be published`);
   if (titleProblem(cur.title)) throw invalid(`This notice cannot be published: ${titleProblem(cur.title)}`);
-  await db
-    .prepare(`UPDATE gov_notices SET verification_status = 'PUBLISHED', auto_published = 0, exam_code = ?, category = COALESCE(?, category), status_note = ?, updated_at = ? WHERE id = ?`)
-    .bind(exam, input.category ?? null, `Checked and published by ${actor}`, now, id)
-    .run();
-  return { id, status: 'PUBLISHED' };
+  return move('PUBLISHED', `Checked and published by ${actor}`, 'PUBLISHED', ', exam_code = ?, category = COALESCE(?, category)', [exam, input.category ?? null]);
+}
+
+// ---------------------------------------------------------------- staff: every notice, and the history of one
+
+export const adminNoticeQuery = z.object({
+  status: z.enum(['PUBLISHED', 'NEEDS_REVIEW', 'REJECTED', 'WITHDRAWN', 'DUPLICATE']).optional(),
+  authority: z.enum(AUTHORITIES).optional(),
+  revisions: z.enum(['1']).optional(),
+  q: z.string().trim().max(100).optional(),
+  limit: z.coerce.number().int().min(1).max(200).default(50),
+  offset: z.coerce.number().int().min(0).max(20000).default(0),
+});
+
+export async function adminNotices(db: D1Database, q: z.infer<typeof adminNoticeQuery>) {
+  const where: string[] = [];
+  const binds: unknown[] = [];
+  if (q.status === 'DUPLICATE') where.push('duplicate_of_id IS NOT NULL');
+  else if (q.status) (where.push('verification_status = ? AND duplicate_of_id IS NULL'), binds.push(q.status));
+  if (q.authority) (where.push('authority = ?'), binds.push(q.authority));
+  if (q.revisions) where.push('revision_kind IS NOT NULL');
+  if (q.q) (where.push("title LIKE '%' || ? || '%' COLLATE NOCASE"), binds.push(q.q));
+  const clause = where.length ? `WHERE ${where.join(' AND ')}` : '';
+  const [rows, total] = await Promise.all([
+    db.prepare(`SELECT * FROM gov_notices ${clause} ORDER BY COALESCE(published_on, substr(first_detected_at, 1, 10)) DESC, first_detected_at DESC, id LIMIT ? OFFSET ?`).bind(...binds, q.limit, q.offset).all<Row>(),
+    db.prepare(`SELECT COUNT(*) AS n FROM gov_notices ${clause}`).bind(...binds).first<{ n: number }>(),
+  ]);
+  const items = await withRevisions(db, rows.results.map(noticeOut));
+  return {
+    total: total?.n ?? 0,
+    notices: items.map((n, i) => ({ ...n, status: rows.results[i]!.verification_status as string, statusNote: rows.results[i]!.status_note as string | null, authenticityNote: rows.results[i]!.authenticity_note as string | null, autoPublished: rows.results[i]!.auto_published === 1, duplicateOfId: rows.results[i]!.duplicate_of_id as string | null })),
+  };
+}
+
+/** Every version the official page has shown, and everything that has happened to the notice, newest first. */
+export async function noticeHistory(db: D1Database, id: string) {
+  const n = await db.prepare('SELECT id, title, authority, verification_status, status_note, authenticity_note, document_url, source_url, revision_kind, revision_of_id FROM gov_notices WHERE id = ?').bind(id).first<Row>();
+  if (!n) throw notFound('Notice');
+  const [versions, events] = await Promise.all([
+    db.prepare('SELECT version, title, description, published_on, document_url, reason, detected_at FROM gov_notice_versions WHERE notice_id = ? ORDER BY version DESC').bind(id).all<Row>(),
+    db.prepare('SELECT action, actor, from_status, to_status, note, created_at FROM gov_notice_events WHERE notice_id = ? ORDER BY created_at DESC, rowid DESC').bind(id).all<Row>(),
+  ]);
+  return {
+    notice: { id: n.id, title: n.title, authority: n.authority, status: n.verification_status, statusNote: n.status_note, authenticityNote: n.authenticity_note, documentUrl: n.document_url, sourceUrl: n.source_url, revisionKind: n.revision_kind, revisionOfId: n.revision_of_id },
+    versions: versions.results.map((v) => ({ version: Number(v.version), title: v.title, description: v.description, publishedOn: v.published_on, documentUrl: v.document_url, reason: v.reason, detectedAt: v.detected_at })),
+    events: events.results.map((e) => ({ action: e.action, actor: e.actor, from: e.from_status, to: e.to_status, note: e.note, at: e.created_at })),
+  };
+}
+
+/** For students: one notice with its earlier and later versions as the official page showed them, and the notices that correct it. */
+export async function publicNoticeDetail(db: D1Database, id: string) {
+  const row = await db.prepare(`SELECT * FROM gov_notices WHERE id = ? AND verification_status = 'PUBLISHED' AND duplicate_of_id IS NULL`).bind(id).first<Row>();
+  if (!row) throw notFound('Notice');
+  const [[notice], versions] = await Promise.all([
+    withRevisions(db, [noticeOut(row)]),
+    db.prepare('SELECT version, title, published_on, reason, detected_at FROM gov_notice_versions WHERE notice_id = ? ORDER BY version DESC').bind(id).all<Row>(),
+  ]);
+  return { notice: notice!, versions: versions.results.map((v) => ({ version: Number(v.version), title: v.title as string, publishedOn: v.published_on as string | null, reason: v.reason as string, detectedAt: v.detected_at as string })) };
+}
+
+// ---------------------------------------------------------------- the notice half of the source registry
+
+/** The pages the reader checks, as registry rows: what they are, how far they are trusted, how often they are read, and when they last were. */
+export async function noticeSourceRegistry(db: D1Database, env: { NOTICE_FETCH?: string; NOTICE_FETCH_MINUTES?: string }) {
+  await ensureSources(db);
+  const settings = fetchSettings(env);
+  const { results } = await db.prepare('SELECT key, last_success_at, last_checked_at, consecutive_failures, last_error FROM gov_notice_sources').all<Row>();
+  return SOURCES.map((s) => {
+    const st = results.find((r) => r.key === s.key);
+    const last = (st?.last_success_at as string | null) ?? null;
+    return {
+      registry: 'NOTICES' as const,
+      key: s.key, name: s.name, url: s.url, authority: s.authority, dataType: s.dataType, reliability: s.reliability,
+      updateFrequency: settings.enabled ? `Read every ${settings.intervalMinutes >= 60 ? `${Math.round((settings.intervalMinutes / 60) * 10) / 10} hours` : `${settings.intervalMinutes} minutes`}` : 'Scheduled reading is switched off',
+      lastCheckedOn: last ? last.slice(0, 10) : null,
+      state: !st || !last ? 'NEVER_READ' : Number(st.consecutive_failures) > 0 ? 'FAILING' : 'OK',
+      lastError: (st?.last_error as string | null) ?? null,
+    };
+  });
 }

@@ -68,6 +68,9 @@ export function AdminLayout() {
         <NavLink to="/admin/admissions" className={tab}>
           Admissions
         </NavLink>
+        <NavLink to="/admin/registry" className={tab}>
+          Sources
+        </NavLink>
         <NavLink to="/admin/activity" className={tab}>
           Activity
         </NavLink>

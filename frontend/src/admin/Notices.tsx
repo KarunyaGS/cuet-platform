@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { NOTICE_CATEGORY, noticeDate } from '../pages/Updates';
 import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, SectionTitle, StatGroup, useLoad } from '../ui';
 import { consoleApi, when } from './api';
+import { NoticeManager } from './NoticeManager';
 
 export function AdminNotices() {
   const o = useLoad(consoleApi.noticeOverview, []);
@@ -136,7 +137,7 @@ export function AdminNotices() {
                       <option value="CUET_PG">CUET (PG)</option>
                     </select>
                   </label>
-                  <Button size="sm" disabled={busy === n.id || !(exam[n.id] ?? n.exam)} onClick={() => run(n.id, () => consoleApi.noticeDecision(n.id, { action: 'PUBLISH', exam: (exam[n.id] ?? n.exam) as 'CUET_UG' | 'CUET_PG' }))}>
+                  <Button size="sm" disabled={busy === n.id || (n.authority === 'NTA' && !(exam[n.id] ?? n.exam))} onClick={() => run(n.id, () => consoleApi.noticeDecision(n.id, { action: 'PUBLISH', exam: (exam[n.id] ?? n.exam) as 'CUET_UG' | 'CUET_PG' }))}>
                     Publish
                   </Button>
                   <Button size="sm" kind="danger" disabled={busy === n.id} onClick={() => run(n.id, () => consoleApi.noticeDecision(n.id, { action: 'REJECT' }))}>
@@ -148,6 +149,7 @@ export function AdminNotices() {
           </ul>
         )}
       </section>
+      <NoticeManager />
     </div>
   );
 }
