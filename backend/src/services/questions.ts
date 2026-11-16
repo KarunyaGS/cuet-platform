@@ -156,6 +156,8 @@ export async function getQuestionAdmin(prisma: PrismaClient, id: string) {
       testPaper: { select: { id: true, code: true, name: true } },
       usagePermission: { select: { code: true, name: true } },
       sourceDocument: { select: { id: true, title: true, url: true } },
+      /** Present while the question's approval stands on a bulk management decision rather than an individual review. */
+      bulkApprovals: { where: { state: 'ACTIVE' }, select: { batchId: true } },
     },
   });
   if (!q) throw notFound('Question');

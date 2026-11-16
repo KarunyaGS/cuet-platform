@@ -11,6 +11,7 @@ import { listMockPapersAdmin, mockActionSchema, mockPaperAdmin, setMockPaperStat
 import { z } from 'zod';
 import type { AppEnv } from '../types';
 import { invalid } from '../lib/errors';
+import { approvalSummary, batchDetail, confirmBulk, confirmSchema, previewBulk, scopeSchema, withdrawBulk, withdrawSchema } from '../services/bulk-approval';
 import { readJson } from '../lib/http';
 import { reviewerAuth } from '../lib/reviewer';
 import { contentPapers, contentQuery, listContent, reviewerDashboard } from '../services/admin-console';
@@ -58,6 +59,16 @@ review.post('/mock-papers/:id/approve', async (c) => {
   const u = c.get('user');
   return c.json(await setMockPaperStatus(c.env.DB, c.req.param('id'), { action: 'APPROVE', note: (await readJson(c, mockActionSchema.pick({ note: true }))).note }, { id: u.id, permissions: u.permissions ?? [] }));
 });
+// Bulk management approval of questions: preview what would be covered, confirm it, then flag or withdraw later if needed.
+// Recorded as a bulk decision, never as individual review.
+review.get('/bulk-approval/summary', async (c) => c.json(await approvalSummary(c.env.DB)));
+review.get('/bulk-approval/batches/:id', async (c) => c.json(await batchDetail(c.env.DB, c.req.param('id'))));
+review.post('/bulk-approval/preview', async (c) => {
+  const { ids: _ids, ...preview } = await previewBulk(c.env.DB, (await readJson(c, z.object({ scope: scopeSchema }))).scope);
+  return c.json(preview);
+});
+review.post('/bulk-approval/confirm', async (c) => c.json(await confirmBulk(c.env.DB, await readJson(c, confirmSchema), me(c)), 201));
+review.post('/bulk-approval/withdraw', async (c) => c.json(await withdrawBulk(c.env.DB, await readJson(c, withdrawSchema), me(c))));
 review.post('/decide', async (c) => c.json(await decide(c.env.DB, await readJson(c, decideSchema), me(c))));
 review.post('/versions/:id/sign-off', async (c) => c.json(await signOff(c.env.DB, c.req.param('id'), await readJson(c, signOffSchema), me(c))));
 

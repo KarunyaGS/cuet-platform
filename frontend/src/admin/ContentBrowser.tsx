@@ -128,6 +128,7 @@ function Row({ it, on, onClick, showStatus }: { it: ContentItem; on: boolean; on
         </span>
         <span className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs text-ink-3">
           <VerificationBadge v={it.verification} />
+          {it.bulkApproved && <Badge tone="amber" title="Approved by a bulk management decision, not reviewed individually">Bulk approved</Badge>}
           {showStatus && <Badge>{STATUS[it.status] ?? it.status}</Badge>}
           <span>
             {it.paper ?? 'No subject'}
@@ -180,6 +181,7 @@ function Detail({ mode, type, id, canWrite, canPublish, onChanged, onGone }: { m
     <article className="overflow-hidden rounded-xl border border-rule bg-surface">
       <header className="flex flex-wrap items-center gap-2 border-b border-rule px-5 py-3">
         <VerificationBadge v={d.verification} />
+        {d.verification === 'VERIFIED' && (d as { bulkApprovals?: unknown[] }).bulkApprovals?.length ? <Badge tone="amber" title="Approved by a bulk management decision, not reviewed individually">Bulk approved</Badge> : null}
         <Badge>{STATUS[d.status] ?? d.status}</Badge>
         <span className="text-xs text-ink-3">{d.origin === 'AI_ASSISTED' ? 'AI-assisted draft' : d.origin.charAt(0) + d.origin.slice(1).toLowerCase().replace(/_/g, ' ')}</span>
         {mode === 'admin' && canWrite && !editing && (

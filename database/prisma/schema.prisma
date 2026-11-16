@@ -681,6 +681,7 @@ model Question {
   tags               QuestionTag[]
   media              QuestionMedia[]
   practiceAnswers    PracticeAnswer[]
+  bulkApprovals      BulkApprovalItem[]
 
   @@index([status, type])
   @@index([testPaperId])
@@ -936,6 +937,7 @@ model User {
   resetTokens     PasswordResetToken[]
   dismissals      ReminderDismissal[]
   assignments     ReviewAssignment[]
+  bulkBatches     BulkApprovalBatch[]
   verifyTokens    EmailVerificationToken[]
   emails          EmailMessage[]
   subscriptions   Subscription[]
@@ -1891,4 +1893,50 @@ model OfficialPaperSession {
   @@unique([examCode, year, subjectCode, examDate, shift])
   @@index([examCode, year, subjectCode])
   @@map("official_paper_sessions")
+}
+
+/// One bulk management decision on questions: who approved, when, the scope and the method. Never recorded as individual review.
+model BulkApprovalBatch {
+  id            String             @id @default(cuid())
+  approverId    String             @map("approver_id")
+  approverName  String             @map("approver_name")
+  /// Roles held by the approver at the time, comma separated.
+  approverRoles String             @map("approver_roles")
+  method        String
+  /// JSON text: how the questions were chosen (paper, filters).
+  scopeJson     String             @map("scope_json")
+  questionCount Int                @map("question_count")
+  /// Hash of the exact list of question ids the approver was shown.
+  snapshotHash  String             @map("snapshot_hash")
+  /// JSON text: the automated check results at the time of approval.
+  checksJson    String             @map("checks_json")
+  /// The exact statement the approver confirmed.
+  statement     String
+  /// ACTIVE, or REVOKED once every item has been withdrawn.
+  status        String             @default("ACTIVE")
+  createdAt     DateTime           @default(now()) @map("created_at")
+  approver      User               @relation(fields: [approverId], references: [id], onDelete: Restrict)
+  items         BulkApprovalItem[]
+
+  @@index([createdAt])
+  @@map("bulk_approval_batches")
+}
+
+/// A question covered by a batch. `state` is ACTIVE, REVOKED (flagged, rejected or withdrawn) or SUPERSEDED (later verified individually).
+model BulkApprovalItem {
+  id               String            @id @default(cuid())
+  batchId          String            @map("batch_id")
+  questionId       String            @map("question_id")
+  fromVerification String            @map("from_verification")
+  state            String            @default("ACTIVE")
+  endedAt          DateTime?         @map("ended_at")
+  endedBy          String?           @map("ended_by")
+  endedReason      String?           @map("ended_reason")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  batch            BulkApprovalBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  question         Question          @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([batchId, questionId])
+  @@index([questionId, state])
+  @@map("bulk_approval_items")
 }

@@ -251,17 +251,17 @@ export async function listContent(db: D1Database, f: z.infer<typeof contentQuery
     db.prepare(`SELECT COUNT(*) AS n FROM ${from} WHERE ${where.join(' AND ')}`).bind(...params).first<{ n: number }>(),
     db
       .prepare(
-        `SELECT x.id, ${isQ ? 'SUBSTR(x.stem, 1, 220)' : 'x.title'} AS title, x.type, ${isQ ? 'x.difficulty' : 'NULL'} AS difficulty, x.status, x.verification, x.origin, x.updated_at, p.id AS paper_id, p.code AS paper_code, p.name AS paper
+        `SELECT x.id, ${isQ ? 'SUBSTR(x.stem, 1, 220)' : 'x.title'} AS title, x.type, ${isQ ? 'x.difficulty' : 'NULL'} AS difficulty, x.status, x.verification, x.origin, x.updated_at, ${isQ ? "EXISTS (SELECT 1 FROM bulk_approval_items i WHERE i.question_id = x.id AND i.state = 'ACTIVE')" : '0'} AS bulk, p.id AS paper_id, p.code AS paper_code, p.name AS paper
          FROM ${from} WHERE ${where.join(' AND ')} ORDER BY x.updated_at DESC, x.id LIMIT ? OFFSET ?`,
       )
       .bind(...params, limit, offset)
-      .all<Record<string, string | null>>(),
+      .all<Record<string, string | number | null>>(),
     db.prepare(`SELECT verification, COUNT(*) AS n FROM ${isQ ? 'questions' : 'learning_resources'} GROUP BY verification`).all<{ verification: string; n: number }>(),
   ]);
   return {
     total: total?.n ?? 0,
     byVerification: byVer.results,
-    items: rows.results.map((r) => ({ id: r.id, title: r.title, type: r.type, difficulty: r.difficulty, status: r.status, verification: r.verification, origin: r.origin, updatedAt: r.updated_at, paperId: r.paper_id, paperCode: r.paper_code, paper: r.paper })),
+    items: rows.results.map((r) => ({ id: r.id, title: r.title, type: r.type, difficulty: r.difficulty, status: r.status, verification: r.verification, origin: r.origin, updatedAt: r.updated_at, bulkApproved: Boolean(r.bulk) && r.verification === 'VERIFIED', paperId: r.paper_id, paperCode: r.paper_code, paper: r.paper })),
   };
 }
 

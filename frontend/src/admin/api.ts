@@ -34,7 +34,7 @@ export interface Assignment {
   progress: { total: number; decided: number };
 }
 export type ContentType = 'QUESTION' | 'LEARNING_RESOURCE';
-export interface ContentItem { id: string; title: string; type: string; difficulty: string | null; status: string; verification: string; origin: string; updatedAt: string; paperId: string | null; paperCode: string | null; paper: string | null }
+export interface ContentItem { id: string; title: string; type: string; difficulty: string | null; status: string; verification: string; origin: string; updatedAt: string; bulkApproved?: boolean; paperId: string | null; paperCode: string | null; paper: string | null }
 export interface ContentList { total: number; byVerification: { verification: string; n: number }[]; items: ContentItem[] }
 export interface ContentFilter { type: ContentType; paperId?: string; verification?: string; status?: string; q?: string; page?: number }
 export interface PaperOption { id: string; code: string; name: string; exam: ExamCode }

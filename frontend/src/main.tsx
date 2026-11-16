@@ -60,6 +60,7 @@ const AdminNotices = lazy(() => import('./admin/Notices').then((m) => ({ default
 const AdminActivity = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminActivity })));
 const ReviewLayout = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewLayout })));
 const ReviewDashboard = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewDashboard })));
+const ReviewBulkApproval = lazy(() => import('./review/BulkApproval').then((m) => ({ default: m.BulkApproval })));
 const ReviewContent = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewContent })));
 const lazyPage = (el: React.ReactNode) => <Suspense fallback={<Loading />}>{el}</Suspense>;
 
@@ -118,6 +119,7 @@ const router = createBrowserRouter([
           { index: true, element: lazyPage(<ReviewDashboard />) },
           { path: 'syllabus', element: lazyPage(<ReviewQueue />) },
           { path: 'content', element: lazyPage(<ReviewContent />) },
+          { path: 'bulk-approval', element: lazyPage(<ReviewBulkApproval />) },
         ],
       },
       { path: '/review/paper/:paperId', element: lazyPage(<ReviewWorkspace />) },

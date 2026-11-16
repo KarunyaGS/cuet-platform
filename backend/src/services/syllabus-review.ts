@@ -13,6 +13,7 @@ import { z } from 'zod';
 import { ApiError, conflict, invalid, notFound } from '../lib/errors';
 import { newId, normaliseText, sha256Hex } from '../lib/hash';
 import { nowIso } from '../lib/sql';
+import { noteIndividualDecision, bulkActiveAmong } from './bulk-approval';
 import { applyReview } from './review';
 
 const KINDS = ['PART', 'SECTION', 'COURSE', 'UNIT', 'CHAPTER', 'TOPIC', 'SUBTOPIC', 'ITEM', 'NOTE'] as const;
@@ -478,9 +479,12 @@ export async function decide(db: D1Database, input: z.infer<typeof decideSchema>
     const own = results.filter((r) => r.authored_by === user.id);
     if (own.length) throw new ApiError(403, 'SECOND_REVIEWER_REQUIRED', `You typed ${own.length} of these row(s) yourself; another reviewer must verify them`, own.map((r) => r.id));
   }
-  const todo = results.filter((r) => r.verification !== target).map((r) => r.id);
+  // A question verified only by bulk approval can still be confirmed by a person one by one: that makes it individually reviewed.
+  const bulkOnly = input.entityType === 'QUESTION' && input.action === 'VERIFIED' ? new Set(await bulkActiveAmong(db, ids)) : new Set<string>();
+  const todo = results.filter((r) => r.verification !== target || bulkOnly.has(r.id)).map((r) => r.id);
   if (!todo.length) return { applied: 0, changes: [], skipped: ids.length };
   const out = await applyReview(db, { entityType: input.entityType, entityIds: todo, action: input.action, comment: input.comment, checklist: input.checklist }, actorOf(user));
+  if (input.entityType === 'QUESTION') await noteIndividualDecision(db, todo, input.action, user);
   if (input.entityType === 'CURRICULUM_NODE' && input.action !== 'VERIFIED') {
     const versions = await db.prepare(`SELECT DISTINCT syllabus_version_id AS v FROM curriculum_nodes WHERE id IN (${ph})`).bind(...ids).all<{ v: string }>();
     const now = nowIso();
