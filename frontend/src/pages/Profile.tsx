@@ -230,7 +230,7 @@ function PreferencesForm() {
         </label>
       </div>
       {exam && (
-        <fieldset>
+        <fieldset className="min-w-0">
           <legend className={label}>
             Subjects <span className="font-normal text-ink-3">({ids.length} of up to 10 chosen)</span>
           </legend>

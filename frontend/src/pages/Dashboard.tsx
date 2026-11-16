@@ -1,9 +1,9 @@
 import { LatestUpdates } from './Updates';
-import { BookOpen, CalendarPlus, CalendarRange, CircleCheck, Layers, PlayCircle, Zap } from 'lucide-react';
+import { BookOpen, CalendarPlus, CircleCheck, Layers, PlayCircle, Zap } from 'lucide-react';
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router';
 import { api, type Dashboard } from '../api';
-import { accuracyTone, Button, ButtonLink, Empty, ErrorBox, Loading, Meter, PageHeader, SectionTitle, useAuth, useLoad } from '../ui';
+import { accuracyTone, Button, Empty, ErrorBox, Loading, Meter, PageHeader, SectionTitle, useAuth, useLoad } from '../ui';
 
 const MODE: Record<string, string> = { PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' };
 const today = () => new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
@@ -85,9 +85,6 @@ export function DashboardPage() {
         subtitle={today()}
         actions={
           <>
-            <ButtonLink to="/report" icon={<CalendarRange aria-hidden />}>
-              Weekly report
-            </ButtonLink>
             {(prefs.data?.papers.length ?? 0) > 0 && (
               <label className="flex items-center gap-2 text-sm text-ink-2">
                 <span className="sr-only">Subject for daily practice</span>
@@ -247,20 +244,7 @@ export function DashboardPage() {
           )}
         </section>
 
-        <section aria-labelledby="subjects">
-          <SectionTitle
-            id="subjects"
-            action={
-              <Link to="/progress" className="font-medium text-accent hover:underline">
-                Full progress
-              </Link>
-            }
-          >
-            Subjects
-          </SectionTitle>
-          {x.subjects.length === 0 ? <Empty>Submit a practice set or test to see your progress by subject.</Empty> : <SubjectTable subjects={x.subjects} />}
-        </section>
-      </div>
+</div>
     </div>
   );
 }

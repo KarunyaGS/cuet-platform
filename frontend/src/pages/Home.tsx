@@ -1,7 +1,7 @@
 import { ChevronRight, GraduationCap, Info, Library, PlayCircle, Settings2 } from 'lucide-react';
 import { Link } from 'react-router';
 import { api, type Exam } from '../api';
-import { ErrorBox, Loading, Meter, SectionTitle, useAuth, useLoad } from '../ui';
+import { ErrorBox, Loading, SectionTitle, useAuth, useLoad } from '../ui';
 
 const greeting = () => {
   const h = new Date().getHours();
@@ -57,8 +57,6 @@ export function Home() {
   const d = dash.data;
   const resume = d?.inProgress[0];
   const last = d?.continueLearning[0];
-  const goal = d?.today.goal.questionsPerDay ?? 0;
-  const done = d?.today.questionsAnswered ?? 0;
   const sorted = [...(exams.data ?? [])].sort((a, b) => (a.level === 'UG' ? -1 : 1) - (b.level === 'UG' ? -1 : 1));
 
   return (
@@ -70,38 +68,22 @@ export function Home() {
         <p className="mt-1 text-[15px] text-ink-2">Every subject, unit and topic here comes from the official NTA syllabus, with a link to the source page.</p>
       </header>
 
-      {d && (resume || last || goal > 0) && (
-        <section aria-label="Continue" className="grid-cols-1 mb-7 grid overflow-hidden rounded-xl border border-rule bg-surface md:grid-cols-[minmax(0,1fr)_18rem]">
-          <div className="min-w-0 p-5">
-            <div className="text-sm text-ink-2">{resume ? 'Unfinished test' : last ? 'Continue where you left off' : 'Start today'}</div>
-            {resume ? (
-              <Link to={`/practice/${resume.id}`} className="group mt-1 flex items-center gap-2 text-lg font-semibold text-ink hover:text-accent">
-                <PlayCircle aria-hidden className="size-5 shrink-0 text-accent" />
-                <span className="truncate">
-                  {{ PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' }[resume.mode] ?? 'Test'}: {resume.topic ?? resume.paper}
-                </span>
-              </Link>
-            ) : last ? (
-              <Link to={last.kind === 'LESSON_VIEW' ? `/learn/${last.resourceId}` : `/topic/${last.nodeId}`} className="mt-1 block text-lg font-semibold text-ink hover:text-accent">
-                <span className="line-clamp-2">{last.title ?? 'Your last topic'}</span>
-              </Link>
-            ) : (
-              <Link to="/dashboard" className="mt-1 block text-lg font-semibold text-ink hover:text-accent">
-                Open today’s plan and daily practice
-              </Link>
-            )}
-            {!resume && last?.paper && <div className="mt-0.5 text-sm text-ink-3">{last.paper}</div>}
-          </div>
-          <Link to="/dashboard" className="flex flex-col justify-center gap-2 border-t border-rule p-5 transition-colors hover:bg-paper md:border-t-0 md:border-l">
-            <div className="flex items-baseline justify-between text-sm">
-              <span className="text-ink-2">Questions today</span>
-              <span className="num font-semibold text-ink">
-                {done} <span className="font-normal text-ink-3">of {goal}</span>
+      {d && (resume || last) && (
+        <section aria-label="Continue" className="mb-7 overflow-hidden rounded-xl border border-rule bg-surface p-5">
+          <div className="text-sm text-ink-2">{resume ? 'Unfinished test' : 'Continue where you left off'}</div>
+          {resume ? (
+            <Link to={`/practice/${resume.id}`} className="group mt-1 flex items-center gap-2 text-lg font-semibold text-ink hover:text-accent">
+              <PlayCircle aria-hidden className="size-5 shrink-0 text-accent" />
+              <span className="truncate">
+                {{ PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' }[resume.mode] ?? 'Test'}: {resume.topic ?? resume.paper}
               </span>
-            </div>
-            <Meter value={goal ? (100 * done) / goal : 0} tone={goal && done >= goal ? 'correct' : 'accent'} label="Questions answered today against your goal" />
-            <span className="text-sm font-medium text-accent">Open Today</span>
-          </Link>
+            </Link>
+          ) : (
+            <Link to={last!.kind === 'LESSON_VIEW' ? `/learn/${last!.resourceId}` : `/topic/${last!.nodeId}`} className="mt-1 block text-lg font-semibold text-ink hover:text-accent">
+              <span className="line-clamp-2">{last!.title ?? 'Your last topic'}</span>
+            </Link>
+          )}
+          {!resume && last?.paper && <div className="mt-0.5 text-sm text-ink-3">{last.paper}</div>}
         </section>
       )}
 

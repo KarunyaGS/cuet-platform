@@ -170,7 +170,8 @@ export function UpdatesPage() {
 /** Dashboard: the newest few notices for the student's exam. */
 export function LatestUpdates({ exam }: { exam: ExamCode | null }) {
   const r = useLoad(() => api.notices({ exam: exam ?? undefined, limit: 4 }), [exam]);
-  if (!r.data || r.data.notices.length === 0) return null;
+  // Always shown (also when there is nothing new) so that the full page stays one tap away from Today.
+  if (!r.data) return null;
   return (
     <section aria-labelledby="gov-updates" className="mb-7">
       <div className="mb-2.5 flex items-baseline justify-between gap-3">
@@ -181,11 +182,15 @@ export function LatestUpdates({ exam }: { exam: ExamCode | null }) {
           All updates
         </Link>
       </div>
-      <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
-        {r.data.notices.map((n) => (
-          <NoticeRow key={n.id} n={n} compact />
-        ))}
-      </ul>
+      {r.data.notices.length === 0 ? (
+        <p className="rounded-xl border border-rule bg-surface px-5 py-4 text-sm text-ink-2">No new official updates right now.</p>
+      ) : (
+        <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+          {r.data.notices.map((n) => (
+            <NoticeRow key={n.id} n={n} compact />
+          ))}
+        </ul>
+      )}
     </section>
   );
 }

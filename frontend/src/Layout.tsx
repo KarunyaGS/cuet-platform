@@ -1,4 +1,4 @@
-import { BookOpen, ChevronDown, CreditCard, FileText, GalleryVerticalEnd, GraduationCap, Highlighter, Megaphone, PencilLine, Search, ShieldCheck, Bookmark, CalendarCheck2, Info, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { BookOpen, ChevronDown, CreditCard, GalleryVerticalEnd, GraduationCap, Highlighter, PencilLine, Search, ShieldCheck, Bookmark, CalendarCheck2, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
@@ -195,29 +195,13 @@ function UserMenu() {
               <UserRound aria-hidden />
               Profile and goals
             </Link>
-            <Link role="menuitem" to="/updates" className={item}>
-              <Megaphone aria-hidden />
-              Government updates
-            </Link>
             <Link role="menuitem" to="/admissions" className={item}>
               <GraduationCap aria-hidden />
               University admissions
             </Link>
-            <Link role="menuitem" to="/report" className={item}>
-              <ChartNoAxesColumn aria-hidden />
-              Weekly report
-            </Link>
-            <Link role="menuitem" to="/practice-centre" className={item}>
-              <FileText aria-hidden />
-              Practice Centre
-            </Link>
             <Link role="menuitem" to="/plans" className={item}>
               <CreditCard aria-hidden />
               Plans and payments
-            </Link>
-            <Link role="menuitem" to="/cuet" className={item}>
-              <Info aria-hidden />
-              Official exam information
             </Link>
             {user.roles.some((r) => r === 'SUPER_ADMIN' || r === 'CONTENT_ADMIN') && (
               <Link role="menuitem" to="/admin" className={item}>
@@ -294,15 +278,7 @@ export function Layout() {
                   <span className="sr-only">Search the syllabus</span>
                 </NavLink>
                 <RemindersBell />
-                <NavLink
-                  to="/bookmarks"
-                  title="My bookmarks"
-                  className={({ isActive }) => `grid size-9 place-items-center rounded-full transition-colors ${isActive ? 'bg-accent-soft text-accent' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
-                >
-                  <Bookmark aria-hidden className="size-[18px]" />
-                  <span className="sr-only">My bookmarks</span>
-                </NavLink>
-                <UserMenu />
+<UserMenu />
               </div>
             </>
           )}
