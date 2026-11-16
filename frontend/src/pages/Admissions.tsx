@@ -143,6 +143,12 @@ export function AdmissionsPage() {
         </Empty>
       ) : (
         <>
+          {shown.some((p) => p.cycle.status === 'PREVIOUS') && (
+            <div role="note" data-previous-cycle-list-note className="mb-4 rounded-xl border border-marker/40 bg-marker-soft px-4 py-3 text-sm text-ink">
+              <p className="font-semibold">Historical references from the 2026–27 admission cycle</p>
+              <p className="mt-0.5 text-ink-2">Every programme on this page shows what the university required for CUET UG 2026. <strong>None of it is confirmed for CUET UG 2027.</strong> Check the university's official page for the current cycle.</p>
+            </div>
+          )}
           <p className="mb-3 text-sm text-ink-2" data-programme-count>
             {total} {total === 1 ? 'programme' : 'programmes'}
           </p>
@@ -185,7 +191,7 @@ function Facts({ title, id, facts, missing, official, fallback }: { title: strin
                   <span className="text-sm font-semibold text-ink">{f.kind === 'EVENT' && f.eventDate ? `${dayLabel(f.eventDate)}: ${f.label}` : f.label}</span>
                   <ReliabilityBadge r={f.reliability} on={f.checkedOn} cycle={f.cycle} />
                 </div>
-                {f.valueText && <blockquote className="mt-1.5 whitespace-pre-line border-l-2 border-accent pl-3 text-[15px] leading-relaxed text-ink">{f.valueText.replace(/\s+(?=Combination [IVX]+\s*:)/g, '\n').replace(/\s+(?=(?:OR|AND)\s)/g, '\n')}</blockquote>}
+                {f.valueText && <blockquote className="mt-1.5 whitespace-pre-line border-l-2 border-accent pl-3 text-[15px] leading-relaxed text-ink">{f.valueText.replace(/\s+(?=Combination [IVX]+\s*:)/g, '\n').replace(/\s+(?=(?:OR|AND)\s)/g, '\n').replace(/\s+(?=Merit will be)/g, '\n').replace(/\s+(?=Candidates? must appear in any one language)/g, '\n')}</blockquote>}
                 {f.kind === 'SUBJECTS' && f.subjects && (
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {f.subjects.map((s) => (
@@ -243,8 +249,8 @@ export function ProgrammePage() {
       />
       {p.cycle.status === 'PREVIOUS' && (
         <div role="note" data-previous-cycle-banner className="mb-5 rounded-xl border border-marker/40 bg-marker-soft px-4 py-3 text-sm text-ink">
-          <p className="font-semibold">{p.cycle.label}</p>
-          <p className="mt-0.5 text-ink-2">This is how the university's admission worked in that cycle. It is <strong>not</strong> confirmed eligibility, requirements or deadlines for 2027–28. Check the university's official page when its next bulletin is published.</p>
+          <p className="font-semibold">{p.cycle.label}: historical reference only</p>
+          <p className="mt-0.5 text-ink-2">This is what {p.universityName} required in its {p.academicYear} admission cycle (CUET UG {p.academicYear.slice(0, 4)}). It is <strong>not confirmed for CUET UG 2027</strong> (2027–28 admissions): the requirements, subjects and dates may change. Check the university's official page when its next bulletin is published.</p>
         </div>
       )}
       <div className="mb-6 flex flex-wrap items-center gap-2 text-sm text-ink-2 [overflow-wrap:anywhere]" data-programme-meta>
@@ -258,7 +264,7 @@ export function ProgrammePage() {
         )}
       </div>
 
-      <h2 className="mb-3 text-lg font-semibold text-ink">This admission year ({p.academicYear})</h2>
+      <h2 className="mb-3 text-lg font-semibold text-ink">{p.cycle.status === 'PREVIOUS' ? `Historical reference: the ${p.academicYear} admission cycle` : `This admission year (${p.academicYear})`}</h2>
       <Facts title="Required CUET subjects" id="pg-subjects" facts={d.current.subjects} missing={miss('subjects')} official={official} fallback={d.current.eligibility.length ? 'The required subjects depend on the combination you choose. The rule is quoted in the eligibility below.' : undefined} />
       <Facts title="Eligibility, as the university prints it" id="pg-elig" facts={d.current.eligibility} missing={miss('eligibility')} official={official} />
       <Facts title="How to apply" id="pg-proc" facts={d.current.procedure} missing={miss('procedure')} official={official} />

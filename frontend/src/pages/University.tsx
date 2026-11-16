@@ -78,6 +78,11 @@ export function UniversityPage() {
 
       <section aria-labelledby="uni-programmes" className="mb-8" data-university-programmes>
         <SectionTitle id="uni-programmes">Programmes</SectionTitle>
+        {d.programmes.some((p) => p.cycle?.status === 'PREVIOUS') && (
+          <p role="note" data-previous-cycle-list-note className="mb-3 rounded-xl border border-marker/40 bg-marker-soft px-4 py-3 text-sm text-ink">
+            <strong>Historical references from the 2026–27 admission cycle.</strong> They are not confirmed for CUET UG 2027.
+          </p>
+        )}
         {d.programmes.length === 0 ? (
           <Empty>No programme has been published for this university yet.</Empty>
         ) : (

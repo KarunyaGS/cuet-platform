@@ -8,3 +8,7 @@
 - Excluded on purpose: cut-offs, dates, the ~150 B.A. combinations, BHU B.A. B.Ed. (NCET), BHU B.Voc and Performing Arts, JNU PG and B.Tech.
 
 Check without writing: `cd backend && npx tsx scripts/import-admissions-pack.mts ../docs/admissions-import-2026-11-16/pack.json --check`.
+
+## Corrections the same day
+- Page references on three groups of draft facts were corrected where the text starts on a different PDF page from the one first recorded (Delhi B.Sc. (Hons.) Mathematics, Delhi B.A. (Hons.) English, BHU B.Tech. Dairy Technology). `backend/scripts/correct-page-references-2026-11-16.mts` made the change in the local database (drafts only, audited); `pack.json` now matches.
+- Student pages now open with a "historical reference only" banner; the list page and the university page carry the same warning.
