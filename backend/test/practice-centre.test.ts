@@ -185,7 +185,7 @@ describe('reviewer decisions on a large selection', () => {
     for (let i = 0; i < 150; i++) {
       const q = await call('POST', '/api/admin/questions', {
         testPaperId: null, type: 'MCQ_SINGLE', stem: `Bulk approval sample ${i}: which statement is correct for this made-up item?`, difficulty: 'EASY', origin: 'AUTHORED', usagePermissionId: 'perm_owned', isDemonstration: false,
-        options: ['A', 'B'].map((l) => ({ label: l, text: `Statement ${l} of bulk sample ${i}` })), answer: { correctOptionPositions: [1] }, explanation: { body: 'Statement A is correct in this made-up item.' }, topicNodeIds: [],
+        options: ['A', 'B', 'C', 'D'].map((l) => ({ label: l, text: `Statement ${l} of bulk sample ${i}` })), answer: { correctOptionPositions: [1] }, explanation: { body: 'Statement A is correct in this made-up item.' }, topicNodeIds: [],
       }, ADMIN);
       ids.push(q.json.id);
     }

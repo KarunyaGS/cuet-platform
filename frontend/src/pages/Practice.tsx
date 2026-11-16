@@ -99,7 +99,8 @@ export function PracticePage() {
       if (e.key === 'ArrowRight') setI((k) => Math.min(data.questions.length - 1, k + 1));
       else if (e.key === 'ArrowLeft') setI((k) => Math.max(0, k - 1));
       else {
-        const k = /^[1-9]$/.test(e.key) ? Number(e.key) - 1 : /^[a-h]$/i.test(e.key) ? e.key.toLowerCase().charCodeAt(0) - 97 : -1;
+        // CUET questions have four options, A to D (keys 1 to 4 or A to D).
+        const k = /^[1-4]$/.test(e.key) ? Number(e.key) - 1 : /^[a-d]$/i.test(e.key) ? e.key.toLowerCase().charCodeAt(0) - 97 : -1;
         const opt = q.options[k];
         if (opt) {
           e.preventDefault();

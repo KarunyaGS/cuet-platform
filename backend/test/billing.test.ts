@@ -153,7 +153,7 @@ describe('billing: plan limits', () => {
     const paper = await env.DB.prepare("SELECT id FROM test_papers WHERE code = '901'").first<{ id: string }>();
     const q = await call('POST', '/api/admin/questions', {
       testPaperId: paper!.id, type: 'MCQ_SINGLE', stem: 'Limits test: two plus two equals which number?', difficulty: 'EASY', origin: 'AUTHORED', usagePermissionId: 'perm_owned', isDemonstration: false,
-      options: [{ label: 'A', text: 'Three' }, { label: 'B', text: 'Four' }], answer: { correctOptionPositions: [2] }, explanation: { body: 'Two plus two is four.' }, topicNodeIds: [],
+      options: [{ label: 'A', text: 'Three' }, { label: 'B', text: 'Four' }, { label: 'C', text: 'Five' }, { label: 'D', text: 'Six' }], answer: { correctOptionPositions: [2] }, explanation: { body: 'Two plus two is four.' }, topicNodeIds: [],
     }, ADMIN);
     expect(q.status, JSON.stringify(q.json).slice(0, 300)).toBe(201);
     const start = (who: { auth: Record<string, string> }, mode = 'PRACTICE') => call('POST', '/api/student/practice', { mode, paperId: paper!.id, count: 1 }, who.auth);

@@ -39,7 +39,7 @@ async function seed(tag: string, digest: string) {
   }, ADMIN);
   const q = await call('POST', '/api/admin/questions', {
     testPaperId: imp.json.testPaperId, type: 'MCQ_SINGLE', stem: `(${tag}) The force between two point charges follows which law?`, difficulty: 'EASY', origin: 'AUTHORED', usagePermissionId: 'perm_owned',
-    isDemonstration: false, options: [{ label: 'A', text: "Ohm's law" }, { label: 'B', text: "Coulomb's law" }], answer: { correctOptionPositions: [2] },
+    isDemonstration: false, options: [{ label: 'A', text: "Ohm's law" }, { label: 'B', text: "Coulomb's law" }, { label: 'C', text: "Faraday's law" }, { label: 'D', text: "Lenz's law" }], answer: { correctOptionPositions: [2] },
     explanation: { body: "Coulomb's law gives the force between two point charges." }, topicNodeIds: [topic],
   }, ADMIN);
   if (lesson.status !== 201 || !q.json.id) throw new Error(JSON.stringify([lesson.json, q.json]).slice(0, 600));

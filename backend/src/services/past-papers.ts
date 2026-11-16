@@ -16,6 +16,7 @@ import { ApiError, conflict, notFound } from '../lib/errors';
 import { newId, normaliseText, sha256Hex } from '../lib/hash';
 import { insertRows, nowIso, type Row } from '../lib/sql';
 import { createSession } from './practice';
+import { OPTION_COUNT, shapeProblems } from './question-audit';
 
 const CHOICE_TYPES = ['MCQ_SINGLE', 'MCQ_MULTI', 'ASSERTION_REASON', 'MATCH_THE_FOLLOWING', 'STATEMENT_BASED'] as const;
 
@@ -37,8 +38,8 @@ const storedQuestion = z.object({
   dropped: z.literal(false).optional(),
   type: z.enum([...CHOICE_TYPES, 'NUMERICAL']),
   stem: z.string().min(3).max(10000),
-  options: z.array(z.object({ label: z.string().min(1).max(10), text: z.string().min(1).max(4000) })).max(10).default([]),
-  correctOptionPositions: z.array(z.number().int().min(1)).max(10).optional(),
+  options: z.array(z.object({ label: z.string().min(1).max(10), text: z.string().min(1).max(4000) })).max(OPTION_COUNT).default([]),
+  correctOptionPositions: z.array(z.number().int().min(1)).max(OPTION_COUNT).optional(),
   numericAnswer: z.number().nullable().optional(),
   numericTolerance: z.number().min(0).nullable().optional(),
   /** Correct option position(s) exactly as the official key gives them. Required when the pack names an answer-key source. */
@@ -90,8 +91,8 @@ export function checkPack(pack: PastPaperPack): { errors: string[]; warnings: st
       if (s.numericAnswer === null || s.numericAnswer === undefined) errors.push(`Question ${s.position}: a numerical question needs its answer`);
     } else {
       const key = s.correctOptionPositions ?? [];
-      if (s.options.length < 2) errors.push(`Question ${s.position}: needs at least two options`);
-      if (!key.length) errors.push(`Question ${s.position}: no answer key`);
+      // Four options labelled A to D, as in every CUET paper. A different count is refused, never padded or trimmed.
+      for (const problem of shapeProblems({ type: s.type, options: s.options, keys: key }, { allowMultipleKeys: true })) errors.push(`Question ${s.position}: ${problem}`);
       if (key.some((p) => p > s.options.length)) errors.push(`Question ${s.position}: the answer key points beyond the options`);
       if (new Set(s.options.map((o) => normaliseText(o.text))).size !== s.options.length) errors.push(`Question ${s.position}: two options have the same text`);
       if (pack.answerKeySource) {

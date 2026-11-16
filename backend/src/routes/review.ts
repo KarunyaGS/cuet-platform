@@ -11,6 +11,7 @@ import { listMockPapersAdmin, mockActionSchema, mockPaperAdmin, setMockPaperStat
 import { z } from 'zod';
 import type { AppEnv } from '../types';
 import { invalid } from '../lib/errors';
+import { auditBank } from '../services/question-audit';
 import { approvalSummary, batchDetail, confirmBulk, confirmSchema, previewBulk, scopeSchema, withdrawBulk, withdrawSchema } from '../services/bulk-approval';
 import { readJson } from '../lib/http';
 import { reviewerAuth } from '../lib/reviewer';
@@ -34,6 +35,8 @@ review.get('/me', (c) => c.json(c.get('user')));
 review.get('/dashboard', async (c) => c.json(await reviewerDashboard(c.env.DB, c.get('user').id)));
 review.get('/content', async (c) => c.json(await listContent(c.env.DB, contentQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
 review.get('/content/papers', async (c) => c.json(await contentPapers(c.env.DB)));
+// Audit of the whole question bank against the four-option rules and the answer-key cross-checks.
+review.get('/questions/audit', async (c) => c.json(await auditBank(c.env.DB, { testPaperId: c.req.query('testPaperId') || undefined })));
 review.get('/content/QUESTION/:id', async (c) => c.json(await getQuestionAdmin(c.get('prisma'), c.req.param('id'))));
 review.get('/content/LEARNING_RESOURCE/:id', async (c) => c.json(await getResource(c.get('prisma'), c.req.param('id'))));
 review.get('/queue', async (c) => {

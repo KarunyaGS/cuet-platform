@@ -3,6 +3,7 @@ import type { PrismaClient } from '@cuet/database';
 import { conflict, invalid, notFound } from '../lib/errors';
 import { newId, normaliseText, sha256Hex } from '../lib/hash';
 import { insertRows, nowIso } from '../lib/sql';
+import { OPTION_COUNT, shapeProblems } from './question-audit';
 import { evaluateResponse, markingFromRules, type QuestionType } from './scoring';
 
 const TYPES = ['MCQ_SINGLE', 'MCQ_MULTI', 'ASSERTION_REASON', 'MATCH_THE_FOLLOWING', 'STATEMENT_BASED', 'PASSAGE_BASED', 'DIAGRAM_BASED', 'NUMERICAL'] as const;
@@ -23,7 +24,7 @@ export const questionInputSchema = z
     sourceDocumentId: z.string().max(100).nullable().optional(),
     sourceLocator: z.string().max(300).nullable().optional(),
     isDemonstration: z.boolean().default(false),
-    options: z.array(z.object({ label: z.string().min(1).max(10), text: z.string().min(1).max(4000), mediaAssetId: z.string().max(100).nullable().optional() })).max(10),
+    options: z.array(z.object({ label: z.string().min(1).max(10), text: z.string().min(1).max(4000), mediaAssetId: z.string().max(100).nullable().optional() })).max(OPTION_COUNT),
     answer: z.object({
       correctOptionPositions: z.array(z.number().int().min(1)).nullable().optional(),
       numericAnswer: z.number().nullable().optional(),
@@ -37,11 +38,8 @@ export const questionInputSchema = z
     if (q.type === 'NUMERICAL') {
       if (q.answer.numericAnswer === null || q.answer.numericAnswer === undefined) issue('Numerical questions need numericAnswer');
     } else {
-      if (q.options.length < 2) issue('Choice questions need at least two options');
-      const keys = q.answer.correctOptionPositions ?? [];
-      if (!keys.length) issue('Give the correct option position(s)');
-      if (keys.some((p) => p > q.options.length)) issue('A correct option position is beyond the number of options');
-      if (q.type !== 'MCQ_MULTI' && keys.length !== 1) issue('This question type has exactly one correct option');
+      // CUET choice questions have four options labelled A to D, and one correct option (several only for MCQ_MULTI).
+      for (const problem of shapeProblems({ type: q.type, options: q.options, keys: q.answer.correctOptionPositions })) issue(`Choice questions: ${problem}`);
     }
     if (q.origin === 'PAST_PAPER' && (!q.sourceDocumentId || !q.sourceLocator)) issue('Previous-year questions must cite the source document and its question number/page');
     if (q.origin === 'DEMONSTRATION' && !q.isDemonstration) issue('DEMONSTRATION origin requires isDemonstration = true');
@@ -202,7 +200,7 @@ export async function getQuestionPublic(prisma: PrismaClient, id: string) {
 }
 
 export const evaluateSchema = z.object({
-  selectedPositions: z.array(z.number().int().min(1)).max(10).optional(),
+  selectedPositions: z.array(z.number().int().min(1).max(OPTION_COUNT)).max(OPTION_COUNT).optional(),
   numericAnswer: z.number().nullable().optional(),
 });
 

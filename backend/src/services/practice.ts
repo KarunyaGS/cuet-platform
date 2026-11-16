@@ -3,6 +3,7 @@
  * evaluated only by comparing with stored answer keys under the exam cycle's marking scheme.
  * No external AI service is involved anywhere in this file.
  */
+import { OPTION_COUNT } from './question-audit';
 import { z } from 'zod';
 import { ApiError, conflict, invalid, notFound } from '../lib/errors';
 import { newId } from '../lib/hash';
@@ -21,7 +22,7 @@ export const startSchema = z
 
 export const answerSchema = z.object({
   questionId: z.string().max(100),
-  selectedPositions: z.array(z.number().int().min(1)).max(10).optional(),
+  selectedPositions: z.array(z.number().int().min(1).max(OPTION_COUNT)).max(OPTION_COUNT).optional(),
   numericAnswer: z.number().nullable().optional(),
 });
 

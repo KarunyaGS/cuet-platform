@@ -14,6 +14,7 @@ import { z } from 'zod';
 import { ApiError, conflict, invalid, notFound } from '../lib/errors';
 import { newId, normaliseText, sha256Hex } from '../lib/hash';
 import { nowIso } from '../lib/sql';
+import { auditQuestion, loadAuditRows, type AuditRow } from './question-audit';
 import type { Reviewer } from './syllabus-review';
 
 const actorOf = (u: Reviewer) => `user:${u.id}`;
@@ -51,16 +52,6 @@ const need = (u: Reviewer, what: string) => {
   if (!u.permissions.includes('content:review')) throw new ApiError(403, 'FORBIDDEN', `Your account cannot ${what} (needs content:review)`);
 };
 
-interface QRow {
-  id: string;
-  type: string;
-  stem: string;
-  structure_json: string | null;
-  test_paper_id: string;
-  is_demonstration: number;
-  public_display: number | null;
-}
-
 export interface Exclusion { id: string; reasons: string[]; stem: string }
 
 /** Everything the approver is shown: who is covered, who is left out and why, and the facts behind the approval. */
@@ -68,58 +59,17 @@ export async function previewBulk(db: D1Database, scope: Scope) {
   const where = [`q.verification = 'UNVERIFIED'`, 'q.is_demonstration = 0'];
   const params: string[] = [];
   if (scope.testPaperId) (where.push('q.test_paper_id = ?'), params.push(scope.testPaperId));
-  const [qs, opts, keys, exps, topics, media, already, total] = await Promise.all([
-    db.prepare(`SELECT q.id, q.type, q.stem, q.structure_json, q.test_paper_id, q.is_demonstration, p.public_display FROM questions q LEFT JOIN usage_permissions p ON p.id = q.usage_permission_id WHERE ${where.join(' AND ')} ORDER BY q.id`).bind(...params).all<QRow>(),
-    db.prepare('SELECT question_id, position, label, text, media_asset_id FROM question_options ORDER BY question_id, position').all<{ question_id: string; position: number; label: string; text: string | null; media_asset_id: string | null }>(),
-    db.prepare('SELECT question_id, correct_option_positions, numeric_answer FROM answer_keys').all<{ question_id: string; correct_option_positions: string | null; numeric_answer: number | null }>(),
-    db.prepare('SELECT question_id, body FROM explanations').all<{ question_id: string; body: string | null }>(),
-    db.prepare('SELECT DISTINCT question_id FROM question_topics').all<{ question_id: string }>(),
-    db.prepare('SELECT id FROM media_assets').all<{ id: string }>(),
+  // The same rules as the question bank audit and the rules applied when a question is saved.
+  const [{ rows, media }, already, total] = await Promise.all([
+    loadAuditRows(db, where, params),
     db.prepare(`SELECT verification, COUNT(*) AS n FROM questions ${scope.testPaperId ? 'WHERE test_paper_id = ?' : ''} GROUP BY verification`).bind(...params).all<{ verification: string; n: number }>(),
     db.prepare(`SELECT COUNT(*) AS n FROM questions ${scope.testPaperId ? 'WHERE test_paper_id = ?' : ''}`).bind(...params).first<{ n: number }>(),
   ]);
-  const by = <T extends { question_id: string }>(rows: T[]) => {
-    const m = new Map<string, T[]>();
-    for (const r of rows) (m.get(r.question_id) ?? m.set(r.question_id, []).get(r.question_id)!).push(r);
-    return m;
-  };
-  const optsBy = by(opts.results);
-  const keysBy = by(keys.results);
-  const expsBy = by(exps.results);
-  const topicSet = new Set(topics.results.map((r) => r.question_id));
-  const mediaSet = new Set(media.results.map((r) => r.id));
-
-  const eligible: QRow[] = [];
+  const eligible: AuditRow[] = [];
   const excluded: Exclusion[] = [];
-  for (const q of qs.results) {
-    const reasons: string[] = [];
-    if (q.public_display === 0) reasons.push('its usage permission does not allow showing it to students');
-    const o = optsBy.get(q.id) ?? [];
-    if (o.length !== 4) reasons.push(`has ${o.length} options, not four`);
-    else {
-      if (o.map((x) => x.label).join('') !== 'ABCD') reasons.push('options are not labelled A, B, C, D in order');
-      if (o.some((x) => !(x.text ?? '').trim() && !x.media_asset_id)) reasons.push('an option is empty');
-      if (new Set(o.map((x) => normaliseText(x.text))).size !== o.length && o.every((x) => (x.text ?? '').trim())) reasons.push('two options are identical');
-    }
-    const k = keysBy.get(q.id) ?? [];
-    if (k.length !== 1) reasons.push(k.length ? 'more than one answer key' : 'no answer key');
-    else {
-      let pos: unknown = null;
-      try { pos = JSON.parse(k[0]!.correct_option_positions ?? 'null'); } catch { /* reported below */ }
-      if (!Array.isArray(pos) || pos.length !== 1) reasons.push('the answer key does not name exactly one correct option');
-      else if (!o.some((x) => x.position === pos[0])) reasons.push('the answer key points to an option that does not exist');
-    }
-    const e = expsBy.get(q.id) ?? [];
-    if (!e.length || (e[0]!.body ?? '').trim().length < 40) reasons.push('the explanation is missing or very short');
-    if (!topicSet.has(q.id)) reasons.push('it is not linked to a topic');
-    if ((q.stem ?? '').trim().length < 15) reasons.push('the question text is missing or very short');
-    if (((q.stem ?? '').match(/\$/g) ?? []).length % 2) reasons.push('unbalanced $ in the question text (formula may not display)');
-    if (q.type === 'DIAGRAM_BASED') {
-      let figure: string | undefined;
-      try { figure = (JSON.parse(q.structure_json ?? '{}') as { mediaAssetId?: string }).mediaAssetId; } catch { /* reported below */ }
-      if (!figure || !mediaSet.has(figure)) reasons.push('its figure is missing');
-    }
-    if (reasons.length) excluded.push({ id: q.id, reasons, stem: q.stem.slice(0, 140) });
+  for (const q of rows) {
+    const { problems } = auditQuestion(q, media);
+    if (problems.length) excluded.push({ id: q.id, reasons: problems, stem: q.stem.slice(0, 140) });
     else eligible.push(q);
   }
 
@@ -132,9 +82,10 @@ export async function previewBulk(db: D1Database, scope: Scope) {
   const sameOpening = [...sameStem.values()].filter((v) => v.length > 1);
   const spread: Record<string, number> = {};
   for (const q of eligible) {
-    const pos = (JSON.parse(keysBy.get(q.id)![0]!.correct_option_positions!) as number[])[0]!;
-    const label = optsBy.get(q.id)!.find((x) => x.position === pos)!.label;
-    spread[label] = (spread[label] ?? 0) + 1;
+    const keys = JSON.parse(q.keys[0] ?? 'null') as number[] | null; // a numerical question has no option key
+    if (!Array.isArray(keys) || keys.length !== 1) continue;
+    const label = q.options.find((x) => x.position === keys[0])?.label;
+    if (label) spread[label] = (spread[label] ?? 0) + 1;
   }
   const byType: Record<string, number> = {};
   for (const q of eligible) byType[q.type] = (byType[q.type] ?? 0) + 1;
@@ -162,7 +113,8 @@ export async function previewBulk(db: D1Database, scope: Scope) {
     checks: [
       'Exactly four options labelled A, B, C, D',
       'Exactly one correct answer, pointing at an existing option',
-      'An explanation of at least 40 characters',
+      'An explanation of at least 40 characters, with notes on each wrong option that match the answer key',
+      'Where the explanation states the answer plainly (option number, match pairing, assertion and reason), it agrees with the answer key',
       'Linked to a topic',
       'Question text present, formulas balanced',
       'Figure present for figure-based questions',
