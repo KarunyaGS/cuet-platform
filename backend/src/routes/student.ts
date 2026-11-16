@@ -16,7 +16,7 @@ import { directorySessionsQuery, listMockPapers, listOfficialLinks, officialDire
 import { listPastPapers, pastPaperDetail, pastPaperQuery, startPastPaper, startPastPaperSchema } from '../services/past-papers';
 import { assertWithinPlan, billingSummary, confirmCheckout, confirmSchema, createOrder, orderSchema, simulatePayment, simulateSchema } from '../services/billing';
 import {
-  appUrl, emailEnabled, emailSettingsSchema, forgotPasswordSchema, getEmailSettings, notifyPasswordChanged, requestPasswordReset, sendVerificationEmail, setEmailSettings, verifyEmail, verifyEmailSchema,
+  appUrl, emailEnabled, sendWelcomeEmail, emailSettingsSchema, forgotPasswordSchema, getEmailSettings, notifyPasswordChanged, requestPasswordReset, sendVerificationEmail, setEmailSettings, verifyEmail, verifyEmailSchema,
 } from '../services/email';
 import {
   activitySchema, addBookmark, addPlanItem, BOOKMARK_KINDS, bookmarkSchema, bookmarkState, dailySchema, dashboard, dashboardQuery, deletePlanItem, getGoal, getProfile, goalSchema, listBookmarks,
@@ -77,7 +77,12 @@ auth.post('/forgot-password', async (c) => {
   return c.json({ ok: true, available: true });
 });
 auth.get('/email-status', (c) => c.json({ available: emailEnabled(c.env) && Boolean(base(c)) }));
-auth.post('/verify-email', async (c) => c.json(await verifyEmail(c.env.DB, await readJson(c, verifyEmailSchema))));
+auth.post('/verify-email', async (c) => {
+  const r = await verifyEmail(c.env.DB, await readJson(c, verifyEmailSchema));
+  // A first welcome, once; repeating the confirmation never sends another.
+  later(c, sendWelcomeEmail(c.env, r.userId, base(c) ?? undefined));
+  return c.json({ verified: r.verified });
+});
 auth.post('/logout', async (c) => {
   // API clients send the token as a Bearer header; the browser sends the cookie. Either is revoked.
   await logout(c.env.DB, getCookie(c, SESSION_COOKIE) ?? c.req.header('authorization')?.replace(/^Bearer\s+/i, ''));

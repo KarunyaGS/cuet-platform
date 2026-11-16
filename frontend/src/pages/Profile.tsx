@@ -27,6 +27,44 @@ const Saved = ({ show, children = 'Saved' }: { show: boolean; children?: React.R
   ) : null;
 
 /** Confirmation of the email address and the study-reminder switch. Hidden while email is not switched on. */
+/** The day of the student's own exam. We never fill it in; the countdown emails (30, 7 and 1 days before) use only this. */
+function ExamDateField({ current, remindersOn, busy, act }: { current: string | null; remindersOn: boolean; busy: boolean; act: (f: () => Promise<string>) => Promise<void> }) {
+  const [v, setV] = useState(current ?? '');
+  const today = new Date().toISOString().slice(0, 10);
+  return (
+    <div className="rounded-lg border border-rule p-3" data-exam-date>
+      <label className="block text-sm font-medium text-ink" htmlFor="exam-date">
+        The day of your exam (optional)
+      </label>
+      <p className="mt-0.5 text-sm text-ink-2">
+        Type the date you are sitting the exam. If you also switched on study reminders, we email a countdown 30, 7 and 1 days before. This is your own date, not an official one: check the NTA website for the real schedule.
+        {!remindersOn && ' Switch on the study reminder above to get the countdown.'}
+      </p>
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <input id="exam-date" type="date" min={today} value={v} onChange={(e) => setV(e.target.value)} className="h-9 rounded-lg border border-rule-strong bg-surface px-3 text-sm text-ink" />
+        <Button kind="secondary" disabled={busy || !v || v === current} onClick={() => void act(async () => ((await api.setEmailSettings({ examDate: v })).examDate ? 'Exam date saved.' : 'Exam date cleared.'))}>
+          Save the date
+        </Button>
+        {current && (
+          <Button
+            kind="ghost"
+            disabled={busy}
+            onClick={() =>
+              void act(async () => {
+                setV('');
+                await api.setEmailSettings({ examDate: null });
+                return 'Exam date cleared.';
+              })
+            }
+          >
+            Clear it
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function EmailSection() {
   const { user, refresh } = useAuth();
   const s = useLoad(api.emailSettings, [user?.id]);
@@ -99,6 +137,21 @@ function EmailSection() {
             </span>
           </span>
         </label>
+        <label className="flex items-start gap-3">
+          <input
+            type="checkbox"
+            className="mt-1 size-4 accent-accent"
+            checked={d.emailRevision}
+            disabled={busy || !d.emailVerified}
+            data-revision-alerts
+            onChange={(e) => void act(async () => ((await api.setEmailSettings({ emailRevision: e.target.checked })).emailRevision ? 'Revision reminders are on.' : 'Revision reminders are off.'))}
+          />
+          <span>
+            <span className="block text-sm font-medium text-ink">Email me when revision cards are due</span>
+            <span className="mt-0.5 block text-sm text-ink-2">At most one a day, and only when you have cards due that you can open.</span>
+          </span>
+        </label>
+        <ExamDateField current={d.examDate} remindersOn={d.emailReminders} busy={busy} act={act} />
         {note && (
           <p className="text-sm text-ink-2" role="status">
             {note}

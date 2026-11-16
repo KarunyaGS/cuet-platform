@@ -14,8 +14,10 @@ import { ApiError } from '../lib/errors';
 import { newId, sha256Hex } from '../lib/hash';
 import { nowIso } from '../lib/sql';
 import { reminders } from './student-portal';
+import { sampleEmail, templates, TEMPLATE_NAMES, type TemplateName } from './email-templates';
+import { questionVisible } from './flashcards';
 
-export type EmailKind = 'PASSWORD_RESET' | 'VERIFY_EMAIL' | 'ACCOUNT_NOTICE' | 'STUDY_REMINDER' | 'NOTICE_ALERT';
+export type EmailKind = 'PASSWORD_RESET' | 'VERIFY_EMAIL' | 'ACCOUNT_NOTICE' | 'STUDY_REMINDER' | 'NOTICE_ALERT' | 'WELCOME' | 'EXAM_REMINDER' | 'REVISION_REMINDER';
 export interface OutgoingEmail {
   to: string;
   userId: string | null;
@@ -79,6 +81,9 @@ export type SendOutcome = 'SENT' | 'FAILED' | 'SUPPRESSED' | 'NOT_CONFIGURED' | 
 export const RETRY_POLICY: Partial<Record<EmailKind, { maxAgeMinutes: number }>> = {
   STUDY_REMINDER: { maxAgeMinutes: 6 * 60 },
   NOTICE_ALERT: { maxAgeMinutes: 24 * 60 },
+  WELCOME: { maxAgeMinutes: 48 * 60 },
+  EXAM_REMINDER: { maxAgeMinutes: 6 * 60 },
+  REVISION_REMINDER: { maxAgeMinutes: 6 * 60 },
   ACCOUNT_NOTICE: { maxAgeMinutes: 48 * 60 },
 };
 /** Minutes to wait before retry 1, 2, 3 ...; after the last one the email is given up on. */
@@ -205,25 +210,6 @@ export async function retryFailedEmails(env: Bindings, at = new Date(), limit = 
 
 // ---------------------------------------------------------------- templates
 
-const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
-
-function layout(heading: string, paragraphs: string[], button?: { label: string; url: string }, footer?: string, links?: { label: string; url: string }[]) {
-  const text = [heading, '', ...paragraphs, ...(links ?? []).flatMap((l) => ['', l.label, l.url]), ...(button ? ['', `${button.label}: ${button.url}`] : []), '', footer ?? 'CUET Prep'].join('\n');
-  const html = `<!doctype html><html><body style="margin:0;background:#f5f4f0;font-family:Arial,Helvetica,sans-serif;color:#1c1b19">
-<div style="max-width:520px;margin:0 auto;padding:28px 20px">
-<p style="font-size:14px;font-weight:bold;letter-spacing:.04em;margin:0 0 20px">CUET Prep</p>
-<div style="background:#ffffff;border:1px solid #e3e0d8;border-radius:10px;padding:24px">
-<h1 style="font-size:20px;margin:0 0 12px">${esc(heading)}</h1>
-${paragraphs.map((p) => `<p style="font-size:15px;line-height:1.55;margin:0 0 12px">${esc(p)}</p>`).join('\n')}
-${(links ?? []).map((l) => `<p style="font-size:15px;line-height:1.5;margin:0 0 10px"><a href="${esc(l.url)}" style="color:#1f4fd8">${esc(l.label)}</a></p>`).join('\n')}
-${button ? `<p style="margin:20px 0 4px"><a href="${esc(button.url)}" style="display:inline-block;background:#1f4fd8;color:#ffffff;text-decoration:none;font-size:15px;font-weight:bold;padding:11px 18px;border-radius:8px">${esc(button.label)}</a></p>
-<p style="font-size:12px;line-height:1.5;color:#6b6860;margin:12px 0 0;word-break:break-all">If the button does not work, copy this address into your browser: ${esc(button.url)}</p>` : ''}
-</div>
-<p style="font-size:12px;line-height:1.5;color:#6b6860;margin:16px 4px 0">${esc(footer ?? 'You are receiving this because of your CUET Prep account.')}</p>
-</div></body></html>`;
-  return { text, html };
-}
-
 const randomToken = () => btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(32)))).replace(/[+/=]/g, (c) => ({ '+': '-', '/': '_', '=': '' })[c]!);
 
 // ---------------------------------------------------------------- password reset by email
@@ -256,11 +242,7 @@ export async function requestPasswordReset(env: Bindings, email: string, base: s
       .bind(newId('prt'), user.id, await sha256Hex(token), new Date(Date.now() + RESET_TTL_MINUTES * 60_000).toISOString(), 'self-service:email', now),
     db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(newId('aud'), 'self-service:email', 'REQUEST_RESET_LINK', 'USER', user.id, now),
   ]);
-  const body = layout(
-    'Reset your password',
-    [`Hello ${user.display_name},`, 'We received a request to reset the password of your CUET Prep account. The link below works once and expires in one hour.', 'If you did not ask for this, you can ignore this email. Your password stays the same.'],
-    { label: 'Choose a new password', url: `${base}/reset-password#${token}` },
-  );
+  const body = templates.reset(user.display_name, `${base}/reset-password#${token}`);
   await sendEmail(env, { to: email, userId: user.id, kind: 'PASSWORD_RESET', subject: 'Reset your CUET Prep password', ...body });
 }
 
@@ -268,7 +250,7 @@ export async function requestPasswordReset(env: Bindings, email: string, base: s
 export async function notifyPasswordChanged(env: Bindings, userId: string) {
   const user = await env.DB.prepare('SELECT email, display_name FROM users WHERE id = ?').bind(userId).first<{ email: string; display_name: string }>();
   if (!user) return;
-  const body = layout('Your password was changed', [`Hello ${user.display_name},`, 'The password of your CUET Prep account was just changed, and other devices were signed out.', 'If this was not you, reset your password now from the sign-in page and tell the CUET Prep team.']);
+  const body = templates.passwordChanged(user.display_name);
   await sendEmail(env, { to: user.email, userId, kind: 'ACCOUNT_NOTICE', subject: 'Your CUET Prep password was changed', ...body });
 }
 
@@ -291,11 +273,7 @@ export async function sendVerificationEmail(env: Bindings, userId: string, base:
       .prepare('INSERT INTO email_verification_tokens (id, user_id, token_hash, expires_at, used_at, created_at) VALUES (?, ?, ?, ?, NULL, ?)')
       .bind(newId('evt'), userId, await sha256Hex(token), new Date(Date.now() + VERIFY_TTL_HOURS * 3600_000).toISOString(), now),
   ]);
-  const body = layout(
-    'Confirm your email address',
-    [`Hello ${user.display_name},`, 'Please confirm that this address belongs to you. The link works once and expires in 48 hours.', 'If you did not create a CUET Prep account, you can ignore this email.'],
-    { label: 'Confirm my email', url: `${base}/verify-email#${token}` },
-  );
+  const body = templates.verify(user.display_name, `${base}/verify-email#${token}`);
   const r = await sendEmail(env, { to: user.email, userId, kind: 'VERIFY_EMAIL', subject: 'Confirm your email for CUET Prep', ...body });
   return r.status === 'SENT' ? { sent: true } : { sent: false, reason: 'FAILED' };
 }
@@ -314,37 +292,53 @@ export async function verifyEmail(db: D1Database, input: z.infer<typeof verifyEm
     db.prepare('UPDATE email_verification_tokens SET used_at = ? WHERE id = ?').bind(now, row.id),
     db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(newId('aud'), `user:${row.user_id}`, 'VERIFY_EMAIL', 'USER', row.user_id, now),
   ]);
-  return { verified: true };
+  return { verified: true, userId: row.user_id };
+}
+
+/** Sent once, right after the student confirms the address. A repeat confirmation never sends a second one. */
+export async function sendWelcomeEmail(env: Bindings, userId: string, base: string | undefined) {
+  if (!base || !emailEnabled(env)) return;
+  const u = await env.DB.prepare("SELECT email, display_name FROM users WHERE id = ? AND status = 'ACTIVE' AND email_verified_at IS NOT NULL").bind(userId).first<{ email: string; display_name: string }>();
+  if (!u) return;
+  await sendEmail(env, { to: u.email, userId, kind: 'WELCOME', subject: 'Welcome to CUET Prep', dedupeKey: `welcome:${userId}`, ...templates.welcome(u.display_name, base) });
 }
 
 // ---------------------------------------------------------------- email settings of a student
 
+const dayOnly = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use the form 2027-05-20').refine((d) => !Number.isNaN(Date.parse(`${d}T00:00:00Z`)) && new Date(`${d}T00:00:00Z`).toISOString().startsWith(d), 'That is not a real date');
 export const emailSettingsSchema = z
-  .object({ emailReminders: z.boolean().optional(), emailNotices: z.boolean().optional() })
-  .refine((v) => v.emailReminders !== undefined || v.emailNotices !== undefined, 'Say what to change');
+  .object({ emailReminders: z.boolean().optional(), emailNotices: z.boolean().optional(), emailRevision: z.boolean().optional(), examDate: dayOnly.nullable().optional() })
+  .refine((v) => v.emailReminders !== undefined || v.emailNotices !== undefined || v.emailRevision !== undefined || v.examDate !== undefined, 'Say what to change');
 
 export async function getEmailSettings(env: Bindings, userId: string) {
   const row = await env.DB
-    .prepare('SELECT u.email, u.email_verified_at, COALESCE(p.email_reminders, 0) AS email_reminders, COALESCE(p.email_notices, 0) AS email_notices FROM users u LEFT JOIN student_preferences p ON p.user_id = u.id WHERE u.id = ?')
+    .prepare('SELECT u.email, u.email_verified_at, COALESCE(p.email_reminders, 0) AS email_reminders, COALESCE(p.email_notices, 0) AS email_notices, COALESCE(p.email_revision, 0) AS email_revision, p.exam_date FROM users u LEFT JOIN student_preferences p ON p.user_id = u.id WHERE u.id = ?')
     .bind(userId)
-    .first<{ email: string; email_verified_at: string | null; email_reminders: number; email_notices: number }>();
-  return { email: row?.email ?? '', emailVerified: Boolean(row?.email_verified_at), emailReminders: Boolean(row?.email_reminders), emailNotices: Boolean(row?.email_notices), emailAvailable: emailEnabled(env) };
+    .first<{ email: string; email_verified_at: string | null; email_reminders: number; email_notices: number; email_revision: number; exam_date: string | null }>();
+  return { email: row?.email ?? '', emailVerified: Boolean(row?.email_verified_at), emailReminders: Boolean(row?.email_reminders), emailNotices: Boolean(row?.email_notices), emailRevision: Boolean(row?.email_revision), examDate: row?.exam_date ?? null, emailAvailable: emailEnabled(env) && Boolean(env.PUBLIC_APP_URL) };
 }
 
 export async function setEmailSettings(env: Bindings, userId: string, input: z.infer<typeof emailSettingsSchema>) {
   const cur = await getEmailSettings(env, userId);
-  if ((input.emailReminders || input.emailNotices) && !cur.emailVerified) throw new ApiError(409, 'EMAIL_NOT_VERIFIED', 'Confirm your email address first; emails are sent only to a confirmed address');
+  if ((input.emailReminders || input.emailNotices || input.emailRevision) && !cur.emailVerified) throw new ApiError(409, 'EMAIL_NOT_VERIFIED', 'Confirm your email address first; emails are sent only to a confirmed address');
+  if (input.examDate) {
+    const today = istDay(new Date());
+    if (input.examDate < today) throw new ApiError(422, 'EXAM_DATE_PAST', 'That date has already passed. Enter the day of your exam.');
+    if (input.examDate > istDay(new Date(Date.now() + 800 * 86400_000))) throw new ApiError(422, 'EXAM_DATE_FAR', 'That date is too far away. Enter the day of your next exam.');
+  }
   const reminders = input.emailReminders ?? cur.emailReminders;
   const notices = input.emailNotices ?? cur.emailNotices;
+  const revision = input.emailRevision ?? cur.emailRevision;
+  const examDate = input.examDate === undefined ? cur.examDate : input.examDate;
   const now = nowIso();
   await env.DB
     .prepare(
-      `INSERT INTO student_preferences (user_id, paper_ids_json, email_reminders, email_notices, notice_cursor, unsubscribe_token, updated_at) VALUES (?, '[]', ?, ?, ?, ?, ?)
-       ON CONFLICT (user_id) DO UPDATE SET email_reminders = excluded.email_reminders, email_notices = excluded.email_notices,
+      `INSERT INTO student_preferences (user_id, paper_ids_json, email_reminders, email_notices, email_revision, exam_date, notice_cursor, unsubscribe_token, updated_at) VALUES (?, '[]', ?, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT (user_id) DO UPDATE SET email_reminders = excluded.email_reminders, email_notices = excluded.email_notices, email_revision = excluded.email_revision, exam_date = excluded.exam_date,
          notice_cursor = CASE WHEN excluded.email_notices = 1 AND student_preferences.email_notices = 0 THEN excluded.notice_cursor ELSE student_preferences.notice_cursor END,
          unsubscribe_token = COALESCE(student_preferences.unsubscribe_token, excluded.unsubscribe_token), updated_at = excluded.updated_at`,
     )
-    .bind(userId, reminders ? 1 : 0, notices ? 1 : 0, now, randomToken(), now)
+    .bind(userId, reminders ? 1 : 0, notices ? 1 : 0, revision ? 1 : 0, examDate, now, randomToken(), now)
     .run();
   return getEmailSettings(env, userId);
 }
@@ -353,7 +347,7 @@ export const unsubscribeSchema = z.object({ token: z.string().min(20).max(200), 
 
 /** One-click stop from a reminder or a notice alert; needs no sign-in. Always answers the same way, whatever the token. */
 export async function unsubscribe(db: D1Database, input: z.infer<typeof unsubscribeSchema>) {
-  const sets = [...(input.scope !== 'NOTICES' ? ['email_reminders = 0'] : []), ...(input.scope !== 'REMINDERS' ? ['email_notices = 0'] : [])];
+  const sets = [...(input.scope !== 'NOTICES' ? ['email_reminders = 0', 'email_revision = 0'] : []), ...(input.scope !== 'REMINDERS' ? ['email_notices = 0'] : [])];
   await db.prepare(`UPDATE student_preferences SET ${sets.join(', ')}, updated_at = ? WHERE unsubscribe_token = ?`).bind(nowIso(), input.token).run();
   return { unsubscribed: true };
 }
@@ -396,18 +390,117 @@ export async function sendDailyReminders(env: Bindings, at = new Date(), limit =
       continue;
     }
     const stop = `${base}/unsubscribe#${u.unsubscribe_token ?? ''}`;
-    const body = layout(
-      'Your study plan for today',
-      [`Hello ${u.display_name},`, ...due.map((r) => `• ${r.title}. ${r.body}`)],
-      { label: 'Open CUET Prep', url: `${base}/dashboard` },
-      `You asked for study reminders by email. To stop them, open ${stop} or turn them off on your profile page.`,
-    );
+    const body = templates.studyReminder(u.display_name, due.map((r) => `${r.title}. ${r.body}`), base, stop);
     const r = await sendEmail(env, { to: u.email, userId: u.id, kind: 'STUDY_REMINDER', subject: due[0]!.title, dedupeKey: `reminder:${u.id}:${day}`, headers: unsubscribeHeaders(base, u.unsubscribe_token, 'REMINDERS'), ...body });
     if (r.status === 'SENT') out.sent++;
     else if (r.status === 'FAILED') out.failed++;
     else out.skipped++;
   }
   return { ...out, enabled: true };
+}
+
+// ---------------------------------------------------------------- exam countdown and revision reminders (Cron Trigger)
+
+const daysBetween = (from: string, to: string) => Math.round((Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`)) / 86400_000);
+/** Days before the student's own exam date on which a countdown email goes out. */
+export const COUNTDOWN_DAYS = [30, 7, 1];
+const longDay = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+/**
+ * Countdown emails at 30, 7 and 1 days before the exam date a student entered. Sent only to confirmed, opted-in students
+ * (the same switch as study reminders), once per milestone. A date entered late never triggers the milestones already past.
+ */
+export async function sendExamCountdowns(env: Bindings, at = new Date(), limit = 500) {
+  const out = { candidates: 0, sent: 0, skipped: 0, failed: 0 };
+  if (!emailEnabled(env) || !env.PUBLIC_APP_URL) return { ...out, enabled: false };
+  const base = appUrl(env);
+  const day = istDay(at);
+  const { results } = await env.DB
+    .prepare(
+      `SELECT u.id, u.email, u.display_name, p.unsubscribe_token, p.exam_date FROM student_preferences p JOIN users u ON u.id = p.user_id
+       WHERE p.email_reminders = 1 AND p.exam_date IS NOT NULL AND p.exam_date >= ?1 AND u.status = 'ACTIVE' AND u.email_verified_at IS NOT NULL
+         AND NOT EXISTS (SELECT 1 FROM email_suppressions s WHERE s.email = u.email) ORDER BY u.id LIMIT ?2`,
+    )
+    .bind(day, limit)
+    .all<{ id: string; email: string; display_name: string; unsubscribe_token: string | null; exam_date: string }>();
+  for (const u of results) {
+    const days = daysBetween(day, u.exam_date);
+    if (!COUNTDOWN_DAYS.includes(days)) continue;
+    out.candidates++;
+    const stop = `${base}/unsubscribe#${u.unsubscribe_token ?? ''}`;
+    const r = await sendEmail(env, {
+      to: u.email, userId: u.id, kind: 'EXAM_REMINDER', subject: days === 1 ? 'Your exam is tomorrow' : `${days} days to your exam`,
+      dedupeKey: `exam:${u.id}:${u.exam_date}:${days}`, headers: unsubscribeHeaders(base, u.unsubscribe_token, 'REMINDERS'), ...templates.examCountdown(u.display_name, days, longDay(u.exam_date), base, stop),
+    });
+    if (r.status === 'SENT') out.sent++;
+    else if (r.status === 'FAILED') out.failed++;
+    else out.skipped++;
+  }
+  return { ...out, enabled: true };
+}
+
+/** One email a day to students who switched it on and have revision cards due (only cards they can actually open). */
+export async function sendRevisionReminders(env: Bindings, at = new Date(), limit = 500) {
+  const out = { candidates: 0, sent: 0, nothingDue: 0, skipped: 0, failed: 0 };
+  if (!emailEnabled(env) || !env.PUBLIC_APP_URL) return { ...out, enabled: false };
+  const base = appUrl(env);
+  const day = istDay(at);
+  const visible = questionVisible(env.CONTENT_PREVIEW === 'true');
+  const { results } = await env.DB
+    .prepare(
+      `SELECT u.id, u.email, u.display_name, p.unsubscribe_token FROM student_preferences p JOIN users u ON u.id = p.user_id
+       WHERE p.email_revision = 1 AND u.status = 'ACTIVE' AND u.email_verified_at IS NOT NULL
+         AND NOT EXISTS (SELECT 1 FROM email_suppressions s WHERE s.email = u.email)
+         AND NOT EXISTS (SELECT 1 FROM email_messages m WHERE m.dedupe_key = 'revision:' || u.id || ':' || ?1)
+       ORDER BY u.id LIMIT ?2`,
+    )
+    .bind(day, limit)
+    .all<{ id: string; email: string; display_name: string; unsubscribe_token: string | null }>();
+  out.candidates = results.length;
+  for (const u of results) {
+    const due = (await env.DB.prepare(`SELECT COUNT(*) AS n FROM flashcards f WHERE f.user_id = ? AND f.due_on <= ? AND ${visible}`).bind(u.id, day).first<{ n: number }>())?.n ?? 0;
+    if (!due) {
+      out.nothingDue++;
+      continue;
+    }
+    const stop = `${base}/unsubscribe#${u.unsubscribe_token ?? ''}`;
+    const r = await sendEmail(env, {
+      to: u.email, userId: u.id, kind: 'REVISION_REMINDER', subject: due === 1 ? 'One card to revise today' : `${due} cards to revise today`,
+      dedupeKey: `revision:${u.id}:${day}`, headers: unsubscribeHeaders(base, u.unsubscribe_token, 'REMINDERS'), ...templates.revisionDue(u.display_name, due, base, stop),
+    });
+    if (r.status === 'SENT') out.sent++;
+    else if (r.status === 'FAILED') out.failed++;
+    else out.skipped++;
+  }
+  return { ...out, enabled: true };
+}
+
+// ---------------------------------------------------------------- staff: preview and test every message
+
+export const previewSchema = z.object({ template: z.enum(TEMPLATE_NAMES) });
+const TEST_LIMIT_PER_HOUR = 24;
+
+export function previewEmail(env: Bindings, name: TemplateName) {
+  return sampleEmail(name, env.PUBLIC_APP_URL ? appUrl(env) : 'https://cuet.example');
+}
+
+/**
+ * Sends every message (or one) with made-up sample data to the signed-in staff member's own address, and nowhere else.
+ * The subject says it is a test, the links are samples, and the number of tests per hour is capped.
+ */
+export async function sendTestEmails(env: Bindings, staff: { id: string; email: string }, only?: TemplateName[]) {
+  if (!emailEnabled(env)) throw new ApiError(409, 'EMAIL_NOT_CONFIGURED', 'Email is not switched on in this environment, so nothing can be sent.');
+  const names = only?.length ? only : [...TEMPLATE_NAMES];
+  const since = new Date(Date.now() - 3600_000).toISOString();
+  const recent = (await env.DB.prepare("SELECT COUNT(*) AS n FROM email_messages WHERE to_email = ? AND subject LIKE '[Test]%' AND created_at >= ?").bind(staff.email.toLowerCase(), since).first<{ n: number }>())?.n ?? 0;
+  if (recent + names.length > TEST_LIMIT_PER_HOUR) throw new ApiError(409, 'TEST_LIMIT', `At most ${TEST_LIMIT_PER_HOUR} test emails an hour. Try again later.`);
+  const results: { template: TemplateName; status: SendOutcome }[] = [];
+  for (const name of names) {
+    const m = previewEmail(env, name);
+    const r = await sendEmail(env, { to: staff.email, userId: staff.id, kind: 'ACCOUNT_NOTICE', subject: `[Test] ${m.subject}`, text: `This is a test message with sample data.\n\n${m.text}`, html: m.html });
+    results.push({ template: name, status: r.status });
+  }
+  return { to: staff.email, results };
 }
 
 // ---------------------------------------------------------------- emails about new official notices
@@ -458,13 +551,7 @@ export async function sendNoticeAlerts(env: Bindings, at = new Date(), limit = 5
     const shown = found.slice(0, ALERT_MAX_ITEMS);
     const more = found.length > ALERT_MAX_ITEMS;
     const stop = `${base}/unsubscribe?scope=notices#${u.unsubscribe_token ?? ''}`;
-    const body = layout(
-      shown.length === 1 ? 'A new official notice' : 'New official notices',
-      [`Hello ${u.display_name},`, 'These were published on the official websites of the National Testing Agency (NTA) and the University Grants Commission (UGC). Each link opens the notice itself on the official site.', ...(more ? ['There are more; open the updates page to see all of them.'] : [])],
-      { label: 'All government updates', url: `${base}/updates` },
-      `You asked for emails about new official notices. Rely on the official notice itself for anything that affects you. To stop these emails, open ${stop} or turn them off on your profile page.`,
-      shown.map((n) => ({ label: `${n.authority}${n.published_on ? `, ${n.published_on}` : ''}: ${n.title}`, url: n.document_url })),
-    );
+    const body = templates.noticeAlert(u.display_name, shown.map((n) => ({ authority: n.authority, publishedOn: n.published_on, title: n.title, url: n.document_url })), more, base, stop);
     const r = await sendEmail(env, {
       to: u.email, userId: u.id, kind: 'NOTICE_ALERT', subject: shown.length === 1 ? `New official notice: ${shown[0]!.title}`.slice(0, 120) : `${shown.length}${more ? '+' : ''} new official notices`,
       dedupeKey: `notices:${u.id}:${day}`, headers: unsubscribeHeaders(base, u.unsubscribe_token, 'NOTICES'), ...body,
@@ -567,7 +654,7 @@ export async function emailOverview(env: Bindings) {
       .prepare(`SELECT COALESCE(SUM(status = 'FAILED' AND payload_json IS NOT NULL), 0) AS waiting, COALESCE(SUM(status = 'FAILED' AND payload_json IS NULL AND retry_count > 0 AND updated_at >= ?1), 0) AS gave_up, COALESCE(SUM(status = 'SENT' AND retry_count > 0 AND updated_at >= ?1), 0) AS recovered FROM email_messages`)
       .bind(since)
       .first<{ waiting: number; gave_up: number; recovered: number }>(),
-    env.DB.prepare(`SELECT COALESCE(SUM(email_reminders), 0) AS reminders, COALESCE(SUM(email_notices), 0) AS notices FROM student_preferences`).first<{ reminders: number; notices: number }>(),
+    env.DB.prepare(`SELECT COALESCE(SUM(email_reminders), 0) AS reminders, COALESCE(SUM(email_notices), 0) AS notices, COALESCE(SUM(email_revision), 0) AS revision, COALESCE(SUM(exam_date IS NOT NULL), 0) AS exam_dates FROM student_preferences`).first<{ reminders: number; notices: number; revision: number; exam_dates: number }>(),
   ]);
   const provs = providers(env).map((p) => p.name);
   return {
@@ -579,7 +666,7 @@ export async function emailOverview(env: Bindings) {
     suppressions: suppressed.results,
     recentFailures: recentFailures.results,
     retries: { waiting: Number(retry?.waiting ?? 0), gaveUpLast7Days: Number(retry?.gave_up ?? 0), recoveredLast7Days: Number(retry?.recovered ?? 0) },
-    optedIn: { studyReminders: Number(optedIn?.reminders ?? 0), noticeAlerts: Number(optedIn?.notices ?? 0) },
+    optedIn: { studyReminders: Number(optedIn?.reminders ?? 0), noticeAlerts: Number(optedIn?.notices ?? 0), revisionReminders: Number(optedIn?.revision ?? 0), examDatesEntered: Number(optedIn?.exam_dates ?? 0) },
     // What the Worker can see for itself. Whether the sending domain's DNS records are verified cannot be seen from here:
     // run `node backend/scripts/check-email-dns.mjs <domain>` (see docs/email-domain-setup.md).
     readiness: [

@@ -93,7 +93,7 @@ export interface PastPaper {
   questions: number; dropped: number; questionsInPaper: number; durationMinutes: number; marksCorrect: number; marksIncorrect: number;
 }
 export interface PastPaperDetail extends PastPaper { source: { title: string; publisher: string; url: string }; answerKey: { title: string; url: string; version: string } | null; permission: string }
-export interface EmailSettings { email: string; emailVerified: boolean; emailReminders: boolean; emailNotices: boolean; emailAvailable: boolean }
+export interface EmailSettings { email: string; emailVerified: boolean; emailReminders: boolean; emailNotices: boolean; emailRevision: boolean; examDate: string | null; emailAvailable: boolean }
 export interface SessionQuestion {
   number: number; id: string; type: string; stem: string; difficulty: string; preview: boolean; origin: string;
   passage: { title: string | null; body: string } | null; structure: unknown;
@@ -372,7 +372,7 @@ export const api = {
   forgotPassword: (email: string) => request<{ ok: boolean; available: boolean }>('POST', '/api/auth/forgot-password', { email }),
   verifyEmail: (token: string) => request<{ verified: boolean }>('POST', '/api/auth/verify-email', { token }),
   emailSettings: () => request<EmailSettings>('GET', '/api/student/email'),
-  setEmailSettings: (b: { emailReminders?: boolean; emailNotices?: boolean }) => request<EmailSettings>('PUT', '/api/student/email', b),
+  setEmailSettings: (b: { emailReminders?: boolean; emailNotices?: boolean; emailRevision?: boolean; examDate?: string | null }) => request<EmailSettings>('PUT', '/api/student/email', b),
   sendVerification: () => request<{ sent: boolean; reason?: string }>('POST', '/api/student/email/verification'),
   unsubscribe: (token: string, scope: 'REMINDERS' | 'NOTICES' | 'ALL' = 'REMINDERS') => request<{ unsubscribed: boolean }>('POST', '/api/public/email/unsubscribe', { token, scope }),
   pyqTree: (exam: ExamCode) => request<PyqTree>('GET', `/api/learn/pyq?exam=${exam}`),

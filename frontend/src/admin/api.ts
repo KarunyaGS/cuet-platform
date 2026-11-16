@@ -99,6 +99,9 @@ export const consoleApi = {
   me: () => request<StaffMe>('GET', '/api/console/me'),
   overview: () => request<Overview>('GET', '/api/console/overview'),
   email: () => request<EmailOverview>('GET', '/api/console/email'),
+  emailTemplates: () => request<{ templates: string[] }>('GET', '/api/console/email/templates'),
+  emailPreview: (t: string) => request<{ subject: string; html: string; text: string }>('GET', `/api/console/email/preview/${t}`),
+  emailTest: (templates?: string[]) => request<{ to: string; results: { template: string; status: string }[] }>('POST', '/api/console/email/test', templates ? { templates } : {}),
   noticeOverview: () => request<NoticeOverview>('GET', '/api/console/notices/overview'),
   noticeQueue: () => request<(GovNotice & { statusNote: string | null })[]>('GET', '/api/console/notices/queue'),
   noticeFetch: () => request<{ ran: boolean }>('POST', '/api/console/notices/fetch', {}),
@@ -230,7 +233,7 @@ export interface EmailOverview {
   suppressions: { reason: string; n: number }[];
   recentFailures: { kind: string; status: string; provider: string | null; last_error: string | null; created_at: string }[];
   retries: { waiting: number; gaveUpLast7Days: number; recoveredLast7Days: number };
-  optedIn: { studyReminders: number; noticeAlerts: number };
+  optedIn: { studyReminders: number; noticeAlerts: number; revisionReminders: number; examDatesEntered: number };
   readiness: { key: string; label: string; ok: boolean }[];
 }
 export const when = (iso: string | null) => (iso ? new Date(iso.includes('T') ? iso : `${iso.replace(' ', 'T')}Z`).toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }) : 'Never');

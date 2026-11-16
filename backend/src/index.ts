@@ -8,7 +8,7 @@ import pub from './routes/public';
 import review from './routes/review';
 import consoleApi from './routes/console';
 import { auth, learn, student } from './routes/student';
-import { handleCloudflareEmailEvent, sendDailyReminders, retryFailedEmails, sendNoticeAlerts } from './services/email';
+import { handleCloudflareEmailEvent, sendDailyReminders, retryFailedEmails, sendNoticeAlerts, sendExamCountdowns, sendRevisionReminders } from './services/email';
 import { gatewayState, reconcileOrders, sendExpiryNotices } from './services/billing';
 import { syncNotices } from './services/gov-notices';
 
@@ -43,6 +43,8 @@ async function scheduled(controller: ScheduledController, env: AppEnv['Bindings'
   ctx.waitUntil(retryFailedEmails(env).then((r) => r.due && console.log('Email retries', JSON.stringify(r)), (e) => console.error('Email retries failed', (e as Error).message)));
   if (controller?.cron && controller.cron !== DAILY_CRON) return;
   ctx.waitUntil(sendDailyReminders(env).then((r) => console.log('Daily reminders', JSON.stringify(r))));
+  ctx.waitUntil(sendExamCountdowns(env).then((r) => console.log('Exam countdowns', JSON.stringify(r)), (e) => console.error('Exam countdowns failed', (e as Error).message)));
+  ctx.waitUntil(sendRevisionReminders(env).then((r) => console.log('Revision reminders', JSON.stringify(r)), (e) => console.error('Revision reminders failed', (e as Error).message)));
   ctx.waitUntil(sendNoticeAlerts(env).then((r) => console.log('Notice alerts', JSON.stringify(r)), (e) => console.error('Notice alerts failed', (e as Error).message)));
   // Payments: match unpaid orders with the gateway and tell students whose paid access ends soon. Nothing happens while payments are off.
   if (gatewayState(env).ready) {

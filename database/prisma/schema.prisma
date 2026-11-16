@@ -1526,6 +1526,8 @@ model StudentPreference {
   unsubscribeToken String?   @unique @map("unsubscribe_token")
   /// Emails about new official notices (NTA and UGC). Off until the student turns it on; sent only to a confirmed address.
   emailNotices     Boolean   @default(false) @map("email_notices")
+  emailRevision    Boolean   @default(false) @map("email_revision")
+  examDate         String?   @map("exam_date")
   /// Only notices detected after this moment are included in the next alert.
   noticeCursor     DateTime? @map("notice_cursor")
   updatedAt        DateTime  @map("updated_at")

@@ -7,6 +7,7 @@
 import { Hono, type MiddlewareHandler } from 'hono';
 import { getCookie } from 'hono/cookie';
 import type { AppEnv } from '../types';
+import { z } from 'zod';
 import { ApiError, invalid } from '../lib/errors';
 import { readJson } from '../lib/http';
 import { permissionsOf } from '../lib/reviewer';
@@ -21,7 +22,8 @@ import { deleteQuestion, getQuestionAdmin, questionInputSchema, updateQuestion }
 import { deleteResource, getResource, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
 import { admissionsOverview, createFact, createSource, decideFact, decideSource, factDecisionSchema, factInputSchema, importFacts, importSchema, listFacts, listSources, loadProposedSources, sourceDecisionSchema, sourceInputSchema, createProgramme, decideProgramme, importProgrammes, listProgrammesAdmin, outdatedItems, programmeDecisionSchema, programmeImportSchema, programmeInputSchema } from '../services/admissions';
-import { emailOverview } from '../services/email';
+import { emailOverview, previewEmail, previewSchema, sendTestEmails } from '../services/email';
+import { TEMPLATE_NAMES } from '../services/email-templates';
 import { buildMockPaper, linkActionSchema, listMockPapersAdmin, listOfficialLinksAdmin, mockActionSchema, mockPaperAdmin, mockPaperReadiness, setMockPaperStatus, setOfficialLinkStatus } from '../services/practice-centre';
 import { listPastPapersAdmin, paperActionSchema, pastPaperQuestionsAdmin, setPastPaperStatus } from '../services/past-papers';
 import {
@@ -54,6 +56,25 @@ admin.get('/overview', async (c) => c.json(await consoleOverview(c.env.DB)));
 admin.get('/email', async (c) => {
   needPermission(me(c), 'users:manage', 'see the email log');
   return c.json(await emailOverview(c.env));
+});
+// Every message, rendered with sample data. Nothing is sent.
+admin.get('/email/templates', (c) => {
+  needPermission(me(c), 'users:manage', 'preview emails');
+  return c.json({ templates: TEMPLATE_NAMES });
+});
+admin.get('/email/preview/:template', (c) => {
+  needPermission(me(c), 'users:manage', 'preview emails');
+  const { template } = previewSchema.parse({ template: c.req.param('template') });
+  return c.json(previewEmail(c.env, template));
+});
+// A test to the signed-in staff member's own address only; there is no way to name another recipient.
+admin.post('/email/test', async (c) => {
+  const staff = me(c);
+  needPermission(staff, 'users:manage', 'send test emails');
+  const u = c.get('user');
+  if (!u) throw invalid('Sign in as yourself to send a test; it goes to your own address');
+  const body = await readJson(c, z.object({ templates: z.array(z.enum(TEMPLATE_NAMES)).max(8).optional() }));
+  return c.json(await sendTestEmails(c.env, { id: u.id, email: u.email }, body.templates));
 });
 
 // Students

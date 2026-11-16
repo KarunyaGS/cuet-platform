@@ -49,3 +49,18 @@ Email needs a domain the platform owns. The app has no custom domain yet, so tha
 - An admin screen for the email log. The data is available at `/api/console/email`.
 - Emails for subscription and payment events. They will use the same service once that module exists.
 - Requiring a confirmed address before sign-in. Today it is required only for reminders.
+
+## Welcome, exam countdown, revision reminders and staff previews (migration 0032, local only)
+
+- **Welcome email:** sent once, right after the student confirms the address (`WELCOME`, duplicate key `welcome:<user>`). It promises only what the app does and says reminders are off until switched on.
+- **Exam countdown:** the student may enter the day of their own exam on the profile page. With study reminders switched on, an email goes out 30, 7 and 1 days before that date, once each. The date is never filled in by us, and the email says it is the student's own date and sends them to the NTA website for the real schedule.
+- **Revision reminders:** a separate opt-in. At most one email a day, only when the student has revision cards due that they can open (the shared `questionVisible` rule).
+- **Unsubscribe:** the "reminders" scope stops study reminders, the exam countdown and revision reminders. "Notices" stops official-notice alerts. Every reminder carries a one-click header and a link.
+- **Templates:** all messages are built in `backend/src/services/email-templates.ts`. The same code sends, previews and tests, so staff see what students get.
+- **Staff:** Admin, Email has "Preview every message" (desktop and phone width, sample data, nothing sent) and "Send test to me". A test goes only to the signed-in staff member's own address, is marked `[Test]`, and is capped at 24 an hour. There is no way to name another recipient.
+- **Daily job:** the 13:30 UTC cron now also runs the exam countdown and revision reminders.
+- **Not built:** an email-changed notice (there is no change-email flow yet); billing emails still use their own plain layout.
+
+### Reusing the Alfanumrik sending setup (checked read-only on 2026-11-16)
+
+The Cloudflare account that holds this Worker also holds Email Sending for `notify.alfanumrik.com` (enabled, DKIM selector `cf-bounce`) and `wisca.io`. The DNS checker reports `notify.alfanumrik.com` READY (SPF, MX, DKIM, DMARC p=reject). CUET should use its own subdomain (for example `cuet.<domain>` or `mail.cuet.<domain>`), not Alfanumrik's address, so complaints about one product never harm the other's reputation. Onboarding it, adding DNS records and enabling the binding in production all need the owner's approval and have not been done.

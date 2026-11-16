@@ -1,9 +1,10 @@
 /** Admin console: email health. Shows what was sent in the last 7 days, failures and blocked addresses. No message text is stored or shown. */
 import { MailWarning } from 'lucide-react';
-import { Badge, Empty, ErrorBox, Loading, PageHeader, SectionTitle, StatGroup, useLoad } from '../ui';
+import { useState } from 'react';
+import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, SectionTitle, StatGroup, useLoad } from '../ui';
 import { consoleApi, when } from './api';
 
-const KIND: Record<string, string> = { PASSWORD_RESET: 'Password reset', VERIFY_EMAIL: 'Confirm email', ACCOUNT_NOTICE: 'Account notice', STUDY_REMINDER: 'Study reminder', NOTICE_ALERT: 'Notice alert' };
+const KIND: Record<string, string> = { PASSWORD_RESET: 'Password reset', VERIFY_EMAIL: 'Confirm email', ACCOUNT_NOTICE: 'Account notice', STUDY_REMINDER: 'Study reminder', WELCOME: 'Welcome', EXAM_REMINDER: 'Exam countdown', REVISION_REMINDER: 'Revision reminder', NOTICE_ALERT: 'Notice alert' };
 const STATUS: Record<string, { label: string; tone: 'green' | 'amber' | 'red' | 'zinc' }> = {
   SENT: { label: 'Sent', tone: 'green' },
   DELIVERED: { label: 'Delivered', tone: 'green' },
@@ -16,6 +17,62 @@ const STATUS: Record<string, { label: string; tone: 'green' | 'amber' | 'red' | 
 };
 const REASON: Record<string, string> = { HARD_BOUNCE: 'Address does not exist', COMPLAINT: 'Marked as spam', MANUAL: 'Blocked by an administrator' };
 const PROVIDER: Record<string, string> = { cloudflare: 'Cloudflare Email Sending', resend: 'Resend (standby)' };
+
+const TEMPLATE_LABEL: Record<string, string> = {
+  welcome: 'Welcome', verify: 'Confirm your email', reset: 'Reset your password', passwordChanged: 'Password changed', studyReminder: 'Study reminder',
+  examCountdown: 'Exam countdown', revisionDue: 'Revision cards due', noticeAlert: 'Official notices',
+};
+
+/** Every message, drawn with sample data at desktop and phone width, and a test send to the signed-in staff member only. */
+function Templates({ canSend }: { canSend: boolean }) {
+  const list = useLoad(consoleApi.emailTemplates, []);
+  const [name, setName] = useState('welcome');
+  const [wide, setWide] = useState(true);
+  const prev = useLoad(() => consoleApi.emailPreview(name), [name]);
+  const [msg, setMsg] = useState<string | null>(null);
+  const [err, setErr] = useState<Error | null>(null);
+  const [busy, setBusy] = useState(false);
+  const send = async (only?: string[]) => {
+    setBusy(true);
+    setErr(null);
+    setMsg(null);
+    try {
+      const r = await consoleApi.emailTest(only);
+      setMsg(`Sent ${r.results.filter((x) => x.status === 'SENT').length} of ${r.results.length} to ${r.to}.${r.results.some((x) => x.status !== 'SENT') ? ` Not sent: ${r.results.filter((x) => x.status !== 'SENT').map((x) => `${TEMPLATE_LABEL[x.template] ?? x.template} (${x.status.toLowerCase().replace(/_/g, ' ')})`).join(', ')}.` : ''}`);
+    } catch (e) {
+      setErr(e as Error);
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <section aria-labelledby="em-tpl" className="mt-10" data-email-templates>
+      <SectionTitle id="em-tpl">Preview every message</SectionTitle>
+      <p className="mb-3 max-w-2xl text-sm text-ink-2">These use made-up sample data. Nothing is sent when you preview. A test goes only to your own address, marked [Test].</p>
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        {(list.data?.templates ?? []).map((t) => (
+          <button key={t} type="button" aria-pressed={name === t} onClick={() => setName(t)} className={`rounded-full border px-3 py-1 text-sm ${name === t ? 'border-accent bg-accent-soft text-accent' : 'border-rule text-ink-2 hover:text-ink'}`}>
+            {TEMPLATE_LABEL[t] ?? t}
+          </button>
+        ))}
+      </div>
+      <div className="mb-3 flex flex-wrap items-center gap-2 text-sm">
+        <Button kind={wide ? 'primary' : 'secondary'} size="sm" onClick={() => setWide(true)}>Desktop width</Button>
+        <Button kind={!wide ? 'primary' : 'secondary'} size="sm" onClick={() => setWide(false)}>Phone width</Button>
+        {canSend && <Button size="sm" kind="secondary" disabled={busy} onClick={() => void send([name])}>Send this test to me</Button>}
+        {canSend && <Button size="sm" kind="secondary" disabled={busy} onClick={() => void send()}>Send all tests to me</Button>}
+      </div>
+      {msg && <div role="status" className="mb-3 rounded-lg border border-correct/30 bg-correct-soft px-4 py-2.5 text-sm text-correct">{msg}</div>}
+      {err && <ErrorBox error={err} />}
+      {prev.error ? <ErrorBox error={prev.error} onRetry={prev.reload} /> : prev.data && (
+        <div className="overflow-x-auto rounded-xl border border-rule bg-paper p-3">
+          <p className="mb-2 text-sm text-ink-2">Subject: <span className="font-medium text-ink">{prev.data.subject}</span></p>
+          <iframe title={`Preview of ${TEMPLATE_LABEL[name] ?? name}`} sandbox="" srcDoc={prev.data.html} data-preview-frame style={{ width: wide ? 640 : 390, height: 560, border: '1px solid var(--rule, #ddd)', background: '#fff' }} />
+        </div>
+      )}
+    </section>
+  );
+}
 
 export function AdminEmail() {
   const e = useLoad(consoleApi.email, []);
@@ -59,6 +116,8 @@ export function AdminEmail() {
           { label: 'Waiting for a retry', value: d.retries.waiting, hint: `${d.retries.recoveredLast7Days} recovered, ${d.retries.gaveUpLast7Days} given up (7 days)` },
           { label: 'Asked for study reminders', value: d.optedIn.studyReminders },
           { label: 'Asked for notice emails', value: d.optedIn.noticeAlerts },
+          { label: 'Asked for revision reminders', value: d.optedIn.revisionReminders },
+          { label: 'Entered an exam date', value: d.optedIn.examDatesEntered },
         ]}
       />
       <div className="mt-6" />
@@ -141,6 +200,7 @@ export function AdminEmail() {
         )}
         <p className="mt-2 text-sm text-ink-2">A blocked address gets no more email. This protects the sender's reputation with mail providers.</p>
       </section>
+      <Templates canSend />
     </div>
   );
 }
