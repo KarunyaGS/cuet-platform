@@ -239,7 +239,7 @@ export type Reliability = 'VERIFIED_OFFICIAL' | 'OUTDATED' | 'UNVERIFIED' | 'SOU
 export interface ProgrammeSummary {
   id: string; universitySlug: string; universityName: string; universityType: string | null; programmeName: string; degree: string | null; level: string; academicYear: string; exam: ExamCode;
   lastVerifiedOn: string; reliability: Reliability; sourceUrl: string | null; sourceTitle: string | null; cycle: Cycle;
-  subjects: string[] | null; nextDeadline: { date: string; label: string } | null; lastDeadline: { date: string; label: string } | null;
+  subjects: string[] | null; ruleText: string | null; nextDeadline: { date: string; label: string } | null; lastDeadline: { date: string; label: string } | null;
   known: { eligibility: boolean; subjects: boolean; procedure: boolean; counselling: boolean; deadline: boolean; cutoffs: boolean };
 }
 export interface ProgrammeList { total: number; programmes: ProgrammeSummary[] }

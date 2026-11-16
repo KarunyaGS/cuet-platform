@@ -103,7 +103,9 @@ export function UniversityPage() {
 
       {nothing ? (
         <Empty icon={<Info />}>
-          No dates, eligibility or cut-offs have been checked and published for this university yet. We publish a figure only after it has been read from an official page and checked by a person. Until then, use the official pages above.
+          {d.programmes.length > 0
+            ? 'No university-wide dates, eligibility or cut-offs have been published yet. Eligibility and the required CUET subjects are published programme by programme, in the list above, as historical 2026–27 references. We publish a figure only after it has been read from an official page and checked by a person.'
+            : 'No dates, eligibility or cut-offs have been checked and published for this university yet. We publish a figure only after it has been read from an official page and checked by a person. Until then, use the official pages above.'}
         </Empty>
       ) : (
         <>

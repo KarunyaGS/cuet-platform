@@ -5,6 +5,7 @@ import { Link, useParams, useSearchParams } from 'react-router';
 import { api, ApiError, type AdmissionFact, type Cycle, type ExamCode, type ProgrammeSummary, type Reliability } from '../api';
 import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Panel, SearchInput, SectionTitle, Segmented, inputClass, useLoad } from '../ui';
 import { BASIS, Source } from './University';
+import { parseRule, ruleLines, type Rule } from '../subject-rule';
 
 const dayLabel = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
 const examName = (e: ExamCode) => (e === 'CUET_UG' ? 'CUET (UG)' : 'CUET (PG)');
@@ -48,7 +49,21 @@ function Card({ p }: { p: ProgrammeSummary }) {
           <dl className="mt-3 grid gap-x-6 gap-y-1.5 text-sm sm:grid-cols-2">
             <div>
               <dt className="text-xs text-ink-3">Required CUET subjects</dt>
-              <dd className="text-ink">{p.subjects ? p.subjects.join(', ') : p.known.eligibility ? <span className="text-ink-2">A language plus a choice of subjects: see the eligibility on the programme page</span> : <span className="text-ink-3">Not yet available</span>}</dd>
+              <dd className="text-ink" data-card-subjects>
+                {(() => {
+                  const rule = parseRule(p.ruleText);
+                  if (rule) {
+                    const l = ruleLines(rule);
+                    return l.length === 1 ? l[0] : (
+                      <>
+                        <span className="text-ink-2">Choose one:</span>
+                        <ul className="list-disc pl-4">{l.slice(0, 4).map((x) => <li key={x}>{x}</li>)}</ul>
+                      </>
+                    );
+                  }
+                  return p.subjects ? p.subjects.join(', ') : p.known.eligibility ? <span className="text-ink-2">See the eligibility on the programme page</span> : <span className="text-ink-3">Not yet available</span>;
+                })()}
+              </dd>
             </div>
             <div>
               <dt className="text-xs text-ink-3">Application deadline</dt>
@@ -169,6 +184,31 @@ export function AdmissionsPage() {
   );
 }
 
+/** The subjects a student must take, laid out from the university's own wording: named subjects, languages, how many other subjects, and any separate test. */
+function RuleBreakdown({ rule }: { rule: Rule }) {
+  const generic = rule.combos.some((c) => c.items.some((i) => !i.named));
+  return (
+    <div className="mt-3 rounded-lg bg-paper p-3" data-subject-rule>
+      <p className="text-sm font-medium text-ink">{rule.combos.length > 1 ? 'Take any ONE of these combinations:' : 'Take ALL of these:'}</p>
+      <ul className="mt-2 space-y-2">
+        {rule.combos.map((c) => (
+          <li key={c.label} className="flex flex-wrap items-center gap-1.5" data-rule-combination>
+            {rule.combos.length > 1 && <span className="mr-1 text-xs font-semibold text-ink-3">{c.label}</span>}
+            {c.items.map((i, k) => (
+              <span key={`${i.text}-${k}`} className="inline-flex items-center gap-1.5">
+                {k > 0 && <span aria-hidden className="text-ink-3">+</span>}
+                <Badge tone={i.named ? 'accent' : 'zinc'}>{i.text}</Badge>
+              </span>
+            ))}
+          </li>
+        ))}
+      </ul>
+      {rule.extraTest && <p className="mt-2 text-sm text-ink" data-extra-test>Also required: {rule.extraTest}.</p>}
+      {generic && <p className="mt-2 text-xs text-ink-3">List A means the languages the university accepts and List B the domain subjects it accepts, as defined in its own bulletin. Which ones you may choose is decided by the university, not by us.</p>}
+    </div>
+  );
+}
+
 function Facts({ title, id, facts, missing, official, fallback }: { title: string; id: string; facts: AdmissionFact[]; missing: boolean; official: string | null; fallback?: string }) {
   return (
     <section aria-labelledby={id} className="mb-7" data-section={id}>
@@ -192,7 +232,7 @@ function Facts({ title, id, facts, missing, official, fallback }: { title: strin
                   <ReliabilityBadge r={f.reliability} on={f.checkedOn} cycle={f.cycle} />
                 </div>
                 {f.valueText && <blockquote className="mt-1.5 whitespace-pre-line border-l-2 border-accent pl-3 text-[15px] leading-relaxed text-ink">{f.valueText.replace(/\s+(?=Combination [IVX]+\s*:)/g, '\n').replace(/\s+(?=(?:OR|AND)\s)/g, '\n').replace(/\s+(?=Merit will be)/g, '\n').replace(/\s+(?=Candidates? must appear in any one language)/g, '\n')}</blockquote>}
-                {f.kind === 'SUBJECTS' && f.subjects && (
+                {f.kind === 'SUBJECTS' && (parseRule(f.valueText) ? <RuleBreakdown rule={parseRule(f.valueText)!} /> : f.subjects && (
                   <div className="mt-2 flex flex-wrap gap-1.5">
                     {f.subjects.map((s) => (
                       <Badge key={s} tone="accent">
@@ -200,7 +240,7 @@ function Facts({ title, id, facts, missing, official, fallback }: { title: strin
                       </Badge>
                     ))}
                   </div>
-                )}
+                ))}
                 <div className="mt-1.5">
                   <Source f={f} />
                 </div>
@@ -265,7 +305,17 @@ export function ProgrammePage() {
       </div>
 
       <h2 className="mb-3 text-lg font-semibold text-ink">{p.cycle.status === 'PREVIOUS' ? `Historical reference: the ${p.academicYear} admission cycle` : `This admission year (${p.academicYear})`}</h2>
-      <Facts title="Required CUET subjects" id="pg-subjects" facts={d.current.subjects} missing={miss('subjects')} official={official} fallback={d.current.eligibility.length ? 'The required subjects depend on the combination you choose. The rule is quoted in the eligibility below.' : undefined} />
+      {d.current.subjects.length === 0 && d.current.eligibility.some((f) => parseRule(f.valueText)) ? (
+        <section aria-labelledby="pg-subjects" className="mb-7" data-section="pg-subjects">
+          <SectionTitle id="pg-subjects">Required CUET subjects</SectionTitle>
+          <Panel className="p-4">
+            <p className="text-sm text-ink-2">Laid out from the programme-specific eligibility printed below.</p>
+            <RuleBreakdown rule={parseRule(d.current.eligibility.find((f) => parseRule(f.valueText))!.valueText)!} />
+          </Panel>
+        </section>
+      ) : (
+        <Facts title="Required CUET subjects" id="pg-subjects" facts={d.current.subjects} missing={miss('subjects')} official={official} />
+      )}
       <Facts title="Eligibility, as the university prints it" id="pg-elig" facts={d.current.eligibility} missing={miss('eligibility')} official={official} />
       <Facts title="How to apply" id="pg-proc" facts={d.current.procedure} missing={miss('procedure')} official={official} />
       <Facts title="Counselling" id="pg-couns" facts={d.current.counselling} missing={miss('counselling')} official={official} />

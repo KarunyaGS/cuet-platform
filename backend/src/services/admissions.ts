@@ -608,7 +608,7 @@ export async function programmesList(db: D1Database, q: z.infer<typeof programme
   ]);
   const ids = rows.results.map((r) => String(r.id));
   const facts = ids.length
-    ? (await db.prepare(`SELECT f.programme_id, f.kind, f.category, f.event_date, f.label, f.subjects_json FROM admission_facts f JOIN admission_sources fs ON fs.id = f.source_id WHERE ${SHOWN_FACT} AND f.programme_id IN (${ids.map(() => '?').join(',')})`).bind(...ids).all<PRow>()).results
+    ? (await db.prepare(`SELECT f.programme_id, f.kind, f.category, f.event_date, f.label, f.subjects_json, f.value_text FROM admission_facts f JOIN admission_sources fs ON fs.id = f.source_id WHERE ${SHOWN_FACT} AND f.programme_id IN (${ids.map(() => '?').join(',')})`).bind(...ids).all<PRow>()).results
     : [];
   const todayIso = today();
   return {
@@ -619,9 +619,12 @@ export async function programmesList(db: D1Database, q: z.infer<typeof programme
       const deadlines = mine.filter((f) => f.kind === 'EVENT' && f.category === 'APPLICATION_DEADLINE' && f.event_date).sort((a, b) => String(a.event_date).localeCompare(String(b.event_date)));
       const next = deadlines.find((d) => String(d.event_date) >= todayIso) ?? null;
       const subj = mine.find((f) => f.kind === 'SUBJECTS');
+      const elig = mine.find((f) => f.kind === 'ELIGIBILITY');
       return {
         ...programmeOut(r),
         subjects: subj?.subjects_json ? (JSON.parse(String(subj.subjects_json)) as string[]) : null,
+        /** The subject rule as printed (the required-subjects text, else the eligibility text), for the card to lay out. */
+        ruleText: ((subj?.value_text ?? elig?.value_text) as string | null) ?? null,
         nextDeadline: next ? { date: String(next.event_date), label: String(next.label) } : null,
         lastDeadline: !next && deadlines.length ? { date: String(deadlines.at(-1)!.event_date), label: String(deadlines.at(-1)!.label) } : null,
         known: { eligibility: has('ELIGIBILITY'), subjects: has('SUBJECTS'), procedure: has('PROCEDURE'), counselling: has('COUNSELLING'), deadline: deadlines.length > 0, cutoffs: has('CUTOFF') },
