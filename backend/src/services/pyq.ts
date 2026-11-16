@@ -108,15 +108,32 @@ export interface Scope {
 }
 const languages = (englishHindi: boolean) => (englishHindi ? [ENGLISH, ENGLISH_HINDI] : [ENGLISH]);
 const shownSql = (englishHindi: boolean, preview = false) =>
-  `(working = 1 OR http_status = -1) AND replaced_by_key IS NULL AND (kind = 'ANSWER_KEY' OR language IN (${languages(englishHindi).map((l) => `'${l}'`).join(',')}))` +
+  // NTA's own files that we host (16 Nov 2026, with NTA permission confirmed by management) are shown whenever the file holds the English paper:
+  // NTA prints almost every CUET-UG booklet in English plus Hindi or another language. The English-only rule still applies to every other source.
+  `(working = 1 OR http_status = -1) AND replaced_by_key IS NULL AND (kind = 'ANSWER_KEY' OR language IN (${languages(englishHindi).map((l) => `'${l}'`).join(',')}) OR (official = 1 AND r2_key IS NOT NULL AND language LIKE 'English%'))` +
   // Our own generated documents: fully reviewed ones always; unreviewed ones only where draft content is shown.
-  ` AND (review_state IS NULL OR review_state = 'REVIEWED'${preview ? " OR review_state = 'UNREVIEWED'" : ''})`;
+  ` AND (review_state IS NULL OR review_state = 'REVIEWED'${preview ? " OR review_state = 'UNREVIEWED'" : ''})`
+  // "Do not use third-party copies when official NTA documents are available": a copy of a paper is not listed when NTA's own verified file of the same paper is hosted here: same exam, year and subject, and the same date and shift when the copy states them (a copy of another session is a different paper, not a duplicate).
+  + ` AND NOT (official = 0 AND kind = 'QUESTION_PAPER' AND EXISTS (SELECT 1 FROM pyq_documents o WHERE o.official = 1 AND o.r2_key IS NOT NULL AND o.kind = 'QUESTION_PAPER' AND o.exam_code = pyq_documents.exam_code AND o.year = pyq_documents.year AND o.subject_code = pyq_documents.subject_code AND (pyq_documents.exam_date IS NULL OR (o.exam_date = pyq_documents.exam_date AND COALESCE(o.shift, '') = COALESCE(pyq_documents.shift, '')))))`;
 const isShown = (d: { working: boolean; httpStatus: number; replacedBy?: string; kind: string; language: string | null }, englishHindi: boolean) =>
   (d.working || d.httpStatus === -1) && !d.replacedBy && (d.kind === 'ANSWER_KEY' || (d.language !== null && languages(englishHindi).includes(d.language)));
 
 type Row = Record<string, string | number | null>;
 
-const out = (r: Row, inApp: boolean) => {
+export interface Hosted { sha256: string; bytes: number; pages: number | null; sourceUrl: string; retrievedAt: string; verification: string; rightsStatus: string }
+/** Provenance of the documents we host, for the ids given (one query; ids are few). */
+async function hostedOf(db: D1Database, ids: string[]): Promise<Map<string, Hosted>> {
+  const map = new Map<string, Hosted>();
+  if (!ids.length) return map;
+  const { results } = await db
+    .prepare(`SELECT document_id, sha256, bytes, pages, source_url, retrieved_at, verification, rights_status FROM pyq_hosted_files WHERE document_id IN (${ids.map(() => '?').join(',')})`)
+    .bind(...ids)
+    .all<Record<string, string | number | null>>();
+  for (const h of results) map.set(String(h.document_id), { sha256: String(h.sha256), bytes: Number(h.bytes), pages: h.pages === null ? null : Number(h.pages), sourceUrl: String(h.source_url), retrievedAt: String(h.retrieved_at), verification: String(h.verification), rightsStatus: String(h.rights_status) });
+  return map;
+}
+
+const out = (r: Row, inApp: boolean, hosted: Hosted | null = null) => {
   // A document in our own storage is always shown here; one on another website only when its host allows it.
   const native = r.r2_key !== null && r.r2_key !== undefined;
   const embed = native || (inApp && Boolean(r.embeddable));
@@ -138,7 +155,12 @@ const out = (r: Row, inApp: boolean) => {
     language: r.language as string | null,
     pages: r.pages as number | null,
     sourceSite: r.source_site as string,
-    sourcePageUrl: native ? '/practice-centre' : (r.source_page_url as string),
+    // Our own generated papers have no outside source; NTA's own files we host keep their real source.
+    sourcePageUrl: native && r.classification !== 'OFFICIAL' && !hosted ? '/practice-centre' : (r.source_page_url as string),
+    /** NTA's original file address, kept for every official document (also when we host a copy). */
+    originalUrl: r.classification === 'OFFICIAL' || hosted ? (r.file_url as string) : null,
+    /** Set when we host the file: its hash, retrieval date, checks and the basis on which we may host it. */
+    hosted,
     note: r.note as string | null,
     checkedOn: r.checked_on as string,
     /** False when the source's robots rules did not allow the link to be checked automatically. */
@@ -207,21 +229,23 @@ export async function pyqSubject(db: D1Database, exam: string, year: number, slu
     .all<Row>();
   const papers = results.filter((r) => r.kind === 'QUESTION_PAPER');
   if (!papers.length) throw notFound('Papers for this subject and year');
+  const hosted = await hostedOf(db, results.map((r) => String(r.id)));
+  const outH = (r: Row) => out(r, inApp, hosted.get(String(r.id)) ?? null);
   const code = papers[0]!.subject_code as string | null;
   return {
     exam,
     year,
     subject: { slug, code, name: papers[0]!.subject_name as string, section: papers[0]!.section as string | null },
-    papers: papers.map((r) => out(r, inApp)),
+    papers: papers.map(outH),
     answerKeys: results
       .filter((r) => r.kind === 'ANSWER_KEY')
       .map((r) => {
         const sessions = r.sessions_json && code ? ((JSON.parse(String(r.sessions_json)) as Record<string, { date?: string | null; shift?: string | null; keyPage?: number | null }[]>)[code] ?? []) : [];
-        return { ...out(r, inApp), sessions: sessions.map((s) => ({ date: s.date ?? null, shift: s.shift ?? null, page: s.keyPage ?? null })) };
+        return { ...outH(r), sessions: sessions.map((s) => ({ date: s.date ?? null, shift: s.shift ?? null, page: s.keyPage ?? null })) };
       }),
-    samplePapers: results.filter((r) => r.kind === 'SAMPLE_PAPER').map((r) => out(r, inApp)),
+    samplePapers: results.filter((r) => r.kind === 'SAMPLE_PAPER').map(outH),
     // Our own practice papers for this subject: generated by CUET Prep, kept in our storage, never previous-year papers.
-    practicePapers: results.filter((r) => r.kind === 'PRACTICE_PAPER').map((r) => out(r, inApp)),
+    practicePapers: results.filter((r) => r.kind === 'PRACTICE_PAPER').map(outH),
   };
 }
 
@@ -229,7 +253,8 @@ export async function pyqDocument(db: D1Database, id: string, scope: Scope) {
   const inApp = scope.inApp;
   const r = await db.prepare(`SELECT * FROM pyq_documents WHERE id = ? AND ${shownSql(scope.englishHindi, scope.preview)}`).bind(id).first<Row>();
   if (!r) throw notFound('Paper');
-  return { exam: r.exam_code as string, ...out(r, inApp) };
+  const hosted = await hostedOf(db, [String(r.id)]);
+  return { exam: r.exam_code as string, ...out(r, inApp, hosted.get(String(r.id)) ?? null) };
 }
 
 /** The file of a native document, from our own storage. Only for documents a student is allowed to see. */

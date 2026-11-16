@@ -12,7 +12,7 @@ import { Badge, Empty, ErrorBox, Loading, PageHeader, SearchInput, SectionTitle,
 import { PdfViewer } from './OfficialViewer';
 
 const day = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
-const SECTION: Record<string, string> = { LANGUAGE: 'Languages', DOMAIN: 'Domain subjects', GENERAL: 'General Test' };
+const SECTION: Record<string, string> = { LANGUAGE: 'Languages', DOMAIN: 'Domain subjects', GENERAL: 'General Aptitude Test' };
 const NOT_STATED = '(not stated)';
 
 /**
@@ -62,9 +62,9 @@ export function PaperRow({ d }: { d: PyqDoc }) {
           {facts.length > 0 && <span className="num text-sm font-medium text-ink">{facts.join(' · ')}</span>}
         </span>
         <span className="mt-1 block text-[15px] text-ink">{d.title}</span>
-        {d.note && <span className="mt-0.5 block text-xs text-ink-3">{cleanNote(d.note)}</span>}
+        {d.note && !d.hosted && <span className="mt-0.5 block text-xs text-ink-3">{cleanNote(d.note)}</span>}
         <span className="mt-0.5 block text-xs text-ink-3">
-          {d.native ? 'Opens here in CUET Prep. You can download it.' : d.viewer === 'IN_APP' ? `Shown here straight from ${siteName(d.sourceSite) ?? 'the source'}’s server.` : siteName(d.sourceSite) ? `Opens on ${siteName(d.sourceSite)}’s website in a new tab.` : 'Opens on the source website in a new tab.'}{' '}
+          {d.native && d.hosted ? `Hosted here exactly as ${d.classification === 'OFFICIAL' ? 'NTA published it' : `${siteName(d.sourceSite) ?? 'its source'} provided it, with their permission`} (retrieved ${day(d.hosted.retrievedAt.slice(0, 10))}). Opens in the viewer; you can download it.` : d.native ? 'Opens here in CUET Prep. You can download it.' : d.viewer === 'IN_APP' ? `Shown here straight from ${siteName(d.sourceSite) ?? 'the source'}’s server.` : siteName(d.sourceSite) ? `Opens on ${siteName(d.sourceSite)}’s website in a new tab.` : 'Opens on the source website in a new tab.'}{' '}
           {d.native ? null : (
             <>
               {d.linkChecked ? `Checked on ${day(d.checkedOn)}.` : 'This link could not be checked automatically.'}{' '}
@@ -294,7 +294,7 @@ export function PyqPage() {
       <PageHeader
         title="Previous-year question papers"
         back={{ to: '/practice-centre', label: 'Practice Centre' }}
-        subtitle="CUET (UG) 2024, 2025 and 2026, English-medium papers only. Every “Open paper” opens the paper itself. Only files on NTA’s website are NTA’s own; copies on other websites are labelled."
+        subtitle="CUET (UG) previous-year question papers and answer keys. NTA’s own files and the copies we have permission to host open in the viewer and can be downloaded here. Copies are labelled with their source; any copy we do not host opens on its source."
       />
       <PyqBrowser
         year={year}
@@ -326,9 +326,14 @@ export function PyqViewerPage() {
         {d.unreviewed && <Badge tone="amber">Preview, not reviewed</Badge>}
         <span>
           {siteName(d.sourceSite) ? `Source: ${siteName(d.sourceSite)}. ` : ''}
-          {cleanNote(d.note)}
+          {d.hosted ? '' : cleanNote(d.note)}
         </span>
       </p>
+      {d.hosted && (
+        <p className="-mt-2 mb-4 text-xs text-ink-3" data-provenance>
+          {d.classification === 'OFFICIAL' ? 'NTA’s own file, hosted here unchanged.' : `A copy from ${siteName(d.sourceSite) ?? 'another website'}, hosted here unchanged with their permission. It is not an NTA document.`} Original: <a href={d.originalUrl ?? d.hosted.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-accent hover:underline">{(d.originalUrl ?? d.hosted.sourceUrl).replace(/^https:\/\//, '')}</a>. Retrieved {day(d.hosted.retrievedAt.slice(0, 10))}, checked: {d.hosted.verification === 'VERIFIED' ? 'verified' : 'needs review'}. Source: {d.classification === 'OFFICIAL' ? 'National Testing Agency' : siteName(d.sourceSite) ?? 'another website'}.
+        </p>
+      )}
       {d.viewer === 'IN_APP' && d.fileUrl ? (
         <PdfViewer doc={{ fileUrl: d.fileUrl, viewer: 'DIRECT', originalUrl: d.openUrl }} startPage={Math.max(1, Number(params.get('page')) || 1)} site={siteName(d.sourceSite) ?? 'the source'} downloadUrl={d.downloadUrl} />
       ) : (

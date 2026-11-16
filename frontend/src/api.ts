@@ -214,6 +214,10 @@ export interface PyqDoc {
   viewer: 'IN_APP' | 'SOURCE'; fileUrl: string | null; openUrl: string; alternatives: { site: string; url: string | null; title: string }[];
   /** A document CUET Prep generated and keeps in its own storage: it opens in the viewer here and can be downloaded. */
   native: boolean; downloadUrl: string | null; unreviewed: boolean;
+  /** NTA's original file address, kept as the record of where a hosted official document came from. */
+  originalUrl: string | null;
+  /** Set when CUET Prep hosts the file: its hash, retrieval date and checks. */
+  hosted: { sha256: string; bytes: number; pages: number | null; sourceUrl: string; retrievedAt: string; verification: string; rightsStatus: string } | null;
 }
 export interface PyqTree {
   exam: ExamCode; total: number; checkedOn: string | null;
