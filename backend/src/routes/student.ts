@@ -24,7 +24,7 @@ import {
 } from '../services/student-tools';
 import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
 import { deleteOne, editOne, editSchema, listAll, listForSurface, listForSurfaces, saveBatch, saveSchema } from '../services/annotations';
-import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, deleteCard, importCards, importCardsSchema, listCards, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
+import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, createQuestionCard, createQuestionCardSchema, deleteCard, importCards, importCardsSchema, listCards, questionCardState, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
 import { pyqDocument, pyqDocumentFile, pyqExamSchema, pyqSubject, pyqTree } from '../services/pyq';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { answerSchema, getSession, marksSchema, progress, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
@@ -200,7 +200,7 @@ student.post('/email/verification', async (c) => {
 });
 
 // Dashboard, goals, activity
-student.get('/dashboard', async (c) => c.json(await dashboard(c.env.DB, c.get('user').id, dashboardQuery.parse({ day: c.req.query('day'), since: c.req.query('since') }))));
+student.get('/dashboard', async (c) => c.json(await dashboard(c.env.DB, preview(c.env), c.get('user').id, dashboardQuery.parse({ day: c.req.query('day'), since: c.req.query('since') }))));
 student.get('/goals', async (c) => c.json(await getGoal(c.env.DB, c.get('user').id)));
 student.put('/goals', async (c) => c.json(await setGoal(c.env.DB, c.get('user').id, await readJson(c, goalSchema))));
 student.post('/activity', async (c) => c.json(await recordActivity(c.env.DB, c.get('user').id, await readJson(c, activitySchema))));
@@ -229,10 +229,10 @@ student.delete('/annotations/:id', async (c) => c.json(await deleteOne(c.env.DB,
 // Flashcards and spaced revision. Every card belongs to the signed-in student; card text is copied from the lesson by the server.
 const cardFilters = (c: { req: { query(name: string): string | undefined } }) =>
   cardQuery.parse(Object.fromEntries(['day', 'paperId', 'chapterId', 'nodeId', 'resourceId', 'due', 'limit'].map((k) => [k, c.req.query(k) || undefined])));
-student.get('/flashcards', async (c) => c.json(await listCards(c.env.DB, c.get('user').id, cardFilters(c))));
-student.get('/flashcards/summary', async (c) => c.json(await cardSummary(c.env.DB, c.get('user').id, assertDay(cardFilters(c).day))));
+student.get('/flashcards', async (c) => c.json(await listCards(c.env.DB, preview(c.env), c.get('user').id, cardFilters(c))));
+student.get('/flashcards/summary', async (c) => c.json(await cardSummary(c.env.DB, preview(c.env), c.get('user').id, assertDay(cardFilters(c).day))));
 student.get('/flashcards/topic/:nodeId', async (c) => c.json(await topicCards(c.env.DB, preview(c.env), c.get('user').id, c.req.param('nodeId'), assertDay(cardFilters(c).day))));
-student.get('/flashcards/queue', async (c) => c.json(await reviewQueue(c.env.DB, c.get('user').id, cardFilters(c))));
+student.get('/flashcards/queue', async (c) => c.json(await reviewQueue(c.env.DB, preview(c.env), c.get('user').id, cardFilters(c))));
 student.post('/flashcards/state', async (c) => {
   const body = (await c.req.json().catch(() => null)) as { keys?: unknown } | null;
   const keys = Array.isArray(body?.keys) ? body.keys.filter((k): k is string => typeof k === 'string') : [];
@@ -242,8 +242,18 @@ student.post('/flashcards', async (c) => {
   const r = await createCard(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, createCardSchema));
   return c.json(r, r.created ? 201 : 200);
 });
+// Revision cards from attempted practice questions: a card exists only after the student has answered and seen the result.
+student.post('/flashcards/questions', async (c) => {
+  const r = await createQuestionCard(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, createQuestionCardSchema));
+  return c.json(r, r.created ? 201 : 200);
+});
+student.post('/flashcards/questions/state', async (c) => {
+  const body = (await c.req.json().catch(() => null)) as { ids?: unknown } | null;
+  const ids = Array.isArray(body?.ids) ? body.ids.filter((k): k is string => typeof k === 'string') : [];
+  return c.json(await questionCardState(c.env.DB, c.get('user').id, ids));
+});
 student.post('/flashcards/import', async (c) => c.json(await importCards(c.env.DB, preview(c.env), c.get('user').id, await readJson(c, importCardsSchema))));
-student.post('/flashcards/:id/review', async (c) => c.json(await reviewCard(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, reviewSchema))));
+student.post('/flashcards/:id/review', async (c) => c.json(await reviewCard(c.env.DB, preview(c.env), c.get('user').id, c.req.param('id'), await readJson(c, reviewSchema))));
 // A card that has been revised is removed only with confirm=1, so review progress is never lost by a stray tap.
 student.delete('/flashcards/:id', async (c) => c.json(await deleteCard(c.env.DB, c.get('user').id, c.req.param('id'), c.req.query('confirm') === '1')));
 

@@ -1,3 +1,4 @@
+import { SaveForRevision } from '../revision';
 import { Annotatable } from '../annotate';
 import { ChartNoAxesColumn, CircleCheck, CircleMinus, CircleX } from 'lucide-react';
 import { useMemo, useState } from 'react';
@@ -141,7 +142,8 @@ export function ResultsPage() {
                   {ok ? 'Correct' : bad ? 'Wrong' : 'Not answered'}
                   <span className="num font-normal text-ink-3">({signed(rv.score)})</span>
                 </span>
-                <span className="ml-auto">
+                <span className="ml-auto flex items-center gap-3">
+                  {rv.outcome !== 'UNATTEMPTED' && <SaveForRevision questionId={q.id} compact />}
                   <BookmarkToggle on={bookmarks.marked.has(q.id)} onClick={() => void bookmarks.toggle(q.id)} compact />
                 </span>
               </div>

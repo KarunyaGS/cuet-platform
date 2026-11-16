@@ -138,7 +138,16 @@ export interface AnnotationEntry extends Annotation {
   resourceId: string | null; lesson: string | null; questionId: string | null; question: string | null;
 }
 export type CardRating = 'AGAIN' | 'HARD' | 'GOOD' | 'EASY';
+/** A question card's content, read from the question each time (the card itself stores none of it). */
+export interface QuestionCardView {
+  type: string; stem: string; difficulty: string; structure: unknown; passage: { title: string | null; body: string } | null;
+  options: { position: number; label: string; text: string | null; mediaAssetId: string | null }[];
+  correctOptionPositions: number[] | null; correctNumericAnswer: number | null; explanation: string | null; optionRationale: Record<string, string> | null;
+  yourAnswer: { selectedPositions: number[] | null; numericAnswer: number | null; outcome: string; answeredAt: string } | null;
+}
 export interface Flashcard {
+  /** CONCEPT: from a lesson. QUESTION: from an attempted practice question. */
+  kind: 'CONCEPT' | 'QUESTION'; questionId: string | null; question: QuestionCardView | null;
   id: string; conceptKey: string; resourceId: string; anchor: string; lesson: string; section: string | null; type: string;
   paperId: string | null; paper: string | null; chapterId: string | null; chapter: string | null; chapterPosition: number | null;
   topicId: string | null; topic: string | null; topicPosition: number | null; savedAt: string; status: 'NEW' | 'NEED_REVISION' | 'KNOW';
@@ -284,6 +293,9 @@ export const api = {
   cardQueue: (f: { paperId?: string | null; chapterId?: string | null; nodeId?: string | null; resourceId?: string | null } = {}) =>
     request<{ day: string; due: number; cards: Flashcard[] }>('GET', `/api/student/flashcards/queue?day=${localDay()}&limit=100${f.resourceId ? `&resourceId=${encodeURIComponent(f.resourceId)}` : ''}${f.paperId ? `&paperId=${encodeURIComponent(f.paperId)}` : ''}${f.chapterId ? `&chapterId=${encodeURIComponent(f.chapterId)}` : ''}${f.nodeId ? `&nodeId=${encodeURIComponent(f.nodeId)}` : ''}`),
   cardState: (keys: string[]) => request<{ conceptKey: string; id: string; reviewed: boolean }[]>('POST', '/api/student/flashcards/state', { keys }),
+  /** Saves an attempted practice question as a revision card. Refused (NOT_ATTEMPTED) until the student has answered it and seen the result. */
+  createQuestionCard: (questionId: string) => request<{ created: boolean; card: Flashcard }>('POST', '/api/student/flashcards/questions', { questionId, day: localDay() }),
+  questionCardState: (ids: string[]) => request<{ questionId: string; id: string; reviewed: boolean }[]>('POST', '/api/student/flashcards/questions/state', { ids }),
   createCard: (conceptKey: string) => request<{ created: boolean; card: Flashcard }>('POST', '/api/student/flashcards', { conceptKey, day: localDay() }),
   importCards: (from: { resourceId: string } | { nodeId: string }, types?: ConceptType[]) => request<CardImport>('POST', '/api/student/flashcards/import', { ...from, ...(types ? { types } : {}), day: localDay() }),
   /** `early`: marked from a list before the card's due day. */

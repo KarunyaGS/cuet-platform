@@ -8,13 +8,18 @@
  * Saving a concept (the bookmark icon under it in a lesson) makes its card; there is no separate bookmark record for a
  * concept. Unsaving removes the card. A card that has been revised is removed only after the student confirms.
  *
+ * A card can also be made from a practice question the student has attempted (see "question cards" below). It lives in the
+ * same table, so it shares the schedule, the review history and My bookmarks, but it holds no copy of the question: the
+ * question, its answer and its explanation are read from the question tables each time. A student has at most one card
+ * per question.
+ *
  * Scheduling is SM-2. Four ratings are accepted (AGAIN, HARD, GOOD, EASY); the screens currently offer two of them:
  * "Need revision" (AGAIN) and "Know" (GOOD). Days are calendar days in the student's own time zone, sent by the browser
  * and accepted only when within a day of the server's date. No AI calls.
  */
 import { z } from 'zod';
 import { ApiError, invalid, notFound } from '../lib/errors';
-import { newId } from '../lib/hash';
+import { newId, sha256Hex } from '../lib/hash';
 import { nowIso } from '../lib/sql';
 import { CONCEPT_KEY, CONCEPT_TYPES, conceptsOf, conceptsOfResources, resourceOfKey, type Concept, type RawBlock } from './concepts';
 import { VISIBLE_CONTENT } from './learning';
@@ -130,7 +135,7 @@ export async function findConcept(db: D1Database, preview: boolean, key: string)
 // ---------------------------------------------------------------- cards
 
 const CARD_SELECT = `
-  SELECT f.id, f.concept_key, f.resource_id, f.curriculum_node_id, f.chapter_node_id, f.test_paper_id, f.block_type, f.lesson_title, f.section,
+  SELECT f.id, f.question_id, f.concept_key, f.resource_id, f.curriculum_node_id, f.chapter_node_id, f.test_paper_id, f.block_type, f.lesson_title, f.section,
     f.front, f.back, f.latex, f.due_on, f.interval_days, f.ease, f.reps, f.lapses, f.last_rating, f.last_reviewed_at, f.created_at,
     tp.name AS paper, ch.title AS chapter, ch.position AS chapter_position, tn.title AS topic, tn.position AS topic_position
   FROM flashcards f LEFT JOIN test_papers tp ON tp.id = f.test_paper_id LEFT JOIN curriculum_nodes ch ON ch.id = f.chapter_node_id
@@ -139,6 +144,11 @@ const CARD_SELECT = `
 type CardRow = Record<string, string | number | null>;
 const cardOut = (r: CardRow, day: string) => ({
   id: r.id as string,
+  /** CONCEPT: made from a lesson. QUESTION: made from an attempted practice question (read live from the question). */
+  kind: (r.question_id ? 'QUESTION' : 'CONCEPT') as 'QUESTION' | 'CONCEPT',
+  questionId: (r.question_id as string | null) ?? null,
+  /** Question cards only: the question as it stands now, with the answer and the student's own previous response. */
+  question: null as QuestionCardView | null,
   conceptKey: r.concept_key as string,
   /** Where the card came from: the lesson, and the concept's place in it. */
   resourceId: r.resource_id as string,
@@ -171,6 +181,144 @@ const cardOut = (r: CardRow, day: string) => ({
   /** NEW (never reviewed), LEARNING or KNOWN (next review three weeks or more away). */
   stage: r.last_reviewed_at === null ? 'NEW' : Number(r.interval_days) >= MATURE_DAYS ? 'KNOWN' : 'LEARNING',
 });
+
+/** A card made from a question is shown only while its question is. Preview is a setting of the server, never user input. */
+export const questionVisible = (preview: boolean) => `(f.question_id IS NULL OR EXISTS (SELECT 1 FROM questions vq WHERE vq.id = f.question_id AND ${VISIBLE_CONTENT('vq').replace('?1', preview ? '1' : '0')}))`;
+
+// ---------------------------------------------------------------- question cards
+
+export interface QuestionCardView {
+  type: string;
+  stem: string;
+  difficulty: string;
+  structure: unknown;
+  passage: { title: string | null; body: string } | null;
+  options: { position: number; label: string; text: string | null; mediaAssetId: string | null }[];
+  correctOptionPositions: number[] | null;
+  correctNumericAnswer: number | null;
+  explanation: string | null;
+  optionRationale: Record<string, string> | null;
+  /** What the student answered the last time they attempted it. Null only if that attempt is no longer on record. */
+  yourAnswer: { selectedPositions: number[] | null; numericAnswer: number | null; outcome: string; answeredAt: string } | null;
+}
+
+/**
+ * The student's latest attempt at a question whose answer has already been shown to them: a plain practice answer (the key
+ * and explanation come back at once) or any answer in a session that has been submitted. An answer saved in a test that is
+ * still running does not count, because the key has not been shown yet, and a cleared answer is not an attempt.
+ */
+const REVEALED_ATTEMPT = `
+  FROM practice_answers pa JOIN practice_sessions s ON s.id = pa.session_id
+  WHERE s.user_id = ? AND (s.mode = 'PRACTICE' OR s.status != 'IN_PROGRESS')
+    AND ((pa.selected_positions_json IS NOT NULL AND pa.selected_positions_json NOT IN ('[]', 'null')) OR pa.numeric_answer IS NOT NULL)`;
+
+async function revealedAttempts(db: D1Database, userId: string, questionIds: string[]) {
+  const latest = new Map<string, { selectedPositions: number[] | null; numericAnswer: number | null; outcome: string; answeredAt: string }>();
+  for (let i = 0; i < questionIds.length; i += 80) {
+    const part = questionIds.slice(i, i + 80);
+    const { results } = await db
+      .prepare(`SELECT pa.question_id, pa.selected_positions_json, pa.numeric_answer, pa.outcome, pa.answered_at ${REVEALED_ATTEMPT} AND pa.question_id IN (${part.map(() => '?').join(',')}) ORDER BY pa.answered_at DESC`)
+      .bind(userId, ...part)
+      .all<{ question_id: string; selected_positions_json: string | null; numeric_answer: number | null; outcome: string; answered_at: string }>();
+    for (const r of results)
+      if (!latest.has(r.question_id)) latest.set(r.question_id, { selectedPositions: r.selected_positions_json ? (JSON.parse(r.selected_positions_json) as number[]) : null, numericAnswer: r.numeric_answer, outcome: r.outcome, answeredAt: r.answered_at });
+  }
+  return latest;
+}
+
+type Card = ReturnType<typeof cardOut>;
+
+/** Fills in each question card from the question tables. The card itself stores none of this. */
+async function withQuestions(db: D1Database, userId: string, cards: Card[]): Promise<Card[]> {
+  const ids = [...new Set(cards.map((c) => c.questionId).filter((x): x is string => Boolean(x)))];
+  if (!ids.length) return cards;
+  const views = new Map<string, QuestionCardView>();
+  const attempts = await revealedAttempts(db, userId, ids);
+  for (let i = 0; i < ids.length; i += 80) {
+    const part = ids.slice(i, i + 80);
+    const ph = part.map(() => '?').join(',');
+    const [qs, opts, keys] = await Promise.all([
+      db.prepare(`SELECT q.id, q.type, q.stem, q.difficulty, q.structure_json, p.title AS passage_title, p.body AS passage_body FROM questions q LEFT JOIN passages p ON p.id = q.passage_id WHERE q.id IN (${ph})`).bind(...part).all<Record<string, string | null>>(),
+      db.prepare(`SELECT question_id, position, label, text, media_asset_id FROM question_options WHERE question_id IN (${ph}) ORDER BY position`).bind(...part).all<{ question_id: string; position: number; label: string; text: string | null; media_asset_id: string | null }>(),
+      db.prepare(`SELECT a.question_id, a.correct_option_positions, a.numeric_answer, e.body AS explanation, e.option_rationale_json FROM answer_keys a LEFT JOIN explanations e ON e.question_id = a.question_id WHERE a.question_id IN (${ph})`).bind(...part).all<Record<string, string | number | null>>(),
+    ]);
+    for (const q of qs.results) {
+      const k = keys.results.find((x) => x['question_id'] === q['id']);
+      views.set(q['id']!, {
+        type: q['type']!, stem: q['stem']!, difficulty: q['difficulty']!, structure: q['structure_json'] ? JSON.parse(q['structure_json']) : null,
+        passage: q['passage_body'] ? { title: q['passage_title'] ?? null, body: q['passage_body'] } : null,
+        options: opts.results.filter((o) => o.question_id === q['id']).map((o) => ({ position: o.position, label: o.label, text: o.text, mediaAssetId: o.media_asset_id })),
+        correctOptionPositions: k?.['correct_option_positions'] ? (JSON.parse(String(k['correct_option_positions'])) as number[]) : null,
+        correctNumericAnswer: (k?.['numeric_answer'] as number | null | undefined) ?? null,
+        explanation: (k?.['explanation'] as string | null | undefined) ?? null,
+        optionRationale: k?.['option_rationale_json'] ? (JSON.parse(String(k['option_rationale_json'])) as Record<string, string>) : null,
+        yourAnswer: attempts.get(q['id']!) ?? null,
+      });
+    }
+  }
+  // The question text stands in for the card's front, so searching and listing work like any other card.
+  return cards.map((c) => {
+    const v = c.questionId ? (views.get(c.questionId) ?? null) : null;
+    return c.questionId ? { ...c, question: v, front: v?.stem ?? '' } : c;
+  });
+}
+
+export const createQuestionCardSchema = z.object({ questionId: z.string().min(1).max(100), day: daySchema });
+
+/**
+ * Makes a revision card from a question the student has attempted. The answer is never given out by this route before
+ * the student has seen it: with no revealed attempt on record it refuses. Asking again returns the card that exists.
+ */
+export async function createQuestionCard(db: D1Database, preview: boolean, userId: string, input: z.infer<typeof createQuestionCardSchema>) {
+  const day = assertDay(input.day);
+  const have = async () => {
+    const r = await db.prepare(`${CARD_SELECT} WHERE f.user_id = ? AND f.question_id = ?`).bind(userId, input.questionId).first<CardRow>();
+    return r ? (await withQuestions(db, userId, [cardOut(r, day)]))[0]! : null;
+  };
+  const existing = await have();
+  if (existing) return { created: false, card: existing };
+  const q = await db
+    .prepare(`SELECT q.id, q.test_paper_id FROM questions q WHERE q.id = ?2 AND ${VISIBLE_CONTENT('q')}`)
+    .bind(preview ? 1 : 0, input.questionId)
+    .first<{ id: string; test_paper_id: string | null }>();
+  if (!q) throw new ApiError(404, 'QUESTION_NOT_FOUND', 'This question is not available.');
+  if (!(await revealedAttempts(db, userId, [q.id])).has(q.id))
+    throw new ApiError(409, 'NOT_ATTEMPTED', 'Answer this question first. A revision card can be made once you have answered it and seen the result.');
+  const topic = await db.prepare('SELECT curriculum_node_id AS id FROM question_topics WHERE question_id = ? ORDER BY is_primary DESC, curriculum_node_id LIMIT 1').bind(q.id).first<{ id: string }>();
+  const nodeId = topic?.id ?? null;
+  const paperId =
+    q.test_paper_id ??
+    (nodeId ? ((await db.prepare('SELECT v.test_paper_id AS id FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id WHERE n.id = ?').bind(nodeId).first<{ id: string }>())?.id ?? null) : null);
+  const chapterId = await chapterOf(db, nodeId);
+  const now = nowIso();
+  // concept_key must be unique per student too, so it carries a hash of the question id. The text columns stay empty: nothing is copied.
+  const key = `question.${(await sha256Hex(q.id)).slice(0, 16)}`;
+  const res = await db
+    .prepare(
+      `INSERT INTO flashcards (id, user_id, question_id, concept_key, resource_id, curriculum_node_id, chapter_node_id, test_paper_id, block_type, lesson_title, section, front, back, latex,
+         due_on, interval_days, ease, reps, lapses, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'QUESTION', 'Practice question', NULL, '', '', NULL, ?, 0, 2.5, 0, 0, ?, ?)
+       ON CONFLICT DO NOTHING`,
+    )
+    .bind(newId('fc'), userId, q.id, key, q.id, nodeId, chapterId, paperId, day, now, now)
+    .run();
+  return { created: (res.meta.changes ?? 0) > 0, card: (await have())! };
+}
+
+/** Which of these questions the student has saved as cards: the card's id, and whether it has been revised. */
+export async function questionCardState(db: D1Database, userId: string, ids: string[]) {
+  const out: { questionId: string; id: string; reviewed: boolean }[] = [];
+  const clean = [...new Set(ids.filter((x) => typeof x === 'string' && x.length > 0 && x.length <= 100))].slice(0, 200);
+  for (let i = 0; i < clean.length; i += 80) {
+    const part = clean.slice(i, i + 80);
+    const { results } = await db
+      .prepare(`SELECT question_id, id, last_reviewed_at FROM flashcards WHERE user_id = ? AND question_id IN (${part.map(() => '?').join(',')})`)
+      .bind(userId, ...part)
+      .all<{ question_id: string; id: string; last_reviewed_at: string | null }>();
+    out.push(...results.map((r) => ({ questionId: r.question_id, id: r.id, reviewed: r.last_reviewed_at !== null })));
+  }
+  return out;
+}
 
 function insertCard(db: D1Database, userId: string, lesson: LessonRow, chapterId: string | null, c: Concept, day: string, now: string): D1PreparedStatement {
   return db
@@ -272,39 +420,40 @@ function filters(q: { paperId?: string; chapterId?: string; nodeId?: string; res
 }
 
 /** A student's cards, soonest due first. */
-export async function listCards(db: D1Database, userId: string, q: z.infer<typeof cardQuery>) {
+export async function listCards(db: D1Database, preview: boolean, userId: string, q: z.infer<typeof cardQuery>) {
   const binds: unknown[] = [userId];
   let where = filters(q, binds);
   if (q.due) {
     where += ' AND f.due_on <= ?';
     binds.push(q.day);
   }
-  const { results } = await db.prepare(`${CARD_SELECT} WHERE f.user_id = ? ${where} ORDER BY f.due_on, f.created_at, f.id LIMIT ${q.limit ?? 200}`).bind(...binds).all<CardRow>();
-  return results.map((r) => cardOut(r, q.day));
+  const { results } = await db.prepare(`${CARD_SELECT} WHERE f.user_id = ? AND ${questionVisible(preview)} ${where} ORDER BY f.due_on, f.created_at, f.id LIMIT ${q.limit ?? 200}`).bind(...binds).all<CardRow>();
+  return withQuestions(db, userId, results.map((r) => cardOut(r, q.day)));
 }
 
 /** Today's revision queue: every card due on or before the student's day, the ones last marked "Need revision" first. */
-export async function reviewQueue(db: D1Database, userId: string, q: z.infer<typeof cardQuery>) {
+export async function reviewQueue(db: D1Database, preview: boolean, userId: string, q: z.infer<typeof cardQuery>) {
   const day = assertDay(q.day);
   const binds: unknown[] = [userId, day];
   const where = filters(q, binds);
   const limit = q.limit ?? 50;
+  const visible = questionVisible(preview);
   const [rows, count] = await Promise.all([
-    db.prepare(`${CARD_SELECT} WHERE f.user_id = ? AND f.due_on <= ? ${where} ORDER BY (f.last_rating = 'AGAIN') DESC, f.due_on, f.created_at, f.id LIMIT ${limit}`).bind(...binds).all<CardRow>(),
-    db.prepare(`SELECT COUNT(*) AS n FROM flashcards f WHERE f.user_id = ? AND f.due_on <= ? ${where}`).bind(...binds).first<{ n: number }>(),
+    db.prepare(`${CARD_SELECT} WHERE f.user_id = ? AND f.due_on <= ? AND ${visible} ${where} ORDER BY (f.last_rating = 'AGAIN') DESC, f.due_on, f.created_at, f.id LIMIT ${limit}`).bind(...binds).all<CardRow>(),
+    db.prepare(`SELECT COUNT(*) AS n FROM flashcards f WHERE f.user_id = ? AND f.due_on <= ? AND ${visible} ${where}`).bind(...binds).first<{ n: number }>(),
   ]);
-  return { day, due: count?.n ?? 0, cards: rows.results.map((r) => cardOut(r, day)) };
+  return { day, due: count?.n ?? 0, cards: await withQuestions(db, userId, rows.results.map((r) => cardOut(r, day))) };
 }
 
 /** Counts for My Flashcards and the dashboard: totals, and cards by subject and chapter. */
-export async function cardSummary(db: D1Database, userId: string, day: string) {
+export async function cardSummary(db: D1Database, preview: boolean, userId: string, day: string) {
   const [groups, today] = await Promise.all([
     db
       .prepare(
         `SELECT f.test_paper_id AS paper_id, tp.name AS paper, f.chapter_node_id AS chapter_id, ch.title AS chapter, ch.position AS chapter_position,
            COUNT(*) AS total, SUM(f.due_on <= ?2) AS due, SUM(f.last_reviewed_at IS NULL) AS fresh, SUM(f.interval_days >= ${MATURE_DAYS}) AS known
          FROM flashcards f LEFT JOIN test_papers tp ON tp.id = f.test_paper_id LEFT JOIN curriculum_nodes ch ON ch.id = f.chapter_node_id
-         WHERE f.user_id = ?1 GROUP BY f.test_paper_id, f.chapter_node_id ORDER BY tp.name, ch.position, ch.title`,
+         WHERE f.user_id = ?1 AND ${questionVisible(preview)} GROUP BY f.test_paper_id, f.chapter_node_id ORDER BY tp.name, ch.position, ch.title`,
       )
       .bind(userId, day)
       .all<Record<string, string | number | null>>(),
@@ -341,7 +490,7 @@ export async function topicCards(db: D1Database, preview: boolean, userId: strin
       .bind(preview ? 1 : 0, nodeId)
       .all<{ id: string }>(),
     db
-      .prepare(`SELECT COUNT(*) AS cards, COALESCE(SUM(f.due_on <= ?2), 0) AS due FROM flashcards f WHERE f.user_id = ?1 AND f.curriculum_node_id IN ${SUBTREE.replace('?', '?3')}`)
+      .prepare(`SELECT COUNT(*) AS cards, COALESCE(SUM(f.due_on <= ?2), 0) AS due FROM flashcards f WHERE f.user_id = ?1 AND f.question_id IS NULL AND f.curriculum_node_id IN ${SUBTREE.replace('?', '?3')}`)
       .bind(userId, day, nodeId)
       .first<{ cards: number; due: number }>(),
   ]);
@@ -367,7 +516,7 @@ export async function cardState(db: D1Database, userId: string, keys: string[]) 
 }
 
 /** Records one answer and moves the card to its next due day. A card that is not due is refused (so a double tap cannot count twice) unless it is marked `early`. */
-export async function reviewCard(db: D1Database, userId: string, id: string, input: z.infer<typeof reviewSchema>) {
+export async function reviewCard(db: D1Database, _preview: boolean, userId: string, id: string, input: z.infer<typeof reviewSchema>) {
   const day = assertDay(input.day);
   const cur = await db
     .prepare('SELECT id, due_on, interval_days, ease, reps, lapses FROM flashcards WHERE id = ? AND user_id = ?')
@@ -395,7 +544,7 @@ export async function reviewCard(db: D1Database, userId: string, id: string, inp
     .bind(newId('fcr'), id, userId, input.rating, day, cur.interval_days, next.intervalDays, next.ease, now)
     .run();
   const r = await db.prepare(`${CARD_SELECT} WHERE f.id = ? AND f.user_id = ?`).bind(id, userId).first<CardRow>();
-  return cardOut(r!, day);
+  return (await withQuestions(db, userId, [cardOut(r!, day)]))[0]!;
 }
 
 /**

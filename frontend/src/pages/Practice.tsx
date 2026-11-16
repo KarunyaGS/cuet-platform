@@ -6,6 +6,7 @@ import { api, type Feedback, type PracticeSession, type SessionQuestion } from '
 import { QuestionStem } from '../question';
 import { Rich } from '../rich';
 import { BookmarkButton } from '../tools';
+import { SaveForRevision } from '../revision';
 import { Badge, Button, ErrorBox, Loading, useLoad } from '../ui';
 
 function useCountdown(deadline: string | null) {
@@ -294,6 +295,11 @@ export function PracticePage() {
                 {fb.explanation && (
                   <div data-annot-block="explanation">
                     <Rich text={fb.explanation} className="mt-2 text-[15px] leading-relaxed text-ink" />
+                  </div>
+                )}
+                {fb.outcome !== 'UNATTEMPTED' && (
+                  <div className="mt-3">
+                    <SaveForRevision questionId={q.id} compact />
                   </div>
                 )}
               </div>

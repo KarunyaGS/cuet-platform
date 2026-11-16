@@ -682,6 +682,7 @@ model Question {
   media              QuestionMedia[]
   practiceAnswers    PracticeAnswer[]
   bulkApprovals      BulkApprovalItem[]
+  flashcards         Flashcard[]
 
   @@index([status, type])
   @@index([testPaperId])
@@ -1148,10 +1149,15 @@ model Flashcard {
   lastReviewedAt   DateTime?         @map("last_reviewed_at")
   createdAt        DateTime          @default(now()) @map("created_at")
   updatedAt        DateTime          @updatedAt @map("updated_at")
+  /// Set on a card made from an attempted practice question. The card holds no copy of the question: it is read from the question each time.
+  questionId       String?           @map("question_id")
+  question         Question?         @relation(fields: [questionId], references: [id], onDelete: Cascade)
   user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   reviews          FlashcardReview[]
 
+  @@unique([userId, questionId])
   @@unique([userId, conceptKey])
+  @@index([questionId])
   @@index([userId, dueOn])
   @@index([userId, testPaperId, chapterNodeId])
   @@map("flashcards")

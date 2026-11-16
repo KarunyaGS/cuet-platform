@@ -7,6 +7,7 @@ import { ApiError, invalid, notFound } from '../lib/errors';
 import { newId } from '../lib/hash';
 import { nowIso } from '../lib/sql';
 import { conceptsOfResources } from './concepts';
+import { questionVisible } from './flashcards';
 import { VISIBLE_CONTENT, VISIBLE_SYLLABUS } from './learning';
 import { createSession, progress } from './practice';
 
@@ -188,7 +189,7 @@ export async function deletePlanItem(db: D1Database, userId: string, id: string)
 
 export const dashboardQuery = z.object({ day: daySchema, since: z.iso.datetime() });
 
-export async function dashboard(db: D1Database, userId: string, q: z.infer<typeof dashboardQuery>) {
+export async function dashboard(db: D1Database, preview: boolean, userId: string, q: z.infer<typeof dashboardQuery>) {
   const [continueRows, inProgress, answeredToday, lessonsToday, goal, plan, prog, bookmarks, cards] = await Promise.all([
     db
       .prepare(
@@ -210,7 +211,7 @@ export async function dashboard(db: D1Database, userId: string, q: z.infer<typeo
     progress(db, userId),
     db.prepare(`SELECT COUNT(*) AS n FROM bookmarks WHERE user_id = ? AND kind IN (${KIND_SQL})`).bind(userId).first<{ n: number }>(),
     db
-      .prepare('SELECT COUNT(*) AS total, COALESCE(SUM(due_on <= ?2), 0) AS due FROM flashcards WHERE user_id = ?1')
+      .prepare(`SELECT COUNT(*) AS total, COALESCE(SUM(f.due_on <= ?2), 0) AS due FROM flashcards f WHERE f.user_id = ?1 AND ${questionVisible(preview)}`)
       .bind(userId, q.day)
       .first<{ total: number; due: number }>(),
   ]);

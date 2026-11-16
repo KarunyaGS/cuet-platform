@@ -3,17 +3,20 @@
  * or a topic. One card per saved definition, formula, key point or fact. The same card everywhere, so marking it in one
  * place shows in the others.
  */
-import { BookOpen, Bookmark, ChevronDown, ChevronRight, RotateCcw, Trash2 } from 'lucide-react';
+import { BookOpen, Bookmark, Check, ChevronDown, ChevronRight, CircleCheck, CircleX, RotateCcw, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { api, type CardRating, type Flashcard } from './api';
+import { QuestionStem } from './question';
 import { DisplayMath, Rich } from './rich';
 import { Badge, buttonClass, useAuth } from './ui';
 
-export const CARD_TYPE: Record<string, string> = { DEFINITION: 'Definition', FORMULA: 'Formula', KEY_POINT: 'Key point', IMPORTANT_FACT: 'Fact', CONCEPT: 'Concept' };
+export const CARD_TYPE: Record<string, string> = { QUESTION: 'Question', DEFINITION: 'Definition', FORMULA: 'Formula', KEY_POINT: 'Key point', IMPORTANT_FACT: 'Fact', CONCEPT: 'Concept' };
 const dayLabel = (day: string) => new Date(`${day}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
 export const savedLabel = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
-export const sourceLink = (c: Flashcard) => `/learn/${c.resourceId}#${c.anchor}`;
+export const sourceLink = (c: Flashcard) => (c.kind === 'QUESTION' ? (c.topicId ? `/topic/${c.topicId}` : '/') : `/learn/${c.resourceId}#${c.anchor}`);
+/** The link under a card: a lesson card goes back to its lesson, a question card to its topic. */
+export const sourceLabel = (c: Flashcard, here: boolean, grouped: boolean) => (c.kind === 'QUESTION' ? 'Open the topic' : here ? 'Go to it in this lesson' : grouped ? 'Open in lesson' : `Open in lesson: ${c.lesson}`);
 /** What a card asks: for a formula, its name; otherwise the term or the point itself. */
 export const cardTitle = (c: Flashcard) => (c.type === 'FORMULA' && c.section && c.front !== `Formula: ${c.section}` ? c.section : c.front);
 
@@ -65,7 +68,7 @@ export function CardRow({ card: c, onChange, here = false, grouped = false }: { 
     <li className="px-4 py-3" data-card-row={c.id} data-status={c.status}>
       <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
         <div className="min-w-[12rem] flex-1">
-          <div className="text-[15px] leading-snug text-ink">
+          <div className={`text-[15px] leading-snug text-ink ${c.kind === 'QUESTION' ? 'line-clamp-3' : ''}`}>
             <Rich text={title} inline />
           </div>
           {title !== c.front && (
@@ -88,10 +91,14 @@ export function CardRow({ card: c, onChange, here = false, grouped = false }: { 
 
       {open && (
         <div className="mt-3 rounded-lg bg-paper p-4" data-card-back>
-          <div className="text-[15px] leading-relaxed text-ink">
-            {c.latex && <DisplayMath tex={c.latex} />}
-            {c.back && <Rich text={c.back} />}
-          </div>
+          {c.kind === 'QUESTION' && c.question ? (
+            <QuestionBack card={c} />
+          ) : (
+            <div className="text-[15px] leading-relaxed text-ink">
+              {c.latex && <DisplayMath tex={c.latex} />}
+              {c.back && <Rich text={c.back} />}
+            </div>
+          )}
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <button type="button" disabled={busy} onClick={() => mark('AGAIN')} className="h-9 rounded-lg bg-wrong-soft px-3 text-sm font-semibold text-wrong ring-1 ring-inset ring-wrong/30 hover:bg-wrong/15 disabled:opacity-60">
               Need revision
@@ -106,7 +113,7 @@ export function CardRow({ card: c, onChange, here = false, grouped = false }: { 
       <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[13px]">
         <Link to={sourceLink(c)} className="inline-flex min-w-0 items-center gap-1 font-medium text-accent hover:underline" data-source>
           <BookOpen aria-hidden className="size-3.5 shrink-0" />
-          <span className="truncate">{here ? 'Go to it in this lesson' : grouped ? 'Open in lesson' : `Open in lesson: ${c.lesson}`}</span>
+          <span className="truncate">{sourceLabel(c, here, grouped)}</span>
         </Link>
         {msg && (
           <span role="status" className={msg.bad ? 'text-wrong' : 'text-ink-2'}>
@@ -213,5 +220,136 @@ export function SavedForRevision({ scope, version = 0, startOpen = false }: { sc
         )
       )}
     </section>
+  );
+}
+
+// ---------------------------------------------------------------- cards made from practice questions
+
+const answerLabel = (c: Flashcard, positions: number[] | null | undefined) => (c.question!.options.filter((o) => positions?.includes(o.position)).map((o) => o.label).join(', ') || 'none');
+
+/** The front of a question card: the question and its four options, with nothing given away. */
+export function QuestionFront({ card: c }: { card: Flashcard }) {
+  const q = c.question!;
+  return (
+    <div data-question-front className="text-left">
+      {q.passage && (
+        <div className="mb-3 max-h-40 overflow-y-auto rounded-lg border border-rule bg-paper p-3 font-serif text-sm leading-relaxed text-ink">
+          {q.passage.title && <div className="mb-1 font-sans font-semibold">{q.passage.title}</div>}
+          {q.passage.body}
+        </div>
+      )}
+      <QuestionStem stem={q.stem} structure={q.structure} compact />
+      <ul className="mt-3 space-y-1.5">
+        {q.options.map((o) => (
+          <li key={o.position} className="flex items-start gap-2 rounded-lg border border-rule px-3 py-2 text-sm text-ink">
+            <span className="font-semibold">{o.label}.</span>
+            <span className="min-w-0 flex-1">
+              <Rich text={o.text ?? ''} inline />
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/** The back of a question card: the correct answer, the explanation, and what the student answered last time. */
+export function QuestionBack({ card: c }: { card: Flashcard }) {
+  const q = c.question!;
+  const mine = q.yourAnswer;
+  return (
+    <div data-question-back className="text-left text-[15px] text-ink">
+      <QuestionStem stem={q.stem} structure={q.structure} compact />
+      <ul className="mt-3 space-y-1.5">
+        {q.options.map((o) => {
+          const right = q.correctOptionPositions?.includes(o.position);
+          const chosen = mine?.selectedPositions?.includes(o.position);
+          return (
+            <li key={o.position} className={`flex items-start gap-2 rounded-lg border px-3 py-2 text-sm ${right ? 'border-correct/40 bg-correct-soft' : chosen ? 'border-wrong/40 bg-wrong-soft' : 'border-rule text-ink-2'}`}>
+              <span className="font-semibold">{o.label}.</span>
+              <span className="min-w-0 flex-1">
+                <Rich text={o.text ?? ''} inline />
+              </span>
+              {right && <span className="inline-flex shrink-0 items-center gap-1 text-xs font-medium text-correct"><CircleCheck aria-hidden className="size-4" />Answer</span>}
+              {chosen && !right && <span className="inline-flex shrink-0 items-center gap-1 text-xs font-medium text-wrong"><CircleX aria-hidden className="size-4" />Your answer</span>}
+            </li>
+          );
+        })}
+      </ul>
+      <p className="mt-3 text-sm text-ink-2" data-your-answer>
+        <span className="font-medium text-ink">Correct answer: </span>
+        {answerLabel(c, q.correctOptionPositions)}
+        {mine && (
+          <>
+            <span className="mx-1.5 text-ink-3">·</span>
+            <span className="font-medium text-ink">Your answer last time: </span>
+            {answerLabel(c, mine.selectedPositions)}
+            <span className={mine.outcome === 'CORRECT' ? ' text-correct' : ' text-wrong'}> ({mine.outcome === 'CORRECT' ? 'correct' : 'not correct'})</span>
+          </>
+        )}
+      </p>
+      {q.explanation && (
+        <div className="mt-3 border-l-2 border-accent pl-3">
+          <div className="text-[13px] font-semibold text-ink-2">Explanation</div>
+          <Rich text={q.explanation} className="mt-0.5 text-sm leading-relaxed text-ink" />
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * "Save for revision" under an answered practice question. It makes a revision card in My bookmarks. It is offered only after
+ * the answer has been given and its result shown, and the server refuses it otherwise.
+ */
+export function SaveForRevision({ questionId, compact = false }: { questionId: string; compact?: boolean }) {
+  const { user } = useAuth();
+  const [state, setState] = useState<'unknown' | 'idle' | 'busy' | 'saved'>('unknown');
+  const [msg, setMsg] = useState<string | null>(null);
+  useEffect(() => {
+    if (!user) return;
+    let live = true;
+    api.questionCardState([questionId]).then(
+      (r) => live && setState(r.length ? 'saved' : 'idle'),
+      () => live && setState('idle'),
+    );
+    return () => {
+      live = false;
+    };
+  }, [user, questionId]);
+  if (!user || state === 'unknown') return null;
+  const save = async () => {
+    setState('busy');
+    setMsg(null);
+    try {
+      await api.createQuestionCard(questionId);
+      setState('saved');
+    } catch (e) {
+      setState('idle');
+      setMsg((e as { code?: string }).code === 'NOT_ATTEMPTED' ? 'Answer the question first, then you can save it.' : 'That did not work. Try again.');
+    }
+  };
+  return (
+    <span className="inline-flex flex-wrap items-center gap-2" data-save-for-revision={state}>
+      {state === 'saved' ? (
+        <span className="inline-flex items-center gap-1.5 text-sm text-correct" role="status">
+          <Check aria-hidden className="size-4" />
+          Saved for revision
+          <Link to="/bookmarks" className="font-medium text-accent hover:underline">
+            See it in My bookmarks
+          </Link>
+        </span>
+      ) : (
+        <button type="button" onClick={save} disabled={state === 'busy'} className={buttonClass('secondary', compact ? 'sm' : 'md')}>
+          <Bookmark aria-hidden />
+          Save for revision
+        </button>
+      )}
+      {msg && (
+        <span role="status" className="text-sm text-wrong">
+          {msg}
+        </span>
+      )}
+    </span>
   );
 }

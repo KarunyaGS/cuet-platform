@@ -24,7 +24,7 @@ function target(b: Bookmark) {
 type Tab = 'CARDS' | 'NOTES' | 'PAGES' | 'RECENT';
 type Show = 'ALL' | 'NEED' | 'DUE';
 
-interface Lesson { id: string; title: string; cards: Flashcard[] }
+interface Lesson { id: string; title: string; practice?: boolean; cards: Flashcard[] }
 interface Topic { id: string; title: string; position: number; lessons: Lesson[] }
 interface Chapter { id: string; title: string; position: number; total: number; topics: Topic[] }
 interface Subject { id: string; title: string; total: number; chapters: Chapter[] }
@@ -42,8 +42,10 @@ function tree(cards: Flashcard[]): Subject[] {
     const tid = c.topicId ?? cid;
     let t = ch.topics.find((x) => x.id === tid);
     if (!t) ch.topics.push((t = { id: tid, title: c.topic ?? ch.title, position: c.topicPosition ?? 9999, lessons: [] }));
-    let l = t.lessons.find((x) => x.id === c.resourceId);
-    if (!l) t.lessons.push((l = { id: c.resourceId, title: c.lesson, cards: [] }));
+    // Cards made from practice questions sit under their topic, in a group of their own beside its lessons.
+    const lid = c.kind === 'QUESTION' ? 'practice-questions' : c.resourceId;
+    let l = t.lessons.find((x) => x.id === lid);
+    if (!l) t.lessons.push((l = { id: lid, title: c.kind === 'QUESTION' ? 'Practice questions' : c.lesson, practice: c.kind === 'QUESTION', cards: [] }));
     l.cards.push(c);
     s.total++;
     ch.total++;
@@ -141,7 +143,7 @@ export function BookmarksPage() {
     <div>
       <PageHeader
         title="My bookmarks"
-        subtitle="Everything you saved, in one place: revision cards from saved definitions, formulas and key points, and your own highlights and notes."
+        subtitle="Everything you saved, in one place: revision cards from saved definitions, formulas, key points and practice questions, and your own highlights and notes."
         actions={
           due > 0 ? (
             <Link to={`/bookmarks/review${reviewQuery}`} className={buttonClass('primary')} data-review>
@@ -176,7 +178,7 @@ export function BookmarksPage() {
               </span>
             }
           >
-            {nodeId ? 'You have not saved anything from this topic yet.' : 'Nothing saved yet.'} Open a lesson and tap the bookmark icon under a definition, a formula or a key point. It appears here as a revision card.
+            {nodeId ? 'You have not saved anything from this topic yet.' : 'Nothing saved yet.'} Open a lesson and tap the bookmark icon under a definition, a formula or a key point, or answer a practice question and choose Save for revision. It appears here as a revision card.
           </Empty>
         ) : (
           <>
@@ -263,9 +265,13 @@ export function BookmarksPage() {
                                               <span aria-hidden>›</span>
                                             </>
                                           )}
-                                          <Link to={`/learn/${l.id}`} className="font-medium text-ink-2 hover:text-accent">
-                                            {l.title}
-                                          </Link>
+                                          {l.practice ? (
+                                            <span className="font-medium text-ink-2">{l.title}</span>
+                                          ) : (
+                                            <Link to={`/learn/${l.id}`} className="font-medium text-ink-2 hover:text-accent">
+                                              {l.title}
+                                            </Link>
+                                          )}
                                         </p>
                                         <ul className="divide-y divide-rule sm:pl-8">
                                           {l.cards.map((c) => (

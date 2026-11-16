@@ -62,6 +62,17 @@ function openDb() {
   }
   throw new Error('Could not find the copied D1 database');
 }
+/** A writable handle on the throwaway copy only (never the working database), to simulate what a script or an editor might do. */
+function openWritableDb() {
+  const dir = join(state, 'v3', 'd1', 'miniflare-D1DatabaseObject');
+  const files = readdirSync(dir).filter((f) => f.endsWith('.sqlite') && f !== 'metadata.sqlite').sort((a, b) => statSync(join(dir, b)).mtimeMs - statSync(join(dir, a)).mtimeMs);
+  for (const f of files) {
+    const w = new DatabaseSync(join(dir, f));
+    if (w.prepare("SELECT 1 FROM sqlite_master WHERE name = 'email_messages'").get()) return w;
+    w.close();
+  }
+  throw new Error('Could not find the copied D1 database');
+}
 let db;
 const one = (sql, ...p) => db.prepare(sql).get(...p);
 const all = (sql, ...p) => db.prepare(sql).all(...p);
@@ -488,6 +499,60 @@ async function run() {
   check('after the lesson is saved again (every block row gets a new id), every concept key is unchanged', fcSaved.status === 200 && all('SELECT id FROM content_blocks WHERE resource_id = ?', lessonRow.id).every((r) => !rowIdsBefore.includes(r.id)) && fcAfter.map((b) => b.conceptKey).join() === fcConcepts.map((b) => b.conceptKey).join());
   const fcSearch = await call('GET', `/api/learn/search?q=${encodeURIComponent(fcMade.json.card.front.replace(/[^A-Za-z ]/g, ' ').trim().split(/\s+/).filter((w) => w.length > 3).slice(0, 2).join(' '))}`);
   check('search finds single concepts inside lessons', Array.isArray(fcSearch.json?.concepts) && fcSearch.json.concepts.length > 0 && fcSearch.json.concepts.every((c) => c.resourceId && c.anchor));
+
+  // ------------------------------------------------------------ four options and revision cards made from attempted questions
+  group = 'Four options and question cards';
+  check('every choice question in the bank has exactly four options labelled A to D', n("SELECT COUNT(*) FROM questions q WHERE q.type != 'NUMERICAL' AND ((SELECT COUNT(*) FROM question_options o WHERE o.question_id = q.id) != 4 OR (SELECT GROUP_CONCAT(o.label, '') FROM (SELECT label FROM question_options WHERE question_id = q.id ORDER BY position) o) != 'ABCD')") === 0, `${n('SELECT COUNT(*) FROM questions')} questions`);
+  check('every question has one answer key naming an existing option, and an explanation', n("SELECT COUNT(*) FROM questions q WHERE q.origin = 'AI_ASSISTED' AND q.type != 'NUMERICAL' AND (NOT EXISTS (SELECT 1 FROM answer_keys a WHERE a.question_id = q.id AND json_array_length(a.correct_option_positions) = 1 AND json_extract(a.correct_option_positions, '$[0]') BETWEEN 1 AND 4) OR NOT EXISTS (SELECT 1 FROM explanations e WHERE e.question_id = q.id AND length(e.body) >= 40))") === 0);
+  let guardMessage = '';
+  const wdb = openWritableDb();
+  try {
+    wdb.prepare("INSERT INTO question_options (id, question_id, position, label, text, created_at, updated_at) SELECT 'opt_trace_fifth', id, 5, 'E', 'x', datetime('now'), datetime('now') FROM questions LIMIT 1").run();
+  } catch (e) {
+    guardMessage = String(e.message);
+  }
+  check('the database itself refuses a fifth option', /four options/.test(guardMessage) && n("SELECT COUNT(*) FROM question_options WHERE id = 'opt_trace_fifth'") === 0, guardMessage.slice(0, 80));
+  const qcSubjects = (await call('GET', '/api/learn/exams/CUET_UG/subjects?year=2026')).json;
+  const qcPaper = qcSubjects.find((x) => x.name === 'Physics')?.paperId;
+  const qcStudent = await account('qcards');
+  const qcDay = localDay();
+  const qcSession = await call('POST', '/api/student/practice', { token: qcStudent.token, body: { mode: 'PRACTICE', paperId: qcPaper, count: 5 } });
+  const qcQs = qcSession.json?.questions ?? [];
+  check('a practice session serves only four-option questions', qcSession.status === 201 && qcQs.length === 5 && qcQs.every((q) => q.options.length === 4 && q.options.map((o) => o.label).join('') === 'ABCD'));
+  const qcFifth = await call('POST', `/api/student/practice/${qcSession.json.session.id}/answers`, { token: qcStudent.token, body: { questionId: qcQs[0].id, selectedPositions: [5] } });
+  check('an answer naming a fifth option is refused and nothing is saved', qcFifth.status >= 400 && qcFifth.status < 500 && n('SELECT COUNT(*) FROM practice_answers WHERE session_id = ?', qcSession.json.session.id) === 0);
+  const qcEarly = await call('POST', '/api/student/flashcards/questions', { token: qcStudent.token, body: { questionId: qcQs[0].id, day: qcDay } });
+  check('a revision card cannot be made before the question is attempted, and the refusal gives nothing away', qcEarly.status === 409 && qcEarly.json.error.code === 'NOT_ATTEMPTED' && !/explanation|correctOption/i.test(JSON.stringify(qcEarly.json)) && n('SELECT COUNT(*) FROM flashcards WHERE user_id = ?', qcStudent.id) === 0);
+  const qcAnswer = await call('POST', `/api/student/practice/${qcSession.json.session.id}/answers`, { token: qcStudent.token, body: { questionId: qcQs[0].id, selectedPositions: wrongFor(qcQs[0]) } });
+  const qcMade = await call('POST', '/api/student/flashcards/questions', { token: qcStudent.token, body: { questionId: qcQs[0].id, day: qcDay } });
+  const qcTwice = await call('POST', '/api/student/flashcards/questions', { token: qcStudent.token, body: { questionId: qcQs[0].id, day: qcDay } });
+  check('after answering, one card is made; asking again returns the same card and makes no second', qcAnswer.status === 200 && qcMade.status === 201 && qcTwice.status === 200 && qcTwice.json.card.id === qcMade.json.card.id && n('SELECT COUNT(*) FROM flashcards WHERE user_id = ? AND question_id = ?', qcStudent.id, qcQs[0].id) === 1);
+  const qcRow = one('SELECT front, back, latex, block_type AS t FROM flashcards WHERE id = ?', qcMade.json.card.id);
+  check('the card stores no copy of the question; its front and back are read from the question', qcRow.front === '' && qcRow.back === '' && qcRow.latex === null && qcRow.t === 'QUESTION' && qcMade.json.card.front === qcQs[0].stem && qcMade.json.card.question.options.length === 4);
+  check('the back gives the correct answer, the explanation and what the student answered', JSON.stringify(qcMade.json.card.question.correctOptionPositions) === JSON.stringify(keyOf(qcQs[0].id)) && qcMade.json.card.question.explanation === one('SELECT body FROM explanations WHERE question_id = ?', qcQs[0].id).body && JSON.stringify(qcMade.json.card.question.yourAnswer.selectedPositions) === JSON.stringify(wrongFor(qcQs[0])) && qcMade.json.card.question.yourAnswer.outcome === 'INCORRECT');
+  const qcQueue = await call('GET', `/api/student/flashcards/queue?day=${qcDay}&limit=50`, { token: qcStudent.token });
+  const qcDue = n('SELECT COUNT(*) FROM flashcards WHERE user_id = ? AND due_on <= ?', qcStudent.id, qcDay);
+  check('question cards join the same revision queue, and the queue and the database agree', qcQueue.json.due === qcDue && qcQueue.json.cards.every((c) => c.kind === 'QUESTION' && c.question));
+  const qcKnow = await call('POST', `/api/student/flashcards/${qcMade.json.card.id}/review`, { token: qcStudent.token, body: { rating: 'GOOD', day: qcDay } });
+  const qcRepeat = await call('POST', `/api/student/flashcards/${qcMade.json.card.id}/review`, { token: qcStudent.token, body: { rating: 'GOOD', day: qcDay } });
+  const qcSched = one('SELECT due_on AS due, interval_days AS i, reps FROM flashcards WHERE id = ?', qcMade.json.card.id);
+  check('"Know" moves a question card to tomorrow, counted once, exactly like a lesson card', qcKnow.status === 200 && qcSched.i === 1 && qcSched.reps === 1 && qcSched.due > qcDay && qcRepeat.status === 409 && n('SELECT COUNT(*) FROM flashcard_reviews WHERE card_id = ?', qcMade.json.card.id) === 1);
+  const qcSummary = await call('GET', `/api/student/flashcards/summary?day=${qcDay}`, { token: qcStudent.token });
+  check('My bookmarks counts and groups them by subject and chapter', qcSummary.json.total === n('SELECT COUNT(*) FROM flashcards WHERE user_id = ?', qcStudent.id) && qcSummary.json.subjects.some((x) => x.paperId === qcPaper));
+  wdb.prepare("UPDATE questions SET verification = 'NEEDS_CHANGES' WHERE id = ?").run(qcQs[0].id);
+  const qcHidden = await call('GET', `/api/student/flashcards?day=${qcDay}`, { token: qcStudent.token });
+  wdb.prepare("UPDATE questions SET verification = 'UNVERIFIED' WHERE id = ?").run(qcQs[0].id);
+  wdb.close();
+  const qcBack = await call('GET', `/api/student/flashcards?day=${qcDay}`, { token: qcStudent.token });
+  check('a card is hidden while its question is flagged, and returns when it is available again', !qcHidden.json.some((c) => c.questionId === qcQs[0].id) && qcBack.json.some((c) => c.questionId === qcQs[0].id));
+  const qcStranger = await account('qcards-other');
+  const qcOtherSave = await call('POST', '/api/student/flashcards/questions', { token: qcStranger.token, body: { questionId: qcQs[0].id, day: qcDay } });
+  const qcOtherReview = await call('POST', `/api/student/flashcards/${qcMade.json.card.id}/review`, { token: qcStranger.token, body: { rating: 'GOOD', day: qcDay } });
+  const qcOtherList = await call('GET', `/api/student/flashcards?day=${qcDay}`, { token: qcStranger.token });
+  check('another student cannot save that question unanswered, nor see or review these cards', qcOtherSave.status === 409 && qcOtherReview.status === 404 && qcOtherList.json.length === 0);
+  check('lesson cards are unaffected: their text is still stored on the card', n("SELECT COUNT(*) FROM flashcards WHERE question_id IS NULL AND (front = '' OR back = '') AND latex IS NULL AND block_type != 'FORMULA'") === 0);
+  const qcDelete = await call('DELETE', `/api/student/flashcards/${qcMade.json.card.id}?confirm=1`, { token: qcStudent.token });
+  check('removing a question card removes only the card: the question and the answer record stay', qcDelete.status === 200 && n('SELECT COUNT(*) FROM questions WHERE id = ?', qcQs[0].id) === 1 && n('SELECT COUNT(*) FROM practice_answers WHERE question_id = ?', qcQs[0].id) >= 1);
 
   // ------------------------------------------------------------ government updates (no page is fetched here; the fetch itself has its own tests)
   group = 'Government updates';

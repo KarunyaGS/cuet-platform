@@ -3,12 +3,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useSearchParams } from 'react-router';
 import { api, type CardRating, type Flashcard } from '../api';
 import { DisplayMath, Rich } from '../rich';
+import { QuestionBack, QuestionFront, sourceLabel, sourceLink as cardSourceLink } from '../revision';
 import { Button, ButtonLink, Empty, ErrorBox, Loading, Meter, PageHeader, StatGroup, useAuth, useLoad } from '../ui';
 
 const PROMPT: Record<string, string> = { DEFINITION: 'Define', FORMULA: 'Recall the formula', KEY_POINT: 'Explain', IMPORTANT_FACT: 'Recall', CONCEPT: 'Explain' };
 
 const dayLabel = (day: string) => new Date(`${day}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
-const sourceLink = (c: Flashcard) => `/learn/${c.resourceId}#${c.anchor}`;
 const scopeQuery = (paperId?: string | null, chapterId?: string | null, nodeId?: string | null, resourceId?: string | null) =>
   resourceId ? `?resourceId=${encodeURIComponent(resourceId)}` : nodeId ? `?nodeId=${encodeURIComponent(nodeId)}` : paperId ? `?paperId=${encodeURIComponent(paperId)}${chapterId ? `&chapterId=${encodeURIComponent(chapterId)}` : ''}` : '';
 
@@ -166,10 +166,14 @@ export function FlashcardReviewPage() {
         <div data-card data-flipped={flipped ? '' : undefined} className={`grid transition-transform duration-500 [transform-style:preserve-3d] motion-reduce:transition-none ${flipped ? '[transform:rotateY(180deg)]' : ''}`}>
           <Face side="front" hidden={flipped}>
             <div className="mb-3 flex flex-wrap items-center gap-2 text-[13px] font-semibold text-ink-2">
-              <span>{PROMPT[c.type] ?? 'Recall'}</span>
+              <span>{c.kind === 'QUESTION' ? 'Question' : (PROMPT[c.type] ?? 'Recall')}</span>
               {c.section && c.type !== 'FORMULA' && <span className="font-normal text-ink-3">{c.section}</span>}
             </div>
-            {c.type === 'FORMULA' && c.section && c.front !== `Formula: ${c.section}` ? (
+            {c.kind === 'QUESTION' && c.question ? (
+              <div className="my-auto">
+                <QuestionFront card={c} />
+              </div>
+            ) : c.type === 'FORMULA' && c.section && c.front !== `Formula: ${c.section}` ? (
               <div className="my-auto text-center">
                 <div className="text-xl leading-snug font-semibold text-ink sm:text-2xl">{c.section}</div>
                 <div className="mt-3 text-[15px] leading-relaxed text-ink-2">
@@ -184,16 +188,24 @@ export function FlashcardReviewPage() {
             )}
           </Face>
           <Face side="back" hidden={!flipped}>
-            <div className="mb-3 text-[13px] font-semibold text-ink-2">
-              <Rich text={c.type === 'FORMULA' ? (c.section ?? 'Formula') : c.front} inline />
-            </div>
-            <div className="my-auto text-[17px] leading-relaxed text-ink">
-              {c.latex && <DisplayMath tex={c.latex} />}
-              {c.back && <Rich text={c.back} />}
-            </div>
-            <Link to={sourceLink(c)} tabIndex={flipped ? 0 : -1} className="mt-4 inline-flex items-center gap-1.5 self-start text-sm font-medium text-accent hover:underline">
+            {c.kind === 'QUESTION' && c.question ? (
+              <div className="my-auto">
+                <QuestionBack card={c} />
+              </div>
+            ) : (
+              <>
+                <div className="mb-3 text-[13px] font-semibold text-ink-2">
+                  <Rich text={c.type === 'FORMULA' ? (c.section ?? 'Formula') : c.front} inline />
+                </div>
+                <div className="my-auto text-[17px] leading-relaxed text-ink">
+                  {c.latex && <DisplayMath tex={c.latex} />}
+                  {c.back && <Rich text={c.back} />}
+                </div>
+              </>
+            )}
+            <Link to={cardSourceLink(c)} tabIndex={flipped ? 0 : -1} className="mt-4 inline-flex items-center gap-1.5 self-start text-sm font-medium text-accent hover:underline">
               <BookOpen aria-hidden className="size-4 shrink-0" />
-              <span className="line-clamp-1">Open in lesson: {c.lesson}</span>
+              <span className="line-clamp-1">{c.kind === 'QUESTION' ? sourceLabel(c, false, false) : `Open in lesson: ${c.lesson}`}</span>
             </Link>
           </Face>
         </div>
