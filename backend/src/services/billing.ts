@@ -72,10 +72,10 @@ async function razorpay<T>(env: Bindings, method: string, path: string, body?: u
 
 // ---------------------------------------------------------------- plans
 
-const LIMIT_KEYS = ['mockTests', 'topicTests', 'practiceSets'] as const;
+const LIMIT_KEYS = ['mockTests', 'topicTests', 'practiceSets', 'revisionCards', 'bookmarks'] as const;
 type LimitKey = (typeof LIMIT_KEYS)[number];
 export type Limits = Partial<Record<LimitKey, number | null>>;
-const limitsSchema = z.object({ mockTests: z.number().int().min(0).max(100000).nullable().optional(), topicTests: z.number().int().min(0).max(100000).nullable().optional(), practiceSets: z.number().int().min(0).max(100000).nullable().optional() }).strict();
+const limitsSchema = z.object({ mockTests: z.number().int().min(0).max(100000).nullable().optional(), topicTests: z.number().int().min(0).max(100000).nullable().optional(), revisionCards: z.number().int().min(0).max(100000).nullable().optional(), bookmarks: z.number().int().min(0).max(100000).nullable().optional(), practiceSets: z.number().int().min(0).max(100000).nullable().optional() }).strict();
 
 interface PlanRow { id: string; code: string; name: string; description: string | null; price_paise: number; currency: string; duration_days: number | null; is_free: number; active: number; sort_order: number; limits_json: string; features_json: string }
 const planOut = (p: PlanRow) => ({
@@ -147,25 +147,30 @@ export async function createPlan(db: D1Database, input: z.infer<typeof planCreat
 
 const USAGE_DAYS = 30;
 const MODE_LIMIT: Record<string, LimitKey> = { MOCK_TEST: 'mockTests', TOPIC_TEST: 'topicTests', PRACTICE: 'practiceSets' };
-const LIMIT_LABEL: Record<LimitKey, string> = { mockTests: 'mock tests', topicTests: 'topic tests', practiceSets: 'practice sets' };
+const LIMIT_LABEL: Record<LimitKey, string> = { mockTests: 'mock tests', topicTests: 'topic tests', practiceSets: 'practice sets', revisionCards: 'revision cards', bookmarks: 'bookmarks and notes' };
+const MAX_UNFINISHED = 3;
 
 export async function currentAccess(db: D1Database, userId: string) {
   const now = nowIso();
-  const [paid, free, usage] = await Promise.all([
+  const [paid, free, usage, totals] = await Promise.all([
     db
       .prepare(`SELECT s.id AS subscription_id, s.ends_at, p.* FROM subscriptions s JOIN plans p ON p.id = s.plan_id WHERE s.user_id = ? AND s.status = 'ACTIVE' AND s.starts_at <= ? AND s.ends_at > ? ORDER BY s.ends_at DESC LIMIT 1`)
       .bind(userId, now, now)
       .first<PlanRow & { subscription_id: string; ends_at: string }>(),
     db.prepare('SELECT * FROM plans WHERE is_free = 1 LIMIT 1').first<PlanRow>(),
     db
-      .prepare('SELECT mode, COUNT(*) AS n FROM practice_sessions WHERE user_id = ? AND started_at >= ? GROUP BY mode')
+      .prepare("SELECT mode, COUNT(*) AS n FROM practice_sessions WHERE user_id = ? AND started_at >= ? AND status != 'IN_PROGRESS' GROUP BY mode")
       .bind(userId, new Date(Date.now() - USAGE_DAYS * 86400_000).toISOString())
       .all<{ mode: string; n: number }>(),
+    db
+      .prepare(`SELECT (SELECT COUNT(*) FROM flashcards WHERE user_id = ?1) AS cards, (SELECT COUNT(*) FROM bookmarks WHERE user_id = ?1) AS marks`)
+      .bind(userId)
+      .first<{ cards: number; marks: number }>(),
   ]);
   // The last day of paid access, counting passes bought ahead that start when the current one ends.
   const until = paid ? await db.prepare(`SELECT MAX(ends_at) AS e FROM subscriptions WHERE user_id = ? AND status = 'ACTIVE' AND ends_at > ?`).bind(userId, now).first<{ e: string | null }>() : null;
   const plan = planOut(paid ?? free!);
-  const used: Record<LimitKey, number> = { mockTests: 0, topicTests: 0, practiceSets: 0 };
+  const used: Record<LimitKey, number> = { mockTests: 0, topicTests: 0, practiceSets: 0, revisionCards: totals?.cards ?? 0, bookmarks: totals?.marks ?? 0 };
   for (const u of usage.results) if (MODE_LIMIT[u.mode]) used[MODE_LIMIT[u.mode]!] += u.n;
   return {
     plan: { code: plan.code, name: plan.name, isFree: plan.isFree, features: plan.features },
@@ -176,10 +181,21 @@ export async function currentAccess(db: D1Database, userId: string) {
   };
 }
 
+/** Refuses to add one more revision card or bookmark when the student already holds as many as the plan allows. Existing items are never removed. */
+export async function assertRoomFor(db: D1Database, userId: string, key: 'revisionCards' | 'bookmarks') {
+  const access = await currentAccess(db, userId);
+  const l = access.limits.find((x) => x.key === key)!;
+  if (l.limit !== null && l.used >= l.limit) throw new ApiError(402, 'PLAN_LIMIT', `Your ${access.plan.name} plan holds up to ${l.limit} ${l.label}, and you have reached that. Remove some or upgrade to add more.`);
+}
+
 /** Refuses to start a test or practice set when the student's plan limit for the last 30 days is used up. */
 export async function assertWithinPlan(db: D1Database, userId: string, mode: string) {
   const key = MODE_LIMIT[mode];
   if (!key) return;
+  // Only submitted tests count against the limit, so an interrupted test can be resumed. To stop that being used to read the bank
+  // without ever submitting, a student can hold only a few unfinished sessions of one kind at once.
+  const open = await db.prepare(`SELECT COUNT(*) AS n FROM practice_sessions WHERE user_id = ? AND mode = ? AND status = 'IN_PROGRESS'`).bind(userId, mode).first<{ n: number }>();
+  if ((open?.n ?? 0) >= MAX_UNFINISHED) throw new ApiError(409, 'TOO_MANY_UNFINISHED', `You have ${open!.n} unfinished ${mode === 'MOCK_TEST' ? 'mock tests' : mode === 'TOPIC_TEST' ? 'topic tests' : 'practice sets'}. Finish or submit one before starting another.`);
   const access = await currentAccess(db, userId);
   const l = access.limits.find((x) => x.key === key)!;
   if (l.limit !== null && l.used >= l.limit) {
@@ -378,8 +394,8 @@ export async function handleRazorpayWebhook(env: Bindings, rawBody: string, sign
     if (type === 'refund.processed' && refund?.payment_id) {
       const tx = await db.prepare(`SELECT order_id FROM payment_transactions WHERE gateway_id = ? AND kind = 'PAYMENT'`).bind(refund.payment_id).first<{ order_id: string }>();
       if (!tx) return finish('IGNORED', 'Refund for a payment this platform does not know');
-      await applyRefund(db, tx.order_id, { gatewayId: refund.id, amountPaise: refund.amount ?? 0 }, 'payment:webhook');
-      return finish('PROCESSED', 'Refund recorded; access ended');
+      await applyRefund(db, tx.order_id, { gatewayId: refund.id, amountPaise: refund.amount ?? 0, paymentGatewayId: refund.payment_id }, 'payment:webhook');
+      return finish('PROCESSED', 'Refund recorded; pass adjusted by the refund rules');
     }
     if (!['payment.captured', 'payment.failed', 'payment.authorized', 'order.paid'].includes(type) || !pay || !gatewayOrderId) return finish('IGNORED', 'Event type not used');
     const order = await db.prepare(`SELECT * FROM payment_orders WHERE gateway_order_id = ? AND gateway = 'razorpay'`).bind(gatewayOrderId).first<OrderRow>();
@@ -394,16 +410,63 @@ export async function handleRazorpayWebhook(env: Bindings, rawBody: string, sign
   }
 }
 
-/** A refund ends the access that the order gave. Used by the webhook and by an administrator recording a manual refund. */
-export async function applyRefund(db: D1Database, orderId: string, refund: { gatewayId: string; amountPaise: number }, actor: string) {
+/**
+ * Applies a refund by the approved rules (decision 7, 16 Nov 2026):
+ *  - a refund of a DUPLICATE payment (a second payment on an order that already gave a pass) never touches the pass;
+ *  - a partial refund shortens the pass by the refunded share of the price (rule 1: refunded / paid x duration), cumulative over
+ *    several refunds, and a later pass bought ahead moves up so no gap is left;
+ *  - a full refund revokes the pass the same way.
+ * Each refund id counts once. Used by the webhook and by an administrator recording a manual refund.
+ */
+export async function applyRefund(db: D1Database, orderId: string, refund: { gatewayId: string; amountPaise: number; paymentGatewayId?: string }, actor: string) {
   const now = nowIso();
-  await db.batch([
-    recordTx(db, orderId, 'REFUND', { gatewayId: refund.gatewayId, status: 'REFUNDED', amountPaise: refund.amountPaise, reportedBy: actor.startsWith('user:') ? 'RECONCILIATION' : 'WEBHOOK' }, now),
-    db.prepare(`UPDATE payment_orders SET status = 'REFUNDED', updated_at = ? WHERE id = ? AND status = 'PAID'`).bind(now, orderId),
-    db.prepare(`UPDATE subscriptions SET status = 'REFUNDED', updated_at = ? WHERE order_id = ? AND status = 'ACTIVE'`).bind(now, orderId),
-    db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, 'PAYMENT_REFUNDED', 'PAYMENT_ORDER', orderId, JSON.stringify(refund), now),
-  ]);
-  return { refunded: true };
+  const known = await db.prepare(`SELECT 1 AS x FROM payment_transactions WHERE gateway_id = ?`).bind(refund.gatewayId).first();
+  if (known) return { refunded: true, repeated: true };
+  const order = await db.prepare('SELECT amount_paise, status, plan_snapshot_json FROM payment_orders WHERE id = ?').bind(orderId).first<{ amount_paise: number; status: string; plan_snapshot_json: string }>();
+  if (!order) throw notFound('Order');
+  const audit = (action: string, detail: unknown) =>
+    db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, action, 'PAYMENT_ORDER', orderId, JSON.stringify(detail), now);
+  const reportedBy = actor.startsWith('user:') ? 'RECONCILIATION' : 'WEBHOOK';
+  // Which payment gave the pass: the first captured one. A refund of any other payment on the order is a duplicate-payment refund.
+  const giver = await db.prepare(`SELECT gateway_id FROM payment_transactions WHERE order_id = ? AND kind = 'PAYMENT' AND status IN ('CAPTURED','REFUNDED') ORDER BY created_at, id LIMIT 1`).bind(orderId).first<{ gateway_id: string }>();
+  if (refund.paymentGatewayId && giver && giver.gateway_id !== refund.paymentGatewayId) {
+    await db.batch([recordTx(db, orderId, 'REFUND', { gatewayId: refund.gatewayId, status: 'REFUNDED', amountPaise: refund.amountPaise, reportedBy }, now), audit('DUPLICATE_PAYMENT_REFUNDED', { ...refund, passUnchanged: true })]);
+    return { refunded: true, duplicate: true };
+  }
+  const before = await db.prepare(`SELECT COALESCE(SUM(amount_paise), 0) AS t FROM payment_transactions WHERE order_id = ? AND kind = 'REFUND' AND status = 'REFUNDED'`).bind(orderId).first<{ t: number }>();
+  const total = Math.min(order.amount_paise, (before?.t ?? 0) + refund.amountPaise);
+  const full = total >= order.amount_paise;
+  const sub = await db.prepare(`SELECT id, user_id, starts_at, ends_at FROM subscriptions WHERE order_id = ? AND status = 'ACTIVE'`).bind(orderId).first<{ id: string; user_id: string; starts_at: string; ends_at: string }>();
+  const stmts = [recordTx(db, orderId, 'REFUND', { gatewayId: refund.gatewayId, status: 'REFUNDED', amountPaise: refund.amountPaise, reportedBy }, now)];
+  let detail: Record<string, unknown> = { ...refund, totalRefundedPaise: total, full };
+  if (sub) {
+    const start = new Date(sub.starts_at).getTime();
+    const oldEnd = new Date(sub.ends_at).getTime();
+    // The length the student paid for (not the already shortened one), so that several refunds add up correctly.
+    const duration = (JSON.parse(order.plan_snapshot_json) as { durationDays: number }).durationDays * 86400_000;
+    // Rule 1: the pass loses the refunded share of its length (rounded to whole minutes); a full refund revokes it.
+    const newEnd = full ? Math.min(oldEnd, Math.max(Date.now(), start)) : start + Math.round((duration * (1 - total / order.amount_paise)) / 60000) * 60000;
+    if (full) stmts.push(db.prepare(`UPDATE subscriptions SET status = 'REFUNDED', ends_at = ?, updated_at = ? WHERE id = ?`).bind(new Date(newEnd).toISOString(), now, sub.id));
+    else stmts.push(db.prepare('UPDATE subscriptions SET ends_at = ?, updated_at = ? WHERE id = ?').bind(new Date(newEnd).toISOString(), now, sub.id));
+    // Passes bought ahead (they start when this one ended) move up so that no gap is left; they keep their full length.
+    const later = await db.prepare(`SELECT id, starts_at, ends_at FROM subscriptions WHERE user_id = ? AND status = 'ACTIVE' AND id != ? AND starts_at >= ? ORDER BY starts_at`).bind(sub.user_id, sub.id, sub.ends_at).all<{ id: string; starts_at: string; ends_at: string }>();
+    let cursor = Math.max(newEnd, Date.now());
+    const moved: string[] = [];
+    for (const l of later.results) {
+      const ls = new Date(l.starts_at).getTime();
+      const le = new Date(l.ends_at).getTime();
+      if (ls > cursor) {
+        stmts.push(db.prepare('UPDATE subscriptions SET starts_at = ?, ends_at = ?, updated_at = ? WHERE id = ?').bind(new Date(cursor).toISOString(), new Date(cursor + (le - ls)).toISOString(), now, l.id));
+        moved.push(l.id);
+        cursor += le - ls;
+      } else cursor = Math.max(cursor, le);
+    }
+    detail = { ...detail, passEndsBefore: sub.ends_at, passEndsAfter: new Date(newEnd).toISOString(), laterPassesMoved: moved };
+  }
+  if (full) stmts.push(db.prepare(`UPDATE payment_orders SET status = 'REFUNDED', updated_at = ? WHERE id = ? AND status = 'PAID'`).bind(now, orderId));
+  stmts.push(audit(full ? 'PAYMENT_REFUNDED' : 'PAYMENT_PARTIALLY_REFUNDED', detail));
+  await db.batch(stmts);
+  return { refunded: true, full };
 }
 
 // ---------------------------------------------------------------- reconciliation and housekeeping

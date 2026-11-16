@@ -61,3 +61,21 @@ Legend: DONE = finished and verified here · PARTIAL = part done, rest named · 
 | 7.3 | Secret scan | DONE | none committed |
 | 7.4 | Migration order, backup, rollback, staging, production sequence | DONE (documents) | `deployment-and-rollback.md`; nothing run remotely |
 | 7.5 | Staging / production deployment | BLOCKED | approval; staging resources must be created |
+
+## Approved-decisions phase (16 Nov 2026, later the same day)
+Decisions recorded in `APPROVED-DECISIONS.md`. Status:
+| # | Item | Status | Detail |
+|---|---|---|---|
+| A1 | Prices and free/paid limits entered (local DB, audited) | DONE locally | script `configure-approved-plans-2026-11-16.mts`; paid plans stay OFF; production gets it at launch |
+| A2 | Submitted-only usage counting + max 3 unfinished sessions | DONE | tests in billing.test.ts |
+| A3 | Revision-card and bookmark totals | DONE (cards, bookmarks) | highlight/annotation notes not yet counted |
+| A4 | Refund rules (proportional, full, duplicate, stacked passes move up) | DONE | 3 new tests; old "known limitation" tests replaced |
+| A5 | Least-privilege console access (email log, assignments) | DONE (first step) | more console reads can be narrowed later |
+| A6 | Registration privacy (neutral sign-up) | DONE | email confirmation before use not enforced (needs email) |
+| A7 | Content preview vs paid launch | DONE | paid plan cannot be switched on while preview is on |
+| A8 | Paid plans stay disabled | DONE | active=0 in the local DB; guard in code |
+| A9 | NTA official papers stay disabled | DONE | production switches off; no permission assumed |
+| A10 | GST, SAC, invoices | PENDING FINANCE | `gst-invoicing-pending-finance.md` |
+| A11 | Email configuration prepared, nothing sent | DONE (earlier) | `email-go-live.md` |
+| A12 | Staging requirements and deployment documents | DONE | `staging-requirements.md`, `deployment-and-rollback.md` |
+| A13 | Admissions: continue without publishing unverified facts | NO CHANGE | nothing new imported or published |

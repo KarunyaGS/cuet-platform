@@ -31,7 +31,8 @@ describe('burst of concurrent requests', () => {
     const log = await Promise.all(Array.from({ length: 15 }, (_, i) => hit('POST', '/api/auth/login', { email: `load-${stamp}-${i}@example.test`, password: 'correct-horse-battery' })));
     expect(log.every((x) => x.status === 200)).toBe(true);
     const same = await Promise.all(Array.from({ length: 6 }, () => hit('POST', '/api/auth/register', { email: `same-${stamp}@example.test`, password: 'correct-horse-battery', displayName: 'Same' })));
-    expect(same.filter((x) => x.status === 201).length).toBe(1);
+    expect(same.filter((x) => x.status === 201).length).toBe(6); // neutral answer for everyone
+    expect((await env.DB.prepare('SELECT COUNT(*) AS n FROM users WHERE email = ?').bind(`same-${stamp}@example.test`).first<{ n: number }>())!.n).toBe(1);
     expect(same.filter((x) => x.status >= 500).length).toBe(0);
     console.log(`LOAD sign-up p95=${Math.round(p(reg.map((x) => x.ms), 0.95))}ms, sign-in p95=${Math.round(p(log.map((x) => x.ms), 0.95))}ms`);
   }, 120_000);

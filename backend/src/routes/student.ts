@@ -55,8 +55,9 @@ auth.post('/register', async (c) => {
   await rateLimit(c.env, c.req, 'register-ip', null, 8, 3600);
   const user = await registerStudent(c.env.DB, await readJson(c, registerSchema));
   const b = base(c);
-  if (b && emailEnabled(c.env)) later(c, sendVerificationEmail(c.env, user.id, b));
-  return c.json(user, 201);
+  if (user.created && b && emailEnabled(c.env)) later(c, sendVerificationEmail(c.env, user.id, b));
+  // Same answer for a new and an existing address; the new account's id is not revealed either way.
+  return c.json({ id: user.id, email: user.email, displayName: user.displayName }, 201);
 });
 auth.post('/login', async (c) => {
   const ttl = Number(c.env.SESSION_TTL_HOURS) || 168;

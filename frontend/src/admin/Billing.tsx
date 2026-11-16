@@ -6,7 +6,7 @@ import { consoleApi, when, type AdminOrder, type AdminPlan, type AdminSubscripti
 
 const label = 'mb-1 block text-sm font-medium text-ink';
 const small = `${inputClass} h-9 text-sm`;
-const LIMITS: [keyof AdminPlan['limits'], string][] = [['mockTests', 'Mock tests'], ['topicTests', 'Topic tests'], ['practiceSets', 'Practice sets']];
+const LIMITS: [keyof AdminPlan['limits'], string][] = [['mockTests', 'Mock tests'], ['topicTests', 'Topic tests'], ['practiceSets', 'Practice sets'], ['revisionCards', 'Revision cards (total)'], ['bookmarks', 'Bookmarks and notes (total)']];
 const ORDER_TONE: Record<string, 'green' | 'amber' | 'red' | 'zinc'> = { PAID: 'green', FAILED: 'red', REFUNDED: 'amber', CREATED: 'zinc', EXPIRED: 'zinc' };
 const ORDER_LABEL: Record<string, string> = { PAID: 'Paid', FAILED: 'Failed', REFUNDED: 'Refunded', CREATED: 'Waiting for payment', EXPIRED: 'Not completed' };
 const STATE_TONE: Record<string, 'green' | 'amber' | 'red' | 'zinc' | 'accent'> = { ACTIVE: 'green', UPCOMING: 'accent', EXPIRED: 'zinc', CANCELLED: 'red', REFUNDED: 'amber' };

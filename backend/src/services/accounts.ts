@@ -29,12 +29,18 @@ export const registerSchema = z.object({
 });
 export const loginSchema = z.object({ email: z.email().max(200).transform((e) => e.trim().toLowerCase()), password: z.string().min(1).max(200) });
 
+/**
+ * Sign-up gives the same answer whether or not the address already has an account (approved 16 Nov 2026: registration privacy), so it
+ * cannot be used to find out who is registered. For an address that already exists nothing is created or changed; the password is
+ * still hashed so the response time does not give it away. The person who owns the address signs in or resets the password.
+ */
 export async function registerStudent(db: D1Database, input: z.infer<typeof registerSchema>) {
-  const exists = await db.prepare('SELECT id FROM users WHERE email = ?').bind(input.email).first();
-  if (exists) throw conflict('An account with this email already exists');
   const id = newId('usr');
   const salt = crypto.getRandomValues(new Uint8Array(16));
   const hash = await pbkdf2(input.password, salt, ITERATIONS);
+  const exists = await db.prepare('SELECT id FROM users WHERE email = ?').bind(input.email).first();
+  const out = { id, email: input.email, displayName: input.displayName };
+  if (exists) return { ...out, created: false };
   const now = nowIso();
   try {
     await db.batch([
@@ -43,11 +49,11 @@ export async function registerStudent(db: D1Database, input: z.infer<typeof regi
       db.prepare('INSERT INTO user_credentials (user_id, password_hash, salt, iterations, updated_at) VALUES (?, ?, ?, ?, ?)').bind(id, hash, b64(salt), ITERATIONS, now),
     ]);
   } catch (e) {
-    // Two sign-ups with the same address at the same moment: the database lets only one through.
-    if (/UNIQUE constraint failed: users\.email/.test(String((e as Error)?.message) + String((e as { cause?: Error })?.cause?.message))) throw conflict('An account with this email already exists');
+    // Two sign-ups with the same address at the same moment: the database lets only one through; the other gets the same neutral answer.
+    if (/UNIQUE constraint failed: users\.email/.test(String((e as Error)?.message) + String((e as { cause?: Error })?.cause?.message))) return { ...out, created: false };
     throw e;
   }
-  return { id, email: input.email, displayName: input.displayName };
+  return { ...out, created: true };
 }
 
 /** Same response time whether or not the email exists. */

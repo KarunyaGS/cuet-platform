@@ -3,6 +3,7 @@
  * the study planner, daily practice and revision notes. Everything is computed from stored data; no AI calls.
  */
 import { z } from 'zod';
+import { assertRoomFor } from './billing';
 import { ApiError, invalid, notFound } from '../lib/errors';
 import { newId } from '../lib/hash';
 import { nowIso } from '../lib/sql';
@@ -47,6 +48,8 @@ const TABLE = { TOPIC: 'curriculum_nodes', LESSON: 'learning_resources', QUESTIO
 
 export async function addBookmark(db: D1Database, userId: string, input: z.infer<typeof bookmarkSchema>) {
   if (!(await db.prepare(`SELECT 1 FROM ${TABLE[input.kind]} WHERE id = ?`).bind(input.entityId).first())) throw notFound('Item to bookmark');
+  const exists = await db.prepare('SELECT 1 FROM bookmarks WHERE user_id = ? AND kind = ? AND entity_id = ?').bind(userId, input.kind, input.entityId).first();
+  if (!exists) await assertRoomFor(db, userId, 'bookmarks');
   await db
     .prepare('INSERT INTO bookmarks (id, user_id, kind, entity_id, created_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT (user_id, kind, entity_id) DO NOTHING')
     .bind(newId('bm'), userId, input.kind, input.entityId, nowIso())

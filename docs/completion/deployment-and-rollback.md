@@ -47,3 +47,8 @@
 ## Git state (at the time of writing)
 
 Pushed: everything up to `f8f347a` (user-approved). **Unpushed:** `ede4ea4` (CI fix) and the sprint changes (committed locally after this report, see the completion report). No push without explicit approval. Secret scan of tracked files: no keys, tokens or `.dev.vars` committed.
+
+## Addendum, approved-decisions phase (16 Nov 2026)
+- No new migration was added in this phase: still **0009–0034** pending on production.
+- Prices and limits are data. At launch (not before, and only after students are told about the free limits) run `backend/scripts/configure-approved-plans-2026-11-16.mts` against the target environment, then switch paid plans on in the console – which is refused while `CONTENT_PREVIEW=true`.
+- Refund rules, usage counting, neutral sign-up and the extra console guards ship with the Worker code; they need no data change.

@@ -18,6 +18,7 @@
  * and accepted only when within a day of the server's date. No AI calls.
  */
 import { z } from 'zod';
+import { assertRoomFor } from './billing';
 import { ApiError, invalid, notFound } from '../lib/errors';
 import { newId, sha256Hex } from '../lib/hash';
 import { nowIso } from '../lib/sql';
@@ -290,6 +291,8 @@ export async function createQuestionCard(db: D1Database, preview: boolean, userI
     q.test_paper_id ??
     (nodeId ? ((await db.prepare('SELECT v.test_paper_id AS id FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id WHERE n.id = ?').bind(nodeId).first<{ id: string }>())?.id ?? null) : null);
   const chapterId = await chapterOf(db, nodeId);
+  const already = await db.prepare('SELECT 1 FROM flashcards WHERE user_id = ? AND question_id = ?').bind(userId, q.id).first();
+  if (!already) await assertRoomFor(db, userId, 'revisionCards');
   const now = nowIso();
   // concept_key must be unique per student too, so it carries a hash of the question id. The text columns stay empty: nothing is copied.
   const key = `question.${(await sha256Hex(q.id)).slice(0, 16)}`;

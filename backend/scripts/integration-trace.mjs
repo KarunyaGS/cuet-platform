@@ -138,7 +138,7 @@ async function run() {
   const me = await call('GET', '/api/auth/me', { token: s.token });
   check('"who am I" returns the signed-in student', me.json?.user?.id === s.id && me.json.user.emailVerified === false);
   check('student pages refuse a visitor without a session', (await call('GET', '/api/student/profile')).status === 401);
-  check('a second sign-up with the same email is refused', (await call('POST', '/api/auth/register', { body: { email: s.email, password: password(), displayName: 'Dup' } })).status === 409);
+  check('a second sign-up with the same email gets the same answer as a new one, and creates nothing (registration privacy)', (await call('POST', '/api/auth/register', { body: { email: s.email, password: password(), displayName: 'Dup' } })).status === 201 && n('SELECT COUNT(*) FROM users WHERE email = ?', s.email) === 1);
   check('a wrong password is refused', (await call('POST', '/api/auth/login', { body: { email: s.email, password: 'not-the-password' } })).status === 401);
 
   // ------------------------------------------------------------ syllabus explorer
@@ -346,8 +346,13 @@ async function run() {
   const planBody = { name: '1 month', description: null, pricePaise: 49900, durationDays: 30, active: true, sortOrder: 1, limits: {}, features: [] };
   check('a student cannot change plans or prices', (await call('PUT', `/api/console/billing/plans/${monthly.id}`, { token: outsider.token, body: planBody })).status === 403);
   check('a paid plan cannot be offered at a price of zero', (await call('PUT', `/api/console/billing/plans/${monthly.id}`, { token: a.token, body: { ...planBody, pricePaise: 0 } })).status === 422);
+  // Approved 16 Nov 2026: a paid plan cannot be switched on while the content preview is on (this run has it on).
   const priced = await call('PUT', `/api/console/billing/plans/${monthly.id}`, { token: a.token, body: planBody });
-  check('an administrator sets the price and the change is logged', priced.status === 200 && one("SELECT price_paise AS p FROM plans WHERE code = 'MONTHLY'").p === 49900 && n("SELECT COUNT(*) FROM audit_logs WHERE action = 'UPDATE_PLAN' AND actor = ?", `user:${a.id}`) === 1);
+  check('a paid plan cannot be switched on while students see unreviewed content (preview on)', priced.status === 409 && priced.json?.error?.code === 'PAID_LAUNCH_BLOCKED' && one("SELECT active AS p FROM plans WHERE code = 'MONTHLY'").p === 0);
+  const inactive = await call('PUT', `/api/console/billing/plans/${monthly.id}`, { token: a.token, body: { ...planBody, active: false } });
+  check('an administrator sets the price (plan kept off) and the change is logged', inactive.status === 200 && one("SELECT price_paise AS p FROM plans WHERE code = 'MONTHLY'").p === 49900 && n("SELECT COUNT(*) FROM audit_logs WHERE action = 'UPDATE_PLAN' AND actor = ?", `user:${a.id}`) === 1);
+  // The rest of this run exercises the buying flow, so the plan is switched on directly in the throwaway copy (launch itself is a separate approval).
+  { const w = openWritableDb(); w.prepare("UPDATE plans SET active = 1 WHERE code = 'MONTHLY'").run(); w.close?.(); }
   const buyer = await account('buyer');
   const order = await call('POST', '/api/student/billing/orders', { token: buyer.token, body: { planCode: 'MONTHLY' } });
   const orderRow = one('SELECT amount_paise AS amt, status, gateway FROM payment_orders WHERE id = ?', order.json?.orderId);

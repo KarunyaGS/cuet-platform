@@ -196,7 +196,7 @@ export const ACTION_LABEL: Record<string, string> = {
   REVIEW_APPROVED: 'Approved content for publishing', REVIEW_PUBLISHED: 'Published content', REVIEW_UNPUBLISHED: 'Unpublished content', REVIEW_ARCHIVED: 'Archived content', EDIT_NODE: 'Edited a syllabus row',
 };
 export const actionLabel = (a: string) => ACTION_LABEL[a] ?? a.charAt(0) + a.slice(1).toLowerCase().replace(/_/g, ' ');
-export interface AdminPlan { id: string; code: string; name: string; description: string | null; pricePaise: number; currency: string; durationDays: number | null; isFree: boolean; active: boolean; sortOrder: number; limits: { mockTests?: number | null; topicTests?: number | null; practiceSets?: number | null }; features: string[] }
+export interface AdminPlan { id: string; code: string; name: string; description: string | null; pricePaise: number; currency: string; durationDays: number | null; isFree: boolean; active: boolean; sortOrder: number; limits: { mockTests?: number | null; topicTests?: number | null; practiceSets?: number | null; revisionCards?: number | null; bookmarks?: number | null; }; features: string[] }
 export type PlanInput = Omit<AdminPlan, 'id' | 'code' | 'currency' | 'isFree'>;
 export interface BillingOverview {
   gateway: { mode: string; gateway: string | null; ready: boolean; reason: string | null }; activeSubscribers: number;

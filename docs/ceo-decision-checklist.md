@@ -1,19 +1,19 @@
 # CEO decision checklist: plans, pricing and payments
 
-Prepared 16 November 2026. **Every item below is a recommendation awaiting CEO approval. None is approved, and none is implemented.**
+Prepared 16 November 2026. **Update 16 Nov 2026: the CEO approved all seven recommendations below as written (see `docs/completion/APPROVED-DECISIONS.md`). Items 1, 3, 5, 6 and 7 are implemented locally; GST (item 2) waits for finance; item 4 is enforced by keeping paid plans off.**
 Nothing in the product has been changed: prices, usage limits, subscription rules, refund logic and payment settings are exactly as they were. Paid plans are switched off (priced at ₹0), and payments are off in production.
 
 How to use this page: for each item, mark **Approve**, **Change** (write the change) or **Reject**, then date it. The "Needs finance" lines are for the finance team to confirm before anything is built.
 
 | # | Decision | Recommended | CEO decision |
 |---|---|---|---|
-| 1 | Prices and validity | Free ₹0; Monthly ₹149 (30 days); Quarterly ₹299 (90 days); Yearly ₹599 (365 days) | Pending |
-| 2 | GST | Company is GST-registered; show prices GST-inclusive; issue tax invoices | Pending |
-| 3 | Usage limits | See the table in item 3 | Pending |
-| 4 | Subjects required before paid launch | Sell only subjects whose content is ready; start with Physics if ready; no "all subjects" claim | Pending |
-| 5 | Abandoned tests | Only submitted tests count against a limit; unfinished tests can be resumed | Pending |
-| 6 | Tests in progress at expiry | A started test can be finished; no new paid tests after expiry | Pending |
-| 7 | Partial refunds | A partial refund adjusts validity proportionally; a full refund revokes; a duplicate-payment refund leaves a valid pass alone | Pending |
+| 1 | Prices and validity | Free ₹0; Monthly ₹149 (30 days); Quarterly ₹299 (90 days); Yearly ₹599 (365 days) | **Approved 16 Nov 2026** |
+| 2 | GST | Company is GST-registered; show prices GST-inclusive; issue tax invoices | **Approved 16 Nov 2026** |
+| 3 | Usage limits | See the table in item 3 | **Approved 16 Nov 2026** |
+| 4 | Subjects required before paid launch | Sell only subjects whose content is ready; start with Physics if ready; no "all subjects" claim | **Approved 16 Nov 2026** |
+| 5 | Abandoned tests | Only submitted tests count against a limit; unfinished tests can be resumed | **Approved 16 Nov 2026** |
+| 6 | Tests in progress at expiry | A started test can be finished; no new paid tests after expiry | **Approved 16 Nov 2026** |
+| 7 | Partial refunds | A partial refund adjusts validity proportionally; a full refund revokes; a duplicate-payment refund leaves a valid pass alone | **Approved 16 Nov 2026** |
 
 ---
 

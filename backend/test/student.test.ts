@@ -56,7 +56,11 @@ describe('accounts', () => {
   it('registers, signs in with a session cookie and rejects bad passwords', async () => {
     expect((await call('POST', '/api/auth/register', { email: 'a@example.test', password: 'short', displayName: 'A' })).status).toBe(400);
     expect((await call('POST', '/api/auth/register', { email: 'a@example.test', password: 'a long enough password', displayName: 'A' })).status).toBe(201);
-    expect((await call('POST', '/api/auth/register', { email: 'a@example.test', password: 'a long enough password', displayName: 'A' })).status).toBe(409);
+    // Approved 16 Nov 2026 (registration privacy): an existing address gets the same answer as a new one, and nothing is created.
+    const again = await call('POST', '/api/auth/register', { email: 'a@example.test', password: 'a different long password', displayName: 'A2' });
+    expect(again.status).toBe(201);
+    expect((await env.DB.prepare("SELECT COUNT(*) AS n FROM users WHERE email = 'a@example.test'").first<{ n: number }>())!.n).toBe(1);
+    expect((await call('POST', '/api/auth/login', { email: 'a@example.test', password: 'a different long password' })).status).toBe(401);
     expect((await call('POST', '/api/auth/login', { email: 'a@example.test', password: 'wrong password!' })).status).toBe(401);
     const ok = await call('POST', '/api/auth/login', { email: 'A@Example.test', password: 'a long enough password' });
     expect(ok.status).toBe(200);

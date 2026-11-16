@@ -12,6 +12,8 @@ const HOOK_SECRET = 'test-webhook-secret';
 const rzp = { ...env, PAYMENTS_MODE: 'test', RAZORPAY_KEY_ID: 'rzp_test_abc123', RAZORPAY_KEY_SECRET: KEY_SECRET, RAZORPAY_WEBHOOK_SECRET: HOOK_SECRET } as unknown as Bindings;
 
 async function call(method: string, path: string, body?: unknown, headers: Record<string, string> = {}, e: Bindings = mock) {
+  // Plan changes are made with the content preview off: a paid plan cannot be switched on while students see unreviewed content.
+  if (method !== 'GET' && /\/api\/console\/billing\/plans/.test(path) && !(e as unknown as Record<string, string>).KEEP_PREVIEW) e = { ...e, CONTENT_PREVIEW: 'false' } as Bindings;
   const ctx = createExecutionContext();
   const res = await app.request(path, { method, headers: { 'content-type': 'application/json', ...headers }, body: body === undefined ? undefined : typeof body === 'string' ? body : JSON.stringify(body) }, e, ctx);
   await waitOnExecutionContext(ctx);
@@ -230,8 +232,8 @@ describe('payment security: usage and expiry', () => {
   });
 });
 
-describe('payment audit: current behaviour that the CEO decisions will change (documented, not endorsed)', () => {
-  it('KNOWN LIMITATION: refunding the first of two stacked passes leaves a gap before the second starts', async () => {
+describe('payment audit: refund rules approved on 16 Nov 2026, and behaviour still to change', () => {
+  it('APPROVED RULE: refunding the first of two stacked passes moves the second up, so there is no gap', async () => {
     await priced();
     const s = await person();
     const a = await order(s);
@@ -241,18 +243,49 @@ describe('payment audit: current behaviour that the CEO decisions will change (d
     expect((await access(s, rzp)).passes.map((p: { state: string }) => p.state).sort()).toEqual(['ACTIVE', 'UPCOMING']);
     await hook({ event: 'refund.processed', payload: { refund: { entity: { id: 'rfnd_stk1', payment_id: 'pay_stk_a1', amount: 49900, status: 'processed' } } } });
     const r = await access(s, rzp);
-    // Today: the second pass still starts in 30 days, so the student has no access now although they hold a paid pass.
-    expect(r.access.paid).toBe(false);
-    expect(r.passes.map((p: { state: string }) => p.state).sort()).toEqual(['REFUNDED', 'UPCOMING']);
+    expect(r.access.paid).toBe(true);
+    expect(r.passes.map((p: { state: string }) => p.state).sort()).toEqual(['ACTIVE', 'REFUNDED']);
+    // The second pass keeps its full 30 days, starting now.
+    const sub = await env.DB.prepare(`SELECT starts_at, ends_at FROM subscriptions WHERE status = 'ACTIVE' AND user_id = (SELECT user_id FROM payment_orders WHERE id = ?)`).bind(b.orderId).first<{ starts_at: string; ends_at: string }>();
+    expect(Math.round((Date.parse(sub!.ends_at) - Date.parse(sub!.starts_at)) / 86400000)).toBe(30);
+    expect(Date.parse(sub!.starts_at)).toBeLessThan(Date.now() + 60_000);
   });
 
-  it('KNOWN LIMITATION: a refund of any amount ends the whole pass', async () => {
+  it('APPROVED RULE: a partial refund shortens the pass in proportion, and the order stays paid', async () => {
     await priced();
     const s = await person();
     const o = await order(s);
     await hook({ event: 'payment.captured', payload: { payment: { entity: captured('pay_part01', o.gatewayOrderId) } } });
-    await hook({ event: 'refund.processed', payload: { refund: { entity: { id: 'rfnd_part', payment_id: 'pay_part01', amount: 100, status: 'processed' } } } });
+    const day = async () => (await env.DB.prepare('SELECT starts_at, ends_at FROM subscriptions WHERE order_id = ?').bind(o.orderId).first<{ starts_at: string; ends_at: string }>())!;
+    const days = async () => { const d = await day(); return (Date.parse(d.ends_at) - Date.parse(d.starts_at)) / 86400000; };
+    expect(Math.round(await days())).toBe(30);
+    // 10 000 of 49 900 paise refunded: about 20% of 30 days = 6 days lost.
+    await hook({ event: 'refund.processed', payload: { refund: { entity: { id: 'rfnd_part', payment_id: 'pay_part01', amount: 10000, status: 'processed' } } } });
+    expect((await access(s, rzp)).access.paid).toBe(true);
+    expect(Math.round(await days())).toBe(24);
+    expect((await env.DB.prepare('SELECT status FROM payment_orders WHERE id = ?').bind(o.orderId).first<{ status: string }>())!.status).toBe('PAID');
+    // The same refund event again changes nothing; a second refund adds up (total 20 000 = about 40%: 18 days left).
+    await hook({ event: 'refund.processed', payload: { refund: { entity: { id: 'rfnd_part', payment_id: 'pay_part01', amount: 10000, status: 'processed' } } } });
+    expect(Math.round(await days())).toBe(24);
+    await hook({ event: 'refund.processed', payload: { refund: { entity: { id: 'rfnd_part2', payment_id: 'pay_part01', amount: 10000, status: 'processed' } } } });
+    expect(Math.round(await days())).toBe(18);
+    // The rest of the price refunded: the pass is revoked.
+    await hook({ event: 'refund.processed', payload: { refund: { entity: { id: 'rfnd_part3', payment_id: 'pay_part01', amount: 29900, status: 'processed' } } } });
     expect((await access(s, rzp)).access.paid).toBe(false);
+    expect((await env.DB.prepare('SELECT status FROM payment_orders WHERE id = ?').bind(o.orderId).first<{ status: string }>())!.status).toBe('REFUNDED');
+  });
+
+  it('APPROVED RULE: refunding a duplicate payment leaves the valid pass alone', async () => {
+    await priced();
+    const s = await person();
+    const o = await order(s);
+    await hook({ event: 'payment.captured', payload: { payment: { entity: captured('pay_dup_1', o.gatewayOrderId) } } });
+    await hook({ event: 'payment.captured', payload: { payment: { entity: captured('pay_dup_2', o.gatewayOrderId) } } });
+    const before = await env.DB.prepare('SELECT starts_at, ends_at, status FROM subscriptions WHERE order_id = ?').bind(o.orderId).first();
+    await hook({ event: 'refund.processed', payload: { refund: { entity: { id: 'rfnd_dup', payment_id: 'pay_dup_2', amount: 49900, status: 'processed' } } } });
+    expect(await env.DB.prepare('SELECT starts_at, ends_at, status FROM subscriptions WHERE order_id = ?').bind(o.orderId).first()).toEqual(before);
+    expect((await access(s, rzp)).access.paid).toBe(true);
+    expect((await env.DB.prepare(`SELECT COUNT(*) AS n FROM audit_logs WHERE action = 'DUPLICATE_PAYMENT_REFUNDED' AND entity_id = ?`).bind(o.orderId).first<{ n: number }>())!.n).toBe(1);
   });
 
   it('KNOWN LIMITATION: an amount mismatch is recorded but only a log line tells staff', async () => {
@@ -300,5 +333,45 @@ describe('payment audit: fixes made in the sprint', () => {
     const r2 = await reconcileOrders(rzp);
     expect(r2.failed).toBe(0);
     expect((await access(t, rzp)).payments[0].status).toBe('FAILED');
+  });
+});
+
+describe('approved decisions, 16 Nov 2026: totals, roles and launch guard', () => {
+  it('bookmark and revision-card totals stop at the plan limit; what the student already holds is never removed', async () => {
+    const admin = await person('SUPER_ADMIN');
+    const free = await plan('FREE');
+    const s = await person();
+    const topics = (await env.DB.prepare('SELECT id FROM curriculum_nodes LIMIT 3').all<{ id: string }>()).results;
+    if (topics.length < 3) return;
+    await call('PUT', `/api/console/billing/plans/${free.id}`, { name: 'Free', description: null, pricePaise: 0, durationDays: null, active: true, sortOrder: 0, limits: { bookmarks: 2 }, features: [] }, admin.auth);
+    const add = (id: string) => call('POST', '/api/student/bookmarks', { kind: 'TOPIC', entityId: id }, s.auth);
+    expect((await add(topics[0]!.id)).status).toBe(200);
+    expect((await add(topics[0]!.id)).status).toBe(200); // the same one again is not a new item
+    expect((await add(topics[1]!.id)).status).toBe(200);
+    const over = await add(topics[2]!.id);
+    expect(over.status).toBe(402);
+    expect(over.json.error.code).toBe('PLAN_LIMIT');
+    expect((await env.DB.prepare('SELECT COUNT(*) AS n FROM bookmarks WHERE user_id = ?').bind(s.id).first<{ n: number }>())!.n).toBe(2);
+    await call('PUT', `/api/console/billing/plans/${free.id}`, { name: 'Free', description: null, pricePaise: 0, durationDays: null, active: true, sortOrder: 0, limits: {}, features: [] }, admin.auth);
+  });
+
+  it('a content editor cannot read the email log or the reviewer assignments; an administrator can', async () => {
+    const editor = await person('CONTENT_ADMIN');
+    const admin = await person('SUPER_ADMIN');
+    expect((await call('GET', '/api/console/email', undefined, editor.auth)).status).toBe(403);
+    expect((await call('GET', '/api/console/assignments', undefined, editor.auth)).status).toBe(403);
+    expect((await call('GET', '/api/console/email', undefined, admin.auth)).status).toBe(200);
+    expect((await call('GET', '/api/console/assignments', undefined, admin.auth)).status).toBe(200);
+  });
+
+  it('a paid plan cannot be switched on while students see unreviewed content (preview on)', async () => {
+    const admin = await person('SUPER_ADMIN');
+    const monthly = await plan('MONTHLY');
+    const on = { ...env, CONTENT_PREVIEW: 'true', KEEP_PREVIEW: '1' } as unknown as Bindings;
+    const body = { name: '1 month', description: null, pricePaise: 14900, durationDays: 30, active: true, sortOrder: 1, limits: {}, features: [] };
+    const blocked = await call('PUT', `/api/console/billing/plans/${monthly.id}`, body, admin.auth, on);
+    expect(blocked.status).toBe(409);
+    expect(blocked.json.error.code).toBe('PAID_LAUNCH_BLOCKED');
+    expect((await call('PUT', `/api/console/billing/plans/${monthly.id}`, { ...body, active: false }, admin.auth, on)).status).toBe(200);
   });
 });

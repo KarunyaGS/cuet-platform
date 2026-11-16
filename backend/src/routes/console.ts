@@ -44,6 +44,11 @@ const consoleAuth: MiddlewareHandler<AppEnv> = async (c, next) => {
 import { decideNotice, noticeDecisionSchema, noticeOverview, noticeQueue, syncNotices, adminNotices, adminNoticeQuery, noticeHistory, noticeSourceRegistry } from '../services/gov-notices';
 const admin = new Hono<AppEnv>();
 admin.use('*', consoleAuth);
+// Least privilege (approved 16 Nov 2026): sending email, reading the email log and seeing who reviews what need the account-management
+// permission, not just any staff role. Content editors and reviewers keep the content, notice and admissions screens.
+admin.use('/email', (c, next) => (needPermission(me(c), 'users:manage', 'see the email log'), next()));
+admin.use('/email/*', (c, next) => (needPermission(me(c), 'users:manage', 'preview or send email'), next()));
+admin.use('/assignments', (c, next) => (c.req.method === 'GET' ? (needPermission(me(c), 'users:manage', 'see reviewer assignments'), next()) : next()));
 const me = (c: { get(k: 'user'): AppEnv['Variables']['user'] }): Staff => {
   const u = c.get('user');
   return { id: u.id, displayName: u.displayName, permissions: u.permissions ?? [] };
@@ -128,8 +133,26 @@ admin.post('/past-papers/:id/status', async (c) => (needPermission(me(c), 'conte
 const billing = (c: Parameters<typeof me>[0], what: string) => needPermission(me(c), 'billing:manage', what);
 admin.get('/billing', async (c) => (billing(c, 'see payments'), c.json(await billingOverview(c.env))));
 admin.get('/billing/plans', async (c) => (billing(c, 'see plans'), c.json(await listPlans(c.env.DB, false))));
-admin.post('/billing/plans', async (c) => (billing(c, 'create plans'), c.json(await createPlan(c.env.DB, await readJson(c, planCreateSchema), c.get('actor')), 201)));
-admin.put('/billing/plans/:id', async (c) => (billing(c, 'change plans and prices'), c.json(await updatePlan(c.env.DB, c.req.param('id'), await readJson(c, planInputSchema), c.get('actor')))));
+/**
+ * Approved 16 Nov 2026 (decision 4): a paid plan cannot be switched on while students are shown unreviewed content (CONTENT_PREVIEW=true).
+ * Turn the preview off (and publish verified content) first.
+ */
+const paidLaunchGuard = (c: { env: AppEnv['Bindings'] }, body: { active?: boolean; pricePaise?: number }) => {
+  if (body.active && (body.pricePaise ?? 0) > 0 && c.env.CONTENT_PREVIEW === 'true')
+    throw new ApiError(409, 'PAID_LAUNCH_BLOCKED', 'A paid plan cannot be switched on while students are shown content that has not been reviewed (content preview is on). Publish verified subject content and turn the preview off first.');
+};
+admin.post('/billing/plans', async (c) => {
+  billing(c, 'create plans');
+  const body = await readJson(c, planCreateSchema);
+  paidLaunchGuard(c, body);
+  return c.json(await createPlan(c.env.DB, body, c.get('actor')), 201);
+});
+admin.put('/billing/plans/:id', async (c) => {
+  billing(c, 'change plans and prices');
+  const body = await readJson(c, planInputSchema);
+  paidLaunchGuard(c, body);
+  return c.json(await updatePlan(c.env.DB, c.req.param('id'), body, c.get('actor')));
+});
 admin.get('/billing/subscriptions', async (c) => (billing(c, 'see subscriptions'), c.json(await listSubscriptions(c.env.DB, subscriptionQuery.parse(query(c))))));
 admin.post('/billing/subscriptions', async (c) => (billing(c, 'give paid access'), c.json(await grantAccess(c.env.DB, await readJson(c, grantSchema), c.get('actor')), 201)));
 admin.post('/billing/subscriptions/:id/cancel', async (c) => (billing(c, 'cancel paid access'), c.json(await cancelSubscription(c.env.DB, c.req.param('id'), await readJson(c, cancelSchema), c.get('actor')))));

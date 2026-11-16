@@ -6,12 +6,14 @@ import { setEmailTransportForTests } from '../src/services/email';
 import type { Bindings } from '../src/types';
 
 const ADMIN = { 'x-admin-token': 'test-admin-token' };
-const mock = env as unknown as Bindings; // wrangler.jsonc (local): PAYMENTS_MODE=mock, APP_ENV=development
+const mock = env as unknown as Bindings;
 const KEY_SECRET = 'test-key-secret';
 const HOOK_SECRET = 'test-webhook-secret';
 const rzp = { ...env, PAYMENTS_MODE: 'test', RAZORPAY_KEY_ID: 'rzp_test_abc123', RAZORPAY_KEY_SECRET: KEY_SECRET, RAZORPAY_WEBHOOK_SECRET: HOOK_SECRET } as unknown as Bindings;
 
 async function call(method: string, path: string, body?: unknown, headers: Record<string, string> = {}, e: Bindings = mock) {
+  // Plan changes are made with the content preview off: a paid plan cannot be switched on while students see unreviewed content.
+  if (method !== 'GET' && /\/api\/console\/billing\/plans/.test(path)) e = { ...e, CONTENT_PREVIEW: 'false' } as Bindings;
   const ctx = createExecutionContext();
   const res = await app.request(path, { method, headers: { 'content-type': 'application/json', ...headers }, body: body === undefined ? undefined : typeof body === 'string' ? body : JSON.stringify(body) }, e, ctx);
   await waitOnExecutionContext(ctx);
@@ -160,15 +162,30 @@ describe('billing: plan limits', () => {
     const s = await person();
     const probe = await start(s);
     if (probe.status !== 201) return expect.soft(probe.status, 'this test needs a question the student can practise').toBe(201);
+    // Approved rule (16 Nov 2026): only SUBMITTED sessions count against a limit.
+    const finish = (r: { json: { session: { id: string } } }) => call('POST', `/api/student/practice/${r.json.session.id}/submit`, {}, s.auth);
+    expect((await finish(probe)).status).toBe(200);
 
     await call('PUT', `/api/console/billing/plans/${free.id}`, { name: 'Free', description: null, pricePaise: 0, durationDays: null, active: true, sortOrder: 0, limits: { practiceSets: 2 }, features: [] }, admin.auth);
-    expect((await start(s)).status).toBe(201);
+    const second = await start(s);
+    expect(second.status).toBe(201);
+    expect((await call('GET', '/api/student/billing', undefined, s.auth)).json.access.limits.find((l: { key: string }) => l.key === 'practiceSets').used).toBe(1);
+    expect((await finish(second)).status).toBe(200);
     const blocked = await start(s);
     expect(blocked.status).toBe(402);
     expect(blocked.json.error).toMatchObject({ code: 'PLAN_LIMIT', message: expect.stringMatching(/2 practice sets every 30 days/) });
     expect((await start(s, 'MOCK_TEST')).status).toBe(201); // a different limit, not set
     const access = (await call('GET', '/api/student/billing', undefined, s.auth)).json.access;
     expect(access.limits.find((l: { key: string }) => l.key === 'practiceSets')).toMatchObject({ limit: 2, used: 2 });
+
+    // Unfinished sessions do not count, but only three can be held open at once.
+    const t = await person();
+    await call('PUT', `/api/console/billing/plans/${free.id}`, { name: 'Free', description: null, pricePaise: 0, durationDays: null, active: true, sortOrder: 0, limits: { practiceSets: 2 }, features: [] }, admin.auth);
+    for (let i = 0; i < 3; i++) expect((await start(t)).status).toBe(201);
+    expect((await call('GET', '/api/student/billing', undefined, t.auth)).json.access.limits.find((l: { key: string }) => l.key === 'practiceSets').used).toBe(0);
+    const fourth = await start(t);
+    expect(fourth.status).toBe(409);
+    expect(fourth.json.error.code).toBe('TOO_MANY_UNFINISHED');
 
     // An administrator gives 7 days of paid access: the paid plan has no limit.
     await setPlan(admin, (await plan('MONTHLY')).id as string, {});
