@@ -112,7 +112,7 @@ export function FlashcardReviewPage() {
 
   if (steps.length === 0)
     return (
-      <div className="mx-auto max-w-xl">
+      <div className="max-w-3xl">
         <PageHeader back={{ to: back, label: backLabel }} title="Revise" />
         <Empty icon={<Check />} action={<ButtonLink to={back}>{backLabel}</ButtonLink>}>
           No saved cards are due today. Cards you save, and cards whose day has come, appear here.
@@ -122,7 +122,7 @@ export function FlashcardReviewPage() {
 
   if (!step)
     return (
-      <div className="mx-auto max-w-xl">
+      <div className="max-w-3xl">
         <PageHeader back={{ to: back, label: backLabel }} title="Done for now" subtitle={`You revised ${total} ${total === 1 ? 'card' : 'cards'}.`} />
         <StatGroup
           items={[
@@ -152,7 +152,7 @@ export function FlashcardReviewPage() {
 
   const c = step.card;
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="max-w-4xl">
       <PageHeader back={{ to: back, label: backLabel }} title="Revise" subtitle={[c.paper, c.chapter].filter(Boolean).join(', ') || undefined} />
       <div className="mb-4">
         <div className="num mb-1.5 flex items-center justify-between text-sm text-ink-2">

@@ -32,7 +32,7 @@ export function TopicPage() {
   const kl = kindLabel(d.topic.kind, d.topic.label);
   return (
     <div>
-      <nav aria-label="Breadcrumb" className="mb-3 flex flex-wrap items-center gap-1 text-sm text-ink-3">
+      <nav aria-label="Breadcrumb" className="mb-2 flex flex-wrap items-center gap-1 text-sm text-ink-3">
         {d.paper && (
           <>
             <Link to={`/${d.paper.exam}`} className="hover:text-accent">
@@ -54,7 +54,7 @@ export function TopicPage() {
         ))}
       </nav>
 
-      <header className="mb-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-rule pb-4" data-topic-header>
+      <header className="mb-4 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-rule pb-3" data-topic-header>
         <div className="min-w-0 max-w-[58rem]">
           {kl && <div className="text-sm text-ink-3">{kl}</div>}
           <h1 className="text-[1.375rem] leading-snug font-semibold text-ink sm:text-2xl">{d.topic.title}</h1>

@@ -275,7 +275,10 @@ export function Layout() {
   useEffect(() => setDrawer(false), [path]);
   const group = navGroup(path);
   // One page container for the whole app: wide enough to use a desktop screen, with the same gutters everywhere.
-  const shell = wide ? 'max-w-[96rem]' : 'max-w-[84rem]';
+  // Beside the sidebar the page starts at the sidebar's edge and uses the width available (left-aligned, never centred in a narrow box).
+  // Without a sidebar (sign-in, staff consoles) the centred, width-limited container stays.
+  const shell = wide ? 'mx-auto max-w-[96rem]' : 'mx-auto max-w-[84rem]';
+  const pageBox = showSidebar ? 'max-w-[120rem] px-4 pt-4 sm:px-5 lg:px-6' : `${shell} px-4 pt-5 sm:px-6 lg:px-8`;
 
   return (
     <div className="min-h-dvh">
@@ -283,7 +286,7 @@ export function Layout() {
         Skip to content
       </a>
       <header className="sticky top-0 z-30 border-b border-rule bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
-        <div className={`mx-auto flex h-14 items-center gap-2 px-4 sm:px-6 lg:px-8 ${showSidebar ? 'max-w-none' : shell}`}>
+        <div className={`flex h-14 items-center gap-2 px-4 sm:px-6 lg:px-8 ${showSidebar ? 'max-w-none' : shell}`}>
           {focus ? (
             <>
               <Logo />
@@ -328,7 +331,7 @@ export function Layout() {
       <div className="flex">
         {showSidebar && <Sidebar className="sticky top-14 hidden h-[calc(100dvh-3.5rem)] w-56 shrink-0 md:flex lg:w-64" />}
         <div className="min-w-0 flex-1">
-          <main id="main" key={path} className={`page-in mx-auto px-4 pt-5 pb-28 sm:px-6 md:pb-12 lg:px-8 ${shell}`}>
+          <main id="main" key={path} className={`page-in pb-28 md:pb-12 ${pageBox}`}>
             <Outlet />
           </main>
         </div>
