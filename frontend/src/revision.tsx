@@ -77,8 +77,9 @@ export function CardRow({ card: c, onChange, here = false, grouped = false }: { 
             </div>
           )}
           <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ink-3">
-            <Badge>{CARD_TYPE[c.type] ?? c.type}</Badge>
-            <StatusBadge c={c} />
+            {/* The type label is dropped when the title already starts with it ("Key point: ..."), and "New" is not shown: only Need revision and Know are. */}
+            {!title.toLowerCase().startsWith((CARD_TYPE[c.type] ?? c.type).toLowerCase()) && <Badge>{CARD_TYPE[c.type] ?? c.type}</Badge>}
+            {c.status !== 'NEW' && <StatusBadge c={c} />}
             <span className={c.due ? 'font-medium text-marker' : ''}>{c.due ? 'Due today' : `Next on ${dayLabel(c.dueOn)}`}</span>
             <span>Saved {savedLabel(c.savedAt)}</span>
           </div>
