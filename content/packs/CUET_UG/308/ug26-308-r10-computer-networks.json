@@ -1,0 +1,775 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_ef6d67fa329a42c6ac3bf648d7a72fd2",
+    "title": "Computer Networks"
+  },
+  "lesson": {
+    "key": "ug26-308-r10-computer-networks",
+    "title": "Computer networks: types, devices, topologies, addressing and the Internet versus the web",
+    "coverage": [
+      {
+        "phrase": "Introduction to computer networks",
+        "section": "Introduction to computer networks"
+      },
+      {
+        "phrase": "Evolution of networking",
+        "section": "Evolution of networking"
+      },
+      {
+        "phrase": "Network types: LAN, WAN, MAN",
+        "section": "Network types: LAN, MAN and WAN"
+      },
+      {
+        "phrase": "Network devices: Modem, Ethernet Card, Repeater, Hub, Switch, Router, Gateway",
+        "section": "Network devices"
+      },
+      {
+        "phrase": "Network Topologies: Mesh, Ring, Bus, Star, and Tree topologies",
+        "section": "Network topologies"
+      },
+      {
+        "phrase": "Basic concept of MAC and IP Address",
+        "section": "MAC address and IP address"
+      },
+      {
+        "phrase": "difference between Internet and web",
+        "section": "Internet and the web"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Introduction to computer networks"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Computer network",
+        "text": "A group of two or more computers and other devices (printers, phones, servers) connected to one another by cables or wireless links so that they can exchange data and share resources."
+      },
+      {
+        "type": "TEXT",
+        "text": "Why networks are built:\n\n- **Resource sharing**: many users share one printer, scanner, file server or an Internet connection.\n- **Data sharing and communication**: files, e-mail and messages move quickly between users.\n- **Reliability and backup**: data can be stored on more than one machine.\n- **Cost saving**: expensive hardware and software licences are shared.\n- **Central management**: one administrator can update and secure many computers."
+      },
+      {
+        "type": "TEXT",
+        "text": "Each device on a network is called a **node** (or host). A computer that provides a service, such as a file or a web page, is a **server**; a computer that requests the service is a **client**. The links may be wired (twisted pair, coaxial, optical fibre) or wireless (Wi-Fi, radio, satellite)."
+      },
+      {
+        "type": "HEADING",
+        "text": "Evolution of networking"
+      },
+      {
+        "type": "TEXT",
+        "text": "The development of networking can be followed in a few steps:\n\n1. **ARPANET (1969)**: a research network funded by the Advanced Research Projects Agency of the US Department of Defense. It first linked a handful of universities and research centres and showed that computers could exchange data by packet switching.\n2. **Growth through the 1970s and 1980s**: more networks (for example university and science networks such as NSFNET) were created. The TCP/IP protocol suite was adopted by ARPANET in 1983, so that different networks could talk to one another.\n3. **The Internet**: the joining of many separate networks through TCP/IP produced a \"network of networks\".\n4. **The World Wide Web**: Tim Berners-Lee proposed the Web in 1989 and the first web pages appeared in 1991, which made the Internet easy to use through browsers.\n5. **Today**: broadband, mobile data and Wi-Fi connect billions of devices, including phones and household appliances."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "ARPANET (1969) was the first step towards the Internet. TCP/IP connected separate networks, and the Web (Tim Berners-Lee) made the Internet easy to use."
+      },
+      {
+        "type": "HEADING",
+        "text": "Network types: LAN, MAN and WAN"
+      },
+      {
+        "type": "TEXT",
+        "text": "Networks are classified by the size of the area they cover."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Types of network by area",
+        "columns": [
+          "Type",
+          "Area covered",
+          "Examples and features"
+        ],
+        "rows": [
+          [
+            "LAN (Local Area Network)",
+            "A room, a building or a campus, typically up to about a kilometre",
+            "School computer lab, office network. Data rates are high, set-up cost is low and the network is usually owned by one organisation."
+          ],
+          [
+            "MAN (Metropolitan Area Network)",
+            "A city or a large town; larger than a LAN, smaller than a WAN",
+            "Cable TV network of a city, a bank linking its branches in one city."
+          ],
+          [
+            "WAN (Wide Area Network)",
+            "Countries and continents",
+            "Links many LANs and MANs using leased lines, satellites or fibre. The Internet is the largest WAN. Speed is usually lower and cost higher than for a LAN."
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "A small network of a person's own devices, such as a phone, a laptop and a headset, within a few metres is called a **PAN** (Personal Area Network), though the syllabus asks for LAN, WAN and MAN."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Mnemonic for size: LAN < MAN < WAN. Do not say that a LAN must be wired; a Wi-Fi network inside a house is also a LAN."
+      },
+      {
+        "type": "HEADING",
+        "text": "Network devices"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Common network devices",
+        "columns": [
+          "Device",
+          "Function"
+        ],
+        "rows": [
+          [
+            "Modem",
+            "Short for modulator-demodulator. It converts digital data from a computer into analog signals for a telephone or cable line (modulation) and converts incoming analog signals back to digital (demodulation)."
+          ],
+          [
+            "Ethernet card (NIC, network interface card)",
+            "The hardware that connects a computer to a wired network. It carries the unique MAC address of the device."
+          ],
+          [
+            "Repeater",
+            "Receives a weakened signal, regenerates it and retransmits it so that the signal can travel a longer distance."
+          ],
+          [
+            "Hub",
+            "A simple connecting device with many ports. It sends the data it receives on one port out of **all** other ports, so every device receives it. It has no knowledge of addresses."
+          ],
+          [
+            "Switch",
+            "Also connects many devices, but it learns the MAC address behind each port and sends a frame only to the port of the **intended receiver**. It is faster and more efficient than a hub."
+          ],
+          [
+            "Router",
+            "Connects different networks and forwards data packets by looking at the **IP address**, choosing the best path. A home router links the home LAN to the Internet."
+          ],
+          [
+            "Gateway",
+            "Connects networks that use **different protocols or architectures**, translating between them. It also acts as the entry and exit point of a network."
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "Quick comparison: a hub repeats to everyone, a switch sends only to the right device on the same network, a router sends between networks, and a gateway converts between different protocols."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Typical exam trap: calling a switch an \"intelligent hub\" and then saying it uses IP addresses. A switch works with MAC addresses inside one network; the router uses IP addresses between networks."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Repeater = regenerates signal. Hub = broadcasts to all. Switch = forwards by MAC address. Router = forwards by IP address between networks. Gateway = protocol conversion. Modem = digital to analog and back."
+      },
+      {
+        "type": "HEADING",
+        "text": "Network topologies"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Network topology",
+        "text": "The arrangement (layout) of the nodes and links of a network."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Topologies",
+        "columns": [
+          "Topology",
+          "Layout",
+          "Advantages",
+          "Disadvantages"
+        ],
+        "rows": [
+          [
+            "Bus",
+            "All nodes are attached to one common backbone cable, with terminators at both ends.",
+            "Needs little cable; simple and cheap to set up.",
+            "A fault or break in the main cable stops the whole network; performance falls as nodes are added."
+          ],
+          [
+            "Star",
+            "Every node is connected to a central hub or switch.",
+            "Easy to add or remove nodes; a fault in one cable affects only that node; easy to find faults.",
+            "If the central device fails, the whole network fails; needs more cable than a bus."
+          ],
+          [
+            "Ring",
+            "Each node is connected to exactly two neighbours, forming a closed loop; data usually travels in one direction.",
+            "Orderly data flow with little collision.",
+            "One broken link or a failed node can break the ring; adding a node disturbs the network."
+          ],
+          [
+            "Mesh",
+            "Every node is directly connected to every other node.",
+            "Very reliable: many alternate paths; no traffic jam.",
+            "Very costly and complex because of the number of links and ports."
+          ],
+          [
+            "Tree",
+            "Several star networks are joined in a hierarchy under a root node (a combination of bus and star).",
+            "Easy to extend and manage in groups; suits large organisations.",
+            "If the root or a backbone link fails, a large part of the network is cut off."
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "**Counting links in a mesh.** If there are n nodes and every pair is joined by its own link, the number of links is n(n - 1) / 2, and each node needs n - 1 ports. For 6 nodes the links are 6 x 5 / 2 = 15 and each node has 5 ports. For 8 nodes the links are 8 x 7 / 2 = 28."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A lab has 5 computers. How many cables are needed to connect them in (a) a full mesh and (b) a star with a switch, and how many ports does each computer need in the mesh?",
+        "solution": "(a) Mesh: number of links = n(n - 1) / 2 = 5 x 4 / 2 = 10 cables.\nEach computer connects to the other four, so it needs 5 - 1 = 4 ports.\n(b) Star: each computer has one cable to the central switch, so 5 cables are needed, and each computer needs only 1 port (the switch needs at least 5 ports).",
+        "answer": "Mesh: 10 cables and 4 ports per computer; star: 5 cables and 1 port per computer."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "In a star network of 9 computers a switch fails, and in another star network of 9 computers the cable of one computer is cut. How many computers can still communicate with each other in the two cases?",
+        "solution": "Case 1: in a star every computer talks only through the central switch. If the switch fails there is no other path, so none of the 9 computers can communicate with any other.\nCase 2: the cut cable isolates only that one computer. The other 8 computers still reach the switch and each other.\nSo the damage is total in case 1 and limited to one node in case 2.",
+        "answer": "Case 1: no computer can communicate; case 2: the other 8 computers can still communicate."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Failure points: bus - the backbone cable; star - the central hub or switch; ring - any link or node (in a simple ring); mesh - almost none; tree - the root or backbone."
+      },
+      {
+        "type": "HEADING",
+        "text": "MAC address and IP address"
+      },
+      {
+        "type": "TEXT",
+        "text": "Two kinds of address are used on a network."
+      },
+      {
+        "type": "TABLE",
+        "caption": "MAC address and IP address",
+        "columns": [
+          "Point",
+          "MAC address",
+          "IP address"
+        ],
+        "rows": [
+          [
+            "Full form",
+            "Media Access Control address",
+            "Internet Protocol address"
+          ],
+          [
+            "Assigned by",
+            "Manufacturer; fixed in the NIC (hardware)",
+            "Network administrator or a DHCP server; given to a device for a network"
+          ],
+          [
+            "Length",
+            "48 bits (6 bytes), written as 12 hexadecimal digits such as 00:1A:2B:3C:4D:5E",
+            "IPv4: 32 bits, four numbers from 0 to 255 separated by dots such as 192.168.1.10. IPv6: 128 bits"
+          ],
+          [
+            "Does it change?",
+            "Normally stays the same for the life of the card",
+            "Can change when the device joins another network"
+          ],
+          [
+            "Used for",
+            "Identifying a device on its local network (switches)",
+            "Identifying a device on the Internet and routing packets between networks (routers)"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "Every valid IPv4 address has four parts, each between 0 and 255. So 192.168.10.25 is valid, while 256.10.1.1 (256 is too big) and 192.168.1 (only three parts) are not."
+      },
+      {
+        "type": "HEADING",
+        "text": "Internet and the web"
+      },
+      {
+        "type": "TEXT",
+        "text": "The terms are often mixed up, but they are not the same."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Internet and web",
+        "columns": [
+          "Point",
+          "Internet",
+          "Web (WWW)"
+        ],
+        "rows": [
+          [
+            "Nature",
+            "The worldwide network of connected networks (hardware, cables, routers)",
+            "A collection of linked documents (web pages) and resources stored on web servers"
+          ],
+          [
+            "Needs",
+            "TCP/IP and physical links",
+            "The Internet, HTTP/HTTPS, URLs and a browser"
+          ],
+          [
+            "Services",
+            "Hosts many services: web, e-mail, file transfer (FTP), video calls",
+            "Only one of the services that run on the Internet"
+          ],
+          [
+            "Relation",
+            "The infrastructure",
+            "A service that uses the infrastructure"
+          ]
+        ]
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "When you send an e-mail with an e-mail application, you are using the Internet but not browsing web pages. When you open a school website in a browser, you are using the web, which runs over the Internet."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "The Internet is the network; the web is one of the services on it. Browsers and HTTP belong to the web; TCP/IP and routers belong to the Internet."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r10-computer-networks-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which device converts the digital signal of a computer into an analog signal for a telephone line and back again?",
+      "options": [
+        "Modem",
+        "Repeater",
+        "Hub",
+        "Gateway"
+      ],
+      "answer": 1,
+      "explanation": "A modem (modulator-demodulator) modulates digital data into an analog signal for transmission and demodulates the incoming analog signal back into digital data. A repeater only regenerates signals, a hub only broadcasts them, and a gateway converts between protocols.",
+      "optionRationale": {
+        "2": "A repeater regenerates a weakened signal but does not convert its type.",
+        "3": "A hub broadcasts data to all ports.",
+        "4": "A gateway translates between different protocols."
+      },
+      "objective": "Recall the function of a modem"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "A network spread over a whole city, linking offices and institutions of that city, is best described as a",
+      "options": [
+        "LAN",
+        "MAN",
+        "WAN",
+        "PAN"
+      ],
+      "answer": 2,
+      "explanation": "A Metropolitan Area Network covers a city or a large town, which is larger than one building (LAN) but smaller than a country-wide network (WAN). A PAN covers only a few metres around a person.",
+      "optionRationale": {
+        "1": "A LAN covers a single building or campus.",
+        "3": "A WAN covers countries and continents.",
+        "4": "A PAN covers only the personal space of one user."
+      },
+      "objective": "Classify a network by its area"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In which topology is every node connected to a central hub or switch?",
+      "options": [
+        "Bus",
+        "Ring",
+        "Star",
+        "Mesh"
+      ],
+      "answer": 3,
+      "explanation": "In a star topology every node has its own link to a central device such as a hub or switch. Bus uses one common backbone cable, ring links each node to two neighbours, and mesh joins every node to every other.",
+      "optionRationale": {
+        "1": "Bus uses one common backbone cable.",
+        "2": "Ring connects each node to two neighbours.",
+        "4": "Mesh connects every node to every other node."
+      },
+      "objective": "Identify the star topology"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following is the earliest network that led to the Internet?",
+      "options": [
+        "Ethernet",
+        "NSFNET",
+        "WWW",
+        "ARPANET"
+      ],
+      "answer": 4,
+      "explanation": "ARPANET (1969), funded by the Advanced Research Projects Agency of the US Department of Defense, was one of the first packet-switched networks and the forerunner of the Internet. The Web came much later and Ethernet is a LAN technology.",
+      "optionRationale": {
+        "1": "Ethernet is a LAN technology, not the first wide-area network.",
+        "2": "NSFNET came later, after ARPANET.",
+        "3": "The World Wide Web is a service developed in 1989-91, long after ARPANET."
+      },
+      "objective": "Recall the origin of the Internet"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which address is permanently assigned to the network interface card by its manufacturer?",
+      "options": [
+        "MAC address",
+        "IP address",
+        "Port number",
+        "URL"
+      ],
+      "answer": 1,
+      "explanation": "The MAC address is burnt into the NIC at manufacture and normally never changes. An IP address is assigned by the network, a port number identifies a service, and a URL is the address of a web resource.",
+      "optionRationale": {
+        "2": "An IP address depends on the network and can change.",
+        "3": "A port number identifies a service, not a card.",
+        "4": "A URL names a web resource."
+      },
+      "objective": "Recall MAC address ownership"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Which device sends a data frame only to the port of the intended receiver on the same network, using MAC addresses?",
+      "options": [
+        "Hub",
+        "Switch",
+        "Modem",
+        "Repeater"
+      ],
+      "answer": 2,
+      "explanation": "A switch learns which MAC address is behind each port and forwards a frame only to the destination port. A hub sends the data to all ports, a repeater only regenerates signals, and a modem converts signal types.",
+      "optionRationale": {
+        "1": "A hub broadcasts to all ports.",
+        "3": "A modem converts digital and analog signals.",
+        "4": "A repeater simply amplifies and retransmits."
+      },
+      "objective": "Differentiate switch from hub"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Six computers are joined so that every computer has its own direct cable to each of the others. How many network ports must one computer have?",
+      "options": [
+        "15",
+        "6",
+        "5",
+        "1"
+      ],
+      "answer": 3,
+      "explanation": "In a full mesh every computer is connected directly to each of the other computers. For 6 computers that means 6 - 1 = 5 links from each computer, so 5 ports. The total number of links in the network is 15, but this is not the number of ports per computer.",
+      "optionRationale": {
+        "1": "15 is the total number of links in the whole mesh.",
+        "2": "A computer does not connect to itself, so 6 ports are not needed.",
+        "4": "1 port per computer is what a star needs."
+      },
+      "objective": "Compute ports per node in a mesh"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Which device connects two different networks and forwards packets by examining their IP addresses?",
+      "options": [
+        "Switch",
+        "Hub",
+        "Repeater",
+        "Router"
+      ],
+      "answer": 4,
+      "explanation": "A router is meant for connecting separate networks. It reads the destination IP address of each packet and chooses the best path. Switches work with MAC addresses within one network, and hubs and repeaters do not examine addresses at all.",
+      "optionRationale": {
+        "1": "A switch forwards by MAC address inside one network.",
+        "2": "A hub repeats data to all ports.",
+        "3": "A repeater only regenerates the signal."
+      },
+      "objective": "Identify the role of a router"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Which of the following is a valid IPv4 address?",
+      "options": [
+        "192.168.10.25",
+        "256.10.1.1",
+        "192.168.1",
+        "192.168.10.25.7"
+      ],
+      "answer": 1,
+      "explanation": "An IPv4 address consists of exactly four numbers separated by dots, each from 0 to 255. 256.10.1.1 has a part larger than 255, 192.168.1 has only three parts, and the last option has five parts.",
+      "optionRationale": {
+        "2": "256 is greater than 255.",
+        "3": "Only three parts are present; four are required.",
+        "4": "Five parts are present; there must be exactly four."
+      },
+      "objective": "Validate an IPv4 address"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A college places a device at the boundary where its Ethernet LAN meets the network of its Internet service provider, so that it can decide where each outgoing packet goes. Which device is this?",
+      "options": [
+        "Repeater",
+        "Router",
+        "Ethernet card",
+        "Hub"
+      ],
+      "answer": 2,
+      "explanation": "Connecting a LAN to the Internet means joining two different networks and forwarding packets by IP address, which is the job of a router. A repeater and a hub work inside one network, and an Ethernet card connects one computer.",
+      "optionRationale": {
+        "1": "A repeater only extends the range of a signal.",
+        "3": "An Ethernet card connects a single computer to its LAN.",
+        "4": "A hub only joins devices of one network."
+      },
+      "objective": "Apply router knowledge to a scenario"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q11",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the device in List-I with its main function in List-II.",
+      "options": [
+        "A-IV, B-II, C-III, D-I",
+        "A-II, B-IV, C-I, D-III",
+        "A-II, B-IV, C-III, D-I",
+        "A-II, B-III, C-IV, D-I"
+      ],
+      "answer": 3,
+      "explanation": "A repeater regenerates a weak signal (A-II). A hub sends data to all ports (B-IV). A gateway converts between different protocols (C-III). A modem converts between digital and analog signals (D-I).",
+      "optionRationale": {
+        "1": "This swaps repeater and hub.",
+        "2": "This swaps gateway and modem.",
+        "4": "This swaps hub and gateway."
+      },
+      "objective": "Match devices to functions",
+      "list": {
+        "left": [
+          "A. Repeater",
+          "B. Hub",
+          "C. Gateway",
+          "D. Modem"
+        ],
+        "right": [
+          "I. Converts digital signals to analog and back",
+          "II. Regenerates a weak signal",
+          "III. Converts between different protocols",
+          "IV. Sends incoming data to all ports"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q12",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements.\nA. The Internet is a worldwide network of networks.\nB. The web is a service that runs on the Internet.\nC. E-mail cannot work without the web.\nWhich statements are correct?",
+      "options": [
+        "A and C only",
+        "B and C only",
+        "A, B and C",
+        "A and B only"
+      ],
+      "answer": 4,
+      "explanation": "The Internet is the global network of networks (A true) and the web is one service running on it (B true). E-mail uses its own protocols such as SMTP and works without a web browser, so C is false.",
+      "optionRationale": {
+        "1": "C is false: e-mail does not depend on the web.",
+        "2": "C is false, and A is also true.",
+        "3": "C is false, so all three cannot be correct."
+      },
+      "objective": "Evaluate statements on Internet and web"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q13",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The failure of the central switch in a star network stops communication of the entire network.\nReason (R): In a star topology every node communicates through the central device and has no direct link to any other node.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "All traffic in a star passes through the central hub or switch. When it fails, no pair of nodes can communicate because there are no other paths, so R correctly explains A. A failure of one node cable, however, affects only that node.",
+      "optionRationale": {
+        "2": "R is the reason behind A, so it is a correct explanation.",
+        "3": "R is true; in a star there are no direct links between nodes.",
+        "4": "A is true: the central device is the single point of failure."
+      },
+      "objective": "Explain the single point of failure in a star"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "How many direct links are needed to connect 8 computers in a full mesh topology?",
+      "options": [
+        "28",
+        "8",
+        "36",
+        "56"
+      ],
+      "answer": 1,
+      "explanation": "In a full mesh each pair of computers has one link, so the number of links is n(n - 1) / 2 = 8 x 7 / 2 = 28. The value 56 counts every link twice (once from each end), and 8 is what a ring needs.",
+      "optionRationale": {
+        "2": "8 is the number of links in a ring of 8 nodes.",
+        "3": "36 would be 9 x 8 / 2, wrongly using n + 1 nodes.",
+        "4": "56 = 8 x 7 counts each link twice."
+      },
+      "objective": "Compute mesh links"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "A company has two offices; one uses a network based on one protocol suite and the other uses a different architecture. Which device lets them exchange data?",
+      "options": [
+        "Hub",
+        "Gateway",
+        "Repeater",
+        "Ethernet card"
+      ],
+      "answer": 2,
+      "explanation": "A gateway connects networks that use different protocols or architectures and translates the data between them. A hub joins devices of the same network, a repeater regenerates a signal, and an Ethernet card connects a single computer.",
+      "optionRationale": {
+        "1": "A hub joins devices of one network and cannot translate protocols.",
+        "3": "A repeater only regenerates the signal; it does not translate.",
+        "4": "An Ethernet card connects one computer, not two networks."
+      },
+      "objective": "Choose a gateway for dissimilar networks"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q16",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The IP address of a laptop can be different when it is connected to different Wi-Fi networks, but its MAC address remains the same.\nReason (R): The MAC address is fixed in the network card by its manufacturer, while an IP address is allocated by the network the device joins.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Each network hands out its own IP addresses, so the laptop receives a new one on each network. The MAC address belongs to the network card hardware, so it stays the same. R states exactly this difference and explains A.",
+      "optionRationale": {
+        "2": "R is the direct cause of what A describes, so it explains A.",
+        "3": "R is true, so A is not supported by a false reason.",
+        "4": "A is true: IP addresses change between networks."
+      },
+      "objective": "Contrast MAC and IP addresses"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q17",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about topologies.\nA. In a bus topology a break in the backbone cable can stop the whole network.\nB. In a ring topology each node is connected to exactly two other nodes.\nC. In a tree topology several star networks are arranged in a hierarchy.\nD. A mesh topology needs less cable than a star topology.\nWhich statements are correct?",
+      "options": [
+        "B, C and D only",
+        "A, B and D only",
+        "A, B and C only",
+        "A and C only"
+      ],
+      "answer": 3,
+      "explanation": "A single backbone cable carries all bus traffic, so a break stops the network (A true). A ring joins each node to two neighbours (B true) and a tree arranges star networks hierarchically (C true). A mesh needs far more cable than a star, so D is false.",
+      "optionRationale": {
+        "1": "D is false, and A is also true.",
+        "2": "D is false: a mesh uses the most cable.",
+        "4": "This leaves out B, which is also correct."
+      },
+      "objective": "Verify statements about topologies"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A lab with 10 computers needs a topology in which a fault in the cable of one computer must not stop the other computers, and new computers must be easy to add. Which topology fits best?",
+      "options": [
+        "Bus",
+        "Tree with the root cable shared by all computers",
+        "Ring",
+        "Star"
+      ],
+      "answer": 4,
+      "explanation": "In a star each computer has its own cable to the central switch, so a faulty cable disconnects only that computer, and new computers are added by plugging into the switch. In a bus a backbone fault stops everything and in a ring one broken link disturbs the whole network.",
+      "optionRationale": {
+        "1": "A bus depends on one backbone, which is a single point of failure.",
+        "2": "Sharing the root cable by all computers makes it a single point of failure again.",
+        "3": "A single broken link can break a ring."
+      },
+      "objective": "Select a topology for given needs"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Which of the following uses the Internet but is not part of the World Wide Web?",
+      "options": [
+        "Sending an e-mail with an e-mail client using SMTP",
+        "Reading a news article through its URL",
+        "Opening a school website in a browser",
+        "Viewing an online video page over HTTPS"
+      ],
+      "answer": 1,
+      "explanation": "E-mail transfer uses SMTP and other mail protocols over the Internet, not web pages with HTTP. The other options involve web pages, URLs and HTTP or HTTPS, which make up the World Wide Web. So e-mail shows that the Internet carries more than the web.",
+      "optionRationale": {
+        "2": "A URL points to a web resource.",
+        "3": "A website is accessed over HTTP and is part of the web.",
+        "4": "A video page over HTTPS is part of the web."
+      },
+      "objective": "Separate Internet services from the web"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Which statement about a hub and a switch is correct?",
+      "options": [
+        "A hub uses MAC addresses and a switch does not",
+        "A switch forwards a frame only to the destination port, while a hub forwards it to all ports",
+        "A hub connects different networks and a switch connects devices of one network only",
+        "Both send data only to the intended receiver, but a hub is faster"
+      ],
+      "answer": 2,
+      "explanation": "A hub has no address knowledge and repeats data on every port. A switch reads the destination MAC address and uses only the correct port, which reduces unnecessary traffic. Joining different networks is the job of a router, not a hub.",
+      "optionRationale": {
+        "1": "The hub does not use MAC addresses; the switch does.",
+        "3": "Neither device joins different networks; a router does that.",
+        "4": "A hub sends data to all ports, and it is not faster in practice."
+      },
+      "objective": "Compare hub and switch"
+    }
+  ]
+}

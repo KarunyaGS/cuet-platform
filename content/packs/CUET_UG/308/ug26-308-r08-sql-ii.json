@@ -1,0 +1,800 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_b6c6c979d34c47b588b76f85d1e3336c",
+    "title": "Structured Query Language – II"
+  },
+  "lesson": {
+    "key": "ug26-308-r08-sql-ii",
+    "title": "Structured Query Language II: date and aggregate functions, grouping, relational operations and joins",
+    "coverage": [
+      {
+        "phrase": "Structured Query Language",
+        "section": "Date functions in MySQL"
+      },
+      {
+        "phrase": "Date Functions: NOW ()",
+        "section": "Date functions in MySQL"
+      },
+      {
+        "phrase": "DATE ()",
+        "section": "Date functions in MySQL"
+      },
+      {
+        "phrase": "MONTH ()",
+        "section": "Date functions in MySQL"
+      },
+      {
+        "phrase": "MONTHNAME ()",
+        "section": "Date functions in MySQL"
+      },
+      {
+        "phrase": "YEAR ()",
+        "section": "Date functions in MySQL"
+      },
+      {
+        "phrase": "DAY ()",
+        "section": "Date functions in MySQL"
+      },
+      {
+        "phrase": "DAYNAME ()",
+        "section": "Date functions in MySQL"
+      },
+      {
+        "phrase": "Aggregate Functions: MAX (), MIN (), AVG (), SUM (), COUNT ()",
+        "section": "Aggregate functions"
+      },
+      {
+        "phrase": "using COUNT(*)",
+        "section": "Aggregate functions"
+      },
+      {
+        "phrase": "Querying and manipulating data using Group by",
+        "section": "GROUP BY clause"
+      },
+      {
+        "phrase": "Having",
+        "section": "HAVING clause"
+      },
+      {
+        "phrase": "Order by",
+        "section": "ORDER BY clause"
+      },
+      {
+        "phrase": "Operations on Relations - Union, Intersection, Minus",
+        "section": "Operations on relations: Union, Intersection and Minus"
+      },
+      {
+        "phrase": "Cartesian Product",
+        "section": "Cartesian product"
+      },
+      {
+        "phrase": "JOIN",
+        "section": "JOIN"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Date functions in MySQL"
+      },
+      {
+        "type": "TEXT",
+        "text": "MySQL has built-in functions that read the current date and time or pick parts out of a date value. Dates are written inside quotes in the form `YYYY-MM-DD`."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Date functions",
+        "columns": [
+          "Function",
+          "Returns",
+          "Example and result"
+        ],
+        "rows": [
+          [
+            "NOW()",
+            "Current date and time of the server as YYYY-MM-DD HH:MM:SS",
+            "SELECT NOW(); gives a value such as 2026-03-18 10:42:07 (depends on the moment of running)"
+          ],
+          [
+            "DATE(x)",
+            "Date part of a date-time value",
+            "DATE('2024-03-15 09:30:00') gives 2024-03-15"
+          ],
+          [
+            "YEAR(d)",
+            "Year as a number",
+            "YEAR('2024-03-15') gives 2024"
+          ],
+          [
+            "MONTH(d)",
+            "Month number from 1 to 12",
+            "MONTH('2024-03-15') gives 3"
+          ],
+          [
+            "MONTHNAME(d)",
+            "Full name of the month",
+            "MONTHNAME('2024-03-15') gives March"
+          ],
+          [
+            "DAY(d)",
+            "Day of the month from 1 to 31",
+            "DAY('2024-03-15') gives 15"
+          ],
+          [
+            "DAYNAME(d)",
+            "Full name of the weekday",
+            "DAYNAME('2024-03-15') gives Friday"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "These functions can be used in the SELECT list and in WHERE. With the table EMP shown in the next section, `SELECT Name FROM EMP WHERE YEAR(JoinDate) = 2023;` returns Asha and Divya, and `SELECT Name, MONTHNAME(JoinDate) FROM EMP WHERE DAY(JoinDate) = 25;` returns Farid with December."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "JoinDate values and their parts: 2023-03-15 is a Wednesday in March 2023; 2022-11-02 is a Wednesday in November; 2024-02-29 (a leap-year date) is a Thursday; 2020-12-25 is a Friday in December."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Do not mix up MONTH() and MONTHNAME(): MONTH returns a number (3) and MONTHNAME returns text (March). Likewise DAY() gives the day of the month (a number), and DAYNAME() gives the weekday name. NOW() has no argument but still needs the brackets."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "NOW() = current date and time; DATE() = date part; YEAR, MONTH, DAY = numbers; MONTHNAME, DAYNAME = names."
+      },
+      {
+        "type": "HEADING",
+        "text": "Aggregate functions"
+      },
+      {
+        "type": "TEXT",
+        "text": "An **aggregate function** works on a set of rows and returns a single value. We use this table EMP in all the examples that follow:\n\n| EmpID | Name  | Dept  | Salary | JoinDate   |\n|---|---|---|---|---|\n| 1 | Asha  | Sales | 40000 | 2023-03-15 |\n| 2 | Bhav  | HR    | 35000 | 2022-11-02 |\n| 3 | Chet  | Sales | 45000 | 2021-07-20 |\n| 4 | Divya | IT    | 50000 | 2023-01-09 |\n| 5 | Esha  | HR    | NULL  | 2024-02-29 |\n| 6 | Farid | Sales | 35000 | 2020-12-25 |"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Aggregate functions on EMP",
+        "columns": [
+          "Function",
+          "Meaning",
+          "Result on EMP"
+        ],
+        "rows": [
+          [
+            "MAX(Salary)",
+            "Largest non-NULL value",
+            "50000"
+          ],
+          [
+            "MIN(Salary)",
+            "Smallest non-NULL value",
+            "35000"
+          ],
+          [
+            "SUM(Salary)",
+            "Total of non-NULL values",
+            "205000"
+          ],
+          [
+            "AVG(Salary)",
+            "Average of non-NULL values (sum divided by number of non-NULL values)",
+            "205000 / 5 = 41000"
+          ],
+          [
+            "COUNT(Salary)",
+            "Number of rows where Salary is not NULL",
+            "5"
+          ],
+          [
+            "COUNT(*)",
+            "Number of rows, whether or not any column is NULL",
+            "6"
+          ],
+          [
+            "COUNT(DISTINCT Dept)",
+            "Number of different non-NULL Dept values",
+            "3"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "All aggregates except `COUNT(*)` ignore NULL. Esha has a NULL salary, so `COUNT(Salary)` is 5 but `COUNT(*)` is 6, and the average uses 5 values, not 6. An aggregate function without GROUP BY always produces one row, and it cannot be placed in a WHERE condition."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "For the table EMP above, find the output of\n\n`SELECT COUNT(*), COUNT(Salary), AVG(Salary) FROM EMP;`",
+        "solution": "COUNT(*) counts all six rows, so it is 6.\nSalary values that are not NULL: 40000, 35000, 45000, 50000, 35000. That is 5 values, so COUNT(Salary) = 5.\nTheir sum is 205000, and AVG divides by 5 (not 6): 205000 / 5 = 41000.",
+        "answer": "One row: 6, 5, 41000."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistake: thinking AVG divides by the total number of rows. It divides only by the number of non-NULL values. Using AVG(Salary) = 205000/6 = 34166.67 would be wrong."
+      },
+      {
+        "type": "HEADING",
+        "text": "GROUP BY clause"
+      },
+      {
+        "type": "TEXT",
+        "text": "`GROUP BY` collects rows that have the same value in a column into one group and lets an aggregate function work on each group separately. The result has one row per group."
+      },
+      {
+        "type": "TEXT",
+        "text": "`SELECT Dept, COUNT(*), AVG(Salary), MAX(Salary) FROM EMP GROUP BY Dept ORDER BY Dept;`\n\nResult:\n\n| Dept | COUNT(*) | AVG(Salary) | MAX(Salary) |\n|---|---|---|---|\n| HR | 2 | 35000 | 35000 |\n| IT | 1 | 50000 | 50000 |\n| Sales | 3 | 40000 | 45000 |\n\nThe HR group has the salaries 35000 and NULL, so AVG ignores the NULL and gives 35000."
+      },
+      {
+        "type": "TEXT",
+        "text": "Rule: every column in the SELECT list that is not inside an aggregate function must also appear in the GROUP BY clause. WHERE filters **rows before** they are grouped. For example `SELECT Dept, SUM(Salary) FROM EMP WHERE Salary >= 40000 GROUP BY Dept;` first keeps Asha, Chet and Divya, then gives IT 50000 and Sales 85000."
+      },
+      {
+        "type": "HEADING",
+        "text": "HAVING clause"
+      },
+      {
+        "type": "TEXT",
+        "text": "`HAVING` filters **groups** after the aggregate values have been calculated. WHERE cannot use aggregate functions, so a condition such as \"average above 35000\" must go in HAVING."
+      },
+      {
+        "type": "TABLE",
+        "caption": "WHERE and HAVING",
+        "columns": [
+          "Point",
+          "WHERE",
+          "HAVING"
+        ],
+        "rows": [
+          [
+            "Filters",
+            "Individual rows",
+            "Groups"
+          ],
+          [
+            "Applied",
+            "Before grouping",
+            "After grouping"
+          ],
+          [
+            "Aggregate functions allowed?",
+            "No",
+            "Yes"
+          ],
+          [
+            "Needs GROUP BY?",
+            "No",
+            "Normally used with GROUP BY"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Write and evaluate a query that lists departments of EMP whose average salary is more than 35000, with the average.",
+        "solution": "Query: SELECT Dept, AVG(Salary) FROM EMP GROUP BY Dept HAVING AVG(Salary) > 35000;\nGroup averages: HR = 35000 (only one non-NULL value), IT = 50000, Sales = (40000 + 45000 + 35000) / 3 = 40000.\nHR is not above 35000, so it is rejected. IT and Sales remain.",
+        "answer": "IT 50000 and Sales 40000"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate `SELECT Dept, COUNT(*) FROM EMP GROUP BY Dept HAVING COUNT(*) >= 2 ORDER BY COUNT(*) DESC;`",
+        "solution": "Group counts: HR 2, IT 1, Sales 3.\nHAVING keeps counts of at least 2: HR and Sales.\nORDER BY COUNT(*) DESC places the larger count first.",
+        "answer": "Sales 3, then HR 2"
+      },
+      {
+        "type": "HEADING",
+        "text": "ORDER BY clause"
+      },
+      {
+        "type": "TEXT",
+        "text": "`ORDER BY` sorts the rows of the result. The default is ascending (`ASC`); write `DESC` for descending. Several columns can be given: `ORDER BY Dept, Salary DESC` sorts by Dept first and, within the same Dept, by Salary from high to low. In MySQL a NULL is treated as the lowest value, so NULLs come first in ascending order and last in descending order."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "`SELECT Name, Salary FROM EMP ORDER BY Salary DESC;` gives Divya 50000, Chet 45000, Asha 40000, Bhav 35000, Farid 35000 and finally Esha with NULL. The two rows with 35000 may appear in either order because the sort key is the same."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Clause order in a query: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY. Without ORDER BY, MySQL does not guarantee any particular order of the result rows."
+      },
+      {
+        "type": "HEADING",
+        "text": "Operations on relations: Union, Intersection and Minus"
+      },
+      {
+        "type": "TEXT",
+        "text": "These operations combine two relations (tables) that are **union compatible**: they must have the same number of columns, with matching data types. We use two single-column tables A with values 1, 2, 2, 3 and B with values 2, 3, 4."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Set operations",
+        "columns": [
+          "Operation",
+          "Meaning",
+          "Result for A and B"
+        ],
+        "rows": [
+          [
+            "Union (A ∪ B)",
+            "All rows that are in A or in B, duplicates removed",
+            "1, 2, 3, 4"
+          ],
+          [
+            "Intersection (A ∩ B)",
+            "Rows that are in both A and B",
+            "2, 3"
+          ],
+          [
+            "Minus / difference (A - B)",
+            "Rows in A that are not in B",
+            "1"
+          ],
+          [
+            "B - A",
+            "Rows in B that are not in A (order matters)",
+            "4"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "In SQL: `SELECT x FROM A UNION SELECT x FROM B;` removes duplicates, while `UNION ALL` keeps them (here that would give seven rows). MySQL 8.0.31 and later supports `INTERSECT` and `EXCEPT` (the SQL name for MINUS); older MySQL versions have no direct MINUS or INTERSECT and use joins or `IN` / `NOT IN` instead. MINUS is the usual keyword in Oracle. In the syllabus these are treated as operations on relations."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Minus is not symmetric: A - B and B - A are different. Union and intersection are symmetric. The two tables must have the same number of columns."
+      },
+      {
+        "type": "HEADING",
+        "text": "Cartesian product"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Cartesian product",
+        "text": "The Cartesian product of two relations pairs every row of the first relation with every row of the second. If the first has m rows and a columns and the second has n rows and b columns, the result has m x n rows and a + b columns."
+      },
+      {
+        "type": "TEXT",
+        "text": "In MySQL it is written `SELECT * FROM S, CL;` (a comma between tables with no condition) or with CROSS JOIN. For a table S with 4 rows and a table CL with 3 rows, the product has 12 rows. If S has 3 columns and CL has 2, the product has 5 columns."
+      },
+      {
+        "type": "HEADING",
+        "text": "JOIN"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **join** combines rows of two tables using a condition on related columns, so it picks only meaningful pairs from the Cartesian product. We use two tables:\n\nS(SID, SName, CID): (1, A, 10), (2, B, 20), (3, C, 10), (4, D, 99)\n\nCL(CID, CName): (10, X), (20, Y), (30, Z)"
+      },
+      {
+        "type": "TEXT",
+        "text": "- **Equi-join / inner join**: `SELECT SName, CName FROM S, CL WHERE S.CID = CL.CID;` or `SELECT SName, CName FROM S JOIN CL ON S.CID = CL.CID;` gives (A, X), (B, Y), (C, X). Student D has CID 99 with no match, and class Z has no student, so both are left out. The result has 3 rows.\n- **Natural join**: `S NATURAL JOIN CL` joins automatically on all columns with the same name (CID) and shows the common column only once.\n- A join without any condition is a Cartesian product (12 rows here).\n- Qualify a column name with its table (`S.CID`) when both tables have a column of that name."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "If you forget the join condition in the WHERE clause, MySQL returns the full Cartesian product (12 rows in this example) instead of the 3 meaningful rows. This is a very common exam question."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Join = Cartesian product + condition. Rows without a matching partner disappear in an inner join. Always give the join condition."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r08-sql-ii-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which MySQL function returns the current date together with the current time?",
+      "options": [
+        "NOW()",
+        "DATE()",
+        "DAYNAME()",
+        "YEAR()"
+      ],
+      "answer": 1,
+      "explanation": "NOW() returns the server date and time in the form YYYY-MM-DD HH:MM:SS. DATE() extracts only the date part from a value, YEAR() extracts the year, and DAYNAME() gives the weekday name of a given date.",
+      "optionRationale": {
+        "2": "DATE() returns only the date part of a value that is given to it.",
+        "3": "DAYNAME() needs a date and returns a weekday name only.",
+        "4": "YEAR() returns only the year number."
+      },
+      "objective": "Recall NOW()"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "application",
+      "stem": "What does SELECT MONTHNAME('2024-03-15'); return?",
+      "options": [
+        "3",
+        "March",
+        "Friday",
+        "15"
+      ],
+      "answer": 2,
+      "explanation": "MONTHNAME() converts the date to the full name of its month. The month of '2024-03-15' is March. The number 3 would come from MONTH(), Friday from DAYNAME() and 15 from DAY().",
+      "optionRationale": {
+        "1": "MONTH() returns the number 3; MONTHNAME() returns text.",
+        "3": "DAYNAME() returns Friday.",
+        "4": "DAY() returns 15."
+      },
+      "objective": "Apply MONTHNAME"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which clause is used to sort the rows of a query result?",
+      "options": [
+        "GROUP BY",
+        "HAVING",
+        "ORDER BY",
+        "WHERE"
+      ],
+      "answer": 3,
+      "explanation": "ORDER BY sorts the output rows in ascending order by default, or in descending order when DESC is written. GROUP BY forms groups, HAVING filters groups, and WHERE filters individual rows; none of them sorts the result.",
+      "optionRationale": {
+        "1": "GROUP BY collects rows into groups.",
+        "2": "HAVING filters groups after aggregation.",
+        "4": "WHERE filters rows and does not sort."
+      },
+      "objective": "Identify ORDER BY"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which aggregate function counts all the rows of a table, including those that contain NULL in some columns?",
+      "options": [
+        "COUNT(Salary)",
+        "SUM(Salary)",
+        "MAX(Salary)",
+        "COUNT(*)"
+      ],
+      "answer": 4,
+      "explanation": "COUNT(*) counts every row, irrespective of NULL. COUNT(column) skips rows where that column is NULL, SUM adds values and MAX finds the largest, so only COUNT(*) gives the total row count.",
+      "optionRationale": {
+        "1": "COUNT(Salary) skips rows where Salary is NULL.",
+        "2": "SUM(Salary) adds salaries; it does not count rows.",
+        "3": "MAX(Salary) returns the largest value."
+      },
+      "objective": "Use COUNT(*)"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "The table EMP has Salary values 40000, 35000, 45000, 50000, NULL and 35000. What does SELECT AVG(Salary) FROM EMP; return?",
+      "options": [
+        "41000",
+        "40000",
+        "34166.67",
+        "35000"
+      ],
+      "answer": 1,
+      "explanation": "AVG ignores NULL. The five non-NULL values add up to 205000, and 205000 divided by 5 is 41000. Dividing by 6 would give 34166.67, which treats the NULL as a number and is wrong.",
+      "optionRationale": {
+        "2": "40000 is the Sales average, not the average of the table.",
+        "3": "That divides 205000 by 6, wrongly counting the NULL.",
+        "4": "35000 is the HR average, not the table average."
+      },
+      "objective": "Compute AVG with NULL"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "With the same EMP table (Dept: Sales, HR, Sales, IT, HR, Sales; Salary: 40000, 35000, 45000, 50000, NULL, 35000), how many rows does SELECT Dept, COUNT(Salary) FROM EMP GROUP BY Dept; return and what is the count for HR?",
+      "options": [
+        "3 rows; HR count is 2",
+        "3 rows; HR count is 1",
+        "6 rows; HR count is 1",
+        "2 rows; HR count is 1"
+      ],
+      "answer": 2,
+      "explanation": "GROUP BY Dept forms three groups (HR, IT, Sales), so three rows. The HR group has the salaries 35000 and NULL; COUNT(Salary) ignores the NULL, so it is 1. COUNT(*) would have given 2.",
+      "optionRationale": {
+        "1": "COUNT(Salary) skips the NULL, so HR gives 1, not 2.",
+        "3": "GROUP BY returns one row per group, not one per record.",
+        "4": "There are three departments, so three rows are returned."
+      },
+      "objective": "Predict GROUP BY with COUNT on a column"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "On the EMP table, what is the output of SELECT Dept, SUM(Salary) FROM EMP WHERE Salary >= 40000 GROUP BY Dept ORDER BY Dept;",
+      "options": [
+        "HR 35000, IT 50000 and Sales 120000",
+        "IT 50000 and Sales 120000",
+        "IT 50000 and Sales 85000",
+        "Sales 85000 only"
+      ],
+      "answer": 3,
+      "explanation": "WHERE removes rows below 40000 before grouping. The remaining rows are Asha 40000 and Chet 45000 (Sales) and Divya 50000 (IT). Sales therefore sums to 85000 and IT to 50000, with HR missing altogether.",
+      "optionRationale": {
+        "1": "The WHERE condition removes every HR row, and Sales loses Farid.",
+        "2": "Sales total 120000 includes Farid (35000), who is removed by WHERE.",
+        "4": "IT also survives, with Divya (50000)."
+      },
+      "objective": "Combine WHERE with GROUP BY"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Which query lists only the departments having more than one employee?",
+      "options": [
+        "SELECT Dept FROM EMP WHERE COUNT(*) > 1;",
+        "SELECT Dept FROM EMP GROUP BY COUNT(*) > 1;",
+        "SELECT Dept FROM EMP ORDER BY COUNT(*) > 1;",
+        "SELECT Dept FROM EMP GROUP BY Dept HAVING COUNT(*) > 1;"
+      ],
+      "answer": 4,
+      "explanation": "A condition on an aggregate over groups must be placed in HAVING after GROUP BY. WHERE cannot use aggregate functions. GROUP BY and ORDER BY are not used to filter groups by a count condition.",
+      "optionRationale": {
+        "1": "WHERE cannot contain an aggregate function.",
+        "2": "GROUP BY takes columns, not a condition, for filtering.",
+        "3": "ORDER BY only sorts; it does not remove rows."
+      },
+      "objective": "Choose HAVING for group conditions"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What is the result of SELECT DAYNAME('2020-12-25'), YEAR('2020-12-25'), MONTH('2020-12-25');",
+      "options": [
+        "Friday, 2020, 12",
+        "Friday, 2020, December",
+        "Thursday, 2020, 12",
+        "Friday, 25, 12"
+      ],
+      "answer": 1,
+      "explanation": "25 December 2020 fell on a Friday. YEAR gives 2020 and MONTH gives the number 12, because MONTH returns a number and MONTHNAME returns the text December. DAY, not YEAR, would return 25.",
+      "optionRationale": {
+        "2": "MONTH returns 12; December would need MONTHNAME.",
+        "3": "Thursday is the weekday of 29 February 2024, not of this date.",
+        "4": "YEAR returns 2020; 25 is returned by DAY."
+      },
+      "objective": "Evaluate several date functions"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q10",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the SQL feature in List-I with its description in List-II.",
+      "options": [
+        "A-I, B-IV, C-II, D-III",
+        "A-IV, B-I, C-II, D-III",
+        "A-IV, B-I, C-III, D-II",
+        "A-II, B-I, C-IV, D-III"
+      ],
+      "answer": 2,
+      "explanation": "HAVING filters groups after aggregation has been done (A-IV). COUNT(*) counts all rows, including those with NULL (B-I). DAYNAME() returns the weekday name of a date (C-II). The Cartesian product pairs every row of one table with every row of the other (D-III).",
+      "optionRationale": {
+        "1": "This swaps HAVING and COUNT(*).",
+        "3": "This swaps DAYNAME and the Cartesian product.",
+        "4": "This swaps HAVING and DAYNAME."
+      },
+      "objective": "Match SQL features to descriptions",
+      "list": {
+        "left": [
+          "A. HAVING",
+          "B. COUNT(*)",
+          "C. DAYNAME()",
+          "D. Cartesian product"
+        ],
+        "right": [
+          "I. Counts rows including NULLs",
+          "II. Returns the weekday name of a date",
+          "III. Pairs every row of one table with every row of another",
+          "IV. Filters groups after aggregation"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q11",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider these statements about aggregate functions.\nA. COUNT(*) counts rows that contain NULL values.\nB. AVG() includes NULL values as zero.\nC. SUM() ignores NULL values.\nWhich statements are correct?",
+      "options": [
+        "A and B only",
+        "B and C only",
+        "A and C only",
+        "A, B and C"
+      ],
+      "answer": 3,
+      "explanation": "COUNT(*) counts every row, NULL or not (A true). AVG, SUM, MIN, MAX and COUNT(column) all ignore NULL values; AVG does not treat NULL as zero, so B is false and C is true.",
+      "optionRationale": {
+        "1": "B is false: AVG ignores NULLs rather than treating them as zero.",
+        "2": "B is false, so this option is wrong.",
+        "4": "B is false, so not all three statements are correct."
+      },
+      "objective": "Evaluate NULL handling in aggregates"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q12",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): An aggregate function such as AVG() cannot be used directly in a WHERE clause.\nReason (R): WHERE is applied to individual rows before grouping, and the aggregate value of a group is not yet available at that stage.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "WHERE filters rows before any grouping or aggregation takes place, so no aggregate value exists yet. A condition on an aggregate must go in HAVING. R correctly explains the restriction in A.",
+      "optionRationale": {
+        "2": "R is the reason for A; it explains the restriction.",
+        "3": "R is true, since WHERE works before grouping.",
+        "4": "A is true: aggregates are not allowed in WHERE."
+      },
+      "objective": "Explain why aggregates are not allowed in WHERE"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Table S has 4 rows and 3 columns, and table T has 5 rows and 2 columns. How many rows and columns does the Cartesian product S x T have?",
+      "options": [
+        "9 rows and 6 columns",
+        "9 rows and 5 columns",
+        "20 rows and 6 columns",
+        "20 rows and 5 columns"
+      ],
+      "answer": 4,
+      "explanation": "The Cartesian product pairs every row of S with every row of T, so rows are multiplied: 4 x 5 = 20. The columns of both tables sit side by side, so columns are added: 3 + 2 = 5.",
+      "optionRationale": {
+        "1": "That adds the rows and multiplies the columns, which is the wrong way round.",
+        "2": "Rows multiply (4 x 5 = 20) rather than add.",
+        "3": "Columns add up to 5, not 6."
+      },
+      "objective": "Compute degree and cardinality of a Cartesian product"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Table A holds the values 1, 2, 2, 3 and table B holds 2, 3, 4 (single column x). How many rows does SELECT x FROM A UNION SELECT x FROM B; return, and how many would SELECT x FROM A UNION ALL SELECT x FROM B; return?",
+      "options": [
+        "4 and 7",
+        "7 and 4",
+        "4 and 4",
+        "3 and 7"
+      ],
+      "answer": 1,
+      "explanation": "UNION removes duplicates, leaving the distinct values 1, 2, 3, 4, which is 4 rows. UNION ALL keeps every row of both tables: 4 + 3 = 7 rows. The duplicate 2 in A is also kept by UNION ALL.",
+      "optionRationale": {
+        "2": "This reverses the two results; UNION gives fewer rows.",
+        "3": "UNION ALL keeps all 7 rows.",
+        "4": "UNION gives 4 distinct values, not 3."
+      },
+      "objective": "Compare UNION and UNION ALL"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "S(SID, SName, CID) has the rows (1, A, 10), (2, B, 20), (3, C, 10), (4, D, 99) and CL(CID, CName) has the rows (10, X), (20, Y), (30, Z). How many rows are returned by SELECT SName, CName FROM S, CL WHERE S.CID = CL.CID; ?",
+      "options": [
+        "12",
+        "3",
+        "4",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "The condition keeps only pairs with equal CID. CID 10 matches X for A and C, and CID 20 matches Y for B. Student D (CID 99) and class Z (CID 30) have no partner. So 3 rows are returned; 12 is the unfiltered product (4 x 3).",
+      "optionRationale": {
+        "1": "12 is the Cartesian product without the WHERE condition.",
+        "3": "Student D has CID 99, which has no matching class.",
+        "4": "7 is the number of rows of the two tables added, which is not a join result."
+      },
+      "objective": "Count rows of an equi-join"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "For the EMP table (Sales: 40000, 45000, 35000; HR: 35000, NULL; IT: 50000), which output does SELECT Dept, AVG(Salary) FROM EMP GROUP BY Dept HAVING AVG(Salary) > 35000 ORDER BY AVG(Salary) DESC; give?",
+      "options": [
+        "Sales 40000 then IT 50000",
+        "IT 50000, Sales 40000 and HR 35000",
+        "IT 50000 then Sales 40000",
+        "IT 50000 then Sales 120000"
+      ],
+      "answer": 3,
+      "explanation": "The group averages are HR 35000 (the NULL is ignored), IT 50000 and Sales (40000 + 45000 + 35000) / 3 = 40000. HAVING rejects HR because 35000 is not greater than 35000. DESC puts the larger average first: IT, then Sales.",
+      "optionRationale": {
+        "1": "DESC puts the larger value, 50000, first.",
+        "2": "HR has an average of exactly 35000, which fails > 35000.",
+        "4": "120000 is the sum for Sales, not the average."
+      },
+      "objective": "Combine GROUP BY, HAVING and ORDER BY"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q17",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about operations on relations.\nA. The union of two relations requires them to have the same number of columns.\nB. A - B and B - A always give the same result.\nC. A Cartesian product with m rows in one table and n rows in another has m x n rows.\nD. UNION removes duplicate rows from the combined result.\nWhich statements are correct?",
+      "options": [
+        "A and C only",
+        "A, B and C only",
+        "B and D only",
+        "A, C and D only"
+      ],
+      "answer": 4,
+      "explanation": "Union needs union compatible tables with the same number of columns (A true). Difference is not symmetric, since A - B keeps rows of A missing from B, so B is false. The product has m x n rows (C true). UNION removes duplicates (D true).",
+      "optionRationale": {
+        "1": "This leaves out D, which is also true.",
+        "2": "B is false: A - B and B - A normally differ.",
+        "3": "B is false, and A, C and D are also true."
+      },
+      "objective": "Verify properties of relational operations"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q18",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): In a query with GROUP BY, a column that is in the SELECT list but is neither aggregated nor named in GROUP BY gives an unreliable or invalid result.\nReason (R): A group contains many rows, and a plain column can have different values in them, so one value cannot be shown for the whole group.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "One output row per group must show one value for each column. A non-grouped column may differ from row to row inside the group, so the choice of value is ambiguous. R correctly explains A.",
+      "optionRationale": {
+        "2": "R is the actual reason, so it explains A.",
+        "3": "R is true: a group has many rows with possibly different values.",
+        "4": "A is true; this is the rule for GROUP BY queries."
+      },
+      "objective": "Explain the GROUP BY column rule"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "The EMP table has JoinDate values 2023-03-15, 2022-11-02, 2021-07-20, 2023-01-09, 2024-02-29 and 2020-12-25 for Asha, Bhav, Chet, Divya, Esha and Farid. Which query returns exactly Asha and Divya?",
+      "options": [
+        "SELECT Name FROM EMP WHERE YEAR(JoinDate) = 2023;",
+        "SELECT Name FROM EMP WHERE MONTH(JoinDate) = 2023;",
+        "SELECT Name FROM EMP WHERE DAYNAME(JoinDate) = 'Friday';",
+        "SELECT Name FROM EMP WHERE DAY(JoinDate) = 2023;"
+      ],
+      "answer": 1,
+      "explanation": "Only Asha (2023-03-15) and Divya (2023-01-09) joined in 2023, and YEAR(JoinDate) = 2023 picks exactly them. MONTH and DAY return numbers from 1 to 12 and 1 to 31, so comparing them with 2023 never matches. The Friday condition returns only Farid (2020-12-25).",
+      "optionRationale": {
+        "2": "MONTH returns 1 to 12, so it can never equal 2023.",
+        "3": "Only Farid joined on a Friday.",
+        "4": "DAY returns at most 31, so it can never equal 2023."
+      },
+      "objective": "Filter rows with date functions"
+    }
+  ]
+}

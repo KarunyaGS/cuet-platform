@@ -1,0 +1,747 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_3391262046a54d5ebbb11ea1c6797eb6",
+    "title": "Plotting Data using Matplotlib"
+  },
+  "lesson": {
+    "key": "ug26-308-r09-matplotlib",
+    "title": "Plotting data using Matplotlib: plot types, saving and customising",
+    "coverage": [
+      {
+        "phrase": "Plotting Data using Matplotlib",
+        "section": "Purpose of plotting and the pyplot module"
+      },
+      {
+        "phrase": "Purpose of plotting",
+        "section": "Purpose of plotting and the pyplot module"
+      },
+      {
+        "phrase": "drawing and saving the following types of plots using Matplotlib",
+        "section": "Showing and saving a plot"
+      },
+      {
+        "phrase": "line plot",
+        "section": "Line plot"
+      },
+      {
+        "phrase": "bargraph",
+        "section": "Bar graph"
+      },
+      {
+        "phrase": "histogram",
+        "section": "Histogram"
+      },
+      {
+        "phrase": "frequency polygon",
+        "section": "Frequency polygon"
+      },
+      {
+        "phrase": "pie chart",
+        "section": "Pie chart"
+      },
+      {
+        "phrase": "box plot",
+        "section": "Box plot"
+      },
+      {
+        "phrase": "scatter plot",
+        "section": "Scatter plot"
+      },
+      {
+        "phrase": "Customizing plots: color, style (dashed, dotted), width",
+        "section": "Customising a plot: colour, line style and width"
+      },
+      {
+        "phrase": "adding label, title, and legend in plots",
+        "section": "Adding labels, title and legend"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Purpose of plotting and the pyplot module"
+      },
+      {
+        "type": "TEXT",
+        "text": "A table of hundreds of numbers is hard to read. A **plot** (chart or graph) turns data into a picture so that patterns, trends, comparisons and unusual values can be seen at once. Data scientists plot data to explore it, to compare groups, to check how the values are spread, and to present conclusions clearly to others."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Matplotlib",
+        "text": "A Python library for drawing charts. Its `pyplot` module is imported with `import matplotlib.pyplot as plt` and provides ready-made functions for each chart type."
+      },
+      {
+        "type": "TEXT",
+        "text": "The usual steps are: import pyplot, prepare the data (lists, NumPy arrays or pandas columns), call a plotting function, add labels, title and legend, then show or save the figure."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Choosing a chart",
+        "columns": [
+          "Aim",
+          "Suitable plot",
+          "Function"
+        ],
+        "rows": [
+          [
+            "Show how a quantity changes in order (time, sequence)",
+            "Line plot",
+            "plt.plot()"
+          ],
+          [
+            "Compare values of separate categories",
+            "Bar graph",
+            "plt.bar(), plt.barh()"
+          ],
+          [
+            "Show how continuous values are distributed in class intervals",
+            "Histogram",
+            "plt.hist()"
+          ],
+          [
+            "Show parts of a whole as percentages",
+            "Pie chart",
+            "plt.pie()"
+          ],
+          [
+            "Show the shape of a frequency distribution as a line",
+            "Frequency polygon",
+            "plt.hist(..., histtype=\"step\") or plt.plot() of class mid-points"
+          ],
+          [
+            "Show median, quartiles, spread and outliers",
+            "Box plot",
+            "plt.boxplot()"
+          ],
+          [
+            "Show the relationship between two numeric variables",
+            "Scatter plot",
+            "plt.scatter()"
+          ]
+        ]
+      },
+      {
+        "type": "HEADING",
+        "text": "Showing and saving a plot"
+      },
+      {
+        "type": "TEXT",
+        "text": "`plt.show()` displays the figure window. `plt.savefig(\"name.png\")` writes the figure to a file; the file type is taken from the extension (png, jpg, pdf, svg and so on). Call `savefig()` **before** `show()`, because when the display window is closed the figure may be cleared and an empty image can be saved. `plt.figure(figsize=(w, h))` sets the size in inches."
+      },
+      {
+        "type": "TEXT",
+        "text": "Program (plain text):\n\n```\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [2, 4, 6, 8]\nplt.plot(x, y)\nplt.xlabel(\"x values\")\nplt.ylabel(\"y values\")\nplt.title(\"Simple line plot\")\nplt.savefig(\"line.png\")\nplt.show()\n```"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "If `x` and `y` have different lengths, `plt.plot(x, y)` raises a ValueError because every x value needs a matching y value. Always check that both sequences are equally long."
+      },
+      {
+        "type": "HEADING",
+        "text": "Line plot"
+      },
+      {
+        "type": "TEXT",
+        "text": "`plt.plot(x, y)` joins the points (x, y) in the order given by straight line segments. It is the standard choice for data that changes continuously over time, such as temperature during a day or monthly sales. If only one sequence is given, `plt.plot(y)` uses 0, 1, 2, ... as the x values. Markers can be shown with `marker=\"o\"`."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "`plt.plot([1, 2, 3], [2, 4, 6])` draws a straight rising line through (1, 2), (2, 4) and (3, 6)."
+      },
+      {
+        "type": "HEADING",
+        "text": "Bar graph"
+      },
+      {
+        "type": "TEXT",
+        "text": "`plt.bar(x, height)` draws vertical bars, one for each category in `x`, with the bar lengths in `height`. `plt.barh(x, width)` draws horizontal bars. The bars are separated by gaps because the categories are separate; the default bar width is 0.8. Colour, width and labels can be given as arguments: `plt.bar(names, marks, color=\"g\", width=0.5)`. To draw groups side by side, shift the x positions by the bar width."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Bar graph: separate categories, bars do not touch, bar height shows the value. Histogram: continuous classes, bars touch, bar height shows the frequency."
+      },
+      {
+        "type": "HEADING",
+        "text": "Histogram"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **histogram** shows the distribution of one numeric variable. The range of values is cut into class intervals called **bins**, and each bar shows how many values fall in a bin. `plt.hist(data, bins=...)` does the counting itself. `bins` may be a number (equal-width bins; the default is 10) or a list of edges. Intervals are closed on the left and open on the right ([a, b)), except that the last bin also includes its right edge."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "For the ten values 12, 18, 25, 31, 38, 44, 47, 52, 58, 61 a student calls `plt.hist(data, bins=[10, 30, 50, 70])`. Find the height of each bar.",
+        "solution": "The bins are [10, 30), [30, 50) and [50, 70] (the last one includes 70).\nBin 1 contains 12, 18 and 25: 3 values.\nBin 2 contains 31, 38, 44 and 47: 4 values.\nBin 3 contains 52, 58 and 61: 3 values.\nTotal 3 + 4 + 3 = 10, so every value was counted once.",
+        "answer": "Bar heights are 3, 4 and 3."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A list of values is 1, 2, 2, 3, 3, 3, 4, 4, 5, 9 and `plt.hist(data, bins=[0, 3, 6, 9])` is called. Find the frequency in each bin.",
+        "solution": "Bins: [0, 3), [3, 6) and [6, 9] (the last bin is closed on both sides).\n[0, 3) holds 1, 2 and 2: frequency 3.\n[3, 6) holds 3, 3, 3, 4, 4 and 5: frequency 6.\n[6, 9] holds only 9, since 9 lies on the closing edge of the last bin: frequency 1.\nCheck: 3 + 6 + 1 = 10 values.",
+        "answer": "Frequencies are 3, 6 and 1."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "A value that lies exactly on an inner bin edge goes into the bin to its **right** (3 above is counted in [3, 6), not in [0, 3)). Only the final edge is inclusive on both sides."
+      },
+      {
+        "type": "HEADING",
+        "text": "Frequency polygon"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **frequency polygon** is a line graph of a frequency distribution. Take the mid-point of every class interval, plot it against the frequency of that class, and join the points with straight lines. For the classes 10-30, 30-50 and 50-70 the mid-points are 20, 40 and 60. With frequencies 3, 4 and 3 the polygon passes through (20, 3), (40, 4) and (60, 3). Often an empty class is added at each end so that the polygon touches the x-axis."
+      },
+      {
+        "type": "TEXT",
+        "text": "In Matplotlib a simple way is to draw a histogram outline with `plt.hist(data, bins=..., histtype=\"step\")`, or to compute the class mid-points yourself and call `plt.plot(midpoints, frequencies)`. The frequency polygon is useful to compare two distributions on one set of axes."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Histogram = bars; frequency polygon = line joining the tops of the bars at the class mid-points."
+      },
+      {
+        "type": "HEADING",
+        "text": "Pie chart"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **pie chart** is a circle divided into sectors (wedges) whose sizes are proportional to the values, so it shows how a whole is shared. `plt.pie(values, labels=names, autopct=\"%1.1f%%\")` draws it. `autopct` prints the percentage of each wedge using a format string. `explode=[0, 0.1, 0]` pulls a wedge out, and `startangle` rotates the chart. The sector angle for a value is (value / total) x 360 degrees."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A pie chart is drawn for the values 20, 30 and 50 with `autopct=\"%1.1f%%\"`. What labels are printed and what are the angles of the wedges?",
+        "solution": "Total = 20 + 30 + 50 = 100.\nPercentages: 20%, 30% and 50%, printed with one decimal place as 20.0%, 30.0% and 50.0%.\nAngles: 20/100 x 360 = 72 degrees; 30/100 x 360 = 108 degrees; 50/100 x 360 = 180 degrees.\nThe angles add up to 360 degrees.",
+        "answer": "Labels 20.0%, 30.0%, 50.0%; angles 72, 108 and 180 degrees."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "A pie chart suits only parts of one whole, with a few categories. It cannot show change over time. Matplotlib scales the values to fractions itself, so they need not add up to 100."
+      },
+      {
+        "type": "HEADING",
+        "text": "Box plot"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **box plot** (box-and-whisker plot) summarises a distribution using five numbers: the minimum, the first quartile Q1, the median, the third quartile Q3 and the maximum. `plt.boxplot(data)` draws it."
+      },
+      {
+        "type": "TEXT",
+        "text": "- The **box** extends from Q1 to Q3; its length is the interquartile range, IQR = Q3 - Q1.\n- A line inside the box marks the **median**.\n- The **whiskers** reach the most extreme data values lying within 1.5 x IQR of the box.\n- Values beyond the whiskers are drawn as separate points and called **outliers**."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "For the data 1, 2, 3, ..., 9, 100 the quartiles are Q1 = 3.25, median = 5.5 and Q3 = 7.75, so IQR = 4.5. The upper limit for the whisker is 7.75 + 1.5 x 4.5 = 14.5, and 100 lies beyond it, so 100 is shown as an outlier point."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Box plot: median line, box from Q1 to Q3, whiskers, outlier points. It is the best of these plots to show spread and outliers, and for comparing several groups side by side."
+      },
+      {
+        "type": "HEADING",
+        "text": "Scatter plot"
+      },
+      {
+        "type": "TEXT",
+        "text": "`plt.scatter(x, y)` marks each pair (x, y) as a separate dot with no lines joining them. It is used to see whether two variables are related: dots rising from left to right show a positive relation, dots falling show a negative relation, and a shapeless cloud shows little relation. Examples are hours of study against marks, or height against weight. Size and colour of the dots can be set with `s=` and `c=` or `color=`."
+      },
+      {
+        "type": "HEADING",
+        "text": "Customising a plot: colour, line style and width"
+      },
+      {
+        "type": "TEXT",
+        "text": "Optional arguments change how a line looks.\n\n- **Colour**: `color=\"r\"` or `c=\"r\"`. Single letters: b blue, g green, r red, c cyan, m magenta, y yellow, k black, w white. Full names (\"orange\") and hexadecimal codes (\"#FF5733\") also work.\n- **Line style**: `linestyle=\"--\"` (or `ls`) gives a dashed line; `\":\"` gives a dotted line; `\"-.\"` dash-dot; `\"-\"` solid (the default).\n- **Width**: `linewidth=3` (or `lw`) sets the thickness in points.\n- **Marker**: `marker=\"o\"` marks the data points with circles.\n- **Format string shortcut**: `plt.plot(x, y, \"r--\")` means a red dashed line; `\"go\"` means green circles; `\"b:\"` a blue dotted line."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "`plt.plot(x, y, color=\"g\", linestyle=\":\", linewidth=2, marker=\"o\")` draws a green dotted line of width 2 with circular markers on the data points."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Line styles",
+        "columns": [
+          "Code",
+          "Style"
+        ],
+        "rows": [
+          [
+            "\"-\"",
+            "Solid"
+          ],
+          [
+            "\"--\"",
+            "Dashed"
+          ],
+          [
+            "\":\"",
+            "Dotted"
+          ],
+          [
+            "\"-.\"",
+            "Dash-dot"
+          ]
+        ]
+      },
+      {
+        "type": "HEADING",
+        "text": "Adding labels, title and legend"
+      },
+      {
+        "type": "TEXT",
+        "text": "- `plt.xlabel(\"text\")` and `plt.ylabel(\"text\")` name the two axes.\n- `plt.title(\"text\")` adds a heading above the plot.\n- `plt.legend()` shows a key that explains each line, bar series or marker. It uses the `label=` text given in each plotting call, so a label must be given first: `plt.plot(x, y1, label=\"Class A\")` and `plt.plot(x, y2, label=\"Class B\")`, followed by `plt.legend()`. Its position can be set with `loc=\"upper left\"`.\n- `plt.grid(True)` draws grid lines and `plt.xticks()` / `plt.yticks()` control the tick labels."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "If `plt.legend()` is called but no plotting call carries a `label=`, there is nothing to show in the key. Also remember that `plt.title()` needs a string, not a number, and that `xlabel` and `ylabel` are two separate functions."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Customisation checklist: colour (color/c), style (linestyle/ls: \"--\" dashed, \":\" dotted), width (linewidth/lw), marker, xlabel, ylabel, title, label + legend. Save with savefig before show."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r09-matplotlib-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which Matplotlib function is used to draw a simple line plot?",
+      "options": [
+        "plt.plot()",
+        "plt.hist()",
+        "plt.scatter()",
+        "plt.pie()"
+      ],
+      "answer": 1,
+      "explanation": "plt.plot(x, y) joins the points in order with line segments, which gives a line plot. pie draws a pie chart, hist draws a histogram, and scatter draws separate unconnected dots.",
+      "optionRationale": {
+        "2": "hist draws a histogram.",
+        "3": "scatter draws unconnected dots.",
+        "4": "pie draws a pie chart."
+      },
+      "objective": "Identify the line plot function"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which chart type is the most suitable for showing the share of each part in a whole?",
+      "options": [
+        "Line plot",
+        "Pie chart",
+        "Scatter plot",
+        "Box plot"
+      ],
+      "answer": 2,
+      "explanation": "A pie chart divides a circle into sectors proportional to the parts, so it shows how a whole is shared. A line plot shows change in sequence, a scatter plot shows the relation between two variables and a box plot shows spread.",
+      "optionRationale": {
+        "1": "A line plot shows change over time or order.",
+        "3": "A scatter plot shows the relationship between two variables.",
+        "4": "A box plot shows the median, spread and outliers."
+      },
+      "objective": "Choose a pie chart for parts of a whole"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which function adds a heading above a Matplotlib plot?",
+      "options": [
+        "plt.xlabel()",
+        "plt.legend()",
+        "plt.title()",
+        "plt.savefig()"
+      ],
+      "answer": 3,
+      "explanation": "plt.title(\"text\") places the heading above the plot. xlabel names only the horizontal axis, legend shows the key of the labelled series, and savefig writes the whole figure to an image file, so none of them adds a heading.",
+      "optionRationale": {
+        "1": "xlabel names the x-axis only.",
+        "2": "legend shows the key for labelled lines.",
+        "4": "savefig saves the figure to a file."
+      },
+      "objective": "Recall plt.title"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which function is used to save the current figure to an image file?",
+      "options": [
+        "plt.show()",
+        "plt.write()",
+        "plt.hold()",
+        "plt.savefig()"
+      ],
+      "answer": 4,
+      "explanation": "plt.savefig(\"file.png\") writes the figure to a file whose type is given by the extension. plt.show() only displays it; hold and write are not the Matplotlib functions for saving.",
+      "optionRationale": {
+        "1": "show() only displays the figure.",
+        "2": "There is no plt.write() for saving an image.",
+        "3": "hold() is not the function for saving an image."
+      },
+      "objective": "Recall savefig"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What does plt.plot(x, y, \"r--\") draw?",
+      "options": [
+        "A red dashed line",
+        "A dashed line with red circles only",
+        "A solid red line of width 2",
+        "A red dotted line"
+      ],
+      "answer": 1,
+      "explanation": "In a format string \"r\" means red and \"--\" means a dashed line. A dotted line needs \":\", circles need the marker \"o\", and a width needs the linewidth argument. So the call draws a red dashed line.",
+      "optionRationale": {
+        "2": "No marker code is present, so no circles are drawn.",
+        "3": "A solid line would use \"-\", and no width is specified.",
+        "4": "A dotted line is \":\" not \"--\"."
+      },
+      "objective": "Decode a format string"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Which argument sets the thickness of a line in plt.plot()?",
+      "options": [
+        "linestyle",
+        "linewidth",
+        "color",
+        "marker"
+      ],
+      "answer": 2,
+      "explanation": "linewidth (or lw) sets how thick the line is, in points. linestyle chooses solid, dashed or dotted, color chooses the colour and marker chooses the symbol on each data point.",
+      "optionRationale": {
+        "1": "linestyle chooses solid, dashed or dotted.",
+        "3": "color chooses the colour.",
+        "4": "marker chooses the symbol on the data points."
+      },
+      "objective": "Recall the width argument"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "What must be done so that plt.legend() displays useful entries?",
+      "options": [
+        "Call plt.title() after plt.legend()",
+        "Call plt.savefig() with the label",
+        "Pass label=\"...\" in each plotting call before calling plt.legend()",
+        "Call plt.grid(True) before plotting"
+      ],
+      "answer": 3,
+      "explanation": "The legend collects the label text of the plotted items, so each plt.plot() or plt.bar() call must receive label=\"...\", and then plt.legend() builds the key. Title, savefig and grid have no effect on the legend entries.",
+      "optionRationale": {
+        "1": "The title is unrelated to the legend entries.",
+        "2": "savefig does not name the plotted series.",
+        "4": "The grid only draws grid lines."
+      },
+      "objective": "Use label and legend together"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "What is the main difference between a bar graph and a histogram?",
+      "options": [
+        "There is no difference; both functions give the same chart",
+        "A bar graph always uses horizontal bars, a histogram vertical bars",
+        "A bar graph shows percentages of a whole, a histogram does not",
+        "A bar graph compares separate categories, while a histogram shows the frequency of continuous class intervals"
+      ],
+      "answer": 4,
+      "explanation": "A bar graph has one bar per distinct category and the bars are separated. A histogram groups a continuous variable into bins and bars touch, with heights showing frequencies. Orientation is not the difference, since bars can be vertical or horizontal in a bar graph.",
+      "optionRationale": {
+        "1": "They answer different questions; hist counts values into bins.",
+        "2": "Bar graphs can be vertical (bar) or horizontal (barh).",
+        "3": "Parts of a whole are shown by a pie chart."
+      },
+      "objective": "Differentiate bar graph and histogram"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A pie chart is drawn for the values 15, 25, 60 and 20 using autopct=\"%1.1f%%\". Which label is printed on the wedge of the value 25?",
+      "options": [
+        "20.8%",
+        "41.7%",
+        "25.0%",
+        "12.5%"
+      ],
+      "answer": 1,
+      "explanation": "The total is 15 + 25 + 60 + 20 = 120. The wedge for 25 is 25 / 120 = 0.2083, that is 20.8% to one decimal place. 25.0% would be correct only if the total were 100.",
+      "optionRationale": {
+        "2": "41.7% results from dividing 25 by 60, the largest value, instead of by the total 120.",
+        "3": "25.0% assumes the values are already percentages; Matplotlib divides by the total, which is 120.",
+        "4": "12.5% is the share of 15 (15/120)."
+      },
+      "objective": "Calculate a pie chart percentage"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "The data is 12, 18, 25, 31, 38, 44, 47, 52, 58, 61 and plt.hist(data, bins=[10, 30, 50, 70]) is called. What are the heights of the three bars?",
+      "options": [
+        "3, 3, 4",
+        "3, 4, 3",
+        "2, 5, 3",
+        "4, 3, 3"
+      ],
+      "answer": 2,
+      "explanation": "The bins are [10, 30), [30, 50) and [50, 70]. They hold 12, 18, 25 (3 values); 31, 38, 44, 47 (4 values); and 52, 58, 61 (3 values). So the bar heights are 3, 4 and 3.",
+      "optionRationale": {
+        "1": "The middle bin holds four values, not three.",
+        "3": "No bin has 2 or 5 values with these edges.",
+        "4": "The first bin holds only 12, 18 and 25, which is three values."
+      },
+      "objective": "Count values in histogram bins"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q11",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the plot in List-I with the Matplotlib function in List-II.",
+      "options": [
+        "A-III, B-IV, C-II, D-I",
+        "A-IV, B-III, C-I, D-II",
+        "A-IV, B-III, C-II, D-I",
+        "A-II, B-III, C-IV, D-I"
+      ],
+      "answer": 3,
+      "explanation": "Each plot has its own function: scatter plot with plt.scatter (A-IV), box plot with plt.boxplot (B-III), pie chart with plt.pie (C-II) and histogram with plt.hist (D-I).",
+      "optionRationale": {
+        "1": "This swaps scatter and box plot.",
+        "2": "This swaps pie chart and histogram.",
+        "4": "This swaps scatter and pie chart."
+      },
+      "objective": "Match plots to functions",
+      "list": {
+        "left": [
+          "A. Scatter plot",
+          "B. Box plot",
+          "C. Pie chart",
+          "D. Histogram"
+        ],
+        "right": [
+          "I. plt.hist()",
+          "II. plt.pie()",
+          "III. plt.boxplot()",
+          "IV. plt.scatter()"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q12",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider these statements about customising plots.\nA. linestyle=\":\" gives a dotted line.\nB. linestyle=\"--\" gives a dashed line.\nC. color=\"k\" gives a white line.\nWhich statements are correct?",
+      "options": [
+        "A and C only",
+        "B and C only",
+        "A, B and C",
+        "A and B only"
+      ],
+      "answer": 4,
+      "explanation": "\":\" is the code for a dotted line (A true) and \"--\" for a dashed line (B true). \"k\" stands for black, while white is \"w\", so C is false. Hence only A and B are correct.",
+      "optionRationale": {
+        "1": "C is false: k is black.",
+        "2": "C is false: k is black.",
+        "3": "C is false, so all three cannot be correct."
+      },
+      "objective": "Evaluate line style and colour codes"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q13",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The call plt.plot([1, 2, 3], [4, 5]) gives an error.\nReason (R): Matplotlib needs the x and y sequences to have the same number of elements so that every x value has a matching y value.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The lists have 3 and 2 elements, so the points cannot be paired and Matplotlib raises a ValueError. R states the rule that causes the error, so R explains A.",
+      "optionRationale": {
+        "2": "R is the actual reason for the error, so it explains A.",
+        "3": "R is true because the lengths must match.",
+        "4": "A is true since the lengths differ."
+      },
+      "objective": "Explain the length mismatch error"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "In a box plot, what does a point drawn beyond the whisker represent?",
+      "options": [
+        "An outlier lying more than 1.5 times the IQR beyond the box",
+        "The mean of the data",
+        "The mode of the data",
+        "The maximum value of every data set"
+      ],
+      "answer": 1,
+      "explanation": "Whiskers extend to the most extreme values within 1.5 x IQR of the box edges. Any value outside that range is drawn as a separate point and is treated as an outlier. The median is the line inside the box; the mean and mode are not marked.",
+      "optionRationale": {
+        "2": "The mean is not drawn by default.",
+        "3": "The mode is not shown in a box plot.",
+        "4": "The maximum is at the end of the whisker unless it is an outlier."
+      },
+      "objective": "Interpret outliers in a box plot"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For the data 1, 2, 3, 4, 5, 6, 7, 8, 9, 100 the quartiles are Q1 = 3.25 and Q3 = 7.75. Is 100 shown as an outlier on a box plot and why?",
+      "options": [
+        "No, because 100 is the maximum and the maximum is always on the whisker",
+        "Yes, because 100 is greater than Q3 + 1.5 x IQR = 14.5",
+        "Yes, because 100 is greater than the median 5.5",
+        "No, because the upper limit is 3.25 + 1.5 x 4.5 = 10"
+      ],
+      "answer": 2,
+      "explanation": "IQR = 7.75 - 3.25 = 4.5, so the upper whisker limit is 7.75 + 1.5 x 4.5 = 14.5. Since 100 is greater than 14.5, it lies beyond the whisker and is drawn as an outlier point. Being above the median alone does not make a value an outlier.",
+      "optionRationale": {
+        "1": "The maximum is an outlier whenever it exceeds the upper limit.",
+        "3": "Many values exceed the median and are not outliers.",
+        "4": "The upper limit is measured from Q3, not Q1, and equals 14.5."
+      },
+      "objective": "Apply the 1.5 x IQR rule"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Values 1, 2, 2, 3, 3, 3, 4, 4, 5, 9 are plotted with plt.hist(data, bins=[0, 3, 6, 9]). What are the bar heights?",
+      "options": [
+        "3, 5, 2",
+        "4, 5, 1",
+        "3, 6, 1",
+        "3, 7, 0"
+      ],
+      "answer": 3,
+      "explanation": "The bins are [0, 3), [3, 6) and [6, 9], where only the last bin includes its right edge. Values 1, 2, 2 give 3; values 3, 3, 3, 4, 4, 5 give 6; and 9 falls in the last bin, which includes 9, giving 1.",
+      "optionRationale": {
+        "1": "3 is counted in [3, 6), so that bin holds six values, not five.",
+        "2": "The first bin holds three values; 3 is not in [0, 3).",
+        "4": "The last bin includes the edge 9, so it holds 1 value."
+      },
+      "objective": "Apply histogram bin edge rules"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "A scatter plot of hours of study (x) against marks (y) for 30 students shows dots rising from the lower left to the upper right. What does this indicate?",
+      "options": [
+        "A negative relationship between hours and marks",
+        "No relationship between hours and marks",
+        "That the marks are equally distributed in all categories",
+        "A positive relationship: students who study longer tend to score higher"
+      ],
+      "answer": 4,
+      "explanation": "Dots that rise from left to right mean y tends to increase when x increases, which is a positive relationship. A falling pattern would show a negative relationship, and a shapeless cloud would show none.",
+      "optionRationale": {
+        "1": "A negative relationship would show dots falling from left to right.",
+        "2": "A shapeless cloud, not a rising pattern, shows no relationship.",
+        "3": "A scatter plot does not show categories or equal distribution."
+      },
+      "objective": "Interpret a scatter plot"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q18",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider these statements about Matplotlib.\nA. plt.savefig() should be called before plt.show() to be sure the image is not blank.\nB. In plt.hist(), the default number of bins is 10.\nC. The last bin of a histogram includes its right edge.\nD. plt.pie() needs the values to add up to exactly 100.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A, B and D only",
+        "B, C and D only",
+        "A and D only"
+      ],
+      "answer": 1,
+      "explanation": "savefig is called before show for a complete image (A true). The default bins value is 10 (B true) and only the final bin is closed on the right (C true). pie() scales the values by their total, so they need not add up to 100 and D is false.",
+      "optionRationale": {
+        "2": "D is false: pie scales by the total.",
+        "3": "D is false, and A is also true.",
+        "4": "D is false: pie scales by the total, and B and C are true."
+      },
+      "objective": "Verify facts about hist, pie and savefig"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q19",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A frequency polygon is drawn by plotting the frequencies against the mid-points of the class intervals and joining the points.\nReason (R): The mid-point is the representative value of a class interval, so each frequency is shown at the centre of its class.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Every value in a class is represented by the class mid-point, so the frequency belongs at the centre of the interval. That is why the points are placed at mid-points, and R correctly explains A.",
+      "optionRationale": {
+        "2": "R is the actual reason for using mid-points, so it explains A.",
+        "3": "R is true: the mid-point represents the class.",
+        "4": "A is true; this is how a frequency polygon is drawn."
+      },
+      "objective": "Explain mid-points in a frequency polygon"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Which sequence of statements draws two labelled lines that appear in a legend placed in the upper left corner?",
+      "options": [
+        "plt.plot(x, a); plt.plot(x, b); plt.legend(loc=\"upper left\")",
+        "plt.plot(x, a, label=\"A\"); plt.plot(x, b, label=\"B\"); plt.legend(loc=\"upper left\")",
+        "plt.legend(loc=\"upper left\"); plt.plot(x, a, label=\"A\"); plt.plot(x, b, label=\"B\"); plt.show()",
+        "plt.plot(x, a, \"A\"); plt.plot(x, b, \"B\"); plt.title(\"upper left\")"
+      ],
+      "answer": 2,
+      "explanation": "Each plot call needs label=\"...\" so the legend has entries, and legend(loc=\"upper left\") must come after the labelled plots so that it can collect them. Without labels the legend is empty, and a plain \"A\" as a third positional argument is read as a format string and raises an error.",
+      "optionRationale": {
+        "1": "No label is given, so the legend has nothing to show.",
+        "3": "Calling legend() before the lines are drawn gives it no labelled lines to collect.",
+        "4": "The title is not a legend, and a plain \"A\" string is read as a format string (an error), not as a label."
+      },
+      "objective": "Construct a labelled legend"
+    }
+  ]
+}
