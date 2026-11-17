@@ -1,4 +1,4 @@
-import { BookOpen, ChevronDown, Menu, CreditCard, GalleryVerticalEnd, GraduationCap, Highlighter, PencilLine, Search, ShieldCheck, Bookmark, CalendarCheck2, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { BookOpen, ChevronDown, Menu, GalleryVerticalEnd, GraduationCap, Highlighter, PencilLine, Search, ShieldCheck, Bookmark, CalendarCheck2, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
@@ -201,10 +201,6 @@ function UserMenu() {
             <Link role="menuitem" to="/admissions" className={item}>
               <GraduationCap aria-hidden />
               University admissions
-            </Link>
-            <Link role="menuitem" to="/plans" className={item}>
-              <CreditCard aria-hidden />
-              Plans and payments
             </Link>
             {user.roles.some((r) => r === 'SUPER_ADMIN' || r === 'CONTENT_ADMIN') && (
               <Link role="menuitem" to="/admin" className={item}>
