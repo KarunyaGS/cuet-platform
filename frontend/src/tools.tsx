@@ -1,6 +1,7 @@
 /** Small student tools shared by several pages: bookmarking, adding to the study plan and recording what was opened. */
 import { Bookmark, CalendarCheck2, CalendarPlus, GalleryVerticalEnd, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useNavigate } from 'react-router';
 import { api, localDay, type BookmarkKind, type CardImport, type ConceptType, type PlanKind } from './api';
 import { useAuth } from './ui';
@@ -183,14 +184,63 @@ export function ConceptActions({ id, c }: { id: string; c: Concepts }) {
   );
 }
 
-const IMPORT_CHOICES: { label: string; types?: ConceptType[] }[] = [
-  { label: 'Everything' },
-  { label: 'Formulas', types: ['FORMULA'] },
-  { label: 'Definitions', types: ['DEFINITION'] },
-  { label: 'Key points and facts', types: ['KEY_POINT', 'IMPORTANT_FACT', 'CONCEPT'] },
+const KINDS: { key: 'FORMULA' | 'DEFINITION' | 'KEY'; label: string; types: ConceptType[] }[] = [
+  { key: 'FORMULA', label: 'Formulas', types: ['FORMULA'] },
+  { key: 'DEFINITION', label: 'Definitions', types: ['DEFINITION'] },
+  { key: 'KEY', label: 'Key points and facts', types: ['KEY_POINT', 'IMPORTANT_FACT', 'CONCEPT'] },
 ];
 
-/** "Add to my cards": turns the formulas, definitions and key points of a lesson (or of every lesson under a topic) into flashcards. */
+/** The small "Save to Revise" window: tick what to save, then Save. Everything = all three kinds. */
+function SaveToRevise({ busy, failed, onClose, onSave }: { busy: boolean; failed: boolean; onClose: () => void; onSave: (types?: ConceptType[]) => void }) {
+  const [picked, setPicked] = useState<Record<string, boolean>>({ FORMULA: true, DEFINITION: true, KEY: true });
+  const titleId = useId();
+  const first = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    first.current?.focus();
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [onClose]);
+  const all = KINDS.every((k) => picked[k.key]);
+  const none = KINDS.every((k) => !picked[k.key]);
+  const save = () => onSave(all ? undefined : KINDS.filter((k) => picked[k.key]).flatMap((k) => k.types));
+  const row = 'flex cursor-pointer items-center gap-2.5 rounded-lg px-2.5 py-2 text-[14px] text-ink hover:bg-accent-soft/60';
+  return createPortal(
+    <div className="fixed inset-0 z-50 grid place-items-center p-4">
+      <button type="button" aria-label="Close" tabIndex={-1} onClick={onClose} className="absolute inset-0 bg-ink/35 backdrop-blur-sm" />
+      <div role="dialog" aria-modal="true" aria-labelledby={titleId} data-save-to-revise className="relative w-full max-w-sm rounded-xl border border-rule bg-surface p-4 shadow-xl shadow-ink/10">
+        <div className="flex items-center justify-between gap-3">
+          <h2 id={titleId} className="text-base font-semibold text-ink">
+            Save to Revise
+          </h2>
+          <button type="button" onClick={onClose} aria-label="Close" className="grid size-7 place-items-center rounded-md text-ink-3 hover:bg-ink/5 hover:text-ink">
+            <X aria-hidden className="size-4" />
+          </button>
+        </div>
+        <p className="mt-0.5 text-[13px] text-ink-2">Choose what to save</p>
+        <div className="mt-3 space-y-0.5">
+          <label className={row}>
+            <input ref={first} type="checkbox" checked={all} onChange={(e) => setPicked({ FORMULA: e.target.checked, DEFINITION: e.target.checked, KEY: e.target.checked })} className="size-4 accent-accent" />
+            Everything
+          </label>
+          {KINDS.map((k) => (
+            <label key={k.key} className={row}>
+              <input type="checkbox" checked={!!picked[k.key]} onChange={(e) => setPicked((p) => ({ ...p, [k.key]: e.target.checked }))} className="size-4 accent-accent" />
+              {k.label}
+            </label>
+          ))}
+        </div>
+        {failed && <p role="alert" className="mt-2 text-[13px] text-wrong">Could not save. Try again.</p>}
+        <button type="button" disabled={busy || none} onClick={save} className="mt-3 inline-flex h-9 w-full items-center justify-center rounded-lg bg-accent px-3 text-sm font-medium text-white hover:bg-accent/90 disabled:opacity-50">
+          {busy ? 'Saving…' : 'Save'}
+        </button>
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
+/** "Save all for revision": turns the formulas, definitions and key points of a lesson (or of every lesson under a topic) into flashcards. */
 export function AddCards({ from, onDone }: { from: { resourceId: string } | { nodeId: string }; onDone?: () => void }) {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -215,23 +265,15 @@ export function AddCards({ from, onDone }: { from: { resourceId: string } | { no
     <span className="relative inline-flex flex-col items-start gap-1.5">
       <button
         type="button"
+        aria-haspopup="dialog"
         aria-expanded={open}
-        onClick={() => (user ? (setOpen((o) => !o), setResult(null)) : navigate('/signin'))}
+        onClick={() => (user ? (setOpen(true), setResult(null), setFailed(false)) : navigate('/signin'))}
         className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-surface px-2.5 text-[13px] font-medium text-ink-2 ring-1 ring-inset ring-rule-strong transition-colors hover:bg-paper hover:text-ink"
       >
         <GalleryVerticalEnd aria-hidden className="size-4" />
         Save all for revision
       </button>
-      {open && (
-        <span role="group" aria-label="What to save for revision" className="flex flex-wrap items-center gap-1.5 rounded-lg bg-surface p-1.5 text-[13px] ring-1 ring-inset ring-accent/40">
-          {IMPORT_CHOICES.map((ch) => (
-            <button key={ch.label} type="button" disabled={busy} onClick={() => run(ch.types)} className="rounded-md px-2.5 py-1 font-medium text-ink ring-1 ring-inset ring-rule hover:bg-accent-soft hover:text-accent disabled:opacity-50">
-              {ch.label}
-            </button>
-          ))}
-          {failed && <span className="px-1 text-wrong">Could not add. Try again.</span>}
-        </span>
-      )}
+      {open && <SaveToRevise busy={busy} failed={failed} onClose={() => setOpen(false)} onSave={run} />}
       {result && (
         <span role="status" className="text-[13px] text-ink-2">
           {result.total === 0
