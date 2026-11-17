@@ -29,8 +29,18 @@ function friendly(e: unknown, mode: Mode): { text: string; switchTo?: Mode } {
 function Logo({ light = false }: { light?: boolean }) {
   return (
     <span className="flex items-center gap-2 font-semibold tracking-tight">
-      <span className={`grid size-8 place-items-center rounded-lg text-xs font-bold tracking-wide ${light ? 'bg-white text-accent' : 'bg-accent text-white'}`}>CU</span>
-      <span className="text-lg">Prepora</span>
+      <span className={`grid size-9 shrink-0 place-items-center rounded-lg ${light ? 'bg-white' : ''}`}>
+        <img src="/prepora-logo.png" alt="" aria-hidden width={32} height={32} className="size-8 object-contain" />
+      </span>
+      <span className="text-lg">
+        {light ? (
+          'Prepora'
+        ) : (
+          <>
+            <span className="text-accent">Pre</span>pora
+          </>
+        )}
+      </span>
     </span>
   );
 }
