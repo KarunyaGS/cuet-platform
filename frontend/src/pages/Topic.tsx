@@ -1,12 +1,57 @@
-import { ChevronRight, FileText, ListChecks, PencilLine, Timer } from 'lucide-react';
-import { useState } from 'react';
+import { BookOpen, ChevronRight, FileText, ListChecks, PencilLine, Timer } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
-import { api } from '../api';
+import { api, type TopicDetail } from '../api';
 import { SavedForRevision } from '../revision';
 import { AddToPlan, BookmarkButton, useTrackView } from '../tools';
 import { Button, ErrorBox, kindLabel, Loading, SectionTitle, useAuth, useLoad } from '../ui';
 
-/** Topic page: the official syllabus wording with its source page, subtopics, learning material and practice. */
+type Related = { id: string; title: string; type: string; from: string | null };
+
+/**
+ * Lessons that belong to this page: its own, and for a unit or section the lessons of the topics under it (a unit has none of its own).
+ * Nothing is shown when there are none, so the column simply ends with the content above it.
+ */
+function RelatedContent({ d }: { d: TopicDetail }) {
+  const [items, setItems] = useState<Related[] | null>(d.resources.length > 0 || d.children.length === 0 ? d.resources.map((r) => ({ id: r.id, title: r.title, type: r.type, from: null })) : null);
+  useEffect(() => {
+    if (items) return;
+    let live = true;
+    void Promise.all(
+      d.children.map((c) =>
+        api.topic(c.id).then(
+          (x) => x.resources.map((r) => ({ id: r.id, title: r.title, type: r.type, from: [c.label, c.title].filter(Boolean).join(' ') })),
+          () => [] as Related[],
+        ),
+      ),
+    ).then((all) => live && setItems(all.flat()));
+    return () => {
+      live = false;
+    };
+  }, [d, items]);
+  if (!items || items.length === 0) return null;
+  return (
+    <section aria-labelledby="related" className="mb-6">
+      <SectionTitle id="related">Lessons and related content</SectionTitle>
+      <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+        {items.map((r) => (
+          <li key={r.id}>
+            <Link to={`/learn/${r.id}`} className="group flex items-start gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-paper">
+              <BookOpen aria-hidden className="mt-0.5 size-4 shrink-0 text-accent" />
+              <span className="min-w-0 flex-1">
+                <span className="block font-medium text-ink group-hover:text-accent">{r.title}</span>
+                <span className="mt-0.5 block text-xs text-ink-3">{[r.type === 'LESSON' ? 'Lesson' : r.type.charAt(0) + r.type.slice(1).toLowerCase(), r.from].filter(Boolean).join(' · ')}</span>
+              </span>
+              <ChevronRight aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-3" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** Topic page: the official syllabus wording with its source page, subtopics, their lessons and practice. */
 export function TopicPage() {
   const { nodeId = '' } = useParams();
   const t = useLoad(() => api.topic(nodeId), [nodeId]);
@@ -97,6 +142,8 @@ export function TopicPage() {
               </ul>
             </section>
           )}
+
+          <RelatedContent key={d.topic.id} d={d} />
         </div>
 
         <aside className="min-w-0 space-y-4 lg:sticky lg:top-20 lg:self-start" data-topic-side>

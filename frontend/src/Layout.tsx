@@ -331,7 +331,7 @@ export function Layout() {
       <div className="flex">
         {showSidebar && <Sidebar className="sticky top-14 hidden h-[calc(100dvh-3.5rem)] w-56 shrink-0 md:flex lg:w-64" />}
         <div className="min-w-0 flex-1">
-          <main id="main" key={path} className={`page-in pb-28 md:pb-12 ${pageBox}`}>
+          <main id="main" key={path} className={`page-in pb-24 md:pb-6 ${pageBox}`}>
             <Outlet />
           </main>
         </div>
