@@ -1,4 +1,4 @@
-import { BookOpen, ChevronRight, FileText, ListChecks, PencilLine, Timer } from 'lucide-react';
+import { BookOpen, ChevronRight, ListChecks, PencilLine, Timer } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api, type TopicDetail } from '../api';
@@ -30,33 +30,6 @@ function useRelated(d: TopicDetail): Related[] | null {
     };
   }, [d, items]);
   return items;
-}
-
-/** The official wording, compact: a long description is clamped to three lines with a way to read the rest. */
-function SyllabusCard({ d }: { d: TopicDetail }) {
-  const [open, setOpen] = useState(false);
-  const body = d.topic.body ?? '';
-  const long = body.length > 260;
-  return (
-    <section aria-label="Official syllabus text" className="rounded-lg border border-rule bg-surface px-3.5 py-2.5">
-      <div className="mb-1 flex flex-wrap items-center justify-between gap-x-3 text-xs">
-        <span className="font-medium tracking-wide text-ink-3 uppercase">Official syllabus text</span>
-        {d.source.url && (
-          <a href={`${d.source.url}#page=${d.source.page ?? 1}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
-            <FileText aria-hidden className="size-3.5" />
-            NTA PDF, page {d.source.page}
-          </a>
-        )}
-      </div>
-      <p className="font-serif text-[14px] leading-snug font-medium text-ink">{d.topic.title}</p>
-      {body && <p className={`mt-0.5 font-serif text-[14px] leading-snug text-ink-2 ${long && !open ? 'line-clamp-3' : ''}`}>{body}</p>}
-      {long && (
-        <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="mt-1 text-xs font-medium text-accent hover:underline">
-          {open ? 'Show less' : 'Show more'}
-        </button>
-      )}
-    </section>
-  );
 }
 
 function LessonsList({ items }: { items: Related[] }) {
@@ -103,7 +76,7 @@ function CoveredList({ d }: { d: TopicDetail }) {
 }
 
 /**
- * The left column: the syllabus text, then lessons and what the page covers. When both exist they sit side by side on a wide screen
+ * The left column: lessons and what the page covers. When both exist they sit side by side on a wide screen
  * (lessons first, as the main thing to open) so nothing is pushed far down the page; on a narrow screen they stack.
  */
 function MainColumn({ d }: { d: TopicDetail }) {
@@ -112,16 +85,18 @@ function MainColumn({ d }: { d: TopicDetail }) {
   const covered = d.children.length > 0;
   return (
     <div className="min-w-0 space-y-4">
-      <SyllabusCard d={d} />
       <div className={lessons && covered ? 'grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]' : 'space-y-4'}>
         {lessons && <LessonsList items={lessons} />}
         {covered && <CoveredList d={d} />}
+        {related !== null && !lessons && !covered && (
+          <p className="rounded-lg border border-dashed border-rule-strong px-4 py-3 text-sm text-ink-2">There is no lesson for this topic yet. You can still practise its questions.</p>
+        )}
       </div>
     </div>
   );
 }
 
-/** Topic page: the official syllabus wording with its source page, subtopics, their lessons and practice. */
+/** Topic page: what the topic covers, its lessons, and practice. */
 export function TopicPage() {
   const { nodeId = '' } = useParams();
   const t = useLoad(() => api.topic(nodeId), [nodeId]);
