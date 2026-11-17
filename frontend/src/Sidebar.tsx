@@ -6,8 +6,8 @@ import { api, type ExamCode, type Outline, type OutlineNode, type PyqTree, type 
 /**
  * The global, three-level, inline-expanding sidebar.
  *   Level 1: the CUET UG papers.
- *   Level 2: what we have for a paper: Chapter-wise questions, Previous-year papers.
- *   Level 3: the chapters (with their real question counts) or the years of papers.
+ *   Level 2: what we have for a paper: the Chapter-wise Question Bank, Full-Length Previous Year Papers and Study Material (Lessons).
+ *   Level 3: the chapters (with their real question counts), the years of papers, or the lessons.
  * Everything comes from the existing APIs; nothing is invented. Expansion happens in place, under the parent.
  */
 
@@ -28,7 +28,7 @@ function Count({ n }: { n: number }) {
   return <span className="num ml-auto shrink-0 rounded-full bg-ink/[0.06] px-1.5 py-px text-[11px] leading-4 text-ink-3">{n}</span>;
 }
 
-export interface SideItem { id: string; kind: 'group' | 'topic'; title: string; label: string | null; questions: number; ids: Set<string> }
+export interface SideItem { id: string; kind: 'group' | 'topic'; title: string; label: string | null; questions: number; resources: number; ids: Set<string> }
 
 /**
  * What the sidebar lists for a paper, in syllabus order: the topics that have questions or a lesson, each group headed by the section or
@@ -46,7 +46,7 @@ export function chaptersOf(nodes: OutlineNode[]): SideItem[] {
   if (topics.length === 0) {
     const roots = sort(kids.get(null) ?? []).filter((r) => r.kind !== 'NOTE');
     const picked = roots.flatMap((r) => (r.kind === 'SECTION' && (kids.get(r.id) ?? []).length > 0 ? sort(kids.get(r.id)!) : [r]));
-    return picked.map((n) => ({ id: n.id, kind: 'topic' as const, title: n.title, label: n.label, questions: 0, ids: ids(n) }));
+    return picked.map((n) => ({ id: n.id, kind: 'topic' as const, title: n.title, label: n.label, questions: 0, resources: 0, ids: ids(n) }));
   }
   const items: SideItem[] = [];
   const seen = new Set<string>();
@@ -55,9 +55,9 @@ export function chaptersOf(nodes: OutlineNode[]): SideItem[] {
     if (parent && parent.kind !== 'NOTE' && !seen.has(parent.id)) {
       seen.add(parent.id);
       const inside = topics.filter((x) => x.parent_id === parent.id);
-      items.push({ id: parent.id, kind: 'group', title: parent.title, label: parent.label, questions: inside.reduce((s, x) => s + x.questions, 0), ids: ids(parent) });
+      items.push({ id: parent.id, kind: 'group', title: parent.title, label: parent.label, questions: inside.reduce((s, x) => s + x.questions, 0), resources: inside.reduce((s, x) => s + x.resources, 0), ids: ids(parent) });
     }
-    items.push({ id: t.id, kind: 'topic', title: t.title, label: t.label, questions: t.questions, ids: ids(t) });
+    items.push({ id: t.id, kind: 'topic', title: t.title, label: t.label, questions: t.questions, resources: t.resources, ids: ids(t) });
   }
   return items;
 }
@@ -74,6 +74,33 @@ function once<T>(key: string, load: () => Promise<T>): Promise<T> {
   return p;
 }
 
+export type LessonRow = { kind: 'group'; id: string; title: string; label: string | null } | { kind: 'lesson'; id: string; title: string; nodeId: string; groupId: string | null };
+
+/** Study Material for a paper: its lessons in syllabus order, under the section or unit they belong to. Titles come from each topic's own lessons. */
+async function lessonsOf(list: SideItem[]): Promise<LessonRow[]> {
+  const rows: LessonRow[] = [];
+  let group: SideItem | null = null;
+  const withLessons = list.filter((c) => c.kind === 'topic' && c.resources > 0);
+  const found = await Promise.all(withLessons.map((c) => once(`topic:${c.id}`, () => api.topic(c.id)).then((t) => t.resources, () => [])));
+  const byTopic = new Map(withLessons.map((c, i) => [c.id, found[i]!]));
+  let pending: LessonRow | null = null;
+  for (const c of list) {
+    if (c.kind === 'group') {
+      group = c;
+      pending = { kind: 'group', id: c.id, title: c.title, label: c.label };
+      continue;
+    }
+    for (const r of byTopic.get(c.id) ?? []) {
+      if (pending) {
+        rows.push(pending);
+        pending = null;
+      }
+      rows.push({ kind: 'lesson', id: r.id, title: r.title, nodeId: c.id, groupId: group?.id ?? null });
+    }
+  }
+  return rows;
+}
+
 function loadOpen(): Record<string, boolean> {
   try {
     return JSON.parse(sessionStorage.getItem(STORE) ?? '{}') as Record<string, boolean>;
@@ -88,6 +115,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const [failed, setFailed] = useState(false);
   const [outlines, setOutlines] = useState<Record<string, Outline | 'loading' | 'error'>>({});
   const [pyq, setPyq] = useState<PyqTree | 'loading' | 'error' | null>(null);
+  const [lessons, setLessons] = useState<Record<string, LessonRow[] | 'loading' | 'error'>>({});
   const [open, setOpen] = useState<Record<string, boolean>>(loadOpen);
 
   const toggle = (key: string) =>
@@ -172,14 +200,25 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   }, [subjectPaper, expand]);
   useEffect(() => {
     if (!ctx) return;
-    expand([`s:${ctx.paperId}`, `c:${ctx.paperId}`]);
+    expand([`s:${ctx.paperId}`, lessonRoute ? `m:${ctx.paperId}` : `c:${ctx.paperId}`]);
     loadOutline(ctx.paperId);
-  }, [ctx, expand, loadOutline]);
+  }, [ctx, lessonRoute, expand, loadOutline]);
   const chaptersByPaper = useMemo(() => {
     const m: Record<string, ReturnType<typeof chaptersOf>> = {};
     for (const [id, o] of Object.entries(outlines)) if (typeof o === 'object') m[id] = chaptersOf(o.nodes);
     return m;
   }, [outlines]);
+  // Load the lessons of a subject once its Study Material list is open and its outline is there.
+  useEffect(() => {
+    for (const [paperId, list] of Object.entries(chaptersByPaper)) {
+      if (!open[`m:${paperId}`] || lessons[paperId]) continue;
+      setLessons((l) => ({ ...l, [paperId]: 'loading' }));
+      lessonsOf(list).then(
+        (rows) => setLessons((l) => ({ ...l, [paperId]: rows })),
+        () => setLessons((l) => ({ ...l, [paperId]: 'error' })),
+      );
+    }
+  }, [open, chaptersByPaper, lessons]);
   /** The chapter row to mark as selected, and the section or unit heading above it (marked, not selected). */
   const current = useMemo(() => {
     if (!ctx) return null;
@@ -223,6 +262,8 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
         const isOpen = !!open[sKey];
         const onSubject = pathname === `/${EXAM}/subject/${s.paperId}`;
         const inside = current?.paperId === s.paperId || pyqSubject?.paperId === s.paperId;
+        const onLesson = !!lessonRoute;
+        const hasLessons = !!chaptersByPaper[s.paperId]?.some((c) => c.kind === 'topic' && c.resources > 0);
         return (
           <li key={s.paperId} className="mb-0.5">
             <button
@@ -249,10 +290,10 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                       id={`c:${s.paperId}`}
                       label="Chapter-wise Question Bank"
                       open={!!open[`c:${s.paperId}`]}
-                      active={current?.paperId === s.paperId}
+                      active={!onLesson && current?.paperId === s.paperId}
                       onToggle={() => toggle(`c:${s.paperId}`)}
                     >
-                      <Chapters paperId={s.paperId} outline={outlines[s.paperId]} list={chaptersByPaper[s.paperId]} currentId={current?.paperId === s.paperId ? current.itemId : null} parentId={current?.paperId === s.paperId ? current.groupId : null} onNavigate={onNavigate} onRetry={() => setOutlines((o) => { const { [s.paperId]: _drop, ...rest } = o; return rest; })} />
+                      <Chapters paperId={s.paperId} outline={outlines[s.paperId]} list={chaptersByPaper[s.paperId]} currentId={!onLesson && current?.paperId === s.paperId ? current.itemId : null} parentId={!onLesson && current?.paperId === s.paperId ? current.groupId : null} onNavigate={onNavigate} onRetry={() => setOutlines((o) => { const { [s.paperId]: _drop, ...rest } = o; return rest; })} />
                     </Category>
                     <Category
                       id={`p:${s.paperId}`}
@@ -266,6 +307,17 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                     >
                       <PyqYears subject={s} pyq={pyq} activeYear={pyqSubject?.paperId === s.paperId ? pyqYear : null} onNavigate={onNavigate} />
                     </Category>
+                    {hasLessons && (
+                      <Category
+                        id={`m:${s.paperId}`}
+                        label="Study Material (Lessons)"
+                        open={!!open[`m:${s.paperId}`]}
+                        active={onLesson && current?.paperId === s.paperId}
+                        onToggle={() => toggle(`m:${s.paperId}`)}
+                      >
+                        <Lessons rows={lessons[s.paperId]} lessonId={onLesson && current?.paperId === s.paperId ? lessonRoute : null} onNavigate={onNavigate} />
+                      </Category>
+                    )}
                   </>
                 )}
               </ul>
@@ -327,6 +379,36 @@ function Chapters({ paperId, outline, list, currentId, parentId, onNavigate, onR
           </Link>
         </li>
       ))}
+    </>
+  );
+}
+
+function Lessons({ rows, lessonId, onNavigate }: { rows: LessonRow[] | 'loading' | 'error' | undefined; lessonId: string | null; onNavigate?: () => void }) {
+  if (!rows || rows === 'loading') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Loading…</li>;
+  if (rows === 'error') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Could not load the lessons.</li>;
+  if (rows.length === 0) return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">No lessons are listed yet.</li>;
+  const selected = rows.find((r) => r.kind === 'lesson' && r.id === lessonId);
+  const parentId = selected && selected.kind === 'lesson' ? selected.groupId : null;
+  return (
+    <>
+      {rows.map((r) =>
+        r.kind === 'group' ? (
+          <li key={`g-${r.id}`}>
+            <Link to={`/topic/${r.id}`} onClick={onNavigate} data-kind="lesson-group" title={`${r.label ? `${r.label} ` : ''}${r.title}`} className={`${rowBase} min-h-8 py-1.5 pr-3 pl-12 text-[13px] ${parentId === r.id ? parentRow : 'text-ink'}`}>
+              <span className="min-w-0 flex-1 leading-snug">
+                {r.label ? <span className="text-ink-3">{r.label} </span> : null}
+                {r.title}
+              </span>
+            </Link>
+          </li>
+        ) : (
+          <li key={r.id}>
+            <Link to={`/learn/${r.id}`} onClick={onNavigate} aria-current={lessonId === r.id ? 'page' : undefined} data-kind="lesson" title={r.title} className={`${rowBase} h-8 pr-3 pl-16 text-[13px] ${lessonId === r.id ? selectedRow : 'text-ink'}`}>
+              <span className="min-w-0 flex-1 truncate">{r.title}</span>
+            </Link>
+          </li>
+        ),
+      )}
     </>
   );
 }
