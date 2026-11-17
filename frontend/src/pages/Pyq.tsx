@@ -57,7 +57,7 @@ export function PaperRow({ d }: { d: PyqDoc }) {
       <span className="min-w-0 flex-1 basis-64">
         <span className="flex flex-wrap items-center gap-2">
           {kindBadge(d)}
-          {d.unreviewed && <Badge tone="amber">Preview, not reviewed</Badge>}
+          
           {facts.length > 0 && <span className="num text-sm font-medium text-ink">{facts.join(' · ')}</span>}
         </span>
         <span className="mt-1 block text-[15px] text-ink">{d.title}</span>
@@ -341,7 +341,7 @@ function PyqSelection({ year, slug }: { year: number; slug: string }) {
                     <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-2">
                       {facts.length > 0 && <span className="num">{facts.join(' · ')}</span>}
                       {kindBadge(p)}
-                      {p.unreviewed && <Badge tone="amber">Preview, not reviewed</Badge>}
+                      
                     </span>
                   </span>
                   <OpenPaper d={p} />
@@ -440,11 +440,6 @@ export function PyqViewerPage() {
   return (
     <div>
       <PageHeader title={d.title} back={{ to: back, label: 'Previous-year papers' }} subtitle={[d.native ? 'For CUET (UG)' : d.year ? `CUET (UG) ${d.year}` : 'CUET (UG)', d.subjectName, d.examDate ? day(d.examDate) : null, d.shift, d.language].filter(Boolean).join(' · ')} />
-      {d.unreviewed && (
-        <p className="-mt-3 mb-4">
-          <Badge tone="amber">Preview, not reviewed</Badge>
-        </p>
-      )}
       {d.viewer === 'IN_APP' && d.fileUrl ? (
         <PdfViewer doc={{ fileUrl: d.fileUrl, viewer: 'DIRECT', originalUrl: d.openUrl }} startPage={Math.max(1, Number(params.get('page')) || 1)} site={siteName(d.sourceSite) ?? 'the source'} downloadUrl={d.downloadUrl} />
       ) : (

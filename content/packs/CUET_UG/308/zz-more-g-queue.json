@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_a56731cf969941feb80644d0115793b4",
+    "title": "Queue"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r06-queue-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "What is the operation of adding a new element at the rear of a queue called?",
+      "options": [
+        "Dequeue",
+        "Enqueue",
+        "Push",
+        "Peek"
+      ],
+      "answer": 2,
+      "explanation": "Insertion at the rear end of a queue is called enqueue, and removal from the front is called dequeue. Push belongs to a stack, and peek merely looks at the front element without removing it.",
+      "optionRationale": {
+        "1": "Dequeue removes an element from the front of the queue.",
+        "3": "Push is the insertion operation of a stack, not of a queue.",
+        "4": "Peek only reads the front element without changing the queue."
+      },
+      "objective": "Name the insertion operation of a queue"
+    },
+    {
+      "key": "ug26-308-r06-queue-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following is NOT a typical use of a queue?",
+      "options": [
+        "Going back to the previous page in a web browser",
+        "Waiting list for a railway reservation",
+        "Jobs waiting for a printer",
+        "Customers waiting at a bank counter"
+      ],
+      "answer": 1,
+      "explanation": "The back button of a browser returns to the page visited most recently, which is last in first out and so is a stack application. Printer jobs, railway waiting lists and bank counters serve the earliest arrival first and are queues.",
+      "optionRationale": {
+        "2": "People are served in the order in which they joined, which is a queue.",
+        "3": "Print jobs are processed in order of submission, which is a queue.",
+        "4": "Customers are served first come first served, which is a queue."
+      },
+      "objective": "Separate queue uses from stack uses"
+    },
+    {
+      "key": "ug26-308-r06-queue-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "application",
+      "stem": "What is printed by this code?\n`q = [1, 2, 3]`\n`q.append(4)`\n`print(q[0])`",
+      "options": [
+        "4",
+        "1",
+        "3",
+        "[1, 2, 3, 4]"
+      ],
+      "answer": 2,
+      "explanation": "append() adds 4 at the rear, so q becomes [1, 2, 3, 4]. The front of a list-based queue is index 0, which holds 1, the element that joined first, and this is what q[0] prints.",
+      "optionRationale": {
+        "1": "4 is the element that has just joined at the rear; q[0] is the front element.",
+        "3": "3 was the rear before append(); q[0] is the front, the oldest element.",
+        "4": "print(q[0]) shows a single element, not the whole list."
+      },
+      "objective": "Locate the front of a list-based queue"
+    },
+    {
+      "key": "ug26-308-r06-queue-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What is printed by this code?\n`q = [1, 2, 3, 4]`\n`for _ in range(3):`\n`    q.append(q.pop(0))`\n`print(q)`",
+      "options": [
+        "[2, 3, 4, 1]",
+        "[3, 4, 1, 2]",
+        "[1, 2, 3, 4]",
+        "[4, 1, 2, 3]"
+      ],
+      "answer": 4,
+      "explanation": "Each pass removes the front element and adds it at the rear, so the list rotates left by one place: [2, 3, 4, 1], then [3, 4, 1, 2], and after the third pass [4, 1, 2, 3].",
+      "optionRationale": {
+        "1": "This is the list after only one rotation; the loop runs three times.",
+        "2": "This is the list after two rotations; one more rotation is needed.",
+        "3": "This would need four rotations, which brings the list back to its start."
+      },
+      "objective": "Trace repeated dequeue and enqueue"
+    },
+    {
+      "key": "ug26-308-r06-queue-g05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "In the code below a letter is added to the queue and the letter \"x\" removes one element from the front. What is printed?\n`q = []`\n`rem = []`\n`for ch in \"ABxCxxD\":`\n`    if ch == \"x\":`\n`        rem.append(q.pop(0))`\n`    else:`\n`        q.append(ch)`\n`print(q, rem)`",
+      "options": [
+        "['D'] ['A', 'B', 'C']",
+        "['D'] ['B', 'A', 'C']",
+        "['C', 'D'] ['A', 'B']",
+        "['A', 'D'] ['C', 'B']"
+      ],
+      "answer": 1,
+      "explanation": "A and B join: [A, B]. The first x removes A, leaving [B]. C joins: [B, C]. The next x removes B and the next x removes C, leaving an empty queue. D then joins. So q is [D] and the removed letters, in order, are A, B and C.",
+      "optionRationale": {
+        "2": "Removal is always from the front, so the first removed letter is A, the earliest to join, then B.",
+        "3": "There are three x characters, so three elements are removed, including C.",
+        "4": "pop(0) takes the oldest element each time; the removed items are A, B and C in that order."
+      },
+      "objective": "Trace enqueue and dequeue driven by a string"
+    },
+    {
+      "key": "ug26-308-r06-queue-g06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each term of a queue in List-I with its meaning in List-II.",
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-I, B-II, C-III, D-IV",
+        "A-III, B-IV, C-I, D-II"
+      ],
+      "answer": 3,
+      "explanation": "Elements are removed at the front (I) and added at the rear (II). Overflow occurs when an element is added to a queue that has no space left (III), and underflow occurs when an element is removed from a queue that has none (IV).",
+      "optionRationale": {
+        "1": "Elements leave at the front and join at the rear; A and B are exchanged here.",
+        "2": "Overflow is a full queue and underflow is an empty queue; C and D are exchanged here.",
+        "4": "Front and rear are the two ends of the queue; overflow and underflow are error conditions, not ends."
+      },
+      "objective": "Match queue terminology",
+      "list": {
+        "left": [
+          "A. Front",
+          "B. Rear",
+          "C. Overflow",
+          "D. Underflow"
+        ],
+        "right": [
+          "I. End from which elements are removed",
+          "II. End at which elements are added",
+          "III. Trying to add to a queue that is full",
+          "IV. Trying to remove from a queue that is empty"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r06-queue-g07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about queues and deques.\nA. A queue is a linear data structure.\nB. In a queue deletion is done at the rear.\nC. Underflow occurs when a dequeue is attempted on an empty queue.\nD. A deque can be used to behave like a stack.\nWhich statements are correct?",
+      "options": [
+        "A and B only",
+        "B, C and D only",
+        "A, C and D only",
+        "A, B and D only"
+      ],
+      "answer": 3,
+      "explanation": "A queue keeps its elements in a line, so it is linear (A is true). Deletion is from the front, so B is false. Dequeue on an empty queue is underflow (C is true). A deque with insertion and deletion at one same end behaves as a stack (D is true).",
+      "optionRationale": {
+        "1": "B is false: deletion takes place at the front, not the rear; C is also correct.",
+        "2": "B is false because the rear is the end at which insertion is done.",
+        "4": "B is false (deletion is at the front), and C is a correct statement."
+      },
+      "objective": "Judge statements about queues and deques"
+    },
+    {
+      "key": "ug26-308-r06-queue-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A deque is stored in a list with index 0 as the front. What does this code print?\n`d = []`\n`for i in range(1, 6):`\n`    if i % 2:`\n`        d.append(i)`\n`    else:`\n`        d.insert(0, i)`\n`d.pop(0)`\n`d.pop()`\n`print(d)`",
+      "options": [
+        "[2, 1, 3]",
+        "[4, 2, 1]",
+        "[2, 1, 3, 5]",
+        "[4, 2, 1, 3]"
+      ],
+      "answer": 1,
+      "explanation": "Odd numbers join at the rear and even numbers at the front. The list grows as [1], [2, 1], [2, 1, 3], [4, 2, 1, 3], [4, 2, 1, 3, 5]. pop(0) then removes the front 4 and pop() removes the rear 5, leaving [2, 1, 3].",
+      "optionRationale": {
+        "2": "The last pop() removes the rear element 5 and pop(0) removes 4, so 3 stays as the last item, not 4 at the front.",
+        "3": "Two elements are removed, one from each end, so only three remain.",
+        "4": "The front element 4 is removed by pop(0), and 5 by pop(); four elements cannot remain."
+      },
+      "objective": "Trace a deque with insertions at both ends"
+    },
+    {
+      "key": "ug26-308-r06-queue-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "What does this code print?\n`q = [1, 2, 3, 4, 5]`\n`while len(q) > 1:`\n`    q.append(q.pop(0))`\n`    q.pop(0)`\n`print(q[0])`",
+      "options": [
+        "1",
+        "5",
+        "2",
+        "3"
+      ],
+      "answer": 4,
+      "explanation": "Each pass moves the front element to the rear and then deletes the new front. Starting from [1, 2, 3, 4, 5]: [3, 4, 5, 1], then [5, 1, 3], then [3, 5]; the last pass moves 3 to the rear giving [5, 3] and deletes 5. Only 3 is left.",
+      "optionRationale": {
+        "1": "1 is moved to the rear in the first pass and removed in the third pass, so it does not survive.",
+        "2": "5 is moved to the rear in the third pass and is deleted in the last pass, so it does not survive.",
+        "3": "2 is removed in the very first pass, right after 1 has been moved to the rear."
+      },
+      "objective": "Trace a queue elimination loop"
+    },
+    {
+      "key": "ug26-308-r06-queue-g10",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): In a list-based deque with index 0 as the front, starting from an empty list, the statements `insert(0, 5)` and `append(7)` followed by `pop(0)` make pop(0) return 5.\nReason (R): insert(0, item) places the item before all other elements, so the item inserted last at the front stays at the front until it is removed.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "insert(0, 5) puts 5 at the front and append(7) adds 7 at the rear. The front element is 5, so pop(0) returns 5 and the assertion is true. The reason states exactly why: insert at index 0 sits before every other element, so it is the first one removed from the front.",
+      "optionRationale": {
+        "2": "The reason is the cause of the result, so it explains the assertion.",
+        "3": "The reason is true: insert(0, item) puts the item in front of all others.",
+        "4": "The assertion is true: pop(0) takes the front element, which is 5."
+      },
+      "objective": "Reason about insertion and deletion at the front of a deque"
+    }
+  ]
+}

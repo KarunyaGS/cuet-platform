@@ -1,0 +1,183 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_5b37bf88cba94a9ebf3d70080bd5fc84",
+  "title": "Structured Query Language"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r18-structured-query-language-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "application",
+   "stem": "Table STUDENT(RollNo, Name, Class, Marks, City) has 6 rows: (1, Asha, 12, 88, Delhi), (2, Bilal, 12, 72, Pune), (3, Charu, 11, 88, Delhi), (4, Dev, 12, 65, Agra), (5, Esha, 11, 91, Pune) and (6, Farid, 12, NULL, Delhi). Which names are returned by SELECT Name FROM STUDENT WHERE Name LIKE '%a';?",
+   "options": [
+    "Asha, Charu and Esha",
+    "Charu and Dev",
+    "Asha and Esha",
+    "Bilal and Farid"
+   ],
+   "answer": 3,
+   "explanation": "The pattern %a matches any text that ends with the letter a. Only Asha and Esha end with a. Charu ends with u, Dev with v, Bilal with l and Farid with d, so they are not selected.",
+   "optionRationale": {
+    "1": "Charu ends with the letter u, so it does not match a pattern that ends with a.",
+    "2": "Neither Charu nor Dev ends with a, so this pair does not match.",
+    "4": "Bilal ends with l and Farid ends with d, so neither of them matches."
+   },
+   "objective": "Use the LIKE operator with the % wildcard"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Table STUDENT(RollNo, Name, Class, Marks, City) has 6 rows: (1, Asha, 12, 88, Delhi), (2, Bilal, 12, 72, Pune), (3, Charu, 11, 88, Delhi), (4, Dev, 12, 65, Agra), (5, Esha, 11, 91, Pune) and (6, Farid, 12, NULL, Delhi). What does SELECT COUNT(*), COUNT(Marks), COUNT(DISTINCT City) FROM STUDENT; display?",
+   "options": [
+    "6, 6, 3",
+    "6, 5, 3",
+    "6, 5, 6",
+    "5, 5, 3"
+   ],
+   "answer": 2,
+   "explanation": "COUNT(*) counts all 6 rows. COUNT(Marks) ignores the NULL of Farid and so gives 5. COUNT(DISTINCT City) counts the different cities Delhi, Pune and Agra, which is 3. The output is 6, 5, 3.",
+   "optionRationale": {
+    "1": "COUNT(Marks) skips NULL values, so it cannot count Farid and give 6.",
+    "3": "COUNT(DISTINCT City) counts each city once, so it gives 3 and not 6.",
+    "4": "COUNT(*) counts every row, including the one with a NULL, so it gives 6 and not 5."
+   },
+   "objective": "Compare COUNT(*), COUNT(column) and COUNT(DISTINCT)"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Table STUDENT(RollNo, Name, Class, Marks, City) has 6 rows: (1, Asha, 12, 88, Delhi), (2, Bilal, 12, 72, Pune), (3, Charu, 11, 88, Delhi), (4, Dev, 12, 65, Agra), (5, Esha, 11, 91, Pune) and (6, Farid, 12, NULL, Delhi). In what order are the names displayed by SELECT Name FROM STUDENT ORDER BY Marks DESC, Name ASC; (assume MySQL, where NULL is treated as lower than any number)?",
+   "options": [
+    "Farid, Esha, Asha, Charu, Bilal, Dev",
+    "Esha, Charu, Asha, Bilal, Dev, Farid",
+    "Esha, Asha, Charu, Bilal, Dev",
+    "Esha, Asha, Charu, Bilal, Dev, Farid"
+   ],
+   "answer": 4,
+   "explanation": "The marks are sorted from high to low: Esha 91, then Asha and Charu with 88 each, then Bilal 72 and Dev 65. The tie between Asha and Charu is settled by Name in ascending order, so Asha comes first. NULL is the lowest value, so Farid comes last in a descending sort.",
+   "optionRationale": {
+    "1": "This would put NULL first, but MySQL treats NULL as the smallest value, which is last in DESC order.",
+    "2": "The tie of 88 marks is broken by Name ascending, so Asha must come before Charu.",
+    "3": "ORDER BY does not remove rows, so Farid is still displayed even with a NULL mark."
+   },
+   "objective": "Predict ORDER BY with a tie and a NULL"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Table STUDENT(RollNo, Name, Class, Marks, City) has 6 rows: (1, Asha, 12, 88, Delhi), (2, Bilal, 12, 72, Pune), (3, Charu, 11, 88, Delhi), (4, Dev, 12, 65, Agra), (5, Esha, 11, 91, Pune) and (6, Farid, 12, NULL, Delhi). Which output is produced by SELECT City, AVG(Marks) FROM STUDENT GROUP BY City HAVING COUNT(*) >= 2 ORDER BY City; (MySQL shows decimals such as 88.0000)?",
+   "options": [
+    "Delhi with average 58.67 and Pune with average 81.5",
+    "Delhi with average 88 and Pune with average 81.5",
+    "Delhi with average 88, Pune with average 81.5 and Agra with average 65",
+    "Delhi with average 88 only"
+   ],
+   "answer": 2,
+   "explanation": "Delhi has 3 rows and Pune has 2, while Agra has only 1 and is removed by HAVING COUNT(*) >= 2. AVG ignores the NULL of Farid, so Delhi is (88 + 88) / 2 = 88. Pune is (72 + 91) / 2 = 81.5. So two rows are displayed.",
+   "optionRationale": {
+    "1": "This treats the NULL as 0, but AVG ignores NULL values, so Delhi is 88 and not 58.67.",
+    "3": "Agra has only one row, so HAVING COUNT(*) >= 2 removes its group.",
+    "4": "Pune has two rows and also satisfies the HAVING condition, so it is displayed as well."
+   },
+   "objective": "Evaluate GROUP BY with HAVING and AVG over NULL"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "application",
+   "stem": "Table STUDENT(RollNo, Name, Class, Marks, City) has 6 rows: (1, Asha, 12, 88, Delhi), (2, Bilal, 12, 72, Pune), (3, Charu, 11, 88, Delhi), (4, Dev, 12, 65, Agra), (5, Esha, 11, 91, Pune) and (6, Farid, 12, NULL, Delhi). How many rows are returned by SELECT * FROM STUDENT WHERE Marks BETWEEN 72 AND 88;?",
+   "options": [
+    "3",
+    "1",
+    "2",
+    "4"
+   ],
+   "answer": 1,
+   "explanation": "BETWEEN includes both end values, so the rows with Marks 72, 88 and 88 qualify: Bilal, Asha and Charu. Dev (65) and Esha (91) are outside the range, and Farid has a NULL which never satisfies the condition. The result has 3 rows.",
+   "optionRationale": {
+    "2": "1 would be right only if both end values were excluded, which would leave just Bilal, but BETWEEN includes them.",
+    "3": "2 would result if the lower limit 72 were excluded, but BETWEEN includes it.",
+    "4": "4 would need a fourth row inside the range, but Dev, Esha and Farid are all outside it."
+   },
+   "objective": "Apply the BETWEEN operator"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Table STUDENT(RollNo, Name, Class, Marks, City) has 6 rows: (1, Asha, 12, 88, Delhi), (2, Bilal, 12, 72, Pune), (3, Charu, 11, 88, Delhi), (4, Dev, 12, 65, Agra), (5, Esha, 11, 91, Pune) and (6, Farid, 12, NULL, Delhi). Table CLUB(RollNo, Club) has the rows (1, Chess), (1, Music), (3, Chess) and (7, Art). What is the output of SELECT S.Name, COUNT(*) FROM STUDENT S, CLUB C WHERE S.RollNo = C.RollNo GROUP BY S.Name;?",
+   "options": [
+    "Asha 2 and Charu 1",
+    "Asha 2, Charu 1 and Farid 0",
+    "Asha 1 and Charu 1",
+    "Asha 3 and Charu 1"
+   ],
+   "answer": 1,
+   "explanation": "The WHERE condition keeps only the pairs with equal RollNo: Asha with Chess, Asha with Music and Charu with Chess. Grouping on Name gives Asha 2 and Charu 1. Students without a club and the club row for RollNo 7 find no partner and are not displayed.",
+   "optionRationale": {
+    "2": "A student with no matching club row never appears in an ordinary join, so Farid is not shown with 0.",
+    "3": "Asha has two matching club rows, so her count is 2 and not 1.",
+    "4": "Only two rows of CLUB belong to roll number 1, so the count for Asha cannot be 3."
+   },
+   "objective": "Evaluate a join with GROUP BY and COUNT"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Table STUDENT(RollNo, Name, Class, Marks, City) has 6 rows: (1, Asha, 12, 88, Delhi), (2, Bilal, 12, 72, Pune), (3, Charu, 11, 88, Delhi), (4, Dev, 12, 65, Agra), (5, Esha, 11, 91, Pune) and (6, Farid, 12, NULL, Delhi). What does SELECT UCASE(LEFT(Name, 2)), RIGHT(City, 2) FROM STUDENT WHERE RollNo = 5; display in MySQL?",
+   "options": [
+    "ES and un",
+    "ha and Pu",
+    "ES and Pu",
+    "ES and ne"
+   ],
+   "answer": 4,
+   "explanation": "For roll number 5 the name is Esha and the city is Pune. LEFT(Name, 2) gives Es and UCASE converts it to ES. RIGHT(City, 2) gives the last two letters of Pune, which are ne. The output is ES and ne.",
+   "optionRationale": {
+    "1": "un are the middle letters of Pune; RIGHT(City, 2) takes the last two letters, which are ne.",
+    "2": "LEFT takes characters from the start and RIGHT from the end, so these results are reversed.",
+    "3": "RIGHT(City, 2) takes the last two letters ne, not the first two letters Pu."
+   },
+   "objective": "Combine UCASE, LEFT and RIGHT"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-m08",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Assertion (A): For the table STUDENT given below, the query SELECT * FROM STUDENT WHERE Marks > 70 OR City = 'Agra'; returns 5 rows. Table: (1, Asha, 12, 88, Delhi), (2, Bilal, 12, 72, Pune), (3, Charu, 11, 88, Delhi), (4, Dev, 12, 65, Agra), (5, Esha, 11, 91, Pune), (6, Farid, 12, NULL, Delhi).\nReason (R): A row is selected by an OR condition only when both of its parts are true for that row.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "Marks above 70 gives Asha, Bilal, Charu and Esha, and City = Agra adds Dev, so 5 rows are returned and A is true. R is false: OR selects a row when at least one part is true, whereas the AND operator needs both. Farid is left out since NULL > 70 is not true and his city is Delhi.",
+   "optionRationale": {
+    "1": "R is false, since OR needs only one true part, so it cannot explain the 5 rows.",
+    "2": "R is not true, so there is no true reason that could be even a partial explanation.",
+    "4": "A is true: the rows of Asha, Bilal, Charu, Esha and Dev satisfy at least one condition."
+   },
+   "objective": "Evaluate an OR condition"
+  }
+ ]
+}

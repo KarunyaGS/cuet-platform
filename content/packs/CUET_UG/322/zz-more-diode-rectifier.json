@@ -1,0 +1,302 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_bd879cbe57b44afb9745718077e8c858",
+  "title": "Application of junction diode -diode as a rectifier."
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-322-u9-diode-rectifier-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "How many diodes does a bridge rectifier use?",
+   "options": [
+    "Two diodes, connected to the two ends of the secondary so that one conducts in each half-cycle",
+    "One diode, connected in series so that it conducts in only one half-cycle of the input",
+    "Three diodes, connected so that one conducts in the first half-cycle and two in the next",
+    "Four diodes, connected so that two of them conduct in each half-cycle"
+   ],
+   "answer": 4,
+   "explanation": "A bridge rectifier arranges four diodes in a loop. In one half-cycle one pair conducts and in the other half-cycle the second pair conducts, so the current through the load always has the same direction and the circuit does not need a centre-tapped transformer.",
+   "optionRationale": {
+    "1": "Two diodes with a centre tap are used in the centre-tap rectifier.",
+    "2": "A single diode is a half-wave rectifier.",
+    "3": "The diodes conduct in pairs, with no arrangement of one and two."
+   },
+   "objective": "Recall the structure of a bridge rectifier"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The secondary of a transformer gives $12\\,\\text{V}$ (rms) to a half-wave rectifier with an ideal diode. What is the peak value of the output voltage?",
+   "options": [
+    "$8.5\\,\\text{V}$",
+    "$17\\,\\text{V}$",
+    "$12\\,\\text{V}$",
+    "$24\\,\\text{V}$"
+   ],
+   "answer": 2,
+   "explanation": "The peak value of a sinusoid is $\\sqrt2$ times its rms value, so $V_m = 12\\times1.414 = 17\\,\\text{V}$. An ideal diode passes the positive half-cycles without loss, so the output peak equals the input peak.",
+   "optionRationale": {
+    "1": "Divides by $\\sqrt2$ instead of multiplying, giving a value below the rms value.",
+    "3": "Takes the rms value as the peak, forgetting the factor $\\sqrt2$.",
+    "4": "Doubles the rms value, which is not the factor for a sine wave."
+   },
+   "objective": "Convert an rms value to a peak value"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A full-wave rectifier is connected to $60\\,\\text{Hz}$ mains. What is the frequency of the ripple in its output?",
+   "options": [
+    "$120\\,\\text{Hz}$",
+    "$60\\,\\text{Hz}$",
+    "$30\\,\\text{Hz}$",
+    "$240\\,\\text{Hz}$"
+   ],
+   "answer": 1,
+   "explanation": "A full-wave rectifier turns each half-cycle of the input into an output pulse, so there are two pulses in every input cycle, and the output ripple frequency is twice the input frequency: $2\\times60 = 120\\,\\text{Hz}$.",
+   "optionRationale": {
+    "2": "This is the ripple frequency of a half-wave rectifier, equal to the input frequency.",
+    "3": "Halves the input frequency instead of doubling it.",
+    "4": "Doubles twice, giving four times the input frequency."
+   },
+   "objective": "Find the ripple frequency of a full-wave rectifier"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A sinusoidal input of peak value $20\\,\\text{V}$ is applied to an ideal half-wave rectifier. What is the rms value of the output across the load?",
+   "options": [
+    "$14\\,\\text{V}$",
+    "$6.4\\,\\text{V}$",
+    "$10\\,\\text{V}$",
+    "$7.1\\,\\text{V}$"
+   ],
+   "answer": 3,
+   "explanation": "Squaring the output, the conducting half-cycle contributes $V_m^{2}\\sin^{2}\\omega t$ and the other half zero. The mean square is therefore $V_m^{2}/4$, so $V_{\\text{rms}} = V_m/2 = 10\\,\\text{V}$. A full sine wave would give $V_m/\\sqrt2$.",
+   "optionRationale": {
+    "1": "This is the rms value of the complete sine wave, which a half-wave rectifier does not give.",
+    "2": "This is the average value of the half-wave output, $V_m/\\pi$, not the rms value.",
+    "4": "Divides $V_m/2$ by $\\sqrt2$ a second time."
+   },
+   "objective": "Find the rms output of a half-wave rectifier"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A bridge rectifier uses silicon diodes, each with a forward drop of $0.7\\,\\text{V}$. The transformer secondary gives a peak of $12\\,\\text{V}$. What is the peak voltage across the load?",
+   "options": [
+    "$11.3\\,\\text{V}$",
+    "$12\\,\\text{V}$",
+    "$9.2\\,\\text{V}$",
+    "$10.6\\,\\text{V}$"
+   ],
+   "answer": 4,
+   "explanation": "In every half-cycle the current passes through two diodes in series, so the voltage lost is $2\\times0.7 = 1.4\\,\\text{V}$. The peak across the load is $12 - 1.4 = 10.6\\,\\text{V}$. With ideal diodes the full $12\\,\\text{V}$ peak would appear, so the loss of $1.4\\,\\text{V}$ matters at low voltages.",
+   "optionRationale": {
+    "1": "Subtracts only one diode drop, but two diodes conduct at a time.",
+    "2": "Neglects the diode drops, which is the ideal-diode result.",
+    "3": "Subtracts four diode drops, but only two diodes conduct at a time."
+   },
+   "objective": "Find the load voltage of a bridge rectifier with real diodes"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "In a centre-tap full-wave rectifier each half of the secondary gives a peak of $20\\,\\text{V}$. What is the peak inverse voltage that each diode must withstand?",
+   "options": [
+    "$40\\,\\text{V}$",
+    "$20\\,\\text{V}$",
+    "$80\\,\\text{V}$",
+    "$28\\,\\text{V}$"
+   ],
+   "answer": 1,
+   "explanation": "When one diode conducts, the other is reverse biased and the full secondary voltage, the sum of the two halves, acts across it. The peak inverse voltage is $2V_m = 2\\times20 = 40\\,\\text{V}$.",
+   "optionRationale": {
+    "2": "This is the peak of one half of the winding and ignores the voltage of the conducting half.",
+    "3": "Doubles twice, taking $4V_m$.",
+    "4": "Multiplies the half-winding peak by $\\sqrt2$, as if converting to an rms value."
+   },
+   "objective": "Find the peak inverse voltage in a centre-tap rectifier"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m07",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about the bridge rectifier.\nA. It uses four diodes.\nB. Two diodes conduct in each half-cycle of the input.\nC. The current through the load has the same direction in both half-cycles.\nD. It requires a centre-tapped transformer.\nChoose the correct answer from the options given below.",
+   "options": [
+    "A and D only",
+    "A, B and C only",
+    "B, C and D only",
+    "A, B, C and D"
+   ],
+   "answer": 2,
+   "explanation": "A bridge rectifier has four diodes (A), and in each half-cycle a different pair conducts (B), so the load current always flows the same way (C). The bridge works directly from the full secondary winding and needs no centre tap, so D is false.",
+   "optionRationale": {
+    "1": "Includes D, which is false, and leaves out B and C.",
+    "3": "Leaves out A and includes the false statement D.",
+    "4": "Includes D, but the centre tap belongs to the two-diode full-wave rectifier."
+   },
+   "objective": "Evaluate statements about the bridge rectifier"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A full-wave rectifier fed from $50\\,\\text{Hz}$ mains has a $1000\\,\\mu\\text{F}$ filter capacitor and supplies a load current of $20\\,\\text{mA}$. Treating the capacitor as discharging at constant current between pulses, what is the peak-to-peak ripple voltage?",
+   "options": [
+    "$0.40\\,\\text{V}$",
+    "$0.10\\,\\text{V}$",
+    "$2.0\\,\\text{V}$",
+    "$0.20\\,\\text{V}$"
+   ],
+   "answer": 4,
+   "explanation": "Pulses arrive at $100\\,\\text{Hz}$, so the capacitor discharges for about $\\Delta t = 1/100\\,\\text{s} = 10\\,\\text{ms}$. The ripple is $\\Delta V = I\\Delta t/C = (0.020)(0.010)/(1000\\times10^{-6}) = 0.20\\,\\text{V}$. A larger capacitor or a higher pulse frequency makes this ripple smaller.",
+   "optionRationale": {
+    "1": "Uses $50\\,\\text{Hz}$, the ripple frequency of a half-wave rectifier.",
+    "2": "Halves the correct value, a stray factor of 2.",
+    "3": "Uses $100\\,\\mu\\text{F}$ in place of $1000\\,\\mu\\text{F}$."
+   },
+   "objective": "Estimate the ripple voltage with a filter capacitor"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A half-wave rectifier is fed with a sinusoidal peak of $50\\,\\text{V}$. The load is $1.0\\,\\text{k}\\Omega$ and the diode has a forward resistance of $100\\,\\Omega$. What is the average load current?",
+   "options": [
+    "$16\\,\\text{mA}$",
+    "$45\\,\\text{mA}$",
+    "$14\\,\\text{mA}$",
+    "$29\\,\\text{mA}$"
+   ],
+   "answer": 3,
+   "explanation": "The peak current is $I_m = V_m/(R_L + r_d) = 50/1100 = 45.5\\,\\text{mA}$. For a half-wave rectified sine the average current is $I_m/\\pi = 14.5\\,\\text{mA}$. Including the diode resistance lowers the current by about nine per cent compared with the ideal value.",
+   "optionRationale": {
+    "1": "Ignores the diode resistance, taking $I_m = V_m/R_L$.",
+    "2": "This is the peak current and not the average.",
+    "4": "Uses the full-wave average, $2I_m/\\pi$, which does not apply to a half-wave circuit."
+   },
+   "objective": "Find the average current in a half-wave rectifier"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m10",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The fundamental frequency of the ripple at the output of a half-wave rectifier is equal to the frequency of the input.\nReason (R): In a half-wave rectifier the diode conducts during both half-cycles of the input.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "A half-wave rectifier gives one output pulse for every input cycle, so the fundamental ripple frequency equals the input frequency, and A is true. The diode conducts only during one half-cycle, in which it is forward biased, so R is false.",
+   "optionRationale": {
+    "1": "Not the answer: R is false, so the pair cannot be true and explaining.",
+    "2": "Not the answer: R is false, so it is not a true statement that fails to explain A.",
+    "4": "Not the answer: A is true, since there is one pulse per input cycle."
+   },
+   "objective": "Relate ripple frequency to the conduction of the diode"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m11",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each part of a rectifier power supply in List-I with its function in List-II.",
+   "list": {
+    "left": [
+     "A. A step-down transformer",
+     "B. The rectifier diodes",
+     "C. A filter capacitor across the load",
+     "D. The load resistor"
+    ],
+    "right": [
+     "I. Brings the AC voltage to the level required",
+     "II. Let the current pass in one direction only",
+     "III. Smooths the pulsating output by supplying the load between the peaks",
+     "IV. Develops the output voltage from the rectified current"
+    ]
+   },
+   "options": [
+    "A-II, B-I, C-III, D-IV",
+    "A-I, B-II, C-III, D-IV",
+    "A-I, B-II, C-IV, D-III",
+    "A-III, B-II, C-I, D-IV"
+   ],
+   "answer": 2,
+   "explanation": "The transformer lowers the mains voltage to the value the circuit needs (A-I). Diodes conduct only when forward biased and so pass current one way (B-II). The capacitor charges near each peak and discharges slowly through the load, smoothing the output (C-III). The load resistor converts the rectified current into the output voltage (D-IV).",
+   "optionRationale": {
+    "1": "Swaps A and B: the diodes rectify and the transformer changes the voltage level.",
+    "3": "Swaps C and D: the capacitor smooths the output and the resistor develops the output voltage.",
+    "4": "Swaps A and C: the transformer changes the voltage level and the capacitor smooths the output."
+   },
+   "objective": "Describe the function of each part of a rectifier circuit"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "A sinusoidal input of peak $10\\,\\text{V}$ is applied to a half-wave rectifier with a silicon diode that conducts only when the voltage across it exceeds $0.7\\,\\text{V}$. For what fraction of each cycle does the diode conduct?",
+   "options": [
+    "$47.8\\,\\%$",
+    "$50\\,\\%$",
+    "$95.5\\,\\%$",
+    "$52.2\\,\\%$"
+   ],
+   "answer": 1,
+   "explanation": "The diode conducts when $10\\sin\\omega t > 0.7$, which starts at $\\omega t = \\sin^{-1}(0.07) = 4.0^{\\circ}$ and ends at $180^{\\circ} - 4.0^{\\circ}$. The conduction angle is $172^{\\circ}$ of the $360^{\\circ}$ cycle, which is $47.8\\,\\%$, slightly less than the ideal $50\\,\\%$.",
+   "optionRationale": {
+    "2": "This is the value for an ideal diode, which has no threshold.",
+    "3": "This is a fraction of the positive half-cycle, not of the whole cycle.",
+    "4": "Adds the threshold angles instead of subtracting them, giving more than $50\\,\\%$."
+   },
+   "objective": "Find the conduction angle of a real diode in a rectifier"
+  },
+  {
+   "key": "ug26-322-u9-diode-rectifier-m13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "In a half-wave rectifier the diode is connected the wrong way round. What does the load voltage look like?",
+   "options": [
+    "Pulses of the same polarity as before, appearing during the positive half-cycles of the input",
+    "A steady voltage, because the reversed diode blocks the alternating part of the input",
+    "Pulses of the opposite polarity, appearing during the negative half-cycles of the input",
+    "No voltage at all, because a reversed diode blocks the current in both half-cycles"
+   ],
+   "answer": 3,
+   "explanation": "Reversing the diode swaps the half-cycle in which it is forward biased. It now conducts during the negative half-cycles of the input and the load gets pulses of the opposite polarity, while during the positive half-cycles it blocks. The output is still unidirectional, but negative.",
+   "optionRationale": {
+    "1": "The diode now conducts in the other half-cycle, so the pulses come in the negative half and have the opposite polarity.",
+    "2": "A pulsating output is not steady; a steady output needs a filter capacitor.",
+    "4": "The reversed diode still conducts in one of the half-cycles, so the load sees pulses."
+   },
+   "objective": "Predict the output of a half-wave rectifier with a reversed diode"
+  }
+ ]
+}

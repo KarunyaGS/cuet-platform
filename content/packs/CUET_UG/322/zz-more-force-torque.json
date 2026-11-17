@@ -1,0 +1,141 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_987870daec554cd89f9d08d7b185b197",
+    "title": "Force on a current-carrying conductor in a uniform magnetic field, force between two"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u3-force-torque-current-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A wire in the form of a semicircle of radius 0.20 m carries a current of 5.0 A and lies in a plane perpendicular to a uniform magnetic field of 0.30 T. What is the magnitude of the net magnetic force on the semicircular wire?",
+      "options": [
+        "$0.942\\,\\text{N}$",
+        "$0.6\\,\\text{N}$",
+        "$0.3\\,\\text{N}$",
+        "$0\\,\\text{N}$"
+      ],
+      "answer": 2,
+      "explanation": "The net force on a curved wire in a uniform field equals that on a straight wire joining its ends, which here is the diameter of length $2R = 0.40\\,\\text{m}$. So $F = I(2R)B = 5.0 \\times 0.40 \\times 0.30 = 0.60\\,\\text{N}$. The direction is perpendicular to the diameter, in the plane of the semicircle.",
+      "optionRationale": {
+        "1": "This multiplies the field and current by the length of the arc, $\\pi R$, but the forces on the arc elements point in different directions and do not add up like that.",
+        "3": "This uses the radius as the effective length, whereas the effective length is the end-to-end distance 2R.",
+        "4": "The net force would vanish only for a complete closed loop; an open semicircle does not close, so the force is not zero."
+      },
+      "objective": "Find the net force on a curved current-carrying wire in a uniform field"
+    },
+    {
+      "key": "ug26-322-u3-force-torque-current-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Two long parallel wires 5.0 cm apart carry currents of 10 A and 15 A in the same direction. Taking $\\mu_0/2\\pi = 2\\times10^{-7}\\,\\text{T m A}^{-1}$, what is the force per unit length between them and its nature?",
+      "options": [
+        "$3\\times10^{-4}\\,\\text{N m}^{-1}$, attractive",
+        "$6\\times10^{-4}\\,\\text{N m}^{-1}$, repulsive",
+        "$1.2\\times10^{-3}\\,\\text{N m}^{-1}$, attractive",
+        "$6\\times10^{-4}\\,\\text{N m}^{-1}$, attractive"
+      ],
+      "answer": 4,
+      "explanation": "The force per unit length is $F/L = \\frac{\\mu_0}{2\\pi}\\frac{I_1 I_2}{d} = (2\\times10^{-7})(10)(15)/0.05 = 6\\times10^{-4}\\,\\text{N m}^{-1}$. Currents in the same direction attract, because the field of each wire at the other exerts a force towards it.",
+      "optionRationale": {
+        "1": "This drops the factor 2 of $\\mu_0/2\\pi$, using $\\mu_0/4\\pi$ in its place, so it is half the correct value.",
+        "2": "The magnitude is right, but parallel currents attract; they repel only when they flow in opposite directions.",
+        "3": "This doubles the correct value, as if the formula were $\\mu_0 I_1I_2/\\pi d$ with an extra factor of two."
+      },
+      "objective": "Calculate force per unit length between parallel currents"
+    },
+    {
+      "key": "ug26-322-u3-force-torque-current-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A rectangular coil of 20 turns, $10\\,\\text{cm} \\times 5.0\\,\\text{cm}$, carries a current of 2.0 A in a uniform magnetic field of 0.40 T. The plane of the coil makes an angle of $30^\\circ$ with the field. What is the magnitude of the torque on the coil?",
+      "options": [
+        "$0.0693\\,\\text{N m}$",
+        "$0.08\\,\\text{N m}$",
+        "$0.04\\,\\text{N m}$",
+        "$0.139\\,\\text{N m}$"
+      ],
+      "answer": 1,
+      "explanation": "The torque is $\\tau = NIAB\\sin\\theta$, where $\\theta$ is the angle between the normal to the coil and the field. The plane is at $30^\\circ$ to the field, so the normal is at $60^\\circ$. Hence $\\tau = 20 \\times 2.0 \\times 5.0\\times10^{-3} \\times 0.40 \\times \\sin60^\\circ = 0.080 \\times 0.866 = 0.0693\\,\\text{N m}$.",
+      "optionRationale": {
+        "2": "This is the maximum torque, obtained when the plane of the coil is parallel to the field, and not the value at $30^\\circ$.",
+        "3": "This uses $\\sin30^\\circ$, taking the angle between the plane and the field in place of the angle between the normal and the field.",
+        "4": "This doubles the correct torque, as if the torque of each of the two forces were counted separately and then added to the couple."
+      },
+      "objective": "Calculate the torque on a rectangular coil at a given orientation"
+    },
+    {
+      "key": "ug26-322-u3-force-torque-current-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A thin ring of radius 0.10 m carries a uniformly distributed charge of $2.0\\,\\mu\\text{C}$ and rotates at $100\\,\\text{rad s}^{-1}$ about its axis. What is its magnetic moment?",
+      "options": [
+        "$1\\times10^{-5}\\,\\text{A m}^2$",
+        "$1\\times10^{-6}\\,\\text{A m}^2$",
+        "$6.28\\times10^{-6}\\,\\text{A m}^2$",
+        "$2\\times10^{-6}\\,\\text{A m}^2$"
+      ],
+      "answer": 2,
+      "explanation": "The rotating charge is equivalent to a current $I = q/T = q\\omega/2\\pi$. The moment is $m = IA = \\frac{q\\omega}{2\\pi}\\,\\pi r^2 = \\frac{q\\omega r^2}{2} = (2\\times10^{-6})(100)(0.10)^2/2 = 1\\times10^{-6}\\,\\text{A m}^2$.",
+      "optionRationale": {
+        "1": "This has r instead of $r^2$, so it has the wrong dimensions for a magnetic moment.",
+        "3": "This takes the current as $q\\omega$ instead of $q\\omega/2\\pi$, so it is too large by a factor of $2\\pi$.",
+        "4": "This omits the factor of one half and so is twice the correct value."
+      },
+      "objective": "Find the magnetic moment of a rotating charged ring"
+    },
+    {
+      "key": "ug26-322-u3-force-torque-current-m05",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A straight wire carrying a current in a uniform magnetic field experiences the largest force when the wire is perpendicular to the field.\nReason (R): The magnitude of the force on the wire is $F = ILB\\cos\\theta$, where $\\theta$ is the angle between the wire and the field.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "The assertion is true: the force law is $\\vec{F} = I\\vec{L}\\times\\vec{B}$, which has magnitude $ILB\\sin\\theta$, largest when the angle is $90^\\circ$. The reason is false because it gives a cosine, which would make the force largest for a wire parallel to the field, where in fact the force is zero.",
+      "optionRationale": {
+        "1": "R is false, because the force varies as $\\sin\\theta$, so it cannot explain A.",
+        "2": "R is not true; the force involves $\\sin\\theta$, not $\\cos\\theta$.",
+        "4": "A is true; the force is largest when the wire and the field are at right angles."
+      },
+      "objective": "Apply the force law on a current element in a magnetic field"
+    },
+    {
+      "key": "ug26-322-u3-force-torque-current-m06",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about a rectangular current loop in a uniform magnetic field.\nA. The net force on the loop is zero for every orientation.\nB. The torque depends on the area of the loop but not on its shape.\nC. The loop is in stable equilibrium when its magnetic moment is parallel to the field.\nD. The torque is maximum when the magnetic moment is parallel to the field.\nChoose the correct option.",
+      "options": [
+        "A, C and D only",
+        "B and D only",
+        "A, B and C only",
+        "A and C only"
+      ],
+      "answer": 3,
+      "explanation": "The forces on opposite sides are equal and opposite, so the net force is zero for any orientation (A). In a uniform field the torque is $mB\\sin\\theta$ with $m = NIA$, which depends on area and not on shape (B). When $\\vec m$ is parallel to $\\vec B$ the potential energy is lowest, which is stable equilibrium (C). The torque is then zero, not maximum, so D is false.",
+      "optionRationale": {
+        "1": "D is false because the torque is zero, not maximum, when the moment is parallel to the field.",
+        "2": "D is false, and A and C, which are true, are left out of this option.",
+        "4": "B is also true, as torque depends on area through the moment, so leaving it out is incomplete."
+      },
+      "objective": "Evaluate statements about force and torque on a current loop"
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "306",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_2607044569fe4b6abf26d67968fc7c44",
+    "title": "Solutions"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-306-u1-solutions-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "10 g of NaCl is dissolved in 90 g of water. What is the mass percentage of NaCl in the solution?",
+      "options": [
+        "10 %",
+        "11.1 %",
+        "9 %",
+        "90 %"
+      ],
+      "answer": 1,
+      "explanation": "Mass percentage of a component is the mass of that component divided by the total mass of the solution, multiplied by 100. The solution has 10 + 90 = 100 g, so the mass percentage of NaCl is 10/100 × 100 = 10 %.",
+      "optionRationale": {
+        "2": "This comes from dividing by the mass of water (10/90) instead of the mass of the whole solution.",
+        "3": "This has no basis; the 100 g of solution contains exactly 10 g of NaCl.",
+        "4": "This is the mass percentage of water, not of NaCl."
+      },
+      "objective": "Calculate mass percentage of a solute"
+    },
+    {
+      "key": "ug26-306-u1-solutions-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following binary mixtures shows negative deviation from Raoult's law?",
+      "options": [
+        "Ethanol and acetone",
+        "Chloroform and acetone",
+        "Benzene and toluene",
+        "Carbon disulphide and acetone"
+      ],
+      "answer": 2,
+      "explanation": "In chloroform and acetone the hydrogen of CHCl$_3$ forms a hydrogen bond with the carbonyl oxygen of acetone. The A-B attractions are therefore stronger than A-A and B-B, the escaping tendency falls, the vapour pressure is lower than predicted and $\\Delta_{mix}H$ is negative.",
+      "optionRationale": {
+        "1": "Ethanol and acetone shows positive deviation because acetone breaks the hydrogen bonds of ethanol.",
+        "3": "Benzene and toluene are chemically very similar and form a nearly ideal solution.",
+        "4": "Carbon disulphide and acetone show positive deviation because the A-B attractions are weaker."
+      },
+      "objective": "Identify mixtures showing negative deviation"
+    },
+    {
+      "key": "ug26-306-u1-solutions-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "3.42 g of sucrose (molar mass 342 g mol$^{-1}$) is dissolved in water to make 500 mL of solution. What is its osmotic pressure at 300 K? ($R = 0.0821$ L atm K$^{-1}$ mol$^{-1}$)",
+      "options": [
+        "0.49 atm",
+        "0.98 atm",
+        "0.25 atm",
+        "4.9 atm"
+      ],
+      "answer": 1,
+      "explanation": "Moles of sucrose = 3.42/342 = 0.010 mol, and the volume is 0.500 L, so $C = 0.020$ mol L$^{-1}$. Then $\\pi = CRT = 0.020 \\times 0.0821 \\times 300 = 0.49$ atm. Sucrose is a non-electrolyte, so $i = 1$.",
+      "optionRationale": {
+        "2": "This doubles the answer, as if the volume were 250 mL instead of 500 mL.",
+        "3": "This halves the answer, as if the moles were divided by 1 L instead of 0.5 L.",
+        "4": "This is ten times too large, a decimal slip such as using 34.2 g."
+      },
+      "objective": "Calculate osmotic pressure of a non-electrolyte solution"
+    },
+    {
+      "key": "ug26-306-u1-solutions-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "36 g of glucose (molar mass 180 g mol$^{-1}$) is dissolved in 90 g of water (molar mass 18 g mol$^{-1}$). The relative lowering of vapour pressure of the solution is nearly",
+      "options": [
+        "0.385",
+        "0.0769",
+        "0.200",
+        "0.0385"
+      ],
+      "answer": 4,
+      "explanation": "Moles of glucose = 36/180 = 0.20 and moles of water = 90/18 = 5.0. The relative lowering of vapour pressure equals the mole fraction of the non-volatile solute: $x_2 = 0.20/(0.20 + 5.0) = 0.0385$.",
+      "optionRationale": {
+        "1": "This is ten times the correct value, a decimal slip in the division.",
+        "2": "This is twice the correct value, as if 0.40 mol of solute were present.",
+        "3": "This is the number of moles of glucose, not a mole fraction."
+      },
+      "objective": "Use relative lowering of vapour pressure with mole fraction"
+    },
+    {
+      "key": "ug26-306-u1-solutions-m05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "At a certain temperature the Henry's law constant of a gas in water is $K_H = 5.0\\times10^{4}$ bar. When the partial pressure of the gas is 2.0 bar, about how many moles of the gas dissolve in 1000 g of water? (Water: 18 g mol$^{-1}$)",
+      "options": [
+        "$2.2\\times10^{-3}$ mol",
+        "$4.0\\times10^{-5}$ mol",
+        "$4.0\\times10^{-2}$ mol",
+        "$1.1\\times10^{-3}$ mol"
+      ],
+      "answer": 1,
+      "explanation": "By Henry's law $p = K_H x$, so $x = 2.0/(5.0\\times10^{4}) = 4.0\\times10^{-5}$. Water in 1000 g is 1000/18 = 55.6 mol. Because the solution is very dilute, $n_{gas} \\approx x \\times 55.6 = 2.2\\times10^{-3}$ mol.",
+      "optionRationale": {
+        "2": "This is the mole fraction of the gas, not the number of moles.",
+        "3": "This multiplies the mole fraction by 1000 instead of by the 55.6 mol of water.",
+        "4": "This arises from using 1.0 bar, half the given partial pressure."
+      },
+      "objective": "Apply Henry law to find amount of dissolved gas"
+    },
+    {
+      "key": "ug26-306-u1-solutions-m06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A solute of normal molar mass 60 g mol$^{-1}$ dimerises in benzene. Freezing point depression gives an experimental molar mass of 80 g mol$^{-1}$. What is the degree of association of the solute?",
+      "options": [
+        "25 %",
+        "50 %",
+        "75 %",
+        "33 %"
+      ],
+      "answer": 2,
+      "explanation": "The van't Hoff factor is $i = $ normal molar mass / observed molar mass $= 60/80 = 0.75$. For dimerisation $2A \\rightleftharpoons A_2$ the factor is $i = 1 - \\alpha/2$. Hence $\\alpha/2 = 0.25$ and $\\alpha = 0.50$, that is 50 %.",
+      "optionRationale": {
+        "1": "This takes $alpha = 1 - i$ and forgets that two molecules combine into one.",
+        "3": "This confuses the value of $i$ (0.75) with the degree of association.",
+        "4": "This is not obtained from $i = 1 - alpha/2$."
+      },
+      "objective": "Find the degree of association from abnormal molar mass"
+    },
+    {
+      "key": "ug26-306-u1-solutions-m07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Liquids A and B form an ideal solution with $P^\\circ_A = 120$ torr and $P^\\circ_B = 40$ torr at a given temperature. For a liquid mixture with $x_A = 0.40$, what is the mole fraction of A in the vapour in equilibrium with it?",
+      "options": [
+        "0.40",
+        "0.33",
+        "0.67",
+        "0.75"
+      ],
+      "answer": 3,
+      "explanation": "By Raoult's law $p_A = 0.40 \\times 120 = 48$ torr and $p_B = 0.60 \\times 40 = 24$ torr. The total is 72 torr. By Dalton's law $y_A = p_A/P_{total} = 48/72 = 0.67$. The vapour is richer in the more volatile component A.",
+      "optionRationale": {
+        "1": "This is the mole fraction of A in the liquid, not in the vapour.",
+        "2": "This is the mole fraction of B in the vapour.",
+        "4": "This uses $p_B = 0.40 \\times 40 = 16$ torr, wrongly using $x_A$ for B."
+      },
+      "objective": "Calculate vapour phase composition using Raoult law"
+    },
+    {
+      "key": "ug26-306-u1-solutions-m08",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Dissolving a non-volatile solute in a liquid raises the boiling point of the liquid.\nReason (R): The vapour pressure of the solution is higher than that of the pure solvent at the same temperature.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "A non-volatile solute lowers the vapour pressure of the solvent, so the solution must be heated to a higher temperature before its vapour pressure equals the external pressure. The assertion is therefore true. The reason is false because the vapour pressure of the solution is lower, not higher.",
+      "optionRationale": {
+        "1": "The reason is false, so it cannot be the correct explanation.",
+        "2": "The reason is false, not merely a poor explanation; the solution has a lower vapour pressure.",
+        "4": "The assertion is true: boiling point elevation is a colligative property."
+      },
+      "objective": "Explain boiling point elevation through vapour pressure lowering"
+    },
+    {
+      "key": "ug26-306-u1-solutions-m09",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the law or property in List-I with its expression in List-II.",
+      "options": [
+        "A-I, B-II, C-IV, D-III",
+        "A-II, B-I, C-III, D-IV",
+        "A-IV, B-I, C-II, D-III",
+        "A-II, B-I, C-IV, D-III"
+      ],
+      "answer": 4,
+      "explanation": "Henry's law relates the partial pressure of a gas to its mole fraction in solution, $p = K_H x$ (A-II). The boiling point elevation is $\\Delta T_b = K_b m$ (B-I). The osmotic pressure is $\\pi = CRT$ (C-IV). Relative lowering of vapour pressure equals the mole fraction of the solute (D-III).",
+      "optionRationale": {
+        "1": "This code interchanges the matches of A and B; the correct pairs are A-II and B-I.",
+        "2": "This code interchanges the matches of C and D; the correct pairs are C-IV and D-III.",
+        "3": "This code interchanges the matches of A and C; the correct pairs are A-II and C-IV."
+      },
+      "objective": "Match colligative and gas solubility laws with their expressions",
+      "list": {
+        "left": [
+          "A. Henry's law for a gas",
+          "B. Elevation of boiling point",
+          "C. Osmotic pressure of a dilute solution",
+          "D. Relative lowering of vapour pressure"
+        ],
+        "right": [
+          "I. $\\Delta T_b = K_b m$",
+          "II. $p = K_H x$",
+          "III. $(P^\\circ - P)/P^\\circ = x_2$",
+          "IV. $\\pi = CRT$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u1-solutions-m10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about the van't Hoff factor ($i$).\nA. $i > 1$ for a solute that dissociates in solution.\nB. $i < 1$ for a solute that associates in solution.\nC. $i = 1$ for glucose dissolved in water.\nD. $i = 2$ for K$_2$SO$_4$ when it dissociates completely.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A, B and D only",
+        "B, C and D only",
+        "A and D only"
+      ],
+      "answer": 1,
+      "explanation": "Dissociation increases the number of particles so $i > 1$, association decreases it so $i < 1$, and a non-electrolyte like glucose has $i = 1$. K$_2$SO$_4$ gives 2K$^+$ and SO$_4^{2-}$, which are three particles, so $i = 3$ and statement D is wrong.",
+      "optionRationale": {
+        "2": "Statement C is also correct and D is wrong, so this combination is wrong.",
+        "3": "Statement D is wrong because K$_2$SO$_4$ gives three ions, so $i = 3$.",
+        "4": "Statements B and C are also correct, so the selection is incomplete and D is wrong."
+      },
+      "objective": "Apply the van't Hoff factor to dissociation and association"
+    }
+  ]
+}

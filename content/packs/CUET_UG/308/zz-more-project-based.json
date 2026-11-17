@@ -1,0 +1,281 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_f3a307ff28634f99ab25127dc176ad3e",
+  "title": "Project Based Learning"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r17-project-based-learning-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In project based learning, what is the main result of the first step, \"identify the problem or topic\"?",
+   "options": [
+    "A finished and tested working product",
+    "A report that compares the outcome with the goals",
+    "A schedule of tasks with names of the owners",
+    "A problem statement and the objectives of the project"
+   ],
+   "answer": 4,
+   "explanation": "The first step chooses a real problem and states clearly what the project wants to achieve, so its output is a problem statement and objectives. The schedule belongs to planning, the working product to implementation, and the comparison with goals to the final evaluation.",
+   "optionRationale": {
+    "1": "A working product is the output of the implementation and testing steps, much later.",
+    "2": "Comparing the outcome with the goals is the job of the last step, evaluation.",
+    "3": "A schedule with task owners is made in the planning step, which follows identification."
+   },
+   "objective": "State the output of the first step of a project"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A project has four tasks. Task A takes 2 days. Tasks B (3 days) and C (5 days) can start only after A is finished and can then run at the same time. Task D (2 days) can start only after both B and C are finished. What is the minimum number of days needed to finish the project?",
+   "options": [
+    "12 days",
+    "9 days",
+    "7 days",
+    "10 days"
+   ],
+   "answer": 2,
+   "explanation": "A finishes on day 2. B ends on day 5 and C ends on day 7, since they run together. D can start only when both are over, that is on day 7, and finishes on day 9. The longest chain A, C, D = 2 + 5 + 2 = 9 days decides the total time.",
+   "optionRationale": {
+    "1": "12 days is the total if all four tasks were done one after another with no overlap.",
+    "3": "7 days is the time at which task D can begin, not the day on which the project ends.",
+    "4": "10 days adds A, B and C one after the other (2 + 3 + 5) and ignores that B and C overlap."
+   },
+   "objective": "Find the minimum duration with dependent tasks"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "In a project, task A takes 3 days. Task B (4 days) and task C (6 days) can start only when A is over. Task D (2 days) needs both B and C to be finished. Task E (3 days) needs only C to be finished. Assuming enough people for tasks to run in parallel, what is the minimum time to finish all five tasks?",
+   "options": [
+    "11 days",
+    "12 days",
+    "18 days",
+    "9 days"
+   ],
+   "answer": 2,
+   "explanation": "A ends on day 3, B on day 7 and C on day 9. D starts on day 9 (after C) and ends on day 11. E also starts on day 9 and ends on day 12. The project is complete only when E is also done, so the minimum time is 12 days along the chain A, C, E.",
+   "optionRationale": {
+    "1": "11 days is the finishing day of D, but E finishes one day later.",
+    "3": "18 days is the sum of all five durations, as if no two tasks were done together.",
+    "4": "9 days is the day on which C ends; D and E still have to be done after it."
+   },
+   "objective": "Find the critical path in a task network"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "While planning a project, the \"scope\" of the project means",
+   "options": [
+    "the number of marks that the project will carry",
+    "the programming language chosen by the team",
+    "the date on which the report will be printed",
+    "what is included in the project and what is left out of it"
+   ],
+   "answer": 4,
+   "explanation": "The scope states clearly the work that the project will cover and what it will not cover. A clear scope prevents the team from adding unplanned work and helps to fit the project into the available time and resources.",
+   "optionRationale": {
+    "1": "Marks are an assessment matter and do not define the work to be done in the project.",
+    "2": "The language is a tool choice made later, and it is not what scope means.",
+    "3": "A printing date is a single schedule item and does not describe the extent of the work."
+   },
+   "objective": "Define the scope of a project"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Which of the following objectives for a school project is the clearest, with a definite output and a time limit?",
+   "options": [
+    "Work on something useful for the school library as soon as possible",
+    "Build a library database with tables for books and members and show it in class by 15 March",
+    "Learn as much as possible about databases during the year",
+    "Make a very good project that everyone likes and appreciates"
+   ],
+   "answer": 2,
+   "explanation": "A well written objective names the output (a library database with two tables) and a time limit (15 March). The other statements are vague: they do not say what will be produced or how success will be judged, so they cannot be planned or checked at evaluation.",
+   "optionRationale": {
+    "1": "This has no definite output and no date, so nobody can tell when it is complete.",
+    "3": "This describes personal learning without a product or a date, so it cannot be checked.",
+    "4": "This depends on the opinion of people and gives no measurable output or time limit."
+   },
+   "objective": "Recognise a clear and measurable project objective"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "A team first writes and tests small separate pieces of code for taking input, checking marks and printing a grade, and only later joins them to form the whole program. Which approach is being followed?",
+   "options": [
+    "Top-down approach",
+    "Brainstorming",
+    "Iterative prototyping with user feedback",
+    "Bottom-up approach"
+   ],
+   "answer": 4,
+   "explanation": "In the bottom-up approach the small parts are built and tested first and then combined into the whole system. In the top-down approach the whole problem is considered first and then divided into parts, so the order is reversed.",
+   "optionRationale": {
+    "1": "Top-down starts from the overall design and breaks it into modules, which is the opposite order.",
+    "2": "Brainstorming is a method of collecting ideas freely, not of building and combining code modules.",
+    "3": "Iterative prototyping builds a working version, shows it to users and improves it repeatedly, which is not described."
+   },
+   "objective": "Identify the bottom-up approach"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-m07",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about the steps of a project.\nA. Roles are divided among the team members in the planning step.\nB. The research step is always carried out after the product has been implemented.\nC. The finished project is evaluated against the objectives written in the first step.\nD. Testing may send the team back to an earlier step to correct the work.\nWhich statements are correct?",
+   "options": [
+    "A and B only",
+    "B, C and D only",
+    "A, C and D only",
+    "A, B and C only"
+   ],
+   "answer": 3,
+   "explanation": "A is true because planning fixes tasks, schedule and roles. B is false: research comes before design and implementation. C is true since evaluation compares the outcome with the first-step objectives. D is true, as the steps are revisited whenever testing shows a problem.",
+   "optionRationale": {
+    "1": "B is false because research comes before the product is built, so this option is wrong.",
+    "2": "B is false, so including it is wrong, and the true statement D is left out.",
+    "4": "B is false, so this option is wrong although it contains A and C, and it leaves out D."
+   },
+   "objective": "Judge statements about the steps of a project"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-m08",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Dividing the work among team members according to their strengths makes a team more productive.\nReason (R): When the work is divided, the members of a team do not need to communicate with each other.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "Giving each member the task that suits his or her strength speeds up the work and improves its quality, so A is true. R is false: divided tasks must still be joined into one product, so regular communication is a basic component of teamwork.",
+   "optionRationale": {
+    "1": "R is false, since divided work needs constant communication, so it cannot explain A.",
+    "2": "R is not true: members must exchange progress and problems even when tasks are divided.",
+    "4": "A is true because using each member's strengths helps the team."
+   },
+   "objective": "Relate division of work with communication"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A project needs the same amount of work as 4 team members would do in 20 days. The 4 members work for 5 days, and then 2 more members join them. Assuming that every member works at the same rate, how many more days are needed to finish the project?",
+   "options": [
+    "10 days",
+    "15 days",
+    "12 days",
+    "8 days"
+   ],
+   "answer": 1,
+   "explanation": "The total work is 4 x 20 = 80 member-days. After 5 days with 4 members, 20 member-days are done and 60 remain. With 6 members the remaining work needs 60 / 6 = 10 more days. The whole project then takes 5 + 10 = 15 days.",
+   "optionRationale": {
+    "2": "15 days is the total time from the start, but the question asks for the days still needed.",
+    "3": "12 days would be right if only 5 members were working after the first 5 days (60 / 5).",
+    "4": "8 days would need 7.5 members working, which does not match the 6 members available."
+   },
+   "objective": "Compute remaining time when the team size changes"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-m10",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Match the step of a project in List-I with its output in List-II.",
+   "options": [
+    "A-III, B-IV, C-I, D-II",
+    "A-IV, B-III, C-II, D-I",
+    "A-IV, B-III, C-I, D-II",
+    "A-I, B-III, C-IV, D-II"
+   ],
+   "answer": 3,
+   "explanation": "Identify gives the problem statement and objectives (IV). Plan gives the task list, schedule and roles (III). Test and improve gives a corrected product (I). Present and evaluate gives the presentation and the report (II). So the code is A-IV, B-III, C-I, D-II.",
+   "optionRationale": {
+    "1": "This swaps the outputs of identify and plan.",
+    "2": "This swaps the outputs of testing and the final presentation.",
+    "4": "This gives identify the corrected product and testing the problem statement."
+   },
+   "objective": "Match project steps with their outputs",
+   "list": {
+    "left": [
+     "A. Identify",
+     "B. Plan",
+     "C. Test and improve",
+     "D. Present and evaluate"
+    ],
+    "right": [
+     "I. Corrected product",
+     "II. Presentation and report on the results",
+     "III. Task list, schedule and roles",
+     "IV. Problem statement and objectives"
+    ]
+   }
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-m11",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "A team member promises to finish the database design by Friday and, on Friday, tells the team honestly whether it is complete and what is left. Which component of teamwork does this show?",
+   "options": [
+    "Accountability",
+    "Leadership",
+    "Conflict management",
+    "Brainstorming"
+   ],
+   "answer": 1,
+   "explanation": "Accountability means that a member takes responsibility for his or her task and answers to the team for its progress and result. Leadership is guiding the whole team, conflict management is settling disagreements, and brainstorming is a method of generating ideas.",
+   "optionRationale": {
+    "2": "Leadership means guiding the team and keeping the schedule, which is not what one member owning a task shows.",
+    "3": "No disagreement is described, so conflict management does not apply.",
+    "4": "Brainstorming is an idea-generation method, not a component of teamwork."
+   },
+   "objective": "Identify accountability as a teamwork component"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-m12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Task A has no prerequisite. Task B needs A, task C needs B, task D needs B, and task E needs both C and D. Which two tasks can be carried out at the same time (given enough team members)?",
+   "options": [
+    "C and D",
+    "A and B",
+    "B and C",
+    "D and E"
+   ],
+   "answer": 1,
+   "explanation": "C and D both need only B, so once B is over they can run together. B must wait for A, C must wait for B, and E must wait for both C and D. So A and B, B and C, and D and E can never overlap, and only C and D can.",
+   "optionRationale": {
+    "2": "B needs A to be finished first, so A and B cannot overlap.",
+    "3": "C needs B to be finished, so B and C cannot run together.",
+    "4": "E needs D to be finished, so D and E cannot run at the same time."
+   },
+   "objective": "Find tasks that can run in parallel"
+  }
+ ]
+}

@@ -1,0 +1,162 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_30f8e8208fb7487cac7e6209033f02f4",
+  "title": "Electric flux, statement of Gauss's theorem and its applications to find field due to infinitely"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-322-u1-gauss-law-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The net electric flux through a closed surface is $4.0\\times10^{5}\\,\\text{N m}^{2}\\,\\text{C}^{-1}$, directed outward. What is the net charge enclosed? ($\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^{2}\\,\\text{N}^{-1}\\,\\text{m}^{-2}$)",
+   "options": [
+    "$4.5\\times10^{16}\\,\\text{C}$",
+    "$3.5\\times10^{-6}\\,\\text{C}$",
+    "$4.4\\times10^{-5}\\,\\text{C}$",
+    "$4.4\\times10^{-7}\\,\\text{C}$"
+   ],
+   "answer": 2,
+   "explanation": "By Gauss's theorem $\\Phi = q_{\\text{enc}}/\\varepsilon_0$, so $q_{\\text{enc}} = \\varepsilon_0\\Phi = (8.85\\times10^{-12})(4.0\\times10^{5}) = 3.5\\times10^{-6}\\,\\text{C}$. The flux is outward, so the enclosed charge is positive. The sign of the flux shows its direction: outward flux means positive enclosed charge, and the value does not depend on the shape or size of the closed surface.",
+   "optionRationale": {
+    "1": "Divides the flux by $\\varepsilon_0$ instead of multiplying.",
+    "3": "Includes an extra factor of $4\\pi$ that does not appear in $\\Phi = q/\\varepsilon_0$.",
+    "4": "Divides by 8, as if the flux were the share of one face of a cube."
+   },
+   "objective": "Use Gauss's theorem to find the charge from the flux"
+  },
+  {
+   "key": "ug26-322-u1-gauss-law-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which closed surface is the most convenient Gaussian surface for finding the field of a uniformly charged infinite plane sheet?",
+   "options": [
+    "A sphere centred on a point of the sheet, with the sheet cutting it in a great circle",
+    "A closed cylinder with its axis lying along the sheet, so that the sheet contains the axis",
+    "A closed cylinder with its axis perpendicular to the sheet, cut symmetrically by the sheet",
+    "A cube whose faces are all tilted at $45^{\\circ}$ to the plane of the sheet"
+   ],
+   "answer": 3,
+   "explanation": "By symmetry the field is perpendicular to the sheet and has the same magnitude at equal distances on either side. A cylinder (pillbox) with its axis perpendicular to the sheet has flat faces on which $\\vec E$ is parallel to $d\\vec A$ and constant, and a curved side with zero flux, so $E$ comes out directly.",
+   "optionRationale": {
+    "1": "On a sphere the angle between $\\vec E$ and the area element changes from point to point, so $E$ cannot be taken out of the integral.",
+    "2": "With the axis along the sheet the field would cross the curved side obliquely and the flux could not be evaluated simply.",
+    "4": "On tilted faces the angle between $\\vec E$ and $d\\vec A$ is fixed but the symmetry of the problem is not used."
+   },
+   "objective": "Choose a suitable Gaussian surface for an infinite plane sheet"
+  },
+  {
+   "key": "ug26-322-u1-gauss-law-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A large plane sheet carries a uniform surface charge density of $1.77\\,\\mu\\text{C m}^{-2}$ in air. What is the magnitude of the force on a charge of $2.0\\,\\mu\\text{C}$ placed $5\\,\\text{cm}$ from the sheet? ($\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^{2}\\,\\text{N}^{-1}\\,\\text{m}^{-2}$)",
+   "options": [
+    "$0.20\\,\\text{N}$, and it would be the same at any other distance",
+    "$0.40\\,\\text{N}$, and it would be the same at any other distance",
+    "$0.10\\,\\text{N}$, and it would be the same at any other distance",
+    "$0.050\\,\\text{N}$, and it would be smaller at greater distances"
+   ],
+   "answer": 1,
+   "explanation": "The field of a large uniformly charged sheet is $E = \\sigma/2\\varepsilon_0 = 1.77\\times10^{-6}/(2\\times8.85\\times10^{-12}) = 1.0\\times10^{5}\\,\\text{N C}^{-1}$, independent of distance. The force is $qE = (2.0\\times10^{-6})(1.0\\times10^{5}) = 0.20\\,\\text{N}$ at any distance from the sheet.",
+   "optionRationale": {
+    "2": "Uses $\\sigma/\\varepsilon_0$, the field between oppositely charged plates, instead of $\\sigma/2\\varepsilon_0$.",
+    "3": "Applies the factor of 2 twice, giving half the correct field.",
+    "4": "Assumes the field falls off with distance, which is true for a point charge but not for an infinite sheet."
+   },
+   "objective": "Find the force on a charge near an infinite charged sheet"
+  },
+  {
+   "key": "ug26-322-u1-gauss-law-m04",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about electric flux.\nA. Electric flux is a scalar quantity.\nB. The net flux through a closed surface due to a charge lying outside the surface is zero.\nC. The flux through a surface depends on the orientation of the surface relative to the field.\nD. The net flux through any closed surface is always positive.\nChoose the correct answer from the options given below.",
+   "options": [
+    "A, B and D only",
+    "A, B and C only",
+    "A, C and D only",
+    "B, C and D only"
+   ],
+   "answer": 2,
+   "explanation": "Flux $\\Phi = \\vec E\\cdot\\vec A$ is a scalar (A). Every field line from an outside charge enters the closed surface and leaves it again, so the net flux is zero (B). The flux depends on the angle between $\\vec E$ and the area vector (C). The net flux may be positive, negative or zero according to the enclosed charge, so D is false.",
+   "optionRationale": {
+    "1": "Includes the false statement D and omits the true statement C, so the set of true statements is incomplete.",
+    "3": "Includes the false statement D and omits the true statement B, so the set is again incomplete.",
+    "4": "Includes D, but the net flux is negative for a net negative enclosed charge and zero for zero net charge."
+   },
+   "objective": "Evaluate statements about electric flux"
+  },
+  {
+   "key": "ug26-322-u1-gauss-law-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Two concentric thin spherical shells of radii $10\\,\\text{cm}$ and $20\\,\\text{cm}$ carry uniformly distributed charges of $+6\\,\\text{nC}$ and $-2\\,\\text{nC}$ respectively. What are the field magnitudes at distances of $15\\,\\text{cm}$ and $30\\,\\text{cm}$ from the common centre?",
+   "options": [
+    "$1600\\,\\text{N C}^{-1}$ at $15\\,\\text{cm}$ and $400\\,\\text{N C}^{-1}$ at $30\\,\\text{cm}$",
+    "$2400\\,\\text{N C}^{-1}$ at $15\\,\\text{cm}$ and $200\\,\\text{N C}^{-1}$ at $30\\,\\text{cm}$",
+    "Zero at $15\\,\\text{cm}$ and $400\\,\\text{N C}^{-1}$ at $30\\,\\text{cm}$",
+    "$2400\\,\\text{N C}^{-1}$ at $15\\,\\text{cm}$ and $400\\,\\text{N C}^{-1}$ at $30\\,\\text{cm}$"
+   ],
+   "answer": 4,
+   "explanation": "At $15\\,\\text{cm}$ the Gaussian sphere encloses only the inner shell, so $E = k(6\\times10^{-9})/(0.15)^{2} = 2.4\\times10^{3}\\,\\text{N C}^{-1}$. At $30\\,\\text{cm}$ it encloses $+6-2 = +4\\,\\text{nC}$, so $E = k(4\\times10^{-9})/(0.30)^{2} = 4.0\\times10^{2}\\,\\text{N C}^{-1}$. The two shells add by superposition, which is why the outer shell matters only at points outside it.",
+   "optionRationale": {
+    "1": "Includes the outer shell's charge at $15\\,\\text{cm}$, but a shell contributes nothing at points inside it.",
+    "2": "At $30\\,\\text{cm}$ it uses only the outer shell's $-2\\,\\text{nC}$ and forgets the inner shell's charge.",
+    "3": "Treats the whole region inside the outer shell as field-free, ignoring the inner shell's charge."
+   },
+   "objective": "Apply Gauss's theorem to concentric charged shells"
+  },
+  {
+   "key": "ug26-322-u1-gauss-law-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Two large parallel plane sheets carry uniform surface charge densities of $+2\\sigma$ and $-\\sigma$, where $\\sigma = 1.77\\,\\mu\\text{C m}^{-2}$. What are the field magnitudes between the sheets and outside them? ($\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^{2}\\,\\text{N}^{-1}\\,\\text{m}^{-2}$)",
+   "options": [
+    "$1.0\\times10^{5}\\,\\text{N C}^{-1}$ between the sheets and $3.0\\times10^{5}\\,\\text{N C}^{-1}$ outside",
+    "$6.0\\times10^{5}\\,\\text{N C}^{-1}$ between the sheets and $2.0\\times10^{5}\\,\\text{N C}^{-1}$ outside",
+    "$3.0\\times10^{5}\\,\\text{N C}^{-1}$ between the sheets and $1.0\\times10^{5}\\,\\text{N C}^{-1}$ outside",
+    "$3.0\\times10^{5}\\,\\text{N C}^{-1}$ between the sheets and zero outside"
+   ],
+   "answer": 3,
+   "explanation": "Each sheet gives a field $\\sigma_i/2\\varepsilon_0$ and the fields add as vectors. Between the sheets they point the same way: $(2\\sigma+\\sigma)/2\\varepsilon_0 = 3.0\\times10^{5}\\,\\text{N C}^{-1}$. Outside they oppose: $(2\\sigma-\\sigma)/2\\varepsilon_0 = 1.0\\times10^{5}\\,\\text{N C}^{-1}$, with $\\sigma/2\\varepsilon_0 = 1.0\\times10^{5}\\,\\text{N C}^{-1}$.",
+   "optionRationale": {
+    "1": "Swaps the two regions; the fields add between the sheets and subtract outside.",
+    "2": "Uses $\\sigma_i/\\varepsilon_0$ for each sheet, doubling every field.",
+    "4": "The outside field vanishes only when the two sheets carry equal and opposite charges."
+   },
+   "objective": "Superpose the fields of two parallel charged sheets"
+  },
+  {
+   "key": "ug26-322-u1-gauss-law-m07",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): If the net electric flux through a closed surface is zero, the electric field must be zero at every point of the surface.\nReason (R): According to Gauss's theorem the net flux through a closed surface is $q_{\\text{enc}}/\\varepsilon_0$.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "Zero net flux means only that $q_{\\text{enc}} = 0$, which follows from the theorem quoted in R, so R is true. It does not make $\\vec E$ vanish on the surface: a dipole inside, or a charge outside, gives zero net flux with a non-zero field on the surface, so A is false.",
+   "optionRationale": {
+    "1": "Not the answer: R is true, but A is false, so the pair cannot both be true.",
+    "2": "Not the answer: A is false, so it cannot be a true statement that R merely fails to explain.",
+    "3": "Not the answer: A is false and R is true, not the other way round."
+   },
+   "objective": "Interpret zero net flux through a closed surface"
+  }
+ ]
+}

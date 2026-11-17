@@ -1,0 +1,141 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_ab4305fcd504472c87a586fd1481c8ff",
+  "title": "Ampere's law and its applications to infinitely long straight wire. The solenoid, force on"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-322-u3-amperes-law-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A long solenoid has 25 turns per centimetre and carries a current of $0.80\\,\\text{A}$. What is the magnetic field well inside it? ($\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$)",
+   "options": [
+    "$2.5\\times10^{-5}\\,\\text{T}$",
+    "$2.5\\times10^{-3}\\,\\text{T}$",
+    "$1.3\\times10^{-3}\\,\\text{T}$",
+    "$5.0\\times10^{-3}\\,\\text{T}$"
+   ],
+   "answer": 2,
+   "explanation": "Inside a long solenoid $B = \\mu_0 nI$, where $n$ must be in turns per metre. Here $n = 25\\times100 = 2500\\,\\text{m}^{-1}$, so $B = (4\\pi\\times10^{-7})(2500)(0.80) = 2.5\\times10^{-3}\\,\\text{T}$. Because $n$ counts turns per unit length, a mistake in the length unit changes the answer by a factor of one hundred.",
+   "optionRationale": {
+    "1": "Uses $n = 25$ per centimetre without converting to per metre.",
+    "3": "This is $\\mu_0 nI/2$, the value at an end of the solenoid, not at the middle.",
+    "4": "Doubles the correct value, a stray factor of 2 from the straight-wire formula."
+   },
+   "objective": "Compute the solenoid field from turns per unit length"
+  },
+  {
+   "key": "ug26-322-u3-amperes-law-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "An electron moves in a region of uniform magnetic field with its velocity parallel to the field. How does it move?",
+   "options": [
+    "It continues in a straight line at constant speed, because the magnetic force is zero",
+    "It moves in a circle in a plane perpendicular to the field, because the magnetic force acts sideways",
+    "It speeds up along the field, because the magnetic force acts along the direction of motion",
+    "It moves in a parabola, because the magnetic force is constant and perpendicular to the field"
+   ],
+   "answer": 1,
+   "explanation": "The magnetic force is $\\vec F = q\\,\\vec v\\times\\vec B$, with magnitude $qvB\\sin\\theta$. For $\\vec v$ parallel to $\\vec B$ we have $\\theta = 0$ and the force vanishes, so the electron keeps moving in a straight line at constant speed along the field.",
+   "optionRationale": {
+    "2": "A circle needs a velocity component perpendicular to $\\vec B$; here there is none.",
+    "3": "The magnetic force never acts along the velocity and can never change the speed.",
+    "4": "A constant force would give a parabola, but here the magnetic force is zero."
+   },
+   "objective": "Find the motion of a charge moving along a magnetic field"
+  },
+  {
+   "key": "ug26-322-u3-amperes-law-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The magnetic field at a distance of $10\\,\\text{cm}$ from a long straight wire is $2.0\\times10^{-5}\\,\\text{T}$. What current does the wire carry?",
+   "options": [
+    "$5.0\\,\\text{A}$",
+    "$20\\,\\text{A}$",
+    "$1.6\\,\\text{A}$",
+    "$10\\,\\text{A}$"
+   ],
+   "answer": 4,
+   "explanation": "Applying Ampere's law to a circle of radius $r$ about the wire gives $B = \\mu_0 I/2\\pi r$, so $I = 2\\pi rB/\\mu_0 = 2\\pi(0.10)(2.0\\times10^{-5})/(4\\pi\\times10^{-7}) = 10\\,\\text{A}$. The field falls as $1/r$, so doubling the distance would halve the field for the same current.",
+   "optionRationale": {
+    "1": "Leaves out the factor 2 in the denominator of the field formula, halving the current.",
+    "2": "Puts a factor 2 in the wrong place, doubling the current.",
+    "3": "Uses $B = \\mu_0 I/r$ and drops the $2\\pi$ entirely."
+   },
+   "objective": "Find the current in a long wire from the field at a distance"
+  },
+  {
+   "key": "ug26-322-u3-amperes-law-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A proton is accelerated from rest through a potential difference of $2000\\,\\text{V}$ and then enters a uniform magnetic field of $0.10\\,\\text{T}$ at right angles to the field. What is the radius of its circular path? ($m_p = 1.67\\times10^{-27}\\,\\text{kg}$, $e = 1.6\\times10^{-19}\\,\\text{C}$)",
+   "options": [
+    "$4.6\\,\\text{cm}$",
+    "$9.1\\,\\text{cm}$",
+    "$6.5\\,\\text{cm}$",
+    "$13\\,\\text{cm}$"
+   ],
+   "answer": 3,
+   "explanation": "The kinetic energy gained is $eV = \\tfrac12 mv^2$, so $v = \\sqrt{2eV/m} = 6.19\\times10^{5}\\,\\text{m s}^{-1}$. In the field the magnetic force supplies the centripetal force, $r = mv/eB = 6.5\\,\\text{cm}$. The sign of the charge only decides the sense in which the particle circulates; the speed gained and the radius depend on its magnitude.",
+   "optionRationale": {
+    "1": "Uses $eV = mv^{2}$ and so finds a speed smaller by a factor $\\sqrt2$.",
+    "2": "Uses $eV = \\tfrac14 mv^{2}$ and so finds a speed larger by a factor $\\sqrt2$.",
+    "4": "This is the diameter of the circular path, not its radius."
+   },
+   "objective": "Combine acceleration through a potential difference with circular motion in a field"
+  },
+  {
+   "key": "ug26-322-u3-amperes-law-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "An electron with speed $3.0\\times10^{6}\\,\\text{m s}^{-1}$ enters a uniform magnetic field of $2.0\\times10^{-3}\\,\\text{T}$ with its velocity at $30^{\\circ}$ to the field. What is the pitch of its helical path? ($m_e = 9.1\\times10^{-31}\\,\\text{kg}$, $e = 1.6\\times10^{-19}\\,\\text{C}$)",
+   "options": [
+    "$2.7\\,\\text{cm}$",
+    "$4.6\\,\\text{cm}$",
+    "$5.4\\,\\text{cm}$",
+    "$0.43\\,\\text{cm}$"
+   ],
+   "answer": 2,
+   "explanation": "The component along the field, $v\\cos30^{\\circ}$, is unchanged, while the perpendicular component makes the electron circle with period $T = 2\\pi m/eB = 1.79\\times10^{-8}\\,\\text{s}$. The pitch is the distance moved along the field in one period: $v\\cos30^{\\circ}\\,T = 4.6\\,\\text{cm}$.",
+   "optionRationale": {
+    "1": "Uses $v\\sin30^{\\circ}$, the speed across the field, instead of the component along it.",
+    "3": "Uses the full speed $v$ instead of its component along the field.",
+    "4": "This is the radius of the circular projection, $mv\\sin30^{\\circ}/eB$, not the pitch."
+   },
+   "objective": "Find the pitch of a helical path in a magnetic field"
+  },
+  {
+   "key": "ug26-322-u3-amperes-law-m06",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about a charged particle in electric and magnetic fields.\nA. The force on a charge moving in both fields is $q(\\vec E + \\vec v\\times\\vec B)$.\nB. The magnetic force on a moving charge can change its kinetic energy.\nC. A charge moving with speed $v = E/B$ through perpendicular crossed fields goes undeflected.\nD. The electric force on a charge depends on the velocity of the charge.\nChoose the correct answer from the options given below.",
+   "options": [
+    "A, B and C only",
+    "B and D only",
+    "A, C and D only",
+    "A and C only"
+   ],
+   "answer": 4,
+   "explanation": "The Lorentz force $q(\\vec E + \\vec v\\times\\vec B)$ combines the two forces (A). In crossed fields the electric and magnetic forces cancel when $qE = qvB$, that is $v = E/B$ (C). The magnetic force is perpendicular to the velocity and does no work, so B is false, and the electric force $q\\vec E$ does not depend on velocity, so D is false.",
+   "optionRationale": {
+    "1": "Includes B, but the magnetic force does no work and cannot change the kinetic energy.",
+    "2": "Contains two false statements, B and D, and leaves out the true A and C.",
+    "3": "Includes D, but the electric force $q\\vec E$ is the same for a charge at rest or in motion."
+   },
+   "objective": "Evaluate statements about the Lorentz force and the velocity selector"
+  }
+ ]
+}

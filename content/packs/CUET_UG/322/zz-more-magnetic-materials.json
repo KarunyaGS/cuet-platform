@@ -1,0 +1,183 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_d39493efa47e4ee28488b26417d140c2",
+  "title": "Magnetic properties of materials- Para-, dia- and ferro – magnetic substances with"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-322-u3-magnetic-materials-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which one of the following materials is paramagnetic?",
+   "options": [
+    "Copper, whose atoms have permanent magnetic moments that line up very strongly along an applied field",
+    "Aluminium, whose atoms have permanent magnetic moments that are only weakly aligned by a field",
+    "Bismuth, whose atoms have permanent magnetic moments that are always aligned against an applied field",
+    "Iron, whose atoms have no permanent magnetic moments at all and acquire them only in an applied field"
+   ],
+   "answer": 2,
+   "explanation": "Aluminium is a standard paramagnetic metal: its atoms carry permanent magnetic moments, which a field aligns only weakly against thermal agitation, giving a small positive susceptibility. Copper and bismuth are diamagnetic, and iron is ferromagnetic.",
+   "optionRationale": {
+    "1": "Copper is diamagnetic, with a small negative susceptibility.",
+    "3": "Bismuth is diamagnetic, and its atoms have no net permanent moment.",
+    "4": "Iron is ferromagnetic; its atoms do have permanent moments, grouped in domains."
+   },
+   "objective": "Identify a paramagnetic material"
+  },
+  {
+   "key": "ug26-322-u3-magnetic-materials-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A material has a relative permeability of $0.99998$. What kind of magnetic material is it?",
+   "options": [
+    "Diamagnetic, because its susceptibility $\\chi = \\mu_r - 1$ is small and negative",
+    "Paramagnetic, because its susceptibility $\\chi = \\mu_r - 1$ is small and positive",
+    "Ferromagnetic, because its susceptibility $\\chi = \\mu_r - 1$ is large and positive",
+    "Non-magnetic, because its susceptibility $\\chi = \\mu_r - 1$ is exactly zero for all materials"
+   ],
+   "answer": 1,
+   "explanation": "The susceptibility is $\\chi = \\mu_r - 1 = 0.99998 - 1 = -2\\times10^{-5}$, which is tiny and negative. A material with $\\mu_r$ slightly below $1$ weakens the field slightly and is classed as diamagnetic.",
+   "optionRationale": {
+    "2": "A paramagnet has $\\mu_r$ slightly greater than $1$, not less.",
+    "3": "A ferromagnet has $\\mu_r$ in the hundreds or thousands.",
+    "4": "Only vacuum has $\\chi = 0$ exactly; this material has a small negative value."
+   },
+   "objective": "Classify a material from its relative permeability"
+  },
+  {
+   "key": "ug26-322-u3-magnetic-materials-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A bar of volume $2.5\\times10^{-5}\\,\\text{m}^{3}$ has a total magnetic moment of $5.0\\,\\text{A m}^{2}$ uniformly distributed through it. What is its magnetisation?",
+   "options": [
+    "$5.0\\times10^{-6}\\,\\text{A m}^{-1}$",
+    "$1.2\\times10^{-4}\\,\\text{A m}^{-1}$",
+    "$2.0\\times10^{6}\\,\\text{A m}^{-1}$",
+    "$2.0\\times10^{5}\\,\\text{A m}^{-1}$"
+   ],
+   "answer": 4,
+   "explanation": "Magnetisation is the magnetic moment per unit volume, $M = m/V = 5.0/(2.5\\times10^{-5}) = 2.0\\times10^{5}\\,\\text{A m}^{-1}$. The value is large because the moments of a vast number of aligned atoms are packed into a very small volume.",
+   "optionRationale": {
+    "1": "Inverts the ratio and divides the volume by the moment.",
+    "2": "Multiplies the moment by the volume instead of dividing.",
+    "3": "This is ten times too large, as if the volume were $2.5\\times10^{-6}\\,\\text{m}^{3}$."
+   },
+   "objective": "Compute the magnetisation from magnetic moment and volume"
+  },
+  {
+   "key": "ug26-322-u3-magnetic-materials-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The susceptibility of a paramagnetic salt is $1.2\\times10^{-5}$ at $300\\,\\text{K}$. At what temperature will its susceptibility be $4.8\\times10^{-5}$, assuming Curie's law?",
+   "options": [
+    "$1200\\,\\text{K}$",
+    "$75\\,\\text{K}$",
+    "$150\\,\\text{K}$",
+    "$380\\,\\text{K}$"
+   ],
+   "answer": 2,
+   "explanation": "Curie's law says $\\chi\\propto 1/T$, so $\\chi_1T_1 = \\chi_2T_2$. A fourfold increase in $\\chi$ needs the temperature to fall to one quarter: $T_2 = 300\\times1.2/4.8 = 75\\,\\text{K}$. The susceptibility is four times larger because the thermal agitation that opposes alignment is four times weaker at the lower temperature.",
+   "optionRationale": {
+    "1": "Inverts the ratio and makes the temperature four times higher.",
+    "3": "Uses a factor of 2 instead of 4 for the temperature change.",
+    "4": "Adds the ratio to the temperature instead of dividing, which does not follow $\\chi\\propto 1/T$."
+   },
+   "objective": "Apply Curie's law to find a temperature"
+  },
+  {
+   "key": "ug26-322-u3-magnetic-materials-m05",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about paramagnetic substances.\nA. Their atoms have permanent magnetic dipole moments.\nB. In the absence of an applied field the moments are randomly oriented.\nC. They are weakly attracted towards the region of stronger field.\nD. Their magnetisation in a given field is independent of temperature.\nChoose the correct answer from the options given below.",
+   "options": [
+    "A, B and C only",
+    "A, B and D only",
+    "A, C and D only",
+    "B, C and D only"
+   ],
+   "answer": 1,
+   "explanation": "Paramagnetism arises from permanent atomic moments (A) that point in random directions without a field (B), so the net magnetisation is zero. A field aligns them partially and the sample is weakly drawn into a stronger field (C). Thermal agitation opposes alignment, so magnetisation falls as temperature rises and D is false.",
+   "optionRationale": {
+    "2": "Includes D, which is false, and leaves out C, which is true.",
+    "3": "Includes D, which is false, and leaves out B, which is true.",
+    "4": "Includes D, but by Curie's law the magnetisation is inversely proportional to temperature."
+   },
+   "objective": "Evaluate statements about paramagnetism"
+  },
+  {
+   "key": "ug26-322-u3-magnetic-materials-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A ferromagnet has a Curie temperature of $600\\,\\text{K}$. Above this temperature its susceptibility follows $\\chi = C/(T - T_c)$. If $\\chi = 0.020$ at $650\\,\\text{K}$, what is $\\chi$ at $800\\,\\text{K}$?",
+   "options": [
+    "$0.016$",
+    "$0.080$",
+    "$5.0\\times10^{-3}$",
+    "$5.0\\times10^{-4}$"
+   ],
+   "answer": 3,
+   "explanation": "Above $T_c$ the Curie-Weiss law gives $\\chi(T - T_c)$ = constant, so $\\chi_2 = \\chi_1(650-600)/(800-600) = 0.020\\times50/200 = 5.0\\times10^{-3}$. The sample is paramagnetic here, and its susceptibility falls as it is heated further above $T_c$.",
+   "optionRationale": {
+    "1": "Uses Curie's law $\\chi\\propto 1/T$ and ignores the shift by $T_c$.",
+    "2": "Inverts the ratio and so predicts an increase of susceptibility on heating.",
+    "4": "Gives a value ten times too small, a slip in the arithmetic of the ratio."
+   },
+   "objective": "Use the Curie-Weiss law above the Curie temperature"
+  },
+  {
+   "key": "ug26-322-u3-magnetic-materials-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A long solenoid with $2000$ turns per metre carries a current of $2.0\\,\\text{A}$ and is filled with a magnetic material. The measured field inside is $0.60\\,\\text{T}$. What is the magnetisation of the material? ($\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$)",
+   "options": [
+    "$4000\\,\\text{A m}^{-1}$",
+    "$7.5\\times10^{-7}\\,\\text{A m}^{-1}$",
+    "$2.4\\times10^{5}\\,\\text{A m}^{-1}$",
+    "$4.7\\times10^{5}\\,\\text{A m}^{-1}$"
+   ],
+   "answer": 4,
+   "explanation": "The magnetic intensity is $H = nI = 4000\\,\\text{A m}^{-1}$. Since $B = \\mu_0(H + M)$, $M = B/\\mu_0 - H = 4.77\\times10^{5} - 4000 = 4.73\\times10^{5}\\,\\text{A m}^{-1}$, much larger than $H$, as expected for a ferromagnetic core.",
+   "optionRationale": {
+    "1": "This is the magnetic intensity $H$, which is produced by the current alone, not the magnetisation.",
+    "2": "Multiplies $B$ by $\\mu_0$ instead of dividing by it.",
+    "3": "Halves the correct result, as if $B = \\mu_0(H + M)/2$."
+   },
+   "objective": "Find the magnetisation from B and H in a filled solenoid"
+  },
+  {
+   "key": "ug26-322-u3-magnetic-materials-m08",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A paramagnetic substance is feebly attracted by a strong magnet.\nReason (R): The atoms of a paramagnetic substance have no magnetic dipole moment of their own.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "Paramagnetic samples are weakly drawn towards the stronger field region, so A is true. The reason is false: paramagnetism arises precisely because the atoms have permanent dipole moments, which a field partly aligns. Atoms without a permanent moment are the diamagnetic ones.",
+   "optionRationale": {
+    "1": "Not the answer: R is false, so the pair cannot both be true.",
+    "2": "Not the answer: R is false, so it cannot be a true statement that merely fails to explain A.",
+    "4": "Not the answer: A is true, since a paramagnet is weakly attracted."
+   },
+   "objective": "Explain the origin of paramagnetic attraction"
+  }
+ ]
+}

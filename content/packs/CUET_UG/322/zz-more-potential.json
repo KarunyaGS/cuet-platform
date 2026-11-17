@@ -1,0 +1,120 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_4e96fadf91bd4165b0499837cb56fbfe",
+    "title": "Electric potential, potential difference, electric potential due to a point charge, a dipole and"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u1-electric-potential-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A conducting sphere of radius 10 cm carries a charge of 20 nC. What is the electric potential at a point 4.0 cm from its centre, taking the potential at infinity as zero and $k = 9\\times10^{9}\\,\\text{N m}^2\\text{C}^{-2}$?",
+      "options": [
+        "$1800\\,\\text{V}$",
+        "$4500\\,\\text{V}$",
+        "$3000\\,\\text{V}$",
+        "$0\\,\\text{V}$"
+      ],
+      "answer": 1,
+      "explanation": "Inside a conductor the electric field is zero, so the potential is the same everywhere inside as on the surface. The surface value is $V = kQ/R = (9\\times10^9)(20\\times10^{-9})/0.10 = 1800\\,\\text{V}$. The point at 4 cm is inside the sphere, so its potential is also 1800 V; it is not found by substituting 4 cm into $kQ/r$.",
+      "optionRationale": {
+        "2": "This substitutes the distance 4 cm into $kQ/r$, which is valid only outside or on the sphere, not inside.",
+        "3": "This uses the distance from the point to the surface instead of the radius, which has no meaning for the potential of a conductor.",
+        "4": "The field is zero inside, but the potential is not zero; it equals the constant surface potential."
+      },
+      "objective": "Find the potential inside and on the surface of a charged conducting sphere"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Charges of $+2\\,\\mu\\text{C}$, $+2\\,\\mu\\text{C}$ and $-4\\,\\mu\\text{C}$ are placed at the vertices of an equilateral triangle of side 10 cm in vacuum. What is the electrostatic potential energy of the system? Take $k = 9\\times10^{9}\\,\\text{N m}^2\\text{C}^{-2}$.",
+      "options": [
+        "$1.8\\,\\text{J}$",
+        "$-1.08\\,\\text{J}$",
+        "$-0.54\\,\\text{J}$",
+        "$0.36\\,\\text{J}$"
+      ],
+      "answer": 2,
+      "explanation": "The energy of a system is the sum over all pairs: $U = k(q_1q_2 + q_2q_3 + q_1q_3)/a$. The products in $\\mu\\text{C}^2$ are $+4$, $-8$ and $-8$, adding to $-12\\times10^{-12}\\,\\text{C}^2$. Hence $U = (9\\times10^9)(-12\\times10^{-12})/0.10 = -1.08\\,\\text{J}$. The negative sign shows the system is bound.",
+      "optionRationale": {
+        "1": "This reverses the signs of the two unlike-charge pairs, adding their magnitudes instead of subtracting them from the repulsive pair.",
+        "3": "This halves the sum, as if each pair were counted twice and then divided, although the pair-sum formula already counts each pair once.",
+        "4": "This counts only the pair of the two like charges and ignores the two attractive pairs that involve the negative charge."
+      },
+      "objective": "Calculate the potential energy of a system of three point charges"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-m03",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Electric potential is a vector quantity.\nReason (R): The potential at a point due to several point charges is the algebraic sum of the potentials due to the individual charges.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "The assertion is false: electric potential is work per unit charge, which is a scalar and has magnitude and sign but no direction. The reason is true and is exactly why potential is easier to handle than the field. Because potential is a scalar, contributions from different charges are simply added with their signs, with no need for vector components.",
+      "optionRationale": {
+        "1": "A is false, so R cannot be a correct explanation of it.",
+        "2": "A is false; potential has no direction and is a scalar.",
+        "3": "R is true; potentials of different charges add algebraically."
+      },
+      "objective": "Distinguish the scalar potential from the vector field"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A point charge of $+3\\,\\mu\\text{C}$ moves from a point at a potential of 80 V to a point at a potential of 20 V. How much work does the electric field do on the charge?",
+      "options": [
+        "$3\\times10^{-4}\\,\\text{J}$",
+        "$6\\times10^{-5}\\,\\text{J}$",
+        "$1.8\\times10^{-4}\\,\\text{J}$",
+        "$-1.8\\times10^{-4}\\,\\text{J}$"
+      ],
+      "answer": 3,
+      "explanation": "The work done by the field when a charge moves from A to B is $W = q(V_A - V_B) = (3\\times10^{-6})(80-20) = 1.80e-04\\,\\text{J}$. It is positive because a positive charge moves from higher to lower potential, in the direction of the force exerted on it by the field, so the charge gains kinetic energy.",
+      "optionRationale": {
+        "1": "This adds the two potentials instead of taking their difference.",
+        "2": "This multiplies the charge by only the final potential, whereas the work depends on the potential difference.",
+        "4": "This has the wrong sign, which would be the work done by an external agent moving the charge slowly, not the work done by the field."
+      },
+      "objective": "Calculate the work done by the electrostatic field using the potential difference"
+    },
+    {
+      "key": "ug26-322-u1-electric-potential-m05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A proton is accelerated from rest through a potential difference of 500 V in vacuum. Taking $e = 1.6\\times10^{-19}\\,\\text{C}$ and $m_p = 1.67\\times10^{-27}\\,\\text{kg}$, what speed does it reach?",
+      "options": [
+        "$4.38\\times10^{5}\\,\\text{m s}^{-1}$",
+        "$3.1\\times10^{5}\\,\\text{m s}^{-1}$",
+        "$2.19\\times10^{5}\\,\\text{m s}^{-1}$",
+        "$9.58\\times10^{10}\\,\\text{m s}^{-1}$"
+      ],
+      "answer": 2,
+      "explanation": "The kinetic energy gained equals the loss in potential energy: $\\tfrac12 m_p v^2 = eV$. So $v = \\sqrt{2eV/m_p} = \\sqrt{2(1.6\\times10^{-19})(500)/(1.67\\times10^{-27})} \\approx 3.1\\times10^{5}\\,\\text{m s}^{-1}$. This is far below the speed of light, so a non-relativistic treatment is valid.",
+      "optionRationale": {
+        "1": "This is larger by a factor of the square root of 2, from using $\\tfrac12 mv^2 = 2eV$ with a doubled energy.",
+        "3": "This is smaller by a factor of the square root of 2, which comes from using $mv^2 = eV$ without the factor of two in the kinetic energy.",
+        "4": "This is the square of the correct speed, found by forgetting to take the square root of $2eV/m_p$."
+      },
+      "objective": "Use energy conservation to find the speed of a charged particle accelerated through a potential difference"
+    }
+  ]
+}

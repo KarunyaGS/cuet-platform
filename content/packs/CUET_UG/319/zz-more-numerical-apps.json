@@ -1,0 +1,204 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_ba0e9444f6334838aad14411b5ff1a5c",
+  "title": "Numbers, Quantification and Numerical Applications"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r01-numerical-applications-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The remainder when 250 is divided by 12, written $250\\bmod 12$, is",
+   "options": [
+    "2",
+    "20",
+    "10",
+    "4"
+   ],
+   "answer": 3,
+   "explanation": "Since $12\\times20=240$ and $250-240=10$, the remainder is $10$. In congruence form $250\\equiv10\\pmod{12}$. The remainder must always be smaller than the divisor $12$, which rules out $20$.",
+   "optionRationale": {
+    "1": "This subtracts from the multiple above, $252-250$, instead of measuring from the multiple below $250$.",
+    "2": "$20$ is the quotient, not the remainder.",
+    "4": "This is the remainder on dividing $250$ by $6$, not by $12$."
+   },
+   "objective": "Find the remainder in modular arithmetic"
+  },
+  {
+   "key": "ug26-319-r01-numerical-applications-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A can finish a piece of work in 15 days and B can finish the same work in 10 days. Working together, they will finish it in",
+   "options": [
+    "6 days",
+    "12.5 days",
+    "25 days",
+    "5 days"
+   ],
+   "answer": 1,
+   "explanation": "A does $\\tfrac1{15}$ of the work per day and B does $\\tfrac1{10}$. Together they do $\\tfrac1{15}+\\tfrac1{10}=\\tfrac{2+3}{30}=\\tfrac16$ per day, so the whole work takes $6$ days.",
+   "optionRationale": {
+    "2": "This takes the plain average of $15$ and $10$, which is not how work rates combine.",
+    "3": "This adds the numbers of days instead of adding the daily rates.",
+    "4": "This is half of the faster worker's time, which would hold only if both workers were equally fast."
+   },
+   "objective": "Combine work rates of two workers"
+  },
+  {
+   "key": "ug26-319-r01-numerical-applications-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The smallest positive integer $x$ satisfying the congruence $7x\\equiv3\\pmod{11}$ is",
+   "options": [
+    "5",
+    "8",
+    "10",
+    "2"
+   ],
+   "answer": 4,
+   "explanation": "Test small values: $7\\cdot1=7$, $7\\cdot2=14=11+3$, so $7\\cdot2\\equiv3\\pmod{11}$. Alternatively the inverse of $7$ modulo $11$ is $8$ because $56\\equiv1$, giving $x\\equiv8\\cdot3=24\\equiv2$. So $x=2$.",
+   "optionRationale": {
+    "1": "$7\\cdot5=35\\equiv2\\pmod{11}$, not $3$.",
+    "2": "$7\\cdot8=56\\equiv1\\pmod{11}$; $8$ is the inverse of $7$, not the solution.",
+    "3": "$7\\cdot10=70\\equiv4\\pmod{11}$, so this fails the congruence."
+   },
+   "objective": "Solve a linear congruence"
+  },
+  {
+   "key": "ug26-319-r01-numerical-applications-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A 40-litre mixture of milk and water has milk and water in the ratio $3:1$. How much water must be added so that the ratio of milk to water becomes $3:2$?",
+   "options": [
+    "5 litres",
+    "10 litres",
+    "20 litres",
+    "30 litres"
+   ],
+   "answer": 2,
+   "explanation": "In 40 L at ratio $3:1$ there are $30$ L of milk and $10$ L of water. For a ratio $3:2$ with $30$ L of milk, water must be $20$ L. So $20-10=10$ L of water must be added.",
+   "optionRationale": {
+    "1": "This takes half of the water already present instead of solving $30:x=3:2$.",
+    "3": "$20$ L is the total water needed afterwards; the $10$ L already present must be subtracted.",
+    "4": "$30$ L is the quantity of milk, not the amount of water to be added."
+   },
+   "objective": "Adjust a mixture ratio by adding one component"
+  },
+  {
+   "key": "ug26-319-r01-numerical-applications-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A can complete a job in 20 days and B in 30 days. A starts alone and works for 5 days, and then B joins him and they finish the job together. The number of days for which they work together is",
+   "options": [
+    "9 days",
+    "12 days",
+    "15 days",
+    "7.5 days"
+   ],
+   "answer": 1,
+   "explanation": "In 5 days A completes $\\tfrac5{20}=\\tfrac14$ of the job, leaving $\\tfrac34$. Together they do $\\tfrac1{20}+\\tfrac1{30}=\\tfrac1{12}$ per day, so the remaining work takes $\\tfrac34\\times12=9$ days.",
+   "optionRationale": {
+    "2": "$12$ days is the time the two would need for the whole job together, ignoring A's first 5 days.",
+    "3": "This is the time for A alone to do the remaining $\\tfrac34$ of the job at $\\tfrac1{20}$ per day, ignoring B.",
+    "4": "This halves the remaining time incorrectly, as if B were as fast as A."
+   },
+   "objective": "Solve a work problem with a delayed start"
+  },
+  {
+   "key": "ug26-319-r01-numerical-applications-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The integers $x$ satisfying both $3x+2>11$ and $2x-1\\le9$ are collected together. Their sum is",
+   "options": [
+    "9",
+    "12",
+    "5",
+    "15"
+   ],
+   "answer": 1,
+   "explanation": "From $3x+2>11$ we get $x>3$. From $2x-1\\le9$ we get $x\\le5$. So the integers are $4$ and $5$, and their sum is $9$.",
+   "optionRationale": {
+    "2": "This includes $x=3$ by treating the strict inequality $x>3$ as $x\\ge3$, giving $3+4+5$.",
+    "3": "$5$ is only the largest solution, not the sum of all the solutions.",
+    "4": "This also includes $x=6$, which fails $2x-1\\le9$ because $11>9$."
+   },
+   "objective": "Combine linear inequalities in one variable"
+  },
+  {
+   "key": "ug26-319-r01-numerical-applications-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A boat takes 3 hours to go 15 km upstream and 2 hours to go 20 km downstream in a river. The time it takes to cover 30 km downstream and then return 30 km upstream is",
+   "options": [
+    "8 hours",
+    "10 hours",
+    "9 hours",
+    "12 hours"
+   ],
+   "answer": 3,
+   "explanation": "Upstream speed is $15/3=5$ km/h and downstream speed is $20/2=10$ km/h. Hence the 30 km downstream trip takes $3$ h and the 30 km upstream trip takes $6$ h, a total of $9$ hours.",
+   "optionRationale": {
+    "1": "This uses the still-water speed $7.5$ km/h for both legs, giving $4+4$ hours.",
+    "2": "This uses the still-water speed for the downstream leg only, giving $4+6$ hours.",
+    "4": "This uses the upstream speed for both legs, $30/5+30/5=12$ hours, ignoring the help from the stream."
+   },
+   "objective": "Compute round-trip time from upstream and downstream speeds"
+  },
+  {
+   "key": "ug26-319-r01-numerical-applications-m08",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): In a 100 m race, if A beats B by 10 m, then the ratio of the speeds of A and B is $10:9$.\nReason (R): In the time A runs 100 m, B runs only 90 m.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "A beats B by 10 m means that when A has covered 100 m, B has covered 90 m in the same time. Since speed is proportional to distance in equal time, the speeds are in the ratio $100:90=10:9$. So both statements are true and the reason gives the assertion.",
+   "optionRationale": {
+    "2": "The reason is not just true, it is exactly the basis of the ratio, so it explains the assertion.",
+    "3": "The reason is true, since B has covered only 90 m at the moment A finishes.",
+    "4": "The assertion is true: $100:90$ simplifies to $10:9$."
+   },
+   "objective": "Relate a winning margin in a race to the ratio of speeds"
+  },
+  {
+   "key": "ug26-319-r01-numerical-applications-m09",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about congruence modulo $n$.\nA. If $a\\equiv b$ and $c\\equiv d\\pmod n$ then $a+c\\equiv b+d\\pmod n$.\nB. If $a\\equiv b$ and $c\\equiv d\\pmod n$ then $ac\\equiv bd\\pmod n$.\nC. If $ac\\equiv bc\\pmod n$ then $a\\equiv b\\pmod n$ always.\nD. If $a\\equiv b\\pmod n$ then $a^2\\equiv b^2\\pmod n$.\nWhich statements are correct?",
+   "options": [
+    "A, B and C only",
+    "B, C and D only",
+    "A, B and D only",
+    "A and C only"
+   ],
+   "answer": 3,
+   "explanation": "Congruences can be added, multiplied and raised to powers, so A, B and D hold. C fails when $c$ and $n$ share a factor: $2\\cdot3=6\\equiv0=2\\cdot0\\pmod 6$, yet $3\\not\\equiv0\\pmod 6$. Cancelling is allowed only when $c$ is coprime to $n$.",
+   "optionRationale": {
+    "1": "C is false in general, so including it makes this option wrong.",
+    "2": "C is false, and this option also leaves out the true statement D.",
+    "4": "C is false, and this option also drops B and D, which are both true."
+   },
+   "objective": "Recall the rules of operating with congruences"
+  }
+ ]
+}

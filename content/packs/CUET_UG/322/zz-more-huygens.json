@@ -1,0 +1,302 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_c17f9f5f66834e2abf9226aa4930ffc9",
+    "title": "Proof of laws of reflection and refraction using Huygen’s principle."
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u6-huygens-proofs-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In the Huygens construction for refraction, the wavefront AB meets the boundary at A first. By the time the part of the wavefront at B has travelled the distance BC in medium 1 (speed $v_1$), the wavelet from A has reached E in medium 2 (speed $v_2$). Which relation does this give?",
+      "options": [
+        "$\\dfrac{BC}{AE} = \\dfrac{v_2}{v_1}$",
+        "$\\dfrac{BC}{v_1} = \\dfrac{AE}{v_2}$",
+        "$BC = AE$ in every pair of media",
+        "$BC \\times v_1 = AE \\times v_2$"
+      ],
+      "answer": 2,
+      "explanation": "The two disturbances start together and travel for the same time t. Hence $BC = v_1 t$ and $AE = v_2 t$, which gives $BC/v_1 = AE/v_2 = t$, or $BC/AE = v_1/v_2$. Combined with $BC = AC\\sin i$ and $AE = AC\\sin r$, this leads to Snell's law $\\sin i/\\sin r = v_1/v_2$.",
+      "optionRationale": {
+        "1": "This inverts the ratio: the distances are in the same ratio as the speeds, $BC/AE = v_1/v_2$.",
+        "3": "The two distances are equal only when the two speeds are equal, that is, when there is no change of medium.",
+        "4": "This product relation would make the distance travelled in a given time inversely proportional to speed, whereas distance is speed times time."
+      },
+      "objective": "State the time-equality condition used in the Huygens proof of refraction"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A plane wave in air is incident on a glass surface of refractive index 1.5 at an angle of incidence of $45^\\circ$. What is the angle of refraction, as given by the Huygens construction?",
+      "options": [
+        "$33.7^\\circ$",
+        "$18.3^\\circ$",
+        "$28.1^\\circ$",
+        "$30.0^\\circ$"
+      ],
+      "answer": 3,
+      "explanation": "The Huygens construction gives Snell's law, $\\sin i/\\sin r = n = v_1/v_2$. So $\\sin r = \\sin45^\\circ/1.5 = 0.7071/1.5 = 0.4714$, and $r = 28.1^\\circ$. The ray bends towards the normal because the wave slows down in glass.",
+      "optionRationale": {
+        "1": "This divides the tangent of the angle by n, but the law is stated in terms of sines.",
+        "2": "This divides the sine by $n^2$, which would be the result if the refractive index were squared.",
+        "4": "This divides the angle itself by n, but Snell's law connects the sines of the angles, not the angles."
+      },
+      "objective": "Apply Snell's law derived from the Huygens construction"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "Light of wavelength 600 nm in air enters glass of refractive index 1.5. By the Huygens construction, what is its wavelength in the glass?",
+      "options": [
+        "$400\\,\\text{nm}$",
+        "$600\\,\\text{nm}$",
+        "$900\\,\\text{nm}$",
+        "$360\\,\\text{nm}$"
+      ],
+      "answer": 1,
+      "explanation": "The frequency stays the same, and the speed falls to $c/n$, so the wavelength falls in the same ratio: $\\lambda_2 = \\lambda_1/n = 600/1.5 = 400\\,\\text{nm}$. The wavefronts in the glass are closer together, which is what makes the refracted wavefront turn.",
+      "optionRationale": {
+        "2": "This is the wavelength in air; the frequency is unchanged, not the wavelength.",
+        "3": "This multiplies by n instead of dividing, giving a longer wavelength in the denser medium.",
+        "4": "This multiplies by 0.6 instead of dividing by 1.5, an approximation that does not give the exact wavelength."
+      },
+      "objective": "Find the wavelength in a medium from its refractive index"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "A plane wave passes from air into glass. Using the Huygens construction, which quantity of the wave stays the same on crossing the boundary, and why?",
+      "options": [
+        "The direction, because the wavefront stays parallel to the boundary on both sides",
+        "The wavelength, because the secondary wavelets have equal radii in both media",
+        "The speed, because the wavelets spread outwards at the same rate in all media",
+        "The frequency, because wavefronts reach the boundary and leave it at the same rate"
+      ],
+      "answer": 4,
+      "explanation": "In the construction the wavefronts arrive at the boundary at a certain rate, and each leads to a wavefront in the second medium, so the number of crests passing per second is conserved. The frequency is therefore unchanged. The speed and wavelength both change in the ratio of $1/n$, and the direction changes unless the incidence is normal.",
+      "optionRationale": {
+        "1": "The wavefront turns at the boundary unless the incidence is normal, so its direction changes.",
+        "2": "The wavelet radii differ in the two media because the speeds differ, so the wavelength changes.",
+        "3": "The speed is different in glass, and the wavelets in glass have smaller radii for the same time."
+      },
+      "objective": "Identify what remains unchanged when a wave is refracted"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "In the Huygens construction for reflection at a plane mirror, a plane wavefront AB meets the mirror first at A. By the time B reaches the mirror at C, the wavefront has travelled the distance $BC = 6.0\\,\\text{cm}$. The angle of incidence is $30^\\circ$. What is the length AC along the mirror?",
+      "options": [
+        "$6.93\\,\\text{cm}$",
+        "$12.0\\,\\text{cm}$",
+        "$10.4\\,\\text{cm}$",
+        "$3.0\\,\\text{cm}$"
+      ],
+      "answer": 2,
+      "explanation": "The angle between the wavefront AB and the mirror equals the angle of incidence i, because both are formed by lines perpendicular to the ray and to the normal. In the right triangle ABC, $\\sin i = BC/AC$, so $AC = BC/\\sin i = 6.0/\\sin30^\\circ = 12.0\\,\\text{cm}$.",
+      "optionRationale": {
+        "1": "This uses $\\cos i$ in place of $\\sin i$, which would take the angle at the other vertex of the triangle.",
+        "3": "This uses $\\tan i$, as if AB were the side taken perpendicular to the mirror instead of BC.",
+        "4": "This multiplies by $\\sin i$ instead of dividing, so it gives the side opposite the angle rather than the hypotenuse."
+      },
+      "objective": "Use the geometry of the Huygens construction for reflection"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "In the Huygens construction for refraction at a plane boundary, when the edge B of the incident wavefront reaches C, the wavelet from A has a radius $AE = 5.0\\,\\text{cm}$, while $BC = 8.0\\,\\text{cm}$. The angle of incidence is $40^\\circ$. What is the angle of refraction?",
+      "options": [
+        "$25.0^\\circ$",
+        "$14.5^\\circ$",
+        "$23.7^\\circ$",
+        "$27.7^\\circ$"
+      ],
+      "answer": 3,
+      "explanation": "Both distances are covered in the same time, so $BC/AE = v_1/v_2 = n_{21} = 8.0/5.0 = 1.6$. Snell's law, $\\sin i/\\sin r = 1.6$, gives $\\sin r = \\sin40^\\circ/1.6 = 0.4017$, and so $r = 23.7^\\circ$. The wavefront turns towards the normal because the wavelet in the second medium is smaller.",
+      "optionRationale": {
+        "1": "This divides the angle by 1.6, but the ratio of the speeds applies to the sines of the angles.",
+        "2": "This divides by the square of the ratio, which would be the case if the sine law had the speeds squared.",
+        "4": "This divides the tangent by 1.6, but the correct relation involves sines."
+      },
+      "objective": "Find the angle of refraction from the geometry of the Huygens construction"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "In the Huygens construction, light passes from glass of refractive index 1.5 into air. At the critical angle the refracted wavefront runs along the boundary. What is the critical angle?",
+      "options": [
+        "$56.3^\\circ$",
+        "$48.2^\\circ$",
+        "$41.8^\\circ$",
+        "$33.7^\\circ$"
+      ],
+      "answer": 3,
+      "explanation": "At the critical angle the angle of refraction is $90^\\circ$, so Snell's law gives $\\sin i_c = v_1/v_2 = 1/n = 1/1.5 = 0.667$. Hence $i_c = 41.8^\\circ$. For larger angles of incidence the wavelets from the glass side cannot form a common tangent in air, and the light is totally reflected.",
+      "optionRationale": {
+        "1": "This takes $\\tan i_c = n$, which is Brewster's law for the polarising angle, not the critical angle.",
+        "2": "This is the complement of the critical angle, which is the angle that the refracted wavefront makes with the surface.",
+        "4": "This takes $\\tan i_c = 1/n$ in place of $\\sin i_c = 1/n$."
+      },
+      "objective": "Determine the critical angle using Snell's law"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m08",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): When a plane wave enters a denser medium obliquely, the wavefront turns so that the ray bends towards the normal.\nReason (R): In the denser medium the speed of the wave is smaller, so the secondary wavelets there have smaller radii in the same time.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The part of the wavefront reaching the boundary first begins spreading in the denser medium at a smaller speed, so its wavelet is smaller than the distance covered by the other end in the first medium. The common tangent to the wavelets is then turned towards the boundary, which turns the ray towards the normal. So the reason accounts for the assertion.",
+      "optionRationale": {
+        "2": "R is not merely true but is the explanation of the turning of the wavefront.",
+        "3": "R is true; speed is smaller in a denser medium and the wavelets are smaller.",
+        "4": "A is true; the ray bends towards the normal in a denser medium."
+      },
+      "objective": "Explain the bending of light into a denser medium using wavelets"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m09",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): According to the Huygens construction, the speed of a wave remains unchanged when it is refracted into another medium.\nReason (R): The frequency of a wave does not change when it is refracted into another medium.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "The assertion is false: the construction needs different speeds $v_1$ and $v_2$ in the two media, since otherwise there would be no bending at all. The reason is true: the number of wavefronts arriving per second equals the number leaving, so frequency is unchanged. It follows that the wavelength changes with the speed, through $v = f\\lambda$.",
+      "optionRationale": {
+        "1": "A is false, because the speed must change for refraction to occur.",
+        "2": "A is false; the speed in the second medium is different, which gives Snell's law.",
+        "3": "R is true; frequency is unchanged on refraction."
+      },
+      "objective": "Distinguish what changes and what does not change on refraction"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about reflection and refraction of a plane wave, based on the Huygens construction.\nA. In reflection, the speed of the wave is the same before and after reflection.\nB. In refraction, the wavelength changes in proportion to the speed of the wave.\nC. In refraction, the frequency of the wave changes in the ratio of the speeds.\nD. The ratio $\\sin i/\\sin r$ is constant for a given pair of media.\nChoose the correct option.",
+      "options": [
+        "A, B and D only",
+        "A, C and D only",
+        "B, C and D only",
+        "A and B only"
+      ],
+      "answer": 1,
+      "explanation": "On reflection the wave stays in the same medium, so its speed (and wavelength) are unchanged (A). On refraction $\\lambda = v/f$ with f fixed, so wavelength is proportional to the speed (B). The frequency does not change, so C is false. The ratio of sines is the constant $v_1/v_2$ for the two media (D).",
+      "optionRationale": {
+        "2": "C is false because the frequency does not change; B, which is true, is left out.",
+        "3": "C is false and A, which is true, is left out.",
+        "4": "D, which is also true, is left out of this option."
+      },
+      "objective": "Evaluate statements about speed, wavelength and frequency in reflection and refraction"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m11",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The Huygens construction shows that $n = c/v$. Match each refractive index in List-I with the speed of light in that medium in List-II (take $c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$).",
+      "list": {
+        "left": [
+          "A. Refractive index 1.0",
+          "B. Refractive index 1.5",
+          "C. Refractive index 2.0",
+          "D. Refractive index 1.2"
+        ],
+        "right": [
+          "I. $3.0\\times10^{8}\\,\\text{m s}^{-1}$",
+          "II. $2.0\\times10^{8}\\,\\text{m s}^{-1}$",
+          "III. $1.5\\times10^{8}\\,\\text{m s}^{-1}$",
+          "IV. $2.5\\times10^{8}\\,\\text{m s}^{-1}$"
+        ]
+      },
+      "options": [
+        "A-I, B-III, C-II, D-IV",
+        "A-IV, B-II, C-III, D-I",
+        "A-I, B-II, C-IV, D-III",
+        "A-I, B-II, C-III, D-IV"
+      ],
+      "answer": 4,
+      "explanation": "The speed in a medium is $v = c/n$. For n = 1.0, $v = 3.0\\times10^8$ (I). For n = 1.5, $v = 2.0\\times10^8$ (II). For n = 2.0, $v = 1.5\\times10^8$ (III). For n = 1.2, $v = 2.5\\times10^8\\,\\text{m s}^{-1}$ (IV).",
+      "optionRationale": {
+        "1": "B and C are swapped: n = 1.5 gives $2.0\\times10^8$ and n = 2.0 gives $1.5\\times10^8\\,\\text{m s}^{-1}$.",
+        "2": "A and D are swapped: n = 1.0 is the vacuum value, so the speed there is the greatest.",
+        "3": "C and D are swapped: n = 2.0 corresponds to the speed $1.5\\times10^8$, the smallest."
+      },
+      "objective": "Relate refractive index to speed of light in a medium"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A plane wavefront is incident normally on a glass slab of thickness 3.0 mm and refractive index 1.5. Compared with a wavefront that crosses the same thickness of air, how much longer does it take to cross the slab? Take $c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$.",
+      "options": [
+        "$25.0\\,\\text{ps}$",
+        "$5.0\\,\\text{ps}$",
+        "$10.0\\,\\text{ps}$",
+        "$15.0\\,\\text{ps}$"
+      ],
+      "answer": 2,
+      "explanation": "The time in the glass is $nt/c = (1.5)(3.0\\times10^{-3})/(3.0\\times10^8) = 15\\,\\text{ps}$ and in the same thickness of air it is $t/c = 10\\,\\text{ps}$. The extra time is $(n-1)t/c = 5.0\\,\\text{ps}$, which is why the part of the wavefront in the slab lags behind the rest.",
+      "optionRationale": {
+        "1": "This uses $(n+1)$ in place of $(n-1)$, adding the times instead of finding their difference.",
+        "3": "This is the time to cross the same thickness of air, not the extra time in the glass.",
+        "4": "This is the total time to cross the glass slab, not the extra time relative to air."
+      },
+      "objective": "Compute the delay of a wavefront crossing a transparent slab"
+    },
+    {
+      "key": "ug26-322-u6-huygens-proofs-m13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A plane mirror reflects a fixed incident ray. By the law of reflection that follows from Huygens' construction, the mirror is turned through $15^\\circ$ about an axis in its plane perpendicular to the plane of incidence. Through what angle does the reflected ray turn?",
+      "options": [
+        "$45^\\circ$",
+        "$7.5^\\circ$",
+        "$15^\\circ$",
+        "$30^\\circ$"
+      ],
+      "answer": 4,
+      "explanation": "Turning the mirror by $15^\\circ$ turns the normal by $15^\\circ$, so the angle of incidence changes by $15^\\circ$. The law of reflection makes the angle of reflection change by the same amount on the other side of the normal, so the reflected ray moves by $15^\\circ + 15^\\circ = 30^\\circ$ from its original position. The reflected ray turns through twice the angle of the mirror.",
+      "optionRationale": {
+        "1": "This triples the angle, but the doubling arises from i changing and r equalling i.",
+        "2": "This halves the mirror angle, the opposite of the actual doubling.",
+        "3": "This is the angle through which the mirror turned; the reflected ray turns by twice that."
+      },
+      "objective": "Deduce the rotation of a reflected ray when the mirror is turned"
+    }
+  ]
+}

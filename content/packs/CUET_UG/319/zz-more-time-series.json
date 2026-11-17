@@ -1,0 +1,225 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_200349e612884e5fa69d317094a6c186",
+  "title": "TIME BASED DATA"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r08-time-based-data-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The steady increase in the population of a city over thirty years, apart from short-term fluctuations, is an example of",
+   "options": [
+    "secular trend",
+    "seasonal variation",
+    "cyclical variation",
+    "irregular variation"
+   ],
+   "answer": 1,
+   "explanation": "Secular trend is the long-term tendency of a time series to rise or fall over many years, as in the growth of a city's population. Seasonal variation repeats within a year, cyclical variation recurs over several years in waves, and irregular variation is unpredictable.",
+   "optionRationale": {
+    "2": "Seasonal variation repeats within a year, such as monthly or quarterly patterns, not a thirty-year growth.",
+    "3": "Cyclical variation is a wave-like movement of several years, whereas steady growth has no such waves.",
+    "4": "Irregular variation arises from sudden unpredictable events, and a steady rise over thirty years is not that."
+   },
+   "objective": "Identify the secular trend component"
+  },
+  {
+   "key": "ug26-319-r08-time-based-data-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A 3-yearly moving average is applied to a time series of 9 yearly values. The number of trend values obtained is",
+   "options": [
+    "9",
+    "6",
+    "7",
+    "8"
+   ],
+   "answer": 3,
+   "explanation": "A 3-yearly moving average needs three consecutive values, so the first average uses years $1$ to $3$ and the last uses years $7$ to $9$. The number of averages is $9-3+1=7$, which means one value is lost at each end.",
+   "optionRationale": {
+    "1": "This would need a trend value for every year, but the first and last years have no complete group of three.",
+    "2": "This subtracts one value too many; only $m-1=2$ values are lost in total.",
+    "4": "This loses only one value, but a 3-year average loses one at each end, so two in all."
+   },
+   "objective": "Count the trend values of a moving average"
+  },
+  {
+   "key": "ug26-319-r08-time-based-data-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The yearly values of a series are $4,6,9,7,10,12,11$. The second value of its 5-yearly moving average is",
+   "options": [
+    "7.2",
+    "9.8",
+    "7",
+    "8.8"
+   ],
+   "answer": 4,
+   "explanation": "The first 5-year total is $4+6+9+7+10=36$, giving $7.2$. The second uses the next window: $6+9+7+10+12=44$, and $44/5=8.8$. This value is placed against the middle (fourth) year.",
+   "optionRationale": {
+    "1": "This is the first moving average, from the window $4,6,9,7,10$.",
+    "2": "This is the third moving average, from the window $9,7,10,12,11$.",
+    "3": "This is the middle observation of the window $6,9,7,10,12$, not its average."
+   },
+   "objective": "Compute a 5-yearly moving average"
+  },
+  {
+   "key": "ug26-319-r08-time-based-data-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "In a quarterly series using the multiplicative model, the seasonal indices (average $=100$) for three quarters are $110,\\ 95$ and $105$. The seasonal index of the fourth quarter must be",
+   "options": [
+    "100",
+    "90",
+    "85",
+    "310"
+   ],
+   "answer": 2,
+   "explanation": "The four seasonal indices of a quarterly series must add up to $400$ so that their average is $100$. The three known indices total $110+95+105=310$, so the fourth is $400-310=90$.",
+   "optionRationale": {
+    "1": "This assumes the missing index equals the average, which would make the total $410$.",
+    "3": "This makes the total $395$, five short of the required $400$.",
+    "4": "$310$ is the sum of the three given indices, not the missing fourth one."
+   },
+   "objective": "Use the property that seasonal indices average 100"
+  },
+  {
+   "key": "ug26-319-r08-time-based-data-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Sales (in thousand units) for the years 2019 to 2023 are $12,15,19,22,27$. A straight-line trend $y=a+bx$ is fitted by least squares with origin at 2021 and $x$ in years. The trend forecast for 2025 is",
+   "options": [
+    "41.2",
+    "33.8",
+    "30.1",
+    "37.5"
+   ],
+   "answer": 2,
+   "explanation": "With $x=-2,-1,0,1,2$: $a=\\dfrac{\\sum Y}{5}=\\dfrac{95}{5}=19$ and $b=\\dfrac{\\sum xY}{\\sum x^2}=\\dfrac{-24-15+0+22+54}{10}=3.7$. For 2025, $x=4$, so $y=19+3.7(4)=33.8$.",
+   "optionRationale": {
+    "1": "This uses $x=6$, counting years from 2019 instead of from the origin 2021.",
+    "3": "This uses $x=3$, which corresponds to 2024 and not 2025.",
+    "4": "This uses $x=5$, which corresponds to 2026 and not 2025."
+   },
+   "objective": "Forecast with a least-squares trend line"
+  },
+  {
+   "key": "ug26-319-r08-time-based-data-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The yearly values from 2018 to 2024 are $12,16,20,22,28,32,36$. In the method of semi-averages, the middle year is left out. The annual slope of the trend line is",
+   "options": [
+    "16",
+    "8",
+    "4",
+    "5.33"
+   ],
+   "answer": 3,
+   "explanation": "Omit the middle value $22$ (2021). The first-half average is $\\dfrac{12+16+20}{3}=16$ at the middle year 2019. The second-half average is $\\dfrac{28+32+36}{3}=32$ at 2023. The slope is $\\dfrac{32-16}{4}=4$ per year.",
+   "optionRationale": {
+    "1": "$16$ is the difference between the semi-averages; it must be divided by the gap in years.",
+    "2": "This divides by $2$, though the two semi-average positions 2019 and 2023 are $4$ years apart.",
+    "4": "This divides by $3$, which is the number of values in each half, not the gap between the middle years."
+   },
+   "objective": "Fit a trend by semi-averages with an odd number of years"
+  },
+  {
+   "key": "ug26-319-r08-time-based-data-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "In a multiplicative model the seasonal index for a quarter is $125$ (average $=100$). The actual sales in that quarter were 300 units. The deseasonalised sales are",
+   "options": [
+    "375",
+    "240",
+    "275",
+    "225"
+   ],
+   "answer": 2,
+   "explanation": "Deseasonalised value is the actual value divided by the seasonal index (as a ratio): $\\dfrac{300}{1.25}=240$. This removes the seasonal effect of $25\\%$ above average from the figure.",
+   "optionRationale": {
+    "1": "This multiplies by $1.25$ and so adds the seasonal effect a second time.",
+    "3": "This subtracts $25$ units, treating the index as an additive effect.",
+    "4": "This multiplies by $0.75$, which is not the reciprocal of $1.25$."
+   },
+   "objective": "Deseasonalise a figure using a seasonal index"
+  },
+  {
+   "key": "ug26-319-r08-time-based-data-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "In the multiplicative model $Y=T\\times S\\times C\\times I$, the trend value is 500, the seasonal index is $1.16$, the cyclical index is $0.95$ and the irregular index is $1$. The estimated value $Y$ is",
+   "options": [
+    "580",
+    "609",
+    "511",
+    "551"
+   ],
+   "answer": 4,
+   "explanation": "Multiply the components: $Y=500\\times1.16\\times0.95\\times1=580\\times0.95=551$. In a multiplicative model each factor is a ratio, so they multiply and are not added.",
+   "optionRationale": {
+    "1": "This leaves out the cyclical factor $0.95$ and multiplies only trend and seasonal.",
+    "2": "This takes the cyclical index as $1.05$ instead of $0.95$.",
+    "3": "This adds the percentage deviations $+16$ and $-5$ to $500$, treating the model as additive."
+   },
+   "objective": "Apply the multiplicative time series model"
+  },
+  {
+   "key": "ug26-319-r08-time-based-data-m09",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Cyclical variations repeat exactly every year with a fixed period of 12 months.\nReason (R): Seasonal variations repeat within a period of one year.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "Cyclical variations are wave-like movements lasting more than a year, usually several years, and they have no fixed period, so the assertion is false. The reason is a true statement: seasonal variations such as monthly or quarterly patterns repeat within a year.",
+   "optionRationale": {
+    "1": "The assertion is false, so the reason cannot be a valid explanation of it.",
+    "2": "The assertion is false, so both statements cannot be true.",
+    "3": "The reason is true, as seasonal variations repeat within one year."
+   },
+   "objective": "Distinguish cyclical from seasonal variations"
+  },
+  {
+   "key": "ug26-319-r08-time-based-data-m10",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Consider the least-squares trend $y=a+bx$ fitted to $n$ yearly values with the origin at the middle year, where $n$ is odd and $x$ is measured in years.\nA. $\\sum x=0$.\nB. $a=\\dfrac{\\sum Y}{n}$.\nC. $b=\\dfrac{\\sum xY}{\\sum x^2}$.\nD. $a=\\dfrac{\\sum xY}{\\sum x^2}$.\nWhich statements are correct?",
+   "options": [
+    "A, B and C only",
+    "A, B and D only",
+    "B, C and D only",
+    "A and D only"
+   ],
+   "answer": 1,
+   "explanation": "With the origin at the middle year, the $x$ values are symmetric about zero, so $\\sum x=0$ (A). The normal equations then decouple: $\\sum Y=na$ gives $a=\\sum Y/n$ (B), and $\\sum xY=b\\sum x^2$ gives $b=\\sum xY/\\sum x^2$ (C). D confuses $a$ with $b$.",
+   "optionRationale": {
+    "2": "D is false, because $a$ is the mean of $Y$ and not the ratio $\\sum xY/\\sum x^2$.",
+    "3": "D is false, and this option also omits A, which holds for a symmetric origin.",
+    "4": "D is false, and this option leaves out both A and B, which are correct."
+   },
+   "objective": "Recall the shortcut formulae of least-squares trend fitting"
+  }
+ ]
+}

@@ -1,0 +1,687 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "306",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_b7fb6cec633e4da7ae59d387c9fb0a41",
+    "title": "Chemical Kinetics"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The rate constant of a second order reaction has the unit",
+      "options": [
+        "s$^{-1}$",
+        "L mol$^{-1}$ s$^{-1}$",
+        "mol L$^{-1}$ s$^{-1}$",
+        "L$^{2}$ mol$^{-2}$ s$^{-1}$"
+      ],
+      "answer": 2,
+      "explanation": "For a reaction of order n, rate = k[A]^n, so k has the unit (mol L^-1 s^-1) divided by (mol L^-1)^n. For n = 2 this is mol L^-1 s^-1 divided by mol^2 L^-2, giving L mol^-1 s^-1. Each higher order adds a factor of L mol^-1 to the unit.",
+      "optionRationale": {
+        "1": "This is the unit for a first order reaction.",
+        "3": "This is the unit for a zero order reaction, where k has the same unit as the rate.",
+        "4": "This is the unit for a third order reaction."
+      },
+      "objective": "Derive the unit of k from the order"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "For the reaction $2\\text{N}_2\\text{O}_5 \\rightarrow 4\\text{NO}_2 + \\text{O}_2$, O$_2$ is formed at the rate $2.0\\times10^{-4}$ mol L$^{-1}$ s$^{-1}$. At what rate is NO$_2$ formed?",
+      "options": [
+        "$2.0\\times10^{-4}$ mol L$^{-1}$ s$^{-1}$",
+        "$4.0\\times10^{-4}$ mol L$^{-1}$ s$^{-1}$",
+        "$5.0\\times10^{-5}$ mol L$^{-1}$ s$^{-1}$",
+        "$8.0\\times10^{-4}$ mol L$^{-1}$ s$^{-1}$"
+      ],
+      "answer": 4,
+      "explanation": "The rate of reaction is the same for every species once divided by its stoichiometric coefficient: rate = d[O2]/dt = (1/4) d[NO2]/dt. So the rate of formation of NO2 is 4 times that of O2, which is 4 x 2.0 x 10^-4 = 8.0 x 10^-4 mol L^-1 s^-1.",
+      "optionRationale": {
+        "1": "This assumes the same rate for NO2 and O2, but 4 mol of NO2 appear per mole of O2.",
+        "2": "This uses a ratio of 2 instead of 4 between NO2 and O2.",
+        "3": "This divides by 4 instead of multiplying, so the ratio is inverted."
+      },
+      "objective": "Relate rates of different species through stoichiometry"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The concentration of a reactant A falls from 0.50 M to 0.30 M in 40 s. What is the average rate of disappearance of A?",
+      "options": [
+        "$2.0\\times10^{-1}$ mol L$^{-1}$ s$^{-1}$",
+        "$1.0\\times10^{-2}$ mol L$^{-1}$ s$^{-1}$",
+        "$5.0\\times10^{-3}$ mol L$^{-1}$ s$^{-1}$",
+        "$2.0\\times10^{-2}$ mol L$^{-1}$ s$^{-1}$"
+      ],
+      "answer": 3,
+      "explanation": "Average rate = -(change in concentration)/(change in time) = (0.50 - 0.30) / 40 = 0.005 mol L$^{-1}$ s$^{-1}$, which is 5.0 x 10$^{-3}$. The negative sign of the change is cancelled so that the rate is positive.",
+      "optionRationale": {
+        "1": "This is the change in concentration only, without dividing by the time.",
+        "2": "This divides the change of 0.20 M by 20 s instead of by 40 s.",
+        "4": "This divides 0.20 by 10 rather than by 40 s."
+      },
+      "objective": "Calculate average rate of a reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "What percentage of the reactant remains after three half-lives of a first order reaction?",
+      "options": [
+        "12.5 %",
+        "25 %",
+        "33.3 %",
+        "6.25 %"
+      ],
+      "answer": 1,
+      "explanation": "Each half-life halves the amount of reactant for a first order reaction, independent of the starting amount. After three half-lives the fraction left is (1/2)^3 = 1/8 = 12.5 %. After two it would be 25 % and after four 6.25 %.",
+      "optionRationale": {
+        "2": "This is the fraction left after two half-lives.",
+        "3": "This takes three equal parts, which is not how half-lives work.",
+        "4": "This is the fraction left after four half-lives."
+      },
+      "objective": "Apply successive half-lives of a first order reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The half-life of a first order reaction is 10 min. What is the rate constant?",
+      "options": [
+        "0.0693 min$^{-1}$",
+        "0.0693 s$^{-1}$",
+        "6.93 min$^{-1}$",
+        "14.4 min$^{-1}$"
+      ],
+      "answer": 1,
+      "explanation": "For a first order reaction $t_{1/2} = 0.693/k$, so $k = 0.693/t_{1/2} = 0.693/10 = 0.0693$ min$^{-1}$. The unit of k is the reciprocal of time, here min$^{-1}$, and k does not depend on the initial concentration.",
+      "optionRationale": {
+        "2": "The time is in minutes, so the unit must be min^-1, and the value is per minute.",
+        "3": "This multiplies 0.693 by 10 instead of dividing it by the half-life.",
+        "4": "This is the reciprocal 10/0.693; k equals 0.693 divided by the half-life."
+      },
+      "objective": "Relate half-life and rate constant for a first order reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A first order reaction is 40 % complete in 20 min. The rate constant is (log 1.667 = 0.2218)",
+      "options": [
+        "0.0200 min$^{-1}$",
+        "0.0255 min$^{-1}$",
+        "0.0458 min$^{-1}$",
+        "0.0111 min$^{-1}$"
+      ],
+      "answer": 2,
+      "explanation": "If 40 % has reacted, 60 % remains. $k = (2.303/t)\\log([R]_0/[R]) = (2.303/20)\\log(100/60) = 0.1152 \\times 0.2218 = 0.0255$ min$^{-1}$. The amount left, not the amount reacted, goes in the denominator of the logarithm.",
+      "optionRationale": {
+        "1": "This divides 40 % by 20 min and by 100, treating the reaction as linear rather than logarithmic.",
+        "3": "This uses 100/40 = 2.5 inside the logarithm instead of 100/60.",
+        "4": "This divides the answer by 2.303 again, a double use of the conversion factor."
+      },
+      "objective": "Use the integrated first order equation"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A zero order reaction has $k = 1.0\\times10^{-2}$ mol L$^{-1}$ s$^{-1}$ and $[R]_0 = 0.50$ mol L$^{-1}$. What is its half-life?",
+      "options": [
+        "50 s",
+        "69.3 s",
+        "25 s",
+        "12.5 s"
+      ],
+      "answer": 3,
+      "explanation": "For zero order, $[R] = [R]_0 - kt$. At the half-life $[R] = [R]_0/2$, so $t_{1/2} = [R]_0/2k = 0.50 / (2 \\times 0.010) = 25$ s. Unlike a first order reaction, this half-life depends on the initial concentration.",
+      "optionRationale": {
+        "1": "This is $[R]_0/k$, the time for complete consumption, not the half-life.",
+        "2": "This uses the first order formula 0.693/k, which does not apply to a zero order reaction.",
+        "4": "This divides $[R]_0$ by 4k instead of 2k."
+      },
+      "objective": "Calculate half-life of a zero order reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "When the concentration of a reactant is tripled, the rate of a reaction increases nine times. The order of the reaction with respect to that reactant is",
+      "options": [
+        "1",
+        "3",
+        "0",
+        "2"
+      ],
+      "answer": 4,
+      "explanation": "If rate is proportional to $[A]^n$, tripling the concentration multiplies the rate by $3^n$. Setting $3^n = 9$ gives $n = 2$. The order with respect to a reactant is found only from experimental concentration-rate data like this.",
+      "optionRationale": {
+        "1": "With first order a three-fold concentration change would triple the rate.",
+        "2": "With third order the rate would increase 27-fold.",
+        "3": "With zero order the rate would remain unchanged."
+      },
+      "objective": "Find order from the effect of concentration on rate"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The rate law of a reaction is rate = $k[A][B]^2$. If the concentrations of both A and B are doubled, the rate becomes",
+      "options": [
+        "2 times",
+        "4 times",
+        "8 times",
+        "6 times"
+      ],
+      "answer": 3,
+      "explanation": "Doubling [A] multiplies the rate by 2. Doubling [B] multiplies it by $2^2 = 4$ because B appears squared. The effects multiply: 2 x 4 = 8. The overall order is 3, so doubling all concentrations gives $2^3 = 8$.",
+      "optionRationale": {
+        "1": "This counts only the order in A, ignoring the square on B.",
+        "2": "This counts only the squared dependence on B, ignoring A.",
+        "4": "This adds the factors 2 and 4 instead of multiplying them."
+      },
+      "objective": "Predict the change in rate from the rate law"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The rate of a reaction doubles for every 10 K rise in temperature. By what factor does the rate increase when the temperature is raised from 300 K to 340 K?",
+      "options": [
+        "8",
+        "4",
+        "80",
+        "16"
+      ],
+      "answer": 4,
+      "explanation": "The temperature change is 40 K, which is four intervals of 10 K. Each interval doubles the rate, so the factor is $2^4 = 16$. This is the temperature coefficient rule, which holds approximately near room temperature.",
+      "optionRationale": {
+        "1": "This applies three doublings, but 40 K is four intervals of 10 K.",
+        "2": "This applies two doublings only.",
+        "3": "This multiplies 2 by 40 instead of raising 2 to the fourth power."
+      },
+      "objective": "Apply the temperature coefficient rule"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The rate constant of a reaction is $1.0\\times10^{-3}$ s$^{-1}$ at 300 K and $4.0\\times10^{-3}$ s$^{-1}$ at 320 K. The activation energy is (log 4 = 0.602, $R = 8.314$ J K$^{-1}$ mol$^{-1}$)",
+      "options": [
+        "55.3 kJ mol$^{-1}$",
+        "24.0 kJ mol$^{-1}$",
+        "110.7 kJ mol$^{-1}$",
+        "27.7 kJ mol$^{-1}$"
+      ],
+      "answer": 1,
+      "explanation": "$\\log(k_2/k_1) = (E_a/2.303R)(T_2 - T_1)/(T_1T_2)$. So $E_a = 2.303 \\times 8.314 \\times 0.602 \\times (300 \\times 320/20) = 55333$ J mol$^{-1}$ = 55.3 kJ mol$^{-1}$. The rate constant is four times greater at the higher temperature.",
+      "optionRationale": {
+        "2": "This leaves out the factor 2.303 that connects log10 with the natural logarithm.",
+        "3": "This uses a temperature interval of 10 K in place of 20 K in the denominator.",
+        "4": "This uses a temperature interval of 40 K in place of 20 K in the denominator."
+      },
+      "objective": "Find activation energy from two rate constants"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "A reaction occurs in two steps: $A + B \\rightarrow C$ (slow) and $C + B \\rightarrow D$ (fast). The experimentally observed rate law is",
+      "options": [
+        "rate = $k[A][B]^2$",
+        "rate = $k[A][B]$",
+        "rate = $k[C][B]$",
+        "rate = $k[A]^2[B]$"
+      ],
+      "answer": 2,
+      "explanation": "The slowest step is the rate-determining step, and the rate law follows its molecularity. The slow step is bimolecular in A and B, so rate = k[A][B]. The fast second step does not change the rate, and the intermediate C is not included.",
+      "optionRationale": {
+        "1": "This uses the overall stoichiometry, but only the slow step controls the rate.",
+        "3": "C is an intermediate and cannot appear in the final rate law.",
+        "4": "The slow step has one molecule of A, not two."
+      },
+      "objective": "Derive a rate law from the slow step of a mechanism"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For $A + B \\rightarrow$ products the initial rates are: (1) $[A] = 0.10$ M, $[B] = 0.10$ M, rate $= 2.0\\times10^{-3}$ M s$^{-1}$; (2) $[A] = 0.20$ M, $[B] = 0.10$ M, rate $= 8.0\\times10^{-3}$ M s$^{-1}$; (3) $[A] = 0.10$ M, $[B] = 0.20$ M, rate $= 4.0\\times10^{-3}$ M s$^{-1}$. The overall order and the rate at $[A] = 0.30$ M, $[B] = 0.40$ M are",
+      "options": [
+        "second order; 0.24 M s$^{-1}$",
+        "third order; $0.072$ M s$^{-1}$",
+        "third order; 0.24 M s$^{-1}$",
+        "fourth order; 0.072 M s$^{-1}$"
+      ],
+      "answer": 2,
+      "explanation": "From runs 1 and 2, doubling [A] makes the rate four times, so the order in A is 2. From runs 1 and 3, doubling [B] doubles the rate, so the order in B is 1. Overall order = 3. $k = 2.0\\times10^{-3}/(0.10^2 \\times 0.10) = 2.0$. Then rate = 2.0 x 0.30$^2$ x 0.40 = 0.072 M s$^{-1}$.",
+      "optionRationale": {
+        "1": "Doubling A quadruples the rate and doubling B doubles it, so the order is 3, not 2.",
+        "3": "This treats the rate as first order in A (k[A][B]) while using the right overall order.",
+        "4": "The orders found are 2 in A and 1 in B, which add to 3, not 4."
+      },
+      "objective": "Determine order and rate from initial-rate data"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For a first order reaction, what is the ratio of the time required for 99 % completion to the half-life?",
+      "options": [
+        "3.32",
+        "2.00",
+        "13.29",
+        "6.64"
+      ],
+      "answer": 4,
+      "explanation": "For first order, $t = (2.303/k)\\log([R]_0/[R])$. For 99 % completion $[R] = 0.01[R]_0$, so $t_{99} = 2.303\\times 2/k = 4.606/k$. Since $t_{1/2} = 0.693/k$, the ratio is 4.606/0.693 = 6.64. Almost 6.6 half-lives are needed.",
+      "optionRationale": {
+        "1": "This is $\\log_2 10$, which would apply to 90 % completion in terms of half-lives.",
+        "2": "This is the number of half-lives for 75 % completion.",
+        "3": "This is the number of half-lives needed for 99.99 % completion."
+      },
+      "objective": "Compare completion time and half-life in first order kinetics"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A first order reaction is 75 % complete in 30 min. How long does it take to be 87.5 % complete?",
+      "options": [
+        "60 min",
+        "37.5 min",
+        "45 min",
+        "90 min"
+      ],
+      "answer": 3,
+      "explanation": "75 % completion is two half-lives, so one half-life is 30/2 = 15 min. After three half-lives, 1 - (1/2)^3 = 87.5 % of the reactant has reacted, which takes 3 x 15 = 45 min. This works because the half-life of a first order reaction is constant.",
+      "optionRationale": {
+        "1": "This is the time for 93.75 % completion (four half-lives of 15 min).",
+        "2": "This adds 12.5 min as if the remaining fraction were being halved linearly.",
+        "4": "This is the time for 98.4 % completion (six half-lives)."
+      },
+      "objective": "Use constant half-life to find completion time"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A zero order reaction has $[R]_0 = 1.20$ mol L$^{-1}$ and $k = 0.030$ mol L$^{-1}$ min$^{-1}$. How long does it take for 75 % of the reactant to be consumed?",
+      "options": [
+        "30 min",
+        "40 min",
+        "60 min",
+        "20 min"
+      ],
+      "answer": 1,
+      "explanation": "For zero order, $[R]_0 - [R] = kt$. 75 % consumption means $[R]_0 - [R] = 0.75 \\times 1.20 = 0.90$ mol L$^{-1}$. So $t = 0.90/0.030 = 30$ min. The rate stays constant, so a fixed amount is used up per minute.",
+      "optionRationale": {
+        "2": "This is the time for complete consumption, 1.20/0.030.",
+        "3": "This halves the rate constant when dividing 0.90 mol L-1 by it.",
+        "4": "This uses 0.50 of the initial amount instead of 0.75."
+      },
+      "objective": "Calculate time for a given consumption in a zero order reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A plot of $\\ln k$ against $1/T$ for a reaction is a straight line of slope $-6.0\\times10^{3}$ K. The activation energy is ($R = 8.314$ J K$^{-1}$ mol$^{-1}$)",
+      "options": [
+        "114.9 kJ mol$^{-1}$",
+        "49.9 kJ mol$^{-1}$",
+        "6.0 kJ mol$^{-1}$",
+        "0.72 kJ mol$^{-1}$"
+      ],
+      "answer": 2,
+      "explanation": "The Arrhenius equation in log form is $\\ln k = \\ln A - E_a/RT$, so the slope of $\\ln k$ vs $1/T$ is $-E_a/R$. Hence $E_a = 6.0\\times10^3 \\times 8.314 = 49884$ J mol$^{-1}$ = 49.9 kJ mol$^{-1}$. For a log10 plot the slope is $-E_a/2.303R$ instead.",
+      "optionRationale": {
+        "1": "This multiplies by 2.303, which belongs to a log10 plot, not a natural-log plot.",
+        "3": "This ignores R; slope = -Ea/R, so Ea = slope x R.",
+        "4": "This divides by R instead of multiplying."
+      },
+      "objective": "Find activation energy from an Arrhenius plot"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A reaction has $E_a = 60$ kJ mol$^{-1}$. By what factor does its rate constant increase when the temperature rises from 300 K to 310 K? ($R = 8.314$ J K$^{-1}$ mol$^{-1}$)",
+      "options": [
+        "2.2",
+        "1.2",
+        "4.0",
+        "2.0"
+      ],
+      "answer": 1,
+      "explanation": "$\\ln(k_2/k_1) = (E_a/R)(1/T_1 - 1/T_2) = (60000/8.314)(1/300 - 1/310) = 7217 \\times 1.075\\times10^{-4} = 0.776$. So $k_2/k_1 = e^{0.776} = 2.2$. This agrees with the rule of thumb that rates nearly double for a 10 K rise.",
+      "optionRationale": {
+        "2": "This corresponds to a much smaller activation energy of about 15 kJ per mole.",
+        "3": "This corresponds to an activation energy of about 110 kJ per mole.",
+        "4": "The 'doubling per 10 K' rule is approximate; the calculation gives about 2.2."
+      },
+      "objective": "Compute the effect of temperature on k using the Arrhenius equation"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A first order reaction has a half-life of 10 min and an initial concentration of 0.80 M. What is its rate 20 min after the start?",
+      "options": [
+        "$5.5\\times10^{-2}$ M min$^{-1}$",
+        "$3.5\\times10^{-3}$ M min$^{-1}$",
+        "$2.8\\times10^{-2}$ M min$^{-1}$",
+        "$1.39\\times10^{-2}$ M min$^{-1}$"
+      ],
+      "answer": 4,
+      "explanation": "$k = 0.693/10 = 0.0693$ min$^{-1}$. After 20 min (two half-lives) the concentration is 0.80/4 = 0.20 M. Rate = k[A] = 0.0693 x 0.20 = 0.01386 M min$^{-1}$, or 1.39 x 10$^{-2}$. The rate falls in proportion to the concentration.",
+      "optionRationale": {
+        "1": "This uses the initial concentration 0.80 M, which is the rate at time zero.",
+        "2": "This divides the concentration after 20 min by a further factor of 4.",
+        "3": "This uses the concentration 0.40 M after only one half-life."
+      },
+      "objective": "Combine half-life and rate law for a first order reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "The half-life of a reaction is 50 s when the initial concentration is 0.20 M and 100 s when it is 0.40 M. The order of the reaction is",
+      "options": [
+        "one",
+        "two",
+        "zero",
+        "three"
+      ],
+      "answer": 3,
+      "explanation": "For a zero order reaction $t_{1/2} = [R]_0/2k$, so the half-life is directly proportional to the initial concentration. Here the concentration doubles and the half-life doubles, which is the zero order pattern. A first order half-life would stay constant.",
+      "optionRationale": {
+        "1": "For first order, the half-life is independent of initial concentration, which is not the case here.",
+        "2": "For second order, doubling the initial concentration would halve the half-life, not double it.",
+        "4": "For third order, doubling the concentration would cut the half-life to a quarter."
+      },
+      "objective": "Identify order from half-life data"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g21",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Powdered marble reacts faster with dilute hydrochloric acid than a marble chip of the same mass.\nReason (R): Powdering increases the surface area, so more of the solid is exposed to collisions with acid.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "A larger surface area exposes more of the solid to the acid at any moment, giving more collisions per unit time and a higher rate. The marble chip has much less exposed surface for the same mass. Both statements are true and the reason is the correct cause.",
+      "optionRationale": {
+        "2": "The reason directly explains the assertion, so it is the correct explanation.",
+        "3": "The reason is true; fine powder has a much greater exposed surface.",
+        "4": "The assertion is true: powders react faster than lumps."
+      },
+      "objective": "Explain the effect of surface area on rate"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g22",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A catalyst increases the equilibrium yield of a reversible reaction.\nReason (R): A catalyst provides an alternative pathway with a lower activation energy.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "A catalyst lowers the activation energy of both the forward and reverse reactions equally, so it only makes equilibrium arrive faster. It does not change the equilibrium constant or the yield, so the assertion is false. The reason is a correct statement about catalysts.",
+      "optionRationale": {
+        "1": "The assertion is false; the equilibrium constant is not changed by a catalyst.",
+        "2": "The assertion is false, so the pair cannot both be true.",
+        "3": "The reason is true: a catalyst gives a lower-energy pathway."
+      },
+      "objective": "Separate the kinetic and thermodynamic effects of a catalyst"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g23",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Radioactive decay follows first order kinetics.\nReason (R): The rate of radioactive decay is independent of temperature.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 2,
+      "explanation": "The rate of decay is proportional to the number of unstable nuclei present, which is a first order law. It is also true that nuclear decay does not depend on temperature, but that fact does not show the first order dependence on the number of nuclei. Both are true with R not the explanation.",
+      "optionRationale": {
+        "1": "Independence from temperature does not explain the first order dependence on the amount of nuclide.",
+        "3": "The reason is true; nuclear decay is not affected by temperature or pressure.",
+        "4": "The assertion is true; the decay rate is proportional to the number of nuclei."
+      },
+      "objective": "Distinguish true statements from valid explanations in kinetics"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g24",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The order of a reaction can be found only from experiment.\nReason (R): The order of a reaction is always equal to the sum of the stoichiometric coefficients of the reactants in the balanced equation.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "The order depends on how the rate varies with concentration, which must be measured, since the rate-determining step may differ from the overall equation. The statement in R is false: for example, the decomposition of N2O5 is first order even though the equation shows two molecules. The assertion is true and the reason is false.",
+      "optionRationale": {
+        "1": "The reason is false; the order is not obtained from the balanced equation.",
+        "2": "The reason is false, so the pair cannot both be true.",
+        "4": "The assertion is true: order is an experimental quantity."
+      },
+      "objective": "Recognise that order is experimental"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g25",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match the order of a reaction in List-I with the unit of its rate constant in List-II.",
+      "options": [
+        "A-II, B-I, C-IV, D-III",
+        "A-III, B-I, C-II, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-III, D-IV"
+      ],
+      "answer": 4,
+      "explanation": "The unit of k is (mol L^-1)^(1-n) s^-1. For n = 0 it is mol L^-1 s^-1 (A-II). For n = 1 it is s^-1 (B-I). For n = 2 it is L mol^-1 s^-1 (C-III). For n = 3 it is L^2 mol^-2 s^-1 (D-IV).",
+      "optionRationale": {
+        "1": "This swaps the matches of C and D: C is actually III and D is actually IV.",
+        "2": "This swaps the matches of A and C: A is actually II and C is actually III.",
+        "3": "This swaps the matches of A and B: A is actually II and B is actually I."
+      },
+      "objective": "Match orders with units of k",
+      "list": {
+        "left": [
+          "A. Zero order",
+          "B. First order",
+          "C. Second order",
+          "D. Third order"
+        ],
+        "right": [
+          "I. s$^{-1}$",
+          "II. mol L$^{-1}$ s$^{-1}$",
+          "III. L mol$^{-1}$ s$^{-1}$",
+          "IV. L$^{2}$ mol$^{-2}$ s$^{-1}$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g26",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the item in List-I with the corresponding relation or description in List-II.",
+      "options": [
+        "A-II, B-III, C-I, D-IV",
+        "A-II, B-III, C-IV, D-I",
+        "A-II, B-IV, C-I, D-III",
+        "A-I, B-III, C-II, D-IV"
+      ],
+      "answer": 1,
+      "explanation": "The zero order half-life is $[R]_0/2k$ (A-II). The first order half-life is $0.693/k$ (B-III). The Arrhenius equation $\\ln k = \\ln A - E_a/RT$ gives a slope of $-E_a/R$ (C-I). The overall rate of a multi-step reaction is governed by its slowest step (D-IV).",
+      "optionRationale": {
+        "2": "This swaps the matches of C and D: C is actually I and D is actually IV.",
+        "3": "This swaps the matches of B and D: B is actually III and D is actually IV.",
+        "4": "This swaps the matches of A and C: A is actually II and C is actually I."
+      },
+      "objective": "Match kinetic quantities with their expressions",
+      "list": {
+        "left": [
+          "A. Half-life of a zero order reaction",
+          "B. Half-life of a first order reaction",
+          "C. Slope of a plot of $\\ln k$ against $1/T$",
+          "D. Rate-determining step"
+        ],
+        "right": [
+          "I. $-E_a/R$",
+          "II. $[R]_0/2k$",
+          "III. $0.693/k$",
+          "IV. Slowest step in the mechanism"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g27",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the factor in List-I with its effect on reaction rate in List-II.",
+      "options": [
+        "A-III, B-II, C-I, D-IV",
+        "A-I, B-III, C-II, D-IV",
+        "A-III, B-I, C-II, D-IV",
+        "A-IV, B-I, C-II, D-III"
+      ],
+      "answer": 3,
+      "explanation": "A temperature rise increases the fraction of molecules having energy at least equal to the threshold (A-III). A catalyst provides an alternative lower-energy path (B-I). Higher concentration gives more collisions per unit time (C-II). Correct orientation is needed for a collision to form products (D-IV).",
+      "optionRationale": {
+        "1": "This swaps the matches of B and C: B is actually I and C is actually II.",
+        "2": "This swaps the matches of A and B: A is actually III and B is actually I.",
+        "4": "This swaps the matches of A and D: A is actually III and D is actually IV."
+      },
+      "objective": "Match factors with their effect on the rate",
+      "list": {
+        "left": [
+          "A. Raising the temperature",
+          "B. Adding a catalyst",
+          "C. Increasing the concentration",
+          "D. Proper orientation of colliding molecules"
+        ],
+        "right": [
+          "I. Provides an alternative path with lower activation energy",
+          "II. Increases the number of collisions per unit time",
+          "III. Increases the fraction of molecules with energy equal to or above the threshold",
+          "IV. Makes a collision effective in forming product"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g28",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements.\nA. The order of a reaction can be zero or fractional.\nB. Molecularity is defined only for an elementary step.\nC. The molecularity of a complex reaction can be fractional.\nD. The order of a reaction is determined experimentally.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A, B and D only",
+        "B, C and D only",
+        "A and C only"
+      ],
+      "answer": 2,
+      "explanation": "Order can be zero or fractional, so A is true. Molecularity is the number of species colliding in a single elementary step, so it is a whole number and meaningless for a complex reaction; B is true and C false. Order cannot be read from the equation, so D is true.",
+      "optionRationale": {
+        "1": "Statement C is false; molecularity is always a whole number and applies to elementary steps.",
+        "3": "C is false and statement A is also correct.",
+        "4": "C is false, and B and D are also correct."
+      },
+      "objective": "Distinguish order from molecularity"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g29",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about the Arrhenius equation.\nA. A plot of $\\ln k$ against $1/T$ is a straight line.\nB. A reaction with larger $E_a$ is more sensitive to a change in temperature.\nC. A catalyst changes the value of the pre-exponential factor only, not $E_a$.\nD. The factor $e^{-E_a/RT}$ is the fraction of molecules with energy equal to or greater than $E_a$.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A and C only",
+        "B, C and D only",
+        "A, B and D only"
+      ],
+      "answer": 4,
+      "explanation": "Taking logarithms gives $\\ln k = \\ln A - E_a/RT$, a straight line in $1/T$ (A true). A larger $E_a$ gives a larger change of k with T (B true). A catalyst acts by lowering $E_a$, so C is false. The exponential factor is the fraction of molecules with sufficient energy (D true).",
+      "optionRationale": {
+        "1": "C is false; a catalyst lowers the activation energy.",
+        "2": "C is false, and statements B and D are also correct.",
+        "3": "C is false, and statement A is also correct."
+      },
+      "objective": "Evaluate statements on the Arrhenius equation"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-g30",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about first order reactions.\nA. The half-life is independent of the initial concentration.\nB. The unit of the rate constant is s$^{-1}$.\nC. A plot of $\\ln[R]$ against time is a straight line.\nD. The fraction of reactant consumed in a fixed time depends on the initial concentration.\nWhich statements are correct?",
+      "options": [
+        "A, C and D only",
+        "B and D only",
+        "A, B and C only",
+        "A and B only"
+      ],
+      "answer": 3,
+      "explanation": "For a first order reaction $t_{1/2} = 0.693/k$ does not depend on concentration (A true). k has unit of reciprocal time (B true). $\\ln[R] = \\ln[R]_0 - kt$ gives a straight line (C true). Because the fraction reacted in time t equals $1 - e^{-kt}$, it is independent of the starting concentration (D false).",
+      "optionRationale": {
+        "1": "Statement D is false; the fraction consumed in a fixed time does not depend on the initial concentration.",
+        "2": "D is false, and A and C are also correct.",
+        "4": "This omits statement C, which is also correct."
+      },
+      "objective": "Evaluate statements on first order kinetics"
+    }
+  ]
+}

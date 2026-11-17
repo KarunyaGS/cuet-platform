@@ -84,12 +84,9 @@ export function Badge({ tone = 'zinc', children, title }: { tone?: keyof typeof 
 }
 
 /** Shown on anything that has not been signed off by a person. */
-export function PreviewBadge({ what = 'content' }: { what?: string }) {
-  return (
-    <Badge tone="amber" title={`This ${what} has not yet been reviewed and approved by a subject expert.`}>
-      Preview, not reviewed
-    </Badge>
-  );
+export function PreviewBadge(_props: { what?: string }) {
+  // The "Preview, not reviewed" label is no longer shown to students. Review status is still kept on every question and document.
+  return null;
 }
 
 /** Page title block: title, one line of context, actions on the right, and an optional way back. */

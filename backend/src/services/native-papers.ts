@@ -123,7 +123,7 @@ export const registerSchema = z
     pages: z.number().int().positive(),
     reviewState: z.enum(['REVIEWED', 'UNREVIEWED']),
     rights: z.object({ basis: z.enum(['OWNED_ORIGINAL', 'PERMISSION_ON_RECORD']), statement: z.string().min(20).max(1000), permissionReference: z.string().max(500).optional() }),
-    questionIds: z.array(z.string().max(100)).min(1).max(200),
+    questionIds: z.array(z.string().max(100)).min(1).max(600),
   })
   .refine((v) => v.rights.basis !== 'PERMISSION_ON_RECORD' || (v.rights.permissionReference ?? '').trim().length >= 10, { message: 'Reproducing third-party content needs the permission reference on record' });
 
@@ -201,4 +201,92 @@ export async function nativeFile(bucket: R2Bucket, r2Key: string, title: string,
   });
   if (m) headers.set('content-range', `bytes ${offset}-${end}/${size}`);
   return new Response(obj.body, { status: m ? 206 : 200, headers });
+}
+
+export const chapterQuery = z.object({ paperId: z.string().min(1).max(100), nodeId: z.string().min(1).max(100) });
+
+/**
+ * The content of a chapter-wise question bank PDF: every one of our own questions that sits under one syllabus chapter (or topic),
+ * grouped by topic in syllabus order, with the answer key kept apart. Same rights check as a practice paper: only questions we own.
+ */
+export async function draftChapterBank(db: D1Database, q: z.infer<typeof chapterQuery>) {
+  const paper = await db
+    .prepare('SELECT tp.id, tp.code, tp.name, e.code AS exam FROM test_papers tp JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id WHERE tp.id = ?')
+    .bind(q.paperId)
+    .first<{ id: string; code: string; name: string; exam: string }>();
+  if (!paper) throw notFound('Subject');
+  const chapter = await db.prepare('SELECT id, label, title FROM curriculum_nodes WHERE id = ?').bind(q.nodeId).first<{ id: string; label: string | null; title: string }>();
+  if (!chapter) throw notFound('Chapter');
+  const { results } = await db
+    .prepare(
+      `WITH RECURSIVE up(qid, topic, node, parent) AS (
+         SELECT qt.question_id, n.id, n.id, n.parent_id FROM question_topics qt JOIN curriculum_nodes n ON n.id = qt.curriculum_node_id
+         UNION ALL SELECT up.qid, up.topic, n.id, n.parent_id FROM up JOIN curriculum_nodes n ON n.id = up.parent)
+       SELECT q.id, q.type, q.stem, q.structure_json, q.verification, tn.id AS unit_id, tn.title AS unit_title, tn.position AS unit_position, p.title AS passage_title, p.body AS passage_body
+       FROM questions q JOIN usage_permissions perm ON perm.id = q.usage_permission_id
+       LEFT JOIN passages p ON p.id = q.passage_id
+       JOIN question_topics qt0 ON qt0.question_id = q.id JOIN curriculum_nodes tn ON tn.id = qt0.curriculum_node_id
+       WHERE q.test_paper_id = ?1 AND perm.code = 'OWNED_ORIGINAL' AND q.is_demonstration = 0 AND q.status != 'ARCHIVED' AND q.verification NOT IN ('REJECTED','NEEDS_CHANGES')
+         AND q.type IN (${CHOICE_TYPES}) AND (SELECT COUNT(*) FROM question_options o WHERE o.question_id = q.id) = 4 AND EXISTS (SELECT 1 FROM answer_keys a WHERE a.question_id = q.id AND a.correct_option_positions IS NOT NULL)
+         AND EXISTS (SELECT 1 FROM up WHERE up.qid = q.id AND up.topic = qt0.curriculum_node_id AND up.node = ?2)
+       GROUP BY q.id ORDER BY tn.position, q.difficulty, q.id`,
+    )
+    .bind(q.paperId, q.nodeId)
+    .all<QRow>();
+  if (results.length === 0) throw new ApiError(409, 'NO_QUESTIONS', 'This chapter has none of our own questions yet');
+  const ids = results.map((r) => r.id);
+  const options = new Map<string, { position: number; label: string; text: string }[]>();
+  const keys = new Map<string, number[]>();
+  for (let i = 0; i < ids.length; i += 80) {
+    const part = ids.slice(i, i + 80);
+    const marks = part.map(() => '?').join(',');
+    const [o, k] = await Promise.all([
+      db.prepare(`SELECT question_id, position, label, text FROM question_options WHERE question_id IN (${marks}) ORDER BY position`).bind(...part).all<{ question_id: string; position: number; label: string; text: string }>(),
+      db.prepare(`SELECT question_id, correct_option_positions FROM answer_keys WHERE question_id IN (${marks})`).bind(...part).all<{ question_id: string; correct_option_positions: string }>(),
+    ]);
+    for (const r of o.results) options.set(r.question_id, [...(options.get(r.question_id) ?? []), { position: r.position, label: r.label, text: r.text }]);
+    for (const r of k.results) keys.set(r.question_id, JSON.parse(r.correct_option_positions) as number[]);
+  }
+  const topics: { id: string | null; title: string; n: number }[] = [];
+  for (const r of results) {
+    const t = topics.find((x) => x.id === r.unit_id);
+    if (t) t.n++;
+    else topics.push({ id: r.unit_id, title: r.unit_title ?? chapter.title, n: 1 });
+  }
+  const chapterName = [chapter.label, chapter.title].filter(Boolean).join(' ');
+  const reviewed = results.every((p) => p.verification === 'VERIFIED');
+  return {
+    schema: 'cuet-native-paper/1' as const,
+    mode: 'CHAPTER' as const,
+    key: `cuetprep:chapter:${paper.code}:${chapter.id}`,
+    kind: 'PRACTICE_PAPER' as const,
+    exam: paper.exam,
+    paperId: paper.id,
+    nodeId: chapter.id,
+    chapterName,
+    subjectCode: paper.code,
+    subjectName: paper.name,
+    set: 0,
+    title: `CUET Prep question bank: ${paper.name}, ${chapterName}`,
+    language: 'English',
+    rights: { basis: 'OWNED_ORIGINAL' as const, statement: 'Every question in this question bank was written for CUET Prep and is owned by it. It is not a previous-year paper and contains no question from any examination, book or website.' },
+    reviewState: reviewed ? ('REVIEWED' as const) : ('UNREVIEWED' as const),
+    reviewedQuestions: results.filter((p) => p.verification === 'VERIFIED').length,
+    pattern: { questions: results.length, durationMinutes: null, marksCorrect: null, marksIncorrect: null, officialQuestionCount: null },
+    units: topics.map((t) => ({ title: t.title, questions: t.n })),
+    questions: results.map((p, i) => ({
+      number: i + 1, id: p.id, type: p.type, unit: p.unit_title ?? chapter.title, stem: p.stem, structure: p.structure_json ? (JSON.parse(p.structure_json) as Record<string, unknown>) : null,
+      passage: p.passage_body ? { title: p.passage_title, body: p.passage_body } : null, options: options.get(p.id) ?? [],
+    })),
+    answerKey: results.map((p, i) => ({ number: i + 1, correct: (keys.get(p.id) ?? []).map((pos) => options.get(p.id)?.find((o) => o.position === pos)?.label ?? String(pos)) })),
+  };
+}
+
+/** The chapter-wise PDFs that exist, for the sidebar and the viewer. */
+export async function chapterBankDocuments(db: D1Database, exam: string) {
+  const { results } = await db
+    .prepare(`SELECT id, key, subject_code, subject_name, title, pages, review_state FROM pyq_documents WHERE exam_code = ? AND key LIKE 'cuetprep:chapter:%' AND r2_key IS NOT NULL ORDER BY subject_code, title`)
+    .bind(exam)
+    .all<{ id: string; key: string; subject_code: string; subject_name: string; title: string; pages: number | null; review_state: string | null }>();
+  return results.map((r) => ({ id: r.id, subjectCode: r.subject_code, nodeId: r.key.split(':')[3] ?? '', title: r.title.replace(/^CUET Prep question bank: [^,]*, /, ''), pages: r.pages, reviewState: r.review_state }));
 }

@@ -1,0 +1,5734 @@
+{
+ "schema": "cuet-native-paper/1",
+ "mode": "CHAPTER",
+ "key": "cuetprep:chapter:319:cn_a59d3d12ea4542cb9d6422fa7d2c17ed",
+ "kind": "PRACTICE_PAPER",
+ "exam": "CUET_UG",
+ "paperId": "paper_cuet_ug_2026_319",
+ "nodeId": "cn_a59d3d12ea4542cb9d6422fa7d2c17ed",
+ "chapterName": "III CALCULUS",
+ "subjectCode": "319",
+ "subjectName": "Mathematics",
+ "set": 0,
+ "title": "CUET Prep question bank: Mathematics, III CALCULUS",
+ "language": "English",
+ "rights": {
+  "basis": "OWNED_ORIGINAL",
+  "statement": "Every question in this question bank was written for CUET Prep and is owned by it. It is not a previous-year paper and contains no question from any examination, book or website."
+ },
+ "reviewState": "UNREVIEWED",
+ "reviewedQuestions": 0,
+ "pattern": {
+  "questions": 150,
+  "durationMinutes": null,
+  "marksCorrect": null,
+  "marksIncorrect": null,
+  "officialQuestionCount": null
+ },
+ "units": [
+  {
+   "title": "Continuity and Differentiability",
+   "questions": 30
+  },
+  {
+   "title": "Applications of derivatives",
+   "questions": 30
+  },
+  {
+   "title": "Integrals",
+   "questions": 30
+  },
+  {
+   "title": "Applications of the Integrals",
+   "questions": 30
+  },
+  {
+   "title": "Differential Equations",
+   "questions": 30
+  }
+ ],
+ "questions": [
+  {
+   "number": 1,
+   "id": "q_0b3d71f85c284542a2c99f3708bedbc9",
+   "type": "ASSERTION_REASON",
+   "unit": "Continuity and Differentiability",
+   "stem": "Assertion (A): The derivative of $\\cos^{-1}x$ is the negative of the derivative of $\\sin^{-1}x$.\nReason (R): For $-1 \\le x \\le 1$, $\\sin^{-1}x + \\cos^{-1}x = \\dfrac{\\pi}{2}$, a constant.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 2,
+   "id": "q_55dce12db3734147ba0546c70bab5d48",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "A function $f$ is continuous at $x = c$ if and only if",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$f(c)$ exists"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\lim_{x \\to c} f(x)$ exists and equals $f(c)$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\lim_{x \\to c} f(x)$ exists"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$f$ is differentiable at $c$"
+    }
+   ]
+  },
+  {
+   "number": 3,
+   "id": "q_5ea08246f10b407ea1889496dd0a442e",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "The slope of the curve $y = \\ln(x^2 + 1)$ at the point where $x = 1$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac12$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$1$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\ln 2$"
+    }
+   ]
+  },
+  {
+   "number": 4,
+   "id": "q_834dee131c4b4e508db66ea625e6d1cf",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "Using the chain rule, differentiating $(3x + 2)^5$ gives",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "3(3x+2)^5"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "5(3x+2)^4"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(3x+2)^4"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "15(3x+2)^4"
+    }
+   ]
+  },
+  {
+   "number": 5,
+   "id": "q_b8559b3103d6419096520ebb04301299",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "The function $f(x) = \\dfrac{x^2 - 9}{x - 3}$ is defined for $x \\ne 3$, and $f(3) = k$. The constant $k$ that removes the break at $x = 3$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "0"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "6"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "3"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "9"
+    }
+   ]
+  },
+  {
+   "number": 6,
+   "id": "q_c54b7c6d60784fe485453e421927a0fa",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "Differentiating the exponential function $2^x$ with base two gives",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$x\\,2^{x-1}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "2^x"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$2^x \\ln 2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{2^x}{\\ln 2}$"
+    }
+   ]
+  },
+  {
+   "number": 7,
+   "id": "q_db56da6d21ab4004a1721fafb034c37b",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "The function $f(x) = 3x - 1$ for $x < 2$ and $f(x) = kx$ for $x \\ge 2$ is continuous at $x = 2$. The value of $k$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$3$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac52$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$5$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac25$"
+    }
+   ]
+  },
+  {
+   "number": 8,
+   "id": "q_23d261a49ded4ab7bdd23ad617576c32",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "Let $f(x) = \\dfrac{1 - \\cos x}{x^2}$ away from the origin and $f(0) = k$. The value of $k$ that makes $f$ continuous at the origin is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "0"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "1"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "2"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{1}{2}$"
+    }
+   ]
+  },
+  {
+   "number": 9,
+   "id": "q_276334db7ff644669af3cbcab05e4bf2",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "If $y = x^{\\sin x}$ for $x > 0$, the value of $\\dfrac{dy}{dx}$ at $x = \\dfrac{\\pi}{2}$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{\\pi}{2}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "0"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{2}{\\pi}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "1"
+    }
+   ]
+  },
+  {
+   "number": 10,
+   "id": "q_4146c8262ed04f1e84b6a6f96846a3cf",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "For $f(x) = x|x|$, which statement about $x = 0$ is correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$f$ is continuous but not differentiable at $0$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$f$ is not continuous at $0$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$f$ is differentiable at $0$ and $f'(0) = 0$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$f$ is differentiable at $0$ and $f'(0) = 1$"
+    }
+   ]
+  },
+  {
+   "number": 11,
+   "id": "q_5507c198a9a44293828160469b3548d4",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "If $x = t^2$ and $y = t^3$ for $t > 0$, then $\\dfrac{d^2y}{dx^2}$ equals",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{3}{4t}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{3t}{2}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{3}{2}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{3}{2t}$"
+    }
+   ]
+  },
+  {
+   "number": 12,
+   "id": "q_6c8923baa1124d78b03701f0843020d7",
+   "type": "ASSERTION_REASON",
+   "unit": "Continuity and Differentiability",
+   "stem": "Assertion (A): $f(x) = |x|$ is continuous at $x = 0$ but not differentiable there.\nReason (R): The left-hand derivative of $|x|$ at $0$ is $-1$ and the right-hand derivative is $+1$, which are not equal.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 13,
+   "id": "q_9ee71ea45bda44779e79da99952d070c",
+   "type": "STATEMENT_BASED",
+   "unit": "Continuity and Differentiability",
+   "stem": "Consider the following derivative statements (for values of $x$, $t$ where each expression is defined).\nA. $\\dfrac{d}{dx}\\left(\\sin^{-1}x + \\cos^{-1}x\\right) = 0$\nB. $\\dfrac{d^2}{dx^2}\\left(x\\ln x\\right) = \\dfrac1x$\nC. $\\dfrac{d}{dx}\\left(2^{x^2}\\right) = 2x\\cdot 2^{x^2}$\nD. If $x = \\cos t$ and $y = \\sin t$, then $\\dfrac{dy}{dx} = -\\cot t$\nChoose the correct answer.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A, B and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A and D only"
+    }
+   ]
+  },
+  {
+   "number": 14,
+   "id": "q_bd288e1c79b5463f9a610b93038ed1c8",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "For $0 < x < \\dfrac{1}{\\sqrt2}$, the derivative of $\\sin^{-1}\\!\\big(2x\\sqrt{1-x^2}\\big)$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{1}{\\sqrt{1-x^2}}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{2}{\\sqrt{1-x^2}}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{2}{1+x^2}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{-2}{\\sqrt{1-x^2}}$"
+    }
+   ]
+  },
+  {
+   "number": 15,
+   "id": "q_c3d9811cd87742acbabe58f7e326bb0f",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "The function $f(x) = 5$ for $x \\le 2$, $f(x) = ax + b$ for $2 < x < 4$ and $f(x) = 11$ for $x \\ge 4$ is continuous for all real $x$. The value of $a + b$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$5$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$4$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$-2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$2$"
+    }
+   ]
+  },
+  {
+   "number": 16,
+   "id": "q_ed1a26e76c2e4ba1b1cd294e36138d45",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "For the circle $x^2 + y^2 = 25$, the second derivative $\\dfrac{d^2y}{dx^2}$ at the point $(3, 4)$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$-\\dfrac{25}{64}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{25}{64}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$-\\dfrac{9}{16}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$-\\dfrac{25}{16}$"
+    }
+   ]
+  },
+  {
+   "number": 17,
+   "id": "q_3fc56ad287134bb7b92b57891270848c",
+   "type": "STATEMENT_BASED",
+   "unit": "Continuity and Differentiability",
+   "stem": "Consider the following derivative statements.\nA. $\\dfrac{d}{dx}e^{x^2} = 2x\\,e^{x^2}$\nB. $\\dfrac{d}{dx}\\ln(\\sin x) = \\cot x$\nC. $\\dfrac{d}{dx}\\log_a x = \\dfrac{1}{x\\ln a}$\nD. $\\dfrac{d}{dx}e^{2x} = e^{2x}$\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A, B and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "B, C and D only"
+    }
+   ]
+  },
+  {
+   "number": 18,
+   "id": "q_434fbf6df8674a23b264bae4f5de4269",
+   "type": "STATEMENT_BASED",
+   "unit": "Continuity and Differentiability",
+   "stem": "Consider the following statements about continuity and differentiability.\nA. Every differentiable function is continuous.\nB. Every continuous function is differentiable.\nC. $f(x) = |x|$ is continuous at $x = 0$ but not differentiable there.\nD. Polynomial functions are differentiable at every real number.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, B and D only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A, C and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B and C only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A and C only"
+    }
+   ]
+  },
+  {
+   "number": 19,
+   "id": "q_4b1e9a6bc9934567981ecf372158fe7c",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "For $y = \\tan^{-1}\\!\\left(\\dfrac{1+x}{1-x}\\right)$ with $x \\ne 1$, the value of $\\dfrac{dy}{dx}$ at $x = 2$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac1{10}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$2$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac15$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$-\\dfrac15$"
+    }
+   ]
+  },
+  {
+   "number": 20,
+   "id": "q_5925addd6d3f4c8a8022c83d39f01e77",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "For the curve $x^2 + y^2 = 25$, the slope of the tangent at $(3,4)$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{3}{4}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$-\\dfrac{3}{4}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$-\\dfrac{4}{3}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{4}{3}$"
+    }
+   ]
+  },
+  {
+   "number": 21,
+   "id": "q_5b4055e560824458b5ac900e1535cfed",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "Differentiating the inverse tangent of $x^2$, that is $\\tan^{-1}(x^2)$, gives",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{2x}{1+x^2}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{1}{1+x^4}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{2x}{1+x^4}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{2x}{\\sqrt{1-x^4}}$"
+    }
+   ]
+  },
+  {
+   "number": 22,
+   "id": "q_7aab58e18dde4d52819d499a934a446c",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "If $y = x^x$ for $x > 0$, then $\\dfrac{dy}{dx}$ at $x = 1$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "0"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "e"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "2"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "1"
+    }
+   ]
+  },
+  {
+   "number": 23,
+   "id": "q_7f28b48741684ebb93f07e7ea7a2d8f1",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "For $x = 2\\cos\\theta$ and $y = 2\\sin\\theta$, the derivative $\\dfrac{dy}{dx}$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$-\\cot\\theta$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\tan\\theta$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\cot\\theta$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$-\\tan\\theta$"
+    }
+   ]
+  },
+  {
+   "number": 24,
+   "id": "q_9c8d7c8105144dccb68c2b23b90d3398",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Continuity and Differentiability",
+   "stem": "Match each function in List-I with its derivative in List-II.",
+   "structure": {
+    "left": [
+     "A. $\\sin^{-1}x$",
+     "B. $\\tan^{-1}x$",
+     "C. $\\ln x$",
+     "D. $a^x$ ($a>0$, $a\\ne1$)"
+    ],
+    "right": [
+     "I. $\\dfrac{1}{\\sqrt{1-x^2}}$",
+     "II. $\\dfrac{1}{1+x^2}$",
+     "III. $\\dfrac{1}{x}$",
+     "IV. $a^x\\ln a$"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-II, B-I, C-III, D-IV"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-I, B-II, C-IV, D-III"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-I, B-II, C-III, D-IV"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-I, B-III, C-II, D-IV"
+    }
+   ]
+  },
+  {
+   "number": 25,
+   "id": "q_9fb9425671c448969952b0de38c3005b",
+   "type": "ASSERTION_REASON",
+   "unit": "Continuity and Differentiability",
+   "stem": "Assertion (A): If a function $f$ is discontinuous at $x = c$, then $f$ is not differentiable at $x = c$.\nReason (R): Every continuous function is differentiable.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 26,
+   "id": "q_a34f9818cf3047f6a2cc90b923190549",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "Differentiating $y = \\sin 2x$ twice with respect to $x$ gives the second-order derivative",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$-\\sin 2x$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$-4\\sin 2x$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$-2\\sin 2x$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$4\\sin 2x$"
+    }
+   ]
+  },
+  {
+   "number": 27,
+   "id": "q_b0b01a257b794989aaf204f90e4cbd4b",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "The function $f(x) = kx^2$ for $x \\le 2$ and $f(x) = 3$ for $x > 2$ is continuous at $x = 2$ when $k =$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{3}{4}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "3"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{4}{3}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "12"
+    }
+   ]
+  },
+  {
+   "number": 28,
+   "id": "q_c9e77c3d58a44c7cad569f493d53abba",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Continuity and Differentiability",
+   "stem": "Match each function in List-I with its derivative in List-II.",
+   "structure": {
+    "left": [
+     "A. $e^{\\sin x}$",
+     "B. $\\ln(\\cos x)$",
+     "C. $\\tan^{-1}(2x)$",
+     "D. $3^{x}$"
+    ],
+    "right": [
+     "I. $\\cos x\\; e^{\\sin x}$",
+     "II. $-\\tan x$",
+     "III. $\\dfrac{2}{1 + 4x^2}$",
+     "IV. $3^{x}\\ln 3$"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-II, B-I, C-III, D-IV"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-I, B-II, C-III, D-IV"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-I, B-II, C-IV, D-III"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-III, B-II, C-I, D-IV"
+    }
+   ]
+  },
+  {
+   "number": 29,
+   "id": "q_efd58b1591ad4346ad9317af17124c33",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "If $y = \\dfrac{x^2 (x+1)^3}{x+2}$ for $x > 0$, then using logarithmic differentiation the value of $\\dfrac{dy}{dx}$ at $x = 1$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{19}{6}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{152}{9}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{32}{3}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{76}{9}$"
+    }
+   ]
+  },
+  {
+   "number": 30,
+   "id": "q_f4e7570755a04fe493c4e90d9a7fecb7",
+   "type": "MCQ_SINGLE",
+   "unit": "Continuity and Differentiability",
+   "stem": "For the implicit relation $x^3 + y^3 = 3xy$, the slope function $\\dfrac{dy}{dx}$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{x^2 - y}{y^2 - x}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{y - x^2}{x - y^2}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{y - x^2}{y^2 - x}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{x^2}{y^2}$"
+    }
+   ]
+  },
+  {
+   "number": 31,
+   "id": "q_0ca8dec8122a4927b3cd4bd344622300",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "The radius of a circle increases at $2\\ \\text{cm/s}$. The rate at which its area increases when $r=3\\ \\text{cm}$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$12\\pi\\ \\text{cm}^2/\\text{s}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$6\\pi\\ \\text{cm}^2/\\text{s}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$9\\pi\\ \\text{cm}^2/\\text{s}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$18\\pi\\ \\text{cm}^2/\\text{s}$"
+    }
+   ]
+  },
+  {
+   "number": 32,
+   "id": "q_2edf549ff5e447529e764c8d8a9aad1d",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "If $f'(c)=0$ and $f''(c)<0$, then at $x=c$ the function $f$ has",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "a local minimum"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "a point of inflection only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "no conclusion can be drawn"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "a local maximum"
+    }
+   ]
+  },
+  {
+   "number": 33,
+   "id": "q_64339c6f792e44d1be9aaca699a1cc31",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "The function $f(x)=x^2-4x$ is strictly increasing on",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$(-\\infty,2)$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$(2,\\infty)$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$(-\\infty,\\infty)$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$(4,\\infty)$"
+    }
+   ]
+  },
+  {
+   "number": 34,
+   "id": "q_8d007a8d4dde441085d7dd74302ad1fb",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "The volume of a cube of edge $x$ is $V=x^3$. The rate of change of the volume with respect to the edge when $x=4$ cm is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$64\\ \\text{cm}^3/\\text{cm}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$12\\ \\text{cm}^3/\\text{cm}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$48\\ \\text{cm}^3/\\text{cm}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$16\\ \\text{cm}^3/\\text{cm}$"
+    }
+   ]
+  },
+  {
+   "number": 35,
+   "id": "q_a0a0515caba64902b5676cfed5dc6a10",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "The rate of change of the area of a circle with respect to its radius when $r=5\\ \\text{cm}$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$10\\pi\\ \\text{cm}^2/\\text{cm}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$25\\pi$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$5\\pi$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$50\\pi$"
+    }
+   ]
+  },
+  {
+   "number": 36,
+   "id": "q_bcb11b6c5c584ea19d7949ea2a0283a3",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "The critical point of $f(x)=x^2-6x+5$ is at $x=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$5$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$-3$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$3$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$6$"
+    }
+   ]
+  },
+  {
+   "number": 37,
+   "id": "q_dda37bf7260f4f44ad15354b6b14e89a",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "Examine the sign of the derivative of the downward parabola $f(x)=6x-x^2$. It rises strictly on the interval",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$(-\\infty,\\,3)$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$(3,\\,\\infty)$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$(-\\infty,\\,6)$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$(0,\\,6)$"
+    }
+   ]
+  },
+  {
+   "number": 38,
+   "id": "q_15668a7561374b18b39ea30d6ea3200a",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "Sand is poured on the ground at $12\\ \\text{cm}^3/\\text{s}$ and forms a cone whose height always equals the radius of its base. The rate at which the height increases when the height is $4$ cm is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{3}{2\\pi}\\ \\text{cm/s}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{3}{4\\pi}\\ \\text{cm/s}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{3}{16\\pi}\\ \\text{cm/s}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{4}{\\pi}\\ \\text{cm/s}$"
+    }
+   ]
+  },
+  {
+   "number": 39,
+   "id": "q_354231a009d64d65b16b5e96cb3e8b88",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "A closed right circular cylinder has volume $54\\pi\\ \\text{cm}^3$. Its least possible total surface area is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$54\\pi\\ \\text{cm}^2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$27\\pi\\ \\text{cm}^2$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$62\\pi\\ \\text{cm}^2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$59\\pi\\ \\text{cm}^2$"
+    }
+   ]
+  },
+  {
+   "number": 40,
+   "id": "q_39f9dd8fb39e4c75a0df2cc778b58924",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "Two positive numbers $x$ and $y$ have sum $12$. The maximum value of $x^2y$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$216$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$243$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$245$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$256$"
+    }
+   ]
+  },
+  {
+   "number": 41,
+   "id": "q_3fac286ab23a472589b7ae8a4bc3126d",
+   "type": "ASSERTION_REASON",
+   "unit": "Applications of derivatives",
+   "stem": "Assertion (A): Every continuous function on a closed interval $[a,b]$ attains an absolute maximum and an absolute minimum on it.\nReason (R): A local maximum of a function is always its absolute maximum.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 42,
+   "id": "q_568af76d65ac4d49a28db4fd91ce0a54",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "An open rectangular tank with a square base must hold $32\\ \\text{m}^3$ of water. If the base side is $x$ m, the least total area of sheet needed for the base and four walls is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$64\\ \\text{m}^2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$40\\ \\text{m}^2$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$48\\ \\text{m}^2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$52\\ \\text{m}^2$"
+    }
+   ]
+  },
+  {
+   "number": 43,
+   "id": "q_59ff17ea12b34f2c8ac151efd367de61",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "For $g(x)=2x^3-15x^2+36x$ on the closed interval $[1,4]$, the sum of the absolute maximum value and the absolute minimum value is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "51"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "59"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "60"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "55"
+    }
+   ]
+  },
+  {
+   "number": 44,
+   "id": "q_65f952ced33144e8b2aabd24ff6d2681",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "A $13\\ \\text{m}$ ladder leans against a wall and its foot slides away from the wall at $2\\ \\text{m/s}$. When the foot is $5\\ \\text{m}$ from the wall, the top of the ladder is moving down at",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\tfrac{24}{5}\\ \\text{m/s}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\tfrac56\\ \\text{m/s}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\tfrac{5}{12}\\ \\text{m/s}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$2\\ \\text{m/s}$"
+    }
+   ]
+  },
+  {
+   "number": 45,
+   "id": "q_99cd7934eef04dc48dcb6bbac2c68104",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "A square sheet of side $18\\ \\text{cm}$ has equal squares of side $x$ cut from each corner, and the flaps are folded up to form an open box. The maximum volume of the box is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$324\\ \\text{cm}^3$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$400\\ \\text{cm}^3$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$432\\ \\text{cm}^3$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$392\\ \\text{cm}^3$"
+    }
+   ]
+  },
+  {
+   "number": 46,
+   "id": "q_c55d115f82f6487388c6f1dcb75523b3",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "For $f(x)=x^3-9x^2+24x+3$, the local maximum value minus the local minimum value is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$-4$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$23$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$4$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$42$"
+    }
+   ]
+  },
+  {
+   "number": 47,
+   "id": "q_cfb75360d8f948e4add818f1cda68dfd",
+   "type": "ASSERTION_REASON",
+   "unit": "Applications of derivatives",
+   "stem": "**Assertion (A):** Every critical point of a differentiable function is a point of local maximum or local minimum.\n**Reason (R):** At a critical point $c$ of a differentiable function, $f'(c)=0$.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 48,
+   "id": "q_dc6099c856644a498333c90db7c731c4",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "Water is poured into a conical vessel (vertex down) of height $10\\ \\text{cm}$ and base radius $5\\ \\text{cm}$ at $25\\pi\\ \\text{cm}^3/\\text{s}$. The rate at which the water level rises when the depth is $5\\ \\text{cm}$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$3\\ \\text{cm/s}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$12\\ \\text{cm/s}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$2\\ \\text{cm/s}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$4\\ \\text{cm/s}$"
+    }
+   ]
+  },
+  {
+   "number": 49,
+   "id": "q_02033fef7b90414e82fca2c8c099a48f",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "The function $f(x)=x^3-6x^2+9x+2$ is strictly decreasing on",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$(-\\infty,1)$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$(3,\\infty)$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$(1,3)$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$(-\\infty,1)\\cup(3,\\infty)$"
+    }
+   ]
+  },
+  {
+   "number": 50,
+   "id": "q_0674400ebe6445b09db3e9de8e006df5",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "A particle moves along a line with position $s=t^3-6t^2+9t$ (in metres, $t$ in seconds). Its acceleration at the first instant when its velocity is zero is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$-6\\ \\text{m/s}^2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$6\\ \\text{m/s}^2$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$0\\ \\text{m/s}^2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$-12\\ \\text{m/s}^2$"
+    }
+   ]
+  },
+  {
+   "number": 51,
+   "id": "q_2339dd04f51a4bf2adb877cde8b98e96",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "The difference between the absolute maximum and absolute minimum values of $f(x)=x^3-3x$ on $[0,2]$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$4$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$0$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$-4$"
+    }
+   ]
+  },
+  {
+   "number": 52,
+   "id": "q_6a823ebc148544b18239089e64294932",
+   "type": "ASSERTION_REASON",
+   "unit": "Applications of derivatives",
+   "stem": "Assertion (A): For $f(x)=x^4$, the second derivative test cannot decide the nature of the critical point $x=0$, although $x=0$ is a point of local minimum.\nReason (R): For $f(x)=x^4$ we have $f'(0)=0$ and $f''(0)=0$, and the second derivative test gives no conclusion when $f''(c)=0$.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 53,
+   "id": "q_6e3c4cd5fd8948eca2fa93e3ce6d8f0b",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Applications of derivatives",
+   "stem": "Match each function in List-I with the correct description in List-II.",
+   "structure": {
+    "left": [
+     "A. $2x+\\sin x$",
+     "B. $-x^3$",
+     "C. $x^4$",
+     "D. $x^3$"
+    ],
+    "right": [
+     "I. Local minimum at $x=0$",
+     "II. Strictly increasing on $\\mathbb R$",
+     "III. Critical point at $x=0$ but no local extremum",
+     "IV. Strictly decreasing on $\\mathbb R$"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-IV, B-II, C-I, D-III"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-II, B-IV, C-I, D-III"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-II, B-IV, C-III, D-I"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-I, B-IV, C-II, D-III"
+    }
+   ]
+  },
+  {
+   "number": 54,
+   "id": "q_9139feac3bc74b3ab59a218069f057b5",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "Volume of a spherical balloon is increasing at $50\\pi\\ \\text{cm}^3/\\text{s}$. The rate at which its radius increases when $r=5\\ \\text{cm}$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$2\\ \\text{cm/s}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$0.5\\ \\text{cm/s}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$5\\ \\text{cm/s}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$0.25\\ \\text{cm/s}$"
+    }
+   ]
+  },
+  {
+   "number": 55,
+   "id": "q_978af93cc9d243c6a13b595d6b53685c",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "The edge of a cube is increasing at $3\\ \\text{cm/s}$. When the edge is $10\\ \\text{cm}$, the rate of increase of its volume is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$900\\ \\text{cm}^3/\\text{s}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$300\\ \\text{cm}^3/\\text{s}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$90\\ \\text{cm}^3/\\text{s}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$1000\\ \\text{cm}^3/\\text{s}$"
+    }
+   ]
+  },
+  {
+   "number": 56,
+   "id": "q_9c5a22260b8440c6b38e5b89bd03c75f",
+   "type": "STATEMENT_BASED",
+   "unit": "Applications of derivatives",
+   "stem": "Consider the following statements about maxima and minima.\nA. If $f'$ changes sign from $+$ to $-$ at $c$, then $f$ has a local maximum at $c$.\nB. If $f'$ does not change sign at a critical point $c$, then $c$ is neither a local maximum nor a local minimum.\nC. If $f'(c)=0$, then $f$ always has a local extremum at $c$.\nD. If $f'(c)=0$ and $f''(c)=0$, the second derivative test gives no information.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, B and D only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A and C only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, B, C and D"
+    }
+   ]
+  },
+  {
+   "number": 57,
+   "id": "q_abc2afe5ec204c11b58b1f99b720bb6a",
+   "type": "STATEMENT_BASED",
+   "unit": "Applications of derivatives",
+   "stem": "Consider the following statements about increasing functions and extrema.\nA. If $f'(x)>0$ on an interval, then $f$ is strictly increasing there.\nB. If $f'(c)=0$, then $f$ must have a local extremum at $c$.\nC. A continuous function on a closed interval has an absolute maximum and an absolute minimum.\nD. A local maximum value is always larger than every local minimum value.\nChoose the correct answer.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and B only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "B and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A, C and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A and C only"
+    }
+   ]
+  },
+  {
+   "number": 58,
+   "id": "q_b2a9427c4937463dab6c1732c3639d93",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "The local minimum value of $f(x)=2x^3-9x^2+12x+5$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "10"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "5"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "9"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "14"
+    }
+   ]
+  },
+  {
+   "number": 59,
+   "id": "q_f38b9eab453f4ceda7021d8aae6ad46f",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Applications of derivatives",
+   "stem": "Match the condition at a critical point $c$ in List-I with the conclusion in List-II.",
+   "structure": {
+    "left": [
+     "A. $f'$ changes sign from $-$ to $+$ at $c$",
+     "B. $f'(c)=0$ and $f''(c)>0$",
+     "C. $f'$ changes sign from $+$ to $-$ at $c$",
+     "D. $f'(c)=0$ and $f''(c)<0$"
+    ],
+    "right": [
+     "I. Local maximum by the first derivative test",
+     "II. Local minimum by the first derivative test",
+     "III. Local maximum by the second derivative test",
+     "IV. Local minimum by the second derivative test"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-II, B-IV, C-I, D-III"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-I, B-IV, C-II, D-III"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-II, B-III, C-I, D-IV"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-IV, B-II, C-III, D-I"
+    }
+   ]
+  },
+  {
+   "number": 60,
+   "id": "q_f7069789d8f74d76ba21f3f25bedf120",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of derivatives",
+   "stem": "The local maximum value of $f(x)=x^3-12x$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$-16$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$2$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$-2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$16$"
+    }
+   ]
+  },
+  {
+   "number": 61,
+   "id": "q_026cc057629149c2b417e2760b39a3a3",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Using the Fundamental Theorem of Calculus with an antiderivative of the integrand, the value of $\\displaystyle\\int_0^2\\left(3x^2-2x\\right)dx$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "8"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "4"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "6"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "2"
+    }
+   ]
+  },
+  {
+   "number": 62,
+   "id": "q_029cb6fe1b994c16bdbb0c075d14663c",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Trigonometric integrand: $\\displaystyle\\int_0^{\\pi}\\sin x\\,dx=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$0$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$-2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$1$"
+    }
+   ]
+  },
+  {
+   "number": 63,
+   "id": "q_22ee545dfd7c430cb98991d6309356f6",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Term by term: $\\displaystyle\\int(3x^2+2x+1)\\,dx=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$x^3+x^2+x+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$6x+2+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$x^3+x^2+x$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$3x^3+2x^2+x+C$"
+    }
+   ]
+  },
+  {
+   "number": 64,
+   "id": "q_68a12b9165cf435888242b39d8c3e6d0",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Using standard antiderivatives, $\\displaystyle\\int\\left(\\sec^2x+4x^3\\right)dx$ equals",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\tan x+x^4+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\tan x+\\dfrac{x^4}{4}+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$-\\cot x+x^4+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\sec x+x^4+C$"
+    }
+   ]
+  },
+  {
+   "number": 65,
+   "id": "q_940916411a06412084b99e9a190d2dfe",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Root of a squared minus x squared: $\\displaystyle\\int\\frac{dx}{\\sqrt{16-x^2}}=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\sin^{-1}x+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac14\\sin^{-1}\\dfrac x4+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\sin^{-1}\\dfrac x4+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\ln\\left|x+\\sqrt{16-x^2}\\right|+C$"
+    }
+   ]
+  },
+  {
+   "number": 66,
+   "id": "q_a7054cc5694e4e328c258f9c1005b6ca",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "By the Fundamental Theorem of Calculus, $\\displaystyle\\int_0^1(2x+3)\\,dx=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$3$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$5$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$4$"
+    }
+   ]
+  },
+  {
+   "number": 67,
+   "id": "q_bb2947ebbb9d4bd189c51ada3df403a7",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "A student recalls the standard form for a squared difference in the denominator and writes down $\\displaystyle\\int\\frac{dx}{25-x^2}$ as",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac1{10}\\ln\\left|\\dfrac{5-x}{5+x}\\right|+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac15\\ln\\left|\\dfrac{5+x}{5-x}\\right|+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac15\\tan^{-1}\\dfrac x5+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac1{10}\\ln\\left|\\dfrac{5+x}{5-x}\\right|+C$"
+    }
+   ]
+  },
+  {
+   "number": 68,
+   "id": "q_d2addeee5c2544bdb124aa894de6cbbc",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Plus sign under the denominator: $\\displaystyle\\int\\frac{dx}{x^2+9}=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\tan^{-1}\\dfrac x3+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac13\\tan^{-1}\\dfrac x3+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac19\\tan^{-1}\\dfrac x3+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac13\\ln\\left|\\dfrac{x-3}{x+3}\\right|+C$"
+    }
+   ]
+  },
+  {
+   "number": 69,
+   "id": "q_096dc5707b804cd0ae42293029fa2206",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "The value of $\\displaystyle\\int_0^{\\pi/4}\\ln\\left(1+\\tan x\\right)dx$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac\\pi4\\ln2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac\\pi{16}\\ln2$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac\\pi8\\ln2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\ln2$"
+    }
+   ]
+  },
+  {
+   "number": 70,
+   "id": "q_2ea98b3ceacf41debdf76d02039bbad0",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Repeated parts: $\\displaystyle\\int x^2e^x\\,dx=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$e^x(x^2-2x+2)+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$e^x(x^2+2x+2)+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$e^x(x^2-2x)+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{x^3}3e^x+C$"
+    }
+   ]
+  },
+  {
+   "number": 71,
+   "id": "q_43b362dfe49b4fe89cbb1e571fbbd2ae",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Derivative of the denominator in the numerator: $\\displaystyle\\int\\frac{2x+3}{x^2+4x+5}\\,dx=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\ln(x^2+4x+5)+\\tan^{-1}(x+2)+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\ln(x^2+4x+5)-\\tan^{-1}(x+2)+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\tfrac12\\ln(x^2+4x+5)-\\tan^{-1}(x+2)+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\ln(x^2+4x+5)-\\tan^{-1}(x)+C$"
+    }
+   ]
+  },
+  {
+   "number": 72,
+   "id": "q_4764ee6764ab46a893083a534aca7ded",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Applying the formula for the square root of a sum of squares, $\\displaystyle\\int\\sqrt{x^2+4}\\,dx$ can be written as",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac x2\\sqrt{x^2+4}+4\\ln\\left|x+\\sqrt{x^2+4}\\right|+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac x2\\sqrt{x^2+4}-2\\ln\\left|x+\\sqrt{x^2+4}\\right|+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac x2\\sqrt{x^2+4}+\\dfrac12\\ln\\left|x+\\sqrt{x^2+4}\\right|+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac x2\\sqrt{x^2+4}+2\\ln\\left|x+\\sqrt{x^2+4}\\right|+C$"
+    }
+   ]
+  },
+  {
+   "number": 73,
+   "id": "q_671b15c3caf54418a8df57cff2d01fb3",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "King property of definite integrals: $\\displaystyle\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac\\pi2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac\\pi4$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{\\pi}{8}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$1$"
+    }
+   ]
+  },
+  {
+   "number": 74,
+   "id": "q_739396af2dd6433a91fb9793371e1028",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Completing the square under a root: $\\displaystyle\\int\\frac{dx}{\\sqrt{5-4x-x^2}}=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\sin^{-1}\\dfrac{x+2}{\\sqrt5}+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\sin^{-1}\\dfrac{x-2}3+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\sin^{-1}\\dfrac{x+2}3+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\ln\\left|x+2+\\sqrt{5-4x-x^2}\\right|+C$"
+    }
+   ]
+  },
+  {
+   "number": 75,
+   "id": "q_7850a868be4e4e349d736b770975921f",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Splitting the numerator into a multiple of the derivative of the denominator plus a constant, the result of $\\displaystyle\\int\\frac{3x+2}{x^2+2x+5}\\,dx$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac32\\ln\\left(x^2+2x+5\\right)-\\dfrac12\\tan^{-1}\\dfrac{x+1}{2}+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac32\\ln\\left(x^2+2x+5\\right)+\\dfrac12\\tan^{-1}\\dfrac{x+1}{2}+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$3\\ln\\left(x^2+2x+5\\right)-\\dfrac12\\tan^{-1}\\dfrac{x+1}{2}+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac32\\ln\\left(x^2+2x+5\\right)-\\tan^{-1}\\dfrac{x+1}{2}+C$"
+    }
+   ]
+  },
+  {
+   "number": 76,
+   "id": "q_812df7ff6c894f858a21f26a555feba6",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Quarter-circle type: $\\displaystyle\\int_0^3\\sqrt{9-x^2}\\,dx=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{9\\pi}2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{3\\pi}4$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$9\\pi$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{9\\pi}4$"
+    }
+   ]
+  },
+  {
+   "number": 77,
+   "id": "q_90cd8a2da2b34a398caf6836d64ca3b7",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Exponential-pattern integral: $\\displaystyle\\int e^x\\left(\\frac1x-\\frac1{x^2}\\right)dx=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{e^x}{x^2}+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$e^x\\ln x+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{e^x}x+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$-\\dfrac{e^x}x+C$"
+    }
+   ]
+  },
+  {
+   "number": 78,
+   "id": "q_98120bfd334c4fa68b1519912cf7cb14",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Parts with a logarithm over limits: $\\displaystyle\\int_1^e x\\ln x\\,dx=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{e^2-1}4$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{e^2}2$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{e^2+1}2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{e^2+1}4$"
+    }
+   ]
+  },
+  {
+   "number": 79,
+   "id": "q_0b15f2ca30fe48108bb662a3375172e6",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Complete the square: $\\displaystyle\\int\\frac{dx}{x^2+2x+5}=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\tan^{-1}(x+1)+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac12\\tan^{-1}\\dfrac x2+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac15\\tan^{-1}\\dfrac{x+1}5+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac12\\tan^{-1}\\dfrac{x+1}2+C$"
+    }
+   ]
+  },
+  {
+   "number": 80,
+   "id": "q_55ebb3b7f3f64383a3182e4760ec4939",
+   "type": "STATEMENT_BASED",
+   "unit": "Integrals",
+   "stem": "Consider these properties of definite integrals.\nA. $\\displaystyle\\int_a^bf(x)\\,dx=\\int_a^bf(a+b-x)\\,dx$.\nB. If $f$ is even, then $\\displaystyle\\int_{-a}^{a}f(x)\\,dx=2\\int_0^af(x)\\,dx$.\nC. $\\displaystyle\\int_0^{2a}f(x)\\,dx=2\\int_0^af(x)\\,dx$ for every function $f$.\nD. $\\displaystyle\\int_a^bf(x)\\,dx=\\int_b^af(x)\\,dx$.\nWhich are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and B only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "C and D only"
+    }
+   ]
+  },
+  {
+   "number": 81,
+   "id": "q_5e0116a43040451f8b04e9f91f1c0564",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Coefficient in a standard result: $\\displaystyle\\int\\sqrt{x^2-16}\\,dx=\\dfrac x2\\sqrt{x^2-16}-k\\ln\\left|x+\\sqrt{x^2-16}\\right|+C$. The value of $k$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$8$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$16$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$4$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$2$"
+    }
+   ]
+  },
+  {
+   "number": 82,
+   "id": "q_6fc67066c85f40d887c8678460668097",
+   "type": "ASSERTION_REASON",
+   "unit": "Integrals",
+   "stem": "Assertion (A): $\\displaystyle\\int_{-2}^{2}x^3\\,dx=0$.\nReason (R): For an odd function $f$, $\\displaystyle\\int_{-a}^{a}f(x)\\,dx=0$.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 83,
+   "id": "q_7ad236060da84e758392c25ab5997e83",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Integrals",
+   "stem": "Match the integrals in List-I with their results (constant omitted) in List-II.",
+   "structure": {
+    "left": [
+     "A. $\\int\\dfrac{dx}{x^2+4}$",
+     "B. $\\int\\dfrac{dx}{\\sqrt{4-x^2}}$",
+     "C. $\\int\\dfrac{dx}{4-x^2}$",
+     "D. $\\int\\dfrac{dx}{\\sqrt{x^2-4}}$"
+    ],
+    "right": [
+     "I. $\\sin^{-1}\\dfrac x2$",
+     "II. $\\dfrac12\\tan^{-1}\\dfrac x2$",
+     "III. $\\dfrac14\\ln\\left|\\dfrac{2+x}{2-x}\\right|$",
+     "IV. $\\ln\\left|x+\\sqrt{x^2-4}\\right|$"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-II, B-I, C-III, D-IV"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-I, B-II, C-III, D-IV"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-II, B-I, C-IV, D-III"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-III, B-I, C-II, D-IV"
+    }
+   ]
+  },
+  {
+   "number": 84,
+   "id": "q_8c35a00e270d44d5a49ef9650193a9fe",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Integrals",
+   "stem": "Match each integral in List-I with its result (constant omitted) in List-II.",
+   "structure": {
+    "left": [
+     "A. $\\displaystyle\\int\\frac{dx}{x^2+16}$",
+     "B. $\\displaystyle\\int\\frac{dx}{\\sqrt{x^2+9}}$",
+     "C. $\\displaystyle\\int\\frac{dx}{\\sqrt{16-x^2}}$",
+     "D. $\\displaystyle\\int\\frac{dx}{x^2-4}$"
+    ],
+    "right": [
+     "I. $\\ln\\left|x+\\sqrt{x^2+9}\\right|$",
+     "II. $\\dfrac14\\ln\\left|\\dfrac{x-2}{x+2}\\right|$",
+     "III. $\\dfrac14\\tan^{-1}\\dfrac x4$",
+     "IV. $\\sin^{-1}\\dfrac x4$"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-I, B-III, C-IV, D-II"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-III, B-I, C-II, D-IV"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-III, B-I, C-IV, D-II"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-II, B-I, C-IV, D-III"
+    }
+   ]
+  },
+  {
+   "number": 85,
+   "id": "q_9424ecef220a4f0db28d39e19371536f",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Partial fractions: $\\displaystyle\\int\\frac{dx}{(x-1)(x-2)}=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\ln\\left|\\dfrac{x-1}{x-2}\\right|+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\ln|(x-1)(x-2)|+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\ln\\left|\\dfrac{x-2}{x-1}\\right|+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac12\\ln\\left|\\dfrac{x-2}{x-1}\\right|+C$"
+    }
+   ]
+  },
+  {
+   "number": 86,
+   "id": "q_961072de807f4ce8bca5df52abea7b19",
+   "type": "ASSERTION_REASON",
+   "unit": "Integrals",
+   "stem": "**Assertion (A):** $\\displaystyle\\int_{-\\pi/2}^{\\pi/2}\\sin^3x\\,dx=0$.\n**Reason (R):** If $f$ is an even function, then $\\displaystyle\\int_{-a}^{a}f(x)\\,dx=2\\int_0^af(x)\\,dx$.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 87,
+   "id": "q_9d0a9051a12045919d1eb526f0dc3ae6",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Integration by parts: $\\displaystyle\\int x\\,e^{x}\\,dx=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$e^x(x+1)+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$e^x(x-1)+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{x^2}2e^x+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$xe^x+C$"
+    }
+   ]
+  },
+  {
+   "number": 88,
+   "id": "q_d9547ce79f7f44c6be4db5d01aa90e20",
+   "type": "STATEMENT_BASED",
+   "unit": "Integrals",
+   "stem": "Consider the following standard integrals (constants of integration omitted).\nA. $\\int\\dfrac{dx}{a^2-x^2}=\\dfrac1{2a}\\ln\\left|\\dfrac{a+x}{a-x}\\right|$\nB. $\\int\\dfrac{dx}{\\sqrt{x^2-a^2}}=\\sin^{-1}\\dfrac xa$\nC. $\\int\\dfrac{dx}{x^2+a^2}=\\dfrac1a\\tan^{-1}\\dfrac xa$\nD. $\\int\\dfrac{dx}{\\sqrt{a^2-x^2}}=\\sin^{-1}\\dfrac xa$\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, C and D only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A and D only"
+    }
+   ]
+  },
+  {
+   "number": 89,
+   "id": "q_ddd08c087eba45858e0c5537417bb2de",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "The antiderivative $\\displaystyle\\int x\\cos x\\,dx$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$x\\sin x-\\cos x+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$x\\sin x+\\cos x+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$-x\\sin x+\\cos x+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{x^2}{2}\\sin x+C$"
+    }
+   ]
+  },
+  {
+   "number": 90,
+   "id": "q_e96c51e5a9364b7980dfcfc4c15c8f6c",
+   "type": "MCQ_SINGLE",
+   "unit": "Integrals",
+   "stem": "Substitution: $\\displaystyle\\int 2x\\cos\\left(x^2\\right)dx=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\sin x^2\\cdot x+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$-\\sin\\left(x^2\\right)+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\sin\\left(x^2\\right)+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$2x\\sin\\left(x^2\\right)+C$"
+    }
+   ]
+  },
+  {
+   "number": 91,
+   "id": "q_0830a0e37b7a4804b41f75f15b3c7870",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "A flower bed in a park has the elliptical boundary $\\dfrac{x^2}{4}+\\dfrac{y^2}{25}=1$, with lengths in metres. Using the ellipse area formula, the bed covers",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$20\\pi$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$5\\pi$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$10\\pi$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$29\\pi$ square units"
+    }
+   ]
+  },
+  {
+   "number": 92,
+   "id": "q_1c8c387fa32c4a87869c22019fb3402b",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area enclosed by the ellipse $\\dfrac{x^2}9+\\dfrac{y^2}4=1$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$36\\pi$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$5\\pi$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$6\\pi$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$13\\pi$ square units"
+    }
+   ]
+  },
+  {
+   "number": 93,
+   "id": "q_47aeebd944eb4774b38487c682f07a68",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area enclosed by the circle $x^2+y^2=16$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$4\\pi$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$16\\pi$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$8\\pi$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$32\\pi$ square units"
+    }
+   ]
+  },
+  {
+   "number": 94,
+   "id": "q_77c39e5683e449bab1122988847f78c2",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area bounded by the line $y=x$, the $x$-axis and the line $x=4$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$8$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$16$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$4$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$12$ square units"
+    }
+   ]
+  },
+  {
+   "number": 95,
+   "id": "q_9d981559e75e4071ab1ce9327475313b",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "A strip of land lies under the sloping line $y=x+1$ and above the $x$-axis, between the vertical edges $x=1$ and $x=3$. Its area is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "8 square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "6 square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "4 square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "10 square units"
+    }
+   ]
+  },
+  {
+   "number": 96,
+   "id": "q_a8bcd91a7e224c3f87925eb8faf74970",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area of the region bounded by $y=2x$, the $x$-axis and the line $x=3$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$18$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$6$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$3$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$9$ square units"
+    }
+   ]
+  },
+  {
+   "number": 97,
+   "id": "q_d1aa651b92d44bc081fc3c4d8058331e",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area of the region bounded by $y=x^2$, the $x$-axis and the lines $x=0$ and $x=3$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$9$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$27$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$3$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac92$ square units"
+    }
+   ]
+  },
+  {
+   "number": 98,
+   "id": "q_26cd803b5cef498e820d925a6d0a9b8c",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The total area enclosed between the curves $y=x^3$ and $y=x$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac12$ square unit"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$0$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac14$ square unit"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$1$ square unit"
+    }
+   ]
+  },
+  {
+   "number": 99,
+   "id": "q_6182fabddcd34bcd99085a835efee1de",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The smaller region bounded by the circle $x^2+y^2=4$ and the line $x+y=2$ has area",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$(\\pi-2)$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$(2-\\pi)$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$2$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\pi$ square units"
+    }
+   ]
+  },
+  {
+   "number": 100,
+   "id": "q_62796bc9eded4999abcaafe67ed31c01",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area of the smaller region of the circle $x^2+y^2=4$ cut off by the line $x=1$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{2\\pi}3-\\dfrac{\\sqrt3}2$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{4\\pi}3$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{4\\pi}3-\\sqrt3$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\pi-\\sqrt3$ square units"
+    }
+   ]
+  },
+  {
+   "number": 101,
+   "id": "q_6a7bcaba94a04147ba95ca2240de94ba",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "Consider the region between $y=x^2$ and $y=x$ for $0\\le x\\le2$ (the curves cross within this strip). Its total area is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac23$ square unit"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$1$ square unit"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac56$ square unit"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac16$ square unit"
+    }
+   ]
+  },
+  {
+   "number": 102,
+   "id": "q_6f36d4bbaf0f49b6811143a108223a18",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "Integrating with respect to $y$ is the easier route when a region lies between the parabola $y^2=x$ and the chord $y=x-2$. The area of that region is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$9$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac72$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{11}{2}$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac92$ square units"
+    }
+   ]
+  },
+  {
+   "number": 103,
+   "id": "q_8222faab259c48a7b87c4f6dd4eac22f",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area of the region enclosed between the line $y=2$ and the curve $y=|x|$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$2$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$4$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$8$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$3$ square units"
+    }
+   ]
+  },
+  {
+   "number": 104,
+   "id": "q_82adf6ba48a245159cdec7ba4151f3d2",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "Parabola and a horizontal line: The area enclosed between the parabola $y=x^2$ and the line $y=4$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{16}3$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{32}3$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$16$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{8}3$ square units"
+    }
+   ]
+  },
+  {
+   "number": 105,
+   "id": "q_a84d25ea4b454ee48d971e623b707877",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area of that part of the circle $x^2+y^2=8$ which lies inside the parabola $y^2=2x$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\left(6\\pi-\\dfrac43\\right)$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\left(2\\pi-\\dfrac43\\right)$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\left(2\\pi+\\dfrac43\\right)$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$4\\pi$ square units"
+    }
+   ]
+  },
+  {
+   "number": 106,
+   "id": "q_aaecd84162734167bc6781f6d2b93393",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The total area between the curve $y=\\sin x$ and the $x$-axis from $x=0$ to $x=2\\pi$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$0$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$2$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$4$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$8$ square units"
+    }
+   ]
+  },
+  {
+   "number": 107,
+   "id": "q_b806882a47a745f4908711e5eb7b7693",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area bounded by the parabolas $y^2=4x$ and $x^2=4y$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac83$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{32}3$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$16$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{16}3$ square units"
+    }
+   ]
+  },
+  {
+   "number": 108,
+   "id": "q_d2ff057724e94ab0af5048a53d1f565d",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "General equation of a circle: The area enclosed by the circle $x^2+y^2-4x+6y-12=0$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$12\\pi$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$5\\pi$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$13\\pi$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$25\\pi$ square units"
+    }
+   ]
+  },
+  {
+   "number": 109,
+   "id": "q_060117dab23447d7bd840266af2991c4",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "Parabola and a slanted line: The area enclosed between the parabola $y^2=4x$ and the line $y=x$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{16}3$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac83$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$8$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{32}3$ square units"
+    }
+   ]
+  },
+  {
+   "number": 110,
+   "id": "q_1d35c3e5edf141828f274586e7d3d00e",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area bounded by the parabola $y^2=4x$ and the line $x=1$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac43$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac83$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$4$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{16}3$ square units"
+    }
+   ]
+  },
+  {
+   "number": 111,
+   "id": "q_29ac66c5fbf94130b141a705cfa8a3d4",
+   "type": "ASSERTION_REASON",
+   "unit": "Applications of the Integrals",
+   "stem": "**Assertion (A):** The area enclosed by $y=x^2$ and the line $y=1$ is $\\dfrac43$ square units.\n**Reason (R):** For two curves with $f(x)\\ge g(x)$ on $[a,b]$, the enclosed area is $\\displaystyle\\int_a^b\\left(g(x)-f(x)\\right)dx$.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 112,
+   "id": "q_36c24d14e9474048a60adb5d73b10ede",
+   "type": "ASSERTION_REASON",
+   "unit": "Applications of the Integrals",
+   "stem": "Assertion (A): The area bounded by $y=x^3$, the $x$-axis and the lines $x=-1$ and $x=1$ is $0$.\nReason (R): $\\displaystyle\\int_{-1}^{1}x^3\\,dx=0$.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 113,
+   "id": "q_5952cb318a624588b99636ae7e3410de",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area enclosed between the curves $y=x$ and $y=x^2$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac12$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac13$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac16$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac56$ square units"
+    }
+   ]
+  },
+  {
+   "number": 114,
+   "id": "q_5dffd961016d4075b011e61634a1ae88",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area of the region of the circle $x^2+y^2=25$ lying in the first quadrant is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$25\\pi$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{25\\pi}2$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{5\\pi}4$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{25\\pi}4$ square units"
+    }
+   ]
+  },
+  {
+   "number": 115,
+   "id": "q_5f55a16fa3864d7c87308690d5f2069d",
+   "type": "STATEMENT_BASED",
+   "unit": "Applications of the Integrals",
+   "stem": "Consider the following statements about area.\nA. The area between $y=f(x)$ and $y=g(x)$ over $[a,b]$ with $f\\ge g$ is $\\displaystyle\\int_a^b(f-g)\\,dx$.\nB. The area of the ellipse $\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}=1$ is $\\pi ab$.\nC. For $y\\ge0$ on $[a,b]$, the area under the curve is $\\displaystyle\\int_a^by\\,dx$.\nD. The area between $y=\\sin x$ and the $x$-axis from $0$ to $2\\pi$ equals $\\displaystyle\\int_0^{2\\pi}\\sin x\\,dx=0$.\nSelect the correct option.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A, B, C and D"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A and D only"
+    }
+   ]
+  },
+  {
+   "number": 116,
+   "id": "q_96c3fd588a3e47bfbe0660d96adc3f7f",
+   "type": "STATEMENT_BASED",
+   "unit": "Applications of the Integrals",
+   "stem": "Consider the following statements about area using integration.\nA. For $f(x)\\ge0$ on $[a,b]$, the area under the curve is $\\int_a^bf(x)\\,dx$.\nB. If the curve lies below the $x$-axis, the area is $\\left|\\int_a^bf(x)\\,dx\\right|$.\nC. The area of the ellipse $\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}=1$ is $\\pi(a+b)$.\nD. If a curve crosses the $x$-axis inside $[a,b]$, the area is always $\\int_a^bf(x)\\,dx$.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and B only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, B and D only"
+    }
+   ]
+  },
+  {
+   "number": 117,
+   "id": "q_aa06ce991aa541fdb4d360d74be29121",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Applications of the Integrals",
+   "stem": "Match each region in List-I with its area in List-II.",
+   "structure": {
+    "left": [
+     "A. Circle $x^2+y^2=9$",
+     "B. Ellipse $\\dfrac{x^2}{25}+\\dfrac{y^2}{16}=1$",
+     "C. Region bounded by $y^2=4x$ and $x=4$",
+     "D. Region under $y=x$, above the $x$-axis, up to $x=2$"
+    ],
+    "right": [
+     "I. $2$ square units",
+     "II. $9\\pi$ square units",
+     "III. $20\\pi$ square units",
+     "IV. $\\dfrac{64}3$ square units"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-II, B-III, C-IV, D-I"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-II, B-III, C-I, D-IV"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-III, B-II, C-IV, D-I"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-II, B-IV, C-III, D-I"
+    }
+   ]
+  },
+  {
+   "number": 118,
+   "id": "q_acc209610d6f4e368653c54ff6db5681",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Applications of the Integrals",
+   "stem": "Match each region in List-I with its area in List-II.",
+   "structure": {
+    "left": [
+     "A. Under $y=x^2$ from $x=0$ to $x=2$",
+     "B. Under $y=\\sqrt x$ from $x=0$ to $x=4$",
+     "C. Inside $y^2=9x$ up to the line $x=1$",
+     "D. Upper half of $x^2+y^2=4$"
+    ],
+    "right": [
+     "I. $2\\pi$",
+     "II. $4$",
+     "III. $\\dfrac83$",
+     "IV. $\\dfrac{16}3$"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-IV, B-III, C-II, D-I"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-III, B-IV, C-I, D-II"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-II, B-IV, C-III, D-I"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-III, B-IV, C-II, D-I"
+    }
+   ]
+  },
+  {
+   "number": 119,
+   "id": "q_c9e7850270454e9aa45e4524d022d8da",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area of the region bounded by the parabola $y=x^2$ and the line $y=4x$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{64}{3}$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{32}{3}$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$16$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{16}{3}$ square units"
+    }
+   ]
+  },
+  {
+   "number": 120,
+   "id": "q_c9fb77030a57473bbd05541a5e9d9a28",
+   "type": "MCQ_SINGLE",
+   "unit": "Applications of the Integrals",
+   "stem": "The area of the part of the ellipse $\\dfrac{x^2}{16}+\\dfrac{y^2}9=1$ in the first quadrant is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$3\\pi$ square units"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$12\\pi$ square units"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$6\\pi$ square units"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{3\\pi}2$ square units"
+    }
+   ]
+  },
+  {
+   "number": 121,
+   "id": "q_0de5fd3a65e54b4089a90e646efb7773",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Which of the following is the general solution of the differential equation $\\dfrac{dy}{dx}=e^{x+y}$?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$e^{x}-e^{-y}=C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$e^{x}+e^{y}=C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$e^{x}+e^{-y}=C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$e^{-x}+e^{-y}=C$"
+    }
+   ]
+  },
+  {
+   "number": 122,
+   "id": "q_30e01c03cdec4efaa3efdb6a902a55e4",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Which of the following differential equations has its degree **not defined**?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\left(\\dfrac{dy}{dx}\\right)^3+y=0$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{d^3y}{dx^3}+\\dfrac{dy}{dx}=0$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\left(\\dfrac{d^2y}{dx^2}\\right)^2+x=0$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{d^2y}{dx^2}+\\sin\\left(\\dfrac{dy}{dx}\\right)=0$"
+    }
+   ]
+  },
+  {
+   "number": 123,
+   "id": "q_3b1cf927c85641e9a0fc6334883ce91f",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "The order and degree of the differential equation $\\left[1+\\left(\\dfrac{dy}{dx}\\right)^2\\right]^{3/2}=\\dfrac{d^2y}{dx^2}$ are respectively",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "order 2, degree 2"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "order 2, degree 3"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "order 2, degree 1"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "order 1, degree 3"
+    }
+   ]
+  },
+  {
+   "number": 124,
+   "id": "q_99dc07f3749a443db9b7cf905a578cc4",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "A particular solution of a second-order differential equation contains how many arbitrary constants?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "1"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "2"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "3"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "0"
+    }
+   ]
+  },
+  {
+   "number": 125,
+   "id": "q_9e69fd8292d642cba05e425140b95944",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "The general solution of a third-order differential equation contains how many independent arbitrary constants?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$1$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$2$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$3$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$4$"
+    }
+   ]
+  },
+  {
+   "number": 126,
+   "id": "q_a2e431f807994ba7adff512e669fe109",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "The integrating factor of $\\dfrac{dy}{dx}+2y=e^x$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$e^{x}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$e^{2x}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$2x$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$e^{-2x}$"
+    }
+   ]
+  },
+  {
+   "number": 127,
+   "id": "q_a7077193374d43a98ab64cd30dcd6ce1",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Highest derivative and its power: The order and degree of $\\left(\\dfrac{d^2y}{dx^2}\\right)^3+\\left(\\dfrac{dy}{dx}\\right)^4+y=0$ are respectively",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$2$ and $3$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$3$ and $2$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$1$ and $4$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$2$ and $4$"
+    }
+   ]
+  },
+  {
+   "number": 128,
+   "id": "q_cc9b427c69ea436992d9b1cbf5c1ab4a",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "The curve of the family $\\dfrac{dy}{dx}=2x$ that passes through the point $(1,3)$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$y=x^2+2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$y=x^2+3$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$y=x^2-2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$y=2x+1$"
+    }
+   ]
+  },
+  {
+   "number": 129,
+   "id": "q_0465194c526347c4a87b463807bc1205",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "The general solution of $\\dfrac{dy}{dx}+\\dfrac yx=\\sin x$ for $x>0$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$xy=\\sin x-x\\cos x+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$xy=\\sin x+x\\cos x+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$y=\\sin x-x\\cos x+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$xy=-\\cos x+C$"
+    }
+   ]
+  },
+  {
+   "number": 130,
+   "id": "q_06850bf9f241463aa55739fc5cff78ae",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Trigonometric integrating factor: The general solution of $\\dfrac{dy}{dx}+y\\tan x=\\sec x$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$y=\\sin x+C$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$y=\\cos x+C\\sin x$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$y=\\sin x+C\\cos x$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$y=\\tan x+C\\cos x$"
+    }
+   ]
+  },
+  {
+   "number": 131,
+   "id": "q_205a83ede9ae460ab1b273a75cef875c",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "If $y(x)$ satisfies $x\\dfrac{dy}{dx}+2y=x^2$ for $x>0$ and $y(1)=1$, then $y(2)=$",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{19}{16}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{5}4$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$1$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{13}{16}$"
+    }
+   ]
+  },
+  {
+   "number": 132,
+   "id": "q_283d876f07dd41ca984f7866df49d0b4",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "The differential equation of the family of circles $x^2+y^2=2ax$, where $a$ is an arbitrary constant, is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$2xy\\dfrac{dy}{dx}=x^2-y^2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$2xy\\dfrac{dy}{dx}=x^2+y^2$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$xy\\dfrac{dy}{dx}=y^2-x^2$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$2xy\\dfrac{dy}{dx}=y^2-x^2$"
+    }
+   ]
+  },
+  {
+   "number": 133,
+   "id": "q_7f05b69f6ddd4d91ae28b29afb6f2e9d",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Inverse tangent separation: The solution of $\\dfrac{dy}{dx}=\\dfrac{1+y^2}{1+x^2}$ with $y(0)=\\sqrt3$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$y=\\dfrac{x-\\sqrt3}{1+\\sqrt3\\,x}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$y=\\dfrac{x+\\sqrt3}{1+\\sqrt3\\,x}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$y=x+\\sqrt3$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$y=\\dfrac{x+\\sqrt3}{1-\\sqrt3\\,x}$"
+    }
+   ]
+  },
+  {
+   "number": 134,
+   "id": "q_8e78bb5af3bd49cbbfee308f2c9819f1",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Reducing by the substitution $y=vx$ and then integrating, the curves satisfying $\\dfrac{dy}{dx}=\\dfrac{x^2+y^2}{2xy}$ are given by",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$x^2+y^2=Cx$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$x^2-y^2=Cx$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$x^2-y^2=C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$y^2-x^2=Cx^2$"
+    }
+   ]
+  },
+  {
+   "number": 135,
+   "id": "q_a31408211d914f0d98249880d36e7238",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "The differential equation of the family of curves $y=Ae^{2x}+Be^{-2x}$, where $A,B$ are arbitrary constants, is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\dfrac{d^2y}{dx^2}+4y=0$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\dfrac{d^2y}{dx^2}-4y=0$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\dfrac{dy}{dx}-2y=0$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{d^2y}{dx^2}-2y=0$"
+    }
+   ]
+  },
+  {
+   "number": 136,
+   "id": "q_c5a9802c33cd42a19f118ffae03ad0e6",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Linear initial value problem: The solution of $\\dfrac{dy}{dx}+2y=4x$ with $y(0)=1$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$y=2x-1+2e^{-2x}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$y=2x-1+3e^{-2x}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$y=2x-1+e^{-2x}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$y=2x-1+2e^{2x}$"
+    }
+   ]
+  },
+  {
+   "number": 137,
+   "id": "q_ed1dc0e1db714c9a9399b1461224a6f6",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "The differential equation of the family of parabolas $y^2=4ax$, where $a$ is an arbitrary constant, is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$2y=x\\dfrac{dy}{dx}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$y\\dfrac{dy}{dx}=2x$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$y=2x\\dfrac{dy}{dx}$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\dfrac{dy}{dx}=2xy$"
+    }
+   ]
+  },
+  {
+   "number": 138,
+   "id": "q_f617f1fd6a01485799311534ce5fc76a",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Homogeneous with tangent: The general solution of $\\dfrac{dy}{dx}=\\dfrac yx+\\tan\\dfrac yx$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$\\cos\\dfrac yx=Cx$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$\\tan\\dfrac yx=Cx$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$\\sin\\dfrac yx=\\dfrac Cx$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$\\sin\\dfrac yx=Cx$"
+    }
+   ]
+  },
+  {
+   "number": 139,
+   "id": "q_08a26aa2b80f46619be2ae6238b61b2c",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Separation of variables: The particular solution of $\\dfrac{dy}{dx}=xy$ with $y(0)=2$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$y=2e^{x^2}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$y=2e^{x^2/2}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$y=e^{x^2/2}+1$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$y=2+\\dfrac{x^2}2$"
+    }
+   ]
+  },
+  {
+   "number": 140,
+   "id": "q_13e7ce11078f414aac9c5fbea9c0d275",
+   "type": "STATEMENT_BASED",
+   "unit": "Differential Equations",
+   "stem": "Consider the following statements.\nA. The degree of a differential equation is defined only when it is a polynomial in its derivatives.\nB. The order is the order of the highest derivative present.\nC. $\\dfrac{dy}{dx}=f(x,y)$ is homogeneous if $f(\\lambda x,\\lambda y)=\\lambda f(x,y)$ for every $\\lambda$.\nD. The solution of $\\dfrac{dy}{dx}+Py=Q$ is $y\\cdot\\text{IF}=\\displaystyle\\int Q\\cdot\\text{IF}\\,dx+C$, where $\\text{IF}=e^{\\int P\\,dx}$.\nSelect the correct option.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, B, C and D"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "B and C only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A, B and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "C and D only"
+    }
+   ]
+  },
+  {
+   "number": 141,
+   "id": "q_1b4348b31d344a71ad6490ef6aee04e7",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Differential Equations",
+   "stem": "Match each differential equation in List-I with its general solution in List-II ($C$ is an arbitrary constant).",
+   "structure": {
+    "left": [
+     "A. $\\dfrac{dy}{dx}=2y$",
+     "B. $\\dfrac{dy}{dx}=-\\dfrac yx$",
+     "C. $\\dfrac{dy}{dx}=\\dfrac yx$",
+     "D. $\\dfrac{dy}{dx}=-\\dfrac xy$"
+    ],
+    "right": [
+     "I. $xy=C$",
+     "II. $y=Ce^{2x}$",
+     "III. $y=Cx$",
+     "IV. $x^2+y^2=C$"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-I, B-II, C-III, D-IV"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-II, B-I, C-III, D-IV"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-II, B-I, C-IV, D-III"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-III, B-I, C-II, D-IV"
+    }
+   ]
+  },
+  {
+   "number": 142,
+   "id": "q_20a80005392440779eb4384f3fbf76bf",
+   "type": "STATEMENT_BASED",
+   "unit": "Differential Equations",
+   "stem": "Consider the following statements.\nA. The order of a differential equation is the order of the highest derivative in it.\nB. The degree is defined only if the equation is a polynomial in its derivatives.\nC. The general solution of an $n$th order equation contains $n$ arbitrary constants.\nD. A particular solution contains arbitrary constants.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, B, C and D"
+    }
+   ]
+  },
+  {
+   "number": 143,
+   "id": "q_2d327d1c0a9e448d8620b5f4cddcb8fa",
+   "type": "ASSERTION_REASON",
+   "unit": "Differential Equations",
+   "stem": "Assertion (A): The equation $\\dfrac{dy}{dx}=\\dfrac{x^2+y^2}{xy}$ is homogeneous.\nReason (R): Its right-hand side can be written as a function of $\\dfrac yx$ alone.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 144,
+   "id": "q_40f3847273564e6384ec2f5283d5086b",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Differential Equations",
+   "stem": "Match the type of equation in List-I with the method of solution in List-II.",
+   "structure": {
+    "left": [
+     "A. $\\dfrac{dy}{dx}=f(x)g(y)$",
+     "B. $\\dfrac{dy}{dx}=F\\left(\\dfrac yx\\right)$",
+     "C. $\\dfrac{dy}{dx}+Py=Q$, $P,Q$ functions of $x$",
+     "D. $\\dfrac{dx}{dy}+Px=Q$, $P,Q$ functions of $y$"
+    ],
+    "right": [
+     "I. Separate the variables and integrate",
+     "II. Substitute $y=vx$",
+     "III. Integrating factor $e^{\\int P\\,dx}$",
+     "IV. Integrating factor $e^{\\int P\\,dy}$"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-I, B-II, C-III, D-IV"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-II, B-I, C-III, D-IV"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-I, B-II, C-IV, D-III"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-III, B-II, C-I, D-IV"
+    }
+   ]
+  },
+  {
+   "number": 145,
+   "id": "q_4f3d2bfe35d7451b9524417541193849",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "The particular solution of $\\dfrac{dy}{dx}=\\dfrac{x^2}{y}$ with $y(0)=1$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$2y^2=3x^3+2$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$y^2=x^3+1$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$3y^2=2x^3+1$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$3y^2=2x^3+3$"
+    }
+   ]
+  },
+  {
+   "number": 146,
+   "id": "q_5c79e02c097c40ceab58c0c2fe788f03",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Homogeneous equation: The general solution of $\\dfrac{dy}{dx}=\\dfrac{x+y}x$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$y=x\\ln|x|+Cx$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$y=x\\ln|x|+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$y=\\ln|x|+Cx$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$y=x^2+Cx$"
+    }
+   ]
+  },
+  {
+   "number": 147,
+   "id": "q_7483dd93000f48e5a31b26b521277491",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Exponential separation: The solution of $\\dfrac{dy}{dx}=e^{x-y}$ with $y(0)=0$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$y=e^x-1$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$y=x$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$y=\\ln\\left(e^x+1\\right)$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$y=x+1$"
+    }
+   ]
+  },
+  {
+   "number": 148,
+   "id": "q_89078ea57a194edbb5a0e213d8e740fb",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Linear equation in y: The general solution of $\\dfrac{dx}{dy}+x=y$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$x=y+1+Ce^{-y}$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$x=y-1+Ce^{y}$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$x=y-1+C$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$x=y-1+Ce^{-y}$"
+    }
+   ]
+  },
+  {
+   "number": 149,
+   "id": "q_c55d714a96df471daac96024e0442e24",
+   "type": "ASSERTION_REASON",
+   "unit": "Differential Equations",
+   "stem": "**Assertion (A):** The general solution of $\\dfrac{dy}{dx}=\\dfrac{y}{x}$ for $x>0$ is $y=Cx$.\n**Reason (R):** The variables can be separated to give $\\dfrac{dy}{y}=\\dfrac{dx}{x}$.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 150,
+   "id": "q_df63bf945be74de3b252aed232dab6f2",
+   "type": "MCQ_SINGLE",
+   "unit": "Differential Equations",
+   "stem": "Linear equation in x: The general solution of $\\dfrac{dy}{dx}+\\dfrac yx=x^2$ is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "$y=\\dfrac{x^3}3+\\dfrac Cx$"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "$y=\\dfrac{x^3}4+C$"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "$y=\\dfrac{x^3}4+\\dfrac Cx$"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "$y=\\dfrac{x^3}4+Cx$"
+    }
+   ]
+  }
+ ],
+ "answerKey": [
+  {
+   "number": 1,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 2,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 3,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 4,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 5,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 6,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 7,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 8,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 9,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 10,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 11,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 12,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 13,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 14,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 15,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 16,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 17,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 18,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 19,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 20,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 21,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 22,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 23,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 24,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 25,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 26,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 27,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 28,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 29,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 30,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 31,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 32,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 33,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 34,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 35,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 36,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 37,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 38,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 39,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 40,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 41,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 42,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 43,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 44,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 45,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 46,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 47,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 48,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 49,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 50,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 51,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 52,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 53,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 54,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 55,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 56,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 57,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 58,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 59,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 60,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 61,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 62,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 63,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 64,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 65,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 66,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 67,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 68,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 69,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 70,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 71,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 72,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 73,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 74,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 75,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 76,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 77,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 78,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 79,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 80,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 81,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 82,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 83,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 84,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 85,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 86,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 87,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 88,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 89,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 90,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 91,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 92,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 93,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 94,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 95,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 96,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 97,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 98,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 99,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 100,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 101,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 102,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 103,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 104,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 105,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 106,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 107,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 108,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 109,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 110,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 111,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 112,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 113,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 114,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 115,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 116,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 117,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 118,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 119,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 120,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 121,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 122,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 123,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 124,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 125,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 126,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 127,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 128,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 129,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 130,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 131,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 132,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 133,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 134,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 135,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 136,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 137,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 138,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 139,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 140,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 141,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 142,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 143,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 144,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 145,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 146,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 147,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 148,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 149,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 150,
+   "correct": [
+    "C"
+   ]
+  }
+ ]
+}

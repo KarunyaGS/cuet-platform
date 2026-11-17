@@ -1,0 +1,218 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_01abe216503b402f8c66114dc5d8521e",
+    "title": "Database Query using SQL"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r00-sql-functions-grouping-joins-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which keyword placed right after SELECT makes a query display each different row only once?",
+      "options": [
+        "ALL",
+        "DISTINCT",
+        "HAVING",
+        "ORDER BY"
+      ],
+      "answer": 2,
+      "explanation": "DISTINCT is written immediately after SELECT and tells MySQL to remove repeated rows from the result, so a column such as City is listed once per different value. ALL is the opposite default, HAVING works on groups and ORDER BY only changes the sequence of rows.",
+      "optionRationale": {
+        "1": "ALL is also valid after SELECT, but it keeps duplicate rows, which is the normal behaviour.",
+        "3": "HAVING filters groups after GROUP BY and has nothing to do with duplicate rows.",
+        "4": "ORDER BY only sorts the rows that are returned; duplicates stay."
+      },
+      "objective": "Recall the keyword that removes duplicate rows"
+    },
+    {
+      "key": "ug26-308-r00-sql-functions-grouping-joins-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following is an aggregate (multi-row) function of SQL?",
+      "options": [
+        "AVG()",
+        "UPPER()",
+        "ROUND()",
+        "MONTH()"
+      ],
+      "answer": 1,
+      "explanation": "An aggregate function takes the values of many rows of a column and returns one summary value, such as AVG for the average, SUM, MIN, MAX and COUNT. UPPER, ROUND and MONTH are single-row functions that give one output for every input row.",
+      "optionRationale": {
+        "2": "UPPER() converts one text value at a time, so it is a single-row function.",
+        "3": "ROUND() works on each number separately and returns one result per row.",
+        "4": "MONTH() extracts a part from one date at a time; it is a single-row function."
+      },
+      "objective": "Distinguish aggregate from single-row functions"
+    },
+    {
+      "key": "ug26-308-r00-sql-functions-grouping-joins-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What does this MySQL query display?\n`SELECT CONCAT(LEFT(\"Python\", 2), UPPER(RIGHT(\"data\", 2)));`",
+      "options": [
+        "PyAT",
+        "PyDA",
+        "thTA",
+        "PyTA"
+      ],
+      "answer": 4,
+      "explanation": "LEFT(\"Python\", 2) gives \"Py\". RIGHT(\"data\", 2) picks the last two characters \"ta\", and UPPER turns them into \"TA\". CONCAT then joins the two pieces without any space, so the displayed value is PyTA.",
+      "optionRationale": {
+        "1": "RIGHT(\"data\", 2) keeps the letters in their order as \"ta\"; they are not reversed, and UPPER only changes their case.",
+        "2": "RIGHT(\"data\", 2) is \"ta\", not \"da\"; the last two letters are taken from the right end.",
+        "3": "LEFT takes characters from the left end, so the first part is \"Py\", not \"th\"."
+      },
+      "objective": "Trace nested string functions"
+    },
+    {
+      "key": "ug26-308-r00-sql-functions-grouping-joins-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "ORDERS(OID, CustID) holds the rows (1, 1), (2, 2), (3, 1), (4, 3), (5, 5). CUSTOMER(CustID, CName) holds (1, Asha), (2, Ravi), (3, Meena), (4, Karan). The query is\n`SELECT O.OID, C.CName FROM ORDERS O, CUSTOMER C WHERE O.CustID = C.CustID;`\nHow many rows are returned, and which customer name appears twice?",
+      "options": [
+        "5 rows; Asha appears twice",
+        "4 rows; Ravi appears twice",
+        "4 rows; Asha appears twice",
+        "20 rows; every name appears five times"
+      ],
+      "answer": 3,
+      "explanation": "The join keeps a pair of rows only when the CustID values are equal. Orders 1 and 3 match Asha (CustID 1), order 2 matches Ravi and order 4 matches Meena. Order 5 has CustID 5, which is absent from CUSTOMER, and Karan has no order, so exactly four rows appear with Asha twice.",
+      "optionRationale": {
+        "1": "Order 5 has CustID 5, which has no customer, so it finds no partner and is dropped from an equi-join.",
+        "2": "Ravi has only one order (OID 2); the repeated customer is the one who placed orders 1 and 3.",
+        "4": "20 rows would be the Cartesian product, but the WHERE condition keeps only the rows with equal CustID."
+      },
+      "objective": "Count the rows produced by an equi-join"
+    },
+    {
+      "key": "ug26-308-r00-sql-functions-grouping-joins-g05",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each part of a SELECT query in List-I with its role in List-II.",
+      "options": [
+        "A-III, B-II, C-IV, D-I",
+        "A-I, B-IV, C-II, D-III",
+        "A-III, B-IV, C-II, D-I",
+        "A-IV, B-III, C-II, D-I"
+      ],
+      "answer": 3,
+      "explanation": "WHERE removes individual rows before any grouping happens (III). GROUP BY collects rows with the same value into groups (IV). HAVING then keeps or drops whole groups using aggregate values such as COUNT or SUM (II), and ORDER BY sorts what is left at the end (I).",
+      "optionRationale": {
+        "1": "GROUP BY forms the groups and HAVING filters them; B and C are exchanged here.",
+        "2": "WHERE filters rows and ORDER BY sorts; A and D are exchanged here.",
+        "4": "WHERE does not create groups and GROUP BY does not filter single rows; A and B are exchanged here."
+      },
+      "objective": "Match query clauses with their roles",
+      "list": {
+        "left": [
+          "A. WHERE",
+          "B. GROUP BY",
+          "C. HAVING",
+          "D. ORDER BY"
+        ],
+        "right": [
+          "I. Sorts the final rows",
+          "II. Filters groups using aggregate results",
+          "III. Filters individual rows before grouping",
+          "IV. Forms groups of rows with the same value"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r00-sql-functions-grouping-joins-g06",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about SQL queries.\nA. `SELECT DISTINCT City FROM T` lists each city only once.\nB. In an equi-join the matching condition uses the = operator.\nC. The Cartesian product of tables with 5 and 6 rows has 11 rows.\nD. An aggregate function used without GROUP BY returns a single row.\nWhich statements are correct?",
+      "options": [
+        "A and C only",
+        "B, C and D only",
+        "A, B and C only",
+        "A, B and D only"
+      ],
+      "answer": 4,
+      "explanation": "A is true because DISTINCT removes repeated rows. B is true since an equi-join compares columns with =. C is false: every row of the first table pairs with every row of the second, giving 5 x 6 = 30 rows. D is true because the whole table is treated as one group, so only one summary row appears.",
+      "optionRationale": {
+        "1": "C is false: a Cartesian product has 5 x 6 = 30 rows, not 5 + 6, and B and D are also correct.",
+        "2": "C is false, because the number of rows multiplies; A is also correct.",
+        "3": "C is false (the product has 30 rows), and D is true so it must be included."
+      },
+      "objective": "Judge statements about DISTINCT, joins and aggregates"
+    },
+    {
+      "key": "ug26-308-r00-sql-functions-grouping-joins-g07",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): `SELECT * FROM STUDENT, CLASS;` executes without error and returns the Cartesian product of the two tables.\nReason (R): MySQL refuses to run a query on two tables unless a join condition is written in the WHERE clause.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "Listing two tables after FROM with no condition is allowed. The result pairs every row of STUDENT with every row of CLASS, which is the Cartesian product, so the assertion is true. The reason is false because the join condition is optional; it is added only to reduce the product to meaningful pairs.",
+      "optionRationale": {
+        "1": "The reason is false, so it cannot be the explanation of the assertion.",
+        "2": "Both statements are not true: a join condition is optional, not compulsory.",
+        "4": "The assertion is true; MySQL does return the Cartesian product."
+      },
+      "objective": "Recognise that a join condition is optional"
+    },
+    {
+      "key": "ug26-308-r00-sql-functions-grouping-joins-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The table S2(Region, Item, Qty) has the rows (N, Pen, 10), (N, Pen, 4), (S, Pen, 7), (N, Book, 3), (S, Book, 6), (S, Book, 9), (N, Pen, 2) and (S, Pen, 5). Which rows are produced by\n`SELECT Region, Item, SUM(Qty) FROM S2 GROUP BY Region, Item HAVING SUM(Qty) > 10 ORDER BY Region, Item;`",
+      "options": [
+        "(N, Book, 3), (N, Pen, 16), (S, Book, 15), (S, Pen, 12)",
+        "(N, Pen, 16), (S, Book, 15), (S, Pen, 12)",
+        "(N, Pen, 19), (S, Pen, 27)",
+        "(N, Pen, 10), (S, Book, 9), (S, Pen, 7)"
+      ],
+      "answer": 2,
+      "explanation": "Grouping on Region and Item together gives four groups: (N, Pen) = 10 + 4 + 2 = 16, (S, Pen) = 7 + 5 = 12, (N, Book) = 3 and (S, Book) = 6 + 9 = 15. HAVING SUM(Qty) > 10 drops (N, Book), and ORDER BY then lists the remaining three groups by Region and Item.",
+      "optionRationale": {
+        "1": "This lists all four groups; the group (N, Book) has a total of only 3, so HAVING removes it.",
+        "3": "This groups by Region alone; the query groups by Region and Item together, so there are separate groups for Pen and Book.",
+        "4": "These are single rows, not group totals; SUM adds all the rows of each group."
+      },
+      "objective": "Evaluate GROUP BY on two columns with HAVING"
+    },
+    {
+      "key": "ug26-308-r00-sql-functions-grouping-joins-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The table T(Sec, Marks) has the rows (A, 80), (A, NULL), (A, 60), (B, 50), (B, NULL), (B, NULL), (C, 90), (C, 70) and (C, NULL). What does\n`SELECT Sec, COUNT(*), AVG(Marks) FROM T GROUP BY Sec HAVING COUNT(Marks) >= 2 ORDER BY Sec;`\nreturn?",
+      "options": [
+        "(A, 3, 70) and (C, 3, 80)",
+        "(A, 3, 70), (B, 3, 50) and (C, 3, 80)",
+        "(A, 2, 70) and (C, 2, 80)",
+        "(A, 3, 46.67) and (C, 3, 53.33)"
+      ],
+      "answer": 1,
+      "explanation": "COUNT(Marks) ignores NULL, giving 2 for A, 1 for B and 2 for C, so HAVING keeps A and C only. COUNT(*) counts all three rows of each kept group. AVG skips NULL: A is (80 + 60) / 2 = 70 and C is (90 + 70) / 2 = 80.",
+      "optionRationale": {
+        "2": "Section B has only one non-NULL mark, so COUNT(Marks) is 1 and HAVING removes it.",
+        "3": "COUNT(*) counts every row of the group including the NULL row, so each group shows 3, not 2.",
+        "4": "AVG ignores NULL values; it does not treat them as zero, so the averages are 70 and 80."
+      },
+      "objective": "Apply NULL rules of COUNT and AVG with HAVING"
+    }
+  ]
+}

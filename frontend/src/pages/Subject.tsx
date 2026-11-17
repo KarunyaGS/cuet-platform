@@ -5,6 +5,7 @@ import { api, ApiError, type OutlineNode } from '../api';
 import { NotFoundPage } from './Search';
 import { Button, Empty, ErrorBox, kindLabel, Loading, PageHeader, useAuth, useLoad } from '../ui';
 import { SubjectCards } from '../tools';
+import { AreaCards } from './SubjectArea';
 
 /** Subject page: units on the left, the selected unit's topics and subtopics on the right. */
 export function SubjectPage() {
@@ -82,6 +83,7 @@ export function SubjectPage() {
         }
       />
       {err && <ErrorBox error={err} />}
+      <AreaCards exam={exam} paperId={paperId} />
       <SubjectCards paperId={paperId} />
       {p.name === 'Physics' && (
         <section aria-labelledby="visual-learning" data-visual-entry className="mb-6 overflow-hidden rounded-xl border border-rule bg-surface">

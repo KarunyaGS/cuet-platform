@@ -57,6 +57,17 @@ export function PracticePage() {
     if (loaded.data) setMarked(new Set(loaded.data.session.marked));
   }, [loaded.data]);
   const left = useCountdown(data?.session.status === 'IN_PROGRESS' ? data.session.deadline : null);
+  // Leave full screen when the test is over or the page closes (a full-length mock is opened full screen).
+  const finished = !!data && data.session.status !== 'IN_PROGRESS';
+  useEffect(() => {
+    if (finished && document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
+  }, [finished]);
+  useEffect(
+    () => () => {
+      if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
+    },
+    [],
+  );
 
   useEffect(() => {
     if (data && data.session.status !== 'IN_PROGRESS') navigate(`/results/${sessionId}`, { replace: true });

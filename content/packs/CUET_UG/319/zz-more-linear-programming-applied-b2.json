@@ -1,0 +1,260 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_f693d8119f9c45e8af423997394a9755",
+    "title": "LINEAR PROGRAMMING"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r13-linear-programming-applied-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "application",
+      "stem": "A bakery makes loaf P using $3$ kg of flour and loaf Q using $2$ kg of flour. At most $90$ kg of flour is available per day, and $x$ loaves of P and $y$ loaves of Q are baked. The flour restriction is",
+      "options": [
+        "$3x + 2y \\le 90$",
+        "$2x + 3y \\le 90$",
+        "$3x + 2y \\ge 90$",
+        "$x + y \\le 90$"
+      ],
+      "answer": 1,
+      "explanation": "Flour used is $3$ kg per loaf of P times $x$ plus $2$ kg per loaf of Q times $y$, giving $3x + 2y$ kg. Since no more than $90$ kg is available, this total must be at most $90$: $3x + 2y \\le 90$.",
+      "optionRationale": {
+        "2": "The coefficients are swapped; P uses $3$ kg and Q uses $2$ kg.",
+        "3": "A resource limit is an upper bound, so the inequality sign must be $\\le$.",
+        "4": "This counts loaves instead of kilograms of flour, ignoring the different usage per loaf."
+      },
+      "objective": "Translate a resource limit into a linear inequality"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "application",
+      "stem": "A canteen buys $x$ kg of food F1 at ₹8 per kg and $y$ kg of food F2 at ₹12 per kg and must buy at least $40$ kg in all. If the canteen wants the lowest cost, the objective function is",
+      "options": [
+        "Minimise $Z = 8x + 12y$",
+        "Minimise $Z = 12x + 8y$",
+        "Maximise $Z = 8x + 12y$",
+        "Minimise $Z = x + y$"
+      ],
+      "answer": 1,
+      "explanation": "The total cost is the sum of price times quantity, $8x + 12y$ rupees, and the canteen wants the lowest cost, so $Z = 8x + 12y$ is minimised. The condition $x + y \\ge 40$ is a constraint, not the objective.",
+      "optionRationale": {
+        "2": "The prices are attached to the wrong foods; F1 costs ₹8, not ₹12.",
+        "3": "The aim is the lowest cost, so the function is minimised, not maximised.",
+        "4": "$x + y$ is the total quantity, which is limited by a constraint, not the cost."
+      },
+      "objective": "Write the objective function of a diet problem"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A workshop makes lamp A (profit ₹50) and lamp B (profit ₹40). Lamp A needs $2$ hours of cutting and $4$ hours of assembly; lamp B needs $3$ hours of cutting and $1$ hour of assembly. Cutting time is at most $120$ hours and assembly time at most $100$ hours. The maximum profit is",
+      "options": [
+        "₹2,020",
+        "₹1,600",
+        "₹1,250",
+        "₹2,150"
+      ],
+      "answer": 1,
+      "explanation": "With $x$ lamps A and $y$ lamps B: $2x + 3y \\le 120$ and $4x + y \\le 100$. The corners are $(0,0)$, $(25,0)$, $(18,28)$ and $(0,40)$ with profits $0$, $1250$, $2020$ and $1600$. The maximum ₹2,020 occurs at $x = 18$, $y = 28$.",
+      "optionRationale": {
+        "2": "₹1,600 is the profit when only lamp B is made, at the corner $(0,40)$.",
+        "3": "₹1,250 is the profit when only lamp A is made, at the corner $(25,0)$.",
+        "4": "₹2,150 exceeds every corner value and is not attainable within the limits."
+      },
+      "objective": "Solve a product-mix LPP"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A diet needs at least $10$ units of vitamin V1 and at least $15$ units of vitamin V2. A unit of food P gives $1$ of V1 and $3$ of V2 and costs ₹4; a unit of food Q gives $2$ of V1 and $1$ of V2 and costs ₹3. The least cost of the diet is",
+      "options": [
+        "₹20",
+        "₹40",
+        "₹45",
+        "₹25"
+      ],
+      "answer": 4,
+      "explanation": "With $x$ units of P and $y$ of Q: $x + 2y \\ge 10$ and $3x + y \\ge 15$. The corner points of this unbounded region are $(0,15)$, $(4,3)$ and $(10,0)$, with costs $45$, $25$ and $40$. The least is ₹25 at $(4,3)$.",
+      "optionRationale": {
+        "1": "₹20 corresponds to $(5,0)$, which fails the vitamin V1 requirement.",
+        "2": "₹40 is the cost at the corner $(10,0)$, not the least cost.",
+        "3": "₹45 is the cost at $(0,15)$, the most expensive corner."
+      },
+      "objective": "Solve a diet problem for minimum cost"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-m05",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): In a diet problem with only $\\ge$ type nutrient constraints, the minimum cost exists even though the feasible region is unbounded.\nReason (R): Both the cost coefficients and the nutrient requirements are non-negative, so the cost cannot decrease without limit.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The region defined by $\\ge$ constraints stretches to infinity, but the cost $Z = ax + by$ with $a, b > 0$ only grows as $x$ or $y$ grow. Thus $Z$ is bounded below by $0$ and attains its least value at a corner point, and the reason is exactly why the minimum exists.",
+      "optionRationale": {
+        "2": "The reason is not just true; boundedness of $Z$ from below is what guarantees the minimum.",
+        "3": "The reason is true: positive costs prevent $Z$ from decreasing indefinitely.",
+        "4": "The assertion is true: the minimum is attained at a corner of the region."
+      },
+      "objective": "Justify the existence of a minimum over an unbounded region"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-m06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the type of linear programming problem in List-I with the typical form of its constraints in List-II.",
+      "list": {
+        "left": [
+          "A. Product-mix (manufacturing) problem",
+          "B. Diet problem",
+          "C. Transportation problem",
+          "D. Investment (portfolio) problem"
+        ],
+        "right": [
+          "I. Limits on the total money and a minimum amount in the safer scheme",
+          "II. Minimum requirement of each nutrient, expressed with $\\ge$",
+          "III. Supply from each godown must not be exceeded and each shop's demand must be met",
+          "IV. Limited machine and labour hours, expressed with $\\le$"
+        ]
+      },
+      "options": [
+        "A-II, B-IV, C-III, D-I",
+        "A-IV, B-II, C-III, D-I",
+        "A-IV, B-II, C-I, D-III",
+        "A-III, B-II, C-IV, D-I"
+      ],
+      "answer": 2,
+      "explanation": "A manufacturing problem is limited by scarce resources such as machine or labour hours ($\\le$), which is IV. A diet problem needs minimum nutrients ($\\ge$), which is II. A transportation problem must respect supply and meet demand (III). An investment problem has a budget cap with a minimum in the safer option (I).",
+      "optionRationale": {
+        "1": "Items A and B have been interchanged; check each pairing against its definition.",
+        "3": "Items C and D have been interchanged; check each pairing against its definition.",
+        "4": "Items A and C have been interchanged; check each pairing against its definition."
+      },
+      "objective": "Link LPP types with their constraint structure"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-m07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A person invests up to ₹1,20,000 in bonds (return $7\\%$) and shares (return $11\\%$). At least ₹36,000 must go into bonds and at most ₹80,000 into shares. The maximum yearly return is",
+      "options": [
+        "₹11,320",
+        "₹8,400",
+        "₹11,600",
+        "₹13,200"
+      ],
+      "answer": 3,
+      "explanation": "Let bonds be $x$ and shares $y$: $x + y \\le 120000$, $x \\ge 36000$, $y \\le 80000$. The best corner is $(40000, 80000)$, giving $0.07 \\times 40000 + 0.11 \\times 80000 = 2800 + 8800 = ₹11{,}600$. The share cap prevents putting everything into the higher-return option.",
+      "optionRationale": {
+        "1": "₹11,320 is the return at $(36000, 80000)$, which leaves ₹4,000 uninvested.",
+        "2": "₹8,400 is the return if the whole amount goes into bonds only.",
+        "4": "₹13,200 would need the entire ₹1,20,000 in shares, which breaks the ₹80,000 cap."
+      },
+      "objective": "Solve an investment allocation LPP"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-m08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A unit of item X yields profit ₹30 and a unit of item Y yields ₹25. The restrictions are $2x + y \\le 100$ (material), $x + 2y \\le 80$ (labour) and $x + y \\le 45$ (storage), with $x, y \\ge 0$. The maximum profit is",
+      "options": [
+        "₹1,175",
+        "₹1,000",
+        "₹1,700",
+        "₹1,350"
+      ],
+      "answer": 4,
+      "explanation": "The corner points are $(0,0)$, $(45,0)$, $(10,35)$ and $(0,40)$, with profits $0$, $1350$, $1175$ and $1000$. The maximum ₹1,350 is at $(45,0)$. The storage line cuts off the meeting point $(40,20)$ of the other two lines, which would otherwise give ₹1,700.",
+      "optionRationale": {
+        "1": "₹1,175 is the profit at $(10,35)$, where storage and labour meet.",
+        "2": "₹1,000 is the profit when only item Y is made, at $(0,40)$.",
+        "3": "₹1,700 comes from $(40,20)$, which violates the storage restriction $x + y \\le 45$."
+      },
+      "objective": "Optimise with three competing constraints"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-m09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A feed mix must satisfy $2x + y \\ge 14$, $x + 3y \\ge 15$ and $x + y \\ge 8$ (all in suitable units) with $x, y \\ge 0$, where $x$ and $y$ are quantities of two ingredients costing ₹7 and ₹6 per unit. The minimum cost is",
+      "options": [
+        "₹84",
+        "₹105",
+        "₹57",
+        "₹60"
+      ],
+      "answer": 3,
+      "explanation": "The first two lines meet at $(27/5, 16/5)$, which also satisfies $x + y = 43/5 \\ge 8$, so the third constraint is redundant. The corners $(0,14)$, $(27/5, 16/5)$ and $(15,0)$ have costs $84$, $57$ and $105$. The minimum is $7(27/5) + 6(16/5) = ₹57$.",
+      "optionRationale": {
+        "1": "₹84 is the cost at the corner $(0,14)$, which is not the cheapest.",
+        "2": "₹105 is the cost at $(15,0)$, the dearest corner.",
+        "4": "₹60 is the cost of the whole-unit mix $(6,3)$, which is feasible but not the cheapest."
+      },
+      "objective": "Find a fractional corner solution of a diet LPP"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-m10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Consider the following statements about linear programming problems.\nA. In a transportation problem the total transport cost is a linear function of the quantities shipped.\nB. The feasible region of a diet problem is always bounded.\nC. For a maximisation problem with only $\\le$ constraints and positive right-hand sides, the origin is a feasible point.\nD. If an optimal solution exists, it can be found only at an interior point of the feasible region.\nChoose the correct answer.",
+      "options": [
+        "A and B only",
+        "A and C only",
+        "B and C only",
+        "A, C and D only"
+      ],
+      "answer": 2,
+      "explanation": "A is true: cost is the sum of unit cost times quantity. C is true since $0 \\le b$ holds for every positive right-hand side. B is false because $\\ge$ constraints leave the region open-ended, and D is false because the optimum is always sought at a corner point, not an interior point.",
+      "optionRationale": {
+        "1": "B is false: a diet region built from $\\ge$ constraints is unbounded.",
+        "3": "B is false, so this pair cannot be correct, and C is true but missing from A and B.",
+        "4": "D is false: an optimal solution lies at a corner point, not at an interior point."
+      },
+      "objective": "Judge statements about LPP structure"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-m11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Godown G1 holds $40$ units and G2 holds $30$ units; shop S1 needs $25$ units and S2 needs $35$ units. Cost per unit (₹): G1 to S1 is $6$, G1 to S2 is $4$, G2 to S1 is $3$, G2 to S2 is $5$. If $x$ and $y$ units go from G1 to S1 and S2 respectively, the minimum total transportation cost is",
+      "options": [
+        "₹215",
+        "₹220",
+        "₹230",
+        "₹250"
+      ],
+      "answer": 1,
+      "explanation": "Shipments are $x, y$ from G1 and $25 - x$, $35 - y$ from G2, so the cost is $6x + 4y + 3(25 - x) + 5(35 - y) = 250 + 3x - y$ with $30 \\le x + y \\le 40$, $0 \\le x \\le 25$, $0 \\le y \\le 35$. The least value is at $(0, 35)$: $250 - 35 = ₹215$.",
+      "optionRationale": {
+        "2": "₹220 is the cost at $(0,30)$, which sends $5$ fewer units on the cheap G1-S2 route.",
+        "3": "₹230 is the cost at $(5,35)$, which wastes units on the dear G1-S1 route.",
+        "4": "₹250 is the cost when $x = y = 0$, which breaks the demand requirement $x + y \\ge 30$."
+      },
+      "objective": "Minimise the cost of a transportation LPP"
+    }
+  ]
+}

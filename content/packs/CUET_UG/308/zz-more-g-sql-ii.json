@@ -1,0 +1,260 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_b6c6c979d34c47b588b76f85d1e3336c",
+    "title": "Structured Query Language – II"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r08-sql-ii-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which keyword is used with ORDER BY to sort the rows from the largest value to the smallest?",
+      "options": [
+        "DESC",
+        "ASC",
+        "REVERSE",
+        "DOWN"
+      ],
+      "answer": 1,
+      "explanation": "ORDER BY column DESC arranges the rows in descending order, so the largest value comes first and the smallest comes last. ASC is the default ascending order, which is the opposite, while REVERSE and DOWN are not valid keywords in MySQL at all.",
+      "optionRationale": {
+        "2": "ASC sorts from the smallest value to the largest, which is the default.",
+        "3": "MySQL has no REVERSE keyword in an ORDER BY clause.",
+        "4": "DOWN is not an SQL keyword."
+      },
+      "objective": "Recall descending order in ORDER BY"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which MySQL function returns only the current date, without the time?",
+      "options": [
+        "NOW()",
+        "DAY()",
+        "CURDATE()",
+        "MONTHNAME()"
+      ],
+      "answer": 3,
+      "explanation": "CURDATE() returns the date of the server in the form YYYY-MM-DD. NOW() adds the time to it. DAY() and MONTHNAME() need a date as input and extract a part of it, so they do not return the current date.",
+      "optionRationale": {
+        "1": "NOW() returns both the current date and the current time.",
+        "2": "DAY() takes a date and returns its day of the month; it does not give today's date.",
+        "4": "MONTHNAME() takes a date and returns the name of its month."
+      },
+      "objective": "Recall CURDATE()"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which aggregate function returns the largest value of a column?",
+      "options": [
+        "MIN()",
+        "COUNT()",
+        "SUM()",
+        "MAX()"
+      ],
+      "answer": 4,
+      "explanation": "MAX(column) looks at all the values of the column in the rows or group and returns the largest one, ignoring NULL. MIN gives the smallest value, COUNT gives how many values there are and SUM gives their total.",
+      "optionRationale": {
+        "1": "MIN() returns the smallest value.",
+        "2": "COUNT() returns how many values or rows there are.",
+        "3": "SUM() adds up the values; it does not pick the largest."
+      },
+      "objective": "Recall the MAX function"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "The table EMP2(Name, Dept, Sal) holds the rows (Asha, HR, 30000), (Ravi, IT, 50000), (Meena, HR, 40000), (Karan, IT, 45000), (Sia, Sales, 35000) and (Dev, Sales, NULL). What does `SELECT Dept, MAX(Sal) - MIN(Sal) FROM EMP2 GROUP BY Dept ORDER BY Dept;` return?",
+      "options": [
+        "(HR, 10000), (IT, 5000), (Sales, NULL)",
+        "(HR, 10000), (IT, 5000), (Sales, 0)",
+        "(HR, 70000), (IT, 95000), (Sales, 35000)",
+        "(HR, 5000), (IT, 10000), (Sales, 0)"
+      ],
+      "answer": 2,
+      "explanation": "In group HR the salaries are 30000 and 40000, so the difference is 10000. In group IT they are 50000 and 45000, giving 5000. In Sales the NULL is ignored, so MAX and MIN are both 35000 and the difference is 0. ORDER BY Dept lists HR, IT and Sales.",
+      "optionRationale": {
+        "1": "MAX and MIN ignore the NULL salary, so for Sales both are 35000 and the difference is 0, not NULL.",
+        "3": "These are the group totals; the query subtracts MIN from MAX instead.",
+        "4": "HR salaries are 30000 and 40000, giving 10000; IT salaries 50000 and 45000 give 5000; the two are exchanged here."
+      },
+      "objective": "Evaluate MAX and MIN per group with NULL"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-g05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "EMP(Name, DeptNo) holds the rows (A, 1), (B, 2), (C, 1), (D, 3), (E, 2), (F, 1) and (G, 9). DEPT(DeptNo, DName) holds (1, Sales), (2, HR), (3, IT) and (4, Fin). How many rows does `SELECT * FROM EMP E, DEPT D WHERE E.DeptNo = D.DeptNo;` return, and which department has no employee in the result?",
+      "options": [
+        "7 rows; Fin",
+        "6 rows; IT",
+        "28 rows; none",
+        "6 rows; Fin"
+      ],
+      "answer": 4,
+      "explanation": "The join keeps pairs with the same DeptNo: A, C and F with Sales, B and E with HR, and D with IT, which is 6 rows. G (DeptNo 9) has no department, so it is lost, and Fin (DeptNo 4) has no employee, so it never appears.",
+      "optionRationale": {
+        "1": "Employee G has DeptNo 9, which is not in DEPT, so G finds no partner and the join has 6 rows.",
+        "2": "Employee D works in department 3, which is IT, so IT does appear in the result.",
+        "3": "28 would be the Cartesian product (7 x 4); the WHERE condition keeps only matching pairs."
+      },
+      "objective": "Count rows of an equi-join with unmatched rows"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-g06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "The table EMP2(Name, Dept, Sal) holds the rows (Asha, HR, 30000), (Ravi, IT, 50000), (Meena, HR, 40000), (Karan, IT, 45000), (Sia, Sales, 35000) and (Dev, Sales, NULL). Match each expression in List-I with its value in List-II.",
+      "options": [
+        "A-III, B-I, C-II, D-IV",
+        "A-I, B-III, C-II, D-IV",
+        "A-III, B-I, C-IV, D-II",
+        "A-II, B-I, C-III, D-IV"
+      ],
+      "answer": 1,
+      "explanation": "COUNT(Sal) ignores the NULL and counts 5 values (III). COUNT(*) counts all 6 rows (I). SUM(Sal) is 30000 + 50000 + 40000 + 45000 + 35000 = 200000 (II), and MAX(Sal) is 50000 (IV).",
+      "optionRationale": {
+        "2": "COUNT(Sal) skips the NULL salary and gives 5, while COUNT(*) counts all 6 rows; A and B are exchanged here.",
+        "3": "The sum of the salaries is 200000 and the largest is 50000; C and D are exchanged here.",
+        "4": "COUNT(Sal) is 5, not the sum; A and C are exchanged here."
+      },
+      "objective": "Match aggregate expressions with values on sample data",
+      "list": {
+        "left": [
+          "A. `COUNT(Sal)`",
+          "B. `COUNT(*)`",
+          "C. `SUM(Sal)`",
+          "D. `MAX(Sal)`"
+        ],
+        "right": [
+          "I. 6",
+          "II. 200000",
+          "III. 5",
+          "IV. 50000"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-g07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about SQL queries.\nA. MIN() and MAX() can also be used on text columns.\nB. HAVING is applied before WHERE in a query.\nC. COUNT(DISTINCT Dept) counts the different non-NULL departments.\nD. ORDER BY ... DESC lists the smallest value first.\nWhich statements are correct?",
+      "options": [
+        "A and B only",
+        "A and C only",
+        "B and D only",
+        "A, C and D only"
+      ],
+      "answer": 2,
+      "explanation": "MIN and MAX compare text alphabetically, so they work on text columns (A true). WHERE is applied to rows first and HAVING to groups later (B false). COUNT(DISTINCT Dept) counts each different non-NULL department once (C true). DESC lists the largest first, so D is false.",
+      "optionRationale": {
+        "1": "B is false: WHERE filters rows first and HAVING filters the groups afterwards.",
+        "3": "B and D are both false: HAVING comes after WHERE and DESC puts the largest value first.",
+        "4": "D is false because DESC lists the largest value first."
+      },
+      "objective": "Judge statements about MIN, MAX, HAVING, COUNT and DESC"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "EMP(Name, DeptNo) holds the rows (A, 1), (B, 2), (C, 1), (D, 3), (E, 2), (F, 1) and (G, 9). DEPT(DeptNo, DName) holds (1, Sales), (2, HR), (3, IT) and (4, Fin). What does the following query return?\n`SELECT D.DName, COUNT(*) FROM EMP E, DEPT D WHERE E.DeptNo = D.DeptNo GROUP BY D.DName HAVING COUNT(*) >= 2 ORDER BY D.DName DESC;`",
+      "options": [
+        "(HR, 2), (Sales, 3)",
+        "(Sales, 3), (HR, 2), (IT, 1)",
+        "(Sales, 3), (HR, 2)",
+        "(Sales, 4), (HR, 2)"
+      ],
+      "answer": 3,
+      "explanation": "The join gives Sales 3 rows (A, C, F), HR 2 rows (B, E) and IT 1 row (D); G is lost and Fin has no row. HAVING COUNT(*) >= 2 removes IT. ORDER BY DName DESC lists the names in reverse alphabetical order, so Sales precedes HR.",
+      "optionRationale": {
+        "1": "DESC puts the names in reverse alphabetical order, so Sales comes before HR.",
+        "2": "IT has only one employee, so HAVING COUNT(*) >= 2 removes it.",
+        "4": "Only A, C and F are in Sales; employee G has DeptNo 9 and is not joined to any department."
+      },
+      "objective": "Evaluate a join with GROUP BY, HAVING and ORDER BY DESC"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-g09",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The values returned by COUNT(Sal) and COUNT(*) on a table are always equal.\nReason (R): COUNT(column) does not count the rows in which that column is NULL.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "COUNT(*) counts every row, while COUNT(Sal) counts only the rows in which Sal is not NULL. When even one salary is NULL the two values differ, so the assertion is false. The reason correctly describes how COUNT(column) treats NULL.",
+      "optionRationale": {
+        "1": "The assertion is false, so the reason cannot be its explanation.",
+        "2": "The assertion is false: the two counts differ when a NULL is present.",
+        "3": "The reason is a correct statement; it is the assertion that is false."
+      },
+      "objective": "Contrast COUNT(*) with COUNT(column)"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-g10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "What does `SELECT DAYNAME(\"2024-02-29\"), MONTH(\"2024-02-29\") * DAY(\"2024-02-29\");` display in MySQL?",
+      "options": [
+        "Thursday, 31",
+        "Friday, 58",
+        "Thursday, 58",
+        "February, 58"
+      ],
+      "answer": 3,
+      "explanation": "DAYNAME gives the weekday of the date, and 29 February 2024 was a Thursday. MONTH returns 2 and DAY returns 29, and their product is 2 x 29 = 58. The query therefore shows Thursday and 58.",
+      "optionRationale": {
+        "1": "MONTH is 2 and DAY is 29, so the product is 58; 31 would be their sum.",
+        "2": "29 February 2024 fell on a Thursday, not a Friday.",
+        "4": "DAYNAME returns the name of the weekday; February would come from MONTHNAME."
+      },
+      "objective": "Combine date functions in one query"
+    },
+    {
+      "key": "ug26-308-r08-sql-ii-g11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Table T1 has the values 1, 2, 3 in column k, T2 has 1, 1, 2, 4 and T3 has 1, 2, 2, 5. What does `SELECT COUNT(*) FROM T1, T2, T3 WHERE T1.k = T2.k AND T2.k = T3.k;` return?",
+      "options": [
+        "48",
+        "4",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "Only values present in all three tables can match. For k = 1 there is 1 row in T1, 2 in T2 and 1 in T3, giving 1 x 2 x 1 = 2 combinations. For k = 2 there are 1 x 1 x 2 = 2 combinations. The values 3, 4 and 5 are missing from at least one table, so the count is 4.",
+      "optionRationale": {
+        "1": "3 x 4 x 4 = 48 would be the Cartesian product of the three tables; the WHERE conditions remove most combinations.",
+        "3": "This counts only the value 1 (1 x 2 x 1 = 2); the value 2 also matches in all three tables.",
+        "4": "The value 1 gives 2 rows and the value 2 gives 2 rows, so the total is 4, not 3."
+      },
+      "objective": "Count rows of a three-table equi-join"
+    }
+  ]
+}

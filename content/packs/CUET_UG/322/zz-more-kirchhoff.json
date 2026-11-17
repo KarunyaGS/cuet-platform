@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_77f37e3596da4cd385cfb7d23e8aaefc",
+    "title": "Kirchhoff's rules, Wheatstone bridge."
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "In a metre bridge the unknown resistance X is in the left gap and a known resistance of $10\\,\\Omega$ is in the right gap. The jockey gives zero deflection at the 40.0 cm mark, measured from the left end of the 100 cm wire. What is X?",
+      "options": [
+        "$15\\,\\text{Ω}$",
+        "$6.67\\,\\text{Ω}$",
+        "$4\\,\\text{Ω}$",
+        "$25\\,\\text{Ω}$"
+      ],
+      "answer": 2,
+      "explanation": "A metre bridge is a Wheatstone bridge in which the wire lengths are proportional to the resistances of the two wire arms. At balance $X/R = l/(100-l)$, so $X = 10 \\times 40/60 = 6.67\\,\\Omega$. The length on the same side as the unknown goes in the numerator and the remaining length goes in the denominator.",
+      "optionRationale": {
+        "1": "This has the two lengths interchanged, using $(100-l)/l$ and so giving the value that would hold if X were in the right gap.",
+        "3": "This divides by the full 100 cm of the wire instead of the length of the other wire arm, which is $(100-l)$.",
+        "4": "This uses the whole wire length in the numerator and the balancing length in the denominator, which is not the bridge ratio."
+      },
+      "objective": "Apply the Wheatstone balance condition to a metre bridge"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A cell of emf 6.0 V and internal resistance $0.50\\,\\Omega$ is connected across an external resistor of $2.5\\,\\Omega$. Using Kirchhoff's loop rule, what is the potential difference across the terminals of the cell?",
+      "options": [
+        "$1\\,\\text{V}$",
+        "$7\\,\\text{V}$",
+        "$6\\,\\text{V}$",
+        "$5\\,\\text{V}$"
+      ],
+      "answer": 4,
+      "explanation": "The loop rule gives $\\varepsilon - Ir - IR = 0$, so $I = 6.0/(0.50+2.5) = 2.0\\,\\text{A}$. The terminal potential difference equals the potential drop across the external resistor, $V = \\varepsilon - Ir = 6.0 - (2.0)(0.50) = 5.0\\,\\text{V}$, which is less than the emf because some potential is lost inside the cell.",
+      "optionRationale": {
+        "1": "This is only the potential drop across the internal resistance, not the terminal voltage.",
+        "2": "This adds the internal drop to the emf, but the internal drop must be subtracted when the cell is delivering current.",
+        "3": "This is the emf, which equals the terminal voltage only when no current is drawn from the cell."
+      },
+      "objective": "Find the terminal voltage of a cell delivering current using the loop rule"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A steady current of 5.0 A enters a junction and divides between a $3.0\\,\\Omega$ resistor and a $6.0\\,\\Omega$ resistor connected in parallel. Using the junction and loop rules, what is the current in the $6.0\\,\\Omega$ resistor?",
+      "options": [
+        "$1.67\\,\\text{A}$",
+        "$3.33\\,\\text{A}$",
+        "$0.833\\,\\text{A}$",
+        "$2.5\\,\\text{A}$"
+      ],
+      "answer": 1,
+      "explanation": "The junction rule gives $I_3 + I_6 = 5.0\\,\\text{A}$. The loop rule round the parallel pair gives $3I_3 = 6I_6$, so $I_3 = 2I_6$. Then $3I_6 = 5.0$ and $I_6 = 1.67\\,\\text{A}$. The larger resistor takes the smaller share of the current, one-third of the total.",
+      "optionRationale": {
+        "2": "This is the current in the $3.0\\,\\Omega$ resistor; the smaller resistance carries the larger share.",
+        "3": "This divides the total current by the resistance value, which has no physical meaning because the unit is not an ampere.",
+        "4": "An equal split would require equal resistances; here the currents are in the inverse ratio of the resistances."
+      },
+      "objective": "Divide current in parallel branches using the junction and loop rules"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A current of 1.5 A flows from point A to point B along a branch containing, in order from A, a $3.0\\,\\Omega$ resistor and then a cell of emf 8.0 V and internal resistance $1.0\\,\\Omega$. The current enters the cell at its negative terminal and leaves at its positive terminal. What is $V_A - V_B$?",
+      "options": [
+        "$-2\\,\\text{V}$",
+        "$6\\,\\text{V}$",
+        "$2\\,\\text{V}$",
+        "$14\\,\\text{V}$"
+      ],
+      "answer": 1,
+      "explanation": "Travel from A to B. Through the resistor the potential falls by $(1.5)(3.0) = 4.5\\,\\text{V}$, and across the internal resistance by $(1.5)(1.0) = 1.5\\,\\text{V}$. Going through the cell from its negative to its positive terminal the potential rises by 8.0 V. So $V_B = V_A - 4.5 - 1.5 + 8.0 = V_A + 2.0$ and $V_A - V_B = -2.0\\,\\text{V}$.",
+      "optionRationale": {
+        "2": "This leaves out the emf of the cell and counts only the two potential drops across the resistances.",
+        "3": "This has the wrong sign: B is at the higher potential, so $V_A - V_B$ is negative.",
+        "4": "This treats the cell as another potential drop, but crossing a cell from negative to positive terminal raises the potential."
+      },
+      "objective": "Calculate the potential difference across a branch using sign conventions of the loop rule"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-m05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A Wheatstone bridge has $P = 3\\,\\Omega$ (AB), $Q = 6\\,\\Omega$ (BC), $R = 4\\,\\Omega$ (AD) and $S = 8\\,\\Omega$ (DC), with a galvanometer between B and D. A 9.0 V cell of negligible internal resistance is connected between A and C. What current does the cell supply?",
+      "options": [
+        "$0.818\\,\\text{A}$",
+        "$1\\,\\text{A}$",
+        "$0.429\\,\\text{A}$",
+        "$1.75\\,\\text{A}$"
+      ],
+      "answer": 4,
+      "explanation": "Since $P/Q = 1/2$ and $R/S = 1/2$, the bridge is balanced and the galvanometer carries no current, so it can be ignored. The bridge is then two series pairs in parallel: $P+Q = 9\\,\\Omega$ and $R+S = 12\\,\\Omega$. Their combination is $9\\times12/21 = 5.14\\,\\Omega$, so $I = 9.0/5.14 = 1.75\\,\\text{A}$.",
+      "optionRationale": {
+        "1": "This takes P and S as the only path, ignoring that these two resistors are in different arms of the bridge.",
+        "2": "This is the current in the upper pair P and Q only; the other path through R and S also draws current from the cell.",
+        "3": "This treats all four resistors as being in series, which they are not because the two paths from A to C are in parallel."
+      },
+      "objective": "Find the total current drawn by a balanced Wheatstone bridge"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-m06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "In a Wheatstone bridge $P = 10\\,\\Omega$ (AB), $Q = 10\\,\\Omega$ (BC), $R = 10\\,\\Omega$ (AD) and $S = 20\\,\\Omega$ (DC). A 6.0 V cell of negligible internal resistance is connected between A and C, and an ideal galvanometer of negligible resistance joins B and D. What current flows through the galvanometer?",
+      "options": [
+        "$514\\,\\text{mA}$",
+        "$343\\,\\text{mA}$",
+        "$85.7\\,\\text{mA}$",
+        "$257\\,\\text{mA}$"
+      ],
+      "answer": 3,
+      "explanation": "The zero-resistance galvanometer makes B and D the same point. Then P and R are in parallel ($5\\,\\Omega$) in series with Q and S in parallel ($6.67\\,\\Omega$), so the total resistance is 11.67 Ω and the cell current is 514 mA. The current in Q is 343 mA but P supplies only 257 mA to B, so the galvanometer must carry the difference, about 85.7 mA, from D to B.",
+      "optionRationale": {
+        "1": "This is the total current from the cell, not the current in the galvanometer branch.",
+        "2": "This is the current in arm Q alone, whereas the galvanometer carries only the difference between Q and P.",
+        "4": "This is the current in arm P alone, which is a part of what reaches junction B but not the galvanometer current."
+      },
+      "objective": "Apply the junction rule to find the current in the galvanometer arm of an unbalanced bridge"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-m07",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Kirchhoff's loop rule can be applied to a closed loop that contains only resistors and no source of emf.\nReason (R): The loop rule is a statement of the conservation of electric charge and so holds only for loops that contain cells.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "The assertion is true: in a loop with no cell the algebraic sum of the potential drops across the resistors, using currents with their proper signs, is still zero, as in the loop B-D-C of a bridge. The reason is false: the loop rule expresses conservation of energy (the electrostatic field is conservative), whereas the junction rule expresses conservation of charge.",
+      "optionRationale": {
+        "1": "R is false, because the loop rule is based on conservation of energy, so it cannot explain A.",
+        "2": "R is not true: the loop rule expresses conservation of energy, not of charge, and it needs no cell in the loop.",
+        "4": "A is true; the rule holds for any closed loop, including those without a source of emf."
+      },
+      "objective": "Identify the conservation law behind the loop rule and where it applies"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-m08",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A Wheatstone bridge is balanced when $P/Q = R/S$. Match each set of known arms in List-I with the resistance S that balances the bridge, given in List-II.",
+      "list": {
+        "left": [
+          "A. $P = 2\\,\\Omega$, $Q = 3\\,\\Omega$, $R = 4\\,\\Omega$",
+          "B. $P = 6\\,\\Omega$, $Q = 3\\,\\Omega$, $R = 8\\,\\Omega$",
+          "C. $P = 5\\,\\Omega$, $Q = 5\\,\\Omega$, $R = 7\\,\\Omega$",
+          "D. $P = 4\\,\\Omega$, $Q = 10\\,\\Omega$, $R = 6\\,\\Omega$"
+        ],
+        "right": [
+          "I. $4\\,\\Omega$",
+          "II. $6\\,\\Omega$",
+          "III. $7\\,\\Omega$",
+          "IV. $15\\,\\Omega$"
+        ]
+      },
+      "options": [
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-III, D-IV",
+        "A-II, B-I, C-IV, D-III",
+        "A-IV, B-I, C-III, D-II"
+      ],
+      "answer": 2,
+      "explanation": "At balance $S = QR/P$. For A, $S = 3\\times4/2 = 6\\,\\Omega$ (II). For B, $S = 3\\times8/6 = 4\\,\\Omega$ (I). For C, $S = 5\\times7/5 = 7\\,\\Omega$ (III). For D, $S = 10\\times6/4 = 15\\,\\Omega$ (IV). So the matching is A-II, B-I, C-III, D-IV.",
+      "optionRationale": {
+        "1": "A and B are swapped: for A the product QR is 12 divided by P = 2, giving 6, not 4.",
+        "3": "C and D are swapped: D requires $10\\times6/4 = 15\\,\\Omega$, whereas C has equal P and Q so S equals R.",
+        "4": "A and D are swapped: A gives 6 Ω and D gives 15 Ω, not the other way round."
+      },
+      "objective": "Calculate the balancing resistance in a Wheatstone bridge"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-m09",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about a Wheatstone bridge.\nA. The condition of balance does not depend on the emf of the cell connected to the bridge.\nB. The bridge is most sensitive when all four resistances are of the same order of magnitude.\nC. When the bridge is balanced, removing the galvanometer changes the current in each arm.\nD. The internal resistance of the cell changes the balance condition $P/Q = R/S$.\nChoose the correct option.",
+      "options": [
+        "A, B and C only",
+        "A and B only",
+        "B and D only",
+        "A and D only"
+      ],
+      "answer": 2,
+      "explanation": "Balance means points B and D are at the same potential, which depends only on the ratios of the resistances, so the emf does not matter (A is true) and neither does the internal resistance of the cell (D is false). The bridge is most sensitive when the four resistances are comparable (B is true). At balance the galvanometer carries no current, so removing it changes nothing (C is false).",
+      "optionRationale": {
+        "1": "C is false because the galvanometer carries no current at balance, so removing it changes no arm current.",
+        "3": "D is false: internal resistance does not alter the ratio condition, and A, which is true, is missing.",
+        "4": "D is false because balance depends only on the resistance ratios, and B, which is true, is missing."
+      },
+      "objective": "Evaluate statements about the balance and sensitivity of a Wheatstone bridge"
+    },
+    {
+      "key": "ug26-322-u2-kirchhoff-wheatstone-m10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Points a and b are joined by three branches. Branch 1 has a 12 V cell in series with $2.0\\,\\Omega$, branch 2 has a $4.0\\,\\Omega$ resistor, and branch 3 has a 6.0 V cell in series with $3.0\\,\\Omega$. The positive terminals of both cells are towards a and the cells have negligible internal resistance. What is the current in the $4.0\\,\\Omega$ resistor, from a to b?",
+      "options": [
+        "$1.85\\,\\text{A}$",
+        "$0.462\\,\\text{A}$",
+        "$3\\,\\text{A}$",
+        "$2.31\\,\\text{A}$"
+      ],
+      "answer": 1,
+      "explanation": "Let $V = V_a - V_b$. The branch currents towards a are $(12-V)/2$ and $(6-V)/3$, and the junction rule says their sum equals $V/4$. So $6(12-V) + 4(6-V) = 3V$, which gives $13V = 96$ and $V = 7.385\\,\\text{V}$. The current in the $4.0\\,\\Omega$ resistor is $V/4 = 1.85\\,\\text{A}$. The 6 V branch actually carries -0.46 A, that is, in the reverse sense.",
+      "optionRationale": {
+        "2": "This is the magnitude of the current in the 6 V branch, which flows backwards and is smaller than the middle current.",
+        "3": "This is the current 12 V alone would drive through the $4.0\\,\\Omega$ resistor, ignoring the other two branches.",
+        "4": "This is the current in the 12 V branch alone, which is larger than the current in the middle branch."
+      },
+      "objective": "Solve a three-branch network using Kirchhoff's junction and loop rules"
+    }
+  ]
+}

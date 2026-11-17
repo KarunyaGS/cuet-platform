@@ -1,0 +1,218 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_e18fd493160041faa21d96427a3672cd",
+  "title": "Database Concepts"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In a relation STUDENT, the attribute Class may take only the values 11 or 12. The set of all values that an attribute is allowed to take is called its",
+   "options": [
+    "degree",
+    "cardinality",
+    "candidate key",
+    "domain"
+   ],
+   "answer": 4,
+   "explanation": "The domain of an attribute is the set of values it may legally take, such as {11, 12} for Class. Degree is the number of attributes of a relation, cardinality is the number of tuples, and a candidate key is an attribute set that can identify tuples uniquely.",
+   "optionRationale": {
+    "1": "Degree counts the columns of a relation and says nothing about allowed values.",
+    "2": "Cardinality counts the rows of a relation and is not the set of permitted values.",
+    "3": "A candidate key is a column or set of columns that identifies rows, not a set of allowed values."
+   },
+   "objective": "Define the domain of an attribute"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Relations A = {(1, Asha), (2, Ravi), (3, Meena)} and B = {(3, Meena), (4, Karan), (5, Divya)} are union compatible. How many tuples are there in A ∩ B and in A − B, in this order?",
+   "options": [
+    "1 and 2",
+    "2 and 1",
+    "1 and 3",
+    "0 and 3"
+   ],
+   "answer": 1,
+   "explanation": "Only the tuple (3, Meena) is present in both relations, so the intersection has 1 tuple. The difference A - B contains the tuples of A that are not in B, which are (1, Asha) and (2, Ravi), so it has 2 tuples.",
+   "optionRationale": {
+    "2": "This reverses the two answers; the common tuple is just one.",
+    "3": "The difference removes the common tuple (3, Meena) from A, so it cannot have all 3 tuples.",
+    "4": "The relations do share the tuple (3, Meena), so the intersection is not empty."
+   },
+   "objective": "Apply intersection and difference on relations"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "The relation BOOK(BookNo, Title, Price, Qty) has the tuples (1, Physics, 450, 5), (2, Maths, 380, 0), (3, Biology, 520, 8), (4, Chemistry, 300, 2) and (5, English, 250, 0). The expression is: projection on Title, Price of (selection of Price >= 300 and Qty > 0 from BOOK). What are the degree and the cardinality of the result?",
+   "options": [
+    "degree 4 and cardinality 3",
+    "degree 2 and cardinality 3",
+    "degree 2 and cardinality 4",
+    "degree 2 and cardinality 2"
+   ],
+   "answer": 2,
+   "explanation": "The selection keeps Physics, Biology and Chemistry, because Maths has Qty 0 and English has Price below 300. That gives 3 tuples. The projection keeps only Title and Price, so the degree is 2. The result therefore has degree 2 and cardinality 3.",
+   "optionRationale": {
+    "1": "This ignores the projection; the projection reduces the four attributes to two.",
+    "3": "This applies only Price >= 300 and forgets Qty > 0, which also removes Maths.",
+    "4": "This treats the condition as Price > 300, but Chemistry has price 300 and satisfies >= 300."
+   },
+   "objective": "Find degree and cardinality after select and project"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Relation R(a, b) has the tuples (1, x), (2, y), (2, z), (3, w) and relation S(a, c) has the tuples (2, p), (2, q), (3, r), (4, s). How many tuples does the selection of R.a = S.a applied on the cartesian product R x S return?",
+   "options": [
+    "5",
+    "4",
+    "3",
+    "16"
+   ],
+   "answer": 1,
+   "explanation": "The cartesian product has 4 x 4 = 16 tuples. A match on a happens for a = 2, where 2 tuples of R pair with 2 tuples of S giving 4 pairs, and for a = 3, giving 1 pair. Value 1 of R and value 4 of S find no partner. Total is 4 + 1 = 5.",
+   "optionRationale": {
+    "2": "4 counts only the pairs with a = 2 and misses the matching pair for a = 3.",
+    "3": "3 counts each matching tuple of R only once, but the two tuples with a = 2 each pair with two tuples of S.",
+    "4": "16 is the size of the full cartesian product before the selection is applied."
+   },
+   "objective": "Count tuples of a selection on a cartesian product"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "ORDERS has a column CustID which is a foreign key referring to CUSTOMER(CustID). A user tries to insert an order with CustID 99, but no customer with CustID 99 exists. Which rule is violated?",
+   "options": [
+    "Entity integrity",
+    "Referential integrity",
+    "Domain integrity",
+    "Candidate key uniqueness"
+   ],
+   "answer": 2,
+   "explanation": "A foreign key value must either be NULL or match an existing value of the primary key it refers to. CustID 99 has no matching customer, so referential integrity is violated and the DBMS rejects the insertion.",
+   "optionRationale": {
+    "1": "Entity integrity says that a primary key must not be NULL, which is not the issue here.",
+    "3": "Domain integrity concerns the allowed values for a column, and 99 may be a valid number.",
+    "4": "The problem is a missing parent row, not a duplicate value in a key."
+   },
+   "objective": "Apply referential integrity to a foreign key"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-m06",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Inserting a new tuple into a relation changes its cardinality but not its degree.\nReason (R): The cardinality of a relation is the number of attributes (columns) in it.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "A new row adds one tuple, so the number of tuples (cardinality) increases while the number of columns (degree) is unchanged. Hence A is true. R is false because the number of attributes is the degree; cardinality is the number of tuples.",
+   "optionRationale": {
+    "1": "R is false, since the number of attributes is the degree, so it cannot explain A.",
+    "2": "R is not true: cardinality counts tuples, not attributes.",
+    "4": "A is true because adding a row changes only the count of tuples."
+   },
+   "objective": "Separate degree from cardinality"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which of the following is an example of a relational database management system?",
+   "options": [
+    "MS Paint",
+    "Notepad",
+    "VLC player",
+    "MySQL"
+   ],
+   "answer": 4,
+   "explanation": "MySQL is software that creates and manages relational databases, storing data in tables and answering queries written in SQL. Paint is for pictures, Notepad is a text editor and VLC is a media player, and none of them manages tables of data.",
+   "optionRationale": {
+    "1": "MS Paint is a drawing application and does not manage data tables.",
+    "2": "Notepad is a plain text editor, which has no table, key or query facility.",
+    "3": "VLC is a media player used for audio and video, not for database management."
+   },
+   "objective": "Recognise a relational DBMS"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-m08",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about relational algebra.\nA. The intersection of two union-compatible relations has at most as many tuples as the smaller of the two relations.\nB. A projection can return fewer tuples than the original relation because duplicate tuples are removed.\nC. The selection operation reduces the degree of a relation.\nD. Union can be applied only to relations that have the same degree and compatible domains for corresponding attributes.\nWhich statements are correct?",
+   "options": [
+    "A and C only",
+    "A, B and D only",
+    "B, C and D only",
+    "A, B and C only"
+   ],
+   "answer": 2,
+   "explanation": "A is true because every tuple of the intersection must be in both relations. B is true as projection removes duplicates. C is false: selection removes rows and keeps all the columns, so the degree is unchanged. D is true, since union needs union-compatible relations.",
+   "optionRationale": {
+    "1": "C is false, so any option that includes it is wrong, and B and D are also true.",
+    "3": "C is false, and this option leaves out the true statement A.",
+    "4": "C is false, so including it makes this option wrong and it drops the true statement D."
+   },
+   "objective": "Judge statements about relational algebra operations"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-m09",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match the symbol of relational algebra in List-I with its operation in List-II.",
+   "options": [
+    "A-III, B-II, C-IV, D-I",
+    "A-II, B-III, C-I, D-IV",
+    "A-II, B-III, C-IV, D-I",
+    "A-II, B-IV, C-III, D-I"
+   ],
+   "answer": 3,
+   "explanation": "The symbol sigma stands for selection, which chooses rows by a condition (II). Pi stands for projection, which chooses columns (III). The union sign collects the tuples of two relations without repeats (IV), and the cross sign is the cartesian product (I).",
+   "optionRationale": {
+    "1": "This gives selection the column choice and projection the row choice, swapping them.",
+    "2": "This gives union the pairing of every tuple and the cartesian product the collecting of tuples.",
+    "4": "This gives projection the union description and union the column choice."
+   },
+   "objective": "Match relational algebra symbols with operations",
+   "list": {
+    "left": [
+     "A. $\\sigma$",
+     "B. $\\pi$",
+     "C. $\\cup$",
+     "D. $\\times$"
+    ],
+    "right": [
+     "I. Joins every tuple of one relation with every tuple of the other",
+     "II. Chooses the tuples that satisfy a condition",
+     "III. Chooses some of the attributes (columns)",
+     "IV. Collects tuples of two relations, keeping each once"
+    ]
+   }
+  }
+ ]
+}

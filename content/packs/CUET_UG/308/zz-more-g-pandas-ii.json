@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_c82a3a2dbbd6467599c6bdd04e435fad",
+    "title": "Data Handling using Pandas – II"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r07-pandas-ii-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which Series method returns the count of each different value present in the Series?",
+      "options": [
+        "count()",
+        "value_counts()",
+        "unique()",
+        "nunique()"
+      ],
+      "answer": 2,
+      "explanation": "value_counts() produces a new Series whose index holds each distinct value and whose data holds how many times it occurs, sorted from the most frequent. count() gives one total, unique() lists the distinct values and nunique() counts how many there are.",
+      "optionRationale": {
+        "1": "count() returns only the number of non-missing values, as one number.",
+        "3": "unique() lists the different values but does not count them.",
+        "4": "nunique() gives how many different values there are, not how often each occurs."
+      },
+      "objective": "Recall value_counts()"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which DataFrame method removes the rows that are exact repeats of earlier rows?",
+      "options": [
+        "dropna()",
+        "drop()",
+        "unique()",
+        "drop_duplicates()"
+      ],
+      "answer": 4,
+      "explanation": "drop_duplicates() keeps the first occurrence of each row and removes later identical rows. dropna() deals with missing values, drop() needs labels to be named, and unique() belongs to Series and only lists distinct values.",
+      "optionRationale": {
+        "1": "dropna() removes rows or columns that contain missing values, not repeated rows.",
+        "2": "drop() removes the rows or columns whose labels are named.",
+        "3": "unique() is a Series method that lists distinct values; it does not remove rows of a DataFrame."
+      },
+      "objective": "Recall drop_duplicates()"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which method replaces the missing values (NaN) of a DataFrame with a given value?",
+      "options": [
+        "fillna()",
+        "isnull()",
+        "dropna()",
+        "replace_nan()"
+      ],
+      "answer": 1,
+      "explanation": "fillna(value) returns a DataFrame in which every NaN is replaced by the given value, for example df.fillna(0). isnull() gives True or False for each cell, dropna() removes missing data instead of filling it, and replace_nan() does not exist.",
+      "optionRationale": {
+        "2": "isnull() only marks which cells are missing; it does not replace them.",
+        "3": "dropna() deletes the rows or columns that contain missing values.",
+        "4": "There is no method of this name in Pandas."
+      },
+      "objective": "Recall fillna()"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What does this program print?\n`s = pd.Series([\"a\", \"b\", \"a\", \"c\", \"a\", \"b\"])`\n`vc = s.value_counts()`\n`print(vc.index[0], vc.iloc[0], len(vc))`",
+      "options": [
+        "a 3 6",
+        "b 2 3",
+        "a 3 3",
+        "a 6 3"
+      ],
+      "answer": 3,
+      "explanation": "The values a, b and c occur 3, 2 and 1 times. value_counts() sorts them from the most frequent, so the first index label is a with count 3. The result has one row per different value, so its length is 3.",
+      "optionRationale": {
+        "1": "len(vc) counts the different values (a, b, c), which is 3, not the 6 elements of s.",
+        "2": "The most frequent value comes first; a occurs 3 times, b only 2 times.",
+        "4": "The count of a is 3; 6 is the total number of elements in s."
+      },
+      "objective": "Trace value_counts() output"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-g05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What does this program print?\n`df = pd.DataFrame({\"d\": [\"x\", \"y\", \"x\", \"y\", \"x\"], \"v\": [10, 20, 30, 50, 50]})`\n`r = df.groupby(\"d\")[\"v\"].mean()`\n`print(r[\"x\"], r[\"y\"])`",
+      "options": [
+        "30.0 30.0",
+        "30.0 35.0",
+        "90.0 70.0",
+        "35.0 30.0"
+      ],
+      "answer": 2,
+      "explanation": "Group x contains the values 10, 30 and 50, so its mean is 90 / 3 = 30.0. Group y contains 20 and 50, so its mean is 70 / 2 = 35.0. The results are floats because mean() returns decimal numbers.",
+      "optionRationale": {
+        "1": "Group y holds 20 and 50, whose mean is 35, not 30.",
+        "3": "These are the sums of the groups; mean() divides each sum by the group size.",
+        "4": "The groups are exchanged: x holds 10, 30 and 50 (mean 30) and y holds 20 and 50 (mean 35)."
+      },
+      "objective": "Compute a group-wise mean"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-g06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each Pandas call in List-I with its result in List-II.",
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-I, B-II, C-III, D-IV",
+        "A-IV, B-II, C-III, D-I"
+      ],
+      "answer": 3,
+      "explanation": "value_counts() gives the frequency of each distinct value (I). drop_duplicates() keeps rows without repeats (II). fillna(0) replaces every NaN with 0 (III). cumsum() produces the running total of the values (IV).",
+      "optionRationale": {
+        "1": "value_counts() gives frequencies and drop_duplicates() removes repeated rows; A and B are exchanged here.",
+        "2": "fillna(0) replaces NaN with 0 and cumsum() gives the running total; C and D are exchanged here.",
+        "4": "cumsum() gives a running total and value_counts() gives frequencies; A and D are exchanged here."
+      },
+      "objective": "Match Pandas methods with their results",
+      "list": {
+        "left": [
+          "A. `s.value_counts()`",
+          "B. `df.drop_duplicates()`",
+          "C. `df.fillna(0)`",
+          "D. `s.cumsum()`"
+        ],
+        "right": [
+          "I. Frequency of each different value",
+          "II. Rows without repeats",
+          "III. NaN replaced by 0",
+          "IV. Running total of the values"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-g07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about Pandas.\nA. groupby() splits the rows into groups according to the values of a column.\nB. dropna() removes the rows that contain NaN by default.\nC. fillna() changes the original DataFrame in place by default.\nD. describe() shows count, mean, std, min, quartiles and max for numeric columns.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "A and C only",
+        "B, C and D only",
+        "A, B and C only"
+      ],
+      "answer": 1,
+      "explanation": "groupby() splits rows by a column (A true). dropna() removes rows with NaN by default (B true). fillna() returns a new object and changes the original only when inplace=True is given (C false). describe() summarises numeric columns with count, mean, std, minimum, quartiles and maximum (D true).",
+      "optionRationale": {
+        "2": "C is false: fillna() returns a new DataFrame unless inplace=True is given; B and D are also correct.",
+        "3": "C is false, and A is a correct statement so it must be included.",
+        "4": "C is false because fillna() does not change the original by default, and D is correct."
+      },
+      "objective": "Judge statements about groupby, dropna, fillna and describe"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "What does this program print?\n`df = pd.DataFrame({\"n\": [\"a\", \"b\", \"c\", \"d\", \"e\"], \"g\": [\"x\", \"y\", \"x\", \"y\", \"x\"], \"s\": [70, 85, 90, 60, 90]})`\n`t = df.groupby(\"g\")[\"s\"].max()`\n`print(t.tolist(), df.loc[df[\"s\"].idxmax(), \"n\"])`",
+      "options": [
+        "[90, 85] e",
+        "[85, 90] c",
+        "[90, 90] c",
+        "[90, 85] c"
+      ],
+      "answer": 4,
+      "explanation": "Group x holds 70, 90 and 90 with maximum 90, and group y holds 85 and 60 with maximum 85; the groups are in key order x, y, so the list is [90, 85]. The maximum overall is 90 at labels 2 and 4, and idxmax() gives the first label, 2, whose name is c.",
+      "optionRationale": {
+        "1": "idxmax() returns the label of the first maximum when the maximum value occurs more than once.",
+        "2": "groupby sorts the group keys, so x (maximum 90) comes before y (maximum 85).",
+        "3": "The maximum of group y is 85 (the values are 85 and 60), not 90."
+      },
+      "objective": "Combine group-wise maximum with idxmax on ties"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "What does this program print?\n`df = pd.DataFrame({\"a\": [1, 1, 2, 2, 1], \"b\": [\"p\", \"p\", \"q\", \"r\", \"p\"]})`\n`r = df.drop_duplicates()`\n`print(r.index.tolist(), len(df.drop_duplicates(subset=\"a\", keep=\"last\")))`",
+      "options": [
+        "[0, 2, 3] 3",
+        "[0, 2, 3] 2",
+        "[0, 1, 2, 3, 4] 2",
+        "[0, 1, 2] 5"
+      ],
+      "answer": 2,
+      "explanation": "Rows 1 and 4 are exact copies of row 0, so drop_duplicates() keeps the labels 0, 2 and 3 (rows 2 and 3 differ in column b). With subset=\"a\" only the two different values of a count, and keep=\"last\" keeps one row for each, so the length is 2.",
+      "optionRationale": {
+        "1": "With subset=\"a\" only the column a is compared, so just two different values (1 and 2) remain.",
+        "3": "The rows labelled 1 and 4 repeat row 0 exactly, so they are removed in the first result.",
+        "4": "Row 3 (2, r) differs from row 2 (2, q), so it is kept, and the second result is not 5."
+      },
+      "objective": "Apply drop_duplicates with subset and keep"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-g10",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): `df.sort_values(\"Salary\")` returns the rows in order of Salary but each row keeps its original index label.\nReason (R): sort_values() renumbers the index of the result from 0 after sorting.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "sort_values() rearranges the rows but the labels travel with their rows, so the index of the result is no longer 0, 1, 2 in order; for example it may read 1, 2, 0, 3. The assertion is true. The reason is false: renumbering happens only if ignore_index=True is used.",
+      "optionRationale": {
+        "1": "The reason is false, so it cannot explain the assertion.",
+        "2": "The reason is not true: the index is not renumbered by default.",
+        "4": "The assertion is true: the index labels stay with their rows."
+      },
+      "objective": "Know that sort_values keeps the original index labels"
+    }
+  ]
+}

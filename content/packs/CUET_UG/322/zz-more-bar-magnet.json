@@ -1,0 +1,197 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_b51963cd2ed8431f90be8132eaa00e7d",
+    "title": "Bar magnet, bar magnet as an equivalent solenoid, magnetic field lines, magnetic field"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u3-bar-magnet-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A bar magnet has a magnetic moment of $1.2\\,\\text{A m}^2$ and a magnetic length of 12 cm. What is the strength of each of its poles?",
+      "options": [
+        "$0.1\\,\\text{A m}$",
+        "$0.144\\,\\text{A m}$",
+        "$10\\,\\text{A m}$",
+        "$20\\,\\text{A m}$"
+      ],
+      "answer": 3,
+      "explanation": "The magnetic moment is the pole strength multiplied by the distance between the poles, $m = q_m \\times 2l$. With $2l = 0.12\\,\\text{m}$, $q_m = m/2l = 1.2/0.12 = 10\\,\\text{A m}$. Pole strength is measured in ampere metre, since $\\text{A m}^2 \\div \\text{m}$ gives A m.",
+      "optionRationale": {
+        "1": "This inverts the ratio and divides the length by the moment, which is not the relation $m = q_m \\times 2l$.",
+        "2": "This multiplies the moment by the length instead of dividing, so it has the wrong dimensions for a pole strength.",
+        "4": "This divides by half the magnetic length (the distance l from the centre to a pole) instead of the full distance 2l."
+      },
+      "objective": "Relate pole strength to magnetic moment and magnetic length"
+    },
+    {
+      "key": "ug26-322-u3-bar-magnet-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The magnetic field of a short bar magnet at a point on its axis, 30 cm from its centre, has magnitude B. At what distance from the centre, on the equatorial line, is the field of the same magnitude B?",
+      "options": [
+        "$15\\,\\text{cm}$",
+        "$23.8\\,\\text{cm}$",
+        "$37.8\\,\\text{cm}$",
+        "$21.2\\,\\text{cm}$"
+      ],
+      "answer": 2,
+      "explanation": "For a short dipole $B_{axial} = \\frac{\\mu_0}{4\\pi}\\frac{2m}{r^3}$ and $B_{equatorial} = \\frac{\\mu_0}{4\\pi}\\frac{m}{r^3}$. Equating $2/r_1^3 = 1/r_2^3$ gives $r_2 = r_1/2^{1/3} = 30/1.26 = 23.8\\,\\text{cm}$. The equatorial point must be nearer, because the equatorial field is only half the axial field at the same distance.",
+      "optionRationale": {
+        "1": "This is half the distance, which would apply to a field that varies as 1/r rather than $1/r^3$.",
+        "3": "This multiplies by $2^{1/3}$ instead of dividing, which places the equatorial point farther out, where its field is weaker still.",
+        "4": "This takes the field to vary as $1/r^2$, so the cube root has been replaced by a square root."
+      },
+      "objective": "Compare axial and equatorial fields of a short magnetic dipole at different distances"
+    },
+    {
+      "key": "ug26-322-u3-bar-magnet-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A bar magnet of magnetic moment $0.50\\,\\text{A m}^2$ lies in a uniform magnetic field of 0.40 T with its moment along the field. How much work is needed to turn it slowly through $30^\\circ$?",
+      "options": [
+        "$0.0268\\,\\text{J}$",
+        "$0.1\\,\\text{J}$",
+        "$0.2\\,\\text{J}$",
+        "$0.173\\,\\text{J}$"
+      ],
+      "answer": 1,
+      "explanation": "The potential energy is $U = -mB\\cos\\theta$, so the work to turn the magnet from $\\theta = 0$ to $\\theta = 30^\\circ$ is $W = mB(1 - \\cos30^\\circ) = (0.50)(0.40)(1 - 0.866) = 0.0268\\,\\text{J}$. This is the small increase in potential energy from the minimum.",
+      "optionRationale": {
+        "2": "This uses $mB\\sin\\theta$, which is the torque in newton metre at that angle, not the work done in turning the magnet.",
+        "3": "This is the work for a $90^\\circ$ turn, $mB$, not for a turn through $30^\\circ$.",
+        "4": "This uses $mB\\cos\\theta$, which is minus the potential energy at that angle, not the change in energy."
+      },
+      "objective": "Calculate the work done in rotating a bar magnet in a uniform field"
+    },
+    {
+      "key": "ug26-322-u3-bar-magnet-m04",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The magnetic field lines of a bar magnet end on its south pole, just as electric field lines of a dipole end on its negative charge.\nReason (R): Magnetic field lines form continuous closed loops, because isolated magnetic poles do not exist.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "The assertion is false: although outside the magnet the lines run from north to south pole, they do not stop there; inside the magnet they continue from the south pole back to the north pole, closing each loop. The reason is true and states the cause, since no isolated pole exists on which a line could begin or end, unlike electric charges for electric lines.",
+      "optionRationale": {
+        "1": "A is false, because magnetic lines continue through the magnet and do not end on a pole.",
+        "2": "A is false; the lines do not terminate on the south pole, but continue inside the magnet.",
+        "3": "R is true; magnetic field lines are closed loops, as no isolated magnetic pole exists."
+      },
+      "objective": "Contrast magnetic field lines with electric field lines of a dipole"
+    },
+    {
+      "key": "ug26-322-u3-bar-magnet-m05",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements.\nA. A bar magnet cut into two equal pieces along its length has pieces of half the original magnetic moment.\nB. Outside a solenoid the magnetic field has a pattern similar to that of a bar magnet.\nC. A solenoid of N turns, each of area A, carrying a current I has a magnetic moment NIA directed along its axis.\nD. On the equatorial line of a short bar magnet, the field points in the same direction as its magnetic moment.\nChoose the correct option.",
+      "options": [
+        "A, B and D only",
+        "B, C and D only",
+        "A, B and C only",
+        "A and C only"
+      ],
+      "answer": 3,
+      "explanation": "A is true: a cut along the length halves the cross-section and so the pole strength, while the length stays the same, so the moment halves. B and C are true, which is the reason a solenoid is an equivalent of a bar magnet. D is false: on the equatorial line the field points opposite to the magnetic moment, because it points from the north end towards the south end of the magnet at that position.",
+      "optionRationale": {
+        "1": "D is false because the equatorial field points opposite to the magnetic moment, so it cannot be included.",
+        "2": "D is false, and A, which is true, is excluded from this option.",
+        "4": "B is also true, so omitting it leaves the option incomplete."
+      },
+      "objective": "Evaluate statements about magnetic moment, solenoids and the field of a magnetic dipole"
+    },
+    {
+      "key": "ug26-322-u3-bar-magnet-m06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match each magnetic quantity in List-I with its SI unit in List-II.",
+      "list": {
+        "left": [
+          "A. Magnetic dipole moment",
+          "B. Pole strength",
+          "C. Magnetic field",
+          "D. Magnetic flux"
+        ],
+        "right": [
+          "I. $\\text{A m}^2$",
+          "II. $\\text{A m}$",
+          "III. $\\text{T}$",
+          "IV. $\\text{Wb}$"
+        ]
+      },
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-I, B-III, C-II, D-IV",
+        "A-I, B-II, C-III, D-IV"
+      ],
+      "answer": 4,
+      "explanation": "Magnetic moment is current times area, so its unit is $\\text{A m}^2$ (I). Pole strength is moment divided by length, giving A m (II). The magnetic field is measured in tesla (III), and flux, which is field times area, in weber (IV), where $1\\,\\text{Wb} = 1\\,\\text{T m}^2$.",
+      "optionRationale": {
+        "1": "A and B are interchanged; moment has the unit with the square of length and pole strength the one with a single power.",
+        "2": "C and D are interchanged: flux is field times area, measured in weber, not tesla.",
+        "3": "B and C are interchanged: pole strength is measured in A m and the magnetic field in tesla."
+      },
+      "objective": "Recall units of magnetic quantities"
+    },
+    {
+      "key": "ug26-322-u3-bar-magnet-m07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Two small bar magnets of magnetic moments $0.60\\,\\text{A m}^2$ and $0.80\\,\\text{A m}^2$ are fixed together at their centres with their axes at right angles. What is the magnetic moment of the combination?",
+      "options": [
+        "$1\\,\\text{A m}^2$",
+        "$0.48\\,\\text{A m}^2$",
+        "$0.2\\,\\text{A m}^2$",
+        "$1.4\\,\\text{A m}^2$"
+      ],
+      "answer": 1,
+      "explanation": "Magnetic moment is a vector, so the moments add vectorially. For two perpendicular moments the resultant is $m = \\sqrt{m_1^2 + m_2^2} = \\sqrt{0.36 + 0.64} = 1.00\\,\\text{A m}^2$. It points along the diagonal of the rectangle formed by the two vectors, at an angle to each of them.",
+      "optionRationale": {
+        "2": "This multiplies the two magnitudes, which has the wrong dimensions for a magnetic moment.",
+        "3": "This subtracts the magnitudes, which is correct only if the two magnets are antiparallel.",
+        "4": "This adds the magnitudes, which is correct only if the two magnets are parallel to each other."
+      },
+      "objective": "Add magnetic moments vectorially"
+    },
+    {
+      "key": "ug26-322-u3-bar-magnet-m08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A short solenoid of 100 turns, each of area $2.0\\times10^{-4}\\,\\text{m}^2$, carries a current of 0.50 A. Treating it as a short bar magnet, find the magnetic field on its axis at a distance of 0.40 m from its centre. Take $\\mu_0/4\\pi = 10^{-7}\\,\\text{T m A}^{-1}$.",
+      "options": [
+        "$1.25\\times10^{-8}\\,\\text{T}$",
+        "$3.125\\times10^{-8}\\,\\text{T}$",
+        "$3.927\\times10^{-7}\\,\\text{T}$",
+        "$1.562\\times10^{-8}\\,\\text{T}$"
+      ],
+      "answer": 2,
+      "explanation": "The solenoid has a magnetic moment $m = NIA = 100 \\times 0.50 \\times 2.0\\times10^{-4} = 0.010\\,\\text{A m}^2$. On the axis of a short dipole $B = \\frac{\\mu_0}{4\\pi}\\frac{2m}{r^3} = 10^{-7} \\times 2(0.010)/(0.40)^3 = 3.12\\times10^{-8}\\,\\text{T}$. The result is very small because the field falls off as the cube of the distance.",
+      "optionRationale": {
+        "1": "This divides by $r^2$ instead of $r^3$, treating the dipole field like that of a point charge.",
+        "3": "This uses $\\mu_0$ in place of $\\mu_0/4\\pi$, so the result is too large by a factor of $4\\pi$.",
+        "4": "This is the field at the same distance on the equatorial line, half the axial value, so the factor of 2 has been dropped."
+      },
+      "objective": "Find the axial field of a solenoid treated as a magnetic dipole"
+    }
+  ]
+}

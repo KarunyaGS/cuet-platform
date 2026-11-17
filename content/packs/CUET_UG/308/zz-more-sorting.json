@@ -1,0 +1,260 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_33f07f9aa3a845648b4ab4867b43e1e8",
+  "title": "Sorting"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r13-sorting-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "application",
+   "stem": "What does the following Python code display?\n\na = [3, 1, 2]\nb = sorted(a)\nprint(a, b)",
+   "options": [
+    "[1, 2, 3] [1, 2, 3]",
+    "[3, 1, 2] [3, 2, 1]",
+    "[3, 1, 2] [1, 2, 3]",
+    "[1, 2, 3] None"
+   ],
+   "answer": 3,
+   "explanation": "The built-in function sorted() returns a new sorted list and leaves the original list unchanged. So a still holds [3, 1, 2] while b holds [1, 2, 3]. It is the list method a.sort() that sorts in place and returns None.",
+   "optionRationale": {
+    "1": "This would be the result if a.sort() had been used, which changes the original list.",
+    "2": "sorted() gives ascending order by default, so b cannot be in descending order.",
+    "4": "None is returned by the method a.sort(), not by the function sorted()."
+   },
+   "objective": "Differentiate sorted() from the in-place sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Insertion sort (ascending) is applied to [7, 3, 9, 1]. For each key, the loop compares the key with elements of the sorted part, from right to left, until an element not greater than the key is found or the front is reached. How many such comparisons (a[j] > key) are made in total?",
+   "options": [
+    "4",
+    "6",
+    "3",
+    "5"
+   ],
+   "answer": 4,
+   "explanation": "Key 3 is compared with 7 (1 comparison, then the front is reached). Key 9 is compared with 7 (1 comparison, 7 is not greater, so it stops). Key 1 is compared with 9, 7 and 3 (3 comparisons). The total is 1 + 1 + 3 = 5, while the number of shifts is 1 + 0 + 3 = 4.",
+   "optionRationale": {
+    "1": "4 is the number of element shifts, not the number of comparisons.",
+    "2": "6 would need one extra comparison for key 9, but it stops after finding that 7 is smaller.",
+    "3": "3 counts only the comparisons made for the last key."
+   },
+   "objective": "Count comparisons made by insertion sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A selection sort is written to arrange values in descending order by choosing the largest value of the unsorted part in each pass and exchanging it with the first element of that part. It is applied to [3, 8, 1, 9, 4]. What is the list after the second pass?",
+   "options": [
+    "[9, 8, 1, 3, 4]",
+    "[9, 8, 4, 3, 1]",
+    "[9, 3, 1, 8, 4]",
+    "[8, 3, 1, 9, 4]"
+   ],
+   "answer": 1,
+   "explanation": "Pass 1 finds 9 as the largest and exchanges it with 3, giving [9, 8, 1, 3, 4]. Pass 2 looks at [8, 1, 3, 4] and the largest is 8, already at the front, so no change occurs. The list after two passes is [9, 8, 1, 3, 4].",
+   "optionRationale": {
+    "2": "This is the fully sorted descending list, which needs more than two passes.",
+    "3": "This exchanges 3 with 8 in pass 2, but 8 is already the largest of the remaining part.",
+    "4": "This is the result of putting 8 first only, which is not what the first pass does."
+   },
+   "objective": "Trace descending selection sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Bubble sort (ascending, comparing adjacent elements) is applied to [3, 1, 4, 1, 5, 2]. How many swaps are made in all?",
+   "options": [
+    "6",
+    "5",
+    "7",
+    "8"
+   ],
+   "answer": 1,
+   "explanation": "Each swap of adjacent elements removes exactly one out-of-order pair. The pairs where an earlier value is greater than a later one are (3,1), (3,1), (3,2), (4,1), (4,2) and (5,2), which is 6 pairs. So bubble sort makes 6 swaps, and the list becomes [1, 1, 2, 3, 4, 5].",
+   "optionRationale": {
+    "2": "5 misses one of the out-of-order pairs, such as the pair (4, 2).",
+    "3": "7 counts a pair of equal elements (1, 1), which is never swapped.",
+    "4": "8 is the total number of comparisons in some passes, not the number of swaps."
+   },
+   "objective": "Relate swaps in bubble sort to out-of-order pairs"
+  },
+  {
+   "key": "ug26-308-r13-sorting-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Selection sort is applied to a list of 7 elements. How many comparisons between elements are made in all, whatever the order of the data?",
+   "options": [
+    "28",
+    "49",
+    "21",
+    "6"
+   ],
+   "answer": 3,
+   "explanation": "In pass 1 the minimum is searched among 7 elements using 6 comparisons, pass 2 uses 5, then 4, 3, 2 and 1. The total is 6 + 5 + 4 + 3 + 2 + 1 = 21, which agrees with n(n - 1) / 2 = 7 x 6 / 2 = 21 and does not depend on the data.",
+   "optionRationale": {
+    "1": "28 is n(n + 1) / 2 = 7 x 8 / 2, which counts one extra comparison per pass.",
+    "2": "49 is 7 x 7, the square of n, which is far more than the comparisons actually made.",
+    "4": "6 is only the number of comparisons in the first pass, not the total."
+   },
+   "objective": "Count comparisons in selection sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "What is the output of the following code?\n\nd = [4, 2, 5, 1]\nsw = 0\nfor i in range(len(d) - 1):\n    for j in range(len(d) - 1 - i):\n        if d[j] < d[j + 1]:\n            d[j], d[j + 1] = d[j + 1], d[j]\n            sw += 1\nprint(sw, d)",
+   "options": [
+    "4 [5, 4, 2, 1]",
+    "2 [5, 4, 2, 1]",
+    "2 [1, 2, 4, 5]",
+    "3 [5, 4, 2, 1]"
+   ],
+   "answer": 2,
+   "explanation": "The condition d[j] < d[j+1] swaps when the left value is smaller, so the list is sorted in descending order. Pass 1 swaps 2 and 5, giving [4, 5, 2, 1] with one swap. Pass 2 swaps 4 and 5, giving [5, 4, 2, 1] with a second swap. Pass 3 makes none, so the code prints 2 [5, 4, 2, 1].",
+   "optionRationale": {
+    "1": "4 is the number of swaps that an ascending sort of this list would make, but this code sorts downwards.",
+    "3": "The values are sorted in descending order here; [1, 2, 4, 5] is the ascending result.",
+    "4": "Only two out-of-order pairs (4,5) and (2,5) exist for a descending sort, so the count is not 3."
+   },
+   "objective": "Trace a descending bubble sort with a swap counter"
+  },
+  {
+   "key": "ug26-308-r13-sorting-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Insertion sort (ascending) is applied to [6, 2, 8, 4, 10, 1]. What is the list after the fourth pass, that is, after the elements at positions 1 to 4 (counting from 0) have each been inserted into the sorted left part?",
+   "options": [
+    "[2, 4, 6, 8, 1, 10]",
+    "[2, 4, 6, 8, 10, 1]",
+    "[1, 2, 4, 6, 8, 10]",
+    "[2, 6, 4, 8, 10, 1]"
+   ],
+   "answer": 2,
+   "explanation": "After inserting 2 the list is [2, 6, 8, 4, 10, 1]. Inserting 8 changes nothing, inserting 4 gives [2, 4, 6, 8, 10, 1], and inserting 10 changes nothing. The last element 1 has not been touched yet, so the list after the fourth pass is [2, 4, 6, 8, 10, 1].",
+   "optionRationale": {
+    "1": "This moves 10 and 1 around, but the element 1 is still waiting at the end after four passes.",
+    "3": "This is the final sorted list, reached only after the fifth pass inserts 1.",
+    "4": "This stops after inserting 2 and leaves 4 unsorted, which is only the first pass."
+   },
+   "objective": "Trace several passes of insertion sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-m08",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about sorting techniques.\nA. Selection sort makes the same number of comparisons for any ordering of the same n values.\nB. Insertion sort needs fewer shifts when the list is nearly sorted.\nC. Bubble sort without a flag stops early when the list is already sorted.\nD. The number of swaps made by bubble sort equals the number of out-of-order pairs in the list.\nWhich statements are correct?",
+   "options": [
+    "A, B and D only",
+    "A and C only",
+    "B, C and D only",
+    "A, B and C only"
+   ],
+   "answer": 1,
+   "explanation": "A is true: selection sort always makes n(n-1)/2 comparisons. B is true: a key near its place moves over few elements. C is false: without a flag the plain algorithm runs all its passes. D is true: each adjacent swap removes one out-of-order pair.",
+   "optionRationale": {
+    "2": "C is false, since the plain algorithm has no way to stop early; and B and D are also true.",
+    "3": "C is false, so this option wrongly includes it and also leaves out A.",
+    "4": "C is false, so any option containing C is wrong and D is left out here."
+   },
+   "objective": "Judge statements on the behaviour of sorting techniques"
+  },
+  {
+   "key": "ug26-308-r13-sorting-m09",
+   "type": "ASSERTION_REASON",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Selection sort on n elements needs n passes to sort them.\nReason (R): After n - 1 passes of selection sort, the last element is automatically in its correct place.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "Selection sort needs only n - 1 passes: once the n - 1 smallest values are placed, the remaining last element must be the largest and is already in position. So A is false, while R is a true statement about why the last pass is not needed.",
+   "optionRationale": {
+    "1": "A is false, so the pair cannot be both true.",
+    "2": "A is not true because n - 1 passes are enough.",
+    "3": "R is true, so the option stating R is false is wrong."
+   },
+   "objective": "State the number of passes in selection sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-m10",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Insertion sort is efficient for a list that is already nearly sorted.\nReason (R): Insertion sort stores the element being inserted in a temporary variable usually called key.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 2,
+   "explanation": "In a nearly sorted list each key has to move across very few elements, so few comparisons and shifts are needed and insertion sort is fast. Using a variable called key is also true, but it only holds the value while shifting and does not explain the speed.",
+   "optionRationale": {
+    "1": "The temporary variable key does not make the sort efficient; the small number of shifts does.",
+    "3": "R is a correct description of how insertion sort works, so it is not false.",
+    "4": "A is true: insertion sort tends towards order n on nearly sorted data."
+   },
+   "objective": "Reason about the efficiency of insertion sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-m11",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Bubble sort (ascending, without a flag) is applied to each list in List-I. Match each list with the number of swaps in List-II.",
+   "options": [
+    "A-I, B-IV, C-II, D-III",
+    "A-II, B-III, C-I, D-IV",
+    "A-III, B-IV, C-I, D-II",
+    "A-II, B-IV, C-I, D-III"
+   ],
+   "answer": 4,
+   "explanation": "List A has one out-of-order pair, so 1 swap. List B is reversed with three pairs out of order, so 3 swaps. List C is sorted, so 0. List D, [2, 3, 1], has two out-of-order pairs, so 2 swaps. The correct code is A-II, B-IV, C-I, D-III.",
+   "optionRationale": {
+    "1": "This gives the first list zero swaps although 2 and 1 are out of order.",
+    "2": "This gives the reversed list only two swaps, but it has three out-of-order pairs.",
+    "3": "This gives A two swaps although it has just one out-of-order pair."
+   },
+   "objective": "Count bubble sort swaps on small lists",
+   "list": {
+    "left": [
+     "A. [2, 1, 3]",
+     "B. [3, 2, 1]",
+     "C. [1, 2, 3]",
+     "D. [2, 3, 1]"
+    ],
+    "right": [
+     "I. 0 swaps",
+     "II. 1 swap",
+     "III. 2 swaps",
+     "IV. 3 swaps"
+    ]
+   }
+  }
+ ]
+}

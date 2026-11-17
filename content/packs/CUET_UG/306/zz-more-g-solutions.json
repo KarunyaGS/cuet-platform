@@ -1,0 +1,687 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "306",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_2607044569fe4b6abf26d67968fc7c44",
+    "title": "Solutions"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-306-u1-solutions-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A 2.5 kg sample of lake water contains 5.0 mg of dissolved oxygen. What is the concentration of oxygen in ppm (by mass)?",
+      "options": [
+        "2.0 ppm",
+        "5.0 ppm",
+        "0.5 ppm",
+        "12.5 ppm"
+      ],
+      "answer": 1,
+      "explanation": "Parts per million by mass means milligrams of solute per kilogram of solution (1 ppm = 1 mg/kg = 10^-6 by mass). Here the oxygen is 5.0 mg in 2.5 kg, so the concentration is 5.0 / 2.5 = 2.0 ppm. The same idea expresses very dilute pollutants in water and air.",
+      "optionRationale": {
+        "2": "This is the mass in mg without dividing by the 2.5 kg of sample.",
+        "3": "This inverts the ratio and divides 2.5 by 5.0 instead of 5.0 by 2.5.",
+        "4": "This multiplies 5.0 by 2.5, but ppm is milligrams per kilogram, so the mass must be divided."
+      },
+      "objective": "Calculate concentration in ppm"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Gas A has $K_H = 2$ kbar and gas B has $K_H = 40$ kbar in water at the same temperature. At equal partial pressures which statement is correct?",
+      "options": [
+        "Gas B is more soluble than gas A",
+        "Gas A is more soluble than gas B",
+        "Both gases are equally soluble",
+        "Solubility cannot be compared without the temperature"
+      ],
+      "answer": 2,
+      "explanation": "Henry's law gives the mole fraction of dissolved gas as $x = p/K_H$. At the same partial pressure, the gas with the smaller $K_H$ has the larger mole fraction in solution. Gas A, with $K_H = 2$ kbar, is therefore twenty times as soluble as gas B at the same temperature.",
+      "optionRationale": {
+        "1": "A larger K_H means a smaller mole fraction dissolved at a given pressure, so the gas with K_H = 40 kbar is the less soluble.",
+        "3": "Solubility depends on K_H, and the two K_H values differ by a factor of 20.",
+        "4": "Both K_H values are already stated at the same temperature, so the comparison is possible."
+      },
+      "objective": "Compare gas solubility from Henry's law constants"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Brass is an alloy of copper and zinc. It is best described as a solution of the type",
+      "options": [
+        "liquid in solid",
+        "gas in solid",
+        "solid in liquid",
+        "solid in solid"
+      ],
+      "answer": 4,
+      "explanation": "In a solution the component present in larger amount is the solvent and the physical state of the solvent decides the state of the solution. Brass is a homogeneous mixture of zinc dissolved in solid copper, so both solute and solvent are solids and it is classed as a solid-in-solid solution.",
+      "optionRationale": {
+        "1": "No liquid component is present in brass at room temperature.",
+        "2": "This type is shown by hydrogen absorbed in palladium, not by brass.",
+        "3": "Brass is itself a solid; solid in liquid describes sugar in water."
+      },
+      "objective": "Classify solutions by physical state"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A mixture contains 46 g of ethanol (molar mass 46 g mol$^{-1}$) and 36 g of water (molar mass 18 g mol$^{-1}$). What is the mole fraction of ethanol?",
+      "options": [
+        "0.50",
+        "0.56",
+        "0.33",
+        "0.67"
+      ],
+      "answer": 3,
+      "explanation": "Convert masses to moles first: ethanol is 46/46 = 1.0 mol and water is 36/18 = 2.0 mol. The mole fraction of ethanol is 1.0 / (1.0 + 2.0) = 0.33. The two mole fractions add up to one, with water at 0.67.",
+      "optionRationale": {
+        "1": "This treats the two components as present in equal moles, but water is 2 mol and ethanol 1 mol.",
+        "2": "This divides the mass of ethanol by the total mass (46/82) instead of using moles.",
+        "4": "0.67 is the mole fraction of water (2/3), not of ethanol."
+      },
+      "objective": "Calculate mole fraction from masses"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "What mass of NaOH (molar mass 40 g mol$^{-1}$) is needed to prepare 500 mL of 0.20 M NaOH solution?",
+      "options": [
+        "8.0 g",
+        "4.0 g",
+        "40 g",
+        "2.0 g"
+      ],
+      "answer": 2,
+      "explanation": "Moles of NaOH needed = molarity x volume in litres = 0.20 x 0.500 = 0.10 mol. Mass = moles x molar mass = 0.10 x 40 = 4.0 g. Dissolve this in water and make the total volume up to 500 mL, since molarity is defined per litre of solution.",
+      "optionRationale": {
+        "1": "This is the mass for one litre of 0.20 M solution; the volume here is only 500 mL.",
+        "3": "This is the mass of one mole, but only 0.10 mol is needed.",
+        "4": "This is the mass for 250 mL, not for 500 mL."
+      },
+      "objective": "Prepare a solution of given molarity"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "What is the mole fraction of the solute in a 1.00 molal aqueous solution? (Molar mass of water = 18 g mol$^{-1}$)",
+      "options": [
+        "0.0177",
+        "0.0556",
+        "0.0100",
+        "0.9823"
+      ],
+      "answer": 1,
+      "explanation": "A 1.00 molal solution has 1.00 mol of solute in 1000 g of water. Moles of water = 1000/18 = 55.56. Mole fraction of solute = 1.00 / (1.00 + 55.56) = 0.0177. The solute's own moles must be included in the total.",
+      "optionRationale": {
+        "2": "This is 1/18, which uses the molar mass of water instead of the moles of water in 1 kg.",
+        "3": "This takes the molality divided by 100, which has no basis in the definition.",
+        "4": "This is the mole fraction of water, not of the solute."
+      },
+      "objective": "Convert molality to mole fraction"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "What is the osmotic pressure of a solution containing 18 g of glucose (molar mass 180 g mol$^{-1}$) per litre of solution at 27 degrees Celsius? ($R = 0.0821$ L atm K$^{-1}$ mol$^{-1}$)",
+      "options": [
+        "24.63 atm",
+        "0.25 atm",
+        "2.46 atm",
+        "4.93 atm"
+      ],
+      "answer": 3,
+      "explanation": "Molarity C = (18/180) mol / 1 L = 0.10 M. Temperature T = 27 + 273 = 300 K. Using $\\pi = CRT$, $\\pi = 0.10 \\times 0.0821 \\times 300 = 2.46$ atm. Glucose does not dissociate, so the van't Hoff factor is 1.",
+      "optionRationale": {
+        "1": "This takes the molarity as 1.0 M, but the 18 g is only 0.10 mol per litre.",
+        "2": "This divides by the temperature a second time, which is not in $\\pi = CRT$.",
+        "4": "This doubles the answer as if glucose dissociated into two particles; it is a non-electrolyte."
+      },
+      "objective": "Calculate osmotic pressure of a non-electrolyte"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Which aqueous solution is isotonic with 0.10 M glucose at the same temperature, assuming NaCl dissociates completely?",
+      "options": [
+        "0.10 M NaCl",
+        "0.050 M glucose",
+        "0.20 M urea",
+        "0.050 M NaCl"
+      ],
+      "answer": 4,
+      "explanation": "Isotonic solutions have the same osmotic pressure, so the same total particle concentration $iC$. For 0.10 M glucose, $iC = 0.10$. For 0.050 M NaCl with $i = 2$, $iC = 0.10$ too. The other options give 0.20 or 0.050 mol of particles per litre.",
+      "optionRationale": {
+        "1": "This has an effective particle concentration of 0.20 M, twice that of the glucose solution.",
+        "2": "Its particle concentration is 0.050 M, which is half that of 0.10 M glucose.",
+        "3": "Urea does not dissociate, so its particle concentration is 0.20 M, double the glucose value."
+      },
+      "objective": "Identify isotonic solutions using the van't Hoff factor"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "124 g of ethylene glycol (molar mass 62 g mol$^{-1}$) is dissolved in 1.00 kg of water. Taking $K_f = 1.86$ K kg mol$^{-1}$ for water, the freezing point of the solution is",
+      "options": [
+        "-1.86 degrees Celsius",
+        "+3.72 degrees Celsius",
+        "-7.44 degrees Celsius",
+        "-3.72 degrees Celsius"
+      ],
+      "answer": 4,
+      "explanation": "Moles of ethylene glycol = 124/62 = 2.0 mol, in 1.00 kg of water, so molality = 2.0 mol kg$^{-1}$. $\\Delta T_f = K_f m = 1.86 \\times 2.0 = 3.72$ K. The solution freezes at 0 - 3.72 = -3.72 degrees Celsius, which is why it works as an antifreeze.",
+      "optionRationale": {
+        "1": "This is the depression for a 1 molal solution, but the molality here is 2.0.",
+        "2": "The depression lowers the freezing point; the sign must be negative relative to 0 degrees Celsius.",
+        "3": "This doubles the depression again, treating ethylene glycol as dissociating, which it does not."
+      },
+      "objective": "Calculate freezing point depression"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The depression in freezing point of a 0.10 molal aqueous solution of K$_4$[Fe(CN)$_6$], assuming complete dissociation, is ($K_f = 1.86$ K kg mol$^{-1}$)",
+      "options": [
+        "0.93 K",
+        "0.19 K",
+        "0.37 K",
+        "0.56 K"
+      ],
+      "answer": 1,
+      "explanation": "K$_4$[Fe(CN)$_6$] dissociates into 4 K$^+$ and one [Fe(CN)$_6$]$^{4-}$, so $i = 5$. $\\Delta T_f = i K_f m = 5 \\times 1.86 \\times 0.10 = 0.93$ K. Without dissociation the value would be only 0.186 K.",
+      "optionRationale": {
+        "2": "This uses i = 1 and ignores dissociation.",
+        "3": "This takes i = 2, but K4[Fe(CN)6] gives five ions.",
+        "4": "This takes i = 3, which undercounts the ions produced."
+      },
+      "objective": "Apply the van't Hoff factor to freezing point depression"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A 0.010 molal aqueous solution of BaCl$_2$ is 80 % ionised. What is the van't Hoff factor?",
+      "options": [
+        "1.8",
+        "2.6",
+        "3.0",
+        "3.4"
+      ],
+      "answer": 2,
+      "explanation": "BaCl$_2$ gives Ba$^{2+}$ + 2 Cl$^-$, so n = 3 ions per formula unit. $i = 1 + \\alpha(n-1) = 1 + 0.80 \\times 2 = 2.6$. At 100 % ionisation i would be 3, and with no ionisation 1.",
+      "optionRationale": {
+        "1": "This uses n = 2 in $i = 1 + \\alpha(n-1)$, but BaCl2 gives three ions.",
+        "3": "This is the value for complete ionisation, but only 80 % is ionised.",
+        "4": "This uses n = 3 instead of n - 1 = 2 in the formula, giving 1 + 0.8 x 3."
+      },
+      "objective": "Calculate van't Hoff factor from degree of ionisation"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Acetic acid dimerises completely in benzene. What is the van't Hoff factor, and how does the experimental molar mass compare with the normal molar mass of 60 g mol$^{-1}$?",
+      "options": [
+        "$i = 2$; experimental molar mass is 30 g mol$^{-1}$",
+        "$i = 1$; experimental molar mass is 60 g mol$^{-1}$",
+        "$i = 0.5$; experimental molar mass is 120 g mol$^{-1}$",
+        "$i = 0.5$; experimental molar mass is 30 g mol$^{-1}$"
+      ],
+      "answer": 3,
+      "explanation": "Two molecules of acetic acid join to form one dimer, so the number of particles halves and $i = 0.5$. Colligative properties depend on the particle count, so the observed molar mass is the normal molar mass divided by $i$: 60 / 0.5 = 120 g mol$^{-1}$. Association gives a higher molar mass.",
+      "optionRationale": {
+        "1": "This is the pattern for complete dissociation, not association.",
+        "2": "i = 1 means no association or dissociation, but complete dimerisation has occurred.",
+        "4": "i = 0.5 comes with a doubled molar mass, because the number of particles halves."
+      },
+      "objective": "Interpret abnormal molar mass for association"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "An ideal liquid mixture of A and B contains 40 mol % of A. At the working temperature the pure liquid vapour pressures are 150 torr for A and 40 torr for B. What is the mole fraction of A in the vapour above the mixture?",
+      "options": [
+        "0.40",
+        "0.71",
+        "0.29",
+        "0.79"
+      ],
+      "answer": 2,
+      "explanation": "Partial pressures: $p_A = 0.40 \times 150 = 60$ torr and $p_B = 0.60 \times 40 = 24$ torr, so the total is 84 torr. By Dalton's law the vapour mole fraction of A is 60/84 = 0.71. The vapour is richer in the more volatile component A than the liquid is.",
+      "optionRationale": {
+        "1": "This is the mole fraction of A in the liquid, but the more volatile A is enriched in the vapour.",
+        "3": "This is the vapour mole fraction of B, the less volatile component.",
+        "4": "This ignores the liquid composition and uses only the ratio of the pure vapour pressures."
+      },
+      "objective": "Find vapour composition of an ideal solution"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "1.0 g of a polymer in 100 mL of solution produces an osmotic pressure of $2.463\\times10^{-3}$ atm at 27 degrees Celsius. Its molar mass is about ($R = 0.0821$ L atm K$^{-1}$ mol$^{-1}$)",
+      "options": [
+        "$1.0\\times10^{4}$ g mol$^{-1}$",
+        "$1.0\\times10^{6}$ g mol$^{-1}$",
+        "$1.0\\times10^{5}$ g mol$^{-1}$",
+        "$2.5\\times10^{2}$ g mol$^{-1}$"
+      ],
+      "answer": 3,
+      "explanation": "From $\\pi V = (w/M)RT$, $M = wRT/(\\pi V)$. Substituting, $M = (1.0 \\times 0.0821 \\times 300)/(2.463\\times10^{-3} \\times 0.100) = 100000$ g mol$^{-1}$. A tiny osmotic pressure that is still measurable indicates a very large molar mass, which is why osmometry suits polymers and proteins.",
+      "optionRationale": {
+        "1": "This misplaces the volume by using 1 L instead of 0.1 L, giving a result ten times too small.",
+        "2": "This uses 10 L-equivalent volume handling, giving a result ten times too large.",
+        "4": "This confuses the pressure with a molar mass and does not follow from $M = wRT/\\pi V$."
+      },
+      "objective": "Find molar mass of a polymer from osmotic pressure"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "What is the osmotic pressure at 300 K of a solution that is 0.10 M in glucose and 0.050 M in NaCl (assume complete dissociation of NaCl)? ($R = 0.0821$ L atm K$^{-1}$ mol$^{-1}$)",
+      "options": [
+        "4.93 atm",
+        "2.46 atm",
+        "3.69 atm",
+        "7.39 atm"
+      ],
+      "answer": 1,
+      "explanation": "Osmotic pressure depends on the total concentration of particles. Glucose contributes 0.10 M. NaCl gives 2 ions, so 2 x 0.050 = 0.10 M. Total = 0.20 M. $\\pi = 0.20 \\times 0.0821 \\times 300 = 4.93$ atm.",
+      "optionRationale": {
+        "2": "This counts glucose only, ignoring the NaCl.",
+        "3": "This counts NaCl as a single particle per formula unit (0.15 M total) rather than two ions.",
+        "4": "This counts the NaCl ions too heavily, as 0.30 M total particles."
+      },
+      "objective": "Calculate osmotic pressure of a mixture of solutes"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A 0.050 molal aqueous solution of Na$_2$SO$_4$ is 80 % dissociated. What is its freezing point? ($K_f = 1.86$ K kg mol$^{-1}$)",
+      "options": [
+        "-0.09 degrees Celsius",
+        "-0.28 degrees Celsius",
+        "-0.19 degrees Celsius",
+        "-0.24 degrees Celsius"
+      ],
+      "answer": 4,
+      "explanation": "Na$_2$SO$_4$ gives 3 ions, so $i = 1 + \\alpha(n-1) = 1 + 0.80 \\times 2 = 2.6$. $\\Delta T_f = i K_f m = 2.6 \\times 1.86 \\times 0.050 = 0.24$ K. The freezing point is therefore -0.24 degrees Celsius.",
+      "optionRationale": {
+        "1": "This uses i = 1 and ignores dissociation altogether.",
+        "2": "This uses i = 3, the value for complete dissociation.",
+        "3": "This uses i = 2, treating Na2SO4 as giving two ions instead of three."
+      },
+      "objective": "Combine degree of dissociation with freezing point depression"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A 0.20 molal aqueous solution of an unknown solute shows a boiling point elevation of 0.208 K ($K_b = 0.52$ K kg mol$^{-1}$). The van't Hoff factor and the likely solute are",
+      "options": [
+        "$i = 1$, glucose",
+        "$i = 3$, CaCl$_2$",
+        "$i = 2$, NaCl",
+        "$i = 2$, glucose"
+      ],
+      "answer": 3,
+      "explanation": "Expected elevation for i = 1 is $0.52 \\times 0.20 = 0.104$ K. The observed value is 0.208 K, so $i = 0.208/0.104 = 2.0$. A solute that gives two particles per formula unit, such as NaCl, fits this value.",
+      "optionRationale": {
+        "1": "Glucose would give an elevation of only 0.104 K at 0.20 molal.",
+        "2": "CaCl2 would give 0.312 K, which is larger than observed.",
+        "4": "Glucose does not dissociate, so i = 2 cannot be matched with it."
+      },
+      "objective": "Deduce van't Hoff factor from boiling point elevation"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Liquids A and B form an ideal solution with $P^\\circ_A = 100$ torr and $P^\\circ_B = 60$ torr. For what mole fraction of A in the liquid is the total vapour pressure 88 torr?",
+      "options": [
+        "0.5",
+        "0.3",
+        "0.9",
+        "0.7"
+      ],
+      "answer": 4,
+      "explanation": "$P_{total} = x_A P^\\circ_A + (1 - x_A)P^\\circ_B = 60 + 40x_A$. Setting this equal to 88 gives $40 x_A = 28$, so $x_A = 0.7$. Check: 0.7 x 100 + 0.3 x 60 = 70 + 18 = 88 torr.",
+      "optionRationale": {
+        "1": "At x_A = 0.5 the total vapour pressure would be 80 torr, not 88 torr.",
+        "2": "At x_A = 0.3 the total vapour pressure would be 72 torr.",
+        "3": "At x_A = 0.9 the total vapour pressure would be 96 torr."
+      },
+      "objective": "Find liquid composition from the total vapour pressure"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A 2.00 M aqueous glucose solution (molar mass 180 g mol$^{-1}$) has a density of 1.20 g mL$^{-1}$. What is its molality?",
+      "options": [
+        "2.38 mol kg$^{-1}$",
+        "2.00 mol kg$^{-1}$",
+        "1.67 mol kg$^{-1}$",
+        "3.00 mol kg$^{-1}$"
+      ],
+      "answer": 1,
+      "explanation": "Take 1 L of solution: mass = 1200 g, glucose = 2.00 x 180 = 360 g. Mass of water = 1200 - 360 = 840 g = 0.840 kg. Molality = 2.00 mol / 0.840 kg = 2.38 mol kg$^{-1}$. Molality uses the solvent mass, not the solution mass.",
+      "optionRationale": {
+        "2": "This assumes molality equals molarity, which is true only for very dilute solutions.",
+        "3": "This divides by the whole 1.20 kg of solution instead of the mass of solvent.",
+        "4": "This divides moles by 0.667 kg, a value that does not come from the data."
+      },
+      "objective": "Convert molarity to molality using density"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Air contains partial pressures 0.80 bar of N$_2$ and 0.20 bar of O$_2$ over water. With $K_H(\\text{N}_2) = 8.0\\times10^{4}$ bar and $K_H(\\text{O}_2) = 4.0\\times10^{4}$ bar, the ratio of dissolved mole fractions $x(\\text{N}_2)/x(\\text{O}_2)$ is",
+      "options": [
+        "4.0",
+        "2.0",
+        "0.5",
+        "8.0"
+      ],
+      "answer": 2,
+      "explanation": "$x = p/K_H$. For N$_2$: $x = 0.80 / 8.0\\times10^4 = 1.0\\times10^{-5}$. For O$_2$: $x = 0.20 / 4.0\\times10^4 = 5.0\\times10^{-6}$. The ratio is 2.0. Oxygen is relatively more soluble per unit pressure because its K_H is smaller.",
+      "optionRationale": {
+        "1": "This is the ratio of the partial pressures alone and ignores the Henry's constants.",
+        "3": "This inverts the ratio, putting O2 in the numerator.",
+        "4": "This multiplies the pressure ratio by the ratio of K_H values instead of dividing."
+      },
+      "objective": "Use Henry's law for gas mixtures"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g21",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Osmotic pressure measurements are preferred for finding the molar mass of polymers and proteins.\nReason (R): The osmotic pressure is large enough to measure even for very dilute solutions at room temperature, while the other colligative effects are too small.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Molar masses of polymers are large, so even a gram per litre gives a very small mole concentration. Osmotic pressure is measurable at room temperature and stays sizeable at such low concentration, whereas boiling point and freezing point changes become negligible. Both statements are true and the reason explains the assertion.",
+      "optionRationale": {
+        "2": "The reason is exactly why osmometry is chosen, so it does explain the assertion.",
+        "3": "The reason is true; osmotic pressure is measurable at low concentration.",
+        "4": "The assertion is true; osmotic pressure is the standard method for macromolecules."
+      },
+      "objective": "Justify the use of osmotic pressure for macromolecules"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g22",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A mixture of ethanol and acetone shows positive deviation from Raoult's law.\nReason (R): In this mixture the A-B interactions are stronger than the A-A and B-B interactions.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "Ethanol molecules are hydrogen bonded to each other, and acetone disrupts this association. The A-B attractions are therefore weaker than those in the pure liquids, so more molecules escape and the vapour pressure is higher than Raoult's law predicts. The assertion is true but the reason states the opposite and is false.",
+      "optionRationale": {
+        "1": "The reason is false: strong A-B attractions would cause negative deviation.",
+        "2": "The reason is false, so neither explanation nor truth applies to it.",
+        "4": "The assertion is true: ethanol-acetone is a standard example of positive deviation."
+      },
+      "objective": "Link intermolecular forces to deviation from Raoult's law"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g23",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A 0.1 molal NaCl solution has a greater boiling point elevation than a 0.1 molal glucose solution.\nReason (R): Boiling point elevation is a colligative property.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 2,
+      "explanation": "NaCl dissociates into two ions, so the particle count is nearly doubled and the elevation is about twice that of glucose. Boiling point elevation is indeed colligative, but that fact alone does not account for the difference; the dissociation of NaCl does. Both statements are true, with R not explaining A.",
+      "optionRationale": {
+        "1": "Being colligative does not explain why NaCl differs from glucose; the extra particles from dissociation do.",
+        "3": "The reason is true; elevation of boiling point depends on the number of solute particles.",
+        "4": "The assertion is true because of the van't Hoff factor of NaCl."
+      },
+      "objective": "Distinguish a general property from the specific cause"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g24",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The vapour pressure of a solution containing a non-volatile solute is higher than that of the pure solvent.\nReason (R): Solute particles occupy part of the surface and reduce the rate at which solvent molecules escape into the vapour.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "A non-volatile solute lowers the vapour pressure of the solvent, since fewer solvent molecules occupy the surface and escape. The assertion says the opposite, so it is false, while the reason correctly describes the cause of the lowering. Hence A is false and R is true.",
+      "optionRationale": {
+        "1": "The assertion is false: the vapour pressure is lowered, not raised.",
+        "2": "The assertion is false, so the pair cannot both be true.",
+        "3": "The reason is true; it explains the lowering of vapour pressure."
+      },
+      "objective": "Explain lowering of vapour pressure by a non-volatile solute"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g25",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match the example in List-I with the type of solution in List-II.",
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-IV, C-III, D-II",
+        "A-III, B-I, C-IV, D-II",
+        "A-IV, B-I, C-III, D-II"
+      ],
+      "answer": 4,
+      "explanation": "Brass is zinc in copper, a solid in solid (A-IV). An aerated drink holds dissolved carbon dioxide in water, a gas in liquid (B-I). Palladium absorbs hydrogen, a gas in solid (C-III). Sugar dissolved in water is a solid in liquid (D-II).",
+      "optionRationale": {
+        "1": "This swaps the matches of A and D: A is actually IV and D is actually II.",
+        "2": "This swaps the matches of A and B: A is actually IV and B is actually I.",
+        "3": "This swaps the matches of A and C: A is actually IV and C is actually III."
+      },
+      "objective": "Match examples with types of solution",
+      "list": {
+        "left": [
+          "A. Brass",
+          "B. Aerated soft drink",
+          "C. Hydrogen in palladium",
+          "D. Sugar in water"
+        ],
+        "right": [
+          "I. Gas in liquid",
+          "II. Solid in liquid",
+          "III. Gas in solid",
+          "IV. Solid in solid"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u1-solutions-g26",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the binary mixture in List-I with its behaviour in List-II.",
+      "options": [
+        "A-I, B-II, C-IV, D-III",
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-IV, B-II, C-III, D-I"
+      ],
+      "answer": 3,
+      "explanation": "Benzene and toluene are chemically similar and form a nearly ideal solution (A-I). Acetone with ethanol shows positive deviation (B-II). Chloroform and acetone form hydrogen bonds with each other, giving negative deviation (C-III). Nitric acid and water show a large negative deviation and a maximum-boiling azeotrope (D-IV).",
+      "optionRationale": {
+        "1": "This swaps the matches of C and D: C is actually III and D is actually IV.",
+        "2": "This swaps the matches of A and B: A is actually I and B is actually II.",
+        "4": "This swaps the matches of A and D: A is actually I and D is actually IV."
+      },
+      "objective": "Match mixtures with deviations from Raoult's law",
+      "list": {
+        "left": [
+          "A. Benzene and toluene",
+          "B. Acetone and ethanol",
+          "C. Chloroform and acetone",
+          "D. Nitric acid and water"
+        ],
+        "right": [
+          "I. Obeys Raoult's law over the whole range",
+          "II. Positive deviation from Raoult's law",
+          "III. Negative deviation due to hydrogen bonding between unlike molecules",
+          "IV. Forms a maximum-boiling azeotrope"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u1-solutions-g27",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the dissolved substance in List-I with the van't Hoff factor in List-II (assume complete dissociation or association as stated).",
+      "options": [
+        "A-III, B-I, C-II, D-IV",
+        "A-II, B-I, C-III, D-IV",
+        "A-II, B-IV, C-III, D-I",
+        "A-II, B-I, C-IV, D-III"
+      ],
+      "answer": 2,
+      "explanation": "Complete dimerisation halves the particle count, so $i = 0.5$ (A-II). Glucose neither dissociates nor associates, so $i = 1$ (B-I). K$_2$SO$_4$ gives 2 K$^+$ and one sulphate, so $i = 3$ (C-III). Al$_2$(SO$_4$)$_3$ gives 2 Al$^{3+}$ and 3 sulphate ions, so $i = 5$ (D-IV).",
+      "optionRationale": {
+        "1": "This swaps the matches of A and C: A is actually II and C is actually III.",
+        "3": "This swaps the matches of B and D: B is actually I and D is actually IV.",
+        "4": "This swaps the matches of C and D: C is actually III and D is actually IV."
+      },
+      "objective": "Match solutes with their van't Hoff factors",
+      "list": {
+        "left": [
+          "A. Acetic acid completely dimerised in benzene",
+          "B. Glucose in water",
+          "C. K$_2$SO$_4$ in water",
+          "D. Al$_2$(SO$_4$)$_3$ in water"
+        ],
+        "right": [
+          "I. $i = 1$",
+          "II. $i = 0.5$",
+          "III. $i = 3$",
+          "IV. $i = 5$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u1-solutions-g28",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about Henry's law.\nA. A larger value of $K_H$ means lower solubility of the gas at a given pressure.\nB. $K_H$ increases with an increase in temperature.\nC. $K_H$ depends on the nature of the gas.\nD. $K_H$ is independent of temperature.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A, C and D only",
+        "B and D only",
+        "A and B only"
+      ],
+      "answer": 1,
+      "explanation": "From $p = K_H x$, a larger $K_H$ means a smaller mole fraction at a given pressure (A true). Gas solubility falls as temperature rises, so $K_H$ rises (B true). Different gases have different $K_H$ values at one temperature (C true). Statement D contradicts B.",
+      "optionRationale": {
+        "2": "Statement D is false; K_H changes with temperature.",
+        "3": "D is false and A and C are also correct.",
+        "4": "This omits statement C, which is also correct."
+      },
+      "objective": "Evaluate statements on Henry's law constant"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g29",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about colligative properties.\nA. The relative lowering of vapour pressure of a dilute solution depends only on the mole fraction of the non-volatile solute.\nB. 0.1 M NaCl and 0.1 M glucose have the same osmotic pressure.\nC. The cryoscopic constant $K_f$ depends on the solvent and not on the solute.\nD. 0.1 molal urea and 0.1 molal glucose in water have nearly equal boiling point elevations.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "B, C and D only",
+        "A and D only",
+        "A, C and D only"
+      ],
+      "answer": 4,
+      "explanation": "Relative lowering of vapour pressure equals the mole fraction of solute (A true). NaCl dissociates, so 0.1 M NaCl has about twice the osmotic pressure of 0.1 M glucose (B false). $K_f$ is a solvent property (C true). Urea and glucose are both non-electrolytes at the same molality, so the elevations match (D true).",
+      "optionRationale": {
+        "1": "Statement B is false; NaCl gives two ions, so its osmotic pressure is nearly double.",
+        "2": "B is false, and A is also correct.",
+        "3": "This leaves out statement C, which is also correct."
+      },
+      "objective": "Evaluate statements on colligative properties"
+    },
+    {
+      "key": "ug26-306-u1-solutions-g30",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about expressing concentration.\nA. The sum of the mole fractions of all components of a solution is one.\nB. A 1 molal solution contains 1 mol of solute in 1 kg of the solution.\nC. Parts per million is used for very dilute solutions.\nD. Molarity is the number of moles of solute per litre of solution.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A, C and D only",
+        "B and D only",
+        "A and B only"
+      ],
+      "answer": 2,
+      "explanation": "Mole fractions of all components add up to one (A true). Molality is moles of solute per kilogram of solvent, not of solution (B false). Very small amounts, such as pollutants, are given in ppm (C true). Molarity is defined with litres of solution (D true).",
+      "optionRationale": {
+        "1": "Statement B is false; molality is per kilogram of solvent, not of solution.",
+        "3": "B is false and A and C are also correct.",
+        "4": "B is false because the denominator in molality is the mass of solvent."
+      },
+      "objective": "Evaluate statements on concentration terms"
+    }
+  ]
+}

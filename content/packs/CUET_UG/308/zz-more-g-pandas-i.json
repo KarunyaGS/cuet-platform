@@ -1,0 +1,218 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_749ab51243b24b7295510bef2bf0ed2d",
+    "title": "Data Handling using Pandas – I"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r03-pandas-series-dataframe-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which DataFrame attribute returns a tuple holding the number of rows and the number of columns?",
+      "options": [
+        "size",
+        "shape",
+        "ndim",
+        "columns"
+      ],
+      "answer": 2,
+      "explanation": "The attribute shape returns a tuple such as (3, 2) meaning 3 rows and 2 columns. size multiplies the two numbers into a single total, ndim is always 2 for a DataFrame, and columns lists only the column labels.",
+      "optionRationale": {
+        "1": "size gives one number, the total count of elements (rows multiplied by columns).",
+        "3": "ndim gives the number of dimensions, which is 2 for every DataFrame.",
+        "4": "columns gives the labels of the columns, not their count together with the rows."
+      },
+      "objective": "Recall the DataFrame shape attribute"
+    },
+    {
+      "key": "ug26-308-r03-pandas-series-dataframe-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which attribute of a Series returns its data as a NumPy array without the index labels?",
+      "options": [
+        "index",
+        "dtype",
+        "values",
+        "name"
+      ],
+      "answer": 3,
+      "explanation": "The attribute values of a Series gives the stored data as an array and leaves the index labels out. index returns only the labels, dtype shows the type of the elements and name holds the optional name of the Series.",
+      "optionRationale": {
+        "1": "index returns the labels of the Series, not its data.",
+        "2": "dtype returns the data type of the elements, such as int64.",
+        "4": "name is the optional label given to the Series as a whole."
+      },
+      "objective": "Recall Series attributes"
+    },
+    {
+      "key": "ug26-308-r03-pandas-series-dataframe-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What does this program print?\n`s = pd.Series([5, 12, 8, 20, 3], index=list(\"pqrst\"))`\n`print(s[s > 7].index.tolist(), (s * 2)[\"r\"], s.size)`",
+      "options": [
+        "['q', 'r', 's'] 16 5",
+        "['q', 'r', 's'] 8 3",
+        "['p', 'q', 's'] 16 5",
+        "[12, 8, 20] 16 5"
+      ],
+      "answer": 1,
+      "explanation": "The mask s > 7 is True for 12, 8 and 20, whose labels are q, r and s. Multiplying by 2 turns the value of r from 8 into 16. The Series has five elements, so size is 5. The index of the filtered Series is listed as labels, not values.",
+      "optionRationale": {
+        "2": "s * 2 doubles every value, so label r gives 16; and size counts all 5 elements of s, not only the selected ones.",
+        "3": "The mask s > 7 is true for values 12, 8 and 20, which carry labels q, r and s; label p holds 5 and t holds 3.",
+        "4": "The selected Series has index labels q, r, s; .index.tolist() lists those labels, not the values."
+      },
+      "objective": "Combine boolean masking, scalar arithmetic and size"
+    },
+    {
+      "key": "ug26-308-r03-pandas-series-dataframe-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What does this program print?\n`df = pd.DataFrame([{\"a\": 1, \"b\": 2}, {\"a\": 3, \"c\": 4}])`\n`print(df.shape, df.columns.tolist(), df[\"b\"].isnull().sum())`",
+      "options": [
+        "(2, 3) ['a', 'b', 'c'] 1",
+        "(2, 2) ['a', 'b'] 0",
+        "(2, 3) ['a', 'b', 'c'] 2",
+        "(3, 2) ['a', 'b', 'c'] 1"
+      ],
+      "answer": 1,
+      "explanation": "Each dictionary in the list becomes one row and the union of all keys gives the columns a, b and c, so the shape is (2, 3). The second dictionary has no key b, so that cell is NaN and isnull().sum() on column b counts exactly one missing value.",
+      "optionRationale": {
+        "2": "Every key of every dictionary becomes a column, so column c also exists and the shape has 3 columns.",
+        "3": "Only the second dictionary lacks the key b, so just one NaN appears in column b.",
+        "4": "Each dictionary is one row, so there are 2 rows and 3 columns; the numbers are reversed here."
+      },
+      "objective": "Build a DataFrame from a list of dictionaries"
+    },
+    {
+      "key": "ug26-308-r03-pandas-series-dataframe-g05",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "A DataFrame df has 3 rows and 2 columns. Match each expression in List-I with its value in List-II.",
+      "options": [
+        "A-IV, B-II, C-III, D-I",
+        "A-I, B-III, C-II, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-III, D-IV"
+      ],
+      "answer": 3,
+      "explanation": "shape of a frame with 3 rows and 2 columns is (3, 2). size is 3 x 2 = 6, ndim is 2, and the transpose swaps rows and columns so df.T.shape is (2, 3).",
+      "optionRationale": {
+        "1": "The shape of df itself is (3, 2); the transpose gives (2, 3), so A and D are exchanged here.",
+        "2": "size is the total number of elements, 6, and ndim is 2; B and C are exchanged here.",
+        "4": "shape is a tuple and size is the single number 6; A and B are exchanged here."
+      },
+      "objective": "Match DataFrame attributes with values",
+      "list": {
+        "left": [
+          "A. `df.shape`",
+          "B. `df.size`",
+          "C. `df.ndim`",
+          "D. `df.T.shape`"
+        ],
+        "right": [
+          "I. (3, 2)",
+          "II. 6",
+          "III. 2",
+          "IV. (2, 3)"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r03-pandas-series-dataframe-g06",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about selecting data in Pandas.\nA. `df.iloc[1:3]` selects the rows at positions 1 and 2 only.\nB. `df.loc[1:3]` on the default index includes the row labelled 3.\nC. `df[\"new\"] = values` adds a new column to df.\nD. `df.T` transposes df in place and returns None.\nWhich statements are correct?",
+      "options": [
+        "B and D only",
+        "A, C and D only",
+        "A and B only",
+        "A, B and C only"
+      ],
+      "answer": 4,
+      "explanation": "iloc follows position slicing, so iloc[1:3] stops before position 3 (A is true). loc follows label slicing, which includes the end label (B is true). Assigning to a new column name creates the column (C is true). T gives a transposed copy and does not change df (D is false).",
+      "optionRationale": {
+        "1": "D is false: T returns a new transposed DataFrame and leaves df unchanged; A is also correct.",
+        "2": "D is false, and B is correct because label slicing with loc includes the end label.",
+        "3": "C is also correct, since assigning to a new column name adds that column."
+      },
+      "objective": "Judge statements about iloc, loc and column assignment"
+    },
+    {
+      "key": "ug26-308-r03-pandas-series-dataframe-g07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "What does this program print?\n`df = pd.DataFrame({\"m\": [50, 60, 70, 80]}, index=[\"a\", \"b\", \"c\", \"d\"])`\n`df.loc[\"e\"] = [90]`\n`df[\"g\"] = df[\"m\"] // 20`\n`print(df.loc[\"b\":\"d\", \"g\"].tolist(), df.iloc[-1, 0], df.shape)`",
+      "options": [
+        "[3, 3] 90 (5, 2)",
+        "[3, 3, 4] 90 (5, 2)",
+        "[3, 3, 4] 80 (4, 2)",
+        "[3, 3, 4] 90 (5, 1)"
+      ],
+      "answer": 2,
+      "explanation": "Assigning to a missing label with loc appends row e with m = 90, giving 5 rows. The new column g holds m // 20, that is 2, 3, 3, 4, 4 for a to e. loc[\"b\":\"d\"] includes both ends, so g gives [3, 3, 4]. iloc[-1, 0] is the last row, first column, 90, and the shape is (5, 2).",
+      "optionRationale": {
+        "1": "Label slicing with loc includes the end label d, so three values are listed, not two.",
+        "3": "Assigning to df.loc[\"e\"] adds a new row, so the last row holds 90 and the shape has 5 rows.",
+        "4": "The new column g was added after the row, so the frame has 2 columns, not 1."
+      },
+      "objective": "Trace loc enlargement, column assignment and slicing"
+    },
+    {
+      "key": "ug26-308-r03-pandas-series-dataframe-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "What does this program print?\n`a = pd.Series([1, 2, 3], index=[\"x\", \"y\", \"z\"])`\n`b = pd.Series([10, 20, 30], index=[\"y\", \"z\", \"w\"])`\n`print(a.add(b, fill_value=0).sort_index().tolist())`",
+      "options": [
+        "[nan, nan, 12.0, 23.0]",
+        "[30.0, 1.0, 22.0, 33.0]",
+        "[1.0, 12.0, 23.0, 30.0]",
+        "[30.0, 1.0, 12.0, 23.0]"
+      ],
+      "answer": 4,
+      "explanation": "The union of the labels is w, x, y and z. With fill_value=0 a label missing from one Series counts as 0, so w = 0 + 30 = 30, x = 1 + 0 = 1, y = 2 + 10 = 12 and z = 3 + 20 = 23. Sorting by label gives the order w, x, y, z, and the sums are floats.",
+      "optionRationale": {
+        "1": "That is the result of a + b; add() with fill_value=0 treats a missing label as 0, so no NaN remains.",
+        "2": "Label y is 2 + 20 = 22 only if a held 2 there and b held 20; b has 10 at y, so y gives 12 and z gives 23.",
+        "3": "sort_index() orders the labels w, x, y, z, so the first value belongs to w (30), not to x."
+      },
+      "objective": "Add two Series with different indexes using fill_value"
+    },
+    {
+      "key": "ug26-308-r03-pandas-series-dataframe-g09",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The call `pd.Series([1, 2]).head(3)` raises an error because the Series has fewer than three elements.\nReason (R): head(n) returns the first n elements, or all the elements when there are fewer than n.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "head(3) on a Series of two elements simply returns both elements; no error occurs. The assertion is therefore false. The reason correctly states how head(n) behaves when n is larger than the length.",
+      "optionRationale": {
+        "1": "The assertion is false, so the reason cannot explain it.",
+        "2": "The assertion is false: head(3) does not raise an error here.",
+        "3": "The reason is true; it is the assertion that is false."
+      },
+      "objective": "Know how head() treats n larger than the length"
+    }
+  ]
+}

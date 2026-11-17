@@ -1,0 +1,183 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_10f40372f9b94dc08489d3fbda9272a9",
+  "title": "Algebra"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r00-matrices-determinants-algebra-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Expanding along the first row, the determinant $\\begin{vmatrix}2&1&3\\\\0&4&-1\\\\5&2&1\\end{vmatrix}$ has the value",
+   "options": [
+    "-43",
+    "-53",
+    "53",
+    "67"
+   ],
+   "answer": 2,
+   "explanation": "Expanding along the first row: $2(4\\cdot1-(-1)\\cdot2)-1(0\\cdot1-(-1)\\cdot5)+3(0\\cdot2-4\\cdot5)=2(6)-1(5)+3(-20)=12-5-60=-53$. Each cofactor must carry the alternating signs $+,-,+$.",
+   "optionRationale": {
+    "1": "This comes from slipping a sign on the middle term, which turns $-5$ into $+5$ and gives $12+5-60=-43$.",
+    "3": "This has the right size but the wrong overall sign, as if every product had been given the opposite sign.",
+    "4": "This comes from taking the last cofactor product as $+60$ instead of $-60$, so $12-5+60=67$."
+   },
+   "objective": "Evaluate a third-order determinant by expansion"
+  },
+  {
+   "key": "ug26-319-r00-matrices-determinants-algebra-m02",
+   "type": "STATEMENT_BASED",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about matrices $A$ and $B$ of the same order.\nA. $(AB)^T=B^TA^T$ for conformable matrices.\nB. $AB=BA$ for every pair of square matrices of the same order.\nC. $|AB|=|A|\\,|B|$ for square matrices of the same order.\nD. $(A+B)^T=A^T+B^T$.\nWhich statements are correct?",
+   "options": [
+    "A, C and D only",
+    "A, B and C only",
+    "B and D only",
+    "A and D only"
+   ],
+   "answer": 1,
+   "explanation": "The transpose of a product reverses the order, so A is true. Matrix multiplication is not commutative in general, for example $\\begin{bmatrix}0&1\\\\0&0\\end{bmatrix}$ and $\\begin{bmatrix}0&0\\\\1&0\\end{bmatrix}$ give different products, so B is false. The determinant of a product is the product of determinants (C) and the transpose of a sum is the sum of transposes (D).",
+   "optionRationale": {
+    "2": "B is false because matrix multiplication is generally non-commutative, so any option containing B is wrong.",
+    "3": "This option contains B, which is false, and it leaves out D, which is a correct property.",
+    "4": "This option omits C, which is a true property of determinants, so the list is incomplete."
+   },
+   "objective": "Recall basic properties of transpose, product and determinant"
+  },
+  {
+   "key": "ug26-319-r00-matrices-determinants-algebra-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "For $A=\\begin{bmatrix}1&-1\\\\2&3\\end{bmatrix}$ it is found that $A^2=pA+qI$ for scalars $p,q$. The value of $p+q$ is",
+   "options": [
+    "9",
+    "1",
+    "-1",
+    "-9"
+   ],
+   "answer": 3,
+   "explanation": "For a $2\\times2$ matrix, $A^2-(\\operatorname{tr}A)A+|A|I=0$. Here the trace is $1+3=4$ and $|A|=3+2=5$, so $A^2=4A-5I$, giving $p=4$ and $q=-5$. Direct multiplication confirms $A^2=\\begin{bmatrix}-1&-4\\\\8&7\\end{bmatrix}=4A-5I$, so $p+q=-1$.",
+   "optionRationale": {
+    "1": "This adds $4$ and $5$, ignoring that the constant term enters as $-|A|\\,I$ with a negative sign.",
+    "2": "This takes $p=-4$ and $q=5$, the negatives of the correct values; the $(1,2)$ entry would then be $+4$ instead of $-4$.",
+    "4": "This takes $p=-4$ and $q=-5$; the $(1,2)$ entry of $pA+qI$ would then be $+4$, but $A^2$ has $-4$ there."
+   },
+   "objective": "Use the trace-determinant relation of a second-order matrix"
+  },
+  {
+   "key": "ug26-319-r00-matrices-determinants-algebra-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "For $A=\\begin{bmatrix}4&-3\\\\2&5\\end{bmatrix}$ the element in the second row and first column of $\\operatorname{adj}A$ is",
+   "options": [
+    "-2",
+    "2",
+    "3",
+    "-3"
+   ],
+   "answer": 1,
+   "explanation": "For a $2\\times2$ matrix $\\begin{bmatrix}a&b\\\\c&d\\end{bmatrix}$ the adjoint is $\\begin{bmatrix}d&-b\\\\-c&a\\end{bmatrix}$. With $a=4,b=-3,c=2,d=5$ we get $\\operatorname{adj}A=\\begin{bmatrix}5&3\\\\-2&4\\end{bmatrix}$, so the second-row, first-column entry is $-c=-2$.",
+   "optionRationale": {
+    "2": "This forgets to change the sign of $c$ when forming the adjoint.",
+    "3": "This is the entry $-b$ that sits in the first row, second column, not the one asked for.",
+    "4": "This is the original entry $b$, copied without moving it or changing its sign."
+   },
+   "objective": "Write the adjoint of a second-order matrix"
+  },
+  {
+   "key": "ug26-319-r00-matrices-determinants-algebra-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Using Cramer's rule on $3x-2y=4$ and $2x+y=5$, the value of $2x+3y$ is",
+   "options": [
+    "7",
+    "8",
+    "10",
+    "5"
+   ],
+   "answer": 1,
+   "explanation": "The coefficient determinant is $D=3\\cdot1-(-2)\\cdot2=7$. Then $D_x=4\\cdot1-(-2)\\cdot5=14$ and $D_y=3\\cdot5-4\\cdot2=7$, so $x=14/7=2$ and $y=7/7=1$. Therefore $2x+3y=4+3=7$.",
+   "optionRationale": {
+    "2": "This swaps the roles of $x$ and $y$, computing $2(1)+3(2)$.",
+    "3": "This takes both unknowns equal to 2, which does not satisfy $2x+y=5$.",
+    "4": "$5$ is just the right-hand side of the second equation, not the value of the required expression."
+   },
+   "objective": "Solve a pair of linear equations by Cramer's rule"
+  },
+  {
+   "key": "ug26-319-r00-matrices-determinants-algebra-m06",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): If $A$ and $B$ are symmetric matrices of the same order, then $AB$ is always symmetric.\nReason (R): For any two matrices, $(AB)^T=B^TA^T$.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "The reason is the standard transpose rule and is true. For symmetric $A,B$ it gives $(AB)^T=BA$, which equals $AB$ only when $A$ and $B$ commute. For $A=\\begin{bmatrix}1&2\\\\2&3\\end{bmatrix}$ and $B=\\begin{bmatrix}0&1\\\\1&0\\end{bmatrix}$, $AB\\ne BA$, so the assertion is false.",
+   "optionRationale": {
+    "1": "The assertion is not true, so the reason cannot be a correct explanation of it.",
+    "2": "The assertion is false, so the pair cannot both be true.",
+    "3": "The reason is true, so this option, which calls it false, is wrong."
+   },
+   "objective": "Test the symmetry of a product of symmetric matrices"
+  },
+  {
+   "key": "ug26-319-r00-matrices-determinants-algebra-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "The homogeneous system $kx+y+z=0,\\ x+ky+z=0,\\ x+y+kz=0$ has a non-trivial solution for certain values of $k$. The sum of all such distinct values of $k$ is",
+   "options": [
+    "1",
+    "3",
+    "-3",
+    "-1"
+   ],
+   "answer": 4,
+   "explanation": "A non-trivial solution exists only if the coefficient determinant vanishes. That determinant equals $(k-1)^2(k+2)$, since adding all rows gives the common factor $k+2$ and the rest reduces to $(k-1)^2$. So $k=1$ or $k=-2$, and the sum of the distinct values is $1+(-2)=-1$.",
+   "optionRationale": {
+    "1": "This counts only the root $k=1$ and misses the root $k=-2$.",
+    "2": "This takes the second factor as $k-2$, giving roots $1$ and $2$ and so a sum of $3$.",
+    "3": "This takes the repeated factor as $k+1$ and the other as $k+2$, giving roots $-1$ and $-2$ and so a sum of $-3$."
+   },
+   "objective": "Find parameter values giving a non-trivial solution of a homogeneous system"
+  },
+  {
+   "key": "ug26-319-r00-matrices-determinants-algebra-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "For $A=\\begin{bmatrix}1&2&0\\\\0&1&3\\\\2&0&1\\end{bmatrix}$, the element in the first row and third column of $A^{-1}$ is",
+   "options": [
+    "\\dfrac{6}{13}",
+    "-\\dfrac{6}{13}",
+    "-\\dfrac{2}{13}",
+    "\\dfrac{2}{13}"
+   ],
+   "answer": 1,
+   "explanation": "First $|A|=1(1-0)-2(0-6)+0=13$. The $(1,3)$ element of $A^{-1}$ is $C_{31}/|A|$ where $C_{31}=+\\begin{vmatrix}2&0\\\\1&3\\end{vmatrix}=6$. Hence the element is $6/13$; remember the adjoint is the transpose of the cofactor matrix, so row and column indices swap.",
+   "optionRationale": {
+    "2": "The cofactor $C_{31}$ has sign $(-1)^{3+1}=+1$, so the negative sign here is a mistake.",
+    "3": "This uses $C_{13}=-2$, the cofactor in the same position, instead of $C_{31}$, forgetting the transpose in the adjoint.",
+    "4": "This uses the size of $C_{13}$ with its sign lost and again forgets the transpose."
+   },
+   "objective": "Find a single element of a third-order inverse using cofactors"
+  }
+ ]
+}

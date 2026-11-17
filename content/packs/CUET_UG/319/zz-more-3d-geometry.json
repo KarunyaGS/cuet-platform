@@ -1,0 +1,239 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_b081fd3fc3514134bea78605efe93301",
+  "title": "Three-dimensional Geometry"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r18-three-dimensional-geometry-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Two survey pegs are placed at $A(2,-1,3)$ and $B(4,1,2)$. Find the direction cosines of the straight line through the two pegs, taken in the direction from $A$ to $B$.",
+   "options": [
+    "$\\dfrac23,\\ \\dfrac23,\\ \\dfrac13$",
+    "$\\dfrac23,\\ \\dfrac23,\\ -\\dfrac13$",
+    "$2,\\ 2,\\ -1$",
+    "$\\dfrac29,\\ \\dfrac29,\\ -\\dfrac19$"
+   ],
+   "answer": 2,
+   "explanation": "The direction ratios of $AB$ are $4-2,\\ 1-(-1),\\ 2-3 = 2,\\ 2,\\ -1$. Their magnitude is $\\sqrt{4+4+1}=3$. Dividing each ratio by $3$ gives the direction cosines $\\frac23,\\frac23,-\\frac13$, and the squares add up to $1$ as required.",
+   "optionRationale": {
+    "1": "The third component is positive here, but the z-coordinate drops from 3 to 2, so the third ratio must be negative.",
+    "3": "These are the direction ratios themselves; they have not been divided by the magnitude 3, so the squares do not add to 1.",
+    "4": "Each ratio was divided by 9, the square of the magnitude, instead of by the magnitude 3."
+   },
+   "objective": "Find direction cosines of the line joining two points"
+  },
+  {
+   "key": "ug26-319-r18-three-dimensional-geometry-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A line in space makes an angle of $90^\\circ$ with the $x$-axis and $45^\\circ$ with the $y$-axis, and it makes an acute angle with the $z$-axis. What is that angle with the $z$-axis?",
+   "options": [
+    "$30^\\circ$",
+    "$45^\\circ$",
+    "$60^\\circ$",
+    "$90^\\circ$"
+   ],
+   "answer": 2,
+   "explanation": "The direction cosines are $l=\\cos 90^\\circ=0$ and $m=\\cos45^\\circ=\\frac1{\\sqrt2}$. Using $l^2+m^2+n^2=1$ gives $n^2=1-0-\\frac12=\\frac12$, so $n=\\frac1{\\sqrt2}$ for an acute angle. Hence the angle with the $z$-axis is $45^\\circ$.",
+   "optionRationale": {
+    "1": "This would need $n=\\frac{\\sqrt3}{2}$, which gives $l^2+m^2+n^2=\\frac54$, not 1.",
+    "3": "This would need $n=\\frac12$, giving $l^2+m^2+n^2=\\frac34$, so the relation fails.",
+    "4": "A $90^\\circ$ angle makes $n=0$, so the sum of squares is only $\\frac12$; the line cannot be perpendicular to all three axes."
+   },
+   "objective": "Use l^2+m^2+n^2=1 with given axis angles"
+  },
+  {
+   "key": "ug26-319-r18-three-dimensional-geometry-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Which one of the following points lies on the line $\\dfrac{x-2}{3}=\\dfrac{y+1}{2}=\\dfrac{z-4}{-1}$?",
+   "options": [
+    "$(5,\\ 1,\\ 5)$",
+    "$(8,\\ 1,\\ 2)$",
+    "$(-1,\\ -3,\\ 3)$",
+    "$(5,\\ 1,\\ 3)$"
+   ],
+   "answer": 4,
+   "explanation": "A point lies on the line when the three fractions are equal. For $(5,1,3)$ they are $\\frac33=1$, $\\frac{2}{2}=1$ and $\\frac{-1}{-1}=1$, which agree. The other points give unequal values, so only $(5,1,3)$ satisfies the equation of the line.",
+   "optionRationale": {
+    "1": "The fractions come to $1,\\ 1$ and $\\frac{1}{-1}=-1$, so the third one disagrees.",
+    "2": "The fractions are $2,\\ 1$ and $2$, so the $y$-fraction disagrees with the other two.",
+    "3": "The fractions are $-1,\\ -1$ and $\\frac{-1}{-1}=1$; the signs of the first two do not match the third."
+   },
+   "objective": "Test whether a point lies on a Cartesian line"
+  },
+  {
+   "key": "ug26-319-r18-three-dimensional-geometry-m04",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each pair of lines in List-I, given by direction ratios, with the cosine of the acute angle between them in List-II.",
+   "list": {
+    "left": [
+     "A. Lines with direction ratios $(1,2,2)$ and $(2,1,-2)$",
+     "B. Lines with direction ratios $(1,1,0)$ and $(0,1,1)$",
+     "C. Lines with direction ratios $(2,-1,2)$ and $(4,-2,4)$",
+     "D. Lines with direction ratios $(1,0,0)$ and $(1,1,1)$"
+    ],
+    "right": [
+     "I. $\\dfrac12$",
+     "II. $1$",
+     "III. $\\dfrac1{\\sqrt3}$",
+     "IV. $0$"
+    ]
+   },
+   "options": [
+    "A-I, B-IV, C-II, D-III",
+    "A-IV, B-II, C-I, D-III",
+    "A-IV, B-I, C-II, D-III",
+    "A-III, B-I, C-II, D-IV"
+   ],
+   "answer": 3,
+   "explanation": "Use $\\cos\\theta=\\frac{|a_1a_2+b_1b_2+c_1c_2|}{\\sqrt{a_1^2+b_1^2+c_1^2}\\sqrt{a_2^2+b_2^2+c_2^2}}$. A: dot product $2+2-4=0$ gives $0$. B: $\\frac{1}{\\sqrt2\\sqrt2}=\\frac12$. C: the ratios are proportional, so $1$. D: $\\frac{1}{1\\cdot\\sqrt3}=\\frac1{\\sqrt3}$.",
+   "optionRationale": {
+    "1": "A and B are swapped: the first pair has dot product 0, not the value 1/2.",
+    "2": "B and C are interchanged: proportional ratios give cosine 1, and the second pair gives one half.",
+    "4": "A and D are interchanged: (1,2,2) with (2,1,-2) is perpendicular, while (1,0,0) with (1,1,1) gives 1/sqrt3."
+   },
+   "objective": "Compute the angle between two lines from direction ratios"
+  },
+  {
+   "key": "ug26-319-r18-three-dimensional-geometry-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The line $\\vec r=(\\hat i+2\\hat k)+\\lambda(\\hat i-2\\hat j+2\\hat k)$ meets the line $\\vec r=3\\hat j+\\mu(6\\hat i+2\\hat j-3\\hat k)$ in space. If $\\theta$ is the acute angle between the two lines, then $\\theta$ equals",
+   "options": [
+    "$\\cos^{-1}\\left(\\dfrac{4}{21}\\right)$",
+    "$\\cos^{-1}\\left(-\\dfrac{4}{21}\\right)$",
+    "$\\cos^{-1}\\left(\\dfrac{4}{7}\\right)$",
+    "$\\cos^{-1}\\left(\\dfrac{8}{21}\\right)$"
+   ],
+   "answer": 1,
+   "explanation": "Only the direction vectors matter. $\\vec b_1=(1,-2,2)$ and $\\vec b_2=(6,2,-3)$. Then $\\vec b_1\\cdot\\vec b_2=6-4-6=-4$, $|\\vec b_1|=3$ and $|\\vec b_2|=7$. For the acute angle take the modulus: $\\cos\\theta=\\frac{4}{21}$.",
+   "optionRationale": {
+    "2": "A negative cosine gives the obtuse angle between the vectors; the acute angle between lines needs the modulus of the dot product.",
+    "3": "The magnitude of the first vector (3) was left out, so the denominator was taken as 7 only.",
+    "4": "The dot product was doubled by an arithmetic slip; the correct modulus of the dot product is 4, not 8."
+   },
+   "objective": "Find the acute angle between two lines in vector form"
+  },
+  {
+   "key": "ug26-319-r18-three-dimensional-geometry-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "For what value of $k$ is the line $\\dfrac{x}{2}=\\dfrac{y-1}{k}=\\dfrac{z+1}{3}$ perpendicular to the line $\\dfrac{x-3}{4}=\\dfrac{y}{1}=\\dfrac{z-2}{-2}$?",
+   "options": [
+    "$k=2$",
+    "$k=-2$",
+    "$k=-14$",
+    "$k=14$"
+   ],
+   "answer": 2,
+   "explanation": "Two lines are perpendicular when $a_1a_2+b_1b_2+c_1c_2=0$. Here the direction ratios are $(2,k,3)$ and $(4,1,-2)$, so $8+k-6=0$, which gives $k=-2$. Only the direction ratios are used, not the points on the lines.",
+   "optionRationale": {
+    "1": "Sign error: the equation is 8 + k - 6 = 0, which gives -2, not +2.",
+    "3": "This comes from taking the last ratio as +2, which makes the product +6; the denominator is actually -2.",
+    "4": "This would follow from 8 + k + 6 = 0, which does not match the given ratios."
+   },
+   "objective": "Apply the perpendicularity condition on direction ratios"
+  },
+  {
+   "key": "ug26-319-r18-three-dimensional-geometry-m07",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider these statements about lines in space.\nA. The direction cosines of the $y$-axis are $0,1,0$.\nB. If $l,m,n$ are direction cosines of a line, then $-l,-m,-n$ are also direction cosines of the same line.\nC. A line has exactly one set of direction ratios.\nD. Two distinct parallel lines are skew lines.\nChoose the correct answer.",
+   "options": [
+    "A and B only",
+    "A, B and C only",
+    "B and D only",
+    "A, C and D only"
+   ],
+   "answer": 1,
+   "explanation": "The $y$-axis makes angles $90^\\circ,0^\\circ,90^\\circ$ with the axes, so $(0,1,0)$ is correct (A). Reversing the direction negates every cosine, yet the line is the same (B). Direction ratios can be scaled by any non-zero number (C false), and parallel lines are coplanar so they are not skew (D false).",
+   "optionRationale": {
+    "2": "C is false: any non-zero multiple of a set of direction ratios describes the same line.",
+    "3": "D is false, since parallel lines lie in one plane; also B is a true statement left out here.",
+    "4": "C and D are both false; only A and B hold."
+   },
+   "objective": "Judge statements on direction cosines and skew lines"
+  },
+  {
+   "key": "ug26-319-r18-three-dimensional-geometry-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "A drone path is the line $\\vec r=(\\hat i+\\hat k)+\\lambda(\\hat i+2\\hat j+2\\hat k)$ and a cable follows $\\vec r=(3\\hat i+\\hat j+5\\hat k)+\\mu(2\\hat i+\\hat j-2\\hat k)$. The least distance between the path and the cable is",
+   "options": [
+    "$18$ units",
+    "$\\dfrac23$ units",
+    "$6$ units",
+    "$2$ units"
+   ],
+   "answer": 4,
+   "explanation": "Here $\\vec b_1=(1,2,2)$, $\\vec b_2=(2,1,-2)$ and $\\vec a_2-\\vec a_1=(2,1,4)$. The cross product $\\vec b_1\\times\\vec b_2=(-6,6,-3)$ has magnitude $9$. The scalar triple product is $-12+6-12=-18$, so the distance is $\\frac{|-18|}{9}=2$.",
+   "optionRationale": {
+    "1": "This is the numerator only: the triple product was not divided by |b1 x b2| = 9.",
+    "2": "This uses a wrong separation vector such as (1,3,2), which gives a triple product of 6 and distance 6/9.",
+    "3": "This divides the triple product by 3, the magnitude of a direction vector, instead of by 9."
+   },
+   "objective": "Compute shortest distance between skew lines in vector form"
+  },
+  {
+   "key": "ug26-319-r18-three-dimensional-geometry-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The line $\\dfrac{x-1}{2}=\\dfrac{y-2}{3}=\\dfrac{z-3}{4}$ intersects the line $\\dfrac{x-2}{1}=\\dfrac{y-3}{2}=\\dfrac{z-k}{1}$ for a certain $k$. The value of $k$ is",
+   "options": [
+    "$3$",
+    "$9$",
+    "$6$",
+    "$-6$"
+   ],
+   "answer": 3,
+   "explanation": "Writing a point of the first line as $(1+2s,\\,2+3s,\\,3+4s)$ and of the second as $(2+t,\\,3+2t,\\,k+t)$, the first two coordinates give $s=1$, $t=1$ and the point $(3,5,7)$. The third coordinate needs $k+1=7$, so $k=6$. The determinant condition gives the same result.",
+   "optionRationale": {
+    "1": "Setting k equal to the z-coordinate 3 of the base point ignores the parameter t = 1.",
+    "2": "This arises from solving k + 1 = 7 wrongly by adding 2 to the right side.",
+    "4": "The sign is wrong: k + t = 7 with t = 1 gives a positive k."
+   },
+   "objective": "Find the parameter making two lines intersect"
+  },
+  {
+   "key": "ug26-319-r18-three-dimensional-geometry-m10",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "**Assertion (A):** The lines $\\frac{x}{1}=\\frac{y}{2}=\\frac{z}{3}$ and $\\frac{x-1}{2}=\\frac{y-2}{4}=\\frac{z-3}{6}$ are parallel and distinct, so they never meet.\n**Reason (R):** Two lines whose direction ratios are proportional are parallel or coincident.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "The second line passes through $(1,2,3)$, and this point satisfies $\\frac11=\\frac22=\\frac33$, so it lies on the first line. Direction ratios $(2,4,6)$ are proportional to $(1,2,3)$, hence the two lines coincide. (A) is false because they are not distinct, but (R) is a true general statement.",
+   "optionRationale": {
+    "1": "R is true but A is false, so R cannot be the explanation of a false assertion.",
+    "2": "A is not true: the lines coincide because (1,2,3) lies on the first line.",
+    "3": "R is a correct statement; proportional ratios mean parallel or coincident lines."
+   },
+   "objective": "Distinguish parallel and coincident lines"
+  }
+ ]
+}

@@ -1,4 +1,4 @@
-import { BookOpen, ChevronDown, Menu, GalleryVerticalEnd, GraduationCap, Highlighter, PencilLine, Search, ShieldCheck, Bookmark, CalendarCheck2, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { BookOpen, ChevronDown, Menu, GalleryVerticalEnd, Landmark, Highlighter, PencilLine, Search, ShieldCheck, Bookmark, CalendarCheck2, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
@@ -198,9 +198,10 @@ function UserMenu() {
               <UserRound aria-hidden />
               Profile and goals
             </Link>
-            <Link role="menuitem" to="/admissions" className={item}>
-              <GraduationCap aria-hidden />
-              University admissions
+            {/* University admissions is hidden for now. Its page, data and routes are unchanged: put the link back here to show it again. */}
+            <Link role="menuitem" to="/updates" className={item}>
+              <Landmark aria-hidden />
+              Official Government Updates
             </Link>
             {user.roles.some((r) => r === 'SUPER_ADMIN' || r === 'CONTENT_ADMIN') && (
               <Link role="menuitem" to="/admin" className={item}>

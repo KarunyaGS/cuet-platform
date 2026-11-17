@@ -1,0 +1,239 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_0153203deb8f4618a9e7c40fc229a0fd",
+  "title": "Inverse Trigonometric Functions"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r20-inverse-trigonometric-functions-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "From the table of standard cosine values, the principal value of $\\cos^{-1}\\left(\\dfrac{\\sqrt3}{2}\\right)$ is",
+   "options": [
+    "$\\dfrac{\\pi}{6}$",
+    "$\\dfrac{\\pi}{3}$",
+    "$\\dfrac{5\\pi}{6}$",
+    "$\\dfrac{\\pi}{4}$"
+   ],
+   "answer": 1,
+   "explanation": "The principal branch of $\\cos^{-1}$ has range $[0,\\pi]$. We need the angle in this range whose cosine is $\\frac{\\sqrt3}{2}$, and $\\cos\\frac\\pi6=\\frac{\\sqrt3}{2}$. So the principal value is $\\frac\\pi6$.",
+   "optionRationale": {
+    "2": "cos(pi/3) is 1/2, not sqrt3/2, so this angle gives a different value.",
+    "3": "5pi/6 has cosine -sqrt3/2; the argument here is positive.",
+    "4": "cos(pi/4) = 1/sqrt2, which is not sqrt3/2."
+   },
+   "objective": "Read a principal value of cos inverse"
+  },
+  {
+   "key": "ug26-319-r20-inverse-trigonometric-functions-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "The domain of the principal-value function $\\tan^{-1}x$ is",
+   "options": [
+    "$[-1,1]$",
+    "$\\left(-\\dfrac\\pi2,\\dfrac\\pi2\\right)$",
+    "$\\mathbb R-\\{0\\}$",
+    "$\\mathbb R$"
+   ],
+   "answer": 4,
+   "explanation": "The tangent function on $\\left(-\\frac\\pi2,\\frac\\pi2\\right)$ takes every real value exactly once, so its inverse accepts every real number. Therefore the domain of $\\tan^{-1}x$ is $\\mathbb R$, while $\\left(-\\frac\\pi2,\\frac\\pi2\\right)$ is its range.",
+   "optionRationale": {
+    "1": "[-1, 1] is the domain of sin inverse and cos inverse, not of tan inverse.",
+    "2": "This interval is the range of tan inverse, not its domain.",
+    "3": "Zero is allowed: tan inverse of 0 equals 0."
+   },
+   "objective": "State the domain of tan inverse"
+  },
+  {
+   "key": "ug26-319-r20-inverse-trigonometric-functions-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The principal value of $\\cot^{-1}(-1)$ is",
+   "options": [
+    "$-\\dfrac{\\pi}{4}$",
+    "$\\dfrac{\\pi}{4}$",
+    "$\\dfrac{3\\pi}{4}$",
+    "$\\dfrac{\\pi}{2}$"
+   ],
+   "answer": 3,
+   "explanation": "The principal branch of $\\cot^{-1}$ has range $(0,\\pi)$. Since $\\cot\\frac{3\\pi}{4}=-1$ and $\\frac{3\\pi}4$ lies in this range, $\\cot^{-1}(-1)=\\frac{3\\pi}4$. Equivalently, $\\cot^{-1}(-x)=\\pi-\\cot^{-1}x$.",
+   "optionRationale": {
+    "1": "Negative values are not in the principal range (0, pi) of cot inverse.",
+    "2": "pi/4 is cot inverse of +1; the negative argument moves the angle into the second quadrant.",
+    "4": "pi/2 is cot inverse of 0, not of -1."
+   },
+   "objective": "Evaluate cot inverse of a negative number"
+  },
+  {
+   "key": "ug26-319-r20-inverse-trigonometric-functions-m04",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each expression in List-I with its principal value in List-II.",
+   "list": {
+    "left": [
+     "A. $\\sin^{-1}\\left(-\\frac12\\right)$",
+     "B. $\\cos^{-1}\\left(-\\frac12\\right)$",
+     "C. $\\tan^{-1}(1)$",
+     "D. $\\operatorname{cosec}^{-1}(2)$"
+    ],
+    "right": [
+     "I. $\\dfrac\\pi4$",
+     "II. $-\\dfrac\\pi6$",
+     "III. $\\dfrac{2\\pi}{3}$",
+     "IV. $\\dfrac\\pi6$"
+    ]
+   },
+   "options": [
+    "A-III, B-II, C-I, D-IV",
+    "A-II, B-III, C-I, D-IV",
+    "A-II, B-III, C-IV, D-I",
+    "A-I, B-III, C-II, D-IV"
+   ],
+   "answer": 2,
+   "explanation": "$\\sin^{-1}\\left(-\\frac12\\right)=-\\frac\\pi6$ since the sine branch is $[-\\frac\\pi2,\\frac\\pi2]$. $\\cos^{-1}\\left(-\\frac12\\right)=\\pi-\\frac\\pi3=\\frac{2\\pi}3$. $\\tan^{-1}1=\\frac\\pi4$. $\\operatorname{cosec}^{-1}2=\\sin^{-1}\\frac12=\\frac\\pi6$.",
+   "optionRationale": {
+    "1": "A and B are swapped; sin inverse of a negative number is negative, while cos inverse gives an angle in [0, pi].",
+    "3": "C and D are swapped: tan inverse of 1 is pi/4 and cosec inverse of 2 is pi/6.",
+    "4": "A and C are swapped: tan inverse of 1 cannot be negative and sin inverse of -1/2 cannot be pi/4."
+   },
+   "objective": "Match principal values of inverse functions"
+  },
+  {
+   "key": "ug26-319-r20-inverse-trigonometric-functions-m05",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Read the following about inverse trigonometric functions.\nA. $\\sin^{-1}(-x)=-\\sin^{-1}x$ for $x\\in[-1,1]$.\nB. $\\cos^{-1}(-x)=\\pi-\\cos^{-1}x$ for $x\\in[-1,1]$.\nC. $\\sin^{-1}x+\\cos^{-1}x=\\dfrac\\pi2$ for every real $x$.\nD. $\\sin^{-1}\\dfrac1x=\\operatorname{cosec}^{-1}x$ for $|x|\\ge1$.\nSelect the correct option.",
+   "options": [
+    "A, B and C only",
+    "B, C and D only",
+    "A, B and D only",
+    "A and C only"
+   ],
+   "answer": 3,
+   "explanation": "A holds because sine is odd, B follows from the symmetry of cosine about $\\frac\\pi2$, and D is the definition link between $\\sin^{-1}$ and $\\operatorname{cosec}^{-1}$. C is false outside $[-1,1]$, since $\\sin^{-1}x$ and $\\cos^{-1}x$ are undefined there.",
+   "optionRationale": {
+    "1": "C is false: the identity holds only for x in [-1, 1].",
+    "2": "A is correct and must be included; with C false, this option is wrong.",
+    "4": "C is false, and B and D are also correct, so this option is too small."
+   },
+   "objective": "Recall identities of inverse trigonometric functions"
+  },
+  {
+   "key": "ug26-319-r20-inverse-trigonometric-functions-m06",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "**Assertion (A):** $\\cos^{-1}\\left(\\cos\\left(-\\dfrac\\pi3\\right)\\right)=\\dfrac\\pi3$.\n**Reason (R):** $\\cos^{-1}(\\cos\\theta)=\\theta$ for every real number $\\theta$.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "Since $\\cos\\left(-\\frac\\pi3\\right)=\\frac12$ and the principal value of $\\cos^{-1}\\frac12$ is $\\frac\\pi3$, (A) is true. But $\\cos^{-1}(\\cos\\theta)=\\theta$ only when $\\theta\\in[0,\\pi]$; for $\\theta=-\\frac\\pi3$ the result is the positive angle $\\frac\\pi3$. Hence (R) is false.",
+   "optionRationale": {
+    "1": "R is false as a general statement, so it cannot explain A.",
+    "2": "R is not true: cos inverse of cos theta equals theta only for theta in [0, pi].",
+    "4": "A is true: the principal value is pi/3."
+   },
+   "objective": "Know when cos inverse of cos returns the same angle"
+  },
+  {
+   "key": "ug26-319-r20-inverse-trigonometric-functions-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Because $\\frac{3\\pi}{4}$ falls outside the principal branch of the inverse tangent, simplify $\\tan^{-1}\\left(\\tan\\dfrac{3\\pi}{4}\\right)$. It equals",
+   "options": [
+    "$\\dfrac{3\\pi}{4}$",
+    "$\\dfrac{\\pi}{4}$",
+    "$-\\dfrac{3\\pi}{4}$",
+    "$-\\dfrac\\pi4$"
+   ],
+   "answer": 4,
+   "explanation": "The principal range of $\\tan^{-1}$ is $\\left(-\\frac\\pi2,\\frac\\pi2\\right)$, and $\\frac{3\\pi}4$ lies outside it. Since $\\tan\\frac{3\\pi}4=-1$, we need the angle in the range with tangent $-1$, which is $-\\frac\\pi4$.",
+   "optionRationale": {
+    "1": "3pi/4 is outside the range (-pi/2, pi/2) of tan inverse.",
+    "2": "pi/4 has tangent +1; the value tan(3pi/4) is -1.",
+    "3": "-3pi/4 is also outside the principal range and has tangent +1."
+   },
+   "objective": "Evaluate tan inverse of tan outside the branch"
+  },
+  {
+   "key": "ug26-319-r20-inverse-trigonometric-functions-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Let $\\theta$ be the principal angle whose sine is $\\frac5{13}$. The tangent of the doubled angle, $\\tan\\left(2\\sin^{-1}\\dfrac{5}{13}\\right)$, is",
+   "options": [
+    "$\\dfrac{120}{119}$",
+    "$\\dfrac56$",
+    "$\\dfrac{119}{120}$",
+    "$\\dfrac{60}{119}$"
+   ],
+   "answer": 1,
+   "explanation": "Let $\\theta=\\sin^{-1}\\frac5{13}$, so $\\tan\\theta=\\frac5{12}$. Then $\\tan2\\theta=\\frac{2\\tan\\theta}{1-\\tan^2\\theta}=\\frac{10/12}{1-25/144}=\\frac{5/6}{119/144}=\\frac{120}{119}$.",
+   "optionRationale": {
+    "2": "5/6 is only the numerator 2 tan(theta); the denominator 1 - tan squared was not applied.",
+    "3": "This is the reciprocal, cot(2 theta), not tan(2 theta).",
+    "4": "60/119 results from using 2tan(theta) = 5/12 instead of 10/12."
+   },
+   "objective": "Apply the double-angle formula to an inverse sine"
+  },
+  {
+   "key": "ug26-319-r20-inverse-trigonometric-functions-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The equation $\\tan^{-1}(2x)+\\tan^{-1}(3x)=\\dfrac\\pi4$ has which solution(s)?",
+   "options": [
+    "$x=-1$ only",
+    "$x=\\dfrac16$ only",
+    "$x=\\dfrac16$ and $x=-1$",
+    "$x=\\dfrac13$ only"
+   ],
+   "answer": 2,
+   "explanation": "Taking tangents, $\\frac{5x}{1-6x^2}=1$, so $6x^2+5x-1=0$ and $x=\\frac16$ or $x=-1$. The addition formula for $\\tan^{-1}$ holds with $\\frac\\pi4$ only when $2x\\cdot3x<1$. For $x=-1$ the product is $6>1$, so that value is extraneous; $x=\\frac16$ works since $\\tan^{-1}\\frac13+\\tan^{-1}\\frac12=\\frac\\pi4$.",
+   "optionRationale": {
+    "1": "x = -1 fails because the product of the two arguments is 6, greater than 1, so the sum is not pi/4.",
+    "3": "Both roots of the quadratic appear, but x = -1 must be rejected after checking the condition on the product.",
+    "4": "x = 1/3 does not satisfy the quadratic 6x^2 + 5x - 1 = 0."
+   },
+   "objective": "Solve an equation with two inverse tangents"
+  },
+  {
+   "key": "ug26-319-r20-inverse-trigonometric-functions-m10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The sum $\\sin^{-1}\\dfrac35+\\sin^{-1}\\dfrac{8}{17}$ is equal to",
+   "options": [
+    "$\\cos^{-1}\\dfrac{77}{85}$",
+    "$\\sin^{-1}\\dfrac{13}{85}$",
+    "$\\tan^{-1}\\dfrac{36}{77}$",
+    "$\\sin^{-1}\\dfrac{77}{85}$"
+   ],
+   "answer": 4,
+   "explanation": "Let $A=\\sin^{-1}\\frac35$ and $B=\\sin^{-1}\\frac8{17}$, with $\\cos A=\\frac45$ and $\\cos B=\\frac{15}{17}$. Then $\\sin(A+B)=\\frac35\\cdot\\frac{15}{17}+\\frac45\\cdot\\frac8{17}=\\frac{77}{85}$. The angles are acute and $A+B<\\frac\\pi2$, so $A+B=\\sin^{-1}\\frac{77}{85}$.",
+   "optionRationale": {
+    "1": "77/85 is the sine of the sum; the cosine of the sum is 36/85.",
+    "2": "13/85 is sin(A - B), which comes from using a minus sign in the compound-angle formula.",
+    "3": "tan(A + B) is 77/36, so the ratio in this option is inverted."
+   },
+   "objective": "Combine two inverse sines using sin(A+B)"
+  }
+ ]
+}

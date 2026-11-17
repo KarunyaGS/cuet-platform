@@ -1,0 +1,218 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_1e7061c3704b441d8e96af9a4670a090",
+    "title": "Continuity and Differentiability"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r14-continuity-differentiability-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The slope of the curve $y = \\ln(x^2 + 1)$ at the point where $x = 1$ is",
+      "options": [
+        "$2$",
+        "$\\dfrac12$",
+        "$1$",
+        "$\\ln 2$"
+      ],
+      "answer": 3,
+      "explanation": "By the chain rule $\\dfrac{dy}{dx} = \\dfrac{1}{x^2 + 1}\\cdot 2x = \\dfrac{2x}{x^2+1}$. At $x = 1$ this is $\\dfrac{2}{2} = 1$. The inner function $x^2 + 1$ must be differentiated as well as the logarithm.",
+      "optionRationale": {
+        "1": "$2$ is the derivative of the inner function $x^2+1$ at $x=1$, with the factor $\\frac{1}{x^2+1}$ forgotten.",
+        "2": "$\\frac12$ is $\\frac{1}{x^2+1}$ alone; the factor $2x$ from the chain rule is missing.",
+        "4": "$\\ln 2$ is the value of $y$ at $x = 1$, not the slope."
+      },
+      "objective": "Differentiate a logarithm of a function using the chain rule"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The function $f(x) = 3x - 1$ for $x < 2$ and $f(x) = kx$ for $x \\ge 2$ is continuous at $x = 2$. The value of $k$ is",
+      "options": [
+        "$3$",
+        "$\\dfrac52$",
+        "$5$",
+        "$\\dfrac25$"
+      ],
+      "answer": 2,
+      "explanation": "Continuity at $2$ requires the left limit to equal the value: $\\lim_{x\\to2^-}(3x-1) = 5$ and $f(2) = 2k$. So $2k = 5$ and $k = 5/2$. Both pieces then meet at the height $5$.",
+      "optionRationale": {
+        "1": "$3$ is the coefficient of $x$ in the first piece and has no role in the matching condition.",
+        "3": "$5$ is the common value of the function at $2$, not the multiplier $k$.",
+        "4": "$\\frac25$ inverts the equation $2k = 5$."
+      },
+      "objective": "Find a constant that makes a piecewise function continuous"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For $y = \\tan^{-1}\\!\\left(\\dfrac{1+x}{1-x}\\right)$ with $x \\ne 1$, the value of $\\dfrac{dy}{dx}$ at $x = 2$ is",
+      "options": [
+        "$\\dfrac1{10}$",
+        "$2$",
+        "$\\dfrac15$",
+        "$-\\dfrac15$"
+      ],
+      "answer": 3,
+      "explanation": "Put $u = (1+x)/(1-x)$. Then $u' = 2/(1-x)^2 = 2$ at $x = 2$, and $u = -3$ there, so $\\dfrac{dy}{dx} = \\dfrac{u'}{1 + u^2} = \\dfrac{2}{10} = \\dfrac15$. This agrees with the simplified form $\\dfrac{1}{1+x^2}$ of the derivative.",
+      "optionRationale": {
+        "1": "$\\frac1{10}$ is $\\frac{1}{1+u^2}$ with the factor $u' = 2$ left out.",
+        "2": "$2$ is $u'$ alone; the factor $\\frac{1}{1+u^2}$ of the inverse tangent is missing.",
+        "4": "The derivative $\\frac{1}{1+x^2}$ is positive for every $x$, so a negative value cannot occur."
+      },
+      "objective": "Differentiate an inverse tangent of a rational function"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If $y = \\dfrac{x^2 (x+1)^3}{x+2}$ for $x > 0$, then using logarithmic differentiation the value of $\\dfrac{dy}{dx}$ at $x = 1$ is",
+      "options": [
+        "$\\dfrac{19}{6}$",
+        "$\\dfrac{152}{9}$",
+        "$\\dfrac{32}{3}$",
+        "$\\dfrac{76}{9}$"
+      ],
+      "answer": 4,
+      "explanation": "Taking logarithms, $\\dfrac{y'}{y} = \\dfrac2x + \\dfrac{3}{x+1} - \\dfrac{1}{x+2}$, which is $2 + \\dfrac32 - \\dfrac13 = \\dfrac{19}{6}$ at $x = 1$. Since $y(1) = \\dfrac{8}{3}$, we get $y' = \\dfrac83\\cdot\\dfrac{19}{6} = \\dfrac{76}{9}$.",
+      "optionRationale": {
+        "1": "$\\frac{19}{6}$ is $y'/y$; it must be multiplied by $y(1) = 8/3$.",
+        "2": "$\\frac{152}{9}$ doubles the correct product by using $19/3$ in place of $19/6$ for $y'/y$.",
+        "3": "$\\frac{32}{3}$ treats the derivative of $\\ln(x+1)$ and $\\ln(x+2)$ as $1$ instead of $\\frac{1}{x+1}$ and $\\frac{1}{x+2}$."
+      },
+      "objective": "Apply logarithmic differentiation to a product and quotient"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-m05",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): If a function $f$ is discontinuous at $x = c$, then $f$ is not differentiable at $x = c$.\nReason (R): Every continuous function is differentiable.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "Differentiability at a point implies continuity there, so by the contrapositive a discontinuous function cannot be differentiable; A is true. The converse fails: $|x|$ is continuous at $0$ but has a corner, so R is false and cannot be the explanation.",
+      "optionRationale": {
+        "1": "R is false, so it cannot be the correct explanation of A.",
+        "2": "R is false: $f(x) = |x|$ is continuous but not differentiable at $0$.",
+        "4": "A is true because differentiability forces continuity."
+      },
+      "objective": "Relate continuity and differentiability"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-m06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each function in List-I with its derivative in List-II.",
+      "list": {
+        "left": [
+          "A. $e^{\\sin x}$",
+          "B. $\\ln(\\cos x)$",
+          "C. $\\tan^{-1}(2x)$",
+          "D. $3^{x}$"
+        ],
+        "right": [
+          "I. $\\cos x\\; e^{\\sin x}$",
+          "II. $-\\tan x$",
+          "III. $\\dfrac{2}{1 + 4x^2}$",
+          "IV. $3^{x}\\ln 3$"
+        ]
+      },
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-III, B-II, C-I, D-IV"
+      ],
+      "answer": 2,
+      "explanation": "For $e^{\\sin x}$ the chain rule gives $\\cos x\\,e^{\\sin x}$. For $\\ln(\\cos x)$ we get $(-\\sin x)/\\cos x = -\\tan x$. For $\\tan^{-1}(2x)$ we get $2/(1+4x^2)$. For $3^x$ the derivative is $3^x \\ln 3$. So A-I, B-II, C-III, D-IV.",
+      "optionRationale": {
+        "1": "Items A and B have been interchanged; check each pairing against its definition.",
+        "3": "Items C and D have been interchanged; check each pairing against its definition.",
+        "4": "Items A and C have been interchanged; check each pairing against its definition."
+      },
+      "objective": "Match standard derivatives with functions"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-m07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For the circle $x^2 + y^2 = 25$, the second derivative $\\dfrac{d^2y}{dx^2}$ at the point $(3, 4)$ is",
+      "options": [
+        "$-\\dfrac{25}{64}$",
+        "$\\dfrac{25}{64}$",
+        "$-\\dfrac{9}{16}$",
+        "$-\\dfrac{25}{16}$"
+      ],
+      "answer": 1,
+      "explanation": "Differentiating implicitly, $y' = -x/y = -3/4$ at $(3,4)$. Then $y'' = -\\dfrac{y - x y'}{y^2} = -\\dfrac{4 + 9/4}{16} = -\\dfrac{25/4}{16} = -\\dfrac{25}{64}$. In general $y'' = -25/y^3$, which is negative in the upper half of the circle, as the arc is concave.",
+      "optionRationale": {
+        "2": "The upper half of the circle is concave, so the second derivative must be negative.",
+        "3": "$-\\frac{9}{16}$ is minus the square of the slope $-\\frac34$ and not the second derivative.",
+        "4": "$-\\frac{25}{16}$ uses $-25/y^2$ instead of $-25/y^3$."
+      },
+      "objective": "Find a second derivative of an implicit function"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-m08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The function $f(x) = 5$ for $x \\le 2$, $f(x) = ax + b$ for $2 < x < 4$ and $f(x) = 11$ for $x \\ge 4$ is continuous for all real $x$. The value of $a + b$ is",
+      "options": [
+        "$5$",
+        "$4$",
+        "$-2$",
+        "$2$"
+      ],
+      "answer": 4,
+      "explanation": "Continuity at $2$ gives $2a + b = 5$ and continuity at $4$ gives $4a + b = 11$. Subtracting, $2a = 6$, so $a = 3$ and $b = 5 - 6 = -1$. Hence $a + b = 2$, and the middle piece $3x - 1$ joins $5$ at $x=2$ and $11$ at $x=4$.",
+      "optionRationale": {
+        "1": "$5$ results from the slip $b = 5 - 6 = 2$; the correct value is $b = -1$, and the middle piece must give $5$ at $x = 2$.",
+        "2": "$4$ comes from taking $b = +1$ instead of $-1$.",
+        "3": "$-2$ changes the sign of the correct sum, from taking $a = -3$."
+      },
+      "objective": "Determine two constants from continuity at two points"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-m09",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Consider the following derivative statements (for values of $x$, $t$ where each expression is defined).\nA. $\\dfrac{d}{dx}\\left(\\sin^{-1}x + \\cos^{-1}x\\right) = 0$\nB. $\\dfrac{d^2}{dx^2}\\left(x\\ln x\\right) = \\dfrac1x$\nC. $\\dfrac{d}{dx}\\left(2^{x^2}\\right) = 2x\\cdot 2^{x^2}$\nD. If $x = \\cos t$ and $y = \\sin t$, then $\\dfrac{dy}{dx} = -\\cot t$\nChoose the correct answer.",
+      "options": [
+        "A, B and C only",
+        "B, C and D only",
+        "A, B and D only",
+        "A and D only"
+      ],
+      "answer": 3,
+      "explanation": "A holds because $\\sin^{-1}x + \\cos^{-1}x = \\pi/2$ is constant. B holds: $(x\\ln x)' = \\ln x + 1$ and its derivative is $1/x$. D holds: $\\dfrac{dy}{dx} = \\dfrac{\\cos t}{-\\sin t} = -\\cot t$. C is false because the derivative of $2^{x^2}$ is $2x\\ln 2\\cdot 2^{x^2}$, with the factor $\\ln 2$.",
+      "optionRationale": {
+        "1": "C is false because the factor $\\ln 2$ is missing, so any set containing C is wrong.",
+        "2": "This set contains C, which lacks $\\ln 2$, and leaves out the true statement A.",
+        "4": "This set is incomplete: B is also true, as $(x\\ln x)'' = 1/x$."
+      },
+      "objective": "Evaluate derivative statements for correctness"
+    }
+  ]
+}

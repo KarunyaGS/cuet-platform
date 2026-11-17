@@ -1,0 +1,204 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_690176c5d6324814afc251435d4f2b03",
+  "title": "PROBABILITY DISTRIBUTIONS"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r06-probability-distributions-applied-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A fair coin is tossed 6 times. The probability of getting exactly 3 heads is",
+   "options": [
+    "\\dfrac{15}{64}",
+    "\\dfrac12",
+    "\\dfrac{3}{16}",
+    "\\dfrac{5}{16}"
+   ],
+   "answer": 4,
+   "explanation": "The number of heads is binomial with $n=6$ and $p=\\tfrac12$. So $P(X=3)=\\binom63\\left(\\tfrac12\\right)^6=\\dfrac{20}{64}=\\dfrac5{16}$.",
+   "optionRationale": {
+    "1": "This is $\\binom62/2^6$, the probability of exactly 2 heads, not 3.",
+    "2": "This takes the fraction $3/6$ of tosses that are heads, which is the mean proportion and not the probability of the event.",
+    "3": "This is $\\binom{6}{3}/2^6$ with the coefficient miscounted as $12$ instead of $20$."
+   },
+   "objective": "Compute a binomial probability"
+  },
+  {
+   "key": "ug26-319-r06-probability-distributions-applied-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A random variable $X$ takes the values $2,4,6$ with probabilities $0.2,\\ 0.5,\\ 0.3$ respectively. The expected value $E(X)$ is",
+   "options": [
+    "4",
+    "3.8",
+    "4.4",
+    "4.2"
+   ],
+   "answer": 4,
+   "explanation": "The expected value weights every value by its own probability: $E(X)=\\sum xP(x)$. Here $2(0.2)=0.4$, $4(0.5)=2.0$ and $6(0.3)=1.8$. Adding gives $0.4+2.0+1.8=4.2$. This is slightly above the middle value $4$ because the largest value $6$ is more likely than the smallest value $2$.",
+   "optionRationale": {
+    "1": "This is the simple average of $2,4,6$, ignoring the probabilities.",
+    "2": "This pairs the probabilities in reverse order, $0.3,0.5,0.2$, with the values.",
+    "3": "This pairs the largest value with $0.5$ and the middle value with $0.2$, mixing the probabilities."
+   },
+   "objective": "Compute the mean of a discrete random variable"
+  },
+  {
+   "key": "ug26-319-r06-probability-distributions-applied-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "For a binomial random variable with $n=20$ trials and success probability $p=0.4$, the variance is",
+   "options": [
+    "8",
+    "4.8",
+    "3.2",
+    "12"
+   ],
+   "answer": 2,
+   "explanation": "For a binomial distribution the mean is $np$ and the variance is $npq$, where $q=1-p$ is the probability of failure. Here $n=20$, $p=0.4$ and so $q=0.6$. The variance is $20\\times0.4\\times0.6=8\\times0.6=4.8$. The mean $np=8$ is larger than the variance, as it must be, because $q<1$.",
+   "optionRationale": {
+    "1": "$8=np$ is the mean, not the variance.",
+    "3": "This is $npp=20\\times0.4\\times0.4$, using $p$ twice instead of $p$ and $q$.",
+    "4": "$12=nq$ is the expected number of failures, not the variance."
+   },
+   "objective": "Find the variance of a binomial distribution"
+  },
+  {
+   "key": "ug26-319-r06-probability-distributions-applied-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The number of defects per sheet follows a Poisson distribution with mean 2. The probability that a sheet has exactly 2 defects is",
+   "options": [
+    "e^{-2}",
+    "4e^{-2}",
+    "2e^{-2}",
+    "\\dfrac{e^{-2}}{2}"
+   ],
+   "answer": 3,
+   "explanation": "For a Poisson variable, $P(X=x)=\\dfrac{e^{-\\lambda}\\lambda^x}{x!}$. With $\\lambda=2$ and $x=2$ we get $\\dfrac{e^{-2}\\cdot4}{2}=2e^{-2}$.",
+   "optionRationale": {
+    "1": "This is $P(X=0)$, the probability of no defect, since $\\lambda^0/0!=1$.",
+    "2": "This forgets to divide by $x!=2$.",
+    "4": "This divides by $x!$ twice, giving $\\dfrac{4}{2\\cdot2}e^{-2}\\cdot\\dfrac12$ instead of $\\dfrac42e^{-2}$."
+   },
+   "objective": "Find a Poisson probability"
+  },
+  {
+   "key": "ug26-319-r06-probability-distributions-applied-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Marks in a test are normally distributed with mean 50 and standard deviation 10. Given that $P(0<Z<1.5)=0.4332$, the probability that a student scores more than 65 is",
+   "options": [
+    "0.0668",
+    "0.4332",
+    "0.9332",
+    "0.1334"
+   ],
+   "answer": 1,
+   "explanation": "Standardise the score using $Z=\\dfrac{X-\\mu}{\\sigma}$. For $X=65$, $Z=\\dfrac{65-50}{10}=1.5$. The table gives the area between the mean and $Z=1.5$ as $0.4332$. The whole right half of the curve has area $0.5$, so the area beyond $Z=1.5$ is $0.5-0.4332=0.0668$, which is the probability of scoring more than $65$.",
+   "optionRationale": {
+    "2": "This is the area between the mean and $65$, not the tail beyond $65$.",
+    "3": "This is the area to the left of $65$, namely $0.5+0.4332$.",
+    "4": "This doubles the tail, which would be the area outside both $\\pm1.5$ standard deviations from the mean."
+   },
+   "objective": "Use the standard normal table for a tail probability"
+  },
+  {
+   "key": "ug26-319-r06-probability-distributions-applied-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A random variable $X$ takes the values $1,2,3,4,5$ with $P(X=x)=\\dfrac{x}{15}$. The expected value $E(X)$ is",
+   "options": [
+    "3",
+    "\\dfrac{11}{3}",
+    "1",
+    "\\dfrac{11}{5}"
+   ],
+   "answer": 2,
+   "explanation": "Here $E(X)=\\sum x\\cdot\\dfrac x{15}=\\dfrac{1^2+2^2+3^2+4^2+5^2}{15}=\\dfrac{55}{15}=\\dfrac{11}{3}$. The sum of probabilities $\\tfrac{1+2+3+4+5}{15}=1$ confirms the distribution is valid.",
+   "optionRationale": {
+    "1": "This is the unweighted mean of the five values, which ignores the unequal probabilities.",
+    "3": "This is the sum of the probabilities, not the expected value.",
+    "4": "This divides the sum $55$ by $25$ instead of $15$."
+   },
+   "objective": "Compute the mean from a formula for the probabilities"
+  },
+  {
+   "key": "ug26-319-r06-probability-distributions-applied-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "The probability that a seed germinates is $0.2$. Out of 5 seeds sown independently, the probability that at least 2 germinate is",
+   "options": [
+    "0.4096",
+    "0.67232",
+    "0.26272",
+    "0.73728"
+   ],
+   "answer": 3,
+   "explanation": "The count of germinating seeds is binomial with $n=5$, $p=0.2$ and $q=0.8$. It is quicker to use the complement: $P(X\\ge2)=1-P(X=0)-P(X=1)$. Here $P(X=0)=0.8^5=0.32768$ and $P(X=1)=5(0.2)(0.8)^4=0.4096$. Subtracting both from $1$ gives $0.26272$.",
+   "optionRationale": {
+    "1": "This is $P(X=1)$ alone, the probability of exactly one germinating seed.",
+    "2": "This is $1-P(X=0)$, the probability of at least one, not at least two.",
+    "4": "This is $P(X\\le1)$, the probability of fewer than 2, which is the complement of the required value."
+   },
+   "objective": "Use the complement rule for a binomial event"
+  },
+  {
+   "key": "ug26-319-r06-probability-distributions-applied-m08",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about probability distributions.\nA. The probabilities of all values of a discrete random variable add up to 1.\nB. The variance of a random variable can be negative.\nC. $\\operatorname{Var}(X)=E(X^2)-[E(X)]^2$.\nD. For a binomial distribution the variance $npq$ never exceeds the mean $np$.\nWhich statements are correct?",
+   "options": [
+    "A, B and C only",
+    "B, C and D only",
+    "A, C and D only",
+    "A and B only"
+   ],
+   "answer": 3,
+   "explanation": "A is the basic property of a probability distribution. C is the computational formula for variance. D is true because $q\\le1$ gives $npq\\le np$. B is false: variance is an average of squares $(x-\\mu)^2$ and so cannot be negative.",
+   "optionRationale": {
+    "1": "B is false, because a variance is an average of squared deviations and cannot be negative.",
+    "2": "B is false, so this option is wrong, and it also drops the true statement D.",
+    "4": "This contains B, which is false, and omits the true statements C and D."
+   },
+   "objective": "Recall properties of discrete distributions"
+  },
+  {
+   "key": "ug26-319-r06-probability-distributions-applied-m09",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): For a normal random variable $X$, the probability $P(X=a)$ at a single point $a$ is positive.\nReason (R): A normal variable is continuous, so probabilities are areas over intervals under the density curve.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "A normal random variable is continuous, so the probability is the area under the curve over an interval, and the area over a single point is zero. Hence $P(X=a)=0$ for every $a$, making the assertion false, while the reason is a true statement of how continuous probabilities work.",
+   "optionRationale": {
+    "1": "The assertion is false, so the reason cannot explain it as a true statement.",
+    "2": "The assertion is false, so the pair cannot both be true.",
+    "3": "The reason is true, so this option, which calls it false, is wrong."
+   },
+   "objective": "Know that a continuous variable has zero probability at a point"
+  }
+ ]
+}

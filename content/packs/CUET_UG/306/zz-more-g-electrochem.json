@@ -1,0 +1,687 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "306",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_39cb439dad734664b8e73468854b9a22",
+    "title": "Electrochemistry"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-306-u2-electrochemistry-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "One faraday (1 F) of electricity is the charge carried by",
+      "options": [
+        "one electron, about $1.6\\times10^{-19}$ C",
+        "one mole of electrons, about $9650$ C",
+        "one mole of Cu$^{2+}$ ions, about $96500$ C",
+        "one mole of electrons, about $96500$ C"
+      ],
+      "answer": 4,
+      "explanation": "The charge of one electron is $1.602\\times10^{-19}$ C and a mole contains $6.022\\times10^{23}$ electrons. Their product is about 96485 C, which is called one faraday and is rounded to 96500 C mol$^{-1}$. It is the amount of charge needed to deposit one equivalent of any substance.",
+      "optionRationale": {
+        "1": "That is the charge on a single electron, not on a mole of them.",
+        "2": "The number of coulombs is ten times too small; one mole of electrons carries about 96500 C.",
+        "3": "A mole of Cu$^{2+}$ carries two moles of positive charge, so its charge is about 193000 C."
+      },
+      "objective": "Define the faraday as the charge on one mole of electrons"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "For a strong electrolyte the molar conductivity varies with concentration as $\\Lambda_m = \\Lambda_m^\\circ - A\\sqrt{c}$. A plot of $\\Lambda_m$ against $\\sqrt{c}$ is",
+      "options": [
+        "a straight line with a positive slope",
+        "a straight line with a negative slope whose intercept is $\\Lambda_m^\\circ$",
+        "a horizontal line parallel to the $\\sqrt{c}$ axis",
+        "a curve that rises very steeply at low $\\sqrt{c}$ and cannot be extrapolated"
+      ],
+      "answer": 2,
+      "explanation": "The Debye-Huckel-Onsager relation shows that $\\Lambda_m$ of a strong electrolyte decreases linearly with $\\sqrt{c}$ because inter-ionic attractions increase as the solution gets more concentrated. Extending the line to $\\sqrt{c}=0$ gives the intercept $\\Lambda_m^\\circ$, the limiting molar conductivity, so it can be found graphically.",
+      "optionRationale": {
+        "1": "The equation has a minus sign, so molar conductivity falls as the concentration rises and the slope is negative.",
+        "3": "Molar conductivity of a strong electrolyte does change with concentration because inter-ionic attraction grows with concentration.",
+        "4": "This describes a weak electrolyte, whose degree of dissociation changes rapidly on dilution."
+      },
+      "objective": "Interpret the variation of molar conductivity of a strong electrolyte with concentration"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The conductivity of an electrolytic solution is $2.5\\times10^{-3}$ S cm$^{-1}$. Expressed in SI units (S m$^{-1}$) its value is",
+      "options": [
+        "$2.5\\times10^{-5}$ S m$^{-1}$",
+        "0.25 S m$^{-1}$",
+        "$25$ S m$^{-1}$",
+        "$2.5\\times10^{-3}$ S m$^{-1}$"
+      ],
+      "answer": 2,
+      "explanation": "Conductivity has the unit of S per unit length. Since 1 m = 100 cm, the same solution has $\\kappa = 2.5\\times10^{-3}\\ \\text{S cm}^{-1}\\times 100\\ \\text{cm m}^{-1} = 0.25$ S m$^{-1}$. The numerical value rises by a factor of 100 when the length unit changes from centimetre to metre.",
+      "optionRationale": {
+        "1": "This divides by 100 instead of multiplying; one metre equals 100 cm, so the value in S m$^{-1}$ is larger.",
+        "3": "This multiplies by 10^4, the conversion for area, rather than the factor of 100 needed for length.",
+        "4": "This is the unchanged number; the unit change from per centimetre to per metre alters the value."
+      },
+      "objective": "Convert conductivity between S cm^-1 and S m^-1"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "application",
+      "stem": "Given $E^\\circ(\\mathrm{Mg^{2+}/Mg}) = -2.36$ V, $E^\\circ(\\mathrm{Fe^{2+}/Fe}) = -0.44$ V, $E^\\circ(\\mathrm{Zn^{2+}/Zn}) = -0.76$ V and $E^\\circ(\\mathrm{Cu^{2+}/Cu}) = +0.34$ V, which metal does not liberate hydrogen from dilute hydrochloric acid?",
+      "options": [
+        "Zinc",
+        "Iron",
+        "Magnesium",
+        "Copper"
+      ],
+      "answer": 4,
+      "explanation": "A metal displaces hydrogen from a dilute acid only if its $E^\\circ$ is below that of the hydrogen electrode (0.00 V), so that oxidation of the metal is spontaneous with H$^+$ reduction. Mg, Zn and Fe have negative values and react; copper has $+0.34$ V, so Cu cannot reduce H$^+$ and stays unreacted.",
+      "optionRationale": {
+        "1": "Its standard potential is negative, so it is a better reducing agent than hydrogen and releases H$_2$ from the acid.",
+        "2": "With $E^\\circ = -0.44$ V it lies above hydrogen in the series and displaces hydrogen from dilute acid.",
+        "3": "It has the most negative potential of the four and reacts vigorously with dilute HCl."
+      },
+      "objective": "Use standard electrode potentials to predict displacement of hydrogen"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "application",
+      "stem": "The standard potentials of the halogens are $E^\\circ(\\mathrm{F_2/F^-}) = 2.87$ V, $E^\\circ(\\mathrm{Cl_2/Cl^-}) = 1.36$ V, $E^\\circ(\\mathrm{Br_2/Br^-}) = 1.09$ V and $E^\\circ(\\mathrm{I_2/I^-}) = 0.54$ V. Which halide ion is the strongest reducing agent?",
+      "options": [
+        "F$^-$",
+        "I$^-$",
+        "Cl$^-$",
+        "Br$^-$"
+      ],
+      "answer": 2,
+      "explanation": "The lower the standard reduction potential of the couple X$_2$/X$^-$, the more easily X$^-$ gives up an electron. Iodine has the smallest value, 0.54 V, so I$^-$ is oxidised most readily and is the strongest reducing agent, while F$^-$ with 2.87 V is the weakest.",
+      "optionRationale": {
+        "1": "It has the highest reduction potential for its halogen, so it is the hardest to oxidise and the weakest reducing agent.",
+        "3": "Its halogen has a high positive potential of 1.36 V, so the ion is only a weak reducing agent.",
+        "4": "Br$^-$ is a better reducing agent than Cl$^-$ but less so than I$^-$ because 1.09 V is above 0.54 V."
+      },
+      "objective": "Relate reduction potential to reducing power of an ion"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g06",
+      "type": "STATEMENT_BASED",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about electrolysis.\nA. The mass of a substance liberated at an electrode is directly proportional to the quantity of charge passed.\nB. When the same charge passes through different electrolytes, the masses liberated are proportional to their equivalent masses.\nC. One faraday of charge always deposits exactly one mole of any metal.\nD. The charge passed in coulombs equals current in amperes multiplied by time in seconds.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "A, B and C only",
+        "B, C and D only",
+        "A and C only"
+      ],
+      "answer": 1,
+      "explanation": "Statements A and B are Faraday's first and second laws. Statement D is the definition $Q = It$. Statement C is false because the amount deposited by one faraday depends on the charge of the ion: monovalent Ag needs 1 F for a mole, divalent Cu needs 2 F, trivalent Al needs 3 F.",
+      "optionRationale": {
+        "2": "C is wrong: one faraday deposits one gram-equivalent, so Cu$^{2+}$ needs 2 F per mole and Al$^{3+}$ needs 3 F per mole.",
+        "3": "It wrongly includes C and leaves out the correct statement A (Faraday's first law).",
+        "4": "C is incorrect and the correct statements B and D are left out."
+      },
+      "objective": "Recall Faraday's laws of electrolysis"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g07",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match the quantity in List-I with its SI unit in List-II.",
+      "options": [
+        "A-III, B-IV, C-II, D-I",
+        "A-I, B-IV, C-II, D-III",
+        "A-III, B-II, C-IV, D-I",
+        "A-IV, B-III, C-I, D-II"
+      ],
+      "answer": 1,
+      "explanation": "Conductivity is the reciprocal of resistivity, so with resistivity in $\\Omega$ m, conductivity is S m$^{-1}$. Cell constant is length over area, giving m$^{-1}$. Molar conductivity is $\\kappa/c$, which works out to S m$^2$ mol$^{-1}$ in SI units, so the correct matching is A-III, B-IV, C-II, D-I.",
+      "optionRationale": {
+        "2": "This gives conductivity the unit of resistivity and resistivity the unit of conductivity; they are reciprocals.",
+        "3": "Molar conductivity and cell constant are interchanged; the cell constant is a length divided by an area, i.e. m$^{-1}$.",
+        "4": "Every match is wrong; conductivity is S m$^{-1}$ and the cell constant has the unit m$^{-1}$."
+      },
+      "objective": "Match conductance terms with their SI units",
+      "list": {
+        "left": [
+          "A. Conductivity ($\\kappa$)",
+          "B. Molar conductivity ($\\Lambda_m$)",
+          "C. Cell constant ($l/A$)",
+          "D. Resistivity ($\\rho$)"
+        ],
+        "right": [
+          "I. ohm metre ($\\Omega$ m)",
+          "II. per metre (m$^{-1}$)",
+          "III. siemens per metre (S m$^{-1}$)",
+          "IV. S m$^2$ mol$^{-1}$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g08",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The resistance of a metallic conductor increases with rise in temperature.\nReason (R): The conductance of an electrolytic solution increases with rise in temperature.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 2,
+      "explanation": "In a metal, a higher temperature increases the vibrations of the kernels, which scatter the flowing electrons, so resistance rises. In an electrolyte, higher temperature lowers the viscosity of the solvent and increases ionic mobility, so conductance rises. Both statements are true but the second does not explain the first, since it concerns a different mechanism.",
+      "optionRationale": {
+        "1": "(R) is a correct fact, but it concerns electrolytes and cannot be the reason for the behaviour of a metal, so it is not the explanation.",
+        "3": "(R) is true: electrolytic conductance rises with temperature, so it is not a false reason.",
+        "4": "(A) is true: metallic resistance does rise with temperature, so it is not a false assertion."
+      },
+      "objective": "Judge an assertion and its reason on electrochemistry"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A concentration cell is set up as $\\mathrm{Cu(s)\\,|\\,Cu^{2+}(0.01\\ M)\\,||\\,Cu^{2+}(1\\ M)\\,|\\,Cu(s)}$ at 298 K. Taking $2.303RT/F = 0.0591$ V, its emf is",
+      "options": [
+        "0.1182 V",
+        "0.0295 V",
+        "0.0591 V",
+        "0.0000 V"
+      ],
+      "answer": 3,
+      "explanation": "For a concentration cell $E^\\circ = 0$. Copper is oxidised at the left electrode (0.01 M) and Cu$^{2+}$ is reduced at the right electrode (1 M), so the net change is Cu$^{2+}$(1 M) $\\to$ Cu$^{2+}$(0.01 M) and $Q = 0.01/1$. Then $E = 0 - (0.0591/2)\\log(0.01/1) = (0.0591/2)\\times 2 = 0.0591$ V. The cell works because the concentrations differ.",
+      "optionRationale": {
+        "1": "This forgets to divide by $n = 2$; the Nernst term is $(0.0591/2)\\log Q$.",
+        "2": "This divides by $n$ twice or takes $\\log 10$ instead of $\\log 100$.",
+        "4": "The standard potentials cancel, but the unequal concentrations still make the cell emf non-zero."
+      },
+      "objective": "Calculate the emf of a concentration cell"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A steady current of 2 A is passed through acidified water. For how long must it flow to liberate 1.12 L of hydrogen at STP? (Molar volume at STP = 22.4 L mol$^{-1}$, $F = 96500$ C mol$^{-1}$)",
+      "options": [
+        "9650 s",
+        "2412.5 s",
+        "19300 s",
+        "4825 s"
+      ],
+      "answer": 4,
+      "explanation": "Moles of H$_2$ = 1.12/22.4 = 0.05 mol. The cathode reaction $2\\text{H}^+ + 2e^- \\to \\text{H}_2$ needs 2 mol of electrons per mole of gas, so charge = 0.05 $\\times$ 2 $\\times$ 96500 = 9650 C. Time = Q/I = 9650/2 = 4825 s.",
+      "optionRationale": {
+        "1": "That is the charge in coulombs; time follows after dividing it by the 2 A current.",
+        "2": "This takes one electron per H$_2$ molecule; each H$_2$ needs 2 electrons, so the charge is doubled.",
+        "3": "This multiplies the charge by the current (9650 x 2); the charge must be divided by the current to give time."
+      },
+      "objective": "Calculate time of electrolysis from the volume of gas liberated"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The limiting molar ionic conductivities at 298 K are $\\lambda^\\circ(\\mathrm{Ba^{2+}}) = 127$ and $\\lambda^\\circ(\\mathrm{Cl^-}) = 76$ S cm$^2$ mol$^{-1}$. The limiting molar conductivity of BaCl$_2$ is",
+      "options": [
+        "203 S cm$^2$ mol$^{-1}$",
+        "330 S cm$^2$ mol$^{-1}$",
+        "279 S cm$^2$ mol$^{-1}$",
+        "406 S cm$^2$ mol$^{-1}$"
+      ],
+      "answer": 3,
+      "explanation": "By Kohlrausch's law of independent migration, $\\Lambda_m^\\circ = \\nu_+\\lambda^\\circ_+ + \\nu_-\\lambda^\\circ_-$. One formula unit of BaCl$_2$ gives one Ba$^{2+}$ and two Cl$^-$ ions, so $\\Lambda_m^\\circ = 127 + 2(76) = 279$ S cm$^2$ mol$^{-1}$.",
+      "optionRationale": {
+        "1": "This counts only one chloride ion; BaCl$_2$ furnishes two Cl$^-$ ions per formula unit.",
+        "2": "This doubles the barium contribution; the barium ion appears once and the chloride twice.",
+        "4": "This doubles the whole sum; only the chloride is counted twice."
+      },
+      "objective": "Apply Kohlrausch law to a 1:2 electrolyte"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A current of 0.8 A flows through a circuit for 1 hour. The number of electrons that pass any cross-section is about (charge on an electron = $1.602\\times10^{-19}$ C)",
+      "options": [
+        "$5.0\\times10^{18}$",
+        "$1.8\\times10^{22}$",
+        "$3.0\\times10^{-2}$",
+        "$6.0\\times10^{23}$"
+      ],
+      "answer": 2,
+      "explanation": "Charge $Q = It = 0.8\\times3600 = 2880$ C. Number of electrons = Q/e = 2880/($1.602\\times10^{-19}$) = $1.80\\times10^{22}$. Equivalent to 0.0298 mol of electrons, which is far less than a faraday.",
+      "optionRationale": {
+        "1": "This uses the time as 1 (hour) instead of 3600 s; time must be in seconds.",
+        "3": "This is the number of moles of electrons, not the number of electrons.",
+        "4": "This is Avogadro's number, the electrons in one mole, not the number that actually flow here."
+      },
+      "objective": "Calculate the number of electrons from current and time"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For a cell reaction involving the transfer of 2 electrons, $\\Delta_rG^\\circ = -193$ kJ mol$^{-1}$. The standard emf of the cell is ($F = 96500$ C mol$^{-1}$)",
+      "options": [
+        "2.00 V",
+        "0.50 V",
+        "0.00100 V",
+        "1.00 V"
+      ],
+      "answer": 4,
+      "explanation": "From $\\Delta_rG^\\circ = -nFE^\\circ_{cell}$, $E^\\circ_{cell} = -\\Delta_rG^\\circ/nF = 193000/(2\\times96500) = 1.00$ V. The free energy must be in joules, so 193 kJ becomes 193000 J before it is divided by $nF$.",
+      "optionRationale": {
+        "1": "This uses $n = 1$; the 2 electrons transferred must divide the result.",
+        "2": "This divides by $4F$, as if four electrons were transferred.",
+        "3": "The free energy was not converted from kJ to J before dividing by $nF$."
+      },
+      "objective": "Find the emf from the standard Gibbs energy change"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The electrode potential of a silver electrode dipping in $0.001$ M AgNO$_3$ at 298 K is ($E^\\circ(\\mathrm{Ag^+/Ag}) = +0.80$ V; $2.303RT/F = 0.0591$ V)",
+      "options": [
+        "0.98 V",
+        "0.68 V",
+        "0.62 V",
+        "0.80 V"
+      ],
+      "answer": 3,
+      "explanation": "For $\\text{Ag}^+ + e^- \\to \\text{Ag}$, $n = 1$ and $E = E^\\circ + 0.0591\\log[\\text{Ag}^+] = 0.80 + 0.0591\\times(-3) = 0.62$ V. Reducing the Ag$^+$ concentration makes the electrode a weaker oxidising agent and lowers the potential.",
+      "optionRationale": {
+        "1": "The sign of the log term is reversed; $\\log(0.001)$ is negative, so the potential falls below $E^\\circ$.",
+        "2": "This uses a concentration of 0.01 M instead of 0.001 M.",
+        "4": "This is $E^\\circ$, which holds only at 1 M Ag$^+$."
+      },
+      "objective": "Apply the Nernst equation to a metal-ion electrode"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A hydrogen electrode ($p_{\\mathrm{H_2}} = 1$ bar) dipped in a solution of unknown pH has a potential of $-0.177$ V at 298 K. The pH of the solution is ($2.303RT/F = 0.0591$ V)",
+      "options": [
+        "3",
+        "1.5",
+        "6",
+        "11"
+      ],
+      "answer": 1,
+      "explanation": "For the hydrogen electrode, $E = -\\frac{0.0591}{2}\\log\\frac{p_{H_2}}{[H^+]^2}$. With $p_{H_2}=1$ bar this reduces to $E = -0.0591\\,\\mathrm{pH}$. Hence pH = 0.177/0.0591 = 2.99, which rounds to 3. A more negative electrode potential would mean a more acidic solution, because a higher [H$^+$] pushes the half-reaction toward reduction.",
+      "optionRationale": {
+        "2": "This divides by two, as if two electrons were involved; $2\\text{H}^+ + 2e^- \\to \\text{H}_2$ gives $E = -0.0591\\,\\mathrm{pH}$ after simplification.",
+        "3": "This doubles the correct value by multiplying instead of dividing by 0.0591.",
+        "4": "That is the pOH; the question asks for the pH."
+      },
+      "objective": "Use the hydrogen electrode potential to find pH"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A conductivity cell with cell constant $1.25$ cm$^{-1}$ is filled with $0.05$ M electrolyte solution and shows a resistance of $500\\ \\Omega$. The molar conductivity of the solution in S cm$^2$ mol$^{-1}$ is",
+      "options": [
+        "50",
+        "0.05",
+        "625",
+        "0.0025"
+      ],
+      "answer": 1,
+      "explanation": "Conductivity $\\kappa = G^*/R = 1.25/500 = 0.0025$ S cm$^{-1}$. Molar conductivity $\\Lambda_m = \\kappa\\times1000/M = 0.0025\\times1000/0.05 = 50$ S cm$^2$ mol$^{-1}$, where 1000 converts cm$^3$ to litres for the concentration in mol L$^{-1}$.",
+      "optionRationale": {
+        "2": "The factor of 1000 (cm$^3$ per litre) was omitted when converting conductivity to molar conductivity.",
+        "3": "This multiplies cell constant by resistance, which gives something proportional to resistivity-based values, not $\\Lambda_m$.",
+        "4": "This is only the conductivity $\\kappa$ in S cm$^{-1}$; it has not been converted to molar conductivity."
+      },
+      "objective": "Calculate molar conductivity from resistance and cell constant"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Aqueous copper(II) sulphate is electrolysed for a long time between two platinum (inert) electrodes. Which change is observed in the solution?",
+      "options": [
+        "The blue colour deepens as copper ions accumulate.",
+        "The blue colour fades and the solution becomes acidic.",
+        "The solution becomes alkaline as hydroxide ions accumulate.",
+        "The solution is unchanged because platinum is inert."
+      ],
+      "answer": 2,
+      "explanation": "At the cathode Cu$^{2+}$ + 2e$^-$ $\\to$ Cu removes the blue ions. At the platinum anode water is oxidised: 2H$_2$O $\\to$ O$_2$ + 4H$^+$ + 4e$^-$, leaving SO$_4^{2-}$ with the new H$^+$, which is dilute sulphuric acid. So the colour fades and the pH decreases.",
+      "optionRationale": {
+        "1": "Copper ions are discharged at the cathode, so their concentration falls and the colour fades.",
+        "3": "At the anode water is oxidised to O$_2$ giving H$^+$, not OH$^-$, so the solution turns acidic.",
+        "4": "An inert electrode does not take part itself but the ions still discharge, so the solution composition changes."
+      },
+      "objective": "Predict changes in solution during electrolysis with inert electrodes"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Aqueous silver nitrate is electrolysed using platinum electrodes. The products at the cathode and the anode respectively are",
+      "options": [
+        "Ag and O$_2$",
+        "H$_2$ and O$_2$",
+        "Ag and NO$_2$",
+        "H$_2$ and NO$_2$"
+      ],
+      "answer": 1,
+      "explanation": "At the cathode Ag$^+$ has a much higher reduction potential than water, so metallic silver is deposited. At an inert anode the nitrate ion cannot be oxidised easily, so water loses electrons instead: 2H$_2$O $\\to$ O$_2$ + 4H$^+$ + 4e$^-$. Hence Ag at the cathode and O$_2$ at the anode.",
+      "optionRationale": {
+        "2": "Ag$^+$ ($E^\\circ = +0.80$ V) is reduced far more easily than water, so silver and not hydrogen forms at the cathode.",
+        "3": "Nitrate is not oxidised at the anode; water is oxidised in preference and gives oxygen.",
+        "4": "Neither product is formed: silver is deposited at the cathode and oxygen at the anode."
+      },
+      "objective": "Predict the products of electrolysis of aqueous AgNO3 with inert electrodes"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g19",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about a galvanic cell reaching equilibrium.\nA. At equilibrium the cell emf becomes zero.\nB. At equilibrium $\\Delta_rG = 0$.\nC. $E^\\circ_{cell}$ changes whenever the concentrations of ions change.\nD. At 298 K, $\\log K = nE^\\circ_{cell}/0.0591$.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "B, C and D only",
+        "A and C only",
+        "A, B and D only"
+      ],
+      "answer": 4,
+      "explanation": "When the cell reaches equilibrium no net reaction can occur, so the emf is zero and $\\Delta_rG = -nFE = 0$. At that point $E^\\circ = (0.0591/n)\\log K$, which rearranges to statement D. Statement C is wrong because $E^\\circ$ is a constant at fixed temperature; only $E$ varies with concentration.",
+      "optionRationale": {
+        "1": "C is wrong: $E^\\circ$ refers to 1 M standard conditions and is a fixed value, while the actual emf E changes with concentration.",
+        "2": "It includes the incorrect statement C and drops the correct statement A.",
+        "3": "C is wrong, and statements B and D, which are correct, are missing."
+      },
+      "objective": "Relate cell emf, Gibbs energy and equilibrium"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g20",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the quantity in List-I with its expression in List-II.",
+      "options": [
+        "A-IV, B-III, C-I, D-II",
+        "A-III, B-IV, C-II, D-I",
+        "A-III, B-IV, C-I, D-II",
+        "A-I, B-II, C-III, D-IV"
+      ],
+      "answer": 3,
+      "explanation": "The cell constant is the distance between the electrodes divided by their area, $l/A$. Conductivity is $\\kappa = (l/A)\\times(1/R)$. Molar conductivity $\\Lambda_m = \\kappa\\times1000/M$ when $\\kappa$ is in S cm$^{-1}$, and the degree of dissociation of a weak electrolyte is the ratio $\\Lambda_m/\\Lambda_m^\\circ$.",
+      "optionRationale": {
+        "1": "This swaps cell constant and conductivity; the cell constant is $l/A$ and $\\kappa$ is the cell constant divided by $R$.",
+        "2": "Molar conductivity and degree of dissociation are interchanged; $\\alpha = \\Lambda_m/\\Lambda_m^\\circ$.",
+        "4": "None of these match; for instance the cell constant is the length-to-area ratio $l/A$."
+      },
+      "objective": "Match conductance quantities with their expressions",
+      "list": {
+        "left": [
+          "A. Cell constant",
+          "B. Conductivity ($\\kappa$)",
+          "C. Molar conductivity ($\\Lambda_m$, in S cm$^2$ mol$^{-1}$)",
+          "D. Degree of dissociation of a weak electrolyte ($\\alpha$)"
+        ],
+        "right": [
+          "I. $\\kappa\\times1000/M$ ($M$ in mol L$^{-1}$)",
+          "II. $\\Lambda_m/\\Lambda_m^\\circ$",
+          "III. $l/A$",
+          "IV. Cell constant / $R$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g21",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For the cell $\\mathrm{Ni(s)\\,|\\,Ni^{2+}(0.1\\ M)\\,||\\,Ag^+(0.01\\ M)\\,|\\,Ag(s)}$ at 298 K, $E^\\circ(\\mathrm{Ni^{2+}/Ni}) = -0.25$ V and $E^\\circ(\\mathrm{Ag^+/Ag}) = +0.80$ V. Taking $2.303RT/F = 0.0591$ V, the emf of the cell is",
+      "options": [
+        "1.14 V",
+        "1.05 V",
+        "1.02 V",
+        "0.96 V"
+      ],
+      "answer": 4,
+      "explanation": "The reaction is Ni + 2Ag$^+$ $\\to$ Ni$^{2+}$ + 2Ag with $n = 2$ and $E^\\circ = 0.80 - (-0.25) = 1.05$ V. $Q = [\\text{Ni}^{2+}]/[\\text{Ag}^+]^2 = 0.1/(0.01)^2 = 1000$. Then $E = 1.05 - (0.0591/2)\\log 1000 = 1.05 - 0.0296\\times3 = 0.96$ V.",
+      "optionRationale": {
+        "1": "The sign of the Nernst correction is reversed; $Q > 1$ lowers the emf below $E^\\circ$.",
+        "2": "This is the standard emf, valid only when both ions are at 1 M.",
+        "3": "Here $[\\text{Ag}^+]$ was not squared in $Q$; the balanced equation has 2 Ag$^+$ so $Q = [\\text{Ni}^{2+}]/[\\text{Ag}^+]^2$."
+      },
+      "objective": "Calculate the emf of a cell with unequal stoichiometry using the Nernst equation"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g22",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The charge in coulombs required to reduce $0.5$ mol of $\\mathrm{Cr_2O_7^{2-}}$ completely to $\\mathrm{Cr^{3+}}$ in acidic medium is ($F = 96500$ C mol$^{-1}$)",
+      "options": [
+        "$5.79\\times10^{5}$ C",
+        "$1.45\\times10^{5}$ C",
+        "$2.90\\times10^{5}$ C",
+        "$9.65\\times10^{4}$ C"
+      ],
+      "answer": 3,
+      "explanation": "Each Cr in Cr$_2$O$_7^{2-}$ is +6 and goes to +3, so two Cr atoms gain 6 electrons: Cr$_2$O$_7^{2-}$ + 14H$^+$ + 6e$^-$ $\\to$ 2Cr$^{3+}$ + 7H$_2$O. For 0.5 mol the electrons needed are 3 mol, so Q = 3 $\\times$ 96500 = 289500 C, which is $2.90\\times10^5$ C.",
+      "optionRationale": {
+        "1": "That is the charge for a full mole of dichromate; the question asks only for 0.5 mol.",
+        "2": "This takes 3 electrons per dichromate ion; two Cr atoms each gain 3 electrons, so 6 are needed.",
+        "4": "This is just one faraday, as though 1 mol of electrons per formula unit were enough."
+      },
+      "objective": "Calculate charge needed for a multi-electron reduction"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g23",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Assertion (A): A salt bridge containing KCl cannot be used in a cell having a half-cell of silver nitrate solution.\nReason (R): Ag$^+$ ions react with Cl$^-$ ions to precipitate AgCl.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "A salt bridge must contain ions that do not react with the solutions it connects. Chloride from KCl would meet Ag$^+$ at the junction and precipitate insoluble AgCl, blocking the ion flow and changing the concentration of Ag$^+$. Hence the assertion is true and the reason correctly explains it; a KNO$_3$ bridge is used instead.",
+      "optionRationale": {
+        "2": "(R) is the actual cause of the restriction described in (A), so calling it only a true but unrelated statement is wrong.",
+        "3": "(R) is true and explains why the bridge fails, so (A) is not merely true with a false reason.",
+        "4": "(A) is true, so it cannot be a false assertion with a true reason."
+      },
+      "objective": "Judge an assertion and its reason on electrochemistry"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g24",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Assertion (A): When the cell reaction is multiplied by 2, the $E^\\circ_{cell}$ of the cell also doubles.\nReason (R): The electrode potential is an intensive property and does not depend on the amount of substance.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "$E^\\circ_{cell}$ is an intensive property, like temperature, so it does not change when the balanced equation is multiplied by a factor. What does double is $\\Delta_rG^\\circ = -nFE^\\circ$, because $n$ doubles. The assertion is therefore false while the reason is a correct statement about potential.",
+      "optionRationale": {
+        "1": "(A) is false, so no explanation of it can be valid.",
+        "2": "(A) is not true; the emf stays the same on doubling the equation.",
+        "3": "(R) is true, so it cannot be called a false reason."
+      },
+      "objective": "Judge an assertion and its reason on electrochemistry"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g25",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A primary cell cannot be recharged by passing current through it in the opposite direction.\nReason (R): The cell reaction in a primary cell is reversible and can be reversed by an external source.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "In a primary cell such as the dry cell the cell reaction proceeds once; the products are not regenerated when the current is reversed, so the cell cannot be recharged. The assertion is true. The reason claims the opposite, that the reaction is reversible, which is false and describes secondary cells such as the lead storage battery.",
+      "optionRationale": {
+        "1": "(R) is false: the reaction in a primary cell is not reversible in practice.",
+        "2": "(R) is not a true statement for primary cells, so the second option fails.",
+        "4": "(A) is true, so it is not false."
+      },
+      "objective": "Judge an assertion and its reason on electrochemistry"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g26",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The same current is passed in series through aqueous AgNO$_3$ and aqueous CuSO$_4$ solutions with inert electrodes. If $1.08$ g of silver is deposited, the mass of copper deposited is (Ag = 108, Cu = 63.5 g mol$^{-1}$)",
+      "options": [
+        "0.64 g",
+        "0.16 g",
+        "0.32 g",
+        "1.08 g"
+      ],
+      "answer": 3,
+      "explanation": "In series the same charge passes through both cells. Moles of Ag = 1.08/108 = 0.01 mol, so 0.01 mol of electrons flowed. Each Cu$^{2+}$ needs 2 electrons, so Cu = 0.01/2 = 0.005 mol, and the mass = 0.005 $\\times$ 63.5 = 0.3175 g, which rounds to 0.32 g.",
+      "optionRationale": {
+        "1": "This treats copper as monovalent; Cu$^{2+}$ needs two electrons, so half as many moles are deposited.",
+        "2": "This halves the correct value once too often.",
+        "4": "Equal masses are not deposited; the masses are in the ratio of the equivalent masses 108 : 31.75."
+      },
+      "objective": "Apply Faraday's second law to electrolytic cells connected in series"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g27",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Match the electrolytic process in List-I with the product or change in List-II.",
+      "options": [
+        "A-IV, B-III, C-II, D-I",
+        "A-IV, B-II, C-III, D-I",
+        "A-I, B-III, C-II, D-IV",
+        "A-III, B-IV, C-I, D-II"
+      ],
+      "answer": 1,
+      "explanation": "Molten NaCl contains only Na$^+$ and Cl$^-$, so sodium forms at the cathode. With an inert Pt anode in CuSO$_4$(aq) the sulphate is not oxidised, so water gives O$_2$. A copper anode itself oxidises to Cu$^{2+}$, easier than water. In Na$_2$SO$_4$(aq) Na$^+$ is not reduced, so water is reduced to H$_2$ at the cathode.",
+      "optionRationale": {
+        "2": "B and C are swapped: an inert Pt anode oxidises water to O$_2$, while a copper anode dissolves.",
+        "3": "A and D are interchanged: molten NaCl has no water, so Na forms; in aqueous Na$_2$SO$_4$ water is reduced to H$_2$.",
+        "4": "Each match is wrong; the cathode of molten NaCl gives sodium metal."
+      },
+      "objective": "Predict electrolysis products with different electrodes and electrolytes",
+      "list": {
+        "left": [
+          "A. Molten NaCl, product at the cathode",
+          "B. Aqueous CuSO$_4$ with platinum electrodes, anode",
+          "C. Aqueous CuSO$_4$ with copper electrodes, anode",
+          "D. Aqueous Na$_2$SO$_4$ with platinum electrodes, cathode"
+        ],
+        "right": [
+          "I. Hydrogen gas",
+          "II. Copper dissolves as Cu$^{2+}$",
+          "III. Oxygen gas",
+          "IV. Sodium metal"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g28",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about the corrosion of iron.\nA. Rusting requires both oxygen and moisture.\nB. At the anodic region iron is oxidised to Fe$^{2+}$.\nC. The presence of dissolved CO$_2$, which makes water acidic, decreases the rate of corrosion.\nD. Fe$^{2+}$ is further oxidised by atmospheric oxygen to form hydrated iron(III) oxide.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A, B and D only",
+        "B, C and D only",
+        "A, C and D only"
+      ],
+      "answer": 2,
+      "explanation": "Corrosion is electrochemical: Fe $\\to$ Fe$^{2+}$ + 2e$^-$ at the anodic spot, and oxygen is reduced at the cathodic spot in the presence of moisture. Fe$^{2+}$ is then oxidised further to Fe$_2$O$_3\\cdot x$H$_2$O (rust). Dissolved CO$_2$ forms H$_2$CO$_3$, supplying H$^+$ and accelerating rusting, so C is wrong.",
+      "optionRationale": {
+        "1": "C is wrong: acidic conditions increase the available H$^+$ and speed up corrosion.",
+        "3": "It includes the wrong statement C and omits A, which is correct.",
+        "4": "It includes C, which is wrong, and omits B, the anodic oxidation step."
+      },
+      "objective": "Describe the electrochemical mechanism of rusting"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g29",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For the cell $\\mathrm{Pt\\,|\\,H_2(1\\ bar)\\,|\\,H^+(1\\ M)\\,||\\,Cu^{2+}(1\\ M)\\,|\\,Cu}$, $E^\\circ_{cell} = +0.34$ V. The equilibrium constant of the cell reaction at 298 K is ($2.303RT/F = 0.0591$ V)",
+      "options": [
+        "$5.7\\times10^{5}$",
+        "$1.0\\times10^{23}$",
+        "$11.5$",
+        "$3.2\\times10^{11}$"
+      ],
+      "answer": 4,
+      "explanation": "The cell reaction is H$_2$ + Cu$^{2+}$ $\\to$ 2H$^+$ + Cu with $n = 2$. Then $\\log K = nE^\\circ/0.0591 = 2(0.34)/0.0591 = 11.51$, so $K = 10^{11.51} = 3.2\\times10^{11}$. A very large K means the reaction goes almost to completion.",
+      "optionRationale": {
+        "1": "This divides $\\log K$ by 2 again; the correct relation is $\\log K = nE^\\circ/0.0591$ with $n = 2$.",
+        "2": "This is the square of K, which comes from using $2nE^\\circ/0.0591$ in the exponent.",
+        "3": "This is $\\log K$, not K; it must be converted by taking the antilog."
+      },
+      "objective": "Compute the equilibrium constant from standard emf"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-g30",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A $0.10$ M solution of a weak monobasic acid HA has conductivity $4.0\\times10^{-4}$ S cm$^{-1}$. If $\\Lambda_m^\\circ(\\mathrm{HA}) = 400$ S cm$^2$ mol$^{-1}$, the dissociation constant $K_a$ of HA is closest to",
+      "options": [
+        "$1.0\\times10^{-3}$",
+        "$1.0\\times10^{-5}$",
+        "$1.0\\times10^{-4}$",
+        "$1.0\\times10^{-2}$"
+      ],
+      "answer": 2,
+      "explanation": "$\\Lambda_m = \\kappa\\times1000/c = 4.0\\times10^{-4}\\times1000/0.10 = 4.0$ S cm$^2$ mol$^{-1}$. The degree of dissociation $\\alpha = \\Lambda_m/\\Lambda_m^\\circ = 4.0/400 = 0.01$. Then $K_a = c\\alpha^2/(1-\\alpha) = 0.10\\times(0.01)^2/0.99 = 1.01\\times10^{-5}$. So the answer is about $1.0\\times10^{-5}$, typical of a weak organic acid; the factor $(1-\\alpha)$ is close to 1 here and changes the result by only 1 percent.",
+      "optionRationale": {
+        "1": "That is $c\\alpha$, the hydrogen-ion concentration, not $K_a$.",
+        "3": "This is $\\alpha^2$ alone; it is not multiplied by the concentration of 0.10 M.",
+        "4": "That is $\\alpha$, the degree of dissociation, not the dissociation constant."
+      },
+      "objective": "Find the acid dissociation constant from conductivity data"
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_96a7a2004d4448b8b8e43aafdcf2df92",
+  "title": "Probability Distributions"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r09-simple-probability-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A fair coin is tossed three times and $X$ denotes the number of tails. Then $P(X=2)$ is",
+   "options": [
+    "\\dfrac14",
+    "\\dfrac12",
+    "\\dfrac38",
+    "\\dfrac18"
+   ],
+   "answer": 3,
+   "explanation": "A fair coin tossed three times has $2^3=8$ equally likely outcomes, since each toss has two results. Exactly two tails means choosing which two of the three tosses show tails, which can be done in $\\binom32=3$ ways: HTT, THT and TTH. Dividing favourable outcomes by total outcomes gives $P(X=2)=\\dfrac38$.",
+   "optionRationale": {
+    "1": "This counts only two of the three favourable outcomes, giving $2/8$.",
+    "2": "This is the probability of one specific number of tails being possible, $4/8$, not of exactly two.",
+    "4": "This is the probability of a single outcome such as TTH, not of the whole event."
+   },
+   "objective": "Find a probability from the distribution of tails in three tosses"
+  },
+  {
+   "key": "ug26-319-r09-simple-probability-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A random variable $X$ takes the values $1,2,3$ with probabilities $0.5,\\ 0.3,\\ 0.2$ respectively. The mean of $X$ is",
+   "options": [
+    "2",
+    "2.3",
+    "1.7",
+    "1"
+   ],
+   "answer": 3,
+   "explanation": "The mean is $\\sum xp=1(0.5)+2(0.3)+3(0.2)=0.5+0.6+0.6=1.7$. The mean is pulled towards the value $1$ because that value has the largest probability.",
+   "optionRationale": {
+    "1": "This is the simple average of $1,2,3$, ignoring the unequal probabilities.",
+    "2": "This reverses the probabilities, giving $1(0.2)+2(0.3)+3(0.5)$.",
+    "4": "This is the sum of the probabilities, not the mean."
+   },
+   "objective": "Find the mean of a discrete distribution"
+  },
+  {
+   "key": "ug26-319-r09-simple-probability-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Machine A makes 60% of the items in a factory and Machine B makes 40%. Of the items from A, 2% are defective, and of the items from B, 5% are defective. An item chosen at random is found defective. The probability that it came from Machine B is",
+   "options": [
+    "\\dfrac38",
+    "\\dfrac25",
+    "\\dfrac12",
+    "\\dfrac58"
+   ],
+   "answer": 4,
+   "explanation": "Machine A supplies $0.6\\times0.02=0.012$ defective items for every unit of output, and Machine B supplies $0.4\\times0.05=0.020$. A defective item must be one of these, so by Bayes' theorem the chance that it came from B is B's share of the total: $\\dfrac{0.020}{0.012+0.020}=\\dfrac{0.020}{0.032}=\\dfrac58$. B's higher defect rate outweighs its smaller share of output.",
+   "optionRationale": {
+    "1": "This is $P(A\\mid D)=\\dfrac{0.012}{0.032}$, the probability that the item came from Machine A.",
+    "2": "This is the prior probability $0.4$ of B, which ignores that B has the higher defect rate.",
+    "3": "This assumes both machines are equally likely to be the source, ignoring the data."
+   },
+   "objective": "Apply Bayes' theorem to find a posterior probability"
+  },
+  {
+   "key": "ug26-319-r09-simple-probability-m04",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each quantity in List-I with its value in List-II.",
+   "options": [
+    "A-III, B-II, C-IV, D-I",
+    "A-II, B-III, C-IV, D-I",
+    "A-II, B-III, C-I, D-IV",
+    "A-II, B-I, C-IV, D-III"
+   ],
+   "answer": 2,
+   "explanation": "For $B(8,\\tfrac12)$ the mean is $np=4$ (II) and the variance is $npq=8\\cdot\\tfrac14=2$ (III). For $B(3,\\tfrac12)$, $P(X=0)=\\left(\\tfrac12\\right)^3=\\tfrac18$ (IV). For $B(2,\\tfrac12)$, $P(X=1)=2\\cdot\\tfrac14=\\tfrac12$ (I).",
+   "optionRationale": {
+    "1": "This swaps the mean and the variance of the distribution; the mean is $np$ and the variance is $npq$.",
+    "3": "This swaps the last two values; $P(X=0)$ for $n=3$ is $\\tfrac18$, not $\\tfrac12$.",
+    "4": "This gives the variance the value $\\tfrac12$, which is smaller than $npq=2$ for $n=8$."
+   },
+   "objective": "Match binomial parameters with values",
+   "list": {
+    "left": [
+     "A. Mean of the binomial distribution $B(8,\\tfrac12)$",
+     "B. Variance of $B(8,\\tfrac12)$",
+     "C. $P(X=0)$ for $B(3,\\tfrac12)$",
+     "D. $P(X=1)$ for $B(2,\\tfrac12)$"
+    ],
+    "right": [
+     "I. $\\dfrac12$",
+     "II. $4$",
+     "III. $2$",
+     "IV. $\\dfrac18$"
+    ]
+   }
+  },
+  {
+   "key": "ug26-319-r09-simple-probability-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A trial succeeds with probability $\\tfrac13$. In 4 independent trials, the probability of exactly 2 successes is",
+   "options": [
+    "\\dfrac{8}{27}",
+    "\\dfrac{4}{81}",
+    "\\dfrac{16}{81}",
+    "\\dfrac19"
+   ],
+   "answer": 1,
+   "explanation": "This is binomial with $n=4$, $p=\\tfrac13$: $P(X=2)=\\binom42\\left(\\tfrac13\\right)^2\\left(\\tfrac23\\right)^2=6\\cdot\\dfrac19\\cdot\\dfrac49=\\dfrac{24}{81}=\\dfrac{8}{27}$.",
+   "optionRationale": {
+    "2": "This leaves out the coefficient $\\binom42=6$, giving $\\tfrac19\\cdot\\tfrac49$.",
+    "3": "This uses the coefficient $4$ instead of $\\binom42=6$.",
+    "4": "This is only $p^2=\\tfrac19$, with no failure factor and no coefficient."
+   },
+   "objective": "Compute a binomial probability with unequal p and q"
+  },
+  {
+   "key": "ug26-319-r09-simple-probability-m06",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): If $X$ follows $B\\!\\left(5,\\tfrac12\\right)$, then $P(X=2)=P(X=3)$.\nReason (R): The sum of the probabilities of all values of a random variable in a probability distribution is 1.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 2,
+   "explanation": "For $B(5,\\tfrac12)$, $P(X=2)=\\binom52/32=\\tfrac{10}{32}$ and $P(X=3)=\\binom53/32=\\tfrac{10}{32}$, so they are equal and the assertion is true (by symmetry, since $p=\\tfrac12$). The reason is a true property of every distribution, but it does not explain the equality.",
+   "optionRationale": {
+    "1": "The sum rule does not explain the equality; the equality comes from $\\binom52=\\binom53$ when $p=\\tfrac12$.",
+    "3": "The reason is true, so this option is wrong.",
+    "4": "The assertion is true, since both probabilities equal $\\tfrac{10}{32}$."
+   },
+   "objective": "Use symmetry of the binomial distribution at p = 1/2"
+  },
+  {
+   "key": "ug26-319-r09-simple-probability-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A fair die is thrown 4 times. The probability of getting at least one six is",
+   "options": [
+    "\\dfrac{625}{1296}",
+    "\\dfrac23",
+    "\\dfrac{11}{36}",
+    "\\dfrac{671}{1296}"
+   ],
+   "answer": 4,
+   "explanation": "The complement is 'no six in four throws', whose probability is $\\left(\\tfrac56\\right)^4=\\dfrac{625}{1296}$. So the required probability is $1-\\dfrac{625}{1296}=\\dfrac{671}{1296}$.",
+   "optionRationale": {
+    "1": "This is the probability of no six at all, the complement of the required event.",
+    "2": "This is $4\\cdot\\tfrac16$, adding the probabilities of a six on each throw, which overcounts overlapping cases.",
+    "3": "This is the probability of at least one six in just two throws, not four."
+   },
+   "objective": "Use the complement rule with independent throws"
+  },
+  {
+   "key": "ug26-319-r09-simple-probability-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "The mean and the variance of a binomial random variable are $12$ and $3$ respectively. The probability of success in a single trial is",
+   "options": [
+    "\\dfrac34",
+    "\\dfrac14",
+    "\\dfrac12",
+    "\\dfrac{3}{16}"
+   ],
+   "answer": 1,
+   "explanation": "We have $np=12$ and $npq=3$. Dividing, $q=\\dfrac{3}{12}=\\dfrac14$, so $p=1-q=\\dfrac34$. Then $n=12\\div\\tfrac34=16$, and indeed $npq=16\\cdot\\tfrac34\\cdot\\tfrac14=3$.",
+   "optionRationale": {
+    "2": "This is $q$, the probability of failure, found from the ratio but not subtracted from $1$.",
+    "3": "This would make the variance equal to the mean divided by $2$, which does not give $3$ for a mean of $12$.",
+    "4": "This is $\\tfrac{npq}{n}$ with $n=16$, which is $pq$, not $p$."
+   },
+   "objective": "Recover binomial parameters from mean and variance"
+  },
+  {
+   "key": "ug26-319-r09-simple-probability-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "In a population 1% of people have a certain disease. A test detects the disease in 90% of those who have it and wrongly gives a positive result for 5% of those who do not. A person tests positive. The probability that the person has the disease is",
+   "options": [
+    "\\dfrac{9}{10}",
+    "\\dfrac16",
+    "\\dfrac{2}{13}",
+    "\\dfrac{9}{59}"
+   ],
+   "answer": 3,
+   "explanation": "Out of $10000$ people, $100$ have the disease and $90$ of them test positive. Of the $9900$ healthy people, $5\\%$ (about $495$) also test positive. So only $90$ of the $585$ positives are really ill, giving $\\dfrac{90}{585}=\\dfrac2{13}$. Bayes' theorem gives the same value, $\\dfrac{0.009}{0.009+0.0495}$. Because the disease is rare, false positives outnumber true ones.",
+   "optionRationale": {
+    "1": "This is $P(+\\mid\\text{disease})$, the sensitivity of the test, not the probability of disease given a positive result.",
+    "2": "This uses $0.9\\times0.05=0.045$ for the false positives, a slip that should be $0.99\\times0.05$, giving $\\dfrac{0.009}{0.054}$.",
+    "4": "This uses $0.05$ for the false-positive contribution without multiplying by the $99\\%$ who are healthy."
+   },
+   "objective": "Apply Bayes' theorem to a medical test"
+  }
+ ]
+}

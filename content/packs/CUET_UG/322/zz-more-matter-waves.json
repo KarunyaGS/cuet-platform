@@ -1,0 +1,162 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_32108127612a4c31a6f9dc9d23e45f9f",
+    "title": "Matter waves-wave nature of particles, de-Broglie relation."
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u7-matter-waves-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "What is the de Broglie wavelength of a ball of mass 0.10 kg moving at $10\\,\\text{m s}^{-1}$? (Take $h = 6.63\\times10^{-34}\\,\\text{J s}$.)",
+      "options": [
+        "$6.63\\times10^{-33}\\,\\text{m}$",
+        "$1.33\\times10^{-33}\\,\\text{m}$",
+        "$6.63\\times10^{-35}\\,\\text{m}$",
+        "$6.63\\times10^{-34}\\,\\text{m}$"
+      ],
+      "answer": 4,
+      "explanation": "The momentum is $p = mv = 0.10 \\times 10 = 1.0\\,\\text{kg m s}^{-1}$, so $\\lambda = h/p = 6.63\\times10^{-34}/1.0 = 6.63\\times10^{-34}\\,\\text{m}$. This is smaller than the size of a nucleus by a huge factor, which is why the wave nature of everyday objects is never seen.",
+      "optionRationale": {
+        "1": "This uses the momentum 0.10 kg m s⁻¹, as if the speed had been taken as 1.0 m s⁻¹.",
+        "2": "This uses $\\tfrac12 mv$ as the momentum, which is not the definition of momentum.",
+        "3": "This uses the momentum 10 kg m s⁻¹, as if the mass had been taken as 1.0 kg."
+      },
+      "objective": "Calculate the de Broglie wavelength of a macroscopic object"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A neutron in thermal equilibrium at 300 K has an average kinetic energy of $\\tfrac32 k_BT$. What is its de Broglie wavelength? Use $k_B = 1.38\\times10^{-23}\\,\\text{J K}^{-1}$, $m_n = 1.67\\times10^{-27}\\,\\text{kg}$ and $h = 6.63\\times10^{-34}\\,\\text{J s}$.",
+      "options": [
+        "$2.06\\times10^{-10}\\,\\text{m}$",
+        "$1.78\\times10^{-10}\\,\\text{m}$",
+        "$1.46\\times10^{-10}\\,\\text{m}$",
+        "$1.03\\times10^{-10}\\,\\text{m}$"
+      ],
+      "answer": 3,
+      "explanation": "With $K = \\tfrac32 k_BT$, the momentum is $p = \\sqrt{2mK} = \\sqrt{3mk_BT}$. Then $3mk_BT = 3(1.67\\times10^{-27})(1.38\\times10^{-23})(300) = 2.07\\times10^{-47}$, its square root is 4.55\\times10^{-24}, and $\\lambda = h/p = 1.46\\times10^{-10}\\,\\text{m}$, about 0.15 nm, comparable to spacings between atoms in a crystal. That is why thermal neutrons are diffracted by crystals.",
+      "optionRationale": {
+        "1": "This omits the factor 2 in $p = \\sqrt{2mK}$, which gives a wavelength that is slightly too long.",
+        "2": "This takes the kinetic energy as $k_BT$ instead of $\\tfrac32 k_BT$, which makes the wavelength too long.",
+        "4": "This takes the kinetic energy as $3k_BT$, which makes the wavelength too short."
+      },
+      "objective": "Find the de Broglie wavelength of a thermal neutron"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A photon and an electron each have a wavelength of 1.0 nm. What is the ratio of the energy of the photon to the kinetic energy of the electron? (Take $h = 6.63\\times10^{-34}\\,\\text{J s}$, $c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$ and $m_e = 9.1\\times10^{-31}\\,\\text{kg}$.)",
+      "options": [
+        "$2.9\\times10^{1}$",
+        "$8.2\\times10^{2}$",
+        "$8.2\\times10^{5}$",
+        "$1.2\\times10^{-3}$"
+      ],
+      "answer": 2,
+      "explanation": "The photon energy is $hc/\\lambda = 1.99\\times10^{-16}\\,\\text{J}$, about 1240 eV. The electron has $p = h/\\lambda$, so $K = p^2/2m_e = 2.42\\times10^{-19}\\,\\text{J}$, about 1.5 eV. The ratio is $\\approx 8.2\\times10^{2}$. For the same wavelength, a photon carries far more energy because its energy varies with $1/\\lambda$ but the electron's varies with $1/\\lambda^2$ from a small starting point.",
+      "optionRationale": {
+        "1": "This is the square root of the correct ratio, as if energy were proportional to momentum for both.",
+        "3": "This is a thousand times too large, from a slip with the units of the wavelength in nanometres.",
+        "4": "This is the inverse ratio, the electron's kinetic energy divided by the photon's energy."
+      },
+      "objective": "Compare the energy of a photon and an electron of equal wavelength"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "In the Davisson-Germer experiment, electrons were accelerated through 54 V. What is the de Broglie wavelength of such electrons? (Take $h = 6.63\\times10^{-34}\\,\\text{J s}$, $m_e = 9.1\\times10^{-31}\\,\\text{kg}$ and $e = 1.6\\times10^{-19}\\,\\text{C}$.)",
+      "options": [
+        "$1.67\\times10^{-11}\\,\\text{m}$",
+        "$1.67\\times10^{-10}\\,\\text{m}$",
+        "$2.36\\times10^{-10}\\,\\text{m}$",
+        "$1.67\\times10^{-9}\\,\\text{m}$"
+      ],
+      "answer": 2,
+      "explanation": "The electron gains kinetic energy $eV = 54 \\times 1.6\\times10^{-19} = 8.64\\times10^{-18}\\,\\text{J}$. Its momentum is $p = \\sqrt{2m_eeV} = 3.97\\times10^{-24}\\,\\text{kg m s}^{-1}$ and $\\lambda = h/p \\approx 1.67\\times10^{-10}\\,\\text{m} = 0.167\\,\\text{nm}$. This is comparable to the spacing of atoms in a nickel crystal, so diffraction is observed.",
+      "optionRationale": {
+        "1": "This is ten times too small, which is what 5400 V would give, from a slip in the potential.",
+        "3": "This omits the factor of 2 in $p = \\sqrt{2mK}$, and gives a wavelength that is $\\sqrt2$ times too large.",
+        "4": "This is ten times too large, which is what 0.54 V would give, from a slip in the potential."
+      },
+      "objective": "Calculate the de Broglie wavelength of electrons accelerated through a potential difference"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-m05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "De Broglie explained Bohr's quantisation rule by requiring a whole number of wavelengths to fit around the orbit, $2\\pi r = n\\lambda$. The radius of the n-th Bohr orbit of hydrogen is $r_n = n^2 a_0$ with $a_0 = 0.529\\times10^{-10}\\,\\text{m}$. What is the de Broglie wavelength of the electron in the n = 3 orbit?",
+      "options": [
+        "$3.32\\times10^{-10}\\,\\text{m}$",
+        "$2.99\\times10^{-9}\\,\\text{m}$",
+        "$9.97\\times10^{-10}\\,\\text{m}$",
+        "$4.76\\times10^{-10}\\,\\text{m}$"
+      ],
+      "answer": 3,
+      "explanation": "The radius is $r_3 = 9a_0 = 4.76\\times10^{-10}\\,\\text{m}$. The condition $2\\pi r_3 = 3\\lambda$ gives $\\lambda = 2\\pi r_3/3 = 2\\pi(9a_0)/3 = 6\\pi a_0 = 9.97\\times10^{-10}\\,\\text{m}$. In general $\\lambda_n = 2\\pi n a_0$, which grows with n, while three wavelengths fit around the circumference.",
+      "optionRationale": {
+        "1": "This is the wavelength for n = 1, which is the first orbit and not the third.",
+        "2": "This is the whole circumference of the orbit, which holds three wavelengths and not one.",
+        "4": "This is only the radius of the orbit and not a wavelength."
+      },
+      "objective": "Relate de Broglie wavelength to Bohr orbits"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-m06",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): An electron microscope can resolve much finer detail than an optical microscope.\nReason (R): Fast electrons have a de Broglie wavelength much smaller than that of visible light.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The detail that a microscope can resolve is limited by the wavelength of the radiation used. Electrons accelerated through tens of kilovolts have de Broglie wavelengths of the order of picometres, which is thousands of times smaller than the wavelength of visible light (400 to 700 nm). So the reason explains the assertion.",
+      "optionRationale": {
+        "2": "R is not just true; it is the reason for the finer resolution, so it explains A.",
+        "3": "R is true; fast electrons have very short de Broglie wavelengths.",
+        "4": "A is true; electron microscopes have much higher resolution than optical ones."
+      },
+      "objective": "Explain the use of matter waves in the electron microscope"
+    },
+    {
+      "key": "ug26-322-u7-matter-waves-m07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A neutron has a de Broglie wavelength of 0.10 nm. What is its kinetic energy in electron volt? (Take $h = 6.63\\times10^{-34}\\,\\text{J s}$, $m_n = 1.67\\times10^{-27}\\,\\text{kg}$ and $e = 1.6\\times10^{-19}\\,\\text{C}$.)",
+      "options": [
+        "$0.0411\\,\\text{eV}$",
+        "$82.3\\,\\text{eV}$",
+        "$0.165\\,\\text{eV}$",
+        "$0.0823\\,\\text{eV}$"
+      ],
+      "answer": 4,
+      "explanation": "From $p = h/\\lambda$, the kinetic energy is $K = p^2/2m = h^2/(2m\\lambda^2) = (6.63\\times10^{-34})^2/[2(1.67\\times10^{-27})(10^{-10})^2] = 1.32\\times10^{-20}\\,\\text{J}$. Dividing by $1.6\\times10^{-19}$ gives 0.0823 eV, a very low energy, of the order of thermal energies.",
+      "optionRationale": {
+        "1": "This is half the correct energy, from using $K = p^2/4m$.",
+        "2": "This is a thousand times too large, from using 0.10 pm in place of 0.10 nm.",
+        "3": "This is twice the correct energy, which results from omitting the 2 in the denominator of $p^2/2m$."
+      },
+      "objective": "Find the kinetic energy of a particle from its de Broglie wavelength"
+    }
+  ]
+}

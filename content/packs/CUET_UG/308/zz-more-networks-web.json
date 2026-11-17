@@ -1,0 +1,197 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_0cad9b746ca44004945255bd39c0d53a",
+  "title": "Introduction to Computer Networks"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r12-computer-networks-web-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "application",
+   "stem": "A state government links its offices, colleges and libraries spread over one metropolitan city with a single high-speed network. This is best classified as a",
+   "options": [
+    "LAN (Local Area Network)",
+    "PAN (Personal Area Network)",
+    "MAN (Metropolitan Area Network)",
+    "WAN (Wide Area Network)"
+   ],
+   "answer": 3,
+   "explanation": "The area covered decides the type of network. A network that spreads across one city, joining many buildings of the same city, is a MAN. A LAN stays inside one building or campus, a PAN is around one person, and a WAN spans countries or the world.",
+   "optionRationale": {
+    "1": "A LAN is limited to one building or campus, but this network spreads over a whole city.",
+    "2": "A PAN covers only the few metres around one person, such as a phone with its earbuds.",
+    "4": "A WAN covers a country or the globe, which is far larger than a single city."
+   },
+   "objective": "Classify a network by the area it covers"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "In a bus network of 8 computers, the main (backbone) cable snaps at a point between the 4th and the 5th computer. What is the most likely effect?",
+   "options": [
+    "Only the 4th computer loses its connection and the others continue normally",
+    "All eight computers continue to work because every node has its own cable to a central switch",
+    "Every computer remains connected because the data automatically takes an alternate path around the break",
+    "The bus is split into two parts and communication between the two groups stops"
+   ],
+   "answer": 4,
+   "explanation": "In a bus topology all nodes share one backbone cable. A break in the middle splits the bus into two segments, so computers on one side cannot reach those on the other side. Nodes may also suffer reflected signals because the cut ends lack terminators.",
+   "optionRationale": {
+    "1": "The break is in the shared backbone, so it affects every node and not only one machine.",
+    "2": "A central switch with separate cables describes a star topology, not a bus.",
+    "3": "A bus has a single path, so no alternate route exists; that feature belongs to a mesh."
+   },
+   "objective": "Predict the effect of a backbone failure in a bus topology"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "For the address ftp://files.school.in/pub/notes.zip, which choice correctly names its protocol, its domain name and the path of the resource?",
+   "options": [
+    "files.school.in; ftp; /pub/notes.zip",
+    "ftp; pub; files.school.in/notes.zip",
+    "ftp; files.school.in; /pub/notes.zip",
+    "ftp://files; school.in; /pub/notes.zip"
+   ],
+   "answer": 3,
+   "explanation": "A URL begins with the protocol (ftp) followed by ://. Then comes the host or domain name (files.school.in) up to the next slash, and finally the path to the resource (/pub/notes.zip). So the three parts are ftp, files.school.in and /pub/notes.zip.",
+   "optionRationale": {
+    "1": "This swaps the protocol and the domain name; the protocol is the scheme before ://.",
+    "2": "The folder pub belongs to the path, not to the domain name, and the file name is part of the same path.",
+    "4": "The scheme is only ftp; the characters :// are separators and the host name is the whole files.school.in."
+   },
+   "objective": "Identify the parts of a URL"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Two groups of 4 computers each are wired as separate full meshes (every pair inside a group has its own direct cable). One computer of the first group is then joined to one computer of the second group by a single cable. How many cables are there in all?",
+   "options": [
+    "12",
+    "13",
+    "14",
+    "16"
+   ],
+   "answer": 2,
+   "explanation": "A full mesh of 4 nodes needs 4 x 3 / 2 = 6 cables. Two such groups need 6 + 6 = 12 cables. The extra cable joining the two groups makes the total 12 + 1 = 13. A single full mesh of all 8 nodes would have needed 28.",
+   "optionRationale": {
+    "1": "12 counts only the cables inside the two groups and forgets the cable that joins them.",
+    "3": "14 adds two joining cables, but the question says only one cable joins the groups.",
+    "4": "16 comes from treating each group as needing 8 cables (4 x 2), which is not the mesh formula."
+   },
+   "objective": "Count links in a combination of full meshes"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-m05",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): In a bus network, adding many more computers can make the network slower.\nReason (R): All the computers of a bus network share the same single backbone cable.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "On a bus every message travels on the one shared cable, so more computers mean more devices competing to use it and more collisions or waiting. The shared backbone is therefore exactly the reason for the slowing. Both statements are true and R explains A.",
+   "optionRationale": {
+    "2": "R is not just a related fact; the sharing of the one cable directly causes the slowing.",
+    "3": "R is true, since a bus has exactly one backbone cable for all nodes.",
+    "4": "A is true; a heavily loaded shared cable does slow communication."
+   },
+   "objective": "Relate the shared cable of a bus to network speed"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-m06",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A repeater can connect two networks that use different protocols.\nReason (R): A repeater regenerates a weakened signal so that it can travel a longer distance.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "A repeater works only at the signal level: it cleans and amplifies a weak signal so it can travel further. It does not understand protocols, so it cannot join networks that use different protocols; that is the job of a gateway. Hence A is false and R is true.",
+   "optionRationale": {
+    "1": "R is true, but it does not make A true, because A itself is false.",
+    "2": "A is false: a repeater does no protocol conversion, so the pair cannot both be true.",
+    "3": "R is a correct description of a repeater, so the claim that R is false is wrong."
+   },
+   "objective": "Distinguish a repeater from a gateway"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-m07",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about browsers, cookies and websites.\nA. A cookie is stored on the user's own computer by the browser.\nB. A domain name is the address of a website, while web hosting is the space on a server where its files are kept.\nC. A plug-in helps the browser to handle special types of content.\nD. A webpage is a collection of many websites.\nWhich statements are correct?",
+   "options": [
+    "A and D only",
+    "A, B and C only",
+    "B, C and D only",
+    "A and B only"
+   ],
+   "answer": 2,
+   "explanation": "A is true: cookies are small text files saved on the client computer. B is true: the domain is the address and hosting is storage on a server. C is true: plug-ins deal with special content types. D is false, since a website is the collection of webpages, not the reverse.",
+   "optionRationale": {
+    "1": "D is false because the relation is the other way round, so A and D cannot both be correct.",
+    "3": "D is false, so any option that includes D is wrong.",
+    "4": "C is also correct, so A and B alone leave out a true statement."
+   },
+   "objective": "Judge statements about cookies, domains, hosting and plug-ins"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-m08",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Match the topology in List-I with its description in List-II.",
+   "options": [
+    "A-II, B-III, C-I, D-IV",
+    "A-III, B-II, C-IV, D-I",
+    "A-II, B-I, C-III, D-IV",
+    "A-IV, B-III, C-I, D-II"
+   ],
+   "answer": 1,
+   "explanation": "Star has one central device (II). Bus has a single shared backbone (III). A full mesh links every pair directly (I). A tree joins star groups to a backbone in a hierarchy (IV). So the correct code is A-II, B-III, C-I, D-IV.",
+   "optionRationale": {
+    "2": "This gives star the shared backbone and bus the central device, which reverses their descriptions.",
+    "3": "This gives bus the every-pair description and mesh the shared cable, which swaps them.",
+    "4": "This gives tree the central-switch description and star the hierarchy, which swaps them."
+   },
+   "objective": "Match topologies with their layout",
+   "list": {
+    "left": [
+     "A. Star",
+     "B. Bus",
+     "C. Mesh",
+     "D. Tree"
+    ],
+    "right": [
+     "I. Every pair of nodes has its own direct link",
+     "II. All nodes are joined to one central switch or hub",
+     "III. Nodes share one backbone cable",
+     "IV. Several star networks joined to a main backbone in levels"
+    ]
+   }
+  }
+ ]
+}

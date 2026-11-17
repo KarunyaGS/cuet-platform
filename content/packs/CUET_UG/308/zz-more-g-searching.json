@@ -1,0 +1,260 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_3b7d078ca3be46d99df242db04fa85b3",
+    "title": "Searching"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r11-searching-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "What is the function that converts a key into the index of a position in a hash table called?",
+      "options": [
+        "Search function",
+        "Hash function",
+        "Sorting function",
+        "Probe function"
+      ],
+      "answer": 2,
+      "explanation": "A hash function takes a key, for example by finding key % table size, and gives the index at which the key is stored or looked for. Sorting orders data, and probing is the step of examining other slots after a collision.",
+      "optionRationale": {
+        "1": "This is not the standard name; the converting function is called the hash function.",
+        "3": "Sorting arranges data in order and does not give a table index.",
+        "4": "Probing means looking at further slots after a collision; it is not the key-to-index function."
+      },
+      "objective": "Name the function used in hashing"
+    },
+    {
+      "key": "ug26-308-r11-searching-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "In a binary search low is 0 and high is 9. What is the value of mid calculated as `(low + high) // 2`?",
+      "options": [
+        "4",
+        "5",
+        "4.5",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "The sum of low and high is 9. Floor division by 2 gives 4, because 9 divided by 2 is 4.5 and // discards the fraction. The element at index 4 is compared first.",
+      "optionRationale": {
+        "2": "The // operator drops the fraction, so 9 // 2 is 4, not 5.",
+        "3": "The floor division // gives an integer, so there is no decimal part.",
+        "4": "9 is the value of high; mid is the middle position, 9 // 2."
+      },
+      "objective": "Compute the middle index of binary search"
+    },
+    {
+      "key": "ug26-308-r11-searching-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following is NOT a searching technique?",
+      "options": [
+        "Linear search",
+        "Binary search",
+        "Hash search",
+        "Bubble sort"
+      ],
+      "answer": 4,
+      "explanation": "Bubble sort arranges the elements of a list in order and does not look for a key. Linear search, binary search and hash based search all locate a given key in a collection of data.",
+      "optionRationale": {
+        "1": "Linear search is a searching technique that checks the elements one by one.",
+        "2": "Binary search is a searching technique for sorted lists.",
+        "3": "Searching with a hash function is a searching technique."
+      },
+      "objective": "Separate sorting from searching"
+    },
+    {
+      "key": "ug26-308-r11-searching-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What does this code print?\n`def f(a, k):`\n`    pos = -1`\n`    for i in range(len(a)):`\n`        if a[i] == k:`\n`            pos = i`\n`    return pos`\n`print(f([3, 5, 3, 7, 3], 3), f([3, 5], 9))`",
+      "options": [
+        "0 -1",
+        "4 0",
+        "4 -1",
+        "3 -1"
+      ],
+      "answer": 3,
+      "explanation": "There is no return inside the loop, so every element is checked and pos is overwritten at each match. The key 3 is found at indexes 0, 2 and 4, so pos finishes as 4. In the second call the key 9 never matches, so pos stays -1.",
+      "optionRationale": {
+        "1": "The loop does not stop at the first match, so pos keeps being updated and ends at the last position of 3.",
+        "2": "The key 9 is absent from [3, 5], so pos is never updated and stays -1.",
+        "4": "The last 3 is at index 4 (the list has five elements, indexes 0 to 4), not index 3."
+      },
+      "objective": "Trace a linear search that returns the last match"
+    },
+    {
+      "key": "ug26-308-r11-searching-g05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A binary search for the key 23 is made in the sorted list [2, 5, 8, 12, 16, 23, 38, 56, 72, 91] with mid = (low + high) // 2. How many comparisons are needed to find it?",
+      "options": [
+        "2",
+        "4",
+        "6",
+        "3"
+      ],
+      "answer": 4,
+      "explanation": "The first mid is index 4 (16), which is less than 23, so low becomes 5. The next mid is index 7 (56), which is greater, so high becomes 6. The third mid is index 5, which holds 23, so exactly 3 comparisons are used.",
+      "optionRationale": {
+        "1": "The first middle element is 16 and the second is 56, so the key is found at the third comparison.",
+        "2": "The third comparison already finds 23, so no fourth is made.",
+        "3": "This is the position of 23 counting from 1, which is the number of comparisons of linear search."
+      },
+      "objective": "Count comparisons in a binary search"
+    },
+    {
+      "key": "ug26-308-r11-searching-g06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "A hash table uses h(key) = key % 6. Match each key in List-I with its hash value in List-II.",
+      "options": [
+        "A-II, B-III, C-I, D-IV",
+        "A-III, B-II, C-IV, D-I",
+        "A-III, B-II, C-I, D-IV",
+        "A-I, B-II, C-III, D-IV"
+      ],
+      "answer": 3,
+      "explanation": "14 = 2 x 6 + 2, so the remainder is 2 (III). 25 = 4 x 6 + 1, so the remainder is 1 (II). 30 is exactly 5 x 6, so the remainder is 0 (I). 17 = 2 x 6 + 5, so the remainder is 5 (IV).",
+      "optionRationale": {
+        "1": "14 % 6 is 2 and 25 % 6 is 1; A and B are exchanged here.",
+        "2": "30 is a multiple of 6, so 30 % 6 is 0, and 17 % 6 is 5; C and D are exchanged here.",
+        "4": "14 % 6 is 2, not 0, and 30 % 6 is 0, not 2; A and C are exchanged here."
+      },
+      "objective": "Compute hash values with the remainder function",
+      "list": {
+        "left": [
+          "A. 14",
+          "B. 25",
+          "C. 30",
+          "D. 17"
+        ],
+        "right": [
+          "I. 0",
+          "II. 1",
+          "III. 2",
+          "IV. 5"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r11-searching-g07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about searching.\nA. Binary search can be applied to a sorted list stored in a Python list.\nB. Binary search is faster than linear search on an unsorted list.\nC. A hash function tries to locate a key in very few comparisons.\nD. In the best case binary search finds the key in one comparison.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A, C and D only",
+        "B and D only",
+        "A, B and D only"
+      ],
+      "answer": 2,
+      "explanation": "Binary search works on sorted data, and a Python list that is sorted qualifies (A true). It cannot be used on an unsorted list, so B is false. Hashing computes the position from the key and needs few comparisons (C true). If the first middle element is the key, one comparison is enough (D true).",
+      "optionRationale": {
+        "1": "B is false: binary search cannot be applied to an unsorted list at all.",
+        "3": "B is false, and A and C are also correct.",
+        "4": "B is false, and C is a correct statement so it must be included."
+      },
+      "objective": "Judge statements about linear, binary and hash search"
+    },
+    {
+      "key": "ug26-308-r11-searching-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The keys 17, 8, 24, 10 and 31 are inserted in this order into an empty table of 7 slots (0 to 6) using h(key) = key % 7 and linear probing. How many slots are examined (including the slot where it is finally stored) to insert the key 31?",
+      "options": [
+        "4",
+        "1",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "explanation": "The keys 17, 24, 10 and 31 all have 3 as their home slot, since the remainders are 3, 3, 3 and 3. Then 17 takes slot 3, 24 slot 4 and 10 slot 5, while 8 goes to slot 1. For 31 the slots 3, 4 and 5 are full, and slot 6 is free, so 4 slots are examined.",
+      "optionRationale": {
+        "2": "The home slot of 31 is 3 (31 % 7), which is already occupied by 17, so more slots are needed.",
+        "3": "Slots 3, 4 and 5 are all occupied by 17, 24 and 10; the key finally gets slot 6, which is the fourth slot examined.",
+        "4": "Slot 6 is free, so the search stops there and slot 0 is not examined."
+      },
+      "objective": "Count probes in linear probing"
+    },
+    {
+      "key": "ug26-308-r11-searching-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A binary search for the key 50 is made in a = [4, 9, 15, 22, 31, 40, 56, 63] with mid = (low + high) // 2. Which elements are compared with the key, in order?",
+      "options": [
+        "22, 40, 56",
+        "22, 40, 56, 63",
+        "22, 56, 40",
+        "31, 56"
+      ],
+      "answer": 1,
+      "explanation": "First mid is 3 (22), which is smaller than 50, so low becomes 4. The next mid is (4 + 7) // 2 = 5 (40), still smaller, so low becomes 6. Then mid is 6 (56), larger than 50, so high becomes 5. Now low is greater than high and the search ends, with elements 22, 40 and 56 compared.",
+      "optionRationale": {
+        "2": "After comparing 56 the high index becomes 5, which is below low (6), so the loop stops and 63 is never compared.",
+        "3": "After 22 the search moves to the upper half, whose middle is 40, not 56.",
+        "4": "The first mid is (0 + 7) // 2 = 3, which holds 22, not 31."
+      },
+      "objective": "Trace the elements compared by binary search for a missing key"
+    },
+    {
+      "key": "ug26-308-r11-searching-g10",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Assertion (A): A binary search on a sorted list of 15 elements needs at most 4 comparisons.\nReason (R): The number of comparisons of a linear search grows in direct proportion to the number of elements.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 2,
+      "explanation": "Each comparison of binary search halves the part still to be searched: 15, 7, 3 and 1 elements remain, so at most 4 comparisons are needed and the assertion is true. The reason about linear search is also true but says nothing about halving, so it cannot explain the count of 4.",
+      "optionRationale": {
+        "1": "The reason describes linear search; the figure 4 comes from repeated halving in binary search, so it does not explain the assertion.",
+        "3": "The reason is true: linear search may need to look at every element, so its cost grows with n.",
+        "4": "The assertion is true: 15 elements are halved to 7, 3 and 1, which makes 4 comparisons."
+      },
+      "objective": "Evaluate the worst case of binary search for 15 elements"
+    },
+    {
+      "key": "ug26-308-r11-searching-g11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A sorted list holds 31 elements. How many comparisons does binary search (with mid = (low + high) // 2) need to find the smallest element, which is at index 0?",
+      "options": [
+        "1",
+        "4",
+        "5",
+        "31"
+      ],
+      "answer": 3,
+      "explanation": "The middle positions examined are index 15, then 7, then 3, then 1 and finally index 0. Each step halves the part that is left, so the smallest element is found at the fifth comparison, the same as the worst case for 31 elements.",
+      "optionRationale": {
+        "1": "The first middle element is at index 15, not at index 0.",
+        "2": "The middle indexes examined are 15, 7, 3, 1 and finally 0, which is five comparisons.",
+        "4": "A linear search would find it at once, but binary search needs only about log2 of the number of elements."
+      },
+      "objective": "Count comparisons when the key is the smallest element"
+    }
+  ]
+}

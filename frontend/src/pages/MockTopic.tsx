@@ -53,7 +53,7 @@ export function MockTopicPage() {
           </>
         )}
         <ChevronRight aria-hidden className="size-3.5" />
-        <span>Mock Tests</span>
+        <span>Practice and Mock Test</span>
         {d.breadcrumb.map((b) => (
           <span key={b.id} className="flex items-center gap-1">
             <ChevronRight aria-hidden className="size-3.5" />
@@ -72,7 +72,7 @@ export function MockTopicPage() {
       <header className="mb-4 border-b border-rule pb-2.5">
         <h1 className="max-w-[58rem] text-lg leading-snug font-semibold break-words text-ink sm:text-xl">{d.topic.title}</h1>
         <p className="num mt-0.5 text-sm text-ink-2">
-          Topic-wise practice · {d.questionCount} {d.questionCount === 1 ? 'question' : 'questions'}
+          {d.children.length > 0 ? 'Chapter test' : 'Topic-wise practice'} · {d.questionCount} {d.questionCount === 1 ? 'question' : 'questions'}
         </p>
       </header>
 

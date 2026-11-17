@@ -271,6 +271,28 @@ try {
     console.log(JSON.stringify(await res.json(), null, 1));
     if (!res.ok) process.exitCode = 1;
   }
+  else if (cmd === 'chapter-pdf-build') {
+    // One PDF per chapter of the question bank: every chapter (or topic, for syllabi with no chapters) that has questions of our own.
+    const { buildNativePaper } = await import('./native-paper');
+    const api = option('api') ?? 'http://127.0.0.1:8787';
+    const admin = { 'x-admin-token': adminToken(), 'x-admin-actor': 'native-paper-cli' };
+    const only = option('paper');
+    const list = (await (await fetch(`${api}/api/learn/exams/CUET_UG/subjects?year=2026`)).json()) as { paperId: string; code: string; name: string }[];
+    let made = 0;
+    for (const sub of list.filter((x) => !only || x.code === only)) {
+      const outline = (await (await fetch(`${api}/api/learn/subjects/${sub.paperId}`)).json()) as { nodes: { id: string; parent_id: string | null; kind: string; position: number; questions: number }[] };
+      const withQ = outline.nodes.filter((n) => n.questions > 0 && n.kind !== 'NOTE');
+      // the chapter of a topic = its parent heading when there is one, otherwise the topic itself
+      const byId = new Map(outline.nodes.map((n) => [n.id, n]));
+      const chapterIds = [...new Set(withQ.map((n) => (n.parent_id && byId.get(n.parent_id)?.kind !== 'NOTE' ? n.parent_id : n.id)))];
+      for (const id of chapterIds) {
+        const r = await buildNativePaper({ api, adminToken: admin['x-admin-token'], paperId: sub.paperId, set: 0, count: 0, nodeId: id, workDir: option('out') ?? join(repo, '.native-papers'), repo });
+        made++;
+        console.log(`${sub.code} ${r.title.replace('CUET Prep question bank: ', '').slice(0, 70)}: ${r.questions} questions, ${r.pages} pages`);
+      }
+    }
+    console.log(`${made} chapter PDFs built`);
+  }
   else if (cmd === 'native-paper-build') {
     // A CUET Prep practice paper as a typeset PDF, from our own questions only: built, stored in our storage and recorded.
     const paperId = option('paper-id');

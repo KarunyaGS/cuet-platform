@@ -1,0 +1,4594 @@
+{
+ "schema": "cuet-native-paper/1",
+ "mode": "CHAPTER",
+ "key": "cuetprep:chapter:308:cn_575bed13eeef4240bc1e7a7a37ffb5fb",
+ "kind": "PRACTICE_PAPER",
+ "exam": "CUET_UG",
+ "paperId": "paper_cuet_ug_2026_308",
+ "nodeId": "cn_575bed13eeef4240bc1e7a7a37ffb5fb",
+ "chapterName": "A Section A",
+ "subjectCode": "308",
+ "subjectName": "Computer Science",
+ "set": 0,
+ "title": "CUET Prep question bank: Computer Science, A Section A",
+ "language": "English",
+ "rights": {
+  "basis": "OWNED_ORIGINAL",
+  "statement": "Every question in this question bank was written for CUET Prep and is owned by it. It is not a previous-year paper and contains no question from any examination, book or website."
+ },
+ "reviewState": "UNREVIEWED",
+ "reviewedQuestions": 0,
+ "pattern": {
+  "questions": 120,
+  "durationMinutes": null,
+  "marksCorrect": null,
+  "marksIncorrect": null,
+  "officialQuestionCount": null
+ },
+ "units": [
+  {
+   "title": "Database Concepts",
+   "questions": 30
+  },
+  {
+   "title": "Structured Query Language – I",
+   "questions": 30
+  },
+  {
+   "title": "Structured Query Language – II",
+   "questions": 30
+  },
+  {
+   "title": "Computer Networks",
+   "questions": 30
+  }
+ ],
+ "questions": [
+  {
+   "number": 1,
+   "id": "q_30fb02eaa2f64149892f725c46786a4d",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "A relation has 5 attributes and 4 tuples. What are its degree and cardinality?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Degree 4, cardinality 5"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Degree 5, cardinality 4"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Degree 20, cardinality 20"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Degree 9, cardinality 9"
+    }
+   ]
+  },
+  {
+   "number": 2,
+   "id": "q_48ae7bf01aee4aac9516f31e6677ec84",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "In the relational model, what is a row of a relation called?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Tuple"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Attribute"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Domain"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Degree"
+    }
+   ]
+  },
+  {
+   "number": 3,
+   "id": "q_512edabdeee34127b2e599a1f6f44325",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "In relational algebra, which operator is used to choose particular columns of a relation?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Selection ($\\sigma$)"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Union ($\\cup$)"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Cartesian product ($\\times$)"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Projection ($\\pi$)"
+    }
+   ]
+  },
+  {
+   "number": 4,
+   "id": "q_5be4c19d25be414b935cc5e73667a1f2",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "What is meant by the domain of an attribute?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "The number of tuples in the relation"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "The primary key of the relation"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "The name of the table that contains the attribute"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "The set of all permissible values for that attribute"
+    }
+   ]
+  },
+  {
+   "number": 5,
+   "id": "q_5e13752ed3a341b08862026d088aab38",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "A column in table ORDERS holds customer numbers that must match the primary key of table CUSTOMER. What is this column called?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Candidate key"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Alternate key"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Foreign key"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Super relation"
+    }
+   ]
+  },
+  {
+   "number": 6,
+   "id": "q_78d1c43a62594f1bbe826e1092bf34c6",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "Which of the following is a disadvantage of keeping data in separate files for each application?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Data can be accessed without writing any program"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "The same data is repeated in many files, causing redundancy and inconsistency"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Data is automatically protected by user accounts"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Integrity rules are enforced centrally"
+    }
+   ]
+  },
+  {
+   "number": 7,
+   "id": "q_9d773e60a8de43cd9dffbeef36a9468a",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "What is a key made up of two or more attributes taken together called?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Foreign key"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Alternate key"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Composite key"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Surrogate key"
+    }
+   ]
+  },
+  {
+   "number": 8,
+   "id": "q_ae896d2a869745238bd56506ee9674eb",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "Which statement about a primary key is correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "It may contain NULL values"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A relation can have several primary keys"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "It must be unique for every tuple and cannot contain NULL"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "It must be the first column of the table"
+    }
+   ]
+  },
+  {
+   "number": 9,
+   "id": "q_bb8fb6a471b34ce89475e08fb30f1d55",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "The same address of a student is stored in two different files, and it is changed in only one of them. Which problem does this show?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Data independence"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Data inconsistency"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Referential integrity"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Data security"
+    }
+   ]
+  },
+  {
+   "number": 10,
+   "id": "q_0111d7d8515e4174b5f63eb81597bc2a",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "R(id, p) has tuples (1, a), (2, b), (3, c). S(id, q) has tuples (1, x), (3, y), (3, z), (4, w). How many tuples does $\\sigma_{R.id = S.id}(R \\times S)$ contain, and what is the degree of the result?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "12 tuples, degree 4"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "3 tuples, degree 3"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "2 tuples, degree 4"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "3 tuples, degree 4"
+    }
+   ]
+  },
+  {
+   "number": 11,
+   "id": "q_0c237ef6c42a417db985be5960e44111",
+   "type": "ASSERTION_REASON",
+   "unit": "Database Concepts",
+   "stem": "Assertion (A): No attribute of a primary key can hold a NULL value.\nReason (R): The primary key must identify every tuple of the relation uniquely, and a NULL cannot be used to identify anything.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 12,
+   "id": "q_71f8b7e57c204895b27df852f48f2f71",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "R(id, p) has the tuples (1, a), (2, b), (3, c). S(id, q) has the tuples (1, x), (1, y), (3, z), (4, w). How many tuples are in $R \\times S$ and how many remain after the selection $\\sigma_{R.id = S.id}(R \\times S)$?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "12 and 3"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "7 and 3"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "12 and 2"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "12 and 4"
+    }
+   ]
+  },
+  {
+   "number": 13,
+   "id": "q_8fdcdff090b94e21a57f64ef9542050e",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "Relation STUDENT(Roll, Name, Class, City) has tuples (1, Asha, XII, Pune), (2, Ravi, XI, Delhi), (3, Meena, XII, Delhi), (4, Karan, XI, Pune), (5, Sia, XII, Goa). What does $\\pi_{Class, City}(\\sigma_{City \\neq 'Goa'}(STUDENT))$ return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "4 tuples: (XII, Pune), (XI, Delhi), (XII, Delhi), (XI, Pune)"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "5 tuples including (XII, Goa)"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "3 tuples: (XII, Pune), (XI, Delhi), (XII, Delhi)"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "2 tuples: XI and XII"
+    }
+   ]
+  },
+  {
+   "number": 14,
+   "id": "q_94ed271396a04993ac122f24224c51b8",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "Union-compatible relations A and B have 6 and 4 tuples respectively, and 3 tuples appear in both. What are the cardinalities of $A \\cup B$, $A - B$ and $B - A$ in this order?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "10, 3, 1"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "7, 3, 3"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "7, 3, 1"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "7, 1, 3"
+    }
+   ]
+  },
+  {
+   "number": 15,
+   "id": "q_9c8ae0da27bb47f2911be50672f2cc4b",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "Union-compatible relations A and B have 7 and 5 tuples, and 2 tuples occur in both. How many tuples are in $(A \\cup B) - (A \\cap B)$?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "10"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "5"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "12"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "8"
+    }
+   ]
+  },
+  {
+   "number": 16,
+   "id": "q_ceb19b10e2944f479d8d400a376f8cee",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "Table DEPT has DeptNo 10, 20, 30 (primary key). Table EMP has the foreign key DeptNo referring to DEPT. Which operation will the DBMS reject because it violates referential integrity?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Inserting an employee whose DeptNo is 40"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Inserting an employee whose DeptNo is 20"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Inserting an employee whose DeptNo is NULL"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Inserting a second employee with DeptNo 10"
+    }
+   ]
+  },
+  {
+   "number": 17,
+   "id": "q_d163145a8bcd47da9ae5cd08bc9dbf9f",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "Relation EMP has the values in the column Dept: Sales, HR, Sales, IT, HR; in the column Phone: 111, NULL, 333, 444, 555; and in the column Code: 1, 2, 3, 4, 5. Which column can serve as a primary key?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Dept"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Code"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Phone"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "None of the columns"
+    }
+   ]
+  },
+  {
+   "number": 18,
+   "id": "q_d902d930c9d74e2cb1991870bba9772a",
+   "type": "ASSERTION_REASON",
+   "unit": "Database Concepts",
+   "stem": "Assertion (A): $R - S$ and $S - R$ generally give different results.\nReason (R): Set difference returns the tuples of the first relation that do not occur in the second, so it depends on the order of the relations.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 19,
+   "id": "q_ec841e87654442c6b185b26412b50c1a",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "Relation P has degree 4 and 6 tuples; relation Q has degree 3 and 5 tuples. What is the degree of the result of $\\pi_{A, B}(P \\times Q)$ when A is from P and B is from Q, and how many tuples can it have at most?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Degree 2 and at most 30 tuples"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Degree 7 and at most 30 tuples"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Degree 2 and exactly 11 tuples"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Degree 12 and at most 30 tuples"
+    }
+   ]
+  },
+  {
+   "number": 20,
+   "id": "q_05207ef461614bf48444091a67d6f3f1",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "The relation ENROL(Name, Class, Section) has the tuples (Asha, XII, A), (Asha, XI, B), (Ravi, XII, C) and (Ravi, XII, D). Which set of attributes can serve as a candidate key?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "{Name, Class}"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "{Class}"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "{Name}"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "{Name, Section}"
+    }
+   ]
+  },
+  {
+   "number": 21,
+   "id": "q_25330d7667cf47b993f24124b4753bf2",
+   "type": "STATEMENT_BASED",
+   "unit": "Database Concepts",
+   "stem": "Consider the following statements about keys.\nA. A foreign key value in the child table may be NULL.\nB. A relation may have more than one candidate key.\nC. A primary key may contain duplicate values if the rows differ in other columns.\nD. An alternate key is a candidate key that is not chosen as the primary key.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A, B and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, B, C and D"
+    }
+   ]
+  },
+  {
+   "number": 22,
+   "id": "q_303c3bc6d0e64f708fcaf2bb4a6fcfe5",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "Relation R has degree 3 and cardinality 4. Relation S has degree 2 and cardinality 5. What are the degree and cardinality of $R \\times S$?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Degree 5, cardinality 20"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Degree 6, cardinality 9"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Degree 5, cardinality 9"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Degree 6, cardinality 20"
+    }
+   ]
+  },
+  {
+   "number": 23,
+   "id": "q_4bafbbbaba0f4eb785d53d561000c3e2",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "Table EMP(EmpID, Aadhaar, Email, Name, Dept) has EmpID, Aadhaar and Email each unique for every employee, with EmpID chosen as the primary key. How many alternate keys does EMP have?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "1"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "3"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "0"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "2"
+    }
+   ]
+  },
+  {
+   "number": 24,
+   "id": "q_5eb600e9ef204ff3962345176087ba7f",
+   "type": "ASSERTION_REASON",
+   "unit": "Database Concepts",
+   "stem": "Assertion (A): A foreign key column can contain repeated values in the child table.\nReason (R): Many tuples of the child table can refer to the same tuple of the parent table.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 25,
+   "id": "q_76ea8c0ee28d4185901dead16e12a653",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Database Concepts",
+   "stem": "Match each relational algebra operation in List-I with its effect in List-II.",
+   "structure": {
+    "left": [
+     "A. Selection",
+     "B. Projection",
+     "C. Union",
+     "D. Set difference"
+    ],
+    "right": [
+     "I. Tuples present in R or in S or in both",
+     "II. Rows that satisfy a condition",
+     "III. Tuples present in R but not in S",
+     "IV. Chosen columns, duplicates removed"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-I, B-II, C-III, D-IV"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-II, B-IV, C-I, D-III"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-II, B-IV, C-III, D-I"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-IV, B-II, C-I, D-III"
+    }
+   ]
+  },
+  {
+   "number": 26,
+   "id": "q_80c0e205c3fc4f68b4e5ca16cf14b269",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "The relation MARKS(Roll, Name, Score) has the tuples (1, Asha, 82), (2, Ravi, 64), (3, Meena, 91), (4, Karan, 70), (5, Sia, 55) and (6, Dev, 88). What does the expression $\\pi_{Name}(\\sigma_{Score > 70}(MARKS))$ give?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Asha, Meena, Karan, Dev"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Asha, Meena, Dev"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Ravi, Karan, Sia"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(1, Asha, 82), (3, Meena, 91), (6, Dev, 88)"
+    }
+   ]
+  },
+  {
+   "number": 27,
+   "id": "q_aadb86d974954459bb6cc6bed94b8ade",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Database Concepts",
+   "stem": "Match each term in List-I with its meaning in List-II.",
+   "structure": {
+    "left": [
+     "A. Tuple",
+     "B. Attribute",
+     "C. Degree",
+     "D. Cardinality"
+    ],
+    "right": [
+     "I. A column of a relation",
+     "II. A row of a relation",
+     "III. Number of columns",
+     "IV. Number of rows"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-I, B-II, C-III, D-IV"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-II, B-I, C-IV, D-III"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-III, B-IV, C-II, D-I"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-II, B-I, C-III, D-IV"
+    }
+   ]
+  },
+  {
+   "number": 28,
+   "id": "q_c6bcc098f67e4fabb9cf5b7f689a6208",
+   "type": "STATEMENT_BASED",
+   "unit": "Database Concepts",
+   "stem": "Consider the following statements about a DBMS.\nA. A DBMS helps to reduce data redundancy.\nB. A DBMS can enforce constraints such as primary key and foreign key.\nC. A DBMS allows many users to share the same data.\nD. A DBMS always increases data inconsistency.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and D only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, B and D only"
+    }
+   ]
+  },
+  {
+   "number": 29,
+   "id": "q_d2589d675ac54288b750d3c6d2f9c104",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "The relation STUDENT(Roll, Name, Class, City) has these tuples: (1, Asha, XII, Pune), (2, Ravi, XI, Delhi), (3, Meena, XII, Delhi), (4, Karan, XI, Pune), (5, Sia, XII, Goa). How many tuples does the selection of Class = XII and City = Pune give?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "2"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "1"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "3"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "0"
+    }
+   ]
+  },
+  {
+   "number": 30,
+   "id": "q_e15fce8720a14e228557dcba573e3388",
+   "type": "MCQ_SINGLE",
+   "unit": "Database Concepts",
+   "stem": "For the same STUDENT relation of five tuples, the projection on City gives how many tuples, when the cities in order are Pune, Delhi, Delhi, Pune, Goa?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "5"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "2"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "3"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "1"
+    }
+   ]
+  },
+  {
+   "number": 31,
+   "id": "q_2d1bfdd311c542e88b6bcc9b58669b51",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "Which constraint makes sure that a column can never be left without a value (NULL)?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "UNIQUE"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "NOT NULL"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "DEFAULT"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "FOREIGN KEY"
+    }
+   ]
+  },
+  {
+   "number": 32,
+   "id": "q_4fb168b8409446faa518ac73ca4087d4",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "Which one of the following statements correctly describes the language SQL?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "It is a procedural language in which the user writes each step to find the data"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "It can be used only with MySQL"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "It is a non-procedural language in which the user states what data is wanted"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "It can only retrieve data, not store it"
+    }
+   ]
+  },
+  {
+   "number": 33,
+   "id": "q_6d618a4af74e40e3abf7191e78429699",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "Which statement deletes a table together with all of its rows and its structure?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "`DELETE FROM` without WHERE"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "`ALTER TABLE ... DROP COLUMN`"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "`DROP TABLE`"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "`UPDATE` with all values set to NULL"
+    }
+   ]
+  },
+  {
+   "number": 34,
+   "id": "q_8ad96e9a0d54433aae5c3b6155564665",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "What is the main difference between CHAR(10) and VARCHAR(10)?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "CHAR stores numbers and VARCHAR stores text"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "CHAR stores fixed-length text and VARCHAR stores variable-length text up to the limit"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "VARCHAR has a fixed length while CHAR can grow to any size"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "There is no difference in any case"
+    }
+   ]
+  },
+  {
+   "number": 35,
+   "id": "q_b4578a235d304184921f7d5f6ea09b13",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "To which category of SQL statements does `ALTER TABLE` belong?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Data Definition Language (DDL)"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Data Manipulation Language (DML)"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Data Query Language (DQL)"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "None of these; it is not an SQL statement"
+    }
+   ]
+  },
+  {
+   "number": 36,
+   "id": "q_b754af23a2c84f9cbd8bd00a000a2b28",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "Which MySQL statement creates a new database named school?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "`MAKE DATABASE school;`"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "`NEW DATABASE school;`"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "`OPEN DATABASE school;`"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "`CREATE DATABASE school;`"
+    }
+   ]
+  },
+  {
+   "number": 37,
+   "id": "q_fe6c925a1fce41748887f0f6c9fc373f",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "Which MySQL command displays the structure (column names and data types) of a table named ITEM?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "SHOW TABLES;"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "USE ITEM;"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "DESCRIBE ITEM;"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "SELECT STRUCTURE ITEM;"
+    }
+   ]
+  },
+  {
+   "number": 38,
+   "id": "q_0b4244199dcb4d96aef29c63bb3eb56c",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "The table is created by `CREATE TABLE EMP (Eid INT PRIMARY KEY, Ename VARCHAR(10) NOT NULL, Dept CHAR(3) DEFAULT \"GEN\");` and already holds the row (1, Asha, HR). Which statement is accepted by MySQL?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "INSERT INTO EMP VALUES (1, \"Ravi\", \"HR\");"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "INSERT INTO EMP VALUES (3, NULL, \"HR\");"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "INSERT INTO EMP VALUES (4, \"Amit\");"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "INSERT INTO EMP (Eid, Ename) VALUES (2, \"Ravi\");"
+    }
+   ]
+  },
+  {
+   "number": 39,
+   "id": "q_1ddc95a688be46ceb6b3fcfa7ac4127a",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "The original PRODUCT table has six rows: Notebook (Stationery, 45, 100), Pencil (Stationery, 8, 500), Backpack (Bags, 899, 20), Marker (Stationery, 30, NULL), Lunchbox (Kitchen, 250, 40), Bottle (Kitchen, 175, 60). How many rows does `SELECT PName FROM PRODUCT WHERE Category = \"Stationery\" OR Category = \"Kitchen\" AND Price > 200;` return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "2"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "5"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "3"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "4"
+    }
+   ]
+  },
+  {
+   "number": 40,
+   "id": "q_38cfffcf33dd4d5285fa775bf652874d",
+   "type": "ASSERTION_REASON",
+   "unit": "Structured Query Language – I",
+   "stem": "Assertion (A): The statement `UPDATE ITEM SET Qty = 0;` sets Qty to 0 in every row of the table ITEM.\nReason (R): An UPDATE statement must always contain a WHERE clause, otherwise MySQL rejects it.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 41,
+   "id": "q_5b1b0291b42d4b95a38a58bcf4b427c2",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "The six PRODUCT rows are Notebook (Stationery, 45, 100), Pencil (Stationery, 8, 500), Backpack (Bags, 899, 20), Marker (Stationery, 30, NULL), Lunchbox (Kitchen, 250, 40), Bottle (Kitchen, 175, 60). After `DELETE FROM PRODUCT WHERE Stock IS NULL OR Price < 10;` how many rows remain and what is the sum of their Stock?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "4 rows and 220"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "4 rows and 320"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "5 rows and 220"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "2 rows and 100"
+    }
+   ]
+  },
+  {
+   "number": 42,
+   "id": "q_7771565db2a346a19bf83d5fc228cf7f",
+   "type": "ASSERTION_REASON",
+   "unit": "Structured Query Language – I",
+   "stem": "Assertion (A): A column of type DECIMAL(6, 2) can store the value 9999.99 but not 10000.00.\nReason (R): DECIMAL(6, 2) allows 6 digits in all, of which 2 are after the decimal point.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 43,
+   "id": "q_7f26e13be2494109a1593da3908287ff",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "Which of the following queries gives an error in MySQL? (Assume ITEM has the columns Code, Name, Cat, Price and Qty.)",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "SELECT Price * Qty AS Total FROM ITEM ORDER BY Total DESC;"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "SELECT Price * Qty AS Total FROM ITEM WHERE Total > 500;"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "SELECT Cat, SUM(Qty) AS TQ FROM ITEM GROUP BY Cat HAVING TQ > 5;"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "SELECT Name FROM ITEM WHERE Price * Qty > 500;"
+    }
+   ]
+  },
+  {
+   "number": 44,
+   "id": "q_b6ab19beb4ef4894bc6c022b79555ed9",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "Using the same six rows, what does `SELECT COUNT(Price * Stock) FROM PRODUCT;` return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "6"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "5"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "4"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "0"
+    }
+   ]
+  },
+  {
+   "number": 45,
+   "id": "q_ca36783b5d334fad90772797e1a3e7d2",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "A table PRODUCT has 5 columns. The statements `ALTER TABLE PRODUCT ADD Discount INT;`, `ALTER TABLE PRODUCT ADD Brand VARCHAR(15);` and `ALTER TABLE PRODUCT DROP COLUMN Stock;` are executed in order. How many columns does PRODUCT have now?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "7"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "6"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "5"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "4"
+    }
+   ]
+  },
+  {
+   "number": 46,
+   "id": "q_d168b028999f491b84a2b23fedd873d8",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "Which values are returned by `MID(\"Structured\", 4, 4)`, `SUBSTR(\"Structured\", -4)`, `INSTR(\"Structured\", \"ture\")` and `LENGTH(LTRIM(\"   Query\"))` in that order?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "uctu, ured, 6, 5"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "ruct, ured, 6, 8"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "uctu, ured, 5, 5"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "uctu, Stru, 6, 5"
+    }
+   ]
+  },
+  {
+   "number": 47,
+   "id": "q_d3d8c1560d584a26a6398eb5cb1d928c",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "A school stores a four-digit code such as 0452 in a column declared as INT. What problem is likely to occur?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "The value is stored as text and the zero is kept"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "The leading zero is lost and the value is kept as 452"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "The row is rejected because INT cannot hold four digits"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "The code is stored with two decimal places, 452.00"
+    }
+   ]
+  },
+  {
+   "number": 48,
+   "id": "q_f2bd298dc6a84d7fbe926ffb5289a786",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "The table PRODUCT(PCode INT PRIMARY KEY, PName VARCHAR(20), Price DECIMAL(6,2)) already has a row with PCode 101. Which INSERT will be rejected?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "`INSERT INTO PRODUCT VALUES (107, \"Ruler\", 15.50);`"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "`INSERT INTO PRODUCT (PCode, PName) VALUES (108, \"Eraser\");`"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "`INSERT INTO PRODUCT VALUES (101, \"Ruler\", 15.50);`"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "`INSERT INTO PRODUCT VALUES (109, \"Pen\", 0);`"
+    }
+   ]
+  },
+  {
+   "number": 49,
+   "id": "q_33d3f585fe6246c095f4409af9d33066",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "The table PRODUCT has the PName values Notebook, Pencil, Backpack, Marker, Lunchbox, Bottle. How many rows are returned by `SELECT PName FROM PRODUCT WHERE PName LIKE \"_o%\";`?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "1"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "2"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "3"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "0"
+    }
+   ]
+  },
+  {
+   "number": 50,
+   "id": "q_3e0dfaaec81c4d3c973523a7279d5d1d",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "In the table PRODUCT only the Marker row has NULL in Stock. How many rows are returned by `SELECT * FROM PRODUCT WHERE Stock = NULL;` and by `SELECT * FROM PRODUCT WHERE Stock IS NULL;` respectively?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "0 and 1"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "1 and 1"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "1 and 0"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "0 and 0"
+    }
+   ]
+  },
+  {
+   "number": 51,
+   "id": "q_5e13258972a943a3ab4ac0cbebe128bf",
+   "type": "ASSERTION_REASON",
+   "unit": "Structured Query Language – I",
+   "stem": "Assertion (A): The statement `DELETE FROM PRODUCT;` leaves the table PRODUCT in the database, with zero rows.\nReason (R): DELETE removes rows, while DROP TABLE is the statement that removes the table itself.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 52,
+   "id": "q_65d74b628c6d4b35a2428c211b49b78a",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "The table ITEM(Code, Name, Cat, Price, Qty) holds the rows (1, Kite, Toy, 120, 5), (2, Atlas, Book, 250, 3), (3, Ludo, Toy, 300, 2), (4, Novel, Book, 180, 10), (5, Pencil, Stationery, 10, 50) and (6, Puzzle, Toy, 90, 7). After `UPDATE ITEM SET Price = Price - 20 WHERE Price > 100;` what does `SELECT SUM(Price) FROM ITEM;` return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "990"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "870"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "750"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "890"
+    }
+   ]
+  },
+  {
+   "number": 53,
+   "id": "q_76a5e21f447540bd9cd3b06c1f716018",
+   "type": "STATEMENT_BASED",
+   "unit": "Structured Query Language – I",
+   "stem": "Consider the following statements about MySQL.\nA. A table can have only one PRIMARY KEY.\nB. The DEFAULT constraint supplies a value when none is given in INSERT.\nC. `DELETE FROM t WHERE ...` can remove selected rows.\nD. `ALTER TABLE` is a DML statement.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "B and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A, C and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A and B only"
+    }
+   ]
+  },
+  {
+   "number": 54,
+   "id": "q_7bbccb7ff6fa44c8b7b4249e59e25824",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Structured Query Language – I",
+   "stem": "Match each SQL item in List-I with its category in List-II.",
+   "structure": {
+    "left": [
+     "A. `SELECT`",
+     "B. `UPDATE`",
+     "C. `DROP TABLE`",
+     "D. `WHERE`"
+    ],
+    "right": [
+     "I. Data Definition Language",
+     "II. Data Manipulation Language",
+     "III. Data Query Language",
+     "IV. Clause that sets a condition for choosing rows"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-I, B-II, C-III, D-IV"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-III, B-II, C-I, D-IV"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-III, B-IV, C-I, D-II"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-II, B-III, C-I, D-IV"
+    }
+   ]
+  },
+  {
+   "number": 55,
+   "id": "q_8bf3e325a69241d787179b0b63989d79",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "After `UPDATE PRODUCT SET Price = Price + 10 WHERE Category = \"Kitchen\";` the Lunchbox price (250) and the Bottle price (175) become which two values?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "260 and 175"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "260 and 185 for every row in the table"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "250 and 175"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "260 and 185"
+    }
+   ]
+  },
+  {
+   "number": 56,
+   "id": "q_9b2882c19e214b3eada31bb744e3e07d",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "The table ITEM(Code, Name, Cat, Price, Qty) holds the rows (1, Kite, Toy, 120, 5), (2, Atlas, Book, 250, 3), (3, Ludo, Toy, 300, 2), (4, Novel, Book, 180, 10), (5, Pencil, Stationery, 10, 50) and (6, Puzzle, Toy, 90, 7). In which order does `SELECT Name FROM ITEM WHERE Cat IN (\"Toy\", \"Book\") ORDER BY Cat, Price DESC;` list the names?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Atlas, Novel, Ludo, Kite, Puzzle"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Ludo, Kite, Puzzle, Atlas, Novel"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Novel, Atlas, Puzzle, Kite, Ludo"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Atlas, Novel, Ludo, Kite, Puzzle, Pencil"
+    }
+   ]
+  },
+  {
+   "number": 57,
+   "id": "q_a3e2f770eb8741c0a102bace476a1f50",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Structured Query Language – I",
+   "stem": "Match each MySQL command in List-I with its effect in List-II.",
+   "structure": {
+    "left": [
+     "A. `USE school;`",
+     "B. `SHOW TABLES;`",
+     "C. `DESC student;`",
+     "D. `SHOW DATABASES;`"
+    ],
+    "right": [
+     "I. Lists the tables of the current database",
+     "II. Lists the databases on the server",
+     "III. Makes school the current database",
+     "IV. Shows the columns of the table student"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-I, B-III, C-IV, D-II"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-III, B-I, C-II, D-IV"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-III, B-I, C-IV, D-II"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-III, B-II, C-IV, D-I"
+    }
+   ]
+  },
+  {
+   "number": 58,
+   "id": "q_aa47412301cc4e4fb64b2ae9913b5c99",
+   "type": "STATEMENT_BASED",
+   "unit": "Structured Query Language – I",
+   "stem": "Consider the following statements about SQL.\nA. `CREATE TABLE` belongs to DDL.\nB. `INSERT INTO t VALUES (...)` without a column list must give values for all columns in table order.\nC. A column declared `PRIMARY KEY` may hold NULL.\nD. `DELETE FROM t;` without WHERE removes the table t from the database.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "B and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A and B only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, C and D only"
+    }
+   ]
+  },
+  {
+   "number": 59,
+   "id": "q_b0fc80a49dc3440eba1cec6fb2e083b5",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "Which products does `WHERE Price BETWEEN 30 AND 250` select, if the prices are Notebook 45, Pencil 8, Backpack 899, Marker 30, Lunchbox 250, Bottle 175?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Notebook and Bottle only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Notebook, Pencil, Marker and Bottle"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Notebook, Marker, Lunchbox and Bottle"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "All six products"
+    }
+   ]
+  },
+  {
+   "number": 60,
+   "id": "q_bcde4bef43dc498eb6b0c5c4fc82dd5e",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – I",
+   "stem": "What are the values of `POWER(5, 3)`, `ROUND(76.489, 1)` and `MOD(-17, 5)` in MySQL, in order?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "15, 76.4, 2"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "125, 76.5, 2"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "125, 76.4, -2"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "125, 76.5, -2"
+    }
+   ]
+  },
+  {
+   "number": 61,
+   "id": "q_02a2ce89d2a143d1a75c192b009bf8dd",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "Which MySQL function returns the current date together with the current time?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "NOW()"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "DATE()"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "DAYNAME()"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "YEAR()"
+    }
+   ]
+  },
+  {
+   "number": 62,
+   "id": "q_1b801f63cde04b3187bd33ba12ca6532",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "Which aggregate function counts all the rows of a table, including those that contain NULL in some columns?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "COUNT(Salary)"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "SUM(Salary)"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "MAX(Salary)"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "COUNT(*)"
+    }
+   ]
+  },
+  {
+   "number": 63,
+   "id": "q_28ae4be8cf47497d9219706abcf9d76d",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "What does SELECT MONTHNAME('2024-03-15'); return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "3"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "March"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Friday"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "15"
+    }
+   ]
+  },
+  {
+   "number": 64,
+   "id": "q_2be6b47a8cdf44ef83f9db6c4c704b5c",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "Which keyword is used with ORDER BY to sort the rows from the largest value to the smallest?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "DESC"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "ASC"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "REVERSE"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "DOWN"
+    }
+   ]
+  },
+  {
+   "number": 65,
+   "id": "q_54865dff298b4cbe96e775b97f842089",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "Which aggregate function returns the largest value of a column?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "MIN()"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "COUNT()"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "SUM()"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "MAX()"
+    }
+   ]
+  },
+  {
+   "number": 66,
+   "id": "q_f58987d1611a4b72ad9737cdb58235ca",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "Which MySQL function returns only the current date, without the time?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "NOW()"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "DAY()"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "CURDATE()"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "MONTHNAME()"
+    }
+   ]
+  },
+  {
+   "number": 67,
+   "id": "q_f9cd7d0991194b60b76c877ef8b399cd",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "Which clause is used to sort the rows of a query result?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "GROUP BY"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "HAVING"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "ORDER BY"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "WHERE"
+    }
+   ]
+  },
+  {
+   "number": 68,
+   "id": "q_0b1d0c2470444a16b9a1c8a63c96779b",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "S(SID, SName, CID) has the rows (1, A, 10), (2, B, 20), (3, C, 10), (4, D, 99) and CL(CID, CName) has the rows (10, X), (20, Y), (30, Z). How many rows are returned by SELECT SName, CName FROM S, CL WHERE S.CID = CL.CID; ?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "12"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "3"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "4"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "7"
+    }
+   ]
+  },
+  {
+   "number": 69,
+   "id": "q_106d5fb3cd5347958d17c44996be79b3",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "What does `SELECT DAYNAME(\"2024-02-29\"), MONTH(\"2024-02-29\") * DAY(\"2024-02-29\");` display in MySQL?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Thursday, 31"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Friday, 58"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Thursday, 58"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "February, 58"
+    }
+   ]
+  },
+  {
+   "number": 70,
+   "id": "q_1e0cc7cfb5a047cca8d446073ea95a7f",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "Table A holds the values 1, 2, 2, 3 and table B holds 2, 3, 4 (single column x). How many rows does SELECT x FROM A UNION SELECT x FROM B; return, and how many would SELECT x FROM A UNION ALL SELECT x FROM B; return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "4 and 7"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "7 and 4"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "4 and 4"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "3 and 7"
+    }
+   ]
+  },
+  {
+   "number": 71,
+   "id": "q_32f1f3855664438e92d69a80c073eff5",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "For the EMP table (Sales: 40000, 45000, 35000; HR: 35000, NULL; IT: 50000), which output does SELECT Dept, AVG(Salary) FROM EMP GROUP BY Dept HAVING AVG(Salary) > 35000 ORDER BY AVG(Salary) DESC; give?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Sales 40000 then IT 50000"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "IT 50000, Sales 40000 and HR 35000"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "IT 50000 then Sales 40000"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "IT 50000 then Sales 120000"
+    }
+   ]
+  },
+  {
+   "number": 72,
+   "id": "q_548d1d30af00423581e3389761345cd6",
+   "type": "ASSERTION_REASON",
+   "unit": "Structured Query Language – II",
+   "stem": "Assertion (A): The values returned by COUNT(Sal) and COUNT(*) on a table are always equal.\nReason (R): COUNT(column) does not count the rows in which that column is NULL.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 73,
+   "id": "q_75edd36261e44a41946f6ebe83400d88",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "Table S has 4 rows and 3 columns, and table T has 5 rows and 2 columns. How many rows and columns does the Cartesian product S x T have?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "9 rows and 6 columns"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "9 rows and 5 columns"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "20 rows and 6 columns"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "20 rows and 5 columns"
+    }
+   ]
+  },
+  {
+   "number": 74,
+   "id": "q_9f14122409cb4e9e94d510a7540e6939",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "The EMP table has JoinDate values 2023-03-15, 2022-11-02, 2021-07-20, 2023-01-09, 2024-02-29 and 2020-12-25 for Asha, Bhav, Chet, Divya, Esha and Farid. Which query returns exactly Asha and Divya?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "SELECT Name FROM EMP WHERE YEAR(JoinDate) = 2023;"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "SELECT Name FROM EMP WHERE MONTH(JoinDate) = 2023;"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "SELECT Name FROM EMP WHERE DAYNAME(JoinDate) = 'Friday';"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "SELECT Name FROM EMP WHERE DAY(JoinDate) = 2023;"
+    }
+   ]
+  },
+  {
+   "number": 75,
+   "id": "q_b4cf22a7f74b4f2d8fd13d4def70d408",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "Table T1 has the values 1, 2, 3 in column k, T2 has 1, 1, 2, 4 and T3 has 1, 2, 2, 5. What does `SELECT COUNT(*) FROM T1, T2, T3 WHERE T1.k = T2.k AND T2.k = T3.k;` return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "48"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "4"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "2"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "3"
+    }
+   ]
+  },
+  {
+   "number": 76,
+   "id": "q_d53856080e0342ec800bf4fd31d1b1c0",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "EMP(Name, DeptNo) holds the rows (A, 1), (B, 2), (C, 1), (D, 3), (E, 2), (F, 1) and (G, 9). DEPT(DeptNo, DName) holds (1, Sales), (2, HR), (3, IT) and (4, Fin). What does the following query return?\n`SELECT D.DName, COUNT(*) FROM EMP E, DEPT D WHERE E.DeptNo = D.DeptNo GROUP BY D.DName HAVING COUNT(*) >= 2 ORDER BY D.DName DESC;`",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "(HR, 2), (Sales, 3)"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "(Sales, 3), (HR, 2), (IT, 1)"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(Sales, 3), (HR, 2)"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(Sales, 4), (HR, 2)"
+    }
+   ]
+  },
+  {
+   "number": 77,
+   "id": "q_fa8a85290ca9457a85d3234ffc073f23",
+   "type": "STATEMENT_BASED",
+   "unit": "Structured Query Language – II",
+   "stem": "Consider the following statements about operations on relations.\nA. The union of two relations requires them to have the same number of columns.\nB. A - B and B - A always give the same result.\nC. A Cartesian product with m rows in one table and n rows in another has m x n rows.\nD. UNION removes duplicate rows from the combined result.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, C and D only"
+    }
+   ]
+  },
+  {
+   "number": 78,
+   "id": "q_fd73f4e0fd6f4334af7037c6114fa559",
+   "type": "ASSERTION_REASON",
+   "unit": "Structured Query Language – II",
+   "stem": "Assertion (A): In a query with GROUP BY, a column that is in the SELECT list but is neither aggregated nor named in GROUP BY gives an unreliable or invalid result.\nReason (R): A group contains many rows, and a plain column can have different values in them, so one value cannot be shown for the whole group.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 79,
+   "id": "q_1d4d0a5ffad54058b854819a8097631b",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "On the EMP table, what is the output of SELECT Dept, SUM(Salary) FROM EMP WHERE Salary >= 40000 GROUP BY Dept ORDER BY Dept;",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "HR 35000, IT 50000 and Sales 120000"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "IT 50000 and Sales 120000"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "IT 50000 and Sales 85000"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Sales 85000 only"
+    }
+   ]
+  },
+  {
+   "number": 80,
+   "id": "q_35bbe7263c5c4ee2bdcb3322a774caa2",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "EMP(Name, DeptNo) holds the rows (A, 1), (B, 2), (C, 1), (D, 3), (E, 2), (F, 1) and (G, 9). DEPT(DeptNo, DName) holds (1, Sales), (2, HR), (3, IT) and (4, Fin). How many rows does `SELECT * FROM EMP E, DEPT D WHERE E.DeptNo = D.DeptNo;` return, and which department has no employee in the result?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "7 rows; Fin"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "6 rows; IT"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "28 rows; none"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "6 rows; Fin"
+    }
+   ]
+  },
+  {
+   "number": 81,
+   "id": "q_376ea9be8c2d46d1bd9f48246de9f0ff",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "The table EMP has Salary values 40000, 35000, 45000, 50000, NULL and 35000. What does SELECT AVG(Salary) FROM EMP; return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "41000"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "40000"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "34166.67"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "35000"
+    }
+   ]
+  },
+  {
+   "number": 82,
+   "id": "q_571532974b264fbb9feea79887fa5446",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "What is the result of SELECT DAYNAME('2020-12-25'), YEAR('2020-12-25'), MONTH('2020-12-25');",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Friday, 2020, 12"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Friday, 2020, December"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Thursday, 2020, 12"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Friday, 25, 12"
+    }
+   ]
+  },
+  {
+   "number": 83,
+   "id": "q_76d5ae7af279464aa262c426a0f550dc",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "With the same EMP table (Dept: Sales, HR, Sales, IT, HR, Sales; Salary: 40000, 35000, 45000, 50000, NULL, 35000), how many rows does SELECT Dept, COUNT(Salary) FROM EMP GROUP BY Dept; return and what is the count for HR?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "3 rows; HR count is 2"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "3 rows; HR count is 1"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "6 rows; HR count is 1"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "2 rows; HR count is 1"
+    }
+   ]
+  },
+  {
+   "number": 84,
+   "id": "q_7a808af7f0f04f52a6f8789d23bf44a6",
+   "type": "ASSERTION_REASON",
+   "unit": "Structured Query Language – II",
+   "stem": "Assertion (A): An aggregate function such as AVG() cannot be used directly in a WHERE clause.\nReason (R): WHERE is applied to individual rows before grouping, and the aggregate value of a group is not yet available at that stage.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 85,
+   "id": "q_80e67b43c90947b2b43e47bda7f3e232",
+   "type": "STATEMENT_BASED",
+   "unit": "Structured Query Language – II",
+   "stem": "Consider these statements about aggregate functions.\nA. COUNT(*) counts rows that contain NULL values.\nB. AVG() includes NULL values as zero.\nC. SUM() ignores NULL values.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and B only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "B and C only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A and C only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, B and C"
+    }
+   ]
+  },
+  {
+   "number": 86,
+   "id": "q_957b5e99368a44b5b8531b944a3e67e0",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Structured Query Language – II",
+   "stem": "Match the SQL feature in List-I with its description in List-II.",
+   "structure": {
+    "left": [
+     "A. HAVING",
+     "B. COUNT(*)",
+     "C. DAYNAME()",
+     "D. Cartesian product"
+    ],
+    "right": [
+     "I. Counts rows including NULLs",
+     "II. Returns the weekday name of a date",
+     "III. Pairs every row of one table with every row of another",
+     "IV. Filters groups after aggregation"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-I, B-IV, C-II, D-III"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-IV, B-I, C-II, D-III"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-IV, B-I, C-III, D-II"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-II, B-I, C-IV, D-III"
+    }
+   ]
+  },
+  {
+   "number": 87,
+   "id": "q_c4023dfd68d04b0eba5e0f391d69039f",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "The table EMP2(Name, Dept, Sal) holds the rows (Asha, HR, 30000), (Ravi, IT, 50000), (Meena, HR, 40000), (Karan, IT, 45000), (Sia, Sales, 35000) and (Dev, Sales, NULL). What does `SELECT Dept, MAX(Sal) - MIN(Sal) FROM EMP2 GROUP BY Dept ORDER BY Dept;` return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "(HR, 10000), (IT, 5000), (Sales, NULL)"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "(HR, 10000), (IT, 5000), (Sales, 0)"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(HR, 70000), (IT, 95000), (Sales, 35000)"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(HR, 5000), (IT, 10000), (Sales, 0)"
+    }
+   ]
+  },
+  {
+   "number": 88,
+   "id": "q_d0a3edf936624d0c9d68aa6c59cc1469",
+   "type": "MCQ_SINGLE",
+   "unit": "Structured Query Language – II",
+   "stem": "Which query lists only the departments having more than one employee?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "SELECT Dept FROM EMP WHERE COUNT(*) > 1;"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "SELECT Dept FROM EMP GROUP BY COUNT(*) > 1;"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "SELECT Dept FROM EMP ORDER BY COUNT(*) > 1;"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "SELECT Dept FROM EMP GROUP BY Dept HAVING COUNT(*) > 1;"
+    }
+   ]
+  },
+  {
+   "number": 89,
+   "id": "q_d1b32b8d81fe4e74b0343427385f1e7d",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Structured Query Language – II",
+   "stem": "The table EMP2(Name, Dept, Sal) holds the rows (Asha, HR, 30000), (Ravi, IT, 50000), (Meena, HR, 40000), (Karan, IT, 45000), (Sia, Sales, 35000) and (Dev, Sales, NULL). Match each expression in List-I with its value in List-II.",
+   "structure": {
+    "left": [
+     "A. `COUNT(Sal)`",
+     "B. `COUNT(*)`",
+     "C. `SUM(Sal)`",
+     "D. `MAX(Sal)`"
+    ],
+    "right": [
+     "I. 6",
+     "II. 200000",
+     "III. 5",
+     "IV. 50000"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-III, B-I, C-II, D-IV"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-I, B-III, C-II, D-IV"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-III, B-I, C-IV, D-II"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-II, B-I, C-III, D-IV"
+    }
+   ]
+  },
+  {
+   "number": 90,
+   "id": "q_de15a751fa354a19b05248d920b8289a",
+   "type": "STATEMENT_BASED",
+   "unit": "Structured Query Language – II",
+   "stem": "Consider the following statements about SQL queries.\nA. MIN() and MAX() can also be used on text columns.\nB. HAVING is applied before WHERE in a query.\nC. COUNT(DISTINCT Dept) counts the different non-NULL departments.\nD. ORDER BY ... DESC lists the smallest value first.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and B only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A and C only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, C and D only"
+    }
+   ]
+  },
+  {
+   "number": 91,
+   "id": "q_17c8254891844d178b3426b0ff437e6c",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Which guided transmission medium has a central copper conductor surrounded by an insulator and a metal shield?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Optical fibre"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Twisted pair cable"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Coaxial cable"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Microwave link"
+    }
+   ]
+  },
+  {
+   "number": 92,
+   "id": "q_4f59da3879054d40b788503d58a1bff5",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Which address is permanently assigned to the network interface card by its manufacturer?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "MAC address"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "IP address"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Port number"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "URL"
+    }
+   ]
+  },
+  {
+   "number": 93,
+   "id": "q_56703f1c878d4d6a9a20b31a70c8f955",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Which type of network covers the smallest area, such as one laboratory or one building?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "MAN"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "WAN"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Internet"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "LAN"
+    }
+   ]
+  },
+  {
+   "number": 94,
+   "id": "q_6d69a964fb2346f4ba926c5b1834977b",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Which hardware component is fitted inside a computer so that it can connect to a LAN?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Repeater"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Switch"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Gateway"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Network Interface Card (NIC)"
+    }
+   ]
+  },
+  {
+   "number": 95,
+   "id": "q_aafb7a284f39498f88e40e5e5b0521e9",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Which device converts the digital signal of a computer into an analog signal for a telephone line and back again?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Modem"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Repeater"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Hub"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Gateway"
+    }
+   ]
+  },
+  {
+   "number": 96,
+   "id": "q_b00857498e32425198d87b6e56c95d8d",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "In which topology is every node connected to a central hub or switch?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Bus"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Ring"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Star"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Mesh"
+    }
+   ]
+  },
+  {
+   "number": 97,
+   "id": "q_b2c3e30d37f14ff197f09a9d99c65ee2",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Which of the following is the earliest network that led to the Internet?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Ethernet"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "NSFNET"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "WWW"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "ARPANET"
+    }
+   ]
+  },
+  {
+   "number": 98,
+   "id": "q_cff2b8119a744563970ec8897105a71d",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "A network spread over a whole city, linking offices and institutions of that city, is best described as a",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "LAN"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "MAN"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "WAN"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "PAN"
+    }
+   ]
+  },
+  {
+   "number": 99,
+   "id": "q_4c96bcb0ebc7407b811dca5b2e7638f2",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "A lab with 10 computers needs a topology in which a fault in the cable of one computer must not stop the other computers, and new computers must be easy to add. Which topology fits best?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Bus"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Tree with the root cable shared by all computers"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Ring"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Star"
+    }
+   ]
+  },
+  {
+   "number": 100,
+   "id": "q_54969d2d88f545c685bf8af75f6de65f",
+   "type": "ASSERTION_REASON",
+   "unit": "Computer Networks",
+   "stem": "Assertion (A): A switch forwards a frame only to the port to which the destination computer is connected.\nReason (R): A switch is a network device that has many ports.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 101,
+   "id": "q_7c7d671cfe5248e392f95396a2f7a499",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Which statement about a hub and a switch is correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A hub uses MAC addresses and a switch does not"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A switch forwards a frame only to the destination port, while a hub forwards it to all ports"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A hub connects different networks and a switch connects devices of one network only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Both send data only to the intended receiver, but a hub is faster"
+    }
+   ]
+  },
+  {
+   "number": 102,
+   "id": "q_88709fd848d94ee6864ac62629160244",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "How many direct links are needed to connect 8 computers in a full mesh topology?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "28"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "8"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "36"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "56"
+    }
+   ]
+  },
+  {
+   "number": 103,
+   "id": "q_8e58bd07097d4ef284d473407f8a66de",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Which of the following uses the Internet but is not part of the World Wide Web?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Sending an e-mail with an e-mail client using SMTP"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Reading a news article through its URL"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Opening a school website in a browser"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Viewing an online video page over HTTPS"
+    }
+   ]
+  },
+  {
+   "number": 104,
+   "id": "q_9a2de254deee487f92feb24a67420485",
+   "type": "STATEMENT_BASED",
+   "unit": "Computer Networks",
+   "stem": "Consider the following statements about topologies.\nA. In a bus topology a break in the backbone cable can stop the whole network.\nB. In a ring topology each node is connected to exactly two other nodes.\nC. In a tree topology several star networks are arranged in a hierarchy.\nD. A mesh topology needs less cable than a star topology.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A, B and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A and C only"
+    }
+   ]
+  },
+  {
+   "number": 105,
+   "id": "q_c2b5ad9c2e8c4da3bc72e7ee702f886d",
+   "type": "ASSERTION_REASON",
+   "unit": "Computer Networks",
+   "stem": "Assertion (A): The IP address of a laptop can be different when it is connected to different Wi-Fi networks, but its MAC address remains the same.\nReason (R): The MAC address is fixed in the network card by its manufacturer, while an IP address is allocated by the network the device joins.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 106,
+   "id": "q_ddb335cb2f534a98a962732be10025c9",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "A school has three labs. Each lab is a star network of 5 computers connected to its own switch. The three switches are then joined in a ring (each switch connected to the next, the last to the first). How many cables are used in all?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "15"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "18"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "17"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "21"
+    }
+   ]
+  },
+  {
+   "number": 107,
+   "id": "q_e6de1698385b439cbaf14143d0e34373",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "How many more cables are needed to connect 12 computers in a full mesh than to connect them in a star topology (one cable from every computer to a central switch)?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "66"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "12"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "78"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "54"
+    }
+   ]
+  },
+  {
+   "number": 108,
+   "id": "q_eeecc6a0cb80475e97377646d4c82264",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "A company has two offices; one uses a network based on one protocol suite and the other uses a different architecture. Which device lets them exchange data?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Hub"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Gateway"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Repeater"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Ethernet card"
+    }
+   ]
+  },
+  {
+   "number": 109,
+   "id": "q_07a42f0531c449658a05e2b02cd15c8a",
+   "type": "STATEMENT_BASED",
+   "unit": "Computer Networks",
+   "stem": "Consider the following statements.\nA. The Internet is a worldwide network of networks.\nB. The web is a service that runs on the Internet.\nC. E-mail cannot work without the web.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "B and C only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A, B and C"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A and B only"
+    }
+   ]
+  },
+  {
+   "number": 110,
+   "id": "q_4766efd8ea114231bb1d253b872f38ec",
+   "type": "STATEMENT_BASED",
+   "unit": "Computer Networks",
+   "stem": "Consider the following statements.\nA. A bus topology has a central switch to which every node is connected.\nB. Wi-Fi uses radio waves to carry data.\nC. Optical fibre carries data as pulses of light.\nD. A MAN covers a larger area than a LAN.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "B and D only"
+    }
+   ]
+  },
+  {
+   "number": 111,
+   "id": "q_514b6eb6be5b4ee2b9c83b0c3164a28e",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "A company links its branch offices in Delhi, Chennai and London with leased lines so that all of them share one network. Which type of network is this?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "WAN"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "PAN"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "LAN"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "MAN"
+    }
+   ]
+  },
+  {
+   "number": 112,
+   "id": "q_529594170b8f49f9b15e7d4d8d88b152",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Which device sends a data frame only to the port of the intended receiver on the same network, using MAC addresses?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Hub"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Switch"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Modem"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Repeater"
+    }
+   ]
+  },
+  {
+   "number": 113,
+   "id": "q_56d3933a85fa44779c50a2f257647c0d",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "An IPv4 address is 32 bits long. How many different IPv4 addresses are possible in all?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "2^16, which is 65,536"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "2^32, which is 4,294,967,296"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "32^2, which is 1,024"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "256^3, which is 16,777,216"
+    }
+   ]
+  },
+  {
+   "number": 114,
+   "id": "q_5ed20b6a4fad435b891bcfa440634e30",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Which device connects two different networks and forwards packets by examining their IP addresses?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Switch"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Hub"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Repeater"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Router"
+    }
+   ]
+  },
+  {
+   "number": 115,
+   "id": "q_5ede451167bd43589e96aaf2a792ab7e",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Computer Networks",
+   "stem": "Match the device in List-I with its main function in List-II.",
+   "structure": {
+    "left": [
+     "A. Repeater",
+     "B. Hub",
+     "C. Gateway",
+     "D. Modem"
+    ],
+    "right": [
+     "I. Converts digital signals to analog and back",
+     "II. Regenerates a weak signal",
+     "III. Converts between different protocols",
+     "IV. Sends incoming data to all ports"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-IV, B-II, C-III, D-I"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-II, B-IV, C-I, D-III"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-II, B-IV, C-III, D-I"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-II, B-III, C-IV, D-I"
+    }
+   ]
+  },
+  {
+   "number": 116,
+   "id": "q_77e65c2296bb4423ae6cf53cf4f9ab00",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "A college places a device at the boundary where its Ethernet LAN meets the network of its Internet service provider, so that it can decide where each outgoing packet goes. Which device is this?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Repeater"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Router"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Ethernet card"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Hub"
+    }
+   ]
+  },
+  {
+   "number": 117,
+   "id": "q_a33a6c457f054910851af99ba62626b9",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Which of the following is a valid IPv4 address?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "192.168.10.25"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "256.10.1.1"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "192.168.1"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "192.168.10.25.7"
+    }
+   ]
+  },
+  {
+   "number": 118,
+   "id": "q_ba1a0ee0e3c9483e8e541c6a46f2c4bd",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Networks",
+   "stem": "Six computers are joined so that every computer has its own direct cable to each of the others. How many network ports must one computer have?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "15"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "6"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "5"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "1"
+    }
+   ]
+  },
+  {
+   "number": 119,
+   "id": "q_f1980ee495b0412487425be625c9d14d",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Computer Networks",
+   "stem": "Match each network type in List-I with an example in List-II.",
+   "structure": {
+    "left": [
+     "A. PAN",
+     "B. LAN",
+     "C. MAN",
+     "D. WAN"
+    ],
+    "right": [
+     "I. A phone connected to wireless earphones by Bluetooth",
+     "II. The computers of one school laboratory",
+     "III. A cable TV network spread over a city",
+     "IV. The Internet"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-I, B-II, C-III, D-IV"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-II, B-I, C-III, D-IV"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-I, B-II, C-IV, D-III"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-I, B-III, C-II, D-IV"
+    }
+   ]
+  },
+  {
+   "number": 120,
+   "id": "q_f6c5170ec77040ae854cf1a658b2ae49",
+   "type": "ASSERTION_REASON",
+   "unit": "Computer Networks",
+   "stem": "Assertion (A): The failure of the central switch in a star network stops communication of the entire network.\nReason (R): In a star topology every node communicates through the central device and has no direct link to any other node.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  }
+ ],
+ "answerKey": [
+  {
+   "number": 1,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 2,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 3,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 4,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 5,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 6,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 7,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 8,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 9,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 10,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 11,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 12,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 13,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 14,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 15,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 16,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 17,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 18,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 19,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 20,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 21,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 22,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 23,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 24,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 25,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 26,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 27,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 28,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 29,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 30,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 31,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 32,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 33,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 34,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 35,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 36,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 37,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 38,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 39,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 40,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 41,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 42,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 43,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 44,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 45,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 46,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 47,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 48,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 49,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 50,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 51,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 52,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 53,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 54,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 55,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 56,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 57,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 58,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 59,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 60,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 61,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 62,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 63,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 64,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 65,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 66,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 67,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 68,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 69,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 70,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 71,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 72,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 73,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 74,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 75,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 76,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 77,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 78,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 79,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 80,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 81,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 82,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 83,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 84,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 85,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 86,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 87,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 88,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 89,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 90,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 91,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 92,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 93,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 94,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 95,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 96,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 97,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 98,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 99,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 100,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 101,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 102,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 103,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 104,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 105,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 106,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 107,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 108,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 109,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 110,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 111,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 112,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 113,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 114,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 115,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 116,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 117,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 118,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 119,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 120,
+   "correct": [
+    "A"
+   ]
+  }
+ ]
+}

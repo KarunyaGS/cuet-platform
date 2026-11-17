@@ -1,0 +1,239 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_10d87a54dbd747f4bc7ddc134180a57b",
+  "title": "Integrals"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r22-integrals-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Using standard antiderivatives, $\\displaystyle\\int\\left(\\sec^2x+4x^3\\right)dx$ equals",
+   "options": [
+    "$\\tan x+x^4+C$",
+    "$\\tan x+\\dfrac{x^4}{4}+C$",
+    "$-\\cot x+x^4+C$",
+    "$\\sec x+x^4+C$"
+   ],
+   "answer": 1,
+   "explanation": "The derivative of $\\tan x$ is $\\sec^2x$, and the derivative of $x^4$ is $4x^3$. Integration reverses differentiation, so $\\int\\sec^2x\\,dx=\\tan x$ and $\\int4x^3dx=x^4$. Adding a constant gives the answer.",
+   "optionRationale": {
+    "2": "x^4/4 would be the integral of x^3; here the coefficient 4 cancels the 1/4.",
+    "3": "-cot x is the antiderivative of cosec squared x, not sec squared x.",
+    "4": "sec x differentiates to sec x tan x, not sec squared x."
+   },
+   "objective": "Integrate standard trigonometric and power terms"
+  },
+  {
+   "key": "ug26-319-r22-integrals-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Using the Fundamental Theorem of Calculus with an antiderivative of the integrand, the value of $\\displaystyle\\int_0^2\\left(3x^2-2x\\right)dx$ is",
+   "options": [
+    "8",
+    "4",
+    "6",
+    "2"
+   ],
+   "answer": 2,
+   "explanation": "An antiderivative of $3x^2-2x$ is $x^3-x^2$. By the Fundamental Theorem of Calculus, the definite integral equals the antiderivative at the upper limit minus its value at the lower limit, so $(8-4)-(0-0)=4$.",
+   "optionRationale": {
+    "1": "8 is the value of x^3 alone at 2; the -x^2 term was left out.",
+    "3": "6 results from using x^3 - x as the antiderivative and evaluating at the upper limit.",
+    "4": "2 results from using 3x - 2 (a derivative) instead of an antiderivative and evaluating at 2."
+   },
+   "objective": "Evaluate a polynomial definite integral"
+  },
+  {
+   "key": "ug26-319-r22-integrals-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A student recalls the standard form for a squared difference in the denominator and writes down $\\displaystyle\\int\\frac{dx}{25-x^2}$ as",
+   "options": [
+    "$\\dfrac1{10}\\ln\\left|\\dfrac{5-x}{5+x}\\right|+C$",
+    "$\\dfrac15\\ln\\left|\\dfrac{5+x}{5-x}\\right|+C$",
+    "$\\dfrac15\\tan^{-1}\\dfrac x5+C$",
+    "$\\dfrac1{10}\\ln\\left|\\dfrac{5+x}{5-x}\\right|+C$"
+   ],
+   "answer": 4,
+   "explanation": "The standard result is $\\int\\frac{dx}{a^2-x^2}=\\frac1{2a}\\ln\\left|\\frac{a+x}{a-x}\\right|+C$. With $a=5$ the factor is $\\frac1{10}$ and the ratio is $\\frac{5+x}{5-x}$.",
+   "optionRationale": {
+    "1": "The ratio is inverted; a + x belongs in the numerator for a^2 - x^2.",
+    "2": "The factor is 1/(2a) = 1/10, not 1/a = 1/5.",
+    "3": "Inverse tangent belongs to a^2 + x^2 in the denominator, not a^2 - x^2."
+   },
+   "objective": "Recall the integral of 1/(a^2 - x^2)"
+  },
+  {
+   "key": "ug26-319-r22-integrals-m04",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each integral in List-I with its result (constant omitted) in List-II.",
+   "list": {
+    "left": [
+     "A. $\\displaystyle\\int\\frac{dx}{x^2+16}$",
+     "B. $\\displaystyle\\int\\frac{dx}{\\sqrt{x^2+9}}$",
+     "C. $\\displaystyle\\int\\frac{dx}{\\sqrt{16-x^2}}$",
+     "D. $\\displaystyle\\int\\frac{dx}{x^2-4}$"
+    ],
+    "right": [
+     "I. $\\ln\\left|x+\\sqrt{x^2+9}\\right|$",
+     "II. $\\dfrac14\\ln\\left|\\dfrac{x-2}{x+2}\\right|$",
+     "III. $\\dfrac14\\tan^{-1}\\dfrac x4$",
+     "IV. $\\sin^{-1}\\dfrac x4$"
+    ]
+   },
+   "options": [
+    "A-I, B-III, C-IV, D-II",
+    "A-III, B-I, C-II, D-IV",
+    "A-III, B-I, C-IV, D-II",
+    "A-II, B-I, C-IV, D-III"
+   ],
+   "answer": 3,
+   "explanation": "$\\int\\frac{dx}{x^2+16}=\\frac14\\tan^{-1}\\frac x4$ (III). $\\int\\frac{dx}{\\sqrt{x^2+9}}=\\ln\\left|x+\\sqrt{x^2+9}\\right|$ (I). $\\int\\frac{dx}{\\sqrt{16-x^2}}=\\sin^{-1}\\frac x4$ (IV). $\\int\\frac{dx}{x^2-4}=\\frac14\\ln\\left|\\frac{x-2}{x+2}\\right|$ (II).",
+   "optionRationale": {
+    "1": "A and B are swapped: the plus-sign denominator gives inverse tangent, the root of x^2 + 9 gives a logarithm.",
+    "2": "C and D are swapped: the root of 16 - x^2 gives inverse sine, and x^2 - 4 gives a logarithm.",
+    "4": "A and D are swapped: x^2 + 16 gives an inverse tangent and x^2 - 4 a logarithm."
+   },
+   "objective": "Match standard integral forms"
+  },
+  {
+   "key": "ug26-319-r22-integrals-m05",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider these properties of definite integrals.\nA. $\\displaystyle\\int_a^bf(x)\\,dx=\\int_a^bf(a+b-x)\\,dx$.\nB. If $f$ is even, then $\\displaystyle\\int_{-a}^{a}f(x)\\,dx=2\\int_0^af(x)\\,dx$.\nC. $\\displaystyle\\int_0^{2a}f(x)\\,dx=2\\int_0^af(x)\\,dx$ for every function $f$.\nD. $\\displaystyle\\int_a^bf(x)\\,dx=\\int_b^af(x)\\,dx$.\nWhich are correct?",
+   "options": [
+    "A and B only",
+    "A, B and C only",
+    "B and D only",
+    "C and D only"
+   ],
+   "answer": 1,
+   "explanation": "A is the substitution $x\\to a+b-x$ and B is the even-function property. C holds only when $f(2a-x)=f(x)$; for $f(x)=x$ the left side is $2a^2$ while the right side is $a^2$. D is false, because reversing the limits changes the sign.",
+   "optionRationale": {
+    "2": "C is false: for f(x) = x, the left side is 2a^2 and the right side is a^2.",
+    "3": "D is false, since interchanging limits reverses the sign; C is also false.",
+    "4": "C and D are both false, while A and B are true."
+   },
+   "objective": "State standard properties of definite integrals"
+  },
+  {
+   "key": "ug26-319-r22-integrals-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The antiderivative $\\displaystyle\\int x\\cos x\\,dx$ is",
+   "options": [
+    "$x\\sin x-\\cos x+C$",
+    "$x\\sin x+\\cos x+C$",
+    "$-x\\sin x+\\cos x+C$",
+    "$\\dfrac{x^2}{2}\\sin x+C$"
+   ],
+   "answer": 2,
+   "explanation": "Integrating by parts with $u=x$ and $dv=\\cos x\\,dx$ gives $x\\sin x-\\int\\sin x\\,dx=x\\sin x+\\cos x+C$. Differentiating the answer gives $\\sin x+x\\cos x-\\sin x=x\\cos x$, which confirms it.",
+   "optionRationale": {
+    "1": "The sign of the second term is wrong: minus the integral of sin x is plus cos x.",
+    "3": "The first term has the wrong sign; u v should be x sin x, positive.",
+    "4": "This integrates the two factors separately, which the product rule does not allow."
+   },
+   "objective": "Integrate by parts with an algebraic and a trigonometric factor"
+  },
+  {
+   "key": "ug26-319-r22-integrals-m07",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "**Assertion (A):** $\\displaystyle\\int_{-\\pi/2}^{\\pi/2}\\sin^3x\\,dx=0$.\n**Reason (R):** If $f$ is an even function, then $\\displaystyle\\int_{-a}^{a}f(x)\\,dx=2\\int_0^af(x)\\,dx$.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 2,
+   "explanation": "The integrand $\\sin^3x$ is odd, so the contributions from $-x$ and $x$ cancel and the integral is $0$; (A) is true. (R) is also a correct property, but it concerns even functions and does not apply to $\\sin^3x$, so it does not explain (A).",
+   "optionRationale": {
+    "1": "R is about even functions; sin^3 x is odd, so R is not the reason for the zero value.",
+    "3": "R is a true statement for even functions.",
+    "4": "A is true because the integrand is odd and the interval is symmetric."
+   },
+   "objective": "Apply odd and even function properties"
+  },
+  {
+   "key": "ug26-319-r22-integrals-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Splitting the numerator into a multiple of the derivative of the denominator plus a constant, the result of $\\displaystyle\\int\\frac{3x+2}{x^2+2x+5}\\,dx$ is",
+   "options": [
+    "$\\dfrac32\\ln\\left(x^2+2x+5\\right)-\\dfrac12\\tan^{-1}\\dfrac{x+1}{2}+C$",
+    "$\\dfrac32\\ln\\left(x^2+2x+5\\right)+\\dfrac12\\tan^{-1}\\dfrac{x+1}{2}+C$",
+    "$3\\ln\\left(x^2+2x+5\\right)-\\dfrac12\\tan^{-1}\\dfrac{x+1}{2}+C$",
+    "$\\dfrac32\\ln\\left(x^2+2x+5\\right)-\\tan^{-1}\\dfrac{x+1}{2}+C$"
+   ],
+   "answer": 1,
+   "explanation": "Write $3x+2=\\frac32(2x+2)-1$. The first part gives $\\frac32\\ln(x^2+2x+5)$. For the remainder, $x^2+2x+5=(x+1)^2+4$, so $-\\int\\frac{dx}{(x+1)^2+4}=-\\frac12\\tan^{-1}\\frac{x+1}2$. Adding the two parts gives the result.",
+   "optionRationale": {
+    "2": "The remainder is -1, so the inverse tangent term must be negative.",
+    "3": "The coefficient of the logarithm is 3/2, since 3x + 2 splits as (3/2)(2x + 2) - 1.",
+    "4": "The inverse tangent integral carries a factor 1/2 from a = 2, which this option omits."
+   },
+   "objective": "Split the numerator into derivative of denominator plus constant"
+  },
+  {
+   "key": "ug26-319-r22-integrals-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Applying the formula for the square root of a sum of squares, $\\displaystyle\\int\\sqrt{x^2+4}\\,dx$ can be written as",
+   "options": [
+    "$\\dfrac x2\\sqrt{x^2+4}+4\\ln\\left|x+\\sqrt{x^2+4}\\right|+C$",
+    "$\\dfrac x2\\sqrt{x^2+4}-2\\ln\\left|x+\\sqrt{x^2+4}\\right|+C$",
+    "$\\dfrac x2\\sqrt{x^2+4}+\\dfrac12\\ln\\left|x+\\sqrt{x^2+4}\\right|+C$",
+    "$\\dfrac x2\\sqrt{x^2+4}+2\\ln\\left|x+\\sqrt{x^2+4}\\right|+C$"
+   ],
+   "answer": 4,
+   "explanation": "The standard formula is $\\int\\sqrt{x^2+a^2}\\,dx=\\frac x2\\sqrt{x^2+a^2}+\\frac{a^2}2\\ln\\left|x+\\sqrt{x^2+a^2}\\right|+C$. With $a^2=4$ the logarithm has coefficient $\\frac42=2$.",
+   "optionRationale": {
+    "1": "The coefficient a^2/2 = 2 was replaced by a^2 = 4, dropping the factor one half.",
+    "2": "The log term is added in the plus-sign formula; a minus appears only for x^2 - a^2.",
+    "3": "The coefficient was taken as 1/(2a^2) hence 1/2 instead of a^2/2 = 2."
+   },
+   "objective": "Recall the integral of the root of x^2 + a^2"
+  },
+  {
+   "key": "ug26-319-r22-integrals-m10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The value of $\\displaystyle\\int_0^{\\pi/4}\\ln\\left(1+\\tan x\\right)dx$ is",
+   "options": [
+    "$\\dfrac\\pi4\\ln2$",
+    "$\\dfrac\\pi{16}\\ln2$",
+    "$\\dfrac\\pi8\\ln2$",
+    "$\\ln2$"
+   ],
+   "answer": 3,
+   "explanation": "Let $I$ be the integral. Replacing $x$ by $\\frac\\pi4-x$ gives $\\ln\\left(1+\\frac{1-\\tan x}{1+\\tan x}\\right)=\\ln2-\\ln(1+\\tan x)$. Adding the two forms gives $2I=\\int_0^{\\pi/4}\\ln2\\,dx=\\frac\\pi4\\ln2$, so $I=\\frac\\pi8\\ln2$.",
+   "optionRationale": {
+    "1": "This is 2I, since the equation obtained by adding the two forms was not divided by 2.",
+    "2": "pi/16 over-divides: 2I = (pi/4) ln 2 gives I = (pi/8) ln 2.",
+    "4": "ln 2 is the integrand constant; the interval length pi/4 and the factor 1/2 are missing."
+   },
+   "objective": "Use the property f(a - x) on a definite integral"
+  }
+ ]
+}

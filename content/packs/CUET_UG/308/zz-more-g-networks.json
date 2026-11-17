@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_ef6d67fa329a42c6ac3bf648d7a72fd2",
+    "title": "Computer Networks"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r10-computer-networks-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which type of network covers the smallest area, such as one laboratory or one building?",
+      "options": [
+        "MAN",
+        "WAN",
+        "Internet",
+        "LAN"
+      ],
+      "answer": 4,
+      "explanation": "A Local Area Network (LAN) joins computers within a small area such as a room, a building or a campus. A MAN spreads over a city, a WAN over countries and the Internet over the whole world.",
+      "optionRationale": {
+        "1": "A MAN covers a whole city, which is much larger than a building.",
+        "2": "A WAN covers countries or continents.",
+        "3": "The Internet is a worldwide network of networks, the largest of all."
+      },
+      "objective": "Identify a LAN by its area"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which guided transmission medium has a central copper conductor surrounded by an insulator and a metal shield?",
+      "options": [
+        "Optical fibre",
+        "Twisted pair cable",
+        "Coaxial cable",
+        "Microwave link"
+      ],
+      "answer": 3,
+      "explanation": "A coaxial cable has a central copper conductor, an insulating layer, a metal shield and an outer cover, which is the design the question describes. Optical fibre carries light in glass, twisted pair uses twisted wire pairs, and a microwave link needs no cable at all.",
+      "optionRationale": {
+        "1": "Optical fibre has a glass or plastic core that carries light, not a copper conductor.",
+        "2": "Twisted pair has pairs of insulated wires twisted together, without a central conductor and shield of this kind.",
+        "4": "A microwave link is an unguided medium that uses radio waves through the air, not a cable."
+      },
+      "objective": "Recognise the structure of a coaxial cable"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which hardware component is fitted inside a computer so that it can connect to a LAN?",
+      "options": [
+        "Repeater",
+        "Switch",
+        "Gateway",
+        "Network Interface Card (NIC)"
+      ],
+      "answer": 4,
+      "explanation": "The Network Interface Card, also called the network adapter, is the part inside the computer that provides the connection to the network and carries the MAC address. A repeater, a switch and a gateway are separate network devices.",
+      "optionRationale": {
+        "1": "A repeater is a separate device placed on a cable to boost the signal.",
+        "2": "A switch is an external device that joins many computers.",
+        "3": "A gateway is a network device linking different networks, not a card fitted in a computer."
+      },
+      "objective": "Recall the role of a NIC"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "An IPv4 address is 32 bits long. How many different IPv4 addresses are possible in all?",
+      "options": [
+        "2^16, which is 65,536",
+        "2^32, which is 4,294,967,296",
+        "32^2, which is 1,024",
+        "256^3, which is 16,777,216"
+      ],
+      "answer": 2,
+      "explanation": "Each of the 32 bits can be 0 or 1, so the number of different addresses is 2 raised to 32, which is 4,294,967,296. This is the same as 256^4, because the four decimal numbers each have 256 possible values.",
+      "optionRationale": {
+        "1": "2^16 is the number of values of a 16-bit quantity, but the address has 32 bits.",
+        "3": "32^2 treats the number of bits as the base; each bit has two possible values, so the count is 2^32.",
+        "4": "The address has four numbers of 0 to 255, so the count is 256^4, which is 2^32."
+      },
+      "objective": "Compute the size of the IPv4 address space"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-g05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A company links its branch offices in Delhi, Chennai and London with leased lines so that all of them share one network. Which type of network is this?",
+      "options": [
+        "WAN",
+        "PAN",
+        "LAN",
+        "MAN"
+      ],
+      "answer": 1,
+      "explanation": "The offices are separated by long distances across cities and countries, so the connected network spreads over a wide geographical area. Such a network is a Wide Area Network (WAN), and the Internet is the best known example.",
+      "optionRationale": {
+        "2": "A PAN is a small network around one person, usually within a few metres.",
+        "3": "A LAN is limited to one building or campus, but these offices are in different cities and countries.",
+        "4": "A MAN covers one city, but these offices are in different cities and countries."
+      },
+      "objective": "Classify a network by its geographical spread"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-g06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each network type in List-I with an example in List-II.",
+      "options": [
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-I, B-III, C-II, D-IV"
+      ],
+      "answer": 1,
+      "explanation": "A PAN covers the space around a person, so a phone with Bluetooth earphones is a PAN (I). A school laboratory is a LAN (II). A city-wide cable TV network is a MAN (III), and the Internet is the largest WAN (IV).",
+      "optionRationale": {
+        "2": "A PAN is around one person, such as a phone and earphones, and a LAN covers a lab; A and B are exchanged here.",
+        "3": "A city-wide cable network is a MAN and the Internet is a WAN; C and D are exchanged here.",
+        "4": "A school laboratory is a LAN and a city network is a MAN; B and C are exchanged here."
+      },
+      "objective": "Match network types with examples",
+      "list": {
+        "left": [
+          "A. PAN",
+          "B. LAN",
+          "C. MAN",
+          "D. WAN"
+        ],
+        "right": [
+          "I. A phone connected to wireless earphones by Bluetooth",
+          "II. The computers of one school laboratory",
+          "III. A cable TV network spread over a city",
+          "IV. The Internet"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-g07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements.\nA. A bus topology has a central switch to which every node is connected.\nB. Wi-Fi uses radio waves to carry data.\nC. Optical fibre carries data as pulses of light.\nD. A MAN covers a larger area than a LAN.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A and D only",
+        "B, C and D only",
+        "B and D only"
+      ],
+      "answer": 3,
+      "explanation": "A bus topology has one common backbone cable, not a central switch, so A is false. Wi-Fi sends data by radio waves (B true). Optical fibre sends data as pulses of light (C true). A MAN spreads over a city and so covers more area than a LAN (D true).",
+      "optionRationale": {
+        "1": "A is false: a bus topology uses a single backbone cable, whereas a star topology uses a central device.",
+        "2": "A is false, and B and C are also correct.",
+        "4": "C is also correct: light pulses travel through the glass fibre."
+      },
+      "objective": "Judge statements about topologies, media and network types"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "How many more cables are needed to connect 12 computers in a full mesh than to connect them in a star topology (one cable from every computer to a central switch)?",
+      "options": [
+        "66",
+        "12",
+        "78",
+        "54"
+      ],
+      "answer": 4,
+      "explanation": "A full mesh of n computers needs n(n - 1)/2 cables, which is 12 x 11 / 2 = 66 for 12 computers. A star needs one cable per computer, so 12. The mesh needs 66 - 12 = 54 more cables.",
+      "optionRationale": {
+        "1": "66 is the number of cables of the full mesh alone; the 12 cables of the star must be subtracted.",
+        "2": "12 is the number of cables of the star topology, not the difference.",
+        "3": "78 is 66 + 12, which adds the star cables to the mesh cables instead of subtracting them."
+      },
+      "objective": "Compare cable counts of mesh and star"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A school has three labs. Each lab is a star network of 5 computers connected to its own switch. The three switches are then joined in a ring (each switch connected to the next, the last to the first). How many cables are used in all?",
+      "options": [
+        "15",
+        "18",
+        "17",
+        "21"
+      ],
+      "answer": 2,
+      "explanation": "Each lab uses one cable per computer to its switch, which is 5 cables, so three labs use 15. A ring of three switches needs one cable between each neighbouring pair, which is 3 cables. The total is 15 + 3 = 18.",
+      "optionRationale": {
+        "1": "These are only the cables from the computers to their switches; the ring of the three switches adds more.",
+        "3": "A ring of three switches needs 3 cables, one between each pair of neighbours, not 2.",
+        "4": "The ring joins 3 switches, so it needs 3 cables; 6 would be too many."
+      },
+      "objective": "Count cables in a hybrid topology"
+    },
+    {
+      "key": "ug26-308-r10-computer-networks-g10",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A switch forwards a frame only to the port to which the destination computer is connected.\nReason (R): A switch is a network device that has many ports.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 2,
+      "explanation": "A switch learns the MAC address behind each port and sends a frame only to the port of the destination, so the assertion is true. The reason is also true, but having many ports does not explain this selective forwarding; the cause is its use of MAC addresses (a hub also has many ports but sends data to all).",
+      "optionRationale": {
+        "1": "Having many ports does not explain selective forwarding, since a hub also has many ports but still sends to all.",
+        "3": "The reason is true: a switch has many ports.",
+        "4": "The assertion is true: a switch sends a frame only to the destination port."
+      },
+      "objective": "Judge whether a true reason explains switch behaviour"
+    }
+  ]
+}

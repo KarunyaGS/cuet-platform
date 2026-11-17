@@ -1,0 +1,218 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_58e2843eeae641589f85b651fba7d888",
+    "title": "Structured Query Language – I"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r04-sql-ddl-dml-select-functions-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which MySQL command displays the structure (column names and data types) of a table named ITEM?",
+      "options": [
+        "SHOW TABLES;",
+        "USE ITEM;",
+        "DESCRIBE ITEM;",
+        "SELECT STRUCTURE ITEM;"
+      ],
+      "answer": 3,
+      "explanation": "DESCRIBE (or DESC) followed by the table name shows each column with its data type, key and default. SHOW TABLES only lists table names, USE changes the current database, and the last statement is not valid SQL.",
+      "optionRationale": {
+        "1": "SHOW TABLES lists the names of the tables in the current database, not the columns of one table.",
+        "2": "USE selects a database as the current one; ITEM is a table, not a database.",
+        "4": "This is not valid SQL; there is no STRUCTURE keyword in SELECT."
+      },
+      "objective": "Recall the command that shows a table structure"
+    },
+    {
+      "key": "ug26-308-r04-sql-ddl-dml-select-functions-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which constraint makes sure that a column can never be left without a value (NULL)?",
+      "options": [
+        "UNIQUE",
+        "NOT NULL",
+        "DEFAULT",
+        "FOREIGN KEY"
+      ],
+      "answer": 2,
+      "explanation": "NOT NULL on a column makes the DBMS reject any row in which that column is missing or NULL. UNIQUE prevents duplicate values, DEFAULT provides a fallback value and FOREIGN KEY enforces a link to another table.",
+      "optionRationale": {
+        "1": "UNIQUE stops repeated values; it does not forbid NULL in every case.",
+        "3": "DEFAULT only supplies a value when none is given; an explicit NULL could still be stored.",
+        "4": "A foreign key links values to a primary key of another table; it is not a rule against NULL."
+      },
+      "objective": "Recall the NOT NULL constraint"
+    },
+    {
+      "key": "ug26-308-r04-sql-ddl-dml-select-functions-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "The table ITEM(Code, Name, Cat, Price, Qty) holds the rows (1, Kite, Toy, 120, 5), (2, Atlas, Book, 250, 3), (3, Ludo, Toy, 300, 2), (4, Novel, Book, 180, 10), (5, Pencil, Stationery, 10, 50) and (6, Puzzle, Toy, 90, 7). In which order does `SELECT Name FROM ITEM WHERE Cat IN (\"Toy\", \"Book\") ORDER BY Cat, Price DESC;` list the names?",
+      "options": [
+        "Atlas, Novel, Ludo, Kite, Puzzle",
+        "Ludo, Kite, Puzzle, Atlas, Novel",
+        "Novel, Atlas, Puzzle, Kite, Ludo",
+        "Atlas, Novel, Ludo, Kite, Puzzle, Pencil"
+      ],
+      "answer": 1,
+      "explanation": "IN keeps the five rows of category Toy or Book. ORDER BY Cat sorts the categories alphabetically, so Book rows come first. Within Book the prices descend, Atlas 250 then Novel 180; within Toy they descend as Ludo 300, Kite 120 and Puzzle 90.",
+      "optionRationale": {
+        "2": "Sorting is first on Cat in ascending order, so Book comes before Toy.",
+        "3": "Price DESC puts the largest price first inside each Cat, so Atlas (250) comes before Novel (180).",
+        "4": "IN keeps only the Toy and Book rows, so the Stationery item Pencil is not returned."
+      },
+      "objective": "Evaluate IN with a two-column ORDER BY"
+    },
+    {
+      "key": "ug26-308-r04-sql-ddl-dml-select-functions-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The table ITEM(Code, Name, Cat, Price, Qty) holds the rows (1, Kite, Toy, 120, 5), (2, Atlas, Book, 250, 3), (3, Ludo, Toy, 300, 2), (4, Novel, Book, 180, 10), (5, Pencil, Stationery, 10, 50) and (6, Puzzle, Toy, 90, 7). After `UPDATE ITEM SET Price = Price - 20 WHERE Price > 100;` what does `SELECT SUM(Price) FROM ITEM;` return?",
+      "options": [
+        "990",
+        "870",
+        "750",
+        "890"
+      ],
+      "answer": 2,
+      "explanation": "Before the update the total is 120 + 250 + 300 + 180 + 10 + 90 = 950. Four rows have a price above 100, so each of them drops by 20, a total fall of 80. The new total is 950 - 80 = 870.",
+      "optionRationale": {
+        "1": "This is the sum before the update (120 + 250 + 300 + 180 + 10 + 90).",
+        "3": "This subtracts 20 from every row; the update applies only to rows with Price above 100.",
+        "4": "Only four rows are changed (120, 250, 300 and 180), so a reduction of 80 is applied in all, not 100."
+      },
+      "objective": "Compute an aggregate after a conditional UPDATE"
+    },
+    {
+      "key": "ug26-308-r04-sql-ddl-dml-select-functions-g05",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each MySQL command in List-I with its effect in List-II.",
+      "options": [
+        "A-I, B-III, C-IV, D-II",
+        "A-III, B-I, C-II, D-IV",
+        "A-III, B-I, C-IV, D-II",
+        "A-III, B-II, C-IV, D-I"
+      ],
+      "answer": 3,
+      "explanation": "USE school makes it the current database (III). SHOW TABLES lists the tables inside the current database (I). DESC student shows the column structure of that table (IV). SHOW DATABASES lists every database available on the server (II).",
+      "optionRationale": {
+        "1": "USE makes a database current and SHOW TABLES lists tables; A and B are exchanged here.",
+        "2": "DESC shows the structure of one table and SHOW DATABASES lists databases; C and D are exchanged here.",
+        "4": "SHOW TABLES lists tables, not databases, and SHOW DATABASES lists databases; B and D are exchanged here."
+      },
+      "objective": "Match MySQL utility commands with their effect",
+      "list": {
+        "left": [
+          "A. `USE school;`",
+          "B. `SHOW TABLES;`",
+          "C. `DESC student;`",
+          "D. `SHOW DATABASES;`"
+        ],
+        "right": [
+          "I. Lists the tables of the current database",
+          "II. Lists the databases on the server",
+          "III. Makes school the current database",
+          "IV. Shows the columns of the table student"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r04-sql-ddl-dml-select-functions-g06",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about MySQL.\nA. A table can have only one PRIMARY KEY.\nB. The DEFAULT constraint supplies a value when none is given in INSERT.\nC. `DELETE FROM t WHERE ...` can remove selected rows.\nD. `ALTER TABLE` is a DML statement.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "B and D only",
+        "A, C and D only",
+        "A and B only"
+      ],
+      "answer": 1,
+      "explanation": "A table may have just one primary key, although that key can use several columns (A is true). DEFAULT fills in a value when INSERT leaves the column out (B is true). DELETE with WHERE removes only the selected rows (C is true). ALTER TABLE changes structure, so it is DDL and not DML (D is false).",
+      "optionRationale": {
+        "2": "D is false: ALTER TABLE changes structure and so belongs to DDL; A and C are also correct.",
+        "3": "D is false because ALTER TABLE is DDL, and B is correct.",
+        "4": "C is also correct: a WHERE clause lets DELETE remove only chosen rows."
+      },
+      "objective": "Judge statements about constraints and SQL categories"
+    },
+    {
+      "key": "ug26-308-r04-sql-ddl-dml-select-functions-g07",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The statement `UPDATE ITEM SET Qty = 0;` sets Qty to 0 in every row of the table ITEM.\nReason (R): An UPDATE statement must always contain a WHERE clause, otherwise MySQL rejects it.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "Without a WHERE clause the UPDATE applies to all rows, so every Qty becomes 0, which makes the assertion true. The reason is false because WHERE is optional in UPDATE; leaving it out is legal and affects the whole table.",
+      "optionRationale": {
+        "1": "The reason is false, so it cannot explain the assertion.",
+        "2": "The reason is not true: UPDATE without WHERE is accepted.",
+        "4": "The assertion is true: with no WHERE clause all rows are changed."
+      },
+      "objective": "Know that WHERE is optional in UPDATE"
+    },
+    {
+      "key": "ug26-308-r04-sql-ddl-dml-select-functions-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "The table is created by `CREATE TABLE EMP (Eid INT PRIMARY KEY, Ename VARCHAR(10) NOT NULL, Dept CHAR(3) DEFAULT \"GEN\");` and already holds the row (1, Asha, HR). Which statement is accepted by MySQL?",
+      "options": [
+        "INSERT INTO EMP VALUES (1, \"Ravi\", \"HR\");",
+        "INSERT INTO EMP VALUES (3, NULL, \"HR\");",
+        "INSERT INTO EMP VALUES (4, \"Amit\");",
+        "INSERT INTO EMP (Eid, Ename) VALUES (2, \"Ravi\");"
+      ],
+      "answer": 4,
+      "explanation": "The accepted statement supplies Eid 2, which is new, and a non-NULL name; Dept is left out, so DEFAULT stores GEN. The duplicate Eid violates the primary key, the NULL name violates NOT NULL, and a VALUES list without a column list must give a value for every column.",
+      "optionRationale": {
+        "1": "Eid 1 already exists, so the PRIMARY KEY constraint rejects the duplicate.",
+        "2": "Ename is declared NOT NULL, so a NULL name is rejected.",
+        "3": "Without a column list all three values are needed, so two values do not match the three columns."
+      },
+      "objective": "Apply PRIMARY KEY, NOT NULL and DEFAULT to INSERT statements"
+    },
+    {
+      "key": "ug26-308-r04-sql-ddl-dml-select-functions-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Which of the following queries gives an error in MySQL? (Assume ITEM has the columns Code, Name, Cat, Price and Qty.)",
+      "options": [
+        "SELECT Price * Qty AS Total FROM ITEM ORDER BY Total DESC;",
+        "SELECT Price * Qty AS Total FROM ITEM WHERE Total > 500;",
+        "SELECT Cat, SUM(Qty) AS TQ FROM ITEM GROUP BY Cat HAVING TQ > 5;",
+        "SELECT Name FROM ITEM WHERE Price * Qty > 500;"
+      ],
+      "answer": 2,
+      "explanation": "WHERE is evaluated before the SELECT list is produced, so the alias Total does not exist yet and MySQL reports an unknown column. ORDER BY (and HAVING in MySQL) are processed later and may use the alias. Repeating the expression Price * Qty in WHERE is valid.",
+      "optionRationale": {
+        "1": "A column alias can be used in ORDER BY, so this query is valid.",
+        "3": "MySQL allows a column alias in HAVING, so this query runs.",
+        "4": "The full expression is written in WHERE, which is valid."
+      },
+      "objective": "Know where a column alias may be used"
+    }
+  ]
+}

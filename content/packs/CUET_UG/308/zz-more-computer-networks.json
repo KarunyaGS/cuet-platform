@@ -1,0 +1,260 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_b0e05f07138a413a9473f66825836a06",
+  "title": "Computer Networks"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r19-computer-networks-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "How many bits long is an IPv6 address?",
+   "options": [
+    "128",
+    "32",
+    "48",
+    "64"
+   ],
+   "answer": 1,
+   "explanation": "IPv6 addresses are 128 bits long, which gives 2 to the power 128 possible addresses and removes the shortage of IPv4. IPv4 addresses have 32 bits, while 48 bits is the length of a MAC address. A length of 64 bits is not the length of any of these addresses.",
+   "optionRationale": {
+    "2": "32 bits is the length of an IPv4 address, the older version.",
+    "3": "48 bits is the length of a MAC address and not of an IPv6 address.",
+    "4": "64 bits is only half of the length of an IPv6 address."
+   },
+   "objective": "Recall the length of an IPv6 address"
+  },
+  {
+   "key": "ug26-308-r19-computer-networks-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Which of the following is written in the correct format of a MAC address?",
+   "options": [
+    "2C:54:91:88:C9",
+    "2C:54:91:88:C9:G3",
+    "2C:54:91:88:C9:E3",
+    "192.168.1.10"
+   ],
+   "answer": 3,
+   "explanation": "A MAC address has 48 bits, written as six pairs of hexadecimal digits (0 to 9 and A to F). 2C:54:91:88:C9:E3 has six valid pairs. The second choice has only five pairs, the third contains the letter G which is not a hexadecimal digit, and the last is an IPv4 address.",
+   "optionRationale": {
+    "1": "This has only five pairs, so it is 40 bits and not 48 bits.",
+    "2": "The letter G is not a hexadecimal digit, so the last pair is invalid.",
+    "4": "This is a dotted decimal IPv4 address, which is a logical address and not a MAC address."
+   },
+   "objective": "Recognise the format of a MAC address"
+  },
+  {
+   "key": "ug26-308-r19-computer-networks-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A message of 4000 bytes is sent over a packet switching network. Each packet can carry at most 500 bytes of the message and has a header of 20 bytes added to it. How many bytes are sent over the network in all?",
+   "options": [
+    "4020",
+    "4160",
+    "4000",
+    "4320"
+   ],
+   "answer": 2,
+   "explanation": "The message needs 4000 / 500 = 8 packets. Each packet is 500 + 20 = 520 bytes long. The total sent is 8 x 520 = 4160 bytes, which is 160 bytes more than the message because of the 8 headers.",
+   "optionRationale": {
+    "1": "4020 adds the header only once, but every packet carries its own header.",
+    "3": "4000 is only the message size and ignores the headers of the packets.",
+    "4": "4320 would come from 9 packets, but 4000 bytes fill exactly 8 packets."
+   },
+   "objective": "Compute the overhead of headers in packet switching"
+  },
+  {
+   "key": "ug26-308-r19-computer-networks-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "In the MAC address 2C:54:91:88:C9:E3, which part is assigned to the manufacturer of the network card?",
+   "options": [
+    "88:C9:E3, the second half",
+    "2C:54, the first two pairs only",
+    "2C:54:91, the first half",
+    "E3, the last pair only"
+   ],
+   "answer": 3,
+   "explanation": "The first three pairs (24 bits) of a MAC address identify the manufacturer of the card. The last three pairs are a serial number given by that manufacturer to the individual card. Here 2C:54:91 is the manufacturer part and 88:C9:E3 is the card number.",
+   "optionRationale": {
+    "1": "The second half is the serial number chosen by the manufacturer for that card.",
+    "2": "Two pairs are only 16 bits, but the manufacturer part is three pairs (24 bits).",
+    "4": "The last pair is one byte of the serial number and does not identify the manufacturer."
+   },
+   "objective": "Split a MAC address into manufacturer and serial parts"
+  },
+  {
+   "key": "ug26-308-r19-computer-networks-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A full mesh of 8 computers is extended by adding a ninth computer, and the network must remain a full mesh. How many new cables are needed, and how many cables does the network have after the extension?",
+   "options": [
+    "9 new cables and 37 in all",
+    "8 new cables and 28 in all",
+    "8 new cables and 36 in all",
+    "1 new cable and 29 in all"
+   ],
+   "answer": 3,
+   "explanation": "In a full mesh the new computer must be joined to each of the 8 existing computers, so 8 new cables are laid. The 8 computers already had 8 x 7 / 2 = 28 cables, so the total becomes 28 + 8 = 36, which agrees with 9 x 8 / 2 = 36.",
+   "optionRationale": {
+    "1": "The new node needs a cable to each of the 8 old nodes, not 9, so 8 new cables are needed.",
+    "2": "28 is the number of cables before the extension, so it does not include the 8 new ones.",
+    "4": "One cable would make the new computer a part of the network but not a full mesh."
+   },
+   "objective": "Extend a full mesh and recount the links"
+  },
+  {
+   "key": "ug26-308-r19-computer-networks-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which network was built by the US National Science Foundation in the mid 1980s to link universities and supercomputer centres, and later became the backbone of the early Internet?",
+   "options": [
+    "ARPANET",
+    "World Wide Web",
+    "Ethernet",
+    "NSFNET"
+   ],
+   "answer": 4,
+   "explanation": "NSFNET was a faster academic backbone built in the mid 1980s by the National Science Foundation. ARPANET of 1969 was the first packet switching network, the web is a service created later at CERN, and Ethernet is a LAN technology and not a nationwide backbone.",
+   "optionRationale": {
+    "1": "ARPANET was the earlier network of 1969 funded by the Department of Defense.",
+    "2": "The World Wide Web is a service running on the Internet and was created at CERN.",
+    "3": "Ethernet is a technology for connecting computers in a LAN, not a national backbone."
+   },
+   "objective": "Recall the evolution of networking"
+  },
+  {
+   "key": "ug26-308-r19-computer-networks-m07",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A laptop gets a new IP address when it joins another Wi-Fi network.\nReason (R): An IP address is a logical address that is given to a device by the network that it joins.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "An IP address is not fixed in the device; the network assigns it when the device joins. A laptop connecting to another Wi-Fi network is therefore given a different IP address, so A follows directly from the way R describes IP addresses.",
+   "optionRationale": {
+    "2": "R is the actual reason for A, so it is more than just another true fact.",
+    "3": "R is true because IP addresses are assigned by the network.",
+    "4": "A is true since the new network assigns a new address."
+   },
+   "objective": "Explain why the IP address changes between networks"
+  },
+  {
+   "key": "ug26-308-r19-computer-networks-m08",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The MAC address of a laptop changes whenever it joins a different Wi-Fi network.\nReason (R): A MAC address is burned into the network interface card by its manufacturer.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "The MAC address belongs to the network card and stays the same on every network, so the assertion is false. The reason is a true statement: the manufacturer burns a 48 bit address into the card, which is exactly why it does not change.",
+   "optionRationale": {
+    "1": "A is false, so R cannot be offered as its explanation.",
+    "2": "A is not true because the MAC address stays with the card.",
+    "3": "R is a correct statement about MAC addresses, so it is not false."
+   },
+   "objective": "Contrast the permanence of MAC and IP addresses"
+  },
+  {
+   "key": "ug26-308-r19-computer-networks-m09",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about network addresses.\nA. Each of the four numbers of an IPv4 address lies between 0 and 255.\nB. 192.168.1.256 cannot be an IPv4 address.\nC. A MAC address is 32 bits long.\nD. IPv6 allows 2 to the power 128 different addresses.\nWhich statements are correct?",
+   "options": [
+    "A, B and D only",
+    "A and C only",
+    "B, C and D only",
+    "A, B and C only"
+   ],
+   "answer": 1,
+   "explanation": "A is true because each number of IPv4 is one byte with a value from 0 to 255. B is true as 256 is beyond that limit. C is false: a MAC address has 48 bits. D is true since IPv6 uses 128 bits. So A, B and D are correct.",
+   "optionRationale": {
+    "2": "C is false because a MAC address has 48 bits, and this option also drops B and D.",
+    "3": "C is false, so this option is wrong although it contains the true statements B and D.",
+    "4": "C is false, which makes this option wrong although A and B are true."
+   },
+   "objective": "Judge statements about IPv4, IPv6 and MAC addresses"
+  },
+  {
+   "key": "ug26-308-r19-computer-networks-m10",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Match the term in List-I with its feature in List-II.",
+   "options": [
+    "A-I, B-II, C-IV, D-III",
+    "A-II, B-I, C-IV, D-III",
+    "A-II, B-I, C-III, D-IV",
+    "A-IV, B-I, C-II, D-III"
+   ],
+   "answer": 2,
+   "explanation": "IPv4 has 32 bits (II). IPv6 has 128 bits (I). A MAC address has 48 bits and is burned into the card (IV). DNS translates domain names into IP addresses (III). So the code is A-II, B-I, C-IV, D-III.",
+   "optionRationale": {
+    "1": "This swaps the sizes of IPv4 and IPv6.",
+    "3": "This gives DNS the 48 bit description and the MAC address the name translation job.",
+    "4": "This gives IPv4 the MAC description and the MAC address the 32 bit size."
+   },
+   "objective": "Match addressing terms with their features",
+   "list": {
+    "left": [
+     "A. IPv4 address",
+     "B. IPv6 address",
+     "C. MAC address",
+     "D. DNS"
+    ],
+    "right": [
+     "I. Has 128 bits",
+     "II. Has 32 bits",
+     "III. Translates a domain name into an IP address",
+     "IV. Has 48 bits and is burned into the network card"
+    ]
+   }
+  },
+  {
+   "key": "ug26-308-r19-computer-networks-m11",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "A computer on port 2 of an 8-port hub sends data meant for the computer on port 5. Later the same transfer is made through an 8-port switch which has already learned the MAC addresses of all computers. On how many ports (other than the sender's port) does the data appear in the hub and in the switch, in this order?",
+   "options": [
+    "1 and 7",
+    "7 and 7",
+    "8 and 1",
+    "7 and 1"
+   ],
+   "answer": 4,
+   "explanation": "A hub repeats the data to every port except the one on which it arrived, so it appears on 7 ports and only port 5 keeps it. A switch has learned that the receiver is on port 5 and sends the data only to that port, so it appears on 1 port.",
+   "optionRationale": {
+    "1": "This reverses the devices: the switch is the selective device and the hub is the broadcasting one.",
+    "2": "The switch does not copy data to all ports once it has learned the addresses.",
+    "3": "The sender's own port does not get the data back, so it is 7 ports for the hub, not 8."
+   },
+   "objective": "Compare the forwarding of a hub and a switch"
+  }
+ ]
+}

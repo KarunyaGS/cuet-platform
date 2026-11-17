@@ -1,0 +1,239 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_f3ce0e500b4d4cd8afcdb0c51537a683",
+  "title": "Differential Equations"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r07-differential-equations-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The sum of the order and the degree of the differential equation $\\left(\\dfrac{d^3y}{dx^3}\\right)^2+3\\dfrac{d^2y}{dx^2}+y=0$ is",
+   "options": [
+    "5",
+    "4",
+    "6",
+    "3"
+   ],
+   "answer": 1,
+   "explanation": "The highest-order derivative is $\\dfrac{d^3y}{dx^3}$, so the order is $3$. It appears raised to the power $2$ and the equation is a polynomial in the derivatives, so the degree is $2$. The sum is $3+2=5$.",
+   "optionRationale": {
+    "2": "This takes the degree as $1$, ignoring the square on the third derivative.",
+    "3": "This multiplies instead of adding, $3\\times2$.",
+    "4": "This gives only the order and leaves out the degree."
+   },
+   "objective": "Find order and degree of a differential equation"
+  },
+  {
+   "key": "ug26-319-r07-differential-equations-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Which one of the following functions is a solution of the differential equation $\\dfrac{dy}{dx}=2y$?",
+   "options": [
+    "$y=e^{x/2}$",
+    "$y=x^2$",
+    "$y=e^{2x}$",
+    "$y=2x$"
+   ],
+   "answer": 3,
+   "explanation": "For $y=e^{2x}$ we have $\\dfrac{dy}{dx}=2e^{2x}=2y$, so the equation holds. For $y=e^{x/2}$, $y'=\\tfrac12y$; for $y=x^2$, $y'=2x\\ne2x^2$; for $y=2x$, $y'=2\\ne4x$.",
+   "optionRationale": {
+    "1": "Here $y'=\\tfrac12y$, which is not $2y$.",
+    "2": "Here $y'=2x$, while $2y=2x^2$; they are not equal.",
+    "4": "Here $y'=2$, while $2y=4x$; they are not equal."
+   },
+   "objective": "Verify a solution of a differential equation"
+  },
+  {
+   "key": "ug26-319-r07-differential-equations-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "By separating the variables, the general solution of $\\dfrac{dy}{dx}=\\dfrac{1+y}{1+x}$ (with $x\\ne-1$, $y\\ne-1$) is",
+   "options": [
+    "$(1+y)(1+x)=C$",
+    "$1+y=C(1+x)$",
+    "$(1+y)^2=C(1+x)$",
+    "$y=C(1+x)$"
+   ],
+   "answer": 2,
+   "explanation": "Separate the variables by moving every $y$ term to the left and every $x$ term to the right: $\\dfrac{dy}{1+y}=\\dfrac{dx}{1+x}$. Integrating both sides gives $\\log|1+y|=\\log|1+x|+\\log C$, where the constant is written as a logarithm so the terms combine. Removing the logarithms gives $1+y=C(1+x)$, a family of straight lines through $(-1,-1)$.",
+   "optionRationale": {
+    "1": "This would come from $\\dfrac{dy}{1+y}=-\\dfrac{dx}{1+x}$; the sign was reversed.",
+    "3": "This squares the left side, which does not follow from integrating $\\dfrac{dy}{1+y}$.",
+    "4": "This drops the constant $1$ on the left side, which was part of the variable $1+y$."
+   },
+   "objective": "Solve a variable-separable equation"
+  },
+  {
+   "key": "ug26-319-r07-differential-equations-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The solution of $\\dfrac{dy}{dx}=3x^2y$ with $y(0)=2$ gives $y(1)$ equal to",
+   "options": [
+    "e",
+    "2e^3",
+    "2+e",
+    "2e"
+   ],
+   "answer": 4,
+   "explanation": "Separating, $\\dfrac{dy}{y}=3x^2dx$, so $\\log y=x^3+c$ and $y=Ae^{x^3}$. The condition $y(0)=2$ gives $A=2$. Therefore $y(1)=2e^{1}=2e$.",
+   "optionRationale": {
+    "1": "This forgets the initial value $A=2$ and takes $A=1$.",
+    "2": "This uses $e^3$ by treating $3x^2$ at $x=1$ as the exponent instead of $x^3=1$.",
+    "3": "This adds $2$ and $e$ instead of multiplying them."
+   },
+   "objective": "Solve an initial value problem by separation of variables"
+  },
+  {
+   "key": "ug26-319-r07-differential-equations-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The integrating factor of the linear equation $\\dfrac{dy}{dx}+\\dfrac3x\\,y=x^2$ for $x>0$ is",
+   "options": [
+    "$e^{3x}$",
+    "$x^3$",
+    "$x^{-3}$",
+    "$3\\log x$"
+   ],
+   "answer": 2,
+   "explanation": "For $\\dfrac{dy}{dx}+Py=Q$ the integrating factor is $e^{\\int P\\,dx}$. Here $\\int\\dfrac3x\\,dx=3\\log x$, so the integrating factor is $e^{3\\log x}=x^3$.",
+   "optionRationale": {
+    "1": "This takes the integral of the constant $3$ rather than of $\\dfrac3x$.",
+    "3": "This reverses the sign of the exponent, giving the reciprocal of the factor.",
+    "4": "This stops at the exponent $\\int P\\,dx=3\\log x$ and forgets to exponentiate."
+   },
+   "objective": "Find the integrating factor of a linear equation"
+  },
+  {
+   "key": "ug26-319-r07-differential-equations-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Put $y=vx$ in the homogeneous equation $\\dfrac{dy}{dx}=\\dfrac{x+y}{x}$ with $y(1)=0$. Then $y(e)$ equals",
+   "options": [
+    "1",
+    "e",
+    "2e",
+    "e^2"
+   ],
+   "answer": 2,
+   "explanation": "With $y=vx$, $v+x\\dfrac{dv}{dx}=1+v$, so $x\\dfrac{dv}{dx}=1$ and $v=\\log x+c$. Hence $y=x\\log x+cx$. Since $y(1)=0$ gives $c=0$, $y=x\\log x$ and $y(e)=e\\cdot1=e$.",
+   "optionRationale": {
+    "1": "This takes $\\log e=1$ as the whole answer and forgets the factor $x=e$.",
+    "3": "This doubles the correct value, from adding the term $cx=e$ with a wrong constant $c=1$.",
+    "4": "This squares the value, using $x\\log x$ with $x=e^2$ in place of $e$."
+   },
+   "objective": "Solve a homogeneous differential equation"
+  },
+  {
+   "key": "ug26-319-r07-differential-equations-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "The solution of $\\dfrac{dy}{dx}+\\dfrac yx=x^2$ for $x>0$ with $y(1)=1$ gives $y(2)$ equal to",
+   "options": [
+    "\\dfrac{19}{8}",
+    "\\dfrac{17}{8}",
+    "\\dfrac{19}{4}",
+    "\\dfrac52"
+   ],
+   "answer": 1,
+   "explanation": "The integrating factor is $e^{\\int dx/x}=x$, so $\\dfrac{d}{dx}(xy)=x^3$ and $xy=\\dfrac{x^4}4+c$. With $y(1)=1$, $1=\\tfrac14+c$ so $c=\\tfrac34$. At $x=2$, $2y=4+\\tfrac34=\\tfrac{19}4$, giving $y=\\tfrac{19}8$.",
+   "optionRationale": {
+    "2": "This uses $c=\\tfrac14$ instead of $\\tfrac34$, an arithmetic slip in computing $1-\\tfrac14$.",
+    "3": "This is $xy$ at $x=2$; the final division by $x=2$ was forgotten.",
+    "4": "This takes $c=1$ from the condition, ignoring the term $\\tfrac{x^4}{4}$ at $x=1$."
+   },
+   "objective": "Solve a linear first-order initial value problem"
+  },
+  {
+   "key": "ug26-319-r07-differential-equations-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "The differential equation of the family of curves $y=Ax^2+Bx$, where $A$ and $B$ are arbitrary constants, is",
+   "options": [
+    "$x^2y''-xy'+y=0$",
+    "$x^2y''+2xy'-2y=0$",
+    "$y''-2y'+2y=0$",
+    "$x^2y''-2xy'+2y=0$"
+   ],
+   "answer": 4,
+   "explanation": "Differentiating $y=Ax^2+Bx$ twice gives $y'=2Ax+B$ and $y''=2A$, so $A=\\tfrac{y''}{2}$ and $B=y'-xy''$. Substituting back, $y=\\tfrac{x^2y''}{2}+xy'-x^2y''=xy'-\\tfrac{x^2y''}{2}$. Multiplying by $2$ and rearranging gives $x^2y''-2xy'+2y=0$. Two arbitrary constants need two differentiations, so the equation has order $2$.",
+   "optionRationale": {
+    "1": "This equation is satisfied by $y=Ax+Bx\\ln x$, a different family, because the coefficients of $y'$ and $y$ are wrong.",
+    "2": "The signs of the last two terms are reversed; this equation is satisfied by $y=Ax+\\dfrac{B}{x^2}$, not by the given family.",
+    "3": "This has constant coefficients and is satisfied by $y=e^x(A\\cos x+B\\sin x)$, which is unrelated to $Ax^2+Bx$."
+   },
+   "objective": "Eliminate two constants to form a second-order differential equation"
+  },
+  {
+   "key": "ug26-319-r07-differential-equations-m09",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The function $y=x^2+3$ is a particular solution of $x\\dfrac{dy}{dx}=2(y-3)$.\nReason (R): A particular solution of a differential equation contains arbitrary constants.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "For $y=x^2+3$ we get $x\\dfrac{dy}{dx}=x\\cdot2x=2x^2=2(y-3)$, so the assertion is true. A general solution contains arbitrary constants, but a particular solution is obtained by giving them definite values, so the reason is false.",
+   "optionRationale": {
+    "1": "The reason is false, since particular solutions contain no arbitrary constants, so it cannot explain the assertion.",
+    "2": "The reason is not true, so the pair cannot both be true.",
+    "4": "The assertion is true, since $2x^2=2(x^2+3-3)$."
+   },
+   "objective": "Verify a particular solution and distinguish it from a general solution"
+  },
+  {
+   "key": "ug26-319-r07-differential-equations-m10",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each differential equation in List-I with the most suitable method of solving it in List-II.",
+   "options": [
+    "A-I, B-II, C-III, D-IV",
+    "A-IV, B-III, C-II, D-I",
+    "A-IV, B-II, C-III, D-I",
+    "A-II, B-IV, C-III, D-I"
+   ],
+   "answer": 3,
+   "explanation": "A has only $x$ on the right, so direct integration works (IV). B is linear of the form $y'+Py=Q$, solved with an integrating factor (II). C is homogeneous, since numerator and denominator are of degree $2$, so put $y=vx$ (III). D is $e^{-y}dy=x\\,dx$, variable separable (I).",
+   "optionRationale": {
+    "1": "This treats the equation with only $x$ on the right as separable and the exponential one as directly integrable, which swaps A and D.",
+    "2": "This swaps the methods for B and C; B is linear and C is homogeneous.",
+    "4": "This uses an integrating factor for A and direct integration for B, which reverses their natures."
+   },
+   "objective": "Choose a method of solving a first-order equation",
+   "list": {
+    "left": [
+     "A. $\\dfrac{dy}{dx}=\\sin x+x^2$",
+     "B. $\\dfrac{dy}{dx}+\\dfrac yx=x^2$",
+     "C. $\\dfrac{dy}{dx}=\\dfrac{x^2+y^2}{xy}$",
+     "D. $\\dfrac{dy}{dx}=xe^{y}$"
+    ],
+    "right": [
+     "I. Variable separable",
+     "II. Integrating factor",
+     "III. Substitution $y=vx$",
+     "IV. Direct integration"
+    ]
+   }
+  }
+ ]
+}

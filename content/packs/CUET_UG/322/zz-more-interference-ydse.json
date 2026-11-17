@@ -1,0 +1,239 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_af32a51b80a8489da32e42a32ac7f7f3",
+  "title": "Coherent sources and interference of light, Young's double slit experiment and expression"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-322-u6-interference-ydse-m01",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In Young's double slit experiment, match the path difference at a point on the screen (List-I) with what is seen there (List-II).",
+   "list": {
+    "left": [
+     "A. $0$",
+     "B. $\\lambda/2$",
+     "C. $\\lambda$",
+     "D. $3\\lambda/2$"
+    ],
+    "right": [
+     "I. First-order bright fringe",
+     "II. Central bright fringe",
+     "III. Second dark fringe",
+     "IV. First dark fringe"
+    ]
+   },
+   "options": [
+    "A-II, B-I, C-IV, D-III",
+    "A-IV, B-II, C-I, D-III",
+    "A-II, B-IV, C-I, D-III",
+    "A-II, B-IV, C-III, D-I"
+   ],
+   "answer": 3,
+   "explanation": "Zero path difference gives the central bright fringe (A-II). A path difference of $\\lambda/2$ gives destructive interference, the first dark fringe (B-IV), and $\\lambda$ gives the first-order bright fringe (C-I). The path difference $3\\lambda/2 = (2n-1)\\lambda/2$ with $n = 2$ is the second dark fringe (D-III).",
+   "optionRationale": {
+    "1": "Swaps B and C: a half-wavelength gives darkness and a full wavelength gives brightness.",
+    "2": "Swaps A and B: zero path difference is constructive and gives the central bright fringe.",
+    "4": "Swaps C and D: $3\\lambda/2$ is a dark fringe and $\\lambda$ is a bright fringe."
+   },
+   "objective": "Relate the path difference to bright and dark fringes"
+  },
+  {
+   "key": "ug26-322-u6-interference-ydse-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "In a double slit experiment light of wavelength $600\\,\\text{nm}$ falls on slits $0.30\\,\\text{mm}$ apart. What is the angular width of a fringe, $\\lambda/d$?",
+   "options": [
+    "$2.0\\times10^{-6}\\,\\text{rad}$",
+    "$500\\,\\text{rad}$",
+    "$1.0\\times10^{-3}\\,\\text{rad}$",
+    "$2.0\\times10^{-3}\\,\\text{rad}$"
+   ],
+   "answer": 4,
+   "explanation": "The linear fringe width is $\\beta = \\lambda D/d$, so the angular fringe width $\\beta/D$ is $\\lambda/d = (600\\times10^{-9})/(0.30\\times10^{-3}) = 2.0\\times10^{-3}\\,\\text{rad}$. It is the fringe width divided by the screen distance, so it describes how widely the fringes spread as seen from the slits and does not depend on $D$.",
+   "optionRationale": {
+    "1": "Takes the slit separation as $0.30\\,\\text{m}$ instead of $0.30\\,\\text{mm}$.",
+    "2": "Inverts the ratio, giving $d/\\lambda$.",
+    "3": "Halves the correct value, a stray factor of 2."
+   },
+   "objective": "Compute the angular fringe width"
+  },
+  {
+   "key": "ug26-322-u6-interference-ydse-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Two coherent sources of equal intensity $I_0$ interfere. What are the maximum and minimum intensities in the pattern?",
+   "options": [
+    "$2I_0$ and $0$",
+    "$4I_0$ and $0$",
+    "$4I_0$ and $2I_0$",
+    "$2I_0$ and $I_0$"
+   ],
+   "answer": 2,
+   "explanation": "With equal amplitudes the resultant amplitude varies between $2a$ and $0$, so the intensity, proportional to amplitude squared, varies between $4I_0$ and $0$. At the maxima the intensity is four times, not twice, that of a single source; the total energy is conserved because it is redistributed.",
+   "optionRationale": {
+    "1": "The maximum amplitude doubles, so the maximum intensity is four times, not twice.",
+    "3": "The minimum is zero for equal amplitudes, not $2I_0$.",
+    "4": "Both values are wrong: the maximum is $4I_0$ and the minimum is zero."
+   },
+   "objective": "Find the extreme intensities for two equal coherent sources"
+  },
+  {
+   "key": "ug26-322-u6-interference-ydse-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "In a Young's double slit set-up $d = 0.60\\,\\text{mm}$, $D = 1.5\\,\\text{m}$ and $\\lambda = 480\\,\\text{nm}$. What is the separation between the third bright fringe and the third dark fringe on the same side of the central fringe?",
+   "options": [
+    "$1.2\\,\\text{mm}$",
+    "$0.30\\,\\text{mm}$",
+    "$0.60\\,\\text{mm}$",
+    "$6.6\\,\\text{mm}$"
+   ],
+   "answer": 3,
+   "explanation": "The fringe width is $\\beta = \\lambda D/d = (480\\times10^{-9})(1.5)/(0.60\\times10^{-3}) = 1.2\\,\\text{mm}$. The third bright fringe is at $3\\beta = 3.6\\,\\text{mm}$ and the third dark fringe at $2.5\\beta = 3.0\\,\\text{mm}$, so they are $0.5\\beta = 0.60\\,\\text{mm}$ apart.",
+   "optionRationale": {
+    "1": "This is a whole fringe width, the distance between two successive bright fringes.",
+    "2": "This is a quarter of a fringe width, not half.",
+    "4": "This adds the two distances instead of subtracting them."
+   },
+   "objective": "Locate bright and dark fringes using the fringe width"
+  },
+  {
+   "key": "ug26-322-u6-interference-ydse-m05",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "analytical",
+   "stem": "Assertion (A): In Young's experiment with equal sources, the intensity at a point where the path difference is $\\lambda/3$ equals the intensity of one source alone.\nReason (R): The resultant intensity is $I = 4I_0\\cos^{2}(\\phi/2)$, where $\\phi$ is the phase difference.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "A path difference of $\\lambda/3$ corresponds to a phase difference $\\phi = 2\\pi/3$. Then $I = 4I_0\\cos^{2}(\\pi/3) = 4I_0\\times\\tfrac14 = I_0$, so A is true. R states the relation that is used to obtain that value, so it is the correct explanation.",
+   "optionRationale": {
+    "2": "Not the answer: R supplies the formula that gives the result in A.",
+    "3": "Not the answer: A is true, since $4I_0\\cos^{2}60^{\\circ} = I_0$.",
+    "4": "Not the answer: R is true, being the standard intensity relation for two equal sources."
+   },
+   "objective": "Apply the intensity formula to a given path difference"
+  },
+  {
+   "key": "ug26-322-u6-interference-ydse-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The slits of a double slit experiment have widths in the ratio $1:9$, so the intensities of the two beams are in the same ratio. What is the ratio of the maximum to the minimum intensity in the fringe pattern?",
+   "options": [
+    "$4:1$",
+    "$9:1$",
+    "$16:1$",
+    "$5:4$"
+   ],
+   "answer": 1,
+   "explanation": "The amplitudes are in the ratio $\\sqrt{I_1}:\\sqrt{I_2} = 1:3$. Then $I_{\\max}/I_{\\min} = (a_1+a_2)^{2}/(a_1-a_2)^{2} = (3+1)^{2}/(3-1)^{2} = 16/4 = 4$. An infinite ratio would require equal amplitudes; the more unequal the slits, the less complete the darkness at the minima.",
+   "optionRationale": {
+    "2": "This is the ratio of the intensities themselves, not of the extremes.",
+    "3": "Uses the maximum $(3+1)^{2} = 16$ but takes the minimum as $1$, forgetting that $(3-1)^{2} = 4$.",
+    "4": "Adds and subtracts the intensities $9$ and $1$ themselves, instead of the amplitudes $3$ and $1$."
+   },
+   "objective": "Find the ratio of extreme intensities from the slit widths"
+  },
+  {
+   "key": "ug26-322-u6-interference-ydse-m07",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about the fringes in Young's double slit experiment with monochromatic light.\nA. Adjacent bright fringes are equally spaced for small angles.\nB. The central point of the screen, equidistant from the two slits, is bright.\nC. The fringe width does not depend on the wavelength of the light.\nD. Each dark fringe lies midway between two adjacent bright fringes.\nChoose the correct answer from the options given below.",
+   "options": [
+    "A and C only",
+    "A, B and D only",
+    "B, C and D only",
+    "A, B, C and D"
+   ],
+   "answer": 2,
+   "explanation": "For small angles the bright fringes are at $n\\lambda D/d$, which are equally spaced (A). The central point has zero path difference, so it is bright (B). Dark fringes occur at $(n+\\tfrac12)\\lambda D/d$, midway between neighbouring bright ones (D). The fringe width $\\lambda D/d$ is proportional to $\\lambda$, so C is false.",
+   "optionRationale": {
+    "1": "Includes C, which is false, and leaves out B and D.",
+    "3": "Includes the false statement C and leaves out A.",
+    "4": "Includes C, but $\\beta = \\lambda D/d$ is proportional to the wavelength."
+   },
+   "objective": "Evaluate statements about the pattern of Young's experiment"
+  },
+  {
+   "key": "ug26-322-u6-interference-ydse-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "In a double slit experiment the fifth bright fringe of light of wavelength $420\\,\\text{nm}$ falls at the same place as the fourth dark fringe of light of another wavelength. What is the other wavelength?",
+   "options": [
+    "$525\\,\\text{nm}$",
+    "$467\\,\\text{nm}$",
+    "$700\\,\\text{nm}$",
+    "$600\\,\\text{nm}$"
+   ],
+   "answer": 4,
+   "explanation": "The fifth bright fringe of $420\\,\\text{nm}$ is at $x = 5\\lambda_1D/d$ and the fourth dark fringe of $\\lambda_2$ is at $(4-\\tfrac12)\\lambda_2D/d = 3.5\\lambda_2D/d$. Equating gives $\\lambda_2 = 5\\times420/3.5 = 600\\,\\text{nm}$. Such a coincidence occurs only at special points of the screen where the two patterns happen to line up.",
+   "optionRationale": {
+    "1": "Treats the fourth dark fringe as the position $4\\lambda_2D/d$ instead of $3.5\\lambda_2D/d$.",
+    "2": "Uses $4.5$, which would be the fifth dark fringe, not the fourth.",
+    "3": "Uses $3$, ignoring the extra half-wavelength of the dark fringe."
+   },
+   "objective": "Match positions of bright and dark fringes for two wavelengths"
+  },
+  {
+   "key": "ug26-322-u6-interference-ydse-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A thin transparent sheet of refractive index $1.5$ placed over one slit shifts the central fringe by $5$ fringe widths. If the light has wavelength $500\\,\\text{nm}$, what is the thickness of the sheet?",
+   "options": [
+    "$5.0\\,\\mu\\text{m}$",
+    "$1.7\\,\\mu\\text{m}$",
+    "$1.2\\,\\mu\\text{m}$",
+    "$3.7\\,\\mu\\text{m}$"
+   ],
+   "answer": 1,
+   "explanation": "The sheet adds an optical path $(\\mu-1)t$ to one beam, and a path difference of $\\lambda$ shifts the pattern by one fringe. For a shift of $N = 5$ fringes, $(\\mu-1)t = N\\lambda$, so $t = 5\\times500\\,\\text{nm}/0.5 = 5.0\\,\\mu\\text{m}$.",
+   "optionRationale": {
+    "2": "Divides by $\\mu$ in place of $(\\mu - 1)$.",
+    "3": "Multiplies by $(\\mu - 1)$ instead of dividing by it.",
+    "4": "Multiplies by $\\mu$ instead of dividing by $(\\mu - 1)$."
+   },
+   "objective": "Find the thickness of a sheet from the fringe shift"
+  },
+  {
+   "key": "ug26-322-u6-interference-ydse-m10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "A double slit with $d = 0.50\\,\\text{mm}$ and $D = 1.0\\,\\text{m}$ is illuminated with light of wavelength $600\\,\\text{nm}$. How many bright fringes (including the central one) are seen on a screen region $13\\,\\text{mm}$ wide, centred on the central fringe?",
+   "options": [
+    "$10$",
+    "$12$",
+    "$11$",
+    "$13$"
+   ],
+   "answer": 3,
+   "explanation": "The fringe width is $\\beta = \\lambda D/d = 1.2\\,\\text{mm}$ and the bright fringes lie at $x = \\pm n\\beta$. Only $|x|\\le6.5\\,\\text{mm}$ is visible, so $n\\le5.4$, that is $n = 0, \\pm1,\\dots,\\pm5$. This gives $2\\times5+1 = 11$ bright fringes.",
+   "optionRationale": {
+    "1": "Counts $2\\times5$ and forgets the central bright fringe.",
+    "2": "Counts $\\pm6$ fringes, but $6\\beta = 7.2\\,\\text{mm}$ lies outside the region.",
+    "4": "Takes the width in millimetres as the number of fringes."
+   },
+   "objective": "Count the bright fringes on a finite screen"
+  }
+ ]
+}

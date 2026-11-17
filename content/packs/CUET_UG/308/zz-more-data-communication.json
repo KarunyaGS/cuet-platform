@@ -1,0 +1,225 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_78422071bfa34152827e66ee71874c68",
+  "title": "Data Communication"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r20-data-communication-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which component of a data communication system is the agreed set of rules that governs how the sender and the receiver exchange the message?",
+   "options": [
+    "Transmission medium",
+    "Message",
+    "Protocol",
+    "Receiver"
+   ],
+   "answer": 3,
+   "explanation": "The five components of data communication are the sender, the receiver, the message, the transmission medium and the protocol. The protocol is the set of agreed rules, such as HTTP or FTP, which makes the exchange understandable to both ends.",
+   "optionRationale": {
+    "1": "The medium is the physical path, such as a cable or the air, and does not contain rules.",
+    "2": "The message is the data being sent, such as the text of an SMS.",
+    "4": "The receiver is the device that gets the message and does not itself define the rules."
+   },
+   "objective": "Identify the protocol as a component of data communication"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Two computers on an old shared Ethernet connected through a hub can send data to each other, but only one of them can send at a given moment. This mode of communication is",
+   "options": [
+    "simplex",
+    "full duplex",
+    "broadcast only",
+    "half duplex"
+   ],
+   "answer": 4,
+   "explanation": "When data can flow in both directions but only in one direction at a time, the mode is half duplex, as in a walkie-talkie. Simplex permits one direction only, and full duplex allows both directions at the same time, as on a telephone call.",
+   "optionRationale": {
+    "1": "Simplex allows the flow in one direction only, but here both computers can send at different moments.",
+    "2": "Full duplex needs both to send at the same time, which the shared hub does not permit.",
+    "3": "There is no such mode as broadcast only for a two-way exchange between two computers; the modes are simplex, half and full duplex."
+   },
+   "objective": "Identify half duplex communication"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "How long does it take to download a file of 6 MB over a link whose data transfer rate is 4 Mbps? (Take 1 byte = 8 bits, so 1 MB = 8 Mb, and ignore all overheads.)",
+   "options": [
+    "1.5 seconds",
+    "6 seconds",
+    "12 seconds",
+    "48 seconds"
+   ],
+   "answer": 3,
+   "explanation": "The file size in bits is 6 x 8 = 48 Mb. Dividing by the data rate gives time = 48 / 4 = 12 seconds. A common mistake is to divide 6 by 4 without changing bytes to bits.",
+   "optionRationale": {
+    "1": "1.5 seconds comes from dividing 6 by 4 without converting megabytes to megabits.",
+    "2": "6 seconds would be right only if the data rate were 8 Mbps instead of 4 Mbps.",
+    "4": "48 seconds results from dividing the 48 Mb by 1 instead of by the rate of 4 Mbps."
+   },
+   "objective": "Find the download time from size and data rate"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A file of 90 MB has to be downloaded within 2 minutes. What is the minimum data transfer rate needed? (Take 1 byte = 8 bits and ignore overheads.)",
+   "options": [
+    "0.75 Mbps",
+    "6 Mbps",
+    "45 Mbps",
+    "12 Mbps"
+   ],
+   "answer": 2,
+   "explanation": "The size in bits is 90 x 8 = 720 Mb. The time is 2 minutes = 120 seconds. The rate needed is size divided by time = 720 / 120 = 6 Mbps. Any lower rate would take longer than 2 minutes.",
+   "optionRationale": {
+    "1": "0.75 Mbps divides 90 by 120 without changing megabytes to megabits.",
+    "3": "45 Mbps divides 90 by the number of minutes, 2, and does not convert the time to seconds.",
+    "4": "12 Mbps divides 720 by 60 seconds, which is only one minute."
+   },
+   "objective": "Find the data rate needed for a deadline"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "How many seconds are needed to send a file of 1500 KB over a channel with a data rate of 1.2 Mbps? (Take 1 byte = 8 bits, so 1 KB = 8 Kb, and 1 Mbps = 1000 Kbps; ignore overheads.)",
+   "options": [
+    "10 seconds",
+    "1.25 seconds",
+    "8 seconds",
+    "100 seconds"
+   ],
+   "answer": 1,
+   "explanation": "The size is 1500 x 8 = 12000 Kb. The data rate is 1.2 Mbps = 1200 Kbps. The time is 12000 / 1200 = 10 seconds. Both quantities must be in the same unit, kilobits and kilobits per second, before dividing.",
+   "optionRationale": {
+    "2": "1.25 seconds divides 1500 by 1200 and forgets that bytes must be converted to bits.",
+    "3": "8 seconds divides 12000 by 1500, which is the file size and not the rate.",
+    "4": "100 seconds treats 1.2 Mbps as 120 Kbps, which is ten times too small."
+   },
+   "objective": "Convert units before computing transfer time"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Channel A can pass frequencies from 2 KHz to 6 KHz, and channel B can pass frequencies from 10 KHz to 15 KHz. Which channel has the larger bandwidth, and what is it?",
+   "options": [
+    "Channel A, 6 KHz",
+    "Channel B, 15 KHz",
+    "Channel A, 4 KHz",
+    "Channel B, 5 KHz"
+   ],
+   "answer": 4,
+   "explanation": "Bandwidth is the highest frequency minus the lowest frequency of the channel. Channel A has 6 - 2 = 4 KHz and channel B has 15 - 10 = 5 KHz. So channel B has the larger bandwidth, which is 5 KHz, and a higher position in the spectrum does not matter.",
+   "optionRationale": {
+    "1": "6 KHz is just the highest frequency of A and not its range.",
+    "2": "15 KHz is the highest frequency of B; the bandwidth is its range, which is 5 KHz.",
+    "3": "Channel A has 4 KHz, which is smaller than the 5 KHz of channel B."
+   },
+   "objective": "Compute bandwidth as a frequency range"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Why is mobile telecommunication also called cellular technology?",
+   "options": [
+    "Every phone contains a small cell like a battery that carries the call",
+    "The service area is divided into cells, each served by a base station",
+    "The calls are sent through cells of a copper cable under the road",
+    "Each call is cut into small cells of fixed size by the phone"
+   ],
+   "answer": 2,
+   "explanation": "A mobile network divides the area it serves into cells, each with its own base station. The same frequencies can be reused in cells that are far apart, and the call is handed over from one cell to the next when the user moves. This is why it is called cellular.",
+   "optionRationale": {
+    "1": "The word cell does not refer to a battery in the handset.",
+    "3": "Mobile networks use radio waves between phone and base station, not a cable of cells.",
+    "4": "Splitting data into units is a different idea, and the cellular name comes from areas, not data units."
+   },
+   "objective": "Explain the term cellular"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "A user wants to read the same mailbox from a phone, a laptop and a tablet, with the messages staying on the mail server. Which protocol should the mail clients use for receiving the mail?",
+   "options": [
+    "POP3",
+    "SMTP",
+    "FTP",
+    "IMAP"
+   ],
+   "answer": 4,
+   "explanation": "IMAP keeps the mail on the server so that it can be read from many devices. POP3 downloads the mail to a single device, SMTP is used for sending mail, and FTP is used for transferring files and not for reading a mailbox.",
+   "optionRationale": {
+    "1": "POP3 downloads mail to one device, so it does not suit reading the same mailbox from several devices.",
+    "2": "SMTP sends mail from the client to the server and between servers, but does not receive it for reading.",
+    "3": "FTP is a file transfer protocol and is not a mail protocol."
+   },
+   "objective": "Choose IMAP for multi-device mail access"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-m09",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about wireless and wired media.\nA. Bluetooth does not need line of sight and works through thin walls.\nB. Infrared communication needs the sender and the receiver to face each other.\nC. Optical fibre carries data as pulses of light and is not affected by electromagnetic interference.\nD. Microwave towers are normally placed about 4 km apart.\nWhich statements are correct?",
+   "options": [
+    "A, B and C only",
+    "A and D only",
+    "B, C and D only",
+    "A, B and D only"
+   ],
+   "answer": 1,
+   "explanation": "A, B and C are correct. Bluetooth is short range radio that passes thin walls, infrared needs line of sight, and fibre uses light so interference does not affect it. D is false: microwave towers on high ground are spaced about 40 to 50 km apart, not 4 km.",
+   "optionRationale": {
+    "2": "D is false because the spacing is 40 to 50 km, and this option also drops true statements.",
+    "3": "D is false, so this option is wrong even though B and C are true.",
+    "4": "D is false, so including it makes this option wrong, although A and B are true."
+   },
+   "objective": "Judge statements about wireless and wired media"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-m10",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): In message switching, the whole message is stored at an intermediate node before it is forwarded to the next node.\nReason (R): Message switching divides the message into small packets, each carrying a header with the destination address.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "Message switching works on a store and forward basis with the entire message, so A is true. R describes packet switching, in which the message is broken into packets with headers, so R is false for message switching.",
+   "optionRationale": {
+    "1": "R is false for message switching, so it cannot explain A.",
+    "2": "R is not true for message switching, so there is no true reason offered.",
+    "4": "A is true because store and forward of the whole message is exactly what message switching does."
+   },
+   "objective": "Distinguish message switching from packet switching"
+  }
+ ]
+}

@@ -1,0 +1,183 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_9ee29dd188984a3892c8912893155094",
+  "title": "ALGEBRA"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r02-applied-algebra-matrices-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Two factories produce two items in the quantities given by the rows of $Q=\\begin{bmatrix}10&20\\\\30&40\\end{bmatrix}$. The item prices are Rs 5 and Rs 3 respectively, written as the column $\\begin{bmatrix}5\\\\3\\end{bmatrix}$. The total value of the output of the second factory, found by matrix multiplication, is",
+   "options": [
+    "Rs 110",
+    "Rs 290",
+    "Rs 70",
+    "Rs 270"
+   ],
+   "answer": 4,
+   "explanation": "Multiplying $Q$ by the price column, the second row gives $30\\cdot5+40\\cdot3=150+120=270$. The first row gives $10\\cdot5+20\\cdot3=110$ for the first factory.",
+   "optionRationale": {
+    "1": "This is the value for the first factory, the first row of the product.",
+    "2": "This pairs the prices the wrong way round, $30\\cdot3+40\\cdot5$, so each price multiplies the wrong item.",
+    "3": "This simply adds the quantities $30+40$ of the second factory without using the prices."
+   },
+   "objective": "Use matrix multiplication for total value"
+  },
+  {
+   "key": "ug26-319-r02-applied-algebra-matrices-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "If $A=\\begin{bmatrix}1&2\\\\3&4\\end{bmatrix}$, the sum of the diagonal elements (the trace) of $A^2$ is",
+   "options": [
+    "29",
+    "17",
+    "25",
+    "10"
+   ],
+   "answer": 1,
+   "explanation": "We have $A^2=\\begin{bmatrix}1\\cdot1+2\\cdot3&1\\cdot2+2\\cdot4\\\\3\\cdot1+4\\cdot3&3\\cdot2+4\\cdot4\\end{bmatrix}=\\begin{bmatrix}7&10\\\\15&22\\end{bmatrix}$. The trace is $7+22=29$.",
+   "optionRationale": {
+    "2": "This squares each diagonal entry of $A$ separately, $1^2+4^2$, instead of squaring the whole matrix.",
+    "3": "This adds the off-diagonal entries $10+15$ of $A^2$ instead of the diagonal ones.",
+    "4": "$10$ is the trace of $A$ itself, not of $A^2$."
+   },
+   "objective": "Compute the trace of a matrix square"
+  },
+  {
+   "key": "ug26-319-r02-applied-algebra-matrices-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A matrix $A=\\begin{bmatrix}4&6\\\\2&8\\end{bmatrix}$ is written as the sum of a symmetric matrix $P$ and a skew-symmetric matrix $Q$. The element in the first row and second column of $Q$ is",
+   "options": [
+    "2",
+    "4",
+    "-2",
+    "6"
+   ],
+   "answer": 1,
+   "explanation": "The skew-symmetric part is $Q=\\tfrac12(A-A^T)=\\tfrac12\\begin{bmatrix}0&4\\\\-4&0\\end{bmatrix}=\\begin{bmatrix}0&2\\\\-2&0\\end{bmatrix}$. Its first-row, second-column entry is $2$. The symmetric part is $\\begin{bmatrix}4&4\\\\4&8\\end{bmatrix}$.",
+   "optionRationale": {
+    "2": "$4$ is the off-diagonal entry of the symmetric part $P$, not of $Q$.",
+    "3": "This is the entry of $Q$ in the second row, first column; the question asks for row 1, column 2.",
+    "4": "$6$ is the original entry of $A$; the difference $A-A^T$ was not formed or halved."
+   },
+   "objective": "Resolve a square matrix into symmetric and skew-symmetric parts"
+  },
+  {
+   "key": "ug26-319-r02-applied-algebra-matrices-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The system $2x+y=8,\\ 5x+3y=21$ is written as $AX=B$ with $A=\\begin{bmatrix}2&1\\\\5&3\\end{bmatrix}$. Using $X=A^{-1}B$, the value of $5x+7y$ is",
+   "options": [
+    "31",
+    "29",
+    "19",
+    "26"
+   ],
+   "answer": 2,
+   "explanation": "Here $|A|=2\\cdot3-1\\cdot5=1$ and $A^{-1}=\\begin{bmatrix}3&-1\\\\-5&2\\end{bmatrix}$. So $X=A^{-1}B=\\begin{bmatrix}3\\cdot8-21\\\\-5\\cdot8+2\\cdot21\\end{bmatrix}=\\begin{bmatrix}3\\\\2\\end{bmatrix}$, giving $x=3,y=2$. Then $5x+7y=15+14=29$.",
+   "optionRationale": {
+    "1": "This reads the solution column in the wrong order, taking $x=2$, $y=3$, giving $10+21$.",
+    "3": "This comes from an inverse with the signs changed on the wrong entries, which gives wrong values of $x$ and $y$.",
+    "4": "This uses $x=3$ and $y=1.5$ from an arithmetic slip, which does not satisfy the second equation."
+   },
+   "objective": "Solve a linear system using the inverse matrix"
+  },
+  {
+   "key": "ug26-319-r02-applied-algebra-matrices-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A stationer sells 3 pens and 2 notebooks for Rs 40 on Monday and 5 pens and 4 notebooks for Rs 76 on Tuesday, at the same prices. The price of one notebook is",
+   "options": [
+    "Rs 4",
+    "Rs 12",
+    "Rs 16",
+    "Rs 14"
+   ],
+   "answer": 4,
+   "explanation": "Let a pen cost $p$ and a notebook $n$. Then $3p+2n=40$ and $5p+4n=76$. Doubling the first gives $6p+4n=80$; subtracting the second gives $p=4$. Then $2n=40-12=28$, so $n=14$.",
+   "optionRationale": {
+    "1": "Rs 4 is the price of a pen, not of a notebook.",
+    "2": "This results from subtracting without doubling the first equation, which leaves unequal coefficients and a wrong value.",
+    "3": "This takes $n=(76-3\\cdot4)/4$, mixing coefficients from the two days."
+   },
+   "objective": "Form and solve simultaneous equations from a shopping situation"
+  },
+  {
+   "key": "ug26-319-r02-applied-algebra-matrices-m06",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): For every square matrix $A$, the matrix $A+A^T$ is symmetric.\nReason (R): For every square matrix $A$, the matrix $A-A^T$ is also symmetric.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "$(A+A^T)^T=A^T+A=A+A^T$, so the assertion is true. But $(A-A^T)^T=A^T-A=-(A-A^T)$, so $A-A^T$ is skew-symmetric, not symmetric, unless it is zero. Hence the reason is false.",
+   "optionRationale": {
+    "1": "The reason is false, so it cannot explain the assertion.",
+    "2": "The reason is not true, since $A-A^T$ is skew-symmetric.",
+    "4": "The assertion is true, because $(A+A^T)^T=A+A^T$."
+   },
+   "objective": "Distinguish symmetric and skew-symmetric combinations of a matrix"
+  },
+  {
+   "key": "ug26-319-r02-applied-algebra-matrices-m07",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about square matrices $A$ and $B$ of the same order.\nA. $AB$ need not equal $BA$.\nB. If $A$ is symmetric, then $A^2$ is symmetric.\nC. $(kA)^T=kA^T$ for any scalar $k$.\nD. $(A+B)^2=A^2+2AB+B^2$ for all $A$ and $B$.\nWhich statements are correct?",
+   "options": [
+    "A, B and C only",
+    "A, C and D only",
+    "B, C and D only",
+    "A and D only"
+   ],
+   "answer": 1,
+   "explanation": "A is true because matrix multiplication is not commutative. B is true since $(A^2)^T=(A^T)^2=A^2$ when $A^T=A$. C is true because scalars pass through the transpose. D is false: $(A+B)^2=A^2+AB+BA+B^2$, and $AB\\ne BA$ in general.",
+   "optionRationale": {
+    "2": "D is false in general, so this option wrongly includes it and leaves out B.",
+    "3": "D is false, so this option is wrong even though it also contains correct statements.",
+    "4": "This omits B and C, which are true, and includes the false statement D."
+   },
+   "objective": "Check algebraic identities for matrices"
+  },
+  {
+   "key": "ug26-319-r02-applied-algebra-matrices-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A trader buys three kinds of lamps with unit costs $x,y,z$ (in rupees). The purchases give $x+y+z=15,\\ x+2y+3z=34,\\ 2x+y+2z=25$. By Cramer's rule, the value of $z$ is",
+   "options": [
+    "5",
+    "3",
+    "7",
+    "2"
+   ],
+   "answer": 3,
+   "explanation": "The coefficient determinant is $\\begin{vmatrix}1&1&1\\\\1&2&3\\\\2&1&2\\end{vmatrix}=1(4-3)-1(2-6)+1(1-4)=1+4-3=2$. Replacing the third column by the constants gives $\\begin{vmatrix}1&1&15\\\\1&2&34\\\\2&1&25\\end{vmatrix}=14$, so $z=14/2=7$.",
+   "optionRationale": {
+    "1": "This is the value of $y$, found with the second column replaced, not the third.",
+    "2": "This is the value of $x$, found with the first column replaced.",
+    "4": "$2$ is the value of the coefficient determinant $D$, not of $z$."
+   },
+   "objective": "Solve a third-order system using Cramer's rule"
+  }
+ ]
+}

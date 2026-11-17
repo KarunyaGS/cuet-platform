@@ -1,0 +1,302 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_627d4b57dfb248899bba95465057602c",
+  "title": "Wave front and Huygen’s principle, reflection and refraction of plane waves at a plane"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A point source emits light uniformly in all directions in a medium. How does the intensity vary with the distance $r$ from the source?",
+   "options": [
+    "Inversely as $r$, because the energy spreads over a cylindrical wavefront of circumference $2\\pi r$",
+    "Inversely as $r^{2}$, because the energy spreads over a spherical wavefront of area $4\\pi r^{2}$",
+    "Directly as $r^{2}$, because the spherical wavefront grows larger and carries more energy",
+    "Independent of $r$, because the wavefront at every distance carries the same energy per area"
+   ],
+   "answer": 2,
+   "explanation": "The energy per second crossing a spherical wavefront is fixed, but the area grows as $4\\pi r^{2}$. The intensity, the power per unit area, therefore falls as $1/r^{2}$. A linear source gives cylindrical wavefronts and a $1/r$ fall; a distant source gives plane wavefronts and constant intensity.",
+   "optionRationale": {
+    "1": "The $1/r$ law belongs to a long line source, which gives cylindrical wavefronts.",
+    "3": "The wavefront is larger but the same energy is shared over a larger area, so intensity falls.",
+    "4": "Constant intensity applies only to plane wavefronts, such as light from a very distant source."
+   },
+   "objective": "Relate wavefront geometry to the fall of intensity"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "What is Huygens' principle used for?",
+   "options": [
+    "To find the number of photons emitted per second by the source that produces the wavefront",
+    "To find the frequency of the wave by measuring the spacing between successive wavefronts",
+    "To find the new position of a wavefront at a later time from its position at an earlier time",
+    "To find the amplitude of the wave at the source from the shape of the wavefront at a distance"
+   ],
+   "answer": 3,
+   "explanation": "Huygens' principle regards every point of a wavefront as a source of secondary wavelets. The envelope of these wavelets after a time $\\tau$ gives the new wavefront, and this construction is used to explain reflection and refraction of waves.",
+   "optionRationale": {
+    "1": "Photon counting is beyond the scope of a classical wavefront construction.",
+    "2": "Spacing of wavefronts gives wavelength; the principle itself is a rule for propagating wavefronts.",
+    "4": "The construction fixes the shape and position of wavefronts, not the source amplitude."
+   },
+   "objective": "State the purpose of Huygens' principle"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Light travels at $1.5\\times10^{8}\\,\\text{m s}^{-1}$ in a certain transparent medium. What is the refractive index of the medium? ($c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$)",
+   "options": [
+    "$2.0$",
+    "$0.50$",
+    "$4.5$",
+    "$1.5$"
+   ],
+   "answer": 1,
+   "explanation": "The refractive index is the ratio of the speed of light in vacuum to its speed in the medium: $n = c/v = 3.0\\times10^{8}/1.5\\times10^{8} = 2.0$. A larger $n$ means a slower wave and secondary wavelets of smaller radius in the same time.",
+   "optionRationale": {
+    "2": "Inverts the ratio and gives $v/c$, which is less than $1$.",
+    "3": "Multiplies the two speeds in the sense $c\\times v/10^{8}$, a meaningless combination.",
+    "4": "Takes the numerical value of the speed in units of $10^{8}\\,\\text{m s}^{-1}$ as the index."
+   },
+   "objective": "Find the refractive index from the speed of light in a medium"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A plane wavefront travelling in glass of refractive index $1.5$ meets a glass-air boundary with its rays at $30^{\\circ}$ to the normal. What is the angle of refraction in air?",
+   "options": [
+    "$19.5\\,^{\\circ}$",
+    "$41.8\\,^{\\circ}$",
+    "$60\\,^{\\circ}$",
+    "$48.6\\,^{\\circ}$"
+   ],
+   "answer": 4,
+   "explanation": "By Snell's law, $n_1\\sin i = n_2\\sin r$, so $\\sin r = 1.5\\sin30^{\\circ}/1.0 = 0.75$ and $r = 48.6^{\\circ}$. The wave speeds up in air, the wavelets spread farther, and the rays bend away from the normal.",
+   "optionRationale": {
+    "1": "Uses $\\sin r = \\sin i/1.5$, as if the light were entering the glass.",
+    "2": "Takes $\\sin r = 1/1.5 = 0.67$ without the factor $\\sin30^{\\circ}$.",
+    "3": "Takes the refracted angle as twice the incident angle."
+   },
+   "objective": "Apply Snell's law to a wavefront leaving glass"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "A ray of light falls on a plane mirror. If the mirror is rotated by $10^{\\circ}$ about an axis in its plane, keeping the direction of the incident ray fixed, through what angle does the reflected ray turn?",
+   "options": [
+    "$10\\,^{\\circ}$",
+    "$5.0\\,^{\\circ}$",
+    "$20\\,^{\\circ}$",
+    "$40\\,^{\\circ}$"
+   ],
+   "answer": 3,
+   "explanation": "Rotating the mirror through $\\theta$ rotates the normal through $\\theta$ and changes the angle of incidence by $\\theta$. The angle of reflection also changes by $\\theta$, and the reflected ray turns by $2\\theta = 20^{\\circ}$ in total with respect to the fixed incident ray.",
+   "optionRationale": {
+    "1": "Turns the ray by the same angle as the mirror, missing that both the incidence and reflection angles change.",
+    "2": "Takes half the mirror rotation, the reverse of the true factor.",
+    "4": "Doubles twice, giving $4\\theta$."
+   },
+   "objective": "Find the turning of a reflected ray when a mirror rotates"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m06",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about light passing from air into glass.\nA. Its frequency does not change.\nB. Its wavelength becomes smaller.\nC. Its speed becomes smaller.\nD. Its wavelength becomes larger.\nChoose the correct answer from the options given below.",
+   "options": [
+    "A and D only",
+    "A, B and C only",
+    "B, C and D only",
+    "A, B, C and D"
+   ],
+   "answer": 2,
+   "explanation": "The frequency is fixed by the source and does not change at the boundary (A). The speed drops to $c/n$ in glass (C), and since $v = f\\lambda$ with $f$ fixed, the wavelength decreases to $\\lambda/n$ (B). Statement D contradicts B and is false.",
+   "optionRationale": {
+    "1": "Includes the false statement D and leaves out B and C.",
+    "3": "Includes D and leaves out B and C; the wavelength falls in glass.",
+    "4": "Includes both B and D, which contradict each other."
+   },
+   "objective": "Evaluate statements about light entering glass"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Light from the Sun reaches the Earth on wavefronts that are portions of spheres of radius $1.5\\times10^{11}\\,\\text{m}$. Across a mirror of diameter $1.0\\,\\text{m}$, by how much does the wavefront depart from a plane (the sagitta $s = a^{2}/2R$, with $a$ the half-diameter)?",
+   "options": [
+    "$3.3\\times10^{-12}\\,\\text{m}$",
+    "$1.7\\times10^{-12}\\,\\text{m}$",
+    "$4.2\\times10^{-13}\\,\\text{m}$",
+    "$8.3\\times10^{-13}\\,\\text{m}$"
+   ],
+   "answer": 4,
+   "explanation": "For a spherical arc of radius $R$ and half-width $a$ with $a\\ll R$, the sagitta is $s = a^{2}/2R = (0.50)^{2}/(2\\times1.5\\times10^{11}) = 8.3\\times10^{-13}\\,\\text{m}$. This is far smaller than the wavelength of light, so the wavefront across the mirror is effectively a plane.",
+   "optionRationale": {
+    "1": "Uses the full diameter $1.0\\,\\text{m}$ in place of the half-diameter $a$.",
+    "2": "Leaves out the factor 2 in the denominator.",
+    "3": "Uses $4R$ in the denominator, halving the correct value."
+   },
+   "objective": "Estimate the curvature of a distant wavefront over an aperture"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m08",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The frequency of light does not change when it passes from air into glass.\nReason (R): The frequency of a wave is determined by its source, while the speed and wavelength change with the medium.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "The frequency is imposed by the source, and the wavefronts arriving at the boundary and leaving it must be produced at the same rate, so $f$ is unchanged. R states exactly this, and adds that $v$ and $\\lambda$ change together with $v = f\\lambda$, which is the correct explanation of A.",
+   "optionRationale": {
+    "2": "Not the answer: R is the correct explanation of A.",
+    "3": "Not the answer: A is true, as the frequency is the same on both sides of the boundary.",
+    "4": "Not the answer: R is true, the frequency being determined by the source."
+   },
+   "objective": "Explain why the frequency of light is unchanged on refraction"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Two parts of a plane wavefront travel the same distance, one through a $3.0\\,\\text{mm}$ thick glass plate ($n = 1.5$) and the other through the same thickness of air. By how much does the part in glass lag behind the part in air? ($c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$)",
+   "options": [
+    "$5.0\\,\\text{ps}$",
+    "$10\\,\\text{ps}$",
+    "$15\\,\\text{ps}$",
+    "$6.7\\,\\text{ps}$"
+   ],
+   "answer": 1,
+   "explanation": "The time in air is $t_a = d/c$ and in glass $t_g = nd/c$. The difference is $(n-1)d/c = (0.5)(3.0\\times10^{-3})/(3.0\\times10^{8}) = 5.0\\times10^{-12}\\,\\text{s} = 5.0\\,\\text{ps}$. A path difference of $1.5\\,\\text{mm}$ corresponds to thousands of wavelengths of visible light, so the wavefronts emerging from the plate are displaced by thousands of wavelengths.",
+   "optionRationale": {
+    "2": "This is the time to cross the same thickness of air, not the lag.",
+    "3": "This is the time to cross the glass plate, not the lag.",
+    "4": "Divides by $n$, taking the speed in glass as $cn$ instead of $c/n$."
+   },
+   "objective": "Calculate the time lag of a wavefront in a glass plate"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A point source emits $40\\,\\text{W}$ uniformly and the intensity at $2.0\\,\\text{m}$ is about $0.80\\,\\text{W m}^{-2}$. At what distance is the intensity $0.050\\,\\text{W m}^{-2}$?",
+   "options": [
+    "$32\\,\\text{m}$",
+    "$8.0\\,\\text{m}$",
+    "$16\\,\\text{m}$",
+    "$4.0\\,\\text{m}$"
+   ],
+   "answer": 2,
+   "explanation": "On spherical wavefronts the intensity varies as $1/r^{2}$, so $r_2/r_1 = \\sqrt{I_1/I_2} = \\sqrt{0.80/0.050} = 4$. The distance is therefore $2.0\\times4 = 8.0\\,\\text{m}$. The inverse-square law follows from the same power spreading over larger spherical wavefronts, so a fourfold increase in distance gives a sixteenfold fall in intensity.",
+   "optionRationale": {
+    "1": "Uses the ratio $16$ itself, as if the intensity fell as $1/r$.",
+    "3": "Uses a ratio of $8$, with no justification from the $1/r^{2}$ law.",
+    "4": "Uses a ratio of $2$ rather than $4$, as if the intensity fell as $1/r^{4}$."
+   },
+   "objective": "Use the inverse-square law on a spherical wavefront"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m11",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Match each situation in List-I with the emerging wavefront in List-II.",
+   "list": {
+    "left": [
+     "A. A plane wavefront incident on a thin convex lens",
+     "B. A point source placed at the focus of a convex lens",
+     "C. A plane wavefront incident on a concave lens",
+     "D. A plane wavefront incident on a thin prism"
+    ],
+    "right": [
+     "I. Plane wavefront moving in the original direction",
+     "II. Spherical wavefront converging to the focus",
+     "III. Spherical wavefront diverging from the focus",
+     "IV. Plane wavefront moving in a changed direction"
+    ]
+   },
+   "options": [
+    "A-I, B-II, C-III, D-IV",
+    "A-II, B-I, C-IV, D-III",
+    "A-II, B-I, C-III, D-IV",
+    "A-III, B-I, C-II, D-IV"
+   ],
+   "answer": 3,
+   "explanation": "The central part of a plane wavefront is delayed more by a convex lens, so the wavefront emerges as a converging sphere (A-II). A point source at the focus produces a plane wavefront (B-I). A concave lens delays the edge, so a diverging sphere results (C-III). A prism delays one side more and tilts the plane wavefront (D-IV).",
+   "optionRationale": {
+    "1": "Swaps A and B: a plane wave converges and a source at the focus gives a plane wave, not the reverse.",
+    "2": "Swaps C and D: a concave lens diverges the wave and a prism only tilts it.",
+    "4": "Swaps A and C: a convex lens converges the wave and a concave lens diverges it."
+   },
+   "objective": "Predict the wavefront shapes produced by lenses and prisms"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which result about the speed of light in water decided between the corpuscular picture and the wave picture of light?",
+   "options": [
+    "The speed of light in water is less than in air, as predicted by the wave picture of Huygens",
+    "The speed of light in water is greater than in air, as predicted by the wave picture of Huygens",
+    "The speed of light in water is less than in air, as predicted by the corpuscular picture of Newton",
+    "The speed of light in water equals that in air, as predicted by both the pictures"
+   ],
+   "answer": 1,
+   "explanation": "The corpuscular picture explained bending towards the normal by a larger speed in the denser medium, while Huygens' wavefront construction needs a smaller speed there ($n = c/v$). Measurements showing that light travels more slowly in water than in air agree with the wave picture.",
+   "optionRationale": {
+    "2": "The measured speed is smaller in water, and the wave picture did not predict a larger one.",
+    "3": "The corpuscular picture predicted a larger speed in water, not a smaller one.",
+    "4": "The speeds differ, and the two pictures made opposite predictions."
+   },
+   "objective": "Recall the experimental test of the wave picture of light"
+  },
+  {
+   "key": "ug26-322-u6-wavefronts-huygens-m13",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A point source of light in a uniform medium produces cylindrical wavefronts.\nReason (R): A long narrow slit acts as a source that gives cylindrical wavefronts.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "A point source in a uniform medium emits equally in all directions, so its wavefronts are spheres, and A is false. A long slit is a line source and gives wavefronts that are coaxial cylinders, so R is true.",
+   "optionRationale": {
+    "1": "Not the answer: A is false, so the pair cannot both be true.",
+    "2": "Not the answer: A is false, so it cannot be a true statement.",
+    "3": "Not the answer: A is false and R is true; the reverse is not so."
+   },
+   "objective": "Relate the shape of a wavefront to the type of source"
+  }
+ ]
+}

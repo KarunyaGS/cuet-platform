@@ -1,0 +1,365 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_1ad20c7dd9ed4fe088b24563cd315c84",
+    "title": "Energy bands in conductors, semiconductors and insulators (qualitative ideas only)."
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u9-energy-bands-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In a crystal, the band of energy levels occupied by the outermost (valence) electrons of the atoms at 0 K is called the",
+      "options": [
+        "impurity band, which is present in every intrinsic semiconductor crystal",
+        "valence band, which is completely filled in an intrinsic semiconductor",
+        "forbidden gap, which can be occupied by electrons at 0 K if it is narrow enough",
+        "conduction band, which is completely filled at 0 K in an intrinsic semiconductor"
+      ],
+      "answer": 2,
+      "explanation": "The levels occupied by the valence electrons form the valence band. For a pure semiconductor at 0 K, every state in this band is filled and the band above it, the conduction band, is empty. The two are separated by the forbidden gap, which contains no allowed states and is not occupied by electrons.",
+      "optionRationale": {
+        "1": "An impurity band appears only when impurities are added; a pure crystal has none.",
+        "3": "The forbidden gap contains no allowed energy levels, whatever its width.",
+        "4": "The conduction band is the empty band above the valence band at 0 K."
+      },
+      "objective": "Define the valence band and the filling of bands at 0 K"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following arranges germanium (Ge), silicon (Si) and diamond (C) in order of increasing forbidden energy gap?",
+      "options": [
+        "Si, Ge, diamond (about 1.1 eV, 0.7 eV, 5.4 eV)",
+        "Ge, diamond, Si (about 0.7 eV, 5.4 eV, 1.1 eV)",
+        "Diamond, Si, Ge (about 5.4 eV, 1.1 eV, 0.7 eV)",
+        "Ge, Si, diamond (about 0.7 eV, 1.1 eV, 5.4 eV)"
+      ],
+      "answer": 4,
+      "explanation": "Germanium has the smallest gap, about 0.7 eV, silicon has about 1.1 eV and diamond has about 5.4 eV. The first two are semiconductors, since thermal energy can raise some electrons across their gaps, while diamond with its wide gap is an insulator.",
+      "optionRationale": {
+        "1": "This puts silicon before germanium, but germanium has the narrower gap.",
+        "2": "This puts diamond between the two semiconductors, but its gap is the widest of the three.",
+        "3": "This is the decreasing order, with the largest gap listed first."
+      },
+      "objective": "Order materials by their forbidden energy gap"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A semiconductor has a forbidden gap of 1.8 eV. What is the longest wavelength of light that can create electron-hole pairs in it? (Take $h = 6.63\\times10^{-34}\\,\\text{J s}$, $c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$ and $e = 1.6\\times10^{-19}\\,\\text{C}$.)",
+      "options": [
+        "$345\\,\\text{nm}$",
+        "$1381\\,\\text{nm}$",
+        "$6906\\,\\text{nm}$",
+        "$691\\,\\text{nm}$"
+      ],
+      "answer": 4,
+      "explanation": "A photon can lift an electron across the gap only if $hc/\\lambda \\geq E_g$. The limiting wavelength is $\\lambda = hc/E_g = (6.63\\times10^{-34})(3.0\\times10^8)/(1.8\\times1.6\\times10^{-19}) = 691\\,\\text{nm}$, in the red part of the spectrum. Longer wavelengths have too little energy per photon.",
+      "optionRationale": {
+        "1": "This is half the correct wavelength, which corresponds to a gap of 3.6 eV.",
+        "2": "This is twice the correct wavelength, which corresponds to a gap of 0.9 eV.",
+        "3": "This is ten times too large, from a slip in the power of ten for the conversion of eV to joule."
+      },
+      "objective": "Find the threshold wavelength for electron-hole pair creation"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Three crystals X, Y and Z have forbidden gaps of 1.1 eV, 2.4 eV and 5.4 eV respectively. Red light of wavelength 700 nm (photon energy about 1.8 eV) falls on each. In which crystal can the photons create electron-hole pairs?",
+      "options": [
+        "Only in X, since 1.8 eV exceeds its gap but not the other two",
+        "Only in Y, since its gap is the closest above the photon energy",
+        "In all three, since light of any wavelength can excite electrons",
+        "In both X and Y, since both gaps are less than twice the photon energy"
+      ],
+      "answer": 1,
+      "explanation": "The photon energy is $hc/\\lambda = 1.78\\,\\text{eV}$. A pair is created only if this is at least the gap. This holds for X (1.1 eV), but not for Y (2.4 eV) or Z (5.4 eV), through which the red light passes without being absorbed.",
+      "optionRationale": {
+        "2": "A photon needs energy at least equal to the gap, so a gap larger than the photon energy cannot be bridged.",
+        "3": "Only photons whose energy is at least the gap can excite an electron across it, so not every wavelength works.",
+        "4": "The test is whether the photon energy equals or exceeds the gap, and doubling the energy is not allowed in single-photon absorption."
+      },
+      "objective": "Decide which crystals absorb a given wavelength"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Magnesium has a completely filled valence band in the free-atom picture (two electrons in the 3s level), yet it is a good conductor. How do energy bands explain this?",
+      "options": [
+        "Magnesium has a wide gap that thermal energy easily bridges at 300 K",
+        "The forbidden gap in magnesium is exactly zero in width at every temperature",
+        "The valence band overlaps the next empty band, so electrons can move into available states",
+        "The electrons are bound to the lattice so strongly that they cannot move"
+      ],
+      "answer": 3,
+      "explanation": "In magnesium, and in other metals with two outer electrons, the filled valence band overlaps in energy with the next empty band. The electrons at the top of the filled states therefore find empty states of nearly the same energy, and a small electric field can set them in motion. This is why the metal conducts at all temperatures.",
+      "optionRationale": {
+        "1": "A wide gap that is easily bridged contradicts itself, and the wide gap is the mark of an insulator.",
+        "2": "A gap of zero width is not what is meant; the bands overlap, so there is no forbidden region at the top.",
+        "4": "Strong binding would make a material an insulator, not a conductor."
+      },
+      "objective": "Explain conduction in metals with overlapping bands"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In a pure (intrinsic) semiconductor at room temperature, which of the following is true?",
+      "options": [
+        "There are holes in the valence band but no electrons in the conduction band",
+        "The number of electrons in the conduction band equals the number of holes in the valence band",
+        "The number of electrons in the conduction band is much greater than the number of holes",
+        "The conduction band is completely full and the valence band is empty"
+      ],
+      "answer": 2,
+      "explanation": "Each electron that is thermally excited across the gap leaves one vacancy, a hole, in the valence band. Electrons and holes are therefore created in pairs, and in a pure crystal their numbers are equal. Both contribute to the small current that flows when a field is applied.",
+      "optionRationale": {
+        "1": "A hole is created whenever an electron is excited, so one cannot exist without the other.",
+        "3": "Pairs are created together, so no excess of one kind arises in a pure crystal.",
+        "4": "The conduction band is almost empty and the valence band almost full at room temperature."
+      },
+      "objective": "State the carrier balance in an intrinsic semiconductor"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m07",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Silicon is a semiconductor, whereas diamond, which has a similar crystal structure, is an insulator.\nReason (R): The forbidden energy gap of diamond is much larger than that of silicon.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Both crystals have fully occupied valence bands at 0 K, but diamond's gap is about 5.4 eV against about 1.1 eV in silicon. At room temperature, thermal energy is able to lift some electrons across the smaller gap but practically none across the larger gap. So diamond has almost no free carriers, and the reason accounts for the assertion.",
+      "optionRationale": {
+        "2": "R is not merely true; the size of the gap is exactly what separates the two behaviours.",
+        "3": "R is true; the gap of diamond is much larger than that of silicon.",
+        "4": "A is true; silicon is a semiconductor and diamond is an insulator."
+      },
+      "objective": "Explain the difference between a semiconductor and an insulator by the forbidden gap"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m08",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): At 0 K the valence band of a pure semiconductor is completely filled.\nReason (R): At 0 K the conduction band of a pure semiconductor is partially filled with electrons.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "The assertion is true: with no thermal energy, all electrons occupy the lowest available states, which completely fill the valence band. The reason is false, because with no electrons in the conduction band the semiconductor behaves like an insulator at 0 K. The conduction band acquires electrons only as the temperature rises.",
+      "optionRationale": {
+        "1": "R is false, so it cannot explain A.",
+        "2": "R is not true; the conduction band is empty at 0 K.",
+        "4": "A is true; the valence band is full at 0 K."
+      },
+      "objective": "State band occupancy of a semiconductor at 0 K"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m09",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about energy bands.\nA. In metals the conduction band is partly filled or overlaps the valence band.\nB. In semiconductors the forbidden gap is small, of the order of 1 eV or so.\nC. In insulators the forbidden gap is large, greater than about 3 eV.\nD. In semiconductors the number of free charge carriers decreases as the temperature rises.\nChoose the correct option.",
+      "options": [
+        "A, B and D only",
+        "B, C and D only",
+        "A, B and C only",
+        "A and C only"
+      ],
+      "answer": 3,
+      "explanation": "In metals electrons have easily available empty states (A). In semiconductors the gap is small enough for thermal excitation (B), and in insulators the gap is too large for that (C). With a rise in temperature more electrons cross the gap, so the number of carriers increases; D is false.",
+      "optionRationale": {
+        "1": "D is false because carriers increase with temperature in a semiconductor.",
+        "2": "D is false, and A, which is true, is excluded.",
+        "4": "B is also true, so omitting it makes this option incomplete."
+      },
+      "objective": "Evaluate statements about bands in metals, semiconductors and insulators"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m10",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match each term of band theory in List-I with its description in List-II.",
+      "list": {
+        "left": [
+          "A. Valence band",
+          "B. Conduction band",
+          "C. Forbidden gap",
+          "D. Hole"
+        ],
+        "right": [
+          "I. Range of energies in which no electron states are allowed",
+          "II. Vacancy in the valence band that acts like a positive charge carrier",
+          "III. Band above the gap, empty at 0 K in a pure semiconductor",
+          "IV. Band of levels of the outer electrons, completely filled at 0 K"
+        ]
+      },
+      "options": [
+        "A-III, B-IV, C-I, D-II",
+        "A-IV, B-III, C-II, D-I",
+        "A-I, B-III, C-IV, D-II",
+        "A-IV, B-III, C-I, D-II"
+      ],
+      "answer": 4,
+      "explanation": "The valence band is the band of levels of the outer electrons, completely filled at 0 K (A-IV). The conduction band lies above the gap and is empty at 0 K (B-III). The forbidden gap is the range with no allowed states (C-I). A hole is a vacancy in the valence band that behaves as a positive carrier (D-II).",
+      "optionRationale": {
+        "1": "A and B are interchanged: the filled band is the valence band and the empty one is the conduction band.",
+        "2": "C and D are interchanged: the gap has no allowed states, whereas the hole is a vacancy in a band.",
+        "3": "A and C are interchanged: the forbidden gap is not a band of filled levels."
+      },
+      "objective": "Match the terms of band theory with their meanings"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "N identical atoms are brought together to form a crystal. The band that forms from the 3s level of the atoms can hold at most how many electrons?",
+      "options": [
+        "2N, because N levels each hold two electrons of opposite spin",
+        "4N, because each level holds electrons of both spin and both signs",
+        "6N, because the band includes three sub-levels of each atom",
+        "N, because each level in the band holds only one electron"
+      ],
+      "answer": 1,
+      "explanation": "The single 3s level of each atom splits into N closely spaced levels as N atoms interact. By the Pauli exclusion principle, each level holds two electrons of opposite spin, so the band can hold 2N electrons. This is just the number of electrons that the N free atoms would hold in their 3s levels.",
+      "optionRationale": {
+        "2": "Spin has only two orientations, so each level holds two electrons, not four.",
+        "3": "Six states per atom belong to the 3p level, not to the 3s level.",
+        "4": "Each level can hold two electrons with opposite spins, not one."
+      },
+      "objective": "Count the electron capacity of an energy band"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A light-emitting diode is made from a semiconductor of band gap 2.0 eV. When an electron falls across the gap and recombines with a hole, the energy is emitted as a photon. What is the wavelength of the light emitted? (Take $h = 6.63\\times10^{-34}\\,\\text{J s}$, $c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$ and $e = 1.6\\times10^{-19}\\,\\text{C}$.)",
+      "options": [
+        "$450\\,\\text{nm}$",
+        "$622\\,\\text{nm}$",
+        "$1243\\,\\text{nm}$",
+        "$311\\,\\text{nm}$"
+      ],
+      "answer": 2,
+      "explanation": "The photon energy equals the gap, $E_g = 2.0\\,\\text{eV} = 3.2\\times10^{-19}\\,\\text{J}$. The wavelength is $\\lambda = hc/E_g = (6.63\\times10^{-34})(3.0\\times10^8)/(3.2\\times10^{-19}) = 622\\,\\text{nm}$, in the red-orange region of the visible spectrum.",
+      "optionRationale": {
+        "1": "This is a blue wavelength, which would need a gap of nearly 2.8 eV, not 2.0 eV.",
+        "3": "This is twice the correct value, which would need a gap of 1.0 eV.",
+        "4": "This is half the correct value, which would need a gap of 4.0 eV."
+      },
+      "objective": "Find the emission wavelength from the band gap"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In the band picture of a semiconductor, a hole is best described as",
+      "options": [
+        "an extra electron in the conduction band that has a positive charge",
+        "a vacant state in the valence band that behaves like a mobile positive charge",
+        "a vacancy in the conduction band that carries a negative charge",
+        "an atom that has been removed from the crystal lattice"
+      ],
+      "answer": 2,
+      "explanation": "When an electron leaves the valence band, it leaves a vacant state. Electrons in neighbouring states move into this vacancy, and the vacancy appears to move in the opposite direction. The result is as though a positive charge were drifting through the crystal in the direction of the electric field.",
+      "optionRationale": {
+        "1": "An electron in the conduction band is a negative charge carrier, not a positive one.",
+        "3": "A vacancy in the conduction band is just an empty state, not a hole.",
+        "4": "A hole is an electronic vacancy in a band, and no atom has been removed."
+      },
+      "objective": "Describe a hole in the valence band"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A photodetector responds to light of wavelengths up to a limit of 1.1 $\\mu\\text{m}$. What is the band gap of its semiconductor material in eV? (Take $h = 6.63\\times10^{-34}\\,\\text{J s}$, $c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$ and $e = 1.6\\times10^{-19}\\,\\text{C}$.)",
+      "options": [
+        "$1.13\\,\\text{eV}$",
+        "$0.565\\,\\text{eV}$",
+        "$2.26\\,\\text{eV}$",
+        "$1.81\\,\\text{eV}$"
+      ],
+      "answer": 1,
+      "explanation": "The longest wavelength that can be absorbed corresponds to the photon energy equal to the gap, so $E_g = hc/\\lambda = (6.63\\times10^{-34})(3.0\\times10^8)/(1.1\\times10^{-6}) = 1.81\\times10^{-19}\\,\\text{J}$. Dividing by $1.6\\times10^{-19}$ gives 1.13 eV, close to that of silicon.",
+      "optionRationale": {
+        "2": "This is half the correct gap, which would respond up to 2.2 μm.",
+        "3": "This is twice the correct gap, which would respond only up to 0.55 μm.",
+        "4": "This reads the number of joules, $1.81\\times10^{-19}$ J, as if it were already in electron volts."
+      },
+      "objective": "Find the band gap from the cut-off wavelength"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Germanium has a band gap of about 0.7 eV and silicon about 1.1 eV. At the same temperature, which statement about the pure crystals is correct?",
+      "options": [
+        "Neither has any electron-hole pairs, since the gap is greater than the thermal energy",
+        "Both have equal numbers of electron-hole pairs, since the temperature is the same",
+        "Silicon has more electron-hole pairs, because its larger gap lets more electrons cross",
+        "Germanium has more electron-hole pairs, because its smaller gap is crossed more easily"
+      ],
+      "answer": 4,
+      "explanation": "Thermal excitation across the gap becomes much more probable as the gap narrows. At the same temperature, germanium therefore has many more electrons in its conduction band than silicon. This is why germanium devices are more affected by temperature. The thermal energy at 300 K is about 0.026 eV, but the high-energy tail of the distribution still supplies some carriers.",
+      "optionRationale": {
+        "1": "Some electrons do cross the gap, since a few have energy well above the average thermal energy.",
+        "2": "The number of pairs depends strongly on the gap even at the same temperature.",
+        "3": "A larger gap makes the crossing harder, not easier, so silicon has fewer pairs."
+      },
+      "objective": "Compare carrier numbers in semiconductors with different gaps"
+    },
+    {
+      "key": "ug26-322-u9-energy-bands-m16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "As isolated atoms are brought closer to form a crystal, their energy levels spread into bands. Which statement about the width of the bands at the equilibrium spacing is correct?",
+      "options": [
+        "The levels do not broaden at all if the crystal has only a few atoms",
+        "All levels of the atom broaden by the same amount, as the spacing is the same",
+        "Outer (valence) levels broaden into wider bands than inner core levels, since their orbitals overlap more",
+        "Inner core levels broaden into wider bands than outer levels, since they are closer to the nuclei"
+      ],
+      "answer": 3,
+      "explanation": "The splitting of a level arises from the interaction of the electron orbitals of neighbouring atoms. Outer electrons have orbitals that extend far from the nucleus, so they overlap strongly and their levels spread into wide bands. The inner core orbitals are compact, overlap hardly at all and remain almost as narrow as in free atoms.",
+      "optionRationale": {
+        "1": "A few atoms also split a level, but into only a few levels, which still form a spread of energies.",
+        "2": "The broadening depends on the overlap of the orbitals, which differs from level to level.",
+        "4": "Core orbitals are compact, and being closer to the nucleus makes them overlap less with the neighbours."
+      },
+      "objective": "Explain why valence bands are wider than core bands"
+    }
+  ]
+}

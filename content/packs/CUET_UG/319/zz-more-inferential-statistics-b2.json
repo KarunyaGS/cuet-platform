@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_c2cf12e732734b21a02deae3ef9fd0bb",
+    "title": "INFERENTIAL STATISTICS"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r11-inferential-statistics-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The mean monthly income of all 2,500 households in a town is ₹32,000, while a random sample of $100$ of those households has a mean income of ₹30,400. Which description is correct?",
+      "options": [
+        "₹32,000 is a statistic and ₹30,400 is a parameter",
+        "Both figures are parameters because both describe incomes",
+        "₹32,000 is a parameter and ₹30,400 is a statistic",
+        "Both figures are statistics because both are averages"
+      ],
+      "answer": 3,
+      "explanation": "A parameter describes the whole population, here all 2,500 households, so ₹32,000 is a parameter. A statistic is computed from a sample, here the $100$ households, so ₹30,400 is a statistic. The two differ because a sample mean varies from sample to sample.",
+      "optionRationale": {
+        "1": "This reverses the roles; the figure for the whole population is the parameter.",
+        "2": "Only the figure computed for the entire population is a parameter; the sample figure is a statistic.",
+        "4": "Being an average does not decide the matter; what counts is whether the group is the whole population or a sample."
+      },
+      "objective": "Distinguish a population parameter from a sample statistic"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A school has $600$ boys and $400$ girls. A sample of $50$ students is drawn by proportional stratified sampling, with boys and girls as the two strata. How many girls are in the sample?",
+      "options": [
+        "25",
+        "30",
+        "20",
+        "40"
+      ],
+      "answer": 3,
+      "explanation": "In proportional stratified sampling each stratum is represented in the same proportion as in the population. Girls form $400/1000 = 40\\%$ of the students, so the sample contains $40\\%$ of $50 = 20$ girls and $30$ boys.",
+      "optionRationale": {
+        "1": "$25$ would be an equal split, which ignores the unequal stratum sizes.",
+        "2": "$30$ is the number of boys in the sample, which has $60\\%$ boys.",
+        "4": "$40$ is the percentage of girls, not a count out of $50$."
+      },
+      "objective": "Allocate a sample proportionally across strata"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A population has standard deviation $\\sigma = 18$. A researcher wants the standard error of the sample mean to be $1.5$. What sample size is required?",
+      "options": [
+        "144",
+        "12",
+        "216",
+        "24"
+      ],
+      "answer": 1,
+      "explanation": "The standard error is $\\sigma/\\sqrt{n}$. Setting $18/\\sqrt{n} = 1.5$ gives $\\sqrt{n} = 12$, hence $n = 144$. Squaring is essential: halving or similar manipulations of $\\sigma$ alone do not give the sample size.",
+      "optionRationale": {
+        "2": "$12$ is $\\sqrt{n}$, not $n$; the square root has not been undone.",
+        "3": "$216$ comes from $18^2/1.5$, which mis-handles the square root.",
+        "4": "$24$ has no link with $(\\sigma/\\text{SE})^2$; it comes from doubling $12$."
+      },
+      "objective": "Find the sample size for a required standard error"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-m04",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): If the p-value of a test is $0.03$, the null hypothesis is rejected at the $5\\%$ level of significance.\nReason (R): A p-value of $0.03$ means that the probability that the null hypothesis is true is $3\\%$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "Since $0.03 < 0.05$, the result is significant at the $5\\%$ level and $H_0$ is rejected, so A is true. The p-value, however, is the probability of data at least this extreme when $H_0$ is assumed true; it is not the probability that $H_0$ itself is true, so R is false.",
+      "optionRationale": {
+        "1": "R is false, so it cannot explain A; the p-value is computed assuming $H_0$ is true.",
+        "2": "R is not true, so the pair is not 'both true'.",
+        "4": "A is true because $0.03$ is below the $0.05$ cut-off."
+      },
+      "objective": "Interpret a p-value correctly"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-m05",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each term of hypothesis testing in List-I with its meaning in List-II.",
+      "list": {
+        "left": [
+          "A. Type I error",
+          "B. Type II error",
+          "C. Level of significance",
+          "D. Critical region"
+        ],
+        "right": [
+          "I. Rejecting $H_0$ when $H_0$ is actually true",
+          "II. Failing to reject $H_0$ when $H_0$ is actually false",
+          "III. The largest probability of a Type I error the tester will accept",
+          "IV. The set of test-statistic values that lead to rejection of $H_0$"
+        ]
+      },
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-III, B-II, C-I, D-IV",
+        "A-I, B-II, C-III, D-IV"
+      ],
+      "answer": 4,
+      "explanation": "A Type I error is a false rejection of a true $H_0$ (I). A Type II error is a failure to reject a false $H_0$ (II). The level of significance $\\alpha$ is the maximum Type I error probability that is tolerated (III). The critical region is the set of statistic values that triggers rejection (IV).",
+      "optionRationale": {
+        "1": "Items A and B have been interchanged; check each pairing against its definition.",
+        "2": "Items C and D have been interchanged; check each pairing against its definition.",
+        "3": "Items A and C have been interchanged; check each pairing against its definition."
+      },
+      "objective": "Match error types and the critical region with their meanings"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-m06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The tensile strengths (in kg) of $8$ cables are $62, 65, 61, 66, 64, 67, 63, 68$. To test $H_0: \\mu = 60$ with the one-sample t-test, the value of the t statistic is closest to",
+      "options": [
+        "$5.56$",
+        "$5.20$",
+        "$1.84$",
+        "$14.7$"
+      ],
+      "answer": 2,
+      "explanation": "The sample mean is $64.5$ and the sample variance is $\\sum(x-\\bar{x})^2/(n-1) = 42/7 = 6$, so $s = \\sqrt{6} \\approx 2.449$. Then $t = (64.5 - 60)/(s/\\sqrt{8}) = 4.5/0.866 \\approx 5.20$ with $7$ degrees of freedom.",
+      "optionRationale": {
+        "1": "This uses the divisor $n$ instead of $n-1$ in the standard deviation, which overstates $t$.",
+        "3": "This leaves out the $\\sqrt{n}$ and divides the difference $4.5$ by $s$ only.",
+        "4": "This divides by $s/n$ instead of $s/\\sqrt{n}$, which inflates the statistic."
+      },
+      "objective": "Compute a one-sample t statistic"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-m07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about degrees of freedom in t-tests.\nA. A one-sample t-test on $12$ observations has $11$ degrees of freedom.\nB. A paired t-test on $10$ pairs of observations has $9$ degrees of freedom.\nC. A pooled two-sample t-test with sample sizes $7$ and $9$ has $16$ degrees of freedom.\nD. Degrees of freedom do not change the critical value of a t-test.\nChoose the correct answer.",
+      "options": [
+        "A and B only",
+        "A and C only",
+        "B, C and D only",
+        "A, B and C only"
+      ],
+      "answer": 1,
+      "explanation": "A one-sample test uses $n-1 = 11$ and a paired test works on the $10$ differences, so it uses $10-1 = 9$; A and B are true. The pooled test uses $n_1 + n_2 - 2 = 7 + 9 - 2 = 14$, not $16$, so C is false. Critical values of t shrink as the degrees of freedom grow, so D is false.",
+      "optionRationale": {
+        "2": "C is false because $7 + 9 - 2 = 14$, not $16$.",
+        "3": "A is true, so a set that excludes it cannot be right; C and D are false too.",
+        "4": "C is false, since the pooled degrees of freedom are $14$."
+      },
+      "objective": "State the degrees of freedom for common t-tests"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-m08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A sample of $16$ bulbs has mean life $24.5$ months and standard deviation $s = 2$ months. For $H_0: \\mu = 23.5$ the t statistic has $15$ degrees of freedom. The critical value is $2.131$ for a two-tailed test at $5\\%$ and $1.753$ for a right-tailed test at $5\\%$. Which conclusion is correct?",
+      "options": [
+        "H₀ is rejected in the two-tailed test but not rejected in the right-tailed test",
+        "H₀ is rejected in both tests",
+        "H₀ is not rejected in either test",
+        "H₀ is not rejected in the two-tailed test but is rejected in the right-tailed test"
+      ],
+      "answer": 4,
+      "explanation": "The statistic is $t = (24.5 - 23.5)/(2/\\sqrt{16}) = 1/0.5 = 2.00$. Since $2.00 < 2.131$ the two-tailed test does not reject $H_0$, but $2.00 > 1.753$ so the right-tailed test does. The choice of alternative changes the critical value and so the decision.",
+      "optionRationale": {
+        "1": "The comparison is reversed: $2.00$ is below $2.131$ but above $1.753$.",
+        "2": "$2.00$ is not above $2.131$, so the two-tailed test cannot reject.",
+        "3": "$2.00$ exceeds the one-tailed value $1.753$, so rejection does occur in that test."
+      },
+      "objective": "Compare a t statistic with one-tailed and two-tailed critical values"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-m09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Six students' scores before and after coaching are: before $72, 68, 75, 70, 66, 74$ and after $75, 70, 79, 71, 70, 77$. For the paired t-test of $H_0: \\mu_d = 0$ the critical value at $5\\%$ (two-tailed, $5$ degrees of freedom) is $2.571$. Which statement is correct?",
+      "options": [
+        "$t \\approx 5.94$ with $5$ degrees of freedom, so $H_0$ is not rejected at $5\\%$",
+        "$t \\approx 5.94$ with $6$ degrees of freedom, so $H_0$ is rejected at $5\\%$",
+        "$t \\approx 5.94$ with $5$ degrees of freedom, so $H_0$ is rejected at $5\\%$",
+        "$t \\approx 2.43$ with $5$ degrees of freedom, so $H_0$ is not rejected at $5\\%$"
+      ],
+      "answer": 3,
+      "explanation": "The differences (after minus before) are $3, 2, 4, 1, 4, 3$, with mean $2.833$ and standard deviation $s_d \\approx 1.169$. Then $t = 2.833/(1.169/\\sqrt{6}) \\approx 5.94$ with $n - 1 = 5$ degrees of freedom. As $5.94 > 2.571$, $H_0$ is rejected.",
+      "optionRationale": {
+        "1": "The statistic is correct, but $5.94 > 2.571$, so the conclusion should be rejection.",
+        "2": "A paired test on $6$ pairs has $5$ degrees of freedom, not $6$.",
+        "4": "The value $2.43$ does not arise from these differences; the correct statistic is far larger."
+      },
+      "objective": "Perform a paired t-test"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-m10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Two independent samples of yields are $12, 15, 14, 16, 13$ (machine P) and $10, 12, 11, 9, 13, 10$ (machine Q). Assuming equal population variances, the pooled two-sample t statistic for $H_0: \\mu_P = \\mu_Q$ is closest to",
+      "options": [
+        "$3.73$",
+        "$3.44$",
+        "$5.68$",
+        "$2.08$"
+      ],
+      "answer": 2,
+      "explanation": "The means are $14$ and $10.83$ and the sample variances are $2.5$ and $2.167$. The pooled variance is $(4\\cdot2.5 + 5\\cdot2.167)/9 = 2.315$. Then $t = 3.167/\\sqrt{2.315(1/5 + 1/6)} \\approx 3.167/0.921 \\approx 3.44$ with $9$ degrees of freedom.",
+      "optionRationale": {
+        "1": "This forgets the square root over the pooled variance times $(1/n_1 + 1/n_2)$.",
+        "3": "This takes the square root of the pooled variance only and multiplies it by $(1/5 + 1/6)$.",
+        "4": "This divides by $s_p$ alone and leaves out the factor $\\sqrt{1/n_1 + 1/n_2}$."
+      },
+      "objective": "Compute a pooled two-sample t statistic"
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_bba4d95ba8c4438087410fb17afc0ba7",
+  "title": "Applications of derivatives"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r21-applications-of-derivatives-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The volume of a cube of edge $x$ is $V=x^3$. The rate of change of the volume with respect to the edge when $x=4$ cm is",
+   "options": [
+    "$64\\ \\text{cm}^3/\\text{cm}$",
+    "$12\\ \\text{cm}^3/\\text{cm}$",
+    "$48\\ \\text{cm}^3/\\text{cm}$",
+    "$16\\ \\text{cm}^3/\\text{cm}$"
+   ],
+   "answer": 3,
+   "explanation": "The rate of change of $V$ with respect to $x$ is $\\frac{dV}{dx}=3x^2$. At $x=4$ this equals $3\\cdot16=48$. The number $64$ is the volume itself, not its rate of change.",
+   "optionRationale": {
+    "1": "64 is the value of the volume x^3 at x = 4, not the derivative.",
+    "2": "12 is 3x, which differs from the derivative 3x^2 by a missing factor of x.",
+    "4": "16 is x^2; the factor 3 from the power rule was dropped."
+   },
+   "objective": "Find a rate of change with respect to a variable"
+  },
+  {
+   "key": "ug26-319-r21-applications-of-derivatives-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Examine the sign of the derivative of the downward parabola $f(x)=6x-x^2$. It rises strictly on the interval",
+   "options": [
+    "$(-\\infty,\\,3)$",
+    "$(3,\\,\\infty)$",
+    "$(-\\infty,\\,6)$",
+    "$(0,\\,6)$"
+   ],
+   "answer": 1,
+   "explanation": "$f'(x)=6-2x$, which is positive exactly when $x<3$. So $f$ is strictly increasing on $(-\\infty,3)$ and strictly decreasing on $(3,\\infty)$. The turning point is at $x=3$.",
+   "optionRationale": {
+    "2": "On (3, infinity) the derivative 6 - 2x is negative, so the function falls there.",
+    "3": "6 is a zero of the function, not of its derivative; the sign change of f' happens at 3.",
+    "4": "(0, 6) contains points on both sides of the vertex x = 3, so f is not monotonic there."
+   },
+   "objective": "Find where a quadratic function increases"
+  },
+  {
+   "key": "ug26-319-r21-applications-of-derivatives-m03",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each function in List-I with the correct description in List-II.",
+   "list": {
+    "left": [
+     "A. $2x+\\sin x$",
+     "B. $-x^3$",
+     "C. $x^4$",
+     "D. $x^3$"
+    ],
+    "right": [
+     "I. Local minimum at $x=0$",
+     "II. Strictly increasing on $\\mathbb R$",
+     "III. Critical point at $x=0$ but no local extremum",
+     "IV. Strictly decreasing on $\\mathbb R$"
+    ]
+   },
+   "options": [
+    "A-IV, B-II, C-I, D-III",
+    "A-II, B-IV, C-I, D-III",
+    "A-II, B-IV, C-III, D-I",
+    "A-I, B-IV, C-II, D-III"
+   ],
+   "answer": 2,
+   "explanation": "For $f=2x+\\sin x$, $f'=2+\\cos x\\ge1>0$, so it is strictly increasing. For $-x^3$, $f'=-3x^2\\le0$ with zero only at $0$, so it is strictly decreasing. $x^4$ has $f'=4x^3$ changing from $-$ to $+$ at $0$ (a local minimum). For $x^3$, $f'=3x^2\\ge0$ does not change sign at $0$, so there is no extremum.",
+   "optionRationale": {
+    "1": "A and B are interchanged: 2x + sin x has derivative 2 + cos x, always positive.",
+    "3": "C and D are interchanged: x^4 has a minimum at 0, while x^3 has no extremum there.",
+    "4": "A and C are interchanged: x^4 is not increasing everywhere and 2x + sin x has no local minimum."
+   },
+   "objective": "Link sign of the derivative to behaviour"
+  },
+  {
+   "key": "ug26-319-r21-applications-of-derivatives-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "A particle moves along a line with position $s=t^3-6t^2+9t$ (in metres, $t$ in seconds). Its acceleration at the first instant when its velocity is zero is",
+   "options": [
+    "$-6\\ \\text{m/s}^2$",
+    "$6\\ \\text{m/s}^2$",
+    "$0\\ \\text{m/s}^2$",
+    "$-12\\ \\text{m/s}^2$"
+   ],
+   "answer": 1,
+   "explanation": "Velocity $v=\\frac{ds}{dt}=3t^2-12t+9=3(t-1)(t-3)$, which is zero at $t=1$ and $t=3$. Acceleration $a=\\frac{dv}{dt}=6t-12$. At the first instant $t=1$, $a=-6\\ \\text{m/s}^2$ (the value $+6$ belongs to $t=3$).",
+   "optionRationale": {
+    "2": "+6 is the acceleration at t = 3, the second time the velocity vanishes.",
+    "3": "Zero acceleration occurs at t = 2, not when the velocity is zero.",
+    "4": "-12 is the value of 6t - 12 at t = 0, not at t = 1."
+   },
+   "objective": "Use derivatives for velocity and acceleration"
+  },
+  {
+   "key": "ug26-319-r21-applications-of-derivatives-m05",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about increasing functions and extrema.\nA. If $f'(x)>0$ on an interval, then $f$ is strictly increasing there.\nB. If $f'(c)=0$, then $f$ must have a local extremum at $c$.\nC. A continuous function on a closed interval has an absolute maximum and an absolute minimum.\nD. A local maximum value is always larger than every local minimum value.\nChoose the correct answer.",
+   "options": [
+    "A and B only",
+    "B and D only",
+    "A, C and D only",
+    "A and C only"
+   ],
+   "answer": 4,
+   "explanation": "A is the standard monotonicity test and C is the extreme value theorem. B fails for $f(x)=x^3$ at $0$, where $f'(0)=0$ but there is no extremum. D fails for $f(x)=x+\\frac1x$, whose local maximum $-2$ is smaller than its local minimum $2$.",
+   "optionRationale": {
+    "1": "B is false: x^3 has f'(0) = 0 but no extremum.",
+    "2": "B and D are both false, and C is a true theorem that this option leaves out.",
+    "3": "D is false: for x + 1/x the local maximum is -2 and the local minimum is 2."
+   },
+   "objective": "Judge statements about extrema"
+  },
+  {
+   "key": "ug26-319-r21-applications-of-derivatives-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The local minimum value of $f(x)=2x^3-9x^2+12x+5$ is",
+   "options": [
+    "10",
+    "5",
+    "9",
+    "14"
+   ],
+   "answer": 3,
+   "explanation": "$f'(x)=6x^2-18x+12=6(x-1)(x-2)$. The second derivative $f''=12x-18$ is $-6<0$ at $x=1$ (a local maximum, value $10$) and $+6>0$ at $x=2$ (a local minimum). So the minimum value is $f(2)=16-36+24+5=9$.",
+   "optionRationale": {
+    "1": "10 is f(1), the local maximum value.",
+    "2": "5 is f(0), the value at the origin, not at a critical point.",
+    "4": "14 does not correspond to any critical point; f(1) = 10 and f(2) = 9."
+   },
+   "objective": "Use the second derivative test to find a minimum value"
+  },
+  {
+   "key": "ug26-319-r21-applications-of-derivatives-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Sand is poured on the ground at $12\\ \\text{cm}^3/\\text{s}$ and forms a cone whose height always equals the radius of its base. The rate at which the height increases when the height is $4$ cm is",
+   "options": [
+    "$\\dfrac{3}{2\\pi}\\ \\text{cm/s}$",
+    "$\\dfrac{3}{4\\pi}\\ \\text{cm/s}$",
+    "$\\dfrac{3}{16\\pi}\\ \\text{cm/s}$",
+    "$\\dfrac{4}{\\pi}\\ \\text{cm/s}$"
+   ],
+   "answer": 2,
+   "explanation": "With $r=h$ the volume is $V=\\frac13\\pi h^3$, so $\\frac{dV}{dt}=\\pi h^2\\frac{dh}{dt}$. Substituting $\\frac{dV}{dt}=12$ and $h=4$ gives $12=16\\pi\\frac{dh}{dt}$, hence $\\frac{dh}{dt}=\\frac{3}{4\\pi}$ cm/s.",
+   "optionRationale": {
+    "1": "3/(2 pi) comes from using the factor 8 pi, as if h^2 were 2h, in place of 16 pi.",
+    "3": "3/(16 pi) divides 12 by 64 pi, using h cubed instead of h squared.",
+    "4": "4/pi results from dividing 12 by 3 pi, using the unreduced derivative of the volume."
+   },
+   "objective": "Solve a related-rates cone problem"
+  },
+  {
+   "key": "ug26-319-r21-applications-of-derivatives-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "An open rectangular tank with a square base must hold $32\\ \\text{m}^3$ of water. If the base side is $x$ m, the least total area of sheet needed for the base and four walls is",
+   "options": [
+    "$64\\ \\text{m}^2$",
+    "$40\\ \\text{m}^2$",
+    "$48\\ \\text{m}^2$",
+    "$52\\ \\text{m}^2$"
+   ],
+   "answer": 3,
+   "explanation": "The height is $\\frac{32}{x^2}$, so the area is $S=x^2+4x\\cdot\\frac{32}{x^2}=x^2+\\frac{128}{x}$. Then $S'=2x-\\frac{128}{x^2}=0$ gives $x^3=64$, $x=4$, and $S''>0$ there. The least area is $S=16+32=48\\ \\text{m}^2$.",
+   "optionRationale": {
+    "1": "64 is not the value of S at the critical point; S(4) = 16 + 32 = 48, which is smaller.",
+    "2": "40 is below the true minimum; S can never be less than 48 for any base side.",
+    "4": "52 corresponds to a non-critical value of x; the minimum occurs at x = 4 and equals 48."
+   },
+   "objective": "Minimise surface area with a volume constraint"
+  },
+  {
+   "key": "ug26-319-r21-applications-of-derivatives-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "For $g(x)=2x^3-15x^2+36x$ on the closed interval $[1,4]$, the sum of the absolute maximum value and the absolute minimum value is",
+   "options": [
+    "51",
+    "59",
+    "60",
+    "55"
+   ],
+   "answer": 4,
+   "explanation": "$g'(x)=6(x-2)(x-3)$, so the critical points $x=2,3$ lie in the interval. Evaluating $g(1)=23$, $g(2)=28$, $g(3)=27$, $g(4)=32$. The absolute maximum is $32$ and the absolute minimum is $23$, so the sum is $55$.",
+   "optionRationale": {
+    "1": "51 adds the local maximum 28 and the minimum 23, ignoring the endpoint x = 4.",
+    "2": "59 adds the endpoint maximum 32 to the local minimum value 27 rather than the true minimum 23.",
+    "3": "60 adds the local maximum 28 and the absolute maximum 32, neither of which is the minimum."
+   },
+   "objective": "Find absolute extrema on a closed interval"
+  },
+  {
+   "key": "ug26-319-r21-applications-of-derivatives-m10",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "**Assertion (A):** Every critical point of a differentiable function is a point of local maximum or local minimum.\n**Reason (R):** At a critical point $c$ of a differentiable function, $f'(c)=0$.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "A critical point of a differentiable function has $f'(c)=0$, so (R) is true. But zero derivative does not guarantee an extremum: for $f(x)=x^3$, $f'(0)=0$ yet $0$ is a point of inflection. Hence (A) is false.",
+   "optionRationale": {
+    "1": "A is false (x^3 at 0), so R cannot be its explanation.",
+    "2": "A is false, so the pair cannot both be true.",
+    "3": "R is true for differentiable functions, since critical points are where f' = 0."
+   },
+   "objective": "Separate critical points from extrema"
+  }
+ ]
+}

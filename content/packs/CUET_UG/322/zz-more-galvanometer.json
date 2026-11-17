@@ -1,0 +1,281 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_ea6bde55df0f44baa73900a8aad423fa",
+    "title": "Moving coil galvanometer- its current sensitivity and conversion to ammeter and"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A galvanometer of resistance $60\\,\\Omega$ shows full-scale deflection for 1.0 mA. What series resistance converts it into a voltmeter of range 0 to 6.0 V?",
+      "options": [
+        "$6000\\,\\text{Ω}$",
+        "$5940\\,\\text{Ω}$",
+        "$594\\,\\text{Ω}$",
+        "$6060\\,\\text{Ω}$"
+      ],
+      "answer": 2,
+      "explanation": "At full scale the total resistance must be $V/I_g = 6.0/(1.0\\times10^{-3}) = 6000\\,\\Omega$. This is the sum of the galvanometer resistance and the series resistor, so $R = V/I_g - G = 6000 - 60 = 5940\\,\\Omega$.",
+      "optionRationale": {
+        "1": "This is the total resistance of the voltmeter; the resistance of the galvanometer itself has not been subtracted.",
+        "3": "This is ten times smaller than needed, which results from dividing by 10 instead of 1.0 mA when finding the total resistance.",
+        "4": "This adds the galvanometer resistance to the total instead of subtracting it."
+      },
+      "objective": "Calculate the series resistance that converts a galvanometer into a voltmeter"
+    },
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A galvanometer of resistance $45\\,\\Omega$ is to be converted into an ammeter that reads ten times the full-scale current of the galvanometer. What shunt resistance should be connected in parallel with it?",
+      "options": [
+        "$5\\,\\text{Ω}$",
+        "$450\\,\\text{Ω}$",
+        "$4.5\\,\\text{Ω}$",
+        "$405\\,\\text{Ω}$"
+      ],
+      "answer": 1,
+      "explanation": "If the total current is $nI_g$, the galvanometer takes $I_g$ and the shunt takes $(n-1)I_g$. The same potential difference is across both, so $I_g G = (n-1)I_g S$ and $S = G/(n-1) = 45/9 = 5\\,\\Omega$.",
+      "optionRationale": {
+        "2": "This multiplies the galvanometer resistance by n, again giving a large resistance rather than the small one required.",
+        "3": "This divides by n instead of $(n-1)$, which would be correct only if the shunt carried the whole current.",
+        "4": "This multiplies by $(n-1)$ instead of dividing, giving a shunt larger than the galvanometer, which is useless as a bypass."
+      },
+      "objective": "Find the shunt for extending the range of a galvanometer n times"
+    },
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A galvanometer of resistance $100\\,\\Omega$ is shunted with a resistance of $1.0\\,\\Omega$ to make an ammeter. What is the resistance of the ammeter?",
+      "options": [
+        "$1\\,\\text{Ω}$",
+        "$99\\,\\text{Ω}$",
+        "$101\\,\\text{Ω}$",
+        "$0.99\\,\\text{Ω}$"
+      ],
+      "answer": 4,
+      "explanation": "The galvanometer and shunt are in parallel, so the ammeter resistance is $R_A = GS/(G+S) = (100)(1.0)/101 = 0.990\\,\\Omega$. This is slightly less than the shunt, which is why a good ammeter hardly disturbs the circuit in which it is placed.",
+      "optionRationale": {
+        "1": "The parallel combination is always less than the smaller resistance, so it cannot equal the shunt exactly.",
+        "2": "This subtracts the resistances, which is not how parallel or series resistances combine.",
+        "3": "This adds the resistances as if they were in series, but the shunt is connected in parallel with the coil."
+      },
+      "objective": "Find the effective resistance of a shunted galvanometer"
+    },
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Two $100\\,\\Omega$ resistors are joined in series across a 10 V cell of negligible internal resistance. A voltmeter of resistance $900\\,\\Omega$ is connected across one of the resistors. What does it read?",
+      "options": [
+        "$5.26\\,\\text{V}$",
+        "$5\\,\\text{V}$",
+        "$4.5\\,\\text{V}$",
+        "$4.74\\,\\text{V}$"
+      ],
+      "answer": 4,
+      "explanation": "The voltmeter in parallel with a $100\\,\\Omega$ resistor gives $100\\times900/1000 = 90\\,\\Omega$. The total resistance is $90 + 100 = 190\\,\\Omega$, so the current is $10/190 = 0.0526\\,\\text{A}$. The voltmeter reads $I \\times 90 = 4.74\\,\\text{V}$, which is less than the true 5.0 V because the meter draws some current.",
+      "optionRationale": {
+        "1": "This is the potential difference across the other resistor, which now gets the larger share of the 10 V.",
+        "2": "This is the potential difference before the voltmeter was connected; a real voltmeter draws current and lowers the reading.",
+        "3": "This uses the wrong total resistance in the denominator, 200 Ω instead of 190 Ω, giving a slightly different share."
+      },
+      "objective": "Estimate the error caused by a voltmeter of finite resistance"
+    },
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A 5.0 V cell of negligible internal resistance is connected to a $10\\,\\Omega$ resistor. An ammeter of resistance $2.0\\,\\Omega$ is inserted in series to measure the current. What does it read?",
+      "options": [
+        "$0.625\\,\\text{A}$",
+        "$0.357\\,\\text{A}$",
+        "$0.417\\,\\text{A}$",
+        "$0.5\\,\\text{A}$"
+      ],
+      "answer": 3,
+      "explanation": "Before the ammeter is inserted the current is $5.0/10 = 0.50\\,\\text{A}$. The ammeter adds its resistance in series, so the total resistance becomes $12\\,\\Omega$ and the current drops to $I = 5.0/12 = 0.417\\,\\text{A}$. The reading is lower than the original current because every real ammeter has some resistance.",
+      "optionRationale": {
+        "1": "This subtracts the ammeter resistance from the circuit resistance, which would make the current larger rather than smaller.",
+        "2": "This counts the ammeter resistance twice, which gives a total resistance of $14\\,\\Omega$ rather than $12\\,\\Omega$.",
+        "4": "This is the current without the ammeter; the ammeter adds its resistance and reduces the current."
+      },
+      "objective": "Estimate how the resistance of an ammeter affects the current it measures"
+    },
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A galvanometer of resistance $40\\,\\Omega$ is converted into a voltmeter whose range is 25 times the potential difference that gives full-scale deflection of the galvanometer alone. What series resistance is needed?",
+      "options": [
+        "$1.67\\,\\text{Ω}$",
+        "$960\\,\\text{Ω}$",
+        "$1000\\,\\text{Ω}$",
+        "$1040\\,\\text{Ω}$"
+      ],
+      "answer": 2,
+      "explanation": "The total resistance needed is n times the galvanometer resistance, because the same full-scale current must correspond to n times the potential difference. So $G + R = nG$ and $R = (n-1)G = 24 \\times 40 = 960\\,\\Omega$.",
+      "optionRationale": {
+        "1": "This is the formula for a shunt, $G/(n-1)$, which is for an ammeter and is connected in parallel.",
+        "3": "This is the total resistance of the voltmeter, nG, which includes the coil as well as the series resistor.",
+        "4": "This uses $(n+1)$ instead of $(n-1)$, giving too large a resistance."
+      },
+      "objective": "Find the series resistance for extending the range of a voltmeter n times"
+    },
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m07",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): An ammeter is always connected in series with the circuit element whose current is to be measured.\nReason (R): An ammeter has a very high resistance so that it draws a negligible current from the circuit.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "The assertion is true: the current to be measured must pass through the instrument, so it is placed in series. The reason is false, because an ideal ammeter has very low (ideally zero) resistance so that it does not change the current in the circuit. Very high resistance is the property of a voltmeter, which is connected in parallel.",
+      "optionRationale": {
+        "1": "R is false, because an ammeter has very low resistance, so it cannot explain A.",
+        "2": "R is not true; a high-resistance ammeter would reduce the current it is trying to measure.",
+        "4": "A is true; an ammeter must be placed in series so that the current passes through it."
+      },
+      "objective": "Contrast the resistance and connection of an ammeter and a voltmeter"
+    },
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m08",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "A galvanometer of resistance G is converted into an ammeter by connecting a shunt S in parallel. Consider the following statements.\nA. The resistance of the ammeter is less than S.\nB. The potential difference across the shunt equals that across the galvanometer coil.\nC. A smaller value of S allows a smaller fraction of the total current to pass through the coil.\nD. The resistance of the ammeter is greater than G.\nChoose the correct option.",
+      "options": [
+        "A, B and C only",
+        "A, B and D only",
+        "B, C and D only",
+        "A and D only"
+      ],
+      "answer": 1,
+      "explanation": "Two resistors in parallel have an effective resistance less than either, so the ammeter resistance is less than S and less than G (A true, D false). Parallel elements share the same potential difference (B true). The coil and shunt currents are in inverse ratio to their resistances, so a smaller S diverts more current away from the coil (C true).",
+      "optionRationale": {
+        "2": "D is false: a parallel combination is less than G, not greater, so D cannot be included.",
+        "3": "D is false and A, which is true, is excluded here.",
+        "4": "D is false, and B and C, which are true, are left out of this option."
+      },
+      "objective": "Evaluate statements about the shunt and resistance of an ammeter"
+    },
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m09",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each quantity of a galvanometer-based instrument in List-I with its expression in List-II. (G is the galvanometer resistance, $I_g$ the full-scale current, I the current range of the ammeter, V the voltage range of the voltmeter, S the shunt, N the number of turns, A the coil area, B the field and k the torsion constant.)",
+      "list": {
+        "left": [
+          "A. Current sensitivity of the galvanometer",
+          "B. Shunt for an ammeter of range I",
+          "C. Series resistance for a voltmeter of range V",
+          "D. Resistance of the ammeter"
+        ],
+        "right": [
+          "I. $V/I_g - G$",
+          "II. $GS/(G+S)$",
+          "III. $NAB/k$",
+          "IV. $I_gG/(I - I_g)$"
+        ]
+      },
+      "options": [
+        "A-III, B-I, C-IV, D-II",
+        "A-III, B-IV, C-I, D-II",
+        "A-II, B-IV, C-I, D-III",
+        "A-III, B-IV, C-II, D-I"
+      ],
+      "answer": 2,
+      "explanation": "The deflection per unit current is $\\phi/I = NAB/k$ (A-III). Equating potential differences across coil and shunt, $S = I_gG/(I - I_g)$ (B-IV). A voltmeter needs $R = V/I_g - G$ in series (C-I). The ammeter is G and S in parallel, so its resistance is $GS/(G+S)$ (D-II).",
+      "optionRationale": {
+        "1": "B and C are interchanged: the shunt is the formula with $(I - I_g)$ in the denominator.",
+        "3": "A and D are interchanged: the sensitivity depends on N, A, B and k, and not on the shunt.",
+        "4": "C and D are interchanged: the voltmeter series resistance has the $V/I_g$ term."
+      },
+      "objective": "Recall the key formulas of galvanometer-based instruments"
+    },
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A galvanometer of resistance $100\\,\\Omega$ and full-scale current 1.0 mA is made into a voltmeter of range 0 to 3.0 V. What additional series resistance must be added so that its range becomes 0 to 30 V?",
+      "options": [
+        "$2.7\\times10^{4}\\,\\text{Ω}$",
+        "$3\\times10^{4}\\,\\text{Ω}$",
+        "$2.99\\times10^{4}\\,\\text{Ω}$",
+        "$2.9\\times10^{4}\\,\\text{Ω}$"
+      ],
+      "answer": 1,
+      "explanation": "For the 3.0 V range the series resistance is $3.0/10^{-3} - 100 = 2900\\,\\Omega$. For the 30 V range it is $30/10^{-3} - 100 = 29900\\,\\Omega$. The extra resistance required is the difference, $29900 - 2900 = 27000\\,\\Omega$.",
+      "optionRationale": {
+        "2": "This is the total resistance of the 30 V voltmeter, including the coil, not the additional series resistor.",
+        "3": "This is the total series resistance needed for the 30 V range, but the question asks for the additional resistance on top of the existing one.",
+        "4": "This is ten times the existing series resistance, which ignores the coil resistance in the calculation."
+      },
+      "objective": "Re-range a voltmeter by adding series resistance"
+    },
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A galvanometer of resistance $100\\,\\Omega$ and full-scale current 1.0 mA is converted into an ammeter of range 0 to 2.0 A. At full-scale deflection, what percentage of the total current passes through the galvanometer coil?",
+      "options": [
+        "$0.10\\%$",
+        "$99.95\\%$",
+        "$0.05\\%$",
+        "$0.50\\%$"
+      ],
+      "answer": 3,
+      "explanation": "At full scale the coil carries its maximum current $I_g = 1.0\\,\\text{mA}$ and the total current is 2.0 A. The fraction through the coil is $10^{-3}/2.0 = 5\\times10^{-4}$, which is $0.05\\%$. The rest of the current, about $99.95\\%$, passes through the shunt.",
+      "optionRationale": {
+        "1": "This is the percentage for a range of 1.0 A rather than 2.0 A.",
+        "2": "This is the percentage that flows through the shunt, not the coil.",
+        "4": "This is ten times too large, which comes from a wrong power of ten in dividing the milliampere by the ampere."
+      },
+      "objective": "Find how a shunt divides current at full-scale deflection"
+    },
+    {
+      "key": "ug26-322-u3-moving-coil-galvanometer-m12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "application",
+      "stem": "A galvanometer scale has 100 divisions and, with a shunt connected, the instrument works as an ammeter of range 0 to 5.0 A. What current corresponds to a deflection of 36 divisions?",
+      "options": [
+        "$18\\,\\text{A}$",
+        "$0.18\\,\\text{A}$",
+        "$3.6\\,\\text{A}$",
+        "$1.8\\,\\text{A}$"
+      ],
+      "answer": 4,
+      "explanation": "The scale is linear, because the coil turns in a radial field, so the deflection is proportional to the current. Each division then represents $5.0/100 = 0.050\\,\\text{A}$, and 36 divisions correspond to $36 \\times 0.050 = 1.8\\,\\text{A}$, which is 36% of the full-scale current.",
+      "optionRationale": {
+        "1": "This is ten times too large, from taking 0.50 A for each division.",
+        "2": "This is ten times too small, from taking 0.005 A for each division.",
+        "3": "This uses 0.10 A per division, which would be the scale of a 10 A ammeter."
+      },
+      "objective": "Read a linear ammeter scale made from a galvanometer"
+    }
+  ]
+}

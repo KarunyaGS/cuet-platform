@@ -8,6 +8,30 @@ export class ApiError extends Error {
 /** Fired when an API call says the session is missing or expired; the auth provider re-checks and the route guard redirects. */
 export const UNAUTHORIZED_EVENT = 'cuet:unauthorized';
 
+/** One standard name per subject on every student screen. Display only: subject codes, slugs and ids are never changed. */
+const SUBJECT_NAMES: [string, string][] = [
+  ['Biology and Biological Studies and Biotechnology and Biochem', 'Biology'],
+  ['Biology/ Biological Science/ Biotechnology /Biochemistry', 'Biology'],
+  ['Computer Sciences and Informatics Practices', 'Computer Science'],
+  ['Computer Science and Informatics Practices', 'Computer Science'],
+  ['Computer Science / Information Practices', 'Computer Science'],
+  ['Geography and Geology', 'Geography'],
+  ['Geography / Geology', 'Geography'],
+  ['Core Mathematics and Applied Mathematics', 'Mathematics'],
+  ['Mathematics / Applied Mathematics', 'Mathematics'],
+];
+export function standardSubjectNames<T>(v: T): T {
+  if (typeof v === 'string') {
+    if (v === 'General Test') return 'General Aptitude Test' as T;
+    let s: string = v;
+    for (const [from, to] of SUBJECT_NAMES) if (s.includes(from)) s = s.split(from).join(to);
+    return s as T;
+  }
+  if (Array.isArray(v)) return v.map((x) => standardSubjectNames(x)) as T;
+  if (v && typeof v === 'object') return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, standardSubjectNames(x)])) as T;
+  return v;
+}
+
 export async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
   const res = await fetch(path, {
     method,
@@ -27,7 +51,7 @@ export async function request<T>(method: string, path: string, body?: unknown): 
     if (res.status === 401 && !path.startsWith('/api/auth/')) window.dispatchEvent(new Event(UNAUTHORIZED_EVENT));
     throw new ApiError(res.status, data?.error?.code ?? 'ERROR', data?.error?.message ?? `Request failed (${res.status})`);
   }
-  return data as T;
+  return (path.startsWith('/api/admin') ? data : standardSubjectNames(data)) as T;
 }
 
 export type ExamCode = 'CUET_UG' | 'CUET_PG';
@@ -381,6 +405,7 @@ export const api = {
   setEmailSettings: (b: { emailReminders?: boolean; emailNotices?: boolean; emailRevision?: boolean; examDate?: string | null }) => request<EmailSettings>('PUT', '/api/student/email', b),
   sendVerification: () => request<{ sent: boolean; reason?: string }>('POST', '/api/student/email/verification'),
   unsubscribe: (token: string, scope: 'REMINDERS' | 'NOTICES' | 'ALL' = 'REMINDERS') => request<{ unsubscribed: boolean }>('POST', '/api/public/email/unsubscribe', { token, scope }),
+  chapterPdfs: (exam: ExamCode) => request<{ id: string; subjectCode: string; nodeId: string; title: string; pages: number | null; reviewState: string | null }[]>('GET', `/api/learn/question-bank-pdfs?exam=${exam}`),
   pyqTree: (exam: ExamCode) => request<PyqTree>('GET', `/api/learn/pyq?exam=${exam}`),
   pyqSubject: (year: number, slug: string) => request<PyqSubject>('GET', `/api/learn/pyq/${year}/${encodeURIComponent(slug)}`),
   pyqDocument: (id: string) => request<PyqDoc & { exam: ExamCode }>('GET', `/api/learn/pyq/documents/${encodeURIComponent(id)}`),

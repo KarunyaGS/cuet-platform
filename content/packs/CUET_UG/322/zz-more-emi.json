@@ -1,0 +1,120 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_29766fcef6dd468cbf537b53afad18c5",
+    "title": "Electromagnetic induction; Faraday's laws, induced emf and current; Lenz's Law, Self and"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A square loop of side 0.20 m and resistance $0.40\\,\\Omega$ is pulled out of a region of uniform magnetic field of 0.50 T (perpendicular to its plane) at a constant speed of $2.0\\,\\text{m s}^{-1}$, with one side still inside the field. What force must be applied to keep it moving uniformly?",
+      "options": [
+        "$0.025\\,\\text{N}$",
+        "$0.1\\,\\text{N}$",
+        "$0.05\\,\\text{N}$",
+        "$0.2\\,\\text{N}$"
+      ],
+      "answer": 3,
+      "explanation": "The emf in the side inside the field is $Blv = 0.50 \\times 0.20 \\times 2.0 = 0.20\\,\\text{V}$, so the current is $I = 0.20/0.40 = 0.50\\,\\text{A}$. The magnetic force on that side opposes the motion (Lenz's law) and is $F = BIl = 0.50 \\times 0.50 \\times 0.20 = 0.05\\,\\text{N}$. The applied force must equal this, which is $B^2l^2v/R$.",
+      "optionRationale": {
+        "1": "This halves the force, from mistakenly using half the length of the side in the field.",
+        "2": "This doubles the force, as if two sides of the loop experienced the same opposing force.",
+        "4": "This is the induced emf in volt, which has a different unit and dimension from a force."
+      },
+      "objective": "Calculate the force needed to move a loop out of a magnetic field at constant speed"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-m02",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): No emf is induced in a closed coil that moves with a constant velocity entirely within a region of uniform magnetic field.\nReason (R): The magnetic flux linked with the coil does not change with time while it moves in this way.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The assertion is true. By Faraday's law, an emf appears only when the flux through the coil changes. In a uniform field, a coil that stays completely inside the field has the same flux at every instant, since field, area and orientation do not change. So the reason is true and it is the explanation of why no emf is induced.",
+      "optionRationale": {
+        "2": "R is not just true; it is exactly why there is no induced emf, so it explains A.",
+        "3": "R is true; the flux stays constant as the coil moves within a uniform field.",
+        "4": "A is true; without a change in flux no emf is induced."
+      },
+      "objective": "Apply Faraday's law to decide when an emf is induced"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "An aeroplane with a wingspan of 30 m flies horizontally at $250\\,\\text{m s}^{-1}$ in a region where the vertical component of the Earth's magnetic field is $5.0\\times10^{-5}\\,\\text{T}$. What is the potential difference between the wing tips?",
+      "options": [
+        "$0.75\\,\\text{V}$",
+        "$0.375\\,\\text{V}$",
+        "$0.0375\\,\\text{V}$",
+        "$1.5\\times10^{-3}\\,\\text{V}$"
+      ],
+      "answer": 2,
+      "explanation": "The wing is a conductor of length 30 m cutting the vertical field lines at speed $v$, so the motional emf is $\\varepsilon = B_vlv = (5.0\\times10^{-5})(30)(250) = 0.375\\,\\text{V}$. Only the component of the field perpendicular to both the wing and its velocity matters, which is the vertical one.",
+      "optionRationale": {
+        "1": "This is twice the correct value, as if the wingspan were 60 m or both wings had been counted separately.",
+        "3": "This is ten times too small, as if the speed were $25\\,\\text{m s}^{-1}$.",
+        "4": "This is the product of the field and the length only, leaving out the speed of the aeroplane."
+      },
+      "objective": "Calculate the motional emf in a conductor moving through the Earth's field"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A circular loop of radius 10 cm lies in a plane perpendicular to a uniform magnetic field that changes at the steady rate of $0.020\\,\\text{T s}^{-1}$. What is the magnitude of the induced emf?",
+      "options": [
+        "$6.28\\times10^{-3}\\,\\text{V}$",
+        "$0.0126\\,\\text{V}$",
+        "$2\\times10^{-4}\\,\\text{V}$",
+        "$6.28\\times10^{-4}\\,\\text{V}$"
+      ],
+      "answer": 4,
+      "explanation": "The flux is $\\Phi = B\\pi r^2$, so the induced emf magnitude is $\\varepsilon = \\pi r^2\\,dB/dt = \\pi (0.10)^2 (0.020) = 6.28\\times10^{-4}\\,\\text{V}$. The emf is steady because the field changes at a constant rate, and its direction opposes the change by Lenz's law.",
+      "optionRationale": {
+        "1": "This uses $\\pi r$ instead of $\\pi r^2$, so the area has not been squared.",
+        "2": "This uses the circumference $2\\pi r$ instead of the area $\\pi r^2$, which gives the wrong dimensions for an emf.",
+        "3": "This uses $r^2$ without the factor of $\\pi$, so it leaves out part of the circular area."
+      },
+      "objective": "Find the induced emf in a loop from the rate of change of the field"
+    },
+    {
+      "key": "ug26-322-u4-electromagnetic-induction-m05",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about eddy currents.\nA. They are induced in a bulk piece of metal when the magnetic flux through it changes.\nB. They are produced in such a direction as to oppose the change that causes them.\nC. They are used in electromagnetic braking and induction furnaces.\nD. Using a laminated core instead of a solid core increases the eddy currents in a transformer.\nChoose the correct option.",
+      "options": [
+        "A, B and D only",
+        "A, B and C only",
+        "B, C and D only",
+        "A and C only"
+      ],
+      "answer": 2,
+      "explanation": "Eddy currents are loops of induced current in a solid conductor exposed to a changing flux (A), and by Lenz's law they oppose the change (B). They are useful for braking and for heating in induction furnaces (C). Laminating the core cuts the paths available to the currents, so it reduces them; D is false.",
+      "optionRationale": {
+        "1": "D is false because laminating the core reduces eddy currents.",
+        "3": "D is false, and A, which is true, is excluded.",
+        "4": "B is also true, so this option is incomplete."
+      },
+      "objective": "Evaluate statements about eddy currents"
+    }
+  ]
+}

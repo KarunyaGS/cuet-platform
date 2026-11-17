@@ -1,0 +1,239 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_f77ebad2f1b046de99be900b4d9cb1ec",
+  "title": "Determinants"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r19-determinants-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Evaluate the second-order determinant $\\begin{vmatrix}3&-1\\\\2&4\\end{vmatrix}$.",
+   "options": [
+    "10",
+    "14",
+    "12",
+    "-14"
+   ],
+   "answer": 2,
+   "explanation": "For a $2\\times2$ determinant the value is $ad-bc$. Here $a=3$, $b=-1$, $c=2$, $d=4$, so the value is $3\\cdot4-(-1)\\cdot2=12+2=14$. The second term subtracts a negative product, which becomes an addition.",
+   "optionRationale": {
+    "1": "This subtracts 2 instead of adding it; the sign of the entry -1 was ignored.",
+    "3": "This is only the product 3 x 4 of the leading diagonal; the other diagonal was forgotten.",
+    "4": "The sign of the whole expression is reversed; ad - bc here is positive."
+   },
+   "objective": "Evaluate a 2 x 2 determinant"
+  },
+  {
+   "key": "ug26-319-r19-determinants-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A triangular plot has its corners at $(2,3)$, $(4,7)$ and $(6,5)$, with lengths in metres. Using the determinant formula, its area in square metres is",
+   "options": [
+    "12",
+    "3",
+    "6",
+    "9"
+   ],
+   "answer": 3,
+   "explanation": "Area $=\\frac12\\left|\\begin{matrix}2&3&1\\\\4&7&1\\\\6&5&1\\end{matrix}\\right|$. Expanding gives $\\frac12|2(7-5)-3(4-6)+1(20-42)|=\\frac12|4+6-22|=\\frac12\\cdot12=6$. The modulus is taken because area cannot be negative.",
+   "optionRationale": {
+    "1": "12 is the absolute value of the determinant itself; the factor one half was omitted.",
+    "2": "3 comes from halving twice; the area formula uses a single factor of one half.",
+    "4": "9 does not follow from the expansion; the determinant equals -12, whose half in modulus is 6."
+   },
+   "objective": "Find the area of a triangle using a determinant"
+  },
+  {
+   "key": "ug26-319-r19-determinants-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "For the matrix $A=\\begin{pmatrix}2&1&3\\\\0&4&-1\\\\5&2&6\\end{pmatrix}$, the cofactor of the element in the third row and second column is",
+   "options": [
+    "-2",
+    "-1",
+    "1",
+    "2"
+   ],
+   "answer": 4,
+   "explanation": "Delete row 3 and column 2 to get $\\begin{pmatrix}2&3\\\\0&-1\\end{pmatrix}$, whose determinant (minor) is $-2$. The sign factor is $(-1)^{3+2}=-1$, so the cofactor is $-(-2)=2$.",
+   "optionRationale": {
+    "1": "This is the minor alone; the sign factor (-1)^(3+2) = -1 was not applied.",
+    "2": "This is the minor of a different element, a23, obtained by deleting the wrong row and column.",
+    "3": "This is the cofactor of a23, not of the entry in row 3, column 2."
+   },
+   "objective": "Compute a cofactor of a 3 x 3 matrix"
+  },
+  {
+   "key": "ug26-319-r19-determinants-m04",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each matrix in List-I with the value of its determinant in List-II.",
+   "list": {
+    "left": [
+     "A. $\\begin{pmatrix}2&3\\\\1&2\\end{pmatrix}$",
+     "B. $\\begin{pmatrix}1&2\\\\2&4\\end{pmatrix}$",
+     "C. $\\text{diag}(2,3,4)$",
+     "D. $\\begin{pmatrix}1&5&7\\\\0&2&9\\\\0&0&3\\end{pmatrix}$"
+    ],
+    "right": [
+     "I. 0",
+     "II. 1",
+     "III. 6",
+     "IV. 24"
+    ]
+   },
+   "options": [
+    "A-II, B-I, C-IV, D-III",
+    "A-I, B-II, C-IV, D-III",
+    "A-II, B-I, C-III, D-IV",
+    "A-IV, B-I, C-II, D-III"
+   ],
+   "answer": 1,
+   "explanation": "For A, $2\\cdot2-3\\cdot1=1$. For B, $1\\cdot4-2\\cdot2=0$ (rows proportional). For the diagonal matrix C, the determinant is the product $2\\cdot3\\cdot4=24$. For the upper triangular matrix D, it is the product of diagonal entries $1\\cdot2\\cdot3=6$.",
+   "optionRationale": {
+    "2": "A and B are interchanged: the 2 x 2 matrix with proportional rows has determinant 0.",
+    "3": "C and D are interchanged: the diagonal product 2x3x4 is 24 and for D it is 1x2x3 = 6.",
+    "4": "A and C are interchanged: the diagonal matrix has determinant 24, not 1."
+   },
+   "objective": "Evaluate determinants of special matrices"
+  },
+  {
+   "key": "ug26-319-r19-determinants-m05",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "For square matrices $A$ and $B$ of order $n$ and a scalar $k$, consider the following.\nA. $|kA|=k^n|A|$.\nB. $|AB|=|A||B|$.\nC. $|A+B|=|A|+|B|$.\nD. Interchanging two rows of $A$ changes the sign of $|A|$.\nWhich statements are correct?",
+   "options": [
+    "A, B, C and D",
+    "A, B and D only",
+    "B and C only",
+    "A, C and D only"
+   ],
+   "answer": 2,
+   "explanation": "Each of the $n$ rows gets multiplied by $k$, giving $k^n|A|$ (A). The product rule $|AB|=|A||B|$ is standard (B), and a row swap negates the determinant (D). Determinant is not additive: for $A=B=I_2$, $|A+B|=4$ but $|A|+|B|=2$, so C is false.",
+   "optionRationale": {
+    "1": "C is false: for identity matrices of order 2, |A + B| = 4 while |A| + |B| = 2.",
+    "3": "C is not a valid property, and B and D are true properties that this option leaves out.",
+    "4": "C is false, while B is a true property that this option leaves out."
+   },
+   "objective": "Recall properties of determinants"
+  },
+  {
+   "key": "ug26-319-r19-determinants-m06",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "**Assertion (A):** The system $x+y=2$, $2x+2y=5$ has no solution.\n**Reason (R):** If $|A|=0$ and $(\\text{adj }A)B\\ne O$, then the system $AX=B$ is inconsistent.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Here $A=\\begin{pmatrix}1&1\\\\2&2\\end{pmatrix}$ has $|A|=0$, and $\\text{adj}A=\\begin{pmatrix}2&-1\\\\-2&1\\end{pmatrix}$. With $B=(2,5)^T$ we get $(\\text{adj}A)B=(-1,1)^T\\ne O$. By the test in (R) the system is inconsistent, matching the observation that $x+y=2$ and $x+y=\\frac52$ cannot both hold.",
+   "optionRationale": {
+    "2": "R is exactly the criterion that proves A in this example, so it is the explanation.",
+    "3": "R is a correct theorem: zero determinant with a non-zero (adj A)B means no solution.",
+    "4": "A is true: x + y cannot equal both 2 and 5/2."
+   },
+   "objective": "Test consistency with adjoint and determinant"
+  },
+  {
+   "key": "ug26-319-r19-determinants-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Solve $3x+y+2z=13$, $x-y+z=4$ and $2x+3y-z=4$ by the matrix method $X=A^{-1}B$. The value of $x+y+z$ is",
+   "options": [
+    "5",
+    "7",
+    "8",
+    "6"
+   ],
+   "answer": 4,
+   "explanation": "The coefficient determinant is $|A|=7\\ne0$, so the inverse exists. Computing $A^{-1}B$ gives $x=2$, $y=1$, $z=3$. Substituting back checks all three equations: $6+1+6=13$, $2-1+3=4$ and $4+3-3=4$. Hence $x+y+z=6$.",
+   "optionRationale": {
+    "1": "5 would result from taking z = 2; the first equation then gives 6 + 1 + 4 = 11, not 13.",
+    "2": "7 would need one of the unknowns to be larger, but z = 3 is forced by the third equation once x and y are found.",
+    "3": "8 does not satisfy the equations; the solution is (2, 1, 3) with sum 6."
+   },
+   "objective": "Solve a 3 x 3 system using the inverse matrix"
+  },
+  {
+   "key": "ug26-319-r19-determinants-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "If $A=\\begin{pmatrix}2&1&0\\\\0&1&3\\\\1&0&1\\end{pmatrix}$, then the element in the first row and third column of $A^{-1}$ is",
+   "options": [
+    "$-\\dfrac15$",
+    "3",
+    "$\\dfrac35$",
+    "15"
+   ],
+   "answer": 3,
+   "explanation": "Expanding along the first row, $|A|=2(1-0)-1(0-3)+0=5$. The $(1,3)$ element of $A^{-1}=\\frac{\\text{adj}A}{|A|}$ is $\\frac{C_{31}}{|A|}$, the cofactor of the entry in row 3, column 1. Deleting that row and column gives $\\begin{vmatrix}1&0\\\\1&3\\end{vmatrix}=3$, with positive sign, so the element is $\\frac35$.",
+   "optionRationale": {
+    "1": "This is C13/|A|, the cofactor of the (1,3) entry; the adjoint is the transpose, so the indices must be reversed.",
+    "2": "This is the cofactor itself; it was not divided by |A| = 5.",
+    "4": "This multiplies instead of dividing: the cofactor 3 times |A| = 5 gives 15."
+   },
+   "objective": "Use the adjoint formula for a single entry of the inverse"
+  },
+  {
+   "key": "ug26-319-r19-determinants-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A $3\\times3$ matrix $A$ has $|A|=3$. The value of $\\left|2\\,\\text{adj}\\left(A^{T}\\right)\\right|$ is",
+   "options": [
+    "72",
+    "18",
+    "36",
+    "24"
+   ],
+   "answer": 1,
+   "explanation": "Since $|\\text{adj}A|=|A|^{n-1}=3^2=9$ and transposing does not change the determinant, $|\\text{adj}(A^T)|=9$. Taking out the factor $2$ from each of the three rows gives $2^3\\cdot9=72$.",
+   "optionRationale": {
+    "2": "18 comes from using the scalar factor 2 once instead of 2^3.",
+    "3": "36 treats the matrix as order 2, using 2^2 x 9 instead of 2^3 x 9.",
+    "4": "24 uses |adj A| = |A| = 3 and multiplies by 2^3, forgetting the power n - 1."
+   },
+   "objective": "Combine adjoint, transpose and scalar multiple rules"
+  },
+  {
+   "key": "ug26-319-r19-determinants-m10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The vertices of a triangle are $(1,1)$, $(3,k)$ and $(5,3)$ and its area is $4$ square units. The sum of all possible values of $k$ is",
+   "options": [
+    "2",
+    "4",
+    "8",
+    "6"
+   ],
+   "answer": 2,
+   "explanation": "Area $=\\frac12\\left|1(k-3)+3(3-1)+5(1-k)\\right|=\\frac12|8-4k|=|4-2k|$. Setting it equal to $4$ gives $4-2k=\\pm4$, so $k=0$ or $k=4$. Both values are valid, and their sum is $4$.",
+   "optionRationale": {
+    "1": "2 is not the sum of the roots; both k = 0 and k = 4 must be found and added.",
+    "3": "8 comes from adding the two values of 4 - 2k, namely 4 and -4, without solving for k.",
+    "4": "6 does not follow from |4 - 2k| = 4; the roots are 0 and 4."
+   },
+   "objective": "Solve an area condition with a modulus"
+  }
+ ]
+}

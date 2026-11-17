@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_70f0ce4ed12549e8bf3a3da925de682b",
+    "title": "Linear Programming"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r10-linear-programming-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A manufacturer's feasible region has corner points $(0,0)$, $(7,0)$, $(4,3)$ and $(0,5)$. Find the largest value of the profit function $Z = 2x + 5y$ over this region.",
+      "options": [
+        "23",
+        "14",
+        "29",
+        "25"
+      ],
+      "answer": 4,
+      "explanation": "For a bounded feasible region the optimum of a linear objective is reached at a corner point, so evaluate $Z$ at each one: $0$, $14$, $23$ and $25$ respectively. The largest of these is $25$, attained at $(0,5)$.",
+      "optionRationale": {
+        "1": "This is $Z$ at $(4,3)$ only; the corner $(0,5)$ gives a larger value.",
+        "2": "This is $Z$ at $(7,0)$ and is not the largest of the four corner values.",
+        "3": "No corner gives $29$; this comes from adding $2\\cdot 7$ and $5\\cdot 3$, which are coordinates of different corners."
+      },
+      "objective": "Evaluate a linear objective at the corner points of a bounded region"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The origin satisfies the constraint $3x + 4y \\le 12$, so the half-plane of this constraint lies on the same side of the line as the origin. Which of the following points belongs to this half-plane?",
+      "options": [
+        "$(1, 2)$",
+        "$(2, 2)$",
+        "$(4, 1)$",
+        "$(3, 2)$"
+      ],
+      "answer": 1,
+      "explanation": "Substitute each point into $3x + 4y$ and compare with $12$. For $(1,2)$ the value is $11 \\le 12$, so it lies in the half-plane. The other three points give $14$, $16$ and $17$, all larger than $12$, so they lie on the far side of the line.",
+      "optionRationale": {
+        "2": "$3(2)+4(2)=14$, which is more than $12$, so this point is outside.",
+        "3": "$3(4)+4(1)=16$, which exceeds $12$, so it is outside.",
+        "4": "$3(3)+4(2)=17$, which exceeds $12$, so it is outside."
+      },
+      "objective": "Identify the half-plane of a linear inequality using a test point"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A workshop is restricted by $x + y \\le 7$ and $2x + y \\le 12$ with $x, y \\ge 0$. What is the maximum of $Z = 3x + 4y$ under these restrictions?",
+      "options": [
+        "28",
+        "23",
+        "18",
+        "46"
+      ],
+      "answer": 1,
+      "explanation": "The corner points are $(0,0)$, $(6,0)$, $(5,2)$ and $(0,7)$, where $Z$ equals $0$, $18$, $23$ and $28$. The maximum is $28$ at $(0,7)$. Because $y$ has the larger coefficient, the optimum favours the corner with the most $y$.",
+      "optionRationale": {
+        "2": "$23$ is the value at $(5,2)$, the point where the two lines cross, but $(0,7)$ gives more.",
+        "3": "$18$ is the value at $(6,0)$ only, the corner with the most $x$.",
+        "4": "$46$ would need $x=6$ and $y=7$ together, which breaks both constraints."
+      },
+      "objective": "Solve a two-constraint maximisation by the corner point method"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Over the unbounded region $x + y \\ge 6$, $x + 3y \\ge 10$, $x \\ge 0$, $y \\ge 0$, the cost function is $Z = 5x + 2y$. Its minimum value is",
+      "options": [
+        "24",
+        "50",
+        "30",
+        "12"
+      ],
+      "answer": 4,
+      "explanation": "The corner points are $(0,6)$, $(4,2)$ and $(10,0)$, giving $Z = 12$, $24$ and $50$. Since both coefficients are positive, $Z$ cannot fall towards $-\\infty$ in the unbounded direction, so the least corner value $12$ at $(0,6)$ is the minimum.",
+      "optionRationale": {
+        "1": "$24$ is the value at the crossing point $(4,2)$; the corner $(0,6)$ is cheaper.",
+        "2": "$50$ is the value at $(10,0)$, the largest of the three corner values.",
+        "3": "$30$ is $5\\cdot 6$, obtained by wrongly putting the $y$-intercept into the $x$ term."
+      },
+      "objective": "Find the minimum of a cost function over an unbounded region"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-m05",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): If the objective $Z = ax + by$ takes the same maximum value at two adjacent corner points, it takes that maximum value at every point of the segment joining them.\nReason (R): The value of a linear function at a point of a line segment is a weighted average of its values at the two end points.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "A point $P$ on the segment equals $tA + (1-t)B$ with $0 \\le t \\le 1$, and linearity gives $Z(P) = tZ(A) + (1-t)Z(B)$. When $Z(A) = Z(B) = M$ this equals $M$ for every $t$, so the assertion holds and the weighted-average property of the reason is exactly why.",
+      "optionRationale": {
+        "2": "The reason is not just true; it is the argument that proves the assertion.",
+        "3": "The reason is true, since linearity gives a weighted average along a segment.",
+        "4": "The assertion is true: such an LPP has infinitely many optimal points."
+      },
+      "objective": "Explain multiple optimal solutions of an LPP"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-m06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Each pair of boundary lines in List-I meets at a corner point of some feasible region. Match the pair with its corner point in List-II.",
+      "list": {
+        "left": [
+          "A. $x + y = 6$ and $x - y = 2$",
+          "B. $2x + y = 8$ and $x = 2$",
+          "C. $x + 2y = 10$ and $y = 3$",
+          "D. $3x + y = 12$ and $x + y = 8$"
+        ],
+        "right": [
+          "I. $(2,4)$",
+          "II. $(4,3)$",
+          "III. $(2,6)$",
+          "IV. $(4,2)$"
+        ]
+      },
+      "options": [
+        "A-I, B-IV, C-II, D-III",
+        "A-IV, B-I, C-II, D-III",
+        "A-IV, B-I, C-III, D-II",
+        "A-II, B-I, C-IV, D-III"
+      ],
+      "answer": 2,
+      "explanation": "Solve each pair of equations. A: adding gives $2x = 8$, so $(4,2)$. B: $x = 2$ gives $y = 4$, so $(2,4)$. C: $y = 3$ gives $x = 4$, so $(4,3)$. D: subtracting gives $2x = 4$, so $x = 2$ and $y = 6$. Hence A-IV, B-I, C-II, D-III.",
+      "optionRationale": {
+        "1": "Items A and B have been interchanged; check each pairing against its definition.",
+        "3": "Items C and D have been interchanged; check each pairing against its definition.",
+        "4": "Items A and C have been interchanged; check each pairing against its definition."
+      },
+      "objective": "Locate corner points as intersections of boundary lines"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-m07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "analytical",
+      "stem": "A bounded feasible region has corner points $(0,0)$, $(6,0)$, $(4,4)$ and $(0,5)$ and the objective is $Z = 3x + 2y$. Consider:\nA. The maximum of $Z$ is $20$, attained at $(4,4)$.\nB. The minimum of $Z$ is $0$, attained at the origin.\nC. $Z$ is greater at $(0,5)$ than at $(6,0)$.\nD. $Z$ attains its maximum at two different corner points.\nChoose the correct answer.",
+      "options": [
+        "A and C only",
+        "A and B only",
+        "B and D only",
+        "A, B and C only"
+      ],
+      "answer": 2,
+      "explanation": "The corner values of $Z$ are $0$, $18$, $20$ and $10$. The maximum $20$ is unique at $(4,4)$ and the minimum $0$ is at the origin, so A and B are true. At $(0,5)$ $Z = 10$ is less than $18$ at $(6,0)$, so C is false, and no tie exists, so D is false.",
+      "optionRationale": {
+        "1": "C is false because $Z(0,5) = 10$ is less than $Z(6,0) = 18$.",
+        "3": "D is false because the maximum value $20$ occurs at one corner only.",
+        "4": "C is false, so the three statements cannot all hold."
+      },
+      "objective": "Compare corner values of an objective function"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-m08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The corner points of a feasible region are $(0,0)$, $(6,0)$, $(3,4)$ and $(0,5)$. The function $Z = px + qy$ with $p, q > 0$ gives the same maximum value at $(6,0)$ and $(3,4)$. The ratio $p : q$ is",
+      "options": [
+        "$3 : 4$",
+        "$2 : 1$",
+        "$6 : 5$",
+        "$4 : 3$"
+      ],
+      "answer": 4,
+      "explanation": "Equal values at the two corners give $6p = 3p + 4q$, so $3p = 4q$ and $p : q = 4 : 3$. Check the other corner: with $p = 4$, $q = 3$ the value at $(0,5)$ is $15$, below the common maximum $24$, so these two corners really are optimal.",
+      "optionRationale": {
+        "1": "This inverts the ratio; $3p = 4q$ means $p$ is the larger one.",
+        "2": "With $p = 2q$ the values are $6p = 12q$ and $3p + 4q = 10q$, which are unequal.",
+        "3": "With $p : q = 6 : 5$ the values are $36$ and $38$ for $p=6$, $q=5$, so the tie condition fails."
+      },
+      "objective": "Find the objective coefficients that give two optimal corners"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-m09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The feasible region of an LPP is given by $x + 2y \\le 10$, $3x + y \\le 15$, $x \\ge 0$, $y \\ge 0$. Its area in square units is",
+      "options": [
+        "$25$",
+        "$15$",
+        "$17.5$",
+        "$20$"
+      ],
+      "answer": 3,
+      "explanation": "The vertices are $(0,0)$, $(5,0)$, $(4,3)$ and $(0,5)$. The two slanted lines meet at $(4,3)$. By the shoelace formula the area is $\\tfrac12|(0\\cdot0-5\\cdot0)+(5\\cdot3-4\\cdot0)+(4\\cdot5-0\\cdot3)+0| = \\tfrac12(15+20) = 17.5$.",
+      "optionRationale": {
+        "1": "$25$ is the area of a $5 \\times 5$ square, which the region does not fill.",
+        "2": "$15$ is only the area of triangle $(0,0),(5,0),(4,3)$, which leaves out the upper triangle.",
+        "4": "$20$ does not follow from the shoelace sum, which is $35$ before halving."
+      },
+      "objective": "Compute the area of a feasible region from its vertices"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-m10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Maximise $Z = 4x + 3y$ subject to $x + y \\le 10$, $2x + y \\le 14$, $x \\le 6$, $x \\ge 0$, $y \\ge 0$. The maximum value is",
+      "options": [
+        "30",
+        "34",
+        "24",
+        "38"
+      ],
+      "answer": 2,
+      "explanation": "The region has five corner points: $(0,0)$, $(6,0)$, $(6,2)$, $(4,6)$ and $(0,10)$. Their $Z$ values are $0$, $24$, $30$, $34$ and $30$. The largest is $34$ at $(4,6)$, where $x+y=10$ and $2x+y=14$ meet.",
+      "optionRationale": {
+        "1": "$30$ occurs at both $(6,2)$ and $(0,10)$, but $(4,6)$ gives more.",
+        "3": "$24$ is the value at $(6,0)$, a corner with $y = 0$.",
+        "4": "$38$ is above every corner value, so it is not attained in the region."
+      },
+      "objective": "Optimise over a region with three constraints"
+    }
+  ]
+}

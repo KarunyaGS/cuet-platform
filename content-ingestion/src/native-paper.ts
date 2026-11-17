@@ -16,6 +16,7 @@ import katex from 'katex';
 const require = createRequire(import.meta.url);
 
 interface Draft {
+  mode?: 'CHAPTER'; chapterName?: string; nodeId?: string;
   schema: string; key: string; kind: string; exam: string; paperId: string; subjectCode: string; subjectName: string; set: number; title: string; language: string;
   rights: { basis: string; statement: string }; reviewState: 'REVIEWED' | 'UNREVIEWED'; reviewedQuestions: number;
   pattern: { questions: number; durationMinutes: number | null; marksCorrect: number | null; marksIncorrect: number | null; officialQuestionCount: number | null };
@@ -74,7 +75,7 @@ export function paperHtml(d: Draft, images: Map<string, string>, generatedOn: Da
   const font = (w: number) => fileUrl(require.resolve(`@fontsource/ibm-plex-sans/${w}.css`));
   const p = d.pattern;
   const instructions = [
-    `This paper has ${p.questions} questions. Each question has four options, of which one is correct.`,
+    d.mode === 'CHAPTER' ? `This question bank has ${p.questions} questions on ${d.chapterName}, grouped by topic. Each question has four options, of which one is correct.` : `This paper has ${p.questions} questions. Each question has four options, of which one is correct.`,
     p.durationMinutes ? `Suggested time: ${p.durationMinutes} minutes, the time allowed for this subject in CUET (UG).` : null,
     p.marksCorrect && p.marksIncorrect !== null ? `To score it the CUET (UG) way: ${p.marksCorrect} marks for a correct answer, ${p.marksIncorrect} for a wrong answer, 0 for a question left out.` : null,
     'The answer key is on the last page. Attempt the whole paper before you look at it.',
@@ -95,7 +96,7 @@ export function paperHtml(d: Draft, images: Map<string, string>, generatedOn: Da
       </div>
     </section>`;
   };
-  const footer = `CUET Prep · ${d.subjectName} practice paper, set ${d.set} · Written by CUET Prep; not a previous-year paper`;
+  const footer = d.mode === 'CHAPTER' ? `CUET Prep · ${d.subjectName} · ${d.chapterName} · Written by CUET Prep; not a previous-year paper` : `CUET Prep · ${d.subjectName} practice paper, set ${d.set} · Written by CUET Prep; not a previous-year paper`;
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(d.title)}</title>
 <link rel="stylesheet" href="${katexCss}"><link rel="stylesheet" href="${font(400)}"><link rel="stylesheet" href="${font(600)}">
 <style>
@@ -127,6 +128,8 @@ export function paperHtml(d: Draft, images: Map<string, string>, generatedOn: Da
   ol.opts li { display: flex; gap: 5pt; } ol.opts .l { flex: none; color: #45505f; }
   ol.opts.long { grid-template-columns: 1fr; }
   .display { margin: 3pt 0; }
+  h2.topic { font-size: 12pt; font-weight: 600; margin: 14pt 0 7pt; padding-bottom: 3pt; border-bottom: 1px solid #d5dae2; color: #2347a8; break-after: avoid; }
+  h1 .sub { font-size: 11pt; font-weight: 400; color: #45505f; }
   code { font-family: Consolas, monospace; font-size: 9.5pt; background: #f1f4f8; padding: 0 2pt; border-radius: 2pt; }
   .key { break-before: page; }
   .key h2 { font-size: 14pt; margin: 0 0 8pt; }
@@ -136,13 +139,13 @@ export function paperHtml(d: Draft, images: Map<string, string>, generatedOn: Da
 </style></head><body>
 <header class="cover">
   <div class="brand"><span class="mark">CU</span> CUET Prep</div>
-  <h1>${esc(d.subjectName)} practice paper, set ${d.set}</h1>
+  <h1>${d.mode === 'CHAPTER' ? `${esc(d.chapterName ?? '')}<br><span class="sub">${esc(d.subjectName)}: chapter-wise question bank</span>` : `${esc(d.subjectName)} practice paper, set ${d.set}`}</h1>
   <div class="meta">For CUET (UG), subject code ${esc(d.subjectCode)} · ${d.language} · ${p.questions} questions${p.durationMinutes ? ` · ${p.durationMinutes} minutes` : ''} · Prepared on ${day(generatedOn)}</div>
 </header>
-${d.reviewState === 'UNREVIEWED' ? `<div class="box preview"><h2>Preview: not yet reviewed</h2><p>${d.reviewedQuestions} of ${p.questions} questions in this paper have been approved by a subject expert. The rest are drafts and may contain errors.</p></div>` : ''}
+<!-- review state is tracked in the database, not printed on the page -->
 <div class="box"><h2>Instructions</h2><ul>${instructions.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>
 <div class="box rights"><p><strong>About this paper.</strong> ${esc(d.rights.statement)} Syllabus coverage: ${d.units.map((u) => `${esc(u.title)} (${u.questions})`).join(', ')}.</p></div>
-<main>${d.questions.map(question).join('\n')}</main>
+<main>${d.questions.map((q, i) => (d.mode === 'CHAPTER' && (i === 0 || d.questions[i - 1]!.unit !== q.unit) ? `<h2 class="topic">${esc(q.unit)}</h2>` : '') + question(q)).join('\n')}</main>
 <section class="key"><h2>Answer key</h2>
 <table><tbody>${Array.from({ length: Math.ceil(d.answerKey.length / 10) }, (_, r) => `<tr>${d.answerKey.slice(r * 10, r * 10 + 10).map((a) => `<td><b>${a.number}.</b>(${esc(a.correct.join(', '))})</td>`).join('')}</tr>`).join('')}</tbody></table>
 <p class="rights" style="margin-top:10pt">${esc(footer)}. © CUET Prep.</p></section>
@@ -165,11 +168,18 @@ async function pageCount(pdf: Uint8Array): Promise<number> {
 }
 
 /** Builds one practice paper: fetch its content, typeset it, store the PDF, record it. Returns what was made. */
-export async function buildNativePaper(opts: { api: string; adminToken: string; paperId: string; set: number; count: number; workDir: string; repo: string }) {
+export async function buildNativePaper(opts: { api: string; adminToken: string; paperId: string; set: number; count: number; workDir: string; repo: string; nodeId?: string }) {
   const admin = { 'x-admin-token': opts.adminToken, 'x-admin-actor': 'native-paper-cli' };
-  const res = await fetch(`${opts.api}/api/admin/native-papers/draft?paperId=${encodeURIComponent(opts.paperId)}&count=${opts.count}&set=${opts.set}`, { headers: admin });
+  const res = await fetch(opts.nodeId ? `${opts.api}/api/admin/native-papers/chapter-draft?paperId=${encodeURIComponent(opts.paperId)}&nodeId=${encodeURIComponent(opts.nodeId)}` : `${opts.api}/api/admin/native-papers/draft?paperId=${encodeURIComponent(opts.paperId)}&count=${opts.count}&set=${opts.set}`, { headers: admin });
   if (!res.ok) throw new Error(`Could not get the paper's content: ${res.status} ${await res.text()}`);
   const draft = (await res.json()) as Draft;
+  // One standard display name per subject (display only; the subject code is unchanged).
+  const standard: Record<string, string> = { '304': 'Biology', '308': 'Computer Science', '313': 'Geography', '319': 'Mathematics', '501': 'General Aptitude Test' };
+  const keep = standard[draft.subjectCode];
+  if (keep) {
+    draft.title = draft.title.replace(draft.subjectName, keep);
+    draft.subjectName = keep;
+  }
   // Figures are our own media, read from our own storage and placed inside the PDF.
   const images = new Map<string, string>();
   for (const q of draft.questions) {
@@ -180,7 +190,7 @@ export async function buildNativePaper(opts: { api: string; adminToken: string; 
     images.set(id, `data:${(m.headers.get('content-type') ?? 'image/svg+xml').split(';')[0]};base64,${Buffer.from(await m.arrayBuffer()).toString('base64')}`);
   }
   mkdirSync(opts.workDir, { recursive: true });
-  const name = `${draft.exam}-${draft.subjectCode}-set-${draft.set}`;
+  const name = draft.mode === 'CHAPTER' ? `${draft.exam}-${draft.subjectCode}-chapter-${draft.nodeId}` : `${draft.exam}-${draft.subjectCode}-set-${draft.set}`;
   const htmlPath = join(opts.workDir, `${name}.html`);
   const pdfPath = join(opts.workDir, `${name}.pdf`);
   writeFileSync(htmlPath, paperHtml(draft, images, new Date()), 'utf8');

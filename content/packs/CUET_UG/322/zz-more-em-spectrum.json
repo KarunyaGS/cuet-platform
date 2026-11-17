@@ -1,0 +1,120 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_3df2042bb00e4548ae4ec2fe8925d429",
+    "title": "Electromagnetic spectrum (radio waves, microwaves, infrared, visible, ultraviolet, X-rays,"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u5-em-spectrum-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "An X-ray photon has a wavelength of 0.10 nm. Using $h = 6.63\\times10^{-34}\\,\\text{J s}$, $c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$ and $e = 1.6\\times10^{-19}\\,\\text{C}$, what is its energy?",
+      "options": [
+        "$124\\,\\text{keV}$",
+        "$12.4\\,\\text{keV}$",
+        "$1.24\\,\\text{keV}$",
+        "$12.4\\,\\text{eV}$"
+      ],
+      "answer": 2,
+      "explanation": "The photon energy is $E = hc/\\lambda = (6.63\\times10^{-34})(3.0\\times10^8)/(1.0\\times10^{-10}) = 1.99\\times10^{-15}\\,\\text{J}$. Dividing by $1.6\\times10^{-19}\\,\\text{J}$ per electron volt gives about $12431\\,\\text{eV} = 12.4\\,\\text{keV}$. Photons of this energy can penetrate soft tissue.",
+      "optionRationale": {
+        "1": "This is ten times too large, which results from taking the wavelength as 0.01 nm.",
+        "3": "This is ten times too small, which results from taking the wavelength as 1 nm.",
+        "4": "The number is right but the unit is wrong by a factor of a thousand; the energy is in keV and not in eV."
+      },
+      "objective": "Calculate the energy of an electromagnetic photon from its wavelength"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The ozone layer in the upper atmosphere protects living things on Earth mainly by absorbing",
+      "options": [
+        "infrared radiation from the Sun",
+        "visible light from the Sun",
+        "radio waves from space",
+        "ultraviolet radiation from the Sun"
+      ],
+      "answer": 4,
+      "explanation": "Ozone strongly absorbs the harmful short-wavelength part of the ultraviolet radiation coming from the Sun, which can damage skin and cells and cause cancers. The layer lets visible light and a good part of infrared pass through, which is why it is the ultraviolet that is its protective target.",
+      "optionRationale": {
+        "1": "Infrared radiation is mostly absorbed by water vapour and carbon dioxide, and ozone is not the main absorber.",
+        "2": "The atmosphere is largely transparent to visible light, which reaches the ground.",
+        "3": "Radio waves are largely unaffected by ozone and the atmosphere is transparent to many of them."
+      },
+      "objective": "Name the radiation absorbed by the ozone layer"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-m03",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Radio waves can bend around buildings and obstacles far more readily than visible light can.\nReason (R): The wavelength of radio waves is very much greater than that of visible light.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Diffraction around an obstacle is appreciable only when the wavelength is comparable to, or larger than, the size of the obstacle. Radio waves have wavelengths from metres to kilometres, which are similar to the sizes of buildings, so they bend around them. Visible light has wavelengths below a micrometre, so its bending is negligible, and the reason correctly explains the assertion.",
+      "optionRationale": {
+        "2": "R is not merely true but is exactly the cause of the greater diffraction, so it explains A.",
+        "3": "R is true; radio wavelengths are much longer than those of visible light.",
+        "4": "A is true; radio waves diffract around buildings more than light does."
+      },
+      "objective": "Relate diffraction of electromagnetic waves to wavelength"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Using $\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$ and $\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^2\\text{N}^{-1}\\text{m}^{-2}$, what is the speed of electromagnetic waves in vacuum?",
+      "options": [
+        "$3.3\\times10^{-9}\\,\\text{m s}^{-1}$",
+        "$9\\times10^{16}\\,\\text{m s}^{-1}$",
+        "$3\\times10^{8}\\,\\text{m s}^{-1}$",
+        "$3.8\\times10^{2}\\,\\text{m s}^{-1}$"
+      ],
+      "answer": 3,
+      "explanation": "Maxwell's theory gives $c = 1/\\sqrt{\\mu_0\\varepsilon_0}$. Here $\\mu_0\\varepsilon_0 = (1.257\\times10^{-6})(8.85\\times10^{-12}) = 1.11\\times10^{-17}$ in SI units. Its square root is 3.33\\times10^{-9}, and the reciprocal is $c \\approx 3\\times10^{8}\\,\\text{m s}^{-1}$, equal to the measured speed of light, which led Maxwell to identify light as an electromagnetic wave.",
+      "optionRationale": {
+        "1": "This is $\\sqrt{\\mu_0\\varepsilon_0}$, the reciprocal of the speed, so it is the inverse of the correct value.",
+        "2": "This is the reciprocal of $\\mu_0\\varepsilon_0$ without the square root.",
+        "4": "This is $\\sqrt{\\mu_0/\\varepsilon_0}$, the impedance of free space in ohm, not a speed."
+      },
+      "objective": "Calculate the speed of electromagnetic waves from $\\mu_0$ and $\\varepsilon_0$"
+    },
+    {
+      "key": "ug26-322-u5-em-spectrum-m05",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about electromagnetic waves in vacuum.\nA. They are transverse waves.\nB. They carry both energy and momentum.\nC. They need a material medium for their propagation.\nD. The electric and magnetic fields oscillate in phase, perpendicular to each other and to the direction of propagation.\nChoose the correct option.",
+      "options": [
+        "A, B and C only",
+        "B, C and D only",
+        "A and C only",
+        "A, B and D only"
+      ],
+      "answer": 4,
+      "explanation": "Electromagnetic waves are transverse (A), and they carry energy and momentum, which is why light exerts radiation pressure (B). In vacuum the fields oscillate in phase with each other, at right angles to each other and to the direction of travel (D). They need no medium, so C is false; light from the Sun reaches the Earth through empty space.",
+      "optionRationale": {
+        "1": "C is false because electromagnetic waves travel through vacuum, so C cannot be included.",
+        "2": "C is false, and A, which is true, is excluded.",
+        "3": "C is false, and B and D, which are true, are not both included."
+      },
+      "objective": "Evaluate statements about the nature of electromagnetic waves"
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_dee343ccd90643439f5bed11d9af1aee",
+    "title": "Matrices"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r15-matrices-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Matrix $A$ has order $3 \\times 2$ and matrix $B$ has order $2 \\times 5$. Which statement is correct?",
+      "options": [
+        "$BA$ is defined and has order $5 \\times 3$",
+        "$AB$ is defined and has order $2 \\times 2$",
+        "Neither $AB$ nor $BA$ is defined",
+        "$AB$ is defined and has order $3 \\times 5$"
+      ],
+      "answer": 4,
+      "explanation": "A product is defined when the number of columns of the first matrix equals the number of rows of the second. For $AB$: $2 = 2$, so it exists with order (rows of $A$) $\\times$ (columns of $B$) $= 3 \\times 5$. For $BA$ the columns of $B$ are $5$ but the rows of $A$ are $3$, so $BA$ is not defined.",
+      "optionRationale": {
+        "1": "For $BA$ the columns of $B$ ($5$) differ from the rows of $A$ ($3$), so it is not defined.",
+        "2": "The order of $AB$ is formed from the outer numbers $3$ and $5$, not the matching inner $2$s.",
+        "3": "$AB$ exists because the inner numbers match, so at least one product is defined."
+      },
+      "objective": "Decide when a matrix product is defined and find its order"
+    },
+    {
+      "key": "ug26-319-r15-matrices-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "If $A = \\begin{pmatrix} 3 & 5 \\\\ 1 & -2 \\end{pmatrix}$, the sum of all four elements of the matrix $A + A'$ is",
+      "options": [
+        "$7$",
+        "$14$",
+        "$18$",
+        "$2$"
+      ],
+      "answer": 2,
+      "explanation": "The transpose is $A' = \\begin{pmatrix} 3 & 1 \\\\ 5 & -2 \\end{pmatrix}$, so $A + A' = \\begin{pmatrix} 6 & 6 \\\\ 6 & -4 \\end{pmatrix}$, which is symmetric. Its elements add to $6 + 6 + 6 - 4 = 14$.",
+      "optionRationale": {
+        "1": "$7$ is the sum of the elements of $A$ alone, not of $A + A'$.",
+        "3": "$18$ adds $|-4|$ instead of $-4$, ignoring the sign of the entry.",
+        "4": "$2$ is the trace of $A + A'$, only the diagonal sum $6 - 4$."
+      },
+      "objective": "Add a matrix and its transpose"
+    },
+    {
+      "key": "ug26-319-r15-matrices-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Let $A = \\begin{pmatrix} 1 & 0 & 2 \\\\ 3 & 1 & 0 \\end{pmatrix}$ and $B = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\\\ 1 & 4 \\end{pmatrix}$. The element in the first row and second column of $AB$ is",
+      "options": [
+        "$9$",
+        "$4$",
+        "$6$",
+        "$10$"
+      ],
+      "answer": 1,
+      "explanation": "The $(1,2)$ element is the first row of $A$ multiplied term by term with the second column of $B$: $1\\cdot1 + 0\\cdot3 + 2\\cdot4 = 1 + 0 + 8 = 9$. The product $AB$ is $\\begin{pmatrix}4&9\\\\6&6\\end{pmatrix}$, of order $2\\times2$.",
+      "optionRationale": {
+        "2": "$4$ is the $(1,1)$ element, using the first column of $B$.",
+        "3": "$6$ is the $(2,1)$ and $(2,2)$ element; the row used here should be the first row of $A$.",
+        "4": "$10$ is the trace of $AB$, the sum of the diagonal entries, not the $(1,2)$ element."
+      },
+      "objective": "Compute an element of a matrix product"
+    },
+    {
+      "key": "ug26-319-r15-matrices-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Two matrices are equal only when their corresponding elements are equal. Using this, if $2\\begin{pmatrix} 1 & 3 \\\\ 0 & x \\end{pmatrix} + \\begin{pmatrix} y & 0 \\\\ 1 & 2 \\end{pmatrix} = \\begin{pmatrix} 5 & 6 \\\\ 1 & 8 \\end{pmatrix}$, find the value of $x + y$.",
+      "options": [
+        "$7$",
+        "$10$",
+        "$4$",
+        "$6$"
+      ],
+      "answer": 4,
+      "explanation": "Multiply by the scalar first: $\\begin{pmatrix} 2 + y & 6 \\\\ 1 & 2x + 2 \\end{pmatrix}$. Equal matrices have equal elements, so $2 + y = 5$ gives $y = 3$ and $2x + 2 = 8$ gives $x = 3$. Thus $x + y = 6$.",
+      "optionRationale": {
+        "1": "$7$ comes from $x = 4$, forgetting to add the $2$ in the last element.",
+        "2": "$10$ comes from leaving out the scalar $2$ in front of the first matrix.",
+        "3": "$4$ does not satisfy $2 + y = 5$ and $2x + 2 = 8$ together."
+      },
+      "objective": "Solve for unknowns using equality of matrices"
+    },
+    {
+      "key": "ug26-319-r15-matrices-m05",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): For all square matrices $A$ and $B$ of the same order, $(A + B)^2 = A^2 + 2AB + B^2$.\nReason (R): Matrix multiplication is not commutative in general.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "Expanding gives $(A+B)^2 = A^2 + AB + BA + B^2$. This equals $A^2 + 2AB + B^2$ only when $AB = BA$, which need not hold, so A is false. R is true, since $AB$ and $BA$ can differ; it is in fact the reason A fails.",
+      "optionRationale": {
+        "1": "A is false, so there is no valid explanation to give.",
+        "2": "A is not true: the expansion contains $AB + BA$, not $2AB$.",
+        "3": "R is true, since $AB$ and $BA$ can differ."
+      },
+      "objective": "Recognise the effect of non-commutativity on algebraic identities"
+    },
+    {
+      "key": "ug26-319-r15-matrices-m06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Classify each matrix in List-I using the description in List-II.",
+      "list": {
+        "left": [
+          "A. $\\begin{pmatrix} 0 & 2 \\\\ -2 & 0 \\end{pmatrix}$",
+          "B. $\\begin{pmatrix} 5 & 0 \\\\ 0 & 5 \\end{pmatrix}$",
+          "C. $\\begin{pmatrix} 3 & 4 \\\\ 4 & 5 \\end{pmatrix}$",
+          "D. $\\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$"
+        ],
+        "right": [
+          "I. Diagonal but not scalar",
+          "II. Symmetric but not diagonal",
+          "III. Skew symmetric",
+          "IV. Scalar matrix"
+        ]
+      },
+      "options": [
+        "A-IV, B-III, C-II, D-I",
+        "A-III, B-IV, C-II, D-I",
+        "A-III, B-IV, C-I, D-II",
+        "A-II, B-IV, C-III, D-I"
+      ],
+      "answer": 2,
+      "explanation": "A has $a_{12} = -a_{21}$ and zero diagonal, so it is skew symmetric (III). B has equal diagonal entries and zero elsewhere, so it is scalar (IV). C equals its transpose but has non-zero off-diagonal entries, so it is symmetric but not diagonal (II). D is diagonal with unequal entries, hence diagonal but not scalar (I).",
+      "optionRationale": {
+        "1": "Items A and B have been interchanged; check each pairing against its definition.",
+        "3": "Items C and D have been interchanged; check each pairing against its definition.",
+        "4": "Items A and C have been interchanged; check each pairing against its definition."
+      },
+      "objective": "Classify matrices by type"
+    },
+    {
+      "key": "ug26-319-r15-matrices-m07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "For $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ the relation $A^2 - 5A + pI = O$ holds, where $I$ is the identity of order $2$ and $O$ the zero matrix. The value of $p$ is",
+      "options": [
+        "$-2$",
+        "$2$",
+        "$5$",
+        "$-5$"
+      ],
+      "answer": 1,
+      "explanation": "Compute $A^2 = \\begin{pmatrix} 7 & 10 \\\\ 15 & 22 \\end{pmatrix}$ and $5A = \\begin{pmatrix} 5 & 10 \\\\ 15 & 20 \\end{pmatrix}$, so $A^2 - 5A = \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix} = 2I$. For $A^2 - 5A + pI = O$ we need $2I + pI = O$, so $p = -2$, the determinant of $A$.",
+      "optionRationale": {
+        "2": "$2$ is the diagonal entry of $A^2 - 5A$; adding $pI$ must cancel it, so $p$ has the opposite sign.",
+        "3": "$5$ is the trace of $A$ and plays no role as the constant term.",
+        "4": "$-5$ would leave $A^2 - 5A - 5I$ non-zero, since $A^2-5A=2I$."
+      },
+      "objective": "Use a matrix polynomial identity to find a constant"
+    },
+    {
+      "key": "ug26-319-r15-matrices-m08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Let $A = \\begin{pmatrix} 2 & 1 \\\\ -1 & 1 \\end{pmatrix}$. The element in the second row and second column of $A^{-1}$ is",
+      "options": [
+        "$\\dfrac13$",
+        "$-\\dfrac23$",
+        "$\\dfrac23$",
+        "$\\dfrac32$"
+      ],
+      "answer": 3,
+      "explanation": "The determinant is $2\\cdot1 - 1\\cdot(-1) = 3$. For a $2\\times2$ matrix $A^{-1} = \\dfrac{1}{\\det A}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}$, so $A^{-1} = \\dfrac13\\begin{pmatrix} 1 & -1 \\\\ 1 & 2 \\end{pmatrix}$ and the $(2,2)$ element is $\\dfrac{a}{\\det A} = \\dfrac23$.",
+      "optionRationale": {
+        "1": "$\\frac13$ is $d/\\det A$ placed without swapping the diagonal entries.",
+        "2": "$-\\frac23$ has a wrong sign; the diagonal entries of the adjoint keep their signs.",
+        "4": "$\\frac32$ is the reciprocal of the correct entry."
+      },
+      "objective": "Find an entry of the inverse of a $2\\times 2$ matrix"
+    },
+    {
+      "key": "ug26-319-r15-matrices-m09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The matrices $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ and $B = \\begin{pmatrix} x & 4 \\\\ 6 & y \\end{pmatrix}$ satisfy $AB = BA$. The value of $y - x$ is",
+      "options": [
+        "$-6$",
+        "$3$",
+        "$6$",
+        "$12$"
+      ],
+      "answer": 3,
+      "explanation": "Compute $AB = \\begin{pmatrix} x + 12 & 4 + 2y \\\\ 3x + 24 & 12 + 4y \\end{pmatrix}$ and $BA = \\begin{pmatrix} x + 12 & 2x + 16 \\\\ 6 + 3y & 12 + 4y \\end{pmatrix}$. Equating the $(1,2)$ elements, $4 + 2y = 2x + 16$, so $y - x = 6$. The $(2,1)$ elements give the same condition.",
+      "optionRationale": {
+        "1": "$-6$ reverses the order of subtraction; $2y - 2x = 12$ gives $y - x = +6$.",
+        "2": "$3$ results from dividing $12$ by $4$ instead of by $2$.",
+        "4": "$12$ is $2y - 2x$, the equation before dividing by $2$."
+      },
+      "objective": "Impose commutativity of two matrices to find unknowns"
+    },
+    {
+      "key": "ug26-319-r15-matrices-m10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Consider the following statements for square matrices of the same order.\nA. If $A$ and $B$ are invertible, then $(AB)^{-1} = B^{-1}A^{-1}$.\nB. If $A$ is symmetric and invertible, then $A^{-1}$ is symmetric.\nC. If $AB = O$, then $A = O$ or $B = O$.\nD. For every square matrix $A$, the matrix $A + A'$ is skew symmetric.\nChoose the correct answer.",
+      "options": [
+        "A and C only",
+        "A and B only",
+        "B and D only",
+        "A, B and D only"
+      ],
+      "answer": 2,
+      "explanation": "A is the reverse-order law for inverses and is true. B is true because $(A^{-1})' = (A')^{-1} = A^{-1}$ when $A' = A$. C is false: $\\begin{pmatrix}1&2\\\\2&4\\end{pmatrix}\\begin{pmatrix}2&-2\\\\-1&1\\end{pmatrix}= O$ with both factors non-zero. D is false since $(A + A')' = A + A'$, so the sum is symmetric.",
+      "optionRationale": {
+        "1": "C is false: two non-zero matrices can have the zero matrix as product.",
+        "3": "D is false, since $A + A'$ equals its own transpose.",
+        "4": "D is false, so it cannot be included with A and B."
+      },
+      "objective": "Evaluate statements about inverses, symmetric and zero-product matrices"
+    }
+  ]
+}

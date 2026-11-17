@@ -1,0 +1,218 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_132e116197104c828a158d0cf53ab759",
+  "title": "Integration and its Applications"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r05-integration-applications-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The definite integral $\\displaystyle\\int_1^3(2x+3)\\,dx$ has the value",
+   "options": [
+    "14",
+    "8",
+    "18",
+    "22"
+   ],
+   "answer": 1,
+   "explanation": "An antiderivative of $2x+3$ is $x^2+3x$. Evaluating between the limits, $(9+9)-(1+3)=18-4=14$. The lower limit value must be subtracted, not ignored.",
+   "optionRationale": {
+    "2": "This integrates only the term $2x$ and leaves out $3x$, getting $9-1=8$.",
+    "3": "This substitutes only the upper limit $x=3$ and forgets to subtract the lower-limit value.",
+    "4": "This uses the wrong antiderivative $2x^2+3x$, giving $27-5=22$."
+   },
+   "objective": "Evaluate a definite integral of a linear function"
+  },
+  {
+   "key": "ug26-319-r05-integration-applications-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The indefinite integral $\\displaystyle\\int\\cos 2x\\,dx$ equals",
+   "options": [
+    "\\dfrac12\\sin2x+C",
+    "\\sin2x+C",
+    "2\\sin2x+C",
+    "-\\dfrac12\\sin2x+C"
+   ],
+   "answer": 1,
+   "explanation": "The derivative of $\\sin2x$ is $2\\cos2x$ by the chain rule. To compensate for the factor $2$, divide by $2$: $\\displaystyle\\int\\cos2x\\,dx=\\tfrac12\\sin2x+C$. Check by differentiating: $\\tfrac12\\cdot2\\cos2x=\\cos2x$.",
+   "optionRationale": {
+    "2": "This ignores the inner derivative $2$, so differentiating gives $2\\cos 2x$ and not $\\cos 2x$.",
+    "3": "This multiplies by $2$ instead of dividing, so its derivative would be $4\\cos2x$.",
+    "4": "This has the correct magnitude but the sign of the derivative of cosine was used; the integral of cosine is $+\\sin$."
+   },
+   "objective": "Integrate a trigonometric function with a linear argument"
+  },
+  {
+   "key": "ug26-319-r05-integration-applications-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "By putting $t=x^2+4$, the indefinite integral $\\displaystyle\\int\\dfrac{x}{x^2+4}\\,dx$ equals",
+   "options": [
+    "\\log(x^2+4)+C",
+    "\\dfrac12\\log(x^2+4)+C",
+    "\\dfrac12\\tan^{-1}\\dfrac x2+C",
+    "-\\dfrac{1}{x^2+4}+C"
+   ],
+   "answer": 2,
+   "explanation": "With $t=x^2+4$ we have $dt=2x\\,dx$, so $x\\,dx=\\tfrac12dt$. The integral becomes $\\tfrac12\\int\\dfrac{dt}{t}=\\tfrac12\\log|t|+C=\\tfrac12\\log(x^2+4)+C$, and $x^2+4>0$ for all real $x$.",
+   "optionRationale": {
+    "1": "This leaves out the factor $\\tfrac12$ that comes from $x\\,dx=\\tfrac12dt$.",
+    "3": "The inverse tangent form belongs to $\\int\\dfrac{dx}{x^2+4}$ and not to the integrand with $x$ in the numerator.",
+    "4": "This integrates $\\dfrac1t$ as $-\\dfrac1t$, which is the rule for $\\dfrac1{t^2}$, not $\\dfrac1t$."
+   },
+   "objective": "Integrate by substitution where the numerator is the derivative of the denominator"
+  },
+  {
+   "key": "ug26-319-r05-integration-applications-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Using integration by parts, the definite integral $\\displaystyle\\int_0^{\\pi/2}x\\cos x\\,dx$ evaluates to",
+   "options": [
+    "\\dfrac{\\pi}{2}+1",
+    "\\dfrac{\\pi}{2}",
+    "1-\\dfrac{\\pi}{2}",
+    "\\dfrac{\\pi}{2}-1"
+   ],
+   "answer": 4,
+   "explanation": "Take $u=x$ and $dv=\\cos x\\,dx$, so $\\displaystyle\\int x\\cos x\\,dx=x\\sin x-\\int\\sin x\\,dx=x\\sin x+\\cos x$. Between $0$ and $\\tfrac\\pi2$: $\\left(\\tfrac\\pi2\\cdot1+0\\right)-(0+1)=\\tfrac\\pi2-1$.",
+   "optionRationale": {
+    "1": "This takes the lower-limit value $\\cos0=1$ with a plus sign instead of subtracting it.",
+    "2": "This keeps only the $x\\sin x$ part and forgets the $+\\cos x$ term.",
+    "3": "This has the correct size but reversed order of subtraction, upper minus lower was reversed."
+   },
+   "objective": "Evaluate a definite integral by parts"
+  },
+  {
+   "key": "ug26-319-r05-integration-applications-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The area of the region enclosed between the line $y=x$ and the parabola $y=x^2$ is",
+   "options": [
+    "\\dfrac13",
+    "\\dfrac16",
+    "\\dfrac12",
+    "\\dfrac56"
+   ],
+   "answer": 2,
+   "explanation": "The curves meet where $x=x^2$, that is at $x=0$ and $x=1$, and the line lies above the parabola in between. The area is $\\int_0^1(x-x^2)\\,dx=\\tfrac12-\\tfrac13=\\tfrac16$.",
+   "optionRationale": {
+    "1": "This is $\\int_0^1x^2\\,dx$, the area under the parabola alone.",
+    "3": "This is $\\int_0^1x\\,dx$, the area under the line alone.",
+    "4": "This adds the two areas under the curves instead of subtracting them."
+   },
+   "objective": "Find the area between a line and a parabola"
+  },
+  {
+   "key": "ug26-319-r05-integration-applications-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "By completing the square in the denominator, the indefinite integral $\\displaystyle\\int\\dfrac{dx}{x^2+4x+8}$ equals",
+   "options": [
+    "\\tan^{-1}\\!\\left(\\dfrac{x+2}{2}\\right)+C",
+    "\\dfrac12\\tan^{-1}(x+2)+C",
+    "\\dfrac12\\tan^{-1}\\!\\left(\\dfrac{x+2}{2}\\right)+C",
+    "\\dfrac12\\log(x^2+4x+8)+C"
+   ],
+   "answer": 3,
+   "explanation": "Write $x^2+4x+8=(x+2)^2+2^2$. The standard form $\\int\\dfrac{du}{u^2+a^2}=\\dfrac1a\\tan^{-1}\\dfrac ua$ with $u=x+2$ and $a=2$ gives $\\dfrac12\\tan^{-1}\\dfrac{x+2}{2}+C$.",
+   "optionRationale": {
+    "1": "This omits the factor $\\tfrac1a=\\tfrac12$ from the standard inverse tangent formula.",
+    "2": "This uses $a=1$ inside the argument, but the constant in $(x+2)^2+2^2$ is $a=2$.",
+    "4": "A logarithm would need the numerator to be the derivative $2x+4$ of the denominator, which it is not."
+   },
+   "objective": "Integrate a quadratic denominator by completing the square"
+  },
+  {
+   "key": "ug26-319-r05-integration-applications-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Let $I=\\displaystyle\\int_0^{\\pi/2}\\dfrac{\\sin x}{\\sin x+\\cos x}\\,dx$. The value of $I$ is",
+   "options": [
+    "\\dfrac{\\pi}{2}",
+    "1",
+    "\\dfrac{\\pi}{8}",
+    "\\dfrac{\\pi}{4}"
+   ],
+   "answer": 4,
+   "explanation": "Replacing $x$ by $\\tfrac\\pi2-x$ turns the integrand into $\\dfrac{\\cos x}{\\sin x+\\cos x}$, so $2I=\\int_0^{\\pi/2}\\dfrac{\\sin x+\\cos x}{\\sin x+\\cos x}dx=\\tfrac\\pi2$. Therefore $I=\\tfrac\\pi4$.",
+   "optionRationale": {
+    "1": "This is the value of $2I$, the sum of the two integrals, before halving.",
+    "2": "This guesses a value of $1$ by treating the integrand as $1$ at the endpoint $x=\\tfrac\\pi2$ only.",
+    "3": "This halves the result twice, dividing $\\tfrac\\pi2$ by $4$ instead of $2$."
+   },
+   "objective": "Use the property $\\int_0^a f(x)dx=\\int_0^a f(a-x)dx$"
+  },
+  {
+   "key": "ug26-319-r05-integration-applications-m08",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each definite integral in List-I with its value in List-II.",
+   "options": [
+    "A-III, B-I, C-IV, D-II",
+    "A-II, B-IV, C-I, D-III",
+    "A-IV, B-III, C-I, D-II",
+    "A-III, B-IV, C-I, D-II"
+   ],
+   "answer": 4,
+   "explanation": "$\\int_0^1x^2dx=\\tfrac13$ (III). $\\int_0^\\pi\\sin x\\,dx=[-\\cos x]_0^\\pi=1+1=2$ (IV). $x^3$ is odd, so its integral over $[-1,1]$ is $0$ (I). $\\int_1^e\\dfrac{dx}{x}=\\log e-\\log1=1$ (II).",
+   "optionRationale": {
+    "1": "This gives the odd function a value of 2 and the sine integral 0, but $\\sin x\\ge0$ on $[0,\\pi]$ so its integral is positive.",
+    "2": "This swaps the values of the first and last integrals, but $\\int_1^e dx/x=1$ and $\\int_0^1x^2dx=\\tfrac13$.",
+    "3": "This gives the first integral the value 2, which is far larger than the area under $x^2$ on $[0,1]$."
+   },
+   "objective": "Match definite integrals with their values",
+   "list": {
+    "left": [
+     "A. $\\int_0^1x^2\\,dx$",
+     "B. $\\int_0^{\\pi}\\sin x\\,dx$",
+     "C. $\\int_{-1}^{1}x^3\\,dx$",
+     "D. $\\int_1^{e}\\dfrac{dx}{x}$"
+    ],
+    "right": [
+     "I. 0",
+     "II. 1",
+     "III. $\\dfrac13$",
+     "IV. 2"
+    ]
+   }
+  },
+  {
+   "key": "ug26-319-r05-integration-applications-m09",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The area bounded by the curve $y=\\sin x$ and the $x$-axis between $x=0$ and $x=2\\pi$ is zero.\nReason (R): $\\int_0^{2\\pi}\\sin x\\,dx=0$.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "The reason is true: $[-\\cos x]_0^{2\\pi}=-1+1=0$, because the positive and negative parts cancel. But the area is not the signed integral. Splitting at $\\pi$, the area is $\\int_0^\\pi\\sin x\\,dx+\\left|\\int_\\pi^{2\\pi}\\sin x\\,dx\\right|=2+2=4$, so the assertion is false.",
+   "optionRationale": {
+    "1": "The assertion is false (the area is 4), so the reason cannot be its explanation.",
+    "2": "The assertion is false, so the pair cannot both be true.",
+    "3": "The reason is true: the signed integral of sine over a full period is $0$."
+   },
+   "objective": "Distinguish a signed integral from an area"
+  }
+ ]
+}

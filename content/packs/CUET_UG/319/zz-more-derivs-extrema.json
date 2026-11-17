@@ -1,0 +1,183 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_c24c421a9c864f11b22812709ec5b8f3",
+  "title": "Calculus"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r03-calculus-derivatives-extrema-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "If $y=2x^3-5x^2+3x$, then the value of $\\dfrac{d^2y}{dx^2}$ at $x=2$ is",
+   "options": [
+    "10",
+    "14",
+    "12",
+    "7"
+   ],
+   "answer": 2,
+   "explanation": "Differentiating once with the power rule, $y'=6x^2-10x+3$. Differentiating this result again gives $y''=12x-10$. Substituting $x=2$ into the second derivative, $y''=24-10=14$, so the value of the second derivative there is 14.",
+   "optionRationale": {
+    "1": "This uses $12x-14$ by miscopying the constant term while differentiating $-10x$.",
+    "3": "$12$ is the coefficient of $x$ in $y''$ and the constant $-10$ was dropped.",
+    "4": "$7$ is the value of the first derivative $y'(2)=24-20+3$, not of the second derivative."
+   },
+   "objective": "Find a second derivative of a polynomial"
+  },
+  {
+   "key": "ug26-319-r03-calculus-derivatives-extrema-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "If $y=x\\log x$ for $x>0$, then $\\dfrac{d^2y}{dx^2}$ at $x=4$ equals",
+   "options": [
+    "\\dfrac12",
+    "4",
+    "\\dfrac{1}{16}",
+    "\\dfrac14"
+   ],
+   "answer": 4,
+   "explanation": "By the product rule, $y'=\\log x+x\\cdot\\tfrac1x=\\log x+1$. Differentiating this again, since the derivative of $\\log x$ is $\\tfrac1x$ and that of $1$ is zero, gives $y''=\\tfrac1x$. At $x=4$ this equals $\\tfrac14$.",
+   "optionRationale": {
+    "1": "This would be $\\dfrac1x$ at $x=2$; the value $x=4$ was not substituted correctly.",
+    "2": "This is $x$ itself, not the reciprocal; the derivative of $\\log x$ is $1/x$.",
+    "3": "This squares the denominator, $1/x^2$, which would be the derivative of $-1/x$ and not of $\\log x$."
+   },
+   "objective": "Differentiate twice using the product rule"
+  },
+  {
+   "key": "ug26-319-r03-calculus-derivatives-extrema-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "If $y=xe^{-x}$, then the value of $\\dfrac{d^2y}{dx^2}$ at $x=1$ is",
+   "options": [
+    "-\\dfrac1e",
+    "\\dfrac1e",
+    "0",
+    "-e"
+   ],
+   "answer": 1,
+   "explanation": "We have $y'=e^{-x}-xe^{-x}=(1-x)e^{-x}$ and then $y''=-e^{-x}-(1-x)e^{-x}=(x-2)e^{-x}$. At $x=1$ this equals $-e^{-1}=-\\dfrac1e$.",
+   "optionRationale": {
+    "2": "This has the right size but the sign of $x-2$ was taken as positive.",
+    "3": "This is the value of $y'(1)=(1-1)e^{-1}$, which is zero, not $y''(1)$.",
+    "4": "This drops the negative sign of the exponent, using $(x-2)e^{x}$ at $x=1$ and so giving $-e$."
+   },
+   "objective": "Compute a second derivative involving an exponential"
+  },
+  {
+   "key": "ug26-319-r03-calculus-derivatives-extrema-m04",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider $f(x)=x^3-12x$ and the following statements.\nA. $f$ is decreasing on the interval $(-2,2)$.\nB. The local maximum value of $f$ is $16$.\nC. $f$ has a local minimum at $x=-2$.\nD. The local minimum value of $f$ is $-16$.\nWhich statements are correct?",
+   "options": [
+    "A, C and D only",
+    "A, B and D only",
+    "B and C only",
+    "A and B only"
+   ],
+   "answer": 2,
+   "explanation": "$f'(x)=3x^2-12=3(x-2)(x+2)$, which is negative on $(-2,2)$, so A is true. Since $f''(x)=6x$, $x=-2$ is a local maximum with $f(-2)=-8+24=16$ (B true, C false) and $x=2$ is a local minimum with $f(2)=8-24=-16$ (D true).",
+   "optionRationale": {
+    "1": "C is false: the sign of $f''$ at $x=-2$ is negative, so that point is a local maximum.",
+    "3": "This is incomplete as well as wrong, since it includes C which is false and omits A.",
+    "4": "This omits D, which is true, because $f(2)=-16$ is the local minimum value."
+   },
+   "objective": "Analyse monotonicity and extrema of a cubic"
+  },
+  {
+   "key": "ug26-319-r03-calculus-derivatives-extrema-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Two positive numbers $x$ and $y$ have a sum of 24, and $x^2y$ is to be as large as possible. The maximum value of $x^2y$ is",
+   "options": [
+    "1728",
+    "1024",
+    "2048",
+    "4096"
+   ],
+   "answer": 3,
+   "explanation": "With $y=24-x$ let $g(x)=x^2(24-x)=24x^2-x^3$. Then $g'(x)=48x-3x^2=3x(16-x)$, so $x=16$, and $g''(16)=48-96<0$ gives a maximum. Then $y=8$ and the maximum is $16^2\\cdot8=2048$.",
+   "optionRationale": {
+    "1": "$1728=12^3$ comes from taking $x=y=12$, which maximises $xy$ but not $x^2y$.",
+    "2": "This is $x^2y$ at $x=8$, $y=16$, with the larger number placed on the unsquared variable.",
+    "4": "This uses $x=16$ and $y=16$, which does not satisfy $x+y=24$."
+   },
+   "objective": "Maximise a product subject to a fixed sum"
+  },
+  {
+   "key": "ug26-319-r03-calculus-derivatives-extrema-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "For $f(x)=x^3-6x^2+9x+1$ on the closed interval $[0,3]$, let $M$ and $m$ be the absolute maximum and absolute minimum values. Then $M-m$ equals",
+   "options": [
+    "3",
+    "4",
+    "5",
+    "0"
+   ],
+   "answer": 2,
+   "explanation": "$f'(x)=3x^2-12x+9=3(x-1)(x-3)$, so the critical points in $[0,3]$ are $x=1$ and $x=3$. Compare $f(0)=1$, $f(1)=5$, $f(3)=1$. Thus $M=5$, $m=1$ and $M-m=4$.",
+   "optionRationale": {
+    "1": "This takes $M=4$ by assuming the maximum is at an endpoint-like value and ignoring $f(1)=5$.",
+    "3": "This is the value $M=5$ alone, forgetting to subtract the minimum.",
+    "4": "This treats $f(0)=f(3)$ as showing the function is constant, which ignores the interior maximum at $x=1$."
+   },
+   "objective": "Find absolute extrema on a closed interval"
+  },
+  {
+   "key": "ug26-319-r03-calculus-derivatives-extrema-m07",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The function $f(x)=|x|$ has a local minimum at $x=0$ even though $f'(0)$ does not exist.\nReason (R): A local extremum of a function can occur only at points where its derivative is zero.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "For $f(x)=|x|$ we have $f(x)\\ge f(0)=0$ for all $x$, so $x=0$ is a local (indeed absolute) minimum while $f'(0)$ does not exist. The assertion is true. The reason is false because extrema can also occur at points where the derivative does not exist (critical points), and at endpoints of a domain.",
+   "optionRationale": {
+    "1": "The reason is false, since extrema also occur where the derivative fails to exist, so it cannot explain the assertion.",
+    "2": "The reason is not true, because $|x|$ is itself a counterexample to it.",
+    "4": "The assertion is true: $|x|\\ge0=|0|$ for all $x$."
+   },
+   "objective": "Recognise that extrema can occur where the derivative does not exist"
+  },
+  {
+   "key": "ug26-319-r03-calculus-derivatives-extrema-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "For $x>0$, the function $f(x)=x+\\dfrac{4}{x}$ has a local minimum value equal to",
+   "options": [
+    "2",
+    "8",
+    "4",
+    "5"
+   ],
+   "answer": 3,
+   "explanation": "Differentiate: $f'(x)=1-\\dfrac{4}{x^2}$, which is zero when $x^2=4$, so $x=2$ for $x>0$. Then $f''(x)=\\dfrac{8}{x^3}>0$ at $x=2$, so this is a local minimum and its value is $f(2)=2+2=4$.",
+   "optionRationale": {
+    "1": "$2$ is the position $x=2$ of the minimum, not the value of the function there.",
+    "2": "$8$ is twice the correct value, as if both terms $x$ and $4/x$ had been counted twice.",
+    "4": "This is $f(1)=f(4)=5$, the value at a nearby point that is not the minimum."
+   },
+   "objective": "Find the local minimum of a function with a reciprocal term"
+  }
+ ]
+}

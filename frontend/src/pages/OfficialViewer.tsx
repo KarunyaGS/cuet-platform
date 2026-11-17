@@ -73,22 +73,33 @@ export function PdfViewer({ doc, startPage, site = 'NTA', downloadUrl }: { doc: 
   useEffect(() => {
     let dead = false;
     let loaded: PdfDoc | null = null;
+    let loading: { destroy?: () => unknown } | null = null;
+    // Closing the viewer while a document is still loading (or after a hot reload) must never throw: every clean-up call is guarded.
+    const release = (x: { destroy?: () => unknown } | null) => {
+      try {
+        if (x && typeof x.destroy === 'function') void Promise.resolve(x.destroy()).catch(() => undefined);
+      } catch {
+        /* nothing left to release */
+      }
+    };
     (async () => {
       try {
         const [lib, worker] = await Promise.all([import('pdfjs-dist'), import('pdfjs-dist/build/pdf.worker.min.mjs?url')]);
         lib.GlobalWorkerOptions.workerSrc = worker.default;
         const task = lib.getDocument({ url: doc.fileUrl!, withCredentials: doc.viewer === 'PROXY', rangeChunkSize: 262144 });
-        loaded = (await task.promise) as unknown as PdfDoc;
-        if (dead) return void loaded.destroy();
-        setPdf(loaded);
-        setPage((p) => Math.min(p, loaded!.numPages));
+        loading = task as unknown as { destroy?: () => unknown };
+        const got = (await task.promise) as unknown as PdfDoc;
+        if (dead) return void release(got as unknown as { destroy?: () => unknown });
+        loaded = got;
+        setPdf(got);
+        setPage((p) => Math.min(p, got.numPages));
       } catch {
         if (!dead) setErr('The document could not be loaded here. You can open it on NTA\'s site instead.');
       }
     })();
     return () => {
       dead = true;
-      void loaded?.destroy();
+      release((loaded as unknown as { destroy?: () => unknown } | null) ?? loading);
     };
   }, [doc.fileUrl, doc.viewer]);
 
@@ -125,7 +136,10 @@ export function PdfViewer({ doc, startPage, site = 'NTA', downloadUrl }: { doc: 
       task = r;
       await r.promise.catch(() => undefined);
       if (!cancelled) setDrawing(false);
-    })();
+    })().catch(() => {
+      // The document was closed (or the page left) while a page was still being read: nothing to draw, and not an error.
+      if (!cancelled) setDrawing(false);
+    });
     return () => {
       cancelled = true;
       task?.cancel();

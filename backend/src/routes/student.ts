@@ -27,6 +27,7 @@ import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, rece
 import { deleteOne, editOne, editSchema, listAll, listForSurface, listForSurfaces, saveBatch, saveSchema } from '../services/annotations';
 import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, createQuestionCard, createQuestionCardSchema, deleteCard, importCards, importCardsSchema, listCards, questionCardState, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
 import { pyqDocument, pyqDocumentFile, pyqExamSchema, pyqSubject, pyqTree } from '../services/pyq';
+import { chapterBankDocuments } from '../services/native-papers';
 import { examActive, keeper, paperInScope, scienceOnly, UG_SCIENCE_PAPER_CODES } from '../lib/scope';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { answerSchema, getSession, marksSchema, progress, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
@@ -175,6 +176,7 @@ learn.get('/search', async (c) => {
 // Previous-year papers found on public websites: years and subjects that have a paper, a subject's papers, and one paper.
 // Students see English-medium papers only; PYQ_ENGLISH_HINDI adds NTA's bilingual English + Hindi papers, labelled as such.
 const pyqScope = (env: AppEnv['Bindings']) => ({ inApp: env.PYQ_IN_APP_VIEWING === 'on', englishHindi: env.PYQ_ENGLISH_HINDI === 'on', preview: env.CONTENT_PREVIEW === 'true' });
+learn.get('/question-bank-pdfs', async (c) => c.json(await chapterBankDocuments(c.env.DB, pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG'))));
 learn.get('/pyq', async (c) => {
   const exam = pyqExamSchema.parse(c.req.query('exam') ?? 'CUET_UG');
   if (!examActive(c.env, exam)) throw notFound('Exam');

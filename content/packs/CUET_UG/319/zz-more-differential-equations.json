@@ -1,0 +1,239 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_54cd72fd83f24e46b08cb0dd9b60dc9f",
+  "title": "Differential Equations"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r24-differential-equations-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "The order and degree of the differential equation $\\left[1+\\left(\\dfrac{dy}{dx}\\right)^2\\right]^{3/2}=\\dfrac{d^2y}{dx^2}$ are respectively",
+   "options": [
+    "order 2, degree 2",
+    "order 2, degree 3",
+    "order 2, degree 1",
+    "order 1, degree 3"
+   ],
+   "answer": 1,
+   "explanation": "The highest derivative is $\\frac{d^2y}{dx^2}$, so the order is $2$. The fractional power $\\frac32$ is cleared by squaring both sides: $\\left[1+(y')^2\\right]^3=(y'')^2$. The highest derivative then has power $2$, so the degree is $2$.",
+   "optionRationale": {
+    "2": "Degree 3 takes the power of the bracket after squaring, not the power of the highest-order derivative y''.",
+    "3": "Degree 1 ignores that squaring is required to remove the fractional power; y'' then appears squared.",
+    "4": "The order is 2, not 1, because the second derivative appears."
+   },
+   "objective": "Find order and degree after removing a fractional power"
+  },
+  {
+   "key": "ug26-319-r24-differential-equations-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A particular solution of a second-order differential equation contains how many arbitrary constants?",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "0"
+   ],
+   "answer": 4,
+   "explanation": "The general solution of an order-$n$ equation contains $n$ arbitrary constants. A particular solution is obtained by giving those constants definite values, usually from initial or boundary conditions, so it contains none.",
+   "optionRationale": {
+    "1": "One arbitrary constant belongs to a first-order general solution, not a particular solution.",
+    "2": "Two arbitrary constants appear in the general solution of this equation, before conditions are applied.",
+    "3": "Three arbitrary constants would belong to a third-order general solution."
+   },
+   "objective": "Distinguish general and particular solutions"
+  },
+  {
+   "key": "ug26-319-r24-differential-equations-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Which of the following is the general solution of the differential equation $\\dfrac{dy}{dx}=e^{x+y}$?",
+   "options": [
+    "$e^{x}-e^{-y}=C$",
+    "$e^{x}+e^{y}=C$",
+    "$e^{x}+e^{-y}=C$",
+    "$e^{-x}+e^{-y}=C$"
+   ],
+   "answer": 3,
+   "explanation": "Write $e^{x+y}=e^x\\cdot e^y$ so the variables separate: $e^{-y}\\,dy=e^x\\,dx$. Integrating both sides gives $-e^{-y}=e^x+c$. Moving the terms together, $e^x+e^{-y}=-c$, and $-c$ is just another arbitrary constant $C$. So the general solution is $e^x+e^{-y}=C$.",
+   "optionRationale": {
+    "1": "This has the wrong sign: integrating $e^{-y}$ gives $-e^{-y}$, so it is added to $e^x$, not subtracted.",
+    "2": "This integrates $e^{-y}\\,dy$ as $e^{y}$, ignoring that the power on $y$ is negative.",
+    "4": "This integrates $e^x\\,dx$ as $e^{-x}$, which has the wrong sign on the exponent."
+   },
+   "objective": "Solve a variable-separable equation with exponentials"
+  },
+  {
+   "key": "ug26-319-r24-differential-equations-m04",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each differential equation in List-I with its general solution in List-II ($C$ is an arbitrary constant).",
+   "list": {
+    "left": [
+     "A. $\\dfrac{dy}{dx}=2y$",
+     "B. $\\dfrac{dy}{dx}=-\\dfrac yx$",
+     "C. $\\dfrac{dy}{dx}=\\dfrac yx$",
+     "D. $\\dfrac{dy}{dx}=-\\dfrac xy$"
+    ],
+    "right": [
+     "I. $xy=C$",
+     "II. $y=Ce^{2x}$",
+     "III. $y=Cx$",
+     "IV. $x^2+y^2=C$"
+    ]
+   },
+   "options": [
+    "A-I, B-II, C-III, D-IV",
+    "A-II, B-I, C-III, D-IV",
+    "A-II, B-I, C-IV, D-III",
+    "A-III, B-I, C-II, D-IV"
+   ],
+   "answer": 2,
+   "explanation": "$\\frac{dy}{y}=2\\,dx$ gives $y=Ce^{2x}$. $\\frac{dy}{y}=-\\frac{dx}x$ gives $\\ln|xy|=c$, so $xy=C$. $\\frac{dy}y=\\frac{dx}x$ gives $y=Cx$. $y\\,dy=-x\\,dx$ gives $x^2+y^2=C$ (circles).",
+   "optionRationale": {
+    "1": "A and B are interchanged: dy/dx = 2y is exponential, and dy/dx = -y/x gives xy = C.",
+    "3": "C and D are interchanged: y/x gives straight lines y = Cx, and -x/y gives circles.",
+    "4": "A and C are interchanged: dy/dx = 2y cannot give y = Cx."
+   },
+   "objective": "Match separable equations with solutions"
+  },
+  {
+   "key": "ug26-319-r24-differential-equations-m05",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements.\nA. The degree of a differential equation is defined only when it is a polynomial in its derivatives.\nB. The order is the order of the highest derivative present.\nC. $\\dfrac{dy}{dx}=f(x,y)$ is homogeneous if $f(\\lambda x,\\lambda y)=\\lambda f(x,y)$ for every $\\lambda$.\nD. The solution of $\\dfrac{dy}{dx}+Py=Q$ is $y\\cdot\\text{IF}=\\displaystyle\\int Q\\cdot\\text{IF}\\,dx+C$, where $\\text{IF}=e^{\\int P\\,dx}$.\nSelect the correct option.",
+   "options": [
+    "A, B, C and D",
+    "B and C only",
+    "A, B and D only",
+    "C and D only"
+   ],
+   "answer": 3,
+   "explanation": "A, B and D are correct. C is false: the equation $\\frac{dy}{dx}=f(x,y)$ is homogeneous when $f$ is homogeneous of degree zero, i.e. $f(\\lambda x,\\lambda y)=f(x,y)$; for example $\\frac{x+y}{x}$.",
+   "optionRationale": {
+    "1": "C is false: homogeneity of dy/dx = f(x, y) needs f(lambda x, lambda y) = f(x, y), not lambda f.",
+    "2": "C is false, and A and D are true, so this option misses them.",
+    "4": "C is false, and A and B are also true."
+   },
+   "objective": "Recall definitions of order, degree and homogeneity"
+  },
+  {
+   "key": "ug26-319-r24-differential-equations-m06",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "**Assertion (A):** The general solution of $\\dfrac{dy}{dx}=\\dfrac{y}{x}$ for $x>0$ is $y=Cx$.\n**Reason (R):** The variables can be separated to give $\\dfrac{dy}{y}=\\dfrac{dx}{x}$.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Separating variables gives $\\frac{dy}{y}=\\frac{dx}{x}$, and integrating, $\\ln|y|=\\ln x+\\ln|C|$, so $y=Cx$. Statement (R) is the exact step that produces the solution in (A), so both are true and (R) explains (A).",
+   "optionRationale": {
+    "2": "R is the very step that derives A, so it is the correct explanation.",
+    "3": "R is true: the equation is separable.",
+    "4": "A is true: integrating both sides gives y = Cx."
+   },
+   "objective": "Solve y' = y/x by separation"
+  },
+  {
+   "key": "ug26-319-r24-differential-equations-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The particular solution of $\\dfrac{dy}{dx}=\\dfrac{x^2}{y}$ with $y(0)=1$ is",
+   "options": [
+    "$2y^2=3x^3+2$",
+    "$y^2=x^3+1$",
+    "$3y^2=2x^3+1$",
+    "$3y^2=2x^3+3$"
+   ],
+   "answer": 4,
+   "explanation": "Separating, $y\\,dy=x^2dx$. Integrating, $\\frac{y^2}2=\\frac{x^3}3+C$. The condition $y(0)=1$ gives $C=\\frac12$. Multiplying by $6$ gives $3y^2=2x^3+3$.",
+   "optionRationale": {
+    "1": "The coefficients are swapped; integrating gives y^2/2 and x^3/3, which leads to 3y^2 = 2x^3 + ...",
+    "2": "The factors 1/2 and 1/3 were dropped; y^2 = x^3 + 1 would need integrals y^2 and x^3.",
+    "3": "The constant was wrong: C = 1/2 gives +3 after multiplying by 6, not +1."
+   },
+   "objective": "Solve an initial value problem by separation"
+  },
+  {
+   "key": "ug26-319-r24-differential-equations-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The general solution of $\\dfrac{dy}{dx}+\\dfrac yx=\\sin x$ for $x>0$ is",
+   "options": [
+    "$xy=\\sin x-x\\cos x+C$",
+    "$xy=\\sin x+x\\cos x+C$",
+    "$y=\\sin x-x\\cos x+C$",
+    "$xy=-\\cos x+C$"
+   ],
+   "answer": 1,
+   "explanation": "The integrating factor is $e^{\\int\\frac1x dx}=x$. So $\\frac{d}{dx}(xy)=x\\sin x$. Integrating by parts, $\\int x\\sin x\\,dx=-x\\cos x+\\sin x$. Hence $xy=\\sin x-x\\cos x+C$.",
+   "optionRationale": {
+    "2": "The sign of x cos x is wrong: integrating x sin x gives -x cos x.",
+    "3": "The factor x multiplying y was lost; the left side should be xy, not y.",
+    "4": "This is the integral of sin x alone; the factor x from the integrating factor multiplies the right side as well."
+   },
+   "objective": "Solve a linear equation with an integrating factor and parts"
+  },
+  {
+   "key": "ug26-319-r24-differential-equations-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Reducing by the substitution $y=vx$ and then integrating, the curves satisfying $\\dfrac{dy}{dx}=\\dfrac{x^2+y^2}{2xy}$ are given by",
+   "options": [
+    "$x^2+y^2=Cx$",
+    "$x^2-y^2=Cx$",
+    "$x^2-y^2=C$",
+    "$y^2-x^2=Cx^2$"
+   ],
+   "answer": 2,
+   "explanation": "Put $y=vx$, so $v+x\\frac{dv}{dx}=\\frac{1+v^2}{2v}$. Then $x\\frac{dv}{dx}=\\frac{1-v^2}{2v}$, so $\\frac{2v\\,dv}{1-v^2}=\\frac{dx}x$. Integrating, $-\\ln|1-v^2|=\\ln|x|+c$, so $x(1-v^2)=C$, which becomes $x^2-y^2=Cx$.",
+   "optionRationale": {
+    "1": "The sign inside is wrong: 1 - v^2 leads to a difference of squares, not a sum.",
+    "3": "The factor x on the right was lost; x(1 - y^2/x^2) = C gives x^2 - y^2 = Cx.",
+    "4": "This has the signs reversed and a squared factor on x, which does not match x(1 - v^2) = C."
+   },
+   "objective": "Solve a homogeneous equation by y = vx"
+  },
+  {
+   "key": "ug26-319-r24-differential-equations-m10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The differential equation of the family of circles $x^2+y^2=2ax$, where $a$ is an arbitrary constant, is",
+   "options": [
+    "$2xy\\dfrac{dy}{dx}=x^2-y^2$",
+    "$2xy\\dfrac{dy}{dx}=x^2+y^2$",
+    "$xy\\dfrac{dy}{dx}=y^2-x^2$",
+    "$2xy\\dfrac{dy}{dx}=y^2-x^2$"
+   ],
+   "answer": 4,
+   "explanation": "Differentiating, $2x+2y\\frac{dy}{dx}=2a$, so $a=x+y\\frac{dy}{dx}$. Also $a=\\frac{x^2+y^2}{2x}$. Equating gives $2x^2+2xy\\frac{dy}{dx}=x^2+y^2$, so $2xy\\frac{dy}{dx}=y^2-x^2$.",
+   "optionRationale": {
+    "1": "The signs are reversed: 2x^2 + 2xy y' = x^2 + y^2 gives y^2 - x^2 on the right.",
+    "2": "The 2x^2 term was not moved across; the right side should be x^2 + y^2 - 2x^2 = y^2 - x^2.",
+    "3": "The coefficient 2 is missing from xy y'; it comes from 2x multiplied by y'."
+   },
+   "objective": "Eliminate a constant to form a differential equation"
+  }
+ ]
+}

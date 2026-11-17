@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "306",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_39cb439dad734664b8e73468854b9a22",
+    "title": "Electrochemistry"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-306-u2-electrochemistry-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following is a primary battery?",
+      "options": [
+        "Lead storage battery",
+        "Nickel-cadmium cell",
+        "Dry cell",
+        "Lithium-ion cell"
+      ],
+      "answer": 3,
+      "explanation": "A primary battery has its reaction occurring once and cannot be recharged. The dry (Leclanche) cell is of this type. Lead storage, nickel-cadmium and lithium-ion cells are secondary cells because their reactions can be reversed by passing current and they can be recharged.",
+      "optionRationale": {
+        "1": "The lead storage battery is a secondary cell and is recharged by the alternator.",
+        "2": "The nickel-cadmium cell is rechargeable.",
+        "4": "The lithium-ion cell is rechargeable."
+      },
+      "objective": "Distinguish primary from secondary batteries"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The cell constant of a conductivity cell has the unit",
+      "options": [
+        "S cm$^{-1}$",
+        "S cm$^{2}$ mol$^{-1}$",
+        "ohm cm",
+        "cm$^{-1}$"
+      ],
+      "answer": 4,
+      "explanation": "The cell constant is $G^* = l/A$, the distance between the electrodes divided by the area of cross-section, so its unit is cm$^{-1}$. It is multiplied by the measured conductance to give conductivity, $\\kappa = G^* \\times G$.",
+      "optionRationale": {
+        "1": "S cm$^{-1}$ is the unit of conductivity, not of the cell constant.",
+        "2": "S cm$^2$ mol$^{-1}$ is the unit of molar conductivity.",
+        "3": "Ohm cm is the unit of resistivity."
+      },
+      "objective": "Recall the unit of the cell constant"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A current of 0.50 A is passed for 3860 s through a silver nitrate solution with silver electrodes. What mass of silver is deposited at the cathode? (Ag = 108 g mol$^{-1}$, $F = 96500$ C mol$^{-1}$)",
+      "options": [
+        "2.16 g",
+        "1.08 g",
+        "4.32 g",
+        "0.216 g"
+      ],
+      "answer": 1,
+      "explanation": "The charge is $Q = It = 0.50 \\times 3860 = 1930$ C. Moles of electrons $= 1930/96500 = 0.020$ mol. Since Ag$^+$ + e$^-$ gives Ag, one mole of electrons deposits one mole of silver, so the mass is $0.020 \\times 108 = 2.16$ g.",
+      "optionRationale": {
+        "2": "This is half the answer, as if only 0.010 mol of electrons were used.",
+        "3": "This is double the answer, as if two electrons were needed per silver ion.",
+        "4": "This is a factor of ten too small, a decimal slip."
+      },
+      "objective": "Apply Faraday's first law to silver deposition"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The Daniell cell has $E^\\circ_{cell} = 1.10$ V. What is its emf at 298 K when $[\\mathrm{Zn^{2+}}] = 0.01$ M and $[\\mathrm{Cu^{2+}}] = 1.0$ M? ($n = 2$, $2.303RT/F = 0.0591$ V)",
+      "options": [
+        "1.04 V",
+        "1.16 V",
+        "1.10 V",
+        "1.22 V"
+      ],
+      "answer": 2,
+      "explanation": "The cell reaction is Zn + Cu$^{2+}$ $\\rightarrow$ Zn$^{2+}$ + Cu, so $Q = [\\mathrm{Zn^{2+}}]/[\\mathrm{Cu^{2+}}] = 0.01$. Then $E = 1.10 - (0.0591/2)\\log 0.01 = 1.10 + 0.0591 = 1.159 \\approx 1.16$ V. A low product concentration raises the emf.",
+      "optionRationale": {
+        "1": "This subtracts the correction instead of adding it, forgetting that $log 0.01$ is negative.",
+        "3": "This is the standard emf; the concentration correction was ignored.",
+        "4": "This leaves out the division by $n = 2$, using 0.0591 x 2 as the correction."
+      },
+      "objective": "Apply the Nernst equation to a Daniell cell"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-m05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Dilute sulphuric acid is electrolysed using platinum electrodes. Which product is liberated at the anode?",
+      "options": [
+        "Hydrogen",
+        "Sulphur dioxide",
+        "Oxygen",
+        "Peroxodisulphate ions"
+      ],
+      "answer": 3,
+      "explanation": "In dilute H$_2$SO$_4$ the anode reaction with the lowest potential is oxidation of water, 2H$_2$O $\\rightarrow$ O$_2$ + 4H$^+$ + 4e$^-$, so oxygen is liberated. Hydrogen is formed at the cathode. Peroxodisulphate forms at the anode only from concentrated sulphuric acid.",
+      "optionRationale": {
+        "1": "Hydrogen is released at the cathode, where reduction occurs.",
+        "2": "Sulphur dioxide is not a product of electrolysis of the dilute acid.",
+        "4": "S$_2$O$_8^{2-}$ is formed only when the acid is concentrated."
+      },
+      "objective": "Predict electrolysis products of dilute sulphuric acid"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-m06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The limiting molar conductivities of the ions in S cm$^2$ mol$^{-1}$ are $\\lambda^\\circ(\\mathrm{Al^{3+}}) = 189$ and $\\lambda^\\circ(\\mathrm{SO_4^{2-}}) = 160$. The limiting molar conductivity of Al$_2$(SO$_4$)$_3$ is",
+      "options": [
+        "887 S cm$^2$ mol$^{-1}$",
+        "349 S cm$^2$ mol$^{-1}$",
+        "429 S cm$^2$ mol$^{-1}$",
+        "858 S cm$^2$ mol$^{-1}$"
+      ],
+      "answer": 4,
+      "explanation": "By Kohlrausch's law the limiting molar conductivity is the sum of the contributions of the ions released by one formula unit. Al$_2$(SO$_4$)$_3$ gives 2 Al$^{3+}$ and 3 SO$_4^{2-}$, so $\\Lambda^\\circ_m = 2(189) + 3(160) = 378 + 480 = 858$ S cm$^2$ mol$^{-1}$.",
+      "optionRationale": {
+        "1": "This swaps the coefficients and uses 3 Al$^{3+}$ and 2 SO$_4^{2-}$.",
+        "2": "This adds one ion of each kind and ignores the stoichiometric numbers.",
+        "3": "This is half the correct value, obtained by dividing by 2."
+      },
+      "objective": "Apply Kohlrausch's law to a salt with unequal ion numbers"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-m07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The equilibrium constant of a cell reaction in which 2 electrons are transferred is $1\\times10^{20}$ at 298 K. What is $E^\\circ_{cell}$? (Use $2.303RT/F = 0.0591$ V)",
+      "options": [
+        "0.591 V",
+        "1.182 V",
+        "0.296 V",
+        "0.0296 V"
+      ],
+      "answer": 1,
+      "explanation": "At equilibrium $E^\\circ_{cell} = (0.0591/n)\\log K$. With $n = 2$ and $\\log K = 20$ this gives $E^\\circ_{cell} = (0.0591/2) \\times 20 = 0.591$ V. A large K corresponds to a strongly spontaneous cell reaction.",
+      "optionRationale": {
+        "2": "This omits the division by $n = 2$ and gives 0.0591 x 20.",
+        "3": "This divides by an extra factor of 2, using $n = 4$.",
+        "4": "This divides by an extra factor of 2 beyond n; log(10^20) = 20 and n = 2 give 0.591 V."
+      },
+      "objective": "Calculate E0 of a cell from the equilibrium constant"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-m08",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Rusting of iron is faster in sea water than in distilled water.\nReason (R): Sea water has a much lower conductivity than distilled water.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "Rusting is an electrochemical process and dissolved ions in sea water make a good electrolyte that carries the current between the anodic and cathodic regions, so corrosion is faster. The assertion is true. The reason is false because the dissolved salts make sea water far more conducting than distilled water.",
+      "optionRationale": {
+        "1": "The reason is false, so it cannot be the correct explanation.",
+        "2": "The reason is false, not just an incomplete explanation.",
+        "4": "The assertion is true: salt water speeds up corrosion."
+      },
+      "objective": "Explain the effect of electrolyte conductivity on rusting"
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-m09",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Match the cell in List-I with its description in List-II.",
+      "options": [
+        "A-IV, B-II, C-I, D-III",
+        "A-II, B-IV, C-I, D-III",
+        "A-II, B-IV, C-III, D-I",
+        "A-I, B-IV, C-II, D-III"
+      ],
+      "answer": 2,
+      "explanation": "The lead storage battery has a lead anode and a PbO$_2$ cathode in sulphuric acid (A-II). The Daniell cell uses zinc and copper electrodes joined by a salt bridge (B-IV). The mercury cell has a zinc-mercury amalgam anode and a HgO-carbon cathode in KOH-ZnO paste (C-I). The fuel cell has catalyst-loaded porous carbon electrodes (D-III).",
+      "optionRationale": {
+        "1": "This code interchanges the matches of A and B; the correct pairs are A-II and B-IV.",
+        "3": "This code interchanges the matches of C and D; the correct pairs are C-I and D-III.",
+        "4": "This code interchanges the matches of A and C; the correct pairs are A-II and C-I."
+      },
+      "objective": "Match cells with their electrodes and electrolytes",
+      "list": {
+        "left": [
+          "A. Lead storage battery",
+          "B. Daniell cell",
+          "C. Mercury cell",
+          "D. Hydrogen-oxygen fuel cell"
+        ],
+        "right": [
+          "I. Zinc-mercury amalgam anode and a HgO-carbon cathode in a KOH-ZnO paste",
+          "II. Lead anode and a PbO$_2$ cathode in sulphuric acid",
+          "III. Porous carbon electrodes containing a catalyst",
+          "IV. Zinc and copper electrodes connected through a salt bridge"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u2-electrochemistry-m10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about cells.\nA. In a galvanic cell the cathode is the positive electrode.\nB. $E^\\circ_{cell} = E^\\circ_{cathode} - E^\\circ_{anode}$.\nC. An electrolytic cell converts electrical energy into chemical energy.\nD. In an electrolytic cell the anode is the negative electrode.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "B, C and D only",
+        "A, B and C only",
+        "A and D only"
+      ],
+      "answer": 3,
+      "explanation": "In a galvanic cell reduction occurs at the cathode, which is positive. The standard emf is cathode minus anode, and an electrolytic cell uses electrical energy to drive a non-spontaneous reaction. In an electrolytic cell the anode is connected to the positive terminal, so D is wrong.",
+      "optionRationale": {
+        "1": "D is wrong because the anode of an electrolytic cell is positive, and C is also correct.",
+        "2": "D is wrong because the anode of an electrolytic cell is positive, and A is also correct.",
+        "4": "It includes the wrong statement D and omits the correct statements B and C."
+      },
+      "objective": "Recall the polarity and energy conversion of cells"
+    }
+  ]
+}

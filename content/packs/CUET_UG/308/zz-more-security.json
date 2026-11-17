@@ -1,0 +1,281 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_a3a2ae6139ed4739934d2bafe6ed23b4",
+  "title": "Security Aspects"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r21-security-aspects-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Unwanted, unsolicited e-mail messages sent in bulk to a large number of people, mostly to advertise something, are called",
+   "options": [
+    "worms",
+    "cookies",
+    "spam",
+    "firewalls"
+   ],
+   "answer": 3,
+   "explanation": "Spam is unsolicited bulk e-mail, usually advertising but sometimes carrying phishing links or malware. A worm is a self-replicating program, a cookie is a small text file saved by a website, and a firewall is a tool that filters network traffic.",
+   "optionRationale": {
+    "1": "A worm is a program that copies itself across a network, not a type of mail.",
+    "2": "A cookie is a small text file stored by the browser for a website, not a bulk message.",
+    "4": "A firewall filters traffic and is a protection tool, not a message."
+   },
+   "objective": "Define spam"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "What is the default port number of an ordinary HTTP (not HTTPS) web connection?",
+   "options": [
+    "443",
+    "80",
+    "21",
+    "25"
+   ],
+   "answer": 2,
+   "explanation": "Ordinary HTTP uses port 80 by default, while HTTPS uses port 443. Port 21 is the control port of FTP, and port 25 is used by SMTP for sending mail. The port number tells the server which service the request is meant for.",
+   "optionRationale": {
+    "1": "443 is the default port of the secure version, HTTPS, and not of plain HTTP.",
+    "3": "21 is the control port of FTP, the file transfer protocol.",
+    "4": "25 is used by SMTP, the mail sending protocol, and not by web browsing."
+   },
+   "objective": "Recall the default port of HTTP"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "A person removes the licence protection of a paid software program so that it can be used and shared without paying. In security terms this person is a",
+   "options": [
+    "ethical hacker",
+    "system administrator",
+    "spam filter",
+    "cracker"
+   ],
+   "answer": 4,
+   "explanation": "A cracker breaks into systems or breaks the protection of software without permission, for harm or gain. Breaking the licence protection of a paid program is cracking. An ethical hacker works with the permission of the owner to find weaknesses and improve security.",
+   "optionRationale": {
+    "1": "An ethical hacker has the owner's permission and aims to improve security, which is not the case here.",
+    "2": "A system administrator manages and protects a system and does not break licence protection.",
+    "3": "A spam filter is a program that blocks unwanted mail and is not a person."
+   },
+   "objective": "Identify cracking"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "An antivirus program warns about a file that has never been seen before and is not in its list of known malware, because the file tries to modify many system files quickly and to hide itself. Which detection technique has raised the alarm?",
+   "options": [
+    "Signature based scanning",
+    "Heuristic (behaviour) analysis",
+    "Packet filtering",
+    "Cookie blocking"
+   ],
+   "answer": 2,
+   "explanation": "Heuristic or behaviour analysis watches what a program does and flags suspicious actions, such as changing system files and hiding, even if the file is new. Signature based scanning can find only malware whose pattern is already in its database, so it cannot flag an unknown file.",
+   "optionRationale": {
+    "1": "Signature based scanning needs the pattern of the file in its database, and this file is not known.",
+    "3": "Packet filtering is done by a firewall on network traffic and not by an antivirus on a file.",
+    "4": "Cookie blocking is a browser privacy setting and does not examine the behaviour of a file."
+   },
+   "objective": "Apply heuristic detection to unknown malware"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which statement correctly distinguishes a DoS attack from a DDoS attack?",
+   "options": [
+    "In a DDoS attack the flood of requests comes from many computers, often an infected botnet",
+    "In a DoS attack the flood comes from many computers, while a DDoS attack comes from one",
+    "A DoS attack steals passwords in transit, while a DDoS attack floods the server",
+    "A DoS attack harms privacy only, while a DDoS attack harms the speed of the computer"
+   ],
+   "answer": 1,
+   "explanation": "Both attacks aim to make a service unavailable by flooding it with useless requests. In a DoS attack the requests come from one source, whereas in a Distributed DoS attack they come from many computers, often a botnet of infected machines, which makes the attack harder to block.",
+   "optionRationale": {
+    "2": "This reverses the two attacks: the distributed one has many sources.",
+    "3": "Stealing passwords in transit is eavesdropping; neither attack is mainly about passwords.",
+    "4": "Both attacks aim at the availability of a service, not at privacy or at one computer's speed."
+   },
+   "objective": "Distinguish DoS from DDoS"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-m06",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about security tools and malware.\nA. A worm needs to be attached to a host file before it can spread.\nB. A Trojan horse does not replicate itself.\nC. A firewall cannot remove a virus that is already inside a downloaded file.\nD. HTTPS sends the data between the browser and the server in an encrypted form.\nWhich statements are correct?",
+   "options": [
+    "A, B and C only",
+    "A and D only",
+    "B and C only",
+    "B, C and D only"
+   ],
+   "answer": 4,
+   "explanation": "A is false because a worm is an independent program and needs no host file. B is true, since a Trojan horse relies on tricking the user and does not copy itself. C is true: a firewall filters traffic but cannot clean a file. D is true: HTTPS uses SSL or TLS encryption.",
+   "optionRationale": {
+    "1": "A is false because a worm needs no host file, so this option is wrong.",
+    "2": "A is false, so this option is wrong and it leaves out C and B.",
+    "3": "D is also true, so this option leaves out a correct statement."
+   },
+   "objective": "Judge statements about malware and security tools"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-m07",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Assertion (A): Using an HTTPS website for banking on a public Wi-Fi network reduces the risk that the password is read by someone capturing the traffic.\nReason (R): HTTPS makes sure that the website itself is free from malware.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "HTTPS encrypts the data between the browser and the server, so a person capturing traffic on public Wi-Fi sees only unreadable data, and A is true. R is false: encryption protects the data in transit and says nothing about whether the site hosts malware.",
+   "optionRationale": {
+    "1": "R is false, so it cannot be the explanation of A.",
+    "2": "R is not true, so it cannot be a true but unrelated reason.",
+    "4": "A is true because encryption defeats eavesdropping on the traffic."
+   },
+   "objective": "Explain what HTTPS does and does not protect"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-m08",
+   "type": "ASSERTION_REASON",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A firewall can block the traffic coming from a particular IP address.\nReason (R): A firewall may be a hardware device, a software program, or both.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 2,
+   "explanation": "A firewall filters packets using rules based on IP address, port number or protocol, so blocking one address is possible and A is true. R is also true, but the form in which a firewall is built does not explain why it can block a given address.",
+   "optionRationale": {
+    "1": "The hardware or software nature does not explain the filtering ability, so R is not the explanation.",
+    "3": "R is true, since a firewall can be a device, a program or both.",
+    "4": "A is true because a firewall can filter by IP address."
+   },
+   "objective": "Describe the nature and the filtering of a firewall"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-m09",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match the network threat in List-I with the example in List-II.",
+   "options": [
+    "A-III, B-II, C-I, D-IV",
+    "A-I, B-III, C-II, D-IV",
+    "A-III, B-I, C-II, D-IV",
+    "A-III, B-I, C-IV, D-II"
+   ],
+   "answer": 3,
+   "explanation": "A flood of useless requests that makes a website unreachable is Denial of Service (III). Reading another person's unlocked e-mail is snooping (I). Capturing passwords as they travel over open Wi-Fi is eavesdropping (II). Entering a server with a stolen password is intrusion (IV).",
+   "optionRationale": {
+    "1": "This swaps snooping and eavesdropping, which differ in stored data versus data in transit.",
+    "2": "This gives denial of service the e-mail example and snooping the flooding example.",
+    "4": "This swaps eavesdropping and intrusion examples."
+   },
+   "objective": "Match network threats with examples",
+   "list": {
+    "left": [
+     "A. Denial of Service",
+     "B. Snooping",
+     "C. Eavesdropping",
+     "D. Intrusion"
+    ],
+    "right": [
+     "I. Reading the unlocked e-mail of another person",
+     "II. Capturing passwords sent over an open public Wi-Fi network",
+     "III. Making a website unreachable by flooding it with useless requests",
+     "IV. Logging in to a school server with a stolen password"
+    ]
+   }
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-m10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "After installing a free PDF converter, a student sees pop-up advertisements on the screen and adverts that match the sites visited earlier. The program does not copy itself and does not give anybody control of the computer. This program is best classified as",
+   "options": [
+    "a worm",
+    "a computer virus",
+    "a firewall",
+    "adware"
+   ],
+   "answer": 4,
+   "explanation": "Adware displays unwanted advertisements, often arrives with free programs, and may track browsing habits to target the ads. A worm and a virus replicate themselves, which this program does not do, and a firewall is a protection tool and not a source of adverts.",
+   "optionRationale": {
+    "1": "A worm copies itself across the network, but this program does not replicate.",
+    "2": "A virus attaches to files and copies itself, which is not described here.",
+    "3": "A firewall protects against unwanted traffic, and it does not display advertisements."
+   },
+   "objective": "Recognise adware from its behaviour"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-m11",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "A bank's website becomes unreachable on the last day for filing a form because of a flood of useless requests. Which measure from the following list gives the most direct defence against such an attack?",
+   "options": [
+    "Filtering the traffic with a firewall, limiting the rate of requests and adding extra capacity",
+    "Using HTTPS so that all the pages are encrypted",
+    "Installing an anti-adware tool on the bank's staff computers",
+    "Asking the visitors to clear the cookies of their browsers"
+   ],
+   "answer": 1,
+   "explanation": "A flood of useless requests is a denial of service attack, and the usual defences are filtering by a firewall, limiting the rate of requests and keeping spare capacity. Encryption protects data in transit but does not stop a flood, and cookies or adware tools are unrelated.",
+   "optionRationale": {
+    "2": "HTTPS encrypts the data but the flood of requests still reaches the server and uses it up.",
+    "3": "Removing adware on staff machines does not stop requests arriving from outside.",
+    "4": "Cookies store preferences on the visitor's computer and have no effect on a flood of requests."
+   },
+   "objective": "Select a defence against a DoS attack"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-m12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "application",
+   "stem": "Which habit helps most to protect a computer from malware?",
+   "options": [
+    "Downloading software only from the official website of its maker",
+    "Opening every e-mail attachment to check what it contains",
+    "Switching the firewall off so that downloads become faster",
+    "Ignoring the updates of the operating system and the antivirus"
+   ],
+   "answer": 1,
+   "explanation": "Software from the maker's official site is far less likely to carry a Trojan horse or other malware. Opening unknown attachments, switching off the firewall and skipping updates all weaken protection and are the usual ways in which a computer gets infected.",
+   "optionRationale": {
+    "2": "Attachments from unknown senders are a common way of spreading malware and should not be opened.",
+    "3": "Without a firewall, unwanted traffic can reach the computer, so switching it off lowers security.",
+    "4": "Updates close known weaknesses and refresh virus definitions, so ignoring them leaves the computer open to attack."
+   },
+   "objective": "Choose a safe computing habit"
+  }
+ ]
+}

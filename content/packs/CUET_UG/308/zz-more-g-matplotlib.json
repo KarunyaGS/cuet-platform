@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_3391262046a54d5ebbb11ea1c6797eb6",
+    "title": "Plotting Data using Matplotlib"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r09-matplotlib-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which Matplotlib function gives a name (label) to the horizontal axis of a plot?",
+      "options": [
+        "plt.xlabel()",
+        "plt.xticks()",
+        "plt.title()",
+        "plt.ylabel()"
+      ],
+      "answer": 1,
+      "explanation": "plt.xlabel(\"text\") puts the given text below the x-axis as its label, and plt.ylabel() does the same for the y-axis. xticks() controls the tick marks and title() gives a heading to the complete plot.",
+      "optionRationale": {
+        "2": "xticks() sets the positions and labels of the tick marks, not the axis name.",
+        "3": "title() writes the heading of the whole plot, not the name of one axis.",
+        "4": "ylabel() names the vertical axis, not the horizontal one."
+      },
+      "objective": "Recall plt.xlabel()"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which function of pyplot draws a horizontal bar chart?",
+      "options": [
+        "plt.bar()",
+        "plt.hist()",
+        "plt.hbar()",
+        "plt.barh()"
+      ],
+      "answer": 4,
+      "explanation": "plt.barh() draws bars that extend from left to right, so the categories are on the vertical axis. plt.bar() draws vertical bars, hist() draws a histogram, and hbar() does not exist in pyplot.",
+      "optionRationale": {
+        "1": "bar() draws vertical bars.",
+        "2": "hist() draws a histogram of the frequency distribution of continuous data.",
+        "3": "There is no function named hbar() in pyplot; the horizontal version is barh()."
+      },
+      "objective": "Recall plt.barh()"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-g03",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A pie chart is a good choice to show how a whole is divided into parts.\nReason (R): In a pie chart the angle of each wedge is proportional to the value that it represents.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Because the angle (and so the area) of each wedge is proportional to its value, the wedges together make the full circle and show every part as a share of the whole. The reason therefore explains why a pie chart suits this purpose.",
+      "optionRationale": {
+        "2": "The reason is the very basis of the assertion, so it does explain it.",
+        "3": "The reason is true: wedge angles are proportional to the values.",
+        "4": "The assertion is true: pie charts show parts of a whole."
+      },
+      "objective": "Explain why a pie chart shows parts of a whole"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "What does the format string \"ks-\" in `plt.plot(x, y, \"ks-\")` produce?",
+      "options": [
+        "A dashed black line with star markers",
+        "A solid blue line with square markers",
+        "A solid black line with square markers",
+        "Black square markers without any line"
+      ],
+      "answer": 3,
+      "explanation": "In a format string k is the colour black, s is the square marker and - is a solid line style. Together they draw the points as black squares joined by a solid black line.",
+      "optionRationale": {
+        "1": "The letter s stands for square markers and \"-\" is a solid line; a dashed line would need \"--\".",
+        "2": "The colour letter is k, which means black; blue is b.",
+        "4": "The \"-\" at the end draws a solid line joining the points."
+      },
+      "objective": "Decode a Matplotlib format string"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-g05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Data lies between 10 and 90, and `plt.hist(data, bins=4)` is called. What are the edges of the four equal-width bins?",
+      "options": [
+        "10, 20, 30, 40, 50",
+        "0, 25, 50, 75, 100",
+        "10, 28, 46, 64, 82",
+        "10, 30, 50, 70, 90"
+      ],
+      "answer": 4,
+      "explanation": "With bins given as a number, Matplotlib divides the range from the minimum to the maximum into equal parts. The range is 90 - 10 = 80, so each of the 4 bins is 20 wide and the edges are 10, 30, 50, 70 and 90.",
+      "optionRationale": {
+        "1": "The bins must cover the whole range up to 90, so the width is 20 and the last edge is 90.",
+        "2": "The bins start at the smallest value, 10, and end at the largest value, 90, not at 0 and 100.",
+        "3": "The width is (90 - 10) / 4 = 20, not 18, so the edges rise by 20 each time."
+      },
+      "objective": "Find bin edges for an integer number of bins"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-g06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each function in List-I with its effect in List-II.",
+      "options": [
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-I, B-III, C-II, D-IV"
+      ],
+      "answer": 1,
+      "explanation": "xlabel(\"Year\") writes the name of the x-axis (I). xlim(0, 10) limits the visible x-axis range to 0 to 10 (II). grid(True) draws the grid lines (III), and legend() displays the box that labels each plotted line or bar (IV).",
+      "optionRationale": {
+        "2": "xlabel() names the axis and xlim() sets its range; A and B are exchanged here.",
+        "3": "grid() draws the grid and legend() shows the explanation box; C and D are exchanged here.",
+        "4": "xlim() sets the range on the x-axis and grid() draws lines; B and C are exchanged here."
+      },
+      "objective": "Match pyplot functions with their effects",
+      "list": {
+        "left": [
+          "A. `plt.xlabel(\"Year\")`",
+          "B. `plt.xlim(0, 10)`",
+          "C. `plt.grid(True)`",
+          "D. `plt.legend()`"
+        ],
+        "right": [
+          "I. Names the x-axis",
+          "II. Sets the range shown on the x-axis",
+          "III. Draws grid lines",
+          "IV. Shows the box that explains each line or bar"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-g07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about Matplotlib.\nA. plt.show() displays the plot on the screen.\nB. plt.bar() draws vertical bars by default.\nC. A pie chart is the best choice to show the change of a value over time.\nD. In plt.plot(x, y) the sequences x and y must have the same length.\nWhich statements are correct?",
+      "options": [
+        "A and C only",
+        "A, B and D only",
+        "B, C and D only",
+        "A, B and C only"
+      ],
+      "answer": 2,
+      "explanation": "show() opens the figure (A true) and bar() draws vertical bars unless barh() is used (B true). A pie chart shows shares of a whole, while change over time is shown with a line plot (C false). Each x value needs a matching y value, so the lengths must be equal (D true).",
+      "optionRationale": {
+        "1": "C is false: a line plot, not a pie chart, shows change over time; B and D are also correct.",
+        "3": "C is false, and A is a correct statement so it must be included.",
+        "4": "C is false because a pie chart shows shares of a whole, and D is correct."
+      },
+      "objective": "Judge statements about Matplotlib functions"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Marks of two sections A and B in three subjects are in the lists a and b. Which code draws the bars of A and B side by side, touching but not overlapping, for each subject?",
+      "options": [
+        "`plt.bar([0, 1, 2], a, width=0.4)` and `plt.bar([0.2, 1.2, 2.2], b, width=0.4)`",
+        "`plt.bar([0, 1, 2], a, width=0.4)` and `plt.bar([0.4, 1.4, 2.4], b, width=0.4)`",
+        "`plt.bar([0, 1, 2], a)` and `plt.bar([0, 1, 2], b)`",
+        "`plt.bar([0, 1, 2], a, width=0.4)` and `plt.bar([0, 1, 2], b, width=0.4)`"
+      ],
+      "answer": 2,
+      "explanation": "Bar positions are the centres of the bars. With a width of 0.4 the bars of A cover 0 plus or minus 0.2, so the next bar must have its centre 0.4 further, at 0.4, to touch it without overlapping. Shifting by 0.4 for every subject gives clear side by side bars.",
+      "optionRationale": {
+        "1": "The centres are only 0.2 apart while each bar is 0.4 wide, so the two bars overlap by half.",
+        "3": "Both series use the same positions, so the bars of B are drawn over the bars of A.",
+        "4": "The same centres are used again, so the bars are exactly on top of each other."
+      },
+      "objective": "Position grouped bars correctly"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A box plot is drawn for the data 10, 12, 14, 15, 16, 18, 20, 40 with the quartiles Q1 = 13.5 and Q3 = 18.5. Using the 1.5 x IQR rule for the whiskers, which values are shown as separate outlier points?",
+      "options": [
+        "Only 10",
+        "20 and 40",
+        "Only 40",
+        "None of the values"
+      ],
+      "answer": 3,
+      "explanation": "The interquartile range is 18.5 - 13.5 = 5, and 1.5 x 5 = 7.5. The whiskers may extend to 13.5 - 7.5 = 6 below and 18.5 + 7.5 = 26 above. All values except 40 lie between 6 and 26, so only 40 is plotted beyond the whisker as an outlier.",
+      "optionRationale": {
+        "1": "The lower limit is 13.5 - 7.5 = 6, so 10 lies inside it and is not an outlier.",
+        "2": "The upper limit is 18.5 + 7.5 = 26; 20 is below it, so only 40 is beyond it.",
+        "4": "40 is more than 26, the upper limit, so it is drawn as an outlier point."
+      },
+      "objective": "Apply the 1.5 x IQR rule to find outliers"
+    },
+    {
+      "key": "ug26-308-r09-matplotlib-g10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The data 5, 10, 10, 15, 20, 25, 30, 30, 35, 40, 40 is plotted with `plt.hist(data, bins=[0, 10, 20, 30, 40])`. A value equal to an inner edge belongs to the bin that starts at that edge, and the last bin includes its right edge. What are the heights of the four bars?",
+      "options": [
+        "1, 3, 2, 5",
+        "2, 3, 2, 4",
+        "3, 3, 2, 3",
+        "1, 4, 2, 4"
+      ],
+      "answer": 1,
+      "explanation": "Bin 0 to 10 holds only 5 (height 1). Bin 10 to 20 holds 10, 10 and 15 (height 3). Bin 20 to 30 holds 20 and 25 (height 2). The last bin includes its right edge, so it holds 30, 30, 35, 40 and 40 (height 5). The total is 11.",
+      "optionRationale": {
+        "2": "The value 10 starts the bin 10 to 20, not the bin 0 to 10, and both 40 values are counted in the last bin.",
+        "3": "The first bin 0 to 10 holds only the value 5; 10 belongs to the next bin.",
+        "4": "The value 20 starts the bin 20 to 30, so the second bin has only 10, 10 and 15."
+      },
+      "objective": "Count histogram bars when values lie on bin edges"
+    }
+  ]
+}

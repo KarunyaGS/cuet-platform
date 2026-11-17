@@ -1,0 +1,218 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_c83af3d74cdf402d8deaab863280a6c0",
+    "title": "Exception and File Handling in Python"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r01-exceptions-files-python-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which method reads one line, up to and including the newline character, from a text file opened for reading?",
+      "options": [
+        "readlines()",
+        "read()",
+        "tell()",
+        "readline()"
+      ],
+      "answer": 4,
+      "explanation": "readline() returns the next single line as a string and moves the file pointer to the start of the following line. A call at the end of the file returns an empty string. readlines() gives a list of all lines, read() gives one string, and tell() just reports a position.",
+      "optionRationale": {
+        "1": "readlines() reads every remaining line and returns them as a list.",
+        "2": "read() with no argument returns the whole remaining content as one string.",
+        "3": "tell() only reports the current position of the file pointer; it does not read data."
+      },
+      "objective": "Name the method that reads one line"
+    },
+    {
+      "key": "ug26-308-r01-exceptions-files-python-g02",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Opening a file in mode \"w\" raises FileNotFoundError when the file does not exist.\nReason (R): Mode \"w\" creates the file if it is absent and erases the old content if it is present.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "Mode \"w\" never needs the file to exist beforehand: Python creates it when it is missing and empties it when it already exists. Because of this the assertion is false, while the reason correctly describes how write mode behaves.",
+      "optionRationale": {
+        "1": "The assertion is false, because mode \"w\" creates the missing file instead of failing.",
+        "2": "The assertion is not true; no FileNotFoundError arises in write mode.",
+        "3": "The reason is a true statement about mode \"w\", not a false one."
+      },
+      "objective": "Recall the behaviour of write mode on a missing file"
+    },
+    {
+      "key": "ug26-308-r01-exceptions-files-python-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What is printed by this program?\n`for v in [\"7\", \"x\", None, \"0\"]:`\n`    try:`\n`        print(10 // int(v), end=\" \")`\n`    except ValueError:`\n`        print(\"V\", end=\" \")`\n`    except TypeError:`\n`        print(\"T\", end=\" \")`\n`    except ZeroDivisionError:`\n`        print(\"Z\", end=\" \")`",
+      "options": [
+        "1 V V Z",
+        "1 V T Z",
+        "1 V T 0",
+        "1 T V Z"
+      ],
+      "answer": 2,
+      "explanation": "For \"7\", 10 // 7 is 1. int(\"x\") fails because the text is not a number, giving ValueError. int(None) fails because None is the wrong type, giving TypeError. For \"0\", int works but 10 // 0 raises ZeroDivisionError. The output is therefore 1 V T Z.",
+      "optionRationale": {
+        "1": "int(None) does not raise ValueError; passing None to int() raises TypeError.",
+        "3": "int(\"0\") gives 0 and 10 // 0 raises ZeroDivisionError, so Z is printed, not 0.",
+        "4": "int(\"x\") raises ValueError (bad text) and int(None) raises TypeError (bad type); the two are exchanged here."
+      },
+      "objective": "Trace several exception types in a loop"
+    },
+    {
+      "key": "ug26-308-r01-exceptions-files-python-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What is printed by this program?\n`import csv`\n`f = open(\"c1.csv\", \"w\", newline=\"\")`\n`w = csv.writer(f)`\n`w.writerow([\"id\", \"name\"])`\n`w.writerow([1, \"Asha\"])`\n`f.close()`\n`f = open(\"c1.csv\")`\n`rows = list(csv.reader(f))`\n`f.close()`\n`print(len(rows), rows[1])`",
+      "options": [
+        "2 [1, 'Asha']",
+        "1 ['1', 'Asha']",
+        "2 ['1', 'Asha']",
+        "3 ['1', 'Asha']"
+      ],
+      "answer": 3,
+      "explanation": "writerow() writes one line per call, so the file holds the header line and one data line, and list(csv.reader(f)) has 2 rows. The reader returns every field as a string, so rows[1] is the list of strings \"1\" and \"Asha\", not an integer and a string.",
+      "optionRationale": {
+        "1": "A CSV file stores only text, so csv.reader returns the id as the string \"1\", not the integer 1.",
+        "2": "Both writerow() calls add a line, so the header row is also read and the list has two rows.",
+        "4": "Only two rows were written; the reader does not add an extra empty row."
+      },
+      "objective": "Predict the result of writing and reading a CSV file"
+    },
+    {
+      "key": "ug26-308-r01-exceptions-files-python-g05",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each file method in List-I with its result in List-II.",
+      "options": [
+        "A-III, B-II, C-I, D-IV",
+        "A-III, B-I, C-II, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-III, B-II, C-IV, D-I"
+      ],
+      "answer": 1,
+      "explanation": "read() returns all the remaining text as a single string (III). readline() returns one line (II). readlines() collects every remaining line into a list (I). tell() returns the number that shows where the file pointer currently stands (IV).",
+      "optionRationale": {
+        "2": "readline() gives one line as a string and readlines() gives a list; B and C are exchanged here.",
+        "3": "read() gives one string and readlines() gives the list; A and C are exchanged here.",
+        "4": "tell() returns a number, not a list of lines, and readlines() does not return a position."
+      },
+      "objective": "Match file methods with their return values",
+      "list": {
+        "left": [
+          "A. `read()`",
+          "B. `readline()`",
+          "C. `readlines()`",
+          "D. `tell()`"
+        ],
+        "right": [
+          "I. A list containing all the lines",
+          "II. One line as a string",
+          "III. The whole remaining content as one string",
+          "IV. The current position of the file pointer"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r01-exceptions-files-python-g06",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about files in Python.\nA. A file written with pickle.dump() must be opened in binary mode.\nB. csv.reader() gives every row as a list of strings.\nC. A file opened with mode \"r\" can be written with write().\nD. writerows() of a csv writer writes several rows in one call.\nWhich statements are correct?",
+      "options": [
+        "A and C only",
+        "B, C and D only",
+        "A, B and D only",
+        "A, B and C only"
+      ],
+      "answer": 3,
+      "explanation": "A is true because pickle stores bytes, so the file needs mode \"wb\" or \"rb\". B is true since each CSV field is read as text. C is false: mode \"r\" gives read-only access and write() raises io.UnsupportedOperation. D is true because writerows() accepts a list of rows.",
+      "optionRationale": {
+        "1": "C is false: a file opened with mode \"r\" is read-only and write() raises an error; B and D are also correct.",
+        "2": "C is false because mode \"r\" does not allow writing; A is also correct.",
+        "4": "C is false, and D is a correct statement so it must be included."
+      },
+      "objective": "Judge statements about pickle, csv and file modes"
+    },
+    {
+      "key": "ug26-308-r01-exceptions-files-python-g07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "What is printed by this program?\n`try:`\n`    try:`\n`        x = int(\"5\")`\n`        y = [1, 2][x]`\n`    except IndexError:`\n`        print(\"inner\", end=\" \")`\n`        raise ValueError`\n`    finally:`\n`        print(\"fin\", end=\" \")`\n`except ValueError:`\n`    print(\"outer\")`",
+      "options": [
+        "inner fin outer",
+        "inner outer fin",
+        "inner outer",
+        "fin outer"
+      ],
+      "answer": 1,
+      "explanation": "The index 5 does not exist in a list of two items, so IndexError is raised and the inner except block prints \"inner\". It then raises ValueError, but before that exception leaves the inner try statement its finally block prints \"fin\". The outer except block then catches ValueError and prints \"outer\".",
+      "optionRationale": {
+        "2": "The inner finally block runs before the new exception leaves the inner try statement, so \"fin\" comes before \"outer\".",
+        "3": "The finally block always runs, even when an exception is being raised, so \"fin\" is printed.",
+        "4": "The inner except block executes first because [1, 2][5] raises IndexError, so \"inner\" is printed before \"fin\"."
+      },
+      "objective": "Trace nested try, except and finally with a re-raised exception"
+    },
+    {
+      "key": "ug26-308-r01-exceptions-files-python-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The text file t8.txt is created by `f.write(\"aa\\nbbb\\n\\ncc\")`. What is printed by the following code?\n`f = open(\"t8.txt\")`\n`n = 0`\n`c = 0`\n`while True:`\n`    line = f.readline()`\n`    if line == \"\":`\n`        break`\n`    n += 1`\n`    c += len(line.strip())`\n`f.close()`\n`print(n, c)`",
+      "options": [
+        "3 7",
+        "4 7",
+        "4 11",
+        "3 5"
+      ],
+      "answer": 2,
+      "explanation": "The text splits into four lines: \"aa\\n\", \"bbb\\n\", \"\\n\" and \"cc\". An empty line still holds the newline character, so readline() returns \"\\n\" and not \"\", and the loop goes on. Only the end of the file gives \"\". Stripped lengths are 2, 3, 0 and 2, so n is 4 and c is 7.",
+      "optionRationale": {
+        "1": "The blank third line is \"\\n\", not an empty string, so the loop does not stop there; it counts as a fourth line.",
+        "3": "strip() removes the newline characters before len() is taken, so only the 7 visible characters are added.",
+        "4": "The loop does not stop at the empty line, and the last line \"cc\" is also counted."
+      },
+      "objective": "Count lines read by a readline loop"
+    },
+    {
+      "key": "ug26-308-r01-exceptions-files-python-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "What is printed by this program?\n`import pickle`\n`f = open(\"t9.dat\", \"wb\")`\n`for v in [3, \"x\", [1, 2]]:`\n`    pickle.dump(v, f)`\n`f.close()`\n`f = open(\"t9.dat\", \"rb\")`\n`n = 0`\n`try:`\n`    while True:`\n`        o = pickle.load(f)`\n`        n += 1`\n`except EOFError:`\n`    print(\"end\", n, type(o).__name__)`\n`f.close()`",
+      "options": [
+        "end 4 list",
+        "end 3 int",
+        "end 0 NoneType",
+        "end 3 list"
+      ],
+      "answer": 4,
+      "explanation": "Three objects are dumped one after the other: 3, \"x\" and [1, 2]. The loop loads them one by one and n becomes 3. The fourth pickle.load() finds no more data and raises EOFError, which stops the loop. The variable o still refers to the last loaded object, a list.",
+      "optionRationale": {
+        "1": "Only three objects were dumped; the fourth load() raises EOFError before n is increased again.",
+        "2": "o still holds the last object that was loaded successfully, which is the list, not the first object.",
+        "3": "The loop does run: three load() calls succeed before the end of the file is reached."
+      },
+      "objective": "Read pickled objects until end of file"
+    }
+  ]
+}

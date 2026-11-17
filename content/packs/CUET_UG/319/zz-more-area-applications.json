@@ -1,0 +1,239 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "319",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_90f96c7711a540ffa597cc507a98e857",
+  "title": "Applications of the Integrals"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-319-r23-applications-of-the-integrals-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A strip of land lies under the sloping line $y=x+1$ and above the $x$-axis, between the vertical edges $x=1$ and $x=3$. Its area is",
+   "options": [
+    "8 square units",
+    "6 square units",
+    "4 square units",
+    "10 square units"
+   ],
+   "answer": 2,
+   "explanation": "The line lies above the $x$-axis on $[1,3]$, so the area is $\\int_1^3(x+1)\\,dx=\\left[\\frac{x^2}2+x\\right]_1^3=\\left(\\frac92+3\\right)-\\left(\\frac12+1\\right)=6$. This also equals a trapezium with parallel sides $2,4$ and width $2$.",
+   "optionRationale": {
+    "1": "8 results from using 4 x 2 (the larger height times the width), ignoring that the line slopes.",
+    "3": "4 is the area of the rectangle of height 2 only; the extra triangle above it was left out.",
+    "4": "10 comes from adding the two end values 4 and 6 instead of subtracting the antiderivative at the lower limit."
+   },
+   "objective": "Compute the area under a line using an integral"
+  },
+  {
+   "key": "ug26-319-r23-applications-of-the-integrals-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A flower bed in a park has the elliptical boundary $\\dfrac{x^2}{4}+\\dfrac{y^2}{25}=1$, with lengths in metres. Using the ellipse area formula, the bed covers",
+   "options": [
+    "$20\\pi$ square units",
+    "$5\\pi$ square units",
+    "$10\\pi$ square units",
+    "$29\\pi$ square units"
+   ],
+   "answer": 3,
+   "explanation": "For an ellipse $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$, the area is $\\pi ab$. Here $a=2$ and $b=5$, giving $10\\pi$. Integration confirms this: $4\\int_0^2\\frac52\\sqrt{4-x^2}\\,dx=10\\pi$.",
+   "optionRationale": {
+    "1": "20 pi doubles the formula by counting the four quadrants twice.",
+    "2": "5 pi is pi times b only; the semi-axis a = 2 was left out.",
+    "4": "29 pi uses a^2 + b^2 = 29 instead of the product ab."
+   },
+   "objective": "Use the area of an ellipse"
+  },
+  {
+   "key": "ug26-319-r23-applications-of-the-integrals-m03",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each region in List-I with its area in List-II.",
+   "list": {
+    "left": [
+     "A. Under $y=x^2$ from $x=0$ to $x=2$",
+     "B. Under $y=\\sqrt x$ from $x=0$ to $x=4$",
+     "C. Inside $y^2=9x$ up to the line $x=1$",
+     "D. Upper half of $x^2+y^2=4$"
+    ],
+    "right": [
+     "I. $2\\pi$",
+     "II. $4$",
+     "III. $\\dfrac83$",
+     "IV. $\\dfrac{16}3$"
+    ]
+   },
+   "options": [
+    "A-IV, B-III, C-II, D-I",
+    "A-III, B-IV, C-I, D-II",
+    "A-II, B-IV, C-III, D-I",
+    "A-III, B-IV, C-II, D-I"
+   ],
+   "answer": 4,
+   "explanation": "A: $\\int_0^2x^2dx=\\frac83$. B: $\\int_0^4\\sqrt x\\,dx=\\frac23\\cdot8=\\frac{16}3$. C: $2\\int_0^13\\sqrt x\\,dx=2\\cdot3\\cdot\\frac23=4$. D: the upper half of a circle of radius $2$ has area $\\frac12\\pi\\cdot4=2\\pi$.",
+   "optionRationale": {
+    "1": "A and B are swapped: y = x^2 up to 2 gives 8/3 while y = sqrt x up to 4 gives 16/3.",
+    "2": "C and D are swapped: the parabola region gives 4 and the semicircle gives 2 pi.",
+    "3": "A and C are interchanged: area under x^2 from 0 to 2 is 8/3 and the parabola region is 4."
+   },
+   "objective": "Match regions with their areas"
+  },
+  {
+   "key": "ug26-319-r23-applications-of-the-integrals-m04",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about area.\nA. The area between $y=f(x)$ and $y=g(x)$ over $[a,b]$ with $f\\ge g$ is $\\displaystyle\\int_a^b(f-g)\\,dx$.\nB. The area of the ellipse $\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}=1$ is $\\pi ab$.\nC. For $y\\ge0$ on $[a,b]$, the area under the curve is $\\displaystyle\\int_a^by\\,dx$.\nD. The area between $y=\\sin x$ and the $x$-axis from $0$ to $2\\pi$ equals $\\displaystyle\\int_0^{2\\pi}\\sin x\\,dx=0$.\nSelect the correct option.",
+   "options": [
+    "A, B and C only",
+    "A, B, C and D",
+    "B, C and D only",
+    "A and D only"
+   ],
+   "answer": 1,
+   "explanation": "A, B and C are standard results. D is false: the integral is the signed sum, $0$, but the area counts the part below the axis as positive, giving $2\\int_0^\\pi\\sin x\\,dx=4$.",
+   "optionRationale": {
+    "2": "D is false: the geometric area of the region is 4, not 0.",
+    "3": "D is false and A is a true statement, so this option is wrong.",
+    "4": "A is a true standard result and D is false, so this option picks the wrong pair."
+   },
+   "objective": "Judge statements on area by integration"
+  },
+  {
+   "key": "ug26-319-r23-applications-of-the-integrals-m05",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "**Assertion (A):** The area enclosed by $y=x^2$ and the line $y=1$ is $\\dfrac43$ square units.\n**Reason (R):** For two curves with $f(x)\\ge g(x)$ on $[a,b]$, the enclosed area is $\\displaystyle\\int_a^b\\left(g(x)-f(x)\\right)dx$.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "The curves meet at $x=\\pm1$ and the line is above the parabola, so the area is $\\int_{-1}^1(1-x^2)dx=2\\left(1-\\frac13\\right)=\\frac43$; (A) is true. The correct formula is $\\int(f-g)\\,dx$ for $f\\ge g$, so (R), which reverses the order and would give a negative area, is false.",
+   "optionRationale": {
+    "1": "R is false: with f greater than g, the integrand must be f - g.",
+    "2": "R is not true, since the formula in R gives a negative area.",
+    "4": "A is true: the area is 4/3."
+   },
+   "objective": "Set up the area between a parabola and a line"
+  },
+  {
+   "key": "ug26-319-r23-applications-of-the-integrals-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The area of the region bounded by the parabola $y=x^2$ and the line $y=4x$ is",
+   "options": [
+    "$\\dfrac{64}{3}$ square units",
+    "$\\dfrac{32}{3}$ square units",
+    "$16$ square units",
+    "$\\dfrac{16}{3}$ square units"
+   ],
+   "answer": 2,
+   "explanation": "The curves meet where $x^2=4x$, that is $x=0$ and $x=4$. On this interval the line is above the parabola, so the area is $\\int_0^4(4x-x^2)dx=\\left[2x^2-\\frac{x^3}{3}\\right]_0^4=32-\\frac{64}3=\\frac{32}3$.",
+   "optionRationale": {
+    "1": "64/3 is the integral of x^2 alone from 0 to 4, not the area between the curves.",
+    "3": "16 results from forgetting the cubic term and using 2x^2 - 4x.",
+    "4": "16/3 halves the correct answer, possibly using a symmetric half-range."
+   },
+   "objective": "Find area between a parabola and a line"
+  },
+  {
+   "key": "ug26-319-r23-applications-of-the-integrals-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Integrating with respect to $y$ is the easier route when a region lies between the parabola $y^2=x$ and the chord $y=x-2$. The area of that region is",
+   "options": [
+    "$9$ square units",
+    "$\\dfrac72$ square units",
+    "$\\dfrac{11}{2}$ square units",
+    "$\\dfrac92$ square units"
+   ],
+   "answer": 4,
+   "explanation": "Solving $y^2=y+2$ gives $y=-1$ and $y=2$. Integrating with respect to $y$, with the line to the right of the parabola, the area is $\\int_{-1}^{2}\\left(y+2-y^2\\right)dy=\\left[\\frac{y^2}2+2y-\\frac{y^3}3\\right]_{-1}^2=\\frac{10}3+\\frac76=\\frac92$.",
+   "optionRationale": {
+    "1": "9 is double the correct value; the antiderivative was evaluated incorrectly.",
+    "2": "7/2 results from using x-limits 0 to 4 without splitting the region at x = 1.",
+    "3": "11/2 comes from evaluating at y = -1 with the wrong sign for the cubic term."
+   },
+   "objective": "Integrate with respect to y for a parabola and a line"
+  },
+  {
+   "key": "ug26-319-r23-applications-of-the-integrals-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The area of that part of the circle $x^2+y^2=8$ which lies inside the parabola $y^2=2x$ is",
+   "options": [
+    "$\\left(6\\pi-\\dfrac43\\right)$ square units",
+    "$\\left(2\\pi-\\dfrac43\\right)$ square units",
+    "$\\left(2\\pi+\\dfrac43\\right)$ square units",
+    "$4\\pi$ square units"
+   ],
+   "answer": 3,
+   "explanation": "The curves meet where $x^2+2x=8$, i.e. at $(2,\\pm2)$. The required area is $2\\left[\\int_0^2\\sqrt{2x}\\,dx+\\int_2^{2\\sqrt2}\\sqrt{8-x^2}\\,dx\\right]=2\\left[\\frac83+(\\pi-2)\\right]=2\\pi+\\frac43$.",
+   "optionRationale": {
+    "1": "6 pi - 4/3 is the area of the circle outside the parabola, 8 pi minus the required part.",
+    "2": "2 pi - 4/3 subtracts the parabolic segment instead of adding the correct first integral 8/3.",
+    "4": "4 pi is half the circle's area and ignores the exact boundary given by the parabola."
+   },
+   "objective": "Combine a parabola and a circle in one area"
+  },
+  {
+   "key": "ug26-319-r23-applications-of-the-integrals-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The total area enclosed between the curves $y=x^3$ and $y=x$ is",
+   "options": [
+    "$\\dfrac12$ square unit",
+    "$0$",
+    "$\\dfrac14$ square unit",
+    "$1$ square unit"
+   ],
+   "answer": 1,
+   "explanation": "The curves meet at $x=-1,0,1$. By symmetry about the origin the two loops have equal area, so total area $=2\\int_0^1(x-x^3)dx=2\\left(\\frac12-\\frac14\\right)=\\frac12$. The signed integral over $[-1,1]$ is $0$, but areas must be added with positive sign.",
+   "optionRationale": {
+    "2": "Zero is the signed integral; the two loops lie on opposite sides and cancel, but area is not signed.",
+    "3": "1/4 is the area of only one loop; the second loop in the third quadrant was missed.",
+    "4": "1 doubles the correct total, likely by double counting the symmetry factor."
+   },
+   "objective": "Find the area of two symmetric loops"
+  },
+  {
+   "key": "ug26-319-r23-applications-of-the-integrals-m10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Consider the region between $y=x^2$ and $y=x$ for $0\\le x\\le2$ (the curves cross within this strip). Its total area is",
+   "options": [
+    "$\\dfrac23$ square unit",
+    "$1$ square unit",
+    "$\\dfrac56$ square unit",
+    "$\\dfrac16$ square unit"
+   ],
+   "answer": 2,
+   "explanation": "The curves cross at $x=0$ and $x=1$. On $[0,1]$ the line is above the parabola, and on $[1,2]$ the parabola is above the line. So the area is $\\int_0^1(x-x^2)dx+\\int_1^2(x^2-x)dx=\\frac16+\\frac56=1$.",
+   "optionRationale": {
+    "1": "2/3 is the absolute value of the single integral of (x - x^2) from 0 to 2, where signs cancel.",
+    "3": "5/6 counts only the second part, [1, 2], and misses the first small region.",
+    "4": "1/6 counts only the first region between 0 and 1 and misses the part up to x = 2."
+   },
+   "objective": "Split an area at the point where the curves cross"
+  }
+ ]
+}

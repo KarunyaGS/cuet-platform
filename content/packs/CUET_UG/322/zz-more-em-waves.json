@@ -1,0 +1,225 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_f9e062fd6d144d7790dd047accc0c062",
+  "title": "Electromagnetic waves, their characteristics, and their transverse nature."
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-322-u5-em-waves-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A radio wave in vacuum has a wavelength of $3.0\\,\\text{m}$. What is its frequency? ($c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$)",
+   "options": [
+    "$1.0\\times10^{8}\\,\\text{Hz}$",
+    "$9.0\\times10^{8}\\,\\text{Hz}$",
+    "$1.0\\times10^{-8}\\,\\text{Hz}$",
+    "$1.0\\times10^{9}\\,\\text{Hz}$"
+   ],
+   "answer": 1,
+   "explanation": "For any wave $c = f\\lambda$, so $f = c/\\lambda = 3.0\\times10^{8}/3.0 = 1.0\\times10^{8}\\,\\text{Hz}$, that is $100\\,\\text{MHz}$. The frequency stays fixed if the wave enters another medium, while its speed and wavelength change together. This agreement between a number found from electrical measurements and the measured speed of light led Maxwell to conclude that light is an electromagnetic wave.",
+   "optionRationale": {
+    "2": "Multiplies the speed by the wavelength, $c\\lambda$, instead of dividing.",
+    "3": "Divides the wavelength by the speed, which is the period of the wave and not its frequency.",
+    "4": "Takes the frequency ten times too large, a slip in the power of ten."
+   },
+   "objective": "Relate frequency, wavelength and speed of an electromagnetic wave"
+  },
+  {
+   "key": "ug26-322-u5-em-waves-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which phenomenon provides direct evidence that electromagnetic waves are transverse?",
+   "options": [
+    "Refraction, because light changes direction when it passes obliquely from air into glass or water",
+    "Reflection, because light bounces off a polished surface at an angle equal to the angle of incidence",
+    "Interference, because two waves of light from coherent sources combine to give bright and dark fringes",
+    "Polarisation, because light passing through a polaroid can be made to vibrate in a single plane"
+   ],
+   "answer": 4,
+   "explanation": "Only transverse waves can be polarised, since polarisation selects one direction of vibration out of the many perpendicular to the direction of travel. That light and other electromagnetic waves can be polarised therefore shows that their electric and magnetic fields oscillate at right angles to the direction of propagation.",
+   "optionRationale": {
+    "1": "Refraction happens to longitudinal waves such as sound as well.",
+    "2": "Reflection also happens for longitudinal waves such as sound.",
+    "3": "Interference occurs for both transverse and longitudinal waves."
+   },
+   "objective": "Identify evidence for the transverse nature of electromagnetic waves"
+  },
+  {
+   "key": "ug26-322-u5-em-waves-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The magnetic field amplitude of a plane electromagnetic wave in vacuum is $2.0\\times10^{-7}\\,\\text{T}$. What is the amplitude of its electric field?",
+   "options": [
+    "$6.7\\times10^{-16}\\,\\text{V m}^{-1}$",
+    "$60\\,\\text{V m}^{-1}$",
+    "$120\\,\\text{V m}^{-1}$",
+    "$30\\,\\text{V m}^{-1}$"
+   ],
+   "answer": 2,
+   "explanation": "In vacuum the amplitudes are related by $E_0 = cB_0$. Here $E_0 = (3.0\\times10^{8})(2.0\\times10^{-7}) = 60\\,\\text{V m}^{-1}$. The electric amplitude is numerically larger than the magnetic one only because $c$ is so large; in vacuum the two fields carry equal energy densities.",
+   "optionRationale": {
+    "1": "Divides $B_0$ by $c$, which gives the wrong ratio.",
+    "3": "Doubles the correct value, a stray factor of 2.",
+    "4": "Halves the correct value, a stray factor of 2."
+   },
+   "objective": "Use E0 = cB0 for an electromagnetic wave"
+  },
+  {
+   "key": "ug26-322-u5-em-waves-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The magnetic field of an electromagnetic wave in vacuum is $B_z = 2.0\\times10^{-7}\\sin(500x + 1.5\\times10^{11}t)\\,\\text{T}$, with $x$ in metres and $t$ in seconds. What is the wavelength of the wave?",
+   "options": [
+    "$0.20\\,\\text{cm}$",
+    "$2.5\\,\\text{cm}$",
+    "$1.26\\,\\text{cm}$",
+    "$0.63\\,\\text{cm}$"
+   ],
+   "answer": 3,
+   "explanation": "Comparing with $\\sin(kx+\\omega t)$ gives $k = 500\\,\\text{rad m}^{-1}$ and $\\omega = 1.5\\times10^{11}\\,\\text{rad s}^{-1}$. The wavelength is $\\lambda = 2\\pi/k = 2\\pi/500 = 1.26\\times10^{-2}\\,\\text{m} = 1.26\\,\\text{cm}$, and the ratio $\\omega/k = 3\\times10^{8}\\,\\text{m s}^{-1}$ agrees with $c$.",
+   "optionRationale": {
+    "1": "Uses $\\lambda = 1/k$ and leaves out the $2\\pi$.",
+    "2": "Uses $\\lambda = 4\\pi/k$, a stray factor of 2.",
+    "4": "Uses $\\lambda = \\pi/k$, half of the correct value."
+   },
+   "objective": "Find the wavelength from the equation of an electromagnetic wave"
+  },
+  {
+   "key": "ug26-322-u5-em-waves-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A $100\\,\\text{W}$ point source radiates all its power uniformly as electromagnetic waves. What is the amplitude of the electric field at a distance of $2.0\\,\\text{m}$? ($c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$, $\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^{2}\\,\\text{N}^{-1}\\,\\text{m}^{-2}$)",
+   "options": [
+    "$39\\,\\text{V m}^{-1}$",
+    "$27\\,\\text{V m}^{-1}$",
+    "$55\\,\\text{V m}^{-1}$",
+    "$140\\,\\text{V m}^{-1}$"
+   ],
+   "answer": 1,
+   "explanation": "The intensity at $2.0\\,\\text{m}$ is $I = P/4\\pi r^{2} = 100/(16\\pi) = 1.99\\,\\text{W m}^{-2}$. For a plane wave $I = \\tfrac12\\varepsilon_0cE_0^{2}$, so $E_0 = \\sqrt{2I/\\varepsilon_0c} = 38.7\\,\\text{V m}^{-1}$. The spread over a sphere of growing area explains why the amplitude of the field decreases with distance as $1/r$.",
+   "optionRationale": {
+    "2": "Uses $I = \\varepsilon_0cE_0^{2}$ and leaves out the factor $\\tfrac12$ that comes from averaging $\\sin^{2}$.",
+    "3": "Includes an extra factor of 2 under the square root.",
+    "4": "Spreads the power over $r^{2}$ instead of $4\\pi r^{2}$, giving an intensity too large."
+   },
+   "objective": "Find the field amplitude from the power of a point source"
+  },
+  {
+   "key": "ug26-322-u5-em-waves-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Light of intensity $900\\,\\text{W m}^{-2}$ falls normally on a perfectly reflecting surface. What is the radiation pressure on the surface? ($c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$)",
+   "options": [
+    "$3.0\\times10^{-6}\\,\\text{Pa}$",
+    "$6.0\\times10^{-6}\\,\\text{Pa}$",
+    "$1.2\\times10^{-5}\\,\\text{Pa}$",
+    "$2.7\\times10^{11}\\,\\text{Pa}$"
+   ],
+   "answer": 2,
+   "explanation": "For total absorption the pressure is $I/c$. For perfect reflection the momentum change per photon is doubled, so the pressure is $2I/c = 2(900)/(3.0\\times10^{8}) = 6.0\\times10^{-6}\\,\\text{Pa}$. The pressure is very small, which is why radiation pressure is noticed only with intense sources or with light, free-floating targets.",
+   "optionRationale": {
+    "1": "This is the pressure for a perfectly absorbing surface.",
+    "3": "Doubles the correct result, taking a factor of 4.",
+    "4": "Multiplies the intensity by $c$ instead of dividing by it."
+   },
+   "objective": "Compute radiation pressure on a reflecting surface"
+  },
+  {
+   "key": "ug26-322-u5-em-waves-m07",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about electromagnetic waves in vacuum.\nA. They carry energy and momentum.\nB. All of them travel at the same speed, whatever the frequency.\nC. The electric and magnetic fields oscillate in phase.\nD. The magnetic field oscillates along the direction of propagation.\nChoose the correct answer from the options given below.",
+   "options": [
+    "A, B and D only",
+    "A, C and D only",
+    "B, C and D only",
+    "A, B and C only"
+   ],
+   "answer": 4,
+   "explanation": "Electromagnetic waves carry energy and momentum (A), as shown by radiation pressure. In vacuum the speed is $c = 1/\\sqrt{\\mu_0\\varepsilon_0}$ for all frequencies (B). $\\vec E$ and $\\vec B$ rise and fall together, in phase (C). Both fields are perpendicular to the direction of propagation, so D is false.",
+   "optionRationale": {
+    "1": "Includes the false statement D and leaves out the true statement C.",
+    "2": "Includes the false statement D and leaves out the true statement B.",
+    "3": "Includes D and leaves out A; both fields are perpendicular to the direction of travel, never along it."
+   },
+   "objective": "Evaluate statements about electromagnetic waves"
+  },
+  {
+   "key": "ug26-322-u5-em-waves-m08",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): In an electromagnetic wave travelling along the $x$ axis, the electric and magnetic fields are perpendicular to each other and to the $x$ axis.\nReason (R): Electromagnetic waves are longitudinal waves.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "A plane electromagnetic wave has $\\vec E$ and $\\vec B$ perpendicular to each other and to the direction of propagation, which is the definition of a transverse wave. A is therefore true, and R, which calls the waves longitudinal, is false.",
+   "optionRationale": {
+    "1": "Not the answer: R is false, so the pair cannot both be true.",
+    "2": "Not the answer: R is false, so it is not a true statement that fails to explain A.",
+    "4": "Not the answer: A is true, since the fields and the direction of travel are mutually perpendicular."
+   },
+   "objective": "Describe the geometry of the fields of an electromagnetic wave"
+  },
+  {
+   "key": "ug26-322-u5-em-waves-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A laser beam of power $5.0\\,\\text{mW}$ has a uniform cross-section of $2.0\\,\\text{mm}^{2}$. What is the average energy density of the beam? ($c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$)",
+   "options": [
+    "$4.2\\times10^{-6}\\,\\text{J m}^{-3}$",
+    "$1.7\\times10^{-5}\\,\\text{J m}^{-3}$",
+    "$8.3\\times10^{-6}\\,\\text{J m}^{-3}$",
+    "$7.5\\times10^{11}\\,\\text{J m}^{-3}$"
+   ],
+   "answer": 3,
+   "explanation": "The intensity is $I = P/A = 5.0\\times10^{-3}/2.0\\times10^{-6} = 2500\\,\\text{W m}^{-2}$. Energy flows at speed $c$, so $I = uc$ and the average energy density is $u = I/c = 8.3\\times10^{-6}\\,\\text{J m}^{-3}$.",
+   "optionRationale": {
+    "1": "Halves the correct value, taking $I = 2uc$.",
+    "2": "Doubles the correct value, taking $u = 2I/c$.",
+    "4": "Multiplies by $c$ instead of dividing by it."
+   },
+   "objective": "Relate intensity and average energy density in a beam"
+  },
+  {
+   "key": "ug26-322-u5-em-waves-m10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A plane electromagnetic wave of intensity $600\\,\\text{W m}^{-2}$ is fully absorbed by a surface of area $0.20\\,\\text{m}^{2}$ over $5.0$ minutes. What momentum is delivered to the surface? ($c = 3.0\\times10^{8}\\,\\text{m s}^{-1}$)",
+   "options": [
+    "$1.2\\times10^{-4}\\,\\text{kg m s}^{-1}$",
+    "$2.4\\times10^{-4}\\,\\text{kg m s}^{-1}$",
+    "$3.6\\times10^{4}\\,\\text{kg m s}^{-1}$",
+    "$2.0\\times10^{-6}\\,\\text{kg m s}^{-1}$"
+   ],
+   "answer": 1,
+   "explanation": "The energy absorbed is $U = IAt = 600\\times0.20\\times300 = 3.6\\times10^{4}\\,\\text{J}$, using $t = 300\\,\\text{s}$. For total absorption the momentum is $p = U/c = 3.6\\times10^{4}/3.0\\times10^{8} = 1.2\\times10^{-4}\\,\\text{kg m s}^{-1}$. Because the surface absorbs all of the radiation, the momentum is the whole energy divided by $c$, whereas a reflecting surface would receive twice as much.",
+   "optionRationale": {
+    "2": "This is the momentum for perfect reflection, where the change is $2U/c$.",
+    "3": "This is the energy in joules, not divided by $c$, and not a momentum.",
+    "4": "Uses $t = 5$ instead of $300\\,\\text{s}$, forgetting to convert minutes to seconds."
+   },
+   "objective": "Compute the momentum transferred by absorbed electromagnetic radiation"
+  }
+ ]
+}

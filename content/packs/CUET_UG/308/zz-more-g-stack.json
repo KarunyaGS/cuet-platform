@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_40bbc06e8f2b478faefc0126b8569d75",
+    "title": "Stack"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r05-stack-lifo-postfix-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "What is the end of a stack at which items are added and removed called?",
+      "options": [
+        "Front",
+        "Base",
+        "Rear",
+        "Top"
+      ],
+      "answer": 4,
+      "explanation": "A stack has only one open end, called the top. Both PUSH and POP work there, which gives the last in first out behaviour. Front and rear are terms of a queue, while the base is the fixed bottom end of the stack.",
+      "optionRationale": {
+        "1": "Front is the end of a queue from which items are removed.",
+        "2": "The base is the bottom of the stack, where nothing is added or removed.",
+        "3": "Rear is the end of a queue at which items join."
+      },
+      "objective": "Name the open end of a stack"
+    },
+    {
+      "key": "ug26-308-r05-stack-lifo-postfix-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which real-life situation is closest to the working of a stack?",
+      "options": [
+        "A pile of plates in which the top plate is taken first",
+        "People standing in a line at a ticket counter",
+        "Calls waiting to be answered at a help desk in order of arrival",
+        "Vehicles passing through a toll gate one after the other"
+      ],
+      "answer": 1,
+      "explanation": "In a pile of plates the plate put on last is the first one to be lifted, which is last in first out, exactly the behaviour of a stack. The other three situations serve the earliest arrival first and therefore describe a queue.",
+      "optionRationale": {
+        "2": "The person who arrived first is served first, which is a queue (FIFO).",
+        "3": "Calls are served in order of arrival, which is again a queue.",
+        "4": "Vehicles leave in the order they arrived, so this is a queue."
+      },
+      "objective": "Relate a real-life example to a stack"
+    },
+    {
+      "key": "ug26-308-r05-stack-lifo-postfix-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which check should a program make before executing `st.pop()` on a list-based stack?",
+      "options": [
+        "That the stack is full",
+        "That the list is sorted",
+        "That the stack is not empty",
+        "That the stack has an even number of items"
+      ],
+      "answer": 3,
+      "explanation": "Popping from an empty list raises IndexError, which is the underflow condition of a stack. A program therefore tests that the stack is not empty (for example with len(st) > 0) before it calls pop(). Fullness, sorting and even length are not relevant for pop.",
+      "optionRationale": {
+        "1": "Fullness matters only for push() on a stack with a fixed capacity.",
+        "2": "A stack does not need to be sorted; items leave in reverse order of arrival.",
+        "4": "The count being even or odd has no effect on pop()."
+      },
+      "objective": "Check for underflow before pop"
+    },
+    {
+      "key": "ug26-308-r05-stack-lifo-postfix-g04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What is printed by this program?\n`st = []`\n`for x in [4, 7, 2]:`\n`    st.append(x)`\n`a = st.pop()`\n`st.append(a * 2)`\n`b = st.pop() + st.pop()`\n`print(b, st)`",
+      "options": [
+        "9 [4]",
+        "11 [4, 7]",
+        "11 [4]",
+        "6 [4, 7]"
+      ],
+      "answer": 3,
+      "explanation": "After the loop the stack is [4, 7, 2]. pop() returns a = 2, and 2 * 2 = 4 is pushed, giving [4, 7, 4]. The next two pops return 4 and 7, whose sum is 11, and only the first pushed value 4 remains in the stack.",
+      "optionRationale": {
+        "1": "a * 2 is pushed back as 4, so the two pops add 4 and 7; the first popped value is 4, not 2.",
+        "2": "Two pop() calls remove both the 4 pushed last and the 7 below it, so only 4 stays in the stack.",
+        "4": "The program adds the two topmost items 4 and 7 and removes them; 2 was already popped."
+      },
+      "objective": "Trace push and pop operations in a list-based stack"
+    },
+    {
+      "key": "ug26-308-r05-stack-lifo-postfix-g05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "What is the value of the postfix expression `9 3 / 2 4 * +`?",
+      "options": [
+        "8",
+        "11",
+        "5",
+        "24"
+      ],
+      "answer": 2,
+      "explanation": "Reading from the left: 9 3 / pushes 9 and 3, and the / gives 3. Then 2 4 * gives 8. The stack holds 3 and 8, and the final + adds them to give 11.",
+      "optionRationale": {
+        "1": "8 is only the value of 2 4 *; the quotient 9 / 3 = 3 must be added to it.",
+        "3": "This ignores the product: 2 4 * is 8, not 2, so adding 3 gives 11.",
+        "4": "This multiplies 3 by 8, but the last operator of the expression is +, not *."
+      },
+      "objective": "Evaluate a postfix expression with a stack"
+    },
+    {
+      "key": "ug26-308-r05-stack-lifo-postfix-g06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each infix expression in List-I with its postfix form in List-II.",
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-IV, D-III",
+        "A-III, B-I, C-II, D-IV"
+      ],
+      "answer": 1,
+      "explanation": "In A*B+C, * binds tighter, so AB* comes first and then + C, giving AB*C+. Brackets in A*(B+C) force B+C first, giving ABC+*. In A+B+C the additions go left to right, giving AB+C+. In A-B*C the product goes first, giving ABC*-.",
+      "optionRationale": {
+        "2": "In A*B+C the multiplication is done first, so the postfix form is AB*C+; A and B are exchanged here.",
+        "3": "A+B+C has only additions, left to right, giving AB+C+; C and D are exchanged here.",
+        "4": "A*B+C is AB*C+ and A+B+C is AB+C+; A and C are exchanged here."
+      },
+      "objective": "Convert simple infix expressions to postfix",
+      "list": {
+        "left": [
+          "A. `A*B+C`",
+          "B. `A*(B+C)`",
+          "C. `A+B+C`",
+          "D. `A-B*C`"
+        ],
+        "right": [
+          "I. `ABC+*`",
+          "II. `AB*C+`",
+          "III. `AB+C+`",
+          "IV. `ABC*-`"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r05-stack-lifo-postfix-g07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about a stack.\nA. Overflow occurs when an item is pushed on a stack that is already full.\nB. In a list-based stack `st.pop()` removes and returns the top item.\nC. The item pushed first is the first to be popped.\nD. A stack can be used to reverse a string.\nWhich statements are correct?",
+      "options": [
+        "A and C only",
+        "B, C and D only",
+        "A, B and C only",
+        "A, B and D only"
+      ],
+      "answer": 4,
+      "explanation": "Overflow means pushing on a full stack of fixed capacity (A is true). pop() removes the last element of the list, which is the top (B is true). C is false because a stack is last in first out, so the first pushed item leaves last. Pushing characters and popping them reverses a string (D is true).",
+      "optionRationale": {
+        "1": "C is false: the item pushed first stays at the bottom and is popped last.",
+        "2": "C is false because a stack follows last in first out, and A is also correct.",
+        "3": "C is false, and D is correct since popping returns characters in reverse order."
+      },
+      "objective": "Judge statements about stack operations"
+    },
+    {
+      "key": "ug26-308-r05-stack-lifo-postfix-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "What is printed by this program?\n`def bal(s):`\n`    st = []`\n`    for c in s:`\n`        if c in \"([\":`\n`            st.append(c)`\n`        elif c in \")]\":`\n`            if not st:`\n`                return False`\n`            t = st.pop()`\n`            if (t, c) not in [(\"(\", \")\"), (\"[\", \"]\")]:`\n`                return False`\n`    return not st`\n`print(bal(\"([])\"), bal(\"([)]\"), bal(\"(()\"), bal(\"())\"))`",
+      "options": [
+        "True True False False",
+        "True False True False",
+        "True False False True",
+        "True False False False"
+      ],
+      "answer": 4,
+      "explanation": "\"([])\" pushes ( and [, then ] matches [ and ) matches (, leaving the stack empty, so True. In \"([)]\" the \")\" meets [ on top, a mismatch, so False. \"(()\" ends with one ( unmatched, so not st is False. \"())\" meets a closing bracket with an empty stack, so False.",
+      "optionRationale": {
+        "1": "\"([)]\" fails: when \")\" arrives the top of the stack is \"[\", which does not match it.",
+        "2": "\"(()\" leaves one \"(\" in the stack at the end, so `not st` is False.",
+        "3": "\"())\" has a closing bracket when the stack is empty, so the function returns False immediately."
+      },
+      "objective": "Trace a bracket-matching function that uses a stack"
+    },
+    {
+      "key": "ug26-308-r05-stack-lifo-postfix-g09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "What is the postfix form of the infix expression `A+B*(C-D)/E`?",
+      "options": [
+        "`ABCD-*E+/`",
+        "`ABC*D-E/+`",
+        "`ABCD-*E/+`",
+        "`AB*CD-E/+`"
+      ],
+      "answer": 3,
+      "explanation": "The bracket is converted first: CD- . Then B * (C-D) gives BCD-*, and dividing by E gives BCD-*E/ because * and / have the same priority and go left to right. Adding A with + as the last operator gives ABCD-*E/+.",
+      "optionRationale": {
+        "1": "/ has higher priority than +, so E / must be completed before + is applied.",
+        "2": "The bracket (C-D) must be evaluated first, so C and D are joined by - before the multiplication.",
+        "4": "B is multiplied by the whole bracket (C-D), not by C alone, so B waits until CD- is ready."
+      },
+      "objective": "Convert an infix expression with brackets to postfix"
+    },
+    {
+      "key": "ug26-308-r05-stack-lifo-postfix-g10",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A postfix expression can be evaluated with the help of a stack.\nReason (R): A Python list can be used to implement a stack.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 2,
+      "explanation": "During postfix evaluation operands are pushed, and each operator pops its two operands and pushes the result, so a stack is truly needed and the assertion is true. The reason is also true, but being able to use a list is only an implementation detail and does not explain why a stack suits postfix evaluation.",
+      "optionRationale": {
+        "1": "The reason does not explain the assertion; the need for a stack comes from last in first out ordering of operands, not from the list.",
+        "3": "The reason is true: a list with append() and pop() works as a stack.",
+        "4": "The assertion is true: postfix evaluation uses a stack."
+      },
+      "objective": "Judge whether a true reason explains a stack application"
+    }
+  ]
+}

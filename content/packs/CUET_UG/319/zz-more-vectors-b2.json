@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_83cce44c87364a3e8087fc6406b3b13c",
+    "title": "Vectors"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r17-vectors-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The points $A(1, -2, 3)$ and $B(4, 2, -1)$ are given. The magnitude of the vector $\\overrightarrow{AB}$ is",
+      "options": [
+        "$41$",
+        "$\\sqrt{29}$",
+        "$\\sqrt{41}$",
+        "$5$"
+      ],
+      "answer": 3,
+      "explanation": "The vector $\\overrightarrow{AB}$ is the position vector of $B$ minus that of $A$: $(4-1)\\mathbf{i} + (2+2)\\mathbf{j} + (-1-3)\\mathbf{k} = 3\\mathbf{i} + 4\\mathbf{j} - 4\\mathbf{k}$. Its magnitude is $\\sqrt{9 + 16 + 16} = \\sqrt{41}$.",
+      "optionRationale": {
+        "1": "$41$ is the square of the magnitude; the square root has not been taken.",
+        "2": "$\\sqrt{29}$ results from adding the coordinates of $A$ and $B$ instead of subtracting.",
+        "4": "$5$ ignores the $\\mathbf{k}$ component and uses only $\\sqrt{3^2 + 4^2}$."
+      },
+      "objective": "Find the magnitude of the vector joining two points"
+    },
+    {
+      "key": "ug26-319-r17-vectors-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A vector of magnitude $10$ in the direction of $3\\mathbf{i} + 4\\mathbf{j}$ is",
+      "options": [
+        "$6\\mathbf{i} + 8\\mathbf{j}$",
+        "$30\\mathbf{i} + 40\\mathbf{j}$",
+        "$3\\mathbf{i} + 4\\mathbf{j}$",
+        "$0.3\\mathbf{i} + 0.4\\mathbf{j}$"
+      ],
+      "answer": 1,
+      "explanation": "The magnitude of $3\\mathbf{i} + 4\\mathbf{j}$ is $5$, so the unit vector is $\\frac15(3\\mathbf{i} + 4\\mathbf{j})$. Multiplying by $10$ gives $2(3\\mathbf{i} + 4\\mathbf{j}) = 6\\mathbf{i} + 8\\mathbf{j}$, whose magnitude is $\\sqrt{36 + 64} = 10$.",
+      "optionRationale": {
+        "2": "$30\\mathbf{i} + 40\\mathbf{j}$ has magnitude $50$, since the vector was scaled without making it a unit vector first.",
+        "3": "$3\\mathbf{i} + 4\\mathbf{j}$ has magnitude $5$, not $10$.",
+        "4": "$0.3\\mathbf{i} + 0.4\\mathbf{j}$ has magnitude $0.5$, since the vector was divided by $10$ rather than by its magnitude and scaled."
+      },
+      "objective": "Construct a vector of given magnitude in a given direction"
+    },
+    {
+      "key": "ug26-319-r17-vectors-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For $\\mathbf{a} = \\mathbf{i} + 2\\mathbf{j} + 2\\mathbf{k}$ and $\\mathbf{b} = 2\\mathbf{i} + 2\\mathbf{j} + \\mathbf{k}$, the cosine of the angle between the two vectors is",
+      "options": [
+        "$\\dfrac89$",
+        "$\\dfrac83$",
+        "$\\dfrac23$",
+        "$\\dfrac49$"
+      ],
+      "answer": 1,
+      "explanation": "The dot product is $1\\cdot2 + 2\\cdot2 + 2\\cdot1 = 8$ and each vector has magnitude $\\sqrt{1 + 4 + 4} = 3$ and $\\sqrt{4+4+1} = 3$. So $\\cos\\theta = \\dfrac{\\mathbf{a}\\cdot\\mathbf{b}}{|\\mathbf{a}||\\mathbf{b}|} = \\dfrac{8}{9}$.",
+      "optionRationale": {
+        "2": "$\\frac83$ divides by one magnitude only and exceeds $1$, which no cosine can.",
+        "3": "$\\frac23$ comes from a slip in the dot product, using $6$ instead of $8$.",
+        "4": "$\\frac49$ halves the dot product, which is not part of the formula."
+      },
+      "objective": "Find the angle between two vectors using the dot product"
+    },
+    {
+      "key": "ug26-319-r17-vectors-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The adjacent sides of a parallelogram are $\\mathbf{a} = \\mathbf{i} + 2\\mathbf{j} + 3\\mathbf{k}$ and $\\mathbf{b} = 3\\mathbf{i} + 2\\mathbf{j} + \\mathbf{k}$. Its area is",
+      "options": [
+        "$2\\sqrt{6}$",
+        "$10$",
+        "$4\\sqrt{3}$",
+        "$4\\sqrt{6}$"
+      ],
+      "answer": 4,
+      "explanation": "The area equals $|\\mathbf{a}\\times\\mathbf{b}|$. The cross product is $(2\\cdot1 - 3\\cdot2)\\mathbf{i} - (1\\cdot1 - 3\\cdot3)\\mathbf{j} + (1\\cdot2 - 2\\cdot3)\\mathbf{k} = -4\\mathbf{i} + 8\\mathbf{j} - 4\\mathbf{k}$, with magnitude $\\sqrt{16 + 64 + 16} = \\sqrt{96} = 4\\sqrt{6}$.",
+      "optionRationale": {
+        "1": "$2\\sqrt6$ is the area of the triangle with these sides, half the parallelogram.",
+        "2": "$10$ is the dot product $\\mathbf{a}\\cdot\\mathbf{b}$, not the magnitude of the cross product.",
+        "3": "$4\\sqrt3$ comes from $\\sqrt{48}$, which results from a slip in simplifying $\\sqrt{96}$."
+      },
+      "objective": "Find the area of a parallelogram using the cross product"
+    },
+    {
+      "key": "ug26-319-r17-vectors-m05",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): For any two vectors $\\mathbf{a}$ and $\\mathbf{b}$, $(\\mathbf{a} \\times \\mathbf{b}) \\cdot \\mathbf{a} = 0$.\nReason (R): The vector $\\mathbf{a} \\times \\mathbf{b}$ is parallel to $\\mathbf{a}$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "The cross product $\\mathbf{a}\\times\\mathbf{b}$ is perpendicular to both $\\mathbf{a}$ and $\\mathbf{b}$, so its dot product with $\\mathbf{a}$ is zero, and A is true. R is false: a vector perpendicular to $\\mathbf{a}$ cannot be parallel to $\\mathbf{a}$ unless it is zero.",
+      "optionRationale": {
+        "1": "R is false, so it cannot explain A; the true reason is perpendicularity.",
+        "2": "R is not true; the cross product is perpendicular to $\\mathbf{a}$.",
+        "4": "A is true because $\\mathbf{a}\\times\\mathbf{b}$ is perpendicular to $\\mathbf{a}$."
+      },
+      "objective": "Use the perpendicularity of the cross product"
+    },
+    {
+      "key": "ug26-319-r17-vectors-m06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For $\\mathbf{a} = \\mathbf{i} + \\mathbf{j}$ and $\\mathbf{b} = \\mathbf{i} - \\mathbf{j} + \\mathbf{k}$, match each quantity in List-I with its value in List-II.",
+      "list": {
+        "left": [
+          "A. $\\mathbf{a}\\cdot\\mathbf{b}$",
+          "B. $|\\mathbf{a}|$",
+          "C. $\\mathbf{a}\\times\\mathbf{b}$",
+          "D. $|\\mathbf{b}|$"
+        ],
+        "right": [
+          "I. $\\sqrt{2}$",
+          "II. $0$",
+          "III. $\\sqrt{3}$",
+          "IV. $\\mathbf{i} - \\mathbf{j} - 2\\mathbf{k}$"
+        ]
+      },
+      "options": [
+        "A-I, B-II, C-IV, D-III",
+        "A-II, B-I, C-IV, D-III",
+        "A-II, B-I, C-III, D-IV",
+        "A-IV, B-I, C-II, D-III"
+      ],
+      "answer": 2,
+      "explanation": "$\\mathbf{a}\\cdot\\mathbf{b} = 1 - 1 + 0 = 0$ (II). $|\\mathbf{a}| = \\sqrt{1 + 1} = \\sqrt2$ (I). The cross product is $(1\\cdot1 - 0\\cdot(-1))\\mathbf{i} - (1\\cdot1 - 0\\cdot1)\\mathbf{j} + (1\\cdot(-1) - 1\\cdot1)\\mathbf{k} = \\mathbf{i} - \\mathbf{j} - 2\\mathbf{k}$ (IV). $|\\mathbf{b}| = \\sqrt{3}$ (III).",
+      "optionRationale": {
+        "1": "Items A and B have been interchanged; check each pairing against its definition.",
+        "3": "Items C and D have been interchanged; check each pairing against its definition.",
+        "4": "Items A and C have been interchanged; check each pairing against its definition."
+      },
+      "objective": "Compute dot product, cross product and magnitudes"
+    },
+    {
+      "key": "ug26-319-r17-vectors-m07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The vertices of a triangle are $A(1, 0, 2)$, $B(3, 1, 0)$ and $C(0, 2, 1)$. Its area is",
+      "options": [
+        "$\\dfrac{5\\sqrt{2}}{2}$",
+        "$5\\sqrt{2}$",
+        "$\\dfrac52$",
+        "$\\dfrac{25}{2}$"
+      ],
+      "answer": 1,
+      "explanation": "$\\overrightarrow{AB} = 2\\mathbf{i} + \\mathbf{j} - 2\\mathbf{k}$ and $\\overrightarrow{AC} = -\\mathbf{i} + 2\\mathbf{j} - \\mathbf{k}$. Their cross product is $3\\mathbf{i} + 4\\mathbf{j} + 5\\mathbf{k}$ with magnitude $\\sqrt{50} = 5\\sqrt2$. The triangle's area is half of this, $\\dfrac{5\\sqrt2}{2}$.",
+      "optionRationale": {
+        "2": "$5\\sqrt2$ is the area of the parallelogram on $AB$ and $AC$, twice that of the triangle.",
+        "3": "$\\frac52$ drops the square root: $\\sqrt{50}$ was replaced by $5$.",
+        "4": "$\\frac{25}{2}$ halves $50$, forgetting the square root of $|\\overrightarrow{AB}\\times\\overrightarrow{AC}|^2$."
+      },
+      "objective": "Find the area of a triangle given its vertices in space"
+    },
+    {
+      "key": "ug26-319-r17-vectors-m08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Let $\\mathbf{a} = \\mathbf{i} + 2\\mathbf{j} - \\mathbf{k}$, $\\mathbf{b} = 2\\mathbf{i} - \\mathbf{j} + \\mathbf{k}$ and $\\mathbf{c} = 2\\mathbf{i} - \\mathbf{j} + 3\\mathbf{k}$. The scalar $\\lambda$ for which $\\mathbf{a} + \\lambda\\mathbf{b}$ is perpendicular to $\\mathbf{c}$ is",
+      "options": [
+        "$-\\dfrac38$",
+        "$\\dfrac83$",
+        "$\\dfrac35$",
+        "$\\dfrac38$"
+      ],
+      "answer": 4,
+      "explanation": "$\\mathbf{a} + \\lambda\\mathbf{b} = (1 + 2\\lambda)\\mathbf{i} + (2 - \\lambda)\\mathbf{j} + (\\lambda - 1)\\mathbf{k}$. Perpendicular to $\\mathbf{c}$ means the dot product is zero: $2(1 + 2\\lambda) - (2 - \\lambda) + 3(\\lambda - 1) = 8\\lambda - 3 = 0$, so $\\lambda = \\dfrac38$.",
+      "optionRationale": {
+        "1": "$-\\frac38$ has the wrong sign; $8\\lambda - 3 = 0$ gives a positive value.",
+        "2": "$\\frac83$ is the reciprocal of the correct value.",
+        "3": "$\\frac35$ does not satisfy $8\\lambda = 3$; the coefficients were combined incorrectly."
+      },
+      "objective": "Find a scalar that makes a combination of vectors perpendicular to another"
+    },
+    {
+      "key": "ug26-319-r17-vectors-m09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Three vectors $\\mathbf{a}$, $\\mathbf{b}$, $\\mathbf{c}$ satisfy $\\mathbf{a} + \\mathbf{b} + \\mathbf{c} = \\mathbf{0}$ with $|\\mathbf{a}| = 5$, $|\\mathbf{b}| = 8$ and $|\\mathbf{c}| = 7$. The angle between $\\mathbf{a}$ and $\\mathbf{b}$ is",
+      "options": [
+        "$60^\\circ$",
+        "$90^\\circ$",
+        "$120^\\circ$",
+        "$150^\\circ$"
+      ],
+      "answer": 3,
+      "explanation": "From $\\mathbf{c} = -(\\mathbf{a} + \\mathbf{b})$ we get $49 = |\\mathbf{a}+\\mathbf{b}|^2 = 25 + 64 + 2\\,\\mathbf{a}\\cdot\\mathbf{b}$, so $\\mathbf{a}\\cdot\\mathbf{b} = -20$. Then $\\cos\\theta = -20/(5\\cdot8) = -\\tfrac12$, so $\\theta = 120^\\circ$.",
+      "optionRationale": {
+        "1": "$60^\\circ$ has $\\cos\\theta = +\\frac12$, which comes from a sign slip in $\\mathbf{a}\\cdot\\mathbf{b}$.",
+        "2": "$90^\\circ$ would need $\\mathbf{a}\\cdot\\mathbf{b} = 0$, which gives $|\\mathbf{c}|^2 = 89$, not $49$.",
+        "4": "$150^\\circ$ has $\\cos\\theta = -\\frac{\\sqrt3}{2}$, which does not equal $-\\frac12$."
+      },
+      "objective": "Use the dot product to find an angle from vector magnitudes"
+    },
+    {
+      "key": "ug26-319-r17-vectors-m10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Consider the following statements for non-zero vectors $\\mathbf{a}$, $\\mathbf{b}$, $\\mathbf{c}$.\nA. $\\mathbf{a}\\times\\mathbf{b}$ is perpendicular to both $\\mathbf{a}$ and $\\mathbf{b}$.\nB. $|\\mathbf{a}\\times\\mathbf{b}|^2 + (\\mathbf{a}\\cdot\\mathbf{b})^2 = |\\mathbf{a}|^2|\\mathbf{b}|^2$.\nC. $\\mathbf{a}\\times\\mathbf{b} = \\mathbf{b}\\times\\mathbf{a}$.\nD. If $\\mathbf{a}\\cdot\\mathbf{b} = \\mathbf{a}\\cdot\\mathbf{c}$, then $\\mathbf{b} = \\mathbf{c}$.\nChoose the correct answer.",
+      "options": [
+        "A and C only",
+        "A and B only",
+        "B and D only",
+        "A, B and D only"
+      ],
+      "answer": 2,
+      "explanation": "A is the defining property of the cross product. B follows from $|\\mathbf{a}\\times\\mathbf{b}| = |\\mathbf{a}||\\mathbf{b}|\\sin\\theta$ and $\\mathbf{a}\\cdot\\mathbf{b} = |\\mathbf{a}||\\mathbf{b}|\\cos\\theta$ by adding squares. C is false, since $\\mathbf{b}\\times\\mathbf{a} = -\\mathbf{a}\\times\\mathbf{b}$. D is false: $\\mathbf{a}\\cdot(\\mathbf{b} - \\mathbf{c}) = 0$ only says $\\mathbf{b} - \\mathbf{c}$ is perpendicular to $\\mathbf{a}$.",
+      "optionRationale": {
+        "1": "C is false because reversing the order changes the sign of the cross product.",
+        "3": "D is false, and this option also leaves out the true statement A.",
+        "4": "D is false: equal dot products with $\\mathbf{a}$ only show that $\\mathbf{b} - \\mathbf{c}$ is perpendicular to $\\mathbf{a}$."
+      },
+      "objective": "Evaluate statements on dot and cross products"
+    }
+  ]
+}

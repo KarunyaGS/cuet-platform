@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "306",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_b7fb6cec633e4da7ae59d387c9fb0a41",
+    "title": "Chemical Kinetics"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-306-u3-chemical-kinetics-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "A reaction proceeds at a rate that does not depend on the concentration of the reactant. The rate constant of this reaction is expressed in",
+      "options": [
+        "s$^{-1}$",
+        "L mol$^{-1}$ s$^{-1}$",
+        "mol$^{-1}$ L s",
+        "mol L$^{-1}$ s$^{-1}$"
+      ],
+      "answer": 4,
+      "explanation": "For a zero order reaction rate $= k$, so $k$ has the same unit as the rate of reaction, mol L$^{-1}$ s$^{-1}$. In general the unit of $k$ is (mol L$^{-1}$)$^{1-n}$ s$^{-1}$ for order $n$.",
+      "optionRationale": {
+        "1": "This is the unit of the rate constant of a first order reaction.",
+        "2": "This is the unit of the rate constant of a second order reaction.",
+        "3": "This does not match the unit for any common order."
+      },
+      "objective": "Recall the unit of k for zero order"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The elementary reaction NO + O$_3$ $\\rightarrow$ NO$_2$ + O$_2$ has a molecularity of",
+      "options": [
+        "2",
+        "1",
+        "3",
+        "0"
+      ],
+      "answer": 1,
+      "explanation": "Molecularity is the number of reactant molecules that collide in an elementary step. One NO molecule and one O$_3$ molecule collide here, so the molecularity is 2. Molecularity is always a whole number and cannot be zero.",
+      "optionRationale": {
+        "2": "One would be a unimolecular step with a single reactant species.",
+        "3": "Three would need three molecules colliding at once.",
+        "4": "Molecularity cannot be zero."
+      },
+      "objective": "Find the molecularity of an elementary reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A first order reaction has a rate of $4.0\\times10^{-4}$ mol L$^{-1}$ s$^{-1}$ when the concentration of the reactant is 0.20 mol L$^{-1}$. What is the rate constant?",
+      "options": [
+        "$8.0\\times10^{-5}$ s$^{-1}$",
+        "$2.0\\times10^{-3}$ s$^{-1}$",
+        "$2.0\\times10^{-2}$ s$^{-1}$",
+        "$4.0\\times10^{-4}$ s$^{-1}$"
+      ],
+      "answer": 2,
+      "explanation": "For a first order reaction the rate law is rate $= k[A]$, so $k = \\text{rate}/[A] = 4.0\\times10^{-4}/0.20 = 2.0\\times10^{-3}$ s$^{-1}$. The unit of $k$ for a first order reaction is s$^{-1}$, consistent with this result.",
+      "optionRationale": {
+        "1": "This multiplies rate and concentration instead of dividing.",
+        "3": "This is ten times too large, a decimal slip in the division.",
+        "4": "This is the rate itself, not the rate constant."
+      },
+      "objective": "Calculate k from rate and concentration for a first order reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A reaction has $E_a = 52.9$ kJ mol$^{-1}$. By what factor does its rate constant change when the temperature is raised from 298 K to 308 K? ($R = 8.314$ J K$^{-1}$ mol$^{-1}$)",
+      "options": [
+        "About 1.5",
+        "About 4",
+        "About 2",
+        "About 3"
+      ],
+      "answer": 3,
+      "explanation": "Using $\\ln(k_2/k_1) = (E_a/R)(1/T_1 - 1/T_2) = (52900/8.314)(1/298 - 1/308) = 6362 \\times 1.09\\times10^{-4} = 0.693$. Hence $k_2/k_1 = e^{0.693} = 2.0$. The rate constant doubles for this 10 K rise.",
+      "optionRationale": {
+        "1": "A factor of 1.5 corresponds to ln(k2/k1) = 0.41, which is lower than the calculated 0.693.",
+        "2": "A factor of 4 would need $\\ln(k_2/k_1) = 1.39$, which is twice the calculated value.",
+        "4": "A factor of 3 would require a larger activation energy near 84 kJ mol$^{-1}$."
+      },
+      "objective": "Use the Arrhenius equation for the effect of temperature"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-m05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "analytical",
+      "stem": "For a reaction, a plot of $\\ln[R]$ against time is a straight line with a slope of $-0.05$ min$^{-1}$. The order of the reaction and the rate constant are",
+      "options": [
+        "Zero order; $k = 0.05$ mol L$^{-1}$ min$^{-1}$",
+        "First order; $k = 0.115$ min$^{-1}$",
+        "Second order; $k = 0.05$ L mol$^{-1}$ min$^{-1}$",
+        "First order; $k = 0.05$ min$^{-1}$"
+      ],
+      "answer": 4,
+      "explanation": "For a first order reaction $\\ln[R] = \\ln[R]_0 - kt$, so a plot of $\\ln[R]$ against $t$ is a straight line with slope $-k$. The slope of $-0.05$ min$^{-1}$ gives $k = 0.05$ min$^{-1}$. Only first order integrated rate law gives a linear plot with $\\ln[R]$.",
+      "optionRationale": {
+        "1": "A zero order reaction gives a straight line when $[R]$ itself, not $\\ln[R]$, is plotted against time.",
+        "2": "Multiplying by 2.303 is needed only when the slope is of a $\\log_{10}$ plot, so 0.115 is wrong here.",
+        "3": "A second order reaction gives a straight line for $1/[R]$ against time."
+      },
+      "objective": "Identify order and k from a linear ln[R] versus time plot"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-m06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "For an elementary reaction $2A + B \\rightarrow$ products, the rate law is rate $= k[A]^2[B]$. If the volume of the reaction vessel is reduced to half at constant temperature, the rate becomes",
+      "options": [
+        "8 times",
+        "2 times",
+        "4 times",
+        "6 times"
+      ],
+      "answer": 1,
+      "explanation": "Halving the volume doubles each concentration. The new rate is $k(2[A])^2(2[B]) = k \\times 4[A]^2 \\times 2[B] = 8\\,k[A]^2[B]$. The rate therefore increases eight-fold, because the total order is 3 and $2^3 = 8$.",
+      "optionRationale": {
+        "2": "This applies the doubling only once, to one concentration term.",
+        "3": "This applies the doubling to $[A]^2$ only and ignores $[B]$.",
+        "4": "This adds the exponents and multiplies by 2, which is not how the rate law works."
+      },
+      "objective": "Predict the change in rate when concentrations change with volume"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-m07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The half-life of a first order reaction is 20 min. The approximate time required for 99.9 % of the reactant to be consumed is",
+      "options": [
+        "100 min",
+        "199 min",
+        "400 min",
+        "60 min"
+      ],
+      "answer": 2,
+      "explanation": "$k = 0.693/20 = 0.03466$ min$^{-1}$. For 99.9 % completion $[R]_0/[R] = 1000$, so $t = (2.303/k)\\log 1000 = (2.303/0.03466) \\times 3 = 199$ min. This is nearly ten half-lives, since $2^{10} = 1024$.",
+      "optionRationale": {
+        "1": "This is only five half-lives, which leaves about 3 % unreacted.",
+        "3": "This is twenty half-lives, far more than needed.",
+        "4": "This is three half-lives, which gives only 87.5 % completion."
+      },
+      "objective": "Calculate time for near-complete first order reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-m08",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): For a first order reaction, the rate doubles when the concentration of the reactant is doubled.\nReason (R): The rate constant of a first order reaction doubles when the concentration of the reactant is doubled.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "The rate of a first order reaction is directly proportional to the concentration, so doubling the concentration doubles the rate and the assertion is true. The rate constant, however, depends only on temperature and the catalyst, not on concentration, so the reason is false.",
+      "optionRationale": {
+        "1": "The reason is false, so it cannot explain the assertion.",
+        "2": "The reason is false; the rate constant does not change with concentration.",
+        "4": "The assertion is true because rate = k[A] for a first order reaction."
+      },
+      "objective": "Distinguish the effects of concentration on rate and rate constant"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-m09",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Match the item in List-I with the statement in List-II.",
+      "options": [
+        "A-IV, B-III, C-II, D-I",
+        "A-III, B-IV, C-I, D-II",
+        "A-III, B-IV, C-II, D-I",
+        "A-II, B-IV, C-III, D-I"
+      ],
+      "answer": 3,
+      "explanation": "A zero order reaction has $[R] = [R]_0 - kt$, a straight line of $[R]$ against $t$ (A-III). A first order reaction gives a straight line for $\\ln[R]$ against $t$ (B-IV). The Arrhenius equation gives a straight line of $\\ln k$ against $1/T$ (C-II). The first order half-life $0.693/k$ is independent of $[R]_0$ (D-I).",
+      "optionRationale": {
+        "1": "This code interchanges the matches of A and B; the correct pairs are A-III and B-IV.",
+        "2": "This code interchanges the matches of C and D; the correct pairs are C-II and D-I.",
+        "4": "This code interchanges the matches of A and C; the correct pairs are A-III and C-II."
+      },
+      "objective": "Match integrated rate law plots with order and half-life",
+      "list": {
+        "left": [
+          "A. Zero order reaction",
+          "B. First order reaction",
+          "C. Arrhenius equation",
+          "D. Half-life of a first order reaction"
+        ],
+        "right": [
+          "I. Does not depend on the initial concentration",
+          "II. $\\ln k$ against $1/T$ is a straight line",
+          "III. $[R]$ against $t$ is a straight line",
+          "IV. $\\ln[R]$ against $t$ is a straight line"
+        ]
+      }
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-m10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about the rate of a reaction.\nA. The rate of reaction is the change in concentration of a reactant or product per unit time.\nB. The instantaneous rate is the slope of the tangent to the concentration-time curve at that moment.\nC. For the reaction $2A \\rightarrow B$, rate $= -\\frac{1}{2}\\frac{d[A]}{dt} = \\frac{d[B]}{dt}$.\nD. The unit of the rate of a reaction is always s$^{-1}$.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "B, C and D only",
+        "A and D only",
+        "A, B and C only"
+      ],
+      "answer": 4,
+      "explanation": "Rate is the change in concentration per unit time, the instantaneous rate is the tangent slope, and each concentration change is divided by its stoichiometric coefficient. The unit of rate is mol L$^{-1}$ s$^{-1}$; s$^{-1}$ is the unit of $k$ for first order only, so D is wrong.",
+      "optionRationale": {
+        "1": "D is wrong because rate has the unit mol L$^{-1}$ s$^{-1}$, and C is also correct.",
+        "2": "D is wrong, and A is also correct.",
+        "3": "It includes the wrong statement D and omits the correct statement A."
+      },
+      "objective": "Recall definitions of rate of reaction"
+    }
+  ]
+}

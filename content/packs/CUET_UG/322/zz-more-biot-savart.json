@@ -1,0 +1,267 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_44b339b6d0b547839c7e9bb0a6304120",
+  "title": "Concept of magnetic field, Oersted's experiment. Biot - Savart law and its application to"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-322-u3-biot-savart-law-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "What current must a single circular loop of radius $10\\,\\text{cm}$ carry to produce a magnetic field of $3.14\\times10^{-5}\\,\\text{T}$ at its centre? ($\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$)",
+   "options": [
+    "$10\\,\\text{A}$",
+    "$5.0\\,\\text{A}$",
+    "$2.5\\,\\text{A}$",
+    "$0.50\\,\\text{A}$"
+   ],
+   "answer": 2,
+   "explanation": "At the centre of a single circular loop $B = \\mu_0 I/2R$, so $I = 2RB/\\mu_0 = 2(0.10)(3.14\\times10^{-5})/(4\\pi\\times10^{-7}) = 5.0\\,\\text{A}$. A bigger loop would need a larger current for the same field because the field falls as $1/R$. The direction of this field follows from the right-hand rule and lies along the axis of the loop.",
+   "optionRationale": {
+    "1": "Leaves out the factor 2 in $B = \\mu_0 I/2R$, which doubles the current.",
+    "3": "Uses $B = \\mu_0 I/R$ with the factor 2 in the wrong place, which halves the current.",
+    "4": "Takes the radius as $1\\,\\text{cm}$ instead of $10\\,\\text{cm}$ and so makes the current ten times too small."
+   },
+   "objective": "Find the current in a loop from the field at its centre"
+  },
+  {
+   "key": "ug26-322-u3-biot-savart-law-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A circular loop lies in a horizontal plane and carries a current that is anticlockwise when seen from above. What is the direction of the magnetic field at the centre of the loop?",
+   "options": [
+    "Vertically downward, away from the person looking at the loop from above",
+    "Horizontal, along the tangent to the loop at the point nearest the viewer",
+    "Vertically upward, towards the person looking at the loop from above",
+    "Horizontal, pointing radially outward from the centre of the loop"
+   ],
+   "answer": 3,
+   "explanation": "By the right-hand rule, curl the fingers of the right hand along the current. For an anticlockwise current seen from above the thumb points upward, and the field at the centre is along the thumb. The field on the axis of a loop is always along the axis, never in the plane of the loop.",
+   "optionRationale": {
+    "1": "This would be the field for a clockwise current seen from above.",
+    "2": "The field at the centre of a loop is along its axis; a tangential direction applies to a straight wire.",
+    "4": "On the axis of a loop the field lies along the axis, never radially in the plane of the loop."
+   },
+   "objective": "Apply the right-hand rule to the field at the centre of a loop"
+  },
+  {
+   "key": "ug26-322-u3-biot-savart-law-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In SI units the constant $\\mu_0/4\\pi$ that appears in the Biot-Savart law has the numerical value",
+   "options": [
+    "$4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$",
+    "$10^{-7}\\,\\text{T m A}^{-1}$",
+    "$9\\times10^{9}\\,\\text{T m A}^{-1}$",
+    "$10^{7}\\,\\text{T m A}^{-1}$"
+   ],
+   "answer": 2,
+   "explanation": "The permeability of free space is $\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$. Dividing by $4\\pi$ leaves exactly $\\mu_0/4\\pi = 10^{-7}\\,\\text{T m A}^{-1}$, which is the constant in front of $I\\,dl\\sin\\theta/r^{2}$ in the Biot-Savart law.",
+   "optionRationale": {
+    "1": "This is the value of $\\mu_0$ itself, not of $\\mu_0/4\\pi$.",
+    "3": "$9\\times10^{9}$ is the Coulomb constant $1/4\\pi\\varepsilon_0$ of electrostatics, a different quantity.",
+    "4": "The sign of the exponent is wrong; the constant is very small."
+   },
+   "objective": "Recall the value of the constant in the Biot-Savart law"
+  },
+  {
+   "key": "ug26-322-u3-biot-savart-law-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A circular loop of radius $3.0\\,\\text{cm}$ carries a current of $5.0\\,\\text{A}$. What is the magnetic field on its axis at a distance of $4.0\\,\\text{cm}$ from the centre? ($\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$)",
+   "options": [
+    "$2.3\\times10^{-5}\\,\\text{T}$",
+    "$4.5\\times10^{-5}\\,\\text{T}$",
+    "$1.0\\times10^{-4}\\,\\text{T}$",
+    "$1.4\\times10^{-5}\\,\\text{T}$"
+   ],
+   "answer": 1,
+   "explanation": "On the axis of a loop $B = \\mu_0 I R^{2}/2(R^{2}+x^{2})^{3/2}$. Here $R^{2}+x^{2} = 25\\times10^{-4}\\,\\text{m}^{2}$, so $(R^{2}+x^{2})^{3/2} = 1.25\\times10^{-4}\\,\\text{m}^{3}$ and $B = 2.26\\times10^{-5}\\,\\text{T}$, smaller than the value at the centre. The decrease from the central value shows that the field of a loop is strongest at its centre and falls along the axis.",
+   "optionRationale": {
+    "2": "Leaves out the factor 2 in the denominator.",
+    "3": "This is the field at the centre of the loop, $\\mu_0 I/2R$, not at $4\\,\\text{cm}$ along the axis.",
+    "4": "Multiplies by the extra factor $R/\\sqrt{R^{2}+x^{2}} = 3/5$, counting the geometrical factor twice."
+   },
+   "objective": "Find the field on the axis of a circular loop"
+  },
+  {
+   "key": "ug26-322-u3-biot-savart-law-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A wire carrying $4.0\\,\\text{A}$ is bent into a semicircle of radius $4.0\\,\\text{cm}$. What is the magnetic field at the centre of the semicircle? ($\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$)",
+   "options": [
+    "$6.3\\times10^{-5}\\,\\text{T}$",
+    "$1.6\\times10^{-5}\\,\\text{T}$",
+    "$3.1\\times10^{-5}\\,\\text{T}$",
+    "$1.3\\times10^{-4}\\,\\text{T}$"
+   ],
+   "answer": 3,
+   "explanation": "Every element of the semicircular arc is at distance $R$ and perpendicular to the line joining it to the centre, so all contribute in the same direction. The arc is half a loop and gives half of $\\mu_0 I/2R$, that is $B = \\mu_0 I/4R = 3.1\\times10^{-5}\\,\\text{T}$.",
+   "optionRationale": {
+    "1": "This is the field of a full circular loop, twice that of the semicircle.",
+    "2": "This is the field of a quarter circle, half that of the semicircle.",
+    "4": "Uses $\\mu_0 I/R$, the field of a loop with its factor 2 left out and the arc ignored."
+   },
+   "objective": "Find the field at the centre of a semicircular current-carrying arc"
+  },
+  {
+   "key": "ug26-322-u3-biot-savart-law-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A proton moves at $2.0\\times10^{6}\\,\\text{m s}^{-1}$ at right angles to the line joining it to a point P, at a distance of $1.0\\,\\text{mm}$ from P. Using the Biot-Savart law for a moving charge, what is the magnetic field at P due to the proton? ($e = 1.6\\times10^{-19}\\,\\text{C}$)",
+   "options": [
+    "$4.0\\times10^{-13}\\,\\text{T}$",
+    "$3.2\\times10^{-20}\\,\\text{T}$",
+    "$3.2\\times10^{-17}\\,\\text{T}$",
+    "$3.2\\times10^{-14}\\,\\text{T}$"
+   ],
+   "answer": 4,
+   "explanation": "A moving point charge acts like a current element with $I\\,dl = qv$, so $B = (\\mu_0/4\\pi)\\,qv\\sin\\theta/r^{2}$. With $\\theta = 90^{\\circ}$, $B = 10^{-7}(1.6\\times10^{-19})(2.0\\times10^{6})/(10^{-3})^{2} = 3.2\\times10^{-14}\\,\\text{T}$. The field of a single slow charge is extremely small, which is why magnetic effects are noticed only with the enormous numbers of charges in a current.",
+   "optionRationale": {
+    "1": "Uses $\\mu_0$ in place of $\\mu_0/4\\pi$, making the answer $4\\pi$ times too large.",
+    "2": "Takes $r = 1\\,\\text{m}$ instead of $1\\,\\text{mm}$.",
+    "3": "Divides by $r$ instead of $r^{2}$."
+   },
+   "objective": "Apply the Biot-Savart law to a moving point charge"
+  },
+  {
+   "key": "ug26-322-u3-biot-savart-law-m07",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about the field of a circular current loop.\nA. At the centre the field is $\\mu_0 I/2R$ for a single turn.\nB. On the axis the field is directed along the axis.\nC. For a coil of $N$ closely wound turns the field at the centre is $N$ times that of a single turn.\nD. On the axis the field increases as one moves away from the centre.\nChoose the correct answer from the options given below.",
+   "options": [
+    "A and D only",
+    "A, B and C only",
+    "B, C and D only",
+    "A, B, C and D"
+   ],
+   "answer": 2,
+   "explanation": "The centre value $\\mu_0 I/2R$ is the standard result (A). By symmetry the field on the axis has no perpendicular component (B). The $N$ turns of a tight coil each add the same field (C). The axial field is greatest at the centre and falls as $x$ increases, so D is false.",
+   "optionRationale": {
+    "1": "Includes the false statement D and leaves out the true statements B and C.",
+    "3": "Leaves out A, which is true, and includes the false statement D.",
+    "4": "Includes D, which is false because the axial field is a maximum at the centre."
+   },
+   "objective": "Evaluate statements about the field of a current loop"
+  },
+  {
+   "key": "ug26-322-u3-biot-savart-law-m08",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): For a fixed current, the magnetic field at the centre of a circular loop increases when the radius of the loop is decreased.\nReason (R): The field at the centre of a circular loop is $B = \\mu_0 I/2R$, which is inversely proportional to the radius.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Since $B = \\mu_0 I/2R$ at the centre, a smaller $R$ with the same $I$ gives a larger $B$, so A is true. The reason states exactly this formula and the inverse proportionality, and it is the quantitative basis of A, so it is the correct explanation.",
+   "optionRationale": {
+    "2": "Not the answer: R is the direct explanation of A, not merely a related true fact.",
+    "3": "Not the answer: A is true, because $B\\propto 1/R$ at fixed current.",
+    "4": "Not the answer: R is true, since the centre field of a loop is $\\mu_0 I/2R$."
+   },
+   "objective": "Relate the field at the centre of a loop to its radius"
+  },
+  {
+   "key": "ug26-322-u3-biot-savart-law-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "analytical",
+   "stem": "A circular coil produces a magnetic field $B$ at its centre. The radius of the coil is doubled, the number of turns is tripled, and the current is halved. What is the new field at the centre?",
+   "options": [
+    "$3B/4$",
+    "$3B/2$",
+    "$3B/8$",
+    "$3B$"
+   ],
+   "answer": 1,
+   "explanation": "At the centre of a coil $B = \\mu_0 NI/2R$, so $B\\propto NI/R$. The new field is $B\\times(3)(\\tfrac12)/(2) = 3B/4$, since the tripled turns and halved current give a factor $3/2$ and the doubled radius divides this by $2$.",
+   "optionRationale": {
+    "2": "Accounts for the turns and the current but forgets that the doubled radius halves the field.",
+    "3": "Divides by $R^{2}$, as if the field were inversely proportional to the area, instead of by $R$.",
+    "4": "Accounts for the tripled turns only and ignores the current and radius changes."
+   },
+   "objective": "Use proportionality for the field at the centre of a coil"
+  },
+  {
+   "key": "ug26-322-u3-biot-savart-law-m10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Two concentric circular loops lie in the same plane. The inner loop has radius $5.0\\,\\text{cm}$ and carries $3.0\\,\\text{A}$ anticlockwise; the outer loop has radius $10\\,\\text{cm}$ and carries $8.0\\,\\text{A}$ clockwise. What is the net field at the common centre? ($\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$)",
+   "options": [
+    "$1.3\\times10^{-5}\\,\\text{T}$, directed out of the plane of the page",
+    "$8.8\\times10^{-5}\\,\\text{T}$, directed into the plane of the page",
+    "$8.8\\times10^{-5}\\,\\text{T}$, directed out of the plane of the page",
+    "$1.3\\times10^{-5}\\,\\text{T}$, directed into the plane of the page"
+   ],
+   "answer": 4,
+   "explanation": "Inner loop: $\\mu_0(3.0)/(2\\times0.05) = 3.77\\times10^{-5}\\,\\text{T}$ out of the page (anticlockwise). Outer loop: $\\mu_0(8.0)/(2\\times0.10) = 5.03\\times10^{-5}\\,\\text{T}$ into the page (clockwise). The fields oppose; the larger one wins, so the net field is $1.26\\times10^{-5}\\,\\text{T}$ into the page.",
+   "optionRationale": {
+    "1": "The magnitude is right, but the outer loop's field is the larger, and it points into the page.",
+    "2": "Adds the two fields, although the opposite senses of current make them subtract.",
+    "3": "Adds the magnitudes and also takes the wrong direction."
+   },
+   "objective": "Superpose the fields of two concentric loops with opposite currents"
+  },
+  {
+   "key": "ug26-322-u3-biot-savart-law-m11",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "In a simple picture of the hydrogen atom an electron goes round the nucleus in a circle of radius $5.3\\times10^{-11}\\,\\text{m}$, completing $6.6\\times10^{15}$ revolutions per second. What is the magnetic field produced at the nucleus? ($e = 1.6\\times10^{-19}\\,\\text{C}$, $\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$)",
+   "options": [
+    "$25.0\\,\\text{T}$",
+    "$6.26\\,\\text{T}$",
+    "$12.5\\,\\text{T}$",
+    "$78.7\\,\\text{T}$"
+   ],
+   "answer": 3,
+   "explanation": "The revolving electron is equivalent to a loop current $I = ef = (1.6\\times10^{-19})(6.6\\times10^{15}) = 1.06\\times10^{-3}\\,\\text{A}$. The field at the centre is $B = \\mu_0 I/2r = 12.5\\,\\text{T}$. An orbiting electron therefore behaves like a tiny current loop, and in this model the field at the nucleus is of the order of ten tesla.",
+   "optionRationale": {
+    "1": "Uses $\\mu_0 I/r$ and drops the factor 2.",
+    "2": "Uses $\\mu_0 I/4r$, which belongs to a semicircle, not a full orbit.",
+    "4": "Puts the angular frequency $2\\pi f$ in place of $f$ in the current."
+   },
+   "objective": "Treat an orbiting electron as a current loop and find its field at the centre"
+  },
+  {
+   "key": "ug26-322-u3-biot-savart-law-m12",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The magnetic field on the axis of a circular loop is greatest at a point far from the centre of the loop.\nReason (R): At axial distances much larger than the radius, the field of a loop varies as $1/x^{3}$.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "The axial field $\\mu_0 I R^{2}/2(R^{2}+x^{2})^{3/2}$ is largest at $x = 0$ and decreases as $x$ grows, so A is false. R is a true statement: for $x\\gg R$ the denominator is about $2x^{3}$, so $B\\propto 1/x^{3}$, and that fall-off is why the field is not large far away.",
+   "optionRationale": {
+    "1": "Not the answer: A is false, the field being largest at the centre, so the two cannot both be true.",
+    "2": "Not the answer: A is false, so it cannot be a true statement with R as a correct or incorrect explanation.",
+    "3": "Not the answer: R is true, since the far-axis field falls as $1/x^{3}$."
+   },
+   "objective": "Analyse the variation of the axial field of a loop"
+  }
+ ]
+}

@@ -1,0 +1,239 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_a55799b900d44868b5dd94e8405c80b2",
+  "title": "AC generator, Transformer."
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-322-u4-ac-generator-transformer-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The coil of a simple AC generator rotates at $1500$ revolutions per minute. What is the frequency of the emf it produces?",
+   "options": [
+    "$1500\\,\\text{Hz}$",
+    "$25\\,\\text{Hz}$",
+    "$160\\,\\text{Hz}$",
+    "$12\\,\\text{Hz}$"
+   ],
+   "answer": 2,
+   "explanation": "One complete rotation of the coil produces one complete cycle of the emf, so the frequency in hertz equals the rotation rate in revolutions per second: $1500/60 = 25\\,\\text{Hz}$. A coil turning at $3000$ rpm would therefore give the $50\\,\\text{Hz}$ of the mains supply.",
+   "optionRationale": {
+    "1": "Uses revolutions per minute as if it were hertz.",
+    "3": "Multiplies by $2\\pi$, which converts revolutions per second to angular speed, not to a frequency.",
+    "4": "Halves the frequency, although one rotation gives a full cycle, not half a cycle."
+   },
+   "objective": "Relate the frequency of generated emf to the rotation rate"
+  },
+  {
+   "key": "ug26-322-u4-ac-generator-transformer-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A step-up transformer has $50$ turns in its primary and $500$ turns in its secondary. If $12\\,\\text{V}$ AC is applied to the primary, what is the output voltage of an ideal transformer?",
+   "options": [
+    "$1.2\\,\\text{V}$",
+    "$60\\,\\text{V}$",
+    "$120\\,\\text{V}$",
+    "$1200\\,\\text{V}$"
+   ],
+   "answer": 3,
+   "explanation": "For an ideal transformer $V_s/V_p = N_s/N_p$, so $V_s = 12\\times500/50 = 120\\,\\text{V}$. The secondary has ten times as many turns, so the voltage is raised tenfold while the current is reduced tenfold.",
+   "optionRationale": {
+    "1": "Divides by the turns ratio, which is what a step-down transformer would do.",
+    "2": "Adds the turn counts or uses a ratio of $5$ rather than $10$.",
+    "4": "Multiplies by $100$, as if the ratio were the square of the turns ratio."
+   },
+   "objective": "Use the turns-ratio relation for an ideal transformer"
+  },
+  {
+   "key": "ug26-322-u4-ac-generator-transformer-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A generator produces a sinusoidal emf with a peak value of $311\\,\\text{V}$. What is its root-mean-square (rms) value?",
+   "options": [
+    "$220\\,\\text{V}$",
+    "$440\\,\\text{V}$",
+    "$156\\,\\text{V}$",
+    "$198\\,\\text{V}$"
+   ],
+   "answer": 1,
+   "explanation": "For a sinusoidal emf $\\varepsilon_{\\text{rms}} = \\varepsilon_0/\\sqrt2 = 311/1.414 = 220\\,\\text{V}$, which is the familiar mains value. The rms value is the equivalent steady voltage that would deliver the same average power.",
+   "optionRationale": {
+    "2": "Multiplies the peak by $\\sqrt2$ instead of dividing, giving a value larger than the peak.",
+    "3": "Divides by $2$, which is not the rms factor for a sine wave.",
+    "4": "This is the mean over a half-cycle, $2\\varepsilon_0/\\pi$, not the rms value."
+   },
+   "objective": "Convert a peak emf to the rms value"
+  },
+  {
+   "key": "ug26-322-u4-ac-generator-transformer-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A rectangular coil of area $0.020\\,\\text{m}^{2}$ rotates at $50\\,\\text{Hz}$ in a uniform field of $0.50\\,\\text{T}$. How many turns must it have to give a peak emf of about $157\\,\\text{V}$?",
+   "options": [
+    "$25$ turns",
+    "$50$ turns",
+    "$100$ turns",
+    "$314$ turns"
+   ],
+   "answer": 2,
+   "explanation": "The peak emf is $\\varepsilon_0 = NBA\\omega$ with $\\omega = 2\\pi\\times50 = 314\\,\\text{rad s}^{-1}$. Then $N = \\varepsilon_0/(BA\\omega) = 157/(0.50\\times0.020\\times314) = 50$. Each turn adds the same emf in series, so the total peak emf is proportional to the number of turns, and a longer winding is needed for a slower rotation or a weaker field.",
+   "optionRationale": {
+    "1": "Uses $\\omega = 628$, that is $4\\pi f$, which doubles the emf per turn and halves $N$.",
+    "3": "Uses $\\omega = 157$, that is $\\pi f$, which halves the emf per turn and doubles $N$.",
+    "4": "Uses $\\omega$ in place of the product $BA\\omega$ and ends with $157/0.5$."
+   },
+   "objective": "Find the number of turns from the peak emf of a generator"
+  },
+  {
+   "key": "ug26-322-u4-ac-generator-transformer-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "An ideal step-down transformer reduces $2200\\,\\text{V}$ to $220\\,\\text{V}$ and supplies a load of $10\\,\\text{kW}$. What current does it draw from the $2200\\,\\text{V}$ supply?",
+   "options": [
+    "$4.5\\,\\text{A}$",
+    "$46\\,\\text{A}$",
+    "$0.46\\,\\text{A}$",
+    "$23\\,\\text{A}$"
+   ],
+   "answer": 1,
+   "explanation": "For an ideal transformer the input power equals the output power, $V_pI_p = 10\\,\\text{kW}$. Hence $I_p = 10000/2200 = 4.5\\,\\text{A}$, ten times smaller than the secondary current of $45\\,\\text{A}$ because the voltage is ten times larger.",
+   "optionRationale": {
+    "2": "This is the secondary current, $10000/220$, not the primary current.",
+    "3": "This is off by a factor of ten and divides the power by $22000$.",
+    "4": "Divides the power by $440\\,\\text{V}$, a value that appears nowhere in the circuit."
+   },
+   "objective": "Find the primary current of an ideal transformer from the load power"
+  },
+  {
+   "key": "ug26-322-u4-ac-generator-transformer-m06",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about the AC generator and the transformer.\nA. In an AC generator mechanical energy is converted into electrical energy.\nB. In an ideal transformer the same magnetic flux links the primary and secondary coils.\nC. The core of a transformer is made of insulated laminated sheets to reduce eddy-current loss.\nD. A step-up transformer delivers more power at its output than it receives at its input.\nChoose the correct answer from the options given below.",
+   "options": [
+    "A and D only",
+    "B, C and D only",
+    "A, B, C and D",
+    "A, B and C only"
+   ],
+   "answer": 4,
+   "explanation": "An AC generator converts the mechanical work of rotating the coil into electrical energy (A). In the ideal case all the flux of the primary links the secondary (B). Laminations are insulated from one another so that eddy currents are confined to thin paths (C). No transformer creates energy: output power cannot exceed input power, so D is false.",
+   "optionRationale": {
+    "1": "Includes D, which violates conservation of energy, and leaves out B and C.",
+    "2": "Leaves out A, which is true, and includes the false statement D.",
+    "3": "Includes D, but output power is at most equal to the input power."
+   },
+   "objective": "Evaluate statements about the AC generator and the transformer"
+  },
+  {
+   "key": "ug26-322-u4-ac-generator-transformer-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A transformer of efficiency $90\\%$ is connected to a $240\\,\\text{V}$ supply and delivers $1800\\,\\text{W}$ at $120\\,\\text{V}$ to a resistive load. What current does it draw from the supply?",
+   "options": [
+    "$7.5\\,\\text{A}$",
+    "$6.8\\,\\text{A}$",
+    "$8.3\\,\\text{A}$",
+    "$15\\,\\text{A}$"
+   ],
+   "answer": 3,
+   "explanation": "Efficiency is output power divided by input power, so the input power is $1800/0.90 = 2000\\,\\text{W}$. The primary current is $I_p = P_{\\text{in}}/V_p = 2000/240 = 8.3\\,\\text{A}$, larger than the ideal $7.5\\,\\text{A}$ because of the losses.",
+   "optionRationale": {
+    "1": "This takes the transformer to be ideal, with input power equal to output power.",
+    "2": "Multiplies the output power by the efficiency instead of dividing, so the input appears smaller than the output.",
+    "4": "This is the secondary current, $1800/120$, not the primary current."
+   },
+   "objective": "Include efficiency when finding the input current of a transformer"
+  },
+  {
+   "key": "ug26-322-u4-ac-generator-transformer-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A generating station sends $100\\,\\text{kW}$ of power through a line of total resistance $2.0\\,\\Omega$. What percentage of the power is lost in the line if it is transmitted at $20\\,\\text{kV}$?",
+   "options": [
+    "$5.0\\,\\%$",
+    "$0.050\\,\\%$",
+    "$0.50\\,\\%$",
+    "$5.0\\times10^{-3}\\,\\%$"
+   ],
+   "answer": 2,
+   "explanation": "The line current is $I = P/V = 100\\times10^{3}/20\\times10^{3} = 5.0\\,\\text{A}$, so the loss is $I^{2}R = 25\\times2.0 = 50\\,\\text{W}$. As a fraction of $100\\,\\text{kW}$ this is $5\\times10^{-4}$, or $0.050\\,\\%$. The missing power is lost as heat in the windings and in the core, so the supply must deliver more than the load receives.",
+   "optionRationale": {
+    "1": "This is the loss if the same power were sent at $2\\,\\text{kV}$, ten times lower and a hundred times worse.",
+    "3": "Takes the loss as $I^{2}R/P$ with the current of $5$ A but misplaces a factor of ten.",
+    "4": "Gives a hundred times smaller than the true loss, a slip in the power of ten."
+   },
+   "objective": "Estimate transmission loss at a high voltage"
+  },
+  {
+   "key": "ug26-322-u4-ac-generator-transformer-m09",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The core of a transformer can be made of a single solid block of iron without any loss of efficiency.\nReason (R): Eddy currents are induced in the core by the changing magnetic flux through it.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "Eddy currents are indeed induced in a conducting core by the alternating flux (R true). In a solid block they flow in large loops and waste much energy as heat, which is why cores are built of thin insulated laminations. A is therefore false.",
+   "optionRationale": {
+    "1": "Not the answer: A is false, so the pair is not true-and-explaining.",
+    "2": "Not the answer: A is false, so the pair is not true-but-unrelated.",
+    "3": "Not the answer: A is false, a solid block causing large eddy-current loss."
+   },
+   "objective": "Explain why transformer cores are laminated"
+  },
+  {
+   "key": "ug26-322-u4-ac-generator-transformer-m10",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The coil of an AC generator is changed as described in List-I, everything else remaining the same. Match each change with the effect on the peak emf in List-II.",
+   "list": {
+    "left": [
+     "A. The number of turns is doubled",
+     "B. The speed of rotation and the magnetic field are both doubled",
+     "C. The area of the coil is halved and the speed of rotation is doubled",
+     "D. The magnetic field is halved"
+    ],
+    "right": [
+     "I. The peak emf doubles",
+     "II. The peak emf becomes four times",
+     "III. The peak emf is unchanged",
+     "IV. The peak emf is halved"
+    ]
+   },
+   "options": [
+    "A-II, B-I, C-III, D-IV",
+    "A-I, B-II, C-IV, D-III",
+    "A-III, B-II, C-I, D-IV",
+    "A-I, B-II, C-III, D-IV"
+   ],
+   "answer": 4,
+   "explanation": "The peak emf is $\\varepsilon_0 = NBA\\omega$. Doubling $N$ doubles it (A-I). Doubling both $B$ and $\\omega$ multiplies it by $4$ (B-II). Halving $A$ while doubling $\\omega$ leaves $A\\omega$, and hence $\\varepsilon_0$, unchanged (C-III). Halving $B$ halves it (D-IV).",
+   "optionRationale": {
+    "1": "Swaps A and B: doubling $N$ alone gives only a factor of $2$, and the pair of doublings gives $4$.",
+    "2": "Swaps C and D: halving the area and doubling the speed cancel, while halving $B$ halves the emf.",
+    "3": "Reverses the effect for A and C: the product $A\\omega$ is unchanged in C, and $N$ doubles the emf in A."
+   },
+   "objective": "Predict the effect of changes in N, B, A and the speed on the peak emf"
+  }
+ ]
+}

@@ -1,0 +1,323 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_aac793c6759e4416a4dd8fffaecceb65",
+  "title": "Concept of displacement current."
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-322-u5-displacement-current-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Who introduced the idea of displacement current, and why?",
+   "options": [
+    "Faraday, to explain how a changing magnetic flux through a closed loop induces an emf in the loop",
+    "Oersted, to explain why a wire carrying a steady current deflects a compass needle placed near it",
+    "Maxwell, to remove the inconsistency of Ampere's circuital law when applied to a charging capacitor",
+    "Ampere, to explain why two long parallel wires carrying currents exert forces on each other"
+   ],
+   "answer": 3,
+   "explanation": "In applying Ampere's law to a charging capacitor, a loop around the wire could be spanned by a surface that cuts the wire or one that passes between the plates, and the two gave different results. Maxwell added a term proportional to the changing electric flux, the displacement current, which restores consistency.",
+   "optionRationale": {
+    "1": "Faraday's work gave the law of induction, which is a separate relation.",
+    "2": "Oersted's observation concerns the magnetic field of a steady current, not displacement current.",
+    "4": "Ampere's force between wires does not involve the displacement current."
+   },
+   "objective": "Recall the origin of the displacement current"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The electric flux through the gap of a capacitor is changing at the rate of $2.0\\times10^{11}\\,\\text{V m s}^{-1}$. What is the displacement current? ($\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^{2}\\,\\text{N}^{-1}\\,\\text{m}^{-2}$)",
+   "options": [
+    "$2.3\\times10^{22}\\,\\text{A}$",
+    "$1.8\\,\\text{A}$",
+    "$0.18\\,\\text{A}$",
+    "$18\\,\\text{A}$"
+   ],
+   "answer": 2,
+   "explanation": "The displacement current is defined by $i_d = \\varepsilon_0\\,d\\Phi_E/dt$. Then $i_d = (8.85\\times10^{-12})(2.0\\times10^{11}) = 1.8\\,\\text{A}$. This has the same dimensions as a conduction current, so a flux changing at this rate gives a magnetic field just as an ampere of conduction current would.",
+   "optionRationale": {
+    "1": "Divides by $\\varepsilon_0$ instead of multiplying.",
+    "3": "Gives a result ten times too small, a slip in the power of ten.",
+    "4": "Gives a result ten times too large, a slip in the power of ten."
+   },
+   "objective": "Compute the displacement current from the rate of change of flux"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Maxwell's displacement current term $\\mu_0\\varepsilon_0\\,d\\Phi_E/dt$ was added to which law?",
+   "options": [
+    "Faraday's law of induction, giving the induced electric field of a changing flux",
+    "Gauss's law for electricity, giving the field of a distribution of charge",
+    "Gauss's law for magnetism, giving the net flux through a closed surface",
+    "Ampere's circuital law, giving the Ampere-Maxwell law"
+   ],
+   "answer": 4,
+   "explanation": "Ampere's law related the magnetic field around a loop only to the conduction current through it. Maxwell added $\\mu_0\\varepsilon_0\\,d\\Phi_E/dt$ to the right-hand side so that a changing electric flux also acts as a source of magnetic field, giving $\\oint\\vec B\\cdot d\\vec l = \\mu_0(i_c + i_d)$.",
+   "optionRationale": {
+    "1": "Faraday's law already links a changing magnetic flux with an electric field and was not modified.",
+    "2": "Gauss's law for electricity relates flux to enclosed charge and needed no modification.",
+    "3": "Gauss's law for magnetism states that the net flux is zero and did not change."
+   },
+   "objective": "Identify the law modified by Maxwell"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A parallel-plate capacitor has plates of area $0.010\\,\\text{m}^{2}$ separated by $1.0\\,\\text{mm}$ of air. The voltage across it rises at $1.0\\times10^{6}\\,\\text{V s}^{-1}$. What is the displacement current in the gap?",
+   "options": [
+    "$8.8\\times10^{-5}\\,\\text{A}$",
+    "$8.9\\times10^{-8}\\,\\text{A}$",
+    "$0.089\\,\\text{A}$",
+    "$8.9\\times10^{-4}\\,\\text{A}$"
+   ],
+   "answer": 1,
+   "explanation": "The displacement current equals the current charging the capacitor: $i_d = C\\,dV/dt$ with $C = \\varepsilon_0A/d = (8.85\\times10^{-12})(0.010)/(1.0\\times10^{-3}) = 8.85\\times10^{-11}\\,\\text{F}$. Hence $i_d = (8.85\\times10^{-11})(10^{6}) = 8.9\\times10^{-5}\\,\\text{A}$. This equals the current that charges the plates, so measuring the charging current in the leads gives the same number.",
+   "optionRationale": {
+    "2": "Takes the separation as $1\\,\\text{m}$, making the capacitance a thousand times too small.",
+    "3": "Takes the separation as $1\\,\\mu\\text{m}$, making the capacitance a thousand times too large.",
+    "4": "Takes the area as $0.1\\,\\text{m}^{2}$, a slip of ten in the area."
+   },
+   "objective": "Compute the displacement current from the capacitance and the rate of voltage change"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A capacitor with circular plates of radius $5.0\\,\\text{cm}$ is being charged by a current of $0.40\\,\\text{A}$. What is the magnitude of the magnetic field at a point $10\\,\\text{cm}$ from the axis, in the plane midway between the plates? ($\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$)",
+   "options": [
+    "$1.6\\times10^{-6}\\,\\text{T}$",
+    "$8.0\\times10^{-7}\\,\\text{T}$",
+    "$3.2\\times10^{-6}\\,\\text{T}$",
+    "$4.0\\times10^{-7}\\,\\text{T}$"
+   ],
+   "answer": 2,
+   "explanation": "The point is outside the plates, so a circle of radius $10\\,\\text{cm}$ encloses the whole displacement current $i_d = 0.40\\,\\text{A}$. The Ampere-Maxwell law gives $B = \\mu_0 i_d/2\\pi r = 2\\times10^{-7}\\times0.40/0.10 = 8.0\\times10^{-7}\\,\\text{T}$.",
+   "optionRationale": {
+    "1": "Uses the plate radius $5\\,\\text{cm}$ in place of the actual distance $10\\,\\text{cm}$.",
+    "3": "Uses the formula for points inside the plates, $\\mu_0 i_d r/2\\pi R^{2}$, which does not apply at $r > R$.",
+    "4": "Halves the correct value, a stray factor of 2."
+   },
+   "objective": "Find the magnetic field outside the plates of a charging capacitor"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m06",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about displacement current.\nA. It has the same SI unit as conduction current.\nB. It produces a magnetic field.\nC. It requires charge carriers to flow across the gap of the capacitor.\nD. Between the plates of a charging capacitor it is equal to the conduction current in the connecting wires.\nChoose the correct answer from the options given below.",
+   "options": [
+    "A and C only",
+    "B, C and D only",
+    "A, B and D only",
+    "A, B, C and D"
+   ],
+   "answer": 3,
+   "explanation": "The quantity $\\varepsilon_0\\,d\\Phi_E/dt$ is measured in amperes (A), and it produces a magnetic field just as a conduction current does (B). The current in the wire is continuous through the gap, so $i_d = i_c$ (D). No charge carriers cross the vacuum gap; $i_d$ comes from a changing electric field, so C is false.",
+   "optionRationale": {
+    "1": "Includes C and leaves out B and D.",
+    "2": "Includes the false statement C and leaves out A.",
+    "4": "Includes C, but no charge crosses the gap; the displacement current is due to the changing field."
+   },
+   "objective": "Evaluate statements about displacement current"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A $2.0\\,\\mu\\text{F}$ capacitor is connected to a $220\\,\\text{V}$ (rms), $50\\,\\text{Hz}$ AC supply. What is the rms displacement current between its plates?",
+   "options": [
+    "$0.022\\,\\text{A}$",
+    "$0.87\\,\\text{A}$",
+    "$0.098\\,\\text{A}$",
+    "$0.14\\,\\text{A}$"
+   ],
+   "answer": 4,
+   "explanation": "The displacement current in the gap equals the conduction current in the leads, which is $I_{\\text{rms}} = V_{\\text{rms}}\\,\\omega C$. With $\\omega = 2\\pi\\times50 = 314\\,\\text{rad s}^{-1}$, $I_{\\text{rms}} = 220\\times314\\times2.0\\times10^{-6} = 0.14\\,\\text{A}$. The current is the same in the leads as in the gap, because the plates of a capacitor on an AC supply are charged and discharged continually.",
+   "optionRationale": {
+    "1": "Uses the frequency $50\\,\\text{Hz}$ in place of the angular frequency $314\\,\\text{rad s}^{-1}$.",
+    "2": "Multiplies by $2\\pi$ a second time.",
+    "3": "Divides by $\\sqrt2$ again, although the voltage given is already an rms value."
+   },
+   "objective": "Find the rms displacement current in an AC capacitor"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "In a region between the plates of a capacitor the electric field is $E = 100\\sin(2\\pi ft)\\,\\text{V m}^{-1}$ with $f = 1.0\\,\\text{MHz}$. What is the peak value of the displacement current density? ($\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^{2}\\,\\text{N}^{-1}\\,\\text{m}^{-2}$)",
+   "options": [
+    "$5.6\\times10^{-3}\\,\\text{A m}^{-2}$",
+    "$8.8\\times10^{-4}\\,\\text{A m}^{-2}$",
+    "$8.8\\times10^{-10}\\,\\text{A m}^{-2}$",
+    "$0.035\\,\\text{A m}^{-2}$"
+   ],
+   "answer": 1,
+   "explanation": "The displacement current density is $J_d = \\varepsilon_0\\,\\partial E/\\partial t = \\varepsilon_0\\omega E_0\\cos\\omega t$, whose peak is $\\varepsilon_0\\omega E_0$. With $\\omega = 2\\pi\\times10^{6}\\,\\text{rad s}^{-1}$ this is $(8.85\\times10^{-12})(6.28\\times10^{6})(100) = 5.6\\times10^{-3}\\,\\text{A m}^{-2}$. Because $J_d$ follows the time derivative of $E$, it varies as a cosine when the field is a sine, a quarter of a cycle out of phase with it.",
+   "optionRationale": {
+    "2": "Uses the frequency in hertz in place of the angular frequency.",
+    "3": "Leaves out the angular frequency altogether, forgetting that the derivative brings in $\\omega$.",
+    "4": "Multiplies by $2\\pi$ a second time."
+   },
+   "objective": "Find the displacement current density for a sinusoidal field"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "A $2.0\\,\\mu\\text{F}$ capacitor charged to $100\\,\\text{V}$ discharges through a $1.0\\,\\text{M}\\Omega$ resistor. What is the magnitude of the displacement current between its plates $2.0\\,\\text{s}$ after the discharge begins?",
+   "options": [
+    "$100\\,\\mu\\text{A}$",
+    "$63\\,\\mu\\text{A}$",
+    "$37\\,\\mu\\text{A}$",
+    "$14\\,\\mu\\text{A}$"
+   ],
+   "answer": 3,
+   "explanation": "The displacement current in the gap equals the conduction current in the circuit. The discharge current is $i = (V_0/R)e^{-t/RC}$ with $RC = 2.0\\,\\text{s}$, so at $t = 2.0\\,\\text{s}$, $i = (100\\,\\mu\\text{A})e^{-1} = 37\\,\\mu\\text{A}$.",
+   "optionRationale": {
+    "1": "This is the initial current $V_0/R$, which holds only at $t = 0$.",
+    "2": "This is $V_0/R$ times $(1 - e^{-1})$, the form that applies to a charging, not discharging, capacitor.",
+    "4": "This uses $e^{-t/RC}$ with $t/RC = 2$, as if the time were $4\\,\\text{s}$."
+   },
+   "objective": "Find the displacement current during discharge of a capacitor"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "A capacitor with circular plates of radius $6.0\\,\\text{cm}$ is charged by a current of $0.60\\,\\text{A}$. What is the magnetic field at a distance of $3.0\\,\\text{cm}$ from the axis, between the plates? ($\\mu_0 = 4\\pi\\times10^{-7}\\,\\text{T m A}^{-1}$)",
+   "options": [
+    "$4.0\\times10^{-6}\\,\\text{T}$",
+    "$1.0\\times10^{-6}\\,\\text{T}$",
+    "$2.0\\times10^{-6}\\,\\text{T}$",
+    "$2.5\\times10^{-7}\\,\\text{T}$"
+   ],
+   "answer": 2,
+   "explanation": "A circle of radius $r < R$ encloses only the fraction $r^{2}/R^{2}$ of the uniform displacement current: $i_d' = 0.60\\times(3/6)^{2} = 0.15\\,\\text{A}$. Then $B = \\mu_0 i_d'/2\\pi r = 2\\times10^{-7}\\times0.15/0.03 = 1.0\\times10^{-6}\\,\\text{T}$.",
+   "optionRationale": {
+    "1": "Uses the whole current of $0.60\\,\\text{A}$, as if the circle enclosed all of the displacement current.",
+    "3": "Gives the field at the edge of the plates, $r = R$, which is a different point.",
+    "4": "Divides the enclosed current by $4$ a second time."
+   },
+   "objective": "Apply the Ampere-Maxwell law inside the plates of a capacitor"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m11",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each situation in List-I with the kind of current present in List-II.",
+   "list": {
+    "left": [
+     "A. The wire leading to a plate of a charging capacitor",
+     "B. The vacuum gap of a capacitor that is fully charged and connected to a battery",
+     "C. The vacuum gap of a capacitor that is being charged",
+     "D. The gap of a capacitor filled with a slightly leaky dielectric and connected to an AC source"
+    ],
+    "right": [
+     "I. Displacement current only",
+     "II. Conduction current only",
+     "III. Both conduction and displacement currents",
+     "IV. Neither conduction nor displacement current"
+    ]
+   },
+   "options": [
+    "A-II, B-I, C-IV, D-III",
+    "A-III, B-IV, C-I, D-II",
+    "A-II, B-IV, C-III, D-I",
+    "A-II, B-IV, C-I, D-III"
+   ],
+   "answer": 4,
+   "explanation": "Charges flow in the wire, so there is conduction current only (A-II). In a fully charged capacitor the field is steady, so there is no displacement current and no charge crosses the vacuum: neither (B-IV). A charging capacitor has a changing field and no carriers in the gap: displacement only (C-I). A leaky dielectric lets some charge through and also has a changing field: both (D-III).",
+   "optionRationale": {
+    "1": "Swaps B and C: a steady field gives no displacement current, and a changing field gives one.",
+    "2": "Swaps A and D: the wire carries conduction current only, and the leaky gap carries both.",
+    "3": "Swaps C and D: the vacuum gap has no carriers to give a conduction current."
+   },
+   "objective": "Classify the current in different parts of a capacitor circuit"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m12",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The magnetic field at the axis of the gap of a charging parallel-plate capacitor is zero.\nReason (R): For a circle of radius $r$ inside the plates the enclosed displacement current is proportional to $r^{2}$, so it vanishes as $r\\to0$.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Inside the plates $B = \\mu_0 i_d r/2\\pi R^{2}$, which is zero at $r = 0$, so A is true. The reason gives the cause: the displacement current enclosed by a circle of radius $r$ is $i_d(r^{2}/R^{2})$, which tends to zero at the axis, so the field also vanishes there.",
+   "optionRationale": {
+    "2": "Not the answer: R is the cause of A, not just another true fact.",
+    "3": "Not the answer: A is true, because $B\\propto r$ inside the plates.",
+    "4": "Not the answer: R is true, since the enclosed current is proportional to the area of the circle."
+   },
+   "objective": "Explain why the field is zero on the axis of a capacitor gap"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A conduction current of $0.50\\,\\text{A}$ charges a capacitor whose plates are circles of radius $4.0\\,\\text{cm}$. What is the displacement current density in the gap, assuming it is uniform?",
+   "options": [
+    "$99\\,\\text{A m}^{-2}$",
+    "$0.99\\,\\text{A m}^{-2}$",
+    "$200\\,\\text{A m}^{-2}$",
+    "$400\\,\\text{A m}^{-2}$"
+   ],
+   "answer": 1,
+   "explanation": "The displacement current in the gap equals the conduction current, $0.50\\,\\text{A}$, spread over the plate area $A = \\pi r^{2} = \\pi(0.040)^{2} = 5.0\\times10^{-3}\\,\\text{m}^{2}$. Hence $J_d = i/A = 0.50/5.0\\times10^{-3} = 99\\,\\text{A m}^{-2}$.",
+   "optionRationale": {
+    "2": "Uses the area in square centimetres instead of square metres.",
+    "3": "Halves the area, as if the plate were a semicircle.",
+    "4": "Takes half the radius, which makes the area four times too small."
+   },
+   "objective": "Find the displacement current density from the charging current"
+  },
+  {
+   "key": "ug26-322-u5-displacement-current-m14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A parallel-plate capacitor with plates of area $0.040\\,\\text{m}^{2}$ is charged by a steady current of $0.80\\,\\text{A}$. At what rate does the electric field between the plates grow? ($\\varepsilon_0 = 8.85\\times10^{-12}\\,\\text{C}^{2}\\,\\text{N}^{-1}\\,\\text{m}^{-2}$)",
+   "options": [
+    "$9.0\\times10^{10}\\,\\text{V m}^{-1}\\,\\text{s}^{-1}$",
+    "$2.3\\times10^{12}\\,\\text{V m}^{-1}\\,\\text{s}^{-1}$",
+    "$4.4\\times10^{-13}\\,\\text{V m}^{-1}\\,\\text{s}^{-1}$",
+    "$2.3\\times10^{13}\\,\\text{V m}^{-1}\\,\\text{s}^{-1}$"
+   ],
+   "answer": 2,
+   "explanation": "The displacement current equals the charging current: $i = \\varepsilon_0A\\,dE/dt$. Therefore $dE/dt = i/\\varepsilon_0A = 0.80/[(8.85\\times10^{-12})(0.040)] = 2.3\\times10^{12}\\,\\text{V m}^{-1}\\,\\text{s}^{-1}$. The rate is very large because a small plate area needs an enormous change of field to carry even one ampere when no charge crosses the gap.",
+   "optionRationale": {
+    "1": "Leaves out the plate area $A$ in the denominator.",
+    "3": "Inverts the expression, putting $\\varepsilon_0A$ in the numerator.",
+    "4": "Takes the area as $0.0040\\,\\text{m}^{2}$, a slip of ten that makes the rate too large."
+   },
+   "objective": "Find the rate of growth of the field from the charging current"
+  }
+ ]
+}

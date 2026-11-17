@@ -1,0 +1,134 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_d72ef290910048d696b250a12cd5ef47",
+    "title": "Electric charges, Conservation of charge, Coulomb's law-force between two- point"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u1-charges-coulomb-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "In a hydrogen atom the electron and the proton are about $0.53\\times10^{-10}\\,\\text{m}$ apart. Taking $k = 9\\times10^{9}\\,\\text{N m}^2\\text{C}^{-2}$ and $e = 1.6\\times10^{-19}\\,\\text{C}$, what is the magnitude of the electrostatic force between them?",
+      "options": [
+        "$4.35\\times10^{-18}\\,\\text{N}$",
+        "$5.13\\times10^{11}\\,\\text{N}$",
+        "$8.2\\times10^{-8}\\,\\text{N}$",
+        "$2.05\\times10^{-8}\\,\\text{N}$"
+      ],
+      "answer": 3,
+      "explanation": "The force is $F = k e^2 / r^2 = (9\\times10^9)(1.6\\times10^{-19})^2 / (0.53\\times10^{-10})^2$. The numerator is 2.3\\times10^{-28} and the denominator is 2.81\\times10^{-21}, giving $F \\approx 8.2\\times10^{-8}\\,\\text{N}$. Though tiny in everyday terms, this force acts on a particle of very small mass and holds the atom together.",
+      "optionRationale": {
+        "1": "This divides by r instead of $r^2$, forgetting that Coulomb force follows an inverse-square law.",
+        "2": "This uses a single factor of the charge e in the numerator, so one factor of e has been dropped from $k q_1 q_2$.",
+        "4": "This is the value for a separation doubled to twice the given distance, so the inverse-square dependence was applied to the wrong distance."
+      },
+      "objective": "Apply Coulomb's law to the force between the electron and proton of a hydrogen atom"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "analytical",
+      "stem": "Two protons are placed a certain distance apart in vacuum. Compare the electrostatic repulsion with the gravitational attraction between them, using $G = 6.67\\times10^{-11}\\,\\text{N m}^2\\text{kg}^{-2}$ and $m_p = 1.67\\times10^{-27}\\,\\text{kg}$. The ratio $F_e/F_g$ is closest to",
+      "options": [
+        "$1.2\\times10^{36}$ at a separation of 1 m, and smaller at larger separations",
+        "$1.2\\times10^{36}$, independent of the separation of the protons",
+        "$8.1\\times10^{-37}$, so gravity is the stronger of the two forces",
+        "$1.2\\times10^{18}$, independent of the separation of the protons"
+      ],
+      "answer": 2,
+      "explanation": "Both forces vary as $1/r^2$, so the distance cancels in the ratio: $F_e/F_g = k e^2/(G m_p^2) = (9\\times10^9)(1.6\\times10^{-19})^2 / [(6.67\\times10^{-11})(1.67\\times10^{-27})^2]$. The numerator is 2.3\\times10^{-28} and the denominator is 1.86\\times10^{-64}, so the ratio is about $1.2\\times10^{36}$. Electrostatic repulsion between protons is overwhelmingly stronger than their gravitational attraction.",
+      "optionRationale": {
+        "1": "The ratio does not depend on distance because both forces fall as the inverse square, so no separation changes it.",
+        "3": "This inverts the ratio; gravity between two protons is far weaker than their electrostatic repulsion.",
+        "4": "This ratio is too small by a factor of $10^{18}$, as if the mass or charge had been mis-squared in the calculation."
+      },
+      "objective": "Compare electrostatic and gravitational forces between elementary particles"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-m03",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The net electrostatic force on a point charge due to several other point charges is the vector sum of the forces due to each of them separately.\nReason (R): The force exerted by one charge on a second charge is not changed by the presence of other charges nearby.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The assertion is the superposition principle. It holds because of the reason: Coulomb forces between pairs of charges are independent of each other, so the force from each source is calculated as if the others were absent. The total force is then found by adding these separate forces as vectors, taking account of their directions.",
+      "optionRationale": {
+        "2": "R is not merely true; it is exactly the property that justifies adding the forces, so it explains A.",
+        "3": "R is true; the pairwise force is unaffected by other charges.",
+        "4": "A is true; this is the statement of the superposition principle."
+      },
+      "objective": "Explain the superposition principle for electrostatic forces"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Two identical small spheres, each of mass 2.0 g and carrying the same charge q, hang from a common point by light insulating threads each 0.50 m long. In equilibrium the spheres are 3.0 cm apart, so the angle of each thread with the vertical is small. Taking $g = 10\\,\\text{m s}^{-2}$ and $k = 9\\times10^{9}\\,\\text{N m}^2\\text{C}^{-2}$, find q.",
+      "options": [
+        "$5.48\\,\\text{nC}$",
+        "$11\\,\\text{nC}$",
+        "$15.5\\,\\text{nC}$",
+        "$7.75\\,\\text{nC}$"
+      ],
+      "answer": 4,
+      "explanation": "For a small angle $\\tan\\theta \\approx x/2L$. Balancing forces on one sphere gives $\\tan\\theta = F/mg$ with $F = kq^2/x^2$. So $kq^2/x^2 = mg\\,x/(2L)$ and $q^2 = mg\\,x^3/(2kL)$. Substituting, $q^2 = (2\\times10^{-3})(10)(0.03)^3/(2\\times9\\times10^9\\times0.5) = 6\\times10^{-17}\\,\\text{C}^2$, so $q \\approx 7.75\\times10^{-9}\\,\\text{C} = 7.75\\,\\text{nC}$.",
+      "optionRationale": {
+        "1": "This is smaller by a factor of the square root of 2, which results from using $\\tan\\theta \\approx x/4L$ for the small angle.",
+        "2": "This is larger by a factor of the square root of 2, which results from taking $\\tan\\theta \\approx x/L$, using the full separation as the displacement of one sphere.",
+        "3": "This is twice the correct value, which results from taking the distance between the charges as 2x in the force law."
+      },
+      "objective": "Apply force balance with Coulomb repulsion to two charged spheres suspended by threads"
+    },
+    {
+      "key": "ug26-322-u1-charges-coulomb-m05",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In List-I, a change is made to two point charges in vacuum. Match each change with the factor by which the electrostatic force becomes multiplied, given in List-II.",
+      "list": {
+        "left": [
+          "A. The distance between the charges is doubled",
+          "B. Both charges are doubled, the distance remaining the same",
+          "C. One charge is tripled and the distance is also tripled",
+          "D. The distance is reduced to one-third"
+        ],
+        "right": [
+          "I. $1/4$",
+          "II. $4$",
+          "III. $1/3$",
+          "IV. $9$"
+        ]
+      },
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-III, B-II, C-I, D-IV"
+      ],
+      "answer": 2,
+      "explanation": "The force varies as $q_1 q_2 / r^2$. Doubling r gives $1/2^2 = 1/4$ (A-I). Doubling both charges gives $2\\times2 = 4$ (B-II). Tripling one charge and the distance gives $3/3^2 = 1/3$ (C-III). Reducing the distance to one-third gives $1/(1/3)^2 = 9$ (D-IV).",
+      "optionRationale": {
+        "1": "A and B are interchanged: doubling the distance reduces the force, while doubling both charges increases it.",
+        "3": "C and D are interchanged: reducing the distance to one-third raises the force ninefold, not by a factor of one-third.",
+        "4": "A and C are interchanged: doubling the distance gives a quarter, not a third, and the tripled charge and distance together give a third."
+      },
+      "objective": "Predict how the Coulomb force changes when charges or separation are varied"
+    }
+  ]
+}

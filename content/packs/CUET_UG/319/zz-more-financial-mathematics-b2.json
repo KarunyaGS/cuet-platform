@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_e1d3521b52e649a69aa7c6d8d94a62d0",
+    "title": "FINANCIAL MATHEMATICS"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r12-financial-mathematics-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A trust pays ₹1,500 at the end of every quarter for ever. If money earns $12\\%$ per annum compounded quarterly, the present value of this perpetuity is",
+      "options": [
+        "₹12,500",
+        "₹2,00,000",
+        "₹1,50,000",
+        "₹50,000"
+      ],
+      "answer": 4,
+      "explanation": "For a perpetuity the present value is $C/i$ where $i$ is the rate per payment period. Here $i = 12\\%/4 = 3\\% = 0.03$ per quarter, so the present value is $1500/0.03 = ₹50{,}000$. Using the annual rate with a quarterly payment mixes up the periods.",
+      "optionRationale": {
+        "1": "This divides the quarterly payment by the annual rate $0.12$, mixing the periods.",
+        "2": "This divides the annual total $6{,}000$ by the quarterly rate $0.03$, again mixing the periods.",
+        "3": "This uses a rate of $1\\%$ per quarter, which is not the given quarterly rate."
+      },
+      "objective": "Find the present value of a perpetuity with quarterly payments"
+    },
+    {
+      "key": "ug26-319-r12-financial-mathematics-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The value of an investment grows from ₹8,000 to ₹12,500 in exactly $2$ years. Its compound annual growth rate (CAGR) is",
+      "options": [
+        "$56.25\\%$",
+        "$25\\%$",
+        "$28.125\\%$",
+        "$20\\%$"
+      ],
+      "answer": 2,
+      "explanation": "CAGR $= (V_f/V_i)^{1/n} - 1 = (12500/8000)^{1/2} - 1 = \\sqrt{1.5625} - 1 = 1.25 - 1 = 25\\%$. Check: $8000 \\times 1.25 \\times 1.25 = 12{,}500$, which confirms that a steady $25\\%$ per year reproduces the final value.",
+      "optionRationale": {
+        "1": "$56.25\\%$ is the total growth over two years, not the yearly rate.",
+        "3": "$28.125\\%$ divides the total growth by $2$, ignoring compounding.",
+        "4": "$20\\%$ does not reproduce ₹12,500: $8000 \\times 1.2^2 = 11{,}520$."
+      },
+      "objective": "Compute a compound annual growth rate"
+    },
+    {
+      "key": "ug26-319-r12-financial-mathematics-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A loan of ₹5,00,000 at $9\\%$ per annum is to be repaid in $60$ equal monthly instalments by the reducing balance method. Using $(1.0075)^{60} \\approx 1.5657$, the EMI is closest to",
+      "options": [
+        "₹10,379",
+        "₹12,083",
+        "₹8,333",
+        "₹8,396"
+      ],
+      "answer": 1,
+      "explanation": "The monthly rate is $i = 9/12\\% = 0.0075$. EMI $= P\\,i(1+i)^n/[(1+i)^n - 1] = 500000 \\times 0.0075 \\times 1.5657/0.5657 \\approx ₹10{,}379$. This is below the flat-rate instalment because interest falls as the balance reduces.",
+      "optionRationale": {
+        "2": "₹12,083 is the flat-rate instalment, which charges interest on the full principal throughout.",
+        "3": "₹8,333 is just $5{,}00{,}000/60$ and leaves out interest altogether.",
+        "4": "₹8,396 adds only one month's interest to the principal before dividing by $60$."
+      },
+      "objective": "Compute an EMI under the reducing balance method"
+    },
+    {
+      "key": "ug26-319-r12-financial-mathematics-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A company must have ₹8,00,000 after $4$ years to replace a plant. It makes equal deposits at the end of each year in a sinking fund earning $10\\%$ per annum compounded annually. Using $(1.1)^4 = 1.4641$, the annual deposit is closest to",
+      "options": [
+        "₹2,00,000",
+        "₹54,641",
+        "₹5,46,410",
+        "₹1,72,377"
+      ],
+      "answer": 4,
+      "explanation": "The future value of an annuity gives $F = R[(1+i)^n - 1]/i$, so $R = Fi/[(1+i)^n - 1] = 800000 \\times 0.1/0.4641 \\approx ₹1{,}72{,}377$. Interest does part of the work, so the deposit is below $8{,}00{,}000/4 = ₹2{,}00{,}000$.",
+      "optionRationale": {
+        "1": "₹2,00,000 is $8{,}00{,}000/4$ and ignores the interest earned by the fund.",
+        "2": "₹54,641 uses $(1+i)^n$ in the denominator instead of $(1+i)^n - 1$.",
+        "3": "₹5,46,410 is $8{,}00{,}000/(1.1)^4$, which treats the target as one lump sum to discount rather than a series of deposits."
+      },
+      "objective": "Find the periodic deposit of a sinking fund"
+    },
+    {
+      "key": "ug26-319-r12-financial-mathematics-m05",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each financial quantity in List-I with its formula in List-II.",
+      "list": {
+        "left": [
+          "A. EMI under the reducing balance method (monthly rate $i$, $n$ instalments, loan $P$)",
+          "B. Present value of a perpetuity of $C$ per period at rate $i$ per period",
+          "C. Equal periodic deposit $R$ to reach a target $F$ in $n$ periods at rate $i$",
+          "D. CAGR from value $V_i$ to value $V_f$ in $n$ years"
+        ],
+        "right": [
+          "I. $C/i$",
+          "II. $\\dfrac{P\\,i(1+i)^n}{(1+i)^n - 1}$",
+          "III. $\\left(\\dfrac{V_f}{V_i}\\right)^{1/n} - 1$",
+          "IV. $\\dfrac{F\\,i}{(1+i)^n - 1}$"
+        ]
+      },
+      "options": [
+        "A-I, B-II, C-IV, D-III",
+        "A-II, B-I, C-III, D-IV",
+        "A-II, B-I, C-IV, D-III",
+        "A-IV, B-I, C-II, D-III"
+      ],
+      "answer": 3,
+      "explanation": "The reducing-balance EMI is $P i (1+i)^n/[(1+i)^n - 1]$ (II). A perpetuity is worth $C/i$ (I). The sinking fund deposit is $F i/[(1+i)^n - 1]$ (IV). CAGR is the $n$th root of the growth ratio minus one (III). Hence A-II, B-I, C-IV, D-III.",
+      "optionRationale": {
+        "1": "Items A and B have been interchanged; check each pairing against its definition.",
+        "2": "Items C and D have been interchanged; check each pairing against its definition.",
+        "4": "Items A and C have been interchanged; check each pairing against its definition."
+      },
+      "objective": "Recall the standard formulas of financial mathematics"
+    },
+    {
+      "key": "ug26-319-r12-financial-mathematics-m06",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A bond whose coupon rate is higher than the market yield required by investors has a present value above its face value.\nReason (R): A bond repays its face value to the holder when it matures.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 2,
+      "explanation": "Take face value ₹1,000 with coupon $10\\%$ and required yield $8\\%$. The coupons of ₹100 exceed the $8\\%$ return investors need, so discounting at $8\\%$ gives a value above ₹1,000; A is true. R is also true, but repayment of face value occurs for every bond and does not explain why the price is above par; the coupon surplus does.",
+      "optionRationale": {
+        "1": "R is true but common to all bonds, so it cannot be what makes the price exceed the face value.",
+        "3": "R is true: the face value is repaid at maturity.",
+        "4": "A is true: such a bond sells at a premium."
+      },
+      "objective": "Relate coupon rate, yield and bond price"
+    },
+    {
+      "key": "ug26-319-r12-financial-mathematics-m07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A bond of face value ₹1,000 pays a $10\\%$ annual coupon for $2$ years and is redeemed at par at the end. Investors require a yield of $8\\%$ per annum. The present value (price) of the bond is closest to",
+      "options": [
+        "₹1,035.67",
+        "₹1,000",
+        "₹964.33",
+        "₹1,100"
+      ],
+      "answer": 1,
+      "explanation": "Price $= 100/1.08 + 1100/1.08^2 = 92.59 + 943.07 = ₹1{,}035.67$. The coupon rate exceeds the required yield, so the bond sells at a premium above ₹1,000. Always discount the final coupon together with the redemption value.",
+      "optionRationale": {
+        "2": "₹1,000 would be the price only if the coupon rate equalled the required yield.",
+        "3": "₹964.33 would be a discount price, which needs a coupon below the yield.",
+        "4": "₹1,100 is the final-year cash flow, not a present value."
+      },
+      "objective": "Value a bond by discounting its cash flows"
+    },
+    {
+      "key": "ug26-319-r12-financial-mathematics-m08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "An investment earns a nominal return of $12\\%$ in a year in which inflation is $5\\%$. Using the exact relation $(1 + \\text{nominal}) = (1 + \\text{real})(1 + \\text{inflation})$, the real rate of return is closest to",
+      "options": [
+        "$7.00\\%$",
+        "$17.6\\%$",
+        "$6.25\\%$",
+        "$6.67\\%$"
+      ],
+      "answer": 4,
+      "explanation": "From the exact relation, $1 + \\text{real} = 1.12/1.05 = 1.06667$, so the real return is about $6.67\\%$. The simple difference $12 - 5 = 7\\%$ is only an approximation and slightly overstates purchasing-power growth.",
+      "optionRationale": {
+        "1": "$7\\%$ is the simple difference of the two rates, an approximation rather than the exact value.",
+        "2": "$17.6\\%$ results from multiplying the two growth factors instead of dividing.",
+        "3": "$6.25\\%$ divides the $7\\%$ gap by $1.12$ instead of $1.05$; inflation is the deflator."
+      },
+      "objective": "Compute the real rate of return from nominal return and inflation"
+    },
+    {
+      "key": "ug26-319-r12-financial-mathematics-m09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A loan of ₹2,00,000 at $12\\%$ per annum is repaid in $24$ equal monthly instalments (reducing balance), and the EMI works out to ₹9,414.69. How much of the first instalment goes towards reducing the principal?",
+      "options": [
+        "₹9,414.69",
+        "₹2,000",
+        "₹7,414.69",
+        "₹8,333.33"
+      ],
+      "answer": 3,
+      "explanation": "In the first month the interest is $200000 \\times 0.01 = ₹2{,}000$ on the full balance. The rest of the instalment repays the principal: $9414.69 - 2000 = ₹7{,}414.69$. The interest share decreases and the principal share increases in later months.",
+      "optionRationale": {
+        "1": "₹9,414.69 is the whole instalment, which also covers the interest.",
+        "2": "₹2,000 is the interest part of the first instalment, not the principal part.",
+        "4": "₹8,333.33 is $2{,}00{,}000/24$, the principal part under a flat plan."
+      },
+      "objective": "Split an EMI into its interest and principal parts"
+    },
+    {
+      "key": "ug26-319-r12-financial-mathematics-m10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Consider the following statements.\nA. For the same quoted annual rate and period, the total interest paid under the reducing balance method is less than under the flat-rate method.\nB. The present value of a perpetuity falls when the rate of interest rises.\nC. For a fixed target, the annual sinking-fund deposit increases when the rate of interest rises.\nD. A flat-rate loan of ₹P at $r\\%$ for $t$ years is repaid in equal instalments of $P(1 + rt/100)$ divided by the number of instalments.\nChoose the correct answer.",
+      "options": [
+        "A and C only",
+        "A, B and D only",
+        "B and C only",
+        "A, B, C and D"
+      ],
+      "answer": 2,
+      "explanation": "A is true: under reducing balance interest is charged only on the outstanding amount. B is true since $C/i$ decreases as $i$ increases. C is false: a higher rate makes the fund grow faster, so a smaller deposit is enough. D is the correct flat-rate EMI formula, so D is true.",
+      "optionRationale": {
+        "1": "C is false because a higher rate lowers the deposit needed, so A and C cannot be the whole truth.",
+        "3": "C is false, and D, a correct statement, is missing here.",
+        "4": "C is false, so the statement set that includes it cannot be correct."
+      },
+      "objective": "Evaluate statements on loans, perpetuities and sinking funds"
+    }
+  ]
+}

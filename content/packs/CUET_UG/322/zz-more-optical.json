@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "322",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_aefaa3fa1f7d4255aa7b0dfd20a43872",
+    "title": "Optical instruments: Microscopes and astronomical telescopes (reflecting and refracting)"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-322-u6-optical-instruments-m01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A convex lens of focal length 4.0 cm is used as a simple microscope, and the final image is formed at infinity. What is its magnifying power? (Least distance of distinct vision D = 25 cm.)",
+      "options": [
+        "$7.25$",
+        "$6.25$",
+        "$29.0$",
+        "$0.16$"
+      ],
+      "answer": 2,
+      "explanation": "For the final image at infinity the object is at the focus, and the angular magnification is $m = D/f = 25/4.0 = 6.25$. If the image is at the near point, the magnification is slightly greater, $1 + D/f = 7.25$.",
+      "optionRationale": {
+        "1": "This is the magnifying power when the image is formed at the near point, not at infinity.",
+        "3": "This adds the distances, which has dimensions of length and not a ratio.",
+        "4": "This inverts the ratio, giving the factor by which the image is reduced."
+      },
+      "objective": "Calculate the magnifying power of a simple microscope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-m02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The Moon subtends an angle of about $0.50^\\circ$ at the eye. A telescope of magnifying power 40 is used to look at it. What angle does the final image subtend at the eye?",
+      "options": [
+        "$2.0^\\circ$",
+        "$0.0125^\\circ$",
+        "$20^\\circ$",
+        "$40.5^\\circ$"
+      ],
+      "answer": 3,
+      "explanation": "The magnifying power of a telescope is the ratio of the angle subtended by the final image to the angle subtended by the object at the unaided eye. So the image subtends $40 \\times 0.50^\\circ = 20^\\circ$, an angular size 40 times larger than the Moon's apparent size.",
+      "optionRationale": {
+        "1": "This is ten times too small, from a slip in the power of ten in the multiplication.",
+        "2": "This divides the angle by 40 instead of multiplying, so it makes the Moon look smaller.",
+        "4": "This adds the magnifying power to the angle, which is not a correct operation for a ratio."
+      },
+      "objective": "Use the angular magnification of a telescope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-m03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A compound microscope in normal use (final image at infinity) has magnifying power 40 with an eyepiece of focal length 5.0 cm. The eyepiece is replaced by one of focal length 2.5 cm, keeping the objective and the separation of the lenses so that the first image stays at the same distance. What is the new magnifying power?",
+      "options": [
+        "$80$",
+        "$45$",
+        "$160$",
+        "$20$"
+      ],
+      "answer": 1,
+      "explanation": "With the final image at infinity, $m = (L/f_o)(D/f_e)$, so for fixed objective and tube length the magnifying power is inversely proportional to the focal length of the eyepiece. Halving $f_e$ doubles the magnifying power: $40 \\times 5.0/2.5 = 80$.",
+      "optionRationale": {
+        "2": "This adds a fixed amount, which is not how a change of focal length affects the product.",
+        "3": "This squares the ratio of focal lengths, but the magnifying power depends on the first power of $1/f_e$.",
+        "4": "This halves the magnification, as if it were directly proportional to the eyepiece focal length."
+      },
+      "objective": "Relate the magnifying power of a compound microscope to the eyepiece focal length"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-m04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "An astronomical telescope has an objective of focal length 60 cm and an eyepiece of focal length 5.0 cm. It is adjusted so that the final image is formed at the least distance of distinct vision, 25 cm from the eye (the eye being close to the eyepiece). What is the distance between the two lenses?",
+      "options": [
+        "$85.0\\,\\text{cm}$",
+        "$55.8\\,\\text{cm}$",
+        "$64.2\\,\\text{cm}$",
+        "$65.0\\,\\text{cm}$"
+      ],
+      "answer": 3,
+      "explanation": "The objective forms the first image at its focal plane, 60 cm away. This must act as the object for the eyepiece such that the image is at $v = -25\\,\\text{cm}$. From $1/v - 1/u = 1/f$, $1/u = -1/25 - 1/5 = -6/25$, so $|u| = 4.17\\,\\text{cm}$. The lens separation is $60 + 4.17 = 64.2\\,\\text{cm}$.",
+      "optionRationale": {
+        "1": "This adds the near-point distance to the focal length of the objective, but the object distance for the eyepiece is not 25 cm.",
+        "2": "This subtracts the object distance of the eyepiece instead of adding, which would put the eyepiece on the wrong side of the first image.",
+        "4": "This is the separation for normal adjustment, with the final image at infinity, $f_o + f_e$."
+      },
+      "objective": "Find the lens separation of a telescope focused on the near point"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-m05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The objective of a compound microscope has a focal length of 0.80 cm and the object is placed 1.0 cm from it. What is the magnitude of the lateral magnification produced by the objective?",
+      "options": [
+        "$4.0$",
+        "$5.0$",
+        "$3.0$",
+        "$0.80$"
+      ],
+      "answer": 1,
+      "explanation": "Using $1/v = 1/f + 1/u$ with $f = +0.80\\,\\text{cm}$ and $u = -1.0\\,\\text{cm}$, $1/v = 1.25 - 1.0 = 0.25$, so $v = 4.0\\,\\text{cm}$. The lateral magnification is $m = v/u = 4.0/(-1.0)$, of magnitude 4.0, and the image is real and inverted.",
+      "optionRationale": {
+        "2": "This divides the image distance by the focal length, which is not the definition of lateral magnification.",
+        "3": "This subtracts one from the magnification, which is used in a different formula and not here.",
+        "4": "This divides the focal length by the object distance, which does not give the magnification either."
+      },
+      "objective": "Calculate the magnification produced by the objective of a compound microscope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-m06",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The eyepiece of a compound microscope forms a real, inverted image of the first image.\nReason (R): The eyepiece acts as a simple microscope and magnifies the first image formed by the objective.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "The assertion is false: the eyepiece is used like a simple microscope or magnifying glass, with the first image lying just inside its focal length, so it produces a virtual and enlarged final image, not a real one. The reason is true. The objective forms a real, magnified image, and the eyepiece magnifies it further for viewing.",
+      "optionRationale": {
+        "1": "A is false, since the eyepiece produces a virtual final image.",
+        "2": "A is false; the eyepiece final image is virtual and not real.",
+        "3": "R is true; the eyepiece acts as a simple microscope."
+      },
+      "objective": "Describe the roles of objective and eyepiece in a compound microscope"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-m07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about an astronomical refracting telescope in normal adjustment.\nA. The final image is formed at infinity.\nB. The distance between the objective and the eyepiece is $f_o + f_e$.\nC. The magnifying power is $f_o/f_e$.\nD. The eyepiece has a larger focal length than the objective.\nChoose the correct option.",
+      "options": [
+        "A, C and D only",
+        "B and D only",
+        "A and B only",
+        "A, B and C only"
+      ],
+      "answer": 4,
+      "explanation": "In normal adjustment the objective forms its image at its focal plane, which coincides with the focal plane of the eyepiece, so the final image is at infinity (A) and the lenses are $f_o + f_e$ apart (B). The magnifying power is $f_o/f_e$ (C). A large magnification requires $f_o \\gg f_e$, so D is false.",
+      "optionRationale": {
+        "1": "D is false because the objective has the larger focal length, so this option cannot be right.",
+        "2": "D is false, and A and C, which are true, are left out.",
+        "3": "C is also true, so this option is incomplete."
+      },
+      "objective": "Evaluate statements about the telescope in normal adjustment"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-m08",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each instrument setting in List-I with its expression in List-II (D is the least distance of distinct vision, L the distance between the second focus of the objective and the first focus of the eyepiece).",
+      "list": {
+        "left": [
+          "A. Compound microscope, final image at infinity",
+          "B. Astronomical telescope in normal adjustment",
+          "C. Simple microscope, image at the near point",
+          "D. Length of an astronomical telescope in normal adjustment"
+        ],
+        "right": [
+          "I. $1 + D/f$",
+          "II. $f_o + f_e$",
+          "III. $f_o/f_e$",
+          "IV. $(L/f_o)(D/f_e)$"
+        ]
+      },
+      "options": [
+        "A-III, B-IV, C-I, D-II",
+        "A-IV, B-III, C-I, D-II",
+        "A-IV, B-III, C-II, D-I",
+        "A-I, B-III, C-IV, D-II"
+      ],
+      "answer": 2,
+      "explanation": "For the compound microscope with the final image at infinity $m = (L/f_o)(D/f_e)$ (IV). The telescope in normal adjustment has $m = f_o/f_e$ (III). The simple microscope with the image at the near point has $m = 1 + D/f$ (I), and the tube length in normal adjustment is $f_o + f_e$ (II).",
+      "optionRationale": {
+        "1": "A and B are interchanged: the telescope formula is the ratio of focal lengths.",
+        "3": "C and D are interchanged: the simple microscope formula involves D, and the length is a sum of focal lengths.",
+        "4": "A and C are interchanged: the simple microscope formula has only one focal length."
+      },
+      "objective": "Recall expressions for optical instruments"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-m09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "In a compound microscope the objective has a focal length of 2.0 cm and the object is 2.5 cm from it. The eyepiece has a focal length of 5.0 cm and the final image is formed at the least distance of distinct vision, 25 cm. What is the total magnifying power?",
+      "options": [
+        "$30$",
+        "$10$",
+        "$24$",
+        "$20$"
+      ],
+      "answer": 3,
+      "explanation": "For the objective, $1/v = 1/2.0 - 1/2.5 = 0.10$, so $v = 10\\,\\text{cm}$ and $m_o = v/u = 4$ in magnitude. For the eyepiece with the image at the near point, $m_e = 1 + D/f_e = 1 + 25/5.0 = 6$. The total is $m = m_o m_e = 4 \\times 6 = 24$.",
+      "optionRationale": {
+        "1": "This uses $v/f_o$ in place of $v/u$ as the objective magnification, which gives an incorrect larger value.",
+        "2": "This adds the magnifications of the two lenses instead of multiplying them.",
+        "4": "This is the magnifying power when the final image is at infinity, using $D/f_e$ in place of $1 + D/f_e$ for the eyepiece."
+      },
+      "objective": "Find the total magnifying power of a compound microscope with image at the near point"
+    },
+    {
+      "key": "ug26-322-u6-optical-instruments-m10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "The concave mirror of a large reflecting telescope has a diameter of 5.0 m, and that of a small amateur telescope is 0.50 m. By what factor is the light-gathering power of the larger mirror greater?",
+      "options": [
+        "$20$",
+        "$10$",
+        "$1000$",
+        "$100$"
+      ],
+      "answer": 4,
+      "explanation": "The light collected is proportional to the area of the aperture, which varies as the square of the diameter. The ratio of the diameters is 10, so the light-gathering power is greater by $10^2 = 100$. A larger aperture lets fainter objects be seen and also improves the resolving power.",
+      "optionRationale": {
+        "1": "This doubles the ratio of the diameters instead of squaring it.",
+        "2": "This is the ratio of the diameters, not of the areas of the apertures.",
+        "3": "This cubes the ratio of the diameters, but light collected varies with area, as the square."
+      },
+      "objective": "Compare light-gathering powers of telescope apertures"
+    }
+  ]
+}

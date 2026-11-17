@@ -1,0 +1,183 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_13825fd8eba54af8837b4c9a4512a881",
+  "title": "Electric field, electric field lines electric field due to a point charge, electric field due to a"
+ },
+ "lesson": null,
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-322-u1-electric-field-m01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A negative point charge is placed at a point where the electric field points towards the east. In which direction does the electric force on the charge act?",
+   "options": [
+    "Towards the east, along the field, because the field alone fixes the direction of force on any charge",
+    "Towards the west, opposite to the field, because the force is $\\vec F = q\\vec E$ and $q$ is negative",
+    "Towards the north, perpendicular to the field, because a negative charge is deflected sideways by it",
+    "No force acts on it, because the negative sign of the charge cancels the effect of the field on it"
+   ],
+   "answer": 2,
+   "explanation": "The force on a charge in an electric field is $\\vec F = q\\vec E$. For a negative $q$ the vector $\\vec F$ is reversed with respect to $\\vec E$, so a field pointing east produces a force pointing west. The magnitude $|q|E$ is the same as for a positive charge; only the direction changes.",
+   "optionRationale": {
+    "1": "Force follows the field only for a positive charge.",
+    "3": "Electric force acts along or against the field; sideways deflection is a magnetic effect.",
+    "4": "The force has magnitude $|q|E$; the sign of the charge only reverses its direction."
+   },
+   "objective": "Relate the direction of force on a charge to the electric field and the sign of the charge"
+  },
+  {
+   "key": "ug26-322-u1-electric-field-m02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A charge of $5.0\\,\\mu\\text{C}$ is placed in a uniform electric field of $2.0\\times10^{4}\\,\\text{N C}^{-1}$. What is the magnitude of the force on it?",
+   "options": [
+    "$1.0\\,\\text{N}$",
+    "$0.010\\,\\text{N}$",
+    "$0.10\\,\\text{N}$",
+    "$4.0\\times10^{9}\\,\\text{N}$"
+   ],
+   "answer": 3,
+   "explanation": "The force on a charge in an electric field has magnitude $F = qE$. Here $F = (5.0\\times10^{-6}\\,\\text{C})(2.0\\times10^{4}\\,\\text{N C}^{-1}) = 0.10\\,\\text{N}$. The microcoulomb has to be converted to coulomb before multiplying, otherwise the result is off by a power of ten.",
+   "optionRationale": {
+    "1": "Treats $5.0\\,\\mu\\text{C}$ as $5\\times10^{-5}\\,\\text{C}$, a power-of-ten slip.",
+    "2": "Treats $5.0\\,\\mu\\text{C}$ as $5\\times10^{-7}\\,\\text{C}$, a slip in the other direction.",
+    "4": "Divides $E$ by $q$ instead of multiplying them, which does not give a force."
+   },
+   "objective": "Compute the force on a charge from F = qE"
+  },
+  {
+   "key": "ug26-322-u1-electric-field-m03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Two positive point charges of $9\\,\\text{nC}$ and $4\\,\\text{nC}$ are placed $50\\,\\text{cm}$ apart in air. At what point on the line joining them is the electric field zero?",
+   "options": [
+    "$20\\,\\text{cm}$ from the $9\\,\\text{nC}$ charge, between the two charges",
+    "$34.6\\,\\text{cm}$ from the $9\\,\\text{nC}$ charge, between the two charges",
+    "$25\\,\\text{cm}$ from the $9\\,\\text{nC}$ charge, at the midpoint of the two charges",
+    "$30\\,\\text{cm}$ from the $9\\,\\text{nC}$ charge, between the two charges"
+   ],
+   "answer": 4,
+   "explanation": "Between like charges the two fields oppose, so a null point exists on the line joining them, nearer the smaller charge. Setting $k(9)/x^{2} = k(4)/(0.5-x)^{2}$ gives $3(0.5-x)=2x$, hence $x = 0.30\\,\\text{m}$ from the $9\\,\\text{nC}$ charge.",
+   "optionRationale": {
+    "1": "This inverts the ratio and places the null point nearer the larger charge.",
+    "2": "This uses the ratio of the charges, $9:4$, instead of the ratio of their square roots, $3:2$.",
+    "3": "The midpoint is a null point only when the two charges are equal."
+   },
+   "objective": "Locate the point of zero field between two like charges"
+  },
+  {
+   "key": "ug26-322-u1-electric-field-m04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "A small oil drop of mass $6.4\\times10^{-15}\\,\\text{kg}$ carries two excess electrons and stays at rest in a uniform vertical electric field. Taking $g = 10\\,\\text{m s}^{-2}$ and $e = 1.6\\times10^{-19}\\,\\text{C}$, find the magnitude and direction of the field.",
+   "options": [
+    "$2.0\\times10^{5}\\,\\text{N C}^{-1}$, vertically upward",
+    "$2.0\\times10^{5}\\,\\text{N C}^{-1}$, vertically downward",
+    "$4.0\\times10^{5}\\,\\text{N C}^{-1}$, vertically downward",
+    "$4.0\\times10^{5}\\,\\text{N C}^{-1}$, vertically upward"
+   ],
+   "answer": 2,
+   "explanation": "For equilibrium the electric force must balance the weight: $|q|E = mg$, so $E = (6.4\\times10^{-15})(10)/(3.2\\times10^{-19}) = 2.0\\times10^{5}\\,\\text{N C}^{-1}$. Weight acts downward, so the electric force on the drop must act upward; because the drop is negative, the field must point downward.",
+   "optionRationale": {
+    "1": "The magnitude is right, but an upward field would push a negative drop downward, adding to its weight.",
+    "3": "This uses the charge of a single electron instead of two.",
+    "4": "This uses one electron's charge and also reverses the direction of the field."
+   },
+   "objective": "Balance the weight of a charged drop with the electric force"
+  },
+  {
+   "key": "ug26-322-u1-electric-field-m05",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about the electric field.\nA. It is a vector quantity.\nB. The field of an isolated point charge has the same magnitude at all points of a sphere centred on the charge.\nC. The field of an isolated positive point charge points towards the charge.\nD. The field due to several charges is the vector sum of the fields due to the individual charges.\nChoose the correct answer from the options given below.",
+   "options": [
+    "A and C only",
+    "B, C and D only",
+    "A, B and D only",
+    "A, B, C and D"
+   ],
+   "answer": 3,
+   "explanation": "Electric field is a vector (A true). For a point charge $E = kq/r^{2}$ depends only on $r$, so it is equal everywhere on a concentric sphere (B true). The superposition principle makes fields add as vectors (D true). The field of a positive charge points away from it, so C is false.",
+   "optionRationale": {
+    "1": "Accepts the false statement C and leaves out the true statements B and D.",
+    "2": "Leaves out A, which is true because the field has both magnitude and direction.",
+    "4": "Includes C, which is false: the field of a positive charge points outward."
+   },
+   "objective": "Evaluate statements about the properties of the electric field"
+  },
+  {
+   "key": "ug26-322-u1-electric-field-m06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Equal positive charges of $2.0\\,\\mu\\text{C}$ are placed at three corners of a square of side $0.30\\,\\text{m}$, the fourth corner being vacant. What is the electric field at the centre of the square?",
+   "options": [
+    "$4.0\\times10^{5}\\,\\text{N C}^{-1}$, directed towards the vacant corner",
+    "$4.0\\times10^{5}\\,\\text{N C}^{-1}$, directed away from the vacant corner",
+    "$2.0\\times10^{5}\\,\\text{N C}^{-1}$, directed towards the vacant corner",
+    "Zero, because the three remaining charges are placed symmetrically about the centre"
+   ],
+   "answer": 1,
+   "explanation": "With all four charges present the field at the centre would vanish, so the three charges together give the same field as a charge of equal size and opposite sign at the vacant corner would. The opposite-corner charge is at $a/\\sqrt2$, giving $E = kq/(a^{2}/2) = 2kq/a^{2} = 4.0\\times10^{5}\\,\\text{N C}^{-1}$, directed towards the vacant corner.",
+   "optionRationale": {
+    "2": "The magnitude is right, but the field of the opposite-corner charge points away from it, that is towards the vacant corner.",
+    "3": "This uses the side $a$ instead of the half-diagonal $a/\\sqrt2$ as the distance of a corner from the centre.",
+    "4": "Symmetry gives zero only with all four charges; removing one leaves a non-zero resultant."
+   },
+   "objective": "Use superposition and symmetry to find the field at the centre of a square"
+  },
+  {
+   "key": "ug26-322-u1-electric-field-m07",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): At large distances the electric field of an electric dipole falls off faster than the field of a single point charge.\nReason (R): The two charges of a dipole are equal and opposite, so their fields almost cancel at distant points.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "A point charge has a field proportional to $1/r^{2}$, while the dipole field on its axis or equatorial line falls as $1/r^{3}$, which is faster. The reason given is the actual cause: the net charge is zero, so the fields of $+q$ and $-q$ nearly cancel and only a small residue due to their separation survives.",
+   "optionRationale": {
+    "2": "Not the answer: A is true because the dipole field falls as $1/r^{3}$.",
+    "3": "Not the answer: R is not merely another true fact, it is the direct cause of the faster fall.",
+    "4": "Not the answer: R is true, since $+q$ and $-q$ give nearly cancelling fields at distant points."
+   },
+   "objective": "Compare the distance dependence of dipole and point-charge fields"
+  },
+  {
+   "key": "ug26-322-u1-electric-field-m08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "A proton and an electron are released from rest in the same uniform electric field. What is the ratio of the magnitude of the acceleration of the electron to that of the proton? ($m_p = 1.67\\times10^{-27}\\,\\text{kg}$, $m_e = 9.1\\times10^{-31}\\,\\text{kg}$)",
+   "options": [
+    "About $5.4\\times10^{-4}$, with the two accelerations in opposite directions",
+    "About $43$, with the two accelerations in opposite directions",
+    "About $1.0$, with the two accelerations in the same direction",
+    "About $1800$, with the two accelerations in opposite directions"
+   ],
+   "answer": 4,
+   "explanation": "Both particles carry a charge of magnitude $e$, so the force on each is $eE$ and the accelerations are $eE/m$. The ratio is $a_e/a_p = m_p/m_e = 1.67\\times10^{-27}/9.1\\times10^{-31} \\approx 1.8\\times10^{3}$. The signs of the charges differ, so the accelerations are opposite.",
+   "optionRationale": {
+    "1": "This inverts the ratio and makes the heavier proton accelerate more.",
+    "2": "This takes the square root of the mass ratio, which has no basis in $a = F/m$ for equal forces.",
+    "3": "Equal forces do not give equal accelerations when the masses differ so much, and opposite charges also give opposite directions."
+   },
+   "objective": "Compare the accelerations of an electron and a proton in the same field"
+  }
+ ]
+}

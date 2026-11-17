@@ -1,0 +1,239 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_16f8b11caa4545a9adaf29becebf52c0",
+    "title": "Database Concepts"
+  },
+  "lesson": null,
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r02-database-concepts-relational-algebra-g01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In the relational model, what is a row of a relation called?",
+      "options": [
+        "Tuple",
+        "Attribute",
+        "Domain",
+        "Degree"
+      ],
+      "answer": 1,
+      "explanation": "In relational terms a row is called a tuple, and each tuple holds one record of the real-world entity. A column is an attribute. The domain is the set of allowed values of an attribute and the degree is the number of attributes in the relation.",
+      "optionRationale": {
+        "2": "An attribute is a column of the relation, not a row.",
+        "3": "A domain is the set of values an attribute may take.",
+        "4": "Degree is the number of attributes (columns), not a name for a row."
+      },
+      "objective": "Name relational terms for a row"
+    },
+    {
+      "key": "ug26-308-r02-database-concepts-relational-algebra-g02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The same address of a student is stored in two different files, and it is changed in only one of them. Which problem does this show?",
+      "options": [
+        "Data independence",
+        "Data inconsistency",
+        "Referential integrity",
+        "Data security"
+      ],
+      "answer": 2,
+      "explanation": "When the same fact is kept in several places and only one place is updated, the copies disagree with each other. This is data inconsistency, a direct result of data redundancy in file systems. A DBMS keeps one copy to avoid it.",
+      "optionRationale": {
+        "1": "Data independence is a benefit of a DBMS; it means programs are not affected by changes in storage.",
+        "3": "Referential integrity concerns foreign keys matching a primary key, not duplicate copies.",
+        "4": "Security deals with protection from unauthorised access, not with differing copies."
+      },
+      "objective": "Identify data inconsistency caused by redundancy"
+    },
+    {
+      "key": "ug26-308-r02-database-concepts-relational-algebra-g03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "What is a key made up of two or more attributes taken together called?",
+      "options": [
+        "Foreign key",
+        "Alternate key",
+        "Composite key",
+        "Surrogate key"
+      ],
+      "answer": 3,
+      "explanation": "When no single attribute identifies a tuple uniquely but a combination does, the combination serves as a composite key. For example, in a table of marks, the pair of student roll number and subject code can be the key.",
+      "optionRationale": {
+        "1": "A foreign key links a column to the primary key of another table.",
+        "2": "An alternate key is a candidate key that was not chosen as the primary key.",
+        "4": "A surrogate key is an artificial single value such as a serial number."
+      },
+      "objective": "Define composite key"
+    },
+    {
+      "key": "ug26-308-r02-database-concepts-relational-algebra-g04",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each term in List-I with its meaning in List-II.",
+      "options": [
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-IV, D-III",
+        "A-III, B-IV, C-II, D-I",
+        "A-II, B-I, C-III, D-IV"
+      ],
+      "answer": 4,
+      "explanation": "A tuple is one row (II) and an attribute is one column (I). Degree is the number of columns of the relation (III) and cardinality is the number of rows, i.e. the number of tuples (IV).",
+      "optionRationale": {
+        "1": "A tuple is a row and an attribute is a column; A and B are exchanged here.",
+        "2": "Degree counts columns and cardinality counts rows; C and D are exchanged here.",
+        "3": "Tuple and attribute are not counts; a tuple is a row and an attribute is a column."
+      },
+      "objective": "Match relational terminology",
+      "list": {
+        "left": [
+          "A. Tuple",
+          "B. Attribute",
+          "C. Degree",
+          "D. Cardinality"
+        ],
+        "right": [
+          "I. A column of a relation",
+          "II. A row of a relation",
+          "III. Number of columns",
+          "IV. Number of rows"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r02-database-concepts-relational-algebra-g05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "The relation MARKS(Roll, Name, Score) has the tuples (1, Asha, 82), (2, Ravi, 64), (3, Meena, 91), (4, Karan, 70), (5, Sia, 55) and (6, Dev, 88). What does the expression $\\pi_{Name}(\\sigma_{Score > 70}(MARKS))$ give?",
+      "options": [
+        "Asha, Meena, Karan, Dev",
+        "Asha, Meena, Dev",
+        "Ravi, Karan, Sia",
+        "(1, Asha, 82), (3, Meena, 91), (6, Dev, 88)"
+      ],
+      "answer": 2,
+      "explanation": "The inner operation, selection, keeps the tuples with a score above 70: Asha (82), Meena (91) and Dev (88). Karan has exactly 70, which is not greater than 70. The projection then keeps only the Name attribute, so the result contains the three names.",
+      "optionRationale": {
+        "1": "Karan scored exactly 70 and the condition is Score > 70, so that tuple is not selected.",
+        "3": "These are the students whose score is 70 or less; the selection keeps the opposite set.",
+        "4": "These are the selected full tuples; the projection then keeps only the Name column."
+      },
+      "objective": "Evaluate selection followed by projection"
+    },
+    {
+      "key": "ug26-308-r02-database-concepts-relational-algebra-g06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "analytical",
+      "stem": "The relation ENROL(Name, Class, Section) has the tuples (Asha, XII, A), (Asha, XI, B), (Ravi, XII, C) and (Ravi, XII, D). Which set of attributes can serve as a candidate key?",
+      "options": [
+        "{Name, Class}",
+        "{Class}",
+        "{Name}",
+        "{Name, Section}"
+      ],
+      "answer": 4,
+      "explanation": "A candidate key must have a different value for every tuple. Name repeats, Class repeats, and the pair (Name, Class) repeats as (Ravi, XII). The pair (Name, Section) is different in all four tuples, so it can act as a composite candidate key.",
+      "optionRationale": {
+        "1": "The pair (Ravi, XII) occurs in two tuples, so it does not identify a tuple uniquely.",
+        "2": "Class alone repeats (XII appears three times), so it cannot identify a tuple.",
+        "3": "Name repeats: Asha and Ravi each occur twice."
+      },
+      "objective": "Find a composite candidate key from sample tuples"
+    },
+    {
+      "key": "ug26-308-r02-database-concepts-relational-algebra-g07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about a DBMS.\nA. A DBMS helps to reduce data redundancy.\nB. A DBMS can enforce constraints such as primary key and foreign key.\nC. A DBMS allows many users to share the same data.\nD. A DBMS always increases data inconsistency.\nWhich statements are correct?",
+      "options": [
+        "A and D only",
+        "B, C and D only",
+        "A, B and C only",
+        "A, B and D only"
+      ],
+      "answer": 3,
+      "explanation": "A DBMS stores data once and shares it, which reduces redundancy (A). It checks constraints such as keys and referential integrity (B) and lets many users work on common data (C). D is false because keeping one controlled copy lowers, not raises, inconsistency.",
+      "optionRationale": {
+        "1": "D is false: a DBMS reduces inconsistency; B and C are also correct.",
+        "2": "D is false, and A is a correct statement so it must be included.",
+        "4": "D is false, and C is correct because a DBMS supports data sharing."
+      },
+      "objective": "Judge statements about advantages of a DBMS"
+    },
+    {
+      "key": "ug26-308-r02-database-concepts-relational-algebra-g08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "R(id, p) has the tuples (1, a), (2, b), (3, c). S(id, q) has the tuples (1, x), (1, y), (3, z), (4, w). How many tuples are in $R \\times S$ and how many remain after the selection $\\sigma_{R.id = S.id}(R \\times S)$?",
+      "options": [
+        "12 and 3",
+        "7 and 3",
+        "12 and 2",
+        "12 and 4"
+      ],
+      "answer": 1,
+      "explanation": "The Cartesian product pairs each of the 3 tuples of R with each of the 4 tuples of S, giving 12 tuples. The selection keeps pairs with equal id: (1, a) with (1, x), (1, a) with (1, y) and (3, c) with (3, z). That is 3 tuples.",
+      "optionRationale": {
+        "2": "The Cartesian product multiplies the cardinalities (3 x 4 = 12); it does not add them.",
+        "3": "The id 1 of R matches two tuples of S and the id 3 matches one, so three tuples satisfy the condition.",
+        "4": "The id 2 of R has no match in S, and the id 4 of S has no match in R, so only three tuples are selected."
+      },
+      "objective": "Count tuples after a Cartesian product and selection"
+    },
+    {
+      "key": "ug26-308-r02-database-concepts-relational-algebra-g09",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): No attribute of a primary key can hold a NULL value.\nReason (R): The primary key must identify every tuple of the relation uniquely, and a NULL cannot be used to identify anything.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "A primary key exists to point to exactly one tuple. A NULL means the value is unknown, so a tuple whose key is NULL could not be told apart from, or looked up among, the others. The reason therefore explains why the rule in the assertion exists.",
+      "optionRationale": {
+        "2": "The reason is the actual cause of the rule, so it does explain the assertion.",
+        "3": "The reason is true: a primary key must identify tuples, and NULL cannot do that.",
+        "4": "The assertion is true: primary key attributes cannot be NULL."
+      },
+      "objective": "Explain entity integrity for primary keys"
+    },
+    {
+      "key": "ug26-308-r02-database-concepts-relational-algebra-g10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Union-compatible relations A and B have 7 and 5 tuples, and 2 tuples occur in both. How many tuples are in $(A \\cup B) - (A \\cap B)$?",
+      "options": [
+        "10",
+        "5",
+        "12",
+        "8"
+      ],
+      "answer": 4,
+      "explanation": "A union B holds 7 + 5 - 2 = 10 tuples because the common tuples are written once. A intersection B has 2 tuples. Removing those from the union leaves 10 - 2 = 8 tuples, which is (7 - 2) from A only plus (5 - 2) from B only.",
+      "optionRationale": {
+        "1": "This is only the cardinality of A union B; the two common tuples must still be removed.",
+        "2": "This is the number of tuples in A - B alone; the tuples that are only in B must be counted as well.",
+        "3": "This is 7 + 5, which counts the two common tuples twice and also does not remove them."
+      },
+      "objective": "Compute the cardinality of the symmetric difference"
+    }
+  ]
+}
