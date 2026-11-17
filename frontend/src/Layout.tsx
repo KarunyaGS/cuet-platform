@@ -16,7 +16,7 @@ export function Logo() {
           <span className="text-accent">Pre</span>
           <span className="text-ink">pora</span>
         </span>
-        <span className="whitespace-nowrap text-[11px] font-normal text-ink-3">Student Centric Super App</span>
+        <span className="hidden whitespace-nowrap text-[11px] font-normal text-ink-3 sm:block">Student Centric Super App</span>
       </span>
     </span>
   );
@@ -287,7 +287,7 @@ export function Layout() {
         Skip to content
       </a>
       <header className="sticky top-0 z-30 border-b border-rule bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
-        <div className={`flex h-14 items-center gap-2 px-5 sm:px-7 lg:px-10 ${showSidebar ? 'max-w-none' : shell}`}>
+        <div className={`flex h-14 items-center gap-1.5 px-3 sm:gap-2 sm:px-7 lg:px-10 ${showSidebar ? 'max-w-none' : shell}`}>
           {focus ? (
             <>
               <Logo />
@@ -306,7 +306,7 @@ export function Layout() {
               <Link to="/" className="rounded-lg" aria-label="Prepora home">
                 <Logo />
               </Link>
-              <span aria-hidden data-header-divider className="mx-2 h-6 w-px shrink-0 bg-rule-strong sm:mx-4" />
+              <span aria-hidden data-header-divider className="mx-1 hidden h-6 w-px shrink-0 bg-rule-strong sm:mx-4 sm:block" />
               <div className="mr-1 shrink-0 sm:mr-2">
                 <ExamSelector />
               </div>

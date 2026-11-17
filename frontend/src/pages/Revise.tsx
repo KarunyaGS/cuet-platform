@@ -1,9 +1,9 @@
-import { ListChecks } from 'lucide-react';
+import { ChevronLeft, ListChecks } from 'lucide-react';
 import { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import { api } from '../api';
 import { AddCards, AddToPlan, BookmarkButton, ConceptActions, useConcepts } from '../tools';
-import { Button, Empty, ErrorBox, kindLabel, Loading, PageHeader, Segmented, useAuth, useLoad } from '../ui';
+import { Empty, ErrorBox, kindLabel, Loading, useLoad } from '../ui';
 import { BlockView } from './Learn';
 
 const ORDER = ['DEFINITION', 'FORMULA', 'KEY_POINT', 'IMPORTANT_FACT', 'CALLOUT'];
@@ -19,97 +19,84 @@ const FILTERS: { type: string; label: string }[] = [
 export function RevisePage() {
   const { nodeId = '' } = useParams();
   const r = useLoad(() => api.revision(nodeId), [nodeId]);
-  const { user } = useAuth();
-  const navigate = useNavigate();
   const [filter, setFilter] = useState<string>('ALL');
   const only = filter === 'ALL' ? null : filter;
-  const [starting, setStarting] = useState(false);
-  const [err, setErr] = useState<Error | null>(null);
   const concepts = useConcepts((r.data?.lessons ?? []).flatMap((l) => l.blocks.map((b) => b.conceptKey)).filter((k): k is string => Boolean(k)));
   if (r.loading) return <Loading />;
   if (r.error) return <ErrorBox error={r.error} onRetry={r.reload} />;
   const d = r.data!;
   const count = d.lessons.reduce((n, l) => n + l.blocks.length, 0);
-  const practise = async () => {
-    if (!user) return navigate('/signin');
-    setStarting(true);
-    setErr(null);
-    try {
-      const s = await api.startPractice({ mode: 'PRACTICE', nodeId, count: 10 });
-      navigate(`/practice/${s.session.id}`);
-    } catch (e) {
-      setErr(e as Error);
-    } finally {
-      setStarting(false);
-    }
-  };
   return (
     <div data-revise>
-      <PageHeader
-        back={{ to: `/topic/${d.topic.id}`, label: 'Full topic' }}
-        title={<>Quick revision: {d.topic.title}</>}
-        subtitle={
-          <span>
-            {kindLabel(d.topic.kind, d.topic.label) ? `${kindLabel(d.topic.kind, d.topic.label)}, ` : ''}
-            {d.topic.paper}. {count} {count === 1 ? 'note' : 'notes'} from {d.lessons.length} {d.lessons.length === 1 ? 'lesson' : 'lessons'}.
-          </span>
-        }
-        actions={
-          <>
+      <header className="mb-4">
+        <Link to={`/topic/${d.topic.id}`} className="mb-0.5 inline-flex items-center gap-1 text-sm text-ink-2 hover:text-accent">
+          <ChevronLeft aria-hidden className="size-4" />
+          Full topic
+        </Link>
+        <h1 className="text-base leading-snug font-semibold text-ink sm:text-lg lg:text-xl" data-revise-title>
+          Quick revision: {d.topic.title}
+        </h1>
+        <p className="mt-0.5 text-sm text-ink-2">
+          {kindLabel(d.topic.kind, d.topic.label) ? `${kindLabel(d.topic.kind, d.topic.label)}, ` : ''}
+          {d.topic.paper}. {count} {count === 1 ? 'note' : 'notes'} from {d.lessons.length} {d.lessons.length === 1 ? 'lesson' : 'lessons'}.
+        </p>
+        <div className="mt-2.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-2" data-revise-toolbar>
+          <div className="flex flex-wrap items-center gap-2" data-revise-actions>
             <BookmarkButton kind="REVISION" id={d.topic.id} />
             <AddToPlan kind="TOPIC" refId={d.topic.id} title={`Revise: ${d.topic.title}`} />
             {count > 0 && <AddCards from={{ nodeId: d.topic.id }} onDone={concepts.reload} />}
-          </>
-        }
-      />
+          </div>
+          {count > 0 && (
+            <div role="tablist" aria-label="Show notes of one kind" className="ml-auto flex flex-wrap items-center justify-end gap-0.5" data-revise-filters>
+              {FILTERS.map((f) => (
+                <button
+                  key={f.type}
+                  type="button"
+                  role="tab"
+                  aria-selected={filter === f.type}
+                  onClick={() => setFilter(f.type)}
+                  className={`rounded-md px-2.5 py-1 text-[13px] transition-colors ${filter === f.type ? 'bg-accent-soft font-medium text-accent' : 'text-ink hover:bg-ink/5'}`}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </header>
       {count === 0 ? (
         <Empty icon={<ListChecks />}>There are no revision notes for this topic yet. Open the full topic for its lessons and questions.</Empty>
       ) : (
-        <>
-          <div className="mb-4">
-            <Segmented label="Show notes of one kind" value={filter} onChange={setFilter} options={FILTERS.map((f) => ({ value: f.type, label: f.label }))} />
-          </div>
-          <div className="space-y-7">
-            {d.lessons.map((l) => {
-              const blocks = l.blocks
-                .filter((b) => !only || b.type === only || (only === 'KEY_POINT' && b.type === 'IMPORTANT_FACT'))
-                .sort((a, b) => ORDER.indexOf(a.type) - ORDER.indexOf(b.type) || a.position - b.position);
-              if (!blocks.length) return null;
-              return (
-                <section key={l.resourceId}>
-                  <h2 className="mb-3 flex items-baseline justify-between gap-3 border-b border-rule pb-2 text-base font-semibold text-ink">
-                    <span className="min-w-0">
-                      {l.lesson} <span className="num ml-1 text-sm font-normal text-ink-3">{blocks.length}</span>
-                    </span>
-                    <Link to={`/learn/${l.resourceId}`} className="shrink-0 text-sm font-medium text-accent hover:underline">
-                      Open lesson
-                    </Link>
-                  </h2>
-                  {/* Two columns on a wide screen: short notes are easy to scan side by side. A note never splits across columns. */}
-                  <div className="gap-x-6 lg:columns-2" data-revise-notes>
-                    {blocks.map((b) => (
-                      <div key={b.position} className="mb-3 break-inside-avoid">
-                        <BlockView b={{ ...b, media_asset_id: null, alt_text: null, caption: null, media_kind: null }} solvedNo={0} />
-                        {b.conceptKey && <ConceptActions id={b.conceptKey} c={concepts} />}
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              );
-            })}
-          </div>
-        </>
+        <div className="space-y-6">
+          {d.lessons.map((l) => {
+            const blocks = l.blocks
+              .filter((b) => !only || b.type === only || (only === 'KEY_POINT' && b.type === 'IMPORTANT_FACT'))
+              .sort((a, b) => ORDER.indexOf(a.type) - ORDER.indexOf(b.type) || a.position - b.position);
+            if (!blocks.length) return null;
+            return (
+              <section key={l.resourceId}>
+                <h2 className="mb-3 flex items-baseline justify-between gap-3 border-b border-rule pb-2 text-base font-semibold text-ink">
+                  <span className="min-w-0">
+                    {l.lesson} <span className="num ml-1 text-sm font-normal text-ink-3">{blocks.length}</span>
+                  </span>
+                  <Link to={`/learn/${l.resourceId}`} className="shrink-0 text-sm font-medium text-accent hover:underline">
+                    Open lesson
+                  </Link>
+                </h2>
+                {/* Two columns on a wide screen: short notes are easy to scan side by side. A note never splits across columns. */}
+                <div className="gap-x-6 lg:columns-2" data-revise-notes>
+                  {blocks.map((b) => (
+                    <div key={b.position} className="mb-3 min-w-0 max-w-full overflow-x-auto break-inside-avoid">
+                      <BlockView b={{ ...b, media_asset_id: null, alt_text: null, caption: null, media_kind: null }} solvedNo={0} />
+                      {b.conceptKey && <ConceptActions id={b.conceptKey} c={concepts} />}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
+        </div>
       )}
-      <div className="mt-7 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-rule bg-surface px-5 py-4">
-        <span>
-          <span className="block font-semibold text-ink">Revised?</span>
-          <span className="block text-sm text-ink-2">Check yourself with 10 questions on this topic.</span>
-        </span>
-        <Button onClick={practise} disabled={starting}>
-          {starting ? 'Starting…' : 'Practise 10 questions'}
-        </Button>
-      </div>
-      {err && <ErrorBox error={err} />}
     </div>
   );
 }
