@@ -28,6 +28,7 @@ import { deleteOne, editOne, editSchema, listAll, listForSurface, listForSurface
 import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, createQuestionCard, createQuestionCardSchema, deleteCard, importCards, importCardsSchema, listCards, questionCardState, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
 import { pyqDocument, pyqDocumentFile, pyqExamSchema, pyqSubject, pyqTree } from '../services/pyq';
 import { chapterBankDocuments } from '../services/native-papers';
+import { examPreview, previewQuery, recordViolation, violationSchema } from '../services/exam';
 import { chatMessageSchema, createTicket, getChat, listTickets, replySchema, replyTicket, sendChat, storeAttachment, studentAttachment, ticketDetail, ticketSchema, unreadCount, CATEGORIES } from '../services/support';
 import { examActive, keeper, paperInScope, scienceOnly, UG_SCIENCE_PAPER_CODES } from '../lib/scope';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
@@ -205,10 +206,19 @@ student.post('/practice', async (c) => {
   await assertWithinPlan(c.env.DB, c.get('user').id, input.mode);
   return c.json(await startSession(c.env.DB, preview(c.env), c.get('user').id, input), 201);
 });
+student.get('/exam/preview', async (c) => c.json(await examPreview(c.env.DB, preview(c.env), previewQuery.parse(c.req.query()))));
+student.post('/practice/:id/violations', async (c) => {
+  await rateLimit(c.env, c.req, 'exam-violation', c.get('user').id, 60, 3600);
+  return c.json(await recordViolation(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, violationSchema)));
+});
 student.get('/practice/:id', async (c) => c.json(await getSession(c.env.DB, c.get('user').id, c.req.param('id'))));
 student.post('/practice/:id/answers', async (c) => c.json(await saveAnswer(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, answerSchema))));
 student.put('/practice/:id/marks', async (c) => c.json(await saveMarks(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, marksSchema))));
-student.post('/practice/:id/submit', async (c) => c.json(await submitSession(c.env.DB, c.get('user').id, c.req.param('id'))));
+student.post('/practice/:id/submit', async (c) => {
+  // The test screen says when it is submitting because the clock ran out; the server checks that against its own clock.
+  const body = (await c.req.json().catch(() => null)) as { timedOut?: boolean } | null;
+  return c.json(await submitSession(c.env.DB, c.get('user').id, c.req.param('id'), body?.timedOut === true ? 'TIME_UP' : 'SUBMITTED'));
+});
 student.get('/progress', async (c) => c.json(await progress(c.env.DB, c.get('user').id)));
 student.post('/practice/daily', async (c) => {
   await assertWithinPlan(c.env.DB, c.get('user').id, 'PRACTICE');

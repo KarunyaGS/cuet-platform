@@ -139,9 +139,15 @@ export interface PracticeSession {
     /** Set when the attempt is a fixed paper: one of our mock papers, or an official previous-year paper. */
     source: { kind: 'MOCK_PAPER' | 'PAST_PAPER'; id: string; title: string } | null;
     result: { score: number; maxScore: number; correct: number; incorrect: number; unattempted: number; submittedAt: string } | null;
+    /** Why the attempt ended: SUBMITTED, TIME_UP or TERMINATED_<incident>. Null while it is running. */
+    endReason: string | null;
+    /** Examination mode (mock tests): the rules in force and every incident reported during the attempt. Null for practice. */
+    exam: { maxIncidents: number; returnSeconds: number; mergeSeconds: number; incidents: number; violations: { type: string; at: string; recordedAt: string; action: string }[] } | null;
   };
   questions: SessionQuestion[];
 }
+export interface ExamPreview { mode: 'TOPIC_TEST' | 'MOCK_TEST'; title: string; subject: string | null; questions: number; durationMinutes: number; marking: { correct: number; incorrect: number }; maxMarks: number; policy: { maxIncidents: number; returnSeconds: number; mergeSeconds: number } }
+export interface ViolationResult { action: 'WARNED' | 'TERMINATED' | 'MERGED' | 'IGNORED'; incidents: number; ended: boolean; endReason: string | null; policy: ExamPreview['policy'] }
 export interface Feedback { outcome?: string; score?: number; correctOptionPositions?: number[] | null; explanation?: string | null; saved: boolean }
 export interface Progress {
   totals: { sessions: number; correct: number; incorrect: number; unattempted: number; answered: number; accuracy: number | null };
@@ -334,7 +340,9 @@ export const api = {
   startPractice: (b: { mode: PracticeSession['session']['mode']; nodeId?: string; paperId?: string; count?: number }) => request<PracticeSession>('POST', '/api/student/practice', b),
   session: (id: string) => request<PracticeSession>('GET', `/api/student/practice/${id}`),
   answer: (id: string, b: { questionId: string; selectedPositions?: number[]; numericAnswer?: number | null }) => request<Feedback>('POST', `/api/student/practice/${id}/answers`, b),
-  submit: (id: string) => request<PracticeSession>('POST', `/api/student/practice/${id}/submit`),
+  examPreview: (q: { mode: 'TOPIC_TEST' | 'MOCK_TEST'; nodeId?: string; paperId?: string }) => request<ExamPreview>('GET', `/api/student/exam/preview?${new URLSearchParams(Object.entries(q).filter(([, v]) => v) as [string, string][])}`),
+  reportViolation: (id: string, b: { type: 'TAB_HIDDEN' | 'WINDOW_BLUR' | 'FULLSCREEN_EXIT' | 'RETURN_TIMEOUT'; at?: string }) => request<ViolationResult>('POST', `/api/student/practice/${id}/violations`, b),
+  submit: (id: string, timedOut = false) => request<PracticeSession>('POST', `/api/student/practice/${id}/submit`, { timedOut }),
   progress: () => request<Progress>('GET', '/api/student/progress'),
   dailyPractice: (b: { paperId?: string; count?: number } = {}) => request<PracticeSession>('POST', '/api/student/practice/daily', b),
   dashboard: () => request<Dashboard>('GET', `/api/student/dashboard?day=${localDay()}&since=${encodeURIComponent(startOfToday())}`),

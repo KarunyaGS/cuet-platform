@@ -999,10 +999,13 @@ model PracticeSession {
   unattemptedCount Int              @default(0) @map("unattempted_count")
   startedAt        DateTime         @default(now()) @map("started_at")
   submittedAt      DateTime?        @map("submitted_at")
+  /// Why the attempt ended: SUBMITTED, TIME_UP or TERMINATED_<incident type>.
+  endReason        String?          @map("end_reason")
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   testPaper        TestPaper?       @relation(fields: [testPaperId], references: [id], onDelete: SetNull)
   curriculumNode   CurriculumNode?  @relation(fields: [curriculumNodeId], references: [id], onDelete: SetNull)
   answers          PracticeAnswer[]
+  violations       ExamViolation[]
 
   @@index([userId, startedAt])
   @@map("practice_sessions")
@@ -2207,4 +2210,24 @@ model SupportMessage {
 
   @@index([threadId, createdAt])
   @@map("support_messages")
+}
+
+/// One integrity event reported by the browser during a mock test (tab hidden, window blurred, full screen left, or not returning in time).
+model ExamViolation {
+  id         String          @id @default(cuid())
+  sessionId  String          @map("session_id")
+  userId     String          @map("user_id")
+  type       String
+  /// When the browser says it happened.
+  occurredAt String          @map("occurred_at")
+  /// When the server received it.
+  recordedAt String          @map("recorded_at")
+  detail     String?
+  /// WARNED, TERMINATED, or MERGED (the same incident reported twice within a few seconds).
+  action     String
+  session    PracticeSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, recordedAt])
+  @@index([userId])
+  @@map("exam_violations")
 }

@@ -11,6 +11,7 @@ import { ButtonLink, Empty, ErrorBox, Loading, Meter, PageHeader, Segmented, use
 
 const MODE: Record<string, string> = { PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' };
 const signed = (n: number) => (n > 0 ? `+${n}` : n < 0 ? `−${Math.abs(n)}` : '0');
+const END_TEXT: Record<string, string> = { TAB_HIDDEN: 'you switched to another tab or window', WINDOW_BLUR: 'the examination window lost focus', FULLSCREEN_EXIT: 'you left full-screen mode', RETURN_TIMEOUT: 'you did not return to full-screen mode in time' };
 type Filter = 'all' | 'CORRECT' | 'INCORRECT' | 'UNATTEMPTED';
 
 /** Result of a submitted test: the score, how it was built from the marking scheme, and every answer reviewed. */
@@ -28,7 +29,7 @@ export function ResultsPage() {
   const r = d.session.result;
   if (!r) {
     return (
-      <Empty action={<ButtonLink to={`/practice/${sessionId}`} kind="primary">Continue the test</ButtonLink>}>
+      <Empty action={<ButtonLink to={d.session.mode === 'PRACTICE' ? `/practice/${sessionId}` : `/exam/${sessionId}`} kind="primary">Continue the test</ButtonLink>}>
         This test is still in progress. Your answers so far are saved.
       </Empty>
     );
@@ -49,6 +50,35 @@ export function ResultsPage() {
           </ButtonLink>
         }
       />
+
+      {d.session.exam && (
+        <div role="status" data-exam-confirmation className={`mb-5 rounded-xl border px-4 py-3 text-sm ${d.session.endReason?.startsWith('TERMINATED_') ? 'border-wrong/40 bg-wrong-soft text-wrong' : 'border-correct/30 bg-correct-soft text-correct'}`}>
+          {d.session.endReason?.startsWith('TERMINATED_') ? (
+            <>
+              <strong>Your examination was ended: </strong>
+              {END_TEXT[d.session.endReason.replace('TERMINATED_', '')] ?? 'a violation of the examination rules'}. The answers you gave up to that point were saved and scored below.
+            </>
+          ) : d.session.endReason === 'TIME_UP' ? (
+            <>
+              <strong>Time is up. </strong>Your test was submitted automatically with the answers you had saved.
+            </>
+          ) : (
+            <>
+              <strong>Your test has been submitted. </strong>Your answers were recorded and scored.
+            </>
+          )}
+          {d.session.exam.violations.length > 0 && (
+            <ul className="mt-2 list-disc pl-5 text-ink-2" data-exam-violations>
+              {d.session.exam.violations.map((v, k) => (
+                <li key={k}>
+                  {new Date(v.at).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', second: '2-digit' })}: {END_TEXT[v.type] ?? v.type}
+                  {v.action === 'WARNED' ? ' (warning)' : v.action === 'TERMINATED' ? ' (test ended)' : ''}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
 
       <section aria-label="Score" className="grid-cols-1 mb-7 grid overflow-hidden rounded-xl border border-rule bg-surface md:grid-cols-[16rem_minmax(0,1fr)]">
         <div className="border-b border-rule p-5 md:border-r md:border-b-0">

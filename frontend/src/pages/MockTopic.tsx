@@ -18,6 +18,8 @@ export function MockTopicPage() {
 
   const start = async (mode: 'PRACTICE' | 'TOPIC_TEST') => {
     if (!user) return navigate('/signin');
+    // A mock test (the timed one) starts from the examination instructions; practice starts straight away.
+    if (mode === 'TOPIC_TEST') return navigate(`/exam/start?mode=TOPIC_TEST&nodeId=${encodeURIComponent(nodeId)}`);
     setErr(null);
     setBusy(mode);
     try {

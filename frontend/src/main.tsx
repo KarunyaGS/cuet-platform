@@ -17,6 +17,7 @@ import { LearnPage } from './pages/Learn';
 import { PastPaperPage, PastPapersPage } from './pages/PastPapers';
 import { PlannerPage } from './pages/Planner';
 import { PlansPage } from './pages/Plans';
+import { ExamInstructionsPage } from './pages/ExamInstructions';
 import { PracticePage } from './pages/Practice';
 import { PracticeCentrePage } from './pages/PracticeCentre';
 import { MockTopicPage } from './pages/MockTopic';
@@ -90,6 +91,9 @@ const router = createBrowserRouter([
       { path: '/cuet/:exam/:page', element: <ExamInfo /> },
     ],
   },
+  // Mock tests run on their own screens, outside the normal app layout: the instructions, then the full-screen examination.
+  { path: '/exam/start', element: <RequireAuth><ExamInstructionsPage /></RequireAuth> },
+  { path: '/exam/:sessionId', element: <RequireAuth><PracticePage exam /></RequireAuth> },
   // Everything else is for signed-in students only.
   {
     element: (

@@ -1,6 +1,6 @@
 import { Annotatable } from '../annotate';
 import { ChevronLeft, ChevronRight, CircleCheck, CircleX, Clock, Flag } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { api, type Feedback, type PracticeSession, type SessionQuestion } from '../api';
 import { QuestionStem } from '../question';
@@ -8,6 +8,7 @@ import { Rich } from '../rich';
 import { BookmarkButton } from '../tools';
 import { SaveForRevision } from '../revision';
 import { Badge, Button, ErrorBox, Loading, useLoad } from '../ui';
+import { ExamGuard } from './ExamGuard';
 
 function useCountdown(deadline: string | null) {
   const [now, setNow] = useState(Date.now());
@@ -39,7 +40,7 @@ const CELL: Record<Exclude<Cell, 'current'>, { cls: string; label: string }> = {
 };
 
 /** The test screen: distraction-free, with a CBT-style question palette, timer and a check before submitting. */
-export function PracticePage() {
+export function PracticePage({ exam = false }: { exam?: boolean }) {
   const { sessionId = '' } = useParams();
   const navigate = useNavigate();
   const loaded = useLoad(() => api.session(sessionId), [sessionId]);
@@ -62,18 +63,26 @@ export function PracticePage() {
   useEffect(() => {
     if (finished && document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
   }, [finished]);
-  useEffect(
-    () => () => {
-      if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
-    },
-    [],
-  );
+  // Leaving the test screen leaves full screen too. (Deferred a moment so a development-mode remount does not drop it.)
+  const alive = useRef(false);
+  useEffect(() => {
+    alive.current = true;
+    return () => {
+      alive.current = false;
+      setTimeout(() => {
+        if (!alive.current && document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
+      }, 100);
+    };
+  }, []);
 
   useEffect(() => {
     if (data && data.session.status !== 'IN_PROGRESS') navigate(`/results/${sessionId}`, { replace: true });
-  }, [data, navigate, sessionId]);
+    // A mock test only ever runs in the examination screen; practice only ever runs in the normal one.
+    else if (data && !exam && data.session.mode !== 'PRACTICE') navigate(`/exam/${sessionId}`, { replace: true });
+    else if (data && exam && data.session.mode === 'PRACTICE') navigate(`/practice/${sessionId}`, { replace: true });
+  }, [data, navigate, sessionId, exam]);
   useEffect(() => {
-    if (left === 0 && data?.session.status === 'IN_PROGRESS') void submit();
+    if (left === 0 && data?.session.status === 'IN_PROGRESS') void submit(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [left]);
   const qid = data?.questions[i]?.id;
@@ -82,6 +91,7 @@ export function PracticePage() {
   }, [qid]);
 
   const practice = data?.session.mode === 'PRACTICE';
+  const examining = exam && !!data && data.session.mode !== 'PRACTICE' && data.session.status === 'IN_PROGRESS';
   const choose = useCallback(
     async (question: SessionQuestion, position: number) => {
       if (practice && feedback[question.id]?.outcome) return; // locked after feedback
@@ -136,10 +146,10 @@ export function PracticePage() {
   const fb = feedback[q.id];
   const total = data.questions.length;
 
-  async function submit() {
+  async function submit(timedOut = false) {
     setBusy(true);
     try {
-      await api.submit(sessionId);
+      await api.submit(sessionId, timedOut);
       navigate(`/results/${sessionId}`);
     } catch (e) {
       setErr(e as Error);
@@ -181,14 +191,17 @@ export function PracticePage() {
   const startSubmit = () => (practice || answeredCount === total ? void submit() : setConfirming(true));
 
   return (
-    <div>
+    <div className={exam ? 'mx-auto min-h-dvh max-w-[84rem] px-4 pb-8 sm:px-6' : undefined} data-exam-screen={exam ? '' : undefined}>
+      {examining && data.session.exam && (
+        <ExamGuard sessionId={sessionId} policy={data.session.exam} incidentsSoFar={data.session.exam.incidents} onEnded={() => navigate(`/results/${sessionId}`, { replace: true })} />
+      )}
       {/* Test bar */}
-      <div className="sticky top-14 z-20 -mx-4 mb-5 border-b border-rule bg-paper/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
+      <div className={`sticky ${exam ? 'top-0' : 'top-14'} z-20 -mx-4 mb-5 border-b border-rule bg-paper px-4 py-3 sm:-mx-6 sm:px-6`}>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2 font-semibold text-ink">
               {source?.title ?? MODE[data.session.mode]}
-              <Badge tone={official ? 'accent' : 'green'}>{official ? 'Official previous-year paper' : 'Practice questions'}</Badge>
+              <Badge tone={official ? 'accent' : exam ? 'amber' : 'green'}>{official ? 'Official previous-year paper' : exam ? 'Examination in progress' : 'Practice questions'}</Badge>
             </div>
             <div className="num text-xs text-ink-3">
               {total} questions, marking {data.session.marking.correct > 0 ? '+' : ''}
@@ -227,10 +240,10 @@ export function PracticePage() {
             <span className="flex items-center gap-2">
               <Badge>{q.difficulty.charAt(0) + q.difficulty.slice(1).toLowerCase()}</Badge>
               {q.type === 'MCQ_MULTI' && <Badge tone="accent">More than one answer</Badge>}
-              <BookmarkButton kind="QUESTION" id={q.id} compact />
+              {!exam && <BookmarkButton kind="QUESTION" id={q.id} compact />}
             </span>
           </div>
-          <Annotatable key={q.id} kind="QUESTION" id={q.id} className="px-5 py-5">
+          <Annotatable key={q.id} kind="QUESTION" id={q.id} className="px-5 py-5" off={exam}>
             {q.passage && (
               <div className="mb-4 max-h-64 overflow-y-auto rounded-lg border border-rule bg-paper p-4 font-serif text-[15px] leading-relaxed text-ink">
                 {q.passage.title && <div className="mb-1 font-sans font-semibold">{q.passage.title}</div>}
@@ -340,7 +353,7 @@ export function PracticePage() {
           </div>
         </section>
 
-        <aside className="lg:sticky lg:top-36 lg:self-start" aria-label="Question palette">
+        <aside className={`lg:sticky ${exam ? 'lg:top-24' : 'lg:top-36'} lg:self-start`} aria-label="Question palette">
           <div className="rounded-xl border border-rule bg-surface p-4">
             <h2 className="text-sm font-semibold text-ink">Questions</h2>
             <div className="mt-3 grid grid-cols-8 gap-1.5 sm:grid-cols-10 lg:grid-cols-6">

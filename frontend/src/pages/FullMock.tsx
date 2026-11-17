@@ -13,8 +13,8 @@ export function FullMockPage() {
   const subjects = useLoad(() => api.subjects('CUET_UG', 2026), []);
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [busy, setBusy] = useState(false);
-  const [err, setErr] = useState<Error | null>(null);
+  const [busy] = useState(false);
+  const [err] = useState<Error | null>(null);
 
   if (subjects.loading && !subjects.data) return <Loading />;
   if (subjects.error) return <ErrorBox error={subjects.error} onRetry={subjects.reload} />;
@@ -23,21 +23,8 @@ export function FullMockPage() {
 
   const start = async () => {
     if (!user) return navigate('/signin');
-    setErr(null);
-    setBusy(true);
-    // A full-length mock is an exam: it runs full screen. The browser only allows this from a click, so it is asked for here.
-    try {
-      if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
-    } catch {
-      /* the browser refused (or has no full screen): the test still opens, in focus mode */
-    }
-    try {
-      const r = await api.startPractice({ mode: 'MOCK_TEST', paperId });
-      navigate(`/practice/${r.session.id}`);
-    } catch (e) {
-      setErr(e as Error);
-      setBusy(false);
-    }
+    // Every mock test begins with the examination instructions; nothing starts until the rules are accepted.
+    navigate(`/exam/start?mode=MOCK_TEST&paperId=${encodeURIComponent(paperId)}`);
   };
 
   return (

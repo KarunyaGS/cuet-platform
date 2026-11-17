@@ -241,9 +241,9 @@ interface Drag {
  * (a lesson), so a mark whose block is gone is flagged; for a question, parts appear later (the explanation), so a
  * missing block only means "not shown now".
  */
-export function Annotatable({ kind, id, children, preload, strict = kind === 'LESSON', className = '', slot }: { kind: 'LESSON' | 'QUESTION'; id: string; children: ReactNode; preload?: Annotation[] | null; strict?: boolean; className?: string; slot?: string }) {
+export function Annotatable({ kind, id, children, preload, strict = kind === 'LESSON', className = '', slot, off = false }: { kind: 'LESSON' | 'QUESTION'; id: string; children: ReactNode; preload?: Annotation[] | null; strict?: boolean; className?: string; slot?: string; off?: boolean }) {
   const { user } = useAuth();
-  if (!user) return <div className={className}>{children}</div>;
+  if (!user || off) return <div className={className}>{children}</div>;
   return (
     <Layer kind={kind} id={id} preload={preload} strict={strict} className={className} slot={slot}>
       {children}

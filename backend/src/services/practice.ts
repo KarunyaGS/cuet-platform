@@ -35,7 +35,17 @@ interface Rules {
 
 const GRACE_SECONDS = 30;
 
-async function paperAndRules(db: D1Database, nodeId?: string, paperId?: string) {
+/** The examination rules for mock tests (see exam.ts). Shown to the student and applied by the server. */
+export const EXAM_POLICY = { maxIncidents: 2, returnSeconds: 15, mergeSeconds: 4 } as const;
+export async function violationsOf(db: D1Database, sessionId: string) {
+  const { results } = await db
+    .prepare('SELECT type, occurred_at, recorded_at, action FROM exam_violations WHERE session_id = ? ORDER BY recorded_at, id')
+    .bind(sessionId)
+    .all<{ type: string; occurred_at: string; recorded_at: string; action: string }>();
+  return results.map((v) => ({ type: v.type, at: v.occurred_at, recordedAt: v.recorded_at, action: v.action }));
+}
+
+export async function paperAndRules(db: D1Database, nodeId?: string, paperId?: string) {
   const row = nodeId
     ? await db.prepare(`SELECT tp.id AS paper_id, ec.rules_json FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id JOIN test_papers tp ON tp.id = v.test_paper_id JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id WHERE n.id = ?`).bind(nodeId).first<{ paper_id: string; rules_json: string | null }>()
     : await db.prepare(`SELECT tp.id AS paper_id, ec.rules_json FROM test_papers tp JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id WHERE tp.id = ?`).bind(paperId).first<{ paper_id: string; rules_json: string | null }>();
@@ -98,14 +108,14 @@ export async function createSession(
   return getSession(db, userId, id);
 }
 
-async function loadSession(db: D1Database, userId: string, id: string) {
+export async function loadSession(db: D1Database, userId: string, id: string) {
   const s = await db.prepare('SELECT * FROM practice_sessions WHERE id = ? AND user_id = ?').bind(id, userId).first<Record<string, unknown>>();
   if (!s) throw notFound('Practice session');
   return s as {
     id: string; mode: string; status: string; question_ids_json: string; duration_seconds: number | null; started_at: string;
     marks_correct: number; marks_incorrect: number; score: number | null; max_score: number | null; correct_count: number;
     incorrect_count: number; unattempted_count: number; submitted_at: string | null; test_paper_id: string | null; curriculum_node_id: string | null;
-    marked_json: string | null; source_json: string | null;
+    marked_json: string | null; source_json: string | null; end_reason: string | null;
   };
 }
 
@@ -117,7 +127,7 @@ export async function getSession(db: D1Database, userId: string, id: string) {
   let s = await loadSession(db, userId, id);
   const dl = deadline(s);
   if (s.status === 'IN_PROGRESS' && dl && Date.now() > dl.getTime()) {
-    await submitSession(db, userId, id);
+    await submitSession(db, userId, id, 'TIME_UP');
     s = await loadSession(db, userId, id);
   }
   const ids = JSON.parse(s.question_ids_json) as string[];
@@ -128,6 +138,8 @@ export async function getSession(db: D1Database, userId: string, id: string) {
     db.prepare('SELECT question_id, selected_positions_json, numeric_answer, outcome, score FROM practice_answers WHERE session_id = ?').bind(id).all<Record<string, unknown>>(),
   ]);
   const submitted = s.status !== 'IN_PROGRESS';
+  const exam = s.mode !== 'PRACTICE';
+  const violations = exam ? await violationsOf(db, id) : [];
   const keys = submitted
     ? await db.prepare(`SELECT a.question_id, a.correct_option_positions, a.numeric_answer, e.body AS explanation, e.option_rationale_json FROM answer_keys a LEFT JOIN explanations e ON e.question_id = a.question_id WHERE a.question_id IN (${placeholders})`).bind(...ids).all<Record<string, unknown>>()
     : { results: [] as Record<string, unknown>[] };
@@ -139,6 +151,9 @@ export async function getSession(db: D1Database, userId: string, id: string) {
       // Questions marked for review (kept on the server, so a reload or another device shows them) and what the attempt is.
       marked: s.marked_json ? (JSON.parse(s.marked_json) as string[]).filter((q) => ids.includes(q)) : [],
       source: s.source_json ? (JSON.parse(s.source_json) as { kind: string; id: string; title: string }) : null,
+      // Examination mode (mock tests): why the attempt ended, the rules in force, and what was reported during it.
+      endReason: s.end_reason,
+      exam: exam ? { ...EXAM_POLICY, incidents: violations.filter((v) => v.action === 'WARNED' || v.action === 'TERMINATED').length, violations } : null,
       result: submitted ? { score: s.score, maxScore: s.max_score, correct: s.correct_count, incorrect: s.incorrect_count, unattempted: s.unattempted_count, submittedAt: s.submitted_at } : null,
     },
     questions: ids.filter((qid) => byQ.has(qid)).map((qid, i) => {
@@ -177,7 +192,7 @@ export async function saveAnswer(db: D1Database, userId: string, sessionId: stri
   if (s.status !== 'IN_PROGRESS') throw conflict('This session has already been submitted');
   const dl = deadline(s);
   if (dl && Date.now() > dl.getTime()) {
-    await submitSession(db, userId, sessionId);
+    await submitSession(db, userId, sessionId, 'TIME_UP');
     throw conflict('Time is up; the session was submitted');
   }
   if (!(JSON.parse(s.question_ids_json) as string[]).includes(input.questionId)) throw invalid('That question is not part of this session');
@@ -212,9 +227,17 @@ export async function saveMarks(db: D1Database, userId: string, sessionId: strin
 }
 
 /** Score the session once and fold the results into the student's per-topic progress. */
-export async function submitSession(db: D1Database, userId: string, sessionId: string) {
+export async function submitSession(db: D1Database, userId: string, sessionId: string, reason = 'SUBMITTED') {
   const s = await loadSession(db, userId, sessionId);
   if (s.status !== 'IN_PROGRESS') return getSession(db, userId, sessionId);
+  // A submission that arrives after the time allowed is recorded as the time running out, whoever sent it.
+  if (s.duration_seconds !== null) {
+    const over = Date.now() >= new Date(s.started_at).getTime() + s.duration_seconds * 1000;
+    // 'Time is up' is only accepted from the screen within a few seconds of the real end (clocks differ a little); otherwise it is an ordinary submit.
+    const nearEnd = Date.now() >= new Date(s.started_at).getTime() + s.duration_seconds * 1000 - 5000;
+    if (over || (reason === 'TIME_UP' && nearEnd)) reason = 'TIME_UP';
+    else if (reason === 'TIME_UP' && !nearEnd) reason = 'SUBMITTED';
+  }
   const ids = JSON.parse(s.question_ids_json) as string[];
   const { results: answers } = await db.prepare('SELECT question_id, outcome, score FROM practice_answers WHERE session_id = ?').bind(sessionId).all<{ question_id: string; outcome: string; score: number }>();
   const correct = answers.filter((a) => a.outcome === 'CORRECT').length;
@@ -235,8 +258,8 @@ export async function submitSession(db: D1Database, userId: string, sessionId: s
   }
   await db.batch([
     db
-      .prepare(`UPDATE practice_sessions SET status = 'SUBMITTED', score = ?, max_score = ?, correct_count = ?, incorrect_count = ?, unattempted_count = ?, submitted_at = ? WHERE id = ? AND status = 'IN_PROGRESS'`)
-      .bind(score, ids.length * s.marks_correct, correct, incorrect, ids.length - correct - incorrect, now, sessionId),
+      .prepare(`UPDATE practice_sessions SET status = 'SUBMITTED', score = ?, max_score = ?, correct_count = ?, incorrect_count = ?, unattempted_count = ?, submitted_at = ?, end_reason = ? WHERE id = ? AND status = 'IN_PROGRESS'`)
+      .bind(score, ids.length * s.marks_correct, correct, incorrect, ids.length - correct - incorrect, now, reason, sessionId),
     ...[...perTopic].map(([nodeId, t]) =>
       db
         .prepare(
