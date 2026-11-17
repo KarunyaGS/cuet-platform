@@ -1,10 +1,10 @@
-import { BookOpen, ChevronRight, FileText, ListChecks, PencilLine, Timer } from 'lucide-react';
+import { ChevronRight, FileText, ListChecks, PencilLine, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api } from '../api';
 import { SavedForRevision } from '../revision';
 import { AddToPlan, BookmarkButton, useTrackView } from '../tools';
-import { Button, Empty, ErrorBox, kindLabel, Loading, SectionTitle, useAuth, useLoad } from '../ui';
+import { Button, ErrorBox, kindLabel, Loading, SectionTitle, useAuth, useLoad } from '../ui';
 
 /** Topic page: the official syllabus wording with its source page, subtopics, learning material and practice. */
 export function TopicPage() {
@@ -97,30 +97,6 @@ export function TopicPage() {
               </ul>
             </section>
           )}
-
-          <section aria-labelledby="material">
-            <SectionTitle id="material">Learning material</SectionTitle>
-            {d.resources.length === 0 ? (
-              <Empty icon={<BookOpen />}>There is no lesson for this topic yet. You can still practise its questions.</Empty>
-            ) : (
-              <ul className="space-y-2">
-                {d.resources.map((r) => (
-                  <li key={r.id}>
-                    <Link to={`/learn/${r.id}`} className="group flex items-start gap-3.5 rounded-xl border border-rule bg-surface px-4 py-3.5 transition-colors hover:border-accent/50">
-                      <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
-                        <BookOpen className="size-[18px]" />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block font-medium text-ink group-hover:text-accent">{r.title}</span>
-                        <span className="mt-0.5 block text-sm text-ink-2">{r.type === 'LESSON' ? 'Lesson: explanations, formulas, worked examples and key points. Highlight and save as you read.' : r.type.charAt(0) + r.type.slice(1).toLowerCase()}</span>
-                      </span>
-                      <ChevronRight aria-hidden className="mt-1 size-4 shrink-0 text-ink-3" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
         </div>
 
         <aside className="min-w-0 space-y-4 lg:sticky lg:top-20 lg:self-start" data-topic-side>
