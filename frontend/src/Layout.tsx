@@ -1,7 +1,8 @@
-import { BookOpen, ChevronDown, CreditCard, GalleryVerticalEnd, GraduationCap, Highlighter, PencilLine, Search, ShieldCheck, Bookmark, CalendarCheck2, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { BookOpen, ChevronDown, Menu, CreditCard, GalleryVerticalEnd, GraduationCap, Highlighter, PencilLine, Search, ShieldCheck, Bookmark, CalendarCheck2, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
+import { Sidebar } from './Sidebar';
 import { useAuth } from './ui';
 
 const REVIEW_ROLES = ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'];
@@ -12,7 +13,10 @@ export function Logo() {
       <span aria-hidden className="grid size-7 place-items-center rounded-lg bg-accent text-[11px] font-bold tracking-wide text-white">
         CU
       </span>
-      CUET Prep
+      <span className="flex flex-col leading-tight">
+        CUET Prep
+        <span className="hidden text-[11px] font-normal text-ink-3 sm:block">Your CUET Preparation Companion</span>
+      </span>
     </span>
   );
 }
@@ -233,6 +237,10 @@ export function Layout() {
   // Tests run in focus mode: no app navigation, only the way out.
   const focus = path.startsWith('/practice/');
   const wide = path.startsWith('/review') || path.startsWith('/admin');
+  // The subject sidebar is on every student page. Tests (focus mode) and the staff consoles keep their own layouts.
+  const showSidebar = !focus && !wide;
+  const [drawer, setDrawer] = useState(false);
+  useEffect(() => setDrawer(false), [path]);
   const group = navGroup(path);
   // One page container for the whole app: wide enough to use a desktop screen, with the same gutters everywhere.
   const shell = wide ? 'max-w-[96rem]' : 'max-w-[84rem]';
@@ -254,6 +262,11 @@ export function Layout() {
             </>
           ) : (
             <>
+              {showSidebar && (
+                <button type="button" onClick={() => setDrawer(true)} aria-label="Open subjects menu" aria-expanded={drawer} className="-ml-1 grid size-9 place-items-center rounded-lg text-ink-2 hover:bg-ink/5 md:hidden">
+                  <Menu aria-hidden className="size-5" />
+                </button>
+              )}
               <Link to="/" className="mr-4 rounded-lg" aria-label="CUET Prep home">
                 <Logo />
               </Link>
@@ -284,9 +297,20 @@ export function Layout() {
         </div>
       </header>
 
-      <main id="main" key={path} className={`page-in mx-auto px-4 pt-5 pb-28 sm:px-6 md:pb-12 lg:px-8 ${shell}`}>
-        <Outlet />
-      </main>
+      <div className="flex">
+        {showSidebar && <Sidebar className="sticky top-14 hidden h-[calc(100dvh-3.5rem)] w-56 shrink-0 md:flex lg:w-64" />}
+        <div className="min-w-0 flex-1">
+          <main id="main" key={path} className={`page-in mx-auto px-4 pt-5 pb-28 sm:px-6 md:pb-12 lg:px-8 ${shell}`}>
+            <Outlet />
+          </main>
+        </div>
+      </div>
+      {showSidebar && drawer && (
+        <div className="fixed inset-0 z-40 md:hidden" role="dialog" aria-modal="true" aria-label="Subjects">
+          <button type="button" aria-label="Close subjects menu" onClick={() => setDrawer(false)} className="absolute inset-0 bg-ink/30" />
+          <Sidebar onNavigate={() => setDrawer(false)} className="absolute inset-y-0 left-0 flex w-[85%] max-w-xs shadow-xl" />
+        </div>
+      )}
 
       {!focus && (
         <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-30 flex border-t border-rule bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
