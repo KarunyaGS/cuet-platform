@@ -8,7 +8,7 @@ import { ChevronRight, ExternalLink, FileText, KeyRound, ScrollText } from 'luci
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
 import { api, type PyqDoc } from '../api';
-import { Badge, Empty, ErrorBox, Loading, PageHeader, SearchInput, SectionTitle, Segmented, useLoad } from '../ui';
+import { bareChapter, Badge, Empty, ErrorBox, Loading, PageHeader, SearchInput, SectionTitle, Segmented, useLoad } from '../ui';
 import { PdfViewer } from './OfficialViewer';
 
 const day = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
@@ -437,9 +437,14 @@ export function PyqViewerPage() {
   if (doc.error) return <ErrorBox error={doc.error} onRetry={doc.reload} />;
   const d = doc.data!;
   const back = d.year ? `/pyq?year=${d.year}${d.subjectSlug ? `&subject=${d.subjectSlug}` : ''}` : '/practice-centre';
+  const isBank = /question bank: /i.test(d.title);
   return (
     <div>
-      <PageHeader title={d.title} back={{ to: back, label: 'Previous-year papers' }} subtitle={[d.native ? 'For CUET (UG)' : d.year ? `CUET (UG) ${d.year}` : 'CUET (UG)', d.subjectName, d.examDate ? day(d.examDate) : null, d.shift, d.language].filter(Boolean).join(' · ')} />
+      {isBank ? (
+        <PageHeader title={bareChapter(d.title.replace(/^.*?question bank: [^,]*, /i, ''))} subtitle={[d.subjectName, 'Chapter-wise Question Bank'].filter(Boolean).join(' · ')} />
+      ) : (
+        <PageHeader title={d.title} back={{ to: back, label: 'Previous-year papers' }} subtitle={[d.native ? 'For CUET (UG)' : d.year ? `CUET (UG) ${d.year}` : 'CUET (UG)', d.subjectName, d.examDate ? day(d.examDate) : null, d.shift, d.language].filter(Boolean).join(' · ')} />
+      )}
       {d.viewer === 'IN_APP' && d.fileUrl ? (
         <PdfViewer doc={{ fileUrl: d.fileUrl, viewer: 'DIRECT', originalUrl: d.openUrl }} startPage={Math.max(1, Number(params.get('page')) || 1)} site={siteName(d.sourceSite) ?? 'the source'} downloadUrl={d.downloadUrl} />
       ) : (

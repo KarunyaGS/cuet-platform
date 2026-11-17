@@ -1,6 +1,7 @@
 import { ChevronRight, CreditCard } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router';
+import { bareChapter } from './ui';
 import { api, type ExamCode, type Outline, type OutlineNode, type PyqTree, type Subject } from './api';
 
 /**
@@ -391,8 +392,8 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                       <Category id={`f:${s.paperId}`} to={`/${EXAM}/subject/${s.paperId}/question-bank`} selected={areaRoute?.paperId === s.paperId && areaRoute.area === 'question-bank'} onSelect={onNavigate} label="Chapter-wise Question Bank" open={!!open[`f:${s.paperId}`]} active={pdfRoute !== null && myPdfs.some((d) => d.id === pdfRoute)} onToggle={() => toggle(`f:${s.paperId}`)}>
                         {myPdfs.map((d) => (
                           <li key={d.id}>
-                            <Link to={`/pyq/view/${d.id}`} onClick={onNavigate} aria-current={pdfRoute === d.id ? 'page' : undefined} data-kind="chapter-pdf" title={d.title} className={`${rowBase} h-8 pr-3 pl-9 text-[13px] ${pdfRoute === d.id ? selectedRow : 'text-ink'}`}>
-                              <span className="min-w-0 flex-1 truncate">{d.title}</span>
+                            <Link to={`/pyq/view/${d.id}`} onClick={onNavigate} aria-current={pdfRoute === d.id ? 'page' : undefined} data-kind="chapter-pdf" title={bareChapter(d.title)} className={`${rowBase} h-8 pr-3 pl-9 text-[13px] ${pdfRoute === d.id ? selectedRow : 'text-ink'}`}>
+                              <span className="min-w-0 flex-1 truncate">{bareChapter(d.title)}</span>
                               {d.pages ? <span className="num ml-auto shrink-0 text-[11px] text-ink-3">{d.pages} p</span> : null}
                             </Link>
                           </li>

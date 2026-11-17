@@ -2,7 +2,7 @@ import { ChevronRight, FileText, Timer } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 import { api, type ExamCode, type PyqTree, type Subject } from '../api';
 import { chaptersOf, withQuestions, type SideItem } from '../Sidebar';
-import { Empty, ErrorBox, Loading, useLoad } from '../ui';
+import { bareChapter, Empty, ErrorBox, Loading, useLoad } from '../ui';
 
 export const AREAS = [
   { slug: 'question-bank', title: 'Chapter-wise Question Bank', text: 'One PDF of original questions for each chapter, with an answer key.' },
@@ -135,7 +135,7 @@ export function SubjectAreaPage() {
           <li key={d.id}>
             <Link to={`/pyq/view/${d.id}`} className={row} data-pdf={d.id}>
               <FileText aria-hidden className="size-4 shrink-0 text-accent" />
-              <span className="min-w-0 flex-1">{d.title}</span>
+              <span className="min-w-0 flex-1">{bareChapter(d.title)}</span>
               {d.pages ? <span className="num text-sm text-ink-3">{d.pages} pages</span> : null}
             </Link>
           </li>

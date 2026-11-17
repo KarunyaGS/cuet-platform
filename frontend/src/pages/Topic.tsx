@@ -32,14 +32,14 @@ function useRelated(d: TopicDetail): Related[] | null {
   return items;
 }
 
-function LessonsList({ items }: { items: Related[] }) {
+function LessonsList({ items, source }: { items: Related[]; source: TopicDetail['source'] }) {
   return (
     <section aria-labelledby="related" className="min-w-0">
       <SectionTitle id="related">Lessons and related content</SectionTitle>
       <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
         {items.map((r) => (
-          <li key={r.id}>
-            <Link to={`/learn/${r.id}`} className="group flex items-center gap-3 px-3.5 py-2.5 transition-colors hover:bg-paper">
+          <li key={r.id} className="group flex flex-wrap items-center gap-x-3 gap-y-2 px-3.5 py-2.5 transition-colors hover:bg-paper">
+            <Link to={`/learn/${r.id}`} className="flex min-w-0 flex-1 basis-56 items-center gap-3">
               <span aria-hidden className="grid size-8 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
                 <BookOpen className="size-4" />
               </span>
@@ -47,7 +47,15 @@ function LessonsList({ items }: { items: Related[] }) {
                 <span className="block text-[14px] leading-snug font-medium text-ink group-hover:text-accent">{r.title}</span>
                 <span className="mt-0.5 block truncate text-xs text-ink-3">{[r.type === 'LESSON' ? 'Lesson' : r.type.charAt(0) + r.type.slice(1).toLowerCase(), r.from].filter(Boolean).join(' · ')}</span>
               </span>
-              <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />
+            </Link>
+            {source.url && !r.from && (
+              <a href={`${source.url}#page=${source.page ?? 1}`} target="_blank" rel="noreferrer noopener" data-official-pdf className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-accent-soft px-2.5 py-1.5 text-xs font-medium text-accent hover:underline">
+                <FileText aria-hidden className="size-3.5" />
+                Official NTA PDF{source.page ? `, page ${source.page}` : ''}
+              </a>
+            )}
+            <Link to={`/learn/${r.id}`} tabIndex={-1} aria-hidden className="shrink-0">
+              <ChevronRight aria-hidden className="size-4 text-ink-3" />
             </Link>
           </li>
         ))}
@@ -86,7 +94,7 @@ function MainColumn({ d }: { d: TopicDetail }) {
   return (
     <div className="min-w-0 space-y-4">
       <div className={lessons && covered ? 'grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]' : 'space-y-4'}>
-        {lessons && <LessonsList items={lessons} />}
+        {lessons && <LessonsList items={lessons} source={d.source} />}
         {covered && <CoveredList d={d} />}
         {related !== null && !lessons && !covered && (
           <p className="rounded-lg border border-dashed border-rule-strong px-4 py-3 text-sm text-ink-2">There is no lesson for this topic yet. You can still practise its questions.</p>
@@ -141,12 +149,6 @@ export function TopicPage() {
       <header className="mb-3 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-rule pb-2.5" data-topic-header>
         <div className="min-w-0 max-w-[58rem] flex-1 basis-72">
           <h1 className="text-lg leading-snug font-semibold break-words text-ink sm:text-xl">{d.topic.title}</h1>
-          {d.source.url && (
-            <a href={`${d.source.url}#page=${d.source.page ?? 1}`} target="_blank" rel="noreferrer noopener" className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline">
-              <FileText aria-hidden className="size-3.5" />
-              View Official NTA PDF{d.source.page ? `, page ${d.source.page}` : ''}
-            </a>
-          )}
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-2">
           <BookmarkButton kind="TOPIC" id={d.topic.id} />

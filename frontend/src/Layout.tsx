@@ -303,7 +303,8 @@ export function Layout() {
               <Link to="/" className="rounded-lg" aria-label="Prepora home">
                 <Logo />
               </Link>
-              <div className="mr-2 ml-1 sm:mr-4 sm:ml-2">
+              <span aria-hidden data-header-divider className="mx-2 h-6 w-px shrink-0 bg-rule-strong sm:mx-4" />
+              <div className="mr-1 shrink-0 sm:mr-2">
                 <ExamSelector />
               </div>
               <nav className="hidden items-center md:flex" aria-label="Main">

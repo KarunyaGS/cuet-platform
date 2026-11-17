@@ -253,7 +253,7 @@ export async function draftChapterBank(db: D1Database, q: z.infer<typeof chapter
     if (t) t.n++;
     else topics.push({ id: r.unit_id, title: r.unit_title ?? chapter.title, n: 1 });
   }
-  const chapterName = [chapter.label, chapter.title].filter(Boolean).join(' ');
+  const chapterName = chapter.title;
   const reviewed = results.every((p) => p.verification === 'VERIFIED');
   return {
     schema: 'cuet-native-paper/1' as const,
@@ -285,7 +285,7 @@ export async function draftChapterBank(db: D1Database, q: z.infer<typeof chapter
 /** The chapter-wise PDFs that exist, for the sidebar and the viewer. */
 export async function chapterBankDocuments(db: D1Database, exam: string) {
   const { results } = await db
-    .prepare(`SELECT id, key, subject_code, subject_name, title, pages, review_state FROM pyq_documents WHERE exam_code = ? AND key LIKE 'cuetprep:chapter:%' AND r2_key IS NOT NULL ORDER BY subject_code, title`)
+    .prepare(`SELECT d.id, d.key, d.subject_code, d.subject_name, d.title, d.pages, d.review_state FROM pyq_documents d WHERE exam_code = ? AND key LIKE 'cuetprep:chapter:%' AND r2_key IS NOT NULL ORDER BY subject_code, (SELECT position FROM curriculum_nodes WHERE id = substr(d.key, 22)), title`)
     .bind(exam)
     .all<{ id: string; key: string; subject_code: string; subject_name: string; title: string; pages: number | null; review_state: string | null }>();
   return results.map((r) => ({ id: r.id, subjectCode: r.subject_code, nodeId: r.key.split(':')[3] ?? '', title: r.title.replace(/^Prepora question bank: [^,]*, /, ''), pages: r.pages, reviewState: r.review_state }));

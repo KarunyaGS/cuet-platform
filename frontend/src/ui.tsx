@@ -317,3 +317,6 @@ export function GuestOnly({ children }: { children: ReactNode }) {
   }
   return <>{children}</>;
 }
+
+/** A chapter name without its numbering ("VI Reproduction" -> "Reproduction", "3 Optics" -> "Optics"). */
+export const bareChapter = (t: string): string => t.replace(/^(?:[IVXLC]+|[A-Z]\d?|\d+)\s+(?=[A-Za-z(])/, '');
