@@ -12,7 +12,11 @@ export function Logo() {
     <span className="flex items-center gap-2.5 text-[15px] font-semibold text-ink">
       <img src="/prepora-logo.png" alt="" aria-hidden width={32} height={32} className="size-8 shrink-0 object-contain" />
       <span className="flex flex-col leading-tight">
-        Prepora
+        <span data-brand-name>
+          <span className="text-accent">Pre</span>
+          <span className="text-ink">pora</span>
+        </span>
+        <span className="whitespace-nowrap text-[11px] font-normal text-ink-3">Student Centric Super App</span>
       </span>
     </span>
   );
@@ -176,13 +180,12 @@ function UserMenu() {
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-haspopup="menu"
-        className="flex items-center gap-2 rounded-full py-1 pr-1 pl-1 text-sm text-ink-2 transition-colors hover:bg-ink/5 lg:pr-3"
+        className="flex items-center gap-2 rounded-full p-1 text-sm text-ink-2 transition-colors hover:bg-ink/5"
       >
         <span aria-hidden className="grid size-8 place-items-center rounded-full bg-accent-soft text-xs font-semibold text-accent">
           {initials(user.displayName)}
         </span>
-        <span className="hidden max-w-[10rem] truncate font-medium text-ink lg:inline">{user.displayName}</span>
-        <span className="sr-only">Account menu</span>
+        <span className="sr-only">Account menu, {user.displayName}</span>
       </button>
       {open && (
         <div role="menu" className="absolute right-0 z-40 mt-2 w-64 rounded-xl border border-rule bg-surface p-1.5 shadow-lg shadow-ink/5">
