@@ -1,55 +1,14 @@
-import { ChevronRight, GraduationCap, Info, Library, PlayCircle, Settings2 } from 'lucide-react';
+import { ChevronRight, Info, PlayCircle } from 'lucide-react';
 import { Link } from 'react-router';
-import { api, type Exam } from '../api';
-import { ErrorBox, Loading, SectionTitle, useAuth, useLoad } from '../ui';
+import { api } from '../api';
+import { SectionTitle, useAuth, useLoad } from '../ui';
 
 const greeting = () => {
   const h = new Date().getHours();
   return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
 };
-const marks = (n: unknown) => (typeof n === 'number' ? (n < 0 ? `−${Math.abs(n)}` : `+${n}`) : '–');
-
-function ExamCard({ e }: { e: Exam }) {
-  const ug = e.level === 'UG';
-  const facts: [string, string][] = [
-    ['Papers', String(e.rules.papersOffered ?? '–')],
-    ['Questions per paper', String(e.rules.questionsPerPaper ?? '–')],
-    ['Time per paper', e.rules.durationMinutes ? `${e.rules.durationMinutes} min` : '–'],
-    ['Marking', `${marks(e.rules.marksCorrect)} / ${marks(e.rules.marksIncorrect)}`],
-  ];
-  return (
-    <Link to={`/${e.code}`} className="group flex flex-col rounded-xl border border-rule bg-surface p-5 transition-colors hover:border-accent/50 focus-visible:border-accent">
-      <div className="flex items-start gap-3.5">
-        <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
-          {ug ? <Library className="size-5" /> : <GraduationCap className="size-5" />}
-        </span>
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-            <h3 className="text-lg font-semibold text-ink">{e.label}</h3>
-            <span className="text-sm text-ink-3">{ug ? 'Undergraduate admissions' : 'Postgraduate admissions'}</span>
-          </div>
-          <p className="mt-1 text-sm text-ink-2">{e.rules.catalogue === 'science' ? 'Science-focused subjects and the General Aptitude Test.' : ug ? 'Domain subjects, languages and the General Test.' : 'Subject papers for master’s programmes.'}</p>
-        </div>
-      </div>
-      <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-rule pt-4 sm:grid-cols-4">
-        {facts.map(([k, v]) => (
-          <div key={k}>
-            <dt className="text-xs text-ink-3">{k}</dt>
-            <dd className="num mt-0.5 text-[15px] font-semibold text-ink">{v}</dd>
-          </div>
-        ))}
-      </dl>
-      <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-accent">
-        Browse subjects
-        <ChevronRight aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
-      </span>
-    </Link>
-  );
-}
-
-/** Home for signed-in students: where they left off, today's goal at a glance, and the two exams. */
+/** Home for signed-in students: where they left off, their subjects, and the official exam information. */
 export function Home() {
-  const exams = useLoad(api.exams, []);
   const dash = useLoad(api.dashboard, []);
   const prefs = useLoad(api.preferences, []);
   const { user } = useAuth();
@@ -57,7 +16,6 @@ export function Home() {
   const d = dash.data;
   const resume = d?.inProgress[0];
   const last = d?.continueLearning[0];
-  const sorted = [...(exams.data ?? [])].sort((a, b) => (a.level === 'UG' ? -1 : 1) - (b.level === 'UG' ? -1 : 1));
 
   return (
     <div>
@@ -112,24 +70,7 @@ export function Home() {
           </ul>
         </section>
       )}
-      {prefs.data && !prefs.data.set && (
-        <Link to="/profile" className="mb-7 flex items-center gap-3 rounded-xl border border-dashed border-rule-strong px-5 py-4 text-sm text-ink-2 hover:border-accent/50 hover:text-ink">
-          <Settings2 aria-hidden className="size-5 shrink-0 text-accent" />
-          <span>
-            <span className="font-medium text-ink">Choose your exam and subjects.</span> Your home page and daily practice will start with them.
-          </span>
-        </Link>
-      )}
-
-      <SectionTitle>Choose an exam</SectionTitle>
-      {exams.loading && <Loading />}
-      {exams.error && <ErrorBox error={exams.error} onRetry={exams.reload} />}
-      <div className={`grid grid-cols-1 gap-4 ${sorted.length > 1 ? 'lg:grid-cols-2' : ''}`}>
-        {sorted.map((e) => (
-          <ExamCard key={e.code} e={e} />
-        ))}
-      </div>
-      <Link to="/cuet" className="group mt-6 flex items-center gap-3 rounded-xl border border-rule bg-surface px-5 py-4 transition-colors hover:border-accent/50">
+      <Link to="/cuet" className="group flex items-center gap-3 rounded-xl border border-rule bg-surface px-5 py-4 transition-colors hover:border-accent/50">
         <Info aria-hidden className="size-5 shrink-0 text-accent" />
         <span className="min-w-0 flex-1">
           <span className="block font-semibold text-ink group-hover:text-accent">Official exam information</span>
