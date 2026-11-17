@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
 import { Sidebar } from './Sidebar';
+import { SupportWidget } from './support/SupportWidget';
 import { useAuth } from './ui';
 
 const REVIEW_ROLES = ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'];
@@ -16,7 +17,7 @@ export function Logo() {
           <span className="text-accent">Pre</span>
           <span className="text-ink">pora</span>
         </span>
-        <span className="hidden whitespace-nowrap text-[11px] font-normal text-ink-3 sm:block">Student Centric Super App</span>
+        <span className="hidden whitespace-nowrap text-[11px] font-normal text-ink sm:block">Student Centric Super App</span>
       </span>
     </span>
   );
@@ -352,6 +353,8 @@ export function Layout() {
           <NavMenu up label="My Learning" items={MY} active={group === 'my'} icon={<UserRound />} />
         </nav>
       )}
+      {/* Help and support is on every page except a running test, where nothing may cover the questions. */}
+      {!focus && <SupportWidget />}
     </div>
   );
 }

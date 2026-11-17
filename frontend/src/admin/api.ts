@@ -95,7 +95,14 @@ const qs = (o: object) => {
   return p.toString();
 };
 
+export interface SupportRow { id: string; kind: 'CHAT' | 'TICKET'; reference: string | null; category: string | null; categoryLabel: string | null; title: string | null; status: 'OPEN' | 'IN_PROGRESS' | 'RESOLVED'; lastMessageAt: string; createdAt: string; student: { email: string; name: string }; messages: number; waitingForSupport: boolean }
+export interface SupportDetail { thread: Omit<SupportRow, 'messages' | 'waitingForSupport'>; messages: { id: string; from: 'STUDENT' | 'SUPPORT'; body: string; at: string; attachment: { name: string | null; mime: string | null; bytes: number | null } | null }[] }
+
 export const consoleApi = {
+  supportThreads: (q: { status?: string; kind?: string; q?: string }) => request<SupportRow[]>('GET', `/api/console/support/threads?${new URLSearchParams(Object.entries(q).filter(([, v]) => v) as [string, string][])}`),
+  supportThread: (id: string) => request<SupportDetail>('GET', `/api/console/support/threads/${id}`),
+  supportReply: (id: string, body: string) => request<SupportDetail>('POST', `/api/console/support/threads/${id}/messages`, { body }),
+  supportStatus: (id: string, status: string) => request<SupportDetail>('PUT', `/api/console/support/threads/${id}/status`, { status }),
   me: () => request<StaffMe>('GET', '/api/console/me'),
   overview: () => request<Overview>('GET', '/api/console/overview'),
   email: () => request<EmailOverview>('GET', '/api/console/email'),

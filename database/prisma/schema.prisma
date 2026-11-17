@@ -927,6 +927,7 @@ model User {
   credential      UserCredential?
   sessions        UserSession[]
   practice        PracticeSession[]
+  supportThreads  SupportThread[]
   progress        TopicProgress[]
   bookmarks       Bookmark[]
   flashcards      Flashcard[]
@@ -2163,4 +2164,47 @@ model PyqHostedFile {
 
   @@index([verification, rightsStatus])
   @@map("pyq_hosted_files")
+}
+
+/// Help and support: one chat conversation per student (kind CHAT) and any number of tickets (kind TICKET). A thread is a list of messages.
+model SupportThread {
+  id               String           @id @default(cuid())
+  userId           String           @map("user_id")
+  kind             String
+  ticketNo         Int?             @unique @map("ticket_no")
+  /// Shown to the student and staff, e.g. PRP-1001. Tickets only.
+  reference        String?          @unique
+  category         String?
+  title            String?
+  /// OPEN, IN_PROGRESS or RESOLVED.
+  status           String           @default("OPEN")
+  createdAt        String           @map("created_at")
+  updatedAt        String           @map("updated_at")
+  lastMessageAt    String           @map("last_message_at")
+  lastStaffReplyAt String?          @map("last_staff_reply_at")
+  studentSeenAt    String?          @map("student_seen_at")
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages         SupportMessage[]
+
+  @@index([userId, kind, lastMessageAt])
+  @@index([status, lastMessageAt])
+  @@map("support_threads")
+}
+
+model SupportMessage {
+  id              String        @id @default(cuid())
+  threadId        String        @map("thread_id")
+  /// STUDENT or STAFF.
+  sender          String
+  senderUserId    String?       @map("sender_user_id")
+  body            String
+  attachmentKey   String?       @map("attachment_key")
+  attachmentName  String?       @map("attachment_name")
+  attachmentMime  String?       @map("attachment_mime")
+  attachmentBytes Int?          @map("attachment_bytes")
+  createdAt       String        @map("created_at")
+  thread          SupportThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  @@index([threadId, createdAt])
+  @@map("support_messages")
 }

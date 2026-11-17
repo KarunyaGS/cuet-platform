@@ -54,6 +54,11 @@ export async function request<T>(method: string, path: string, body?: unknown): 
   return (path.startsWith('/api/admin') ? data : standardSubjectNames(data)) as T;
 }
 
+export interface SupportAttachment { key: string; name: string; mime: string; bytes: number }
+export interface SupportMessage { id: string; from: 'YOU' | 'SUPPORT'; body: string; at: string; attachment: { name: string | null; mime: string | null; bytes: number | null } | null }
+export interface SupportThread { id: string; kind: 'CHAT' | 'TICKET'; reference: string | null; category: string | null; categoryLabel: string | null; title: string | null; status: 'OPEN' | 'IN_PROGRESS' | 'RESOLVED'; createdAt: string; updatedAt: string; lastMessageAt: string; hasUnreadReply: boolean }
+export interface SupportConversation { thread: SupportThread | null; messages: SupportMessage[] }
+
 export type ExamCode = 'CUET_UG' | 'CUET_PG';
 export interface Exam { code: ExamCode; name: string; level: string; year: number; label: string; rules: Record<string, number | string | boolean> }
 export interface Subject {
@@ -382,6 +387,20 @@ export const api = {
   reminders: () => request<Reminder[]>('GET', `/api/student/reminders?day=${localDay()}&since=${encodeURIComponent(startOfToday())}`),
   dismissReminder: (key: string) => request<{ dismissed: boolean }>('POST', '/api/student/reminders/dismiss', { key }),
   recent: () => request<RecentItem[]>('GET', '/api/student/recent'),
+  supportCategories: () => request<{ code: string; label: string }[]>('GET', '/api/student/support/categories'),
+  supportUnread: () => request<{ unread: number }>('GET', '/api/student/support/unread'),
+  supportChat: () => request<SupportConversation>('GET', '/api/student/support/chat'),
+  supportSend: (b: { body: string; attachment?: SupportAttachment }) => request<SupportConversation>('POST', '/api/student/support/chat/messages', b),
+  supportTickets: () => request<SupportThread[]>('GET', '/api/student/support/tickets'),
+  supportRaise: (b: { category: string; title: string; description: string; attachment?: SupportAttachment }) => request<SupportConversation & { thread: SupportThread }>('POST', '/api/student/support/tickets', b),
+  supportTicket: (id: string) => request<SupportConversation & { thread: SupportThread }>('GET', `/api/student/support/tickets/${id}`),
+  supportReply: (id: string, b: { body: string; attachment?: SupportAttachment }) => request<SupportConversation & { thread: SupportThread }>('POST', `/api/student/support/tickets/${id}/messages`, b),
+  supportUpload: async (file: File): Promise<SupportAttachment> => {
+    const res = await fetch('/api/student/support/attachments', { method: 'POST', credentials: 'same-origin', headers: { 'content-type': file.type, 'x-filename': encodeURIComponent(file.name) }, body: file });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) throw new ApiError(res.status, data?.error?.code ?? 'ERROR', data?.error?.message ?? 'The file could not be attached');
+    return data as SupportAttachment;
+  },
   subjectSummary: (paperId: string) => request<{ last: { kind: 'TOPIC_VIEW' | 'LESSON_VIEW'; nodeId: string | null; resourceId: string | null; title: string | null; at: string } | null; lessonsCompleted: number; testsCompleted: number }>('GET', `/api/student/subject-summary/${paperId}`),
   resetPassword: (b: { token: string; newPassword: string }) => request<{ reset: boolean }>('POST', '/api/auth/reset-password', b),
   pastPapers: (f: { exam?: ExamCode; year?: number; subject?: string }) =>

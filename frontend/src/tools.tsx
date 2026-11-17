@@ -271,7 +271,7 @@ export function AddCards({ from, onDone }: { from: { resourceId: string } | { no
         className="inline-flex h-7 items-center gap-1 rounded-lg bg-surface px-2 text-xs font-medium text-ink-2 ring-1 ring-inset ring-rule-strong transition-colors hover:bg-paper hover:text-ink"
       >
         <GalleryVerticalEnd aria-hidden className="size-3.5" />
-        Save all for revision
+        Save
       </button>
       {open && <SaveToRevise busy={busy} failed={failed} onClose={() => setOpen(false)} onSave={run} />}
     </span>

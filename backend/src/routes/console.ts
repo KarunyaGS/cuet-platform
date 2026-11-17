@@ -24,6 +24,7 @@ import { deleteQuestion, getQuestionAdmin, questionInputSchema, updateQuestion }
 import { deleteResource, getResource, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
 import { admissionsOverview, createFact, createSource, decideFact, decideSource, factDecisionSchema, factInputSchema, importFacts, importSchema, listFacts, listSources, loadProposedSources, sourceDecisionSchema, sourceInputSchema, createProgramme, decideProgramme, importProgrammes, listProgrammesAdmin, outdatedItems, programmeDecisionSchema, programmeImportSchema, programmeInputSchema } from '../services/admissions';
+import { replySchema as supportReplySchema, staffAttachment, staffReply, staffSetStatus, staffStatusSchema, staffThread, staffThreads, staffThreadsQuery } from '../services/support';
 import { emailOverview, previewEmail, previewSchema, sendTestEmails } from '../services/email';
 import { TEMPLATE_NAMES } from '../services/email-templates';
 import { buildMockPaper, linkActionSchema, listMockPapersAdmin, listOfficialLinksAdmin, mockActionSchema, mockPaperAdmin, mockPaperReadiness, setMockPaperStatus, setOfficialLinkStatus } from '../services/practice-centre';
@@ -202,5 +203,17 @@ admin.post('/content/workflow', async (c) => {
   return c.json(await applyReview(c.env.DB, body, c.get('actor')));
 });
 admin.get('/content/history', async (c) => c.json(await reviewHistory(c.env.DB, c.req.query('entityType') ?? '', c.req.query('entityId') ?? '')));
+
+// Support: reading and answering students. Needs the account-management permission (the same one that guards the student list).
+admin.use('/support', (c, next) => (needPermission(me(c), 'users:manage', 'handle support requests'), next()));
+admin.use('/support/*', (c, next) => (needPermission(me(c), 'users:manage', 'handle support requests'), next()));
+admin.get('/support/threads', async (c) => c.json(await staffThreads(c.env.DB, staffThreadsQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
+admin.get('/support/threads/:id', async (c) => c.json(await staffThread(c.env.DB, c.req.param('id'))));
+admin.post('/support/threads/:id/messages', async (c) => {
+  const input = await readJson(c, supportReplySchema.pick({ body: true }));
+  return c.json(await staffReply(c.env.DB, me(c).id, c.req.param('id'), input), 201);
+});
+admin.put('/support/threads/:id/status', async (c) => c.json(await staffSetStatus(c.env.DB, c.req.param('id'), (await readJson(c, staffStatusSchema)).status)));
+admin.get('/support/attachments/:messageId', async (c) => staffAttachment(c.env.DB, c.env.MEDIA, c.req.param('messageId')));
 
 export default admin;

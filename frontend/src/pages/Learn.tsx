@@ -255,8 +255,6 @@ export function LearnPage() {
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
             <span className="num text-sm text-ink-3">Lesson, about {minutes} min read</span>
             <span className="flex flex-wrap items-center gap-2 sm:ml-auto" data-lesson-actions>
-              <BookmarkButton kind="LESSON" id={d.resource.id} />
-              <AddToPlan kind="LESSON" refId={d.resource.id} title={d.resource.title} />
               <span id="lesson-annotate-slot" className="contents" />
               {conceptKeys.length > 0 && <AddCards from={{ resourceId: d.resource.id }} onDone={concepts.reload} />}
             </span>

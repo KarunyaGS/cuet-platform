@@ -85,8 +85,8 @@ export function BookmarksPage() {
   const [query, setQuery] = useState('');
   const subjectId = params.get('paperId') ?? '';
   const chapterId = params.get('chapterId') ?? '';
-  // Groups the student has closed (everything starts open, so saved items are never hidden by default).
-  const [closed, setClosed] = useState<Set<string>>(new Set());
+  // Groups the student has opened. Everything starts closed: nothing expands until the student opens it.
+  const [opened, setOpened] = useState<Set<string>>(new Set());
   const [err, setErr] = useState<Error | null>(null);
 
   const all = useMemo(() => tree(cards), [cards]);
@@ -119,7 +119,7 @@ export function BookmarksPage() {
     setParams(next, { replace: true });
   };
   const toggle = (key: string) =>
-    setClosed((s) => {
+    setOpened((s) => {
       const n = new Set(s);
       if (n.has(key)) n.delete(key);
       else n.add(key);
@@ -144,13 +144,6 @@ export function BookmarksPage() {
       <PageHeader
         title="My bookmarks"
         subtitle="Everything you saved, in one place: revision cards from saved definitions, formulas, key points and practice questions, and your own highlights and notes."
-        actions={
-          due > 0 ? (
-            <Link to={`/bookmarks/review${reviewQuery}`} className={buttonClass('primary')} data-review>
-              Revise {filtering && tab === 'CARDS' ? scopeDue : due} due {(filtering && tab === 'CARDS' ? scopeDue : due) === 1 ? 'card' : 'cards'}
-            </Link>
-          ) : undefined
-        }
       />
       <div className="mb-5">
         <Segmented
@@ -161,7 +154,6 @@ export function BookmarksPage() {
             { value: 'CARDS', label: `Revision cards (${cards.length})` },
             { value: 'NOTES', label: `Highlights and notes${noteCount === null ? '' : ` (${noteCount})`}` },
             { value: 'PAGES', label: `Saved pages (${savedPages.length})` },
-            { value: 'RECENT', label: 'Recently viewed' },
           ]}
         />
       </div>
@@ -232,7 +224,7 @@ export function BookmarksPage() {
               <div className="space-y-4" data-card-tree>
                 {shown.map((s) => {
                   const sKey = `s:${s.id}`;
-                  const sOpen = !closed.has(sKey);
+                  const sOpen = opened.has(sKey);
                   return (
                     <section key={s.id} className="overflow-hidden rounded-xl border border-rule bg-surface" data-subject-group={s.title}>
                       <button type="button" onClick={() => toggle(sKey)} aria-expanded={sOpen} className="flex w-full items-center gap-2 px-4 py-3 text-left hover:bg-paper">
@@ -243,7 +235,7 @@ export function BookmarksPage() {
                       {sOpen &&
                         s.chapters.map((ch) => {
                           const cKey = `c:${s.id}:${ch.id}`;
-                          const cOpen = !closed.has(cKey);
+                          const cOpen = opened.has(cKey);
                           return (
                             <div key={ch.id} className="border-t border-rule" data-chapter-group={ch.title}>
                               <button type="button" onClick={() => toggle(cKey)} aria-expanded={cOpen} className="flex w-full items-center gap-2 bg-paper/60 py-2.5 pr-4 pl-6 text-left hover:bg-paper">
@@ -336,32 +328,6 @@ export function BookmarksPage() {
               })}
             </ul>
           </>
-        ))}
-
-      {tab === 'RECENT' &&
-        (recent.loading && !recent.data ? (
-          <Loading />
-        ) : recent.error ? (
-          <ErrorBox error={recent.error} onRetry={recent.reload} />
-        ) : recent.data!.length === 0 ? (
-          <Empty icon={<History />}>Nothing opened yet. Lessons and topics you open appear here.</Empty>
-        ) : (
-          <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
-            {recent.data!.map((r) => (
-              <li key={`${r.kind}-${r.resourceId ?? r.nodeId}`}>
-                <Link to={r.kind === 'LESSON_VIEW' ? `/learn/${r.resourceId}` : `/topic/${r.nodeId}`} className="flex items-start gap-3 px-4 py-3.5 transition-colors hover:bg-paper">
-                  <span className="mt-0.5 shrink-0 text-ink-3">{r.kind === 'LESSON_VIEW' ? KIND.LESSON.icon : KIND.TOPIC.icon}</span>
-                  <span className="min-w-0 flex-1">
-                    <span className="line-clamp-2 text-[15px] text-ink">{r.title ?? '(no longer available)'}</span>
-                    <span className="mt-0.5 block text-xs text-ink-3">
-                      {r.kind === 'LESSON_VIEW' ? 'Lesson' : 'Topic'}
-                      {r.paper ? `, ${r.paper}` : ''}, opened {new Date(r.at).toLocaleString(undefined, { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' })}
-                    </span>
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
         ))}
     </div>
   );

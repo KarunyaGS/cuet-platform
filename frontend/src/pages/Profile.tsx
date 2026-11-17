@@ -1,6 +1,6 @@
 import { CircleCheck } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router';
+import { Link, Navigate } from 'react-router';
 import { api, type ExamCode } from '../api';
 import { Button, ErrorBox, inputClass, Loading, PageHeader, useAuth, useLoad } from '../ui';
 import { LatestUpdates } from './Updates';
@@ -365,8 +365,12 @@ export function ProfilePage() {
           </form>
         </Section>
 
-        <Section title="Latest government updates" description="Official notices from NTA and UGC, read from their own pages. For anything that affects you, rely on the official notice itself.">
+        <Section title="Official Government Updates" description="Official notices from NTA and UGC, read from their own pages, and the official exam information. For anything that affects you, rely on the official notice itself.">
           <LatestUpdates bare exam={prefs.data?.examCode ?? null} />
+          <Link to="/cuet" className="mt-4 flex items-center gap-2 border-t border-rule pt-3 text-sm" data-exam-info-link>
+            <span className="font-medium text-accent hover:underline">Official exam information</span>
+            <span className="min-w-0 text-ink-2">Eligibility, pattern, dates, admit card, results and participating universities, from NTA sources.</span>
+          </Link>
         </Section>
 
         <EmailSection />

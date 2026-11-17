@@ -66,7 +66,6 @@ function LessonsList({ items, source }: { items: Related[]; source: TopicDetail[
                 <span className="mt-0.5 block truncate text-xs text-ink-3">{[r.type === 'LESSON' ? 'Lesson' : r.type.charAt(0) + r.type.slice(1).toLowerCase(), r.from].filter(Boolean).join(' · ')}</span>
               </span>
             </Link>
-            {source.url && !r.from && <OfficialPdf source={source} />}
             <Link to={`/learn/${r.id}`} tabIndex={-1} aria-hidden className="shrink-0">
               <ChevronRight aria-hidden className="size-4 text-ink-3" />
             </Link>
@@ -107,8 +106,8 @@ function MainColumn({ d }: { d: TopicDetail }) {
     <div className="min-w-0 space-y-4">
       <div className="space-y-4">
         {lessons && <LessonsList items={lessons} source={d.source} />}
-        {/* A chapter, or a topic with no lesson of its own: the same official reference, in the same place (the top of the lesson area). */}
-        {related !== null && d.source.url && !(lessons && lessons.some((r) => !r.from)) && (
+        {/* The official reference, always in the same place: right below the lesson card (or on its own on a chapter or a topic with no lesson). */}
+        {related !== null && d.source.url && (
           <div className="flex" data-official-pdf-row>
             <OfficialPdf source={d.source} />
           </div>

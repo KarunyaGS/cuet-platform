@@ -28,6 +28,7 @@ import { deleteOne, editOne, editSchema, listAll, listForSurface, listForSurface
 import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, createQuestionCard, createQuestionCardSchema, deleteCard, importCards, importCardsSchema, listCards, questionCardState, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
 import { pyqDocument, pyqDocumentFile, pyqExamSchema, pyqSubject, pyqTree } from '../services/pyq';
 import { chapterBankDocuments } from '../services/native-papers';
+import { chatMessageSchema, createTicket, getChat, listTickets, replySchema, replyTicket, sendChat, storeAttachment, studentAttachment, ticketDetail, ticketSchema, unreadCount, CATEGORIES } from '../services/support';
 import { examActive, keeper, paperInScope, scienceOnly, UG_SCIENCE_PAPER_CODES } from '../lib/scope';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { answerSchema, getSession, marksSchema, progress, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
@@ -323,6 +324,31 @@ student.get('/report/weekly', async (c) => c.json(await weeklyReport(c.env.DB, c
 student.get('/reminders', async (c) => c.json(await reminders(c.env.DB, c.get('user').id, remindersQuery.parse({ day: c.req.query('day'), since: c.req.query('since') }))));
 student.post('/reminders/dismiss', async (c) => c.json(await dismissReminder(c.env.DB, c.get('user').id, await readJson(c, dismissSchema))));
 student.get('/recent', async (c) => c.json(await recentlyViewed(c.env.DB, c.get('user').id)));
+// ---- help and support: the student's own chat and tickets (every query is scoped to the signed-in student)
+student.get('/support/categories', (c) => c.json(CATEGORIES));
+student.get('/support/unread', async (c) => c.json(await unreadCount(c.env.DB, c.get('user').id)));
+student.get('/support/chat', async (c) => c.json(await getChat(c.env.DB, c.get('user').id)));
+student.post('/support/chat/messages', async (c) => {
+  await rateLimit(c.env, c.req, 'support-message', c.get('user').id, 40, 3600);
+  return c.json(await sendChat(c.env.DB, c.env.MEDIA, c.get('user').id, await readJson(c, chatMessageSchema)), 201);
+});
+student.get('/support/tickets', async (c) => c.json(await listTickets(c.env.DB, c.get('user').id)));
+student.post('/support/tickets', async (c) => {
+  await rateLimit(c.env, c.req, 'support-ticket', c.get('user').id, 10, 3600);
+  return c.json(await createTicket(c.env.DB, c.env.MEDIA, c.get('user').id, await readJson(c, ticketSchema)), 201);
+});
+student.get('/support/tickets/:id', async (c) => c.json(await ticketDetail(c.env.DB, c.get('user').id, c.req.param('id'))));
+student.post('/support/tickets/:id/messages', async (c) => {
+  await rateLimit(c.env, c.req, 'support-message', c.get('user').id, 40, 3600);
+  return c.json(await replyTicket(c.env.DB, c.env.MEDIA, c.get('user').id, c.req.param('id'), await readJson(c, replySchema)), 201);
+});
+student.post('/support/attachments', async (c) => {
+  await rateLimit(c.env, c.req, 'support-upload', c.get('user').id, 20, 3600);
+  const type = (c.req.header('content-type') ?? '').split(';')[0]!.trim();
+  const name = decodeURIComponent(c.req.header('x-filename') ?? '');
+  return c.json(await storeAttachment(c.env.MEDIA, c.get('user').id, await c.req.arrayBuffer(), type, name), 201);
+});
+student.get('/support/attachments/:messageId', async (c) => studentAttachment(c.env.DB, c.env.MEDIA, c.get('user').id, c.req.param('messageId')));
 student.get('/subject-summary/:paperId', async (c) => c.json(await subjectSummary(c.env.DB, c.get('user').id, c.req.param('paperId'))));
 
 // Study planner

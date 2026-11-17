@@ -45,7 +45,7 @@ export function BookmarkNotes({ onCount }: { onCount: (n: number) => void }) {
   const [query, setQuery] = useState('');
   const [subjectId, setSubjectId] = useState('');
   const [chapterId, setChapterId] = useState('');
-  const [closed, setClosed] = useState<Set<string>>(new Set());
+  const [opened, setOpened] = useState<Set<string>>(new Set());
   const [editing, setEditing] = useState<string | null>(null);
   const [text, setText] = useState('');
   const [err, setErr] = useState<Error | null>(null);
@@ -72,7 +72,7 @@ export function BookmarkNotes({ onCount }: { onCount: (n: number) => void }) {
   if (loaded.error) return <ErrorBox error={loaded.error} onRetry={loaded.reload} />;
 
   const toggle = (key: string) =>
-    setClosed((s) => {
+    setOpened((s) => {
       const n = new Set(s);
       if (n.has(key)) n.delete(key);
       else n.add(key);
@@ -142,7 +142,7 @@ export function BookmarkNotes({ onCount }: { onCount: (n: number) => void }) {
       ) : (
         <div className="space-y-4" data-notes-tree>
           {shown.map((s) => {
-            const sOpen = !closed.has(`s:${s.id}`);
+            const sOpen = opened.has(`s:${s.id}`);
             return (
               <section key={s.id} className="overflow-hidden rounded-xl border border-rule bg-surface" data-subject-group={s.title}>
                 <button type="button" onClick={() => toggle(`s:${s.id}`)} aria-expanded={sOpen} className="flex w-full items-center gap-2 px-4 py-3 text-left hover:bg-paper">
@@ -151,7 +151,7 @@ export function BookmarkNotes({ onCount }: { onCount: (n: number) => void }) {
                 </button>
                 {sOpen &&
                   s.items.map((ch) => {
-                    const cOpen = !closed.has(`c:${s.id}:${ch.id}`);
+                    const cOpen = opened.has(`c:${s.id}:${ch.id}`);
                     return (
                       <div key={ch.id} className="border-t border-rule" data-chapter-group={ch.title}>
                         <button type="button" onClick={() => toggle(`c:${s.id}:${ch.id}`)} aria-expanded={cOpen} className="flex w-full items-center gap-2 bg-paper/60 py-2.5 pr-4 pl-6 text-left hover:bg-paper">

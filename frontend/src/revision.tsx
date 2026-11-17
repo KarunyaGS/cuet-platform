@@ -176,14 +176,19 @@ export function SavedForRevision({ scope, version = 0, startOpen = false, compac
     if (cards.length === 0) return null;
     return (
       <section aria-labelledby="saved-for-revision" data-saved-for-revision>
-        <h2 id="saved-for-revision" className="mb-2 text-sm font-semibold text-ink">
-          Saved for revision
+        <h2 id="saved-for-revision" className="text-sm font-semibold text-ink">
+          <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} data-saved-toggle className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 -ml-2 hover:bg-ink/5">
+            Saved for revision
+            {open ? <ChevronDown aria-hidden className="size-4 text-ink-3" /> : <ChevronRight aria-hidden className="size-4 text-ink-3" />}
+          </button>
         </h2>
-        <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
-          {sorted.map((c) => (
-            <CardRow key={c.id} card={c} here={false} onChange={(next) => setCards((list) => applyChange(list ?? [], c.id, next))} />
-          ))}
-        </ul>
+        {open && (
+          <ul className="mt-2 divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+            {sorted.map((c) => (
+              <CardRow key={c.id} card={c} here={false} onChange={(next) => setCards((list) => applyChange(list ?? [], c.id, next))} />
+            ))}
+          </ul>
+        )}
       </section>
     );
   }
