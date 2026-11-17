@@ -15,7 +15,7 @@ export function Logo() {
       </span>
       <span className="flex flex-col leading-tight">
         CUET Prep
-        <span className="hidden whitespace-nowrap text-[11px] font-normal text-ink-3 md:block">India’s Student-Centric CUET Preparation Platform</span>
+        <span className="hidden whitespace-nowrap text-[11px] font-normal text-ink-3 sm:block">1st Student Centric Super App</span>
       </span>
     </span>
   );
