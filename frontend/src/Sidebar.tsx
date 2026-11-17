@@ -1,5 +1,5 @@
 import { ChevronRight, CreditCard } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router';
 import { api, type ExamCode, type Outline, type OutlineNode, type PyqTree, type Subject } from './api';
 
@@ -16,6 +16,8 @@ const YEAR = 2026;
 const STORE = 'cuet.sidebar.open';
 
 const rowBase = 'relative flex w-full items-center gap-1.5 text-left transition-colors hover:bg-ink/[0.03] focus-visible:bg-ink/[0.04]';
+/** A row that contains the page the student is on (its subject, category or heading): blue text, no block. */
+const parentRow = 'font-medium text-accent';
 const selectedRow = 'bg-accent-soft font-medium text-accent hover:bg-accent-soft before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:bg-accent';
 
 function Chevron({ open }: { open: boolean }) {
@@ -143,50 +145,84 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
     if (subjects.some((s) => open[`p:${s.paperId}`])) loadPyq();
   }, [subjects, open, loadOutline, loadPyq]);
 
-  // Follow the page: a subject page opens its subject; a topic page opens the chapter it belongs to.
-  const topicId = /^\/topic\/([^/]+)/.exec(pathname)?.[1] ?? null;
+  // Follow the page. The paper and chapter a page belongs to come from the URL (a subject page) or from the topic or lesson the page shows
+  // (topic, quick revision and lesson pages), so a direct visit, a refresh, back and forward all open and mark the right subject, category and chapter.
   const subjectPaper = /^\/[A-Z_]+\/subject\/([^/]+)/.exec(pathname)?.[1] ?? null;
+  const topicRoute = /^\/(?:topic|revise)\/([^/]+)/.exec(pathname)?.[1] ?? null;
+  const lessonRoute = /^\/learn\/([^/]+)/.exec(pathname)?.[1] ?? null;
+  const routeKey = topicRoute ? `t:${topicRoute}` : lessonRoute ? `l:${lessonRoute}` : null;
+  const [ctxNode, setCtxNode] = useState<{ key: string; paperId: string; nodeId: string } | null>(null);
+  useEffect(() => {
+    if (!routeKey) return;
+    let live = true;
+    const found = topicRoute
+      ? once(`topic:${topicRoute}`, () => api.topic(topicRoute)).then((t) => (t.paper ? { paperId: t.paper.id, nodeId: topicRoute } : null))
+      : once(`resource:${lessonRoute}`, () => api.resource(lessonRoute!)).then((r) => (r.topic ? { paperId: r.topic.paper_id, nodeId: r.topic.id } : null));
+    found.then(
+      (v) => live && v && setCtxNode({ key: routeKey, ...v }),
+      () => undefined,
+    );
+    return () => {
+      live = false;
+    };
+  }, [routeKey, topicRoute, lessonRoute]);
+  const ctx = ctxNode && ctxNode.key === routeKey ? ctxNode : null;
   useEffect(() => {
     if (subjectPaper) expand([`s:${subjectPaper}`]);
   }, [subjectPaper, expand]);
+  useEffect(() => {
+    if (!ctx) return;
+    expand([`s:${ctx.paperId}`, `c:${ctx.paperId}`]);
+    loadOutline(ctx.paperId);
+  }, [ctx, expand, loadOutline]);
   const chaptersByPaper = useMemo(() => {
     const m: Record<string, ReturnType<typeof chaptersOf>> = {};
     for (const [id, o] of Object.entries(outlines)) if (typeof o === 'object') m[id] = chaptersOf(o.nodes);
     return m;
   }, [outlines]);
+  /** The chapter row to mark as selected, and the section or unit heading above it (marked, not selected). */
   const current = useMemo(() => {
-    if (!topicId) return null;
-    for (const [paperId, list] of Object.entries(chaptersByPaper)) {
-      const ch = list.find((c) => c.kind === 'topic' && c.ids.has(topicId)) ?? list.find((c) => c.ids.has(topicId));
-      if (ch) return { paperId, chapterId: ch.id };
-    }
-    return null;
-  }, [topicId, chaptersByPaper]);
-  useEffect(() => {
-    if (current) expand([`s:${current.paperId}`, `c:${current.paperId}`]);
-  }, [current, expand]);
-  // On a topic page whose subject is not loaded yet, look through the papers one by one until it is found.
-  useEffect(() => {
-    if (!topicId || current || !subjects) return;
-    const next = subjects.find((s) => s.available && !outlines[s.paperId]);
-    if (next) loadOutline(next.paperId);
-  }, [topicId, current, subjects, outlines, loadOutline]);
+    if (!ctx) return null;
+    const list = chaptersByPaper[ctx.paperId];
+    const item = list?.find((c) => c.kind === 'topic' && c.ids.has(ctx.nodeId)) ?? list?.find((c) => c.ids.has(ctx.nodeId));
+    const group = list?.find((c) => c.kind === 'group' && c.id !== item?.id && c.ids.has(ctx.nodeId));
+    return { paperId: ctx.paperId, itemId: item?.id ?? null, groupId: group?.id ?? null };
+  }, [ctx, chaptersByPaper]);
 
   const params = new URLSearchParams(search);
   const onPyq = pathname === '/pyq';
   const pyqYear = Number(params.get('year')) || null;
   const pyqSlug = params.get('subject') ?? '';
+  const pyqSubject = onPyq && subjects && pyq && typeof pyq === 'object' ? (subjects.find((x) => pyqSlugMatches(pyq, x, pyqSlug)) ?? null) : null;
+  useEffect(() => {
+    if (onPyq) loadPyq();
+  }, [onPyq, loadPyq]);
+  useEffect(() => {
+    if (pyqSubject) expand([`s:${pyqSubject.paperId}`, `p:${pyqSubject.paperId}`]);
+  }, [pyqSubject, expand]);
+
+  // Bring the selected row into view once per page, when it has appeared (after the list has opened and loaded).
+  const listRef = useRef<HTMLUListElement>(null);
+  const shownFor = useRef('');
+  useEffect(() => {
+    const row = listRef.current?.querySelector<HTMLElement>('a[aria-current="page"]');
+    const key = `${pathname}${search}`;
+    if (row && shownFor.current !== key) {
+      shownFor.current = key;
+      row.scrollIntoView({ block: 'nearest' });
+    }
+  });
 
   if (failed) return <p className="px-4 py-3 text-xs text-ink-3">The subject list could not be loaded. Refresh the page to try again.</p>;
   if (!subjects) return <p className="px-4 py-3 text-xs text-ink-3">Loading subjects…</p>;
 
   return (
-    <ul className="py-1" aria-label="CUET UG subjects">
+    <ul ref={listRef} className="py-1" aria-label="CUET UG subjects">
       {subjects.map((s) => {
         const sKey = `s:${s.paperId}`;
         const isOpen = !!open[sKey];
         const onSubject = pathname === `/${EXAM}/subject/${s.paperId}`;
-        const inside = current?.paperId === s.paperId || (onPyq && pyqSlugMatches(pyq, s, pyqSlug));
+        const inside = current?.paperId === s.paperId || pyqSubject?.paperId === s.paperId;
         return (
           <li key={s.paperId} className="mb-0.5">
             <button
@@ -196,7 +232,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                 toggle(sKey);
                 if (s.available) loadOutline(s.paperId);
               }}
-              className={`${rowBase} min-h-10 px-3 py-2 text-[14px] ${onSubject ? selectedRow : inside ? 'font-semibold text-ink' : 'text-ink'}`}
+              className={`${rowBase} min-h-9 px-3 py-1.5 text-[13px] ${onSubject ? selectedRow : inside ? parentRow : 'text-ink'}`}
             >
               <Chevron open={isOpen} />
               <span className="min-w-0 flex-1 leading-snug" title={s.name}>
@@ -216,19 +252,19 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                       active={current?.paperId === s.paperId}
                       onToggle={() => toggle(`c:${s.paperId}`)}
                     >
-                      <Chapters paperId={s.paperId} outline={outlines[s.paperId]} list={chaptersByPaper[s.paperId]} currentId={current?.paperId === s.paperId ? current.chapterId : null} onNavigate={onNavigate} onRetry={() => setOutlines((o) => { const { [s.paperId]: _drop, ...rest } = o; return rest; })} />
+                      <Chapters paperId={s.paperId} outline={outlines[s.paperId]} list={chaptersByPaper[s.paperId]} currentId={current?.paperId === s.paperId ? current.itemId : null} parentId={current?.paperId === s.paperId ? current.groupId : null} onNavigate={onNavigate} onRetry={() => setOutlines((o) => { const { [s.paperId]: _drop, ...rest } = o; return rest; })} />
                     </Category>
                     <Category
                       id={`p:${s.paperId}`}
                       label="Previous-year papers"
                       open={!!open[`p:${s.paperId}`]}
-                      active={onPyq && pyqSlugMatches(pyq, s, pyqSlug)}
+                      active={pyqSubject?.paperId === s.paperId}
                       onToggle={() => {
                         toggle(`p:${s.paperId}`);
                         loadPyq();
                       }}
                     >
-                      <PyqYears subject={s} pyq={pyq} activeYear={onPyq && pyqSlugMatches(pyq, s, pyqSlug) ? pyqYear : null} onNavigate={onNavigate} />
+                      <PyqYears subject={s} pyq={pyq} activeYear={pyqSubject?.paperId === s.paperId ? pyqYear : null} onNavigate={onNavigate} />
                     </Category>
                   </>
                 )}
@@ -249,7 +285,7 @@ function pyqSlugMatches(pyq: PyqTree | 'loading' | 'error' | null, s: Subject, s
 function Category({ label, open, active, onToggle, children }: { id: string; label: string; open: boolean; active: boolean; onToggle: () => void; children: React.ReactNode }) {
   return (
     <li>
-      <button type="button" aria-expanded={open} onClick={onToggle} className={`${rowBase} min-h-9 py-1.5 pr-3 pl-8 text-[13px] ${active ? 'font-semibold text-ink' : 'text-ink'}`}>
+      <button type="button" aria-expanded={open} onClick={onToggle} className={`${rowBase} min-h-8 py-1 pr-3 pl-8 text-[13px] ${active ? parentRow : 'text-ink'}`}>
         <Chevron open={open} />
         <span className="flex-1 leading-snug">{label}</span>
       </button>
@@ -258,7 +294,7 @@ function Category({ label, open, active, onToggle, children }: { id: string; lab
   );
 }
 
-function Chapters({ paperId, outline, list, currentId, onNavigate, onRetry }: { paperId: string; outline: Outline | 'loading' | 'error' | undefined; list: ReturnType<typeof chaptersOf> | undefined; currentId: string | null; onNavigate?: () => void; onRetry: () => void }) {
+function Chapters({ paperId, outline, list, currentId, parentId, onNavigate, onRetry }: { paperId: string; outline: Outline | 'loading' | 'error' | undefined; list: ReturnType<typeof chaptersOf> | undefined; currentId: string | null; parentId: string | null; onNavigate?: () => void; onRetry: () => void }) {
   if (!outline || outline === 'loading') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Loading…</li>;
   if (outline === 'error')
     return (
@@ -281,7 +317,7 @@ function Chapters({ paperId, outline, list, currentId, onNavigate, onRetry }: { 
             data-paper={paperId}
             data-kind={c.kind}
             title={`${c.label ? `${c.label} ` : ''}${c.title}`}
-            className={`${rowBase} pr-3 text-[12.5px] ${c.kind === 'group' ? 'min-h-8 py-1.5 pl-12 font-medium' : 'h-8 pl-16'} ${currentId === c.id ? selectedRow : 'text-ink'}`}
+            className={`${rowBase} pr-3 text-[13px] ${c.kind === 'group' ? 'min-h-8 py-1.5 pl-12' : 'h-8 pl-16'} ${currentId === c.id ? selectedRow : parentId === c.id ? parentRow : 'text-ink'}`}
           >
             <span className={`min-w-0 flex-1 ${c.kind === 'group' ? 'leading-snug' : 'truncate'}`}>
               {c.label ? <span className="text-ink-3">{c.label} </span> : null}
@@ -307,7 +343,7 @@ function PyqYears({ subject, pyq, activeYear, onNavigate }: { subject: Subject; 
     <>
       {rows.map(({ year, hit }) => (
         <li key={year}>
-          <Link to={`/pyq?year=${year}&subject=${encodeURIComponent(hit.slug)}`} onClick={onNavigate} aria-current={activeYear === year ? 'page' : undefined} className={`${rowBase} min-h-7 py-1 pr-3 pl-12 text-[12.5px] ${activeYear === year ? selectedRow : 'text-ink'}`}>
+          <Link to={`/pyq?year=${year}&subject=${encodeURIComponent(hit.slug)}`} onClick={onNavigate} aria-current={activeYear === year ? 'page' : undefined} className={`${rowBase} h-8 pr-3 pl-12 text-[13px] ${activeYear === year ? selectedRow : 'text-ink'}`}>
             <span className="flex-1">{year}</span>
             <Count n={hit.papers} />
           </Link>
