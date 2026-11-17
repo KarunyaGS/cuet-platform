@@ -1,0 +1,961 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_01abe216503b402f8c66114dc5d8521e",
+  "title": "Database Query using SQL"
+ },
+ "lesson": {
+  "key": "ug26-308-r00-sql-functions-grouping-joins",
+  "title": "Database queries using SQL: functions, aggregates, GROUP BY, HAVING, ORDER BY, set operations and joins",
+  "coverage": [
+   {
+    "phrase": "Database Query using SQL",
+    "section": "Single-row functions: math, text and date"
+   },
+   {
+    "phrase": "Math functions: POWER (), ROUND (), MOD ().",
+    "section": "Single-row functions: math, text and date"
+   },
+   {
+    "phrase": "Text functions: UCASE () / UPPER (), LCASE () / LOWER (), MID () / SUBSTRING: () / SUBSTR (), LENGTH (), LEFT (), RIGHT (), INSTR (), LTRIM (), RTRIM (), TRIM ().",
+    "section": "Single-row functions: math, text and date"
+   },
+   {
+    "phrase": "Date Functions: NOW (), DATE (), MONTH (), MONTHNAME (), YEAR (), DAY: (), DAYNAME ().",
+    "section": "Single-row functions: math, text and date"
+   },
+   {
+    "phrase": "Aggregate Functions: MAX (), MIN (), AVG (), SUM (), COUNT: (), using COUNT (*).",
+    "section": "Aggregate functions"
+   },
+   {
+    "phrase": "Querying and manipulating data using Group by, Having, Order: by.",
+    "section": "GROUP BY, HAVING and ORDER BY"
+   },
+   {
+    "phrase": "Operations on Relations - Union, Intersection, Minus, Cartesian Product, JOIN",
+    "section": "Operations on relations: union, intersection, minus, Cartesian product and joins"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Single-row functions: math, text and date"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **function** takes input values (arguments) and returns a value. **Single-row functions** work on each row separately and return one value per row. In MySQL they can be used in the SELECT list, in WHERE and in ORDER BY, and some can be tried without a table, for example `SELECT POWER(2, 5);`."
+   },
+   {
+    "type": "HEADING",
+    "text": "Math functions"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Math functions",
+    "columns": [
+     "Function",
+     "Returns",
+     "Example",
+     "Result"
+    ],
+    "rows": [
+     [
+      "`POWER(x, y)`",
+      "x raised to the power y",
+      "`POWER(3, 4)`",
+      "81"
+     ],
+     [
+      "`ROUND(x, d)`",
+      "x rounded to d decimal places; a negative d rounds digits left of the decimal point; `ROUND(x)` means d = 0",
+      "`ROUND(358.7462, 2)`",
+      "358.75"
+     ],
+     [
+      "",
+      "",
+      "`ROUND(358.7462, -1)`",
+      "360"
+     ],
+     [
+      "`MOD(x, y)`",
+      "Remainder of x divided by y (same as `x % y`)",
+      "`MOD(29, 6)`",
+      "5"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "For a negative dividend MySQL gives the remainder the sign of the dividend, so `MOD(-7, 3)` is -1. Rounding a number with a fractional part of exactly .5 moves it away from zero, so `ROUND(4.5)` is 5 and `ROUND(-4.5)` is -5."
+   },
+   {
+    "type": "HEADING",
+    "text": "Text (string) functions"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Text functions (string positions start at 1)",
+    "columns": [
+     "Function",
+     "Returns",
+     "Example",
+     "Result"
+    ],
+    "rows": [
+     [
+      "`UCASE(s)` / `UPPER(s)`",
+      "Upper-case version",
+      "`UPPER(\"cuet\")`",
+      "CUET"
+     ],
+     [
+      "`LCASE(s)` / `LOWER(s)`",
+      "Lower-case version",
+      "`LOWER(\"SQL Db\")`",
+      "sql db"
+     ],
+     [
+      "`MID(s, p, n)` / `SUBSTR(s, p, n)` / `SUBSTRING(s, p, n)`",
+      "n characters starting at position p; if n is omitted, up to the end; a negative p counts from the end",
+      "`MID(\"Information\", 3, 5)`",
+      "forma"
+     ],
+     [
+      "`LENGTH(s)`",
+      "Number of characters (bytes in a multi-byte character set; for plain English text the same)",
+      "`LENGTH(\"Computer\")`",
+      "8"
+     ],
+     [
+      "`LEFT(s, n)`",
+      "First n characters",
+      "`LEFT(\"Information\", 4)`",
+      "Info"
+     ],
+     [
+      "`RIGHT(s, n)`",
+      "Last n characters",
+      "`RIGHT(\"Information\", 4)`",
+      "tion"
+     ],
+     [
+      "`INSTR(s, t)`",
+      "Position of the first occurrence of t in s; **0** if not found",
+      "`INSTR(\"Information\", \"mat\")`",
+      "6"
+     ],
+     [
+      "`LTRIM(s)` / `RTRIM(s)` / `TRIM(s)`",
+      "Remove leading / trailing / both leading and trailing spaces",
+      "`TRIM(\"  hi  \")`",
+      "hi"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Evaluate `SELECT LENGTH(TRIM(\"  CUET  \")), UPPER(MID(\"computer\", 3, 3)), POWER(MOD(17, 5), 3);`",
+    "solution": "Evaluate from the inside out.\n\n`TRIM(\"  CUET  \")` removes the spaces on both sides and gives CUET, whose length is 4.\n\n`MID(\"computer\", 3, 3)` starts at position 3 (the letter m: c1 o2 m3 p4 u5 t6 e7 r8) and takes 3 characters: mpu. `UPPER` turns that into MPU.\n\n`MOD(17, 5)` is 2 (17 = 3 x 5 + 2), and `POWER(2, 3)` is 8.",
+    "answer": "One row with the values 4, MPU, 8"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "INSTR returns 0 (not -1 and not NULL) when the text is absent, and the first position is 1, not 0. `RIGHT(\"Information\", 4)` gives the last four characters, not the first four."
+   },
+   {
+    "type": "HEADING",
+    "text": "Date functions"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Date functions (example date 2024-03-15, a Friday)",
+    "columns": [
+     "Function",
+     "Returns",
+     "Result for the example"
+    ],
+    "rows": [
+     [
+      "`NOW()`",
+      "Current date and time of the server, as `YYYY-MM-DD HH:MM:SS`",
+      "depends on when it is run"
+     ],
+     [
+      "`DATE(x)`",
+      "The date part of a date-time value",
+      "`DATE(NOW())` gives today's date"
+     ],
+     [
+      "`MONTH(d)`",
+      "Month number 1 to 12",
+      "3"
+     ],
+     [
+      "`MONTHNAME(d)`",
+      "Month name",
+      "March"
+     ],
+     [
+      "`YEAR(d)`",
+      "Year",
+      "2024"
+     ],
+     [
+      "`DAY(d)`",
+      "Day of the month 1 to 31",
+      "15"
+     ],
+     [
+      "`DAYNAME(d)`",
+      "Weekday name",
+      "Friday"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "A date literal is written in quotes in the form `\"YYYY-MM-DD\"`. These functions can be applied to a DATE column, for example `SELECT YEAR(SDate) FROM SALES;`."
+   },
+   {
+    "type": "HEADING",
+    "text": "Aggregate functions"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Aggregate function",
+    "text": "A function that works on a set of rows and returns a single summary value for the set (or one value per group when GROUP BY is used). MAX, MIN, SUM, AVG and COUNT are the aggregate functions of the syllabus."
+   },
+   {
+    "type": "TEXT",
+    "text": "An **aggregate function** works on a set of rows and returns **one** value for the whole set (or one per group when GROUP BY is used). All aggregate functions **ignore NULL values**, except `COUNT(*)`, which counts rows."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Aggregate functions",
+    "columns": [
+     "Function",
+     "Meaning",
+     "NULL handling"
+    ],
+    "rows": [
+     [
+      "`MAX(col)`",
+      "Largest value",
+      "Ignores NULL"
+     ],
+     [
+      "`MIN(col)`",
+      "Smallest value",
+      "Ignores NULL"
+     ],
+     [
+      "`SUM(col)`",
+      "Total of the values",
+      "Ignores NULL; if every value is NULL the result is NULL"
+     ],
+     [
+      "`AVG(col)`",
+      "Average = sum of non-NULL values / number of non-NULL values",
+      "NULLs are not counted in the divisor"
+     ],
+     [
+      "`COUNT(col)`",
+      "Number of non-NULL values in the column",
+      "Ignores NULL"
+     ],
+     [
+      "`COUNT(*)`",
+      "Number of rows",
+      "Counts every row, even if all columns are NULL"
+     ],
+     [
+      "`COUNT(DISTINCT col)`",
+      "Number of different non-NULL values",
+      "Ignores NULL"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Sample table SALES used in the rest of this lesson:"
+   },
+   {
+    "type": "TABLE",
+    "caption": "SALES",
+    "columns": [
+     "SID",
+     "Item",
+     "Qty",
+     "Price",
+     "City",
+     "SDate"
+    ],
+    "rows": [
+     [
+      "1",
+      "Pen",
+      "10",
+      "5",
+      "Pune",
+      "2024-03-15"
+     ],
+     [
+      "2",
+      "Book",
+      "4",
+      "120",
+      "Delhi",
+      "2024-03-18"
+     ],
+     [
+      "3",
+      "Pen",
+      "6",
+      "5",
+      "Delhi",
+      "2024-04-02"
+     ],
+     [
+      "4",
+      "Bag",
+      "2",
+      "450",
+      "Pune",
+      "2024-04-10"
+     ],
+     [
+      "5",
+      "Book",
+      "5",
+      "120",
+      "Goa",
+      "2024-05-21"
+     ],
+     [
+      "6",
+      "Bag",
+      "3",
+      "450",
+      "Delhi",
+      "2024-05-30"
+     ],
+     [
+      "7",
+      "Pen",
+      "NULL",
+      "5",
+      "Goa",
+      "2024-06-07"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "For the SALES table find `COUNT(*)`, `COUNT(Qty)`, `SUM(Qty)`, `MAX(Price)`, `MIN(Price)` and `COUNT(DISTINCT City)`.",
+    "solution": "The table has 7 rows, so `COUNT(*)` is 7. Qty is NULL in the last row, so `COUNT(Qty)` counts only 6 values. `SUM(Qty)` = 10 + 4 + 6 + 2 + 5 + 3 = 30 (the NULL is skipped). The highest Price is 450 and the lowest is 5. The cities are Pune, Delhi and Goa, so `COUNT(DISTINCT City)` is 3.",
+    "answer": "7, 6, 30, 450, 5, 3"
+   },
+   {
+    "type": "HEADING",
+    "text": "GROUP BY, HAVING and ORDER BY"
+   },
+   {
+    "type": "TEXT",
+    "text": "**GROUP BY** collects rows that share the same value(s) in the named column(s) into groups and applies the aggregate function to each group, giving one output row per group. **HAVING** then keeps only the groups that satisfy a condition on an aggregate. **ORDER BY** sorts the final rows."
+   },
+   {
+    "type": "TEXT",
+    "text": "`SELECT column(s), aggregate(s)`\n`FROM table`\n`WHERE condition_on_rows`\n`GROUP BY column(s)`\n`HAVING condition_on_groups`\n`ORDER BY column [ASC | DESC];`"
+   },
+   {
+    "type": "TABLE",
+    "caption": "WHERE versus HAVING",
+    "columns": [
+     "Point",
+     "WHERE",
+     "HAVING"
+    ],
+    "rows": [
+     [
+      "Filters",
+      "Individual rows, **before** grouping",
+      "Groups, **after** grouping"
+     ],
+     [
+      "Aggregate functions in the condition",
+      "Not allowed (`WHERE SUM(Qty) > 5` is an error)",
+      "Allowed"
+     ],
+     [
+      "Position in the query",
+      "After FROM",
+      "After GROUP BY"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "**ORDER BY** sorts in **ascending** order by default (`ASC`); use `DESC` for descending. Several sort keys are separated by commas: `ORDER BY Item ASC, Qty DESC` sorts by Item first and uses Qty to order rows within the same Item. NULL values come first in ascending order and last in descending order. The clauses always appear in the order WHERE, GROUP BY, HAVING, ORDER BY."
+   },
+   {
+    "type": "TEXT",
+    "text": "In a query with GROUP BY, the SELECT list should contain only the grouped columns and aggregate functions; a plain column that is neither grouped nor aggregated is not allowed in standard (and strict-mode MySQL) SQL."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "On SALES, evaluate: `SELECT Item, SUM(Qty * Price) FROM SALES GROUP BY Item HAVING SUM(Qty * Price) >= 500 ORDER BY 2 DESC;`",
+    "solution": "Group the rows by Item and compute Qty x Price for each row.\n\nPen: 10 x 5 = 50 and 6 x 5 = 30; the third row has Qty NULL, so its product is NULL and SUM ignores it: total 80.\n\nBook: 4 x 120 = 480 and 5 x 120 = 600; total 1080.\n\nBag: 2 x 450 = 900 and 3 x 450 = 1350; total 2250.\n\nHAVING keeps totals of at least 500: Book and Bag. `ORDER BY 2 DESC` sorts by the second column, largest first: Bag then Book.",
+    "answer": "Two rows: (Bag, 2250) and (Book, 1080)"
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Evaluate `SELECT City, COUNT(*) FROM SALES WHERE Price >= 100 GROUP BY City HAVING COUNT(*) >= 2 ORDER BY City DESC;`",
+    "solution": "WHERE is applied first and keeps rows 2 (Delhi), 4 (Pune), 5 (Goa) and 6 (Delhi). Grouping by City gives Delhi with 2 rows, Pune with 1 row and Goa with 1 row. HAVING keeps groups with at least 2 rows, leaving Delhi only.",
+    "answer": "One row: (Delhi, 2)"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Remember the order of work: WHERE (rows) then GROUP BY then HAVING (groups) then ORDER BY. A condition on a plain column belongs in WHERE (it is faster because fewer rows are grouped); a condition on SUM, COUNT, AVG and so on must go in HAVING."
+   },
+   {
+    "type": "HEADING",
+    "text": "Operations on relations: union, intersection, minus, Cartesian product and joins"
+   },
+   {
+    "type": "TEXT",
+    "text": "Two tables can be combined by set operations on their rows, or by pairing their rows."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Set operations (the two SELECTs must have the same number of columns with compatible types)",
+    "columns": [
+     "Operation",
+     "Result",
+     "Notes"
+    ],
+    "rows": [
+     [
+      "`UNION`",
+      "Rows in the first query or the second or both, with duplicates removed",
+      "`UNION ALL` keeps duplicates"
+     ],
+     [
+      "`INTERSECT`",
+      "Rows present in both queries",
+      "Available in recent MySQL versions (8.0.31 and later)"
+     ],
+     [
+      "`MINUS` (also called `EXCEPT`)",
+      "Rows of the first query that are not in the second",
+      "`MINUS` is the relational-algebra / Oracle name; MySQL versions that support it use `EXCEPT`; otherwise use `NOT IN`"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Sample tables: CLUBA has names Asha, Ravi, Meena, Karan. CLUBB has names Ravi, Sia, Karan, Dev, Zoya."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Find the number of rows in CLUBA UNION CLUBB, CLUBA INTERSECT CLUBB, CLUBA MINUS CLUBB and CLUBB MINUS CLUBA.",
+    "solution": "The names common to both clubs are Ravi and Karan (2 names).\n\nUnion: 4 + 5 - 2 = 7 rows.\n\nIntersection: 2 rows (Ravi, Karan).\n\nCLUBA minus CLUBB: Asha and Meena, 2 rows.\n\nCLUBB minus CLUBA: Sia, Dev and Zoya, 3 rows. The two minus results differ because the operation is not symmetric.",
+    "answer": "Union 7; intersection 2; A minus B 2; B minus A 3"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Cartesian product.** `SELECT * FROM STAFF, DEPT;` (or `STAFF CROSS JOIN DEPT`) pairs every row of the first table with every row of the second. The result has columns of both tables (degree = sum) and rows = product of the row counts."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Join",
+    "text": "An operation that combines rows from two or more tables by pairing only those rows that satisfy a joining condition, usually equality of a common column. Without a condition the pairing becomes a Cartesian product."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Join.** A join pairs only the rows that satisfy a condition, normally equality of a common column.\n\n- **Equi-join**: `SELECT * FROM STAFF, DEPT WHERE STAFF.DeptNo = DEPT.DeptNo;` or `STAFF INNER JOIN DEPT ON STAFF.DeptNo = DEPT.DeptNo`. Both DeptNo columns appear.\n- **Natural join**: `STAFF NATURAL JOIN DEPT` joins on all columns with the same name and shows the common column **only once**.\n\nColumns with the same name in both tables must be qualified with the table name (`STAFF.DeptNo`)."
+   },
+   {
+    "type": "TEXT",
+    "text": "STAFF(EmpNo, Name, DeptNo) has rows (1, Anil, 10), (2, Bina, 20), (3, Chet, 10), (4, Dia, 40). DEPT(DeptNo, DName) has rows (10, Sales), (20, HR), (30, IT)."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "For STAFF and DEPT above, give the number of rows and columns of the Cartesian product, the equi-join and the natural join.",
+    "solution": "Cartesian product: 4 x 3 = 12 rows and 3 + 2 = 5 columns.\n\nEqui-join on DeptNo: Anil and Chet match 10 (Sales), Bina matches 20 (HR), Dia has DeptNo 40 which does not exist in DEPT, and DeptNo 30 of DEPT has no staff. So 3 rows; the columns are still 5 because both DeptNo columns are shown.\n\nNatural join: the same 3 rows, but DeptNo appears once, so 4 columns.",
+    "answer": "Cartesian product 12 rows x 5 columns; equi-join 3 rows x 5 columns; natural join 3 rows x 4 columns"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "A Cartesian product has no condition, so it grows quickly (rows multiply). In an exam answer for a join, never forget the joining condition: without it you only get a Cartesian product."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Function families: single-row (math, text, date) and aggregate (one value for many rows). Clause order: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY. Union removes duplicates; Cartesian product multiplies rows; a join keeps only the matching pairs."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which SQL clause is used to place a condition on groups created by GROUP BY?",
+   "options": [
+    "WHERE",
+    "ORDER BY",
+    "HAVING",
+    "DISTINCT"
+   ],
+   "answer": 3,
+   "explanation": "After rows are grouped, only HAVING can test an aggregate result such as COUNT(*) or SUM(price) for each group. WHERE works earlier, on individual rows, and cannot use aggregate functions. Checking the other options: Option 1: WHERE filters individual rows before they are grouped. Option 2: ORDER BY only sorts the output. Option 4: DISTINCT removes duplicate rows; it is not a clause that filters groups.",
+   "optionRationale": {
+    "1": "WHERE filters individual rows before they are grouped.",
+    "2": "ORDER BY only sorts the output.",
+    "4": "DISTINCT removes duplicate rows; it is not a clause that filters groups."
+   },
+   "objective": "Name the clause that filters groups"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In a SQL query on a table, what does the expression `COUNT(*)` count?",
+   "options": [
+    "Only the rows in which every column is non-NULL",
+    "All rows of the table or group, including rows containing NULL values",
+    "The number of columns in the table",
+    "Only distinct rows"
+   ],
+   "answer": 2,
+   "explanation": "COUNT(*) returns the number of rows in the result set, regardless of NULLs. COUNT(column) differs because it counts only the non-NULL values of that column. Checking the other options: Option 1: COUNT(*) does not look at column values at all. Option 3: It counts rows, not columns. Option 4: Duplicates are counted too unless DISTINCT is used with a column.",
+   "optionRationale": {
+    "1": "COUNT(*) does not look at column values at all.",
+    "3": "It counts rows, not columns.",
+    "4": "Duplicates are counted too unless DISTINCT is used with a column."
+   },
+   "objective": "Describe COUNT(*)"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "If no keyword is written after the column in ORDER BY, in what order are the rows sorted?",
+   "options": [
+    "Ascending order",
+    "Descending order",
+    "The order in which rows were inserted",
+    "Random order"
+   ],
+   "answer": 1,
+   "explanation": "ASC is the default for ORDER BY. DESC has to be written to reverse the order. Checking the other options: Option 2: DESC must be written explicitly. Option 3: ORDER BY always sorts by the stated column; without ORDER BY the order is not guaranteed. Option 4: Sorting is by value, not random.",
+   "optionRationale": {
+    "2": "DESC must be written explicitly.",
+    "3": "ORDER BY always sorts by the stated column; without ORDER BY the order is not guaranteed.",
+    "4": "Sorting is by value, not random."
+   },
+   "objective": "State the default sort order"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which MySQL function returns the remainder when one number is divided by another?",
+   "options": [
+    "`POWER()`",
+    "`ROUND()`",
+    "`SUM()`",
+    "`MOD()`"
+   ],
+   "answer": 4,
+   "explanation": "`MOD(x, y)` gives the remainder of x divided by y, the same as x % y. For example `MOD(29, 6)` is 5. Checking the other options: Option 1: POWER raises a number to a power. Option 2: ROUND adjusts the number of decimal places. Option 3: SUM is an aggregate function that adds values from several rows.",
+   "optionRationale": {
+    "1": "POWER raises a number to a power.",
+    "2": "ROUND adjusts the number of decimal places.",
+    "3": "SUM is an aggregate function that adds values from several rows."
+   },
+   "objective": "Identify the remainder function"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which function returns the current date and time of the MySQL server?",
+   "options": [
+    "`DAY()`",
+    "`NOW()`",
+    "`DAYNAME()`",
+    "`DATE()`"
+   ],
+   "answer": 2,
+   "explanation": "`NOW()` takes no argument and returns the current date and time. The other functions need a date value as input. Checking the other options: Option 1: DAY extracts the day of the month from a given date. Option 3: DAYNAME gives the weekday name of a date you supply. Option 4: DATE extracts the date part of a value you supply.",
+   "optionRationale": {
+    "1": "DAY extracts the day of the month from a given date.",
+    "3": "DAYNAME gives the weekday name of a date you supply.",
+    "4": "DATE extracts the date part of a value you supply."
+   },
+   "objective": "Identify NOW()"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "What are the results of `ROUND(358.7462, 2)` and `ROUND(358.7462, -1)` in MySQL, in that order?",
+   "options": [
+    "358.75 and 360",
+    "358.74 and 350",
+    "358.75 and 358.7",
+    "359 and 360"
+   ],
+   "answer": 1,
+   "explanation": "With 2 decimals, 358.7462 becomes 358.75 because the third digit is 6. With -1 the number is rounded to the nearest ten: 358.7462 is closer to 360 than to 350, so the result is 360.",
+   "optionRationale": {
+    "2": "Rounding is not truncation; 358.7462 rounds up to 358.75 and to the nearest ten, 360.",
+    "3": "A negative second argument rounds digits left of the decimal point, not to one decimal place.",
+    "4": "The first call keeps two decimal places; 359 would be ROUND(358.7462, 0)."
+   },
+   "objective": "Apply ROUND with positive and negative digits"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "What does this query display?\n`SELECT LEFT(\"Information\", 4), RIGHT(\"Information\", 4), MID(\"Information\", 3, 5), INSTR(\"Information\", \"mat\");`",
+   "options": [
+    "Info, tion, forma, 5",
+    "Info, tion, nform, 6",
+    "Info, Info, forma, 6",
+    "Info, tion, forma, 6"
+   ],
+   "answer": 4,
+   "explanation": "The word Information is I1 n2 f3 o4 r5 m6 a7 t8 i9 o10 n11. LEFT 4 gives Info, RIGHT 4 gives tion, MID from 3 for 5 characters gives positions 3 to 7: forma, and INSTR finds mat starting at position 6.",
+   "optionRationale": {
+    "1": "The text mat starts at position 6; position 5 is the letter r.",
+    "2": "MID with start 3 begins at the letter f, not n.",
+    "3": "RIGHT takes characters from the end, so it gives tion."
+   },
+   "objective": "Evaluate text functions on a string"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "For the date \"2024-03-15\" which row of values is returned by `MONTH`, `MONTHNAME`, `YEAR`, `DAY` and `DAYNAME`, in order?",
+   "options": [
+    "3, March, 2024, 3, Friday",
+    "15, March, 2024, 3, Friday",
+    "3, March, 2024, 15, Friday",
+    "3, March, 2024, 15, Sunday"
+   ],
+   "answer": 3,
+   "explanation": "The date is the 15th of March 2024. MONTH gives 3, MONTHNAME gives March, YEAR gives 2024, DAY gives 15 and DAYNAME gives the weekday, which is Friday for this date. Checking the other options: Option 1: DAY gives the day of the month, 15, not the month number. Option 2: MONTH returns the month number 3, and DAY returns 15, so these are swapped. Option 4: 15 March 2024 fell on a Friday.",
+   "optionRationale": {
+    "1": "DAY gives the day of the month, 15, not the month number.",
+    "2": "MONTH returns the month number 3, and DAY returns 15, so these are swapped.",
+    "4": "15 March 2024 fell on a Friday."
+   },
+   "objective": "Apply date functions to a date literal"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "The column Qty of table SALES holds the values 10, 4, 6, 2, 5, 3 and NULL (seven rows). What are the values of `COUNT(*)`, `COUNT(Qty)` and `SUM(Qty)`?",
+   "options": [
+    "7, 7, 30",
+    "6, 6, 30",
+    "7, 6, NULL",
+    "7, 6, 30"
+   ],
+   "answer": 4,
+   "explanation": "There are seven rows, so COUNT(*) is 7. COUNT(Qty) counts only the six non-NULL values. SUM skips NULL and adds 10 + 4 + 6 + 2 + 5 + 3 = 30. Checking the other options: Option 1: COUNT(Qty) ignores the NULL and returns 6. Option 2: COUNT(*) counts all seven rows, including the row with NULL. Option 3: SUM ignores the NULL and returns 30; the result is NULL only if every value is NULL.",
+   "optionRationale": {
+    "1": "COUNT(Qty) ignores the NULL and returns 6.",
+    "2": "COUNT(*) counts all seven rows, including the row with NULL.",
+    "3": "SUM ignores the NULL and returns 30; the result is NULL only if every value is NULL."
+   },
+   "objective": "Predict aggregate results with NULL"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "The table SALES has Item values Pen, Book, Pen, Bag, Book, Bag, Pen. How many rows does `SELECT Item, COUNT(*) FROM SALES GROUP BY Item;` return and what is the count for Pen?",
+   "options": [
+    "7 rows; Pen has 1",
+    "3 rows; Pen has 3",
+    "3 rows; Pen has 2",
+    "2 rows; Pen has 3"
+   ],
+   "answer": 2,
+   "explanation": "Grouping by Item produces one output row for each distinct item: Pen, Book and Bag. COUNT(*) counts the rows in each group; Pen occurs in rows 1, 3 and 7, so its count is 3.",
+   "optionRationale": {
+    "1": "GROUP BY returns one row per distinct Item, not one row per record.",
+    "3": "Pen appears three times in the data.",
+    "4": "There are three distinct items: Pen, Book and Bag."
+   },
+   "objective": "Count the groups produced by GROUP BY"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q11",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each SQL expression in List-I with its result in List-II.",
+   "options": [
+    "A-III, B-I, C-IV, D-II",
+    "A-I, B-III, C-IV, D-II",
+    "A-III, B-I, C-II, D-IV",
+    "A-IV, B-III, C-I, D-II"
+   ],
+   "answer": 1,
+   "explanation": "MOD(29, 6) is 5 (III). `POWER(2, 3)` is 8 (I). INSTR(\"Computer\", \"put\") is 4 because p is the fourth letter (IV). UPPER(\"cuet\") is CUET (II). Checking the other options: Option 2: MOD(29, 6) is a remainder, 5, not 8 and POWER(2, 3) is not 5. Option 3: INSTR gives the position 4 and UPPER gives the text CUET, so C and D are exchanged. Option 4: POWER(2, 3) is 8 and MOD(29, 6) is 5.",
+   "optionRationale": {
+    "2": "MOD(29, 6) is a remainder, 5, not 8 and POWER(2, 3) is not 5.",
+    "3": "INSTR gives the position 4 and UPPER gives the text CUET, so C and D are exchanged.",
+    "4": "POWER(2, 3) is 8 and MOD(29, 6) is 5."
+   },
+   "objective": "Match functions to their values",
+   "list": {
+    "left": [
+     "A. `MOD(29, 6)`",
+     "B. `POWER(2, 3)`",
+     "C. `INSTR(\"Computer\", \"put\")`",
+     "D. `UPPER(\"cuet\")`"
+    ],
+    "right": [
+     "I. 8",
+     "II. CUET",
+     "III. 5",
+     "IV. 4"
+    ]
+   }
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q12",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about SQL queries.\nA. WHERE can be used to filter rows before GROUP BY is applied.\nB. HAVING can use aggregate functions such as SUM(Qty).\nC. ORDER BY must come before GROUP BY in a query.\nD. COUNT(column_name) counts NULL values in that column.\nWhich statements are correct?",
+   "options": [
+    "A, B and D only",
+    "B and C only",
+    "A and B only",
+    "A and C only"
+   ],
+   "answer": 3,
+   "explanation": "A is true: WHERE removes rows before grouping. B is true: HAVING works on groups and may use aggregates. C is false because ORDER BY comes last. D is false because COUNT(column) counts only non-NULL values.",
+   "optionRationale": {
+    "1": "D is false: COUNT(column) ignores NULL.",
+    "2": "C is false; ORDER BY is written after GROUP BY and HAVING.",
+    "4": "C is false, and B is correct."
+   },
+   "objective": "Judge statements about query clauses"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q13",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The query `SELECT Item FROM SALES WHERE SUM(Qty) > 5;` is invalid.\nReason (R): WHERE conditions are applied to individual rows before grouping, so an aggregate function cannot be used there.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "An aggregate such as SUM needs a set of rows, but WHERE decides row by row which rows survive. So SQL rejects an aggregate in WHERE; the same test belongs in a HAVING clause after GROUP BY.",
+   "optionRationale": {
+    "2": "R is the exact cause of the error, so it explains A.",
+    "3": "R is true: WHERE works on individual rows.",
+    "4": "A is true: the query is invalid."
+   },
+   "objective": "Explain why aggregates are not allowed in WHERE"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "On the table SALES (SID, Item, Qty, Price, City, SDate) with rows (1, Pen, 10, 5, Pune), (2, Book, 4, 120, Delhi), (3, Pen, 6, 5, Delhi), (4, Bag, 2, 450, Pune), (5, Book, 5, 120, Goa), (6, Bag, 3, 450, Delhi), (7, Pen, NULL, 5, Goa), what does this query return?\n`SELECT Item, SUM(Qty * Price) FROM SALES GROUP BY Item HAVING SUM(Qty * Price) >= 500 ORDER BY 2 DESC;`",
+   "options": [
+    "(Bag, 2250) and (Book, 1080)",
+    "(Book, 1080) and (Bag, 2250)",
+    "(Bag, 2250), (Book, 1080) and (Pen, 80)",
+    "(Bag, 2250) only"
+   ],
+   "answer": 1,
+   "explanation": "The group totals are Pen 5 x 10 + 5 x 6 = 80 (the NULL Qty row contributes nothing), Book 120 x 4 + 120 x 5 = 1080, and Bag 450 x 2 + 450 x 3 = 2250. HAVING removes Pen. Sorting by the second column in descending order gives Bag first.",
+   "optionRationale": {
+    "2": "ORDER BY 2 DESC places the larger total first.",
+    "3": "Pen has a total of only 80, which fails the HAVING condition.",
+    "4": "Book has a total of 1080, which is at least 500."
+   },
+   "objective": "Trace GROUP BY with HAVING and ORDER BY"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "On the same SALES rows, which result does `SELECT City, COUNT(*) FROM SALES WHERE Price >= 100 GROUP BY City HAVING COUNT(*) >= 2 ORDER BY City DESC;` produce?",
+   "options": [
+    "(Pune, 2), (Delhi, 2)",
+    "(Delhi, 3)",
+    "(Goa, 1), (Pune, 1), (Delhi, 2)",
+    "(Delhi, 2)"
+   ],
+   "answer": 4,
+   "explanation": "WHERE keeps rows with Price at least 100: Book/Delhi, Bag/Pune, Book/Goa and Bag/Delhi. Grouping by city gives Delhi 2, Pune 1 and Goa 1. HAVING COUNT(*) >= 2 leaves only Delhi.",
+   "optionRationale": {
+    "1": "Only one Pune row has a Price of at least 100, so Pune has a count of 1.",
+    "2": "The WHERE clause removes the Pen row in Delhi, leaving 2 rows.",
+    "3": "HAVING removes groups with fewer than two rows."
+   },
+   "objective": "Trace a query with WHERE, GROUP BY and HAVING"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q16",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "On the SALES rows, `SELECT MONTH(SDate), SUM(Qty) FROM SALES GROUP BY MONTH(SDate);` is run. The dates are 15 Mar, 18 Mar, 2 Apr, 10 Apr, 21 May, 30 May and 7 Jun 2024 with Qty 10, 4, 6, 2, 5, 3 and NULL. Which statement is correct?",
+   "options": [
+    "The query returns 7 rows, one for each date",
+    "The query returns 4 rows, and the sum for month 6 is NULL",
+    "The query returns 4 rows, and the sum for month 6 is 0",
+    "The query returns 3 rows, because June has no quantity"
+   ],
+   "answer": 2,
+   "explanation": "The months present are 3, 4, 5 and 6, giving four groups with sums 14, 8, 8 and NULL. In June the only Qty is NULL; SUM ignores NULL and, with nothing left to add, returns NULL rather than 0.",
+   "optionRationale": {
+    "1": "Grouping combines rows with the same month into one output row.",
+    "3": "SUM of only NULL values is NULL, not 0.",
+    "4": "A group is formed for June even though its only Qty is NULL."
+   },
+   "objective": "Reason about grouping by a date function and NULL sums"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q17",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "What is the output of `SELECT LENGTH(TRIM(\"  CUET  \")), UPPER(MID(\"computer\", 3, 3)), POWER(MOD(17, 5), 3);`?",
+   "options": [
+    "8, MPU, 8",
+    "4, MPU, 512",
+    "4, MPU, 8",
+    "4, OMP, 8"
+   ],
+   "answer": 3,
+   "explanation": "TRIM gives CUET with length 4. MID(\"computer\", 3, 3) takes positions 3 to 5 which are m, p and u; UPPER makes MPU. MOD(17, 5) is 2 and POWER(2, 3) is 8.",
+   "optionRationale": {
+    "1": "TRIM removes the spaces first, so the length is 4, not 8.",
+    "2": "MOD(17, 5) is 2, and 2 to the power 3 is 8, not 17 cubed or 512.",
+    "4": "MID starting at position 3 begins with m, not o."
+   },
+   "objective": "Evaluate nested single-row functions"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q18",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Table CLUBA has the names Asha, Ravi, Meena, Karan and table CLUBB has the names Ravi, Sia, Karan, Dev, Zoya. How many rows are returned by CLUBA UNION CLUBB, by the intersection and by CLUBA MINUS CLUBB respectively?",
+   "options": [
+    "7, 2, 2",
+    "9, 2, 2",
+    "7, 2, 3",
+    "7, 4, 2"
+   ],
+   "answer": 1,
+   "explanation": "Ravi and Karan are in both clubs. Union has 4 + 5 - 2 = 7 distinct names. The intersection has those 2 names. CLUBA MINUS CLUBB removes Ravi and Karan from CLUBA leaving Asha and Meena, so 2 rows.",
+   "optionRationale": {
+    "2": "UNION removes the duplicates, so Ravi and Karan are counted once.",
+    "3": "CLUBA MINUS CLUBB leaves only Asha and Meena, which is 2 rows; 3 is the size of CLUBB MINUS CLUBA.",
+    "4": "Only two names, Ravi and Karan, are common."
+   },
+   "objective": "Evaluate union, intersection and minus on two tables"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q19",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "STAFF(EmpNo, Name, DeptNo) has 4 rows with DeptNo 10, 20, 10 and 40. DEPT(DeptNo, DName) has 3 rows with DeptNo 10, 20 and 30. What are the numbers of rows and columns of `STAFF NATURAL JOIN DEPT`?",
+   "options": [
+    "12 rows and 5 columns",
+    "3 rows and 5 columns",
+    "4 rows and 4 columns",
+    "3 rows and 4 columns"
+   ],
+   "answer": 4,
+   "explanation": "A natural join matches rows on the common column DeptNo. The staff in departments 10, 10 and 20 match; the staff in department 40 and the department 30 have no match. This gives 3 rows. DeptNo appears once, so the columns are 3 + 2 - 1 = 4.",
+   "optionRationale": {
+    "1": "That is the Cartesian product.",
+    "2": "A natural join shows the common column DeptNo only once.",
+    "3": "The staff member with DeptNo 40 has no matching department and is not included."
+   },
+   "objective": "Count rows and columns of a natural join"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q20",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The Cartesian product of a table of 4 rows and a table of 3 rows has 12 rows.\nReason (R): In a Cartesian product every row of the first table is paired with every row of the second table.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Each of the 4 rows is paired with each of the 3 rows, giving 4 x 3 = 12 pairs. The rule about pairing every row with every row is exactly the reason for the row count, so R explains A.",
+   "optionRationale": {
+    "2": "R is the direct reason for the multiplication of the row counts.",
+    "3": "R is true: every row is paired with every row.",
+    "4": "A is true: 4 x 3 = 12."
+   },
+   "objective": "Explain the size of a Cartesian product"
+  },
+  {
+   "key": "ug26-308-r00-sql-functions-grouping-joins-q21",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The Pen rows of SALES have SID 1, 3 and 7 with Qty 10, 6 and NULL respectively. In which order are the SIDs returned by `SELECT SID FROM SALES WHERE Item = \"Pen\" ORDER BY Qty DESC;`?",
+   "options": [
+    "7, 3, 1",
+    "1, 3, 7",
+    "1, 7, 3",
+    "7, 1, 3"
+   ],
+   "answer": 2,
+   "explanation": "In descending order the largest Qty comes first: 10 (SID 1), then 6 (SID 3). NULL counts as the smallest value, so the row with NULL (SID 7) comes last in descending order and first in ascending order.",
+   "optionRationale": {
+    "1": "That order would be produced by ascending order, where NULL comes first.",
+    "3": "NULL is the smallest value, so in descending order it comes last, not in the middle.",
+    "4": "NULL does not come first in descending order."
+   },
+   "objective": "Predict how ORDER BY places NULL values"
+  }
+ ]
+}

@@ -1,0 +1,859 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_40bbc06e8f2b478faefc0126b8569d75",
+  "title": "Stack"
+ },
+ "lesson": {
+  "key": "ug26-308-r05-stack-lifo-postfix",
+  "title": "Stack: LIFO operations, Python list implementation, postfix evaluation and infix-to-postfix conversion",
+  "coverage": [
+   {
+    "phrase": "Stack (List Implementation)",
+    "section": "The stack data structure and LIFO"
+   },
+   {
+    "phrase": "Introduction to stack (LIFO Operations)",
+    "section": "The stack data structure and LIFO"
+   },
+   {
+    "phrase": "operations on stack (PUSH and POP)",
+    "section": "PUSH and POP: implementing a stack with a Python list"
+   },
+   {
+    "phrase": "implementation in python",
+    "section": "PUSH and POP: implementing a stack with a Python list"
+   },
+   {
+    "phrase": "Expressions in Prefix, Infix and postfix notations",
+    "section": "Infix, prefix and postfix notations"
+   },
+   {
+    "phrase": "evaluating arithmetic (Postfix) expressions using stack",
+    "section": "Evaluating a postfix expression using a stack"
+   },
+   {
+    "phrase": "conversion of Infix expression to postfix expression",
+    "section": "Converting an infix expression to postfix"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "The stack data structure and LIFO"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **stack** is a linear data structure in which items are added and removed at one end only. That end is called the **top**. The item inserted last is the first one to come out, so a stack follows the **LIFO (Last In, First Out)** rule. A pile of plates, a stack of books and the back button history of a browser all behave like stacks: you only touch the item on top."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Stack",
+    "text": "An ordered collection of items in which insertion (PUSH) and deletion (POP) both take place at the same end, the top. Only the top item is directly accessible, and the order of removal is the reverse of the order of insertion (LIFO)."
+   },
+   {
+    "type": "TEXT",
+    "text": "Real uses that CBSE questions mention again and again:"
+   },
+   {
+    "type": "TEXT",
+    "text": "- Undo / redo in an editor: the last change made is the first one undone.\n- Browser history (Back button) and the call stack of function calls.\n- Reversing a string or a list.\n- Checking balanced brackets, and evaluating or converting arithmetic expressions (this lesson)."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Basic stack terms",
+    "columns": [
+     "Term",
+     "Meaning"
+    ],
+    "rows": [
+     [
+      "Top",
+      "The end at which every insertion and deletion happens. In a Python list-based stack the top is the **last** element, `st[-1]`."
+     ],
+     [
+      "PUSH",
+      "Insert a new item at the top of the stack."
+     ],
+     [
+      "POP",
+      "Remove the top item and return it."
+     ],
+     [
+      "PEEK (TOP)",
+      "Read the top item without removing it."
+     ],
+     [
+      "Overflow",
+      "Trying to PUSH into a stack that is already full. It applies to fixed-size stacks; a Python list grows automatically, so overflow does not normally occur."
+     ],
+     [
+      "Underflow",
+      "Trying to POP (or peek) from an empty stack. In Python, `pop()` on an empty list raises `IndexError`."
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Stack = LIFO. Both PUSH and POP work only at the top. Underflow means popping an empty stack; overflow means pushing into a full fixed-size stack."
+   },
+   {
+    "type": "HEADING",
+    "text": "PUSH and POP: implementing a stack with a Python list"
+   },
+   {
+    "type": "TEXT",
+    "text": "Python has no built-in stack type, so the syllabus asks you to use a **list**. We keep the top at the right end of the list. Then:\n\n- PUSH uses `append(item)`.\n- POP uses `pop()` (with no index, it removes and returns the last element).\n- PEEK is `st[-1]`.\n- isEmpty is `len(st) == 0` (or `st == []`).\n\nBoth `append` and `pop()` at the end of a list are fast operations."
+   },
+   {
+    "type": "TEXT",
+    "text": "A standard set of functions, written the way board questions expect:"
+   },
+   {
+    "type": "TEXT",
+    "text": "`def isEmpty(stk):`\n`    return len(stk) == 0`\n`def push(stk, item):`\n`    stk.append(item)`\n`def pop(stk):`\n`    if isEmpty(stk):`\n`        print(\"Underflow\")`\n`        return None`\n`    return stk.pop()`\n`def peek(stk):`\n`    if isEmpty(stk):`\n`        return None`\n`    return stk[-1]`\n`def display(stk):`\n`    for i in range(len(stk) - 1, -1, -1):`\n`        print(stk[i])`"
+   },
+   {
+    "type": "TEXT",
+    "text": "`display` prints from the top (last index) down to the bottom (index 0), because that is the order in which items would be popped. Printing `stk` directly shows the bottom item first."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Trace the stack for: `st = []`, push 10, push 20, push 30, pop, push 40. What are the popped value, the final list, the top item and the size?",
+    "solution": "Start: `[]`.\n\nPush 10 gives `[10]`. Push 20 gives `[10, 20]`. Push 30 gives `[10, 20, 30]`.\n\nPop removes the last element, 30, leaving `[10, 20]`.\n\nPush 40 gives `[10, 20, 40]`.\n\nThe top is the last element, 40, and the size is 3. Output of the program: `30 [10, 20, 40] 40 3`.",
+    "answer": "Popped value 30; final list [10, 20, 40]; top 40; size 3."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Common mistake: using `st.pop(0)` or `st.insert(0, x)`. Those work at the bottom (index 0) and turn the structure into a queue-like mixture. For a stack, always push with `append()` and pop with `pop()` on the same end."
+   },
+   {
+    "type": "EXAMPLE",
+    "text": "Popping an empty list is the underflow case. Running `st = []` and then `st.pop()` inside try/except IndexError prints the message: pop from empty list. A well-written `pop` function checks `isEmpty` first instead of letting this error happen."
+   },
+   {
+    "type": "HEADING",
+    "text": "Infix, prefix and postfix notations"
+   },
+   {
+    "type": "TEXT",
+    "text": "An arithmetic expression can be written in three ways, depending on where the operator is placed relative to its two operands."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Three notations for the same expression",
+    "columns": [
+     "Notation",
+     "Operator position",
+     "Example for \"A plus B\"",
+     "Example: (A+B)*C"
+    ],
+    "rows": [
+     [
+      "Infix",
+      "Between the operands",
+      "`A + B`",
+      "`(A+B)*C`"
+     ],
+     [
+      "Prefix (Polish)",
+      "Before the operands",
+      "`+ A B`",
+      "`* + A B C`"
+     ],
+     [
+      "Postfix (Reverse Polish)",
+      "After the operands",
+      "`A B +`",
+      "`A B + C *`"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Infix is natural for people but needs **precedence rules and brackets**. Prefix and postfix need **neither brackets nor precedence rules**, because the position of each operator already fixes the order of evaluation. This is why computers prefer postfix."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Operator precedence (highest first)",
+    "columns": [
+     "Level",
+     "Operators",
+     "Associativity"
+    ],
+    "rows": [
+     [
+      "1",
+      "Brackets `( )`",
+      "Innermost first"
+     ],
+     [
+      "2",
+      "Exponent `^` (or `**` in Python)",
+      "Right to left"
+     ],
+     [
+      "3",
+      "Multiplication `*` and division `/`",
+      "Left to right"
+     ],
+     [
+      "4",
+      "Addition `+` and subtraction `-`",
+      "Left to right"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Convert `A + B * C` into prefix and postfix by hand.",
+    "solution": "Multiplication has higher precedence, so group it first: `A + (B * C)`.\n\nPostfix: write `B C *` for the product, then the sum becomes `A (B C *) +`, which is `A B C * +`.\n\nPrefix: the product becomes `* B C`, then the sum is `+ A (* B C)`, which is `+ A * B C`.",
+    "answer": "Postfix: `A B C * +`; prefix: `+ A * B C`."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Operand order never changes between the notations (A, B, C stay in the same left-to-right order). Only the operators move. If your postfix answer has operands in a different order, it is wrong."
+   },
+   {
+    "type": "HEADING",
+    "text": "Evaluating a postfix expression using a stack"
+   },
+   {
+    "type": "CONCEPT",
+    "text": "Scan the postfix expression from left to right. An **operand** is pushed on the stack. An **operator** pops the top two items, applies the operation, and pushes the result back. At the end exactly one item remains on the stack: the answer."
+   },
+   {
+    "type": "TEXT",
+    "text": "Order matters for `-`, `/` and `^`. The **first** item popped is the **right** operand (call it B) and the **second** popped is the **left** operand (A). The operation is then `A operator B`."
+   },
+   {
+    "type": "TEXT",
+    "text": "Algorithm:\n\n1. Create an empty stack.\n2. Read the next symbol.\n3. If it is an operand, PUSH it.\n4. If it is an operator, POP B, then POP A, compute `A op B`, and PUSH the result.\n5. Repeat until the expression ends; POP the final result."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Trace of `8 2 3 ^ / 2 3 * + 5 1 * -`",
+    "columns": [
+     "Symbol read",
+     "Action",
+     "Stack after (bottom to top)"
+    ],
+    "rows": [
+     [
+      "8",
+      "push",
+      "8"
+     ],
+     [
+      "2",
+      "push",
+      "8, 2"
+     ],
+     [
+      "3",
+      "push",
+      "8, 2, 3"
+     ],
+     [
+      "^",
+      "pop 3 and 2, compute 2^3 = 8, push",
+      "8, 8"
+     ],
+     [
+      "/",
+      "pop 8 and 8, compute 8/8 = 1, push",
+      "1"
+     ],
+     [
+      "2",
+      "push",
+      "1, 2"
+     ],
+     [
+      "3",
+      "push",
+      "1, 2, 3"
+     ],
+     [
+      "*",
+      "pop 3 and 2, compute 6, push",
+      "1, 6"
+     ],
+     [
+      "+",
+      "pop 6 and 1, compute 1+6 = 7, push",
+      "7"
+     ],
+     [
+      "5",
+      "push",
+      "7, 5"
+     ],
+     [
+      "1",
+      "push",
+      "7, 5, 1"
+     ],
+     [
+      "*",
+      "pop 1 and 5, compute 5, push",
+      "7, 5"
+     ],
+     [
+      "-",
+      "pop 5 and 7, compute 7-5 = 2, push",
+      "2"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Evaluate the postfix expression `5 6 2 + * 12 4 / -`.",
+    "solution": "Push 5, 6, 2: stack 5, 6, 2.\n\n`+`: pop 2 and 6, 6+2 = 8, push: stack 5, 8.\n\n`*`: pop 8 and 5, 5*8 = 40, push: stack 40.\n\nPush 12, 4: stack 40, 12, 4.\n\n`/`: pop 4 and 12, 12/4 = 3, push: stack 40, 3.\n\n`-`: pop 3 and 40, 40-3 = 37.",
+    "answer": "37"
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "For a postfix expression: operand => push; operator => pop B, pop A, push (A op B). The popped order is B first, then A. The final single item is the value."
+   },
+   {
+    "type": "HEADING",
+    "text": "Converting an infix expression to postfix"
+   },
+   {
+    "type": "TEXT",
+    "text": "The conversion also uses a stack, this time holding **operators and left brackets**. The output is built left to right, and operands go straight to the output in the order they appear."
+   },
+   {
+    "type": "TEXT",
+    "text": "Algorithm:\n\n1. Scan the infix expression left to right.\n2. **Operand**: append it to the output.\n3. **Left bracket `(`**: push it.\n4. **Right bracket `)`**: pop operators to the output until a `(` is found; discard both brackets.\n5. **Operator**: while the stack top is an operator with **higher or equal precedence** (for left-associative operators), pop it to the output; then push the new operator. (For `^`, which is right-associative, pop only when the top has strictly higher precedence.)\n6. At the end, pop all remaining operators to the output."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Trace of `A*(B+C)/D-E`",
+    "columns": [
+     "Symbol",
+     "Operator stack (bottom to top)",
+     "Output so far"
+    ],
+    "rows": [
+     [
+      "A",
+      "(empty)",
+      "A"
+     ],
+     [
+      "*",
+      "*",
+      "A"
+     ],
+     [
+      "(",
+      "*(",
+      "A"
+     ],
+     [
+      "B",
+      "*(",
+      "AB"
+     ],
+     [
+      "+",
+      "*(+",
+      "AB"
+     ],
+     [
+      "C",
+      "*(+",
+      "ABC"
+     ],
+     [
+      ")",
+      "*",
+      "ABC+"
+     ],
+     [
+      "/",
+      "/",
+      "ABC+*"
+     ],
+     [
+      "D",
+      "/",
+      "ABC+*D"
+     ],
+     [
+      "-",
+      "-",
+      "ABC+*D/"
+     ],
+     [
+      "E",
+      "-",
+      "ABC+*D/E"
+     ],
+     [
+      "end",
+      "(empty)",
+      "ABC+*D/E-"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Convert `(A+B)*C-D/E` to postfix.",
+    "solution": "Scan symbols:\n\n`(` push. `A` output A. `+` push (top is a bracket). `B` output AB. `)` pop `+`: output AB+, remove `(`.\n\n`*` push. `C` output AB+C. `-`: top `*` has higher precedence, so pop it: output AB+C*; then push `-`.\n\n`D` output AB+C*D. `/` has higher precedence than the top `-`, so just push it. `E` output AB+C*DE.\n\nEnd: pop `/` then `-`: output AB+C*DE/-.",
+    "answer": "A B + C * D E / -  (written AB+C*DE/-)"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Equal precedence: `A-B+C` becomes `AB-C+` because the earlier `-` is popped before `+` is pushed (left to right). Forgetting this tie rule is the most common conversion error."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Remember the three steps: operands go to output at once; an operator waits on the stack until a lower-precedence operator or a closing bracket forces it out; whatever remains is popped at the end."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which principle describes the order in which items leave a stack?",
+   "options": [
+    "First In, First Out (FIFO)",
+    "Smallest value first",
+    "Highest priority first",
+    "Last In, First Out (LIFO)"
+   ],
+   "answer": 4,
+   "explanation": "A stack allows insertion and deletion only at the top. The item pushed most recently sits on top and is therefore popped first, which is the Last In, First Out rule. FIFO belongs to queues.",
+   "optionRationale": {
+    "1": "FIFO describes a queue, where the oldest item leaves first.",
+    "3": "That is a priority queue, not a stack.",
+    "2": "A stack does not order items by value; removal depends only on insertion order."
+   },
+   "objective": "State the LIFO rule of a stack"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "application",
+   "stem": "The undo feature of a text editor most closely matches which data structure?",
+   "options": [
+    "Queue",
+    "Dictionary",
+    "Tuple",
+    "Stack"
+   ],
+   "answer": 4,
+   "explanation": "Undo reverses the most recent action first, then the one before it. That reverse order of insertion is exactly LIFO behaviour, so a stack is the natural structure. A queue would remove the oldest action first.",
+   "optionRationale": {
+    "1": "A queue would undo the oldest change first, which is not how undo works.",
+    "2": "A dictionary maps keys to values and has no notion of the latest action.",
+    "3": "A tuple is fixed and cannot grow with each new action."
+   },
+   "objective": "Relate real-life undo to a stack"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In a stack implemented with a Python list, which statement pair is correct for PUSH and POP?",
+   "options": [
+    "PUSH uses `pop()` and POP uses `append()`",
+    "PUSH uses `append()` and POP uses `pop()` with no argument",
+    "PUSH uses `insert(0, x)` and POP uses `remove(0)`",
+    "PUSH uses `extend()` and POP uses `clear()`"
+   ],
+   "answer": 2,
+   "explanation": "The top of a list-based stack is the right end. `append(item)` inserts at that end and `pop()` without an index removes and returns the last element. Together they give LIFO behaviour. Checking the other options: Option 1: The two functions are swapped: append inserts, pop removes. Option 3: These work at the bottom end and are not the standard stack methods; `remove` also expects a value, not an index. Option 4: `extend` adds many items and `clear` empties the whole list, so neither is a single-item stack operation.",
+   "optionRationale": {
+    "1": "The two functions are swapped: append inserts, pop removes.",
+    "3": "These work at the bottom end and are not the standard stack methods; `remove` also expects a value, not an index.",
+    "4": "`extend` adds many items and `clear` empties the whole list, so neither is a single-item stack operation."
+   },
+   "objective": "Choose the list methods that implement PUSH and POP"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "What is the condition called when `pop()` is attempted on an empty stack?",
+   "options": [
+    "Overflow",
+    "Deadlock",
+    "Underflow",
+    "Truncation"
+   ],
+   "answer": 3,
+   "explanation": "Trying to remove an item when none exists is called underflow. A Python list raises `IndexError: pop from empty list` in that case, so good code tests for emptiness before popping. Checking the other options: Option 1: Overflow is pushing into a full fixed-size stack. Option 2: Deadlock belongs to operating systems and has nothing to do with stack operations. Option 4: Truncation is cutting off data, not removing from an empty structure.",
+   "optionRationale": {
+    "1": "Overflow is pushing into a full fixed-size stack.",
+    "2": "Deadlock belongs to operating systems and has nothing to do with stack operations.",
+    "4": "Truncation is cutting off data, not removing from an empty structure."
+   },
+   "objective": "Define stack underflow"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In which notation does the operator come between its two operands?",
+   "options": [
+    "Prefix",
+    "Infix",
+    "Postfix",
+    "None of the notations"
+   ],
+   "answer": 2,
+   "explanation": "Infix notation writes the operator between its operands, as in `A + B`. Prefix writes `+ A B` and postfix writes `A B +`. Only infix needs brackets and precedence rules. Checking the other options: Option 1: Prefix puts the operator before the operands. Option 3: Postfix puts the operator after the operands. Option 4: The most familiar everyday notation, such as A + B, does place the operator between operands.",
+   "optionRationale": {
+    "1": "Prefix puts the operator before the operands.",
+    "3": "Postfix puts the operator after the operands.",
+    "4": "The most familiar everyday notation, such as A + B, does place the operator between operands."
+   },
+   "objective": "Identify infix notation"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "What does this program print?\n`st = []`\n`for ch in \"CUET\":`\n`    st.append(ch)`\n`st.pop()`\n`st.append(\"X\")`\n`print(st[-1], len(st), \"\".join(st))`",
+   "options": [
+    "T 4 CUET",
+    "X 3 CUE",
+    "X 4 CUEX",
+    "E 4 CUEX"
+   ],
+   "answer": 3,
+   "explanation": "Pushing C, U, E, T builds the list C, U, E, T. `pop()` removes T, leaving C, U, E (3 items). Pushing X adds it at the end: C, U, E, X. The top is X, the size is 4 and joining from bottom to top gives the string shown in the output X 4 CUEX.",
+   "optionRationale": {
+    "1": "The popped item T is removed and X is pushed, so neither the top nor the joined string is unchanged.",
+    "2": "The size is 4 again after the final push; the stack never stays at 3.",
+    "4": "The joined string is right, but the top is the last pushed item X, not E."
+   },
+   "objective": "Trace push and pop operations on a list-based stack"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "What is printed by the following code?\n`def pop(stk):`\n`    if len(stk) == 0:`\n`        return \"Underflow\"`\n`    return stk.pop()`\n`s = [5]`\n`print(pop(s), pop(s), pop(s))`",
+   "options": [
+    "5 Underflow Underflow",
+    "5 5 5",
+    "5 None None",
+    "Error: IndexError"
+   ],
+   "answer": 1,
+   "explanation": "The first call removes and returns 5, leaving an empty list. The next two calls find `len(stk) == 0` and return the string Underflow, so the three values printed side by side are: 5 Underflow Underflow.",
+   "optionRationale": {
+    "2": "After the first pop the list is empty; the same item is not returned again.",
+    "3": "The function returns the string \"Underflow\" for an empty stack, not None.",
+    "4": "The empty check happens before `stk.pop()` is called, so no IndexError is raised."
+   },
+   "objective": "Trace a pop function with an underflow check"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which of these is the postfix form of the infix expression `A + B * C`?",
+   "options": [
+    "A B + C *",
+    "+ A * B C",
+    "A B C + *",
+    "A B C * +"
+   ],
+   "answer": 4,
+   "explanation": "Multiplication has higher precedence, so B * C is grouped first and becomes `B C *`. The sum with A then gives `A B C * +`. Operands keep their order A, B, C. Checking the other options: Option 1: This corresponds to (A + B) * C, where the addition is done first. Option 2: That is the prefix form, with operators before operands. Option 3: This would mean A * (B + C).",
+   "optionRationale": {
+    "1": "This corresponds to (A + B) * C, where the addition is done first.",
+    "2": "That is the prefix form, with operators before operands.",
+    "3": "This would mean A * (B + C)."
+   },
+   "objective": "Convert a simple infix expression to postfix"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Evaluate the postfix expression `7 3 - 2 *`.",
+   "options": [
+    "1",
+    "8",
+    "-8",
+    "2"
+   ],
+   "answer": 2,
+   "explanation": "Push 7 and 3. The operator `-` pops 3 (right operand B) then 7 (left operand A) and computes 7 - 3 = 4, which is pushed. Push 2, then `*` pops 2 and 4 and gives 8.",
+   "optionRationale": {
+    "1": "The value 4 is only the intermediate result of 7 - 3; the final multiplication by 2 is skipped.",
+    "3": "It reverses the operands of the subtraction (3 - 7 = -4); the first popped item is the right operand.",
+    "4": "The operands 7 and 3 are consumed by the minus operator before the 2 is pushed."
+   },
+   "objective": "Evaluate a short postfix expression with subtraction"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "During conversion of `A+B*C-D` to postfix, which operators are on the stack just after the symbol `C` has been read?",
+   "options": [
+    "`+` and `*`",
+    "only `+`",
+    "only `*`",
+    "`-` and `*`"
+   ],
+   "answer": 1,
+   "explanation": "A goes to the output. `+` is pushed. B goes to the output. `*` has higher precedence than the top `+`, so nothing is popped and `*` is pushed. C goes to the output. At this moment the stack holds `+` then `*` (bottom to top).",
+   "optionRationale": {
+    "2": "The `*` has been pushed already when B was reached; it stays because `+` has lower precedence.",
+    "3": "The `+` is still waiting because nothing has forced it out yet.",
+    "4": "The `-` has not been read yet."
+   },
+   "objective": "Trace the operator stack during conversion"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q11",
+   "type": "ASSERTION_REASON",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Assertion (A): In a list-based stack, `pop()` on an empty list raises IndexError.\nReason (R): A Python list is a mutable sequence that can grow and shrink.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 2,
+   "explanation": "Both statements are true. An empty list has no last element, so `pop()` raises IndexError. Being mutable lets a list act as a stack, but mutability is not the cause of the error: the error arises because nothing exists to remove.",
+   "optionRationale": {
+    "1": "Mutability explains why items can be added and removed, not why popping an empty list fails.",
+    "3": "R is true: lists are mutable sequences.",
+    "4": "A is true: pop on an empty list raises IndexError."
+   },
+   "objective": "Separate the cause of stack underflow from a true list property"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q12",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Postfix expressions can be evaluated without any brackets or precedence rules.\nReason (R): Postfix expressions always contain fewer symbols than the equivalent infix expression.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "In `A B + C *` the position of each operator fixes the order, so no brackets or precedence rules are needed and A is true. R is false: `A+B` and `AB+` have the same number of symbols; postfix is shorter only when the infix form needs brackets.",
+   "optionRationale": {
+    "1": "R is false, so it cannot explain A.",
+    "2": "R is not true: equal-length cases exist, such as A+B and AB+.",
+    "4": "A is true: postfix needs neither brackets nor precedence rules."
+   },
+   "objective": "Recognise why postfix needs no brackets and reject a false reason"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q13",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Assertion (A): While evaluating a postfix expression, the first item popped by a binary operator is the right operand.\nReason (R): A stack returns items in the reverse of the order in which they were pushed, and the right operand is pushed after the left operand.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "In `7 3 -`, 7 is pushed first and 3 second. LIFO order pops 3 first, and 3 is the right operand of the subtraction. The reason (reverse order, right operand pushed later) is the explanation for the assertion.",
+   "optionRationale": {
+    "2": "R is not merely related; it directly explains why the first popped item is the right operand.",
+    "3": "R is true by the LIFO property.",
+    "4": "A is true: the first pop gives the right operand."
+   },
+   "objective": "Explain operand order when popping in postfix evaluation"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q14",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each item in List-I with the correct description in List-II.",
+   "options": [
+    "A-II, B-IV, C-I, D-III",
+    "A-I, B-II, C-III, D-IV",
+    "A-II, B-III, C-I, D-IV",
+    "A-IV, B-II, C-III, D-I"
+   ],
+   "answer": 1,
+   "explanation": "LIFO (A) is the removal rule: last in, first out (II). Underflow (B) is popping from an empty stack (IV). Prefix (C) places the operator before its operands (I). Postfix (D) places the operator after its operands (III).",
+   "optionRationale": {
+    "2": "This swaps almost every pair; for example a postfix form is not \"operator before operands\".",
+    "3": "Underflow and overflow descriptions are interchanged.",
+    "4": "LIFO is not a notation and postfix is not about empty stacks."
+   },
+   "objective": "Match stack terms and notations",
+   "list": {
+    "left": [
+     "A. LIFO",
+     "B. Underflow",
+     "C. Prefix notation",
+     "D. Postfix notation"
+    ],
+    "right": [
+     "I. Operator written before its operands",
+     "II. Most recently inserted item leaves first",
+     "III. Operator written after its operands",
+     "IV. Removing from an empty stack"
+    ]
+   }
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q15",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about a stack.\nA. PUSH and POP both act on the same end of the stack.\nB. In a list-based stack, `st[-1]` gives the top item without removing it.\nC. A Python list-based stack must be declared with a fixed size before use.\nD. After pushing 1, 2, 3 in that order, the first item popped is 1.\nWhich statements are correct?",
+   "options": [
+    "A, B and D only",
+    "B and C only",
+    "A and B only",
+    "A, C and D only"
+   ],
+   "answer": 3,
+   "explanation": "A is true: insertion and deletion occur at the top only. B is true: the last list element is the top and indexing does not remove it. C is false since a list resizes itself. D is false because LIFO pops 3 first.",
+   "optionRationale": {
+    "1": "D is false: the first item popped is 3, the last pushed.",
+    "2": "A is correct too, and C is false because Python lists grow dynamically.",
+    "4": "C and D are false."
+   },
+   "objective": "Judge statements about stack properties"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q16",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "What is the output of this program?\n`def rev(s):`\n`    st = []`\n`    for c in s:`\n`        st.append(c)`\n`    r = \"\"`\n`    while st:`\n`        r += st.pop()`\n`    return r`\n`print(rev(\"stack\"), rev(\"ab\"))`",
+   "options": [
+    "stack ab",
+    "kcats ba",
+    "kcats ab",
+    "k c a t s ba"
+   ],
+   "answer": 2,
+   "explanation": "Each character is pushed in order, then popped repeatedly, so characters come out in reverse. Reversing stack gives kcats and reversing ab gives ba. The program therefore prints: kcats ba. Checking the other options: Option 1: Popping returns characters in reverse order, so the strings are not unchanged. Option 3: The second call also reverses its input, giving ba. Option 4: The characters are joined into one string with no spaces.",
+   "optionRationale": {
+    "1": "Popping returns characters in reverse order, so the strings are not unchanged.",
+    "3": "The second call also reverses its input, giving ba.",
+    "4": "The characters are joined into one string with no spaces."
+   },
+   "objective": "Trace a stack used to reverse strings"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q17",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "A program evaluates a postfix string with integer operators. For the call below, what is printed?\n`def ev(tokens):`\n`    st = []`\n`    for t in tokens.split():`\n`        if t in (\"+\", \"-\", \"*\", \"//\"):`\n`            b = st.pop()`\n`            a = st.pop()`\n`            if t == \"+\": st.append(a + b)`\n`            elif t == \"-\": st.append(a - b)`\n`            elif t == \"*\": st.append(a * b)`\n`            else: st.append(a // b)`\n`        else:`\n`            st.append(int(t))`\n`    return st[-1]`\n`print(ev(\"9 3 // 4 2 - *\"))`",
+   "options": [
+    "1",
+    "-6",
+    "12",
+    "6"
+   ],
+   "answer": 4,
+   "explanation": "9 and 3 are pushed; `//` pops b = 3 and a = 9, giving 3. Then 4 and 2 are pushed; `-` pops b = 2 and a = 4, giving 2. The stack now holds 3 and 2, and `*` multiplies them to give 6.",
+   "optionRationale": {
+    "1": "This forgets the final multiplication of 3 by 2.",
+    "2": "It takes 2 - 4 instead of 4 - 2, popping the operands in the wrong role.",
+    "3": "This is 9 + 3, but the first operator is integer division, so the first result is 3, not 12."
+   },
+   "objective": "Trace a postfix evaluator program"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q18",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "What is the postfix form of `(A+B)*C-D/E`?",
+   "options": [
+    "A B C * + D E / -",
+    "A B + C D E / * -",
+    "A B + C * D E / -",
+    "A B + C * D / E -"
+   ],
+   "answer": 3,
+   "explanation": "The bracket forces A B + first. Then `*` with C gives A B + C *. `D / E` is formed before the subtraction (higher precedence), giving D E /. The final `-` joins the two parts: A B + C * D E / -.",
+   "optionRationale": {
+    "1": "This ignores the brackets and treats B * C as the product.",
+    "2": "The product is placed after the quotient, which would mean C * (D / E).",
+    "4": "This divides the whole earlier result by something and puts E before the minus, which would mean ((A+B)*C)/D - E."
+   },
+   "objective": "Convert an infix expression with brackets to postfix"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q19",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "The postfix expression `5 6 2 + * 12 4 / -` equals which infix expression value?",
+   "options": [
+    "37",
+    "3",
+    "41",
+    "-3"
+   ],
+   "answer": 1,
+   "explanation": "Rewritten in infix this is 5 * (6 + 2) - 12 / 4. The bracketed sum is 8, the product is 40 and the division gives 3, so 40 - 3 = 37. A stack trace gives the same value, with 12 / 4 using 4 as the right operand.",
+   "optionRationale": {
+    "2": "Only the last division 12 / 4 is taken, ignoring the rest.",
+    "3": "This adds the quotient 3 to 5 * 8 = 40 plus one, but the last operator is subtraction, so 40 - 3 is needed.",
+    "4": "This computes 3 - 40; the first popped item is the right operand, so the subtraction is 40 - 3."
+   },
+   "objective": "Evaluate a longer postfix expression"
+  },
+  {
+   "key": "ug26-308-r05-stack-lifo-postfix-q20",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "During conversion of `A+B*C-D` to postfix using an operator stack, what is the largest number of operators on the stack at any moment?",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "0"
+   ],
+   "answer": 2,
+   "explanation": "The stack gets `+`, then `*` joins it (size 2). When `-` is read, `*` is popped (higher precedence), then `+` is popped (equal precedence, left-to-right), and only then is `-` pushed. The result is ABC*+D-, and the stack never held more than 2 operators.",
+   "optionRationale": {
+    "1": "After `*` is pushed on top of `+`, the stack holds two operators.",
+    "3": "The `-` forces both `*` and `+` out before it is pushed, so three never coexist.",
+    "4": "Operators are definitely pushed and wait; the stack is not always empty."
+   },
+   "objective": "Analyse operator stack depth during conversion"
+  }
+ ]
+}

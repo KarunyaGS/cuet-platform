@@ -1,0 +1,1028 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_c83af3d74cdf402d8deaab863280a6c0",
+  "title": "Exception and File Handling in Python"
+ },
+ "lesson": {
+  "key": "ug26-308-r01-exceptions-files-python",
+  "title": "Exception and file handling in Python: try-except, finally, user-defined exceptions, text and binary files, pickle, seek and tell",
+  "coverage": [
+   {
+    "phrase": "Exception and File Handling in Python",
+    "section": "Syntax errors, exceptions and the need for exception handling"
+   },
+   {
+    "phrase": "Exception Handling",
+    "section": "Syntax errors, exceptions and the need for exception handling"
+   },
+   {
+    "phrase": "syntax errors",
+    "section": "Syntax errors, exceptions and the need for exception handling"
+   },
+   {
+    "phrase": "exceptions",
+    "section": "Syntax errors, exceptions and the need for exception handling"
+   },
+   {
+    "phrase": "need of exception handling",
+    "section": "Syntax errors, exceptions and the need for exception handling"
+   },
+   {
+    "phrase": "built- in exception classes",
+    "section": "Built-in exception classes"
+   },
+   {
+    "phrase": "handling exceptions",
+    "section": "Handling exceptions: try, except, else and finally"
+   },
+   {
+    "phrase": "catching exceptions",
+    "section": "Handling exceptions: try, except, else and finally"
+   },
+   {
+    "phrase": "Try - except - else clause",
+    "section": "Handling exceptions: try, except, else and finally"
+   },
+   {
+    "phrase": "Try - finally clause",
+    "section": "Handling exceptions: try, except, else and finally"
+   },
+   {
+    "phrase": "recovering and continuing with finally",
+    "section": "Handling exceptions: try, except, else and finally"
+   },
+   {
+    "phrase": "raising exceptions",
+    "section": "Raising exceptions and user-defined exceptions"
+   },
+   {
+    "phrase": "user- defined exceptions",
+    "section": "Raising exceptions and user-defined exceptions"
+   },
+   {
+    "phrase": "File Handling",
+    "section": "Files: text and binary, file types and access modes"
+   },
+   {
+    "phrase": "text file and binary file",
+    "section": "Files: text and binary, file types and access modes"
+   },
+   {
+    "phrase": "file types",
+    "section": "Files: text and binary, file types and access modes"
+   },
+   {
+    "phrase": "open and close files",
+    "section": "Files: text and binary, file types and access modes"
+   },
+   {
+    "phrase": "file access modes",
+    "section": "Files: text and binary, file types and access modes"
+   },
+   {
+    "phrase": "reading and writing text files",
+    "section": "Reading and writing text files"
+   },
+   {
+    "phrase": "reading and writing binary files using pickle module",
+    "section": "Reading and writing binary files with the pickle module"
+   },
+   {
+    "phrase": "Setting Offsets in a File",
+    "section": "Setting offsets in a file: tell() and seek()"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Syntax errors, exceptions and the need for exception handling"
+   },
+   {
+    "type": "TEXT",
+    "text": "A program can fail in two quite different ways."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Syntax error versus exception",
+    "columns": [
+     "Point",
+     "Syntax error",
+     "Exception (run-time error)"
+    ],
+    "rows": [
+     [
+      "When detected",
+      "Before the program runs, while Python parses the source",
+      "While the program is running"
+     ],
+     [
+      "Cause",
+      "Breaking the grammar of the language: missing colon, bracket or quote, wrong indentation",
+      "A valid statement that cannot be carried out: dividing by zero, opening a missing file, converting \"abc\" to int"
+     ],
+     [
+      "Can it be caught with try-except?",
+      "No (the program never starts)",
+      "Yes"
+     ],
+     [
+      "Example",
+      "`print(\"Hi\"` (bracket not closed) gives SyntaxError",
+      "`10 / 0` gives ZeroDivisionError"
+     ]
+    ]
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Exception",
+    "text": "An event that occurs during execution and disrupts the normal flow of the program. When it happens Python creates an exception object and, unless it is handled, stops the program and prints a traceback."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Need for exception handling.** Without handling, one bad input (a non-numeric value, a missing file) crashes the entire program and may leave files half-written. Exception handling lets the programmer:\n\n- separate normal code from error-handling code,\n- show a friendly message instead of a traceback,\n- recover and continue (ask the user again, use a default value),\n- release resources such as open files even when something goes wrong."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "A syntax error cannot be handled by `try`/`except` in the same file, because the file fails to compile before any statement runs. Do not confuse it with a logical error, where the program runs without any error message but gives a wrong result."
+   },
+   {
+    "type": "HEADING",
+    "text": "Built-in exception classes"
+   },
+   {
+    "type": "TEXT",
+    "text": "Python provides many built-in exception classes arranged in a hierarchy. All of them derive from `BaseException`; the ones used in everyday programs derive from `Exception`. Knowing which statement raises which exception is a favourite exam item."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Common built-in exceptions",
+    "columns": [
+     "Exception",
+     "Raised when",
+     "Example"
+    ],
+    "rows": [
+     [
+      "`ZeroDivisionError`",
+      "Division or modulo by zero",
+      "`5 / 0`, `5 % 0`"
+     ],
+     [
+      "`ValueError`",
+      "Right type but unsuitable value",
+      "`int(\"abc\")`"
+     ],
+     [
+      "`TypeError`",
+      "Operation on an unsuitable type",
+      "`\"a\" + 1`"
+     ],
+     [
+      "`IndexError`",
+      "Sequence index out of range",
+      "`[1, 2][5]`"
+     ],
+     [
+      "`KeyError`",
+      "Dictionary key not found",
+      "`{\"a\": 1}[\"b\"]`"
+     ],
+     [
+      "`NameError`",
+      "Name is not defined",
+      "print(x) before x is assigned"
+     ],
+     [
+      "`FileNotFoundError`",
+      "File does not exist (a subclass of `OSError`)",
+      "`open(\"nofile.txt\")`"
+     ],
+     [
+      "`EOFError`",
+      "End of file reached while reading (for example `pickle.load` at the end, or `input()` with no data)",
+      "`pickle.load(f)` after the last record"
+     ],
+     [
+      "`ImportError`",
+      "Module cannot be imported",
+      "`import nomodule`"
+     ],
+     [
+      "`AssertionError`",
+      "An `assert` condition is False",
+      "`assert 1 > 2`"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Hierarchy facts that matter: `ZeroDivisionError` is a subclass of `ArithmeticError`; `IndexError` and `KeyError` are subclasses of `LookupError`; all of these are subclasses of `Exception`. A handler written for a parent class also catches its children."
+   },
+   {
+    "type": "HEADING",
+    "text": "Handling exceptions: try, except, else and finally"
+   },
+   {
+    "type": "TEXT",
+    "text": "Statements that might fail go inside a `try` block. If an exception occurs, the rest of the try block is skipped and Python looks for a matching `except` clause. The general form is:"
+   },
+   {
+    "type": "TEXT",
+    "text": "`try:`\n`    statements that may raise an exception`\n`except ExceptionName1:`\n`    handler for ExceptionName1`\n`except (ExceptionName2, ExceptionName3):`\n`    one handler for either exception`\n`except:`\n`    handler for any other exception`\n`else:`\n`    runs only if the try block raised nothing`\n`finally:`\n`    always runs`"
+   },
+   {
+    "type": "TABLE",
+    "caption": "The four clauses",
+    "columns": [
+     "Clause",
+     "Runs when",
+     "Notes"
+    ],
+    "rows": [
+     [
+      "`try`",
+      "Always first",
+      "Holds the risky statements. It must be followed by `except` or `finally`."
+     ],
+     [
+      "`except`",
+      "The try block raises a matching exception",
+      "Python checks the except clauses from top to bottom and runs only the **first** one that matches. A bare `except:` catches everything and should come last. `except X as e` stores the exception object in `e`, and `print(e)` shows its message."
+     ],
+     [
+      "`else`",
+      "The try block finished **without** any exception",
+      "Keeps the \"success\" code separate. An exception raised inside `else` is not caught by the `except` clauses of the same try."
+     ],
+     [
+      "`finally`",
+      "Always: whether or not an exception occurred, and even if `return`, `break` or an uncaught exception leaves the try",
+      "Used for clean-up such as closing a file. Because it always runs, it is also the place to recover (reset state) and let the program continue."
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Trace the output of this code:\n`def safe_div(a, b):`\n`    try:`\n`        r = a / b`\n`    except ZeroDivisionError:`\n`        print(\"zero\")`\n`        r = None`\n`    else:`\n`        print(\"ok\")`\n`    finally:`\n`        print(\"done\")`\n`    return r`\n`print(safe_div(8, 2))`\n`print(safe_div(8, 0))`",
+    "solution": "Call 1, `safe_div(8, 2)`: `8 / 2` is 4.0 with no exception, so `except` is skipped, `else` prints ok, `finally` prints done, and the function returns 4.0, which is printed.\n\nCall 2, `safe_div(8, 0)`: `8 / 0` raises ZeroDivisionError, so the matching `except` prints zero and sets r to None; `else` is skipped; `finally` prints done; the function returns None, which is printed.\n\nComplete output, line by line:\n\n- `ok`\n- `done`\n- `4.0`\n- `zero`\n- `done`\n- `None`",
+    "answer": "The output lines are: ok, done, 4.0, zero, done, None"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Recovering and continuing.** A very common pattern is a loop that keeps asking until the input is valid. The exception is caught, a message is shown, and the loop repeats; `finally` can hold code that must run on every attempt."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Trace this recovery loop and give the final total.\n`data = [\"12\", \"x\", \"7\", \"\", \"3\"]`\n`total = 0`\n`for item in data:`\n`    try:`\n`        total += int(item)`\n`    except ValueError:`\n`        print(\"skip\", repr(item))`\n`    finally:`\n`        print(\"seen\", item)`\n`print(total)`",
+    "solution": "For each item the loop tries `int(item)`. \"12\", \"7\" and \"3\" convert, adding 12, 7 and 3. \"x\" and \"\" (empty string) raise ValueError, which the handler catches, printing skip; the loop then continues with the next item. `finally` prints seen for every item including the failed ones.\n\nFinal total: 12 + 7 + 3 = 22.",
+    "answer": "The program prints `seen` for all five items, `skip` for \"x\" and the empty string, and the total 22."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Order of `except` clauses matters. If `except Exception:` is written before `except ZeroDivisionError:`, the first clause matches every exception and the second one never runs. Put the specific classes first and the general ones last."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "try/except/else/finally: `except` runs on an error, `else` runs only when no error occurred, `finally` runs in every case. A `finally` block lets the program clean up and continue after a failure."
+   },
+   {
+    "type": "HEADING",
+    "text": "Raising exceptions and user-defined exceptions"
+   },
+   {
+    "type": "TEXT",
+    "text": "A program may raise an exception deliberately with the `raise` statement, for example to reject invalid data:"
+   },
+   {
+    "type": "TEXT",
+    "text": "`age = -5`\n`if age < 0:`\n`    raise ValueError(\"age cannot be negative\")`"
+   },
+   {
+    "type": "TEXT",
+    "text": "- `raise ValueError(\"message\")` creates the exception object with a message.\n- `raise` alone, inside an `except` block, re-raises the exception that is being handled.\n- `assert condition, \"message\"` raises `AssertionError` when the condition is False."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "User-defined exception",
+    "text": "A new exception class created by the programmer by inheriting from `Exception` (or one of its subclasses). It is raised with `raise` and caught with `except` exactly like a built-in exception."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Trace the output:\n`class LowBalance(Exception):`\n`    pass`\n`def withdraw(bal, amt):`\n`    if amt > bal:`\n`        raise LowBalance(\"need \" + str(amt - bal) + \" more\")`\n`    return bal - amt`\n`try:`\n`    print(withdraw(500, 200))`\n`    print(withdraw(500, 800))`\n`except LowBalance as e:`\n`    print(\"Error:\", e)`",
+    "solution": "The class `LowBalance` inherits from `Exception`, so it is a valid exception type.\n\nFirst call: 200 is not greater than 500, so it returns 300, which is printed.\n\nSecond call: 800 > 500, so `raise LowBalance(\"need 300 more\")` is executed (800 - 500 = 300). Control jumps out of `withdraw` and the try block to `except LowBalance as e`, which prints the stored message.\n\nOutput: 300 / Error: need 300 more",
+    "answer": "300 / Error: need 300 more"
+   },
+   {
+    "type": "HEADING",
+    "text": "Files: text and binary, file types and access modes"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **file** is a named place on permanent storage. Data in variables vanishes when the program ends; data written to a file stays. Python treats files as of two kinds."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Text, binary and CSV files",
+    "columns": [
+     "Type",
+     "Contents",
+     "Example extensions",
+     "Opened with"
+    ],
+    "rows": [
+     [
+      "Text file",
+      "Characters (letters, digits, symbols) in lines ended by newline, using an encoding such as UTF-8",
+      ".txt, .py, .csv, .html",
+      "Modes like `\"r\"`, `\"w\"`, `\"a\"`"
+     ],
+     [
+      "Binary file",
+      "Raw bytes, not meant to be read directly by people",
+      ".jpg, .mp3, .dat, .pdf, pickled data",
+      "Modes with a `b`: `\"rb\"`, `\"wb\"`, `\"ab\"`"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "A CSV (comma separated values) file is a text file, opened in text mode."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Opening and closing.** `f = open(\"data.txt\", \"r\")` returns a file object and the second argument is the access mode. When the work is finished, `f.close()` flushes buffered data and releases the file. The `with` statement does this automatically, even if an exception occurs:"
+   },
+   {
+    "type": "TEXT",
+    "text": "`with open(\"data.txt\", \"r\") as f:`\n`    text = f.read()`"
+   },
+   {
+    "type": "TABLE",
+    "caption": "File access modes",
+    "columns": [
+     "Mode",
+     "Meaning",
+     "If the file does not exist",
+     "Existing content"
+    ],
+    "rows": [
+     [
+      "`r`",
+      "Read only (default). File pointer at the start",
+      "FileNotFoundError",
+      "Kept"
+     ],
+     [
+      "`w`",
+      "Write only",
+      "Created",
+      "**Erased** (truncated) as soon as the file is opened"
+     ],
+     [
+      "`a`",
+      "Append: writes always go to the end",
+      "Created",
+      "Kept"
+     ],
+     [
+      "`r+`",
+      "Read and write, pointer at the start",
+      "FileNotFoundError",
+      "Kept (overwritten only where you write)"
+     ],
+     [
+      "`w+`",
+      "Write and read",
+      "Created",
+      "Erased"
+     ],
+     [
+      "`a+`",
+      "Append and read",
+      "Created",
+      "Kept"
+     ],
+     [
+      "`rb`, `wb`, `ab`",
+      "Same as `r`, `w`, `a` but for binary files",
+      "Same as the text equivalents",
+      "Same as the text equivalents"
+     ],
+     [
+      "`rb+`, `wb+`, `ab+`",
+      "Binary read and write combinations",
+      "As above",
+      "As above"
+     ]
+    ]
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Opening an existing file with `\"w\"` destroys its old content immediately, even if you write nothing. Use `\"a\"` to add to a file. A missing file with `\"r\"` raises FileNotFoundError, which is a good place for try/except."
+   },
+   {
+    "type": "HEADING",
+    "text": "Reading and writing text files"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Text file methods",
+    "columns": [
+     "Method",
+     "What it does"
+    ],
+    "rows": [
+     [
+      "`read()`",
+      "Returns the whole remaining content as one string"
+     ],
+     [
+      "`read(n)`",
+      "Returns at most the next n characters"
+     ],
+     [
+      "`readline()`",
+      "Returns the next line including its `\\n`; returns an empty string `\"\"` at the end of the file"
+     ],
+     [
+      "`readlines()`",
+      "Returns a list of all remaining lines, each with its `\\n`"
+     ],
+     [
+      "`write(s)`",
+      "Writes the string s (no newline added automatically); returns the number of characters written"
+     ],
+     [
+      "`writelines(list)`",
+      "Writes every string in the list one after another, without adding newlines"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Trace the output of this program:\n`f = open(\"demo_lines.txt\", \"w\")`\n`f.write(\"Delhi\\n\")`\n`f.write(\"Pune\\n\")`\n`f.writelines([\"Goa\\n\", \"Agra\"])`\n`f.close()`\n`f = open(\"demo_lines.txt\")`\n`print(f.readline())`\n`print(f.read(3))`\n`print(f.readlines())`\n`print(repr(f.readline()))`\n`f.close()`",
+    "solution": "The file contains four lines: Delhi, Pune, Goa, and Agra (the last without a newline, because `writelines` adds none).\n\n`readline()` returns \"Delhi\\n\"; print adds another newline, so a blank line follows.\n\n`read(3)` returns the next three characters, \"Pun\". The pointer now sits inside the word Pune.\n\n`readlines()` returns the rest as a list: the remainder of the second line, then the third and fourth lines.\n\n`readline()` at the end of the file returns an empty string, shown by repr as two quotes.\n\nFull output:\n\n- `Delhi`\n- `(blank line)`\n- `Pun`\n- `['e\\n', 'Goa\\n', 'Agra']`\n- `''`",
+    "answer": "Delhi, blank line, Pun, then the list `['e\\n', 'Goa\\n', 'Agra']`, then `''`."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "`write()` accepts only strings. `f.write(25)` raises TypeError; write `str(25)` instead. Also remember that `readlines()` keeps the newline characters."
+   },
+   {
+    "type": "HEADING",
+    "text": "Reading and writing binary files with the pickle module"
+   },
+   {
+    "type": "TEXT",
+    "text": "Lists, dictionaries and other Python objects cannot be written directly with `write()`. The **pickle** module converts an object to a stream of bytes (**pickling** or serialisation) and back (**unpickling**). The file must be opened in a binary mode."
+   },
+   {
+    "type": "TABLE",
+    "caption": "pickle functions",
+    "columns": [
+     "Function",
+     "Purpose"
+    ],
+    "rows": [
+     [
+      "`import pickle`",
+      "Needed before any use"
+     ],
+     [
+      "`pickle.dump(obj, f)`",
+      "Writes the pickled bytes of obj to file object f (opened with `\"wb\"` or `\"ab\"`)"
+     ],
+     [
+      "`pickle.load(f)`",
+      "Reads and returns the next pickled object from f (opened with `\"rb\"`); raises `EOFError` when no object is left"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Two records are stored with pickle and then read back. Trace the output.\n`import pickle`\n`f = open(\"demo_stu.dat\", \"wb\")`\n`pickle.dump([1, \"Asha\", 88], f)`\n`pickle.dump({\"id\": 2, \"name\": \"Ravi\"}, f)`\n`f.close()`\n`f = open(\"demo_stu.dat\", \"rb\")`\n`count = 0`\n`try:`\n`    while True:`\n`        rec = pickle.load(f)`\n`        count += 1`\n`        print(rec)`\n`except EOFError:`\n`    print(\"records:\", count)`\n`f.close()`",
+    "solution": "Each `dump` appends one independent pickled object, so the file holds two objects (a list and a dictionary).\n\nThe loop calls `load` repeatedly. The first call returns the list and prints it; the second returns the dictionary and prints it; the count becomes 2. The third `load` finds no data and raises EOFError, which ends the infinite loop through the except clause, and the final line prints the count.\n\nOutput:\n\n- `[1, 'Asha', 88]`\n- `{'id': 2, 'name': 'Ravi'}`\n- `records: 2`",
+    "answer": "[1, 'Asha', 88] ; {'id': 2, 'name': 'Ravi'} ; records: 2"
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Binary file with pickle: open with `wb`/`ab` and call `dump(obj, f)` for each record; open with `rb` and call `load(f)` inside `try ... except EOFError`. The file is not human readable, so never open a pickle file in text mode."
+   },
+   {
+    "type": "HEADING",
+    "text": "Setting offsets in a file: tell() and seek()"
+   },
+   {
+    "type": "TEXT",
+    "text": "The **file pointer** marks where the next read or write happens. It starts at 0 for `r` and `w` modes and at the end of the file for `a` mode. It moves forward automatically as you read or write."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Pointer methods",
+    "columns": [
+     "Method",
+     "Meaning"
+    ],
+    "rows": [
+     [
+      "`f.tell()`",
+      "Returns the current position as a number of bytes from the start of the file"
+     ],
+     [
+      "`f.seek(offset, whence)`",
+      "Moves the pointer to `offset` bytes relative to `whence`"
+     ],
+     [
+      "`whence = 0`",
+      "From the beginning of the file (default)"
+     ],
+     [
+      "`whence = 1`",
+      "From the current position"
+     ],
+     [
+      "`whence = 2`",
+      "From the end of the file"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "In text mode only `seek(offset)` / `seek(offset, 0)` from the start (and `seek(0, 2)` to reach the end) are allowed with arbitrary offsets; relative seeks from the current position or the end need binary mode (`seek(-3, 2)` works with `\"rb\"`)."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A file contains the ten characters ABCDEFGHIJ. Trace the output:\n`f = open(\"demo_seek.txt\", \"rb\")`\n`print(f.read(3), f.tell())`\n`f.seek(2, 1)`\n`print(f.read(2), f.tell())`\n`f.seek(-3, 2)`\n`print(f.read(), f.tell())`\n`f.seek(0)`\n`print(f.read(1))`\n`f.close()`",
+    "solution": "`read(3)` returns the first 3 bytes ABC and the pointer is at 3.\n\n`seek(2, 1)` moves 2 bytes forward from position 3 to position 5. `read(2)` returns the bytes at positions 5 and 6, which are F and G, so the pointer ends at 7.\n\n`seek(-3, 2)` goes 3 bytes back from the end (position 10), landing at 7; `read()` returns HIJ and the pointer is at 10.\n\n`seek(0)` rewinds to the start and `read(1)` returns A. In binary mode the values are bytes, which is why a b appears before each quoted string.\n\nOutput:\n\n- `b'ABC' 3`\n- `b'FG' 7`\n- `b'HIJ' 10`\n- `b'A'`",
+    "answer": "b'ABC' 3 ; b'FG' 7 ; b'HIJ' 10 ; b'A'"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "In text mode, `tell()` and `seek()` count in bytes and, on some systems, a newline occupies two bytes. For exact byte arithmetic use binary mode, or test with text that has no line breaks."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A student writes `print(\"Hello\"` and forgets the closing bracket. What kind of error is this?",
+   "options": [
+    "A run-time exception, found while the program is running",
+    "A logical error, which shows as a wrong result",
+    "A syntax error, found before the program runs",
+    "A ZeroDivisionError"
+   ],
+   "answer": 3,
+   "explanation": "A missing bracket breaks the grammar of Python, so the interpreter reports a SyntaxError while parsing, before any statement runs. Exceptions arise only during execution of valid statements. Checking the other options: Option 1: The program never starts, so it cannot fail at run time. Option 2: A logical error produces no error message; here Python rejects the line itself. Option 4: No division takes place in the statement.",
+   "optionRationale": {
+    "1": "The program never starts, so it cannot fail at run time.",
+    "2": "A logical error produces no error message; here Python rejects the line itself.",
+    "4": "No division takes place in the statement."
+   },
+   "objective": "Distinguish a syntax error from an exception"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which exception is raised by `int(\"abc\")`?",
+   "options": [
+    "ValueError",
+    "TypeError",
+    "NameError",
+    "IndexError"
+   ],
+   "answer": 1,
+   "explanation": "The function `int()` accepts strings, so the type is fine, but \"abc\" cannot be interpreted as a number. A right type with an unsuitable value raises ValueError. Checking the other options: Option 2: The argument is a string, which is an acceptable type for int(); the content is what is wrong. Option 3: No undefined name is used here. Option 4: No sequence index is involved.",
+   "optionRationale": {
+    "2": "The argument is a string, which is an acceptable type for int(); the content is what is wrong.",
+    "3": "No undefined name is used here.",
+    "4": "No sequence index is involved."
+   },
+   "objective": "Identify the exception raised by a failed conversion"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which block of a try statement runs whether or not an exception occurs?",
+   "options": [
+    "else",
+    "except",
+    "try",
+    "finally"
+   ],
+   "answer": 4,
+   "explanation": "The `finally` clause is meant for clean-up and executes in every case: after a normal finish, after a handled exception and even when an exception is not handled or the function returns. Checking the other options: Option 1: It runs only when no exception occurred in try. Option 2: It runs only when a matching exception occurs. Option 3: The try block can be cut short by an exception, so it does not run to the end every time.",
+   "optionRationale": {
+    "1": "It runs only when no exception occurred in try.",
+    "2": "It runs only when a matching exception occurs.",
+    "3": "The try block can be cut short by an exception, so it does not run to the end every time."
+   },
+   "objective": "State the role of the finally clause"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "What happens to the existing contents of a file opened with mode `\"w\"`?",
+   "options": [
+    "They are kept and new text is added at the end",
+    "They are erased as soon as the file is opened",
+    "They are kept and the pointer is at the start",
+    "The open call fails with FileNotFoundError"
+   ],
+   "answer": 2,
+   "explanation": "Write mode truncates an existing file to zero length at the moment of opening, and creates it if it does not exist. To keep old data and add more, use append mode. Checking the other options: Option 1: That describes append mode, \"a\". Option 3: That is closer to \"r+\", not \"w\". Option 4: Mode \"w\" creates the file if needed.",
+   "optionRationale": {
+    "1": "That describes append mode, \"a\".",
+    "3": "That is closer to \"r+\", not \"w\".",
+    "4": "Mode \"w\" creates the file if needed."
+   },
+   "objective": "Recall the effect of write mode"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which function of the pickle module writes an object into an open binary file?",
+   "options": [
+    "`load()`",
+    "`write()`",
+    "`dump()`",
+    "`read()`"
+   ],
+   "answer": 3,
+   "explanation": "pickle.dump(obj, f) serialises obj and writes it into the file object f, which must be opened with wb or ab. pickle.load(f) does the opposite. Checking the other options: Option 1: load reads an object from a file. Option 2: write is a file method, not a function of the pickle module, and handles strings only. Option 4: read is a file method for reading data.",
+   "optionRationale": {
+    "1": "load reads an object from a file.",
+    "2": "write is a file method, not a function of the pickle module, and handles strings only.",
+    "4": "read is a file method for reading data."
+   },
+   "objective": "Name the pickle function for writing"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "What is the output of the following program?\n`def f(x):`\n`    try:`\n`        r = 10 // x`\n`    except ZeroDivisionError:`\n`        r = -1`\n`    else:`\n`        r += 100`\n`    finally:`\n`        r += 1000`\n`    return r`\n`print(f(5), f(0))`",
+   "options": [
+    "1102 999",
+    "1002 999",
+    "102 -1",
+    "1102 1000"
+   ],
+   "answer": 1,
+   "explanation": "For x = 5: 10 // 5 = 2, no exception, so else adds 100 to give 102, and finally adds 1000 to give 1102. For x = 0: ZeroDivisionError sets r = -1, else is skipped, and finally adds 1000 giving 999. The printed pair is: 1102 999.",
+   "optionRationale": {
+    "2": "The else clause adds 100 for x = 5, and 10 // 5 is 2, so the first value is 1102, not 1002.",
+    "3": "The finally clause adds 1000 in both calls, so neither value stays this small.",
+    "4": "For x = 0 the handler sets r to -1 and finally adds 1000, giving 999, not 1000."
+   },
+   "objective": "Trace try, except, else and finally together"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "What does this program print?\n`try:`\n`    L = [10, 20, 30]`\n`    print(L[1])`\n`    print(L[3])`\n`    print(L[0])`\n`except IndexError:`\n`    print(\"IE\")`\n`except Exception:`\n`    print(\"EX\")`",
+   "options": [
+    "20 then 30 then IE",
+    "20 then EX",
+    "IE only",
+    "20 then IE"
+   ],
+   "answer": 4,
+   "explanation": "The first print shows 20. `L[3]` is out of range for a list of length 3, so IndexError is raised and the rest of the try block, including `print(L[0])`, is skipped. Clauses are checked in order; the first one, IndexError, matches and prints IE. The generic Exception clause is not reached.",
+   "optionRationale": {
+    "1": "L[3] raises the exception, so the statements after it, including print(L[0]), are skipped.",
+    "2": "IndexError matches the first except clause, so the generic clause is not used.",
+    "3": "print(L[1]) runs before the failing statement and shows 20 first."
+   },
+   "objective": "Trace flow when an exception interrupts a try block"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "What is printed when this code runs?\n`try:`\n`    x = 5 / 0`\n`except Exception:`\n`    print(\"general\")`\n`except ZeroDivisionError:`\n`    print(\"zero\")`",
+   "options": [
+    "zero",
+    "general",
+    "general followed by zero",
+    "Nothing is printed; the program stops with a traceback"
+   ],
+   "answer": 2,
+   "explanation": "`5 / 0` raises ZeroDivisionError. Python tests the except clauses from top to bottom and runs only the first match. Since ZeroDivisionError is a subclass of Exception, `except Exception` matches first, prints general, and the second clause is never used.",
+   "optionRationale": {
+    "1": "ZeroDivisionError is a subclass of Exception, so the earlier clause matches first and the later one never runs.",
+    "3": "Only one except clause is executed for a single exception.",
+    "4": "The exception is caught by the first clause, so there is no traceback."
+   },
+   "objective": "Predict which except clause handles an exception"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "What does this program print?\n`f = open(\"demo9.txt\", \"w\")`\n`f.write(\"Hello\\nWorld\\n\")`\n`f.close()`\n`f = open(\"demo9.txt\")`\n`a = f.readlines()`\n`b = f.read()`\n`f.close()`\n`print(a, len(a), repr(b))`",
+   "options": [
+    "['Hello', 'World'] 2 ''",
+    "['Hello\\n', 'World\\n'] 2 'World\\n'",
+    "['Hello\\n', 'World\\n'] 2 ''",
+    "['Hello\\nWorld\\n'] 1 ''"
+   ],
+   "answer": 3,
+   "explanation": "The file holds two lines, each ending with a newline. `readlines()` returns them as a list with the newlines kept, so the length is 2. That call moves the pointer to the end of the file, so `read()` returns an empty string. The program prints: ['Hello\\n', 'World\\n'] 2 ''.",
+   "optionRationale": {
+    "1": "readlines keeps the newline character at the end of each line.",
+    "2": "readlines already consumed the whole file, so the following read returns an empty string.",
+    "4": "readlines returns one list item per line, not the entire text as one item."
+   },
+   "objective": "Trace readlines followed by read"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A text file contains 0123456789 (ten characters, no newline). What is printed?\n`f = open(\"demo10.txt\")`\n`f.seek(4)`\n`a = f.read(2)`\n`b = f.tell()`\n`f.seek(0)`\n`c = f.read(1)`\n`f.close()`\n`print(a, b, c)`",
+   "options": [
+    "34 5 0",
+    "45 4 0",
+    "45 6 1",
+    "45 6 0"
+   ],
+   "answer": 4,
+   "explanation": "seek(4) moves to the fifth character, so `read(2)` returns 45 and the pointer advances to 6, which `tell()` reports. `seek(0)` rewinds to the start and `read(1)` returns 0. The printed values are: 45 6 0.",
+   "optionRationale": {
+    "1": "seek(4) places the pointer at index 4, so the characters read are those at positions 4 and 5, not 3 and 4.",
+    "2": "After reading two characters from position 4 the pointer is at 6, not 4.",
+    "3": "seek(0) moves back to the start, so the final read returns 0, not 1."
+   },
+   "objective": "Apply seek and tell on a text file"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q11",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each statement in List-I with the exception it raises, listed in List-II.",
+   "options": [
+    "A-III, B-I, C-IV, D-II",
+    "A-I, B-III, C-IV, D-II",
+    "A-III, B-I, C-II, D-IV",
+    "A-II, B-I, C-IV, D-III"
+   ],
+   "answer": 1,
+   "explanation": "Dividing by zero raises ZeroDivisionError (III). `int(\"x\")` raises ValueError (I). `{\"a\": 1}[\"b\"]` raises KeyError (IV). `[1, 2][5]` raises IndexError (II). Check each against the table of built-in exceptions. Checking the other options: Option 2: Dividing by zero is not a ValueError, and int(\"x\") is not a ZeroDivisionError. Option 3: A missing dictionary key raises KeyError, and a bad index raises IndexError, so C and D are swapped. Option 4: Division by zero raises ZeroDivisionError, not IndexError.",
+   "optionRationale": {
+    "2": "Dividing by zero is not a ValueError, and int(\"x\") is not a ZeroDivisionError.",
+    "3": "A missing dictionary key raises KeyError, and a bad index raises IndexError, so C and D are swapped.",
+    "4": "Division by zero raises ZeroDivisionError, not IndexError."
+   },
+   "objective": "Match statements with the built-in exceptions they raise",
+   "list": {
+    "left": [
+     "A. `7 / 0`",
+     "B. `int(\"x\")`",
+     "C. `{\"a\": 1}[\"b\"]`",
+     "D. `[1, 2][5]`"
+    ],
+    "right": [
+     "I. ValueError",
+     "II. IndexError",
+     "III. ZeroDivisionError",
+     "IV. KeyError"
+    ]
+   }
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q12",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about exception handling in Python.\nA. The else block of a try statement runs only if the try block raised no exception.\nB. The finally block runs only when an exception has occurred.\nC. A single try block may be followed by more than one except clause.\nD. After an exception is raised, the remaining statements of the try block still execute.\nWhich statements are correct?",
+   "options": [
+    "A, B and C only",
+    "A and C only",
+    "B and D only",
+    "A, C and D only"
+   ],
+   "answer": 2,
+   "explanation": "A is true. C is true: several except clauses can follow one try to handle different exceptions. B is false because finally also runs when nothing goes wrong. D is false because control leaves the try block at the point of the exception.",
+   "optionRationale": {
+    "1": "B is false: finally runs in every case, not only after an exception.",
+    "3": "B and D are both false.",
+    "4": "D is false: statements after the failing one are skipped."
+   },
+   "objective": "Judge statements about try, except, else and finally"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q13",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Code placed in the else block of a try statement is skipped when the try block raises an exception.\nReason (R): The else block executes only when the try block completes without raising any exception.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "When an exception occurs, Python jumps to the matching except clause and never executes else. The else block is defined to run only after a try block that finished normally, which is exactly the reason given.",
+   "optionRationale": {
+    "2": "R is the definition of else and so it explains A directly.",
+    "3": "R is true: else is for the no-exception case.",
+    "4": "A is true: else is skipped after an exception."
+   },
+   "objective": "Explain when the else block runs"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "What is the output of this program?\n`def inner():`\n`    try:`\n`        print(\"a\")`\n`        1 / 0`\n`        print(\"b\")`\n`    except ZeroDivisionError:`\n`        print(\"c\")`\n`        raise`\n`    finally:`\n`        print(\"d\")`\n`try:`\n`    inner()`\n`except Exception as e:`\n`    print(\"e\", type(e).__name__)`\n`print(\"f\")`",
+   "options": [
+    "a, c, d, e ZeroDivisionError, f",
+    "a, c, d, f",
+    "a, b, c, d, e ZeroDivisionError, f",
+    "a, c, e ZeroDivisionError, d, f"
+   ],
+   "answer": 1,
+   "explanation": "The function prints a. The division raises ZeroDivisionError, skipping b. The handler prints c and re-raises the same exception with `raise`. Before the exception leaves the function, its finally block prints d. The outer except then catches it and prints the exception name, then the program continues with f. Output: a, c, d, e ZeroDivisionError, f.",
+   "optionRationale": {
+    "2": "The bare raise re-raises the exception, so the outer except clause also runs and prints a line starting with e.",
+    "3": "print(\"b\") comes after the failing division and is skipped.",
+    "4": "finally in inner() runs before the exception reaches the caller, so d comes before e."
+   },
+   "objective": "Trace re-raising and finally across function calls"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "What does this program print?\n`class NegativeError(Exception):`\n`    def __init__(self, v):`\n`        self.v = v`\n`def sqr(n):`\n`    if n < 0:`\n`        raise NegativeError(n)`\n`    return n * n`\n`for n in [3, -2, 4]:`\n`    try:`\n`        print(sqr(n))`\n`    except NegativeError as e:`\n`        print(\"bad\", e.v)`",
+   "options": [
+    "9, bad -2",
+    "9, bad -2, 16, 25",
+    "9, bad -2, 16",
+    "9, 4, 16"
+   ],
+   "answer": 3,
+   "explanation": "The class NegativeError inherits from Exception and stores the value. For 3 the function returns 9. For -2 it raises NegativeError, the handler prints bad -2, and the loop moves on to 4, which returns 16. Output: 9, bad -2, 16.",
+   "optionRationale": {
+    "1": "The loop continues after the exception because the try is inside the loop, so 4 is processed too.",
+    "2": "The values 3, -2, 4 give only 9, bad -2 and 16; 25 is not produced.",
+    "4": "sqr(-2) raises the user-defined exception instead of returning 4."
+   },
+   "objective": "Use a user-defined exception inside a loop"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q16",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "What is the output?\n`import pickle`\n`f = open(\"demo16.dat\", \"wb\")`\n`pickle.dump(10, f)`\n`pickle.dump(20, f)`\n`f.close()`\n`f = open(\"demo16.dat\", \"ab\")`\n`pickle.dump(30, f)`\n`f.close()`\n`f = open(\"demo16.dat\", \"rb\")`\n`t = 0`\n`try:`\n`    while True:`\n`        t += pickle.load(f)`\n`except EOFError:`\n`    pass`\n`f.close()`\n`print(t)`",
+   "options": [
+    "30",
+    "60",
+    "50",
+    "Error: EOFError"
+   ],
+   "answer": 2,
+   "explanation": "The first open with wb writes the records 10 and 20. The second open with ab adds 30 after them without erasing anything. Reading back loads all three objects until EOFError is raised and caught, giving 10 + 20 + 30. The program prints 60.",
+   "optionRationale": {
+    "1": "Append mode keeps the first two records, so more than the last record is read.",
+    "3": "The record added in append mode is also read, so the total includes 30.",
+    "4": "The EOFError is caught by the except clause and the program continues."
+   },
+   "objective": "Combine wb, ab and rb with pickle"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q17",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "The file contains ABCDEF. What does the following code print?\n`f = open(\"demo17.txt\", \"r+\")`\n`f.seek(2)`\n`f.write(\"xy\")`\n`f.seek(0)`\n`print(f.read())`\n`f.close()`",
+   "options": [
+    "ABxyCDEF",
+    "xyABCDEF",
+    "ABCDEFxy",
+    "ABxyEF"
+   ],
+   "answer": 4,
+   "explanation": "Mode r+ opens the file for reading and writing without erasing it. `seek(2)` puts the pointer after AB, and `write(\"xy\")` overwrites the next two characters C and D. After seek(0) the read returns ABxyEF.",
+   "optionRationale": {
+    "1": "Writing in r+ mode overwrites existing characters; it does not insert new ones.",
+    "2": "The pointer was moved to position 2, so the writing does not begin at the start.",
+    "3": "That would happen in append mode, but r+ writes at the pointer position set by seek."
+   },
+   "objective": "Predict overwriting behaviour of r+ mode"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q18",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "What is printed by this program?\n`def g():`\n`    for i in range(3):`\n`        try:`\n`            if i == 1:`\n`                continue`\n`            print(\"t\", i)`\n`        finally:`\n`            print(\"f\", i)`\n`    return \"end\"`\n`print(g())`",
+   "options": [
+    "t 0, f 0, f 1, t 2, f 2, end",
+    "t 0, f 0, t 2, f 2, end",
+    "t 0, t 1, t 2, f 0, f 1, f 2, end",
+    "t 0, f 0, f 1, end"
+   ],
+   "answer": 1,
+   "explanation": "For i = 0 the try prints t 0 and finally prints f 0. For i = 1 the continue statement skips the print, but finally still runs and prints f 1. For i = 2 both t 2 and f 2 are printed. After the loop the function returns end. Output: t 0, f 0, f 1, t 2, f 2, end.",
+   "optionRationale": {
+    "2": "finally also runs when continue skips the rest of the try block, so f 1 is printed.",
+    "3": "finally runs at the end of each iteration, not once after the loop.",
+    "4": "The loop keeps running after continue, so i = 2 is processed as well."
+   },
+   "objective": "Trace finally with continue inside a loop"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q19",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Assertion (A): A function containing `try: return \"try\"` followed by `finally: print(\"clean\")` prints clean before its return value is displayed by the caller.\nReason (R): The finally block runs even when the try block leaves the function with return.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "The return value is stored when `return` executes, but control must first pass through the finally block, which prints clean. The caller then prints try. The reason (finally runs even when return leaves the try) explains the order of output.",
+   "optionRationale": {
+    "2": "R directly explains why clean is printed first.",
+    "3": "R is true: finally runs on the way out of a return.",
+    "4": "A is true: clean appears before try in the output."
+   },
+   "objective": "Explain finally running before a return completes"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q20",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Consider these statements about file modes.\nA. Mode `\"ab\"` opens a binary file so that new data is added after the existing data.\nB. Mode `\"r+\"` raises FileNotFoundError if the file does not exist.\nC. Mode `\"w+\"` keeps the old contents and allows reading.\nD. Mode `\"rb\"` is used with `pickle.load()`.\nWhich statements are correct?",
+   "options": [
+    "A and C only",
+    "B, C and D only",
+    "A, B and D only",
+    "A, B, C and D"
+   ],
+   "answer": 3,
+   "explanation": "A is true: append mode for binary files writes at the end. B is true since r+ requires an existing file. C is false because every w mode, including w+, erases the old contents when the file is opened. D is true: pickle.load reads from a file opened in rb.",
+   "optionRationale": {
+    "1": "B and D are also correct, and C is false because w+ erases old content.",
+    "2": "A is correct and C is false.",
+    "4": "C is false: w+ truncates the file on opening."
+   },
+   "objective": "Judge statements about file access modes"
+  },
+  {
+   "key": "ug26-308-r01-exceptions-files-python-q21",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "What is the output?\n`with open(\"demo21.txt\", \"w\") as f:`\n`    f.write(\"Hi\")`\n`    print(f.closed)`\n`print(f.closed)`\n`f = open(\"demo21.txt\", \"a\")`\n`f.write(\"!!\")`\n`f.close()`\n`print(open(\"demo21.txt\").read())`",
+   "options": [
+    "True, True, Hi!!",
+    "False, False, Hi!!",
+    "False, True, !!",
+    "False, True, Hi!!"
+   ],
+   "answer": 4,
+   "explanation": "Inside the with block the file is open, so `f.closed` is False. The with statement closes the file automatically when the block ends, so the second print shows True. Opening in \"a\" mode keeps Hi and adds !! after it. The values printed are: False, True, Hi!!.",
+   "optionRationale": {
+    "1": "Inside the with block the file is still open, so the first value is False.",
+    "2": "The with statement closes the file when its block ends, so the second value is True.",
+    "3": "Append mode keeps the existing text Hi, so the file reads Hi!!."
+   },
+   "objective": "Use with, closed and append mode together"
+  }
+ ]
+}

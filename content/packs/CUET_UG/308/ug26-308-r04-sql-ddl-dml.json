@@ -1,0 +1,1056 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_58e2843eeae641589f85b651fba7d888",
+  "title": "Structured Query Language – I"
+ },
+ "lesson": {
+  "key": "ug26-308-r04-sql-ddl-dml-select-functions",
+  "title": "Structured Query Language I: DDL, DML, SELECT, MySQL data types, math and text functions",
+  "coverage": [
+   {
+    "phrase": "Advantages of using Structured Query Language",
+    "section": "SQL, its advantages and its three sub-languages"
+   },
+   {
+    "phrase": "Data Definition Language, Data: Query Language and Data Manipulation Language",
+    "section": "SQL, its advantages and its three sub-languages"
+   },
+   {
+    "phrase": "Introduction to MySQL",
+    "section": "MySQL, databases and data types"
+   },
+   {
+    "phrase": "creating a database using MySQL",
+    "section": "MySQL, databases and data types"
+   },
+   {
+    "phrase": "DataTypes",
+    "section": "MySQL, databases and data types"
+   },
+   {
+    "phrase": "Data Definition: CREATE TABLE, DROP TABLE, ALTER TABLE",
+    "section": "Data definition: CREATE TABLE, ALTER TABLE and DROP TABLE"
+   },
+   {
+    "phrase": "Data Manipulation: INSERT, UPDATE, DELETE",
+    "section": "Data manipulation: INSERT, UPDATE and DELETE"
+   },
+   {
+    "phrase": "Data Query: SELECT, FROM, WHERE.",
+    "section": "Data query: SELECT, FROM and WHERE"
+   },
+   {
+    "phrase": "Math functions: POWER (), ROUND (), MOD ().",
+    "section": "Math functions: POWER, ROUND and MOD"
+   },
+   {
+    "phrase": "Text functions: UCASE () / UPPER (), LCASE () / LOWER (), MID () /: SUBSTRING () / SUBSTR (), LENGTH (), LEFT (), RIGHT (), INSTR (), LTRIM (), RTRIM (), TRIM ().",
+    "section": "Text functions"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "SQL, its advantages and its three sub-languages"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "SQL (Structured Query Language)",
+    "text": "The standard language used to create, manipulate and query data held in a relational database. The user states what is required and the DBMS decides how to obtain it."
+   },
+   {
+    "type": "TEXT",
+    "text": "**SQL (Structured Query Language)** is the standard language for creating and using relational databases. A user states **what** result is wanted and the DBMS works out **how** to get it, so SQL is called a non-procedural (declarative) language."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Advantages of SQL",
+    "columns": [
+     "Advantage",
+     "Meaning"
+    ],
+    "rows": [
+     [
+      "Standard language",
+      "The same basic commands work in MySQL, Oracle, SQL Server, PostgreSQL and others"
+     ],
+     [
+      "Easy to learn and read",
+      "Commands look like English sentences: SELECT, INSERT, UPDATE"
+     ],
+     [
+      "Non-procedural",
+      "No loops or step-by-step instructions are needed to retrieve data"
+     ],
+     [
+      "Powerful and portable",
+      "One statement can process thousands of rows; skills and queries move between systems"
+     ],
+     [
+      "Used by programs and people",
+      "Applications written in Python, Java and other languages send SQL to the database"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "SQL commands are grouped by purpose."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Categories of SQL statements",
+    "columns": [
+     "Category",
+     "Purpose",
+     "Commands",
+     "What changes"
+    ],
+    "rows": [
+     [
+      "DDL (Data Definition Language)",
+      "Define and change the **structure** (schema) of the database",
+      "`CREATE`, `ALTER`, `DROP`",
+      "Tables, columns, databases"
+     ],
+     [
+      "DML (Data Manipulation Language)",
+      "Add, change and remove the **data** in the tables",
+      "`INSERT`, `UPDATE`, `DELETE`",
+      "Rows"
+     ],
+     [
+      "DQL (Data Query Language)",
+      "Retrieve data without changing it",
+      "`SELECT`",
+      "Nothing; only reads"
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "DDL = structure (CREATE, ALTER, DROP). DML = rows (INSERT, UPDATE, DELETE). DQL = reading data (SELECT)."
+   },
+   {
+    "type": "HEADING",
+    "text": "MySQL, databases and data types"
+   },
+   {
+    "type": "TEXT",
+    "text": "**MySQL** is a popular open-source relational database management system. It works on a client-server model: the server stores the data and the client (command line, MySQL Workbench or a program) sends SQL statements to it. Each SQL statement normally ends with a semicolon `;`, and keywords are not case sensitive (although table data in quotes may be)."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Basic MySQL commands",
+    "columns": [
+     "Task",
+     "Command"
+    ],
+    "rows": [
+     [
+      "Create a database",
+      "`CREATE DATABASE school;`"
+     ],
+     [
+      "List the databases",
+      "`SHOW DATABASES;`"
+     ],
+     [
+      "Open a database for use",
+      "`USE school;`"
+     ],
+     [
+      "List the tables of the open database",
+      "`SHOW TABLES;`"
+     ],
+     [
+      "Show the structure of a table",
+      "`DESCRIBE student;` (or `DESC student;`)"
+     ],
+     [
+      "Delete a whole database",
+      "`DROP DATABASE school;`"
+     ]
+    ]
+   },
+   {
+    "type": "TABLE",
+    "caption": "Common MySQL data types",
+    "columns": [
+     "Type",
+     "Stores",
+     "Remarks"
+    ],
+    "rows": [
+     [
+      "`INT` / `INTEGER`",
+      "Whole numbers",
+      "Use for counts, ages, roll numbers"
+     ],
+     [
+      "`FLOAT`",
+      "Approximate real numbers",
+      "Fast but approximate"
+     ],
+     [
+      "`DECIMAL(p, s)`",
+      "Exact numbers with p digits in all and s digits after the decimal point",
+      "`DECIMAL(6, 2)` holds values up to 9999.99"
+     ],
+     [
+      "`CHAR(n)`",
+      "Text of **fixed** length n",
+      "Shorter text is padded; best for fixed codes like a 2-letter state code"
+     ],
+     [
+      "`VARCHAR(n)`",
+      "Text of **variable** length up to n characters",
+      "Uses only the space needed; best for names and addresses"
+     ],
+     [
+      "`DATE`",
+      "A calendar date",
+      "Written as `\"YYYY-MM-DD\"`"
+     ]
+    ]
+   },
+   {
+    "type": "CALLOUT",
+    "text": "A phone number or PIN code is not used in arithmetic, so it is stored as text (CHAR or VARCHAR), not as a number. Dates and text values must be enclosed in single or double quotes; numbers must not."
+   },
+   {
+    "type": "HEADING",
+    "text": "Data definition: CREATE TABLE, ALTER TABLE and DROP TABLE"
+   },
+   {
+    "type": "TEXT",
+    "text": "A table is created by listing each column with its data type and optional constraints."
+   },
+   {
+    "type": "TEXT",
+    "text": "`CREATE TABLE PRODUCT (`\n`    PCode INT PRIMARY KEY,`\n`    PName VARCHAR(20) NOT NULL,`\n`    Category VARCHAR(15),`\n`    Price DECIMAL(7, 2),`\n`    Stock INT DEFAULT 0`\n`);`"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Constraints",
+    "columns": [
+     "Constraint",
+     "Effect"
+    ],
+    "rows": [
+     [
+      "`PRIMARY KEY`",
+      "Values must be unique and not NULL; one per table"
+     ],
+     [
+      "`NOT NULL`",
+      "The column must always receive a value"
+     ],
+     [
+      "`UNIQUE`",
+      "No two rows may have the same value (NULL allowed)"
+     ],
+     [
+      "`DEFAULT value`",
+      "Value used when none is supplied in INSERT"
+     ]
+    ]
+   },
+   {
+    "type": "TABLE",
+    "caption": "ALTER TABLE and DROP TABLE",
+    "columns": [
+     "Task",
+     "Statement"
+    ],
+    "rows": [
+     [
+      "Add a column",
+      "`ALTER TABLE PRODUCT ADD Discount INT;`"
+     ],
+     [
+      "Change a column's type or size",
+      "`ALTER TABLE PRODUCT MODIFY PName VARCHAR(40);`"
+     ],
+     [
+      "Delete a column",
+      "`ALTER TABLE PRODUCT DROP COLUMN Discount;`"
+     ],
+     [
+      "Add a primary key",
+      "`ALTER TABLE PRODUCT ADD PRIMARY KEY (PCode);`"
+     ],
+     [
+      "Delete the whole table (structure and data)",
+      "`DROP TABLE PRODUCT;`"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "The table PRODUCT has 5 columns. State its number of columns after the statements `ALTER TABLE PRODUCT ADD Discount INT;`, `ALTER TABLE PRODUCT ADD Brand VARCHAR(15);` and `ALTER TABLE PRODUCT DROP COLUMN Stock;`. What does `DROP TABLE PRODUCT;` do afterwards?",
+    "solution": "Start with 5 columns. The first ADD makes it 6 and the second ADD makes it 7. Dropping the column Stock reduces it to 6.\n\nAfter `DROP TABLE PRODUCT;` the table no longer exists: its structure, all its rows and its constraints are removed, and the name PRODUCT cannot be used in queries until the table is created again.",
+    "answer": "6 columns; DROP TABLE removes the structure and all data of the table"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "DROP TABLE removes the table itself; `DELETE FROM PRODUCT;` removes only the rows and keeps the empty table. `DROP COLUMN` (inside ALTER) removes one column, not the whole table."
+   },
+   {
+    "type": "HEADING",
+    "text": "Data manipulation: INSERT, UPDATE and DELETE"
+   },
+   {
+    "type": "TEXT",
+    "text": "Sample table PRODUCT used in this lesson:"
+   },
+   {
+    "type": "TABLE",
+    "caption": "PRODUCT",
+    "columns": [
+     "PCode",
+     "PName",
+     "Category",
+     "Price",
+     "Stock"
+    ],
+    "rows": [
+     [
+      "101",
+      "Notebook",
+      "Stationery",
+      "45.0",
+      "100"
+     ],
+     [
+      "102",
+      "Pencil",
+      "Stationery",
+      "8.0",
+      "500"
+     ],
+     [
+      "103",
+      "Backpack",
+      "Bags",
+      "899.0",
+      "20"
+     ],
+     [
+      "104",
+      "Marker",
+      "Stationery",
+      "30.0",
+      "NULL"
+     ],
+     [
+      "105",
+      "Lunchbox",
+      "Kitchen",
+      "250.0",
+      "40"
+     ],
+     [
+      "106",
+      "Bottle",
+      "Kitchen",
+      "175.0",
+      "60"
+     ]
+    ]
+   },
+   {
+    "type": "TABLE",
+    "caption": "DML statements",
+    "columns": [
+     "Task",
+     "Form",
+     "Example"
+    ],
+    "rows": [
+     [
+      "Insert a full row",
+      "`INSERT INTO t VALUES (v1, v2, ...);` all columns, in table order",
+      "`INSERT INTO PRODUCT VALUES (107, \"Ruler\", \"Stationery\", 15, 80);`"
+     ],
+     [
+      "Insert into chosen columns",
+      "`INSERT INTO t (c1, c2) VALUES (v1, v2);` other columns get NULL or their DEFAULT",
+      "`INSERT INTO PRODUCT (PCode, PName) VALUES (108, \"Eraser\");`"
+     ],
+     [
+      "Change data",
+      "`UPDATE t SET col = value [WHERE condition];`",
+      "`UPDATE PRODUCT SET Price = Price + 10 WHERE Category = \"Kitchen\";`"
+     ],
+     [
+      "Remove rows",
+      "`DELETE FROM t [WHERE condition];`",
+      "`DELETE FROM PRODUCT WHERE Stock IS NULL;`"
+     ]
+    ]
+   },
+   {
+    "type": "CALLOUT",
+    "text": "UPDATE or DELETE **without WHERE** affects **every row** of the table. Always check the WHERE clause before running them."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "On the PRODUCT table run `UPDATE PRODUCT SET Price = Price + 10 WHERE Category = \"Kitchen\";` and then `DELETE FROM PRODUCT WHERE Stock IS NULL OR Price < 10;`. What are the remaining number of rows, the new Kitchen prices and the sum of Stock?",
+    "solution": "The update touches the two Kitchen rows only: Lunchbox 250 becomes 260 and Bottle 175 becomes 185.\n\nThe delete removes rows whose Stock is NULL (Marker) or whose Price is below 10 (Pencil at 8). Four rows remain: Notebook, Backpack, Lunchbox and Bottle.\n\nTheir stocks are 100, 20, 40 and 60, which add up to 220.",
+    "answer": "4 rows; Lunchbox 260 and Bottle 185; sum of Stock 220"
+   },
+   {
+    "type": "HEADING",
+    "text": "Data query: SELECT, FROM and WHERE"
+   },
+   {
+    "type": "TEXT",
+    "text": "`SELECT [DISTINCT] column list or *`\n`FROM table`\n`WHERE condition;`"
+   },
+   {
+    "type": "TEXT",
+    "text": "- `*` selects all columns. `SELECT PName, Price FROM PRODUCT;` selects chosen columns.\n- `DISTINCT` removes duplicate rows from the result.\n- Expressions and **aliases** are allowed: `SELECT PName, Price * Stock AS Value FROM PRODUCT;`.\n- Any expression with NULL gives NULL, so `Price * Stock` is NULL for the Marker row."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Conditions in WHERE",
+    "columns": [
+     "Operator",
+     "Meaning",
+     "Example"
+    ],
+    "rows": [
+     [
+      "`=`, `<>` (or `!=`), `<`, `>`, `<=`, `>=`",
+      "Comparison",
+      "`Price > 100`"
+     ],
+     [
+      "`AND`, `OR`, `NOT`",
+      "Combine conditions; NOT binds first, then AND, then OR",
+      "`Category = \"Bags\" AND Price > 500`"
+     ],
+     [
+      "`BETWEEN a AND b`",
+      "Within the range, **both ends included**",
+      "`Price BETWEEN 30 AND 250`"
+     ],
+     [
+      "`IN (list)`",
+      "Equal to any value in the list",
+      "`Category IN (\"Bags\", \"Kitchen\")`"
+     ],
+     [
+      "`LIKE pattern`",
+      "`%` = any number of characters (including none); `_` = exactly one character",
+      "`PName LIKE \"P%\"`"
+     ],
+     [
+      "`IS NULL`, `IS NOT NULL`",
+      "Tests for missing value; `= NULL` never works",
+      "`Stock IS NULL`"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "On the original PRODUCT table find the PName values returned by (a) `WHERE PName LIKE \"_o%\"`, (b) `WHERE Price BETWEEN 30 AND 250` and (c) `WHERE Stock IS NULL`.",
+    "solution": "(a) `_o%` means the second letter is o. Notebook (N-o...) and Bottle (B-o...) qualify; Pencil, Backpack, Marker and Lunchbox do not.\n\n(b) BETWEEN includes both ends, so Prices 45, 30, 250 and 175 qualify: Notebook, Marker, Lunchbox, Bottle.\n\n(c) Only Marker has a NULL Stock.",
+    "answer": "(a) Notebook, Bottle; (b) Notebook, Marker, Lunchbox, Bottle; (c) Marker"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "`WHERE Stock = NULL` returns no rows because a comparison with NULL is never true. Use `IS NULL`. Also, `A OR B AND C` means `A OR (B AND C)`; use brackets when you want it the other way."
+   },
+   {
+    "type": "HEADING",
+    "text": "Math functions: POWER, ROUND and MOD"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Math functions in MySQL",
+    "columns": [
+     "Function",
+     "Meaning",
+     "Example",
+     "Result"
+    ],
+    "rows": [
+     [
+      "`POWER(x, y)`",
+      "x raised to y",
+      "`POWER(5, 3)`",
+      "125"
+     ],
+     [
+      "`ROUND(x, d)`",
+      "Round x to d decimal places; d may be negative; `ROUND(x)` rounds to a whole number",
+      "`ROUND(76.489, 1)`",
+      "76.5"
+     ],
+     [
+      "",
+      "",
+      "`ROUND(1234.567, -2)`",
+      "1200"
+     ],
+     [
+      "`MOD(x, y)`",
+      "Remainder of x / y; sign follows the dividend x",
+      "`MOD(-17, 5)`",
+      "-2"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Evaluate `POWER(5, 3)`, `ROUND(76.489, 1)` and `MOD(-17, 5)`.",
+    "solution": "`POWER(5, 3)` = 5 x 5 x 5 = 125.\n\n`ROUND(76.489, 1)` keeps one decimal place. The second decimal digit is 8, which rounds the first decimal digit up, from 4 to 5, giving 76.5.\n\n`MOD(-17, 5)`: 17 = 3 x 5 + 2, so the remainder has magnitude 2. MySQL gives it the sign of the dividend -17, so the result is -2.",
+    "answer": "125, 76.5, -2"
+   },
+   {
+    "type": "HEADING",
+    "text": "Text functions"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Text functions (first character is position 1)",
+    "columns": [
+     "Function",
+     "Meaning",
+     "Example",
+     "Result"
+    ],
+    "rows": [
+     [
+      "`UPPER(s)` / `UCASE(s)`",
+      "Capital letters",
+      "`UPPER(\"Delhi\")`",
+      "DELHI"
+     ],
+     [
+      "`LOWER(s)` / `LCASE(s)`",
+      "Small letters",
+      "`LOWER(\"Delhi\")`",
+      "delhi"
+     ],
+     [
+      "`MID(s, p, n)` = `SUBSTR(s, p, n)` = `SUBSTRING(s, p, n)`",
+      "n characters from position p; negative p counts from the right end; without n, to the end of the string",
+      "`MID(\"Structured\", 4, 4)`",
+      "uctu"
+     ],
+     [
+      "",
+      "",
+      "`SUBSTR(\"Structured\", -4)`",
+      "ured"
+     ],
+     [
+      "`LENGTH(s)`",
+      "Number of characters (spaces count)",
+      "`LENGTH(\"data base\")`",
+      "9"
+     ],
+     [
+      "`LEFT(s, n)`",
+      "First n characters",
+      "`LEFT(\"Structured\", 3)`",
+      "Str"
+     ],
+     [
+      "`RIGHT(s, n)`",
+      "Last n characters",
+      "`RIGHT(\"Structured\", 3)`",
+      "red"
+     ],
+     [
+      "`INSTR(s, t)`",
+      "Position of the first t in s, 0 if absent",
+      "`INSTR(\"Structured\", \"ture\")`",
+      "6"
+     ],
+     [
+      "`LTRIM(s)`, `RTRIM(s)`, `TRIM(s)`",
+      "Remove spaces on the left, on the right, on both sides",
+      "`TRIM(\"  SQL  \")`",
+      "SQL"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Evaluate `MID(\"Structured\", 4, 4)`, `SUBSTR(\"Structured\", -4)`, `INSTR(\"Structured\", \"ture\")` and `LENGTH(LTRIM(\"   Query\"))`.",
+    "solution": "Number the letters of Structured: S1 t2 r3 u4 c5 t6 u7 r8 e9 d10.\n\n`MID(..., 4, 4)` takes positions 4 to 7: u, c, t, u: \"uctu\".\n\n`SUBSTR(..., -4)` starts four characters from the end, position 7, and goes to the end: \"ured\".\n\n`INSTR(..., \"ture\")`: the text t-u-r-e starts at position 6.\n\n`LTRIM(\"   Query\")` removes the three leading spaces, leaving Query, whose length is 5.",
+    "answer": "uctu, ured, 6, 5"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "MID, SUBSTR and SUBSTRING are the same function. LTRIM and RTRIM remove spaces only at the edge; spaces in the middle of a string are never removed."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "To which category of SQL statements does `ALTER TABLE` belong?",
+   "options": [
+    "Data Definition Language (DDL)",
+    "Data Manipulation Language (DML)",
+    "Data Query Language (DQL)",
+    "None of these; it is not an SQL statement"
+   ],
+   "answer": 1,
+   "explanation": "ALTER TABLE changes the structure of a table (adding, modifying or dropping columns), which is the job of Data Definition Language. DML changes rows, and DQL only reads. Checking the other options: Option 2: DML statements change the rows, such as INSERT, UPDATE and DELETE. Option 3: DQL consists of the SELECT statement. Option 4: ALTER TABLE is a standard SQL statement.",
+   "optionRationale": {
+    "2": "DML statements change the rows, such as INSERT, UPDATE and DELETE.",
+    "3": "DQL consists of the SELECT statement.",
+    "4": "ALTER TABLE is a standard SQL statement."
+   },
+   "objective": "Classify ALTER TABLE"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which statement deletes a table together with all of its rows and its structure?",
+   "options": [
+    "`DELETE FROM` without WHERE",
+    "`ALTER TABLE ... DROP COLUMN`",
+    "`DROP TABLE`",
+    "`UPDATE` with all values set to NULL"
+   ],
+   "answer": 3,
+   "explanation": "DROP TABLE removes the table completely: its definition and its data. DELETE removes rows only and ALTER ... DROP COLUMN removes just one column. Checking the other options: Option 1: This removes only the rows; the empty table remains. Option 2: This removes a single column only. Option 4: UPDATE changes values but removes neither rows nor the table.",
+   "optionRationale": {
+    "1": "This removes only the rows; the empty table remains.",
+    "2": "This removes a single column only.",
+    "4": "UPDATE changes values but removes neither rows nor the table."
+   },
+   "objective": "Distinguish DROP TABLE from DELETE"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "What is the main difference between CHAR(10) and VARCHAR(10)?",
+   "options": [
+    "CHAR stores numbers and VARCHAR stores text",
+    "CHAR stores fixed-length text and VARCHAR stores variable-length text up to the limit",
+    "VARCHAR has a fixed length while CHAR can grow to any size",
+    "There is no difference in any case"
+   ],
+   "answer": 2,
+   "explanation": "CHAR(n) always reserves n characters and pads short values, which suits fixed-size codes. VARCHAR(n) stores only the characters actually given, up to n, which suits names and addresses. Checking the other options: Option 1: Both are text types. Option 3: The roles are the reverse: CHAR is fixed and VARCHAR is variable. Option 4: They differ in how the length of the stored value is treated.",
+   "optionRationale": {
+    "1": "Both are text types.",
+    "3": "The roles are the reverse: CHAR is fixed and VARCHAR is variable.",
+    "4": "They differ in how the length of the stored value is treated."
+   },
+   "objective": "Compare CHAR and VARCHAR"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which MySQL statement creates a new database named school?",
+   "options": [
+    "`MAKE DATABASE school;`",
+    "`NEW DATABASE school;`",
+    "`OPEN DATABASE school;`",
+    "`CREATE DATABASE school;`"
+   ],
+   "answer": 4,
+   "explanation": "A database is created with CREATE DATABASE followed by its name. It is opened afterwards with `USE school;`. Checking the other options: Option 1: MAKE is not an SQL keyword. Option 2: NEW is not an SQL keyword. Option 3: Use USE to open an existing database; there is no OPEN DATABASE.",
+   "optionRationale": {
+    "1": "MAKE is not an SQL keyword.",
+    "2": "NEW is not an SQL keyword.",
+    "3": "Use USE to open an existing database; there is no OPEN DATABASE."
+   },
+   "objective": "Write the statement for creating a database"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which one of the following statements correctly describes the language SQL?",
+   "options": [
+    "It is a procedural language in which the user writes each step to find the data",
+    "It can be used only with MySQL",
+    "It is a non-procedural language in which the user states what data is wanted",
+    "It can only retrieve data, not store it"
+   ],
+   "answer": 3,
+   "explanation": "In SQL you describe the required result, such as the rows with Price above 100, and the DBMS chooses the method. It is a standard language used across many relational systems and covers definition, manipulation and query.",
+   "optionRationale": {
+    "1": "In SQL the DBMS decides how to find the data.",
+    "2": "SQL is a standard used by many database systems.",
+    "4": "SQL also defines, inserts, updates and deletes data."
+   },
+   "objective": "Recognise SQL as a declarative standard language"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "The table PRODUCT has the PName values Notebook, Pencil, Backpack, Marker, Lunchbox, Bottle. How many rows are returned by `SELECT PName FROM PRODUCT WHERE PName LIKE \"_o%\";`?",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "0"
+   ],
+   "answer": 2,
+   "explanation": "The pattern `_o%` requires any single first character, then the letter o, then anything. Notebook (N, o...) and Bottle (B, o...) match. The other names have different second letters. Checking the other options: Option 1: Both Notebook and Bottle have o as the second letter. Option 3: Only the names with o in the second position qualify; Marker and Backpack do not. Option 4: The pattern does match some names.",
+   "optionRationale": {
+    "1": "Both Notebook and Bottle have o as the second letter.",
+    "3": "Only the names with o in the second position qualify; Marker and Backpack do not.",
+    "4": "The pattern does match some names."
+   },
+   "objective": "Evaluate a LIKE pattern"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Which products does `WHERE Price BETWEEN 30 AND 250` select, if the prices are Notebook 45, Pencil 8, Backpack 899, Marker 30, Lunchbox 250, Bottle 175?",
+   "options": [
+    "Notebook and Bottle only",
+    "Notebook, Pencil, Marker and Bottle",
+    "Notebook, Marker, Lunchbox and Bottle",
+    "All six products"
+   ],
+   "answer": 3,
+   "explanation": "BETWEEN a AND b includes both a and b. The prices 45, 30, 250 and 175 lie within 30 to 250, so Notebook, Marker, Lunchbox and Bottle are selected. Pencil (8) and Backpack (899) are outside.",
+   "optionRationale": {
+    "1": "BETWEEN includes both end values, so Marker (30) and Lunchbox (250) are also selected.",
+    "2": "Pencil costs 8, which is below 30.",
+    "4": "Pencil (8) and Backpack (899) lie outside the range."
+   },
+   "objective": "Apply BETWEEN with inclusive ends"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "In the table PRODUCT only the Marker row has NULL in Stock. How many rows are returned by `SELECT * FROM PRODUCT WHERE Stock = NULL;` and by `SELECT * FROM PRODUCT WHERE Stock IS NULL;` respectively?",
+   "options": [
+    "0 and 1",
+    "1 and 1",
+    "1 and 0",
+    "0 and 0"
+   ],
+   "answer": 1,
+   "explanation": "NULL means an unknown value, and no comparison with `=` can be true. So the first query finds nothing. `IS NULL` is the proper test and returns the single row with NULL in Stock. Checking the other options: Option 2: A comparison using = NULL is never true, so the first query returns no row. Option 3: IS NULL is the correct test and finds the Marker row. Option 4: IS NULL returns the Marker row.",
+   "optionRationale": {
+    "2": "A comparison using = NULL is never true, so the first query returns no row.",
+    "3": "IS NULL is the correct test and finds the Marker row.",
+    "4": "IS NULL returns the Marker row."
+   },
+   "objective": "Use IS NULL instead of = NULL"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "After `UPDATE PRODUCT SET Price = Price + 10 WHERE Category = \"Kitchen\";` the Lunchbox price (250) and the Bottle price (175) become which two values?",
+   "options": [
+    "260 and 175",
+    "260 and 185 for every row in the table",
+    "250 and 175",
+    "260 and 185"
+   ],
+   "answer": 4,
+   "explanation": "The WHERE clause limits the update to the Kitchen rows: Lunchbox and Bottle. Each price rises by 10, so 250 becomes 260 and 175 becomes 185. Rows of other categories stay as they are.",
+   "optionRationale": {
+    "1": "Both Kitchen rows are updated, not just one.",
+    "2": "Only rows in the Kitchen category are changed because of the WHERE clause.",
+    "3": "The update changes both prices, so they do not stay the same."
+   },
+   "objective": "Trace an UPDATE with WHERE"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q10",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each SQL item in List-I with its category in List-II.",
+   "options": [
+    "A-I, B-II, C-III, D-IV",
+    "A-III, B-II, C-I, D-IV",
+    "A-III, B-IV, C-I, D-II",
+    "A-II, B-III, C-I, D-IV"
+   ],
+   "answer": 2,
+   "explanation": "SELECT only reads data and is DQL (III). UPDATE changes the stored rows, so it is DML (II). DROP TABLE removes a table structure and is DDL (I). WHERE is a clause that applies a condition (IV).",
+   "optionRationale": {
+    "1": "SELECT is not DDL, and DROP TABLE changes structure rather than only reading.",
+    "3": "UPDATE belongs to DML, and WHERE is a condition clause.",
+    "4": "SELECT is a query statement and UPDATE changes rows."
+   },
+   "objective": "Classify SQL statements",
+   "list": {
+    "left": [
+     "A. `SELECT`",
+     "B. `UPDATE`",
+     "C. `DROP TABLE`",
+     "D. `WHERE`"
+    ],
+    "right": [
+     "I. Data Definition Language",
+     "II. Data Manipulation Language",
+     "III. Data Query Language",
+     "IV. Clause that sets a condition for choosing rows"
+    ]
+   }
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q11",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about SQL.\nA. `CREATE TABLE` belongs to DDL.\nB. `INSERT INTO t VALUES (...)` without a column list must give values for all columns in table order.\nC. A column declared `PRIMARY KEY` may hold NULL.\nD. `DELETE FROM t;` without WHERE removes the table t from the database.\nWhich statements are correct?",
+   "options": [
+    "A, B and C only",
+    "B and D only",
+    "A and B only",
+    "A, C and D only"
+   ],
+   "answer": 3,
+   "explanation": "A is true: CREATE is a DDL command. B is true for an INSERT without a column list. C is false since primary key values must be non-NULL. D is false: DELETE without WHERE removes every row but the table structure stays.",
+   "optionRationale": {
+    "1": "C is false because a primary key cannot be NULL.",
+    "2": "A is true, and D is false because the empty table still exists.",
+    "4": "C and D are both false."
+   },
+   "objective": "Judge statements about SQL commands"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q12",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The statement `DELETE FROM PRODUCT;` leaves the table PRODUCT in the database, with zero rows.\nReason (R): DELETE removes rows, while DROP TABLE is the statement that removes the table itself.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "DELETE works at the row level, so after it runs with no WHERE condition every row is gone but the columns and constraints still exist. Only DROP TABLE removes the structure. The reason correctly explains why the table remains.",
+   "optionRationale": {
+    "2": "R is the direct explanation of A.",
+    "3": "R is true: DELETE removes rows and DROP TABLE removes the table.",
+    "4": "A is true: the empty table remains."
+   },
+   "objective": "Contrast DELETE with DROP TABLE"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "What are the values of `POWER(5, 3)`, `ROUND(76.489, 1)` and `MOD(-17, 5)` in MySQL, in order?",
+   "options": [
+    "15, 76.4, 2",
+    "125, 76.5, 2",
+    "125, 76.4, -2",
+    "125, 76.5, -2"
+   ],
+   "answer": 4,
+   "explanation": "POWER(5, 3) is 125. ROUND(76.489, 1) gives 76.5 because the next digit (8) rounds the 4 up. MOD(-17, 5) has magnitude 2 and takes the sign of the dividend, giving -2.",
+   "optionRationale": {
+    "1": "POWER is repeated multiplication, not 5 x 3, and ROUND rounds up here.",
+    "2": "In MySQL the sign of the remainder follows the dividend -17, so it is -2.",
+    "3": "76.489 rounds to 76.5 since the second decimal digit is 8."
+   },
+   "objective": "Evaluate three math functions"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Which values are returned by `MID(\"Structured\", 4, 4)`, `SUBSTR(\"Structured\", -4)`, `INSTR(\"Structured\", \"ture\")` and `LENGTH(LTRIM(\"   Query\"))` in that order?",
+   "options": [
+    "uctu, ured, 6, 5",
+    "ruct, ured, 6, 8",
+    "uctu, ured, 5, 5",
+    "uctu, Stru, 6, 5"
+   ],
+   "answer": 1,
+   "explanation": "Structured is S1 t2 r3 u4 c5 t6 u7 r8 e9 d10. MID from 4 for 4 gives uctu. SUBSTR with -4 gives the last four characters, ured. INSTR finds ture at position 6. LTRIM leaves Query, which has 5 characters.",
+   "optionRationale": {
+    "2": "LTRIM removes the three leading spaces, so the length is 5, and MID from position 4 starts with u.",
+    "3": "The text t-u-r-e starts at position 6, not 5.",
+    "4": "A negative start position counts from the end of the string, so SUBSTR(..., -4) gives the last four characters."
+   },
+   "objective": "Evaluate text functions including a negative start"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "A table PRODUCT has 5 columns. The statements `ALTER TABLE PRODUCT ADD Discount INT;`, `ALTER TABLE PRODUCT ADD Brand VARCHAR(15);` and `ALTER TABLE PRODUCT DROP COLUMN Stock;` are executed in order. How many columns does PRODUCT have now?",
+   "options": [
+    "7",
+    "6",
+    "5",
+    "4"
+   ],
+   "answer": 2,
+   "explanation": "Two ADD statements raise the number of columns from 5 to 7. The DROP COLUMN statement then removes Stock, leaving 6 columns. Checking the other options: Option 1: The third statement removes one column, so 5 + 2 - 1 = 6. Option 3: Two columns are added and only one is dropped. Option 4: The statements add two columns and drop only one; they do not drop three.",
+   "optionRationale": {
+    "1": "The third statement removes one column, so 5 + 2 - 1 = 6.",
+    "3": "Two columns are added and only one is dropped.",
+    "4": "The statements add two columns and drop only one; they do not drop three."
+   },
+   "objective": "Track the degree of a table across ALTER statements"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q16",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "The table PRODUCT(PCode INT PRIMARY KEY, PName VARCHAR(20), Price DECIMAL(6,2)) already has a row with PCode 101. Which INSERT will be rejected?",
+   "options": [
+    "`INSERT INTO PRODUCT VALUES (107, \"Ruler\", 15.50);`",
+    "`INSERT INTO PRODUCT (PCode, PName) VALUES (108, \"Eraser\");`",
+    "`INSERT INTO PRODUCT VALUES (101, \"Ruler\", 15.50);`",
+    "`INSERT INTO PRODUCT VALUES (109, \"Pen\", 0);`"
+   ],
+   "answer": 3,
+   "explanation": "A primary key must be unique. PCode 101 is already present, so inserting another row with PCode 101 violates the constraint and is rejected. The other statements use new key values and legal data for the other columns.",
+   "optionRationale": {
+    "1": "The PCode 107 is unique, so this row is accepted.",
+    "2": "Price may be left NULL because it has no NOT NULL constraint.",
+    "4": "The value 0 fits DECIMAL(6,2) and the key is unique."
+   },
+   "objective": "Identify an INSERT that violates a primary key"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q17",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "The original PRODUCT table has six rows: Notebook (Stationery, 45, 100), Pencil (Stationery, 8, 500), Backpack (Bags, 899, 20), Marker (Stationery, 30, NULL), Lunchbox (Kitchen, 250, 40), Bottle (Kitchen, 175, 60). How many rows does `SELECT PName FROM PRODUCT WHERE Category = \"Stationery\" OR Category = \"Kitchen\" AND Price > 200;` return?",
+   "options": [
+    "2",
+    "5",
+    "3",
+    "4"
+   ],
+   "answer": 4,
+   "explanation": "AND is evaluated before OR, so the condition is Stationery, or (Kitchen and Price above 200). Stationery gives Notebook, Pencil and Marker. The Kitchen part gives only Lunchbox (250), since Bottle costs 175. That makes 4 rows.",
+   "optionRationale": {
+    "1": "The OR makes all Stationery rows qualify, so there are three of them plus the expensive Kitchen product.",
+    "2": "AND binds first, so only Lunchbox qualifies from the Kitchen group, not Bottle (175).",
+    "3": "Lunchbox (Kitchen, 250) also satisfies the second part of the condition."
+   },
+   "objective": "Apply AND/OR precedence"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q18",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Using the same six rows, what does `SELECT COUNT(Price * Stock) FROM PRODUCT;` return?",
+   "options": [
+    "6",
+    "5",
+    "4",
+    "0"
+   ],
+   "answer": 2,
+   "explanation": "For each row Price * Stock is computed. For Marker the Stock is NULL, so the product is NULL. COUNT(expression) counts non-NULL results only, so five rows are counted. Checking the other options: Option 1: Price * Stock is NULL for Marker, and COUNT of an expression ignores NULL. Option 3: Only one value is NULL, so five products give a result. Option 4: Most rows have a numeric product, so the count is not zero.",
+   "optionRationale": {
+    "1": "Price * Stock is NULL for Marker, and COUNT of an expression ignores NULL.",
+    "3": "Only one value is NULL, so five products give a result.",
+    "4": "Most rows have a numeric product, so the count is not zero."
+   },
+   "objective": "Count an expression that contains NULL"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q19",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Assertion (A): A column of type DECIMAL(6, 2) can store the value 9999.99 but not 10000.00.\nReason (R): DECIMAL(6, 2) allows 6 digits in all, of which 2 are after the decimal point.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "With 6 digits in total and 2 after the decimal point, 4 digits remain for the integer part, so the largest value is 9999.99. The value 10000.00 needs 5 integer digits, so it is out of range. The reason explains the limit.",
+   "optionRationale": {
+    "2": "R directly gives the digit count that determines the limit.",
+    "3": "R is true: 6 digits in all, 2 after the point.",
+    "4": "A is true: 9999.99 is the maximum."
+   },
+   "objective": "Interpret DECIMAL(p, s)"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q20",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "The six PRODUCT rows are Notebook (Stationery, 45, 100), Pencil (Stationery, 8, 500), Backpack (Bags, 899, 20), Marker (Stationery, 30, NULL), Lunchbox (Kitchen, 250, 40), Bottle (Kitchen, 175, 60). After `DELETE FROM PRODUCT WHERE Stock IS NULL OR Price < 10;` how many rows remain and what is the sum of their Stock?",
+   "options": [
+    "4 rows and 220",
+    "4 rows and 320",
+    "5 rows and 220",
+    "2 rows and 100"
+   ],
+   "answer": 1,
+   "explanation": "The condition removes Marker (Stock is NULL) and Pencil (Price 8, below 10). Four rows remain: Notebook, Backpack, Lunchbox and Bottle, with Stock 100, 20, 40 and 60, which add to 220. Checking the other options: Option 2: The Pencil row (stock 500) is deleted, so 500 is not part of the sum. Option 3: Both Marker (NULL stock) and Pencil (price 8) are deleted. Option 4: Only two rows are deleted, not four.",
+   "optionRationale": {
+    "2": "The Pencil row (stock 500) is deleted, so 500 is not part of the sum.",
+    "3": "Both Marker (NULL stock) and Pencil (price 8) are deleted.",
+    "4": "Only two rows are deleted, not four."
+   },
+   "objective": "Trace DELETE with OR and compute a sum"
+  },
+  {
+   "key": "ug26-308-r04-sql-ddl-dml-select-functions-q21",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "A school stores a four-digit code such as 0452 in a column declared as INT. What problem is likely to occur?",
+   "options": [
+    "The value is stored as text and the zero is kept",
+    "The leading zero is lost and the value is kept as 452",
+    "The row is rejected because INT cannot hold four digits",
+    "The code is stored with two decimal places, 452.00"
+   ],
+   "answer": 2,
+   "explanation": "An INT column holds a number, and in a number a leading zero has no value, so 0452 is stored as 452. Identifiers like codes, PIN numbers and phone numbers that are not used in arithmetic should use CHAR or VARCHAR so every character is kept.",
+   "optionRationale": {
+    "1": "INT stores only numbers, so there is no way to keep the leading zero.",
+    "3": "INT easily holds four digits.",
+    "4": "INT has no decimal part."
+   },
+   "objective": "Choose a suitable data type for a code"
+  }
+ ]
+}

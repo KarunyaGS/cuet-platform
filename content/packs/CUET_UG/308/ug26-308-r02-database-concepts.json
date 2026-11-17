@@ -1,0 +1,854 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_16f8b11caa4545a9adaf29becebf52c0",
+  "title": "Database Concepts"
+ },
+ "lesson": {
+  "key": "ug26-308-r02-database-concepts-relational-algebra",
+  "title": "Database concepts: DBMS, relational model, keys and relational algebra",
+  "coverage": [
+   {
+    "phrase": "Introduction to database concepts",
+    "section": "Database concepts and the limits of the file system"
+   },
+   {
+    "phrase": "difference between database and file system",
+    "section": "Database concepts and the limits of the file system"
+   },
+   {
+    "phrase": "relational data model: concept of domain",
+    "section": "The relational data model: domain, attribute, tuple and relation"
+   },
+   {
+    "phrase": "tuple",
+    "section": "The relational data model: domain, attribute, tuple and relation"
+   },
+   {
+    "phrase": "relation",
+    "section": "The relational data model: domain, attribute, tuple and relation"
+   },
+   {
+    "phrase": "keys - candidate key",
+    "section": "Keys: candidate, primary, alternate and foreign"
+   },
+   {
+    "phrase": "primary key",
+    "section": "Keys: candidate, primary, alternate and foreign"
+   },
+   {
+    "phrase": "alternate key",
+    "section": "Keys: candidate, primary, alternate and foreign"
+   },
+   {
+    "phrase": "foreign key",
+    "section": "Keys: candidate, primary, alternate and foreign"
+   },
+   {
+    "phrase": "Relational algebra",
+    "section": "Relational algebra: selection and projection"
+   },
+   {
+    "phrase": "selection",
+    "section": "Relational algebra: selection and projection"
+   },
+   {
+    "phrase": "projection",
+    "section": "Relational algebra: selection and projection"
+   },
+   {
+    "phrase": "union",
+    "section": "Union, set difference and Cartesian product"
+   },
+   {
+    "phrase": "set difference",
+    "section": "Union, set difference and Cartesian product"
+   },
+   {
+    "phrase": "cartesian product",
+    "section": "Union, set difference and Cartesian product"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Database concepts and the limits of the file system"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Database",
+    "text": "An organised collection of related data stored so that it can be accessed, managed and updated easily and shared by many users and programs."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "DBMS (Database Management System)",
+    "text": "Software that creates, stores, retrieves, updates and protects a database and lets users and applications work with data without knowing how it is physically stored. Examples: MySQL, Oracle, PostgreSQL, SQLite."
+   },
+   {
+    "type": "TEXT",
+    "text": "Before DBMSs, programs kept data in separate **files** (a file system). Every application had its own files, which caused several problems that a DBMS removes."
+   },
+   {
+    "type": "TABLE",
+    "caption": "File system versus database (DBMS)",
+    "columns": [
+     "Point",
+     "File system",
+     "Database with a DBMS"
+    ],
+    "rows": [
+     [
+      "Data redundancy",
+      "The same data is repeated in many files",
+      "Controlled; data is stored once and shared"
+     ],
+     [
+      "Data inconsistency",
+      "Copies can disagree after an update in one file",
+      "Much reduced, because there is a single copy"
+     ],
+     [
+      "Data access",
+      "Each new query needs a new program",
+      "Flexible queries using a language such as SQL"
+     ],
+     [
+      "Data independence",
+      "Program depends on the file format; changing the format breaks it",
+      "Programs are largely independent of how data is stored"
+     ],
+     [
+      "Integrity constraints",
+      "Rules are coded inside every program",
+      "Rules (keys, types, NOT NULL) are enforced centrally"
+     ],
+     [
+      "Sharing and concurrency",
+      "Hard; users may overwrite each other",
+      "Managed for many users at once"
+     ],
+     [
+      "Security",
+      "Only operating-system level protection",
+      "User accounts and access rights on tables"
+     ],
+     [
+      "Backup and recovery",
+      "Manual",
+      "Provided by the DBMS"
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "A DBMS reduces redundancy and inconsistency, gives data independence and sharing, enforces integrity and security, and supports easy querying. A file system has none of these built in."
+   },
+   {
+    "type": "HEADING",
+    "text": "The relational data model: domain, attribute, tuple and relation"
+   },
+   {
+    "type": "TEXT",
+    "text": "In the **relational model** data is organised in two-dimensional tables called **relations**. The model was proposed by E. F. Codd. Each table has a name, columns with names, and rows."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Relational terms and their everyday names",
+    "columns": [
+     "Formal term",
+     "Everyday name",
+     "Meaning"
+    ],
+    "rows": [
+     [
+      "Relation",
+      "Table",
+      "A set of tuples with the same attributes"
+     ],
+     [
+      "Tuple",
+      "Row / record",
+      "One entry in the relation, such as one student"
+     ],
+     [
+      "Attribute",
+      "Column / field",
+      "A named property, such as Name or City"
+     ],
+     [
+      "Domain",
+      "Set of allowed values",
+      "The pool of permitted values for an attribute (for example Class in {XI, XII}; Marks 0 to 100)"
+     ],
+     [
+      "Degree",
+      "Number of columns",
+      "Count of attributes in the relation"
+     ],
+     [
+      "Cardinality",
+      "Number of rows",
+      "Count of tuples in the relation"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Sample relation STUDENT used in this lesson (degree 4, cardinality 5):"
+   },
+   {
+    "type": "TABLE",
+    "caption": "STUDENT",
+    "columns": [
+     "Roll",
+     "Name",
+     "Class",
+     "City"
+    ],
+    "rows": [
+     [
+      "1",
+      "Asha",
+      "XII",
+      "Pune"
+     ],
+     [
+      "2",
+      "Ravi",
+      "XI",
+      "Delhi"
+     ],
+     [
+      "3",
+      "Meena",
+      "XII",
+      "Delhi"
+     ],
+     [
+      "4",
+      "Karan",
+      "XI",
+      "Pune"
+     ],
+     [
+      "5",
+      "Sia",
+      "XII",
+      "Goa"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Properties of a relation: each attribute has a unique name; every cell holds a single (atomic) value; the order of tuples and of attributes does not matter; and **no two tuples are identical**, since a relation is a set."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Do not mix up degree and cardinality: degree = columns, cardinality = rows. Adding a new row changes the cardinality only; adding a column changes the degree only."
+   },
+   {
+    "type": "HEADING",
+    "text": "Keys: candidate, primary, alternate and foreign"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **key** is an attribute or set of attributes used to identify tuples. Suppose EMP(EmpID, Aadhaar, Email, Name, Dept) where EmpID, Aadhaar and Email are each unique for every employee."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Candidate key",
+    "text": "A minimal set of attributes whose values uniquely identify every tuple of the relation. A relation may have several candidate keys. In EMP the candidate keys are EmpID, Aadhaar and Email."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Primary key",
+    "text": "The one candidate key chosen by the designer to identify tuples. It must be unique and **must not be NULL**. A relation has exactly one primary key. Here EmpID may be chosen."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Alternate key",
+    "text": "A candidate key that was not chosen as the primary key. If EmpID is the primary key, Aadhaar and Email are the alternate keys."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Foreign key",
+    "text": "An attribute (or set) of one relation that refers to the primary key of another relation (or the same one). It creates a link between tables and supports **referential integrity**: a foreign key value must either match an existing primary key value in the referenced table, or be NULL."
+   },
+   {
+    "type": "TEXT",
+    "text": "Example: DEPT(DeptNo, DName) has primary key DeptNo. If EMP has a column DeptNo that refers to DEPT, then EMP.DeptNo is a foreign key. EMP is the referencing (child) table and DEPT is the referenced (parent) table. In the child table the foreign key may repeat (many employees in one department) and may be NULL."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Key summary",
+    "columns": [
+     "Key",
+     "Unique?",
+     "NULL allowed?",
+     "How many per relation?"
+    ],
+    "rows": [
+     [
+      "Candidate",
+      "Yes",
+      "Treated as potential identifiers; the one chosen as primary cannot be NULL",
+      "One or more"
+     ],
+     [
+      "Primary",
+      "Yes",
+      "No",
+      "Exactly one"
+     ],
+     [
+      "Alternate",
+      "Yes",
+      "Depends on rules; they are not chosen as primary",
+      "Candidates minus one"
+     ],
+     [
+      "Foreign",
+      "No, it may repeat",
+      "Yes",
+      "Zero or more"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A relation LIBRARY(BookNo, ISBN, Title, ShelfNo) has BookNo and ISBN unique for every book, while Title and ShelfNo can repeat. Find the candidate keys, a suitable primary key and the alternate key.",
+    "solution": "A candidate key must identify each row uniquely and be minimal. BookNo is unique, so it qualifies. ISBN is unique, so it qualifies. Title and ShelfNo repeat, so neither is a key on its own.\n\nCandidate keys: BookNo and ISBN. Choosing one as the primary key leaves the other as the alternate key; for example BookNo as primary and ISBN as alternate.",
+    "answer": "Candidate keys: BookNo, ISBN. Primary key: BookNo (or ISBN). Alternate key: the other one."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "A foreign key is not unique in the child table, and it is **not** the same as the primary key of that table. A primary key can never be NULL, but a foreign key can."
+   },
+   {
+    "type": "HEADING",
+    "text": "Relational algebra: selection and projection"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Relational algebra** is a set of operations that take one or two relations as input and produce a new relation as output. The two unary (one-relation) operations are selection and projection."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Selection ($\\sigma$)",
+    "text": "Picks the **tuples (rows)** that satisfy a condition. Notation: $\\sigma_{condition}(R)$. The result has the same attributes as R (the same degree) and only the rows that pass the condition (cardinality is the same or smaller)."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Projection ($\\pi$)",
+    "text": "Picks the stated **attributes (columns)**. Notation: $\\pi_{A_1, A_2}(R)$. The degree of the result is the number of attributes listed, and **duplicate tuples in the result are removed**, so the cardinality can shrink."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "For the STUDENT relation above, evaluate $\\sigma_{Class='XII' \\wedge City='Delhi'}(STUDENT)$, $\\pi_{City}(STUDENT)$ and $\\pi_{Name}(\\sigma_{Class='XII'}(STUDENT))$.",
+    "solution": "First expression: pick tuples with Class XII and City Delhi. Only Meena (3, Meena, XII, Delhi) satisfies both, so the result has 1 tuple and 4 attributes.\n\nSecond expression: take only City: Pune, Delhi, Delhi, Pune, Goa. Duplicates are removed, leaving Pune, Delhi, Goa: 3 tuples, 1 attribute.\n\nThird expression: select Class XII first (Asha, Meena, Sia), then project Name: 3 tuples, 1 attribute.",
+    "answer": "Cardinalities and degrees: (1 tuple, degree 4), (3 tuples, degree 1) with values Pune, Delhi, Goa, and (3 tuples, degree 1) with Asha, Meena, Sia."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Selection chooses rows (horizontal cut) and projection chooses columns (vertical cut). A projection result never contains two identical tuples."
+   },
+   {
+    "type": "HEADING",
+    "text": "Union, set difference and Cartesian product"
+   },
+   {
+    "type": "TEXT",
+    "text": "These are binary operations on two relations R and S."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Binary operations",
+    "columns": [
+     "Operation",
+     "Symbol",
+     "Result",
+     "Condition"
+    ],
+    "rows": [
+     [
+      "Union",
+      "$R \\cup S$",
+      "All tuples that are in R, in S or in both; duplicates are removed",
+      "R and S must be **union-compatible**: same degree and corresponding attributes with the same domains"
+     ],
+     [
+      "Set difference",
+      "$R - S$",
+      "Tuples that are in R but **not** in S",
+      "Union-compatible; $R - S \\neq S - R$ in general"
+     ],
+     [
+      "Cartesian product",
+      "$R \\times S$",
+      "Every tuple of R joined with every tuple of S",
+      "No compatibility needed. Degree = degree(R) + degree(S); cardinality = card(R) x card(S)"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "For union-compatible relations with $m$ tuples in R, $n$ tuples in S and $c$ tuples common to both: the union has $m + n - c$ tuples; $R - S$ has $m - c$ tuples; $S - R$ has $n - c$ tuples."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Relation R has degree 3 and 4 tuples. Relation S has degree 2 and 5 tuples. Find the degree and cardinality of $R \\times S$. Then, for two union-compatible relations A (6 tuples) and B (4 tuples) with 3 tuples in common, find the sizes of $A \\cup B$, $A - B$ and $B - A$.",
+    "solution": "Cartesian product: degree 3 + 2 = 5 attributes; cardinality 4 x 5 = 20 tuples.\n\nUnion: 6 + 4 - 3 = 7 tuples (the 3 common tuples are counted once).\n\n$A - B$: 6 - 3 = 3 tuples. $B - A$: 4 - 3 = 1 tuple. Notice $A - B$ and $B - A$ are different.",
+    "answer": "R x S has degree 5 and cardinality 20; union 7 tuples; A - B 3 tuples; B - A 1 tuple."
+   },
+   {
+    "type": "TEXT",
+    "text": "Because attribute names may clash in a Cartesian product, they are qualified with the relation name (for example STUDENT.Roll and MARKS.Roll). A selection on a Cartesian product, such as $\\sigma_{STUDENT.Roll = MARKS.Roll}(STUDENT \\times MARKS)$, gives only the meaningful pairs and is how a join is built from basic operations."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Union and difference need union-compatible relations; Cartesian product does not. Product: degrees add, cardinalities multiply. Selection = rows, projection = columns."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which of the following is a disadvantage of keeping data in separate files for each application?",
+   "options": [
+    "Data can be accessed without writing any program",
+    "The same data is repeated in many files, causing redundancy and inconsistency",
+    "Data is automatically protected by user accounts",
+    "Integrity rules are enforced centrally"
+   ],
+   "answer": 2,
+   "explanation": "A file system keeps a separate file for each application, so the same fact (such as a student address) may be stored many times. When one copy is updated and another is not, the data becomes inconsistent. A DBMS stores data once and shares it.",
+   "optionRationale": {
+    "3": "That is a DBMS feature, not a file system feature.",
+    "4": "In a file system each program has to implement its own rules.",
+    "1": "This is false for files; each new kind of access usually needs a program."
+   },
+   "objective": "Identify problems of the file system"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A relation has 5 attributes and 4 tuples. What are its degree and cardinality?",
+   "options": [
+    "Degree 4, cardinality 5",
+    "Degree 5, cardinality 4",
+    "Degree 20, cardinality 20",
+    "Degree 9, cardinality 9"
+   ],
+   "answer": 2,
+   "explanation": "Degree is the number of attributes (columns), which is 5. Cardinality is the number of tuples (rows), which is 4. The two terms are not interchangeable. Checking the other options: Option 1: Degree counts the attributes (columns) and cardinality counts the tuples (rows); the values are swapped. Option 3: The product of the numbers is not the degree or the cardinality. Option 4: The two counts are not added together.",
+   "optionRationale": {
+    "1": "Degree counts the attributes (columns) and cardinality counts the tuples (rows); the values are swapped.",
+    "3": "The product of the numbers is not the degree or the cardinality.",
+    "4": "The two counts are not added together."
+   },
+   "objective": "Define degree and cardinality"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which statement about a primary key is correct?",
+   "options": [
+    "It may contain NULL values",
+    "A relation can have several primary keys",
+    "It must be unique for every tuple and cannot contain NULL",
+    "It must be the first column of the table"
+   ],
+   "answer": 3,
+   "explanation": "A primary key is the candidate key chosen to identify tuples. It must have a unique, non-NULL value in every tuple, and each relation has exactly one primary key. Checking the other options: Option 1: NULL is not allowed in a primary key. Option 2: A relation has exactly one primary key, though it may have several candidate keys. Option 4: The position of a column does not decide whether it is a key.",
+   "optionRationale": {
+    "1": "NULL is not allowed in a primary key.",
+    "2": "A relation has exactly one primary key, though it may have several candidate keys.",
+    "4": "The position of a column does not decide whether it is a key."
+   },
+   "objective": "State properties of a primary key"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In relational algebra, which operator is used to choose particular columns of a relation?",
+   "options": [
+    "Selection ($\\sigma$)",
+    "Union ($\\cup$)",
+    "Cartesian product ($\\times$)",
+    "Projection ($\\pi$)"
+   ],
+   "answer": 4,
+   "explanation": "Projection picks the listed attributes (columns) and removes duplicate tuples. Selection works on rows, while union and Cartesian product take two relations. Checking the other options: Option 1: Selection chooses rows that satisfy a condition. Option 2: Union combines the tuples of two relations. Option 3: Cartesian product pairs every tuple of one relation with every tuple of another.",
+   "optionRationale": {
+    "1": "Selection chooses rows that satisfy a condition.",
+    "2": "Union combines the tuples of two relations.",
+    "3": "Cartesian product pairs every tuple of one relation with every tuple of another."
+   },
+   "objective": "Identify the projection operator"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A column in table ORDERS holds customer numbers that must match the primary key of table CUSTOMER. What is this column called?",
+   "options": [
+    "Candidate key",
+    "Alternate key",
+    "Foreign key",
+    "Super relation"
+   ],
+   "answer": 3,
+   "explanation": "An attribute that refers to the primary key of another relation is a foreign key. It links the child table ORDERS to the parent table CUSTOMER and supports referential integrity. Checking the other options: Option 1: A candidate key identifies tuples in its own table. Option 2: An alternate key is a candidate key not chosen as primary key, not a link to another table. Option 4: This is not a key in the relational model.",
+   "optionRationale": {
+    "2": "An alternate key is a candidate key not chosen as primary key, not a link to another table.",
+    "4": "This is not a key in the relational model.",
+    "1": "A candidate key identifies tuples in its own table."
+   },
+   "objective": "Recognise a foreign key"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Table EMP(EmpID, Aadhaar, Email, Name, Dept) has EmpID, Aadhaar and Email each unique for every employee, with EmpID chosen as the primary key. How many alternate keys does EMP have?",
+   "options": [
+    "1",
+    "3",
+    "0",
+    "2"
+   ],
+   "answer": 4,
+   "explanation": "The candidate keys are EmpID, Aadhaar and Email, a total of three. The primary key takes one of them (EmpID); the remaining two, Aadhaar and Email, are the alternate keys. Checking the other options: Option 1: Three candidate keys exist; one is the primary key, so two remain, not one. Option 2: The primary key itself is not an alternate key. Option 3: Candidate keys that are not chosen as primary key are alternate keys, so there are some.",
+   "optionRationale": {
+    "1": "Three candidate keys exist; one is the primary key, so two remain, not one.",
+    "2": "The primary key itself is not an alternate key.",
+    "3": "Candidate keys that are not chosen as primary key are alternate keys, so there are some."
+   },
+   "objective": "Count alternate keys from candidate keys"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "The relation STUDENT(Roll, Name, Class, City) has these tuples: (1, Asha, XII, Pune), (2, Ravi, XI, Delhi), (3, Meena, XII, Delhi), (4, Karan, XI, Pune), (5, Sia, XII, Goa). How many tuples does the selection of Class = XII and City = Pune give?",
+   "options": [
+    "2",
+    "1",
+    "3",
+    "0"
+   ],
+   "answer": 2,
+   "explanation": "Check each tuple for both conditions together. Asha (XII, Pune) satisfies both. Meena and Sia are in XII but not Pune. Ravi and Karan are not in XII. So exactly 1 tuple qualifies. Checking the other options: Option 1: Three students are in class XII but only Asha is also in Pune. Option 3: Three tuples have Class XII, but the City condition must hold as well. Option 4: Asha satisfies both conditions.",
+   "optionRationale": {
+    "1": "Three students are in class XII but only Asha is also in Pune.",
+    "3": "Three tuples have Class XII, but the City condition must hold as well.",
+    "4": "Asha satisfies both conditions."
+   },
+   "objective": "Evaluate a selection with two conditions"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "For the same STUDENT relation of five tuples, the projection on City gives how many tuples, when the cities in order are Pune, Delhi, Delhi, Pune, Goa?",
+   "options": [
+    "5",
+    "2",
+    "3",
+    "1"
+   ],
+   "answer": 3,
+   "explanation": "Projecting on City produces Pune, Delhi, Delhi, Pune, Goa before duplicate elimination. A relation is a set, so duplicates are removed, leaving the three distinct tuples Pune, Delhi and Goa. Checking the other options: Option 1: Projection removes duplicate tuples from its result, so the repeated cities are not counted twice. Option 2: There are three different cities, not two. Option 4: More than one distinct city appears.",
+   "optionRationale": {
+    "1": "Projection removes duplicate tuples from its result, so the repeated cities are not counted twice.",
+    "2": "There are three different cities, not two.",
+    "4": "More than one distinct city appears."
+   },
+   "objective": "Show that projection removes duplicates"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Relation R has degree 3 and cardinality 4. Relation S has degree 2 and cardinality 5. What are the degree and cardinality of $R \\times S$?",
+   "options": [
+    "Degree 5, cardinality 20",
+    "Degree 6, cardinality 9",
+    "Degree 5, cardinality 9",
+    "Degree 6, cardinality 20"
+   ],
+   "answer": 1,
+   "explanation": "In a Cartesian product each of the 4 tuples of R is paired with each of the 5 tuples of S, giving 4 x 5 = 20 tuples. Each result tuple has all attributes of both relations, so the degree is 3 + 2 = 5.",
+   "optionRationale": {
+    "2": "Degrees are added but cardinalities are multiplied; the degree is not a product and the cardinality is not a sum.",
+    "3": "The cardinalities are multiplied, not added.",
+    "4": "The degrees are added (3 + 2), not multiplied."
+   },
+   "objective": "Compute degree and cardinality of a product"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q10",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each relational algebra operation in List-I with its effect in List-II.",
+   "options": [
+    "A-I, B-II, C-III, D-IV",
+    "A-II, B-IV, C-I, D-III",
+    "A-II, B-IV, C-III, D-I",
+    "A-IV, B-II, C-I, D-III"
+   ],
+   "answer": 2,
+   "explanation": "Selection picks rows that satisfy a condition (II). Projection picks columns (IV). Union gives tuples that occur in either relation (I). Set difference gives tuples in the first relation that are absent from the second (III).",
+   "optionRationale": {
+    "1": "Selection does not combine two relations, and projection does not pair tuples.",
+    "3": "Union returns tuples from either relation; difference removes tuples of S from R.",
+    "4": "Selection picks rows, while projection picks columns."
+   },
+   "objective": "Match operations with their effects",
+   "list": {
+    "left": [
+     "A. Selection",
+     "B. Projection",
+     "C. Union",
+     "D. Set difference"
+    ],
+    "right": [
+     "I. Tuples present in R or in S or in both",
+     "II. Rows that satisfy a condition",
+     "III. Tuples present in R but not in S",
+     "IV. Chosen columns, duplicates removed"
+    ]
+   }
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q11",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about keys.\nA. A foreign key value in the child table may be NULL.\nB. A relation may have more than one candidate key.\nC. A primary key may contain duplicate values if the rows differ in other columns.\nD. An alternate key is a candidate key that is not chosen as the primary key.\nWhich statements are correct?",
+   "options": [
+    "A and C only",
+    "B, C and D only",
+    "A, B and D only",
+    "A, B, C and D"
+   ],
+   "answer": 3,
+   "explanation": "A is true: a foreign key can be NULL when there is no related parent row. B is true. D is the definition of an alternate key. C is false because primary key values must be unique and non-NULL regardless of other columns.",
+   "optionRationale": {
+    "1": "C is false and B and D are true, so this option leaves out correct statements.",
+    "2": "C is false: primary key values must be unique.",
+    "4": "C is false, so not all four statements are correct."
+   },
+   "objective": "Judge statements about keys"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q12",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A foreign key column can contain repeated values in the child table.\nReason (R): Many tuples of the child table can refer to the same tuple of the parent table.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "For example many students (child rows) can have the same ClassCode (foreign key) pointing to one row of the CLASS table. This many-to-one reference is exactly why repeated foreign key values are allowed, so the reason explains the assertion.",
+   "optionRationale": {
+    "2": "R is the direct explanation for the repetition, not just a related fact.",
+    "3": "R is true: many child rows may reference one parent row.",
+    "4": "A is true: foreign keys may repeat."
+   },
+   "objective": "Explain repeated foreign key values"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Union-compatible relations A and B have 6 and 4 tuples respectively, and 3 tuples appear in both. What are the cardinalities of $A \\cup B$, $A - B$ and $B - A$ in this order?",
+   "options": [
+    "10, 3, 1",
+    "7, 3, 3",
+    "7, 3, 1",
+    "7, 1, 3"
+   ],
+   "answer": 3,
+   "explanation": "The union counts each distinct tuple once: 6 + 4 - 3 = 7. A - B removes from A the 3 tuples that also occur in B, leaving 3. B - A removes the 3 common tuples from B, leaving 1. So the sizes are 7, 3 and 1.",
+   "optionRationale": {
+    "1": "The 3 common tuples must be counted once in the union, so the union has 7 tuples, not 10.",
+    "2": "B - A removes the 3 common tuples from the 4 in B, leaving 1.",
+    "4": "The two difference results are interchanged: A - B has 6 - 3 = 3 and B - A has 4 - 3 = 1."
+   },
+   "objective": "Apply set sizes of union and difference"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Relation STUDENT(Roll, Name, Class, City) has tuples (1, Asha, XII, Pune), (2, Ravi, XI, Delhi), (3, Meena, XII, Delhi), (4, Karan, XI, Pune), (5, Sia, XII, Goa). What does $\\pi_{Class, City}(\\sigma_{City \\neq 'Goa'}(STUDENT))$ return?",
+   "options": [
+    "4 tuples: (XII, Pune), (XI, Delhi), (XII, Delhi), (XI, Pune)",
+    "5 tuples including (XII, Goa)",
+    "3 tuples: (XII, Pune), (XI, Delhi), (XII, Delhi)",
+    "2 tuples: XI and XII"
+   ],
+   "answer": 1,
+   "explanation": "The selection removes Sia, who lives in Goa, leaving four tuples. Projecting Class and City gives (XII, Pune), (XI, Delhi), (XII, Delhi) and (XI, Pune). These four combinations are all different, so no duplicate is removed and the cardinality stays 4.",
+   "optionRationale": {
+    "2": "The selection first removes the Goa tuple, so (XII, Goa) cannot appear.",
+    "3": "Karan (XI, Pune) is not in Goa and is therefore kept, giving four tuples.",
+    "4": "The projection keeps both Class and City, so the City values remain."
+   },
+   "objective": "Combine selection and projection"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "R(id, p) has tuples (1, a), (2, b), (3, c). S(id, q) has tuples (1, x), (3, y), (3, z), (4, w). How many tuples does $\\sigma_{R.id = S.id}(R \\times S)$ contain, and what is the degree of the result?",
+   "options": [
+    "12 tuples, degree 4",
+    "3 tuples, degree 3",
+    "2 tuples, degree 4",
+    "3 tuples, degree 4"
+   ],
+   "answer": 4,
+   "explanation": "The Cartesian product has 3 x 4 = 12 tuples of degree 2 + 2 = 4. The condition keeps only pairs with equal id: id 1 matches (1, x); id 3 matches both (3, y) and (3, z). That is 3 tuples, and the degree stays 4.",
+   "optionRationale": {
+    "1": "The selection removes the pairs whose id values differ, so not all 12 pairs remain.",
+    "2": "The Cartesian product keeps both id columns, so the degree is 4.",
+    "3": "The id 3 of R matches two tuples of S, so there are three matching pairs in all."
+   },
+   "objective": "Use selection on a Cartesian product"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q16",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Assertion (A): $R - S$ and $S - R$ generally give different results.\nReason (R): Set difference returns the tuples of the first relation that do not occur in the second, so it depends on the order of the relations.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "If R has tuples that S lacks, those appear in R - S but not in S - R, which collects the tuples that S has and R lacks. The order matters because the difference is defined from the first relation, which is why the two results usually differ.",
+   "optionRationale": {
+    "2": "R is the precise reason for A, so it explains it.",
+    "3": "R is true: the first relation fixes what is returned.",
+    "4": "A is true: the two differences are generally unequal."
+   },
+   "objective": "Explain why set difference is not commutative"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q17",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Relation EMP has the values in the column Dept: Sales, HR, Sales, IT, HR; in the column Phone: 111, NULL, 333, 444, 555; and in the column Code: 1, 2, 3, 4, 5. Which column can serve as a primary key?",
+   "options": [
+    "Dept",
+    "Code",
+    "Phone",
+    "None of the columns"
+   ],
+   "answer": 2,
+   "explanation": "A primary key needs unique and non-NULL values. Dept repeats values. Phone is unique among the non-NULL entries but contains NULL. Code has five different non-NULL values, so only Code qualifies. Checking the other options: Option 1: Sales and HR appear more than once, so Dept is not unique. Option 3: Phone contains a NULL, which a primary key cannot have, even though the other values are different. Option 4: Code is unique and has no NULL, so one column does qualify.",
+   "optionRationale": {
+    "1": "Sales and HR appear more than once, so Dept is not unique.",
+    "3": "Phone contains a NULL, which a primary key cannot have, even though the other values are different.",
+    "4": "Code is unique and has no NULL, so one column does qualify."
+   },
+   "objective": "Choose a primary key from sample data"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q18",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Table DEPT has DeptNo 10, 20, 30 (primary key). Table EMP has the foreign key DeptNo referring to DEPT. Which operation will the DBMS reject because it violates referential integrity?",
+   "options": [
+    "Inserting an employee whose DeptNo is 40",
+    "Inserting an employee whose DeptNo is 20",
+    "Inserting an employee whose DeptNo is NULL",
+    "Inserting a second employee with DeptNo 10"
+   ],
+   "answer": 1,
+   "explanation": "Referential integrity requires every non-NULL foreign key value to match an existing primary key in the parent table. DeptNo 40 does not exist in DEPT, so inserting such an employee is rejected. NULL and repeated valid values are allowed.",
+   "optionRationale": {
+    "2": "Department 20 exists, so the reference is valid.",
+    "3": "A foreign key may be NULL, which means no department is assigned.",
+    "4": "Foreign key values may repeat in the child table."
+   },
+   "objective": "Apply referential integrity"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q19",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Relation P has degree 4 and 6 tuples; relation Q has degree 3 and 5 tuples. What is the degree of the result of $\\pi_{A, B}(P \\times Q)$ when A is from P and B is from Q, and how many tuples can it have at most?",
+   "options": [
+    "Degree 2 and at most 30 tuples",
+    "Degree 7 and at most 30 tuples",
+    "Degree 2 and exactly 11 tuples",
+    "Degree 12 and at most 30 tuples"
+   ],
+   "answer": 1,
+   "explanation": "The product has 6 x 5 = 30 tuples of degree 4 + 3 = 7. Projecting two attributes gives degree 2. Projection removes duplicate tuples, so the result can have at most 30 tuples, and fewer if any pairs repeat.",
+   "optionRationale": {
+    "2": "Projection keeps only the two listed attributes, so the degree is 2.",
+    "3": "The product has 6 x 5 = 30 tuples; adding gives the wrong count and duplicates can only reduce the number.",
+    "4": "The degree is not a product, and projection reduces the attributes to two."
+   },
+   "objective": "Reason about degree and cardinality after projection of a product"
+  },
+  {
+   "key": "ug26-308-r02-database-concepts-relational-algebra-q20",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "What is meant by the domain of an attribute?",
+   "options": [
+    "The number of tuples in the relation",
+    "The primary key of the relation",
+    "The name of the table that contains the attribute",
+    "The set of all permissible values for that attribute"
+   ],
+   "answer": 4,
+   "explanation": "The domain is the pool of values from which an attribute can take its entries, for example integers from 0 to 100 for Marks or the set {XI, XII} for Class. Checking the other options: Option 1: That is the cardinality. Option 2: A key identifies tuples; it is not the domain. Option 3: The table name is not the domain.",
+   "optionRationale": {
+    "1": "That is the cardinality.",
+    "2": "A key identifies tuples; it is not the domain.",
+    "3": "The table name is not the domain."
+   },
+   "objective": "Define domain"
+  }
+ ]
+}

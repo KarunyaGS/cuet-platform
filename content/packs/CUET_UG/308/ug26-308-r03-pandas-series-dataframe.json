@@ -1,0 +1,931 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_749ab51243b24b7295510bef2bf0ed2d",
+  "title": "Data Handling using Pandas – I"
+ },
+ "lesson": {
+  "key": "ug26-308-r03-pandas-series-dataframe",
+  "title": "Data handling using Pandas: Series, DataFrames, indexing, joining and CSV files",
+  "coverage": [
+   {
+    "phrase": "Data Handling using Pandas – I",
+    "section": "Python libraries for data handling: Pandas, NumPy and Matplotlib"
+   },
+   {
+    "phrase": "Introduction to Python libraries-Pandas, NumPy, Matplotlib",
+    "section": "Python libraries for data handling: Pandas, NumPy and Matplotlib"
+   },
+   {
+    "phrase": "Data structures in Pandas - Series and DataFrames",
+    "section": "Pandas data structures: Series and DataFrame"
+   },
+   {
+    "phrase": "Series: Creation of Series from – and array, dictionary, scalar value",
+    "section": "Creating a Series"
+   },
+   {
+    "phrase": "mathematical operations",
+    "section": "Series operations: arithmetic, head and tail, selection, indexing and slicing"
+   },
+   {
+    "phrase": "Head and Tail functions",
+    "section": "Series operations: arithmetic, head and tail, selection, indexing and slicing"
+   },
+   {
+    "phrase": "Selection, Indexing, and Slicing",
+    "section": "Series operations: arithmetic, head and tail, selection, indexing and slicing"
+   },
+   {
+    "phrase": "DataFrames: creation - from dictionary of Series, list of dictionaries, Text/CSV files",
+    "section": "Creating and displaying a DataFrame"
+   },
+   {
+    "phrase": "display",
+    "section": "Creating and displaying a DataFrame"
+   },
+   {
+    "phrase": "Head and Tail functions",
+    "section": "Creating and displaying a DataFrame"
+   },
+   {
+    "phrase": "iteration",
+    "section": "Iterating over a DataFrame; adding, selecting, deleting and renaming rows and columns"
+   },
+   {
+    "phrase": "Operations on Rows and columns: add, select, delete, rename",
+    "section": "Iterating over a DataFrame; adding, selecting, deleting and renaming rows and columns"
+   },
+   {
+    "phrase": "Indexing using Labels, Boolean Indexing",
+    "section": "Indexing using labels and Boolean indexing"
+   },
+   {
+    "phrase": "Styling & Formatting data",
+    "section": "Styling and formatting data"
+   },
+   {
+    "phrase": "Joining, Merging and Concatenations",
+    "section": "Joining, merging and concatenating DataFrames"
+   },
+   {
+    "phrase": "Importing/Exporting Data between CSV files and DataFrames",
+    "section": "Importing and exporting data between CSV files and DataFrames"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Python libraries for data handling: Pandas, NumPy and Matplotlib"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **library** is a collection of ready-made modules that you import instead of writing everything yourself. Three libraries form the standard toolkit for data work in Class 12 Informatics Practices."
+   },
+   {
+    "type": "TABLE",
+    "caption": "The three libraries",
+    "columns": [
+     "Library",
+     "Import statement",
+     "Main purpose",
+     "Key objects"
+    ],
+    "rows": [
+     [
+      "NumPy (Numerical Python)",
+      "`import numpy as np`",
+      "Fast numerical computing on arrays",
+      "`ndarray` (n-dimensional array), mathematical functions"
+     ],
+     [
+      "Pandas (Panel Data)",
+      "`import pandas as pd`",
+      "Storing, cleaning and analysing labelled data",
+      "`Series` (1-D), `DataFrame` (2-D)"
+     ],
+     [
+      "Matplotlib",
+      "`import matplotlib.pyplot as plt`",
+      "Drawing graphs and charts",
+      "Line, bar, histogram, scatter plots"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Pandas is built on top of NumPy: a Series holds its values in a NumPy array. The alias names `pd`, `np` and `plt` are conventions that save typing. Before using any library it must be installed (`pip install pandas`) and then imported."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "NumPy = arrays and numeric maths. Pandas = labelled data (Series and DataFrame). Matplotlib = plotting."
+   },
+   {
+    "type": "HEADING",
+    "text": "Pandas data structures: Series and DataFrame"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Series",
+    "text": "A one-dimensional labelled array that can hold data of any type. Each value has a label called its **index**. A Series has two parts: the index and the values. All values share one data type (dtype)."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "DataFrame",
+    "text": "A two-dimensional labelled data structure arranged in rows and columns, like a spreadsheet or SQL table. Each column is a Series; the columns may have different data types, and both rows and columns have labels."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Series versus DataFrame",
+    "columns": [
+     "Point",
+     "Series",
+     "DataFrame"
+    ],
+    "rows": [
+     [
+      "Dimensions",
+      "1",
+      "2"
+     ],
+     [
+      "Labels",
+      "One index",
+      "Row index and column labels"
+     ],
+     [
+      "Data types",
+      "One dtype for the whole Series",
+      "Each column may have its own dtype"
+     ],
+     [
+      "Size",
+      "Fixed once created (length), values are mutable",
+      "Size is mutable: columns and rows can be added or deleted"
+     ],
+     [
+      "Useful attributes",
+      "`index`, `values`, `size`, `dtype`, `shape`",
+      "`index`, `columns`, `values`, `shape`, `size`, `T`"
+     ]
+    ]
+   },
+   {
+    "type": "HEADING",
+    "text": "Creating a Series"
+   },
+   {
+    "type": "TEXT",
+    "text": "The constructor is `pd.Series(data, index=...)`. The data can be a list, a NumPy array, a dictionary or a single (scalar) value."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Ways to create a Series",
+    "columns": [
+     "Source",
+     "Example",
+     "Index"
+    ],
+    "rows": [
+     [
+      "List or NumPy array",
+      "`pd.Series([10, 20, 30])`",
+      "Default 0, 1, 2 unless `index=[...]` is given (its length must equal the data length)"
+     ],
+     [
+      "Dictionary",
+      "`pd.Series({\"a\": 1, \"b\": 2})`",
+      "The dictionary **keys** become the index and the values become the data"
+     ],
+     [
+      "Scalar value",
+      "`pd.Series(7, index=[\"x\", \"y\", \"z\"])`",
+      "The scalar is repeated for every label; **index must be given**, otherwise the Series has just one element"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Create `a = pd.Series([4, 5, 6], index=[\"p\", \"q\", \"r\"])`, `b = pd.Series({\"x\": 1, \"y\": 2})` and `c = pd.Series(7, index=[\"u\", \"v\", \"w\"])`. Evaluate `a[\"q\"]`, `b.index.tolist()`, `c.sum()` and `len(c)`.",
+    "solution": "`a[\"q\"]` looks up the label q, which holds 5.\n\nIn `b` the keys of the dictionary become the index, so `b.index.tolist()` is the list [\"x\", \"y\"].\n\n`c` repeats the scalar 7 for three labels, so its sum is 21 and its length is 3.\n\nPrinted together: 5 ['x', 'y'] 21 3.",
+    "answer": "5 ['x', 'y'] 21 3"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "A list given with an `index` of different length raises `ValueError`. For a scalar, forgetting `index=` gives a Series of length 1, not many copies."
+   },
+   {
+    "type": "HEADING",
+    "text": "Series operations: arithmetic, head and tail, selection, indexing and slicing"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Arithmetic.** A Series can be combined with a scalar (applied to every element: `s * 2`) or with another Series. Between two Series Pandas **aligns on index labels**: matching labels are combined; a label present in only one Series gives `NaN` (Not a Number), and because NaN is a float the result becomes float."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "With `s1 = pd.Series([10, 20, 30], index=[\"a\", \"b\", \"c\"])` and `s2 = pd.Series([1, 2, 3], index=[\"b\", \"c\", \"d\"])`, find `s1 + s2` and `s1 * 2`.",
+    "solution": "Align on labels. Label a exists only in s1, so it gives NaN. Label b: 20 + 1 = 21. Label c: 30 + 2 = 32. Label d exists only in s2, so it gives NaN.\n\nSo `(s1 + s2).tolist()` is [nan, 21.0, 32.0, nan] (floats because of NaN).\n\n`s1 * 2` multiplies each value: [20, 40, 60].\n\nPrinted: [nan, 21.0, 32.0, nan]; [20, 40, 60].",
+    "answer": "[nan, 21.0, 32.0, nan]; [20, 40, 60]"
+   },
+   {
+    "type": "TEXT",
+    "text": "**head() and tail().** `s.head(n)` returns the first n elements and `s.tail(n)` the last n. If n is omitted, the default is **5**. Both return a new Series and leave the original unchanged."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Indexing, selection and slicing.**\n\n- Label access: `s[\"b\"]`; several labels: `s[[\"a\", \"c\"]]`.\n- Position access: `s.iloc[1]`, or `s[1]` when the index is the default integers.\n- Slice by position: `s[1:3]` excludes the end position.\n- Slice by label: `s[\"a\":\"c\"]` **includes** the end label.\n- Boolean selection: `s[s > 15]`."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "For `s = pd.Series([5, 10, 15, 20, 25], index=[\"a\", \"b\", \"c\", \"d\", \"e\"])` find `s[\"b\":\"d\"]`, `s[1:3]`, the labels where `s > 12`, and `s.tail(2)`.",
+    "solution": "`s[\"b\":\"d\"]` is a label slice, so d is included: values 10, 15, 20.\n\n`s[1:3]` is a position slice, so only positions 1 and 2: values 10 and 15.\n\n`s > 12` is True for 15, 20 and 25, whose labels are c, d, e.\n\n`s.tail(2)` gives the last two values 20 and 25.\n\nPrinted: [10, 15, 20] [10, 15] ['c', 'd', 'e'] [20, 25].",
+    "answer": "[10, 15, 20] [10, 15] ['c', 'd', 'e'] [20, 25]"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Label slices include the end label; position slices exclude the end position. This single difference is behind many exam questions."
+   },
+   {
+    "type": "HEADING",
+    "text": "Creating and displaying a DataFrame"
+   },
+   {
+    "type": "TEXT",
+    "text": "**From a dictionary of Series.** Each key becomes a column label and each Series becomes a column. The row index is the **union** of the Series indexes; where a Series has no value for a label, the cell is NaN."
+   },
+   {
+    "type": "TEXT",
+    "text": "**From a list of dictionaries.** Each dictionary becomes one **row**; the keys become the column labels. A key missing in a dictionary gives NaN in that cell."
+   },
+   {
+    "type": "TEXT",
+    "text": "**From a CSV (text) file.** `pd.read_csv(\"file.csv\")` reads a comma-separated file into a DataFrame, taking the first line as the column names."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Build `d1 = pd.DataFrame({\"m\": pd.Series([50, 60], index=[\"a\", \"b\"]), \"s\": pd.Series([70, 80, 90], index=[\"a\", \"b\", \"c\"])})` and `d2 = pd.DataFrame([{\"x\": 1, \"y\": 2}, {\"x\": 3, \"z\": 4}])`. Give the shape, labels and number of missing values.",
+    "solution": "d1: the row index is the union a, b, c, so there are 3 rows and 2 columns: shape (3, 2). Column m has no entry for c, so it holds 1 NaN.\n\nd2: two dictionaries give 2 rows. The columns are the union of keys: x, y, z. Row 1 has no z and row 2 has no y, so there are 2 NaN cells. Shape (2, 3).\n\nPrinted: (3, 2) ['a', 'b', 'c'] 1; (2, 3) ['x', 'y', 'z'] 2.",
+    "answer": "(3, 2) ['a', 'b', 'c'] 1; (2, 3) ['x', 'y', 'z'] 2"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Displaying.** Printing the DataFrame shows all of it (long frames are shortened). `df.head(n)` / `df.tail(n)` show the first / last n rows (default 5). Useful attributes: `df.shape` (rows, columns), `df.columns`, `df.index`, `df.dtypes`, `df.size`, `df.T` (transpose), `df.values`."
+   },
+   {
+    "type": "HEADING",
+    "text": "Iterating over a DataFrame; adding, selecting, deleting and renaming rows and columns"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Row and column operations",
+    "columns": [
+     "Task",
+     "Statement",
+     "Notes"
+    ],
+    "rows": [
+     [
+      "Select a column",
+      "`df[\"col\"]` or `df.col`",
+      "Returns a Series; `df[[\"c1\", \"c2\"]]` returns a DataFrame"
+     ],
+     [
+      "Add a column",
+      "`df[\"new\"] = values` or `df.insert(loc, \"new\", values)`",
+      "`insert` puts the column at a chosen position; the assignment adds it at the end"
+     ],
+     [
+      "Add a row",
+      "`df.loc[\"lbl\"] = [..]`",
+      "Adds or replaces the row with label lbl (`df.append()` was removed from current Pandas; use `pd.concat`)"
+     ],
+     [
+      "Select rows",
+      "`df.loc[label]`, `df.iloc[pos]`",
+      "loc is label-based, iloc is position-based"
+     ],
+     [
+      "Delete a column",
+      "`df.drop(\"col\", axis=1)` or `del df[\"col\"]`",
+      "`axis=1` means columns; `drop` returns a new DataFrame unless `inplace=True`"
+     ],
+     [
+      "Delete a row",
+      "`df.drop(\"lbl\")` (axis=0 is the default)",
+      "Uses the row label"
+     ],
+     [
+      "Rename",
+      "`df.rename(columns={\"old\": \"new\"}, index={...})`",
+      "Returns a new DataFrame unless `inplace=True`"
+     ]
+    ]
+   },
+   {
+    "type": "TABLE",
+    "caption": "Iterating",
+    "columns": [
+     "Method",
+     "Yields"
+    ],
+    "rows": [
+     [
+      "`df.iterrows()`",
+      "Pairs (index label, row as a Series)"
+     ],
+     [
+      "`df.items()`",
+      "Pairs (column label, column as a Series)"
+     ],
+     [
+      "`df.itertuples()`",
+      "One named tuple per row (index first)"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Run the sequence: create `df` with columns qty [2, 3, 5] and price [10, 20, 30] (index a, b, c); add `total = qty * price`; make `df2 = df.drop(\"price\", axis=1)`; make `df3 = df2.rename(columns={\"qty\": \"q\"}, index={\"a\": \"A\"})`; add up the qty values with `iterrows()`. What are the results?",
+    "solution": "total is 2*10, 3*20, 5*30 = 20, 60, 150.\n\n`drop(\"price\", axis=1)` returns a copy without price, so df2 has columns qty and total, and df itself is unchanged (still 3 columns, shape (3, 3)).\n\n`rename` changes column qty to q and row label a to A in df3, which has index A, b, c and columns q, total.\n\nThe loop adds the qty values 2 + 3 + 5 = 10.\n\nPrinted: [20, 60, 150] ['qty', 'total'] ['A', 'b', 'c'] ['q', 'total'] (3, 3) 10.",
+    "answer": "[20, 60, 150] ['qty', 'total'] ['A', 'b', 'c'] ['q', 'total'] (3, 3) 10"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "`drop()` and `rename()` do not change the original DataFrame unless `inplace=True` is used, and with `inplace=True` the method returns `None`, so writing `df = df.drop(..., inplace=True)` makes df None."
+   },
+   {
+    "type": "HEADING",
+    "text": "Indexing using labels and Boolean indexing"
+   },
+   {
+    "type": "TEXT",
+    "text": "- `df.loc[row_labels, col_labels]`: label based; slices **include** the end label.\n- `df.iloc[row_positions, col_positions]`: integer position based; slices **exclude** the end.\n- `df[condition]` or `df.loc[condition]`: **Boolean indexing** keeps the rows where the condition is True.\n- Combine conditions with `&` (and), `|` (or), `~` (not), each condition **in brackets**: `df[(df[\"m\"] > 60) & (df[\"s\"] == \"A\")]`. The words `and` / `or` cannot be used with Series."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "For `df` with name [Ana, Ben, Cia, Dev], m [55, 72, 68, 90], s [A, B, A, A] and index [10, 11, 12, 13], evaluate: `df.loc[11, \"name\"]`, `df.iloc[1, 1]`, `df.loc[10:12, \"m\"]`, `df.iloc[0:2, 1]`, the names where `(m > 60) & (s == \"A\")`, and the row count of `(m > 90) | (s == \"B\")`.",
+    "solution": "`loc[11, \"name\"]` uses the label 11: Ben.\n\n`iloc[1, 1]` is row position 1, column position 1 (m): 72.\n\n`loc[10:12, \"m\"]` includes label 12: 55, 72, 68.\n\n`iloc[0:2, 1]` excludes position 2: 55, 72.\n\nm > 60 is True for Ben, Cia, Dev, and s == \"A\" for Ana, Cia, Dev; both together: Cia and Dev.\n\nm > 90 is False for everyone, s == \"B\" only for Ben, so 1 row.\n\nPrinted: Ben 72 [55, 72, 68] [55, 72]; ['Cia', 'Dev'] 1.",
+    "answer": "Ben 72 [55, 72, 68] [55, 72]; ['Cia', 'Dev'] 1"
+   },
+   {
+    "type": "HEADING",
+    "text": "Styling and formatting data"
+   },
+   {
+    "type": "TEXT",
+    "text": "Formatting changes how data **looks**, not what it is stored as. Common tools:\n\n- `df.round(2)` rounds every numeric value to 2 decimals (`df[\"col\"].round(1)` for one column); it returns a new object.\n- `pd.set_option(\"display.precision\", 2)` changes how many decimals are printed everywhere.\n- `df.style` returns a **Styler** object (it needs the jinja2 package) used in notebooks: `df.style.format({\"price\": \"{:.2f}\"})` fixes how a column is shown, `df.style.highlight_max()` and `df.style.highlight_min()` colour the largest and smallest values, and `df.style.background_gradient()` shades by value.\n- The underlying DataFrame is **not modified** by styling; only the displayed result changes."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Rounding for display versus storing: `df.round(1)` returns a new DataFrame; the original still holds the full-precision numbers unless you assign the result back."
+   },
+   {
+    "type": "HEADING",
+    "text": "Joining, merging and concatenating DataFrames"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Combining DataFrames",
+    "columns": [
+     "Operation",
+     "Syntax",
+     "What it does"
+    ],
+    "rows": [
+     [
+      "Concatenate (stack)",
+      "`pd.concat([df1, df2])`",
+      "axis=0 (default): puts rows of df2 below df1; columns are aligned by label, missing ones become NaN. `ignore_index=True` renumbers rows."
+     ],
+     [
+      "Concatenate side by side",
+      "`pd.concat([df1, df2], axis=1)`",
+      "Places columns next to each other, aligned on the row index"
+     ],
+     [
+      "Merge (database style join)",
+      "`pd.merge(df1, df2, on=\"key\", how=\"inner\")` or `df1.merge(df2, on=\"key\")`",
+      "Matches rows with equal key values. `how` = inner (default, only matching keys), left, right, outer (all keys)"
+     ],
+     [
+      "Join (on the index)",
+      "`df1.join(df2)`",
+      "Combines columns by matching row index labels; left join by default"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "With `a` (id 1,2,3; n x,y,z) and `b` (id 2,3,4; p 20,30,40), find the shape of the inner merge, the outer merge, the number of NaN in p after the left merge, then the shape of `pd.concat([a, b])`, its index with `ignore_index=True`, and the shape of `pd.concat([a, b], axis=1)`.",
+    "solution": "Inner merge keeps ids present in both: 2 and 3, giving 2 rows and 3 columns (id, n, p): (2, 3).\n\nOuter merge keeps ids 1, 2, 3, 4: 4 rows, 3 columns: (4, 3).\n\nLeft merge keeps ids 1, 2, 3; id 1 has no match in b, so p has 1 NaN.\n\n`pd.concat([a, b])` stacks 6 rows; the columns are the union id, n, p: (6, 3). With ignore_index the labels are 0 to 5.\n\nConcatenation with axis=1 aligns on the row index 0, 1, 2 for both frames, giving 3 rows and 4 columns: (3, 4).\n\nPrinted: (2, 3) (4, 3) 1; (6, 3) [0, 1, 2, 3, 4, 5] (3, 4).",
+    "answer": "(2, 3) (4, 3) 1; (6, 3) [0, 1, 2, 3, 4, 5] (3, 4)"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "`pd.concat` stacks or places side by side; it does not look at key values. `merge` is for matching keys, like a SQL join. Keep the roles separate."
+   },
+   {
+    "type": "HEADING",
+    "text": "Importing and exporting data between CSV files and DataFrames"
+   },
+   {
+    "type": "TEXT",
+    "text": "CSV (comma separated values) is a plain text file where each line is a row and commas separate the fields."
+   },
+   {
+    "type": "TABLE",
+    "caption": "CSV functions",
+    "columns": [
+     "Function",
+     "Purpose",
+     "Useful arguments"
+    ],
+    "rows": [
+     [
+      "`pd.read_csv(\"f.csv\")`",
+      "Reads a CSV file into a DataFrame",
+      "`sep=\";\"` (different separator), `header=None` (no header row), `names=[...]` (column names), `index_col=0` (use column 0 as row index), `nrows=n` (read only n rows)"
+     ],
+     [
+      "`df.to_csv(\"f.csv\")`",
+      "Writes a DataFrame to a CSV file",
+      "`index=False` (do not write the row index), `sep=`, `header=False`"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A DataFrame `df` with columns a [1, 2] and b [3, 4] is written once with `to_csv(\"f1.csv\")` and once with `to_csv(\"f2.csv\", index=False)`. Both are read back with `read_csv`. Compare the column lists and shapes.",
+    "solution": "The first file also stores the row index (0 and 1) as an unnamed first column, so reading it back produces an extra column called Unnamed: 0. That DataFrame has 3 columns, shape (2, 3).\n\nThe second file contains only a and b, so reading it back gives columns a and b and shape (2, 2).\n\nPrinted: ['Unnamed: 0', 'a', 'b'] ['a', 'b'] (2, 3) (2, 2).",
+    "answer": "['Unnamed: 0', 'a', 'b'] ['a', 'b'] (2, 3) (2, 2)"
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Use `index=False` when exporting unless the row labels matter; otherwise `read_csv` shows them as an extra column (or use `index_col=0` while reading)."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which Python library provides the Series and DataFrame data structures?",
+   "options": [
+    "NumPy",
+    "Pandas",
+    "Matplotlib",
+    "Tkinter"
+   ],
+   "answer": 2,
+   "explanation": "Series (one-dimensional) and DataFrame (two-dimensional) are the labelled data structures of Pandas. NumPy supplies arrays and Matplotlib supplies plots. Checking the other options: Option 1: NumPy provides the ndarray, not Series or DataFrame. Option 3: Matplotlib is used for drawing graphs. Option 4: Tkinter is for desktop user interfaces, not data analysis.",
+   "optionRationale": {
+    "1": "NumPy provides the ndarray, not Series or DataFrame.",
+    "3": "Matplotlib is used for drawing graphs.",
+    "4": "Tkinter is for desktop user interfaces, not data analysis."
+   },
+   "objective": "Identify the library for Series and DataFrame"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which library is mainly used to draw line graphs, bar charts and histograms from data?",
+   "options": [
+    "Pandas",
+    "NumPy",
+    "Matplotlib",
+    "Random"
+   ],
+   "answer": 3,
+   "explanation": "Matplotlib, imported as `matplotlib.pyplot`, is the plotting library. Pandas offers shortcuts such as `df.plot()`, but it calls Matplotlib to do the drawing. Checking the other options: Option 1: Pandas stores and analyses data; its plotting uses Matplotlib underneath. Option 2: NumPy performs numerical array operations and has no plotting features. Option 4: The random module generates random numbers.",
+   "optionRationale": {
+    "1": "Pandas stores and analyses data; its plotting uses Matplotlib underneath.",
+    "2": "NumPy performs numerical array operations and has no plotting features.",
+    "4": "The random module generates random numbers."
+   },
+   "objective": "Name the plotting library"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "How many rows does `df.head()` display by default?",
+   "options": [
+    "5",
+    "3",
+    "10",
+    "All rows"
+   ],
+   "answer": 1,
+   "explanation": "Both head() and tail() return five rows when no number is given. A call such as head(3) returns three rows. Checking the other options: Option 2: The default is five, not three. Option 3: Ten is not the default; a value must be passed for that. Option 4: head() shows only the first few rows.",
+   "optionRationale": {
+    "2": "The default is five, not three.",
+    "3": "Ten is not the default; a value must be passed for that.",
+    "4": "head() shows only the first few rows."
+   },
+   "objective": "Recall the default of head()"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which function reads a comma separated values file into a DataFrame?",
+   "options": [
+    "`pd.load_csv()`",
+    "`pd.open_csv()`",
+    "`pd.DataFrame.csv()`",
+    "`pd.read_csv()`"
+   ],
+   "answer": 4,
+   "explanation": "The reader function is `pd.read_csv(filename)`, and the writer is the DataFrame method `to_csv(filename)`. Checking the other options: Option 1: There is no function with this name. Option 2: There is no function with this name. Option 3: DataFrame has no method like this for reading.",
+   "optionRationale": {
+    "1": "There is no function with this name.",
+    "2": "There is no function with this name.",
+    "3": "DataFrame has no method like this for reading."
+   },
+   "objective": "Recall the CSV reading function"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "When a Series is created from a dictionary, what do the dictionary keys become?",
+   "options": [
+    "The values of the Series",
+    "The index labels of the Series",
+    "The name of the Series",
+    "The data type of the Series"
+   ],
+   "answer": 2,
+   "explanation": "In `pd.Series({\"a\": 1, \"b\": 2})` the keys a and b become the index and 1, 2 are the values. Checking the other options: Option 1: The dictionary values become the data. Option 3: The name is a separate optional attribute. Option 4: The dtype is deduced from the values, not from the keys.",
+   "optionRationale": {
+    "1": "The dictionary values become the data.",
+    "3": "The name is a separate optional attribute.",
+    "4": "The dtype is deduced from the values, not from the keys."
+   },
+   "objective": "State the role of dictionary keys in a Series"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "What is printed?\n`a = pd.Series([2, 4, 6, 8], index=[\"w\", \"x\", \"y\", \"z\"])`\n`b = pd.Series([1, 1, 1], index=[\"x\", \"y\", \"q\"])`\n`print((a + b).tolist())`",
+   "options": [
+    "[3, 5, 7, 9]",
+    "[2.0, 5.0, 7.0, 8.0, 1.0]",
+    "[nan, nan, 5.0, 7.0, nan]",
+    "[nan, 5.0, 7.0]"
+   ],
+   "answer": 3,
+   "explanation": "Pandas aligns the two Series by label. Labels x and y exist in both: 4 + 1 = 5 and 6 + 1 = 7. Labels w, z and q exist in only one, so they give NaN, and the result is floating point. The union has five labels and Pandas lists them in sorted order (q, w, x, y, z), so the printed list is [nan, nan, 5.0, 7.0, nan].",
+   "optionRationale": {
+    "1": "Pandas aligns on labels, not on positions, and the labels do not all match.",
+    "2": "Labels present in only one Series give NaN, not the original value.",
+    "4": "The result has the union of the labels (w, x, y, z, q), so it has five entries."
+   },
+   "objective": "Predict Series arithmetic with label alignment"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "What is the output?\n`s = pd.Series([1, 2, 3, 4, 5], index=list(\"abcde\"))`\n`print(s[\"b\":\"d\"].sum(), s[1:3].sum(), s.iloc[-2:].sum())`",
+   "options": [
+    "9 5 9",
+    "6 5 9",
+    "9 9 9",
+    "9 5 5"
+   ],
+   "answer": 1,
+   "explanation": "The label slice b to d includes d: 2 + 3 + 4 = 9. The position slice 1:3 takes positions 1 and 2: 2 + 3 = 5. `iloc[-2:]` takes the last two values 4 and 5, which sum to 9. Output: 9 5 9.",
+   "optionRationale": {
+    "2": "The label slice includes d, so its sum is 2 + 3 + 4 = 9, not 5.",
+    "3": "The position slice s[1:3] stops before position 3 and gives only 2 + 3.",
+    "4": "The last two elements are 4 and 5, which add to 9."
+   },
+   "objective": "Compare label and position slicing on a Series"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "What does this program print?\n`df = pd.DataFrame({\"x\": [1, 2, 3, 4], \"y\": [10, 20, 30, 40]})`\n`r = df[(df[\"x\"] > 1) & (df[\"y\"] < 40)]`\n`print(r.index.tolist(), r[\"y\"].sum(), len(r))`",
+   "options": [
+    "[1, 2, 3] 60 3",
+    "[1, 2] 30 2",
+    "[2, 3] 70 2",
+    "[1, 2] 50 2"
+   ],
+   "answer": 4,
+   "explanation": "The condition x > 1 keeps rows 1, 2, 3 (index labels) and y < 40 keeps rows 0, 1, 2. Both must hold, so rows 1 and 2 remain. Their y values are 20 and 30, giving a sum of 50 and a length of 2. Output: [1, 2] 50 2.",
+   "optionRationale": {
+    "1": "The second condition y < 40 removes the row with y = 40.",
+    "2": "The sum of y for the two rows left is 20 + 30 = 50, not 30.",
+    "3": "The row labels are positions 1 and 2, and y is 20 and 30, not 30 and 40."
+   },
+   "objective": "Apply Boolean indexing with two conditions"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q09",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match the task in List-I with the Pandas feature in List-II.",
+   "options": [
+    "A-I, B-II, C-III, D-IV",
+    "A-II, B-III, C-I, D-IV",
+    "A-II, B-IV, C-I, D-III",
+    "A-IV, B-II, C-I, D-III"
+   ],
+   "answer": 3,
+   "explanation": "Deleting a column uses `drop(\"col\", axis=1)` (II). Joining two tables on a common key uses `merge` (IV). Writing a DataFrame to a file uses `to_csv` (I). Stacking rows of two frames uses `concat` (III).",
+   "optionRationale": {
+    "1": "This assigns every task to the wrong feature; for instance drop is not used to write a file.",
+    "2": "merge matches keys and concat stacks, so D and B are swapped.",
+    "4": "Deleting a column is done with drop, not with merge."
+   },
+   "objective": "Match common DataFrame tasks with their methods",
+   "list": {
+    "left": [
+     "A. Delete a column",
+     "B. Join two tables on a key column",
+     "C. Save a DataFrame to a CSV file",
+     "D. Stack the rows of two DataFrames"
+    ],
+    "right": [
+     "I. `to_csv()`",
+     "II. `drop()` with `axis=1`",
+     "III. `pd.concat()`",
+     "IV. `merge()`"
+    ]
+   }
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q10",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about Pandas.\nA. A Series is one-dimensional and a DataFrame is two-dimensional.\nB. In `df.loc[10:12]` the label 12 is excluded.\nC. `df.shape` returns a pair (number of rows, number of columns).\nD. All columns of a DataFrame must have the same data type.\nWhich statements are correct?",
+   "options": [
+    "A and C only",
+    "A, B and C only",
+    "B and D only",
+    "A, C and D only"
+   ],
+   "answer": 1,
+   "explanation": "A is true. C is true: shape is (rows, columns). B is false because label-based slicing with loc includes the end label. D is false because a DataFrame can hold numbers in one column and text in another.",
+   "optionRationale": {
+    "2": "B is false: loc slices include the end label.",
+    "3": "B and D are both false.",
+    "4": "D is false: each column may have its own dtype."
+   },
+   "objective": "Judge statements about Series and DataFrame"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q11",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The slice `s[\"a\":\"c\"]` of a Series returns three elements when the labels are a, b, c, d.\nReason (R): Label based slicing in Pandas includes the end label, unlike position based slicing.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "The slice from label a to label c includes c, so it returns a, b and c: three elements. This follows from the rule that label slices are inclusive, which is exactly the stated reason.",
+   "optionRationale": {
+    "2": "R is the rule that produces the three elements, so it explains A.",
+    "3": "R is true: label slices include the end label.",
+    "4": "A is true; the slice contains three elements."
+   },
+   "objective": "Explain inclusive label slicing"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "What is the output of this program?\n`df = pd.DataFrame({\"a\": [1, 2, 3], \"b\": [4, 5, 6]})`\n`x = df.drop(\"b\", axis=1, inplace=True)`\n`print(x, df.columns.tolist(), df.shape)`",
+   "options": [
+    "None ['a', 'b'] (3, 2)",
+    "None ['a'] (3, 1)",
+    "df ['a'] (3, 1)",
+    "[0, 1, 2] ['a'] (3, 1)"
+   ],
+   "answer": 2,
+   "explanation": "With `inplace=True`, `drop` changes df directly and returns None, so x is None. The column b is removed, leaving column a with 3 rows, so shape is (3, 1). The output is: None ['a'] (3, 1).",
+   "optionRationale": {
+    "1": "inplace=True modifies df, so column b is gone.",
+    "3": "The variable x holds the return value of drop, which is not the DataFrame.",
+    "4": "drop does not return the index; with inplace=True it returns None."
+   },
+   "objective": "Know that inplace operations return None"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "What is printed?\n`p = pd.DataFrame({\"k\": [1, 2, 3, 4], \"v\": [10, 20, 30, 40]})`\n`q = pd.DataFrame({\"k\": [3, 4, 5], \"w\": [7, 8, 9]})`\n`r = p.merge(q, on=\"k\", how=\"outer\")`\n`print(r.shape, int(r.isnull().sum().sum()), r[\"v\"].sum())`",
+   "options": [
+    "(2, 3) 0 70.0",
+    "(5, 3) 4 100.0",
+    "(3, 3) 2 100.0",
+    "(5, 3) 3 100.0"
+   ],
+   "answer": 4,
+   "explanation": "The keys are 1, 2, 3, 4 in p and 3, 4, 5 in q, so the outer merge has the five keys 1 to 5 and the columns k, v, w: shape (5, 3). Missing cells: v for key 5 (1) and w for keys 1 and 2 (2), a total of 3. The sum of v ignores NaN: 10 + 20 + 30 + 40 = 100. Output: (5, 3) 3 100.0.",
+   "optionRationale": {
+    "1": "That is the inner merge result; the outer merge keeps keys from both frames.",
+    "2": "The outer join has only 3 missing cells: w for keys 1 and 2, and v for key 5.",
+    "3": "An outer merge keeps all five distinct keys, so it has five rows."
+   },
+   "objective": "Count rows and missing values after an outer merge"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "What is the output?\n`d = pd.DataFrame({\"a\": [1, 2]})`\n`e = pd.DataFrame({\"a\": [3, 4], \"b\": [5, 6]})`\n`r = pd.concat([d, e], ignore_index=True)`\n`print(r.shape, r[\"b\"].isnull().sum(), r.index.tolist())`",
+   "options": [
+    "(4, 2) 2 [0, 1, 2, 3]",
+    "(2, 2) 0 [0, 1]",
+    "(4, 1) 2 [0, 1, 2, 3]",
+    "(4, 2) 2 [0, 1, 0, 1]"
+   ],
+   "answer": 1,
+   "explanation": "Concatenating along rows stacks d (2 rows) and e (2 rows) into 4 rows. The column b exists only in e, so the first two rows have NaN in b, giving 2 missing values. ignore_index=True gives labels 0, 1, 2, 3. Output: (4, 2) 2 [0, 1, 2, 3].",
+   "optionRationale": {
+    "2": "concat stacks the rows, so there are four rows in all.",
+    "3": "The columns are the union a and b, so there are two columns.",
+    "4": "ignore_index=True renumbers the rows 0 to 3."
+   },
+   "objective": "Predict concat with different columns"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "What is the output of this program?\n`df = pd.DataFrame({\"n\": [\"a\", \"b\", \"c\"], \"p\": [2, 3, 4], \"q\": [5, 6, 7]})`\n`t = 0`\n`for i, r in df.iterrows():`\n`    t += r[\"p\"] * r[\"q\"]`\n`for name, col in df.items():`\n`    pass`\n`print(t, name, len(df.columns))`",
+   "options": [
+    "20 q 3",
+    "56 n 3",
+    "56 q 3",
+    "18 q 3"
+   ],
+   "answer": 3,
+   "explanation": "iterrows() gives each row as a Series: 2*5 = 10, 3*6 = 18, 4*7 = 28, total 56. `df.items()` yields (column label, column) pairs, and after the loop `name` holds the last column label, q. There are 3 columns. Output: 56 q 3.",
+   "optionRationale": {
+    "1": "The loop adds the products 2*5 + 3*6 + 4*7 = 56, not 20.",
+    "2": "items() yields columns in order, so the last name is q.",
+    "4": "The sum of the products is 56; 18 does not correspond to any of the products."
+   },
+   "objective": "Trace iterrows and items loops"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q16",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "A DataFrame is saved with `df.to_csv(\"f.csv\")` and read back with `pd.read_csv(\"f.csv\")`. What is printed by this code?\n`df = pd.DataFrame({\"a\": [1, 2]})`\n`df.to_csv(\"pd_q1.csv\")`\n`r = pd.read_csv(\"pd_q1.csv\")`\n`print(r.columns.tolist(), r.shape)`",
+   "options": [
+    "['a'] (2, 1)",
+    "['Unnamed: 0', 'a'] (2, 2)",
+    "['index', 'a'] (2, 2)",
+    "['Unnamed: 0'] (2, 1)"
+   ],
+   "answer": 2,
+   "explanation": "By default `to_csv` writes the row index as the first, unnamed column. `read_csv` therefore finds a header that starts with an empty name and labels it Unnamed: 0, so there are 2 columns and 2 rows. Writing with `index=False` would avoid this. Output: ['Unnamed: 0', 'a'] (2, 2).",
+   "optionRationale": {
+    "1": "The row index was also written to the file, so it comes back as an extra column.",
+    "3": "The extra column is named Unnamed: 0, not index.",
+    "4": "Both the index column and a are read back."
+   },
+   "objective": "Predict the effect of exporting the index to CSV"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q17",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Assertion (A): After `d2 = df.rename(index={\"x\": \"p\"})`, the original DataFrame `df` still has the index label x.\nReason (R): rename() returns a new DataFrame unless inplace=True is given.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Without inplace=True, rename builds a changed copy and leaves the original alone. So df keeps x while d2 has p. Running the check prints ['x', 'y'] ['p', 'y'], confirming that the reason explains the assertion.",
+   "optionRationale": {
+    "2": "R is the direct reason df remains unchanged.",
+    "3": "R is true: rename returns a new object by default.",
+    "4": "A is true: df keeps the label x."
+   },
+   "objective": "Explain non-inplace rename behaviour"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q18",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "What is printed?\n`a = pd.Series([1, 2, 3], index=[\"x\", \"y\", \"z\"])`\n`b = pd.Series([10, 20], index=[\"y\", \"z\"])`\n`df = pd.DataFrame({\"A\": a, \"B\": b})`\n`print(df.shape, df[\"B\"].isnull().sum(), df.loc[\"z\", \"A\"] + df.loc[\"z\", \"B\"])`",
+   "options": [
+    "(2, 2) 0 23",
+    "(3, 2) 0 23",
+    "(3, 2) 1 3",
+    "(3, 2) 1 23.0"
+   ],
+   "answer": 4,
+   "explanation": "The index is the union of the labels, x, y, z, so there are 3 rows and 2 columns. B has no value for x, giving 1 NaN. For row z, A is 3 and B is 20, so the sum is 23. Output: (3, 2) 1 23.0.",
+   "optionRationale": {
+    "1": "The row index is the union x, y, z, so the frame has three rows.",
+    "2": "Label x has no entry in B, so column B has one missing value.",
+    "3": "Row z holds A = 3 and B = 20, whose sum is 23."
+   },
+   "objective": "Build a DataFrame from a dictionary of Series with unequal indexes"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q19",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "What is the output of this program?\n`s = pd.Series(3, index=list(\"abcd\"))`\n`t = pd.Series(np.array([1, 2, 3, 4]), index=list(\"abcd\"))`\n`print((s * t).tolist(), (t ** 2).sum())`",
+   "options": [
+    "[3, 6, 9, 12] 10",
+    "[3, 6, 9, 12] 30",
+    "[4, 5, 6, 7] 30",
+    "[3] 30"
+   ],
+   "answer": 2,
+   "explanation": "The scalar 3 is repeated for the labels a to d, so multiplying with the array-based Series gives 3, 6, 9, 12. Squaring t gives 1, 4, 9, 16, whose sum is 30. Output: [3, 6, 9, 12] 30.",
+   "optionRationale": {
+    "1": "The squares of 1 to 4 add to 30, not 10.",
+    "3": "Multiplication, not addition, is applied, so each result is 3 times the matching value.",
+    "4": "The scalar 3 is repeated for four labels, so the product has four elements."
+   },
+   "objective": "Combine scalar-created and array-created Series"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q20",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "A student writes `styled = df.style.format({\"price\": \"{:.2f}\"})`. What is the effect on the data in `df`?",
+   "options": [
+    "None; only the displayed form of the price column changes in the styled output",
+    "The price column in df is rounded to two decimals permanently",
+    "The column price is deleted from df",
+    "df is converted into a NumPy array"
+   ],
+   "answer": 1,
+   "explanation": "The `style` property returns a Styler that controls how values are displayed, for example the number of decimals. The DataFrame underneath keeps its original values and type, so formatting is purely visual. Checking the other options: Option 2: Styling affects only the rendering; the stored values are unchanged. Option 3: format does not delete anything. Option 4: style returns a Styler object, not an array, and df stays a DataFrame.",
+   "optionRationale": {
+    "2": "Styling affects only the rendering; the stored values are unchanged.",
+    "3": "format does not delete anything.",
+    "4": "style returns a Styler object, not an array, and df stays a DataFrame."
+   },
+   "objective": "Distinguish formatting for display from changing data"
+  },
+  {
+   "key": "ug26-308-r03-pandas-series-dataframe-q21",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which of these correctly describes a NumPy array compared with a Python list?",
+   "options": [
+    "A NumPy array can only hold text",
+    "A NumPy array has labelled rows like a DataFrame",
+    "A NumPy array is slower than a list for arithmetic",
+    "A NumPy array holds items of one data type and supports fast element-wise arithmetic"
+   ],
+   "answer": 4,
+   "explanation": "The ndarray is a homogeneous, fixed-type array optimised for numerical operations, so `arr * 2` multiplies every element at once. A plain list would repeat itself instead. Checking the other options: Option 1: NumPy arrays are mainly used for numbers. Option 2: Labels belong to Pandas structures, not to a basic array. Option 3: Arrays are designed to be much faster for numerical work.",
+   "optionRationale": {
+    "1": "NumPy arrays are mainly used for numbers.",
+    "2": "Labels belong to Pandas structures, not to a basic array.",
+    "3": "Arrays are designed to be much faster for numerical work."
+   },
+   "objective": "Recall the role of NumPy arrays"
+  }
+ ]
+}
