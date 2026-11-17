@@ -1,0 +1,814 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_9bf305f9aee04b4788835a091419c604",
+  "title": "Understanding Data"
+ },
+ "lesson": {
+  "key": "ug26-308-r15-understanding-data-statistics",
+  "title": "Understanding data: collection, mean, median, mode, range, variance and standard deviation",
+  "coverage": [
+   {
+    "phrase": "Data and its purpose",
+    "section": "Data and its purpose"
+   },
+   {
+    "phrase": "Data collection",
+    "section": "Collection and organisation of data"
+   },
+   {
+    "phrase": "Data organisation",
+    "section": "Collection and organisation of data"
+   },
+   {
+    "phrase": "Understanding data using statistical methods",
+    "section": "Measures of central tendency: mean, median, mode"
+   },
+   {
+    "phrase": "Mean",
+    "section": "Measures of central tendency: mean, median, mode"
+   },
+   {
+    "phrase": "Median",
+    "section": "Measures of central tendency: mean, median, mode"
+   },
+   {
+    "phrase": "Mode",
+    "section": "Measures of central tendency: mean, median, mode"
+   },
+   {
+    "phrase": "Measures of central tendency",
+    "section": "Measures of central tendency: mean, median, mode"
+   },
+   {
+    "phrase": "Measures of variability",
+    "section": "Measures of variability: range, variance, standard deviation"
+   },
+   {
+    "phrase": "Range",
+    "section": "Measures of variability: range, variance, standard deviation"
+   },
+   {
+    "phrase": "Standard deviation",
+    "section": "Measures of variability: range, variance, standard deviation"
+   },
+   {
+    "phrase": "Variance",
+    "section": "Measures of variability: range, variance, standard deviation"
+   },
+   {
+    "phrase": "Data interpretation",
+    "section": "Data interpretation"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Data and its purpose"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Data",
+    "text": "Raw facts, figures, measurements or observations (numbers, text, images, sounds) collected about people, things or events. On its own, data may not have a meaning."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Information",
+    "text": "Data that has been processed, organised and interpreted so that it becomes meaningful and useful for decisions."
+   },
+   {
+    "type": "TEXT",
+    "text": "For example, the numbers 45, 62, 78 are data. Once we know that they are the marks of three students and that the average is 61.67, they become information. **Purpose of data:** to understand the present situation, to find patterns and trends, to make decisions (a shop decides how much stock to order), to predict the future (weather forecasting), to measure performance and to plan and improve services."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Data is the raw input; information is the processed output that supports a decision."
+   },
+   {
+    "type": "HEADING",
+    "text": "Collection and organisation of data"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Data collection** means gathering facts about the topic being studied. Data may be **primary** (collected first-hand by the researcher for the purpose) or **secondary** (already collected by someone else, such as census reports or published statistics)."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Common methods of data collection",
+    "columns": [
+     "Method",
+     "Description",
+     "Example"
+    ],
+    "rows": [
+     [
+      "Survey or questionnaire",
+      "A set of questions given to many people",
+      "Asking students how many hours they study"
+     ],
+     [
+      "Interview",
+      "Direct question-and-answer conversation",
+      "Interviewing a shopkeeper about sales"
+     ],
+     [
+      "Observation",
+      "Watching and recording events as they happen",
+      "Counting vehicles at a crossing"
+     ],
+     [
+      "Sensors and devices",
+      "Automatic recording by instruments",
+      "Temperature sensors, GPS, smart watches"
+     ],
+     [
+      "Online forms and logs",
+      "Data entered by users or recorded by systems",
+      "Admission form, website visit records"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "**Organisation of data.** Raw data is arranged so that it can be read and analysed. We can list it in a table of rows (records) and columns (attributes), arrange it in ascending or descending order, group it into a **frequency table** that shows how many times each value occurs, or store it in a spreadsheet or database. Organised data can be shown in a bar chart, histogram, pie chart or line chart."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Frequency table of runs scored in 10 innings",
+    "columns": [
+     "Value $x$",
+     "Frequency $f$",
+     "$f\\times x$"
+    ],
+    "rows": [
+     [
+      "1",
+      "2",
+      "2"
+     ],
+     [
+      "2",
+      "3",
+      "6"
+     ],
+     [
+      "3",
+      "4",
+      "12"
+     ],
+     [
+      "4",
+      "1",
+      "4"
+     ],
+     [
+      "Total",
+      "10",
+      "24"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "For a frequency table, mean $=\\frac{\\sum fx}{\\sum f}=\\frac{24}{10}=2.4$."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Garbage in, garbage out: wrong, incomplete or biased data gives misleading results. Check the data for missing and impossible values before analysing it."
+   },
+   {
+    "type": "HEADING",
+    "text": "Measures of central tendency: mean, median, mode"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **measure of central tendency** is a single value that represents the centre or typical value of a data set. The three main ones are the mean, median and mode."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Mean (arithmetic average)",
+    "text": "The sum of all values divided by the number of values: $\\bar{x}=\\frac{\\sum x}{n}$. For a frequency table, $\\bar{x}=\\frac{\\sum fx}{\\sum f}$."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Median",
+    "text": "The middle value when the data is arranged in order. For an odd number $n$ of values it is the $\\frac{n+1}{2}$-th value; for an even $n$ it is the average of the $\\frac{n}{2}$-th and $\\left(\\frac{n}{2}+1\\right)$-th values."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Mode",
+    "text": "The value that occurs most often. A data set may have no mode, one mode, or more than one mode (bimodal, multimodal)."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Choosing a measure",
+    "columns": [
+     "Measure",
+     "Best used when",
+     "Effect of an extreme value (outlier)"
+    ],
+    "rows": [
+     [
+      "Mean",
+      "Data is numeric and fairly symmetrical",
+      "Strongly affected"
+     ],
+     [
+      "Median",
+      "Data has outliers or is skewed (for example incomes)",
+      "Hardly affected"
+     ],
+     [
+      "Mode",
+      "Most common category or value is needed, also for non-numeric data (most popular colour or shoe size)",
+      "Not affected"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Find the mean, median and mode of the marks [2, 4, 4, 4, 5, 5, 7, 9].",
+    "solution": "Sum = 2+4+4+4+5+5+7+9 = 40 and n = 8, so mean = 40/8 = 5.\n\nThe data is already in order. n is even, so the median is the average of the 4th and 5th values: (4 + 5)/2 = 4.5.\n\nThe value 4 appears three times, more than any other, so the mode is 4.",
+    "answer": "Mean = 5, median = 4.5, mode = 4."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Marks of five students are 20, 22, 24, 26 and 28. The last mark was entered wrongly and should be 128. Find the mean and median before and after the error is corrected to 128 (that is, compare the two lists).",
+    "solution": "List 1 (20,22,24,26,28): sum = 120, mean = 120/5 = 24; median = middle value = 24.\n\nList 2 (20,22,24,26,128): sum = 220, mean = 220/5 = 44; median = middle value = 24.\n\nThe mean changed from 24 to 44, but the median stayed 24.",
+    "answer": "Mean 24 to 44; median stays 24. The median is not affected by an outlier but the mean is."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Always sort the data before finding the median. For an even count, take the average of the two middle values; the median need not be a value in the data."
+   },
+   {
+    "type": "HEADING",
+    "text": "Measures of variability: range, variance, standard deviation"
+   },
+   {
+    "type": "TEXT",
+    "text": "Two classes can have the same mean and yet very different spreads of marks. **Measures of variability (dispersion)** tell how widely values are spread about the centre."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Range",
+    "text": "Largest value minus the smallest value: $\\text{Range}=x_{\\max}-x_{\\min}$. It is simple but depends only on the two extreme values."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Variance",
+    "text": "The average of the squared deviations of the values from the mean. For a population of $n$ values, $\\sigma^2=\\frac{\\sum (x-\\bar{x})^2}{n}$. For a sample, the divisor is $n-1$: $s^2=\\frac{\\sum (x-\\bar{x})^2}{n-1}$."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Standard deviation (SD)",
+    "text": "The positive square root of the variance, $\\sigma=\\sqrt{\\sigma^2}$. It has the same unit as the data. A small SD means the values are close to the mean; a large SD means they are widely spread."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Find the range, variance and standard deviation (treating the list as the whole population) for [2, 4, 4, 4, 5, 5, 7, 9].",
+    "solution": "Mean = 5. Deviations x - 5: -3, -1, -1, -1, 0, 0, 2, 4.\n\nSquares: 9, 1, 1, 1, 0, 0, 4, 16, which add up to 32.\n\nVariance = 32/8 = 4. Standard deviation = $\\sqrt{4}$ = 2.\n\nRange = 9 - 2 = 7.",
+    "answer": "Range = 7, variance = 4, SD = 2."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Adding the same number to every value changes the mean and median by that number but leaves the range, variance and SD unchanged. Multiplying every value by $k$ multiplies the mean and the SD by $k$ and the variance by $k^2$."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Population versus sample: Python numpy.std() divides by n by default, but the pandas methods var() and std() divide by n - 1 by default. For the same data, the two functions can give different answers. Use the divisor stated in the question."
+   },
+   {
+    "type": "TEXT",
+    "text": "In Python, the statistics module offers mean(), median(), mode(), pvariance() and pstdev() (population) and variance() and stdev() (sample)."
+   },
+   {
+    "type": "HEADING",
+    "text": "Data interpretation"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Data interpretation** means reading tables and charts to draw conclusions. Steps: (1) read the title, labels, units and scale; (2) identify the highest, lowest and any sudden change; (3) compare values or calculate averages, differences and percentages; (4) state a conclusion that the data supports."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Which chart for what",
+    "columns": [
+     "Chart",
+     "Best for"
+    ],
+    "rows": [
+     [
+      "Bar chart",
+      "Comparing categories"
+     ],
+     [
+      "Line chart",
+      "Changes over time (trend)"
+     ],
+     [
+      "Pie chart",
+      "Share of each part in a whole"
+     ],
+     [
+      "Histogram",
+      "Distribution of a numeric variable in intervals"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Mean marks of 10 students is 60 and mean marks of 15 other students is 80. Find the mean of all 25 students.",
+    "solution": "Total of the first group = 10 x 60 = 600. Total of the second group = 15 x 80 = 1200.\n\nCombined total = 1800 for 25 students, so mean = 1800/25 = 72.\n\nNote that the simple average of 60 and 80 (which is 70) is wrong because the groups have different sizes.",
+    "answer": "Combined mean = 72."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "A conclusion must be supported by the data. A rise in two quantities together (such as ice cream sales and swimming accidents) does not prove that one causes the other."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which term describes raw facts and figures that have not yet been processed?",
+   "options": [
+    "Information",
+    "Data",
+    "Knowledge base",
+    "Report"
+   ],
+   "answer": 2,
+   "explanation": "Data are raw, unprocessed facts such as numbers or text. When data is organised and interpreted so that it becomes meaningful, it is called information. For example, the numbers 45, 62 and 78 are data, but \"the average mark of the class is 61.67\" is information.",
+   "optionRationale": {
+    "1": "Information is processed data.",
+    "3": "A knowledge base is a collection of information used for answers; it is not raw facts.",
+    "4": "A report is an organised presentation of processed results."
+   },
+   "objective": "Distinguish data from information"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The mean of 4, 8, 6, 10 and 12 is",
+   "options": [
+    "6",
+    "10",
+    "40",
+    "8"
+   ],
+   "answer": 4,
+   "explanation": "The sum is 4+8+6+10+12=40 and there are 5 values, so the mean is 40/5=8. The median is also 8 for this symmetrical list. Mean is also called the arithmetic average, and it is the value each item would have if the total were shared equally.",
+   "optionRationale": {
+    "1": "6 is not the average; it is one of the values.",
+    "2": "10 would be the mean if the sum were 50.",
+    "3": "40 is the total, not the mean."
+   },
+   "objective": "Compute the mean"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The median of [7, 3, 9, 5, 1] is",
+   "options": [
+    "5",
+    "7",
+    "3",
+    "25"
+   ],
+   "answer": 1,
+   "explanation": "Arrange in order: 1, 3, 5, 7, 9. There are 5 values, so the median is the 3rd value, which is 5. Taking the middle value in the unsorted order (9) would be a mistake.",
+   "optionRationale": {
+    "2": "7 is the 4th value of the sorted list.",
+    "3": "3 is the 2nd value of the sorted list.",
+    "4": "25 is the sum of the values."
+   },
+   "objective": "Find the median of an odd-sized data set"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "The mode of the data 3, 5, 5, 6, 7, 5, 8 is",
+   "options": [
+    "6",
+    "3",
+    "5",
+    "8"
+   ],
+   "answer": 3,
+   "explanation": "The value 5 occurs three times, more than any other value, so the mode is 5. The mean is (3+5+5+6+7+5+8)/7=39/7 and not equal to the mode. A data set may also have two modes or none, but here the single most frequent value is clearly 5.",
+   "optionRationale": {
+    "1": "6 occurs only once.",
+    "2": "3 occurs only once.",
+    "4": "8 occurs only once."
+   },
+   "objective": "Find the mode"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which of the following is secondary data?",
+   "options": [
+    "Marks that a teacher records during her own class test",
+    "Readings from a temperature sensor that you installed",
+    "Answers collected by you in an interview",
+    "Population figures taken from a published census report"
+   ],
+   "answer": 4,
+   "explanation": "Secondary data is data that someone else has already collected and published, such as census statistics. The other three are collected first-hand by the user, so they are primary data. Data collected directly by the user, for example through a survey, interview or sensor, is primary data instead.",
+   "optionRationale": {
+    "1": "The teacher collects this directly, so it is primary.",
+    "2": "Your own sensor readings are primary data.",
+    "3": "Your own interviews give primary data."
+   },
+   "objective": "Identify secondary data"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The range of the data 14, 9, 21, 17, 6, 12 is",
+   "options": [
+    "21",
+    "15",
+    "6",
+    "27"
+   ],
+   "answer": 2,
+   "explanation": "Range = largest value - smallest value = 21 - 6 = 15. It depends only on the two extreme values and does not change if the middle values change. Notice that adding values in the middle of the list would not change the range, which is why range is a rough measure of spread.",
+   "optionRationale": {
+    "1": "21 is only the maximum value.",
+    "3": "6 is only the minimum value.",
+    "4": "27 is the sum of the largest and the smallest values, not their difference."
+   },
+   "objective": "Compute the range"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The median of the even-sized data [2, 4, 4, 4, 5, 5, 7, 9] is",
+   "options": [
+    "4",
+    "5",
+    "4.5",
+    "4.4"
+   ],
+   "answer": 3,
+   "explanation": "The data is already sorted and has 8 values, so the median is the average of the 4th and 5th values: (4+5)/2=4.5. The mode is 4 and the mean is 5. Do not pick just one of the middle values, and do not forget to sort the data first when the list is not in order.",
+   "optionRationale": {
+    "1": "4 is the mode and also the 4th value only.",
+    "2": "5 is the mean and also the 5th value only.",
+    "4": "4.4 has no basis; the average of the two middle values is exactly 4.5."
+   },
+   "objective": "Find the median of an even-sized data set"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The mean of 5 numbers is 12. Four of them are 8, 10, 12 and 16. The fifth number is",
+   "options": [
+    "14",
+    "12",
+    "10",
+    "16"
+   ],
+   "answer": 1,
+   "explanation": "Total of 5 numbers = 5 x 12 = 60. The four given add up to 8+10+12+16=46. The fifth number is 60 - 46 = 14. We can check: 8+10+12+16+14=60 and 60/5=12, so the mean matches the given value.",
+   "optionRationale": {
+    "2": "12 would make the sum 58, so the mean would be 11.6.",
+    "3": "10 would give a sum 56.",
+    "4": "16 would give a sum 62."
+   },
+   "objective": "Find a missing value from the mean"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The mean marks of 10 students is 60 and that of 15 other students is 80. The mean of all 25 students is",
+   "options": [
+    "72",
+    "70",
+    "75",
+    "68"
+   ],
+   "answer": 1,
+   "explanation": "Combined mean = (10x60 + 15x80)/25 = (600+1200)/25 = 1800/25 = 72. A simple average 70 would be right only if both groups had the same size. This is called a weighted mean, because each group mean is weighted by the number of students in the group.",
+   "optionRationale": {
+    "2": "70 is the simple average of 60 and 80 and ignores group sizes.",
+    "3": "75 is not supported by the weighted total 1800.",
+    "4": "68 is below the weighted result since more students are from the group with the higher mean."
+   },
+   "objective": "Find a combined mean"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which measure of central tendency is least affected by one very large extreme value in the data?",
+   "options": [
+    "Mean",
+    "Range",
+    "Median",
+    "Variance"
+   ],
+   "answer": 3,
+   "explanation": "The median depends only on the middle position in the sorted data, so a single extreme value does not change it much. The mean uses every value and shifts towards an outlier. The range and variance are measures of spread, not central tendency.",
+   "optionRationale": {
+    "1": "The mean changes a lot when an outlier is present.",
+    "2": "Range is a measure of variability, and it would increase a lot.",
+    "4": "Variance is a measure of variability and it would increase a lot."
+   },
+   "objective": "Choose a robust measure of centre"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q11",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Two classes have the same mean mark, 60. The standard deviation of class A is 4 and of class B is 15. Which statement is correct?",
+   "options": [
+    "Marks in class B are closer to the mean than marks in class A.",
+    "Marks in class A are closer to the mean than marks in class B.",
+    "Class A has a higher mean than class B.",
+    "Both classes have identical mark distributions."
+   ],
+   "answer": 2,
+   "explanation": "A smaller standard deviation means that the values cluster closely around the mean. So class A, with SD 4, has marks nearer 60 than class B, with SD 15. The means are equal and the distributions are different.",
+   "optionRationale": {
+    "1": "It is class A, with the smaller SD, whose marks are closer to the mean.",
+    "3": "The means are equal.",
+    "4": "Different SDs show the distributions are not identical."
+   },
+   "objective": "Interpret standard deviation"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which chart is most suitable for showing how a school monthly attendance changes over twelve months?",
+   "options": [
+    "Pie chart",
+    "Histogram of names",
+    "Table of means only",
+    "Line chart"
+   ],
+   "answer": 4,
+   "explanation": "A line chart joins values over time and makes an upward or downward trend easy to see. A pie chart shows shares of a whole at a single moment and is not suited to monthly trends.",
+   "optionRationale": {
+    "1": "A pie chart shows parts of a whole and not a change over time.",
+    "2": "A histogram is for distributions in intervals and names are not numeric.",
+    "3": "A table of means hides month-wise changes."
+   },
+   "objective": "Choose a chart to show a trend"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "The variance (treating the data as a whole population) of [2, 4, 4, 4, 5, 5, 7, 9] is",
+   "options": [
+    "5",
+    "32",
+    "4",
+    "8"
+   ],
+   "answer": 3,
+   "explanation": "The mean is 5. The squared deviations are 9,1,1,1,0,0,4,16, adding to 32. Population variance = 32/8 = 4. The value 32 is the sum of squares and 5 is the mean. The sum of squares is 32 and the population divisor is n = 8, not n - 1 = 7, because the question treats the data as the full population.",
+   "optionRationale": {
+    "1": "5 is the mean of the data.",
+    "2": "32 is the sum of squared deviations before dividing.",
+    "4": "8 is the number of values, not the variance."
+   },
+   "objective": "Compute population variance"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "For the data [2, 4, 4, 4, 5, 5, 7, 9], the sample standard deviation (divisor n - 1), correct to two decimal places, is",
+   "options": [
+    "2.14",
+    "2",
+    "4.57",
+    "5.66"
+   ],
+   "answer": 1,
+   "explanation": "The sum of squared deviations is 32. Sample variance = 32/(8-1) = 32/7 = 4.571, so sample SD = $\\sqrt{4.571}$ = 2.14 (to 2 decimal places). The population SD, with divisor 8, is 2.",
+   "optionRationale": {
+    "2": "2 is the population standard deviation (divisor n).",
+    "3": "4.57 is the sample variance 32/7, before taking the square root.",
+    "4": "5.66 is the square root of 32, which forgets to divide by n - 1 first."
+   },
+   "objective": "Compute sample standard deviation"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Every value in a data set is increased by 10. Which statement is correct?",
+   "options": [
+    "The mean and the standard deviation both increase by 10.",
+    "The mean stays the same and the standard deviation increases by 10.",
+    "The mean and the standard deviation both stay the same.",
+    "The mean increases by 10 and the standard deviation stays the same."
+   ],
+   "answer": 4,
+   "explanation": "Adding a constant shifts all values the same amount, so their average also shifts by 10. The distances of the values from the mean, and so the variance and SD, do not change.",
+   "optionRationale": {
+    "1": "The SD depends on distances from the mean, which are unchanged.",
+    "2": "The mean is shifted by 10.",
+    "3": "The mean does change."
+   },
+   "objective": "Effect of shifting data on mean and SD"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q16",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Every value in a data set is multiplied by 3. The standard deviation was 2 before. The new variance is",
+   "options": [
+    "6",
+    "36",
+    "18",
+    "12"
+   ],
+   "answer": 2,
+   "explanation": "Multiplying all values by $k$ multiplies the SD by $|k|$. New SD = 3 x 2 = 6, so the new variance = $6^2$ = 36. Equivalently the variance is multiplied by $k^2=9$, and 4 x 9 = 36.",
+   "optionRationale": {
+    "1": "6 is the new standard deviation, not the variance.",
+    "3": "18 is 9 x 2, mixing up variance and SD.",
+    "4": "12 is 3 x 4, which forgets that the variance is multiplied by 9."
+   },
+   "objective": "Effect of scaling on variance"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q17",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Statements:\nA. The sum of deviations of all values from their mean is zero.\nB. The mode must always be a value present in the data.\nC. The standard deviation can be negative.\nD. The median of an even number of values is always one of the data values.\nWhich are correct?",
+   "options": [
+    "A and C only",
+    "A and B only",
+    "B and D only",
+    "A, B and D only"
+   ],
+   "answer": 2,
+   "explanation": "A is true because positives and negatives cancel around the mean. B is true: the mode is the most frequent value so it must occur. C is false since SD is the positive square root. D is false: median of 4 and 5 is 4.5. So only A and B.",
+   "optionRationale": {
+    "1": "C is false.",
+    "3": "C and D are both false.",
+    "4": "D is false, as in the median 4.5 of 4 and 5."
+   },
+   "objective": "Judge statements on statistics"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q18",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Python code:\n\nimport statistics\nd = [10, 20, 30, 40, 100]\nprint(statistics.mean(d), statistics.median(d))\n\nWhat is printed?",
+   "options": [
+    "30 40",
+    "30 30",
+    "100 30",
+    "40 30"
+   ],
+   "answer": 4,
+   "explanation": "The sum is 10+20+30+40+100 = 200 for five values, so the mean is 40. Sorted, the middle (3rd) value is 30, which is the median. The outlier 100 pulls the mean above the median, so print shows the mean first and then the median: 40 30.",
+   "optionRationale": {
+    "1": "The order is mean then median, not the reverse.",
+    "2": "The mean is affected by 100 and is not 30.",
+    "3": "100 is the maximum value, not the mean."
+   },
+   "objective": "Trace statistics module output"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q19",
+   "type": "ASSERTION_REASON",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The median is a better measure than the mean for the incomes of the people of a town where a few people are extremely rich.\nReason (R): The median is not affected much by extreme values.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "A few very high incomes pull the mean upwards and make it unrepresentative, whereas the median stays near the middle of the data. Hence the reason explains why the median is better here.",
+   "optionRationale": {
+    "2": "R is the explanation for A.",
+    "3": "R is true, so R false is wrong.",
+    "4": "A is true, so A false is wrong."
+   },
+   "objective": "Choose the median in skewed data"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q20",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The standard deviation of a data set can never be negative.\nReason (R): The standard deviation is the positive square root of the variance.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Variance is an average of squares and is never negative, and the standard deviation is defined as its positive square root, so it cannot be negative. The reason is the definition that explains the assertion.",
+   "optionRationale": {
+    "2": "R is the exact reason.",
+    "3": "R is true.",
+    "4": "A is true."
+   },
+   "objective": "Explain why SD is non-negative"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q21",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Two data sets with the same mean must have the same standard deviation.\nReason (R): The standard deviation measures the spread of values about the mean.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "The assertion is false: sets such as 50, 50, 50 and 10, 50, 90 have the same mean 50 but different spread (SD 0 and about 32.7). The reason is a correct description of SD. Hence A is false and R is true.",
+   "optionRationale": {
+    "1": "A is false.",
+    "2": "A is false.",
+    "3": "A is false."
+   },
+   "objective": "Show that equal means can have unequal spread"
+  },
+  {
+   "key": "ug26-308-r15-understanding-data-statistics-q22",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Match each measure in List-I (for the data 1, 1, 2, 4, 5, 11) with its value in List-II.",
+   "options": [
+    "A-II, B-III, C-I, D-IV",
+    "A-III, B-II, C-I, D-IV",
+    "A-III, B-II, C-IV, D-I",
+    "A-I, B-II, C-III, D-IV"
+   ],
+   "answer": 2,
+   "explanation": "Sum = 24 and n = 6, so the mean is 4 (III). The sorted data has 6 values and the median is (2+4)/2 = 3 (II). The value 1 occurs twice, so the mode is 1 (I). Range = 11 - 1 = 10 (IV). Hence A-III, B-II, C-I, D-IV.",
+   "optionRationale": {
+    "1": "This swaps mean and median.",
+    "3": "This swaps mode and range.",
+    "4": "This gives the mean as 1 and the mode as 4, which is wrong."
+   },
+   "objective": "Match measures with their values",
+   "list": {
+    "left": [
+     "A. Mean",
+     "B. Median",
+     "C. Mode",
+     "D. Range"
+    ],
+    "right": [
+     "I. 1",
+     "II. 3",
+     "III. 4",
+     "IV. 10"
+    ]
+   }
+  }
+ ]
+}

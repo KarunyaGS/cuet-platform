@@ -1,0 +1,597 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_90f96c7711a540ffa597cc507a98e857",
+    "title": "Applications of the Integrals"
+  },
+  "lesson": {
+    "key": "ug26-319-r23-applications-of-the-integrals",
+    "title": "Applications of integrals: area under curves, lines, circles, parabolas and ellipses",
+    "coverage": [
+      {
+        "phrase": "Applications of the Integrals: finding the area under simple curves, especially lines",
+        "section": "Area under a curve"
+      },
+      {
+        "phrase": "lines",
+        "section": "Areas bounded by lines"
+      },
+      {
+        "phrase": "circles",
+        "section": "Areas involving circles"
+      },
+      {
+        "phrase": "parabolas",
+        "section": "Areas involving parabolas"
+      },
+      {
+        "phrase": "ellipses (in standard form only)",
+        "section": "Areas involving ellipses"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Area under a curve"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Area under a curve",
+        "text": "For a continuous function $f$ with $f(x)\\ge0$ on $[a,b]$, the **area under the curve** is the area of the region bounded by $y=f(x)$, the $x$-axis and the vertical lines $x=a$ and $x=b$. It is measured in square units and equals the definite integral $\\int_a^bf(x)\\,dx$."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "The definite integral measures area. For a continuous function $y=f(x)\\ge0$ on $[a,b]$, the area of the region bounded by the curve, the $x$-axis and the lines $x=a$, $x=b$ is the limit of sums of thin rectangles of width $dx$ and height $y$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "A=\\int_a^b y\\,dx=\\int_a^b f(x)\\,dx",
+        "text": "Valid when $f(x)\\ge0$ on $[a,b]$. Each strip has area $y\\,dx$; the integral adds all strips. For a region between the curve and the $y$-axis, with $x=g(y)\\ge0$ between $y=c$ and $y=d$, use $A=\\int_c^d x\\,dy$."
+      },
+      {
+        "type": "TEXT",
+        "text": "If the curve lies **below** the $x$-axis ($f(x)\\le0$), the integral is negative, but an area cannot be negative. So the area is $\\left|\\int_a^bf(x)\\,dx\\right|$. If the curve crosses the axis in $[a,b]$, split the interval at each crossing, find each piece's area with its own sign made positive, and add."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistake: using $\\int_0^{2\\pi}\\sin x\\,dx$ as the area. It equals $0$ because the positive and negative parts cancel. The actual area is $2\\int_0^\\pi\\sin x\\,dx=4$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "A=\\int_a^b\\left[f(x)-g(x)\\right]dx\\quad\\text{where }f(x)\\ge g(x)\\text{ on }[a,b]",
+        "text": "Area between two curves: upper curve minus lower curve. The limits are the $x$-coordinates of the intersection points, found by solving $f(x)=g(x)$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Areas bounded by lines"
+      },
+      {
+        "type": "TEXT",
+        "text": "For straight lines, the region is usually a triangle or trapezium, and integration agrees with the elementary formulas. This is a good check of the method."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the area bounded by the line $y=2x$, the $x$-axis and the line $x=3$.",
+        "solution": "$A=\\int_0^3 2x\\,dx=\\left[x^2\\right]_0^3=9$. Check with geometry: the triangle has base $3$ and height $y(3)=6$, so area $=\\tfrac12\\cdot3\\cdot6=9$.",
+        "answer": "$9$ square units"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the area enclosed between the line $y=2$ and the graph of $y=|x|$.",
+        "solution": "The graphs meet where $|x|=2$, i.e. $x=\\pm2$. The region lies between $y=|x|$ (below) and $y=2$ (above). By symmetry about the $y$-axis, $A=2\\int_0^2(2-x)\\,dx=2\\left[2x-\\dfrac{x^2}2\\right]_0^2=2(4-2)=4$. Geometry check: a triangle of base $4$ and height $2$ has area $\\tfrac12\\cdot4\\cdot2=4$.",
+        "answer": "$4$ square units"
+      },
+      {
+        "type": "HEADING",
+        "text": "Areas involving parabolas"
+      },
+      {
+        "type": "TEXT",
+        "text": "Standard parabolas are $y^2=4ax$ (opening right, symmetric about the $x$-axis) and $x^2=4ay$ (opening up, symmetric about the $y$-axis). For $y^2=4ax$, the upper half is $y=2\\sqrt a\\,\\sqrt x$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{Area between }y^2=4ax\\text{ and its latus rectum }x=a:\\quad A=2\\int_0^a2\\sqrt{a}\\sqrt{x}\\,dx=\\frac{8a^2}{3}",
+        "text": "The region is symmetric about the $x$-axis, so double the upper half."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{Area between }y^2=4ax\\text{ and }x^2=4ay:\\quad A=\\frac{16a^2}{3}",
+        "text": "The curves meet at $(0,0)$ and $(4a,4a)$. Area $=\\int_0^{4a}\\left(2\\sqrt{ax}-\\dfrac{x^2}{4a}\\right)dx$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the area bounded by the parabolas $y^2=4x$ and $x^2=4y$.",
+        "solution": "Here $a=1$. Solve $y^2=4x$ and $x^2=4y$: from the second, $y=\\dfrac{x^2}4$, so $\\dfrac{x^4}{16}=4x$, giving $x=0$ or $x^3=64$, $x=4$. The points are $(0,0)$ and $(4,4)$. For $0\\le x\\le4$ the upper curve is $y=2\\sqrt x$ and the lower is $y=\\dfrac{x^2}4$. $A=\\int_0^4\\left(2\\sqrt x-\\dfrac{x^2}4\\right)dx=\\left[\\dfrac43x^{3/2}-\\dfrac{x^3}{12}\\right]_0^4=\\dfrac{32}3-\\dfrac{16}3=\\dfrac{16}3$.",
+        "answer": "$\\dfrac{16}3$ square units"
+      },
+      {
+        "type": "HEADING",
+        "text": "Areas involving circles"
+      },
+      {
+        "type": "TEXT",
+        "text": "For a circle $x^2+y^2=r^2$, the upper half is $y=\\sqrt{r^2-x^2}$, and the full area is $\\pi r^2$. A quadrant has area $\\dfrac{\\pi r^2}4$. Integration uses $\\displaystyle\\int\\sqrt{r^2-x^2}\\,dx=\\dfrac x2\\sqrt{r^2-x^2}+\\dfrac{r^2}2\\sin^{-1}\\dfrac xr$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "A_{\\text{first quadrant}}=\\int_0^r\\sqrt{r^2-x^2}\\,dx=\\frac{\\pi r^2}{4}",
+        "text": "Since $\\sin^{-1}1=\\tfrac\\pi2$, the term $\\tfrac{r^2}{2}\\cdot\\tfrac\\pi2$ remains and the other term vanishes at both limits."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the area of the smaller region cut off from the circle $x^2+y^2=4$ by the line $x=1$.",
+        "solution": "The region is $1\\le x\\le2$ between $y=\\pm\\sqrt{4-x^2}$. $A=2\\int_1^2\\sqrt{4-x^2}\\,dx=2\\left[\\dfrac x2\\sqrt{4-x^2}+2\\sin^{-1}\\dfrac x2\\right]_1^2$. At $x=2$: $0+2\\cdot\\dfrac\\pi2=\\pi$. At $x=1$: $\\dfrac{\\sqrt3}2+2\\cdot\\dfrac\\pi6=\\dfrac{\\sqrt3}2+\\dfrac\\pi3$. So $A=2\\left(\\pi-\\dfrac{\\sqrt3}2-\\dfrac\\pi3\\right)=\\dfrac{4\\pi}3-\\sqrt3$. Check: sector with angle $120^\\circ$ has area $\\tfrac12\\cdot4\\cdot\\tfrac{2\\pi}3=\\tfrac{4\\pi}3$, and the triangle removed has area $\\tfrac12\\cdot4\\sin120^\\circ=\\sqrt3$.",
+        "answer": "$\\dfrac{4\\pi}3-\\sqrt3\\approx2.457$ square units"
+      },
+      {
+        "type": "HEADING",
+        "text": "Areas involving ellipses"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{Ellipse }\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1:\\quad A=4\\int_0^a\\frac ba\\sqrt{a^2-x^2}\\,dx=\\pi ab",
+        "text": "The first-quadrant part is $\\tfrac ba\\int_0^a\\sqrt{a^2-x^2}dx=\\tfrac ba\\cdot\\tfrac{\\pi a^2}4=\\tfrac{\\pi ab}4$; multiply by $4$. Semi-axes are $a$ and $b$. For $a=b=r$ it gives the circle area $\\pi r^2$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the area enclosed by the ellipse $4x^2+9y^2=36$.",
+        "solution": "Divide both sides of $4x^2+9y^2=36$ by $36$ to reach the standard form $\\dfrac{x^2}9+\\dfrac{y^2}4=1$. Comparing with $\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}=1$ gives the semi-axes $a=3$ and $b=2$. The area of the ellipse is therefore $\\pi ab=\\pi\\times3\\times2=6\\pi$.",
+        "answer": "$6\\pi$ square units"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Area formulas: under a curve $\\int_a^by\\,dx$ (take the modulus if it is below the axis); between curves $\\int(\\text{upper}-\\text{lower})\\,dx$; circle $\\pi r^2$; ellipse $\\pi ab$; parabola $y^2=4ax$ cut by $x=a$: $\\dfrac{8a^2}3$; two parabolas $y^2=4ax$, $x^2=4ay$: $\\dfrac{16a^2}3$."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Steps: (1) sketch, (2) find intersection points, (3) decide which curve is upper (or right), (4) set up $\\int(\\text{upper}-\\text{lower})$, (5) integrate and give the answer in square units, positive."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Use symmetry to halve the work: a region symmetric about an axis is twice the area on one side. Also check an area against simple geometry (triangle, quadrant of a circle) where one is available."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The area bounded by the line $y=x$, the $x$-axis and the line $x=4$ is",
+      "options": [
+        "$8$ square units",
+        "$16$ square units",
+        "$4$ square units",
+        "$12$ square units"
+      ],
+      "answer": 1,
+      "explanation": "$A=\\int_0^4x\\,dx=\\left[\\dfrac{x^2}2\\right]_0^4=\\dfrac{16}2=8$. This matches the right triangle with base $4$ and height $4$: $\\tfrac12\\cdot4\\cdot4=8$.",
+      "optionRationale": {
+        "2": "This is the square of the base; the triangle has half of base times height, 1/2 x 4 x 4.",
+        "3": "This is the value of x at the end, not the area under y = x.",
+        "4": "This does not correspond to the integral of x from 0 to 4."
+      },
+      "objective": "Find the area under a line using integration"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The area enclosed by the circle $x^2+y^2=16$ is",
+      "options": [
+        "$4\\pi$ square units",
+        "$16\\pi$ square units",
+        "$8\\pi$ square units",
+        "$32\\pi$ square units"
+      ],
+      "answer": 2,
+      "explanation": "The circle $x^2+y^2=16$ has radius $r=4$. Its area is $\\pi r^2=16\\pi$ square units. By integration, $4\\int_0^4\\sqrt{16-x^2}\\,dx=4\\cdot\\dfrac{\\pi\\cdot16}4=16\\pi$.",
+      "optionRationale": {
+        "1": "This uses r = 2 or pi times r, not pi r squared with r = 4.",
+        "3": "This is the circumference 2 pi r, not the area.",
+        "4": "This is twice the correct area (2 pi r squared)."
+      },
+      "objective": "Find the area of a circle in standard form"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The area enclosed by the ellipse $\\dfrac{x^2}9+\\dfrac{y^2}4=1$ is",
+      "options": [
+        "$36\\pi$ square units",
+        "$5\\pi$ square units",
+        "$6\\pi$ square units",
+        "$13\\pi$ square units"
+      ],
+      "answer": 3,
+      "explanation": "Here $a^2=9$ and $b^2=4$, so the semi-axes are $a=3$ and $b=2$. The area of an ellipse is $\\pi ab=\\pi\\times3\\times2=6\\pi$ square units.",
+      "optionRationale": {
+        "1": "This uses a squared times b squared = 9 x 4; the area is pi a b.",
+        "2": "This adds the semi-axes a + b = 5 instead of multiplying them.",
+        "4": "This adds the squares 9 + 4; the formula is pi times a times b."
+      },
+      "objective": "Find the area of an ellipse"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The area of the region bounded by $y=2x$, the $x$-axis and the line $x=3$ is",
+      "options": [
+        "$18$ square units",
+        "$6$ square units",
+        "$3$ square units",
+        "$9$ square units"
+      ],
+      "answer": 4,
+      "explanation": "$A=\\int_0^32x\\,dx=\\left[x^2\\right]_0^3=9$. As a check, the triangle has base $3$ and height $6$, so the area is $\\tfrac12\\cdot3\\cdot6=9$.",
+      "optionRationale": {
+        "1": "This is base times height (3 x 6) without the factor 1/2 (the integral of 2x gives x squared).",
+        "2": "This is the height y(3) = 6, not the area.",
+        "3": "This is the length of the base, not the area."
+      },
+      "objective": "Area under a straight line using a definite integral"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The area of the region bounded by $y=x^2$, the $x$-axis and the lines $x=0$ and $x=3$ is",
+      "options": [
+        "$9$ square units",
+        "$27$ square units",
+        "$3$ square units",
+        "$\\dfrac92$ square units"
+      ],
+      "answer": 1,
+      "explanation": "The curve $y=x^2$ lies above the $x$-axis on $[0,3]$, so the area is the definite integral of $y$. $A=\\int_0^3x^2\\,dx=\\left[\\dfrac{x^3}3\\right]_0^3=\\dfrac{27}3-0=9$ square units, since an antiderivative of $x^2$ is $\\dfrac{x^3}3$.",
+      "optionRationale": {
+        "2": "This is the value of x cubed at 3, forgetting to divide by 3.",
+        "3": "This is the base length; the integral of x squared is x cubed / 3.",
+        "4": "This would result from integrating x to get x squared / 2 at 3."
+      },
+      "objective": "Compute the area under a parabola y = x squared"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The area bounded by the parabola $y^2=4x$ and the line $x=1$ is",
+      "options": [
+        "$\\dfrac43$ square units",
+        "$\\dfrac83$ square units",
+        "$4$ square units",
+        "$\\dfrac{16}3$ square units"
+      ],
+      "answer": 2,
+      "explanation": "The upper half is $y=2\\sqrt x$. Total area $=2\\int_0^12\\sqrt x\\,dx=4\\left[\\dfrac23x^{3/2}\\right]_0^1=\\dfrac83$. This agrees with the formula $\\dfrac{8a^2}3$ with $a=1$.",
+      "optionRationale": {
+        "1": "This is only the upper half of the region; the region is symmetric about the x-axis and must be doubled.",
+        "3": "This is the area of the rectangle between x = 0 and x = 1 for y from -2 to 2, not the parabolic region.",
+        "4": "This is double the correct area."
+      },
+      "objective": "Find the area cut off from a parabola by its latus rectum"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The area enclosed between the curves $y=x$ and $y=x^2$ is",
+      "options": [
+        "$\\dfrac12$ square units",
+        "$\\dfrac13$ square units",
+        "$\\dfrac16$ square units",
+        "$\\dfrac56$ square units"
+      ],
+      "answer": 3,
+      "explanation": "Solve $x=x^2$: $x=0$ or $x=1$. On $[0,1]$ the line $y=x$ is above $y=x^2$. $A=\\int_0^1(x-x^2)\\,dx=\\dfrac12-\\dfrac13=\\dfrac16$.",
+      "optionRationale": {
+        "1": "This is the area under the line y = x alone from 0 to 1; the area under y = x squared must be subtracted.",
+        "2": "This is the area under y = x squared alone from 0 to 1.",
+        "4": "This adds the two areas (1/2 + 1/3) instead of subtracting."
+      },
+      "objective": "Find the area between a line and a parabola"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The area of the region of the circle $x^2+y^2=25$ lying in the first quadrant is",
+      "options": [
+        "$25\\pi$ square units",
+        "$\\dfrac{25\\pi}2$ square units",
+        "$\\dfrac{5\\pi}4$ square units",
+        "$\\dfrac{25\\pi}4$ square units"
+      ],
+      "answer": 4,
+      "explanation": "$A=\\int_0^5\\sqrt{25-x^2}\\,dx=\\left[\\dfrac x2\\sqrt{25-x^2}+\\dfrac{25}2\\sin^{-1}\\dfrac x5\\right]_0^5=\\dfrac{25}2\\cdot\\dfrac\\pi2=\\dfrac{25\\pi}4$, which is one quarter of $25\\pi$.",
+      "optionRationale": {
+        "1": "This is the area of the whole circle.",
+        "2": "This is the area of the semicircle, not a quadrant.",
+        "3": "This uses r = 5 instead of r squared = 25 in pi r squared / 4."
+      },
+      "objective": "Find the area of a quadrant of a circle"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The area of the part of the ellipse $\\dfrac{x^2}{16}+\\dfrac{y^2}9=1$ in the first quadrant is",
+      "options": [
+        "$3\\pi$ square units",
+        "$12\\pi$ square units",
+        "$6\\pi$ square units",
+        "$\\dfrac{3\\pi}2$ square units"
+      ],
+      "answer": 1,
+      "explanation": "Here $a=4$ and $b=3$, so the whole ellipse has area $\\pi ab=12\\pi$. By symmetry, the first-quadrant part is one quarter: $\\dfrac{12\\pi}4=3\\pi$.",
+      "optionRationale": {
+        "2": "This is the area of the whole ellipse, pi x 4 x 3.",
+        "3": "This is the area of half of the ellipse.",
+        "4": "This is one eighth of the ellipse, not one quarter."
+      },
+      "objective": "Use symmetry to find a quadrant of an ellipse"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Parabola and a slanted line: The area enclosed between the parabola $y^2=4x$ and the line $y=x$ is",
+      "options": [
+        "$\\dfrac{16}3$ square units",
+        "$\\dfrac83$ square units",
+        "$8$ square units",
+        "$\\dfrac{32}3$ square units"
+      ],
+      "answer": 2,
+      "explanation": "Solve $y^2=4x$ with $y=x$: $x^2=4x$, so $x=0$ or $x=4$. For $0\\le x\\le4$ the parabola $y=2\\sqrt x$ is above the line. $A=\\int_0^4(2\\sqrt x-x)\\,dx=\\left[\\dfrac43x^{3/2}-\\dfrac{x^2}2\\right]_0^4=\\dfrac{32}3-8=\\dfrac83$.",
+      "optionRationale": {
+        "1": "This is the area between the two parabolas y squared = 4x and x squared = 4y, not between a parabola and the line y = x.",
+        "3": "This is the area of the triangle under y = x from 0 to 4, not the enclosed region.",
+        "4": "This is the area under the parabola alone from 0 to 4 (2 x 2 x 8 / 3), without subtracting the line."
+      },
+      "objective": "Find the area between a parabola and a line"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q11",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The area bounded by $y=x^3$, the $x$-axis and the lines $x=-1$ and $x=1$ is $0$.\nReason (R): $\\displaystyle\\int_{-1}^{1}x^3\\,dx=0$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "R is true, since $x^3$ is odd. But area is never negative, so cancellation of the positive and negative parts does not mean zero area. The true area is $2\\int_0^1x^3dx=\\dfrac24=\\dfrac12$. So A is false and R is true.",
+      "optionRationale": {
+        "1": "A is false, so R cannot be its explanation: the integral being zero does not make the area zero.",
+        "2": "A is false: the area is 1/2.",
+        "3": "R is true: x cubed is odd."
+      },
+      "objective": "Distinguish a definite integral from the area"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q12",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about area using integration.\nA. For $f(x)\\ge0$ on $[a,b]$, the area under the curve is $\\int_a^bf(x)\\,dx$.\nB. If the curve lies below the $x$-axis, the area is $\\left|\\int_a^bf(x)\\,dx\\right|$.\nC. The area of the ellipse $\\dfrac{x^2}{a^2}+\\dfrac{y^2}{b^2}=1$ is $\\pi(a+b)$.\nD. If a curve crosses the $x$-axis inside $[a,b]$, the area is always $\\int_a^bf(x)\\,dx$.\nWhich statements are correct?",
+      "options": [
+        "A and B only",
+        "A, B and C only",
+        "B and D only",
+        "A, B and D only"
+      ],
+      "answer": 1,
+      "explanation": "A is correct. B is correct: the integral is negative below the axis, so the modulus gives the area. C is wrong: the area of an ellipse is $\\pi ab$, not $\\pi(a+b)$. D is wrong: when the curve crosses the axis, the positive and negative parts cancel in the integral, so the interval must be split and the absolute values added. Hence only A and B are correct.",
+      "optionRationale": {
+        "2": "C is false: the area of an ellipse is pi a b.",
+        "3": "D is false, and it leaves out A, which is true.",
+        "4": "D is false because the integral can cancel across the axis."
+      },
+      "objective": "Evaluate statements about area under curves"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q13",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Match each region in List-I with its area in List-II.",
+      "options": [
+        "A-II, B-III, C-IV, D-I",
+        "A-II, B-III, C-I, D-IV",
+        "A-III, B-II, C-IV, D-I",
+        "A-II, B-IV, C-III, D-I"
+      ],
+      "answer": 1,
+      "explanation": "The circle $x^2+y^2=9$ has area $\\pi\\cdot3^2=9\\pi$ (A-II). The ellipse $\\frac{x^2}{25}+\\frac{y^2}{16}=1$ has area $\\pi\\cdot5\\cdot4=20\\pi$ (B-III). For $y^2=4x$ and $x=4$: area $=2\\int_0^42\\sqrt x\\,dx=4\\cdot\\frac23\\cdot8=\\frac{64}3$ (C-IV). The triangle under $y=x$ from $0$ to $2$ has area $\\tfrac12\\cdot2\\cdot2=2$ (D-I).",
+      "optionRationale": {
+        "2": "It swaps the parabola region 64/3 with the triangle area 2.",
+        "3": "It swaps the circle and ellipse areas.",
+        "4": "It swaps the ellipse area 20 pi with the parabola region 64/3."
+      },
+      "objective": "Compute and match areas of standard regions",
+      "list": {
+        "left": [
+          "A. Circle $x^2+y^2=9$",
+          "B. Ellipse $\\dfrac{x^2}{25}+\\dfrac{y^2}{16}=1$",
+          "C. Region bounded by $y^2=4x$ and $x=4$",
+          "D. Region under $y=x$, above the $x$-axis, up to $x=2$"
+        ],
+        "right": [
+          "I. $2$ square units",
+          "II. $9\\pi$ square units",
+          "III. $20\\pi$ square units",
+          "IV. $\\dfrac{64}3$ square units"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The area of the region enclosed between the line $y=2$ and the curve $y=|x|$ is",
+      "options": [
+        "$2$ square units",
+        "$4$ square units",
+        "$8$ square units",
+        "$3$ square units"
+      ],
+      "answer": 2,
+      "explanation": "The curves meet at $x=\\pm2$. By symmetry, $A=2\\int_0^2(2-x)\\,dx=2\\left[2x-\\dfrac{x^2}2\\right]_0^2=2(4-2)=4$. This is a triangle with base $4$ and height $2$: $\\tfrac12\\cdot4\\cdot2=4$.",
+      "optionRationale": {
+        "1": "This is the area of only one of the two symmetric halves.",
+        "3": "This is the rectangle 4 x 2, without removing the region below y = |x|.",
+        "4": "No correct method gives 3: one symmetric half has area 2, so the whole region has area 4."
+      },
+      "objective": "Find the area between a line and a modulus graph"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The area of the smaller region of the circle $x^2+y^2=4$ cut off by the line $x=1$ is",
+      "options": [
+        "$\\dfrac{2\\pi}3-\\dfrac{\\sqrt3}2$ square units",
+        "$\\dfrac{4\\pi}3$ square units",
+        "$\\dfrac{4\\pi}3-\\sqrt3$ square units",
+        "$\\pi-\\sqrt3$ square units"
+      ],
+      "answer": 3,
+      "explanation": "The line $x=1$ meets the circle where $y=\\pm\\sqrt3$. $A=2\\int_1^2\\sqrt{4-x^2}\\,dx=2\\left[\\dfrac x2\\sqrt{4-x^2}+2\\sin^{-1}\\dfrac x2\\right]_1^2=2\\left[\\pi-\\left(\\dfrac{\\sqrt3}2+\\dfrac\\pi3\\right)\\right]=\\dfrac{4\\pi}3-\\sqrt3\\approx2.457$. Geometrically: sector $\\dfrac{4\\pi}3$ minus triangle $\\sqrt3$.",
+      "optionRationale": {
+        "1": "This is only the part above the x-axis; the region is symmetric and must be doubled.",
+        "2": "This is the sector area; the triangle of area root 3 must be subtracted to get the segment.",
+        "4": "The sector angle is 120 degrees (area 4 pi / 3), not 90 degrees."
+      },
+      "objective": "Find the area of a circular segment by integration"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The area bounded by the parabolas $y^2=4x$ and $x^2=4y$ is",
+      "options": [
+        "$\\dfrac83$ square units",
+        "$\\dfrac{32}3$ square units",
+        "$16$ square units",
+        "$\\dfrac{16}3$ square units"
+      ],
+      "answer": 4,
+      "explanation": "The curves meet at $(0,0)$ and $(4,4)$. For $0\\le x\\le4$ the upper curve is $y=2\\sqrt x$ and the lower is $y=\\dfrac{x^2}4$. $A=\\int_0^4\\left(2\\sqrt x-\\dfrac{x^2}4\\right)dx=\\dfrac43\\cdot8-\\dfrac{64}{12}=\\dfrac{32}3-\\dfrac{16}3=\\dfrac{16}3$. This agrees with $\\dfrac{16a^2}3$ for $a=1$.",
+      "optionRationale": {
+        "1": "This is the area cut off by the line x = 1 (or the line y = x), not the area between the two parabolas.",
+        "2": "This is twice the correct area.",
+        "3": "This is the area of the square with corners (0,0) and (4,4), not the region between the parabolas."
+      },
+      "objective": "Find the area between two parabolas"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The smaller region bounded by the circle $x^2+y^2=4$ and the line $x+y=2$ has area",
+      "options": [
+        "$(\\pi-2)$ square units",
+        "$(2-\\pi)$ square units",
+        "$2$ square units",
+        "$\\pi$ square units"
+      ],
+      "answer": 1,
+      "explanation": "The line meets the axes at $(2,0)$ and $(0,2)$, which are also points of the circle. The region between the arc and the chord is the first-quadrant quarter of the circle, $\\tfrac14\\pi\\cdot4=\\pi$, minus the triangle with vertices $(0,0),(2,0),(0,2)$, area $\\tfrac12\\cdot2\\cdot2=2$. So $A=\\pi-2\\approx1.142$.",
+      "optionRationale": {
+        "2": "An area cannot be negative; the quadrant pi exceeds the triangle 2.",
+        "3": "This is the triangle only; the segment is the quadrant minus the triangle.",
+        "4": "This is the full quadrant of the circle, without removing the triangle below the line."
+      },
+      "objective": "Find the segment cut off by a chord using quadrant minus triangle"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Parabola and a horizontal line: The area enclosed between the parabola $y=x^2$ and the line $y=4$ is",
+      "options": [
+        "$\\dfrac{16}3$ square units",
+        "$\\dfrac{32}3$ square units",
+        "$16$ square units",
+        "$\\dfrac{8}3$ square units"
+      ],
+      "answer": 2,
+      "explanation": "The curves meet where $x^2=4$, i.e. $x=\\pm2$. By symmetry, $A=2\\int_0^2(4-x^2)\\,dx=2\\left[4x-\\dfrac{x^3}3\\right]_0^2=2\\left(8-\\dfrac83\\right)=\\dfrac{32}3$.",
+      "optionRationale": {
+        "1": "This is only the right half (x from 0 to 2); the region extends to x = -2 as well.",
+        "3": "This is the area of the rectangle 4 x 4 above the parabola from -2 to 2, not the region.",
+        "4": "This is the area under y = x squared from 0 to 2 only."
+      },
+      "objective": "Find the area between a parabola and a horizontal line"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The total area between the curve $y=\\sin x$ and the $x$-axis from $x=0$ to $x=2\\pi$ is",
+      "options": [
+        "$0$ square units",
+        "$2$ square units",
+        "$4$ square units",
+        "$8$ square units"
+      ],
+      "answer": 3,
+      "explanation": "$\\sin x\\ge0$ on $[0,\\pi]$ and $\\le0$ on $[\\pi,2\\pi]$. Area $=\\int_0^\\pi\\sin x\\,dx+\\left|\\int_\\pi^{2\\pi}\\sin x\\,dx\\right|=2+|-2|=4$. The integral over $[0,2\\pi]$ is $0$ because of cancellation, which is why the interval must be split.",
+      "optionRationale": {
+        "1": "This is the value of the integral, not the area; positive and negative parts cancel.",
+        "2": "This is only the area of one arch (0 to pi).",
+        "4": "This is twice the correct total; each arch has area 2, so the total is 4."
+      },
+      "objective": "Compute total area when a curve crosses the axis"
+    },
+    {
+      "key": "ug26-319-r23-applications-of-the-integrals-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "General equation of a circle: The area enclosed by the circle $x^2+y^2-4x+6y-12=0$ is",
+      "options": [
+        "$12\\pi$ square units",
+        "$5\\pi$ square units",
+        "$13\\pi$ square units",
+        "$25\\pi$ square units"
+      ],
+      "answer": 4,
+      "explanation": "Complete the square: $(x^2-4x+4)+(y^2+6y+9)=12+4+9=25$, so $(x-2)^2+(y+3)^2=5^2$. The radius is $5$ and the area is $\\pi\\cdot25=25\\pi$.",
+      "optionRationale": {
+        "1": "This takes the constant term 12 as r squared, without completing the square.",
+        "2": "This uses the radius 5 in place of r squared = 25.",
+        "3": "This adds only 4 + 9 and forgets the constant 12, whereas r squared = 12 + 4 + 9 = 25."
+      },
+      "objective": "Rewrite a circle in standard form and find its area"
+    }
+  ]
+}

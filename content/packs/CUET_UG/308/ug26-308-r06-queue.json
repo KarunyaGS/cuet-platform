@@ -1,0 +1,732 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_a56731cf969941feb80644d0115793b4",
+    "title": "Queue"
+  },
+  "lesson": {
+    "key": "ug26-308-r06-queue",
+    "title": "Queue and Deque: FIFO, operations and list implementation in Python",
+    "coverage": [
+      {
+        "phrase": "Queue (List Implementation)",
+        "section": "Implementing a queue using a Python list"
+      },
+      {
+        "phrase": "Introduction to Queue (FIFO)",
+        "section": "Queue and the FIFO principle"
+      },
+      {
+        "phrase": "Operations on Queue: (INSERT and DELETE)",
+        "section": "Operations on a queue: INSERT and DELETE"
+      },
+      {
+        "phrase": "its implementation in Python",
+        "section": "Implementing a queue using a Python list"
+      },
+      {
+        "phrase": "Introduction to Deque",
+        "section": "Introduction to Deque"
+      },
+      {
+        "phrase": "implementation in Python of Deque",
+        "section": "Implementing a deque in Python"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Queue and the FIFO principle"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **queue** is a linear data structure in which items are added at one end and removed from the other end. Think of people waiting at a ticket counter: the person who arrived first is served first, and a newcomer joins at the back of the line. This rule is called **FIFO**, which stands for First In, First Out."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Queue",
+        "text": "A linear data structure that follows the First In First Out (FIFO) principle. Insertion takes place at one end called the **rear** (tail) and deletion takes place at the other end called the **front** (head)."
+      },
+      {
+        "type": "TEXT",
+        "text": "Everyday and computing examples of queues: a line at a bank counter, documents waiting in a printer spooler, requests waiting for a web server, and tasks waiting for the CPU in a simple scheduler. In all of these the oldest waiting item must be served before any newer one."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Stack versus queue",
+        "columns": [
+          "Feature",
+          "Stack",
+          "Queue"
+        ],
+        "rows": [
+          [
+            "Principle",
+            "LIFO (Last In First Out)",
+            "FIFO (First In First Out)"
+          ],
+          [
+            "Insertion end",
+            "Top",
+            "Rear"
+          ],
+          [
+            "Deletion end",
+            "Top",
+            "Front"
+          ],
+          [
+            "Number of open ends",
+            "One",
+            "Two (front and rear)"
+          ],
+          [
+            "Typical use",
+            "Undo, bracket matching, function calls",
+            "Printer jobs, customer service, scheduling"
+          ]
+        ]
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "A queue has two ends. New items always join at the **rear**; items always leave from the **front**. The element that has waited longest is always the next one to be deleted."
+      },
+      {
+        "type": "HEADING",
+        "text": "Operations on a queue: INSERT and DELETE"
+      },
+      {
+        "type": "TEXT",
+        "text": "The two basic operations are:"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Core queue operations",
+        "columns": [
+          "Operation",
+          "Other name",
+          "What it does"
+        ],
+        "rows": [
+          [
+            "INSERT",
+            "enqueue",
+            "Adds a new element at the rear of the queue."
+          ],
+          [
+            "DELETE",
+            "dequeue",
+            "Removes and returns the element at the front of the queue."
+          ],
+          [
+            "PEEK",
+            "front / first",
+            "Looks at the front element without removing it."
+          ],
+          [
+            "isEmpty",
+            "check empty",
+            "Returns True when the queue has no element."
+          ],
+          [
+            "size",
+            "length",
+            "Returns the number of elements currently present."
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "Two error situations must be handled. Trying to delete from a queue that has no element is called **underflow**. Trying to insert into a queue that has a fixed capacity and is already full is called **overflow**. A Python list can grow as needed, so overflow does not arise for a list-based queue, but underflow can."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistake: confusing the ends. In a queue, insertion is at the rear and deletion is at the front. In a stack both happen at the top. If an answer says \"delete from the rear\" for a plain queue, it is wrong."
+      },
+      {
+        "type": "HEADING",
+        "text": "Implementing a queue using a Python list"
+      },
+      {
+        "type": "TEXT",
+        "text": "A Python list can store the queue. We treat the end of the list (highest index) as the **rear** and index 0 as the **front**."
+      },
+      {
+        "type": "TEXT",
+        "text": "- **enqueue**: use `append(item)`, which adds at the end of the list (the rear).\n- **dequeue**: use `pop(0)`, which removes and returns the first element (the front). All remaining elements shift one position to the left.\n- **peek**: use `q[0]` (front element) after checking the list is not empty.\n- **isEmpty**: `len(q) == 0` or `q == []`."
+      },
+      {
+        "type": "TEXT",
+        "text": "Program (plain text):\n\n```\ndef enqueue(q, item):\n    q.append(item)\n\ndef dequeue(q):\n    if len(q) == 0:\n        return \"Underflow\"\n    return q.pop(0)\n\ndef peek(q):\n    if len(q) == 0:\n        return \"Queue empty\"\n    return q[0]\n\ndef isEmpty(q):\n    return len(q) == 0\n```"
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "Start with an empty list `q = []`. After `enqueue(q, 10)`, `enqueue(q, 20)`, `enqueue(q, 30)` the list is `[10, 20, 30]`: 10 is at the front and 30 is at the rear. `dequeue(q)` returns 10 and the list becomes `[20, 30]`. A further `enqueue(q, 40)` gives `[20, 30, 40]`."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Trace the program.\n\n```\nq = []\nq.append(10)\nq.append(20)\nq.append(30)\nq.pop(0)\nq.append(40)\nprint(q)\n```",
+        "solution": "Step 1: q = [].\nStep 2: append(10) -> [10].\nStep 3: append(20) -> [10, 20].\nStep 4: append(30) -> [10, 20, 30].\nStep 5: pop(0) removes the front element 10 -> [20, 30].\nStep 6: append(40) adds at the rear -> [20, 30, 40].",
+        "answer": "The output is [20, 30, 40]."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A queue is built by this loop. Find the final list and its length.\n\n```\nq = []\nfor i in range(1, 6):\n    if i % 2 == 0:\n        q.append(i)\n    else:\n        q.append(i * 10)\nq.pop(0)\nq.pop(0)\nprint(q, len(q))\n```",
+        "solution": "The loop runs for i = 1 to 5.\ni = 1 (odd) appends 10; i = 2 (even) appends 2; i = 3 appends 30; i = 4 appends 4; i = 5 appends 50.\nAfter the loop: [10, 2, 30, 4, 50].\nThe first pop(0) removes 10 and the second removes 2, leaving [30, 4, 50].\nThe length is 3.",
+        "answer": "Output: [30, 4, 50] 3"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "`pop(0)` shifts every other element one place left, so the time taken grows with the length of the list. For the school syllabus this is acceptable, but remember that dequeue on a list is slower than enqueue. Using `pop()` without an index removes the **last** element, which would behave like a stack, not a queue."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "List-based queue: enqueue = `append(item)`; dequeue = `pop(0)` after checking `len(q) != 0`; front = `q[0]`; rear = `q[-1]`."
+      },
+      {
+        "type": "HEADING",
+        "text": "Introduction to Deque"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Deque",
+        "text": "A **deque** (pronounced \"deck\") is a **double ended queue**: a linear data structure in which insertion and deletion are both allowed at both ends, the front and the rear."
+      },
+      {
+        "type": "TEXT",
+        "text": "A deque is more flexible than a queue. It does not insist on FIFO. Depending on which ends you use, one structure can behave like a stack or like a queue."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Deque operations",
+        "columns": [
+          "Operation",
+          "Meaning"
+        ],
+        "rows": [
+          [
+            "insertFront",
+            "Add an element at the front"
+          ],
+          [
+            "insertRear",
+            "Add an element at the rear"
+          ],
+          [
+            "deletionFront",
+            "Remove and return the front element"
+          ],
+          [
+            "deletionRear",
+            "Remove and return the rear element"
+          ],
+          [
+            "getFront / getRear",
+            "Read the front or rear element without removing it"
+          ],
+          [
+            "isEmpty / size",
+            "Check whether it is empty / count the elements"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "Special uses: if you only insert at the rear and delete from the front, the deque acts as an ordinary **queue**. If you insert and delete at the same end, it acts as a **stack**. Real uses include checking whether a word is a palindrome (compare the front and rear characters while removing them from both ends), browser history, and undo-redo features."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Stack, queue and deque in one view",
+        "columns": [
+          "Structure",
+          "Insert at",
+          "Delete from"
+        ],
+        "rows": [
+          [
+            "Stack",
+            "Top",
+            "Top"
+          ],
+          [
+            "Queue",
+            "Rear",
+            "Front"
+          ],
+          [
+            "Deque",
+            "Front or rear",
+            "Front or rear"
+          ]
+        ]
+      },
+      {
+        "type": "HEADING",
+        "text": "Implementing a deque in Python"
+      },
+      {
+        "type": "TEXT",
+        "text": "Using a list with index 0 as the front and the last index as the rear:\n\n- insertFront: `dq.insert(0, item)`\n- insertRear: `dq.append(item)`\n- deletionFront: `dq.pop(0)`\n- deletionRear: `dq.pop()`\n\nBefore deleting, check that the deque is not empty; otherwise Python raises an `IndexError` (underflow)."
+      },
+      {
+        "type": "TEXT",
+        "text": "Program (plain text):\n\n```\ndef insertFront(dq, item):\n    dq.insert(0, item)\n\ndef insertRear(dq, item):\n    dq.append(item)\n\ndef deletionFront(dq):\n    if len(dq) == 0:\n        return \"Underflow\"\n    return dq.pop(0)\n\ndef deletionRear(dq):\n    if len(dq) == 0:\n        return \"Underflow\"\n    return dq.pop()\n```"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Trace the program and give the output.\n\n```\nd = []\nd.append(4)\nd.insert(0, 7)\nd.insert(0, 9)\nd.append(1)\nx = d.pop(0)\ny = d.pop()\nd.insert(0, x + y)\nprint(d)\n```",
+        "solution": "d = [] -> append(4) gives [4].\ninsert(0, 7) puts 7 at the front: [7, 4].\ninsert(0, 9): [9, 7, 4].\nappend(1) adds at the rear: [9, 7, 4, 1].\nx = d.pop(0) removes the front element, so x = 9 and d = [7, 4, 1].\ny = d.pop() removes the rear element, so y = 1 and d = [7, 4].\nd.insert(0, 10) because x + y = 10: [10, 7, 4].",
+        "answer": "Output: [10, 7, 4]"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Exam tip: for any deque trace, write the list after every statement and mark which end is front (left) and which is rear (right). Most errors come from mixing up `insert(0, x)` (front) with `append(x)` (rear), and `pop(0)` (front) with `pop()` (rear)."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Queue: insert at rear, delete at front. Deque: insert and delete at both ends. Deque on a list: `insert(0, x)` and `append(x)` insert; `pop(0)` and `pop()` delete."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r06-queue-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which principle does a queue follow when elements are added and removed?",
+      "options": [
+        "First In First Out (FIFO)",
+        "Last In First Out (LIFO)",
+        "Largest In First Out",
+        "Random In Random Out"
+      ],
+      "answer": 1,
+      "explanation": "A queue serves elements in the order of arrival, so the element that entered first leaves first. That is the First In First Out principle. LIFO belongs to a stack, where the most recent element is removed first.",
+      "optionRationale": {
+        "2": "LIFO is the rule for a stack, not for a queue.",
+        "3": "No such principle is used; data order is by arrival, not size.",
+        "4": "A queue is ordered; nothing is random."
+      },
+      "objective": "State the FIFO principle of a queue"
+    },
+    {
+      "key": "ug26-308-r06-queue-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In a queue implemented with a list, at which end does a new element join?",
+      "options": [
+        "Front",
+        "Rear",
+        "Middle",
+        "Either end, whichever is free"
+      ],
+      "answer": 2,
+      "explanation": "New elements always join at the rear (tail) of a queue, and deletion happens at the front. Only a deque allows insertion at both ends. In a list queue the rear is the end where append() adds.",
+      "optionRationale": {
+        "1": "The front is where deletion takes place, not insertion.",
+        "3": "A queue never inserts in the middle.",
+        "4": "That freedom belongs to a deque, not a plain queue."
+      },
+      "objective": "Identify the insertion end of a queue"
+    },
+    {
+      "key": "ug26-308-r06-queue-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "What is the name of the error that occurs when you try to remove an element from an empty queue?",
+      "options": [
+        "Overflow",
+        "Overwrite",
+        "Underflow",
+        "Deadlock"
+      ],
+      "answer": 3,
+      "explanation": "Deleting from a queue that holds no element is called underflow. Overflow is the opposite situation, inserting into a full fixed-size structure. With a list-based queue, pop(0) on an empty list also raises an IndexError.",
+      "optionRationale": {
+        "1": "Overflow means inserting into a full structure.",
+        "2": "Overwrite is not the standard name for this error.",
+        "4": "Deadlock is an operating-system concept unrelated to queue deletion."
+      },
+      "objective": "Define underflow"
+    },
+    {
+      "key": "ug26-308-r06-queue-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which list method is normally used to perform the INSERT (enqueue) operation on a queue stored in a Python list?",
+      "options": [
+        "pop(0)",
+        "remove()",
+        "sort()",
+        "append()"
+      ],
+      "answer": 4,
+      "explanation": "append(item) adds the item at the end of the list, which we treat as the rear of the queue, so it implements enqueue. pop(0) removes the front element, so it implements dequeue, not insertion.",
+      "optionRationale": {
+        "1": "pop(0) deletes the front element; it is the dequeue operation.",
+        "2": "remove() deletes a given value, which is not a queue operation.",
+        "3": "sort() reorders the list and adds nothing."
+      },
+      "objective": "Map enqueue to a list method"
+    },
+    {
+      "key": "ug26-308-r06-queue-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "What does the abbreviation DEQUE stand for?",
+      "options": [
+        "Double Ended Queue",
+        "Dynamic Equal Queue",
+        "Data Entry Queue",
+        "Deleted Element Queue"
+      ],
+      "answer": 1,
+      "explanation": "A deque is a double ended queue. It permits insertion and deletion at both its front and its rear, which makes it more general than a queue or a stack.",
+      "optionRationale": {
+        "2": "The first letters spell something else; deque is not \"Dynamic Equal Queue\".",
+        "3": "The name is not about data entry.",
+        "4": "The name is not about deleted elements."
+      },
+      "objective": "Expand the term deque"
+    },
+    {
+      "key": "ug26-308-r06-queue-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What is printed by the following code?\n\nq = [5, 8, 2]\nq.pop(0)\nq.append(9)\nprint(q[0])",
+      "options": [
+        "5",
+        "8",
+        "9",
+        "2"
+      ],
+      "answer": 2,
+      "explanation": "q starts as [5, 8, 2]. pop(0) removes the front element 5, giving [8, 2]. append(9) adds at the rear, giving [8, 2, 9]. q[0] is the front element, which is 8.",
+      "optionRationale": {
+        "1": "5 was removed by pop(0).",
+        "3": "9 is the rear element, q[-1], not q[0].",
+        "4": "2 is in the middle of the list."
+      },
+      "objective": "Trace a list queue to find the front element"
+    },
+    {
+      "key": "ug26-308-r06-queue-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A queue is created with q = [], then the statements q.append(\"A\"), q.append(\"B\"), q.append(\"C\"), q.pop(0), q.append(\"D\"), q.pop(0) are executed in order. What does q contain now?",
+      "options": [
+        "['D', 'C']",
+        "['A', 'B']",
+        "['C', 'D']",
+        "['B', 'C', 'D']"
+      ],
+      "answer": 3,
+      "explanation": "After three appends q is [A, B, C]. The first pop(0) removes A, giving [B, C]. Appending D gives [B, C, D]. The second pop(0) removes B, leaving [C, D]. Elements leave in the order they arrived, so C is now the front.",
+      "optionRationale": {
+        "1": "D joined at the rear, so it comes after C.",
+        "2": "A and B were the first to leave, not the last.",
+        "4": "That list shows the state after only one pop(0)."
+      },
+      "objective": "Trace a sequence of enqueue and dequeue operations"
+    },
+    {
+      "key": "ug26-308-r06-queue-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Given the function\n\ndef dequeue(q):\n    if len(q) == 0:\n        return \"Underflow\"\n    return q.pop(0)\n\nwhat is printed by the lines below?\n\nq = [\"P\", \"Q\"]\nprint(dequeue(q), dequeue(q), dequeue(q))",
+      "options": [
+        "Q P Underflow",
+        "P Q IndexError",
+        "P Q None",
+        "P Q Underflow"
+      ],
+      "answer": 4,
+      "explanation": "The first call returns the front element P, the second returns Q, and the list is then empty. The third call finds len(q) == 0 and returns the string Underflow. The function checks first, so no IndexError is raised.",
+      "optionRationale": {
+        "1": "Q is behind P, so P is removed first (FIFO).",
+        "2": "The check len(q) == 0 prevents the IndexError.",
+        "3": "The function returns a string, not None, when the queue is empty."
+      },
+      "objective": "Trace dequeue with an underflow check"
+    },
+    {
+      "key": "ug26-308-r06-queue-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Which of these is a typical use of a queue rather than a stack?",
+      "options": [
+        "Documents waiting for a shared printer are printed in the order they were submitted",
+        "Reversing a string",
+        "Undo feature in a text editor",
+        "Matching opening and closing brackets in an expression"
+      ],
+      "answer": 1,
+      "explanation": "Print jobs must be served in the order they arrive, which is FIFO behaviour, so a queue is used. Reversing a string, undo and bracket matching all need the most recent item first, which is LIFO behaviour, so they use a stack.",
+      "optionRationale": {
+        "2": "Reversal needs the last item first, which suits a stack.",
+        "3": "Undo reverses the most recent action first, which is LIFO.",
+        "4": "Bracket matching compares the latest opening bracket first, which is LIFO."
+      },
+      "objective": "Choose between queue and stack applications"
+    },
+    {
+      "key": "ug26-308-r06-queue-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What is the content of dq after this code runs?\n\ndq = []\ndq.append(1)\ndq.insert(0, 2)\ndq.append(3)\ndq.pop()\ndq.pop(0)",
+      "options": [
+        "[2]",
+        "[1]",
+        "[2, 1]",
+        "[3]"
+      ],
+      "answer": 2,
+      "explanation": "append(1) gives [1]; insert(0, 2) adds 2 at the front: [2, 1]; append(3) gives [2, 1, 3]; pop() removes the rear element 3: [2, 1]; pop(0) removes the front element 2, leaving [1].",
+      "optionRationale": {
+        "1": "2 was removed from the front by pop(0).",
+        "3": "That is the state before the last statement pop(0).",
+        "4": "3 was removed by pop() before the final step."
+      },
+      "objective": "Trace deque operations on a list"
+    },
+    {
+      "key": "ug26-308-r06-queue-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "In a list-based deque with index 0 treated as the front, which statement removes the element at the rear?",
+      "options": [
+        "dq.pop(0)",
+        "dq.insert(0, x)",
+        "dq.pop()",
+        "dq.append(x)"
+      ],
+      "answer": 3,
+      "explanation": "pop() with no argument removes and returns the last element, which is the rear in this convention. pop(0) removes the front element, while insert(0, x) and append(x) are insertions, not deletions.",
+      "optionRationale": {
+        "1": "pop(0) deletes from the front, not the rear.",
+        "2": "insert(0, x) adds an element at the front.",
+        "4": "append(x) adds an element at the rear."
+      },
+      "objective": "Map deque deletions to list methods"
+    },
+    {
+      "key": "ug26-308-r06-queue-q12",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the operation in List-I with its action on a list-based queue or deque in List-II.",
+      "options": [
+        "A-I, B-IV, C-III, D-II",
+        "A-III, B-I, C-IV, D-II",
+        "A-IV, B-I, C-II, D-III",
+        "A-IV, B-I, C-III, D-II"
+      ],
+      "answer": 4,
+      "explanation": "enqueue adds at the end with append (A-IV). dequeue removes the first element with pop(0) (B-I). insertFront needs insert(0, item) (C-III). deletionRear removes the last element with pop() (D-II).",
+      "optionRationale": {
+        "1": "This swaps enqueue and dequeue.",
+        "2": "This swaps enqueue with insertFront.",
+        "3": "This swaps insertFront and deletionRear."
+      },
+      "objective": "Match operations to list methods",
+      "list": {
+        "left": [
+          "A. enqueue (insert at rear)",
+          "B. dequeue (delete from front)",
+          "C. insertFront in a deque",
+          "D. deletionRear in a deque"
+        ],
+        "right": [
+          "I. q.pop(0)",
+          "II. q.pop()",
+          "III. q.insert(0, item)",
+          "IV. q.append(item)"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r06-queue-q13",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about queues.\nA. A queue follows the LIFO principle.\nB. Insertion is done at the rear and deletion at the front.\nC. A deque allows insertion and deletion at both ends.\nWhich statements are correct?",
+      "options": [
+        "B and C only",
+        "A and C only",
+        "A and B only",
+        "A, B and C"
+      ],
+      "answer": 1,
+      "explanation": "Statement A is false because a queue is FIFO; LIFO is the rule of a stack. Statement B correctly describes the queue ends and statement C correctly describes a deque. Hence B and C only.",
+      "optionRationale": {
+        "2": "A is wrong, even though C is right.",
+        "3": "A is wrong, so any option containing A is wrong.",
+        "4": "A is wrong, so \"all three\" cannot be correct."
+      },
+      "objective": "Evaluate statements about queue and deque"
+    },
+    {
+      "key": "ug26-308-r06-queue-q14",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): In a list-based queue, dequeue is performed with pop(0) and not with pop().\nReason (R): pop() removes the last element of the list, which is the most recently inserted element, while a queue must delete the oldest element.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The front of the queue is index 0, which holds the oldest element, so pop(0) is needed for FIFO. pop() would remove the newest element and make the structure behave like a stack. So R correctly explains A.",
+      "optionRationale": {
+        "2": "R is not just true, it directly explains why pop(0) is used.",
+        "3": "R is true, so A is not true with a false R.",
+        "4": "A is true, so it is not false."
+      },
+      "objective": "Explain why dequeue uses pop(0)"
+    },
+    {
+      "key": "ug26-308-r06-queue-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "What does the following code print?\n\nd = []\nd.append(4)\nd.insert(0, 7)\nd.insert(0, 9)\nd.append(1)\nx = d.pop(0)\ny = d.pop()\nd.insert(0, x + y)\nprint(d)",
+      "options": [
+        "[8, 7, 4]",
+        "[10, 7, 4]",
+        "[10, 9, 7, 4]",
+        "[7, 4, 10]"
+      ],
+      "answer": 2,
+      "explanation": "The list grows to [9, 7, 4, 1]. pop(0) returns 9 and pop() returns 1, leaving [7, 4]. Then x + y = 10 is inserted at the front: [10, 7, 4]. Option 3 would need append, not insert(0, ...).",
+      "optionRationale": {
+        "1": "x + y is 9 + 1 = 10, not 8.",
+        "3": "9 was removed by pop(0), so it is no longer present.",
+        "4": "insert(0, ...) places the value at the front, not the rear."
+      },
+      "objective": "Trace a mixed deque program"
+    },
+    {
+      "key": "ug26-308-r06-queue-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "What is printed by this program?\n\nq = [3, 6, 9, 12]\nwhile len(q) > 1:\n    q.append(q.pop(0) + q.pop(0))\nprint(q)",
+      "options": [
+        "[21]",
+        "[9, 21]",
+        "[30]",
+        "[12, 9, 9]"
+      ],
+      "answer": 3,
+      "explanation": "Each pass removes the first two elements and appends their sum at the rear. [3, 6, 9, 12] gives [9, 12, 9]; then 9 + 12 = 21 gives [9, 21]; then 9 + 21 = 30 gives [30]. The loop stops when one element remains, so [30] is printed.",
+      "optionRationale": {
+        "1": "21 is only an intermediate sum; the loop continues until a single element remains.",
+        "2": "[9, 21] is the state before the last pass, when len(q) is still 2.",
+        "4": "The loop adds the front two elements; it never keeps three elements."
+      },
+      "objective": "Trace a loop that mixes dequeue and enqueue"
+    },
+    {
+      "key": "ug26-308-r06-queue-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "A deque is used so that insertions happen only at the rear and deletions only at the front. Which structure does it now behave as?",
+      "options": [
+        "A stack",
+        "A sorted list",
+        "A binary tree",
+        "A queue"
+      ],
+      "answer": 4,
+      "explanation": "Insert at rear and delete from front gives first-in first-out order, which is exactly a queue. A stack would need both operations at the same end. A deque is general and can imitate either structure by restricting the ends used.",
+      "optionRationale": {
+        "1": "A stack uses one end for both operations.",
+        "2": "A deque does not keep elements sorted.",
+        "3": "A deque is linear and has no tree structure."
+      },
+      "objective": "Relate a restricted deque to a queue"
+    },
+    {
+      "key": "ug26-308-r06-queue-q18",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "A deque is stored in a Python list with index 0 as the front. Consider these statements.\nA. insert(0, item) is insertFront.\nB. pop() is deletionFront.\nC. append(item) is insertRear.\nD. pop(0) is deletionFront.\nWhich statements are correct?",
+      "options": [
+        "A, C and D only",
+        "B and D only",
+        "A, B and C only",
+        "A and C only"
+      ],
+      "answer": 1,
+      "explanation": "insert(0, item) puts the item at the front, so A is correct. append(item) puts it at the rear, so C is correct. pop(0) removes the front element, so D is correct. pop() removes the rear element, so B is incorrect.",
+      "optionRationale": {
+        "2": "B is wrong; pop(0), not pop(), is deletionFront.",
+        "3": "B is wrong because pop() deletes at the rear.",
+        "4": "This leaves out D, which is also correct."
+      },
+      "objective": "Verify deque operations in list form"
+    },
+    {
+      "key": "ug26-308-r06-queue-q19",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A deque can be used to check whether a string is a palindrome.\nReason (R): In a deque, characters can be removed from both the front and the rear, so the first and last characters can be compared repeatedly.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Removing one character from the front and one from the rear at each step lets us compare the outer pair; if all pairs match the string reads the same both ways. Only a double ended structure allows both removals, so R explains A.",
+      "optionRationale": {
+        "2": "R is the actual mechanism used, so it explains A.",
+        "3": "R is also true, so it is not a false reason.",
+        "4": "A is true; palindrome checking is a standard deque application."
+      },
+      "objective": "Apply a deque to palindrome checking"
+    },
+    {
+      "key": "ug26-308-r06-queue-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Why is dequeue implemented with pop(0) considered slower than enqueue with append() for a long list?",
+      "options": [
+        "pop(0) sorts the list after deleting",
+        "pop(0) must shift every remaining element one position to the left",
+        "append() creates a new list each time",
+        "pop(0) deletes all elements with the same value"
+      ],
+      "answer": 2,
+      "explanation": "After the front element is removed, each of the remaining elements moves one place left to fill the gap, so the work grows with the list length. append() just adds at the end without moving other elements, so it is much cheaper.",
+      "optionRationale": {
+        "1": "pop(0) does not sort anything.",
+        "3": "append() changes the same list in place; it does not build a new one.",
+        "4": "pop(0) removes one element by index, not all equal values."
+      },
+      "objective": "Explain the cost of pop(0)"
+    }
+  ]
+}

@@ -1,0 +1,855 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_10d87a54dbd747f4bc7ddc134180a57b",
+    "title": "Integrals"
+  },
+  "lesson": {
+    "key": "ug26-319-r22-integrals",
+    "title": "Integrals: methods of integration, standard forms and definite integrals",
+    "coverage": [
+      {
+        "phrase": "Integration as inverse process of differentiation",
+        "section": "Integration as the inverse of differentiation"
+      },
+      {
+        "phrase": "Integration by substitution",
+        "section": "Integration by substitution"
+      },
+      {
+        "phrase": "Integration by partial fractions",
+        "section": "Integration by partial fractions"
+      },
+      {
+        "phrase": "Integration by parts",
+        "section": "Integration by parts"
+      },
+      {
+        "phrase": "dx/(x^2 + a^2)",
+        "section": "Standard integrals with a^2 and x^2"
+      },
+      {
+        "phrase": "dx/sqrt(x^2 +- a^2)",
+        "section": "Standard integrals with a^2 and x^2"
+      },
+      {
+        "phrase": "dx/(a^2 - x^2)",
+        "section": "Standard integrals with a^2 and x^2"
+      },
+      {
+        "phrase": "dx/sqrt(a^2 - x^2)",
+        "section": "Standard integrals with a^2 and x^2"
+      },
+      {
+        "phrase": "dx/(ax^2 + bx + c)",
+        "section": "Integrals involving a quadratic ax^2 + bx + c"
+      },
+      {
+        "phrase": "dx/sqrt(ax^2 + bx + c)",
+        "section": "Integrals involving a quadratic ax^2 + bx + c"
+      },
+      {
+        "phrase": "(px + q)dx/(ax^2 + bx + c)",
+        "section": "Integrals involving a quadratic ax^2 + bx + c"
+      },
+      {
+        "phrase": "(px + q)dx/sqrt(ax^2 + bx + c)",
+        "section": "Integrals involving a quadratic ax^2 + bx + c"
+      },
+      {
+        "phrase": "sqrt(a^2 +- x^2) dx",
+        "section": "Integrals of square roots of quadratics"
+      },
+      {
+        "phrase": "sqrt(x^2 - a^2) dx",
+        "section": "Integrals of square roots of quadratics"
+      },
+      {
+        "phrase": "sqrt(ax^2 + bx + c) dx",
+        "section": "Integrals of square roots of quadratics"
+      },
+      {
+        "phrase": "Fundamental Theorem of Calculus (without proof)",
+        "section": "Fundamental Theorem of Calculus"
+      },
+      {
+        "phrase": "Basic properties of definite integralsand evaluation of definite integrals",
+        "section": "Properties of definite integrals"
+      },
+      {
+        "phrase": "Integration of a variety of functions",
+        "section": "Integration by substitution"
+      },
+      {
+        "phrase": "Evaluation of simple integrals of the following types and problems based on them",
+        "section": "Standard integrals with a^2 and x^2"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Integration as the inverse of differentiation"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Antiderivative and indefinite integral",
+        "text": "If $\\dfrac{d}{dx}F(x)=f(x)$, then $F$ is an **antiderivative** of $f$, and we write $\\displaystyle\\int f(x)\\,dx=F(x)+C$. The constant $C$ is the **constant of integration**: two antiderivatives of the same function differ by a constant, because the derivative of a constant is $0$."
+      },
+      {
+        "type": "TEXT",
+        "text": "Integration undoes differentiation. To check any integral, differentiate your answer; you must get back the integrand. Geometrically, $F(x)+C$ is a **family of curves**, each obtained from another by shifting up or down."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Basic integrals",
+        "columns": [
+          "Integrand",
+          "Integral"
+        ],
+        "rows": [
+          [
+            "$x^n\\ (n\\ne-1)$",
+            "$\\dfrac{x^{n+1}}{n+1}+C$"
+          ],
+          [
+            "$\\dfrac1x$",
+            "$\\ln|x|+C$"
+          ],
+          [
+            "$e^x$",
+            "$e^x+C$"
+          ],
+          [
+            "$\\sin x,\\ \\cos x$",
+            "$-\\cos x+C,\\ \\ \\sin x+C$"
+          ],
+          [
+            "$\\sec^2x,\\ \\operatorname{cosec}^2x$",
+            "$\\tan x+C,\\ \\ -\\cot x+C$"
+          ],
+          [
+            "$\\sec x\\tan x$",
+            "$\\sec x+C$"
+          ],
+          [
+            "$\\tan x,\\ \\cot x$",
+            "$\\ln|\\sec x|+C,\\ \\ \\ln|\\sin x|+C$"
+          ]
+        ]
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int[af(x)+bg(x)]\\,dx=a\\int f(x)\\,dx+b\\int g(x)\\,dx",
+        "text": "Linearity: constants come out of the integral and a sum may be integrated term by term."
+      },
+      {
+        "type": "HEADING",
+        "text": "Integration by substitution"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "If an integrand has the form $f(g(x))\\,g'(x)$, put $t=g(x)$ so that $dt=g'(x)\\,dx$. The integral becomes $\\int f(t)\\,dt$, which is simpler. Return to $x$ at the end for an indefinite integral."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int\\frac{f'(x)}{f(x)}\\,dx=\\ln|f(x)|+C",
+        "text": "A very common pattern: the numerator is the derivative of the denominator. Example: $\\int\\dfrac{2x}{x^2+1}\\,dx=\\ln(x^2+1)+C$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int 2x\\cos(x^2)\\,dx$.",
+        "solution": "Let $t=x^2$, so $dt=2x\\,dx$. The integral becomes $\\int\\cos t\\,dt=\\sin t+C=\\sin(x^2)+C$. Check: $\\dfrac{d}{dx}\\sin(x^2)=2x\\cos(x^2)$.",
+        "answer": "$\\sin(x^2)+C$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Integration by partial fractions"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "A rational function $\\dfrac{P(x)}{Q(x)}$ with $\\deg P<\\deg Q$ is split into simpler fractions according to the factors of $Q(x)$. If $\\deg P\\ge\\deg Q$, divide first."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Forms of partial fractions",
+        "columns": [
+          "Factor in denominator",
+          "Partial fraction"
+        ],
+        "rows": [
+          [
+            "$(x-a)(x-b)$",
+            "$\\dfrac{A}{x-a}+\\dfrac{B}{x-b}$"
+          ],
+          [
+            "$(x-a)^2$",
+            "$\\dfrac{A}{x-a}+\\dfrac{B}{(x-a)^2}$"
+          ],
+          [
+            "$(x-a)(x^2+bx+c)$ (irreducible quadratic)",
+            "$\\dfrac{A}{x-a}+\\dfrac{Bx+D}{x^2+bx+c}$"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int\\frac{dx}{(x-1)(x-2)}$.",
+        "solution": "Write $\\dfrac{1}{(x-1)(x-2)}=\\dfrac{A}{x-1}+\\dfrac{B}{x-2}$. Then $1=A(x-2)+B(x-1)$. Put $x=1$: $1=-A$, so $A=-1$. Put $x=2$: $1=B$. So the integral is $\\int\\left(\\dfrac{1}{x-2}-\\dfrac{1}{x-1}\\right)dx=\\ln|x-2|-\\ln|x-1|+C=\\ln\\left|\\dfrac{x-2}{x-1}\\right|+C$.",
+        "answer": "$\\ln\\left|\\dfrac{x-2}{x-1}\\right|+C$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Integration by parts"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int u\\,v\\,dx=u\\int v\\,dx-\\int\\left(\\frac{du}{dx}\\int v\\,dx\\right)dx",
+        "text": "Product rule in reverse. Choose $u$ using **ILATE**: Inverse trigonometric, Logarithmic, Algebraic, Trigonometric, Exponential, in that order of preference for $u$. The other factor is $v$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int e^x\\left[f(x)+f'(x)\\right]dx=e^xf(x)+C",
+        "text": "A shortcut that avoids parts when the integrand has this pair structure."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int x\\,e^x\\,dx$.",
+        "solution": "By ILATE, take $u=x$ (algebraic) and $v=e^x$. Then $\\int xe^x\\,dx=x e^x-\\int 1\\cdot e^x\\,dx=xe^x-e^x+C=e^x(x-1)+C$.",
+        "answer": "$e^x(x-1)+C$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int\\ln x\\,dx$.",
+        "solution": "Write $\\ln x=\\ln x\\cdot1$ with $u=\\ln x$, $v=1$. Then $\\int\\ln x\\,dx=x\\ln x-\\int\\dfrac1x\\cdot x\\,dx=x\\ln x-x+C$.",
+        "answer": "$x\\ln x-x+C$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistake: forgetting the constant $C$ in an indefinite integral, or applying parts with the wrong choice of $u$ (for example $u=e^x$, $v=x$ makes the integral harder). Choose $u$ as the factor that becomes simpler on differentiation."
+      },
+      {
+        "type": "HEADING",
+        "text": "Standard integrals with a^2 and x^2"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int\\frac{dx}{x^2+a^2}=\\frac1a\\tan^{-1}\\frac xa+C",
+        "text": "Valid for $a\\ne0$ and all real $x$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int\\frac{dx}{\\sqrt{a^2-x^2}}=\\sin^{-1}\\frac xa+C",
+        "text": "Valid for $|x|<|a|$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int\\frac{dx}{\\sqrt{x^2+a^2}}=\\ln\\left|x+\\sqrt{x^2+a^2}\\right|+C,\\qquad\\int\\frac{dx}{\\sqrt{x^2-a^2}}=\\ln\\left|x+\\sqrt{x^2-a^2}\\right|+C",
+        "text": "The second needs $|x|>|a|$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int\\frac{dx}{a^2-x^2}=\\frac1{2a}\\ln\\left|\\frac{a+x}{a-x}\\right|+C,\\qquad\\int\\frac{dx}{x^2-a^2}=\\frac1{2a}\\ln\\left|\\frac{x-a}{x+a}\\right|+C",
+        "text": "Derived by partial fractions: $\\dfrac1{a^2-x^2}=\\dfrac1{2a}\\left(\\dfrac1{a+x}+\\dfrac1{a-x}\\right)$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "How to recognise the form",
+        "columns": [
+          "Integrand",
+          "Key feature",
+          "Result"
+        ],
+        "rows": [
+          [
+            "$\\dfrac1{x^2+a^2}$",
+            "sum of squares, no root",
+            "tan inverse"
+          ],
+          [
+            "$\\dfrac1{\\sqrt{a^2-x^2}}$",
+            "root of $a^2-x^2$",
+            "sin inverse"
+          ],
+          [
+            "$\\dfrac1{\\sqrt{x^2\\pm a^2}}$",
+            "root of $x^2\\pm a^2$",
+            "logarithm"
+          ],
+          [
+            "$\\dfrac1{a^2-x^2}$, $\\dfrac1{x^2-a^2}$",
+            "difference of squares, no root",
+            "logarithm"
+          ]
+        ]
+      },
+      {
+        "type": "HEADING",
+        "text": "Integrals involving a quadratic ax^2 + bx + c"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "To integrate $\\dfrac1{ax^2+bx+c}$ or $\\dfrac1{\\sqrt{ax^2+bx+c}}$, take out $a$ and **complete the square**: $ax^2+bx+c=a\\left[\\left(x+\\dfrac b{2a}\\right)^2+\\dfrac{4ac-b^2}{4a^2}\\right]$. Then the integral reduces to one of the standard forms with $t=x+\\dfrac b{2a}$."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "For $\\dfrac{px+q}{ax^2+bx+c}$ or $\\dfrac{px+q}{\\sqrt{ax^2+bx+c}}$, write the numerator as $px+q=A\\,\\dfrac{d}{dx}(ax^2+bx+c)+B=A(2ax+b)+B$. The $A$-part is an $f'/f$ integral (a logarithm, or a square root for the root case), and the $B$-part is a standard form after completing the square."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int\\frac{2x+3}{x^2+4x+5}\\,dx$.",
+        "solution": "$\\dfrac{d}{dx}(x^2+4x+5)=2x+4$. Write $2x+3=(2x+4)-1$. Then $\\int\\dfrac{2x+3}{x^2+4x+5}dx=\\int\\dfrac{2x+4}{x^2+4x+5}dx-\\int\\dfrac{dx}{x^2+4x+5}$. The first part is $\\ln(x^2+4x+5)$. For the second, $x^2+4x+5=(x+2)^2+1$, so $\\int\\dfrac{dx}{(x+2)^2+1}=\\tan^{-1}(x+2)$.",
+        "answer": "$\\ln(x^2+4x+5)-\\tan^{-1}(x+2)+C$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int\\frac{dx}{\\sqrt{5-4x-x^2}}$.",
+        "solution": "Complete the square: $5-4x-x^2=9-(x^2+4x+4)=9-(x+2)^2$. So the integral is $\\int\\dfrac{dx}{\\sqrt{3^2-(x+2)^2}}=\\sin^{-1}\\dfrac{x+2}{3}+C$.",
+        "answer": "$\\sin^{-1}\\dfrac{x+2}{3}+C$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Integrals of square roots of quadratics"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int\\sqrt{a^2-x^2}\\,dx=\\frac x2\\sqrt{a^2-x^2}+\\frac{a^2}2\\sin^{-1}\\frac xa+C",
+        "text": "Derived by parts. Geometrically, a definite version gives areas of circular regions."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int\\sqrt{x^2+a^2}\\,dx=\\frac x2\\sqrt{x^2+a^2}+\\frac{a^2}2\\ln\\left|x+\\sqrt{x^2+a^2}\\right|+C",
+        "text": "Note the plus sign before the logarithm term."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int\\sqrt{x^2-a^2}\\,dx=\\frac x2\\sqrt{x^2-a^2}-\\frac{a^2}2\\ln\\left|x+\\sqrt{x^2-a^2}\\right|+C",
+        "text": "Note the minus sign before the logarithm term. Valid for $|x|>|a|$."
+      },
+      {
+        "type": "TEXT",
+        "text": "For $\\int\\sqrt{ax^2+bx+c}\\,dx$, first complete the square to get $a\\left[\\left(x+\\dfrac b{2a}\\right)^2\\pm k^2\\right]$, take $\\sqrt a$ outside, and apply the matching standard formula with $t=x+\\dfrac b{2a}$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Fundamental Theorem of Calculus"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Fundamental Theorem of Calculus (without proof).** If $f$ is continuous on $[a,b]$ and $F$ is any antiderivative of $f$, then $\\displaystyle\\int_a^bf(x)\\,dx=F(b)-F(a)$. The value does not depend on which antiderivative is used, because the constant $C$ cancels. The first part says $\\dfrac{d}{dx}\\int_a^xf(t)\\,dt=f(x)$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int_1^e x\\ln x\\,dx$.",
+        "solution": "By parts with $u=\\ln x$, $v=x$: $\\int x\\ln x\\,dx=\\dfrac{x^2}2\\ln x-\\int\\dfrac1x\\cdot\\dfrac{x^2}2dx=\\dfrac{x^2}2\\ln x-\\dfrac{x^2}4$. At $x=e$: $\\dfrac{e^2}2-\\dfrac{e^2}4=\\dfrac{e^2}4$. At $x=1$: $0-\\dfrac14=-\\dfrac14$. So the value is $\\dfrac{e^2}4-\\left(-\\dfrac14\\right)=\\dfrac{e^2+1}4$.",
+        "answer": "$\\dfrac{e^2+1}{4}$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Properties of definite integrals"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Properties used to evaluate definite integrals",
+        "columns": [
+          "Property",
+          "Statement"
+        ],
+        "rows": [
+          [
+            "P1",
+            "$\\int_a^bf(x)dx=\\int_a^bf(t)dt$ (the variable is a dummy)"
+          ],
+          [
+            "P2",
+            "$\\int_a^bf(x)dx=-\\int_b^af(x)dx$, and $\\int_a^af(x)dx=0$"
+          ],
+          [
+            "P3",
+            "$\\int_a^bf(x)dx=\\int_a^cf(x)dx+\\int_c^bf(x)dx$"
+          ],
+          [
+            "P4",
+            "$\\int_a^bf(x)dx=\\int_a^bf(a+b-x)dx$"
+          ],
+          [
+            "P5",
+            "$\\int_0^af(x)dx=\\int_0^af(a-x)dx$"
+          ],
+          [
+            "P6",
+            "$\\int_0^{2a}f(x)dx=2\\int_0^af(x)dx$ if $f(2a-x)=f(x)$, and $0$ if $f(2a-x)=-f(x)$"
+          ],
+          [
+            "P7",
+            "$\\int_{-a}^af(x)dx=2\\int_0^af(x)dx$ if $f$ is even, and $0$ if $f$ is odd"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx$.",
+        "solution": "Using P5, $I=\\int_0^{\\pi/2}\\dfrac{\\sin(\\pi/2-x)}{\\sin(\\pi/2-x)+\\cos(\\pi/2-x)}dx=\\int_0^{\\pi/2}\\dfrac{\\cos x}{\\cos x+\\sin x}dx$. Adding the two forms: $2I=\\int_0^{\\pi/2}\\dfrac{\\sin x+\\cos x}{\\sin x+\\cos x}dx=\\int_0^{\\pi/2}1\\,dx=\\dfrac\\pi2$. So $I=\\dfrac\\pi4$.",
+        "answer": "$\\dfrac\\pi4$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int_0^3\\sqrt{9-x^2}\\,dx$.",
+        "solution": "Using the formula with $a=3$: $\\left[\\dfrac x2\\sqrt{9-x^2}+\\dfrac92\\sin^{-1}\\dfrac x3\\right]_0^3=\\left(0+\\dfrac92\\cdot\\dfrac\\pi2\\right)-0=\\dfrac{9\\pi}4$. (This is the area of a quarter circle of radius $3$, namely $\\dfrac14\\pi\\cdot9$.)",
+        "answer": "$\\dfrac{9\\pi}{4}$"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Always check an indefinite integral by differentiating. For a definite integral, do not forget to change the limits if you substitute (new limits for $t$), or return to $x$ before applying the original limits."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Decide the method by the integrand: derivative present $\\Rightarrow$ substitution; rational with factorable denominator $\\Rightarrow$ partial fractions; product of different kinds of function $\\Rightarrow$ parts; quadratic under or in a root $\\Rightarrow$ complete the square."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Exam tip: for $\\int\\dfrac{dx}{a^2-x^2}$ the logarithm is $\\dfrac1{2a}\\ln\\left|\\dfrac{a+x}{a-x}\\right|$, and for $\\int\\dfrac{dx}{x^2-a^2}$ it is $\\dfrac1{2a}\\ln\\left|\\dfrac{x-a}{x+a}\\right|$. The order of $a\\pm x$ flips with the sign of $x^2$."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r22-integrals-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "Term by term: $\\displaystyle\\int(3x^2+2x+1)\\,dx=$",
+      "options": [
+        "$x^3+x^2+x+C$",
+        "$6x+2+C$",
+        "$x^3+x^2+x$",
+        "$3x^3+2x^2+x+C$"
+      ],
+      "answer": 1,
+      "explanation": "Integrate term by term with $\\int x^n\\,dx=\\dfrac{x^{n+1}}{n+1}$: $\\int3x^2dx=x^3$, $\\int2x\\,dx=x^2$, $\\int1\\,dx=x$. Adding the constant, the result is $x^3+x^2+x+C$. Differentiating gives $3x^2+2x+1$, confirming it.",
+      "optionRationale": {
+        "2": "This is the derivative of the integrand, not its integral.",
+        "3": "The constant of integration C is missing in an indefinite integral.",
+        "4": "The powers are raised but the coefficients are not divided by the new power."
+      },
+      "objective": "Integrate a polynomial"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "Plus sign under the denominator: $\\displaystyle\\int\\frac{dx}{x^2+9}=$",
+      "options": [
+        "$\\tan^{-1}\\dfrac x3+C$",
+        "$\\dfrac13\\tan^{-1}\\dfrac x3+C$",
+        "$\\dfrac19\\tan^{-1}\\dfrac x3+C$",
+        "$\\dfrac13\\ln\\left|\\dfrac{x-3}{x+3}\\right|+C$"
+      ],
+      "answer": 2,
+      "explanation": "Here $x^2+9=x^2+3^2$, so $a=3$ in the standard result $\\int\\dfrac{dx}{x^2+a^2}=\\dfrac1a\\tan^{-1}\\dfrac xa+C$. Hence the integral is $\\dfrac13\\tan^{-1}\\dfrac x3+C$.",
+      "optionRationale": {
+        "1": "The factor 1/a = 1/3 is missing.",
+        "3": "The factor is 1/a, not 1/a squared.",
+        "4": "That form belongs to 1/(x squared minus 9); here the sign is plus, giving tan inverse."
+      },
+      "objective": "Use the standard tan inverse integral"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "Root of a squared minus x squared: $\\displaystyle\\int\\frac{dx}{\\sqrt{16-x^2}}=$",
+      "options": [
+        "$\\sin^{-1}x+C$",
+        "$\\dfrac14\\sin^{-1}\\dfrac x4+C$",
+        "$\\sin^{-1}\\dfrac x4+C$",
+        "$\\ln\\left|x+\\sqrt{16-x^2}\\right|+C$"
+      ],
+      "answer": 3,
+      "explanation": "With $a=4$, $\\int\\dfrac{dx}{\\sqrt{a^2-x^2}}=\\sin^{-1}\\dfrac xa+C$ gives $\\sin^{-1}\\dfrac x4+C$. Check: $\\dfrac{d}{dx}\\sin^{-1}\\dfrac x4=\\dfrac{1/4}{\\sqrt{1-x^2/16}}=\\dfrac1{\\sqrt{16-x^2}}$.",
+      "optionRationale": {
+        "1": "The argument must be x/a = x/4.",
+        "2": "There is no 1/a factor in the sin inverse formula.",
+        "4": "The logarithm form is for roots of x squared plus or minus a squared."
+      },
+      "objective": "Use the standard sin inverse integral"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "By the Fundamental Theorem of Calculus, $\\displaystyle\\int_0^1(2x+3)\\,dx=$",
+      "options": [
+        "$3$",
+        "$5$",
+        "$2$",
+        "$4$"
+      ],
+      "answer": 4,
+      "explanation": "By the Fundamental Theorem of Calculus we first find any antiderivative of the integrand. Here $F(x)=x^2+3x$ works, since its derivative is $2x+3$. Then $\\int_0^1(2x+3)dx=F(1)-F(0)=(1+3)-0=4$. The constant of integration cancels in the difference, so it is not needed.",
+      "optionRationale": {
+        "1": "Only the constant term was integrated; the x squared term gives 1 as well.",
+        "2": "This evaluates the integrand 2x + 3 at x = 1 instead of the antiderivative.",
+        "3": "This is the derivative of the integrand 2x + 3, not its definite integral."
+      },
+      "objective": "Evaluate a simple definite integral"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "Trigonometric integrand: $\\displaystyle\\int_0^{\\pi}\\sin x\\,dx=$",
+      "options": [
+        "$2$",
+        "$0$",
+        "$-2$",
+        "$1$"
+      ],
+      "answer": 1,
+      "explanation": "An antiderivative of $\\sin x$ is $-\\cos x$, because the derivative of $-\\cos x$ is $\\sin x$. So $\\int_0^\\pi\\sin x\\,dx=[-\\cos x]_0^\\pi=(-\\cos\\pi)-(-\\cos0)=1+1=2$. This is also the area under one arch of the sine curve, which is positive.",
+      "optionRationale": {
+        "2": "This would be the result over a full period 0 to 2 pi, where positive and negative areas cancel.",
+        "3": "The antiderivative of sin x is -cos x; evaluating -cos(pi) - (-cos 0) = 1 + 1 = +2.",
+        "4": "This takes only cos 0 = 1; the second term cos(pi) = -1 also contributes."
+      },
+      "objective": "Evaluate a trigonometric definite integral"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Integration by parts: $\\displaystyle\\int x\\,e^{x}\\,dx=$",
+      "options": [
+        "$e^x(x+1)+C$",
+        "$e^x(x-1)+C$",
+        "$\\dfrac{x^2}2e^x+C$",
+        "$xe^x+C$"
+      ],
+      "answer": 2,
+      "explanation": "By parts with $u=x$, $v=e^x$: $\\int xe^xdx=xe^x-\\int e^xdx=xe^x-e^x+C=e^x(x-1)+C$. Differentiating: $e^x(x-1)+e^x=xe^x$, as required.",
+      "optionRationale": {
+        "1": "Differentiating this gives e^x(x+2), not x e^x; the sign inside the bracket is wrong.",
+        "3": "This treats x and e^x as separate integrals multiplied together, which is not valid.",
+        "4": "Its derivative is e^x(x+1), so the integral is missing the term -e^x."
+      },
+      "objective": "Integrate by parts using ILATE"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Partial fractions: $\\displaystyle\\int\\frac{dx}{(x-1)(x-2)}=$",
+      "options": [
+        "$\\ln\\left|\\dfrac{x-1}{x-2}\\right|+C$",
+        "$\\ln|(x-1)(x-2)|+C$",
+        "$\\ln\\left|\\dfrac{x-2}{x-1}\\right|+C$",
+        "$\\dfrac12\\ln\\left|\\dfrac{x-2}{x-1}\\right|+C$"
+      ],
+      "answer": 3,
+      "explanation": "$\\dfrac1{(x-1)(x-2)}=\\dfrac{1}{x-2}-\\dfrac1{x-1}$ (check: combined numerator $(x-1)-(x-2)=1$). Integrating gives $\\ln|x-2|-\\ln|x-1|+C=\\ln\\left|\\dfrac{x-2}{x-1}\\right|+C$.",
+      "optionRationale": {
+        "1": "The ratio is inverted; the sign of the partial fractions (A = -1, B = +1) was reversed.",
+        "2": "The integral of 1/(product) is not the log of the product.",
+        "4": "The factor 1/2 belongs to the 1/(a squared - x squared) form; here the roots differ by 1."
+      },
+      "objective": "Integrate a rational function by partial fractions"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Complete the square: $\\displaystyle\\int\\frac{dx}{x^2+2x+5}=$",
+      "options": [
+        "$\\tan^{-1}(x+1)+C$",
+        "$\\dfrac12\\tan^{-1}\\dfrac x2+C$",
+        "$\\dfrac15\\tan^{-1}\\dfrac{x+1}5+C$",
+        "$\\dfrac12\\tan^{-1}\\dfrac{x+1}2+C$"
+      ],
+      "answer": 4,
+      "explanation": "Complete the square: $x^2+2x+5=(x+1)^2+4=(x+1)^2+2^2$. With $t=x+1$ and $a=2$, the integral is $\\dfrac1a\\tan^{-1}\\dfrac ta+C=\\dfrac12\\tan^{-1}\\dfrac{x+1}2+C$.",
+      "optionRationale": {
+        "1": "x squared + 2x + 5 = (x+1) squared + 4 so a = 2, not 1.",
+        "2": "The completed square gives x + 1 in the argument, not x.",
+        "3": "The constant after completing the square is 4 = 2 squared, not 5."
+      },
+      "objective": "Complete the square and apply the tan inverse form"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Coefficient in a standard result: $\\displaystyle\\int\\sqrt{x^2-16}\\,dx=\\dfrac x2\\sqrt{x^2-16}-k\\ln\\left|x+\\sqrt{x^2-16}\\right|+C$. The value of $k$ is",
+      "options": [
+        "$8$",
+        "$16$",
+        "$4$",
+        "$2$"
+      ],
+      "answer": 1,
+      "explanation": "The standard result is $\\int\\sqrt{x^2-a^2}\\,dx=\\dfrac x2\\sqrt{x^2-a^2}-\\dfrac{a^2}2\\ln\\left|x+\\sqrt{x^2-a^2}\\right|+C$. Here $a^2=16$, so $k=\\dfrac{16}2=8$.",
+      "optionRationale": {
+        "2": "The coefficient is a squared over 2, i.e. 16/2.",
+        "3": "This is a, not a squared over 2.",
+        "4": "This is a squared divided by 8, not by 2."
+      },
+      "objective": "Recall the coefficient in the integral of sqrt(x^2 - a^2)"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following standard integrals (constants of integration omitted).\nA. $\\int\\dfrac{dx}{a^2-x^2}=\\dfrac1{2a}\\ln\\left|\\dfrac{a+x}{a-x}\\right|$\nB. $\\int\\dfrac{dx}{\\sqrt{x^2-a^2}}=\\sin^{-1}\\dfrac xa$\nC. $\\int\\dfrac{dx}{x^2+a^2}=\\dfrac1a\\tan^{-1}\\dfrac xa$\nD. $\\int\\dfrac{dx}{\\sqrt{a^2-x^2}}=\\sin^{-1}\\dfrac xa$\nWhich statements are correct?",
+      "options": [
+        "A, C and D only",
+        "A, B and C only",
+        "B, C and D only",
+        "A and D only"
+      ],
+      "answer": 1,
+      "explanation": "A is correct (obtained by partial fractions). B is wrong: the integral of $1/\\sqrt{x^2-a^2}$ is $\\ln\\left|x+\\sqrt{x^2-a^2}\\right|$; sin inverse belongs to $\\sqrt{a^2-x^2}$. C is correct. D is correct. So A, C and D are correct.",
+      "optionRationale": {
+        "2": "It includes B, which is false, and omits D.",
+        "3": "It includes B, which is false, and omits A.",
+        "4": "C is also correct, so this selection is incomplete."
+      },
+      "objective": "Verify standard integral formulas"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q11",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the integrals in List-I with their results (constant omitted) in List-II.",
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-IV, D-III",
+        "A-III, B-I, C-II, D-IV"
+      ],
+      "answer": 1,
+      "explanation": "$\\int\\dfrac{dx}{x^2+4}=\\dfrac12\\tan^{-1}\\dfrac x2$ (II). $\\int\\dfrac{dx}{\\sqrt{4-x^2}}=\\sin^{-1}\\dfrac x2$ (I). $\\int\\dfrac{dx}{4-x^2}=\\dfrac14\\ln\\left|\\dfrac{2+x}{2-x}\\right|$ with $a=2$ (III). $\\int\\dfrac{dx}{\\sqrt{x^2-4}}=\\ln\\left|x+\\sqrt{x^2-4}\\right|$ (IV). Hence A-II, B-I, C-III, D-IV.",
+      "optionRationale": {
+        "2": "It swaps the tan inverse and sin inverse results for A and B.",
+        "3": "It swaps the two logarithmic results for C and D.",
+        "4": "It assigns the logarithmic result of C to A, which contains no root and has a plus sign (tan inverse)."
+      },
+      "objective": "Match integrals of a squared and x squared forms with results",
+      "list": {
+        "left": [
+          "A. $\\int\\dfrac{dx}{x^2+4}$",
+          "B. $\\int\\dfrac{dx}{\\sqrt{4-x^2}}$",
+          "C. $\\int\\dfrac{dx}{4-x^2}$",
+          "D. $\\int\\dfrac{dx}{\\sqrt{x^2-4}}$"
+        ],
+        "right": [
+          "I. $\\sin^{-1}\\dfrac x2$",
+          "II. $\\dfrac12\\tan^{-1}\\dfrac x2$",
+          "III. $\\dfrac14\\ln\\left|\\dfrac{2+x}{2-x}\\right|$",
+          "IV. $\\ln\\left|x+\\sqrt{x^2-4}\\right|$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r22-integrals-q12",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): $\\displaystyle\\int_{-2}^{2}x^3\\,dx=0$.\nReason (R): For an odd function $f$, $\\displaystyle\\int_{-a}^{a}f(x)\\,dx=0$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "$f(x)=x^3$ is odd, since $f(-x)=-f(x)$. For odd functions the area on the left of the origin cancels that on the right, so $\\int_{-a}^af=0$. Direct check: $\\left[\\dfrac{x^4}4\\right]_{-2}^2=4-4=0$. R is true and explains A.",
+      "optionRationale": {
+        "2": "R is the exact property that gives A, so it is the explanation.",
+        "3": "R is true: it is the standard property of odd functions.",
+        "4": "A is true, as the direct calculation 4 - 4 = 0 shows."
+      },
+      "objective": "Use the odd function property of definite integrals"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Substitution: $\\displaystyle\\int 2x\\cos\\left(x^2\\right)dx=$",
+      "options": [
+        "$\\sin x^2\\cdot x+C$",
+        "$-\\sin\\left(x^2\\right)+C$",
+        "$\\sin\\left(x^2\\right)+C$",
+        "$2x\\sin\\left(x^2\\right)+C$"
+      ],
+      "answer": 3,
+      "explanation": "Put $t=x^2$, so $dt=2x\\,dx$. The integral becomes $\\int\\cos t\\,dt=\\sin t+C=\\sin\\left(x^2\\right)+C$. Differentiating the answer gives $\\cos(x^2)\\cdot2x$, which matches the integrand.",
+      "optionRationale": {
+        "1": "This is not the antiderivative; x sin(x squared) differentiates to something else entirely.",
+        "2": "The integral of cos t is +sin t, with no minus sign.",
+        "4": "Substitution t = x squared absorbs the factor 2x dx = dt; it does not remain outside."
+      },
+      "objective": "Use substitution when the derivative of the inner function is present"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Derivative of the denominator in the numerator: $\\displaystyle\\int\\frac{2x+3}{x^2+4x+5}\\,dx=$",
+      "options": [
+        "$\\ln(x^2+4x+5)+\\tan^{-1}(x+2)+C$",
+        "$\\ln(x^2+4x+5)-\\tan^{-1}(x+2)+C$",
+        "$\\tfrac12\\ln(x^2+4x+5)-\\tan^{-1}(x+2)+C$",
+        "$\\ln(x^2+4x+5)-\\tan^{-1}(x)+C$"
+      ],
+      "answer": 2,
+      "explanation": "The derivative of the denominator is $2x+4$, so write $2x+3=(2x+4)-1$. Then $\\int\\dfrac{2x+4}{x^2+4x+5}dx=\\ln(x^2+4x+5)$ and $\\int\\dfrac{dx}{(x+2)^2+1}=\\tan^{-1}(x+2)$. So the result is $\\ln(x^2+4x+5)-\\tan^{-1}(x+2)+C$.",
+      "optionRationale": {
+        "1": "Writing 2x + 3 = (2x + 4) - 1 gives a minus sign in front of the tan inverse term.",
+        "3": "The log term has coefficient 1 because 2x + 4 is exactly the derivative of the denominator.",
+        "4": "The completed square is (x+2) squared + 1, so the argument of tan inverse is x + 2."
+      },
+      "objective": "Split (px + q) over a quadratic into derivative and constant parts"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Completing the square under a root: $\\displaystyle\\int\\frac{dx}{\\sqrt{5-4x-x^2}}=$",
+      "options": [
+        "$\\sin^{-1}\\dfrac{x+2}{\\sqrt5}+C$",
+        "$\\sin^{-1}\\dfrac{x-2}3+C$",
+        "$\\sin^{-1}\\dfrac{x+2}3+C$",
+        "$\\ln\\left|x+2+\\sqrt{5-4x-x^2}\\right|+C$"
+      ],
+      "answer": 3,
+      "explanation": "$5-4x-x^2=9-(x^2+4x+4)=9-(x+2)^2=3^2-(x+2)^2$. With $t=x+2$, $\\int\\dfrac{dt}{\\sqrt{3^2-t^2}}=\\sin^{-1}\\dfrac t3+C=\\sin^{-1}\\dfrac{x+2}3+C$.",
+      "optionRationale": {
+        "1": "Completing the square gives 9 - (x+2) squared, so a = 3, not root 5.",
+        "2": "The completed square is (x + 2) squared, so the shift is +2.",
+        "4": "The quantity under the root is of the form a squared minus t squared, so the result is sin inverse, not a logarithm."
+      },
+      "objective": "Complete the square under a square root"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Quarter-circle type: $\\displaystyle\\int_0^3\\sqrt{9-x^2}\\,dx=$",
+      "options": [
+        "$\\dfrac{9\\pi}2$",
+        "$\\dfrac{3\\pi}4$",
+        "$9\\pi$",
+        "$\\dfrac{9\\pi}4$"
+      ],
+      "answer": 4,
+      "explanation": "With $a=3$: $\\left[\\dfrac x2\\sqrt{9-x^2}+\\dfrac92\\sin^{-1}\\dfrac x3\\right]_0^3$. At $3$: $0+\\dfrac92\\cdot\\dfrac\\pi2=\\dfrac{9\\pi}4$. At $0$: $0$. So the value is $\\dfrac{9\\pi}4$, equal to a quarter of the area $9\\pi$ of the circle $x^2+y^2=9$.",
+      "optionRationale": {
+        "1": "This is the area of a semicircle of radius 3; the integral from 0 to 3 is only a quarter circle.",
+        "2": "This uses a instead of a squared in the coefficient a squared over 2.",
+        "3": "This is the area of the full circle of radius 3."
+      },
+      "objective": "Evaluate a definite integral of a square root of a squared minus x squared"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Repeated parts: $\\displaystyle\\int x^2e^x\\,dx=$",
+      "options": [
+        "$e^x(x^2-2x+2)+C$",
+        "$e^x(x^2+2x+2)+C$",
+        "$e^x(x^2-2x)+C$",
+        "$\\dfrac{x^3}3e^x+C$"
+      ],
+      "answer": 1,
+      "explanation": "Apply parts twice. First, $\\int x^2e^xdx=x^2e^x-\\int2xe^xdx$. Then $\\int2xe^xdx=2e^x(x-1)$. So the result is $x^2e^x-2e^x(x-1)=e^x(x^2-2x+2)$, plus $C$. Differentiating: $e^x(x^2-2x+2)+e^x(2x-2)=x^2e^x$.",
+      "optionRationale": {
+        "2": "Differentiating gives e^x(x^2+4x+4), not x^2 e^x; the signs alternate in repeated parts.",
+        "3": "The final constant term +2 is missing; the derivative would be e^x(x^2-2), not x^2 e^x.",
+        "4": "The product of two functions cannot be integrated by integrating each separately."
+      },
+      "objective": "Apply integration by parts twice"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "King property of definite integrals: $\\displaystyle\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx=$",
+      "options": [
+        "$\\dfrac\\pi2$",
+        "$\\dfrac\\pi4$",
+        "$\\dfrac{\\pi}{8}$",
+        "$1$"
+      ],
+      "answer": 2,
+      "explanation": "Let $I$ be the integral. By the property $\\int_0^af(x)dx=\\int_0^af(a-x)dx$, $I=\\int_0^{\\pi/2}\\dfrac{\\cos x}{\\cos x+\\sin x}dx$. Adding the two forms, $2I=\\int_0^{\\pi/2}1\\,dx=\\dfrac\\pi2$, so $I=\\dfrac\\pi4$.",
+      "optionRationale": {
+        "1": "This would be the integral of 1; the two similar integrals add up to pi/2, so each is half.",
+        "3": "Halving twice; the two integrals sum to pi/2, so each is pi/4.",
+        "4": "This is the value of integral of sin x alone from 0 to pi/2; the given integrand is different."
+      },
+      "objective": "Apply the property of definite integrals int f(x) = int f(a-x)"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Exponential-pattern integral: $\\displaystyle\\int e^x\\left(\\frac1x-\\frac1{x^2}\\right)dx=$",
+      "options": [
+        "$\\dfrac{e^x}{x^2}+C$",
+        "$e^x\\ln x+C$",
+        "$\\dfrac{e^x}x+C$",
+        "$-\\dfrac{e^x}x+C$"
+      ],
+      "answer": 3,
+      "explanation": "Let $f(x)=\\dfrac1x$. Then $f'(x)=-\\dfrac1{x^2}$, so the integrand is $e^x[f(x)+f'(x)]$. By $\\int e^x[f+f']dx=e^xf$, the integral is $\\dfrac{e^x}x+C$. Check: $\\dfrac d{dx}\\dfrac{e^x}x=\\dfrac{e^x}x-\\dfrac{e^x}{x^2}$.",
+      "optionRationale": {
+        "1": "The pattern e^x [f + f prime] has f = 1/x, so the result is e^x f = e^x / x.",
+        "2": "This is not the antiderivative; its derivative is e^x ln x + e^x / x.",
+        "4": "The sign is wrong: f(x) = 1/x with f prime = -1/x squared gives +e^x / x."
+      },
+      "objective": "Recognise the e^x[f(x)+f prime(x)] pattern"
+    },
+    {
+      "key": "ug26-319-r22-integrals-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Parts with a logarithm over limits: $\\displaystyle\\int_1^e x\\ln x\\,dx=$",
+      "options": [
+        "$\\dfrac{e^2-1}4$",
+        "$\\dfrac{e^2}2$",
+        "$\\dfrac{e^2+1}2$",
+        "$\\dfrac{e^2+1}4$"
+      ],
+      "answer": 4,
+      "explanation": "By parts, $\\int x\\ln x\\,dx=\\dfrac{x^2}2\\ln x-\\dfrac{x^2}4$. At $e$: $\\dfrac{e^2}2-\\dfrac{e^2}4=\\dfrac{e^2}4$. At $1$: $0-\\dfrac14$. Hence $\\int_1^ex\\ln x\\,dx=\\dfrac{e^2}4+\\dfrac14=\\dfrac{e^2+1}4\\approx2.097$.",
+      "optionRationale": {
+        "1": "The lower limit contributes -(0 - 1/4) = +1/4, so the numerator is e squared + 1.",
+        "2": "The -x squared/4 part of the antiderivative has been dropped.",
+        "3": "The antiderivative is x squared/2 ln x - x squared/4; the denominator is 4, not 2."
+      },
+      "objective": "Evaluate a definite integral using integration by parts"
+    }
+  ]
+}

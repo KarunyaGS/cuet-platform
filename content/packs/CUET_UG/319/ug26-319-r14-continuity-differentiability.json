@@ -1,0 +1,734 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_1e7061c3704b441d8e96af9a4670a090",
+    "title": "Continuity and Differentiability"
+  },
+  "lesson": {
+    "key": "ug26-319-r14-continuity-differentiability",
+    "title": "Continuity and differentiability: chain rule, implicit, logarithmic, parametric and second-order derivatives",
+    "coverage": [
+      {
+        "phrase": "Continuity and differentiability",
+        "section": "Continuity and differentiability"
+      },
+      {
+        "phrase": "chain rule",
+        "section": "Chain rule"
+      },
+      {
+        "phrase": "derivatives of inverse trigonometric functions, like sin⁻¹ 𝑥 , cos⁻¹ 𝑥 and tan⁻¹ 𝑥",
+        "section": "Derivatives of inverse trigonometric functions, like sin⁻¹ x, cos⁻¹ x and tan⁻¹ x"
+      },
+      {
+        "phrase": "derivative of implicit functions",
+        "section": "Derivative of implicit functions"
+      },
+      {
+        "phrase": "Concepts of exponential, logarithmic functions",
+        "section": "Concepts of exponential and logarithmic functions"
+      },
+      {
+        "phrase": "Derivatives of logarithmic and exponential functions",
+        "section": "Derivatives of logarithmic and exponential functions"
+      },
+      {
+        "phrase": "Logarithmic differentiation",
+        "section": "Logarithmic differentiation"
+      },
+      {
+        "phrase": "derivative of functions expressed in parametric forms",
+        "section": "Derivative of functions expressed in parametric forms"
+      },
+      {
+        "phrase": "Second-order derivatives",
+        "section": "Second-order derivatives"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Continuity and differentiability"
+      },
+      {
+        "type": "TEXT",
+        "text": "A function is **continuous** when its graph has no break: you can draw it without lifting the pen. A function is **differentiable** when its graph has a well-defined tangent, so it has no corner and no vertical tangent. Continuity is the weaker property."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Continuity at a point",
+        "text": "A function $f$ is continuous at $x = c$ if $\\lim_{x \\to c} f(x)$ exists and equals $f(c)$. That is, $\\lim_{x \\to c^-} f(x) = \\lim_{x \\to c^+} f(x) = f(c)$. All three numbers (left limit, right limit, value) must exist and be equal. A function is continuous on an interval if it is continuous at every point of it."
+      },
+      {
+        "type": "TEXT",
+        "text": "Polynomials, sine, cosine, exponential functions are continuous everywhere. Rational functions are continuous wherever the denominator is not zero. Sums, differences, products and compositions of continuous functions are continuous, and a quotient is continuous where the denominator is non-zero."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $k$ if $f(x) = \\dfrac{x^2 - 9}{x - 3}$ for $x \\ne 3$ and $f(3) = k$ is continuous at $x = 3$.",
+        "solution": "For $x \\ne 3$, $\\dfrac{x^2-9}{x-3} = \\dfrac{(x-3)(x+3)}{x-3} = x + 3$. Hence $\\lim_{x \\to 3} f(x) = 3 + 3 = 6$. For continuity the limit must equal $f(3) = k$, so $k = 6$.",
+        "answer": "$k = 6$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $k$ for which $f(x) = kx^2$ for $x \\le 2$ and $f(x) = 3$ for $x > 2$ is continuous at $x = 2$.",
+        "solution": "Left limit: $\\lim_{x\\to 2^-} kx^2 = 4k$, and $f(2) = 4k$. Right limit: $\\lim_{x \\to 2^+} 3 = 3$. For continuity $4k = 3$, so $k = 3/4$.",
+        "answer": "$k = 3/4$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Differentiability",
+        "text": "A function $f$ is differentiable at $x = c$ if the limit $f'(c) = \\lim_{h \\to 0} \\dfrac{f(c+h) - f(c)}{h}$ exists, that is, the left-hand derivative (with $h \\to 0^-$) and the right-hand derivative ($h \\to 0^+$) exist and are equal."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Every differentiable function is continuous, but a continuous function need not be differentiable.** The function $f(x) = |x|$ is continuous at $0$, but its left derivative is $-1$ and its right derivative is $+1$, so it has a corner at $0$ and is not differentiable there."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "When a question asks whether a function is differentiable at a point, first check continuity (if it fails, the answer is no), then compare left and right derivatives. Note that $f(x) = x|x|$ **is** differentiable at $0$, with $f'(0) = \\lim_{h\\to0} \\dfrac{h|h|}{h} = \\lim_{h \\to 0}|h| = 0$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Chain rule"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Chain rule.** If $y = f(u)$ and $u = g(x)$, where both are differentiable, then $\\dfrac{dy}{dx} = \\dfrac{dy}{du}\\cdot\\dfrac{du}{dx}$. In words: differentiate the outer function, keeping the inside unchanged, then multiply by the derivative of the inside."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Chain rule examples",
+        "columns": [
+          "Function",
+          "Outer $\\times$ inner",
+          "Derivative"
+        ],
+        "rows": [
+          [
+            "$(3x+2)^5$",
+            "$5(3x+2)^4 \\times 3$",
+            "$15(3x+2)^4$"
+          ],
+          [
+            "$\\sin(x^2)$",
+            "$\\cos(x^2) \\times 2x$",
+            "$2x\\cos(x^2)$"
+          ],
+          [
+            "$\\sqrt{1 + x^3}$",
+            "$\\dfrac{1}{2\\sqrt{1+x^3}} \\times 3x^2$",
+            "$\\dfrac{3x^2}{2\\sqrt{1+x^3}}$"
+          ]
+        ]
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "For a composition of three functions, multiply three factors: if $y = f(u)$, $u = g(v)$, $v = h(x)$ then $\\dfrac{dy}{dx} = \\dfrac{dy}{du}\\cdot\\dfrac{du}{dv}\\cdot\\dfrac{dv}{dx}$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Derivatives of inverse trigonometric functions, like sin⁻¹ x, cos⁻¹ x and tan⁻¹ x"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\frac{d}{dx}\\sin^{-1}x = \\frac{1}{\\sqrt{1-x^2}},\\quad \\frac{d}{dx}\\cos^{-1}x = -\\frac{1}{\\sqrt{1-x^2}},\\quad \\frac{d}{dx}\\tan^{-1}x = \\frac{1}{1+x^2}",
+        "text": "The first two hold for $-1 < x < 1$, the third for all real $x$. They follow from $\\sin(\\sin^{-1}x) = x$ by implicit differentiation: $\\cos y \\cdot y' = 1$, so $y' = 1/\\cos y = 1/\\sqrt{1-x^2}$. Since $\\sin^{-1}x + \\cos^{-1}x = \\pi/2$, the derivatives of $\\sin^{-1}x$ and $\\cos^{-1}x$ are negatives of each other."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Differentiate (i) $\\tan^{-1}(x^2)$ and (ii) $\\sin^{-1}\\!\\big(2x\\sqrt{1-x^2}\\big)$ for $0 < x < 1/\\sqrt{2}$.",
+        "solution": "(i) By the chain rule with $u = x^2$: $\\dfrac{d}{dx}\\tan^{-1}u = \\dfrac{1}{1+u^2}\\cdot u' = \\dfrac{2x}{1+x^4}$. (ii) Put $x = \\sin\\theta$, so $\\theta = \\sin^{-1}x$ and $\\sqrt{1-x^2} = \\cos\\theta$. Then $2x\\sqrt{1-x^2} = 2\\sin\\theta\\cos\\theta = \\sin 2\\theta$. For $0 < x < 1/\\sqrt2$ we have $0 < 2\\theta < \\pi/2$, so $\\sin^{-1}(\\sin 2\\theta) = 2\\theta = 2\\sin^{-1}x$. Its derivative is $\\dfrac{2}{\\sqrt{1-x^2}}$.",
+        "answer": "(i) $\\dfrac{2x}{1+x^4}$; (ii) $\\dfrac{2}{\\sqrt{1-x^2}}$."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Do not confuse $\\sin^{-1}x$ (inverse function) with $(\\sin x)^{-1} = 1/\\sin x$. The derivative of $\\sin^{-1}x$ is never $\\cos^{-1}x$ or $\\cos x$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Derivative of implicit functions"
+      },
+      {
+        "type": "TEXT",
+        "text": "When $y$ is tied to $x$ by an equation such as $x^2 + y^2 = 25$ that is not solved for $y$, differentiate both sides with respect to $x$, treating $y$ as a function of $x$. Every derivative of a term in $y$ carries the factor $\\dfrac{dy}{dx}$ (this is the chain rule). Then solve for $\\dfrac{dy}{dx}$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $\\dfrac{dy}{dx}$ if $x^3 + y^3 = 3xy$, and find the slope of $x^2 + y^2 = 25$ at $(3,4)$.",
+        "solution": "Differentiate $x^3 + y^3 = 3xy$ with respect to $x$: $3x^2 + 3y^2\\,y' = 3y + 3x\\,y'$. Collect: $y'(3y^2 - 3x) = 3y - 3x^2$, so $y' = \\dfrac{y - x^2}{y^2 - x}$. For $x^2 + y^2 = 25$: $2x + 2y\\,y' = 0$, so $y' = -x/y$, which at $(3,4)$ is $-3/4$.",
+        "answer": "$\\dfrac{dy}{dx} = \\dfrac{y-x^2}{y^2-x}$; slope $= -\\dfrac{3}{4}$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Concepts of exponential and logarithmic functions"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Exponential function",
+        "text": "A function $f(x) = a^x$ with $a > 0$, $a \\ne 1$. The natural exponential function is $e^x$, where $e \\approx 2.718$. It is positive for all $x$, increasing when $a > 1$, and satisfies $a^{x+y} = a^x a^y$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Logarithmic function",
+        "text": "The inverse of the exponential: $y = \\log_a x$ means $x = a^y$, defined for $x > 0$. The natural logarithm $\\ln x = \\log_e x$ is the inverse of $e^x$. Key properties: $\\log(mn) = \\log m + \\log n$, $\\log(m/n) = \\log m - \\log n$, $\\log m^k = k\\log m$, and $\\log_a x = \\dfrac{\\ln x}{\\ln a}$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Derivatives of logarithmic and exponential functions"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\frac{d}{dx}e^x = e^x,\\quad \\frac{d}{dx}a^x = a^x\\ln a,\\quad \\frac{d}{dx}\\ln x = \\frac{1}{x},\\quad \\frac{d}{dx}\\log_a x = \\frac{1}{x\\ln a}",
+        "text": "$e^x$ is its own derivative. For $a^x$ the extra factor $\\ln a$ appears; for $\\log_a x$ the extra factor is $1/\\ln a$. With the chain rule: $\\dfrac{d}{dx}e^{f(x)} = f'(x)e^{f(x)}$ and $\\dfrac{d}{dx}\\ln f(x) = \\dfrac{f'(x)}{f(x)}$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Derivatives involving exponentials and logarithms",
+        "columns": [
+          "Function",
+          "Derivative"
+        ],
+        "rows": [
+          [
+            "$e^{2x}$",
+            "$2e^{2x}$"
+          ],
+          [
+            "$e^{x^2}$",
+            "$2x\\,e^{x^2}$"
+          ],
+          [
+            "$\\ln(\\sin x)$",
+            "$\\cot x$"
+          ],
+          [
+            "$x e^x$",
+            "$e^x(1+x)$"
+          ],
+          [
+            "$2^x$",
+            "$2^x\\ln 2$"
+          ]
+        ]
+      },
+      {
+        "type": "HEADING",
+        "text": "Logarithmic differentiation"
+      },
+      {
+        "type": "TEXT",
+        "text": "Use logarithmic differentiation when the function is of the form $[f(x)]^{g(x)}$ (variable base and variable power) or a long product or quotient. Take $\\ln$ of both sides, simplify with log laws, differentiate implicitly, then multiply by $y$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Differentiate $y = x^x$ ($x > 0$) and find $y'(1)$. Also differentiate $y = x^{\\sin x}$ and evaluate at $x = \\pi/2$.",
+        "solution": "For $y = x^x$: $\\ln y = x\\ln x$. Differentiating, $\\dfrac{y'}{y} = \\ln x + x\\cdot\\dfrac1x = \\ln x + 1$, so $y' = x^x(1 + \\ln x)$. At $x = 1$: $y' = 1\\cdot(1+0) = 1$. For $y = x^{\\sin x}$: $\\ln y = \\sin x\\ln x$, so $\\dfrac{y'}{y} = \\cos x\\ln x + \\dfrac{\\sin x}{x}$ and $y' = x^{\\sin x}\\Big(\\cos x\\ln x + \\dfrac{\\sin x}{x}\\Big)$. At $x = \\pi/2$: $\\cos = 0$, $\\sin = 1$, so $y' = \\dfrac{\\pi}{2}\\cdot\\dfrac{1}{\\pi/2} = 1$.",
+        "answer": "$y'(1) = 1$ for $x^x$; $y'(\\pi/2) = 1$ for $x^{\\sin x}$."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Never differentiate $x^x$ as $x\\cdot x^{x-1}$ (power rule) or as $x^x\\ln x$ (exponential rule). Each is only one of the two terms. The correct result needs logarithmic differentiation."
+      },
+      {
+        "type": "HEADING",
+        "text": "Derivative of functions expressed in parametric forms"
+      },
+      {
+        "type": "TEXT",
+        "text": "When $x = f(t)$ and $y = g(t)$ both depend on a parameter $t$, the chain rule gives $\\dfrac{dy}{dx} = \\dfrac{dy/dt}{dx/dt}$, valid when $\\dfrac{dx}{dt} \\ne 0$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\frac{dy}{dx} = \\frac{dy/dt}{dx/dt}",
+        "text": "Here $t$ is the parameter, $dx/dt \\ne 0$. For the circle $x = a\\cos\\theta$, $y = a\\sin\\theta$ this gives $\\dfrac{dy}{dx} = \\dfrac{a\\cos\\theta}{-a\\sin\\theta} = -\\cot\\theta$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Second-order derivatives"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Second-order derivative",
+        "text": "The derivative of the derivative: $y'' = \\dfrac{d^2y}{dx^2} = \\dfrac{d}{dx}\\Big(\\dfrac{dy}{dx}\\Big)$. It measures how fast the slope changes (the curvature of the graph)."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\frac{d^2y}{dx^2} = \\frac{d}{dt}\\!\\Big(\\frac{dy}{dx}\\Big)\\Big/\\frac{dx}{dt}",
+        "text": "For parametric functions, first find $dy/dx$ as a function of $t$, differentiate that with respect to $t$, and then divide by $dx/dt$. It is not $\\dfrac{d^2y/dt^2}{d^2x/dt^2}$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "If $x = t^2$ and $y = t^3$, find $\\dfrac{dy}{dx}$ and $\\dfrac{d^2y}{dx^2}$. Also find $y''$ if $y = \\sin 2x$.",
+        "solution": "$\\dfrac{dx}{dt} = 2t$ and $\\dfrac{dy}{dt} = 3t^2$, so $\\dfrac{dy}{dx} = \\dfrac{3t^2}{2t} = \\dfrac{3t}{2}$. Differentiating this with respect to $t$ gives $\\dfrac32$, and dividing by $\\dfrac{dx}{dt} = 2t$ gives $\\dfrac{d^2y}{dx^2} = \\dfrac{3}{4t}$. For $y = \\sin 2x$: $y' = 2\\cos 2x$ and $y'' = -4\\sin 2x$.",
+        "answer": "$\\dfrac{dy}{dx} = \\dfrac{3t}{2}$, $\\dfrac{d^2y}{dx^2} = \\dfrac{3}{4t}$; $y'' = -4\\sin 2x$."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Differentiable $\\Rightarrow$ continuous (not conversely). Chain rule: outer times inner. Implicit: each $y$-term brings $y'$. Parametric: $dy/dx = (dy/dt)/(dx/dt)$, and $y'' = \\frac{d}{dt}(y')\\big/\\frac{dx}{dt}$. Use logarithmic differentiation for variable powers."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "A function $f$ is continuous at $x = c$ if and only if",
+      "options": [
+        "$f(c)$ exists",
+        "$\\lim_{x \\to c} f(x)$ exists and equals $f(c)$",
+        "$\\lim_{x \\to c} f(x)$ exists",
+        "$f$ is differentiable at $c$"
+      ],
+      "answer": 2,
+      "explanation": "Continuity at $c$ requires three things: $f(c)$ is defined, the limit as $x \\to c$ exists (left and right limits agree), and the limit equals $f(c)$. Having only one of these is not enough, and differentiability is a stronger condition.",
+      "optionRationale": {
+        "1": "The value alone does not guarantee that the limit exists or equals it.",
+        "3": "The limit may exist yet differ from $f(c)$ (a removable gap).",
+        "4": "Differentiability implies continuity, but continuity does not need differentiability."
+      },
+      "objective": "State the definition of continuity"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The function $f(x) = \\dfrac{x^2 - 9}{x - 3}$ is defined for $x \\ne 3$, and $f(3) = k$. The constant $k$ that removes the break at $x = 3$ is",
+      "options": [
+        "0",
+        "6",
+        "3",
+        "9"
+      ],
+      "answer": 2,
+      "explanation": "For $x \\ne 3$, $\\dfrac{x^2-9}{x-3} = x + 3$, whose limit as $x \\to 3$ is $6$. Continuity at $3$ demands $f(3) = \\lim_{x\\to3} f(x)$, so $k = 6$.",
+      "optionRationale": {
+        "1": "The limit is not $0$; $x+3$ tends to $6$.",
+        "3": "This is the value of $x$, not the limit of $f$.",
+        "4": "This is $x^2$ at $x=3$, not the limit of the quotient."
+      },
+      "objective": "Find a value that removes a discontinuity"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "application",
+      "stem": "Using the chain rule, differentiating $(3x + 2)^5$ gives",
+      "options": [
+        "3(3x+2)^5",
+        "5(3x+2)^4",
+        "(3x+2)^4",
+        "15(3x+2)^4"
+      ],
+      "answer": 4,
+      "explanation": "By the chain rule, $\\dfrac{d}{dx}(3x+2)^5 = 5(3x+2)^4 \\cdot \\dfrac{d}{dx}(3x+2) = 5(3x+2)^4 \\cdot 3 = 15(3x+2)^4$. The derivative of the inside must always be multiplied.",
+      "optionRationale": {
+        "1": "This differentiates the inside but forgets to reduce the power.",
+        "2": "This omits the factor $3$, the derivative of the inside function.",
+        "3": "This drops both the power $5$ and the inner derivative $3$."
+      },
+      "objective": "Apply the chain rule to a power"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q04",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The derivative of $\\cos^{-1}x$ is the negative of the derivative of $\\sin^{-1}x$.\nReason (R): For $-1 \\le x \\le 1$, $\\sin^{-1}x + \\cos^{-1}x = \\dfrac{\\pi}{2}$, a constant.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Since $\\sin^{-1}x + \\cos^{-1}x = \\pi/2$ is constant, differentiating both sides gives $\\dfrac{d}{dx}\\sin^{-1}x + \\dfrac{d}{dx}\\cos^{-1}x = 0$. So the two derivatives are negatives of each other, which is why the reason explains the assertion.",
+      "optionRationale": {
+        "2": "The reason is the identity that proves the assertion, so it is the explanation.",
+        "3": "The reason is true: the sum of the two inverse functions is $\\pi/2$.",
+        "4": "The assertion is true: $\\dfrac{d}{dx}\\cos^{-1}x = -\\dfrac{1}{\\sqrt{1-x^2}}$."
+      },
+      "objective": "Relate derivatives of sin inverse and cos inverse"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Differentiating the exponential function $2^x$ with base two gives",
+      "options": [
+        "$x\\,2^{x-1}$",
+        "2^x",
+        "$2^x \\ln 2$",
+        "$\\dfrac{2^x}{\\ln 2}$"
+      ],
+      "answer": 3,
+      "explanation": "Write $2^x = e^{x\\ln 2}$. By the chain rule its derivative is $e^{x\\ln 2}\\cdot \\ln 2 = 2^x\\ln 2$. In general $\\dfrac{d}{dx}a^x = a^x\\ln a$.",
+      "optionRationale": {
+        "1": "This applies the power rule, but here the variable is in the exponent.",
+        "2": "Only $e^x$ is its own derivative; $2^x$ needs the factor $\\ln 2$.",
+        "4": "This divides by $\\ln 2$; the derivative multiplies by it."
+      },
+      "objective": "Differentiate an exponential with base a"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Differentiating the inverse tangent of $x^2$, that is $\\tan^{-1}(x^2)$, gives",
+      "options": [
+        "$\\dfrac{2x}{1+x^2}$",
+        "$\\dfrac{1}{1+x^4}$",
+        "$\\dfrac{2x}{1+x^4}$",
+        "$\\dfrac{2x}{\\sqrt{1-x^4}}$"
+      ],
+      "answer": 3,
+      "explanation": "With $u = x^2$, $\\dfrac{d}{dx}\\tan^{-1}u = \\dfrac{1}{1+u^2}\\cdot\\dfrac{du}{dx} = \\dfrac{1}{1+x^4}\\cdot 2x = \\dfrac{2x}{1+x^4}$.",
+      "optionRationale": {
+        "1": "The denominator must be $1 + (x^2)^2 = 1 + x^4$.",
+        "2": "This forgets the chain rule factor $2x$.",
+        "4": "That would be the derivative of $\\sin^{-1}(x^2)$."
+      },
+      "objective": "Differentiate tan inverse of a function"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For the curve $x^2 + y^2 = 25$, the slope of the tangent at $(3,4)$ is",
+      "options": [
+        "$\\dfrac{3}{4}$",
+        "$-\\dfrac{3}{4}$",
+        "$-\\dfrac{4}{3}$",
+        "$\\dfrac{4}{3}$"
+      ],
+      "answer": 2,
+      "explanation": "Differentiating $x^2 + y^2 = 25$ implicitly gives $2x + 2y\\dfrac{dy}{dx} = 0$, so $\\dfrac{dy}{dx} = -\\dfrac{x}{y}$. At $(3,4)$ this is $-\\dfrac{3}{4}$, a tangent perpendicular to the radius of slope $4/3$.",
+      "optionRationale": {
+        "1": "The sign is wrong: $dy/dx = -x/y$.",
+        "3": "This inverts the ratio; the slope is $-x/y$, not $-y/x$.",
+        "4": "This has both the wrong sign and an inverted ratio."
+      },
+      "objective": "Find a slope by implicit differentiation"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "For the implicit relation $x^3 + y^3 = 3xy$, the slope function $\\dfrac{dy}{dx}$ is",
+      "options": [
+        "$\\dfrac{x^2 - y}{y^2 - x}$",
+        "$\\dfrac{y - x^2}{x - y^2}$",
+        "$\\dfrac{y - x^2}{y^2 - x}$",
+        "$\\dfrac{x^2}{y^2}$"
+      ],
+      "answer": 3,
+      "explanation": "Differentiate: $3x^2 + 3y^2 y' = 3y + 3x y'$. Collecting $y'$ terms, $y'(3y^2 - 3x) = 3y - 3x^2$, which gives $y' = \\dfrac{y - x^2}{y^2 - x}$. The product $xy$ needs the product rule.",
+      "optionRationale": {
+        "1": "The numerator has the wrong sign; it should be $y - x^2$.",
+        "2": "The denominator has the wrong sign; it should be $y^2 - x$.",
+        "4": "This ignores the right-hand side $3xy$, which also has to be differentiated."
+      },
+      "objective": "Differentiate an implicit equation"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q09",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about continuity and differentiability.\nA. Every differentiable function is continuous.\nB. Every continuous function is differentiable.\nC. $f(x) = |x|$ is continuous at $x = 0$ but not differentiable there.\nD. Polynomial functions are differentiable at every real number.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "A, C and D only",
+        "B and C only",
+        "A and C only"
+      ],
+      "answer": 2,
+      "explanation": "Differentiability implies continuity (A) but not conversely, so B is false. The function $|x|$ has left derivative $-1$ and right derivative $+1$ at $0$, so it is continuous but not differentiable there (C). A polynomial is differentiable everywhere (D).",
+      "optionRationale": {
+        "1": "B is false: $|x|$ is continuous but not differentiable at $0$.",
+        "3": "B is false, and A and D are also true.",
+        "4": "D is also correct, so this selection is incomplete."
+      },
+      "objective": "Relate continuity and differentiability"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If $y = x^x$ for $x > 0$, then $\\dfrac{dy}{dx}$ at $x = 1$ is",
+      "options": [
+        "0",
+        "e",
+        "2",
+        "1"
+      ],
+      "answer": 4,
+      "explanation": "Take logs: $\\ln y = x\\ln x$, so $\\dfrac{y'}{y} = \\ln x + 1$ and $y' = x^x(1 + \\ln x)$. At $x = 1$: $1^1(1 + \\ln 1) = 1\\cdot 1 = 1$.",
+      "optionRationale": {
+        "1": "This is only the value of $\\ln 1$; the full factor is $1+\\ln x$, which equals $1$ at $x = 1$.",
+        "2": "There is no natural source of $e$ at $x = 1$.",
+        "3": "There is no source for a factor $2$: $x^x(1+\\ln x)$ at $x=1$ is $1 \\times 1 = 1$."
+      },
+      "objective": "Apply logarithmic differentiation"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "For $x = 2\\cos\\theta$ and $y = 2\\sin\\theta$, the derivative $\\dfrac{dy}{dx}$ is",
+      "options": [
+        "$-\\cot\\theta$",
+        "$\\tan\\theta$",
+        "$\\cot\\theta$",
+        "$-\\tan\\theta$"
+      ],
+      "answer": 1,
+      "explanation": "$\\dfrac{dx}{d\\theta} = -2\\sin\\theta$ and $\\dfrac{dy}{d\\theta} = 2\\cos\\theta$, so $\\dfrac{dy}{dx} = \\dfrac{2\\cos\\theta}{-2\\sin\\theta} = -\\cot\\theta$. This is the slope of the tangent to a circle at the angle $\\theta$.",
+      "optionRationale": {
+        "2": "This does not result: $dy/d\\theta = 2\\cos\\theta$ and $dx/d\\theta = -2\\sin\\theta$ give a cotangent, not a tangent.",
+        "3": "The sign is wrong: $dx/d\\theta = -2\\sin\\theta$ is negative.",
+        "4": "The ratio is inverted; $dy/d\\theta$ is the $\\cos$ term, not the $\\sin$ term."
+      },
+      "objective": "Differentiate a parametric function"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Differentiating $y = \\sin 2x$ twice with respect to $x$ gives the second-order derivative",
+      "options": [
+        "$-\\sin 2x$",
+        "$-4\\sin 2x$",
+        "$-2\\sin 2x$",
+        "$4\\sin 2x$"
+      ],
+      "answer": 2,
+      "explanation": "Differentiate twice, applying the chain rule each time because the inside function is $2x$. The first derivative is $y' = 2\\cos 2x$. Differentiating again, $y'' = 2\\cdot(-\\sin 2x)\\cdot 2 = -4\\sin 2x$. So $y'' = -4y$.",
+      "optionRationale": {
+        "1": "This forgets the factor $2$ at each differentiation, which gives $2^2 = 4$.",
+        "3": "The chain-rule factor $2$ occurs twice, giving $4$, not $2$.",
+        "4": "The sign is wrong: differentiating $\\cos$ gives $-\\sin$."
+      },
+      "objective": "Find a second-order derivative"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q13",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each function in List-I with its derivative in List-II.",
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-I, B-II, C-III, D-IV",
+        "A-I, B-III, C-II, D-IV"
+      ],
+      "answer": 3,
+      "explanation": "The standard results are $\\dfrac{d}{dx}\\sin^{-1}x = \\dfrac{1}{\\sqrt{1-x^2}}$ (A-I), $\\dfrac{d}{dx}\\tan^{-1}x = \\dfrac{1}{1+x^2}$ (B-II), $\\dfrac{d}{dx}\\ln x = \\dfrac1x$ (C-III) and $\\dfrac{d}{dx}a^x = a^x\\ln a$ (D-IV).",
+      "optionRationale": {
+        "1": "This swaps the derivatives of $\\sin^{-1}x$ and $\\tan^{-1}x$.",
+        "2": "This swaps the derivatives of $\\ln x$ and $a^x$.",
+        "4": "This swaps the derivatives of $\\tan^{-1}x$ and $\\ln x$."
+      },
+      "objective": "Match functions with their derivatives",
+      "list": {
+        "left": [
+          "A. $\\sin^{-1}x$",
+          "B. $\\tan^{-1}x$",
+          "C. $\\ln x$",
+          "D. $a^x$ ($a>0$, $a\\ne1$)"
+        ],
+        "right": [
+          "I. $\\dfrac{1}{\\sqrt{1-x^2}}$",
+          "II. $\\dfrac{1}{1+x^2}$",
+          "III. $\\dfrac{1}{x}$",
+          "IV. $a^x\\ln a$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The function $f(x) = kx^2$ for $x \\le 2$ and $f(x) = 3$ for $x > 2$ is continuous at $x = 2$ when $k =$",
+      "options": [
+        "$\\dfrac{3}{4}$",
+        "3",
+        "$\\dfrac{4}{3}$",
+        "12"
+      ],
+      "answer": 1,
+      "explanation": "The left limit and value are $\\lim_{x\\to2^-}kx^2 = 4k$ and the right limit is $3$. Continuity at $2$ demands $4k = 3$, so $k = 3/4$.",
+      "optionRationale": {
+        "2": "This ignores the factor $x^2 = 4$ at $x=2$.",
+        "3": "This inverts the required ratio $3/4$.",
+        "4": "This multiplies $3$ by $4$ instead of dividing."
+      },
+      "objective": "Find a constant for continuity of a piecewise function"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Let $f(x) = \\dfrac{1 - \\cos x}{x^2}$ away from the origin and $f(0) = k$. The value of $k$ that makes $f$ continuous at the origin is",
+      "options": [
+        "0",
+        "1",
+        "2",
+        "$\\dfrac{1}{2}$"
+      ],
+      "answer": 4,
+      "explanation": "Use $1 - \\cos x = 2\\sin^2(x/2)$. Then $\\dfrac{1-\\cos x}{x^2} = \\dfrac{2\\sin^2(x/2)}{x^2} = \\dfrac12\\Big(\\dfrac{\\sin(x/2)}{x/2}\\Big)^2 \\to \\dfrac12 \\cdot 1 = \\dfrac12$. Continuity needs $k = 1/2$.",
+      "optionRationale": {
+        "1": "The limit is not $0$; $1-\\cos x \\approx x^2/2$ for small $x$.",
+        "2": "This is the limit of $\\sin x/x$, not of $(1-\\cos x)/x^2$.",
+        "3": "This inverts the answer: $1 - \\cos x = 2\\sin^2(x/2)$ gives limit $1/2$, not $2$."
+      },
+      "objective": "Use standard limits to restore continuity"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "For $0 < x < \\dfrac{1}{\\sqrt2}$, the derivative of $\\sin^{-1}\\!\\big(2x\\sqrt{1-x^2}\\big)$ is",
+      "options": [
+        "$\\dfrac{1}{\\sqrt{1-x^2}}$",
+        "$\\dfrac{2}{\\sqrt{1-x^2}}$",
+        "$\\dfrac{2}{1+x^2}$",
+        "$\\dfrac{-2}{\\sqrt{1-x^2}}$"
+      ],
+      "answer": 2,
+      "explanation": "Put $x = \\sin\\theta$, so $2x\\sqrt{1-x^2} = \\sin 2\\theta$. For $0 < x < 1/\\sqrt2$ we have $0 < 2\\theta < \\pi/2$, so the function equals $2\\theta = 2\\sin^{-1}x$. Its derivative is $2/\\sqrt{1-x^2}$.",
+      "optionRationale": {
+        "1": "This is the derivative of $\\sin^{-1}x$ itself; the argument gives $2\\sin^{-1}x$.",
+        "3": "This is the derivative of $2\\tan^{-1}x$, a different function.",
+        "4": "The sign is wrong: $2\\sin^{-1}x$ is increasing."
+      },
+      "objective": "Simplify an inverse trigonometric function by substitution"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If $y = x^{\\sin x}$ for $x > 0$, the value of $\\dfrac{dy}{dx}$ at $x = \\dfrac{\\pi}{2}$ is",
+      "options": [
+        "$\\dfrac{\\pi}{2}$",
+        "0",
+        "$\\dfrac{2}{\\pi}$",
+        "1"
+      ],
+      "answer": 4,
+      "explanation": "$\\ln y = \\sin x\\ln x$, so $y' = x^{\\sin x}\\Big(\\cos x\\ln x + \\dfrac{\\sin x}{x}\\Big)$. At $x = \\pi/2$: $\\sin = 1$, $\\cos = 0$, so $y' = \\dfrac{\\pi}{2}\\cdot\\Big(0 + \\dfrac{1}{\\pi/2}\\Big) = 1$.",
+      "optionRationale": {
+        "1": "This keeps only the factor $x^{\\sin x}$ and forgets the bracket, which is $2/\\pi$ here.",
+        "2": "This keeps only the $\\cos x\\ln x$ term, which vanishes, and drops the $\\sin x/x$ term.",
+        "3": "This keeps only the bracket and forgets the factor $x^{\\sin x} = \\pi/2$."
+      },
+      "objective": "Differentiate a variable power at a point"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If $x = t^2$ and $y = t^3$ for $t > 0$, then $\\dfrac{d^2y}{dx^2}$ equals",
+      "options": [
+        "$\\dfrac{3}{4t}$",
+        "$\\dfrac{3t}{2}$",
+        "$\\dfrac{3}{2}$",
+        "$\\dfrac{3}{2t}$"
+      ],
+      "answer": 1,
+      "explanation": "$\\dfrac{dy}{dx} = \\dfrac{3t^2}{2t} = \\dfrac{3t}{2}$. Then $\\dfrac{d^2y}{dx^2} = \\dfrac{d}{dt}\\Big(\\dfrac{3t}{2}\\Big)\\Big/\\dfrac{dx}{dt} = \\dfrac{3/2}{2t} = \\dfrac{3}{4t}$.",
+      "optionRationale": {
+        "2": "This is the first derivative $dy/dx$, not the second.",
+        "3": "This is $\\dfrac{d}{dt}\\Big(\\dfrac{dy}{dx}\\Big)$ and still has to be divided by $dx/dt$.",
+        "4": "This divides $3/2$ by $t$; it must be divided by $dx/dt = 2t$."
+      },
+      "objective": "Find a second derivative of a parametric function"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q19",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): $f(x) = |x|$ is continuous at $x = 0$ but not differentiable there.\nReason (R): The left-hand derivative of $|x|$ at $0$ is $-1$ and the right-hand derivative is $+1$, which are not equal.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "At $0$, $\\lim_{h\\to0^-}\\dfrac{|h|}{h} = -1$ while $\\lim_{h\\to0^+}\\dfrac{|h|}{h} = +1$. The unequal one-sided derivatives mean $f'(0)$ does not exist, even though $|x|$ is continuous. The reason therefore explains the assertion.",
+      "optionRationale": {
+        "2": "The reason states exactly why the derivative does not exist.",
+        "3": "The reason is true: the one-sided derivatives are $-1$ and $+1$.",
+        "4": "The assertion is true: $|x|$ has no break at $0$ but has a corner."
+      },
+      "objective": "Test differentiability using one-sided derivatives"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "For $f(x) = x|x|$, which statement about $x = 0$ is correct?",
+      "options": [
+        "$f$ is continuous but not differentiable at $0$",
+        "$f$ is not continuous at $0$",
+        "$f$ is differentiable at $0$ and $f'(0) = 0$",
+        "$f$ is differentiable at $0$ and $f'(0) = 1$"
+      ],
+      "answer": 3,
+      "explanation": "The difference quotient at $0$ is $\\dfrac{f(h) - f(0)}{h} = \\dfrac{h|h|}{h} = |h|$, whose limit as $h \\to 0$ is $0$ from both sides. So $f'(0)$ exists and equals $0$, even though $|x|$ itself is not differentiable at $0$.",
+      "optionRationale": {
+        "1": "The limit $\\lim h|h|/h = \\lim|h| = 0$ exists, so $f$ is differentiable.",
+        "2": "$f(x) \\to 0 = f(0)$ as $x\\to0$, so $f$ is continuous.",
+        "4": "The difference quotient is $|h|$, which tends to $0$, not $1$."
+      },
+      "objective": "Test differentiability from the definition"
+    },
+    {
+      "key": "ug26-319-r14-continuity-differentiability-q21",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Consider the following derivative statements.\nA. $\\dfrac{d}{dx}e^{x^2} = 2x\\,e^{x^2}$\nB. $\\dfrac{d}{dx}\\ln(\\sin x) = \\cot x$\nC. $\\dfrac{d}{dx}\\log_a x = \\dfrac{1}{x\\ln a}$\nD. $\\dfrac{d}{dx}e^{2x} = e^{2x}$\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A, B and D only",
+        "A and D only",
+        "B, C and D only"
+      ],
+      "answer": 1,
+      "explanation": "Using the chain rule: $e^{x^2}$ gives $2x e^{x^2}$ (A), $\\ln(\\sin x)$ gives $\\cos x/\\sin x = \\cot x$ (B), and $\\log_a x = \\ln x/\\ln a$ gives $1/(x\\ln a)$ (C). Statement D omits the factor $2$.",
+      "optionRationale": {
+        "2": "D is false: by the chain rule $\\dfrac{d}{dx}e^{2x} = 2e^{2x}$.",
+        "3": "D is false, while B and C are also true.",
+        "4": "D is false and A is also true."
+      },
+      "objective": "Check derivatives of exponential and logarithmic functions"
+    }
+  ]
+}

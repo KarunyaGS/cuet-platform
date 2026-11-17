@@ -1,0 +1,845 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_c2cf12e732734b21a02deae3ef9fd0bb",
+    "title": "INFERENTIAL STATISTICS"
+  },
+  "lesson": {
+    "key": "ug26-319-r11-inferential-statistics",
+    "title": "Inferential statistics: sampling, central limit theorem and the one-sample t-test",
+    "coverage": [
+      {
+        "phrase": "INFERENTIAL STATISTICS",
+        "section": "Population and sample"
+      },
+      {
+        "phrase": "Population and Sample",
+        "section": "Population and sample"
+      },
+      {
+        "phrase": "Define Population and Sample",
+        "section": "Population and sample"
+      },
+      {
+        "phrase": "Differentiate between population and sample",
+        "section": "Population and sample"
+      },
+      {
+        "phrase": "Define a representative sample from a population",
+        "section": "Population and sample"
+      },
+      {
+        "phrase": "Differentiate between a representative and a non-representative sample",
+        "section": "Population and sample"
+      },
+      {
+        "phrase": "Draw a representative sample using simple random sampling",
+        "section": "Drawing a sample: simple random and systematic random sampling"
+      },
+      {
+        "phrase": "Draw a representative sample using a systematic random sampling",
+        "section": "Drawing a sample: simple random and systematic random sampling"
+      },
+      {
+        "phrase": "Parameter and Statistics and Statistical Interferences",
+        "section": "Parameter, statistic and statistical inference"
+      },
+      {
+        "phrase": "Define Parameter with reference to Population",
+        "section": "Parameter, statistic and statistical inference"
+      },
+      {
+        "phrase": "Define Statistics with reference to Sample",
+        "section": "Parameter, statistic and statistical inference"
+      },
+      {
+        "phrase": "Explain the relation between Parameter and Statistic",
+        "section": "Parameter, statistic and statistical inference"
+      },
+      {
+        "phrase": "Explain the limitation of Statistic to generalize the estimation for population",
+        "section": "Parameter, statistic and statistical inference"
+      },
+      {
+        "phrase": "Interpret the concept of Statistical Significance and Statistical Inferences",
+        "section": "Parameter, statistic and statistical inference"
+      },
+      {
+        "phrase": "Central Limit Theorem",
+        "section": "Central limit theorem and the sampling distribution"
+      },
+      {
+        "phrase": "Explain the relation between Population-Sampling Distribution-Sample",
+        "section": "Central limit theorem and the sampling distribution"
+      },
+      {
+        "phrase": "t-Test (one sample t-test for a small group sample )",
+        "section": "Hypothesis testing and the one-sample t-test"
+      },
+      {
+        "phrase": "Define a hypothesis",
+        "section": "Hypothesis testing and the one-sample t-test"
+      },
+      {
+        "phrase": "Differentiate between Null and Alternate hypothesis",
+        "section": "Hypothesis testing and the one-sample t-test"
+      },
+      {
+        "phrase": "Define and calculate degree of freedom",
+        "section": "Hypothesis testing and the one-sample t-test"
+      },
+      {
+        "phrase": "Test Null hypothesis and make inferences using t-test statistic for one group.",
+        "section": "Hypothesis testing and the one-sample t-test"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Population and sample"
+      },
+      {
+        "type": "TEXT",
+        "text": "Statistics is often used to learn about a large group by studying a small part of it. Checking every unit of the large group is usually too slow, too costly, or impossible (testing every battery until it dies would destroy all of them). Inferential statistics is the set of methods that let us draw conclusions about the whole group from the part we actually observe."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Population",
+        "text": "The complete collection of all the individuals, objects or measurements under study, about which we want to conclude. Its size is written $N$. A population may be finite (all students of a school) or very large (all batteries a factory will ever produce)."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Sample",
+        "text": "A part of the population that is actually selected and observed. Its size is written $n$, with $n < N$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Population versus sample",
+        "columns": [
+          "Feature",
+          "Population",
+          "Sample"
+        ],
+        "rows": [
+          [
+            "Meaning",
+            "Every unit under study",
+            "A selected part of the population"
+          ],
+          [
+            "Size symbol",
+            "$N$",
+            "$n$"
+          ],
+          [
+            "Numerical summary called",
+            "Parameter",
+            "Statistic"
+          ],
+          [
+            "Usual symbols",
+            "Mean $\\mu$, standard deviation $\\sigma$",
+            "Mean $\\bar{x}$, standard deviation $s$"
+          ],
+          [
+            "Can be fully observed?",
+            "Often not",
+            "Yes, by design"
+          ]
+        ]
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Representative sample",
+        "text": "A sample whose composition mirrors the population on the features being studied, so that results from the sample can be carried over to the population. A representative sample is usually obtained by a random method in which selection does not depend on the choice of the investigator."
+      },
+      {
+        "type": "TEXT",
+        "text": "A **non-representative sample** over-represents some part of the population and under-represents another. Examples are asking only the first ten students who reach school, or surveying only people at a gym to estimate the average fitness of a city. Such a sample is biased, so conclusions drawn from it can be systematically wrong, and increasing its size does not remove the bias."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Representative versus non-representative sample",
+        "columns": [
+          "Feature",
+          "Representative",
+          "Non-representative"
+        ],
+        "rows": [
+          [
+            "Selection",
+            "Random, every unit has a known chance",
+            "Convenience or judgement, some units cannot be chosen"
+          ],
+          [
+            "Error",
+            "Only chance variation",
+            "Systematic bias"
+          ],
+          [
+            "Generalising to the population",
+            "Justified",
+            "Not justified"
+          ]
+        ]
+      },
+      {
+        "type": "HEADING",
+        "text": "Drawing a sample: simple random and systematic random sampling"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Simple random sampling",
+        "text": "A method in which every unit of the population has an equal chance of being selected, and every possible sample of size $n$ is equally likely. It can be done by the lottery method (numbered slips mixed and drawn) or with a table of random numbers or a random number generator."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Steps (simple random sampling).** (1) List and number the $N$ units $1,2,\\dots,N$. (2) Decide $n$. (3) Draw $n$ distinct numbers at random, by lots or random-number table, rejecting repeats if sampling without replacement. (4) The units carrying these numbers form the sample."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Systematic random sampling",
+        "text": "A method in which a random starting unit is chosen and then every $k$-th unit of the ordered list is taken, where $k$ is the sampling interval."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "k = \\frac{N}{n}",
+        "text": "$N$ is the population size and $n$ the required sample size; $k$ is the sampling interval (rounded to a whole number). Choose the starting number $a$ at random from $1,2,\\dots,k$; the sample is $a,\\; a+k,\\; a+2k,\\;\\dots$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A list has $N = 800$ names and a sample of $n = 40$ is needed by systematic random sampling. The random start is the 9th name. Find the sampling interval and write the first four selected positions.",
+        "solution": "Sampling interval $k = N/n = 800/40 = 20$. The random start must lie in $1$ to $20$, and here it is $9$. The selected positions are $9$, then $9+20 = 29$, then $29+20 = 49$, then $69$. Continuing in steps of $20$ gives $40$ names, the last being $9 + 39\\times 20 = 789$.",
+        "answer": "$k = 20$; first four positions are $9,\\,29,\\,49,\\,69$."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "In systematic sampling only the starting point is random. After it is fixed the whole sample is fixed. If the list has a hidden pattern repeating every $k$ units, the sample can be biased, whereas in simple random sampling each unit is chosen independently of position."
+      },
+      {
+        "type": "HEADING",
+        "text": "Parameter, statistic and statistical inference"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Parameter",
+        "text": "A numerical characteristic of a **population**, such as the population mean $\\mu$, the population standard deviation $\\sigma$ or a population proportion $p$. It is a fixed number, usually unknown."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Statistic",
+        "text": "A numerical characteristic calculated from a **sample**, such as the sample mean $\\bar{x}$, sample standard deviation $s$ or sample proportion $\\hat{p}$. Its value changes from one sample to another."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Relation between parameter and statistic.** The statistic is used as an estimate of the corresponding parameter: $\\bar{x}$ estimates $\\mu$, $s$ estimates $\\sigma$. Because a different random sample gives a different value, a statistic is a random quantity, whereas the parameter is a constant."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Limitation of a statistic.** A statistic is based on only part of the population, so it almost never equals the parameter exactly. The gap is called **sampling error**. A statistic from one sample therefore cannot claim certainty about the population; it supports only a conclusion with a stated degree of confidence. The error is smaller for larger and better chosen samples."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Statistical inference",
+        "text": "The process of drawing conclusions about a population parameter from a sample statistic, using probability to measure how reliable the conclusion is. It has two main forms: estimation of a parameter and testing of a hypothesis."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Statistical significance",
+        "text": "A result is statistically significant when the difference between the sample statistic and the claimed parameter is too large to be explained by chance variation of sampling alone, judged against a chosen **level of significance** $\\alpha$ (commonly $0.05$ or $0.01$). It does not by itself mean that the difference is large or important in practice."
+      },
+      {
+        "type": "HEADING",
+        "text": "Central limit theorem and the sampling distribution"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Sampling distribution",
+        "text": "The probability distribution of a statistic (such as $\\bar{x}$) over all possible samples of the same size $n$ drawn from the population."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Central Limit Theorem (CLT).** If samples of size $n$ are drawn from a population with mean $\\mu$ and standard deviation $\\sigma$, then for large $n$ (usually $n \\ge 30$) the sampling distribution of the sample mean $\\bar{x}$ is approximately normal, whatever the shape of the population distribution, with mean $\\mu$ and standard deviation $\\sigma/\\sqrt{n}$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\mu_{\\bar{x}} = \\mu, \\qquad \\text{SE}(\\bar{x}) = \\sigma_{\\bar{x}} = \\frac{\\sigma}{\\sqrt{n}}",
+        "text": "$\\mu$ and $\\sigma$ are the population mean and standard deviation, $n$ the sample size. The standard deviation of the sampling distribution is called the **standard error** (SE). It falls as $n$ grows, but only as $1/\\sqrt{n}$: to halve it, $n$ must be four times as large. When $\\sigma$ is unknown, $s$ is used in its place."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Population, sampling distribution and sample.** The population holds all values, with parameters $\\mu$ and $\\sigma$. Many samples of size $n$ are drawn from it. The statistic computed from each sample (for example $\\bar{x}$) gives a distribution of values, the sampling distribution. A single sample gives one point of that distribution. Inference reasons backwards: from the one observed statistic, through the known shape of the sampling distribution, to a statement about the parameter."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A population has mean $\\mu = 80$ and standard deviation $\\sigma = 15$. Samples of size $n = 36$ are drawn. State the mean and standard error of the sampling distribution of $\\bar{x}$ and the likely shape.",
+        "solution": "By the central limit theorem the mean of the sampling distribution is $\\mu_{\\bar{x}} = \\mu = 80$. The standard error is $\\sigma/\\sqrt{n} = 15/\\sqrt{36} = 15/6 = 2.5$. Since $n = 36 \\ge 30$, the distribution of $\\bar{x}$ is approximately normal.",
+        "answer": "Mean $= 80$, SE $= 2.5$, approximately normal."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "The parameter is fixed and the statistic varies. The sampling distribution describes how the statistic varies. Its centre is $\\mu$ and its spread is $\\sigma/\\sqrt{n}$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Hypothesis testing and the one-sample t-test"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Hypothesis",
+        "text": "A statement about a population parameter that can be tested using sample evidence, for example \"the mean battery life is 23 hours\"."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Null hypothesis $H_0$",
+        "text": "The statement of \"no difference\" or \"no change\": it says the population parameter equals a stated value, for example $H_0: \\mu = \\mu_0$. It is assumed true until the evidence is strong enough to reject it."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Alternate hypothesis $H_1$",
+        "text": "The statement accepted if $H_0$ is rejected. It is $\\mu \\ne \\mu_0$ (two-tailed test), or $\\mu > \\mu_0$ or $\\mu < \\mu_0$ (one-tailed tests). It is chosen by the question asked before the data are seen."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Degrees of freedom",
+        "text": "The number of values in the calculation that are free to vary. For a one-sample test with $n$ observations, $\\text{df} = n - 1$, because once the mean is fixed the $n$ deviations $x_i - \\bar{x}$ must add to zero, so only $n-1$ of them can be chosen freely."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "t = \\frac{\\bar{x} - \\mu_0}{s/\\sqrt{n}}, \\qquad s = \\sqrt{\\frac{\\sum (x_i - \\bar{x})^2}{n-1}}, \\qquad \\text{df} = n-1",
+        "text": "$\\bar{x}$ is the sample mean, $\\mu_0$ the value in $H_0$, $s$ the sample standard deviation (divide by $n-1$, not $n$), $n$ the sample size. Used when $n$ is small (below 30) and $\\sigma$ is unknown, with the population approximately normal."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Steps of the one-sample t-test",
+        "columns": [
+          "Step",
+          "Action"
+        ],
+        "rows": [
+          [
+            "1",
+            "State $H_0: \\mu = \\mu_0$ and the alternate $H_1$"
+          ],
+          [
+            "2",
+            "Choose the level of significance $\\alpha$ (for example $0.05$)"
+          ],
+          [
+            "3",
+            "Compute $\\bar{x}$, $s$ and $t = (\\bar{x}-\\mu_0)/(s/\\sqrt{n})$"
+          ],
+          [
+            "4",
+            "Find $\\text{df} = n-1$ and the critical value from the t-table"
+          ],
+          [
+            "5",
+            "Reject $H_0$ if $|t|$ exceeds the critical value (two-tailed); otherwise do not reject"
+          ],
+          [
+            "6",
+            "State the conclusion in words about the claim"
+          ]
+        ]
+      },
+      {
+        "type": "TABLE",
+        "caption": "Critical values of t for a two-tailed test",
+        "columns": [
+          "df",
+          "$\\alpha = 0.05$",
+          "$\\alpha = 0.01$"
+        ],
+        "rows": [
+          [
+            "5",
+            "2.571",
+            "4.032"
+          ],
+          [
+            "7",
+            "2.365",
+            "3.499"
+          ],
+          [
+            "8",
+            "2.306",
+            "3.355"
+          ],
+          [
+            "9",
+            "2.262",
+            "3.250"
+          ],
+          [
+            "15",
+            "2.131",
+            "2.947"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A sample of 9 bulbs has the following lives in hundreds of hours: $48, 49, 50, 50, 52, 53, 54, 55, 57$. Test at the 5% level whether the population mean life differs from $50$.",
+        "solution": "$H_0: \\mu = 50$ against $H_1: \\mu \\ne 50$ (two-tailed). Mean $\\bar{x} = 468/9 = 52$. Deviations from the mean are $-4,-3,-2,-2,0,1,2,3,5$ and their squares add to $16+9+4+4+0+1+4+9+25 = 72$. Then $s^2 = 72/8 = 9$ and $s = 3$. The test statistic is $t = (52 - 50)/(3/\\sqrt{9}) = 2/1 = 2.00$. Degrees of freedom are $9 - 1 = 8$, and the critical value at $\\alpha = 0.05$ (two-tailed) is $2.306$. Since $2.00 < 2.306$, $H_0$ is not rejected.",
+        "answer": "$t = 2.00$ with $\\text{df} = 8$; do not reject $H_0$. The data do not show a significant difference from $50$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A claim says the mean battery life is $23$ hours. A sample of 8 batteries lasts $22, 23, 24, 25, 25, 26, 27, 28$ hours. Test the claim at the 5% level (two-tailed).",
+        "solution": "$H_0: \\mu = 23$, $H_1: \\mu \\ne 23$. Sample mean $\\bar{x} = 200/8 = 25$. Deviations: $-3,-2,-1,0,0,1,2,3$, squares sum to $28$, so $s^2 = 28/7 = 4$, $s = 2$. Then $t = (25-23)/(2/\\sqrt{8}) = 2/0.7071 = 2.83$. With $\\text{df} = 7$ the critical value is $2.365$. Since $2.83 > 2.365$, reject $H_0$. At $\\alpha = 0.01$ the critical value is $3.499$, and $2.83 < 3.499$, so $H_0$ would not be rejected at the 1% level.",
+        "answer": "$t \\approx 2.83$, $\\text{df} = 7$: reject $H_0$ at 5%, but not at 1%."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistakes: using $n$ instead of $n-1$ in $s$; using $n$ instead of $n-1$ as the degrees of freedom; comparing a negative $t$ with a positive critical value without taking $|t|$; and saying \"H0 is proved true\" when it is not rejected. Failing to reject only means the sample gives insufficient evidence against it."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Reject $H_0$ when the calculated $|t|$ is larger than the table value for $\\text{df} = n-1$ at the chosen $\\alpha$; the result is then called statistically significant."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r11-inferential-statistics-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In statistics, the complete collection of all units about which a conclusion is to be drawn is called the",
+      "options": [
+        "population",
+        "sample",
+        "statistic",
+        "sampling distribution"
+      ],
+      "answer": 1,
+      "explanation": "A population is the whole group under study, whether finite or very large, with size $N$. A sample is a part of it of size $n < N$, a statistic is a number computed from a sample, and a sampling distribution is the distribution of that statistic over all samples.",
+      "optionRationale": {
+        "2": "A sample is only a selected part of the population.",
+        "3": "A statistic is a numerical summary from a sample, not a collection of units.",
+        "4": "This is the distribution of a statistic over many samples."
+      },
+      "objective": "Define population"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "A numerical value computed from the data of a sample, such as the sample mean $\\bar{x}$, is called a",
+      "options": [
+        "parameter",
+        "hypothesis",
+        "population",
+        "statistic"
+      ],
+      "answer": 4,
+      "explanation": "Numerical characteristics of a sample, such as $\\bar{x}$, $s$ and the sample proportion, are statistics. Numerical characteristics of the population, such as $\\mu$ and $\\sigma$, are parameters. A statistic varies from sample to sample.",
+      "optionRationale": {
+        "1": "A parameter describes the population, for example $\\mu$.",
+        "2": "A hypothesis is a testable statement, not a computed value.",
+        "3": "A population is a collection of units, not a number from a sample."
+      },
+      "objective": "Define statistic"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q03",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A parameter is a fixed number, whereas a statistic varies from sample to sample.\nReason (R): Different random samples drawn from the same population contain different units.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The population parameter, such as $\\mu$, is a single fixed value. A statistic such as $\\bar{x}$ is computed from the sampled units, and since different random samples contain different units, the value of the statistic changes. Hence the reason explains the assertion.",
+      "optionRationale": {
+        "2": "The reason is the direct cause of the variation, so it is the explanation.",
+        "3": "The reason is true: different random samples do contain different units.",
+        "4": "The assertion is true: a population mean does not change with the sample."
+      },
+      "objective": "Contrast parameter and statistic"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which statement correctly describes simple random sampling from a population?",
+      "options": [
+        "every $k$-th unit after a random start is selected",
+        "every unit of the population has an equal chance of being selected",
+        "only convenient units are selected",
+        "units are selected according to the investigator's judgement"
+      ],
+      "answer": 2,
+      "explanation": "Simple random sampling gives every unit the same chance of selection, usually through lots or random numbers, so no unit is favoured. Taking every $k$-th unit is systematic sampling, and convenience or judgement selection is not random.",
+      "optionRationale": {
+        "1": "That describes systematic random sampling.",
+        "3": "Convenience selection is non-random and can be biased.",
+        "4": "Judgement selection is not random sampling."
+      },
+      "objective": "Describe simple random sampling"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The degrees of freedom for a one-sample t-test on a sample of 15 observations are",
+      "options": [
+        "15",
+        "16",
+        "14",
+        "13"
+      ],
+      "answer": 3,
+      "explanation": "For a one-sample t-test the degrees of freedom are $n - 1$, since the sample mean uses up one degree of freedom. With $n = 15$ this is $14$, and this number is used to read the critical value from the t-table, so using $15$ would pick the wrong row of the table.",
+      "optionRationale": {
+        "1": "Degrees of freedom are $n-1$, not $n$.",
+        "2": "This adds one instead of subtracting one.",
+        "4": "This subtracts two, but only the one fixed mean is lost."
+      },
+      "objective": "Calculate degrees of freedom"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which sequence correctly shows how inference moves from a population to a conclusion about it?",
+      "options": [
+        "Population, then sample, then sample statistic, then conclusion about the population parameter",
+        "Sample, then population, then parameter, then statistic",
+        "Parameter, then statistic, then population, then sample",
+        "Statistic, then parameter, then sample, then population"
+      ],
+      "answer": 1,
+      "explanation": "A random sample is drawn from the population, a statistic such as $\\bar{x}$ is computed from it, and the known behaviour of the sampling distribution lets us reason back to the unknown parameter. The other orders reverse the roles of sample and population.",
+      "optionRationale": {
+        "2": "Samples are drawn from populations, not the reverse, and the statistic comes from the sample.",
+        "3": "The parameter belongs to the population and is unknown, so it cannot lead to the statistic.",
+        "4": "The statistic is computed from a sample, so the sample must come first."
+      },
+      "objective": "Relate population, sampling distribution and sample"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A list contains 800 names and a sample of 50 is to be chosen by systematic random sampling. The sampling interval is",
+      "options": [
+        "50",
+        "16",
+        "8",
+        "20"
+      ],
+      "answer": 2,
+      "explanation": "The sampling interval is $k = N/n = 800/50 = 16$. A starting unit is chosen at random from the first 16 and then every 16th unit is taken, which gives exactly $50$ units.",
+      "optionRationale": {
+        "1": "$50$ is the sample size, not the interval.",
+        "3": "This would be $N/100$.",
+        "4": "This is the interval for a sample of $40$, not $50$."
+      },
+      "objective": "Compute the sampling interval"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q08",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about samples.\nA. A representative sample mirrors the population on the features being studied.\nB. A non-representative sample leads to systematic bias in the estimate.\nC. Increasing the size of a biased sample removes the bias.\nD. Random selection helps to obtain a representative sample.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "B, C and D only",
+        "A, B and D only",
+        "A and C only"
+      ],
+      "answer": 3,
+      "explanation": "A representative sample reflects the population (A) and random selection is the usual route to it (D). A non-representative sample is systematically biased (B). A larger biased sample repeats the same bias, so statement C is false.",
+      "optionRationale": {
+        "1": "Statement C is false: a larger biased sample is still biased.",
+        "2": "C is false and A is also true.",
+        "4": "C is false, and B and D are also true."
+      },
+      "objective": "Distinguish representative and non-representative samples"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A population has standard deviation $\\sigma = 12$. The standard error of the sample mean for samples of size $36$ is",
+      "options": [
+        "2",
+        "12",
+        "0.33",
+        "6"
+      ],
+      "answer": 1,
+      "explanation": "The standard error of $\\bar{x}$ is $\\sigma/\\sqrt{n}$. Here $12/\\sqrt{36} = 12/6 = 2$. It measures how widely the sample means scatter about the population mean $\\mu$ from one random sample to another, and it becomes smaller as the sample gets larger.",
+      "optionRationale": {
+        "2": "This is $\\sigma$ itself; it ignores the division by $\\sqrt{n}$.",
+        "3": "This is $12/36$; the divisor should be $\\sqrt{36} = 6$.",
+        "4": "This is $\\sqrt{36}$, not $12/\\sqrt{36}$."
+      },
+      "objective": "Compute the standard error"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A sample of $9$ observations has mean $52$ and standard deviation $s = 3$. For testing $H_0: \\mu = 50$, the value of the t statistic is",
+      "options": [
+        "0.67",
+        "6.00",
+        "0.50",
+        "2.00"
+      ],
+      "answer": 4,
+      "explanation": "The standard error is $s/\\sqrt{n} = 3/\\sqrt{9} = 1$. The statistic is $t = (\\bar{x} - \\mu_0)/\\text{SE} = (52 - 50)/1 = 2.00$, with $9 - 1 = 8$ degrees of freedom, which is then compared with the table value at the chosen level of significance.",
+      "optionRationale": {
+        "1": "This is $2/3$; it divides by $s$ instead of $s/\\sqrt{n}$.",
+        "2": "This multiplies by $\\sqrt{n}$ twice; the correct standard error is $3/3 = 1$.",
+        "3": "This divides $2$ by $4$; it does not use $s/\\sqrt{n}$."
+      },
+      "objective": "Compute the one-sample t statistic"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q11",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each term in List-I with its description in List-II.",
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-III, B-II, C-I, D-IV"
+      ],
+      "answer": 2,
+      "explanation": "A parameter describes the population (A-I) and a statistic describes the sample (B-II). The null hypothesis states no difference or change (C-III). For a one-sample t-test the degrees of freedom equal $n-1$ (D-IV), which is the number needed to read the critical value from the t-table.",
+      "optionRationale": {
+        "1": "This swaps parameter and statistic.",
+        "3": "This swaps the null hypothesis with the value $n-1$.",
+        "4": "This makes the parameter a hypothesis and the null hypothesis a population characteristic."
+      },
+      "objective": "Match inferential statistics terms",
+      "list": {
+        "left": [
+          "A. Parameter",
+          "B. Statistic",
+          "C. Null hypothesis",
+          "D. Degrees of freedom in a one-sample t-test"
+        ],
+        "right": [
+          "I. A numerical characteristic of a population",
+          "II. A numerical characteristic of a sample",
+          "III. A statement of no difference or no change",
+          "IV. The value $n - 1$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A t statistic of $2.00$ is obtained with $8$ degrees of freedom in a two-tailed test at $\\alpha = 0.05$ (critical value $2.306$). The decision is to",
+      "options": [
+        "not reject $H_0$, since the calculated $|t|$ is less than the critical value",
+        "reject $H_0$, since the calculated $t$ is positive",
+        "reject $H_0$, since $2.00 > 0.05$",
+        "accept $H_1$ with certainty"
+      ],
+      "answer": 1,
+      "explanation": "In a two-tailed test $H_0$ is rejected only when $|t|$ exceeds the table value for the given degrees of freedom. Since $2.00 < 2.306$, the sample difference can be explained by chance, so $H_0$ is not rejected, and the claim stays acceptable on this evidence.",
+      "optionRationale": {
+        "2": "The sign is irrelevant; $|t|$ must exceed the critical value to reject.",
+        "3": "The significance level $0.05$ is not a value to compare with $t$; the critical value $2.306$ is.",
+        "4": "A test never gives certainty, and here $H_0$ is not rejected."
+      },
+      "objective": "Make a decision from the t statistic"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A manufacturer claims that the mean life of a product is $800$ hours. A buyer suspects it is less. The correct pair of hypotheses is",
+      "options": [
+        "$H_0: \\mu < 800$ and $H_1: \\mu = 800$",
+        "$H_0: \\mu \\ne 800$ and $H_1: \\mu = 800$",
+        "$H_0: \\mu = 800$ and $H_1: \\mu < 800$",
+        "$H_0: \\mu = 800$ and $H_1: \\mu \\ne 800$"
+      ],
+      "answer": 3,
+      "explanation": "In hypothesis testing the null hypothesis is the statement of no difference or no change, and it always carries the equality sign. Here it is the claim $\\mu = 800$. The buyer's suspicion is directional, so the alternative is the one-tailed $H_1: \\mu < 800$.",
+      "optionRationale": {
+        "1": "The null hypothesis states the equality; the suspicion forms the alternative.",
+        "2": "The null hypothesis must be the claim of no difference.",
+        "4": "The buyer suspects a lower value, so a one-tailed alternative $\\mu<800$ is the correct choice."
+      },
+      "objective": "Formulate null and alternate hypotheses"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A sample of $8$ values is $22, 23, 24, 25, 25, 26, 27, 28$. For testing $H_0: \\mu = 23$, the t statistic is approximately",
+      "options": [
+        "2.83",
+        "3.02",
+        "1.00",
+        "8.00"
+      ],
+      "answer": 1,
+      "explanation": "The sample mean is $25$. The squared deviations sum to $28$, so $s^2 = 28/7 = 4$ and $s = 2$. Then $t = (25 - 23)/(2/\\sqrt{8}) = 2/0.7071 = 2.83$. Dividing by $n$ gives $3.02$, which is wrong.",
+      "optionRationale": {
+        "2": "This results from using the divisor $n$ instead of $n-1$ in the standard deviation.",
+        "3": "This forgets the $\\sqrt{n}$ in the denominator.",
+        "4": "This divides by $s/n$ instead of $s/\\sqrt{n}$."
+      },
+      "objective": "Compute the t statistic from raw data"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q15",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "For $t \\approx 2.83$ with $7$ degrees of freedom (critical values $2.365$ at 5% and $3.499$ at 1%, two-tailed), consider the following.\nA. $H_0$ is rejected at the 5% level.\nB. $H_0$ is rejected at the 1% level.\nC. The result is statistically significant at the 5% level.\nD. The sample mean differs from $\\mu_0$ by an amount that cannot be due to chance at any level.\nWhich statements are correct?",
+      "options": [
+        "A and B only",
+        "A and C only",
+        "B and C only",
+        "A, C and D only"
+      ],
+      "answer": 2,
+      "explanation": "The calculated $2.83$ exceeds $2.365$, so $H_0$ is rejected at 5% and the result is significant at that level. It is below $3.499$, so $H_0$ is not rejected at 1%. Significance always refers to a chosen $\\alpha$, so D is false.",
+      "optionRationale": {
+        "1": "B is false, since $2.83 < 3.499$.",
+        "3": "B is false, so this cannot be correct.",
+        "4": "D is false: significance is relative to a chosen level, and the result is not significant at 1%."
+      },
+      "objective": "Interpret statistical significance at different levels"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q16",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): In a one-sample t-test based on $n$ observations the degrees of freedom are $n - 1$.\nReason (R): The deviations of the observations from the sample mean add up to zero, so only $n-1$ of them can vary freely.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The sample mean is calculated from the data, which imposes the condition $\\sum (x_i - \\bar{x}) = 0$. Given $n-1$ deviations, the last one is determined, so only $n-1$ values are free. This is exactly why the degrees of freedom are $n - 1$.",
+      "optionRationale": {
+        "2": "The reason is the actual justification of $n-1$, not an unrelated fact.",
+        "3": "The reason is true: deviations from the sample mean add to zero.",
+        "4": "The assertion is true: a one-sample t-test uses $n-1$ degrees of freedom."
+      },
+      "objective": "Explain the origin of degrees of freedom"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "To reduce the standard error of the sample mean to half its present value, the sample size must be",
+      "options": [
+        "doubled",
+        "multiplied by $2\\sqrt2$",
+        "multiplied by $4$",
+        "multiplied by $8$"
+      ],
+      "answer": 3,
+      "explanation": "Since $\\text{SE} = \\sigma/\\sqrt{n}$, halving it requires $\\sqrt{n}$ to double, so $n$ must be multiplied by $4$. For example $\\sigma = 12$ gives $2$ at $n = 36$ and $1$ at $n = 144$.",
+      "optionRationale": {
+        "1": "Doubling $n$ reduces the standard error only by the factor $1/\\sqrt2$.",
+        "2": "This gives a reduction by $1/\\sqrt[4]{8}$, not by $1/2$.",
+        "4": "This would divide the standard error by $\\sqrt{8} \\approx 2.83$, not by $2$."
+      },
+      "objective": "Relate standard error to sample size"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A population of $240$ units is numbered $1$ to $240$ and a systematic random sample of $12$ is taken with random start $13$. Which of the following serial numbers is in the sample?",
+      "options": [
+        "150",
+        "160",
+        "200",
+        "153"
+      ],
+      "answer": 4,
+      "explanation": "The sampling interval is $k = 240/12 = 20$, so the sample is $13, 33, 53, \\dots, 13 + 11\\times 20 = 233$. The number $153 = 13 + 7\\times 20$ belongs to it, whereas $150$, $160$ and $200$ do not.",
+      "optionRationale": {
+        "1": "Selected numbers are $13 + 20m$, which end in $3$, so $150$ is not selected.",
+        "2": "Selected numbers end in $3$; $160$ is not of the form $13+20m$.",
+        "3": "$200 - 13 = 187$ is not divisible by $20$."
+      },
+      "objective": "List the units of a systematic sample"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q19",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about the sampling distribution of the sample mean $\\bar{x}$ from a population with mean $\\mu$ and standard deviation $\\sigma$.\nA. Its mean is $\\mu$.\nB. Its standard deviation is $\\sigma/\\sqrt{n}$.\nC. For large $n$ it is approximately normal even if the population is not normal.\nD. Its standard deviation increases as $n$ increases.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "A, B and C only",
+        "A and C only",
+        "B, C and D only"
+      ],
+      "answer": 2,
+      "explanation": "The sampling distribution of $\\bar{x}$ is centred at $\\mu$ (A), has spread $\\sigma/\\sqrt{n}$ (B) and, by the central limit theorem, is approximately normal for large $n$ whatever the population shape (C). The spread shrinks with $n$, so D is false.",
+      "optionRationale": {
+        "1": "D is false: the standard error decreases as $n$ increases.",
+        "3": "B is also correct, so this selection is incomplete.",
+        "4": "D is false and A is also true."
+      },
+      "objective": "State the central limit theorem"
+    },
+    {
+      "key": "ug26-319-r11-inferential-statistics-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Every 10th name on an alphabetical list is selected after a randomly chosen start among the first ten names. This is an example of",
+      "options": [
+        "systematic random sampling",
+        "simple random sampling",
+        "judgement sampling",
+        "convenience sampling"
+      ],
+      "answer": 1,
+      "explanation": "A random start followed by every $k$-th unit ($k = 10$ here) is the definition of systematic random sampling. The rest of the sample is determined once the start is fixed, which distinguishes it from simple random sampling.",
+      "optionRationale": {
+        "2": "In simple random sampling each unit is chosen independently of its position.",
+        "3": "The investigator does not choose the units by judgement; the start is random.",
+        "4": "Convenience sampling uses easily reached units, not a fixed interval."
+      },
+      "objective": "Identify systematic random sampling"
+    }
+  ]
+}

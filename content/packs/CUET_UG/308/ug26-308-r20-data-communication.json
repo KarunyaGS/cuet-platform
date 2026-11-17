@@ -1,0 +1,917 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_78422071bfa34152827e66ee71874c68",
+  "title": "Data Communication"
+ },
+ "lesson": {
+  "key": "ug26-308-r20-data-communication",
+  "title": "Data Communication: modes, switching, media, wireless, protocols and data rate",
+  "coverage": [
+   {
+    "phrase": "Concept of communication",
+    "section": "Concept of communication, types of data communication and switching"
+   },
+   {
+    "phrase": "Types of Data Communication",
+    "section": "Concept of communication, types of data communication and switching"
+   },
+   {
+    "phrase": "switching techniques",
+    "section": "Concept of communication, types of data communication and switching"
+   },
+   {
+    "phrase": "Communication Media: Wired Technologies – Twisted pair cable, Co-axial cable, Ethernet Cable, Optical Fibre",
+    "section": "Communication media: wired technologies"
+   },
+   {
+    "phrase": "Introduction to mobile telecommunication technologies",
+    "section": "Mobile telecommunication technologies"
+   },
+   {
+    "phrase": "Wireless Technologies – Bluetooth, WLAN, Infrared, Microwave",
+    "section": "Wireless technologies"
+   },
+   {
+    "phrase": "Network Protocol: Need for Protocol, Categorization and Examples of protocol, HTTP, FTP, IP, PPP; electronic mail protocol",
+    "section": "Network protocols"
+   },
+   {
+    "phrase": "Concept of Channel, Bandwidth (Hz, KHz, MHz) and Data Transfer rate (bps, Kbps, Mbps, Gbps, Tbps)",
+    "section": "Channel, bandwidth and data transfer rate"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Concept of communication, types of data communication and switching"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Data communication** is the exchange of data between two or more devices through a transmission medium. For it to work, five components are needed."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Components of a communication system",
+    "columns": [
+     "Component",
+     "Role",
+     "Example"
+    ],
+    "rows": [
+     [
+      "Sender (source)",
+      "Device that creates and sends the message",
+      "A phone sending a text message"
+     ],
+     [
+      "Receiver (destination)",
+      "Device that gets the message",
+      "The other phone"
+     ],
+     [
+      "Message",
+      "The data to be sent: text, numbers, image, audio, video",
+      "The text of the SMS"
+     ],
+     [
+      "Transmission medium",
+      "The path the signal follows: cable or air",
+      "Optical fibre, radio waves"
+     ],
+     [
+      "Protocol",
+      "The agreed set of rules for the exchange",
+      "HTTP, FTP, TCP/IP"
+     ]
+    ]
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Channel",
+    "text": "The path or medium through which data signals travel from the sender to the receiver. A channel can be a wire, a fibre or a band of radio frequencies."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Types (modes) of data communication.** They are decided by the direction in which data can flow."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Simplex, half duplex and full duplex",
+    "columns": [
+     "Mode",
+     "Direction",
+     "Example"
+    ],
+    "rows": [
+     [
+      "Simplex",
+      "One way only; the receiver can never reply",
+      "Keyboard to computer, radio or TV broadcast"
+     ],
+     [
+      "Half duplex",
+      "Both ways, but only one direction at a time",
+      "Walkie-talkie, the old shared Ethernet with a hub"
+     ],
+     [
+      "Full duplex",
+      "Both ways at the same time",
+      "Telephone call, a modern switched Ethernet link"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "**Switching techniques.** In a large network the sender and receiver are not directly joined, so the data passes through intermediate switching nodes. Two methods are in common use."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Circuit switching and packet switching",
+    "columns": [
+     "Point",
+     "Circuit switching",
+     "Packet switching"
+    ],
+    "rows": [
+     [
+      "Path",
+      "A dedicated physical path is set up before the data starts and kept until the end",
+      "No fixed path; each packet can follow a different route"
+     ],
+     [
+      "Data unit",
+      "The continuous stream is sent",
+      "The message is broken into small packets, each with a header holding source, destination and sequence number"
+     ],
+     [
+      "Delay",
+      "Setup delay at the start, afterwards little delay",
+      "No setup delay but packets may arrive out of order and are reassembled at the receiver"
+     ],
+     [
+      "Use of the line",
+      "Line stays reserved even when idle, so capacity may be wasted",
+      "Line is shared by many users, so better utilisation"
+     ],
+     [
+      "Example",
+      "Traditional telephone network",
+      "The Internet"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "A third method, **message switching**, sends the whole message from node to node, storing it at each node before forwarding (store and forward). It is slow for large messages and is largely replaced by packet switching."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A 1 MB message is sent by packet switching using packets that carry 1000 bytes of data each. How many packets are needed? (Take 1 MB = 1 000 000 bytes.)",
+    "solution": "Number of packets = total data / data per packet = 1 000 000 / 1000 = 1000 packets. Every packet carries a header with source, destination and sequence number, so the receiver can put them in order even if they arrive by different routes.",
+    "answer": "1000 packets"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Remember the pairs: circuit switching goes with the telephone network and a dedicated path; packet switching goes with the Internet and shared lines."
+   },
+   {
+    "type": "HEADING",
+    "text": "Communication media: wired technologies"
+   },
+   {
+    "type": "TEXT",
+    "text": "A wired (guided) medium carries signals along a physical cable."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Wired transmission media",
+    "columns": [
+     "Medium",
+     "Construction",
+     "Features",
+     "Typical use"
+    ],
+    "rows": [
+     [
+      "Twisted pair cable",
+      "Pairs of insulated copper wires twisted together; the twisting reduces interference. UTP is unshielded, STP has a shield",
+      "Cheap, light, easy to install; limited distance (about 100 m in a LAN) and speed; affected by noise",
+      "Telephone lines, LAN cabling"
+     ],
+     [
+      "Ethernet cable",
+      "A twisted pair cable (of categories such as Cat5e or Cat6) with RJ-45 connectors that plugs into the NIC and the switch",
+      "Up to 100 m per segment, speeds from 100 Mbps to 10 Gbps for the better categories",
+      "Connecting computers to a LAN"
+     ],
+     [
+      "Co-axial cable",
+      "A copper conductor at the centre, surrounded by insulation, a metal braid shield and an outer plastic jacket",
+      "More bandwidth and better noise protection than twisted pair; bulkier and costlier",
+      "Cable TV, older Ethernet, broadband"
+     ],
+     [
+      "Optical fibre",
+      "A very thin glass or plastic core surrounded by cladding; sends data as pulses of light that stay inside by total internal reflection",
+      "Highest speed and bandwidth, very low loss over long distances, immune to electromagnetic interference, secure; costly and fragile, needs skilled installation",
+      "Backbones, undersea cables, high speed broadband"
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Speed and cost increase in the order: twisted pair, co-axial, optical fibre. Optical fibre is not affected by electromagnetic interference because it carries light, not electric current."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "The Ethernet cable is not a different physical medium; it is twisted pair cable with RJ-45 connectors. Do not confuse it with co-axial cable."
+   },
+   {
+    "type": "HEADING",
+    "text": "Mobile telecommunication technologies"
+   },
+   {
+    "type": "TEXT",
+    "text": "Mobile telecommunication is described by generations, each giving higher speed and new services."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Generations of mobile technology",
+    "columns": [
+     "Generation",
+     "Main feature",
+     "Typical services"
+    ],
+    "rows": [
+     [
+      "1G",
+      "Analog voice signals",
+      "Voice calls only"
+     ],
+     [
+      "2G",
+      "Digital voice; GSM and CDMA",
+      "Clear calls, SMS and MMS, low speed data"
+     ],
+     [
+      "3G",
+      "Faster mobile data",
+      "Mobile Internet, video calls, e-mail on the move"
+     ],
+     [
+      "4G (LTE)",
+      "All IP, broadband speed",
+      "HD video streaming, online gaming, fast apps"
+     ],
+     [
+      "5G",
+      "Very high speed, very low delay and many devices per area",
+      "Internet of Things, smart cities, remote services, ultra HD video"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "A mobile network divides an area into **cells**, each served by a base station, so the same frequencies are reused in distant cells. This is why it is also called **cellular** technology. When a user moves from one cell to another, the call is handed over to the next base station."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "The jump from 1G to 2G was analog to digital. 4G (LTE) is the first generation designed fully for IP packet data, and 5G adds very low latency."
+   },
+   {
+    "type": "HEADING",
+    "text": "Wireless technologies"
+   },
+   {
+    "type": "TEXT",
+    "text": "Wireless (unguided) technologies send signals through the air."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Wireless technologies",
+    "columns": [
+     "Technology",
+     "How it works",
+     "Range and features",
+     "Use"
+    ],
+    "rows": [
+     [
+      "Bluetooth",
+      "Short range radio in the 2.4 GHz band, forms a personal area network",
+      "About 10 m; low power, connects a few devices",
+      "Earphones, keyboards, file sharing between phones"
+     ],
+     [
+      "WLAN (Wi-Fi)",
+      "Radio link between devices and an access point connected to the wired LAN, defined by the IEEE 802.11 standards",
+      "Tens of metres indoors; shares an Internet connection with many devices",
+      "Homes, offices, campus, hotspots"
+     ],
+     [
+      "Infrared",
+      "Uses infrared light waves; sender and receiver must face each other (line of sight)",
+      "Very short range, cannot pass through walls, low cost",
+      "TV remote control, short distance data transfer"
+     ],
+     [
+      "Microwave",
+      "High frequency radio waves sent in a narrow beam between two towers; line of sight is needed, so towers are placed on high ground, about 40 to 50 km apart",
+      "Large bandwidth; rain and obstacles affect the signal; no cables to lay",
+      "Long distance telephone links, mobile network backhaul, satellite links"
+     ]
+    ]
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Infrared and microwave both need line of sight, but microwave covers tens of kilometres and infrared only a few metres. Bluetooth does not need line of sight and works through thin walls."
+   },
+   {
+    "type": "HEADING",
+    "text": "Network protocols"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **protocol** is a set of rules that decide how data is formatted, addressed, sent, received and checked for errors. Without common rules, two devices built by different makers could not understand each other. A protocol decides the structure of the message, the speed, the error checking and the order of the steps."
+   },
+   {
+    "type": "TEXT",
+    "text": "Protocols are grouped by the job they do. Some well known examples:"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Common protocols",
+    "columns": [
+     "Category",
+     "Protocol",
+     "Purpose"
+    ],
+    "rows": [
+     [
+      "Web (application)",
+      "HTTP (HyperText Transfer Protocol); HTTPS is the secure version",
+      "Transfers web pages between browser and web server"
+     ],
+     [
+      "File transfer (application)",
+      "FTP (File Transfer Protocol)",
+      "Uploads and downloads files between a client and a server"
+     ],
+     [
+      "Addressing and routing (network)",
+      "IP (Internet Protocol)",
+      "Gives each device an address and moves packets between networks, together with TCP for reliable delivery"
+     ],
+     [
+      "Point to point link",
+      "PPP (Point to Point Protocol)",
+      "Sets up a direct link between two nodes, such as a dial-up or broadband connection to an ISP"
+     ],
+     [
+      "E-mail sending",
+      "SMTP (Simple Mail Transfer Protocol)",
+      "Sends mail from the client to the mail server and between servers"
+     ],
+     [
+      "E-mail receiving",
+      "POP3 (Post Office Protocol) and IMAP (Internet Message Access Protocol)",
+      "POP3 downloads mail to one device; IMAP keeps mail on the server so it can be read from many devices"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "**Electronic mail protocols in order.** When you send a message, your mail client uses SMTP to hand it to your mail server. Your server uses SMTP to pass it to the recipient's server. The recipient then collects it with POP3 or IMAP. So SMTP is for sending and POP3 or IMAP is for receiving."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "HTTP: web pages. FTP: files. SMTP: sends mail. POP3 and IMAP: receive mail. IP: addresses and routing. PPP: direct link between two nodes. Default ports are 80 for HTTP, 443 for HTTPS and 21 for FTP control."
+   },
+   {
+    "type": "HEADING",
+    "text": "Channel, bandwidth and data transfer rate"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **channel** is the path for the signal. **Bandwidth** is, in the language of communication, the range of frequencies a channel can carry, found as the difference between the highest and the lowest frequency. It is measured in **hertz (Hz)**, with 1 KHz = 1000 Hz and 1 MHz = 1000 KHz = 1 000 000 Hz. In computer networks the word is also used loosely for the maximum data rate of the link, which is why higher bandwidth means more data per second."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Bandwidth",
+    "text": "The range of frequencies that a channel can pass, measured in hertz (Hz, KHz, MHz). A wider band can carry more data per second."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Data transfer rate",
+    "text": "The number of bits transferred per second through a channel. It is measured in bits per second (bps), with 1 Kbps = 1000 bps, 1 Mbps = 1000 Kbps, 1 Gbps = 1000 Mbps and 1 Tbps = 1000 Gbps."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Units",
+    "columns": [
+     "Quantity",
+     "Unit",
+     "Value"
+    ],
+    "rows": [
+     [
+      "Bandwidth",
+      "Hz, KHz, MHz",
+      "1 KHz = 1000 Hz; 1 MHz = 1000 KHz"
+     ],
+     [
+      "Data rate",
+      "bps, Kbps, Mbps, Gbps, Tbps",
+      "1 Kbps = 1000 bps; 1 Mbps = 1000 Kbps; 1 Gbps = 1000 Mbps; 1 Tbps = 1000 Gbps"
+     ],
+     [
+      "Data size",
+      "bit, byte",
+      "1 byte = 8 bits; a capital B means bytes, a small b means bits"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "To find the time to send a file, change the size to bits and divide by the data rate:"
+   },
+   {
+    "type": "FORMULA",
+    "latex": "t = \\frac{\\text{file size in bits}}{\\text{data rate in bits per second}}",
+    "text": "File size in bytes is multiplied by 8 to get bits. Keep the units of the size and the rate consistent: a size in megabits needs a rate in Mbps, and then t comes out in seconds."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "How long does it take to download a 50 MB file over a link with a data rate of 8 Mbps? (1 byte = 8 bits, 1 MB = 8 megabits.)",
+    "solution": "File size in megabits = 50 x 8 = 400 Mb. Data rate = 8 Mbps. Time = 400 / 8 = 50 seconds. Note that dividing 50 by 8 directly would give a wrong value, because the file size is in bytes and the rate is in bits.",
+    "answer": "50 s"
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A file of 750 KB is sent over a connection with a rate of 1.5 Mbps. Find the time. (1 KB = 1000 bytes.)",
+    "solution": "Size = 750 KB x 8 = 6000 Kb (kilobits). Rate = 1.5 Mbps = 1500 Kbps. Time = 6000 / 1500 = 4 seconds. Both quantities are now in thousands of bits, so the units cancel and only seconds remain.",
+    "answer": "4 s"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Most errors come from forgetting the factor 8. File sizes are quoted in bytes (MB), while line speeds are quoted in bits (Mbps), so a 100 Mbps line moves at most 12.5 MB per second."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r20-data-communication-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Data transmission in which communication can take place in only one direction, from sender to receiver, and the receiver cannot reply is called",
+   "options": [
+    "half duplex",
+    "simplex",
+    "full duplex",
+    "packet switching"
+   ],
+   "answer": 2,
+   "explanation": "In simplex mode, one device always transmits and the other only receives, as with a keyboard sending to a computer or a TV broadcast. Half duplex allows both directions but one at a time, full duplex allows both together, and packet switching is a switching method, not a mode.",
+   "optionRationale": {
+    "1": "Half duplex lets both devices send, taking turns.",
+    "3": "Full duplex lets both devices send simultaneously.",
+    "4": "Packet switching is a way of moving data through a network, not a direction of flow."
+   },
+   "objective": "Identify simplex communication"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q02",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Match the communication mode in List-I with its example in List-II.",
+   "list": {
+    "left": [
+     "A. Simplex",
+     "B. Half duplex",
+     "C. Full duplex",
+     "D. Packet switching"
+    ],
+    "right": [
+     "I. Walkie-talkie",
+     "II. Television broadcast",
+     "III. Telephone conversation",
+     "IV. The Internet"
+    ]
+   },
+   "options": [
+    "A-II, B-I, C-III, D-IV",
+    "A-I, B-II, C-III, D-IV",
+    "A-II, B-III, C-I, D-IV",
+    "A-II, B-I, C-IV, D-III"
+   ],
+   "answer": 1,
+   "explanation": "Television broadcast is one way only (simplex, A-II). A walkie-talkie lets both sides talk but only one at a time (half duplex, B-I). A telephone call allows speech in both directions simultaneously (full duplex, C-III). The Internet uses packet switching (D-IV).",
+   "optionRationale": {
+    "2": "Simplex and half duplex examples are swapped here.",
+    "3": "Half duplex and full duplex examples are swapped here.",
+    "4": "The Internet uses packet switching, not full duplex telephony."
+   },
+   "objective": "Match communication modes and switching with examples"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "In which switching technique is the message divided into small units, each carrying the destination address and a sequence number, and the units may travel by different routes?",
+   "options": [
+    "Circuit switching",
+    "Simplex switching",
+    "Broadcast switching",
+    "Packet switching"
+   ],
+   "answer": 4,
+   "explanation": "Packet switching splits the message into packets with headers holding the addresses and sequence numbers. Each packet is routed independently and the receiver reassembles them in order. Circuit switching reserves one dedicated path for the whole conversation.",
+   "optionRationale": {
+    "1": "Circuit switching uses a single dedicated path, with no splitting into routed packets.",
+    "2": "Simplex is a communication mode and not a switching technique.",
+    "3": "Broadcast switching is not a switching technique in this syllabus."
+   },
+   "objective": "Describe packet switching"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Which medium would be the best choice to connect two buildings 5 km apart where heavy electrical machinery produces strong electromagnetic interference, and very high speed is required?",
+   "options": [
+    "Optical fibre",
+    "Infrared link",
+    "Co-axial cable",
+    "Unshielded twisted pair"
+   ],
+   "answer": 1,
+   "explanation": "Optical fibre carries data as light pulses, so electromagnetic noise does not affect it, it has very low signal loss over long distances and a very high bandwidth. UTP is limited to about 100 m, infrared is short range and needs line of sight, and co-axial cable is affected more by noise and loses signal over such a distance.",
+   "optionRationale": {
+    "2": "Infrared works over a very short distance and needs line of sight.",
+    "3": "Co-axial cable suffers more loss and noise than fibre over 5 km.",
+    "4": "UTP is limited to about 100 m per segment and picks up noise."
+   },
+   "objective": "Choose a medium for a long, noisy, high speed link"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "The Ethernet cable used to connect a computer to a network switch in a LAN is a type of",
+   "options": [
+    "optical fibre cable with BNC connectors",
+    "co-axial cable with RJ-11 connectors",
+    "twisted pair cable with RJ-45 connectors",
+    "microwave link"
+   ],
+   "answer": 3,
+   "explanation": "Ethernet LAN cables (such as Cat5e and Cat6) are made of twisted pairs of copper wire and are fitted with RJ-45 connectors at the ends. They are not fibre, co-axial or wireless links.",
+   "optionRationale": {
+    "1": "Fibre cables carry light and use different connectors.",
+    "2": "Co-axial cable has a single central conductor; RJ-11 is the telephone connector.",
+    "4": "A microwave link is wireless; it uses no cable."
+   },
+   "objective": "Recognise the Ethernet cable as twisted pair"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q06",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about transmission media.\nA. In optical fibre, data travels as pulses of light by total internal reflection.\nB. Twisted pair cable uses twisting to reduce interference.\nC. Co-axial cable has a central copper conductor surrounded by a shield.\nD. Optical fibre is badly affected by electromagnetic interference.\nWhich statements are correct?",
+   "options": [
+    "A, B and C only",
+    "A and D only",
+    "B and C only",
+    "A, B, C and D"
+   ],
+   "answer": 1,
+   "explanation": "Optical fibre guides light by total internal reflection (A). Twisting the wire pairs cancels part of the interference (B). Co-axial cable has a central conductor, insulation and a braided shield (C). Fibre is immune to electromagnetic interference, so D is false.",
+   "optionRationale": {
+    "2": "D is false; fibre is immune to electromagnetic interference.",
+    "3": "A is also true, so this list is incomplete.",
+    "4": "D is false, so not all four are correct."
+   },
+   "objective": "Evaluate statements on wired media"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which generation of mobile technology first brought digital voice transmission along with the SMS service?",
+   "options": [
+    "1G",
+    "2G",
+    "3G",
+    "5G"
+   ],
+   "answer": 2,
+   "explanation": "1G used analog signals for voice only. 2G switched to digital transmission, which allowed clearer calls, encryption and text messaging (SMS). 3G added mobile Internet and video calling, and 5G added very high speed and very low delay.",
+   "optionRationale": {
+    "1": "1G was analog and carried voice only.",
+    "3": "3G is known for mobile Internet and video calling.",
+    "4": "5G offers very high speed and low latency, and is much later."
+   },
+   "objective": "Recall the features of mobile generations"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "A remote control sends signals to a television only when it is pointed at the set and nothing is blocking the path. Which wireless technology does it use?",
+   "options": [
+    "Bluetooth",
+    "Microwave",
+    "WLAN",
+    "Infrared"
+   ],
+   "answer": 4,
+   "explanation": "Infrared uses light waves that need a clear line of sight and cannot pass through walls, with a range of a few metres. Bluetooth and WLAN are radio technologies that pass through thin obstacles, and microwave is meant for long distance links between towers.",
+   "optionRationale": {
+    "1": "Bluetooth works through obstacles over about 10 m.",
+    "2": "Microwave links connect towers tens of kilometres apart.",
+    "3": "WLAN uses radio and works without a line of sight."
+   },
+   "objective": "Identify infrared communication"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Microwave transmission towers are normally built on high ground or tall buildings and spaced about 40 to 50 km apart. The reason is that microwave",
+   "options": [
+    "travels in straight lines and needs line of sight between the transmitting and receiving antennas",
+    "cannot carry data over a wire",
+    "is absorbed by optical fibre",
+    "is a digital-only signal that cannot be amplified"
+   ],
+   "answer": 1,
+   "explanation": "Microwaves are high frequency radio waves sent as a narrow beam in a straight line. The curvature of the Earth and obstacles such as hills block the beam, so towers are raised and spaced so that each can see the next. The reason has nothing to do with wires or fibre.",
+   "optionRationale": {
+    "2": "Microwave links are wireless; the issue is not wiring.",
+    "3": "Fibre is a separate medium and microwave does not use it.",
+    "4": "Microwave links use repeaters to boost signals; it is not that they cannot be amplified."
+   },
+   "objective": "Explain the need for line of sight in microwave links"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which protocol is used by a mail client for sending an e-mail message to the mail server?",
+   "options": [
+    "POP3",
+    "IMAP",
+    "SMTP",
+    "FTP"
+   ],
+   "answer": 3,
+   "explanation": "SMTP, the Simple Mail Transfer Protocol, sends outgoing mail from a client to a server and between mail servers. POP3 and IMAP are used to retrieve mail from the server. FTP is meant for files and not for e-mail.",
+   "optionRationale": {
+    "1": "POP3 downloads incoming mail.",
+    "2": "IMAP is used to read mail stored on the server.",
+    "4": "FTP transfers files, not e-mail messages."
+   },
+   "objective": "Name the protocol used for sending e-mail"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q11",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match the protocol in List-I with its purpose in List-II.",
+   "list": {
+    "left": [
+     "A. HTTP",
+     "B. FTP",
+     "C. PPP",
+     "D. POP3"
+    ],
+    "right": [
+     "I. Direct link between two nodes, such as a dial-up connection",
+     "II. Transfers web pages",
+     "III. Downloads incoming e-mail to a device",
+     "IV. Uploads and downloads files"
+    ]
+   },
+   "options": [
+    "A-II, B-IV, C-I, D-III",
+    "A-IV, B-II, C-I, D-III",
+    "A-II, B-IV, C-III, D-I",
+    "A-II, B-I, C-IV, D-III"
+   ],
+   "answer": 1,
+   "explanation": "HTTP transfers web pages (A-II). FTP uploads and downloads files (B-IV). PPP establishes a direct link between two nodes (C-I). POP3 downloads incoming mail to the device of the user (D-III).",
+   "optionRationale": {
+    "2": "HTTP and FTP purposes are swapped here.",
+    "3": "PPP and POP3 purposes are swapped here.",
+    "4": "This assigns PPP the file transfer role and FTP the link role."
+   },
+   "objective": "Match protocols with their roles"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "How long will it take to download a file of 50 MB over a connection with a data rate of 8 Mbps? (Take 1 byte = 8 bits.)",
+   "options": [
+    "6.25 seconds",
+    "50 seconds",
+    "8 seconds",
+    "400 seconds"
+   ],
+   "answer": 2,
+   "explanation": "File size in bits = 50 MB x 8 = 400 megabits. Time = 400 Mb / 8 Mbps = 50 s. Dividing 50 by 8 directly gives 6.25, which ignores the conversion of bytes to bits.",
+   "optionRationale": {
+    "1": "6.25 s comes from dividing the size in megabytes by the rate in megabits per second without the factor 8.",
+    "3": "8 s is the data rate and not the time.",
+    "4": "400 s divides by 1 Mbps; the rate is 8 Mbps."
+   },
+   "objective": "Compute transfer time from file size and data rate"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A video file of 1.5 GB is sent over a link of 1 Gbps. Ignoring all overheads, how long does the transfer take? (1 GB = 1000 MB, 1 byte = 8 bits.)",
+   "options": [
+    "1.2 seconds",
+    "1.5 seconds",
+    "15 seconds",
+    "12 seconds"
+   ],
+   "answer": 4,
+   "explanation": "Size = 1.5 GB = 1500 MB = 1500 x 8 = 12 000 megabits. Rate = 1 Gbps = 1000 Mbps. Time = 12 000 / 1000 = 12 seconds. The bytes to bits conversion multiplies the time by 8 compared with 1.5 s.",
+   "optionRationale": {
+    "1": "1.2 s divides 12 000 by 10 000 instead of 1000.",
+    "2": "1.5 s ignores the factor of 8 between bytes and bits.",
+    "3": "15 s would result from taking 1.5 GB as 15 gigabits."
+   },
+   "objective": "Convert GB and Gbps to compute a transfer time"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A document of 25 KB is sent over a channel whose data transfer rate is 200 Kbps. How many seconds are needed? (1 KB = 1000 bytes.)",
+   "options": [
+    "1 second",
+    "0.125 seconds",
+    "8 seconds",
+    "5 seconds"
+   ],
+   "answer": 1,
+   "explanation": "Size = 25 KB x 8 = 200 kilobits. Rate = 200 Kbps. Time = 200 / 200 = 1 second. Using bytes directly would give 25 / 200 = 0.125 s, which is wrong because the rate counts bits.",
+   "optionRationale": {
+    "2": "0.125 s forgets that 1 byte is 8 bits.",
+    "3": "8 s multiplies instead of dividing correctly.",
+    "4": "5 s has no basis in the data given."
+   },
+   "objective": "Apply time = size in bits / rate"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which of the following is the correct unit for bandwidth in the sense of a range of frequencies?",
+   "options": [
+    "Bits per second (bps)",
+    "Bytes",
+    "Hertz (Hz), with KHz and MHz as multiples",
+    "Decibels per metre"
+   ],
+   "answer": 3,
+   "explanation": "Bandwidth of a channel is the difference between the highest and lowest frequency it can carry, so it is measured in hertz, with KHz and MHz as larger units. Bits per second measures the data transfer rate and bytes measure data size.",
+   "optionRationale": {
+    "1": "bps measures data transfer rate, not frequency range.",
+    "2": "Bytes measure the amount of data.",
+    "4": "Decibels per metre is a measure of loss and not a unit for the range of frequencies."
+   },
+   "objective": "State the unit of bandwidth"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q16",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A channel carries frequencies from 300 Hz to 3400 Hz. What is its bandwidth?",
+   "options": [
+    "3700 Hz",
+    "3100 Hz",
+    "3.1 MHz",
+    "3400 Hz"
+   ],
+   "answer": 2,
+   "explanation": "Bandwidth is the difference between the highest and the lowest frequency of the channel: 3400 Hz - 300 Hz = 3100 Hz (that is 3.1 KHz). Adding the two gives 3700 Hz, which is not a bandwidth.",
+   "optionRationale": {
+    "1": "3700 Hz adds the frequencies instead of subtracting.",
+    "3": "3.1 MHz is 1000 times too large; 3100 Hz is 3.1 KHz.",
+    "4": "3400 Hz is only the highest frequency."
+   },
+   "objective": "Compute bandwidth from frequency limits"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q17",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Packet switching uses a communication line more efficiently than circuit switching.\nReason (R): In packet switching a line is shared by packets of many users, while in circuit switching a dedicated path stays reserved for one conversation even when it is idle.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "In circuit switching the reserved path is wasted whenever the parties are silent. In packet switching packets of many different messages are interleaved on the same lines, so the capacity is used whenever any user has data. The reason correctly explains the assertion.",
+   "optionRationale": {
+    "2": "Both are true and the reason is the explanation.",
+    "3": "The reason is true.",
+    "4": "The assertion is true: packet switching utilises lines better."
+   },
+   "objective": "Compare line utilisation in circuit and packet switching"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q18",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Assertion (A): An optical fibre cable is not affected by electromagnetic interference.\nReason (R): Optical fibre carries data as light pulses, which are not influenced by electric and magnetic fields in the surroundings.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Electromagnetic interference induces unwanted currents in copper conductors. Fibre has no electric current in it; the data is light confined in the glass core by total internal reflection, so external fields do not disturb it. The reason is the correct explanation.",
+   "optionRationale": {
+    "2": "The reason is the direct physical explanation.",
+    "3": "The reason is true.",
+    "4": "Fibre is indeed immune to interference."
+   },
+   "objective": "Relate immunity of fibre to its use of light"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q19",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A file of size 1 MB downloads in 1 second on a 1 Mbps connection.\nReason (R): A connection speed of 1 Mbps means one megabit, which is 8 times less than one megabyte, is transferred each second.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "One megabyte equals 8 megabits, so a 1 Mbps connection needs 8 seconds for a 1 MB file. The assertion is false. The reason is a true statement: 1 Mbps moves one megabit per second, and a megabit is one eighth of a megabyte.",
+   "optionRationale": {
+    "1": "The assertion is false, so both cannot be true.",
+    "2": "The assertion is false, and the reason is true, so this is not correct.",
+    "3": "The reason is true and it also shows the assertion to be wrong."
+   },
+   "objective": "Detect the byte and bit confusion in transfer time"
+  },
+  {
+   "key": "ug26-308-r20-data-communication-q20",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Consider the following statements about network protocols.\nA. SMTP is used to send e-mail and POP3 is used to receive it.\nB. HTTP is used for the transfer of files between an FTP client and an FTP server.\nC. A protocol is a set of rules that devices follow to communicate.\nD. PPP provides a direct link between two nodes.\nWhich statements are correct?",
+   "options": [
+    "A and B only",
+    "B, C and D only",
+    "A, C and D only",
+    "A, B and D only"
+   ],
+   "answer": 3,
+   "explanation": "SMTP sends mail and POP3 retrieves it (A). A protocol is an agreed set of rules (C). PPP sets up a point to point link between two nodes (D). HTTP transfers web pages; file transfer between client and server is done by FTP, so B is false.",
+   "optionRationale": {
+    "1": "B is false, and C and D are also true.",
+    "2": "B is false because HTTP is not the file transfer protocol.",
+    "4": "B is false so it cannot be part of the correct list."
+   },
+   "objective": "Evaluate statements on protocols"
+  }
+ ]
+}

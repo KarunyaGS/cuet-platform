@@ -1,0 +1,689 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_f693d8119f9c45e8af423997394a9755",
+    "title": "LINEAR PROGRAMMING"
+  },
+  "lesson": {
+    "key": "ug26-319-r13-linear-programming-applied",
+    "title": "Linear programming: formulation, types and graphical solution",
+    "coverage": [
+      {
+        "phrase": "Introduction and related terminology",
+        "section": "Introduction and related terminology"
+      },
+      {
+        "phrase": "Familiarize with terms related to Linear Programming Problem",
+        "section": "Introduction and related terminology"
+      },
+      {
+        "phrase": "Mathematical formulation of Linear Programming Problem",
+        "section": "Mathematical formulation of a linear programming problem"
+      },
+      {
+        "phrase": "Formulate Linear Programming Problem",
+        "section": "Mathematical formulation of a linear programming problem"
+      },
+      {
+        "phrase": "Different types of Linear Programming Problems",
+        "section": "Different types of linear programming problems"
+      },
+      {
+        "phrase": "Identify and formulate different types of LPP",
+        "section": "Different types of linear programming problems"
+      },
+      {
+        "phrase": "Graphical Method of Solution for problems in two Variables",
+        "section": "Graphical method of solution: system of linear inequalities in two variables"
+      },
+      {
+        "phrase": "Draw the Graph for a system of linear inequalities involving two variables and to find its solution graphically",
+        "section": "Graphical method of solution: system of linear inequalities in two variables"
+      },
+      {
+        "phrase": "Feasible and Infeasible Regions",
+        "section": "Feasible and infeasible regions"
+      },
+      {
+        "phrase": "Identify feasible, infeasible and bounded regions",
+        "section": "Feasible and infeasible regions"
+      },
+      {
+        "phrase": "Feasible and infeasible solutions, optimal feasible solution",
+        "section": "Feasible and infeasible solutions; optimal feasible solution"
+      },
+      {
+        "phrase": "Understand feasible and infeasible solutions",
+        "section": "Feasible and infeasible solutions; optimal feasible solution"
+      },
+      {
+        "phrase": "Find optimal feasible solution",
+        "section": "Feasible and infeasible solutions; optimal feasible solution"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Introduction and related terminology"
+      },
+      {
+        "type": "TEXT",
+        "text": "Many practical decisions have the same shape: a firm, farm, hospital or family must choose how much of two things to do, subject to limits on resources, so as to get the greatest profit or the least cost. When both the goal and the limits are expressed by linear expressions, the decision problem is a **linear programming problem (LPP)**. This course deals with problems in two variables, which can be solved by drawing a graph."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Terms used in linear programming",
+        "columns": [
+          "Term",
+          "Meaning"
+        ],
+        "rows": [
+          [
+            "Decision variables",
+            "The unknown quantities $x$ and $y$ (for example units of two products) whose values are to be decided"
+          ],
+          [
+            "Objective function",
+            "The linear function $Z = ax + by$ to be maximised (profit) or minimised (cost)"
+          ],
+          [
+            "Constraints",
+            "Linear inequalities or equations in $x$ and $y$ that express the limits on resources or requirements"
+          ],
+          [
+            "Non-negative restrictions",
+            "$x \\ge 0$ and $y \\ge 0$, because quantities cannot be negative"
+          ],
+          [
+            "Feasible region",
+            "The set of all points satisfying every constraint and the non-negative restrictions"
+          ],
+          [
+            "Feasible solution",
+            "Any point of the feasible region"
+          ],
+          [
+            "Infeasible solution",
+            "A point that violates at least one constraint, lying outside the feasible region"
+          ],
+          [
+            "Optimal feasible solution",
+            "The feasible solution giving the best (largest or smallest) value of $Z$"
+          ]
+        ]
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Linear programming problem",
+        "text": "A problem of maximising or minimising a linear function $Z = ax+by$ of decision variables, subject to a set of linear constraints and the non-negative restrictions $x \\ge 0$, $y \\ge 0$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Mathematical formulation of a linear programming problem"
+      },
+      {
+        "type": "TEXT",
+        "text": "Formulating means turning the words of a problem into mathematics. The usual order is:"
+      },
+      {
+        "type": "TEXT",
+        "text": "1. Identify the quantities to be decided and name them $x$ and $y$ (state their units).\n2. Write the objective function $Z$ from the profit or cost per unit.\n3. Write one constraint for each limited resource or requirement: a \"not more than\" resource gives $\\le$, a \"at least\" requirement gives $\\ge$.\n4. Add $x \\ge 0$ and $y \\ge 0$.\n5. State clearly whether $Z$ is to be maximised or minimised."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A workshop makes tables and chairs. A table needs 3 hours of carpentry and 1 hour of finishing; a chair needs 2 hours of carpentry and 1 hour of finishing. At most 120 carpentry hours and 50 finishing hours are available each week. Profit is ₹400 per table and ₹300 per chair. Formulate the LPP.",
+        "solution": "Let $x$ be the number of tables and $y$ the number of chairs made per week. The profit is $Z = 400x + 300y$, to be maximised. Carpentry hours used are $3x + 2y$, which cannot exceed $120$, so $3x + 2y \\le 120$. Finishing hours used are $x + y \\le 50$. Numbers of items cannot be negative, so $x \\ge 0$, $y \\ge 0$.",
+        "answer": "Maximise $Z = 400x + 300y$ subject to $3x + 2y \\le 120$, $x + y \\le 50$, $x, y \\ge 0$."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Read units carefully. If a table takes 3 hours, the hours used by $x$ tables are $3x$, not $x/3$. Resource constraints use \"$\\le$\" and requirement constraints use \"$\\ge$\". Writing the wrong sign changes the region completely."
+      },
+      {
+        "type": "HEADING",
+        "text": "Different types of linear programming problems"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Manufacturing problem",
+        "text": "A firm makes two products using limited resources (machine hours, labour, raw material). The objective is to **maximise profit**, and the constraints are of the form \"resource used $\\le$ resource available\"."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Diet problem",
+        "text": "A diet is made from two foods so that it supplies at least the required amount of each nutrient. The objective is to **minimise cost**, and the constraints are of the form \"nutrient supplied $\\ge$ minimum required\"."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Transportation problem",
+        "text": "Goods are shipped from sources (godowns) to destinations (shops) so as to meet demands within supplies. The objective is to **minimise the total transport cost**, and the constraints are supply limits ($\\le$) and demand requirements."
+      },
+      {
+        "type": "TEXT",
+        "text": "Other common types are the **investment (allocation) problem**, in which a fixed amount of money is divided between schemes to maximise return subject to limits on each scheme, and the **blending problem**, in which ingredients are mixed to meet a specification at least cost."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Quick comparison of the main types",
+        "columns": [
+          "Type",
+          "Objective",
+          "Typical constraints"
+        ],
+        "rows": [
+          [
+            "Manufacturing",
+            "Maximise profit",
+            "$\\le$ (limited resources)"
+          ],
+          [
+            "Diet",
+            "Minimise cost",
+            "$\\ge$ (minimum nutrients)"
+          ],
+          [
+            "Transportation",
+            "Minimise shipping cost",
+            "Supply $\\le$ available, demand met"
+          ],
+          [
+            "Investment",
+            "Maximise return",
+            "Total funds $\\le$ available, limits on each scheme"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Food P costs ₹5 per unit and Food Q costs ₹4 per unit. A diet must contain at least 10 units of nutrient N1 and at least 8 units of nutrient N2. One unit of P gives 2 units of N1 and 1 unit of N2; one unit of Q gives 1 unit of N1 and 2 units of N2. Formulate and solve for minimum cost.",
+        "solution": "Let $x$ units of P and $y$ units of Q be used. Minimise $Z = 5x + 4y$ subject to $2x + y \\ge 10$, $x + 2y \\ge 8$, $x, y \\ge 0$. The line $2x+y=10$ meets the axes at $(5,0)$ and $(0,10)$; the line $x+2y=8$ meets them at $(8,0)$ and $(0,4)$. The region lies above both lines, so it is unbounded. Solving $2x + y = 10$ and $x + 2y = 8$ gives $y = 10 - 2x$, then $x + 20 - 4x = 8$, so $x = 4$, $y = 2$. Corner points: $(0,10)$, $(4,2)$, $(8,0)$. Values of $Z$: $40$, $28$, $40$. The smallest is $28$. Check the open half-plane $5x + 4y < 28$: since $5x+4y = 2(2x+y) + (x+2y) \\ge 20 + 8 = 28$ on the region, no feasible point lies in it, so $28$ is the minimum.",
+        "answer": "Minimum cost ₹28 with 4 units of P and 2 units of Q."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Two godowns G1 and G2 hold 40 units each. Two shops S1 and S2 need 35 units each. Transport cost per unit is ₹4 (G1 to S1), ₹6 (G1 to S2), ₹5 (G2 to S1) and ₹3 (G2 to S2). Formulate and find the minimum cost plan.",
+        "solution": "Let $x$ units go from G1 to S1 and $y$ units from G1 to S2. Then G2 sends $35-x$ units to S1 and $35-y$ to S2. Cost $Z = 4x + 6y + 5(35-x) + 3(35-y) = -x + 3y + 280$. Constraints: G1 supply $x + y \\le 40$; G2 supply $(35-x)+(35-y) \\le 40$, that is $x + y \\ge 30$; demands give $0 \\le x \\le 35$ and $0 \\le y \\le 35$. The corner points are $(30,0)$, $(35,0)$, $(35,5)$, $(5,35)$, $(0,35)$, $(0,30)$ with $Z = 250, 245, 260, 380, 385, 370$. The least value is $245$ at $(35,0)$.",
+        "answer": "G1 sends all 35 units to S1, G2 sends 35 units to S2: minimum cost ₹245."
+      },
+      {
+        "type": "HEADING",
+        "text": "Graphical method of solution: system of linear inequalities in two variables"
+      },
+      {
+        "type": "TEXT",
+        "text": "To solve a system of inequalities graphically, draw each boundary line, shade the correct side (test the origin when the line does not pass through it), and mark the region where all shaded parts overlap. The overlap is the solution set of the system. A solid line is used for $\\le$ or $\\ge$ because points on the line belong to the solution."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Draw the solution region of $2x + y \\le 8$, $x + 2y \\le 8$, $x \\ge 0$, $y \\ge 0$ and find its corner points.",
+        "solution": "The line $2x+y=8$ meets the axes at $(4,0)$ and $(0,8)$; the line $x+2y=8$ meets them at $(8,0)$ and $(0,4)$. The origin satisfies both inequalities, so the region lies on the origin side of both lines, in the first quadrant. The lines intersect where $y = 8 - 2x$ and $x + 16 - 4x = 8$, so $x = 8/3$ and $y = 8/3$. The boundary of the common region has corner points $(0,0)$, $(4,0)$, $(8/3, 8/3)$ and $(0,4)$.",
+        "answer": "Corner points: $(0,0)$, $(4,0)$, $(8/3,\\,8/3)$, $(0,4)$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Feasible and infeasible regions"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Bounded region",
+        "text": "A feasible region that can be enclosed in a circle of finite radius, for example a polygon."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Unbounded region",
+        "text": "A feasible region that extends indefinitely in some direction. Diet problems with $\\ge$ constraints give unbounded regions because nothing limits the quantities from above."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Infeasible (empty) region",
+        "text": "The situation in which no point satisfies all constraints together. The problem then has no feasible solution."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Manufacturing problems with only $\\le$ constraints give bounded regions. Diet problems with $\\ge$ constraints give unbounded regions, and then a minimum may exist but a maximum usually does not."
+      },
+      {
+        "type": "HEADING",
+        "text": "Feasible and infeasible solutions; optimal feasible solution"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **feasible solution** satisfies all constraints (including a point on a boundary line, since $\\le$ and $\\ge$ allow equality). An **infeasible solution** breaks at least one of them. Among all feasible solutions the **optimal feasible solution** gives the best value of $Z$. By the corner point theorem it is found by evaluating $Z$ at the corner points of the feasible region."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "For the workshop problem, maximise $Z = 400x + 300y$ subject to $3x + 2y \\le 120$, $x + y \\le 50$, $x, y \\ge 0$.",
+        "solution": "The line $3x+2y=120$ meets the axes at $(40,0)$ and $(0,60)$; $x+y=50$ meets them at $(50,0)$ and $(0,50)$. They meet where $3x + 2(50 - x) = 120$, so $x = 20$ and $y = 30$. Corner points of the bounded region: $(0,0)$, $(40,0)$, $(20,30)$, $(0,50)$. Values of $Z$: $0$, $16{,}000$, $8000 + 9000 = 17{,}000$, $15{,}000$. The maximum is $17{,}000$.",
+        "answer": "Make 20 tables and 30 chairs for a maximum weekly profit of ₹17,000."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "After solving, put the answer back into every original constraint. A corner point read wrongly from a rough graph often fails this check. Also state the answer in words with units (tables, chairs, rupees)."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Formulate, draw the feasible region, list corner points, evaluate $Z$, choose the best value, and test the unbounded case. Always finish with the answer in the language of the problem."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The unknown quantities, such as the number of units of each product, whose values are to be found in a linear programming problem are called",
+      "options": [
+        "optimal values",
+        "constraints",
+        "decision variables",
+        "feasible regions"
+      ],
+      "answer": 3,
+      "explanation": "In an LPP the quantities we choose, for instance $x$ tables and $y$ chairs, are the decision variables. Constraints limit them, the objective function measures their value, and the feasible region is the set of allowed choices.",
+      "optionRationale": {
+        "1": "Optimal values are the best values of the objective function.",
+        "2": "Constraints are the restrictions on the variables, not the variables themselves.",
+        "4": "A feasible region is a set of points, not the variables."
+      },
+      "objective": "Identify decision variables"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "application",
+      "stem": "A unit of product X uses 3 machine hours and a unit of product Y uses 2 machine hours. If at most 120 machine hours are available, the constraint is",
+      "options": [
+        "$3x + 2y \\ge 120$",
+        "$3x + 2y \\le 120$",
+        "$2x + 3y \\le 120$",
+        "$x + y \\le 120$"
+      ],
+      "answer": 2,
+      "explanation": "Hours used are $3x$ for X and $2y$ for Y, giving $3x + 2y$ in total. Since at most $120$ hours are available, the total cannot exceed it, so the constraint is $3x+2y \\le 120$.",
+      "optionRationale": {
+        "1": "Available hours are a limit, so usage cannot exceed it; the sign is $\\le$.",
+        "3": "The coefficients are swapped: X uses 3 hours, not 2.",
+        "4": "This ignores the different hours per unit."
+      },
+      "objective": "Write a resource constraint"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In a diet problem the objective and the usual type of constraint are",
+      "options": [
+        "minimise the nutrients, with constraints of the form cost $\\ge$ requirement",
+        "maximise the cost, with constraints of the form nutrient $\\le$ requirement",
+        "maximise the profit, with constraints of the form nutrient $\\le$ requirement",
+        "minimise the cost, with constraints of the form nutrient supplied $\\ge$ minimum requirement"
+      ],
+      "answer": 4,
+      "explanation": "A diet problem looks for the cheapest food mix that provides at least the required nutrients, so the objective is minimised cost and the constraints are $\\ge$ type. Manufacturing problems are the reverse in sign: maximise profit with $\\le$ limits.",
+      "optionRationale": {
+        "1": "The cost is what is minimised; nutrients are the requirement.",
+        "2": "A diet problem seeks the least cost, not the greatest, and nutrients are required at least.",
+        "3": "Profit and resource limits belong to manufacturing problems."
+      },
+      "objective": "Recognise a diet problem"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q04",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Every linear programming problem in two variables includes the restrictions $x \\ge 0$ and $y \\ge 0$.\nReason (R): Quantities such as the number of units produced or the amount of food used cannot be negative.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The decision variables of practical problems measure quantities of goods, foods or money, which cannot be negative. This is why $x \\ge 0$ and $y \\ge 0$ are written explicitly, and the reason therefore explains the assertion.",
+      "optionRationale": {
+        "2": "The reason is exactly why the restrictions are included, so it is the explanation.",
+        "3": "The reason is true: negative production or food quantities are meaningless.",
+        "4": "The assertion is true: these restrictions appear in every such LPP."
+      },
+      "objective": "Explain non-negative restrictions"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "application",
+      "stem": "Which point is a feasible solution of $2x + y \\le 8,\\; x + 2y \\le 8,\\; x \\ge 0,\\; y \\ge 0$?",
+      "options": [
+        "(4,2)",
+        "(3,3)",
+        "(2,3)",
+        "(5,0)"
+      ],
+      "answer": 3,
+      "explanation": "For $(2,3)$: $2x+y = 7 \\le 8$ and $x+2y = 8 \\le 8$, both true, and $x, y \\ge 0$. The other points all give $2x+y > 8$, so each is an infeasible solution.",
+      "optionRationale": {
+        "1": "Here $2x+y = 10 > 8$, so the first constraint fails.",
+        "2": "Here $2x+y = 9 > 8$, so the first constraint fails.",
+        "4": "Here $2x+y = 10 > 8$, so the first constraint fails."
+      },
+      "objective": "Test a point against constraints"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The corner points of the region $2x + y \\le 8,\\; x + 2y \\le 8,\\; x \\ge 0,\\; y \\ge 0$ are $(0,0)$, $(4,0)$, $(0,4)$ and",
+      "options": [
+        "$\\left(\\dfrac{8}{3}, \\dfrac{8}{3}\\right)$",
+        "(2,2)",
+        "(4,4)",
+        "(8,8)"
+      ],
+      "answer": 1,
+      "explanation": "The fourth corner is where the two boundary lines meet. From $2x+y=8$, $y = 8-2x$; then $x + 16 - 4x = 8$ gives $x = 8/3$, and $y = 8/3$. Both equations check: $16/3 + 8/3 = 8$.",
+      "optionRationale": {
+        "2": "This gives $2x+y = 6 \\ne 8$; it is not on either boundary line.",
+        "3": "This violates both constraints.",
+        "4": "This violates both constraints."
+      },
+      "objective": "Find the corner point of two boundary lines"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A table needs 3 hours of carpentry and 1 hour of finishing, and a chair needs 2 hours of carpentry and 1 hour of finishing. At most 120 carpentry hours and 50 finishing hours are available. If $x$ tables and $y$ chairs are made, the constraints are",
+      "options": [
+        "$3x + 2y \\ge 120,\\; x + y \\ge 50,\\; x, y \\ge 0$",
+        "$2x + 3y \\le 120,\\; x + y \\le 50,\\; x, y \\ge 0$",
+        "$3x + 2y \\le 50,\\; x + y \\le 120,\\; x, y \\ge 0$",
+        "$3x + 2y \\le 120,\\; x + y \\le 50,\\; x \\ge 0,\\; y \\ge 0$"
+      ],
+      "answer": 4,
+      "explanation": "Carpentry used is $3x + 2y$ with limit $120$, and finishing used is $x + y$ with limit $50$. Both are resource limits, so both use $\\le$, and the variables cannot be negative.",
+      "optionRationale": {
+        "1": "Resources are limited, so \"at most\" gives $\\le$, not $\\ge$.",
+        "2": "The carpentry coefficients are swapped.",
+        "3": "The resource limits $120$ and $50$ are placed on the wrong constraints."
+      },
+      "objective": "Formulate manufacturing constraints"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "With profit ₹400 per table and ₹300 per chair, and the constraints $3x + 2y \\le 120$, $x + y \\le 50$, $x, y \\ge 0$, the maximum weekly profit is",
+      "options": [
+        "₹17,000",
+        "₹16,000",
+        "₹15,000",
+        "₹18,000"
+      ],
+      "answer": 1,
+      "explanation": "The corner points are $(0,0)$, $(40,0)$, $(20,30)$ and $(0,50)$, with $Z = 0,\\; 16{,}000,\\; 8000+9000 = 17{,}000,\\; 15{,}000$. The region is bounded, so the maximum is $17{,}000$.",
+      "optionRationale": {
+        "2": "This is the profit at the corner $(40,0)$, which is not the largest.",
+        "3": "This is the profit at the corner $(0,50)$, which is not the largest.",
+        "4": "No corner gives this value."
+      },
+      "objective": "Solve a manufacturing LPP"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "In the table and chair problem, the profit is maximum when the numbers of tables and chairs made per week are respectively",
+      "options": [
+        "40 and 0",
+        "20 and 30",
+        "0 and 50",
+        "30 and 10"
+      ],
+      "answer": 2,
+      "explanation": "The optimal corner is the meeting point of $3x+2y=120$ and $x+y=50$. Substituting $y = 50-x$ gives $3x + 100 - 2x = 120$, so $x = 20$ and $y = 30$. This uses all carpentry and finishing hours, giving the profit of ₹17,000.",
+      "optionRationale": {
+        "1": "This gives only ₹16,000.",
+        "3": "This gives only ₹15,000.",
+        "4": "This gives ₹15,000 and does not use up all the resources."
+      },
+      "objective": "Find the optimal production plan"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Food P costs ₹5 and food Q costs ₹4 per unit. A diet needs at least 10 units of N1 (P gives 2, Q gives 1 per unit) and at least 8 units of N2 (P gives 1, Q gives 2 per unit). The minimum cost of the diet is",
+      "options": [
+        "₹40",
+        "₹32",
+        "₹28",
+        "₹24"
+      ],
+      "answer": 3,
+      "explanation": "Minimise $Z = 5x + 4y$ with $2x+y \\ge 10$ and $x + 2y \\ge 8$. The corners $(0,10)$, $(4,2)$, $(8,0)$ give $Z = 40, 28, 40$. As $5x+4y = 2(2x+y) + (x+2y) \\ge 28$ on the region, $28$ is the minimum, at $4$ units of P and $2$ of Q.",
+      "optionRationale": {
+        "1": "This is the cost at the corner $(0,10)$ or $(8,0)$, not the lowest.",
+        "2": "This is not the value of $Z$ at any corner.",
+        "4": "No feasible point gives this cost; since $5x+4y \\ge 28$ on the region."
+      },
+      "objective": "Solve a diet problem"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q11",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each type of linear programming problem in List-I with its objective in List-II.",
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-I, B-II, C-III, D-IV",
+        "A-III, B-II, C-I, D-IV"
+      ],
+      "answer": 3,
+      "explanation": "A manufacturing problem maximises profit (A-I). A diet problem minimises cost subject to nutrient needs (B-II). A transportation problem minimises shipping cost (C-III). An investment problem maximises return on a fixed sum (D-IV).",
+      "optionRationale": {
+        "1": "This swaps manufacturing and diet problems.",
+        "2": "This swaps the transportation and investment problems.",
+        "4": "This gives manufacturing the shipping objective and transportation the profit objective."
+      },
+      "objective": "Match types of LPP",
+      "list": {
+        "left": [
+          "A. Manufacturing problem",
+          "B. Diet problem",
+          "C. Transportation problem",
+          "D. Investment problem"
+        ],
+        "right": [
+          "I. Maximise profit within limited resources",
+          "II. Minimise the cost of a diet meeting minimum nutrient needs",
+          "III. Minimise the cost of shipping from sources to destinations",
+          "IV. Maximise the return on a fixed sum divided between schemes"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "What is the largest possible total $x + y$ of the two decision variables in the region $2x + y \\le 8,\\; x + 2y \\le 8,\\; x \\ge 0,\\; y \\ge 0$?",
+      "options": [
+        "4",
+        "$\\dfrac{16}{3}$",
+        "8",
+        "6"
+      ],
+      "answer": 2,
+      "explanation": "The corners are $(0,0)$, $(4,0)$, $(8/3,8/3)$ and $(0,4)$. The values of $Z$ are $0$, $4$, $16/3$ and $4$. The region is bounded, so the maximum is $16/3 \\approx 5.33$ at $(8/3, 8/3)$.",
+      "optionRationale": {
+        "1": "This is $Z$ at $(4,0)$ or $(0,4)$ only.",
+        "3": "No corner gives $8$; the point $(8,0)$ is infeasible.",
+        "4": "No corner gives $6$."
+      },
+      "objective": "Evaluate the objective at corner points"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q13",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about solutions of an LPP.\nA. A point inside the feasible region that does not give the best value of $Z$ is still a feasible solution.\nB. An infeasible solution violates at least one constraint.\nC. A point on the boundary line of a $\\le$ constraint is infeasible.\nD. An optimal feasible solution is always a feasible solution.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A, B and D only",
+        "B, C and D only",
+        "A and D only"
+      ],
+      "answer": 2,
+      "explanation": "Feasibility depends only on satisfying every constraint, not on being best (A). An infeasible solution breaks at least one constraint (B). The optimal solution is chosen from feasible solutions (D). Boundary points satisfy a $\\le$ constraint, so C is false.",
+      "optionRationale": {
+        "1": "C is false: points on the boundary line satisfy $\\le$ and are feasible if they satisfy the others.",
+        "3": "C is false and A is also true.",
+        "4": "B is also correct, so this selection is incomplete."
+      },
+      "objective": "Distinguish feasible and infeasible solutions"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Godowns G1 and G2 hold 40 units each; shops S1 and S2 need 35 units each. Costs per unit are G1 to S1 ₹4, G1 to S2 ₹6, G2 to S1 ₹5, G2 to S2 ₹3. The minimum transport cost is",
+      "options": [
+        "₹260",
+        "₹250",
+        "₹385",
+        "₹245"
+      ],
+      "answer": 4,
+      "explanation": "With $x$ from G1 to S1 and $y$ from G1 to S2, the cost is $Z = -x + 3y + 280$ with $30 \\le x+y \\le 40$, $0 \\le x, y \\le 35$. The corner $(35,0)$ gives $Z = 245$, lower than all others: G1 sends 35 to S1 and G2 sends 35 to S2.",
+      "optionRationale": {
+        "1": "This is the cost at the corner $(35,5)$, not the least.",
+        "2": "This is the cost at the corner $(30,0)$, a feasible plan but dearer than the plan at $(35,0)$.",
+        "3": "This is the greatest cost, at the corner $(0,35)$."
+      },
+      "objective": "Solve a transportation problem"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "In the transportation problem above, let $x$ and $y$ be the units sent from G1 to S1 and G1 to S2. The total cost simplifies to",
+      "options": [
+        "Z = 4x + 6y",
+        "Z = x + 3y + 280",
+        "Z = -x + 3y + 280",
+        "Z = -x - 3y + 280"
+      ],
+      "answer": 3,
+      "explanation": "G2 sends $35-x$ units to S1 and $35-y$ to S2, so $Z = 4x + 6y + 5(35-x) + 3(35-y) = 4x + 6y + 175 - 5x + 105 - 3y = -x + 3y + 280$.",
+      "optionRationale": {
+        "1": "This counts only the cost of the goods leaving G1 and ignores G2.",
+        "2": "The coefficient of $x$ should be $4-5 = -1$, not $+1$.",
+        "4": "The coefficient of $y$ should be $6-3 = +3$."
+      },
+      "objective": "Formulate the transportation cost function"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q16",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The feasible region of a diet problem with constraints of the type $2x + y \\ge 10$ and $x + 2y \\ge 8$ is unbounded.\nReason (R): Constraints of the form $\\ge$ with non-negative variables do not limit the variables from above.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Both constraints are satisfied by larger and larger values of $x$ and $y$, and nothing in the problem caps them, so the region extends without limit. This is exactly what the reason says, so it explains the assertion.",
+      "optionRationale": {
+        "2": "The reason is the direct cause of the unboundedness.",
+        "3": "The reason is true: nothing bounds the variables from above.",
+        "4": "The assertion is true: the region lies above both lines and extends to infinity."
+      },
+      "objective": "Explain why diet problems give unbounded regions"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A person has ₹50,000 to invest in scheme A (return 8%) and scheme B (return 10%). At least ₹10,000 must be put in A and at most ₹30,000 in B. The maximum total return in rupees is",
+      "options": [
+        "4,000",
+        "3,800",
+        "4,600",
+        "5,000"
+      ],
+      "answer": 3,
+      "explanation": "Maximise $Z = 0.08x + 0.10y$ subject to $x + y \\le 50{,}000$, $x \\ge 10{,}000$, $0 \\le y \\le 30{,}000$. The corner points are $(10{,}000, 0)$, $(50{,}000, 0)$, $(20{,}000, 30{,}000)$ and $(10{,}000, 30{,}000)$, with $Z = 800, 4000, 4600, 3800$. The maximum is $4{,}600$.",
+      "optionRationale": {
+        "1": "This is the return at $(50{,}000, 0)$, which puts everything into the lower-rate scheme A.",
+        "2": "This is the return at $(10{,}000, 30{,}000)$, which leaves ₹10,000 of the funds unused.",
+        "4": "This would need all ₹50,000 at $10\\%$, but only ₹30,000 is allowed in B."
+      },
+      "objective": "Solve an investment problem"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "For the diet region with corner points $(0,10)$, $(4,2)$ and $(8,0)$, the cost $Z = ax + 4y$ is minimum only at the corner $(4,2)$ for $a = $",
+      "options": [
+        "1",
+        "5",
+        "9",
+        "10"
+      ],
+      "answer": 2,
+      "explanation": "$Z(4,2) = 4a+8$, $Z(0,10) = 40$ and $Z(8,0) = 8a$. For $(4,2)$ to be strictly the smallest we need $4a + 8 < 40$, so $a < 8$, and $4a+8 < 8a$, so $a > 2$. Only $a = 5$ lies between $2$ and $8$.",
+      "optionRationale": {
+        "1": "With $a=1$, $Z = 12$ at $(4,2)$ but only $8$ at $(8,0)$, so the minimum moves to $(8,0)$.",
+        "3": "With $a=9$, $Z = 44$ at $(4,2)$ but only $40$ at $(0,10)$, so the minimum moves to $(0,10)$.",
+        "4": "With $a=10$, $Z = 48$ at $(4,2)$ and $40$ at $(0,10)$, so the minimum is at $(0,10)$."
+      },
+      "objective": "Find the cost range for which a corner stays optimal"
+    },
+    {
+      "key": "ug26-319-r13-linear-programming-applied-q19",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about formulating LPPs.\nA. A diet problem uses $\\ge$ constraints because each nutrient must reach at least a minimum.\nB. In a transportation problem the total supply must be at least the total demand for a feasible plan.\nC. A manufacturing problem uses $\\le$ constraints because each resource is limited.\nD. The objective function of an LPP may contain the term $xy$.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A, C and D only",
+        "B and D only",
+        "A and B only"
+      ],
+      "answer": 1,
+      "explanation": "Diet problems need nutrients at least at the minimum (A). If supply is less than demand some demand cannot be met, so no feasible plan exists (B). Manufacturing resources are limited, giving $\\le$ (C). A product term $xy$ is non-linear, so D is false.",
+      "optionRationale": {
+        "2": "D is false: the objective function of an LPP must be linear, so $xy$ is not allowed.",
+        "3": "D is false, and A and C are also correct.",
+        "4": "C is also correct, so this selection is incomplete."
+      },
+      "objective": "Judge statements about formulation"
+    }
+  ]
+}

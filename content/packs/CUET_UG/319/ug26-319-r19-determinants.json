@@ -1,0 +1,664 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_f77ebad2f1b046de99be900b4d9cb1ec",
+    "title": "Determinants"
+  },
+  "lesson": {
+    "key": "ug26-319-r19-determinants",
+    "title": "Determinants: minors, cofactors, adjoint, inverse and linear systems",
+    "coverage": [
+      {
+        "phrase": "Determinants",
+        "section": "Determinant of a square matrix"
+      },
+      {
+        "phrase": "Determinant of a square matrix (up to 3 x 3 matrices)",
+        "section": "Determinant of a square matrix"
+      },
+      {
+        "phrase": "minors, cofactors",
+        "section": "Minors and cofactors"
+      },
+      {
+        "phrase": "applications of determinants in finding the area of a triangle",
+        "section": "Applications of determinants: area of a triangle"
+      },
+      {
+        "phrase": "Adjoint and inverse of a square matrix",
+        "section": "Adjoint and inverse of a square matrix"
+      },
+      {
+        "phrase": "Consistency, inconsistency and number of solutions of system of linear equations by examples",
+        "section": "Consistency, inconsistency and number of solutions of linear systems"
+      },
+      {
+        "phrase": "solving system of linear equations in two or three variables (having unique solution) using inverse of a matrix",
+        "section": "Solving linear equations in two or three variables using the inverse"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Determinant of a square matrix"
+      },
+      {
+        "type": "TEXT",
+        "text": "To every **square** matrix $A$ (real entries) we attach one real number, its **determinant**, written $\\det A$, $|A|$ or $\\Delta$. A determinant is defined only for square matrices, and unlike a matrix (a table) a determinant is a single number. Determinants tell us whether a matrix has an inverse and give areas and solutions of linear systems."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Determinant of order 1 and 2",
+        "text": "For $A=[a]$, $|A|=a$. For $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, $|A|=\\begin{vmatrix}a&b\\\\c&d\\end{vmatrix}=ad-bc$ (product of the main diagonal minus the product of the other diagonal)."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Determinant of order 3",
+        "text": "For a $3\\times3$ matrix, expand along any row or column: along the first row,\n$$\\begin{vmatrix}a_{11}&a_{12}&a_{13}\\\\a_{21}&a_{22}&a_{23}\\\\a_{31}&a_{32}&a_{33}\\end{vmatrix}=a_{11}\\begin{vmatrix}a_{22}&a_{23}\\\\a_{32}&a_{33}\\end{vmatrix}-a_{12}\\begin{vmatrix}a_{21}&a_{23}\\\\a_{31}&a_{33}\\end{vmatrix}+a_{13}\\begin{vmatrix}a_{21}&a_{22}\\\\a_{31}&a_{32}\\end{vmatrix}.$$\nThe signs alternate $+,-,+$ across the first row. The value is the same whichever row or column is used, so choose the one with most zeros."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\begin{vmatrix}2&0&1\\\\3&1&4\\\\1&5&2\\end{vmatrix}$.",
+        "solution": "Expand along the first row: $2(1\\cdot2-4\\cdot5)-0\\cdot(3\\cdot2-4\\cdot1)+1(3\\cdot5-1\\cdot1)=2(2-20)-0+1(15-1)=2(-18)+14=-36+14=-22$. Cross-check by expanding along the second column (entries $0,1,5$): $-0\\cdot(\\ldots)+1\\cdot(2\\cdot2-1\\cdot1)-5\\cdot(2\\cdot4-1\\cdot3)=0+3-25=-22$.",
+        "answer": "$-22$"
+      },
+      {
+        "type": "TEXT",
+        "text": "**Useful properties** (for a determinant of order $n$): $|A'|=|A|$; interchanging two rows (or columns) changes the sign; a determinant with two identical or proportional rows (columns) is $0$; adding a multiple of one row to another leaves the value unchanged; multiplying one row by $k$ multiplies the value by $k$, so $|kA|=k^n|A|$; and $|AB|=|A||B|$."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "|kA| = k^n |A|, not k|A|. For a 3 x 3 matrix, |2A| = 8|A|. Also |A + B| is not |A| + |B|."
+      },
+      {
+        "type": "HEADING",
+        "text": "Minors and cofactors"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Minor",
+        "text": "The **minor** $M_{ij}$ of the element $a_{ij}$ of a square matrix is the determinant of the $(n-1)\\times(n-1)$ matrix left after deleting the $i$-th row and $j$-th column."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Cofactor",
+        "text": "The **cofactor** of $a_{ij}$ is $A_{ij}=(-1)^{i+j}M_{ij}$. The sign $(-1)^{i+j}$ follows a chessboard pattern: $\\begin{pmatrix}+&-&+\\\\-&+&-\\\\+&-&+\\end{pmatrix}$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "|A|=a_{i1}A_{i1}+a_{i2}A_{i2}+a_{i3}A_{i3}\\ \\ (\\text{any row }i),\\qquad a_{i1}A_{j1}+a_{i2}A_{j2}+a_{i3}A_{j3}=0\\ \\ (i\\ne j)",
+        "text": "The determinant equals the sum of each element of a row (or column) times its **own** cofactor. If the elements of one row are multiplied by the cofactors of a **different** row, the sum is $0$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "For $A=\\begin{pmatrix}1&2&3\\\\4&5&6\\\\7&8&10\\end{pmatrix}$ find the minor and cofactor of $a_{23}$.",
+        "solution": "Delete row 2 and column 3 to leave $\\begin{pmatrix}1&2\\\\7&8\\end{pmatrix}$. $M_{23}=1\\cdot8-2\\cdot7=-6$. The cofactor is $A_{23}=(-1)^{2+3}M_{23}=-(-6)=6$.",
+        "answer": "$M_{23}=-6,\\ A_{23}=6$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Applications of determinants: area of a triangle"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\Delta=\\frac12\\left|\\begin{vmatrix}x_1&y_1&1\\\\x_2&y_2&1\\\\x_3&y_3&1\\end{vmatrix}\\right|=\\frac12\\left|x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)\\right|",
+        "text": "Area of the triangle with vertices $(x_1,y_1),(x_2,y_2),(x_3,y_3)$. The determinant itself may be negative depending on the order of vertices, so the **modulus** is taken for the area."
+      },
+      {
+        "type": "TEXT",
+        "text": "Three points are **collinear** exactly when this determinant is $0$ (the \"triangle\" has zero area). If the area is given, the formula yields an equation in the unknown coordinate; the modulus produces two cases, $\\text{determinant}=\\pm2\\Delta$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the value of $k$ if the area of the triangle with vertices $(2,-6)$, $(5,4)$ and $(k,4)$ is $35$ square units.",
+        "solution": "Area $=\\tfrac12|2(4-4)+5(4-(-6))+k(-6-4)|=\\tfrac12|0+50-10k|=35$. So $|50-10k|=70$. Case 1: $50-10k=70\\Rightarrow k=-2$. Case 2: $50-10k=-70\\Rightarrow k=12$.",
+        "answer": "$k=-2$ or $k=12$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Adjoint and inverse of a square matrix"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Adjoint",
+        "text": "The **adjoint** $\\operatorname{adj}A$ of a square matrix is the **transpose of the matrix of cofactors**: $(\\operatorname{adj}A)_{ij}=A_{ji}$. For $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, $\\operatorname{adj}A=\\begin{pmatrix}d&-b\\\\-c&a\\end{pmatrix}$ (swap the diagonal, negate the off-diagonal)."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "A(\\operatorname{adj}A)=(\\operatorname{adj}A)A=|A|\\,I,\\qquad |\\operatorname{adj}A|=|A|^{\\,n-1}",
+        "text": "For a square matrix $A$ of order $n$. A matrix is **singular** if $|A|=0$ and **non-singular** if $|A|\\ne0$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "A^{-1}=\\frac{1}{|A|}\\operatorname{adj}A,\\qquad |A^{-1}|=\\frac1{|A|}",
+        "text": "$A^{-1}$ exists **if and only if** $A$ is non-singular ($|A|\\neq0$). Also $(AB)^{-1}=B^{-1}A^{-1}$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $A^{-1}$ for $A=\\begin{pmatrix}1&0&2\\\\0&2&1\\\\1&1&1\\end{pmatrix}$.",
+        "solution": "$|A|=1(2-1)-0+2(0-2)=1-4=-3\\neq0$. Cofactors: $A_{11}=1,\\ A_{12}=-(0-1)=1,\\ A_{13}=0-2=-2$; $A_{21}=-(0-2)=2,\\ A_{22}=1-2=-1,\\ A_{23}=-(1-0)=-1$; $A_{31}=0-4=-4,\\ A_{32}=-(1-0)=-1,\\ A_{33}=2-0=2$. Transposing, $\\operatorname{adj}A=\\begin{pmatrix}1&2&-4\\\\1&-1&-1\\\\-2&-1&2\\end{pmatrix}$. So $A^{-1}=-\\dfrac13\\begin{pmatrix}1&2&-4\\\\1&-1&-1\\\\-2&-1&2\\end{pmatrix}$. Check the first entry of $A\\,\\operatorname{adj}A$: $(1,0,2)\\cdot(1,1,-2)=1-4=-3=|A|$ and $(1,0,2)\\cdot(2,-1,-1)=0$.",
+        "answer": "$A^{-1}=-\\tfrac13\\begin{pmatrix}1&2&-4\\\\1&-1&-1\\\\-2&-1&2\\end{pmatrix}$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Do not forget the transpose when forming the adjoint: the cofactor of a_ij goes into position (j, i). Verify any inverse by checking one row times one column of A times adj A."
+      },
+      {
+        "type": "HEADING",
+        "text": "Consistency, inconsistency and number of solutions of linear systems"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Consistent and inconsistent systems",
+        "text": "A system of linear equations is **consistent** if it has at least one solution and **inconsistent** if it has none. A consistent system has either a **unique** solution or **infinitely many** solutions; it can never have exactly two."
+      },
+      {
+        "type": "TEXT",
+        "text": "Write the system of $n$ equations in $n$ unknowns as $AX=B$, where $A$ is the coefficient matrix, $X$ the column of unknowns and $B$ the column of constants."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Nature of the solution of AX = B",
+        "columns": [
+          "Case",
+          "Conclusion"
+        ],
+        "rows": [
+          [
+            "$|A|\\ne0$",
+            "Consistent with a **unique** solution $X=A^{-1}B$"
+          ],
+          [
+            "$|A|=0$ and $(\\operatorname{adj}A)B\\ne O$",
+            "Inconsistent (no solution)"
+          ],
+          [
+            "$|A|=0$ and $(\\operatorname{adj}A)B=O$",
+            "Either consistent with infinitely many solutions, or inconsistent - examine the equations"
+          ]
+        ]
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "$x-2y=3,\\ 2x-4y=7$: the coefficient determinant is $1(-4)-(-2)(2)=0$. Doubling the first equation gives $2x-4y=6$, which contradicts $2x-4y=7$, so the system is **inconsistent**. The system $x-2y=3,\\ 2x-4y=6$ has the same coefficients but the second equation is twice the first, so it has **infinitely many** solutions ($x=3+2y$)."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Equations x + y = 2 and 2x + 2y = 5 describe parallel lines: no solution. Equations x + y = 2 and 2x + 2y = 4 describe the same line: infinitely many solutions. A zero determinant alone does not say which."
+      },
+      {
+        "type": "HEADING",
+        "text": "Solving linear equations in two or three variables using the inverse"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "If $|A|\\neq0$, multiplying $AX=B$ on the left by $A^{-1}$ gives $X=A^{-1}B$. This is the **matrix method**: it is applicable when the number of equations equals the number of unknowns and $|A|\\ne0$. Multiply $A^{-1}$ on the **left** of $B$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $3x+2y=7$ and $x+4y=9$ using the inverse of a matrix.",
+        "solution": "$A=\\begin{pmatrix}3&2\\\\1&4\\end{pmatrix}$, $|A|=12-2=10\\ne0$, $\\operatorname{adj}A=\\begin{pmatrix}4&-2\\\\-1&3\\end{pmatrix}$, $A^{-1}=\\tfrac1{10}\\begin{pmatrix}4&-2\\\\-1&3\\end{pmatrix}$. $X=A^{-1}B=\\tfrac1{10}\\begin{pmatrix}4\\cdot7-2\\cdot9\\\\-1\\cdot7+3\\cdot9\\end{pmatrix}=\\tfrac1{10}\\begin{pmatrix}10\\\\20\\end{pmatrix}=\\begin{pmatrix}1\\\\2\\end{pmatrix}$. Check: $3(1)+2(2)=7$ and $1+4(2)=9$.",
+        "answer": "$x=1, y=2$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $x+2z=4,\\ 2y+z=-1,\\ x+y+z=2$ by the matrix method.",
+        "solution": "The coefficient matrix is the matrix $A$ of the earlier worked example, $A=\\begin{pmatrix}1&0&2\\\\0&2&1\\\\1&1&1\\end{pmatrix}$, with $|A|=-3\\neq0$ and $A^{-1}=-\\tfrac13\\operatorname{adj}A$. With $B=(4,-1,2)^T$: $\\operatorname{adj}A\\cdot B=\\begin{pmatrix}1\\cdot4+2(-1)-4\\cdot2\\\\1\\cdot4+(-1)(-1)-1\\cdot2\\\\-2\\cdot4+(-1)(-1)+2\\cdot2\\end{pmatrix}=\\begin{pmatrix}-6\\\\3\\\\-3\\end{pmatrix}$. Multiply by $-\\tfrac13$: $X=(2,-1,1)^T$. Check: $2+2(1)=4$; $2(-1)+1=-1$; $2-1+1=2$.",
+        "answer": "$x=2, y=-1, z=1$"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "|A| for 2x2 is ad - bc; for 3x3 expand along a row/column with alternating signs + - +. Minor M_ij = determinant after deleting row i, column j; cofactor = (-1)^(i+j) M_ij."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Area of triangle = (1/2)|det with rows (x, y, 1)|; collinear points give 0. adj A = transpose of the cofactor matrix; A adj A = |A| I; |adj A| = |A|^(n-1); A^(-1) = adj A / |A| exists only if |A| is not 0."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "AX = B: |A| not 0 gives unique X = A^(-1) B; |A| = 0 gives either no solution or infinitely many solutions."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r19-determinants-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The value of the determinant $\\begin{vmatrix}2&3\\\\4&5\\end{vmatrix}$ is",
+      "options": [
+        "-2",
+        "2",
+        "22",
+        "-22"
+      ],
+      "answer": 1,
+      "explanation": "For a 2 x 2 determinant, ad - bc = 2(5) - 3(4) = 10 - 12 = -2. The main diagonal product is 10 and the other diagonal product is 12, and the second is subtracted from the first.",
+      "optionRationale": {
+        "2": "The sign is reversed: 2 x 5 - 3 x 4 = -2.",
+        "3": "The products are added instead of subtracted: 10 + 12 = 22.",
+        "4": "The products are added and then negated."
+      },
+      "objective": "Evaluate a 2 x 2 determinant"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "For the matrix $A=\\begin{pmatrix}1&2&3\\\\4&5&6\\\\7&8&10\\end{pmatrix}$, the minor of the element $a_{23}$ is",
+      "options": [
+        "-6",
+        "6",
+        "14",
+        "-2"
+      ],
+      "answer": 1,
+      "explanation": "Delete the second row and third column to leave [[1, 2], [7, 8]]. The minor is 1 x 8 - 2 x 7 = 8 - 14 = -6. The cofactor would be (-1)^(2+3) x (-6) = 6, which differs from the minor by the sign factor.",
+      "optionRationale": {
+        "2": "6 is the cofactor (-1)^5 x (-6), not the minor.",
+        "3": "14 is the product 2 x 7, one term of the minor only.",
+        "4": "The minor of a_23 deletes row 2 and column 3, giving 8 - 14, not -2."
+      },
+      "objective": "Find the minor of an element"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The area of the triangle with vertices (0, 0), (4, 0) and (0, 3) in square units is",
+      "options": [
+        "12",
+        "7",
+        "3",
+        "6"
+      ],
+      "answer": 4,
+      "explanation": "The area is (1/2)|x1(y2 - y3) + x2(y3 - y1) + x3(y1 - y2)| = (1/2)|0 + 4(3 - 0) + 0| = (1/2)(12) = 6. This matches the right triangle area (1/2)(4)(3) = 6.",
+      "optionRationale": {
+        "1": "12 is the value of the determinant before multiplying by 1/2.",
+        "2": "7 comes from adding the base and height.",
+        "3": "3 is only the height."
+      },
+      "objective": "Use the determinant formula for the area of a triangle"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q04",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match each determinant-related term in List-I with its meaning in List-II.",
+      "list": {
+        "left": [
+          "A. Minor of a_ij",
+          "B. Cofactor of a_ij",
+          "C. Adjoint of A",
+          "D. Singular matrix"
+        ],
+        "right": [
+          "I. (-1)^(i+j) times the minor",
+          "II. Transpose of the matrix of cofactors",
+          "III. A square matrix with zero determinant",
+          "IV. Determinant left after deleting row i and column j"
+        ]
+      },
+      "options": [
+        "A-I, B-IV, C-II, D-III",
+        "A-IV, B-I, C-III, D-II",
+        "A-IV, B-I, C-II, D-III",
+        "A-II, B-I, C-IV, D-III"
+      ],
+      "answer": 3,
+      "explanation": "The minor is the determinant of the submatrix after deleting row i and column j (IV). The cofactor attaches the sign (-1)^(i+j) to the minor (I). The adjoint is the transpose of the cofactor matrix (II). A singular matrix is a square matrix with determinant zero (III).",
+      "optionRationale": {
+        "1": "Minor and cofactor are interchanged.",
+        "2": "Adjoint and singular are interchanged.",
+        "4": "Minor and adjoint are interchanged."
+      },
+      "objective": "Match determinant terminology"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following matrices has an inverse?",
+      "options": [
+        "$\\begin{pmatrix}1&2\\\\2&4\\end{pmatrix}$",
+        "$\\begin{pmatrix}1&2\\\\3&4\\end{pmatrix}$",
+        "$\\begin{pmatrix}2&3\\\\4&6\\end{pmatrix}$",
+        "$\\begin{pmatrix}0&0\\\\1&1\\end{pmatrix}$"
+      ],
+      "answer": 2,
+      "explanation": "A square matrix has an inverse exactly when its determinant is non-zero. For [[1,2],[3,4]] the determinant is 4 - 6 = -2, which is non-zero. The other three matrices have determinants 0 (proportional rows or a zero row), so they are singular.",
+      "optionRationale": {
+        "1": "Its determinant is 4 - 4 = 0, so it has no inverse.",
+        "3": "Its determinant is 12 - 12 = 0, so it has no inverse.",
+        "4": "Its determinant is 0, because of the zero row."
+      },
+      "objective": "Decide invertibility using the determinant"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The value of $\\begin{vmatrix}1&2&3\\\\0&4&5\\\\1&0&6\\end{vmatrix}$ is",
+      "options": [
+        "22",
+        "2",
+        "46",
+        "-2"
+      ],
+      "answer": 1,
+      "explanation": "Expanding along the first row: 1(4 x 6 - 5 x 0) - 2(0 x 6 - 5 x 1) + 3(0 x 0 - 4 x 1) = 24 - 2(-5) + 3(-4) = 24 + 10 - 12 = 22. The middle term has a minus sign in front of it, and its minor is negative.",
+      "optionRationale": {
+        "2": "This is 24 - 10 - 12 with the middle sign handled incorrectly.",
+        "3": "All three terms have been added with positive sign.",
+        "4": "The sign of the whole determinant is reversed and the value is wrong."
+      },
+      "objective": "Evaluate a 3 x 3 determinant"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If A is a 3 x 3 non-singular matrix with |A| = 4, then |adj A| equals",
+      "options": [
+        "4",
+        "64",
+        "8",
+        "16"
+      ],
+      "answer": 4,
+      "explanation": "For a square matrix of order n, |adj A| = |A|^(n-1). With n = 3 and |A| = 4, |adj A| = 4^2 = 16. This follows from A(adj A) = |A| I, whose determinant gives |A||adj A| = |A|^3.",
+      "optionRationale": {
+        "1": "|adj A| = |A|^(n-1), not |A|.",
+        "2": "64 is |A|^3, which has the wrong exponent.",
+        "3": "8 would be 2|A| and has no basis."
+      },
+      "objective": "Use the determinant of the adjoint"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The points (1, 2), (3, 5) and (5, k) are collinear. Then k equals",
+      "options": [
+        "7",
+        "9",
+        "8",
+        "10"
+      ],
+      "answer": 3,
+      "explanation": "Collinear points give zero area: 1(5 - k) + 3(k - 2) + 5(2 - 5) = 5 - k + 3k - 6 - 15 = 2k - 16 = 0, so k = 8. Check with slopes: (5 - 2)/(3 - 1) = 3/2 and (8 - 5)/(5 - 3) = 3/2.",
+      "optionRationale": {
+        "1": "k = 7 would make the slope from (3,5) smaller than from (1,2).",
+        "2": "k = 9 gives unequal slopes.",
+        "4": "k = 10 gives unequal slopes."
+      },
+      "objective": "Use zero area to find a collinearity condition"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The adjoint of $A=\\begin{pmatrix}3&1\\\\-2&4\\end{pmatrix}$ is",
+      "options": [
+        "$\\begin{pmatrix}4&1\\\\-2&3\\end{pmatrix}$",
+        "$\\begin{pmatrix}4&-1\\\\2&3\\end{pmatrix}$",
+        "$\\begin{pmatrix}3&-1\\\\2&4\\end{pmatrix}$",
+        "$\\begin{pmatrix}4&2\\\\-1&3\\end{pmatrix}$"
+      ],
+      "answer": 2,
+      "explanation": "For a 2 x 2 matrix [[a, b], [c, d]] the adjoint is [[d, -b], [-c, a]]. With a = 3, b = 1, c = -2, d = 4 this is [[4, -1], [2, 3]]. Check: A times adj A = [[3x4 + 1x2, -3 + 3], [-8 + 8, 2 + 12]] = 14 I, and |A| = 12 + 2 = 14.",
+      "optionRationale": {
+        "1": "The off-diagonal signs were not changed.",
+        "3": "The diagonal elements were not interchanged.",
+        "4": "This is the transpose of the correct adjoint; the off-diagonal elements are in the wrong places."
+      },
+      "objective": "Find the adjoint of a 2 x 2 matrix"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "For a square matrix A of order n, consider:\nA. A(adj A) = |A| I.\nB. adj A exists only when |A| is not zero.\nC. A^(-1) exists if and only if |A| is not zero.\nD. |adj A| = |A|^(n-1).\nChoose the correct answer.",
+      "options": [
+        "A, C and D only",
+        "A, B and C only",
+        "B and D only",
+        "A, B, C and D"
+      ],
+      "answer": 1,
+      "explanation": "The adjoint is built from cofactors, so it exists for every square matrix, making B false. The identity A(adj A) = |A| I holds always (A true), the inverse exists exactly when |A| is not zero (C true), and taking determinants gives |adj A| = |A|^(n-1) (D true).",
+      "optionRationale": {
+        "2": "B is false: the adjoint is defined for every square matrix.",
+        "3": "B is false, and A, C are also true.",
+        "4": "B is false, so not all four hold."
+      },
+      "objective": "Recall facts about the adjoint and inverse"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q11",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "**Assertion (A):** If AX = B is a system of n linear equations in n unknowns with |A| not equal to 0, then it has a unique solution.\n**Reason (R):** When |A| is not zero, A^(-1) exists and X = A^(-1)B.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "If |A| is non-zero, A is invertible, and multiplying AX = B on the left by A^(-1) gives X = A^(-1)B. Since A^(-1) is unique, the vector X is uniquely determined. So both statements are true and the reason correctly explains the assertion.",
+      "optionRationale": {
+        "2": "R is the explanation: the solution is produced by the inverse and is therefore unique.",
+        "3": "R is true: A^(-1) = adj A/|A| exists when |A| is not zero.",
+        "4": "A is true by the inverse method."
+      },
+      "objective": "Link non-zero determinant to a unique solution"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "The system of equations x - 2y = 3 and 2x - 4y = 7 is",
+      "options": [
+        "consistent with a unique solution",
+        "consistent with infinitely many solutions",
+        "consistent with exactly two solutions",
+        "inconsistent (no solution)"
+      ],
+      "answer": 4,
+      "explanation": "The coefficient determinant is -4 + 4 = 0, so a unique solution is impossible. Doubling the first equation gives 2x - 4y = 6, which contradicts the second equation 2x - 4y = 7. The lines are parallel and distinct, so the system is inconsistent.",
+      "optionRationale": {
+        "1": "The coefficient determinant is 1(-4) - (-2)(2) = 0, so there is no unique solution.",
+        "2": "Doubling the first equation gives 2x - 4y = 6, contradicting 2x - 4y = 7.",
+        "3": "A linear system never has exactly two solutions."
+      },
+      "objective": "Decide the nature of a system of two equations"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Using the inverse of the coefficient matrix, the solution (x, y) of 2x + y = 4 and 5x + 3y = 11 has y equal to",
+      "options": [
+        "1",
+        "3",
+        "2",
+        "-2"
+      ],
+      "answer": 3,
+      "explanation": "Here A = [[2,1],[5,3]], |A| = 6 - 5 = 1 and A^(-1) = [[3,-1],[-5,2]]. Then X = A^(-1)B = (3 x 4 - 11, -5 x 4 + 2 x 11) = (1, 2). Check: 2(1) + 2 = 4 and 5(1) + 3(2) = 11. So y = 2.",
+      "optionRationale": {
+        "1": "1 is the value of x, not y.",
+        "2": "y = 3 does not satisfy 2x + y = 4 with x = 1.",
+        "4": "The sign of y is wrong."
+      },
+      "objective": "Solve two equations in two unknowns by the matrix method"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Solving x + y + z = 6, x - y + z = 2 and 2x + y - z = 1 by the matrix method, the value of z is",
+      "options": [
+        "1",
+        "3",
+        "2",
+        "6"
+      ],
+      "answer": 2,
+      "explanation": "The coefficient matrix has determinant 1(1 - 1) - 1(-1 - 2) + 1(1 + 2) = 0 + 3 + 3 = 6, which is non-zero, so the solution is unique. Subtracting equation 2 from equation 1 gives 2y = 4, so y = 2. Then x + z = 4 and 2x - z = -1 give x = 1 and z = 3. Check: 2 + 2 - 3 = 1.",
+      "optionRationale": {
+        "1": "x = 1, not z.",
+        "3": "y = 2, not z.",
+        "4": "6 is the product xyz or the right side of the first equation."
+      },
+      "objective": "Solve a three-variable system with a unique solution"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For A = [[1, 2, 3], [0, 1, 4], [5, 6, 0]], |A| = 1 and A^(-1) = adj A. The (2, 3) element of A^(-1) is",
+      "options": [
+        "-4",
+        "4",
+        "5",
+        "-15"
+      ],
+      "answer": 1,
+      "explanation": "The (2,3) element of adj A is the cofactor A32 of the element in position (3,2): A32 = (-1)^(3+2) x det[[1,3],[0,4]] = -(4 - 0) = -4. Since |A| = 1(0 - 24) - 2(0 - 20) + 3(0 - 5) = -24 + 40 - 15 = 1, the (2,3) element of A^(-1) is -4.",
+      "optionRationale": {
+        "2": "4 is the cofactor A23 itself; the adjoint requires the transpose.",
+        "3": "5 is the (1,3) element of the adjoint, A31.",
+        "4": "-15 is the (2,2) element, A22."
+      },
+      "objective": "Find an element of the inverse using cofactors"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The matrix [[1, 2, 3], [4, 5, 6], [7, 8, k]] is singular when k equals",
+      "options": [
+        "8",
+        "10",
+        "12",
+        "9"
+      ],
+      "answer": 4,
+      "explanation": "Expanding along the first row: 1(5k - 48) - 2(4k - 42) + 3(32 - 35) = 5k - 48 - 8k + 84 - 9 = 27 - 3k. This is zero when k = 9. Indeed for k = 9 the rows are in arithmetic progression, and row 3 = 2(row 2) - row 1 = (8 - 1, 10 - 2, 12 - 3) = (7, 8, 9).",
+      "optionRationale": {
+        "1": "k = 8 gives determinant -3 x 8 + 27 = 3, not 0.",
+        "2": "k = 10 gives -3, not 0.",
+        "3": "k = 12 gives -9, not 0."
+      },
+      "objective": "Find the parameter that makes a matrix singular"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If A is a 3 x 3 matrix with |A| = -2, then |3 adj A| equals",
+      "options": [
+        "12",
+        "36",
+        "108",
+        "-216"
+      ],
+      "answer": 3,
+      "explanation": "|adj A| = |A|^(n-1) = (-2)^2 = 4. For a 3 x 3 matrix B, |3B| = 3^3 |B| = 27|B|. So |3 adj A| = 27 x 4 = 108. The sign is positive because the adjoint determinant is the square of |A|.",
+      "optionRationale": {
+        "1": "This is 3|adj A| and ignores that |kB| = k^3|B|.",
+        "2": "This is 9|adj A|, with the wrong power of 3.",
+        "4": "This uses |A|^3 instead of |A|^2 for the adjoint."
+      },
+      "objective": "Combine |kB| = k^n|B| with the determinant of the adjoint"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The area of the triangle with vertices (k, 0), (4, 0) and (0, 2) is 4 square units. Then k is",
+      "options": [
+        "k = 8 only",
+        "k = 0 or k = 8",
+        "k = -4 or k = 4",
+        "k = 0 only"
+      ],
+      "answer": 2,
+      "explanation": "The area is (1/2)|k(0 - 2) + 4(2 - 0) + 0(0 - 0)| = (1/2)|8 - 2k| = 4, so |8 - 2k| = 8. Then 8 - 2k = 8 gives k = 0 and 8 - 2k = -8 gives k = 8. Check k = 8: the base from (4,0) to (8,0) is 4 and the height is 2, so the area is 4.",
+      "optionRationale": {
+        "1": "The modulus gives two cases, so k = 0 is also valid.",
+        "3": "These do not satisfy |8 - 2k| = 8.",
+        "4": "The modulus gives two cases, so k = 8 is also valid."
+      },
+      "objective": "Find a coordinate from a given area using the modulus"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The system x + y + z = 6, x + 2y + 3z = 10, x + 2y + lambda z = mu has infinitely many solutions if",
+      "options": [
+        "lambda = 3 and mu = 10",
+        "lambda = 3 and mu is not 10",
+        "lambda is not 3 and mu = 10",
+        "lambda = 10 and mu = 3"
+      ],
+      "answer": 1,
+      "explanation": "Subtract the second equation from the third: (lambda - 3) z = mu - 10. If lambda is not 3 this gives a unique z, and so a unique solution. If lambda = 3 and mu is not 10 it gives 0 = non-zero, so no solution. If lambda = 3 and mu = 10, the third equation repeats the second, leaving two independent equations in three unknowns, hence infinitely many solutions.",
+      "optionRationale": {
+        "2": "This gives no solution: the last two equations contradict.",
+        "3": "For lambda not 3 the system has a unique solution for every mu.",
+        "4": "These values do not make the last two equations coincide."
+      },
+      "objective": "Find parameters for infinitely many solutions"
+    },
+    {
+      "key": "ug26-319-r19-determinants-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The value of $\\begin{vmatrix}1&a&b+c\\\\1&b&c+a\\\\1&c&a+b\\end{vmatrix}$ is",
+      "options": [
+        "a + b + c",
+        "abc",
+        "(a - b)(b - c)(c - a)",
+        "0"
+      ],
+      "answer": 4,
+      "explanation": "Add the second column to the third: C3 becomes (a + b + c, a + b + c, a + b + c), which equals (a + b + c) times the first column (1, 1, 1). Two proportional columns make the determinant zero, so the value is 0 for all a, b, c.",
+      "optionRationale": {
+        "1": "The value is a constant 0, not the sum.",
+        "2": "The value is 0, not the product.",
+        "3": "The value is 0 since two columns become proportional."
+      },
+      "objective": "Use column operations to evaluate a determinant"
+    }
+  ]
+}

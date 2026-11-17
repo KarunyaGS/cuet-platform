@@ -1,0 +1,757 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_33f07f9aa3a845648b4ab4867b43e1e8",
+  "title": "Sorting"
+ },
+ "lesson": {
+  "key": "ug26-308-r13-sorting",
+  "title": "Sorting: bubble, selection and insertion sort",
+  "coverage": [
+   {
+    "phrase": "Overview of sorting techniques",
+    "section": "Sorting and the three basic techniques"
+   },
+   {
+    "phrase": "Bubble Sort",
+    "section": "Bubble Sort"
+   },
+   {
+    "phrase": "Selection Sort",
+    "section": "Selection Sort"
+   },
+   {
+    "phrase": "Insertion Sort",
+    "section": "Insertion Sort"
+   },
+   {
+    "phrase": "Dry run: to identify best, worst and average cases",
+    "section": "Best, worst and average cases by dry run"
+   },
+   {
+    "phrase": "Implementation of sorting techniques in Python",
+    "section": "Implementation of sorting in Python"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Sorting and the three basic techniques"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Sorting** means arranging the elements of a list in a particular order, either **ascending** (smallest first) or **descending** (largest first). Sorted data makes searching faster (binary search needs a sorted list), makes it easier to find minimum, maximum and median values and to present results such as rank lists."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Sorting algorithm",
+    "text": "A step-by-step procedure that rearranges the elements of a list into ascending or descending order by comparing elements and moving them."
+   },
+   {
+    "type": "TEXT",
+    "text": "Every technique here compares two elements and exchanges or shifts them. The **pass** is one complete sweep of the algorithm over the list. In this lesson the techniques are written for ascending order on a Python list $a$ of $n$ elements."
+   },
+   {
+    "type": "TABLE",
+    "caption": "The three basic techniques at a glance",
+    "columns": [
+     "Technique",
+     "Core idea",
+     "After pass $k$"
+    ],
+    "rows": [
+     [
+      "Bubble sort",
+      "Compare neighbours and swap if they are in the wrong order; large values \"bubble\" to the end",
+      "The $k$ largest elements are at their final places at the right end"
+     ],
+     [
+      "Selection sort",
+      "Find the smallest element of the unsorted part and swap it to the front of that part",
+      "The $k$ smallest elements are at their final places at the left end"
+     ],
+     [
+      "Insertion sort",
+      "Take the next element and insert it into its correct place within the already sorted left part",
+      "The first $k+1$ elements are sorted among themselves, but not necessarily final"
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Bubble and selection sort fix elements at their final positions after each pass. Insertion sort keeps a sorted prefix whose members may still move when later elements are inserted."
+   },
+   {
+    "type": "HEADING",
+    "text": "Bubble Sort"
+   },
+   {
+    "type": "CONCEPT",
+    "text": "Bubble sort compares each pair of adjacent elements and swaps them if the left one is larger. After the first pass the largest element is at the last position; each later pass can ignore one more element at the end."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Algorithm (ascending):**\n\n1. For pass $i$ from 0 to $n-2$:\n2. For $j$ from 0 to $n-2-i$: compare $a[j]$ and $a[j+1]$.\n3. If $a[j] > a[j+1]$, swap them.\n4. Stop after the last pass (or earlier if a whole pass made no swap)."
+   },
+   {
+    "type": "TEXT",
+    "text": "Dry run on the list [5, 1, 4, 2, 8]:"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Bubble sort dry run on [5, 1, 4, 2, 8]",
+    "columns": [
+     "Pass",
+     "List after the pass",
+     "Swaps in the pass"
+    ],
+    "rows": [
+     [
+      "1",
+      "[1, 4, 2, 5, 8]",
+      "3"
+     ],
+     [
+      "2",
+      "[1, 2, 4, 5, 8]",
+      "1"
+     ],
+     [
+      "3",
+      "[1, 2, 4, 5, 8]",
+      "0 (no swap, list is sorted)"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Inside pass 1: 5>1 swap gives [1,5,4,2,8]; 5>4 swap gives [1,4,5,2,8]; 5>2 swap gives [1,4,2,5,8]; 5<8 no swap. So 3 swaps and the 5 has moved right."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Optimised bubble sort",
+    "text": "A bubble sort that keeps a flag (for example swapped = False at the start of each pass) and stops as soon as a pass finishes with no swap, because the list is then sorted."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Dry run bubble sort (without the flag) on [4, 3, 2, 1] and find the number of comparisons and swaps.",
+    "solution": "Pass 1 (3 comparisons): 4>3 swap [3,4,2,1]; 4>2 swap [3,2,4,1]; 4>1 swap [3,2,1,4]. Swaps = 3.\n\nPass 2 (2 comparisons): 3>2 swap [2,3,1,4]; 3>1 swap [2,1,3,4]. Swaps = 2.\n\nPass 3 (1 comparison): 2>1 swap [1,2,3,4]. Swaps = 1.\n\nComparisons = 3+2+1 = 6 = $\\frac{4\\times 3}{2}$; swaps = 6.",
+    "answer": "Sorted list [1, 2, 3, 4]; 6 comparisons and 6 swaps."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Common mistake: forgetting that the inner loop shortens after each pass (range(n-1-i)). The comparisons without a flag are always $\\frac{n(n-1)}{2}$, whatever the input order."
+   },
+   {
+    "type": "HEADING",
+    "text": "Selection Sort"
+   },
+   {
+    "type": "CONCEPT",
+    "text": "Selection sort repeatedly selects the smallest element of the unsorted part and exchanges it with the first element of that part. The sorted part grows from the left by one element in each pass."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Algorithm (ascending):**\n\n1. For $i$ from 0 to $n-2$: assume the minimum is at index $i$.\n2. For $j$ from $i+1$ to $n-1$: if $a[j] < a[\\text{min}]$, remember $j$ as the new minimum position.\n3. Swap $a[i]$ with $a[\\text{min}]$."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Selection sort dry run on [64, 25, 12, 22, 11]",
+    "columns": [
+     "Pass",
+     "Minimum found",
+     "List after the pass"
+    ],
+    "rows": [
+     [
+      "1",
+      "11",
+      "[11, 25, 12, 22, 64]"
+     ],
+     [
+      "2",
+      "12",
+      "[11, 12, 25, 22, 64]"
+     ],
+     [
+      "3",
+      "22",
+      "[11, 12, 22, 25, 64]"
+     ],
+     [
+      "4",
+      "25",
+      "[11, 12, 22, 25, 64]"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Selection sort always makes $\\frac{n(n-1)}{2}$ comparisons, because it must scan the whole unsorted part even if the list is already sorted, but it makes at most $n-1$ swaps, which is fewer than bubble sort. This is useful when moving data is expensive."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Selection sort does not stop early on sorted input: there is no flag. Its best, average and worst case comparisons are all the same, $\\frac{n(n-1)}{2}$."
+   },
+   {
+    "type": "HEADING",
+    "text": "Insertion Sort"
+   },
+   {
+    "type": "CONCEPT",
+    "text": "Insertion sort treats the left part as sorted. For each next element (the key), it shifts larger sorted elements one place right and drops the key into the gap, just like arranging playing cards in the hand."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Algorithm (ascending):**\n\n1. For $i$ from 1 to $n-1$: set key = $a[i]$ and $j = i-1$.\n2. While $j \\ge 0$ and $a[j] >$ key: copy $a[j]$ to $a[j+1]$ and decrease $j$.\n3. Put key at $a[j+1]$."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Insertion sort dry run on [9, 5, 1, 4, 3]",
+    "columns": [
+     "Key (pass)",
+     "Shifts",
+     "List after the pass"
+    ],
+    "rows": [
+     [
+      "5",
+      "1",
+      "[5, 9, 1, 4, 3]"
+     ],
+     [
+      "1",
+      "2",
+      "[1, 5, 9, 4, 3]"
+     ],
+     [
+      "4",
+      "2",
+      "[1, 4, 5, 9, 3]"
+     ],
+     [
+      "3",
+      "3",
+      "[1, 3, 4, 5, 9]"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "How many element shifts and comparisons does insertion sort make on [3, 1, 2]?",
+    "solution": "Pass 1, key 1: compare with 3 (3>1) so shift 3 right, then j becomes -1 and the loop ends. 1 comparison, 1 shift. List [1,3,2].\n\nPass 2, key 2: compare with 3 (3>2) shift, compare with 1 (1>2 false) stop. 2 comparisons, 1 shift. List [1,2,3].\n\nTotal: 3 comparisons and 2 shifts.",
+    "answer": "3 comparisons, 2 shifts, sorted list [1, 2, 3]."
+   },
+   {
+    "type": "HEADING",
+    "text": "Best, worst and average cases by dry run"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **dry run** means executing the algorithm by hand on sample data, step by step, recording the list after every pass. By dry running different arrangements of the same data, we find which input is the best, the worst and the average case."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Cases of the three sorts (n elements)",
+    "columns": [
+     "Sort",
+     "Best case",
+     "Worst case",
+     "Average case"
+    ],
+    "rows": [
+     [
+      "Bubble sort (with no-swap flag)",
+      "Already sorted: one pass, $n-1$ comparisons, 0 swaps, order $n$",
+      "Reverse order: $\\frac{n(n-1)}{2}$ comparisons and swaps, order $n^2$",
+      "Order $n^2$"
+     ],
+     [
+      "Bubble sort (without flag)",
+      "Always $\\frac{n(n-1)}{2}$ comparisons, order $n^2$",
+      "Order $n^2$",
+      "Order $n^2$"
+     ],
+     [
+      "Selection sort",
+      "Order $n^2$ (still $\\frac{n(n-1)}{2}$ comparisons)",
+      "Order $n^2$",
+      "Order $n^2$"
+     ],
+     [
+      "Insertion sort",
+      "Already sorted: $n-1$ comparisons, no shifts, order $n$",
+      "Reverse order: $\\frac{n(n-1)}{2}$ shifts, order $n^2$",
+      "Order $n^2$"
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Best case of insertion sort and flag-based bubble sort is a sorted list (order n). Worst case of both is a list in reverse order. Selection sort has no best case advantage."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Insertion sort is applied on the sorted list [1, 2, 3, 4, 5] and on the reverse list [5, 4, 3, 2, 1]. Count the shifts in each.",
+    "solution": "Sorted list: for every key the element to its left is not larger, so the while loop stops at once. 4 comparisons (one per pass) and 0 shifts: best case.\n\nReverse list: pass 1 key 4 shifts 1 element; key 3 shifts 2; key 2 shifts 3; key 1 shifts 4. Shifts = 1+2+3+4 = 10 = $\\frac{5\\times 4}{2}$: worst case.",
+    "answer": "Sorted: 4 comparisons, 0 shifts. Reverse: 10 shifts."
+   },
+   {
+    "type": "HEADING",
+    "text": "Implementation of sorting in Python"
+   },
+   {
+    "type": "TEXT",
+    "text": "Python function for bubble sort with early stop:"
+   },
+   {
+    "type": "TEXT",
+    "text": "def bubble_sort(a):\n    n = len(a)\n    for i in range(n - 1):\n        swapped = False\n        for j in range(n - 1 - i):\n            if a[j] > a[j + 1]:\n                a[j], a[j + 1] = a[j + 1], a[j]\n                swapped = True\n        if not swapped:\n            break"
+   },
+   {
+    "type": "TEXT",
+    "text": "Selection sort:"
+   },
+   {
+    "type": "TEXT",
+    "text": "def selection_sort(a):\n    n = len(a)\n    for i in range(n - 1):\n        m = i\n        for j in range(i + 1, n):\n            if a[j] < a[m]:\n                m = j\n        a[i], a[m] = a[m], a[i]"
+   },
+   {
+    "type": "TEXT",
+    "text": "Insertion sort:"
+   },
+   {
+    "type": "TEXT",
+    "text": "def insertion_sort(a):\n    for i in range(1, len(a)):\n        key = a[i]\n        j = i - 1\n        while j >= 0 and a[j] > key:\n            a[j + 1] = a[j]\n            j -= 1\n        a[j + 1] = key"
+   },
+   {
+    "type": "TEXT",
+    "text": "Each function sorts the list **in place** (the same list object is changed, so the function returns None). To sort in descending order, change the comparison: use `<` in place of `>` in bubble and insertion sort, and `>` in place of `<` in selection sort. Python also has the built-in `sorted(a)` and the method `a.sort()`."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "In selection sort the swap must be **outside** the inner loop. Putting it inside turns it into a different (less efficient) algorithm. In insertion sort, forgetting `a[j + 1] = key` loses the key."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r13-sorting-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which sorting technique repeatedly compares adjacent elements and swaps them if they are in the wrong order?",
+   "options": [
+    "Selection sort",
+    "Bubble sort",
+    "Insertion sort",
+    "Binary sort"
+   ],
+   "answer": 2,
+   "explanation": "Bubble sort works by comparing neighbouring pairs and swapping when the left is larger, so the largest unsorted value \"bubbles\" to the end in each pass. Selection sort picks a minimum and insertion sort inserts into a sorted prefix; there is no standard \"binary sort\" in this syllabus.",
+   "optionRationale": {
+    "1": "Selection sort finds the smallest element and swaps it to the front.",
+    "3": "Insertion sort inserts each element into the sorted part.",
+    "4": "This is not one of the three basic sorting techniques."
+   },
+   "objective": "Identify bubble sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which technique is closest to the way a person arranges playing cards held in the hand?",
+   "options": [
+    "Bubble sort",
+    "Selection sort",
+    "Linear search",
+    "Insertion sort"
+   ],
+   "answer": 4,
+   "explanation": "When you pick up a new card and slide it into the correct position among cards already ordered, you are performing insertion sort: the left part is sorted and the next element is inserted into its correct place.",
+   "optionRationale": {
+    "1": "Bubble sort swaps adjacent pairs repeatedly.",
+    "2": "Selection sort picks the minimum of the unsorted part.",
+    "3": "Linear search is a searching technique, not a sorting technique."
+   },
+   "objective": "Identify insertion sort by analogy"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Bubble sort in ascending order is applied to [5, 1, 4, 2, 8]. What is the list after the first pass?",
+   "options": [
+    "[1, 4, 2, 5, 8]",
+    "[1, 4, 5, 2, 8]",
+    "[1, 2, 4, 5, 8]",
+    "[1, 5, 4, 2, 8]"
+   ],
+   "answer": 1,
+   "explanation": "In pass 1 the pairs are compared left to right: 5>1 swap, 5>4 swap, 5>2 swap, 5<8 no swap. This gives [1, 4, 2, 5, 8], with the largest value 8 already in place at the right. The sorted state [1, 2, 4, 5, 8] is reached only after pass 2.",
+   "optionRationale": {
+    "2": "This is the state after the first two comparisons, not after the whole pass.",
+    "3": "This is the list after the second pass.",
+    "4": "Only one swap has been done here; the pass continues with the same 5."
+   },
+   "objective": "Trace the first pass of bubble sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Selection sort in ascending order is applied to [64, 25, 12, 22, 11]. What is the list after the first pass?",
+   "options": [
+    "[11, 12, 25, 22, 64]",
+    "[25, 64, 12, 22, 11]",
+    "[11, 25, 12, 22, 64]",
+    "[12, 25, 64, 22, 11]"
+   ],
+   "answer": 3,
+   "explanation": "The minimum of the whole list is 11 at index 4. Swapping it with the first element 64 gives [11, 25, 12, 22, 64]. Nothing else moves in this pass, so the 25, 12, 22 stay in place.",
+   "optionRationale": {
+    "1": "This is the list after the second pass (12 selected next).",
+    "2": "This is not a result of selection sort; the minimum 11 must go to the front.",
+    "4": "The minimum is 11, not 12, in the first pass."
+   },
+   "objective": "Trace the first pass of selection sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Insertion sort is applied to the list [2, 4, 6, 8, 10]. The list is already sorted. How many element shifts take place?",
+   "options": [
+    "4",
+    "5",
+    "10",
+    "0"
+   ],
+   "answer": 4,
+   "explanation": "For each key, the element on its left is not larger than the key, so the while condition a[j] > key fails immediately and no element is shifted. Only 4 comparisons are made (one per pass) and 0 shifts, the best case.",
+   "optionRationale": {
+    "1": "4 is the number of comparisons, not shifts.",
+    "2": "5 is the number of elements and not related to shifts here.",
+    "3": "10 shifts would happen only for a reverse-ordered list of 5 elements."
+   },
+   "objective": "Count shifts in the best case of insertion sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Without an early-stop flag, how many comparisons does bubble sort make on a list of 6 elements?",
+   "options": [
+    "30",
+    "15",
+    "36",
+    "12"
+   ],
+   "answer": 2,
+   "explanation": "The inner loop runs 5, 4, 3, 2, 1 times in successive passes, giving $5+4+3+2+1=15=\\frac{6\\times5}{2}$ comparisons. This number does not depend on the arrangement of the data, so it is the same for sorted and reversed lists.",
+   "optionRationale": {
+    "1": "30 is $6\\times 5$, which forgets to divide by 2.",
+    "3": "36 is $6^2$, an upper bound that is not the actual count.",
+    "4": "12 would be $2n$, not the formula for the comparisons."
+   },
+   "objective": "Count comparisons of bubble sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Insertion sort is applied to [9, 5, 1, 4, 3]. What is the list after the second pass (that is, after inserting the elements at index 1 and index 2)?",
+   "options": [
+    "[5, 9, 1, 4, 3]",
+    "[1, 4, 5, 9, 3]",
+    "[1, 5, 9, 4, 3]",
+    "[1, 5, 4, 9, 3]"
+   ],
+   "answer": 3,
+   "explanation": "Pass 1: key 5 goes before 9, giving [5, 9, 1, 4, 3]. Pass 2: key 1 is smaller than both 9 and 5, so both shift right and 1 goes in front: [1, 5, 9, 4, 3]. The last two elements 4 and 3 have not been touched yet.",
+   "optionRationale": {
+    "1": "This is the list after the first pass only.",
+    "2": "This is the list after the third pass (key 4 inserted).",
+    "4": "This is not a valid result of shifting; 9 must stay to the right of 5."
+   },
+   "objective": "Trace insertion sort passes"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Bubble sort (no flag) is applied to [5, 4, 3, 2, 1]. How many swaps are made in total?",
+   "options": [
+    "10",
+    "4",
+    "5",
+    "20"
+   ],
+   "answer": 1,
+   "explanation": "In a reverse-ordered list every pair of elements is out of order, and each swap of adjacent elements fixes exactly one such pair. There are $\\frac{5\\times4}{2}=10$ pairs, so 10 swaps happen: 4+3+2+1 in the four passes.",
+   "optionRationale": {
+    "2": "4 is only the number of swaps in the first pass.",
+    "3": "5 is the number of elements, not swaps.",
+    "4": "20 counts each pair twice."
+   },
+   "objective": "Count swaps in the worst case of bubble sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "How many passes does selection sort need to sort 8 elements?",
+   "options": [
+    "7",
+    "8",
+    "4",
+    "28"
+   ],
+   "answer": 1,
+   "explanation": "Selection sort fixes one element per pass and the last element automatically falls into place, so $n-1=7$ passes are needed for 8 elements. The value 28 is the total number of comparisons, $\\frac{8\\times 7}{2}$.",
+   "optionRationale": {
+    "2": "8 passes is one too many; the last element needs no pass.",
+    "3": "4 is $n/2$, which has no basis in the algorithm.",
+    "4": "28 is the number of comparisons, not the number of passes."
+   },
+   "objective": "Count passes of selection sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which input gives the worst case for insertion sort on n elements?",
+   "options": [
+    "List already in ascending order",
+    "List with all elements equal",
+    "List in descending order",
+    "List with one element out of place"
+   ],
+   "answer": 3,
+   "explanation": "The worst case occurs when every key must be moved all the way to the front, which happens when the list is in reverse (descending) order. Then the total number of shifts is $\\frac{n(n-1)}{2}$. A sorted list is the best case.",
+   "optionRationale": {
+    "1": "An ascending list is the best case with no shifts.",
+    "2": "With all elements equal, no shifts occur since a[j] > key is false.",
+    "4": "One misplaced element causes only a few shifts, not the worst case."
+   },
+   "objective": "Identify the worst case of insertion sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q11",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Statements about sorting:\nA. Bubble sort with a no-swap flag needs only one pass on a sorted list.\nB. Selection sort makes fewer comparisons on a sorted list than on a reversed list.\nC. Selection sort makes at most n - 1 swaps.\nD. Insertion sort cannot sort a list that has duplicate values.\nWhich are correct?",
+   "options": [
+    "A and B only",
+    "A and C only",
+    "B and D only",
+    "A, C and D only"
+   ],
+   "answer": 2,
+   "explanation": "A is true: no swap occurs, so the flag stops after pass 1. B is false because selection sort always makes $\\frac{n(n-1)}{2}$ comparisons. C is true: one swap per pass for $n-1$ passes. D is false since duplicates are handled correctly. So only A and C are correct.",
+   "optionRationale": {
+    "1": "B is false: comparison count does not depend on the order of data.",
+    "3": "B and D are both false.",
+    "4": "D is false because insertion sort sorts duplicates without difficulty."
+   },
+   "objective": "Judge statements on sorting"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Optimised bubble sort (with the no-swap flag) is applied to [2, 3, 1, 4, 5]. How many passes are executed, counting the final pass in which no swap occurs?",
+   "options": [
+    "1",
+    "4",
+    "2",
+    "3"
+   ],
+   "answer": 4,
+   "explanation": "Pass 1: 2<3 no swap, 3>1 swap [2,1,3,4,5], 3<4, 4<5. Pass 2: 2>1 swap [1,2,3,4,5], rest no swap. Pass 3: no swap, so the flag stops the loop. Three passes were executed in total; the third is the confirming pass.",
+   "optionRationale": {
+    "1": "One pass would leave 1 out of order.",
+    "2": "4 passes is the maximum n-1, which the flag avoids.",
+    "3": "After 2 passes the list is sorted, but the algorithm needs a third pass to see that no swap occurs."
+   },
+   "objective": "Count passes with an early-exit flag"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Selection sort (ascending) is applied to [29, 10, 14, 37, 13]. What is the list after the second pass?",
+   "options": [
+    "[10, 29, 14, 37, 13]",
+    "[10, 13, 14, 29, 37]",
+    "[10, 13, 14, 37, 29]",
+    "[10, 14, 29, 37, 13]"
+   ],
+   "answer": 3,
+   "explanation": "Pass 1: minimum 10 (index 1) swaps with 29, giving [10,29,14,37,13]. Pass 2: among 29,14,37,13 the minimum is 13 (index 4), which swaps with 29, giving [10,13,14,37,29]. The 14 does not move in this pass.",
+   "optionRationale": {
+    "1": "This is the list after only the first pass.",
+    "2": "This is the list after the fourth pass, which is the fully sorted list.",
+    "4": "This would put 14 second, but the smallest remaining value is 13."
+   },
+   "objective": "Trace selection sort passes with swaps"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Consider the code:\n\nd = [4, 3, 2, 1]\ncount = 0\nfor i in range(len(d) - 1):\n    for j in range(len(d) - 1 - i):\n        if d[j] > d[j + 1]:\n            d[j], d[j + 1] = d[j + 1], d[j]\n            count += 1\nprint(d, count)\n\nWhat is printed?",
+   "options": [
+    "[1, 2, 3, 4] 6",
+    "[1, 2, 3, 4] 3",
+    "[4, 3, 2, 1] 0",
+    "[1, 2, 3, 4] 10"
+   ],
+   "answer": 1,
+   "explanation": "The code is bubble sort on a reversed list, with count incrementing at every swap. Pass 1 makes 3 swaps, pass 2 makes 2 and pass 3 makes 1, so count=6 and the list becomes [1, 2, 3, 4]. Output: [1, 2, 3, 4] 6.",
+   "optionRationale": {
+    "2": "3 is the swaps in the first pass only.",
+    "3": "The list is changed by the swaps; it does not stay the same.",
+    "4": "10 would be the swap count for 5 elements; here n=4 gives 6."
+   },
+   "objective": "Trace bubble sort code with a swap counter"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Insertion sort is applied to [5, 4, 3, 2, 1] and the number of element shifts (executions of a[j+1] = a[j]) is counted. What is the count?",
+   "options": [
+    "4",
+    "5",
+    "15",
+    "10"
+   ],
+   "answer": 4,
+   "explanation": "Keys 4,3,2,1 shift 1,2,3 and 4 elements respectively, total $1+2+3+4=10=\\frac{5\\times4}{2}$. This is the worst case for insertion sort. Each key must travel past all the larger elements already in the sorted part.",
+   "optionRationale": {
+    "1": "4 is just the number of passes, not the shifts.",
+    "2": "5 is the number of elements.",
+    "3": "15 would be the count for 6 elements."
+   },
+   "objective": "Count shifts for the worst case"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q16",
+   "type": "ASSERTION_REASON",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Selection sort makes at most n - 1 swaps for n elements.\nReason (R): Selection sort makes one exchange per pass and has n - 1 passes.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Each pass of selection sort places the minimum of the unsorted part at its position with a single exchange, and there are $n-1$ passes, so at most $n-1$ swaps happen. The reason is the exact explanation of the assertion.",
+   "optionRationale": {
+    "2": "R is the exact reason, so it explains A.",
+    "3": "R is true, so the option stating R is false is wrong.",
+    "4": "A is true, so the option stating A is false is wrong."
+   },
+   "objective": "Link passes with swaps in selection sort"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q17",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The best case of insertion sort has order n.\nReason (R): Insertion sort makes the same number of comparisons for every arrangement of the data.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "A sorted list needs only one comparison per element, so the work is of order $n$ and the assertion is true. The reason is false: the number of comparisons varies from $n-1$ in the best case to $\\frac{n(n-1)}{2}$ in the worst case. Selection sort, not insertion sort, shows the fixed count.",
+   "optionRationale": {
+    "1": "R is false, so it cannot explain A.",
+    "2": "R is false so option 2 is not correct.",
+    "4": "A is true, so option 4 is not correct."
+   },
+   "objective": "Contrast insertion and selection sort comparisons"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q18",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Selection sort is just as slow on a sorted list as on a reversed list in terms of comparisons.\nReason (R): It scans the entire unsorted part to find the minimum in every pass.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Selection sort always scans the unsorted part in full to find the minimum, doing $\\frac{n(n-1)}{2}$ comparisons whatever the input order. That is why a sorted list gives no saving, and the reason correctly explains the assertion.",
+   "optionRationale": {
+    "2": "R directly explains A, so option 2 is not applicable.",
+    "3": "R is true, so option 3 is incorrect.",
+    "4": "A is true, so option 4 is incorrect."
+   },
+   "objective": "Explain why selection sort has no best case"
+  },
+  {
+   "key": "ug26-308-r13-sorting-q19",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match each sorting technique in List-I with the phrase that best describes it in List-II.",
+   "options": [
+    "A-II, B-III, C-I, D-IV",
+    "A-I, B-II, C-III, D-IV",
+    "A-III, B-II, C-IV, D-I",
+    "A-II, B-I, C-III, D-IV"
+   ],
+   "answer": 1,
+   "explanation": "Bubble sort swaps adjacent elements (II). Selection sort picks the minimum of the unsorted part (III). Insertion sort places each key into the sorted left part (I). A flag-based bubble sort on sorted input needs one pass and is of order n (IV). So the code is A-II, B-III, C-I, D-IV.",
+   "optionRationale": {
+    "2": "This matches bubble sort with the card-hand description, which belongs to insertion sort.",
+    "3": "This gives selection sort the adjacent-swap description.",
+    "4": "This mismatches bubble and selection sort."
+   },
+   "objective": "Match sorting techniques with their characteristics",
+   "list": {
+    "left": [
+     "A. Bubble sort",
+     "B. Selection sort",
+     "C. Insertion sort",
+     "D. Flag-based bubble sort on sorted data"
+    ],
+    "right": [
+     "I. Inserts each key into the sorted left part",
+     "II. Swaps adjacent out-of-order elements",
+     "III. Swaps the minimum of the unsorted part to the front",
+     "IV. One pass with no swap, order n"
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,713 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_200349e612884e5fa69d317094a6c186",
+    "title": "TIME BASED DATA"
+  },
+  "lesson": {
+    "key": "ug26-319-r08-time-based-data",
+    "title": "Time based data: time series, components, secular trend and methods of measuring trend",
+    "coverage": [
+      {
+        "phrase": "Time Series",
+        "section": "Time series as chronological data"
+      },
+      {
+        "phrase": "Identify time series as chronological data",
+        "section": "Time series as chronological data"
+      },
+      {
+        "phrase": "TIME BASED DATA",
+        "section": "Time series as chronological data"
+      },
+      {
+        "phrase": "Components of Time Series",
+        "section": "Components of time series"
+      },
+      {
+        "phrase": "Distinguish between different components of time series",
+        "section": "Components of time series"
+      },
+      {
+        "phrase": "Time Series analysis for univariate data",
+        "section": "Time series analysis for univariate data"
+      },
+      {
+        "phrase": "Solve practical problems based on statistical data and Interpret",
+        "section": "Time series analysis for univariate data"
+      },
+      {
+        "phrase": "Secular trend",
+        "section": "Secular trend"
+      },
+      {
+        "phrase": "Understand the long term tendency",
+        "section": "Secular trend"
+      },
+      {
+        "phrase": "Methods of Measuring trend",
+        "section": "Methods of measuring trend"
+      },
+      {
+        "phrase": "Demonstrate the techniques of finding trend by different methods",
+        "section": "Methods of measuring trend"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Time series as chronological data"
+      },
+      {
+        "type": "TEXT",
+        "text": "Businesses, governments and households constantly record quantities that change from one period to the next: monthly sales of a shop, yearly population of a city, daily temperature, quarterly exports, the closing price of a share. Data of this kind carry a time stamp. The order of the observations matters, so they cannot be shuffled like the marks of a class."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Time series",
+        "text": "A **time series** is a set of observations of a variable recorded at successive points of time, usually at equal intervals (daily, monthly, quarterly, yearly), and arranged in **chronological order**. If $t$ denotes time and $y_t$ the value of the variable at time $t$, the series is $y_1,y_2,\\dots,y_n$."
+      },
+      {
+        "type": "TEXT",
+        "text": "When only one variable is followed through time (for example the yearly production of wheat), the series is called **univariate**. If two or more variables are followed together (production and price), it is **multivariate**. This lesson deals with univariate data."
+      },
+      {
+        "type": "TEXT",
+        "text": "The study of a time series helps us to understand the past behaviour of the variable, to compare the performance of different periods, to separate the effect of the different causes of variation, and above all to **forecast** future values and plan accordingly. Time series are shown on a line graph called a **historigram**, with time on the horizontal axis."
+      },
+      {
+        "type": "HEADING",
+        "text": "Components of time series"
+      },
+      {
+        "type": "TEXT",
+        "text": "The ups and downs of a time series arise from many causes. For analysis they are grouped into four **components**."
+      },
+      {
+        "type": "TABLE",
+        "caption": "The four components of a time series",
+        "columns": [
+          "Component",
+          "Meaning",
+          "Duration",
+          "Example"
+        ],
+        "rows": [
+          [
+            "Secular trend (T)",
+            "Smooth long-term movement: a steady rise, fall or flat tendency",
+            "Many years",
+            "Growth of population, spread of mobile phones"
+          ],
+          [
+            "Seasonal variation (S)",
+            "Regular, repeating changes within a year, caused by weather, customs, festivals",
+            "Within one year (never longer)",
+            "Rise in sale of woollens in winter, ice-cream in summer"
+          ],
+          [
+            "Cyclical variation (C)",
+            "Wave-like swings around the trend, not of fixed length, caused by business cycles (boom, recession, depression, recovery)",
+            "More than one year, usually 3 to 10 years",
+            "Alternating prosperity and slump in an economy"
+          ],
+          [
+            "Irregular variation (I)",
+            "Random, unpredictable, one-time changes",
+            "Short and unforeseen",
+            "Floods, earthquakes, strikes, wars, pandemic lock-down"
+          ]
+        ]
+      },
+      {
+        "type": "CONCEPT",
+        "text": "Trend and cyclical variations are **long-term** components; seasonal variations repeat in periods of **less than a year**; irregular variations have **no pattern** at all. The distinguishing question is: how long, and how regular, is the movement?"
+      },
+      {
+        "type": "TEXT",
+        "text": "The components combine in a **model**. In the **additive model** the observed value is the sum of the components; in the **multiplicative model** it is their product."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{Additive: } Y=T+S+C+I\\qquad\\qquad \\text{Multiplicative: } Y=T\\times S\\times C\\times I",
+        "text": "$Y$ is the observed value, $T$ the trend, $S$ seasonal, $C$ cyclical and $I$ irregular component. In the additive model all components are in the unit of $Y$ and can be positive or negative. In the multiplicative model $T$ is in the unit of $Y$, while $S,C,I$ are ratios close to 1 (for example $1.10$ means 10% above the trend)."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "In an additive model, the trend value of sales in a year is Rs 120 thousand, the seasonal effect is $+10$, the cyclical effect is $-5$ and the irregular effect is $+3$ (all in Rs thousand). Find the observed sales. In a multiplicative model with $T=200$, $S=1.10$, $C=0.90$ and $I=1.00$, find $Y$.",
+        "solution": "Additive model: all four components are added, so $Y=T+S+C+I=120+10-5+3=128$, keeping the negative sign of the cyclical effect.\n\nMultiplicative model: the components are multiplied, so $Y=200\\times1.10\\times0.90\\times1.00=200\\times0.99=198$, because the seasonal rise of 10% and the cyclical fall of 10% do not cancel exactly.",
+        "answer": "$Y=128$ (additive) and $Y=198$ (multiplicative)"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Do not confuse the cyclical and the seasonal component. A seasonal pattern repeats **within every year** (for example every winter), while a cycle spans **several years** and its length is not fixed. A sudden flood is irregular, not cyclical."
+      },
+      {
+        "type": "HEADING",
+        "text": "Time series analysis for univariate data"
+      },
+      {
+        "type": "TEXT",
+        "text": "Analysis of a univariate series means separating the components, measuring each one, and interpreting what the pattern says. The most important step is the measurement of the trend, because it shows the direction of the series after short-term movements are smoothed out. The trend is then used for comparisons and forecasts."
+      },
+      {
+        "type": "TEXT",
+        "text": "Interpretation points for a trend line $y=a+bx$: the constant $a$ is the trend value at the origin of time, and the slope $b$ is the average change in $y$ per unit of time. A positive $b$ means a rising trend, a negative $b$ a falling one. Forecasts are made by putting the future time value in the trend equation, but they are reliable only if the past pattern continues."
+      },
+      {
+        "type": "HEADING",
+        "text": "Secular trend"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Secular trend",
+        "text": "The **secular trend** is the general, smooth, long-term tendency of a time series to increase, decrease or stay flat over a long period, after the short-term fluctuations (seasonal, cyclical and irregular) have been removed. It results from slow-acting causes such as population growth, technology, changing tastes and capital formation."
+      },
+      {
+        "type": "TEXT",
+        "text": "A trend can be **linear** (the plotted points approximately follow a straight line, with constant absolute change) or **non-linear** (the line curves, as in exponential growth). At this level we study linear trends. The long-term tendency is what planners study to decide, for example, how many schools a city will need in ten years."
+      },
+      {
+        "type": "HEADING",
+        "text": "Methods of measuring trend"
+      },
+      {
+        "type": "TEXT",
+        "text": "There are four common methods: (1) freehand or graphic method, (2) method of semi-averages, (3) method of moving averages and (4) method of least squares."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Freehand method.** Plot the data on a graph and draw a smooth line by eye through the middle of the points so that the line follows the general direction and the points above and below balance. It is quick and simple but **subjective**: two persons will draw different lines."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Method of semi-averages.** Divide the series into two equal halves (if the number of years is odd, leave out the middle one). Find the arithmetic mean of each half and place it against the middle time point of that half. Join these two points to obtain the trend line. The slope is the difference of the two averages divided by the number of years between the two mid-points."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "The yearly output (in thousand units) of a firm from 2017 to 2022 is $20,24,28,32,36,40$. Find the trend by the method of semi-averages and estimate the trend value for 2023.",
+        "solution": "There are 6 years, so the halves are 2017-2019 and 2020-2022.\n\nMean of the first half $=\\dfrac{20+24+28}{3}=24$, placed at the middle year 2018.\n\nMean of the second half $=\\dfrac{32+36+40}{3}=36$, placed at 2021.\n\nSlope $=\\dfrac{36-24}{2021-2018}=\\dfrac{12}{3}=4$ thousand per year.\n\nTrend value for 2023 $=36+4\\times(2023-2021)=36+8=44$ thousand.",
+        "answer": "Slope $4$ thousand units per year; trend value for 2023 is $44$ thousand"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Method of moving averages.** The trend is obtained as a series of averages of successive groups of fixed length, called the **period** of the moving average. Each average is placed against the middle time point of its group. A suitable period removes short-term fluctuations. Remember: for a period $m$, $m-1$ values are lost (about half at each end)."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the 3-yearly moving averages of the series $5,7,9,8,11,13,12$.",
+        "solution": "Take successive groups of three values.\n\n$\\dfrac{5+7+9}{3}=7$, $\\dfrac{7+9+8}{3}=8$, $\\dfrac{9+8+11}{3}=\\dfrac{28}{3}\\approx9.33$, $\\dfrac{8+11+13}{3}=\\dfrac{32}{3}\\approx10.67$, $\\dfrac{11+13+12}{3}=12$.\n\nThese are placed against the 2nd, 3rd, 4th, 5th and 6th observations. The first and the last year have no trend value, so $7-2=5$ averages are obtained.",
+        "answer": "$7,\\ 8,\\ 9.33,\\ 10.67,\\ 12$"
+      },
+      {
+        "type": "TEXT",
+        "text": "When the period is **even** (for example 4), the average of four values falls between two time points. To bring it back to a time point we **centre** it: take the average of two consecutive 4-yearly averages. Equivalently, the centred value is $\\dfrac{\\frac12y_1+y_2+y_3+y_4+\\frac12y_5}{4}$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the first centred 4-yearly moving average of $8,12,14,18,20,26$.",
+        "solution": "The first two 4-yearly totals are $8+12+14+18=52$ and $12+14+18+20=64$.\n\nThe centred total is $52+64=116$, and dividing by $2\\times4=8$ gives $14.5$. It is placed against the 3rd year.\n\nCheck with the weighted form: $\\dfrac{4+12+14+18+10}{4}=\\dfrac{58}{4}=14.5$.",
+        "answer": "$14.5$ (against the third year)"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Method of least squares.** The straight line $y=a+bx$ is fitted so that the sum of the squares of the differences between the actual values and the trend values is least. The constants satisfy $\\sum y=na+b\\sum x$ and $\\sum xy=a\\sum x+b\\sum x^2$. If time is measured from the **middle** of the series, so that $\\sum x=0$, the solution is very simple."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "a=\\dfrac{\\sum y}{n},\\qquad b=\\dfrac{\\sum xy}{\\sum x^2}\\qquad(\\text{when }\\sum x=0)",
+        "text": "$n$ is the number of years; $x$ is the deviation of the year from the middle year (for an odd number of years $x=\\dots,-2,-1,0,1,2,\\dots$). Here $a$ is the trend value at the middle year and $b$ is the annual change."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "The sales (Rs lakh) in the years 2018 to 2022 are $10,14,16,20,25$. Fit a straight-line trend by least squares and estimate the trend value for 2023.",
+        "solution": "Take 2020 as the origin, so $x=-2,-1,0,1,2$. Then $\\sum x=0$ and $\\sum x^2=4+1+0+1+4=10$.\n\n$\\sum y=10+14+16+20+25=85$, so $a=\\dfrac{85}{5}=17$.\n\n$\\sum xy=(-2)(10)+(-1)(14)+0+(1)(20)+(2)(25)=-20-14+0+20+50=36$, so $b=\\dfrac{36}{10}=3.6$.\n\nTrend equation: $y=17+3.6x$ (origin 2020, unit one year).\n\nFor 2023, $x=3$: $y=17+3.6\\times3=27.8$ lakh.",
+        "answer": "$y=17+3.6x$; trend value for 2023 is $27.8$ lakh"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "In least squares, always write the origin and the unit of $x$ with the equation. If the origin is shifted by $k$ years, replace $x$ by $x'+k$ and simplify. A trend equation without its origin cannot be used. For an even number of years, measure $x$ in half-year units so that the sum is still zero."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Comparison of the methods of trend measurement",
+        "columns": [
+          "Method",
+          "Merit",
+          "Limitation"
+        ],
+        "rows": [
+          [
+            "Freehand",
+            "Simple, quick",
+            "Subjective; not mathematical"
+          ],
+          [
+            "Semi-average",
+            "Easy; gives a definite line",
+            "Assumes a straight line; affected by extreme values"
+          ],
+          [
+            "Moving average",
+            "Flexible; removes short-term movement; fits even non-linear trends",
+            "Loses values at the ends; cannot forecast; period must be chosen well"
+          ],
+          [
+            "Least squares",
+            "Objective; gives an equation; allows forecasting",
+            "Calculation is longer; assumes a trend of the chosen form"
+          ]
+        ]
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Components: trend (long term), seasonal (within a year), cyclical (several years, irregular length), irregular (random). Models: $Y=T+S+C+I$ and $Y=T\\times S\\times C\\times I$."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Moving average of period $m$ loses $m-1$ values in total. Least squares with $\\sum x=0$: $a=\\sum y/n$, $b=\\sum xy/\\sum x^2$. Semi-average: slope $=$ difference of the two half-means divided by the distance between their mid-points."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r08-time-based-data-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "A time series is a set of observations of a variable that are",
+      "options": [
+        "collected from different places at one point of time",
+        "arranged in order of their size",
+        "arranged in chronological order at successive points of time",
+        "obtained only from a random sample"
+      ],
+      "answer": 3,
+      "explanation": "A time series records the value of a variable at successive time points, such as every month or year, and keeps the observations in the order of time. Data collected from different places at a single time point form a cross-section, not a time series.",
+      "optionRationale": {
+        "1": "That describes cross-sectional data, not time series.",
+        "2": "Arranging by size gives a frequency or ranked list, which loses the time order.",
+        "4": "A time series need not come from a sample; the key feature is the time order."
+      },
+      "objective": "Define a time series"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The rise in the sale of woollen clothes every winter is an example of",
+      "options": [
+        "seasonal variation",
+        "secular trend",
+        "cyclical variation",
+        "irregular variation"
+      ],
+      "answer": 1,
+      "explanation": "Seasonal variation consists of regular movements that repeat within a year because of weather, customs or festivals. The winter peak in woollen sales repeats every year, so it is seasonal variation, not a long-term trend or a multi-year cycle.",
+      "optionRationale": {
+        "2": "A trend is a long-term tendency lasting many years, not a yearly repeating pattern.",
+        "3": "Cycles span several years and have no fixed length.",
+        "4": "The winter rise is regular and predictable, so it is not irregular."
+      },
+      "objective": "Identify seasonal variation"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The general long-term tendency of a time series to increase or decrease is called",
+      "options": [
+        "seasonal variation",
+        "irregular variation",
+        "cyclical variation",
+        "secular trend"
+      ],
+      "answer": 4,
+      "explanation": "The secular trend is the smooth movement of a series over a long period, after short-term fluctuations are removed. Seasonal movements occur within a year, cyclical movements around the trend last several years, and irregular movements are random.",
+      "optionRationale": {
+        "1": "Seasonal variation repeats within a year.",
+        "2": "Irregular variation is random and unpredictable.",
+        "3": "Cyclical variation oscillates around the trend; it is not the trend itself."
+      },
+      "objective": "Define secular trend"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "A sudden fall in the output of a factory because of a flood is a part of",
+      "options": [
+        "secular trend",
+        "irregular variation",
+        "seasonal variation",
+        "cyclical variation"
+      ],
+      "answer": 2,
+      "explanation": "Irregular (random) variation is caused by unforeseen events such as floods, earthquakes, strikes and wars. It has no pattern and cannot be forecast, so a flood-related fall is irregular variation.",
+      "optionRationale": {
+        "1": "A flood does not change the long-term tendency.",
+        "3": "A flood is not a regularly repeating event within a year.",
+        "4": "A single flood does not form a recurring multi-year business cycle."
+      },
+      "objective": "Identify irregular variation"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Alternating periods of boom and recession in an economy, lasting several years each, are examples of",
+      "options": [
+        "seasonal variation",
+        "cyclical variation",
+        "secular trend",
+        "irregular variation"
+      ],
+      "answer": 2,
+      "explanation": "Cyclical variations are wave-like movements around the trend over more than a year, typically 3 to 10 years, caused by the business cycle of prosperity, recession, depression and recovery. They have no fixed length, unlike seasonal variations.",
+      "optionRationale": {
+        "1": "Seasonal variations last less than one year.",
+        "3": "The trend is the smooth long-term line itself, not the swings around it.",
+        "4": "The boom-recession pattern recurs and is therefore not irregular."
+      },
+      "objective": "Identify cyclical variation"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For the series $5,7,9,8,11,13,12$, the 3-yearly moving average placed against the 4th observation is",
+      "options": [
+        "$8$",
+        "$\\dfrac{32}{3}$",
+        "$9$",
+        "$\\dfrac{28}{3}$"
+      ],
+      "answer": 4,
+      "explanation": "The average placed against the 4th observation is centred on it, so it uses the 3rd, 4th and 5th values: $\\frac{9+8+11}{3}=\\frac{28}{3}\\approx9.33$. The value $8$ is the average centred on the 3rd observation, and $\\frac{32}{3}$ is centred on the 5th.",
+      "optionRationale": {
+        "1": "$8$ is $\\frac{7+9+8}{3}$, centred on the 3rd observation.",
+        "2": "$\\frac{32}{3}$ is $\\frac{8+11+13}{3}$, centred on the 5th.",
+        "3": "$9$ is the mean of $9$ alone or of unrelated values; the required group is $9,8,11$."
+      },
+      "objective": "Compute a 3-year moving average"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A time series has 12 yearly values. How many trend values are obtained by the 5-yearly moving average method?",
+      "options": [
+        "$8$",
+        "$12$",
+        "$10$",
+        "$7$"
+      ],
+      "answer": 1,
+      "explanation": "A moving average of period $m$ loses $m-1$ values in all, $\\frac{m-1}{2}$ at each end when $m$ is odd. For $m=5$ four values are lost (two at each end), leaving $12-4=8$ trend values.",
+      "optionRationale": {
+        "2": "$12$ ignores the loss of values at the ends.",
+        "3": "$10$ loses only two values; five-year groups lose four.",
+        "4": "$7$ loses five values, but $m-1=4$ values are lost."
+      },
+      "objective": "Count the trend values lost in a moving average"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The yearly output from 2017 to 2022 is $20,24,28,32,36,40$. The semi-average method gives an annual slope of the trend of",
+      "options": [
+        "$3$",
+        "$12$",
+        "$4$",
+        "$6$"
+      ],
+      "answer": 3,
+      "explanation": "The half-means are $\\frac{20+24+28}{3}=24$ (at 2018) and $\\frac{32+36+40}{3}=36$ (at 2021). The slope is $\\frac{36-24}{2021-2018}=\\frac{12}{3}=4$ per year. The value 12 is the difference of the means, not divided by the three years between them.",
+      "optionRationale": {
+        "1": "$3$ is the gap in years, not the slope.",
+        "2": "$12$ is the difference of the half-means before dividing by 3 years.",
+        "4": "$6$ divides by 2, but the mid-points are three years apart."
+      },
+      "objective": "Find the slope in the semi-average method"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q09",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about the components of a time series.\nA. Secular trend is the long-term movement of the series.\nB. Seasonal variations repeat within a period of one year.\nC. Cyclical variations always have a fixed period of exactly 12 months.\nD. Irregular variations are unpredictable.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "B, C and D only",
+        "A and C only",
+        "A, B and D only"
+      ],
+      "answer": 4,
+      "explanation": "Trend is the long-term tendency (A), seasonal variation repeats within a year (B) and irregular variation cannot be predicted (D). Statement C is false: a period of exactly 12 months describes a seasonal pattern, while cyclical variations last more than a year with no fixed length.",
+      "optionRationale": {
+        "1": "C is false: cycles are longer than a year and have no fixed length.",
+        "2": "C is false and A is a correct statement.",
+        "3": "C is false, and B and D are correct statements missing here."
+      },
+      "objective": "Test understanding of the components of a time series"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q10",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the situation in List-I with the component of a time series in List-II.",
+      "options": [
+        "A-IV, B-II, C-I, D-III",
+        "A-II, B-IV, C-I, D-III",
+        "A-II, B-IV, C-III, D-I",
+        "A-II, B-I, C-IV, D-III"
+      ],
+      "answer": 2,
+      "explanation": "Population growth over decades is a long-term tendency, the secular trend (A-II). The summer ice-cream peak repeats yearly, so it is seasonal (B-IV). A boom-recession wave of several years is cyclical (C-I). A strike is an unforeseen event and so is irregular (D-III).",
+      "optionRationale": {
+        "1": "A and B are interchanged; population growth is not a within-year pattern.",
+        "3": "C and D are interchanged; a one-time strike is not a multi-year cycle.",
+        "4": "B and C are interchanged; the yearly peak is seasonal and the multi-year wave is cyclical."
+      },
+      "objective": "Match situations with components of a time series",
+      "list": {
+        "left": [
+          "A. Steady growth of the population of a city over decades",
+          "B. Rise in the sale of ice-cream every summer",
+          "C. Boom and recession pattern of the economy spread over several years",
+          "D. Fall in production due to a sudden strike"
+        ],
+        "right": [
+          "I. Cyclical variation",
+          "II. Secular trend",
+          "III. Irregular variation",
+          "IV. Seasonal variation"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "In the additive model $Y=T+S+C+I$, the trend is $120$, seasonal effect $+10$, cyclical effect $-5$ and irregular effect $+3$. The observed value $Y$ is",
+      "options": [
+        "$118$",
+        "$138$",
+        "$128$",
+        "$130$"
+      ],
+      "answer": 3,
+      "explanation": "In the additive model all components are added: $Y=120+10-5+3=128$. The value 138 ignores the negative sign of the cyclical effect ($120+10+5+3$), and 118 subtracts the seasonal and irregular effects.",
+      "optionRationale": {
+        "1": "$118$ treats the seasonal and irregular effects as negative.",
+        "2": "$138$ treats the cyclical effect as $+5$ instead of $-5$.",
+        "4": "$130$ includes only the trend and the seasonal effect and leaves out the cyclical and irregular effects."
+      },
+      "objective": "Apply the additive model"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "In the multiplicative model $Y=T\\times S\\times C\\times I$, let $T=200$, $S=1.10$, $C=0.90$ and $I=1.00$. Then $Y$ equals",
+      "options": [
+        "$198$",
+        "$200$",
+        "$180$",
+        "$220$"
+      ],
+      "answer": 1,
+      "explanation": "$Y=200\\times1.10\\times0.90\\times1.00$. First $1.10\\times0.90=0.99$, so $Y=200\\times0.99=198$. The seasonal rise of 10% is more than offset by the cyclical fall of 10% applied after it, so the result is slightly below the trend.",
+      "optionRationale": {
+        "2": "$200$ would need the product $S\\times C$ to be 1; here it is $0.99$.",
+        "3": "$180$ applies only the cyclical factor $0.90$ and leaves out the seasonal factor.",
+        "4": "$220$ ignores the cyclical factor $0.90$."
+      },
+      "objective": "Apply the multiplicative model"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For sales $10,14,16,20,25$ in 2018 to 2022, the least-squares trend with origin 2020 and unit one year is $y=a+bx$. The value of $b$ is",
+      "options": [
+        "$3.6$",
+        "$7.2$",
+        "$17$",
+        "$36$"
+      ],
+      "answer": 1,
+      "explanation": "Since $\\sum x=0$, $b=\\frac{\\sum xy}{\\sum x^2}$. With $x=-2,-1,0,1,2$: $\\sum xy=-20-14+0+20+50=36$ and $\\sum x^2=10$. So $b=3.6$. The value 17 is $a=\\frac{\\sum y}{n}=\\frac{85}{5}$, and 36 is $\\sum xy$ undivided.",
+      "optionRationale": {
+        "2": "$7.2$ divides $\\sum xy=36$ by $n=5$ instead of by $\\sum x^2=10$.",
+        "3": "$17$ is the intercept $a$, not the slope.",
+        "4": "$36$ is $\\sum xy$; it must be divided by $\\sum x^2=10$."
+      },
+      "objective": "Compute the slope of a least-squares trend line"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For the series $8,12,14,18,20,26$, the first centred 4-yearly moving average is",
+      "options": [
+        "$13$",
+        "$16$",
+        "$14.5$",
+        "$17.75$"
+      ],
+      "answer": 3,
+      "explanation": "The first two 4-yearly totals are $8+12+14+18=52$ and $12+14+18+20=64$. Their sum is $116$, and dividing by $2\\times4=8$ gives the centred average $14.5$, placed against the 3rd year. The value 13 is the uncentred first average $\\frac{52}{4}$.",
+      "optionRationale": {
+        "1": "$13$ is the uncentred average $\\frac{52}{4}$; it falls between years and must be centred.",
+        "2": "$16$ is the uncentred second average $\\frac{64}{4}$.",
+        "4": "$17.75$ is the second centred average, $\frac{64+78}{8}$, placed against the 4th year."
+      },
+      "objective": "Compute a centred moving average for an even period"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Using the least-squares trend $y=17+3.6x$ (origin 2020, $x$ in years) fitted to the sales data of 2018-2022, the forecast for 2023 is",
+      "options": [
+        "$24.2$",
+        "$27.8$",
+        "$28.4$",
+        "$25$"
+      ],
+      "answer": 2,
+      "explanation": "For 2023, $x=2023-2020=3$. So $y=17+3.6\\times3=17+10.8=27.8$. The value 24.2 corresponds to $x=2$ (the year 2022), and 25 is the actual value of 2022, which is not the trend value.",
+      "optionRationale": {
+        "1": "$24.2$ is the trend value for $x=2$, i.e. 2022.",
+        "3": "$28.4$ adds an extra $0.6$; the correct sum is $17+10.8=27.8$.",
+        "4": "$25$ is the actual sale in 2022, not a forecast."
+      },
+      "objective": "Forecast using a fitted trend equation"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The trend equation $y=40+5x$ has origin 2020, with $x$ measured in years. If the origin is shifted to 2022, the equation becomes",
+      "options": [
+        "$y=30+5x$",
+        "$y=40+10x$",
+        "$y=45+5x$",
+        "$y=50+5x$"
+      ],
+      "answer": 4,
+      "explanation": "With origin 2020, $x=t-2020$. With the new origin 2022, $x'=t-2022$, so $x=x'+2$. Substituting, $y=40+5(x'+2)=50+5x'$. Check: the trend value in 2022 is $40+5(2)=50$, which is the new intercept. The slope stays the same since the unit is unchanged.",
+      "optionRationale": {
+        "1": "$30+5x$ shifts in the wrong direction ($x=x'-2$).",
+        "2": "The slope does not change when only the origin is shifted.",
+        "3": "$45+5x$ shifts by 1 year only; the shift is 2 years."
+      },
+      "objective": "Shift the origin of a trend equation"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q17",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The method of moving averages cannot give trend values for the first and last years of the series.\nReason (R): Each moving average is calculated from values lying on both sides of the year against which it is placed.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "A centred moving average of period $m$ for a given year uses the observations on either side of it. For the first and the last years there are not enough observations on one side, so no trend value can be computed. R explains A completely.",
+      "optionRationale": {
+        "2": "R is not just true; it is the direct reason for A.",
+        "3": "R is true: the average is built from neighbours on both sides.",
+        "4": "A is true: end years have no trend value."
+      },
+      "objective": "Explain loss of end values in moving averages"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q18",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The method of semi-averages is suitable for fitting a non-linear trend.\nReason (R): The method of semi-averages assumes that the trend is a straight line.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "The semi-average method joins two half-means by a straight line, so it assumes a linear trend and is not suitable for a curved, non-linear trend. Thus A is false and R is true.",
+      "optionRationale": {
+        "1": "A is false, so R cannot be its explanation.",
+        "2": "A is false.",
+        "3": "R is true: the line through two points is straight."
+      },
+      "objective": "Know the assumption behind the semi-average method"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q19",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about secular trend and its measurement.\nA. A trend may be rising, falling or constant.\nB. A trend exists only in series covering less than one year.\nC. The freehand method of drawing a trend is subjective.\nD. The method of least squares gives an equation that can be used for forecasting.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "A, C and D only",
+        "B, C and D only",
+        "A and C only"
+      ],
+      "answer": 2,
+      "explanation": "Trend can rise, fall or remain flat (A). The freehand method depends on the person who draws the line (C). The least-squares equation can be extended to future time values (D). Statement B is false: trend is a long-term tendency and requires a long series.",
+      "optionRationale": {
+        "1": "B is false: a trend needs a long series, not less than a year.",
+        "3": "B is false and A is true.",
+        "4": "D is also correct, so this selection is incomplete."
+      },
+      "objective": "Check statements about trend and its methods"
+    },
+    {
+      "key": "ug26-319-r08-time-based-data-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The yearly output from 2017 to 2022 is $20,24,28,32,36,40$. Using the straight-line trend obtained by the semi-average method, the trend value for 2023 is",
+      "options": [
+        "$40$",
+        "$48$",
+        "$44$",
+        "$42$"
+      ],
+      "answer": 3,
+      "explanation": "The half-means are 24 at 2018 and 36 at 2021, so the slope is $\\frac{12}{3}=4$ per year. Starting from 36 at 2021, the trend value for 2023 is $36+4\\times2=44$. The value 40 is the actual output of 2022, and 48 is obtained by adding 3 years instead of 2.",
+      "optionRationale": {
+        "1": "$40$ is the actual value of 2022, not a trend forecast for 2023.",
+        "2": "$48$ moves 3 years from 2021 instead of 2.",
+        "4": "$42$ uses a slope of 3 rather than 4."
+      },
+      "objective": "Forecast using a semi-average trend line"
+    }
+  ]
+}

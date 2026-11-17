@@ -1,0 +1,802 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_690176c5d6324814afc251435d4f2b03",
+    "title": "PROBABILITY DISTRIBUTIONS"
+  },
+  "lesson": {
+    "key": "ug26-319-r06-probability-distributions-applied",
+    "title": "Probability distributions: random variables, expectation, variance, binomial, Poisson and normal distributions",
+    "coverage": [
+      {
+        "phrase": "Probability Distribution",
+        "section": "Random variables and probability distributions"
+      },
+      {
+        "phrase": "Understand the concept of Random Variables and its Probability Distributions",
+        "section": "Random variables and probability distributions"
+      },
+      {
+        "phrase": "Find probability distribution of discrete random variable",
+        "section": "Random variables and probability distributions"
+      },
+      {
+        "phrase": "PROBABILITY DISTRIBUTIONS",
+        "section": "Random variables and probability distributions"
+      },
+      {
+        "phrase": "Mathematical Expectation",
+        "section": "Mathematical expectation"
+      },
+      {
+        "phrase": "Apply arithmetic mean of frequency distribution to find the expected value of a random variable",
+        "section": "Mathematical expectation"
+      },
+      {
+        "phrase": "Variance",
+        "section": "Variance and standard deviation"
+      },
+      {
+        "phrase": "Calculate the Variance and S.D. of a random variable",
+        "section": "Variance and standard deviation"
+      },
+      {
+        "phrase": "Binomial Distribution",
+        "section": "Binomial distribution"
+      },
+      {
+        "phrase": "Identify the Bernoulli Trials and apply Binomial Distribution",
+        "section": "Binomial distribution"
+      },
+      {
+        "phrase": "Evaluate Mean, Variance and S.D. of a Binomial Distribution",
+        "section": "Binomial distribution"
+      },
+      {
+        "phrase": "Poisson Distribution",
+        "section": "Poisson distribution"
+      },
+      {
+        "phrase": "Understand the conditions of Poisson Distribution",
+        "section": "Poisson distribution"
+      },
+      {
+        "phrase": "Evaluate the Mean and Variance of Poisson distribution",
+        "section": "Poisson distribution"
+      },
+      {
+        "phrase": "Normal Distribution",
+        "section": "Normal distribution"
+      },
+      {
+        "phrase": "Understand normal distribution is a continuous distribution",
+        "section": "Normal distribution"
+      },
+      {
+        "phrase": "Evaluate value of Standard normal variate",
+        "section": "Normal distribution"
+      },
+      {
+        "phrase": "Area relationship between Mean and Standard Deviation",
+        "section": "Normal distribution"
+      },
+      {
+        "phrase": "Probability Distribution",
+        "section": "Random variables and probability distributions"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Random variables and probability distributions"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **random experiment** has outcomes that cannot be predicted with certainty, such as tossing coins, throwing dice or checking items from a production line. A numerical label attached to each outcome makes it easy to calculate with. For two tosses of a coin the outcomes HH, HT, TH, TT are not numbers, but \"the number of heads\" takes the values $2,1,1,0$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Random variable",
+        "text": "A **random variable** $X$ is a rule that assigns a real number to every outcome of a random experiment. It is **discrete** if it takes only isolated values (a finite list or a countable list such as $0,1,2,\\dots$), for example the number of defective bulbs in a box. It is **continuous** if it can take any value in an interval, for example height, weight or time."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Probability distribution of a discrete random variable",
+        "text": "A table (or formula) that lists every value $x_i$ of $X$ together with its probability $p_i=P(X=x_i)$. It is valid only if $p_i\\ge0$ for every $i$ and $\\sum p_i=1$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\sum_{i} p_i = 1,\\qquad 0\\le p_i\\le 1",
+        "text": "The first condition says that the list of values is exhaustive; the second that no probability is negative or larger than 1. Use the first condition to find an unknown constant in a given distribution."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "The number of heads $X$ in two tosses of a fair coin is a random variable. Write its probability distribution.",
+        "solution": "The sample space is $\\{HH,HT,TH,TT\\}$, four equally likely outcomes.\n\n$X=0$ for TT, so $P(X=0)=\\dfrac14$. $X=1$ for HT and TH, so $P(X=1)=\\dfrac24=\\dfrac12$. $X=2$ for HH, so $P(X=2)=\\dfrac14$.\n\nCheck: $\\dfrac14+\\dfrac12+\\dfrac14=1$.",
+        "answer": "$X:0,1,2$ with $P(X):\\ \\tfrac14,\\ \\tfrac12,\\ \\tfrac14$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A random variable $X$ has $P(X=x)=kx$ for $x=1,2,3,4$ and $0$ otherwise. Find $k$ and $P(X\\ge3)$.",
+        "solution": "The probabilities are $k,2k,3k,4k$. Since they sum to 1: $10k=1$, so $k=\\dfrac1{10}$.\n\n$P(X\\ge3)=P(X=3)+P(X=4)=\\dfrac{3}{10}+\\dfrac4{10}=\\dfrac7{10}$.",
+        "answer": "$k=0.1$ and $P(X\\ge3)=0.7$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "A distribution table is checked in two steps: every probability must lie between 0 and 1, and the total must be exactly 1. A table with a total of 1.1, or with a negative entry, is not a probability distribution, however neat it looks."
+      },
+      {
+        "type": "HEADING",
+        "text": "Mathematical expectation"
+      },
+      {
+        "type": "TEXT",
+        "text": "Suppose a game is played many times. The long-run average value of the outcome is the **expected value**. It is exactly the arithmetic mean of a frequency distribution, where the relative frequencies are replaced by probabilities. If a value $x_i$ occurs with relative frequency $f_i/N$, the mean is $\\sum x_i\\,(f_i/N)$. As the number of trials grows, $f_i/N$ settles at $p_i$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Expected value (mean) of a discrete random variable",
+        "text": "$E(X)=\\mu=\\sum x_i\\,p_i$, the probability-weighted average of the values of $X$. It need not be a value that $X$ actually takes. For a function, $E[g(X)]=\\sum g(x_i)p_i$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "E(X)=\\sum_{i=1}^{n}x_ip_i,\\qquad E(aX+b)=aE(X)+b",
+        "text": "$a,b$ are constants. The second rule is the linearity of expectation: shifting all values by $b$ shifts the mean by $b$, and scaling by $a$ scales the mean by $a$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A random variable $X$ has the distribution $x:0,1,2,3$ with $P(X):0.1,0.3,0.4,0.2$. Find $E(X)$.",
+        "solution": "$E(X)=0(0.1)+1(0.3)+2(0.4)+3(0.2)=0+0.3+0.8+0.6=1.7$.\n\nThe unweighted average of the values, $1.5$, would be wrong, because the values are not equally likely.",
+        "answer": "$E(X)=1.7$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A fair die is thrown. A player wins Rs 6 if a six appears and loses Rs 1 otherwise. Find the expected gain.",
+        "solution": "Let $X$ be the gain in rupees: $X=6$ with probability $\\dfrac16$ and $X=-1$ with probability $\\dfrac56$.\n\n$E(X)=6\\cdot\\dfrac16+(-1)\\cdot\\dfrac56=1-\\dfrac56=\\dfrac16$ rupee.\n\nThe game is slightly favourable to the player.",
+        "answer": "$E(X)=\\tfrac16$ rupee (about 17 paise)"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Expectation is the average over many repetitions, not the result of a single trial. A positive expected gain does not mean you win every time."
+      },
+      {
+        "type": "HEADING",
+        "text": "Variance and standard deviation"
+      },
+      {
+        "type": "TEXT",
+        "text": "The mean tells the centre of a distribution; the variance tells how widely the values are spread around it. It is the expected squared deviation from the mean."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Variance and standard deviation",
+        "text": "$\\operatorname{Var}(X)=\\sigma^2=E[(X-\\mu)^2]=\\sum(x_i-\\mu)^2p_i$. The standard deviation is $\\sigma=\\sqrt{\\operatorname{Var}(X)}$, which is expressed in the same unit as $X$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\operatorname{Var}(X)=E(X^2)-[E(X)]^2,\\qquad \\operatorname{Var}(aX+b)=a^2\\operatorname{Var}(X)",
+        "text": "$E(X^2)=\\sum x_i^2p_i$. The shortcut avoids computing deviations from the mean. Adding a constant $b$ does not change the spread, and scaling by $a$ multiplies the variance by $a^2$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "For $x:0,1,2,3$ with $P(X):0.1,0.3,0.4,0.2$, find the variance and standard deviation.",
+        "solution": "From the previous example $E(X)=1.7$.\n\n$E(X^2)=0(0.1)+1(0.3)+4(0.4)+9(0.2)=0.3+1.6+1.8=3.7$.\n\n$\\operatorname{Var}(X)=3.7-(1.7)^2=3.7-2.89=0.81$.\n\n$\\sigma=\\sqrt{0.81}=0.9$.",
+        "answer": "Variance $0.81$, standard deviation $0.9$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common slip: writing $\\operatorname{Var}(X)=E(X^2)-E(X)$ or forgetting to square the mean. The variance can never be negative; if you get a negative value, recheck $E(X^2)$ and $[E(X)]^2$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Binomial distribution"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Bernoulli trial",
+        "text": "A random experiment with exactly two outcomes, called **success** (probability $p$) and **failure** (probability $q=1-p$). A sequence of **Bernoulli trials** requires that (1) the number of trials $n$ is fixed, (2) each trial has only two outcomes, (3) the trials are independent, and (4) $p$ is the same in every trial."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Binomial distribution $B(n,p)$",
+        "text": "If $X$ is the number of successes in $n$ Bernoulli trials, then for $r=0,1,\\dots,n$ the probability is $P(X=r)={}^nC_r\\,p^r q^{n-r}$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "P(X=r)={}^nC_r\\,p^rq^{n-r},\\qquad \\mu=np,\\qquad \\sigma^2=npq,\\qquad \\sigma=\\sqrt{npq}",
+        "text": "$n$ is the number of trials, $p$ the probability of success in one trial, $q=1-p$. Note the variance is always less than the mean because $q<1$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A fair coin is tossed 4 times. Find the probability of exactly 2 heads, and the mean and variance of the number of heads.",
+        "solution": "Here $n=4$, $p=\\dfrac12$, $q=\\dfrac12$.\n\n$P(X=2)={}^4C_2\\left(\\dfrac12\\right)^2\\left(\\dfrac12\\right)^2=6\\cdot\\dfrac1{16}=\\dfrac38$.\n\nMean $=np=4\\cdot\\dfrac12=2$. Variance $=npq=4\\cdot\\dfrac12\\cdot\\dfrac12=1$.",
+        "answer": "$P=\\tfrac38$, mean $2$, variance $1$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "The probability that a bulb is defective is $0.2$. In a box of 5 bulbs, find the probability that at least one is defective.",
+        "solution": "$X\\sim B(5,0.2)$. \"At least one\" is easier through the complement.\n\n$P(X\\ge1)=1-P(X=0)=1-(0.8)^5=1-0.32768=0.67232$.",
+        "answer": "$0.67232$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Check the Bernoulli conditions before using the formula. Drawing items **without replacement** from a small lot gives trials that are not independent, so the binomial formula would not apply exactly."
+      },
+      {
+        "type": "HEADING",
+        "text": "Poisson distribution"
+      },
+      {
+        "type": "TEXT",
+        "text": "Some events occur at random in a continuous interval of time, length or area: calls reaching a telephone exchange in an hour, misprints on a page, accidents at a junction in a day. The number of occurrences can be counted, but there is no fixed number of trials. The Poisson distribution models such counts."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Poisson distribution",
+        "text": "A discrete random variable $X$ follows a **Poisson distribution** with parameter $\\lambda>0$ if $P(X=r)=\\dfrac{e^{-\\lambda}\\lambda^r}{r!}$ for $r=0,1,2,\\dots$. It is the limit of $B(n,p)$ when $n\\to\\infty$, $p\\to0$ and $np=\\lambda$ stays finite."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "P(X=r)=\\dfrac{e^{-\\lambda}\\lambda^r}{r!},\\qquad E(X)=\\lambda,\\qquad \\operatorname{Var}(X)=\\lambda",
+        "text": "$\\lambda$ is the average number of occurrences in the given interval; $e\\approx2.718$. The mean and the variance are **equal**, which is the quickest test for a Poisson model."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Conditions of the Poisson distribution",
+        "columns": [
+          "Condition",
+          "Meaning"
+        ],
+        "rows": [
+          [
+            "Rare events",
+            "The probability of the event in a very short interval is small ($p$ small, $n$ large)."
+          ],
+          [
+            "Independence",
+            "Occurrences are independent of one another."
+          ],
+          [
+            "Constant average rate",
+            "The mean number $\\lambda$ per interval is constant and proportional to the length of the interval."
+          ],
+          [
+            "One at a time",
+            "Two events cannot occur at exactly the same instant."
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A shop receives on average 3 telephone calls per hour (Poisson). Find the probability of no call in an hour and of at most one call in an hour. Use $e^{-3}=0.0498$.",
+        "solution": "Here $\\lambda=3$.\n\n$P(X=0)=e^{-3}=0.0498$.\n\n$P(X=1)=3e^{-3}=0.1494$.\n\n$P(X\\le1)=e^{-3}(1+3)=4e^{-3}=0.1991$ (approximately).",
+        "answer": "$P(0)\\approx0.0498$ and $P(X\\le1)\\approx0.199$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "If a question gives equal numerical mean and variance for a count, think Poisson. If the variance is smaller than the mean it points to a binomial model. For a Poisson variable with $P(X=1)=P(X=2)$ equate $\\lambda e^{-\\lambda}=\\dfrac{\\lambda^2}{2}e^{-\\lambda}$ and cancel the common factors to get $\\lambda=2$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Normal distribution"
+      },
+      {
+        "type": "TEXT",
+        "text": "The **normal distribution** is the most important **continuous** distribution. Measurements such as heights, marks and errors of measurement pile up near an average and thin out symmetrically on both sides, forming a bell-shaped curve. For a continuous variable the probability of a single exact value is zero; probabilities are **areas under the curve** between two values, and the total area is 1."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Normal distribution",
+        "text": "A continuous distribution with mean $\\mu$ and standard deviation $\\sigma$ whose density curve is bell-shaped and **symmetric about $x=\\mu$**. For it, mean $=$ median $=$ mode $=\\mu$, the curve never touches the $x$-axis, and the total area is 1. Its notation is $N(\\mu,\\sigma^2)$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Standard normal variate",
+        "text": "$Z=\\dfrac{X-\\mu}{\\sigma}$. It measures how many standard deviations $X$ lies from the mean, and follows $N(0,1)$ with mean 0 and standard deviation 1. Areas are read from the standard normal table."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "Z=\\dfrac{X-\\mu}{\\sigma}",
+        "text": "$X$ is the observed value, $\\mu$ the mean and $\\sigma>0$ the standard deviation. $Z$ is positive above the mean and negative below it."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Area relationship between the mean and standard deviation",
+        "columns": [
+          "Interval",
+          "Area (approximate)"
+        ],
+        "rows": [
+          [
+            "$\\mu-\\sigma$ to $\\mu+\\sigma$",
+            "68.3% (about 68%)"
+          ],
+          [
+            "$\\mu-2\\sigma$ to $\\mu+2\\sigma$",
+            "95.4% (about 95%)"
+          ],
+          [
+            "$\\mu-3\\sigma$ to $\\mu+3\\sigma$",
+            "99.7%"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Marks in a test are normally distributed with mean 72 and standard deviation 8. Find the standard normal variates of the marks 88 and 56, and say what percentage of students scored between 56 and 88.",
+        "solution": "$Z_{88}=\\dfrac{88-72}{8}=2$.\n\n$Z_{56}=\\dfrac{56-72}{8}=-2$.\n\nThe interval from 56 to 88 is $\\mu\\pm2\\sigma$, so about 95% of the students scored in this range.",
+        "answer": "$Z=2$ and $Z=-2$; about 95%"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Divide by the **standard deviation**, not the variance, in $Z=(X-\\mu)/\\sigma$. If a question gives variance 64, then $\\sigma=8$. Also remember that the normal curve is symmetric, so $P(X<\\mu)=0.5$ and $P(Z<-a)=P(Z>a)$."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Discrete: $\\sum p_i=1$; $E(X)=\\sum x_ip_i$; $\\operatorname{Var}=E(X^2)-[E(X)]^2$. Binomial: $np$, $npq$. Poisson: mean $=$ variance $=\\lambda$. Normal: continuous, symmetric, $Z=(X-\\mu)/\\sigma$, areas $68\\%$, $95\\%$, $99.7\\%$."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which one of the following is a discrete random variable?",
+      "options": [
+        "The height of a student in a class",
+        "The time taken by a runner to finish a race",
+        "The number of defective bulbs in a box of 10 bulbs",
+        "The weight of a bag of rice"
+      ],
+      "answer": 3,
+      "explanation": "A discrete random variable takes isolated, countable values. The number of defective bulbs in a box of 10 can only be $0,1,2,\\dots,10$, so it is discrete. Height, time and weight can take any value in an interval, so they are continuous random variables.",
+      "optionRationale": {
+        "1": "Height can take any value in an interval, so it is continuous.",
+        "2": "Time is measured on a continuous scale.",
+        "4": "Weight is continuous."
+      },
+      "objective": "Classify discrete and continuous random variables"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A random variable $X$ takes the values $1,2,3,4$ with probabilities $k,2k,3k,4k$ respectively. The value of $k$ is",
+      "options": [
+        "$0.1$",
+        "$0.25$",
+        "$0.2$",
+        "$0.4$"
+      ],
+      "answer": 1,
+      "explanation": "The probabilities of a valid distribution add up to 1. So $k+2k+3k+4k=10k=1$, hence $k=0.1$. The probabilities are then $0.1,0.2,0.3,0.4$, which total 1. The value $0.25$ would be correct if the four probabilities were equal.",
+      "optionRationale": {
+        "2": "$0.25$ would make the probabilities equal; here they are in the ratio $1:2:3:4$.",
+        "3": "$0.2$ gives a total of $2$, not 1.",
+        "4": "$0.4$ gives a total of $4$, not 1."
+      },
+      "objective": "Find an unknown constant from the total probability"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "For a binomial distribution with $n=10$ and $p=0.3$, the mean is",
+      "options": [
+        "$7$",
+        "$2.1$",
+        "$0.3$",
+        "$3$"
+      ],
+      "answer": 4,
+      "explanation": "The mean of $B(n,p)$ is $np=10\\times0.3=3$. The variance would be $npq=10\\times0.3\\times0.7=2.1$, which is a different quantity. The value 7 is $nq$, the expected number of failures.",
+      "optionRationale": {
+        "1": "$7$ is $nq$, the expected number of failures, not successes.",
+        "2": "$2.1$ is the variance $npq$, not the mean.",
+        "3": "$0.3$ is just $p$."
+      },
+      "objective": "Compute the mean of a binomial distribution"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "If a random variable $X$ follows a Poisson distribution with mean 4, its variance is",
+      "options": [
+        "$2$",
+        "$4$",
+        "$16$",
+        "$\\dfrac14$"
+      ],
+      "answer": 2,
+      "explanation": "For a Poisson distribution the mean and the variance are both equal to the parameter $\\lambda$. Since the mean is 4, the variance is also 4 and the standard deviation is $\\sqrt4=2$. The value 2 is therefore the standard deviation, not the variance.",
+      "optionRationale": {
+        "1": "$2$ is the standard deviation $\\sqrt\\lambda$.",
+        "3": "$16$ squares the mean, which is not a Poisson property.",
+        "4": "$\\frac14$ is $1/\\lambda$, which has no meaning here."
+      },
+      "objective": "State the mean-variance relation of Poisson distribution"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "In a normal distribution with mean 60 and standard deviation 5, the standard normal variate for $X=70$ is",
+      "options": [
+        "$-2$",
+        "$2$",
+        "$10$",
+        "$0.5$"
+      ],
+      "answer": 2,
+      "explanation": "$Z=\\frac{X-\\mu}{\\sigma}=\\frac{70-60}{5}=\\frac{10}{5}=2$. The value is positive because 70 lies above the mean. The value 10 is the raw difference $X-\\mu$ before dividing by $\\sigma$.",
+      "optionRationale": {
+        "1": "The sign is wrong: $70$ is above the mean, so $Z$ is positive.",
+        "3": "$10$ is $X-\\mu$; it must be divided by $\\sigma=5$.",
+        "4": "$0.5$ comes from dividing $\\sigma$ by $X-\\mu$, which inverts the formula."
+      },
+      "objective": "Compute a standard normal variate"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A random variable has the distribution $x:0,1,2,3$ and $P(X):0.1,0.3,0.4,0.2$. Its expected value is",
+      "options": [
+        "$1.5$",
+        "$3.7$",
+        "$1.0$",
+        "$1.7$"
+      ],
+      "answer": 4,
+      "explanation": "$E(X)=\\sum x_ip_i=0(0.1)+1(0.3)+2(0.4)+3(0.2)=0+0.3+0.8+0.6=1.7$. The value $1.5$ is the plain average of $0,1,2,3$, which ignores the probabilities. The value $3.7$ is $E(X^2)$.",
+      "optionRationale": {
+        "1": "$1.5$ treats the four values as equally likely.",
+        "2": "$3.7$ is $E(X^2)$, the mean of the squares.",
+        "3": "$1.0$ is the sum of the probabilities, not the mean."
+      },
+      "objective": "Compute expectation from a probability table"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If $X$ is the number of heads in 4 tosses of a fair coin, then $P(X=2)$ equals",
+      "options": [
+        "$\\dfrac38$",
+        "$\\dfrac14$",
+        "$\\dfrac12$",
+        "$\\dfrac3{16}$"
+      ],
+      "answer": 1,
+      "explanation": "$X\\sim B(4,\\frac12)$. $P(X=2)={}^4C_2(\\frac12)^2(\\frac12)^2=6\\times\\frac1{16}=\\frac{6}{16}=\\frac38$. Of the 16 equally likely sequences exactly 6 have two heads. The value $\\frac3{16}$ forgets that $^{4}C_{2}=6$, not $3$.",
+      "optionRationale": {
+        "2": "$\\frac14$ would be $\\frac{4}{16}$; six sequences have two heads, not four.",
+        "3": "$\\frac12$ is the probability of one specific outcome, not of two heads in four tosses.",
+        "4": "$\\frac3{16}$ uses 3 instead of $^{4}C_{2}=6$."
+      },
+      "objective": "Apply the binomial probability formula"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q08",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about the normal distribution.\nA. Its curve is bell-shaped and symmetric about the mean.\nB. Its mean, median and mode coincide.\nC. The total area under the curve is 1.\nD. It is a discrete distribution.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "B, C and D only",
+        "A, B and C only",
+        "A and C only"
+      ],
+      "answer": 3,
+      "explanation": "The normal curve is symmetric and bell shaped, so the mean, median and mode are equal, and as for every probability density the total area is 1. It is a continuous distribution, so statement D is false. Hence A, B and C are correct.",
+      "optionRationale": {
+        "1": "D is false: the normal distribution is continuous.",
+        "2": "D is false and A is also correct.",
+        "4": "B is also correct, so this selection is incomplete."
+      },
+      "objective": "Recall the properties of the normal distribution"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q09",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the distribution or term in List-I with its description in List-II.",
+      "options": [
+        "A-IV, B-II, C-I, D-III",
+        "A-II, B-IV, C-III, D-I",
+        "A-I, B-IV, C-II, D-III",
+        "A-II, B-IV, C-I, D-III"
+      ],
+      "answer": 4,
+      "explanation": "A Bernoulli trial is a single experiment with two outcomes (A-II). The binomial counts successes in $n$ fixed independent trials (B-IV). The Poisson counts rare independent events with mean equal to variance (C-I). The normal distribution is the continuous bell-shaped one (D-III).",
+      "optionRationale": {
+        "1": "A and B are interchanged; the binomial involves many trials.",
+        "2": "C and D are interchanged; the Poisson is discrete.",
+        "3": "A and C are interchanged; a Bernoulli trial is a single two-outcome experiment."
+      },
+      "objective": "Match each distribution with its main feature",
+      "list": {
+        "left": [
+          "A. Bernoulli trial",
+          "B. Binomial distribution",
+          "C. Poisson distribution",
+          "D. Normal distribution"
+        ],
+        "right": [
+          "I. Counts rare, independent events with mean equal to variance",
+          "II. A single experiment with only two outcomes",
+          "III. Continuous, bell-shaped and symmetric about the mean",
+          "IV. Number of successes in a fixed number of independent Bernoulli trials"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A student's marks are normally distributed with mean 72 and standard deviation 8. The standard normal variate for a student who scored 56 is",
+      "options": [
+        "$2$",
+        "$-2$",
+        "$-1$",
+        "$8$"
+      ],
+      "answer": 2,
+      "explanation": "$Z=\\frac{56-72}{8}=\\frac{-16}{8}=-2$. The negative sign shows the score lies below the mean, by two standard deviations. A value of $-1$ would need a score of $64$.",
+      "optionRationale": {
+        "1": "The sign is wrong: $56<72$, so $Z$ is negative.",
+        "3": "$Z=-1$ corresponds to the score $72-8=64$.",
+        "4": "$8$ is the standard deviation itself, not the standard score."
+      },
+      "objective": "Compute a negative standard normal variate"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A discrete random variable $X$ takes the values $0,1,2,3$ with probabilities $0.1,\\ k,\\ 0.4,\\ 0.2$ respectively. The probability $P(X\\ge1)$ is",
+      "options": [
+        "$0.3$",
+        "$0.6$",
+        "$0.9$",
+        "$1.0$"
+      ],
+      "answer": 3,
+      "explanation": "Total probability is 1, so $0.1+k+0.4+0.2=1$ gives $k=0.3$. Then $P(X\\ge1)=0.3+0.4+0.2=0.9$, or by complement $1-P(X=0)=1-0.1=0.9$. The value $0.3$ is just $k$.",
+      "optionRationale": {
+        "1": "$0.3$ is $P(X=1)$ only.",
+        "2": "$0.6$ leaves out $P(X=1)=0.3$.",
+        "4": "$1.0$ would include $P(X=0)$; the question asks $X\\ge1$."
+      },
+      "objective": "Use the complement rule on a distribution table"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q12",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): For a Poisson distribution the mean and the variance are equal.\nReason (R): The Poisson distribution is the limiting case of the binomial distribution when $n$ is large, $p$ is small and $np=\\lambda$ stays finite.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "For $B(n,p)$ the variance is $npq$. As $p\\to0$, $q\\to1$, so $npq\\to np=\\lambda$, which equals the mean. Thus the limiting form explains why mean and variance of the Poisson distribution are both $\\lambda$. Both statements are true and R explains A.",
+      "optionRationale": {
+        "2": "R gives the reason for A: the limit $q\\to1$ makes the variance equal the mean.",
+        "3": "R is true; the Poisson is the limiting binomial.",
+        "4": "A is true: mean and variance are both $\\lambda$."
+      },
+      "objective": "Link the Poisson distribution to the binomial limit"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "For the distribution $x:0,1,2,3$ with $P(X):0.1,0.3,0.4,0.2$, the standard deviation of $X$ is",
+      "options": [
+        "$0.9$",
+        "$0.81$",
+        "$1.9$",
+        "$0.3$"
+      ],
+      "answer": 1,
+      "explanation": "$E(X)=1.7$ and $E(X^2)=0(0.1)+1(0.3)+4(0.4)+9(0.2)=3.7$. So $\\operatorname{Var}(X)=3.7-1.7^2=3.7-2.89=0.81$ and the standard deviation is $\\sqrt{0.81}=0.9$. The value $0.81$ is the variance, which is not the standard deviation.",
+      "optionRationale": {
+        "2": "$0.81$ is the variance; the question asks for its square root.",
+        "3": "$1.9$ results from subtracting wrongly ($3.7-1.8$); the correct step is $3.7-2.89$.",
+        "4": "$0.3$ has no connection with the second moment; it is just one of the probabilities."
+      },
+      "objective": "Calculate standard deviation of a discrete random variable"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The probability that a bulb is defective is $0.2$. In a box of 5 bulbs, the probability that at least one bulb is defective is",
+      "options": [
+        "$0.67232$",
+        "$0.32768$",
+        "$0.4096$",
+        "$0.99968$"
+      ],
+      "answer": 1,
+      "explanation": "Let $X\\sim B(5,0.2)$. $P(X\\ge1)=1-P(X=0)=1-(0.8)^5=1-0.32768=0.67232$. The value $0.32768$ is $P(X=0)$ itself. The value $0.4096$ is $P(X=1)=5(0.2)(0.8)^4$ only.",
+      "optionRationale": {
+        "2": "$0.32768$ is the probability of no defective bulb.",
+        "3": "$0.4096$ is the probability of exactly one defective bulb.",
+        "4": "$0.99968$ is $1-(0.2)^5$, which wrongly takes failure probabilities as the defective ones."
+      },
+      "objective": "Use the complement for \"at least one\" in a binomial setting"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The mean and the variance of a binomial distribution are $6$ and $4.2$ respectively. The number of trials $n$ is",
+      "options": [
+        "$10$",
+        "$15$",
+        "$20$",
+        "$30$"
+      ],
+      "answer": 3,
+      "explanation": "Mean $np=6$ and variance $npq=4.2$. Dividing, $q=\\frac{4.2}{6}=0.7$, so $p=0.3$. Then $n=\\frac{6}{0.3}=20$. Check: $npq=20(0.3)(0.7)=4.2$. Each of the other values would give a different mean when $p=0.3$.",
+      "optionRationale": {
+        "1": "$n=10$ would give a mean of $3$ with $p=0.3$.",
+        "2": "$n=15$ would give a mean of $4.5$ with $p=0.3$.",
+        "4": "$n=30$ would give a mean of $9$ with $p=0.3$."
+      },
+      "objective": "Recover the parameters of a binomial distribution from its mean and variance"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If $X$ follows a Poisson distribution with $\\lambda=3$, then $P(X\\le1)$ is",
+      "options": [
+        "$3e^{-3}$",
+        "$4e^{-3}$",
+        "$e^{-3}$",
+        "$\\dfrac92e^{-3}$"
+      ],
+      "answer": 2,
+      "explanation": "$P(X=0)=e^{-3}$ and $P(X=1)=3e^{-3}$. Hence $P(X\\le1)=e^{-3}+3e^{-3}=4e^{-3}\\approx0.199$. The value $3e^{-3}$ is only $P(X=1)$, and $e^{-3}$ is only $P(X=0)$. The value $\\frac92e^{-3}$ is $P(X=2)$.",
+      "optionRationale": {
+        "1": "$3e^{-3}$ is $P(X=1)$ alone; $P(X=0)$ must be added.",
+        "3": "$e^{-3}$ is $P(X=0)$ alone; $P(X=1)$ must be added.",
+        "4": "$\\frac{9}{2}e^{-3}$ is $P(X=2)$, which is not part of $X\\le1$."
+      },
+      "objective": "Compute a cumulative Poisson probability"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "For a Poisson variable $X$ with $P(X=1)=P(X=2)$, the mean of $X$ is",
+      "options": [
+        "$1$",
+        "$3$",
+        "$\\dfrac12$",
+        "$2$"
+      ],
+      "answer": 4,
+      "explanation": "$P(X=1)=\\lambda e^{-\\lambda}$ and $P(X=2)=\\frac{\\lambda^2}{2}e^{-\\lambda}$. Equating and cancelling $\\lambda e^{-\\lambda}\\ne0$ gives $1=\\frac\\lambda2$, so $\\lambda=2$. The mean is $\\lambda=2$ (and so is the variance).",
+      "optionRationale": {
+        "1": "$\\lambda=1$ would make $P(1)=e^{-1}$ and $P(2)=\\frac12e^{-1}$, which are unequal.",
+        "2": "$\\lambda=3$ makes $P(1)=3e^{-3}$ and $P(2)=4.5e^{-3}$, which are unequal.",
+        "3": "$\\lambda=\\frac12$ gives unequal values; the equation $1=\\lambda/2$ gives 2."
+      },
+      "objective": "Find the Poisson parameter from a probability condition"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Two fair dice are thrown. If $X$ is the number of sixes obtained, then $E(X)$ equals",
+      "options": [
+        "$\\dfrac16$",
+        "$\\dfrac13$",
+        "$\\dfrac23$",
+        "$\\dfrac1{36}$"
+      ],
+      "answer": 2,
+      "explanation": "$P(X=0)=\\frac{25}{36}$, $P(X=1)=\\frac{10}{36}$, $P(X=2)=\\frac1{36}$. $E(X)=0+\\frac{10}{36}+2\\cdot\\frac1{36}=\\frac{12}{36}=\\frac13$. This matches the binomial mean $np=2\\cdot\\frac16=\\frac13$.",
+      "optionRationale": {
+        "1": "$\\frac16$ is the mean for a single die.",
+        "3": "$\\frac23$ is double the correct value; the weights are $\\frac{10}{36}$ and $\\frac{1}{36}$.",
+        "4": "$\\frac1{36}$ is only the probability of two sixes."
+      },
+      "objective": "Compute expected value from a derived probability distribution"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A random variable takes the values $1,2,3$ with probabilities $\\dfrac12,\\dfrac13,\\dfrac16$ respectively. Its variance is",
+      "options": [
+        "$\\dfrac{10}{3}$",
+        "$\\dfrac{25}{9}$",
+        "$\\dfrac59$",
+        "$\\dfrac53$"
+      ],
+      "answer": 3,
+      "explanation": "$E(X)=\\frac12+\\frac23+\\frac36=\\frac{3+4+3}{6}=\\frac53$. $E(X^2)=\\frac12+\\frac43+\\frac96=\\frac{3+8+9}{6}=\\frac{10}{3}$. Variance $=\\frac{10}3-\\frac{25}9=\\frac{30-25}{9}=\\frac59$. The value $\\frac{10}{3}$ is $E(X^2)$ and $\\frac{25}{9}$ is the squared mean.",
+      "optionRationale": {
+        "1": "$\\frac{10}{3}$ is $E(X^2)$; the squared mean has still to be subtracted.",
+        "2": "$\\frac{25}{9}$ is $[E(X)]^2$ only.",
+        "4": "$\\frac53$ is $E(X)$, the mean, not the variance."
+      },
+      "objective": "Calculate variance from the formula $E(X^2)-[E(X)]^2$"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Heights of students are normally distributed with mean 50 and standard deviation 10 (in suitable units). The percentage of students with heights between 30 and 70 is approximately",
+      "options": [
+        "$68\\%$",
+        "$99.7\\%$",
+        "$50\\%$",
+        "$95\\%$"
+      ],
+      "answer": 4,
+      "explanation": "The interval 30 to 70 is $\\mu\\pm2\\sigma$ since $50\\pm20$. About 95% (more precisely 95.4%) of a normal distribution lies within two standard deviations of the mean. The values 68% and 99.7% belong to $\\mu\\pm\\sigma$ and $\\mu\\pm3\\sigma$.",
+      "optionRationale": {
+        "1": "68% corresponds to $\\mu\\pm\\sigma$, i.e. 40 to 60.",
+        "2": "99.7% corresponds to $\\mu\\pm3\\sigma$, i.e. 20 to 80.",
+        "3": "50% is the area on each side of the mean, not the central band."
+      },
+      "objective": "Use the 68-95-99.7 area relationship"
+    },
+    {
+      "key": "ug26-319-r06-probability-distributions-applied-q21",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): In a binomial distribution the variance can be larger than the mean.\nReason (R): The variance of a binomial distribution is $npq$ and $q<1$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "The mean is $np$ and the variance $npq$. Since $0<q<1$ for $0<p<1$, $npq<np$, so the variance is always smaller than the mean; Assertion A is false. Reason R states the correct formula and the fact $q<1$, so it is true. Hence A is false and R is true.",
+      "optionRationale": {
+        "1": "A is false, so R cannot explain it.",
+        "2": "A is false.",
+        "3": "R is true: $\\sigma^2=npq$ and $q<1$."
+      },
+      "objective": "Compare the mean and variance of a binomial distribution"
+    }
+  ]
+}

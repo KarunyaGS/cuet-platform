@@ -1,0 +1,735 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_83cce44c87364a3e8087fc6406b3b13c",
+    "title": "Vectors"
+  },
+  "lesson": {
+    "key": "ug26-319-r17-vectors",
+    "title": "Vectors: algebra, section formula, dot and cross products",
+    "coverage": [
+      {
+        "phrase": "Vectors and scalars, magnitude and direction of a vector",
+        "section": "Scalars, vectors, magnitude and direction"
+      },
+      {
+        "phrase": "Direction cosines and direction ratios of a vector",
+        "section": "Direction cosines and direction ratios of a vector"
+      },
+      {
+        "phrase": "Types of vectors (equal, unit, zero, parallel and collinear vectors), position vector of a point, negative of a vector, components of a vector",
+        "section": "Types of vectors and position vector"
+      },
+      {
+        "phrase": "addition of vectors, multiplication of a vector by a scalar",
+        "section": "Addition of vectors and multiplication by a scalar"
+      },
+      {
+        "phrase": "position vector of a point dividing a line segment in a given ratio",
+        "section": "Position vector of a point dividing a line segment in a given ratio"
+      },
+      {
+        "phrase": "Definition, Geometrical interpretation, properties and application of scalar (dot) product of vectors",
+        "section": "Scalar (dot) product: definition, interpretation and properties"
+      },
+      {
+        "phrase": "vector (cross) product of vectors",
+        "section": "Vector (cross) product: definition, interpretation and applications"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Scalars, vectors, magnitude and direction"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **scalar** is a quantity with magnitude only (mass, time, speed, temperature). A **vector** has both magnitude and direction (displacement, velocity, force). A vector is drawn as a directed line segment: the arrow points from the **initial point** $A$ to the **terminal point** $B$ and is written $\\overrightarrow{AB}$ or $\\vec a$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Magnitude",
+        "text": "The **magnitude** (length or modulus) of $\\vec a$ is written $|\\vec a|$ and is a non-negative number. If $\\vec a=x\\hat i+y\\hat j+z\\hat k$ then $|\\vec a|=\\sqrt{x^2+y^2+z^2}$."
+      },
+      {
+        "type": "TEXT",
+        "text": "Here $\\hat i,\\hat j,\\hat k$ are the unit vectors along the $x$, $y$ and $z$ axes. The **direction** of a vector is the direction of the arrow; it is described by the angles it makes with the axes, which leads to direction cosines."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the magnitude of $\\vec a=3\\hat i-4\\hat j+12\\hat k$.",
+        "solution": "The magnitude is the square root of the sum of the squares of the components, because each component is a side of a right-angled box whose diagonal is the vector. So $|\\vec a|=\\sqrt{3^2+(-4)^2+12^2}=\\sqrt{9+16+144}=\\sqrt{169}=13$. The minus sign disappears when squared.",
+        "answer": "13"
+      },
+      {
+        "type": "HEADING",
+        "text": "Direction cosines and direction ratios of a vector"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Direction cosines",
+        "text": "If a directed line (or vector) makes angles $\\alpha,\\beta,\\gamma$ with the positive $x$, $y$, $z$ axes, then $l=\\cos\\alpha$, $m=\\cos\\beta$, $n=\\cos\\gamma$ are its **direction cosines**. They satisfy $l^2+m^2+n^2=1$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Direction ratios",
+        "text": "Any three numbers $a,b,c$ proportional to $l,m,n$ are **direction ratios**: $\\dfrac la=\\dfrac mb=\\dfrac nc$. Hence $l,m,n=\\dfrac{\\pm a}{\\sqrt{a^2+b^2+c^2}},\\ \\dfrac{\\pm b}{\\sqrt{a^2+b^2+c^2}},\\ \\dfrac{\\pm c}{\\sqrt{a^2+b^2+c^2}}$."
+      },
+      {
+        "type": "TEXT",
+        "text": "For a vector $\\vec r=x\\hat i+y\\hat j+z\\hat k$ the components $x,y,z$ are themselves direction ratios, and the direction cosines are $l=\\dfrac{x}{|\\vec r|},\\ m=\\dfrac{y}{|\\vec r|},\\ n=\\dfrac{z}{|\\vec r|}$, so $\\vec r=|\\vec r|(l\\hat i+m\\hat j+n\\hat k)$. The direction cosines of the axes are $(1,0,0)$, $(0,1,0)$, $(0,0,1)$. The opposite vector $-\\vec r$ has direction cosines $-l,-m,-n$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A vector makes angles $60^\\circ$ and $45^\\circ$ with the $x$-axis and $y$-axis and an acute angle $\\gamma$ with the $z$-axis. Find $\\gamma$.",
+        "solution": "$l=\\cos60^\\circ=\\tfrac12$, $m=\\cos45^\\circ=\\tfrac1{\\sqrt2}$. From $l^2+m^2+n^2=1$: $n^2=1-\\tfrac14-\\tfrac12=\\tfrac14$, so $n=\\pm\\tfrac12$. For an acute angle $n=\\tfrac12$, so $\\gamma=60^\\circ$.",
+        "answer": "$\\gamma=60^\\circ$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Direction cosines are unique up to the sign for the two opposite directions; direction ratios are not unique because any non-zero multiple works. Always divide by the magnitude to normalise."
+      },
+      {
+        "type": "HEADING",
+        "text": "Types of vectors and position vector"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Types of vectors",
+        "columns": [
+          "Type",
+          "Meaning"
+        ],
+        "rows": [
+          [
+            "Zero vector $\\vec 0$",
+            "Magnitude $0$, no definite direction (initial and terminal points coincide)"
+          ],
+          [
+            "Unit vector $\\hat a$",
+            "Magnitude $1$; $\\hat a=\\dfrac{\\vec a}{|\\vec a|}$"
+          ],
+          [
+            "Equal vectors",
+            "Same magnitude and same direction (position of initial point does not matter)"
+          ],
+          [
+            "Parallel (collinear) vectors",
+            "Parallel to the same line; $\\vec a=\\lambda\\vec b$ for some scalar $\\lambda\\neq0$"
+          ],
+          [
+            "Negative of a vector",
+            "$-\\vec a$ has the same magnitude as $\\vec a$ but the opposite direction"
+          ],
+          [
+            "Coinitial / free vectors",
+            "Same initial point; free vectors can be shifted parallel to themselves"
+          ]
+        ]
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Position vector",
+        "text": "The **position vector** of a point $P(x,y,z)$ with respect to the origin $O$ is $\\overrightarrow{OP}=x\\hat i+y\\hat j+z\\hat k$. Its **components** are $x,y,z$ along the three axes. For points $A$ and $B$ with position vectors $\\vec a$ and $\\vec b$,\n$$\\overrightarrow{AB}=\\vec b-\\vec a$$\n(terminal minus initial)."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the unit vector in the direction of $\\vec a=2\\hat i+\\hat j-2\\hat k$.",
+        "solution": "$|\\vec a|=\\sqrt{4+1+4}=3$, so $\\hat a=\\dfrac{\\vec a}{|\\vec a|}=\\dfrac13(2\\hat i+\\hat j-2\\hat k)=\\dfrac23\\hat i+\\dfrac13\\hat j-\\dfrac23\\hat k$. Check: $\\tfrac49+\\tfrac19+\\tfrac49=1$.",
+        "answer": "$\\dfrac{2\\hat i+\\hat j-2\\hat k}{3}$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Addition of vectors and multiplication by a scalar"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Triangle law:** if $\\overrightarrow{OA}=\\vec a$ and $\\overrightarrow{AB}=\\vec b$ then $\\overrightarrow{OB}=\\vec a+\\vec b$. **Parallelogram law:** if two vectors are the adjacent sides of a parallelogram from the same point, their sum is the diagonal from that point. In components, add corresponding components."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\vec a+\\vec b=(a_1+b_1)\\hat i+(a_2+b_2)\\hat j+(a_3+b_3)\\hat k,\\quad \\lambda\\vec a=\\lambda a_1\\hat i+\\lambda a_2\\hat j+\\lambda a_3\\hat k",
+        "text": "$\\lambda$ is a real scalar. Multiplying by $\\lambda$ scales the magnitude by $|\\lambda|$: $|\\lambda\\vec a|=|\\lambda||\\vec a|$; the direction is kept if $\\lambda>0$ and reversed if $\\lambda<0$. Vector addition is commutative and associative, and $\\vec a+\\vec0=\\vec a$, $\\vec a+(-\\vec a)=\\vec0$."
+      },
+      {
+        "type": "TEXT",
+        "text": "Triangle inequality: $|\\vec a+\\vec b|\\le|\\vec a|+|\\vec b|$ with equality only when the vectors point in the same direction. Two vectors $\\vec a$ and $\\vec b$ are collinear exactly when their components are proportional, $\\dfrac{a_1}{b_1}=\\dfrac{a_2}{b_2}=\\dfrac{a_3}{b_3}$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Position vector of a point dividing a line segment in a given ratio"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{Internal: }\\vec r=\\frac{m\\vec b+n\\vec a}{m+n},\\qquad \\text{External: }\\vec r=\\frac{m\\vec b-n\\vec a}{m-n}",
+        "text": "$P$ divides the segment joining $A(\\vec a)$ and $B(\\vec b)$ in the ratio $m:n$, i.e. $AP:PB=m:n$. Internal division lies between $A$ and $B$; external division lies on the extended line, and $m\\neq n$. The midpoint corresponds to $m=n=1$: $\\vec r=\\tfrac{\\vec a+\\vec b}{2}$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the position vector of the point dividing the join of $P(1,2,3)$ and $Q(4,5,6)$ internally in the ratio $2:1$.",
+        "solution": "With $m=2$, $n=1$: $\\vec r=\\dfrac{2\\vec q+1\\vec p}{3}=\\dfrac{2(4,5,6)+(1,2,3)}{3}=\\dfrac{(9,12,15)}{3}=(3,4,5)$. The point is $3\\hat i+4\\hat j+5\\hat k$; check that it is $\\tfrac23$ of the way from $P$ to $Q$.",
+        "answer": "$3\\hat i+4\\hat j+5\\hat k$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "In m : n, the ratio multiplies the position vector of the OPPOSITE end: m goes with b (the point B) when AP : PB = m : n. A common slip is swapping m and n."
+      },
+      {
+        "type": "HEADING",
+        "text": "Scalar (dot) product: definition, interpretation and properties"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Scalar product",
+        "text": "For vectors $\\vec a,\\vec b$ with angle $\\theta$ between them ($0\\le\\theta\\le\\pi$), $\\vec a\\cdot\\vec b=|\\vec a||\\vec b|\\cos\\theta$, a **scalar**. In components, $\\vec a\\cdot\\vec b=a_1b_1+a_2b_2+a_3b_3$."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Geometrical interpretation.** The **projection** of $\\vec a$ on $\\vec b$ (the scalar length of the shadow of $\\vec a$ along $\\vec b$) is $\\dfrac{\\vec a\\cdot\\vec b}{|\\vec b|}$, and the vector projection is $\\dfrac{\\vec a\\cdot\\vec b}{|\\vec b|^2}\\vec b$. So $\\vec a\\cdot\\vec b=|\\vec a|\\times$(projection of $\\vec b$ on $\\vec a$). The angle is found from $\\cos\\theta=\\dfrac{\\vec a\\cdot\\vec b}{|\\vec a||\\vec b|}$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Properties of the dot product",
+        "columns": [
+          "Property",
+          "Statement"
+        ],
+        "rows": [
+          [
+            "Commutative",
+            "$\\vec a\\cdot\\vec b=\\vec b\\cdot\\vec a$"
+          ],
+          [
+            "Distributive",
+            "$\\vec a\\cdot(\\vec b+\\vec c)=\\vec a\\cdot\\vec b+\\vec a\\cdot\\vec c$"
+          ],
+          [
+            "Square",
+            "$\\vec a\\cdot\\vec a=|\\vec a|^2$; $\\hat i\\cdot\\hat i=\\hat j\\cdot\\hat j=\\hat k\\cdot\\hat k=1$"
+          ],
+          [
+            "Orthogonality",
+            "$\\hat i\\cdot\\hat j=\\hat j\\cdot\\hat k=\\hat k\\cdot\\hat i=0$; for non-zero vectors $\\vec a\\cdot\\vec b=0\\iff\\vec a\\perp\\vec b$"
+          ],
+          [
+            "Scalars",
+            "$(\\lambda\\vec a)\\cdot\\vec b=\\lambda(\\vec a\\cdot\\vec b)$"
+          ],
+          [
+            "Expansion",
+            "$|\\vec a\\pm\\vec b|^2=|\\vec a|^2\\pm2\\vec a\\cdot\\vec b+|\\vec b|^2$"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $\\lambda$ if $\\vec a=\\lambda\\hat i+2\\hat j+\\hat k$ and $\\vec b=3\\hat i-\\hat j-4\\hat k$ are perpendicular. Also find the scalar projection of $\\vec p=2\\hat i+3\\hat j+\\hat k$ on $\\vec q=\\hat i-2\\hat j+2\\hat k$.",
+        "solution": "Perpendicular means $\\vec a\\cdot\\vec b=0$: $3\\lambda-2-4=0$, so $\\lambda=2$. For the projection, $\\vec p\\cdot\\vec q=2-6+2=-2$ and $|\\vec q|=\\sqrt{1+4+4}=3$, so the scalar projection is $\\dfrac{-2}{3}$ (negative: the obtuse angle puts the shadow opposite $\\vec q$).",
+        "answer": "$\\lambda=2$; projection $=-\\tfrac23$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Vector (cross) product: definition, interpretation and applications"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Vector product",
+        "text": "For non-zero, non-parallel $\\vec a,\\vec b$, $\\vec a\\times\\vec b=|\\vec a||\\vec b|\\sin\\theta\\,\\hat n$, where $\\hat n$ is the unit vector perpendicular to both, chosen by the **right-hand rule** (from $\\vec a$ towards $\\vec b$). It is a **vector**. In components,\n$$\\vec a\\times\\vec b=\\begin{vmatrix}\\hat i&\\hat j&\\hat k\\\\a_1&a_2&a_3\\\\b_1&b_2&b_3\\end{vmatrix}.$$"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Properties of the cross product",
+        "columns": [
+          "Property",
+          "Statement"
+        ],
+        "rows": [
+          [
+            "Anti-commutative",
+            "$\\vec a\\times\\vec b=-(\\vec b\\times\\vec a)$"
+          ],
+          [
+            "Parallel vectors",
+            "$\\vec a\\times\\vec b=\\vec0\\iff\\vec a\\parallel\\vec b$ (for non-zero vectors); $\\vec a\\times\\vec a=\\vec0$"
+          ],
+          [
+            "Distributive",
+            "$\\vec a\\times(\\vec b+\\vec c)=\\vec a\\times\\vec b+\\vec a\\times\\vec c$"
+          ],
+          [
+            "Unit vectors",
+            "$\\hat i\\times\\hat j=\\hat k,\\ \\hat j\\times\\hat k=\\hat i,\\ \\hat k\\times\\hat i=\\hat j$"
+          ],
+          [
+            "Lagrange identity",
+            "$|\\vec a\\times\\vec b|^2+(\\vec a\\cdot\\vec b)^2=|\\vec a|^2|\\vec b|^2$"
+          ]
+        ]
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{Area of parallelogram}=|\\vec a\\times\\vec b|,\\qquad \\text{Area of triangle}=\\tfrac12|\\vec a\\times\\vec b|",
+        "text": "$\\vec a,\\vec b$ are adjacent sides from the same vertex. For a triangle $ABC$ use $\\tfrac12|\\overrightarrow{AB}\\times\\overrightarrow{AC}|$. Three points are collinear exactly when this cross product is zero."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $\\vec a\\times\\vec b$ for $\\vec a=\\hat i+2\\hat j+3\\hat k$, $\\vec b=2\\hat i-\\hat j+\\hat k$, and the area of the triangle with vertices $(1,0,0),(0,1,0),(0,0,1)$.",
+        "solution": "$\\vec a\\times\\vec b=\\hat i(2\\cdot1-3\\cdot(-1))-\\hat j(1\\cdot1-3\\cdot2)+\\hat k(1\\cdot(-1)-2\\cdot2)=5\\hat i+5\\hat j-5\\hat k$. Check: its dot product with $\\vec a$ is $5+10-15=0$ and with $\\vec b$ is $10-5-5=0$. For the triangle, $\\overrightarrow{AB}=(-1,1,0)$ and $\\overrightarrow{AC}=(-1,0,1)$, giving $\\overrightarrow{AB}\\times\\overrightarrow{AC}=(1,1,1)$, of magnitude $\\sqrt3$, so the area is $\\tfrac{\\sqrt3}2$.",
+        "answer": "$5\\hat i+5\\hat j-5\\hat k$; area $=\\tfrac{\\sqrt3}{2}$"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "|a| = sqrt(x^2+y^2+z^2); unit vector = a/|a|; AB = b - a; direction cosines = components / magnitude with l^2+m^2+n^2 = 1."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Dot product gives a scalar (angle, projection, perpendicularity test). Cross product gives a vector perpendicular to both (area, parallel test). a x b = -(b x a) but a . b = b . a."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "In the section formula remember the sign pattern: internal m b + n a over m + n, external m b - n a over m - n. A negative scalar ratio means external division."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r17-vectors-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The magnitude of the vector 3i - 4j + 12k is",
+      "options": [
+        "13",
+        "19",
+        "11",
+        "5"
+      ],
+      "answer": 1,
+      "explanation": "The magnitude is sqrt(3^2 + (-4)^2 + 12^2) = sqrt(9 + 16 + 144) = sqrt(169) = 13. The squares make every term positive, and 5, 12, 13 and 3, 4, 5 are Pythagorean triples that explain why the answer is whole.",
+      "optionRationale": {
+        "2": "19 is the sum 3 + 4 + 12 of the absolute values, not the magnitude.",
+        "3": "This adds the components with their signs, 3 - 4 + 12, instead of squaring them first.",
+        "4": "5 is the magnitude of 3i - 4j only; the k component has been dropped."
+      },
+      "objective": "Calculate the magnitude of a vector"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The direction cosines of the vector 2i - 2j + k are",
+      "options": [
+        "2/3, -2/3, 1/3",
+        "2, -2, 1",
+        "1/3, 1/3, 1/3",
+        "2/3, 2/3, 1/3"
+      ],
+      "answer": 1,
+      "explanation": "The magnitude is sqrt(4 + 4 + 1) = 3. Dividing each component by 3 gives (2/3, -2/3, 1/3). As a check, 4/9 + 4/9 + 1/9 = 1, so l^2 + m^2 + n^2 = 1 holds.",
+      "optionRationale": {
+        "2": "These are direction ratios, not direction cosines; they are not normalised.",
+        "3": "These do not match the components; they do not even correspond to the given vector.",
+        "4": "The sign of the y-component has been lost."
+      },
+      "objective": "Find direction cosines from components"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The unit vector in the direction of 2i + j - 2k is",
+      "options": [
+        "(2i + j - 2k)/9",
+        "(2i + j - 2k)/5",
+        "2i + j - 2k",
+        "(2i + j - 2k)/3"
+      ],
+      "answer": 4,
+      "explanation": "A unit vector is a divided by its magnitude. Here |a| = sqrt(2^2 + 1^2 + (-2)^2) = sqrt(9) = 3, so the unit vector is (2i + j - 2k)/3. Its magnitude is sqrt(4/9 + 1/9 + 4/9) = 1, as required.",
+      "optionRationale": {
+        "1": "Dividing by 9 uses |a|^2 instead of |a|.",
+        "2": "sqrt(4 + 1 + 4) is 3, not 5 (the sum 2 + 1 + 2).",
+        "3": "The vector itself has magnitude 3, so it is not a unit vector."
+      },
+      "objective": "Find a unit vector in a given direction"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q04",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match the type of vector in List-I with its description in List-II.",
+      "list": {
+        "left": [
+          "A. Unit vector",
+          "B. Zero vector",
+          "C. Equal vectors",
+          "D. Collinear vectors"
+        ],
+        "right": [
+          "I. Same magnitude and same direction",
+          "II. Parallel to the same line",
+          "III. Magnitude one",
+          "IV. Magnitude zero"
+        ]
+      },
+      "options": [
+        "A-IV, B-III, C-I, D-II",
+        "A-III, B-IV, C-II, D-I",
+        "A-III, B-IV, C-I, D-II",
+        "A-I, B-IV, C-III, D-II"
+      ],
+      "answer": 3,
+      "explanation": "A unit vector has magnitude one (III) and the zero vector has magnitude zero (IV). Equal vectors have the same magnitude and direction (I). Collinear vectors are parallel to the same line, in any direction and with any magnitudes (II). So A-III, B-IV, C-I, D-II.",
+      "optionRationale": {
+        "1": "A and B are interchanged.",
+        "2": "C and D are interchanged.",
+        "4": "A and C are interchanged."
+      },
+      "objective": "Recognise types of vectors"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The position vector of the midpoint of the line segment joining A(2, 4, 6) and B(4, 2, 0) is",
+      "options": [
+        "2i + 3j + 3k",
+        "3i + 3j + 3k",
+        "6i + 6j + 6k",
+        "i - j - 3k"
+      ],
+      "answer": 2,
+      "explanation": "The midpoint has position vector (a + b)/2 = ((2+4)/2, (4+2)/2, (6+0)/2) = (3, 3, 3). Hence it is 3i + 3j + 3k. The sum a + b = (6, 6, 6) must be halved.",
+      "optionRationale": {
+        "1": "The first coordinate (2 + 4)/2 = 3, not 2.",
+        "3": "This is the sum of the position vectors without halving.",
+        "4": "This is half of the vector AB, not the midpoint."
+      },
+      "objective": "Find the midpoint using position vectors"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The point dividing the join of P(1, 2, 3) and Q(4, 5, 6) internally in the ratio 2 : 1 has position vector",
+      "options": [
+        "3i + 4j + 5k",
+        "2i + 3j + 4k",
+        "(5/2)i + (7/2)j + (9/2)k",
+        "3i + 4j + 6k"
+      ],
+      "answer": 1,
+      "explanation": "With m = 2 and n = 1 the formula r = (m q + n p)/(m + n) gives r = (2(4,5,6) + (1,2,3))/3 = (9, 12, 15)/3 = (3, 4, 5). The point is two thirds of the way from P to Q, as expected: P + (2/3)(Q - P) = (1 + 2, 2 + 2, 3 + 2).",
+      "optionRationale": {
+        "2": "This is the point dividing PQ in the ratio 1 : 2.",
+        "3": "This is the midpoint (ratio 1 : 1).",
+        "4": "The z-coordinate (2 x 6 + 3)/3 = 5, not 6."
+      },
+      "objective": "Apply the section formula for internal division"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If a = 2i - j + 3k and b = i + 4j - 2k, then a . b equals",
+      "options": [
+        "8",
+        "-4",
+        "0",
+        "-8"
+      ],
+      "answer": 4,
+      "explanation": "The dot product is a1b1 + a2b2 + a3b3 = 2(1) + (-1)(4) + 3(-2) = 2 - 4 - 6 = -8. It is negative, which means the angle between the vectors is obtuse, because the cosine of an angle is negative only for angles between 90 and 180 degrees.",
+      "optionRationale": {
+        "1": "The sign is wrong: 2 - 4 - 6 = -8.",
+        "2": "2 - 4 - 6 is not -4; the z products are 3 x (-2) = -6.",
+        "3": "The vectors are not perpendicular, since the dot product is not zero."
+      },
+      "objective": "Compute a scalar product in components"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The angle between the vectors i + j and j + k is",
+      "options": [
+        "30 degrees",
+        "45 degrees",
+        "60 degrees",
+        "90 degrees"
+      ],
+      "answer": 3,
+      "explanation": "Here a . b = 1(0) + 1(1) + 0(1) = 1 and |a| = |b| = sqrt(2). So cos(theta) = 1/(sqrt(2) x sqrt(2)) = 1/2. The angle in [0, 180 degrees] with cosine 1/2 is 60 degrees.",
+      "optionRationale": {
+        "1": "cos 30 is sqrt(3)/2, which is not 1/2.",
+        "2": "cos 45 is 1/sqrt(2), which is not 1/2.",
+        "4": "The dot product is 1, not 0, so the vectors are not perpendicular."
+      },
+      "objective": "Find the angle between two vectors"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If the vectors lambda i + 2j + k and 3i - j - 4k are perpendicular, lambda equals",
+      "options": [
+        "-2",
+        "2",
+        "6",
+        "-6"
+      ],
+      "answer": 2,
+      "explanation": "Perpendicular non-zero vectors have zero dot product: lambda(3) + 2(-1) + 1(-4) = 3 lambda - 6 = 0, so lambda = 2. Check: (2, 2, 1) . (3, -1, -4) = 6 - 2 - 4 = 0.",
+      "optionRationale": {
+        "1": "3 lambda - 2 - 4 = 0 gives lambda = +2, not -2.",
+        "3": "3 lambda = 6 gives lambda = 2, not 6.",
+        "4": "There is no sign choice that gives -6."
+      },
+      "objective": "Use the dot product to test perpendicularity"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For a = i + 2j + 3k and b = 2i - j + k, the vector a x b is",
+      "options": [
+        "5i + 5j - 5k",
+        "-5i - 5j + 5k",
+        "5i - 5j + 5k",
+        "5i + 5j + 5k"
+      ],
+      "answer": 1,
+      "explanation": "Expanding the determinant: i(2 x 1 - 3 x (-1)) - j(1 x 1 - 3 x 2) + k(1 x (-1) - 2 x 2) = 5i + 5j - 5k. It is perpendicular to both vectors: its dot product with a is 5 + 10 - 15 = 0 and with b is 10 - 5 - 5 = 0.",
+      "optionRationale": {
+        "2": "This is b x a, with the order reversed.",
+        "3": "The j-component is -(1 x 1 - 3 x 2) = +5, not -5.",
+        "4": "The k-component is 1(-1) - 2(2) = -5, not +5."
+      },
+      "objective": "Compute a cross product in components"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q11",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements for non-zero vectors a and b:\nA. a . b = b . a.\nB. a x b = b x a.\nC. a x a is the zero vector.\nD. a x b is perpendicular to both a and b.\nChoose the correct answer.",
+      "options": [
+        "A, B and C only",
+        "B and D only",
+        "A and C only",
+        "A, C and D only"
+      ],
+      "answer": 4,
+      "explanation": "The dot product is commutative, so A is true. The cross product is anti-commutative, a x b = -(b x a), so B is false. A vector is parallel to itself so a x a = 0 (C true), and by definition a x b is perpendicular to the plane of a and b (D true).",
+      "optionRationale": {
+        "1": "B is false: a x b = -(b x a).",
+        "2": "B is false, and A and C are true.",
+        "3": "D is also true, so the list is incomplete."
+      },
+      "objective": "Recall properties of dot and cross products"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q12",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "**Assertion (A):** If two non-zero vectors are collinear, their vector product is the zero vector.\n**Reason (R):** |a x b| = |a||b| sin(theta), and sin(theta) = 0 when theta = 0 or 180 degrees.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Collinear vectors point along the same line, so the angle between them is 0 or 180 degrees. The magnitude |a||b| sin(theta) then becomes zero, and a vector of zero magnitude is the zero vector. The reason states precisely why the assertion holds, so R explains A.",
+      "optionRationale": {
+        "2": "R is the actual explanation: the magnitude is zero exactly because sine vanishes.",
+        "3": "R is true, so the statement that both are true holds.",
+        "4": "A is true; collinear vectors give a zero cross product."
+      },
+      "objective": "Explain why parallel vectors have zero cross product"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The scalar projection of a = 2i + 3j + k on b = i - 2j + 2k is",
+      "options": [
+        "2/3",
+        "-2",
+        "-2/3",
+        "-2/9"
+      ],
+      "answer": 3,
+      "explanation": "The scalar projection of a on b is (a . b)/|b|. Here a . b = 2(1) + 3(-2) + 1(2) = -2 and |b| = sqrt(1 + 4 + 4) = 3, so the projection is -2/3. The negative sign shows that the angle between the vectors is obtuse.",
+      "optionRationale": {
+        "1": "a . b = 2 - 6 + 2 = -2 is negative, so the projection is negative.",
+        "2": "The dot product -2 must be divided by |b| = 3.",
+        "4": "This divides by |b|^2 = 9, which would give the coefficient of the vector projection, not the scalar projection."
+      },
+      "objective": "Calculate the projection of one vector on another"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The position vectors of A and B are a = i + 2j + 3k and b = 2i + 4j - k. The point dividing AB externally in the ratio 3 : 2 has position vector",
+      "options": [
+        "(8/5)i + (16/5)j + (3/5)k",
+        "4i + 8j - 9k",
+        "8i + 16j + 3k",
+        "-4i - 8j + 9k"
+      ],
+      "answer": 2,
+      "explanation": "For external division the position vector is (m b - n a)/(m - n) with m = 3 and n = 2. Then 3b = (6, 12, -3) and 2a = (2, 4, 6), so 3b - 2a = (4, 8, -9) and m - n = 1. The point is 4i + 8j - 9k. The internal formula (3b + 2a)/5 gives (8/5, 16/5, 3/5), a different point.",
+      "optionRationale": {
+        "1": "This is the internal division (3b + 2a)/5.",
+        "3": "This is 3b + 2a with no division at all.",
+        "4": "This is the negative of the answer, from using (2a - 3b)/(3 - 2) = -(3b - 2a)."
+      },
+      "objective": "Apply the section formula for external division"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The area of the triangle with vertices (1, 0, 0), (0, 1, 0) and (0, 0, 1) is",
+      "options": [
+        "sqrt(3)/2",
+        "sqrt(3)",
+        "1/2",
+        "sqrt(2)/2"
+      ],
+      "answer": 1,
+      "explanation": "Take AB = (-1, 1, 0) and AC = (-1, 0, 1). Their cross product is (1x1 - 0x0, 0x(-1) - (-1)x1, (-1)x0 - 1x(-1)) = (1, 1, 1) with magnitude sqrt(3). The triangle area is half of this, sqrt(3)/2. Each side is sqrt(2), so the triangle is equilateral and (sqrt(3)/4) x 2 = sqrt(3)/2 agrees.",
+      "optionRationale": {
+        "2": "This is the area of the parallelogram, not the triangle.",
+        "3": "1/2 is the area of the right triangle in a coordinate plane, not of this triangle.",
+        "4": "This is half of the length of one side, not the area."
+      },
+      "objective": "Find the area of a triangle using the cross product"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If |a| = 2, |b| = 3 and a . b = 3, then |a x b| equals",
+      "options": [
+        "3",
+        "6",
+        "sqrt(3)",
+        "3 sqrt(3)"
+      ],
+      "answer": 4,
+      "explanation": "First cos(theta) = (a . b)/(|a||b|) = 3/6 = 1/2, so sin(theta) = sqrt(3)/2. Then |a x b| = |a||b| sin(theta) = 6 x sqrt(3)/2 = 3 sqrt(3). Verify with the Lagrange identity: |a x b|^2 + (a . b)^2 = 27 + 9 = 36 = |a|^2 |b|^2.",
+      "optionRationale": {
+        "1": "3 is a . b itself, not the magnitude of the cross product.",
+        "2": "6 = |a||b| would hold only for perpendicular vectors.",
+        "3": "This forgets the factor |a||b| = 6; sin(theta) = sqrt(3)/2 multiplied by 6."
+      },
+      "objective": "Combine dot and cross products via the sine and cosine"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "If a and b are unit vectors and |a + b| = 1, then the angle between a and b is",
+      "options": [
+        "60 degrees",
+        "90 degrees",
+        "120 degrees",
+        "30 degrees"
+      ],
+      "answer": 3,
+      "explanation": "Expand |a + b|^2 = |a|^2 + 2 a . b + |b|^2 = 1 + 2 cos(theta) + 1 = 2 + 2 cos(theta). Setting this equal to 1 gives cos(theta) = -1/2, so the angle is 120 degrees. The three vectors a, b and a + b then form an equilateral triangle of unit sides.",
+      "optionRationale": {
+        "1": "At 60 degrees |a + b| = sqrt(3), not 1.",
+        "2": "At 90 degrees |a + b| = sqrt(2), not 1.",
+        "4": "At 30 degrees |a + b| is larger than sqrt(3), not 1."
+      },
+      "objective": "Use the expansion of |a + b| squared"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A vector of magnitude 6 perpendicular to both i + j and j + k is",
+      "options": [
+        "6(i - j + k)",
+        "2 sqrt(3)(i - j + k) (or its negative)",
+        "2(i - j + k)",
+        "2 sqrt(3)(i + j + k)"
+      ],
+      "answer": 2,
+      "explanation": "A vector perpendicular to both is their cross product: (i + j) x (j + k) = i(1x1 - 0x1) - j(1x1 - 0x0) + k(1x1 - 1x0) = i - j + k, with magnitude sqrt(3). Scaling to magnitude 6 multiplies by 6/sqrt(3) = 2 sqrt(3), giving 2 sqrt(3)(i - j + k), or its negative.",
+      "optionRationale": {
+        "1": "This has magnitude 6 sqrt(3), not 6.",
+        "3": "This has magnitude 2 sqrt(3), not 6.",
+        "4": "This is not perpendicular to both given vectors."
+      },
+      "objective": "Construct a vector perpendicular to two vectors with given magnitude"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A vector of magnitude 6 is equally inclined to the three coordinate axes, making acute angles. It is",
+      "options": [
+        "2 sqrt(3)(i + j + k)",
+        "6(i + j + k)",
+        "2(i + j + k)",
+        "3(i + j + k)"
+      ],
+      "answer": 1,
+      "explanation": "Equal inclination means l = m = n, so 3 l^2 = 1 and l = 1/sqrt(3) for acute angles. The vector is 6(l i + m j + n k) = (6/sqrt(3))(i + j + k) = 2 sqrt(3)(i + j + k). Its magnitude is 2 sqrt(3) x sqrt(3) = 6, as needed.",
+      "optionRationale": {
+        "2": "This has magnitude 6 sqrt(3).",
+        "3": "This has magnitude 2 sqrt(3), not 6.",
+        "4": "This has magnitude 3 sqrt(3), not 6."
+      },
+      "objective": "Use equal direction cosines to build a vector"
+    },
+    {
+      "key": "ug26-319-r17-vectors-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "The yz-plane divides the join of A(-2, 4, 7) and B(3, -5, 8) in the ratio",
+      "options": [
+        "3 : 2 internally",
+        "2 : 3 externally",
+        "1 : 2 internally",
+        "2 : 3 internally"
+      ],
+      "answer": 4,
+      "explanation": "The yz-plane is x = 0. If the point divides AB in the ratio m : n, its x-coordinate is (3m - 2n)/(m + n) = 0, so 3m = 2n and m : n = 2 : 3. The ratio is positive, so the division is internal. Check: x = (2 x 3 + 3 x (-2))/5 = 0.",
+      "optionRationale": {
+        "1": "3 : 2 would put the point at x = 1 not 0.",
+        "2": "The signs of the x-coordinates of A and B are opposite, so the division is internal.",
+        "3": "x = (1 x 3 + 2 x (-2))/3 = -1/3, not 0."
+      },
+      "objective": "Find the ratio in which a coordinate plane divides a segment"
+    }
+  ]
+}

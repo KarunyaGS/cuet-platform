@@ -1,0 +1,973 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_f63e602f204d4f3b9405d353a9c938e8",
+    "title": "CALCULUS"
+  },
+  "lesson": {
+    "key": "ug26-319-r04-applied-calculus",
+    "title": "Applied Calculus: derivatives, marginal analysis, integration and differential equations",
+    "coverage": [
+      {
+        "phrase": "CALCULUS",
+        "section": "Higher order, parametric and implicit derivatives"
+      },
+      {
+        "phrase": "Higher Order Derivatives",
+        "section": "Higher order, parametric and implicit derivatives"
+      },
+      {
+        "phrase": "second and higher order derivatives upto second order",
+        "section": "Higher order, parametric and implicit derivatives"
+      },
+      {
+        "phrase": "differentiation of parametric functions and implicit functions",
+        "section": "Higher order, parametric and implicit derivatives"
+      },
+      {
+        "phrase": "Application of Derivatives",
+        "section": "Rate of change of quantities"
+      },
+      {
+        "phrase": "rate of change of various quantities",
+        "section": "Rate of change of quantities"
+      },
+      {
+        "phrase": "Marginal Cost and Marginal Revenue using derivatives",
+        "section": "Marginal cost and marginal revenue"
+      },
+      {
+        "phrase": "Define marginal cost and marginal revenue",
+        "section": "Marginal cost and marginal revenue"
+      },
+      {
+        "phrase": "Find marginal cost and marginal revenue",
+        "section": "Marginal cost and marginal revenue"
+      },
+      {
+        "phrase": "Increasing/Decreasing Functions",
+        "section": "Increasing and decreasing functions"
+      },
+      {
+        "phrase": "whether a function is increasing or decreasing",
+        "section": "Increasing and decreasing functions"
+      },
+      {
+        "phrase": "conditions for a function to be increasing or decreasing",
+        "section": "Increasing and decreasing functions"
+      },
+      {
+        "phrase": "Maxima and Minima",
+        "section": "Maxima and minima"
+      },
+      {
+        "phrase": "critical points of the function",
+        "section": "Maxima and minima"
+      },
+      {
+        "phrase": "local maxima and local minima and corresponding values",
+        "section": "Maxima and minima"
+      },
+      {
+        "phrase": "absolute maximum and absolute minimum value",
+        "section": "Maxima and minima"
+      },
+      {
+        "phrase": "Solve applied problems",
+        "section": "Maxima and minima"
+      },
+      {
+        "phrase": "Integration",
+        "section": "Indefinite integrals as anti-derivatives"
+      },
+      {
+        "phrase": "indefinite integrals of simple functions as anti-derivative",
+        "section": "Indefinite integrals as anti-derivatives"
+      },
+      {
+        "phrase": "Indefinite integrals as family of curves",
+        "section": "Indefinite integrals as family of curves"
+      },
+      {
+        "phrase": "substitution",
+        "section": "Integration by substitution, partial fractions and parts"
+      },
+      {
+        "phrase": "partial fraction",
+        "section": "Integration by substitution, partial fractions and parts"
+      },
+      {
+        "phrase": "by parts",
+        "section": "Integration by substitution, partial fractions and parts"
+      },
+      {
+        "phrase": "Definite Integral as area under the curve",
+        "section": "Definite integral as area under a curve"
+      },
+      {
+        "phrase": "fundamental theorem of integral calculus",
+        "section": "Definite integral as area under a curve"
+      },
+      {
+        "phrase": "properties of definite integrals",
+        "section": "Definite integral as area under a curve"
+      },
+      {
+        "phrase": "Application of Integration",
+        "section": "Consumer surplus and producer surplus"
+      },
+      {
+        "phrase": "region representing C.S. and P.S. graphically",
+        "section": "Consumer surplus and producer surplus"
+      },
+      {
+        "phrase": "consumer surplus-producer surplus",
+        "section": "Consumer surplus and producer surplus"
+      },
+      {
+        "phrase": "Differential Equations",
+        "section": "Differential equations: order, degree and solving"
+      },
+      {
+        "phrase": "Recognize a differential equation",
+        "section": "Differential equations: order, degree and solving"
+      },
+      {
+        "phrase": "order and degree of a differential equation",
+        "section": "Differential equations: order, degree and solving"
+      },
+      {
+        "phrase": "Formulating and solving differential equations",
+        "section": "Differential equations: order, degree and solving"
+      },
+      {
+        "phrase": "Formulate differential equations",
+        "section": "Differential equations: order, degree and solving"
+      },
+      {
+        "phrase": "Verify the solution of differential equation",
+        "section": "Differential equations: order, degree and solving"
+      },
+      {
+        "phrase": "Solve simple differential equation",
+        "section": "Differential equations: order, degree and solving"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Higher order, parametric and implicit derivatives"
+      },
+      {
+        "type": "TEXT",
+        "text": "The second order derivative $\\dfrac{d^2y}{dx^2}=\\dfrac{d}{dx}\\left(\\dfrac{dy}{dx}\\right)$ shows how the slope changes. For $y=x^5-2x^3$: $y'=5x^4-6x^2$ and $y''=20x^3-12x$, so $y''(1)=20-12=8$."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Parametric functions.** If $x=\\phi(t)$ and $y=\\psi(t)$, then $\\dfrac{dy}{dx}=\\dfrac{dy/dt}{dx/dt}$ and $\\dfrac{d^2y}{dx^2}=\\dfrac{\\frac{d}{dt}\\left(\\frac{dy}{dx}\\right)}{dx/dt}$.\n\n**Implicit functions.** If $x$ and $y$ are related by an equation $F(x,y)=0$, differentiate both sides with respect to $x$, treating $y$ as a function of $x$ (so $\\dfrac{d}{dx}y^2=2y\\,y'$), and solve for $y'$. To get $y''$ differentiate $y'$ again and replace $y'$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "If $x=2t^2$ and $y=4t$, find $\\dfrac{d^2y}{dx^2}$ at $t=1$.",
+        "solution": "$\\dfrac{dx}{dt}=4t$, $\\dfrac{dy}{dt}=4$, so $\\dfrac{dy}{dx}=\\dfrac1t$.\n\n$\\dfrac{d}{dt}\\left(\\dfrac1t\\right)=-\\dfrac1{t^2}$, so $\\dfrac{d^2y}{dx^2}=\\dfrac{-1/t^2}{4t}=-\\dfrac1{4t^3}$.\n\nAt $t=1$ the value is $-\\dfrac14$.",
+        "answer": "$-\\dfrac14$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "If $y^2=4x$, find $\\dfrac{d^2y}{dx^2}$ at the point $(1,2)$.",
+        "solution": "Differentiate: $2yy'=4$, so $y'=\\dfrac2y$.\n\nDifferentiate again: $y''=-\\dfrac{2y'}{y^2}=-\\dfrac{2}{y^2}\\cdot\\dfrac2y=-\\dfrac4{y^3}$.\n\nAt $(1,2)$: $y''=-\\dfrac48=-\\dfrac12$.",
+        "answer": "$-\\dfrac12$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "For parametric curves the second derivative is **not** $\\dfrac{d^2y/dt^2}{d^2x/dt^2}$. Differentiate $\\dfrac{dy}{dx}$ with respect to $t$ and divide by $\\dfrac{dx}{dt}$ again."
+      },
+      {
+        "type": "HEADING",
+        "text": "Rate of change of quantities"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Rate of change",
+        "text": "If $y=f(x)$, then $\\dfrac{dy}{dx}$ is the rate of change of $y$ with respect to $x$. If both vary with time $t$, the chain rule gives $\\dfrac{dy}{dt}=\\dfrac{dy}{dx}\\cdot\\dfrac{dx}{dt}$."
+      },
+      {
+        "type": "TEXT",
+        "text": "The area $A=\\pi r^2$ of a circle changes with the radius at the rate $\\dfrac{dA}{dr}=2\\pi r$; at $r=5$ cm this is $10\\pi$ cm$^2$ per cm. For a sphere, $V=\\tfrac43\\pi r^3$, so $\\dfrac{dV}{dt}=4\\pi r^2\\dfrac{dr}{dt}$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "The radius of a spherical balloon increases at 2 cm/s. How fast is its volume increasing when $r=5$ cm?",
+        "solution": "$V=\\tfrac43\\pi r^3$, so $\\dfrac{dV}{dt}=4\\pi r^2\\dfrac{dr}{dt}=4\\pi(5)^2(2)=200\\pi$.\n\nNote that $r=5$ is substituted only after differentiating with respect to $t$. The unit is cm$^3$ per second because volume is measured in cm$^3$.",
+        "answer": "$200\\pi\\ \\text{cm}^3/\\text{s}$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Write down the relation first, differentiate with respect to time, then substitute the numbers. Substituting the number before differentiating is a common error."
+      },
+      {
+        "type": "HEADING",
+        "text": "Marginal cost and marginal revenue"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Marginal cost",
+        "text": "If $C(x)$ is the total cost of producing $x$ units, the **marginal cost** is the rate of change of total cost with output: $MC=\\dfrac{dC}{dx}$. It approximates the extra cost of producing one more unit."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Marginal revenue",
+        "text": "If $R(x)$ is the total revenue from selling $x$ units, the **marginal revenue** is $MR=\\dfrac{dR}{dx}$, approximately the extra revenue from selling one more unit."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "The total cost is $C(x)=0.1x^2+20x+500$ rupees. Find the marginal cost at $x=10$.",
+        "solution": "$MC=\\dfrac{dC}{dx}=0.2x+20$. At $x=10$: $0.2\\times10+20=22$.\n\nMeaning: producing the 11th unit costs about Rs 22 more, because marginal cost approximates the cost of one extra unit.",
+        "answer": "Rs 22"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "The revenue is $R(x)=50x-0.5x^2$. Find the marginal revenue at $x=20$.",
+        "solution": "$MR=50-x$. At $x=20$: $50-20=30$.\n\nMeaning: selling the 21st unit adds about Rs 30 to revenue. Check: $R(20)=800$ and $R(21)=829.5$, a gain of Rs 29.5, close to $MR$.",
+        "answer": "Rs 30"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Profit $P(x)=R(x)-C(x)$. Profit is maximum where $MR=MC$ and $P''(x)<0$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Increasing and decreasing functions"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "For a differentiable function on an interval: $f'(x)>0$ means strictly increasing; $f'(x)<0$ means strictly decreasing; $f'(x)\\ge0$ (zero at isolated points only) means increasing. Find the intervals by solving $f'(x)=0$ and testing the sign of $f'$ between its roots."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the intervals in which $f(x)=x^2e^{-x}$ is increasing or decreasing.",
+        "solution": "$f'(x)=2xe^{-x}-x^2e^{-x}=x(2-x)e^{-x}$. Since $e^{-x}>0$, the sign depends on $x(2-x)$, which is zero at $x=0,2$.\n\nFor $x<0$: negative. For $0<x<2$: positive. For $x>2$: negative.",
+        "answer": "Increasing on $(0,2)$; decreasing on $(-\\infty,0)$ and $(2,\\infty)$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Maxima and minima"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Critical point",
+        "text": "A point $c$ in the domain of $f$ where $f'(c)=0$ or $f'(c)$ does not exist."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Finding extrema",
+        "columns": [
+          "Step",
+          "Detail"
+        ],
+        "rows": [
+          [
+            "1",
+            "Find $f'(x)$ and solve $f'(x)=0$ for the critical points"
+          ],
+          [
+            "2",
+            "Second derivative test: $f''(c)<0$ means local maximum; $f''(c)>0$ means local minimum"
+          ],
+          [
+            "3",
+            "If $f''(c)=0$, use the sign change of $f'$ (first derivative test)"
+          ],
+          [
+            "4",
+            "On a closed interval $[a,b]$, compare $f$ at the critical points and at $a$ and $b$ for absolute extrema"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the absolute minimum of $f(x)=2x^3-3x^2-12x$ on $[-2,3]$.",
+        "solution": "$f'(x)=6x^2-6x-12=6(x-2)(x+1)$, so the critical points are $x=-1$ and $x=2$.\n\n$f(-2)=-16-12+24=-4$; $f(-1)=-2-3+12=7$; $f(2)=16-12-24=-20$; $f(3)=54-27-36=-9$.\n\nThe smallest value is $-20$, at $x=2$.",
+        "answer": "$-20$ (and the absolute maximum is $7$)"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A producer has revenue $R(x)=50x-2x^2$ and cost $C(x)=10x+50$. Find the maximum profit.",
+        "solution": "$P(x)=R-C=40x-2x^2-50$. $P'(x)=40-4x=0$ gives $x=10$; $P''=-4<0$, a maximum.\n\n$P(10)=400-200-50=150$.",
+        "answer": "Rs 150"
+      },
+      {
+        "type": "HEADING",
+        "text": "Indefinite integrals as anti-derivatives"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Anti-derivative and indefinite integral",
+        "text": "$F$ is an **anti-derivative** of $f$ if $F'(x)=f(x)$. The set of all anti-derivatives is the indefinite integral $\\int f(x)\\,dx=F(x)+C$, where $C$ is the constant of integration."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Basic integrals",
+        "columns": [
+          "$f(x)$",
+          "$\\int f(x)\\,dx$"
+        ],
+        "rows": [
+          [
+            "$x^n\\ (n\\neq-1)$",
+            "$\\dfrac{x^{n+1}}{n+1}+C$"
+          ],
+          [
+            "$\\dfrac1x$",
+            "$\\log|x|+C$"
+          ],
+          [
+            "$e^{x}$",
+            "$e^{x}+C$"
+          ],
+          [
+            "$e^{ax}$",
+            "$\\dfrac{e^{ax}}{a}+C$"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "Integration is linear: $\\int(af+bg)\\,dx=a\\int f\\,dx+b\\int g\\,dx$. Check any answer by differentiating it."
+      },
+      {
+        "type": "HEADING",
+        "text": "Indefinite integrals as family of curves"
+      },
+      {
+        "type": "TEXT",
+        "text": "Because of the constant $C$, $\\int f(x)\\,dx$ represents a **family of curves**, each obtained from another by shifting vertically. An extra condition (a point on the curve) fixes $C$ and selects one member."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "The slope of a curve at any point is $2x+3$ and it passes through $(0,5)$. Find its equation and the value of $y$ at $x=2$.",
+        "solution": "$y=\\int(2x+3)\\,dx=x^2+3x+C$. At $(0,5)$: $5=0+0+C$, so $C=5$.\n\nThe curve is $y=x^2+3x+5$. At $x=2$: $y=4+6+5=15$.",
+        "answer": "$y=x^2+3x+5$; at $x=2$, $y=15$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Integration by substitution, partial fractions and parts"
+      },
+      {
+        "type": "TEXT",
+        "text": "**Substitution.** If an integral contains a function and (up to a constant) its derivative, put $t=g(x)$. For example $\\int xe^{x^2}dx$: let $t=x^2$, $dt=2x\\,dx$, giving $\\tfrac12\\int e^t\\,dt=\\tfrac12e^{x^2}+C$."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Partial fractions.** A proper rational function with distinct linear factors is split into simple fractions. Example: $\\dfrac1{(x-1)(x-2)}=\\dfrac A{x-1}+\\dfrac B{x-2}$ gives $1=A(x-2)+B(x-1)$; $x=1$ gives $A=-1$ and $x=2$ gives $B=1$, so $\\int\\dfrac{dx}{(x-1)(x-2)}=\\log|x-2|-\\log|x-1|+C=\\log\\left|\\dfrac{x-2}{x-1}\\right|+C$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int u\\,v\\,dx=u\\int v\\,dx-\\int\\left(\\frac{du}{dx}\\int v\\,dx\\right)dx",
+        "text": "Integration by parts. Choose $u$ as the function that becomes simpler on differentiation (ILATE order: Inverse, Logarithmic, Algebraic, Trigonometric, Exponential) and $v$ as the function that is easy to integrate."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\int xe^{2x}\\,dx$.",
+        "solution": "Take $u=x$, $v=e^{2x}$. Then $\\int v\\,dx=\\tfrac12e^{2x}$.\n\n$\\int xe^{2x}dx=\\tfrac x2e^{2x}-\\int\\tfrac12e^{2x}dx=\\tfrac x2e^{2x}-\\tfrac14e^{2x}+C$.\n\nCheck: differentiating $\\tfrac x2e^{2x}-\\tfrac14e^{2x}$ gives $\\tfrac12e^{2x}+xe^{2x}-\\tfrac12e^{2x}=xe^{2x}$.",
+        "answer": "$\\dfrac{e^{2x}}4(2x-1)+C$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Definite integral as area under a curve"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Definite integral",
+        "text": "For a continuous $f\\ge0$ on $[a,b]$, $\\int_a^bf(x)\\,dx$ is the area of the region bounded by the curve $y=f(x)$, the $x$-axis and the lines $x=a$, $x=b$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int_a^bf(x)\\,dx=F(b)-F(a)",
+        "text": "**Fundamental theorem of integral calculus.** $F$ is any anti-derivative of $f$ on $[a,b]$; the constant $C$ cancels."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Properties of definite integrals",
+        "columns": [
+          "Property",
+          "Statement"
+        ],
+        "rows": [
+          [
+            "Reversing limits",
+            "$\\int_a^b f=-\\int_b^a f$"
+          ],
+          [
+            "Splitting",
+            "$\\int_a^b f=\\int_a^c f+\\int_c^b f$"
+          ],
+          [
+            "Even function",
+            "$\\int_{-a}^a f=2\\int_0^a f$"
+          ],
+          [
+            "Odd function",
+            "$\\int_{-a}^a f=0$"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the area under $y=\\sqrt x$ between $x=1$ and $x=4$.",
+        "solution": "$\\int_1^4x^{1/2}dx=\\left[\\tfrac23x^{3/2}\\right]_1^4=\\tfrac23(8-1)=\\tfrac{14}3$.\n\nCheck: the area must be positive because $\\sqrt x>0$. The upper limit contributes $\\tfrac23\\times8=\\tfrac{16}3$ and the lower limit subtracts $\\tfrac23$.",
+        "answer": "$\\dfrac{14}3$ square units"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\int_{-2}^{2}(x^3+3x^2)\\,dx$.",
+        "solution": "$x^3$ is odd, so its integral over $[-2,2]$ is 0. $3x^2$ is even: $2\\int_0^23x^2dx=2[x^3]_0^2=2\\times8=16$.",
+        "answer": "$16$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Consumer surplus and producer surplus"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Consumer surplus",
+        "text": "If $p=D(x)$ is the demand curve and the market equilibrium is $(x_0,p_0)$, the consumer surplus is $CS=\\int_0^{x_0}D(x)\\,dx-p_0x_0$. It is the area between the demand curve and the line $p=p_0$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Producer surplus",
+        "text": "If $p=S(x)$ is the supply curve, the producer surplus is $PS=p_0x_0-\\int_0^{x_0}S(x)\\,dx$, the area between the line $p=p_0$ and the supply curve."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Demand is $p=20-2x$ and the equilibrium price is Rs 8. Find the consumer surplus.",
+        "solution": "$8=20-2x$ gives $x_0=6$. $\\int_0^6(20-2x)dx=[20x-x^2]_0^6=120-36=84$.\n\n$CS=84-8\\times6=36$.",
+        "answer": "Rs 36"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Supply is $p=2x+4$ and the equilibrium price is Rs 12. Find the producer surplus.",
+        "solution": "$12=2x+4$ gives $x_0=4$. $\\int_0^4(2x+4)dx=[x^2+4x]_0^4=16+16=32$.\n\n$PS=12\\times4-32=16$.",
+        "answer": "Rs 16"
+      },
+      {
+        "type": "HEADING",
+        "text": "Differential equations: order, degree and solving"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Differential equation",
+        "text": "An equation containing an unknown function of one variable and its derivatives. The **order** is the order of the highest derivative; the **degree** is the power of the highest-order derivative once the equation is written as a polynomial in the derivatives (it is not defined if the equation is not a polynomial in them, for example if it contains $\\sin y'$)."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "$\\left(\\dfrac{d^3y}{dx^3}\\right)^2+\\left(\\dfrac{d^2y}{dx^2}\\right)^3+\\dfrac{dy}{dx}=0$ has order 3 and degree 2."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Formulating.** Eliminate the arbitrary constants by differentiating. From $y=Ax^2$: $y'=2Ax$, so $A=\\dfrac{y'}{2x}$ and $y=\\dfrac{y'}{2x}x^2$ gives $x\\dfrac{dy}{dx}=2y$."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Verifying a solution.** Differentiate the given function and substitute into the equation. $y=x^2$ solves $x\\,y'=2y$ because $x\\cdot2x=2x^2=2y$."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Solving by separating variables.** Write $f(y)\\,dy=g(x)\\,dx$, integrate both sides and use any given condition to find $C$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $\\dfrac{dy}{dx}=\\dfrac xy$ with $y(0)=2$, and find $y$ when $x=\\sqrt5$.",
+        "solution": "Separate: $y\\,dy=x\\,dx$. Integrate: $\\dfrac{y^2}2=\\dfrac{x^2}2+C$, i.e. $y^2=x^2+k$.\n\n$y(0)=2$ gives $k=4$, so $y^2=x^2+4$. At $x=\\sqrt5$, $y^2=9$ and, since $y(0)=2>0$, $y=3$.",
+        "answer": "$y^2=x^2+4$; $y=3$ at $x=\\sqrt5$"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Order = highest derivative order. Degree = power of that derivative (when polynomial). The general solution of an $n$-th order equation has $n$ arbitrary constants."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r04-applied-calculus-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "If $y=x^5-2x^3$, then $\\dfrac{d^2y}{dx^2}$ at $x=1$ equals",
+      "options": [
+        "8",
+        "-2",
+        "20",
+        "32"
+      ],
+      "answer": 1,
+      "explanation": "$y'=5x^4-6x^2$ and $y''=20x^3-12x$. At $x=1$, $y''=20-12=8$. The first derivative at $x=1$ is $5-6=-1$, so it is not the required value.",
+      "optionRationale": {
+        "2": "This is $y'(1)=5-6$, the first derivative.",
+        "3": "This is the coefficient of $x^3$ in $y''$ without the term $-12x$.",
+        "4": "Adds instead of subtracting: $20+12$."
+      },
+      "objective": "Find a second derivative of a polynomial at a point"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A curve is given in parametric form by $x=2t^2$ and $y=4t$. Its second derivative of $y$ with respect to $x$ at the parameter value $t=1$ is",
+      "options": [
+        "$\\dfrac14$",
+        "$-\\dfrac14$",
+        "$-1$",
+        "$1$"
+      ],
+      "answer": 2,
+      "explanation": "$\\dfrac{dy}{dx}=\\dfrac{4}{4t}=\\dfrac1t$. Then $\\dfrac{d}{dt}\\left(\\dfrac1t\\right)=-\\dfrac1{t^2}$ and dividing by $\\dfrac{dx}{dt}=4t$ gives $-\\dfrac1{4t^3}$. At $t=1$ this is $-\\dfrac14$.",
+      "optionRationale": {
+        "1": "The sign is wrong; $d/dt(1/t)=-1/t^2$.",
+        "3": "This is $d/dt(dy/dx)$ without dividing by $dx/dt=4$.",
+        "4": "This is $dy/dx$ at $t=1$."
+      },
+      "objective": "Second derivative of a parametric function"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The parabola $y^2=4x$ is given implicitly. After differentiating twice, its second derivative at the point $(1,2)$ equals",
+      "options": [
+        "$\\dfrac12$",
+        "$1$",
+        "$-\\dfrac12$",
+        "$-1$"
+      ],
+      "answer": 3,
+      "explanation": "From $2yy'=4$ we get $y'=2/y$. Differentiating again, $y''=-\\dfrac{2y'}{y^2}=-\\dfrac{4}{y^3}$. At $(1,2)$, $y''=-\\dfrac48=-\\dfrac12$. The result is negative because the slope $y'=2/y$ decreases as $y$ grows along the upper branch.",
+      "optionRationale": {
+        "1": "The sign is wrong; the curve is concave towards the axis.",
+        "2": "This is $dy/dx$ at $(1,2)$.",
+        "4": "Uses $y^2$ instead of $y^3$ in $-4/y^3$."
+      },
+      "objective": "Second derivative of an implicit function"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The radius of a spherical balloon increases at 2 cm/s. When the radius is 5 cm, the volume is increasing at the rate of",
+      "options": [
+        "$100\\pi$ cm³/s",
+        "$50\\pi$ cm³/s",
+        "$\\dfrac{500\\pi}{3}$ cm³/s",
+        "$200\\pi$ cm³/s"
+      ],
+      "answer": 4,
+      "explanation": "$V=\\tfrac43\\pi r^3$, so $\\dfrac{dV}{dt}=4\\pi r^2\\dfrac{dr}{dt}$. Substituting $r=5$ and $\\dfrac{dr}{dt}=2$: $4\\pi\\times25\\times2=200\\pi$ cm³/s.",
+      "optionRationale": {
+        "1": "Uses $2\\pi r^2$ instead of $4\\pi r^2$.",
+        "2": "Omits the factor $dr/dt=2$ and uses $2\\pi r^2$.",
+        "3": "Uses $r^3$ without differentiating the volume formula."
+      },
+      "objective": "Solve a related-rates problem"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The total cost of producing $x$ units is $C(x)=0.1x^2+20x+500$ rupees. The marginal cost when $x=10$ is",
+      "options": [
+        "Rs 22",
+        "Rs 21",
+        "Rs 520",
+        "Rs 710"
+      ],
+      "answer": 1,
+      "explanation": "Marginal cost is $\\dfrac{dC}{dx}=0.2x+20$. At $x=10$, $MC=2+20=22$ rupees. The total cost $C(10)=10+200+500=710$ is a different quantity.",
+      "optionRationale": {
+        "2": "Takes $0.1\\times10+20$, forgetting the factor 2 in the derivative.",
+        "3": "This is $C'$ evaluated incorrectly as $0.1x+20x+500$.",
+        "4": "This is the total cost $C(10)$."
+      },
+      "objective": "Find marginal cost at a given output"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q06",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match each term in List-I with its description in List-II.",
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-IV, D-III",
+        "A-III, B-I, C-II, D-IV"
+      ],
+      "answer": 1,
+      "explanation": "Marginal cost is $dC/dx$, the rate of change of total cost (II). Marginal revenue is $dR/dx$ (I). Consumer surplus is the area under the demand curve minus the amount actually paid (III). Producer surplus is the amount actually received minus the area under the supply curve (IV).",
+      "optionRationale": {
+        "2": "This swaps marginal cost and marginal revenue.",
+        "3": "This swaps consumer surplus and producer surplus.",
+        "4": "Marginal cost is II, not III, and consumer surplus is III, not II."
+      },
+      "objective": "Match key terms of marginal analysis and surplus",
+      "list": {
+        "left": [
+          "A. Marginal cost",
+          "B. Marginal revenue",
+          "C. Consumer surplus",
+          "D. Producer surplus"
+        ],
+        "right": [
+          "I. Rate of change of total revenue with the number of units",
+          "II. Rate of change of total cost with the number of units",
+          "III. $\\int_0^{x_0}D(x)\\,dx-p_0x_0$",
+          "IV. $p_0x_0-\\int_0^{x_0}S(x)\\,dx$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "If the total revenue is $R(x)=50x-0.5x^2$, the marginal revenue at $x=20$ is",
+      "options": [
+        "800",
+        "30",
+        "50",
+        "40"
+      ],
+      "answer": 2,
+      "explanation": "$MR=\\dfrac{dR}{dx}=50-x$. At $x=20$, $MR=30$. The total revenue at $x=20$ is $1000-200=800$, which is not the marginal revenue. Marginal revenue falls by Rs 1 for each extra unit, because the derivative $50-x$ decreases with $x$.",
+      "optionRationale": {
+        "1": "This is the total revenue $R(20)=1000-200$.",
+        "3": "This is the marginal revenue at $x=0$.",
+        "4": "Differentiates incorrectly as $50-0.5x\\cdot4$."
+      },
+      "objective": "Find marginal revenue at a given output"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A firm has revenue $R(x)=50x-2x^2$ and cost $C(x)=10x+50$ (in rupees) for $x$ units. The maximum profit is",
+      "options": [
+        "Rs 200",
+        "Rs 400",
+        "Rs 150",
+        "Rs 100"
+      ],
+      "answer": 3,
+      "explanation": "$P(x)=R-C=40x-2x^2-50$. $P'(x)=40-4x=0$ gives $x=10$ and $P''=-4<0$. $P(10)=400-200-50=150$ rupees. Equivalently $R(10)=300$ and $C(10)=150$.",
+      "optionRationale": {
+        "1": "This comes from ignoring the fixed cost of Rs 50 and part of the variable cost.",
+        "2": "This is $40x$ at $x=10$, ignoring the $-2x^2$ term and the fixed cost.",
+        "4": "At $x=5$ the profit is $200-50-50=100$, but the maximum is at $x=10$."
+      },
+      "objective": "Maximise profit using derivatives"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The function $f(x)=x^2e^{-x}$ is strictly increasing in the interval",
+      "options": [
+        "$(-\\infty,0)$",
+        "$(2,\\infty)$",
+        "$(-\\infty,2)$",
+        "$(0,2)$"
+      ],
+      "answer": 4,
+      "explanation": "$f'(x)=2xe^{-x}-x^2e^{-x}=x(2-x)e^{-x}$. As $e^{-x}>0$, the sign is that of $x(2-x)$, which is positive only for $0<x<2$. So $f$ is increasing in $(0,2)$.",
+      "optionRationale": {
+        "1": "Here $f'=x(2-x)e^{-x}<0$, so $f$ is decreasing.",
+        "2": "Here $f'<0$, so $f$ is decreasing.",
+        "3": "$f$ decreases on $(-\\infty,0)$, so it is not increasing there."
+      },
+      "objective": "Find intervals of increase using the first derivative"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The absolute minimum value of $f(x)=2x^3-3x^2-12x$ on $[-2,3]$ is",
+      "options": [
+        "-20",
+        "-9",
+        "-4",
+        "7"
+      ],
+      "answer": 1,
+      "explanation": "$f'(x)=6(x-2)(x+1)$, with critical points $x=-1,2$. The values are $f(-2)=-4$, $f(-1)=7$, $f(2)=-20$, $f(3)=-9$. The smallest is $-20$ at $x=2$.",
+      "optionRationale": {
+        "2": "This is the value at the end point $x=3$.",
+        "3": "This is the value at the end point $x=-2$.",
+        "4": "This is the absolute maximum, attained at $x=-1$."
+      },
+      "objective": "Find an absolute minimum on a closed interval"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A curve has slope $2x+3$ at every point and passes through $(0,5)$. Its $y$-value at $x=2$ is",
+      "options": [
+        "11",
+        "15",
+        "10",
+        "12"
+      ],
+      "answer": 2,
+      "explanation": "$y=\\int(2x+3)dx=x^2+3x+C$. The point $(0,5)$ gives $C=5$. Then at $x=2$, $y=4+6+5=15$. Check: the slope of $y=x^2+3x+5$ is $2x+3$, matching the given slope, and $y(0)=5$.",
+      "optionRationale": {
+        "1": "Ignores the constant 5 or uses $C=1$.",
+        "3": "Takes $C=0$ and omits the integration constant.",
+        "4": "Takes $C=2$ from an incorrect substitution."
+      },
+      "objective": "Use an integral to find a curve from its slope"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Using the substitution $t=x^2$, the integral $\\displaystyle\\int xe^{x^2}\\,dx$ equals",
+      "options": [
+        "$e^{x^2}+C$",
+        "$2e^{x^2}+C$",
+        "$\\dfrac12e^{x^2}+C$",
+        "$\\dfrac{x^2}2e^{x^2}+C$"
+      ],
+      "answer": 3,
+      "explanation": "Put $t=x^2$, so $dt=2x\\,dx$ and $x\\,dx=\\tfrac12dt$. The integral becomes $\\tfrac12\\int e^t\\,dt=\\tfrac12e^t+C=\\tfrac12e^{x^2}+C$. Differentiating the result returns $xe^{x^2}$.",
+      "optionRationale": {
+        "1": "Misses the factor $\\tfrac12$ from $dt=2x\\,dx$.",
+        "2": "Multiplies instead of dividing by 2.",
+        "4": "Treats $x$ as a constant factor."
+      },
+      "objective": "Integrate using substitution"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "After splitting into partial fractions, the integral $\\displaystyle\\int\\dfrac{dx}{(x-1)(x-2)}$ equals",
+      "options": [
+        "$\\log\\left|\\dfrac{x-1}{x-2}\\right|+C$",
+        "$\\log|(x-1)(x-2)|+C$",
+        "$-\\dfrac1{(x-1)(x-2)}+C$",
+        "$\\log\\left|\\dfrac{x-2}{x-1}\\right|+C$"
+      ],
+      "answer": 4,
+      "explanation": "Write $\\dfrac1{(x-1)(x-2)}=\\dfrac{-1}{x-1}+\\dfrac1{x-2}$ (since $1=A(x-2)+B(x-1)$ gives $A=-1$, $B=1$). Integrating: $-\\log|x-1|+\\log|x-2|+C=\\log\\left|\\dfrac{x-2}{x-1}\\right|+C$.",
+      "optionRationale": {
+        "1": "The two partial fractions have been given opposite signs.",
+        "2": "Integrates the denominator instead of splitting the fraction.",
+        "3": "Wrongly integrates $1/u$ as $-1/u$ with $u=(x-1)(x-2)$."
+      },
+      "objective": "Integrate a rational function by partial fractions"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Integrating by parts with $u=x$ and $v=e^{2x}$, the integral $\\displaystyle\\int xe^{2x}\\,dx$ equals",
+      "options": [
+        "$\\dfrac x2e^{2x}-\\dfrac14e^{2x}+C$",
+        "$\\dfrac x2e^{2x}+\\dfrac14e^{2x}+C$",
+        "$xe^{2x}-\\dfrac12e^{2x}+C$",
+        "$\\dfrac{x^2}2e^{2x}+C$"
+      ],
+      "answer": 1,
+      "explanation": "Integrate by parts with $u=x$ and $v=e^{2x}$: $\\int xe^{2x}dx=x\\cdot\\tfrac12e^{2x}-\\int\\tfrac12e^{2x}dx=\\tfrac x2e^{2x}-\\tfrac14e^{2x}+C$. Differentiation of this result returns $xe^{2x}$.",
+      "optionRationale": {
+        "2": "The sign of the second term is wrong.",
+        "3": "Forgets that $\\int e^{2x}dx=\\tfrac12e^{2x}$ in the first term.",
+        "4": "Integrates each factor separately, which is not valid."
+      },
+      "objective": "Integrate by parts"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The value of $\\displaystyle\\int_{-2}^{2}(x^3+3x^2)\\,dx$ is",
+      "options": [
+        "0",
+        "16",
+        "8",
+        "32"
+      ],
+      "answer": 2,
+      "explanation": "$x^3$ is odd, so its integral over $[-2,2]$ is 0. $3x^2$ is even, so its integral is $2\\int_0^23x^2dx=2[x^3]_0^2=2\\times8=16$. Direct evaluation $[x^4/4+x^3]_{-2}^{2}=(4+8)-(4-8)=16$ agrees.",
+      "optionRationale": {
+        "1": "Treats the whole integrand as odd.",
+        "3": "Forgets to double the integral of the even part.",
+        "4": "Doubles the even part twice."
+      },
+      "objective": "Use odd-even properties of definite integrals"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The area under the curve $y=\\sqrt x$ between $x=1$ and $x=4$ is",
+      "options": [
+        "$\\dfrac{16}3$ square units",
+        "$1$ square unit",
+        "$\\dfrac{14}3$ square units",
+        "$\\dfrac73$ square units"
+      ],
+      "answer": 3,
+      "explanation": "Area $=\\int_1^4x^{1/2}dx=\\left[\\tfrac23x^{3/2}\\right]_1^4=\\tfrac23(8-1)=\\tfrac{14}3$ square units. The upper limit gives $\\tfrac23\\times8=\\tfrac{16}3$ and the lower limit subtracts $\\tfrac23$.",
+      "optionRationale": {
+        "1": "Uses the limits 0 and 4.",
+        "2": "Uses the difference of the end values of the function.",
+        "4": "Forgets the factor 2 in $\\tfrac23x^{3/2}$."
+      },
+      "objective": "Evaluate area using the fundamental theorem"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "The demand curve is $p=20-2x$ and the equilibrium price is Rs 8. The consumer surplus is",
+      "options": [
+        "Rs 84",
+        "Rs 48",
+        "Rs 72",
+        "Rs 36"
+      ],
+      "answer": 4,
+      "explanation": "At $p_0=8$: $20-2x=8$ gives $x_0=6$. Then $\\int_0^6(20-2x)dx=120-36=84$, and $CS=84-8\\times6=36$. This equals the triangle area $\\tfrac12\\times6\\times(20-8)=36$.",
+      "optionRationale": {
+        "1": "This is $\\int_0^6D(x)\\,dx$, the total area under the demand curve.",
+        "2": "This is the amount spent, $p_0x_0$.",
+        "3": "This is $12\\times6$, the full triangle without the factor $\\tfrac12$."
+      },
+      "objective": "Compute consumer surplus"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "The supply curve is $p=2x+4$ and the equilibrium price is Rs 12. The producer surplus is",
+      "options": [
+        "Rs 16",
+        "Rs 32",
+        "Rs 48",
+        "Rs 8"
+      ],
+      "answer": 1,
+      "explanation": "At $p_0=12$: $2x+4=12$ gives $x_0=4$. $\\int_0^4(2x+4)dx=[x^2+4x]_0^4=32$. Then $PS=p_0x_0-32=48-32=16$, equal to the triangle area $\\tfrac12\\times4\\times8=16$.",
+      "optionRationale": {
+        "2": "This is $\\int_0^4S(x)\\,dx$, the area under the supply curve.",
+        "3": "This is the total revenue $p_0x_0$.",
+        "4": "Divides the correct answer by 2."
+      },
+      "objective": "Compute producer surplus"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q19",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The order of the differential equation $\\dfrac{d^2y}{dx^2}+\\sin\\left(\\dfrac{dy}{dx}\\right)=0$ is 2 and its degree is not defined.\nReason (R): Degree is defined only when the equation is a polynomial in the derivatives.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The highest derivative is $d^2y/dx^2$, so the order is 2. The term $\\sin(dy/dx)$ is not a polynomial in $dy/dx$, so the equation cannot be written as a polynomial in the derivatives and its degree is not defined. The reason explains why.",
+      "optionRationale": {
+        "2": "The reason is the exact rule that explains why the degree is undefined.",
+        "3": "The assertion is true: order 2 and degree undefined.",
+        "4": "The reason is true: degree needs a polynomial in the derivatives."
+      },
+      "objective": "Find the order and degree of a differential equation"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "The differential equation obtained by eliminating the constant $A$ from $y=Ax^2$ is",
+      "options": [
+        "$x\\dfrac{dy}{dx}=y$",
+        "$x\\dfrac{dy}{dx}=2y$",
+        "$y\\dfrac{dy}{dx}=2x$",
+        "$\\dfrac{dy}{dx}=2y$"
+      ],
+      "answer": 2,
+      "explanation": "Differentiate $y=Ax^2$ to get $y'=2Ax$. Then $A=\\dfrac{y'}{2x}$, and substituting gives $y=\\dfrac{y'}{2x}x^2=\\dfrac{xy'}{2}$, i.e. $x\\dfrac{dy}{dx}=2y$.",
+      "optionRationale": {
+        "1": "This corresponds to $y=Ax$.",
+        "3": "This corresponds to $y^2=2x^2+C$.",
+        "4": "This corresponds to $y=Ae^{2x}$."
+      },
+      "objective": "Formulate a differential equation"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q21",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following verifications.\nA. $y=x^2$ is a solution of $x\\dfrac{dy}{dx}=2y$.\nB. $y=e^x$ is a solution of $\\dfrac{d^2y}{dx^2}-y=0$.\nC. $y=\\sin x$ is a solution of $\\dfrac{d^2y}{dx^2}-y=0$.\nD. $y=3x$ is a solution of $\\dfrac{dy}{dx}=\\dfrac yx$.\nWhich are correct?",
+      "options": [
+        "A, B and D only",
+        "A, B and C only",
+        "B, C and D only",
+        "A and C only"
+      ],
+      "answer": 1,
+      "explanation": "A: $x\\cdot2x=2x^2=2y$, true. B: $y''=e^x=y$, so $y''-y=0$, true. C: $y''=-\\sin x$, so $y''-y=-2\\sin x\\neq0$, false. D: $y'=3$ and $y/x=3$, true. So A, B and D are correct.",
+      "optionRationale": {
+        "2": "C is false because $y''=-\\sin x$, so $y''-y=-2\\sin x$.",
+        "3": "C is false and A is true, so this option is wrong.",
+        "4": "C is false, so options with C are wrong."
+      },
+      "objective": "Verify solutions of differential equations"
+    },
+    {
+      "key": "ug26-319-r04-applied-calculus-q22",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The solution of $\\dfrac{dy}{dx}=\\dfrac xy$ with $y(0)=2$ gives $y$ equal to ____ when $x=\\sqrt5$ (take $y>0$).",
+      "options": [
+        "2",
+        "$\\sqrt5$",
+        "3",
+        "$\\sqrt{14}$"
+      ],
+      "answer": 3,
+      "explanation": "Separate variables: $y\\,dy=x\\,dx$. Integrating gives $y^2=x^2+k$. From $y(0)=2$ we get $k=4$. At $x=\\sqrt5$, $y^2=5+4=9$, so $y=3$ because $y$ is positive near $y(0)=2$.",
+      "optionRationale": {
+        "1": "This is the initial value $y(0)$.",
+        "2": "This is $x$ itself.",
+        "4": "Uses $y^2=x^2+9$, a wrong constant."
+      },
+      "objective": "Solve a separable differential equation with an initial condition"
+    }
+  ]
+}

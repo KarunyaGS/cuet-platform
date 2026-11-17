@@ -1,0 +1,972 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_0cad9b746ca44004945255bd39c0d53a",
+  "title": "Introduction to Computer Networks"
+ },
+ "lesson": {
+  "key": "ug26-308-r12-computer-networks-web",
+  "title": "Computer networks, devices, topologies, Internet and the Web",
+  "coverage": [
+   {
+    "phrase": "Introduction to Computer Networks",
+    "section": "Networks and types of networks: LAN, MAN, WAN"
+   },
+   {
+    "phrase": "Introduction to Networks",
+    "section": "Networks and types of networks: LAN, MAN, WAN"
+   },
+   {
+    "phrase": "Types of networks: LAN, MAN, WAN",
+    "section": "Networks and types of networks: LAN, MAN, WAN"
+   },
+   {
+    "phrase": "Network Devices: modem",
+    "section": "Network devices"
+   },
+   {
+    "phrase": "hub",
+    "section": "Network devices"
+   },
+   {
+    "phrase": "switch",
+    "section": "Network devices"
+   },
+   {
+    "phrase": "repeater",
+    "section": "Network devices"
+   },
+   {
+    "phrase": "router",
+    "section": "Network devices"
+   },
+   {
+    "phrase": "gateway",
+    "section": "Network devices"
+   },
+   {
+    "phrase": "Network Topologies: Star",
+    "section": "Network topologies"
+   },
+   {
+    "phrase": "Bus",
+    "section": "Network topologies"
+   },
+   {
+    "phrase": "Tree",
+    "section": "Network topologies"
+   },
+   {
+    "phrase": "Mesh",
+    "section": "Network topologies"
+   },
+   {
+    "phrase": "Introduction to Internet",
+    "section": "The Internet, URL, WWW and applications"
+   },
+   {
+    "phrase": "URL",
+    "section": "The Internet, URL, WWW and applications"
+   },
+   {
+    "phrase": "WWW",
+    "section": "The Internet, URL, WWW and applications"
+   },
+   {
+    "phrase": "Applications: Web, email, Chat, VoIP",
+    "section": "The Internet, URL, WWW and applications"
+   },
+   {
+    "phrase": "Website: Introduction",
+    "section": "Websites, web servers and hosting"
+   },
+   {
+    "phrase": "Difference between a website and webpage",
+    "section": "Websites, web servers and hosting"
+   },
+   {
+    "phrase": "Static vs dynamic webpage",
+    "section": "Websites, web servers and hosting"
+   },
+   {
+    "phrase": "Webserver",
+    "section": "Websites, web servers and hosting"
+   },
+   {
+    "phrase": "Hosting of a website",
+    "section": "Websites, web servers and hosting"
+   },
+   {
+    "phrase": "Web Browsers: Introduction",
+    "section": "Web browsers, add-ons, plug-ins and cookies"
+   },
+   {
+    "phrase": "Commonly used browsers",
+    "section": "Web browsers, add-ons, plug-ins and cookies"
+   },
+   {
+    "phrase": "Browser settings",
+    "section": "Web browsers, add-ons, plug-ins and cookies"
+   },
+   {
+    "phrase": "Add-ons and plug-ins",
+    "section": "Web browsers, add-ons, plug-ins and cookies"
+   },
+   {
+    "phrase": "Cookies",
+    "section": "Web browsers, add-ons, plug-ins and cookies"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Networks and types of networks: LAN, MAN, WAN"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **computer network** is a set of computers and other devices (printers, phones, servers) connected by wired or wireless links so that they can exchange data and share resources such as files, printers and an Internet connection. Each device on a network is called a **node**. Networks save money (one printer serves many users), allow fast communication and make central backup possible."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Computer network",
+    "text": "A collection of interconnected autonomous computing devices (nodes) that can communicate and share resources using agreed rules called protocols."
+   },
+   {
+    "type": "TEXT",
+    "text": "Networks are classified by the area they cover:"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Types of networks by size",
+    "columns": [
+     "Type",
+     "Full form",
+     "Area covered",
+     "Typical example",
+     "Typical medium"
+    ],
+    "rows": [
+     [
+      "PAN",
+      "Personal Area Network",
+      "A few metres around one person",
+      "Phone tethered to earphones by Bluetooth",
+      "Bluetooth, USB"
+     ],
+     [
+      "LAN",
+      "Local Area Network",
+      "One room, building or campus",
+      "School computer lab, office network",
+      "Ethernet cable, Wi-Fi"
+     ],
+     [
+      "MAN",
+      "Metropolitan Area Network",
+      "A whole city or large town",
+      "Cable TV network of a city, a bank connecting its city branches",
+      "Optical fibre, microwave"
+     ],
+     [
+      "WAN",
+      "Wide Area Network",
+      "A country, continent or the whole world",
+      "The Internet, a bank linking branches in different states",
+      "Leased lines, satellite, undersea fibre"
+     ]
+    ]
+   },
+   {
+    "type": "CONCEPT",
+    "text": "Size grows as PAN < LAN < MAN < WAN. A LAN is usually owned and run by one organisation and offers the highest speed and lowest cost per user; a WAN is built from many networks, often owned by telecom companies, and is slower and costlier."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "The Internet is the largest WAN: it is a network of networks. Do not call a college campus network a WAN just because it has many buildings; if it stays within one campus it is a LAN."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Common mistake: students match \"city-wide\" with LAN. LAN = local (building/campus), MAN = city, WAN = country or world."
+   },
+   {
+    "type": "HEADING",
+    "text": "Network devices"
+   },
+   {
+    "type": "TEXT",
+    "text": "Network devices join nodes together and decide where data should go. Each device works at a different level of intelligence."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Network devices",
+    "columns": [
+     "Device",
+     "What it does",
+     "Key point to remember"
+    ],
+    "rows": [
+     [
+      "Modem (modulator-demodulator)",
+      "Converts digital data from a computer into analog signals for telephone or cable lines (modulation) and converts the incoming analog signal back to digital (demodulation)",
+      "Connects a computer or router to an Internet Service Provider (ISP)"
+     ],
+     [
+      "Hub",
+      "Receives data on one port and sends a copy to all other ports",
+      "Does not look at addresses, so it is unintelligent; all devices share the bandwidth and traffic collisions are likely"
+     ],
+     [
+      "Switch",
+      "Learns the hardware (MAC) address of each connected device and forwards data only to the port of the intended receiver",
+      "Intelligent, faster and more secure than a hub; used inside a LAN"
+     ],
+     [
+      "Repeater",
+      "Receives a weak signal, regenerates it and retransmits it",
+      "Extends the distance a signal can travel because signals weaken (attenuate) over a long cable"
+     ],
+     [
+      "Router",
+      "Connects different networks and forwards data packets towards the destination using IP addresses and routing tables, choosing a good path",
+      "Joins a LAN to the Internet; works at the network layer"
+     ],
+     [
+      "Gateway",
+      "Joins networks that use different protocols and converts one protocol format to the other",
+      "Acts as the entry and exit point of a network; the most powerful and complex of these devices"
+     ]
+    ]
+   },
+   {
+    "type": "EXAMPLE",
+    "text": "A home Wi-Fi box often combines a modem (to talk to the ISP line), a router (to route data between the home LAN and the Internet) and a small switch (the Ethernet sockets behind it) in a single unit."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Hub versus switch: both have many ports, but a hub **broadcasts** to everyone while a switch sends **only to the destination**. Router versus switch: a switch works inside one network using MAC addresses, a router connects different networks using IP addresses."
+   },
+   {
+    "type": "HEADING",
+    "text": "Network topologies"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **topology** is the way nodes and links of a network are arranged. It can be physical (actual cabling) or logical (how data flows). The four required for CUET are star, bus, tree and mesh."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Network topologies",
+    "columns": [
+     "Topology",
+     "Layout",
+     "Advantages",
+     "Disadvantages"
+    ],
+    "rows": [
+     [
+      "Star",
+      "Every node is connected to one central device (hub or switch)",
+      "Easy to add or remove nodes; failure of one cable or node affects only that node; easy fault finding",
+      "If the central device fails the whole network fails; needs more cable than a bus"
+     ],
+     [
+      "Bus",
+      "All nodes tap into one common backbone cable, with terminators at both ends",
+      "Needs the least cable; cheap and simple for a small network",
+      "If the backbone breaks the network splits or fails; performance drops as nodes increase; hard to find faults"
+     ],
+     [
+      "Tree",
+      "Hierarchy of star networks joined to a root (backbone) node; a mix of star and bus ideas",
+      "Scalable; good for large organisations with departments; branches can be managed separately",
+      "If the backbone or root fails, large parts are cut off; costly and complex to maintain"
+     ],
+     [
+      "Mesh",
+      "Every node has a direct link to every other node (full mesh)",
+      "Very reliable because of many alternate paths; no single point of failure; no traffic jam on a link",
+      "Very expensive and hard to install because of the large number of links and ports"
+     ]
+    ]
+   },
+   {
+    "type": "EXAMPLE",
+    "text": "Number of links in a full mesh of $n$ nodes is $\\frac{n(n-1)}{2}$. For 6 nodes this is $\\frac{6\\times5}{2}=15$ links, and each node needs $n-1=5$ ports."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A computer lab wants to connect 8 computers in (a) a star using one switch and (b) a full mesh. Find the number of cable links needed in each case.",
+    "solution": "(a) In a star every computer is joined only to the switch, so the number of links equals the number of computers: 8 links.\n\n(b) In a full mesh each pair of computers has its own link. Number of pairs = $\\frac{n(n-1)}{2}=\\frac{8\\times 7}{2}=28$.\n\nEach computer also needs $n-1=7$ network ports in the mesh, against 1 port in the star.",
+    "answer": "Star: 8 links. Full mesh: 28 links."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Star failure rule: a failed **node** or its cable affects only that node, but a failed **central hub or switch** stops everything. Bus failure rule: a break in the **backbone** stops all nodes or splits the bus."
+   },
+   {
+    "type": "HEADING",
+    "text": "The Internet, URL, WWW and applications"
+   },
+   {
+    "type": "TEXT",
+    "text": "The **Internet** is a worldwide network of interconnected networks that use the TCP/IP set of protocols. Every device has an **IP address**, and humans use names such as www.example.com which the **Domain Name System (DNS)** converts to IP addresses. The Internet is the infrastructure (cables, routers, servers); the **World Wide Web (WWW)** is a service that runs on top of it."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "World Wide Web (WWW)",
+    "text": "A system of interlinked hypertext documents (webpages) stored on web servers worldwide and accessed through the Internet using a browser and the HTTP or HTTPS protocol. It was proposed by Tim Berners-Lee at CERN."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "URL (Uniform Resource Locator)",
+    "text": "The complete address of a resource on the Web. Example: https://www.example.com/courses/index.html"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Parts of a URL",
+    "columns": [
+     "Part",
+     "In the example",
+     "Meaning"
+    ],
+    "rows": [
+     [
+      "Protocol (scheme)",
+      "https",
+      "Rules used to fetch the page; HTTPS is HTTP made secure with encryption"
+     ],
+     [
+      "Domain name",
+      "www.example.com",
+      "Name of the web server, resolved by DNS into an IP address"
+     ],
+     [
+      "Path",
+      "/courses/index.html",
+      "Folder and file on the server holding the page"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "**Applications of the Internet**"
+   },
+   {
+    "type": "TEXT",
+    "text": "- **Web:** browsing, searching, online shopping, banking and learning through webpages.\n- **Email (electronic mail):** sending messages and attachments to an address of the form name@domain. Outgoing mail is sent using SMTP; incoming mail is retrieved using POP3 or IMAP.\n- **Chat (instant messaging):** real-time text, voice or video exchange between users, for example messaging apps and chat rooms.\n- **VoIP (Voice over Internet Protocol):** voice (and video) calls carried as digital data packets over the Internet instead of the traditional telephone line, so calls to anywhere are cheap or free."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Internet and Web are not the same: email, chat and VoIP use the Internet but are not webpages. Email addresses have @; URLs have a protocol and domain."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Identify the protocol, domain name and path in the URL https://www.school.in/results/class12.html and say what DNS does with it.",
+    "solution": "Protocol is the text before ://, so it is https.\n\nThe domain name is the part after :// up to the next slash: www.school.in.\n\nThe path is the remainder starting from the slash: /results/class12.html.\n\nBefore the browser can contact the server, DNS converts www.school.in into the server IP address.",
+    "answer": "Protocol: https; domain: www.school.in; path: /results/class12.html; DNS maps the domain name to an IP address."
+   },
+   {
+    "type": "HEADING",
+    "text": "Websites, web servers and hosting"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Webpage",
+    "text": "A single hypertext document (usually an HTML file) that is displayed in a browser and has its own URL."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Website",
+    "text": "A collection of related webpages, images and other files stored under one domain name and linked together, beginning with a home page."
+   },
+   {
+    "type": "CONCEPT",
+    "text": "A website is made of webpages. A webpage is one document; a website is the whole collection, just as a book is made of pages."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Static and dynamic webpages",
+    "columns": [
+     "Point",
+     "Static webpage",
+     "Dynamic webpage"
+    ],
+    "rows": [
+     [
+      "Content",
+      "Fixed; same for every visitor until the author edits the file",
+      "Generated when requested; can differ for each visitor, time or action"
+     ],
+     [
+      "Built with",
+      "HTML, CSS (client side)",
+      "Server-side scripts and a database (for example PHP, Python, ASP) along with HTML, CSS and JavaScript"
+     ],
+     [
+      "Speed and cost",
+      "Loads fast and is cheap to build",
+      "Slower and costlier to build and maintain"
+     ],
+     [
+      "Updates",
+      "Author must edit the file manually",
+      "Content updates automatically from the database"
+     ],
+     [
+      "Examples",
+      "A school notice page, a simple portfolio",
+      "Online shopping site, social networking feed, online result page"
+     ]
+    ]
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Web server",
+    "text": "A computer (and the software running on it) that stores websites and answers browsers requests for webpages using HTTP or HTTPS. The browser is the **client** and the web server is the **server**."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Web hosting",
+    "text": "A service that provides space on a web server so that a website stays online and reachable through the Internet all the time. Free hosting, shared hosting (many sites on one server) and dedicated hosting (a whole server for one site) are the common types."
+   },
+   {
+    "type": "TEXT",
+    "text": "To publish a website: (1) build the pages, (2) register a **domain name**, (3) buy or obtain hosting space, (4) upload the files to the web server, so that anyone can type the URL and fetch them."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Do not confuse a **web server** (machine or software that serves pages) with a **web browser** (client program that requests and displays them), and do not confuse **domain name** (address) with **hosting** (storage space)."
+   },
+   {
+    "type": "HEADING",
+    "text": "Web browsers, add-ons, plug-ins and cookies"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Web browser",
+    "text": "Application software used to request, retrieve and display webpages and other web content, for example Google Chrome, Mozilla Firefox, Microsoft Edge, Apple Safari and Opera."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Browser settings** let a user customise the browser: choose the home page, default search engine, download location, text size, pop-up blocking, saved passwords and privacy options such as clearing history, cache and cookies, or private (incognito) browsing."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Add-on, plug-in and cookie",
+    "columns": [
+     "Item",
+     "Meaning",
+     "Example"
+    ],
+    "rows": [
+     [
+      "Add-on (extension)",
+      "Small program that adds a new feature to the browser itself or changes how it looks",
+      "An ad blocker, a grammar checker, a colour theme"
+     ],
+     [
+      "Plug-in",
+      "Software that the browser needs to display or run a particular kind of content that it cannot handle on its own",
+      "A PDF viewer or a media player plug-in"
+     ],
+     [
+      "Cookie",
+      "A small text file that a website stores on the user device through the browser to remember information such as login status, preferences or items in a shopping cart",
+      "A shopping site remembering your cart after you close the tab"
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Cookies are text files, not programs, and cannot run or spread like a virus; they can however track browsing, so privacy settings let users block or delete them. Add-ons extend the browser; plug-ins handle special content types."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "A cookie is stored on the **client** (user) computer by the browser, not on the web server. Clearing cookies logs you out of most sites because the stored login information is deleted."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r12-computer-networks-web-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which type of network is typically confined to a single school building or computer laboratory?",
+   "options": [
+    "WAN",
+    "LAN",
+    "MAN",
+    "Internet"
+   ],
+   "answer": 2,
+   "explanation": "A Local Area Network covers a small geographic area such as a room, a building or a campus and is usually owned by a single organisation. A MAN covers a city and a WAN covers countries or continents, while the Internet is a global network of networks.",
+   "optionRationale": {
+    "1": "A WAN spans countries or continents, much larger than one building.",
+    "3": "A MAN covers a whole city or large town.",
+    "4": "The Internet is the global network of networks and is not limited to one building."
+   },
+   "objective": "Identify LAN by coverage area"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "The device that converts digital signals from a computer into analog signals for a telephone line and back again is called a",
+   "options": [
+    "hub",
+    "repeater",
+    "switch",
+    "modem"
+   ],
+   "answer": 4,
+   "explanation": "Modem stands for modulator-demodulator. It modulates digital data into analog form for transmission over telephone or cable lines and demodulates incoming analog signals back to digital. The other devices do not perform this conversion.",
+   "optionRationale": {
+    "1": "A hub only broadcasts incoming data to all ports.",
+    "2": "A repeater regenerates weak signals; it does not convert digital to analog.",
+    "3": "A switch forwards frames to a particular port inside a LAN."
+   },
+   "objective": "State the function of a modem"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which device regenerates a weakened signal so that it can travel a longer distance along a cable?",
+   "options": [
+    "Repeater",
+    "Gateway",
+    "Router",
+    "Modem"
+   ],
+   "answer": 1,
+   "explanation": "Signals lose strength (attenuate) over distance. A repeater receives the weak signal, regenerates it to its original strength and retransmits it, thereby extending the reach of the network cable. This is why long cable runs in a LAN use repeaters, and why a repeater does not change the data or choose a path.",
+   "optionRationale": {
+    "2": "A gateway converts protocols between different networks.",
+    "3": "A router forwards packets between networks using IP addresses.",
+    "4": "A modem converts digital and analog signals."
+   },
+   "objective": "State the function of a repeater"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In the URL https://www.example.com/shop/cart.html, the part \"www.example.com\" is the",
+   "options": [
+    "protocol",
+    "path",
+    "domain name",
+    "file extension"
+   ],
+   "answer": 3,
+   "explanation": "In a URL the text before :// is the protocol (https), the text up to the next slash is the domain name (www.example.com), and the remainder (/shop/cart.html) is the path to the file on the server.",
+   "optionRationale": {
+    "1": "The protocol is \"https\".",
+    "2": "The path is \"/shop/cart.html\".",
+    "4": "The file extension is only \".html\" and is part of the path."
+   },
+   "objective": "Identify the parts of a URL"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which topology connects every node to a single central hub or switch?",
+   "options": [
+    "Bus",
+    "Mesh",
+    "Tree",
+    "Star"
+   ],
+   "answer": 4,
+   "explanation": "In a star topology all nodes have a dedicated cable to one central device. A bus uses one shared backbone, a mesh links every pair of nodes, and a tree is a hierarchy of star networks.",
+   "optionRationale": {
+    "1": "A bus connects all nodes along one common backbone cable.",
+    "2": "A mesh connects each node to every other node.",
+    "3": "A tree is a hierarchy of connected stars with a root node."
+   },
+   "objective": "Identify the star topology"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which statement correctly distinguishes a switch from a hub?",
+   "options": [
+    "A hub forwards data only to the intended device, whereas a switch broadcasts to all ports.",
+    "A switch forwards data only to the port of the intended device, whereas a hub sends it to all ports.",
+    "A switch connects networks that use different protocols, whereas a hub does not.",
+    "A hub uses IP addresses to choose a path, whereas a switch uses domain names."
+   ],
+   "answer": 2,
+   "explanation": "A hub is an unintelligent repeater of data and copies every incoming signal to all its other ports. A switch learns the MAC address of devices attached to each port and forwards a frame only to the destination port, giving better speed and security. Protocol conversion is a gateway function.",
+   "optionRationale": {
+    "1": "This reverses the roles of the two devices.",
+    "3": "Joining networks with different protocols is done by a gateway, not a switch.",
+    "4": "Neither uses domain names; a switch uses MAC addresses and routing by IP is done by routers."
+   },
+   "objective": "Distinguish a switch from a hub"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "How many links are needed to connect 7 computers in a full mesh topology?",
+   "options": [
+    "14",
+    "42",
+    "21",
+    "49"
+   ],
+   "answer": 3,
+   "explanation": "In a full mesh every pair of nodes has one direct link, so the number of links is $\\frac{n(n-1)}{2}$. For $n=7$ this is $\\frac{7\\times 6}{2}=21$. Each computer therefore needs 6 ports. So a mesh of only 7 computers already needs 21 cables, which shows why full mesh networks are costly.",
+   "optionRationale": {
+    "1": "14 would be $2n$, which is not the mesh formula.",
+    "2": "42 counts each link twice ($7\\times 6$) and forgets to divide by 2.",
+    "4": "49 is $7^2$, which would include links from a node to itself."
+   },
+   "objective": "Count links in a mesh topology"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "In a star network, which failure causes the entire network to stop working?",
+   "options": [
+    "Failure of the central switch or hub",
+    "Failure of one workstation",
+    "Breaking of one node cable",
+    "Adding a new node"
+   ],
+   "answer": 1,
+   "explanation": "All data in a star topology passes through the central device, so a fault there isolates every node. A failed workstation or a cut cable only disconnects that one node, and adding a node is easy and does not disturb the rest.",
+   "optionRationale": {
+    "2": "A single workstation failing does not affect the others.",
+    "3": "A broken cable cuts off only the node attached to it.",
+    "4": "New nodes can be added by plugging into a free port."
+   },
+   "objective": "Recognise the single point of failure in a star"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which device is used to connect a LAN to the Internet and to forward packets between different networks using IP addresses?",
+   "options": [
+    "Router",
+    "Hub",
+    "Repeater",
+    "Modem only"
+   ],
+   "answer": 1,
+   "explanation": "A router connects two or more different networks and chooses a path for each data packet by looking at its destination IP address and its routing table. A hub and a repeater work only inside a single network, and a modem merely converts signal type.",
+   "optionRationale": {
+    "2": "A hub just broadcasts data and cannot route between networks.",
+    "3": "A repeater only regenerates signals.",
+    "4": "A modem converts signals; it does not route packets on the basis of IP address."
+   },
+   "objective": "Identify the router as the inter-network forwarding device"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which pair correctly distinguishes static and dynamic webpages?",
+   "options": [
+    "Static: built using a database and server scripts; Dynamic: written only in HTML.",
+    "Static: requires a web server; Dynamic: does not require a web server.",
+    "Static: same content for every visitor; Dynamic: content can change with the visitor or database.",
+    "Static: content is always generated afresh for each user; Dynamic: content is fixed."
+   ],
+   "answer": 3,
+   "explanation": "A static webpage is a fixed file (HTML/CSS) shown identically to everyone until the author edits it. A dynamic webpage is built at request time, typically by server-side scripts and a database, so its content can differ by user, time or action. Both types are delivered by web servers.",
+   "optionRationale": {
+    "1": "This swaps the two definitions.",
+    "2": "Both kinds of pages are delivered by a web server.",
+    "4": "This is the reverse of the real behaviour."
+   },
+   "objective": "Compare static and dynamic webpages"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q11",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "A cookie is best described as",
+   "options": [
+    "a program that automatically installs plug-ins",
+    "a small text file stored on the user computer by the browser for a website",
+    "an extension that blocks advertisements",
+    "a file stored only on the web server that hosts the website"
+   ],
+   "answer": 2,
+   "explanation": "When you visit a site, the server asks the browser to save a small text file (cookie) that records login status, preferences or shopping-cart details. It is stored on the client computer, so the site can recognise you on your next visit. It is data, not a program.",
+   "optionRationale": {
+    "1": "A cookie is not a program and does not install anything.",
+    "3": "Blocking advertisements is done by an add-on such as an ad blocker.",
+    "4": "Cookies live on the user computer, not on the server."
+   },
+   "objective": "Define a cookie"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "A college has 3 departments, each wired as a star network. The three hubs are joined to a main backbone switch. Which topology is this?",
+   "options": [
+    "Bus",
+    "Full mesh",
+    "Ring",
+    "Tree"
+   ],
+   "answer": 4,
+   "explanation": "A tree topology is a hierarchy in which several star networks are linked through a root or backbone device. Here each department star hangs from the main switch, giving a tree. A bus uses one shared cable; a mesh links every pair of nodes directly.",
+   "optionRationale": {
+    "1": "A bus has all nodes on a single cable, not hierarchical stars.",
+    "2": "A full mesh has direct links between every pair of nodes.",
+    "3": "A ring is not in the syllabus list and has nodes joined in a closed loop."
+   },
+   "objective": "Recognise a tree topology from a description"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Voice calls made over the Internet using digital packets are an example of",
+   "options": [
+    "SMTP",
+    "POP3",
+    "VoIP",
+    "HTTP"
+   ],
+   "answer": 3,
+   "explanation": "VoIP (Voice over Internet Protocol) converts voice into digital packets that travel over the Internet, so calls can be made between computers or phones at low cost. SMTP and POP3 are email protocols and HTTP is used for webpages.",
+   "optionRationale": {
+    "1": "SMTP is the protocol for sending email.",
+    "2": "POP3 is used to retrieve incoming email.",
+    "4": "HTTP transfers webpages and is not used for voice calls."
+   },
+   "objective": "Identify VoIP as the application for voice over IP"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "A bank has branch networks in Delhi, Mumbai and Chennai that run different protocols. Which device must be used at each branch edge so that they can exchange data despite the protocol difference?",
+   "options": [
+    "Gateway",
+    "Repeater",
+    "Hub",
+    "Switch"
+   ],
+   "answer": 1,
+   "explanation": "The key detail is that the networks use different protocols. A gateway translates between protocol formats and acts as the entry and exit of a network. A repeater only boosts signals, a hub only copies data to all ports, and a switch forwards frames inside networks that already speak the same protocol.",
+   "optionRationale": {
+    "2": "A repeater regenerates signals; it cannot translate protocols.",
+    "3": "A hub broadcasts data and has no conversion ability.",
+    "4": "A switch works within one network and does no protocol conversion."
+   },
+   "objective": "Select a gateway for networks with different protocols"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A network of n computers in a full mesh needs 45 links. How many ports does each computer need?",
+   "options": [
+    "10",
+    "8",
+    "45",
+    "9"
+   ],
+   "answer": 4,
+   "explanation": "Let $\\frac{n(n-1)}{2}=45$, so $n(n-1)=90$, giving $n=10$ (since $10\\times 9=90$). Each node connects to every other node, so it needs $n-1=9$ ports. Total ports are $10\\times 9=90=2\\times 45$, which confirms it. This confirms that a 10-computer full mesh uses 45 links and 9 ports per computer.",
+   "optionRationale": {
+    "1": "10 is the number of computers, not the ports per computer.",
+    "2": "8 would give only 36 links ($9\\times 8/2$ with $n=9$).",
+    "3": "45 is the total number of links, not ports per node."
+   },
+   "objective": "Reverse the mesh formula to find ports per node"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q16",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Statements:\nA. A hub sends incoming data to all ports, while a switch sends it only to the destination port.\nB. A repeater is used to join two networks that use different protocols.\nC. A router forwards packets between networks using IP addresses.\nD. A modem converts between analog and digital signals.\nWhich statements are correct?",
+   "options": [
+    "A and B only",
+    "A, C and D only",
+    "B, C and D only",
+    "A, B and C only"
+   ],
+   "answer": 2,
+   "explanation": "A is correct (hub broadcasts, switch is selective). C is correct since routers work with IP addresses. D is correct, which is the purpose of modulation and demodulation. B is wrong because joining networks with different protocols is the work of a gateway; a repeater just regenerates signals. So A, C and D are correct.",
+   "optionRationale": {
+    "1": "B is false, so this option containing B cannot be right.",
+    "3": "B is false, and this option also leaves out the correct statement A.",
+    "4": "B is false and this option omits the true statement D."
+   },
+   "objective": "Evaluate statements about network devices"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q17",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Which pair of terms correctly describes who stores and who requests a webpage?",
+   "options": [
+    "Web browser stores and delivers pages; web server requests and displays them.",
+    "Web server stores and delivers pages; web browser requests and displays them.",
+    "Both web browser and web server only store pages; DNS displays them.",
+    "Web server requests and displays pages; hosting provider delivers them."
+   ],
+   "answer": 2,
+   "explanation": "In the client-server model the browser is the client: it sends an HTTP or HTTPS request for a URL and renders the response. The web server stores the website files (provided by a hosting service) and answers the requests. DNS only converts the domain name to an IP address.",
+   "optionRationale": {
+    "1": "This reverses the two roles.",
+    "3": "DNS resolves names to IP addresses; it does not display pages.",
+    "4": "Browsers, not servers, request and display pages."
+   },
+   "objective": "Describe the client-server roles in browsing"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q18",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "After clearing browser cookies, a user finds that a shopping site has logged her out. The best explanation is that",
+   "options": [
+    "the web server deleted her account",
+    "the modem lost its connection with the ISP",
+    "the plug-in required by the site stopped working",
+    "the stored login information kept on her computer was deleted"
+   ],
+   "answer": 4,
+   "explanation": "Many sites keep a small cookie on the user computer to remember that a login session is active. When the cookies are deleted the site no longer finds that information, so it treats the visitor as new and asks to log in again. The account on the server and the network link are unaffected. In short, acknowledging the source is how a user avoids plagiarism.",
+   "optionRationale": {
+    "1": "Clearing cookies on the client does not delete accounts stored on the server.",
+    "2": "A lost modem connection would stop all browsing, not just log her out.",
+    "3": "Plug-ins handle special content types and do not remember login state."
+   },
+   "objective": "Explain the effect of clearing cookies"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q19",
+   "type": "ASSERTION_REASON",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A router can connect a LAN to the Internet.\nReason (R): A router forwards data packets between different networks using IP addresses.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Connecting a LAN to the Internet means moving data between two separate networks. A router does exactly this by reading destination IP addresses and choosing the next hop, so the reason correctly explains the assertion.",
+   "optionRationale": {
+    "2": "(R) is not merely related; it is exactly what lets a router connect a LAN to the Internet.",
+    "3": "(R) is true, so the option claiming R is false is wrong.",
+    "4": "(A) is true, so the option claiming A is false is wrong."
+   },
+   "objective": "Relate the router function to Internet access"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q20",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A star network keeps working when one workstation fails.\nReason (R): In a star topology a single backbone cable carries data for all nodes.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "The assertion is true: each workstation has its own cable to the central device, so one failed node does not affect the others. The reason is false because a single shared backbone cable describes a bus topology, not a star. Hence A is true and R is false.",
+   "optionRationale": {
+    "1": "R is false, so it cannot be a correct explanation.",
+    "2": "R is false, so option 2 (both true) is wrong.",
+    "4": "A is true, so option 4 (A false) is wrong."
+   },
+   "objective": "Contrast star and bus topologies"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q21",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Every webpage on the Internet is a static webpage.\nReason (R): The content of a dynamic webpage can differ for different visitors.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "The assertion is false: online shopping and result pages are dynamic and are generated when requested. The reason is true, since a dynamic page is built by server-side scripts using stored data and so can differ for each visitor, time or action. Hence A is false but R is true.",
+   "optionRationale": {
+    "1": "A is false, so no option that calls A true can be correct.",
+    "2": "A is false, so option 2 fails as well.",
+    "3": "A is false, so (A) true and (R) false is wrong."
+   },
+   "objective": "Distinguish static and dynamic webpages in assertion form"
+  },
+  {
+   "key": "ug26-308-r12-computer-networks-web-q22",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match the device or concept in List-I with its description in List-II.",
+   "options": [
+    "A-I, B-III, C-IV, D-II",
+    "A-III, B-I, C-IV, D-II",
+    "A-III, B-II, C-IV, D-I",
+    "A-IV, B-I, C-III, D-II"
+   ],
+   "answer": 2,
+   "explanation": "A modem (A) converts digital and analog signals (III). A hub (B) broadcasts to all ports (I). A gateway (C) joins networks with different protocols (IV). A repeater (D) regenerates a weak signal (II). So the code is A-III, B-I, C-IV, D-II.",
+   "optionRationale": {
+    "1": "This swaps modem with hub.",
+    "3": "This swaps hub with repeater.",
+    "4": "This assigns the wrong descriptions to modem and gateway."
+   },
+   "objective": "Match devices with their functions",
+   "list": {
+    "left": [
+     "A. Modem",
+     "B. Hub",
+     "C. Gateway",
+     "D. Repeater"
+    ],
+    "right": [
+     "I. Sends incoming data to all ports",
+     "II. Regenerates a weak signal",
+     "III. Converts digital and analog signals",
+     "IV. Joins networks that use different protocols"
+    ]
+   }
+  }
+ ]
+}

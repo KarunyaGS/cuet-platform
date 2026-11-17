@@ -1,0 +1,724 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_0153203deb8f4618a9e7c40fc229a0fd",
+    "title": "Inverse Trigonometric Functions"
+  },
+  "lesson": {
+    "key": "ug26-319-r20-inverse-trigonometric-functions",
+    "title": "Inverse trigonometric functions: domain, range, principal values and graphs",
+    "coverage": [
+      {
+        "phrase": "Inverse Trigonometric Functions",
+        "section": "Why trigonometric functions need restricting"
+      },
+      {
+        "phrase": "Definition",
+        "section": "Definition of the inverse trigonometric functions"
+      },
+      {
+        "phrase": "Domain",
+        "section": "Domain, range and principal value branches"
+      },
+      {
+        "phrase": "Range",
+        "section": "Domain, range and principal value branches"
+      },
+      {
+        "phrase": "Principal value branches",
+        "section": "Domain, range and principal value branches"
+      },
+      {
+        "phrase": "Graphs of inverse trigonometric functions",
+        "section": "Graphs of inverse trigonometric functions"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Why trigonometric functions need restricting"
+      },
+      {
+        "type": "TEXT",
+        "text": "The function $y=\\sin x$ takes the value $\\tfrac12$ at $x=\\tfrac{\\pi}{6},\\ \\tfrac{5\\pi}{6},\\ \\tfrac{13\\pi}{6},\\dots$ and at infinitely many other points. A function has an inverse only if it is **one-one (injective)** and **onto its codomain**. Over the whole real line, none of the six trigonometric functions is one-one, so none has an inverse."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "To obtain an inverse we cut out a part of the domain on which the function is one-one and still takes **all** its values. Such a piece is called a **branch**. The branch that contains the angle $0$ (or is nearest to it) and is used by convention is the **principal value branch**."
+      },
+      {
+        "type": "TEXT",
+        "text": "For example, $\\sin x$ is increasing and takes every value from $-1$ to $1$ exactly once on $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$. So the restricted function $\\sin:\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]\\to[-1,1]$ is a bijection and has an inverse."
+      },
+      {
+        "type": "HEADING",
+        "text": "Definition of the inverse trigonometric functions"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Inverse sine",
+        "text": "$\\sin^{-1}x=y$ means $\\sin y=x$ with $y\\in\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$ and $x\\in[-1,1]$. The symbol $\\sin^{-1}x$ is read \"arc sine of $x$\" and is **not** $\\dfrac{1}{\\sin x}$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Inverse cosine and tangent",
+        "text": "$\\cos^{-1}x=y$ means $\\cos y=x$ with $y\\in[0,\\pi]$. $\\tan^{-1}x=y$ means $\\tan y=x$ with $y\\in\\left(-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right)$. The other three ($\\cot^{-1},\\sec^{-1},\\operatorname{cosec}^{-1}$) are defined the same way on their own branches."
+      },
+      {
+        "type": "TEXT",
+        "text": "In words: an inverse trigonometric function takes a **ratio** and returns the **unique angle in the principal branch** with that ratio. Whenever you are asked for a \"principal value\", the answer must lie in the range given in the table below, whatever the question looks like."
+      },
+      {
+        "type": "HEADING",
+        "text": "Domain, range and principal value branches"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Domain and range (principal value branch) of the six inverse functions",
+        "columns": [
+          "Function",
+          "Domain",
+          "Range (principal value branch)"
+        ],
+        "rows": [
+          [
+            "$\\sin^{-1}x$",
+            "$[-1,1]$",
+            "$\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$"
+          ],
+          [
+            "$\\cos^{-1}x$",
+            "$[-1,1]$",
+            "$[0,\\pi]$"
+          ],
+          [
+            "$\\tan^{-1}x$",
+            "$\\mathbb{R}$",
+            "$\\left(-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right)$"
+          ],
+          [
+            "$\\cot^{-1}x$",
+            "$\\mathbb{R}$",
+            "$(0,\\pi)$"
+          ],
+          [
+            "$\\sec^{-1}x$",
+            "$\\mathbb{R}-(-1,1)$, i.e. $|x|\\ge1$",
+            "$[0,\\pi]-\\left\\{\\tfrac{\\pi}{2}\\right\\}$"
+          ],
+          [
+            "$\\operatorname{cosec}^{-1}x$",
+            "$\\mathbb{R}-(-1,1)$, i.e. $|x|\\ge1$",
+            "$\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]-\\{0\\}$"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "The domain of an inverse function equals the range of the original function, and the range of the inverse equals the restricted domain of the original. So $\\sin^{-1}$ accepts only numbers from $-1$ to $1$, because $\\sin$ produces only those. A number such as $\\sin^{-1}2$ does not exist."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Memory aid: the \"sin, tan, cosec\" family has branches centred on $0$ (between $-\\tfrac{\\pi}{2}$ and $\\tfrac{\\pi}{2}$). The \"cos, cot, sec\" family has branches that start at $0$ and end at $\\pi$. So $\\cos^{-1}$ never returns a negative angle."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Principal values of common inputs",
+        "columns": [
+          "Input",
+          "$\\sin^{-1}$",
+          "$\\cos^{-1}$",
+          "$\\tan^{-1}$"
+        ],
+        "rows": [
+          [
+            "$0$",
+            "$0$",
+            "$\\tfrac{\\pi}{2}$",
+            "$0$"
+          ],
+          [
+            "$\\tfrac12$",
+            "$\\tfrac{\\pi}{6}$",
+            "$\\tfrac{\\pi}{3}$",
+            "(not a standard value)"
+          ],
+          [
+            "$\\tfrac{\\sqrt3}{2}$",
+            "$\\tfrac{\\pi}{3}$",
+            "$\\tfrac{\\pi}{6}$",
+            "(not a standard value)"
+          ],
+          [
+            "$1$",
+            "$\\tfrac{\\pi}{2}$",
+            "$0$",
+            "$\\tfrac{\\pi}{4}$"
+          ],
+          [
+            "$-\\tfrac12$",
+            "$-\\tfrac{\\pi}{6}$",
+            "$\\tfrac{2\\pi}{3}$",
+            "(not a standard value)"
+          ],
+          [
+            "$-1$",
+            "$-\\tfrac{\\pi}{2}$",
+            "$\\pi$",
+            "$-\\tfrac{\\pi}{4}$"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the principal value of (i) $\\sin^{-1}\\left(-\\tfrac{\\sqrt3}{2}\\right)$ and (ii) $\\cos^{-1}\\left(-\\tfrac{1}{2}\\right)$.",
+        "solution": "(i) Let $y=\\sin^{-1}\\left(-\\tfrac{\\sqrt3}{2}\\right)$, so $\\sin y=-\\tfrac{\\sqrt3}{2}$ with $y\\in\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$. We know $\\sin\\tfrac{\\pi}{3}=\\tfrac{\\sqrt3}{2}$ and sine is odd, so $y=-\\tfrac{\\pi}{3}$, which lies in the branch.\n\n(ii) Let $y=\\cos^{-1}\\left(-\\tfrac12\\right)$, so $\\cos y=-\\tfrac12$ with $y\\in[0,\\pi]$. The reference angle is $\\tfrac{\\pi}{3}$ and cosine is negative in the second quadrant, so $y=\\pi-\\tfrac{\\pi}{3}=\\tfrac{2\\pi}{3}$.",
+        "answer": "(i) $-\\tfrac{\\pi}{3}$ (ii) $\\tfrac{2\\pi}{3}$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Properties and simple identities"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\sin^{-1}(-x)=-\\sin^{-1}x,\\quad \\tan^{-1}(-x)=-\\tan^{-1}x,\\quad \\cos^{-1}(-x)=\\pi-\\cos^{-1}x",
+        "text": "Negative arguments: $\\sin^{-1}$ and $\\tan^{-1}$ are odd functions. For $\\cos^{-1}$ subtract from $\\pi$, so the result stays in $[0,\\pi]$. Valid for $x\\in[-1,1]$ ($\\tan^{-1}$: all real $x$)."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\sin^{-1}x+\\cos^{-1}x=\\frac{\\pi}{2},\\quad \\tan^{-1}x+\\cot^{-1}x=\\frac{\\pi}{2}",
+        "text": "Complementary pairs. The first holds for $x\\in[-1,1]$, the second for every real $x$. Likewise $\\sec^{-1}x+\\operatorname{cosec}^{-1}x=\\tfrac{\\pi}{2}$ for $|x|\\ge1$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\sin(\\sin^{-1}x)=x\\ (x\\in[-1,1]),\\qquad \\sin^{-1}(\\sin\\theta)=\\theta\\ \\left(\\theta\\in\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]\\right)",
+        "text": "A function followed by its inverse returns the input only when the input lies in the correct set. If $\\theta$ is outside the branch, first move it into the branch using the periodicity and sign rules of the trigonometric function."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\tan^{-1}x+\\tan^{-1}y=\\tan^{-1}\\frac{x+y}{1-xy}\\quad(xy<1)",
+        "text": "Addition formula. If $xy>1$ and $x,y>0$, add $\\pi$ to the right-hand side. If $xy>1$ and $x,y<0$, subtract $\\pi$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "2\\tan^{-1}x=\\sin^{-1}\\frac{2x}{1+x^2}\\ (|x|\\le1)=\\cos^{-1}\\frac{1-x^2}{1+x^2}\\ (x\\ge0)=\\tan^{-1}\\frac{2x}{1-x^2}\\ (|x|<1)",
+        "text": "Double-angle forms, each valid only in the stated range of $x$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\sin^{-1}\\left(\\sin\\tfrac{3\\pi}{4}\\right)$.",
+        "solution": "The angle $\\tfrac{3\\pi}{4}$ is not in $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$, so the answer is not $\\tfrac{3\\pi}{4}$. First compute $\\sin\\tfrac{3\\pi}{4}=\\sin\\left(\\pi-\\tfrac{\\pi}{4}\\right)=\\sin\\tfrac{\\pi}{4}=\\tfrac{\\sqrt2}{2}$. Now $\\sin^{-1}\\tfrac{\\sqrt2}{2}$ is the angle in $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$ whose sine is $\\tfrac{\\sqrt2}{2}$, namely $\\tfrac{\\pi}{4}$.",
+        "answer": "$\\tfrac{\\pi}{4}$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Prove that $\\tan^{-1}\\tfrac12+\\tan^{-1}\\tfrac13=\\tfrac{\\pi}{4}$.",
+        "solution": "Here $xy=\\tfrac12\\cdot\\tfrac13=\\tfrac16<1$, so the plain formula applies: $\\tan^{-1}\\tfrac12+\\tan^{-1}\\tfrac13=\\tan^{-1}\\dfrac{\\tfrac12+\\tfrac13}{1-\\tfrac16}=\\tan^{-1}\\dfrac{5/6}{5/6}=\\tan^{-1}1=\\tfrac{\\pi}{4}$.",
+        "answer": "$\\tfrac{\\pi}{4}$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistake: writing $\\sin^{-1}(\\sin x)=x$ for every $x$. It is true only for $x\\in\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$. For example $\\cos^{-1}(\\cos 2\\pi)=0$, not $2\\pi$, and $\\sin^{-1}(\\sin\\pi)=0$, not $\\pi$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Graphs of inverse trigonometric functions"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "The graph of an inverse function is the **mirror image of the graph of the restricted original function in the line $y=x$**. Points $(a,b)$ on $y=\\sin x$ become $(b,a)$ on $y=\\sin^{-1}x$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Shape of each graph",
+        "columns": [
+          "Graph",
+          "What you see"
+        ],
+        "rows": [
+          [
+            "$y=\\sin^{-1}x$",
+            "Increasing curve through $(-1,-\\tfrac{\\pi}{2}),(0,0),(1,\\tfrac{\\pi}{2})$, passing through the origin and defined only for $-1\\le x\\le1$. It is odd (symmetric about the origin)."
+          ],
+          [
+            "$y=\\cos^{-1}x$",
+            "Decreasing curve from $(-1,\\pi)$ through $(0,\\tfrac{\\pi}{2})$ to $(1,0)$. It is neither odd nor even."
+          ],
+          [
+            "$y=\\tan^{-1}x$",
+            "Increasing, odd, passes through the origin; has horizontal asymptotes $y=\\tfrac{\\pi}{2}$ and $y=-\\tfrac{\\pi}{2}$ and is defined for all real $x$."
+          ],
+          [
+            "$y=\\cot^{-1}x$",
+            "Decreasing, between the asymptotes $y=\\pi$ (left) and $y=0$ (right); crosses the $y$-axis at $(0,\\tfrac{\\pi}{2})$."
+          ],
+          [
+            "$y=\\sec^{-1}x$",
+            "Two pieces: one for $x\\le-1$ with $y$ from $\\tfrac{\\pi}{2}$ (asymptote) to $\\pi$, and one for $x\\ge1$ with $y$ from $0$ to $\\tfrac{\\pi}{2}$ (asymptote). Nothing exists for $-1<x<1$."
+          ],
+          [
+            "$y=\\operatorname{cosec}^{-1}x$",
+            "Two pieces: for $x\\le-1$, $y$ from $-\\tfrac{\\pi}{2}$ to $0$ (asymptote); for $x\\ge1$, $y$ from $0$ (asymptote) to $\\tfrac{\\pi}{2}$. Nothing exists for $-1<x<1$."
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "Reading values from the graph is a quick check. On $y=\\cos^{-1}x$, the point $(0,\\tfrac{\\pi}{2})$ shows $\\cos^{-1}0=\\tfrac{\\pi}{2}$. On $y=\\tan^{-1}x$, large positive $x$ gives values approaching but never reaching $\\tfrac{\\pi}{2}$, so $\\tan^{-1}x<\\tfrac{\\pi}{2}$ for every real $x$."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Principal ranges to remember: $\\sin^{-1}$: $[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}]$; $\\cos^{-1}$: $[0,\\pi]$; $\\tan^{-1}$: $(-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2})$; $\\cot^{-1}$: $(0,\\pi)$. Square brackets mean the end values are attained; round brackets mean they are not."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Always reduce first: to evaluate $f^{-1}(f(\\theta))$, bring $\\theta$ into the principal branch of $f^{-1}$, then read the value. Check that your final answer lies inside the range in the table."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Exam tip: for $\\sin^{-1}x$ and $\\cos^{-1}x$ the argument must satisfy $|x|\\le1$; for $\\sec^{-1}$ and $\\operatorname{cosec}^{-1}$ it must satisfy $|x|\\ge1$. Many \"find the domain\" questions are just this check applied to a linear expression, such as $-1\\le 2x-1\\le 1$."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "What is the principal value of $\\sin^{-1}\\left(\\tfrac12\\right)$?",
+      "options": [
+        "$\\tfrac{\\pi}{6}$",
+        "$\\tfrac{\\pi}{3}$",
+        "$\\tfrac{5\\pi}{6}$",
+        "$\\tfrac{\\pi}{4}$"
+      ],
+      "answer": 1,
+      "explanation": "We need the angle $y$ in $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$ with $\\sin y=\\tfrac12$. Since $\\sin\\tfrac{\\pi}{6}=\\tfrac12$ and $\\tfrac{\\pi}{6}$ lies in the principal branch, $\\sin^{-1}\\tfrac12=\\tfrac{\\pi}{6}$. The other solution $\\tfrac{5\\pi}{6}$ is outside the branch and is rejected.",
+      "optionRationale": {
+        "2": "$\\sin\\tfrac{\\pi}{3}=\\tfrac{\\sqrt3}{2}$, not $\\tfrac12$.",
+        "3": "$\\sin\\tfrac{5\\pi}{6}=\\tfrac12$ but $\\tfrac{5\\pi}{6}$ lies outside $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$.",
+        "4": "$\\sin\\tfrac{\\pi}{4}=\\tfrac{\\sqrt2}{2}$, not $\\tfrac12$."
+      },
+      "objective": "Find the principal value of sin inverse for a standard ratio"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The range of the principal value branch of $\\cos^{-1}x$ is",
+      "options": [
+        "$\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$",
+        "$[0,\\pi]$",
+        "$(0,\\pi)$",
+        "$(-\\pi,\\pi)$"
+      ],
+      "answer": 2,
+      "explanation": "Cosine is decreasing and one-one on $[0,\\pi]$, taking every value from $1$ down to $-1$. Hence the principal branch of $\\cos^{-1}$ is $[0,\\pi]$, with $\\cos^{-1}1=0$ and $\\cos^{-1}(-1)=\\pi$ both attained, so the interval is closed at both ends.",
+      "optionRationale": {
+        "1": "This is the range of sin inverse, not cos inverse.",
+        "3": "The end points are attained: cos inverse of 1 is 0 and of -1 is pi, so the interval is closed. Open interval is for cot inverse.",
+        "4": "Cos inverse never returns a negative angle."
+      },
+      "objective": "State the range of cos inverse"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The domain of $\\sin^{-1}x$ is",
+      "options": [
+        "$\\mathbb{R}$",
+        "$\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$",
+        "$[-1,1]$",
+        "$(-1,1)$"
+      ],
+      "answer": 3,
+      "explanation": "The domain of an inverse function is the range of the original function. Over the restricted branch, $\\sin$ takes every value from $-1$ to $1$ and no others, so $\\sin^{-1}x$ is defined exactly for $-1\\le x\\le1$, end points included.",
+      "optionRationale": {
+        "1": "Sine never exceeds 1 in magnitude, so sin inverse is not defined for all reals; R is the domain of tan inverse.",
+        "2": "This is the range of sin inverse, not its domain.",
+        "4": "The end values are included: sin inverse of 1 is pi/2 and of -1 is -pi/2."
+      },
+      "objective": "State the domain of sin inverse"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Negative argument for cos inverse: The principal value of $\\cos^{-1}\\left(-\\tfrac12\\right)$ is",
+      "options": [
+        "$-\\tfrac{\\pi}{3}$",
+        "$\\tfrac{\\pi}{3}$",
+        "$\\tfrac{4\\pi}{3}$",
+        "$\\tfrac{2\\pi}{3}$"
+      ],
+      "answer": 4,
+      "explanation": "Using $\\cos^{-1}(-x)=\\pi-\\cos^{-1}x$, we get $\\cos^{-1}\\left(-\\tfrac12\\right)=\\pi-\\tfrac{\\pi}{3}=\\tfrac{2\\pi}{3}$. This lies in $[0,\\pi]$ and $\\cos\\tfrac{2\\pi}{3}=-\\tfrac12$, confirming the answer.",
+      "optionRationale": {
+        "1": "Negative angles are outside the principal branch [0, pi] of cos inverse.",
+        "2": "This is $\\cos^{-1}\\tfrac12$; the sign of the argument was ignored.",
+        "3": "$\\cos\\tfrac{4\\pi}{3}=-\\tfrac12$ but $\\tfrac{4\\pi}{3}>\\pi$ lies outside the branch."
+      },
+      "objective": "Use the negative-argument rule for cos inverse"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Odd-function property: The principal value of $\\tan^{-1}\\left(-\\sqrt3\\right)$ is",
+      "options": [
+        "$-\\tfrac{\\pi}{3}$",
+        "$\\tfrac{\\pi}{3}$",
+        "$\\tfrac{2\\pi}{3}$",
+        "$-\\tfrac{\\pi}{6}$"
+      ],
+      "answer": 1,
+      "explanation": "Since $\\tan^{-1}$ is an odd function, $\\tan^{-1}(-\\sqrt3)=-\\tan^{-1}\\sqrt3=-\\tfrac{\\pi}{3}$. Check: $\\tan\\left(-\\tfrac{\\pi}{3}\\right)=-\\sqrt3$ and $-\\tfrac{\\pi}{3}\\in\\left(-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right)$.",
+      "optionRationale": {
+        "2": "This is tan inverse of positive root 3; tan inverse is odd, so the sign changes.",
+        "3": "tan(2pi/3) = -root 3 but 2pi/3 is outside the branch (-pi/2, pi/2).",
+        "4": "$\\tan\\left(-\\tfrac{\\pi}{6}\\right)=-\\tfrac{1}{\\sqrt3}$, not $-\\sqrt3$."
+      },
+      "objective": "Use oddness of tan inverse"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Angle outside the branch: The value of $\\sin^{-1}\\left(\\sin\\tfrac{2\\pi}{3}\\right)$ is",
+      "options": [
+        "$\\tfrac{2\\pi}{3}$",
+        "$\\tfrac{\\pi}{3}$",
+        "$-\\tfrac{\\pi}{3}$",
+        "$\\tfrac{\\pi}{6}$"
+      ],
+      "answer": 2,
+      "explanation": "First $\\sin\\tfrac{2\\pi}{3}=\\sin\\left(\\pi-\\tfrac{\\pi}{3}\\right)=\\tfrac{\\sqrt3}{2}$. Then $\\sin^{-1}\\tfrac{\\sqrt3}{2}$ is the angle in $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$ with that sine, which is $\\tfrac{\\pi}{3}$. The angle $\\tfrac{2\\pi}{3}$ had to be brought into the branch.",
+      "optionRationale": {
+        "1": "This ignores the principal branch; 2pi/3 is not in [-pi/2, pi/2].",
+        "3": "$\\sin\\left(-\\tfrac{\\pi}{3}\\right)=-\\tfrac{\\sqrt3}{2}$, which is not $\\sin\\tfrac{2\\pi}{3}$.",
+        "4": "$\\sin\\tfrac{\\pi}{6}=\\tfrac12$, not $\\tfrac{\\sqrt3}{2}$."
+      },
+      "objective": "Evaluate sin inverse of sin for an angle outside the branch"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Complementary identity: The value of $\\sin^{-1}\\tfrac35+\\cos^{-1}\\tfrac35$ is",
+      "options": [
+        "$\\pi$",
+        "$\\tfrac{6}{5}$",
+        "$\\tfrac{\\pi}{2}$",
+        "$\\tfrac{\\pi}{4}$"
+      ],
+      "answer": 3,
+      "explanation": "For every $x\\in[-1,1]$, $\\sin^{-1}x+\\cos^{-1}x=\\tfrac{\\pi}{2}$. The argument $\\tfrac35$ lies in $[-1,1]$, so the sum is $\\tfrac{\\pi}{2}$ without computing either angle. (Check: $\\sin^{-1}0.6\\approx 36.87^\\circ$ and $\\cos^{-1}0.6\\approx53.13^\\circ$, which add to $90^\\circ$.)",
+      "optionRationale": {
+        "1": "The sum of the two inverses is pi/2, not pi.",
+        "2": "The angles are not added as ratios; the identity gives a constant angle.",
+        "4": "pi/4 would need the two angles to be equal, which they are not here."
+      },
+      "objective": "Apply the complementary identity"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Secant branch: The principal value of $\\sec^{-1}(2)$ is",
+      "options": [
+        "$\\tfrac{\\pi}{6}$",
+        "$\\tfrac{2\\pi}{3}$",
+        "$\\tfrac{\\pi}{4}$",
+        "$\\tfrac{\\pi}{3}$"
+      ],
+      "answer": 4,
+      "explanation": "$\\sec^{-1}2=y$ means $\\sec y=2$, i.e. $\\cos y=\\tfrac12$ with $y\\in[0,\\pi]$, $y\\neq\\tfrac{\\pi}{2}$. Hence $y=\\tfrac{\\pi}{3}$. The argument $2$ satisfies $|x|\\ge1$, so it is in the domain.",
+      "optionRationale": {
+        "1": "$\\sec\\tfrac{\\pi}{6}=\\tfrac{2}{\\sqrt3}$, not $2$.",
+        "2": "$\\sec\\tfrac{2\\pi}{3}=-2$; the sign is wrong.",
+        "3": "$\\sec\\tfrac{\\pi}{4}=\\sqrt2$, not $2$."
+      },
+      "objective": "Evaluate sec inverse using the reciprocal of cos"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Cosecant branch with a negative argument: The principal value of $\\operatorname{cosec}^{-1}(-2)$ is",
+      "options": [
+        "$-\\tfrac{\\pi}{6}$",
+        "$\\tfrac{\\pi}{6}$",
+        "$-\\tfrac{\\pi}{3}$",
+        "$\\tfrac{7\\pi}{6}$"
+      ],
+      "answer": 1,
+      "explanation": "$\\operatorname{cosec}^{-1}(-2)=y$ means $\\sin y=-\\tfrac12$ with $y\\in\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$, $y\\neq0$. So $y=-\\tfrac{\\pi}{6}$. Equivalently $\\operatorname{cosec}^{-1}(-x)=-\\operatorname{cosec}^{-1}x$, giving $-\\tfrac{\\pi}{6}$.",
+      "optionRationale": {
+        "2": "The sign is lost: cosec inverse is odd, so a negative argument gives a negative angle.",
+        "3": "$\\operatorname{cosec}\\left(-\\tfrac{\\pi}{3}\\right)=-\\tfrac{2}{\\sqrt3}$, not $-2$.",
+        "4": "The cosec inverse branch is [-pi/2, pi/2] minus {0}; 7pi/6 lies outside it."
+      },
+      "objective": "Evaluate cosec inverse of a negative argument"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about principal value branches.\nA. The range of $\\tan^{-1}x$ is $\\left(-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right)$.\nB. The range of $\\cot^{-1}x$ is $(0,\\pi)$.\nC. The range of $\\cos^{-1}x$ is $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$.\nD. The domain of $\\sec^{-1}x$ is $\\mathbb{R}-(-1,1)$.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "A, B and C only",
+        "B, C and D only",
+        "A and D only"
+      ],
+      "answer": 1,
+      "explanation": "A is correct: tan inverse never reaches $\\pm\\tfrac{\\pi}{2}$. B is correct: cot inverse lies strictly between $0$ and $\\pi$. C is wrong: the range of cos inverse is $[0,\\pi]$, and $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$ belongs to sin inverse. D is correct: secant takes values with $|y|\\ge1$ only. So A, B and D are correct.",
+      "optionRationale": {
+        "2": "Statement C is false, so C cannot be included.",
+        "3": "It leaves out A, which is correct, and includes the false statement C.",
+        "4": "It omits B, which is correct."
+      },
+      "objective": "Recall domains and ranges of the inverse functions"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q11",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The function $\\sin x$ has an inverse only after its domain is restricted, for example to $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$.\nReason (R): $\\sin x$ is not one-one on $\\mathbb{R}$, because different angles can have the same sine.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Both statements are true. On $\\mathbb{R}$, $\\sin 0=\\sin\\pi=0$, so sine is many-one and cannot have an inverse. Restricting to $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$ makes it one-one and onto $[-1,1]$. The failure of one-one-ness is exactly why the restriction is needed, so R explains A.",
+      "optionRationale": {
+        "2": "R is not merely true; it is the direct reason the restriction is required.",
+        "3": "R is true: sin 0 = sin pi although 0 and pi differ.",
+        "4": "A is true: the principal branch is exactly a restriction of the domain."
+      },
+      "objective": "Explain why principal branches are needed"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q12",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the inverse functions in List-I with their principal value ranges in List-II.",
+      "options": [
+        "A-III, B-I, C-IV, D-II",
+        "A-I, B-III, C-IV, D-II",
+        "A-III, B-I, C-II, D-IV",
+        "A-IV, B-I, C-III, D-II"
+      ],
+      "answer": 1,
+      "explanation": "$\\sin^{-1}$ has range $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$ (III). $\\cos^{-1}$ has range $[0,\\pi]$ (I). $\\tan^{-1}$ has the open range $\\left(-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right)$ (IV). $\\cot^{-1}$ has the open range $(0,\\pi)$ (II). So the matching is A-III, B-I, C-IV, D-II.",
+      "optionRationale": {
+        "2": "It swaps sin inverse and cos inverse ranges.",
+        "3": "It swaps the open ranges of tan inverse and cot inverse.",
+        "4": "It assigns the closed range of sin inverse to tan inverse and the open one to sin inverse."
+      },
+      "objective": "Match each inverse function with its range",
+      "list": {
+        "left": [
+          "A. $\\sin^{-1}x$",
+          "B. $\\cos^{-1}x$",
+          "C. $\\tan^{-1}x$",
+          "D. $\\cot^{-1}x$"
+        ],
+        "right": [
+          "I. $[0,\\pi]$",
+          "II. $(0,\\pi)$",
+          "III. $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$",
+          "IV. $\\left(-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right)$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q13",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): $\\sin^{-1}\\left(\\sin\\tfrac{3\\pi}{4}\\right)=\\tfrac{3\\pi}{4}$.\nReason (R): The principal value branch of $\\sin^{-1}$ is $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "The assertion is false: $\\sin\\tfrac{3\\pi}{4}=\\tfrac{\\sqrt2}{2}$ and $\\sin^{-1}\\tfrac{\\sqrt2}{2}=\\tfrac{\\pi}{4}$, because $\\tfrac{3\\pi}{4}$ is outside the branch. The reason is a true statement and is in fact why the assertion fails. So A is false but R is true.",
+      "optionRationale": {
+        "1": "A is false, so R cannot explain it as a true statement.",
+        "2": "A is false: the correct value is pi/4.",
+        "3": "R is true, the principal branch of sin inverse is indeed [-pi/2, pi/2]."
+      },
+      "objective": "Recognise that sin inverse of sin returns the angle only inside the branch"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Angle beyond pi: The value of $\\cos^{-1}\\left(\\cos\\tfrac{7\\pi}{6}\\right)$ is",
+      "options": [
+        "$\\tfrac{7\\pi}{6}$",
+        "$\\tfrac{5\\pi}{6}$",
+        "$-\\tfrac{5\\pi}{6}$",
+        "$\\tfrac{\\pi}{6}$"
+      ],
+      "answer": 2,
+      "explanation": "$\\cos\\tfrac{7\\pi}{6}=\\cos\\left(\\pi+\\tfrac{\\pi}{6}\\right)=-\\cos\\tfrac{\\pi}{6}=-\\tfrac{\\sqrt3}{2}$. Then $\\cos^{-1}\\left(-\\tfrac{\\sqrt3}{2}\\right)=\\pi-\\tfrac{\\pi}{6}=\\tfrac{5\\pi}{6}$, which lies in $[0,\\pi]$. Equivalently $\\cos\\tfrac{7\\pi}{6}=\\cos\\left(2\\pi-\\tfrac{7\\pi}{6}\\right)=\\cos\\tfrac{5\\pi}{6}$.",
+      "optionRationale": {
+        "1": "This lies outside [0, pi]; the angle has to be brought into the branch.",
+        "3": "Cos inverse never gives a negative value.",
+        "4": "$\\cos\\tfrac{\\pi}{6}=\\tfrac{\\sqrt3}{2}$, but $\\cos\\tfrac{7\\pi}{6}=-\\tfrac{\\sqrt3}{2}$."
+      },
+      "objective": "Evaluate cos inverse of cos for an angle beyond pi"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Sum of three arctangents: The value of $\\tan^{-1}1+\\tan^{-1}2+\\tan^{-1}3$ is",
+      "options": [
+        "$\\tfrac{\\pi}{2}$",
+        "$\\tfrac{3\\pi}{4}$",
+        "$\\pi$",
+        "$\\tfrac{5\\pi}{4}$"
+      ],
+      "answer": 3,
+      "explanation": "$\\tan^{-1}1=\\tfrac{\\pi}{4}$. For $2$ and $3$, $xy=6>1$ with both positive, so $\\tan^{-1}2+\\tan^{-1}3=\\pi+\\tan^{-1}\\dfrac{5}{1-6}=\\pi+\\tan^{-1}(-1)=\\pi-\\tfrac{\\pi}{4}=\\tfrac{3\\pi}{4}$. The total is $\\tfrac{\\pi}{4}+\\tfrac{3\\pi}{4}=\\pi$. Numerically $45^\\circ+63.43^\\circ+71.57^\\circ=180^\\circ$.",
+      "optionRationale": {
+        "1": "Using the formula without checking $xy<1$ for $2$ and $3$ (here $xy=6>1$) gives this wrong value.",
+        "2": "This is only $\\tan^{-1}2+\\tan^{-1}3$; the $\\tfrac{\\pi}{4}$ from $\\tan^{-1}1$ has been left out.",
+        "4": "This adds the extra pi twice."
+      },
+      "objective": "Add inverse tangents when xy exceeds 1"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Compound-angle problem: The value of $\\sin\\left(\\tan^{-1}\\tfrac34+\\cos^{-1}\\tfrac{5}{13}\\right)$ is",
+      "options": [
+        "$-\\tfrac{33}{65}$",
+        "$\\tfrac{56}{65}$",
+        "$-\\tfrac{16}{65}$",
+        "$\\tfrac{63}{65}$"
+      ],
+      "answer": 4,
+      "explanation": "Let $A=\\tan^{-1}\\tfrac34$: then $\\sin A=\\tfrac35,\\ \\cos A=\\tfrac45$. Let $B=\\cos^{-1}\\tfrac5{13}$: then $\\cos B=\\tfrac5{13},\\ \\sin B=\\tfrac{12}{13}$. So $\\sin(A+B)=\\sin A\\cos B+\\cos A\\sin B=\\tfrac35\\cdot\\tfrac5{13}+\\tfrac45\\cdot\\tfrac{12}{13}=\\tfrac{15+48}{65}=\\tfrac{63}{65}$.",
+      "optionRationale": {
+        "1": "This is $\\sin(A-B)=\\tfrac{15-48}{65}$, the sine of the difference, not the sum.",
+        "2": "This is $\\cos(A-B)=\\tfrac{20+36}{65}$, a cosine formula, not the required sine of the sum.",
+        "3": "This is $\\cos(A+B)=\\tfrac{20-36}{65}$, the cosine of the sum, not its sine."
+      },
+      "objective": "Combine inverse functions using compound-angle formulas"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Double-angle form: $2\\tan^{-1}\\left(\\tfrac12\\right)$ is equal to",
+      "options": [
+        "$\\tan^{-1}\\tfrac43$",
+        "$\\tan^{-1}\\tfrac34$",
+        "$\\sin^{-1}\\tfrac35$",
+        "$\\cos^{-1}\\tfrac45$"
+      ],
+      "answer": 1,
+      "explanation": "With $x=\\tfrac12$ (so $|x|<1$): $2\\tan^{-1}x=\\tan^{-1}\\dfrac{2x}{1-x^2}=\\tan^{-1}\\dfrac{1}{1-\\tfrac14}=\\tan^{-1}\\dfrac{1}{3/4}=\\tan^{-1}\\tfrac43$. As a check $2\\times26.565^\\circ=53.13^\\circ=\\tan^{-1}\\tfrac43$.",
+      "optionRationale": {
+        "2": "This is the value of tan(2A) inverted: with x = 1/2, 2x/(1 - x^2) = 4/3, not 3/4.",
+        "3": "$\\sin^{-1}\\tfrac35=\\tan^{-1}\\tfrac34\\approx36.87^\\circ$, but $2\\tan^{-1}\\tfrac12\\approx53.13^\\circ$.",
+        "4": "$\\cos^{-1}\\tfrac45\\approx36.87^\\circ$, which is not $53.13^\\circ$."
+      },
+      "objective": "Use the double-angle form of tan inverse"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Large angle in radians: The value of $\\cos^{-1}(\\cos 10)$, where $10$ is in radians, is",
+      "options": [
+        "$10$",
+        "$4\\pi-10$",
+        "$10-3\\pi$",
+        "$3\\pi-10$"
+      ],
+      "answer": 2,
+      "explanation": "We need an angle in $[0,\\pi]$ with the same cosine as $10$. Since cosine has period $2\\pi$ and is even, $\\cos10=\\cos(4\\pi-10)$. Numerically $4\\pi\\approx12.566$, so $4\\pi-10\\approx2.566$, which lies in $[0,\\pi]\\approx[0,3.1416]$. Hence $\\cos^{-1}(\\cos10)=4\\pi-10$.",
+      "optionRationale": {
+        "1": "Ten radians is far outside [0, pi], so the answer cannot be 10.",
+        "3": "$\\cos(10-3\\pi)=-\\cos10$, so this has the opposite cosine.",
+        "4": "$3\\pi-10\\approx-0.575$ is negative and so outside the range of $\\cos^{-1}$."
+      },
+      "objective": "Reduce a large angle into the principal branch of cos inverse"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The solution of $\\tan^{-1}(x+1)+\\tan^{-1}(x-1)=\\tan^{-1}\\tfrac{8}{31}$ is",
+      "options": [
+        "$x=-8$",
+        "$x=\\tfrac14$ and $x=-8$",
+        "$x=\\tfrac14$",
+        "$x=4$"
+      ],
+      "answer": 3,
+      "explanation": "Using the addition formula, $\\dfrac{(x+1)+(x-1)}{1-(x^2-1)}=\\dfrac{2x}{2-x^2}=\\dfrac{8}{31}$, so $62x=16-8x^2$, i.e. $4x^2+31x-8=0$, giving $x=\\dfrac{-31\\pm33}{8}$, that is $x=\\tfrac14$ or $x=-8$. The formula needs $(x+1)(x-1)<1$. For $x=\\tfrac14$ the product is $-\\tfrac{15}{16}<1$, valid. For $x=-8$ it is $63>1$, so it is rejected. Hence $x=\\tfrac14$.",
+      "optionRationale": {
+        "1": "Substituting $x=-8$ gives two large negative angles ($\\tan^{-1}(-7)+\\tan^{-1}(-9)$), whose sum is negative, not $\\tan^{-1}\\tfrac{8}{31}>0$. It satisfies the algebra but not the equation.",
+        "2": "x = -8 is extraneous because (x+1)(x-1) = 63 > 1, so the simple addition formula was not valid for it.",
+        "4": "For $x=4$ the left side is $\\tan^{-1}5+\\tan^{-1}3\\approx 78.7^\\circ+71.6^\\circ=150.3^\\circ$, not $\\tan^{-1}\\tfrac8{31}\\approx14.4^\\circ$."
+      },
+      "objective": "Solve an inverse trigonometric equation and test validity of the addition formula"
+    },
+    {
+      "key": "ug26-319-r20-inverse-trigonometric-functions-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The domain of the function $f(x)=\\sin^{-1}(2x-1)$ is",
+      "options": [
+        "$[-1,1]$",
+        "$[-1,0]$",
+        "$\\left[0,\\tfrac12\\right]$",
+        "$[0,1]$"
+      ],
+      "answer": 4,
+      "explanation": "$\\sin^{-1}$ needs its argument in $[-1,1]$, so $-1\\le2x-1\\le1$. Adding $1$: $0\\le2x\\le2$. Dividing by $2$: $0\\le x\\le1$. Hence the domain is $[0,1]$, and the end points are included because $\\sin^{-1}(\\pm1)$ exist.",
+      "optionRationale": {
+        "1": "This is the domain of sin inverse itself, but here the argument is 2x - 1, which must lie in [-1, 1].",
+        "2": "Solving -1 <= 2x - 1 <= 1 gives 0 <= x <= 1, not -1 <= x <= 0.",
+        "3": "The upper limit is wrong: 2x - 1 <= 1 gives x <= 1."
+      },
+      "objective": "Find the domain of a composite inverse trigonometric function"
+    }
+  ]
+}

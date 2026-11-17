@@ -1,0 +1,671 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_54cd72fd83f24e46b08cb0dd9b60dc9f",
+    "title": "Differential Equations"
+  },
+  "lesson": {
+    "key": "ug26-319-r24-differential-equations",
+    "title": "Differential equations: order, degree, solutions and first-order methods",
+    "coverage": [
+      {
+        "phrase": "Definition of a differential equation",
+        "section": "What is a differential equation"
+      },
+      {
+        "phrase": "Order and degree",
+        "section": "Order and degree"
+      },
+      {
+        "phrase": "General and particular solutions",
+        "section": "General and particular solutions"
+      },
+      {
+        "phrase": "Solution of differential equations by method of separation of variables",
+        "section": "Separation of variables"
+      },
+      {
+        "phrase": "Homogeneous differential equations of first order and first degree",
+        "section": "Homogeneous differential equations"
+      },
+      {
+        "phrase": "Solutions of linear differential equation of the type dy/dx + Py = Q, where P and Q are functions of x or constants",
+        "section": "Linear differential equations"
+      },
+      {
+        "phrase": "Solutions of linear differential equation of the type dx/dy + Px = Q, where P and Q are functions of y or constants",
+        "section": "Linear differential equations"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "What is a differential equation"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Differential equation",
+        "text": "An equation that contains an unknown function of one independent variable together with one or more of its **derivatives** is called an (ordinary) differential equation. Example: $\\dfrac{dy}{dx}=3x^2$ and $\\dfrac{d^2y}{dx^2}+y=0$."
+      },
+      {
+        "type": "TEXT",
+        "text": "Differential equations describe how a quantity changes: growth of a population, cooling, motion under a force. Solving one means finding the function $y=f(x)$ (or a relation between $x$ and $y$) which satisfies it for all $x$ in an interval."
+      },
+      {
+        "type": "HEADING",
+        "text": "Order and degree"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Order",
+        "text": "The **order** of a differential equation is the order of the **highest order derivative** present in it."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Degree",
+        "text": "The **degree** is the power (a positive integer) of the highest order derivative **after** the equation has been made a polynomial in its derivatives (free of fractional powers and of derivatives inside other functions). If the equation cannot be written as a polynomial in the derivatives, the degree is **not defined**."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Order and degree of sample equations",
+        "columns": [
+          "Equation",
+          "Order",
+          "Degree"
+        ],
+        "rows": [
+          [
+            "$\\dfrac{dy}{dx}+y=0$",
+            "1",
+            "1"
+          ],
+          [
+            "$\\left(\\dfrac{d^2y}{dx^2}\\right)^3+\\left(\\dfrac{dy}{dx}\\right)^4+y=0$",
+            "2",
+            "3"
+          ],
+          [
+            "$\\dfrac{d^3y}{dx^3}+2\\dfrac{d^2y}{dx^2}+\\dfrac{dy}{dx}=0$",
+            "3",
+            "1"
+          ],
+          [
+            "$\\dfrac{d^2y}{dx^2}+\\sin\\left(\\dfrac{dy}{dx}\\right)=0$",
+            "2",
+            "not defined (derivative inside sine)"
+          ],
+          [
+            "$y'=\\sqrt{1+(y'')^{2}}$ (square both sides: $(y')^2=1+(y'')^2$)",
+            "2",
+            "2"
+          ]
+        ]
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistake: reading the degree from the highest power of any derivative. Only the power of the **highest-order** derivative counts. In $\\left(\\dfrac{d^2y}{dx^2}\\right)^3+\\left(\\dfrac{dy}{dx}\\right)^4$ the degree is $3$, not $4$."
+      },
+      {
+        "type": "HEADING",
+        "text": "General and particular solutions"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "General solution",
+        "text": "A solution containing arbitrary constants. The general solution of an $n$th order equation contains exactly $n$ independent arbitrary constants. It represents a **family** of curves."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Particular solution",
+        "text": "A solution obtained by giving particular values to the arbitrary constants, usually using given conditions such as $y(x_0)=y_0$ (initial condition). It represents a single curve of the family."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "$\\dfrac{dy}{dx}=2x$ has general solution $y=x^2+C$. With the condition $y(1)=3$: $3=1+C\\Rightarrow C=2$, giving the particular solution $y=x^2+2$."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Forming a differential equation.** To find the equation of a family with $n$ arbitrary constants, differentiate the family $n$ times and eliminate the constants. For $y=Ae^{2x}+Be^{-2x}$: $y'=2Ae^{2x}-2Be^{-2x}$ and $y''=4Ae^{2x}+4Be^{-2x}=4y$, so the equation is $y''-4y=0$ (order $2$ for two constants)."
+      },
+      {
+        "type": "HEADING",
+        "text": "Separation of variables"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "If the equation can be written as $\\dfrac{dy}{dx}=f(x)\\,g(y)$, rearrange to $\\dfrac{dy}{g(y)}=f(x)\\,dx$ so that all $y$-terms are on one side and all $x$-terms on the other, then integrate both sides: $\\displaystyle\\int\\frac{dy}{g(y)}=\\int f(x)\\,dx+C$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $\\dfrac{dy}{dx}=xy$ with $y(0)=1$.",
+        "solution": "Separate: $\\dfrac{dy}{y}=x\\,dx$. Integrate: $\\ln|y|=\\dfrac{x^2}2+C$. Using $y(0)=1$: $\\ln1=0+C\\Rightarrow C=0$. So $\\ln y=\\dfrac{x^2}2$, i.e. $y=e^{x^2/2}$.",
+        "answer": "$y=e^{x^2/2}$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $\\dfrac{dy}{dx}=e^{x-y}$ with $y(0)=0$.",
+        "solution": "$e^{x-y}=e^xe^{-y}$, so $e^y\\,dy=e^x\\,dx$. Integrate: $e^y=e^x+C$. Put $x=0,y=0$: $1=1+C\\Rightarrow C=0$. Hence $e^y=e^x$, so $y=x$.",
+        "answer": "$y=x$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Homogeneous differential equations"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Homogeneous equation",
+        "text": "A first-order equation $\\dfrac{dy}{dx}=F(x,y)$ is **homogeneous** if $F(\\lambda x,\\lambda y)=F(x,y)$ for every $\\lambda\\ne0$, i.e. $F$ can be written as a function of $\\dfrac yx$ alone. Example: $\\dfrac{dy}{dx}=\\dfrac{x^2+y^2}{xy}$, since the right side equals $\\dfrac1{y/x}+\\dfrac yx$."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "Substitute $y=vx$ (so $v=\\dfrac yx$). Then $\\dfrac{dy}{dx}=v+x\\dfrac{dv}{dx}$. The equation becomes separable in $v$ and $x$. After integrating, replace $v$ by $\\dfrac yx$. For equations of the form $\\dfrac{dx}{dy}=G\\!\\left(\\dfrac xy\\right)$, substitute $x=vy$ instead."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $\\dfrac{dy}{dx}=\\dfrac{x+y}x$.",
+        "solution": "Put $y=vx$: $v+x\\dfrac{dv}{dx}=\\dfrac{x+vx}x=1+v$. So $x\\dfrac{dv}{dx}=1$, giving $dv=\\dfrac{dx}x$. Integrate: $v=\\ln|x|+C$. Replace $v=\\dfrac yx$: $y=x\\left(\\ln|x|+C\\right)$.",
+        "answer": "$y=x\\ln|x|+Cx$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $\\dfrac{dy}{dx}=\\dfrac yx+\\tan\\dfrac yx$.",
+        "solution": "Put $y=vx$: $v+x\\dfrac{dv}{dx}=v+\\tan v$, so $x\\dfrac{dv}{dx}=\\tan v$. Separate: $\\cot v\\,dv=\\dfrac{dx}x$. Integrate: $\\ln|\\sin v|=\\ln|x|+\\ln|C|$, so $\\sin v=Cx$. Hence $\\sin\\dfrac yx=Cx$.",
+        "answer": "$\\sin\\dfrac yx=Cx$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Linear differential equations"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Linear first-order equation",
+        "text": "An equation that is linear in the unknown function and its derivative. Standard forms: $\\dfrac{dy}{dx}+Py=Q$, where $P,Q$ are functions of $x$ (or constants); and $\\dfrac{dx}{dy}+Px=Q$, where $P,Q$ are functions of $y$ (or constants)."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{I.F.}=e^{\\int P\\,dx},\\qquad y\\cdot(\\text{I.F.})=\\int Q\\cdot(\\text{I.F.})\\,dx+C",
+        "text": "For $\\dfrac{dy}{dx}+Py=Q$. The integrating factor (I.F.) makes the left side the derivative of $y\\cdot\\text{I.F.}$. No constant is needed when finding $\\int P\\,dx$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{I.F.}=e^{\\int P\\,dy},\\qquad x\\cdot(\\text{I.F.})=\\int Q\\cdot(\\text{I.F.})\\,dy+C",
+        "text": "For $\\dfrac{dx}{dy}+Px=Q$, with $P$ and $Q$ functions of $y$ only. The roles of $x$ and $y$ are swapped."
+      },
+      {
+        "type": "TEXT",
+        "text": "If the equation is not in standard form (for instance $x\\dfrac{dy}{dx}+2y=x^2$), divide through by the coefficient of $\\dfrac{dy}{dx}$ first: $\\dfrac{dy}{dx}+\\dfrac2xy=x$. Now $P=\\dfrac2x$ and $Q=x$. Also use $e^{\\ln f(x)}=f(x)$ when simplifying the integrating factor."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $\\dfrac{dy}{dx}+\\dfrac yx=x^2$ for $x>0$.",
+        "solution": "Here $P=\\dfrac1x$, $Q=x^2$. I.F. $=e^{\\int\\frac1x dx}=e^{\\ln x}=x$. Then $yx=\\int x^2\\cdot x\\,dx=\\dfrac{x^4}4+C$. So $y=\\dfrac{x^3}4+\\dfrac Cx$.",
+        "answer": "$y=\\dfrac{x^3}4+\\dfrac Cx$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $\\dfrac{dx}{dy}+x=y$.",
+        "solution": "This is of the form $\\dfrac{dx}{dy}+Px=Q$ with $P=1$, $Q=y$. I.F. $=e^{\\int1\\,dy}=e^y$. Then $xe^y=\\int ye^y\\,dy=ye^y-e^y+C$ (by parts). So $x=y-1+Ce^{-y}$.",
+        "answer": "$x=y-1+Ce^{-y}$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $\\dfrac{dy}{dx}+2y=4x$ given $y(0)=1$.",
+        "solution": "$P=2$, $Q=4x$. I.F. $=e^{2x}$. $ye^{2x}=\\int4xe^{2x}dx=4\\left[\\dfrac{xe^{2x}}2-\\dfrac{e^{2x}}4\\right]=2xe^{2x}-e^{2x}+C$. So $y=2x-1+Ce^{-2x}$. Using $y(0)=1$: $1=-1+C\\Rightarrow C=2$. Hence $y=2x-1+2e^{-2x}$.",
+        "answer": "$y=2x-1+2e^{-2x}$"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Number of arbitrary constants in the general solution equals the order. Degree is defined only when the equation is a polynomial in the derivatives."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Choosing the method: $\\dfrac{dy}{dx}=f(x)g(y)$ $\\Rightarrow$ separate variables; right side a function of $\\dfrac yx$ $\\Rightarrow$ homogeneous, $y=vx$; $\\dfrac{dy}{dx}+Py=Q$ $\\Rightarrow$ I.F. $e^{\\int P\\,dx}$; $\\dfrac{dx}{dy}+Px=Q$ $\\Rightarrow$ I.F. $e^{\\int P\\,dy}$."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Exam tip: always write a linear equation in standard form before reading off $P$. In $x\\dfrac{dy}{dx}+2y=x^2$ the I.F. is $e^{\\int\\frac2x dx}=x^2$, **not** $e^{\\int2\\,dx}$."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r24-differential-equations-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Highest derivative and its power: The order and degree of $\\left(\\dfrac{d^2y}{dx^2}\\right)^3+\\left(\\dfrac{dy}{dx}\\right)^4+y=0$ are respectively",
+      "options": [
+        "$2$ and $3$",
+        "$3$ and $2$",
+        "$1$ and $4$",
+        "$2$ and $4$"
+      ],
+      "answer": 1,
+      "explanation": "The highest derivative present is $\\dfrac{d^2y}{dx^2}$, so the order is $2$. The equation is a polynomial in the derivatives, and the power of $\\dfrac{d^2y}{dx^2}$ is $3$, so the degree is $3$.",
+      "optionRationale": {
+        "2": "The order is the order of the highest derivative (2), and the degree is its power (3); the numbers were swapped.",
+        "3": "The highest order derivative is the second derivative, not the first.",
+        "4": "The degree is the power of the highest-order derivative, which is 3, not the power of the first derivative."
+      },
+      "objective": "Find the order and degree of a differential equation"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The general solution of a third-order differential equation contains how many independent arbitrary constants?",
+      "options": [
+        "$1$",
+        "$2$",
+        "$3$",
+        "$4$"
+      ],
+      "answer": 3,
+      "explanation": "The general solution of an $n$th order differential equation has $n$ independent arbitrary constants, because roughly $n$ integrations are involved in recovering $y$ from its $n$th derivative, and each integration introduces one constant. For a third-order equation, $n=3$, so there are three constants.",
+      "optionRationale": {
+        "1": "One constant arises for a first-order equation, not a third-order one.",
+        "2": "Two constants arise for a second-order equation.",
+        "4": "The number of constants equals the order, which is 3."
+      },
+      "objective": "Relate order to the number of arbitrary constants"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The integrating factor of $\\dfrac{dy}{dx}+2y=e^x$ is",
+      "options": [
+        "$e^{x}$",
+        "$e^{2x}$",
+        "$2x$",
+        "$e^{-2x}$"
+      ],
+      "answer": 2,
+      "explanation": "In $\\dfrac{dy}{dx}+Py=Q$ the integrating factor is $e^{\\int P\\,dx}$. Here $P=2$, so $\\int2\\,dx=2x$ and the integrating factor is $e^{2x}$.",
+      "optionRationale": {
+        "1": "This is the right-hand side Q, not the integrating factor e to the integral of P.",
+        "3": "The integrating factor is an exponential: e to the power of the integral of P.",
+        "4": "The sign of the exponent is wrong; the integrating factor is e to the integral of P, with P = 2."
+      },
+      "objective": "Find the integrating factor of a linear equation"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The curve of the family $\\dfrac{dy}{dx}=2x$ that passes through the point $(1,3)$ is",
+      "options": [
+        "$y=x^2+2$",
+        "$y=x^2+3$",
+        "$y=x^2-2$",
+        "$y=2x+1$"
+      ],
+      "answer": 1,
+      "explanation": "Integrate both sides with respect to $x$: $y=x^2+C$, the general solution (a family of parabolas). The curve through $(1,3)$ has $3=1^2+C$, so $C=2$. The particular solution is $y=x^2+2$.",
+      "optionRationale": {
+        "2": "This takes C = 3, ignoring the point: the condition y(1) = 3 gives 3 = 1 + C, so C = 2.",
+        "3": "This gives y(1) = -1, not 3.",
+        "4": "Its derivative is 2, not 2x; this is not a member of the family."
+      },
+      "objective": "Find a particular solution from a point on the curve"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following differential equations has its degree **not defined**?",
+      "options": [
+        "$\\left(\\dfrac{dy}{dx}\\right)^3+y=0$",
+        "$\\dfrac{d^3y}{dx^3}+\\dfrac{dy}{dx}=0$",
+        "$\\left(\\dfrac{d^2y}{dx^2}\\right)^2+x=0$",
+        "$\\dfrac{d^2y}{dx^2}+\\sin\\left(\\dfrac{dy}{dx}\\right)=0$"
+      ],
+      "answer": 4,
+      "explanation": "Degree is defined only when the equation is a polynomial in its derivatives. In $\\dfrac{d^2y}{dx^2}+\\sin\\left(\\dfrac{dy}{dx}\\right)=0$ the derivative $\\dfrac{dy}{dx}$ appears inside a sine function, so the equation cannot be written as a polynomial in the derivatives. Its degree is not defined.",
+      "optionRationale": {
+        "1": "This is a polynomial in dy/dx, with degree 3.",
+        "2": "This is a polynomial in the derivatives, with degree 1.",
+        "3": "This is a polynomial in the derivative, with degree 2."
+      },
+      "objective": "Identify when the degree is not defined"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Separation of variables: The particular solution of $\\dfrac{dy}{dx}=xy$ with $y(0)=2$ is",
+      "options": [
+        "$y=2e^{x^2}$",
+        "$y=2e^{x^2/2}$",
+        "$y=e^{x^2/2}+1$",
+        "$y=2+\\dfrac{x^2}2$"
+      ],
+      "answer": 2,
+      "explanation": "Separate: $\\dfrac{dy}y=x\\,dx$. Integrate: $\\ln|y|=\\dfrac{x^2}2+C$, so $y=Ae^{x^2/2}$ with $A=e^C$. At $x=0$, $y=2$: $2=A$. Thus $y=2e^{x^2/2}$.",
+      "optionRationale": {
+        "1": "The integral of x is x squared over 2, not x squared.",
+        "3": "The constant enters as a factor, not as an added term: y = A e^{x^2/2}.",
+        "4": "Integrating dy/y gives ln y, not y; the solution is exponential."
+      },
+      "objective": "Solve a separable equation with an initial condition"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Linear equation in x: The general solution of $\\dfrac{dy}{dx}+\\dfrac yx=x^2$ is",
+      "options": [
+        "$y=\\dfrac{x^3}3+\\dfrac Cx$",
+        "$y=\\dfrac{x^3}4+C$",
+        "$y=\\dfrac{x^3}4+\\dfrac Cx$",
+        "$y=\\dfrac{x^3}4+Cx$"
+      ],
+      "answer": 3,
+      "explanation": "Standard form with $P=\\dfrac1x$, $Q=x^2$. I.F. $=e^{\\ln x}=x$. Then $xy=\\int x^3dx=\\dfrac{x^4}4+C$, so $y=\\dfrac{x^3}4+\\dfrac Cx$. Check by substitution: $y'+\\dfrac yx=\\dfrac{3x^2}4-\\dfrac C{x^2}+\\dfrac{x^2}4+\\dfrac C{x^2}=x^2$.",
+      "optionRationale": {
+        "1": "The integral of x squared times the integrating factor x is x to the fourth over 4, not x cubed over 3.",
+        "2": "Dividing by the integrating factor x also divides the constant: C / x.",
+        "4": "The constant ends up as C / x because we divide by the integrating factor x."
+      },
+      "objective": "Solve a linear equation dy/dx + Py = Q"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Linear equation in y: The general solution of $\\dfrac{dx}{dy}+x=y$ is",
+      "options": [
+        "$x=y+1+Ce^{-y}$",
+        "$x=y-1+Ce^{y}$",
+        "$x=y-1+C$",
+        "$x=y-1+Ce^{-y}$"
+      ],
+      "answer": 4,
+      "explanation": "Here $P=1$, $Q=y$ (functions of $y$). I.F. $=e^{\\int1\\,dy}=e^y$. $xe^y=\\int ye^y\\,dy=ye^y-e^y+C$. Dividing by $e^y$: $x=y-1+Ce^{-y}$.",
+      "optionRationale": {
+        "1": "Integrating y e^y by parts gives (y - 1) e^y, not (y + 1) e^y.",
+        "2": "The factor e^{-y} arises from dividing by the integrating factor e^y.",
+        "3": "The arbitrary constant is divided by the integrating factor, giving C e^{-y}."
+      },
+      "objective": "Solve a linear equation dx/dy + Px = Q"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Homogeneous equation: The general solution of $\\dfrac{dy}{dx}=\\dfrac{x+y}x$ is",
+      "options": [
+        "$y=x\\ln|x|+Cx$",
+        "$y=x\\ln|x|+C$",
+        "$y=\\ln|x|+Cx$",
+        "$y=x^2+Cx$"
+      ],
+      "answer": 1,
+      "explanation": "Put $y=vx$, so $\\dfrac{dy}{dx}=v+x\\dfrac{dv}{dx}$. Then $v+x\\dfrac{dv}{dx}=1+v$, giving $x\\dfrac{dv}{dx}=1$, so $v=\\ln|x|+C$. With $v=\\dfrac yx$, $y=x\\ln|x|+Cx$.",
+      "optionRationale": {
+        "2": "The constant multiplies x because y = vx with v = ln|x| + C.",
+        "3": "The factor x multiplying ln|x| is missing; y = vx.",
+        "4": "Substituting y = vx gives x dv/dx = 1, so v = ln|x| + C, not x."
+      },
+      "objective": "Solve a homogeneous equation using y = vx"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements.\nA. The order of a differential equation is the order of the highest derivative in it.\nB. The degree is defined only if the equation is a polynomial in its derivatives.\nC. The general solution of an $n$th order equation contains $n$ arbitrary constants.\nD. A particular solution contains arbitrary constants.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A and D only",
+        "B, C and D only",
+        "A, B, C and D"
+      ],
+      "answer": 1,
+      "explanation": "A is the definition of order. B is correct: degree needs a polynomial in the derivatives. C is correct: $n$ integrations give $n$ constants. D is wrong: a particular solution has the constants fixed by given conditions, so it has none left. So A, B and C are correct.",
+      "optionRationale": {
+        "2": "D is false, and B and C are also true, so A and D alone cannot be right.",
+        "3": "D is false, and A is true, which this option leaves out.",
+        "4": "D is false because a particular solution has no arbitrary constants."
+      },
+      "objective": "Evaluate statements on order, degree and solutions"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q11",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the type of equation in List-I with the method of solution in List-II.",
+      "options": [
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-III, B-II, C-I, D-IV"
+      ],
+      "answer": 1,
+      "explanation": "$\\dfrac{dy}{dx}=f(x)g(y)$ is separable, so separate the variables (A-I). $\\dfrac{dy}{dx}=F\\!\\left(\\dfrac yx\\right)$ is homogeneous: put $y=vx$ (B-II). $\\dfrac{dy}{dx}+Py=Q$ uses the integrating factor $e^{\\int P\\,dx}$ (C-III). $\\dfrac{dx}{dy}+Px=Q$ uses $e^{\\int P\\,dy}$ (D-IV).",
+      "optionRationale": {
+        "2": "It swaps the separable and homogeneous methods for A and B.",
+        "3": "It swaps the integrating factors e^{∫P dx} and e^{∫P dy} for C and D.",
+        "4": "It assigns the integrating factor to the separable equation and separation to the linear one."
+      },
+      "objective": "Match equation types with solution methods",
+      "list": {
+        "left": [
+          "A. $\\dfrac{dy}{dx}=f(x)g(y)$",
+          "B. $\\dfrac{dy}{dx}=F\\left(\\dfrac yx\\right)$",
+          "C. $\\dfrac{dy}{dx}+Py=Q$, $P,Q$ functions of $x$",
+          "D. $\\dfrac{dx}{dy}+Px=Q$, $P,Q$ functions of $y$"
+        ],
+        "right": [
+          "I. Separate the variables and integrate",
+          "II. Substitute $y=vx$",
+          "III. Integrating factor $e^{\\int P\\,dx}$",
+          "IV. Integrating factor $e^{\\int P\\,dy}$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q12",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The equation $\\dfrac{dy}{dx}=\\dfrac{x^2+y^2}{xy}$ is homogeneous.\nReason (R): Its right-hand side can be written as a function of $\\dfrac yx$ alone.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Divide numerator and denominator by $x^2$: $\\dfrac{x^2+y^2}{xy}=\\dfrac{1+(y/x)^2}{y/x}$, which depends only on $\\dfrac yx$. This is exactly the definition of a homogeneous first-order equation, so A is true and R is the correct explanation.",
+      "optionRationale": {
+        "2": "R is the definition of homogeneity applied to this equation, so it is the explanation.",
+        "3": "R is true: the right side equals (1 + v squared)/v with v = y/x.",
+        "4": "A is true, since the right side has degree zero in x and y."
+      },
+      "objective": "Recognise a homogeneous equation"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Exponential separation: The solution of $\\dfrac{dy}{dx}=e^{x-y}$ with $y(0)=0$ is",
+      "options": [
+        "$y=e^x-1$",
+        "$y=x$",
+        "$y=\\ln\\left(e^x+1\\right)$",
+        "$y=x+1$"
+      ],
+      "answer": 2,
+      "explanation": "Write $\\dfrac{dy}{dx}=e^xe^{-y}$ and separate: $e^y\\,dy=e^x\\,dx$. Integrate: $e^y=e^x+C$. With $y(0)=0$: $1=1+C$, so $C=0$. Then $e^y=e^x$ and $y=x$.",
+      "optionRationale": {
+        "1": "This results from integrating e^y dy as y instead of e^y.",
+        "3": "This takes C = 1, but the condition y(0) = 0 gives e^0 = e^0 + C, so C = 0.",
+        "4": "It fails the initial condition: at x = 0 it gives y = 1, not 0."
+      },
+      "objective": "Separate variables with exponentials and apply an initial condition"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Trigonometric integrating factor: The general solution of $\\dfrac{dy}{dx}+y\\tan x=\\sec x$ is",
+      "options": [
+        "$y=\\sin x+C$",
+        "$y=\\cos x+C\\sin x$",
+        "$y=\\sin x+C\\cos x$",
+        "$y=\\tan x+C\\cos x$"
+      ],
+      "answer": 3,
+      "explanation": "$P=\\tan x$, so I.F. $=e^{\\int\\tan x\\,dx}=e^{\\ln|\\sec x|}=\\sec x$. Then $y\\sec x=\\int\\sec x\\cdot\\sec x\\,dx=\\tan x+C$. Multiply by $\\cos x$: $y=\\sin x+C\\cos x$.",
+      "optionRationale": {
+        "1": "Dividing by the integrating factor sec x multiplies the constant by cos x.",
+        "2": "The integral of sec squared x is tan x; with I.F. sec x this gives y sec x = tan x + C.",
+        "4": "y sec x = tan x + C gives y = sin x + C cos x after multiplying by cos x."
+      },
+      "objective": "Solve a linear equation with a trigonometric integrating factor"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Homogeneous with tangent: The general solution of $\\dfrac{dy}{dx}=\\dfrac yx+\\tan\\dfrac yx$ is",
+      "options": [
+        "$\\cos\\dfrac yx=Cx$",
+        "$\\tan\\dfrac yx=Cx$",
+        "$\\sin\\dfrac yx=\\dfrac Cx$",
+        "$\\sin\\dfrac yx=Cx$"
+      ],
+      "answer": 4,
+      "explanation": "Put $y=vx$: $v+x\\dfrac{dv}{dx}=v+\\tan v$, so $x\\dfrac{dv}{dx}=\\tan v$. Separate: $\\cot v\\,dv=\\dfrac{dx}x$. Integrate: $\\ln|\\sin v|=\\ln|x|+\\ln|C|$, so $\\sin v=Cx$, i.e. $\\sin\\dfrac yx=Cx$.",
+      "optionRationale": {
+        "1": "The separation gives cot v dv = dx/x, whose integral is ln sin v, not ln cos v.",
+        "2": "The left side integrates cot v to ln sin v, not ln tan v.",
+        "3": "ln sin v = ln x + ln C gives sin v = Cx, not C / x."
+      },
+      "objective": "Solve a homogeneous equation involving a trigonometric function"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Linear initial value problem: The solution of $\\dfrac{dy}{dx}+2y=4x$ with $y(0)=1$ is",
+      "options": [
+        "$y=2x-1+2e^{-2x}$",
+        "$y=2x-1+3e^{-2x}$",
+        "$y=2x-1+e^{-2x}$",
+        "$y=2x-1+2e^{2x}$"
+      ],
+      "answer": 1,
+      "explanation": "I.F. $=e^{2x}$. $ye^{2x}=\\int4xe^{2x}dx=2xe^{2x}-e^{2x}+C$ (by parts). So $y=2x-1+Ce^{-2x}$. The condition $y(0)=1$ gives $1=-1+C$, so $C=2$. Hence $y=2x-1+2e^{-2x}$. Check: $y'+2y=2-4e^{-2x}+4x-2+4e^{-2x}=4x$.",
+      "optionRationale": {
+        "2": "This gives y(0) = -1 + 3 = 2, not 1.",
+        "3": "This gives y(0) = -1 + 1 = 0, not 1.",
+        "4": "It does not satisfy the equation; the exponential term must be e^{-2x}."
+      },
+      "objective": "Solve a linear initial value problem"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The differential equation of the family of curves $y=Ae^{2x}+Be^{-2x}$, where $A,B$ are arbitrary constants, is",
+      "options": [
+        "$\\dfrac{d^2y}{dx^2}+4y=0$",
+        "$\\dfrac{d^2y}{dx^2}-4y=0$",
+        "$\\dfrac{dy}{dx}-2y=0$",
+        "$\\dfrac{d^2y}{dx^2}-2y=0$"
+      ],
+      "answer": 2,
+      "explanation": "$y'=2Ae^{2x}-2Be^{-2x}$ and $y''=4Ae^{2x}+4Be^{-2x}=4y$. Eliminating $A$ and $B$ gives $\\dfrac{d^2y}{dx^2}-4y=0$. The order is $2$, matching the two arbitrary constants.",
+      "optionRationale": {
+        "1": "Differentiating twice gives 4y, so y double prime minus 4y = 0, not plus.",
+        "3": "A first-order equation has only one constant; here there are two constants A and B, so the order is 2.",
+        "4": "The second derivative equals 4y, since each exponential gains a factor 2 squared = 4."
+      },
+      "objective": "Form a differential equation by eliminating constants"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The differential equation of the family of parabolas $y^2=4ax$, where $a$ is an arbitrary constant, is",
+      "options": [
+        "$2y=x\\dfrac{dy}{dx}$",
+        "$y\\dfrac{dy}{dx}=2x$",
+        "$y=2x\\dfrac{dy}{dx}$",
+        "$\\dfrac{dy}{dx}=2xy$"
+      ],
+      "answer": 3,
+      "explanation": "Differentiate $y^2=4ax$: $2y\\dfrac{dy}{dx}=4a$. Since $4a=\\dfrac{y^2}x$, we get $2y\\dfrac{dy}{dx}=\\dfrac{y^2}x$, so (for $y\\ne0$) $2x\\dfrac{dy}{dx}=y$, i.e. $y=2x\\dfrac{dy}{dx}$. One constant gives a first-order equation.",
+      "optionRationale": {
+        "1": "This is the equation of the family y = C x squared, not y squared = 4ax.",
+        "2": "This comes from y squared = 2 x squared + C, not the given family.",
+        "4": "This is a separable equation with solution y = C e^{x squared}, not a parabola."
+      },
+      "objective": "Eliminate the parameter from a family of parabolas"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Inverse tangent separation: The solution of $\\dfrac{dy}{dx}=\\dfrac{1+y^2}{1+x^2}$ with $y(0)=\\sqrt3$ is",
+      "options": [
+        "$y=\\dfrac{x-\\sqrt3}{1+\\sqrt3\\,x}$",
+        "$y=\\dfrac{x+\\sqrt3}{1+\\sqrt3\\,x}$",
+        "$y=x+\\sqrt3$",
+        "$y=\\dfrac{x+\\sqrt3}{1-\\sqrt3\\,x}$"
+      ],
+      "answer": 4,
+      "explanation": "Separate: $\\dfrac{dy}{1+y^2}=\\dfrac{dx}{1+x^2}$. Integrate: $\\tan^{-1}y=\\tan^{-1}x+C$. At $x=0$, $y=\\sqrt3$: $\\dfrac\\pi3=0+C$. So $\\tan^{-1}y=\\tan^{-1}x+\\dfrac\\pi3$; taking tangent and using $\\tan(A+B)=\\dfrac{\\tan A+\\tan B}{1-\\tan A\\tan B}$ gives $y=\\dfrac{x+\\sqrt3}{1-\\sqrt3\\,x}$.",
+      "optionRationale": {
+        "1": "This is tan(A - pi/3); the constant is +pi/3 because tan inverse of root 3 is pi/3.",
+        "2": "The tangent addition formula has a minus sign in the denominator: 1 - tan A tan B.",
+        "3": "This does not satisfy the equation: y prime = 1, but (1 + y squared)/(1 + x squared) is not 1."
+      },
+      "objective": "Combine separation of variables with inverse tangent addition"
+    },
+    {
+      "key": "ug26-319-r24-differential-equations-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If $y(x)$ satisfies $x\\dfrac{dy}{dx}+2y=x^2$ for $x>0$ and $y(1)=1$, then $y(2)=$",
+      "options": [
+        "$\\dfrac{19}{16}$",
+        "$\\dfrac{5}4$",
+        "$1$",
+        "$\\dfrac{13}{16}$"
+      ],
+      "answer": 1,
+      "explanation": "Standard form: $\\dfrac{dy}{dx}+\\dfrac2xy=x$. I.F. $=e^{2\\ln x}=x^2$. $x^2y=\\int x^3dx=\\dfrac{x^4}4+C$, so $y=\\dfrac{x^2}4+\\dfrac C{x^2}$. From $y(1)=1$: $1=\\dfrac14+C$, so $C=\\dfrac34$. Then $y(2)=\\dfrac44+\\dfrac{3/4}4=1+\\dfrac3{16}=\\dfrac{19}{16}$.",
+      "optionRationale": {
+        "2": "This takes C = 1 instead of 3/4, giving 1 + 1/4; the condition y(1) = 1 forces C = 3/4.",
+        "3": "This ignores the C / x squared term entirely.",
+        "4": "This subtracts the C term (x squared / 4 - 3/(4 x squared)); it should be added."
+      },
+      "objective": "Solve a linear initial value problem after converting to standard form"
+    }
+  ]
+}

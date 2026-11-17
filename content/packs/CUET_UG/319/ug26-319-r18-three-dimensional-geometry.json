@@ -1,0 +1,689 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_b081fd3fc3514134bea78605efe93301",
+    "title": "Three-dimensional Geometry"
+  },
+  "lesson": {
+    "key": "ug26-319-r18-three-dimensional-geometry",
+    "title": "Three-dimensional geometry: lines, angle between lines, skew lines and shortest distance",
+    "coverage": [
+      {
+        "phrase": "Three-dimensional Geometry",
+        "section": "Direction cosines and direction ratios of a line joining two points"
+      },
+      {
+        "phrase": "Direction cosines and direction ratios of a line joining two points",
+        "section": "Direction cosines and direction ratios of a line joining two points"
+      },
+      {
+        "phrase": "Cartesian equation and vector equation of a line",
+        "section": "Cartesian and vector equation of a line"
+      },
+      {
+        "phrase": "skew lines",
+        "section": "Skew lines"
+      },
+      {
+        "phrase": "shortest distance between two lines",
+        "section": "Shortest distance between two lines"
+      },
+      {
+        "phrase": "Angle between two lines",
+        "section": "Angle between two lines"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Direction cosines and direction ratios of a line joining two points"
+      },
+      {
+        "type": "TEXT",
+        "text": "In three dimensions a point is given by coordinates $(x,y,z)$ and a straight line is described by a point on it together with a direction. The direction of a line is measured by the angles it makes with the coordinate axes."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Direction cosines (DCs)",
+        "text": "If a directed line makes angles $\\alpha,\\beta,\\gamma$ with the positive $x,y,z$ axes, then $l=\\cos\\alpha,\\ m=\\cos\\beta,\\ n=\\cos\\gamma$ are its **direction cosines**, and $l^2+m^2+n^2=1$. Reversing the direction changes all three signs. The axes themselves have DCs $(1,0,0)$, $(0,1,0)$, $(0,0,1)$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Direction ratios (DRs)",
+        "text": "Any three numbers $a,b,c$ proportional to $l,m,n$ are **direction ratios** of the line. So $l=\\dfrac{a}{\\sqrt{a^2+b^2+c^2}},\\ m=\\dfrac{b}{\\sqrt{a^2+b^2+c^2}},\\ n=\\dfrac{c}{\\sqrt{a^2+b^2+c^2}}$ (all signs together reversed for the opposite direction)."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{DRs of }PQ=(x_2-x_1,\\ y_2-y_1,\\ z_2-z_1),\\qquad \\text{DCs}=\\frac{(x_2-x_1,\\ y_2-y_1,\\ z_2-z_1)}{PQ}",
+        "text": "For the line through $P(x_1,y_1,z_1)$ and $Q(x_2,y_2,z_2)$, the coordinate differences are direction ratios, and $PQ=\\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}$. Dividing the differences by $PQ$ gives the direction cosines."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the direction ratios and direction cosines of the line joining $P(3,-1,2)$ and $Q(5,2,8)$.",
+        "solution": "The differences are $(5-3,\\ 2-(-1),\\ 8-2)=(2,3,6)$, which are the direction ratios. The length is $PQ=\\sqrt{4+9+36}=7$. Hence the direction cosines are $\\left(\\tfrac27,\\tfrac37,\\tfrac67\\right)$. Check: $\\tfrac{4+9+36}{49}=1$. For the line directed from $Q$ to $P$ they would be $\\left(-\\tfrac27,-\\tfrac37,-\\tfrac67\\right)$.",
+        "answer": "DRs $2,3,6$; DCs $\\tfrac27,\\tfrac37,\\tfrac67$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Direction ratios are not unique (2,3,6 and 4,6,12 describe the same line direction). Direction cosines are unique up to an overall sign. Do not confuse the two when an option lists unnormalised numbers."
+      },
+      {
+        "type": "HEADING",
+        "text": "Cartesian and vector equation of a line"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "A line is fixed by one point on it and its direction. In vector form the point is given by its position vector $\\vec a$ and the direction by a vector $\\vec b$ parallel to the line; any point $\\vec r$ of the line is reached by adding a multiple of $\\vec b$ to $\\vec a$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\vec r=\\vec a+\\lambda\\vec b\\quad(\\lambda\\in\\mathbb R)",
+        "text": "**Vector equation of a line** through the point with position vector $\\vec a$ and parallel to $\\vec b$. The scalar $\\lambda$ is the parameter: each value of $\\lambda$ gives one point of the line."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\frac{x-x_1}{a}=\\frac{y-y_1}{b}=\\frac{z-z_1}{c}",
+        "text": "**Cartesian (symmetric) form** of the line through $(x_1,y_1,z_1)$ with direction ratios $a,b,c$. Writing each ratio equal to $\\lambda$ gives $x=x_1+a\\lambda,\\ y=y_1+b\\lambda,\\ z=z_1+c\\lambda$. If some direction ratio is $0$, say $b=0$, the corresponding numerator is zero: $y=y_1$, and the equation is written $\\frac{x-x_1}{a}=\\frac{z-z_1}{c},\\ y=y_1$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\vec r=\\vec a+\\lambda(\\vec b-\\vec a),\\qquad \\frac{x-x_1}{x_2-x_1}=\\frac{y-y_1}{y_2-y_1}=\\frac{z-z_1}{z_2-z_1}",
+        "text": "**Line through two points** $A(\\vec a)=(x_1,y_1,z_1)$ and $B(\\vec b)=(x_2,y_2,z_2)$: the direction vector is $\\overrightarrow{AB}=\\vec b-\\vec a$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Write the vector and Cartesian equations of the line through $A(1,2,3)$ and $B(2,4,7)$.",
+        "solution": "The direction vector is $\\overrightarrow{AB}=(2-1,\\ 4-2,\\ 7-3)=(1,2,4)$. Vector form: $\\vec r=(\\hat i+2\\hat j+3\\hat k)+\\lambda(\\hat i+2\\hat j+4\\hat k)$. Cartesian form: $\\dfrac{x-1}{1}=\\dfrac{y-2}{2}=\\dfrac{z-3}{4}$. The point $B$ is obtained at $\\lambda=1$.",
+        "answer": "$\\vec r=(\\hat i+2\\hat j+3\\hat k)+\\lambda(\\hat i+2\\hat j+4\\hat k)$; $\\ x-1=\\dfrac{y-2}{2}=\\dfrac{z-3}{4}$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Convert $\\vec r=(2\\hat i-\\hat j+\\hat k)+\\lambda(3\\hat i+4\\hat j-2\\hat k)$ to Cartesian form and state whether $(5,3,-1)$ lies on it.",
+        "solution": "The point is $(2,-1,1)$ and the direction ratios are $3,4,-2$, so $\\dfrac{x-2}{3}=\\dfrac{y+1}{4}=\\dfrac{z-1}{-2}$. For $(5,3,-1)$ the three ratios are $\\dfrac33=1$, $\\dfrac44=1$, $\\dfrac{-2}{-2}=1$, all equal, so the point lies on the line (it is $\\lambda=1$).",
+        "answer": "$\\dfrac{x-2}{3}=\\dfrac{y+1}{4}=\\dfrac{z-1}{-2}$; yes"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Signs matter when moving between forms: the point (2, -1, 1) gives numerators x - 2, y + 1, z - 1. Also the coefficients of lambda are the denominators, not the numerators."
+      },
+      {
+        "type": "HEADING",
+        "text": "Angle between two lines"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Angle between lines",
+        "text": "The **angle between two lines** is the angle between their direction vectors, conventionally taken to be acute (between $0^\\circ$ and $90^\\circ$). For skew lines it is the angle between lines drawn through any point parallel to them."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\cos\\theta=\\frac{|a_1a_2+b_1b_2+c_1c_2|}{\\sqrt{a_1^2+b_1^2+c_1^2}\\,\\sqrt{a_2^2+b_2^2+c_2^2}}\\qquad\\left(\\text{vector form: }\\cos\\theta=\\frac{|\\vec b_1\\cdot\\vec b_2|}{|\\vec b_1||\\vec b_2|}\\right)",
+        "text": "$(a_1,b_1,c_1)$ and $(a_2,b_2,c_2)$ are direction ratios of the two lines; for direction cosines the denominator is $1$ and $\\cos\\theta=|l_1l_2+m_1m_2+n_1n_2|$. The modulus makes the angle acute."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Conditions for two lines",
+        "columns": [
+          "Relation",
+          "Direction ratios",
+          "Direction vectors"
+        ],
+        "rows": [
+          [
+            "Parallel",
+            "$\\dfrac{a_1}{a_2}=\\dfrac{b_1}{b_2}=\\dfrac{c_1}{c_2}$",
+            "$\\vec b_1=k\\vec b_2$ (equivalently $\\vec b_1\\times\\vec b_2=\\vec 0$)"
+          ],
+          [
+            "Perpendicular",
+            "$a_1a_2+b_1b_2+c_1c_2=0$",
+            "$\\vec b_1\\cdot\\vec b_2=0$"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the angle between the lines $\\dfrac{x-1}{1}=\\dfrac{y-2}{2}=\\dfrac{z-3}{2}$ and $\\dfrac{x}{2}=\\dfrac{y}{3}=\\dfrac{z}{6}$.",
+        "solution": "Direction ratios are $(1,2,2)$ and $(2,3,6)$. The numerator is $|1\\cdot2+2\\cdot3+2\\cdot6|=20$. The denominator is $\\sqrt{1+4+4}\\cdot\\sqrt{4+9+36}=3\\times7=21$. So $\\cos\\theta=\\dfrac{20}{21}$ and $\\theta=\\cos^{-1}\\dfrac{20}{21}$ (about $17.8^\\circ$).",
+        "answer": "$\\theta=\\cos^{-1}\\tfrac{20}{21}$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "For what value of $k$ are the lines $\\dfrac{x-1}{3}=\\dfrac{y-2}{k}=\\dfrac{z-3}{2}$ and $\\dfrac{x}{1}=\\dfrac{y+1}{3}=\\dfrac{z-4}{-3}$ perpendicular?",
+        "solution": "The direction ratios are $(3,k,2)$ and $(1,3,-3)$. Perpendicular lines satisfy $3(1)+k(3)+2(-3)=0$, i.e. $3+3k-6=0$, so $k=1$.",
+        "answer": "$k=1$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Skew lines"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Skew lines",
+        "text": "Two lines in space are **skew** if they are **neither parallel nor intersecting**; equivalently, they do not lie in a common plane. Lines that lie in one plane (parallel or intersecting) are coplanar and are not skew. Skew lines exist only in three or more dimensions, for example a road and a railway line passing over it on a bridge."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "(\\vec a_2-\\vec a_1)\\cdot(\\vec b_1\\times\\vec b_2)=0\\iff\\text{lines }\\vec r=\\vec a_1+\\lambda\\vec b_1,\\ \\vec r=\\vec a_2+\\mu\\vec b_2\\text{ are coplanar}",
+        "text": "If $\\vec b_1\\times\\vec b_2\\ne\\vec0$ the lines are not parallel; then a zero scalar triple product means they meet (intersect), and a non-zero value means they are skew."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Classification of two lines",
+        "columns": [
+          "Case",
+          "Parallel?",
+          "Meet?",
+          "Shortest distance"
+        ],
+        "rows": [
+          [
+            "Intersecting",
+            "No",
+            "Yes",
+            "$0$"
+          ],
+          [
+            "Parallel",
+            "Yes",
+            "No (distinct lines)",
+            "$\\dfrac{|(\\vec a_2-\\vec a_1)\\times\\vec b|}{|\\vec b|}$"
+          ],
+          [
+            "Skew",
+            "No",
+            "No",
+            "$\\dfrac{|(\\vec a_2-\\vec a_1)\\cdot(\\vec b_1\\times\\vec b_2)|}{|\\vec b_1\\times\\vec b_2|}$"
+          ]
+        ]
+      },
+      {
+        "type": "HEADING",
+        "text": "Shortest distance between two lines"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "The **shortest distance** between two lines is the length of the segment that is perpendicular to both. For skew lines this common perpendicular is along $\\vec b_1\\times\\vec b_2$, so the shortest distance is the projection of $\\vec a_2-\\vec a_1$ (a vector joining the two lines) on the direction $\\vec b_1\\times\\vec b_2$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "d=\\frac{\\left|(\\vec a_2-\\vec a_1)\\cdot(\\vec b_1\\times\\vec b_2)\\right|}{\\left|\\vec b_1\\times\\vec b_2\\right|}",
+        "text": "Lines $\\vec r=\\vec a_1+\\lambda\\vec b_1$ and $\\vec r=\\vec a_2+\\mu\\vec b_2$. In Cartesian form the numerator is the modulus of the determinant $\\begin{vmatrix}x_2-x_1&y_2-y_1&z_2-z_1\\\\a_1&b_1&c_1\\\\a_2&b_2&c_2\\end{vmatrix}$ and the denominator is $\\sqrt{(b_1c_2-b_2c_1)^2+(c_1a_2-c_2a_1)^2+(a_1b_2-a_2b_1)^2}$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "d=\\frac{\\left|(\\vec a_2-\\vec a_1)\\times\\vec b\\right|}{\\left|\\vec b\\right|}",
+        "text": "For **parallel** lines $\\vec r=\\vec a_1+\\lambda\\vec b$ and $\\vec r=\\vec a_2+\\mu\\vec b$ (same direction $\\vec b$): the perpendicular distance between them."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the shortest distance between $\\vec r=(\\hat i+2\\hat j+3\\hat k)+\\lambda(\\hat i-3\\hat j+2\\hat k)$ and $\\vec r=(4\\hat i+5\\hat j+6\\hat k)+\\mu(2\\hat i+3\\hat j+\\hat k)$.",
+        "solution": "$\\vec a_2-\\vec a_1=(3,3,3)$. $\\vec b_1\\times\\vec b_2=\\begin{vmatrix}\\hat i&\\hat j&\\hat k\\\\1&-3&2\\\\2&3&1\\end{vmatrix}=\\hat i(-3-6)-\\hat j(1-4)+\\hat k(3+6)=(-9,3,9)$, with magnitude $\\sqrt{81+9+81}=\\sqrt{171}=3\\sqrt{19}$. The scalar product is $3(-9)+3(3)+3(9)=9$. So $d=\\dfrac{9}{3\\sqrt{19}}=\\dfrac{3}{\\sqrt{19}}$. Since the numerator is non-zero the lines are skew.",
+        "answer": "$d=\\dfrac{3}{\\sqrt{19}}$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the distance between the parallel lines $\\vec r=\\lambda(\\hat i+2\\hat j+2\\hat k)$ and $\\vec r=3\\hat i+\\mu(\\hat i+2\\hat j+2\\hat k)$.",
+        "solution": "$\\vec a_2-\\vec a_1=(3,0,0)$ and $\\vec b=(1,2,2)$ with $|\\vec b|=3$. The cross product is $(3,0,0)\\times(1,2,2)=(0\\cdot2-0\\cdot2,\\ 0\\cdot1-3\\cdot2,\\ 3\\cdot2-0\\cdot1)=(0,-6,6)$, of magnitude $6\\sqrt2$. So $d=\\dfrac{6\\sqrt2}{3}=2\\sqrt2$. Check by Pythagoras: the projection of $(3,0,0)$ on $\\vec b$ is $\\tfrac{3}{3}=1$ so $d^2=9-1=8$.",
+        "answer": "$d=2\\sqrt2$"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "DRs of the line joining two points are the coordinate differences; DCs = DRs divided by the length, and l^2 + m^2 + n^2 = 1."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Vector form r = a + lambda b (point a, direction b). Cartesian form (x - x1)/a = (y - y1)/b = (z - z1)/c. Angle: cos(theta) = |b1 . b2| / (|b1||b2|); perpendicular when the dot product is zero; parallel when DRs are proportional."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Skew lines: not parallel and not intersecting. Their shortest distance is |(a2 - a1) . (b1 x b2)| / |b1 x b2|; the distance is 0 when the lines intersect."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "If the scalar triple product in the skew-line formula turns out to be zero, the lines intersect (or are parallel) - the shortest distance is then 0 (or the parallel-line formula must be used)."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The direction cosines of the line joining P(1, 2, 3) and Q(4, 6, 15) are",
+      "options": [
+        "3/13, 4/13, 12/13",
+        "3, 4, 12",
+        "3/19, 4/19, 12/19",
+        "12/13, 4/13, 3/13"
+      ],
+      "answer": 1,
+      "explanation": "The direction ratios are the differences (4 - 1, 6 - 2, 15 - 3) = (3, 4, 12). The length PQ is sqrt(9 + 16 + 144) = sqrt(169) = 13. Dividing each ratio by 13 gives the direction cosines (3/13, 4/13, 12/13), whose squares sum to (9 + 16 + 144)/169 = 1.",
+      "optionRationale": {
+        "2": "These are direction ratios (coordinate differences), not normalised direction cosines.",
+        "3": "This divides by 3 + 4 + 12 = 19 instead of the length sqrt(9 + 16 + 144) = 13.",
+        "4": "The order of the components is reversed."
+      },
+      "objective": "Find direction cosines of a line joining two points"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The direction cosines of the z-axis are",
+      "options": [
+        "0, 0, 1",
+        "1, 0, 0",
+        "0, 1, 0",
+        "1, 1, 1"
+      ],
+      "answer": 1,
+      "explanation": "The z-axis makes angles 90 degrees, 90 degrees and 0 degrees with the x, y and z axes. So l = cos 90 = 0, m = cos 90 = 0 and n = cos 0 = 1. Hence the direction cosines are (0, 0, 1), and these satisfy l^2 + m^2 + n^2 = 1.",
+      "optionRationale": {
+        "2": "These are the direction cosines of the x-axis.",
+        "3": "These are the direction cosines of the y-axis.",
+        "4": "These do not satisfy l^2 + m^2 + n^2 = 1."
+      },
+      "objective": "Know direction cosines of the coordinate axes"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The Cartesian equation of the line through (1, 2, 3) with direction ratios 2, -1, 4 is",
+      "options": [
+        "(x + 1)/2 = (y + 2)/(-1) = (z + 3)/4",
+        "(x - 2)/1 = (y + 1)/2 = (z - 4)/3",
+        "(x - 1)/2 = (y - 2)/1 = (z - 3)/4",
+        "(x - 1)/2 = (y - 2)/(-1) = (z - 3)/4"
+      ],
+      "answer": 4,
+      "explanation": "The line through (x1, y1, z1) with direction ratios a, b, c is (x - x1)/a = (y - y1)/b = (z - z1)/c. Substituting (1, 2, 3) and (2, -1, 4) gives (x - 1)/2 = (y - 2)/(-1) = (z - 3)/4. The numerators use the point and the denominators use the direction ratios.",
+      "optionRationale": {
+        "1": "The signs of the point coordinates are wrong in the numerators.",
+        "2": "The roles of the point and the direction ratios are swapped.",
+        "3": "The middle direction ratio -1 has been changed to 1."
+      },
+      "objective": "Write the Cartesian equation of a line"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q04",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match each line-geometry concept in List-I with its condition or property in List-II.",
+      "list": {
+        "left": [
+          "A. Direction cosines of a line",
+          "B. Lines with direction ratios (a1,b1,c1) and (a2,b2,c2) are parallel",
+          "C. The same lines are perpendicular",
+          "D. Skew lines"
+        ],
+        "right": [
+          "I. a1/a2 = b1/b2 = c1/c2",
+          "II. l^2 + m^2 + n^2 = 1",
+          "III. Not parallel and not intersecting",
+          "IV. a1a2 + b1b2 + c1c2 = 0"
+        ]
+      },
+      "options": [
+        "A-I, B-II, C-IV, D-III",
+        "A-II, B-IV, C-I, D-III",
+        "A-II, B-I, C-IV, D-III",
+        "A-II, B-I, C-III, D-IV"
+      ],
+      "answer": 3,
+      "explanation": "Direction cosines satisfy l^2 + m^2 + n^2 = 1 (II). Parallel lines have proportional direction ratios (I). Perpendicular lines have zero dot product of direction ratios, a1a2 + b1b2 + c1c2 = 0 (IV). Skew lines are neither parallel nor intersecting, so they do not lie in one plane (III).",
+      "optionRationale": {
+        "1": "A and B are interchanged.",
+        "2": "The parallel and perpendicular conditions are interchanged.",
+        "4": "C and D are interchanged."
+      },
+      "objective": "Match standard conditions for lines in space"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The vector equation of the line through the point (1, -2, 3) and parallel to 2i + j - k is",
+      "options": [
+        "r = (2i + j - k) + lambda(i - 2j + 3k)",
+        "r = (i - 2j + 3k) + lambda(2i + j - k)",
+        "r = (-i + 2j - 3k) + lambda(2i + j - k)",
+        "r = (i - 2j + 3k) + lambda(2i - j + k)"
+      ],
+      "answer": 2,
+      "explanation": "A line through the point with position vector a and parallel to b has equation r = a + lambda b. Here a = i - 2j + 3k (the position vector of (1, -2, 3)) and b = 2i + j - k, so r = (i - 2j + 3k) + lambda(2i + j - k).",
+      "optionRationale": {
+        "1": "The point vector and the direction vector have been swapped.",
+        "3": "The position vector of the point has the wrong signs.",
+        "4": "The direction vector has the wrong signs in two components."
+      },
+      "objective": "Write the vector equation of a line"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The cosine of the angle between the lines (x - 1)/1 = (y - 2)/2 = (z - 3)/2 and x/2 = y/3 = z/6 is",
+      "options": [
+        "20/21",
+        "10/21",
+        "20/63",
+        "19/21"
+      ],
+      "answer": 1,
+      "explanation": "The direction ratios are (1, 2, 2) and (2, 3, 6). The dot product is 1(2) + 2(3) + 2(6) = 20. The magnitudes are sqrt(1 + 4 + 4) = 3 and sqrt(4 + 9 + 36) = 7, so cos(theta) = 20/(3 x 7) = 20/21.",
+      "optionRationale": {
+        "2": "The numerator 1 x 2 + 2 x 3 + 2 x 6 is 20, not 10.",
+        "3": "The denominator is 3 x 7 = 21, not 63.",
+        "4": "The numerator is 2 + 6 + 12 = 20, not 19."
+      },
+      "objective": "Find the angle between two lines from their direction ratios"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The lines (x - 1)/3 = (y - 2)/k = (z - 3)/2 and x/1 = (y + 1)/3 = (z - 4)/(-3) are perpendicular when k equals",
+      "options": [
+        "-1",
+        "3",
+        "-3",
+        "1"
+      ],
+      "answer": 4,
+      "explanation": "The direction ratios are (3, k, 2) and (1, 3, -3). Lines are perpendicular when the sum of products of corresponding direction ratios is zero: 3(1) + k(3) + 2(-3) = 3 + 3k - 6 = 0, so 3k = 3 and k = 1.",
+      "optionRationale": {
+        "1": "3 + 3k - 6 = 0 gives k = 1 with the positive sign.",
+        "2": "k = 3 gives 3 + 9 - 6 = 6, not zero.",
+        "3": "k = -3 gives 3 - 9 - 6 = -12, not zero."
+      },
+      "objective": "Use the perpendicularity condition for lines"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "The vector equation of the line through A(1, 2, 3) and B(2, 4, 7) is",
+      "options": [
+        "r = (i + 2j + 3k) + lambda(3i + 6j + 10k)",
+        "r = (2i + 4j + 7k) + lambda(i + 2j + 3k)",
+        "r = (i + 2j + 3k) + lambda(i + 2j + 4k)",
+        "r = (i + 2j + 3k) + lambda(i + 2j + 2k)"
+      ],
+      "answer": 3,
+      "explanation": "The direction vector is AB = B - A = (2 - 1, 4 - 2, 7 - 3) = (1, 2, 4). Taking A as the fixed point gives r = (i + 2j + 3k) + lambda(i + 2j + 4k). The same line can be written from B as the fixed point, but the direction must be a multiple of (1, 2, 4).",
+      "optionRationale": {
+        "1": "The direction used is A + B, not B - A.",
+        "2": "The direction used is the position vector of A, not B - A.",
+        "4": "The z-difference is 7 - 3 = 4, not 2."
+      },
+      "objective": "Find the line through two points"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "The line r = (2i - j + k) + lambda(3i + 4j - 2k) has Cartesian equation",
+      "options": [
+        "(x + 2)/3 = (y - 1)/4 = (z + 1)/(-2)",
+        "(x - 2)/3 = (y + 1)/4 = (z - 1)/(-2)",
+        "(x - 3)/2 = (y - 4)/(-1) = (z + 2)/1",
+        "(x - 2)/3 = (y - 1)/4 = (z - 1)/(-2)"
+      ],
+      "answer": 2,
+      "explanation": "The point on the line is (2, -1, 1) and the direction ratios are (3, 4, -2). The Cartesian form (x - x1)/a = (y - y1)/b = (z - z1)/c becomes (x - 2)/3 = (y + 1)/4 = (z - 1)/(-2). The point (5, 3, -1) satisfies it with every ratio equal to 1.",
+      "optionRationale": {
+        "1": "The signs of the point coordinates are reversed in the numerators.",
+        "3": "The point and the direction are swapped.",
+        "4": "The point has y-coordinate -1, so the numerator must be y + 1."
+      },
+      "objective": "Convert a vector equation of a line to Cartesian form"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q10",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about lines in space:\nA. Skew lines are not coplanar.\nB. Two intersecting lines are skew lines.\nC. The shortest distance between two intersecting lines is zero.\nD. Two distinct parallel lines are skew lines.\nChoose the correct answer.",
+      "options": [
+        "A and C only",
+        "A and D only",
+        "B and C only",
+        "A, C and D only"
+      ],
+      "answer": 1,
+      "explanation": "Skew lines are neither parallel nor intersecting and so cannot lie in one plane (A true). Intersecting lines lie in a plane and so are not skew (B false). They meet at a point, so the shortest distance is 0 (C true). Distinct parallel lines are coplanar, so D is false.",
+      "optionRationale": {
+        "2": "Parallel lines lie in a common plane, so they are not skew.",
+        "3": "Intersecting lines are coplanar, so B is false.",
+        "4": "D is false, as parallel lines are coplanar."
+      },
+      "objective": "Understand skew lines"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q11",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "**Assertion (A):** The direction cosines of a line must satisfy l^2 + m^2 + n^2 = 1, but its direction ratios need not.\n**Reason (R):** Direction ratios are any three numbers proportional to the direction cosines.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Direction cosines are cosines of the angles with the axes and obey l^2 + m^2 + n^2 = 1. Direction ratios are any numbers proportional to them, for example (2, 3, 6) for the cosines (2/7, 3/7, 6/7), and their squares sum to 49. The scaling freedom in R explains A.",
+      "optionRationale": {
+        "2": "R is the reason: because ratios can be scaled, their squares need not sum to 1.",
+        "3": "R is true, as it is the definition of direction ratios.",
+        "4": "A is true; for example (2, 3, 6) has squares summing to 49."
+      },
+      "objective": "Distinguish direction cosines from direction ratios"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The direction cosines of the line joining P(3, -1, 2) and Q(5, 2, 8) are",
+      "options": [
+        "2/5, 3/5, 6/5",
+        "2/11, 3/11, 6/11",
+        "3/7, 2/7, 6/7",
+        "2/7, 3/7, 6/7"
+      ],
+      "answer": 4,
+      "explanation": "The coordinate differences are (5 - 3, 2 - (-1), 8 - 2) = (2, 3, 6) and the length is sqrt(4 + 9 + 36) = 7. So the direction cosines are (2/7, 3/7, 6/7), and 4/49 + 9/49 + 36/49 = 1.",
+      "optionRationale": {
+        "1": "These are not normalised: the squares sum to 49/25, not 1.",
+        "2": "These divide by 2 + 3 + 6 = 11 rather than the length 7.",
+        "3": "The first two components are swapped."
+      },
+      "objective": "Compute direction cosines from two points"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Which of the following points lies on the line (x - 1)/2 = (y - 2)/3 = (z - 3)/4?",
+      "options": [
+        "(4, 6, 8)",
+        "(5, 8, 12)",
+        "(5, 8, 11)",
+        "(6, 10, 14)"
+      ],
+      "answer": 3,
+      "explanation": "A point lies on the line when the three ratios (x - 1)/2, (y - 2)/3, (z - 3)/4 are equal. For (5, 8, 11): 4/2 = 2, 6/3 = 2 and 8/4 = 2, so all three equal 2 and the point is on the line (parameter 2). The other points give unequal ratios.",
+      "optionRationale": {
+        "1": "The ratios are 1.5, 1.33 and 1.25, which are not equal.",
+        "2": "The ratios are 2, 2 and 2.25, which are not equal.",
+        "4": "The ratios are 2.5, 2.67 and 2.75, which are not equal."
+      },
+      "objective": "Test whether a point is on a line"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The shortest distance between the lines r = (i + j) + lambda(2i - j + k) and r = (2i + j - k) + mu(3i - 5j + 2k) is",
+      "options": [
+        "10/59",
+        "10/sqrt(59)",
+        "sqrt(59)/10",
+        "3/sqrt(59)"
+      ],
+      "answer": 2,
+      "explanation": "Here a2 - a1 = (1, 0, -1) and b1 x b2 = (2,-1,1) x (3,-5,2) = ((-1)(2) - (1)(-5), (1)(3) - (2)(2), (2)(-5) - (-1)(3)) = (3, -1, -7), with magnitude sqrt(9 + 1 + 49) = sqrt(59). The dot product is 3 + 0 + 7 = 10, so d = 10/sqrt(59).",
+      "optionRationale": {
+        "1": "The denominator should be |b1 x b2| = sqrt(59), not 59.",
+        "3": "This is the reciprocal of the correct fraction.",
+        "4": "3 is only one component of the cross product, not the scalar triple product."
+      },
+      "objective": "Compute the shortest distance between skew lines"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The shortest distance between the lines (x - 1)/2 = (y - 2)/3 = (z - 3)/4 and (x - 4)/5 = (y - 1)/2 = z/1 is",
+      "options": [
+        "0",
+        "1",
+        "sqrt(2)",
+        "3"
+      ],
+      "answer": 1,
+      "explanation": "Here a2 - a1 = (3, -1, -3), b1 = (2, 3, 4), b2 = (5, 2, 1) and b1 x b2 = (3 - 8, 20 - 2, 4 - 15) = (-5, 18, -11). The scalar triple product is -15 - 18 + 33 = 0, so the lines are coplanar and, not being parallel, intersect (at (-1, -1, -1)). The shortest distance is 0.",
+      "optionRationale": {
+        "2": "The scalar triple product vanishes, so the distance is not 1.",
+        "3": "The scalar triple product vanishes, so the distance is not sqrt(2).",
+        "4": "The scalar triple product vanishes, so the distance is not 3."
+      },
+      "objective": "Detect intersecting lines via the scalar triple product"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The distance between the parallel lines r = lambda(i + 2j + 2k) and r = 3i + mu(i + 2j + 2k) is",
+      "options": [
+        "3",
+        "6 sqrt(2)",
+        "2",
+        "2 sqrt(2)"
+      ],
+      "answer": 4,
+      "explanation": "Take a2 - a1 = (3, 0, 0) and b = (1, 2, 2) with |b| = 3. The cross product is (0, -6, 6) with magnitude 6 sqrt(2). The distance is 6 sqrt(2)/3 = 2 sqrt(2). Check: the component of (3, 0, 0) along b is 3/3 = 1, so d^2 = 9 - 1 = 8.",
+      "optionRationale": {
+        "1": "3 is the distance between the points 0 and (3, 0, 0), not the perpendicular distance.",
+        "2": "6 sqrt(2) is |(a2 - a1) x b| without dividing by |b| = 3.",
+        "3": "2 would need the cross product magnitude to be 6."
+      },
+      "objective": "Find the distance between parallel lines"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The acute angle between the lines (x + 3)/3 = (y - 1)/5 = (z + 3)/4 and (x + 1)/1 = (y - 4)/1 = (z - 5)/2 is",
+      "options": [
+        "cos^-1(4/(5 sqrt(3)))",
+        "cos^-1(8/(5 sqrt(6)))",
+        "cos^-1(8/(5 sqrt(3)))",
+        "cos^-1(3/5)"
+      ],
+      "answer": 3,
+      "explanation": "The direction ratios are (3, 5, 4) and (1, 1, 2). The dot product is 3 + 5 + 8 = 16. The magnitudes are sqrt(9 + 25 + 16) = 5 sqrt(2) and sqrt(1 + 1 + 4) = sqrt(6). So cos(theta) = 16/(5 sqrt(2) sqrt(6)) = 16/(5 x 2 sqrt(3)) = 8/(5 sqrt(3)), about 0.924.",
+      "optionRationale": {
+        "1": "The numerator should be 16 and the denominator 5 sqrt(2) x sqrt(6) = 10 sqrt(3), which gives 8/(5 sqrt(3)).",
+        "2": "The factor sqrt(2) of the first magnitude 5 sqrt(2) has been lost in the denominator.",
+        "4": "This does not follow from the dot product 16 and the magnitudes 5 sqrt(2) and sqrt(6)."
+      },
+      "objective": "Find the angle between two lines in symmetric form"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A line through the origin is perpendicular to both lines with direction ratios (1, 1, 1) and (1, 2, 3). Its direction ratios are proportional to",
+      "options": [
+        "1, 2, 1",
+        "1, -2, 1",
+        "1, -1, 0",
+        "3, -2, -1"
+      ],
+      "answer": 2,
+      "explanation": "A line perpendicular to both has direction along the cross product of the two directions: (1,1,1) x (1,2,3) = (1x3 - 1x2, 1x1 - 1x3, 1x2 - 1x1) = (1, -2, 1). Check: (1, -2, 1) . (1, 1, 1) = 1 - 2 + 1 = 0 and (1, -2, 1) . (1, 2, 3) = 1 - 4 + 3 = 0.",
+      "optionRationale": {
+        "1": "(1, 2, 1) . (1, 1, 1) = 4, which is not zero.",
+        "3": "(1, -1, 0) . (1, 2, 3) = -1, which is not zero.",
+        "4": "(3, -2, -1) . (1, 2, 3) = -4, which is not zero."
+      },
+      "objective": "Find direction ratios of a common perpendicular"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The angle between the lines with direction ratios (1, 1, 2) and (sqrt(3) - 1, -sqrt(3) - 1, 4) is",
+      "options": [
+        "60 degrees",
+        "30 degrees",
+        "45 degrees",
+        "90 degrees"
+      ],
+      "answer": 1,
+      "explanation": "The dot product is (sqrt(3) - 1) + (-sqrt(3) - 1) + 8 = 6. The magnitudes are sqrt(1 + 1 + 4) = sqrt(6) and sqrt((sqrt(3) - 1)^2 + (sqrt(3) + 1)^2 + 16) = sqrt(4 - 2 sqrt(3) + 4 + 2 sqrt(3) + 16) = sqrt(24). So cos(theta) = 6/(sqrt(6) x sqrt(24)) = 6/12 = 1/2 and theta = 60 degrees.",
+      "optionRationale": {
+        "2": "cos 30 is sqrt(3)/2, not 1/2.",
+        "3": "cos 45 is 1/sqrt(2), not 1/2.",
+        "4": "The dot product is 6, not 0."
+      },
+      "objective": "Calculate an angle between two lines with irrational ratios"
+    },
+    {
+      "key": "ug26-319-r18-three-dimensional-geometry-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The shortest distance between the x-axis and the line through (0, 1, 0) parallel to the z-axis is",
+      "options": [
+        "0",
+        "sqrt(2)",
+        "1/2",
+        "1"
+      ],
+      "answer": 4,
+      "explanation": "The x-axis is r = lambda i and the other line is r = j + mu k. Then b1 x b2 = i x k = -j, of magnitude 1, and a2 - a1 = (0, 1, 0), so the scalar triple product is -1 and d = 1/1 = 1. The lines are skew, and the common perpendicular is the segment along y from (0,0,0) to (0,1,0).",
+      "optionRationale": {
+        "1": "The lines do not meet: the x-axis has y = 0 while the other line has y = 1.",
+        "2": "sqrt(2) would be the distance between points that are not closest.",
+        "3": "1/2 has no basis."
+      },
+      "objective": "Find the shortest distance between simple skew lines"
+    }
+  ]
+}

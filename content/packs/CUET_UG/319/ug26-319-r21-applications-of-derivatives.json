@@ -1,0 +1,690 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_bba4d95ba8c4438087410fb17afc0ba7",
+    "title": "Applications of derivatives"
+  },
+  "lesson": {
+    "key": "ug26-319-r21-applications-of-derivatives",
+    "title": "Applications of derivatives: rates, monotonicity and extrema",
+    "coverage": [
+      {
+        "phrase": "Rate of change of quantities",
+        "section": "Rate of change of quantities"
+      },
+      {
+        "phrase": "Increasing/decreasing functions",
+        "section": "Increasing and decreasing functions"
+      },
+      {
+        "phrase": "Maxima and minima",
+        "section": "Maxima and minima"
+      },
+      {
+        "phrase": "First derivative test motivated geometrically",
+        "section": "First derivative test"
+      },
+      {
+        "phrase": "Second derivative test given as provable tool",
+        "section": "Second derivative test"
+      },
+      {
+        "phrase": "Applications of derivatives",
+        "section": "Rate of change of quantities"
+      },
+      {
+        "phrase": "Simple problems that illustrate basic principles and understanding of the subject as well as real-life situations",
+        "section": "Real-life optimisation and rate problems"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Rate of change of quantities"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Rate of change",
+        "text": "If $y=f(x)$, then $\\dfrac{dy}{dx}$ is the **rate of change of $y$ with respect to $x$**. At a particular point, $\\left.\\dfrac{dy}{dx}\\right|_{x=x_0}$ is the rate at that instant. Its sign tells the direction: positive means $y$ grows as $x$ grows, negative means $y$ shrinks."
+      },
+      {
+        "type": "TEXT",
+        "text": "When two quantities both change with time $t$ and are linked by an equation, the chain rule connects their rates: $\\dfrac{dy}{dt}=\\dfrac{dy}{dx}\\cdot\\dfrac{dx}{dt}$. Such problems are called **related rates**."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Useful formulas for related-rate problems",
+        "columns": [
+          "Shape",
+          "Quantity",
+          "Formula"
+        ],
+        "rows": [
+          [
+            "Circle of radius $r$",
+            "Area, circumference",
+            "$A=\\pi r^2,\\ C=2\\pi r$"
+          ],
+          [
+            "Sphere of radius $r$",
+            "Volume, surface area",
+            "$V=\\tfrac43\\pi r^3,\\ S=4\\pi r^2$"
+          ],
+          [
+            "Cube of edge $x$",
+            "Volume, surface area",
+            "$V=x^3,\\ S=6x^2$"
+          ],
+          [
+            "Cone of radius $r$, height $h$",
+            "Volume",
+            "$V=\\tfrac13\\pi r^2h$"
+          ],
+          [
+            "Cylinder",
+            "Volume, curved surface",
+            "$V=\\pi r^2h,\\ S=2\\pi rh$"
+          ]
+        ]
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\frac{dA}{dt}=2\\pi r\\,\\frac{dr}{dt}",
+        "text": "For a circle: area changes at a rate equal to the circumference times the rate of change of the radius. Units follow the quantities (for example $\\text{cm}^2/\\text{s}$)."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "The radius of a spherical balloon is increasing at $0.5\\ \\text{cm/s}$. At what rate is the volume increasing when $r=4\\ \\text{cm}$?",
+        "solution": "$V=\\tfrac43\\pi r^3$, so $\\dfrac{dV}{dt}=4\\pi r^2\\dfrac{dr}{dt}$. Substitute $r=4$ and $\\dfrac{dr}{dt}=0.5$: $\\dfrac{dV}{dt}=4\\pi(16)(0.5)=32\\pi$.",
+        "answer": "$32\\pi\\ \\text{cm}^3/\\text{s}$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistake: substituting the numerical value of a changing quantity **before** differentiating with respect to $t$. Differentiate first (keeping $r$ as a variable), and only then put in the given instant."
+      },
+      {
+        "type": "HEADING",
+        "text": "Increasing and decreasing functions"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Increasing and decreasing",
+        "text": "A function $f$ is **increasing** on an interval if $x_1<x_2\\Rightarrow f(x_1)\\le f(x_2)$ and **strictly increasing** if $f(x_1)<f(x_2)$. It is **decreasing** (strictly decreasing) if $x_1<x_2\\Rightarrow f(x_1)\\ge f(x_2)$ (strict: $>$)."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "f'(x)>0\\ \\text{on }(a,b)\\Rightarrow f\\text{ strictly increasing};\\qquad f'(x)<0\\ \\text{on }(a,b)\\Rightarrow f\\text{ strictly decreasing}",
+        "text": "The sign of the derivative on an interval decides the behaviour. Geometrically, a positive derivative means the tangent slopes upward at every point."
+      },
+      {
+        "type": "TEXT",
+        "text": "To find where $f$ is increasing or decreasing: find $f'(x)$, solve $f'(x)=0$ to get the critical points, mark them on a number line, and test the sign of $f'$ in each interval."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the intervals where $f(x)=2x^3-9x^2+12x+1$ is increasing and decreasing.",
+        "solution": "$f'(x)=6x^2-18x+12=6(x-1)(x-2)$. The critical points are $x=1$ and $x=2$. For $x<1$: both factors negative, product positive, so $f'>0$. For $1<x<2$: $(x-1)>0,(x-2)<0$, so $f'<0$. For $x>2$: both positive, so $f'>0$.",
+        "answer": "Increasing on $(-\\infty,1)$ and $(2,\\infty)$; decreasing on $(1,2)$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Maxima and minima"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Local maximum and local minimum",
+        "text": "$f$ has a **local maximum** at $c$ if $f(c)\\ge f(x)$ for all $x$ near $c$, and a **local minimum** if $f(c)\\le f(x)$ for all $x$ near $c$. The value $f(c)$ is the local maximum (minimum) value. An **absolute (global) maximum/minimum** is the largest/smallest value on the whole domain or the given interval."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Critical point",
+        "text": "A point $c$ in the domain where $f'(c)=0$ (a stationary point) or $f'(c)$ does not exist. Every local extremum occurs at a critical point, but not every critical point is an extremum. For example $f(x)=x^3$ has $f'(0)=0$, but $0$ is neither a maximum nor a minimum."
+      },
+      {
+        "type": "TEXT",
+        "text": "Geometrically, at a local maximum or minimum of a smooth curve the tangent is horizontal, so the slope $f'(c)=0$. Near a peak the curve rises then falls; near a trough it falls then rises."
+      },
+      {
+        "type": "HEADING",
+        "text": "First derivative test"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "Let $c$ be a critical point of a continuous function $f$. The sign of $f'$ just on either side of $c$ decides the nature of $c$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "First derivative test",
+        "columns": [
+          "Sign of $f'$ left of $c$",
+          "Sign of $f'$ right of $c$",
+          "Conclusion at $c$"
+        ],
+        "rows": [
+          [
+            "$+$",
+            "$-$",
+            "Local maximum (the graph rises, then falls)"
+          ],
+          [
+            "$-$",
+            "$+$",
+            "Local minimum (the graph falls, then rises)"
+          ],
+          [
+            "$+$",
+            "$+$",
+            "Neither (point of inflection with rising graph)"
+          ],
+          [
+            "$-$",
+            "$-$",
+            "Neither (point of inflection with falling graph)"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the local maximum and minimum values of $f(x)=x^3-12x$.",
+        "solution": "$f'(x)=3x^2-12=3(x-2)(x+2)$, so the critical points are $x=-2$ and $x=2$. Sign of $f'$: positive for $x<-2$, negative for $-2<x<2$, positive for $x>2$. At $x=-2$ the sign changes from $+$ to $-$: local maximum, value $f(-2)=-8+24=16$. At $x=2$ the sign changes from $-$ to $+$: local minimum, value $f(2)=8-24=-16$.",
+        "answer": "Local maximum $16$ at $x=-2$; local minimum $-16$ at $x=2$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Second derivative test"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "f'(c)=0\\ \\text{and}\\ f''(c)<0\\Rightarrow\\text{local maximum};\\quad f'(c)=0\\ \\text{and}\\ f''(c)>0\\Rightarrow\\text{local minimum}",
+        "text": "If $f''(c)=0$ the test is **inconclusive**: use the first derivative test. For $f(x)=x^4$ the point $x=0$ has $f''(0)=0$, yet it is a minimum; for $f(x)=x^3$ it is neither."
+      },
+      {
+        "type": "TEXT",
+        "text": "Why it works: $f''$ is the rate of change of the slope. If $f''(c)<0$, the slope is decreasing through $c$, so it passes from positive to negative at the critical point, which is a peak. If $f''(c)>0$, the slope goes from negative to positive, which is a trough."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Absolute extrema on a closed interval $[a,b]$.** A continuous function attains both an absolute maximum and an absolute minimum there. Compute $f$ at every critical point inside $(a,b)$ and at the end points $a$ and $b$; the largest value is the absolute maximum and the smallest is the absolute minimum."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the absolute maximum and absolute minimum of $f(x)=x^3-3x$ on $[0,2]$.",
+        "solution": "$f'(x)=3x^2-3=0\\Rightarrow x=\\pm1$. Only $x=1$ lies in $[0,2]$. Evaluate at the critical point and the end points: $f(0)=0$, $f(1)=1-3=-2$, $f(2)=8-6=2$. The largest is $2$ and the smallest is $-2$.",
+        "answer": "Absolute maximum $2$ at $x=2$; absolute minimum $-2$ at $x=1$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Real-life optimisation and rate problems"
+      },
+      {
+        "type": "TEXT",
+        "text": "**Method for an optimisation word problem.** (1) Draw a sketch and name the variables. (2) Write the quantity to be maximised or minimised as a formula. (3) Use the given condition to reduce it to a function of one variable. (4) Differentiate, set the derivative to zero and solve. (5) Confirm using the second derivative or the sign change. (6) Answer with units, checking the value is sensible (for example, lengths positive)."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A square sheet of side $18\\ \\text{cm}$ has equal squares of side $x$ cut from its corners, and the flaps are folded to make an open box. Find $x$ for maximum volume and the maximum volume.",
+        "solution": "Base is a square of side $18-2x$ and height is $x$, so $V=x(18-2x)^2$ for $0<x<9$. Then $V'=(18-2x)^2-4x(18-2x)=(18-2x)(18-6x)$. Setting $V'=0$ gives $x=9$ (not allowed, the volume is $0$) or $x=3$. Expanding, $V=4x^3-72x^2+324x$, so $V'=12x^2-144x+324$ and $V''=24x-144$. At $x=3$: $V''=-72<0$, a maximum. $V(3)=3\\times12^2=432$.",
+        "answer": "$x=3\\ \\text{cm}$, maximum volume $432\\ \\text{cm}^3$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A ladder $5\\ \\text{m}$ long leans against a wall. Its foot is pulled away along the ground at $2\\ \\text{m/s}$. How fast is the top sliding down when the foot is $3\\ \\text{m}$ from the wall?",
+        "solution": "Let the foot be $x$ from the wall and the top $y$ high: $x^2+y^2=25$. Differentiate with respect to $t$: $2x\\dfrac{dx}{dt}+2y\\dfrac{dy}{dt}=0$. When $x=3$, $y=4$ (since $9+16=25$). So $3(2)+4\\dfrac{dy}{dt}=0$, giving $\\dfrac{dy}{dt}=-\\dfrac{6}{4}=-1.5$. The negative sign means $y$ is decreasing.",
+        "answer": "The top slides down at $1.5\\ \\text{m/s}$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistake: treating $f'(c)=0$ as proof of a maximum or minimum. It is only a **candidate**. Confirm with the sign change of $f'$ or with $f''(c)\\ne0$. Also remember to check the end points when the question says \"on the interval $[a,b]$\"."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Tangent horizontal at an extremum: $f'(c)=0$. Strictly increasing where $f'>0$, strictly decreasing where $f'<0$. Second derivative test: $f''<0\\Rightarrow$ max, $f''>0\\Rightarrow$ min, $f''=0\\Rightarrow$ inconclusive."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "For related rates: write a relation between the variables, differentiate with respect to time using the chain rule, and substitute the instant values last. Decreasing quantities get negative rates."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The rate of change of the area of a circle with respect to its radius when $r=5\\ \\text{cm}$ is",
+      "options": [
+        "$10\\pi\\ \\text{cm}^2/\\text{cm}$",
+        "$25\\pi$",
+        "$5\\pi$",
+        "$50\\pi$"
+      ],
+      "answer": 1,
+      "explanation": "$A=\\pi r^2$, so $\\dfrac{dA}{dr}=2\\pi r$. At $r=5$, $\\dfrac{dA}{dr}=2\\pi(5)=10\\pi$. This equals the circumference of the circle, as expected.",
+      "optionRationale": {
+        "2": "This is the area pi r squared, not its derivative.",
+        "3": "The derivative of pi r squared is 2 pi r; the factor 2 is missing.",
+        "4": "This multiplies 2 pi r by a further factor of 5, giving 2 pi r squared."
+      },
+      "objective": "Compute a rate of change with respect to a variable"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The function $f(x)=x^2-4x$ is strictly increasing on",
+      "options": [
+        "$(-\\infty,2)$",
+        "$(2,\\infty)$",
+        "$(-\\infty,\\infty)$",
+        "$(4,\\infty)$"
+      ],
+      "answer": 2,
+      "explanation": "$f'(x)=2x-4=2(x-2)$. Then $f'(x)>0$ exactly when $x>2$. So $f$ is strictly increasing on $(2,\\infty)$ and strictly decreasing on $(-\\infty,2)$.",
+      "optionRationale": {
+        "1": "On this interval f prime is negative, so the function is decreasing.",
+        "3": "f prime changes sign at x = 2, so the function is not increasing everywhere.",
+        "4": "This is only part of the increasing interval; f is already increasing for 2 < x < 4."
+      },
+      "objective": "Find the interval of increase from the sign of the derivative"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The critical point of $f(x)=x^2-6x+5$ is at $x=$",
+      "options": [
+        "$5$",
+        "$-3$",
+        "$3$",
+        "$6$"
+      ],
+      "answer": 3,
+      "explanation": "$f'(x)=2x-6$. Setting $f'(x)=0$ gives $x=3$. Since $f''(x)=2>0$, this point is a local minimum with $f(3)=9-18+5=-4$.",
+      "optionRationale": {
+        "1": "x = 5 is a root of f(x) = 0, not of f prime(x) = 0.",
+        "2": "Sign error: 2x - 6 = 0 gives x = +3.",
+        "4": "This is the coefficient of x; the critical point is half of it."
+      },
+      "objective": "Locate the critical point of a quadratic"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "If $f'(c)=0$ and $f''(c)<0$, then at $x=c$ the function $f$ has",
+      "options": [
+        "a local minimum",
+        "a point of inflection only",
+        "no conclusion can be drawn",
+        "a local maximum"
+      ],
+      "answer": 4,
+      "explanation": "By the second derivative test, $f'(c)=0$ with $f''(c)<0$ means the slope decreases through zero at $c$, going from positive to negative, so the graph has a peak: a local maximum.",
+      "optionRationale": {
+        "1": "A local minimum needs f double prime positive.",
+        "2": "A non-zero second derivative rules out an inflection point here.",
+        "3": "The test is inconclusive only when f double prime is zero."
+      },
+      "objective": "State the second derivative test"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "application",
+      "stem": "The radius of a circle increases at $2\\ \\text{cm/s}$. The rate at which its area increases when $r=3\\ \\text{cm}$ is",
+      "options": [
+        "$12\\pi\\ \\text{cm}^2/\\text{s}$",
+        "$6\\pi\\ \\text{cm}^2/\\text{s}$",
+        "$9\\pi\\ \\text{cm}^2/\\text{s}$",
+        "$18\\pi\\ \\text{cm}^2/\\text{s}$"
+      ],
+      "answer": 1,
+      "explanation": "$A=\\pi r^2\\Rightarrow\\dfrac{dA}{dt}=2\\pi r\\dfrac{dr}{dt}$. Substituting $r=3$ and $\\dfrac{dr}{dt}=2$ gives $\\dfrac{dA}{dt}=2\\pi(3)(2)=12\\pi\\ \\text{cm}^2/\\text{s}$.",
+      "optionRationale": {
+        "2": "This forgets to multiply by the rate dr/dt = 2.",
+        "3": "This is the area itself at r = 3, not its rate of change.",
+        "4": "This uses 2 pi r times 3 (the radius) in place of the given rate 2."
+      },
+      "objective": "Apply the chain rule to a related-rate problem"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Volume of a spherical balloon is increasing at $50\\pi\\ \\text{cm}^3/\\text{s}$. The rate at which its radius increases when $r=5\\ \\text{cm}$ is",
+      "options": [
+        "$2\\ \\text{cm/s}$",
+        "$0.5\\ \\text{cm/s}$",
+        "$5\\ \\text{cm/s}$",
+        "$0.25\\ \\text{cm/s}$"
+      ],
+      "answer": 2,
+      "explanation": "$V=\\tfrac43\\pi r^3\\Rightarrow\\dfrac{dV}{dt}=4\\pi r^2\\dfrac{dr}{dt}$. At $r=5$: $4\\pi(25)=100\\pi$. So $50\\pi=100\\pi\\dfrac{dr}{dt}$, giving $\\dfrac{dr}{dt}=0.5\\ \\text{cm/s}$.",
+      "optionRationale": {
+        "1": "This uses 4 pi r squared = 25 pi, forgetting the factor 4.",
+        "3": "This divides by 2 pi r = 10 pi instead of 4 pi r squared = 100 pi.",
+        "4": "This divides by 8 pi r squared = 200 pi, doubling the surface-area factor."
+      },
+      "objective": "Find the rate of change of radius from the rate of change of volume"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The function $f(x)=x^3-6x^2+9x+2$ is strictly decreasing on",
+      "options": [
+        "$(-\\infty,1)$",
+        "$(3,\\infty)$",
+        "$(1,3)$",
+        "$(-\\infty,1)\\cup(3,\\infty)$"
+      ],
+      "answer": 3,
+      "explanation": "$f'(x)=3x^2-12x+9=3(x-1)(x-3)$. This product is negative only between the roots, i.e. for $1<x<3$. So $f$ is strictly decreasing on $(1,3)$ and strictly increasing on $(-\\infty,1)$ and $(3,\\infty)$.",
+      "optionRationale": {
+        "1": "f prime is positive for x < 1, so f is increasing there.",
+        "2": "f prime is positive for x > 3, so f is increasing there.",
+        "4": "This is exactly where f is increasing."
+      },
+      "objective": "Find the interval on which a cubic is decreasing"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The local maximum value of $f(x)=x^3-12x$ is",
+      "options": [
+        "$-16$",
+        "$2$",
+        "$-2$",
+        "$16$"
+      ],
+      "answer": 4,
+      "explanation": "$f'(x)=3x^2-12=0\\Rightarrow x=\\pm2$. $f''(x)=6x$: at $x=-2$, $f''=-12<0$, a local maximum; at $x=2$, $f''=12>0$, a local minimum. The maximum value is $f(-2)=-8+24=16$.",
+      "optionRationale": {
+        "1": "This is the local minimum value, at x = 2.",
+        "2": "This is the x-coordinate of the minimum point, not a function value.",
+        "3": "x = -2 is the position of the maximum; the value is f(-2)."
+      },
+      "objective": "Find a local maximum value using the second derivative test"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The edge of a cube is increasing at $3\\ \\text{cm/s}$. When the edge is $10\\ \\text{cm}$, the rate of increase of its volume is",
+      "options": [
+        "$900\\ \\text{cm}^3/\\text{s}$",
+        "$300\\ \\text{cm}^3/\\text{s}$",
+        "$90\\ \\text{cm}^3/\\text{s}$",
+        "$1000\\ \\text{cm}^3/\\text{s}$"
+      ],
+      "answer": 1,
+      "explanation": "$V=x^3\\Rightarrow\\dfrac{dV}{dt}=3x^2\\dfrac{dx}{dt}$. At $x=10$ and $\\dfrac{dx}{dt}=3$: $3(100)(3)=900\\ \\text{cm}^3/\\text{s}$.",
+      "optionRationale": {
+        "2": "This is 3 x squared = 300 only; it forgets to multiply by dx/dt = 3.",
+        "3": "This differentiates x cubed as 3x instead of 3 x squared (3 x 10 x 3 = 90).",
+        "4": "This is the volume itself at x = 10, not its rate."
+      },
+      "objective": "Apply related rates to the volume of a cube"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The difference between the absolute maximum and absolute minimum values of $f(x)=x^3-3x$ on $[0,2]$ is",
+      "options": [
+        "$2$",
+        "$4$",
+        "$0$",
+        "$-4$"
+      ],
+      "answer": 2,
+      "explanation": "$f'(x)=3x^2-3=0\\Rightarrow x=1$ inside $[0,2]$. Compare $f(0)=0$, $f(1)=-2$, $f(2)=2$. Maximum $=2$, minimum $=-2$. Difference $=2-(-2)=4$.",
+      "optionRationale": {
+        "1": "This is only the maximum value f(2); the minimum -2 must be subtracted.",
+        "3": "The maximum and minimum are different here, f(0) = 0 is neither of them.",
+        "4": "This takes minimum minus maximum; the question asks for maximum minus minimum."
+      },
+      "objective": "Find absolute extrema on a closed interval"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q11",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about maxima and minima.\nA. If $f'$ changes sign from $+$ to $-$ at $c$, then $f$ has a local maximum at $c$.\nB. If $f'$ does not change sign at a critical point $c$, then $c$ is neither a local maximum nor a local minimum.\nC. If $f'(c)=0$, then $f$ always has a local extremum at $c$.\nD. If $f'(c)=0$ and $f''(c)=0$, the second derivative test gives no information.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "A and C only",
+        "B, C and D only",
+        "A, B, C and D"
+      ],
+      "answer": 1,
+      "explanation": "A is the first derivative test for a maximum. B is correct: no sign change means no extremum (for example $x^3$ at $0$). C is false: $f(x)=x^3$ has $f'(0)=0$ but no extremum. D is correct: when $f''(c)=0$ the second derivative test is inconclusive and the first derivative test must be used. So A, B and D are correct.",
+      "optionRationale": {
+        "2": "C is false, as f(x) = x cubed at 0 shows.",
+        "3": "It leaves out A, which is true, and wrongly includes C.",
+        "4": "C is false, so not all four statements are correct."
+      },
+      "objective": "Evaluate statements on the first and second derivative tests"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q12",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): For $f(x)=x^4$, the second derivative test cannot decide the nature of the critical point $x=0$, although $x=0$ is a point of local minimum.\nReason (R): For $f(x)=x^4$ we have $f'(0)=0$ and $f''(0)=0$, and the second derivative test gives no conclusion when $f''(c)=0$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "$f'(x)=4x^3$ is zero at $0$ and $f''(x)=12x^2$ gives $f''(0)=0$, so the second derivative test is inconclusive. The first derivative test shows $f'$ changes from negative to positive at $0$, so $x=0$ is a local minimum (indeed $f(0)=0\\le x^4$). Both statements are true, and R is exactly why the test fails, so R explains A.",
+      "optionRationale": {
+        "2": "R is the direct reason the test fails, so it explains A.",
+        "3": "R is true: f double prime of 0 is 12 x 0 = 0.",
+        "4": "A is true: x = 0 is a local minimum, found by the first derivative test."
+      },
+      "objective": "Know when the second derivative test is inconclusive"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q13",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the condition at a critical point $c$ in List-I with the conclusion in List-II.",
+      "options": [
+        "A-II, B-IV, C-I, D-III",
+        "A-I, B-IV, C-II, D-III",
+        "A-II, B-III, C-I, D-IV",
+        "A-IV, B-II, C-III, D-I"
+      ],
+      "answer": 1,
+      "explanation": "If $f'$ changes from negative to positive at $c$, the first derivative test gives a local minimum (A-II). If $f'(c)=0$ and $f''(c)>0$, the second derivative test gives a local minimum (B-IV). If $f'$ changes from positive to negative, the first derivative test gives a local maximum (C-I). If $f'(c)=0$ and $f''(c)<0$, the second derivative test gives a local maximum (D-III).",
+      "optionRationale": {
+        "2": "It swaps the first derivative conclusions: a change from negative to positive gives a minimum, not a maximum.",
+        "3": "It swaps the second derivative conclusions: f double prime positive gives a minimum, not a maximum.",
+        "4": "It pairs each condition with the wrong test and the wrong type of extremum."
+      },
+      "objective": "Match conditions with the first and second derivative test conclusions",
+      "list": {
+        "left": [
+          "A. $f'$ changes sign from $-$ to $+$ at $c$",
+          "B. $f'(c)=0$ and $f''(c)>0$",
+          "C. $f'$ changes sign from $+$ to $-$ at $c$",
+          "D. $f'(c)=0$ and $f''(c)<0$"
+        ],
+        "right": [
+          "I. Local maximum by the first derivative test",
+          "II. Local minimum by the first derivative test",
+          "III. Local maximum by the second derivative test",
+          "IV. Local minimum by the second derivative test"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A square sheet of side $18\\ \\text{cm}$ has equal squares of side $x$ cut from each corner, and the flaps are folded up to form an open box. The maximum volume of the box is",
+      "options": [
+        "$324\\ \\text{cm}^3$",
+        "$400\\ \\text{cm}^3$",
+        "$432\\ \\text{cm}^3$",
+        "$392\\ \\text{cm}^3$"
+      ],
+      "answer": 3,
+      "explanation": "$V=x(18-2x)^2$. $V'=(18-2x)^2-4x(18-2x)=(18-2x)(18-6x)$, zero at $x=3$ (the root $x=9$ gives zero volume). $V=4x^3-72x^2+324x$ so $V''=24x-144$, and $V''(3)=-72<0$: a maximum. $V(3)=3\\times(18-6)^2=3\\times144=432\\ \\text{cm}^3$.",
+      "optionRationale": {
+        "1": "This is 18 squared, the area of the sheet in square centimetres, not a volume.",
+        "2": "This is the volume when x = 4 (4 x 10 x 10), which is less than the maximum.",
+        "4": "This is the volume when x = 2 (2 x 14 x 14), which is less than the maximum."
+      },
+      "objective": "Solve a classic open-box optimisation problem"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Two positive numbers $x$ and $y$ have sum $12$. The maximum value of $x^2y$ is",
+      "options": [
+        "$216$",
+        "$243$",
+        "$245$",
+        "$256$"
+      ],
+      "answer": 4,
+      "explanation": "With $y=12-x$, let $g(x)=x^2(12-x)=12x^2-x^3$ for $0<x<12$. $g'(x)=24x-3x^2=3x(8-x)$, zero at $x=8$ (the other root $0$ is excluded). $g''(x)=24-6x$, and $g''(8)=-24<0$: a maximum. $g(8)=64\\times4=256$, with $y=4$.",
+      "optionRationale": {
+        "1": "This is the value at x = y = 6 (36 x 6), which is not the maximum of x squared y.",
+        "2": "This is the value at x = 9, y = 3 (81 x 3), less than the maximum.",
+        "3": "This is the value at x = 7, y = 5 (49 x 5), less than the maximum."
+      },
+      "objective": "Maximise a product under a sum constraint"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A closed right circular cylinder has volume $54\\pi\\ \\text{cm}^3$. Its least possible total surface area is",
+      "options": [
+        "$54\\pi\\ \\text{cm}^2$",
+        "$27\\pi\\ \\text{cm}^2$",
+        "$62\\pi\\ \\text{cm}^2$",
+        "$59\\pi\\ \\text{cm}^2$"
+      ],
+      "answer": 1,
+      "explanation": "$\\pi r^2h=54\\pi\\Rightarrow h=\\dfrac{54}{r^2}$. Total surface $S=2\\pi r^2+2\\pi rh=2\\pi r^2+\\dfrac{108\\pi}{r}$. $S'=4\\pi r-\\dfrac{108\\pi}{r^2}=0\\Rightarrow r^3=27\\Rightarrow r=3$. $S''=4\\pi+\\dfrac{216\\pi}{r^3}>0$, a minimum. Then $h=6$ and $S=2\\pi(9)+2\\pi(3)(6)=18\\pi+36\\pi=54\\pi\\ \\text{cm}^2$.",
+      "optionRationale": {
+        "2": "This is half of the answer; both circular ends and the curved surface must be counted.",
+        "3": "This is the surface area when r = 2 cm (8 pi + 54 pi), which is not the minimum.",
+        "4": "This is the surface area when r = 4 cm (32 pi + 27 pi), which is not the minimum."
+      },
+      "objective": "Minimise the surface area of a cylinder for a fixed volume"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A $13\\ \\text{m}$ ladder leans against a wall and its foot slides away from the wall at $2\\ \\text{m/s}$. When the foot is $5\\ \\text{m}$ from the wall, the top of the ladder is moving down at",
+      "options": [
+        "$\\tfrac{24}{5}\\ \\text{m/s}$",
+        "$\\tfrac56\\ \\text{m/s}$",
+        "$\\tfrac{5}{12}\\ \\text{m/s}$",
+        "$2\\ \\text{m/s}$"
+      ],
+      "answer": 2,
+      "explanation": "$x^2+y^2=169$, so $x\\dfrac{dx}{dt}+y\\dfrac{dy}{dt}=0$. At $x=5$, $y=12$ (since $25+144=169$): $5(2)+12\\dfrac{dy}{dt}=0\\Rightarrow\\dfrac{dy}{dt}=-\\dfrac{10}{12}=-\\dfrac56$. The top slides down at $\\tfrac56\\ \\text{m/s}$.",
+      "optionRationale": {
+        "1": "This inverts the ratio: it uses y/x = 12/5 times 2 instead of x/y = 5/12 times 2.",
+        "3": "This is x/y but it forgets to multiply by the foot speed 2 m/s.",
+        "4": "The top does not move at the same speed as the foot, because x and y are different."
+      },
+      "objective": "Solve the sliding ladder related-rate problem"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "For $f(x)=x^3-9x^2+24x+3$, the local maximum value minus the local minimum value is",
+      "options": [
+        "$-4$",
+        "$23$",
+        "$4$",
+        "$42$"
+      ],
+      "answer": 3,
+      "explanation": "$f'(x)=3x^2-18x+24=3(x-2)(x-4)$, critical points $x=2,4$. $f''(x)=6x-18$: $f''(2)=-6<0$ (local maximum) and $f''(4)=6>0$ (local minimum). $f(2)=8-36+48+3=23$; $f(4)=64-144+96+3=19$. Difference $=23-19=4$.",
+      "optionRationale": {
+        "1": "The order is reversed: maximum minus minimum is positive here.",
+        "2": "This is the local maximum value f(2) itself, not the difference.",
+        "4": "This adds the two values 23 and 19 instead of subtracting."
+      },
+      "objective": "Compare local maximum and minimum values of a cubic"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Water is poured into a conical vessel (vertex down) of height $10\\ \\text{cm}$ and base radius $5\\ \\text{cm}$ at $25\\pi\\ \\text{cm}^3/\\text{s}$. The rate at which the water level rises when the depth is $5\\ \\text{cm}$ is",
+      "options": [
+        "$3\\ \\text{cm/s}$",
+        "$12\\ \\text{cm/s}$",
+        "$2\\ \\text{cm/s}$",
+        "$4\\ \\text{cm/s}$"
+      ],
+      "answer": 4,
+      "explanation": "By similar triangles, water radius $r=\\dfrac{h}{2}$. $V=\\tfrac13\\pi r^2h=\\tfrac13\\pi\\dfrac{h^2}{4}h=\\dfrac{\\pi h^3}{12}$, so $\\dfrac{dV}{dt}=\\dfrac{\\pi h^2}{4}\\dfrac{dh}{dt}$. At $h=5$: $\\dfrac{\\pi(25)}{4}\\dfrac{dh}{dt}=25\\pi\\Rightarrow\\dfrac{dh}{dt}=4\\ \\text{cm/s}$.",
+      "optionRationale": {
+        "1": "This treats the water radius as the constant 5 cm, giving dV/dt = (25 pi / 3) dh/dt.",
+        "2": "This differentiates pi h cubed / 12 as pi h squared / 12, dropping the factor 3.",
+        "3": "This would need dV/dt = (pi h squared / 2) dh/dt, i.e. a wrong radius relation."
+      },
+      "objective": "Use similar triangles in a conical related-rate problem"
+    },
+    {
+      "key": "ug26-319-r21-applications-of-derivatives-q20",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Every continuous function on a closed interval $[a,b]$ attains an absolute maximum and an absolute minimum on it.\nReason (R): A local maximum of a function is always its absolute maximum.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "A is true: a continuous function on a closed interval attains both extreme values, at critical points or at the end points. R is false: for example $f(x)=x^3-3x$ has a local maximum value $2$ at $x=-1$, but on $[-2,3]$ it takes the larger value $f(3)=27-9=18$, so a local maximum need not be the absolute maximum.",
+      "optionRationale": {
+        "1": "R is false, so it cannot be the explanation.",
+        "2": "R is false, not true.",
+        "4": "A is true; it is a standard result for continuous functions on closed intervals."
+      },
+      "objective": "Distinguish local from absolute extrema"
+    }
+  ]
+}

@@ -1,0 +1,693 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_96a7a2004d4448b8b8e43aafdcf2df92",
+    "title": "Probability Distributions"
+  },
+  "lesson": {
+    "key": "ug26-319-r09-simple-probability",
+    "title": "Simple probability: events, rules, conditional probability, independence and the step to probability distributions",
+    "coverage": [
+      {
+        "phrase": "Simple Probability",
+        "section": "Simple Probability: sample space and events"
+      },
+      {
+        "phrase": "Rules of probability",
+        "section": "Rules of probability"
+      },
+      {
+        "phrase": "Conditional probability and independent events",
+        "section": "Conditional probability and independent events"
+      },
+      {
+        "phrase": "Total probability and Bayes theorem",
+        "section": "Total probability and Bayes theorem"
+      },
+      {
+        "phrase": "Probability Distributions",
+        "section": "From simple probability to probability distributions"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Simple Probability: sample space and events"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **random experiment** is an experiment whose outcome cannot be predicted exactly, but all possible outcomes are known in advance, for example tossing a coin, throwing a die or drawing a card. Probability is the number that measures how likely an outcome is, on a scale from 0 (impossible) to 1 (certain)."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Sample space and event",
+        "text": "The **sample space** $S$ is the set of all possible outcomes of a random experiment. An **event** $E$ is any subset of $S$. A **simple event** has one outcome; the **sure event** is $S$ itself and the **impossible event** is the empty set $\\varnothing$. For one throw of a die, $S=\\{1,2,3,4,5,6\\}$ and the event \"an even number\" is $E=\\{2,4,6\\}$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Classical probability",
+        "text": "If the outcomes of an experiment are finite in number and **equally likely**, the probability of an event $E$ is $P(E)=\\dfrac{n(E)}{n(S)}=\\dfrac{\\text{number of favourable outcomes}}{\\text{total number of outcomes}}$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "P(E)=\\dfrac{n(E)}{n(S)},\\qquad 0\\le P(E)\\le1,\\qquad P(S)=1,\\qquad P(\\varnothing)=0",
+        "text": "$n(E)$ is the number of outcomes in $E$ and $n(S)$ is the total number of outcomes. The formula is valid only when all outcomes are equally likely; for a loaded die it must not be used."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Two fair dice are thrown. Find the probability that the sum of the numbers is 7, and that the sum is at least 10.",
+        "solution": "The sample space has $6\\times6=36$ equally likely outcomes.\n\nSum 7: $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$ are 6 outcomes, so $P=\\dfrac{6}{36}=\\dfrac16$.\n\nSum at least 10: sum 10 has $(4,6),(5,5),(6,4)$; sum 11 has $(5,6),(6,5)$; sum 12 has $(6,6)$. That is $3+2+1=6$ outcomes, so $P=\\dfrac6{36}=\\dfrac16$.",
+        "answer": "$\\dfrac16$ in both cases"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Common sample spaces",
+        "columns": [
+          "Experiment",
+          "Number of outcomes"
+        ],
+        "rows": [
+          [
+            "One coin",
+            "2"
+          ],
+          [
+            "Three coins (or one coin thrown three times)",
+            "$2^3=8$"
+          ],
+          [
+            "Two dice",
+            "$6^2=36$"
+          ],
+          [
+            "One card from a pack",
+            "52 (13 in each of 4 suits; 4 kings, 4 aces, 26 red cards)"
+          ]
+        ]
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Always list the sample space carefully. For two dice, $(2,5)$ and $(5,2)$ are **different** outcomes, so there are 36 and not 21 outcomes. Also, \"equally likely\" is a condition: the probability of a girl or a boy being born is treated as equal, but the number of heads in two tosses (0, 1, 2) is not equally likely since 1 head has twice the chance."
+      },
+      {
+        "type": "HEADING",
+        "text": "Rules of probability"
+      },
+      {
+        "type": "TEXT",
+        "text": "The following rules follow from the definition and allow us to compute probabilities of combined events without listing every outcome."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "P(A')=1-P(A)",
+        "text": "$A'$ (not $A$) is the complement of $A$. Use it when \"at least one\" is asked: $P(\\text{at least one})=1-P(\\text{none})$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "P(A\\cup B)=P(A)+P(B)-P(A\\cap B)",
+        "text": "$A\\cup B$ means \"$A$ or $B$ (or both)\". The overlap $A\\cap B$ is subtracted because it is counted twice. If $A$ and $B$ are **mutually exclusive** (cannot happen together), $P(A\\cap B)=0$ and $P(A\\cup B)=P(A)+P(B)$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Mutually exclusive events",
+        "text": "Events $A$ and $B$ are **mutually exclusive** if $A\\cap B=\\varnothing$, i.e. they cannot occur together, for example \"an even number\" and \"an odd number\" in one throw of a die."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A number is chosen at random from $1,2,\\dots,20$. Find the probability that it is a multiple of 3 or a multiple of 5.",
+        "solution": "Let $A$ be multiples of 3: $\\{3,6,9,12,15,18\\}$, so $n(A)=6$. Let $B$ be multiples of 5: $\\{5,10,15,20\\}$, so $n(B)=4$.\n\nThe common element is 15, so $n(A\\cap B)=1$.\n\n$n(A\\cup B)=6+4-1=9$, so $P=\\dfrac{9}{20}$.",
+        "answer": "$\\dfrac9{20}$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Three fair coins are tossed. Find the probability of getting at least one head.",
+        "solution": "The sample space has 8 outcomes. The only outcome with no head is TTT, so $P(\\text{no head})=\\dfrac18$.\n\n$P(\\text{at least one head})=1-\\dfrac18=\\dfrac78$.",
+        "answer": "$\\dfrac78$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Conditional probability and independent events"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Conditional probability",
+        "text": "The probability of $A$ given that $B$ has already occurred is $P(A\\mid B)=\\dfrac{P(A\\cap B)}{P(B)}$, with $P(B)>0$. Knowing that $B$ occurred reduces the sample space to $B$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "P(A\\mid B)=\\dfrac{P(A\\cap B)}{P(B)},\\qquad P(A\\cap B)=P(B)\\,P(A\\mid B)=P(A)\\,P(B\\mid A)",
+        "text": "The second form is the **multiplication rule**; it is used for drawing without replacement, where each draw changes what is left."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Independent events",
+        "text": "Events $A$ and $B$ are **independent** if the occurrence of one does not change the probability of the other: $P(A\\mid B)=P(A)$, equivalently $P(A\\cap B)=P(A)\\,P(B)$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Three fair coins are tossed. Find the probability of exactly two heads given that at least one head has appeared.",
+        "solution": "Let $A$ be \"exactly two heads\" and $B$ be \"at least one head\".\n\n$P(B)=\\dfrac78$. $A=\\{HHT,HTH,THH\\}$ and $A\\subset B$, so $P(A\\cap B)=P(A)=\\dfrac38$.\n\n$P(A\\mid B)=\\dfrac{3/8}{7/8}=\\dfrac37$.\n\nCheck by reduced sample space: $B$ has 7 outcomes and 3 of them have exactly two heads, so $\\dfrac37$.",
+        "answer": "$\\dfrac37$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Two cards are drawn one after another without replacement from a well-shuffled pack of 52. Find the probability that both are aces.",
+        "solution": "$P(\\text{first ace})=\\dfrac{4}{52}$. Given this, 3 aces remain among 51 cards, so $P(\\text{second ace}\\mid\\text{first ace})=\\dfrac3{51}$.\n\n$P(\\text{both aces})=\\dfrac4{52}\\times\\dfrac3{51}=\\dfrac{12}{2652}=\\dfrac1{221}$.\n\nWith replacement the answer would be $\\left(\\dfrac4{52}\\right)^2=\\dfrac1{169}$, a different value.",
+        "answer": "$\\dfrac1{221}$"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Mutually exclusive versus independent events",
+        "columns": [
+          "Feature",
+          "Mutually exclusive",
+          "Independent"
+        ],
+        "rows": [
+          [
+            "Meaning",
+            "cannot happen together",
+            "one does not affect the probability of the other"
+          ],
+          [
+            "Test",
+            "$P(A\\cap B)=0$",
+            "$P(A\\cap B)=P(A)P(B)$"
+          ],
+          [
+            "Union",
+            "$P(A)+P(B)$",
+            "$P(A)+P(B)-P(A)P(B)$"
+          ]
+        ]
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Mutually exclusive and independent are **not the same**. If $P(A)>0$ and $P(B)>0$ and the events are mutually exclusive, then $P(A\\cap B)=0\\ne P(A)P(B)$, so they are **not** independent: if $A$ occurs, you know $B$ cannot."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Two persons shoot at a target independently. Their chances of hitting are $0.6$ and $0.5$. Find the probability that the target is hit by at least one of them.",
+        "solution": "$P(\\text{both miss})=(1-0.6)(1-0.5)=0.4\\times0.5=0.2$ by independence.\n\n$P(\\text{at least one hits})=1-0.2=0.8$.\n\nCheck by the union formula: $0.6+0.5-0.6\\times0.5=1.1-0.3=0.8$.",
+        "answer": "$0.8$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Total probability and Bayes theorem"
+      },
+      {
+        "type": "TEXT",
+        "text": "If $E_1,E_2$ are mutually exclusive events covering the whole sample space (they partition it) and $A$ is another event, then $A$ can occur through $E_1$ or $E_2$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "P(A)=P(E_1)P(A\\mid E_1)+P(E_2)P(A\\mid E_2),\\qquad P(E_1\\mid A)=\\dfrac{P(E_1)P(A\\mid E_1)}{P(A)}",
+        "text": "The first is the **theorem of total probability**; the second is **Bayes' theorem**, which reverses the conditioning: from the effect $A$ back to the cause $E_1$. $P(E_i)$ are the prior probabilities."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Bag A has 3 red and 2 blue balls; bag B has 1 red and 4 blue balls. A bag is chosen at random and a ball is drawn. Find $P(\\text{red})$, and if the ball is red, the probability that it came from bag A.",
+        "solution": "$P(A)=P(B)=\\dfrac12$. $P(\\text{red}\\mid A)=\\dfrac35$, $P(\\text{red}\\mid B)=\\dfrac15$.\n\n$P(\\text{red})=\\dfrac12\\cdot\\dfrac35+\\dfrac12\\cdot\\dfrac15=\\dfrac3{10}+\\dfrac1{10}=\\dfrac4{10}=\\dfrac25$.\n\n$P(A\\mid\\text{red})=\\dfrac{3/10}{4/10}=\\dfrac34$.",
+        "answer": "$P(\\text{red})=\\dfrac25$ and $P(A\\mid\\text{red})=\\dfrac34$"
+      },
+      {
+        "type": "HEADING",
+        "text": "From simple probability to probability distributions"
+      },
+      {
+        "type": "TEXT",
+        "text": "When the probabilities of **all** the possible values of a numerical outcome are listed together, we get a probability distribution. If a die is thrown and $X$ is the number shown, then $P(X=k)=\\dfrac16$ for $k=1,\\dots,6$. The simple probability of each event is a single entry of this list, and the entries add to 1 because the sample space is certain."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "$P(E)=\\dfrac{n(E)}{n(S)}$ for equally likely outcomes; $P(A')=1-P(A)$; $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$; $P(A\\mid B)=\\dfrac{P(A\\cap B)}{P(B)}$; for independent events $P(A\\cap B)=P(A)P(B)$."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Use \"at least one\" $=1-$ \"none\". For draws **without replacement** multiply conditional probabilities; for draws **with replacement** the draws are independent."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r09-simple-probability-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "Two fair dice are thrown. The probability that the sum of the numbers is 7 is",
+      "options": [
+        "$\\dfrac1{12}$",
+        "$\\dfrac5{36}$",
+        "$\\dfrac16$",
+        "$\\dfrac7{36}$"
+      ],
+      "answer": 3,
+      "explanation": "The sample space has $36$ equally likely outcomes. The outcomes with sum 7 are $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$, so there are 6. Hence $P=\\frac{6}{36}=\\frac16$. The pairs such as $(2,5)$ and $(5,2)$ are different outcomes and both counted.",
+      "optionRationale": {
+        "1": "$\\frac1{12}=\\frac3{36}$ counts only three unordered pairs.",
+        "2": "$\\frac5{36}$ misses one of the six ordered pairs.",
+        "4": "$\\frac7{36}$ mistakes the sum 7 for 7 outcomes."
+      },
+      "objective": "Compute classical probability with two dice"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A card is drawn at random from a well-shuffled pack of 52 cards. The probability that it is a king is",
+      "options": [
+        "$\\dfrac1{13}$",
+        "$\\dfrac1{52}$",
+        "$\\dfrac4{13}$",
+        "$\\dfrac14$"
+      ],
+      "answer": 1,
+      "explanation": "There are 4 kings among the 52 cards, so $P(\\text{king})=\\frac4{52}=\\frac1{13}$. The value $\\frac1{52}$ is the probability of one particular card, and $\\frac14$ is the probability of one particular suit.",
+      "optionRationale": {
+        "2": "$\\frac1{52}$ is the chance of one specific card.",
+        "3": "$\\frac4{13}$ would apply to 16 favourable cards, not 4.",
+        "4": "$\\frac14$ is the chance of a card from one named suit."
+      },
+      "objective": "Compute the probability of drawing a king"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "If $P(A)=0.35$, then the probability of the event \"not $A$\" is",
+      "options": [
+        "$0.35$",
+        "$0.45$",
+        "$1.35$",
+        "$0.65$"
+      ],
+      "answer": 4,
+      "explanation": "The complement rule states $P(A')=1-P(A)=1-0.35=0.65$. The result is a valid probability between 0 and 1; the value 1.35 is greater than 1 and so cannot be a probability.",
+      "optionRationale": {
+        "1": "$0.35$ is $P(A)$ itself.",
+        "2": "$0.45$ is not obtained by any correct rule here.",
+        "3": "$1.35=1+P(A)$ exceeds 1 and so cannot be a probability."
+      },
+      "objective": "Use the complement rule"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The number of outcomes in the sample space when a coin is tossed three times is",
+      "options": [
+        "$6$",
+        "$8$",
+        "$4$",
+        "$3$"
+      ],
+      "answer": 2,
+      "explanation": "Each toss has 2 outcomes and the tosses are independent, so the total is $2\\times2\\times2=8$: HHH, HHT, HTH, HTT, THH, THT, TTH, TTT. Counting only the number of heads (0 to 3) would give just 4 values, which are not equally likely.",
+      "optionRationale": {
+        "1": "$6$ has no basis; the count is $2^3$.",
+        "3": "$4$ is the number of possible head counts, not the number of outcomes.",
+        "4": "$3$ is the number of tosses, not the outcomes."
+      },
+      "objective": "List the sample space for repeated coin tosses"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A bag contains 3 red and 5 blue balls. One ball is drawn at random. The probability that it is red is",
+      "options": [
+        "$\\dfrac35$",
+        "$\\dfrac38$",
+        "$\\dfrac58$",
+        "$\\dfrac13$"
+      ],
+      "answer": 2,
+      "explanation": "There are $3+5=8$ equally likely balls and 3 are red, so $P(\\text{red})=\\frac38$. The value $\\frac35$ is the ratio of red to blue (odds), not probability, and $\\frac58$ is the probability of a blue ball.",
+      "optionRationale": {
+        "1": "$\\frac35$ compares red with blue, not red with the total.",
+        "3": "$\\frac58$ is the probability of a blue ball.",
+        "4": "$\\frac13$ has no connection with the ball numbers."
+      },
+      "objective": "Compute a simple probability from counts"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "By the addition theorem of probability, if $P(A)=0.5$, $P(B)=0.4$ and $P(A\\cap B)=0.2$, then $P(A\\cup B)$ equals",
+      "options": [
+        "$0.9$",
+        "$0.5$",
+        "$0.3$",
+        "$0.7$"
+      ],
+      "answer": 4,
+      "explanation": "By the addition rule, $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)=0.5+0.4-0.2=0.7$. The value $0.9$ forgets to subtract the overlap, which would be right only for mutually exclusive events.",
+      "optionRationale": {
+        "1": "$0.9$ adds $P(A)+P(B)$ without subtracting $P(A\\cap B)$.",
+        "2": "$0.5$ is $P(A)$ alone.",
+        "3": "$0.3$ is $P(A)-P(A\\cap B)$, only the part of $A$ outside $B$."
+      },
+      "objective": "Apply the addition theorem"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If $P(A)=0.8$, $P(B)=0.5$ and $P(A\\cap B)=0.2$, then $P(A\\mid B)$ is",
+      "options": [
+        "$0.4$",
+        "$0.25$",
+        "$0.2$",
+        "$0.1$"
+      ],
+      "answer": 1,
+      "explanation": "$P(A\\mid B)=\\frac{P(A\\cap B)}{P(B)}=\\frac{0.2}{0.5}=0.4$. We divide by the probability of the event that has occurred ($B$). The value $0.25$ is $\\frac{0.2}{0.8}=P(B\\mid A)$, the other conditional probability.",
+      "optionRationale": {
+        "2": "$0.25$ is $P(B\\mid A)$, obtained by dividing by $P(A)$.",
+        "3": "$0.2$ is the joint probability, which has not been divided.",
+        "4": "$0.1$ is $P(A\\cap B)\\times P(B)$, which is not a conditional probability."
+      },
+      "objective": "Compute a conditional probability"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "$A$ and $B$ are independent events with $P(A)=0.3$ and $P(B)=0.4$. Then $P(A\\cup B)$ is",
+      "options": [
+        "$0.7$",
+        "$0.12$",
+        "$0.58$",
+        "$0.42$"
+      ],
+      "answer": 3,
+      "explanation": "For independent events $P(A\\cap B)=0.3\\times0.4=0.12$. Then $P(A\\cup B)=0.3+0.4-0.12=0.58$. The value $0.7$ would hold only if the events were mutually exclusive, and $0.12$ is the intersection.",
+      "optionRationale": {
+        "1": "$0.7$ ignores the overlap $0.12$.",
+        "2": "$0.12$ is $P(A\\cap B)$, not the union.",
+        "4": "$0.42$ is $0.7-0.28$, from a wrong intersection."
+      },
+      "objective": "Combine independence with the addition rule"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q09",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about probability.\nA. The probability of any event lies between 0 and 1, both included.\nB. The probability of the sure event is 1.\nC. Two mutually exclusive events with non-zero probabilities are always independent.\nD. The probability of the impossible event is 0.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "B, C and D only",
+        "A and C only",
+        "A, B and D only"
+      ],
+      "answer": 4,
+      "explanation": "Probabilities lie in $[0,1]$ (A), the sure event has probability 1 (B) and the impossible event has probability 0 (D). Statement C is false: mutually exclusive events with non-zero probabilities have $P(A\\cap B)=0\\neq P(A)P(B)$, so they are dependent.",
+      "optionRationale": {
+        "1": "C is false; mutually exclusive events with non-zero probabilities cannot be independent.",
+        "2": "C is false and A is a correct statement.",
+        "3": "C is false; also this misses B and D."
+      },
+      "objective": "Check basic properties of probability"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q10",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the term in List-I with its probability statement in List-II.",
+      "options": [
+        "A-IV, B-II, C-III, D-I",
+        "A-II, B-IV, C-III, D-I",
+        "A-II, B-IV, C-I, D-III",
+        "A-III, B-IV, C-II, D-I"
+      ],
+      "answer": 2,
+      "explanation": "Mutually exclusive events cannot occur together, so $P(A\\cap B)=0$ (A-II). Independence means the joint probability factorises (B-IV). Complements satisfy $P(A')=1-P(A)$ (C-III). Conditional probability is the ratio $\\frac{P(A\\cap B)}{P(B)}$ (D-I).",
+      "optionRationale": {
+        "1": "A and B are interchanged; mutually exclusive events have zero intersection.",
+        "3": "C and D are interchanged; the complement rule is III.",
+        "4": "A and C are interchanged; mutual exclusion is $P(A\\cap B)=0$."
+      },
+      "objective": "Match terms with their probability formulas",
+      "list": {
+        "left": [
+          "A. Mutually exclusive events",
+          "B. Independent events",
+          "C. Complementary events",
+          "D. Conditional probability of $A$ given $B$"
+        ],
+        "right": [
+          "I. $P(A\\mid B)=\\dfrac{P(A\\cap B)}{P(B)}$",
+          "II. $P(A\\cap B)=0$",
+          "III. $P(A^{c})=1-P(A)$",
+          "IV. $P(A\\cap B)=P(A)P(B)$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Three fair coins are tossed once. The probability of getting at least one head is",
+      "options": [
+        "$\\dfrac18$",
+        "$\\dfrac34$",
+        "$\\dfrac78$",
+        "$\\dfrac12$"
+      ],
+      "answer": 3,
+      "explanation": "The only outcome with no head is TTT, so $P(\\text{no head})=\\frac18$. Then $P(\\text{at least one head})=1-\\frac18=\\frac78$. The value $\\frac18$ is the probability of no head.",
+      "optionRationale": {
+        "1": "$\\frac18$ is the probability of no head, not of at least one.",
+        "2": "$\\frac34$ would be correct for two coins, not three.",
+        "4": "$\\frac12$ is the probability of a head in one toss."
+      },
+      "objective": "Use the complement rule for \"at least one\""
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A bag has 3 red and 5 blue balls. Two balls are drawn one after another **with replacement**. The probability that both are red is",
+      "options": [
+        "$\\dfrac9{64}$",
+        "$\\dfrac3{28}$",
+        "$\\dfrac34$",
+        "$\\dfrac38$"
+      ],
+      "answer": 1,
+      "explanation": "With replacement the draws are independent and each has $P(\\text{red})=\\frac38$. So $P(\\text{both red})=\\frac38\\times\\frac38=\\frac9{64}$. The value $\\frac3{28}=\\frac38\\times\\frac27$ is the answer without replacement.",
+      "optionRationale": {
+        "2": "$\\frac3{28}$ is for drawing without replacement.",
+        "3": "$\\frac34$ adds the probabilities instead of multiplying.",
+        "4": "$\\frac38$ is the probability for a single draw."
+      },
+      "objective": "Use independence for draws with replacement"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A number is chosen at random from $1,2,\\dots,20$. The probability that it is a multiple of 3 or a multiple of 5 is",
+      "options": [
+        "$\\dfrac9{20}$",
+        "$\\dfrac{11}{20}$",
+        "$\\dfrac12$",
+        "$\\dfrac7{20}$"
+      ],
+      "answer": 1,
+      "explanation": "Multiples of 3: $3,6,9,12,15,18$ (6 numbers). Multiples of 5: $5,10,15,20$ (4 numbers). The number 15 is in both, so the union has $6+4-1=9$ numbers. $P=\\frac9{20}$. The value $\\frac{11}{20}$ comes from wrongly adding the overlap.",
+      "optionRationale": {
+        "2": "$\\frac{11}{20}$ adds the overlap instead of subtracting it.",
+        "3": "$\\frac12$ would need 10 favourable numbers, but there are 9.",
+        "4": "$\\frac7{20}$ subtracts the overlap twice."
+      },
+      "objective": "Count a union of two events"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Two cards are drawn one after another **without replacement** from a pack of 52 cards. The probability that both are aces is",
+      "options": [
+        "$\\dfrac1{169}$",
+        "$\\dfrac1{13}$",
+        "$\\dfrac1{221}$",
+        "$\\dfrac4{663}$"
+      ],
+      "answer": 3,
+      "explanation": "$P(\\text{first ace})=\\frac4{52}$ and, given this, $P(\\text{second ace})=\\frac3{51}$. Multiplying, $\\frac{4}{52}\\cdot\\frac{3}{51}=\\frac{12}{2652}=\\frac1{221}$. The value $\\frac1{169}=\\left(\\frac4{52}\\right)^2$ is the answer with replacement.",
+      "optionRationale": {
+        "1": "$\\frac1{169}$ corresponds to drawing with replacement.",
+        "2": "$\\frac1{13}$ is the probability of a single ace.",
+        "4": "$\\frac4{663}$ is $\\frac{4}{52}\\cdot\\frac{4}{51}$, which wrongly leaves 4 aces after one is drawn."
+      },
+      "objective": "Use the multiplication rule for dependent draws"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Bag A has 3 red and 2 blue balls; bag B has 1 red and 4 blue balls. A bag is chosen at random and a ball is drawn. If the ball is red, the probability that it came from bag A is",
+      "options": [
+        "$\\dfrac35$",
+        "$\\dfrac34$",
+        "$\\dfrac12$",
+        "$\\dfrac3{10}$"
+      ],
+      "answer": 2,
+      "explanation": "$P(\\text{red})=\\frac12\\cdot\\frac35+\\frac12\\cdot\\frac15=\\frac3{10}+\\frac1{10}=\\frac25$. By Bayes' theorem, $P(A\\mid\\text{red})=\\frac{3/10}{2/5}=\\frac{3/10}{4/10}=\\frac34$. The value $\\frac35$ is $P(\\text{red}\\mid A)$, the reverse conditional probability.",
+      "optionRationale": {
+        "1": "$\\frac35$ is $P(\\text{red}\\mid A)$, not $P(A\\mid\\text{red})$.",
+        "3": "$\\frac12$ is the prior probability of choosing bag A, before seeing the red ball.",
+        "4": "$\\frac3{10}$ is the joint probability $P(A\\cap\\text{red})$, not yet divided by $P(\\text{red})$."
+      },
+      "objective": "Apply Bayes theorem to two bags"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Using the union formula first and then the definition of conditional probability, if $P(A)=0.6$, $P(B)=0.5$ and $P(A\\cup B)=0.8$, then $P(A\\mid B)$ equals",
+      "options": [
+        "$0.3$",
+        "$0.5$",
+        "$0.75$",
+        "$0.6$"
+      ],
+      "answer": 4,
+      "explanation": "From $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$: $0.8=1.1-P(A\\cap B)$, so $P(A\\cap B)=0.3$. Then $P(A\\mid B)=\\frac{0.3}{0.5}=0.6$. Since this equals $P(A)$, the events are independent. The value $0.3$ is the joint probability.",
+      "optionRationale": {
+        "1": "$0.3$ is $P(A\\cap B)$ before dividing by $P(B)$.",
+        "2": "$0.5$ is $P(B)$ and not a conditional probability.",
+        "3": "$0.75$ results from dividing $0.3$ by $0.4$, which is not a probability in the data."
+      },
+      "objective": "Find a conditional probability from the union"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Two fair dice are thrown. Given that the sum is 8, the probability that both dice show the same number is",
+      "options": [
+        "$\\dfrac16$",
+        "$\\dfrac15$",
+        "$\\dfrac5{36}$",
+        "$\\dfrac1{36}$"
+      ],
+      "answer": 2,
+      "explanation": "The outcomes with sum 8 are $(2,6),(3,5),(4,4),(5,3),(6,2)$, so the reduced sample space has 5 outcomes. Only $(4,4)$ has equal numbers. Thus $P=\\frac15$. The value $\\frac16$ is the unconditional chance of doubles, and $\\frac5{36}$ is $P(\\text{sum}=8)$.",
+      "optionRationale": {
+        "1": "$\\frac16$ is the probability of a double without the information on the sum.",
+        "3": "$\\frac5{36}$ is the probability that the sum is 8.",
+        "4": "$\\frac1{36}$ is the joint probability of $(4,4)$, not yet conditioned."
+      },
+      "objective": "Compute a conditional probability using a reduced sample space"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Three fair coins are tossed. Given that at least one head has appeared, the probability of getting exactly two heads is",
+      "options": [
+        "$\\dfrac38$",
+        "$\\dfrac78$",
+        "$\\dfrac37$",
+        "$\\dfrac12$"
+      ],
+      "answer": 3,
+      "explanation": "The event \"at least one head\" has $7$ outcomes. Exactly two heads can occur in $3$ of them (HHT, HTH, THH). So $P=\\frac37$. Alternatively, $\\frac{P(A\\cap B)}{P(B)}=\\frac{3/8}{7/8}=\\frac37$. The value $\\frac38$ is the unconditional probability.",
+      "optionRationale": {
+        "1": "$\\frac38$ ignores the information that at least one head has appeared.",
+        "2": "$\\frac78$ is the probability of at least one head.",
+        "4": "$\\frac12$ has no basis in the counts $3$ and $7$."
+      },
+      "objective": "Compute a conditional probability with coins"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q19",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Two mutually exclusive events with non-zero probabilities cannot be independent.\nReason (R): For mutually exclusive events $P(A\\cap B)=0$, whereas for independent events $P(A\\cap B)=P(A)P(B)$, which is non-zero when both probabilities are non-zero.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "If $A$ and $B$ are mutually exclusive, $P(A\\cap B)=0$. If they were also independent, $P(A)P(B)=0$, which would force one of the probabilities to be zero. Both being non-zero contradicts this, so they cannot be independent. R gives precisely this argument.",
+      "optionRationale": {
+        "2": "R is the exact reasoning for A.",
+        "3": "R is true.",
+        "4": "A is true: such events are dependent."
+      },
+      "objective": "Distinguish mutually exclusive and independent events"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q20",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): For any two events $A$ and $B$, $P(A\\cup B)=P(A)+P(B)$.\nReason (R): $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$ for any two events $A$ and $B$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "The correct addition theorem is the one stated in R, which is true for any events. The simple sum $P(A)+P(B)$ holds only when $P(A\\cap B)=0$, that is, for mutually exclusive events. So the assertion is false in general, and R is true.",
+      "optionRationale": {
+        "1": "A is false, so R cannot explain it.",
+        "2": "A is false.",
+        "3": "R is the standard addition theorem and is true."
+      },
+      "objective": "Apply the general addition theorem"
+    },
+    {
+      "key": "ug26-319-r09-simple-probability-q21",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Two persons shoot at a target independently, with probabilities of hitting equal to $0.6$ and $0.5$. The probability that the target is hit by at least one of them is",
+      "options": [
+        "$0.3$",
+        "$0.2$",
+        "$0.55$",
+        "$0.8$"
+      ],
+      "answer": 4,
+      "explanation": "$P(\\text{both miss})=(1-0.6)(1-0.5)=0.4\\times0.5=0.2$. So $P(\\text{at least one hit})=1-0.2=0.8$. By the union formula, $0.6+0.5-0.3=0.8$. The value $0.3$ is the chance that both hit, and $0.2$ is the chance that both miss.",
+      "optionRationale": {
+        "1": "$0.3$ is the probability that both hit.",
+        "2": "$0.2$ is the probability that both miss.",
+        "3": "$0.55$ is the mean of the two probabilities and has no meaning here."
+      },
+      "objective": "Compute \"at least one\" for independent events"
+    }
+  ]
+}

@@ -1,0 +1,832 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_ba0e9444f6334838aad14411b5ff1a5c",
+    "title": "Numbers, Quantification and Numerical Applications"
+  },
+  "lesson": {
+    "key": "ug26-319-r01-numerical-applications",
+    "title": "Numbers and quantification: modular arithmetic, mixtures, boats, pipes, races and inequalities",
+    "coverage": [
+      {
+        "phrase": "Modulo Arithmetic",
+        "section": "Modulo arithmetic"
+      },
+      {
+        "phrase": "Define modulus of an integer",
+        "section": "Modulo arithmetic"
+      },
+      {
+        "phrase": "Apply arithmetic operations using modular arithmetic rules",
+        "section": "Modulo arithmetic"
+      },
+      {
+        "phrase": "Congruence Modulo",
+        "section": "Congruence modulo"
+      },
+      {
+        "phrase": "Define congruence modulo",
+        "section": "Congruence modulo"
+      },
+      {
+        "phrase": "Apply the definition in various problems",
+        "section": "Congruence modulo"
+      },
+      {
+        "phrase": "Allegation and Mixture",
+        "section": "Allegation and mixture"
+      },
+      {
+        "phrase": "rule of allegation to produce a mixture at a given price",
+        "section": "Allegation and mixture"
+      },
+      {
+        "phrase": "mean price of a mixture",
+        "section": "Allegation and mixture"
+      },
+      {
+        "phrase": "Apply rule of allegation",
+        "section": "Allegation and mixture"
+      },
+      {
+        "phrase": "Numerical Problems",
+        "section": "Real-life numerical problems"
+      },
+      {
+        "phrase": "Numbers, Quantification and Numerical Applications",
+        "section": "Real-life numerical problems"
+      },
+      {
+        "phrase": "Solve real life problems mathematically",
+        "section": "Real-life numerical problems"
+      },
+      {
+        "phrase": "Boats and Streams",
+        "section": "Boats and streams"
+      },
+      {
+        "phrase": "upstream and downstream",
+        "section": "Boats and streams"
+      },
+      {
+        "phrase": "Express the problem in the form of an equation",
+        "section": "Boats and streams"
+      },
+      {
+        "phrase": "Pipes and Cisterns",
+        "section": "Pipes and cisterns"
+      },
+      {
+        "phrase": "time taken by two or more pipes to fill or empty the tank",
+        "section": "Pipes and cisterns"
+      },
+      {
+        "phrase": "Races and Games",
+        "section": "Races and games"
+      },
+      {
+        "phrase": "Compare the performance of two players w.r.t. time, distance",
+        "section": "Races and games"
+      },
+      {
+        "phrase": "Numerical Inequalities",
+        "section": "Numerical inequalities"
+      },
+      {
+        "phrase": "basic concepts of numerical inequalities",
+        "section": "Numerical inequalities"
+      },
+      {
+        "phrase": "write numerical inequalities",
+        "section": "Numerical inequalities"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Modulo arithmetic"
+      },
+      {
+        "type": "TEXT",
+        "text": "Clock arithmetic is the everyday face of modular arithmetic. On a 12-hour clock, 5 hours after 10 o'clock is 3 o'clock, because we only keep the remainder on division by 12. In the same way, days of the week repeat every 7 days."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Modulus and remainder",
+        "text": "For integers $a$ and a positive integer $n$ (the **modulus**), the division algorithm gives $a=nq+r$ with $0\\le r<n$. The remainder $r$ is written $a \\bmod n$. For example $47\\bmod5=2$ because $47=5\\times9+2$."
+      },
+      {
+        "type": "TEXT",
+        "text": "Negative numbers also have a remainder in $\\{0,1,\\dots,n-1\\}$. For $-3$ and modulus 7, $-3=7(-1)+4$, so $-3\\bmod7=4$. The remainder is **never negative** in this convention."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "(a+b)\\bmod n=\\big[(a\\bmod n)+(b\\bmod n)\\big]\\bmod n,\\qquad (ab)\\bmod n=\\big[(a\\bmod n)(b\\bmod n)\\big]\\bmod n",
+        "text": "Valid for integers $a,b$ and a positive modulus $n$. Reduce each number first, then add or multiply, then reduce again. The same holds for subtraction and for powers: $a^k\\bmod n=(a\\bmod n)^k\\bmod n$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $(23\\times17)\\bmod 6$.",
+        "solution": "$23=6\\times3+5$, so $23\\bmod6=5$. $17=6\\times2+5$, so $17\\bmod6=5$.\n\nProduct of remainders: $5\\times5=25$, and $25\\bmod6=1$ (since $25=24+1$).\n\nCheck directly: $23\\times17=391=6\\times65+1$.",
+        "answer": "$1$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $3^{20}\\bmod7$.",
+        "solution": "Powers of 3 modulo 7: $3^1=3,\\ 3^2=2,\\ 3^3=6,\\ 3^4=4,\\ 3^5=5,\\ 3^6=1$. The cycle repeats every 6 powers.\n\n$20=6\\times3+2$, so $3^{20}\\equiv(3^6)^3\\cdot3^2\\equiv1\\cdot9\\equiv2\\pmod7$.",
+        "answer": "$2$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "When a power is large, look for the first power that gives remainder 1 (or $-1$); the pattern then repeats. Do not compute the full number."
+      },
+      {
+        "type": "HEADING",
+        "text": "Congruence modulo"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Congruence modulo $n$",
+        "text": "Integers $a$ and $b$ are **congruent modulo $n$**, written $a\\equiv b\\pmod n$, if $n$ divides $a-b$. Equivalently, $a$ and $b$ leave the same remainder when divided by $n$."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "$53\\equiv17\\pmod9$ because $53-17=36=9\\times4$. But $53\\not\\equiv17\\pmod8$ since $36$ is not divisible by 8. Also $32\\equiv5\\pmod9$ because $32-5=27=9\\times3$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Rules for congruences (modulus $n$)",
+        "columns": [
+          "Rule",
+          "Meaning"
+        ],
+        "rows": [
+          [
+            "If $a\\equiv b$ and $c\\equiv d$",
+            "then $a+c\\equiv b+d$ and $a-c\\equiv b-d$"
+          ],
+          [
+            "Same hypothesis",
+            "$ac\\equiv bd$"
+          ],
+          [
+            "If $a\\equiv b$",
+            "then $a^k\\equiv b^k$ for every positive integer $k$"
+          ],
+          [
+            "$a\\equiv b$ and $b\\equiv c$",
+            "then $a\\equiv c$ (transitive)"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $3x\\equiv4\\pmod7$.",
+        "solution": "We need a multiplier that turns 3 into 1 modulo 7. Since $3\\times5=15=14+1$, the inverse of 3 modulo 7 is 5.\n\nMultiply both sides by 5: $15x\\equiv20\\pmod7$, i.e. $x\\equiv6\\pmod7$ (because $20=14+6$).\n\nCheck: $3\\times6=18=14+4\\equiv4$.",
+        "answer": "$x\\equiv6\\pmod7$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Today is Wednesday. What day of the week will it be after 100 days?",
+        "solution": "Days repeat every 7, so only $100\\bmod7$ matters. $100=7\\times14+2$, so the remainder is 2.\n\nTwo days after Wednesday is Friday.",
+        "answer": "Friday"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "$a\\equiv b\\pmod n$ does **not** mean $a=b$. It means $n\\mid(a-b)$. Also, $a\\bmod n$ is a remainder, while $a\\equiv b$ is a relation between two numbers."
+      },
+      {
+        "type": "HEADING",
+        "text": "Allegation and mixture"
+      },
+      {
+        "type": "TEXT",
+        "text": "The **rule of allegation** finds the ratio in which two ingredients at different prices (or strengths) must be mixed to obtain a mixture at a required mean price (or strength). It follows from the fact that the cost of the mixture equals the sum of the costs of its parts."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Mean price of a mixture",
+        "text": "If $q_1$ and $q_2$ units of two items with unit prices $p_1$ and $p_2$ are mixed, the mean price is $\\dfrac{q_1p_1+q_2p_2}{q_1+q_2}$. When $q_1=q_2$ it is the simple average of $p_1$ and $p_2$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\frac{q_{\\text{cheaper}}}{q_{\\text{dearer}}}=\\frac{p_{\\text{dearer}}-m}{m-p_{\\text{cheaper}}}",
+        "text": "$m$ is the mean price of the mixture and $p_{\\text{cheaper}}<m<p_{\\text{dearer}}$. The cheaper item's quantity goes with the difference on the **dearer** side. The same rule applies to strengths such as percentage of alcohol."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Rice at Rs 40 per kg and Rs 55 per kg is mixed to get a mixture worth Rs 46 per kg. In what ratio are they mixed?",
+        "solution": "Cheaper : dearer $=(55-46):(46-40)=9:6=3:2$.\n\nCheck: 3 kg at 40 and 2 kg at 55 cost $120+110=230$ for 5 kg, which is Rs 46 per kg.",
+        "answer": "$3:2$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A vessel holds 20 L of wine. 4 L are drawn out and replaced by water. The step is repeated once more. How much wine is left?",
+        "solution": "Each step leaves a fraction $1-\\tfrac{4}{20}=0.8$ of the wine. After two steps: $20\\times0.8^2=20\\times0.64=12.8$ L.\n\nCheck: after the first step 16 L wine and 4 L water remain; the second draw removes $4\\times\\tfrac{16}{20}=3.2$ L wine, leaving $12.8$ L.",
+        "answer": "$12.8$ L"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Do not subtract the dearer price from the cheaper one by mistake. Draw the cross: the mean is in the middle, the prices on the two sides, and take differences along the diagonals."
+      },
+      {
+        "type": "HEADING",
+        "text": "Real-life numerical problems"
+      },
+      {
+        "type": "TEXT",
+        "text": "Many word problems become easy once the data are converted to an equation. A useful routine: choose a variable, translate each sentence into an equation or ratio, solve, and check the answer against the story."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A's salary is 20% more than B's. By what percent is B's salary less than A's?",
+        "solution": "Let B's salary be 100. Then A's is 120. The difference is 20, and it is compared with A's salary: $\\dfrac{20}{120}\\times100=16\\tfrac23\\%$.",
+        "answer": "$16\\tfrac23\\%$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A car travels 120 km at 60 km/h and returns at 40 km/h. Find the average speed for the whole trip.",
+        "solution": "Time going $=120/60=2$ h; time returning $=120/40=3$ h. Total distance $240$ km, total time $5$ h.\n\nAverage speed $=240/5=48$ km/h (not the simple average 50 km/h).",
+        "answer": "$48$ km/h"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Percentage change is always measured with respect to the **original** quantity. Average speed is total distance divided by total time."
+      },
+      {
+        "type": "HEADING",
+        "text": "Boats and streams"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Upstream and downstream",
+        "text": "A boat moving against the current goes **upstream**; moving with the current it goes **downstream**. If the boat's speed in still water is $u$ and the speed of the stream is $v$, then the downstream speed is $u+v$ and the upstream speed is $u-v$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "u=\\frac{d+s}{2},\\qquad v=\\frac{d-s}{2}",
+        "text": "$d$ = downstream speed, $s$ = upstream speed, $u$ = speed in still water, $v$ = speed of the stream (all in the same units, e.g. km/h)."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A boat goes 24 km upstream and 36 km downstream in 6 hours. It takes 6.5 hours to go 36 km upstream and 24 km downstream. Find the speed of the stream.",
+        "solution": "Let the upstream and downstream speeds be $s$ and $d$. Then $\\dfrac{24}{s}+\\dfrac{36}{d}=6$ and $\\dfrac{36}{s}+\\dfrac{24}{d}=6.5$.\n\nPut $a=1/s$, $b=1/d$: $24a+36b=6$ and $36a+24b=6.5$. Multiply the first by 3 and the second by 2: $72a+108b=18$ and $72a+48b=13$. Subtracting gives $60b=5$, so $b=\tfrac1{12}$. Then $24a=6-3=3$, so $a=\tfrac18$.\n\nSo $d=12$ km/h and $s=8$ km/h. Stream speed $v=(12-8)/2=2$ km/h.",
+        "answer": "$2$ km/h"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Upstream speed is smaller. Time = distance / speed with the correct speed for each leg. When two journeys are given, set up two equations in the two speeds."
+      },
+      {
+        "type": "HEADING",
+        "text": "Pipes and cisterns"
+      },
+      {
+        "type": "TEXT",
+        "text": "If a pipe fills a tank in $t$ hours, it fills $\\tfrac1t$ of the tank in one hour. A pipe that empties the tank (an outlet or leak) contributes a **negative** rate. With several pipes open, add the one-hour work."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{Time to fill}=\\frac{1}{\\dfrac1{t_1}+\\dfrac1{t_2}-\\dfrac1{t_3}}",
+        "text": "$t_1,t_2$ are the times in which two inlet pipes alone fill the tank and $t_3$ is the time in which an outlet alone empties it. Valid when the net rate is positive."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Pipes A and B fill a tank in 10 h and 15 h; pipe C empties it in 12 h. All three are opened. How long to fill the tank?",
+        "solution": "Net rate per hour $=\\tfrac1{10}+\\tfrac1{15}-\\tfrac1{12}=\\tfrac{6+4-5}{60}=\\tfrac5{60}=\\tfrac1{12}$.\n\nSo the tank is filled in 12 hours.",
+        "answer": "$12$ h"
+      },
+      {
+        "type": "HEADING",
+        "text": "Races and games"
+      },
+      {
+        "type": "TEXT",
+        "text": "In a race, the person who covers the distance in less time wins. \"A beats B by $x$ metres\" means that when A reaches the finish, B is $x$ metres behind. \"A beats B by $t$ seconds\" means that B finishes $t$ seconds after A. Compare the **speeds**, and use equal times."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "In a 100 m race A beats B by 20 m. A runs 100 m in 25 s. By how many seconds does A beat B?",
+        "solution": "When A finishes (25 s), B has run 80 m, so B's speed is $80/25=3.2$ m/s. B needs $100/3.2=31.25$ s for 100 m.\n\nA beats B by $31.25-25=6.25$ s.",
+        "answer": "$6.25$ s"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "In a 1000 m race A beats B by 100 m and A beats C by 190 m. By how many metres does B beat C?",
+        "solution": "When A runs 1000 m, B runs 900 m and C runs 810 m. So B's distance : C's distance $=900:810=10:9$.\n\nWhen B runs 1000 m, C runs $1000\\times\\tfrac9{10}=900$ m. So B beats C by 100 m.",
+        "answer": "$100$ m"
+      },
+      {
+        "type": "HEADING",
+        "text": "Numerical inequalities"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Numerical inequality",
+        "text": "A statement comparing two numbers or expressions using $<,\\ >,\\ \\le,\\ \\ge$. It is written and solved much like an equation, with a few rules."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Rules",
+        "columns": [
+          "If $a<b$",
+          "Then"
+        ],
+        "rows": [
+          [
+            "Add or subtract any $c$",
+            "$a+c<b+c$"
+          ],
+          [
+            "Multiply by $c>0$",
+            "$ac<bc$ (sense unchanged)"
+          ],
+          [
+            "Multiply by $c<0$",
+            "$ac>bc$ (**sense reversed**)"
+          ],
+          [
+            "Both $a,b$ positive (or both negative)",
+            "$\\tfrac1a>\\tfrac1b$"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $-2x+3\\ge11$.",
+        "solution": "Subtract 3: $-2x\\ge8$. Divide by $-2$ and reverse the sign: $x\\le-4$.\n\nCheck with $x=-5$: $-2(-5)+3=13\\ge11$. True.",
+        "answer": "$x\\le-4$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Reverse the inequality sign whenever you multiply or divide by a negative number. Reciprocals reverse the sign only when both numbers have the same sign: $-1<2$ but $\\tfrac1{-1}<\\tfrac12$."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "To write an inequality from words, translate \"at least\" as $\\ge$, \"at most\" as $\\le$, \"more than\" as $>$ and \"less than\" as $<$."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r01-numerical-applications-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The value of $47 \\bmod 5$ is",
+      "options": [
+        "2",
+        "9",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "explanation": "Divide 47 by 5: $47=5\\times9+2$, so the quotient is 9 and the remainder is 2. The value of $47\\bmod5$ is the remainder, which is 2.",
+      "optionRationale": {
+        "2": "9 is the quotient $47\\div5$, not the remainder.",
+        "3": "Takes $5-2$, the complement of the remainder.",
+        "4": "Takes the last digit minus 3, which has no meaning here."
+      },
+      "objective": "Compute a remainder using the division algorithm"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The value of $(23\\times17)\\bmod 6$ is",
+      "options": [
+        "5",
+        "1",
+        "0",
+        "4"
+      ],
+      "answer": 2,
+      "explanation": "Reduce each factor first: $23\\bmod6=5$ and $17\\bmod6=5$. Then $5\\times5=25$, and $25\\bmod6=1$. Check: $23\\times17=391=6\\times65+1$, so the remainder is 1.",
+      "optionRationale": {
+        "1": "Takes $23\\bmod6=5$ only, forgetting to multiply by the second residue.",
+        "3": "Assumes the product is divisible by 6.",
+        "4": "Adds the residues $5+5=10$ and reduces, instead of multiplying."
+      },
+      "objective": "Apply modular rule for products"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The remainder when $3^{20}$ is divided by 7 is",
+      "options": [
+        "1",
+        "3",
+        "2",
+        "6"
+      ],
+      "answer": 3,
+      "explanation": "The powers of 3 modulo 7 are $3,2,6,4,5,1$ and then repeat every 6 steps, so $3^6\\equiv1$. Since $20=6\\times3+2$, $3^{20}\\equiv(3^6)^3\\cdot3^2\\equiv1\\cdot9\\equiv2\\pmod7$.",
+      "optionRationale": {
+        "1": "Assumes $3^6\\equiv1$ gives remainder 1 for every power, ignoring the leftover $3^2$.",
+        "2": "Takes the base itself as the remainder.",
+        "4": "Takes the remainder of $3^3$ instead of $3^{20}$."
+      },
+      "objective": "Use the cyclic pattern of powers in modular arithmetic"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q04",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Match each expression in List-I with its value in List-II.",
+      "options": [
+        "A-III, B-IV, C-I, D-II",
+        "A-IV, B-III, C-I, D-II",
+        "A-III, B-IV, C-II, D-I",
+        "A-II, B-IV, C-I, D-III"
+      ],
+      "answer": 1,
+      "explanation": "$29=6\\times4+5$ so A is 5 (III). $-1=7(-1)+6$ so B is 6 (IV). $2^{10}=1024=11\\times93+1$ so C is 1 (I). $17=5\\times3+2$ so D is 2 (II). This gives A-III, B-IV, C-I, D-II.",
+      "optionRationale": {
+        "2": "$29\\bmod6=5$, not 6, and $-1\\bmod7=6$, not 5.",
+        "3": "$2^{10}\\bmod11=1$, not 2, and $17\\bmod5=2$, not 1.",
+        "4": "$29\\bmod6=5$, not 2, and $17\\bmod5=2$, not 5."
+      },
+      "objective": "Evaluate several modular expressions",
+      "list": {
+        "left": [
+          "A. $29\\bmod6$",
+          "B. $-1\\bmod7$",
+          "C. $2^{10}\\bmod11$",
+          "D. $17\\bmod5$"
+        ],
+        "right": [
+          "I. 1",
+          "II. 2",
+          "III. 5",
+          "IV. 6"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following numbers is congruent to $5 \\pmod 9$?",
+      "options": [
+        "31",
+        "33",
+        "34",
+        "32"
+      ],
+      "answer": 4,
+      "explanation": "$a\\equiv5\\pmod9$ means $9\\mid(a-5)$. For 32, $32-5=27=9\\times3$, so it works. The differences for 31, 33 and 34 are 26, 28 and 29, none of which is a multiple of 9.",
+      "optionRationale": {
+        "1": "$31-5=26$ is not divisible by 9.",
+        "2": "$33-5=28$ is not divisible by 9.",
+        "3": "$34-5=29$ is not divisible by 9."
+      },
+      "objective": "Use the definition of congruence"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For which of the following values of $n$ is $53\\equiv17\\pmod n$?",
+      "options": [
+        "9",
+        "5",
+        "7",
+        "8"
+      ],
+      "answer": 1,
+      "explanation": "$53\\equiv17\\pmod n$ requires $n\\mid(53-17)=36$. The divisors of 36 are 1, 2, 3, 4, 6, 9, 12, 18 and 36. Among the options only 9 is a divisor, and $36=9\\times4$.",
+      "optionRationale": {
+        "2": "$36$ is not divisible by 5.",
+        "3": "$36$ is not divisible by 7.",
+        "4": "$36$ is not divisible by 8, since $8\\times4=32$ and $8\\times5=40$."
+      },
+      "objective": "Find moduli for which two numbers are congruent"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The solution of $3x\\equiv4\\pmod 7$ is",
+      "options": [
+        "$x\\equiv5\\pmod7$",
+        "$x\\equiv6\\pmod7$",
+        "$x\\equiv4\\pmod7$",
+        "$x\\equiv2\\pmod7$"
+      ],
+      "answer": 2,
+      "explanation": "The inverse of 3 modulo 7 is 5, since $3\\times5=15\\equiv1$. Multiplying both sides by 5 gives $x\\equiv20\\equiv6\\pmod7$. Check: $3\\times6=18=14+4$, which is $\\equiv4\\pmod7$.",
+      "optionRationale": {
+        "1": "Uses 5, the inverse of 3, as the answer; $3\\times5=15\\equiv1$, not 4.",
+        "3": "Treats the congruence as $x\\equiv4$ by ignoring the coefficient 3.",
+        "4": "$3\\times2=6\\not\\equiv4\\pmod7$."
+      },
+      "objective": "Solve a linear congruence"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Today is Wednesday. After 100 days, the day of the week will be",
+      "options": [
+        "Thursday",
+        "Saturday",
+        "Friday",
+        "Wednesday"
+      ],
+      "answer": 3,
+      "explanation": "The weekdays repeat every 7 days, so only $100\\bmod7$ matters. $100=7\\times14+2$ gives remainder 2. Moving two days forward from Wednesday gives Thursday then Friday.",
+      "optionRationale": {
+        "1": "Corresponds to a remainder of 1 instead of 2.",
+        "2": "Corresponds to a remainder of 3 instead of 2.",
+        "4": "Corresponds to a remainder of 0, i.e. a multiple of 7."
+      },
+      "objective": "Apply modular arithmetic to a calendar problem"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q09",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): If equal quantities of two varieties of sugar costing Rs 40 and Rs 50 per kg are mixed, the mean price of the mixture is Rs 45 per kg.\nReason (R): The mean price of a mixture equals the total cost of its parts divided by the total quantity.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "For $q$ kg of each, total cost is $40q+50q=90q$ and total quantity is $2q$, so the mean price is $90q/(2q)=45$. This uses exactly the stated definition of mean price, so (R) correctly explains (A).",
+      "optionRationale": {
+        "2": "The reason is the definition that proves the assertion, so (R) is the correct explanation.",
+        "3": "The assertion is true: the simple average of 40 and 50 is 45.",
+        "4": "The reason is true, as mean price is total cost divided by total quantity."
+      },
+      "objective": "Compute the mean price of a mixture"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Two varieties of rice costing Rs 40 per kg and Rs 55 per kg are mixed to get a mixture worth Rs 46 per kg. The ratio of the cheaper to the dearer variety is",
+      "options": [
+        "$2:3$",
+        "$9:15$",
+        "$6:9$",
+        "$3:2$"
+      ],
+      "answer": 4,
+      "explanation": "By allegation, cheaper : dearer $=(55-46):(46-40)=9:6=3:2$. Check: 3 kg at Rs 40 plus 2 kg at Rs 55 costs $120+110=230$ for 5 kg, which is Rs 46 per kg.",
+      "optionRationale": {
+        "1": "The ratio is inverted; the cheaper variety is used in the larger quantity because the mean is nearer to its price.",
+        "2": "This mixes up the differences with the prices; the allegation uses differences, not prices.",
+        "3": "This puts the differences on the wrong sides, which would give the mean nearer the dearer price."
+      },
+      "objective": "Apply the rule of allegation"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A vessel holds 20 L of wine. 4 L are drawn out and replaced by water, and the process is repeated once more. The quantity of wine in the vessel is now",
+      "options": [
+        "12.8 L",
+        "12 L",
+        "16 L",
+        "13.6 L"
+      ],
+      "answer": 1,
+      "explanation": "After each step the wine is multiplied by $1-\\tfrac{4}{20}=0.8$. After two steps wine $=20\\times0.8^2=12.8$ L. Check: after step 1, 16 L wine and 4 L water; step 2 removes $4\\times\\tfrac{16}{20}=3.2$ L wine, leaving 12.8 L.",
+      "optionRationale": {
+        "2": "Subtracts 4 L of wine each time, but the second draw also removes some water.",
+        "3": "This is the wine left after the first step only.",
+        "4": "This comes from an incorrect subtraction of 2.4 L of wine in the second step; the correct amount removed is 3.2 L."
+      },
+      "objective": "Handle repeated replacement in mixtures"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A's salary is 20% more than B's salary. B's salary is less than A's salary by",
+      "options": [
+        "20%",
+        "$16\\tfrac23\\%$",
+        "$83\\tfrac13\\%$",
+        "$12\\tfrac12\\%$"
+      ],
+      "answer": 2,
+      "explanation": "Take B's salary as 100; then A's is 120. The difference of 20 is measured against A's salary, so B is less than A by $\\tfrac{20}{120}\\times100=16\\tfrac23\\%$. The base for a percentage is always the quantity being compared with.",
+      "optionRationale": {
+        "1": "Compares the difference with B's salary instead of A's.",
+        "3": "This is B's salary as a percentage of A's, not the shortfall.",
+        "4": "This does not follow from the figures; the base must be A's salary (120), not B's."
+      },
+      "objective": "Compare percentages with the correct base"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A boat's speed in still water is 12 km/h and the speed of the stream is 3 km/h. Its speed upstream is",
+      "options": [
+        "15 km/h",
+        "12 km/h",
+        "9 km/h",
+        "4 km/h"
+      ],
+      "answer": 3,
+      "explanation": "Moving against the current, the stream reduces the boat's speed, so the upstream speed is $12-3=9$ km/h. The downstream speed would be $12+3=15$ km/h.",
+      "optionRationale": {
+        "1": "This is the downstream speed.",
+        "2": "This ignores the stream completely.",
+        "4": "This is the ratio $12/3$, not a speed."
+      },
+      "objective": "Distinguish upstream and downstream speeds"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A boat covers 36 km downstream in 3 hours and returns the same distance upstream in 4 hours. The speed of the stream is",
+      "options": [
+        "3 km/h",
+        "10.5 km/h",
+        "12 km/h",
+        "1.5 km/h"
+      ],
+      "answer": 4,
+      "explanation": "Downstream speed $=36/3=12$ km/h and upstream speed $=36/4=9$ km/h. The stream speed is half the difference: $(12-9)/2=1.5$ km/h. The still-water speed is $(12+9)/2=10.5$ km/h.",
+      "optionRationale": {
+        "1": "This is the difference of the speeds, not half of it.",
+        "2": "This is the speed of the boat in still water.",
+        "3": "This is the downstream speed."
+      },
+      "objective": "Find the speed of the stream from journey times"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A boat goes 24 km upstream and 36 km downstream in 6 hours, and 36 km upstream and 24 km downstream in 6.5 hours. The speed of the stream is",
+      "options": [
+        "2 km/h",
+        "4 km/h",
+        "10 km/h",
+        "8 km/h"
+      ],
+      "answer": 1,
+      "explanation": "Let $a=1/(\\text{upstream speed})$ and $b=1/(\\text{downstream speed})$. Then $24a+36b=6$ and $36a+24b=6.5$. Solving gives $b=\\tfrac1{12}$ and $a=\\tfrac18$, so downstream is 12 km/h and upstream is 8 km/h. The stream speed is $(12-8)/2=2$ km/h.",
+      "optionRationale": {
+        "2": "This is the difference of the two speeds, not half of it.",
+        "3": "This is the speed of the boat in still water.",
+        "4": "This is the upstream speed."
+      },
+      "objective": "Form simultaneous equations for boat problems"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Pipe A fills a tank in 12 hours and pipe B fills it in 16 hours. Opened together, they fill the tank in",
+      "options": [
+        "14 hours",
+        "$\\dfrac{48}{7}$ hours",
+        "28 hours",
+        "4 hours"
+      ],
+      "answer": 2,
+      "explanation": "In one hour A fills $\\tfrac1{12}$ and B fills $\\tfrac1{16}$ of the tank. Together $\\tfrac1{12}+\\tfrac1{16}=\\tfrac{4+3}{48}=\\tfrac7{48}$ per hour. The time to fill is $\\tfrac{48}{7}=6\\tfrac67$ hours.",
+      "optionRationale": {
+        "1": "14 is the average of 12 and 16, not the combined time; only rates can be added, not times.",
+        "3": "Adding the times gives 28 hours, which is longer than either pipe alone; rates must be added instead.",
+        "4": "The time with both pipes is less than 12 hours but not 4 hours; compute $1/(1/12+1/16)$."
+      },
+      "objective": "Combine the rates of two inlet pipes"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Pipes A and B can fill a tank in 10 hours and 15 hours respectively, and pipe C can empty it in 12 hours. If all three pipes are opened together, the tank is filled in",
+      "options": [
+        "6 hours",
+        "10 hours",
+        "12 hours",
+        "30 hours"
+      ],
+      "answer": 3,
+      "explanation": "Net rate per hour $=\\tfrac1{10}+\\tfrac1{15}-\\tfrac1{12}=\\tfrac{6+4-5}{60}=\\tfrac1{12}$. So the tank is filled in 12 hours. The emptying pipe must be subtracted because it removes water.",
+      "optionRationale": {
+        "1": "Ignores the emptying pipe: $1/(1/10+1/15)=6$.",
+        "2": "Takes only the fastest filling pipe.",
+        "4": "Subtracts the rates incorrectly."
+      },
+      "objective": "Include an outlet pipe in a filling problem"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "In a 100 m race A beats B by 20 m. A runs 100 m in 25 seconds. A beats B by how many seconds?",
+      "options": [
+        "5 s",
+        "7.5 s",
+        "6 s",
+        "6.25 s"
+      ],
+      "answer": 4,
+      "explanation": "When A finishes in 25 s, B has run 80 m, so B's speed is $80/25=3.2$ m/s. B needs $100/3.2=31.25$ s to finish. A therefore beats B by $31.25-25=6.25$ s.",
+      "optionRationale": {
+        "1": "Takes 20% of 25 s, which treats time and distance incorrectly.",
+        "2": "B's finish time is 31.25 s, so the lead is 6.25 s, not 7.5 s.",
+        "3": "Rounds the correct value $6.25$ down."
+      },
+      "objective": "Convert a distance lead into a time lead"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "In a 1000 m race A beats B by 100 m and A beats C by 190 m. In a 1000 m race B beats C by",
+      "options": [
+        "100 m",
+        "90 m",
+        "110 m",
+        "81 m"
+      ],
+      "answer": 1,
+      "explanation": "When A runs 1000 m, B runs 900 m and C runs 810 m. So the speeds of B and C are in the ratio $900:810=10:9$. When B runs 1000 m, C runs $1000\\times\\tfrac9{10}=900$ m, so B beats C by 100 m.",
+      "optionRationale": {
+        "2": "Subtracts $190-100$, ignoring that B's lead is on a different base.",
+        "3": "When B runs 1000 m, C has run 900 m, so the gap is 100 m, not 110 m.",
+        "4": "This is the product $0.9\\times90$, which has no meaning here."
+      },
+      "objective": "Compare three runners using speed ratios"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The solution set of the inequality $-2x+3\\ge11$ is",
+      "options": [
+        "$x\\ge-4$",
+        "$x\\le-4$",
+        "$x\\le4$",
+        "$x\\ge4$"
+      ],
+      "answer": 2,
+      "explanation": "Subtract 3 from both sides: $-2x\\ge8$. Dividing by $-2$ reverses the inequality, so $x\\le-4$. Check with $x=-5$: $-2(-5)+3=13\\ge11$, which holds.",
+      "optionRationale": {
+        "1": "The sign should reverse on dividing by $-2$.",
+        "3": "Loses the negative sign of the right side.",
+        "4": "Both loses the sign and forgets to reverse the inequality."
+      },
+      "objective": "Solve a linear inequality with a negative coefficient"
+    },
+    {
+      "key": "ug26-319-r01-numerical-applications-q21",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about numbers $a,b,c$ with $a<b$.\nA. $a+c<b+c$ for every real $c$.\nB. If $c>0$ then $ac<bc$.\nC. If $c<0$ then $ac<bc$.\nD. $\\dfrac1a>\\dfrac1b$ whenever $a,b$ are non-zero.\nWhich statements are correct?",
+      "options": [
+        "A and B only",
+        "A, B and C only",
+        "B and D only",
+        "A, B and D only"
+      ],
+      "answer": 1,
+      "explanation": "A and B are the rules for adding any number and for multiplying by a positive number. C is false because multiplying by a negative number reverses the sign. D is false: for $a=-1$, $b=2$ we have $a<b$ but $\\tfrac1a=-1<\\tfrac12=\\tfrac1b$.",
+      "optionRationale": {
+        "2": "C is false, since multiplying by a negative reverses the inequality, so it cannot be included.",
+        "3": "A is also true, so this option is incomplete; D is false.",
+        "4": "D is false, as the example $a=-1,\\ b=2$ shows."
+      },
+      "objective": "Recall the rules of numerical inequalities"
+    }
+  ]
+}

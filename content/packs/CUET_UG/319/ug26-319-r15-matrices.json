@@ -1,0 +1,830 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_dee343ccd90643439f5bed11d9af1aee",
+    "title": "Matrices"
+  },
+  "lesson": {
+    "key": "ug26-319-r15-matrices",
+    "title": "Matrices: types, operations, transpose, symmetry and inverse",
+    "coverage": [
+      {
+        "phrase": "Matrices",
+        "section": "Matrix: concept, notation, order and equality"
+      },
+      {
+        "phrase": "Concept, notation, order, equality",
+        "section": "Matrix: concept, notation, order and equality"
+      },
+      {
+        "phrase": "types of matrices",
+        "section": "Types of matrices"
+      },
+      {
+        "phrase": "zero matrix",
+        "section": "Zero matrix and transpose of a matrix"
+      },
+      {
+        "phrase": "transpose of a matrix",
+        "section": "Zero matrix and transpose of a matrix"
+      },
+      {
+        "phrase": "symmetric and skew symmetric matrices",
+        "section": "Symmetric and skew symmetric matrices"
+      },
+      {
+        "phrase": "Operations on matrices: Addition, multiplication and multiplication with a scalar",
+        "section": "Operations on matrices: addition and scalar multiplication"
+      },
+      {
+        "phrase": "Simple properties of addition, multiplication and scalar multiplication",
+        "section": "Multiplication of matrices"
+      },
+      {
+        "phrase": "Non-commutativity of multiplication of matrices and existence of non-zero matrices whose product is the zero matrix (restrict to square matrices of order 2)",
+        "section": "Non-commutativity and zero products of non-zero matrices"
+      },
+      {
+        "phrase": "Invertible matrices and proof of the uniqueness of inverse, if it exists; (Here all matrices will have real entries)",
+        "section": "Invertible matrices and uniqueness of the inverse"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Matrix: concept, notation, order and equality"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **matrix** is a rectangular arrangement of numbers (here always real numbers) written in rows and columns inside brackets. Matrices let us store and manipulate whole tables of data, coefficients of equations or transformations with a single symbol. The individual numbers are the **elements** (or entries) of the matrix."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Matrix and its order",
+        "text": "A matrix with $m$ horizontal rows and $n$ vertical columns is said to have **order** $m \\times n$ (read \"m by n\"; rows are always named first). It is written $A = [a_{ij}]_{m \\times n}$, where $a_{ij}$ is the element in the $i$-th row and $j$-th column. A matrix of order $m\\times n$ has exactly $mn$ elements."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "Let $A=[a_{ij}]$ be of order $2\\times 3$ with $a_{ij}=2i-j$. Then $a_{11}=1,\\ a_{12}=0,\\ a_{13}=-1,\\ a_{21}=3,\\ a_{22}=2,\\ a_{23}=1$, so $A=\\begin{pmatrix}1&0&-1\\\\3&2&1\\end{pmatrix}$."
+      },
+      {
+        "type": "TEXT",
+        "text": "To count the possible orders of a matrix having exactly $N$ elements, list every ordered pair $(m,n)$ with $mn=N$. For $N=6$ the orders are $1\\times6,\\ 2\\times3,\\ 3\\times2,\\ 6\\times1$. Note that $2\\times3$ and $3\\times2$ are different orders."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Equality of matrices",
+        "text": "Two matrices $A=[a_{ij}]$ and $B=[b_{ij}]$ are **equal** if (i) they have the same order and (ii) $a_{ij}=b_{ij}$ for every $i$ and $j$. Equality of two $m\\times n$ matrices therefore gives $mn$ ordinary equations, one per position."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "If $\\begin{pmatrix}x+y&5\\\\ 2&x-2y\\end{pmatrix}=\\begin{pmatrix}7&5\\\\ 2&-2\\end{pmatrix}$, find $x$ and $y$.",
+        "solution": "Equal matrices have equal corresponding elements, so $x+y=7$ and $x-2y=-2$. Subtract the second equation from the first: $(x+y)-(x-2y)=7-(-2)$, so $3y=9$ and $y=3$. Then $x=7-3=4$. Check the other positions: $5=5$ and $2=2$ hold.",
+        "answer": "$x=4,\\ y=3$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Equality needs the same order first. A 2 x 3 matrix can never equal a 3 x 2 matrix, even if they contain the same six numbers."
+      },
+      {
+        "type": "HEADING",
+        "text": "Types of matrices"
+      },
+      {
+        "type": "TEXT",
+        "text": "Matrices are named by their shape or by the pattern of their elements. These names are used throughout the topic, so learn each definition precisely."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Types of matrices",
+        "columns": [
+          "Type",
+          "Meaning",
+          "Example"
+        ],
+        "rows": [
+          [
+            "Row matrix",
+            "Only one row, order $1\\times n$",
+            "$(2\\ \\ 5\\ \\ 7)$"
+          ],
+          [
+            "Column matrix",
+            "Only one column, order $m\\times 1$",
+            "$\\begin{pmatrix}1\\\\4\\end{pmatrix}$"
+          ],
+          [
+            "Square matrix",
+            "Number of rows equals number of columns, $m=n$",
+            "$\\begin{pmatrix}1&2\\\\3&4\\end{pmatrix}$"
+          ],
+          [
+            "Diagonal matrix",
+            "Square matrix with all non-diagonal elements $0$",
+            "$\\begin{pmatrix}3&0\\\\0&-1\\end{pmatrix}$"
+          ],
+          [
+            "Scalar matrix",
+            "Diagonal matrix with all diagonal elements equal",
+            "$\\begin{pmatrix}5&0\\\\0&5\\end{pmatrix}$"
+          ],
+          [
+            "Identity matrix $I$",
+            "Scalar matrix with every diagonal element $1$",
+            "$\\begin{pmatrix}1&0\\\\0&1\\end{pmatrix}$"
+          ],
+          [
+            "Upper triangular",
+            "Square matrix with $a_{ij}=0$ for $i>j$",
+            "$\\begin{pmatrix}1&2\\\\0&3\\end{pmatrix}$"
+          ],
+          [
+            "Lower triangular",
+            "Square matrix with $a_{ij}=0$ for $i<j$",
+            "$\\begin{pmatrix}1&0\\\\2&3\\end{pmatrix}$"
+          ]
+        ]
+      },
+      {
+        "type": "CONCEPT",
+        "text": "Each type is a special case of the one before it: identity $\\subset$ scalar $\\subset$ diagonal $\\subset$ square. So every identity matrix is a scalar matrix, and every scalar matrix is diagonal, but a diagonal matrix such as $\\mathrm{diag}(3,-1)$ is not scalar."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Zero matrix",
+        "text": "A matrix of any order $m \\times n$ whose elements are all $0$ is called the **zero (null) matrix**, written $O$. For every matrix $A$ of the same order, $A+O=A$, so $O$ is the additive identity."
+      },
+      {
+        "type": "TEXT",
+        "text": "The **identity matrix** $I$ plays the role of the number $1$ for multiplication: $AI=IA=A$ whenever the products are defined (for a square $A$ of the same order as $I$)."
+      },
+      {
+        "type": "HEADING",
+        "text": "Zero matrix and transpose of a matrix"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Transpose",
+        "text": "The **transpose** of $A=[a_{ij}]_{m\\times n}$ is the matrix $A'$ (also written $A^{T}$) of order $n\\times m$ obtained by interchanging rows and columns, so the $(i,j)$ element of $A'$ is $a_{ji}$."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "If $A=\\begin{pmatrix}1&2&3\\\\4&5&6\\end{pmatrix}$ ($2\\times3$), then $A'=\\begin{pmatrix}1&4\\\\2&5\\\\3&6\\end{pmatrix}$ ($3\\times2$)."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "(A')'=A,\\quad (kA)'=kA',\\quad (A+B)'=A'+B',\\quad (AB)'=B'A'",
+        "text": "$A,B$ are matrices of orders for which the sum or product exists and $k$ is a scalar. **Note the reversal of order** in $(AB)'=B'A'$: if $A$ is $m\\times n$ and $B$ is $n\\times p$ then $AB$ is $m\\times p$, $(AB)'$ is $p\\times m$, and $B'$ ($p\\times n$) times $A'$ ($n\\times m$) matches this order, whereas $A'B'$ would generally not even be defined."
+      },
+      {
+        "type": "HEADING",
+        "text": "Symmetric and skew symmetric matrices"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Symmetric matrix",
+        "text": "A square matrix $A=[a_{ij}]$ is **symmetric** if $A'=A$, that is, $a_{ij}=a_{ji}$ for all $i,j$. Its elements are mirror images across the main diagonal."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Skew symmetric matrix",
+        "text": "A square matrix $A$ is **skew symmetric** if $A'=-A$, that is, $a_{ij}=-a_{ji}$ for all $i,j$. Putting $i=j$ gives $a_{ii}=-a_{ii}$, hence $a_{ii}=0$: **every diagonal element of a skew symmetric matrix is zero.**"
+      },
+      {
+        "type": "TEXT",
+        "text": "Useful facts, for any square matrix $A$ of real numbers:\n- $A+A'$ is symmetric because $(A+A')'=A'+A=A+A'$.\n- $A-A'$ is skew symmetric because $(A-A')'=A'-A=-(A-A')$.\n- The zero matrix is both symmetric and skew symmetric, and it is the only matrix that is both.\n- **Every square matrix is uniquely the sum of a symmetric and a skew symmetric matrix:** $A=\\tfrac12(A+A')+\\tfrac12(A-A')$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Express $A=\\begin{pmatrix}6&2\\\\-4&3\\end{pmatrix}$ as the sum of a symmetric and a skew symmetric matrix.",
+        "solution": "Here $A'=\\begin{pmatrix}6&-4\\\\2&3\\end{pmatrix}$. Symmetric part $P=\\tfrac12(A+A')=\\tfrac12\\begin{pmatrix}12&-2\\\\-2&6\\end{pmatrix}=\\begin{pmatrix}6&-1\\\\-1&3\\end{pmatrix}$. Skew part $Q=\\tfrac12(A-A')=\\tfrac12\\begin{pmatrix}0&6\\\\-6&0\\end{pmatrix}=\\begin{pmatrix}0&3\\\\-3&0\\end{pmatrix}$. Check: $P+Q=\\begin{pmatrix}6&2\\\\-4&3\\end{pmatrix}=A$, $P'=P$ and $Q'=-Q$.",
+        "answer": "$A=\\begin{pmatrix}6&-1\\\\-1&3\\end{pmatrix}+\\begin{pmatrix}0&3\\\\-3&0\\end{pmatrix}$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Only square matrices can be symmetric or skew symmetric. When asked to find unknown elements, first use a_ii = 0 for skew symmetric matrices, then compare a_ij with -a_ji."
+      },
+      {
+        "type": "HEADING",
+        "text": "Operations on matrices: addition and scalar multiplication"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Addition and subtraction",
+        "text": "Matrices $A$ and $B$ can be added only if they have the **same order**; then $A+B$ is formed by adding corresponding elements: $(A+B)_{ij}=a_{ij}+b_{ij}$. Subtraction is $A-B=A+(-1)B$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Multiplication by a scalar",
+        "text": "If $k$ is a real number, $kA$ is the matrix whose every element is multiplied by $k$: $(kA)_{ij}=k\\,a_{ij}$."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "For $A=\\begin{pmatrix}1&0\\\\2&-1\\end{pmatrix}$ and $B=\\begin{pmatrix}3&1\\\\0&2\\end{pmatrix}$: $2A+B=\\begin{pmatrix}2&0\\\\4&-2\\end{pmatrix}+\\begin{pmatrix}3&1\\\\0&2\\end{pmatrix}=\\begin{pmatrix}5&1\\\\4&0\\end{pmatrix}$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Simple properties of addition and scalar multiplication",
+        "columns": [
+          "Property",
+          "Statement (same order, scalars $k,l$)"
+        ],
+        "rows": [
+          [
+            "Commutative",
+            "$A+B=B+A$"
+          ],
+          [
+            "Associative",
+            "$(A+B)+C=A+(B+C)$"
+          ],
+          [
+            "Additive identity",
+            "$A+O=O+A=A$"
+          ],
+          [
+            "Additive inverse",
+            "$A+(-A)=O$"
+          ],
+          [
+            "Distributive over matrices",
+            "$k(A+B)=kA+kB$"
+          ],
+          [
+            "Distributive over scalars",
+            "$(k+l)A=kA+lA$"
+          ]
+        ]
+      },
+      {
+        "type": "HEADING",
+        "text": "Multiplication of matrices"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Product of two matrices",
+        "text": "The product $AB$ is defined only when the number of **columns of $A$ equals the number of rows of $B$**. If $A$ is $m\\times n$ and $B$ is $n\\times p$, then $AB$ is $m\\times p$ and $(AB)_{ij}=\\sum_{k=1}^{n}a_{ik}b_{kj}$: the $(i,j)$ element is the sum of products of row $i$ of $A$ with column $j$ of $B$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $AB$ if $A=\\begin{pmatrix}1&2&0\\\\3&-1&4\\end{pmatrix}$ and $B=\\begin{pmatrix}2&1\\\\0&3\\\\1&-1\\end{pmatrix}$.",
+        "solution": "$A$ is $2\\times3$ and $B$ is $3\\times2$, so $AB$ exists and is $2\\times2$. Row 1 times column 1: $1\\cdot2+2\\cdot0+0\\cdot1=2$. Row 1 times column 2: $1\\cdot1+2\\cdot3+0\\cdot(-1)=7$. Row 2 times column 1: $3\\cdot2+(-1)\\cdot0+4\\cdot1=10$. Row 2 times column 2: $3\\cdot1+(-1)\\cdot3+4\\cdot(-1)=-4$.",
+        "answer": "$AB=\\begin{pmatrix}2&7\\\\10&-4\\end{pmatrix}$"
+      },
+      {
+        "type": "TEXT",
+        "text": "If $A$ is $2\\times3$ and $B$ is $3\\times2$, then $BA$ is also defined (order $3\\times3$) but is a different size from $AB$ (order $2\\times2$). For two matrices, one of $AB$ and $BA$ can be defined while the other is not: for $A$ of order $2\\times3$ and $B$ of order $3\\times4$, $AB$ exists ($2\\times4$) but $BA$ does not."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Properties of multiplication (when the products and sums are defined)",
+        "columns": [
+          "Property",
+          "Statement"
+        ],
+        "rows": [
+          [
+            "Associative",
+            "$(AB)C=A(BC)$"
+          ],
+          [
+            "Distributive",
+            "$A(B+C)=AB+AC$ and $(A+B)C=AC+BC$"
+          ],
+          [
+            "Identity",
+            "$AI=IA=A$"
+          ],
+          [
+            "Scalar",
+            "$k(AB)=(kA)B=A(kB)$"
+          ],
+          [
+            "Transpose",
+            "$(AB)'=B'A'$"
+          ]
+        ]
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Never write (AB)' = A'B'. The transpose of a product reverses the order. Also, multiplication is not element-by-element: AB is not obtained by multiplying matching elements."
+      },
+      {
+        "type": "HEADING",
+        "text": "Non-commutativity and zero products of non-zero matrices"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "For real numbers $ab=ba$ and $ab=0$ forces $a=0$ or $b=0$. **Neither statement is true for matrices.** In general $AB\\neq BA$, and $AB=O$ can hold even though $A\\neq O$ and $B\\neq O$."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "Let $A=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$ and $B=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}$. Then $AB=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}$ but $BA=\\begin{pmatrix}0&0\\\\0&0\\end{pmatrix}$, so $AB\\neq BA$."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "Let $A=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}$. Then $A^2=\\begin{pmatrix}0&0\\\\0&0\\end{pmatrix}=O$ although $A\\neq O$. Another standard pair is $A=\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$, $B=\\begin{pmatrix}1&-1\\\\-1&1\\end{pmatrix}$ with $AB=O$ and $A,B\\neq O$."
+      },
+      {
+        "type": "TEXT",
+        "text": "Consequences: cancellation fails ($AB=AC$ does not imply $B=C$), and algebraic identities need care: $(A+B)^2=A^2+AB+BA+B^2$, which equals $A^2+2AB+B^2$ only when $AB=BA$. For the powers of one matrix there is no trouble: $A^m A^n=A^{m+n}$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "If $A=\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$, find $A^n$ for a positive integer $n$.",
+        "solution": "$A^2=\\begin{pmatrix}1+1&1+1\\\\1+1&1+1\\end{pmatrix}=\\begin{pmatrix}2&2\\\\2&2\\end{pmatrix}=2A$. Then $A^3=A^2A=2A\\cdot A=2A^2=4A$. Continuing, $A^n=2^{\\,n-1}A$. Proof by induction: true for $n=1$; if $A^k=2^{k-1}A$ then $A^{k+1}=A^kA=2^{k-1}A^2=2^{k-1}\\cdot2A=2^kA$.",
+        "answer": "$A^n=2^{\\,n-1}\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Invertible matrices and uniqueness of the inverse"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Invertible matrix",
+        "text": "A square matrix $A$ of order $n$ is **invertible** if there exists a square matrix $B$ of the same order such that $AB=BA=I$. Then $B$ is called an **inverse** of $A$ and is written $A^{-1}$. A matrix with no inverse is non-invertible (singular). Only square matrices can be invertible."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Theorem (uniqueness).** If a square matrix $A$ has an inverse, the inverse is unique."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Proof.** Suppose $B$ and $C$ are both inverses of $A$, so $AB=BA=I$ and $AC=CA=I$. Then $B=BI=B(AC)=(BA)C=IC=C$. Hence any two inverses are equal."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "(A^{-1})^{-1}=A,\\qquad (AB)^{-1}=B^{-1}A^{-1},\\qquad (A')^{-1}=(A^{-1})'",
+        "text": "$A,B$ are invertible matrices of the same order. The inverse of a product reverses the order: $(AB)(B^{-1}A^{-1})=A(BB^{-1})A^{-1}=AIA^{-1}=AA^{-1}=I$, and similarly $(B^{-1}A^{-1})(AB)=I$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix},\\quad A^{-1}=\\frac{1}{ad-bc}\\begin{pmatrix}d&-b\\\\-c&a\\end{pmatrix}\\ \\ (ad-bc\\neq0)",
+        "text": "For a $2\\times2$ matrix, swap the diagonal elements, change the signs of the other two, and divide by $ad-bc$. If $ad-bc=0$ the matrix has no inverse."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Show that $B=\\begin{pmatrix}3&-1\\\\-5&2\\end{pmatrix}$ is the inverse of $A=\\begin{pmatrix}2&1\\\\5&3\\end{pmatrix}$.",
+        "solution": "Compute $AB=\\begin{pmatrix}2\\cdot3+1\\cdot(-5)&2\\cdot(-1)+1\\cdot2\\\\5\\cdot3+3\\cdot(-5)&5\\cdot(-1)+3\\cdot2\\end{pmatrix}=\\begin{pmatrix}1&0\\\\0&1\\end{pmatrix}$ and $BA=\\begin{pmatrix}3\\cdot2+(-1)\\cdot5&3\\cdot1+(-1)\\cdot3\\\\-5\\cdot2+2\\cdot5&-5\\cdot1+2\\cdot3\\end{pmatrix}=\\begin{pmatrix}1&0\\\\0&1\\end{pmatrix}$. Since $AB=BA=I$, $B=A^{-1}$. (Formula check: $ad-bc=6-5=1$.)",
+        "answer": "$A^{-1}=\\begin{pmatrix}3&-1\\\\-5&2\\end{pmatrix}$"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Order is rows x columns. A + B needs equal orders; AB needs columns of A = rows of B. Transposing or inverting a product reverses the order of the factors."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "AB = BA is not guaranteed, and AB = O does not force A = O or B = O. Identity I is the multiplicative identity; the inverse of an invertible matrix is unique."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Every square matrix equals (A + A')/2 + (A - A')/2, a symmetric plus a skew symmetric matrix. A skew symmetric matrix has zero diagonal."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "To test a 2 x 2 matrix for invertibility, check ad - bc != 0. Matrices that have a zero row or two proportional rows can never be invertible."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r15-matrices-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "A matrix has exactly 12 elements. How many different orders can it have?",
+      "options": [
+        "6",
+        "4",
+        "3",
+        "12"
+      ],
+      "answer": 1,
+      "explanation": "The order m x n must satisfy mn = 12. The ordered factor pairs of 12 are (1,12), (2,6), (3,4), (4,3), (6,2) and (12,1), so there are 6 possible orders. Since m x n and n x m are different orders, both orderings of each pair are counted.",
+      "optionRationale": {
+        "2": "Only unordered pairs have been counted; 2x6 and 6x2 are different orders.",
+        "3": "Only some factor pairs were counted; list all six ordered pairs.",
+        "4": "12 is the number of elements, not the number of possible orders."
+      },
+      "objective": "Count possible orders of a matrix with a given number of elements"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "A 2 x 2 matrix A = [a_ij] is defined by a_ij = i + 2j. What is the sum of its diagonal elements?",
+      "options": [
+        "9",
+        "7",
+        "10",
+        "8"
+      ],
+      "answer": 1,
+      "explanation": "Substitute into a_ij = i + 2j. The diagonal elements have i = j: a_11 = 1 + 2(1) = 3 and a_22 = 2 + 2(2) = 6. Their sum is 3 + 6 = 9. The full matrix is [[3, 5], [4, 6]], whose diagonal is 3 and 6.",
+      "optionRationale": {
+        "2": "This uses a_11 = 3 and a_22 = 4, forgetting that j is doubled.",
+        "3": "a_22 is 6 not 7, so the total is not 10.",
+        "4": "a_11 = 3 and a_22 = 6 give 9, not 8."
+      },
+      "objective": "Construct a matrix from a rule and use its elements"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "If $\\begin{pmatrix}x+y&2\\\\3&x-y\\end{pmatrix}$ = $\\begin{pmatrix}5&2\\\\3&1\\end{pmatrix}$, what is the value of xy?",
+      "options": [
+        "5",
+        "4",
+        "3",
+        "6"
+      ],
+      "answer": 4,
+      "explanation": "Equal matrices have equal corresponding elements, so x + y = 5 and x - y = 1. Adding the equations gives 2x = 6, so x = 3, and then y = 2. The elements 2 and 3 off the diagonal already match. Therefore xy = 3 x 2 = 6.",
+      "optionRationale": {
+        "1": "5 is the value of x + y, not of xy.",
+        "2": "x = 3 and y = 2 give xy = 6; 4 would need x = 2 and y = 2.",
+        "3": "3 is the value of x alone."
+      },
+      "objective": "Use equality of matrices to find unknowns"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q04",
+      "type": "STATEMENT_BASED",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about square matrices:\nA. Every scalar matrix is a diagonal matrix.\nB. The identity matrix is a scalar matrix.\nC. Every diagonal matrix is a scalar matrix.\nD. The zero square matrix is symmetric.\nChoose the correct answer.",
+      "options": [
+        "A, B and C only",
+        "B, C and D only",
+        "A, B and D only",
+        "A and C only"
+      ],
+      "answer": 3,
+      "explanation": "A scalar matrix is a diagonal matrix with equal diagonal entries, so A is true. The identity matrix has all diagonal entries 1, so it is scalar and B is true. C is false because diag(3, -1) has unequal diagonal entries. The zero matrix equals its transpose, so D is true.",
+      "optionRationale": {
+        "1": "C is false: diag(3, -1) is diagonal but not scalar.",
+        "2": "C is false, so B, C and D cannot all be true; A is true and is missing.",
+        "4": "C is false, and B and D are also true."
+      },
+      "objective": "Relate the types of matrices"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q05",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match the type of matrix in List-I with its description in List-II.",
+      "list": {
+        "left": [
+          "A. Row matrix",
+          "B. Column matrix",
+          "C. Scalar matrix",
+          "D. Zero matrix"
+        ],
+        "right": [
+          "I. Order m x 1",
+          "II. Order 1 x n",
+          "III. Diagonal matrix with equal diagonal elements",
+          "IV. All elements are 0"
+        ]
+      },
+      "options": [
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-III, D-IV",
+        "A-II, B-I, C-IV, D-III",
+        "A-III, B-I, C-II, D-IV"
+      ],
+      "answer": 2,
+      "explanation": "A row matrix has a single row, so its order is 1 x n (II). A column matrix has a single column, order m x 1 (I). A scalar matrix is a diagonal matrix whose diagonal entries are all equal (III). The zero matrix has every element 0 (IV). So A-II, B-I, C-III, D-IV.",
+      "optionRationale": {
+        "1": "A and B are interchanged.",
+        "3": "C and D are interchanged.",
+        "4": "A, C are wrongly matched."
+      },
+      "objective": "Match matrix types with their descriptions"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q06",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "**Assertion (A):** The product of two non-zero matrices can be the zero matrix.\n**Reason (R):** Matrix multiplication is not commutative.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 2,
+      "explanation": "For N = [[0,1],[0,0]], N times N = O although N is non-zero, so the assertion is true. Matrix multiplication is indeed non-commutative, so the reason is true as well. However non-commutativity (AB differs from BA) does not cause AB = O; the zero product arises from particular rows and columns whose products cancel. So R does not explain A.",
+      "optionRationale": {
+        "1": "Both are true, and R is true but is not the reason for A; the first option claims too much.",
+        "3": "A is true, so it is not false; and R is also true.",
+        "4": "A is true (example: a nonzero matrix with square zero), so option 4 cannot hold."
+      },
+      "objective": "Distinguish non-commutativity from zero divisors"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If A = $\\begin{pmatrix}1&2\\\\3&4\\end{pmatrix}$ and B = $\\begin{pmatrix}0&1\\\\1&0\\end{pmatrix}$, then AB - BA equals",
+      "options": [
+        "$\\begin{pmatrix}-1&-3\\\\3&1\\end{pmatrix}$",
+        "$\\begin{pmatrix}1&3\\\\-3&-1\\end{pmatrix}$",
+        "$\\begin{pmatrix}5&5\\\\5&5\\end{pmatrix}$",
+        "$\\begin{pmatrix}0&0\\\\0&0\\end{pmatrix}$"
+      ],
+      "answer": 1,
+      "explanation": "Multiplying, AB = [[1*0+2*1, 1*1+2*0], [3*0+4*1, 3*1+4*0]] = [[2, 1], [4, 3]], and BA = [[0*1+1*3, 0*2+1*4], [1*1+0*3, 1*2+0*4]] = [[3, 4], [1, 2]]. Then AB - BA = [[2-3, 1-4], [4-1, 3-2]] = [[-1, -3], [3, 1]]. Since this is not O, the matrices do not commute.",
+      "optionRationale": {
+        "2": "This is BA - AB, with the sign reversed.",
+        "3": "This is AB + BA, not the difference.",
+        "4": "This would hold only if A and B commuted, which they do not."
+      },
+      "objective": "Compute products to show non-commutativity"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The matrix $\\begin{pmatrix}1&2&x\\\\y&4&5\\\\3&5&6\\end{pmatrix}$ is symmetric. Then x + y equals",
+      "options": [
+        "3",
+        "6",
+        "4",
+        "5"
+      ],
+      "answer": 4,
+      "explanation": "A symmetric matrix satisfies a_ij = a_ji. Comparing the (1,3) and (3,1) elements gives x = 3. Comparing the (2,1) and (1,2) elements gives y = 2. The (2,3) and (3,2) elements are both 5 already. Hence x + y = 3 + 2 = 5.",
+      "optionRationale": {
+        "1": "x = 3 alone has been taken; y = 2 is also needed.",
+        "2": "x + y = 3 + 2 = 5; 6 is the sum of other entries.",
+        "3": "y = 2 and x = 3 add to 5, not 4."
+      },
+      "objective": "Use a_ij = a_ji for symmetric matrices"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If $\\begin{pmatrix}a&2\\\\b&c\\end{pmatrix}$ is a skew symmetric matrix, then a + b + c equals",
+      "options": [
+        "2",
+        "0",
+        "-2",
+        "-4"
+      ],
+      "answer": 3,
+      "explanation": "For a skew symmetric matrix A' = -A, so the diagonal elements satisfy a_ii = -a_ii, giving a = 0 and c = 0. The off-diagonal elements satisfy a_21 = -a_12, so b = -2. Therefore a + b + c = 0 + (-2) + 0 = -2.",
+      "optionRationale": {
+        "1": "This takes b = 2, but a_21 = -a_12 = -2.",
+        "2": "a and c are 0 but b is -2, not 0.",
+        "4": "b is -2, not -4; a and c contribute 0."
+      },
+      "objective": "Use properties of skew symmetric matrices"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If A = $\\begin{pmatrix}1&0\\\\2&-1\\end{pmatrix}$ and B = $\\begin{pmatrix}3&1\\\\0&2\\end{pmatrix}$, then 2A - 3B is",
+      "options": [
+        "$\\begin{pmatrix}-7&-3\\\\4&4\\end{pmatrix}$",
+        "$\\begin{pmatrix}-7&-3\\\\4&-8\\end{pmatrix}$",
+        "$\\begin{pmatrix}11&3\\\\4&4\\end{pmatrix}$",
+        "$\\begin{pmatrix}-1&1\\\\2&3\\end{pmatrix}$"
+      ],
+      "answer": 2,
+      "explanation": "2A = [[2, 0], [4, -2]] and 3B = [[9, 3], [0, 6]]. Subtracting element by element: [[2-9, 0-3], [4-0, -2-6]] = [[-7, -3], [4, -8]]. The scalar multiplication is applied to every element before the subtraction.",
+      "optionRationale": {
+        "1": "The (2,2) element is 2(-1) - 3(2) = -8, not 4.",
+        "3": "This is 2A + 3B, with the sign of 3B not changed.",
+        "4": "This is A - B, ignoring the scalars."
+      },
+      "objective": "Combine scalar multiplication and subtraction of matrices"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q11",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements for square matrices A and B of the same order:\nA. (A + B)' = A' + B'.\nB. (AB)' = A'B'.\nC. A + A' is a symmetric matrix.\nD. A - A' is a skew symmetric matrix.\nChoose the correct answer.",
+      "options": [
+        "A, C and D only",
+        "A, B and C only",
+        "B and D only",
+        "A, B, C and D"
+      ],
+      "answer": 1,
+      "explanation": "The transpose of a sum is the sum of the transposes, so A is true. The transpose of a product reverses the order, (AB)' = B'A', so B is false in general. (A + A')' = A' + A = A + A' makes C true, and (A - A')' = A' - A = -(A - A') makes D true.",
+      "optionRationale": {
+        "2": "B is false, since (AB)' = B'A'.",
+        "3": "A and C are true, so B and D alone cannot be the full set.",
+        "4": "B is false, so not all four statements hold."
+      },
+      "objective": "Apply transpose properties"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The skew symmetric part of A = $\\begin{pmatrix}4&7\\\\1&2\\end{pmatrix}$, given by (A - A')/2, is",
+      "options": [
+        "$\\begin{pmatrix}0&4\\\\-4&0\\end{pmatrix}$",
+        "$\\begin{pmatrix}4&4\\\\4&2\\end{pmatrix}$",
+        "$\\begin{pmatrix}0&6\\\\-6&0\\end{pmatrix}$",
+        "$\\begin{pmatrix}0&3\\\\-3&0\\end{pmatrix}$"
+      ],
+      "answer": 4,
+      "explanation": "Here A' = [[4, 1], [7, 2]], so A - A' = [[0, 6], [-6, 0]]. Dividing by 2 gives [[0, 3], [-3, 0]], which is skew symmetric. The symmetric part is (A + A')/2 = [[4, 4], [4, 2]], and their sum is [[4, 7], [1, 2]] = A.",
+      "optionRationale": {
+        "1": "(7 - 1)/2 = 3, not 4.",
+        "2": "This is the symmetric part (A + A')/2.",
+        "3": "This is A - A' without the division by 2."
+      },
+      "objective": "Split a matrix into symmetric and skew symmetric parts"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q13",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "**Assertion (A):** If a square matrix A has an inverse, then that inverse is unique.\n**Reason (R):** If B and C are both inverses of A, then B = B(AC) = (BA)C = C.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Take B and C with AB = BA = I and AC = CA = I. Then B = BI = B(AC) = (BA)C = IC = C, so the two inverses coincide. This is exactly the standard proof of uniqueness, so the reason is true and explains the assertion.",
+      "optionRationale": {
+        "2": "The reason is not just true; it is the actual proof of the assertion.",
+        "3": "R is true, since the chain of equalities uses only AC = I and BA = I.",
+        "4": "A is true, so the statement that A is false cannot hold."
+      },
+      "objective": "Recall the proof of uniqueness of the inverse"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If A = $\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$, then the (1, 2) element of A^5 is",
+      "options": [
+        "5",
+        "8",
+        "16",
+        "32"
+      ],
+      "answer": 3,
+      "explanation": "A squared = [[2, 2], [2, 2]] = 2A, so every extra factor of A doubles the matrix: A^n = 2^(n-1) A. For n = 5, A^5 = 16A = [[16, 16], [16, 16]]. Hence the (1,2) element is 16. Direct check: A^4 = 8A, and A^4 x A = 8 A squared = 16A.",
+      "optionRationale": {
+        "1": "This treats A^5 as A multiplied by 5 element-wise.",
+        "2": "A^4 has 8 as its element; one more multiplication doubles it.",
+        "4": "A^6 has 32, not A^5."
+      },
+      "objective": "Find powers of a matrix with a repeating pattern"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Let N = $\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}$ and I the identity matrix of order 2. The sum of all elements of (I + N)^3 is",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "8"
+      ],
+      "answer": 2,
+      "explanation": "N squared = O, because [[0,1],[0,0]] times itself is zero. I and N commute, so the binomial expansion holds: (I + N)^3 = I + 3N + 3N^2 + N^3 = I + 3N. This equals [[1, 3], [0, 1]], whose elements sum to 1 + 3 + 0 + 1 = 5.",
+      "optionRationale": {
+        "1": "The off-diagonal element is 3, not 2.",
+        "3": "This ignores that N squared and N cubed are zero, and over-counts.",
+        "4": "This expands as if (I + N)^3 had 8 as its sum of all its coefficients."
+      },
+      "objective": "Use nilpotent matrices to expand powers"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If AB = O where A = $\\begin{pmatrix}1&2\\\\2&4\\end{pmatrix}$ and B = $\\begin{pmatrix}2&6\\\\-1&p\\end{pmatrix}$, then p equals",
+      "options": [
+        "-3",
+        "3",
+        "-1",
+        "-6"
+      ],
+      "answer": 1,
+      "explanation": "The (1,2) element of AB is 1(6) + 2p = 6 + 2p, which must be 0, so p = -3. The (2,2) element is 2(6) + 4p = 12 + 4p = 0 also gives p = -3, and the first column gives 1(2) + 2(-1) = 0 and 2(2) + 4(-1) = 0. So AB = O with both A and B non-zero.",
+      "optionRationale": {
+        "2": "p = 3 would make the (1,2) element 6 + 6 = 12, not 0.",
+        "3": "p = -1 gives 6 - 2 = 4 for the (1,2) element.",
+        "4": "p = -6 gives 6 - 12 = -6 for the (1,2) element."
+      },
+      "objective": "Find an unknown so that a product of non-zero matrices is zero"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If A = $\\begin{pmatrix}1&2\\\\0&1\\end{pmatrix}$ and A^n = $\\begin{pmatrix}1&48\\\\0&1\\end{pmatrix}$, then n equals",
+      "options": [
+        "48",
+        "12",
+        "25",
+        "24"
+      ],
+      "answer": 4,
+      "explanation": "A squared = [[1, 4], [0, 1]], A cubed = [[1, 6], [0, 1]], so the pattern is A^n = [[1, 2n], [0, 1]], proved by induction since [[1,2n],[0,1]] times [[1,2],[0,1]] = [[1, 2n+2], [0, 1]]. Setting 2n = 48 gives n = 24.",
+      "optionRationale": {
+        "1": "This takes the element 2n as n.",
+        "2": "A^n has 2n in position (1,2), so n = 24, not 12.",
+        "3": "The pattern is linear with step 2, not 24 + 1."
+      },
+      "objective": "Find a power of a matrix by induction"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "If A^{-1} = $\\begin{pmatrix}1&2\\\\0&1\\end{pmatrix}$ and B^{-1} = $\\begin{pmatrix}1&0\\\\3&1\\end{pmatrix}$, then (AB)^{-1} equals",
+      "options": [
+        "$\\begin{pmatrix}7&2\\\\3&1\\end{pmatrix}$",
+        "$\\begin{pmatrix}2&2\\\\3&2\\end{pmatrix}$",
+        "$\\begin{pmatrix}1&2\\\\3&7\\end{pmatrix}$",
+        "$\\begin{pmatrix}1&0\\\\0&7\\end{pmatrix}$"
+      ],
+      "answer": 3,
+      "explanation": "(AB)^{-1} = B^{-1}A^{-1} = [[1,0],[3,1]] x [[1,2],[0,1]]. First row: [1*1+0*0, 1*2+0*1] = [1, 2]. Second row: [3*1+1*0, 3*2+1*1] = [3, 7]. So the answer is [[1, 2], [3, 7]]. The reversed order A^{-1}B^{-1} would give [[7, 2], [3, 1]].",
+      "optionRationale": {
+        "1": "This is A^{-1}B^{-1}, the product in the wrong order.",
+        "2": "This is A^{-1} + B^{-1}; the inverse of a product is not a sum.",
+        "4": "Only the diagonal was combined; the full product is needed."
+      },
+      "objective": "Use the reversal law for the inverse of a product"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "If A = $\\begin{pmatrix}0&-1\\\\1&0\\end{pmatrix}$, the sum of all the elements of A^2026 is",
+      "options": [
+        "2",
+        "-2",
+        "0",
+        "-1"
+      ],
+      "answer": 2,
+      "explanation": "A squared = [[0*0+(-1)*1, 0*(-1)+(-1)*0], [1*0+0*1, 1*(-1)+0*0]] = [[-1, 0], [0, -1]] = -I, so A^4 = I and the powers repeat with period 4. Since 2026 = 4 x 506 + 2, A^2026 = A^2 = -I, whose elements sum to -1 + 0 + 0 + -1 = -2.",
+      "optionRationale": {
+        "1": "This would be the sum for the identity matrix (A^4 or A^2024).",
+        "3": "This is the sum for A^3 = -A, not A^2026.",
+        "4": "-1 has no such origin; it is a single entry of A."
+      },
+      "objective": "Use periodicity of powers of a matrix"
+    },
+    {
+      "key": "ug26-319-r15-matrices-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "If A = $\\begin{pmatrix}2&3\\\\1&2\\end{pmatrix}$ and AX = $\\begin{pmatrix}1&2\\\\0&1\\end{pmatrix}$, then X equals",
+      "options": [
+        "$\\begin{pmatrix}2&1\\\\-1&0\\end{pmatrix}$",
+        "$\\begin{pmatrix}0&1\\\\-1&2\\end{pmatrix}$",
+        "$\\begin{pmatrix}2&-3\\\\-1&2\\end{pmatrix}$",
+        "$\\begin{pmatrix}2&1\\\\1&0\\end{pmatrix}$"
+      ],
+      "answer": 1,
+      "explanation": "Here det A = 4 - 3 = 1, so A^{-1} = [[2, -3], [-1, 2]]. From AX = B, X = A^{-1}B (left multiplication), which is [[2*1-3*0, 2*2-3*1], [-1*1+2*0, -1*2+2*1]] = [[2, 1], [-1, 0]]. Check: A x X = [[4-3, 2+0], [2-2, 1+0]] = [[1, 2], [0, 1]].",
+      "optionRationale": {
+        "2": "This is B A^{-1}, with the factors in the wrong order.",
+        "3": "This is just A^{-1}; it has not been multiplied by the right side.",
+        "4": "The sign of the (2,1) element is wrong."
+      },
+      "objective": "Solve a matrix equation using the inverse"
+    }
+  ]
+}

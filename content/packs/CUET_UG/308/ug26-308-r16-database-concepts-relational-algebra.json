@@ -1,0 +1,903 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_e18fd493160041faa21d96427a3672cd",
+  "title": "Database Concepts"
+ },
+ "lesson": {
+  "key": "ug26-308-r16-database-concepts-relational-algebra",
+  "title": "Database concepts, relational model, keys and relational algebra",
+  "coverage": [
+   {
+    "phrase": "Introduction to database concepts",
+    "section": "Databases and the file system"
+   },
+   {
+    "phrase": "Difference between database and file system",
+    "section": "Databases and the file system"
+   },
+   {
+    "phrase": "Relational data model",
+    "section": "Relational data model: domain, tuple, relation"
+   },
+   {
+    "phrase": "Domain",
+    "section": "Relational data model: domain, tuple, relation"
+   },
+   {
+    "phrase": "Tuple",
+    "section": "Relational data model: domain, tuple, relation"
+   },
+   {
+    "phrase": "Relation",
+    "section": "Relational data model: domain, tuple, relation"
+   },
+   {
+    "phrase": "Keys",
+    "section": "Keys: candidate, primary, alternate and foreign key"
+   },
+   {
+    "phrase": "Candidate key",
+    "section": "Keys: candidate, primary, alternate and foreign key"
+   },
+   {
+    "phrase": "Primary key",
+    "section": "Keys: candidate, primary, alternate and foreign key"
+   },
+   {
+    "phrase": "Alternate key",
+    "section": "Keys: candidate, primary, alternate and foreign key"
+   },
+   {
+    "phrase": "Foreign key",
+    "section": "Keys: candidate, primary, alternate and foreign key"
+   },
+   {
+    "phrase": "Relational algebra",
+    "section": "Relational algebra: selection and projection"
+   },
+   {
+    "phrase": "Selection",
+    "section": "Relational algebra: selection and projection"
+   },
+   {
+    "phrase": "Projection",
+    "section": "Relational algebra: selection and projection"
+   },
+   {
+    "phrase": "Union",
+    "section": "Relational algebra: union, set difference and cartesian product"
+   },
+   {
+    "phrase": "Set difference",
+    "section": "Relational algebra: union, set difference and cartesian product"
+   },
+   {
+    "phrase": "Cartesian product",
+    "section": "Relational algebra: union, set difference and cartesian product"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Databases and the file system"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Database",
+    "text": "An organised collection of related data stored electronically so that it can be easily accessed, managed and updated."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Database Management System (DBMS)",
+    "text": "Software that creates a database and lets users store, retrieve, update and protect the data, for example MySQL, Oracle, PostgreSQL and MS Access."
+   },
+   {
+    "type": "TEXT",
+    "text": "Before databases, an organisation kept data in separate **files** (such as one file for students and another for fees), each file used by its own programme. This is the **file system**. It leads to several problems that a DBMS removes."
+   },
+   {
+    "type": "TABLE",
+    "caption": "File system versus database (DBMS)",
+    "columns": [
+     "Point",
+     "File system",
+     "Database (DBMS)"
+    ],
+    "rows": [
+     [
+      "Redundancy",
+      "Same data is stored again and again in many files",
+      "Controlled; data is stored once and shared"
+     ],
+     [
+      "Consistency",
+      "Copies can disagree (an address changed in one file but not in another)",
+      "Consistent, since there is one copy to update"
+     ],
+     [
+      "Data access",
+      "Needs a new programme for every new query",
+      "Queries are done by languages such as SQL"
+     ],
+     [
+      "Data sharing",
+      "Hard to share between applications",
+      "Easy; many users can share the data together"
+     ],
+     [
+      "Security and integrity",
+      "Poor control, constraints are in each programme",
+      "Central access control and integrity constraints"
+     ],
+     [
+      "Backup and recovery",
+      "Done manually for each file",
+      "Provided by the DBMS"
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "A database stores related data together under a DBMS: less redundancy, better consistency, easier sharing, security and integrity constraints."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Do not say a database is only a bigger file. The key difference is that a DBMS manages the data centrally, whereas in a file system every application manages its own files."
+   },
+   {
+    "type": "HEADING",
+    "text": "Relational data model: domain, tuple, relation"
+   },
+   {
+    "type": "TEXT",
+    "text": "The **relational data model** (proposed by E. F. Codd) represents data as tables called relations. It is the model behind MySQL, Oracle and most other widely used databases."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Relational terms",
+    "columns": [
+     "Term",
+     "Meaning",
+     "Also called"
+    ],
+    "rows": [
+     [
+      "Relation",
+      "A table with rows and columns, for example EMP",
+      "Table"
+     ],
+     [
+      "Tuple",
+      "One row of a relation; one record",
+      "Row, record"
+     ],
+     [
+      "Attribute",
+      "A column of a relation; a property such as Name",
+      "Column, field"
+     ],
+     [
+      "Domain",
+      "The set of allowed values for an attribute; for example the domain of Dept is {HR, IT, Sales}, and of Salary is positive numbers",
+      "Value set"
+     ],
+     [
+      "Degree",
+      "Number of attributes (columns) in a relation",
+      "-"
+     ],
+     [
+      "Cardinality",
+      "Number of tuples (rows) in a relation",
+      "-"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Table EMP used in this lesson:"
+   },
+   {
+    "type": "TABLE",
+    "caption": "EMP (EmpID, Name, Dept, Salary)",
+    "columns": [
+     "EmpID",
+     "Name",
+     "Dept",
+     "Salary"
+    ],
+    "rows": [
+     [
+      "101",
+      "Asha",
+      "HR",
+      "40000"
+     ],
+     [
+      "102",
+      "Ravi",
+      "IT",
+      "55000"
+     ],
+     [
+      "103",
+      "Meena",
+      "IT",
+      "60000"
+     ],
+     [
+      "104",
+      "Karan",
+      "HR",
+      "45000"
+     ],
+     [
+      "105",
+      "Divya",
+      "Sales",
+      "50000"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "EMP has 4 attributes, so its **degree is 4**, and 5 tuples, so its **cardinality is 5**. In a relation there is no repeated tuple, the order of tuples and attributes does not matter, and each attribute value is atomic (single, indivisible)."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Degree = columns, cardinality = rows. Students often swap them. A relation cannot hold two identical tuples."
+   },
+   {
+    "type": "HEADING",
+    "text": "Keys: candidate, primary, alternate and foreign key"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Candidate key",
+    "text": "An attribute or smallest set of attributes that can uniquely identify every tuple of a relation. A relation can have more than one candidate key."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Primary key",
+    "text": "The candidate key that is chosen by the designer to identify tuples. Its values must be unique and cannot be NULL. A relation has only one primary key."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Alternate key",
+    "text": "A candidate key that is not chosen as the primary key. Number of alternate keys = number of candidate keys - 1."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Foreign key",
+    "text": "An attribute of one relation that refers to the primary key of another relation (or the same one), and is used to link the two relations. It may repeat and may be NULL, and each non-NULL value must exist in the referenced primary key."
+   },
+   {
+    "type": "TEXT",
+    "text": "Example. STUDENT(RollNo, AadhaarNo, Name, Class, DeptCode) and DEPARTMENT(DeptCode, DeptName). Both RollNo and AadhaarNo are unique for each student, so they are the **candidate keys**. If the designer picks RollNo as the **primary key**, then AadhaarNo is the **alternate key**. DeptCode in STUDENT refers to DeptCode in DEPARTMENT, so it is a **foreign key**; in DEPARTMENT it is the primary key."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Key summary",
+    "columns": [
+     "Key",
+     "Unique?",
+     "NULL allowed?",
+     "Number in a relation"
+    ],
+    "rows": [
+     [
+      "Candidate key",
+      "Yes",
+      "No (if used as a primary key)",
+      "One or more"
+     ],
+     [
+      "Primary key",
+      "Yes",
+      "No",
+      "Exactly one"
+     ],
+     [
+      "Alternate key",
+      "Yes",
+      "Not usually",
+      "Candidate keys minus one"
+     ],
+     [
+      "Foreign key",
+      "No (can repeat)",
+      "Yes",
+      "Zero or more"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A relation PERSON(PersonID, PanNo, Email, Name) has unique values in PersonID, PanNo and Email, while Name may repeat. If PersonID is made the primary key, find the candidate keys and alternate keys.",
+    "solution": "Attributes that identify each tuple uniquely: PersonID, PanNo, Email. Name repeats, so it cannot be a key.\n\nCandidate keys = PersonID, PanNo, Email (3 keys).\n\nPrimary key = PersonID. Alternate keys = the remaining candidate keys = PanNo and Email (3 - 1 = 2 keys).",
+    "answer": "Candidate keys: PersonID, PanNo, Email; alternate keys: PanNo, Email."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "A foreign key is **not** unique in its own table: many students can have the same DeptCode. A primary key is always unique and never NULL."
+   },
+   {
+    "type": "HEADING",
+    "text": "Relational algebra: selection and projection"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Relational algebra** is a set of operations that take one or two relations as input and give a new relation as output. These operations are the theoretical basis of SQL queries. Selection and projection are **unary** (one relation); union, set difference and cartesian product are **binary** (two relations)."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Selection ($\\sigma$)",
+    "text": "Picks the **rows (tuples)** of a relation that satisfy a condition: $\\sigma_{\\text{condition}}(R)$. It keeps all columns. In SQL this is the WHERE clause."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Projection ($\\pi$)",
+    "text": "Picks the **columns (attributes)** listed from a relation: $\\pi_{A_1,A_2}(R)$. Duplicate rows in the result are removed, since a relation is a set. In SQL this is the SELECT list."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "For the EMP relation, find $\\sigma_{\\text{Dept}=\\text{'IT'}}(EMP)$, $\\sigma_{\\text{Salary}>45000}(EMP)$ and $\\pi_{\\text{Dept}}(EMP)$.",
+    "solution": "First: rows where Dept is IT are EmpID 102 (Ravi) and 103 (Meena), so 2 tuples with all 4 columns.\n\nSecond: salaries above 45000 are 55000 (102), 60000 (103) and 50000 (105); 45000 itself is not greater than 45000, so 3 tuples (102, 103, 105).\n\nThird: the Dept column is HR, IT, IT, HR, Sales. After removing duplicates only HR, IT and Sales remain, so 3 tuples although EMP has 5.",
+    "answer": "First: 2 tuples (102, 103). Second: 3 tuples (102, 103, 105). Third: {HR, IT, Sales}, 3 tuples."
+   },
+   {
+    "type": "TEXT",
+    "text": "Operations can be combined: $\\pi_{\\text{Name}}(\\sigma_{\\text{Dept}=\\text{'HR'}}(EMP))$ first selects the HR rows (Asha, Karan) and then keeps only the Name column, giving Asha and Karan."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Remember: sigma (selection) works on rows, pi (projection) works on columns. The projection of a column that has repeated values gives fewer rows than the original."
+   },
+   {
+    "type": "HEADING",
+    "text": "Relational algebra: union, set difference and cartesian product"
+   },
+   {
+    "type": "CONCEPT",
+    "text": "Union, set difference and (for two relations of any kind) cartesian product treat relations as sets of tuples. Union and difference need the two relations to be **union compatible**: the same number of attributes, with matching domains in the same order."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Binary operations",
+    "columns": [
+     "Operation",
+     "Symbol",
+     "Result",
+     "Degree and cardinality"
+    ],
+    "rows": [
+     [
+      "Union",
+      "$R\\cup S$",
+      "All tuples in R or S or both; common tuples appear once",
+      "Same degree; cardinality at most $|R|+|S|$"
+     ],
+     [
+      "Set difference",
+      "$R-S$",
+      "Tuples that are in R but not in S",
+      "Same degree; cardinality at most $|R|$"
+     ],
+     [
+      "Cartesian product",
+      "$R\\times S$",
+      "Every tuple of R joined to every tuple of S",
+      "Degree = degree(R) + degree(S); cardinality = $|R|\\times|S|$"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Let A (Roll, Name) = {(1,Asha), (2,Ravi), (3,Meena)} and B (Roll, Name) = {(3,Meena), (4,Karan), (5,Divya)}. The only common tuple is (3,Meena)."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Results for A and B",
+    "columns": [
+     "Expression",
+     "Tuples in the result",
+     "Count"
+    ],
+    "rows": [
+     [
+      "$A\\cup B$",
+      "(1,Asha), (2,Ravi), (3,Meena), (4,Karan), (5,Divya)",
+      "5"
+     ],
+     [
+      "$A-B$",
+      "(1,Asha), (2,Ravi)",
+      "2"
+     ],
+     [
+      "$B-A$",
+      "(4,Karan), (5,Divya)",
+      "2"
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Set difference is not commutative: $A-B$ is generally different from $B-A$. Union is commutative."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Relation R has 2 attributes and 3 tuples. Relation S has 3 attributes and 4 tuples. Find the degree and the cardinality of $R\\times S$. Can $R\\cup S$ be formed?",
+    "solution": "Degree of the product = 2 + 3 = 5.\n\nCardinality of the product = 3 x 4 = 12, because every one of the 3 tuples of R is paired with every one of the 4 tuples of S.\n\nR has 2 attributes and S has 3, so they are not union compatible and $R\\cup S$ is not defined.",
+    "answer": "Degree 5, cardinality 12; the union cannot be formed."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "A cartesian product of unrelated tables gives meaningless combinations; in practice it is followed by a selection on a matching key (primary key = foreign key), which gives a join."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A relation in the relational model is represented as a",
+   "options": [
+    "tree of folders",
+    "table with rows and columns",
+    "list of keys only",
+    "single text file without structure"
+   ],
+   "answer": 2,
+   "explanation": "The relational model stores data as relations, which are tables made of rows (tuples) and columns (attributes). The other options do not describe the relational model. So the relation is the structure in which all data of the relational model is stored, and a database is made of several relations.",
+   "optionRationale": {
+    "1": "A tree of folders is a hierarchical file arrangement, not a relation.",
+    "3": "Keys are only a part of a relation.",
+    "4": "Unstructured text files are not relations."
+   },
+   "objective": "Define relation"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In a relation, a single row is called a",
+   "options": [
+    "attribute",
+    "domain",
+    "degree",
+    "tuple"
+   ],
+   "answer": 4,
+   "explanation": "A tuple is one row (record) of a relation. An attribute is a column, a domain is the set of values allowed for an attribute, and degree is the count of columns.",
+   "optionRationale": {
+    "1": "An attribute is a column.",
+    "2": "A domain is the set of permitted values for an attribute.",
+    "3": "Degree is a count of attributes, not a row."
+   },
+   "objective": "Define tuple"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A relation has 6 attributes and 40 tuples. Its degree is",
+   "options": [
+    "6",
+    "40",
+    "46",
+    "240"
+   ],
+   "answer": 1,
+   "explanation": "Degree is the number of attributes (columns) and cardinality is the number of tuples (rows). So the degree is 6 and the cardinality is 40. Do not confuse the degree with the cardinality, because the question gives both numbers and asks only for the number of columns.",
+   "optionRationale": {
+    "2": "40 is the cardinality.",
+    "3": "46 adds the two numbers, which has no meaning.",
+    "4": "240 is 6 x 40, the count of cells, not degree."
+   },
+   "objective": "Find the degree of a relation"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which key is chosen by the database designer from the candidate keys to uniquely identify the tuples?",
+   "options": [
+    "Foreign key",
+    "Alternate key",
+    "Primary key",
+    "Super domain"
+   ],
+   "answer": 3,
+   "explanation": "The primary key is the candidate key selected for identifying tuples; it cannot be NULL. The foreign key links to another table, and an alternate key is a candidate key not chosen as primary key. \"Super domain\" is not a key.",
+   "optionRationale": {
+    "1": "A foreign key refers to the primary key of another relation.",
+    "2": "An alternate key is a candidate key left over after the primary key is chosen.",
+    "4": "This is not a type of key."
+   },
+   "objective": "Identify the primary key"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which operation of relational algebra is used to choose some rows that satisfy a condition?",
+   "options": [
+    "Projection",
+    "Union",
+    "Cartesian product",
+    "Selection"
+   ],
+   "answer": 4,
+   "explanation": "Selection ($\\sigma$) filters the tuples (rows) according to a condition and keeps all attributes. Projection chooses columns, and union and cartesian product combine two relations. In SQL, a selection corresponds to the WHERE clause, while projection corresponds to the list of columns in SELECT.",
+   "optionRationale": {
+    "1": "Projection chooses columns.",
+    "2": "Union merges the tuples of two relations.",
+    "3": "Cartesian product pairs all tuples of two relations."
+   },
+   "objective": "Identify selection"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which of the following is a disadvantage of the file system as compared to a DBMS?",
+   "options": [
+    "Data is stored only once and shared by all users.",
+    "The same data may be stored in many files, causing redundancy and inconsistency.",
+    "A single query language can be used for all requests.",
+    "Access rights can be controlled centrally for all data."
+   ],
+   "answer": 2,
+   "explanation": "In a file system each application keeps its own files, so the same data (such as a student address) may be repeated and the copies may disagree. The other options are advantages of a DBMS.",
+   "optionRationale": {
+    "1": "This is a feature of a DBMS.",
+    "3": "A common query language like SQL belongs to a DBMS.",
+    "4": "Centralised access control is provided by a DBMS."
+   },
+   "objective": "Compare file system and DBMS"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "A relation has two candidate keys, RollNo and AadhaarNo. If RollNo is declared as the primary key, then AadhaarNo is called the",
+   "options": [
+    "foreign key",
+    "composite domain",
+    "alternate key",
+    "secondary tuple"
+   ],
+   "answer": 3,
+   "explanation": "A candidate key that is not chosen as the primary key is an alternate key. Number of alternate keys = number of candidate keys - 1, so here there is one: AadhaarNo.",
+   "optionRationale": {
+    "1": "A foreign key refers to another relation primary key.",
+    "2": "Composite domain is not a key type.",
+    "4": "Secondary tuple is not a key term."
+   },
+   "objective": "Identify alternate keys"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "In the table STUDENT(RollNo, Name, DeptCode), DeptCode refers to the primary key DeptCode of the table DEPARTMENT. In STUDENT, DeptCode is a",
+   "options": [
+    "foreign key",
+    "primary key",
+    "candidate key",
+    "alternate key"
+   ],
+   "answer": 1,
+   "explanation": "An attribute in one table that references the primary key of another table is a foreign key. Here it links each student to a department and its values may repeat in STUDENT.",
+   "optionRationale": {
+    "2": "A primary key must be unique, while many students share a DeptCode.",
+    "3": "A candidate key must uniquely identify each tuple, which DeptCode does not.",
+    "4": "An alternate key is a candidate key, and DeptCode is not unique."
+   },
+   "objective": "Identify a foreign key"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Relation P has degree 3 and cardinality 5. Relation Q has degree 4 and cardinality 6. For P x Q (cartesian product), the degree and cardinality are",
+   "options": [
+    "7 and 30",
+    "12 and 11",
+    "7 and 11",
+    "12 and 30"
+   ],
+   "answer": 1,
+   "explanation": "Degree of the product = 3 + 4 = 7 and cardinality = 5 x 6 = 30, because each tuple of P is combined with every tuple of Q. The product therefore has 7 attributes and 30 tuples, as it pairs every tuple of P with every tuple of Q.",
+   "optionRationale": {
+    "2": "Degrees add (7) rather than multiply, and cardinalities multiply (30) rather than add.",
+    "3": "The cardinalities multiply to 30; they do not add to 11.",
+    "4": "Degrees add to give 7; they do not multiply to give 12."
+   },
+   "objective": "Compute degree and cardinality of a product"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "How many tuples does the projection $\\pi_{\\text{Dept}}(EMP)$ return for the EMP table of this lesson (Dept values: HR, IT, IT, HR, Sales)?",
+   "options": [
+    "5",
+    "2",
+    "3",
+    "4"
+   ],
+   "answer": 3,
+   "explanation": "Projection removes duplicate rows from the result. The Dept column holds HR, IT, IT, HR, Sales, which has only 3 distinct values, so 3 tuples are returned. In SQL this is why SELECT DISTINCT Dept would also return 3 rows, matching projection in relational algebra.",
+   "optionRationale": {
+    "1": "5 would be the answer only if duplicates were kept.",
+    "2": "There are three, not two, different departments.",
+    "4": "4 has no basis in the data."
+   },
+   "objective": "Count tuples after projection"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q11",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "For the EMP table of this lesson, how many tuples does $\\sigma_{\\text{Salary}>45000}(EMP)$ return? (Salaries: 40000, 55000, 60000, 45000, 50000)",
+   "options": [
+    "4",
+    "3",
+    "2",
+    "5"
+   ],
+   "answer": 2,
+   "explanation": "The salaries strictly greater than 45000 are 55000, 60000 and 50000, so 3 tuples. The salary 45000 is not greater than 45000. A common slip is to include 45000, but the condition uses the strict symbol greater than, so the equality is excluded.",
+   "optionRationale": {
+    "1": "4 would include the 45000 salary, but the condition is strictly greater.",
+    "3": "Two is too few: 50000 also qualifies.",
+    "4": "All 5 would qualify only if the condition were true for 40000 and 45000."
+   },
+   "objective": "Evaluate a selection condition"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Which expression gives only the names of employees working in the HR department?",
+   "options": [
+    "$\\sigma_{\\text{Name}}(\\pi_{\\text{Dept}=\\text{'HR'}}(EMP))$",
+    "$\\pi_{\\text{Dept}=\\text{'HR'}}(EMP)$",
+    "$\\sigma_{\\text{Name}}(EMP)$",
+    "$\\pi_{\\text{Name}}(\\sigma_{\\text{Dept}=\\text{'HR'}}(EMP))$"
+   ],
+   "answer": 4,
+   "explanation": "First select the rows with Dept = HR using sigma, and then project the Name column using pi. The other forms use projection with a condition or selection of a column, which are wrong uses of the operators.",
+   "optionRationale": {
+    "1": "Selection needs a condition and projection needs attribute names, so these are swapped.",
+    "2": "Projection takes attribute names, not conditions.",
+    "3": "Selection takes conditions, not attribute names."
+   },
+   "objective": "Combine selection and projection"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Using A = {(1,Asha),(2,Ravi),(3,Meena)} and B = {(3,Meena),(4,Karan),(5,Divya)}, the number of tuples in $A\\cup B$ is",
+   "options": [
+    "6",
+    "3",
+    "5",
+    "4"
+   ],
+   "answer": 3,
+   "explanation": "Together A and B have 3 + 3 = 6 tuples, but (3,Meena) is in both, and a union keeps common tuples only once. Hence 6 - 1 = 5 tuples. The union is therefore the set of all distinct tuples present in at least one of the two relations.",
+   "optionRationale": {
+    "1": "6 counts the common tuple twice.",
+    "2": "3 is just the size of one relation.",
+    "4": "4 loses one tuple; only the common tuple is dropped once."
+   },
+   "objective": "Count tuples in a union"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "For the same A and B, which of the following equals the set $B-A$?",
+   "options": [
+    "{(4,Karan), (5,Divya)}",
+    "{(1,Asha), (2,Ravi)}",
+    "{(3,Meena)}",
+    "{(1,Asha),(2,Ravi),(3,Meena),(4,Karan),(5,Divya)}"
+   ],
+   "answer": 1,
+   "explanation": "B - A holds the tuples that are in B but not in A. (3,Meena) is in both, so the remaining tuples of B are (4,Karan) and (5,Divya). The set {(1,Asha),(2,Ravi)} is A - B.",
+   "optionRationale": {
+    "2": "This is A - B.",
+    "3": "(3,Meena) is in both relations, so it is not in the difference.",
+    "4": "This is the union."
+   },
+   "objective": "Compute a set difference"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Relations R(a, b) and S(a, b, c) are given. Which of the following operations is NOT possible?",
+   "options": [
+    "$R\\times S$",
+    "$\\sigma_{a>1}(S)$",
+    "$\\pi_{a}(R)$",
+    "$R\\cup S$"
+   ],
+   "answer": 4,
+   "explanation": "Union needs union-compatible relations, with the same number of attributes. R has 2 and S has 3, so $R\\cup S$ is undefined. The cartesian product works for any two relations and selection and projection are fine.",
+   "optionRationale": {
+    "1": "The cartesian product is always possible; its degree would be 5.",
+    "2": "Selection on S is valid since S has an attribute a.",
+    "3": "Projection on R is valid since R has an attribute a."
+   },
+   "objective": "Check union compatibility"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q16",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "A relation T(RollNo, Name, Class) has the tuples (1,A,10), (2,B,11), (3,C,10), (4,D,10), (5,E,11). How many tuples are in $\\pi_{\\text{Class}}(T)$ and in $\\sigma_{\\text{Class}=10}(T)$ respectively?",
+   "options": [
+    "3 and 2",
+    "2 and 3",
+    "5 and 3",
+    "2 and 2"
+   ],
+   "answer": 2,
+   "explanation": "The Class column has values 10, 11, 10, 10, 11, so after removing duplicates only 2 tuples (10 and 11) remain. Rows with Class = 10 are RollNo 1, 3 and 4, giving 3 tuples. So the answers are 2 and 3.",
+   "optionRationale": {
+    "1": "This swaps the two counts.",
+    "3": "Projection removes duplicates, so it cannot give 5.",
+    "4": "Three tuples have Class = 10, not 2."
+   },
+   "objective": "Evaluate projection and selection together"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q17",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Statements:\nA. A foreign key value can be NULL and can repeat in its own table.\nB. A primary key can contain NULL values.\nC. The degree of the cartesian product of two relations is the sum of their degrees.\nD. $A-B$ is always equal to $B-A$.\nWhich are correct?",
+   "options": [
+    "A and B only",
+    "A and C only",
+    "B and D only",
+    "A, C and D only"
+   ],
+   "answer": 2,
+   "explanation": "A is true: a foreign key may be NULL and many tuples can share a value. B is false because a primary key must be unique and non-NULL. C is true: degree adds. D is false: set difference is not commutative. So A and C only.",
+   "optionRationale": {
+    "1": "B is false.",
+    "3": "B and D are both false.",
+    "4": "D is false."
+   },
+   "objective": "Judge statements on keys and relational algebra"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q18",
+   "type": "ASSERTION_REASON",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A DBMS reduces data redundancy.\nReason (R): In a DBMS, the data is stored once and shared by many applications.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Because a DBMS keeps one central copy of the data that all applications use, the same data does not need to be repeated in different files, and redundancy falls. So the reason explains the assertion.",
+   "optionRationale": {
+    "2": "R is the direct explanation of A.",
+    "3": "R is true.",
+    "4": "A is true."
+   },
+   "objective": "Explain how a DBMS reduces redundancy"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q19",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A relation can have several candidate keys but only one primary key.\nReason (R): The primary key is the candidate key chosen by the designer.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Every candidate key can uniquely identify tuples, so a relation may have several. The designer chooses exactly one of them as the primary key, and the others become alternate keys. The reason explains why only one primary key exists.",
+   "optionRationale": {
+    "2": "R explains A directly.",
+    "3": "R is true.",
+    "4": "A is true."
+   },
+   "objective": "Explain primary and candidate keys"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q20",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The projection of a relation on one attribute can have fewer tuples than the relation.\nReason (R): Projection removes duplicate tuples from its result.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "A relation is a set of tuples, so repeated rows cannot occur in the output. If an attribute repeats values, projecting onto it gives fewer tuples, for example 3 departments from 5 employees. So R explains A.",
+   "optionRationale": {
+    "2": "R directly explains A.",
+    "3": "R is true.",
+    "4": "A is true."
+   },
+   "objective": "Explain the effect of duplicate removal in projection"
+  },
+  {
+   "key": "ug26-308-r16-database-concepts-relational-algebra-q21",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match the term in List-I with its meaning in List-II.",
+   "options": [
+    "A-I, B-IV, C-II, D-III",
+    "A-II, B-III, C-I, D-IV",
+    "A-II, B-IV, C-I, D-III",
+    "A-IV, B-II, C-I, D-III"
+   ],
+   "answer": 3,
+   "explanation": "A tuple is a row of a relation (II). Cardinality is the number of tuples (IV). A foreign key refers to the primary key of another relation (I). Degree is the number of attributes (III). So A-II, B-IV, C-I, D-III.",
+   "optionRationale": {
+    "1": "This swaps tuple and foreign key.",
+    "2": "This swaps cardinality and degree.",
+    "4": "This gives a tuple the meaning of degree."
+   },
+   "objective": "Match relational terms with meanings",
+   "list": {
+    "left": [
+     "A. Tuple",
+     "B. Cardinality",
+     "C. Foreign key",
+     "D. Degree"
+    ],
+    "right": [
+     "I. Attribute that refers to a primary key of another relation",
+     "II. A row of a relation",
+     "III. Number of attributes in a relation",
+     "IV. Number of tuples in a relation"
+    ]
+   }
+  }
+ ]
+}

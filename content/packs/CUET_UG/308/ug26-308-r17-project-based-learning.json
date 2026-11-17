@@ -1,0 +1,684 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_f3a307ff28634f99ab25127dc176ad3e",
+  "title": "Project Based Learning"
+ },
+ "lesson": {
+  "key": "ug26-308-r17-project-based-learning",
+  "title": "Project Based Learning: approaches, steps and teamwork",
+  "coverage": [
+   {
+    "phrase": "Approaches for Solving Projects",
+    "section": "Approaches for solving projects"
+   },
+   {
+    "phrase": "Steps in project-based learning",
+    "section": "Steps in project based learning"
+   },
+   {
+    "phrase": "Teamwork",
+    "section": "Teamwork and its components"
+   },
+   {
+    "phrase": "Components of Teamwork",
+    "section": "Teamwork and its components"
+   },
+   {
+    "phrase": "Project Based Learning",
+    "section": "What is project based learning"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "What is project based learning"
+   },
+   {
+    "type": "TEXT",
+    "text": "In **project based learning (PBL)** students learn by working over a period of time to investigate and solve a real problem or to build something useful, instead of only reading a lesson and answering questions. In Informatics Practices the project can be, for example, a database of library books, an analysis of a data set of rainfall using Python and a graph, a school website, or an application that tracks attendance. The result of the work is a **product** (a program, a report, a presentation or a model), and what the student learns on the way matters as much as the product."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Project based learning",
+    "text": "A way of learning in which a student or a team gains knowledge and skills by planning, carrying out and presenting a project that solves a real-life problem or answers a question, over an extended time."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Why it is useful.**\n\n- It links classroom knowledge (programming, databases, data handling) to real situations.\n- It builds skills of planning, research, problem solving, communication and time management.\n- It encourages creativity and decision making, since there is often more than one acceptable solution.\n- It teaches teamwork and the sharing of responsibility.\n- The learner takes charge of the work, while the teacher acts as a guide."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Features of a good project",
+    "columns": [
+     "Feature",
+     "Meaning"
+    ],
+    "rows": [
+     [
+      "Real problem",
+      "Starts from a genuine need or question"
+     ],
+     [
+      "Clear goal",
+      "The objective and the expected output are stated at the start"
+     ],
+     [
+      "Time bound",
+      "Has a start, a schedule with milestones and a finishing date"
+     ],
+     [
+      "Resources",
+      "Needs hardware, software, data and people, which are planned in advance"
+     ],
+     [
+      "Product and presentation",
+      "Ends with a working outcome that is demonstrated and reviewed"
+     ]
+    ]
+   },
+   {
+    "type": "HEADING",
+    "text": "Approaches for solving projects"
+   },
+   {
+    "type": "TEXT",
+    "text": "A project is usually too large to be solved in one step, so a method for tackling it is needed. The following approaches are commonly used and they are often combined."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Approaches for solving projects",
+    "columns": [
+     "Approach",
+     "Idea",
+     "Example in a school project"
+    ],
+    "rows": [
+     [
+      "Brainstorming",
+      "The team members suggest as many ideas as possible freely, without criticism at first, and then select the best",
+      "Choosing the topic of the project: attendance tracker, library system or canteen billing"
+     ],
+     [
+      "Divide and conquer (decomposition)",
+      "Break the big problem into smaller, simpler sub-problems, solve each and then combine the solutions",
+      "A shop billing program divided into stock entry, billing, bill printing and reports"
+     ],
+     [
+      "Top-down approach",
+      "Start with the overall problem and divide it step by step into smaller modules",
+      "Planning the whole website first, then each page, then each element of a page"
+     ],
+     [
+      "Bottom-up approach",
+      "Build the small basic parts first and join them to make the larger system",
+      "Writing separate small functions for validation and calculation first and then joining them into the application"
+     ],
+     [
+      "Iterative (incremental) approach",
+      "Build a simple working version first and then repeat the cycle of build, test and improve, adding features in small steps",
+      "A first version that only stores marks, then a second version that adds grades and a third version that adds graphs"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "**Choosing an approach.** For a project with a clear structure, divide and conquer or top-down is natural. When the requirements are unclear and feedback is needed, an iterative approach is better because an early working version can be shown to users. Brainstorming is used at the start in nearly all projects, to generate ideas and plans."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A team has to build a school library application. Show how the divide and conquer approach can be used and how the work can be shared among 4 students if the whole job is 36 hours.",
+    "solution": "Divide the application into sub-problems: (1) design of the database tables for books and members, (2) issuing and returning books, (3) searching and reports, (4) the user screen and testing. Each sub-problem is simpler than the whole and can be done by one member. If the work is of about equal size, the time per member is 36 hours / 4 = 9 hours. When the pieces are ready they are combined and tested together.",
+    "answer": "Four modules, one per member, about 9 hours each, then integration and testing."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Three tasks of a project take 3 days (task A, design), 4 days (task B, coding) and 2 days (task C, documentation). Tasks B and C can start only after A is done, but B and C can run at the same time. How many days does the project take, compared with doing all tasks one after another?",
+    "solution": "One after another: 3 + 4 + 2 = 9 days. With teamwork B and C run in parallel after A, so the time is 3 + the longer of (4, 2) = 3 + 4 = 7 days. The saving of 2 days comes from dividing the work among the team.",
+    "answer": "7 days with parallel work, against 9 days one after another."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Top-down means from the whole to the parts; bottom-up means from the parts to the whole. Divide and conquer is the idea of splitting a problem into smaller problems, and the iterative approach repeats build, test and improve."
+   },
+   {
+    "type": "HEADING",
+    "text": "Steps in project based learning"
+   },
+   {
+    "type": "TEXT",
+    "text": "Though projects differ, nearly all of them pass through the following steps in order. The steps are often revisited when testing shows a problem."
+   },
+   {
+    "type": "TEXT",
+    "text": "1. **Identify the problem or topic.** Choose a problem that is real, interesting and within the time and skills available, and state the objective clearly.\n2. **Plan.** Decide the scope (what is included and what is not), list the tasks, make a time schedule with milestones, and fix the resources needed. Divide the roles among the team members.\n3. **Research and collect information.** Study how the problem is solved at present, collect the data, and learn the tools needed.\n4. **Design the solution.** Prepare the design: the flow of the work, the tables or the screens, and the logic or algorithm.\n5. **Implement (create).** Build the product by writing code, creating the database, or preparing the model.\n6. **Test and improve.** Check the product with test data, find and correct errors, and ask users for feedback.\n7. **Present and document.** Show the working product, present the results and prepare a report that records the method and the conclusions.\n8. **Evaluate and reflect.** Judge the outcome against the objectives and note what was learnt and what could be done better."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Steps with their output",
+    "columns": [
+     "Step",
+     "Main question",
+     "Output"
+    ],
+    "rows": [
+     [
+      "Identify",
+      "What problem are we solving?",
+      "Problem statement and objectives"
+     ],
+     [
+      "Plan",
+      "Who does what, and by when?",
+      "Task list, schedule, roles"
+     ],
+     [
+      "Research",
+      "What do we need to know?",
+      "Collected data and notes"
+     ],
+     [
+      "Design",
+      "How will the solution work?",
+      "Design, algorithm or layout"
+     ],
+     [
+      "Implement",
+      "Can we build it?",
+      "Working product"
+     ],
+     [
+      "Test and improve",
+      "Does it work correctly?",
+      "Corrected product"
+     ],
+     [
+      "Present and evaluate",
+      "Did we meet the goal?",
+      "Presentation, report and review"
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Planning comes before building, and testing comes before the final presentation. A project is evaluated against the objectives that were written in the first step."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "A common mistake is to start coding immediately. Without a problem statement and a plan, teams lose time, repeat work and miss the deadline."
+   },
+   {
+    "type": "HEADING",
+    "text": "Teamwork and its components"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Teamwork",
+    "text": "The combined action of a group of people who work together, sharing a common goal and the responsibility for the result, using the strengths of each member."
+   },
+   {
+    "type": "TEXT",
+    "text": "Teamwork is not only dividing the work. It needs certain qualities and habits, called the **components of teamwork**."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Components of teamwork",
+    "columns": [
+     "Component",
+     "What it means"
+    ],
+    "rows": [
+     [
+      "Common goal",
+      "Every member understands and agrees on the purpose of the project"
+     ],
+     [
+      "Clear roles and responsibilities",
+      "Each member knows the task he or she owns, so that there is no confusion or overlap"
+     ],
+     [
+      "Communication",
+      "Open, honest and regular exchange of ideas, progress and problems, including listening to others"
+     ],
+     [
+      "Trust and respect",
+      "Members value each other's opinions and abilities and depend on one another"
+     ],
+     [
+      "Leadership",
+      "Someone guides the team, keeps the schedule and helps decisions to be made; leadership can be shared"
+     ],
+     [
+      "Cooperation and collaboration",
+      "Members help each other and share knowledge and resources"
+     ],
+     [
+      "Conflict management",
+      "Differences of opinion are settled politely and with discussion, for the good of the project"
+     ],
+     [
+      "Accountability",
+      "Each member is answerable for his or her work and delivers on time"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "**Benefits of teamwork.** The work is finished faster because tasks are shared, the quality is better since many minds look at the problem, members learn from each other, and the load on one person is smaller. **Possible problems** are an uneven share of the work, clash of opinions and poor communication, which are avoided by clear roles and regular meetings."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A team of 6 students has a 24 hour project. Find the time per student if the work is shared equally, and the time per student if 2 members leave and the work is shared equally among the remaining 4.",
+    "solution": "Equal sharing among 6: 24 / 6 = 4 hours each. If 2 members leave, 4 remain: 24 / 4 = 6 hours each. The workload of each remaining member increases by 2 hours, which shows why every member must take responsibility and finish the task assigned.",
+    "answer": "4 hours each with 6 members; 6 hours each with 4 members."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "The components of teamwork: common goal, clear roles, communication, trust and respect, leadership, collaboration, conflict management and accountability."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Teamwork needs the whole team to share the credit and the responsibility. Leaving one member to do all the work is not teamwork, even if the final product is submitted in the name of the team."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r17-project-based-learning-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In project based learning the student mainly learns by",
+   "options": [
+    "memorising chapters for a written test",
+    "working over a period of time to solve a real problem and produce an outcome",
+    "only watching a teacher demonstrate a skill",
+    "copying the project of a previous batch"
+   ],
+   "answer": 2,
+   "explanation": "Project based learning is learning through the active planning, carrying out and presentation of a project on a real problem or question. It produces a product and builds skills. Memorising, passive watching and copying do not give the same learning.",
+   "optionRationale": {
+    "1": "Memorising for a test is the opposite of project based learning.",
+    "3": "The learner is active in PBL, not a passive watcher.",
+    "4": "Copying does not build the problem solving skills the project is meant to develop."
+   },
+   "objective": "Describe the idea of project based learning"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which of the following is the FIRST step in project based learning?",
+   "options": [
+    "Present the final project",
+    "Write the final report",
+    "Test the product",
+    "Identify the problem or topic and state the objective"
+   ],
+   "answer": 4,
+   "explanation": "Every project begins by choosing and defining the problem and its objective. Planning, research, design, implementation, testing and presentation follow. Testing, presenting and reporting all come near the end of the project.",
+   "optionRationale": {
+    "1": "Presentation is near the end of the project.",
+    "2": "The report is prepared after the work is done.",
+    "3": "Testing is possible only after something is built."
+   },
+   "objective": "Order the steps of a project"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "A team breaks a large problem into smaller sub-problems, solves each separately and then combines the solutions. This approach is called",
+   "options": [
+    "divide and conquer (decomposition)",
+    "random trial",
+    "brainstorming",
+    "plagiarism"
+   ],
+   "answer": 1,
+   "explanation": "Divide and conquer, also called decomposition, splits a complex problem into simpler parts that can be solved by different members and combined later. Brainstorming is about generating ideas, and trial at random and plagiarism are not problem solving approaches.",
+   "optionRationale": {
+    "2": "Random trial has no planned structure.",
+    "3": "Brainstorming collects ideas; it does not split the problem.",
+    "4": "Plagiarism is copying someone else's work and is not an approach to solving."
+   },
+   "objective": "Identify divide and conquer"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q04",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match the approach in List-I with its description in List-II.",
+   "list": {
+    "left": [
+     "A. Brainstorming",
+     "B. Top-down approach",
+     "C. Bottom-up approach",
+     "D. Iterative approach"
+    ],
+    "right": [
+     "I. Build small basic parts first and join them into a larger system",
+     "II. Repeat the cycle of build, test and improve in small steps",
+     "III. Start from the whole problem and divide it into smaller modules",
+     "IV. Generate many ideas freely and then choose the best"
+    ]
+   },
+   "options": [
+    "A-IV, B-III, C-I, D-II",
+    "A-III, B-IV, C-I, D-II",
+    "A-IV, B-I, C-III, D-II",
+    "A-IV, B-III, C-II, D-I"
+   ],
+   "answer": 1,
+   "explanation": "Brainstorming collects many ideas before selecting (A-IV). Top-down starts with the whole and splits it into parts (B-III). Bottom-up builds the small parts first and joins them (C-I). The iterative approach repeats build, test and improve (D-II).",
+   "optionRationale": {
+    "2": "Brainstorming and top-down descriptions are swapped here.",
+    "3": "Top-down and bottom-up descriptions are swapped here.",
+    "4": "Bottom-up and iterative descriptions are swapped here."
+   },
+   "objective": "Match project solving approaches with descriptions"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "A team does not know exactly what the users want. It first builds a simple working version, shows it to users, and improves it in several rounds based on their feedback. Which approach is being used?",
+   "options": [
+    "A single-step approach",
+    "Bottom-up approach with no testing",
+    "Iterative (incremental) approach",
+    "Brainstorming only"
+   ],
+   "answer": 3,
+   "explanation": "Repeating build, test and improve cycles with feedback, adding features step by step, is the iterative or incremental approach. It suits situations where the requirements are not completely clear at the beginning. It is not a one-step approach, and it is more than brainstorming.",
+   "optionRationale": {
+    "1": "There are several rounds, so it is not a single step.",
+    "2": "The scenario includes testing and feedback, which a bottom-up approach with no testing lacks.",
+    "4": "Brainstorming only generates ideas; here a product is built and improved."
+   },
+   "objective": "Apply the iterative approach to a scenario"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Task A (design) takes 3 days, task B (coding) 4 days and task C (documentation) 2 days. B and C can start only after A is complete, and B and C can be done in parallel by two members. What is the minimum time needed to finish the project?",
+   "options": [
+    "9 days",
+    "7 days",
+    "5 days",
+    "4 days"
+   ],
+   "answer": 2,
+   "explanation": "A must be finished first, which takes 3 days. After that B (4 days) and C (2 days) run together, so the time taken is the longer of the two, 4 days. The total is 3 + 4 = 7 days. Doing all tasks one by one would take 3 + 4 + 2 = 9 days.",
+   "optionRationale": {
+    "1": "9 days is the time for sequential work, not the minimum.",
+    "3": "5 days ignores the 4 day coding time after the design.",
+    "4": "4 days ignores the 3 days needed for task A first."
+   },
+   "objective": "Find the minimum duration with parallel work"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which activity belongs to the planning step of a project?",
+   "options": [
+    "Presenting the finished product",
+    "Correcting errors found during testing",
+    "Writing the conclusion of the report",
+    "Dividing roles, listing tasks and preparing a time schedule"
+   ],
+   "answer": 4,
+   "explanation": "In the planning step the team decides the scope, lists tasks, assigns roles, estimates time and arranges resources. Presentation, correcting errors and writing the conclusion are later stages that take place after building.",
+   "optionRationale": {
+    "1": "Presentation comes at the end.",
+    "2": "Correcting errors belongs to the testing and improvement step.",
+    "3": "Conclusions are written after the work is complete."
+   },
+   "objective": "Relate activities to the planning step"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "During testing of a student result project, the team finds that the grade calculation is wrong. Which step of project based learning is it most appropriate to go back to?",
+   "options": [
+    "Design or implementation, to correct the logic, and then test again",
+    "Identify the problem, and abandon the project",
+    "Presentation, and ignore the error until the review",
+    "Planning of the time schedule only"
+   ],
+   "answer": 1,
+   "explanation": "The steps are often revisited. A calculation error means the design or the code of that part is faulty, so the team should return to those steps, fix the logic, and test again. Abandoning the project or hiding the error is not good practice, and scheduling alone does not remove an error.",
+   "optionRationale": {
+    "2": "The problem statement is not the cause of a calculation fault, so abandoning is not needed.",
+    "3": "Errors should be corrected before the presentation, not ignored.",
+    "4": "Changing the schedule does not correct the logic."
+   },
+   "objective": "Decide which step to revisit after finding an error"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q09",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about teamwork in a project.\nA. Clear roles and responsibilities avoid confusion and overlap of work.\nB. Teamwork means that one member does the whole work and others only put their names.\nC. Open communication between members is a component of teamwork.\nD. A common goal helps the team members to work in the same direction.\nWhich statements are correct?",
+   "options": [
+    "A and B only",
+    "B, C and D only",
+    "A, B and C only",
+    "A, C and D only"
+   ],
+   "answer": 4,
+   "explanation": "Teamwork needs clear roles (A), communication (C) and a shared goal (D). If one member does all the work and the others only add their names, it is not teamwork because responsibility and effort are not shared, so B is false.",
+   "optionRationale": {
+    "1": "B is false; teamwork shares effort among all members.",
+    "2": "B is false and cannot be in the correct set.",
+    "3": "B is false, and D is also correct, so this set is wrong."
+   },
+   "objective": "Evaluate statements about teamwork"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which of the following is a benefit of teamwork?",
+   "options": [
+    "The responsibility is always on one person",
+    "Disagreements never occur in a team",
+    "The work can be shared, so it is finished faster and members learn from each other",
+    "Communication is not required"
+   ],
+   "answer": 3,
+   "explanation": "In a team, tasks are divided so the work is completed sooner, many people contribute ideas for better quality, and members learn from one another. Teamwork does not remove disagreements, but they must be handled with conflict management and communication.",
+   "optionRationale": {
+    "1": "Teamwork shares the responsibility among members.",
+    "2": "Disagreements can occur and need to be managed.",
+    "4": "Communication is one of the main components of teamwork."
+   },
+   "objective": "List benefits of teamwork"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q11",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Two members of a team disagree about the design of the home page and stop speaking to each other, and the work stops. Which component of teamwork is missing?",
+   "options": [
+    "Hardware resources",
+    "Conflict management and communication",
+    "Software licence",
+    "Programming language"
+   ],
+   "answer": 2,
+   "explanation": "A difference of opinion is normal but the team has to discuss it politely and settle it for the good of the project. Here, the members stopped speaking, so both communication and conflict management are missing. Hardware, language and licence are not the issue.",
+   "optionRationale": {
+    "1": "No hardware shortage is mentioned.",
+    "3": "No licence issue is mentioned in the case.",
+    "4": "The problem is not the language used."
+   },
+   "objective": "Identify the missing component of teamwork in a case"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A project of 24 hours is shared equally among 6 team members. If two members leave and the work is shared equally among the remaining members, how many more hours does each remaining member have to work?",
+   "options": [
+    "1 hour",
+    "4 hours",
+    "6 hours",
+    "2 hours"
+   ],
+   "answer": 4,
+   "explanation": "With 6 members each works 24 / 6 = 4 hours. With 4 members each works 24 / 4 = 6 hours. The increase is 6 - 4 = 2 hours per member. The values 4 and 6 are the two workloads, not the extra.",
+   "optionRationale": {
+    "1": "1 hour is not obtained by any correct division here.",
+    "2": "4 hours is the workload per member in the original team.",
+    "3": "6 hours is the new workload, not the increase."
+   },
+   "objective": "Compute the workload change when team size changes"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q13",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Planning should be done before starting to build a project.\nReason (R): A plan lists the tasks, the roles and the time schedule, which helps to avoid repeated work and missed deadlines.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Planning decides what is to be done, by whom and by when. With such a plan the team avoids confusion, duplicated work and delays. The reason correctly explains why the assertion is true.",
+   "optionRationale": {
+    "2": "Both are true and the reason explains the need for planning.",
+    "3": "The reason is true.",
+    "4": "The assertion is true: planning comes first."
+   },
+   "objective": "Explain the importance of planning"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q14",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): In the top-down approach the whole problem is considered first and then divided into smaller modules.\nReason (R): In the top-down approach the smallest parts are built first and are then joined to form the full system.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "The top-down approach starts with the overall problem and splits it into modules, so the assertion is true. Building the smallest parts first and joining them describes the bottom-up approach, so the reason is false.",
+   "optionRationale": {
+    "1": "The reason is false, so it cannot explain the assertion.",
+    "2": "The reason is false, so this combination of two true statements is wrong.",
+    "4": "The assertion is true, so this option is wrong."
+   },
+   "objective": "Contrast top-down and bottom-up approaches"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q15",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Assertion (A): Brainstorming is mostly used at the beginning of a project.\nReason (R): Brainstorming helps to generate many ideas freely from the team before the best ideas are selected.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "At the start the team has to find a topic and possible solutions. Brainstorming lets every member suggest ideas without early criticism, and then the team selects the best. This explains why brainstorming is mostly used at the beginning.",
+   "optionRationale": {
+    "2": "The reason is the cause of the assertion.",
+    "3": "The reason is true.",
+    "4": "Brainstorming is mostly used at the start, so the assertion is true."
+   },
+   "objective": "Relate brainstorming to the start of a project"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q16",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Arrange the following activities of a project in the correct order.\n(i) Test the product with sample data\n(ii) Decide the topic and objective\n(iii) Present the project and review it\n(iv) Prepare the plan and assign roles\n(v) Build the product",
+   "options": [
+    "(ii), (iv), (v), (i), (iii)",
+    "(ii), (iv), (i), (v), (iii)",
+    "(iv), (ii), (v), (i), (iii)",
+    "(ii), (v), (iv), (i), (iii)"
+   ],
+   "answer": 1,
+   "explanation": "The project starts with the topic and objective (ii), then planning and roles (iv), building (v), testing (i) and finally presenting and reviewing (iii). Planning cannot come before the topic is chosen, and testing needs something to be built.",
+   "optionRationale": {
+    "2": "Testing before building is impossible.",
+    "3": "A plan cannot be prepared before the topic and objective are known.",
+    "4": "Building before planning goes against the usual order."
+   },
+   "objective": "Sequence the steps of a project"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q17",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which of the following is NOT a component of teamwork?",
+   "options": [
+    "Trust and respect among members",
+    "Clear roles and responsibilities",
+    "Working alone without sharing information",
+    "Open communication"
+   ],
+   "answer": 3,
+   "explanation": "Teamwork needs shared goals, clear roles, communication, trust, leadership, cooperation, conflict management and accountability. Working alone without sharing information is the opposite of teamwork, since it removes communication, cooperation and shared responsibility, which are the reasons for forming a team.",
+   "optionRationale": {
+    "1": "Trust and respect are components of teamwork.",
+    "2": "Clear roles are a component of teamwork.",
+    "4": "Communication is a component of teamwork."
+   },
+   "objective": "Identify what is not a component of teamwork"
+  },
+  {
+   "key": "ug26-308-r17-project-based-learning-q18",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "At the end of a project, the team compares the outcome with the objectives written at the start and notes what could be done better. This step is called",
+   "options": [
+    "brainstorming",
+    "evaluation and reflection",
+    "random testing",
+    "identification of the problem"
+   ],
+   "answer": 2,
+   "explanation": "After presenting the project, the team judges whether the objectives were achieved and records the lessons learnt for future work. This is the evaluation and reflection step. Brainstorming and identifying the problem happen at the start of the project.",
+   "optionRationale": {
+    "1": "Brainstorming generates ideas at the beginning of a project.",
+    "3": "Random testing is not a step of project based learning.",
+    "4": "Identifying the problem is the first step, not the last."
+   },
+   "objective": "Name the evaluation step of a project"
+  }
+ ]
+}

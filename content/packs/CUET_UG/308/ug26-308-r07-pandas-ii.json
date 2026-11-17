@@ -1,0 +1,791 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_c82a3a2dbbd6467599c6bdd04e435fad",
+    "title": "Data Handling using Pandas – II"
+  },
+  "lesson": {
+    "key": "ug26-308-r07-pandas-ii",
+    "title": "Data handling using pandas II: statistics, group by, sorting, pivoting, missing values and MySQL",
+    "coverage": [
+      {
+        "phrase": "Descriptive Statistics: max, min, count, sum, mean, median, mode",
+        "section": "Descriptive statistics in pandas"
+      },
+      {
+        "phrase": "quartile",
+        "section": "Descriptive statistics in pandas"
+      },
+      {
+        "phrase": "Standard deviation, variance",
+        "section": "Descriptive statistics in pandas"
+      },
+      {
+        "phrase": "DataFrame operations: Aggregation",
+        "section": "Aggregation and group by"
+      },
+      {
+        "phrase": "group by",
+        "section": "Aggregation and group by"
+      },
+      {
+        "phrase": "Sorting",
+        "section": "Sorting a DataFrame"
+      },
+      {
+        "phrase": "Deleting and Renaming",
+        "section": "Deleting and renaming rows and columns"
+      },
+      {
+        "phrase": "Index",
+        "section": "Working with the index"
+      },
+      {
+        "phrase": "Pivoting",
+        "section": "Pivoting"
+      },
+      {
+        "phrase": "Handling missing values - dropping and filling",
+        "section": "Handling missing values: dropping and filling"
+      },
+      {
+        "phrase": "Importing/Exporting Data between MySQL database and Pandas",
+        "section": "Importing and exporting data between MySQL and pandas"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Descriptive statistics in pandas"
+      },
+      {
+        "type": "TEXT",
+        "text": "**Descriptive statistics** summarise a column of data with a few numbers. In pandas every Series and every DataFrame column has methods for them. The methods below skip missing values (NaN) by default."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Statistical methods",
+        "columns": [
+          "Method",
+          "Result",
+          "Notes"
+        ],
+        "rows": [
+          [
+            "max(), min()",
+            "Largest and smallest value",
+            "Ignores NaN"
+          ],
+          [
+            "count()",
+            "Number of non-missing values",
+            "len() counts NaN too"
+          ],
+          [
+            "sum()",
+            "Total of the values",
+            "NaN treated as skipped"
+          ],
+          [
+            "mean()",
+            "Arithmetic average = sum / count of non-missing values",
+            ""
+          ],
+          [
+            "median()",
+            "Middle value of the sorted data (average of the two middle values if the count is even)",
+            "Not affected much by outliers"
+          ],
+          [
+            "mode()",
+            "Most frequent value(s), returned as a **Series**",
+            "Use mode()[0] for the first mode"
+          ],
+          [
+            "quantile(q)",
+            "Value below which a fraction q of the data lies",
+            "quantile(0.25) is Q1, quantile(0.75) is Q3"
+          ],
+          [
+            "std()",
+            "Standard deviation",
+            "Sample version: divides by n - 1"
+          ],
+          [
+            "var()",
+            "Variance = std squared",
+            "Sample version: divides by n - 1"
+          ]
+        ]
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "Take `s = pd.Series([4, 8, 6, 5, 3, 8, 10])`. Here `s.max()` is 10, `s.min()` is 3, `s.count()` is 7, `s.sum()` is 44, `s.mean()` is 44/7 = 6.2857, `s.median()` is 6 (sorted data 3, 4, 5, 6, 8, 8, 10), `s.mode()[0]` is 8, `s.quantile(0.25)` is 4.5 and `s.quantile(0.75)` is 8.0. `s.var()` is about 6.238 and `s.std()` about 2.498."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Quartiles",
+        "text": "The three values Q1, Q2 and Q3 that divide sorted data into four equal parts. Q1 = quantile(0.25), Q2 = quantile(0.50) = median, Q3 = quantile(0.75). The interquartile range is Q3 - Q1."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Standard deviation and variance.** The variance measures the average squared distance of the values from their mean; the standard deviation is its square root and has the same unit as the data. Pandas uses the **sample** formula by default (denominator n - 1, written ddof=1). NumPy uses the population formula (denominator n) unless told otherwise. For the data 2, 4, 4, 4, 5, 5, 7, 9 (mean 5) the sum of squared deviations is 32, so `var()` = 32/7 = 4.571 and `std()` = 2.138, whereas the population values would be 32/8 = 4 and 2.0."
+      },
+      {
+        "type": "TEXT",
+        "text": "`describe()` prints count, mean, std, min, 25%, 50%, 75% and max for numeric columns in one step."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistakes: (1) assuming `mode()` returns a single number; it returns a Series, so print shows an index as well. (2) Forgetting that `count()` excludes NaN while `len()` includes it. (3) Expecting `std()` to divide by n; pandas divides by n - 1."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Median is the better measure of centre when the data has extreme values. Mean is pulled towards outliers. Example: for 12, 15, 11, 20, 100 the mean is 31.6 but the median is 15."
+      },
+      {
+        "type": "HEADING",
+        "text": "Aggregation and group by"
+      },
+      {
+        "type": "TEXT",
+        "text": "**Aggregation** reduces many values to one value, such as sum or mean. `groupby()` splits the rows into groups according to the values of a column, applies an aggregation to each group, and combines the results. We use this sample DataFrame in the examples below:\n\n```\nimport pandas as pd\ndf = pd.DataFrame({\n    \"Name\":   [\"Asha\", \"Bhav\", \"Chet\", \"Divya\", \"Esha\", \"Farid\"],\n    \"Dept\":   [\"Sales\", \"HR\", \"Sales\", \"IT\", \"HR\", \"Sales\"],\n    \"Salary\": [40000, 35000, 45000, 50000, 30000, 35000]\n})\n```"
+      },
+      {
+        "type": "TEXT",
+        "text": "- `df.groupby(\"Dept\")[\"Salary\"].mean()` gives HR 32500.0, IT 50000.0, Sales 40000.0.\n- `df.groupby(\"Dept\")[\"Salary\"].sum()` gives HR 65000, IT 50000, Sales 120000.\n- `df.groupby(\"Dept\").size()` gives HR 2, IT 1, Sales 3 (number of rows in each group).\n- `df.groupby(\"Dept\")[\"Salary\"].agg([\"min\", \"max\"])` produces one row per department with the columns min and max (HR 30000 and 35000, IT 50000 and 50000, Sales 35000 and 45000).\n- Group keys become the **index** of the result and are sorted in ascending order by default."
+      },
+      {
+        "type": "TEXT",
+        "text": "`agg()` accepts a list of function names, or a dictionary such as `{\"Salary\": \"mean\"}`. A single column can also be aggregated without grouping: `df[\"Salary\"].max()`."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Using the DataFrame `df` above, find which department has the highest total salary and what the output of `df.groupby(\"Dept\")[\"Salary\"].count()` looks like.",
+        "solution": "Total salary by department: HR = 35000 + 30000 = 65000; IT = 50000; Sales = 40000 + 45000 + 35000 = 120000.\nThe largest total is 120000, belonging to Sales.\ncount() counts non-missing Salary values in each group. HR has 2 rows, IT has 1 row and Sales has 3 rows, and none of the salaries is NaN, so the result is HR 2, IT 1, Sales 3.",
+        "answer": "Sales has the highest total (120000); count() gives HR 2, IT 1, Sales 3."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "`groupby` follows split, apply, combine. `size()` counts all rows in a group, while `count()` counts non-NaN values of each selected column."
+      },
+      {
+        "type": "HEADING",
+        "text": "Sorting a DataFrame"
+      },
+      {
+        "type": "TEXT",
+        "text": "`sort_values(by=...)` sorts the rows by one or more columns; `sort_index()` sorts by the row labels. Sorting is **ascending** by default; use `ascending=False` for descending. For several columns pass lists: `df.sort_values([\"Salary\", \"Name\"], ascending=[True, False])`. The row labels travel with the rows, so after sorting the index is no longer 0, 1, 2 and so on. Use `inplace=True` to change the original object, or assign the result to a new variable."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "`df.sort_values(\"Salary\", ascending=False)` on the table above places Divya (50000) first, then Chet (45000), Asha (40000), then Bhav and Farid (both 35000, kept in their original order) and Esha (30000) last. The index of the first row of the result is 3."
+      },
+      {
+        "type": "HEADING",
+        "text": "Deleting and renaming rows and columns"
+      },
+      {
+        "type": "TEXT",
+        "text": "`drop()` removes labels. By default it works on **rows** (`axis=0`); to delete a column write `axis=1` or `axis=\"columns\"` (or use `columns=[...]`).\n\n- `df.drop(1)` removes the row labelled 1; the remaining row labels are 0, 2, 3, 4, 5.\n- `df.drop(\"Dept\", axis=1)` removes the Dept column; the remaining columns are Name and Salary.\n- `df.drop(\"Dept\")` without `axis=1` looks for a **row** called \"Dept\" and raises a KeyError.\n- `drop()` returns a new DataFrame; the original changes only with `inplace=True` or by assignment."
+      },
+      {
+        "type": "TEXT",
+        "text": "`rename()` changes labels using a dictionary of old name to new name: `df.rename(columns={\"Salary\": \"Pay\"})` renames a column; `df.rename(index={0: \"first\"})` renames a row label. Original labels not mentioned are left unchanged."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "The most frequent mistake is `df.drop(\"col\")` for a column. Always add `axis=1`. Another is expecting `drop` or `rename` to modify `df` itself: unless you assign the result or pass `inplace=True`, df is unchanged."
+      },
+      {
+        "type": "HEADING",
+        "text": "Working with the index"
+      },
+      {
+        "type": "TEXT",
+        "text": "The **index** holds the row labels. `set_index(\"Name\")` turns a column into the index, after which `df.loc[\"Chet\"]` selects that row by label. `reset_index()` moves the index back into a normal column and restores 0, 1, 2 and so on. `loc` is label based and includes both end labels in a slice; `iloc` is position based and excludes the end position. For labels a, b, c, d, `d.loc[\"b\":\"c\"]` gives two rows and `d.iloc[1:3]` also gives two rows (positions 1 and 2)."
+      },
+      {
+        "type": "TEXT",
+        "text": "`sort_index()` sorts by labels; `index` and `columns` attributes list the current labels, for example `df.columns.tolist()`."
+      },
+      {
+        "type": "HEADING",
+        "text": "Pivoting"
+      },
+      {
+        "type": "TEXT",
+        "text": "**Pivoting** reshapes data: the unique values of one column become the new row labels, those of another become the new column headings, and a third column supplies the cell values."
+      },
+      {
+        "type": "TEXT",
+        "text": "- `df.pivot(index=..., columns=..., values=...)` only rearranges. If a (row, column) pair occurs more than once it raises ValueError (duplicate entries).\n- `df.pivot_table(index=..., columns=..., values=..., aggfunc=...)` first **aggregates** duplicates with `aggfunc` (default is mean) and then reshapes."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A sales table is\n\n```\nsales = pd.DataFrame({\n    \"Region\": [\"N\", \"N\", \"S\", \"S\", \"N\"],\n    \"Item\":   [\"pen\", \"pad\", \"pen\", \"pad\", \"pen\"],\n    \"Qty\":    [10, 5, 7, 3, 4]\n})\n```\n\nWhat does `sales.pivot_table(index=\"Region\", columns=\"Item\", values=\"Qty\", aggfunc=\"sum\")` give, and why does `sales.pivot(index=\"Region\", columns=\"Item\", values=\"Qty\")` fail?",
+        "solution": "Group by (Region, Item) and add Qty: (N, pen) = 10 + 4 = 14; (N, pad) = 5; (S, pen) = 7; (S, pad) = 3.\nRows are N and S, columns are pad and pen (alphabetical order), so the table is:\nN: pad 5, pen 14\nS: pad 3, pen 7.\nWith pivot() the pair (N, pen) appears twice (rows 0 and 4), so pandas cannot place two values in one cell and raises ValueError: Index contains duplicate entries, cannot reshape.",
+        "answer": "pivot_table gives N: pad 5, pen 14 and S: pad 3, pen 7. pivot fails with a ValueError because (N, pen) is repeated."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "pivot = reshape only (needs unique pairs). pivot_table = aggregate (aggfunc) and reshape. Rows come from `index`, headings from `columns`, cells from `values`."
+      },
+      {
+        "type": "HEADING",
+        "text": "Handling missing values: dropping and filling"
+      },
+      {
+        "type": "TEXT",
+        "text": "Missing data is stored as **NaN** (not a number). `isnull()` (or `isna()`) gives True where a value is missing; `isnull().sum()` counts missing values in every column."
+      },
+      {
+        "type": "TEXT",
+        "text": "Consider `m = pd.DataFrame({\"A\": [1, NaN, 3, NaN], \"B\": [NaN, NaN, 6, 7]})` (NaN means numpy.nan)."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Dropping and filling",
+        "columns": [
+          "Statement",
+          "Effect on m"
+        ],
+        "rows": [
+          [
+            "m.dropna()",
+            "Drops every row that has at least one NaN. Only row 2 (3.0, 6.0) survives."
+          ],
+          [
+            "m.dropna(how=\"all\")",
+            "Drops only rows where every value is NaN. Row 1 goes; rows 0, 2, 3 stay."
+          ],
+          [
+            "m.dropna(axis=1)",
+            "Drops columns that contain NaN. Both columns have NaN, so an empty frame remains."
+          ],
+          [
+            "m.dropna(thresh=2)",
+            "Keeps rows with at least 2 non-missing values. Only row 2 stays."
+          ],
+          [
+            "m.fillna(0)",
+            "Replaces every NaN with 0."
+          ],
+          [
+            "m.fillna(m.mean())",
+            "Fills each column with its own mean. A-mean = 2.0, B-mean = 6.5, so row 1 becomes (2.0, 6.5)."
+          ],
+          [
+            "m.fillna({\"A\": 0, \"B\": 99})",
+            "Different filler value for each column."
+          ],
+          [
+            "m.ffill()",
+            "Copies the previous valid value downwards (forward fill)."
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "Dropping loses information; filling invents values. A mean or median is a common filler for numeric data. Both methods return new objects unless `inplace=True` is used."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "`mean()` skips NaN. For `pd.Series([10, 20, NaN, 40])` the mean is 70/3 = 23.33, not 70/4 = 17.5, because only three values count."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Series `sr = pd.Series([10, NaN, 30, NaN, 50])`. Give `sr.fillna(sr.mean())` and `sr.dropna()`.",
+        "solution": "The non-missing values are 10, 30 and 50, so the mean is 90/3 = 30.0.\nfillna(30.0) replaces both NaN: [10.0, 30.0, 30.0, 30.0, 50.0].\ndropna() simply removes the two missing entries: values 10.0, 30.0, 50.0 with the original index labels 0, 2 and 4.",
+        "answer": "fillna gives [10.0, 30.0, 30.0, 30.0, 50.0]; dropna gives 10.0, 30.0, 50.0 at labels 0, 2, 4."
+      },
+      {
+        "type": "HEADING",
+        "text": "Importing and exporting data between MySQL and pandas"
+      },
+      {
+        "type": "TEXT",
+        "text": "A DataFrame can be loaded from a MySQL table and a DataFrame can be written to a table. A connector module such as `mysql.connector` (or an SQLAlchemy engine such as `mysql+pymysql://user:password@localhost/dbname`) provides the connection object."
+      },
+      {
+        "type": "TEXT",
+        "text": "Reading a table into a DataFrame:\n\n```\nimport mysql.connector\nimport pandas as pd\ncon = mysql.connector.connect(host=\"localhost\", user=\"root\", passwd=\"pwd\", database=\"school\")\ndf = pd.read_sql(\"SELECT * FROM student\", con)\n```\n\nWriting a DataFrame to a table:\n\n```\ndf.to_sql(\"student_copy\", engine, if_exists=\"append\", index=False)\n```"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Moving data between MySQL and pandas",
+        "columns": [
+          "Task",
+          "Function"
+        ],
+        "rows": [
+          [
+            "MySQL table or query to DataFrame",
+            "pd.read_sql(query, connection) or pd.read_sql_query(query, connection)"
+          ],
+          [
+            "DataFrame to MySQL table",
+            "df.to_sql(name, connection_or_engine, if_exists=..., index=False)"
+          ],
+          [
+            "Collect results manually",
+            "cursor.execute(query); cursor.fetchall(), then pd.DataFrame(rows, columns=[...])"
+          ],
+          [
+            "Close the connection",
+            "con.close()"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "`if_exists` can be \"fail\" (the default, error if the table exists), \"replace\" (drop and recreate the table) or \"append\" (add rows to the existing table). `index=False` stops the DataFrame index from being written as an extra column."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Remember: read_sql brings data **into** pandas; to_sql sends data **out** to MySQL. Use if_exists=\"append\" to add rows to an existing table and index=False to avoid an extra index column."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r07-pandas-ii-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which Series method returns the most frequently occurring value?",
+      "options": [
+        "mode()",
+        "quantile()",
+        "median()",
+        "count()"
+      ],
+      "answer": 1,
+      "explanation": "mode() returns the value or values that occur most often in the data. median() returns the middle value, quantile() returns a value at a chosen fraction of the sorted data, and count() returns the number of non-missing entries.",
+      "optionRationale": {
+        "2": "quantile() gives a position-based cut point, not the commonest value.",
+        "3": "median() gives the middle value of sorted data.",
+        "4": "count() only counts non-missing entries."
+      },
+      "objective": "Identify the method that returns the mode"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which DataFrame method is used to remove rows that contain missing values?",
+      "options": [
+        "fillna()",
+        "dropna()",
+        "isnull()",
+        "rename()"
+      ],
+      "answer": 2,
+      "explanation": "dropna() deletes rows (or columns, with axis=1) that contain NaN, so the remaining data is complete. fillna() replaces NaN with a chosen value instead of deleting anything, isnull() only reports where the NaN values are, and rename() just changes labels.",
+      "optionRationale": {
+        "1": "fillna() replaces missing values instead of removing rows.",
+        "3": "isnull() only returns True or False for each cell.",
+        "4": "rename() changes labels and has nothing to do with missing data."
+      },
+      "objective": "Recall dropna"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which function reads the result of an SQL query from a MySQL connection directly into a pandas DataFrame?",
+      "options": [
+        "df.to_sql()",
+        "df.to_csv()",
+        "pd.read_sql()",
+        "cursor.close()"
+      ],
+      "answer": 3,
+      "explanation": "pd.read_sql(query, connection) runs the query and returns a DataFrame. df.to_sql() does the opposite job, writing a DataFrame to a table. to_csv() writes to a CSV file and close() only closes a cursor.",
+      "optionRationale": {
+        "1": "to_sql() exports a DataFrame to MySQL rather than importing.",
+        "2": "to_csv() writes a file; it does not read from MySQL.",
+        "4": "cursor.close() releases a cursor; it reads nothing."
+      },
+      "objective": "Distinguish read_sql from to_sql"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "What does the count() method of a Series return when the Series contains some NaN values?",
+      "options": [
+        "The total number of values including NaN",
+        "The sum of all values",
+        "The number of NaN values",
+        "The number of non-missing values"
+      ],
+      "answer": 4,
+      "explanation": "count() counts only the values that are not NaN, so missing entries are skipped. The total length including NaN comes from len() or size, and the number of NaN values comes from isnull().sum(), not from count().",
+      "optionRationale": {
+        "1": "That is what len() returns, not count().",
+        "2": "The sum comes from sum().",
+        "3": "NaN counts come from isnull().sum(), not count()."
+      },
+      "objective": "Explain count versus len"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What is the output of the following code?\n\nimport pandas as pd\ns = pd.Series([4, 8, 6, 5, 3, 8, 10])\nprint(s.median(), s.mode()[0])",
+      "options": [
+        "6.0 8",
+        "6.0 6",
+        "5.0 8",
+        "8.0 8"
+      ],
+      "answer": 1,
+      "explanation": "Sorted data is 3, 4, 5, 6, 8, 8, 10. The middle (fourth) value is 6, shown as 6.0 because median() returns a float. The value 8 occurs twice, more than any other, so mode()[0] is 8.",
+      "optionRationale": {
+        "2": "8 is the mode, so the second printed value is 8, not 6.",
+        "3": "The middle of seven sorted values is the 4th value, 6, not 5.",
+        "4": "8 is the mode, but the median is 6.0."
+      },
+      "objective": "Compute median and mode"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "The DataFrame df has columns Name, Dept and Salary with Dept values Sales, HR, Sales, IT, HR, Sales and Salary values 40000, 35000, 45000, 50000, 30000, 35000. What does df.groupby(\"Dept\")[\"Salary\"].mean()[\"HR\"] return?",
+      "options": [
+        "65000",
+        "32500.0",
+        "35000.0",
+        "37500.0"
+      ],
+      "answer": 2,
+      "explanation": "The HR rows have salaries 35000 and 30000. Their mean is (35000 + 30000) / 2 = 32500.0. 65000 is their sum, 35000.0 is just the first HR salary, and 37500.0 is the median of the whole Salary column.",
+      "optionRationale": {
+        "1": "65000 is the sum, not the mean.",
+        "3": "35000.0 is one value, not the average of the two HR salaries.",
+        "4": "37500.0 is the median of all six salaries."
+      },
+      "objective": "Use groupby with mean"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "For the same df (Names Asha, Bhav, Chet, Divya, Esha, Farid with Salary 40000, 35000, 45000, 50000, 30000, 35000), what is df.sort_values(\"Salary\", ascending=False)[\"Name\"].iloc[0]?",
+      "options": [
+        "Esha",
+        "Chet",
+        "Divya",
+        "Asha"
+      ],
+      "answer": 3,
+      "explanation": "Descending order places the largest salary first. The largest salary is 50000, which belongs to Divya, so iloc[0] of the sorted Name column is Divya. Esha has the smallest salary and would be last.",
+      "optionRationale": {
+        "1": "Esha has the lowest salary and would come last.",
+        "2": "Chet has the second highest salary (45000).",
+        "4": "Asha has 40000, the third highest salary."
+      },
+      "objective": "Sort a DataFrame in descending order"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A DataFrame df has columns Name, Dept and Salary. Which statement permanently deletes the Dept column from df?",
+      "options": [
+        "df.drop(\"Dept\")",
+        "df.rename(\"Dept\")",
+        "df.drop(1)",
+        "df.drop(\"Dept\", axis=1, inplace=True)"
+      ],
+      "answer": 4,
+      "explanation": "To delete a column drop() needs axis=1, and inplace=True makes the change in df itself. df.drop(\"Dept\") looks for a row labelled Dept and raises a KeyError. df.drop(1) deletes the row labelled 1, and rename() only changes labels.",
+      "optionRationale": {
+        "1": "Without axis=1, drop searches the row labels and raises KeyError.",
+        "2": "rename needs a mapping and never deletes anything.",
+        "3": "drop(1) removes the row labelled 1, not a column."
+      },
+      "objective": "Delete a column using drop"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "sales has columns Region (N, N, S, S, N), Item (pen, pad, pen, pad, pen) and Qty (10, 5, 7, 3, 4). What is the value in row N, column pen of sales.pivot_table(index=\"Region\", columns=\"Item\", values=\"Qty\", aggfunc=\"sum\")?",
+      "options": [
+        "14",
+        "7",
+        "10",
+        "19"
+      ],
+      "answer": 1,
+      "explanation": "The rows with Region N and Item pen are the first and the last rows, with Qty 10 and 4. aggfunc=\"sum\" adds them to give 14. 10 is only the first of these rows, 7 belongs to region S, and 19 is the total of all N rows, which wrongly includes the pad row.",
+      "optionRationale": {
+        "2": "7 is the S-pen quantity.",
+        "3": "10 ignores the second N-pen row (Qty 4).",
+        "4": "19 adds the N-pad quantity 5 as well (10 + 5 + 4); only pen rows belong in this cell."
+      },
+      "objective": "Evaluate a pivot_table cell"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Which statement correctly writes the DataFrame df to a MySQL table named result without writing the DataFrame index as a column?",
+      "options": [
+        "df.read_sql(\"result\", engine)",
+        "df.to_sql(\"result\", engine, if_exists=\"append\", index=False)",
+        "pd.to_sql(df, \"result\")",
+        "df.to_sql(\"result\", index=True)"
+      ],
+      "answer": 2,
+      "explanation": "to_sql is a DataFrame method taking the table name and a connection or engine. index=False omits the index column and if_exists decides what happens when the table exists. read_sql is a pandas function that imports data, and pd.to_sql does not exist.",
+      "optionRationale": {
+        "1": "read_sql imports data and is not a DataFrame method.",
+        "3": "to_sql is a DataFrame method, and it also needs a connection.",
+        "4": "index=True would write the index as a column, and no connection is given."
+      },
+      "objective": "Export a DataFrame to MySQL"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q11",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the pandas call in List-I with its purpose in List-II.",
+      "options": [
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-IV, D-III",
+        "A-II, B-I, C-III, D-IV",
+        "A-IV, B-I, C-III, D-II"
+      ],
+      "answer": 3,
+      "explanation": "groupby splits the rows into groups so that an aggregate can be applied to each (A-II), dropna removes rows with NaN (B-I), rename changes labels (C-III) and pivot_table aggregates then reshapes the data into a table (D-IV).",
+      "optionRationale": {
+        "1": "This swaps groupby and dropna.",
+        "2": "This swaps rename and pivot_table.",
+        "4": "This swaps groupby and pivot_table."
+      },
+      "objective": "Match pandas operations to their roles",
+      "list": {
+        "left": [
+          "A. df.groupby(\"Dept\")",
+          "B. df.dropna()",
+          "C. df.rename(columns={\"a\": \"b\"})",
+          "D. df.pivot_table(...)"
+        ],
+        "right": [
+          "I. Remove rows containing NaN",
+          "II. Split rows into groups for aggregation",
+          "III. Change a column label",
+          "IV. Aggregate and reshape into a table"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q12",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about pandas.\nA. The default std() divides by n - 1.\nB. count() includes NaN values in its result.\nC. mode() returns a Series.\nWhich statements are correct?",
+      "options": [
+        "A and B only",
+        "A, B and C",
+        "B and C only",
+        "A and C only"
+      ],
+      "answer": 4,
+      "explanation": "pandas std() uses the sample formula with n - 1 (A true). count() ignores NaN, so B is false. mode() returns a Series because there can be several modes (C true). Hence A and C only.",
+      "optionRationale": {
+        "1": "B is false because count() excludes NaN.",
+        "2": "B is false, so not all three are correct.",
+        "3": "B is false, so any option with B is wrong."
+      },
+      "objective": "Evaluate statements about statistics methods"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q13",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The median is a better measure of the centre than the mean for the data 12, 15, 11, 20, 100.\nReason (R): The mean is affected by extreme values, while the median depends only on the middle position of the sorted data.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The mean is 31.6, pulled up by the extreme value 100, while the median is 15 and describes the typical value. Because the median ignores how large the extreme values are, R is the correct explanation of A.",
+      "optionRationale": {
+        "2": "R is the reason the median is preferred here, so it explains A.",
+        "3": "R is true, since the mean does react to extreme values.",
+        "4": "A is true: 15 describes this data better than 31.6."
+      },
+      "objective": "Compare mean and median with outliers"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "What is printed by the following code?\n\nimport pandas as pd\ns = pd.Series([2, 4, 4, 4, 5, 5, 7, 9])\nprint(round(s.std(), 2))",
+      "options": [
+        "2.14",
+        "4.57",
+        "2.57",
+        "2.0"
+      ],
+      "answer": 1,
+      "explanation": "The mean is 40/8 = 5 and the squared deviations add up to 32. pandas divides by n - 1 = 7, so var = 4.571 and std = 2.138, which rounds to 2.14. The value 2.0 would be the population standard deviation (divide by 8).",
+      "optionRationale": {
+        "2": "4.57 is the variance, not the standard deviation.",
+        "3": "2.57 does not follow from this data.",
+        "4": "2.0 is the population value; pandas uses n - 1 by default."
+      },
+      "objective": "Compute sample standard deviation"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "What is printed by this code?\n\nimport pandas as pd\nimport numpy as np\ns = pd.Series([10, 20, np.nan, 40])\nprint(round(s.mean(), 2), s.count())",
+      "options": [
+        "17.5 4",
+        "23.33 3",
+        "23.33 4",
+        "17.5 3"
+      ],
+      "answer": 2,
+      "explanation": "mean() skips NaN, so it computes (10 + 20 + 40) / 3 = 23.33. count() also skips NaN, giving 3. The value 17.5 would come from dividing the total 70 by 4, which pandas does not do.",
+      "optionRationale": {
+        "1": "70/4 = 17.5 wrongly counts the NaN, and count() is 3, not 4.",
+        "3": "The mean is right but count() excludes the NaN, so it is 3.",
+        "4": "The mean divides by 3, not 4, because NaN is skipped."
+      },
+      "objective": "Predict mean and count with NaN"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "What is the output of the following code?\n\nimport pandas as pd\nimport numpy as np\nm = pd.DataFrame({\"A\": [1, np.nan, 3, np.nan], \"B\": [np.nan, np.nan, 6, 7]})\nprint(m.fillna(m.mean()).loc[1, \"A\"], m.dropna().shape)",
+      "options": [
+        "0.0 (1, 2)",
+        "2.0 (3, 2)",
+        "2.0 (1, 2)",
+        "2.0 (4, 2)"
+      ],
+      "answer": 3,
+      "explanation": "m.mean() gives A = (1 + 3) / 2 = 2.0 and B = (6 + 7) / 2 = 6.5, so the NaN in row 1 of A becomes 2.0. dropna() keeps only rows with no NaN. Only row 2 (3.0, 6.0) qualifies, so the shape is (1, 2).",
+      "optionRationale": {
+        "1": "0.0 would come from fillna(0), not from the column mean.",
+        "2": "Rows 0, 1 and 3 each contain a NaN, so dropna() cannot keep 3 rows.",
+        "4": "That is the shape before dropna(); the result has only one row left."
+      },
+      "objective": "Combine fillna with mean and dropna"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "What happens when sales.pivot(index=\"Region\", columns=\"Item\", values=\"Qty\") is run on a table in which the pair (N, pen) appears twice?",
+      "options": [
+        "The result contains NaN for that cell",
+        "The two Qty values are added automatically",
+        "The first Qty is kept and the other is ignored",
+        "A ValueError is raised because of duplicate entries"
+      ],
+      "answer": 4,
+      "explanation": "pivot() only reshapes and cannot decide how to combine two values for one cell, so it raises ValueError (Index contains duplicate entries, cannot reshape). pivot_table() with aggfunc is the right tool when pairs repeat.",
+      "optionRationale": {
+        "1": "No NaN is produced; the call fails instead.",
+        "2": "Automatic addition is what pivot_table with aggfunc=\"sum\" does, not pivot.",
+        "3": "pivot does not silently discard any value."
+      },
+      "objective": "Explain pivot versus pivot_table"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "What does the following code print?\n\nimport pandas as pd\nimport numpy as np\nm = pd.DataFrame({\"A\": [1, np.nan, 3, np.nan], \"B\": [np.nan, np.nan, 6, 7]})\nprint(m.isnull().sum().sum(), m.dropna(thresh=2).shape[0])",
+      "options": [
+        "4 1",
+        "2 1",
+        "6 4",
+        "4 3"
+      ],
+      "answer": 1,
+      "explanation": "Column A has 2 NaN and column B has 2 NaN, so isnull().sum() gives 2 and 2 and the total is 4. thresh=2 keeps only rows with at least two non-missing values; only row 2 (3.0, 6.0) has two, so one row remains.",
+      "optionRationale": {
+        "2": "The total number of NaN is 4, not 2.",
+        "3": "The data has 4 NaN and 1 row survives thresh=2.",
+        "4": "Rows 0 and 3 have only one valid value each, so 3 rows cannot stay."
+      },
+      "objective": "Count NaN values and apply thresh"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q19",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about the DataFrame df with default row labels 0 to 5.\nA. df.drop(1) removes the row labelled 1 and returns a new DataFrame.\nB. df.drop(\"Dept\") removes the column Dept.\nC. df.drop(\"Dept\", axis=1) removes the column Dept.\nD. df.set_index(\"Name\").reset_index() brings Name back as a normal column.\nWhich statements are correct?",
+      "options": [
+        "A and B only",
+        "A, C and D only",
+        "B, C and D only",
+        "A and C only"
+      ],
+      "answer": 2,
+      "explanation": "drop(1) acts on rows by default and returns a new DataFrame (A true). Without axis=1, drop(\"Dept\") searches the row labels and raises a KeyError (B false). axis=1 targets columns (C true). reset_index moves the index back to a column (D true).",
+      "optionRationale": {
+        "1": "B is false, since drop(\"Dept\") searches rows and raises a KeyError.",
+        "3": "B is false, so any option including B is wrong.",
+        "4": "This omits D, which is also true."
+      },
+      "objective": "Evaluate drop, axis and reset_index"
+    },
+    {
+      "key": "ug26-308-r07-pandas-ii-q20",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): df.groupby(\"Dept\")[\"Salary\"].count() and df.groupby(\"Dept\").size() can give different results when the Salary column contains NaN.\nReason (R): count() counts only non-missing values of the selected column, while size() counts all rows in each group.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "If a group has a NaN in Salary, count() leaves it out but size() still counts that row, so the two numbers can differ. R states exactly this difference, so it explains A.",
+      "optionRationale": {
+        "2": "R is the direct reason for A, not just a related fact.",
+        "3": "R is true, as count() skips NaN while size() does not.",
+        "4": "A is true when there are NaN values in the selected column."
+      },
+      "objective": "Distinguish count from size"
+    }
+  ]
+}

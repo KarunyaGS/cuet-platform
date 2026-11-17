@@ -1,0 +1,1161 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_5b37bf88cba94a9ebf3d70080bd5fc84",
+  "title": "Structured Query Language"
+ },
+ "lesson": {
+  "key": "ug26-308-r18-structured-query-language",
+  "title": "Structured Query Language (SQL) with MySQL",
+  "coverage": [
+   {
+    "phrase": "Advantages of using Structured Query Language",
+    "section": "SQL, its advantages and its command groups"
+   },
+   {
+    "phrase": "Data Definition Language",
+    "section": "SQL, its advantages and its command groups"
+   },
+   {
+    "phrase": "Data Query Language and Data Manipulation Language",
+    "section": "SQL, its advantages and its command groups"
+   },
+   {
+    "phrase": "Introduction to MySQL",
+    "section": "Introduction to MySQL, databases, data types and constraints"
+   },
+   {
+    "phrase": "creating a database using MySQL",
+    "section": "Introduction to MySQL, databases, data types and constraints"
+   },
+   {
+    "phrase": "Data Types and constraints in MySQL",
+    "section": "Introduction to MySQL, databases, data types and constraints"
+   },
+   {
+    "phrase": "Data Definition: CREATE TABLE, DROP TABLE, ALTER TABLE",
+    "section": "Data Definition: CREATE TABLE, ALTER TABLE, DROP TABLE"
+   },
+   {
+    "phrase": "Data Manipulation: INSERT, UPDATE, DELETE",
+    "section": "Data Manipulation: INSERT, UPDATE, DELETE"
+   },
+   {
+    "phrase": "Data Query: SELECT, FROM, WHERE",
+    "section": "Data Query: SELECT, FROM, WHERE"
+   },
+   {
+    "phrase": "Math functions: POWER (), ROUND (), MOD ()",
+    "section": "Math functions: POWER(), ROUND(), MOD()"
+   },
+   {
+    "phrase": "Text functions: UCASE () / UPPER (), LCASE () / LOWER (), MID () / SUBSTRING () / SUBSTR (), LENGTH (), LEFT (), RIGHT (), INSTR (), LTRIM (), RTRIM (), TRIM ()",
+    "section": "Text functions"
+   },
+   {
+    "phrase": "Date Functions: NOW (), DATE (), MONTH (), MONTHNAME (), YEAR (), DAY (), DAYNAME ()",
+    "section": "Date functions"
+   },
+   {
+    "phrase": "Aggregate Functions: MAX (), MIN (), AVG (), SUM (), COUNT (), using COUNT (*)",
+    "section": "Aggregate functions"
+   },
+   {
+    "phrase": "Querying and manipulating data using Group by, Having, Order by",
+    "section": "GROUP BY, HAVING and ORDER BY"
+   },
+   {
+    "phrase": "Operations on Relations - Union, Intersection, Minus, Cartesian Product, JOIN",
+    "section": "Operations on relations: Union, Intersection, Minus, Cartesian Product, JOIN"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "SQL, its advantages and its command groups"
+   },
+   {
+    "type": "TEXT",
+    "text": "A database stores data in tables (relations). Rows are called tuples or records and columns are called attributes or fields. To create these tables and to ask questions of them, we use **Structured Query Language (SQL)**. SQL is the standard language of relational databases such as MySQL, Oracle, PostgreSQL and SQL Server. You tell SQL *what* result you want, and the database engine works out *how* to get it. Because of this, SQL is called a **non-procedural** (declarative) language."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "SQL",
+    "text": "Structured Query Language, the standard language used to create, modify and query data in a relational database management system (RDBMS). Statements end with a semicolon in the MySQL client; keywords are not case sensitive, but data values inside quotes can be."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Advantages of SQL**"
+   },
+   {
+    "type": "TEXT",
+    "text": "- It is easy to learn because its statements read like English (`SELECT`, `FROM`, `WHERE`).\n- It is non-procedural: you describe the result, not the steps.\n- It is a standard (ANSI/ISO), so the basic commands work on almost every RDBMS.\n- It can handle huge data and many users, and supports security through permissions.\n- One language does everything: define structure, enter data and fetch it back."
+   },
+   {
+    "type": "TEXT",
+    "text": "SQL commands fall into groups by the job they do. For this syllabus three groups matter."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Command groups of SQL",
+    "columns": [
+     "Group",
+     "Full form",
+     "Purpose",
+     "Commands"
+    ],
+    "rows": [
+     [
+      "DDL",
+      "Data Definition Language",
+      "Creates and changes the structure (schema) of database objects",
+      "CREATE, ALTER, DROP"
+     ],
+     [
+      "DML",
+      "Data Manipulation Language",
+      "Changes the data stored inside tables",
+      "INSERT, UPDATE, DELETE"
+     ],
+     [
+      "DQL",
+      "Data Query Language",
+      "Retrieves data without changing it",
+      "SELECT"
+     ]
+    ]
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Common mistake: students put SELECT in DML. In this syllabus SELECT is the Data Query Language command. DDL changes the table design, DML changes the rows, DQL only reads."
+   },
+   {
+    "type": "HEADING",
+    "text": "Introduction to MySQL, databases, data types and constraints"
+   },
+   {
+    "type": "TEXT",
+    "text": "**MySQL** is a free, open source RDBMS that works on the client-server model: you type commands in a client (the command line or a tool such as MySQL Workbench) and the MySQL server executes them. MySQL stores data in databases; each database holds tables."
+   },
+   {
+    "type": "TEXT",
+    "text": "The first steps in any session:\n\n1. `CREATE DATABASE school;` makes a new database.\n2. `SHOW DATABASES;` lists the databases on the server.\n3. `USE school;` selects the database in which later commands will work.\n4. `SHOW TABLES;` lists tables of the current database, and `DESCRIBE student;` (or `DESC student;`) shows the columns of one table."
+   },
+   {
+    "type": "TEXT",
+    "text": "Every column in a table has a **data type**, which decides what values can be stored and how much space is used."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Common MySQL data types",
+    "columns": [
+     "Data type",
+     "Stores",
+     "Example"
+    ],
+    "rows": [
+     [
+      "INT",
+      "Whole numbers",
+      "Roll number 25"
+     ],
+     [
+      "FLOAT / DECIMAL(p,s)",
+      "Numbers with a decimal part; DECIMAL(7,2) has at most 7 digits of which 2 are after the point",
+      "Marks 78.50"
+     ],
+     [
+      "CHAR(n)",
+      "Fixed length text of n characters; shorter values are padded with spaces",
+      "CHAR(5) holds Delhi"
+     ],
+     [
+      "VARCHAR(n)",
+      "Variable length text up to n characters; uses only the space needed",
+      "VARCHAR(30) holds a name"
+     ],
+     [
+      "DATE",
+      "Date in the form YYYY-MM-DD",
+      "2026-01-26"
+     ],
+     [
+      "TIME / DATETIME",
+      "Time, or date with time",
+      "2026-01-26 10:30:00"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "**Constraints** are rules attached to columns so that wrong data cannot enter the table."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Constraints in MySQL",
+    "columns": [
+     "Constraint",
+     "Meaning"
+    ],
+    "rows": [
+     [
+      "NOT NULL",
+      "The column must always have a value"
+     ],
+     [
+      "UNIQUE",
+      "No two rows may have the same value in the column (NULL is allowed)"
+     ],
+     [
+      "PRIMARY KEY",
+      "Identifies each row uniquely; it is UNIQUE and NOT NULL together, and a table can have only one primary key"
+     ],
+     [
+      "DEFAULT",
+      "Value used when none is given in INSERT"
+     ],
+     [
+      "CHECK",
+      "Value must satisfy a condition, such as `Marks >= 0`"
+     ],
+     [
+      "FOREIGN KEY",
+      "Links a column to the primary key of another table"
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "A table has only one PRIMARY KEY but may have many UNIQUE columns. A primary key can never be NULL."
+   },
+   {
+    "type": "HEADING",
+    "text": "Data Definition: CREATE TABLE, ALTER TABLE, DROP TABLE"
+   },
+   {
+    "type": "TEXT",
+    "text": "**CREATE TABLE** defines a new table with its columns, data types and constraints."
+   },
+   {
+    "type": "EXAMPLE",
+    "text": "`CREATE TABLE EMP (EmpId INT PRIMARY KEY, Name VARCHAR(20) NOT NULL, Dept VARCHAR(10), Salary INT DEFAULT 20000, JoinDate DATE);`"
+   },
+   {
+    "type": "TEXT",
+    "text": "**ALTER TABLE** changes the structure of an existing table.\n\n- Add a column: `ALTER TABLE EMP ADD Bonus INT;`\n- Remove a column: `ALTER TABLE EMP DROP COLUMN Bonus;`\n- Change a data type or size: `ALTER TABLE EMP MODIFY Name VARCHAR(40);`\n- Add a primary key later: `ALTER TABLE EMP ADD PRIMARY KEY (EmpId);`"
+   },
+   {
+    "type": "TEXT",
+    "text": "**DROP TABLE** removes the table, its structure and all its rows, permanently: `DROP TABLE EMP;`. Use `DROP TABLE IF EXISTS EMP;` to avoid an error when the table is absent. `DROP DATABASE school;` removes a whole database."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "DROP TABLE and DELETE are different. DROP TABLE removes the table itself (a DDL action). DELETE removes rows but the empty table remains (a DML action)."
+   },
+   {
+    "type": "HEADING",
+    "text": "Data Manipulation: INSERT, UPDATE, DELETE"
+   },
+   {
+    "type": "TEXT",
+    "text": "**INSERT** adds a new row.\n\n- All columns in order: `INSERT INTO EMP VALUES (9, 'Ira', 'HR', 36000, NULL, '2024-04-01');`\n- Chosen columns: `INSERT INTO EMP (EmpId, Name) VALUES (10, 'Jai');` and the other columns get their DEFAULT or NULL.\n\nText and date values go in single quotes; numbers do not."
+   },
+   {
+    "type": "TEXT",
+    "text": "**UPDATE** changes existing values. The `SET` clause says what to change and `WHERE` says which rows. Without WHERE, every row is changed.\n\n`UPDATE EMP SET Salary = Salary + 2000 WHERE Dept = 'HR';`"
+   },
+   {
+    "type": "TEXT",
+    "text": "**DELETE** removes rows that satisfy the WHERE condition. Without WHERE, all rows go but the table stays.\n\n`DELETE FROM EMP WHERE Salary < 29000;`"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Forgetting WHERE in UPDATE or DELETE is the commonest and most costly error: the command silently acts on all rows."
+   },
+   {
+    "type": "TEXT",
+    "text": "**NULL** means \"no value known\". It is not zero and not an empty string. Any arithmetic with NULL gives NULL, and you test it only with `IS NULL` or `IS NOT NULL`, never with `= NULL`."
+   },
+   {
+    "type": "HEADING",
+    "text": "Data Query: SELECT, FROM, WHERE"
+   },
+   {
+    "type": "TEXT",
+    "text": "`SELECT` lists the columns wanted, `FROM` names the table and `WHERE` filters the rows. `SELECT *` shows all columns and `SELECT DISTINCT Dept` removes duplicate values. A column can be given a heading with `AS`, for example `SELECT Salary * 12 AS Yearly FROM EMP;`."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Operators used in WHERE",
+    "columns": [
+     "Operator",
+     "Use",
+     "Example"
+    ],
+    "rows": [
+     [
+      "=, <> (or !=), <, >, <=, >=",
+      "Comparison",
+      "Salary > 40000"
+     ],
+     [
+      "AND, OR, NOT",
+      "Combine conditions; AND is evaluated before OR",
+      "Dept='IT' AND Salary>50000"
+     ],
+     [
+      "BETWEEN a AND b",
+      "Inclusive range",
+      "Salary BETWEEN 40000 AND 50000"
+     ],
+     [
+      "IN (list)",
+      "Value matches any in the list",
+      "Dept IN ('IT','HR')"
+     ],
+     [
+      "LIKE",
+      "Pattern: % is any number of characters, _ is exactly one",
+      "Name LIKE 'A%'"
+     ],
+     [
+      "IS NULL / IS NOT NULL",
+      "Test for missing values",
+      "Bonus IS NULL"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Using the EMP table below, find the names of employees of the IT department who earn more than 50000, in alphabetical order.\n\nEMP(EmpId, Name, Dept, Salary): (3, Chitra, IT, 60000), (4, Deepak, IT, 52000), (6, Farid, IT, 48000), (1, Asha, Sales, 30000).",
+    "solution": "Write the condition with AND: Dept = 'IT' AND Salary > 50000. Chitra (IT, 60000) passes. Deepak (IT, 52000) passes. Farid is IT but 48000 is not above 50000, so he fails. Asha is not in IT. Sort by name with ORDER BY Name.",
+    "answer": "`SELECT Name FROM EMP WHERE Dept = 'IT' AND Salary > 50000 ORDER BY Name;` gives Chitra and Deepak."
+   },
+   {
+    "type": "HEADING",
+    "text": "Math functions: POWER(), ROUND(), MOD()"
+   },
+   {
+    "type": "TEXT",
+    "text": "These functions work on numbers and can be used in SELECT or WHERE."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Math functions",
+    "columns": [
+     "Function",
+     "Meaning",
+     "Example",
+     "Result"
+    ],
+    "rows": [
+     [
+      "POWER(x, y)",
+      "x raised to the power y",
+      "POWER(3, 4)",
+      "81"
+     ],
+     [
+      "MOD(x, y)",
+      "Remainder of x divided by y",
+      "MOD(29, 5)",
+      "4"
+     ],
+     [
+      "ROUND(x)",
+      "Nearest whole number",
+      "ROUND(7.6)",
+      "8"
+     ],
+     [
+      "ROUND(x, d)",
+      "Round to d decimal places",
+      "ROUND(1234.5678, 2)",
+      "1234.57"
+     ],
+     [
+      "ROUND(x, -d)",
+      "Round to the left of the decimal point",
+      "ROUND(1234.5678, -2)",
+      "1200"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "MySQL also lets you write `29 MOD 5` or `29 % 5`. The sign of the result follows the first number: `MOD(-7, 3)` is -1. For an exact value, ROUND moves halves away from zero, so `ROUND(2.5)` is 3."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Find the value of POWER(2, 3) + MOD(17, 5) + ROUND(7.6).",
+    "solution": "POWER(2, 3) = 2 x 2 x 2 = 8. MOD(17, 5): 17 = 3 x 5 + 2, so the remainder is 2. ROUND(7.6) = 8 because 7.6 is closer to 8. Sum = 8 + 2 + 8.",
+    "answer": "18"
+   },
+   {
+    "type": "HEADING",
+    "text": "Text functions"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Text functions",
+    "columns": [
+     "Function",
+     "Meaning",
+     "Example",
+     "Result"
+    ],
+    "rows": [
+     [
+      "UCASE(s) / UPPER(s)",
+      "Converts to capital letters",
+      "UPPER('Delhi')",
+      "DELHI"
+     ],
+     [
+      "LCASE(s) / LOWER(s)",
+      "Converts to small letters",
+      "LOWER('Delhi')",
+      "delhi"
+     ],
+     [
+      "MID(s, p, n) / SUBSTRING() / SUBSTR()",
+      "n characters starting at position p (first position is 1)",
+      "MID('COMPUTER', 3, 4)",
+      "MPUT"
+     ],
+     [
+      "LENGTH(s)",
+      "Number of characters (bytes in MySQL, same for plain English)",
+      "LENGTH('Informatics')",
+      "11"
+     ],
+     [
+      "LEFT(s, n)",
+      "First n characters",
+      "LEFT('Alphabet', 3)",
+      "Alp"
+     ],
+     [
+      "RIGHT(s, n)",
+      "Last n characters",
+      "RIGHT('Alphabet', 2)",
+      "et"
+     ],
+     [
+      "INSTR(s, t)",
+      "Position of the first occurrence of t in s, 0 if absent",
+      "INSTR('INFORMATICS', 'MAT')",
+      "6"
+     ],
+     [
+      "LTRIM(s) / RTRIM(s)",
+      "Removes spaces on the left / on the right",
+      "LENGTH(LTRIM('  CUET  '))",
+      "6"
+     ],
+     [
+      "TRIM(s)",
+      "Removes spaces on both sides",
+      "LENGTH(TRIM('  CUET  '))",
+      "4"
+     ]
+    ]
+   },
+   {
+    "type": "CALLOUT",
+    "text": "String positions in SQL start at 1, not 0. MID('COMPUTER', 3, 4) starts at the third letter M and takes four letters."
+   },
+   {
+    "type": "HEADING",
+    "text": "Date functions"
+   },
+   {
+    "type": "TABLE",
+    "caption": "Date functions",
+    "columns": [
+     "Function",
+     "Meaning",
+     "Example",
+     "Result"
+    ],
+    "rows": [
+     [
+      "NOW()",
+      "Current date and time of the server",
+      "NOW()",
+      "2026-01-26 10:30:00 (changes each second)"
+     ],
+     [
+      "DATE(x)",
+      "Date part of a date-time value",
+      "DATE('2026-03-15 14:30:00')",
+      "2026-03-15"
+     ],
+     [
+      "YEAR(d)",
+      "Year of the date",
+      "YEAR('2025-12-31')",
+      "2025"
+     ],
+     [
+      "MONTH(d)",
+      "Month number 1 to 12",
+      "MONTH('2025-12-31')",
+      "12"
+     ],
+     [
+      "MONTHNAME(d)",
+      "Name of the month",
+      "MONTHNAME('2025-12-31')",
+      "December"
+     ],
+     [
+      "DAY(d)",
+      "Day of the month",
+      "DAY('2025-12-31')",
+      "31"
+     ],
+     [
+      "DAYNAME(d)",
+      "Name of the weekday",
+      "DAYNAME('2026-01-26')",
+      "Monday"
+     ]
+    ]
+   },
+   {
+    "type": "HEADING",
+    "text": "Aggregate functions"
+   },
+   {
+    "type": "TEXT",
+    "text": "An aggregate function works on a set of rows and returns **one value**. The five you need are `MAX()`, `MIN()`, `AVG()`, `SUM()` and `COUNT()`. They ignore NULL values, with one exception: `COUNT(*)` counts rows and therefore counts rows with NULLs too, while `COUNT(column)` counts only the non-NULL values of that column."
+   },
+   {
+    "type": "TEXT",
+    "text": "For the 8-row EMP table used below, where Bonus has three NULLs and the values 2000, 5000, 1500, 3000, 1000:\n\n- `COUNT(*)` = 8 and `COUNT(Bonus)` = 5\n- `SUM(Bonus)` = 12500\n- `AVG(Bonus)` = 12500 / 5 = 2500, not 12500 / 8, because NULLs are skipped\n- `COUNT(DISTINCT Dept)` = 3"
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "EMP has Salary values 30000, 45000, 60000, 52000, 38000, 48000, 41000, 28000. Find MAX(Salary) - MIN(Salary).",
+    "solution": "MAX(Salary) is 60000 (Chitra). MIN(Salary) is 28000 (Hari). Aggregate functions ignore NULL, but Salary has no NULL here, so all 8 values are compared. The difference is 60000 - 28000, which can also be written in one query as SELECT MAX(Salary) - MIN(Salary) FROM EMP.",
+    "answer": "32000"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "AVG(Bonus) skips NULL rows. If a question asks for the average over all employees, a NULL bonus is not counted as zero unless you write AVG(IFNULL(Bonus, 0))."
+   },
+   {
+    "type": "HEADING",
+    "text": "GROUP BY, HAVING and ORDER BY"
+   },
+   {
+    "type": "TEXT",
+    "text": "**ORDER BY** sorts the result: ascending (ASC) is the default, DESC reverses it, and several columns can be given, `ORDER BY Dept, Salary DESC`."
+   },
+   {
+    "type": "TEXT",
+    "text": "**GROUP BY** puts rows with equal values of a column into one group, and an aggregate is then calculated for each group. **HAVING** filters the groups after they are formed. **WHERE** filters individual rows before grouping, so WHERE cannot contain aggregate functions."
+   },
+   {
+    "type": "TABLE",
+    "caption": "WHERE compared with HAVING",
+    "columns": [
+     "Point",
+     "WHERE",
+     "HAVING"
+    ],
+    "rows": [
+     [
+      "Acts on",
+      "Individual rows",
+      "Groups made by GROUP BY"
+     ],
+     [
+      "Evaluated",
+      "Before grouping",
+      "After grouping"
+     ],
+     [
+      "Aggregates allowed",
+      "No",
+      "Yes"
+     ],
+     [
+      "Example",
+      "WHERE Salary > 30000",
+      "HAVING COUNT(*) > 2"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Order in which the clauses are written: `SELECT ... FROM ... WHERE ... GROUP BY ... HAVING ... ORDER BY ...`. Every non-aggregate column in SELECT should also appear in GROUP BY."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "From the 8-row EMP table (Sales: 30000, 45000, 28000; IT: 60000, 52000, 48000; HR: 38000, 41000), list the departments having more than two employees, with the number of employees.\n\nQuery: `SELECT Dept, COUNT(*) FROM EMP GROUP BY Dept HAVING COUNT(*) > 2;`",
+    "solution": "GROUP BY forms three groups: Sales (3 rows), IT (3 rows) and HR (2 rows). HAVING COUNT(*) > 2 keeps groups with a count above 2, so HR (count 2) is removed.",
+    "answer": "Two rows: IT with 3 and Sales with 3."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Using the same table, what does `SELECT Dept, SUM(Salary) FROM EMP WHERE Salary > 30000 GROUP BY Dept ORDER BY SUM(Salary) DESC;` return?",
+    "solution": "First WHERE removes rows with Salary of 30000 or less: Asha (30000) and Hari (28000) go. Sales is left with only Bhavin 45000. IT keeps all three: 60000 + 52000 + 48000 = 160000. HR keeps both: 38000 + 41000 = 79000. ORDER BY descending puts the largest sum first.",
+    "answer": "IT 160000, then HR 79000, then Sales 45000."
+   },
+   {
+    "type": "HEADING",
+    "text": "Operations on relations: Union, Intersection, Minus, Cartesian Product, JOIN"
+   },
+   {
+    "type": "TEXT",
+    "text": "Relations (tables) are sets of rows, so the set operations of mathematics apply. Both tables must have the same number of columns with compatible types."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Set operations (with A = {1, 2, 2, 3} and B = {2, 3, 3, 4} as one-column tables)",
+    "columns": [
+     "Operation",
+     "Meaning",
+     "Result on A and B"
+    ],
+    "rows": [
+     [
+      "UNION",
+      "Rows in either table, duplicates removed",
+      "1, 2, 3, 4 (4 rows)"
+     ],
+     [
+      "UNION ALL",
+      "Rows of both tables, duplicates kept",
+      "8 rows"
+     ],
+     [
+      "INTERSECT",
+      "Rows common to both",
+      "2, 3 (2 rows)"
+     ],
+     [
+      "MINUS (EXCEPT)",
+      "Rows of the first table not in the second",
+      "1 (1 row)"
+     ]
+    ]
+   },
+   {
+    "type": "CALLOUT",
+    "text": "MINUS is the name used in the syllabus and in Oracle. MySQL itself does not have a MINUS keyword (newer MySQL 8 versions use EXCEPT and INTERSECT); a MINUS result is usually obtained with `NOT IN` or a LEFT JOIN."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Cartesian product** pairs every row of one table with every row of the other. If table P has m rows and a columns and table Q has n rows and b columns, then `SELECT * FROM P, Q;` gives **m x n rows** and **a + b columns**. It is rarely useful on its own, because most of the pairs are meaningless."
+   },
+   {
+    "type": "TEXT",
+    "text": "**JOIN** keeps only the meaningful pairs, those where a condition holds, usually where a foreign key equals the matching primary key. With the EMP table (8 rows) and a DEPT table (4 rows: Sales, IT, HR, Admin) the Cartesian product has 8 x 4 = 32 rows, but the equi-join keeps just the 8 rows where the department names match.\n\n- Old style: `SELECT Name, City FROM EMP E, DEPT D WHERE E.Dept = D.Dept;`\n- JOIN keyword: `SELECT Name, City FROM EMP E JOIN DEPT D ON E.Dept = D.Dept;`\n- Natural join: `SELECT Name, City FROM EMP NATURAL JOIN DEPT;` joins on the columns that have the same name."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Table A has one column with values 1, 2, 2, 3 and table B has values 2, 3, 3, 4. How many rows does `SELECT * FROM A, B;` return, and how many does `SELECT * FROM A JOIN B ON A.x = B.x;` return?",
+    "solution": "Cartesian product: 4 rows x 4 rows = 16 rows. For the join, count matching pairs. Value 2 appears twice in A and once in B, giving 2 x 1 = 2 pairs. Value 3 appears once in A and twice in B, giving 1 x 2 = 2 pairs. Values 1 and 4 have no match. Total 2 + 2 = 4.",
+    "answer": "16 rows for the Cartesian product, 4 rows for the join."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Cartesian product: rows multiply, columns add. A join with an equality condition returns only matching pairs. UNION removes duplicates, UNION ALL keeps them."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "WHERE filters rows, HAVING filters groups. COUNT(*) counts all rows, COUNT(column) skips NULLs, and every other aggregate also skips NULLs."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "DDL (CREATE, ALTER, DROP) changes structure, DML (INSERT, UPDATE, DELETE) changes data, and SELECT only reads. DELETE keeps the table, DROP TABLE removes it."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r18-structured-query-language-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which one of the following SQL statements belongs to the Data Definition Language group?",
+   "options": [
+    "UPDATE emp SET phone = NULL;",
+    "ALTER TABLE emp ADD phone VARCHAR(12);",
+    "INSERT INTO emp (empid) VALUES (11);",
+    "SELECT phone FROM emp;"
+   ],
+   "answer": 2,
+   "explanation": "ALTER TABLE changes the structure (schema) of an existing table by adding, modifying or dropping columns, so it is a DDL command along with CREATE and DROP. UPDATE and INSERT change data and are DML, while SELECT only retrieves data.",
+   "optionRationale": {
+    "1": "UPDATE changes values inside rows, which is DML.",
+    "3": "INSERT adds a row of data, which is DML.",
+    "4": "SELECT only reads data and belongs to the query group."
+   },
+   "objective": "Classify SQL statements into DDL, DML and DQL"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q02",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Match the SQL command in List-I with its purpose in List-II.",
+   "list": {
+    "left": [
+     "A. CREATE TABLE",
+     "B. SELECT",
+     "C. DELETE",
+     "D. ALTER TABLE"
+    ],
+    "right": [
+     "I. Retrieves rows that satisfy a condition",
+     "II. Defines a new table with its columns",
+     "III. Removes rows but keeps the table",
+     "IV. Changes the structure of an existing table"
+    ]
+   },
+   "options": [
+    "A-II, B-I, C-III, D-IV",
+    "A-I, B-II, C-III, D-IV",
+    "A-II, B-I, C-IV, D-III",
+    "A-IV, B-I, C-III, D-II"
+   ],
+   "answer": 1,
+   "explanation": "CREATE TABLE defines a new table (A-II). SELECT retrieves rows (B-I). DELETE removes rows while leaving the empty table (C-III). ALTER TABLE modifies the structure of an existing table (D-IV).",
+   "optionRationale": {
+    "2": "This swaps CREATE TABLE and SELECT.",
+    "3": "This swaps DELETE and ALTER TABLE; DELETE works on rows, ALTER on structure.",
+    "4": "This gives CREATE TABLE the purpose of ALTER TABLE and vice versa."
+   },
+   "objective": "Match common SQL commands to their purposes"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A column is declared as CHAR(8) in one table and as VARCHAR(8) in another. The value 'Ram' is stored in both. Which statement is correct?",
+   "options": [
+    "VARCHAR pads the value to 8 characters and CHAR does not",
+    "CHAR can hold numbers only and VARCHAR can hold text only",
+    "Both reject the value because it has fewer than 8 characters",
+    "CHAR stores it padded to a fixed length of 8 characters, while VARCHAR uses only the space the value needs"
+   ],
+   "answer": 4,
+   "explanation": "CHAR(n) is a fixed-length type, so shorter text is padded with spaces up to n characters. VARCHAR(n) is variable-length and stores just the characters present, up to the limit n. Both accept values shorter than n, and both hold text.",
+   "optionRationale": {
+    "1": "The padding behaviour is reversed in this option.",
+    "2": "Both CHAR and VARCHAR store text; numbers use INT or DECIMAL.",
+    "3": "Values shorter than the declared size are accepted by both types."
+   },
+   "objective": "Differentiate CHAR and VARCHAR"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q04",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about constraints in MySQL.\nA. A table can have only one PRIMARY KEY.\nB. A PRIMARY KEY column can contain NULL values.\nC. A UNIQUE column does not allow two equal non-NULL values.\nD. NOT NULL means that the column may be left empty.\nWhich statements are correct?",
+   "options": [
+    "A and B only",
+    "B and D only",
+    "A and C only",
+    "A, C and D only"
+   ],
+   "answer": 3,
+   "explanation": "A table can have just one primary key, and a UNIQUE column rejects repeated non-NULL values, so A and C are true. A primary key is UNIQUE together with NOT NULL, so B is false. NOT NULL forces a value to be present, so D is false.",
+   "optionRationale": {
+    "1": "B is false because a primary key cannot be NULL.",
+    "2": "B and D are both false.",
+    "4": "D is false: NOT NULL forbids empty values."
+   },
+   "objective": "Apply the rules of PRIMARY KEY, UNIQUE and NOT NULL"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "application",
+   "stem": "Which statement correctly adds a new column Bonus of type INT to an existing table EMP?",
+   "options": [
+    "ALTER TABLE EMP ADD Bonus INT;",
+    "CREATE TABLE EMP ADD Bonus INT;",
+    "UPDATE EMP ADD Bonus INT;",
+    "INSERT INTO EMP ADD Bonus INT;"
+   ],
+   "answer": 1,
+   "explanation": "Changing the structure of an existing table is done with ALTER TABLE, followed by ADD for a new column with its data type. CREATE TABLE builds a new table, UPDATE changes existing values and INSERT adds rows; none of them can add a column.",
+   "optionRationale": {
+    "2": "CREATE TABLE makes a new table and has no ADD clause in this form.",
+    "3": "UPDATE changes values using SET, not columns.",
+    "4": "INSERT adds rows, not columns."
+   },
+   "objective": "Use ALTER TABLE ... ADD to add a column"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "The table EMP has these rows (Name, Dept, Salary): Asha Sales 30000; Bhavin Sales 45000; Chitra IT 60000; Deepak IT 52000; Esha HR 38000; Farid IT 48000; Gita HR 41000; Hari Sales 28000. How many rows does `SELECT * FROM EMP WHERE Salary BETWEEN 40000 AND 50000;` return?",
+   "options": [
+    "2",
+    "4",
+    "3",
+    "5"
+   ],
+   "answer": 3,
+   "explanation": "BETWEEN includes both end values. Salaries inside 40000 to 50000 are Bhavin 45000, Farid 48000 and Gita 41000. Chitra 60000, Deepak 52000, Esha 38000, Asha 30000 and Hari 28000 are outside the range. So three rows are returned (verified by running the query).",
+   "optionRationale": {
+    "1": "Only two salaries were counted; Gita 41000 also lies in the range.",
+    "2": "Deepak 52000 and Esha 38000 are outside the range, so 4 is too high.",
+    "4": "Five is far too high; only three salaries fall between 40000 and 50000."
+   },
+   "objective": "Evaluate a BETWEEN condition on given data"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "What is the value of `POWER(2, 3) + MOD(17, 5) + ROUND(7.6)` in MySQL?",
+   "options": [
+    "16",
+    "18",
+    "17",
+    "19"
+   ],
+   "answer": 2,
+   "explanation": "POWER(2, 3) is 8. MOD(17, 5) is the remainder when 17 is divided by 5, which is 2. ROUND(7.6) is 8. The sum is 8 + 2 + 8 = 18. Taking ROUND(7.6) as 7, or the remainder as 3, gives the wrong totals.",
+   "optionRationale": {
+    "1": "16 results from using 6 instead of 8 for one term; check each function again.",
+    "3": "17 results from rounding 7.6 down to 7, but ROUND moves to the nearest integer, 8.",
+    "4": "19 would need MOD(17, 5) to be 3, but the remainder is 2."
+   },
+   "objective": "Evaluate nested math functions POWER, MOD and ROUND"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "What do `ROUND(1234.5678, 2)` and `ROUND(1234.5678, -2)` return, in that order?",
+   "options": [
+    "1234.6 and 1200",
+    "1234.56 and 1300",
+    "1234.57 and 1235",
+    "1234.57 and 1200"
+   ],
+   "answer": 4,
+   "explanation": "With a positive second argument, ROUND keeps that many decimal places: 1234.5678 becomes 1234.57, because the third decimal digit 7 rounds the 6 up. With -2 it rounds to the nearest hundred on the left of the decimal point: 1234.5678 is nearer to 1200 than to 1300.",
+   "optionRationale": {
+    "1": "1234.6 is rounding to one decimal place, not two.",
+    "2": "1234.56 truncates instead of rounding, and 1300 is not the nearest hundred.",
+    "3": "1235 would be ROUND(1234.5678, 0); -2 rounds to hundreds."
+   },
+   "objective": "Apply ROUND with positive and negative digits"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "What is the output of `SELECT MID('COMPUTER', 3, 4);` in MySQL?",
+   "options": [
+    "MPUT",
+    "MPUTE",
+    "PUTE",
+    "OMPU"
+   ],
+   "answer": 1,
+   "explanation": "MID(string, start, length) starts at position 3, because SQL counts positions from 1. The letters are C(1) O(2) M(3) P(4) U(5) T(6) E(7) R(8), so four letters from position 3 are M, P, U, T giving MPUT.",
+   "optionRationale": {
+    "2": "MPUTE takes five letters, but the length given is 4.",
+    "3": "PUTE starts at position 4, one place too late.",
+    "4": "OMPU starts at position 2, as if counting from the second letter."
+   },
+   "objective": "Trace MID/SUBSTR with 1-based positions"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "What does `SELECT LENGTH(LTRIM('  CUET  ')), LENGTH(TRIM('  CUET  '));` display? (Two spaces before and two after CUET.)",
+   "options": [
+    "8 and 4",
+    "4 and 4",
+    "6 and 4",
+    "6 and 6"
+   ],
+   "answer": 3,
+   "explanation": "The original string has 2 + 4 + 2 = 8 characters. LTRIM removes the two leading spaces only, leaving CUET plus two trailing spaces, which is 6 characters. TRIM removes spaces from both ends, leaving CUET, 4 characters.",
+   "optionRationale": {
+    "1": "8 would be the length with no trimming at all; LTRIM does remove the left spaces.",
+    "2": "LTRIM leaves the trailing spaces, so its length is 6, not 4.",
+    "4": "TRIM removes both sides, so the second value is 4, not 6."
+   },
+   "objective": "Compare LTRIM, RTRIM and TRIM using LENGTH"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q11",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "What does `SELECT INSTR('INFORMATICS', 'MAT');` return?",
+   "options": [
+    "5",
+    "6",
+    "7",
+    "0"
+   ],
+   "answer": 2,
+   "explanation": "INSTR returns the 1-based position where the second string first begins. Counting I(1) N(2) F(3) O(4) R(5) M(6) A(7) T(8), the substring MAT starts at the letter M, position 6. A result of 0 would mean MAT does not occur.",
+   "optionRationale": {
+    "1": "5 is the position of R, the letter before M.",
+    "3": "7 is the position of A, not where MAT starts.",
+    "4": "0 is returned only when the substring is absent, but MAT is present."
+   },
+   "objective": "Find the position of a substring using INSTR"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which of these is returned by `SELECT DAYNAME('2026-01-26');`?",
+   "options": [
+    "Saturday",
+    "Sunday",
+    "Tuesday",
+    "Monday"
+   ],
+   "answer": 4,
+   "explanation": "DAYNAME gives the name of the weekday of the date. 26 January 2026 falls on a Monday (checked with a calendar calculation), so Monday is returned. YEAR, MONTH and DAY would return 2026, 1 and 26 as numbers.",
+   "optionRationale": {
+    "1": "Saturday is two days before.",
+    "2": "Sunday is the day before; 26 January 2026 is a Monday.",
+    "3": "Tuesday is the day after."
+   },
+   "objective": "Use DAYNAME on a date value"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "EMP has 8 rows. The Bonus column holds 2000, NULL, 5000, NULL, 1500, 3000, NULL, 1000 (three NULLs). What does `SELECT COUNT(*), COUNT(Bonus), AVG(Bonus) FROM EMP;` return?",
+   "options": [
+    "8, 5 and 2500",
+    "8, 8 and 1562.5",
+    "5, 5 and 2500",
+    "8, 5 and 1562.5"
+   ],
+   "answer": 1,
+   "explanation": "COUNT(*) counts all 8 rows. COUNT(Bonus) counts only non-NULL values: 5. SUM(Bonus) = 2000 + 5000 + 1500 + 3000 + 1000 = 12500 and AVG ignores NULLs, so it divides by 5, giving 2500. Dividing by 8 gives 1562.5, which SQL does not do.",
+   "optionRationale": {
+    "2": "COUNT(Bonus) skips NULLs, so it is 5, and AVG is 2500.",
+    "3": "COUNT(*) counts every row, so the first value is 8, not 5.",
+    "4": "AVG divides by the 5 non-NULL values, not by 8 rows, so 1562.5 is wrong."
+   },
+   "objective": "Predict aggregate results in the presence of NULL values"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Using the 8-row EMP table (Sales: 30000, 45000, 28000; IT: 60000, 52000, 48000; HR: 38000, 41000), how many rows does `SELECT Dept, AVG(Salary) FROM EMP GROUP BY Dept HAVING AVG(Salary) > 40000;` return and which department(s) appear?",
+   "options": [
+    "2 rows: IT and HR",
+    "2 rows: IT and Sales",
+    "1 row: IT",
+    "3 rows: all departments"
+   ],
+   "answer": 3,
+   "explanation": "Averages are Sales (30000 + 45000 + 28000) / 3 = 34333.33, IT (60000 + 52000 + 48000) / 3 = 53333.33 and HR (38000 + 41000) / 2 = 39500. Only IT is above 40000, so HAVING keeps one group. HR is just below the limit at 39500.",
+   "optionRationale": {
+    "1": "HR averages 39500, which is not above 40000.",
+    "2": "Sales averages 34333.33, below the limit.",
+    "4": "HAVING removes groups failing the condition, so not all three remain."
+   },
+   "objective": "Evaluate GROUP BY with HAVING on an aggregate"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Using the same EMP table, which department comes first in the output of `SELECT Dept, SUM(Salary) FROM EMP WHERE Salary > 30000 GROUP BY Dept ORDER BY SUM(Salary) DESC;` and what is its sum? (Sales: 30000, 45000, 28000; IT: 60000, 52000, 48000; HR: 38000, 41000.)",
+   "options": [
+    "IT with 192000",
+    "IT with 160000",
+    "Sales with 103000",
+    "HR with 79000"
+   ],
+   "answer": 2,
+   "explanation": "WHERE runs before grouping and removes salaries of 30000 or less (Asha, Hari). IT keeps 60000 + 52000 + 48000 = 160000, HR 38000 + 41000 = 79000 and Sales only 45000. Sorting in descending order puts IT first. 192000 would wrongly add the rows removed by WHERE, which does not apply to IT anyway.",
+   "optionRationale": {
+    "1": "192000 is not the sum of IT salaries; the correct sum is 160000.",
+    "3": "Sales has only Bhavin 45000 after WHERE; 103000 includes removed rows.",
+    "4": "HR (79000) is second, not first, in descending order."
+   },
+   "objective": "Combine WHERE, GROUP BY and ORDER BY"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q16",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Table P has 5 rows and 4 columns and table Q has 3 rows and 2 columns. What is the size of the result of `SELECT * FROM P, Q;`?",
+   "options": [
+    "8 rows and 8 columns",
+    "8 rows and 6 columns",
+    "15 rows and 8 columns",
+    "15 rows and 6 columns"
+   ],
+   "answer": 4,
+   "explanation": "Listing two tables without a join condition gives the Cartesian product. Every row of P is paired with every row of Q, so rows multiply: 5 x 3 = 15. The columns of both tables are placed side by side, so they add: 4 + 2 = 6.",
+   "optionRationale": {
+    "1": "Neither rows nor columns are obtained by multiplying columns or adding rows.",
+    "2": "Rows multiply in a Cartesian product, not add.",
+    "3": "Columns add (4 + 2 = 6), they do not multiply."
+   },
+   "objective": "Compute degree and cardinality of a Cartesian product"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q17",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Table A has the values 1, 2, 2, 3 and table B has the values 2, 3, 3, 4 (one column x each). How many rows are returned by `SELECT A.x FROM A JOIN B ON A.x = B.x;`?",
+   "options": [
+    "4",
+    "2",
+    "3",
+    "8"
+   ],
+   "answer": 1,
+   "explanation": "The join pairs rows with equal x. Value 2 occurs twice in A and once in B, giving 2 pairs. Value 3 occurs once in A and twice in B, giving 2 pairs. Values 1 and 4 have no partner. So there are 2 + 2 = 4 rows (confirmed by running the query).",
+   "optionRationale": {
+    "2": "Two counts distinct matching values, but duplicates create extra pairs.",
+    "3": "Three is not the product of any matching count here.",
+    "4": "Eight is the number of rows in UNION ALL, not the join."
+   },
+   "objective": "Count the rows produced by an equi-join with duplicates"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q18",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The query `SELECT * FROM EMP WHERE Bonus = NULL;` returns no rows even if some employees have no bonus.\nReason (R): NULL represents an unknown value, so a comparison with NULL using = is never true; IS NULL must be used.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Any comparison of a value with NULL using = or other operators yields unknown rather than true, so no row qualifies. The correct test is Bonus IS NULL. The reason therefore correctly explains the assertion, and both statements are true.",
+   "optionRationale": {
+    "2": "Reason is the direct cause, so it is the correct explanation.",
+    "3": "Reason is true; NULL is a missing value tested by IS NULL.",
+    "4": "Assertion is true: the = NULL comparison returns no rows."
+   },
+   "objective": "Explain why = NULL fails and IS NULL is needed"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q19",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A condition on an aggregate such as COUNT(*) > 2 is written in the HAVING clause and not in the WHERE clause.\nReason (R): WHERE is applied to individual rows before grouping, whereas HAVING is applied to the groups formed by GROUP BY.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Aggregate values exist only after rows are grouped. WHERE filters single rows before that step, so it cannot hold aggregate functions. HAVING works on the groups afterwards. Hence the reason correctly explains why the assertion is true.",
+   "optionRationale": {
+    "2": "Both statements are true and linked as cause and effect.",
+    "3": "Reason is true and is not just a side fact.",
+    "4": "Assertion is true: aggregate conditions belong to HAVING."
+   },
+   "objective": "Distinguish WHERE and HAVING"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q20",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Assertion (A): In MySQL, a table cannot be emptied of its rows and left in place by using DROP TABLE.\nReason (R): DROP TABLE removes the data together with the structure of the table, while DELETE FROM without WHERE removes only the rows.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "DROP TABLE is a DDL command that deletes the table definition and all its rows, so the table no longer exists. To keep an empty table you use DELETE FROM without a WHERE clause. The reason correctly explains why DROP TABLE cannot leave an empty table behind.",
+   "optionRationale": {
+    "2": "The reason is true and is exactly why DROP TABLE fails to leave an empty table.",
+    "3": "The reason statement is not false.",
+    "4": "The assertion is true because DROP TABLE destroys the structure."
+   },
+   "objective": "Contrast DROP TABLE and DELETE"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q21",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about set operations and joins in SQL.\nA. UNION returns only distinct rows from the combined result.\nB. A Cartesian product of tables with m and n rows has m + n rows.\nC. MySQL does not provide a MINUS keyword, so such a result is obtained with NOT IN or a LEFT JOIN.\nD. The tables joined by UNION must have the same number of columns.\nWhich statements are correct?",
+   "options": [
+    "A, B and C only",
+    "B and D only",
+    "A, C and D only",
+    "A and D only"
+   ],
+   "answer": 3,
+   "explanation": "UNION removes duplicates (A true), MySQL has no MINUS keyword so NOT IN or LEFT JOIN is used instead (C true), and set operations need the same number of columns in both tables (D true). A Cartesian product has m x n rows, not m + n, so B is false.",
+   "optionRationale": {
+    "1": "B is false; rows multiply, they do not add.",
+    "2": "B is false, and C and A are also true.",
+    "4": "C is also true, so this list is incomplete."
+   },
+   "objective": "Evaluate statements on UNION, Cartesian product, MINUS"
+  },
+  {
+   "key": "ug26-308-r18-structured-query-language-q22",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Table EMP has Bonus values 2000, NULL, 5000, NULL, 1500, 3000, NULL, 1000. After running `UPDATE EMP SET Bonus = Bonus + 500;` what is the value of `SELECT SUM(Bonus) FROM EMP;`?",
+   "options": [
+    "16500",
+    "12500",
+    "15000",
+    "15500"
+   ],
+   "answer": 3,
+   "explanation": "Bonus + 500 gives NULL wherever Bonus is NULL, so only the 5 non-NULL rows increase by 500. Original sum is 2000 + 5000 + 1500 + 3000 + 1000 = 12500. After the update the sum is 12500 + 5 x 500 = 15000. NULL rows stay NULL and are skipped by SUM.",
+   "optionRationale": {
+    "1": "16500 wrongly adds 500 to all 8 rows.",
+    "2": "12500 is the sum before the update.",
+    "4": "15500 adds 500 to 6 rows; only 5 rows are non-NULL."
+   },
+   "objective": "Analyse NULL arithmetic in UPDATE followed by SUM"
+  }
+ ]
+}

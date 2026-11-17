@@ -1,0 +1,792 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_132e116197104c828a158d0cf53ab759",
+    "title": "Integration and its Applications"
+  },
+  "lesson": {
+    "key": "ug26-319-r05-integration-applications",
+    "title": "Integration and its applications: indefinite integrals, definite integrals and area under a curve",
+    "coverage": [
+      {
+        "phrase": "Integration",
+        "section": "Integration as the reverse of differentiation"
+      },
+      {
+        "phrase": "Indefinite integrals of simple functions",
+        "section": "Indefinite integrals of simple functions"
+      },
+      {
+        "phrase": "Evaluation of indefinite integrals",
+        "section": "Evaluation of indefinite integrals"
+      },
+      {
+        "phrase": "Definite Integrals",
+        "section": "Definite Integrals"
+      },
+      {
+        "phrase": "Application of Integration as area under the curve (simple curve)",
+        "section": "Application of Integration as area under the curve (simple curve)"
+      },
+      {
+        "phrase": "Applications",
+        "section": "Application of Integration as area under the curve (simple curve)"
+      },
+      {
+        "phrase": "Integration and its Applications",
+        "section": "Integration as the reverse of differentiation"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Integration as the reverse of differentiation"
+      },
+      {
+        "type": "TEXT",
+        "text": "Differentiation takes a function and gives its rate of change. **Integration** asks the opposite question: given a rate of change $f(x)$, find a function $F(x)$ whose derivative is $f(x)$. Such an $F$ is called an **antiderivative** or **primitive** of $f$. Because the derivative of a constant is zero, if $F$ is one antiderivative then $F(x)+C$ is also one, for every real constant $C$. Geometrically, $y=F(x)+C$ is a whole family of curves, all parallel to each other (same slope at the same $x$), shifted up or down."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Indefinite integral",
+        "text": "If $\\dfrac{d}{dx}F(x)=f(x)$, then $\\displaystyle\\int f(x)\\,dx = F(x)+C$, where $C$ is the arbitrary constant of integration. The symbol $\\int$ is the integral sign, $f(x)$ is the integrand and $dx$ shows that $x$ is the variable of integration."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "Integration and differentiation are inverse processes: $\\dfrac{d}{dx}\\left(\\int f(x)\\,dx\\right)=f(x)$ and $\\int f'(x)\\,dx = f(x)+C$. Always check an integral by differentiating your answer; you must get the integrand back."
+      },
+      {
+        "type": "TEXT",
+        "text": "Two linearity properties are used in almost every problem. The integral of a sum is the sum of the integrals, and a constant factor can be taken outside:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int [a f(x) + b g(x)]\\,dx = a\\int f(x)\\,dx + b\\int g(x)\\,dx",
+        "text": "$a,b$ are constants and $f,g$ are integrable functions. This is what lets us integrate a polynomial term by term."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Never forget $+C$ in an indefinite integral. In a definite integral the constant cancels, so it is not written there. A common loss of marks is to write $+C$ after a definite integral or to omit it after an indefinite one."
+      },
+      {
+        "type": "HEADING",
+        "text": "Indefinite integrals of simple functions"
+      },
+      {
+        "type": "TEXT",
+        "text": "Each standard derivative, read backwards, gives a standard integral. These formulas must be memorised, because every harder integral is finally reduced to one of them."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Standard indefinite integrals",
+        "columns": [
+          "Integrand",
+          "Integral"
+        ],
+        "rows": [
+          [
+            "$x^n$ ($n\\neq -1$)",
+            "$\\dfrac{x^{n+1}}{n+1}+C$"
+          ],
+          [
+            "$\\dfrac1x$ ($x\\neq 0$)",
+            "$\\log|x|+C$"
+          ],
+          [
+            "$e^x$",
+            "$e^x+C$"
+          ],
+          [
+            "$a^x$ ($a>0,a\\neq1$)",
+            "$\\dfrac{a^x}{\\log a}+C$"
+          ],
+          [
+            "$\\sin x$",
+            "$-\\cos x+C$"
+          ],
+          [
+            "$\\cos x$",
+            "$\\sin x+C$"
+          ],
+          [
+            "$\\sec^2 x$",
+            "$\\tan x+C$"
+          ],
+          [
+            "$\\operatorname{cosec}^2 x$",
+            "$-\\cot x+C$"
+          ],
+          [
+            "$\\sec x\\tan x$",
+            "$\\sec x+C$"
+          ],
+          [
+            "$\\operatorname{cosec} x\\cot x$",
+            "$-\\operatorname{cosec} x+C$"
+          ],
+          [
+            "$\\dfrac{1}{\\sqrt{1-x^2}}$",
+            "$\\sin^{-1}x+C$"
+          ],
+          [
+            "$\\dfrac{1}{1+x^2}$",
+            "$\\tan^{-1}x+C$"
+          ],
+          [
+            "$\\dfrac{1}{x\\sqrt{x^2-1}}$",
+            "$\\sec^{-1}|x|+C$"
+          ]
+        ]
+      },
+      {
+        "type": "CALLOUT",
+        "text": "The power rule $\\int x^n dx=\\dfrac{x^{n+1}}{n+1}+C$ fails only for $n=-1$, because the denominator would be zero. That single case is handled by $\\int \\dfrac{1}{x}dx=\\log|x|+C$. Note the modulus: $x$ may be negative."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "Integrate $\\left(x^2 - \\dfrac{1}{x^2} + \\sqrt{x}\\right)$. Write each term as a power: $x^2 - x^{-2} + x^{1/2}$. Then $\\int = \\dfrac{x^3}{3} - \\dfrac{x^{-1}}{-1} + \\dfrac{x^{3/2}}{3/2} + C = \\dfrac{x^3}{3}+\\dfrac1x+\\dfrac{2}{3}x^{3/2}+C$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int \\left(4x^3 - 6\\cos x + \\dfrac{5}{x} + 2e^x\\right)dx$.",
+        "solution": "Integrate term by term using the standard results.\n\n$\\int 4x^3 dx = x^4$.\n\n$\\int -6\\cos x\\,dx = -6\\sin x$.\n\n$\\int \\dfrac5x dx = 5\\log|x|$.\n\n$\\int 2e^x dx = 2e^x$.\n\nAdd the results and write one constant of integration at the end.",
+        "answer": "$x^4 - 6\\sin x + 5\\log|x| + 2e^x + C$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Evaluation of indefinite integrals"
+      },
+      {
+        "type": "TEXT",
+        "text": "When the integrand is not a standard form, we use one of three techniques: substitution, integration by parts, or partial fractions (with some standard algebraic forms). The aim is always to reduce the problem to the table above."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Substitution.** If the integrand has the form $f(g(x))\\,g'(x)$, put $t=g(x)$ so $dt=g'(x)\\,dx$. Then $\\int f(g(x))g'(x)\\,dx=\\int f(t)\\,dt$. After integrating, replace $t$ by $g(x)$."
+      },
+      {
+        "type": "TEXT",
+        "text": "Useful special cases of substitution are $\\displaystyle\\int \\dfrac{f'(x)}{f(x)}dx=\\log|f(x)|+C$, $\\displaystyle\\int [f(x)]^n f'(x)\\,dx=\\dfrac{[f(x)]^{n+1}}{n+1}+C$, and $\\int \\tan x\\,dx=\\log|\\sec x|+C$, $\\int \\cot x\\,dx=\\log|\\sin x|+C$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int \\dfrac{2x+3}{x^2+3x+5}\\,dx$.",
+        "solution": "The derivative of the denominator $x^2+3x+5$ is $2x+3$, which is exactly the numerator.\n\nPut $t=x^2+3x+5$, so $dt=(2x+3)\\,dx$.\n\nThe integral becomes $\\int \\dfrac{dt}{t}=\\log|t|+C$.\n\nSince $x^2+3x+5$ has discriminant $9-20<0$, it is always positive, so the modulus can be dropped.",
+        "answer": "$\\log(x^2+3x+5)+C$"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Integration by parts** (for a product of two functions):"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int u\\,v\\,dx = u\\int v\\,dx - \\int\\left(\\dfrac{du}{dx}\\int v\\,dx\\right)dx",
+        "text": "$u$ is the first function and $v$ the second. Choose $u$ in the order of the word **ILATE**: Inverse trigonometric, Logarithmic, Algebraic, Trigonometric, Exponential. The function that comes earlier in this list is taken as $u$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int x\\cos x\\,dx$.",
+        "solution": "Take $u=x$ (algebraic) and $v=\\cos x$ (trigonometric). By ILATE, $x$ comes first.\n\n$\\int v\\,dx = \\sin x$ and $\\dfrac{du}{dx}=1$.\n\nSo $\\int x\\cos x\\,dx = x\\sin x - \\int \\sin x\\,dx = x\\sin x + \\cos x + C$.\n\nCheck: derivative of $x\\sin x+\\cos x$ is $\\sin x + x\\cos x - \\sin x = x\\cos x$. Correct.",
+        "answer": "$x\\sin x+\\cos x+C$"
+      },
+      {
+        "type": "TEXT",
+        "text": "A special case worth knowing: $\\int \\log x\\,dx$ has only one visible function. Write it as $1\\cdot\\log x$ with $u=\\log x$ and $v=1$, which gives $x\\log x - x + C$. Similarly the exponential rule $\\int e^x[f(x)+f'(x)]\\,dx = e^x f(x)+C$ saves a lot of time."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Partial fractions.** A proper rational function with factored denominator is split into simpler fractions. For distinct linear factors, $\\dfrac{px+q}{(x-a)(x-b)}=\\dfrac{A}{x-a}+\\dfrac{B}{x-b}$. Find $A,B$ by substituting $x=a$ and $x=b$ (the cover-up method), then integrate each term as a logarithm."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int \\dfrac{5x+1}{(x-1)(x+2)}\\,dx$.",
+        "solution": "Write $\\dfrac{5x+1}{(x-1)(x+2)}=\\dfrac{A}{x-1}+\\dfrac{B}{x+2}$, so $5x+1=A(x+2)+B(x-1)$.\n\nPut $x=1$: $6=3A$, hence $A=2$.\n\nPut $x=-2$: $-9=-3B$, hence $B=3$.\n\nThen $\\int\\left(\\dfrac{2}{x-1}+\\dfrac{3}{x+2}\\right)dx = 2\\log|x-1| + 3\\log|x+2| + C$.\n\nCheck at $x=0$: original $=\\dfrac{1}{-2}=-0.5$; split form $=\\dfrac{2}{-1}+\\dfrac{3}{2}=-0.5$. Correct.",
+        "answer": "$2\\log|x-1|+3\\log|x+2|+C$"
+      },
+      {
+        "type": "TEXT",
+        "text": "Three algebraic standard forms are also asked often. For $a>0$:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int\\dfrac{dx}{x^2-a^2}=\\dfrac{1}{2a}\\log\\left|\\dfrac{x-a}{x+a}\\right|+C,\\qquad \\int\\dfrac{dx}{a^2-x^2}=\\dfrac{1}{2a}\\log\\left|\\dfrac{a+x}{a-x}\\right|+C,\\qquad \\int\\dfrac{dx}{x^2+a^2}=\\dfrac1a\\tan^{-1}\\dfrac xa+C",
+        "text": "These come from partial fractions and from the $\\tan^{-1}$ standard form. Note the order of numerator and denominator inside the logarithm: it flips between the first two."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "In integration by parts do not choose $u$ and $v$ the wrong way round. For $\\int x e^x dx$ taking $u=e^x$ makes the integral worse ($\\int \\tfrac{x^2}{2}e^x dx$). Follow ILATE and the integral becomes simpler, not harder."
+      },
+      {
+        "type": "HEADING",
+        "text": "Definite Integrals"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Definite integral",
+        "text": "If $F$ is an antiderivative of a continuous function $f$ on $[a,b]$, then $\\displaystyle\\int_a^b f(x)\\,dx = F(b)-F(a)$. The numbers $a$ and $b$ are the lower and upper limits. This is the **second fundamental theorem of calculus**. It is also the limit of the sum of areas of thin rectangles, so the value is the signed area between the curve and the $x$-axis."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\int_a^b f(x)\\,dx = \\Big[F(x)\\Big]_a^b = F(b)-F(a)",
+        "text": "$F'(x)=f(x)$ on $[a,b]$. The constant $C$ cancels and is not written. When you use substitution in a definite integral, either change the limits to the new variable or convert back before applying the old limits."
+      },
+      {
+        "type": "TEXT",
+        "text": "The following properties let us evaluate many integrals without finding the antiderivative at all."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Properties of definite integrals",
+        "columns": [
+          "Property",
+          "Statement"
+        ],
+        "rows": [
+          [
+            "P1 (variable is a dummy)",
+            "$\\int_a^b f(x)dx=\\int_a^b f(t)dt$"
+          ],
+          [
+            "P2 (reverse limits)",
+            "$\\int_a^b f(x)dx=-\\int_b^a f(x)dx$"
+          ],
+          [
+            "P3 (splitting)",
+            "$\\int_a^b f(x)dx=\\int_a^c f(x)dx+\\int_c^b f(x)dx$"
+          ],
+          [
+            "P4 (king property)",
+            "$\\int_a^b f(x)dx=\\int_a^b f(a+b-x)dx$"
+          ],
+          [
+            "P5 (zero to a)",
+            "$\\int_0^a f(x)dx=\\int_0^a f(a-x)dx$"
+          ],
+          [
+            "P6 (even/odd)",
+            "$\\int_{-a}^{a} f(x)dx = 2\\int_0^a f(x)dx$ if $f$ is even; $=0$ if $f$ is odd"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int_0^{\\pi/2}\\dfrac{\\sin x}{\\sin x+\\cos x}\\,dx$.",
+        "solution": "Let $I=\\int_0^{\\pi/2}\\dfrac{\\sin x}{\\sin x+\\cos x}dx$. By P5, replace $x$ by $\\dfrac\\pi2-x$:\n\n$I=\\int_0^{\\pi/2}\\dfrac{\\cos x}{\\cos x+\\sin x}dx$.\n\nAdd the two forms: $2I=\\int_0^{\\pi/2}\\dfrac{\\sin x+\\cos x}{\\sin x+\\cos x}dx=\\int_0^{\\pi/2}1\\,dx=\\dfrac\\pi2$.\n\nHence $I=\\dfrac\\pi4$.",
+        "answer": "$\\dfrac{\\pi}{4}$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Evaluate $\\displaystyle\\int_0^1 \\dfrac{2x}{1+x^2}\\,dx$.",
+        "solution": "Put $t=1+x^2$, so $dt=2x\\,dx$. When $x=0$, $t=1$; when $x=1$, $t=2$.\n\nThe integral becomes $\\int_1^2\\dfrac{dt}{t}=\\big[\\log t\\big]_1^2=\\log 2-\\log 1=\\log 2$.",
+        "answer": "$\\log 2$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "When you substitute in a definite integral and change the limits, do **not** go back to $x$ afterwards. Mixing old limits with the new variable is the most frequent error. Also check for odd or even integrands over symmetric limits first: it can make the whole integral zero in one line."
+      },
+      {
+        "type": "HEADING",
+        "text": "Application of Integration as area under the curve (simple curve)"
+      },
+      {
+        "type": "CONCEPT",
+        "text": "If $f(x)\\ge 0$ on $[a,b]$, the area bounded by the curve $y=f(x)$, the $x$-axis and the ordinates $x=a$ and $x=b$ is $\\displaystyle A=\\int_a^b y\\,dx=\\int_a^b f(x)\\,dx$. If the curve lies below the $x$-axis on the interval, the integral is negative, so we take its modulus for the area."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "A=\\int_a^b |f(x)|\\,dx",
+        "text": "Split the interval at the points where the curve crosses the $x$-axis and add the absolute values of the pieces. Example: the area of $y=\\sin x$ over $[0,2\\pi]$ is $2+2=4$, although $\\int_0^{2\\pi}\\sin x\\,dx=0$."
+      },
+      {
+        "type": "TEXT",
+        "text": "For area measured against the $y$-axis (curve $x=g(y)$ between $y=c$ and $y=d$), use $A=\\int_c^d x\\,dy$. A rough sketch of the curve always helps: it shows which side of the axis the region lies on and where the curve cuts the axis."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the area bounded by $y=4x-x^2$ and the $x$-axis.",
+        "solution": "The curve cuts the $x$-axis where $4x-x^2=0$, that is $x=0$ and $x=4$. For $0<x<4$, $y>0$, so the region is above the axis.\n\n$A=\\int_0^4(4x-x^2)\\,dx=\\left[2x^2-\\dfrac{x^3}{3}\\right]_0^4=32-\\dfrac{64}{3}=\\dfrac{32}{3}$ square units.",
+        "answer": "$\\dfrac{32}{3}$ square units"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the area under $y=x^2$ from $x=1$ to $x=2$ and under the straight line $y=2x+1$ from $x=0$ to $x=3$.",
+        "solution": "First region: $\\int_1^2x^2dx=\\left[\\dfrac{x^3}{3}\\right]_1^2=\\dfrac{8-1}{3}=\\dfrac73$ square units.\n\nSecond region: $\\int_0^3(2x+1)dx=[x^2+x]_0^3=9+3=12$ square units. A trapezium check: parallel sides $1$ and $7$, width $3$, area $\\tfrac12(1+7)\\cdot3=12$. Correct.",
+        "answer": "$\\dfrac73$ and $12$ square units"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Area under $y=f(x)$ from $a$ to $b$ is $\\int_a^b f(x)dx$ when $f\\ge0$. Areas are always positive: take the modulus for portions below the axis and add the pieces."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Definite integral $=F(b)-F(a)$; reversing limits changes the sign; odd function over $[-a,a]$ gives $0$; even function gives $2\\int_0^a$."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Techniques: standard form, substitution (look for $f'(x)$ inside), by parts (ILATE), partial fractions (rational functions). Always differentiate the answer to check."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r05-integration-applications-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "Using the power rule term by term, the indefinite integral $\\displaystyle\\int (3x^2+4x)\\,dx$ of this polynomial is",
+      "options": [
+        "$6x+4+C$",
+        "$x^3+4x^2+C$",
+        "$x^3+2x^2+C$",
+        "$3x^3+4x^2+C$"
+      ],
+      "answer": 3,
+      "explanation": "Use the power rule $\\int x^n dx=\\frac{x^{n+1}}{n+1}$ on each term: $\\int 3x^2dx=3\\cdot\\frac{x^3}{3}=x^3$ and $\\int 4x\\,dx=4\\cdot\\frac{x^2}{2}=2x^2$. Adding the results and the constant gives $x^3+2x^2+C$; differentiating returns $3x^2+4x$, confirming it.",
+      "optionRationale": {
+        "1": "That is the derivative, not the integral.",
+        "2": "The term $4x$ integrates to $2x^2$, not $4x^2$; divide by the new power 2.",
+        "4": "The coefficient 3 cancels with the division by 3, so $3x^2$ gives $x^3$, not $3x^3$."
+      },
+      "objective": "Integrate a polynomial term by term"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Using the standard results for sine and exponential functions, the indefinite integral $\\displaystyle\\int (2\\sin x-3e^x)\\,dx$ is",
+      "options": [
+        "$-2\\cos x-3e^x+C$",
+        "$2\\cos x-3e^x+C$",
+        "$-2\\cos x+3e^x+C$",
+        "$2\\cos x+3e^x+C$"
+      ],
+      "answer": 1,
+      "explanation": "Integrate each term separately: $\\int\\sin x\\,dx=-\\cos x$, so $\\int 2\\sin x\\,dx=-2\\cos x$; and $\\int e^x dx=e^x$, so $\\int -3e^x dx=-3e^x$. The sign of the sine integral is negative, giving $-2\\cos x-3e^x+C$. Differentiating gives $2\\sin x-3e^x$.",
+      "optionRationale": {
+        "2": "The integral of $\\sin x$ is $-\\cos x$, so the sign of the cosine term is negative.",
+        "3": "The coefficient $-3$ stays with $e^x$, so the exponential term remains $-3e^x$.",
+        "4": "Both signs are wrong: $\\int\\sin x\\,dx=-\\cos x$ and the coefficient $-3$ is kept."
+      },
+      "objective": "Use standard integrals of sine and exponential"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Writing the integrand as a negative power of $x$, the indefinite integral $\\displaystyle\\int \\dfrac{1}{x^2}\\,dx$ equals",
+      "options": [
+        "$\\dfrac1x+C$",
+        "$\\log x^2+C$",
+        "$-\\dfrac{2}{x^3}+C$",
+        "$-\\dfrac1x+C$"
+      ],
+      "answer": 4,
+      "explanation": "Write $\\frac1{x^2}=x^{-2}$ and apply the power rule with $n=-2$: $\\int x^{-2}dx=\\frac{x^{-1}}{-1}+C=-\\frac1x+C$. The logarithm form is reserved for the single case $n=-1$, so it does not apply here. Differentiating $-\\frac1x$ gives $\\frac1{x^2}$, which confirms the answer.",
+      "optionRationale": {
+        "1": "The division by $n+1=-1$ introduces a minus sign.",
+        "2": "The logarithm arises only for $\\int x^{-1}dx$, not for $x^{-2}$.",
+        "3": "That is the derivative of $\\frac1{x^2}$, not the integral."
+      },
+      "objective": "Apply the power rule for a negative exponent"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "By the fundamental theorem of calculus, the definite integral $\\displaystyle\\int_0^2 3x^2\\,dx$ has the value",
+      "options": [
+        "$12$",
+        "$8$",
+        "$6$",
+        "$4$"
+      ],
+      "answer": 2,
+      "explanation": "An antiderivative of $3x^2$ is $x^3$. By the fundamental theorem, $\\int_0^2 3x^2dx=[x^3]_0^2=2^3-0^3=8-0=8$. The constant of integration cancels in a definite integral. The value $12$ would be the derivative at $x=2$, not the area.",
+      "optionRationale": {
+        "1": "$12$ is $3x^2$ evaluated at $x=2$, which is the integrand and not its integral.",
+        "3": "$6$ results from using $x^3/3\\cdot 3$ incorrectly or from $3\\cdot 2$; the antiderivative is $x^3$.",
+        "4": "$4$ comes from evaluating $x^2$ at 2 and ignoring the factor; the correct antiderivative is $x^3$."
+      },
+      "objective": "Evaluate a simple definite integral"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The area bounded by the line $y=2x+1$, the $x$-axis and the ordinates $x=0$ and $x=3$ is",
+      "options": [
+        "$9$ square units",
+        "$12$ square units",
+        "$15$ square units",
+        "$7$ square units"
+      ],
+      "answer": 2,
+      "explanation": "Since $y=2x+1>0$ on $[0,3]$, the area is $\\int_0^3(2x+1)dx=[x^2+x]_0^3=9+3=12$ square units. As a check, the region is a trapezium with parallel sides $1$ and $7$ and width $3$, whose area is $\\frac12(1+7)(3)=12$.",
+      "optionRationale": {
+        "1": "$9$ is $x^2$ at 3 only; the term $x$ also contributes $3$.",
+        "3": "$15$ adds an extra $3$; the antiderivative of $2x+1$ is $x^2+x$ evaluated from $0$ to $3$.",
+        "4": "$7$ is the height at $x=3$, not the area."
+      },
+      "objective": "Compute area under a straight line using integration"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "By the method of substitution, the indefinite integral $\\displaystyle\\int x\\,e^{x^2}\\,dx$ is equal to",
+      "options": [
+        "$e^{x^2}+C$",
+        "$2e^{x^2}+C$",
+        "$\\dfrac{x^2}{2}e^{x^2}+C$",
+        "$\\dfrac12 e^{x^2}+C$"
+      ],
+      "answer": 4,
+      "explanation": "Put $t=x^2$, so $dt=2x\\,dx$ and $x\\,dx=\\frac{dt}2$. The integral becomes $\\frac12\\int e^t dt=\\frac12e^t+C=\\frac12e^{x^2}+C$. Differentiating gives $\\frac12e^{x^2}\\cdot2x=xe^{x^2}$, which matches the integrand.",
+      "optionRationale": {
+        "1": "This misses the factor $\\frac12$ needed because $\\frac{d}{dx}x^2=2x$, not $x$.",
+        "2": "The factor is $\\frac12$, not 2; $x\\,dx=\\frac{dt}{2}$.",
+        "3": "The product $x^2$ is not a factor of the result; substitution removes the extra $x$."
+      },
+      "objective": "Use substitution when the derivative of the inner function appears"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "By integration by parts, the indefinite integral $\\displaystyle\\int x\\,e^{x}\\,dx$ equals",
+      "options": [
+        "$(x-1)e^x+C$",
+        "$(x+1)e^x+C$",
+        "$\\dfrac{x^2}{2}e^x+C$",
+        "$xe^x+C$"
+      ],
+      "answer": 1,
+      "explanation": "Use integration by parts with $u=x$ (algebraic) and $v=e^x$. Then $\\int xe^xdx=xe^x-\\int1\\cdot e^xdx=xe^x-e^x+C=(x-1)e^x+C$. Check: $\\frac{d}{dx}[(x-1)e^x]=e^x+(x-1)e^x=xe^x$.",
+      "optionRationale": {
+        "2": "The sign is wrong: subtracting $\\int e^x dx$ gives $-e^x$, so the factor is $x-1$.",
+        "3": "That would be the product of $\\int x\\,dx$ and $e^x$, which is not how integration by parts works.",
+        "4": "This forgets the second term $-e^x$ produced by the by-parts formula."
+      },
+      "objective": "Apply integration by parts using ILATE"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "By the method of partial fractions, the indefinite integral $\\displaystyle\\int\\dfrac{dx}{x^2-1}$ equals",
+      "options": [
+        "$\\dfrac12\\log\\left|\\dfrac{x+1}{x-1}\\right|+C$",
+        "$\\log|x^2-1|+C$",
+        "$\\dfrac12\\log\\left|\\dfrac{x-1}{x+1}\\right|+C$",
+        "$\\dfrac{1}{2}\\tan^{-1}\\!\\left(\\dfrac{x-1}{x+1}\\right)+C$"
+      ],
+      "answer": 3,
+      "explanation": "Use $\\frac{1}{x^2-1}=\\frac12\\left(\\frac1{x-1}-\\frac1{x+1}\\right)$ (partial fractions). Integrating gives $\\frac12(\\log|x-1|-\\log|x+1|)+C=\\frac12\\log\\left|\\frac{x-1}{x+1}\\right|+C$. Differentiating $\\frac12[\\frac1{x-1}-\\frac1{x+1}]$ returns $\\frac1{x^2-1}$.",
+      "optionRationale": {
+        "1": "The fraction is inverted; $x-1$ stays in the numerator for the $x^2-a^2$ form.",
+        "2": "That is not an integral of this fraction; the numerator is not the derivative of $x^2-1$.",
+        "4": "An inverse tangent arises for $x^2+a^2$, not for $x^2-a^2$."
+      },
+      "objective": "Integrate $1/(x^2-a^2)$ using partial fractions"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Using a double-angle identity, the definite integral $\\displaystyle\\int_0^{\\pi/2}\\sin^2x\\,dx$ evaluates to",
+      "options": [
+        "$\\dfrac\\pi2$",
+        "$\\dfrac\\pi8$",
+        "$1$",
+        "$\\dfrac\\pi4$"
+      ],
+      "answer": 4,
+      "explanation": "Use $\\sin^2x=\\frac{1-\\cos2x}{2}$. Then $\\int_0^{\\pi/2}\\frac{1-\\cos2x}{2}dx=\\frac12\\left[x-\\frac{\\sin2x}2\\right]_0^{\\pi/2}=\\frac12\\left(\\frac\\pi2-0\\right)=\\frac\\pi4$. Equivalently, $\\sin^2x$ and $\\cos^2x$ have the same integral over $[0,\\frac\\pi2]$ and together give $\\frac\\pi2$.",
+      "optionRationale": {
+        "1": "$\\frac\\pi2$ is the integral of $\\sin^2x+\\cos^2x=1$, which is the sum of the two equal parts.",
+        "2": "$\\frac\\pi8$ halves the result once too often.",
+        "3": "$1$ is the integral of $\\sin x$ over the same interval, not of $\\sin^2x$."
+      },
+      "objective": "Evaluate a definite integral using a double-angle identity"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Using odd and even properties over a symmetric interval, the definite integral $\\displaystyle\\int_{-2}^{2}(x^3+x^2)\\,dx$ evaluates to",
+      "options": [
+        "$0$",
+        "$\\dfrac{16}{3}$",
+        "$\\dfrac83$",
+        "$\\dfrac{32}{3}$"
+      ],
+      "answer": 2,
+      "explanation": "Split into $\\int_{-2}^2x^3dx+\\int_{-2}^2x^2dx$. The function $x^3$ is odd, so its integral over $[-2,2]$ is $0$. The function $x^2$ is even, so the integral is $2\\int_0^2x^2dx=2\\cdot\\frac{8}{3}=\\frac{16}{3}$. The total is $\\frac{16}3$.",
+      "optionRationale": {
+        "1": "$0$ would be correct only if the whole integrand were odd; $x^2$ is even and contributes.",
+        "3": "$\\frac83$ is $\\int_0^2x^2dx$ without doubling for the symmetric interval.",
+        "4": "$\\frac{32}{3}$ doubles twice; the factor 2 is applied only once."
+      },
+      "objective": "Use odd and even function properties over symmetric limits"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The area bounded by $y=x^2$, the $x$-axis and the lines $x=1$ and $x=3$ is",
+      "options": [
+        "$\\dfrac{28}{3}$ square units",
+        "$9$ square units",
+        "$\\dfrac{26}{3}$ square units",
+        "$8$ square units"
+      ],
+      "answer": 3,
+      "explanation": "The curve is above the axis, so $A=\\int_1^3x^2dx=\\left[\\frac{x^3}3\\right]_1^3=\\frac{27}{3}-\\frac13=\\frac{26}{3}$ square units. The value $\\frac{28}3$ comes from wrongly adding $\\frac13$ instead of subtracting it.",
+      "optionRationale": {
+        "1": "$\\frac{28}3$ adds the lower-limit value instead of subtracting it.",
+        "2": "$9$ is $\\frac{3^3}{3}$ only, ignoring the lower limit.",
+        "4": "$8$ is $x^3$ at 2, which has no connection with the limits 1 and 3."
+      },
+      "objective": "Find area under a parabola between two ordinates"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q12",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about definite integrals.\nA. $\\int_a^b f(x)\\,dx=-\\int_b^a f(x)\\,dx$.\nB. $\\int_a^b f(x)\\,dx=\\int_a^b f(t)\\,dt$.\nC. $\\int_a^b f(x)\\,dx=\\int_a^c f(x)\\,dx+\\int_c^b f(x)\\,dx$ for any point $c$ in $[a,b]$.\nD. $\\int_a^b f(x)\\,dx=f(b)-f(a)$.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A, B and D only",
+        "B, C and D only",
+        "A and D only"
+      ],
+      "answer": 1,
+      "explanation": "Reversing the limits changes the sign (A); the variable of integration is a dummy variable (B); an integral can be split at any interior point (C). Statement D is wrong because the integral equals $F(b)-F(a)$ where $F$ is an antiderivative of $f$, not $f(b)-f(a)$. So A, B and C are correct.",
+      "optionRationale": {
+        "2": "D is incorrect because it uses $f$ instead of an antiderivative $F$; C is correct.",
+        "3": "D is incorrect, and A is also correct, so this selection is wrong.",
+        "4": "D is incorrect and B and C are also correct."
+      },
+      "objective": "Recall the properties of definite integrals"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q13",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the integrals in List-I with their results (without the constant) in List-II.",
+      "options": [
+        "A-II, B-IV, C-I, D-III",
+        "A-IV, B-II, C-I, D-III",
+        "A-II, B-III, C-I, D-IV",
+        "A-I, B-IV, C-II, D-III"
+      ],
+      "answer": 1,
+      "explanation": "The exponential is its own integral (A-II). $\\frac{1}{1+x^2}$ integrates to $\\tan^{-1}x$ (B-IV). Since $\\frac{d}{dx}\\sec x=\\sec x\\tan x$, C matches I. $\\frac1{\\sqrt{1-x^2}}$ integrates to $\\sin^{-1}x$ (D-III). These are the four standard forms from the table.",
+      "optionRationale": {
+        "2": "A and B are swapped; $e^x$ cannot give an inverse tangent.",
+        "3": "B and D are swapped; the $\\sqrt{1-x^2}$ form gives $\\sin^{-1}x$.",
+        "4": "A and C are swapped; the derivative of $\\sec x$ is $\\sec x\\tan x$."
+      },
+      "objective": "Match standard integrals with their results",
+      "list": {
+        "left": [
+          "A. $\\int e^x\\,dx$",
+          "B. $\\int \\dfrac{dx}{1+x^2}$",
+          "C. $\\int \\sec x\\tan x\\,dx$",
+          "D. $\\int \\dfrac{dx}{\\sqrt{1-x^2}}$"
+        ],
+        "right": [
+          "I. $\\sec x$",
+          "II. $e^x$",
+          "III. $\\sin^{-1}x$",
+          "IV. $\\tan^{-1}x$"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "By substituting for the sine and changing the limits, the definite integral $\\displaystyle\\int_0^{\\pi/2}\\sin^3x\\cos x\\,dx$ evaluates to",
+      "options": [
+        "$\\dfrac13$",
+        "$\\dfrac12$",
+        "$\\dfrac14$",
+        "$\\dfrac18$"
+      ],
+      "answer": 3,
+      "explanation": "Put $t=\\sin x$, so $dt=\\cos x\\,dx$. When $x=0$, $t=0$; when $x=\\frac\\pi2$, $t=1$. The integral becomes $\\int_0^1t^3dt=\\left[\\frac{t^4}{4}\\right]_0^1=\\frac14$. The new limits must be used with the new variable.",
+      "optionRationale": {
+        "1": "$\\frac13$ results from integrating $t^2$ instead of $t^3$.",
+        "2": "$\\frac12$ forgets to divide by the power 4.",
+        "4": "$\\frac18$ halves the correct value without any reason."
+      },
+      "objective": "Evaluate a definite integral by substitution with changed limits"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Using the property of replacing $x$ by the upper limit minus $x$, the definite integral $\\displaystyle\\int_0^4\\dfrac{\\sqrt x}{\\sqrt x+\\sqrt{4-x}}\\,dx$ evaluates to",
+      "options": [
+        "$4$",
+        "$2$",
+        "$1$",
+        "$\\pi$"
+      ],
+      "answer": 2,
+      "explanation": "Let $I$ be the integral. Replacing $x$ by $4-x$ (property $\\int_0^af(x)dx=\\int_0^af(a-x)dx$) gives $I=\\int_0^4\\frac{\\sqrt{4-x}}{\\sqrt{4-x}+\\sqrt x}dx$. Adding the two forms, $2I=\\int_0^41\\,dx=4$, so $I=2$.",
+      "optionRationale": {
+        "1": "$4$ is the value of $2I$, not $I$.",
+        "3": "$1$ ignores the length of the interval; $2I=4$, so $I=2$.",
+        "4": "No trigonometric or circular function appears, so $\\pi$ cannot arise."
+      },
+      "objective": "Use the property of $f(a-x)$ to evaluate a definite integral"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Splitting the rational function into partial fractions, the indefinite integral $\\displaystyle\\int\\dfrac{3x+5}{(x+1)(x+2)}\\,dx$ equals",
+      "options": [
+        "$\\log|x+1|+2\\log|x+2|+C$",
+        "$2\\log|x+1|-\\log|x+2|+C$",
+        "$\\log|x+1|+\\log|x+2|+C$",
+        "$2\\log|x+1|+\\log|x+2|+C$"
+      ],
+      "answer": 4,
+      "explanation": "Write $\\frac{3x+5}{(x+1)(x+2)}=\\frac A{x+1}+\\frac B{x+2}$, so $3x+5=A(x+2)+B(x+1)$. At $x=-1$: $2=A$. At $x=-2$: $-1=-B$, so $B=1$. Hence the integral is $2\\log|x+1|+\\log|x+2|+C$. Check: $\\frac2{x+1}+\\frac1{x+2}=\\frac{2x+4+x+1}{(x+1)(x+2)}=\\frac{3x+5}{(x+1)(x+2)}$.",
+      "optionRationale": {
+        "1": "The constants are swapped: $A=2$ goes with $x+1$ and $B=1$ with $x+2$.",
+        "2": "$B$ is $+1$, not $-1$; at $x=-2$, $-1=B(-1)$ gives $B=1$.",
+        "3": "That is the integral of $\\frac{2x+3}{(x+1)(x+2)}$; here the numerator differs."
+      },
+      "objective": "Use partial fractions with distinct linear factors"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The area enclosed between the curve $y=4x-x^2$ and the $x$-axis is",
+      "options": [
+        "$\\dfrac{16}{3}$ square units",
+        "$\\dfrac{32}{3}$ square units",
+        "$\\dfrac{64}{3}$ square units",
+        "$8$ square units"
+      ],
+      "answer": 2,
+      "explanation": "The curve meets the $x$-axis at $x=0$ and $x=4$ and lies above it in between. $A=\\int_0^4(4x-x^2)dx=\\left[2x^2-\\frac{x^3}3\\right]_0^4=32-\\frac{64}3=\\frac{32}3$ square units. The parabola has its vertex at $(2,4)$, so the area is clearly less than the rectangle $4\\times4=16$; $\\frac{32}{3}\\approx10.67$ fits.",
+      "optionRationale": {
+        "1": "$\\frac{16}3$ is half the actual area, which is the area up to the vertex only.",
+        "3": "$\\frac{64}3$ is $\\frac{x^3}{3}$ at 4 alone; it exceeds the bounding rectangle's share.",
+        "4": "$8$ is not the result of integration; it does not equal $32-\\frac{64}{3}$."
+      },
+      "objective": "Find the area between a parabola and the x-axis"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "By putting the logarithm equal to a new variable, the definite integral $\\displaystyle\\int_1^e\\dfrac{\\log x}{x}\\,dx$ evaluates to",
+      "options": [
+        "$1$",
+        "$\\dfrac e2$",
+        "$\\dfrac12$",
+        "$0$"
+      ],
+      "answer": 3,
+      "explanation": "Put $t=\\log x$, so $dt=\\frac{dx}{x}$. When $x=1$, $t=0$; when $x=e$, $t=1$. The integral becomes $\\int_0^1t\\,dt=\\frac{t^2}2\\Big|_0^1=\\frac12$. This is the form $\\int[f(x)]^nf'(x)dx$ with $f=\\log x$.",
+      "optionRationale": {
+        "1": "$1$ comes from $\\int_0^1 1\\,dt$; the integrand in $t$ is $t$, not $1$.",
+        "2": "$\\frac e2$ results from substituting $x=e$ in $\\frac{x}{2}$, which is not the antiderivative.",
+        "4": "$0$ would need equal areas above and below the axis; $\\log x\\ge0$ on $[1,e]$."
+      },
+      "objective": "Evaluate $\\int \\log x/x$ with limits by substitution"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q19",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): If $f$ is an odd function, then $\\int_{-a}^{a}f(x)\\,dx=0$.\nReason (R): For any integrable $f$, $\\int_{-a}^{a}f(x)\\,dx=\\int_0^a[f(x)+f(-x)]\\,dx$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Split the integral at $0$ and substitute $x\\to-x$ in the left part: $\\int_{-a}^0f(x)dx=\\int_0^af(-x)dx$. So $\\int_{-a}^af=\\int_0^a[f(x)+f(-x)]dx$, which is statement R and is true for all integrable $f$. For an odd function $f(-x)=-f(x)$, the bracket is zero, so A follows from R. Hence R correctly explains A.",
+      "optionRationale": {
+        "2": "R is not just true but it is exactly the step that proves A.",
+        "3": "R is true for every integrable function.",
+        "4": "A is true: odd functions have integral zero over symmetric limits."
+      },
+      "objective": "Prove the odd-function property"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q20",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The formula $\\int x^n\\,dx=\\dfrac{x^{n+1}}{n+1}+C$ is valid for every real number $n$.\nReason (R): The derivative of a constant is zero, so $C$ can take any value.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "Assertion A is false: for $n=-1$ the denominator $n+1$ is zero and the formula breaks down; $\\int x^{-1}dx=\\log|x|+C$ instead. Reason R is true, because a constant has zero derivative, which is why the constant of integration is arbitrary. So A is false and R is true.",
+      "optionRationale": {
+        "1": "A is false because $n=-1$ is excluded.",
+        "2": "A is false, so the pair cannot be both true.",
+        "3": "R is a true statement about constants."
+      },
+      "objective": "Recognise the exception $n=-1$ in the power rule"
+    },
+    {
+      "key": "ug26-319-r05-integration-applications-q21",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The definite integral $\\displaystyle\\int_0^{a}(2x+1)\\,dx$ equals $12$ for a positive upper limit $a$. The upper limit is",
+      "options": [
+        "$4$",
+        "$2$",
+        "$6$",
+        "$3$"
+      ],
+      "answer": 4,
+      "explanation": "$\\int_0^a(2x+1)dx=[x^2+x]_0^a=a^2+a$. Setting $a^2+a=12$ gives $a^2+a-12=0$, i.e. $(a+4)(a-3)=0$. So $a=3$ or $a=-4$; since $a>0$, $a=3$. Check: $9+3=12$.",
+      "optionRationale": {
+        "1": "$a=4$ gives $16+4=20$, not 12.",
+        "2": "$a=2$ gives $4+2=6$, not 12.",
+        "3": "$a=6$ gives $36+6=42$, not 12."
+      },
+      "objective": "Find the upper limit from the value of an integral"
+    }
+  ]
+}

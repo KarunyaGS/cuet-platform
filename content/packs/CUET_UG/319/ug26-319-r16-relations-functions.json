@@ -1,0 +1,696 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_356e98129b5448c093a2cbaf4f515d70",
+    "title": "Relations and Functions"
+  },
+  "lesson": {
+    "key": "ug26-319-r16-relations-functions",
+    "title": "Relations and functions: equivalence relations, one-one and onto functions",
+    "coverage": [
+      {
+        "phrase": "Relations and Functions",
+        "section": "Relations: domain, codomain, range and counting"
+      },
+      {
+        "phrase": "Types of relations",
+        "section": "Relations: domain, codomain, range and counting"
+      },
+      {
+        "phrase": "Reflexive, symmetric, transitive",
+        "section": "Reflexive, symmetric and transitive relations"
+      },
+      {
+        "phrase": "and equivalence relations",
+        "section": "Equivalence relations and equivalence classes"
+      },
+      {
+        "phrase": "One to one and onto functions",
+        "section": "Functions: one to one and onto"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Relations: domain, codomain, range and counting"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **relation** links elements of one set to elements of another. Everyday examples are \"is a brother of\" on a set of people or \"is less than\" on numbers. In mathematics we record a relation as a set of ordered pairs."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Relation",
+        "text": "A **relation** $R$ from a set $A$ to a set $B$ is a subset of the Cartesian product $A\\times B$. If $(a,b)\\in R$ we write $aRb$ and say $a$ is related to $b$. A relation **on** a set $A$ means a relation from $A$ to $A$, that is, a subset of $A\\times A$."
+      },
+      {
+        "type": "TEXT",
+        "text": "The set $A$ is the **domain** of the relation (the set of first components allowed), $B$ is the **codomain**, and the **range** is the set of second components that actually occur in $R$. The range is always a subset of the codomain."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "n(A\\times B)=n(A)\\,n(B),\\qquad \\text{number of relations from }A\\text{ to }B=2^{\\,n(A)\\,n(B)}",
+        "text": "$A\\times B$ has $n(A)\\,n(B)$ ordered pairs, and each pair can be either in or out of a relation, so the number of subsets is $2^{n(A)n(B)}$ (this count includes the empty relation and the universal relation $A\\times B$). For a relation on a set with $n$ elements the count is $2^{n^2}$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Let $A=\\{1,2,3\\}$ and $B=\\{a,b\\}$. How many relations from $A$ to $B$ exist? List the relation $R=\\{(x,y): x \\text{ is odd}\\}$.",
+        "solution": "$n(A)=3$ and $n(B)=2$, so $n(A\\times B)=6$ and the number of relations is $2^6=64$. The odd elements of $A$ are $1$ and $3$, and $y$ can be $a$ or $b$, so $R=\\{(1,a),(1,b),(3,a),(3,b)\\}$. Its domain (as a set of used first components) is $\\{1,3\\}$ and its range is $\\{a,b\\}$.",
+        "answer": "$64$ relations; $R=\\{(1,a),(1,b),(3,a),(3,b)\\}$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Reflexive, symmetric and transitive relations"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Reflexive relation",
+        "text": "A relation $R$ on $A$ is **reflexive** if $(a,a)\\in R$ for **every** $a\\in A$. One missing pair $(a,a)$ destroys reflexivity."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Symmetric relation",
+        "text": "$R$ is **symmetric** if $(a,b)\\in R\\Rightarrow(b,a)\\in R$ for all $a,b\\in A$. Pairs of the form $(a,a)$ satisfy this automatically."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Transitive relation",
+        "text": "$R$ is **transitive** if $(a,b)\\in R$ and $(b,c)\\in R\\Rightarrow(a,c)\\in R$ for all $a,b,c\\in A$. The condition only demands a pair when a chain $a\\to b\\to c$ exists; with no such chain it holds vacuously."
+      },
+      {
+        "type": "TABLE",
+        "caption": "How to test a relation given as a set of pairs",
+        "columns": [
+          "Property",
+          "What to check",
+          "Fails if"
+        ],
+        "rows": [
+          [
+            "Reflexive",
+            "Every $(a,a)$ present",
+            "Some $(a,a)$ is missing"
+          ],
+          [
+            "Symmetric",
+            "Each $(a,b)$ has its mirror $(b,a)$",
+            "A pair $(a,b)$, $a\\ne b$, has no mirror"
+          ],
+          [
+            "Transitive",
+            "Every chain $(a,b),(b,c)$ gives $(a,c)$",
+            "A chain exists without the shortcut pair"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "On $A=\\{1,2,3\\}$ let $R=\\{(1,1),(2,2),(3,3),(1,2)\\}$. Decide whether $R$ is reflexive, symmetric and transitive.",
+        "solution": "**Reflexive:** $(1,1),(2,2),(3,3)$ are all present, so yes. **Symmetric:** $(1,2)\\in R$ but $(2,1)\\notin R$, so no. **Transitive:** the chains are $(1,1),(1,2)\\Rightarrow(1,2)\\in R$; $(1,2),(2,2)\\Rightarrow(1,2)\\in R$; all chains using only diagonal pairs are trivial. So it is transitive.",
+        "answer": "Reflexive and transitive, not symmetric"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "To prove a property is false you need only one counter-example. To prove it true for a rule like \"a - b is divisible by 5\" you must give a general argument that works for all elements."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Counting facts** for a set with $n$ elements: a relation is reflexive when all $n$ diagonal pairs are present, leaving $n^2-n$ pairs free, so there are $2^{n^2-n}$ reflexive relations. A symmetric relation chooses each unordered pair $\\{a,b\\}$ and each diagonal pair freely: $n+\\binom n2=\\tfrac{n(n+1)}2$ choices, so there are $2^{n(n+1)/2}$ symmetric relations. Reflexive **and** symmetric relations have the diagonal forced and only the $\\binom n2$ unordered pairs free: $2^{n(n-1)/2}$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Equivalence relations and equivalence classes"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Equivalence relation",
+        "text": "A relation that is **reflexive, symmetric and transitive** is called an **equivalence relation**. It groups related elements together as \"equal for some purpose\"."
+      },
+      {
+        "type": "TEXT",
+        "text": "Standard examples of equivalence relations: equality on any set; \"has the same remainder on division by $n$\" (congruence modulo $n$) on the integers; \"is parallel to\" on lines; \"has the same birthday as\". Standard non-examples: \"$\\le$\" on $\\mathbb R$ (not symmetric), \"divides\" on $\\mathbb N$ (not symmetric), \"is perpendicular to\" on lines (not reflexive, not transitive)."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Equivalence class",
+        "text": "For an equivalence relation $R$ on $A$, the **equivalence class** of $a$ is $[a]=\\{x\\in A: xRa\\}$. Two classes are either identical or disjoint, and the distinct classes together **partition** $A$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "On $\\mathbb Z$ define $aRb$ if $a-b$ is divisible by $5$. Show that $R$ is an equivalence relation and find the number of distinct equivalence classes. Write the class of $2$.",
+        "solution": "**Reflexive:** $a-a=0$ is divisible by $5$. **Symmetric:** if $5\\mid(a-b)$ then $5\\mid(b-a)=-(a-b)$. **Transitive:** if $5\\mid(a-b)$ and $5\\mid(b-c)$ then $5\\mid[(a-b)+(b-c)]=(a-c)$. So $R$ is an equivalence relation. Related integers leave the same remainder when divided by $5$, and the possible remainders are $0,1,2,3,4$, so there are $5$ classes. $[2]=\\{\\dots,-8,-3,2,7,12,\\dots\\}$.",
+        "answer": "Equivalence relation; $5$ classes; $[2]=\\{5k+2: k\\in\\mathbb Z\\}$"
+      },
+      {
+        "type": "TEXT",
+        "text": "Because classes partition a set, the number of equivalence relations on a set equals the number of ways to partition it. For $\\{1,2,3\\}$ the partitions are $\\{1\\}\\{2\\}\\{3\\}$; $\\{1,2\\}\\{3\\}$; $\\{1,3\\}\\{2\\}$; $\\{2,3\\}\\{1\\}$; $\\{1,2,3\\}$ — so there are exactly $5$ equivalence relations."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "A relation can be symmetric and transitive yet fail reflexivity if some element is related to nothing. For example R = {(1,2),(2,1),(1,1),(2,2)} on {1,2,3} is symmetric and transitive but not reflexive because (3,3) is missing."
+      },
+      {
+        "type": "HEADING",
+        "text": "Functions: one to one and onto"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Function",
+        "text": "A **function** $f:A\\to B$ is a relation in which **each** element of $A$ is related to **exactly one** element of $B$. We write $f(a)=b$; $b$ is the **image** of $a$ and $a$ a **pre-image** of $b$. $A$ is the domain, $B$ the codomain and $\\{f(x):x\\in A\\}$ the range."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "One to one (injective)",
+        "text": "$f$ is **one to one** if different elements of the domain have different images: $f(x_1)=f(x_2)\\Rightarrow x_1=x_2$. Equivalently, no two arrows land on the same element."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Onto (surjective)",
+        "text": "$f$ is **onto** if every element of the codomain has at least one pre-image: range $=$ codomain. For every $y\\in B$ the equation $f(x)=y$ must have a solution $x\\in A$."
+      },
+      {
+        "type": "TEXT",
+        "text": "A function that is both one to one and onto is **bijective** (a one-one correspondence). Whether a function is one-one or onto depends on the domain and codomain chosen, not only on the formula. For instance $f(x)=x^2$ is not one-one on $\\mathbb R$ (since $f(2)=f(-2)$) and not onto $\\mathbb R$ (negative numbers are never obtained), but it is one-one on $[0,\\infty)$ and onto $[0,\\infty)$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Examples to remember",
+        "columns": [
+          "Function",
+          "One-one?",
+          "Onto?"
+        ],
+        "rows": [
+          [
+            "$f:\\mathbb R\\to\\mathbb R,\\ f(x)=2x+3$",
+            "Yes",
+            "Yes"
+          ],
+          [
+            "$f:\\mathbb R\\to\\mathbb R,\\ f(x)=x^2$",
+            "No",
+            "No"
+          ],
+          [
+            "$f:\\mathbb N\\to\\mathbb N,\\ f(x)=2x$",
+            "Yes",
+            "No (odd numbers missed)"
+          ],
+          [
+            "$f:\\mathbb R\\to\\mathbb R,\\ f(x)=x^3$",
+            "Yes",
+            "Yes"
+          ],
+          [
+            "$f:\\mathbb R\\to\\mathbb R,\\ f(x)=|x|$",
+            "No",
+            "No"
+          ],
+          [
+            "$f:\\mathbb Z\\to\\mathbb Z,\\ f(x)=2x+1$",
+            "Yes",
+            "No (even numbers missed)"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Show that $f:\\mathbb R\\to\\mathbb R$, $f(x)=3x-7$ is one-one and onto.",
+        "solution": "**One-one:** if $f(x_1)=f(x_2)$ then $3x_1-7=3x_2-7$, so $3x_1=3x_2$ and $x_1=x_2$. **Onto:** take any $y\\in\\mathbb R$ and solve $3x-7=y$, giving $x=\\dfrac{y+7}{3}\\in\\mathbb R$, and $f\\!\\left(\\dfrac{y+7}{3}\\right)=y$. Every real number has a pre-image, so $f$ is onto. Hence $f$ is bijective.",
+        "answer": "Bijective"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\#\\text{ functions }A\\to B=m^{\\,n},\\quad \\#\\text{ one-one}=\\frac{m!}{(m-n)!}\\ (m\\ge n),\\quad \\#\\text{ onto }(n=3\\text{ or }4,\\ m=2)=2^{n}-2",
+        "text": "Here $n=n(A)$ and $m=n(B)$. A function chooses an image in $B$ for each of the $n$ elements of $A$: $m^n$ ways. A one-one function chooses distinct images: $m(m-1)\\cdots(m-n+1)$ ways, and is impossible if $n>m$. A function into a 2-element set is onto unless all elements go to the same image, so the number of onto functions onto a 2-element codomain is $2^n-2$."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "For a function from a **finite set to itself**, one-one and onto are equivalent: if the $n$ elements of $A$ go to $n$ distinct elements of $A$, all of $A$ is used. This is false for infinite sets: $x\\mapsto2x$ on $\\mathbb N$ is one-one but not onto."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "How many one-one functions are there from $\\{1,2,3\\}$ to $\\{a,b,c,d\\}$? How many onto functions from $\\{1,2,3,4\\}$ to $\\{p,q\\}$?",
+        "solution": "One-one: $1$ has $4$ choices of image, $2$ has $3$ remaining, $3$ has $2$ remaining, so $4\\cdot3\\cdot2=24$. Onto: there are $2^4=16$ functions in all; the two constant functions (all to $p$, all to $q$) are not onto, leaving $16-2=14$.",
+        "answer": "$24$ one-one functions; $14$ onto functions"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "A relation on A is a subset of A x A. Reflexive: all (a,a) present. Symmetric: pairs come with mirrors. Transitive: chains close up. Equivalence = all three, and it splits the set into disjoint classes."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "One-one: different inputs, different outputs (f(x1) = f(x2) implies x1 = x2). Onto: range = codomain. A bijection is both. Always check the stated domain and codomain."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "With n(A) = 3: relations 2^9; reflexive 2^6 = 64; symmetric 2^6 = 64; reflexive and symmetric 2^3 = 8; equivalence relations 5."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "To show a function is NOT one-one, give two different inputs with the same output. To show it is NOT onto, give one element of the codomain that is never obtained."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r16-relations-functions-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "Set A has 2 elements and set B has 3 elements. How many relations from A to B exist?",
+      "options": [
+        "64",
+        "6",
+        "32",
+        "9"
+      ],
+      "answer": 1,
+      "explanation": "A relation from A to B is any subset of A x B. Here n(A x B) = 2 x 3 = 6, and a set with 6 elements has 2^6 = 64 subsets. So there are 64 relations including the empty relation and the whole of A x B.",
+      "optionRationale": {
+        "2": "6 is the size of A x B, not the number of subsets of it.",
+        "3": "This is 2^5; the exponent must be n(A)n(B) = 6.",
+        "4": "9 is the number of functions from A to B (3^2), not relations."
+      },
+      "objective": "Count the relations between two finite sets"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "On the set {1, 2, 3} the relation R = {(1,1), (2,2), (3,3), (1,2)} is",
+      "options": [
+        "reflexive and transitive but not symmetric",
+        "symmetric and transitive but not reflexive",
+        "reflexive and symmetric but not transitive",
+        "an equivalence relation"
+      ],
+      "answer": 1,
+      "explanation": "All of (1,1), (2,2), (3,3) belong to R, so R is reflexive. The pair (1,2) is in R but (2,1) is not, so R is not symmetric. Every chain (a,b),(b,c) in R gives (a,c) in R, as the only non-diagonal chain (1,2),(2,2) yields (1,2). So R is transitive.",
+      "optionRationale": {
+        "2": "All diagonal pairs are present, so R is reflexive.",
+        "3": "The chain (1,2),(2,2) gives (1,2), which is present, so R is transitive.",
+        "4": "(1,2) is present but (2,1) is not, so R is not symmetric and hence not an equivalence relation."
+      },
+      "objective": "Classify a relation given as a set of ordered pairs"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following functions from R to R is one-one?",
+      "options": [
+        "f(x) = x^2",
+        "f(x) = |x|",
+        "f(x) = x^2 + 1",
+        "f(x) = 2x + 3"
+      ],
+      "answer": 4,
+      "explanation": "If 2x1 + 3 = 2x2 + 3 then x1 = x2, so 2x + 3 is one-one. The other three functions each take the same value at x and -x: x^2, |x| and x^2 + 1 all satisfy f(1) = f(-1), so none of them is one-one on R.",
+      "optionRationale": {
+        "1": "f(2) = f(-2) = 4, so it is not one-one.",
+        "2": "f(1) = f(-1) = 1, so it is not one-one.",
+        "3": "f(1) = f(-1) = 2, so it is not one-one."
+      },
+      "objective": "Identify a one-one function"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q04",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match the property of a relation R on a set A in List-I with its meaning in List-II.",
+      "list": {
+        "left": [
+          "A. Reflexive",
+          "B. Symmetric",
+          "C. Transitive",
+          "D. Equivalence"
+        ],
+        "right": [
+          "I. (a,b) in R and (b,c) in R implies (a,c) in R",
+          "II. (a,a) in R for every a in A",
+          "III. Reflexive, symmetric and transitive",
+          "IV. (a,b) in R implies (b,a) in R"
+        ]
+      },
+      "options": [
+        "A-IV, B-II, C-I, D-III",
+        "A-II, B-IV, C-III, D-I",
+        "A-II, B-IV, C-I, D-III",
+        "A-I, B-IV, C-II, D-III"
+      ],
+      "answer": 3,
+      "explanation": "Reflexive means every element is related to itself (II). Symmetric means a related pair can be reversed (IV). Transitive means chains close up, (a,b) and (b,c) force (a,c) (I). An equivalence relation has all three properties (III). So A-II, B-IV, C-I, D-III.",
+      "optionRationale": {
+        "1": "A and B are interchanged.",
+        "2": "C and D are interchanged.",
+        "4": "A and C are interchanged."
+      },
+      "objective": "Match relation properties with their definitions"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The function f: N -> N defined by f(x) = 2x is",
+      "options": [
+        "onto but not one-one",
+        "one-one but not onto",
+        "both one-one and onto",
+        "neither one-one nor onto"
+      ],
+      "answer": 2,
+      "explanation": "If 2x1 = 2x2 then x1 = x2, so f is one-one. But every output 2x is even, so an odd number such as 3 in the codomain N has no pre-image: 2x = 3 has no natural solution. Hence f is not onto.",
+      "optionRationale": {
+        "1": "2x1 = 2x2 forces x1 = x2, so it is one-one.",
+        "3": "Odd numbers have no pre-image, so it is not onto.",
+        "4": "It is one-one, so it cannot be neither."
+      },
+      "objective": "Test a function on the natural numbers for one-one and onto"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The number of reflexive relations on a set with 3 elements is",
+      "options": [
+        "64",
+        "512",
+        "8",
+        "128"
+      ],
+      "answer": 1,
+      "explanation": "A relation on a 3-element set is a subset of the 9 pairs of A x A. For reflexivity the 3 diagonal pairs (a,a) must be included, leaving 9 - 3 = 6 pairs that may be chosen freely. So there are 2^6 = 64 reflexive relations.",
+      "optionRationale": {
+        "2": "512 = 2^9 is the number of all relations on the set.",
+        "3": "8 = 2^3 counts only the diagonal pairs.",
+        "4": "128 = 2^7 does not correspond to 9 - 3 = 6 free pairs."
+      },
+      "objective": "Count reflexive relations"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "On Z, define aRb if a - b is divisible by 5. The number of distinct equivalence classes of R is",
+      "options": [
+        "4",
+        "10",
+        "infinite",
+        "5"
+      ],
+      "answer": 4,
+      "explanation": "Two integers are related exactly when they leave the same remainder when divided by 5. The possible remainders are 0, 1, 2, 3 and 4, and each gives one class, for example [2] = {..., -3, 2, 7, 12, ...}. These five classes are disjoint and together cover Z.",
+      "optionRationale": {
+        "1": "The remainders 0, 1, 2, 3, 4 give five classes, not four.",
+        "2": "There is no class for remainders 5 to 9 since they repeat.",
+        "3": "Each class itself is infinite, but there are only five classes."
+      },
+      "objective": "Find the number of equivalence classes of congruence modulo n"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q08",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "For the relation R on the set N of natural numbers defined by aRb if a divides b, consider:\nA. R is reflexive.\nB. R is symmetric.\nC. R is transitive.\nD. R is an equivalence relation.\nChoose the correct answer.",
+      "options": [
+        "A and B only",
+        "B and C only",
+        "A and C only",
+        "A, B and C only"
+      ],
+      "answer": 3,
+      "explanation": "Every natural number divides itself, so R is reflexive (A true). If a divides b and b divides c then a divides c, so R is transitive (C true). But 2 divides 4 while 4 does not divide 2, so R is not symmetric (B false), and hence it is not an equivalence relation (D false).",
+      "optionRationale": {
+        "1": "2 divides 4 but 4 does not divide 2, so R is not symmetric.",
+        "2": "R is reflexive and R is not symmetric, so this is wrong in both ways.",
+        "4": "R is not symmetric, so A, B and C cannot all hold."
+      },
+      "objective": "Test a divisibility relation for the three properties"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q09",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "**Assertion (A):** The relation R = {(1,2), (2,1)} on the set {1, 2} is symmetric but not transitive.\n**Reason (R):** (1,2) and (2,1) belong to R but (1,1) does not belong to R.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Each pair has its mirror, so R is symmetric. For transitivity, the chain (1,2), (2,1) requires (1,1) to be in R, but (1,1) is absent. So R is not transitive. The reason states exactly this missing pair, so it explains the assertion.",
+      "optionRationale": {
+        "2": "R is not merely true; (1,1) missing is exactly why transitivity fails.",
+        "3": "R is true: (1,1) is indeed absent from R.",
+        "4": "A is true; the symmetry holds and the failure of transitivity is genuine."
+      },
+      "objective": "Show a relation is symmetric but not transitive"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The number of one-one functions from {1, 2, 3} to {a, b, c, d} is",
+      "options": [
+        "64",
+        "24",
+        "12",
+        "81"
+      ],
+      "answer": 2,
+      "explanation": "Choose images one element at a time with no repetition. Element 1 can go to any of 4 elements, element 2 to any of the remaining 3, and element 3 to any of the remaining 2. The number of one-one functions is 4 x 3 x 2 = 24, which equals 4!/(4-3)!.",
+      "optionRationale": {
+        "1": "64 = 4^3 counts all functions, including repeated images.",
+        "3": "12 = 4 x 3 forgets the third element.",
+        "4": "81 = 3^4 swaps the roles of the sets."
+      },
+      "objective": "Count one-one functions between finite sets"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The number of onto functions from {1, 2, 3} to {a, b} is",
+      "options": [
+        "6",
+        "8",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "explanation": "There are 2^3 = 8 functions from a 3-element set to a 2-element set. Exactly two of them are constant (everything to a, or everything to b) and miss one element of the codomain, so they are not onto. Hence there are 8 - 2 = 6 onto functions.",
+      "optionRationale": {
+        "2": "8 = 2^3 counts all functions including the two constant ones.",
+        "3": "2 counts only the constant functions, which are not onto.",
+        "4": "3 has no basis."
+      },
+      "objective": "Count onto functions onto a two-element set"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "For f: R -> R given by f(x) = x^2 + 1, the function becomes onto if the codomain R is replaced by",
+      "options": [
+        "[0, infinity)",
+        "(1, infinity)",
+        "(-infinity, 1]",
+        "[1, infinity)"
+      ],
+      "answer": 4,
+      "explanation": "Since x^2 is at least 0 for real x, x^2 + 1 is at least 1, with value 1 attained at x = 0, and every larger value is attained (x = sqrt(y - 1)). So the range is [1, infinity) and the function is onto exactly when the codomain equals its range.",
+      "optionRationale": {
+        "1": "The smallest value of x^2 + 1 is 1, so values in [0,1) are never obtained.",
+        "2": "The value 1 is attained at x = 0 so it must be included.",
+        "3": "x^2 + 1 never takes values below 1."
+      },
+      "objective": "Identify the range of a function"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "On the set N x N, define (a,b) R (c,d) if ad = bc. Which pair is related to (2, 3)?",
+      "options": [
+        "(6, 4)",
+        "(3, 2)",
+        "(4, 6)",
+        "(5, 7)"
+      ],
+      "answer": 3,
+      "explanation": "For (a,b) = (2,3) and (c,d) = (4,6) the condition ad = bc reads 2 x 6 = 12 and 3 x 4 = 12, which are equal, so (4,6) is related. For (6,4): 8 against 18; for (3,2): 4 against 9; for (5,7): 14 against 15, so none of these is related.",
+      "optionRationale": {
+        "1": "For (6,4): 2 x 4 = 8 but 3 x 6 = 18.",
+        "2": "For (3,2): 2 x 2 = 4 but 3 x 3 = 9.",
+        "4": "For (5,7): 2 x 7 = 14 but 3 x 5 = 15."
+      },
+      "objective": "Apply an equivalence relation defined on pairs"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider f: R -> R defined by f(x) = x^3 - x. Then f is",
+      "options": [
+        "one-one but not onto",
+        "onto but not one-one",
+        "both one-one and onto",
+        "neither one-one nor onto"
+      ],
+      "answer": 2,
+      "explanation": "f(0) = 0 and f(1) = 1 - 1 = 0, so two different inputs share the output 0 and f is not one-one. The cubic tends to -infinity as x goes to -infinity and to +infinity as x goes to +infinity and is continuous, so every real value is attained: f is onto.",
+      "optionRationale": {
+        "1": "f(0) = f(1) = 0, so it is not one-one.",
+        "3": "A cubic polynomial is continuous and takes all real values, so f is onto.",
+        "4": "f is onto, so it cannot be neither."
+      },
+      "objective": "Test a cubic function for one-one and onto"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The number of equivalence relations on the set {1, 2, 3} is",
+      "options": [
+        "5",
+        "3",
+        "4",
+        "8"
+      ],
+      "answer": 1,
+      "explanation": "An equivalence relation corresponds to a partition of the set into classes. The partitions of {1,2,3} are {1}{2}{3}; {1,2}{3}; {1,3}{2}; {2,3}{1}; and {1,2,3}. That gives 5 partitions and hence 5 equivalence relations.",
+      "optionRationale": {
+        "2": "This misses the identity relation or the universal relation.",
+        "3": "This misses one of the partitions of the set.",
+        "4": "8 counts reflexive and symmetric relations, not equivalence relations."
+      },
+      "objective": "Count equivalence relations via partitions"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Let R = {(1,2), (2,3), (1,3)} on A = {1, 2, 3}. The minimum number of ordered pairs that must be added to R to make it an equivalence relation is",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": 4,
+      "explanation": "R is transitive but not reflexive and not symmetric. Reflexivity needs (1,1), (2,2), (3,3), and symmetry needs (2,1), (3,2), (3,1), that is 6 new pairs. After adding them R contains all 9 pairs of A x A, which is an equivalence relation, so at least 6 pairs are required.",
+      "optionRationale": {
+        "1": "Three pairs fix reflexivity only; symmetry is still missing.",
+        "2": "This misses one pair of the full relation.",
+        "3": "This misses one pair of the full relation."
+      },
+      "objective": "Extend a relation to an equivalence relation"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q17",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "**Assertion (A):** Every one-one function from a finite set A to itself is onto.\n**Reason (R):** A one-one function maps the n distinct elements of A to n distinct elements of A, which exhausts A.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "If |A| = n, a one-one function sends the n elements to n pairwise distinct elements of A. Since A has only n elements, these images are all of A, so the function is onto. The reason gives the proof, so both statements are true with R explaining A. The result fails for infinite sets.",
+      "optionRationale": {
+        "2": "R is the actual argument for A, not a separate fact.",
+        "3": "R is true: n distinct images in an n-element set fill it.",
+        "4": "A is true for finite sets."
+      },
+      "objective": "Link one-one and onto for finite sets"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The number of onto functions from {1, 2, 3, 4} to {p, q} is",
+      "options": [
+        "16",
+        "8",
+        "14",
+        "12"
+      ],
+      "answer": 3,
+      "explanation": "There are 2^4 = 16 functions from a 4-element set to a 2-element set. The only functions that are not onto are the two constant functions (all elements to p or all to q). So the number of onto functions is 16 - 2 = 14.",
+      "optionRationale": {
+        "1": "16 = 2^4 counts all functions, including both constant ones.",
+        "2": "8 = 2^3 uses the wrong exponent.",
+        "4": "12 does not come from 2^4 - 2."
+      },
+      "objective": "Count onto functions using total minus constant"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q19",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "On A = {1, 2, 3, 4}, let R = {(1,1), (2,2), (3,3), (4,4), (1,2), (2,1), (3,4), (4,3)}. Consider:\nA. R is an equivalence relation.\nB. The equivalence class of 3 is {3, 4}.\nC. R has exactly three equivalence classes.\nD. (1,3) belongs to R because of transitivity.\nChoose the correct answer.",
+      "options": [
+        "A, B and C only",
+        "A and B only",
+        "B and D only",
+        "A and C only"
+      ],
+      "answer": 2,
+      "explanation": "R contains all diagonal pairs, each non-diagonal pair has its mirror, and the only chains are inside {1,2} and inside {3,4}, so R is an equivalence relation (A true). The class of 3 is {3,4} (B true). There are two classes, {1,2} and {3,4}, so C is false, and no chain links 1 to 3, so D is false.",
+      "optionRationale": {
+        "1": "C is false: the classes are {1,2} and {3,4}, only two.",
+        "3": "D is false: no chain connects 1 to 3, so (1,3) is not forced; also A is true and missing.",
+        "4": "C is false, and B is also true."
+      },
+      "objective": "Analyse an equivalence relation and its classes"
+    },
+    {
+      "key": "ug26-319-r16-relations-functions-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The number of relations on a set with 3 elements that are both reflexive and symmetric is",
+      "options": [
+        "8",
+        "64",
+        "6",
+        "512"
+      ],
+      "answer": 1,
+      "explanation": "The diagonal pairs are forced by reflexivity. The 6 off-diagonal ordered pairs fall into 3 mirror pairs {(a,b),(b,a)}, and symmetry says each mirror pair is either entirely present or entirely absent. So there are 2^3 = 8 such relations.",
+      "optionRationale": {
+        "2": "64 counts reflexive relations only, without the symmetry requirement.",
+        "3": "6 is the number of off-diagonal ordered pairs, not the count of relations.",
+        "4": "512 is the count of all relations on the set."
+      },
+      "objective": "Count relations that are reflexive and symmetric"
+    }
+  ]
+}

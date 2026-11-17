@@ -1,0 +1,736 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_c24c421a9c864f11b22812709ec5b8f3",
+    "title": "Calculus"
+  },
+  "lesson": {
+    "key": "ug26-319-r03-calculus-derivatives-extrema",
+    "title": "Calculus: second derivatives, monotonic functions and maxima-minima",
+    "coverage": [
+      {
+        "phrase": "Calculus",
+        "section": "Higher order derivatives (up to second order)"
+      },
+      {
+        "phrase": "Higher order derivatives upto (second order)",
+        "section": "Higher order derivatives (up to second order)"
+      },
+      {
+        "phrase": "Increasing and Decreasing Functions",
+        "section": "Increasing and decreasing functions"
+      },
+      {
+        "phrase": "Maxima and Minima",
+        "section": "Maxima and minima"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Higher order derivatives (up to second order)"
+      },
+      {
+        "type": "TEXT",
+        "text": "If $y=f(x)$ is differentiable, its derivative $\\dfrac{dy}{dx}=f'(x)$ is again a function of $x$. Differentiating it once more gives the **second order derivative** $\\dfrac{d^2y}{dx^2}=f''(x)$. It measures how fast the slope itself changes (the rate of change of the rate of change)."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Second order derivative",
+        "text": "$\\dfrac{d^2y}{dx^2}=\\dfrac{d}{dx}\\left(\\dfrac{dy}{dx}\\right)=f''(x)$. It exists wherever $f'$ is differentiable. Other notations are $y''$, $y_2$ and $D^2y$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Second derivatives of common functions",
+        "columns": [
+          "$y$",
+          "$y'$",
+          "$y''$"
+        ],
+        "rows": [
+          [
+            "$x^n$",
+            "$nx^{n-1}$",
+            "$n(n-1)x^{n-2}$"
+          ],
+          [
+            "$e^{ax}$",
+            "$ae^{ax}$",
+            "$a^2e^{ax}$"
+          ],
+          [
+            "$\\sin ax$",
+            "$a\\cos ax$",
+            "$-a^2\\sin ax$"
+          ],
+          [
+            "$\\cos ax$",
+            "$-a\\sin ax$",
+            "$-a^2\\cos ax$"
+          ],
+          [
+            "$\\log x$",
+            "$1/x$",
+            "$-1/x^2$"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "If $y=x^3\\log x$, find $\\dfrac{d^2y}{dx^2}$ and its value at $x=e$.",
+        "solution": "Product rule: $y'=3x^2\\log x+x^3\\cdot\\tfrac1x=3x^2\\log x+x^2$.\n\nDifferentiate again: $y''=6x\\log x+3x^2\\cdot\\tfrac1x+2x=6x\\log x+3x+2x=6x\\log x+5x$.\n\nAt $x=e$, $\\log e=1$, so $y''=6e+5e=11e$.",
+        "answer": "$y''=6x\\log x+5x$, and its value at $x=e$ is $11e$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "If $y=e^x\\sin x$, show that $y''-2y'+2y=0$.",
+        "solution": "$y'=e^x\\sin x+e^x\\cos x=e^x(\\sin x+\\cos x)$.\n\n$y''=e^x(\\sin x+\\cos x)+e^x(\\cos x-\\sin x)=2e^x\\cos x$.\n\nThen $y''-2y'+2y=2e^x\\cos x-2e^x\\sin x-2e^x\\cos x+2e^x\\sin x=0$.",
+        "answer": "The relation is verified: it equals $0$"
+      },
+      {
+        "type": "TEXT",
+        "text": "**Parametric form.** If $x=\\phi(t)$ and $y=\\psi(t)$, then $\\dfrac{dy}{dx}=\\dfrac{dy/dt}{dx/dt}$ and the second derivative is found by differentiating $\\dfrac{dy}{dx}$ with respect to $t$ and dividing again by $\\dfrac{dx}{dt}$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\frac{d^2y}{dx^2}=\\frac{\\dfrac{d}{dt}\\left(\\dfrac{dy}{dx}\\right)}{\\dfrac{dx}{dt}}",
+        "text": "Valid when $dx/dt\\neq0$. Do **not** take $\\dfrac{d^2y/dt^2}{d^2x/dt^2}$; that is wrong."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "If $x=t^2$ and $y=t^3$ (with $t>0$), find $\\dfrac{d^2y}{dx^2}$ at $t=2$.",
+        "solution": "$\\dfrac{dx}{dt}=2t$ and $\\dfrac{dy}{dt}=3t^2$, so $\\dfrac{dy}{dx}=\\dfrac{3t^2}{2t}=\\dfrac{3t}{2}$.\n\n$\\dfrac{d}{dt}\\left(\\dfrac{3t}2\\right)=\\dfrac32$, so $\\dfrac{d^2y}{dx^2}=\\dfrac{3/2}{2t}=\\dfrac3{4t}$.\n\nAt $t=2$: $\\dfrac3{8}$.",
+        "answer": "$\\dfrac38$"
+      },
+      {
+        "type": "TEXT",
+        "text": "**Implicit form.** Differentiate the relation with respect to $x$ treating $y$ as a function of $x$, solve for $y'$, then differentiate again, substituting $y'$ back."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "For $x^2+y^2=25$, find $y''$ at $(3,4)$.",
+        "solution": "$2x+2yy'=0\\Rightarrow y'=-\\dfrac xy$.\n\n$y''=-\\dfrac{y\\cdot1-x\\,y'}{y^2}=-\\dfrac{y+x^2/y}{y^2}=-\\dfrac{x^2+y^2}{y^3}=-\\dfrac{25}{y^3}$.\n\nAt $(3,4)$: $y''=-\\dfrac{25}{64}$.",
+        "answer": "$-\\dfrac{25}{64}$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Second derivative is **not** the square of the first derivative: $y''\\neq(y')^2$. Keep the product and chain rules in view when differentiating the first derivative."
+      },
+      {
+        "type": "HEADING",
+        "text": "Increasing and decreasing functions"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Increasing and decreasing functions",
+        "text": "On an interval $I$, $f$ is **increasing** if $x_1<x_2\\Rightarrow f(x_1)\\le f(x_2)$ (strictly increasing if $<$), and **decreasing** if $x_1<x_2\\Rightarrow f(x_1)\\ge f(x_2)$ (strictly decreasing if $>$)."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "If $f$ is differentiable on an interval, then $f'(x)\\ge0$ for all $x$ in the interval means $f$ is increasing there, and $f'(x)\\le0$ means $f$ is decreasing. If $f'(x)>0$ throughout, $f$ is strictly increasing. A function is also increasing if $f'\\ge0$ and $f'=0$ only at isolated points."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Method.** (1) Find $f'(x)$. (2) Solve $f'(x)=0$ to get the points that divide the line into intervals. (3) Find the sign of $f'$ in each interval. Positive means increasing; negative means decreasing."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the intervals in which $f(x)=2x^3-9x^2+12x+5$ is increasing or decreasing.",
+        "solution": "$f'(x)=6x^2-18x+12=6(x-1)(x-2)$, which is zero at $x=1$ and $x=2$.\n\nFor $x<1$ both factors are negative, so $f'>0$. For $1<x<2$, $(x-1)>0$ and $(x-2)<0$, so $f'<0$. For $x>2$, $f'>0$.",
+        "answer": "Increasing on $(-\\infty,1)$ and $(2,\\infty)$; decreasing on $(1,2)$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Show that $f(x)=x^3-3x^2+3x-5$ is increasing on $\\mathbb{R}$.",
+        "solution": "$f'(x)=3x^2-6x+3=3(x-1)^2\\ge0$ for all $x$, and $f'(x)=0$ only at $x=1$. So $f$ is increasing on the whole real line, even though its slope is momentarily 0 at $x=1$.",
+        "answer": "$f$ is increasing on $\\mathbb{R}$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the least value of $a$ for which $f(x)=x^2+ax+1$ is increasing on $[1,2]$.",
+        "solution": "$f'(x)=2x+a$. We need $2x+a\\ge0$ for all $x\\in[1,2]$. The smallest value of $2x+a$ on the interval is at $x=1$: $2+a$.\n\nSo $2+a\\ge0$, i.e. $a\\ge-2$.",
+        "answer": "$a=-2$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Do not test increasing/decreasing from a couple of values. Use the sign of $f'$ on each interval between the roots of $f'=0$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Maxima and minima"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Local maximum and local minimum",
+        "text": "$f$ has a **local maximum** at $c$ if $f(c)\\ge f(x)$ for all $x$ near $c$, and a **local minimum** if $f(c)\\le f(x)$ for all $x$ near $c$. Points where $f'(c)=0$ (or $f'$ does not exist) are called **critical points**."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Tests for local extrema",
+        "columns": [
+          "Test",
+          "Conditions",
+          "Conclusion"
+        ],
+        "rows": [
+          [
+            "First derivative test",
+            "$f'(c)=0$ and $f'$ changes from $+$ to $-$ at $c$",
+            "Local maximum"
+          ],
+          [
+            "First derivative test",
+            "$f'(c)=0$ and $f'$ changes from $-$ to $+$ at $c$",
+            "Local minimum"
+          ],
+          [
+            "First derivative test",
+            "$f'(c)=0$ and $f'$ does not change sign",
+            "Neither (point of inflection type)"
+          ],
+          [
+            "Second derivative test",
+            "$f'(c)=0$ and $f''(c)<0$",
+            "Local maximum"
+          ],
+          [
+            "Second derivative test",
+            "$f'(c)=0$ and $f''(c)>0$",
+            "Local minimum"
+          ],
+          [
+            "Second derivative test",
+            "$f'(c)=0$ and $f''(c)=0$",
+            "Test fails; use the first derivative test"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the local maximum and local minimum values of $f(x)=x^3-3x$.",
+        "solution": "$f'(x)=3x^2-3=3(x-1)(x+1)=0$ gives $x=\\pm1$. $f''(x)=6x$.\n\nAt $x=-1$: $f''=-6<0$, a local maximum, with $f(-1)=-1+3=2$.\n\nAt $x=1$: $f''=6>0$, a local minimum, with $f(1)=1-3=-2$.",
+        "answer": "Local maximum value $2$ at $x=-1$; local minimum value $-2$ at $x=1$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the local maximum and local minimum values of $f(x)=2x^3-15x^2+36x+1$.",
+        "solution": "$f'(x)=6x^2-30x+36=6(x-2)(x-3)$, so the critical points are $x=2,3$. $f''(x)=12x-30$.\n\n$f''(2)=-6<0$: local maximum, $f(2)=16-60+72+1=29$.\n\n$f''(3)=6>0$: local minimum, $f(3)=54-135+108+1=28$.",
+        "answer": "Local maximum $29$ at $x=2$; local minimum $28$ at $x=3$"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Absolute maximum and minimum on a closed interval",
+        "text": "If $f$ is continuous on $[a,b]$, its absolute maximum and minimum occur at the critical points inside $(a,b)$ or at the end points. Compute $f$ at each and compare."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find the absolute maximum and minimum values of $f(x)=x^3-3x^2$ on $[-2,3]$.",
+        "solution": "$f'(x)=3x^2-6x=3x(x-2)$, so the critical points are $0$ and $2$ (both inside the interval).\n\n$f(-2)=-8-12=-20$, $f(0)=0$, $f(2)=8-12=-4$, $f(3)=27-27=0$.\n\nThe largest is $0$ and the smallest is $-20$.",
+        "answer": "Absolute maximum $0$ (at $x=0$ and $x=3$); absolute minimum $-20$ (at $x=-2$)"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A farmer has 200 m of fencing to enclose a rectangular field along a straight river; no fence is needed along the river. Find the maximum area.",
+        "solution": "Let the two sides perpendicular to the river have length $x$ and the side parallel to it $y$. Then $2x+y=200$, so $y=200-2x$.\n\nArea $A=x(200-2x)=200x-2x^2$. $A'=200-4x=0\\Rightarrow x=50$, $y=100$. $A''=-4<0$, so this is a maximum.\n\n$A=50\\times100=5000$.",
+        "answer": "$5000\\ \\text{m}^2$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A square sheet of side 12 cm has a square of side $x$ cut from each corner and is folded into an open box. Find the maximum volume.",
+        "solution": "Volume $V=x(12-2x)^2=4x^3-48x^2+144x$ for $0<x<6$.\n\n$V'=12x^2-96x+144=12(x-2)(x-6)$, so $x=2$ in the interval. $V''=24x-96$, and $V''(2)=-48<0$ gives a maximum.\n\n$V(2)=2\\times8^2=128$.",
+        "answer": "$128\\ \\text{cm}^3$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "A local maximum value can be smaller than a local minimum value of the same function (for example $f(x)=x+\\tfrac1x$ has local maximum $-2$ at $x=-1$ and local minimum $2$ at $x=1$). Also, $f''(c)=0$ does not tell you there is no extremum."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Steps for word problems: define the variable, form a function of one variable, find critical points, check with the second derivative, state the answer with units. Check the end points when the domain is closed."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "If $y=x^4-3x^2+5$, then $\\dfrac{d^2y}{dx^2}$ at $x=1$ is",
+      "options": [
+        "6",
+        "-2",
+        "12",
+        "3"
+      ],
+      "answer": 1,
+      "explanation": "$y'=4x^3-6x$, so $y''=12x^2-6$. At $x=1$, $y''=12-6=6$. The value $-2$ would be the first derivative $4-6$ at $x=1$.",
+      "optionRationale": {
+        "2": "This is $y'(1)=4-6$, the first derivative.",
+        "3": "This is the coefficient $12$ of $x^2$ in $y''$ without the constant $-6$.",
+        "4": "No correct step gives this value."
+      },
+      "objective": "Find a second derivative of a polynomial"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "If $y=e^{2x}$, the value of $\\dfrac{d^2y}{dx^2}$ at $x=0$ is",
+      "options": [
+        "2",
+        "4",
+        "1",
+        "8"
+      ],
+      "answer": 2,
+      "explanation": "$y'=2e^{2x}$ and $y''=4e^{2x}$. At $x=0$, $e^0=1$, so $y''=4$. Each differentiation multiplies by the constant 2. So $y'=2e^{2x}$ first, then $y''=2\\cdot2e^{2x}$, and $e^{0}=1$.",
+      "optionRationale": {
+        "1": "This is the first derivative at $x=0$.",
+        "3": "This is $y$ at $x=0$.",
+        "4": "This comes from multiplying by $2^3$."
+      },
+      "objective": "Differentiate an exponential function twice"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "If $y=\\sin3x$, then $\\dfrac{y''}{y}$ equals",
+      "options": [
+        "$-3$",
+        "$9$",
+        "$-9$",
+        "$3$"
+      ],
+      "answer": 3,
+      "explanation": "$y'=3\\cos3x$ and $y''=-9\\sin3x=-9y$, so $y''/y=-9$. This is the standard relation $y''+9y=0$ for simple harmonic type functions.",
+      "optionRationale": {
+        "1": "This would be the case only for the first derivative's factor.",
+        "2": "The sign is wrong; the second derivative of a sine is negative.",
+        "4": "Neither the magnitude nor the sign is correct."
+      },
+      "objective": "Relate y'' to y for a sine function"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If $y=x^3\\log x$, then the value of $\\dfrac{d^2y}{dx^2}$ at $x=e$ is",
+      "options": [
+        "$5e$",
+        "$6e$",
+        "$9e$",
+        "$11e$"
+      ],
+      "answer": 4,
+      "explanation": "$y'=3x^2\\log x+x^2$ by the product rule. Then $y''=6x\\log x+3x+2x=6x\\log x+5x$. At $x=e$, $\\log e=1$, so $y''=6e+5e=11e$.",
+      "optionRationale": {
+        "1": "This forgets the term $6x\\log x$.",
+        "2": "This forgets the term $5x$.",
+        "3": "Wrongly gives $y''=6x\\log x+3x$."
+      },
+      "objective": "Apply the product rule twice"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If $x=t^2$ and $y=t^3$ with $t>0$, then $\\dfrac{d^2y}{dx^2}$ at $t=2$ is",
+      "options": [
+        "$\\dfrac38$",
+        "$\\dfrac32$",
+        "$3$",
+        "$\\dfrac34$"
+      ],
+      "answer": 1,
+      "explanation": "$\\dfrac{dy}{dx}=\\dfrac{3t^2}{2t}=\\dfrac{3t}2$. Then $\\dfrac{d^2y}{dx^2}=\\dfrac{d}{dt}\\left(\\dfrac{3t}2\\right)\\Big/\\dfrac{dx}{dt}=\\dfrac{3/2}{2t}=\\dfrac3{4t}$. At $t=2$ this is $\\dfrac38$.",
+      "optionRationale": {
+        "2": "This is $\\frac{d}{dt}(dy/dx)$ without dividing by $dx/dt$.",
+        "3": "This is $dy/dx$ at $t=2$.",
+        "4": "Divides by $dx/dt=2$ instead of $2t=4$."
+      },
+      "objective": "Find a second derivative of a parametric function"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If $x=a\\cos\\theta$ and $y=a\\sin\\theta$, then $\\dfrac{d^2y}{dx^2}$ at $\\theta=\\dfrac\\pi2$ is",
+      "options": [
+        "$\\dfrac1a$",
+        "$-\\dfrac1a$",
+        "$0$",
+        "$-a$"
+      ],
+      "answer": 2,
+      "explanation": "$\\dfrac{dy}{dx}=\\dfrac{a\\cos\\theta}{-a\\sin\\theta}=-\\cot\\theta$. Then $\\dfrac{d}{d\\theta}(-\\cot\\theta)=\\csc^2\\theta$, and dividing by $dx/d\\theta=-a\\sin\\theta$ gives $\\dfrac{d^2y}{dx^2}=-\\dfrac1{a\\sin^3\\theta}$. At $\\theta=\\pi/2$ this equals $-\\dfrac1a$.",
+      "optionRationale": {
+        "1": "The sign is wrong; the circle is concave down at the top.",
+        "3": "This is $dy/dx$ at $\\theta=\\pi/2$, not the second derivative.",
+        "4": "The reciprocal factor was ignored."
+      },
+      "objective": "Second derivative of a circle in parametric form"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For the curve $x^2+y^2=25$, the value of $\\dfrac{d^2y}{dx^2}$ at the point $(3,4)$ is",
+      "options": [
+        "$-\\dfrac34$",
+        "$\\dfrac{25}{64}$",
+        "$-\\dfrac{25}{64}$",
+        "$-\\dfrac{25}{16}$"
+      ],
+      "answer": 3,
+      "explanation": "$y'=-x/y$. Then $y''=-\\dfrac{y-xy'}{y^2}=-\\dfrac{y+x^2/y}{y^2}=-\\dfrac{x^2+y^2}{y^3}=-\\dfrac{25}{y^3}$. At $(3,4)$: $-\\dfrac{25}{64}$. It is negative, since the upper half of the circle is concave down.",
+      "optionRationale": {
+        "1": "This is $dy/dx$ at $(3,4)$.",
+        "2": "The sign is wrong.",
+        "4": "Uses $y^2$ instead of $y^3$ in the denominator."
+      },
+      "objective": "Second derivative of an implicit function"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "If $y=e^x\\sin x$, then $y''-2y'+2y$ equals",
+      "options": [
+        "$2e^x\\cos x$",
+        "$2e^x\\sin x$",
+        "$-2e^x\\sin x$",
+        "0"
+      ],
+      "answer": 4,
+      "explanation": "$y'=e^x(\\sin x+\\cos x)$ and $y''=2e^x\\cos x$. Then $y''-2y'+2y=2e^x\\cos x-2e^x\\sin x-2e^x\\cos x+2e^x\\sin x=0$.",
+      "optionRationale": {
+        "1": "This is $y''$ alone.",
+        "2": "Only the last two terms were added.",
+        "3": "Sign errors in the middle term."
+      },
+      "objective": "Verify a differential relation using second derivatives"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following functions is increasing for all real $x$?",
+      "options": [
+        "$e^x$",
+        "$x^2$",
+        "$-2x+1$",
+        "$\\sin x$"
+      ],
+      "answer": 1,
+      "explanation": "$\\dfrac{d}{dx}e^x=e^x>0$ for all $x$, so $e^x$ is strictly increasing on $\\mathbb R$. The derivative of $x^2$ is negative for $x<0$, that of $-2x+1$ is always negative, and $\\sin x$ changes direction.",
+      "optionRationale": {
+        "2": "Decreasing for $x<0$ since $f'=2x<0$ there.",
+        "3": "Its derivative is $-2<0$, so it is decreasing.",
+        "4": "It increases and decreases alternately."
+      },
+      "objective": "Identify an increasing function using the derivative"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The function $f(x)=x^2-6x+8$ is strictly decreasing in the interval",
+      "options": [
+        "$(3,\\infty)$",
+        "$(-\\infty,3)$",
+        "$(-\\infty,-3)$",
+        "$(-3,\\infty)$"
+      ],
+      "answer": 2,
+      "explanation": "$f'(x)=2x-6$, which is negative when $x<3$ and positive when $x>3$. So $f$ is strictly decreasing in $(-\\infty,3)$ and increasing in $(3,\\infty)$. The vertex of the parabola at $x=3$ is the turning point where the slope changes sign.",
+      "optionRationale": {
+        "1": "Here $f'>0$, so $f$ is increasing.",
+        "3": "The critical point is $x=3$, not $-3$.",
+        "4": "The sign of the critical point is wrong."
+      },
+      "objective": "Find the interval of decrease of a quadratic"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The cubic $f(x)=2x^3-9x^2+12x+5$ falls only between two consecutive roots of $f'(x)$. That open interval is",
+      "options": [
+        "$(-\\infty,1)$",
+        "$(2,\\infty)$",
+        "$(1,2)$",
+        "$(-2,-1)$"
+      ],
+      "answer": 3,
+      "explanation": "$f'(x)=6x^2-18x+12=6(x-1)(x-2)$. Between the roots, $x-1>0$ and $x-2<0$, so $f'<0$. Hence $f$ is strictly decreasing in $(1,2)$ and increasing elsewhere.",
+      "optionRationale": {
+        "1": "On this interval $f'>0$.",
+        "2": "On this interval $f'>0$.",
+        "4": "This does not contain the roots 1 and 2 of $f'$."
+      },
+      "objective": "Use the sign of the derivative to find intervals of monotonicity"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "The function $f(x)=x^3-3x^2+3x-5$ is",
+      "options": [
+        "increasing on $\\mathbb R$",
+        "increasing only on $(-\\infty,1)$",
+        "decreasing only on $(1,\\infty)$",
+        "neither increasing nor decreasing anywhere"
+      ],
+      "answer": 1,
+      "explanation": "$f'(x)=3x^2-6x+3=3(x-1)^2$, which is non-negative for all $x$ and zero only at $x=1$. A function whose derivative is non-negative, vanishing only at an isolated point, is increasing on the whole line.",
+      "optionRationale": {
+        "2": "$f'=3(x-1)^2\\ge0$ also for $x>1$.",
+        "3": "$f'$ is non-negative, never negative.",
+        "4": "It is increasing everywhere."
+      },
+      "objective": "Recognise an increasing function with a stationary point"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The least value of $a$ for which $f(x)=x^2+ax+1$ is increasing on $[1,2]$ is",
+      "options": [
+        "2",
+        "-2",
+        "-4",
+        "0"
+      ],
+      "answer": 2,
+      "explanation": "$f'(x)=2x+a$ must be $\\ge0$ for every $x\\in[1,2]$. Its smallest value on the interval is at $x=1$, namely $2+a$. So $2+a\\ge0$ and $a\\ge-2$. The least value is $-2$.",
+      "optionRationale": {
+        "1": "A sign error: $2+a\\ge0$ gives $a\\ge-2$, not $a\\ge2$.",
+        "3": "This would come from $f'(2)=4+a\\ge0$, which is a weaker condition at the other end.",
+        "4": "This is the condition $f'\\ge0$ at $x=0$, not on $[1,2]$."
+      },
+      "objective": "Find a parameter for which a function is increasing"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The local minimum value of $f(x)=x^2-4x+7$ is",
+      "options": [
+        "2",
+        "7",
+        "3",
+        "-3"
+      ],
+      "answer": 3,
+      "explanation": "$f'(x)=2x-4=0$ gives $x=2$ and $f''=2>0$, so it is a minimum. The value is $f(2)=4-8+7=3$. This agrees with completing the square: $x^2-4x+7=(x-2)^2+3\\ge3$.",
+      "optionRationale": {
+        "1": "This is the point $x=2$ where the minimum occurs, not its value.",
+        "2": "This is $f(0)$.",
+        "4": "The sign is wrong."
+      },
+      "objective": "Find a local minimum value of a quadratic"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The local maximum value of $f(x)=x^3-3x$ is",
+      "options": [
+        "-2",
+        "1",
+        "0",
+        "2"
+      ],
+      "answer": 4,
+      "explanation": "$f'(x)=3x^2-3=0$ gives $x=\\pm1$ and $f''=6x$. At $x=-1$, $f''=-6<0$, so there is a local maximum of $f(-1)=-1+3=2$. At $x=1$ there is a local minimum of $-2$.",
+      "optionRationale": {
+        "1": "This is the local minimum value at $x=1$.",
+        "2": "This comes from a sign slip when evaluating $f(-1)$.",
+        "3": "This is $f(0)$, which is not an extremum."
+      },
+      "objective": "Find a local maximum value using the second derivative test"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For $f(x)=2x^3-15x^2+36x+1$, the difference (local maximum value) $-$ (local minimum value) is",
+      "options": [
+        "1",
+        "2",
+        "-1",
+        "57"
+      ],
+      "answer": 1,
+      "explanation": "$f'(x)=6(x-2)(x-3)$ and $f''(x)=12x-30$. At $x=2$, $f''=-6<0$ gives a local maximum $f(2)=16-60+72+1=29$. At $x=3$, $f''=6>0$ gives a local minimum $f(3)=54-135+108+1=28$. The difference is $29-28=1$.",
+      "optionRationale": {
+        "2": "This comes from a wrong value of one extremum; the values are 29 and 28.",
+        "3": "The order of subtraction is reversed.",
+        "4": "This is the sum of the two extremum values."
+      },
+      "objective": "Compare local extremum values of a cubic"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For $f(x)=x^3-3x^2$ on $[-2,3]$, if $M$ is the absolute maximum and $m$ the absolute minimum, then $M-m$ equals",
+      "options": [
+        "4",
+        "20",
+        "16",
+        "24"
+      ],
+      "answer": 2,
+      "explanation": "$f'(x)=3x(x-2)$, so critical points are 0 and 2. The values are $f(-2)=-20$, $f(0)=0$, $f(2)=-4$, $f(3)=0$. So $M=0$, $m=-20$ and $M-m=20$. The end point $x=-2$ gives the minimum.",
+      "optionRationale": {
+        "1": "This is $0-(-4)$, using the local minimum $-4$ instead of the absolute minimum.",
+        "3": "Uses $m=-16$, a miscalculation of $f(-2)$.",
+        "4": "Uses $m=-24$, a miscalculation of $f(-2)$."
+      },
+      "objective": "Find absolute extrema on a closed interval"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A farmer has 200 m of fencing and encloses a rectangular field with a river forming one side, so that only three sides need fencing. The maximum area is",
+      "options": [
+        "2500 m²",
+        "10000 m²",
+        "5000 m²",
+        "4000 m²"
+      ],
+      "answer": 3,
+      "explanation": "Let the sides perpendicular to the river be $x$ and the side along the river be $200-2x$. Then $A=x(200-2x)$, $A'=200-4x=0$ gives $x=50$ and $A''=-4<0$. The maximum area is $50\\times100=5000$ m².",
+      "optionRationale": {
+        "1": "This is the area $50\\times50$, which does not use the fencing correctly.",
+        "2": "This is $100\\times100$, which would need 300 m of fencing.",
+        "4": "This is $40\\times100$, a non-optimal choice."
+      },
+      "objective": "Solve an applied maximum problem"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A square sheet of side 12 cm has equal squares of side $x$ cut from its corners and is folded to form an open box. The maximum volume of the box is",
+      "options": [
+        "144 cm³",
+        "108 cm³",
+        "256 cm³",
+        "128 cm³"
+      ],
+      "answer": 4,
+      "explanation": "$V=x(12-2x)^2=4x^3-48x^2+144x$. $V'=12(x-2)(x-6)$ gives $x=2$ in $(0,6)$, and $V''(2)=-48<0$ confirms a maximum. $V(2)=2\\times8^2=128$ cm³. At $x=3$ the volume is $3\\times36=108$, which is smaller.",
+      "optionRationale": {
+        "1": "At $x=6$ there is no base left, so the volume is 0; 144 is not obtained from any admissible $x$.",
+        "2": "Obtained with $x=3$, which is not the maximum.",
+        "3": "Obtained by doubling the correct answer."
+      },
+      "objective": "Maximise the volume of an open box"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q20",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements for a function $f$ with $f'(c)=0$.\nA. If $f''(c)<0$, then $f$ has a local maximum at $c$.\nB. If $f''(c)>0$, then $f$ has a local minimum at $c$.\nC. If $f''(c)=0$, then $f$ has neither a maximum nor a minimum at $c$.\nD. A local maximum value of a function can be less than a local minimum value of the same function.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "A and B only",
+        "B, C and D only",
+        "A, B and C only"
+      ],
+      "answer": 1,
+      "explanation": "A and B are the second derivative test. C is false: $f(x)=x^4$ has $f''(0)=0$ yet a minimum at 0, so the test is merely inconclusive. D is true: $x+1/x$ has local maximum $-2$ at $x=-1$ and local minimum $2$ at $x=1$.",
+      "optionRationale": {
+        "2": "D is also true, so this option is incomplete.",
+        "3": "C is false, since $f(x)=x^4$ has a minimum at 0 although $f''(0)=0$.",
+        "4": "C is false, so any option containing C is wrong."
+      },
+      "objective": "Recall the conditions of the second derivative test"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q21",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The function $f(x)=x^3$ has neither a local maximum nor a local minimum, although $f'(0)=0$.\nReason (R): The derivative $f'(x)=3x^2$ does not change sign at $x=0$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "A critical point gives a local extremum only if $f'$ changes sign there. Here $f'=3x^2\\ge0$ on both sides of 0, so the function keeps increasing through $x=0$. Both statements are true and the reason explains the assertion.",
+      "optionRationale": {
+        "2": "The reason is exactly what prevents an extremum at 0, so it is the correct explanation.",
+        "3": "The assertion is true: $x^3$ is increasing on the whole line.",
+        "4": "The reason is true: $3x^2$ is non-negative on both sides of 0."
+      },
+      "objective": "Explain why a critical point need not be an extremum"
+    },
+    {
+      "key": "ug26-319-r03-calculus-derivatives-extrema-q22",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the function in List-I with the property in List-II.",
+      "options": [
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-III, C-II, D-IV",
+        "A-I, B-II, C-IV, D-III"
+      ],
+      "answer": 1,
+      "explanation": "$f=x^3+x$ has $f'=3x^2+1>0$, so it is increasing (I). $f=x^2-2x$ has $f'=2x-2=0$ at $x=1$ and $f''=2>0$, so a minimum (II). $f=-x^2-2x$ has $f'=-2x-2=0$ at $x=-1$ and $f''=-2<0$, so a maximum (III). $f=e^{-x}$ has $f'=-e^{-x}<0$, so it is decreasing (IV).",
+      "optionRationale": {
+        "2": "$x^3+x$ is increasing, not a quadratic with a minimum, so A-II is wrong.",
+        "3": "The quadratic $x^2-2x$ has a minimum, not a maximum, so B-III is wrong.",
+        "4": "$-x^2-2x$ has a maximum at $-1$ and $e^{-x}$ is decreasing, so C-IV and D-III are swapped."
+      },
+      "objective": "Match functions with monotonicity and extremum properties",
+      "list": {
+        "left": [
+          "A. $x^3+x$",
+          "B. $x^2-2x$",
+          "C. $-x^2-2x$",
+          "D. $e^{-x}$"
+        ],
+        "right": [
+          "I. Increasing on $\\mathbb R$",
+          "II. Has a local minimum at $x=1$",
+          "III. Has a local maximum at $x=-1$",
+          "IV. Decreasing on $\\mathbb R$"
+        ]
+      }
+    }
+  ]
+}

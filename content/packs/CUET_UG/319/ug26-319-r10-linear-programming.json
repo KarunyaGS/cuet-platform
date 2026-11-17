@@ -1,0 +1,682 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_70f0ce4ed12549e8bf3a3da925de682b",
+    "title": "Linear Programming"
+  },
+  "lesson": {
+    "key": "ug26-319-r10-linear-programming",
+    "title": "Linear programming: graphical method, feasible region and optimal solution",
+    "coverage": [
+      {
+        "phrase": "Linear Programming",
+        "section": "What a linear programming problem is"
+      },
+      {
+        "phrase": "Graphical method of solution for problems in two variables",
+        "section": "Graphical method of solution for problems in two variables"
+      },
+      {
+        "phrase": "Feasible and infeasible regions",
+        "section": "Feasible and infeasible regions"
+      },
+      {
+        "phrase": "Optimal feasible solution",
+        "section": "Optimal feasible solution"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "What a linear programming problem is"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **linear programming problem (LPP)** asks you to make the best possible choice when the quantities you control are limited by conditions. \"Best\" means the largest profit or the smallest cost. In the Class 12 course the problem has only two decision variables, $x$ and $y$, so it can be solved by drawing a graph."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Objective function",
+        "text": "A linear function $Z = ax + by$ of the decision variables that is to be maximised (for example profit) or minimised (for example cost). Here $a$ and $b$ are constants."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Constraints",
+        "text": "The linear inequalities (or equations) in $x$ and $y$ that restrict the values the variables may take, such as $x + y \\le 8$ or $2x + 3y \\ge 12$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Non-negative restrictions",
+        "text": "The conditions $x \\ge 0,\\; y \\ge 0$. Quantities such as the number of items produced cannot be negative, so every LPP includes them. They confine the graph to the first quadrant."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "An LPP has three parts: an objective function $Z = ax+by$, a set of linear constraints, and the non-negative restrictions $x \\ge 0, y \\ge 0$. The aim is to find the point $(x,y)$ that satisfies every restriction and gives the best value of $Z$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Graphical method of solution for problems in two variables"
+      },
+      {
+        "type": "TEXT",
+        "text": "Every linear inequality such as $ax + by \\le c$ describes a **half-plane**: the line $ax+by=c$ and all points on one side of it. To find the correct side, test a point that is not on the line (the origin $(0,0)$ is easiest when $c \\ne 0$). If the test point satisfies the inequality, shade its side; if not, shade the other side."
+      },
+      {
+        "type": "TEXT",
+        "text": "The steps of the graphical method are:"
+      },
+      {
+        "type": "TEXT",
+        "text": "1. Replace each inequality by an equation, draw its line (use the two intercepts), and shade the correct half-plane.\n2. Mark the region common to all half-planes and the first quadrant. This common region is the **feasible region**.\n3. Find the coordinates of every corner point (vertex) of the feasible region by reading the graph or by solving the two boundary equations that meet there.\n4. Evaluate $Z = ax+by$ at each corner point.\n5. Pick the largest value for a maximum problem and the smallest for a minimum problem, then decide whether the answer is valid (see the unbounded case below)."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "Z = ax + by \\quad\\text{evaluated at each corner point } (x_i, y_i)",
+        "text": "The objective function is linear, so on a feasible region its extreme values are reached at corner points. The intercept form of a line $\\dfrac{x}{p}+\\dfrac{y}{q}=1$ meets the axes at $(p,0)$ and $(0,q)$ and is the quickest way to draw it."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Maximise $Z = 3x + 4y$ subject to $x + y \\le 4,\\; x \\ge 0,\\; y \\ge 0$.",
+        "solution": "The line $x + y = 4$ meets the axes at $(4,0)$ and $(0,4)$. The origin satisfies $0 \\le 4$, so the region is the side containing the origin, cut by the axes. The feasible region is the triangle with corner points $(0,0)$, $(4,0)$ and $(0,4)$. Evaluate: at $(0,0)$, $Z = 0$; at $(4,0)$, $Z = 12$; at $(0,4)$, $Z = 16$. The region is bounded, so the largest value is the maximum.",
+        "answer": "Maximum $Z = 16$ at $(0,4)$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Maximise $Z = 5x + 3y$ subject to $3x + 5y \\le 15,\\; 5x + 2y \\le 10,\\; x \\ge 0,\\; y \\ge 0$.",
+        "solution": "Intercepts: $3x+5y=15$ meets the axes at $(5,0)$ and $(0,3)$; $5x+2y=10$ meets them at $(2,0)$ and $(0,5)$. The origin satisfies both inequalities, so the feasible region is the quadrilateral bounded by the axes and the two lines. The lines meet where $3x+5y=15$ and $5x+2y=10$. From the second, $y = (10-5x)/2$. Substituting, $3x + 5(10-5x)/2 = 15$, so $6x + 50 - 25x = 30$, giving $x = 20/19$ and $y = 45/19$. Corner points: $(0,0)$, $(2,0)$, $(20/19, 45/19)$, $(0,3)$. Values of $Z$: $0$, $10$, $(100+135)/19 = 235/19 \\approx 12.37$, and $9$. The region is bounded, so the maximum is the largest value.",
+        "answer": "Maximum $Z = 235/19$ at $(20/19,\\,45/19)$."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Always check the inequality sign when shading. For $\\ge$ constraints (such as a minimum diet requirement) the feasible side usually lies away from the origin. Many wrong answers come from shading the origin side by habit."
+      },
+      {
+        "type": "HEADING",
+        "text": "Feasible and infeasible regions"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Feasible region",
+        "text": "The set of all points $(x,y)$ that satisfy every constraint and the non-negative restrictions at the same time. It is the common part (intersection) of all the half-planes, so it is always a convex region."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Infeasible region",
+        "text": "Every point of the plane that is not in the feasible region, that is, every point which violates at least one constraint. If the half-planes have no common point, the feasible region is empty and the problem itself is called infeasible."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Bounded and unbounded region",
+        "text": "A feasible region is **bounded** if it can be enclosed inside a circle of some finite radius. Otherwise it extends indefinitely in some direction and is **unbounded**."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Types of feasible region",
+        "columns": [
+          "Type",
+          "How it looks",
+          "What it means for $Z$"
+        ],
+        "rows": [
+          [
+            "Bounded",
+            "Closed polygon with finitely many corner points",
+            "Both a maximum and a minimum of $Z$ exist"
+          ],
+          [
+            "Unbounded",
+            "Extends without limit in some direction",
+            "A maximum or a minimum may fail to exist"
+          ],
+          [
+            "Empty (infeasible problem)",
+            "The half-planes do not overlap",
+            "No solution at all"
+          ]
+        ]
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "The constraints $x + y \\le 3$ and $x + y \\ge 7$ cannot both hold, because a sum cannot be at most 3 and at least 7. Their half-planes are parallel strips on opposite sides, so the feasible region is empty and the LPP has no solution. By contrast, $x \\ge 0,\\; y \\ge 0,\\; x + y \\ge 1$ gives an unbounded feasible region: every point far from the origin in the first quadrant satisfies it."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "The feasible region of an LPP is convex, a point is a feasible solution exactly when it lies in it, and the number of its corner points is finite."
+      },
+      {
+        "type": "HEADING",
+        "text": "Optimal feasible solution"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Feasible solution",
+        "text": "Any point $(x,y)$ lying in the feasible region. It satisfies all the constraints but need not give the best value of $Z$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Infeasible solution",
+        "text": "A point that violates at least one constraint (or a non-negative restriction). It lies outside the feasible region."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Optimal feasible solution",
+        "text": "A feasible solution that gives the maximum (or minimum) value of the objective function $Z$ among all feasible solutions. The value of $Z$ there is the optimal value."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "**Corner point theorem.** Let $R$ be the feasible region and $Z = ax+by$ the objective function. If $R$ is bounded, $Z$ has both a maximum and a minimum value on $R$, and each occurs at a corner point. If $R$ is unbounded, let $M$ be the largest (or smallest) value of $Z$ among the corner points. Then $M$ is the maximum (or minimum) of $Z$ on $R$ if and only if the open half-plane $ax+by > M$ (or $ax+by < M$) has no point in common with $R$. If such common points exist, $Z$ has no maximum (or no minimum)."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Minimise $Z = 4x + 3y$ subject to $x + 2y \\ge 10,\\; 3x + 4y \\le 24,\\; x \\ge 0,\\; y \\ge 0$.",
+        "solution": "On the axes: $x+2y=10$ meets them at $(10,0)$ and $(0,5)$; $3x+4y=24$ meets them at $(8,0)$ and $(0,6)$. On the $x$-axis, $x \\ge 10$ and $x \\le 8$ cannot both hold, so no point of the $x$-axis is feasible. On the $y$-axis, $5 \\le y \\le 6$. The lines meet where $x = 10 - 2y$ and $3(10-2y)+4y = 24$, so $y = 3$, $x = 4$. The feasible region is the triangle with corner points $(0,5)$, $(0,6)$ and $(4,3)$. Values of $Z$: at $(0,5)$, $15$; at $(0,6)$, $18$; at $(4,3)$, $16+9 = 25$. The region is bounded, so the minimum is the smallest value.",
+        "answer": "Minimum $Z = 15$ at $(0,5)$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Minimise $Z = 2x + 3y$ subject to $x + 2y \\ge 8,\\; 3x + y \\ge 9,\\; x \\ge 0,\\; y \\ge 0$. Is there a maximum?",
+        "solution": "The region lies above both lines, so it is unbounded. The lines meet at $(2,3)$ because $x = 8-2y$ gives $24 - 6y + y = 9$, so $y=3$, $x=2$. Corner points: $(0,9)$, $(2,3)$, $(8,0)$. Values of $Z$: $27$, $13$, $16$. The smallest is $M = 13$. Because the region is unbounded we must test the open half-plane $2x + 3y < 13$. Write $2x+3y = \\tfrac{7}{5}(x+2y) + \\tfrac{1}{5}(3x+y)$. On the region, $x+2y \\ge 8$ and $3x+y \\ge 9$, so $2x+3y \\ge \\tfrac{56}{5} + \\tfrac{9}{5} = 13$. Hence no feasible point lies in $2x+3y<13$, and $13$ is the minimum. For a maximum, $Z$ grows without limit along the unbounded direction, so no maximum exists.",
+        "answer": "Minimum $Z = 13$ at $(2,3)$; there is no maximum."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Maximise $Z = 2x + 4y$ subject to $x + 2y \\le 10,\\; x \\ge 0,\\; y \\ge 0$.",
+        "solution": "The feasible region is the triangle with corner points $(0,0)$, $(10,0)$ and $(0,5)$. Values of $Z$: $0$, $20$ and $20$. Two corner points give the same maximum because the objective line $2x+4y=20$ is parallel to the constraint line $x+2y=10$ (it is exactly twice that line). Every point of the segment joining $(10,0)$ and $(0,5)$ also gives $Z = 20$.",
+        "answer": "Maximum $Z = 20$, attained at infinitely many points (the whole segment from $(10,0)$ to $(0,5)$)."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Possible outcomes of a two-variable LPP",
+        "columns": [
+          "Situation",
+          "Outcome"
+        ],
+        "rows": [
+          [
+            "Feasible region empty",
+            "Infeasible: no feasible and no optimal solution"
+          ],
+          [
+            "Bounded region, one best corner",
+            "Unique optimal solution at that corner"
+          ],
+          [
+            "Two adjacent corners give the same best value",
+            "Infinitely many optimal solutions on the segment joining them"
+          ],
+          [
+            "Unbounded region, open half-plane test fails",
+            "No maximum (or no minimum): objective is unbounded"
+          ]
+        ]
+      },
+      {
+        "type": "CALLOUT",
+        "text": "In an unbounded region do not simply write the smallest corner value as the minimum. Draw or reason out the open half-plane test. For a minimum problem with positive coefficients $a, b$ the test usually succeeds, but for a maximum it usually fails."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Optimal solutions are searched only among the corner points. If two adjacent corners give the same optimal value, every point on the line segment between them is optimal too."
+      },
+      {
+        "type": "IMPORTANT_FACT",
+        "text": "A bounded feasible region always has an optimal solution for both maximum and minimum. An empty region has none."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r10-linear-programming-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In a linear programming problem, the linear function that is to be maximised or minimised is called the",
+      "options": [
+        "objective function",
+        "constraint",
+        "feasible region",
+        "non-negative restriction"
+      ],
+      "answer": 1,
+      "explanation": "The quantity whose best value is sought, such as profit $Z = ax+by$, is the objective function. Constraints restrict the variables, the feasible region is the set of allowed points, and the non-negative restrictions keep the variables from being negative.",
+      "optionRationale": {
+        "2": "A constraint is a restriction in the form of an inequality, not the quantity being optimised.",
+        "3": "The feasible region is the set of points satisfying all constraints, not a function.",
+        "4": "These are only the conditions $x \\ge 0$ and $y \\ge 0$."
+      },
+      "objective": "Name the parts of an LPP"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The restrictions $x \\ge 0$ and $y \\ge 0$ in a two-variable LPP confine the graph of the feasible region to which part of the plane?",
+      "options": [
+        "The second quadrant only",
+        "The first quadrant, including the axes",
+        "The third quadrant only",
+        "The whole plane"
+      ],
+      "answer": 2,
+      "explanation": "The inequality $x \\ge 0$ keeps points on or to the right of the $y$-axis and $y \\ge 0$ keeps points on or above the $x$-axis. Their intersection is the first quadrant together with the two axes, so the whole feasible region lies there.",
+      "optionRationale": {
+        "1": "The second quadrant has $x<0$, which the restriction forbids.",
+        "3": "The third quadrant has both $x<0$ and $y<0$.",
+        "4": "Non-negative restrictions cut the plane down, so the region cannot be the whole plane."
+      },
+      "objective": "State the role of non-negative restrictions"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q03",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The feasible region of a linear programming problem is a convex region.\nReason (R): The feasible region is the common part of several half-planes, and each half-plane is convex.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Each linear inequality defines a half-plane, which is a convex set, and the intersection of convex sets is convex. The feasible region is exactly such an intersection with the first quadrant, so the reason correctly explains the assertion.",
+      "optionRationale": {
+        "2": "The reason is the direct justification, so calling it merely true but unrelated is wrong.",
+        "3": "The reason is true: a half-plane is convex.",
+        "4": "The assertion is true, because an intersection of convex sets is convex."
+      },
+      "objective": "Link convexity of the feasible region to half-planes"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The corner points of the feasible region of an LPP are $(0,0)$, $(5,0)$, $(3,4)$ and $(0,6)$. The maximum value of $Z = 3x + 2y$ over this region is",
+      "options": [
+        "15",
+        "17",
+        "12",
+        "18"
+      ],
+      "answer": 2,
+      "explanation": "Evaluate $Z = 3x+2y$ at each corner: $(0,0)$ gives $0$, $(5,0)$ gives $15$, $(3,4)$ gives $9+8 = 17$ and $(0,6)$ gives $12$. The region is bounded, so the largest value, $17$ at $(3,4)$, is the maximum.",
+      "optionRationale": {
+        "1": "$15$ is the value of $Z$ at $(5,0)$ only; $(3,4)$ gives more.",
+        "3": "$12$ is the value at $(0,6)$, which is not the largest.",
+        "4": "$18$ would need $(6,0)$ or $(4,3)$-type values; no corner gives $18$."
+      },
+      "objective": "Evaluate Z at corner points"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The feasible region defined by $x \\ge 0,\\; y \\ge 0,\\; x + y \\ge 1$ is",
+      "options": [
+        "a bounded triangle with vertices $(0,0)$, $(1,0)$, $(0,1)$",
+        "empty",
+        "unbounded",
+        "a single point"
+      ],
+      "answer": 3,
+      "explanation": "The line $x+y=1$ meets the axes at $(1,0)$ and $(0,1)$. The origin fails $x+y \\ge 1$, so the region lies on the far side of the line in the first quadrant and extends to infinity. It cannot be enclosed in any circle, so it is unbounded.",
+      "optionRationale": {
+        "1": "That triangle is the region of $x+y \\le 1$, not $x+y \\ge 1$.",
+        "2": "The point $(1,1)$ satisfies all three conditions, so the region is not empty.",
+        "4": "Many points, such as $(1,0)$ and $(2,2)$, are feasible."
+      },
+      "objective": "Identify an unbounded feasible region"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Which point lies in the feasible region of the constraints $x + y \\le 6,\\; x \\ge 1,\\; y \\ge 2$?",
+      "options": [
+        "(2,3)",
+        "(5,2)",
+        "(0,3)",
+        "(3,1)"
+      ],
+      "answer": 1,
+      "explanation": "Test each point in all three constraints. For $(2,3)$: $2+3 = 5 \\le 6$, $2 \\ge 1$ and $3 \\ge 2$ all hold. $(5,2)$ breaks the sum, $(0,3)$ breaks $x \\ge 1$ and $(3,1)$ breaks $y \\ge 2$.",
+      "optionRationale": {
+        "2": "Here $x+y = 7 > 6$, so the first constraint fails.",
+        "3": "Here $x = 0 < 1$, so $x \\ge 1$ fails.",
+        "4": "Here $y = 1 < 2$, so $y \\ge 2$ fails."
+      },
+      "objective": "Test whether a point is a feasible solution"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q07",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about a two-variable LPP.\nA. Every point of the feasible region is a feasible solution.\nB. If an optimal solution exists, it occurs at a corner point of the feasible region.\nC. The feasible region of an LPP may be empty.\nD. The optimal value of $Z$ is always attained at exactly one point.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "A, B and C only",
+        "B, C and D only",
+        "A and D only"
+      ],
+      "answer": 2,
+      "explanation": "By definition every point of the feasible region is a feasible solution. The corner point theorem places the optimum at a corner, and inconsistent constraints can give an empty region. Statement D is false, since a tie between two corners gives infinitely many optimal points.",
+      "optionRationale": {
+        "1": "Statement D is false: two corner points can share the optimal value, giving infinitely many optimal points.",
+        "3": "D is false and A is true, so this selection is wrong.",
+        "4": "B and C are also correct, so this is incomplete and includes the false D."
+      },
+      "objective": "Judge statements about feasible solutions and optima"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The maximum value of $Z = 5x + 3y$ subject to $3x + 5y \\le 15,\\; 5x + 2y \\le 10,\\; x \\ge 0,\\; y \\ge 0$ is",
+      "options": [
+        "10",
+        "9",
+        "$\\dfrac{235}{19}$",
+        "15"
+      ],
+      "answer": 3,
+      "explanation": "The corner points are $(0,0)$, $(2,0)$, $(0,3)$ and the meeting point of $3x+5y=15$ and $5x+2y=10$, which is $(20/19, 45/19)$. The values of $Z$ are $0$, $10$, $9$ and $(100+135)/19 = 235/19 \\approx 12.37$. The largest is $235/19$.",
+      "optionRationale": {
+        "1": "$10$ is $Z$ at the corner $(2,0)$ only, not the largest value.",
+        "2": "$9$ is $Z$ at the corner $(0,3)$ only.",
+        "4": "$15$ is the right side of one constraint and is not a value of $Z$ at any corner."
+      },
+      "objective": "Solve a standard maximisation LPP graphically"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The minimum value of $Z = 4x + 3y$ subject to $x + 2y \\ge 10,\\; 3x + 4y \\le 24,\\; x \\ge 0,\\; y \\ge 0$ is",
+      "options": [
+        "15",
+        "18",
+        "25",
+        "12"
+      ],
+      "answer": 1,
+      "explanation": "The feasible region is the triangle with corners $(0,5)$, $(0,6)$ and $(4,3)$, where $(4,3)$ is the meeting point of the two lines. The values of $Z$ are $15$, $18$ and $25$. The region is bounded, so the minimum is $15$ at $(0,5)$.",
+      "optionRationale": {
+        "2": "$18$ is the value at the corner $(0,6)$; it is not the smallest.",
+        "3": "$25$ is the value at $(4,3)$, the largest of the three corners.",
+        "4": "The point $(0,4)$ would give $12$ but violates $x+2y \\ge 10$."
+      },
+      "objective": "Solve a minimisation LPP graphically"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "For the constraints $x + y \\le 3,\\; x + y \\ge 7,\\; x \\ge 0,\\; y \\ge 0$, which conclusion is correct?",
+      "options": [
+        "The feasible region is a bounded quadrilateral",
+        "The feasible region is unbounded and the problem has a minimum",
+        "The problem has exactly one optimal solution at $(3,0)$",
+        "The feasible region is empty, so the LPP has no solution"
+      ],
+      "answer": 4,
+      "explanation": "A point cannot satisfy $x+y \\le 3$ and $x+y \\ge 7$ together, so the intersection of the half-planes is empty. With no feasible solution, there is no optimal solution and the problem is infeasible.",
+      "optionRationale": {
+        "1": "No point can have $x+y$ both at most 3 and at least 7, so there is no region at all.",
+        "2": "There are no feasible points, so no region (bounded or not) and no minimum.",
+        "3": "$(3,0)$ fails $x+y \\ge 7$, so it is not even feasible."
+      },
+      "objective": "Recognise an infeasible LPP"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The feasible region of $x + y \\le 5,\\; x \\le 3,\\; y \\le 4,\\; x \\ge 0,\\; y \\ge 0$ has how many corner points?",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "3"
+      ],
+      "answer": 2,
+      "explanation": "The vertices are $(0,0)$, $(3,0)$, then $(3,2)$ where $x=3$ meets $x+y=5$, then $(1,4)$ where $y=4$ meets $x+y=5$, and $(0,4)$. All five satisfy every constraint, so the region is a pentagon with five corner points.",
+      "optionRationale": {
+        "1": "This misses one vertex; the pentagon has five vertices.",
+        "3": "There are only five distinct intersections that satisfy all constraints.",
+        "4": "A triangle would result only from the single constraint $x+y\\le5$."
+      },
+      "objective": "Count corner points of a feasible region"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q12",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match each term in List-I with its meaning in List-II.",
+      "options": [
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-IV, D-III",
+        "A-III, B-I, C-II, D-IV",
+        "A-II, B-I, C-III, D-IV"
+      ],
+      "answer": 4,
+      "explanation": "The objective function is the quantity optimised (II). A feasible solution satisfies all restrictions (I). An optimal feasible solution is the feasible point with the best value of $Z$ (III). An infeasible solution violates a restriction (IV).",
+      "optionRationale": {
+        "1": "This swaps the objective function and feasible solution.",
+        "2": "This swaps the optimal and infeasible solutions.",
+        "3": "This gives the objective function the meaning of an optimal solution."
+      },
+      "objective": "Match LPP terminology",
+      "list": {
+        "left": [
+          "A. Objective function",
+          "B. Feasible solution",
+          "C. Optimal feasible solution",
+          "D. Infeasible solution"
+        ],
+        "right": [
+          "I. A point satisfying every constraint and non-negative restriction",
+          "II. The linear function that is maximised or minimised",
+          "III. A feasible point giving the best value of the objective function",
+          "IV. A point violating at least one constraint"
+        ]
+      }
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The lines $2x + y = 8$ and $x + 2y = 7$ meet at the corner point",
+      "options": [
+        "(3,2)",
+        "(2,3)",
+        "(4,0)",
+        "(1,6)"
+      ],
+      "answer": 1,
+      "explanation": "Solve the pair: from $2x+y=8$, $y = 8-2x$. Substituting in $x+2y=7$ gives $x + 16 - 4x = 7$, so $x = 3$ and $y = 2$. Check: $2(3)+2 = 8$ and $3+2(2) = 7$.",
+      "optionRationale": {
+        "2": "Substituting gives $2(2)+3=7 \\ne 8$, so the first equation fails.",
+        "3": "$4+0 = 4 \\ne 7$, so the second equation fails.",
+        "4": "It satisfies $2x+y=8$ but $1+12 = 13 \\ne 7$."
+      },
+      "objective": "Find a corner point by solving boundary lines"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "The maximum of $Z = 2x + 4y$ subject to $x + 2y \\le 10,\\; x \\ge 0,\\; y \\ge 0$ is",
+      "options": [
+        "$20$, attained only at $(10,0)$",
+        "$20$, attained at infinitely many points",
+        "$10$, attained at infinitely many points",
+        "$20$, attained only at $(0,5)$"
+      ],
+      "answer": 2,
+      "explanation": "The corners are $(0,0)$, $(10,0)$ and $(0,5)$ with $Z = 0, 20, 20$. Since $2x+4y = 2(x+2y)$, the objective line is parallel to the constraint line, so every point on the segment joining $(10,0)$ and $(0,5)$ gives $Z = 20$.",
+      "optionRationale": {
+        "1": "The corner $(0,5)$ also gives $20$, and so does every point between them.",
+        "3": "The maximum value is $20$, not $10$.",
+        "4": "$(10,0)$ gives the same value, so the optimum is not unique."
+      },
+      "objective": "Identify multiple optimal solutions"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The minimum value of $Z = 2x + 3y$ over the unbounded region $x + 2y \\ge 8,\\; 3x + y \\ge 9,\\; x \\ge 0,\\; y \\ge 0$ is",
+      "options": [
+        "13",
+        "16",
+        "27",
+        "11.2"
+      ],
+      "answer": 1,
+      "explanation": "The corners are $(0,9)$, $(2,3)$ and $(8,0)$ with $Z = 27, 13, 16$. Since $2x+3y = \\tfrac75(x+2y)+\\tfrac15(3x+y) \\ge \\tfrac{56}{5}+\\tfrac95 = 13$, the open half-plane $2x+3y<13$ misses the region, so $13$ is the minimum.",
+      "optionRationale": {
+        "2": "$16$ is $Z$ at the corner $(8,0)$, which is not the smallest corner value.",
+        "3": "$27$ is $Z$ at the corner $(0,9)$, the largest corner value.",
+        "4": "This is the value of $\\tfrac{7}{5}\\cdot 8$ alone; the other constraint adds $\\tfrac{9}{5}$."
+      },
+      "objective": "Apply the unbounded-region test for a minimum"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q16",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The minimum value of $Z = x + y$ over $x \\ge 0,\\; y \\ge 0,\\; x + 2y \\ge 6,\\; 2x + y \\ge 6$ is $4$.\nReason (R): The open half-plane $x + y < 4$ has no point in common with the feasible region.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The corners are $(0,6)$, $(2,2)$ and $(6,0)$ with $Z = 6, 4, 6$, so the candidate minimum is $4$. Adding the two constraints gives $3x + 3y \\ge 12$, so $x+y \\ge 4$ everywhere on the region. The half-plane $x+y<4$ is therefore disjoint from the region, which confirms the minimum.",
+      "optionRationale": {
+        "2": "The reason is exactly the test that proves the minimum, so it is the correct explanation.",
+        "3": "The reason is true, since adding the constraints forces $x+y \\ge 4$.",
+        "4": "The assertion is true: the corner $(2,2)$ gives $Z=4$ and the test succeeds."
+      },
+      "objective": "Verify a minimum on an unbounded region"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q17",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A manufacturer earns $Z = 4x + 5y$ rupees under the restrictions $2x + y \\le 10,\\; x + 3y \\le 15,\\; x \\ge 0,\\; y \\ge 0$. The greatest attainable value of $Z$ is",
+      "options": [
+        "25",
+        "20",
+        "32",
+        "36"
+      ],
+      "answer": 3,
+      "explanation": "The corners are $(0,0)$, $(5,0)$, $(0,5)$ and the meeting point of $2x+y=10$ and $x+3y=15$. From $y=10-2x$, $x + 30 - 6x = 15$ so $x=3$, $y=4$. The values are $0$, $20$, $25$ and $12+20 = 32$, so the maximum is $32$ at $(3,4)$.",
+      "optionRationale": {
+        "1": "$25$ is $Z$ at the corner $(0,5)$ only.",
+        "2": "$20$ is $Z$ at the corner $(5,0)$ only.",
+        "4": "No corner gives $36$; it would need larger values of $x$ and $y$ than the constraints allow."
+      },
+      "objective": "Solve a maximisation LPP with an interior vertex"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "The feasible region of an LPP is the triangle with vertices $(0,0)$, $(5,0)$ and $(0,5)$. For which positive value of $a$ is $Z = ax + 3y$ maximised at every point of the edge joining $(5,0)$ and $(0,5)$?",
+      "options": [
+        "3",
+        "5",
+        "15",
+        "1"
+      ],
+      "answer": 1,
+      "explanation": "$Z$ at $(5,0)$ is $5a$ and at $(0,5)$ is $15$. The whole edge $x+y=5$ is optimal only if both ends give the same value and exceed $Z$ at $(0,0)$, so $5a = 15$, giving $a = 3$. Then $Z = 3(x+y) = 15$ along the entire edge.",
+      "optionRationale": {
+        "2": "With $a=5$, $Z$ is $25$ at $(5,0)$ but $15$ at $(0,5)$, so the maximum is at one corner only.",
+        "3": "With $a=15$, $Z = 75$ at $(5,0)$ but only $15$ at $(0,5)$.",
+        "4": "With $a=1$, $Z$ is $5$ at $(5,0)$ and $15$ at $(0,5)$, so the maximum is at $(0,5)$ only."
+      },
+      "objective": "Choose a coefficient to create multiple optima"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q19",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about the unbounded feasible region of an LPP.\nA. The maximum or the minimum of the objective function may fail to exist.\nB. If $M$ is the smallest corner value of $Z=ax+by$, then $M$ is the minimum if the open half-plane $ax+by<M$ has no point common with the region.\nC. An unbounded region has no corner points, so the corner point method cannot be used.\nD. An unbounded region always gives the minimum at its corner point with the smallest $Z$.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "B and D only",
+        "A and D only",
+        "A and B only"
+      ],
+      "answer": 4,
+      "explanation": "For an unbounded region the extreme value may not exist, and the corner value $M$ is accepted only if the open half-plane test passes (A and B). Unbounded regions can have corner points (C is false), and the smallest corner value is not automatically the minimum (D is false).",
+      "optionRationale": {
+        "1": "Statement C is false: an unbounded region can have corner points, and the corner values still supply the candidate $M$.",
+        "2": "D is false, because the half-plane test can fail, and A is also true.",
+        "3": "D is false and B is also correct, so this is wrong."
+      },
+      "objective": "State the corner point theorem for unbounded regions"
+    },
+    {
+      "key": "ug26-319-r10-linear-programming-q20",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Match each situation in List-I with the conclusion in List-II.",
+      "options": [
+        "A-II, B-I, C-III, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-I, B-II, C-IV, D-III",
+        "A-I, B-III, C-II, D-IV"
+      ],
+      "answer": 2,
+      "explanation": "An empty region means no feasible solution (A-I). A bounded region guarantees both extremes (B-II). A tie between adjacent corners makes the whole segment optimal (C-III). When the open half-plane test fails on an unbounded region, $Z$ has no maximum (D-IV).",
+      "optionRationale": {
+        "1": "This swaps the empty region with the bounded region.",
+        "3": "A tie between adjacent corners gives many optima, not an absent maximum.",
+        "4": "Bounded regions guarantee both extremes; infinitely many optima need a tie, not boundedness."
+      },
+      "objective": "Connect region type with the nature of the optimum",
+      "list": {
+        "left": [
+          "A. The feasible region is empty",
+          "B. The feasible region is bounded",
+          "C. Two adjacent corner points give the same best value of Z",
+          "D. The region is unbounded and the open half-plane test fails for a maximum"
+        ],
+        "right": [
+          "I. The LPP is infeasible",
+          "II. Both a maximum and a minimum exist",
+          "III. There are infinitely many optimal solutions",
+          "IV. The objective function has no maximum"
+        ]
+      }
+    }
+  ]
+}

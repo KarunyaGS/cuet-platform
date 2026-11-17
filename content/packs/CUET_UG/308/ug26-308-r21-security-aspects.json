@@ -1,0 +1,732 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "308",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_a3a2ae6139ed4739934d2bafe6ed23b4",
+  "title": "Security Aspects"
+ },
+ "lesson": {
+  "key": "ug26-308-r21-security-aspects",
+  "title": "Security Aspects: malware, firewalls, secure browsing and network threats",
+  "coverage": [
+   {
+    "phrase": "Security Aspects",
+    "section": "Malware: viruses, worms, Trojan horses, spam and adware"
+   },
+   {
+    "phrase": "Threats and prevention: Viruses, Worms, Trojan horse, Spam, Adware",
+    "section": "Malware: viruses, worms, Trojan horses, spam and adware"
+   },
+   {
+    "phrase": "Cookies",
+    "section": "Cookies, firewalls and HTTP versus HTTPS"
+   },
+   {
+    "phrase": "Firewall",
+    "section": "Cookies, firewalls and HTTP versus HTTPS"
+   },
+   {
+    "phrase": "http vs https",
+    "section": "Cookies, firewalls and HTTP versus HTTPS"
+   },
+   {
+    "phrase": "Network Security Concepts",
+    "section": "Cookies, firewalls and HTTP versus HTTPS"
+   },
+   {
+    "phrase": "Hackers and Crackers",
+    "section": "Hackers and crackers"
+   },
+   {
+    "phrase": "Antivirus and their workings",
+    "section": "Antivirus software and how it works"
+   },
+   {
+    "phrase": "Network security threats: Denial of service, Intrusion problems, Snooping, Eavesdropping",
+    "section": "Network security threats"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Malware: viruses, worms, Trojan horses, spam and adware"
+   },
+   {
+    "type": "TEXT",
+    "text": "Computer security means protecting the hardware, software, data and network of a computer system from damage, theft, misuse and unauthorised access. A threat is anything that can harm the system, and a **malware** (malicious software) is a program written to damage a computer, steal data or annoy the user. The common kinds of threat are described below."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Virus",
+    "text": "A malicious program that attaches itself to a host file or program (such as a document, an executable or the boot sector). It runs only when the infected host is run or opened, and then copies itself into other files. It spreads when infected files are copied, shared by pen drive or sent as e-mail attachments."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Worm",
+    "text": "A standalone malicious program that replicates itself and spreads through a network, using security holes, e-mail or shared folders, without needing a host file or any action by the user. Worms consume bandwidth and memory and can slow or crash networks."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Trojan horse",
+    "text": "A program that appears useful or harmless (a free game, a crack tool, a fake update) but secretly carries out harmful actions such as opening a back door, stealing passwords or installing other malware. It does not copy itself into other files."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Virus, worm and Trojan horse compared",
+    "columns": [
+     "Point",
+     "Virus",
+     "Worm",
+     "Trojan horse"
+    ],
+    "rows": [
+     [
+      "Needs a host file",
+      "Yes, attaches to a program or file",
+      "No, independent program",
+      "No, looks like a genuine program"
+     ],
+     [
+      "Self replication",
+      "Yes, after the host is run",
+      "Yes, on its own and fast",
+      "No"
+     ],
+     [
+      "How it spreads",
+      "Infected files, pen drives, attachments",
+      "Networks, e-mail, shared folders",
+      "User is tricked into installing it"
+     ],
+     [
+      "User action needed",
+      "Yes, must run or open the host",
+      "Often none",
+      "Yes, user must install it"
+     ],
+     [
+      "Main damage",
+      "Corrupts or deletes files, slows the system",
+      "Uses up bandwidth and resources; can carry other malware",
+      "Steals data or gives remote control to the attacker"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "**Spam** is unwanted, unsolicited bulk e-mail (or messages) sent to many people, usually for advertising but sometimes carrying phishing links or malware. It clogs mail boxes and wastes time and network capacity. A spam filter and not replying to or clicking on such mails are the usual defences."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Adware** is software that displays unwanted advertisements, such as pop-ups and banners, often installed along with free programs. Some adware also tracks browsing habits to target the advertisements. When it collects personal information secretly, it is also called spyware."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "A virus needs a host and a user action; a worm does not. A Trojan horse does not replicate. These three points are asked in almost every examination."
+   },
+   {
+    "type": "HEADING",
+    "text": "Cookies, firewalls and HTTP versus HTTPS"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Cookie",
+    "text": "A small text file that a website asks the browser to store on the user's computer. It holds information such as login status, language preference or items in a shopping cart, and is sent back to the site on the next visit so the site can recognise the user."
+   },
+   {
+    "type": "TEXT",
+    "text": "A cookie is **not a virus**: it cannot run, spread or damage the computer. But cookies can be used to track the pages a person visits (tracking or third party cookies), so there is a privacy concern. A user can delete cookies, block them or browse in private mode."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Firewall",
+    "text": "A hardware device or software (or both) that monitors the incoming and outgoing network traffic and allows or blocks it according to a set of security rules. It stands between a trusted internal network and an untrusted network such as the Internet and prevents unauthorised access."
+   },
+   {
+    "type": "TEXT",
+    "text": "A firewall can filter packets by IP address, port number or protocol. It protects against unauthorised access and some attacks, but it cannot remove a virus already inside a file you have downloaded, and it cannot protect against careless users. It is therefore used together with antivirus software."
+   },
+   {
+    "type": "TEXT",
+    "text": "**HTTP versus HTTPS.** HTTP (HyperText Transfer Protocol) sends data in plain text, so someone watching the network can read the passwords and card numbers typed on a page. HTTPS (HTTP Secure) is HTTP running over an encrypted connection protected by SSL/TLS and a digital certificate that proves the identity of the site."
+   },
+   {
+    "type": "TABLE",
+    "caption": "HTTP compared with HTTPS",
+    "columns": [
+     "Point",
+     "HTTP",
+     "HTTPS"
+    ],
+    "rows": [
+     [
+      "Full form",
+      "HyperText Transfer Protocol",
+      "HyperText Transfer Protocol Secure"
+     ],
+     [
+      "Data sent",
+      "In plain text, readable by eavesdroppers",
+      "Encrypted using SSL/TLS"
+     ],
+     [
+      "Default port",
+      "80",
+      "443"
+     ],
+     [
+      "Address begins",
+      "http://",
+      "https:// with a padlock in the browser"
+     ],
+     [
+      "Certificate",
+      "Not needed",
+      "Needs a digital certificate from a certification authority"
+     ],
+     [
+      "Use",
+      "Ordinary, non-sensitive pages",
+      "Banking, shopping, login pages"
+     ]
+    ]
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "A firewall controls traffic, an antivirus removes malware, HTTPS encrypts data in transit and cookies are only text files. Each tool does a different job."
+   },
+   {
+    "type": "HEADING",
+    "text": "Hackers and crackers"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **hacker** is a person who has deep knowledge of computers and networks and explores systems to find how they work and where they are weak. An **ethical hacker** (white hat) is hired with permission to test the security of a system and report its weaknesses so that they can be fixed."
+   },
+   {
+    "type": "TEXT",
+    "text": "A **cracker** (black hat hacker) breaks into computers and networks without permission, with a harmful or criminal purpose: to steal data, spread malware, damage services or earn money illegally. Breaking the licence protection of software is also called cracking."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Hacker and cracker",
+    "columns": [
+     "Point",
+     "Hacker (ethical)",
+     "Cracker"
+    ],
+    "rows": [
+     [
+      "Intent",
+      "To find and fix weaknesses",
+      "To exploit weaknesses for harm or gain"
+     ],
+     [
+      "Permission",
+      "Works with the owner's permission",
+      "Works without permission, illegally"
+     ],
+     [
+      "Result",
+      "Improves security",
+      "Damages, steals or disrupts"
+     ]
+    ]
+   },
+   {
+    "type": "CALLOUT",
+    "text": "In everyday news the word hacker is used for criminals too, but in the syllabus the harmful person is the cracker."
+   },
+   {
+    "type": "HEADING",
+    "text": "Antivirus software and how it works"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Antivirus software** is a program that detects, blocks and removes malware from a computer. It works in these ways."
+   },
+   {
+    "type": "TEXT",
+    "text": "1. **Signature based scanning.** The antivirus has a database of the code patterns (signatures) of known malware. It scans files, memory and e-mail attachments and compares them with these signatures.\n2. **Heuristic (behaviour) analysis.** It watches what a program does, such as changing system files or copying itself in large numbers, and flags suspicious behaviour even if no signature exists yet. This helps to catch new malware.\n3. **Real time (on access) protection.** Files are scanned automatically whenever they are opened, downloaded or copied. A full scan of the whole disk can also be scheduled.\n4. **Action on a detected threat.** The file is cleaned (the malicious code is removed), moved to a **quarantine** area where it cannot run, or deleted.\n5. **Updates.** New malware appears every day, so the signature database must be updated regularly. An antivirus that is not updated cannot detect recent threats."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Antivirus detection relies on virus signatures and behaviour analysis. Regular updates of the virus definitions are essential. Examples of such products are Quick Heal, Norton, McAfee and Windows Defender."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "An antivirus cannot give full protection: it may miss brand new malware, and it does nothing against a user who gives away a password. Use it together with a firewall and safe habits."
+   },
+   {
+    "type": "HEADING",
+    "text": "Network security threats"
+   },
+   {
+    "type": "TEXT",
+    "text": "Besides malware, a network faces several attacks on its availability, privacy and integrity."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Network security threats",
+    "columns": [
+     "Threat",
+     "Meaning",
+     "Example",
+     "Defence"
+    ],
+    "rows": [
+     [
+      "Denial of Service (DoS)",
+      "An attacker floods a server or network with so many useless requests that genuine users cannot use the service. When the flood comes from many computers (often an infected botnet) it is a Distributed DoS (DDoS)",
+      "A website that is made unreachable on the day of an online admission",
+      "Firewalls and filtering, rate limiting, extra capacity"
+     ],
+     [
+      "Intrusion",
+      "Gaining unauthorised entry to a computer or network, for instance by guessing passwords or using a software flaw, and then misusing it",
+      "A cracker logs in to a school server with a stolen password",
+      "Strong passwords, firewall, intrusion detection, updates"
+     ],
+     [
+      "Snooping",
+      "Unauthorised access to another person's data or activity, such as looking over a shoulder, reading files left open or tracking what is typed",
+      "Someone reading another person's unlocked e-mail",
+      "Screen lock, access rights, encryption of files"
+     ],
+     [
+      "Eavesdropping",
+      "Secretly listening to or capturing private communication while it moves across a network, with packet sniffing tools or wireless monitoring",
+      "Capturing passwords sent over an open public Wi-Fi network",
+      "Encryption such as HTTPS and VPN; avoid open Wi-Fi for sensitive work"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Snooping and eavesdropping both give the attacker information without the owner knowing. The difference is that snooping is access to stored data or to the user's activity, whereas eavesdropping is capture of data while it is in transit over the network. Denial of service does not steal data at all; it spoils **availability**."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A hacker sends a flood of 50 000 fake requests per second from thousands of infected computers to the web server of a college, so that students cannot open the admission page. Name the attack and the property of security that is lost.",
+    "solution": "The attack aims to make a service unavailable by overloading it with requests, so it is Denial of Service. Because the requests come from many machines, it is a Distributed Denial of Service (DDoS). The property lost is availability: no data is stolen or changed, but genuine users cannot use the service.",
+    "answer": "Distributed Denial of Service; availability is lost."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Anita uses an open Wi-Fi at a cafe to log in to a site that begins with http://. Another customer captures her password with a sniffing tool. Name the threat and give two ways to prevent it.",
+    "solution": "Capturing private data while it moves over a network is eavesdropping. Because HTTP sends data in plain text, the sniffer can read it. Prevention: (1) use only HTTPS sites, which encrypt the data with SSL/TLS, and (2) avoid open Wi-Fi for sensitive logins or use a VPN.",
+    "answer": "Eavesdropping; use HTTPS and avoid open Wi-Fi or use a VPN."
+   },
+   {
+    "type": "HEADING",
+    "text": "Staying safe: prevention checklist"
+   },
+   {
+    "type": "TEXT",
+    "text": "- Install a trusted antivirus and keep it and the operating system updated.\n- Keep the firewall switched on.\n- Do not open attachments or click on links in mail from unknown senders; do not reply to spam.\n- Download software only from trusted sources and avoid pirated software, which often carries Trojans.\n- Use strong, different passwords and a screen lock.\n- Look for https:// and the padlock before entering any private data.\n- Take regular backups so that data can be restored after an attack.\n- Delete cookies and use private browsing on shared computers."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Virus needs host, worm spreads alone, Trojan pretends to be useful. Firewall filters traffic. HTTPS = HTTP + SSL/TLS. DoS hits availability, eavesdropping captures data in transit, snooping is unauthorised looking at data or activity."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-308-r21-security-aspects-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which malicious program needs to attach itself to a host file and runs only when that file is executed or opened?",
+   "options": [
+    "Worm",
+    "Virus",
+    "Spam",
+    "Firewall"
+   ],
+   "answer": 2,
+   "explanation": "A computer virus inserts its code into a host program or document and becomes active only when the host is run. A worm is independent and spreads by itself, spam is unwanted mail, and a firewall is a protective tool and not a malicious program.",
+   "optionRationale": {
+    "1": "A worm is a standalone program that needs no host.",
+    "3": "Spam is unsolicited bulk mail and not an executable that infects files.",
+    "4": "A firewall is a security tool that filters traffic."
+   },
+   "objective": "Define a computer virus"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A malicious program that spreads across a network by copying itself, without attaching to any file or needing the user to do anything, is a",
+   "options": [
+    "virus",
+    "cookie",
+    "Trojan horse",
+    "worm"
+   ],
+   "answer": 4,
+   "explanation": "A worm is a self-contained program that replicates and travels through networks, using weaknesses in software or mail systems. Unlike a virus it needs no host file. A cookie is a harmless text file and a Trojan horse does not self-replicate.",
+   "optionRationale": {
+    "1": "A virus attaches to a host file and needs it to be run.",
+    "2": "A cookie is a small text file stored by the browser.",
+    "3": "A Trojan horse does not replicate by itself."
+   },
+   "objective": "Identify a worm"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "A student downloads a free game from an unknown website. While the game works, it secretly records the keystrokes and sends the passwords to the owner of the site. This program is a",
+   "options": [
+    "Trojan horse",
+    "worm",
+    "cookie",
+    "firewall"
+   ],
+   "answer": 1,
+   "explanation": "A Trojan horse looks like useful software but contains hidden harmful functions, here a keystroke logger. It does not copy itself to other files or computers. A cookie is a text file and cannot capture keystrokes, and a firewall is a defence tool.",
+   "optionRationale": {
+    "2": "A worm replicates itself across a network and is not disguised as a game.",
+    "3": "Cookies are text files; they cannot record keystrokes.",
+    "4": "A firewall is a protective system, not an attacker."
+   },
+   "objective": "Apply the idea of a Trojan horse"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q04",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match the item in List-I with its description in List-II.",
+   "list": {
+    "left": [
+     "A. Spam",
+     "B. Adware",
+     "C. Cookie",
+     "D. Firewall"
+    ],
+    "right": [
+     "I. Software that shows unwanted advertisements",
+     "II. A system that filters network traffic by rules",
+     "III. Unwanted bulk e-mail",
+     "IV. A small text file stored by the browser for a website"
+    ]
+   },
+   "options": [
+    "A-III, B-I, C-IV, D-II",
+    "A-I, B-III, C-IV, D-II",
+    "A-III, B-I, C-II, D-IV",
+    "A-IV, B-I, C-III, D-II"
+   ],
+   "answer": 1,
+   "explanation": "Spam is unsolicited bulk mail (A-III). Adware displays unwanted advertisements (B-I). A cookie is a small text file stored by the browser for a site (C-IV). A firewall filters incoming and outgoing traffic according to security rules (D-II).",
+   "optionRationale": {
+    "2": "This swaps spam and adware.",
+    "3": "This swaps cookie and firewall.",
+    "4": "This gives spam the cookie description."
+   },
+   "objective": "Match security terms with their meanings"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q05",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about cookies.\nA. A cookie is a small text file stored on the user's computer by the browser at the request of a website.\nB. A cookie is a virus that infects executable files.\nC. Cookies can be used to remember login details and preferences.\nD. Cookies can be deleted by the user from the browser settings.\nWhich statements are correct?",
+   "options": [
+    "A and B only",
+    "B, C and D only",
+    "A, B and D only",
+    "A, C and D only"
+   ],
+   "answer": 4,
+   "explanation": "A cookie is a text file stored by the browser for a website, used to remember a user's login state or settings (A and C), and the user can delete cookies in the browser settings (D). It is not an executable virus, so B is false.",
+   "optionRationale": {
+    "1": "B is false: cookies do not infect files.",
+    "2": "B is false, and it cannot be part of a correct list.",
+    "3": "B is false, and C is also correct, so this list is wrong."
+   },
+   "objective": "Evaluate statements about cookies"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "A firewall is mainly used to",
+   "options": [
+    "remove viruses stored on the hard disk",
+    "increase the bandwidth of the Internet connection",
+    "monitor and filter incoming and outgoing network traffic using security rules",
+    "convert domain names to IP addresses"
+   ],
+   "answer": 3,
+   "explanation": "A firewall sits between a trusted network and an untrusted one and permits or blocks traffic according to rules based on addresses, ports and protocols. Removing viruses is the job of an antivirus, bandwidth is not changed by a firewall, and name resolution belongs to DNS.",
+   "optionRationale": {
+    "1": "Removing viruses from a disk is done by antivirus software.",
+    "2": "A firewall does not increase speed; it can only block or allow traffic.",
+    "4": "Name to address conversion is done by DNS."
+   },
+   "objective": "State the function of a firewall"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which of the following is the main difference between HTTP and HTTPS?",
+   "options": [
+    "HTTPS is used only for e-mail while HTTP is used for web pages",
+    "HTTPS encrypts the data using SSL/TLS while HTTP sends it in plain text",
+    "HTTP is faster because it uses port 443",
+    "HTTPS needs no server and works only on the client"
+   ],
+   "answer": 2,
+   "explanation": "HTTPS is HTTP carried over an SSL/TLS encrypted connection and uses a digital certificate, so passwords and other data cannot be read by eavesdroppers. HTTP transfers the same data unencrypted. HTTPS uses port 443 and HTTP port 80, and both are web protocols.",
+   "optionRationale": {
+    "1": "Both are web protocols; e-mail uses SMTP, POP3 and IMAP.",
+    "3": "Port 443 belongs to HTTPS and HTTP uses port 80.",
+    "4": "HTTPS also uses a server, which holds the certificate."
+   },
+   "objective": "Differentiate HTTP from HTTPS"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "A person who is hired with the permission of an organisation to test its network for weaknesses, so that they can be fixed, is called a(n)",
+   "options": [
+    "cracker",
+    "intruder",
+    "spammer",
+    "ethical hacker"
+   ],
+   "answer": 4,
+   "explanation": "An ethical (white hat) hacker works legally with the owner's permission to find and report weaknesses. A cracker breaks into systems illegally with harmful intent, a spammer sends unwanted mails and an intruder gains unauthorised access.",
+   "optionRationale": {
+    "1": "A cracker acts without permission and with harmful intent.",
+    "2": "An intruder enters a system without authority.",
+    "3": "A spammer sends unsolicited bulk mails."
+   },
+   "objective": "Distinguish ethical hackers from crackers"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Which of the following is a technique used by an antivirus program to detect known malware?",
+   "options": [
+    "Comparing the code of files with a database of virus signatures",
+    "Encrypting all the files on the disk by default",
+    "Blocking all e-mail attachments permanently",
+    "Increasing the speed of the processor"
+   ],
+   "answer": 1,
+   "explanation": "Signature scanning compares files with a database of known malware code patterns. Hence virus definitions need regular updating. An antivirus does not change processor speed, does not encrypt every file by default and does not permanently block attachments.",
+   "optionRationale": {
+    "2": "Encryption of all files is not how detection works.",
+    "3": "Blocking all attachments is not a normal antivirus method.",
+    "4": "Speeding up the processor is not a detection method."
+   },
+   "objective": "Recall signature based detection"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "A user has an antivirus installed, but it was not updated for two years. Why is the computer still at high risk?",
+   "options": [
+    "The firewall is automatically switched off when the antivirus is old",
+    "An antivirus stops working completely after one year",
+    "The signature database does not contain recently created malware, so such programs may not be detected",
+    "Old antivirus software converts all files into viruses"
+   ],
+   "answer": 3,
+   "explanation": "New malware appears daily and an antivirus recognises known threats from its signature database, so without updates it cannot recognise newer threats, although heuristic checks may catch some. The other options are not how antivirus works.",
+   "optionRationale": {
+    "1": "There is no link between an old antivirus and the firewall settings.",
+    "2": "Antivirus keeps scanning; its weakness is old definitions.",
+    "4": "Antivirus does not create viruses."
+   },
+   "objective": "Explain the need for regular antivirus updates"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q11",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "A group of infected computers sends thousands of requests every second to a bank website, which becomes unavailable to genuine customers. Which security property is mainly affected, and what is the attack called?",
+   "options": [
+    "Confidentiality; eavesdropping",
+    "Availability; Distributed Denial of Service",
+    "Integrity; snooping",
+    "Authentication; intrusion"
+   ],
+   "answer": 2,
+   "explanation": "Flooding a server with requests so that real users cannot use it is a Denial of Service attack, and since it comes from many computers it is a Distributed DoS. The service is not available, so availability is affected. No data is read or changed in the attack.",
+   "optionRationale": {
+    "1": "Eavesdropping affects confidentiality by capturing data and is not about overloading.",
+    "3": "Snooping is access to someone's data, not flooding a server.",
+    "4": "Intrusion is unauthorised entry; the flood does not need entry into the system."
+   },
+   "objective": "Identify DoS and the property affected"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Rohan's password is captured by a person using a software tool while Rohan logs in on a public Wi-Fi network to a site that uses plain HTTP. This is an example of",
+   "options": [
+    "denial of service",
+    "a worm attack",
+    "spamming",
+    "eavesdropping"
+   ],
+   "answer": 4,
+   "explanation": "Capturing private data while it travels across a network is eavesdropping. Because HTTP is not encrypted, the sniffing tool can read the password. A DoS attack overloads a service, a worm is a self-replicating program and spamming is the sending of unwanted mail.",
+   "optionRationale": {
+    "1": "A DoS attack makes a service unavailable; it does not capture passwords.",
+    "2": "A worm replicates through the network and is not a sniffing action.",
+    "3": "Spam is unwanted bulk mail."
+   },
+   "objective": "Recognise eavesdropping in a scenario"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q13",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Which statement correctly separates snooping from eavesdropping?",
+   "options": [
+    "Snooping is unauthorised access to someone's stored data or activity, whereas eavesdropping captures data while it is moving across the network",
+    "Snooping needs a firewall and eavesdropping needs an antivirus",
+    "Snooping is a physical attack on cables and eavesdropping is a software virus",
+    "Snooping is a type of spam and eavesdropping is a type of cookie"
+   ],
+   "answer": 1,
+   "explanation": "Both give the attacker unauthorised information, but snooping means looking at the data or activity of another person, such as reading open files or watching a screen. Eavesdropping is the interception of communication as it passes over a network, for example by packet sniffing.",
+   "optionRationale": {
+    "2": "Firewalls and antivirus are defences, not parts of the attack.",
+    "3": "Eavesdropping is not a virus, and snooping is not only physical.",
+    "4": "Spam and cookies have nothing to do with these attacks."
+   },
+   "objective": "Differentiate snooping and eavesdropping"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q14",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A computer worm can spread from one computer to another without any action from the user.\nReason (R): A worm is an independent program that does not need a host file and replicates itself over a network.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "A worm is a standalone program that can copy itself over network links using security holes or mail systems. Since it does not need a host file that the user must open, it spreads without user action. The reason therefore explains the assertion.",
+   "optionRationale": {
+    "2": "Both are true and the reason explains the assertion.",
+    "3": "The reason is true.",
+    "4": "The assertion is true: worms spread by themselves."
+   },
+   "objective": "Explain automatic spread of worms"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q15",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): A Trojan horse is not a virus even though both are malware.\nReason (R): A Trojan horse tricks the user into installing it and does not replicate by itself, while a virus copies itself into other files.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Both are malware, but they differ in behaviour. A Trojan horse depends on deception and does not reproduce, while a virus attaches to files and replicates. So the reason correctly states the difference that makes the assertion true.",
+   "optionRationale": {
+    "2": "The reason supplies the exact difference.",
+    "3": "The reason is true.",
+    "4": "The assertion is true: the two are different types of malware."
+   },
+   "objective": "Distinguish a Trojan horse from a virus"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q16",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Assertion (A): Installing a firewall alone is enough to protect a computer from all malware.\nReason (R): A firewall filters network traffic using rules, but it cannot clean infected files that are already stored on the disk.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "A firewall only allows or blocks traffic according to rules. It cannot disinfect files already on the disk, and malware can also arrive through a pen drive or through traffic that the rules allow. So the assertion is false, while the reason correctly states a limit of firewalls and is true.",
+   "optionRationale": {
+    "1": "The assertion is false, so it cannot be true with a correct explanation.",
+    "2": "The assertion is false, so this option cannot hold.",
+    "3": "The reason is true, not false; cleaning files is the work of antivirus."
+   },
+   "objective": "Recognise the limits of a firewall"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q17",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Which of the following is the default port number used for secure web browsing with HTTPS?",
+   "options": [
+    "80",
+    "21",
+    "443",
+    "25"
+   ],
+   "answer": 3,
+   "explanation": "HTTPS uses TCP port 443 by default, while ordinary HTTP uses port 80. Port 21 is the control port of FTP and port 25 is used by SMTP for mail transfer.",
+   "optionRationale": {
+    "1": "Port 80 is used by HTTP.",
+    "2": "Port 21 is used by FTP.",
+    "4": "Port 25 is used by SMTP."
+   },
+   "objective": "Recall the default port of HTTPS"
+  },
+  {
+   "key": "ug26-308-r21-security-aspects-q18",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Consider the following statements about network security.\nA. A DDoS attack mainly harms the availability of a service.\nB. Adware may display unwanted advertisements and track browsing habits.\nC. A firewall can clean a virus from an infected file.\nD. A cracker breaks into a system illegally.\nWhich statements are correct?",
+   "options": [
+    "A and C only",
+    "B, C and D only",
+    "A, B and D only",
+    "A, B and C only"
+   ],
+   "answer": 3,
+   "explanation": "A DDoS attack overloads a service and so reduces its availability (A). Adware shows advertisements and sometimes tracks browsing (B). A cracker enters systems without permission (D). A firewall only filters traffic and does not disinfect files, so C is false.",
+   "optionRationale": {
+    "1": "C is false because a firewall cannot clean a file.",
+    "2": "C is false; antivirus cleans, firewalls filter.",
+    "4": "C is false, so this list is incorrect."
+   },
+   "objective": "Evaluate mixed statements on threats and protection"
+  }
+ ]
+}

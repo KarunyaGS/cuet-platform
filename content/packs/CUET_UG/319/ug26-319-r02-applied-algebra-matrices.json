@@ -1,0 +1,859 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "319",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_9ee29dd188984a3892c8912893155094",
+    "title": "ALGEBRA"
+  },
+  "lesson": {
+    "key": "ug26-319-r02-applied-algebra-matrices",
+    "title": "Applied Algebra: matrices, determinants, inverse and systems of equations",
+    "coverage": [
+      {
+        "phrase": "Matrices and types of matrices",
+        "section": "Matrices and their kinds"
+      },
+      {
+        "phrase": "Define matrix",
+        "section": "Matrices and their kinds"
+      },
+      {
+        "phrase": "Identify different kinds of matrices",
+        "section": "Matrices and their kinds"
+      },
+      {
+        "phrase": "Equality of matrices",
+        "section": "Equality, transpose, symmetric and skew-symmetric matrices"
+      },
+      {
+        "phrase": "Transpose of a matrix",
+        "section": "Equality, transpose, symmetric and skew-symmetric matrices"
+      },
+      {
+        "phrase": "Symmetric and Skew symmetric matrix",
+        "section": "Equality, transpose, symmetric and skew-symmetric matrices"
+      },
+      {
+        "phrase": "Algebra of Matrices",
+        "section": "Algebra of matrices"
+      },
+      {
+        "phrase": "addition & subtraction on matrices of same order",
+        "section": "Algebra of matrices"
+      },
+      {
+        "phrase": "multiplication of two matrices of appropriate order",
+        "section": "Algebra of matrices"
+      },
+      {
+        "phrase": "multiplication of a scalar with matrix",
+        "section": "Algebra of matrices"
+      },
+      {
+        "phrase": "Determinant of Matrices",
+        "section": "Determinants and their properties"
+      },
+      {
+        "phrase": "elementary properties of determinants",
+        "section": "Determinants and their properties"
+      },
+      {
+        "phrase": "Singular matrix, Non-singular matrix",
+        "section": "Determinants and their properties"
+      },
+      {
+        "phrase": "|AB|=|A||B|",
+        "section": "Determinants and their properties"
+      },
+      {
+        "phrase": "Inverse of a Matrix",
+        "section": "Inverse of a matrix"
+      },
+      {
+        "phrase": "inverse using cofactors",
+        "section": "Inverse of a matrix"
+      },
+      {
+        "phrase": "(AB)⁻¹=B⁻¹ A⁻¹",
+        "section": "Inverse of a matrix"
+      },
+      {
+        "phrase": "(A⁻¹)⁻¹ =A",
+        "section": "Inverse of a matrix"
+      },
+      {
+        "phrase": "(Aᵀ)⁻¹ = (A⁻¹)ᵀ",
+        "section": "Inverse of a matrix"
+      },
+      {
+        "phrase": "Solving system of simultaneous equations",
+        "section": "Solving simultaneous equations by the matrix method"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Matrices and their kinds"
+      },
+      {
+        "type": "TEXT",
+        "text": "Applied Mathematics uses matrices to organise business data: sales of several products in several shops, costs per unit, or the coefficients of equations. A **matrix** is a rectangular array of numbers in $m$ rows and $n$ columns. Its **order** is $m\\times n$, it has $mn$ elements, and the element in row $i$, column $j$ is $a_{ij}$. A $4\\times5$ matrix therefore has $20$ elements."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Matrix",
+        "text": "A rectangular array of numbers arranged in rows (horizontal) and columns (vertical), written in brackets. Two matrices have the same order if they have the same number of rows and the same number of columns."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Kinds of matrices",
+        "columns": [
+          "Kind",
+          "Description",
+          "Example"
+        ],
+        "rows": [
+          [
+            "Row matrix",
+            "One row, order $1\\times n$",
+            "$[\\,2\\ \\ 5\\ \\ 7\\,]$"
+          ],
+          [
+            "Column matrix",
+            "One column, order $m\\times1$",
+            "$\\begin{bmatrix}3\\\\8\\end{bmatrix}$"
+          ],
+          [
+            "Rectangular matrix",
+            "Rows and columns differ",
+            "$\\begin{bmatrix}1&2&3\\\\4&5&6\\end{bmatrix}$"
+          ],
+          [
+            "Square matrix",
+            "Equal rows and columns",
+            "$\\begin{bmatrix}2&1\\\\0&3\\end{bmatrix}$"
+          ],
+          [
+            "Zero matrix",
+            "All entries 0",
+            "$\\begin{bmatrix}0&0\\\\0&0\\end{bmatrix}$"
+          ],
+          [
+            "Diagonal matrix",
+            "Square; entries outside the main diagonal are 0",
+            "$\\begin{bmatrix}4&0\\\\0&9\\end{bmatrix}$"
+          ],
+          [
+            "Scalar matrix",
+            "Diagonal with equal diagonal entries",
+            "$\\begin{bmatrix}6&0\\\\0&6\\end{bmatrix}$"
+          ],
+          [
+            "Identity matrix",
+            "Scalar matrix with entries 1 on the diagonal",
+            "$I_2=\\begin{bmatrix}1&0\\\\0&1\\end{bmatrix}$"
+          ]
+        ]
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "A rule such as $a_{ij}=i\\cdot j$ for a $2\\times2$ matrix gives $\\begin{bmatrix}1&2\\\\2&4\\end{bmatrix}$. Note that $a_{12}=a_{21}$ here, which will matter when we meet symmetric matrices."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "A row matrix is $1\\times n$; a column matrix is $m\\times1$. The order is always written rows $\\times$ columns."
+      },
+      {
+        "type": "HEADING",
+        "text": "Equality, transpose, symmetric and skew-symmetric matrices"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Equal matrices",
+        "text": "$A=B$ when both have the same order and every pair of corresponding elements is equal. Each pair of corresponding elements gives one equation."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $x+y+z$ if $\\begin{bmatrix}x+2&3y\\\\4&z-1\\end{bmatrix}=\\begin{bmatrix}5&12\\\\4&7\\end{bmatrix}$.",
+        "solution": "Equate corresponding elements: $x+2=5\\Rightarrow x=3$; $3y=12\\Rightarrow y=4$; $z-1=7\\Rightarrow z=8$. The $(2,1)$ entries are both 4, which is consistent.\n\nSo $x+y+z=3+4+8=15$.",
+        "answer": "$15$"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Transpose of a matrix",
+        "text": "If $A$ is $m\\times n$, its transpose $A^T$ is the $n\\times m$ matrix obtained by writing the rows of $A$ as columns. The element $a_{ij}$ moves to position $(j,i)$."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "(A^T)^T=A,\\quad (A\\pm B)^T=A^T\\pm B^T,\\quad (AB)^T=B^TA^T",
+        "text": "The orders must allow the sum or product. In the product rule the factors are written in the reverse order."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Symmetric and skew-symmetric matrices",
+        "text": "A square matrix $A$ is **symmetric** when $A^T=A$ ($a_{ij}=a_{ji}$) and **skew-symmetric** when $A^T=-A$ ($a_{ij}=-a_{ji}$, which forces zeros on the main diagonal)."
+      },
+      {
+        "type": "CONCEPT",
+        "text": "For any square matrix $A$: $A+A^T$ is symmetric and $A-A^T$ is skew-symmetric. So $A=\\tfrac12(A+A^T)+\\tfrac12(A-A^T)$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $a$ and $b$ if $\\begin{bmatrix}0&a&-3\\\\-2&0&b\\\\3&-5&0\\end{bmatrix}$ is skew-symmetric.",
+        "solution": "Skew-symmetry needs $a_{ij}=-a_{ji}$.\n\n$a_{12}=a=-a_{21}=-(-2)=2$.\n\n$a_{23}=b=-a_{32}=-(-5)=5$.\n\nCheck $a_{13}=-3=-a_{31}=-3$: true, and the diagonal is zero.",
+        "answer": "$a=2,\\ b=5$"
+      },
+      {
+        "type": "HEADING",
+        "text": "Algebra of matrices"
+      },
+      {
+        "type": "TEXT",
+        "text": "**Addition and subtraction** are possible only for matrices of the same order and are done element by element. **Scalar multiplication** multiplies every element by the scalar. For example, with $A=\\begin{bmatrix}1&0\\\\2&-1\\end{bmatrix}$ and $B=\\begin{bmatrix}0&1\\\\-1&2\\end{bmatrix}$, $2A-3B=\\begin{bmatrix}2&0\\\\4&-2\\end{bmatrix}-\\begin{bmatrix}0&3\\\\-3&6\\end{bmatrix}=\\begin{bmatrix}2&-3\\\\7&-8\\end{bmatrix}$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Product of two matrices",
+        "text": "If $A$ is $m\\times n$ and $B$ is $n\\times p$ then $AB$ is $m\\times p$; its element in row $i$, column $k$ is the sum of products of row $i$ of $A$ with column $k$ of $B$. $AB$ is defined only if the columns of $A$ equal the rows of $B$."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "Sales (kg) of rice and wheat in two shops: $S=\\begin{bmatrix}10&20\\\\15&5\\end{bmatrix}$ (rows: shop A, shop B). Prices in rupees per kg: $P=\\begin{bmatrix}40\\\\30\\end{bmatrix}$. Then $SP=\\begin{bmatrix}10\\cdot40+20\\cdot30\\\\15\\cdot40+5\\cdot30\\end{bmatrix}=\\begin{bmatrix}1000\\\\750\\end{bmatrix}$, so the revenues are Rs 1000 and Rs 750."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "For $A=\\begin{bmatrix}1&1\\\\0&1\\end{bmatrix}$ and $B=\\begin{bmatrix}1&0\\\\1&1\\end{bmatrix}$ find $AB$ and $BA$ and compare.",
+        "solution": "$AB=\\begin{bmatrix}1+1&0+1\\\\0+1&0+1\\end{bmatrix}=\\begin{bmatrix}2&1\\\\1&1\\end{bmatrix}$.\n\n$BA=\\begin{bmatrix}1&1\\\\1&1+1\\end{bmatrix}=\\begin{bmatrix}1&1\\\\1&2\\end{bmatrix}$.\n\nSince $AB\\neq BA$, matrix multiplication is not commutative.",
+        "answer": "$AB=\\begin{bmatrix}2&1\\\\1&1\\end{bmatrix}\\neq BA=\\begin{bmatrix}1&1\\\\1&2\\end{bmatrix}$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Never multiply matrices entry by entry. Always write the orders first: if the inner numbers differ, the product does not exist."
+      },
+      {
+        "type": "HEADING",
+        "text": "Determinants and their properties"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Determinant of a square matrix",
+        "text": "For $\\begin{bmatrix}a&b\\\\c&d\\end{bmatrix}$ the determinant is $ad-bc$. For a $3\\times3$ matrix, expand along any row or column: each element is multiplied by its cofactor $(-1)^{i+j}M_{ij}$, where $M_{ij}$ is the determinant left after deleting row $i$ and column $j$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Properties used in calculation",
+        "columns": [
+          "Property",
+          "Statement"
+        ],
+        "rows": [
+          [
+            "Row interchange",
+            "Determinant changes sign"
+          ],
+          [
+            "Identical or proportional rows",
+            "Determinant is 0"
+          ],
+          [
+            "One row multiplied by $k$",
+            "Determinant multiplied by $k$"
+          ],
+          [
+            "$R_i\\to R_i+kR_j$",
+            "Determinant unchanged"
+          ],
+          [
+            "Scalar multiple of the matrix",
+            "$|kA|=k^n|A|$ ($n$ = order)"
+          ],
+          [
+            "Product rule",
+            "$|AB|=|A|\\,|B|$"
+          ]
+        ]
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Singular and non-singular matrices",
+        "text": "$A$ is singular if $|A|=0$ and non-singular if $|A|\\neq0$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Show that $A=\\begin{bmatrix}2&0&1\\\\1&3&2\\\\1&1&1\\end{bmatrix}$ is singular.",
+        "solution": "Expand along row 1:\n\n$|A|=2\\begin{vmatrix}3&2\\\\1&1\\end{vmatrix}-0+1\\begin{vmatrix}1&3\\\\1&1\\end{vmatrix}=2(3-2)+(1-3)=2-2=0.$\n\nSince $|A|=0$, $A$ is singular and has no inverse.",
+        "answer": "$|A|=0$, so $A$ is singular"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "$A,B$ are $2\\times2$ with $|A|=5,\\ |B|=-2$. Find $|3AB|$.",
+        "solution": "$|AB|=|A||B|=-10$. For a $2\\times2$ matrix, $|3M|=3^2|M|=9|M|$.\n\nSo $|3AB|=9\\times(-10)=-90$.\n\nCheck in the other order: $|3A|=9\\times5=45$, and then $|(3A)B|=45\\times(-2)=-90$.",
+        "answer": "$-90$"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "The factor is $k^n$ for an $n\\times n$ matrix: it is $k^2$ for $2\\times2$ and $k^3$ for $3\\times3$, never just $k$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Inverse of a matrix"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Inverse of a square matrix",
+        "text": "$B$ is the inverse of the square matrix $A$ when $AB=BA=I$. We write $B=A^{-1}$. It exists only for non-singular $A$ and is unique."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "A^{-1}=\\frac{1}{|A|}\\operatorname{adj}A,\\qquad \\operatorname{adj}A=[C_{ij}]^T",
+        "text": "$C_{ij}=(-1)^{i+j}M_{ij}$ is the cofactor of $a_{ij}$. For $\\begin{bmatrix}a&b\\\\c&d\\end{bmatrix}$ swap $a,d$ and change the signs of $b,c$ to get the adjoint."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Finding the inverse by cofactors:** (1) compute $|A|$ and check it is non-zero; (2) compute all cofactors; (3) transpose the cofactor matrix to obtain $\\operatorname{adj}A$; (4) divide by $|A|$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Find $A^{-1}$ for $A=\\begin{bmatrix}2&1&0\\\\0&1&3\\\\1&0&1\\end{bmatrix}$.",
+        "solution": "$|A|=2(1-0)-1(0-3)+0=5$.\n\nCofactors: $C_{11}=1,\\ C_{12}=3,\\ C_{13}=-1,\\ C_{21}=-1,\\ C_{22}=2,\\ C_{23}=1,\\ C_{31}=3,\\ C_{32}=-6,\\ C_{33}=2$.\n\nThe adjoint is the transpose: $\\operatorname{adj}A=\\begin{bmatrix}1&-1&3\\\\3&2&-6\\\\-1&1&2\\end{bmatrix}$.\n\nCheck: row 2 of $A$ times column 3 of the adjoint gives $0(3)+1(-6)+3(2)=0$, and row 2 times column 2 gives $0(-1)+2+3=5$.",
+        "answer": "$A^{-1}=\\tfrac15\\begin{bmatrix}1&-1&3\\\\3&2&-6\\\\-1&1&2\\end{bmatrix}$"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Properties of inverses",
+        "columns": [
+          "Property",
+          "Condition"
+        ],
+        "rows": [
+          [
+            "$(AB)^{-1}=B^{-1}A^{-1}$",
+            "$A,B$ invertible, same order"
+          ],
+          [
+            "$(A^{-1})^{-1}=A$",
+            "$A$ invertible"
+          ],
+          [
+            "$(A^T)^{-1}=(A^{-1})^T$",
+            "$A$ invertible"
+          ],
+          [
+            "$|A^{-1}|=1/|A|$",
+            "$A$ invertible"
+          ]
+        ]
+      },
+      {
+        "type": "CALLOUT",
+        "text": "The inverse of a product reverses the order. $(AB)^{-1}=A^{-1}B^{-1}$ is the most common wrong answer."
+      },
+      {
+        "type": "HEADING",
+        "text": "Solving simultaneous equations by the matrix method"
+      },
+      {
+        "type": "TEXT",
+        "text": "Write the equations as $AX=B$. If $|A|\\neq0$ then $X=A^{-1}B$. This course uses non-homogeneous systems with up to three unknowns. If $|A|=0$, find $(\\operatorname{adj}A)B$: if it is the zero matrix there are infinitely many solutions, otherwise there is no solution."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Solve $x+y+z=6,\\ 2x-y+3z=12,\\ x+3y-z=2$.",
+        "solution": "$A=\\begin{bmatrix}1&1&1\\\\2&-1&3\\\\1&3&-1\\end{bmatrix}$, $|A|=1(1-9)-1(-2-3)+1(6+1)=-8+5+7=4$.\n\nBy elimination as a check: subtract equation 1 from equation 3: $2y-2z=-4$, so $y=z-2$. Equation 2 minus twice equation 1: $-3y+z=0$, so $z=3y$. Then $y=3y-2$, $y=1$, $z=3$, and $x=6-1-3=2$.\n\nVerify equation 2: $4-1+9=12$ and equation 3: $2+3-3=2$.",
+        "answer": "$x=2,\\ y=1,\\ z=3$"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Wheat, rice and sugar cost Rs $w$, $r$, $s$ per kg. One kg of each costs Rs 120 together; 2 kg wheat, 1 kg rice and 3 kg sugar cost Rs 230; 1 kg wheat, 2 kg rice and 1 kg sugar cost Rs 170. Find the prices.",
+        "solution": "Subtract the first from the third: $r=50$. Then $w+s=70$ and $2w+3s=230-50=180$. Substituting $w=70-s$: $140-2s+3s=180$, so $s=40$ and $w=30$.\n\nCheck: $30+50+40=120$; $60+50+120=230$; $30+100+40=170$. All hold.",
+        "answer": "Wheat Rs 30, rice Rs 50, sugar Rs 40 per kg"
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "$|A|\\neq0$: unique solution $X=A^{-1}B$. $|A|=0$ and $(\\operatorname{adj}A)B=O$: infinitely many solutions. $|A|=0$ and $(\\operatorname{adj}A)B\\neq O$: no solution."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "How many elements does a matrix of order $4\\times5$ have?",
+      "options": [
+        "20",
+        "9",
+        "16",
+        "25"
+      ],
+      "answer": 1,
+      "explanation": "A matrix of order $m\\times n$ has $m\\times n$ elements, one in each position of the grid of $m$ rows and $n$ columns. So a $4\\times5$ matrix has $4\\times5=20$ elements, not $4+5=9$.",
+      "optionRationale": {
+        "2": "Adds the rows and columns instead of multiplying.",
+        "3": "Takes $4\\times4$, ignoring the fifth column.",
+        "4": "Takes $5\\times5$, ignoring that there are only 4 rows."
+      },
+      "objective": "Count the elements of a matrix from its order"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The matrix $[\\,2\\ \\ 5\\ \\ 7\\,]$ is a",
+      "options": [
+        "column matrix of order $3\\times1$",
+        "row matrix of order $1\\times3$",
+        "square matrix of order $3\\times3$",
+        "scalar matrix of order $1\\times3$"
+      ],
+      "answer": 2,
+      "explanation": "It has only one row and three columns, so its order is $1\\times3$ and it is a row matrix. A column matrix would have the elements stacked vertically, and square or scalar matrices must have equal numbers of rows and columns.",
+      "optionRationale": {
+        "1": "Its three elements lie in one row, not one column.",
+        "3": "A square matrix needs equally many rows and columns.",
+        "4": "A scalar matrix must be square."
+      },
+      "objective": "Identify a row matrix"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The matrix $A=[a_{ij}]$ of order $2\\times2$ with $a_{ij}=i\\cdot j$ is",
+      "options": [
+        "skew-symmetric",
+        "a scalar matrix",
+        "symmetric",
+        "the null matrix"
+      ],
+      "answer": 3,
+      "explanation": "Substituting gives $A=\\begin{bmatrix}1&2\\\\2&4\\end{bmatrix}$. Since $a_{ij}=i\\cdot j=j\\cdot i=a_{ji}$, we have $A^T=A$, so $A$ is symmetric. It is not skew-symmetric because its diagonal elements are non-zero.",
+      "optionRationale": {
+        "1": "The diagonal entries 1 and 4 are non-zero, so it cannot be skew-symmetric.",
+        "2": "The diagonal entries 1 and 4 are unequal and the off-diagonal entries are 2, not 0.",
+        "4": "All entries are positive, so it is not the null matrix."
+      },
+      "objective": "Recognise a symmetric matrix from its rule"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If $\\begin{bmatrix}x+2&3y\\\\4&z-1\\end{bmatrix}=\\begin{bmatrix}5&12\\\\4&7\\end{bmatrix}$, then $x+y+z$ equals",
+      "options": [
+        "12",
+        "13",
+        "19",
+        "15"
+      ],
+      "answer": 4,
+      "explanation": "Equate corresponding entries: $x+2=5$ gives $x=3$; $3y=12$ gives $y=4$; $z-1=7$ gives $z=8$. Hence $x+y+z=3+4+8=15$. Each unknown comes from one pair of corresponding entries, and the $(2,1)$ entries 4 and 4 already agree.",
+      "optionRationale": {
+        "1": "This comes from using $z=5$, which does not satisfy $z-1=7$.",
+        "2": "This comes from dividing wrongly, for example $y=3$ instead of $y=4$ from $3y=12$.",
+        "3": "Takes $y=4$, $x=7$ by adding 2 instead of subtracting it."
+      },
+      "objective": "Use equality of matrices to find unknowns"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "If $A$ is of order $3\\times4$ and $B$ is of order $4\\times2$, the order of $(AB)^T$ is",
+      "options": [
+        "$2\\times3$",
+        "$3\\times2$",
+        "$4\\times4$",
+        "$2\\times4$"
+      ],
+      "answer": 1,
+      "explanation": "$AB$ is defined since $A$ has 4 columns and $B$ has 4 rows; it is a $3\\times2$ matrix. Taking the transpose interchanges rows and columns, so $(AB)^T$ is $2\\times3$. This agrees with $B^TA^T$, which is $(2\\times4)(4\\times3)=2\\times3$.",
+      "optionRationale": {
+        "2": "This is the order of $AB$ before transposing.",
+        "3": "Mixes the inner dimension with itself.",
+        "4": "This is the order of $B^T$ only."
+      },
+      "objective": "Find the order of a transpose of a product"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If $\\begin{bmatrix}0&a&-3\\\\-2&0&b\\\\3&-5&0\\end{bmatrix}$ is skew-symmetric, then $a+b$ is",
+      "options": [
+        "3",
+        "7",
+        "-7",
+        "-3"
+      ],
+      "answer": 2,
+      "explanation": "Skew-symmetry means $a_{ij}=-a_{ji}$. Then $a=a_{12}=-a_{21}=-(-2)=2$ and $b=a_{23}=-a_{32}=-(-5)=5$. Hence $a+b=2+5=7$. The element $a_{13}=-3=-a_{31}$ is consistent.",
+      "optionRationale": {
+        "1": "Takes $a=-2$ and $b=5$ without applying $a_{12}=-a_{21}$.",
+        "3": "Takes both $a$ and $b$ with the wrong sign.",
+        "4": "Takes $a=2$ and $b=-5$, with the wrong sign for $b$."
+      },
+      "objective": "Use the definition of a skew-symmetric matrix"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For $A=\\begin{bmatrix}2&5\\\\1&3\\end{bmatrix}$, the element in the second row and first column of $A-A^T$ is",
+      "options": [
+        "4",
+        "1",
+        "-4",
+        "0"
+      ],
+      "answer": 3,
+      "explanation": "$A^T=\\begin{bmatrix}2&1\\\\5&3\\end{bmatrix}$, so $A-A^T=\\begin{bmatrix}0&4\\\\-4&0\\end{bmatrix}$. The (2,1) element is $1-5=-4$. The matrix is skew-symmetric, as expected.",
+      "optionRationale": {
+        "1": "This is the (1,2) element of $A-A^T$.",
+        "2": "This is $a_{21}$ of $A$ itself.",
+        "4": "This is a diagonal element of $A-A^T$."
+      },
+      "objective": "Compute A - A^T"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "Sales (in kg) of rice and wheat in two shops are $S=\\begin{bmatrix}10&20\\\\15&5\\end{bmatrix}$ (rows: shop A, shop B; columns: rice, wheat). Prices per kg are Rs 40 for rice and Rs 30 for wheat. The revenue of shop B, in rupees, is",
+      "options": [
+        "1000",
+        "1750",
+        "600",
+        "750"
+      ],
+      "answer": 4,
+      "explanation": "Write the prices as $P=\\begin{bmatrix}40\\\\30\\end{bmatrix}$ and compute $SP$. Shop B's entry is $15\\times40+5\\times30=600+150=750$. Shop A's entry is $10\\times40+20\\times30=1000$.",
+      "optionRationale": {
+        "1": "This is the revenue of shop A.",
+        "2": "This is the total revenue of both shops.",
+        "3": "Uses only the rice sales: $15\\times40$."
+      },
+      "objective": "Apply matrix multiplication to a revenue problem"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "If $A=\\begin{bmatrix}1&0\\\\2&-1\\end{bmatrix}$ and $B=\\begin{bmatrix}0&1\\\\-1&2\\end{bmatrix}$, the sum of all the elements of $2A-3B$ is",
+      "options": [
+        "-2",
+        "2",
+        "6",
+        "-6"
+      ],
+      "answer": 1,
+      "explanation": "$2A=\\begin{bmatrix}2&0\\\\4&-2\\end{bmatrix}$ and $3B=\\begin{bmatrix}0&3\\\\-3&6\\end{bmatrix}$, so $2A-3B=\\begin{bmatrix}2&-3\\\\7&-8\\end{bmatrix}$. The sum of all entries is $2-3+7-8=-2$.",
+      "optionRationale": {
+        "2": "The sign of the total is reversed.",
+        "3": "Computes $2A+3B$ instead of $2A-3B$.",
+        "4": "This is the trace of $2A-3B$ (diagonal sum), not the sum of all elements."
+      },
+      "objective": "Perform scalar multiplication and subtraction of matrices"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "For $A=\\begin{bmatrix}1&1\\\\0&1\\end{bmatrix}$ and $B=\\begin{bmatrix}1&0\\\\1&1\\end{bmatrix}$, the determinant of $AB-BA$ is",
+      "options": [
+        "1",
+        "-1",
+        "0",
+        "2"
+      ],
+      "answer": 2,
+      "explanation": "$AB=\\begin{bmatrix}2&1\\\\1&1\\end{bmatrix}$ and $BA=\\begin{bmatrix}1&1\\\\1&2\\end{bmatrix}$. Then $AB-BA=\\begin{bmatrix}1&0\\\\0&-1\\end{bmatrix}$, whose determinant is $1\\times(-1)-0=-1$.",
+      "optionRationale": {
+        "1": "Takes $AB-BA=\\begin{bmatrix}1&0\\\\0&1\\end{bmatrix}$ by forgetting the sign of the second diagonal entry.",
+        "3": "Would hold only if $AB=BA$, but they differ.",
+        "4": "Computes $|AB|+|BA|$, which is $1+1$."
+      },
+      "objective": "Show non-commutativity and evaluate a determinant"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "numerical",
+      "stem": "The value of $\\begin{vmatrix}5&-3\\\\2&4\\end{vmatrix}$ is",
+      "options": [
+        "14",
+        "-26",
+        "26",
+        "20"
+      ],
+      "answer": 3,
+      "explanation": "For a $2\\times2$ determinant $ad-bc$: $5\\times4-(-3)\\times2=20+6=26$. The term $-bc$ becomes $-(-3)(2)=+6$ because two negative signs cancel, so the two products are added.",
+      "optionRationale": {
+        "1": "Subtracts $(-3)(2)$ as $-6$ instead of adding 6: $20-6$.",
+        "2": "Reverses the order of subtraction.",
+        "4": "Forgets the product $(-3)(2)$ term."
+      },
+      "objective": "Evaluate a 2x2 determinant"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "analytical",
+      "stem": "The matrix $A=\\begin{bmatrix}2&0&1\\\\1&3&2\\\\1&1&1\\end{bmatrix}$ is",
+      "options": [
+        "non-singular, since $|A|=2$",
+        "non-singular, since $|A|=4$",
+        "singular, since $|A|=1$",
+        "singular, since $|A|=0$"
+      ],
+      "answer": 4,
+      "explanation": "Expand along the first row: $2(3\\cdot1-2\\cdot1)-0+1(1\\cdot1-3\\cdot1)=2(1)+(-2)=0$. Since $|A|=0$, the matrix is singular and has no inverse.",
+      "optionRationale": {
+        "1": "The expansion is $2(3-2)+1(1-3)=0$, not 2.",
+        "2": "Forgets the negative cofactor term.",
+        "3": "A determinant of 1 would make it non-singular, and the value is 0 anyway."
+      },
+      "objective": "Classify a matrix as singular or non-singular"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If the determinant of a matrix $A$ is 7, and $B$ is obtained by interchanging two rows of $A$ and then multiplying one row by 3, then $|B|$ equals",
+      "options": [
+        "-21",
+        "21",
+        "-7",
+        "4"
+      ],
+      "answer": 1,
+      "explanation": "Interchanging two rows changes the sign, giving $-7$. Multiplying one row by 3 multiplies the determinant by 3, so $|B|=3\\times(-7)=-21$. The order of the two operations does not matter, since each only multiplies the determinant by a constant.",
+      "optionRationale": {
+        "2": "Ignores the sign change due to the row interchange.",
+        "3": "Ignores the multiplication of a row by 3.",
+        "4": "Adds 3 instead of multiplying, after the interchange."
+      },
+      "objective": "Apply row-operation properties of determinants"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "$A$ and $B$ are $2\\times2$ matrices with $|A|=5$ and $|B|=-2$. Then $|3AB|$ equals",
+      "options": [
+        "-30",
+        "-90",
+        "90",
+        "-10"
+      ],
+      "answer": 2,
+      "explanation": "$|AB|=|A||B|=5\\times(-2)=-10$. For a $2\\times2$ matrix a scalar $k$ contributes $k^2$, so $|3AB|=9\\times(-10)=-90$. Using $3|AB|=-30$ would be wrong, because both rows of a $2\\times2$ matrix are multiplied by 3.",
+      "optionRationale": {
+        "1": "Uses $3|AB|$ instead of $3^2|AB|$.",
+        "3": "Loses the negative sign of $|AB|=-10$.",
+        "4": "Forgets the scalar factor 3 completely."
+      },
+      "objective": "Combine |AB|=|A||B| with the scalar property for 2x2 matrices"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For $A=\\begin{bmatrix}1&2\\\\3&5\\end{bmatrix}$, the sum of all elements of $A^{-1}$ is",
+      "options": [
+        "1",
+        "-5",
+        "-1",
+        "7"
+      ],
+      "answer": 3,
+      "explanation": "$|A|=5-6=-1$ and $\\operatorname{adj}A=\\begin{bmatrix}5&-2\\\\-3&1\\end{bmatrix}$, so $A^{-1}=\\tfrac{1}{-1}\\operatorname{adj}A=\\begin{bmatrix}-5&2\\\\3&-1\\end{bmatrix}$. The sum is $-5+2+3-1=-1$.",
+      "optionRationale": {
+        "1": "Obtained by dropping the sign from $|A|=-1$.",
+        "2": "This comes from adding only some of the entries, for example the diagonal entries $-5-1$ and so on; all four entries must be added.",
+        "4": "This is $5+2+3+1\\ldots$, using the entries of $\\operatorname{adj}A$ with the wrong signs and without dividing by $|A|=-1$."
+      },
+      "objective": "Find the inverse of a 2x2 matrix using cofactors"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For $A=\\begin{bmatrix}2&1&0\\\\0&1&3\\\\1&0&1\\end{bmatrix}$, the element in the second row and third column of $A^{-1}$ is",
+      "options": [
+        "$\\dfrac15$",
+        "$\\dfrac65$",
+        "$\\dfrac35$",
+        "$-\\dfrac65$"
+      ],
+      "answer": 4,
+      "explanation": "$|A|=2(1)-1(0-3)=5$. The (2,3) element of $A^{-1}$ is $C_{32}/|A|$, because the adjoint is the transpose of the cofactor matrix. $C_{32}=-(2\\cdot3-0\\cdot0)=-6$, so the element is $-6/5$.",
+      "optionRationale": {
+        "1": "This is the cofactor $C_{23}=1$ divided by $|A|$, without transposing the cofactor matrix.",
+        "2": "The sign of the cofactor $C_{32}=-6$ was lost.",
+        "3": "This is the (2,1) element of $A^{-1}$."
+      },
+      "objective": "Find an element of the inverse of a 3x3 matrix"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q17",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following for invertible square matrices $A$ and $B$ of the same order.\nA. $(AB)^{-1}=B^{-1}A^{-1}$\nB. $(A^{-1})^{-1}=A$\nC. $(A^T)^{-1}=(A^{-1})^T$\nD. $(AB)^{-1}=A^{-1}B^{-1}$ always\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "A and B only",
+        "B, C and D only",
+        "A, B and D only"
+      ],
+      "answer": 1,
+      "explanation": "Statements A, B and C are the standard properties of inverses and transposes. Statement D is false, because matrix multiplication is not commutative, so $A^{-1}B^{-1}$ differs from $B^{-1}A^{-1}$ in general; the order must be reversed.",
+      "optionRationale": {
+        "2": "This leaves out C, which is a valid property.",
+        "3": "D is false, so any option containing D is wrong.",
+        "4": "D is false, so any option containing D is wrong."
+      },
+      "objective": "Recall properties of inverses of matrices"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If $A^{-1}=\\begin{bmatrix}1&2\\\\0&1\\end{bmatrix}$, the element in the second row and first column of $(A^T)^{-1}$ is",
+      "options": [
+        "2",
+        "-2",
+        "0",
+        "1"
+      ],
+      "answer": 1,
+      "explanation": "$(A^T)^{-1}=(A^{-1})^T$. Transposing $A^{-1}=\\begin{bmatrix}1&2\\\\0&1\\end{bmatrix}$ gives $\\begin{bmatrix}1&0\\\\2&1\\end{bmatrix}$, whose (2,1) element is 2.",
+      "optionRationale": {
+        "2": "Uses $A$ instead of $A^{-1}$, whose (1,2) element is $-2$.",
+        "3": "This is the (2,1) element of $A^{-1}$ before transposing.",
+        "4": "This is a diagonal element."
+      },
+      "objective": "Apply (A^T)^-1 = (A^-1)^T"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "If $x+y+z=6,\\ 2x-y+3z=12,\\ x+3y-z=2$, then $3x-y+2z$ equals",
+      "options": [
+        "9",
+        "11",
+        "13",
+        "7"
+      ],
+      "answer": 2,
+      "explanation": "Subtracting equation 1 from equation 3 gives $2y-2z=-4$, so $y=z-2$. Equation 2 minus twice equation 1 gives $-3y+z=0$, so $z=3y$. Hence $y=1$, $z=3$ and $x=2$. Then $3x-y+2z=6-1+6=11$. The coefficient determinant is $4\\neq0$, so this solution is unique.",
+      "optionRationale": {
+        "1": "Comes from the wrong solution $(x,y,z)=(2,2,2)$, which fails the equations.",
+        "3": "Comes from the wrong solution $(x,y,z)=(3,1,2)$, which fails equation 1.",
+        "4": "Comes from the wrong solution $(x,y,z)=(1,1,2)$, which fails equation 1."
+      },
+      "objective": "Solve a 3-variable linear system"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Let $w,r,s$ be the prices in rupees per kg of wheat, rice and sugar. Given $w+r+s=120$, $2w+r+3s=230$, $w+2r+s=170$, the value of $w+2s$ is",
+      "options": [
+        "100",
+        "120",
+        "110",
+        "130"
+      ],
+      "answer": 3,
+      "explanation": "Subtracting the first equation from the third gives $r=50$. Then $w+s=70$ and $2w+3s=180$, so $2(70-s)+3s=180$ and $s=40$, $w=30$. Therefore $w+2s=30+80=110$.",
+      "optionRationale": {
+        "1": "This is $w+r+s$ rounded, not computed from the solution.",
+        "2": "This is $w+r+s$, not $w+2s$.",
+        "4": "Uses $w=50,\\ s=40$ from a wrong value of $w$."
+      },
+      "objective": "Form and solve linear equations from a word problem"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q21",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A square matrix with determinant 0 has no inverse.\nReason (R): The inverse is given by $A^{-1}=\\dfrac{1}{|A|}\\operatorname{adj}A$, which is undefined when $|A|=0$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The formula $A^{-1}=\\operatorname{adj}A/|A|$ requires division by $|A|$. When $|A|=0$ the division is impossible, so no inverse exists; moreover $AA^{-1}=I$ would give $|A||A^{-1}|=1$, which is impossible if $|A|=0$. The reason explains the assertion.",
+      "optionRationale": {
+        "2": "The reason is the very formula that shows why the inverse does not exist, so (R) explains (A).",
+        "3": "The assertion is true: singular matrices have no inverse.",
+        "4": "The reason is true; the formula for $A^{-1}$ does contain $1/|A|$."
+      },
+      "objective": "Understand why singular matrices have no inverse"
+    },
+    {
+      "key": "ug26-319-r02-applied-algebra-matrices-q22",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the expression in List-I with its equal in List-II (all matrices are invertible and of the same order).",
+      "options": [
+        "A-IV, B-I, C-II, D-III",
+        "A-I, B-IV, C-II, D-III",
+        "A-IV, B-II, C-I, D-III",
+        "A-III, B-I, C-II, D-IV"
+      ],
+      "answer": 1,
+      "explanation": "The inverse of a product reverses the order: $(AB)^{-1}=B^{-1}A^{-1}$ (A-IV). Inverting twice returns the original: $(A^{-1})^{-1}=A$ (B-I). Inverse and transpose commute: $(A^T)^{-1}=(A^{-1})^T$ (C-II). The determinant of a product is the product of determinants: $|AB|=|A||B|$ (D-III).",
+      "optionRationale": {
+        "2": "$(AB)^{-1}$ is not $A$; the inverse of a product is $B^{-1}A^{-1}$, so A cannot be matched with I.",
+        "3": "This swaps B and C: $(A^{-1})^{-1}$ is $A$ (I), and $(A^T)^{-1}$ is $(A^{-1})^T$ (II).",
+        "4": "$|AB|$ is a number equal to $|A||B|$, so D matches III; and $(AB)^{-1}$ is a matrix, so A cannot match the number-valued item III."
+      },
+      "objective": "Match properties of inverses and determinants",
+      "list": {
+        "left": [
+          "A. $(AB)^{-1}$",
+          "B. $(A^{-1})^{-1}$",
+          "C. $(A^T)^{-1}$",
+          "D. $|AB|$"
+        ],
+        "right": [
+          "I. $A$",
+          "II. $(A^{-1})^T$",
+          "III. $|A|\\,|B|$",
+          "IV. $B^{-1}A^{-1}$"
+        ]
+      }
+    }
+  ]
+}

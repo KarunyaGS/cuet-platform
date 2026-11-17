@@ -1,0 +1,660 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "308",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_3b7d078ca3be46d99df242db04fa85b3",
+    "title": "Searching"
+  },
+  "lesson": {
+    "key": "ug26-308-r11-searching",
+    "title": "Searching: linear and binary search, their analysis, hashing and collision resolution",
+    "coverage": [
+      {
+        "phrase": "Searching",
+        "section": "Searching: the idea"
+      },
+      {
+        "phrase": "Sequential search",
+        "section": "Sequential (linear) search"
+      },
+      {
+        "phrase": "Binary search",
+        "section": "Binary search"
+      },
+      {
+        "phrase": "Analysis of Sequential and Binary Search",
+        "section": "Analysis of sequential and binary search"
+      },
+      {
+        "phrase": "Dry run to identify best, worst and average cases",
+        "section": "Analysis of sequential and binary search"
+      },
+      {
+        "phrase": "Implementation of searching techniques in Python",
+        "section": "Binary search"
+      },
+      {
+        "phrase": "Hashing",
+        "section": "Hashing: hash functions"
+      },
+      {
+        "phrase": "Hash Functions",
+        "section": "Hashing: hash functions"
+      },
+      {
+        "phrase": "Collision Resolution",
+        "section": "Collision and collision resolution"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Searching: the idea"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Searching",
+        "text": "The process of finding the position of a given value (the **key**) in a collection of data, or deciding that the value is not present. A search is **successful** if the key is found and **unsuccessful** otherwise."
+      },
+      {
+        "type": "TEXT",
+        "text": "Which method is used depends on whether the data is sorted. Two techniques are required: **sequential (linear) search**, which works on any list, and **binary search**, which works only on a **sorted** list but is much faster. A third approach, **hashing**, jumps straight to the place where the key should be stored."
+      },
+      {
+        "type": "TEXT",
+        "text": "The usual measure of the work done is the number of **comparisons** made between the key and list elements."
+      },
+      {
+        "type": "HEADING",
+        "text": "Sequential (linear) search"
+      },
+      {
+        "type": "TEXT",
+        "text": "Linear search compares the key with the elements one by one from the first element onwards. It stops as soon as a match is found or when the end of the list is reached. The list need not be sorted."
+      },
+      {
+        "type": "TEXT",
+        "text": "Program (plain text):\n\n```\ndef linear_search(a, key):\n    for i in range(len(a)):\n        if a[i] == key:\n            return i        # index of the first match\n    return -1               # not found\n```"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Dry run `linear_search([14, 7, 9, 22, 5], 22)` and `linear_search([14, 7, 9, 22, 5], 8)`; state the result and the number of comparisons for each.",
+        "solution": "Search for 22: compare with 14 (no), 7 (no), 9 (no), 22 (yes) at index 3. That is 4 comparisons and the function returns 3.\nSearch for 8: compare with 14, 7, 9, 22 and 5, none matches. All 5 elements are compared and the function returns -1.",
+        "answer": "22 is found at index 3 after 4 comparisons; 8 is not found, after 5 comparisons (return value -1)."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Return -1 (or print a message) only **after** the loop has finished. A common mistake is to put `return -1` inside the loop, in an else branch, which ends the function after the first comparison."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Linear search needs no sorting, is simple, and is suitable for short or unsorted lists. Its cost grows in direct proportion to the list length."
+      },
+      {
+        "type": "HEADING",
+        "text": "Binary search"
+      },
+      {
+        "type": "TEXT",
+        "text": "Binary search requires the list to be sorted (here, ascending). It keeps two limits, `low` and `high`, that enclose the part of the list that may still contain the key. At each step it looks at the **middle** element at index `mid = (low + high) // 2`:\n\n- if `a[mid] == key`, the search is successful;\n- if `a[mid] < key`, the key can only be on the right, so set `low = mid + 1`;\n- if `a[mid] > key`, the key can only be on the left, so set `high = mid - 1`.\n\nThe search stops when the key is found or when `low > high`, which means the key is absent. Each step throws away half of the remaining elements."
+      },
+      {
+        "type": "TEXT",
+        "text": "Program (plain text):\n\n```\ndef binary_search(a, key):\n    low = 0\n    high = len(a) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if a[mid] == key:\n            return mid\n        elif a[mid] < key:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1\n```"
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Dry run `binary_search(a, 31)` for a = [3, 8, 12, 19, 25, 31, 40, 47] (indexes 0 to 7).",
+        "solution": "Step 1: low = 0, high = 7, mid = 3, a[3] = 19. Since 19 < 31, set low = 4.\nStep 2: low = 4, high = 7, mid = (4 + 7) // 2 = 5, a[5] = 31. This equals the key, so the search succeeds.\nOnly 2 comparisons were needed.",
+        "answer": "Returns index 5 after 2 comparisons."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Dry run the same list for the key 10 (absent) and for the key 47 (the last element).",
+        "solution": "Key 10: low = 0, high = 7, mid = 3, a[3] = 19 > 10 so high = 2. Then mid = 1, a[1] = 8 < 10 so low = 2. Then mid = 2, a[2] = 12 > 10 so high = 1. Now low = 2 > high = 1, so the loop stops: not found after 3 comparisons, returns -1.\nKey 47: mid = 3 (19 < 47) so low = 4; mid = 5 (31 < 47) so low = 6; mid = 6 (40 < 47) so low = 7; mid = 7 (47 = 47) found. That is 4 comparisons.",
+        "answer": "Key 10: not found after 3 comparisons (-1). Key 47: found at index 7 after 4 comparisons."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Typical mistakes: (1) using binary search on an unsorted list, which can give a wrong answer; (2) writing `low = mid` or `high = mid` instead of `mid + 1` and `mid - 1`, which can cause an infinite loop; (3) using `while low < high`, which can miss the last remaining element."
+      },
+      {
+        "type": "HEADING",
+        "text": "Analysis of sequential and binary search"
+      },
+      {
+        "type": "TEXT",
+        "text": "We count comparisons for a list of n elements."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Best, worst and average cases",
+        "columns": [
+          "Case",
+          "Linear search",
+          "Binary search"
+        ],
+        "rows": [
+          [
+            "Best case",
+            "1 comparison: the key is the first element",
+            "1 comparison: the key is the middle element"
+          ],
+          [
+            "Worst case",
+            "n comparisons: the key is last or absent",
+            "About log2(n) rounded down, plus 1, comparisons (4 for n = 8, 10 for n = 1000)"
+          ],
+          [
+            "Average case",
+            "About (n + 1) / 2 comparisons for a successful search when every position is equally likely",
+            "Close to the worst case, since most elements are found only near the end of the halving"
+          ],
+          [
+            "Condition",
+            "Works on unsorted or sorted data",
+            "List must be sorted"
+          ],
+          [
+            "Time order",
+            "Proportional to n (written O(n))",
+            "Proportional to log n (written O(log n))"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "**Average case for linear search.** If a list has 10 elements and the key is equally likely to be at any position, the numbers of comparisons are 1, 2, ..., 10, whose average is 55 / 10 = 5.5, which is (10 + 1) / 2."
+      },
+      {
+        "type": "TEXT",
+        "text": "**How binary search grows.** Halving a list repeatedly until one element is left takes about log2(n) steps. Doubling n adds only one more comparison. A list of 1000 sorted items needs at most 10 comparisons, while a linear search may need 1000. For small lists, or for a list which would first have to be sorted, linear search can still be the better choice."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A sorted list has 12 elements: 5, 9, 14, 20, 27, 33, 41, 48, 56, 63, 70, 82. How many comparisons does binary search need for the key 63?",
+        "solution": "Indexes 0 to 11. Step 1: low = 0, high = 11, mid = 5, a[5] = 33 < 63, so low = 6.\nStep 2: low = 6, high = 11, mid = 8, a[8] = 56 < 63, so low = 9.\nStep 3: low = 9, high = 11, mid = 10, a[10] = 70 > 63, so high = 9.\nStep 4: low = 9, high = 9, mid = 9, a[9] = 63. Found.",
+        "answer": "4 comparisons; the key is at index 9."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Best case: 1 comparison for both. Worst case: n for linear, about log2(n) + 1 for binary. Linear search average for a successful search: (n + 1) / 2."
+      },
+      {
+        "type": "HEADING",
+        "text": "Hashing: hash functions"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Hashing",
+        "text": "A technique that uses a **hash function** to compute from a key the position (index) in a **hash table** where the key is stored. Searching then needs only that computation and one look-up, so the time is almost independent of the number of elements."
+      },
+      {
+        "type": "TEXT",
+        "text": "The simplest hash function is the **remainder (division) method**: `h(key) = key % size`, where `size` is the number of slots of the table. For a table with 10 slots, 25 goes to slot 5 and 12 goes to slot 2. Another method is **digit folding**: split the key into parts, add the parts and then reduce the sum (for example 123456 is split into 12, 34 and 56, and the sum 102 modulo 100 gives slot 2)."
+      },
+      {
+        "type": "TEXT",
+        "text": "A good hash function is fast to compute, always gives a slot inside the table, and spreads keys evenly to keep collisions few. A function that never maps two different keys to the same slot is called a **perfect hash function**; this is possible only when the keys are known beforehand."
+      },
+      {
+        "type": "TEXT",
+        "text": "Searching by hashing: compute `h(key)`, go to that slot and compare. If the slot holds the key, it is found; if the slot is empty, the key is absent (when no collision handling has moved it)."
+      },
+      {
+        "type": "HEADING",
+        "text": "Collision and collision resolution"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Collision",
+        "text": "A situation in which two different keys are mapped by the hash function to the same slot of the hash table."
+      },
+      {
+        "type": "TEXT",
+        "text": "With `h(key) = key % 10`, the keys 25, 35 and 45 all give slot 5, and 12 and 22 both give slot 2. A rule is needed to place the later keys elsewhere. This is **collision resolution**."
+      },
+      {
+        "type": "TEXT",
+        "text": "- **Linear probing (open addressing)**: if slot h is full, try slots h + 1, h + 2, ... (wrapping round to 0 at the end of the table) until an empty slot is found. The key is searched in the same order.\n- **Chaining (separate chaining)**: each slot holds a list of all the keys that hash to it, so colliding keys are simply added to that list."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Insert the keys 25, 35, 45, 12, 22 in this order into a table of 10 empty slots (0 to 9) using h(key) = key % 10 and linear probing. Show the final table.",
+        "solution": "25: 25 % 10 = 5, slot 5 is empty, so place 25 in slot 5.\n35: slot 5 is taken, so try 6: place 35 in slot 6.\n45: slot 5 taken, 6 taken, so place 45 in slot 7.\n12: slot 2 is empty, place 12 in slot 2.\n22: slot 2 is taken, so place 22 in slot 3.",
+        "answer": "Slot 2 = 12, slot 3 = 22, slot 5 = 25, slot 6 = 35, slot 7 = 45; all other slots are empty."
+      },
+      {
+        "type": "TEXT",
+        "text": "With chaining the same keys give: slot 5 holds the list 25, 35, 45 and slot 2 holds the list 12, 22. Chaining never fills the table, while linear probing fails when the table is full and tends to form long runs of occupied slots (clustering)."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "In linear probing, the search for a key must follow the same probe order as insertion: start at h(key), and stop at an empty slot (key absent). Starting from slot 0, or giving up at the first non-matching slot, is wrong."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Hash function maps a key to a slot. Collision = two keys, one slot. Resolve it by linear probing (next free slot) or by chaining (a list at each slot)."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-308-r11-searching-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which search technique can be applied to a list whose elements are not in any particular order?",
+      "options": [
+        "Sequential (linear) search",
+        "Binary search",
+        "Binary search after removing duplicates only",
+        "No search is possible"
+      ],
+      "answer": 1,
+      "explanation": "Linear search checks the elements one after another and never relies on the order of the data, so it works on unsorted lists. Binary search discards half of the list at each step on the basis of order, so it needs a sorted list.",
+      "optionRationale": {
+        "2": "Binary search needs sorted data.",
+        "3": "Removing duplicates does not sort the data.",
+        "4": "Linear search always works."
+      },
+      "objective": "State when linear search can be used"
+    },
+    {
+      "key": "ug26-308-r11-searching-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "What is the minimum number of comparisons needed by linear search for a successful search?",
+      "options": [
+        "0",
+        "1",
+        "n",
+        "n / 2"
+      ],
+      "answer": 2,
+      "explanation": "The best case occurs when the key is the very first element, so one comparison finds it. n is the worst case, and n / 2 is only an approximate average; zero comparisons cannot confirm a match.",
+      "optionRationale": {
+        "1": "At least one comparison is needed to see that the key matches.",
+        "3": "n comparisons are needed only in the worst case.",
+        "4": "n / 2 is roughly the average, not the minimum."
+      },
+      "objective": "Identify the best case of linear search"
+    },
+    {
+      "key": "ug26-308-r11-searching-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In binary search, which element of the current part of the list is compared with the key first?",
+      "options": [
+        "The first element",
+        "The last element",
+        "The middle element",
+        "The smallest element"
+      ],
+      "answer": 3,
+      "explanation": "Binary search looks at the middle element of the part that is still under consideration, and then discards the half in which the key cannot lie. This halving is what makes it fast.",
+      "optionRationale": {
+        "1": "The first element is compared in linear search.",
+        "2": "The last element is not chosen specially in binary search.",
+        "4": "The smallest element is just the first one in a sorted list."
+      },
+      "objective": "Describe the first step of binary search"
+    },
+    {
+      "key": "ug26-308-r11-searching-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "What is a collision in hashing?",
+      "options": [
+        "A hash function that returns a negative number",
+        "A key not being found in the table",
+        "A table that has run out of memory",
+        "Two different keys being mapped to the same slot of the hash table"
+      ],
+      "answer": 4,
+      "explanation": "A collision occurs when the hash function gives the same slot for two different keys, so both cannot occupy that slot. A rule such as linear probing or chaining is then required to place the second key.",
+      "optionRationale": {
+        "1": "A collision concerns equal slot numbers, not negative numbers.",
+        "2": "Not finding a key is an unsuccessful search, not a collision.",
+        "3": "A full table is a different problem."
+      },
+      "objective": "Define collision"
+    },
+    {
+      "key": "ug26-308-r11-searching-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What does the following code print?\n\ndef linear_search(a, key):\n    for i in range(len(a)):\n        if a[i] == key:\n            return i\n    return -1\n\nprint(linear_search([14, 7, 9, 22, 5], 22), linear_search([14, 7, 9, 22, 5], 8))",
+      "options": [
+        "3 -1",
+        "3 5",
+        "22 -1",
+        "4 -1"
+      ],
+      "answer": 1,
+      "explanation": "The value 22 is at index 3 (the list is 14, 7, 9, 22, 5 with indexes 0 to 4), so the first call returns 3. The value 8 is not present, so the loop ends and the function returns -1. The function returns an index, not the value.",
+      "optionRationale": {
+        "2": "The second call returns -1, not the number of comparisons.",
+        "3": "The function returns the index, not the key.",
+        "4": "Index numbering starts at 0, so 22 is at index 3, not 4."
+      },
+      "objective": "Trace linear search"
+    },
+    {
+      "key": "ug26-308-r11-searching-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A binary search for the key 31 is made in the sorted list [3, 8, 12, 19, 25, 31, 40, 47]. How many comparisons are made before the key is found?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "5"
+      ],
+      "answer": 2,
+      "explanation": "With indexes 0 to 7, the first mid is 3 (value 19), which is smaller than 31, so low becomes 4. The next mid is (4 + 7) // 2 = 5 and the value there is 31. So 2 comparisons are needed.",
+      "optionRationale": {
+        "1": "The first middle element is 19, not 31.",
+        "3": "The search ends at the second comparison when 31 is found.",
+        "4": "Five comparisons would be more than the worst case for 8 elements, which is 4."
+      },
+      "objective": "Count comparisons in binary search"
+    },
+    {
+      "key": "ug26-308-r11-searching-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "What does binary_search(a, 10) return for a = [3, 8, 12, 19, 25, 31, 40, 47], using the standard algorithm that returns -1 when the key is absent?",
+      "options": [
+        "2",
+        "1",
+        "-1",
+        "3"
+      ],
+      "answer": 3,
+      "explanation": "The mid values examined are index 3 (19), index 1 (8) and index 2 (12). After 12 > 10, high becomes 1 and low is 2, so low > high and the loop ends. The key 10 is absent, so the function returns -1.",
+      "optionRationale": {
+        "1": "Index 2 holds 12, not 10.",
+        "2": "Index 1 holds 8, not 10.",
+        "4": "The search fails, so no index is returned."
+      },
+      "objective": "Trace an unsuccessful binary search"
+    },
+    {
+      "key": "ug26-308-r11-searching-q08",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Which condition is essential before applying binary search to a list?",
+      "options": [
+        "The list must contain only distinct elements",
+        "The list must contain only integers",
+        "The list must have an even number of elements",
+        "The list must be sorted"
+      ],
+      "answer": 4,
+      "explanation": "Binary search decides which half to discard by comparing the key with the middle element. This only makes sense if the elements are in order. Distinctness, parity of length and type are not essential.",
+      "optionRationale": {
+        "1": "Duplicates do not prevent binary search; sorting is the real requirement.",
+        "2": "Strings or other comparable types can also be searched.",
+        "3": "Any length, odd or even, can be searched."
+      },
+      "objective": "State the precondition of binary search"
+    },
+    {
+      "key": "ug26-308-r11-searching-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "About how many comparisons are needed, at most, by binary search for a sorted list of 1000 elements?",
+      "options": [
+        "10",
+        "500",
+        "100",
+        "1000"
+      ],
+      "answer": 1,
+      "explanation": "Each comparison halves the remaining list: 1000, 500, 250, 125, 62, 31, 15, 7, 3, 1. That takes at most 10 comparisons, which equals log2(1000) rounded down, plus 1. Linear search could need up to 1000.",
+      "optionRationale": {
+        "2": "500 would be the number after just one halving step.",
+        "3": "A hundred is far above log2(1000), which is about 10.",
+        "4": "1000 is the worst case of linear search."
+      },
+      "objective": "Estimate binary search comparisons"
+    },
+    {
+      "key": "ug26-308-r11-searching-q10",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match the search technique or concept in List-I with its description in List-II.",
+      "options": [
+        "A-I, B-III, C-II, D-IV",
+        "A-III, B-I, C-II, D-IV",
+        "A-III, B-I, C-IV, D-II",
+        "A-II, B-I, C-III, D-IV"
+      ],
+      "answer": 2,
+      "explanation": "Linear search compares one by one (A-III). Binary search needs sorted data and halves the range (B-I). A hash function maps a key to a slot (C-II). Chaining keeps colliding keys in a list at the slot (D-IV).",
+      "optionRationale": {
+        "1": "This swaps linear search and binary search.",
+        "3": "This swaps hash function and chaining.",
+        "4": "This swaps linear search and hash function."
+      },
+      "objective": "Match searching terms",
+      "list": {
+        "left": [
+          "A. Linear search",
+          "B. Binary search",
+          "C. Hash function",
+          "D. Chaining"
+        ],
+        "right": [
+          "I. Needs sorted data and halves the search range",
+          "II. Maps a key to a table slot",
+          "III. Compares elements one by one from the start",
+          "IV. Keeps a list of colliding keys at each slot"
+        ]
+      }
+    },
+    {
+      "key": "ug26-308-r11-searching-q11",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about linear search and binary search.\nA. Binary search works only on a sorted list.\nB. The worst case of linear search needs n comparisons for n elements.\nC. Linear search is always faster than binary search.\nWhich statements are correct?",
+      "options": [
+        "A and C only",
+        "B and C only",
+        "A and B only",
+        "A, B and C"
+      ],
+      "answer": 3,
+      "explanation": "Binary search relies on the order of the data (A true). In the worst case linear search compares all n elements (B true). For large lists binary search is much faster, so C is false.",
+      "optionRationale": {
+        "1": "C is false: binary search is generally faster.",
+        "2": "C is false: binary search needs far fewer comparisons for large lists.",
+        "4": "C is false, so all three cannot be correct."
+      },
+      "objective": "Evaluate statements about search methods"
+    },
+    {
+      "key": "ug26-308-r11-searching-q12",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The worst case of binary search needs far fewer comparisons than linear search on a large sorted list.\nReason (R): Each comparison in binary search removes half of the remaining elements from consideration.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Because the range is halved at every step, a list of n elements needs only about log2(n) + 1 comparisons, whereas linear search may need n. R states the mechanism, so it explains A.",
+      "optionRationale": {
+        "2": "R is the reason for the saving, so it explains A.",
+        "3": "R is true: halving is the core of the method.",
+        "4": "A is true, for example 10 versus 1000 comparisons for n = 1000."
+      },
+      "objective": "Explain why binary search is faster"
+    },
+    {
+      "key": "ug26-308-r11-searching-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Keys 25, 35, 45, 12 and 22 are inserted in this order into an empty hash table of 10 slots (0 to 9) with h(key) = key % 10 and linear probing. In which slot is 45 stored?",
+      "options": [
+        "5",
+        "8",
+        "6",
+        "7"
+      ],
+      "answer": 4,
+      "explanation": "25 goes to slot 5. 35 hashes to 5, which is taken, so it goes to slot 6. 45 hashes to 5, then 5 and 6 are taken, so it is placed in slot 7. The keys 12 and 22 use slots 2 and 3 and do not affect it.",
+      "optionRationale": {
+        "1": "Slot 5 holds 25.",
+        "2": "Slot 8 is not reached, since slot 7 is empty when 45 arrives.",
+        "3": "Slot 6 holds 35."
+      },
+      "objective": "Apply linear probing"
+    },
+    {
+      "key": "ug26-308-r11-searching-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "Keys 50, 700, 76, 85, 92, 73 and 101 are inserted in this order into an empty table of 7 slots (0 to 6) with h(key) = key % 7 and linear probing. In which slot does the last key, 101, finally sit?",
+      "options": [
+        "5",
+        "4",
+        "3",
+        "6"
+      ],
+      "answer": 1,
+      "explanation": "50 goes to slot 1, 700 to 0, 76 to 6, and 85 (hash 1, taken) to slot 2. 92 has hash 1 and moves on to slot 3. 73 has hash 3, taken, so it goes to slot 4. 101 has hash 3 and slots 3 and 4 are taken, so it ends in slot 5.",
+      "optionRationale": {
+        "2": "Slot 4 is occupied by 73.",
+        "3": "Slot 3 is occupied by 92.",
+        "4": "Slot 6 is occupied by 76 and 101 stops at slot 5."
+      },
+      "objective": "Trace linear probing with wrap-around"
+    },
+    {
+      "key": "ug26-308-r11-searching-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A list of 8 sorted elements is searched by binary search for every element in turn, and each element is equally likely to be the key. Which key needs the maximum number of comparisons, and how many?",
+      "options": [
+        "The middle element, 1 comparison",
+        "The last element, 4 comparisons",
+        "The first element, 4 comparisons",
+        "Any element, 8 comparisons"
+      ],
+      "answer": 2,
+      "explanation": "For [3, 8, 12, 19, 25, 31, 40, 47] the key 47 needs 4 comparisons (mid indexes 3, 5, 6 and 7). The upper bound for 8 elements is floor(log2 8) + 1 = 4. The middle element 19 needs only 1 comparison, but 8 comparisons never occur.",
+      "optionRationale": {
+        "1": "The middle element is the best case, not the worst.",
+        "3": "The first element needs 3 comparisons, not 4.",
+        "4": "Binary search never needs as many as 8 comparisons for 8 elements."
+      },
+      "objective": "Find the worst case of binary search"
+    },
+    {
+      "key": "ug26-308-r11-searching-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A list has 10 elements and the key is equally likely to be at any of the 10 positions. What is the average number of comparisons for a successful linear search?",
+      "options": [
+        "5",
+        "10",
+        "5.5",
+        "4.5"
+      ],
+      "answer": 3,
+      "explanation": "The numbers of comparisons for the ten positions are 1, 2, 3, ..., 10. Their sum is 55 and the average is 55 / 10 = 5.5, which agrees with (n + 1) / 2.",
+      "optionRationale": {
+        "1": "5 is n/2, which ignores that the first position needs 1 comparison, not 0.",
+        "2": "10 is the worst case.",
+        "4": "4.5 would be the average if the counts ran from 0 to 9."
+      },
+      "objective": "Compute the average case of linear search"
+    },
+    {
+      "key": "ug26-308-r11-searching-q17",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about hashing.\nA. In linear probing, a colliding key is stored in the next free slot, wrapping round to slot 0 at the end of the table.\nB. In chaining, colliding keys are kept in a list at the same slot.\nC. A hash function can never produce a collision.\nD. In a table of size 7 with h(key) = key % 7, the key 50 is mapped to slot 1.\nWhich statements are correct?",
+      "options": [
+        "A and C only",
+        "A, B and C only",
+        "B and D only",
+        "A, B and D only"
+      ],
+      "answer": 4,
+      "explanation": "Linear probing uses the next free slot with wrap-around (A true) and chaining keeps a list per slot (B true). Collisions are possible whenever more keys exist than slots, or even earlier, so C is false. 50 % 7 = 1, because 7 x 7 = 49, so D is true.",
+      "optionRationale": {
+        "1": "C is false, and B and D are true.",
+        "2": "C is false: collisions are common and are why resolution methods exist.",
+        "3": "This leaves out A, which is also correct."
+      },
+      "objective": "Verify statements about hashing"
+    },
+    {
+      "key": "ug26-308-r11-searching-q18",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A binary search on an unsorted list may return -1 even though the key is present in the list.\nReason (R): Binary search discards half of the list after every comparison, based on the assumption that the elements are in sorted order.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "If the list is unsorted, the comparison with the middle element can send the search into the half that does not contain the key, so the key is wrongly discarded. R states the assumption that breaks, so it explains A.",
+      "optionRationale": {
+        "2": "R is the actual cause of the failure, so it explains A.",
+        "3": "R is true: halving relies on sorted order.",
+        "4": "A is true: a wrongly discarded half may hold the key."
+      },
+      "objective": "Explain why binary search needs sorted data"
+    },
+    {
+      "key": "ug26-308-r11-searching-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "What does the following code print?\n\ndef f(a, key):\n    low, high, c = 0, len(a) - 1, 0\n    while low <= high:\n        mid = (low + high) // 2\n        c += 1\n        if a[mid] == key:\n            return c\n        elif a[mid] < key:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return c\n\na = [5, 9, 14, 20, 27, 33, 41, 48, 56, 63, 70, 82]\nprint(f(a, 63), f(a, 5), f(a, 100))",
+      "options": [
+        "4 3 4",
+        "3 3 4",
+        "4 1 4",
+        "4 3 3"
+      ],
+      "answer": 1,
+      "explanation": "For 63 the mids are indexes 5, 8, 10 and 9, so 4 comparisons. For 5 the mids are indexes 5, 2 and 0, so 3 comparisons. For 100 the mids are 5, 8, 10 and 11, all smaller than 100, so 4 comparisons are made before low exceeds high.",
+      "optionRationale": {
+        "2": "The key 63 needs 4 comparisons, not 3.",
+        "3": "The key 5 is at the first index, but binary search starts at the middle and needs 3 comparisons.",
+        "4": "Searching for 100 needs 4 comparisons (the last mid is index 11)."
+      },
+      "objective": "Trace comparison counts with binary search"
+    }
+  ]
+}
