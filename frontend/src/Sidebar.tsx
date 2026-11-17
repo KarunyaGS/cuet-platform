@@ -15,10 +15,10 @@ const EXAM: ExamCode = 'CUET_UG';
 const YEAR = 2026;
 const STORE = 'cuet.sidebar.open';
 
-const rowBase = 'relative flex w-full items-center gap-1.5 text-left transition-colors hover:bg-ink/[0.03] focus-visible:bg-ink/[0.04]';
+const rowBase = 'relative flex w-full items-center gap-1.5 rounded-lg text-left transition-colors hover:bg-ink/[0.03] focus-visible:bg-ink/[0.04]';
 /** A row that contains the page the student is on (its subject, category or heading): blue text, no block. */
 const parentRow = 'font-medium text-accent';
-const selectedRow = 'bg-accent-soft font-medium text-accent hover:bg-accent-soft before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:bg-accent';
+const selectedRow = 'bg-accent-soft font-medium text-accent hover:bg-accent-soft before:absolute before:inset-y-1.5 before:left-0 before:w-[3px] before:rounded-full before:bg-accent';
 
 function Chevron({ open }: { open: boolean }) {
   return <ChevronRight aria-hidden className={`size-3.5 shrink-0 text-ink-3 transition-transform ${open ? 'rotate-90' : ''}`} />;
@@ -337,7 +337,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   if (!subjects) return <p className="px-4 py-3 text-xs text-ink-3">Loading subjects…</p>;
 
   return (
-    <ul ref={listRef} className="py-1" aria-label="CUET UG subjects">
+    <ul ref={listRef} className="space-y-0.5" aria-label="CUET UG subjects">
       <li className="mb-0.5">
         <Link to="/" onClick={onNavigate} aria-current={pathname === '/' ? 'page' : undefined} data-kind="home" className={`${rowBase} min-h-9 px-3 py-1.5 text-[13px] ${pathname === '/' ? selectedRow : 'text-ink'}`}>
           Home
@@ -391,7 +391,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                       <Category id={`f:${s.paperId}`} to={`/${EXAM}/subject/${s.paperId}/question-bank`} selected={areaRoute?.paperId === s.paperId && areaRoute.area === 'question-bank'} onSelect={onNavigate} label="Chapter-wise Question Bank" open={!!open[`f:${s.paperId}`]} active={pdfRoute !== null && myPdfs.some((d) => d.id === pdfRoute)} onToggle={() => toggle(`f:${s.paperId}`)}>
                         {myPdfs.map((d) => (
                           <li key={d.id}>
-                            <Link to={`/pyq/view/${d.id}`} onClick={onNavigate} aria-current={pdfRoute === d.id ? 'page' : undefined} data-kind="chapter-pdf" title={d.title} className={`${rowBase} h-8 pr-3 pl-12 text-[13px] ${pdfRoute === d.id ? selectedRow : 'text-ink'}`}>
+                            <Link to={`/pyq/view/${d.id}`} onClick={onNavigate} aria-current={pdfRoute === d.id ? 'page' : undefined} data-kind="chapter-pdf" title={d.title} className={`${rowBase} h-8 pr-3 pl-9 text-[13px] ${pdfRoute === d.id ? selectedRow : 'text-ink'}`}>
                               <span className="min-w-0 flex-1 truncate">{d.title}</span>
                               {d.pages ? <span className="num ml-auto shrink-0 text-[11px] text-ink-3">{d.pages} p</span> : null}
                             </Link>
@@ -432,7 +432,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                         onToggle={() => toggle(`k:${s.paperId}`)}
                       >
                         <li>
-                          <Link to={`/mock-tests/full/${s.paperId}`} onClick={onNavigate} aria-current={fullRoute === s.paperId ? 'page' : undefined} data-kind="full-mock" className={`${rowBase} h-8 pr-3 pl-12 text-[13px] ${fullRoute === s.paperId ? selectedRow : 'text-ink'}`}>
+                          <Link to={`/mock-tests/full/${s.paperId}`} onClick={onNavigate} aria-current={fullRoute === s.paperId ? 'page' : undefined} data-kind="full-mock" className={`${rowBase} h-8 pr-3 pl-9 text-[13px] ${fullRoute === s.paperId ? selectedRow : 'text-ink'}`}>
                             <span className="min-w-0 flex-1 truncate">Full-length mock</span>
                           </Link>
                         </li>
@@ -467,7 +467,7 @@ function SplitRow({ to, label, title, open, state, onSelect, onToggle, pad, kind
       <Link to={to} onClick={onSelect} aria-current={state === 'selected' ? 'page' : undefined} data-kind={kind} title={title} className={`flex min-h-8 min-w-0 flex-1 items-center py-1.5 pr-1 text-[13px] leading-snug ${pad} ${size === 'h-9' ? 'min-h-9' : ''}`}>
         <span className="min-w-0 flex-1">{label}</span>
       </Link>
-      <button type="button" aria-expanded={open} aria-label={open ? 'Collapse' : 'Expand'} onClick={onToggle} className="grid size-8 shrink-0 place-items-center">
+      <button type="button" aria-expanded={open} aria-label={open ? 'Collapse' : 'Expand'} onClick={onToggle} className="mr-1 grid size-8 shrink-0 place-items-center rounded-md">
         <ChevronRight aria-hidden className={`size-3.5 transition-transform ${state === 'idle' ? 'text-ink-3' : 'text-accent'} ${open ? 'rotate-90' : ''}`} />
       </button>
     </div>
@@ -477,7 +477,7 @@ function SplitRow({ to, label, title, open, state, onSelect, onToggle, pad, kind
 function Category({ label, open, active, selected, to, onSelect, onToggle, children }: { id: string; label: string; open: boolean; active: boolean; selected?: boolean; to: string; onSelect?: () => void; onToggle: () => void; children: React.ReactNode }) {
   return (
     <li>
-      <SplitRow to={to} label={label} open={open} state={selected ? 'selected' : active ? 'parent' : 'idle'} onSelect={onSelect} onToggle={onToggle} pad="pl-8" kind="category" />
+      <SplitRow to={to} label={label} open={open} state={selected ? 'selected' : active ? 'parent' : 'idle'} onSelect={onSelect} onToggle={onToggle} pad="pl-7" kind="category" />
       {open && <ul className="pb-0.5">{children}</ul>}
     </li>
   );
@@ -494,7 +494,7 @@ function ChapterRow({ kind, label, title, open, state, to, onSelect, onToggle }:
       state={state}
       onSelect={onSelect}
       onToggle={onToggle}
-      pad="pl-10"
+      pad="pl-9"
       label={
         <>
           {label ? <span className="text-ink-3">{label} </span> : null}
@@ -519,17 +519,17 @@ function inChapters<T extends { kind: string }, G extends T>(rows: T[], isGroup:
 }
 
 function Chapters({ paperId, outline, list, currentId, parentId, openGroup, onToggleGroup, base = '/topic', kinds = ['group', 'topic'], onNavigate, onRetry }: { paperId: string; outline: Outline | 'loading' | 'error' | undefined; list: ReturnType<typeof chaptersOf> | undefined; currentId: string | null; parentId: string | null; openGroup: string | null; onToggleGroup: (id: string) => void; base?: string; kinds?: [string, string]; onNavigate?: () => void; onRetry: () => void }) {
-  if (!outline || outline === 'loading') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Loading…</li>;
+  if (!outline || outline === 'loading') return <li className="py-1 pr-3 pl-9 text-xs text-ink-3">Loading…</li>;
   if (outline === 'error')
     return (
-      <li className="py-1 pr-3 pl-12 text-xs text-ink-3">
+      <li className="py-1 pr-3 pl-9 text-xs text-ink-3">
         Could not load.{' '}
         <button type="button" onClick={onRetry} className="underline">
           Try again
         </button>
       </li>
     );
-  if (!list || list.length === 0) return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">No chapters are listed yet.</li>;
+  if (!list || list.length === 0) return <li className="py-1 pr-3 pl-9 text-xs text-ink-3">No chapters are listed yet.</li>;
   const topic = (c: SideItem, indent: string) => (
     <li key={c.id}>
       <Link
@@ -559,18 +559,18 @@ function Chapters({ paperId, outline, list, currentId, parentId, openGroup, onTo
               <ul>
                 {kinds[0] === 'mock-group' && (
                   <li>
-                    <Link to={`${base}/${group.id}`} onClick={onNavigate} aria-current={currentId === group.id ? 'page' : undefined} data-kind="mock-chapter-test" className={`${rowBase} h-8 pr-3 pl-16 text-[13px] ${currentId === group.id ? selectedRow : 'text-ink'}`}>
+                    <Link to={`${base}/${group.id}`} onClick={onNavigate} aria-current={currentId === group.id ? 'page' : undefined} data-kind="mock-chapter-test" className={`${rowBase} h-8 pr-3 pl-12 text-[13px] ${currentId === group.id ? selectedRow : 'text-ink'}`}>
                       <span className="min-w-0 flex-1 truncate">Chapter test</span>
                       {group.questions > 0 && <Count n={group.questions} />}
                     </Link>
                   </li>
                 )}
-                {rest.map((c) => topic(c, 'pl-16'))}
+                {rest.map((c) => topic(c, 'pl-12'))}
               </ul>
             )}
           </li>
         ) : (
-          rest.map((c) => topic(c, 'pl-12'))
+          rest.map((c) => topic(c, 'pl-9'))
         ),
       )}
     </>
@@ -578,9 +578,9 @@ function Chapters({ paperId, outline, list, currentId, parentId, openGroup, onTo
 }
 
 function Lessons({ rows, lessonId, parentId, openGroup, onToggleGroup, onNavigate, hideEmpty }: { hideEmpty?: boolean; rows: LessonRow[] | 'loading' | 'error' | undefined; lessonId: string | null; parentId: string | null; openGroup: string | null; onToggleGroup: (id: string) => void; onNavigate?: () => void }) {
-  if (!rows || rows === 'loading') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Loading…</li>;
-  if (rows === 'error') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Could not load the lessons.</li>;
-  if (rows.length === 0) return hideEmpty ? null : <li className="py-1 pr-3 pl-12 text-xs text-ink-3">No lessons are listed yet.</li>;
+  if (!rows || rows === 'loading') return <li className="py-1 pr-3 pl-9 text-xs text-ink-3">Loading…</li>;
+  if (rows === 'error') return <li className="py-1 pr-3 pl-9 text-xs text-ink-3">Could not load the lessons.</li>;
+  if (rows.length === 0) return hideEmpty ? null : <li className="py-1 pr-3 pl-9 text-xs text-ink-3">No lessons are listed yet.</li>;
   const lesson = (r: Extract<LessonRow, { kind: 'lesson' }>, indent: string) => (
     <li key={r.id}>
       <Link to={`/learn/${r.id}`} onClick={onNavigate} aria-current={lessonId === r.id ? 'page' : undefined} data-kind="lesson" title={r.title} className={`${rowBase} h-8 pr-3 text-[13px] ${indent} ${lessonId === r.id ? selectedRow : 'text-ink'}`}>
@@ -594,24 +594,24 @@ function Lessons({ rows, lessonId, parentId, openGroup, onToggleGroup, onNavigat
         group ? (
           <li key={`g-${group.id}`}>
             <ChapterRow kind="lesson-group" to={`/topic/${group.id}`} label={group.label} title={group.title} open={openGroup === group.id} state={parentId === group.id ? 'parent' : 'idle'} onToggle={() => onToggleGroup(group.id)} />
-            {openGroup === group.id && <ul>{rest.map((r) => (r.kind === 'lesson' ? lesson(r, 'pl-16') : null))}</ul>}
+            {openGroup === group.id && <ul>{rest.map((r) => (r.kind === 'lesson' ? lesson(r, 'pl-12') : null))}</ul>}
           </li>
         ) : (
-          rest.map((r) => (r.kind === 'lesson' ? lesson(r, 'pl-12') : null))
+          rest.map((r) => (r.kind === 'lesson' ? lesson(r, 'pl-9') : null))
         ),
       )}
     </>
   );
 }
 
-function PyqYears({ subject, pyq, activeYear, onNavigate, indent = 'pl-12' }: { subject: Subject; pyq: PyqTree | 'loading' | 'error' | null; activeYear: number | null; onNavigate?: () => void; indent?: string }) {
-  if (!pyq || pyq === 'loading') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Loading…</li>;
-  if (pyq === 'error') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Could not load the papers.</li>;
+function PyqYears({ subject, pyq, activeYear, onNavigate, indent = 'pl-9' }: { subject: Subject; pyq: PyqTree | 'loading' | 'error' | null; activeYear: number | null; onNavigate?: () => void; indent?: string }) {
+  if (!pyq || pyq === 'loading') return <li className="py-1 pr-3 pl-9 text-xs text-ink-3">Loading…</li>;
+  if (pyq === 'error') return <li className="py-1 pr-3 pl-9 text-xs text-ink-3">Could not load the papers.</li>;
   const rows = pyq.years
     .map((y) => ({ year: y.year, hit: y.subjects.find((x) => x.code === subject.code) }))
     .filter((r): r is { year: number; hit: NonNullable<typeof r.hit> } => !!r.hit && r.hit.papers > 0)
     .sort((a, b) => b.year - a.year);
-  if (rows.length === 0) return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">No question papers are listed for this paper yet.</li>;
+  if (rows.length === 0) return <li className="py-1 pr-3 pl-9 text-xs text-ink-3">No question papers are listed for this paper yet.</li>;
   return (
     <>
       {rows.map(({ year, hit }) => (
@@ -631,10 +631,10 @@ export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => voi
   const { pathname } = useLocation();
   return (
     <aside aria-label="Subjects" className={`flex-col border-r border-rule bg-surface ${className}`}>
-      <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain py-2">
+      <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2.5 py-3">
         <SidebarNav onNavigate={onNavigate} />
       </nav>
-      <div className="border-t border-rule">
+      <div className="border-t border-rule p-2.5">
         <Link to="/plans" onClick={onNavigate} aria-current={pathname === '/plans' ? 'page' : undefined} className={`${rowBase} h-10 px-3 text-[13.5px] ${pathname === '/plans' ? selectedRow : 'text-ink'}`}>
           <CreditCard aria-hidden className={`size-4 ${pathname === '/plans' ? 'text-accent' : 'text-ink-3'}`} />
           Plans

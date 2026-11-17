@@ -382,6 +382,7 @@ export const api = {
   reminders: () => request<Reminder[]>('GET', `/api/student/reminders?day=${localDay()}&since=${encodeURIComponent(startOfToday())}`),
   dismissReminder: (key: string) => request<{ dismissed: boolean }>('POST', '/api/student/reminders/dismiss', { key }),
   recent: () => request<RecentItem[]>('GET', '/api/student/recent'),
+  subjectSummary: (paperId: string) => request<{ last: { kind: 'TOPIC_VIEW' | 'LESSON_VIEW'; nodeId: string | null; resourceId: string | null; title: string | null; at: string } | null; lessonsCompleted: number; testsCompleted: number }>('GET', `/api/student/subject-summary/${paperId}`),
   resetPassword: (b: { token: string; newPassword: string }) => request<{ reset: boolean }>('POST', '/api/auth/reset-password', b),
   pastPapers: (f: { exam?: ExamCode; year?: number; subject?: string }) =>
     request<{ total: number; years: number[]; subjects: { code: string; name: string }[]; papers: PastPaper[] }>('GET', `/api/learn/past-papers?${new URLSearchParams(Object.entries(f).filter(([, v]) => v !== undefined && v !== '').map(([k, v]) => [k, String(v)])).toString()}`),

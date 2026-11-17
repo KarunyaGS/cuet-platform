@@ -9,11 +9,10 @@ const REVIEW_ROLES = ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'];
 
 export function Logo() {
   return (
-    <span className="flex items-center gap-2 text-[15px] font-semibold text-ink">
+    <span className="flex items-center gap-2.5 text-[15px] font-semibold text-ink">
       <img src="/prepora-logo.png" alt="" aria-hidden width={32} height={32} className="size-8 shrink-0 object-contain" />
       <span className="flex flex-col leading-tight">
         Prepora
-        <span className="hidden whitespace-nowrap text-[11px] font-normal text-ink-3 sm:block">1st Student Centric Super App</span>
       </span>
     </span>
   );
@@ -247,7 +246,7 @@ function ExamSelector() {
   }, [open]);
   return (
     <div ref={ref} className="relative">
-      <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-haspopup="menu" className="flex h-8 items-center gap-1.5 rounded-md border border-rule-strong bg-surface px-2.5 text-[13px] font-medium text-ink hover:bg-paper">
+      <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-haspopup="menu" className="flex h-8 items-center gap-1.5 rounded-md bg-transparent px-2.5 text-[13px] font-medium text-ink hover:bg-ink/5">
         CUET UG
         <ChevronDown aria-hidden className={`size-3.5 text-ink-3 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
@@ -277,7 +276,7 @@ export function Layout() {
   // Beside the sidebar the page starts at the sidebar's edge and uses the width available (left-aligned, never centred in a narrow box).
   // Without a sidebar (sign-in, staff consoles) the centred, width-limited container stays.
   const shell = wide ? 'mx-auto max-w-[96rem]' : 'mx-auto max-w-[84rem]';
-  const pageBox = showSidebar ? 'max-w-[120rem] px-4 pt-4 sm:px-5 lg:px-6' : `${shell} px-4 pt-5 sm:px-6 lg:px-8`;
+  const pageBox = showSidebar ? 'max-w-[120rem] px-5 pt-6 sm:px-8 lg:px-10' : `${shell} px-5 pt-6 sm:px-8 lg:px-10`;
 
   return (
     <div className="min-h-dvh">
@@ -285,7 +284,7 @@ export function Layout() {
         Skip to content
       </a>
       <header className="sticky top-0 z-30 border-b border-rule bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
-        <div className={`flex h-14 items-center gap-2 px-4 sm:px-6 lg:px-8 ${showSidebar ? 'max-w-none' : shell}`}>
+        <div className={`flex h-14 items-center gap-2 px-5 sm:px-7 lg:px-10 ${showSidebar ? 'max-w-none' : shell}`}>
           {focus ? (
             <>
               <Logo />

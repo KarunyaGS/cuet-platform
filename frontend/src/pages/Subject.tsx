@@ -8,7 +8,7 @@ import { SubjectCards } from '../tools';
 import { AreaCards } from './SubjectArea';
 
 /** Subject page: units on the left, the selected unit's topics and subtopics on the right. */
-export function SubjectPage() {
+export function SubjectSyllabusPage() {
   const { paperId = '', exam = 'CUET_UG' } = useParams();
   const outline = useLoad(() => api.outline(paperId), [paperId]);
   const navigate = useNavigate();

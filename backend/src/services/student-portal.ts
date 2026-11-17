@@ -204,3 +204,30 @@ export async function recentlyViewed(db: D1Database, userId: string) {
     .all<Record<string, string | null>>();
   return results.map((r) => ({ kind: r.kind as 'TOPIC_VIEW' | 'LESSON_VIEW', nodeId: r.node_id, resourceId: r.resource_id, title: r.lesson ?? r.topic, paper: r.paper, at: r.at }));
 }
+
+// ---------------------------------------------------------------- one subject's progress
+
+/** What the subject page shows: where the student left off, the lessons they have opened and the tests they have finished. */
+export async function subjectSummary(db: D1Database, userId: string, paperId: string) {
+  const last = await db
+    .prepare(
+      `SELECT a.kind, a.curriculum_node_id AS node_id, a.resource_id, a.created_at AS at, n.title AS topic, r.title AS lesson
+       FROM learning_activity a LEFT JOIN curriculum_nodes n ON n.id = a.curriculum_node_id LEFT JOIN learning_resources r ON r.id = a.resource_id
+       WHERE a.user_id = ? AND a.test_paper_id = ? ORDER BY a.created_at DESC LIMIT 1`,
+    )
+    .bind(userId, paperId)
+    .first<{ kind: string; node_id: string | null; resource_id: string | null; at: string; topic: string | null; lesson: string | null }>();
+  const lessons = await db
+    .prepare(`SELECT COUNT(DISTINCT resource_id) AS n FROM learning_activity WHERE user_id = ? AND test_paper_id = ? AND kind = 'LESSON_VIEW' AND resource_id IS NOT NULL`)
+    .bind(userId, paperId)
+    .first<{ n: number }>();
+  const tests = await db
+    .prepare(`SELECT COUNT(*) AS n FROM practice_sessions WHERE user_id = ? AND test_paper_id = ? AND status != 'IN_PROGRESS'`)
+    .bind(userId, paperId)
+    .first<{ n: number }>();
+  return {
+    last: last ? { kind: last.kind as 'TOPIC_VIEW' | 'LESSON_VIEW', nodeId: last.node_id, resourceId: last.resource_id, title: last.lesson ?? last.topic, at: last.at } : null,
+    lessonsCompleted: lessons?.n ?? 0,
+    testsCompleted: tests?.n ?? 0,
+  };
+}

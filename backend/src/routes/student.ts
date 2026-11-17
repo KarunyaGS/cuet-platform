@@ -23,7 +23,7 @@ import {
   activitySchema, addBookmark, addPlanItem, BOOKMARK_KINDS, bookmarkSchema, bookmarkState, dailySchema, dashboard, dashboardQuery, deletePlanItem, getGoal, getProfile, goalSchema, listBookmarks,
   listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
 } from '../services/student-tools';
-import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
+import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, subjectSummary, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
 import { deleteOne, editOne, editSchema, listAll, listForSurface, listForSurfaces, saveBatch, saveSchema } from '../services/annotations';
 import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, createQuestionCard, createQuestionCardSchema, deleteCard, importCards, importCardsSchema, listCards, questionCardState, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
 import { pyqDocument, pyqDocumentFile, pyqExamSchema, pyqSubject, pyqTree } from '../services/pyq';
@@ -323,6 +323,7 @@ student.get('/report/weekly', async (c) => c.json(await weeklyReport(c.env.DB, c
 student.get('/reminders', async (c) => c.json(await reminders(c.env.DB, c.get('user').id, remindersQuery.parse({ day: c.req.query('day'), since: c.req.query('since') }))));
 student.post('/reminders/dismiss', async (c) => c.json(await dismissReminder(c.env.DB, c.get('user').id, await readJson(c, dismissSchema))));
 student.get('/recent', async (c) => c.json(await recentlyViewed(c.env.DB, c.get('user').id)));
+student.get('/subject-summary/:paperId', async (c) => c.json(await subjectSummary(c.env.DB, c.get('user').id, c.req.param('paperId'))));
 
 // Study planner
 student.get('/plan', async (c) => c.json(await listPlan(c.env.DB, c.get('user').id, c.req.query('from') ?? '', c.req.query('to') ?? '')));

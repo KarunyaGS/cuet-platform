@@ -82,7 +82,7 @@ function ChapterCards({ list }: { list: SideItem[] }) {
     else cards.push({ head: c, topics: [] });
   }
   return (
-    <ul className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3" data-chapter-cards>
+    <ul className="flex flex-col gap-4" data-chapter-cards>
       {cards.map(({ head, topics }) => (
         <li key={head.id} className="flex flex-col overflow-hidden rounded-xl border border-rule bg-surface">
           <Link to={`/topic/${head.id}`} data-chapter={head.id} className="flex items-start gap-3 border-b border-rule bg-paper px-4 py-3 hover:bg-accent-soft/50">

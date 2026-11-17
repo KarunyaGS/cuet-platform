@@ -30,7 +30,7 @@ import { ReportPage } from './pages/Report';
 import { ForgotPasswordPage, ResetPasswordPage, UnsubscribePage, VerifyEmailPage } from './pages/Reset';
 import { RevisePage } from './pages/Revise';
 import { NotFoundPage, SearchPage } from './pages/Search';
-import { SubjectPage } from './pages/Subject';
+import { SubjectPage } from './pages/SubjectHome';
 import { Subjects } from './pages/Subjects';
 import { TopicPage } from './pages/Topic';
 import { AuthProvider, GuestOnly, Loading, RequireAuth } from './ui';
