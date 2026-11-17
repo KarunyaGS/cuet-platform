@@ -153,51 +153,8 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
       </section>
 
       <div className="grid grid-cols-1 gap-x-8 gap-y-7 lg:grid-cols-2">
-        <section aria-labelledby="continue">
-          <SectionTitle id="continue">Continue learning</SectionTitle>
-          {nothingYet ? (
-            <Empty icon={<BookOpen />}>
-              Nothing here yet. Choose a subject from{' '}
-              <Link to="/CUET_UG" className="font-medium text-accent hover:underline">
-                CUET-UG
-              </Link>{' '}
-              and open a topic.
-            </Empty>
-          ) : (
-            <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
-              {x.inProgress.map((s) => (
-                <li key={s.id}>
-                  <Link to={`/practice/${s.id}`} className={`${row} transition-colors hover:bg-paper`}>
-                    <PlayCircle aria-hidden className="size-[18px] shrink-0 text-marker" />
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate font-medium text-ink">
-                        {MODE[s.mode] ?? s.mode}: {s.topic ?? s.paper ?? ''}
-                      </span>
-                      <span className="block text-xs text-marker">Unfinished, your answers are saved</span>
-                    </span>
-                    <span className="shrink-0 text-sm font-medium text-accent">Resume</span>
-                  </Link>
-                </li>
-              ))}
-              {x.continueLearning.map((c) => (
-                <li key={`${c.kind}-${c.resourceId ?? c.nodeId}`}>
-                  <Link to={c.kind === 'LESSON_VIEW' ? `/learn/${c.resourceId}` : `/topic/${c.nodeId}`} className={`${row} transition-colors hover:bg-paper`}>
-                    {c.kind === 'LESSON_VIEW' ? <BookOpen aria-hidden className="size-[18px] shrink-0 text-ink-3" /> : <Layers aria-hidden className="size-[18px] shrink-0 text-ink-3" />}
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-ink">{c.title ?? '(no longer available)'}</span>
-                      <span className="block text-xs text-ink-3">
-                        {c.kind === 'LESSON_VIEW' ? 'Lesson' : 'Topic'}
-                        {c.paper ? `, ${c.paper}` : ''}
-                      </span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
 
-        <section aria-labelledby="plan">
+        <section aria-labelledby="plan" className="lg:col-span-2">
           <SectionTitle
             id="plan"
             action={

@@ -1,6 +1,7 @@
 import { ChevronRight, CreditCard } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
+import { SidebarSearchBox, SidebarSearchResults } from './SidebarSearch';
 import { bareChapter } from './ui';
 import { api, type ExamCode, type Outline, type OutlineNode, type PyqTree, type Subject } from './api';
 
@@ -628,10 +629,28 @@ function PyqYears({ subject, pyq, activeYear, onNavigate, indent = 'pl-9' }: { s
 /** The sidebar frame: its own scroll area, with Plans fixed at the bottom. */
 export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => void; className?: string }) {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [query, setQuery] = useState('');
+  const searching = query.trim().length >= 2;
+  const done = () => {
+    setQuery('');
+    onNavigate?.();
+  };
   return (
     <aside aria-label="Subjects" className={`flex-col border-r border-rule bg-surface ${className}`}>
+      <div className="shrink-0 px-2.5 pt-3">
+        <SidebarSearchBox
+          value={query}
+          onChange={setQuery}
+          onSubmit={() => {
+            const q = query.trim();
+            done();
+            navigate(`/search?q=${encodeURIComponent(q)}`);
+          }}
+        />
+      </div>
       <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2.5 py-3">
-        <SidebarNav onNavigate={onNavigate} />
+        {searching ? <SidebarSearchResults query={query.trim()} onPick={done} /> : <SidebarNav onNavigate={onNavigate} />}
       </nav>
       <div className="border-t border-rule p-2.5">
         <Link to="/plans" onClick={onNavigate} aria-current={pathname === '/plans' ? 'page' : undefined} className={`${rowBase} h-10 px-3 text-[13.5px] ${pathname === '/plans' ? selectedRow : 'text-ink'}`}>

@@ -211,6 +211,11 @@ function ChatView({ open }: { open: boolean }) {
         {error && <p className="text-[13px] text-wrong">The conversation could not be loaded. It will retry.</p>}
         {chat && chat.messages.length === 0 && <p className="text-[13px] text-ink-2">Ask your question here. Replies from our team appear in this conversation.</p>}
         {chat && chat.messages.length > 0 && <Bubbles messages={chat.messages} base="/api/student/support/attachments" />}
+        {chat && chat.messages.length > 0 && chat.messages[chat.messages.length - 1]!.from === 'YOU' && (
+          <p data-support-waiting className="mt-3 text-center text-xs text-ink-3">
+            Message received. Our team replies in this conversation; there are no automatic answers.
+          </p>
+        )}
       </div>
       <Composer draftKey="prepora.support.chat" label="Message" placeholder="Write a message" onSend={async (body, attachment) => setChat(await api.supportSend({ body, attachment }))} />
     </div>
