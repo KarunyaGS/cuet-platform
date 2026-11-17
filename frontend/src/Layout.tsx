@@ -231,6 +231,42 @@ function UserMenu() {
   );
 }
 
+/** The exam selector beside the brand: compact, neutral. CUET UG is the only exam offered. */
+function ExamSelector() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
+  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: Event) => ref.current && !ref.current.contains(e.target as Node) && setOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('touchstart', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('touchstart', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+  return (
+    <div ref={ref} className="relative">
+      <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-haspopup="menu" className="flex h-8 items-center gap-1.5 rounded-md border border-rule-strong bg-surface px-2.5 text-[13px] font-medium text-ink hover:bg-paper">
+        CUET UG
+        <ChevronDown aria-hidden className={`size-3.5 text-ink-3 transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      {open && (
+        <div role="menu" aria-label="Exam" className="absolute left-0 z-40 mt-1.5 w-40 rounded-lg border border-rule bg-surface p-1 shadow-lg shadow-ink/5">
+          <Link role="menuitem" to="/CUET_UG" className="flex items-center rounded-md bg-accent-soft px-2.5 py-1.5 text-[13px] font-medium text-accent">
+            CUET UG
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Layout() {
   const location = useLocation();
   const path = location.pathname;
@@ -251,7 +287,7 @@ export function Layout() {
         Skip to content
       </a>
       <header className="sticky top-0 z-30 border-b border-rule bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
-        <div className={`mx-auto flex h-14 items-center gap-2 px-4 sm:px-6 lg:px-8 ${shell}`}>
+        <div className={`mx-auto flex h-14 items-center gap-2 px-4 sm:px-6 lg:px-8 ${showSidebar ? 'max-w-none' : shell}`}>
           {focus ? (
             <>
               <Logo />
@@ -267,9 +303,12 @@ export function Layout() {
                   <Menu aria-hidden className="size-5" />
                 </button>
               )}
-              <Link to="/" className="mr-4 rounded-lg" aria-label="CUET Prep home">
+              <Link to="/" className="rounded-lg" aria-label="CUET Prep home">
                 <Logo />
               </Link>
+              <div className="mr-2 ml-1 sm:mr-4 sm:ml-2">
+                <ExamSelector />
+              </div>
               <nav className="hidden items-center md:flex" aria-label="Main">
                 <TopLink to="/" end>
                   Home

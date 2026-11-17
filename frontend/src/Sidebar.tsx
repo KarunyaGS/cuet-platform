@@ -16,7 +16,7 @@ const YEAR = 2026;
 const STORE = 'cuet.sidebar.open';
 
 const rowBase = 'relative flex w-full items-center gap-1.5 text-left transition-colors hover:bg-ink/[0.03] focus-visible:bg-ink/[0.04]';
-const selectedRow = 'bg-nav-soft text-ink hover:bg-nav-soft before:absolute before:inset-y-0 before:left-0 before:w-[2px] before:bg-nav';
+const selectedRow = 'bg-accent-soft font-medium text-accent hover:bg-accent-soft before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:bg-accent';
 
 function Chevron({ open }: { open: boolean }) {
   return <ChevronRight aria-hidden className={`size-3.5 shrink-0 text-ink-3 transition-transform ${open ? 'rotate-90' : ''}`} />;
@@ -188,7 +188,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
         const onSubject = pathname === `/${EXAM}/subject/${s.paperId}`;
         const inside = current?.paperId === s.paperId || (onPyq && pyqSlugMatches(pyq, s, pyqSlug));
         return (
-          <li key={s.paperId}>
+          <li key={s.paperId} className="mb-0.5">
             <button
               type="button"
               aria-expanded={isOpen}
@@ -196,7 +196,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                 toggle(sKey);
                 if (s.available) loadOutline(s.paperId);
               }}
-              className={`${rowBase} h-auto min-h-9 px-3 py-1.5 text-[13.5px] ${onSubject ? selectedRow : inside ? 'font-semibold text-ink' : 'text-ink-2'}`}
+              className={`${rowBase} h-auto min-h-10 px-3 py-2 text-[14px] ${onSubject ? selectedRow : inside ? 'font-semibold text-ink' : 'text-ink'}`}
             >
               <Chevron open={isOpen} />
               <span className="min-w-0 flex-1 leading-snug">{s.name}</span>
@@ -247,7 +247,7 @@ function pyqSlugMatches(pyq: PyqTree | 'loading' | 'error' | null, s: Subject, s
 function Category({ label, open, active, onToggle, children }: { id: string; label: string; open: boolean; active: boolean; onToggle: () => void; children: React.ReactNode }) {
   return (
     <li>
-      <button type="button" aria-expanded={open} onClick={onToggle} className={`${rowBase} min-h-8 py-1 pr-3 pl-7 text-[13px] ${active ? 'font-semibold text-ink' : 'text-ink-2'}`}>
+      <button type="button" aria-expanded={open} onClick={onToggle} className={`${rowBase} min-h-9 py-1.5 pr-3 pl-8 text-[13px] ${active ? 'font-semibold text-ink' : 'text-ink'}`}>
         <Chevron open={open} />
         <span className="flex-1 leading-snug">{label}</span>
       </button>
@@ -278,7 +278,7 @@ function Chapters({ paperId, outline, list, currentId, onNavigate, onRetry }: { 
             aria-current={currentId === c.id ? 'page' : undefined}
             data-paper={paperId}
             data-kind={c.kind}
-            className={`${rowBase} min-h-7 py-1 pr-3 text-[12.5px] ${c.kind === 'group' ? 'pl-12 pt-1.5 font-medium' : 'pl-16'} ${currentId === c.id ? selectedRow : c.kind === 'group' ? 'text-ink' : 'text-ink-2'}`}
+            className={`${rowBase} min-h-7 py-1 pr-3 text-[12.5px] ${c.kind === 'group' ? 'pl-12 pt-1.5 font-medium' : 'pl-16'} ${currentId === c.id ? selectedRow : 'text-ink'}`}
           >
             <span className="min-w-0 flex-1 leading-snug">
               {c.label ? <span className="text-ink-3">{c.label} </span> : null}
@@ -304,7 +304,7 @@ function PyqYears({ subject, pyq, activeYear, onNavigate }: { subject: Subject; 
     <>
       {rows.map(({ year, hit }) => (
         <li key={year}>
-          <Link to={`/pyq?year=${year}&subject=${encodeURIComponent(hit.slug)}`} onClick={onNavigate} aria-current={activeYear === year ? 'page' : undefined} className={`${rowBase} min-h-7 py-1 pr-3 pl-12 text-[12.5px] ${activeYear === year ? selectedRow : 'text-ink-2'}`}>
+          <Link to={`/pyq?year=${year}&subject=${encodeURIComponent(hit.slug)}`} onClick={onNavigate} aria-current={activeYear === year ? 'page' : undefined} className={`${rowBase} min-h-7 py-1 pr-3 pl-12 text-[12.5px] ${activeYear === year ? selectedRow : 'text-ink'}`}>
             <span className="flex-1">{year}</span>
             <Count n={hit.papers} />
           </Link>
@@ -319,13 +319,12 @@ export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => voi
   const { pathname } = useLocation();
   return (
     <aside aria-label="Subjects" className={`flex-col border-r border-rule bg-surface ${className}`}>
-      <div className="px-3 pt-3 pb-1 text-[11px] font-semibold tracking-wide text-ink-3 uppercase">CUET UG</div>
-      <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-2">
+      <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain py-2">
         <SidebarNav onNavigate={onNavigate} />
       </nav>
       <div className="border-t border-rule">
-        <Link to="/plans" onClick={onNavigate} aria-current={pathname === '/plans' ? 'page' : undefined} className={`${rowBase} h-10 px-3 text-[13.5px] ${pathname === '/plans' ? selectedRow : 'text-ink-2'}`}>
-          <CreditCard aria-hidden className="size-4 text-ink-3" />
+        <Link to="/plans" onClick={onNavigate} aria-current={pathname === '/plans' ? 'page' : undefined} className={`${rowBase} h-10 px-3 text-[13.5px] ${pathname === '/plans' ? selectedRow : 'text-ink'}`}>
+          <CreditCard aria-hidden className={`size-4 ${pathname === '/plans' ? 'text-accent' : 'text-ink-3'}`} />
           Plans
         </Link>
       </div>
