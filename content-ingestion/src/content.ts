@@ -49,7 +49,8 @@ export interface Pack {
   paperCode: string;
   origin: 'AI_ASSISTED';
   node: { id: string; title: string };
-  lesson: { key: string; title: string; coverage: { phrase: string; section: string }[]; blocks: PackBlock[] };
+  /** `null` for a question-only set: more questions for a topic that already has its lesson. */
+  lesson: { key: string; title: string; coverage: { phrase: string; section: string }[]; blocks: PackBlock[] } | null;
   diagrams: { key: string; file: string; alt: string; caption: string; description: string }[];
   questions: PackQuestion[];
 }
@@ -182,7 +183,10 @@ export function validatePack(file: string, snapshotCache = new Map<string, Sylla
 
   // ---- lesson
   const L = pack.lesson;
-  if (!L?.key || !L.title || !Array.isArray(L.blocks)) err('lesson needs key, title and blocks');
+  if (L === null) {
+    // A question-only set: no lesson, no diagrams. Its questions are checked below exactly like a pack's.
+    if ((pack.diagrams ?? []).length) err('a question-only set (lesson: null) cannot declare diagrams');
+  } else if (!L?.key || !L.title || !Array.isArray(L.blocks)) err('lesson needs key, title and blocks');
   else {
     claim(L.key, 'lesson');
     const headings = new Set<string>();
@@ -275,7 +279,8 @@ export function validatePack(file: string, snapshotCache = new Map<string, Sylla
   // ---- questions
   const qs = pack.questions ?? [];
   stats.questions = qs.length;
-  if (qs.length < 10) err(`needs at least 10 questions for this syllabus row (has ${qs.length})`);
+  const minQuestions = pack.lesson === null ? 5 : 10;
+  if (qs.length < minQuestions) err(`needs at least ${minQuestions} questions for this syllabus row (has ${qs.length})`);
   const diagramKeys = new Set((pack.diagrams ?? []).map((d) => d.key));
   for (const [i, q] of qs.entries()) {
     const at = `question ${i + 1} (${q.key})`;
@@ -320,11 +325,12 @@ export function validatePack(file: string, snapshotCache = new Map<string, Sylla
   }
   if (qs.length) {
     const share = (d: string) => (stats.byDifficulty[d] ?? 0) / qs.length;
-    if (share('EASY') < 0.15 || share('MEDIUM') < 0.25 || share('HARD') < 0.15) err(`difficulty mix ${JSON.stringify(stats.byDifficulty)}: needs at least 15% easy, 25% medium and 15% hard`);
+    if ((pack.lesson !== null || qs.length >= 10) && (share('EASY') < 0.15 || share('MEDIUM') < 0.25 || share('HARD') < 0.15)) err(`difficulty mix ${JSON.stringify(stats.byDifficulty)}: needs at least 15% easy, 25% medium and 15% hard`);
     const answers = qs.map((q) => q.answer);
     for (const a of [1, 2, 3, 4]) if (answers.filter((x) => x === a).length / qs.length > 0.45) warnings.push(`option ${a} is the answer to ${Math.round((100 * answers.filter((x) => x === a).length) / qs.length)}% of questions`);
     const types = Object.keys(stats.byType).length;
-    if (types < 3) err(`use at least 3 question formats (has ${types})`);
+    const minTypes = pack.lesson === null ? 2 : 3;
+    if (types < minTypes) err(`use at least ${minTypes} question formats (has ${types})`);
   }
   return { file, ok: errors.length === 0, errors, warnings, stats };
 }
@@ -427,12 +433,12 @@ export async function importPacks(api: string, token: string, exam?: string, pap
     const pack = JSON.parse(readFileSync(rep.file, 'utf8')) as Pack;
     const snap = loadSnapshot(pack.exam, pack.paperCode);
     const mediaIds = new Map<string, string>();
-    for (const d of pack.diagrams) {
+    for (const d of pack.lesson ? pack.diagrams : []) {
       const bytes = readFileSync(join(dirname(rep.file), d.file));
       const svg = bytes.toString('utf8');
       const vb = /viewBox\s*=\s*"\s*[\d.-]+\s+[\d.-]+\s+([\d.]+)\s+([\d.]+)\s*"/.exec(svg);
       const stored = await call(api, token, 'PUT', '/api/admin/files/media', bytes, 'image/svg+xml');
-      const r = await call(api, token, 'PUT', `/api/admin/content/media/${pack.lesson.key}.${d.key}`, {
+      const r = await call(api, token, 'PUT', `/api/admin/content/media/${pack.lesson!.key}.${d.key}`, {
         kind: 'DIAGRAM', r2Key: stored['r2Key'], sha256: createHash('sha256').update(bytes).digest('hex'), mimeType: 'image/svg+xml', byteSize: bytes.length,
         width: vb ? Math.round(Number(vb[1])) : null, height: vb ? Math.round(Number(vb[2])) : null,
         altText: d.alt, caption: d.caption, longDescription: d.description || null, curriculumNodeId: pack.node.id,
@@ -441,7 +447,7 @@ export async function importPacks(api: string, token: string, exam?: string, pap
       mediaIds.set(d.key, String(r['id']));
       bump(out.media, String(r['outcome']));
     }
-    const blocks = pack.lesson.blocks.map((b) => {
+    const blocks = (pack.lesson?.blocks ?? []).map((b) => {
       switch (b.type) {
         case 'HEADING': return { type: 'HEADING', body: b.text };
         case 'DEFINITION': return { type: 'DEFINITION', body: md({ term: b.term, text: b.text }) };
@@ -457,7 +463,7 @@ export async function importPacks(api: string, token: string, exam?: string, pap
     });
     const node = snap.nodes.find((n) => n.id === pack.node.id)!;
     const official = { type: 'OFFICIAL_TEXT', body: md({ text: [node.title, node.body].filter(Boolean).join(' '), page: node.sourcePage, paper: `${snap.paperName} (${snap.paperCode})` }) };
-    const res = await call(api, token, 'PUT', `/api/admin/content/resources/${pack.lesson.key}`, {
+    const res = !pack.lesson ? { outcome: 'NO_LESSON_IN_FILE' } : await call(api, token, 'PUT', `/api/admin/content/resources/${pack.lesson.key}`, {
       curriculumNodeId: pack.node.id, testPaperId: snap.paperId, type: 'LESSON', title: pack.lesson.title, language: 'en', origin: 'AI_ASSISTED',
       usagePermissionId: 'perm_owned', isDemonstration: false, blocks: [official, ...blocks],
     });
