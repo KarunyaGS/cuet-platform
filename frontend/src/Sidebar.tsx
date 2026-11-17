@@ -26,18 +26,38 @@ function Count({ n }: { n: number }) {
   return <span className="num ml-auto shrink-0 rounded-full bg-ink/[0.06] px-1.5 py-px text-[11px] leading-4 text-ink-3">{n}</span>;
 }
 
-/** Chapters of a paper: the content roots of its outline; a section is opened one level so its units are listed. */
-export function chaptersOf(nodes: OutlineNode[]): { id: string; title: string; label: string | null; questions: number; ids: Set<string> }[] {
+export interface SideItem { id: string; kind: 'group' | 'topic'; title: string; label: string | null; questions: number; ids: Set<string> }
+
+/**
+ * What the sidebar lists for a paper, in syllabus order: the topics that have questions or a lesson, each group headed by the section or
+ * unit it sits under (the heading opens that section's own page). A paper with no questions or lessons yet lists its top-level units instead.
+ */
+export function chaptersOf(nodes: OutlineNode[]): SideItem[] {
   const kids = new Map<string | null, OutlineNode[]>();
   for (const n of nodes) kids.set(n.parent_id, [...(kids.get(n.parent_id) ?? []), n]);
   const sort = (l: OutlineNode[]) => [...l].sort((a, b) => a.position - b.position);
-  const subtree = (id: string): OutlineNode[] => (kids.get(id) ?? []).flatMap((c) => [c, ...subtree(c.id)]);
-  const roots = sort(kids.get(null) ?? []).filter((r) => r.kind !== 'NOTE');
-  const picked = roots.flatMap((r) => (r.kind === 'SECTION' && (kids.get(r.id) ?? []).length > 0 ? sort(kids.get(r.id)!) : [r]));
-  return picked.map((n) => {
-    const all = [n, ...subtree(n.id)];
-    return { id: n.id, title: n.title, label: n.label, questions: all.reduce((s, x) => s + x.questions, 0), ids: new Set(all.map((x) => x.id)) };
-  });
+  const byId = new Map(nodes.map((n) => [n.id, n]));
+  const subtree = (id: string): OutlineNode[] => sort(kids.get(id) ?? []).flatMap((c) => [c, ...subtree(c.id)]);
+  const ids = (n: OutlineNode) => new Set([n.id, ...subtree(n.id).map((x) => x.id)]);
+  const ordered = sort(kids.get(null) ?? []).flatMap((r) => [r, ...subtree(r.id)]);
+  const topics = ordered.filter((n) => n.kind !== 'NOTE' && (n.questions > 0 || n.resources > 0));
+  if (topics.length === 0) {
+    const roots = sort(kids.get(null) ?? []).filter((r) => r.kind !== 'NOTE');
+    const picked = roots.flatMap((r) => (r.kind === 'SECTION' && (kids.get(r.id) ?? []).length > 0 ? sort(kids.get(r.id)!) : [r]));
+    return picked.map((n) => ({ id: n.id, kind: 'topic' as const, title: n.title, label: n.label, questions: 0, ids: ids(n) }));
+  }
+  const items: SideItem[] = [];
+  const seen = new Set<string>();
+  for (const t of topics) {
+    const parent = t.parent_id ? byId.get(t.parent_id) : undefined;
+    if (parent && parent.kind !== 'NOTE' && !seen.has(parent.id)) {
+      seen.add(parent.id);
+      const inside = topics.filter((x) => x.parent_id === parent.id);
+      items.push({ id: parent.id, kind: 'group', title: parent.title, label: parent.label, questions: inside.reduce((s, x) => s + x.questions, 0), ids: ids(parent) });
+    }
+    items.push({ id: t.id, kind: 'topic', title: t.title, label: t.label, questions: t.questions, ids: ids(t) });
+  }
+  return items;
 }
 
 /** One request per kind of data for the whole session, shared by the desktop sidebar and the phone drawer. A failed request is not kept. */
@@ -137,7 +157,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const current = useMemo(() => {
     if (!topicId) return null;
     for (const [paperId, list] of Object.entries(chaptersByPaper)) {
-      const ch = list.find((c) => c.ids.has(topicId));
+      const ch = list.find((c) => c.kind === 'topic' && c.ids.has(topicId)) ?? list.find((c) => c.ids.has(topicId));
       if (ch) return { paperId, chapterId: ch.id };
     }
     return null;
@@ -252,12 +272,19 @@ function Chapters({ paperId, outline, list, currentId, onNavigate, onRetry }: { 
     <>
       {list.map((c) => (
         <li key={c.id}>
-          <Link to={`/topic/${c.id}`} onClick={onNavigate} aria-current={currentId === c.id ? 'page' : undefined} data-paper={paperId} className={`${rowBase} min-h-7 py-1 pr-3 pl-12 text-[12.5px] ${currentId === c.id ? selectedRow : 'text-ink-2'}`}>
+          <Link
+            to={`/topic/${c.id}`}
+            onClick={onNavigate}
+            aria-current={currentId === c.id ? 'page' : undefined}
+            data-paper={paperId}
+            data-kind={c.kind}
+            className={`${rowBase} min-h-7 py-1 pr-3 text-[12.5px] ${c.kind === 'group' ? 'pl-12 pt-1.5 font-medium' : 'pl-16'} ${currentId === c.id ? selectedRow : c.kind === 'group' ? 'text-ink' : 'text-ink-2'}`}
+          >
             <span className="min-w-0 flex-1 leading-snug">
               {c.label ? <span className="text-ink-3">{c.label} </span> : null}
               {c.title}
             </span>
-            {c.questions > 0 && <Count n={c.questions} />}
+            {c.kind === 'topic' && c.questions > 0 && <Count n={c.questions} />}
           </Link>
         </li>
       ))}
