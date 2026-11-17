@@ -124,7 +124,7 @@ export function Home() {
       <SectionTitle>Choose an exam</SectionTitle>
       {exams.loading && <Loading />}
       {exams.error && <ErrorBox error={exams.error} onRetry={exams.reload} />}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className={`grid grid-cols-1 gap-4 ${sorted.length > 1 ? 'lg:grid-cols-2' : ''}`}>
         {sorted.map((e) => (
           <ExamCard key={e.code} e={e} />
         ))}

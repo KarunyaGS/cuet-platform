@@ -86,8 +86,8 @@ export function AdminProgrammes({ sources, list }: { sources: AdmissionSourceRow
             <label className="text-sm text-ink">Admission year<input className={`${inputClass} mt-1`} value={f.academicYear} onChange={(e) => set('academicYear', e.target.value)} placeholder="2026-27" /></label>
             <label className="text-sm text-ink">Exam and level
               <span className="mt-1 flex gap-2">
-                <select className={inputClass} value={f.exam} onChange={(e) => set('exam', e.target.value)}><option value="CUET_UG">CUET UG</option><option value="CUET_PG">CUET PG</option></select>
-                <select className={inputClass} value={f.level} onChange={(e) => set('level', e.target.value)}><option value="UG">UG</option><option value="PG">PG</option></select>
+                <select className={inputClass} value={f.exam} onChange={(e) => set('exam', e.target.value)}><option value="CUET_UG">CUET UG</option></select>
+                <select className={inputClass} value={f.level} onChange={(e) => set('level', e.target.value)}><option value="UG">UG</option></select>
               </span>
             </label>
             <label className="text-sm text-ink">Page in the source<input data-prog-page className={`${inputClass} mt-1`} type="number" value={f.sourcePage} onChange={(e) => set('sourcePage', e.target.value)} /></label>

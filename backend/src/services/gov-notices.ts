@@ -659,8 +659,9 @@ export async function noticeOverview(db: D1Database, env: { NOTICE_FETCH?: strin
   };
 }
 
-export async function noticeQueue(db: D1Database) {
-  const { results } = await db.prepare(`SELECT * FROM gov_notices WHERE verification_status = 'NEEDS_REVIEW' AND duplicate_of_id IS NULL ORDER BY first_detected_at DESC LIMIT 200`).all<Row>();
+export async function noticeQueue(db: D1Database, activeExams?: string[]) {
+  const scope = activeExams ? ` AND (exam_code IS NULL OR exam_code IN (${activeExams.map(() => '?').join(',')}))` : '';
+  const { results } = await db.prepare(`SELECT * FROM gov_notices WHERE verification_status = 'NEEDS_REVIEW' AND duplicate_of_id IS NULL${scope} ORDER BY first_detected_at DESC LIMIT 200`).bind(...(activeExams ?? [])).all<Row>();
   return results.map((r) => ({ ...noticeOut(r), statusNote: r.status_note as string | null }));
 }
 
@@ -727,9 +728,11 @@ export const adminNoticeQuery = z.object({
   offset: z.coerce.number().int().min(0).max(20000).default(0),
 });
 
-export async function adminNotices(db: D1Database, q: z.infer<typeof adminNoticeQuery>) {
+export async function adminNotices(db: D1Database, q: z.infer<typeof adminNoticeQuery>, activeExams?: string[]) {
   const where: string[] = [];
   const binds: unknown[] = [];
+  // Only the active exams' notices (and notices of no single exam) are listed; nothing is deleted.
+  if (activeExams) (where.push(`(exam_code IS NULL OR exam_code IN (${activeExams.map(() => '?').join(',')}))`), binds.push(...activeExams));
   if (q.status === 'DUPLICATE') where.push('duplicate_of_id IS NOT NULL');
   else if (q.status) (where.push('verification_status = ? AND duplicate_of_id IS NULL'), binds.push(q.status));
   if (q.authority) (where.push('authority = ?'), binds.push(q.authority));

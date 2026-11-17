@@ -59,7 +59,7 @@ function Row({ n, onDone }: { n: AdminNotice; onDone: () => void }) {
   const [reason, setReason] = useState('');
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<Error | null>(null);
-  const [exam, setExam] = useState<'CUET_UG' | 'CUET_PG' | ''>((n.exam as 'CUET_UG' | 'CUET_PG' | null) ?? '');
+  const [exam, setExam] = useState<'CUET_UG' | ''>((n.exam as 'CUET_UG' | null) ?? '');
   const st = n.duplicateOfId ? { label: 'Duplicate', tone: 'zinc' as const } : (STATUS[n.status] ?? { label: n.status, tone: 'zinc' as const });
   const act = async (action: 'PUBLISH' | 'REJECT' | 'FLAG' | 'WITHDRAW', withReason = false) => {
     setBusy(true);
@@ -101,10 +101,9 @@ function Row({ n, onDone }: { n: AdminNotice; onDone: () => void }) {
         {['NEEDS_REVIEW', 'REJECTED', 'WITHDRAWN'].includes(n.status) && !n.duplicateOfId && (
           <>
             {n.authority === 'NTA' && (
-              <select aria-label={`Exam for: ${n.title}`} value={exam} onChange={(e) => setExam(e.target.value as 'CUET_UG' | 'CUET_PG' | '')} className="h-8 rounded-lg border border-rule-strong bg-surface px-2 text-sm text-ink">
+              <select aria-label={`Exam for: ${n.title}`} value={exam} onChange={(e) => setExam(e.target.value as 'CUET_UG' | '')} className="h-8 rounded-lg border border-rule-strong bg-surface px-2 text-sm text-ink">
                 <option value="">Choose the exam</option>
                 <option value="CUET_UG">CUET (UG)</option>
-                <option value="CUET_PG">CUET (PG)</option>
               </select>
             )}
             <Button size="sm" disabled={busy || (n.authority === 'NTA' && !exam)} onClick={() => act('PUBLISH')}>{n.status === 'NEEDS_REVIEW' ? 'Approve and publish' : 'Publish again'}</Button>

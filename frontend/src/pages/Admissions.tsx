@@ -94,7 +94,7 @@ export function AdmissionsPage() {
   const total = list.data?.total ?? 0;
   const sel = `${inputClass} h-9 w-auto py-0`;
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="w-full">
       <PageHeader
         title="University admissions"
         subtitle="Programmes, required CUET subjects, eligibility and cut-offs, each taken from the university’s own pages. We publish a detail only after a person has checked it against the official source, and we say plainly when something is not yet available."
@@ -166,7 +166,7 @@ export function AdmissionsPage() {
           <p className="mb-3 text-sm text-ink-2" data-programme-count>
             {total} {total === 1 ? 'programme' : 'programmes'}
           </p>
-          <ul className="space-y-3">{shown.map((p) => <Card key={p.id} p={p} />)}</ul>
+          <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">{shown.map((p) => <Card key={p.id} p={p} />)}</ul>
           {shown.length < total && (
             <div className="mt-4">
               <Button kind="secondary" onClick={() => setMore(shown.length)} disabled={extra.loading}>
@@ -273,7 +273,7 @@ export function ProgrammePage() {
   const deadlines = d.current.dates.filter((f) => f.category === 'APPLICATION_DEADLINE');
   const otherDates = d.current.dates.filter((f) => f.category !== 'APPLICATION_DEADLINE');
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="w-full">
       <PageHeader
         back={{ to: '/admissions', label: 'All programmes' }}
         title={p.programmeName}

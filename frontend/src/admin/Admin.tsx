@@ -173,7 +173,7 @@ export function AdminOverview() {
               <tbody className="divide-y divide-rule">
                 {d.syllabus.map((s) => (
                   <tr key={s.exam}>
-                    <td className="px-4 py-2.5 text-ink">{s.exam === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG'}</td>
+                    <td className="px-4 py-2.5 text-ink">CUET-UG</td>
                     <td className="num px-4 py-2.5 text-right">{s.papers}</td>
                     <td className="num px-4 py-2.5 text-right">{s.machine_verified}</td>
                     <td className="num px-4 py-2.5 text-right">{s.human_verified}</td>
@@ -332,7 +332,7 @@ export function AdminStudent() {
           )}
           <p className="mt-3 text-sm text-ink-2">
             {d.preferences?.examCode
-              ? `Preparing for ${d.preferences.examCode === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG'}${d.preferences.targetYear ? ` ${d.preferences.targetYear}` : ''}, ${d.preferences.subjects} subjects chosen.`
+              ? `Preparing for CUET-UG${d.preferences.targetYear ? ` ${d.preferences.targetYear}` : ''}, ${d.preferences.subjects} subjects chosen.`
               : 'Has not chosen an exam or subjects yet.'}
           </p>
         </section>
@@ -419,7 +419,6 @@ export function AdminCompletion() {
         subtitle="For each subject: how many syllabus topics have a lesson and questions. A topic counts only when real content is linked to it."
         actions={
           <>
-            <Segmented label="Exam" value={exam} onChange={setExam} options={[{ value: 'CUET_UG', label: 'CUET-UG' }, { value: 'CUET_PG', label: 'CUET-PG' }]} />
             <Segmented label="Subjects shown" value={only} onChange={setOnly} options={[{ value: 'all', label: 'All subjects' }, { value: 'started', label: 'With content' }]} />
           </>
         }
@@ -677,7 +676,7 @@ export function AdminStaff() {
                       <option value="">Choose a subject with content</option>
                       {papers.data?.map((p) => (
                         <option key={p.id} value={p.id}>
-                          {p.exam === 'CUET_UG' ? 'UG' : 'PG'} {p.code} {p.name}
+                          UG {p.code} {p.name}
                         </option>
                       ))}
                     </select>,
@@ -701,10 +700,6 @@ function PaperPicker({ value, onChange }: { value: string; onChange: (id: string
   const cov = useLoad(() => consoleApi.coverage(exam), [exam]);
   return (
     <span className="flex gap-2">
-      <select aria-label="Exam" className={select} value={exam} onChange={(e) => (setExam(e.target.value as ExamCode), onChange(''))}>
-        <option value="CUET_UG">CUET-UG</option>
-        <option value="CUET_PG">CUET-PG</option>
-      </select>
       <select required aria-label="Paper" className={`${select} max-w-[16rem]`} value={value} onChange={(e) => onChange(e.target.value)}>
         <option value="">{cov.loading ? 'Loading…' : 'Choose a paper'}</option>
         {cov.data?.map((p) => (

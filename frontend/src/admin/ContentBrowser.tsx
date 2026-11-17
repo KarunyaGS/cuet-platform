@@ -48,7 +48,7 @@ export function ContentBrowser({ mode, canWrite = false, canPublish = false }: {
           <option value="">All subjects</option>
           {papers.data?.map((p) => (
             <option key={p.id} value={p.id}>
-              {p.exam === 'CUET_UG' ? 'UG' : 'PG'} {p.code} {p.name}
+              UG {p.code} {p.name}
             </option>
           ))}
         </select>

@@ -69,7 +69,7 @@ export function InfoHub() {
           );
         })}
       </div>
-      <section aria-labelledby="latest" className="max-w-4xl">
+      <section aria-labelledby="latest">
         <SectionTitle id="latest">Latest official notices</SectionTitle>
         {notices.length === 0 ? (
           ug.loading ? <Loading /> : <Empty icon={<Bell />}>No notices recorded yet.</Empty>
@@ -151,7 +151,7 @@ export function ExamInfo() {
         </ul>
       </nav>
 
-      <article className="min-w-0 max-w-3xl">
+      <article className="min-w-0 flex-1">
         <header className="mb-8">
           <div className="text-sm text-ink-3">{e.name}</div>
           <h1 className="text-[1.75rem] leading-tight font-semibold text-ink">{meta.slug ? meta.title : `${e.name} ${d.data?.cycle ?? ''}`.trim()}</h1>

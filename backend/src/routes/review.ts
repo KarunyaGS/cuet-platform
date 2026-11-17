@@ -11,6 +11,7 @@ import { listMockPapersAdmin, mockActionSchema, mockPaperAdmin, setMockPaperStat
 import { z } from 'zod';
 import type { AppEnv } from '../types';
 import { invalid } from '../lib/errors';
+import { staffScope } from '../lib/scope-guard';
 import { auditBank } from '../services/question-audit';
 import { approvalSummary, batchDetail, confirmBulk, confirmSchema, previewBulk, scopeSchema, withdrawBulk, withdrawSchema } from '../services/bulk-approval';
 import { readJson } from '../lib/http';
@@ -25,6 +26,7 @@ import {
 
 const review = new Hono<AppEnv>();
 review.use('*', reviewerAuth);
+review.use('*', staffScope); // CUET PG is not offered in the reviewer area either (visibility only)
 const me = (c: { get(k: 'user'): AppEnv['Variables']['user'] }): Reviewer => {
   const u = c.get('user');
   return { id: u.id, displayName: u.displayName, permissions: u.permissions ?? [] };

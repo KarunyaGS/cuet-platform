@@ -9,6 +9,8 @@ import { getCookie } from 'hono/cookie';
 import type { AppEnv } from '../types';
 import { z } from 'zod';
 import { ApiError, invalid } from '../lib/errors';
+import { staffScope } from '../lib/scope-guard';
+import { activeExams } from '../lib/scope';
 import { readJson } from '../lib/http';
 import { permissionsOf } from '../lib/reviewer';
 import { createResetLink, resetLinkSchema, SESSION_COOKIE, userFromToken } from '../services/accounts';
@@ -44,6 +46,7 @@ const consoleAuth: MiddlewareHandler<AppEnv> = async (c, next) => {
 import { decideNotice, noticeDecisionSchema, noticeOverview, noticeQueue, syncNotices, adminNotices, adminNoticeQuery, noticeHistory, noticeSourceRegistry } from '../services/gov-notices';
 const admin = new Hono<AppEnv>();
 admin.use('*', consoleAuth);
+admin.use('*', staffScope); // CUET PG is not offered in the console either (visibility only)
 // Least privilege (approved 16 Nov 2026): sending email, reading the email log and seeing who reviews what need the account-management
 // permission, not just any staff role. Content editors and reviewers keep the content, notice and admissions screens.
 admin.use('/email', (c, next) => (needPermission(me(c), 'users:manage', 'see the email log'), next()));
@@ -94,7 +97,7 @@ admin.post('/students/reset-link', async (c) => {
 // Official links: the list, and the publish switch, which needs the linking basis on record (content:publish).
 // Government updates: what the scheduled job collected, what is waiting for a check, and a way to run it now.
 admin.get('/notices/overview', async (c) => c.json(await noticeOverview(c.env.DB, c.env)));
-admin.get('/notices/queue', async (c) => c.json(await noticeQueue(c.env.DB)));
+admin.get('/notices/queue', async (c) => c.json(await noticeQueue(c.env.DB, c.env.ACTIVE_EXAMS ? activeExams(c.env) : undefined)));
 // Admissions information: sources are approved by staff after opening the page; facts cite an approved source and are published by staff.
 admin.get('/admissions/overview', async (c) => c.json(await admissionsOverview(c.env.DB)));
 admin.get('/admissions/sources', async (c) => c.json(await listSources(c.env.DB)));
@@ -111,7 +114,7 @@ admin.post('/admissions/programmes/:id/decision', async (c) => (needPermission(m
 admin.get('/admissions/outdated', async (c) => c.json(await outdatedItems(c.env.DB)));
 admin.post('/admissions/facts/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'publish admission facts'), c.json(await decideFact(c.env.DB, c.req.param('id'), await readJson(c, factDecisionSchema), c.get('actor')))));
 admin.post('/notices/fetch', async (c) => (needPermission(me(c), 'content:publish', 'fetch official notices'), c.json(await syncNotices(c.env, { force: true }))));
-admin.get('/notices', async (c) => c.json(await adminNotices(c.env.DB, adminNoticeQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))))));
+admin.get('/notices', async (c) => c.json(await adminNotices(c.env.DB, adminNoticeQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))), c.env.ACTIVE_EXAMS ? activeExams(c.env) : undefined)));
 admin.get('/notices/:id/history', async (c) => c.json(await noticeHistory(c.env.DB, c.req.param('id'))));
 admin.get('/registry', async (c) => c.json({ notices: await noticeSourceRegistry(c.env.DB, c.env), admissions: await listSources(c.env.DB) }));
 admin.post('/notices/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'publish official notices'), c.json(await decideNotice(c.env.DB, c.req.param('id'), await readJson(c, noticeDecisionSchema), c.get('actor')))));

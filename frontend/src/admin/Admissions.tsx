@@ -157,7 +157,7 @@ export function AdminAdmissions() {
               </label>
               <label className="text-sm text-ink">Exam and year
                 <span className="mt-1 flex gap-2">
-                  <select className={inputClass} value={form.exam} onChange={(e) => set('exam', e.target.value)}><option value="CUET_UG">CUET UG</option><option value="CUET_PG">CUET PG</option></select>
+                  <select className={inputClass} value={form.exam} onChange={(e) => set('exam', e.target.value)}><option value="CUET_UG">CUET UG</option></select>
                   <input className={inputClass} type="number" value={form.year} onChange={(e) => set('year', e.target.value)} />
                 </span>
               </label>

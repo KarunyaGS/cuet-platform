@@ -99,7 +99,7 @@ export function UpdatesPage() {
   const set = (key: string, value: string) => setParams((p) => (value ? p.set(key, value) : p.delete(key), (key === 'exam' || key === 'authority') && p.delete('category'), key === 'authority' && value === 'UGC' && p.delete('exam'), p), { replace: true });
   const d = r.data;
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="w-full">
       <PageHeader
         title="Latest government updates"
         subtitle={

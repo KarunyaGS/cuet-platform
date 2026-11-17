@@ -43,7 +43,7 @@ export function AdminPastPapers() {
                   <span className="min-w-0 flex-1">
                     <span className="block font-medium text-ink">{p.title}</span>
                     <span className="block text-ink-2">
-                      {p.exam === 'CUET_PG' ? 'CUET-PG' : 'CUET-UG'} {p.year} · {p.subjectName} ({p.subjectCode}) · {p.questions} questions{p.dropped ? `, ${p.dropped} dropped` : ''} · {p.verified} verified
+                      CUET-UG {p.year} · {p.subjectName} ({p.subjectCode}) · {p.questions} questions{p.dropped ? `, ${p.dropped} dropped` : ''} · {p.verified} verified
                       {p.flagged ? `, ${p.flagged} flagged` : ''}
                     </span>
                     <span className="block text-ink-3">

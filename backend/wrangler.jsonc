@@ -117,6 +117,46 @@
         "CONTENT_PREVIEW": "true",
         "SESSION_TTL_HOURS": "168"
       }
+    },
+    // INTERNAL REVIEW PREVIEW (16 Nov 2026): a completely separate Worker with its own database and bucket and demo data only.
+    // It shares NOTHING with production: different Worker name, D1 database and R2 bucket. Payments and email are off.
+    // Cleanup: see docs/preview-environment.md. Deployed only with `wrangler deploy --env preview`.
+    "preview": {
+      "name": "cuet-prep-preview",
+      "workers_dev": true,
+      "preview_urls": false,
+      "triggers": { "crons": [] },
+      "observability": { "enabled": true },
+      "assets": {
+        "directory": "../frontend/dist-preview",
+        "binding": "ASSETS",
+        "not_found_handling": "single-page-application",
+        "run_worker_first": ["/api/*"]
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "cuet-prep-preview-db",
+          "database_id": "5452ec79-b0c3-4df7-8729-65100289a383",
+          "migrations_dir": "../database/migrations"
+        }
+      ],
+      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "cuet-prep-preview-storage" }],
+      "vars": {
+        "APP_ENV": "preview",
+        "ACTIVE_EXAMS": "CUET_UG",
+        "CATALOGUE_SCOPE": "ug-science",
+        "PAYMENTS_MODE": "off",
+        "OFFICIAL_IN_APP_VIEWING": "off",
+        "PYQ_IN_APP_VIEWING": "on",
+        "PYQ_ENGLISH_HINDI": "off",
+        "NOTICE_FETCH": "off",
+        "NOTICE_FETCH_MINUTES": "180",
+        "MAX_PAGE_SIZE": "100",
+        "MAX_UPLOAD_BYTES": "26214400",
+        "CONTENT_PREVIEW": "true",
+        "SESSION_TTL_HOURS": "168"
+      }
     }
   }
 }

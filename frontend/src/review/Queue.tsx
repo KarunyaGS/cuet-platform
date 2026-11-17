@@ -28,7 +28,7 @@ export function ProgressBar({ r }: { r: QueueItem['rows'] }) {
 }
 
 export function ReviewQueue() {
-  const [exam, setExam] = useState<ExamCode>('CUET_PG');
+  const [exam, setExam] = useState<ExamCode>('CUET_UG');
   const [state, setState] = useState<QueueState | 'ALL'>('ALL');
   const [q, setQ] = useState('');
   const data = useLoad(() => reviewApi.queue(exam, 2026), [exam]);
@@ -62,11 +62,6 @@ export function ReviewQueue() {
           <p className="text-sm text-ink-3">
             Compare each extracted syllabus with its official PDF. {totals.human.toLocaleString()} of {totals.rows.toLocaleString()} rows verified by a person · {totals.signed} papers signed off.
           </p>
-        </div>
-        <div className="flex gap-1 rounded-md bg-ink/5 p-0.5 text-sm">
-          {(['CUET_UG', 'CUET_PG'] as const).map((e) => (
-            <button key={e} onClick={() => setExam(e)} className={`rounded px-2.5 py-1 font-medium ${exam === e ? 'bg-surface shadow-sm' : 'text-ink-2'}`}>{e.replace('_', '-')}</button>
-          ))}
         </div>
       </div>
       <div className="mb-3 flex flex-wrap items-center gap-1.5">

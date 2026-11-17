@@ -104,7 +104,7 @@ function Filter({ label, value, values, onChange, show }: { label: string; value
  * The paper browser: year, subject, then that subject's papers with filters for source, exam date, shift and language.
  * Used as the page /pyq and inside Practice Centre.
  */
-export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick }: { year?: number; subject?: string; onPick?: (year: number, subject: string | null) => void }) {
+export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick, autoSelect = false }: { year?: number; subject?: string; onPick?: (year: number, subject: string | null) => void; autoSelect?: boolean }) {
   const tree = useLoad(() => api.pyqTree('CUET_UG'), []);
   const [pick, setPick] = useState<{ year: number; slug: string }>({ year: wantYear ?? 0, slug: wantSubject ?? '' });
   useEffect(() => {
@@ -113,7 +113,8 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick }: { y
   const [q, setQ] = useState('');
   const [f, setF] = useState({ source: '', date: '', shift: '' });
   const year = pick.year || tree.data?.years[0]?.year || 0;
-  const slug = pick.slug;
+  // On the papers page the first subject is opened by default, so the page is never an empty pane beside the list.
+  const slug = pick.slug || (autoSelect ? (tree.data?.years.find((x) => x.year === year)?.subjects[0]?.slug ?? '') : '');
   const subject = useLoad(() => (year && slug ? api.pyqSubject(year, slug) : Promise.resolve(null)), [year, slug]);
   const papers = subject.data?.papers ?? [];
   const values = useMemo(() => {
@@ -297,6 +298,7 @@ export function PyqPage() {
         subtitle="CUET (UG) previous-year question papers and answer keys. NTA’s own files and the copies we have permission to host open in the viewer and can be downloaded here. Copies are labelled with their source; any copy we do not host opens on its source."
       />
       <PyqBrowser
+        autoSelect
         year={year}
         subject={params.get('subject') ?? ''}
         onPick={(y, s) => {

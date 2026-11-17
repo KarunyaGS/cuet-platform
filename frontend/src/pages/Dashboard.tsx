@@ -212,7 +212,7 @@ export function DashboardPage() {
           )}
         </section>
 
-        <section aria-labelledby="weak">
+        <section aria-labelledby="weak" className="lg:col-span-2">
           <SectionTitle id="weak">Weak topics to revise</SectionTitle>
           {x.weakTopics.length === 0 ? (
             <Empty icon={<CircleCheck />}>No weak topics yet. A topic appears here when your accuracy is under 60% after at least 3 attempts.</Empty>

@@ -134,10 +134,9 @@ export function AdminNotices() {
                     <select value={exam[n.id] ?? n.exam ?? ''} onChange={(e) => setExam((m) => ({ ...m, [n.id]: e.target.value }))} className="h-8 rounded-lg border border-rule-strong bg-surface px-2 text-sm text-ink">
                       <option value="">Choose the exam</option>
                       <option value="CUET_UG">CUET (UG)</option>
-                      <option value="CUET_PG">CUET (PG)</option>
                     </select>
                   </label>
-                  <Button size="sm" disabled={busy === n.id || (n.authority === 'NTA' && !(exam[n.id] ?? n.exam))} onClick={() => run(n.id, () => consoleApi.noticeDecision(n.id, { action: 'PUBLISH', exam: (exam[n.id] ?? n.exam) as 'CUET_UG' | 'CUET_PG' }))}>
+                  <Button size="sm" disabled={busy === n.id || (n.authority === 'NTA' && !(exam[n.id] ?? n.exam))} onClick={() => run(n.id, () => consoleApi.noticeDecision(n.id, { action: 'PUBLISH', exam: (exam[n.id] ?? n.exam) as 'CUET_UG' }))}>
                     Publish
                   </Button>
                   <Button size="sm" kind="danger" disabled={busy === n.id} onClick={() => run(n.id, () => consoleApi.noticeDecision(n.id, { action: 'REJECT' }))}>

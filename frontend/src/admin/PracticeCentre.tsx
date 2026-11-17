@@ -58,7 +58,7 @@ function MockPapers() {
         <select className={select} value={current} onChange={(e) => setPaperId(e.target.value)}>
           {subjects.data!.map((s) => (
             <option key={s.id} value={s.id}>
-              {s.exam === 'CUET_PG' ? 'PG' : 'UG'} {s.code} {s.name}
+              UG {s.code} {s.name}
             </option>
           ))}
         </select>
@@ -229,7 +229,7 @@ function OfficialLinks() {
                   <span className="min-w-0 flex-1">
                     <span className="block font-medium text-ink">{l.title}</span>
                     <span className="block text-ink-2">
-                      {l.exam === 'CUET_PG' ? 'CUET-PG' : 'CUET-UG'} {l.year} · {l.kind === 'ANSWER_KEY' ? 'Answer key' : 'Question papers'} · {l.subjectName ?? 'All subjects'} · {l.available ? 'link' : 'not available'}
+                      CUET-UG {l.year} · {l.kind === 'ANSWER_KEY' ? 'Answer key' : 'Question papers'} · {l.subjectName ?? 'All subjects'} · {l.available ? 'link' : 'not available'}
                     </span>
                     {l.url && <span className="block break-all text-ink-3">{l.url}</span>}
                     {l.note && <span className="block text-ink-2">{l.note}</span>}
