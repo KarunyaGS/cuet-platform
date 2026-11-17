@@ -46,9 +46,9 @@ function TodayHead({ embedded, title, subtitle, actions }: { embedded: boolean; 
   if (!embedded) return <PageHeader title={title} subtitle={subtitle} actions={actions} />;
   return (
     <header className="mb-4 flex flex-wrap items-end justify-between gap-x-6 gap-y-2.5">
-      <div>
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5" data-today-heading>
         <h2 className="text-xl font-semibold text-ink">{title}</h2>
-        <p className="mt-0.5 text-sm text-ink-2">{subtitle}</p>
+        <span className="text-sm text-ink-2">{subtitle}</span>
       </div>
       <div className="flex flex-wrap items-center gap-2">{actions}</div>
     </header>
@@ -120,7 +120,7 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
       />
       {err && <ErrorBox error={err} />}
 
-      <section aria-label="Today's goals" className="grid-cols-1 mb-2 grid divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+      <section aria-label="Today's goals" className="grid-cols-1 mb-7 grid divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface sm:grid-cols-3 sm:divide-x sm:divide-y-0">
         <Goal label="Questions answered" value={x.today.questionsAnswered} goal={x.today.goal.questionsPerDay} />
         <Goal label="Lessons opened" value={x.today.lessonsOpened} goal={x.today.goal.lessonsPerDay} />
         <Link to="/progress" className="block px-5 py-4 transition-colors hover:bg-paper">
@@ -131,30 +131,10 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
           </div>
         </Link>
       </section>
-      <p className="mb-7 text-xs text-ink-3">
-        Change your daily goals on your{' '}
-        <Link to="/profile" className="underline underline-offset-2 hover:text-accent">
-          profile
-        </Link>
-        .
-      </p>
 
-      <section aria-label="Revision" className="mb-7 overflow-hidden rounded-xl border border-rule bg-surface">
-        <Link to={x.flashcards.due > 0 ? '/bookmarks/review' : '/bookmarks'} className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-paper">
-          <span className="min-w-0 flex-1">
-            <span className="text-sm text-ink-2">Saved cards due today</span>
-            <span className={`num mt-1 block text-2xl font-semibold ${x.flashcards.due > 0 ? 'text-marker' : 'text-ink'}`}>{x.flashcards.due}</span>
-            <span className="mt-1.5 block text-xs text-ink-3">
-              {x.flashcards.total === 0 ? 'Tap the bookmark icon under a definition or a formula in any lesson to save it for revision' : x.flashcards.due > 0 ? `of ${x.flashcards.total} cards in all` : `All ${x.flashcards.total} cards are up to date`}
-            </span>
-          </span>
-          <span className="shrink-0 text-sm font-medium text-accent">{x.flashcards.due > 0 ? 'Revise now' : 'My bookmarks'}</span>
-        </Link>
-      </section>
 
-      <div className="grid grid-cols-1 gap-x-8 gap-y-7 lg:grid-cols-2">
-
-        <section aria-labelledby="plan" className="lg:col-span-2">
+      <div className="grid grid-cols-1 items-start gap-x-8 gap-y-7 md:grid-cols-2" data-today-columns>
+        <section aria-labelledby="plan" className="min-w-0">
           <SectionTitle
             id="plan"
             action={
@@ -181,7 +161,7 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
           )}
         </section>
 
-        <section aria-labelledby="weak" className="lg:col-span-2">
+        <section aria-labelledby="weak" className="min-w-0">
           <SectionTitle id="weak">Weak topics to revise</SectionTitle>
           {x.weakTopics.length === 0 ? (
             <Empty icon={<CircleCheck />}>No weak topics yet. A topic appears here when your accuracy is under 60% after at least 3 attempts.</Empty>
@@ -209,7 +189,19 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
           )}
         </section>
 
-</div>
+      </div>
+      <section aria-label="Revision" data-saved-cards className="mt-7 overflow-hidden rounded-xl border border-rule bg-surface">
+        <Link to={x.flashcards.due > 0 ? '/bookmarks/review' : '/bookmarks'} className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-paper">
+          <span className="min-w-0 flex-1">
+            <span className="text-sm text-ink-2">Saved cards due today</span>
+            <span className={`num mt-1 block text-2xl font-semibold ${x.flashcards.due > 0 ? 'text-marker' : 'text-ink'}`}>{x.flashcards.due}</span>
+            <span className="mt-1.5 block text-xs text-ink-3">
+              {x.flashcards.total === 0 ? 'Tap the bookmark icon under a definition or a formula in any lesson to save it for revision' : x.flashcards.due > 0 ? `of ${x.flashcards.total} cards in all` : `All ${x.flashcards.total} cards are up to date`}
+            </span>
+          </span>
+          <span className="shrink-0 text-sm font-medium text-accent">{x.flashcards.due > 0 ? 'Revise now' : 'My bookmarks'}</span>
+        </Link>
+      </section>
     </div>
   );
 }
