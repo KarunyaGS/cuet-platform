@@ -244,13 +244,14 @@ export function LearnPage() {
     <div className="grid grid-cols-1 gap-x-10 gap-y-5 lg:grid-cols-[minmax(0,50rem)_minmax(0,20rem)] lg:justify-center xl:gap-x-14" data-lesson-layout>
       {/* The title first on every screen; on a wide screen it spans the text and the side rail. */}
       <header className="border-b border-rule pb-4 lg:col-span-2" data-lesson-header>
-          <div className="flex items-start gap-2">
+          {/* A fixed-width back area, then the heading: the heading always starts at the same place, however long it is. The back area is exactly one heading line tall, so the arrow sits on the first line. */}
+          <div className="flex items-start gap-1.5" data-lesson-title-row>
             {d.topic && (
-              <Link to={`/topic/${d.topic.id}`} aria-label={`Back to ${d.topic.title}`} data-lesson-back className="mt-[0.2rem] grid size-8 shrink-0 place-items-center rounded-lg text-ink-2 hover:bg-ink/5 hover:text-accent">
+              <Link to={`/topic/${d.topic.id}`} aria-label={`Back to ${d.topic.title}`} data-lesson-back className="grid h-[2.1875rem] w-8 shrink-0 place-items-center rounded-lg text-ink-3 transition-colors hover:bg-accent-soft hover:text-accent">
                 <ChevronLeft aria-hidden className="size-6" />
               </Link>
             )}
-            <h1 className="min-w-0 text-[1.75rem] leading-tight font-semibold text-ink">{d.resource.title}</h1>
+            <h1 className="min-w-0 flex-1 text-[1.75rem] leading-tight font-semibold text-ink">{d.resource.title}</h1>
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
             <span className="num text-sm text-ink-3">Lesson, about {minutes} min read</span>

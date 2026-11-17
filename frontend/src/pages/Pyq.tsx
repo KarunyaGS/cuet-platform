@@ -229,9 +229,6 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick, autoS
                         </div>
                         {k.sessions.length > 0 && (
                           <div className="mt-3">
-                            <div className="mb-1.5 text-xs font-medium text-ink-2">
-                              {subject.data!.subject.name} in this key: {k.sessions.length} {k.sessions.length === 1 ? 'session' : 'sessions'}. Open the key at a session’s page:
-                            </div>
                             <div className="flex flex-wrap gap-1.5">
                               {k.sessions.map((s, i) => {
                                 const text = [s.date ? day(s.date) : 'Date not stated', s.shift].filter(Boolean).join(', ');
@@ -376,7 +373,6 @@ function PyqSelection({ year, slug }: { year: number; slug: string }) {
                 </div>
                 {k.sessions.length > 0 && (
                   <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
-                    <span className="text-xs text-ink-3">Open at a session:</span>
                     {k.sessions.map((x, i) => {
                       const text = [x.date ? day(x.date) : 'Date not stated', x.shift].filter(Boolean).join(', ');
                       const cls = 'num inline-flex items-center gap-1 rounded-md bg-paper px-2 py-1 text-xs text-ink ring-1 ring-rule hover:bg-accent-soft hover:text-accent';

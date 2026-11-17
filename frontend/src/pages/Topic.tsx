@@ -90,13 +90,11 @@ function CoveredList({ d }: { d: TopicDetail }) {
 function MainColumn({ d }: { d: TopicDetail }) {
   const related = useRelated(d);
   const lessons = related && related.length > 0 ? related : null;
-  const covered = d.children.length > 0;
   return (
     <div className="min-w-0 space-y-4">
-      <div className={lessons && covered ? 'grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]' : 'space-y-4'}>
+      <div className="space-y-4">
         {lessons && <LessonsList items={lessons} source={d.source} />}
-        {covered && <CoveredList d={d} />}
-        {related !== null && !lessons && !covered && (
+        {related !== null && !lessons && (
           <p className="rounded-lg border border-dashed border-rule-strong px-4 py-3 text-sm text-ink-2">There is no lesson for this topic yet. You can still practise its questions.</p>
         )}
       </div>
