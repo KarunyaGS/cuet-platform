@@ -3,7 +3,7 @@
  * or a topic. One card per saved definition, formula, key point or fact. The same card everywhere, so marking it in one
  * place shows in the others.
  */
-import { BookOpen, Bookmark, Check, ChevronDown, ChevronRight, CircleCheck, CircleX, RotateCcw, Trash2 } from 'lucide-react';
+import { ArrowRight, BookOpen, Bookmark, Check, ChevronDown, ChevronRight, CircleCheck, CircleX, RotateCcw, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { api, type CardRating, type Flashcard } from './api';
@@ -87,6 +87,11 @@ export function CardRow({ card: c, onChange, here = false, grouped = false }: { 
           <RotateCcw aria-hidden className="size-3.5" />
           {open ? 'Hide answer' : 'Show answer'}
         </button>
+        {grouped && (
+          <Link to={sourceLink(c)} target="_blank" rel="noopener noreferrer" aria-label={c.kind === 'QUESTION' ? 'Open the topic' : 'Open in lesson'} title={c.kind === 'QUESTION' ? 'Open the topic' : 'Open in lesson'} data-source className="grid size-8 shrink-0 place-items-center rounded-lg text-ink-3 transition-colors hover:bg-accent-soft hover:text-accent">
+            <ArrowRight aria-hidden className="size-4" />
+          </Link>
+        )}
       </div>
 
       {open && (
@@ -111,10 +116,12 @@ export function CardRow({ card: c, onChange, here = false, grouped = false }: { 
       )}
 
       <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[13px]">
-        <Link to={sourceLink(c)} target="_blank" rel="noopener noreferrer" className="inline-flex min-w-0 items-center gap-1 font-medium text-accent hover:underline" data-source>
-          <BookOpen aria-hidden className="size-3.5 shrink-0" />
-          <span className="truncate">{sourceLabel(c, here, grouped)}</span>
-        </Link>
+        {!grouped && (
+          <Link to={sourceLink(c)} target="_blank" rel="noopener noreferrer" className="inline-flex min-w-0 items-center gap-1 font-medium text-accent hover:underline" data-source>
+            <BookOpen aria-hidden className="size-3.5 shrink-0" />
+            <span className="truncate">{sourceLabel(c, here, grouped)}</span>
+          </Link>
+        )}
         {msg && (
           <span role="status" className={msg.bad ? 'text-wrong' : 'text-ink-2'}>
             {msg.text}

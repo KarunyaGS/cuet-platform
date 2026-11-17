@@ -1,4 +1,4 @@
-import { Bookmark as BookmarkIcon, BookOpen, ChevronDown, ChevronRight, CircleHelp, History, Layers, ListChecks, Trash2 } from 'lucide-react';
+import { ArrowRight, Bookmark as BookmarkIcon, BookOpen, ChevronDown, ChevronRight, CircleHelp, History, Layers, ListChecks, Trash2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useSearchParams } from 'react-router';
 import { api, type Bookmark, type BookmarkKind, type Flashcard } from '../api';
@@ -248,20 +248,13 @@ export function BookmarksPage() {
                                   <div key={t.id} data-topic-group={t.title}>
                                     {t.lessons.map((l) => (
                                       <div key={l.id} className="border-t border-rule" data-lesson-group={l.title}>
-                                        <p className="flex flex-wrap items-baseline gap-x-2 px-4 pt-2.5 text-[13px] text-ink-3 sm:pl-12">
-                                          {t.title !== ch.title && (
-                                            <>
-                                              <Link to={`/topic/${t.id}`} target="_blank" rel="noopener noreferrer" className="font-medium text-ink-2 hover:text-accent">
-                                                {t.title}
-                                              </Link>
-                                              <span aria-hidden>›</span>
-                                            </>
-                                          )}
+                                        <p className="px-4 pt-2.5 text-[13px] sm:pl-12">
                                           {l.practice ? (
                                             <span className="font-medium text-ink-2">{l.title}</span>
                                           ) : (
-                                            <Link to={`/learn/${l.id}`} target="_blank" rel="noopener noreferrer" className="font-medium text-ink-2 hover:text-accent">
-                                              {l.title}
+                                            <Link to={`/learn/${l.id}`} target="_blank" rel="noopener noreferrer" className="group inline-flex max-w-full items-center gap-1.5 font-medium text-ink-2 hover:text-accent" data-lesson-link>
+                                              <span className="truncate">{l.title}</span>
+                                              <ArrowRight aria-hidden className="size-3.5 shrink-0 text-ink-3 transition-transform group-hover:translate-x-0.5 group-hover:text-accent" />
                                             </Link>
                                           )}
                                         </p>
