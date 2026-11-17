@@ -251,7 +251,7 @@ export function BookmarksPage() {
                                         <p className="flex flex-wrap items-baseline gap-x-2 px-4 pt-2.5 text-[13px] text-ink-3 sm:pl-12">
                                           {t.title !== ch.title && (
                                             <>
-                                              <Link to={`/topic/${t.id}`} className="font-medium text-ink-2 hover:text-accent">
+                                              <Link to={`/topic/${t.id}`} target="_blank" rel="noopener noreferrer" className="font-medium text-ink-2 hover:text-accent">
                                                 {t.title}
                                               </Link>
                                               <span aria-hidden>›</span>
@@ -260,7 +260,7 @@ export function BookmarksPage() {
                                           {l.practice ? (
                                             <span className="font-medium text-ink-2">{l.title}</span>
                                           ) : (
-                                            <Link to={`/learn/${l.id}`} className="font-medium text-ink-2 hover:text-accent">
+                                            <Link to={`/learn/${l.id}`} target="_blank" rel="noopener noreferrer" className="font-medium text-ink-2 hover:text-accent">
                                               {l.title}
                                             </Link>
                                           )}
@@ -307,7 +307,7 @@ export function BookmarksPage() {
                     <span className="mt-0.5 shrink-0 text-ink-3">{KIND[b.kind].icon}</span>
                     <span className="min-w-0 flex-1">
                       {to ? (
-                        <Link to={to} className="line-clamp-2 text-[15px] text-ink hover:text-accent">
+                        <Link to={to} target="_blank" rel="noopener noreferrer" className="line-clamp-2 text-[15px] text-ink hover:text-accent">
                           {body}
                         </Link>
                       ) : (

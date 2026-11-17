@@ -111,7 +111,7 @@ export function CardRow({ card: c, onChange, here = false, grouped = false }: { 
       )}
 
       <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[13px]">
-        <Link to={sourceLink(c)} className="inline-flex min-w-0 items-center gap-1 font-medium text-accent hover:underline" data-source>
+        <Link to={sourceLink(c)} target="_blank" rel="noopener noreferrer" className="inline-flex min-w-0 items-center gap-1 font-medium text-accent hover:underline" data-source>
           <BookOpen aria-hidden className="size-3.5 shrink-0" />
           <span className="truncate">{sourceLabel(c, here, grouped)}</span>
         </Link>
