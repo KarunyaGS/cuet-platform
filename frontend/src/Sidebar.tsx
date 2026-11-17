@@ -247,7 +247,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                   <>
                     <Category
                       id={`c:${s.paperId}`}
-                      label="Chapter-wise questions"
+                      label="Chapter-wise Question Bank"
                       open={!!open[`c:${s.paperId}`]}
                       active={current?.paperId === s.paperId}
                       onToggle={() => toggle(`c:${s.paperId}`)}
@@ -256,7 +256,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                     </Category>
                     <Category
                       id={`p:${s.paperId}`}
-                      label="Previous-year papers"
+                      label="Full-Length Previous Year Papers"
                       open={!!open[`p:${s.paperId}`]}
                       active={pyqSubject?.paperId === s.paperId}
                       onToggle={() => {
