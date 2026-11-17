@@ -115,7 +115,7 @@ export function TopicPage() {
         </div>
       </header>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] xl:gap-8" data-topic-layout>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] xl:gap-8" data-topic-layout>
         <div className="min-w-0">
           <section aria-label="Official syllabus text" className="mb-6 rounded-xl border border-rule border-l-2 border-l-accent bg-surface px-4 py-3">
             <div className="mb-1.5 flex flex-wrap items-center justify-between gap-2 text-sm">
@@ -151,37 +151,36 @@ export function TopicPage() {
           <RelatedContent key={d.topic.id} d={d} />
         </div>
 
-        <aside className="min-w-0 space-y-4 lg:sticky lg:top-20 lg:self-start" data-topic-side>
-          <div className="rounded-xl border border-rule bg-surface p-4">
-            <h2 className="flex items-center gap-2 text-base font-semibold text-ink">
-              <PencilLine aria-hidden className="size-[18px] text-accent" />
-              Practise this topic
-            </h2>
-            <p className="num mt-1 text-sm text-ink-2">
-              {d.questionCount} {d.questionCount === 1 ? 'question' : 'questions'} on this topic and its subtopics.
-            </p>
-            <div className="mt-3 flex flex-col gap-2">
-              <Button onClick={() => start('PRACTICE')} disabled={!d.questionCount}>
+        <aside className="min-w-0 space-y-2 lg:sticky lg:top-4 lg:self-start" data-topic-side>
+          <div className="rounded-lg bg-ink/[0.035] p-3">
+            <div className="flex items-baseline justify-between gap-2">
+              <h2 className="flex items-center gap-1.5 text-[13px] font-semibold text-ink">
+                <PencilLine aria-hidden className="size-4 text-accent" />
+                Practise this topic
+              </h2>
+              <span className="num text-xs text-ink-3">
+                {d.questionCount} {d.questionCount === 1 ? 'question' : 'questions'}
+              </span>
+            </div>
+            <div className="mt-2.5 flex flex-col gap-1.5">
+              <Button size="sm" onClick={() => start('PRACTICE')} disabled={!d.questionCount}>
                 Practise with instant feedback
               </Button>
-              <Button kind="secondary" onClick={() => start('TOPIC_TEST')} disabled={!d.questionCount} icon={<Timer aria-hidden />}>
+              <Button size="sm" kind="secondary" onClick={() => start('TOPIC_TEST')} disabled={!d.questionCount} icon={<Timer aria-hidden />}>
                 Timed topic test
               </Button>
             </div>
-            {!d.questionCount && <p className="mt-3 text-sm text-ink-3">Questions for this topic are still being written.</p>}
+            {!d.questionCount && <p className="mt-2 text-xs text-ink-3">Questions for this topic are still being written.</p>}
             {err && <ErrorBox error={err} />}
           </div>
           {d.resources.length > 0 && (
-            <Link to={`/revise/${d.topic.id}`} className="group flex items-start gap-3 rounded-xl border border-rule bg-surface p-4 transition-colors hover:border-accent/50">
-              <ListChecks aria-hidden className="mt-0.5 size-[18px] shrink-0 text-accent" />
-              <span className="min-w-0 flex-1">
-                <span className="block font-semibold text-ink group-hover:text-accent">Quick revision</span>
-                <span className="mt-0.5 block text-sm text-ink-2">Definitions, formulas, key points and exam tips from this topic’s lessons on one page.</span>
-              </span>
-              <ChevronRight aria-hidden className="mt-1 size-4 shrink-0 text-ink-3" />
+            <Link to={`/revise/${d.topic.id}`} className="group flex items-center gap-2 rounded-lg bg-ink/[0.035] px-3 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-ink/[0.07]">
+              <ListChecks aria-hidden className="size-4 shrink-0 text-accent" />
+              <span className="min-w-0 flex-1 truncate group-hover:text-accent">Quick revision</span>
+              <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />
             </Link>
           )}
-          <SavedForRevision scope={{ nodeId: d.topic.id }} />
+          <SavedForRevision compact scope={{ nodeId: d.topic.id }} />
         </aside>
       </div>
     </div>

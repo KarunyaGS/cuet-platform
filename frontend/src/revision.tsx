@@ -150,7 +150,7 @@ export const applyChange = (list: Flashcard[], id: string, next: Flashcard | nul
  * "Saved for revision" on a lesson or a topic page: the student's saved cards from that lesson (or from every lesson
  * under that topic), revisable right there. `version` changes when the page saves or unsaves something, to reload.
  */
-export function SavedForRevision({ scope, version = 0, startOpen = false }: { scope: { resourceId: string } | { nodeId: string }; version?: number; startOpen?: boolean }) {
+export function SavedForRevision({ scope, version = 0, startOpen = false, compact = false }: { scope: { resourceId: string } | { nodeId: string }; version?: number; startOpen?: boolean; compact?: boolean }) {
   const { user } = useAuth();
   const [cards, setCards] = useState<Flashcard[] | null>(null);
   const [open, setOpen] = useState(startOpen);
@@ -172,20 +172,20 @@ export function SavedForRevision({ scope, version = 0, startOpen = false }: { sc
   const rank = (c: Flashcard) => (c.status === 'NEED_REVISION' ? 0 : c.due ? 1 : 2);
   const sorted = [...cards].sort((a, b) => rank(a) - rank(b));
   return (
-    <section aria-labelledby="saved-for-revision" data-saved-for-revision className="overflow-hidden rounded-xl border border-rule bg-surface">
-      <div className="px-4 py-3">
+    <section aria-labelledby="saved-for-revision" data-saved-for-revision className={compact ? 'overflow-hidden rounded-lg bg-ink/[0.035]' : 'overflow-hidden rounded-xl border border-rule bg-surface'}>
+      <div className={compact ? 'px-3 py-2' : 'px-4 py-3'}>
         <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} disabled={cards.length === 0} className="flex w-full items-center gap-2 text-left disabled:cursor-default">
-          <Bookmark aria-hidden className="size-[18px] shrink-0 text-accent" />
-          <h2 id="saved-for-revision" className="min-w-0 flex-1 truncate text-base font-semibold text-ink">
+          <Bookmark aria-hidden className={compact ? 'size-4 shrink-0 text-accent' : 'size-[18px] shrink-0 text-accent'} />
+          <h2 id="saved-for-revision" className={compact ? 'min-w-0 flex-1 truncate text-[13px] font-medium text-ink' : 'min-w-0 flex-1 truncate text-base font-semibold text-ink'}>
             Saved for revision
           </h2>
-          <span className="num shrink-0 rounded-md bg-paper px-1.5 py-0.5 text-sm text-ink-2" data-saved-count>
+          <span className={compact ? 'num shrink-0 rounded-full bg-ink/[0.07] px-1.5 text-xs leading-5 text-ink-2' : 'num shrink-0 rounded-md bg-paper px-1.5 py-0.5 text-sm text-ink-2'} data-saved-count>
             {cards.length}
           </span>
           {cards.length > 0 && (open ? <ChevronDown aria-hidden className="size-4 shrink-0 text-ink-3" /> : <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />)}
         </button>
         {cards.length > 0 && (
-          <div className="mt-2.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-sm" data-saved-summary>
+          <div className={compact ? 'mt-1.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 text-xs' : 'mt-2.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-sm'} data-saved-summary>
             <span className="text-ink-2">
               {due} due today{need > 0 && <span className="text-wrong"> · {need} need revision</span>}
             </span>
@@ -198,7 +198,7 @@ export function SavedForRevision({ scope, version = 0, startOpen = false }: { sc
         )}
       </div>
       {cards.length === 0 ? (
-        <p className="border-t border-rule px-4 py-3 text-sm text-ink-2">
+        compact ? null : <p className="border-t border-rule px-4 py-3 text-sm text-ink-2">
           Nothing saved from here yet. Tap the bookmark icon under a definition, a formula or a key point{lesson ? ' below' : ' in a lesson'}. It is saved as a revision card.
         </p>
       ) : (
