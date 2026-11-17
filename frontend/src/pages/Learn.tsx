@@ -245,10 +245,13 @@ export function LearnPage() {
       <header className="border-b border-rule pb-4 lg:col-span-2" data-lesson-header>
           {/* A fixed-width back area, then the heading: the heading always starts at the same place, however long it is. The back area is exactly one heading line tall, so the arrow sits on the first line. */}
           <div className="flex items-start gap-1.5" data-lesson-title-row>
-            {d.topic && (
-              <Link to={`/topic/${d.topic.id}`} aria-label={`Back to ${d.topic.title}`} data-lesson-back className="grid h-[2.1875rem] w-8 shrink-0 place-items-center rounded-lg text-ink-3 transition-colors hover:bg-accent-soft hover:text-accent">
+            {/* The back area uses the heading's own font size and line height, so it is always exactly one heading line tall (h-lh). It is there on every lesson, even without a topic, so the title never moves. */}
+            {d.topic ? (
+              <Link to={`/topic/${d.topic.id}`} aria-label={`Back to ${d.topic.title}`} data-lesson-back className="grid h-lh w-8 shrink-0 place-items-center rounded-lg text-[1.75rem] leading-tight text-ink-3 transition-colors hover:bg-accent-soft hover:text-accent">
                 <ChevronLeft aria-hidden className="size-6" />
               </Link>
+            ) : (
+              <span aria-hidden data-lesson-back-slot className="h-lh w-8 shrink-0 text-[1.75rem] leading-tight" />
             )}
             <h1 className="min-w-0 flex-1 text-[1.75rem] leading-tight font-semibold text-ink">{d.resource.title}</h1>
           </div>
