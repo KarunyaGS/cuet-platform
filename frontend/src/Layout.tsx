@@ -285,7 +285,7 @@ export function Layout() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2 focus:text-sm">
         Skip to content
       </a>
-      <header className="sticky top-0 z-30 border-b border-rule bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
+      <header className="sticky top-0 z-30 border-b border-rule bg-paper">
         <div className={`flex h-14 items-center gap-1.5 px-3 sm:gap-2 sm:px-7 lg:px-10 ${showSidebar ? 'max-w-none' : shell}`}>
           {focus ? (
             <>

@@ -99,7 +99,7 @@ export function PublicLayout() {
   );
   return (
     <div className="flex min-h-dvh flex-col">
-      <header className="sticky top-0 z-30 border-b border-rule bg-surface/95 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-rule bg-paper">
         <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:px-6">
           <Link to="/cuet" aria-label="Prepora information home" className="mr-3">
             <Logo />
