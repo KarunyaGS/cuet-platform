@@ -77,7 +77,7 @@ export function TopicPage() {
   const kl = kindLabel(d.topic.kind, d.topic.label);
   return (
     <div>
-      <nav aria-label="Breadcrumb" className="mb-1.5 flex flex-wrap items-center gap-1 text-sm text-ink-3">
+      <nav aria-label="Breadcrumb" className="mb-1 flex flex-wrap items-center gap-1 text-sm text-ink-3">
         {d.paper && (
           <>
             <Link to={`/${d.paper.exam}`} className="hover:text-accent">
@@ -97,11 +97,18 @@ export function TopicPage() {
             </Link>
           </span>
         ))}
+        {kl && (
+          <span className="flex items-center gap-1">
+            <ChevronRight aria-hidden className="size-3.5" />
+            <span aria-current="page" className="font-medium text-ink-2">
+              {kl}
+            </span>
+          </span>
+        )}
       </nav>
 
       <header className="mb-3 border-b border-rule pb-2.5" data-topic-header>
-        {kl && <div className="text-xs font-medium tracking-wide text-ink-3">{kl}</div>}
-        <h1 className="mt-0.5 max-w-[58rem] text-lg leading-snug font-semibold break-words text-ink sm:text-xl">{d.topic.title}</h1>
+        <h1 className="max-w-[58rem] text-lg leading-snug font-semibold break-words text-ink sm:text-xl">{d.topic.title}</h1>
         <div className="mt-2 flex flex-wrap gap-2">
           <BookmarkButton kind="TOPIC" id={d.topic.id} />
           <AddToPlan kind="TOPIC" refId={d.topic.id} title={d.topic.title} />
