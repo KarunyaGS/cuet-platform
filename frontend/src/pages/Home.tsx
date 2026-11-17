@@ -28,7 +28,7 @@ export function Home() {
 
       {d && (resume || last) && (
         <section aria-label="Continue" className="mb-7 overflow-hidden rounded-xl border border-rule bg-surface p-5">
-          <div className="text-sm text-ink-2">{resume ? 'Unfinished test' : 'Continue where you left off'}</div>
+          <div className="text-sm text-ink-2">{resume ? 'Start from where you left off' : 'Continue where you left off'}</div>
           {resume ? (
             <Link to={`/practice/${resume.id}`} className="group mt-1 flex items-center gap-2 text-lg font-semibold text-ink hover:text-accent">
               <PlayCircle aria-hidden className="size-5 shrink-0 text-accent" />
