@@ -178,14 +178,19 @@ describe('billing: plan limits', () => {
     const access = (await call('GET', '/api/student/billing', undefined, s.auth)).json.access;
     expect(access.limits.find((l: { key: string }) => l.key === 'practiceSets')).toMatchObject({ limit: 2, used: 2 });
 
-    // Unfinished sessions do not count, but only three can be held open at once.
+    // Unfinished sessions do not count, and there is no limit on how many can be held open at once.
     const t = await person();
     await call('PUT', `/api/console/billing/plans/${free.id}`, { name: 'Free', description: null, pricePaise: 0, durationDays: null, active: true, sortOrder: 0, limits: { practiceSets: 2 }, features: [] }, admin.auth);
-    for (let i = 0; i < 3; i++) expect((await start(t)).status).toBe(201);
+    for (let i = 0; i < 6; i++) expect((await start(t)).status).toBe(201);
     expect((await call('GET', '/api/student/billing', undefined, t.auth)).json.access.limits.find((l: { key: string }) => l.key === 'practiceSets').used).toBe(0);
-    const fourth = await start(t);
-    expect(fourth.status).toBe(409);
-    expect(fourth.json.error.code).toBe('TOO_MANY_UNFINISHED');
+    expect((await start(t)).status).toBe(201); // a seventh unfinished set is still allowed
+    // Starting new ones changed nothing about the earlier ones: all seven are still open, each on its own, and submitting one leaves the rest open.
+    const openRows = async () => (await env.DB.prepare("SELECT id FROM practice_sessions WHERE user_id = ? AND status = 'IN_PROGRESS'").bind(t.id).all<{ id: string }>()).results;
+    const before = await openRows();
+    expect(before.length).toBe(7);
+    expect((await call('POST', `/api/student/practice/${before[0]!.id}/submit`, {}, t.auth)).status).toBe(200);
+    expect((await openRows()).map((r) => r.id).sort()).toEqual(before.slice(1).map((r) => r.id).sort());
+    expect(((await call('GET', '/api/student/dashboard?day=2026-11-17&since=2026-11-17T00:00:00.000Z', undefined, t.auth)).json.inProgress as unknown[]).length).toBe(6);
 
     // An administrator gives 7 days of paid access: the paid plan has no limit.
     await setPlan(admin, (await plan('MONTHLY')).id as string, {});

@@ -190,6 +190,25 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
         </section>
 
       </div>
+      {x.inProgress.length > 0 && (
+        <section aria-labelledby="unfinished" className="mt-7" data-unfinished>
+          <SectionTitle id="unfinished">Unfinished tests</SectionTitle>
+          <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+            {x.inProgress.map((t) => (
+              <li key={t.id} className={row}>
+                <PlayCircle aria-hidden className="size-4 shrink-0 text-ink-3" />
+                <span className="min-w-0 flex-1 truncate text-ink">
+                  {{ PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' }[t.mode] ?? 'Test'}: {t.topic ?? t.paper}
+                </span>
+                <Link to={`/practice/${t.id}`} className="shrink-0 text-sm font-medium text-accent hover:underline">
+                  Resume
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <section aria-label="Revision" data-saved-cards className="mt-7 overflow-hidden rounded-xl border border-rule bg-surface">
         <Link to={x.flashcards.due > 0 ? '/bookmarks/review' : '/bookmarks'} className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-paper">
           <span className="min-w-0 flex-1">

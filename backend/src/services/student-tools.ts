@@ -204,7 +204,7 @@ export async function dashboard(db: D1Database, preview: boolean, userId: string
       .bind(userId)
       .all<Record<string, string | null>>(),
     db
-      .prepare(`SELECT s.id, s.mode, s.started_at, s.duration_seconds, p.name AS paper, n.title AS topic FROM practice_sessions s LEFT JOIN test_papers p ON p.id = s.test_paper_id LEFT JOIN curriculum_nodes n ON n.id = s.curriculum_node_id WHERE s.user_id = ? AND s.status = 'IN_PROGRESS' ORDER BY s.started_at DESC LIMIT 5`)
+      .prepare(`SELECT s.id, s.mode, s.started_at, s.duration_seconds, p.name AS paper, n.title AS topic FROM practice_sessions s LEFT JOIN test_papers p ON p.id = s.test_paper_id LEFT JOIN curriculum_nodes n ON n.id = s.curriculum_node_id WHERE s.user_id = ? AND s.status = 'IN_PROGRESS' ORDER BY s.started_at DESC LIMIT 100`)
       .bind(userId)
       .all<Record<string, string | number | null>>(),
     db.prepare(`SELECT COUNT(*) AS n FROM practice_answers a JOIN practice_sessions s ON s.id = a.session_id WHERE s.user_id = ? AND a.answered_at >= ?`).bind(userId, q.since).first<{ n: number }>(),

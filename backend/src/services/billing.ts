@@ -148,7 +148,6 @@ export async function createPlan(db: D1Database, input: z.infer<typeof planCreat
 const USAGE_DAYS = 30;
 const MODE_LIMIT: Record<string, LimitKey> = { MOCK_TEST: 'mockTests', TOPIC_TEST: 'topicTests', PRACTICE: 'practiceSets' };
 const LIMIT_LABEL: Record<LimitKey, string> = { mockTests: 'mock tests', topicTests: 'topic tests', practiceSets: 'practice sets', revisionCards: 'revision cards', bookmarks: 'bookmarks and notes' };
-const MAX_UNFINISHED = 3;
 
 export async function currentAccess(db: D1Database, userId: string) {
   const now = nowIso();
@@ -192,10 +191,7 @@ export async function assertRoomFor(db: D1Database, userId: string, key: 'revisi
 export async function assertWithinPlan(db: D1Database, userId: string, mode: string) {
   const key = MODE_LIMIT[mode];
   if (!key) return;
-  // Only submitted tests count against the limit, so an interrupted test can be resumed. To stop that being used to read the bank
-  // without ever submitting, a student can hold only a few unfinished sessions of one kind at once.
-  const open = await db.prepare(`SELECT COUNT(*) AS n FROM practice_sessions WHERE user_id = ? AND mode = ? AND status = 'IN_PROGRESS'`).bind(userId, mode).first<{ n: number }>();
-  if ((open?.n ?? 0) >= MAX_UNFINISHED) throw new ApiError(409, 'TOO_MANY_UNFINISHED', `You have ${open!.n} unfinished ${mode === 'MOCK_TEST' ? 'mock tests' : mode === 'TOPIC_TEST' ? 'topic tests' : 'practice sets'}. Finish or submit one before starting another.`);
+  // Only submitted tests count against the plan limit. A student may hold any number of unfinished tests at once; starting one never blocks, submits or cancels another.
   const access = await currentAccess(db, userId);
   const l = access.limits.find((x) => x.key === key)!;
   if (l.limit !== null && l.used >= l.limit) {

@@ -150,7 +150,7 @@ const MODE: Record<string, string> = { PRACTICE: 'practice set', TOPIC_TEST: 'to
 export async function reminders(db: D1Database, userId: string, q: z.infer<typeof remindersQuery>) {
   const [tests, plan, answered, weak, prefs, dismissed, goal] = await Promise.all([
     db
-      .prepare(`SELECT s.id, s.mode, s.started_at, s.duration_seconds, p.name AS paper, n.title AS topic FROM practice_sessions s LEFT JOIN test_papers p ON p.id = s.test_paper_id LEFT JOIN curriculum_nodes n ON n.id = s.curriculum_node_id WHERE s.user_id = ? AND s.status = 'IN_PROGRESS' ORDER BY s.started_at DESC LIMIT 3`)
+      .prepare(`SELECT s.id, s.mode, s.started_at, s.duration_seconds, p.name AS paper, n.title AS topic FROM practice_sessions s LEFT JOIN test_papers p ON p.id = s.test_paper_id LEFT JOIN curriculum_nodes n ON n.id = s.curriculum_node_id WHERE s.user_id = ? AND s.status = 'IN_PROGRESS' ORDER BY s.started_at DESC LIMIT 100`)
       .bind(userId)
       .all<{ id: string; mode: string; started_at: string; duration_seconds: number | null; paper: string | null; topic: string | null }>(),
     db.prepare('SELECT COUNT(*) AS n FROM study_plan_items WHERE user_id = ? AND day = ? AND done = 0').bind(userId, q.day).first<{ n: number }>(),

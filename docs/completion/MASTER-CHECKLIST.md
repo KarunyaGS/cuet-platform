@@ -67,7 +67,7 @@ Decisions recorded in `APPROVED-DECISIONS.md`. Status:
 | # | Item | Status | Detail |
 |---|---|---|---|
 | A1 | Prices and free/paid limits entered (local DB, audited) | DONE locally | script `configure-approved-plans-2026-11-16.mts`; paid plans stay OFF; production gets it at launch |
-| A2 | Submitted-only usage counting + max 3 unfinished sessions | DONE | tests in billing.test.ts |
+| A2 | Submitted-only usage counting; no cap on unfinished sessions (cap removed 17 Nov 2026) | DONE | tests in billing.test.ts |
 | A3 | Revision-card and bookmark totals | DONE (cards, bookmarks) | highlight/annotation notes not yet counted |
 | A4 | Refund rules (proportional, full, duplicate, stacked passes move up) | DONE | 3 new tests; old "known limitation" tests replaced |
 | A5 | Least-privilege console access (email log, assignments) | DONE (first step) | more console reads can be narrowed later |
