@@ -6,7 +6,7 @@ import { api, type ExamCode, type Outline, type OutlineNode, type PyqTree, type 
 /**
  * The global, three-level, inline-expanding sidebar.
  *   Level 1: the CUET UG papers.
- *   Level 2: what we have for a paper: the Chapter-wise Question Bank, Full-Length Previous Year Papers and Study Material (Lessons).
+ *   Level 2: what we have for a paper: the Chapter-wise Question Bank, Previous Year Question Paper, Mock Tests (topic-wise practice) and Study Material (Lessons).
  *   Level 3: the chapters (with their real question counts), the years of papers, or the lessons.
  * Everything comes from the existing APIs; nothing is invented. Expansion happens in place, under the parent.
  */
@@ -110,6 +110,25 @@ function loadGroups(): Record<string, string | null> {
   }
 }
 
+/** The Mock Tests list of a paper: the topics that have questions, under the headings that still have one. */
+function withQuestions(list: SideItem[]): SideItem[] {
+  const out: SideItem[] = [];
+  let heading: SideItem | null = null;
+  for (const c of list) {
+    if (c.kind === 'group') {
+      heading = c;
+      continue;
+    }
+    if (c.questions <= 0) continue;
+    if (heading) {
+      out.push(heading);
+      heading = null;
+    }
+    out.push(c);
+  }
+  return out;
+}
+
 function loadOpen(): Record<string, boolean> {
   try {
     return JSON.parse(sessionStorage.getItem(STORE) ?? '{}') as Record<string, boolean>;
@@ -199,14 +218,17 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   // (topic, quick revision and lesson pages), so a direct visit, a refresh, back and forward all open and mark the right subject, category and chapter.
   const subjectPaper = /^\/[A-Z_]+\/subject\/([^/]+)/.exec(pathname)?.[1] ?? null;
   const topicRoute = /^\/(?:topic|revise)\/([^/]+)/.exec(pathname)?.[1] ?? null;
+  const mockRoute = /^\/mock-tests\/topic\/([^/]+)/.exec(pathname)?.[1] ?? null;
   const lessonRoute = /^\/learn\/([^/]+)/.exec(pathname)?.[1] ?? null;
-  const routeKey = topicRoute ? `t:${topicRoute}` : lessonRoute ? `l:${lessonRoute}` : null;
+  const onMock = !!mockRoute;
+  const nodeRoute = topicRoute ?? mockRoute;
+  const routeKey = nodeRoute ? `t:${nodeRoute}` : lessonRoute ? `l:${lessonRoute}` : null;
   const [ctxNode, setCtxNode] = useState<{ key: string; paperId: string; nodeId: string } | null>(null);
   useEffect(() => {
     if (!routeKey) return;
     let live = true;
-    const found = topicRoute
-      ? once(`topic:${topicRoute}`, () => api.topic(topicRoute)).then((t) => (t.paper ? { paperId: t.paper.id, nodeId: topicRoute } : null))
+    const found = nodeRoute
+      ? once(`topic:${nodeRoute}`, () => api.topic(nodeRoute)).then((t) => (t.paper ? { paperId: t.paper.id, nodeId: nodeRoute } : null))
       : once(`resource:${lessonRoute}`, () => api.resource(lessonRoute!)).then((r) => (r.topic ? { paperId: r.topic.paper_id, nodeId: r.topic.id } : null));
     found.then(
       (v) => live && v && setCtxNode({ key: routeKey, ...v }),
@@ -215,16 +237,16 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
     return () => {
       live = false;
     };
-  }, [routeKey, topicRoute, lessonRoute]);
+  }, [routeKey, nodeRoute, lessonRoute]);
   const ctx = ctxNode && ctxNode.key === routeKey ? ctxNode : null;
   useEffect(() => {
     if (subjectPaper) expand([`s:${subjectPaper}`]);
   }, [subjectPaper, expand]);
   useEffect(() => {
     if (!ctx) return;
-    expand([`s:${ctx.paperId}`, lessonRoute ? `m:${ctx.paperId}` : `c:${ctx.paperId}`]);
+    expand([`s:${ctx.paperId}`, lessonRoute ? `m:${ctx.paperId}` : onMock ? `k:${ctx.paperId}` : `c:${ctx.paperId}`]);
     loadOutline(ctx.paperId);
-  }, [ctx, lessonRoute, expand, loadOutline]);
+  }, [ctx, lessonRoute, onMock, expand, loadOutline]);
   const chaptersByPaper = useMemo(() => {
     const m: Record<string, ReturnType<typeof chaptersOf>> = {};
     for (const [id, o] of Object.entries(outlines)) if (typeof o === 'object') m[id] = chaptersOf(o.nodes);
@@ -250,7 +272,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
     return { paperId: ctx.paperId, itemId: item?.id ?? null, groupId: group?.id ?? null, groupSelf: item?.kind === 'group' ? item.id : null };
   }, [ctx, chaptersByPaper]);
   const wantedGroup = current ? (current.groupId ?? current.groupSelf) : null;
-  const wantedKey = current ? (lessonRoute ? `m:${current.paperId}` : `c:${current.paperId}`) : null;
+  const wantedKey = current ? (lessonRoute ? `m:${current.paperId}` : onMock ? `k:${current.paperId}` : `c:${current.paperId}`) : null;
   useEffect(() => {
     if (!wantedGroup || !wantedKey) return;
     setGroupOpen((o) => {
@@ -300,6 +322,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
         const onSubject = pathname === `/${EXAM}/subject/${s.paperId}`;
         const inside = current?.paperId === s.paperId || pyqSubject?.paperId === s.paperId;
         const onLesson = !!lessonRoute;
+        const hasQuestions = !!chaptersByPaper[s.paperId]?.some((c) => c.kind === 'topic' && c.questions > 0);
         const hasLessons = !!chaptersByPaper[s.paperId]?.some((c) => c.kind === 'topic' && c.resources > 0);
         return (
           <li key={s.paperId} className="mb-0.5">
@@ -327,10 +350,10 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                       id={`c:${s.paperId}`}
                       label="Chapter-wise Question Bank"
                       open={!!open[`c:${s.paperId}`]}
-                      active={!onLesson && current?.paperId === s.paperId}
+                      active={!onLesson && !onMock && current?.paperId === s.paperId}
                       onToggle={() => toggle(`c:${s.paperId}`)}
                     >
-                      <Chapters paperId={s.paperId} outline={outlines[s.paperId]} list={chaptersByPaper[s.paperId]} currentId={!onLesson && current?.paperId === s.paperId ? current.itemId : null} parentId={!onLesson && current?.paperId === s.paperId ? current.groupId : null} openGroup={groupOpen[`c:${s.paperId}`] ?? null} onToggleGroup={(id) => toggleGroup(`c:${s.paperId}`, id)} onNavigate={onNavigate} onRetry={() => setOutlines((o) => { const { [s.paperId]: _drop, ...rest } = o; return rest; })} />
+                      <Chapters paperId={s.paperId} outline={outlines[s.paperId]} list={chaptersByPaper[s.paperId]} currentId={!onLesson && !onMock && current?.paperId === s.paperId ? current.itemId : null} parentId={!onLesson && !onMock && current?.paperId === s.paperId ? current.groupId : null} openGroup={groupOpen[`c:${s.paperId}`] ?? null} onToggleGroup={(id) => toggleGroup(`c:${s.paperId}`, id)} onNavigate={onNavigate} onRetry={() => setOutlines((o) => { const { [s.paperId]: _drop, ...rest } = o; return rest; })} />
                     </Category>
                     <Category
                       id={`p:${s.paperId}`}
@@ -344,6 +367,17 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                     >
                       <PyqYears subject={s} pyq={pyq} activeYear={pyqSubject?.paperId === s.paperId ? pyqYear : null} onNavigate={onNavigate} />
                     </Category>
+                    {hasQuestions && (
+                      <Category
+                        id={`k:${s.paperId}`}
+                        label="Mock Tests"
+                        open={!!open[`k:${s.paperId}`]}
+                        active={onMock && current?.paperId === s.paperId}
+                        onToggle={() => toggle(`k:${s.paperId}`)}
+                      >
+                        <Chapters paperId={s.paperId} outline={outlines[s.paperId]} list={withQuestions(chaptersByPaper[s.paperId] ?? [])} currentId={onMock && current?.paperId === s.paperId ? current.itemId : null} parentId={onMock && current?.paperId === s.paperId ? current.groupId : null} openGroup={groupOpen[`k:${s.paperId}`] ?? null} onToggleGroup={(id) => toggleGroup(`k:${s.paperId}`, id)} base="/mock-tests/topic" kinds={['mock-group', 'mock-topic']} onNavigate={onNavigate} onRetry={() => undefined} />
+                      </Category>
+                    )}
                     {hasLessons && (
                       <Category
                         id={`m:${s.paperId}`}
@@ -417,7 +451,7 @@ function inChapters<T extends { kind: string }, G extends T>(rows: T[], isGroup:
   return out;
 }
 
-function Chapters({ paperId, outline, list, currentId, parentId, openGroup, onToggleGroup, onNavigate, onRetry }: { paperId: string; outline: Outline | 'loading' | 'error' | undefined; list: ReturnType<typeof chaptersOf> | undefined; currentId: string | null; parentId: string | null; openGroup: string | null; onToggleGroup: (id: string) => void; onNavigate?: () => void; onRetry: () => void }) {
+function Chapters({ paperId, outline, list, currentId, parentId, openGroup, onToggleGroup, base = '/topic', kinds = ['group', 'topic'], onNavigate, onRetry }: { paperId: string; outline: Outline | 'loading' | 'error' | undefined; list: ReturnType<typeof chaptersOf> | undefined; currentId: string | null; parentId: string | null; openGroup: string | null; onToggleGroup: (id: string) => void; base?: string; kinds?: [string, string]; onNavigate?: () => void; onRetry: () => void }) {
   if (!outline || outline === 'loading') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Loading…</li>;
   if (outline === 'error')
     return (
@@ -432,11 +466,11 @@ function Chapters({ paperId, outline, list, currentId, parentId, openGroup, onTo
   const topic = (c: SideItem, indent: string) => (
     <li key={c.id}>
       <Link
-        to={`/topic/${c.id}`}
+        to={`${base}/${c.id}`}
         onClick={onNavigate}
         aria-current={currentId === c.id ? 'page' : undefined}
         data-paper={paperId}
-        data-kind="topic"
+        data-kind={kinds[1]}
         title={`${c.label ? `${c.label} ` : ''}${c.title}`}
         className={`${rowBase} h-8 pr-3 text-[13px] ${indent} ${currentId === c.id ? selectedRow : 'text-ink'}`}
       >
@@ -453,7 +487,7 @@ function Chapters({ paperId, outline, list, currentId, parentId, openGroup, onTo
       {inChapters(list, (r): r is SideItem => r.kind === 'group').map(({ group, rest }, i) =>
         group ? (
           <li key={group.id}>
-            <ChapterRow kind="group" label={group.label} title={group.title} open={openGroup === group.id} state={currentId === group.id ? 'selected' : parentId === group.id ? 'parent' : 'idle'} onToggle={() => onToggleGroup(group.id)} />
+            <ChapterRow kind={kinds[0]} label={group.label} title={group.title} open={openGroup === group.id} state={currentId === group.id ? 'selected' : parentId === group.id ? 'parent' : 'idle'} onToggle={() => onToggleGroup(group.id)} />
             {openGroup === group.id && <ul>{rest.map((c) => topic(c, 'pl-16'))}</ul>}
           </li>
         ) : (

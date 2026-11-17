@@ -1,10 +1,10 @@
-import { BookOpen, ChevronRight, ListChecks, PencilLine, Timer } from 'lucide-react';
+import { BookOpen, ChevronRight, FileText, ListChecks } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import { api, type TopicDetail } from '../api';
 import { SavedForRevision } from '../revision';
 import { AddToPlan, BookmarkButton, useTrackView } from '../tools';
-import { Button, ErrorBox, kindLabel, Loading, SectionTitle, useAuth, useLoad } from '../ui';
+import { ErrorBox, kindLabel, Loading, SectionTitle, useLoad } from '../ui';
 
 type Related = { id: string; title: string; type: string; from: string | null };
 
@@ -100,21 +100,7 @@ function MainColumn({ d }: { d: TopicDetail }) {
 export function TopicPage() {
   const { nodeId = '' } = useParams();
   const t = useLoad(() => api.topic(nodeId), [nodeId]);
-  const navigate = useNavigate();
-  const { user } = useAuth();
-  const [err, setErr] = useState<Error | null>(null);
   useTrackView('TOPIC_VIEW', t.data ? nodeId : null);
-
-  const start = async (mode: 'PRACTICE' | 'TOPIC_TEST') => {
-    if (!user) return navigate('/signin');
-    setErr(null);
-    try {
-      const s = await api.startPractice({ mode, nodeId });
-      navigate(`/practice/${s.session.id}`);
-    } catch (e) {
-      setErr(e as Error);
-    }
-  };
 
   if (t.loading) return <Loading />;
   if (t.error) return <ErrorBox error={t.error} onRetry={t.reload} />;
@@ -153,7 +139,15 @@ export function TopicPage() {
       </nav>
 
       <header className="mb-3 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-rule pb-2.5" data-topic-header>
-        <h1 className="min-w-0 max-w-[58rem] flex-1 basis-72 text-lg leading-snug font-semibold break-words text-ink sm:text-xl">{d.topic.title}</h1>
+        <div className="min-w-0 max-w-[58rem] flex-1 basis-72">
+          <h1 className="text-lg leading-snug font-semibold break-words text-ink sm:text-xl">{d.topic.title}</h1>
+          {d.source.url && (
+            <a href={`${d.source.url}#page=${d.source.page ?? 1}`} target="_blank" rel="noreferrer noopener" className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline">
+              <FileText aria-hidden className="size-3.5" />
+              View Official NTA PDF{d.source.page ? `, page ${d.source.page}` : ''}
+            </a>
+          )}
+        </div>
         <div className="flex shrink-0 flex-wrap items-center gap-2">
           <BookmarkButton kind="TOPIC" id={d.topic.id} />
           <AddToPlan kind="TOPIC" refId={d.topic.id} title={d.topic.title} />
@@ -164,27 +158,6 @@ export function TopicPage() {
         <MainColumn key={d.topic.id} d={d} />
 
         <aside className="min-w-0 space-y-2 lg:sticky lg:top-4 lg:self-start" data-topic-side>
-          <div className="rounded-lg bg-ink/[0.035] p-3">
-            <div className="flex items-baseline justify-between gap-2">
-              <h2 className="flex items-center gap-1.5 text-[13px] font-semibold text-ink">
-                <PencilLine aria-hidden className="size-4 text-accent" />
-                Practise this topic
-              </h2>
-              <span className="num text-xs text-ink-3">
-                {d.questionCount} {d.questionCount === 1 ? 'question' : 'questions'}
-              </span>
-            </div>
-            <div className="mt-2.5 flex flex-col gap-1.5">
-              <Button size="sm" onClick={() => start('PRACTICE')} disabled={!d.questionCount}>
-                Practise with instant feedback
-              </Button>
-              <Button size="sm" kind="secondary" onClick={() => start('TOPIC_TEST')} disabled={!d.questionCount} icon={<Timer aria-hidden />}>
-                Timed topic test
-              </Button>
-            </div>
-            {!d.questionCount && <p className="mt-2 text-xs text-ink-3">Questions for this topic are still being written.</p>}
-            {err && <ErrorBox error={err} />}
-          </div>
           {d.resources.length > 0 && (
             <Link to={`/revise/${d.topic.id}`} className="group flex items-center gap-2 rounded-lg bg-ink/[0.035] px-3 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-ink/[0.07]">
               <ListChecks aria-hidden className="size-4 shrink-0 text-accent" />
