@@ -1,0 +1,534 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "501",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_3de884d8b603452a90058ea8473475c0",
+  "title": "General Mental Ability, Numerical Ability,"
+ },
+ "lesson": {
+  "key": "ug26-501-t02-general-mental-ability-numerical-abili",
+  "title": "General mental ability and numerical ability: series, coding, percentages, interest, speed and work",
+  "coverage": [
+   {
+    "phrase": "General Mental Ability",
+    "section": "Number and letter series"
+   },
+   {
+    "phrase": "mental ability analogy classification coding",
+    "section": "Analogy, classification and coding-decoding"
+   },
+   {
+    "phrase": "Numerical Ability percentages ratio average",
+    "section": "Percentages, ratio and average"
+   },
+   {
+    "phrase": "numerical ability profit loss interest",
+    "section": "Profit and loss, simple and compound interest"
+   },
+   {
+    "phrase": "General Mental Ability, Numerical Ability,",
+    "section": "Time, speed, distance and work"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Number and letter series"
+   },
+   {
+    "type": "TEXT",
+    "text": "This paper tests how quickly and accurately you can think with numbers and patterns. There is no new theory to memorise: the marks come from knowing a small set of methods and applying them without arithmetic slips. The five sections below cover the patterns that appear most often, each with working you can copy into your own practice."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Series",
+    "text": "An ordered list of numbers or letters in which each term is obtained from the previous terms by a fixed rule. The task is to find the rule and use it to find the missing or wrong term."
+   },
+   {
+    "type": "TEXT",
+    "text": "Number series use a few rules again and again. In an **arithmetic series** each term is the previous term plus a constant (2, 5, 8, 11 adds 3). In a **geometric series** each term is the previous term multiplied by a constant (5, 10, 20, 40 multiplies by 2). If the differences are not constant, take the differences of the differences: when the differences themselves form a pattern (4, 8, 16, ... doubling) the series is solved. Other common rules are squares (1, 4, 9, 16), cubes (1, 8, 27, 64), products of consecutive numbers such as $n(n+1)$ (2, 6, 12, 20, 30, 42) and alternating series made of two interleaved patterns."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Common series patterns",
+    "columns": [
+     "Pattern",
+     "Example",
+     "Rule"
+    ],
+    "rows": [
+     [
+      "Arithmetic",
+      "7, 12, 17, 22",
+      "add 5"
+     ],
+     [
+      "Geometric",
+      "3, 6, 12, 24",
+      "multiply by 2"
+     ],
+     [
+      "Squares",
+      "4, 9, 16, 25",
+      "$n^2$ from $n=2$"
+     ],
+     [
+      "Pronic",
+      "2, 6, 12, 20",
+      "$n(n+1)$"
+     ],
+     [
+      "Growing differences",
+      "2, 3, 5, 9, 17",
+      "differences 1, 2, 4, 8"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Find the next term of the series 3, 7, 15, 31, ?",
+    "solution": "Step 1: find the differences between neighbouring terms: 7 - 3 = 4, 15 - 7 = 8, 31 - 15 = 16. Step 2: the differences 4, 8, 16 double each time, so the next difference is 32. Step 3: add 32 to the last term: 31 + 32 = 63. Check with another view: each term is double the previous plus 1 (3 x 2 + 1 = 7, 7 x 2 + 1 = 15, 15 x 2 + 1 = 31, 31 x 2 + 1 = 63), which agrees.",
+    "answer": "63"
+   },
+   {
+    "type": "TEXT",
+    "text": "Letter series work the same way once you convert letters to positions: A=1, B=2, ... Z=26. Write the positions, look at the differences, and convert back. The letters wrap around: after Z comes A again."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Always test your rule on every pair of terms, not just the first two. If a rule fits only some terms, it is the wrong rule. When differences look random, try squares, cubes and alternating patterns."
+   },
+   {
+    "type": "HEADING",
+    "text": "Analogy, classification and coding-decoding"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Analogy** questions ask you to find the relation in the first pair and copy it to the second. Name the relation in a full sentence before looking at the options: 'Pen is used for writing' gives 'Knife is used for cutting'. Typical relations are tool and use, part and whole, producer and product, and quality and degree. **Classification** (odd one out) asks which item does not share the property of the others, so find the property the three similar items have in common."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Coding-decoding** replaces letters or words by other letters, numbers or symbols by a fixed rule. The usual rules are a constant shift in the alphabet (CAT becomes DBU when every letter moves one step forward), the reverse alphabet (A with Z, B with Y, so the position of a letter and its opposite add up to 27), and substitution where a word is replaced by an unrelated word or number. Work out the rule from the given example by comparing letter positions, then apply it to the new word."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "In a certain code, CAT is written as DBU. How is DOG written in that code?",
+    "solution": "Step 1: compare the letters of the example. C moves to D, A moves to B and T moves to U, so every letter moves one step forward in the alphabet. Step 2: apply the same shift to DOG. D moves to E, O moves to P and G moves to H. Step 3: write the new word in the same order.",
+    "answer": "EPH"
+   },
+   {
+    "type": "HEADING",
+    "text": "Percentages, ratio and average"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Percentage",
+    "text": "A fraction expressed with denominator 100. $x\\%$ of a quantity $N$ equals $\\frac{x}{100}\\times N$. Percentage change is $\\frac{\\text{change}}{\\text{original value}}\\times 100$, and it is always measured against the original, not the new, value."
+   },
+   {
+    "type": "TEXT",
+    "text": "A frequent trap is successive change. A price that rises by 20% and then falls by 20% does not return to the original: multiply the factors, $1.2 \\times 0.8 = 0.96$, which is a net fall of 4%. Likewise, if a quantity rises by 25%, it must fall by $\\frac{25}{125}\\times 100 = 20\\%$ to return to its starting value, because the fall is measured on the larger new value."
+   },
+   {
+    "type": "TEXT",
+    "text": "A **ratio** compares two quantities of the same kind. To divide an amount in the ratio $a:b:c$, add the parts, find the value of one part and multiply. For example, 360 divided in the ratio 2:3:4 has 9 parts, each worth 40, so the shares are 80, 120 and 160. The **average** is the sum of the quantities divided by their number, so the sum equals average times number. When a number is removed, find the new sum and subtract."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "The average of 5 numbers is 24. When one number is removed, the average of the remaining four becomes 22. Find the number that was removed.",
+    "solution": "Step 1: the sum of the five numbers is 5 x 24 = 120. Step 2: the sum of the remaining four numbers is 4 x 22 = 88. Step 3: the removed number is the difference of the sums, 120 - 88 = 32.",
+    "answer": "32"
+   },
+   {
+    "type": "HEADING",
+    "text": "Profit and loss, simple and compound interest"
+   },
+   {
+    "type": "FORMULA",
+    "latex": "\\text{Profit \\%} = \\frac{\\text{SP}-\\text{CP}}{\\text{CP}}\\times 100",
+    "text": "SP is selling price and CP is cost price. Profit and loss percentages are always calculated on the cost price unless the question says otherwise."
+   },
+   {
+    "type": "TEXT",
+    "text": "If an article costing 800 rupees is sold for 920 rupees, the profit is 120 rupees and the profit percentage is $\\frac{120}{800}\\times 100 = 15\\%$. A very common mistake is dividing by the selling price, which gives 13.04% and is wrong."
+   },
+   {
+    "type": "FORMULA",
+    "latex": "\\text{SI}=\\frac{P\\,R\\,T}{100},\\qquad A = P\\left(1+\\frac{R}{100}\\right)^{n},\\qquad \\text{CI}=A-P",
+    "text": "$P$ is the principal, $R$ the rate per cent per year, $T$ or $n$ the time in years, SI simple interest, $A$ the amount and CI compound interest (compounded yearly)."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Find the simple interest and the compound interest (compounded yearly) on 8000 rupees at 10% per annum for 2 years, and their difference.",
+    "solution": "Step 1: simple interest = 8000 x 10 x 2 / 100 = 1600 rupees. Step 2: amount with compound interest = 8000 x (1.1)^2 = 8000 x 1.21 = 9680 rupees, so compound interest = 9680 - 8000 = 1680 rupees. Step 3: difference = 1680 - 1600 = 80 rupees. A shortcut for two years is difference = P x (R/100)^2 = 8000 x 0.01 = 80, which agrees.",
+    "answer": "SI = 1600 rupees, CI = 1680 rupees, difference = 80 rupees"
+   },
+   {
+    "type": "HEADING",
+    "text": "Time, speed, distance and work"
+   },
+   {
+    "type": "FORMULA",
+    "latex": "\\text{Speed}=\\frac{\\text{Distance}}{\\text{Time}},\\qquad v_{\\text{avg}}=\\frac{2xy}{x+y}",
+    "text": "The second formula gives the average speed when equal distances are covered at speeds $x$ and $y$. It is not the simple average of $x$ and $y$."
+   },
+   {
+    "type": "TEXT",
+    "text": "To convert km/h to m/s multiply by $\\frac{5}{18}$. For a journey out and back at 60 km/h and 40 km/h, the average speed is $\\frac{2\\times 60\\times 40}{100} = 48$ km/h, not 50 km/h, because more time is spent at the lower speed."
+   },
+   {
+    "type": "TEXT",
+    "text": "In **time and work** problems, treat a worker who finishes in $n$ days as doing $\\frac{1}{n}$ of the job per day. Rates add when people work together. If A takes 12 days and B takes 18 days, their combined rate is $\\frac{1}{12}+\\frac{1}{18}=\\frac{5}{36}$ per day, so together they take $\\frac{36}{5}=7.2$ days."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A can finish a job in 10 days and B in 15 days. They work together for 4 days and then A leaves. How many more days does B need to finish the job?",
+    "solution": "Step 1: A's rate is 1/10 and B's rate is 1/15 per day, so together they do 1/10 + 1/15 = 5/30 = 1/6 of the job per day. Step 2: in 4 days they complete 4 x 1/6 = 2/3 of the job, leaving 1/3. Step 3: B alone works at 1/15 per day, so the remaining 1/3 takes (1/3) / (1/15) = 5 days.",
+    "answer": "5 days"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Check units before you calculate: change minutes to hours, km/h to m/s and years to months where needed. When time is short, eliminate options that are clearly too big or too small before working fully."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Series: test differences, ratios, squares and cubes. Percent: change is measured on the original. Profit is on cost price. Average speed over equal distances is $2xy/(x+y)$. Work rates add: rate = 1 divided by days."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Find the next term of the series 2, 5, 8, 11, ?",
+   "options": [
+    "13",
+    "15",
+    "14",
+    "16"
+   ],
+   "answer": 3,
+   "explanation": "The difference between consecutive terms is 3 every time (5 - 2, 8 - 5, 11 - 8), so the series is arithmetic with common difference 3, and the next term is 11 + 3 = 14. Always check the differences on every pair before choosing.",
+   "optionRationale": {
+    "1": "13 adds only 2, which does not match the common difference 3.",
+    "2": "15 adds 4, which does not match the common difference 3.",
+    "4": "16 adds 5, which does not match the common difference 3."
+   },
+   "objective": "Find the next term of an arithmetic series"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "What is the value of 20% of 450 rupees?",
+   "options": [
+    "90",
+    "80",
+    "100",
+    "45"
+   ],
+   "answer": 1,
+   "explanation": "20% of 450 is 20/100 x 450 = 0.2 x 450 = 90. Alternatively 10% of 450 is 45, and doubling that gives 90, which is a quick mental method for any multiple of ten per cent.",
+   "optionRationale": {
+    "2": "80 is 20% of 400, not 450.",
+    "3": "100 is not 20% of 450 because 20% of 500 is 100.",
+    "4": "45 is 10% of 450."
+   },
+   "objective": "Calculate a percentage of a number"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Complete the analogy by choosing the best option: Pen : Writing :: Knife : ?",
+   "options": [
+    "Sharp",
+    "Kitchen",
+    "Steel",
+    "Cutting"
+   ],
+   "answer": 4,
+   "explanation": "The relation in the first pair is 'tool and its use': a pen is used for writing. Following the same relation, a knife is used for cutting. Sharp is a quality, kitchen is a place and steel is a material.",
+   "optionRationale": {
+    "1": "Sharp is a quality of a knife, not its use.",
+    "2": "Kitchen is a place where it may be used, not its use.",
+    "3": "Steel is a material, not its use."
+   },
+   "objective": "Complete an analogy based on tool and use"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "360 rupees are divided among three persons in the ratio 2 : 3 : 4. What is the largest share?",
+   "options": [
+    "120 rupees",
+    "160 rupees",
+    "180 rupees",
+    "140 rupees"
+   ],
+   "answer": 2,
+   "explanation": "The total number of parts is 2 + 3 + 4 = 9, so one part is 360 / 9 = 40 rupees. The largest share is 4 parts, which is 4 x 40 = 160 rupees.",
+   "optionRationale": {
+    "1": "120 rupees is the middle share (3 parts).",
+    "3": "180 rupees is half of 360, which ignores the ratio.",
+    "4": "140 rupees does not equal any whole number of parts of 40 rupees."
+   },
+   "objective": "Divide an amount in a given ratio"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Find the next term of the series 2, 6, 12, 20, 30, ?",
+   "options": [
+    "40",
+    "44",
+    "36",
+    "42"
+   ],
+   "answer": 4,
+   "explanation": "The terms are 1x2, 2x3, 3x4, 4x5, 5x6, so the next term is 6x7 = 42. Equivalently the differences 4, 6, 8, 10 increase by 2, so the next difference is 12 and 30 + 12 = 42.",
+   "optionRationale": {
+    "1": "40 would need a difference of 10, but the differences increase by 2 to reach 12.",
+    "2": "44 would need a difference of 14, which skips 12.",
+    "3": "36 would need a difference of 6, which goes backwards."
+   },
+   "objective": "Recognise a series built from consecutive products"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "In a certain code, CAT is written as DBU. How is DOG written in that code?",
+   "options": [
+    "EPH",
+    "EOH",
+    "CNF",
+    "DPH"
+   ],
+   "answer": 1,
+   "explanation": "Each letter is moved one step forward in the alphabet: C to D, A to B, T to U. Applying the same shift to D, O and G gives E, P and H, so DOG is written as EPH.",
+   "optionRationale": {
+    "2": "EOH changes O wrongly and does not shift every letter.",
+    "3": "CNF shifts every letter one step back instead of forward.",
+    "4": "DPH leaves the first letter unchanged."
+   },
+   "objective": "Decode a letter-shift code"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The average of 5 numbers is 24. If one number is removed, the average of the remaining numbers becomes 22. The number removed is",
+   "options": [
+    "28",
+    "36",
+    "32",
+    "40"
+   ],
+   "answer": 3,
+   "explanation": "The sum of five numbers is 5 x 24 = 120 and the sum of the remaining four is 4 x 22 = 88. The removed number is 120 - 88 = 32. Remember that the sum equals average times number, which is the key step in every average problem.",
+   "optionRationale": {
+    "1": "28 does not equal the difference of the two sums.",
+    "2": "36 does not equal the difference of the two sums.",
+    "4": "40 does not equal the difference of the two sums."
+   },
+   "objective": "Use sum equals average times number"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "An article bought for 800 rupees is sold for 920 rupees. What is the profit percentage?",
+   "options": [
+    "12%",
+    "15%",
+    "13.04%",
+    "20%"
+   ],
+   "answer": 2,
+   "explanation": "The profit is 920 - 800 = 120 rupees. Profit percentage is measured on the cost price, so it is 120 / 800 x 100 = 15%. The value 13.04% comes from dividing by the selling price, which is wrong.",
+   "optionRationale": {
+    "1": "12% is not 120 / 800 x 100.",
+    "3": "13.04% is the profit divided by the selling price, which is the wrong base.",
+    "4": "20% would be a profit of 160 rupees."
+   },
+   "objective": "Calculate profit percentage on the cost price"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q09",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match List-I (quantity) with List-II (formula).",
+   "list": {
+    "left": [
+     "A. Simple interest",
+     "B. Profit percentage",
+     "C. Average speed over equal distances at speeds x and y",
+     "D. Percentage change"
+    ],
+    "right": [
+     "I. (Profit / Cost price) x 100",
+     "II. 2xy / (x + y)",
+     "III. (Change / Original value) x 100",
+     "IV. (Principal x Rate x Time) / 100"
+    ]
+   },
+   "options": [
+    "A-I, B-IV, C-II, D-III",
+    "A-IV, B-II, C-I, D-III",
+    "A-IV, B-I, C-II, D-III",
+    "A-III, B-I, C-II, D-IV"
+   ],
+   "answer": 3,
+   "explanation": "Simple interest is P x R x T / 100 (IV), profit percentage is profit divided by cost price times 100 (I), the average speed for equal distances is the harmonic form 2xy / (x + y) (II), and percentage change is change divided by the original value times 100 (III).",
+   "optionRationale": {
+    "1": "It swaps the formulas for simple interest and profit percentage.",
+    "2": "It swaps profit percentage and average speed.",
+    "4": "It gives percentage change the simple interest formula."
+   },
+   "objective": "Match formulas with quantities"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "What is the difference between the compound interest (yearly) and the simple interest on 5000 rupees at 8% per annum for 2 years?",
+   "options": [
+    "16 rupees",
+    "32 rupees",
+    "40 rupees",
+    "64 rupees"
+   ],
+   "answer": 2,
+   "explanation": "Simple interest is 5000 x 8 x 2 / 100 = 800 rupees. The amount with compound interest is 5000 x 1.08 x 1.08 = 5832 rupees, so the compound interest is 832 rupees. The difference is 832 - 800 = 32 rupees, which also equals P x (R/100)^2 = 5000 x 0.0064.",
+   "optionRationale": {
+    "1": "16 rupees is half of the true difference.",
+    "3": "40 rupees does not match 5000 x (0.08)^2.",
+    "4": "64 rupees is double the true difference."
+   },
+   "objective": "Find the difference between CI and SI for two years"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q11",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Assertion (A): If the price of an item rises by 25%, it must fall by 20% to return to the original price.\nReason (R): The percentage fall is calculated on the new price, which is 125% of the original, so the fall is 25 / 125 x 100 = 20%.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "If the original price is 100, the new price is 125. To return to 100 the price must fall by 25, which is 25/125 x 100 = 20% of the new price. R gives exactly this calculation, so it explains A.",
+   "optionRationale": {
+    "2": "R is not merely true; it is the reason for A.",
+    "3": "A is true, so option 3 is wrong.",
+    "4": "R is true, so option 4 is wrong."
+   },
+   "objective": "Reverse a percentage change correctly"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A can finish a job in 10 days and B in 15 days. They work together for 4 days and then A leaves. B alone will finish the remaining work in",
+   "options": [
+    "4 days",
+    "6 days",
+    "7.5 days",
+    "5 days"
+   ],
+   "answer": 4,
+   "explanation": "Together they do 1/10 + 1/15 = 1/6 of the job per day, so in 4 days 4/6 = 2/3 of the job is done and 1/3 remains. B works at 1/15 per day, so the remaining work takes (1/3) / (1/15) = 5 days.",
+   "optionRationale": {
+    "1": "4 days is the time they already worked together.",
+    "2": "6 days is the time they would need to finish the whole job together.",
+    "3": "7.5 days comes from halving 15, which ignores the work already done."
+   },
+   "objective": "Solve a time and work problem with a worker leaving"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q13",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Consider the following statements.\nA. In the series 5, 10, 20, 40 each term is double the previous one.\nB. The sum of the first n odd numbers is n squared.\nC. A person who travels equal distances at 30 km/h and 60 km/h has an average speed of 45 km/h.\nD. A rise from 50 to 60 is a 20% increase.\nWhich of the statements are correct?",
+   "options": [
+    "A and C only",
+    "B, C and D only",
+    "A, C and D only",
+    "A, B and D only"
+   ],
+   "answer": 4,
+   "explanation": "A is correct (ratio 2). B is correct (1 + 3 + 5 = 9 = 3 squared). C is wrong: the average speed is 2 x 30 x 60 / 90 = 40 km/h, not 45. D is correct: the rise is 10 on an original of 50, so 20%. Hence A, B and D.",
+   "optionRationale": {
+    "1": "It includes C, which is wrong because the average speed is 40 km/h.",
+    "2": "It includes C and leaves out A.",
+    "3": "It includes C and leaves out B."
+   },
+   "objective": "Verify statements about series, speed and percentages"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A man goes from his home to a town at 40 km/h and returns at 60 km/h. If the whole round trip takes 5 hours, what is the one-way distance?",
+   "options": [
+    "100 km",
+    "125 km",
+    "120 km",
+    "240 km"
+   ],
+   "answer": 3,
+   "explanation": "The average speed for equal distances is 2 x 40 x 60 / 100 = 48 km/h. The total distance is 48 x 5 = 240 km, so the one-way distance is 240 / 2 = 120 km. Check: 120/40 + 120/60 = 3 + 2 = 5 hours.",
+   "optionRationale": {
+    "1": "100 km uses the simple average speed 50, which is wrong.",
+    "2": "125 km does not give a total time of 5 hours.",
+    "4": "240 km is the full round trip, not the one-way distance."
+   },
+   "objective": "Use average speed for a round trip"
+  },
+  {
+   "key": "ug26-501-t02-general-mental-ability-numerical-abili-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Find the next term of the series 2, 3, 5, 9, 17, ?",
+   "options": [
+    "33",
+    "31",
+    "34",
+    "25"
+   ],
+   "answer": 1,
+   "explanation": "The differences between terms are 1, 2, 4, 8, which double each time, so the next difference is 16 and the next term is 17 + 16 = 33. Equivalently each term is twice the previous term minus 1.",
+   "optionRationale": {
+    "2": "31 would need a difference of 14, which does not follow the doubling.",
+    "3": "34 would need a difference of 17, which does not follow the doubling.",
+    "4": "25 would need a difference of 8, which repeats the last difference."
+   },
+   "objective": "Detect a series with doubling differences"
+  }
+ ]
+}

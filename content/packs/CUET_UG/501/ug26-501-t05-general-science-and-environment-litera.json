@@ -1,0 +1,539 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "501",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_e9f1276975e94fb1a46d551005a3fa9e",
+  "title": "General Science and Environment Literacy"
+ },
+ "lesson": {
+  "key": "ug26-501-t05-general-science-and-environment-litera",
+  "title": "General science and environment literacy at NCERT Class 9-12 level",
+  "coverage": [
+   {
+    "phrase": "General Science physics chemistry",
+    "section": "Physics: motion, force, energy and electricity"
+   },
+   {
+    "phrase": "General Science chemistry",
+    "section": "Chemistry: matter, reactions, acids and bases"
+   },
+   {
+    "phrase": "General Science biology",
+    "section": "Biology: cells, plants, nutrition and health"
+   },
+   {
+    "phrase": "Environment Literacy ecosystems",
+    "section": "Ecosystems and energy flow"
+   },
+   {
+    "phrase": "Environment Literacy pollution conservation",
+    "section": "Environmental issues and conservation"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Physics: motion, force, energy and electricity"
+   },
+   {
+    "type": "TEXT",
+    "text": "This lesson covers the science and environment topics that a general paper tests at the level of NCERT Classes 9 to 12. The questions are usually direct, so clear definitions, a few formulas and well-known examples are enough. Numerical questions use SI units; take $g = 10$ m s$^{-2}$ when it is not given."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Acceleration",
+    "text": "The rate of change of velocity with time; its SI unit is m s$^{-2}$. For uniform acceleration $a$ with initial velocity $u$, the velocity after time $t$ is $v=u+at$ and the distance covered is $s=ut+\\frac{1}{2}at^2$."
+   },
+   {
+    "type": "TEXT",
+    "text": "Newton's three laws form the base of mechanics. The first law says a body stays at rest or in uniform motion unless a net force acts (inertia). The second law gives $F=ma$, where force is measured in newtons (N). The third law says every action has an equal and opposite reaction. Weight is the force of gravity, $W=mg$, and mass is a measure of the quantity of matter."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A car starts from rest and accelerates uniformly at 2 m/s^2 for 5 s. Find its final velocity and the distance covered.",
+    "solution": "Step 1: use v = u + at with u = 0, a = 2 and t = 5. So v = 0 + 2 x 5 = 10 m/s. Step 2: use s = ut + (1/2) a t^2 = 0 + 0.5 x 2 x 25 = 25 m. Step 3: check using average velocity: (0 + 10) / 2 = 5 m/s over 5 s gives 25 m, which agrees.",
+    "answer": "Final velocity 10 m/s, distance 25 m"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Energy** exists in many forms and is conserved. Kinetic energy is $\\frac{1}{2}mv^2$, so doubling the speed makes it four times as large: a 2 kg body moving at 3 m/s has 9 J, and at 6 m/s it has 36 J. Potential energy near the Earth is $mgh$. Work is force times displacement in the direction of the force, and power is work per unit time (watt)."
+   },
+   {
+    "type": "FORMULA",
+    "latex": "V=IR,\\qquad P=VI",
+    "text": "Ohm's law: the current $I$ in amperes through a conductor is proportional to the potential difference $V$ in volts across it, with resistance $R$ in ohms. $P$ is the electric power in watts. For resistors in series the resistances add; in parallel the reciprocals add."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A 12 V battery is connected across a 4 ohm resistor. Find the current and the power.",
+    "solution": "Step 1: by Ohm's law I = V / R = 12 / 4 = 3 A. Step 2: power P = V x I = 12 x 3 = 36 W. Step 3: check with P = I^2 R = 9 x 4 = 36 W, which agrees.",
+    "answer": "Current 3 A, power 36 W"
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Light travels in straight lines and obeys the laws of reflection (angle of incidence equals angle of reflection). A concave mirror and a convex lens converge light; a convex mirror and a concave lens diverge it. Sound needs a medium and cannot travel in a vacuum."
+   },
+   {
+    "type": "HEADING",
+    "text": "Chemistry: matter, reactions, acids and bases"
+   },
+   {
+    "type": "TEXT",
+    "text": "Matter is made of atoms. An atom has a nucleus of protons (positive) and neutrons (no charge), with electrons (negative) around it. The **atomic number** is the number of protons; the mass number is the number of protons plus neutrons. In the periodic table elements are arranged by increasing atomic number, and elements in the same group have similar properties because they have the same number of valence electrons."
+   },
+   {
+    "type": "TEXT",
+    "text": "A chemical reaction rearranges atoms, and the total mass is conserved. A balanced equation shows this: $2\\text{H}_2 + \\text{O}_2 \\rightarrow 2\\text{H}_2\\text{O}$. Types of reactions are combination, decomposition, displacement, double displacement and redox. Rusting of iron and burning of fuels are oxidation reactions."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "pH",
+    "text": "A number that measures how acidic or basic a solution is, defined as $\\text{pH}=-\\log_{10}[\\text{H}^+]$ where the hydrogen ion concentration is in mol per litre. At 25 degrees Celsius pH 7 is neutral, below 7 is acidic and above 7 is basic."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Find the pH of a 0.001 M solution of hydrochloric acid, a strong acid that ionises completely. State whether it is acidic.",
+    "solution": "Step 1: hydrochloric acid ionises completely, so the hydrogen ion concentration equals 0.001 M = 10^-3 mol per litre. Step 2: pH = -log10(10^-3) = 3. Step 3: since 3 is less than 7, the solution is acidic. Each unit of pH change is a tenfold change in hydrogen ion concentration.",
+    "answer": "pH = 3, acidic"
+   },
+   {
+    "type": "TEXT",
+    "text": "Acids turn blue litmus red and bases turn red litmus blue. Acid plus base gives salt plus water (neutralisation). Metals are generally good conductors and form positive ions; non-metals such as sulphur and carbon form acidic oxides. Carbon forms millions of compounds because of catenation and tetravalency."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Carbon burns in oxygen to form carbon dioxide: C + O2 gives CO2. How much carbon dioxide is formed when 12 g of carbon burns completely? Atomic masses: C = 12, O = 16.",
+    "solution": "Step 1: the molar mass of CO2 is 12 + 2 x 16 = 44 g per mole, and the molar mass of carbon is 12 g per mole. Step 2: the equation shows 1 mole of carbon (12 g) gives 1 mole of CO2 (44 g). Step 3: therefore 12 g of carbon gives 44 g of carbon dioxide. Mass is conserved because 12 g of carbon combines with 32 g of oxygen.",
+    "answer": "44 g of carbon dioxide"
+   },
+   {
+    "type": "HEADING",
+    "text": "Biology: cells, plants, nutrition and health"
+   },
+   {
+    "type": "TEXT",
+    "text": "The cell is the basic unit of life. Plant cells have a cell wall and chloroplasts; animal cells do not. The **mitochondria** release energy from food (the powerhouse), the nucleus holds the DNA, and ribosomes make proteins. Bacteria are prokaryotes without a true nucleus."
+   },
+   {
+    "type": "TEXT",
+    "text": "**Photosynthesis** takes place in chloroplasts: $6\\text{CO}_2 + 6\\text{H}_2\\text{O} \\rightarrow \\text{C}_6\\text{H}_{12}\\text{O}_6 + 6\\text{O}_2$ in the presence of light and chlorophyll. Leaves look green because chlorophyll absorbs red and blue light and reflects green. The gas exchange takes place through stomata."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Deficiency diseases",
+    "columns": [
+     "Nutrient",
+     "Deficiency disease"
+    ],
+    "rows": [
+     [
+      "Vitamin A",
+      "Night blindness"
+     ],
+     [
+      "Vitamin C",
+      "Scurvy"
+     ],
+     [
+      "Vitamin D",
+      "Rickets"
+     ],
+     [
+      "Iodine",
+      "Goitre"
+     ],
+     [
+      "Iron",
+      "Anaemia"
+     ]
+    ]
+   },
+   {
+    "type": "TEXT",
+    "text": "Human body systems: the heart pumps blood through arteries (away from the heart) and veins (towards the heart); red blood cells carry oxygen with haemoglobin. Digestion begins in the mouth with salivary amylase and is completed in the small intestine, where nutrients are absorbed. Vaccines prepare the immune system against a disease before infection. Malaria is carried by the female Anopheles mosquito and dengue by the Aedes mosquito."
+   },
+   {
+    "type": "HEADING",
+    "text": "Ecosystems and energy flow"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Ecosystem",
+    "text": "A community of living organisms interacting with each other and with the non-living environment (air, water, soil, light) in a given area. Examples are a forest, a pond and a cropland."
+   },
+   {
+    "type": "TEXT",
+    "text": "Energy enters an ecosystem as sunlight, is captured by **producers** (green plants) and passes to **consumers** (herbivores, carnivores) and **decomposers** (bacteria, fungi) in food chains. At each step only about 10 per cent of the energy passes to the next trophic level (the ten per cent law), because the rest is lost as heat in respiration. So food chains are short, usually of four or five levels."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A grassland ecosystem's producers store 20000 J of energy. By the ten per cent law, find the energy at the primary, secondary and tertiary consumer levels.",
+    "solution": "Step 1: the primary consumers receive 10 per cent of 20000 J, which is 2000 J. Step 2: the secondary consumers receive 10 per cent of 2000 J, which is 200 J. Step 3: the tertiary consumers receive 10 per cent of 200 J, which is 20 J. The energy falls tenfold at every step, which is why few top carnivores can be supported.",
+    "answer": "2000 J, 200 J and 20 J"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Biomagnification** is the increase in the concentration of non-degradable substances such as DDT and mercury at successive trophic levels, because they are not broken down or excreted. Biodiversity means the variety of species, genes and ecosystems. Habitat loss is the biggest cause of species decline."
+   },
+   {
+    "type": "HEADING",
+    "text": "Environmental issues and conservation"
+   },
+   {
+    "type": "TEXT",
+    "text": "The **greenhouse effect** is the natural trapping of heat by gases such as carbon dioxide, methane, nitrous oxide and water vapour. Burning fossil fuels and cutting forests add more of these gases, causing global warming and climate change. The **ozone layer** in the stratosphere absorbs harmful ultraviolet radiation; chlorofluorocarbons (CFCs) deplete it, and the Montreal Protocol of 1987 aims to phase out ozone-depleting substances. Acid rain is caused mainly by oxides of sulphur and nitrogen."
+   },
+   {
+    "type": "TEXT",
+    "text": "Water pollution by sewage and fertiliser causes **eutrophication**, an excess of nutrients that leads to algal blooms and oxygen loss. Air pollutants include particulate matter, carbon monoxide, sulphur dioxide and nitrogen oxides. Waste should be managed by the three Rs: reduce, reuse and recycle; biodegradable waste can be composted while non-biodegradable plastics persist for a very long time."
+   },
+   {
+    "type": "TEXT",
+    "text": "Renewable energy sources (solar, wind, hydro, biomass) are replenished naturally and release little pollution, while coal, petroleum and natural gas are fossil fuels that will run out. Conservation measures include national parks, wildlife sanctuaries, biosphere reserves, afforestation and rainwater harvesting."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Exam tips: units matter (m/s, N, J, W, A); write the formula before substituting; learn the vitamin-disease pairs and the greenhouse gases by heart; and remember that the ten per cent law applies between trophic levels, not to the whole food chain."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Science and environment questions are mostly definitions and standard examples at NCERT level. Revise formulas ($v=u+at$, $F=ma$, $V=IR$, pH $=-\\log[\\text{H}^+]$), the photosynthesis equation, the ten per cent law and the main pollution terms."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In the SI system of units, force is measured in",
+   "options": [
+    "joule",
+    "newton",
+    "watt",
+    "pascal"
+   ],
+   "answer": 2,
+   "explanation": "Force is measured in newtons, where one newton is the force that gives a mass of 1 kg an acceleration of 1 m/s^2. The joule is the unit of energy, the watt of power and the pascal of pressure.",
+   "optionRationale": {
+    "1": "The joule is the unit of work and energy.",
+    "3": "The watt is the unit of power.",
+    "4": "The pascal is the unit of pressure."
+   },
+   "objective": "Recall SI units"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which gas is taken in by green plants during photosynthesis?",
+   "options": [
+    "Oxygen",
+    "Nitrogen",
+    "Hydrogen",
+    "Carbon dioxide"
+   ],
+   "answer": 4,
+   "explanation": "In photosynthesis plants take in carbon dioxide and water and release oxygen, using light and chlorophyll to make glucose. The gas that is given out is oxygen, not taken in.",
+   "optionRationale": {
+    "1": "Oxygen is released in photosynthesis.",
+    "2": "Nitrogen is not used directly in photosynthesis.",
+    "3": "Hydrogen is not absorbed as a gas by plants."
+   },
+   "objective": "Recall inputs of photosynthesis"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "What is the pH of pure water at 25 degrees Celsius?",
+   "options": [
+    "7",
+    "0",
+    "14",
+    "1"
+   ],
+   "answer": 1,
+   "explanation": "Pure water has equal hydrogen and hydroxide ion concentrations of 10^-7 mol per litre, so the pH is 7, which is neutral. Values below 7 are acidic and above 7 are basic.",
+   "optionRationale": {
+    "2": "pH 0 is a very strong acid.",
+    "3": "pH 14 is a very strong base.",
+    "4": "pH 1 is a strong acid."
+   },
+   "objective": "Recall the neutral point on the pH scale"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Which of the following is a greenhouse gas?",
+   "options": [
+    "Nitrogen",
+    "Argon",
+    "Methane",
+    "Oxygen"
+   ],
+   "answer": 3,
+   "explanation": "Methane traps heat in the atmosphere and is a greenhouse gas, as are carbon dioxide and nitrous oxide. Nitrogen, argon and oxygen make up most of the air but do not absorb heat radiation in this way.",
+   "optionRationale": {
+    "1": "Nitrogen is the main gas of air but it does not trap heat significantly.",
+    "2": "Argon is an inert gas and does not trap heat.",
+    "4": "Oxygen does not trap heat significantly."
+   },
+   "objective": "Identify greenhouse gases"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A car starts from rest and accelerates uniformly at 2 m/s^2 for 5 s. Its velocity at the end is",
+   "options": [
+    "5 m/s",
+    "25 m/s",
+    "10 m/s",
+    "7 m/s"
+   ],
+   "answer": 3,
+   "explanation": "Use v = u + at with u = 0: v = 0 + 2 x 5 = 10 m/s. The value 25 is the distance covered in metres, which is a different quantity, so always check which quantity the question asks for before choosing.",
+   "optionRationale": {
+    "1": "5 m/s is the average velocity, not the final velocity.",
+    "2": "25 is the distance travelled in metres.",
+    "4": "7 m/s adds a and t instead of multiplying them."
+   },
+   "objective": "Apply the first equation of motion"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A 12 V battery is connected across a resistor of 4 ohm. The current through the resistor is",
+   "options": [
+    "3 A",
+    "48 A",
+    "8 A",
+    "0.33 A"
+   ],
+   "answer": 1,
+   "explanation": "By Ohm's law I = V / R = 12 / 4 = 3 A. Multiplying 12 by 4 gives 48, which is wrong because current is voltage divided by resistance. The power in the circuit is 12 x 3 = 36 W.",
+   "optionRationale": {
+    "2": "48 A multiplies V by R instead of dividing.",
+    "3": "8 A subtracts the resistance from the voltage.",
+    "4": "0.33 A divides R by V, the inverse of the correct ratio."
+   },
+   "objective": "Apply Ohm's law"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Producers in an ecosystem store 20000 J of energy. By the ten per cent law the energy available to the secondary consumers is",
+   "options": [
+    "2000 J",
+    "20 J",
+    "10000 J",
+    "200 J"
+   ],
+   "answer": 4,
+   "explanation": "Primary consumers get 10 per cent of 20000 J, which is 2000 J, and secondary consumers get 10 per cent of that, which is 200 J. Each trophic level passes on only about a tenth of the energy it receives.",
+   "optionRationale": {
+    "1": "2000 J is the energy at the primary consumer level.",
+    "2": "20 J is the energy at the tertiary consumer level.",
+    "3": "10000 J assumes a 50 per cent transfer."
+   },
+   "objective": "Apply the ten per cent law"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The pH of a 0.001 M solution of hydrochloric acid (a strong acid) is",
+   "options": [
+    "1",
+    "3",
+    "7",
+    "11"
+   ],
+   "answer": 2,
+   "explanation": "The hydrogen ion concentration is 10^-3 mol per litre because hydrochloric acid ionises completely. So pH = -log10(10^-3) = 3, which is acidic because it is below 7. A tenfold dilution would raise the pH by one unit.",
+   "optionRationale": {
+    "1": "pH 1 would need a concentration of 0.1 M.",
+    "3": "pH 7 is neutral.",
+    "4": "pH 11 would be basic, but this solution is acidic."
+   },
+   "objective": "Calculate pH of a strong acid"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q09",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match List-I (nutrient) with List-II (deficiency disease).",
+   "list": {
+    "left": [
+     "A. Vitamin C",
+     "B. Vitamin D",
+     "C. Iodine",
+     "D. Vitamin A"
+    ],
+    "right": [
+     "I. Rickets",
+     "II. Night blindness",
+     "III. Scurvy",
+     "IV. Goitre"
+    ]
+   },
+   "options": [
+    "A-I, B-III, C-IV, D-II",
+    "A-IV, B-I, C-III, D-II",
+    "A-III, B-I, C-IV, D-II",
+    "A-III, B-II, C-IV, D-I"
+   ],
+   "answer": 3,
+   "explanation": "Vitamin C deficiency causes scurvy (III), vitamin D deficiency causes rickets (I), iodine deficiency causes goitre (IV) and vitamin A deficiency causes night blindness (II). The correct code is A-III, B-I, C-IV, D-II.",
+   "optionRationale": {
+    "1": "It swaps scurvy and rickets.",
+    "2": "It gives vitamin C goitre and iodine scurvy.",
+    "4": "It swaps rickets and night blindness."
+   },
+   "objective": "Match nutrients with deficiency diseases"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q10",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about the atmosphere.\nA. The ozone layer in the stratosphere absorbs harmful ultraviolet radiation.\nB. Chlorofluorocarbons (CFCs) deplete the ozone layer.\nC. Carbon dioxide is the main cause of ozone depletion.\nD. The Montreal Protocol aims to phase out ozone-depleting substances.\nWhich of the statements are correct?",
+   "options": [
+    "A and B only",
+    "A, B and D only",
+    "B, C and D only",
+    "A, C and D only"
+   ],
+   "answer": 2,
+   "explanation": "A, B and D are correct. C is wrong because ozone depletion is caused mainly by CFCs and similar chemicals, while carbon dioxide is a greenhouse gas that contributes to global warming rather than ozone loss.",
+   "optionRationale": {
+    "1": "It leaves out D, which is correct.",
+    "3": "It includes C, which is wrong.",
+    "4": "It includes C and leaves out B."
+   },
+   "objective": "Distinguish ozone depletion from global warming"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q11",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): If the velocity of a moving body is doubled, its kinetic energy becomes four times.\nReason (R): Kinetic energy is proportional to the square of the velocity.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "Kinetic energy is (1/2) m v^2, so doubling v multiplies the energy by 2^2 = 4. R states exactly this proportionality and so explains A. For example, a 2 kg body has 9 J at 3 m/s and 36 J at 6 m/s.",
+   "optionRationale": {
+    "2": "R is not just true but is the reason for A.",
+    "3": "A is true, so option 3 is wrong.",
+    "4": "R is true, so option 4 is wrong."
+   },
+   "objective": "Relate kinetic energy and velocity"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A stone is dropped from the top of a 45 m high tower. Taking g = 10 m/s^2 and ignoring air resistance, the time it takes to reach the ground is",
+   "options": [
+    "4.5 s",
+    "9 s",
+    "1.5 s",
+    "3 s"
+   ],
+   "answer": 4,
+   "explanation": "For a body dropped from rest, h = (1/2) g t^2, so t = square root of (2h / g) = square root of (90 / 10) = square root of 9 = 3 s.",
+   "optionRationale": {
+    "1": "4.5 s is h divided by 10.",
+    "2": "9 s is the value of t squared.",
+    "3": "1.5 s is half of the correct time."
+   },
+   "objective": "Use the free fall equation"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q13",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): Leaves appear green.\nReason (R): Chlorophyll absorbs green light most strongly.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 3,
+   "explanation": "Leaves look green because chlorophyll absorbs mainly red and blue light and reflects green light. So A is true, but R is false because green is absorbed least, not most.",
+   "optionRationale": {
+    "1": "R is false, so options 1 and 2 cannot be right.",
+    "2": "R is false, so options 1 and 2 cannot be right.",
+    "4": "A is true, so option 4 cannot be right."
+   },
+   "objective": "Explain the colour of leaves"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Carbon burns in oxygen to give carbon dioxide (C + O2 gives CO2). What mass of carbon dioxide is formed when 12 g of carbon burns completely? (Atomic masses: C = 12, O = 16)",
+   "options": [
+    "28 g",
+    "44 g",
+    "32 g",
+    "56 g"
+   ],
+   "answer": 2,
+   "explanation": "The molar mass of CO2 is 12 + 2 x 16 = 44 g/mol, and 12 g of carbon is one mole. One mole of carbon gives one mole of CO2, which has a mass of 44 g. This equals 12 g of carbon plus 32 g of oxygen.",
+   "optionRationale": {
+    "1": "28 g is the mass of carbon monoxide.",
+    "3": "32 g is the mass of the oxygen used, not the product.",
+    "4": "56 g is the molar mass of two CO molecules, not CO2."
+   },
+   "objective": "Calculate the mass of product from a balanced equation"
+  },
+  {
+   "key": "ug26-501-t05-general-science-and-environment-litera-q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "Two resistors of 6 ohm each are connected in parallel, and this combination is connected in series with a 4 ohm resistor across a 14 V battery. The current in each 6 ohm resistor is",
+   "options": [
+    "2 A",
+    "3.5 A",
+    "0.5 A",
+    "1 A"
+   ],
+   "answer": 4,
+   "explanation": "The parallel pair has resistance 6 x 6 / 12 = 3 ohm, so the total resistance is 3 + 4 = 7 ohm and the battery current is 14 / 7 = 2 A. The two equal parallel branches share this current equally, so each carries 1 A.",
+   "optionRationale": {
+    "1": "2 A is the total current, which divides between the two branches.",
+    "2": "3.5 A would be the current if the 4 ohm resistor were absent from the loop.",
+    "3": "0.5 A would be half the current in each branch."
+   },
+   "objective": "Analyse a series-parallel resistor circuit"
+  }
+ ]
+}

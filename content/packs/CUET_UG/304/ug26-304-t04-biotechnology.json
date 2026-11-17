@@ -1,0 +1,561 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "304",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_cdabd1d157ce4bd3b81bc8392c225eb8",
+    "title": "Biotechnology: Principles and Processes: Principles of biotechnology; Tools of"
+  },
+  "lesson": {
+    "key": "ug26-304-t04-biotechnology",
+    "title": "Biotechnology: principles and processes of recombinant DNA technology",
+    "coverage": [
+      {
+        "phrase": "Biotechnology: Principles and Processes: Principles of biotechnology",
+        "section": "Principles of biotechnology"
+      },
+      {
+        "phrase": "Tools of recombinant DNA technology – restriction enzymes",
+        "section": "Restriction enzymes"
+      },
+      {
+        "phrase": "cloning vectors",
+        "section": "Cloning vectors"
+      },
+      {
+        "phrase": "competent host",
+        "section": "Competent host"
+      },
+      {
+        "phrase": "Processes of rDNA technology – isolation",
+        "section": "Isolation of the genetic material"
+      },
+      {
+        "phrase": "amplification of gene (PCR)",
+        "section": "Amplification of gene by PCR"
+      },
+      {
+        "phrase": "insertion of rDNA in host and bioreactors",
+        "section": "Insertion of rDNA in host and bioreactors"
+      },
+      {
+        "phrase": "Downstream processing",
+        "section": "Downstream processing"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Principles of biotechnology"
+      },
+      {
+        "type": "TEXT",
+        "text": "The word *biotechnology* covers a very wide field. The European Federation of Biotechnology (EFB) gave a definition that includes traditional views as well as modern molecular biology: **biotechnology is the integration of natural science and organisms, cells, parts thereof and molecular analogues for products and services**. In practice, it means using microbes, plants or animals, or their parts, to make products useful to humans, from curd and bread to antibiotics and insulin."
+      },
+      {
+        "type": "TEXT",
+        "text": "Modern biotechnology rests on two core techniques. **Genetic engineering** is the technique to alter the chemistry of genetic material (DNA and RNA), to introduce these into host organisms and thus change the phenotype of the host organism. **Bioprocess engineering** is the maintenance of sterile (contamination-free) ambience in chemical engineering processes, so that only the desired microbe or eukaryotic cell is grown in large quantities for the manufacture of biotechnological products such as antibiotics, vaccines and enzymes."
+      },
+      {
+        "type": "TEXT",
+        "text": "The foundation of genetic engineering was laid when **Stanley Cohen and Herbert Boyer** in 1972 isolated an antibiotic resistance gene from a plasmid of the bacterium *Salmonella typhimurium* and linked it with the plasmid of *Escherichia coli*, making the first **recombinant DNA**. The linked gene was transferred to *E. coli*, where it replicated and expressed. Boyer had also isolated a restriction enzyme, and this was the key to cutting the DNA at specific sites."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Recombinant DNA (rDNA)",
+        "text": "A DNA molecule formed by joining DNA from two different sources, usually a gene of interest and a vector, in vitro, so that the new combination can be replicated and expressed in a host."
+      },
+      {
+        "type": "TEXT",
+        "text": "Three basic steps in genetically modifying an organism are: (i) identification of DNA with desirable genes, (ii) introduction of the identified DNA into the host, and (iii) maintenance of the introduced DNA in the host and transfer of the DNA to its progeny. For the foreign DNA to multiply in the host, it must be linked to a piece of DNA with an **origin of replication (ori)**, the sequence from which replication starts."
+      },
+      {
+        "type": "HEADING",
+        "text": "Restriction enzymes"
+      },
+      {
+        "type": "TEXT",
+        "text": "The tools of recombinant DNA technology are restriction enzymes, polymerases and ligases, vectors and the host organism. **Restriction enzymes** act as molecular scissors. In 1963, two enzymes responsible for restricting the growth of bacteriophage in *E. coli* were isolated: one added methyl groups to DNA, while the other cut the DNA. The second was called **restriction endonuclease**. The first restriction endonuclease, *Hind* II, always cut DNA molecules at a particular point by recognising a specific sequence of six base pairs, called the **recognition sequence**. More than 900 restriction enzymes have been isolated from over 230 strains of bacteria."
+      },
+      {
+        "type": "TEXT",
+        "text": "The naming convention is simple: the first letter comes from the genus, the next two from the species, the next letter from the strain and the Roman numeral from the order in which the enzyme was isolated from that strain. For example, *Eco*RI comes from *Escherichia coli* strain RY13."
+      },
+      {
+        "type": "TEXT",
+        "text": "Restriction enzymes belong to a larger class, the **nucleases**. **Exonucleases** remove nucleotides from the ends of the DNA, whereas **endonucleases** make cuts at specific positions within the DNA. Each restriction endonuclease recognises a specific **palindromic nucleotide sequence** in the DNA, one in which the base pair sequence reads the same on the two strands when read in the same direction (5' to 3'). *Eco*RI recognises 5'-GAATTC-3' (and 3'-CTTAAG-5' on the other strand) and cuts both strands between the bases G and A. Because the cuts on the two strands are at different positions, there are single-stranded overhanging stretches at the ends of the fragments, called **sticky ends**. These can form hydrogen bonds with their complementary cut counterparts, which facilitates the action of the enzyme **DNA ligase**, which joins them."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Palindromic sequence",
+        "text": "A sequence of DNA base pairs that reads the same on the two strands when the reading orientation (5' to 3') is kept the same, such as GAATTC / CTTAAG."
+      },
+      {
+        "type": "TEXT",
+        "text": "Cutting the vector and the source DNA with the same restriction enzyme gives the same kind of sticky ends, and DNA ligase can then join them to make the recombinant DNA. Because a six-base recognition sequence is made of four possible bases, it occurs on average once in $4^6 = 4096$ base pairs of random DNA."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Separation and isolation of DNA fragments** is done by **gel electrophoresis**. DNA is negatively charged, so the fragments move towards the positive electrode (anode) through an agarose gel (agarose is a natural polymer extracted from sea weeds). The gel acts as a sieve, so the fragments separate according to their size: the smaller fragments move farther. The DNA is stained with **ethidium bromide** and seen as orange bands under UV light. The bands are cut out of the gel and the DNA is extracted from the gel piece, a step called **elution**."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A linear DNA molecule of 12 kb has three recognition sites for EcoRI, at 2 kb, 5 kb and 9 kb from one end. How many fragments are formed on digestion, and what are their sizes? How many fragments would a circular plasmid with the same three sites give?",
+        "solution": "Each cut in a linear molecule makes one extra piece, so 3 cuts give 3 + 1 = 4 fragments. Their sizes are the gaps between cuts: 2 kb (0 to 2), 5 - 2 = 3 kb, 9 - 5 = 4 kb and 12 - 9 = 3 kb. The total is 2 + 3 + 4 + 3 = 12 kb, which matches the original length. In a circular plasmid the last piece is joined to the first, so n cuts give n fragments, and here 3 fragments are formed.",
+        "answer": "Linear DNA: 4 fragments of 2, 3, 4 and 3 kb; circular plasmid: 3 fragments"
+      },
+      {
+        "type": "HEADING",
+        "text": "Cloning vectors"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Cloning vector",
+        "text": "A DNA molecule, such as a plasmid or a bacteriophage genome, that can carry a foreign DNA fragment into a host cell and replicate there, so that the foreign DNA is multiplied (cloned)."
+      },
+      {
+        "type": "TEXT",
+        "text": "Plasmids and bacteriophages have the ability to replicate within bacterial cells independently of the control of the chromosomal DNA, and they are present in high copy numbers, so they are used as vectors. A good cloning vector has the following features. (1) An **origin of replication (ori)**, which is responsible for initiating replication, and which controls the copy number of the linked DNA. (2) A **selectable marker**, which helps in identifying and eliminating non-transformants and selectively permitting the growth of the transformants. Genes encoding resistance to antibiotics such as ampicillin, chloramphenicol, tetracycline or kanamycin are useful markers for *E. coli*. (3) **Cloning sites**, that is, recognition sites for restriction enzymes in the vector, where the foreign DNA can be linked. There should be only one recognition site for the enzyme in the vector, because more than one would cut the vector into pieces. (4) A small size, so that it is easy to handle."
+      },
+      {
+        "type": "TEXT",
+        "text": "The well-known *E. coli* cloning vector **pBR322** has ori, two antibiotic resistance genes (*amp*^R and *tet*^R) and the *rop* gene, which codes for proteins involved in the replication of the plasmid. The restriction sites *Hind* III, *Eco*RI, *Bam*HI, *Sal*I, *Pvu*II, *Pst*I and *Cla*I are within the two antibiotic resistance genes; for instance, *Bam*HI and *Sal*I lie in *tet*^R, and *Pst*I and *Pvu*I lie in *amp*^R."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Selection of recombinants.** If a foreign DNA is ligated into the *Bam*HI site of *tet*^R in pBR322, the gene is **insertionally inactivated**, so the recombinant plasmid loses tetracycline resistance but keeps ampicillin resistance. Transformed cells are first plated on ampicillin, and both recombinants and non-recombinants grow. When the colonies are then transferred to a tetracycline plate, the recombinants do not grow, but the non-recombinants do. Thus the colonies that grew on ampicillin but not on tetracycline are the recombinants."
+      },
+      {
+        "type": "TEXT",
+        "text": "Because this method needs two plates, a better approach is used now, with a **chromogenic substrate**. The foreign DNA is ligated into the coding sequence of the enzyme **beta-galactosidase**. In a recombinant, the gene is inactivated, so the colonies do not produce any colour and are **white**. A non-recombinant, with the intact enzyme, gives **blue** colonies on the medium with the chromogenic substrate. This is a simple one-step selection of recombinants."
+      },
+      {
+        "type": "TEXT",
+        "text": "In plants, the **Ti plasmid** of *Agrobacterium tumefaciens* is modified into a cloning vector that is not pathogenic but is able to deliver the gene of interest into plants. In animals, **retroviruses** that have been disarmed are used for the same purpose."
+      },
+      {
+        "type": "HEADING",
+        "text": "Competent host"
+      },
+      {
+        "type": "TEXT",
+        "text": "DNA is a hydrophilic molecule, so it cannot pass through cell membranes. The bacterial cell must therefore be made **competent** to take up DNA. A common method is to treat the cells with a specific concentration of a **divalent cation such as calcium**, which increases the efficiency with which DNA enters the bacterium through pores in its cell wall. The cells are then incubated with the recombinant DNA on **ice**, followed by placing them briefly at **42 degrees Celsius** (heat shock), and then putting them back on ice. This enables the bacteria to take up the recombinant DNA."
+      },
+      {
+        "type": "TEXT",
+        "text": "Other methods are used for other hosts. In **micro-injection**, recombinant DNA is directly injected into the nucleus of an animal cell. In **biolistics** (gene gun), cells are bombarded with high-velocity micro-particles of **gold or tungsten** coated with DNA, a method suitable for plants. A third approach uses **disarmed pathogens** as vectors, which, when allowed to infect the cell, transfer the recombinant DNA into the host."
+      },
+      {
+        "type": "HEADING",
+        "text": "Isolation of the genetic material"
+      },
+      {
+        "type": "TEXT",
+        "text": "The first step of the process is **isolation of DNA** in pure form, free from other macromolecules. Since DNA is enclosed within the membranes, the cell has to be broken open to release the DNA along with other macromolecules such as RNA, proteins, polysaccharides and lipids. The cells are treated with enzymes: **lysozyme** for bacteria, **cellulase** for plant cells and **chitinase** for fungi. The RNA is removed with **ribonuclease**, proteins with **protease**, and other molecules by appropriate treatments. When **chilled ethanol** is added, the purified DNA precipitates out as a collection of fine threads in the suspension, and it can be removed by spooling."
+      },
+      {
+        "type": "TEXT",
+        "text": "The purified DNA is then cut with the selected restriction enzyme in the right buffer and conditions. The vector DNA is cut with the same enzyme. The progress of the cut is checked by gel electrophoresis. The gene of interest and the cut vector are mixed and **DNA ligase** is added to form recombinant DNA."
+      },
+      {
+        "type": "HEADING",
+        "text": "Amplification of gene by PCR"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Polymerase chain reaction (PCR)",
+        "text": "A technique for making many copies of a gene or DNA segment in vitro by repeated cycles of denaturation, primer annealing and extension, using a thermostable DNA polymerase and two sets of primers."
+      },
+      {
+        "type": "TEXT",
+        "text": "PCR needs the DNA template, two sets of **primers** (small chemically synthesised oligonucleotides, about 18 to 30 bases long, complementary to the regions of the target DNA), the enzyme DNA polymerase and the four deoxynucleotides in a suitable buffer. Each cycle has three steps. In **denaturation**, the double-stranded DNA is heated (typically at about 94 degrees Celsius) so that the two strands separate. In **annealing**, the primers bind to the complementary regions of the single strands (typically at 50 to 60 degrees Celsius). In **extension**, the DNA polymerase extends the primers using the nucleotides in the reaction (typically at about 72 degrees Celsius), making copies of the target DNA."
+      },
+      {
+        "type": "TEXT",
+        "text": "The enzyme used is a **thermostable DNA polymerase, Taq polymerase, isolated from the bacterium *Thermus aquaticus***. It remains active during the high temperature of the denaturation step. With the repeated cycles, the amount of DNA doubles with every cycle, so there is an exponential increase, and after $n$ cycles, one molecule gives $2^n$ copies. The amplified fragment is used to ligate with a vector for cloning, and PCR is also used in the detection of pathogens and genetic disorders."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "N = N_0 \\times 2^{n}",
+        "text": "$N$ is the number of copies after $n$ cycles of PCR, $N_0$ is the number of starting template molecules, and each cycle doubles the number of copies (ideal efficiency)."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A PCR starts with a single double-stranded template molecule and runs for 25 cycles at ideal efficiency. How many copies of the target are expected? How many cycles are needed to exceed one million copies?",
+        "solution": "Each cycle doubles the number of copies, so $N = N_0 \\times 2^n$ with $N_0 = 1$ and $n = 25$ gives $2^{25} = 33{,}554{,}432$ copies. To exceed one million: $2^{19} = 524{,}288$ is below one million, whereas $2^{20} = 1{,}048{,}576$ is above it, so 20 cycles are needed. In practice the yield is lower than the ideal because the reagents become limiting.",
+        "answer": "$2^{25} = 33{,}554{,}432$ copies; 20 cycles for more than one million copies"
+      },
+      {
+        "type": "HEADING",
+        "text": "Insertion of rDNA in host and bioreactors"
+      },
+      {
+        "type": "TEXT",
+        "text": "Once the recombinant DNA is made, it is introduced into the competent host by the methods above (calcium chloride and heat shock for bacteria, micro-injection for animal cells, gene gun for plant cells, or disarmed pathogens). If a recombinant DNA carrying a gene for resistance to an antibiotic such as ampicillin is transferred into *E. coli*, the host cells become ampicillin resistant. Such cells are plated on a medium containing ampicillin, and only the transformants grow. The transformed cells are then grown to obtain the foreign gene product, in the presence of the inducer if the gene needs one."
+      },
+      {
+        "type": "TEXT",
+        "text": "To produce the protein in large quantities, the cells are grown in a **bioreactor**. Small volumes (up to 100 to 1000 mL) can be grown in shake flasks, but these are not suitable for large quantities. Bioreactors are vessels in which raw materials are biologically converted into specific products, and they can process **large volumes (100 to 1000 litres)** of culture. They provide the optimal conditions of temperature, pH, substrate, salts, vitamins and oxygen for the desired product to be obtained."
+      },
+      {
+        "type": "TEXT",
+        "text": "The most commonly used bioreactor is of the **stirring type**, a cylindrical vessel with a curved base to facilitate the mixing of the contents. The stirrer facilitates even mixing and oxygen availability throughout the bioreactor. In the **sparged stirred-tank** bioreactor, sterile air is bubbled through the culture medium, so oxygen is delivered and the bubbles are broken into fine ones by the stirrer, which increases the surface area for transfer of oxygen. The bioreactor has an agitator system, an oxygen delivery system, a foam control system, a temperature control system, a pH control system, and sampling ports to withdraw a small volume of the culture periodically."
+      },
+      {
+        "type": "HEADING",
+        "text": "Downstream processing"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Downstream processing",
+        "text": "The series of processes, namely separation and purification, that the product of a bioprocess must undergo before it is ready for marketing as a finished product."
+      },
+      {
+        "type": "TEXT",
+        "text": "After the synthesis of the product, it has to be subjected to a series of processes before it is a finished product ready for marketing. These steps, collectively called downstream processing, include **separation and purification** of the product. The product is then formulated with suitable **preservatives**. Such formulation has to undergo **clinical trials** in the case of drugs, and strict **quality control testing** for each product. The downstream processing and quality control testing vary from product to product."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Sequence of rDNA technology: isolate DNA, cut with restriction enzyme, amplify gene by PCR, ligate into a vector, introduce into a competent host, select transformants, express in a bioreactor, and then downstream processing."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistakes: Taq polymerase is from *Thermus aquaticus* (not *E. coli*); the recombinant in the pBR322 *Bam*HI experiment is sensitive to tetracycline but resistant to ampicillin; in blue-white selection the recombinants are white; DNA moves to the anode (positive); and sticky ends are single-stranded overhangs produced by staggered cuts, not blunt cuts."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-304-t04-biotechnology-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which enzyme is used to join the sticky ends of a vector and a foreign DNA fragment?",
+      "options": [
+        "DNA ligase",
+        "Restriction endonuclease",
+        "Taq polymerase",
+        "Exonuclease"
+      ],
+      "answer": 1,
+      "explanation": "After the vector and the foreign DNA have been cut with the same restriction enzyme, they have complementary sticky ends that pair by hydrogen bonds. DNA ligase then makes the covalent bonds in the sugar-phosphate backbone, joining them to make the recombinant DNA.",
+      "optionRationale": {
+        "2": "This enzyme cuts DNA at specific sites; it does not join the fragments.",
+        "3": "This enzyme copies DNA during PCR, and it does not seal the sugar-phosphate backbone of the sticky ends.",
+        "4": "This enzyme removes nucleotides from the ends of DNA, which is the opposite of joining."
+      },
+      "objective": "Name the enzyme that joins DNA fragments"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Taq polymerase, used in PCR, is isolated from the bacterium",
+      "options": [
+        "Escherichia coli",
+        "Thermus aquaticus",
+        "Agrobacterium tumefaciens",
+        "Salmonella typhimurium"
+      ],
+      "answer": 2,
+      "explanation": "Taq polymerase comes from the thermophilic bacterium Thermus aquaticus. It is thermostable and remains active during the repeated heating to the high temperature used in denaturation, so fresh enzyme need not be supplied in every cycle.",
+      "optionRationale": {
+        "1": "E. coli does not produce a thermostable polymerase.",
+        "3": "This bacterium is the source of the Ti plasmid used as a vector for plants.",
+        "4": "This bacterium was the source of the antibiotic resistance gene in Cohen and Boyer's experiment."
+      },
+      "objective": "Identify the source of Taq polymerase"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "During agarose gel electrophoresis, DNA fragments move towards the",
+      "options": [
+        "cathode (negative electrode), because DNA is negatively charged",
+        "anode, because DNA is positively charged",
+        "anode (positive electrode), because DNA is negatively charged",
+        "cathode, because DNA is positively charged"
+      ],
+      "answer": 3,
+      "explanation": "The phosphate groups make DNA negatively charged, so in an electric field the fragments move towards the positive electrode, the anode. The agarose gel acts as a sieve, so smaller fragments move farther than the larger ones.",
+      "optionRationale": {
+        "1": "A negatively charged molecule is repelled by the cathode and attracted to the anode.",
+        "2": "DNA is negatively charged because of its phosphate groups.",
+        "4": "DNA is not positively charged."
+      },
+      "objective": "Explain the direction of DNA movement in electrophoresis"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q04",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): Taq polymerase is used in the polymerase chain reaction.\nReason (R): Taq polymerase is thermostable and remains active during the high temperature of the denaturation step.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Each PCR cycle includes heating to a high temperature, which would destroy an ordinary enzyme. Taq polymerase from Thermus aquaticus is thermostable, so it survives the cycles. Thus R is true and explains why A is true.",
+      "optionRationale": {
+        "2": "R is not just a true statement, it is the actual reason for the choice of Taq polymerase.",
+        "3": "R is true; the enzyme is thermostable.",
+        "4": "A is true; Taq polymerase is the enzyme of PCR."
+      },
+      "objective": "Relate the thermostability of Taq polymerase to its use in PCR"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A restriction enzyme recognises a specific sequence of six base pairs. In a long random DNA with equal amounts of the four bases, such a site is expected to occur on average once in every",
+      "options": [
+        "64 base pairs",
+        "1024 base pairs",
+        "6000 base pairs",
+        "4096 base pairs"
+      ],
+      "answer": 4,
+      "explanation": "At each position, the chance of any one base is 1/4. For six positions, the chance of one given sequence is $(1/4)^6 = 1/4096$. So the site is expected once in about 4096 base pairs. That is why a longer recognition sequence cuts a DNA less often.",
+      "optionRationale": {
+        "1": "This is $4^3$, which applies to a three-base site.",
+        "2": "This is $4^5$, which applies to a five-base site.",
+        "3": "This is a made-up number; the chance depends on $4^6$, not on 1000 times the length of the site."
+      },
+      "objective": "Compute the expected frequency of a restriction site"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Starting from one double-stranded DNA template, how many copies of the target are formed after 10 PCR cycles at ideal efficiency?",
+      "options": [
+        "100",
+        "512",
+        "1024",
+        "2048"
+      ],
+      "answer": 3,
+      "explanation": "PCR doubles the amount of DNA in each cycle, so after n cycles the copies are $2^n$. For n = 10, the number of copies is $2^{10} = 1024$. The increase is exponential, not linear.",
+      "optionRationale": {
+        "1": "This assumes a gain of 10 per cycle, but the copies double every cycle.",
+        "2": "This is $2^9$, that is, the number after nine cycles.",
+        "4": "This is $2^{11}$, the number after eleven cycles."
+      },
+      "objective": "Calculate PCR amplification"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q07",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match List-I (item) with List-II (role in rDNA technology) and choose the correct code.",
+      "list": {
+        "left": [
+          "A. Restriction endonuclease",
+          "B. DNA ligase",
+          "C. Taq polymerase",
+          "D. Ethidium bromide"
+        ],
+        "right": [
+          "I. Extends primers at high temperature",
+          "II. Joins DNA fragments",
+          "III. Stains DNA to give orange bands under UV light",
+          "IV. Cuts DNA at a specific recognition sequence"
+        ]
+      },
+      "options": [
+        "A-II, B-IV, C-I, D-III",
+        "A-IV, B-II, C-I, D-III",
+        "A-IV, B-II, C-III, D-I",
+        "A-I, B-II, C-IV, D-III"
+      ],
+      "answer": 2,
+      "explanation": "A restriction endonuclease cuts DNA at a specific recognition sequence (A-IV). DNA ligase joins the fragments (B-II). Taq polymerase extends the primers at the high temperature (C-I). Ethidium bromide stains DNA, which shows as orange bands under UV light (D-III).",
+      "optionRationale": {
+        "1": "A and B are interchanged: ligase joins and endonuclease cuts.",
+        "3": "C and D are interchanged: Taq extends primers and ethidium bromide stains.",
+        "4": "A and C are interchanged."
+      },
+      "objective": "Match tools of rDNA technology with their roles"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q08",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about cloning vectors.\nA. An origin of replication is needed so the vector and the linked DNA can multiply in the host.\nB. A selectable marker helps to identify the transformants.\nC. A vector should have several recognition sites for the same restriction enzyme.\nD. pBR322 has no antibiotic resistance genes.\nWhich statements are correct?",
+      "options": [
+        "A, B and C only",
+        "B and D only",
+        "A and D only",
+        "A and B only"
+      ],
+      "answer": 4,
+      "explanation": "A vector needs an ori for replication and a selectable marker, such as an antibiotic resistance gene, to pick up the transformants. It should have only one recognition site for a given enzyme, so that it is cut at one place only. pBR322 carries amp^R and tet^R genes.",
+      "optionRationale": {
+        "1": "C is wrong: several sites for the same enzyme would cut the vector into pieces.",
+        "2": "D is wrong: pBR322 has ampicillin and tetracycline resistance genes.",
+        "3": "D is wrong, and B is correct but is left out."
+      },
+      "objective": "Evaluate statements on features of a cloning vector"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "In a cloning experiment with a chromogenic substrate, foreign DNA is inserted into the coding sequence of beta-galactosidase in the vector. Recombinant colonies will appear",
+      "options": [
+        "white, because the enzyme is inactivated",
+        "blue, because the enzyme is active",
+        "blue, because the foreign DNA gives colour",
+        "white, because the enzyme is more active"
+      ],
+      "answer": 1,
+      "explanation": "The inserted DNA breaks the coding sequence of beta-galactosidase (insertional inactivation), so no functional enzyme is made and the chromogenic substrate is not converted to a coloured product. The recombinant colonies are white, and non-recombinants with the intact enzyme are blue.",
+      "optionRationale": {
+        "2": "An active enzyme gives blue colonies, which are the non-recombinants.",
+        "3": "The foreign DNA does not produce the colour.",
+        "4": "An active enzyme would give blue colour, not white."
+      },
+      "objective": "Interpret blue-white selection"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A linear DNA of 12 kb is digested with EcoRI, which cuts at positions 2 kb, 5 kb and 9 kb from one end. The sizes of the fragments are",
+      "options": [
+        "2, 5, 9 and 12 kb",
+        "2, 3, 4 and 3 kb",
+        "2, 3 and 4 kb",
+        "3, 4, 5 and 12 kb"
+      ],
+      "answer": 2,
+      "explanation": "Three cuts in a linear molecule give four pieces. The sizes are the gaps: 2 - 0 = 2 kb, 5 - 2 = 3 kb, 9 - 5 = 4 kb and 12 - 9 = 3 kb. The total is 12 kb, which checks the answer.",
+      "optionRationale": {
+        "1": "These are the positions of the cuts and the end, not the sizes of the fragments.",
+        "3": "Three cuts in a linear DNA give four fragments, and this answer misses the last 3 kb piece.",
+        "4": "These do not add up to 12 kb."
+      },
+      "objective": "Work out restriction fragment sizes"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q11",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Assertion (A): Fungal cells are treated with cellulase for the isolation of their DNA.\nReason (R): The cell wall of fungi is made of chitin.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "To release the DNA, the cell wall must be broken down by an enzyme specific to its composition: lysozyme for bacteria, cellulase for plants and chitinase for fungi. Since the fungal wall is chitin, cellulase is the wrong choice, so A is false, while R is a correct statement.",
+      "optionRationale": {
+        "1": "A is false, so R cannot be the explanation.",
+        "2": "A is false; chitinase, not cellulase, is used.",
+        "3": "R is true; fungal walls contain chitin."
+      },
+      "objective": "Match the lytic enzyme with the type of cell wall"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Which one of the following is the correct sequence of steps in the production of a recombinant protein?",
+      "options": [
+        "Cutting with restriction enzyme, isolation of DNA, transformation of host, ligation into vector, downstream processing, growth in bioreactor",
+        "Isolation of DNA, ligation into vector, cutting with restriction enzyme, growth in bioreactor, transformation of host, downstream processing",
+        "Isolation of DNA, cutting with restriction enzyme, ligation into vector, transformation of host, selection of transformants, growth in bioreactor, downstream processing",
+        "Isolation of DNA, cutting with restriction enzyme, ligation into vector, growth in bioreactor, transformation of host, selection of transformants"
+      ],
+      "answer": 3,
+      "explanation": "The DNA is first isolated, then cut with a restriction enzyme, and ligated into a similarly cut vector. The recombinant vector is introduced into a competent host, the transformants are selected, and they are grown on a large scale in a bioreactor. Finally, the product is separated and purified in downstream processing.",
+      "optionRationale": {
+        "1": "The DNA has to be isolated before it is cut, and ligation has to come before transformation.",
+        "2": "The DNA must be cut before it is ligated, and the host must be transformed before it is grown in the bioreactor.",
+        "4": "Transformation must come before growth in a bioreactor, and downstream processing comes last."
+      },
+      "objective": "Arrange the steps of recombinant protein production"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q13",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Which of the following statements about getting recombinant DNA into a host are correct?\nA. DNA is hydrophilic and cannot pass easily through cell membranes.\nB. Bacterial cells are made competent by treating with calcium ions and a heat shock at about 42 degrees Celsius.\nC. In biolistics, gold or tungsten particles coated with DNA are used, mainly for plant cells.\nD. Micro-injection is the method generally used for plant cells.\nChoose the correct option.",
+      "options": [
+        "A, B and C only",
+        "A and B only",
+        "B, C and D only",
+        "A, C and D only"
+      ],
+      "answer": 1,
+      "explanation": "DNA is hydrophilic, so competent cells are prepared with a divalent cation such as calcium, followed by a heat shock at 42 degrees Celsius. The gene gun shoots DNA-coated gold or tungsten particles into plant cells. Micro-injection puts DNA directly into the nucleus of an animal cell, so D is false.",
+      "optionRationale": {
+        "2": "C is also correct, so this answer is incomplete.",
+        "3": "D is wrong: micro-injection is used for animal cells, and A is correct but left out.",
+        "4": "D is wrong, and B is correct but left out."
+      },
+      "objective": "Evaluate statements on methods of introducing rDNA"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "A researcher inserts a gene into the BamHI site of the tet^R gene of pBR322 and transforms E. coli. Colonies that grow on ampicillin are replica-plated onto tetracycline. The colonies of interest are those that",
+      "options": [
+        "grow on both ampicillin and tetracycline",
+        "grow on ampicillin but fail to grow on tetracycline",
+        "fail to grow on ampicillin but grow on tetracycline",
+        "fail to grow on both antibiotics"
+      ],
+      "answer": 2,
+      "explanation": "Insertion into the BamHI site inactivates tet^R, so recombinants are ampicillin resistant but tetracycline sensitive. Non-recombinants keep both resistance genes and grow on both plates, and cells without the plasmid grow on neither.",
+      "optionRationale": {
+        "1": "These are non-recombinants, in which tet^R is intact.",
+        "3": "This is not possible for cells that carry pBR322, which has amp^R and tet^R genes.",
+        "4": "These cells have not taken up the plasmid or lost both resistances; recombinants still grow on ampicillin."
+      },
+      "objective": "Apply insertional inactivation to select recombinants"
+    },
+    {
+      "key": "ug26-304-t04-biotechnology-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "In a sparged stirred-tank bioreactor, the stirrer mainly helps by",
+      "options": [
+        "keeping the temperature at 0 degrees Celsius",
+        "cutting the DNA of the host into fragments",
+        "mixing the contents evenly and breaking air bubbles to improve oxygen transfer",
+        "removing the product by filtration"
+      ],
+      "answer": 3,
+      "explanation": "The stirrer facilitates even mixing of the cells, nutrients and air, so that oxygen is available throughout the vessel. In a sparged type, the stirrer also breaks the sterile air bubbles into fine ones, which increases the surface for transfer of oxygen to the medium.",
+      "optionRationale": {
+        "1": "The bioreactor holds the optimal temperature of the culture, not 0 degrees Celsius.",
+        "2": "The stirrer has no such action; it only mixes the culture.",
+        "4": "Removal of the product is part of downstream processing, not the stirrer's function."
+      },
+      "objective": "Explain the role of the stirrer in a bioreactor"
+    }
+  ]
+}

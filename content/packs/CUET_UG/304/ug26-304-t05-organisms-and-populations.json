@@ -1,0 +1,627 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "304",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_389ed2df6e9944d7a63941415b75332c",
+    "title": "Organisms and Populations: Population attributes – birth and death rate, age pyramids;"
+  },
+  "lesson": {
+    "key": "ug26-304-t05-organisms-and-populations",
+    "title": "Organisms and populations: attributes, growth models, life history and interactions",
+    "coverage": [
+      {
+        "phrase": "Organisms and Populations",
+        "section": "Population attributes: birth rate and death rate"
+      },
+      {
+        "phrase": "Population attributes birth and death rate",
+        "section": "Population attributes: birth rate and death rate"
+      },
+      {
+        "phrase": "age pyramids",
+        "section": "Sex ratio and age distribution: age pyramids"
+      },
+      {
+        "phrase": "Population growth exponential",
+        "section": "Population growth: exponential growth"
+      },
+      {
+        "phrase": "logistic growth",
+        "section": "Population growth: logistic growth"
+      },
+      {
+        "phrase": "Life history variation",
+        "section": "Life history variation"
+      },
+      {
+        "phrase": "Population interactions predation competition parasitism",
+        "section": "Population interactions: predation, competition and parasitism"
+      },
+      {
+        "phrase": "commensalism mutualism and amensalism",
+        "section": "Commensalism, mutualism and amensalism"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Population attributes: birth rate and death rate"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **population** is a group of individuals of the same species living in a defined area at the same time and able to interbreed. An organism's biology is shaped by its environment, but a population has features that no single individual has. A single tiger cannot have a birth rate or a sex ratio; only a group can. These group features are called **population attributes**."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Population",
+        "text": "A group of individuals of the same species, living in a given geographical area at a given time, sharing or competing for similar resources and potentially interbreeding."
+      },
+      {
+        "type": "TEXT",
+        "text": "The main attributes are **population density**, **natality** (birth rate), **mortality** (death rate), **sex ratio**, **age distribution**, and the movement of individuals in and out (immigration and emigration). Population density is the number of individuals per unit area or volume, for example 200 deer per square kilometre or 5 million diatoms per cubic metre of water. When counting every individual is impractical, ecologists use indirect measures: the number of fish caught per trap, the number of pug marks or tiger tracks, or the percentage cover of a plant species."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Natality",
+        "text": "The number of births during a given period in the population, expressed per unit of population, for example per 1000 individuals per year or as births per individual per unit time."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Mortality",
+        "text": "The number of deaths in a given period in the population, expressed in the same way as natality."
+      },
+      {
+        "type": "TEXT",
+        "text": "Besides births and deaths, two other processes change the size of a population. **Immigration** is the number of individuals of the same species that have come into the habitat from elsewhere during the time period under consideration. **Emigration** is the number of individuals of the population who have left the habitat and gone elsewhere. Natality and immigration increase population density, while mortality and emigration decrease it. If $N$ is the population density at time $t$, then its density at time $t+1$ is:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "N_{t+1} = N_t + [(B + I) - (D + E)]",
+        "text": "$N_t$ is the density at time $t$; $B$ is the number of births, $I$ the immigrants, $D$ the deaths and $E$ the emigrants during the interval from $t$ to $t+1$. The population increases if $B + I$ is greater than $D + E$, and decreases otherwise."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A population of 500 field mice in a meadow has 60 births and 30 deaths in one month. During the same month 20 mice move in from a neighbouring field and 10 move out. Find the population at the end of the month and the natality and mortality per individual per month.",
+        "solution": "Use $N_{t+1} = N_t + [(B + I) - (D + E)]$. Here $N_t = 500$, $B = 60$, $I = 20$, $D = 30$ and $E = 10$. Then $(B + I) = 80$ and $(D + E) = 40$, so the net change is $80 - 40 = +40$. The new population is $500 + 40 = 540$. Natality per individual is $60/500 = 0.12$ per month, and mortality per individual is $30/500 = 0.06$ per month. The difference of these two rates, $0.12 - 0.06 = 0.06$, is the growth rate excluding migration, so the population would grow by 6 per cent a month without migration.",
+        "answer": "540 mice; natality 0.12 and mortality 0.06 per individual per month"
+      },
+      {
+        "type": "HEADING",
+        "text": "Sex ratio and age distribution: age pyramids"
+      },
+      {
+        "type": "TEXT",
+        "text": "The **sex ratio** is the proportion of males to females in the population. It affects the breeding potential: a population with very few females cannot grow quickly even if there are many males. The **age distribution** tells us what fraction of individuals belongs to each age group. Ecologists usually group individuals into three **ecological age groups**: **pre-reproductive** (young), **reproductive** (adults) and **post-reproductive** (old)."
+      },
+      {
+        "type": "TEXT",
+        "text": "If the age distribution is plotted as a horizontal bar chart with the youngest group at the base, the male and female bars lying on either side of a central line, the figure is called an **age pyramid** (age-sex pyramid). Its shape reveals the future of the population:"
+      },
+      {
+        "type": "TABLE",
+        "caption": "Types of age pyramids",
+        "columns": [
+          "Type of pyramid",
+          "Shape",
+          "Meaning for the population"
+        ],
+        "rows": [
+          [
+            "Expanding (growing)",
+            "Broad base, narrowing sharply upwards (triangular)",
+            "Large pre-reproductive group; many individuals will soon reach reproductive age, so the population grows rapidly"
+          ],
+          [
+            "Stable",
+            "Bell shaped, nearly equal bars for pre-reproductive and reproductive groups",
+            "Roughly equal young and adult groups; births balance deaths and the population stays steady"
+          ],
+          [
+            "Declining",
+            "Narrow base, urn or vase shaped, wider in the middle",
+            "Small pre-reproductive group; the population shrinks as old individuals die and are not replaced"
+          ]
+        ]
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "An age pyramid with a broad base indicates a growing population, a bell shape a stable population and an urn shape a declining population. The pre-reproductive group decides the future size of the population."
+      },
+      {
+        "type": "HEADING",
+        "text": "Population growth: exponential growth"
+      },
+      {
+        "type": "TEXT",
+        "text": "Population density is not fixed. It changes with season and year in response to food, predation and weather, and it changes through the four processes of birth, death, immigration and emigration. If we ignore migration, the change in a small time interval $dt$ is the number of births minus the number of deaths. If $b$ is the per capita birth rate and $d$ the per capita death rate, the **intrinsic rate of natural increase** is $r = b - d$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Intrinsic rate of natural increase ($r$)",
+        "text": "The difference between the per capita birth rate and the per capita death rate of a population, $r = b - d$. It is the biotic potential of the species under unlimited resources, measured per individual per unit time. A positive $r$ means growth, $r = 0$ means no change and a negative $r$ means decline."
+      },
+      {
+        "type": "TEXT",
+        "text": "When food and space are unlimited, every individual can reproduce at its full potential and the population grows in proportion to its current size. This is **exponential (geometric) growth**. The rate of growth is:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\frac{dN}{dt} = rN \\qquad\\text{and}\\qquad N_t = N_0 e^{rt}",
+        "text": "$N_0$ is the density at time zero, $N_t$ the density at time $t$, $r$ the intrinsic rate of natural increase and $e$ the base of natural logarithms (2.718). A plot of $N$ against $t$ is a J-shaped curve."
+      },
+      {
+        "type": "TEXT",
+        "text": "Exponential growth is seen when a few individuals colonise a new habitat rich in resources, or when bacteria are placed in fresh culture medium. It cannot continue for long, because no environment supplies unlimited food and space. The time required for a population to double in size under exponential growth is $t_d = \\ln 2 / r = 0.693 / r$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A bacterial culture starts with 1000 cells and grows exponentially with $r = 0.05$ per hour. Find the number of cells after 10 hours and the doubling time.",
+        "solution": "Use $N_t = N_0 e^{rt}$. Substituting, $N_{10} = 1000 \\times e^{0.05 \\times 10} = 1000 \\times e^{0.5}$. Since $e^{0.5} = 1.6487$, the population is $1000 \\times 1.6487 \\approx 1649$ cells. For the doubling time, $t_d = \\ln 2 / r = 0.693 / 0.05 = 13.86$ hours, so the population doubles in a little under 14 hours. Notice that doubling time does not depend on the starting number of cells; it depends only on $r$.",
+        "answer": "About 1649 cells after 10 hours; doubling time about 13.9 hours"
+      },
+      {
+        "type": "HEADING",
+        "text": "Population growth: logistic growth"
+      },
+      {
+        "type": "TEXT",
+        "text": "In nature, resources are limited. As the population grows, competition for food and space becomes severe, birth rate falls and death rate rises, until growth stops. The maximum number of individuals that the environment can support indefinitely is the **carrying capacity** ($K$). Growth that starts slowly (lag phase), speeds up (exponential phase), then slows down (deceleration) and finally levels off at $K$ (asymptote) is called **logistic growth**, and the curve is S-shaped (sigmoid). The Verhulst-Pearl logistic model describes it:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\frac{dN}{dt} = rN\\left(\\frac{K - N}{K}\\right)",
+        "text": "$N$ is the population density at time $t$, $r$ the intrinsic rate of natural increase and $K$ the carrying capacity. When $N$ is far below $K$ the bracket is near 1 and growth is almost exponential; when $N = K$ the bracket is zero and growth stops."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Carrying capacity",
+        "text": "The maximum population size of a species that a given habitat can sustain indefinitely with the food, space and other resources available."
+      },
+      {
+        "type": "TEXT",
+        "text": "Logistic growth is the more realistic model because resources are limited. Growth is fastest at the middle of the S-curve, when $N = K/2$, and the growth rate is zero at $N = 0$ and at $N = K$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A pond can support at most 800 fish ($K = 800$). The intrinsic rate of increase is $r = 0.2$ per month. Find $dN/dt$ when $N = 200$ and when $N = 400$.",
+        "solution": "Use $dN/dt = rN(K - N)/K$. For $N = 200$: $(K - N)/K = (800 - 200)/800 = 0.75$, so $dN/dt = 0.2 \\times 200 \\times 0.75 = 30$ fish per month. For $N = 400$: $(800 - 400)/800 = 0.5$, so $dN/dt = 0.2 \\times 400 \\times 0.5 = 40$ fish per month. The growth rate is larger at 400 because 400 is exactly $K/2$, where the logistic growth rate is maximum, equal to $rK/4 = 0.2 \\times 800/4 = 40$. If $N$ reached 800 the rate would be 0.",
+        "answer": "30 fish per month at $N = 200$; 40 fish per month at $N = 400$ (the maximum)"
+      },
+      {
+        "type": "HEADING",
+        "text": "Life history variation"
+      },
+      {
+        "type": "TEXT",
+        "text": "Populations have evolved their life history traits in relation to the habitat in which they live. A life history is the pattern of reproduction, growth, survival and death of a species, and it is shaped by natural selection. Some organisms breed only once in a lifetime, such as Pacific salmon fish and bamboo, while others breed many times, as most birds and mammals do. Some produce a very large number of small-sized offspring, as oysters and pelagic fishes do, whereas others produce a small number of large-sized offspring, as birds and mammals do. Which strategy is best depends on the environmental conditions of that habitat, which govern food availability, predation risk and the stability of the climate. Natural selection tends to favour those traits that give the highest number of surviving offspring."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Life history traits (number of offspring, size of offspring, number of breeding events) have evolved by natural selection in response to the habitat. There is no single best strategy; each is adapted to its environment."
+      },
+      {
+        "type": "HEADING",
+        "text": "Population interactions: predation, competition and parasitism"
+      },
+      {
+        "type": "TEXT",
+        "text": "Populations of different species living in the same area interact. An interaction is described by the effect on each partner: beneficial (+), harmful (-) or neutral (0)."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Types of population interaction",
+        "columns": [
+          "Interaction",
+          "Species A",
+          "Species B",
+          "Example"
+        ],
+        "rows": [
+          [
+            "Predation",
+            "+",
+            "-",
+            "Tiger and deer; Paramecium and Didinium"
+          ],
+          [
+            "Competition",
+            "-",
+            "-",
+            "Flamingoes and resident fishes in South American lakes; Abingdon tortoise and goats in Galapagos"
+          ],
+          [
+            "Parasitism",
+            "+",
+            "-",
+            "Human liver fluke, Cuscuta on a host plant, lice on humans"
+          ],
+          [
+            "Commensalism",
+            "+",
+            "0",
+            "Orchid growing on a mango branch; barnacles on a whale; cattle egret with grazing cattle"
+          ],
+          [
+            "Mutualism",
+            "+",
+            "+",
+            "Lichens (fungus and alga); mycorrhiza; fig tree and wasp"
+          ],
+          [
+            "Amensalism",
+            "-",
+            "0",
+            "Penicillium and bacteria; a large tree shading small herbs"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "**Predation** is an interaction where one animal, the predator, kills and feeds on another, the prey. Predators transfer energy between trophic levels, keep prey populations under control, and help maintain species diversity by reducing the intensity of competition among prey species. Prey species have evolved defences such as camouflage, warning colouration (monarch butterfly), poisonous chemicals (Calotropis) and thorns (Acacia, Cactus). Predators also reduce the number of the strongest competitor. In the rocky intertidal community of the Pacific coast of the United States, the starfish *Pisaster* is a keystone predator: when it was experimentally removed, more than ten invertebrate species disappeared within a year because of interspecific competition."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Competition** occurs when two species compete for the same resource that is in short supply. Darwin recognised that competition is most intense between closely related species using the same resources. Gause's **competitive exclusion principle** states that two closely related species competing for the same limited resources cannot coexist indefinitely, and the competitively inferior one is eliminated. Species can avoid competition by **resource partitioning**: MacArthur showed that five species of warblers living on the same tree avoided competition by feeding in different parts of the tree canopy at different times. Competition can also occur when resources are not limiting but the feeding efficiency of one species is reduced by the other's interference."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Parasitism** is an interaction in which the parasite lives on or in the host and obtains nutrition from it, harming the host. Parasites are highly specialised: many have evolved loss of unnecessary sense organs, adhesive organs and suckers, a high reproductive capacity and complex life cycles involving more than one host. Ectoparasites live on the surface of the host (lice on humans, ticks on dogs, copepods on marine fishes); endoparasites live inside (liver fluke, tapeworm). **Brood parasitism** is shown by the cuckoo, which lays its eggs in the nest of the crow, and the host incubates them; the parasitic eggs mimic those of the host in size and colour."
+      },
+      {
+        "type": "HEADING",
+        "text": "Commensalism, mutualism and amensalism"
+      },
+      {
+        "type": "TEXT",
+        "text": "In **commensalism** one species benefits and the other is neither harmed nor helped. Examples are an orchid growing as an epiphyte on a mango tree, barnacles growing on the back of a whale, and the cattle egret that feeds on insects flushed by grazing cattle. Another is the sea anemone with stinging tentacles that gains a safe home while the clown fish living among them is protected."
+      },
+      {
+        "type": "TEXT",
+        "text": "In **mutualism** both species benefit. Lichens are a close association between a fungus and an alga (or cyanobacterium): the alga photosynthesises and supplies food, while the fungus absorbs water and minerals and gives protection. Mycorrhizae are associations between fungi and the roots of higher plants; the fungus absorbs phosphorus and water from the soil, and the plant provides carbohydrates. Plant-animal mutualisms include pollination, where flowers reward insects with nectar. The fig tree and its pollinator wasp form an obligate mutualism, because the fig species can be pollinated only by its own wasp species, and the wasp lays eggs only in the fig's flowers. Some orchids, such as the Mediterranean *Ophrys*, are pollinated by bees that mistake the flower for a female bee (sexual deceit)."
+      },
+      {
+        "type": "TEXT",
+        "text": "In **amensalism** one species is harmed while the other is unaffected. The antibiotic Penicillin produced by the fungus *Penicillium* inhibits the growth of bacteria nearby, but the fungus is unaffected. A big tree that shades and suppresses the small plants beneath it is another example."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Exam tips: memorise the sign table (+, -, 0) for every interaction. Predation and parasitism are both +/-, but a predator kills its prey at once, while a parasite normally lives on the host. Do not confuse commensalism (+/0) with mutualism (+/+) or amensalism (-/0). Remember that exponential growth gives a J-shaped curve and logistic growth an S-shaped curve. A common mistake is saying that the growth rate is highest at $K$; it is zero at $K$ and highest at $K/2$."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Which of the following is NOT an attribute of a population, as opposed to an attribute of an individual organism?",
+      "options": [
+        "Birth rate",
+        "Sex ratio",
+        "Body temperature of one member",
+        "Age distribution"
+      ],
+      "answer": 3,
+      "explanation": "Birth rate, sex ratio and age distribution describe a group of individuals and have no meaning for a single organism. Body temperature belongs to an individual, not to the population as a whole, so it is not a population attribute.",
+      "optionRationale": {
+        "1": "Natality is a population attribute.",
+        "2": "Sex ratio is a population attribute.",
+        "4": "Age distribution is a population attribute."
+      },
+      "objective": "Distinguish population attributes from individual attributes"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The interaction in which one species benefits and the other is neither harmed nor benefited is called",
+      "options": [
+        "Mutualism",
+        "Commensalism",
+        "Parasitism",
+        "Predation"
+      ],
+      "answer": 2,
+      "explanation": "This is the definition of commensalism (+/0). Examples include an orchid growing on a mango tree and barnacles on a whale, in which the host is not affected while the associated species gains support or transport.",
+      "optionRationale": {
+        "1": "Mutualism benefits both species.",
+        "3": "Parasitism harms the host.",
+        "4": "Predation kills the prey."
+      },
+      "objective": "Define commensalism"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "A population in which the pre-reproductive group is very large and the post-reproductive group is small will give an age pyramid that is",
+      "options": [
+        "Urn shaped",
+        "Bell shaped",
+        "Triangular with a broad base",
+        "Rectangular"
+      ],
+      "answer": 3,
+      "explanation": "A large pre-reproductive group means many individuals will enter the reproductive age soon. The pyramid therefore has a broad base narrowing upwards, indicating an expanding population. An urn shape would show a small base.",
+      "optionRationale": {
+        "1": "Urn shape indicates a declining population with a small pre-reproductive group.",
+        "2": "Bell shape indicates a stable population with nearly equal young and adult groups.",
+        "4": "A rectangle is not a standard type of age pyramid."
+      },
+      "objective": "Relate age structure to the shape of the age pyramid"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q04",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match the interaction in List-I with the example in List-II.",
+      "options": [
+        "A-II, B-III, C-I, D-IV",
+        "A-I, B-II, C-III, D-IV",
+        "A-III, B-I, C-IV, D-II",
+        "A-IV, B-II, C-I, D-III"
+      ],
+      "answer": 1,
+      "explanation": "Lichens, a fungus and alga living together, show mutualism; the cattle egret feeding near grazing cattle shows commensalism; Cuscuta on a host is parasitism; a tiger hunting deer is predation. This gives A-II, B-III, C-I, D-IV.",
+      "optionRationale": {
+        "2": "This pairs mutualism with Cuscuta, which is a parasite.",
+        "3": "This pairs mutualism with the tiger and deer, which is predation.",
+        "4": "This pairs mutualism with the tiger and deer and commensalism with lichens."
+      },
+      "objective": "Match interactions with their examples",
+      "list": {
+        "left": [
+          "A. Mutualism",
+          "B. Commensalism",
+          "C. Parasitism",
+          "D. Predation"
+        ],
+        "right": [
+          "I. Cuscuta on a host plant",
+          "II. Lichen",
+          "III. Cattle egret with cattle",
+          "IV. Tiger and deer"
+        ]
+      }
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A population has 200 individuals. In a year there are 40 births, 20 deaths, 15 immigrants and 5 emigrants. The population at the end of the year is",
+      "options": [
+        "210",
+        "220",
+        "230",
+        "250"
+      ],
+      "answer": 3,
+      "explanation": "Use $N_{t+1} = N_t + [(B + I) - (D + E)]$. Here the increase is $40 + 15 = 55$ and the decrease is $20 + 5 = 25$. The net change is $+30$, so the new population is $200 + 30 = 230$.",
+      "optionRationale": {
+        "1": "This does not follow from the equation with the given data.",
+        "2": "This is what you get by ignoring immigration and emigration, $200 + 40 - 20$.",
+        "4": "This does not follow from the equation with the given data."
+      },
+      "objective": "Apply the population change equation"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Logistic growth of a population differs from exponential growth because in logistic growth",
+      "options": [
+        "Resources are unlimited",
+        "The curve is J shaped",
+        "The intrinsic rate $r$ is always zero",
+        "Growth stops when the population reaches carrying capacity"
+      ],
+      "answer": 4,
+      "explanation": "Logistic growth takes limiting resources into account, so the growth rate slows as $N$ approaches $K$ and becomes zero at $K$, producing an S-shaped curve. Exponential growth assumes unlimited resources and gives a J-shaped curve.",
+      "optionRationale": {
+        "1": "Unlimited resources is the assumption of exponential growth.",
+        "2": "A J-shaped curve belongs to exponential growth.",
+        "3": "$r$ is positive in logistic growth; it multiplies the growth term."
+      },
+      "objective": "Distinguish logistic from exponential growth"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q07",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The population growth rate in logistic growth is maximum at $N = K/2$. Reason (R): The product $N(K - N)/K$ is greatest when $N = K/2$.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "The product $N(K - N)/K$ is a downward parabola in $N$ with its maximum at $N = K/2$. At this point the value is $K/4$, so the growth rate is $rK/4$, the highest possible. Hence both statements are true and the reason explains the assertion.",
+      "optionRationale": {
+        "2": "R is not only true; it is exactly why A holds.",
+        "3": "A is true.",
+        "4": "A is true, and R is also true."
+      },
+      "objective": "Locate the point of maximum growth in the logistic model"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q08",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about population interactions.\nA. In amensalism one species is harmed and the other is unaffected.\nB. Mycorrhiza is an example of mutualism.\nC. Parasitism is a 0/- interaction.\nWhich statements are correct?",
+      "options": [
+        "A and B only",
+        "B and C only",
+        "A and C only",
+        "A, B and C"
+      ],
+      "answer": 1,
+      "explanation": "Amensalism is a -/0 interaction, so A is correct. Mycorrhiza is a mutually beneficial association between a fungus and a plant root, so B is correct. Parasitism is a +/- interaction, since the parasite benefits, so C is wrong.",
+      "optionRationale": {
+        "2": "C is incorrect, and A is correct but left out.",
+        "3": "C is incorrect, and B is correct but left out.",
+        "4": "C is incorrect."
+      },
+      "objective": "Evaluate statements about interactions"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A population of 100 insects grows exponentially at $r = 0.03$ per day. Using $e^{0.6} = 1.822$, the population after 20 days is about",
+      "options": [
+        "160",
+        "182",
+        "200",
+        "220"
+      ],
+      "answer": 2,
+      "explanation": "$N_t = N_0 e^{rt} = 100 \\times e^{0.03 \\times 20} = 100 \\times e^{0.6} = 100 \\times 1.822 = 182$. A value of 160 would be linear growth, which is not what an exponential model gives.",
+      "optionRationale": {
+        "1": "160 comes from a linear estimate, not exponential growth.",
+        "3": "200 would be the value for a doubling.",
+        "4": "220 would need a larger value of $rt$."
+      },
+      "objective": "Compute exponential growth"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "MacArthur observed that five closely related species of warblers can live on the same tree. They avoid competition by",
+      "options": [
+        "Preying on one another",
+        "Resource partitioning",
+        "Parasitism",
+        "Mutualism"
+      ],
+      "answer": 2,
+      "explanation": "Each warbler species feeds in a different part of the tree canopy or at a different time, so the shared resources are divided. This resource partitioning reduces competition and permits coexistence, consistent with Gause's principle.",
+      "optionRationale": {
+        "1": "The warblers were not preying on each other.",
+        "3": "No parasitism is involved.",
+        "4": "There is no mutual benefit."
+      },
+      "objective": "Apply resource partitioning to a field observation"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For a population with $K = 800$ and $r = 0.2$ per month, the growth rate $dN/dt$ when $N = 200$ is",
+      "options": [
+        "20 per month",
+        "30 per month",
+        "40 per month",
+        "60 per month"
+      ],
+      "answer": 2,
+      "explanation": "Substitute into $dN/dt = rN(K - N)/K = 0.2 \\times 200 \\times (600/800) = 0.2 \\times 200 \\times 0.75 = 30$ per month. A value of 40 results from forgetting the $(K - N)/K$ factor.",
+      "optionRationale": {
+        "1": "This does not follow from the logistic equation.",
+        "3": "40 is the exponential growth rate $rN = 0.2 \\times 200$, ignoring the limiting factor.",
+        "4": "This does not follow from the logistic equation."
+      },
+      "objective": "Evaluate the logistic equation"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q12",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Assertion (A): When the starfish Pisaster was removed from an intertidal community, many invertebrate species disappeared. Reason (R): Pisaster is a keystone predator that reduces the population of the strongest competitors.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Pisaster preys on dominant competitors such as mussels, which keeps them in check. When it was removed, the competitively superior species took over the space and excluded others, so more than ten species disappeared. Hence R explains A.",
+      "optionRationale": {
+        "2": "R directly explains A rather than being just a true statement.",
+        "3": "A is true.",
+        "4": "A is true and R is true."
+      },
+      "objective": "Explain the role of predators in species diversity"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "A scientist notes that a population has $b = 0.04$ and $d = 0.07$ per individual per year and no migration. Which statement is correct?",
+      "options": [
+        "The population will grow exponentially",
+        "The population will remain constant",
+        "The population will decline, as $r = -0.03$",
+        "The population has reached carrying capacity"
+      ],
+      "answer": 3,
+      "explanation": "The intrinsic rate is $r = b - d = 0.04 - 0.07 = -0.03$ per year. A negative $r$ means that deaths exceed births and the population declines. It does not show that it has reached $K$, where births would equal deaths.",
+      "optionRationale": {
+        "1": "Growth requires a positive $r$.",
+        "2": "A constant population needs $b = d$.",
+        "4": "At carrying capacity births equal deaths; here they do not."
+      },
+      "objective": "Interpret the sign of r"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q14",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Consider the following statements.\nA. Competitive exclusion is most likely between closely related species using the same resource.\nB. Parasites typically evolve a high reproductive capacity and loss of unnecessary sense organs.\nC. The doubling time of an exponentially growing population is independent of its starting size.\nD. Brood parasitism is shown by the cuckoo.\nWhich are correct?",
+      "options": [
+        "A and B only",
+        "B and C only",
+        "C and D only",
+        "A, B, C and D"
+      ],
+      "answer": 4,
+      "explanation": "All four statements are standard. Gause's principle applies most strongly to closely related species. Parasites show specialised features such as a high reproductive output. Since $t_d = \\ln 2 / r$, doubling time does not depend on initial size. The cuckoo lays eggs in a crow's nest, which is brood parasitism.",
+      "optionRationale": {
+        "1": "C and D are also correct.",
+        "2": "A and D are also correct.",
+        "3": "A and B are also correct."
+      },
+      "objective": "Evaluate a set of statements on population ecology"
+    },
+    {
+      "key": "ug26-304-t05-organisms-and-populations-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "How long will a population growing exponentially at $r = 0.04$ per year take to become three times as large? (Take $\\ln 3 = 1.0986$.)",
+      "options": [
+        "17.3 years",
+        "24.5 years",
+        "34.7 years",
+        "27.5 years"
+      ],
+      "answer": 4,
+      "explanation": "For tripling, $N_t/N_0 = 3 = e^{rt}$, so $t = \\ln 3 / r = 1.0986 / 0.04 = 27.5$ years. The value 17.3 years is the doubling time, $0.693/0.04$, which is shorter because doubling needs a smaller increase in numbers than tripling does.",
+      "optionRationale": {
+        "1": "17.3 years is the doubling time, not the tripling time.",
+        "2": "This does not follow from the equation.",
+        "3": "34.7 years is the time to become four times as large, $\\ln 4 / 0.04$."
+      },
+      "objective": "Compute time for exponential growth"
+    }
+  ]
+}

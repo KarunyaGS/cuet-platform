@@ -1,0 +1,534 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "501",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_52ddb57bcd254a67be65223df8b29e97",
+  "title": "Reasoning (Simple application of basic mathematical concepts Quantitative arithmetic / algebra geometry / mensuration / statistics)"
+ },
+ "lesson": {
+  "key": "ug26-501-t03-reasoning-simple-application-of-basic-",
+  "title": "Basic mathematics for reasoning: arithmetic, algebra, geometry, mensuration and statistics",
+  "coverage": [
+   {
+    "phrase": "Reasoning application of basic mathematical concepts quantitative",
+    "section": "Arithmetic: factors, HCF, LCM and divisibility"
+   },
+   {
+    "phrase": "arithmetic",
+    "section": "Arithmetic: factors, HCF, LCM and divisibility"
+   },
+   {
+    "phrase": "algebra",
+    "section": "Algebra: equations and identities"
+   },
+   {
+    "phrase": "geometry",
+    "section": "Geometry: lines, triangles and quadrilaterals"
+   },
+   {
+    "phrase": "mensuration",
+    "section": "Mensuration: perimeter, area and volume"
+   },
+   {
+    "phrase": "statistics",
+    "section": "Statistics: mean, median and mode"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "Arithmetic: factors, HCF, LCM and divisibility"
+   },
+   {
+    "type": "TEXT",
+    "text": "This paper checks whether you can apply school-level mathematics quickly in everyday settings. You do not need advanced methods. You need accurate recall of a small set of formulas and the habit of checking each answer. This lesson covers arithmetic, algebra, geometry, mensuration and statistics, the five areas named in the syllabus."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "HCF and LCM",
+    "text": "The HCF (highest common factor) of two numbers is the largest number that divides both exactly. The LCM (lowest common multiple) is the smallest number that both divide exactly. For two numbers $a$ and $b$, $\\text{HCF}\\times\\text{LCM}=a\\times b$."
+   },
+   {
+    "type": "TEXT",
+    "text": "Find HCF and LCM by prime factorisation. Write each number as a product of primes. The HCF takes each common prime with its **smaller** power; the LCM takes every prime with its **larger** power. For 36 and 48 we have $36 = 2^2\\times 3^2$ and $48 = 2^4\\times 3$, so the HCF is $2^2\\times 3 = 12$ and the LCM is $2^4\\times 3^2 = 144$. Check: $12\\times 144 = 1728 = 36\\times 48$."
+   },
+   {
+    "type": "TEXT",
+    "text": "Divisibility tests save time. A number is divisible by 2 if its last digit is even, by 3 if the sum of its digits is divisible by 3, by 4 if its last two digits are divisible by 4, by 5 if it ends in 0 or 5, by 9 if the digit sum is divisible by 9, and by 11 if the difference between the sums of alternate digits is 0 or a multiple of 11."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Find the smallest number which leaves remainder 5 when divided by 6, by 8 and by 12.",
+    "solution": "Step 1: a number that leaves the same remainder 5 with every divisor is of the form (common multiple) + 5. Step 2: the smallest common multiple is the LCM of 6, 8 and 12. With 6 = 2 x 3, 8 = 2^3 and 12 = 2^2 x 3 the LCM is 2^3 x 3 = 24. Step 3: add the remainder, 24 + 5 = 29. Check: 29 = 6 x 4 + 5 = 8 x 3 + 5 = 12 x 2 + 5.",
+    "answer": "29"
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "HCF x LCM = product of the two numbers (for two numbers only). Use the LCM plus the common remainder for 'same remainder' problems and the HCF for 'largest equal pieces' problems."
+   },
+   {
+    "type": "HEADING",
+    "text": "Algebra: equations and identities"
+   },
+   {
+    "type": "TEXT",
+    "text": "A **linear equation** in one variable such as $3x - 7 = 11$ is solved by doing the same operation on both sides: $3x = 18$ so $x = 6$. For two unknowns you need two equations. When the sum and difference of two numbers are given, add the equations to get twice the larger and subtract them to get twice the smaller."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "The sum of two numbers is 50 and their difference is 12. Find the numbers.",
+    "solution": "Step 1: let the numbers be x and y with x + y = 50 and x - y = 12. Step 2: add the two equations: 2x = 62, so x = 31. Step 3: subtract the second from the first: 2y = 38, so y = 19. Check: 31 + 19 = 50 and 31 - 19 = 12.",
+    "answer": "31 and 19"
+   },
+   {
+    "type": "FORMULA",
+    "latex": "(a+b)^2=a^2+2ab+b^2,\\quad (a-b)^2=a^2-2ab+b^2,\\quad a^2-b^2=(a-b)(a+b)",
+    "text": "These three identities are used to expand and factorise quickly. For example $31^2 - 19^2 = (31-19)(31+19) = 12 \\times 50 = 600$."
+   },
+   {
+    "type": "TEXT",
+    "text": "A **quadratic equation** $ax^2+bx+c=0$ has roots found by factorising or by the formula $x=\\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}$. The sum of the roots is $-\\frac{b}{a}$ and their product is $\\frac{c}{a}$. For $x^2-9x+20=0$ we look for two numbers with sum 9 and product 20, namely 4 and 5, so $(x-4)(x-5)=0$ and the roots are 4 and 5. The sum of their squares is $4^2+5^2=41$."
+   },
+   {
+    "type": "HEADING",
+    "text": "Geometry: lines, triangles and quadrilaterals"
+   },
+   {
+    "type": "TEXT",
+    "text": "Basic geometry facts: angles on a straight line add to 180 degrees; angles around a point add to 360 degrees; vertically opposite angles are equal; the angles of a triangle add to 180 degrees; the angles of a quadrilateral add to 360 degrees; an exterior angle of a triangle equals the sum of the two opposite interior angles. If two angles of a triangle are 50 and 60 degrees, the third is $180-50-60=70$ degrees."
+   },
+   {
+    "type": "FORMULA",
+    "latex": "a^2+b^2=c^2",
+    "text": "Pythagoras theorem: in a right-angled triangle with legs $a$ and $b$, the hypotenuse $c$ is the side opposite the right angle. Common triples are 3-4-5, 5-12-13, 8-15-17 and their multiples, so legs 9 and 12 give hypotenuse 15."
+   },
+   {
+    "type": "TEXT",
+    "text": "In an isosceles triangle the angles opposite the equal sides are equal. In a circle, the angle in a semicircle is a right angle, and a radius is perpendicular to the tangent at the point of contact. The diagonal of a square of side $a$ is $a\\sqrt{2}$."
+   },
+   {
+    "type": "CALLOUT",
+    "text": "In geometry questions, draw a quick sketch, mark all given values, and write the rule you use at each step. Many errors come from mixing up the hypotenuse with a leg."
+   },
+   {
+    "type": "HEADING",
+    "text": "Mensuration: perimeter, area and volume"
+   },
+   {
+    "type": "TEXT",
+    "text": "**Mensuration** is the measurement of lengths, areas and volumes. Keep the units straight: lengths in cm, areas in cm$^2$ and volumes in cm$^3$. Use $\\pi=\\frac{22}{7}$ when the radius is a multiple of 7, and the question usually says which value to use."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Mensuration formulas",
+    "columns": [
+     "Figure",
+     "Area or surface",
+     "Volume or perimeter"
+    ],
+    "rows": [
+     [
+      "Rectangle",
+      "$l \\times b$",
+      "Perimeter $2(l+b)$"
+     ],
+     [
+      "Triangle",
+      "$\\frac{1}{2}bh$",
+      "Sum of sides"
+     ],
+     [
+      "Circle",
+      "$\\pi r^2$",
+      "Circumference $2\\pi r$"
+     ],
+     [
+      "Cube of side a",
+      "$6a^2$",
+      "Volume $a^3$"
+     ],
+     [
+      "Cuboid",
+      "$2(lb+bh+hl)$",
+      "Volume $lbh$"
+     ],
+     [
+      "Cylinder",
+      "Curved $2\\pi r h$",
+      "Volume $\\pi r^2 h$"
+     ]
+    ]
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A cylinder has base radius 7 cm and height 10 cm. Find its volume and curved surface area. Take pi = 22/7.",
+    "solution": "Step 1: volume = pi r^2 h = (22/7) x 7 x 7 x 10 = 22 x 7 x 10 = 1540 cm^3. Step 2: curved surface area = 2 pi r h = 2 x (22/7) x 7 x 10 = 2 x 22 x 10 = 440 cm^2. Step 3: state the units: cubic centimetres for volume and square centimetres for area.",
+    "answer": "Volume 1540 cm^3 and curved surface area 440 cm^2"
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "The length of a rectangle is 3 times its breadth and its perimeter is 64 cm. Find its area.",
+    "solution": "Step 1: let the breadth be b, so the length is 3b and the perimeter 2(3b + b) = 8b. Step 2: 8b = 64, so b = 8 cm and the length is 24 cm. Step 3: area = length x breadth = 24 x 8 = 192 cm^2.",
+    "answer": "192 cm^2"
+   },
+   {
+    "type": "HEADING",
+    "text": "Statistics: mean, median and mode"
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Mean, median and mode",
+    "text": "The **mean** is the sum of the values divided by their number. The **median** is the middle value when the data are arranged in order (for an even number of values, the average of the two middle ones). The **mode** is the value that occurs most often."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "For the data 8, 10, 15, 11, 9, 15, 16 find the mean, median and mode.",
+    "solution": "Step 1: the sum is 8 + 10 + 15 + 11 + 9 + 15 + 16 = 84 and there are 7 values, so the mean is 84 / 7 = 12. Step 2: arrange in order: 8, 9, 10, 11, 15, 15, 16. The middle (4th) value is 11, so the median is 11. Step 3: 15 occurs twice and every other value once, so the mode is 15.",
+    "answer": "Mean 12, median 11, mode 15"
+   },
+   {
+    "type": "TEXT",
+    "text": "The **range** is the largest value minus the smallest (here 16 - 8 = 8). For two groups, the combined mean is the weighted mean: $\\frac{n_1\\bar{x}_1+n_2\\bar{x}_2}{n_1+n_2}$. For example, 20 students with mean 60 and 30 students with mean 70 together have mean $\\frac{1200+2100}{50}=66$, not the simple average 65."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "Always order data before finding the median. The combined mean is a weighted mean. Mean, median and mode need not be equal; a few very large values pull the mean up but barely change the median."
+   }
+  ]
+ },
+ "diagrams": [],
+ "questions": [
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "What is the LCM of 12 and 18?",
+   "options": [
+    "6",
+    "36",
+    "72",
+    "216"
+   ],
+   "answer": 2,
+   "explanation": "Write 12 = 2^2 x 3 and 18 = 2 x 3^2. The LCM takes the larger power of each prime, so it is 2^2 x 3^2 = 36. Check with the HCF 6: 6 x 36 = 216 = 12 x 18.",
+   "optionRationale": {
+    "1": "6 is the HCF, not the LCM.",
+    "3": "72 is a common multiple but not the lowest.",
+    "4": "216 is the product of the two numbers."
+   },
+   "objective": "Find the LCM by prime factorisation"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Find the area of a circle of radius 7 cm. Take pi = 22/7.",
+   "options": [
+    "44 cm$^2$",
+    "49 cm$^2$",
+    "308 cm$^2$",
+    "154 cm$^2$"
+   ],
+   "answer": 4,
+   "explanation": "Area = pi r^2 = (22/7) x 7 x 7 = 22 x 7 = 154 cm^2. The answer is in square units because it measures area, and the circumference 2 pi r = 44 cm is a different quantity.",
+   "optionRationale": {
+    "1": "44 is the circumference 2 pi r, not the area.",
+    "2": "49 is r squared without multiplying by pi.",
+    "3": "308 is double the area, from using the diameter in place of the radius."
+   },
+   "objective": "Use the area formula of a circle"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "Two angles of a triangle are 50 degrees and 60 degrees. The third angle is",
+   "options": [
+    "70 degrees",
+    "60 degrees",
+    "80 degrees",
+    "130 degrees"
+   ],
+   "answer": 1,
+   "explanation": "The angles of a triangle add up to 180 degrees, so the third angle is 180 - 50 - 60 = 70 degrees. Check by adding all three angles: 50 + 60 + 70 = 180 degrees.",
+   "optionRationale": {
+    "2": "60 degrees would make the angle sum 170 degrees.",
+    "3": "80 degrees would make the angle sum 190 degrees.",
+    "4": "130 degrees is the sum of the two given angles with 180 not subtracted."
+   },
+   "objective": "Apply the angle sum property of a triangle"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "What is the mean of 5, 7, 9, 11 and 13?",
+   "options": [
+    "8",
+    "10",
+    "9",
+    "11"
+   ],
+   "answer": 3,
+   "explanation": "The sum is 5 + 7 + 9 + 11 + 13 = 45 and there are 5 values, so the mean is 45 / 5 = 9. The mean here also equals the middle value because the numbers are evenly spaced.",
+   "optionRationale": {
+    "1": "8 would give a sum of 40.",
+    "2": "10 would give a sum of 50.",
+    "4": "11 would give a sum of 55."
+   },
+   "objective": "Calculate an arithmetic mean"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The sum of two numbers is 50 and their difference is 12. The larger number is",
+   "options": [
+    "19",
+    "38",
+    "31",
+    "25"
+   ],
+   "answer": 3,
+   "explanation": "Adding x + y = 50 and x - y = 12 gives 2x = 62, so x = 31, and then y = 19. The larger number is 31. Check that 31 + 19 = 50 and 31 - 19 = 12, so both conditions hold.",
+   "optionRationale": {
+    "1": "19 is the smaller number.",
+    "2": "38 does not satisfy x + y = 50 with a difference of 12.",
+    "4": "25 is half the sum, which ignores the difference."
+   },
+   "objective": "Solve two simultaneous linear equations"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The two shorter sides of a right-angled triangle are 9 cm and 12 cm. The hypotenuse is",
+   "options": [
+    "15 cm",
+    "21 cm",
+    "13 cm",
+    "225 cm"
+   ],
+   "answer": 1,
+   "explanation": "By Pythagoras theorem the hypotenuse is the square root of 9^2 + 12^2 = 81 + 144 = 225, so it is 15 cm. This is the 3-4-5 triple multiplied by 3.",
+   "optionRationale": {
+    "2": "21 cm is the sum of the legs, not the hypotenuse.",
+    "3": "13 cm comes from the 5-12-13 triple, which does not have a leg of 9.",
+    "4": "225 is the square of the hypotenuse, not the hypotenuse."
+   },
+   "objective": "Apply Pythagoras theorem"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "What is the volume of a cylinder of radius 7 cm and height 10 cm? Take pi = 22/7.",
+   "options": [
+    "440 cm$^3$",
+    "154 cm$^3$",
+    "3080 cm$^3$",
+    "1540 cm$^3$"
+   ],
+   "answer": 4,
+   "explanation": "Volume = pi r^2 h = (22/7) x 7 x 7 x 10 = 1540 cubic centimetres. The value 440 is the curved surface area, which is measured in square centimetres.",
+   "optionRationale": {
+    "1": "440 is the curved surface area, 2 pi r h.",
+    "2": "154 is the area of the base, not the volume.",
+    "3": "3080 is double the correct volume."
+   },
+   "objective": "Compute the volume of a cylinder"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The roots of the equation x^2 - 9x + 20 = 0 are 4 and 5. Which one is the value of the larger root?",
+   "options": [
+    "4",
+    "5",
+    "9",
+    "20"
+   ],
+   "answer": 2,
+   "explanation": "We need two numbers with sum 9 and product 20, which are 4 and 5. So (x - 4)(x - 5) = 0 and the larger root is 5. Check: 5^2 - 9 x 5 + 20 = 0.",
+   "optionRationale": {
+    "1": "4 is the smaller root.",
+    "3": "9 is the sum of the roots.",
+    "4": "20 is the product of the roots."
+   },
+   "objective": "Solve a quadratic equation by factorising"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q09",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Match List-I (quantity) with List-II (formula).",
+   "list": {
+    "left": [
+     "A. Area of a triangle",
+     "B. Volume of a cube of side a",
+     "C. Total surface area of a cuboid",
+     "D. Circumference of a circle"
+    ],
+    "right": [
+     "I. 2 pi r",
+     "II. (1/2) x base x height",
+     "III. a cubed",
+     "IV. 2(lb + bh + hl)"
+    ]
+   },
+   "options": [
+    "A-I, B-III, C-IV, D-II",
+    "A-IV, B-III, C-II, D-I",
+    "A-II, B-IV, C-III, D-I",
+    "A-II, B-III, C-IV, D-I"
+   ],
+   "answer": 4,
+   "explanation": "The area of a triangle is half base times height (II), the volume of a cube is a cubed (III), the total surface area of a cuboid is 2(lb + bh + hl) (IV) and the circumference of a circle is 2 pi r (I). The code is A-II, B-III, C-IV, D-I.",
+   "optionRationale": {
+    "1": "It gives the triangle the circumference formula.",
+    "2": "It mixes up the triangle, cube and cuboid formulas.",
+    "3": "It swaps the cube and cuboid formulas."
+   },
+   "objective": "Match mensuration formulas"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "The median of the data 8, 10, 15, 11, 9, 15, 16 is",
+   "options": [
+    "11",
+    "12",
+    "15",
+    "10"
+   ],
+   "answer": 1,
+   "explanation": "Arrange the data in order: 8, 9, 10, 11, 15, 15, 16. There are 7 values, so the median is the 4th value, which is 11. The mean is 12 and the mode is 15, so neither of those is the median.",
+   "optionRationale": {
+    "2": "12 is the mean of this data.",
+    "3": "15 is the mode of this data.",
+    "4": "10 is the third value, not the middle one."
+   },
+   "objective": "Find the median of ungrouped data"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q11",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): For two numbers, the product of their HCF and LCM equals the product of the numbers.\nReason (R): The HCF of two numbers always divides their LCM.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 2,
+   "explanation": "A is true because each prime appears in the HCF with the smaller power and in the LCM with the larger power, so the exponents add up to those in the product. R is also true because the HCF divides both numbers and hence their LCM, but it does not explain A.",
+   "optionRationale": {
+    "1": "R does not give the reason for A, so option 1 is wrong.",
+    "3": "A is true, so option 3 is wrong.",
+    "4": "R is true, so option 4 is wrong."
+   },
+   "objective": "Understand the HCF-LCM product property"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "The length of a rectangle is 3 times its breadth and its perimeter is 64 cm. Its area is",
+   "options": [
+    "128 cm$^2$",
+    "256 cm$^2$",
+    "144 cm$^2$",
+    "192 cm$^2$"
+   ],
+   "answer": 4,
+   "explanation": "Let the breadth be b and the length 3b. The perimeter is 2(3b + b) = 8b = 64, so b = 8 cm and the length is 24 cm. The area is 24 x 8 = 192 cm^2.",
+   "optionRationale": {
+    "1": "128 would follow from a length of 16 cm.",
+    "2": "256 is 16 squared, which wrongly treats the shape as a square.",
+    "3": "144 would follow from a length of 18 cm."
+   },
+   "objective": "Combine perimeter and area for a rectangle"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q13",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Consider the following statements.\nA. (a + b)^2 = a^2 + 2ab + b^2.\nB. The angles of a quadrilateral add up to 360 degrees.\nC. The mean of a set of numbers is always one of the numbers in the set.\nD. The diagonal of a square of side a is a times the square root of 2.\nWhich of the statements are correct?",
+   "options": [
+    "A and B only",
+    "B and D only",
+    "A, B and D only",
+    "A, C and D only"
+   ],
+   "answer": 3,
+   "explanation": "A is the standard identity. B is correct because a quadrilateral splits into two triangles of 180 degrees each. C is wrong: the mean of 1, 2 and 6 is 3, which is not in the set. D is correct by Pythagoras. So A, B and D are correct.",
+   "optionRationale": {
+    "1": "It leaves out D, which is correct.",
+    "2": "It leaves out A, which is correct.",
+    "4": "It includes C, which is false, and leaves out B."
+   },
+   "objective": "Check statements on algebra, geometry and statistics"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q14",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "The smallest number that leaves remainder 5 when divided by 6, 8 and 12 is",
+   "options": [
+    "24",
+    "53",
+    "29",
+    "35"
+   ],
+   "answer": 3,
+   "explanation": "The LCM of 6, 8 and 12 is 24. Numbers leaving remainder 5 in each case have the form 24k + 5, and the smallest is 29. Check: 29 = 6 x 4 + 5 = 8 x 3 + 5 = 12 x 2 + 5.",
+   "optionRationale": {
+    "1": "24 is the LCM and leaves remainder 0.",
+    "2": "53 also works but is not the smallest.",
+    "4": "35 leaves remainder 5 with 6 but remainder 3 with 8."
+   },
+   "objective": "Apply LCM to a remainder problem"
+  },
+  {
+   "key": "ug26-501-t03-reasoning-simple-application-of-basic--q15",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "One class of 20 students has a mean mark of 60 and another class of 30 students has a mean mark of 70. The mean mark of all 50 students is",
+   "options": [
+    "65",
+    "66",
+    "67",
+    "68"
+   ],
+   "answer": 2,
+   "explanation": "The total marks are 20 x 60 + 30 x 70 = 1200 + 2100 = 3300. Dividing by 50 students gives 66. The simple average 65 ignores the different class sizes, so the result must be pulled towards the mean of the larger class, which is why 66 is closer to 70 than 65 is.",
+   "optionRationale": {
+    "1": "65 is the unweighted average of 60 and 70.",
+    "3": "67 would need a total of 3350 marks.",
+    "4": "68 would need a total of 3400 marks."
+   },
+   "objective": "Compute a weighted mean"
+  }
+ ]
+}

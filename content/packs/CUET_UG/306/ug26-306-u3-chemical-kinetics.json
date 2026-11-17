@@ -1,0 +1,1027 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "306",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_b7fb6cec633e4da7ae59d387c9fb0a41",
+    "title": "Chemical Kinetics"
+  },
+  "lesson": {
+    "key": "ug26-306-u3-chemical-kinetics",
+    "title": "Chemical Kinetics: rates, order, integrated equations and the Arrhenius equation",
+    "coverage": [
+      {
+        "phrase": "Introduction to chemical kinetics",
+        "section": "Introduction to chemical kinetics"
+      },
+      {
+        "phrase": "Rate of a chemical reaction; average and instantaneous rate of reactions",
+        "section": "Rate of a chemical reaction: average and instantaneous rate"
+      },
+      {
+        "phrase": "Factors influencing rate of reaction: concentration, temperature, catalyst",
+        "section": "Factors influencing the rate of a reaction"
+      },
+      {
+        "phrase": "Rate law and rate constant",
+        "section": "Rate law and rate constant"
+      },
+      {
+        "phrase": "Order and molecularity of a reaction",
+        "section": "Order and molecularity of a reaction"
+      },
+      {
+        "phrase": "Integrated rate equations for zero and first order reactions",
+        "section": "Integrated rate equations: zero order and first order"
+      },
+      {
+        "phrase": "Half life of a reaction",
+        "section": "Half-life of a reaction"
+      },
+      {
+        "phrase": "Pseudo first order reactions",
+        "section": "Pseudo first order reactions"
+      },
+      {
+        "phrase": "Arrhenius equation and activation energy",
+        "section": "Arrhenius equation and activation energy"
+      },
+      {
+        "phrase": "Collision theory for a bimolecular elementary chemical reaction and its limitations",
+        "section": "Collision theory and its limitations"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Introduction to chemical kinetics"
+      },
+      {
+        "type": "TEXT",
+        "text": "Thermodynamics tells us whether a reaction *can* happen: if the Gibbs energy change is negative the reaction is feasible. It says nothing about *how fast* it will happen. Diamond is thermodynamically less stable than graphite, yet a diamond ring does not turn into pencil lead in your lifetime, while a lighted match burns in seconds. The branch of chemistry that measures and explains the speed of reactions, and the steps by which reactants turn into products, is called **chemical kinetics**."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Chemical kinetics",
+        "text": "The study of the rates of chemical reactions, the factors that change those rates (concentration, temperature, catalyst and so on) and the mechanism, that is, the sequence of elementary steps by which reactants are converted into products."
+      },
+      {
+        "type": "TEXT",
+        "text": "Reactions span a huge range of speeds. Precipitation of silver chloride from silver nitrate and sodium chloride solutions is almost instantaneous. The rusting of iron takes weeks, and the conversion of organic matter into coal takes millions of years. Knowing the kinetics lets an industrial chemist choose the temperature, pressure and catalyst that make a process fast enough to be economical, and lets a food technologist estimate how long a product stays fresh."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Thermodynamics decides the direction and extent of a reaction; kinetics decides its speed. A reaction with a large negative Gibbs energy change can still be extremely slow."
+      },
+      {
+        "type": "HEADING",
+        "text": "Rate of a chemical reaction: average and instantaneous rate"
+      },
+      {
+        "type": "TEXT",
+        "text": "The **rate of a reaction** tells us how quickly the concentration of a reactant falls or the concentration of a product rises. Concentration is normally expressed in mol L$^{-1}$ and time in seconds, so the usual unit of rate is mol L$^{-1}$ s$^{-1}$. For gaseous reactions followed by pressure, the unit becomes atm s$^{-1}$ or bar s$^{-1}$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Rate of reaction",
+        "text": "The change in concentration of a reactant or of a product per unit time. A reactant is used up, so its concentration falls; to keep the rate positive we write a minus sign in front of the rate of change of a reactant."
+      },
+      {
+        "type": "TEXT",
+        "text": "For the simple reaction $R \\rightarrow P$ the rate may be written in two equivalent ways:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{Rate} = -\\frac{\\Delta[R]}{\\Delta t} = +\\frac{\\Delta[P]}{\\Delta t}",
+        "text": "The first form follows the disappearance of reactant R, the second the appearance of product P. The brackets mean concentration in mol L$^{-1}$."
+      },
+      {
+        "type": "TEXT",
+        "text": "When the stoichiometric coefficients are not all one, the rates of change of different species are different, and we divide each by its coefficient to obtain a single rate for the reaction. For the general reaction $aA + bB \\rightarrow cC + dD$:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{Rate} = -\\frac{1}{a}\\frac{d[A]}{dt} = -\\frac{1}{b}\\frac{d[B]}{dt} = +\\frac{1}{c}\\frac{d[C]}{dt} = +\\frac{1}{d}\\frac{d[D]}{dt}",
+        "text": "Each term is divided by the coefficient of that species in the balanced equation, so every term gives the same number."
+      },
+      {
+        "type": "EXAMPLE",
+        "text": "In $\\text{N}_2 + 3\\text{H}_2 \\rightarrow 2\\text{NH}_3$ hydrogen disappears three times as fast as nitrogen and ammonia appears twice as fast as nitrogen disappears. Hence $-\\frac{d[\\text{N}_2]}{dt} = -\\frac{1}{3}\\frac{d[\\text{H}_2]}{dt} = \\frac{1}{2}\\frac{d[\\text{NH}_3]}{dt}$."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Average rate.** If the concentration of a reactant changes from $[R]_1$ at time $t_1$ to $[R]_2$ at time $t_2$, the average rate over that interval is $-\\frac{[R]_2-[R]_1}{t_2-t_1}$. It depends on the interval chosen, because the rate itself changes as reactants are used up. For most reactions the average rate over later intervals is smaller than over earlier ones."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Instantaneous rate.** The rate at one particular moment is the limit of the average rate as the interval shrinks to zero, that is $-\\frac{d[R]}{dt}$. On a graph of concentration against time it is the magnitude of the slope of the tangent drawn at that time. The instantaneous rate at $t = 0$ is called the initial rate and is the quantity used when the order is determined from experiments."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Instantaneous rate",
+        "text": "The rate of a reaction at a given instant, equal to the negative slope of the tangent to the concentration-time curve of a reactant at that instant (or the positive slope for a product)."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistake: forgetting to divide by the stoichiometric coefficient. The *rate of reaction* is one number; the rate of disappearance of H$_2$ or of appearance of NH$_3$ are different numbers unless every coefficient is 1."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "For the reaction $\\text{N}_2(g) + 3\\text{H}_2(g) \\rightarrow 2\\text{NH}_3(g)$ the rate of formation of ammonia is $6.0 \\times 10^{-4}$ mol L$^{-1}$ s$^{-1}$. Find the rate of disappearance of N$_2$ and of H$_2$, and the rate of the reaction.",
+        "solution": "From the balanced equation, 2 mol of NH$_3$ form for every 1 mol of N$_2$ and 3 mol of H$_2$ used. So $-\\frac{d[\\text{N}_2]}{dt} = \\frac{1}{2}\\frac{d[\\text{NH}_3]}{dt} = \\frac{6.0 \\times 10^{-4}}{2} = 3.0 \\times 10^{-4}$ mol L$^{-1}$ s$^{-1}$. For hydrogen, $-\\frac{d[\\text{H}_2]}{dt} = \\frac{3}{2}\\times 6.0 \\times 10^{-4} = 9.0 \\times 10^{-4}$ mol L$^{-1}$ s$^{-1}$. The rate of reaction is the common value obtained after dividing by the coefficients: $\\frac{1}{2}\\times 6.0\\times10^{-4} = 3.0 \\times 10^{-4}$ mol L$^{-1}$ s$^{-1}$.",
+        "answer": "N$_2$: $3.0\\times10^{-4}$; H$_2$: $9.0\\times10^{-4}$; rate of reaction $3.0\\times10^{-4}$ mol L$^{-1}$ s$^{-1}$."
+      },
+      {
+        "type": "HEADING",
+        "text": "Factors influencing the rate of a reaction"
+      },
+      {
+        "type": "TEXT",
+        "text": "Several variables decide how fast a given reaction goes. The syllabus emphasises three: concentration, temperature and the presence of a catalyst. Others, such as the nature of the reactants, the physical state and surface area of a solid, and light for photochemical reactions, also matter."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Concentration.** More reactant particles per unit volume means more collisions per second, so the rate generally rises with concentration. For gases, raising the pressure raises the concentration. The exact dependence is not guessed from the equation but measured, and is expressed by the rate law described below."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Temperature.** For many reactions near room temperature the rate roughly doubles, and in some cases triples, for each rise of 10 K. The reason is that the fraction of molecules possessing at least the minimum energy needed to react grows rapidly with temperature, a point made quantitative by the Arrhenius equation. The collision rate itself increases only by a small percentage."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Catalyst.** A catalyst is a substance that speeds up a reaction without being consumed overall. It provides an alternative pathway of lower activation energy. It does not change the Gibbs energy change or the enthalpy change of the reaction, and it does not change the equilibrium composition; it only helps equilibrium to be reached sooner, in both directions."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Effect of the main factors on the rate of reaction",
+        "columns": [
+          "Factor",
+          "Change",
+          "Effect on rate",
+          "Reason"
+        ],
+        "rows": [
+          [
+            "Concentration",
+            "Increase",
+            "Increases (as given by the rate law)",
+            "More collisions per unit time"
+          ],
+          [
+            "Temperature",
+            "Rise of about 10 K",
+            "Roughly doubles for many reactions",
+            "Larger fraction of molecules with energy $\\geq E_a$"
+          ],
+          [
+            "Catalyst",
+            "Added",
+            "Increases",
+            "Lower activation energy through a new pathway"
+          ],
+          [
+            "Surface area of a solid",
+            "Increase (powder)",
+            "Increases",
+            "More sites for collision"
+          ],
+          [
+            "Light (photochemical reactions)",
+            "Exposure",
+            "Increases",
+            "Photons supply the energy to excite molecules"
+          ]
+        ]
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Exam tip: a catalyst changes $E_a$ but never $\\Delta H$, $\\Delta G$ or the equilibrium constant. Questions often test exactly this."
+      },
+      {
+        "type": "HEADING",
+        "text": "Rate law and rate constant"
+      },
+      {
+        "type": "TEXT",
+        "text": "The relation between rate and concentrations of reactants, found by experiment, is called the **rate law** (or rate equation). For $aA + bB \\rightarrow$ products it takes the form:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{Rate} = k\\,[A]^{x}\\,[B]^{y}",
+        "text": "Here $k$ is the rate constant and $x$, $y$ are exponents that must be found by experiment; they are in general not equal to the stoichiometric coefficients $a$ and $b$."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Rate constant",
+        "text": "The proportionality constant $k$ in the rate law. It equals the rate of the reaction when every concentration in the rate law is 1 mol L$^{-1}$, so it is also called the specific reaction rate. For a given reaction it depends on temperature and on the catalyst, but not on the concentrations."
+      },
+      {
+        "type": "TEXT",
+        "text": "The rate law cannot be read from the balanced equation. For example $2\\text{NO} + \\text{O}_2 \\rightarrow 2\\text{NO}_2$ has a rate proportional to $[\\text{NO}]^2[\\text{O}_2]$, which happens to match the coefficients, whereas the decomposition $2\\text{N}_2\\text{O}_5 \\rightarrow 4\\text{NO}_2 + \\text{O}_2$ follows a rate $= k[\\text{N}_2\\text{O}_5]$ and the coefficient 2 does not appear as an exponent."
+      },
+      {
+        "type": "TEXT",
+        "text": "The usual way to find the exponents is the **initial rate method**: keep all concentrations but one fixed, change that one by a known factor and see how the initial rate responds. If doubling $[A]$ doubles the rate, the order in A is 1; if it quadruples the rate the order is 2; if the rate is unchanged the order is 0."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "For the reaction $A + B \\rightarrow$ products the following initial rates were measured at constant temperature. Experiment 1: $[A] = 0.10$ M, $[B] = 0.10$ M, rate $= 2.0\\times10^{-3}$ mol L$^{-1}$ s$^{-1}$. Experiment 2: $[A] = 0.20$ M, $[B] = 0.10$ M, rate $= 8.0\\times10^{-3}$. Experiment 3: $[A] = 0.20$ M, $[B] = 0.20$ M, rate $= 1.6\\times10^{-2}$. Find the rate law and $k$.",
+        "solution": "Experiments 1 and 2 keep $[B]$ constant and double $[A]$; the rate rises from $2.0\\times10^{-3}$ to $8.0\\times10^{-3}$, a factor of 4, so $2^x = 4$ and $x = 2$. Experiments 2 and 3 keep $[A]$ constant and double $[B]$; the rate rises from $8.0\\times10^{-3}$ to $1.6\\times10^{-2}$, a factor of 2, so $2^y = 2$ and $y = 1$. The rate law is rate $= k[A]^2[B]$. Using experiment 1, $k = \\frac{2.0\\times10^{-3}}{(0.10)^2(0.10)} = \\frac{2.0\\times10^{-3}}{1.0\\times10^{-3}} = 2.0$ L$^2$ mol$^{-2}$ s$^{-1}$. The overall order is 3, which matches the unit of $k$.",
+        "answer": "Rate $= k[A]^2[B]$ with $k = 2.0$ L$^2$ mol$^{-2}$ s$^{-1}$ (third order overall)."
+      },
+      {
+        "type": "HEADING",
+        "text": "Order and molecularity of a reaction"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Order of a reaction",
+        "text": "The sum of the exponents of the concentration terms in the experimentally determined rate law. For rate $= k[A]^x[B]^y$ the order is $x + y$; it is $x$ with respect to A and $y$ with respect to B. Order can be zero, a positive integer or a fraction."
+      },
+      {
+        "type": "TEXT",
+        "text": "Because the order comes from experiment, it may be 0, 1, 2, 3 or fractional. The decomposition of acetaldehyde, $\\text{CH}_3\\text{CHO} \\rightarrow \\text{CH}_4 + \\text{CO}$, has rate $= k[\\text{CH}_3\\text{CHO}]^{3/2}$ and so is of order 3/2. Reactions of order higher than three are very rare, because the simultaneous collision of more than three molecules is extremely unlikely."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Units of the rate constant.** From rate $= k[R]^n$ we get $k = \\text{rate}/[R]^n$, so the unit of $k$ for an $n$th order reaction is (mol L$^{-1}$)$^{1-n}$ s$^{-1}$. Thus zero order has mol L$^{-1}$ s$^{-1}$, first order has s$^{-1}$, second order has L mol$^{-1}$ s$^{-1}$ and third order has L$^2$ mol$^{-2}$ s$^{-1}$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Order of reaction and unit of rate constant",
+        "columns": [
+          "Order $n$",
+          "Unit of $k$",
+          "Example"
+        ],
+        "rows": [
+          [
+            "0",
+            "mol L$^{-1}$ s$^{-1}$",
+            "Decomposition of NH$_3$ on hot platinum at high pressure"
+          ],
+          [
+            "1",
+            "s$^{-1}$",
+            "Decomposition of N$_2$O$_5$ and of H$_2$O$_2$"
+          ],
+          [
+            "2",
+            "L mol$^{-1}$ s$^{-1}$",
+            "$2\\text{HI} \\rightarrow \\text{H}_2 + \\text{I}_2$ at high temperature"
+          ],
+          [
+            "3",
+            "L$^2$ mol$^{-2}$ s$^{-1}$",
+            "$2\\text{NO} + \\text{O}_2 \\rightarrow 2\\text{NO}_2$"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "**Elementary and complex reactions.** Most reactions we write as one balanced equation actually proceed through a series of simple steps called elementary reactions, and the series is the reaction mechanism. A reaction with a single step is elementary; one with several steps is complex."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Molecularity of a reaction",
+        "text": "The number of reacting species (atoms, ions or molecules) that must collide simultaneously in an elementary step to bring about the chemical change. It is a theoretical quantity, always a whole number, and has meaning only for an elementary step."
+      },
+      {
+        "type": "TEXT",
+        "text": "A step involving one species is unimolecular, two species bimolecular and three termolecular. Molecularity can never be zero or fractional. Termolecular steps are rare and steps with more than three molecules are not known, since the chance of four particles colliding at once with the right energy and orientation is negligible."
+      },
+      {
+        "type": "TEXT",
+        "text": "In a multi-step mechanism the slowest step controls the overall rate and is called the **rate determining step**. For the decomposition of hydrogen peroxide in the presence of iodide ion, the proposed steps are $\\text{H}_2\\text{O}_2 + \\text{I}^- \\rightarrow \\text{H}_2\\text{O} + \\text{IO}^-$ (slow) and $\\text{H}_2\\text{O}_2 + \\text{IO}^- \\rightarrow \\text{H}_2\\text{O} + \\text{I}^- + \\text{O}_2$ (fast). The rate is governed by the slow step, giving rate $= k[\\text{H}_2\\text{O}_2][\\text{I}^-]$. A complex reaction has no single molecularity; each step has its own."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Order versus molecularity",
+        "columns": [
+          "Property",
+          "Order",
+          "Molecularity"
+        ],
+        "rows": [
+          [
+            "Source",
+            "Determined by experiment",
+            "Deduced from the mechanism of an elementary step"
+          ],
+          [
+            "Values possible",
+            "0, integer or fraction",
+            "Only 1, 2 or 3 (whole numbers)"
+          ],
+          [
+            "Applies to",
+            "Overall reaction or the rate law",
+            "Each elementary step only"
+          ],
+          [
+            "Can change with conditions",
+            "Yes (for example pseudo first order)",
+            "No"
+          ]
+        ]
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Remember: order is about the rate law, molecularity is about the collision in a single step. A complex reaction can have an order, but it does not have one molecularity."
+      },
+      {
+        "type": "HEADING",
+        "text": "Integrated rate equations: zero order and first order"
+      },
+      {
+        "type": "TEXT",
+        "text": "The rate law gives rate against concentration. To know *how much reactant is left after a given time*, we integrate it. The result is an **integrated rate equation**. The syllabus asks for the zero and first order cases only."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Zero order.** Here rate $= -\\frac{d[R]}{dt} = k$, independent of concentration. Integrating from $[R]_0$ at $t = 0$ to $[R]$ at time $t$:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "[R] = [R]_0 - kt",
+        "text": "A plot of $[R]$ against $t$ is a straight line with slope $-k$ and intercept $[R]_0$. The reaction cannot continue after $[R]$ reaches zero, at $t = [R]_0/k$."
+      },
+      {
+        "type": "TEXT",
+        "text": "Zero order behaviour is seen when the rate is controlled by something other than the concentration of the reactant, such as the surface of a catalyst that is saturated. Examples are the decomposition of gaseous ammonia on a hot platinum surface at high pressure and the decomposition of HI on a gold surface."
+      },
+      {
+        "type": "TEXT",
+        "text": "**First order.** Here rate $= -\\frac{d[R]}{dt} = k[R]$. Rearranging to $\\frac{d[R]}{[R]} = -k\\,dt$ and integrating gives $\\ln[R] = -kt + \\text{constant}$. Putting $[R] = [R]_0$ at $t = 0$:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\ln\\frac{[R]_0}{[R]} = kt \\qquad\\text{or}\\qquad k = \\frac{2.303}{t}\\log\\frac{[R]_0}{[R]}",
+        "text": "Here $k$ has unit s$^{-1}$. A plot of $\\ln[R]$ against $t$ is a straight line with slope $-k$; a plot of $\\log[R]$ against $t$ has slope $-k/2.303$."
+      },
+      {
+        "type": "TEXT",
+        "text": "In terms of the amount converted, if $a$ is the initial concentration and $x$ the amount that has reacted by time $t$, then $k = \\frac{2.303}{t}\\log\\frac{a}{a-x}$. Examples of first order reactions are the decomposition of N$_2$O$_5$, of H$_2$O$_2$ and of SO$_2$Cl$_2$, and radioactive decay."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Zero order and first order at a glance",
+        "columns": [
+          "Feature",
+          "Zero order",
+          "First order"
+        ],
+        "rows": [
+          [
+            "Rate law",
+            "Rate $= k$",
+            "Rate $= k[R]$"
+          ],
+          [
+            "Integrated equation",
+            "$[R] = [R]_0 - kt$",
+            "$\\ln[R] = \\ln[R]_0 - kt$"
+          ],
+          [
+            "Straight-line plot",
+            "$[R]$ against $t$",
+            "$\\ln[R]$ against $t$"
+          ],
+          [
+            "Slope of plot",
+            "$-k$",
+            "$-k$"
+          ],
+          [
+            "Unit of $k$",
+            "mol L$^{-1}$ s$^{-1}$",
+            "s$^{-1}$"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A first order reaction is 90% complete in 30 minutes. Calculate the rate constant (take $\\log 10 = 1$ and use 2.303).",
+        "solution": "If the initial concentration is 100 units, then after 90% completion 10 units remain. Using $k = \\frac{2.303}{t}\\log\\frac{[R]_0}{[R]}$ with $t = 30$ min, $k = \\frac{2.303}{30}\\log\\frac{100}{10} = \\frac{2.303}{30}\\times 1 = 0.0768$ min$^{-1}$. In seconds this is $0.0768/60 = 1.28\\times10^{-3}$ s$^{-1}$.",
+        "answer": "$k = 0.0768$ min$^{-1}$ ($1.28\\times10^{-3}$ s$^{-1}$)."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A zero order reaction starts with $[R]_0 = 0.50$ mol L$^{-1}$ and $k = 2.5\\times10^{-3}$ mol L$^{-1}$ s$^{-1}$. How long does it take for 80% of the reactant to be consumed?",
+        "solution": "For zero order, $[R] = [R]_0 - kt$, so $t = \\frac{[R]_0 - [R]}{k}$. Eighty percent consumed means $[R]_0 - [R] = 0.80\\times0.50 = 0.40$ mol L$^{-1}$. Therefore $t = \\frac{0.40}{2.5\\times10^{-3}} = 160$ s.",
+        "answer": "$t = 160$ s."
+      },
+      {
+        "type": "HEADING",
+        "text": "Half-life of a reaction"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Half-life of a reaction",
+        "text": "The time $t_{1/2}$ in which the concentration of a reactant falls to half of its initial value."
+      },
+      {
+        "type": "TEXT",
+        "text": "For zero order, put $[R] = [R]_0/2$ in $[R] = [R]_0 - kt$, which gives $kt_{1/2} = [R]_0/2$. For first order, put $[R] = [R]_0/2$ in $kt = \\ln([R]_0/[R])$, which gives $kt_{1/2} = \\ln 2$. The results are:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "t_{1/2}\\ (\\text{zero order}) = \\frac{[R]_0}{2k} \\qquad\\qquad t_{1/2}\\ (\\text{first order}) = \\frac{0.693}{k}",
+        "text": "The zero order half-life is proportional to the initial concentration; the first order half-life is independent of it and depends only on $k$."
+      },
+      {
+        "type": "TEXT",
+        "text": "The independence from initial concentration is a fingerprint of first order kinetics. If a first order reaction takes 20 minutes to go from 1.0 M to 0.5 M, it will also take 20 minutes to go from 0.4 M to 0.2 M. After $n$ half-lives, the fraction left is $(1/2)^n$: 50%, 25%, 12.5%, 6.25% and so on. A zero order reaction behaves differently: each successive half-life is shorter, since it is proportional to the (smaller) concentration at the start of that interval."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Half-life summary",
+        "columns": [
+          "Order",
+          "Half-life",
+          "Depends on $[R]_0$?"
+        ],
+        "rows": [
+          [
+            "Zero",
+            "$[R]_0/2k$",
+            "Yes, directly proportional"
+          ],
+          [
+            "First",
+            "$0.693/k$",
+            "No"
+          ],
+          [
+            "Second (for information)",
+            "$1/(k[R]_0)$",
+            "Yes, inversely proportional"
+          ]
+        ]
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "The half-life of a first order reaction is 20 minutes. Calculate $k$, and the time needed for the reactant to fall to 12.5% of its initial amount.",
+        "solution": "For first order, $k = \\frac{0.693}{t_{1/2}} = \\frac{0.693}{20\\text{ min}} = 0.0347$ min$^{-1}$. A fall to 12.5% means $(1/2)^3$ remains, i.e. three half-lives, so $t = 3\\times20 = 60$ min. Check with the integrated equation: $t = \\frac{2.303}{0.0347}\\log\\frac{100}{12.5} = 66.4\\times0.9031 = 60$ min.",
+        "answer": "$k = 0.0347$ min$^{-1}$; $t = 60$ min."
+      },
+      {
+        "type": "HEADING",
+        "text": "Pseudo first order reactions"
+      },
+      {
+        "type": "TEXT",
+        "text": "Some reactions are really of higher order but behave as first order because all reactants but one are present in such large excess that their concentrations stay practically constant. Such reactions are called **pseudo first order reactions**."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Pseudo first order reaction",
+        "text": "A reaction that obeys a first order rate law although its true order is higher, because one or more reactants are in large excess and their concentrations remain effectively unchanged during the reaction."
+      },
+      {
+        "type": "TEXT",
+        "text": "The hydrolysis of ethyl acetate in dilute acid is the standard example: $\\text{CH}_3\\text{COOC}_2\\text{H}_5 + \\text{H}_2\\text{O} \\xrightarrow{\\text{H}^+} \\text{CH}_3\\text{COOH} + \\text{C}_2\\text{H}_5\\text{OH}$. The true rate is $k[\\text{ester}][\\text{H}_2\\text{O}]$. But water is the solvent, present in huge excess (about 55 mol L$^{-1}$ against perhaps 0.01 mol L$^{-1}$ ester), so $[\\text{H}_2\\text{O}]$ is effectively constant. The rate becomes $k'[\\text{ester}]$ with $k' = k[\\text{H}_2\\text{O}]$. The inversion of cane sugar, $\\text{C}_{12}\\text{H}_{22}\\text{O}_{11} + \\text{H}_2\\text{O} \\rightarrow \\text{C}_6\\text{H}_{12}\\text{O}_6 + \\text{C}_6\\text{H}_{12}\\text{O}_6$ in presence of acid, is the other classic case."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Pseudo first order reactions are bimolecular (molecularity 2) but follow a first order rate law (order 1). This is the standard example used to show that order and molecularity can differ."
+      },
+      {
+        "type": "HEADING",
+        "text": "Arrhenius equation and activation energy"
+      },
+      {
+        "type": "TEXT",
+        "text": "Reaction rates rise steeply with temperature, and the rate constant often doubles for a rise of 10 K around room temperature. Svante Arrhenius expressed this behaviour with an equation that is the cornerstone of temperature dependence in kinetics."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "k = A\\,e^{-E_a/RT}",
+        "text": "Here $A$ is the Arrhenius (pre-exponential or frequency) factor, related to the frequency of collisions and the orientation of the colliding molecules; $E_a$ is the activation energy in J mol$^{-1}$; $R = 8.314$ J mol$^{-1}$ K$^{-1}$; $T$ is the absolute temperature in kelvin."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Activation energy",
+        "text": "The minimum extra energy that reactant molecules must acquire above their average energy so that a collision can result in reaction. It is the energy barrier between reactants and products; the threshold energy equals the average energy of the reactants plus $E_a$."
+      },
+      {
+        "type": "TEXT",
+        "text": "The factor $e^{-E_a/RT}$ equals the fraction of molecules whose energy equals or exceeds $E_a$. A high barrier or a low temperature makes this fraction tiny; for $E_a = 50$ kJ mol$^{-1}$ at 300 K it is of order $10^{-9}$. A rise in temperature increases the fraction sharply, which is why rates are so sensitive to temperature. Taking logarithms gives the forms used in calculations:"
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\ln k = \\ln A - \\frac{E_a}{RT} \\qquad \\log k = \\log A - \\frac{E_a}{2.303\\,RT}",
+        "text": "A plot of $\\log k$ against $1/T$ is a straight line with slope $-E_a/(2.303R)$ and intercept $\\log A$, from which $E_a$ and $A$ are found."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\log\\frac{k_2}{k_1} = \\frac{E_a}{2.303\\,R}\\left(\\frac{1}{T_1} - \\frac{1}{T_2}\\right) = \\frac{E_a}{2.303\\,R}\\,\\frac{T_2 - T_1}{T_1T_2}",
+        "text": "$k_1$ and $k_2$ are the rate constants at $T_1$ and $T_2$ (in kelvin). This is the working equation when two values of $k$ are known."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Role of a catalyst.** A catalyst offers a new path with a lower $E_a$. Since $E_a$ sits in the exponent, even a modest lowering gives a large increase in $k$. The catalyst does not alter $\\Delta H$ of the reaction, so the energy difference between reactants and products is the same, and it speeds up the forward and reverse reactions equally."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "The rate constant of a reaction doubles when the temperature rises from 300 K to 310 K. Calculate the activation energy. ($R = 8.314$ J mol$^{-1}$ K$^{-1}$, $\\log 2 = 0.3010$.)",
+        "solution": "Use $\\log\\frac{k_2}{k_1} = \\frac{E_a}{2.303R}\\frac{T_2 - T_1}{T_1T_2}$. Here $k_2/k_1 = 2$, so $0.3010 = \\frac{E_a}{2.303\\times8.314}\\times\\frac{10}{300\\times310}$. The temperature factor is $\\frac{10}{93000} = 1.0753\\times10^{-4}$ K$^{-1}$. Then $E_a = \\frac{0.3010\\times2.303\\times8.314}{1.0753\\times10^{-4}} = \\frac{5.763}{1.0753\\times10^{-4}} = 5.36\\times10^{4}$ J mol$^{-1}$.",
+        "answer": "$E_a \\approx 53.6$ kJ mol$^{-1}$."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "For a reaction with $E_a = 60$ kJ mol$^{-1}$, by what factor does $k$ increase when the temperature rises from 300 K to 320 K? ($R = 8.314$ J mol$^{-1}$ K$^{-1}$.)",
+        "solution": "$\\log\\frac{k_2}{k_1} = \\frac{60000}{2.303\\times8.314}\\times\\frac{320-300}{300\\times320}$. The first factor is $\\frac{60000}{19.147} = 3133.6$ and the second is $\\frac{20}{96000} = 2.0833\\times10^{-4}$, so $\\log\\frac{k_2}{k_1} = 0.6528$ and $\\frac{k_2}{k_1} = 10^{0.6528} = 4.50$.",
+        "answer": "$k$ increases about 4.5 times."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Always convert $E_a$ to J mol$^{-1}$ when using $R = 8.314$ J mol$^{-1}$ K$^{-1}$, and always use temperature in kelvin. Both slips are common in numericals."
+      },
+      {
+        "type": "HEADING",
+        "text": "Collision theory and its limitations"
+      },
+      {
+        "type": "TEXT",
+        "text": "The collision theory, developed by Max Trautz and William Lewis, explains rates in terms of collisions between reactant molecules. Its main postulates for a bimolecular elementary reaction, $A + B \\rightarrow$ products, are:"
+      },
+      {
+        "type": "TEXT",
+        "text": "1. Reaction takes place only when molecules of A and B collide.\n2. Not every collision leads to reaction; only **effective collisions** do. A collision is effective if the colliding molecules carry at least the threshold energy and strike each other with the proper orientation.\n3. Most collisions are ineffective because molecules either lack the energy or hit in the wrong orientation; they bounce apart unchanged."
+      },
+      {
+        "type": "FORMULA",
+        "latex": "\\text{Rate} = Z_{AB}\\,e^{-E_a/RT}",
+        "text": "Here $Z_{AB}$ is the collision frequency of A and B (collisions per unit volume per second). The exponential gives the fraction of collisions with energy $\\geq E_a$."
+      },
+      {
+        "type": "TEXT",
+        "text": "To include the orientation requirement a probability or steric factor $P$ is introduced, so that $k = P\\,Z_{AB}\\,e^{-E_a/RT}$. Comparing with $k = Ae^{-E_a/RT}$ shows that $A = PZ_{AB}$: the Arrhenius factor combines the collision frequency with the fraction of properly oriented collisions. For the formation of methanol from bromoethane and hydroxide, for example, only a collision in which OH$^-$ approaches the carbon carrying bromine from the correct side can react."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Limitations.** The theory is a useful picture but it is incomplete:"
+      },
+      {
+        "type": "TEXT",
+        "text": "- It treats molecules as hard spheres and ignores their structure, so the steric factor $P$ cannot be predicted from the theory and has to be fitted to experiment.\n- It cannot account for the many reactions whose observed rates differ greatly from calculated collision rates.\n- It does not explain the actual path by which bonds break and form; that requires the more advanced transition state (activated complex) theory.\n- It is formulated for simple bimolecular gas-phase reactions and is less reliable for complex mechanisms and reactions in solution."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Effective collision = enough energy ($\\geq E_a$) + correct orientation. The Arrhenius factor $A$ combines the collision frequency $Z_{AB}$ and the steric factor $P$."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Zero order: $[R] = [R]_0 - kt$, $t_{1/2} = [R]_0/2k$, unit of $k$ is mol L$^{-1}$ s$^{-1}$. First order: $k = (2.303/t)\\log([R]_0/[R])$, $t_{1/2} = 0.693/k$ (independent of concentration), unit of $k$ is s$^{-1}$."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Order comes from experiment and may be fractional or zero; molecularity belongs to an elementary step and is 1, 2 or 3. Pseudo first order reactions are bimolecular in molecularity but first order in kinetics because one reactant is in large excess."
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Arrhenius: $k = Ae^{-E_a/RT}$; a $\\log k$ against $1/T$ graph has slope $-E_a/2.303R$. A catalyst lowers $E_a$ and does not change $\\Delta H$ or the equilibrium constant."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The unit of the rate constant $k$ for a first order reaction is",
+      "options": [
+        "mol L$^{-1}$ s$^{-1}$",
+        "s$^{-1}$",
+        "L mol$^{-1}$ s$^{-1}$",
+        "L$^2$ mol$^{-2}$ s$^{-1}$"
+      ],
+      "answer": 2,
+      "explanation": "For rate $= k[R]^n$ the unit of $k$ is (mol L$^{-1}$)$^{1-n}$ s$^{-1}$. For $n = 1$ the concentration unit cancels completely, leaving only s$^{-1}$. The other options correspond to zero, second and third order respectively.",
+      "optionRationale": {
+        "1": "This is the unit of the rate of reaction and of $k$ for a zero order reaction, not first order.",
+        "3": "This is the unit of $k$ for a second order reaction.",
+        "4": "This is the unit of $k$ for a third order reaction."
+      },
+      "objective": "State the unit of the rate constant for a first order reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The hydrolysis of ethyl acetate in dilute acid in a large excess of water follows first order kinetics. The reason is that",
+      "options": [
+        "the reaction is unimolecular, involving only one molecule of ester",
+        "water is a catalyst and does not take part in the reaction",
+        "the acid used up in the reaction keeps the rate independent of the ester",
+        "the concentration of water remains practically constant, so the rate seems to depend on the ester alone"
+      ],
+      "answer": 4,
+      "explanation": "Water is the solvent, present at about 55 mol L$^{-1}$ against a small amount of ester, so its concentration hardly changes. The true rate law $k[\\text{ester}][\\text{H}_2\\text{O}]$ then reduces to $k'[\\text{ester}]$. Such a reaction is called pseudo first order though its molecularity is two.",
+      "optionRationale": {
+        "1": "The reaction is bimolecular (ester and water collide); its first order behaviour is only apparent.",
+        "2": "Water is a reactant in the equation and is consumed; it is simply present in huge excess.",
+        "3": "The acid is a catalyst and is not used up; the rate does depend on the ester concentration."
+      },
+      "objective": "Explain why some bimolecular reactions follow a first order rate law"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q03",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The rate of a typical chemical reaction decreases as the reaction proceeds.\nReason (R): The concentrations of the reactants decrease with time.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "For most reactions the rate law makes the rate depend on reactant concentrations. As the reactants are consumed, their concentrations fall, so the rate falls as well; this is also why the slope of a concentration-time curve becomes smaller at later times. The reason therefore explains the assertion.",
+      "optionRationale": {
+        "2": "R is not merely true; it is the cause of A.",
+        "3": "R is true, since reactants are consumed with time.",
+        "4": "A is true; instantaneous rates fall with time for ordinary reactions."
+      },
+      "objective": "Relate the fall in rate with time to decreasing reactant concentration"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q04",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For a reaction $A + B \\rightarrow$ products, the initial rates were: (1) $[A] = 0.10$ M, $[B] = 0.10$ M, rate $= 3.0\\times10^{-3}$ mol L$^{-1}$ s$^{-1}$; (2) $[A] = 0.20$ M, $[B] = 0.10$ M, rate $= 6.0\\times10^{-3}$; (3) $[A] = 0.20$ M, $[B] = 0.30$ M, rate $= 5.4\\times10^{-2}$. The value of $k$ in L$^2$ mol$^{-2}$ s$^{-1}$ is",
+      "options": [
+        "0.30",
+        "30",
+        "3.0",
+        "$3.0\\times10^{-3}$"
+      ],
+      "answer": 3,
+      "explanation": "From (1) and (2), doubling $[A]$ doubles the rate, so the order in A is 1. From (2) and (3), tripling $[B]$ raises the rate by $5.4\\times10^{-2}/6.0\\times10^{-3} = 9$, so the order in B is 2. Rate $= k[A][B]^2$, and $k = 3.0\\times10^{-3}/(0.10\\times0.10^2) = 3.0$ L$^2$ mol$^{-2}$ s$^{-1}$.",
+      "optionRationale": {
+        "1": "This results from assuming order one in B, using $k = \\text{rate}/([A][B])$.",
+        "2": "This results from an arithmetic slip in the concentration product; $[A][B]^2$ is $1.0\\times10^{-3}$, not $1.0\\times10^{-4}$.",
+        "4": "This is just the rate in experiment 1, not the rate constant."
+      },
+      "objective": "Determine the rate law and rate constant from initial-rate data"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "The half-life of a first order reaction is 20 minutes. The time required for the concentration of the reactant to fall to 12.5% of its initial value is",
+      "options": [
+        "60 minutes",
+        "40 minutes",
+        "80 minutes",
+        "30 minutes"
+      ],
+      "answer": 1,
+      "explanation": "Each half-life halves the concentration: 100%, 50%, 25%, 12.5%. Reaching 12.5% takes three half-lives, so $t = 3\\times20 = 60$ minutes. This works because the half-life of a first order reaction does not depend on the starting concentration.",
+      "optionRationale": {
+        "2": "Two half-lives leave 25%, not 12.5%.",
+        "3": "Four half-lives leave 6.25%.",
+        "4": "This does not correspond to a whole number of half-lives for 12.5% remaining."
+      },
+      "objective": "Use successive half-lives of a first order reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q06",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about order and molecularity.\nA. The order of a reaction is found by experiment and may be zero or fractional.\nB. Molecularity applies to an elementary step and is always a whole number.\nC. For a complex reaction the molecularity is the sum of the coefficients of the reactants in the overall equation.\nChoose the correct answer.",
+      "options": [
+        "A and C only",
+        "B and C only",
+        "A, B and C",
+        "A and B only"
+      ],
+      "answer": 4,
+      "explanation": "Order is determined experimentally and can be zero, integral or fractional, so A is true. Molecularity is defined only for an elementary step and is a whole number (1, 2 or 3), so B is true. A complex reaction proceeds in several steps, each with its own molecularity, and the sum of coefficients has no such meaning; C is false.",
+      "optionRationale": {
+        "1": "C is false, so this option cannot be correct.",
+        "2": "C is false; a complex reaction does not have a single molecularity.",
+        "3": "C is false."
+      },
+      "objective": "Distinguish between order and molecularity"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q07",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "A first order reaction has $k = 2.303\\times10^{-2}$ s$^{-1}$. The time taken for 90% of the reactant to be consumed is",
+      "options": [
+        "30.1 s",
+        "100 s",
+        "230 s",
+        "10 s"
+      ],
+      "answer": 2,
+      "explanation": "For 90% completion $[R]_0/[R] = 100/10 = 10$ and $\\log 10 = 1$. Then $t = \\frac{2.303}{k}\\log\\frac{[R]_0}{[R]} = \\frac{2.303}{2.303\\times10^{-2}}\\times 1 = 100$ s.",
+      "optionRationale": {
+        "1": "This is the half-life $0.693/k$, not the time for 90% completion.",
+        "3": "This results from using the natural logarithm of 10 with a factor 2.303 a second time.",
+        "4": "This ignores the logarithm; $t = 2.303/k$ gives 100 s for $\\log 10 = 1$."
+      },
+      "objective": "Calculate the time for a given extent of first order reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q08",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Match List-I (quantity) with List-II (expression) and choose the correct code.",
+      "list": {
+        "left": [
+          "A. Integrated rate equation of a zero order reaction",
+          "B. Integrated rate equation of a first order reaction",
+          "C. Arrhenius equation in logarithmic form",
+          "D. Half-life of a first order reaction"
+        ],
+        "right": [
+          "I. $k = \\frac{2.303}{t}\\log\\frac{[R]_0}{[R]}$",
+          "II. $[R] = [R]_0 - kt$",
+          "III. $\\log k = \\log A - \\frac{E_a}{2.303RT}$",
+          "IV. $t_{1/2} = \\frac{0.693}{k}$"
+        ]
+      },
+      "options": [
+        "A-I, B-II, C-III, D-IV",
+        "A-II, B-I, C-IV, D-III",
+        "A-II, B-I, C-III, D-IV",
+        "A-III, B-IV, C-II, D-I"
+      ],
+      "answer": 3,
+      "explanation": "The zero order equation is linear in concentration, $[R] = [R]_0 - kt$ (A-II). The first order equation uses the logarithm of the concentration ratio (B-I). The logarithmic Arrhenius equation is $\\log k = \\log A - E_a/2.303RT$ (C-III) and the first order half-life is $0.693/k$ (D-IV).",
+      "optionRationale": {
+        "1": "A and B are interchanged: the linear form belongs to zero order.",
+        "2": "C and D are interchanged.",
+        "4": "None of the four pairs is matched correctly."
+      },
+      "objective": "Match kinetic quantities with their expressions"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "The rate constant of a reaction triples when the temperature is raised from 300 K to 310 K. The activation energy is approximately ($R = 8.314$ J mol$^{-1}$ K$^{-1}$, $\\log 3 = 0.4771$)",
+      "options": [
+        "85.0 kJ mol$^{-1}$",
+        "53.6 kJ mol$^{-1}$",
+        "36.9 kJ mol$^{-1}$",
+        "195.7 kJ mol$^{-1}$"
+      ],
+      "answer": 1,
+      "explanation": "$\\log\\frac{k_2}{k_1} = \\frac{E_a}{2.303R}\\frac{T_2-T_1}{T_1T_2}$. So $E_a = \\frac{2.303\\times8.314\\times0.4771\\times300\\times310}{10} = 8.496\\times10^{4}$ J mol$^{-1}$, which is about 85.0 kJ mol$^{-1}$. Using $\\log 2$ instead would give 53.6 kJ mol$^{-1}$.",
+      "optionRationale": {
+        "2": "This is the value for a doubling of $k$ (using $\\log 2$), not a tripling.",
+        "3": "This results from leaving out the factor 2.303 in the equation.",
+        "4": "This results from multiplying by 2.303 twice, instead of once."
+      },
+      "objective": "Calculate activation energy from rate constants at two temperatures"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q10",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Assertion (A): The order of a reaction can be zero or fractional.\nReason (R): The molecularity of a reaction can be zero or fractional.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 3,
+      "explanation": "Order is obtained from the experimental rate law, so values such as 0 or 3/2 occur (for example the order of acetaldehyde decomposition is 3/2). Molecularity counts the species colliding in an elementary step, so it must be a whole number 1, 2 or 3 and cannot be zero or fractional. A is true and R is false.",
+      "optionRationale": {
+        "1": "R is false, so it cannot explain A.",
+        "2": "R is false.",
+        "4": "A is true; fractional orders do occur."
+      },
+      "objective": "Contrast the permitted values of order and molecularity"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q11",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A graph of $\\log k$ against $1/T$ for a reaction is a straight line of slope $-5.00\\times10^{3}$ K. The activation energy is ($R = 8.314$ J mol$^{-1}$ K$^{-1}$)",
+      "options": [
+        "41.6 kJ mol$^{-1}$",
+        "220 kJ mol$^{-1}$",
+        "5.00 kJ mol$^{-1}$",
+        "95.7 kJ mol$^{-1}$"
+      ],
+      "answer": 4,
+      "explanation": "The slope of $\\log k$ against $1/T$ equals $-E_a/(2.303R)$. So $E_a = 2.303\\times8.314\\times5.00\\times10^{3} = 9.57\\times10^{4}$ J mol$^{-1}$, that is, 95.7 kJ mol$^{-1}$. The negative sign of the slope only shows that $k$ increases as $1/T$ decreases (as $T$ rises).",
+      "optionRationale": {
+        "1": "This results from forgetting the factor 2.303 in $E_a = 2.303R\\times|\\text{slope}|$.",
+        "2": "This results from multiplying by 2.303 twice.",
+        "3": "This simply converts the magnitude of the slope to kJ; it ignores $R$ and 2.303."
+      },
+      "objective": "Find activation energy from the slope of a log k versus 1/T plot"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "In the reaction $\\text{N}_2 + 3\\text{H}_2 \\rightarrow 2\\text{NH}_3$ the rate of formation of NH$_3$ is $4.0\\times10^{-4}$ mol L$^{-1}$ s$^{-1}$. The rate of disappearance of H$_2$ in the same units is",
+      "options": [
+        "$4.0\\times10^{-4}$",
+        "$2.7\\times10^{-4}$",
+        "$6.0\\times10^{-4}$",
+        "$1.2\\times10^{-3}$"
+      ],
+      "answer": 3,
+      "explanation": "Rate of reaction $= \\frac{1}{2}\\frac{d[\\text{NH}_3]}{dt} = -\\frac{1}{3}\\frac{d[\\text{H}_2]}{dt}$. So the rate of disappearance of H$_2$ is $\\frac{3}{2}\\times4.0\\times10^{-4} = 6.0\\times10^{-4}$ mol L$^{-1}$ s$^{-1}$.",
+      "optionRationale": {
+        "1": "This assumes equal rates, ignoring the stoichiometric coefficients.",
+        "2": "This uses the ratio 2/3 instead of 3/2.",
+        "4": "This multiplies by 3 and forgets to divide by the coefficient 2 of NH$_3$."
+      },
+      "objective": "Relate rates of different species using stoichiometric coefficients"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q13",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "application",
+      "stem": "For the gas phase reaction $2\\text{NO} + \\text{O}_2 \\rightarrow 2\\text{NO}_2$ the rate law is rate $= k[\\text{NO}]^2[\\text{O}_2]$. If the volume of the reaction vessel is reduced to one-third of its original value at constant temperature, the rate of reaction becomes",
+      "options": [
+        "9 times the original",
+        "27 times the original",
+        "3 times the original",
+        "81 times the original"
+      ],
+      "answer": 2,
+      "explanation": "Reducing the volume to one-third makes every concentration three times larger. With order two in NO and one in O$_2$, the rate changes by $3^2\\times3 = 27$. The overall order (three) is used as the power of the factor 3.",
+      "optionRationale": {
+        "1": "This counts the effect of only the squared term, forgetting $[\\text{O}_2]$.",
+        "3": "This assumes the rate is proportional to concentration, that is, first order.",
+        "4": "This assumes the overall order is four; the overall order here is three."
+      },
+      "objective": "Predict the change in rate when concentrations change by a common factor"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "For a zero order reaction, $k = 2.0\\times10^{-2}$ mol L$^{-1}$ s$^{-1}$ and $[R]_0 = 0.80$ mol L$^{-1}$. The time for the concentration to fall to 0.50 mol L$^{-1}$ is",
+      "options": [
+        "15 s",
+        "20 s",
+        "40 s",
+        "23.5 s"
+      ],
+      "answer": 1,
+      "explanation": "For zero order, $t = ([R]_0 - [R])/k = (0.80 - 0.50)/(2.0\\times10^{-2}) = 0.30/0.020 = 15$ s. The first order equation would give 23.5 s, and the half-life of 20 s refers to a fall to 0.40 mol L$^{-1}$.",
+      "optionRationale": {
+        "2": "This is the half-life $[R]_0/2k$, which corresponds to falling to 0.40 mol L$^{-1}$.",
+        "3": "This is the time for complete consumption, $[R]_0/k$.",
+        "4": "This results from wrongly applying the first order equation."
+      },
+      "objective": "Apply the integrated rate equation of a zero order reaction"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q15",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Consider the following statements on collision theory for a bimolecular reaction.\nA. Every collision between reactant molecules results in the formation of products.\nB. A collision is effective only if the molecules have energy equal to or greater than the threshold energy.\nC. The steric factor $P$ accounts for the orientation requirement and is generally less than 1.\nD. Collision theory predicts the steric factor from the structure of the molecules without any experimental input.\nChoose the correct answer.",
+      "options": [
+        "A and B only",
+        "A and D only",
+        "B and C only",
+        "B, C and D only"
+      ],
+      "answer": 3,
+      "explanation": "Only effective collisions react: they need energy at least equal to the threshold energy and proper orientation, so B is true and A is false. The steric factor $P$ is the fraction of collisions with the proper orientation and is usually below 1, so C is true. The theory cannot predict $P$ from structure, so D is false.",
+      "optionRationale": {
+        "1": "A is false: most collisions are ineffective.",
+        "2": "Both A and D are false.",
+        "4": "D is false: $P$ is obtained from experiment and is a limitation of the theory."
+      },
+      "objective": "Evaluate statements on collision theory and its limitation"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q16",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The rate of most reactions increases markedly with a rise in temperature mainly because",
+      "options": [
+        "the activation energy of the reaction decreases",
+        "the total number of collisions per second doubles for every 10 K rise",
+        "the enthalpy change of the reaction becomes more negative",
+        "the fraction of molecules with energy equal to or greater than the activation energy increases"
+      ],
+      "answer": 4,
+      "explanation": "The factor $e^{-E_a/RT}$ gives the fraction of molecules with energy $\\geq E_a$; it grows quickly as $T$ increases. Collision frequency rises only about 1-2% for a 10 K rise, while the energetic fraction can nearly double, so this is the main cause.",
+      "optionRationale": {
+        "1": "The activation energy is a property of the pathway and does not change with temperature; only a catalyst lowers it.",
+        "2": "The collision frequency increases only by a small percentage; it is the energetic fraction that rises sharply.",
+        "3": "The enthalpy change does not control the speed."
+      },
+      "objective": "Explain the temperature dependence of reaction rate"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q17",
+      "type": "ASSERTION_REASON",
+      "difficulty": "MEDIUM",
+      "skill": "analytical",
+      "stem": "Assertion (A): The unit of the rate constant of a first order reaction is s$^{-1}$.\nReason (R): The half-life of a first order reaction is independent of the initial concentration.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 2,
+      "explanation": "The unit s$^{-1}$ follows from rate $= k[R]$, where mol L$^{-1}$ s$^{-1}$ divided by mol L$^{-1}$ leaves s$^{-1}$, so A is true. The half-life $0.693/k$ is indeed independent of $[R]_0$, so R is true. But the reason does not derive the unit of $k$; the two are separate consequences of the first order rate law.",
+      "optionRationale": {
+        "1": "The independence of half-life from concentration does not explain the unit of $k$.",
+        "3": "R is also true.",
+        "4": "A is true."
+      },
+      "objective": "Judge whether two true statements about first order kinetics are causally linked"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q18",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "For a reaction with $E_a = 80$ kJ mol$^{-1}$, the ratio $k_{350\\,\\text{K}}/k_{300\\,\\text{K}}$ is about ($R = 8.314$ J mol$^{-1}$ K$^{-1}$)",
+      "options": [
+        "$3.8\\times10^{4}$",
+        "98",
+        "4.6",
+        "1.2"
+      ],
+      "answer": 2,
+      "explanation": "$\\ln\\frac{k_2}{k_1} = \\frac{E_a}{R}\\left(\\frac{1}{T_1} - \\frac{1}{T_2}\\right) = \\frac{80000}{8.314}\\left(\\frac{1}{300} - \\frac{1}{350}\\right) = 9622.8\\times4.762\\times10^{-4} = 4.582$. The ratio is $e^{4.582} \\approx 97.7$, that is about 98.",
+      "optionRationale": {
+        "1": "This results from leaving out 2.303 (treating $E_a/RT$ as a base-10 exponent).",
+        "3": "This is $\\ln(k_2/k_1)$, not the ratio itself.",
+        "4": "This is simply $350/300$, which has nothing to do with the Arrhenius factor."
+      },
+      "objective": "Compute the ratio of rate constants at two temperatures"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q19",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "For which order of reaction is the half-life directly proportional to the initial concentration of the reactant?",
+      "options": [
+        "First order",
+        "Second order",
+        "Zero order",
+        "Third order"
+      ],
+      "answer": 3,
+      "explanation": "For zero order, $t_{1/2} = [R]_0/2k$, so doubling the initial concentration doubles the half-life. For first order it is constant, $0.693/k$, and for higher orders it falls as the initial concentration rises.",
+      "optionRationale": {
+        "1": "The half-life of a first order reaction is independent of the initial concentration.",
+        "2": "Its half-life is inversely proportional to the initial concentration.",
+        "4": "Its half-life is inversely proportional to the square of the initial concentration."
+      },
+      "objective": "Relate half-life to initial concentration for different orders"
+    },
+    {
+      "key": "ug26-306-u3-chemical-kinetics-q20",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "A catalyst lowers the activation energy of a reaction from 75 kJ mol$^{-1}$ to 50 kJ mol$^{-1}$ at 300 K. Assuming the factor $A$ is unchanged, the rate constant increases by a factor of about ($R = 8.314$ J mol$^{-1}$ K$^{-1}$)",
+      "options": [
+        "$2.3\\times10^{4}$",
+        "4.4",
+        "1.5",
+        "25"
+      ],
+      "answer": 1,
+      "explanation": "With $A$ unchanged, $\\frac{k_{cat}}{k_{uncat}} = e^{\\Delta E_a/RT} = e^{25000/(8.314\\times300)} = e^{10.02} \\approx 2.3\\times10^{4}$. The exponent is $10.02$; its base-10 value is 4.35, so the value 4.4 is only the log of the factor.",
+      "optionRationale": {
+        "2": "This is the common logarithm of the factor, not the factor.",
+        "3": "This is the ratio 75/50, which has no place in the Arrhenius equation.",
+        "4": "This is just the lowering in kJ mol$^{-1}$."
+      },
+      "objective": "Quantify the effect of a catalyst on the rate constant"
+    }
+  ]
+}

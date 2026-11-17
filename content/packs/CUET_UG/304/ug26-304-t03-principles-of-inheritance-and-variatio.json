@@ -1,0 +1,662 @@
+{
+  "schema": "cuet-content-pack/1",
+  "exam": "CUET_UG",
+  "year": 2026,
+  "paperCode": "304",
+  "origin": "AI_ASSISTED",
+  "node": {
+    "id": "cn_8987d9012a0e415f83da790d28b63cd7",
+    "title": "Principles of Inheritance and Variation: Mendel’s law of inheritance: Inheritance of one"
+  },
+  "lesson": {
+    "key": "ug26-304-t03-principles-of-inheritance-and-variatio",
+    "title": "Principles of inheritance and variation: Mendelian genetics, linkage, sex determination and genetic disorders",
+    "coverage": [
+      {
+        "phrase": "Principles of Inheritance and Variation: Mendel’s law of inheritance: Inheritance of one gene – Law of dominance, law of segregation (test and back cross)",
+        "section": "Mendel's laws: inheritance of one gene"
+      },
+      {
+        "phrase": "Deviation from Mendelism – incomplete dominance and co-dominance",
+        "section": "Deviation from Mendelism: incomplete dominance and co-dominance"
+      },
+      {
+        "phrase": "Multiple alleles and inheritance of blood groups",
+        "section": "Multiple alleles and inheritance of blood groups"
+      },
+      {
+        "phrase": "Inheritance of two genes – law of independent assortment, dihybrid cross",
+        "section": "Inheritance of two genes: independent assortment and the dihybrid cross"
+      },
+      {
+        "phrase": "Chromosomal theory of inheritance",
+        "section": "Chromosomal theory of inheritance"
+      },
+      {
+        "phrase": "Linkage and recombination",
+        "section": "Linkage and recombination"
+      },
+      {
+        "phrase": "Polygenic inheritance",
+        "section": "Polygenic inheritance"
+      },
+      {
+        "phrase": "Pleiotropy",
+        "section": "Pleiotropy"
+      },
+      {
+        "phrase": "Sex determination in humans, birds and honey bee",
+        "section": "Sex determination in humans, birds and honey bee"
+      },
+      {
+        "phrase": "Mutation",
+        "section": "Mutation"
+      },
+      {
+        "phrase": "Genetic disorders – pedigree analysis",
+        "section": "Pedigree analysis"
+      },
+      {
+        "phrase": "Mendelian disorders (colour blindness, haemophilia, sickle-cell anaemia, phenylketonuria and thalassemia)",
+        "section": "Mendelian disorders"
+      },
+      {
+        "phrase": "chromosomal disorders in humans (aneuploidy, polyploidy, Down's syndrome, Turner's syndrome and Klinefelter's syndrome)",
+        "section": "Chromosomal disorders in humans"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "HEADING",
+        "text": "Mendel's laws: inheritance of one gene"
+      },
+      {
+        "type": "TEXT",
+        "text": "Gregor Mendel, working with the garden pea (*Pisum sativum*) in the 1800s, laid the foundation of genetics. He chose pea because it has many contrasting characters, a short life cycle, produces many seeds and can be both self-pollinated and cross-pollinated. He studied **seven pairs of contrasting traits**: stem height (tall or dwarf), flower colour (violet or white), flower position (axial or terminal), pod shape (inflated or constricted), pod colour (green or yellow), seed shape (round or wrinkled) and seed colour (yellow or green). He first made pure-breeding lines that showed stable trait inheritance for several generations of self-pollination."
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Gene and allele",
+        "text": "A gene is a unit of inheritance that controls a trait. Alleles are the alternate forms of the same gene, found at the same locus on homologous chromosomes. An organism with two identical alleles is **homozygous**, and one with two different alleles is **heterozygous**. The **genotype** is the genetic constitution and the **phenotype** is the observable expression."
+      },
+      {
+        "type": "TEXT",
+        "text": "In a **monohybrid cross**, Mendel crossed a pure tall plant (TT) with a pure dwarf plant (tt). All the F1 plants were tall (Tt); the dwarf trait did not appear. When the F1 plants were self-pollinated, the F2 generation had tall and dwarf plants in the ratio 3 : 1. So the dwarf trait reappeared in one-quarter of the F2 plants. The genotypic ratio in F2 is 1 TT : 2 Tt : 1 tt, so the **phenotypic ratio is 3 : 1 and the genotypic ratio is 1 : 2 : 1**. A **Punnett square**, a grid showing all gamete combinations, is used to work this out."
+      },
+      {
+        "type": "TEXT",
+        "text": "From these results Mendel derived two laws. The **law of dominance** states that characters are controlled by discrete units called factors (genes) that occur in pairs; in a dissimilar pair, one member of the pair dominates (the dominant) and the other does not show itself (the recessive). It explains why all F1 plants were tall and why the 3 : 1 ratio appears in the F2. The **law of segregation** states that the alleles of a pair separate (segregate) during gamete formation, so that a gamete receives only one of the two alleles. The alleles do not blend and remain pure, so the gametes are always pure for the character. A gamete from a heterozygous Tt plant is T or t with equal probability."
+      },
+      {
+        "type": "TEXT",
+        "text": "A **test cross** is a cross of an organism of dominant phenotype but unknown genotype with a homozygous recessive parent (tt). If all the progeny show the dominant trait, the unknown parent was homozygous (TT). If the progeny are 1 : 1 dominant and recessive, the unknown parent was heterozygous (Tt). A **back cross** is a cross of the F1 hybrid with either of its parents, the dominant or the recessive parent. The test cross is a special back cross, to the recessive parent."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A tall pea plant of unknown genotype is crossed with a dwarf plant and gives 52 tall and 48 dwarf progeny. What is the genotype of the tall plant, and what cross type is this? What would the result be if it were homozygous?",
+        "solution": "Crossing a dominant-phenotype plant with the homozygous recessive dwarf plant (tt) is a test cross. The result of about 1 : 1 (52 : 48) means that half of the gametes of the tall plant carry t, so the tall plant must be heterozygous, Tt. If the plant had been homozygous TT, all its gametes would carry T and every progeny plant would be tall (Tt), with no dwarfs.",
+        "answer": "Genotype Tt (heterozygous); test cross; a TT parent would give all tall progeny"
+      },
+      {
+        "type": "HEADING",
+        "text": "Deviation from Mendelism: incomplete dominance and co-dominance"
+      },
+      {
+        "type": "TEXT",
+        "text": "Not all traits follow the simple dominant-recessive pattern. In **incomplete dominance** neither allele is completely dominant, so the heterozygote shows a phenotype **intermediate** between the two parents. In the dog flower (*Antirrhinum*, snapdragon) and *Mirabilis jalapa*, a cross between a red-flowered (RR) and a white-flowered (rr) plant gives pink (Rr) F1 plants. Selfing the F1 gives 1 red : 2 pink : 1 white. Here the phenotypic ratio equals the genotypic ratio, 1 : 2 : 1. Incomplete dominance is therefore not a case of blending that cannot be separated, since the parental forms reappear in the F2."
+      },
+      {
+        "type": "TEXT",
+        "text": "In **co-dominance** both alleles of a gene pair express themselves fully in the heterozygote, so each produces its own effect. The best example is the human ABO blood group, in which the alleles $I^A$ and $I^B$ are co-dominant, so a person with both alleles has blood group AB and produces both types of sugar on the red cell surface."
+      },
+      {
+        "type": "HEADING",
+        "text": "Multiple alleles and inheritance of blood groups"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Multiple alleles",
+        "text": "More than two alleles of a gene that exist in a population and govern the same character. An individual carries only two of them, since a diploid has two copies of each gene, but the population holds three or more."
+      },
+      {
+        "type": "TEXT",
+        "text": "The ABO blood group is controlled by the gene $I$, which has three alleles: $I^A$, $I^B$ and $i$. The alleles $I^A$ and $I^B$ produce a slightly different form of a sugar polymer on the surface of red blood cells, while allele $i$ does not produce any sugar. $I^A$ and $I^B$ are dominant over $i$, but they are co-dominant with each other. Because a person has two alleles, six genotypes are possible and four phenotypes result."
+      },
+      {
+        "type": "TABLE",
+        "caption": "ABO blood group inheritance",
+        "columns": [
+          "Phenotype (blood group)",
+          "Genotype(s)",
+          "Antigens on RBC"
+        ],
+        "rows": [
+          [
+            "A",
+            "I^A I^A or I^A i",
+            "A"
+          ],
+          [
+            "B",
+            "I^B I^B or I^B i",
+            "B"
+          ],
+          [
+            "AB",
+            "I^A I^B",
+            "A and B"
+          ],
+          [
+            "O",
+            "ii",
+            "None"
+          ]
+        ]
+      },
+      {
+        "type": "TEXT",
+        "text": "This is also an example of multiple allelism as well as co-dominance and dominance in the same gene. Blood groups are useful for solving disputed parentage in a family, since a child must receive one allele from each parent."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "A woman of blood group A, whose mother had blood group O, marries a man of blood group B whose father was O. List the possible blood groups of their children and the probability of each.",
+        "solution": "The woman is group A and received an allele i from her group O mother, so her genotype is $I^A i$. Likewise the man is group B with an i from his group O father, so he is $I^B i$. Her gametes are $I^A$ or $i$, his are $I^B$ or $i$, each with probability 1/2. The four combinations are $I^A I^B$ (AB), $I^A i$ (A), $I^B i$ (B) and $ii$ (O), each with probability 1/4.",
+        "answer": "A, B, AB and O blood groups, each with probability 1/4"
+      },
+      {
+        "type": "HEADING",
+        "text": "Inheritance of two genes: independent assortment and the dihybrid cross"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **dihybrid cross** involves two pairs of contrasting traits. Mendel crossed a pure round, yellow-seeded plant (RRYY) with a wrinkled, green-seeded plant (rryy). The F1 was all round and yellow (RrYy). On selfing the F1 he obtained four phenotypes in the F2 in the ratio **9 round yellow : 3 round green : 3 wrinkled yellow : 1 wrinkled green**. The F1 produces four types of gametes, RY, Ry, rY and ry, in equal proportion, so a Punnett square has 16 boxes with 9 different genotypes and 4 phenotypes."
+      },
+      {
+        "type": "TEXT",
+        "text": "The **law of independent assortment** states that when two pairs of traits are combined in a hybrid, the segregation of one pair of characters is independent of the other pair. The 9 : 3 : 3 : 1 ratio is really two 3 : 1 ratios multiplied together, as ($3$ round : $1$ wrinkled) × ($3$ yellow : $1$ green). A test cross of RrYy with rryy gives a 1 : 1 : 1 : 1 ratio of the four phenotypes."
+      },
+      {
+        "type": "SOLVED_PROBLEM",
+        "problem": "Two plants heterozygous for seed shape and colour (RrYy) are crossed and give 640 progeny. How many are expected to be round and yellow, round and green, wrinkled and yellow, and wrinkled and green?",
+        "solution": "The dihybrid cross RrYy x RrYy gives a 9 : 3 : 3 : 1 ratio, with 16 parts in all. One part is 640 / 16 = 40 plants. Round yellow is 9 parts, giving 9 x 40 = 360. Round green is 3 parts, giving 120. Wrinkled yellow is 3 parts, giving 120. Wrinkled green is 1 part, giving 40. The total is 360 + 120 + 120 + 40 = 640, which matches.",
+        "answer": "360 round yellow, 120 round green, 120 wrinkled yellow, 40 wrinkled green"
+      },
+      {
+        "type": "HEADING",
+        "text": "Chromosomal theory of inheritance"
+      },
+      {
+        "type": "TEXT",
+        "text": "Mendel's work was not recognised for about 35 years. In 1900 three scientists rediscovered it independently, and soon afterwards the behaviour of chromosomes was seen to parallel that of Mendel's factors. In 1902 **Walter Sutton and Theodor Boveri** noted this and united the knowledge of chromosomal segregation with Mendelian principles, calling it the **chromosomal theory of inheritance**. Both genes and chromosomes occur in pairs, the two alleles or the two homologues separate at gamete formation, and one of each pair is carried in a gamete, and the independent pairs separate independently of one another. Thomas Hunt Morgan later provided experimental proof using the fruit fly *Drosophila melanogaster*, which is suitable for genetic work because it is easily grown, has a short life cycle, produces many offspring, shows clear sexual dimorphism and has many hereditary variations that can be seen with a low-power microscope."
+      },
+      {
+        "type": "HEADING",
+        "text": "Linkage and recombination"
+      },
+      {
+        "type": "TEXT",
+        "text": "Morgan crossed yellow-bodied, white-eyed females with brown-bodied, red-eyed males and intercrossed the F1. He found that the two genes did not segregate independently and the F2 ratio deviated much from 9 : 3 : 3 : 1. When two genes are on the same chromosome and lie close together, they tend to be inherited together. Morgan called this physical association of genes **linkage**. The generation of non-parental gene combinations is called **recombination**, and it occurs through crossing over between linked genes. Tightly linked genes show low recombination and loosely linked genes show higher recombination."
+      },
+      {
+        "type": "TEXT",
+        "text": "In Morgan's data, the genes for yellow body and white eyes showed only 1.3 per cent recombination, so they are tightly linked. White eyes and miniature wing showed 37.2 per cent, so they are loosely linked. **Alfred Sturtevant**, Morgan's student, used the **frequency of recombination** between gene pairs on the same chromosome as a measure of the distance between the genes and **mapped their position** on the chromosome. Such genetic maps are used as a starting point in sequencing the genomes."
+      },
+      {
+        "type": "HEADING",
+        "text": "Polygenic inheritance"
+      },
+      {
+        "type": "TEXT",
+        "text": "In **polygenic inheritance** a trait is controlled by three or more genes, and the effects of the alleles add up. Such traits, called quantitative traits, are not sharply divided into classes. **Human skin colour** is an example. If skin colour is controlled by three genes (A, B, C), the dark-skinned person is AABBCC and the lightest is aabbcc. The number of dominant alleles in the genotype determines the degree of pigmentation, and the contribution of each allele is additive. A cross between AaBbCc individuals gives seven phenotypic classes, from 0 to 6 dominant alleles. The distribution of the phenotypes is a **bell-shaped curve**. Human height is another example."
+      },
+      {
+        "type": "HEADING",
+        "text": "Pleiotropy"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Pleiotropy",
+        "text": "The phenomenon in which a single gene produces more than one phenotypic effect, usually because the gene product is used in several processes."
+      },
+      {
+        "type": "TEXT",
+        "text": "A good example is the human disease **phenylketonuria**, caused by a mutation in the single gene that codes for the enzyme phenylalanine hydroxylase. The mutation causes mental retardation and a reduction in hair and skin pigmentation, so a single gene affects several traits. In Mendel's pea, the gene for starch synthesis also affects seed shape, which is a similar example."
+      },
+      {
+        "type": "HEADING",
+        "text": "Sex determination in humans, birds and honey bee"
+      },
+      {
+        "type": "TEXT",
+        "text": "In humans, there are 23 pairs of chromosomes, of which 22 pairs are autosomes and one pair is the sex chromosomes. A female has two X chromosomes (XX), and a male has one X and one Y (XY). Males produce two types of sperm, 50 per cent with X and 50 per cent with Y, so they are **heterogametic**, while the female produces only one type of egg and is homogametic. The sex of the child depends on whether the egg is fertilised by an X-carrying or a Y-carrying sperm, so **the father's gamete determines the sex of the child**. The probability of a boy or a girl is 50 per cent each time. This type is called the **XX-XY** type. In some insects, such as the grasshopper, the male has only one sex chromosome (XO) and the female has XX, so males produce gametes with and without X. This is the **XO type**."
+      },
+      {
+        "type": "TEXT",
+        "text": "In **birds**, the female is heterogametic, with two different sex chromosomes **ZW**, and the male has two similar chromosomes **ZZ**. The female produces two kinds of eggs, with Z or W, so the egg determines the sex of the offspring. In the **honey bee**, sex is determined by the number of sets of chromosomes, a system called **haplo-diploidy**. A fertilised egg develops into a female (queen or worker), which is diploid with 32 chromosomes. An unfertilised egg develops by **parthenogenesis** into a male (drone), which is haploid with 16 chromosomes. Drones thus have no father and produce sperms by mitosis, and they pass all their genes to their daughters."
+      },
+      {
+        "type": "HEADING",
+        "text": "Mutation"
+      },
+      {
+        "type": "DEFINITION",
+        "term": "Mutation",
+        "text": "A sudden, heritable change in the DNA sequence of an organism, producing a change in genotype and often phenotype."
+      },
+      {
+        "type": "TEXT",
+        "text": "Mutations can be at the level of a gene or of a chromosome. A **point mutation** is a change in a single base pair of DNA, as in sickle-cell anaemia. Deletions and insertions of one or two bases cause frameshift mutations. **Chromosomal aberrations** are changes in the structure of chromosomes, such as deletion, duplication, inversion and translocation of parts. They are caused by **mutagens** such as UV radiation and certain chemicals, and they are a source of variation. Cancer cells often show chromosomal aberrations."
+      },
+      {
+        "type": "HEADING",
+        "text": "Pedigree analysis"
+      },
+      {
+        "type": "TEXT",
+        "text": "A **pedigree** is a record of the inheritance of a trait through several generations of a family. In a pedigree chart, a square is a male, a circle is a female, a shaded symbol is an affected person, a horizontal line joining a square and a circle shows a mating, and vertical lines show offspring. Pedigree analysis helps to decide whether a trait is dominant or recessive, autosomal or sex-linked, and is helpful for genetic counselling. A trait that is seen more often in males and skips generations suggests X-linked recessive inheritance. A recessive trait appearing in a child of two unaffected parents shows both parents are carriers."
+      },
+      {
+        "type": "HEADING",
+        "text": "Mendelian disorders"
+      },
+      {
+        "type": "TEXT",
+        "text": "**Mendelian disorders** are caused by alteration or mutation in a single gene and follow Mendelian principles. They may be autosomal or sex-linked, dominant or recessive."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Haemophilia** is an X-linked recessive disease. The blood of a patient does not clot normally because of a defect in one of the proteins of the clotting cascade, so a simple cut can result in non-stop bleeding. A heterozygous female (carrier) shows no symptoms but transmits the disease to 50 per cent of her sons. A haemophilic daughter is rare, since the mother must be at least a carrier and the father must be haemophilic. Queen Victoria was a carrier."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Colour blindness** is also an X-linked recessive disorder, with a defect in the red or green cone cells of the eye, so the person cannot distinguish red and green. About 8 per cent of males and only about 0.4 per cent of females are affected. The son of a carrier mother receives the defective X chromosome from her with probability 1/2, and a son can never receive the gene from his father."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Sickle-cell anaemia** is an autosomal recessive trait, transmitted from parents to offspring when both are carriers (heterozygous HbA HbS). The defect is caused by the substitution of **glutamic acid (Glu) by valine (Val) at the sixth position of the beta globin chain** of haemoglobin, due to a change of a single base (GAG to GUG) in the gene. Under low oxygen tension, the mutant haemoglobin polymerises and the RBCs become sickle-shaped."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Phenylketonuria** is an autosomal recessive inborn error of metabolism. The affected individual lacks the enzyme that converts the amino acid phenylalanine into tyrosine. Phenylalanine accumulates and is converted to phenylpyruvic acid and other derivatives, which accumulate in the brain and cause mental retardation, and which are also excreted through urine because of poor absorption by the kidney."
+      },
+      {
+        "type": "TEXT",
+        "text": "**Thalassemia** is an autosomal recessive blood disorder in which the synthesis of one of the globin chains of haemoglobin (alpha or beta) is reduced, forming abnormal haemoglobin and causing anaemia. Alpha-thalassemia is controlled by two closely linked genes HBA1 and HBA2 on chromosome 16, and beta-thalassemia by a single gene HBB on chromosome 11. The two are **different in the nature of the defect**: thalassemia is a quantitative problem, with too little globin synthesised, while sickle-cell anaemia is a qualitative problem, since the globin made is structurally incorrect."
+      },
+      {
+        "type": "HEADING",
+        "text": "Chromosomal disorders in humans"
+      },
+      {
+        "type": "TEXT",
+        "text": "Chromosomal disorders are caused by absence, excess or abnormal arrangement of chromosomes. **Aneuploidy** is the gain or loss of one or a few chromosomes, due to failure of segregation of chromatids during cell division, which is called **non-disjunction**. **Polyploidy** is an increase in an entire set of chromosomes, due to failure of cytokinesis after telophase, and it is seen often in plants."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Chromosomal disorders",
+        "columns": [
+          "Disorder",
+          "Chromosomes",
+          "Main features"
+        ],
+        "rows": [
+          [
+            "Down's syndrome",
+            "Trisomy of chromosome 21 (47)",
+            "Short stature, small round head, furrowed tongue, partially open mouth, broad palm with characteristic palm crease, retarded physical, psychomotor and mental development"
+          ],
+          [
+            "Klinefelter's syndrome",
+            "XXY (47)",
+            "Overall masculine development with some feminine development such as breast development (gynaecomastia); sterile male"
+          ],
+          [
+            "Turner's syndrome",
+            "XO (45), monosomy of X",
+            "Sterile female with rudimentary ovaries; lacks secondary sexual characters"
+          ]
+        ]
+      },
+      {
+        "type": "KEY_POINT",
+        "text": "Down's syndrome has an extra chromosome 21 (trisomy), Klinefelter's is XXY, and Turner's is XO. Sickle-cell anaemia, thalassemia and phenylketonuria are autosomal recessive; haemophilia and colour blindness are X-linked recessive."
+      },
+      {
+        "type": "CALLOUT",
+        "text": "Common mistakes: writing the dihybrid genotypic ratio as 9 : 3 : 3 : 1 (that is the phenotypic ratio); saying that incomplete dominance is the same as co-dominance (in co-dominance both alleles show up fully, as in AB blood); thinking the sperm of a bird decides sex (in birds the egg decides); forgetting that drones are haploid and have no father; and mixing up the Glu to Val substitution in sickle-cell anaemia."
+      }
+    ]
+  },
+  "diagrams": [],
+  "questions": [
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q01",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "The phenotypic ratio obtained in the F2 generation of a monohybrid cross showing complete dominance is",
+      "options": [
+        "3 : 1",
+        "1 : 2 : 1",
+        "9 : 3 : 3 : 1",
+        "1 : 1"
+      ],
+      "answer": 1,
+      "explanation": "When two heterozygous (Tt) plants are crossed, the F2 genotypes are 1 TT, 2 Tt and 1 tt. Because TT and Tt look the same under complete dominance, the phenotypes are three dominant to one recessive, a 3 : 1 ratio.",
+      "optionRationale": {
+        "2": "This is the genotypic ratio of the monohybrid F2, and also the phenotypic ratio in incomplete dominance.",
+        "3": "This is the phenotypic ratio of a dihybrid cross.",
+        "4": "This is the test cross ratio of a heterozygote."
+      },
+      "objective": "State the F2 phenotypic ratio of a monohybrid cross"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q02",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In a test cross, an organism of dominant phenotype is crossed with",
+      "options": [
+        "a homozygous dominant individual",
+        "a homozygous recessive individual",
+        "a heterozygous individual",
+        "any F2 individual"
+      ],
+      "answer": 2,
+      "explanation": "A test cross crosses an individual of dominant phenotype but unknown genotype with a homozygous recessive. Because the recessive parent makes only recessive gametes, the phenotype of the progeny directly reveals the gametes of the unknown parent.",
+      "optionRationale": {
+        "1": "This would give only dominant offspring whatever the unknown genotype, so it tells nothing.",
+        "3": "This does not give a clear ratio that reveals the genotype.",
+        "4": "This is not a standard test cross, and the parent's genotype would again be unknown."
+      },
+      "objective": "Define a test cross"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q03",
+      "type": "MCQ_SINGLE",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "In humans, Down's syndrome is caused by",
+      "options": [
+        "monosomy of the X chromosome",
+        "an extra X chromosome in a male",
+        "trisomy of chromosome 21",
+        "a point mutation in the beta globin gene"
+      ],
+      "answer": 3,
+      "explanation": "Down's syndrome results from non-disjunction that gives an extra copy of chromosome 21, so the person has 47 chromosomes. Effects include short stature, a broad palm with a characteristic crease and retarded physical and mental development.",
+      "optionRationale": {
+        "1": "This causes Turner's syndrome.",
+        "2": "This is the cause of Klinefelter's syndrome.",
+        "4": "This is the cause of sickle-cell anaemia."
+      },
+      "objective": "Identify the cause of Down's syndrome"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q04",
+      "type": "ASSERTION_REASON",
+      "difficulty": "EASY",
+      "skill": "conceptual",
+      "stem": "Assertion (A): A cross between red-flowered (RR) and white-flowered (rr) Mirabilis jalapa plants gives pink-flowered F1 plants.\nReason (R): In incomplete dominance, neither allele of the pair is completely dominant, so the heterozygote has a phenotype intermediate between the two parents.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 1,
+      "explanation": "Mirabilis shows incomplete dominance. The Rr heterozygote has a pink colour, between red and white, because neither R nor r completely masks the other. Statement R defines exactly what is observed in A, so it is the correct explanation.",
+      "optionRationale": {
+        "2": "R is the direct reason for A, not just another true statement.",
+        "3": "R is true: this is the definition of incomplete dominance.",
+        "4": "A is true: the F1 is pink."
+      },
+      "objective": "Explain pink flowers in Mirabilis by incomplete dominance"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q05",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "numerical",
+      "stem": "Two RrYy plants are crossed and give 1600 progeny. How many progeny are expected to be round-seeded and green (R_ yy)?",
+      "options": [
+        "100",
+        "400",
+        "900",
+        "300"
+      ],
+      "answer": 4,
+      "explanation": "Round green seeds form the 3 part of the 9 : 3 : 3 : 1 ratio, which is 3/16 of the progeny. The expected number is 3/16 x 1600 = 300. Equivalent working: 3/4 round times 1/4 green = 3/16.",
+      "optionRationale": {
+        "1": "This is the expected number of the double recessive (wrinkled green) class, 1/16 of 1600.",
+        "2": "This would be 1/4 of the progeny, which is not a class of the 9 : 3 : 3 : 1 ratio.",
+        "3": "This is the expected number of the round yellow class, 9/16 of 1600."
+      },
+      "objective": "Calculate the expected number of one class in a dihybrid cross"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q06",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A woman with blood group A (genotype $I^A i$) marries a man with blood group B (genotype $I^B i$). Which blood groups are possible in their children?",
+      "options": [
+        "A and B only",
+        "AB only",
+        "A, B, AB and O",
+        "O only"
+      ],
+      "answer": 3,
+      "explanation": "The woman gives $I^A$ or $i$ and the man gives $I^B$ or $i$. The four possible combinations are $I^A I^B$ (AB), $I^A i$ (A), $I^B i$ (B) and $ii$ (O), each with a probability of 1/4. So all four blood groups are possible.",
+      "optionRationale": {
+        "1": "The $I^A I^B$ and $ii$ combinations are also possible.",
+        "2": "This would need the parents to be homozygous, $I^A I^A$ and $I^B I^B$.",
+        "4": "This would need both parents to be $ii$."
+      },
+      "objective": "Predict ABO blood groups of children"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q07",
+      "type": "MATCH_THE_FOLLOWING",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Match List-I (condition) with List-II (genetic basis) and choose the correct code.",
+      "list": {
+        "left": [
+          "A. Down's syndrome",
+          "B. Turner's syndrome",
+          "C. Klinefelter's syndrome",
+          "D. Sickle-cell anaemia"
+        ],
+        "right": [
+          "I. XXY",
+          "II. Autosomal recessive gene defect",
+          "III. XO",
+          "IV. Trisomy of chromosome 21"
+        ]
+      },
+      "options": [
+        "A-III, B-IV, C-I, D-II",
+        "A-IV, B-III, C-I, D-II",
+        "A-IV, B-I, C-III, D-II",
+        "A-II, B-III, C-I, D-IV"
+      ],
+      "answer": 2,
+      "explanation": "Down's syndrome is trisomy of chromosome 21 (A-IV). Turner's syndrome is XO, with 45 chromosomes (B-III). Klinefelter's syndrome is XXY, with 47 chromosomes (C-I). Sickle-cell anaemia is an autosomal recessive gene defect (D-II).",
+      "optionRationale": {
+        "1": "A and B are interchanged: Down's syndrome is trisomy 21 and Turner's is XO.",
+        "3": "B and C are interchanged: Turner's is XO and Klinefelter's is XXY.",
+        "4": "A and D are interchanged: sickle-cell anaemia is a gene defect, not a trisomy."
+      },
+      "objective": "Match genetic disorders with their basis"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q08",
+      "type": "STATEMENT_BASED",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Consider the following statements about the honey bee.\nA. The queen and workers are diploid.\nB. Drones develop from unfertilised eggs by parthenogenesis.\nC. Drones have a father.\nD. Drones produce sperms by meiosis.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "B and C only",
+        "A, C and D only",
+        "A and B only"
+      ],
+      "answer": 4,
+      "explanation": "Fertilised eggs of the honey bee develop into diploid females, the queen and the workers, with 32 chromosomes. Unfertilised eggs develop by parthenogenesis into haploid drones with 16 chromosomes. Drones have no father, and since they are already haploid, they produce sperms by mitosis.",
+      "optionRationale": {
+        "1": "D is wrong: drones are haploid and produce sperms by mitosis.",
+        "2": "C is wrong: drones develop from unfertilised eggs, so they have no father.",
+        "3": "C and D are both wrong."
+      },
+      "objective": "Evaluate statements on sex determination in honey bee"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q09",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "application",
+      "stem": "A colour-blind-gene carrier woman marries a man with normal vision. What is the probability that a son of this couple is colour blind?",
+      "options": [
+        "1/2",
+        "1/4",
+        "0",
+        "1"
+      ],
+      "answer": 1,
+      "explanation": "Colour blindness is X-linked recessive. The carrier mother is $X^C X^c$ and the father is $X^C Y$. A son receives his X from the mother, so he gets $X^c$ with probability 1/2, and half the sons are colour blind.",
+      "optionRationale": {
+        "2": "This is the overall probability of a colour-blind child among all children, not among sons.",
+        "3": "This would be true only if the mother were not a carrier.",
+        "4": "This would be true only if the mother were colour blind herself."
+      },
+      "objective": "Apply X-linked inheritance to a cross"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q10",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Two parents who are both carriers of sickle-cell trait (HbA HbS) have a child who does not suffer from sickle-cell anaemia. What is the probability that this child is a carrier?",
+      "options": [
+        "1/2",
+        "3/4",
+        "2/3",
+        "1/4"
+      ],
+      "answer": 3,
+      "explanation": "The cross gives 1 HbA HbA : 2 HbA HbS : 1 HbS HbS. The unaffected children are 1 + 2 = 3 out of 4, and carriers are 2 of these 3. So the probability of the child being a carrier is 2/3.",
+      "optionRationale": {
+        "1": "This would be the probability among all children, without the condition that the child is unaffected.",
+        "2": "This is the probability that a child is unaffected, not that it is a carrier.",
+        "4": "This is the probability that a child is homozygous normal, or affected."
+      },
+      "objective": "Calculate a conditional probability in an autosomal recessive cross"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q11",
+      "type": "ASSERTION_REASON",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Assertion (A): Polyploidy is common in animals and rare in plants.\nReason (R): Polyploidy results from failure of cytokinesis after telophase, so the cell has an entire extra set of chromosomes.",
+      "options": [
+        "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+        "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+        "(A) is true but (R) is false.",
+        "(A) is false but (R) is true."
+      ],
+      "answer": 4,
+      "explanation": "Polyploidy, the increase in a whole set of chromosomes, is an effect of failure of cytokinesis after telophase, so R is true. But the syllabus states that it is seen often in plants, so A is false: it is reversed.",
+      "optionRationale": {
+        "1": "A is false, so R cannot explain it.",
+        "2": "A is false.",
+        "3": "R is true, so this option cannot be right."
+      },
+      "objective": "Recall that polyploidy is common in plants"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q12",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "In a three-point linkage experiment the recombination frequencies are: A-B 4 per cent, B-C 8 per cent and A-C 12 per cent. The correct linear order of the genes on the chromosome is",
+      "options": [
+        "A-C-B",
+        "A-B-C",
+        "B-A-C",
+        "The order cannot be found from these data"
+      ],
+      "answer": 2,
+      "explanation": "Recombination frequency is a measure of distance. For gene B to lie between A and C, the distances must add up: 4 + 8 = 12, which equals the A-C distance. The other orders would require 20 or 16 per cent, which are not seen, so the order is A-B-C.",
+      "optionRationale": {
+        "1": "In this order A-B would have to be 12 + 8 = 20 per cent.",
+        "3": "In this order B-C would have to be 4 + 12 = 16 per cent.",
+        "4": "Sturtevant's method does give the order, because distances in a line must add up."
+      },
+      "objective": "Order genes using recombination frequencies"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q13",
+      "type": "STATEMENT_BASED",
+      "difficulty": "HARD",
+      "skill": "analytical",
+      "stem": "Consider the following statements about sex determination.\nA. In humans the sex of the child is decided by the sperm.\nB. In birds the female is heterogametic (ZW).\nC. In birds the sperm decides the sex of the offspring.\nD. In grasshopper the male is XO and produces gametes with and without X.\nWhich statements are correct?",
+      "options": [
+        "A, B and D only",
+        "A and C only",
+        "B, C and D only",
+        "A, B, C and D"
+      ],
+      "answer": 1,
+      "explanation": "In humans the male makes X and Y sperm, so the sperm decides sex (A). In birds the female is ZW and makes two types of egg, so the egg decides the sex and B is true while C is false. In the grasshopper, the male is XO, so half the gametes have no X (D).",
+      "optionRationale": {
+        "2": "C is wrong: in birds the egg (Z or W) decides the sex.",
+        "3": "C is wrong, and A is correct but is left out.",
+        "4": "C is wrong, so not all four are correct."
+      },
+      "objective": "Analyse statements on sex determination systems"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q14",
+      "type": "MCQ_SINGLE",
+      "difficulty": "HARD",
+      "skill": "numerical",
+      "stem": "Human skin colour is controlled by three polygenes with additive effect. A cross between two AaBbCc individuals gives how many distinct phenotypic classes, counted by the number of dominant alleles?",
+      "options": [
+        "27",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 2,
+      "explanation": "The genotype can contain 0, 1, 2, 3, 4, 5 or 6 dominant alleles because there are six alleles in all. Each number gives a different shade when the effects are additive, so there are 7 phenotypic classes, with a bell-shaped distribution.",
+      "optionRationale": {
+        "1": "This is the number of genotypes, 3 x 3 x 3, not phenotypic classes.",
+        "3": "This is the number of different gamete types from AaBbCc, not phenotypic classes.",
+        "4": "The classes run from 0 to 6 dominant alleles, which is 7 classes, not 6."
+      },
+      "objective": "Count phenotypic classes in polygenic inheritance"
+    },
+    {
+      "key": "ug26-304-t03-principles-of-inheritance-and-variatio-q15",
+      "type": "MCQ_SINGLE",
+      "difficulty": "MEDIUM",
+      "skill": "conceptual",
+      "stem": "Thalassemia differs from sickle-cell anaemia in that thalassemia is a",
+      "options": [
+        "qualitative defect with a structurally changed globin chain",
+        "sex-linked recessive defect on the X chromosome",
+        "chromosomal disorder caused by trisomy",
+        "quantitative defect with reduced synthesis of globin chains"
+      ],
+      "answer": 4,
+      "explanation": "In thalassemia, the synthesis of one of the globin chains (alpha or beta) is reduced, which is a quantitative problem. In sickle-cell anaemia, a normal amount of beta globin is made but it has a wrong amino acid, valine in place of glutamic acid at position 6, which is a qualitative problem. Both are autosomal recessive.",
+      "optionRationale": {
+        "1": "This describes sickle-cell anaemia, where Glu is replaced by Val.",
+        "2": "Both are autosomal recessive.",
+        "3": "Thalassemia is a gene defect and not a chromosomal disorder."
+      },
+      "objective": "Distinguish thalassemia from sickle-cell anaemia"
+    }
+  ]
+}
