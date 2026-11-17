@@ -107,9 +107,9 @@ export function TopicPage() {
         )}
       </nav>
 
-      <header className="mb-3 border-b border-rule pb-2.5" data-topic-header>
-        <h1 className="max-w-[58rem] text-lg leading-snug font-semibold break-words text-ink sm:text-xl">{d.topic.title}</h1>
-        <div className="mt-2 flex flex-wrap gap-2">
+      <header className="mb-3 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-rule pb-2.5" data-topic-header>
+        <h1 className="min-w-0 max-w-[58rem] flex-1 basis-72 text-lg leading-snug font-semibold break-words text-ink sm:text-xl">{d.topic.title}</h1>
+        <div className="flex shrink-0 flex-wrap items-center gap-2">
           <BookmarkButton kind="TOPIC" id={d.topic.id} />
           <AddToPlan kind="TOPIC" refId={d.topic.id} title={d.topic.title} />
         </div>
