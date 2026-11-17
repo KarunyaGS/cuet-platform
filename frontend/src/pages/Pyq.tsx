@@ -4,7 +4,7 @@
  * source's page. Third-party copies are labelled as such, never as NTA's originals. Dates, shifts and languages are
  * shown only where the source states them.
  */
-import { ExternalLink, FileText, KeyRound, ScrollText } from 'lucide-react';
+import { ChevronRight, ExternalLink, FileText, KeyRound, ScrollText } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
 import { api, type PyqDoc } from '../api';
@@ -287,9 +287,128 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick, autoS
   );
 }
 
+/**
+ * What the sidebar's Subject → Previous Year Question Paper → year selects: that subject's papers for that year, and its answer keys,
+ * and nothing else (no year tabs, no list of other subjects). Everything comes from the same paper index the browser uses.
+ */
+function PyqSelection({ year, slug }: { year: number; slug: string }) {
+  const data = useLoad(() => api.pyqSubject(year, slug), [year, slug]);
+  const subjects = useLoad(() => api.subjects('CUET_UG', 2026), []);
+  if (data.loading && !data.data) return <Loading />;
+  if (data.error) return <ErrorBox error={data.error} onRetry={data.reload} />;
+  const d = data.data!;
+  const paper = subjects.data?.find((x) => x.code === d.subject.code);
+  const papers = d.papers;
+  return (
+    <div data-pyq-selection>
+      <nav aria-label="Breadcrumb" className="mb-1 flex flex-wrap items-center gap-1 text-sm text-ink-3">
+        <Link to="/CUET_UG" className="hover:text-accent">
+          CUET UG
+        </Link>
+        <ChevronRight aria-hidden className="size-3.5" />
+        {paper ? (
+          <Link to={`/CUET_UG/subject/${paper.paperId}`} className="hover:text-accent">
+            {d.subject.name}
+          </Link>
+        ) : (
+          <span>{d.subject.name}</span>
+        )}
+        <ChevronRight aria-hidden className="size-3.5" />
+        <span>Previous Year Question Papers</span>
+        <ChevronRight aria-hidden className="size-3.5" />
+        <span aria-current="page" className="font-medium text-ink-2">
+          {d.year}
+        </span>
+      </nav>
+      <header className="mb-4 border-b border-rule pb-2.5">
+        <h1 className="text-lg leading-snug font-semibold break-words text-ink sm:text-xl">
+          {d.subject.name} – Previous Year Question Papers ({d.year})
+        </h1>
+      </header>
+
+      <section aria-labelledby="pyq-papers" className="mb-6">
+        <SectionTitle id="pyq-papers">Question papers ({papers.length})</SectionTitle>
+        {papers.length === 0 ? (
+          <Empty icon={<ScrollText />}>
+            No question paper is listed for {d.subject.name} in {d.year}.
+          </Empty>
+        ) : (
+          <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+            {papers.map((p) => {
+              const facts = [p.examDate ? day(p.examDate) : null, p.shift, p.language].filter(Boolean);
+              return (
+                <li key={p.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3" data-paper={p.id}>
+                  <span className="min-w-0 flex-1 basis-64">
+                    <span className="block text-[15px] leading-snug font-medium text-ink">{p.title}</span>
+                    <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-2">
+                      {facts.length > 0 && <span className="num">{facts.join(' · ')}</span>}
+                      {kindBadge(p)}
+                      {p.unreviewed && <Badge tone="amber">Preview, not reviewed</Badge>}
+                    </span>
+                  </span>
+                  <OpenPaper d={p} />
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </section>
+
+      <section aria-labelledby="pyq-keys">
+        <SectionTitle id="pyq-keys">
+          <span className="inline-flex items-center gap-2">
+            <KeyRound aria-hidden className="size-4 text-ink-3" />
+            Answer keys ({d.answerKeys.length})
+          </span>
+        </SectionTitle>
+        {d.answerKeys.length === 0 ? (
+          <Empty>
+            No answer key is listed for {d.subject.name} in {d.year}.
+          </Empty>
+        ) : (
+          <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+            {d.answerKeys.map((k) => (
+              <li key={k.id} className="px-4 py-3" data-key={k.id}>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <span className="min-w-0 flex-1 basis-64">
+                    <span className="block text-[15px] leading-snug font-medium text-ink">{k.title}</span>
+                    <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-2">{kindBadge(k)}</span>
+                  </span>
+                  <OpenPaper d={k} />
+                </div>
+                {k.sessions.length > 0 && (
+                  <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+                    <span className="text-xs text-ink-3">Open at a session:</span>
+                    {k.sessions.map((x, i) => {
+                      const text = [x.date ? day(x.date) : 'Date not stated', x.shift].filter(Boolean).join(', ');
+                      const cls = 'num inline-flex items-center gap-1 rounded-md bg-paper px-2 py-1 text-xs text-ink ring-1 ring-rule hover:bg-accent-soft hover:text-accent';
+                      return k.viewer === 'IN_APP' ? (
+                        <Link key={i} to={`/pyq/view/${k.id}?page=${x.page ?? 1}`} className={cls}>
+                          {text}
+                        </Link>
+                      ) : (
+                        <a key={i} href={`${k.openUrl}#page=${x.page ?? 1}`} target="_blank" rel="noreferrer noopener" className={cls}>
+                          {text}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+    </div>
+  );
+}
+
 export function PyqPage() {
   const [params, setParams] = useSearchParams();
   const year = Number(params.get('year')) || undefined;
+  const slug = params.get('subject') ?? '';
+  // A year and a subject (what the sidebar links to) show exactly that selection; without them the full browser stays available.
+  if (year && slug) return <PyqSelection year={year} slug={slug} />;
   return (
     <div>
       <PageHeader
