@@ -84,7 +84,7 @@ try {
     check(`${sz.name}: the paper row says it is hosted here, with its facts`, /Hosted here exactly as NTA published it/.test(row) && /NTA/.test(row));
     const copy = hosted.find((d) => !d.official && d.kind === 'QUESTION_PAPER' && d.year === paper.year && d.subjectSlug === paper.subjectSlug);
     if (copy) check(`${sz.name}: a hosted SelfStudys copy is labelled as a copy from SelfStudys, not as NTA's file`, await page.locator(`[data-paper="${copy.id}"]`).count() === 1 && /SelfStudys/.test(await page.locator(`[data-paper="${copy.id}"]`).innerText()) && !/exactly as NTA published/.test(await page.locator(`[data-paper="${copy.id}"]`).innerText()));
-    check(`${sz.name}: the row opens the paper inside CUET Prep`, (await page.locator(`[data-paper="${paper.id}"] [data-open="in-app"]`).count()) === 1);
+    check(`${sz.name}: the row opens the paper inside Prepora`, (await page.locator(`[data-paper="${paper.id}"] [data-open="in-app"]`).count()) === 1);
     await page.locator(`[data-paper="${paper.id}"] [data-open="in-app"]`).click();
     await page.waitForURL(/\/pyq\/view\//);
     await page.locator('canvas').first().waitFor({ timeout: 30000 });

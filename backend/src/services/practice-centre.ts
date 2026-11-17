@@ -141,9 +141,9 @@ export async function setOfficialLinkStatus(db: D1Database, id: string, input: z
     ]);
   } else if (input.action === 'ALLOW_IN_APP') {
     // Only needed where the exam body's server does not itself allow its files to be shown on other sites.
-    if (!inAppViewing) throw new ApiError(409, 'IN_APP_VIEWING_OFF', 'Viewing official documents inside CUET Prep is switched off until NTA grants permission to display them. Documents open on NTA\'s own website.');
+    if (!inAppViewing) throw new ApiError(409, 'IN_APP_VIEWING_OFF', 'Viewing official documents inside Prepora is switched off until NTA grants permission to display them. Documents open on NTA\'s own website.');
     if (cur.status !== 'PUBLISHED' || cur.availability !== 'AVAILABLE') throw conflict('Publish the link first; in-app viewing is a further step');
-    if (!input.conditionsChecked || (input.embedBasis ?? '').length < 10) throw new ApiError(409, 'EMBED_BASIS_REQUIRED', 'Showing this document inside CUET Prep passes the file through our server, which the exam body\'s copyright policy allows only with its permission. Record that permission and confirm you have it.');
+    if (!input.conditionsChecked || (input.embedBasis ?? '').length < 10) throw new ApiError(409, 'EMBED_BASIS_REQUIRED', 'Showing this document inside Prepora passes the file through our server, which the exam body\'s copyright policy allows only with its permission. Record that permission and confirm you have it.');
     await db.batch([db.prepare('UPDATE official_paper_links SET embed_basis = ?, embed_recorded_by = ?, updated_at = ? WHERE id = ?').bind(input.embedBasis!, actor, now, id), audit('ALLOW_IN_APP_OFFICIAL_LINK', { embedBasis: input.embedBasis })]);
   } else if (input.action === 'DISALLOW_IN_APP') {
     await db.batch([db.prepare('UPDATE official_paper_links SET embed_basis = NULL, embed_recorded_by = NULL, updated_at = ? WHERE id = ?').bind(now, id), audit('DISALLOW_IN_APP_OFFICIAL_LINK', {})]);
@@ -621,7 +621,7 @@ export async function officialDocument(db: D1Database, id: string, inAppViewing:
     originalUrl: r.url, viewer: mode,
     // DIRECT: the browser reads the exam body's server. PROXY: our pass-through, signed-in students only.
     fileUrl: mode === 'DIRECT' ? r.url : mode === 'PROXY' ? `/api/student/official-documents/${r.id}/file` : null,
-    reason: mode === 'NEW_TAB' ? "This document is published by NTA and opens on NTA's own website. It is not shown inside CUET Prep, because NTA has not given permission to display its documents here." : null,
+    reason: mode === 'NEW_TAB' ? "This document is published by NTA and opens on NTA's own website. It is not shown inside Prepora, because NTA has not given permission to display its documents here." : null,
   };
 }
 
@@ -637,7 +637,7 @@ export function setOfficialFetchForTests(f: typeof fetch | null) {
  */
 export async function officialDocumentFile(db: D1Database, id: string, range: string | undefined, inAppViewing: boolean): Promise<Response> {
   const r = await visibleDocument(db, id);
-  if (viewerMode(r.url, Boolean(r.embed_basis), inAppViewing) !== 'PROXY') throw new ApiError(403, 'IN_APP_NOT_ALLOWED', 'This document is not cleared to be shown inside CUET Prep; open it on the exam body\'s site');
+  if (viewerMode(r.url, Boolean(r.embed_basis), inAppViewing) !== 'PROXY') throw new ApiError(403, 'IN_APP_NOT_ALLOWED', 'This document is not cleared to be shown inside Prepora; open it on the exam body\'s site');
   const res = await upstreamFetch(r.url, { headers: { 'user-agent': 'cuet-prep-official-viewer/0.1', ...(range && /^bytes=\d*-\d*$/.test(range) ? { range } : {}) }, redirect: 'manual' });
   // A redirect is never followed: the document must come from the registered address itself.
   if (!res.ok && res.status !== 206) throw new ApiError(503, 'SOURCE_UNAVAILABLE', 'The exam body\'s site did not return the document. Try again, or open it on that site.');

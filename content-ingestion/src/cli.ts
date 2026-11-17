@@ -288,13 +288,13 @@ try {
       for (const id of chapterIds) {
         const r = await buildNativePaper({ api, adminToken: admin['x-admin-token'], paperId: sub.paperId, set: 0, count: 0, nodeId: id, workDir: option('out') ?? join(repo, '.native-papers'), repo });
         made++;
-        console.log(`${sub.code} ${r.title.replace('CUET Prep question bank: ', '').slice(0, 70)}: ${r.questions} questions, ${r.pages} pages`);
+        console.log(`${sub.code} ${r.title.replace('Prepora question bank: ', '').slice(0, 70)}: ${r.questions} questions, ${r.pages} pages`);
       }
     }
     console.log(`${made} chapter PDFs built`);
   }
   else if (cmd === 'native-paper-build') {
-    // A CUET Prep practice paper as a typeset PDF, from our own questions only: built, stored in our storage and recorded.
+    // A Prepora practice paper as a typeset PDF, from our own questions only: built, stored in our storage and recorded.
     const paperId = option('paper-id');
     if (!paperId) throw new Error('Give the subject: --paper-id <id>');
     const { buildNativePaper } = await import('./native-paper');

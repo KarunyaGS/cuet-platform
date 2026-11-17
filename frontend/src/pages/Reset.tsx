@@ -8,7 +8,7 @@ import { buttonClass, inputClass } from '../ui';
 function Shell({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="flex min-h-dvh flex-col items-center bg-paper px-4 py-10">
-      <Link to="/signin" aria-label="CUET Prep sign in" className="mb-10">
+      <Link to="/signin" aria-label="Prepora sign in" className="mb-10">
         <Logo />
       </Link>
       <main className="w-full max-w-[26rem] rounded-xl border border-rule bg-surface p-6 sm:p-8">
@@ -43,7 +43,7 @@ export function ForgotPasswordPage() {
         setState('idle');
       }
     } catch (x) {
-      setErr(x instanceof ApiError && x.status === 400 ? 'Enter a valid email address.' : 'Could not reach CUET Prep. Check your connection and try again.');
+      setErr(x instanceof ApiError && x.status === 400 ? 'Enter a valid email address.' : 'Could not reach Prepora. Check your connection and try again.');
       setState('idle');
     }
   };
@@ -67,7 +67,7 @@ export function ForgotPasswordPage() {
         <div className="mt-3 space-y-3 text-[15px] leading-relaxed text-ink-2">
           <p>Password reset by email is not available yet.</p>
           <p>
-            Ask the CUET Prep team for a <span className="font-medium text-ink">one-time reset link</span>, giving the email address you signed up with. The link works once, for one hour, and
+            Ask the Prepora team for a <span className="font-medium text-ink">one-time reset link</span>, giving the email address you signed up with. The link works once, for one hour, and
             signs your account out on every device when you use it.
           </p>
           <p>If you remember your password and only want to change it, sign in and use your profile page.</p>
@@ -128,7 +128,7 @@ function TokenPage({ run, titles, done, failed }: { run: (token: string) => Prom
         <span>{state === 'busy' ? 'One moment…' : state === 'done' ? done : message}</span>
       </p>
       <Link to="/" className={`${buttonClass(state === 'done' ? 'primary' : 'secondary')} mt-6 w-full`}>
-        Open CUET Prep
+        Open Prepora
       </Link>
     </Shell>
   );
@@ -183,7 +183,7 @@ export function ResetPasswordPage() {
       setState('done');
       window.history.replaceState(null, '', '/reset-password');
     } catch (x) {
-      setErr(x instanceof ApiError ? x.message : 'Could not reach CUET Prep. Check your connection and try again.');
+      setErr(x instanceof ApiError ? x.message : 'Could not reach Prepora. Check your connection and try again.');
       setState('idle');
     }
   };

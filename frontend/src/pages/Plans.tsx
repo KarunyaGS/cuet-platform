@@ -68,7 +68,7 @@ export function PlansPage() {
         order_id: order.gatewayOrderId,
         amount: order.amountPaise,
         currency: order.currency,
-        name: 'CUET Prep',
+        name: 'Prepora',
         description: `${order.planName} plan`,
         prefill: { email: user?.email },
         handler: (r: { razorpay_payment_id: string; razorpay_signature: string }) => {
@@ -204,7 +204,7 @@ export function PlansPage() {
                 <span className="font-medium text-ink">{p.plan}</span>
                 <span className="text-ink-2">
                   {date(p.startsAt)} to {date(p.endsAt)}
-                  {p.source === 'ADMIN_GRANT' ? ' · given by the CUET Prep team' : ''}
+                  {p.source === 'ADMIN_GRANT' ? ' · given by the Prepora team' : ''}
                 </span>
                 <Badge tone={PASS_STATE[p.state]?.tone ?? 'zinc'}>{PASS_STATE[p.state]?.label ?? p.state}</Badge>
               </li>
@@ -259,7 +259,7 @@ function MockPayment({ order, onDone, onClose, onError }: { order: Checkout; onD
     try {
       onDone((await api.simulatePayment(order.orderId, outcome)).result);
     } catch (e) {
-      onError(e instanceof ApiError ? e : new Error('Could not reach CUET Prep. Check your connection and try again.'));
+      onError(e instanceof ApiError ? e : new Error('Could not reach Prepora. Check your connection and try again.'));
       onClose();
     }
   };

@@ -14,7 +14,7 @@ const resultsPath = process.argv[2];
 if (!resultsPath) throw new Error('Usage: ingest-selfstudys.mts <results.json> [--dry-run]');
 const dry = process.argv.includes('--dry-run');
 const RIGHTS_BASIS =
-  'Management confirmed on 16 Nov 2026 that CUET Prep has permission from SelfStudys to use its CUET-UG documents. Hosted unchanged as a labelled third-party copy; ' +
+  'Management confirmed on 16 Nov 2026 that Prepora has permission from SelfStudys to use its CUET-UG documents. Hosted unchanged as a labelled third-party copy; ' +
   'the permission letter or reference is not in the repository and must be added to the record.';
 const NAME: Record<string, RegExp> = { '322': /physics/i, '306': /chemistry/i, '319': /math/i, '304': /biolog/i, '313': /geograph/i, '308': /computer/i, '501': /general|gat/i };
 
@@ -62,7 +62,7 @@ for (const r of rows) {
         `INSERT INTO pyq_documents (id, key, exam_code, year, kind, classification, official, section, subject_code, subject_name, subject_slug, listed_as, title, exam_date, shift, language, source_site, source_page_url, document_page_url, file_url, file_host, pages, bytes, working, http_status, embeddable, source_claim, note, alternatives_json, sessions_json, replaced_by_key, checked_on, created_at, updated_at, r2_key, review_state, rights_basis)
          VALUES (?, ?, 'CUET_UG', ?, ?, 'THIRD_PARTY_COPY', 0, ?, ?, ?, ?, NULL, ?, ?, ?, 'English', 'SelfStudys', ?, ?, ?, 'www.selfstudys.com', ?, ?, 1, 200, 0, NULL, ?, '[]', NULL, NULL, ?, ?, ?, NULL, NULL, NULL)`,
       )
-      .bind(id, `selfstudys:${r.sid}`, r.year, kind, t?.section ?? null, r.subjectCode, t?.name ?? r.subjectName, t?.slug ?? null, (r.title ?? r.slug).slice(0, 380), r.examDate ?? null, r.shift ?? null, r.listing, r.docPage, r.fileUrl ?? r.docPage, r.pages ?? null, r.bytes, 'Copy of a document on SelfStudys, hosted by CUET Prep with SelfStudys permission.', today, now, now)
+      .bind(id, `selfstudys:${r.sid}`, r.year, kind, t?.section ?? null, r.subjectCode, t?.name ?? r.subjectName, t?.slug ?? null, (r.title ?? r.slug).slice(0, 380), r.examDate ?? null, r.shift ?? null, r.listing, r.docPage, r.fileUrl ?? r.docPage, r.pages ?? null, r.bytes, 'Copy of a document on SelfStudys, hosted by Prepora with SelfStudys permission.', today, now, now)
       .run();
     doc = { id };
     stats.newDocuments++;

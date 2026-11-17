@@ -6,12 +6,12 @@ Scope: **CUET UG only**, science-focused papers first (NTA codes 322 Physics, 30
 
 | Item | Count | Notes |
 |---|---|---|
-| Previous-year index records, CUET UG | 335 across all papers | 86 are NTA's own files (classification OFFICIAL); 136 AglaSem, 85 SelfStudys, 27 Adda247 are third-party copies; 1 is a CUET Prep original |
+| Previous-year index records, CUET UG | 335 across all papers | 86 are NTA's own files (classification OFFICIAL); 136 AglaSem, 85 SelfStudys, 27 Adda247 are third-party copies; 1 is a Prepora original |
 | NTA question-paper records, science codes | 24 (304: 3, 306: 4, 308: 2, 313: 4, 319: 4, 322: 3, 501: 4) | years 2024, 2025, 2026; each keeps source page, file URL, hash fields, pages, status |
 | NTA answer-key records | 3 (one combined file per year 2024, 2025, 2026) covering every paper of the year | the key file lists each paper's pages; per-paper key pages are recorded for science papers |
 | Official session directory (paper, date, shift) | science papers: 8 (2024), 135 (2025), 151 (2026) | shifts recorded as Shift 1 / Shift 2 / not stated; 74 have no shift stated |
 | Question papers published by NTA per session | **0** of those sessions have an NTA-hosted paper recorded as available | the directory is built from NTA's answer-key files |
-| Files held in our own storage | **1** of 335 (a CUET Prep original) | nothing from NTA is stored |
+| Files held in our own storage | **1** of 335 (a Prepora original) | nothing from NTA is stored |
 
 All numbers are about what the system has *recorded*. I did not open NTA's sites in this step, so I have **not** verified that nothing newer exists there.
 

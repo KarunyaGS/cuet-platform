@@ -10,11 +10,9 @@ const REVIEW_ROLES = ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'];
 export function Logo() {
   return (
     <span className="flex items-center gap-2 text-[15px] font-semibold text-ink">
-      <span aria-hidden className="grid size-7 place-items-center rounded-lg bg-accent text-[11px] font-bold tracking-wide text-white">
-        CU
-      </span>
+      <img src="/prepora-logo.png" alt="" aria-hidden width={32} height={32} className="size-8 shrink-0 object-contain" />
       <span className="flex flex-col leading-tight">
-        CUET Prep
+        Prepora
         <span className="hidden whitespace-nowrap text-[11px] font-normal text-ink-3 sm:block">1st Student Centric Super App</span>
       </span>
     </span>
@@ -303,7 +301,7 @@ export function Layout() {
                   <Menu aria-hidden className="size-5" />
                 </button>
               )}
-              <Link to="/" className="rounded-lg" aria-label="CUET Prep home">
+              <Link to="/" className="rounded-lg" aria-label="Prepora home">
                 <Logo />
               </Link>
               <div className="mr-2 ml-1 sm:mr-4 sm:ml-2">

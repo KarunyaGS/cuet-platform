@@ -1,4 +1,4 @@
-# CUET Prep platform: security and technical audit (read-only)
+# Prepora platform: security and technical audit (read-only)
 
 Date: 2026-11-16. Scope: D:/cuet-platform (backend/src Hono Worker, D1 migrations, R2 handling, frontend, wrangler.jsonc, git tree).
 Method: static code reading plus `npm audit --omit=dev`. No file in the repo was changed, no remote system or database was touched, no secret value was printed. `backend/.dev.vars` defines one variable name only: `ADMIN_API_TOKEN` (64 characters; git-ignored at .gitignore:164; never present in git history, only `.dev.vars.example` is tracked).

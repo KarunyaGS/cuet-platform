@@ -3,7 +3,7 @@
  *
  * Every fact, formula, number and term below was taken from the source after reading it page by page:
  * NCERT, "Physics Part I, Textbook for Class XI", Chapter 7 "Gravitation" (reprint 2026-27), sections 7.1 and 7.3 to 7.6
- * and the chapter Summary. The words and drawings here are CUET Prep's own; none of NCERT's text or figures is copied
+ * and the chapter Summary. The words and drawings here are Prepora's own; none of NCERT's text or figures is copied
  * (the book is marked "not to be republished"). `src` on each item names the section and book page it rests on.
  *
  * This is plain data with no React in it: the page, the mind map, the flowchart and the PDF builder all read it.
@@ -22,7 +22,7 @@ export const SOURCE = {
   readOn: '2026-11-13',
   sectionsUsed: ['7.1 Introduction', '7.3 Universal law of gravitation', '7.4 The gravitational constant', '7.5 Acceleration due to gravity of the earth', '7.6 Acceleration due to gravity below and above the surface of earth', 'Summary'],
   notUsed: ['7.2 Kepler’s laws', '7.7 Gravitational potential energy', '7.8 Escape speed', '7.9 Earth satellites', '7.10 Energy of an orbiting satellite'],
-  rights: 'The textbook is NCERT’s and is marked “not to be republished”. Nothing from it is reproduced here: the wording and the drawings are CUET Prep’s own, written from the chapter’s facts and terms.',
+  rights: 'The textbook is NCERT’s and is marked “not to be republished”. Nothing from it is reproduced here: the wording and the drawings are Prepora’s own, written from the chapter’s facts and terms.',
 };
 
 export const TITLE = 'Gravitation';

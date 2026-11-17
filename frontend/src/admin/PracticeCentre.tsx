@@ -213,7 +213,7 @@ function OfficialLinks() {
   return (
     <div>
       <p className="mb-4 max-w-3xl text-sm text-ink-2">
-        Only an address is stored; no document is copied or hosted. NTA's site says prior permission is required before another site links to it, so a link is shown to students only after you record that linking permission is confirmed. Documents open on NTA's own website: showing them inside CUET Prep is switched off until NTA grants permission to display them. A "not available" notice has no link and can be published as it is.
+        Only an address is stored; no document is copied or hosted. NTA's site says prior permission is required before another site links to it, so a link is shown to students only after you record that linking permission is confirmed. Documents open on NTA's own website: showing them inside Prepora is switched off until NTA grants permission to display them. A "not available" notice has no link and can be published as it is.
       </p>
       {err && <ErrorBox error={err} />}
       {list.error && <ErrorBox error={list.error} onRetry={list.reload} />}
@@ -236,7 +236,7 @@ function OfficialLinks() {
                     {l.linkingBasis && <span className="block text-ink-3">Linking basis: {l.linkingBasis}</span>}
                     {l.status === 'PUBLISHED' && l.viewerMode && (
                       <span className="block text-ink-3">
-                        {!l.inAppViewing ? "Opens on NTA's website only. Viewing inside CUET Prep is switched off until NTA grants permission." : l.viewerMode === 'DIRECT' ? "Shown inside CUET Prep: NTA's server allows other sites to read this file." : l.viewerMode === 'PROXY' ? `Shown inside CUET Prep. Permission on record: ${l.embedBasis}` : "Opens on NTA's site only: NTA's server does not allow this file to be shown on other sites."}
+                        {!l.inAppViewing ? "Opens on NTA's website only. Viewing inside Prepora is switched off until NTA grants permission." : l.viewerMode === 'DIRECT' ? "Shown inside Prepora: NTA's server allows other sites to read this file." : l.viewerMode === 'PROXY' ? `Shown inside Prepora. Permission on record: ${l.embedBasis}` : "Opens on NTA's site only: NTA's server does not allow this file to be shown on other sites."}
                       </span>
                     )}
                   </span>
@@ -248,7 +248,7 @@ function OfficialLinks() {
                   )}
                   {l.status === 'PUBLISHED' && l.inAppViewing && l.viewerMode === 'NEW_TAB' && (
                     <Button kind="secondary" size="sm" disabled={busy} onClick={() => setEmbed({ id: l.id, text: '', checked: false })}>
-                      Allow viewing inside CUET Prep
+                      Allow viewing inside Prepora
                     </Button>
                   )}
                   {l.status === 'PUBLISHED' && l.viewerMode === 'PROXY' && (
@@ -271,7 +271,7 @@ function OfficialLinks() {
                     }}
                   >
                     <p className="text-ink-2">
-                      NTA's server does not allow this file to be shown on other sites. To show it inside CUET Prep the file has to pass through our server, which NTA's copyright policy allows only with NTA's permission.
+                      NTA's server does not allow this file to be shown on other sites. To show it inside Prepora the file has to pass through our server, which NTA's copyright policy allows only with NTA's permission.
                     </p>
                     <label className="block">
                       <span className="mb-1 block font-medium text-ink">NTA's permission (reference and date)</span>
@@ -279,7 +279,7 @@ function OfficialLinks() {
                     </label>
                     <label className="flex items-start gap-2 text-ink">
                       <input type="checkbox" className="mt-0.5 size-4 accent-accent" checked={embed.checked} onChange={(e) => setEmbed({ ...embed, checked: e.target.checked })} />
-                      We hold NTA's permission to show this document inside CUET Prep.
+                      We hold NTA's permission to show this document inside Prepora.
                     </label>
                     <div className="flex gap-2">
                       <Button type="submit" size="sm" disabled={busy || !embed.checked || embed.text.trim().length < 10}>

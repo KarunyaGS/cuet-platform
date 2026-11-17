@@ -137,7 +137,7 @@ export async function sendEmail(env: Bindings, m: OutgoingEmail): Promise<{ stat
     await record('SUPPRESSED', null, null, 0, null);
     return { status: 'SUPPRESSED', id };
   }
-  const from = { email: env.EMAIL_FROM!, name: env.EMAIL_FROM_NAME || 'CUET Prep' };
+  const from = { email: env.EMAIL_FROM!, name: env.EMAIL_FROM_NAME || 'Prepora' };
   const r = await deliver(env, { ...m, to }, from);
   if (r.ok) {
     await record('SENT', r.provider, r.providerId, r.attempts, null);
@@ -170,7 +170,7 @@ export async function retryFailedEmails(env: Bindings, at = new Date(), limit = 
     .bind(now, limit)
     .all<{ id: string; user_id: string | null; to_email: string; kind: EmailKind; subject: string; payload_json: string; retry_count: number; retry_until: string | null; attempts: number }>();
   out.due = results.length;
-  const from = { email: env.EMAIL_FROM!, name: env.EMAIL_FROM_NAME || 'CUET Prep' };
+  const from = { email: env.EMAIL_FROM!, name: env.EMAIL_FROM_NAME || 'Prepora' };
   const wipe = (id: string, error: string | null, status = 'FAILED') =>
     db.prepare('UPDATE email_messages SET status = ?, payload_json = NULL, next_attempt_at = NULL, last_error = COALESCE(?, last_error), updated_at = ? WHERE id = ?').bind(status, error, now, id).run();
   for (const row of results) {
@@ -245,7 +245,7 @@ export async function requestPasswordReset(env: Bindings, email: string, base: s
     db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(newId('aud'), 'self-service:email', 'REQUEST_RESET_LINK', 'USER', user.id, now),
   ]);
   const body = templates.reset(user.display_name, `${base}/reset-password#${token}`);
-  await sendEmail(env, { to: email, userId: user.id, kind: 'PASSWORD_RESET', subject: 'Reset your CUET Prep password', ...body });
+  await sendEmail(env, { to: email, userId: user.id, kind: 'PASSWORD_RESET', subject: 'Reset your Prepora password', ...body });
 }
 
 /** Tells the account owner that the password changed (after a reset or a change from the profile page). */
@@ -253,7 +253,7 @@ export async function notifyPasswordChanged(env: Bindings, userId: string) {
   const user = await env.DB.prepare('SELECT email, display_name FROM users WHERE id = ?').bind(userId).first<{ email: string; display_name: string }>();
   if (!user) return;
   const body = templates.passwordChanged(user.display_name);
-  await sendEmail(env, { to: user.email, userId, kind: 'ACCOUNT_NOTICE', subject: 'Your CUET Prep password was changed', ...body });
+  await sendEmail(env, { to: user.email, userId, kind: 'ACCOUNT_NOTICE', subject: 'Your Prepora password was changed', ...body });
 }
 
 // ---------------------------------------------------------------- confirming an email address
@@ -276,7 +276,7 @@ export async function sendVerificationEmail(env: Bindings, userId: string, base:
       .bind(newId('evt'), userId, await sha256Hex(token), new Date(Date.now() + VERIFY_TTL_HOURS * 3600_000).toISOString(), now),
   ]);
   const body = templates.verify(user.display_name, `${base}/verify-email#${token}`);
-  const r = await sendEmail(env, { to: user.email, userId, kind: 'VERIFY_EMAIL', subject: 'Confirm your email for CUET Prep', ...body });
+  const r = await sendEmail(env, { to: user.email, userId, kind: 'VERIFY_EMAIL', subject: 'Confirm your email for Prepora', ...body });
   return r.status === 'SENT' ? { sent: true } : { sent: false, reason: 'FAILED' };
 }
 
@@ -303,7 +303,7 @@ export async function sendWelcomeEmail(env: Bindings, userId: string, base: stri
   if (!base || !emailEnabled(env)) return;
   const u = await env.DB.prepare("SELECT email, display_name FROM users WHERE id = ? AND status = 'ACTIVE' AND email_verified_at IS NOT NULL").bind(userId).first<{ email: string; display_name: string }>();
   if (!u) return;
-  await sendEmail(env, { to: u.email, userId, kind: 'WELCOME', subject: 'Welcome to CUET Prep', dedupeKey: `welcome:${userId}`, ...templates.welcome(u.display_name, base) });
+  await sendEmail(env, { to: u.email, userId, kind: 'WELCOME', subject: 'Welcome to Prepora', dedupeKey: `welcome:${userId}`, ...templates.welcome(u.display_name, base) });
 }
 
 // ---------------------------------------------------------------- email settings of a student

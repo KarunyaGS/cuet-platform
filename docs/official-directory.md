@@ -68,23 +68,23 @@ The build reads the key from a temporary copy, writes `content/official-papers/d
 | Screen | `frontend/src/pages/OfficialDirectory.tsx` |
 | Tests | `backend/test/official-directory.test.ts`, `content-ingestion/test/official-directory.test.ts` |
 
-## Viewing a paper inside CUET Prep (added 13 November 2026)
+## Viewing a paper inside Prepora (added 13 November 2026)
 
-"View paper" and "View key" open a viewer page inside CUET Prep (`/official-papers/view/<id>`) with page navigation, a page-number box, zoom in and out, fit to width, full screen and keyboard keys. The document shown is always NTA's original. Question papers and answer keys are separate documents with separate labels.
+"View paper" and "View key" open a viewer page inside Prepora (`/official-papers/view/<id>`) with page navigation, a page-number box, zoom in and out, fit to width, full screen and keyboard keys. The document shown is always NTA's original. Question papers and answer keys are separate documents with separate labels.
 
 How a document may be shown depends on what NTA's own server allows. These headers were read on 13 November 2026:
 
-| Where the file is | What NTA's server says | What CUET Prep does |
+| Where the file is | What NTA's server says | What Prepora does |
 |---|---|---|
 | `cdnbbsr.s3waas.gov.in` (UG 2025 and 2026 answer keys) | `Access-Control-Allow-Origin: *`, no frame restriction | The student's browser loads the file straight from NTA into the viewer. Our server never handles it |
 | `nta.ac.in` (the 14 PG 2024 papers; PG 2025 and UG 2024 keys) | `X-Frame-Options: SAMEORIGIN`, no cross-origin header | The file cannot be embedded or read by another site. "View paper" opens a page that sends the student to NTA's own site in a new tab |
 
-Showing an `nta.ac.in` file inside the viewer is possible only by passing it through our server. That is reproduction, which NTA's copyright policy allows "after taking proper permission". So it is a separate, recorded step: in the admin console, **Allow viewing inside CUET Prep** asks for NTA's permission reference and a confirmation. Once recorded, the paper opens in the integrated viewer for signed-in students; the file is passed through and never stored or cached. Withdrawing the permission or unpublishing the link stops it at once.
+Showing an `nta.ac.in` file inside the viewer is possible only by passing it through our server. That is reproduction, which NTA's copyright policy allows "after taking proper permission". So it is a separate, recorded step: in the admin console, **Allow viewing inside Prepora** asks for NTA's permission reference and a confirmation. Once recorded, the paper opens in the integrated viewer for signed-in students; the file is passed through and never stored or cached. Withdrawing the permission or unpublishing the link stops it at once.
 
 Steps to switch on, per document:
 
 1. **Publish the link** with the linking basis. Result: "View paper" appears and opens NTA's site.
-2. **Allow viewing inside CUET Prep** with NTA's permission (only for `nta.ac.in` files). Result: the paper opens in the integrated viewer.
+2. **Allow viewing inside Prepora** with NTA's permission (only for `nta.ac.in` files). Result: the paper opens in the integrated viewer.
 
 | Part | File |
 |---|---|
@@ -99,7 +99,7 @@ Checked in a browser on a throwaway copy, with sample permission text: the Physi
 
 - All 14 CUET-PG 2024 papers stay listed and are marked as published by NTA.
 - A paper's "View paper" action appears once linking permission is confirmed for it and recorded in the admin console. It opens NTA's original on NTA's own website in a new tab.
-- **Embedded viewing is switched off.** The setting `OFFICIAL_IN_APP_VIEWING` is `off` locally and in the production configuration. While it is off, no official document (question paper or answer key, on either NTA host) is shown inside CUET Prep, no file passes through our server, and the admin console does not offer "Allow viewing inside CUET Prep".
+- **Embedded viewing is switched off.** The setting `OFFICIAL_IN_APP_VIEWING` is `off` locally and in the production configuration. While it is off, no official document (question paper or answer key, on either NTA host) is shown inside Prepora, no file passes through our server, and the admin console does not offer "Allow viewing inside Prepora".
 - No PDF is copied, hosted or cached anywhere on the platform. Only the 14 addresses read from NTA's server are stored.
 - Papers NTA has not released keep the label "Not published by NTA".
 

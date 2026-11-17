@@ -183,7 +183,7 @@ learn.get('/pyq', async (c) => {
   const t = await pyqTree(c.env.DB, exam, pyqScope(c.env).englishHindi, pyqScope(c.env).preview);
   return c.json({ ...t, years: t.years.map((y) => { const subjects = y.subjects.filter((x) => (x.code !== null || !scienceOnly(c.env)) && paperInScope(c.env, exam, x.code)); return { ...y, subjects, papers: subjects.reduce((n, x) => n + x.papers, 0) }; }).filter((y) => y.subjects.length) });
 });
-// A CUET Prep document's own file, from our storage (byte ranges for the viewer; ?download=1 to save it).
+// A Prepora document's own file, from our storage (byte ranges for the viewer; ?download=1 to save it).
 learn.get('/pyq/documents/:id/file', async (c) => pyqDocumentFile(c.env.DB, c.env.MEDIA, c.req.param('id'), pyqScope(c.env), c.req.header('range'), c.req.query('download') === '1'));
 learn.get('/pyq/documents/:id', async (c) => c.json(await pyqDocument(c.env.DB, c.req.param('id'), pyqScope(c.env))));
 learn.get('/pyq/:year/:slug', async (c) => {

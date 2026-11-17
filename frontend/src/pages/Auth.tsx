@@ -20,17 +20,17 @@ function friendly(e: unknown, mode: Mode): { text: string; switchTo?: Mode } {
     if (mode === 'signup' && e.status === 409) return { text: 'An account with this email already exists.', switchTo: 'signin' };
     if (e.status === 400 || e.status === 422) return { text: e.message === 'Request did not pass validation' ? 'Please check the details you entered.' : e.message };
     if (e.status === 429) return { text: 'Too many attempts. Please wait a minute and try again.' };
-    if (e.status >= 500) return { text: 'CUET Prep is having a problem right now. Please try again in a moment.' };
+    if (e.status >= 500) return { text: 'Prepora is having a problem right now. Please try again in a moment.' };
     return { text: e.message };
   }
-  return { text: 'Could not reach CUET Prep. Check your internet connection and try again.' };
+  return { text: 'Could not reach Prepora. Check your internet connection and try again.' };
 }
 
 function Logo({ light = false }: { light?: boolean }) {
   return (
     <span className="flex items-center gap-2 font-semibold tracking-tight">
       <span className={`grid size-8 place-items-center rounded-lg text-xs font-bold tracking-wide ${light ? 'bg-white text-accent' : 'bg-accent text-white'}`}>CU</span>
-      <span className="text-lg">CUET Prep</span>
+      <span className="text-lg">Prepora</span>
     </span>
   );
 }
@@ -235,7 +235,7 @@ export function AuthPage({ mode }: { mode: Mode }) {
             </Link>
           </p>
           <p className="mt-6 text-center text-sm text-ink-2">
-            {signup ? 'Already have an account? ' : 'New to CUET Prep? '}
+            {signup ? 'Already have an account? ' : 'New to Prepora? '}
             <Link to={signup ? '/signin' : '/signup'} replace state={location.state} onClick={() => setErr(null)} className="font-semibold text-accent hover:underline">
               {signup ? 'Sign in' : 'Create a free account'}
             </Link>

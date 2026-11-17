@@ -106,7 +106,7 @@ describe('billing: buying a pass (mock gateway)', () => {
     expect(paid.json.result).toBe('PAID');
     expect(paid.json.access).toMatchObject({ paid: true, plan: { code: 'MONTHLY' } });
     expect(days(paid.json.access.paidUntil)).toBe(30);
-    expect(sent).toContain('Payment received for CUET Prep');
+    expect(sent).toContain('Payment received for Prepora');
     const row = await env.DB.prepare('SELECT status, amount_paise FROM payment_orders WHERE id = ?').bind(order.json.orderId).first();
     expect(row).toEqual({ status: 'PAID', amount_paise: 49900 });
     // A repeated report never gives a second pass.
@@ -318,6 +318,6 @@ describe('billing: expiry notices', () => {
     const mail = { ...mock, EMAIL_FROM: 'no-reply@send.example.test' } as Bindings;
     await sendExpiryNotices(mail);
     await sendExpiryNotices(mail);
-    expect(sent.filter((x) => x === `${s.email}|Your CUET Prep plan ends soon`)).toHaveLength(1);
+    expect(sent.filter((x) => x === `${s.email}|Your Prepora plan ends soon`)).toHaveLength(1);
   });
 });

@@ -17,7 +17,7 @@ export function AdminLayout() {
   if (me.error) {
     const denied = me.error instanceof ApiError && (me.error.status === 403 || me.error.status === 401);
     return denied ? (
-      <Empty icon={<ShieldAlert />}>This area is for CUET Prep administrators. Your account does not have an admin role.</Empty>
+      <Empty icon={<ShieldAlert />}>This area is for Prepora administrators. Your account does not have an admin role.</Empty>
     ) : (
       <ErrorBox error={me.error} onRetry={me.reload} />
     );

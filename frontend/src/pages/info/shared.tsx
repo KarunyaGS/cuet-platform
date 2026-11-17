@@ -101,7 +101,7 @@ export function PublicLayout() {
     <div className="flex min-h-dvh flex-col">
       <header className="sticky top-0 z-30 border-b border-rule bg-surface/95 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:px-6">
-          <Link to="/cuet" aria-label="CUET Prep information home" className="mr-3">
+          <Link to="/cuet" aria-label="Prepora information home" className="mr-3">
             <Logo />
           </Link>
           <nav aria-label="Information" className="hidden items-center gap-1 md:flex">
@@ -143,7 +143,7 @@ export function PublicLayout() {
       </main>
       <footer className="border-t border-rule bg-surface">
         <div className="mx-auto max-w-6xl px-4 py-6 text-sm text-ink-2 sm:px-6">
-          CUET Prep is an independent study platform, not the National Testing Agency. Exam information on these pages is taken from NTA’s official documents and notices, with a link
+          Prepora is an independent study platform, not the National Testing Agency. Exam information on these pages is taken from NTA’s official documents and notices, with a link
           to each source. NTA’s own websites always take precedence:{' '}
           <a href={EXAMS.ug.site} target="_blank" rel="noreferrer" className="text-accent hover:underline">
             {EXAMS.ug.siteLabel}

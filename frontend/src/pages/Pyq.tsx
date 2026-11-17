@@ -26,7 +26,7 @@ const cleanNote = (note: string | null) => note?.replace(/AglaSem(’s|'s)/g, 't
 export function kindBadge(d: PyqDoc) {
   if (d.classification === 'OFFICIAL' || d.classification === 'THIRD_PARTY_COPY') return null;
   const name = siteName(d.sourceSite);
-  if (d.classification === 'CUET_PREP_ORIGINAL') return <Badge tone="accent">CUET Prep practice paper</Badge>;
+  if (d.classification === 'CUET_PREP_ORIGINAL') return <Badge tone="accent">Prepora practice paper</Badge>;
   if (d.classification === 'MEMORY_BASED') return <Badge tone="amber">{name ? `Memory-based, by ${name}` : 'Memory-based'}</Badge>;
   return <Badge>{name ? `Sample paper, by ${name}` : 'Sample paper'}</Badge>;
 }
@@ -257,8 +257,8 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick, autoS
 
               {subject.data.practicePapers.length > 0 && (
                 <div className="mt-8" data-practice-papers>
-                  <SectionTitle>CUET Prep practice papers</SectionTitle>
-                  <p className="mb-2 text-sm text-ink-2">Written by CUET Prep for this subject. They are not previous-year papers. Each opens here and can be downloaded.</p>
+                  <SectionTitle>Prepora practice papers</SectionTitle>
+                  <p className="mb-2 text-sm text-ink-2">Written by Prepora for this subject. They are not previous-year papers. Each opens here and can be downloaded.</p>
                   <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
                     {subject.data.practicePapers.map((d) => (
                       <PaperRow key={d.id} d={d} />

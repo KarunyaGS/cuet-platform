@@ -17,7 +17,7 @@ const resultsPath = process.argv[2];
 if (!resultsPath) throw new Error('Usage: ingest-nta-library.mts <results.json> [--dry-run]');
 const dry = process.argv.includes('--dry-run');
 const RIGHTS_BASIS =
-  'Management confirmed on 16 Nov 2026 that CUET Prep has permission to download and host NTA question papers and official answer keys. ' +
+  'Management confirmed on 16 Nov 2026 that Prepora has permission to download and host NTA question papers and official answer keys. ' +
   'NTA copyright policy (https://cuet.nta.nic.in/copyright-policy/): reproduce accurately, never in a misleading or derogatory context, and acknowledge the source prominently. ' +
   'The permission letter or reference is not in the repository and must be added to the record.';
 
@@ -89,7 +89,7 @@ for (const r of primaries.values()) {
         `INSERT INTO pyq_documents (id, key, exam_code, year, kind, classification, official, section, subject_code, subject_name, subject_slug, listed_as, title, exam_date, shift, language, source_site, source_page_url, document_page_url, file_url, file_host, pages, bytes, working, http_status, embeddable, source_claim, note, alternatives_json, sessions_json, replaced_by_key, checked_on, created_at, updated_at, r2_key, review_state, rights_basis)
          VALUES (?, ?, 'CUET_UG', ?, ?, 'OFFICIAL', 1, NULL, NULL, NULL, NULL, NULL, ?, NULL, NULL, NULL, 'NTA', ?, ?, ?, ?, ?, ?, 1, 200, 0, NULL, ?, '[]', NULL, NULL, ?, ?, ?, NULL, NULL, NULL)`,
       )
-      .bind(docId, dupKey, r.year, kind, (r.titleOverride ?? r.title).slice(0, 380), r.listedOn ?? r.url, r.listedOn ?? r.url, r.url, host(r.url), r.pages, r.bytes, 'Official NTA answer-key document, hosted by CUET Prep.', today, now, now)
+      .bind(docId, dupKey, r.year, kind, (r.titleOverride ?? r.title).slice(0, 380), r.listedOn ?? r.url, r.listedOn ?? r.url, r.url, host(r.url), r.pages, r.bytes, 'Official NTA answer-key document, hosted by Prepora.', today, now, now)
       .run();
     stats.newDocuments++;
   }

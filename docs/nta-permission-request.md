@@ -26,7 +26,7 @@ National Testing Agency
 
 Respected Sir / Madam,
 
-1. **About us.** [Legal name] operates "CUET Prep" ([website address]), an online preparation platform for students appearing in CUET (UG) and CUET (PG). [One or two sentences: when it started, who runs it, whether it is free or paid.]
+1. **About us.** [Legal name] operates "Prepora" ([website address]), an online preparation platform for students appearing in CUET (UG) and CUET (PG). [One or two sentences: when it started, who runs it, whether it is free or paid.]
 
 2. **What we do today.** We recognise that the question papers and answer keys of CUET are the property of the National Testing Agency. At present our platform only links to the files published on NTA's own websites (nta.ac.in, cuet.nta.nic.in and exams.nta.ac.in), names NTA as the source, and stores no copy of any NTA paper.
 

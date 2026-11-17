@@ -47,10 +47,10 @@ const setPrefs = async (id: string, sql: string, ...b: unknown[]) => {
 describe('welcome email', () => {
   it('is sent once, only after the address is confirmed, and a repeat confirmation sends no second one', async () => {
     const s = await student({ verified: false, name: 'Meera' });
-    expect(to(s.email).map((m) => m.subject)).toEqual(['Confirm your email for CUET Prep']);
+    expect(to(s.email).map((m) => m.subject)).toEqual(['Confirm your email for Prepora']);
     const token = /verify-email#([\w-]+)/.exec(to(s.email)[0]!.text)![1]!;
     expect((await call('POST', '/api/auth/verify-email', { token })).json).toEqual({ verified: true });
-    const welcome = to(s.email).filter((m) => m.subject === 'Welcome to CUET Prep');
+    const welcome = to(s.email).filter((m) => m.subject === 'Welcome to Prepora');
     expect(welcome).toHaveLength(1);
     expect(welcome[0]!.text).toContain('Hello Meera,');
     expect(welcome[0]!.text).toContain('https://app.example.test/dashboard');
@@ -58,14 +58,14 @@ describe('welcome email', () => {
     expect((await call('POST', '/api/auth/verify-email', { token })).status).toBe(400);
     const { sendWelcomeEmail } = await import('../src/services/email');
     await sendWelcomeEmail(mail, s.id, 'https://app.example.test');
-    expect(to(s.email).filter((m) => m.subject === 'Welcome to CUET Prep')).toHaveLength(1);
+    expect(to(s.email).filter((m) => m.subject === 'Welcome to Prepora')).toHaveLength(1);
   });
 
   it('is never sent to an unconfirmed address', async () => {
     const s = await student({ verified: false });
     const { sendWelcomeEmail } = await import('../src/services/email');
     await sendWelcomeEmail(mail, s.id, 'https://app.example.test');
-    expect(to(s.email).some((m) => m.subject === 'Welcome to CUET Prep')).toBe(false);
+    expect(to(s.email).some((m) => m.subject === 'Welcome to Prepora')).toBe(false);
   });
 });
 

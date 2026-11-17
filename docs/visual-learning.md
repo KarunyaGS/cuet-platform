@@ -30,7 +30,7 @@ Open Physics, then the "Visual learning" card, or go to `/visual/gravitation`.
 - **Source read:** NCERT, *Physics Part I, Textbook for Class XI*, Chapter 7 "Gravitation" (reprint 2026-27), 17 pages, downloaded from `https://ncert.nic.in/textbook/pdf/keph107.pdf` into a local working folder (`D:/tmp/visual`, not in the repository). SHA-256 is recorded in the pack.
 - **How it was read:** the file's text layer is partly garbled, so the pages used were also read as page images: book pages 127, 129, 130, 133, 139 and 140.
 - **Sections used:** 7.1, 7.3, 7.4, 7.5, 7.6 and the Summary. **Not used:** Kepler's laws, potential energy, escape speed, satellites.
-- **Rights:** every page of the chapter is marked "© NCERT, not to be republished". Nothing from it is reproduced. The wording and all drawings are CUET Prep's own, written from the chapter's facts and terms, and every step, idea, stage, formula and note cites its section and page.
+- **Rights:** every page of the chapter is marked "© NCERT, not to be republished". Nothing from it is reproduced. The wording and all drawings are Prepora's own, written from the chapter's facts and terms, and every step, idea, stage, formula and note cites its section and page.
 - **Review state:** written with AI assistance and **not yet reviewed by a subject expert**. The page and the PDF both say so.
 - **Syllabus:** Gravitation is a Class 11 topic. It is not in the CUET (UG) Physics syllabus (it does appear in CUET (PG) Physics). It was the topic asked for, and the page says this plainly.
 

@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import app from '../src/index';
 import type { Bindings } from '../src/types';
 
-// NTA's own question papers and answer keys hosted in CUET Prep's storage (16 Nov 2026): served from our storage, with provenance,
+// NTA's own question papers and answer keys hosted in Prepora's storage (16 Nov 2026): served from our storage, with provenance,
 // flagged files kept out, third-party copies hidden when NTA's verified file is hosted, and each file stored once.
 const ADMIN = { 'x-admin-token': 'test-admin-token' };
 const b = env as unknown as Bindings;

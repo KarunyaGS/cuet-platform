@@ -49,7 +49,7 @@ export function scopeInfoSections<T extends InfoSection>(env: ScopeEnv, exam: st
     if (s.key === 'pattern') return { ...s, items: s.items.filter((i) => !/\b37 subjects\b|\b13 languages\b|language test/i.test(i.text)) };
     if (s.key === 'subjects') {
       const kept = s.items.filter((i) => /General Aptitude|NCERT syllabus|syllabus PDFs/i.test(i.text));
-      const own = { text: `Papers covered on this site (${listed.length}): ${listed.join('; ')}.`, source: null, page: null, note: 'Paper names and codes as published by NTA. CUET Prep covers the science-focused papers and the General Aptitude Test.' };
+      const own = { text: `Papers covered on this site (${listed.length}): ${listed.join('; ')}.`, source: null, page: null, note: 'Paper names and codes as published by NTA. Prepora covers the science-focused papers and the General Aptitude Test.' };
       return { ...s, items: [own, ...kept] };
     }
     return s;

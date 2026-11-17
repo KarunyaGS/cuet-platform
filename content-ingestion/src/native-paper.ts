@@ -1,5 +1,5 @@
 /**
- * Native CUET Prep documents: turns the content of a paper into a typeset PDF, stores it in our own storage and
+ * Native Prepora documents: turns the content of a paper into a typeset PDF, stores it in our own storage and
  * records it, so students open it in the platform's own viewer.
  *
  * Only content we may reproduce goes in. Today that is our own practice questions (the API refuses anything else).
@@ -66,6 +66,16 @@ export function rich(text: string): string {
     .join('');
 }
 
+/** The Prepora logo, embedded in every PDF. */
+function logoTag(): string {
+  try {
+    const png = readFileSync(new URL('../../frontend/public/prepora-logo.png', import.meta.url));
+    return `<img class="logo" src="data:image/png;base64,${png.toString('base64')}" alt="">`;
+  } catch {
+    return '<span class="mark">P</span>';
+  }
+}
+
 const fileUrl = (path: string) => pathToFileURL(path).href;
 const day = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -96,7 +106,7 @@ export function paperHtml(d: Draft, images: Map<string, string>, generatedOn: Da
       </div>
     </section>`;
   };
-  const footer = d.mode === 'CHAPTER' ? `CUET Prep · ${d.subjectName} · ${d.chapterName} · Written by CUET Prep; not a previous-year paper` : `CUET Prep · ${d.subjectName} practice paper, set ${d.set} · Written by CUET Prep; not a previous-year paper`;
+  const footer = d.mode === 'CHAPTER' ? `Prepora · ${d.subjectName} · ${d.chapterName} · Written by Prepora; not a previous-year paper` : `Prepora · ${d.subjectName} practice paper, set ${d.set} · Written by Prepora; not a previous-year paper`;
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(d.title)}</title>
 <link rel="stylesheet" href="${katexCss}"><link rel="stylesheet" href="${font(400)}"><link rel="stylesheet" href="${font(600)}">
 <style>
@@ -107,6 +117,7 @@ export function paperHtml(d: Draft, images: Map<string, string>, generatedOn: Da
   body { font: 10.5pt/1.5 "IBM Plex Sans", "Segoe UI", sans-serif; color: #16202e; margin: 0; }
   header.cover { border-bottom: 2px solid #2347a8; padding-bottom: 10pt; margin-bottom: 12pt; }
   .brand { display: flex; align-items: center; gap: 8pt; font-weight: 600; font-size: 12pt; color: #16202e; }
+  .logo { width: 24pt; height: 24pt; object-fit: contain; }
   .mark { display: inline-grid; place-items: center; width: 22pt; height: 22pt; border-radius: 6pt; background: #2347a8; color: #fff; font-size: 9pt; font-weight: 600; }
   h1 { font-size: 18pt; line-height: 1.25; margin: 10pt 0 2pt; font-weight: 600; }
   .meta { color: #45505f; font-size: 10pt; }
@@ -138,7 +149,7 @@ export function paperHtml(d: Draft, images: Map<string, string>, generatedOn: Da
   .key td b { color: #45505f; font-weight: 400; margin-right: 4pt; }
 </style></head><body>
 <header class="cover">
-  <div class="brand"><span class="mark">CU</span> CUET Prep</div>
+  <div class="brand">${logoTag()} Prepora</div>
   <h1>${d.mode === 'CHAPTER' ? `${esc(d.chapterName ?? '')}<br><span class="sub">${esc(d.subjectName)}: chapter-wise question bank</span>` : `${esc(d.subjectName)} practice paper, set ${d.set}`}</h1>
   <div class="meta">For CUET (UG), subject code ${esc(d.subjectCode)} · ${d.language} · ${p.questions} questions${p.durationMinutes ? ` · ${p.durationMinutes} minutes` : ''} · Prepared on ${day(generatedOn)}</div>
 </header>
@@ -148,7 +159,7 @@ export function paperHtml(d: Draft, images: Map<string, string>, generatedOn: Da
 <main>${d.questions.map((q, i) => (d.mode === 'CHAPTER' && (i === 0 || d.questions[i - 1]!.unit !== q.unit) ? `<h2 class="topic">${esc(q.unit)}</h2>` : '') + question(q)).join('\n')}</main>
 <section class="key"><h2>Answer key</h2>
 <table><tbody>${Array.from({ length: Math.ceil(d.answerKey.length / 10) }, (_, r) => `<tr>${d.answerKey.slice(r * 10, r * 10 + 10).map((a) => `<td><b>${a.number}.</b>(${esc(a.correct.join(', '))})</td>`).join('')}</tr>`).join('')}</tbody></table>
-<p class="rights" style="margin-top:10pt">${esc(footer)}. © CUET Prep.</p></section>
+<p class="rights" style="margin-top:10pt">${esc(footer)}. © Prepora.</p></section>
 <script>for (const o of document.querySelectorAll('ol.opts')) if ([...o.children].some((li) => li.textContent.length > 46 || li.querySelector('.katex-display'))) o.classList.add('long');</script>
 </body></html>`;
 }

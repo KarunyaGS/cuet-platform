@@ -1,5 +1,5 @@
 /**
- * Native CUET Prep documents: PDFs we generate ourselves and keep in our own storage, shown in the platform's viewer.
+ * Native Prepora documents: PDFs we generate ourselves and keep in our own storage, shown in the platform's viewer.
  *
  * Rights come first. A document may be generated only from content we are allowed to reproduce:
  *  - our own questions (usage permission OWNED_ORIGINAL), or
@@ -95,9 +95,9 @@ export async function draftPracticePaper(db: D1Database, q: z.infer<typeof draft
     subjectCode: paper.code,
     subjectName: paper.name,
     set: q.set,
-    title: `CUET Prep practice paper: ${paper.name}, set ${q.set}`,
+    title: `Prepora practice paper: ${paper.name}, set ${q.set}`,
     language: 'English',
-    rights: { basis: 'OWNED_ORIGINAL' as const, statement: 'Every question in this paper was written for CUET Prep and is owned by it. It is not a previous-year paper and contains no question from any examination paper.' },
+    rights: { basis: 'OWNED_ORIGINAL' as const, statement: 'Every question in this paper was written for Prepora and is owned by it. It is not a previous-year paper and contains no question from any examination paper.' },
     reviewState: reviewed ? ('REVIEWED' as const) : ('UNREVIEWED' as const),
     reviewedQuestions: picked.filter((p) => p.verification === 'VERIFIED').length,
     pattern: { questions: picked.length, durationMinutes: paper.duration_minutes, marksCorrect: paper.marks_correct, marksIncorrect: paper.marks_incorrect, officialQuestionCount: paper.question_count },
@@ -146,7 +146,7 @@ export async function registerNativeDocument(db: D1Database, bucket: R2Bucket, b
         .first<{ n: number }>();
       owned += r?.n ?? 0;
     }
-    if (owned !== new Set(input.questionIds).size) throw new ApiError(409, 'RIGHTS_NOT_CONFIRMED', 'Not every question in this document is our own original content, so it cannot be published as a CUET Prep document');
+    if (owned !== new Set(input.questionIds).size) throw new ApiError(409, 'RIGHTS_NOT_CONFIRMED', 'Not every question in this document is our own original content, so it cannot be published as a Prepora document');
   }
   const section = input.subjectCode.startsWith('1') ? 'LANGUAGE' : /general/i.test(input.subjectName) ? 'GENERAL' : 'DOMAIN';
   // The subject is filed under the same name the papers index uses, so the document appears with that subject's papers.
@@ -157,8 +157,8 @@ export async function registerNativeDocument(db: D1Database, bucket: R2Bucket, b
   const id = existing?.id ?? newId('pyq');
   const values = [
     input.exam, null, 'PRACTICE_PAPER', 'CUET_PREP_ORIGINAL', 0, section, input.subjectCode, known?.subject_name ?? input.subjectName, known?.subject_slug ?? slug(input.subjectName), `Set generated on ${now.slice(0, 10)}`, input.title, null, null, input.language,
-    'CUET Prep', 'https://cuet-prep.invalid/practice-centre', null, `r2:${input.r2Key}`, 'cuet-prep', input.pages, stored.size, 1, 200, 1, null,
-    'A practice paper written by CUET Prep. It is not a previous-year paper.', '[]', null, null, now.slice(0, 10), now, input.r2Key, input.reviewState, rights,
+    'Prepora', 'https://cuet-prep.invalid/practice-centre', null, `r2:${input.r2Key}`, 'cuet-prep', input.pages, stored.size, 1, 200, 1, null,
+    'A practice paper written by Prepora. It is not a previous-year paper.', '[]', null, null, now.slice(0, 10), now, input.r2Key, input.reviewState, rights,
   ];
   if (existing) {
     await db
@@ -267,9 +267,9 @@ export async function draftChapterBank(db: D1Database, q: z.infer<typeof chapter
     subjectCode: paper.code,
     subjectName: paper.name,
     set: 0,
-    title: `CUET Prep question bank: ${paper.name}, ${chapterName}`,
+    title: `Prepora question bank: ${paper.name}, ${chapterName}`,
     language: 'English',
-    rights: { basis: 'OWNED_ORIGINAL' as const, statement: 'Every question in this question bank was written for CUET Prep and is owned by it. It is not a previous-year paper and contains no question from any examination, book or website.' },
+    rights: { basis: 'OWNED_ORIGINAL' as const, statement: 'Every question in this question bank was written for Prepora and is owned by it. It is not a previous-year paper and contains no question from any examination, book or website.' },
     reviewState: reviewed ? ('REVIEWED' as const) : ('UNREVIEWED' as const),
     reviewedQuestions: results.filter((p) => p.verification === 'VERIFIED').length,
     pattern: { questions: results.length, durationMinutes: null, marksCorrect: null, marksIncorrect: null, officialQuestionCount: null },
@@ -288,5 +288,5 @@ export async function chapterBankDocuments(db: D1Database, exam: string) {
     .prepare(`SELECT id, key, subject_code, subject_name, title, pages, review_state FROM pyq_documents WHERE exam_code = ? AND key LIKE 'cuetprep:chapter:%' AND r2_key IS NOT NULL ORDER BY subject_code, title`)
     .bind(exam)
     .all<{ id: string; key: string; subject_code: string; subject_name: string; title: string; pages: number | null; review_state: string | null }>();
-  return results.map((r) => ({ id: r.id, subjectCode: r.subject_code, nodeId: r.key.split(':')[3] ?? '', title: r.title.replace(/^CUET Prep question bank: [^,]*, /, ''), pages: r.pages, reviewState: r.review_state }));
+  return results.map((r) => ({ id: r.id, subjectCode: r.subject_code, nodeId: r.key.split(':')[3] ?? '', title: r.title.replace(/^Prepora question bank: [^,]*, /, ''), pages: r.pages, reviewState: r.review_state }));
 }

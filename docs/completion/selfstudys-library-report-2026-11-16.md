@@ -1,6 +1,6 @@
 # SelfStudys CUET-UG library: report (16 Nov 2026, local only)
 
-Permission: management confirmed SelfStudys permission for CUET Prep to use its CUET-UG documents. The permission letter or reference is not in the repository: **add it to the record** (stored as the rights basis of each file). Nothing was committed, pushed or deployed; production storage and database were not touched.
+Permission: management confirmed SelfStudys permission for Prepora to use its CUET-UG documents. The permission letter or reference is not in the repository: **add it to the record** (stored as the rights basis of each file). Nothing was committed, pushed or deployed; production storage and database were not touched.
 
 ## What was done
 - Read SelfStudys' public year listings (2022-2025; it has no 2026 CUET-UG papers) and each document page, one request per second, honest identifying client, **obeying robots.txt**. Took the PDF address each page links itself and downloaded the original file. Scope: the seven active papers (Physics 322, Chemistry 306, Mathematics 319, Biology 304, Geography 313, Computer Science 308, General Aptitude Test 501). 326 documents listed: 186 are other subjects (not downloaded), 25 were not downloaded (below), 115 downloaded.

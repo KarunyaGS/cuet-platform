@@ -236,11 +236,11 @@ export interface PyqDoc {
   subjectCode: string | null; subjectName: string | null; subjectSlug: string | null; section: string | null; title: string; listedAs: string | null;
   examDate: string | null; shift: string | null; language: string | null; pages: number | null; sourceSite: string; sourcePageUrl: string; note: string | null; checkedOn: string; linkChecked: boolean;
   viewer: 'IN_APP' | 'SOURCE'; fileUrl: string | null; openUrl: string; alternatives: { site: string; url: string | null; title: string }[];
-  /** A document CUET Prep generated and keeps in its own storage: it opens in the viewer here and can be downloaded. */
+  /** A document Prepora generated and keeps in its own storage: it opens in the viewer here and can be downloaded. */
   native: boolean; downloadUrl: string | null; unreviewed: boolean;
   /** NTA's original file address, kept as the record of where a hosted official document came from. */
   originalUrl: string | null;
-  /** Set when CUET Prep hosts the file: its hash, retrieval date and checks. */
+  /** Set when Prepora hosts the file: its hash, retrieval date and checks. */
   hosted: { sha256: string; bytes: number; pages: number | null; sourceUrl: string; retrievedAt: string; verification: string; rightsStatus: string } | null;
 }
 export interface PyqTree {
@@ -284,7 +284,7 @@ export interface UniversityAdmissions {
   programmes: { id: string; programmeName: string; degree: string | null; level: string; academicYear: string; exam: ExamCode; cycle: Cycle }[];
   dates: AdmissionFact[]; eligibility: AdmissionFact[]; cutoffs: AdmissionFact[]; note: string;
 }
-/** An official notice. sourceUrl and documentUrl are the exam body's own addresses; nothing is hosted by CUET Prep. */
+/** An official notice. sourceUrl and documentUrl are the exam body's own addresses; nothing is hosted by Prepora. */
 export interface GovNotice {
   id: string; title: string; description: string | null; category: NoticeCategory; authority: NoticeAuthority; exam: ExamCode | null; examYear: number | null; publishedOn: string | null;
   sourceName: string; sourceUrl: string; documentUrl: string; isPdf: boolean; isNew: boolean; isUpdated: boolean; firstDetectedAt: string; lastCheckedAt: string;

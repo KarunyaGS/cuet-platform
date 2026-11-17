@@ -105,7 +105,7 @@ export function SubjectPage() {
                 {label}
               </Link>
             ))}
-            <a href="/visual/gravitation.pdf" download="CUET Prep - Gravitation - learning notes.pdf" className="inline-flex h-9 items-center rounded-lg bg-surface px-3 text-sm font-medium text-accent ring-1 ring-inset ring-rule-strong hover:bg-accent-soft">
+            <a href="/visual/gravitation.pdf" download="Prepora - Gravitation - learning notes.pdf" className="inline-flex h-9 items-center rounded-lg bg-surface px-3 text-sm font-medium text-accent ring-1 ring-inset ring-rule-strong hover:bg-accent-soft">
               Download PDF
             </a>
           </div>

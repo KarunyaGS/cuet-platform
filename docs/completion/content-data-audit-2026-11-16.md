@@ -1,4 +1,4 @@
-# CUET Prep local data audit (read-only)
+# Prepora local data audit (read-only)
 
 Date: 2026-11-16. Source: private copy at D:/tmp/audit/db-copy/ of `backend/.wrangler/state/v3/d1/miniflare-D1DatabaseObject/`. The application DB is `faaf2b04...05fb.sqlite` (82 tables, the only one containing `admission_sources`). The other two 43-table DBs (`cddd4647...`, `f20ed085...`) are stale older local DBs: 7 migrations, 0 questions. R2 was read from `backend/.wrangler/state/v3/r2/` (two buckets). The audit scripts are D:/tmp/audit/s1.py to s12.py. Nothing in the repo or the real DB was modified. No emails, passwords, hashes or tokens are shown.
 

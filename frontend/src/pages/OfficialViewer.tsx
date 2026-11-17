@@ -1,5 +1,5 @@
 /**
- * Viewer for one official document (a question paper or an answer key) inside CUET Prep: page navigation, zoom and
+ * Viewer for one official document (a question paper or an answer key) inside Prepora: page navigation, zoom and
  * full screen. The document is always the exam body's original. Where the exam body's server lets other sites read
  * the file, the browser loads it straight from that server; where it does not, the document is shown here only if
  * the exam body's permission is on record, and otherwise it opens on the exam body's own site.

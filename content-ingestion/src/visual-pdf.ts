@@ -3,7 +3,7 @@
  *
  * The PDF is typeset from the same content and the same drawings the page uses, so the two cannot drift apart:
  * headings, text and formulas are real text (selectable), and every figure, the mind map and the flowchart are vector
- * drawings, not screenshots. A4, with page numbers. Only CUET Prep's own writing and drawings go in.
+ * drawings, not screenshots. A4, with page numbers. Only Prepora's own writing and drawings go in.
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -65,8 +65,8 @@ export function visualHtml(): string {
     const k = q.choices.findIndex((c) => c.correct);
     return `<p><b>${i}. (${String.fromCharCode(65 + k)})</b> ${esc(q.choices[k]!.why.replace(/^Right\. /, ''))}</p>`;
   };
-  const footer = `CUET Prep · ${TITLE}: learning notes · Written by CUET Prep from NCERT Class XI Physics, Chapter 7`;
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>CUET Prep - ${esc(TITLE)} - learning notes</title>
+  const footer = `Prepora · ${TITLE}: learning notes · Written by Prepora from NCERT Class XI Physics, Chapter 7`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Prepora - ${esc(TITLE)} - learning notes</title>
 <link rel="stylesheet" href="${katexCss}"><link rel="stylesheet" href="${font(400)}"><link rel="stylesheet" href="${font(600)}">
 <style>
   @page { size: A4; margin: 18mm 16mm 20mm 16mm;
@@ -118,7 +118,7 @@ export function visualHtml(): string {
   .rights { font-size: 8.5pt; color: #45505f; border-top: 1px solid #d5dae2; margin-top: 12pt; padding-top: 6pt; }
 </style></head><body>
 <header class="cover">
-  <div class="brand"><span class="mark">CU</span>CUET Prep</div>
+  <div class="brand"><span class="mark">CU</span>Prepora</div>
   <h1>${esc(TITLE)}</h1>
   <p class="lead">${esc(QUESTION)}</p>
   <p class="meta">Physics · Learning notes with a mind map and a flowchart · Written from ${esc(SOURCE.publisher)}, ${esc(SOURCE.book)}, ${esc(SOURCE.chapter)} (${esc(SOURCE.edition)})</p>

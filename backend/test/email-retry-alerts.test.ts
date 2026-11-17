@@ -46,7 +46,7 @@ beforeEach(() => {
 afterEach(() => setEmailTransportForTests(null));
 
 describe('retrying failed emails', () => {
-  const reminder = (to: string, key: string) => ({ to, userId: null, kind: 'STUDY_REMINDER' as const, subject: 'Your study plan for today', text: 'Open CUET Prep to see today.', html: '<p>Open CUET Prep</p>', dedupeKey: key });
+  const reminder = (to: string, key: string) => ({ to, userId: null, kind: 'STUDY_REMINDER' as const, subject: 'Your study plan for today', text: 'Open Prepora to see today.', html: '<p>Open Prepora</p>', dedupeKey: key });
 
   it('keeps a harmless email that failed, and sends it later with the same words, then erases the kept copy', async () => {
     mode = 'down';
@@ -54,7 +54,7 @@ describe('retrying failed emails', () => {
     expect(r.status).toBe('FAILED');
     let m = (await row(r.id!))!;
     expect(m).toMatchObject({ status: 'FAILED', retry_count: 0 });
-    expect(JSON.parse(String(m.payload_json))).toMatchObject({ subject: 'Your study plan for today', text: 'Open CUET Prep to see today.' });
+    expect(JSON.parse(String(m.payload_json))).toMatchObject({ subject: 'Your study plan for today', text: 'Open Prepora to see today.' });
     const wait = (Date.parse(String(m.next_attempt_at)) - Date.now()) / 60_000;
     expect(wait).toBeGreaterThan(4);
     expect(wait).toBeLessThan(6);
@@ -64,7 +64,7 @@ describe('retrying failed emails', () => {
     mode = 'ok';
     expect(await retryFailedEmails(mail, minutes(6))).toMatchObject({ due: 1, sent: 1 });
     expect(outbox).toHaveLength(1);
-    expect(outbox[0]).toMatchObject({ to: 'retry-ok@example.test', subject: 'Your study plan for today', text: 'Open CUET Prep to see today.' });
+    expect(outbox[0]).toMatchObject({ to: 'retry-ok@example.test', subject: 'Your study plan for today', text: 'Open Prepora to see today.' });
     m = (await row(r.id!))!;
     expect(m).toMatchObject({ status: 'SENT', retry_count: 1, payload_json: null, next_attempt_at: null });
     expect(m.sent_at).toBeTruthy();

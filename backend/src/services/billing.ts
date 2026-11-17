@@ -305,15 +305,15 @@ const rupees = (paise: number) => `₹${(paise / 100).toLocaleString('en-IN', { 
 const dateIn = (iso: string) => new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Kolkata' });
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 const plainEmail = (heading: string, lines: string[]) => ({
-  text: [heading, '', ...lines, '', 'CUET Prep'].join('\n'),
-  html: `<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;padding:24px;color:#1c1b19"><p style="font-size:14px;font-weight:bold">CUET Prep</p><h1 style="font-size:20px">${esc(heading)}</h1>${lines.map((l) => `<p style="font-size:15px;line-height:1.55">${esc(l)}</p>`).join('')}</div>`,
+  text: [heading, '', ...lines, '', 'Prepora'].join('\n'),
+  html: `<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;padding:24px;color:#1c1b19"><p style="font-size:14px;font-weight:bold">Prepora</p><h1 style="font-size:20px">${esc(heading)}</h1>${lines.map((l) => `<p style="font-size:15px;line-height:1.55">${esc(l)}</p>`).join('')}</div>`,
 });
 
 async function paymentReceivedEmail(env: Bindings, order: OrderRow, planName: string, endsAt: string) {
   const u = await env.DB.prepare('SELECT email, display_name FROM users WHERE id = ?').bind(order.user_id).first<{ email: string; display_name: string }>();
   if (!u) return;
   const body = plainEmail('Payment received', [`Hello ${u.display_name},`, `We received ${rupees(order.amount_paise)} for the ${planName} plan.`, `Your paid access runs until ${dateIn(endsAt)}. It does not renew by itself and no further payment will be taken.`, `Reference: ${order.receipt}`]);
-  await sendEmail(env, { to: u.email, userId: order.user_id, kind: 'ACCOUNT_NOTICE', subject: 'Payment received for CUET Prep', dedupeKey: `paid:${order.id}`, ...body });
+  await sendEmail(env, { to: u.email, userId: order.user_id, kind: 'ACCOUNT_NOTICE', subject: 'Payment received for Prepora', dedupeKey: `paid:${order.id}`, ...body });
 }
 
 export const confirmSchema = z.object({ gatewayPaymentId: z.string().trim().min(6).max(80), signature: z.string().trim().min(32).max(200) });
@@ -533,8 +533,8 @@ export async function sendExpiryNotices(env: Bindings, at = new Date()) {
     .all<{ id: string; ends_at: string; user_id: string; email: string; display_name: string; plan: string }>();
   let sent = 0;
   for (const s of results) {
-    const body = plainEmail('Your paid access ends soon', [`Hello ${s.display_name},`, `Your ${s.plan} plan ends on ${dateIn(s.ends_at)}.`, 'Nothing renews by itself and no payment will be taken. If you want to continue, open the Plans page in CUET Prep. New days are added after your current end date.']);
-    const r = await sendEmail(env, { to: s.email, userId: s.user_id, kind: 'ACCOUNT_NOTICE', subject: 'Your CUET Prep plan ends soon', dedupeKey: `sub-ending:${s.id}`, ...body });
+    const body = plainEmail('Your paid access ends soon', [`Hello ${s.display_name},`, `Your ${s.plan} plan ends on ${dateIn(s.ends_at)}.`, 'Nothing renews by itself and no payment will be taken. If you want to continue, open the Plans page in Prepora. New days are added after your current end date.']);
+    const r = await sendEmail(env, { to: s.email, userId: s.user_id, kind: 'ACCOUNT_NOTICE', subject: 'Your Prepora plan ends soon', dedupeKey: `sub-ending:${s.id}`, ...body });
     if (r.status === 'SENT') sent++;
   }
   return { ending: results.length, sent };

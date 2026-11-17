@@ -56,13 +56,13 @@ const indexDoc = { schema: 'cuet-pyq-index/1', exam: 'CUET_UG', builtOn: '2026-1
   fileHost: 'www.example.com', pages: null, bytes: null, working: true, httpStatus: 200, embeddable: false, sourceClaim: null, note: 'A copy.', alternatives: [], checkedOn: '2026-11-13',
 }] };
 
-describe('native CUET Prep documents', () => {
+describe('native Prepora documents', () => {
   it('drafts a practice paper only from our own questions, spread over the units, with the answer key kept apart', async () => {
     const s = await seed('draft', 'a');
     expect((await call('GET', `/api/admin/native-papers/draft?paperId=${s.paperId}&count=10`)).status).toBe(401);
     const d = (await call('GET', `/api/admin/native-papers/draft?paperId=${s.paperId}&count=10`, undefined, ADMIN)).json;
     expect(d).toMatchObject({ schema: 'cuet-native-paper/1', kind: 'PRACTICE_PAPER', exam: 'CUET_UG', subjectCode: '322', subjectName: 'Physics', set: 1, language: 'English', reviewState: 'UNREVIEWED', reviewedQuestions: 0, rights: { basis: 'OWNED_ORIGINAL' } });
-    expect(d.title).toBe('CUET Prep practice paper: Physics, set 1');
+    expect(d.title).toBe('Prepora practice paper: Physics, set 1');
     expect(d.units).toEqual([{ title: 'Electrostatics', questions: 5 }, { title: 'Optics', questions: 5 }]);
     expect(d.questions).toHaveLength(10);
     expect(d.questions.map((q: { number: number }) => q.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
@@ -112,7 +112,7 @@ describe('native CUET Prep documents', () => {
     expect(subject.papers).toHaveLength(1); // the previous-year paper stays what it was
     expect(subject.practicePapers).toHaveLength(1);
     const p = subject.practicePapers[0];
-    expect(p).toMatchObject({ id: made.json.id, kind: 'PRACTICE_PAPER', classification: 'CUET_PREP_ORIGINAL', official: false, year: null, language: 'English', native: true, viewer: 'IN_APP', unreviewed: true, sourceSite: 'CUET Prep', pages: 3,
+    expect(p).toMatchObject({ id: made.json.id, kind: 'PRACTICE_PAPER', classification: 'CUET_PREP_ORIGINAL', official: false, year: null, language: 'English', native: true, viewer: 'IN_APP', unreviewed: true, sourceSite: 'Prepora', pages: 3,
       fileUrl: `/api/learn/pyq/documents/${made.json.id}/file`, downloadUrl: `/api/learn/pyq/documents/${made.json.id}/file?download=1` });
     expect(p.note).toMatch(/not a previous-year paper/);
 
@@ -121,7 +121,7 @@ describe('native CUET Prep documents', () => {
     expect(whole.status).toBe(200);
     expect(whole.headers.get('content-type')).toBe('application/pdf');
     expect(whole.headers.get('accept-ranges')).toBe('bytes');
-    expect(whole.headers.get('content-disposition')).toMatch(/^inline; filename="CUET Prep practice paper Physics, set 1\.pdf"$/);
+    expect(whole.headers.get('content-disposition')).toMatch(/^inline; filename="Prepora practice paper Physics, set 1\.pdf"$/);
     expect(new Uint8Array(await whole.arrayBuffer())).toEqual(PDF);
     const part = await raw('GET', p.fileUrl, { headers: { range: 'bytes=0-4' } });
     expect(part.status).toBe(206);

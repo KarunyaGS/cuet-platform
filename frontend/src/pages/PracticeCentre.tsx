@@ -100,7 +100,7 @@ export function PracticeCentrePage() {
         title="Practice questions"
         label="Our own questions, not official papers"
         tone="green"
-        intro="Questions written by CUET Prep to the official syllabus, with the answer and an explanation for each. Pick a subject, then a unit or topic. Practise with instant feedback and no timer, or take a timed topic test."
+        intro="Questions written by Prepora to the official syllabus, with the answer and an explanation for each. Pick a subject, then a unit or topic. Practise with instant feedback and no timer, or take a timed topic test."
       >
         {subjects.error && <ErrorBox error={subjects.error} onRetry={subjects.reload} />}
         {subjects.loading && !subjects.data && <Loading />}
@@ -131,7 +131,7 @@ export function PracticeCentrePage() {
         title="Mock tests"
         label="Our own papers, not official papers"
         tone="amber"
-        intro="Full papers set by CUET Prep in the exam's format: the same number of questions, time and marking. Each paper covers every unit of the syllabus and is checked by a subject reviewer before it appears here. They are practice, not predictions of the real paper."
+        intro="Full papers set by Prepora in the exam's format: the same number of questions, time and marking. Each paper covers every unit of the syllabus and is checked by a subject reviewer before it appears here. They are practice, not predictions of the real paper."
       >
         {mocks.error && <ErrorBox error={mocks.error} onRetry={mocks.reload} />}
         {mocks.loading && !mocks.data && <Loading />}

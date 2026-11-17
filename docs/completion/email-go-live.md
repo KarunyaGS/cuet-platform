@@ -30,7 +30,7 @@ In `backend/wrangler.jsonc`, the `production` section (it currently has `"trigge
 "queues": { "consumers": [{ "queue": "cuet-email-events" }] },
 "vars": {
   "EMAIL_FROM": "no-reply@<S>",
-  "EMAIL_FROM_NAME": "CUET Prep",
+  "EMAIL_FROM_NAME": "Prepora",
   "PUBLIC_APP_URL": "https://<the app's public address>"   // from configuration, never from a request
 }
 ```

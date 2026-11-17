@@ -453,7 +453,7 @@ function ReadNotes() {
         <div className={`${panel} p-4`} data-pdf-panel>
           <h2 className="text-base font-semibold text-ink">Download these notes</h2>
           <p className="mt-1 text-sm text-ink-2">A4 PDF, 6 pages: the notes, the figures, the mind map, the flowchart and two checks with answers. The text can be selected and searched.</p>
-          <a href={VISUAL_PDF} download="CUET Prep - Gravitation - learning notes.pdf" className="mt-3 inline-flex h-9 items-center gap-1.5 rounded-md bg-accent px-3.5 text-sm font-semibold text-white hover:bg-accent-strong" data-download-notes>
+          <a href={VISUAL_PDF} download="Prepora - Gravitation - learning notes.pdf" className="mt-3 inline-flex h-9 items-center gap-1.5 rounded-md bg-accent px-3.5 text-sm font-semibold text-white hover:bg-accent-strong" data-download-notes>
             <Download aria-hidden className="size-4" />
             Download PDF
           </a>
@@ -507,7 +507,7 @@ export function VisualPage() {
         }
         subtitle="Physics. A simulation, a concept map, the chain of reasoning, and the notes."
         actions={
-          <a href={VISUAL_PDF} download="CUET Prep - Gravitation - learning notes.pdf" className={toolBtn} data-download-pdf>
+          <a href={VISUAL_PDF} download="Prepora - Gravitation - learning notes.pdf" className={toolBtn} data-download-pdf>
             <Download aria-hidden className="size-4" />
             Download PDF
           </a>
@@ -534,7 +534,7 @@ export function VisualPage() {
 
       <footer className="mt-8 border-t border-rule pt-3 text-[13px] leading-relaxed text-ink-2" data-visual-source>
         <p>
-          <span className="font-semibold text-ink">Where this comes from.</span> Written by CUET Prep from {SOURCE.publisher}, <i>{SOURCE.book}</i>, {SOURCE.chapter} ({SOURCE.edition}), sections {SOURCE.sectionsUsed.map((s) => s.split(' ')[0] ?? '').filter((s) => /^\d/.test(s)).join(', ')} and the Summary.{' '}
+          <span className="font-semibold text-ink">Where this comes from.</span> Written by Prepora from {SOURCE.publisher}, <i>{SOURCE.book}</i>, {SOURCE.chapter} ({SOURCE.edition}), sections {SOURCE.sectionsUsed.map((s) => s.split(' ')[0] ?? '').filter((s) => /^\d/.test(s)).join(', ')} and the Summary.{' '}
           <a href={SOURCE.url} target="_blank" rel="noreferrer noopener" className="font-medium text-accent hover:underline">
             Open the chapter on NCERT’s website
           </a>

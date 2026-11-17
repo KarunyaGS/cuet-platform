@@ -1,8 +1,8 @@
-# Native CUET Prep documents
+# Native Prepora documents
 
 **Date:** 13 November 2026. Local development only; nothing is deployed.
 
-A native document is a PDF CUET Prep generates itself, keeps in its own storage (R2) and shows in its own viewer, with zoom, page navigation and download.
+A native document is a PDF Prepora generates itself, keeps in its own storage (R2) and shows in its own viewer, with zoom, page navigation and download.
 
 ## Rights come first
 
@@ -28,7 +28,7 @@ npm run ingest -- native-paper-build --paper-id paper_cuet_ug_2026_322 --set 1
 2. The page is typeset by the Chrome on the machine (print to PDF); formulas by KaTeX; figures are our own media.
 3. The PDF is stored in R2 and recorded. The content that went in is saved under `content/native-papers/`.
 
-Each PDF says on its first page and in every footer that it is written by CUET Prep and is not a previous-year paper. While any question is unreviewed it carries "Preview: not yet reviewed" and is shown only where draft content is shown.
+Each PDF says on its first page and in every footer that it is written by Prepora and is not a previous-year paper. While any question is unreviewed it carries "Preview: not yet reviewed" and is shown only where draft content is shown.
 
 | Part | File |
 |---|---|
@@ -36,5 +36,5 @@ Each PDF says on its first page and in every footer that it is written by CUET P
 | Typesetting and upload | `content-ingestion/src/native-paper.ts` |
 | Routes | `GET /api/admin/native-papers/draft`, `POST /api/admin/native-papers`, `GET /api/learn/pyq/documents/:id/file` |
 | Columns | migration `0023_native_documents.sql` (`r2_key`, `review_state`, `rights_basis`) |
-| Screens | "CUET Prep practice papers" in `frontend/src/pages/Pyq.tsx`; Download in `OfficialViewer.tsx` |
+| Screens | "Prepora practice papers" in `frontend/src/pages/Pyq.tsx`; Download in `OfficialViewer.tsx` |
 | Tests | `backend/test/native-papers.test.ts` |

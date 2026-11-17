@@ -148,7 +148,7 @@ export function NotFoundPage({ inApp = true }: { inApp?: boolean }) {
       <div className="mx-auto max-w-md text-center">
         <p className="num text-sm font-semibold text-accent">404</p>
         <h1 className="mt-2 text-2xl font-semibold text-ink">Page not found</h1>
-        <p className="mt-2 text-[15px] text-ink-2">This address does not match any page of CUET Prep. The link may be old, or the address may have a typing mistake.</p>
+        <p className="mt-2 text-[15px] text-ink-2">This address does not match any page of Prepora. The link may be old, or the address may have a typing mistake.</p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <Link to="/" className={buttonClass('primary')}>
             Go to home
