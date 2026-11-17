@@ -196,10 +196,10 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                 toggle(sKey);
                 if (s.available) loadOutline(s.paperId);
               }}
-              className={`${rowBase} h-10 px-3 text-[14px] ${onSubject ? selectedRow : inside ? 'font-semibold text-ink' : 'text-ink'}`}
+              className={`${rowBase} min-h-10 px-3 py-2 text-[14px] ${onSubject ? selectedRow : inside ? 'font-semibold text-ink' : 'text-ink'}`}
             >
               <Chevron open={isOpen} />
-              <span className="min-w-0 flex-1 truncate" title={s.name}>
+              <span className="min-w-0 flex-1 leading-snug" title={s.name}>
                 {s.name}
               </span>
             </button>
@@ -281,9 +281,9 @@ function Chapters({ paperId, outline, list, currentId, onNavigate, onRetry }: { 
             data-paper={paperId}
             data-kind={c.kind}
             title={`${c.label ? `${c.label} ` : ''}${c.title}`}
-            className={`${rowBase} h-8 pr-3 text-[12.5px] ${c.kind === 'group' ? 'pl-12 font-medium' : 'pl-16'} ${currentId === c.id ? selectedRow : 'text-ink'}`}
+            className={`${rowBase} pr-3 text-[12.5px] ${c.kind === 'group' ? 'min-h-8 py-1.5 pl-12 font-medium' : 'h-8 pl-16'} ${currentId === c.id ? selectedRow : 'text-ink'}`}
           >
-            <span className="min-w-0 flex-1 truncate">
+            <span className={`min-w-0 flex-1 ${c.kind === 'group' ? 'leading-snug' : 'truncate'}`}>
               {c.label ? <span className="text-ink-3">{c.label} </span> : null}
               {c.title}
             </span>
