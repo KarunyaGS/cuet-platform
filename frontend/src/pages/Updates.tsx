@@ -157,17 +157,24 @@ export function UpdatesPage() {
   );
 }
 
-/** Dashboard: the newest few notices for the student's exam. */
-export function LatestUpdates({ exam }: { exam: ExamCode | null }) {
+/**
+ * The newest few notices for the student's exam. Shown on the settings (profile) page, whose own section title and description
+ * go with it: `bare` leaves out this block's heading and keeps only the link to the full page.
+ */
+export function LatestUpdates({ exam, bare = false }: { exam: ExamCode | null; bare?: boolean }) {
   const r = useLoad(() => api.notices({ exam: exam ?? undefined, limit: 4 }), [exam]);
-  // Always shown (also when there is nothing new) so that the full page stays one tap away from Today.
+  // Always shown (also when there is nothing new) so that the full page stays one tap away.
   if (!r.data) return null;
   return (
-    <section aria-labelledby="gov-updates" className="mb-7">
-      <div className="mb-2.5 flex items-baseline justify-between gap-3">
-        <h2 id="gov-updates" className="text-base font-semibold text-ink">
-          Latest government updates
-        </h2>
+    <section aria-labelledby={bare ? undefined : 'gov-updates'} aria-label={bare ? 'Latest government updates' : undefined} className={bare ? '' : 'mb-7'}>
+      <div className={`flex items-baseline justify-between gap-3 ${bare ? 'mb-2' : 'mb-2.5'}`}>
+        {bare ? (
+          <span />
+        ) : (
+          <h2 id="gov-updates" className="text-base font-semibold text-ink">
+            Latest government updates
+          </h2>
+        )}
         <Link to={`/updates${exam ? `?exam=${exam}` : ''}`} className="shrink-0 text-sm font-medium text-accent hover:underline">
           All updates
         </Link>

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router';
 import { api, type ExamCode } from '../api';
 import { Button, ErrorBox, inputClass, Loading, PageHeader, useAuth, useLoad } from '../ui';
+import { LatestUpdates } from './Updates';
 
 /** A settings group: title and short description on the left, the form on the right (stacked on phones). */
 function Section({ title, description, children }: { title: string; description: string; children: React.ReactNode }) {
@@ -270,6 +271,7 @@ export function ProfilePage() {
   const { user, ready, refresh } = useAuth();
   const p = useLoad(api.profile, [user?.id]);
   const g = useLoad(api.goals, [user?.id]);
+  const prefs = useLoad(api.preferences, [user?.id]);
   const [name, setName] = useState('');
   const [goal, setGoal] = useState({ questionsPerDay: 20, lessonsPerDay: 1 });
   const [pw, setPw] = useState({ currentPassword: '', newPassword: '', confirm: '' });
@@ -361,6 +363,10 @@ export function ProfilePage() {
             </div>
             {errFor('goal')}
           </form>
+        </Section>
+
+        <Section title="Latest government updates" description="Official notices from NTA and UGC, read from their own pages. For anything that affects you, rely on the official notice itself.">
+          <LatestUpdates bare exam={prefs.data?.examCode ?? null} />
         </Section>
 
         <EmailSection />
