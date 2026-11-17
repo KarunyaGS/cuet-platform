@@ -34,9 +34,9 @@ export function MockTopicPage() {
   const d = t.data!;
   const kl = kindLabel(d.topic.kind, d.topic.label);
   const none = d.questionCount === 0;
-  const sets: { mode: 'PRACTICE' | 'TOPIC_TEST'; title: string; text: string; action: string; icon: React.ReactNode }[] = [
-    { mode: 'PRACTICE', title: 'Practise with instant feedback', text: 'Questions one at a time, with the correct answer and the explanation shown straight after you answer.', action: 'Start practice', icon: <PencilLine aria-hidden className="size-4" /> },
-    { mode: 'TOPIC_TEST', title: 'Timed topic test', text: 'The same questions against the clock. Your result and a review come at the end.', action: 'Start timed test', icon: <Timer aria-hidden className="size-4" /> },
+  const sets: { mode: 'PRACTICE' | 'TOPIC_TEST'; heading: string; title: string; text: string; action: string; icon: React.ReactNode }[] = [
+    { mode: 'PRACTICE', heading: 'Practice Test', title: 'Practise with instant feedback', text: 'Questions one at a time, with the correct answer and the explanation shown straight after you answer.', action: 'Start practice test', icon: <PencilLine aria-hidden className="size-4" /> },
+    { mode: 'TOPIC_TEST', heading: 'Mock Test', title: 'Timed mock test', text: 'The same questions against the clock. Your result and a review come at the end.', action: 'Start mock test', icon: <Timer aria-hidden className="size-4" /> },
   ];
   return (
     <div data-mock-topic>
@@ -76,14 +76,15 @@ export function MockTopicPage() {
         </p>
       </header>
 
-      <section aria-labelledby="mock-sets">
-        <SectionTitle id="mock-sets">Question sets</SectionTitle>
-        {none ? (
-          <Empty>Questions for this topic are still being written.</Empty>
-        ) : (
-          <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
-            {sets.map((x) => (
-              <li key={x.mode} className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3.5" data-set={x.mode}>
+      {/* Two clearly named tests, each free to start at any time: nothing has to be finished before another can be taken. */}
+      {none ? (
+        <Empty>Questions for this topic are still being written.</Empty>
+      ) : (
+        <div className="space-y-6">
+          {sets.map((x) => (
+            <section key={x.mode} aria-labelledby={`set-${x.mode}`} data-set={x.mode}>
+              <SectionTitle id={`set-${x.mode}`}>{x.heading}</SectionTitle>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border border-rule bg-surface px-4 py-3.5">
                 <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
                   {x.icon}
                 </span>
@@ -94,12 +95,12 @@ export function MockTopicPage() {
                 <Button onClick={() => start(x.mode)} disabled={busy !== null} kind={x.mode === 'PRACTICE' ? 'primary' : 'secondary'}>
                   {busy === x.mode ? 'Starting…' : x.action}
                 </Button>
-              </li>
-            ))}
-          </ul>
-        )}
-        {err && <ErrorBox error={err} />}
-      </section>
+              </div>
+            </section>
+          ))}
+        </div>
+      )}
+      {err && <ErrorBox error={err} />}
 
     </div>
   );

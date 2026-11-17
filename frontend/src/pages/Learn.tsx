@@ -4,7 +4,6 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { api, type Block } from '../api';
 import { DisplayMath, parseBody, Rich } from '../rich';
 import { Annotatable, blockKey } from '../annotate';
-import { SavedForRevision } from '../revision';
 import { AddCards, AddToPlan, BookmarkButton, ConceptActions, useConcepts, useTrackView } from '../tools';
 import { Button, ErrorBox, Loading, useAuth, useLoad } from '../ui';
 
@@ -265,7 +264,6 @@ export function LearnPage() {
       </header>
       {/* The side column: saved cards and the contents list. On a phone it sits between the title and the text. */}
       <aside className="min-w-0 space-y-5 lg:sticky lg:top-20 lg:col-start-2 lg:row-start-2 lg:self-start" data-lesson-rail>
-        {conceptKeys.length > 0 && <SavedForRevision compact scope={{ resourceId: d.resource.id }} version={concepts.saved.size} />}
       {toc.length > 0 && (
         <nav aria-label="On this page" className="hidden lg:block">
           <div>

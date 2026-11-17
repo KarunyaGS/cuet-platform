@@ -63,11 +63,11 @@ export function BookmarkToggle({ on, onClick, compact = false }: { on: boolean; 
       aria-pressed={on}
       title={on ? 'Remove bookmark' : 'Bookmark this'}
       aria-label={compact ? (on ? 'Remove bookmark' : 'Bookmark this') : undefined}
-      className={`inline-flex h-8 items-center gap-1.5 rounded-lg text-[13px] font-medium transition-colors ${compact ? 'w-8 justify-center' : 'px-2.5'} ${
+      className={`inline-flex h-7 items-center gap-1 rounded-lg text-xs font-medium transition-colors ${compact ? 'w-7 justify-center' : 'px-2'} ${
         on ? 'bg-marker-soft text-marker ring-1 ring-inset ring-marker/30' : 'bg-surface text-ink-2 ring-1 ring-inset ring-rule-strong hover:bg-paper hover:text-ink'
       }`}
     >
-      <Bookmark aria-hidden className="size-4" fill={on ? 'currentColor' : 'none'} />
+      <Bookmark aria-hidden className="size-3.5" fill={on ? 'currentColor' : 'none'} />
       {!compact && (on ? 'Bookmarked' : 'Bookmark')}
     </button>
   );
@@ -268,22 +268,12 @@ export function AddCards({ from, onDone }: { from: { resourceId: string } | { no
         aria-haspopup="dialog"
         aria-expanded={open}
         onClick={() => (user ? (setOpen(true), setResult(null), setFailed(false)) : navigate('/signin'))}
-        className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-surface px-2.5 text-[13px] font-medium text-ink-2 ring-1 ring-inset ring-rule-strong transition-colors hover:bg-paper hover:text-ink"
+        className="inline-flex h-7 items-center gap-1 rounded-lg bg-surface px-2 text-xs font-medium text-ink-2 ring-1 ring-inset ring-rule-strong transition-colors hover:bg-paper hover:text-ink"
       >
-        <GalleryVerticalEnd aria-hidden className="size-4" />
+        <GalleryVerticalEnd aria-hidden className="size-3.5" />
         Save all for revision
       </button>
       {open && <SaveToRevise busy={busy} failed={failed} onClose={() => setOpen(false)} onSave={run} />}
-      {result && (
-        <span role="status" className="text-[13px] text-ink-2">
-          {result.total === 0
-            ? 'Nothing of that kind here.'
-            : `${result.added} ${result.added === 1 ? 'card' : 'cards'} saved${result.existing ? `, ${result.existing} already in your bookmarks` : ''}${result.notAdded ? `. ${result.notAdded} more can be added next time (up to ${result.limit} at once)` : ''}.`}{' '}
-          <Link to="/bookmarks" className="font-medium text-accent hover:underline">
-            Open My bookmarks
-          </Link>
-        </span>
-      )}
     </span>
   );
 }
@@ -363,11 +353,11 @@ export function AddToPlan({ kind, refId, title }: { kind: PlanKind; refId: strin
       <button
         type="button"
         onClick={() => (user ? (setOpen(true), setState('idle')) : navigate('/signin'))}
-        className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-medium ring-1 ring-inset transition-colors ${
+        className={`inline-flex h-7 items-center gap-1 rounded-lg px-2 text-xs font-medium ring-1 ring-inset transition-colors ${
           state === 'done' ? 'bg-correct-soft text-correct ring-correct/30' : 'bg-surface text-ink-2 ring-rule-strong hover:bg-paper hover:text-ink'
         }`}
       >
-        {state === 'done' ? <CalendarCheck2 aria-hidden className="size-4" /> : <CalendarPlus aria-hidden className="size-4" />}
+        {state === 'done' ? <CalendarCheck2 aria-hidden className="size-3.5" /> : <CalendarPlus aria-hidden className="size-3.5" />}
         {state === 'done' ? 'Added to plan' : 'Add to plan'}
       </button>
     );

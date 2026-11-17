@@ -60,7 +60,6 @@ const LEARN: MenuItem[] = [
 const MY: MenuItem[] = [
   { to: '/dashboard', label: 'Today', hint: 'What to do next, and what is due', icon: <CalendarCheck2 aria-hidden /> },
   { to: '/bookmarks', label: 'My Bookmarks', hint: 'Everything you saved', icon: <Bookmark aria-hidden /> },
-  { to: '/bookmarks?tab=notes', label: 'Highlights and Notes', hint: 'What you marked in lessons and questions', icon: <Highlighter aria-hidden /> },
   { to: '/bookmarks/review', label: 'Revision Cards', hint: 'Revise the cards that are due', icon: <GalleryVerticalEnd aria-hidden /> },
   { to: '/planner', label: 'Study Planner', hint: 'Your plan, day by day', icon: <CalendarDays aria-hidden /> },
   { to: '/progress', label: 'Learning Progress', hint: 'Accuracy, coverage and weak topics', icon: <ChartNoAxesColumn aria-hidden /> },

@@ -741,8 +741,8 @@ function Layer({ kind, id, children, preload, strict, className, slot }: { kind:
     <div className={className} data-annot-surface={`${kind}:${id}`} data-annot-tool={tool} data-annot-count={items.length} data-annot-status={status}>
       {tool === 'off' && slotEl &&
         createPortal(
-          <button type="button" onClick={() => (setTool('highlight'), setPopup(null))} title={status === 'saving' ? 'Saving…' : status === 'saved' ? 'Saved' : items.length ? `${items.length} ${items.length === 1 ? 'annotation' : 'annotations'}` : undefined} className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-surface px-2.5 text-[13px] font-medium text-ink-2 ring-1 ring-inset ring-rule-strong hover:bg-paper hover:text-ink" data-annot-open>
-            <Pencil aria-hidden className="size-4" />
+          <button type="button" onClick={() => (setTool('highlight'), setPopup(null))} title={status === 'saving' ? 'Saving…' : status === 'saved' ? 'Saved' : items.length ? `${items.length} ${items.length === 1 ? 'annotation' : 'annotations'}` : undefined} className="inline-flex h-7 items-center gap-1 rounded-lg bg-surface px-2 text-xs font-medium text-ink-2 ring-1 ring-inset ring-rule-strong hover:bg-paper hover:text-ink" data-annot-open>
+            <Pencil aria-hidden className="size-3.5" />
             Annotate
           </button>,
           slotEl,
@@ -759,8 +759,8 @@ function Layer({ kind, id, children, preload, strict, className, slot }: { kind:
               </button>
             )}
             {slotEl ? null : (
-              <button type="button" onClick={() => (setTool('highlight'), setPopup(null))} className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-surface px-2.5 text-[13px] font-medium text-ink-2 ring-1 ring-inset ring-rule-strong hover:bg-paper hover:text-ink" data-annot-open>
-                <Pencil aria-hidden className="size-4" />
+              <button type="button" onClick={() => (setTool('highlight'), setPopup(null))} className="inline-flex h-7 items-center gap-1 rounded-lg bg-surface px-2 text-xs font-medium text-ink-2 ring-1 ring-inset ring-rule-strong hover:bg-paper hover:text-ink" data-annot-open>
+                <Pencil aria-hidden className="size-3.5" />
                 Annotate
               </button>
             )}

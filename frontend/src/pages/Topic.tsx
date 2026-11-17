@@ -32,6 +32,24 @@ function useRelated(d: TopicDetail): Related[] | null {
   return items;
 }
 
+/** The official NTA syllabus PDF, opened at the page where this topic is listed. Only shown when the topic really has that reference. */
+function OfficialPdf({ source }: { source: TopicDetail['source'] }) {
+  if (!source.url) return null;
+  return (
+    <a
+      href={`${source.url}#page=${source.page ?? 1}`}
+      target="_blank"
+      rel="noreferrer noopener"
+      data-official-pdf
+      title="Opens the official NTA PDF in a new tab"
+      className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-accent-soft px-2.5 py-1.5 text-xs font-medium text-accent ring-1 ring-inset ring-accent/20 transition-colors hover:bg-accent-soft/60 hover:underline"
+    >
+      <FileText aria-hidden className="size-3.5" />
+      Official NTA PDF{source.page ? `, page ${source.page}` : ''}
+    </a>
+  );
+}
+
 function LessonsList({ items, source }: { items: Related[]; source: TopicDetail['source'] }) {
   return (
     <section aria-labelledby="related" className="min-w-0">
@@ -48,12 +66,7 @@ function LessonsList({ items, source }: { items: Related[]; source: TopicDetail[
                 <span className="mt-0.5 block truncate text-xs text-ink-3">{[r.type === 'LESSON' ? 'Lesson' : r.type.charAt(0) + r.type.slice(1).toLowerCase(), r.from].filter(Boolean).join(' · ')}</span>
               </span>
             </Link>
-            {source.url && !r.from && (
-              <a href={`${source.url}#page=${source.page ?? 1}`} target="_blank" rel="noreferrer noopener" data-official-pdf className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-accent-soft px-2.5 py-1.5 text-xs font-medium text-accent hover:underline">
-                <FileText aria-hidden className="size-3.5" />
-                Official NTA PDF{source.page ? `, page ${source.page}` : ''}
-              </a>
-            )}
+            {source.url && !r.from && <OfficialPdf source={source} />}
             <Link to={`/learn/${r.id}`} tabIndex={-1} aria-hidden className="shrink-0">
               <ChevronRight aria-hidden className="size-4 text-ink-3" />
             </Link>
@@ -94,9 +107,17 @@ function MainColumn({ d }: { d: TopicDetail }) {
     <div className="min-w-0 space-y-4">
       <div className="space-y-4">
         {lessons && <LessonsList items={lessons} source={d.source} />}
+        {/* A chapter, or a topic with no lesson of its own: the same official reference, in the same place (the top of the lesson area). */}
+        {related !== null && d.source.url && !(lessons && lessons.some((r) => !r.from)) && (
+          <div className="flex" data-official-pdf-row>
+            <OfficialPdf source={d.source} />
+          </div>
+        )}
         {related !== null && !lessons && (
           <p className="rounded-lg border border-dashed border-rule-strong px-4 py-3 text-sm text-ink-2">There is no lesson for this topic yet. You can still practise its questions.</p>
         )}
+        {/* Only a chapter (a heading with topics under it) lists what the student saved from inside it. A single topic or lesson page does not. */}
+        {d.children.length > 0 && <SavedForRevision plain scope={{ nodeId: d.topic.id }} />}
       </div>
     </div>
   );
@@ -165,7 +186,6 @@ export function TopicPage() {
               <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />
             </Link>
           )}
-          <SavedForRevision compact scope={{ nodeId: d.topic.id }} />
         </aside>
       </div>
     </div>

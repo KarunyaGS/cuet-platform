@@ -4,7 +4,7 @@
  * source's page. Third-party copies are labelled as such, never as NTA's originals. Dates, shifts and languages are
  * shown only where the source states them.
  */
-import { ChevronRight, ExternalLink, FileText, KeyRound, ScrollText } from 'lucide-react';
+import { ChevronRight, ExternalLink, FileText, ScrollText } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
 import { api, type PyqDoc } from '../api';
@@ -209,7 +209,6 @@ export function PyqBrowser({ year: wantYear, subject: wantSubject, onPick, autoS
               <div className="mt-8">
                 <SectionTitle>
                   <span className="inline-flex items-center gap-2">
-                    <KeyRound aria-hidden className="size-4 text-ink-3" />
                     Answer keys, {subject.data.year}
                   </span>
                 </SectionTitle>
@@ -352,7 +351,6 @@ function PyqSelection({ year, slug }: { year: number; slug: string }) {
       <section aria-labelledby="pyq-keys">
         <SectionTitle id="pyq-keys">
           <span className="inline-flex items-center gap-2">
-            <KeyRound aria-hidden className="size-4 text-ink-3" />
             Answer keys ({d.answerKeys.length})
           </span>
         </SectionTitle>

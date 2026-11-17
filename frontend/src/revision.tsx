@@ -150,7 +150,7 @@ export const applyChange = (list: Flashcard[], id: string, next: Flashcard | nul
  * "Saved for revision" on a lesson or a topic page: the student's saved cards from that lesson (or from every lesson
  * under that topic), revisable right there. `version` changes when the page saves or unsaves something, to reload.
  */
-export function SavedForRevision({ scope, version = 0, startOpen = false, compact = false }: { scope: { resourceId: string } | { nodeId: string }; version?: number; startOpen?: boolean; compact?: boolean }) {
+export function SavedForRevision({ scope, version = 0, startOpen = false, compact = false, plain = false }: { scope: { resourceId: string } | { nodeId: string }; version?: number; startOpen?: boolean; compact?: boolean; plain?: boolean }) {
   const { user } = useAuth();
   const [cards, setCards] = useState<Flashcard[] | null>(null);
   const [open, setOpen] = useState(startOpen);
@@ -171,6 +171,22 @@ export function SavedForRevision({ scope, version = 0, startOpen = false, compac
   // Cards needing revision first, then those due today, then the rest.
   const rank = (c: Flashcard) => (c.status === 'NEED_REVISION' ? 0 : c.due ? 1 : 2);
   const sorted = [...cards].sort((a, b) => rank(a) - rank(b));
+  // A chapter page: just the student's saved cards from the whole chapter, listed in the page. No count, no fold-away, no "revise" button.
+  if (plain) {
+    if (cards.length === 0) return null;
+    return (
+      <section aria-labelledby="saved-for-revision" data-saved-for-revision>
+        <h2 id="saved-for-revision" className="mb-2 text-sm font-semibold text-ink">
+          Saved for revision
+        </h2>
+        <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+          {sorted.map((c) => (
+            <CardRow key={c.id} card={c} here={false} onChange={(next) => setCards((list) => applyChange(list ?? [], c.id, next))} />
+          ))}
+        </ul>
+      </section>
+    );
+  }
   return (
     <section aria-labelledby="saved-for-revision" data-saved-for-revision className={compact ? 'overflow-hidden rounded-lg bg-ink/[0.035]' : 'overflow-hidden rounded-xl border border-rule bg-surface'}>
       <div className={compact ? 'px-3 py-2' : 'px-4 py-3'}>
