@@ -196,10 +196,12 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                 toggle(sKey);
                 if (s.available) loadOutline(s.paperId);
               }}
-              className={`${rowBase} h-auto min-h-10 px-3 py-2 text-[14px] ${onSubject ? selectedRow : inside ? 'font-semibold text-ink' : 'text-ink'}`}
+              className={`${rowBase} h-10 px-3 text-[14px] ${onSubject ? selectedRow : inside ? 'font-semibold text-ink' : 'text-ink'}`}
             >
               <Chevron open={isOpen} />
-              <span className="min-w-0 flex-1 leading-snug">{s.name}</span>
+              <span className="min-w-0 flex-1 truncate" title={s.name}>
+                {s.name}
+              </span>
             </button>
             {isOpen && (
               <ul className="pb-1">
@@ -278,9 +280,10 @@ function Chapters({ paperId, outline, list, currentId, onNavigate, onRetry }: { 
             aria-current={currentId === c.id ? 'page' : undefined}
             data-paper={paperId}
             data-kind={c.kind}
-            className={`${rowBase} min-h-7 py-1 pr-3 text-[12.5px] ${c.kind === 'group' ? 'pl-12 pt-1.5 font-medium' : 'pl-16'} ${currentId === c.id ? selectedRow : 'text-ink'}`}
+            title={`${c.label ? `${c.label} ` : ''}${c.title}`}
+            className={`${rowBase} h-8 pr-3 text-[12.5px] ${c.kind === 'group' ? 'pl-12 font-medium' : 'pl-16'} ${currentId === c.id ? selectedRow : 'text-ink'}`}
           >
-            <span className="min-w-0 flex-1 leading-snug">
+            <span className="min-w-0 flex-1 truncate">
               {c.label ? <span className="text-ink-3">{c.label} </span> : null}
               {c.title}
             </span>
