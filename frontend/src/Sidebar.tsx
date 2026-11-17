@@ -490,7 +490,7 @@ function ChapterRow({ kind, label, title, open, state, to, onSelect, onToggle }:
     <SplitRow
       to={to}
       kind={kind}
-      title={`${label ? `${label} ` : ''}${title}`}
+      title={title}
       open={open}
       state={state}
       onSelect={onSelect}
@@ -498,7 +498,6 @@ function ChapterRow({ kind, label, title, open, state, to, onSelect, onToggle }:
       pad="pl-9"
       label={
         <>
-          {label ? <span className="text-ink-3">{label} </span> : null}
           {title}
         </>
       }
@@ -539,11 +538,10 @@ function Chapters({ paperId, outline, list, currentId, parentId, openGroup, onTo
         aria-current={currentId === c.id ? 'page' : undefined}
         data-paper={paperId}
         data-kind={kinds[1]}
-        title={`${c.label ? `${c.label} ` : ''}${c.title}`}
+        title={c.title}
         className={`${rowBase} h-8 pr-3 text-[13px] ${indent} ${currentId === c.id ? selectedRow : 'text-ink'}`}
       >
         <span className="min-w-0 flex-1 truncate">
-          {c.label ? <span className="text-ink-3">{c.label} </span> : null}
           {c.title}
         </span>
         {c.questions > 0 && <Count n={c.questions} />}

@@ -1,4 +1,5 @@
 import { ChevronRight, FileText, Timer } from 'lucide-react';
+import { useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { api, type ExamCode, type PyqTree, type Subject } from '../api';
 import { chaptersOf, withQuestions, type SideItem } from '../Sidebar';
@@ -36,76 +37,51 @@ export function AreaCards({ exam, paperId }: { exam: string; paperId: string }) 
 const row = 'flex items-center gap-3 px-4 py-3 text-[15px] text-ink hover:bg-accent-soft/50';
 const Count = ({ n, word }: { n: number; word: string }) => <span className="num ml-auto shrink-0 text-sm text-ink-3">{n} {word}</span>;
 
-function Chapters({ list, base, word, test }: { list: SideItem[]; base: string; word: string; test?: boolean }) {
-  if (list.length === 0) return <Empty>Nothing is listed here yet.</Empty>;
-  const out: React.ReactNode[] = [];
-  let heading: SideItem | null = null;
-  for (const c of list) {
-    if (c.kind === 'group') {
-      heading = c;
-      out.push(
-        <li key={`g-${c.id}`} className="bg-paper">
-          <Link to={`${base}/${c.id}`} className="flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-ink hover:text-accent" data-chapter={c.id}>
-            <span>
-              {c.label ? <span className="text-ink-3">{c.label} </span> : null}
-              {c.title}
-            </span>
-            {test ? <span className="ml-auto text-xs font-medium text-accent">Chapter test</span> : null}
-            {c.questions > 0 && !test ? <Count n={c.questions} word={word} /> : null}
-          </Link>
-        </li>,
-      );
-      continue;
-    }
-    out.push(
-      <li key={c.id}>
-        <Link to={`${base}/${c.id}`} className={`${row} ${heading ? 'pl-8' : ''}`} data-topic={c.id}>
-          <span className="min-w-0 flex-1">
-            {c.label ? <span className="text-ink-3">{c.label} </span> : null}
-            {c.title}
-          </span>
-          {c.questions > 0 ? <Count n={c.questions} word={word} /> : null}
-        </Link>
-      </li>,
-    );
-  }
-  return <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">{out}</ul>;
-}
-
-/** Study Material: one card per chapter, its topics listed inside. A chapter with no topics under it is a card on its own. */
-function ChapterCards({ list }: { list: SideItem[] }) {
+/**
+ * One card per chapter. Every chapter starts closed: a chapter's topics show only when its chevron is pressed (one at a time),
+ * and the chapter's name opens the chapter's own page. A chapter with no topics under it is a card on its own.
+ */
+function ChapterCards({ list, base = '/topic', test = false }: { list: SideItem[]; base?: string; test?: boolean }) {
+  const [openId, setOpenId] = useState<string | null>(null);
   if (list.length === 0) return <Empty>Nothing is listed here yet.</Empty>;
   const cards: { head: SideItem; topics: SideItem[] }[] = [];
   for (const c of list) {
     if (c.kind === 'group') cards.push({ head: c, topics: [] });
-    else if (cards.length && cards[cards.length - 1]!.topics.length >= 0 && cards[cards.length - 1]!.head.kind === 'group') cards[cards.length - 1]!.topics.push(c);
+    else if (cards.length && cards[cards.length - 1]!.head.kind === 'group') cards[cards.length - 1]!.topics.push(c);
     else cards.push({ head: c, topics: [] });
   }
   return (
-    <ul className="flex flex-col gap-4" data-chapter-cards>
-      {cards.map(({ head, topics }) => (
-        <li key={head.id} className="flex flex-col overflow-hidden rounded-xl border border-rule bg-surface">
-          <Link to={`/topic/${head.id}`} data-chapter={head.id} className="flex items-start gap-3 border-b border-rule bg-paper px-4 py-3 hover:bg-accent-soft/50">
-            {head.label ? <span className="num mt-0.5 grid h-6 min-w-6 shrink-0 place-items-center rounded-md bg-accent-soft px-1.5 text-xs font-semibold text-accent">{head.label}</span> : null}
-            <span className="min-w-0 flex-1 text-[15px] leading-snug font-semibold text-ink">{head.title}</span>
-            {head.questions > 0 ? <span className="num shrink-0 pt-0.5 text-xs text-ink-3">{head.questions} questions</span> : null}
-          </Link>
-          {topics.length > 0 ? (
-            <ul className="flex-1 divide-y divide-rule">
-              {topics.map((t) => (
-                <li key={t.id}>
-                  <Link to={`/topic/${t.id}`} data-topic={t.id} title={t.title} className="flex items-center gap-2 px-4 py-2 text-sm text-ink hover:bg-accent-soft/50">
-                    <span className="min-w-0 flex-1 truncate">{t.title.split(':')[0]}</span>
-                    {t.questions > 0 ? <span className="num shrink-0 text-xs text-ink-3">{t.questions}</span> : null}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="px-4 py-2.5 text-sm text-ink-2">Open the chapter for its lessons and practice questions.</p>
-          )}
-        </li>
-      ))}
+    <ul className="flex flex-col gap-3" data-chapter-cards>
+      {cards.map(({ head, topics }) => {
+        const open = openId === head.id;
+        return (
+          <li key={head.id} className="overflow-hidden rounded-xl border border-rule bg-surface">
+            <div className={`flex items-center ${open ? 'border-b border-rule bg-paper' : ''}`}>
+              <Link to={`${base}/${head.id}`} data-chapter={head.id} className="flex min-w-0 flex-1 items-center gap-3 px-4 py-3 hover:bg-accent-soft/50">
+                <span className="min-w-0 flex-1 text-[15px] leading-snug font-semibold text-ink">{head.title}</span>
+                {test ? <span className="shrink-0 text-xs font-medium text-accent">Chapter test</span> : head.questions > 0 ? <span className="num shrink-0 text-xs text-ink-3">{head.questions} questions</span> : null}
+              </Link>
+              {topics.length > 0 && (
+                <button type="button" aria-expanded={open} aria-label={open ? 'Collapse chapter' : 'Expand chapter'} data-chapter-toggle={head.id} onClick={() => setOpenId(open ? null : head.id)} className="mr-2 grid size-9 shrink-0 place-items-center rounded-md hover:bg-ink/5">
+                  <ChevronRight aria-hidden className={`size-4 text-ink-3 transition-transform ${open ? 'rotate-90' : ''}`} />
+                </button>
+              )}
+            </div>
+            {open && topics.length > 0 && (
+              <ul className="divide-y divide-rule">
+                {topics.map((t) => (
+                  <li key={t.id}>
+                    <Link to={`${base}/${t.id}`} data-topic={t.id} title={t.title} className="flex items-center gap-2 px-4 py-2 text-sm text-ink hover:bg-accent-soft/50">
+                      <span className="min-w-0 flex-1 truncate">{t.title.split(':')[0]}</span>
+                      {t.questions > 0 ? <span className="num shrink-0 text-xs text-ink-3">{t.questions}</span> : null}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -157,7 +133,7 @@ export function SubjectAreaPage() {
           </span>
           <ChevronRight aria-hidden className="size-4 text-ink-3" />
         </Link>
-        <Chapters list={withQuestions(list)} base="/mock-tests/topic" word="questions" test />
+        <ChapterCards list={withQuestions(list)} base="/mock-tests/topic" test />
       </>
     );
   } else if (area === 'previous-papers') {

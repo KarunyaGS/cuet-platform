@@ -184,13 +184,14 @@ export function SavedForRevision({ scope, version = 0, startOpen = false, compac
           </span>
           {cards.length > 0 && (open ? <ChevronDown aria-hidden className="size-4 shrink-0 text-ink-3" /> : <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />)}
         </button>
-        {cards.length > 0 && (
-          <div className={compact ? 'mt-1.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 text-xs' : 'mt-2.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-sm'} data-saved-summary>
+        {cards.length > 0 && (compact ? due > 0 || need > 0 : true) && (
+          <div className={compact ? 'mt-1 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-xs' : 'mt-2.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-sm'} data-saved-summary>
             <span className="text-ink-2">
-              {due} due today{need > 0 && <span className="text-wrong"> · {need} need revision</span>}
+              {(!compact || due > 0) && <>{due} due today</>}
+              {need > 0 && <span className="text-wrong">{!compact || due > 0 ? ' · ' : ''}{need} need revision</span>}
             </span>
             {due > 0 && (
-              <Link to={`/bookmarks/review?${q}`} className={buttonClass('primary', 'sm')}>
+              <Link to={`/bookmarks/review?${q}`} className={compact ? 'text-xs font-medium text-accent hover:underline' : buttonClass('primary', 'sm')}>
                 Revise {due} due
               </Link>
             )}

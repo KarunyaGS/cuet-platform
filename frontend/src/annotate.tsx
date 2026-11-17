@@ -12,6 +12,7 @@
  * onto other text.
  */
 import { ArrowUpRight, Circle, Eraser, Highlighter, Minus, MousePointer2, PenLine, Pencil, Redo2, Square, StickyNote, Trash2, Undo2, X } from 'lucide-react';
+import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type PointerEvent as RPointerEvent, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router';
 import { api, type Annotation, type AnnotationKind } from './api';
@@ -240,18 +241,23 @@ interface Drag {
  * (a lesson), so a mark whose block is gone is flagged; for a question, parts appear later (the explanation), so a
  * missing block only means "not shown now".
  */
-export function Annotatable({ kind, id, children, preload, strict = kind === 'LESSON', className = '' }: { kind: 'LESSON' | 'QUESTION'; id: string; children: ReactNode; preload?: Annotation[] | null; strict?: boolean; className?: string }) {
+export function Annotatable({ kind, id, children, preload, strict = kind === 'LESSON', className = '', slot }: { kind: 'LESSON' | 'QUESTION'; id: string; children: ReactNode; preload?: Annotation[] | null; strict?: boolean; className?: string; slot?: string }) {
   const { user } = useAuth();
   if (!user) return <div className={className}>{children}</div>;
   return (
-    <Layer kind={kind} id={id} preload={preload} strict={strict} className={className}>
+    <Layer kind={kind} id={id} preload={preload} strict={strict} className={className} slot={slot}>
       {children}
     </Layer>
   );
 }
 
-function Layer({ kind, id, children, preload, strict, className }: { kind: 'LESSON' | 'QUESTION'; id: string; children: ReactNode; preload?: Annotation[] | null; strict: boolean; className: string }) {
+function Layer({ kind, id, children, preload, strict, className, slot }: { kind: 'LESSON' | 'QUESTION'; id: string; children: ReactNode; preload?: Annotation[] | null; strict: boolean; className: string; slot?: string }) {
   const location = useLocation();
+  // When the page offers a place for it (the lesson's action row), the Annotate button lives there instead of on a row of its own.
+  const [slotEl, setSlotEl] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    setSlotEl(slot ? document.getElementById(slot) : null);
+  }, [slot, kind, id]);
   const wrap = useRef<HTMLDivElement>(null);
   const svg = useRef<SVGSVGElement>(null);
   const [items, setItems] = useState<Annotation[]>([]);
@@ -733,7 +739,15 @@ function Layer({ kind, id, children, preload, strict, className }: { kind: 'LESS
 
   return (
     <div className={className} data-annot-surface={`${kind}:${id}`} data-annot-tool={tool} data-annot-count={items.length} data-annot-status={status}>
-      <div data-annot-ui className={`z-30 mb-2 flex flex-wrap items-center gap-1.5 ${tool === 'off' ? 'justify-end' : 'sticky top-16 rounded-xl border border-rule bg-surface p-1.5 shadow-md shadow-ink/5'}`}>
+      {tool === 'off' && slotEl &&
+        createPortal(
+          <button type="button" onClick={() => (setTool('highlight'), setPopup(null))} title={status === 'saving' ? 'Saving…' : status === 'saved' ? 'Saved' : items.length ? `${items.length} ${items.length === 1 ? 'annotation' : 'annotations'}` : undefined} className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-surface px-2.5 text-[13px] font-medium text-ink-2 ring-1 ring-inset ring-rule-strong hover:bg-paper hover:text-ink" data-annot-open>
+            <Pencil aria-hidden className="size-4" />
+            Annotate
+          </button>,
+          slotEl,
+        )}
+      <div data-annot-ui className={`z-30 flex flex-wrap items-center gap-1.5 ${tool === 'off' && slotEl && status !== 'error' ? 'hidden' : 'mb-2'} ${tool === 'off' ? 'justify-end' : 'sticky top-16 rounded-xl border border-rule bg-surface p-1.5 shadow-md shadow-ink/5'}`}>
         {tool === 'off' ? (
           <>
             <span role="status" className="text-xs text-ink-3" data-annot-save>
@@ -744,10 +758,12 @@ function Layer({ kind, id, children, preload, strict, className }: { kind: 'LESS
                 Not saved. Try again
               </button>
             )}
-            <button type="button" onClick={() => (setTool('highlight'), setPopup(null))} className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-surface px-2.5 text-[13px] font-medium text-ink-2 ring-1 ring-inset ring-rule-strong hover:bg-paper hover:text-ink" data-annot-open>
-              <Pencil aria-hidden className="size-4" />
-              Annotate
-            </button>
+            {slotEl ? null : (
+              <button type="button" onClick={() => (setTool('highlight'), setPopup(null))} className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-surface px-2.5 text-[13px] font-medium text-ink-2 ring-1 ring-inset ring-rule-strong hover:bg-paper hover:text-ink" data-annot-open>
+                <Pencil aria-hidden className="size-4" />
+                Annotate
+              </button>
+            )}
           </>
         ) : (
           <>

@@ -244,25 +244,27 @@ export function LearnPage() {
     <div className="grid grid-cols-1 gap-x-10 gap-y-5 lg:grid-cols-[minmax(0,50rem)_minmax(0,20rem)] lg:justify-center xl:gap-x-14" data-lesson-layout>
       {/* The title first on every screen; on a wide screen it spans the text and the side rail. */}
       <header className="border-b border-rule pb-4 lg:col-span-2" data-lesson-header>
-          {d.topic && (
-            <Link to={`/topic/${d.topic.id}`} className="inline-flex max-w-full items-center gap-1 text-sm text-ink-2 hover:text-accent">
-              <ChevronLeft aria-hidden className="size-4 shrink-0" />
-              <span className="truncate">{d.topic.title}</span>
-            </Link>
-          )}
-          <h1 className="mt-2 text-[1.75rem] leading-tight font-semibold text-ink">{d.resource.title}</h1>
+          <div className="flex items-start gap-2">
+            {d.topic && (
+              <Link to={`/topic/${d.topic.id}`} aria-label={`Back to ${d.topic.title}`} data-lesson-back className="mt-[0.2rem] grid size-8 shrink-0 place-items-center rounded-lg text-ink-2 hover:bg-ink/5 hover:text-accent">
+                <ChevronLeft aria-hidden className="size-6" />
+              </Link>
+            )}
+            <h1 className="min-w-0 text-[1.75rem] leading-tight font-semibold text-ink">{d.resource.title}</h1>
+          </div>
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
             <span className="num text-sm text-ink-3">Lesson, about {minutes} min read</span>
-            <span className="flex flex-wrap gap-2 sm:ml-auto">
+            <span className="flex flex-wrap items-center gap-2 sm:ml-auto" data-lesson-actions>
               <BookmarkButton kind="LESSON" id={d.resource.id} />
               <AddToPlan kind="LESSON" refId={d.resource.id} title={d.resource.title} />
+              <span id="lesson-annotate-slot" className="contents" />
               {conceptKeys.length > 0 && <AddCards from={{ resourceId: d.resource.id }} onDone={concepts.reload} />}
             </span>
           </div>
       </header>
       {/* The side column: saved cards and the contents list. On a phone it sits between the title and the text. */}
       <aside className="min-w-0 space-y-5 lg:sticky lg:top-20 lg:col-start-2 lg:row-start-2 lg:self-start" data-lesson-rail>
-        {conceptKeys.length > 0 && <SavedForRevision scope={{ resourceId: d.resource.id }} version={concepts.saved.size} />}
+        {conceptKeys.length > 0 && <SavedForRevision compact scope={{ resourceId: d.resource.id }} version={concepts.saved.size} />}
       {toc.length > 0 && (
         <nav aria-label="On this page" className="hidden lg:block">
           <div>
@@ -289,7 +291,7 @@ export function LearnPage() {
             The concept you saved has been updated in this lesson since then. The lesson below shows how it reads now.
           </p>
         )}
-        <Annotatable kind="LESSON" id={d.resource.id}>
+        <Annotatable kind="LESSON" id={d.resource.id} slot="lesson-annotate-slot">
           <div className="space-y-5">
             {d.blocks.map((b) => {
               if (b.type === 'SOLVED_PROBLEM') solved++;
