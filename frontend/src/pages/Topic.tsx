@@ -10,9 +10,9 @@ type Related = { id: string; title: string; type: string; from: string | null };
 
 /**
  * Lessons that belong to this page: its own, and for a unit or section the lessons of the topics under it (a unit has none of its own).
- * Nothing is shown when there are none, so the column simply ends with the content above it.
+ * `null` while they are being fetched.
  */
-function RelatedContent({ d }: { d: TopicDetail }) {
+function useRelated(d: TopicDetail): Related[] | null {
   const [items, setItems] = useState<Related[] | null>(d.resources.length > 0 || d.children.length === 0 ? d.resources.map((r) => ({ id: r.id, title: r.title, type: r.type, from: null })) : null);
   useEffect(() => {
     if (items) return;
@@ -20,7 +20,7 @@ function RelatedContent({ d }: { d: TopicDetail }) {
     void Promise.all(
       d.children.map((c) =>
         api.topic(c.id).then(
-          (x) => x.resources.map((r) => ({ id: r.id, title: r.title, type: r.type, from: [c.label, c.title].filter(Boolean).join(' ') })),
+          (x) => x.resources.map((r) => ({ id: r.id, title: r.title, type: r.type, from: kindLabel(c.kind, c.label) || c.title })),
           () => [] as Related[],
         ),
       ),
@@ -29,25 +29,95 @@ function RelatedContent({ d }: { d: TopicDetail }) {
       live = false;
     };
   }, [d, items]);
-  if (!items || items.length === 0) return null;
+  return items;
+}
+
+/** The official wording, compact: a long description is clamped to three lines with a way to read the rest. */
+function SyllabusCard({ d }: { d: TopicDetail }) {
+  const [open, setOpen] = useState(false);
+  const body = d.topic.body ?? '';
+  const long = body.length > 260;
   return (
-    <section aria-labelledby="related" className="mb-6">
+    <section aria-label="Official syllabus text" className="rounded-lg border border-rule bg-surface px-3.5 py-2.5">
+      <div className="mb-1 flex flex-wrap items-center justify-between gap-x-3 text-xs">
+        <span className="font-medium tracking-wide text-ink-3 uppercase">Official syllabus text</span>
+        {d.source.url && (
+          <a href={`${d.source.url}#page=${d.source.page ?? 1}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
+            <FileText aria-hidden className="size-3.5" />
+            NTA PDF, page {d.source.page}
+          </a>
+        )}
+      </div>
+      <p className="font-serif text-[14px] leading-snug font-medium text-ink">{d.topic.title}</p>
+      {body && <p className={`mt-0.5 font-serif text-[14px] leading-snug text-ink-2 ${long && !open ? 'line-clamp-3' : ''}`}>{body}</p>}
+      {long && (
+        <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="mt-1 text-xs font-medium text-accent hover:underline">
+          {open ? 'Show less' : 'Show more'}
+        </button>
+      )}
+    </section>
+  );
+}
+
+function LessonsList({ items }: { items: Related[] }) {
+  return (
+    <section aria-labelledby="related" className="min-w-0">
       <SectionTitle id="related">Lessons and related content</SectionTitle>
       <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
         {items.map((r) => (
           <li key={r.id}>
-            <Link to={`/learn/${r.id}`} className="group flex items-start gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-paper">
-              <BookOpen aria-hidden className="mt-0.5 size-4 shrink-0 text-accent" />
-              <span className="min-w-0 flex-1">
-                <span className="block font-medium text-ink group-hover:text-accent">{r.title}</span>
-                <span className="mt-0.5 block text-xs text-ink-3">{[r.type === 'LESSON' ? 'Lesson' : r.type.charAt(0) + r.type.slice(1).toLowerCase(), r.from].filter(Boolean).join(' · ')}</span>
+            <Link to={`/learn/${r.id}`} className="group flex items-center gap-3 px-3.5 py-2.5 transition-colors hover:bg-paper">
+              <span aria-hidden className="grid size-8 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent">
+                <BookOpen className="size-4" />
               </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-[14px] leading-snug font-medium text-ink group-hover:text-accent">{r.title}</span>
+                <span className="mt-0.5 block truncate text-xs text-ink-3">{[r.type === 'LESSON' ? 'Lesson' : r.type.charAt(0) + r.type.slice(1).toLowerCase(), r.from].filter(Boolean).join(' · ')}</span>
+              </span>
+              <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function CoveredList({ d }: { d: TopicDetail }) {
+  return (
+    <section aria-labelledby="covered" className="min-w-0">
+      <SectionTitle id="covered">Covered in this {d.topic.kind.toLowerCase()}</SectionTitle>
+      <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+        {d.children.map((c) => (
+          <li key={c.id}>
+            <Link to={`/topic/${c.id}`} className="group flex items-start gap-2.5 px-3.5 py-2 text-[13px] transition-colors hover:bg-paper">
+              {kindLabel(c.kind, c.label) && <span className="mt-px w-12 shrink-0 text-xs text-ink-3">{kindLabel(c.kind, c.label)}</span>}
+              <span className="line-clamp-2 min-w-0 flex-1 text-ink group-hover:text-accent">{c.title}</span>
               <ChevronRight aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-3" />
             </Link>
           </li>
         ))}
       </ul>
     </section>
+  );
+}
+
+/**
+ * The left column: the syllabus text, then lessons and what the page covers. When both exist they sit side by side on a wide screen
+ * (lessons first, as the main thing to open) so nothing is pushed far down the page; on a narrow screen they stack.
+ */
+function MainColumn({ d }: { d: TopicDetail }) {
+  const related = useRelated(d);
+  const lessons = related && related.length > 0 ? related : null;
+  const covered = d.children.length > 0;
+  return (
+    <div className="min-w-0 space-y-4">
+      <SyllabusCard d={d} />
+      <div className={lessons && covered ? 'grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]' : 'space-y-4'}>
+        {lessons && <LessonsList items={lessons} />}
+        {covered && <CoveredList d={d} />}
+      </div>
+    </div>
   );
 }
 
@@ -115,41 +185,8 @@ export function TopicPage() {
         </div>
       </header>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] xl:gap-8" data-topic-layout>
-        <div className="min-w-0">
-          <section aria-label="Official syllabus text" className="mb-6 rounded-xl border border-rule border-l-2 border-l-accent bg-surface px-4 py-3">
-            <div className="mb-1.5 flex flex-wrap items-center justify-between gap-2 text-sm">
-              <span className="font-medium text-ink-2">Official syllabus text</span>
-              {d.source.url && (
-                <a href={`${d.source.url}#page=${d.source.page ?? 1}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-accent hover:underline">
-                  <FileText aria-hidden className="size-4" />
-                  NTA PDF, page {d.source.page}
-                </a>
-              )}
-            </div>
-            <p className="font-serif text-[15px] leading-relaxed text-ink">{d.topic.title}</p>
-            {d.topic.body && <p className="mt-1 font-serif text-[15px] leading-relaxed text-ink-2">{d.topic.body}</p>}
-          </section>
-
-          {d.children.length > 0 && (
-            <section className="mb-6" aria-labelledby="covered">
-              <SectionTitle id="covered">Covered in this {d.topic.kind.toLowerCase()}</SectionTitle>
-              <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
-                {d.children.map((c) => (
-                  <li key={c.id}>
-                    <Link to={`/topic/${c.id}`} className="group flex items-start gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-paper">
-                      {kindLabel(c.kind, c.label) && <span className="mt-px w-14 shrink-0 text-xs text-ink-3">{kindLabel(c.kind, c.label)}</span>}
-                      <span className="min-w-0 flex-1 text-ink group-hover:text-accent">{c.title}</span>
-                      <ChevronRight aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-3" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          <RelatedContent key={d.topic.id} d={d} />
-        </div>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-6" data-topic-layout>
+        <MainColumn key={d.topic.id} d={d} />
 
         <aside className="min-w-0 space-y-2 lg:sticky lg:top-4 lg:self-start" data-topic-side>
           <div className="rounded-lg bg-ink/[0.035] p-3">
