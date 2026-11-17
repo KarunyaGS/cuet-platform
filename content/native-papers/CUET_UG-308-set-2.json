@@ -1,0 +1,1932 @@
+{
+ "schema": "cuet-native-paper/1",
+ "key": "cuetprep:practice:CUET_UG:308:set-2",
+ "kind": "PRACTICE_PAPER",
+ "exam": "CUET_UG",
+ "paperId": "paper_cuet_ug_2026_308",
+ "subjectCode": "308",
+ "subjectName": "Computer Science",
+ "set": 2,
+ "title": "CUET Prep practice paper: Computer Science, set 2",
+ "language": "English",
+ "rights": {
+  "basis": "OWNED_ORIGINAL",
+  "statement": "Every question in this paper was written for CUET Prep and is owned by it. It is not a previous-year paper and contains no question from any examination paper."
+ },
+ "reviewState": "UNREVIEWED",
+ "reviewedQuestions": 0,
+ "pattern": {
+  "questions": 50,
+  "durationMinutes": 60,
+  "marksCorrect": 5,
+  "marksIncorrect": -1,
+  "officialQuestionCount": 50
+ },
+ "units": [
+  {
+   "title": "Section A",
+   "questions": 9
+  },
+  {
+   "title": "Computer Science",
+   "questions": 25
+  },
+  {
+   "title": "Informatics Practices",
+   "questions": 16
+  }
+ ],
+ "questions": [
+  {
+   "number": 1,
+   "id": "q_1b801f63cde04b3187bd33ba12ca6532",
+   "type": "MCQ_SINGLE",
+   "unit": "Section A",
+   "stem": "Which aggregate function counts all the rows of a table, including those that contain NULL in some columns?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "COUNT(Salary)"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "SUM(Salary)"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "MAX(Salary)"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "COUNT(*)"
+    }
+   ]
+  },
+  {
+   "number": 2,
+   "id": "q_1d4d0a5ffad54058b854819a8097631b",
+   "type": "MCQ_SINGLE",
+   "unit": "Section A",
+   "stem": "On the EMP table, what is the output of SELECT Dept, SUM(Salary) FROM EMP WHERE Salary >= 40000 GROUP BY Dept ORDER BY Dept;",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "HR 35000, IT 50000 and Sales 120000"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "IT 50000 and Sales 120000"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "IT 50000 and Sales 85000"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Sales 85000 only"
+    }
+   ]
+  },
+  {
+   "number": 3,
+   "id": "q_1ddc95a688be46ceb6b3fcfa7ac4127a",
+   "type": "MCQ_SINGLE",
+   "unit": "Section A",
+   "stem": "The original PRODUCT table has six rows: Notebook (Stationery, 45, 100), Pencil (Stationery, 8, 500), Backpack (Bags, 899, 20), Marker (Stationery, 30, NULL), Lunchbox (Kitchen, 250, 40), Bottle (Kitchen, 175, 60). How many rows does `SELECT PName FROM PRODUCT WHERE Category = \"Stationery\" OR Category = \"Kitchen\" AND Price > 200;` return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "2"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "5"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "3"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "4"
+    }
+   ]
+  },
+  {
+   "number": 4,
+   "id": "q_1e0cc7cfb5a047cca8d446073ea95a7f",
+   "type": "MCQ_SINGLE",
+   "unit": "Section A",
+   "stem": "Table A holds the values 1, 2, 2, 3 and table B holds 2, 3, 4 (single column x). How many rows does SELECT x FROM A UNION SELECT x FROM B; return, and how many would SELECT x FROM A UNION ALL SELECT x FROM B; return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "4 and 7"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "7 and 4"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "4 and 4"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "3 and 7"
+    }
+   ]
+  },
+  {
+   "number": 5,
+   "id": "q_25330d7667cf47b993f24124b4753bf2",
+   "type": "STATEMENT_BASED",
+   "unit": "Section A",
+   "stem": "Consider the following statements about keys.\nA. A foreign key value in the child table may be NULL.\nB. A relation may have more than one candidate key.\nC. A primary key may contain duplicate values if the rows differ in other columns.\nD. An alternate key is a candidate key that is not chosen as the primary key.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A, B and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, B, C and D"
+    }
+   ]
+  },
+  {
+   "number": 6,
+   "id": "q_28ae4be8cf47497d9219706abcf9d76d",
+   "type": "MCQ_SINGLE",
+   "unit": "Section A",
+   "stem": "What does SELECT MONTHNAME('2024-03-15'); return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "3"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "March"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Friday"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "15"
+    }
+   ]
+  },
+  {
+   "number": 7,
+   "id": "q_2be6b47a8cdf44ef83f9db6c4c704b5c",
+   "type": "MCQ_SINGLE",
+   "unit": "Section A",
+   "stem": "Which keyword is used with ORDER BY to sort the rows from the largest value to the smallest?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "DESC"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "ASC"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "REVERSE"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "DOWN"
+    }
+   ]
+  },
+  {
+   "number": 8,
+   "id": "q_2d1bfdd311c542e88b6bcc9b58669b51",
+   "type": "MCQ_SINGLE",
+   "unit": "Section A",
+   "stem": "Which constraint makes sure that a column can never be left without a value (NULL)?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "UNIQUE"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "NOT NULL"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "DEFAULT"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "FOREIGN KEY"
+    }
+   ]
+  },
+  {
+   "number": 9,
+   "id": "q_303c3bc6d0e64f708fcaf2bb4a6fcfe5",
+   "type": "MCQ_SINGLE",
+   "unit": "Section A",
+   "stem": "Relation R has degree 3 and cardinality 4. Relation S has degree 2 and cardinality 5. What are the degree and cardinality of $R \\times S$?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Degree 5, cardinality 20"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Degree 6, cardinality 9"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Degree 5, cardinality 9"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Degree 6, cardinality 20"
+    }
+   ]
+  },
+  {
+   "number": 10,
+   "id": "q_1555370c73394e1381f7d401632b7e40",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "The median of the even-sized data [2, 4, 4, 4, 5, 5, 7, 9] is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "4"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "5"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "4.5"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "4.4"
+    }
+   ]
+  },
+  {
+   "number": 11,
+   "id": "q_1565f8e8e0f04a118a09f84081d2abca",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "What does `SELECT INSTR('INFORMATICS', 'MAT');` return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "5"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "6"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "7"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "0"
+    }
+   ]
+  },
+  {
+   "number": 12,
+   "id": "q_17054afcf22146148a30820263d8c04d",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Computer Science",
+   "stem": "Match the item in List-I with its description in List-II.",
+   "structure": {
+    "left": [
+     "A. Spam",
+     "B. Adware",
+     "C. Cookie",
+     "D. Firewall"
+    ],
+    "right": [
+     "I. Software that shows unwanted advertisements",
+     "II. A system that filters network traffic by rules",
+     "III. Unwanted bulk e-mail",
+     "IV. A small text file stored by the browser for a website"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-III, B-I, C-IV, D-II"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-I, B-III, C-IV, D-II"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-III, B-I, C-II, D-IV"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-IV, B-I, C-III, D-II"
+    }
+   ]
+  },
+  {
+   "number": 13,
+   "id": "q_18b48dc30aab43ef8c96e2078ab454a6",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "What is the value of the postfix expression `9 3 / 2 4 * +`?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "8"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "11"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "5"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "24"
+    }
+   ]
+  },
+  {
+   "number": 14,
+   "id": "q_19d4c6440a1c4c9ca633a5621fba9539",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "Every value in a data set is increased by 10. Which statement is correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "The mean and the standard deviation both increase by 10."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "The mean stays the same and the standard deviation increases by 10."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "The mean and the standard deviation both stay the same."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "The mean increases by 10 and the standard deviation stays the same."
+    }
+   ]
+  },
+  {
+   "number": 15,
+   "id": "q_19fe1422cefb4ae7b31596b3ef733c64",
+   "type": "ASSERTION_REASON",
+   "unit": "Computer Science",
+   "stem": "Assertion (A): A firewall can block the traffic coming from a particular IP address.\nReason (R): A firewall may be a hardware device, a software program, or both.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 16,
+   "id": "q_1a2cd2cef58b4fd68594676aba35c79c",
+   "type": "STATEMENT_BASED",
+   "unit": "Computer Science",
+   "stem": "Consider the following statements about hashing.\nA. In linear probing, a colliding key is stored in the next free slot, wrapping round to slot 0 at the end of the table.\nB. In chaining, colliding keys are kept in a list at the same slot.\nC. A hash function can never produce a collision.\nD. In a table of size 7 with h(key) = key % 7, the key 50 is mapped to slot 1.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and C only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A, B and C only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, B and D only"
+    }
+   ]
+  },
+  {
+   "number": 17,
+   "id": "q_1a4f8fdd179042d68fcdb2d0fc47210a",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "Bubble sort in ascending order is applied to [5, 1, 4, 2, 8]. What is the list after the first pass?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "[1, 4, 2, 5, 8]"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "[1, 4, 5, 2, 8]"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "[1, 2, 4, 5, 8]"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "[1, 5, 4, 2, 8]"
+    }
+   ]
+  },
+  {
+   "number": 18,
+   "id": "q_1affa64475fb40a193c90811a90bcb85",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "A user has an antivirus installed, but it was not updated for two years. Why is the computer still at high risk?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "The firewall is automatically switched off when the antivirus is old"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "An antivirus stops working completely after one year"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "The signature database does not contain recently created malware, so such programs may not be detected"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Old antivirus software converts all files into viruses"
+    }
+   ]
+  },
+  {
+   "number": 19,
+   "id": "q_1b4afc9b503648f4af6b9c978135379d",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "A group of infected computers sends thousands of requests every second to a bank website, which becomes unavailable to genuine customers. Which security property is mainly affected, and what is the attack called?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Confidentiality; eavesdropping"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Availability; Distributed Denial of Service"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Integrity; snooping"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Authentication; intrusion"
+    }
+   ]
+  },
+  {
+   "number": 20,
+   "id": "q_1d8e07cb73b6490d8698f4eb44a3900f",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "For the data [2, 4, 4, 4, 5, 5, 7, 9], the sample standard deviation (divisor n - 1), correct to two decimal places, is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "2.14"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "2"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "4.57"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "5.66"
+    }
+   ]
+  },
+  {
+   "number": 21,
+   "id": "q_1db27e9c475b48d197446d3d1f210c30",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "Which principle describes the order in which items leave a stack?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "First In, First Out (FIFO)"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Smallest value first"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "Highest priority first"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Last In, First Out (LIFO)"
+    }
+   ]
+  },
+  {
+   "number": 22,
+   "id": "q_1e61777daf28451abe6efbaac76f6f20",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "In a list-based deque with index 0 treated as the front, which statement removes the element at the rear?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "dq.pop(0)"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "dq.insert(0, x)"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "dq.pop()"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "dq.append(x)"
+    }
+   ]
+  },
+  {
+   "number": 23,
+   "id": "q_1e9bb7ceb2754599a47c587b49286656",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "Two computers on an old shared Ethernet connected through a hub can send data to each other, but only one of them can send at a given moment. This mode of communication is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "simplex"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "full duplex"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "broadcast only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "half duplex"
+    }
+   ]
+  },
+  {
+   "number": 24,
+   "id": "q_1f23a947f87347748e43957f994c428d",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "The Ethernet cable used to connect a computer to a network switch in a LAN is a type of",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "optical fibre cable with BNC connectors"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "co-axial cable with RJ-11 connectors"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "twisted pair cable with RJ-45 connectors"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "microwave link"
+    }
+   ]
+  },
+  {
+   "number": 25,
+   "id": "q_22470f5683db4525b340ef8fe0f343b6",
+   "type": "STATEMENT_BASED",
+   "unit": "Computer Science",
+   "stem": "Consider the following statements about sorting techniques.\nA. Selection sort makes the same number of comparisons for any ordering of the same n values.\nB. Insertion sort needs fewer shifts when the list is nearly sorted.\nC. Bubble sort without a flag stops early when the list is already sorted.\nD. The number of swaps made by bubble sort equals the number of out-of-order pairs in the list.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A, B and D only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A and C only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, B and C only"
+    }
+   ]
+  },
+  {
+   "number": 26,
+   "id": "q_22e61a8e2e2745c3b9495c807fc59e6c",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "What is the output of the following code?\n\nimport statistics as st\nd = [6, 8, 10, 12, 14]\nprint(st.pvariance(d), st.variance(d))",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "10 8"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "2.83 3.16"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "8 10"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "8 8"
+    }
+   ]
+  },
+  {
+   "number": 27,
+   "id": "q_24e79a47da754029991ded1f83f0b1db",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "Relation R(a, b) has the tuples (1, x), (2, y), (2, z), (3, w) and relation S(a, c) has the tuples (2, p), (2, q), (3, r), (4, s). How many tuples does the selection of R.a = S.a applied on the cartesian product R x S return?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "5"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "4"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "3"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "16"
+    }
+   ]
+  },
+  {
+   "number": 28,
+   "id": "q_259a4bc138814998b800c178daf2be79",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "A firewall is mainly used to",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "remove viruses stored on the hard disk"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "increase the bandwidth of the Internet connection"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "monitor and filter incoming and outgoing network traffic using security rules"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "convert domain names to IP addresses"
+    }
+   ]
+  },
+  {
+   "number": 29,
+   "id": "q_266b3775ce624da8b85dbdaf13f2326b",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "Which of the following can NOT be a valid IPv4 address?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "172.16.254.1"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "10.0.0.1"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "192.168.1.256"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "8.8.8.8"
+    }
+   ]
+  },
+  {
+   "number": 30,
+   "id": "q_27e2f40d5fa944e39f19ca71e5847555",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "What is the content of dq after this code runs?\n\ndq = []\ndq.append(1)\ndq.insert(0, 2)\ndq.append(3)\ndq.pop()\ndq.pop(0)",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "[2]"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "[1]"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "[2, 1]"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "[3]"
+    }
+   ]
+  },
+  {
+   "number": 31,
+   "id": "q_28da1dbf1c4b44a2954ff1d4fc96297c",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "Every value in a data set is multiplied by 3. The standard deviation was 2 before. The new variance is",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "6"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "36"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "18"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "12"
+    }
+   ]
+  },
+  {
+   "number": 32,
+   "id": "q_297ba06f6182416994237e8ea990ac63",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Computer Science",
+   "stem": "Bubble sort (ascending, without a flag) is applied to each list in List-I. Match each list with the number of swaps in List-II.",
+   "structure": {
+    "left": [
+     "A. [2, 1, 3]",
+     "B. [3, 2, 1]",
+     "C. [1, 2, 3]",
+     "D. [2, 3, 1]"
+    ],
+    "right": [
+     "I. 0 swaps",
+     "II. 1 swap",
+     "III. 2 swaps",
+     "IV. 3 swaps"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-I, B-IV, C-II, D-III"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-II, B-III, C-I, D-IV"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-III, B-IV, C-I, D-II"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-II, B-IV, C-I, D-III"
+    }
+   ]
+  },
+  {
+   "number": 33,
+   "id": "q_2a50562e2a724db98cb8b9df8ade6f9f",
+   "type": "ASSERTION_REASON",
+   "unit": "Computer Science",
+   "stem": "Assertion (A): Postfix expressions can be evaluated without any brackets or precedence rules.\nReason (R): Postfix expressions always contain fewer symbols than the equivalent infix expression.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 34,
+   "id": "q_2b4cfc8656f34b748c0337983ad49a53",
+   "type": "MCQ_SINGLE",
+   "unit": "Computer Science",
+   "stem": "How many seconds are needed to send a file of 1500 KB over a channel with a data rate of 1.2 Mbps? (Take 1 byte = 8 bits, so 1 KB = 8 Kb, and 1 Mbps = 1000 Kbps; ignore overheads.)",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "10 seconds"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "1.25 seconds"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "8 seconds"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "100 seconds"
+    }
+   ]
+  },
+  {
+   "number": 35,
+   "id": "q_111ccd1d01b242cbbbb8bdc9f9907536",
+   "type": "MCQ_SINGLE",
+   "unit": "Informatics Practices",
+   "stem": "Which of the following is a benefit of teamwork?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "The responsibility is always on one person"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Disagreements never occur in a team"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "The work can be shared, so it is finished faster and members learn from each other"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "Communication is not required"
+    }
+   ]
+  },
+  {
+   "number": 36,
+   "id": "q_13cd260f764c4f51adac5e218c89ae0e",
+   "type": "MCQ_SINGLE",
+   "unit": "Informatics Practices",
+   "stem": "What does this program print?\n`a = pd.Series([1, 2, 3], index=[\"x\", \"y\", \"z\"])`\n`b = pd.Series([10, 20, 30], index=[\"y\", \"z\", \"w\"])`\n`print(a.add(b, fill_value=0).sort_index().tolist())`",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "[nan, nan, 12.0, 23.0]"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "[30.0, 1.0, 22.0, 33.0]"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "[1.0, 12.0, 23.0, 30.0]"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "[30.0, 1.0, 12.0, 23.0]"
+    }
+   ]
+  },
+  {
+   "number": 37,
+   "id": "q_153deb29fb7b412abeaab1be545d5698",
+   "type": "ASSERTION_REASON",
+   "unit": "Informatics Practices",
+   "stem": "Assertion (A): In the top-down approach the whole problem is considered first and then divided into smaller modules.\nReason (R): In the top-down approach the smallest parts are built first and are then joined to form the full system.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 38,
+   "id": "q_15ec94ebe6444ae0999fa2e0469f030c",
+   "type": "MATCH_THE_FOLLOWING",
+   "unit": "Informatics Practices",
+   "stem": "Match the topology in List-I with its description in List-II.",
+   "structure": {
+    "left": [
+     "A. Star",
+     "B. Bus",
+     "C. Mesh",
+     "D. Tree"
+    ],
+    "right": [
+     "I. Every pair of nodes has its own direct link",
+     "II. All nodes are joined to one central switch or hub",
+     "III. Nodes share one backbone cable",
+     "IV. Several star networks joined to a main backbone in levels"
+    ]
+   },
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A-II, B-III, C-I, D-IV"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A-III, B-II, C-IV, D-I"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A-II, B-I, C-III, D-IV"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A-IV, B-III, C-I, D-II"
+    }
+   ]
+  },
+  {
+   "number": 39,
+   "id": "q_17567853ac7c41d884c73770195cbdcf",
+   "type": "MCQ_SINGLE",
+   "unit": "Informatics Practices",
+   "stem": "Which Series method returns the count of each different value present in the Series?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "count()"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "value_counts()"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "unique()"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "nunique()"
+    }
+   ]
+  },
+  {
+   "number": 40,
+   "id": "q_1900bf821378420d8b32097eccdd558c",
+   "type": "ASSERTION_REASON",
+   "unit": "Informatics Practices",
+   "stem": "Assertion (A): The call plt.plot([1, 2, 3], [4, 5]) gives an error.\nReason (R): Matplotlib needs the x and y sequences to have the same number of elements so that every x value has a matching y value.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 41,
+   "id": "q_198e446cdbb842e6becfe3fd97310661",
+   "type": "STATEMENT_BASED",
+   "unit": "Informatics Practices",
+   "stem": "Consider the following statements about the DataFrame df with default row labels 0 to 5.\nA. df.drop(1) removes the row labelled 1 and returns a new DataFrame.\nB. df.drop(\"Dept\") removes the column Dept.\nC. df.drop(\"Dept\", axis=1) removes the column Dept.\nD. df.set_index(\"Name\").reset_index() brings Name back as a normal column.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and B only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A, C and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A and C only"
+    }
+   ]
+  },
+  {
+   "number": 42,
+   "id": "q_1a90890f39a046de9d501ea8d01fee06",
+   "type": "STATEMENT_BASED",
+   "unit": "Informatics Practices",
+   "stem": "Consider the following statements about the steps of a project.\nA. Roles are divided among the team members in the planning step.\nB. The research step is always carried out after the product has been implemented.\nC. The finished project is evaluated against the objectives written in the first step.\nD. Testing may send the team back to an earlier step to correct the work.\nWhich statements are correct?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "A and B only"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "B, C and D only"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A, C and D only"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A, B and C only"
+    }
+   ]
+  },
+  {
+   "number": 43,
+   "id": "q_1f29df2ab5ae4b939b5059e62921e0b2",
+   "type": "MCQ_SINGLE",
+   "unit": "Informatics Practices",
+   "stem": "What does this program print?\n`df = pd.DataFrame({\"a\": [1, 1, 2, 2, 1], \"b\": [\"p\", \"p\", \"q\", \"r\", \"p\"]})`\n`r = df.drop_duplicates()`\n`print(r.index.tolist(), len(df.drop_duplicates(subset=\"a\", keep=\"last\")))`",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "[0, 2, 3] 3"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "[0, 2, 3] 2"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "[0, 1, 2, 3, 4] 2"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "[0, 1, 2] 5"
+    }
+   ]
+  },
+  {
+   "number": 44,
+   "id": "q_1fbc443743fa4245b449d3508c101ad7",
+   "type": "MCQ_SINGLE",
+   "unit": "Informatics Practices",
+   "stem": "What is the output of the following code?\n\nimport pandas as pd\ns = pd.Series([4, 8, 6, 5, 3, 8, 10])\nprint(s.median(), s.mode()[0])",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "6.0 8"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "6.0 6"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "5.0 8"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "8.0 8"
+    }
+   ]
+  },
+  {
+   "number": 45,
+   "id": "q_229a909459fc42c9801de5797f5e04d1",
+   "type": "MCQ_SINGLE",
+   "unit": "Informatics Practices",
+   "stem": "What is the main difference between a bar graph and a histogram?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "There is no difference; both functions give the same chart"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A bar graph always uses horizontal bars, a histogram vertical bars"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "A bar graph shows percentages of a whole, a histogram does not"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "A bar graph compares separate categories, while a histogram shows the frequency of continuous class intervals"
+    }
+   ]
+  },
+  {
+   "number": 46,
+   "id": "q_22c8e1b2cdb5462f96f16550fdaa009c",
+   "type": "ASSERTION_REASON",
+   "unit": "Informatics Practices",
+   "stem": "Assertion (A): Every webpage on the Internet is a static webpage.\nReason (R): The content of a dynamic webpage can differ for different visitors.",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "Both (A) and (R) are true and (R) is the correct explanation of (A)."
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "Both (A) and (R) are true but (R) is not the correct explanation of (A)."
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "(A) is true but (R) is false."
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "(A) is false but (R) is true."
+    }
+   ]
+  },
+  {
+   "number": 47,
+   "id": "q_235f9abb3d4c4474af5a47a614ceb66a",
+   "type": "MCQ_SINGLE",
+   "unit": "Informatics Practices",
+   "stem": "A state government links its offices, colleges and libraries spread over one metropolitan city with a single high-speed network. This is best classified as a",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "LAN (Local Area Network)"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "PAN (Personal Area Network)"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "MAN (Metropolitan Area Network)"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "WAN (Wide Area Network)"
+    }
+   ]
+  },
+  {
+   "number": 48,
+   "id": "q_2473d8d5026a4fbe823d138d743bbef7",
+   "type": "MCQ_SINGLE",
+   "unit": "Informatics Practices",
+   "stem": "A network of n computers in a full mesh needs 45 links. How many ports does each computer need?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "10"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "8"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "45"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "9"
+    }
+   ]
+  },
+  {
+   "number": 49,
+   "id": "q_279e2531dd3c46a58198626c3971d5c0",
+   "type": "MCQ_SINGLE",
+   "unit": "Informatics Practices",
+   "stem": "Task A has no prerequisite. Task B needs A, task C needs B, task D needs B, and task E needs both C and D. Which two tasks can be carried out at the same time (given enough team members)?",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "C and D"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "A and B"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "B and C"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "D and E"
+    }
+   ]
+  },
+  {
+   "number": 50,
+   "id": "q_283d180d8b3b47ec85df9ce89ae39b23",
+   "type": "MCQ_SINGLE",
+   "unit": "Informatics Practices",
+   "stem": "A team breaks a large problem into smaller sub-problems, solves each separately and then combines the solutions. This approach is called",
+   "structure": null,
+   "passage": null,
+   "options": [
+    {
+     "position": 1,
+     "label": "A",
+     "text": "divide and conquer (decomposition)"
+    },
+    {
+     "position": 2,
+     "label": "B",
+     "text": "random trial"
+    },
+    {
+     "position": 3,
+     "label": "C",
+     "text": "brainstorming"
+    },
+    {
+     "position": 4,
+     "label": "D",
+     "text": "plagiarism"
+    }
+   ]
+  }
+ ],
+ "answerKey": [
+  {
+   "number": 1,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 2,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 3,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 4,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 5,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 6,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 7,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 8,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 9,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 10,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 11,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 12,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 13,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 14,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 15,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 16,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 17,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 18,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 19,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 20,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 21,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 22,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 23,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 24,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 25,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 26,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 27,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 28,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 29,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 30,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 31,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 32,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 33,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 34,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 35,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 36,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 37,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 38,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 39,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 40,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 41,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 42,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 43,
+   "correct": [
+    "B"
+   ]
+  },
+  {
+   "number": 44,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 45,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 46,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 47,
+   "correct": [
+    "C"
+   ]
+  },
+  {
+   "number": 48,
+   "correct": [
+    "D"
+   ]
+  },
+  {
+   "number": 49,
+   "correct": [
+    "A"
+   ]
+  },
+  {
+   "number": 50,
+   "correct": [
+    "A"
+   ]
+  }
+ ]
+}
