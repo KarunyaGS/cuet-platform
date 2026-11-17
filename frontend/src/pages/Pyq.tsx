@@ -24,12 +24,11 @@ export const siteName = (site: string) => (UNNAMED.has(site) ? null : site);
 const cleanNote = (note: string | null) => note?.replace(/AglaSem(’s|'s)/g, 'the source’s').replace(/(hosted|listed) by AglaSem/g, '$1 on another website').replace(/AglaSem/g, 'another website') ?? null;
 
 export function kindBadge(d: PyqDoc) {
+  if (d.classification === 'OFFICIAL' || d.classification === 'THIRD_PARTY_COPY') return null;
   const name = siteName(d.sourceSite);
   if (d.classification === 'CUET_PREP_ORIGINAL') return <Badge tone="accent">CUET Prep practice paper</Badge>;
-  if (d.classification === 'OFFICIAL') return <Badge tone="green">NTA’s own file</Badge>;
   if (d.classification === 'MEMORY_BASED') return <Badge tone="amber">{name ? `Memory-based, by ${name}` : 'Memory-based'}</Badge>;
-  if (d.classification === 'SAMPLE') return <Badge>{name ? `Sample paper, by ${name}` : 'Sample paper'}</Badge>;
-  return <Badge tone="accent">{name ? `Copy on ${name}` : 'Third-party copy'}</Badge>;
+  return <Badge>{name ? `Sample paper, by ${name}` : 'Sample paper'}</Badge>;
 }
 
 /** The one action of a paper. It always opens the paper: in the viewer here when the file's host allows it, otherwise on the source's page. */
@@ -64,7 +63,6 @@ export function PaperRow({ d }: { d: PyqDoc }) {
         <span className="mt-1 block text-[15px] text-ink">{d.title}</span>
         {d.note && !d.hosted && <span className="mt-0.5 block text-xs text-ink-3">{cleanNote(d.note)}</span>}
         <span className="mt-0.5 block text-xs text-ink-3">
-          {d.native && d.hosted ? `Hosted here exactly as ${d.classification === 'OFFICIAL' ? 'NTA published it' : `${siteName(d.sourceSite) ?? 'its source'} provided it, with their permission`} (retrieved ${day(d.hosted.retrievedAt.slice(0, 10))}). Opens in the viewer; you can download it.` : d.native ? 'Opens here in CUET Prep. You can download it.' : d.viewer === 'IN_APP' ? `Shown here straight from ${siteName(d.sourceSite) ?? 'the source'}’s server.` : siteName(d.sourceSite) ? `Opens on ${siteName(d.sourceSite)}’s website in a new tab.` : 'Opens on the source website in a new tab.'}{' '}
           {d.native ? null : (
             <>
               {d.linkChecked ? `Checked on ${day(d.checkedOn)}.` : 'This link could not be checked automatically.'}{' '}
@@ -442,17 +440,9 @@ export function PyqViewerPage() {
   return (
     <div>
       <PageHeader title={d.title} back={{ to: back, label: 'Previous-year papers' }} subtitle={[d.native ? 'For CUET (UG)' : d.year ? `CUET (UG) ${d.year}` : 'CUET (UG)', d.subjectName, d.examDate ? day(d.examDate) : null, d.shift, d.language].filter(Boolean).join(' · ')} />
-      <p className="-mt-3 mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-2">
-        {kindBadge(d)}
-        {d.unreviewed && <Badge tone="amber">Preview, not reviewed</Badge>}
-        <span>
-          {siteName(d.sourceSite) ? `Source: ${siteName(d.sourceSite)}. ` : ''}
-          {d.hosted ? '' : cleanNote(d.note)}
-        </span>
-      </p>
-      {d.hosted && (
-        <p className="-mt-2 mb-4 text-xs text-ink-3" data-provenance>
-          {d.classification === 'OFFICIAL' ? 'NTA’s own file, hosted here unchanged.' : `A copy from ${siteName(d.sourceSite) ?? 'another website'}, hosted here unchanged with their permission. It is not an NTA document.`} Original: <a href={d.originalUrl ?? d.hosted.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-accent hover:underline">{(d.originalUrl ?? d.hosted.sourceUrl).replace(/^https:\/\//, '')}</a>. Retrieved {day(d.hosted.retrievedAt.slice(0, 10))}, checked: {d.hosted.verification === 'VERIFIED' ? 'verified' : 'needs review'}. Source: {d.classification === 'OFFICIAL' ? 'National Testing Agency' : siteName(d.sourceSite) ?? 'another website'}.
+      {d.unreviewed && (
+        <p className="-mt-3 mb-4">
+          <Badge tone="amber">Preview, not reviewed</Badge>
         </p>
       )}
       {d.viewer === 'IN_APP' && d.fileUrl ? (

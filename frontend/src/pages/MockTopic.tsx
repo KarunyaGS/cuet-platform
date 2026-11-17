@@ -1,4 +1,4 @@
-import { ChevronRight, ListChecks, PencilLine, Timer } from 'lucide-react';
+import { ChevronRight, PencilLine, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api } from '../api';
@@ -101,12 +101,6 @@ export function MockTopicPage() {
         {err && <ErrorBox error={err} />}
       </section>
 
-      <p className="mt-4 text-sm text-ink-2">
-        <Link to={`/topic/${d.topic.id}`} className="inline-flex items-center gap-1.5 font-medium text-accent hover:underline">
-          <ListChecks aria-hidden className="size-4" />
-          Open this topic’s lessons
-        </Link>
-      </p>
     </div>
   );
 }
