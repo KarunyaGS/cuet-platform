@@ -101,6 +101,15 @@ async function lessonsOf(list: SideItem[]): Promise<LessonRow[]> {
   return rows;
 }
 
+const GROUPS = 'cuet.sidebar.chapter';
+function loadGroups(): Record<string, string | null> {
+  try {
+    return JSON.parse(sessionStorage.getItem(GROUPS) ?? '{}') as Record<string, string | null>;
+  } catch {
+    return {};
+  }
+}
+
 function loadOpen(): Record<string, boolean> {
   try {
     return JSON.parse(sessionStorage.getItem(STORE) ?? '{}') as Record<string, boolean>;
@@ -117,6 +126,19 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const [pyq, setPyq] = useState<PyqTree | 'loading' | 'error' | null>(null);
   const [lessons, setLessons] = useState<Record<string, LessonRow[] | 'loading' | 'error'>>({});
   const [open, setOpen] = useState<Record<string, boolean>>(loadOpen);
+  /** The chapter that is open inside the Question Bank (`c:`) and inside Study Material (`m:`) of each subject: one at a time. */
+  const [groupOpen, setGroupOpen] = useState<Record<string, string | null>>(loadGroups);
+  const toggleGroup = useCallback((key: string, id: string) => {
+    setGroupOpen((o) => {
+      const next = { ...o, [key]: o[key] === id ? null : id };
+      try {
+        sessionStorage.setItem(GROUPS, JSON.stringify(next));
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
+  }, []);
 
   const toggle = (key: string) =>
     setOpen((o) => {
@@ -225,8 +247,23 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
     const list = chaptersByPaper[ctx.paperId];
     const item = list?.find((c) => c.kind === 'topic' && c.ids.has(ctx.nodeId)) ?? list?.find((c) => c.ids.has(ctx.nodeId));
     const group = list?.find((c) => c.kind === 'group' && c.id !== item?.id && c.ids.has(ctx.nodeId));
-    return { paperId: ctx.paperId, itemId: item?.id ?? null, groupId: group?.id ?? null };
+    return { paperId: ctx.paperId, itemId: item?.id ?? null, groupId: group?.id ?? null, groupSelf: item?.kind === 'group' ? item.id : null };
   }, [ctx, chaptersByPaper]);
+  const wantedGroup = current ? (current.groupId ?? current.groupSelf) : null;
+  const wantedKey = current ? (lessonRoute ? `m:${current.paperId}` : `c:${current.paperId}`) : null;
+  useEffect(() => {
+    if (!wantedGroup || !wantedKey) return;
+    setGroupOpen((o) => {
+      if (o[wantedKey] === wantedGroup) return o;
+      const next = { ...o, [wantedKey]: wantedGroup };
+      try {
+        sessionStorage.setItem(GROUPS, JSON.stringify(next));
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
+  }, [wantedGroup, wantedKey]);
 
   const params = new URLSearchParams(search);
   const onPyq = pathname === '/pyq';
@@ -293,11 +330,11 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                       active={!onLesson && current?.paperId === s.paperId}
                       onToggle={() => toggle(`c:${s.paperId}`)}
                     >
-                      <Chapters paperId={s.paperId} outline={outlines[s.paperId]} list={chaptersByPaper[s.paperId]} currentId={!onLesson && current?.paperId === s.paperId ? current.itemId : null} parentId={!onLesson && current?.paperId === s.paperId ? current.groupId : null} onNavigate={onNavigate} onRetry={() => setOutlines((o) => { const { [s.paperId]: _drop, ...rest } = o; return rest; })} />
+                      <Chapters paperId={s.paperId} outline={outlines[s.paperId]} list={chaptersByPaper[s.paperId]} currentId={!onLesson && current?.paperId === s.paperId ? current.itemId : null} parentId={!onLesson && current?.paperId === s.paperId ? current.groupId : null} openGroup={groupOpen[`c:${s.paperId}`] ?? null} onToggleGroup={(id) => toggleGroup(`c:${s.paperId}`, id)} onNavigate={onNavigate} onRetry={() => setOutlines((o) => { const { [s.paperId]: _drop, ...rest } = o; return rest; })} />
                     </Category>
                     <Category
                       id={`p:${s.paperId}`}
-                      label="Full-Length Previous Year Papers"
+                      label="Previous Year Question Paper"
                       open={!!open[`p:${s.paperId}`]}
                       active={pyqSubject?.paperId === s.paperId}
                       onToggle={() => {
@@ -315,7 +352,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
                         active={onLesson && current?.paperId === s.paperId}
                         onToggle={() => toggle(`m:${s.paperId}`)}
                       >
-                        <Lessons rows={lessons[s.paperId]} lessonId={onLesson && current?.paperId === s.paperId ? lessonRoute : null} onNavigate={onNavigate} />
+                        <Lessons rows={lessons[s.paperId]} lessonId={onLesson && current?.paperId === s.paperId ? lessonRoute : null} parentId={onLesson && current?.paperId === s.paperId ? current.groupId : null} openGroup={groupOpen[`m:${s.paperId}`] ?? null} onToggleGroup={(id) => toggleGroup(`m:${s.paperId}`, id)} onNavigate={onNavigate} />
                       </Category>
                     )}
                   </>
@@ -346,7 +383,41 @@ function Category({ label, open, active, onToggle, children }: { id: string; lab
   );
 }
 
-function Chapters({ paperId, outline, list, currentId, parentId, onNavigate, onRetry }: { paperId: string; outline: Outline | 'loading' | 'error' | undefined; list: ReturnType<typeof chaptersOf> | undefined; currentId: string | null; parentId: string | null; onNavigate?: () => void; onRetry: () => void }) {
+/** A chapter (section or unit) in a list: a row with its own chevron that opens or closes the topics under it. */
+function ChapterRow({ kind, label, title, open, state, onToggle }: { kind: string; label: string | null; title: string; open: boolean; state: 'selected' | 'parent' | 'idle'; onToggle: () => void }) {
+  return (
+    <button
+      type="button"
+      aria-expanded={open}
+      aria-current={state === 'selected' ? 'page' : undefined}
+      data-kind={kind}
+      title={`${label ? `${label} ` : ''}${title}`}
+      onClick={onToggle}
+      className={`${rowBase} min-h-8 py-1.5 pr-3 pl-10 text-[13px] ${state === 'selected' ? selectedRow : state === 'parent' ? parentRow : 'text-ink'}`}
+    >
+      <Chevron open={open} />
+      <span className="min-w-0 flex-1 leading-snug">
+        {label ? <span className="text-ink-3">{label} </span> : null}
+        {title}
+      </span>
+    </button>
+  );
+}
+
+/** Split a flat list (heading, topics, heading, topics...) into its chapters; topics before any heading stand alone. */
+function inChapters<T extends { kind: string }, G extends T>(rows: T[], isGroup: (r: T) => r is G): { group: G | null; rest: T[] }[] {
+  const out: { group: G | null; rest: T[] }[] = [];
+  for (const r of rows) {
+    if (isGroup(r)) out.push({ group: r, rest: [] });
+    else if (out.length === 0 || out[out.length - 1]!.group === null) {
+      if (out.length === 0) out.push({ group: null, rest: [] });
+      out[out.length - 1]!.rest.push(r);
+    } else out[out.length - 1]!.rest.push(r);
+  }
+  return out;
+}
+
+function Chapters({ paperId, outline, list, currentId, parentId, openGroup, onToggleGroup, onNavigate, onRetry }: { paperId: string; outline: Outline | 'loading' | 'error' | undefined; list: ReturnType<typeof chaptersOf> | undefined; currentId: string | null; parentId: string | null; openGroup: string | null; onToggleGroup: (id: string) => void; onNavigate?: () => void; onRetry: () => void }) {
   if (!outline || outline === 'loading') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Loading…</li>;
   if (outline === 'error')
     return (
@@ -358,55 +429,62 @@ function Chapters({ paperId, outline, list, currentId, parentId, onNavigate, onR
       </li>
     );
   if (!list || list.length === 0) return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">No chapters are listed yet.</li>;
+  const topic = (c: SideItem, indent: string) => (
+    <li key={c.id}>
+      <Link
+        to={`/topic/${c.id}`}
+        onClick={onNavigate}
+        aria-current={currentId === c.id ? 'page' : undefined}
+        data-paper={paperId}
+        data-kind="topic"
+        title={`${c.label ? `${c.label} ` : ''}${c.title}`}
+        className={`${rowBase} h-8 pr-3 text-[13px] ${indent} ${currentId === c.id ? selectedRow : 'text-ink'}`}
+      >
+        <span className="min-w-0 flex-1 truncate">
+          {c.label ? <span className="text-ink-3">{c.label} </span> : null}
+          {c.title}
+        </span>
+        {c.questions > 0 && <Count n={c.questions} />}
+      </Link>
+    </li>
+  );
   return (
     <>
-      {list.map((c) => (
-        <li key={c.id}>
-          <Link
-            to={`/topic/${c.id}`}
-            onClick={onNavigate}
-            aria-current={currentId === c.id ? 'page' : undefined}
-            data-paper={paperId}
-            data-kind={c.kind}
-            title={`${c.label ? `${c.label} ` : ''}${c.title}`}
-            className={`${rowBase} pr-3 text-[13px] ${c.kind === 'group' ? 'min-h-8 py-1.5 pl-12' : 'h-8 pl-16'} ${currentId === c.id ? selectedRow : parentId === c.id ? parentRow : 'text-ink'}`}
-          >
-            <span className={`min-w-0 flex-1 ${c.kind === 'group' ? 'leading-snug' : 'truncate'}`}>
-              {c.label ? <span className="text-ink-3">{c.label} </span> : null}
-              {c.title}
-            </span>
-            {c.kind === 'topic' && c.questions > 0 && <Count n={c.questions} />}
-          </Link>
-        </li>
-      ))}
+      {inChapters(list, (r): r is SideItem => r.kind === 'group').map(({ group, rest }, i) =>
+        group ? (
+          <li key={group.id}>
+            <ChapterRow kind="group" label={group.label} title={group.title} open={openGroup === group.id} state={currentId === group.id ? 'selected' : parentId === group.id ? 'parent' : 'idle'} onToggle={() => onToggleGroup(group.id)} />
+            {openGroup === group.id && <ul>{rest.map((c) => topic(c, 'pl-16'))}</ul>}
+          </li>
+        ) : (
+          rest.map((c) => topic(c, 'pl-12'))
+        ),
+      )}
     </>
   );
 }
 
-function Lessons({ rows, lessonId, onNavigate }: { rows: LessonRow[] | 'loading' | 'error' | undefined; lessonId: string | null; onNavigate?: () => void }) {
+function Lessons({ rows, lessonId, parentId, openGroup, onToggleGroup, onNavigate }: { rows: LessonRow[] | 'loading' | 'error' | undefined; lessonId: string | null; parentId: string | null; openGroup: string | null; onToggleGroup: (id: string) => void; onNavigate?: () => void }) {
   if (!rows || rows === 'loading') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Loading…</li>;
   if (rows === 'error') return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">Could not load the lessons.</li>;
   if (rows.length === 0) return <li className="py-1 pr-3 pl-12 text-xs text-ink-3">No lessons are listed yet.</li>;
-  const selected = rows.find((r) => r.kind === 'lesson' && r.id === lessonId);
-  const parentId = selected && selected.kind === 'lesson' ? selected.groupId : null;
+  const lesson = (r: Extract<LessonRow, { kind: 'lesson' }>, indent: string) => (
+    <li key={r.id}>
+      <Link to={`/learn/${r.id}`} onClick={onNavigate} aria-current={lessonId === r.id ? 'page' : undefined} data-kind="lesson" title={r.title} className={`${rowBase} h-8 pr-3 text-[13px] ${indent} ${lessonId === r.id ? selectedRow : 'text-ink'}`}>
+        <span className="min-w-0 flex-1 truncate">{r.title}</span>
+      </Link>
+    </li>
+  );
   return (
     <>
-      {rows.map((r) =>
-        r.kind === 'group' ? (
-          <li key={`g-${r.id}`}>
-            <Link to={`/topic/${r.id}`} onClick={onNavigate} data-kind="lesson-group" title={`${r.label ? `${r.label} ` : ''}${r.title}`} className={`${rowBase} min-h-8 py-1.5 pr-3 pl-12 text-[13px] ${parentId === r.id ? parentRow : 'text-ink'}`}>
-              <span className="min-w-0 flex-1 leading-snug">
-                {r.label ? <span className="text-ink-3">{r.label} </span> : null}
-                {r.title}
-              </span>
-            </Link>
+      {inChapters(rows, (r): r is Extract<LessonRow, { kind: 'group' }> => r.kind === 'group').map(({ group, rest }) =>
+        group ? (
+          <li key={`g-${group.id}`}>
+            <ChapterRow kind="lesson-group" label={group.label} title={group.title} open={openGroup === group.id} state={parentId === group.id ? 'parent' : 'idle'} onToggle={() => onToggleGroup(group.id)} />
+            {openGroup === group.id && <ul>{rest.map((r) => (r.kind === 'lesson' ? lesson(r, 'pl-16') : null))}</ul>}
           </li>
         ) : (
-          <li key={r.id}>
-            <Link to={`/learn/${r.id}`} onClick={onNavigate} aria-current={lessonId === r.id ? 'page' : undefined} data-kind="lesson" title={r.title} className={`${rowBase} h-8 pr-3 pl-16 text-[13px] ${lessonId === r.id ? selectedRow : 'text-ink'}`}>
-              <span className="min-w-0 flex-1 truncate">{r.title}</span>
-            </Link>
-          </li>
+          rest.map((r) => (r.kind === 'lesson' ? lesson(r, 'pl-12') : null))
         ),
       )}
     </>
