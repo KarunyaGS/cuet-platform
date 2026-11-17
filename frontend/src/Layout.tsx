@@ -59,7 +59,6 @@ const LEARN: MenuItem[] = [
 ];
 /** My Learning: everything that is the student's own. Each item opens a page that already exists. */
 const MY: MenuItem[] = [
-  { to: '/dashboard', label: 'Today', hint: 'What to do next, and what is due', icon: <CalendarCheck2 aria-hidden /> },
   { to: '/bookmarks', label: 'My Bookmarks', hint: 'Everything you saved', icon: <Bookmark aria-hidden /> },
   { to: '/bookmarks/review', label: 'Revision Cards', hint: 'Revise the cards that are due', icon: <GalleryVerticalEnd aria-hidden /> },
   { to: '/planner', label: 'Study Planner', hint: 'Your plan, day by day', icon: <CalendarDays aria-hidden /> },

@@ -2,6 +2,7 @@ import { ChevronRight, Info, PlayCircle } from 'lucide-react';
 import { Link } from 'react-router';
 import { api } from '../api';
 import { SectionTitle, useAuth, useLoad } from '../ui';
+import { DashboardPage } from './Dashboard';
 
 const greeting = () => {
   const h = new Date().getHours();
@@ -70,6 +71,9 @@ export function Home() {
           </ul>
         </section>
       )}
+      <section aria-label="Today" className="mt-9 border-t border-rule pt-7" data-home-today>
+        <DashboardPage embedded />
+      </section>
     </div>
   );
 }

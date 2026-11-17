@@ -41,7 +41,21 @@ function Goal({ label, value, goal, to }: { label: string; value: number; goal: 
 const row = 'flex items-center gap-3 px-4 py-3 text-sm';
 
 /** The signed-in student's day: goals, where they left off, today's plan, weak topics and subjects. */
-export function DashboardPage() {
+/** The page header, or (when Today sits inside the Home page) a section heading that does not add a second page title. */
+function TodayHead({ embedded, title, subtitle, actions }: { embedded: boolean; title: string; subtitle: string; actions: React.ReactNode }) {
+  if (!embedded) return <PageHeader title={title} subtitle={subtitle} actions={actions} />;
+  return (
+    <header className="mb-4 flex flex-wrap items-end justify-between gap-x-6 gap-y-2.5">
+      <div>
+        <h2 className="text-xl font-semibold text-ink">{title}</h2>
+        <p className="mt-0.5 text-sm text-ink-2">{subtitle}</p>
+      </div>
+      <div className="flex flex-wrap items-center gap-2">{actions}</div>
+    </header>
+  );
+}
+
+export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
   const { user, ready } = useAuth();
   const d = useLoad(api.dashboard, [user?.id]);
   const prefs = useLoad(api.preferences, [user?.id]);
@@ -49,7 +63,7 @@ export function DashboardPage() {
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<Error | null>(null);
-  if (ready && !user) return <Navigate to="/signin" replace />;
+  if (ready && !user && !embedded) return <Navigate to="/signin" replace />;
   if (d.loading && !d.data) return <Loading />;
   if (d.error) return <ErrorBox error={d.error} onRetry={d.reload} />;
   const x: Dashboard = d.data!;
@@ -79,7 +93,8 @@ export function DashboardPage() {
 
   return (
     <div>
-      <PageHeader
+      <TodayHead
+        embedded={embedded}
         title="Today"
         subtitle={today()}
         actions={

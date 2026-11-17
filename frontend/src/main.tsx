@@ -1,6 +1,6 @@
 import { lazy, StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, Navigate } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 import { Layout } from './Layout';
 import { AuthPage } from './pages/Auth';
@@ -103,7 +103,7 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: '/', element: <Home /> },
-      { path: '/dashboard', element: <DashboardPage /> },
+      { path: '/dashboard', element: <Navigate to="/" replace /> },
       { path: '/planner', element: <PlannerPage /> },
       { path: '/bookmarks', element: <BookmarksPage /> },
       // Visual learning prototype: one Physics topic.
