@@ -310,10 +310,6 @@ export function Layout() {
                 <ExamSelector />
               </div>
               <nav className="hidden items-center md:flex" aria-label="Main">
-                <TopLink to="/" end>
-                  Home
-                </TopLink>
-                <NavMenu label="Learn" items={LEARN} active={group === 'learn'} />
                 <TopLink to="/practice-centre" active={group === 'practice'}>
                   Practice
                 </TopLink>
