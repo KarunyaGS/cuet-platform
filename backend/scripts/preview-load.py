@@ -69,10 +69,10 @@ def build(work):
             n = c.execute(f'select count(*) from "{t}"').fetchone()[0]
             c.execute(f'delete from "{t}"')
             removed[t] = n
-    # documents whose file is not uploaded: keep the row, hide it
+    # documents whose file is not uploaded: keep the row, hide it (Prepora's own generated PDFs are uploaded separately and stay visible)
     keep = ','.join(f"'{d}'" for d in SAMPLE_DOCS)
-    hidden = c.execute(f"update pyq_documents set r2_key = NULL, review_state = 'PREVIEW_NO_FILE' where r2_key is not null and id not in ({keep})").rowcount
-    c.execute(f"delete from pyq_hosted_files where document_id not in ({keep})")
+    hidden = c.execute(f"update pyq_documents set r2_key = NULL, review_state = 'PREVIEW_NO_FILE' where r2_key is not null and id not in ({keep}) and key not like 'cuetprep:%'").rowcount
+    c.execute(f"delete from pyq_hosted_files where document_id not in ({keep}) and document_id not in (select id from pyq_documents where key like 'cuetprep:%')")
     c.commit()
     # sanity: no personal data left
     leaks = []
