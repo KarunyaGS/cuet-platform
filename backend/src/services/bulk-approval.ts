@@ -15,6 +15,7 @@ import { ApiError, conflict, invalid, notFound } from '../lib/errors';
 import { newId, normaliseText, sha256Hex } from '../lib/hash';
 import { nowIso } from '../lib/sql';
 import { auditQuestion, loadAuditRows, type AuditRow } from './question-audit';
+import { latestSampleFor, sampleablePopulation } from './sample-review';
 import type { Reviewer } from './syllabus-review';
 
 const actorOf = (u: Reviewer) => `user:${u.id}`;
@@ -98,6 +99,8 @@ export async function previewBulk(db: D1Database, scope: Scope) {
     .bind(...params)
     .first<{ n: number }>();
   const count = eligible.length;
+  // What a subject expert found when checking a sample, if that was done. Shown next to the decision; never a replacement for it.
+  const sampleReview = await latestSampleFor(db, scope, async () => (await sampleablePopulation(db, scope.testPaperId)).length);
   return {
     method: BULK_METHOD,
     scope,
@@ -124,6 +127,7 @@ export async function previewBulk(db: D1Database, scope: Scope) {
     statement: approvalStatement(count),
     phraseToType: `APPROVE ${count}`,
     snapshotHash,
+    sampleReview,
     ids,
   };
 }
@@ -150,7 +154,7 @@ export async function confirmBulk(db: D1Database, input: z.infer<typeof confirmS
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'ACTIVE', ?)`,
     )
     .bind(batchId, user.id, user.displayName, roles.results.map((r) => r.name).join(', ') || 'Reviewer', BULK_METHOD, JSON.stringify(input.scope), p.eligibleCount, p.snapshotHash,
-      JSON.stringify({ checks: p.checks, notChecked: p.notChecked, byType: p.eligibleByType, excludedCount: p.excluded.length, needsAPersonsEyes: p.needsAPersonsEyes.length }), p.statement, now)
+      JSON.stringify({ checks: p.checks, notChecked: p.notChecked, byType: p.eligibleByType, excludedCount: p.excluded.length, needsAPersonsEyes: p.needsAPersonsEyes.length, sampleReview: p.sampleReview ? { id: p.sampleReview.id, expert: p.sampleReview.expertName, checked: p.sampleReview.checked, withProblem: p.sampleReview.withProblem, wrongAnswer: p.sampleReview.wrongAnswer } : null }), p.statement, now)
     .run();
   const comment = `BULK MANAGEMENT APPROVAL (batch ${batchId}). Not an individual review of this question.`;
   const checklist = JSON.stringify({ bulkApproval: true, individuallyReviewed: false, batchId, automatedFormatChecks: true });

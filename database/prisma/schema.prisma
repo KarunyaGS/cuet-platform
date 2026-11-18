@@ -682,6 +682,7 @@ model Question {
   media              QuestionMedia[]
   practiceAnswers    PracticeAnswer[]
   bulkApprovals      BulkApprovalItem[]
+  sampleReviewItems  SampleReviewItem[]
   flashcards         Flashcard[]
 
   @@index([status, type])
@@ -940,6 +941,7 @@ model User {
   dismissals      ReminderDismissal[]
   assignments     ReviewAssignment[]
   bulkBatches     BulkApprovalBatch[]
+  sampleReviews   SampleReview[]
   verifyTokens    EmailVerificationToken[]
   emails          EmailMessage[]
   subscriptions   Subscription[]
@@ -2230,4 +2232,58 @@ model ExamViolation {
   @@index([sessionId, recordedAt])
   @@index([userId])
   @@map("exam_violations")
+}
+
+/// A subject expert's check of a representative sample of questions. A SAMPLE: it never changes a question's verification.
+model SampleReview {
+  id               String             @id @default(cuid())
+  /// JSON text: which questions the sample was drawn from (paper).
+  scopeJson        String             @map("scope_json")
+  method           String
+  /// Makes the draw repeatable: the same seed over the same questions picks the same sample.
+  seed             String
+  targetSize       Int                @map("target_size")
+  populationCount  Int                @map("population_count")
+  sampleCount      Int                @map("sample_count")
+  /// IN_PROGRESS, COMPLETED or CANCELLED.
+  status           String             @default("IN_PROGRESS")
+  createdBy        String             @map("created_by")
+  createdByName    String             @map("created_by_name")
+  createdAt        DateTime           @default(now()) @map("created_at")
+  expertName       String?            @map("expert_name")
+  expertCredentials String?           @map("expert_credentials")
+  completedBy      String?            @map("completed_by")
+  completedByName  String?            @map("completed_by_name")
+  completedAt      DateTime?          @map("completed_at")
+  /// JSON text: counts, problem rate, upper bound and the wording shown to people.
+  resultJson       String?            @map("result_json")
+  cancelReason     String?            @map("cancel_reason")
+  creator          User               @relation(fields: [createdBy], references: [id], onDelete: Restrict)
+  items            SampleReviewItem[]
+
+  @@index([status, createdAt])
+  @@map("sample_reviews")
+}
+
+model SampleReviewItem {
+  id                  String       @id @default(cuid())
+  sampleId            String       @map("sample_id")
+  questionId          String       @map("question_id")
+  position            Int
+  /// The part of the syllabus the question was drawn from (its unit).
+  stratum             String
+  answerCorrect       Boolean?     @map("answer_correct")
+  explanationAccurate Boolean?     @map("explanation_accurate")
+  topicFits           Boolean?     @map("topic_fits")
+  /// PENDING, CORRECT or NEEDS_CHANGES.
+  outcome             String       @default("PENDING")
+  comment             String?
+  reviewedBy          String?      @map("reviewed_by")
+  reviewedAt          DateTime?    @map("reviewed_at")
+  sample              SampleReview @relation(fields: [sampleId], references: [id], onDelete: Cascade)
+  question            Question     @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([sampleId, questionId])
+  @@index([sampleId, position])
+  @@map("sample_review_items")
 }

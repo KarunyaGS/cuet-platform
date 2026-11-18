@@ -53,3 +53,7 @@ The reviewer screen is at `/review/bulk-approval`. Lists mark bulk-approved ques
 
 Bulk approval marks questions verified. It does not change publishing status. Students already see questions under
 `CONTENT_PREVIEW`, and mock papers need verified questions.
+
+## Sample review
+
+A subject expert can check a sample of the questions first (`docs/sample-review.md`). The preview shows the latest completed sample for the scope, and the batch records which one stood beside it. It is optional, and it never changes a question's status.

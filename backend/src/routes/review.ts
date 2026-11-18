@@ -14,6 +14,7 @@ import { invalid } from '../lib/errors';
 import { staffScope } from '../lib/scope-guard';
 import { auditBank } from '../services/question-audit';
 import { approvalSummary, batchDetail, confirmBulk, confirmSchema, previewBulk, scopeSchema, withdrawBulk, withdrawSchema } from '../services/bulk-approval';
+import { cancelSample, cancelSchema, completeSample, completeSchema, createSample, createSchema, listSamples, recordFinding, recordSchema, sampleDetail } from '../services/sample-review';
 import { readJson } from '../lib/http';
 import { reviewerAuth } from '../lib/reviewer';
 import { contentPapers, contentQuery, listContent, reviewerDashboard } from '../services/admin-console';
@@ -74,6 +75,13 @@ review.post('/bulk-approval/preview', async (c) => {
 });
 review.post('/bulk-approval/confirm', async (c) => c.json(await confirmBulk(c.env.DB, await readJson(c, confirmSchema), me(c)), 201));
 review.post('/bulk-approval/withdraw', async (c) => c.json(await withdrawBulk(c.env.DB, await readJson(c, withdrawSchema), me(c))));
+// Subject-expert SAMPLE review: a repeatable sample of questions checked one by one. Findings only; no question's status changes.
+review.get('/sample-reviews', async (c) => c.json(await listSamples(c.env.DB)));
+review.post('/sample-reviews', async (c) => c.json(await createSample(c.env.DB, await readJson(c, createSchema), me(c)), 201));
+review.get('/sample-reviews/:id', async (c) => c.json(await sampleDetail(c.env.DB, c.req.param('id'))));
+review.post('/sample-reviews/:id/items/:questionId', async (c) => c.json(await recordFinding(c.env.DB, c.req.param('id'), c.req.param('questionId'), await readJson(c, recordSchema), me(c))));
+review.post('/sample-reviews/:id/complete', async (c) => c.json(await completeSample(c.env.DB, c.req.param('id'), await readJson(c, completeSchema), me(c))));
+review.post('/sample-reviews/:id/cancel', async (c) => c.json(await cancelSample(c.env.DB, c.req.param('id'), await readJson(c, cancelSchema), me(c))));
 review.post('/decide', async (c) => c.json(await decide(c.env.DB, await readJson(c, decideSchema), me(c))));
 review.post('/versions/:id/sign-off', async (c) => c.json(await signOff(c.env.DB, c.req.param('id'), await readJson(c, signOffSchema), me(c))));
 

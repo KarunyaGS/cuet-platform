@@ -71,6 +71,8 @@ const AdminActivity = lazy(() => import('./admin/Admin').then((m) => ({ default:
 const ReviewLayout = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewLayout })));
 const ReviewDashboard = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewDashboard })));
 const ReviewBulkApproval = lazy(() => import('./review/BulkApproval').then((m) => ({ default: m.BulkApproval })));
+const ReviewSampleList = lazy(() => import('./review/SampleReview').then((m) => ({ default: m.SampleReviewList })));
+const ReviewSample = lazy(() => import('./review/SampleReview').then((m) => ({ default: m.SampleReviewPage })));
 const ReviewContent = lazy(() => import('./review/Home').then((m) => ({ default: m.ReviewContent })));
 const lazyPage = (el: React.ReactNode) => <Suspense fallback={<Loading />}>{el}</Suspense>;
 
@@ -138,6 +140,8 @@ const router = createBrowserRouter([
           { path: 'syllabus', element: lazyPage(<ReviewQueue />) },
           { path: 'content', element: lazyPage(<ReviewContent />) },
           { path: 'bulk-approval', element: lazyPage(<ReviewBulkApproval />) },
+          { path: 'sample', element: lazyPage(<ReviewSampleList />) },
+          { path: 'sample/:id', element: lazyPage(<ReviewSample />) },
         ],
       },
       { path: '/review/paper/:paperId', element: lazyPage(<ReviewWorkspace />) },

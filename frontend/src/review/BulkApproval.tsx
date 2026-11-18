@@ -1,5 +1,6 @@
 /** Bulk management approval of questions. A bulk decision, recorded as one, never as individual review. */
 import { useState } from 'react';
+import { Link } from 'react-router';
 import { ApiError, request } from '../api';
 import { when } from '../admin/api';
 import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Panel, SectionTitle, StatGroup, inputClass, useLoad } from '../ui';
@@ -20,6 +21,7 @@ interface Preview {
   statement: string;
   phraseToType: string;
   snapshotHash: string;
+  sampleReview: { id: string; expertName: string; expertCredentials: string; completedAt: string; checked: number; population: number; withProblem: number; wrongAnswer: number; statement: string; questionsChangedSince: boolean } | null;
 }
 interface Summary {
   questions: { total: number; unverified: number; bulkApproved: number; individuallyVerified: number; flagged: number; rejected: number };
@@ -128,6 +130,23 @@ export function BulkApproval() {
                 <ul className="list-disc space-y-1 pl-5 text-sm text-ink-2">{preview.notChecked.map((c) => <li key={c}>{c}</li>)}</ul>
               </div>
             </div>
+          </Panel>
+
+          <Panel className="mb-6 p-5">
+            <h3 className="mb-2 text-base font-semibold text-ink">Subject-expert sample review</h3>
+            {preview.sampleReview ? (
+              <>
+                <p className="text-sm leading-6 text-ink-2">{preview.sampleReview.statement}</p>
+                {preview.sampleReview.questionsChangedSince && (
+                  <p className="mt-2 text-sm text-wrong">The questions have changed since this sample was drawn, so it no longer describes all of them. Consider drawing a new sample.</p>
+                )}
+                <p className="mt-2 text-sm"><Link className="text-accent hover:underline" to={`/review/sample/${preview.sampleReview.id}`}>See the sample and what was found</Link></p>
+              </>
+            ) : (
+              <p className="text-sm text-ink-2">
+                No subject expert has checked a sample of these questions yet. You can approve without one, but then nobody has checked even a sample of the answers. <Link className="text-accent hover:underline" to="/review/sample">Start a sample review</Link>.
+              </p>
+            )}
           </Panel>
 
           {preview.excluded.length > 0 && (

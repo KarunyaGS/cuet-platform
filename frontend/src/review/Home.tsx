@@ -20,6 +20,9 @@ export function ReviewLayout() {
         <NavLink to="/review/content" className={tab}>
           Lessons and questions
         </NavLink>
+        <NavLink to="/review/sample" className={tab}>
+          Sample review
+        </NavLink>
         <NavLink to="/review/bulk-approval" className={tab}>
           Bulk approval
         </NavLink>
