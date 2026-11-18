@@ -347,6 +347,14 @@
         "text": "This is Dalton's law of partial pressures combined with Raoult's law. The total pressure varies linearly with $x_2$ between $p_1^{\\circ}$ and $p_2^{\\circ}$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "vp-ideal-mixture"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: every partial pressure is proportional to the mole fraction of that component, so on a graph of pressure against composition each is a straight line, and so is their sum. Check the two ends: at $x_2 = 0$ the total is $p_1^{circ}$ (pure liquid 1) and at $x_2 = 1$ it is $p_2^{circ}$ (pure liquid 2)."
+      },
+      {
         "type": "FORMULA",
         "latex": "y_1 = \\frac{p_1}{p_{\\text{total}}}",
         "text": "$y_1$ is the mole fraction of component 1 in the vapour phase. The vapour is richer in the more volatile component, which is the basis of fractional distillation."
@@ -354,6 +362,42 @@
       {
         "type": "TEXT",
         "text": "Raoult's law is a special case of Henry's law. If the gas is replaced by a volatile liquid, Henry's law reads $p = K_H x$ and Raoult's law reads $p = p^{\\circ} x$. The two have the same form, and Raoult's law is obtained when $K_H$ is equal to $p^{\\circ}$."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Raoult's law and Henry's law compared",
+        "columns": [
+          "Feature",
+          "Raoult's law",
+          "Henry's law"
+        ],
+        "rows": [
+          [
+            "What it states",
+            "Partial vapour pressure of a volatile liquid = its mole fraction times the vapour pressure of the pure liquid",
+            "Partial pressure of a gas over a solution is proportional to the mole fraction of the gas dissolved in it"
+          ],
+          [
+            "Equation",
+            "$p_1 = x_1 p_1^{\\circ}$",
+            "$p = K_H\\, x$"
+          ],
+          [
+            "Constant of proportionality",
+            "$p_1^{\\circ}$, the vapour pressure of the pure liquid at that temperature",
+            "$K_H$, which depends on the gas, the solvent and the temperature"
+          ],
+          [
+            "Typical use",
+            "Solvent (and both components of an ideal solution of two liquids)",
+            "Dissolved gas, for example oxygen or carbon dioxide in water"
+          ],
+          [
+            "Relation between them",
+            "Raoult's law is the special case of Henry's law in which $K_H = p_1^{\\circ}$",
+            "Henry's law is the more general form"
+          ]
+        ]
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -436,6 +480,14 @@
         "text": "In a positive deviation the molecules of the two components hold each other less strongly than they hold their own kind, so they escape more easily and the vapour pressure is higher than Raoult's law predicts. In ethanol and acetone, for instance, acetone molecules break the hydrogen bonds of ethanol. In a negative deviation, as in chloroform and acetone, hydrogen bonding between unlike molecules makes escape harder and lowers the vapour pressure."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "vp-deviations"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: compare each curve with the dashed ideal line. If the curve is above it the solution has a larger vapour pressure than predicted, because A-B attractions are weaker and molecules escape more easily (positive deviation). If it is below, A-B attractions are stronger and fewer molecules escape (negative deviation)."
+      },
+      {
         "type": "CALLOUT",
         "text": "Positive deviation: weaker A-B forces, heat is absorbed, volume increases. Negative deviation: stronger A-B forces, heat is evolved, volume decreases. Examination questions often ask you to pair a mixture with its sign of $\\Delta_{mix}H$."
       },
@@ -483,6 +535,14 @@
         "text": "A liquid boils when its vapour pressure equals the external pressure. Because a non-volatile solute lowers the vapour pressure, the solution must be heated to a higher temperature to reach that pressure. The boiling point of the solution is therefore higher than that of the pure solvent."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "bp-elevation-curves"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the solute lowers the vapour pressure at every temperature, so the solution curve sits below the solvent curve. A liquid boils when its vapour pressure equals the external pressure, so the solution must be heated further to reach it. That extra temperature is $Delta T_b$, the elevation of boiling point."
+      },
+      {
         "type": "FORMULA",
         "latex": "\\Delta T_b = T_b - T_b^{\\circ} = K_b\\, m",
         "text": "$K_b$ is the molal elevation constant (ebullioscopic constant) of the solvent, with unit K kg mol$^{-1}$, equal to the elevation produced by a 1 molal solution. For water $K_b = 0.52$ K kg mol$^{-1}$ and for benzene $K_b = 2.53$ K kg mol$^{-1}$."
@@ -505,6 +565,14 @@
       {
         "type": "TEXT",
         "text": "The freezing point is the temperature at which the solid and liquid forms of the solvent have the same vapour pressure. A non-volatile solute lowers the vapour pressure of the liquid, so the solution curve meets the solid curve at a lower temperature. Only the pure solvent separates as a solid when the solution freezes."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "cooling-curves"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: a pure solvent freezes at one fixed temperature (a flat plateau), but a solution starts to freeze at a lower temperature, so $T_f < T_f^{\\circ}$. The difference $\\Delta T_f = T_f^{\\circ} - T_f$ is the depression of freezing point."
       },
       {
         "type": "FORMULA",
@@ -541,6 +609,14 @@
         "text": "The extra pressure that must be applied to the solution side to stop the flow of solvent into it through a semipermeable membrane. It is a colligative property."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "osmosis-u-tube"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: only solvent molecules pass through the membrane, and they pass into the solution. The solution level rises until the extra pressure from the column of height h stops the net flow; this balancing pressure equals the osmotic pressure $\\pi$."
+      },
+      {
         "type": "FORMULA",
         "latex": "\\pi = C R T = \\frac{n_2}{V} R T",
         "text": "$\\pi$ is osmotic pressure, $C$ the molarity of the solution, $T$ the absolute temperature and $R = 0.083$ L bar K$^{-1}$ mol$^{-1}$. This resembles the ideal gas equation $pV = nRT$."
@@ -571,6 +647,37 @@
       {
         "type": "KEY_POINT",
         "text": "Reverse osmosis requires an applied pressure greater than the osmotic pressure of the solution. It is the commonly used method for desalination of sea water and for water purification in homes."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Osmosis and reverse osmosis compared",
+        "columns": [
+          "Feature",
+          "Osmosis",
+          "Reverse osmosis"
+        ],
+        "rows": [
+          [
+            "Direction of solvent flow",
+            "From pure solvent (or the more dilute solution) into the solution",
+            "From the solution towards the pure solvent"
+          ],
+          [
+            "Pressure needed",
+            "None; it is spontaneous",
+            "A pressure larger than the osmotic pressure must be applied on the solution side"
+          ],
+          [
+            "Membrane",
+            "Semipermeable membrane",
+            "Semipermeable membrane (for example cellulose acetate) that passes water but not the solute"
+          ],
+          [
+            "Example",
+            "Water entering plant roots, swelling of raisins in water",
+            "Desalination of sea water to obtain pure water"
+          ]
+        ]
       },
       {
         "type": "HEADING",
@@ -647,7 +754,43 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "vp-ideal-mixture",
+      "file": "diagrams/ug26-306-u1-solutions-vp-ideal-mixture.svg",
+      "alt": "Graph of vapour pressure against mole fraction of component 2 for an ideal solution: two straight lines for the partial pressures and a straight line for the total pressure",
+      "caption": "Ideal solution: partial and total vapour pressures against mole fraction",
+      "description": "Horizontal axis is the mole fraction x2 of component 2, from 0 (pure component 1) to 1 (pure component 2). Vertical axis is vapour pressure. The partial pressure p1 = x1 p1 degree falls as a straight line from p1 degree at x2 = 0 to zero at x2 = 1. The partial pressure p2 = x2 p2 degree rises as a straight line from zero to p2 degree. The total pressure is a straight line joining p1 degree to p2 degree. The values are illustrative, with component 2 more volatile."
+    },
+    {
+      "key": "vp-deviations",
+      "file": "diagrams/ug26-306-u1-solutions-vp-deviations.svg",
+      "alt": "Two graphs of total vapour pressure against mole fraction, one curving above the ideal straight line for positive deviation and one below it for negative deviation",
+      "caption": "Positive and negative deviations from Raoult's law",
+      "description": "Left graph: positive deviation. The total vapour pressure curve lies above the dashed straight line that Raoult's law would give; the A-B attractions are weaker than A-A and B-B, and mixing absorbs heat and increases volume. Right graph: negative deviation. The curve lies below the dashed line; the A-B attractions are stronger, mixing releases heat and decreases volume. Both graphs plot total vapour pressure against the mole fraction of component 2."
+    },
+    {
+      "key": "bp-elevation-curves",
+      "file": "diagrams/ug26-306-u1-solutions-bp-elevation-curves.svg",
+      "alt": "Vapour pressure against temperature for a pure solvent and a solution, showing the solution curve lower and reaching 1 atm at a higher temperature",
+      "caption": "Vapour pressure curves and elevation of boiling point",
+      "description": "Two rising curves of vapour pressure against temperature. The blue curve for the pure solvent reaches the horizontal 1 atm line at its boiling point Tb degree. The red curve for the solution lies below it at every temperature, so it reaches 1 atm only at a higher temperature Tb. The horizontal gap between the two boiling points is the elevation of boiling point, delta Tb. An arrow at Tb degree marks the lower vapour pressure of the solution."
+    },
+    {
+      "key": "cooling-curves",
+      "file": "diagrams/ug26-306-u1-solutions-cooling-curves.svg",
+      "alt": "Cooling curves of a pure solvent with a flat freezing plateau and of a solution that begins to freeze at a lower temperature",
+      "caption": "Cooling curves and depression of freezing point",
+      "description": "Temperature against time while liquid is cooled. The blue curve for the pure solvent falls, stays flat at the freezing point Tf degree while it freezes, then falls again. The red curve for the solution leaves the same curve, begins to freeze at a lower temperature Tf, and then keeps falling slowly because the remaining liquid becomes more concentrated. The vertical gap between the two freezing temperatures is the depression of freezing point, delta Tf. The curves are illustrative."
+    },
+    {
+      "key": "osmosis-u-tube",
+      "file": "diagrams/ug26-306-u1-solutions-osmosis-u-tube.svg",
+      "alt": "A container divided by a semipermeable membrane, with pure solvent on the left and a solution on the right where the liquid level has risen by a height h",
+      "caption": "Osmosis through a semipermeable membrane",
+      "description": "A container is divided by a dashed semipermeable membrane. The left side holds pure solvent (small blue dots). The right side holds a solution containing larger solute particles and some solvent. Blue arrows show solvent passing through the membrane into the solution. The liquid level on the solution side has risen by a height h above the solvent level; the pressure of this column balances the osmotic pressure and the net flow stops."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-306-u1-solutions-q01",

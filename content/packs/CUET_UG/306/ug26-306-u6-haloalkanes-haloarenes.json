@@ -304,6 +304,62 @@
         "text": "The polar $\\mathrm{C-X}$ bond makes haloalkanes react in four ways: nucleophilic substitution, elimination, reaction with metals, and reduction.\n\n**1. Nucleophilic substitution** ($\\mathrm{R-X + Nu^- \\rightarrow R-Nu + X^-}$):\n- aqueous KOH gives an **alcohol**: $\\mathrm{R-X + OH^- \\rightarrow R-OH}$;\n- sodium alkoxide gives an **ether** (Williamson synthesis): $\\mathrm{R-X + R'ONa \\rightarrow R-O-R' + NaX}$;\n- KCN (alcoholic) gives an **alkyl cyanide (nitrile)** $\\mathrm{R-CN}$, while AgCN gives an **isocyanide** $\\mathrm{R-NC}$ as the main product. The cyanide ion is an **ambident nucleophile**: in ionic KCN the carbon end attacks, while in covalent AgCN the carbon is tied to silver and the nitrogen lone pair attacks;\n- KNO2 gives an **alkyl nitrite** $\\mathrm{R-O-N=O}$ as the major product, while $\\mathrm{AgNO_2}$ gives a **nitroalkane** $\\mathrm{R-NO_2}$ (the nitrite ion is also ambident);\n- ammonia (ammonolysis) gives **amines**; the product is a mixture of primary, secondary, tertiary amines and the quaternary ammonium salt unless a large excess of ammonia is used;\n- the reactivity order of the leaving group is $\\mathrm{I^- > Br^- > Cl^- > F^-}$.\n\n**2. Elimination (dehydrohalogenation).** Heating with **alcoholic KOH** removes HX from adjacent carbons to give an alkene: $\\mathrm{CH_3CH_2CHBrCH_3 \\xrightarrow{alc.\\ KOH} CH_3CH=CHCH_3}$. If more than one alkene can form, the **more highly substituted (more stable) alkene is the major product (Saytzeff or Zaitsev rule)**. Thus 2-bromobutane gives mainly but-2-ene rather than but-1-ene. Aqueous KOH favours substitution and alcoholic KOH favours elimination; strong bulky bases, high temperature and tertiary halides all favour elimination.\n\n**3. Reaction with metals.** Magnesium in dry ether gives a **Grignard reagent**: $\\mathrm{R-X + Mg \\xrightarrow{dry\\ ether} R-MgX}$. It reacts with any compound that has an acidic hydrogen, even water, to give an alkane, so moisture must be excluded. Sodium in dry ether couples two alkyl groups (**Wurtz reaction**): $\\mathrm{2R-X + 2Na \\rightarrow R-R + 2NaX}$.\n\n**4. Reduction.** Haloalkanes are reduced to alkanes by zinc with dilute HCl, by $\\mathrm{H_2/Pd}$ or by $\\mathrm{LiAlH_4}$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "haloalkane-map"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Every arrow out of R-X is one reagent. Learn the reagent first: aqueous KOH gives the alcohol, alcoholic KOH gives the alkene, and KCN and AgCN differ in which atom of cyanide attacks."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Which reagent gives which product from R-X",
+        "columns": [
+          "Reagent",
+          "Main product",
+          "Type of reaction",
+          "Why"
+        ],
+        "rows": [
+          [
+            "aqueous KOH",
+            "alcohol, $\\mathrm{R-OH}$",
+            "substitution",
+            "$\\mathrm{OH^-}$ acts as a nucleophile in water"
+          ],
+          [
+            "alcoholic KOH, heat",
+            "alkene",
+            "elimination of HX",
+            "strong base removes H and X from adjacent carbons (Saytzeff rule)"
+          ],
+          [
+            "KCN",
+            "alkyl cyanide, $\\mathrm{R-CN}$",
+            "substitution",
+            "in ionic KCN the carbon end of $\\mathrm{CN^-}$ attacks"
+          ],
+          [
+            "AgCN",
+            "isocyanide, $\\mathrm{R-NC}$",
+            "substitution",
+            "in covalent AgCN carbon is tied to silver, so the nitrogen lone pair attacks"
+          ],
+          [
+            "$\\mathrm{KNO_2}$",
+            "alkyl nitrite, $\\mathrm{R-O-N=O}$",
+            "substitution",
+            "in the ionic salt the oxygen end of $\\mathrm{NO_2^-}$ attacks"
+          ],
+          [
+            "$\\mathrm{AgNO_2}$",
+            "nitroalkane, $\\mathrm{R-NO_2}$",
+            "substitution",
+            "in the covalent salt the nitrogen end attacks"
+          ]
+        ]
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Predict the major product when 2-bromo-2-methylbutane reacts separately with (a) alcoholic KOH, heated, and (b) aqueous KOH. Name the rule used in part (a) and the type of reaction in each.",
         "solution": "2-Bromo-2-methylbutane is $\\mathrm{(CH_3)_2C(Br)CH_2CH_3}$, a tertiary halide.\n\n(a) Alcoholic KOH removes HBr by elimination. The hydrogen can be removed from the $\\mathrm{CH_3}$ group, giving 2-methylbut-1-ene, or from the $\\mathrm{CH_2}$ group, giving 2-methylbut-2-ene. 2-Methylbut-2-ene is the more substituted alkene (three alkyl groups on the double bond) and is more stable, so by the Zaitsev (Saytzeff) rule it is the major product. The reaction is dehydrohalogenation (beta elimination).\n\n(b) Aqueous KOH, a poor base in water, substitutes the bromine through an $S_N1$ route (stable tertiary carbocation), giving 2-methylbutan-2-ol.",
@@ -323,6 +379,14 @@
         "text": "Second-order rate law for the SN2 reaction; k = rate constant. Doubling either concentration doubles the rate; doubling both makes it four times."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "sn2-mechanism"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: SN2 has no intermediate: bond making and bond breaking happen together at the top of one energy hump. Because the nucleophile must come from the back, crowded carbons react slowly and the configuration is inverted."
+      },
+      {
         "type": "TEXT",
         "text": "**The $S_N1$ mechanism (substitution nucleophilic unimolecular).** It takes place in two steps. Step 1 (slow, rate-determining): the C-X bond breaks to give a planar $sp^2$ **carbocation** and a halide ion. Step 2 (fast): the nucleophile attacks the carbocation. The rate depends only on the haloalkane, so the reaction is first order. Because the carbocation is planar, the nucleophile can approach from either face, so a chiral halide gives a **racemic** product."
       },
@@ -330,6 +394,14 @@
         "type": "FORMULA",
         "latex": "\\text{Rate}_{S_N1} = k\\,[\\mathrm{R-X}]",
         "text": "First-order rate law for SN1; the concentration of the nucleophile does not appear because it takes part only after the slow step."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "sn1-mechanism"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: SN1 goes through a real intermediate, the carbocation, and the slow step involves only the halide. The flat carbocation can be attacked from both sides, which is why a chiral halide gives a racemic product."
       },
       {
         "type": "TABLE",
@@ -382,6 +454,14 @@
         "text": "**Substrate effects.** Benzylic and allylic halides are reactive by both mechanisms because the carbocation (for $S_N1$) is stabilised by resonance, and the transition state (for $S_N2$) is stabilised by the neighbouring $\\pi$ system. Neopentyl-type primary halides react slowly in $S_N2$ because of crowding next to the reacting carbon. A **good leaving group** (I > Br > Cl > F) accelerates both mechanisms."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "sn-reactivity"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The two mechanisms need opposite things: SN2 wants an uncrowded carbon, SN1 wants a stable carbocation. Methyl and primary halides go SN2, tertiary halides go SN1, and secondary halides can use either."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "For the reaction $\\mathrm{CH_3CH_2Br + OH^- \\rightarrow CH_3CH_2OH + Br^-}$ (an $S_N2$ reaction) the concentration of $\\mathrm{CH_3CH_2Br}$ is changed from $0.10$ M to $0.30$ M and that of $\\mathrm{OH^-}$ from $0.20$ M to $0.40$ M. By what factor does the rate change? Repeat for the $S_N1$ reaction $\\mathrm{(CH_3)_3CBr + OH^-}$ with the same changes in concentration.",
         "solution": "$S_N2$: rate $= k[\\mathrm{RBr}][\\mathrm{OH^-}]$. Rate ratio $= \\dfrac{0.30\\times 0.40}{0.10\\times 0.20} = \\dfrac{0.12}{0.020} = 6$. The rate increases six-fold (three-fold from the halide, two-fold from the hydroxide).\n\n$S_N1$: rate $= k[\\mathrm{RBr}]$ only. Rate ratio $= \\dfrac{0.30}{0.10} = 3$; the hydroxide concentration has no effect on the rate.",
@@ -412,6 +492,36 @@
       {
         "type": "TEXT",
         "text": "**What happens to configuration in substitution?**\n\n- **Inversion of configuration:** in an $S_N2$ reaction the nucleophile takes the position opposite to the leaving group, and the groups on carbon flip like an umbrella. The configuration is inverted. Whether the sign of rotation changes cannot be predicted from this: inversion of configuration does not necessarily mean that (+) becomes (-).\n- **Racemisation:** in an $S_N1$ reaction the planar carbocation can be attacked equally from either side, so equal amounts of the retained and inverted products are formed (in practice, slightly more inversion, because the departing halide shields one face for a short time). The product is a racemic mixture.\n- **Retention of configuration:** the spatial arrangement of groups around the stereocentre is unchanged. This happens when the reaction does not break any bond to the stereocentre, for example when the O-H bond of a chiral alcohol is the one that reacts, as in ester formation, or when a reaction of the stereocentre occurs in two successive inversions.\n\nUsing $\\mathrm{R,S}$ notation: the replacement of Br by OH in (R)-2-bromobutane through $S_N2$ gives (S)-butan-2-ol, because the priority order of the groups (X > $\\mathrm{C_2H_5}$ > $\\mathrm{CH_3}$ > H) is the same before and after."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Stereochemical outcome of substitution at a chiral carbon",
+        "columns": [
+          "Outcome",
+          "Usual route",
+          "What happens to the groups",
+          "Result from an optically pure halide"
+        ],
+        "rows": [
+          [
+            "inversion",
+            "$S_N2$",
+            "nucleophile attacks from the back and the groups flip like an umbrella",
+            "one product with the opposite configuration (the sign of rotation may or may not change)"
+          ],
+          [
+            "racemisation",
+            "$S_N1$",
+            "nucleophile attacks the planar carbocation from either face",
+            "about equal amounts of both enantiomers, a racemic mixture that is optically inactive"
+          ],
+          [
+            "retention",
+            "a reaction that does not break any bond to the stereocentre",
+            "the spatial arrangement of the groups is unchanged",
+            "same configuration as the reactant"
+          ]
+        ]
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -521,7 +631,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "haloalkane-map",
+      "file": "diagrams/ug26-306-u6-haloalkanes-haloalkane-map.svg",
+      "alt": "Reaction map with R-X in the centre: three routes into R-X on the left and nine conversions on the right, with the reagent written on every arrow",
+      "caption": "Haloalkane reaction map: what R-X can be turned into",
+      "description": "Hub-and-spoke map of the haloalkane R-X. Left, made from: an alcohol with SOCl2, PCl5 or HX and ZnCl2; an alkene with HX (Markovnikov); an alkane with X2 and light. Right, converted to: alcohol with aqueous KOH; ether with R'ONa (Williamson); nitrile with alcoholic KCN; isocyanide with AgCN; amine with excess ammonia and heat (mixtures form); alkene with alcoholic KOH and heat (elimination); Grignard reagent with Mg in dry ether; alkane R-R with Na in dry ether (Wurtz); alkane R-H with Zn and HCl."
+    },
+    {
+      "key": "sn2-mechanism",
+      "file": "diagrams/ug26-306-u6-haloalkanes-sn2-mechanism.svg",
+      "alt": "Three drawings of an SN2 reaction (reactants, transition state, products) above an energy profile with one hump",
+      "caption": "SN2: one step with backside attack and inversion",
+      "description": "Top row: reactants, where Nu minus approaches the carbon from the side opposite the leaving group X; a bracketed transition state with partial bonds from carbon to both Nu and X and the three other groups (H, CH3, C2H5) in one plane; and products, where Nu is bonded and the groups have flipped like an umbrella, so the configuration is inverted. Below: potential energy against reaction coordinate with a single hump at the transition state and an activation energy arrow, illustrative and not to scale. A side box lists: one step, rate = k[R-X][Nu-], methyl > primary > secondary much greater than tertiary, strong nucleophile, polar aprotic solvent."
+    },
+    {
+      "key": "sn1-mechanism",
+      "file": "diagrams/ug26-306-u6-haloalkanes-sn1-mechanism.svg",
+      "alt": "Step 1 shows X leaving a carbon to form a planar carbocation; step 2 shows a nucleophile attacking from either face; below, an energy profile with two humps and a dip for the carbocation intermediate",
+      "caption": "SN1: slow ionisation, planar carbocation, attack from both faces",
+      "description": "Top row: in step 1 (slow) the C-X bond breaks and X leaves as X minus, leaving a planar sp2 carbocation with groups R1, R2, R3 at 120 degrees. In step 2 (fast) the nucleophile attacks the carbocation from face 1 or face 2 with equal probability, giving equal amounts of both enantiomers (racemisation). Below: an energy profile with two humps, the first higher (rate-determining step) and a shallow dip between them for the R3C+ intermediate, illustrative and not to scale. A side box lists: two steps, rate = k[R-X], tertiary > secondary > primary > methyl, polar protic solvents and weak nucleophiles."
+    },
+    {
+      "key": "sn-reactivity",
+      "file": "diagrams/ug26-306-u6-haloalkanes-sn-reactivity.svg",
+      "alt": "Two bar charts: SN2 rate falls from methyl to tertiary halides while SN1 rate rises from methyl to tertiary halides",
+      "caption": "SN2 and SN1 prefer opposite types of alkyl halide",
+      "description": "Left chart, SN2: bars fall from CH3-X (tallest) through primary and secondary to tertiary (almost zero). Right chart, SN1: bars rise from CH3-X (almost zero) through primary and secondary to tertiary (tallest). Bar heights show the order only and are not measured values. A note says allylic and benzylic halides react readily by both routes, while vinyl and aryl halides react by neither."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-306-u6-haloalkanes-haloarenes-q01",

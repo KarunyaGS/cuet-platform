@@ -331,6 +331,14 @@
         "text": "Aqueous basic strength in the ethyl series (pKb about 3.00, 3.25, 3.29 and 4.75). Note the different position of the tertiary amine."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "basicity-bars"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Read the chart backwards: a shorter bar means a stronger base. Alkyl groups make an amine more basic than ammonia, but the tertiary amine slips back in water because of poor solvation, and aniline is far weaker because its lone pair is shared with the ring."
+      },
+      {
         "type": "TEXT",
         "text": "In the **gas phase**, where there is no solvation, the order is simply tertiary > secondary > primary > ammonia, following the +I effect.\n\n**Aromatic amines.** Aniline is a **much weaker base than ammonia** ($pK_b$ about 9.4). The lone pair on nitrogen is delocalised into the benzene ring by resonance, so it is less available for protonation. In addition, the anilinium ion has fewer resonance structures than aniline itself, so protonation destroys resonance stabilisation and the ion is relatively unstable. The overall order is:"
       },
@@ -352,6 +360,42 @@
       {
         "type": "CALLOUT",
         "text": "The \"tertiary > secondary > primary\" order is correct only in the **gas phase**. In water the tertiary amine drops down because of poor solvation and steric hindrance. Always state the medium when answering a basic strength question."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Aliphatic amines versus aniline",
+        "columns": [
+          "Feature",
+          "Aliphatic amine, e.g. $\\mathrm{CH_3NH_2}$",
+          "Aromatic amine, aniline"
+        ],
+        "rows": [
+          [
+            "Lone pair on nitrogen",
+            "localised on N and available to accept a proton",
+            "delocalised into the ring by resonance"
+          ],
+          [
+            "Basic strength ($pK_b$)",
+            "stronger than ammonia (about 3.4 for methylamine)",
+            "much weaker (about 9.4)"
+          ],
+          [
+            "Cold nitrous acid (primary amine)",
+            "unstable diazonium salt, gives an alcohol and $\\mathrm{N_2}$",
+            "stable diazonium salt at 273-278 K"
+          ],
+          [
+            "Bromine water",
+            "no ring, so no tribromo product",
+            "2,4,6-tribromoaniline, white precipitate"
+          ],
+          [
+            "Ring substitution",
+            "not applicable",
+            "$\\mathrm{-NH_2}$ activates the ortho and para positions"
+          ]
+        ]
       },
       {
         "type": "HEADING",
@@ -416,6 +460,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "test-flow"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The Hinsberg test works because only the primary amine's sulfonamide still has an acidic N-H that lets it dissolve in alkali. The carbylamine test is the single quick check for a primary amino group."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Three colourless liquids are $\\mathrm{C_2H_5NH_2}$ (X), $\\mathrm{(C_2H_5)_2NH}$ (Y) and $\\mathrm{(C_2H_5)_3N}$ (Z). Describe a scheme of tests that identifies each, with the observations.",
         "solution": "Step 1: carbylamine test on all three. Only X, a primary amine, gives the offensive smell of ethyl isocyanide when warmed with chloroform and alcoholic KOH. So X is identified.\n\nStep 2: treat the other two with benzenesulfonyl chloride and then with aqueous KOH. Y, a secondary amine, gives a sulfonamide with no N-H, which is insoluble in alkali and remains as a solid or oily layer. Z is a tertiary amine; it does not react, so the sulfonyl chloride is not consumed and no sulfonamide forms.\n\nAs an alternative, nitrous acid distinguishes them: X releases nitrogen gas with effervescence, Y gives a yellow oily nitrosoamine, and Z merely dissolves as a salt.",
@@ -428,6 +480,14 @@
       {
         "type": "CALLOUT",
         "text": "When asked \"why is aniline acetylated before nitration or bromination?\", give two reasons: it reduces the activating power of the amino group (so mono-substitution is possible and oxidation is avoided) and it prevents formation of the meta-directing anilinium ion in acid."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "amine-map"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Notice that the left side lists the routes in (and which ones fail: ammonolysis gives mixtures, Gabriel makes only aliphatic primary amines) and the right side lists the tests and the diazonium gateway to the next figure."
       },
       {
         "type": "HEADING",
@@ -559,6 +619,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "diazonium-map"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: One cold diazonium solution gives chloro, bromo, cyano, iodo, fluoro, hydroxy or hydrogen products in a single step, which is how substituents are placed where direct substitution would fail. Coupling is the exception: N2 is not lost."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Starting from aniline, outline the preparation of 1,3,5-tribromobenzene and explain why the amino group is useful here.",
         "solution": "Step 1: treat aniline with excess bromine water. The strongly activating $\\mathrm{-NH_2}$ group directs bromine to both ortho positions and the para position, giving 2,4,6-tribromoaniline as a white precipitate.\n\nStep 2: diazotise this amine with $\\mathrm{NaNO_2/HCl}$ at 273-278 K to give 2,4,6-tribromobenzenediazonium chloride.\n\nStep 3: warm with hypophosphorous acid, $\\mathrm{H_3PO_2}$, which replaces the $\\mathrm{-N_2^+}$ group by hydrogen. The three bromine atoms now occupy positions 1, 3 and 5.\n\nThe amino group is a temporary directing group: it places the three bromines at positions that direct bromination of benzene could never reach (benzene bromination would not give three meta-related bromines), and it is then removed.",
@@ -578,7 +646,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "basicity-bars",
+      "file": "diagrams/ug26-306-u9-amines-basicity-bars.svg",
+      "alt": "Bar chart of pKb: dimethylamine 3.27, methylamine 3.38, trimethylamine 4.22, ammonia 4.75, aniline 9.38, with a stronger-to-weaker base arrow",
+      "caption": "Basic strength in water: methylamines, ammonia and aniline",
+      "description": "Five bars of pKb with the stronger base on the left: (CH3)2NH 3.27, CH3NH2 3.38, (CH3)3N 4.22, NH3 4.75 and C6H5NH2 (aniline) 9.38 (typical textbook values). A smaller pKb means a stronger base, so the order of basic strength is secondary > primary > tertiary > ammonia > aniline for the methyl series in water. A note says aniline is far weaker because its lone pair is delocalised into the ring."
+    },
+    {
+      "key": "test-flow",
+      "file": "diagrams/ug26-306-u9-amines-test-flow.svg",
+      "alt": "Flow chart: the Hinsberg test splits amines into primary (sulfonamide dissolves in KOH), secondary (insoluble sulfonamide) and tertiary (no reaction), each confirmed by a second test",
+      "caption": "Identification flow chart: Hinsberg, carbylamine and nitrous acid tests",
+      "description": "Add benzenesulfonyl chloride and aqueous KOH to the unknown amine. A primary amine forms an N-alkylbenzenesulfonamide with an acidic N-H, which dissolves in KOH. A secondary amine forms an N,N-dialkylbenzenesulfonamide with no N-H, which stays insoluble. A tertiary amine gives no sulfonamide. Confirming tests: the carbylamine test (CHCl3 with alcoholic KOH) gives a foul-smelling isocyanide only with primary amines; nitrous acid gives a yellow oily N-nitrosoamine with secondary amines and a soluble salt with aliphatic tertiary amines. Notes: aliphatic primary amines with nitrous acid give N2 and an alcohol, aromatic ones give a diazonium salt at 273-278 K; acylation separates primary and secondary from tertiary."
+    },
+    {
+      "key": "amine-map",
+      "file": "diagrams/ug26-306-u9-amines-amine-map.svg",
+      "alt": "Reaction map with a primary amine R-NH2 in the centre: five preparation routes on the left and eight reactions on the right with reagents on the arrows",
+      "caption": "Amine reaction map: preparation, acylation, Hinsberg, carbylamine and nitrous acid",
+      "description": "Left, made from: a nitro compound with Sn and HCl or H2 over Pd; a nitrile with LiAlH4 or H2 and Ni; an amide with Br2 and NaOH (Hofmann bromamide, one carbon fewer); an alkyl halide with ammonia and heat (mixtures); phthalimide by the Gabriel synthesis (aliphatic primary amines only). Right, converted to: alkylammonium salt with HCl; N-substituted amide with an acid chloride or anhydride; secondary and tertiary amines by further alkylation with R'X; isocyanide with chloroform and alcoholic KOH (carbylamine test); sulfonamide soluble in alkali with benzenesulfonyl chloride then KOH (Hinsberg); alcohol and nitrogen gas with nitrous acid (aliphatic); diazonium salt with NaNO2 and HCl at 273-278 K (aromatic); 2,4,6-tribromoaniline with bromine water (aniline only)."
+    },
+    {
+      "key": "diazonium-map",
+      "file": "diagrams/ug26-306-u9-amines-diazonium-map.svg",
+      "alt": "Reaction map with benzenediazonium chloride in the centre: aniline with NaNO2 and HCl on the left and nine conversions on the right with reagents on the arrows",
+      "caption": "Benzenediazonium chloride: replacement and coupling reactions",
+      "description": "Left, made from aniline with NaNO2 and HCl at 273-278 K (diazotisation). Right, converted to: chlorobenzene with CuCl and HCl (Sandmeyer); bromobenzene with CuBr and HBr (Sandmeyer); benzonitrile with CuCN and KCN (Sandmeyer); iodobenzene with KI; fluorobenzene with HBF4 then heat (Balz-Schiemann); phenol with warm water; benzene with H3PO2 and water or ethanol; p-hydroxyazobenzene, an orange azo dye, by coupling with phenol in NaOH at 273-278 K; p-aminoazobenzene, a yellow azo dye, by coupling with aniline in weakly acidic medium. A note says N2 is lost in every replacement reaction, while coupling keeps the N=N link."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-306-u9-amines-q01",

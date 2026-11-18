@@ -126,6 +126,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "carbohydrate-tree"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The first split is by what hydrolysis gives, not by taste: none, two to ten units, or many units. Then the aldehyde or ketone group splits monosaccharides into aldoses and ketoses."
+      },
+      {
         "type": "HEADING",
         "text": "Methods of preparation of glucose"
       },
@@ -158,6 +166,50 @@
       {
         "type": "TEXT",
         "text": "**Why the open-chain form is not enough.** Glucose does not give Schiff's test or the sodium hydrogensulfite addition product, and its pentaacetate does not react with hydroxylamine, which means the free aldehyde group is largely absent. It also exists in two forms, with different specific rotations, which interconvert in solution. The explanation is that the $\\mathrm{-CHO}$ at C-1 reacts with the $\\mathrm{-OH}$ at C-5 to form a six-membered ring containing one oxygen atom, a cyclic **hemiacetal**. The ring resembles pyran, so this form is called the **pyranose** form.\n\nThe new hydroxyl group at C-1 can lie on either side of the ring. The two ring forms, which differ only in the configuration at **C-1 (the anomeric carbon)**, are called **anomers**: $\\alpha$-D-glucopyranose (specific rotation $+111^\\circ$) and $\\beta$-D-glucopyranose ($+19.2^\\circ$). When either dissolves in water, the optical rotation slowly changes until it reaches an equilibrium value of $+52.5^\\circ$. This change is called **mutarotation**. The equilibrium mixture contains mainly the two cyclic forms with very little of the open chain."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "glucose-forms"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Glucose in water is mostly a ring, not an open chain: the C-5 hydroxyl closes onto the C-1 aldehyde carbon. The new OH at C-1 can point down (alpha) or up (beta), and that is the only difference between the two anomers."
+      },
+      {
+        "type": "TABLE",
+        "caption": "α-glucose versus β-glucose",
+        "columns": [
+          "Feature",
+          "$\\alpha$-D-glucopyranose",
+          "$\\beta$-D-glucopyranose"
+        ],
+        "rows": [
+          [
+            "Position of the C-1 hydroxyl in the Haworth ring",
+            "below the ring (opposite side to the $\\mathrm{CH_2OH}$ group)",
+            "above the ring (same side as the $\\mathrm{CH_2OH}$ group)"
+          ],
+          [
+            "Specific rotation",
+            "$+111^\\circ$",
+            "$+19.2^\\circ$"
+          ],
+          [
+            "Relationship",
+            "anomers: differ only at C-1, the anomeric carbon",
+            "anomers: differ only at C-1, the anomeric carbon"
+          ],
+          [
+            "In water",
+            "changes slowly to the equilibrium value $+52.5^\\circ$ (mutarotation)",
+            "changes slowly to the equilibrium value $+52.5^\\circ$ (mutarotation)"
+          ],
+          [
+            "Polymer it builds",
+            "starch and glycogen ($\\alpha$-links)",
+            "cellulose ($\\beta$-links)"
+          ]
+        ]
       },
       {
         "type": "TABLE",
@@ -406,6 +458,14 @@
         "text": "**Peptide bond.** The carboxyl group of one amino acid condenses with the amino group of another to form an amide link, $\\mathrm{-CO-NH-}$, called a **peptide bond**, with loss of water. Two amino acids give a dipeptide, three a tripeptide, and so on. Many (more than about 10) give a polypeptide. A chain of $n$ amino acids contains $n-1$ peptide bonds, and the mass of the peptide is the sum of the masses of the amino acids minus 18 for each water molecule lost."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "peptide-bond"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A peptide bond is an amide link made when the COOH of one amino acid loses OH and the NH2 of the next loses H. Count the bonds as n - 1 and the lost water molecules as n - 1."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Molar masses: glycine $75\\,\\text{g mol}^{-1}$ and alanine $89\\,\\text{g mol}^{-1}$. (a) What is the molar mass of the tripeptide Gly-Ala-Gly? (b) How many peptide bonds does it contain? (c) How many different tripeptides can be formed from three different amino acids if each is used once?",
         "solution": "(a) The three amino acids have a total mass of $75 + 89 + 75 = 239\\,\\text{g mol}^{-1}$. Forming the tripeptide needs two condensations, each removing one $\\mathrm{H_2O}$ ($18\\,\\text{g mol}^{-1}$), so the molar mass is $239 - 2 \\times 18 = 239 - 36 = 203\\,\\text{g mol}^{-1}$.\n\n(b) The number of peptide bonds is $n - 1 = 3 - 1 = 2$.\n\n(c) The order matters because each peptide has an N-terminal and a C-terminal end. The three different amino acids can be arranged in $3! = 6$ ways, so six tripeptides.",
@@ -422,6 +482,14 @@
       {
         "type": "TEXT",
         "text": "Proteins are the biomolecules that carry out most of the work of the cell. They are classified in two ways.\n\n**Types by shape.**\n\n- **Fibrous proteins** have long thread-like chains held together side by side by hydrogen and disulfide bonds. They are **insoluble in water** and are structural: keratin (hair, wool, nails) and myosin (muscle).\n- **Globular proteins** are folded into a compact, roughly spherical shape, are **soluble in water**, and include most enzymes and many hormones: insulin and albumin.\n\n**Levels of structure.**\n\n1. **Primary structure:** the **sequence** of amino acids in the chain, held by peptide bonds. A change of even one amino acid alters the protein.\n2. **Secondary structure:** local folding stabilised by **hydrogen bonds** between the $\\mathrm{C=O}$ of one peptide unit and the $\\mathrm{N-H}$ of another. Two types: the **$\\alpha$-helix** (right-handed coil) and the **$\\beta$-pleated sheet** (side-by-side extended chains).\n3. **Tertiary structure:** the overall **three-dimensional folding** of one polypeptide chain, stabilised by hydrogen bonds, disulfide bridges, ionic (salt) bridges, van der Waals forces and hydrophobic interactions. This gives the fibrous or globular shape.\n4. **Quaternary structure:** the arrangement of **two or more polypeptide subunits** into one functional unit, as in haemoglobin, which has four subunits."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "protein-levels"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Each level adds a new kind of folding on top of the last: sequence (primary), local H-bonded shapes (secondary), whole-chain 3-D shape (tertiary) and several chains together (quaternary). Only the primary structure is held by covalent peptide bonds."
       },
       {
         "type": "TABLE",
@@ -451,6 +519,42 @@
             "Quaternary",
             "Association of subunits",
             "Non-covalent forces between chains"
+          ]
+        ]
+      },
+      {
+        "type": "TABLE",
+        "caption": "Fibrous versus globular proteins",
+        "columns": [
+          "Feature",
+          "Fibrous proteins",
+          "Globular proteins"
+        ],
+        "rows": [
+          [
+            "Shape",
+            "long thread-like chains lying side by side",
+            "chain folded into a compact, roughly spherical shape"
+          ],
+          [
+            "Solubility in water",
+            "insoluble",
+            "soluble"
+          ],
+          [
+            "Main forces",
+            "hydrogen bonds and disulfide bonds between chains",
+            "hydrogen bonds, ionic bridges and hydrophobic interactions within the folded chain"
+          ],
+          [
+            "Role",
+            "structural",
+            "most enzymes and many hormones"
+          ],
+          [
+            "Examples",
+            "keratin (hair, wool, nails), myosin (muscle)",
+            "insulin, albumin"
           ]
         ]
       },
@@ -605,6 +709,14 @@
         "text": "**Structure.** Nucleotides are joined into a chain by **phosphodiester linkages** between the 3' carbon of one sugar and the 5' carbon of the next. **DNA** has the **double helix** structure proposed by Watson and Crick (1953): two polynucleotide strands wind round the same axis in opposite directions, held together by hydrogen bonds between bases. **Adenine pairs only with thymine** by **two** hydrogen bonds, and **guanine pairs only with cytosine** by **three** hydrogen bonds. Therefore in any DNA, A = T and G = C (Chargaff's rule). **RNA** is a single strand and is of three types: **messenger RNA (m-RNA)**, **ribosomal RNA (r-RNA)** and **transfer RNA (t-RNA)**.\n\n**Biological importance.** DNA carries the **genetic information** and passes it from cell to cell and from parent to offspring by **replication**. The information in DNA is read as a sequence of three-base units (codons) and is converted by RNA into the sequence of amino acids of proteins. DNA is therefore the chemical basis of heredity, and RNA is essential for protein synthesis. Studying DNA profiles (DNA fingerprinting) is used in forensic work and in finding paternity."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "dna-pairing"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Pairing is exact: A with T (2 bonds) and G with C (3 bonds). That is why the amount of A equals T and G equals C in any DNA sample, and the two strands are complementary."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "A sample of DNA contains $20\\%$ adenine. (a) Find the percentage of thymine, guanine and cytosine. (b) A segment of the DNA has 30 A-T base pairs and 40 G-C base pairs. How many hydrogen bonds hold the two strands together in that segment?",
         "solution": "(a) By base pairing, adenine pairs with thymine, so thymine is also 20 per cent. Together A + T = 40 per cent, leaving 60 per cent for G + C. Since G pairs with C, they are equal, so G = C = 30 per cent each.\n\n(b) Each A-T pair has 2 hydrogen bonds and each G-C pair has 3. Total hydrogen bonds = $30 \\times 2 + 40 \\times 3 = 60 + 120 = 180$.",
@@ -689,7 +801,43 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "carbohydrate-tree",
+      "file": "diagrams/ug26-306-u10-biomolecules-carbohydrate-tree.svg",
+      "alt": "Classification tree of carbohydrates: monosaccharides (aldoses, ketoses), oligosaccharides (disaccharides) and polysaccharides, with sugars and non-sugars marked",
+      "caption": "Classification tree of carbohydrates by hydrolysis",
+      "description": "A tree with Carbohydrates at the top and three branches. Monosaccharides do not hydrolyse further and divide into aldoses (glucose, ribose) and ketoses (fructose). Oligosaccharides give 2 to 10 monosaccharide units; disaccharides are sucrose, maltose and lactose. Polysaccharides give many units: starch, cellulose and glycogen. A green bracket marks monosaccharides and oligosaccharides as sugars (sweet, crystalline, soluble); a red bracket marks polysaccharides as non-sugars. A note lists reducing and non-reducing sugars."
+    },
+    {
+      "key": "glucose-forms",
+      "file": "diagrams/ug26-306-u10-biomolecules-glucose-forms.svg",
+      "alt": "D-glucose open chain in Fischer form on the left closing to the ring forms alpha-D-glucopyranose and beta-D-glucopyranose in Haworth form on the right",
+      "caption": "Glucose: open chain, ring closure and the alpha and beta anomers",
+      "description": "Left: the open-chain Fischer projection of D-glucose with CHO at C-1, then C-2 OH on the right, C-3 OH on the left, C-4 OH on the right, C-5 OH on the right and CH2OH at C-6. A dashed red arrow shows the C-5 hydroxyl attacking C-1. Right: two Haworth drawings of the six-membered pyranose ring (ring oxygen between C-1 and C-5), with OH on C-2 and C-4 pointing down, OH on C-3 pointing up and CH2OH on C-5 pointing up. In alpha-D-glucopyranose the C-1 OH points down (specific rotation +111 degrees); in beta-D-glucopyranose it points up (+19.2 degrees). A box notes that the forms are anomers, that groups on the right of the Fischer chain point down in the ring, and that in water both change to an equilibrium mixture at +52.5 degrees (mutarotation)."
+    },
+    {
+      "key": "peptide-bond",
+      "file": "diagrams/ug26-306-u10-biomolecules-peptide-bond.svg",
+      "alt": "Glycine and alanine condensing with loss of water to give the dipeptide Gly-Ala, with the peptide bond -CO-NH- highlighted",
+      "caption": "Peptide bond formation between glycine and alanine",
+      "description": "Top: glycine, H2N-CH2-COOH, with its OH circled in red, plus alanine, H2N-CH(CH3)-COOH, with one H of its NH2 circled in red. A downward arrow labelled minus H2O (condensation) leads to the dipeptide H2N-CH2-CO-NH-CH(CH3)-COOH plus H2O. The new -CO-NH- link is boxed and labelled peptide bond; the free NH2 end is labelled N-terminus and the free COOH end C-terminus. A note says n amino acids in a chain contain n minus 1 peptide bonds and release n minus 1 water molecules."
+    },
+    {
+      "key": "protein-levels",
+      "file": "diagrams/ug26-306-u10-biomolecules-protein-levels.svg",
+      "alt": "Four panels showing primary (a chain of amino acid beads), secondary (alpha-helix and beta-pleated sheet), tertiary (one folded chain with bonds) and quaternary (four subunits) protein structure",
+      "caption": "Four levels of protein structure",
+      "description": "Panel 1, primary: six circles labelled Gly, Ala, Ser, Val, Lys, Glu joined by lines (peptide bonds) from the N end to the C end; the sequence is only an example. Panel 2, secondary: a right-handed alpha-helix coil and a beta-pleated sheet of three side-by-side zigzag strands, both with red dashed hydrogen bonds between C=O and N-H groups. Panel 3, tertiary: one polypeptide chain folded into a compact shape with a disulfide bridge (S-S, amber), a hydrogen bond (blue dashed) and an ionic bridge (red dashed), plus van der Waals and hydrophobic forces. Panel 4, quaternary: four subunits (two alpha, two beta, as in haemoglobin) held together by non-covalent forces. All drawings are schematic."
+    },
+    {
+      "key": "dna-pairing",
+      "file": "diagrams/ug26-306-u10-biomolecules-dna-pairing.svg",
+      "alt": "Ladder drawing of DNA: two sugar-phosphate backbones joined by four base pairs, A-T and T-A with two hydrogen bonds each and G-C and C-G with three hydrogen bonds each",
+      "caption": "DNA base pairing: A with T (two hydrogen bonds), G with C (three)",
+      "description": "Two vertical sugar-phosphate backbones (S for deoxyribose sugar, P for phosphate), the left running 5 prime to 3 prime from top to bottom and the right running 3 prime to 5 prime, so the strands are opposite in direction. Four horizontal rungs join bases: A-T and T-A each with two dashed hydrogen bonds (blue), then G-C and C-G each with three dashed hydrogen bonds (green). A note says A pairs only with T and G only with C, so A = T and G = C in amount (Chargaff's rule)."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-306-u10-biomolecules-q01",

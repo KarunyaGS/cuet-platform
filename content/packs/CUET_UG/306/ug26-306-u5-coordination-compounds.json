@@ -409,6 +409,14 @@
         "text": "**Geometrical isomerism** appears when ligands can occupy different relative positions. It is common in square planar complexes of the type $\\mathrm{[Ma_2b_2]}$ and in octahedral complexes of the types $\\mathrm{[Ma_4b_2]}$, $\\mathrm{[Ma_2b_4]}$ and $\\mathrm{[Ma_3b_3]}$. In the **cis** isomer two identical ligands are adjacent (90 degrees apart); in the **trans** isomer they are opposite (180 degrees). For $\\mathrm{[Ma_3b_3]}$ the isomers are **facial (fac)**, where three identical ligands occupy one triangular face, and **meridional (mer)**, where they lie on a meridian. Tetrahedral complexes show no geometrical isomerism because all four positions are equivalent to one another. The anticancer drug cisplatin is cis-$\\mathrm{[Pt(NH_3)_2Cl_2]}$; its trans isomer is inactive.\n\n**Optical isomerism** occurs when a complex is chiral, that is, not superimposable on its mirror image. The two mirror-image forms (enantiomers) rotate plane-polarised light in opposite directions. Octahedral complexes with bidentate ligands, such as $\\mathrm{[Co(en)_3]^{3+}}$ and cis-$\\mathrm{[CoCl_2(en)_2]^+}$, are optically active. The trans form of $\\mathrm{[CoCl_2(en)_2]^+}$ has a plane of symmetry and is optically inactive."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "cis-trans-octahedral"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: cis and trans isomers have the same formula and the same ligands bonded to the metal, but different positions in space. Cis means the two identical ligands are next to each other (90°); trans means they are across from each other (180°)."
+      },
+      {
         "type": "EXAMPLE",
         "text": "Count the stereoisomers of $\\mathrm{[CoCl_2(en)_2]^+}$: the trans isomer is one achiral form; the cis isomer is chiral and exists as a pair of enantiomers (d and l). Total stereoisomers $= 1 + 2 = 3$. By contrast, $\\mathrm{[Co(en)_3]^{3+}}$ has no geometrical isomers but exists as one pair of enantiomers."
       },
@@ -461,6 +469,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "three-geometries"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the coordination number and hybridisation decide the shape: six ligands give an octahedron, and four ligands give either a tetrahedron (sp$^3$) or a square plane (dsp$^2$). Only the square planar and octahedral shapes can show cis-trans isomerism."
+      },
+      {
         "type": "FORMULA",
         "latex": "\\mu = \\sqrt{n(n+2)}\\ \\text{BM}",
         "text": "Spin-only magnetic moment in Bohr magnetons (BM); n = number of unpaired electrons. Values: n = 1, 1.73; n = 2, 2.83; n = 3, 3.87; n = 4, 4.90; n = 5, 5.92 BM."
@@ -488,6 +504,14 @@
         "text": "Crystal field theory (CFT) treats the metal-ligand interaction as purely **electrostatic**. The ligands are taken as negative point charges (or the negative end of dipoles) and the metal ion as a positive charge. In a free ion the five d orbitals have equal energy. When ligands approach, the d electrons are repelled, and the five orbitals split into groups of different energy.\n\n**Octahedral field.** Six ligands approach along the $\\pm x$, $\\pm y$, $\\pm z$ axes. The $d_{x^2-y^2}$ and $d_{z^2}$ orbitals point directly at the ligands and feel the strongest repulsion; they form the higher set, called **$e_g$**. The $d_{xy}$, $d_{yz}$ and $d_{zx}$ orbitals point between the axes, feel less repulsion and form the lower set, **$t_{2g}$**. The gap is the **crystal field splitting energy $\\Delta_o$**. Relative to the average energy of the five orbitals, the $t_{2g}$ set is lowered by $0.4\\Delta_o$ and the $e_g$ set is raised by $0.6\\Delta_o$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "octahedral-splitting"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: in an octahedral field $t_{2g}$ (three orbitals) lies below $e_g$ (two orbitals). The $e_g$ orbitals point at the ligands and are repelled more. Remember the weighted average: $3(-0.4\\Delta_o) + 2(0.6\\Delta_o) = 0$."
+      },
+      {
         "type": "FORMULA",
         "latex": "\\text{CFSE} = \\left[-0.4\\,n(t_{2g}) + 0.6\\,n(e_g)\\right]\\Delta_o + (\\text{extra pairing energy})",
         "text": "Crystal field stabilisation energy for an octahedral complex; n(t2g), n(eg) = electrons in each set; Δo = octahedral splitting; the extra pairing energy is P for every pair formed beyond those in the free ion."
@@ -502,10 +526,57 @@
         "text": "Tetrahedral splitting is about 4/9 of the octahedral splitting for the same metal and ligand, so tetrahedral complexes are almost always high spin."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "tetrahedral-splitting"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the pattern is inverted in a tetrahedral field ($e$ below $t_2$) and the gap is small, $\\Delta_t = \\tfrac{4}{9}\\Delta_o$. With such a small gap it is smaller than the pairing energy, so tetrahedral complexes are almost always high spin."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Octahedral and tetrahedral crystal fields compared",
+        "columns": [
+          "Feature",
+          "Octahedral",
+          "Tetrahedral"
+        ],
+        "rows": [
+          [
+            "Number of ligands",
+            "6",
+            "4"
+          ],
+          [
+            "Lower and upper d sets",
+            "$t_{2g}$ (lower, 3 orbitals), $e_g$ (upper, 2 orbitals)",
+            "$e$ (lower, 2 orbitals), $t_2$ (upper, 3 orbitals)"
+          ],
+          [
+            "Splitting energy",
+            "$\\Delta_o$",
+            "$\\Delta_t = \\tfrac{4}{9}\\Delta_o$ (much smaller)"
+          ],
+          [
+            "Spin state possible",
+            "High spin or low spin for $d^4$ to $d^7$",
+            "Almost always high spin"
+          ]
+        ]
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Find the CFSE and the spin-only magnetic moment for $\\mathrm{Co^{3+}}$ ($d^6$) in (a) the weak-field case $t_{2g}^4 e_g^2$ and (b) the strong-field case $t_{2g}^6 e_g^0$ in an octahedral field. Which describes $\\mathrm{[Co(NH_3)_6]^{3+}}$?",
         "solution": "(a) High spin: $n(t_{2g}) = 4$ and $n(e_g) = 2$. CFSE $= [-0.4(4) + 0.6(2)]\\Delta_o = (-1.6 + 1.2)\\Delta_o = -0.4\\Delta_o$. There are 4 unpaired electrons, so $\\mu = \\sqrt{4\\times 6} = \\sqrt{24} = 4.90$ BM. No extra pairing beyond the free-ion pair.\n\n(b) Low spin: $n(t_{2g}) = 6$. CFSE $= -0.4(6)\\Delta_o = -2.4\\Delta_o$, with two extra pairs formed, so the energy is $-2.4\\Delta_o + 2P$. No unpaired electrons, so $\\mu = 0$ (diamagnetic).\n\nAmmonia is a strong-field ligand toward $\\mathrm{Co^{3+}}$ and the complex is diamagnetic, so it is case (b).",
         "answer": "(a) CFSE $= -0.4\\Delta_o$, $\\mu = 4.90$ BM; (b) CFSE $= -2.4\\Delta_o + 2P$, $\\mu = 0$; $\\mathrm{[Co(NH_3)_6]^{3+}}$ is (b)."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "high-low-spin-d6"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the same d$^6$ metal ion can have different electron arrangements. A weak-field ligand (small $\\Delta_o$, less than the pairing energy $P$) gives high spin, and a strong-field ligand (large $\\Delta_o$, more than $P$) gives low spin. The number of unpaired electrons decides the magnetism."
       },
       {
         "type": "HEADING",
@@ -581,6 +652,37 @@
       {
         "type": "TEXT",
         "text": "**Limitations of CFT.** The theory treats ligands only as point charges and so ignores covalent character in the metal-ligand bond. It cannot explain why some neutral ligands such as CO and $\\mathrm{NH_3}$ sit high in the spectrochemical series while charged ligands such as $\\mathrm{F^-}$ and $\\mathrm{OH^-}$ sit low. It also does not account for $\\pi$ bonding between metal and ligand, which is why it fails to explain some of the ordering in the series. These ideas are covered by the more complete ligand field and molecular orbital theories."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Valence bond theory and crystal field theory compared",
+        "columns": [
+          "Feature",
+          "Valence bond theory (VBT)",
+          "Crystal field theory (CFT)"
+        ],
+        "rows": [
+          [
+            "Model of the metal-ligand bond",
+            "Covalent: ligand lone pairs donated into hybrid orbitals of the metal",
+            "Purely electrostatic: ligands as point charges"
+          ],
+          [
+            "Explains shape and magnetism",
+            "Yes, through hybridisation (for example $d^2sp^3$, $sp^3d^2$)",
+            "Yes, through d orbital splitting and electron filling"
+          ],
+          [
+            "Explains colour",
+            "No",
+            "Yes, through d-d transitions with energy $\\Delta_o$"
+          ],
+          [
+            "Main limitation",
+            "Qualitative; cannot explain colour or give energies",
+            "Ignores covalent character of the bond"
+          ]
+        ]
       },
       {
         "type": "KEY_POINT",
@@ -669,7 +771,43 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "cis-trans-octahedral",
+      "file": "diagrams/ug26-306-u5-coordination-compounds-cis-trans-octahedral.svg",
+      "alt": "Two octahedral complexes of type Ma4b2: in the cis isomer the two b ligands are adjacent and in the trans isomer they are opposite",
+      "caption": "Cis and trans isomers of an octahedral complex [Ma4b2]",
+      "description": "Two ball-and-stick octahedra with the metal M at the centre. Both have four ligands a and two ligands b. In the cis isomer the two b ligands sit on adjacent positions, 90 degrees apart. In the trans isomer the two b ligands are on opposite positions, 180 degrees apart."
+    },
+    {
+      "key": "three-geometries",
+      "file": "diagrams/ug26-306-u5-coordination-compounds-three-geometries.svg",
+      "alt": "Three drawings of coordination geometry: octahedral with six ligands, tetrahedral with four ligands, and square planar with four ligands in one plane",
+      "caption": "Octahedral, tetrahedral and square planar geometries",
+      "description": "Left: an octahedral complex with the metal at the centre and six ligands along three perpendicular axes (coordination number 6), example [Co(NH3)6]3+. Centre: a tetrahedral complex with four ligands at the corners of a tetrahedron (coordination number 4, angle 109.5 degrees), example [NiCl4]2-. Right: a square planar complex in which the metal and four ligands lie in one plane, 90 degrees apart (coordination number 4), example [Ni(CN)4]2-."
+    },
+    {
+      "key": "octahedral-splitting",
+      "file": "diagrams/ug26-306-u5-coordination-compounds-octahedral-splitting.svg",
+      "alt": "Energy level diagram of the five d orbitals splitting in an octahedral field into a lower t2g set of three and a higher eg set of two",
+      "caption": "Crystal field splitting of d orbitals in an octahedral field",
+      "description": "The five d orbitals of the free ion share one energy. In an octahedral ligand field they split into two sets. The three orbitals dxy, dxz and dyz (t2g) are lowered by 0.4 delta o relative to the average energy, and the two orbitals dz2 and dx2-y2 (eg) are raised by 0.6 delta o. The gap between the sets is the crystal field splitting energy delta o."
+    },
+    {
+      "key": "tetrahedral-splitting",
+      "file": "diagrams/ug26-306-u5-coordination-compounds-tetrahedral-splitting.svg",
+      "alt": "Side by side energy diagrams on one scale: octahedral with t2g below eg and a large gap, and tetrahedral with e below t2 and a gap of about four ninths as large",
+      "caption": "Tetrahedral splitting compared with octahedral splitting",
+      "description": "Two level diagrams drawn to the same energy scale. Octahedral: the three t2g orbitals are below the two eg orbitals, separated by delta o. Tetrahedral: the order is inverted, with the two e orbitals below the three t2 orbitals, and the gap delta t is much smaller, about 4/9 of delta o for the same metal and ligand."
+    },
+    {
+      "key": "high-low-spin-d6",
+      "file": "diagrams/ug26-306-u5-coordination-compounds-high-low-spin-d6.svg",
+      "alt": "Electron filling of t2g and eg orbitals for octahedral d6: high spin [CoF6]3- with four unpaired electrons and low spin [Co(NH3)6]3+ with none",
+      "caption": "High spin and low spin octahedral d6 complexes",
+      "description": "Left: [CoF6]3- with the weak-field ligand F-. The splitting delta o is small, so the six d electrons fill t2g as one pair and two single electrons, and place two single electrons in eg (t2g4 eg2). It has four unpaired electrons and is paramagnetic. Right: [Co(NH3)6]3+ with the strong-field ligand NH3. The splitting is large, so all six electrons pair up in t2g (t2g6 eg0). It has no unpaired electrons and is diamagnetic."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-306-u5-coordination-compounds-q01",

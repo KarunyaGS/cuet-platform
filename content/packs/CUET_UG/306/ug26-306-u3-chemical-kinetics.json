@@ -124,6 +124,14 @@
         "text": "The rate of a reaction at a given instant, equal to the negative slope of the tangent to the concentration-time curve of a reactant at that instant (or the positive slope for a product)."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "average-instantaneous-rate"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the average rate is the slope of the chord over a time interval, while the instantaneous rate is the slope of the tangent at one moment. As the reactant is used up the curve flattens, so the rate falls with time."
+      },
+      {
         "type": "CALLOUT",
         "text": "Common mistake: forgetting to divide by the stoichiometric coefficient. The *rate of reaction* is one number; the rate of disappearance of H$_2$ or of appearance of NH$_3$ are different numbers unless every coefficient is 1."
       },
@@ -216,6 +224,37 @@
         "type": "DEFINITION",
         "term": "Rate constant",
         "text": "The proportionality constant $k$ in the rate law. It equals the rate of the reaction when every concentration in the rate law is 1 mol L$^{-1}$, so it is also called the specific reaction rate. For a given reaction it depends on temperature and on the catalyst, but not on the concentrations."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Rate of reaction and rate constant compared",
+        "columns": [
+          "Feature",
+          "Rate of reaction",
+          "Rate constant $k$"
+        ],
+        "rows": [
+          [
+            "Meaning",
+            "Change in concentration of a reactant or product per unit time at a given moment",
+            "Proportionality constant in the rate law; equal to the rate when every concentration is 1 mol L$^{-1}$"
+          ],
+          [
+            "Changes with concentration?",
+            "Yes. It falls as reactants are used up (except for zero order)",
+            "No. It stays constant at a fixed temperature"
+          ],
+          [
+            "Changes with temperature?",
+            "Yes, because $k$ changes",
+            "Yes. It increases as temperature rises (Arrhenius equation)"
+          ],
+          [
+            "Unit",
+            "Always mol L$^{-1}$ s$^{-1}$",
+            "Depends on the order: (mol L$^{-1}$)$^{1-n}$ s$^{-1}$"
+          ]
+        ]
       },
       {
         "type": "TEXT",
@@ -366,6 +405,14 @@
         "text": "In terms of the amount converted, if $a$ is the initial concentration and $x$ the amount that has reacted by time $t$, then $k = \\frac{2.303}{t}\\log\\frac{a}{a-x}$. Examples of first order reactions are the decomposition of N$_2$O$_5$, of H$_2$O$_2$ and of SO$_2$Cl$_2$, and radioactive decay."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "linear-plots"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the order is identified by which plot is straight. A straight [R] against t line means zero order; a straight ln [R] against t line means first order. In both cases the slope is $-k$, so $k$ is read directly from the graph."
+      },
+      {
         "type": "TABLE",
         "caption": "Zero order and first order at a glance",
         "columns": [
@@ -434,6 +481,14 @@
       {
         "type": "TEXT",
         "text": "The independence from initial concentration is a fingerprint of first order kinetics. If a first order reaction takes 20 minutes to go from 1.0 M to 0.5 M, it will also take 20 minutes to go from 0.4 M to 0.2 M. After $n$ half-lives, the fraction left is $(1/2)^n$: 50%, 25%, 12.5%, 6.25% and so on. A zero order reaction behaves differently: each successive half-life is shorter, since it is proportional to the (smaller) concentration at the start of that interval."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "half-life-comparison"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: for a first order reaction every halving takes the same time, $t_{1/2} = 0.693/k$, whatever the starting concentration. For a zero order reaction the half-life depends on the starting concentration, so each later halving is shorter."
       },
       {
         "type": "TABLE",
@@ -516,6 +571,14 @@
         "text": "A plot of $\\log k$ against $1/T$ is a straight line with slope $-E_a/(2.303R)$ and intercept $\\log A$, from which $E_a$ and $A$ are found."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "arrhenius-lnk-plot"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the slope of the Arrhenius line is $-E_a/R$, so a steeper line means a larger activation energy and a rate constant that is more sensitive to temperature. If $\\log_{10}k$ is plotted instead, the slope is $-E_a/2.303R$. The intercept gives $\\ln A$."
+      },
+      {
         "type": "FORMULA",
         "latex": "\\log\\frac{k_2}{k_1} = \\frac{E_a}{2.303\\,R}\\left(\\frac{1}{T_1} - \\frac{1}{T_2}\\right) = \\frac{E_a}{2.303\\,R}\\,\\frac{T_2 - T_1}{T_1T_2}",
         "text": "$k_1$ and $k_2$ are the rate constants at $T_1$ and $T_2$ (in kelvin). This is the working equation when two values of $k$ are known."
@@ -523,6 +586,45 @@
       {
         "type": "TEXT",
         "text": "**Role of a catalyst.** A catalyst offers a new path with a lower $E_a$. Since $E_a$ sits in the exponent, even a modest lowering gives a large increase in $k$. The catalyst does not alter $\\Delta H$ of the reaction, so the energy difference between reactants and products is the same, and it speeds up the forward and reverse reactions equally."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "energy-profile-catalyst"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: a catalyst provides a new path with a lower activation energy, so more molecules can cross the barrier and the reaction is faster. It does not change the energy of the reactants or products, so $\\Delta H$ and the position of equilibrium are unchanged."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Raising the temperature and adding a catalyst compared",
+        "columns": [
+          "Feature",
+          "Raising the temperature",
+          "Adding a catalyst"
+        ],
+        "rows": [
+          [
+            "How the rate increases",
+            "A larger fraction of molecules has energy equal to or above $E_a$",
+            "The activation energy is lowered by a new reaction path"
+          ],
+          [
+            "Activation energy $E_a$",
+            "Unchanged",
+            "Decreased"
+          ],
+          [
+            "Enthalpy change $\\Delta H$",
+            "Unchanged",
+            "Unchanged"
+          ],
+          [
+            "Equilibrium constant",
+            "Changes (depends on $\\Delta H$)",
+            "Not changed; it only helps equilibrium to be reached sooner"
+          ]
+        ]
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -587,7 +689,43 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "average-instantaneous-rate",
+      "file": "diagrams/ug26-306-u3-chemical-kinetics-average-instantaneous-rate.svg",
+      "alt": "Concentration against time curve with a chord between two points for the average rate and a tangent at one point for the instantaneous rate",
+      "caption": "Average rate and instantaneous rate from a concentration-time curve",
+      "description": "A decaying curve of reactant concentration [R] against time. A blue chord joins two points at times t1 and t2; its slope, delta [R] over delta t, gives the average rate in that interval. A red tangent touches the curve at one point; its slope gives the instantaneous rate at that moment. Because [R] falls, both slopes are negative and the rate is written with a minus sign to make it positive."
+    },
+    {
+      "key": "linear-plots",
+      "file": "diagrams/ug26-306-u3-chemical-kinetics-linear-plots.svg",
+      "alt": "Two straight line graphs: concentration against time for a zero order reaction and the natural log of concentration against time for a first order reaction, both with slope minus k",
+      "caption": "Straight-line plots for zero and first order reactions",
+      "description": "Left graph: for a zero order reaction the concentration [R] plotted against time is a straight line starting at [R]0 with slope -k. Right graph: for a first order reaction ln [R] plotted against time is a straight line starting at ln [R]0 with slope -k. For zero order, [R] reaches zero at a finite time; for first order, [R] only approaches zero."
+    },
+    {
+      "key": "half-life-comparison",
+      "file": "diagrams/ug26-306-u3-chemical-kinetics-half-life-comparison.svg",
+      "alt": "Two concentration-time graphs: a first order curve with equal successive half-lives and a zero order straight line whose successive half-lives get shorter",
+      "caption": "Successive half-lives for first and zero order reactions",
+      "description": "Left graph: first order. The concentration curve falls to [R]0/2, [R]0/4 and [R]0/8 at equal time steps t1/2, 2 t1/2 and 3 t1/2, so each halving takes the same time. Right graph: zero order. The concentration falls along a straight line; the first halving takes time T, the next halving takes T/2, the next T/4, and the line reaches zero at 2T. The half-life of zero order is proportional to the initial concentration and first order is independent of it."
+    },
+    {
+      "key": "arrhenius-lnk-plot",
+      "file": "diagrams/ug26-306-u3-chemical-kinetics-arrhenius-lnk-plot.svg",
+      "alt": "Arrhenius plot of ln k against 1/T: a straight line with negative slope minus Ea over R and intercept ln A",
+      "caption": "Arrhenius plot of ln k against 1/T",
+      "description": "A straight line falling to the right on axes of ln k against 1/T. The intercept at 1/T = 0 is ln A. The slope is -Ea/R, shown with a small triangle of delta 1/T and delta ln k. An arrow along the axis shows that temperature is higher towards the left (smaller 1/T), where k is larger."
+    },
+    {
+      "key": "energy-profile-catalyst",
+      "file": "diagrams/ug26-306-u3-chemical-kinetics-energy-profile-catalyst.svg",
+      "alt": "Potential energy against reaction coordinate for an exothermic reaction, with a high barrier for the uncatalysed path and a lower barrier for the catalysed path, and the same enthalpy change",
+      "caption": "Energy profile with and without a catalyst",
+      "description": "A potential energy diagram from reactants to products. The black curve for the uncatalysed reaction has a high peak, so a large activation energy Ea. The green curve for the catalysed reaction has a lower peak, so a smaller activation energy Ea dash. Both start at the same reactant level and end at the same lower product level, so the enthalpy change delta H is the same for both. The energies are illustrative."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-306-u3-chemical-kinetics-q01",

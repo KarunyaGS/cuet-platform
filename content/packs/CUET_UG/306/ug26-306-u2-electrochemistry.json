@@ -143,6 +143,14 @@
         "text": "Electrons flow in the external wire from the anode to the cathode, while the conventional current flows the opposite way. The cell is written in shorthand with the anode on the left and the cathode on the right, with a double vertical line for the salt bridge:"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "daniell-cell"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: in a galvanic cell the anode (oxidation) is the negative electrode and the cathode (reduction) is the positive one. Electrons leave the anode through the wire to the cathode, while the salt bridge lets ions move to keep both solutions electrically neutral and complete the circuit."
+      },
+      {
         "type": "FORMULA",
         "latex": "\\text{Zn}(s)\\,|\\,\\text{Zn}^{2+}(aq)\\,\\|\\,\\text{Cu}^{2+}(aq)\\,|\\,\\text{Cu}(s)",
         "text": "A single bar marks a phase boundary and the double bar the salt bridge. The overall reaction is $\\text{Zn} + \\text{Cu}^{2+} \\to \\text{Zn}^{2+} + \\text{Cu}$."
@@ -172,6 +180,14 @@
       {
         "type": "TEXT",
         "text": "To measure the standard potential of a metal electrode, it is connected to the SHE through a salt bridge and the voltmeter reading gives $E^\\circ$ of the electrode. If the metal electrode is the positive pole, as for copper, its $E^\\circ$ is positive (+0.34 V). If it acts as the negative pole, as for zinc, its value is negative (-0.76 V). A more negative $E^\\circ$ means a stronger reducing agent, and a more positive $E^\\circ$ means a stronger oxidising agent."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "she"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the reference electrode has three standard conditions: H$_2$ at 1 bar, H$^+$ at 1 M and a platinised Pt foil. Its potential is defined as zero, and every other standard electrode potential is measured against it."
       },
       {
         "type": "TABLE",
@@ -360,6 +376,37 @@
         "text": "With $\\kappa$ in S cm$^{-1}$ and $c$ in mol L$^{-1}$, $\\Lambda_m$ comes out in S cm$^2$ mol$^{-1}$. In SI units $\\Lambda_m = \\kappa/c$ with $c$ in mol m$^{-3}$ gives S m$^2$ mol$^{-1}$, and 1 S m$^2$ mol$^{-1}$ = $10^{4}$ S cm$^2$ mol$^{-1}$."
       },
       {
+        "type": "TABLE",
+        "caption": "Conductivity and molar conductivity compared",
+        "columns": [
+          "Feature",
+          "Conductivity $\\kappa$",
+          "Molar conductivity $\\Lambda_m$"
+        ],
+        "rows": [
+          [
+            "Meaning",
+            "Conductance of a 1 cm cube of the solution (reciprocal of resistivity)",
+            "Conducting power of all the ions from one mole of electrolyte"
+          ],
+          [
+            "Unit",
+            "S cm$^{-1}$ (or S m$^{-1}$)",
+            "S cm$^2$ mol$^{-1}$ (or S m$^2$ mol$^{-1}$)"
+          ],
+          [
+            "Effect of dilution",
+            "Decreases, because there are fewer ions per unit volume",
+            "Increases, because the same amount of electrolyte is spread over a larger volume and dissociation or ion freedom increases"
+          ],
+          [
+            "Relation",
+            "$\\kappa = 1/\\rho$",
+            "$\\Lambda_m = \\kappa \\times 1000 / c$ (with $\\kappa$ in S cm$^{-1}$ and $c$ in mol L$^{-1}$)"
+          ]
+        ]
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "A conductivity cell filled with 0.1 M KCl ($\\kappa = 0.0129$ S cm$^{-1}$) has a resistance of 100 ohm. The same cell filled with 0.05 M solution of an electrolyte has a resistance of 310 ohm. Calculate the cell constant, the conductivity and the molar conductivity of the solution.",
         "solution": "Cell constant $G^{*} = \\kappa R = 0.0129 \\times 100 = 1.29$ cm$^{-1}$. Conductivity of the solution $\\kappa = G^{*}/R = 1.29/310 = 4.16 \\times 10^{-3}$ S cm$^{-1}$. Molar conductivity $\\Lambda_m = \\kappa \\times 1000/c = (4.16\\times10^{-3} \\times 1000)/0.05 = 83.2$ S cm$^2$ mol$^{-1}$.",
@@ -390,6 +437,14 @@
         "type": "FORMULA",
         "latex": "\\alpha = \\frac{\\Lambda_m}{\\Lambda_m^\\circ}, \\qquad K_a = \\frac{c\\,\\alpha^2}{1-\\alpha} = \\frac{c\\,\\Lambda_m^2}{\\Lambda_m^\\circ\\,(\\Lambda_m^\\circ - \\Lambda_m)}",
         "text": "Valid for a weak monobasic acid or weak base of concentration $c$."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "conductivity-graphs"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: conductivity falls on dilution (fewer ions per volume) but molar conductivity rises on dilution. For a strong electrolyte the graph is almost straight and its intercept gives $\\Lambda_m^{\\circ}$; for a weak electrolyte the graph rises steeply near zero because dissociation increases, so $\\Lambda_m^{\\circ}$ must be found from Kohlrausch's law."
       },
       {
         "type": "HEADING",
@@ -431,6 +486,14 @@
       {
         "type": "TEXT",
         "text": "In an electrolytic cell the polarity of the electrodes is reversed compared with a galvanic cell: the anode is the positive electrode, connected to the positive terminal of the battery, and the cathode is the negative electrode. Oxidation still occurs at the anode and reduction at the cathode. Anions move towards the anode and cations towards the cathode. For example, electrolysis of molten sodium chloride gives sodium metal at the cathode and chlorine gas at the anode, and the cell needs an applied voltage larger than the reverse EMF."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "electrolytic-cell"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: compare with the Daniell cell. Here the battery forces the reaction, so the cathode is negative and the anode is positive, the reverse of a galvanic cell. In both cells oxidation is still at the anode and reduction at the cathode, and electrons still flow from anode to cathode through the outer circuit (the battery pushes them)."
       },
       {
         "type": "TABLE",
@@ -583,6 +646,37 @@
         "text": "The **nickel-cadmium cell** is another secondary cell with a longer life than the lead storage cell, giving about 1.4 V, though it is costlier."
       },
       {
+        "type": "TABLE",
+        "caption": "Primary and secondary batteries compared",
+        "columns": [
+          "Feature",
+          "Primary battery",
+          "Secondary battery"
+        ],
+        "rows": [
+          [
+            "Cell reaction",
+            "Occurs only once",
+            "Can be reversed by passing current in the opposite direction"
+          ],
+          [
+            "Recharging",
+            "Not possible; discarded when reactants are used up",
+            "Possible; can be used again and again"
+          ],
+          [
+            "Mode of working",
+            "Acts only as a galvanic cell",
+            "Galvanic cell on discharge, electrolytic cell on charging"
+          ],
+          [
+            "Examples",
+            "Dry (Leclanche) cell, mercury cell",
+            "Lead storage battery, nickel-cadmium cell"
+          ]
+        ]
+      },
+      {
         "type": "HEADING",
         "text": "Fuel cells"
       },
@@ -612,6 +706,14 @@
       {
         "type": "TEXT",
         "text": "Corrosion is an electrochemical process. On the surface of the iron, a region acts as an anode and another region acts as a cathode, with moisture serving as the electrolyte. At the anode iron is oxidised, while at the cathode oxygen dissolved in water is reduced in the presence of H$^+$ ions from carbon dioxide dissolved in water. The Fe$^{2+}$ ions are then oxidised further by atmospheric oxygen to Fe$_2$O$_3 \\cdot x$H$_2$O, which is rust."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "corrosion-cell"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: rusting is a galvanic cell on one piece of metal. The iron dissolves at the anode, electrons travel through the iron, and oxygen is reduced at the cathode. Moisture, dissolved oxygen and acid or salts are needed, which is why protecting or coating the surface stops corrosion."
       },
       {
         "type": "FORMULA",
@@ -654,7 +756,43 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "daniell-cell",
+      "file": "diagrams/ug26-306-u2-electrochemistry-daniell-cell.svg",
+      "alt": "Daniell cell with a zinc anode in zinc sulphate, a copper cathode in copper sulphate, a salt bridge, a voltmeter and arrows for electron and ion flow",
+      "caption": "Daniell cell: electrodes, salt bridge and flow of charge",
+      "description": "Two beakers joined by a salt bridge. The left beaker holds a zinc rod in zinc sulphate solution; this is the anode, negative, where Zn is oxidised to Zn2+ and 2 electrons. The right beaker holds a copper rod in copper sulphate solution; this is the cathode, positive, where Cu2+ is reduced to Cu. Electrons flow through the external wire and voltmeter from zinc to copper; conventional current flows the other way. In the salt bridge cations drift towards the copper half-cell and anions towards the zinc half-cell."
+    },
+    {
+      "key": "she",
+      "file": "diagrams/ug26-306-u2-electrochemistry-she.svg",
+      "alt": "Standard hydrogen electrode: platinised platinum foil in 1 M hydrogen ion solution with hydrogen gas at 1 bar bubbling over it",
+      "caption": "Standard hydrogen electrode (SHE)",
+      "description": "A platinised platinum foil dips in an acid solution containing H+ at 1 M. Hydrogen gas at a pressure of 1 bar is bubbled over the foil through a glass tube. A platinum wire connects the foil to the external circuit and a salt bridge links the solution to the other half-cell. The electrode is written Pt | H2 (1 bar) | H+ (1 M) and its potential is defined as 0.00 V."
+    },
+    {
+      "key": "electrolytic-cell",
+      "file": "diagrams/ug26-306-u2-electrochemistry-electrolytic-cell.svg",
+      "alt": "Electrolytic cell for molten sodium chloride with a battery, a negative cathode where sodium forms and a positive anode where chlorine forms",
+      "caption": "Electrolytic cell for contrast: electrolysis of molten NaCl",
+      "description": "Two inert electrodes dip in molten sodium chloride and are connected to a battery. The electrode joined to the negative terminal is the cathode, where Na+ is reduced to Na. The electrode joined to the positive terminal is the anode, where Cl- is oxidised to Cl2. Electrons travel from the battery to the cathode and from the anode back to the battery. Na+ ions move to the cathode and Cl- ions to the anode."
+    },
+    {
+      "key": "conductivity-graphs",
+      "file": "diagrams/ug26-306-u2-electrochemistry-conductivity-graphs.svg",
+      "alt": "Two graphs: conductivity rising with concentration for strong and weak electrolytes, and molar conductivity against square root of concentration with a straight line for a strong electrolyte and a steep curve for a weak one",
+      "caption": "Conductivity and molar conductivity against concentration",
+      "description": "Left graph: conductivity kappa against concentration c for a strong and a weak electrolyte; both rise with concentration, the strong electrolyte more steeply, because more ions are present per unit volume. Right graph: molar conductivity against the square root of concentration. For a strong electrolyte the points fall on a nearly straight line with intercept equal to the limiting molar conductivity at zero concentration. For a weak electrolyte the curve rises very steeply at very low concentration, so the limiting value cannot be found by extrapolation. The curves are illustrative."
+    },
+    {
+      "key": "corrosion-cell",
+      "file": "diagrams/ug26-306-u2-electrochemistry-corrosion-cell.svg",
+      "alt": "Water drop on an iron surface showing an anodic pit where iron dissolves and a cathodic region where oxygen is reduced, with electron flow through the metal",
+      "caption": "Corrosion of iron as a tiny electrochemical cell",
+      "description": "A drop of water containing dissolved oxygen and carbon dioxide rests on iron. At a pit the iron is the anode: Fe becomes Fe2+ and 2 electrons, and Fe2+ passes into the drop. The electrons flow through the metal to another part of the surface, the cathode, where oxygen is reduced with H+ to water. Fe2+ is later oxidised by air to hydrated iron(III) oxide, rust."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-306-u2-electrochemistry-q01",

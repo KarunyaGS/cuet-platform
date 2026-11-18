@@ -454,6 +454,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "boiling-points"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Compare compounds of the same molar mass: only the alcohol can hydrogen-bond to itself, so it boils far higher. An ether has almost the same boiling point as the alkane of similar mass."
+      },
+      {
         "type": "TEXT",
         "text": "Two more trends. First, within alcohols the boiling point rises with the number of carbons because the dispersion forces get stronger. Second, for isomeric alcohols, **branching lowers the boiling point**: butan-1-ol (391 K) boils higher than 2-methylpropan-2-ol (356 K), because a more compact, spherical molecule has less surface contact with its neighbours.\n\n**Solubility in water.** Lower alcohols (methanol, ethanol, propanols) are miscible with water in all proportions because they form hydrogen bonds with water. As the non-polar alkyl part grows, it disrupts the hydrogen-bond network of water, and solubility falls. Branched alcohols are more soluble than their straight-chain isomers. Ethers are less soluble than alcohols, yet methoxymethane and ethoxyethane dissolve to some extent, because the ether oxygen can accept hydrogen bonds from water. Phenol is only moderately soluble in water: the large aryl ring opposes the effect of the $-\\mathrm{OH}$ group."
       },
@@ -574,6 +582,50 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "alcohol-map"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Primary alcohols can be oxidised in two stages (aldehyde, then acid), secondary alcohols stop at the ketone, and tertiary alcohols resist. The temperature of concentrated H2SO4 decides between alkene (443 K) and ether (413 K)."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Primary, secondary and tertiary alcohols compared",
+        "columns": [
+          "Test or reaction",
+          "Primary (1°)",
+          "Secondary (2°)",
+          "Tertiary (3°)"
+        ],
+        "rows": [
+          [
+            "Lucas reagent at room temperature",
+            "no turbidity",
+            "turbid in about 5 minutes",
+            "turbid at once"
+          ],
+          [
+            "Oxidation with acidified $\\mathrm{K_2Cr_2O_7}$ or $\\mathrm{KMnO_4}$",
+            "aldehyde, then carboxylic acid (PCC stops at the aldehyde)",
+            "ketone",
+            "resists oxidation under mild conditions"
+          ],
+          [
+            "Ease of acid-catalysed dehydration",
+            "hardest (about 443 K for ethanol)",
+            "intermediate (about 440 K)",
+            "easiest (about 358 K)"
+          ],
+          [
+            "Reactivity with sodium (O-H cleavage)",
+            "fastest",
+            "intermediate",
+            "slowest"
+          ]
+        ]
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Identify A, B and C: ethanol $\\xrightarrow{\\mathrm{PCC}}$ A $\\xrightarrow{\\mathrm{(i)\\ CH_3MgBr,\\ (ii)\\ H_3O^+}}$ B $\\xrightarrow{\\mathrm{conc.\\ H_2SO_4,\\ 443\\ K}}$ C. Then give the product when C adds HBr.",
         "solution": "Step 1: PCC oxidises a primary alcohol only as far as the aldehyde, so A is ethanal, $\\mathrm{CH_3CHO}$.\n\nStep 2: A Grignard reagent adds to an aldehyde to give a secondary alcohol after hydrolysis. $\\mathrm{CH_3MgBr}$ adds a methyl group to ethanal, so B is propan-2-ol, $\\mathrm{CH_3CH(OH)CH_3}$.\n\nStep 3: Heating a secondary alcohol with concentrated sulphuric acid dehydrates it. The only alkene possible is propene, so C is $\\mathrm{CH_3CH{=}CH_2}$.\n\nStep 4: HBr adds to propene by Markovnikov's rule: hydrogen goes to the carbon with more hydrogens and bromine to the middle carbon. The product is 2-bromopropane, $\\mathrm{CH_3CHBrCH_3}$.",
@@ -584,6 +636,14 @@
         "problem": "How can you distinguish by a single reagent between butan-1-ol, butan-2-ol and 2-methylpropan-2-ol? Predict what is observed with each.",
         "solution": "Use the Lucas reagent (anhydrous $\\mathrm{ZnCl_2}$ in concentrated $\\mathrm{HCl}$) at room temperature. The test depends on how fast each alcohol forms a carbocation and then an alkyl chloride that is insoluble in the aqueous mixture.\n\n2-Methylpropan-2-ol is tertiary and gives a stable tertiary carbocation at once, so the solution turns cloudy immediately. Butan-2-ol is secondary and turns cloudy after about five minutes. Butan-1-ol is primary, and its carbocation is very unstable, so no turbidity appears at room temperature; it reacts only on warming.",
         "answer": "Lucas reagent: immediate turbidity for 2-methylpropan-2-ol; turbidity after about 5 minutes for butan-2-ol; no turbidity at room temperature for butan-1-ol."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "test-flow"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Speed of the Lucas test follows carbocation stability: tertiary is instant, secondary slow, primary no change at room temperature. Phenols are picked out first, by the violet colour with neutral FeCl3."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -693,6 +753,55 @@
             "Chromic acid",
             "p-benzoquinone",
             "oxidation"
+          ]
+        ]
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "phenol-map"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Most phenol reactions are of two kinds: reactions of the O-H group (sodium phenoxide, ester, ether) and electrophilic substitution of the activated ring at the ortho and para positions (bromine, nitric acid, Reimer-Tiemann, Kolbe)."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Alcohol versus phenol",
+        "columns": [
+          "Property",
+          "Alcohol, $\\mathrm{R-OH}$",
+          "Phenol, $\\mathrm{C_6H_5OH}$"
+        ],
+        "rows": [
+          [
+            "Acidity",
+            "very weak acid (pKa about 16)",
+            "much stronger acid (pKa about 10)"
+          ],
+          [
+            "Aqueous NaOH",
+            "no reaction",
+            "dissolves to give sodium phenoxide"
+          ],
+          [
+            "Neutral $\\mathrm{FeCl_3}$",
+            "no colour",
+            "violet colour"
+          ],
+          [
+            "Bromine water",
+            "no ring substitution",
+            "white precipitate of 2,4,6-tribromophenol"
+          ],
+          [
+            "Conjugate base",
+            "alkoxide: charge stuck on oxygen",
+            "phenoxide: charge spread by resonance into the ring"
+          ],
+          [
+            "C-O bond",
+            "$sp^3$ carbon to oxygen: can be replaced by HX or $\\mathrm{SOCl_2}$",
+            "$sp^2$ carbon to oxygen: stronger, not replaced by HX"
           ]
         ]
       },
@@ -824,7 +933,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "boiling-points",
+      "file": "diagrams/ug26-306-u7-alcohols-boiling-points.svg",
+      "alt": "Bar chart of boiling points in kelvin for propane, methoxymethane and ethanol at about 44-46 g/mol and pentane, ethoxyethane and butan-1-ol at about 72-74 g/mol",
+      "caption": "Boiling points: alcohols are far above alkanes and ethers of similar mass",
+      "description": "Two groups of three bars, using the approximate values of the lesson table. Molar mass about 44-46: propane 231 K, methoxymethane 249 K, ethanol 351 K. Molar mass about 72-74: pentane 309 K, ethoxyethane 308 K, butan-1-ol 391 K. Alkanes are grey, ethers amber and alcohols blue; in each group the alcohol bar is much taller than the other two."
+    },
+    {
+      "key": "alcohol-map",
+      "file": "diagrams/ug26-306-u7-alcohols-alcohol-map.svg",
+      "alt": "Reaction map with R-OH in the centre: five ways of making an alcohol on the left and eight conversions on the right, with reagents on the arrows",
+      "caption": "Alcohol reaction map: how alcohols are made and what they become",
+      "description": "Left, made from: an alkene with water and H+ (Markovnikov); an alkene by hydroboration then H2O2 and OH- (anti-Markovnikov); an aldehyde or ketone with NaBH4 or LiAlH4; an aldehyde or ketone with a Grignard reagent then H3O+; an alkyl halide with aqueous KOH. Right, converted to: sodium alkoxide with Na; an ester with a carboxylic acid and H+; an alkyl halide with SOCl2, PCl5 or HX and ZnCl2; an alkene with concentrated H2SO4 at 443 K; an ether with concentrated H2SO4 at 413 K; an aldehyde with PCC (primary alcohol); a carboxylic acid with KMnO4 or acidified K2Cr2O7 (primary alcohol); a ketone with CrO3 or K2Cr2O7 (secondary alcohol)."
+    },
+    {
+      "key": "test-flow",
+      "file": "diagrams/ug26-306-u7-alcohols-test-flow.svg",
+      "alt": "Flow chart: neutral FeCl3 separates phenol (violet colour) from alcohols, then the Lucas reagent separates tertiary, secondary and primary alcohols by how fast cloudiness appears",
+      "caption": "Identification flow chart: phenol, then 3°, 2° and 1° alcohols",
+      "description": "Start with an unknown compound containing an OH group and add neutral FeCl3. A violet or blue-violet colour means phenol (which also dissolves in aqueous NaOH and gives a white precipitate with bromine water). No colour change means an alcohol, which is tested with the Lucas reagent (concentrated HCl with anhydrous ZnCl2) at room temperature: cloudiness at once means a tertiary alcohol, cloudiness after about 5 minutes a secondary alcohol, and no cloudiness at room temperature a primary alcohol. The cloudiness is the insoluble alkyl chloride."
+    },
+    {
+      "key": "phenol-map",
+      "file": "diagrams/ug26-306-u7-alcohols-phenol-map.svg",
+      "alt": "Reaction map with phenol in the centre: four routes making phenol on the left and ten conversions on the right, with reagents on the arrows",
+      "caption": "Phenol reaction map: how phenol is made and what it becomes",
+      "description": "Left, made from: cumene with O2 then H3O+ (also gives propanone); chlorobenzene with NaOH at 623 K then H+; benzenesulphonic acid with NaOH fusion then H+; benzenediazonium chloride with warm water. Right, converted to: sodium phenoxide with NaOH; anisole with NaOH then CH3I (Williamson); phenyl ethanoate with ethanoic anhydride or ethanoyl chloride; 2,4,6-tribromophenol (white precipitate) with bromine water; o- and p-nitrophenol with dilute HNO3 at low temperature; 2,4,6-trinitrophenol (picric acid) with concentrated HNO3 and H2SO4; salicylaldehyde with CHCl3 and aqueous NaOH then H+ (Reimer-Tiemann); salicylic acid with NaOH, CO2 then H+ (Kolbe); benzene with zinc dust and heat; cyclohexanol with H2 and Ni."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-306-u7-alcohols-phenols-ethers-q01",
