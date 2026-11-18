@@ -54,7 +54,9 @@ const ugcBlock = (name: string, entries: string[]) => `<div class="box-container
 const ugcPage = (entries: [string, string, number][]) =>
   `<html><body><nav><a href='/Aboutus/UGC_ACT'>UGC Act</a><a href="https://www.ugc.gov.in/pdfnews/UGC Organisational Chart.pdf">UGC Organisational Chart</a></nav>${ugcBlock('Notices', entries.map(([t, u, d]) => ugcEntry(t, u, ddmmyyyy(d))))}${ugcBlock('Circulars', [])}</body></html>`;
 
-type Pages = Record<string, string | number>;
+/** A page the official site fills by script: the site's JSON answer to the page's own data call. */
+const jsonAnswer = (list: unknown[]) => ({ json: JSON.stringify({ m: 'Data filled.', c: 'success', List: list }) });
+type Pages = Record<string, string | number | { json: string }>;
 let requests: string[] = [];
 function serve(pages: Pages) {
   requests = [];
@@ -64,13 +66,20 @@ function serve(pages: Pages) {
     const page = pages[url];
     if (page === undefined) return new Response('not found', { status: 404, headers: { 'content-type': 'text/html' } });
     if (typeof page === 'number') return new Response('error', { status: page, headers: { 'content-type': 'text/html' } });
+    if (typeof page === 'object') return new Response(page.json, { status: 200, headers: { 'content-type': 'application/json; charset=utf-8' } });
     return new Response(page, { status: 200, headers: { 'content-type': 'text/html; charset=UTF-8' } });
   }) as typeof fetch);
 }
+const UGC_ARCHIVE = 'https://www.ugc.gov.in/Notices/Fill_Notices';
+const UGC_CIRCULARS = 'https://www.ugc.gov.in/Circulars/Fill_Circulars';
+const DEB_BOARD = 'https://deb.ugc.ac.in/Notices/Select_AllNotification';
 const UG = 'https://cuet.nta.nic.in/document-category/public-notice/';
 const UG2 = `${UG}page/2/`;
 const PG = 'https://exams.nta.nic.in/cuet-pg/';
 const BOARD = 'https://nta.ac.in/NoticeBoardArchive';
+/** Archive entry in the shape UGC's data call answers with: the title holds the link, `created` is the date. */
+const archiveRow = (title: string, file: string, day: string, extra: Record<string, unknown> = {}) => ({ title: `<a href=../pdfnews/${file} target="_blank" class="red-color">${title}</a><br/>`, pdfnews: file, pdfnews1: null, created: day, ...extra });
+const debRow = (title: string, file: string | null, printed: string) => ({ id: 1, NotificationName: title, UploadAttachment: file, CreatedDate: printed, NoticeSubType: {} });
 const ON = { DB: env.DB, NOTICE_FETCH: 'on', NOTICE_FETCH_MINUTES: '180' };
 const reset = async () => {
   await env.DB.batch([env.DB.prepare('DELETE FROM gov_notices'), env.DB.prepare('DELETE FROM gov_notice_sources')]);
@@ -96,6 +105,10 @@ const standard = (): Pages => ({
     boardRow(5, 'Old CUET (UG) notice from years ago', '/Download/Notice/Notice_20220101101010.pdf'),
   ]),
   [UGC_HOME]: ugcPage([['UGC letter regarding: Admission schedule for the academic session 2027', ugcFile('1111111_Admission-schedule'), 30]]),
+  // The archives: here they hold only entries too old to collect, so the counts below do not move.
+  [UGC_ARCHIVE]: jsonAnswer([archiveRow('UGC letter regarding: an old notice from years ago', '3333333_Old-notice.pdf', '2019-03-04')]),
+  [UGC_CIRCULARS]: jsonAnswer([archiveRow('UGC Circular regarding: an old circular from years ago', '2222222_Old-circular.pdf', '2019-03-04')]),
+  [DEB_BOARD]: jsonAnswer([debRow('Notice about an old distance education programme from years ago', 'Uploads/Notices_Upload/UGC_20190304101010_1.pdf', '4 March 2019')]),
 });
 
 describe('reading official pages', () => {
@@ -148,9 +161,12 @@ describe('the scheduled fetch', () => {
       // notice is the one already held from the CUET (UG) page, and the one that names no exam waits for a check.
       ['nta-notice-board', true, 2, 1, 1],
       ['ugc-home-notices', true, 1, 0, 0],
+      ['ugc-notices-archive', true, 0, 0, 0],
+      ['ugc-circulars-archive', true, 0, 0, 0],
+      ['ugc-deb-notice-board', true, 0, 0, 0],
     ]);
     // Every request named itself honestly and went only to the official pages.
-    expect(requests.map((r) => r.split(' | ')[0])).toEqual([UG, UG2, PG, BOARD, UGC_HOME]);
+    expect(requests.map((r) => r.split(' | ')[0])).toEqual([UG, UG2, PG, BOARD, UGC_HOME, UGC_ARCHIVE, UGC_CIRCULARS, DEB_BOARD]);
     expect(requests.every((r) => /cuet-prep-notice-monitor/.test(r))).toBe(true);
 
     const all = await rows();
@@ -188,7 +204,7 @@ describe('the scheduled fetch', () => {
     // Due, nothing changed: no new rows, no "updated".
     await makeDue();
     const same = await syncNotices(ON);
-    expect(same.sources.map((s) => [s.added, s.updated, s.duplicates])).toEqual([[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]);
+    expect(same.sources.map((s) => [s.added, s.updated, s.duplicates])).toEqual([[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]);
     expect(await rows()).toHaveLength(before.length);
 
     // The source corrects a title and publishes one more notice.
@@ -217,7 +233,7 @@ describe('the scheduled fetch', () => {
     pages[PG] = 503;
     serve(pages);
     const run = await syncNotices(ON);
-    expect(run.sources.map((s) => [s.key, s.ok])).toEqual([['cuet-ug-public-notices', true], ['cuet-pg-website', false], ['nta-notice-board', true], ['ugc-home-notices', true]]);
+    expect(run.sources.map((s) => [s.key, s.ok])).toEqual([['cuet-ug-public-notices', true], ['cuet-pg-website', false], ['nta-notice-board', true], ['ugc-home-notices', true], ['ugc-notices-archive', true], ['ugc-circulars-archive', true], ['ugc-deb-notice-board', true]]);
     expect(run.sources[1]!.error).toMatch(/503/);
     let pg = await source('cuet-pg-website');
     expect(pg).toMatchObject({ consecutive_failures: 1, last_success_at: null });
@@ -255,7 +271,7 @@ describe('the scheduled fetch', () => {
     const odd = (await rows()).find((r) => String(r.document_url).startsWith('https://files.example.com/'))!;
     expect(odd).toMatchObject({ verification_status: 'NEEDS_REVIEW', exam_code: 'CUET_UG' });
     expect(odd.status_note).toMatch(/not on an official website/);
-    expect(requests.every((r) => /^https:\/\/(cuet\.nta\.nic\.in|exams\.nta\.nic\.in|nta\.ac\.in|www\.ugc\.gov\.in)\//.test(r))).toBe(true);
+    expect(requests.every((r) => /^https:\/\/(cuet\.nta\.nic\.in|exams\.nta\.nic\.in|nta\.ac\.in|www\.ugc\.gov\.in|deb\.ugc\.ac\.in)\//.test(r))).toBe(true);
   });
 
   it('does nothing while fetching is switched off, and runs from the Worker\'s scheduled handler when it is on', async () => {
@@ -275,7 +291,7 @@ describe('the scheduled fetch', () => {
     ctx = createExecutionContext();
     await worker.scheduled({ cron: '*/30 * * * *', scheduledTime: Date.now() }, { ...env, NOTICE_FETCH: 'on' }, ctx);
     await waitOnExecutionContext(ctx);
-    expect(requests.map((r) => r.split(' | ')[0])).toEqual([UG, UG2, PG, BOARD, UGC_HOME]);
+    expect(requests.map((r) => r.split(' | ')[0])).toEqual([UG, UG2, PG, BOARD, UGC_HOME, UGC_ARCHIVE, UGC_CIRCULARS, DEB_BOARD]);
     expect((await rows()).length).toBe(8);
     // The next tick, 30 minutes later, finds nothing due.
     serve(standard());
@@ -342,7 +358,7 @@ describe('what students and staff see', () => {
     const o = (await call('GET', '/api/console/notices/overview', undefined, staff)).json;
     expect(o).toMatchObject({ enabled: false, intervalMinutes: 180, collected: 7, published: 5, newInSevenDays: 6, duplicates: 1, awaitingVerification: 1, failedSources: 1, nextScheduledFetch: null });
     expect(o.lastSuccessfulFetch).toBeTruthy();
-    expect(o.sources.map((s: { key: string; consecutiveFailures: number }) => [s.key, s.consecutiveFailures])).toEqual([['cuet-pg-website', 1], ['cuet-ug-public-notices', 0], ['nta-notice-board', 0], ['ugc-home-notices', 0]]);
+    expect(o.sources.map((s: { key: string; consecutiveFailures: number }) => [s.key, s.consecutiveFailures])).toEqual([['cuet-pg-website', 1], ['cuet-ug-public-notices', 0], ['nta-notice-board', 0], ['ugc-circulars-archive', 0], ['ugc-deb-notice-board', 0], ['ugc-home-notices', 0], ['ugc-notices-archive', 0]]);
     expect(o.sources[0].lastError).toMatch(/500/);
 
     const queue = (await call('GET', '/api/console/notices/queue', undefined, staff)).json;
@@ -635,12 +651,113 @@ describe('notice history, revisions and staff actions', () => {
     expect((await call('GET', '/api/console/notices?q=answer%20key', undefined, staff)).json.notices.every((n: { title: string }) => /answer key/i.test(n.title))).toBe(true);
     expect((await call('GET', '/api/console/notices', undefined, await account())).status).toBe(403);
     const reg = (await call('GET', '/api/console/registry', undefined, staff)).json;
-    expect(reg.notices.map((s: { key: string }) => s.key)).toEqual(['cuet-ug-public-notices', 'cuet-pg-website', 'nta-notice-board', 'ugc-home-notices']);
+    expect(reg.notices.map((s: { key: string }) => s.key)).toEqual(['cuet-ug-public-notices', 'cuet-pg-website', 'nta-notice-board', 'ugc-home-notices', 'ugc-notices-archive', 'ugc-circulars-archive', 'ugc-deb-notice-board']);
     expect(reg.notices.every((s: { dataType: string; reliability: string; updateFrequency: string; state: string }) => s.dataType && /^Official/.test(s.reliability) && s.updateFrequency && s.state === 'OK')).toBe(true);
     expect(reg.notices.find((s: { key: string }) => s.key === 'ugc-home-notices')).toMatchObject({ authority: 'UGC', lastCheckedOn: iso(0) });
     expect(Array.isArray(reg.admissions)).toBe(true);
     const o = (await call('GET', '/api/console/notices/overview', undefined, staff)).json;
     expect(o).toMatchObject({ withdrawn: 0, publishedRevisions: 0 });
     expect(o.sources[0]).toMatchObject({ dataType: expect.any(String), reliability: expect.stringMatching(/^Official/) });
+  });
+});
+
+describe('UGC archives and the Distance Education Bureau notice board', () => {
+  it('reads the three title shapes UGC uses, and drops entries with no real date', () => {
+    const list = [
+      archiveRow('UGC Public Notice regarding: Verification of the status of an HEI before admission', '8745845_Public-Notice-Fake-University.pdf', iso(1)),
+      // The title is plain text and the files are links under it.
+      { title: 'UGC letter regarding: Kashi Tamil Sangamam 5.0 from 28 November<br/><a href=../pdfnews/9707555_Kashi.pdf target="_blank">Kashi</a><br/><a href=../pdfnews/0469641_Posters_KTS.pdf>Posters_KTS</a><br/>', pdfnews: '9707555_Kashi.pdf', pdfnews1: '0469641_Posters_KTS.pdf', created: iso(2) },
+      // An entry with a list of links and an http address.
+      { title: 'UGC Notice reg.: Unrecognized Status of an institute <ul><li><a href="http://www.ugc.ac.in/pdfnews/9280318_English.pdf">English</a></li></ul>', pdfnews: null, created: iso(3) },
+      archiveRow('UGC letter regarding: an entry whose date was never filled in', '1_x.pdf', '1900-01-01'),
+      archiveRow('UGC letter regarding: an entry with an impossible date', '2_x.pdf', '2026-02-31'),
+    ];
+    const found = parseListing('UGC_ARCHIVE_JSON', jsonAnswer(list).json, 'https://www.ugc.gov.in/Notices');
+    expect(found.map((f) => f.title)).toEqual([
+      'UGC Public Notice regarding: Verification of the status of an HEI before admission',
+      'UGC letter regarding: Kashi Tamil Sangamam 5.0 from 28 November',
+      'UGC Notice reg.: Unrecognized Status of an institute',
+    ]);
+    expect(found[0]).toMatchObject({ documentUrl: 'https://www.ugc.gov.in/pdfnews/8745845_Public-Notice-Fake-University.pdf', publishedOn: iso(1), description: null });
+    expect(found[1]).toMatchObject({ documentUrl: 'https://www.ugc.gov.in/pdfnews/9707555_Kashi.pdf', description: 'Also attached: Posters_KTS' });
+    expect(found[2]!.documentUrl).toBe('http://www.ugc.ac.in/pdfnews/9280318_English.pdf');
+    // Not the answer the page normally gives: no rows, never an invented one.
+    expect(parseListing('UGC_ARCHIVE_JSON', '<html>Under maintenance</html>', 'https://www.ugc.gov.in/Notices')).toEqual([]);
+    expect(parseListing('UGC_ARCHIVE_JSON', JSON.stringify({ c: 'error', List: list }), 'https://www.ugc.gov.in/Notices')).toEqual([]);
+  });
+
+  it('reads the DEB board: printed date, file link, and no date when the date and the file name disagree', () => {
+    const base = 'https://deb.ugc.ac.in/Notices/Index';
+    const found = parseListing('DEB_JSON', jsonAnswer([
+      debRow('Extension of last date of admission for academic year 2026-27 for ODL programmes', 'Uploads/Notices_Upload/UGC_20260805170501_1.pdf', '12 August 2026'),
+      debRow('Invitation of applications from institutions for recognition to offer ODL programmes', 'Uploads/Notices_Upload/UGC_20260831135353_1.pdf', '31 August 2025'),
+      debRow('A notice dated some months before its file was uploaded, which is normal', 'Uploads/Notices_Upload/UGC_20260413123537_1.pdf', '15 December 2025'),
+      debRow('A notice that is only shown as text with nothing to open', null, '1 September 2026'),
+      debRow('A notice with a date that does not exist anywhere', 'Uploads/Notices_Upload/x.pdf', '31 February 2026'),
+    ]).json, base);
+    expect(found).toHaveLength(4);
+    expect(found[0]).toMatchObject({ documentUrl: 'https://deb.ugc.ac.in/Uploads/Notices_Upload/UGC_20260805170501_1.pdf', publishedOn: '2026-08-12' });
+    // A year typed wrongly: the printed date is a year away from the file's own date, so no date is claimed.
+    expect(found[1]).toMatchObject({ publishedOn: null });
+    expect(found[2]).toMatchObject({ publishedOn: '2025-12-15' });
+    expect(found[3]).toMatchObject({ publishedOn: null });
+  });
+
+  it('collects archive and DEB entries, publishes only the certain ones, and queues the rest', async () => {
+    await reset();
+    const pages = standard();
+    pages[UGC_ARCHIVE] = jsonAnswer([
+      archiveRow('UGC letter regarding: Admission schedule for the academic session 2027', '4444444_Admission-2027.pdf', iso(20)),
+      archiveRow('UGC letter regarding: Scholarship scheme for research scholars 2027', '5555555_Scholarship.pdf', iso(21)),
+      archiveRow('Click here', '6666666_x.pdf', iso(22)),
+      archiveRow('UGC letter regarding: an entry older than the collection window', '7777777_Old.pdf', iso(900)),
+    ]);
+    pages[UGC_CIRCULARS] = jsonAnswer([archiveRow('UGC Circular regarding: Guidelines for the new academic session 2027', '8888888_Circular.pdf', iso(10))]);
+    const printed = new Date(Date.now() - 15 * 86_400_000).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+    pages[DEB_BOARD] = jsonAnswer([debRow('Invitation of applications for recognition to offer ODL programmes for 2027', `Uploads/Notices_Upload/UGC_${stamp(15)}101010_1.pdf`, printed)]);
+    serve(pages);
+    const run = await syncNotices(ON);
+    expect(run.sources.find((x) => x.key === 'ugc-notices-archive')).toMatchObject({ ok: true, found: 3, added: 3, queued: 1 });
+    expect(run.sources.find((x) => x.key === 'ugc-circulars-archive')).toMatchObject({ ok: true, added: 1, queued: 0 });
+    expect(run.sources.find((x) => x.key === 'ugc-deb-notice-board')).toMatchObject({ ok: true, added: 1, queued: 0 });
+    const all = await rows();
+    const scholarship = all.find((r) => String(r.document_url).includes('5555555'))!;
+    expect(scholarship).toMatchObject({ verification_status: 'PUBLISHED', auto_published: 1, category: 'SCHOLARSHIP', authority: 'UGC', exam_code: null, published_on: iso(21), source_key: 'ugc-notices-archive', source_url: 'https://www.ugc.gov.in/Notices' });
+    expect(all.find((r) => String(r.document_url).includes('6666666'))).toMatchObject({ verification_status: 'NEEDS_REVIEW', auto_published: 0 });
+    expect(all.find((r) => String(r.document_url).includes('7777777'))).toBeUndefined();
+    expect(all.find((r) => String(r.document_url).includes('deb.ugc.ac.in'))).toMatchObject({ verification_status: 'PUBLISHED', published_on: iso(15), authority: 'UGC' });
+    // The archives are large, so they are read at most once a day, whatever the general interval is.
+    const next = Date.parse(String((await source('ugc-notices-archive')).next_check_at)) - Date.now();
+    expect(next).toBeGreaterThan(23 * 3_600_000);
+  });
+
+  it('does not rewrite a notice that the home page found first, even when the archive words it differently', async () => {
+    await reset();
+    const pages = standard();
+    pages[UGC_ARCHIVE] = jsonAnswer([archiveRow('UGC letter regarding Admission schedule for session 2027 (archive wording)', '1111111_Admission-schedule.pdf', iso(30))]);
+    serve(pages);
+    await syncNotices(ON);
+    const home = (await rows()).filter((r) => String(r.document_url).includes('1111111'));
+    expect(home).toHaveLength(1);
+    expect(home[0]).toMatchObject({ source_key: 'ugc-home-notices', title: 'UGC letter regarding: Admission schedule for the academic session 2027', version_count: 1 });
+    await makeDue();
+    const again = await syncNotices(ON);
+    expect(again.sources.find((x) => x.key === 'ugc-notices-archive')).toMatchObject({ ok: true, added: 0, updated: 0 });
+    expect(again.sources.find((x) => x.key === 'ugc-home-notices')).toMatchObject({ added: 0, updated: 0 });
+  });
+
+  it('queues an old-address (http) archive document instead of publishing it, and reports a changed data format as a failure', async () => {
+    await reset();
+    const pages = standard();
+    pages[UGC_ARCHIVE] = jsonAnswer([{ title: 'UGC Notice reg.: Unrecognized status of an institute <ul><li><a href="http://www.ugc.ac.in/pdfnews/9280318_English.pdf">English</a></li></ul>', pdfnews: null, created: iso(5) }]);
+    pages[UGC_CIRCULARS] = { json: JSON.stringify({ c: 'error', m: 'Something else', List: [] }) };
+    serve(pages);
+    const run = await syncNotices(ON);
+    expect(run.sources.find((x) => x.key === 'ugc-notices-archive')).toMatchObject({ ok: true, added: 1, queued: 1 });
+    const row = (await rows()).find((r) => String(r.document_url).includes('9280318'))!;
+    expect(row).toMatchObject({ verification_status: 'NEEDS_REVIEW', auto_published: 0 });
+    expect(String(row.status_note)).toMatch(/not on UGC's website/);
+    expect(run.sources.find((x) => x.key === 'ugc-circulars-archive')).toMatchObject({ ok: false });
+    expect(String(run.sources.find((x) => x.key === 'ugc-circulars-archive')!.error)).toMatch(/layout may have changed/);
   });
 });

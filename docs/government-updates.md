@@ -14,10 +14,21 @@ A scheduled job reads NTA's public notice pages, stores each notice's title, dat
 | NTA, CUET (PG) website | `https://exams.nta.nic.in/cuet-pg/` | The notice links on the home page |
 | NTA notice board | `https://nta.ac.in/NoticeBoardArchive` | Rows that mention CUET; other exams are ignored |
 | UGC, notices on the home page | `https://www.ugc.gov.in/` | Every entry of the three blocks, with its printed date (authority UGC) |
+| UGC, notices archive | `https://www.ugc.gov.in/Notices` | The archive's rows, read from the page's own data call (see below) |
+| UGC, circulars archive | `https://www.ugc.gov.in/Circulars` | Same, for circulars |
+| UGC DEB, notice board | `https://deb.ugc.ac.in/Notices/Index` | The Distance Education Bureau's notice board (open, distance and online programmes) |
 
-None of these sites offers an API or a working feed (the CUET site's feed answers 503 and its REST interface says "REST API is disabled"), so the public pages are read. Each site's robots rules allow these pages (`nta.ac.in` has no robots file). The job names itself honestly (`cuet-prep-notice-monitor`), reads four pages per run, and works around nothing.
+None of these sites offers an API or a working feed (the CUET site's feed answers 503 and its REST interface says "REST API is disabled"), so the public pages are read. Each site's robots rules allow these pages (`nta.ac.in` has no robots file). The job names itself honestly (`cuet-prep-notice-monitor`), reads four pages per run (plus the three UGC data calls when they are due), and works around nothing.
 
 **UGC (added 16 November 2026).** UGC's home page, `https://www.ugc.gov.in/`, lists its Notices, Circulars and International Cooperation items, each with a link to a PDF on `ugc.gov.in` and a printed date ("Published on : DD/MM/YYYY"). It is the only confirmed feed: the "Read More" archive pages (`/Notices`, `/Circulars`) return empty tables to a plain page read (probably filled in by script), and `deb.ugc.ac.in` showed no entries, so neither is read. UGC has no robots.txt (the address returns a web page). UGC says its official notifications appear only on `ugc.gov.in` and, for distance and online programmes, `deb.ugc.ac.in`. The reader keeps the newest ~20 per block that the page shows; older items than 400 days are dropped.
+
+**UGC archives and the Distance Education Bureau (added 18 November 2026).** The archive pages are empty tables until the page's own script asks the site for the rows (`POST /Notices/Fill_Notices`, `POST /Circulars/Fill_Circulars`; for the DEB board `POST /Notices/Select_AllNotification`). The reader makes the same call and takes the same rows. Neither site has a robots file or a public API; these calls are undocumented, so a change of format is reported as a failed source, never as "no notices". Facts from the first read: the notices archive holds about 2,900 entries (about 140 in the last 400 days); the circulars archive's newest entry is from November 2024, so it adds nothing recent; the DEB board has 185 entries (about 26 recent).
+
+- The archives are read at most once a day (the notices answer is about 3 MB); the DEB board every 12 hours.
+- **The source that finds a notice first keeps it.** The home page is read first, and the archive never rewrites a notice the home page found, so two listings that word a title differently cannot flip it back and forth.
+- An archive entry with no date (UGC marks it 1900-01-01) is not collected. Several files under one entry: the first file is the notice, the others are named in its description.
+- DEB dates are printed ("31 August 2026") and each file name carries its upload date. A notice is often dated before it was uploaded, but never after, so a printed date more than 7 days after the upload, or more than 180 days before it (for example a wrong year), is treated as unreadable and the notice waits for a person. A DEB row with no file, and its sub-notices, are not read.
+- Auto-publish rules are unchanged: https, the document on `ugc.gov.in` or `ugc.ac.in`, a readable date, a real title. Old `http://www.ugc.ac.in/...` addresses in the archive therefore go to **Awaiting verification**.
 
 UGC notices are not examination notices: they have an **authority** (`UGC`) and no exam. The home page prints entries with unquoted `href` attributes, which the reader handles.
 

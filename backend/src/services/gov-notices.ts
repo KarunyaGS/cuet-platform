@@ -23,6 +23,8 @@ export type Authority = (typeof AUTHORITIES)[number];
 
 const USER_AGENT = 'cuet-prep-notice-monitor/0.1 (reads public notice listings; automated)';
 const MAX_PAGE_BYTES = 6_000_000;
+/** UGC's notices archive answers with about 3 MB and grows slowly. */
+const MAX_JSON_BYTES = 12_000_000;
 const FETCH_TIMEOUT_MS = 25_000;
 /** Notices older than this are not collected. */
 const MAX_AGE_DAYS = 400;
@@ -35,7 +37,16 @@ interface Source {
   url: string;
   /** Further pages of the same listing, relative to url. */
   morePages?: string[];
-  parser: 'S3WAAS_TABLE' | 'PDF_LINKS' | 'NTA_ARCHIVE' | 'UGC_HOME';
+  parser: 'S3WAAS_TABLE' | 'PDF_LINKS' | 'NTA_ARCHIVE' | 'UGC_HOME' | 'UGC_ARCHIVE_JSON' | 'DEB_JSON';
+  /**
+   * For a page that fills its table by script: the data address the page itself calls (a POST, answered with JSON).
+   * `url` stays the page a person would open, and is what students are told the notice was listed on.
+   */
+  request?: { url: string; body: string };
+  /** A source that only adds older entries to what another source already lists. It never rewrites a notice another source found. */
+  supplementary?: boolean;
+  /** This source is read no more often than this (the archive answers with about 3 MB). */
+  minIntervalMinutes?: number;
   /** Who issues what this page lists. A notice's document must sit on this authority's own website. */
   authority: Authority;
   /** The exam this page is about; null for a general notice board, where each notice is classified by its title. */
@@ -53,6 +64,11 @@ export const SOURCES: Source[] = [
   // UGC publishes on its own home page (Notices, Circulars, International Cooperation), each entry with its date. UGC states that its
   // official notifications appear only on ugc.gov.in and, for distance and online learning, deb.ugc.ac.in.
   { key: 'ugc-home-notices', name: 'UGC, notices on the home page', url: 'https://www.ugc.gov.in/', parser: 'UGC_HOME', authority: 'UGC', exam: null, dataType: 'Home-page notice blocks (title, date, PDF)', reliability: 'Official: UGC\'s own website; the home page is the only confirmed feed' },
+  // UGC's archive pages are empty tables until a script asks the site for the rows. The reader asks for the same rows, in the same way.
+  { key: 'ugc-notices-archive', name: 'UGC, notices archive', url: 'https://www.ugc.gov.in/Notices', request: { url: 'https://www.ugc.gov.in/Notices/Fill_Notices', body: 'ID=0&type=NoticeGrid' }, parser: 'UGC_ARCHIVE_JSON', authority: 'UGC', exam: null, supplementary: true, minIntervalMinutes: 1440, dataType: 'Archive page rows (title, date, PDFs) read from the page\'s own data call', reliability: 'Official: UGC\'s own website; the data call is not documented, so a change of format is reported as a failure' },
+  { key: 'ugc-circulars-archive', name: 'UGC, circulars archive', url: 'https://www.ugc.gov.in/Circulars', request: { url: 'https://www.ugc.gov.in/Circulars/Fill_Circulars', body: 'ID=0&type=CircularGrid' }, parser: 'UGC_ARCHIVE_JSON', authority: 'UGC', exam: null, supplementary: true, minIntervalMinutes: 1440, dataType: 'Archive page rows (title, date, PDFs) read from the page\'s own data call', reliability: 'Official: UGC\'s own website; the data call is not documented, so a change of format is reported as a failure' },
+  // The Distance Education Bureau (open, distance and online programmes) keeps its own notice board on deb.ugc.ac.in.
+  { key: 'ugc-deb-notice-board', name: 'UGC DEB, notice board', url: 'https://deb.ugc.ac.in/Notices/Index', request: { url: 'https://deb.ugc.ac.in/Notices/Select_AllNotification', body: 'MainType=Notice_Board&SubType=ALL_Notifications' }, parser: 'DEB_JSON', authority: 'UGC', exam: null, supplementary: true, minIntervalMinutes: 720, dataType: 'Notice board rows (title, date, PDF) read from the page\'s own data call', reliability: 'Official: UGC\'s Distance Education Bureau website; the data call is not documented, so a change of format is reported as a failure' },
 ];
 
 /** Each authority's own websites. A UGC notice must be on UGC's site, an NTA notice on NTA's or the government's. */
@@ -111,6 +127,26 @@ const absolute = (href: string, base: string) => {
   }
 };
 
+const realDay = (day: string) => Number.isFinite(Date.parse(`${day}T00:00:00Z`)) && new Date(`${day}T00:00:00Z`).toISOString().slice(0, 10) === day;
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+/** "31 August 2026" as printed on the DEB notice board, or null when it is not a real day. */
+function printedDate(text: string): string | null {
+  const m = /^\s*(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})\s*$/.exec(text);
+  const month = m ? MONTHS.indexOf(m[2]!.toLowerCase()) : -1;
+  if (!m || month < 0) return null;
+  const day = `${m[3]}-${String(month + 1).padStart(2, '0')}-${m[1]!.padStart(2, '0')}`;
+  return realDay(day) ? day : null;
+}
+/** The rows of a site's JSON answer ({"c":"success","List":[...]}). Anything else is not the expected answer and gives no rows. */
+function jsonRows(text: string): Record<string, unknown>[] {
+  try {
+    const data = JSON.parse(text) as { c?: unknown; List?: unknown };
+    return data?.c === 'success' && Array.isArray(data.List) ? data.List.filter((r): r is Record<string, unknown> => !!r && typeof r === 'object') : [];
+  } catch {
+    return [];
+  }
+}
+
 /** Reads the notices listed on one page. Returns nothing when the page does not have the expected layout. */
 export function parseListing(parser: Source['parser'], html: string, base: string): Found[] {
   const out: Found[] = [];
@@ -136,6 +172,42 @@ export function parseListing(parser: Source['parser'], html: string, base: strin
       const url = absolute(m[2]!, base);
       const t = decode(m[3]!).slice(0, 500);
       if (url && t.length >= 8) out.push({ title: t, documentUrl: url, description: null, publishedOn: ok ? day : null });
+    }
+  } else if (parser === 'UGC_ARCHIVE_JSON') {
+    for (const row of jsonRows(html)) {
+      const created = typeof row.created === 'string' ? row.created : '';
+      // The archive marks an entry with no date as 1900-01-01. Without a date its age is unknown, so it is not collected.
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(created) || created < '2015-01-01' || !realDay(created)) continue;
+      const html0 = typeof row.title === 'string' ? row.title : '';
+      const links = [...html0.matchAll(/<a\s+[^>]*?href=(["']?)([^\s>"']+)\1[^>]*>((?:(?!<\/a>)[\s\S])*)<\/a>/gi)].map((m) => ({ href: m[2]!, text: decode(m[3]!) }));
+      // The title is the text before the first link when there is some ("Letter regarding X <a>file</a>"), otherwise the first link's own text.
+      const before = decode(html0.split(/<a\s/i)[0]!.replace(/<(br|ul|li)\b[^>]*>/gi, ' '));
+      const title = (before.length >= 8 ? before : links[0]?.text ?? '').slice(0, 500);
+      const files = [row.pdfnews, row.pdfnews1, row.pdfnews2, row.pdfnews3, row.pdfnews4].filter((f): f is string => typeof f === 'string' && f.trim() !== '');
+      const first = files[0] ? `../pdfnews/${files[0]}` : links[0]?.href;
+      const url = first ? absolute(first, base) : null;
+      if (!url || title.length < 8) continue;
+      const extra = files.slice(1).map((f) => f.replace(/^\d+_/, '').replace(/\.[a-z]+$/i, '')).filter(Boolean);
+      out.push({ title, documentUrl: url, description: extra.length ? `Also attached: ${extra.join(', ')}`.slice(0, 300) : null, publishedOn: created });
+    }
+  } else if (parser === 'DEB_JSON') {
+    for (const row of jsonRows(html)) {
+      const title = decode(typeof row.NotificationName === 'string' ? row.NotificationName : '').slice(0, 500);
+      const file = typeof row.UploadAttachment === 'string' ? row.UploadAttachment.trim() : '';
+      // A row without a file has nothing to link to. Its sub-notices (NoticeSubType "Yes") are not read.
+      // The board's own script puts the site address in front of the file path, so the path is read from the site's root, not from the page.
+      const url = file ? absolute(file, new URL('/', base).toString()) : null;
+      if (!url || title.length < 8) continue;
+      let day = printedDate(typeof row.CreatedDate === 'string' ? row.CreatedDate : '');
+      // The file's own name carries the upload date too (UGC_20260831135353_1.pdf). A notice is often dated before it is uploaded, up to a few
+      // months, but never after, so a printed date a week past the upload or half a year before it is a typing mistake (for example a wrong year).
+      // No date is better than a wrong one: such a notice waits for a person.
+      const stamp = /UGC_(\d{4})(\d{2})(\d{2})/.exec(file);
+      if (day && stamp) {
+        const printedBefore = (Date.parse(`${stamp[1]}-${stamp[2]}-${stamp[3]}T00:00:00Z`) - Date.parse(`${day}T00:00:00Z`)) / 86_400_000;
+        if (!(printedBefore >= -7 && printedBefore <= 180)) day = null;
+      }
+      out.push({ title, documentUrl: url, description: null, publishedOn: day });
     }
   } else if (parser === 'NTA_ARCHIVE') {
     for (const row of html.match(/<tr>[\s\S]*?<\/tr>/gi) ?? []) {
@@ -272,7 +344,25 @@ async function readPage(url: string, authority: Authority): Promise<string> {
   return text;
 }
 
-export const fetchSettings = (env: { NOTICE_FETCH?: string; NOTICE_FETCH_MINUTES?: string }) => ({
+/** The same data call the site's own page makes (a form POST answered with JSON). Only the source's own, official address is used. */
+async function readJson(req: { url: string; body: string }, authority: Authority): Promise<string> {
+  if (!isOfficialUrl(req.url, authority)) throw new Error('Not an official address');
+  const res = await upstream(req.url, {
+    method: 'POST',
+    headers: { 'user-agent': USER_AGENT, accept: 'application/json', 'content-type': 'application/x-www-form-urlencoded', 'x-requested-with': 'XMLHttpRequest' },
+    body: req.body,
+    redirect: 'follow',
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+  });
+  if (res.status !== 200) throw new Error(`The data call answered ${res.status}`);
+  if (res.url && !isOfficialUrl(res.url, authority)) throw new Error('The data call redirected away from the official site');
+  if (!/json/i.test(res.headers.get('content-type') ?? '')) throw new Error('The data call did not answer with data');
+  const text = await res.text();
+  if (text.length > MAX_JSON_BYTES) throw new Error('The data is larger than expected');
+  return text;
+}
+
+export const fetchSettings =(env: { NOTICE_FETCH?: string; NOTICE_FETCH_MINUTES?: string }) => ({
   enabled: env.NOTICE_FETCH === 'on',
   intervalMinutes: Math.min(1440, Math.max(15, Number(env.NOTICE_FETCH_MINUTES) || 180)),
 });
@@ -280,6 +370,7 @@ export const fetchSettings = (env: { NOTICE_FETCH?: string; NOTICE_FETCH_MINUTES
 interface Existing {
   id: string;
   document_url: string;
+  source_key: string;
   title: string;
   content_hash: string;
   published_on: string | null;
@@ -306,7 +397,8 @@ async function checkSource(db: D1Database, src: Source, known: Map<string, Exist
   const found: Found[] = [];
   for (const page of ['', ...(src.morePages ?? [])]) {
     const url = new URL(page, src.url).toString();
-    const items = parseListing(src.parser, await readPage(url, src.authority), url);
+    // A page that fills its table by script is read through the data call the page itself makes; its links are relative to the page.
+    const items = parseListing(src.parser, src.request ? await readJson(src.request, src.authority) : await readPage(url, src.authority), url);
     // The first page must list something: an empty first page means the site changed its layout.
     if (!page && !items.length) throw new Error('No notices could be read from the page. Its layout may have changed.');
     found.push(...items);
@@ -339,6 +431,9 @@ async function checkSource(db: D1Database, src: Source, known: Map<string, Exist
       return d;
     };
     const cur = known.get(f.documentUrl);
+    // The source that found a notice first keeps it. Two listings word the same notice a little differently, and letting both
+    // rewrite it would flip its title back and forth on every run and call each flip a "change at the source".
+    if (cur && cur.source_key !== src.key && (src.supplementary || SOURCES.find((s) => s.key === cur.source_key)?.supplementary)) continue;
     if (cur) {
       if (cur.content_hash !== hash) {
         counts.updated++;
@@ -401,7 +496,7 @@ async function checkSource(db: D1Database, src: Source, known: Map<string, Exist
     const rk = revisionKindOf(f.title);
     const base = baseKey(f.title);
     const origin = rk && base ? (byBase.get(`${src.authority}|${base}`) ?? null) : null;
-    known.set(f.documentUrl, { id, document_url: f.documentUrl, title: f.title, content_hash: hash, published_on: published, duplicate_of_id: duplicateOf, verification_status: doubts.length ? 'NEEDS_REVIEW' : 'PUBLISHED', auto_published: doubts.length ? 0 : 1, exam_code: exam, authority: src.authority, revision_kind: rk, authenticity_note: null });
+    known.set(f.documentUrl, { id, document_url: f.documentUrl, source_key: src.key, title: f.title, content_hash: hash, published_on: published, duplicate_of_id: duplicateOf, verification_status: doubts.length ? 'NEEDS_REVIEW' : 'PUBLISHED', auto_published: doubts.length ? 0 : 1, exam_code: exam, authority: src.authority, revision_kind: rk, authenticity_note: null });
     // An original notice can be found by its later corrigendum; a corrigendum is never the thing later ones attach to.
     if (!rk && base && !duplicateOf && !byBase.has(`${src.authority}|${base}`)) byBase.set(`${src.authority}|${base}`, id);
     statements.push(
@@ -454,7 +549,7 @@ export async function syncNotices(env: { DB: D1Database; NOTICE_FETCH?: string; 
   const db = env.DB;
   await ensureSources(db);
   const state = new Map((await db.prepare('SELECT key, next_check_at, consecutive_failures FROM gov_notice_sources').all<{ key: string; next_check_at: string | null; consecutive_failures: number }>()).results.map((r) => [r.key, r]));
-  const all = (await db.prepare('SELECT id, document_url, title, content_hash, published_on, duplicate_of_id, verification_status, auto_published, exam_code, authority, revision_kind, authenticity_note FROM gov_notices').all<Existing>()).results;
+  const all = (await db.prepare('SELECT id, document_url, source_key, title, content_hash, published_on, duplicate_of_id, verification_status, auto_published, exam_code, authority, revision_kind, authenticity_note FROM gov_notices').all<Existing>()).results;
   const known = new Map(all.map((r) => [r.document_url, r]));
   const byDup = new Map(all.filter((r) => !r.duplicate_of_id).map((r) => [dupKey(r.title, r.published_on), r.id]));
   // Original notices by their base title, so a later corrigendum can be linked to what it corrects.
@@ -470,7 +565,7 @@ export async function syncNotices(env: { DB: D1Database; NOTICE_FETCH?: string; 
     }
     try {
       const c = await checkSource(db, src, known, byDup, byBase);
-      const next = new Date(now.getTime() + settings.intervalMinutes * 60_000).toISOString();
+      const next = new Date(now.getTime() + Math.max(settings.intervalMinutes, src.minIntervalMinutes ?? 0) * 60_000).toISOString();
       await db
         .prepare('UPDATE gov_notice_sources SET last_checked_at = ?1, last_success_at = ?1, last_error = NULL, consecutive_failures = 0, next_check_at = ?2, last_found = ?3, last_new = ?4, last_updated = ?5, last_duplicates = ?6, last_queued = ?7, updated_at = ?1 WHERE key = ?8')
         .bind(now.toISOString(), next, c.found, c.added, c.updated, c.duplicates, c.queued, src.key)
