@@ -267,6 +267,14 @@
     ]
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "try-except-flow"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Only the first matching except clause runs, the else clause runs only when no exception was raised, and the finally clause always runs, whether or not there was an exception."
+   },
+   {
     "type": "SOLVED_PROBLEM",
     "problem": "Trace the output of this code:\n`def safe_div(a, b):`\n`    try:`\n`        r = a / b`\n`    except ZeroDivisionError:`\n`        print(\"zero\")`\n`        r = None`\n`    else:`\n`        print(\"ok\")`\n`    finally:`\n`        print(\"done\")`\n`    return r`\n`print(safe_div(8, 2))`\n`print(safe_div(8, 0))`",
     "solution": "Call 1, `safe_div(8, 2)`: `8 / 2` is 4.0 with no exception, so `except` is skipped, `else` prints ok, `finally` prints done, and the function returns 4.0, which is printed.\n\nCall 2, `safe_div(8, 0)`: `8 / 0` raises ZeroDivisionError, so the matching `except` prints zero and sets r to None; `else` is skipped; `finally` prints done; the function returns None, which is printed.\n\nComplete output, line by line:\n\n- `ok`\n- `done`\n- `4.0`\n- `zero`\n- `done`\n- `None`",
@@ -567,7 +575,15 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "try-except-flow",
+   "file": "diagrams/ug26-308-r01-exceptions-try-flow.svg",
+   "alt": "A flowchart: the try block runs, then if an exception is raised the first matching except block runs, otherwise the else block runs, and in both cases the finally block runs at the end",
+   "caption": "The flow of try, except, else and finally",
+   "description": "The statements in the try block run first. If an exception is raised, the first matching except clause runs and the exception is handled. If no exception is raised, the else clause runs. In both cases the finally clause runs last. If an exception is not handled, it moves up after finally has run."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r01-exceptions-files-python-q01",

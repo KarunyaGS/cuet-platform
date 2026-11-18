@@ -1,4 +1,4 @@
-import { ChevronRight, FileText, ListChecks, Timer } from 'lucide-react';
+import { ChevronRight, FileText, ListChecks, Shapes, Timer } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api, ApiError, type OutlineNode } from '../api';
@@ -176,6 +176,10 @@ export function SubjectSyllabusPage() {
                   <Link to={`/revise/${active.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-medium text-ink-2 hover:bg-ink/5 hover:text-ink">
                     <ListChecks aria-hidden className="size-4" />
                     Revise
+                  </Link>
+                  <Link to={`/visuals/${active.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-medium text-ink-2 hover:bg-ink/5 hover:text-ink">
+                    <Shapes aria-hidden className="size-4" />
+                    Figures
                   </Link>
                   {unitQuestions > 0 && (
                     <Button kind="secondary" size="sm" onClick={() => startMock(active.id)} disabled={busy} icon={<Timer aria-hidden />}>

@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { api, type Block } from '../api';
 import { DisplayMath, parseBody, Rich } from '../rich';
 import { Annotatable, blockKey } from '../annotate';
+import { Figure } from '../question';
 import { AddCards, AddToPlan, BookmarkButton, ConceptActions, useConcepts, useTrackView } from '../tools';
 import { Button, ErrorBox, Loading, useAuth, useLoad } from '../ui';
 
@@ -33,7 +34,7 @@ function Callout({ label, rule, icon, children }: { label: string; rule: string;
   );
 }
 
-function TableBlock({ body }: { body: string }) {
+export function TableBlock({ body }: { body: string }) {
   const j = parseBody<{ caption?: string | null; columns: string[]; rows: string[][] } | string[][]>(body);
   if (!j) return <Rich text={body} />;
   const columns = Array.isArray(j) ? (j[0] ?? []) : j.columns;
@@ -144,7 +145,7 @@ export function BlockView({ b, solvedNo }: { b: Block; solvedNo: number }) {
       const src = b.media_asset_id ? `/api/learn/media/${b.media_asset_id}` : b.body;
       return (
         <figure className="rounded-lg border border-rule bg-surface p-3">
-          <img src={src} alt={b.alt_text ?? ''} loading="lazy" className="mx-auto max-h-[28rem] w-full object-contain" />
+          {b.media_asset_id ? <Figure id={b.media_asset_id} alt={b.alt_text ?? ''} className="w-full border-0 p-0" /> : <img src={src} alt={b.alt_text ?? ''} loading="lazy" className="mx-auto max-h-[28rem] w-full object-contain" />}
           {(b.caption ?? (b.media_asset_id ? b.body : '')) && <figcaption className="mt-2 text-center font-sans text-[13px] text-ink-2">{b.caption ?? (b.media_asset_id ? b.body : '')}</figcaption>}
         </figure>
       );

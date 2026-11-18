@@ -11,7 +11,7 @@ import { QuestionStem } from './question';
 import { DisplayMath, Rich } from './rich';
 import { Badge, buttonClass, useAuth } from './ui';
 
-export const CARD_TYPE: Record<string, string> = { QUESTION: 'Question', DEFINITION: 'Definition', FORMULA: 'Formula', KEY_POINT: 'Key point', IMPORTANT_FACT: 'Fact', CONCEPT: 'Concept' };
+export const CARD_TYPE: Record<string, string> = { QUESTION: 'Question', DEFINITION: 'Definition', FORMULA: 'Formula', KEY_POINT: 'Key point', IMPORTANT_FACT: 'Fact', CONCEPT: 'Concept', FIGURE: 'Figure', COMPARISON: 'Comparison' };
 const dayLabel = (day: string) => new Date(`${day}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
 export const savedLabel = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
 export const sourceLink = (c: Flashcard) => (c.kind === 'QUESTION' ? (c.topicId ? `/topic/${c.topicId}` : '/') : `/learn/${c.resourceId}#${c.anchor}`);

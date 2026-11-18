@@ -284,6 +284,14 @@
         "text": "Because the order comes from experiment, it may be 0, 1, 2, 3 or fractional. The decomposition of acetaldehyde, $\\text{CH}_3\\text{CHO} \\rightarrow \\text{CH}_4 + \\text{CO}$, has rate $= k[\\text{CH}_3\\text{CHO}]^{3/2}$ and so is of order 3/2. Reactions of order higher than three are very rare, because the simultaneous collision of more than three molecules is extremely unlikely."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "rate-vs-conc"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The shape of the rate against concentration graph shows the order: flat for zero order, a straight line for first order and a parabola for second order."
+      },
+      {
         "type": "TEXT",
         "text": "**Units of the rate constant.** From rate $= k[R]^n$ we get $k = \\text{rate}/[R]^n$, so the unit of $k$ for an $n$th order reaction is (mol L$^{-1}$)$^{1-n}$ s$^{-1}$. Thus zero order has mol L$^{-1}$ s$^{-1}$, first order has s$^{-1}$, second order has L mol$^{-1}$ s$^{-1}$ and third order has L$^2$ mol$^{-2}$ s$^{-1}$."
       },
@@ -552,6 +560,14 @@
         "text": "Reaction rates rise steeply with temperature, and the rate constant often doubles for a rise of 10 K around room temperature. Svante Arrhenius expressed this behaviour with an equation that is the cornerstone of temperature dependence in kinetics."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "maxwell-boltzmann"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A small rise in temperature increases the number of molecules with energy of at least Ea. The area beyond Ea roughly doubles for a rise of 10 K, which is why the rate roughly doubles."
+      },
+      {
         "type": "FORMULA",
         "latex": "k = A\\,e^{-E_a/RT}",
         "text": "Here $A$ is the Arrhenius (pre-exponential or frequency) factor, related to the frequency of collisions and the orientation of the colliding molecules; $E_a$ is the activation energy in J mol$^{-1}$; $R = 8.314$ J mol$^{-1}$ K$^{-1}$; $T$ is the absolute temperature in kelvin."
@@ -655,6 +671,14 @@
         "text": "1. Reaction takes place only when molecules of A and B collide.\n2. Not every collision leads to reaction; only **effective collisions** do. A collision is effective if the colliding molecules carry at least the threshold energy and strike each other with the proper orientation.\n3. Most collisions are ineffective because molecules either lack the energy or hit in the wrong orientation; they bounce apart unchanged."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "orientation"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A collision leads to reaction only if the molecules have enough energy and the right orientation. Only collisions like (a) give products, which is why the steric factor P in the collision theory is less than 1."
+      },
+      {
         "type": "FORMULA",
         "latex": "\\text{Rate} = Z_{AB}\\,e^{-E_a/RT}",
         "text": "Here $Z_{AB}$ is the collision frequency of A and B (collisions per unit volume per second). The exponential gives the fraction of collisions with energy $\\geq E_a$."
@@ -724,6 +748,27 @@
       "alt": "Potential energy against reaction coordinate for an exothermic reaction, with a high barrier for the uncatalysed path and a lower barrier for the catalysed path, and the same enthalpy change",
       "caption": "Energy profile with and without a catalyst",
       "description": "A potential energy diagram from reactants to products. The black curve for the uncatalysed reaction has a high peak, so a large activation energy Ea. The green curve for the catalysed reaction has a lower peak, so a smaller activation energy Ea dash. Both start at the same reactant level and end at the same lower product level, so the enthalpy change delta H is the same for both. The energies are illustrative."
+    },
+    {
+      "key": "rate-vs-conc",
+      "file": "diagrams/ug26-306-u3-chemical-kinetics-rate-vs-conc.svg",
+      "alt": "Graph of rate against reactant concentration: a horizontal line for zero order, a straight line through the origin for first order and a rising parabola for second order",
+      "caption": "Rate against concentration for zero, first and second order",
+      "description": "Zero order: the rate equals k and does not depend on [R], so the line is horizontal. First order: rate = k[R], a straight line through the origin with slope k. Second order: rate = k[R]^2, a parabola, so doubling [R] makes the rate four times as large."
+    },
+    {
+      "key": "maxwell-boltzmann",
+      "file": "diagrams/ug26-306-u3-chemical-kinetics-maxwell-boltzmann.svg",
+      "alt": "Two curves of the fraction of molecules against kinetic energy with a dashed line at the threshold energy Ea; the curve for the higher temperature has a lower, broader peak and a larger shaded area beyond Ea",
+      "caption": "Distribution of molecular energies at T and T + 10 K",
+      "description": "The blue curve is for temperature T and the red curve for T + 10 K. At the higher temperature the peak is lower, broader and shifted to higher energy. The shaded areas beyond the threshold energy Ea show the molecules able to react; the red area is about twice the blue area."
+    },
+    {
+      "key": "orientation",
+      "file": "diagrams/ug26-306-u3-chemical-kinetics-orientation.svg",
+      "alt": "Two diagrams of OH- meeting CH3Br: in (a) it strikes the carbon from the side away from bromine and forms CH3OH and Br-, in (b) it strikes the bromine end and the molecules bounce apart",
+      "caption": "Effective and ineffective collisions (orientation)",
+      "description": "(a) Proper orientation: OH- strikes the carbon atom on the side away from bromine, giving CH3OH and Br-, an effective collision. (b) Improper orientation: OH- strikes the bromine end of the molecule, so there is no product and the molecules simply bounce apart."
     }
   ],
   "questions": [

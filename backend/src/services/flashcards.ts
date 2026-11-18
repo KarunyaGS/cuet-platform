@@ -22,7 +22,7 @@ import { assertRoomFor } from './billing';
 import { ApiError, invalid, notFound } from '../lib/errors';
 import { newId, sha256Hex } from '../lib/hash';
 import { nowIso } from '../lib/sql';
-import { CONCEPT_KEY, CONCEPT_TYPES, conceptsOf, conceptsOfResources, resourceOfKey, type Concept, type RawBlock } from './concepts';
+import { CARD_TYPES, CONCEPT_KEY, cardConceptsOf, cardConceptsOfResources, resourceOfKey, type CardConcept, type RawBlock } from './concepts';
 import { VISIBLE_CONTENT } from './learning';
 
 export const RATINGS = ['AGAIN', 'HARD', 'GOOD', 'EASY'] as const;
@@ -30,7 +30,7 @@ export type Rating = (typeof RATINGS)[number];
 const QUALITY: Record<Rating, number> = { AGAIN: 2, HARD: 3, GOOD: 4, EASY: 5 };
 const MIN_EASE = 1.3;
 /** A card whose next review is three weeks or more away counts as well known. */
-const MATURE_DAYS = 21;
+export const MATURE_DAYS = 21;
 const IMPORT_LIMIT = 200;
 
 const daySchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
@@ -40,7 +40,7 @@ export const importCardsSchema = z
   .object({
     resourceId: z.string().min(1).max(100).optional(),
     nodeId: z.string().min(1).max(100).optional(),
-    types: z.array(z.enum(CONCEPT_TYPES)).min(1).max(CONCEPT_TYPES.length).optional(),
+    types: z.array(z.enum(CARD_TYPES)).min(1).max(CARD_TYPES.length).optional(),
     day: daySchema,
   })
   .refine((v) => Boolean(v.resourceId) !== Boolean(v.nodeId), { message: 'Give either a lesson or a topic' });
@@ -98,7 +98,7 @@ interface LessonRow {
 }
 
 /** The nearest unit or chapter above a topic; else the top of its branch. This is the "chapter" cards are grouped by. */
-async function chapterOf(db: D1Database, nodeId: string | null): Promise<string | null> {
+export async function chapterOf(db: D1Database, nodeId: string | null): Promise<string | null> {
   if (!nodeId) return null;
   const { results } = await db
     .prepare(
@@ -124,12 +124,13 @@ async function visibleLesson(db: D1Database, preview: boolean, resourceId: strin
 }
 
 /** One concept as it stands in its lesson now, or null when the lesson is not visible or no longer has it. */
-export async function findConcept(db: D1Database, preview: boolean, key: string): Promise<{ lesson: LessonRow; concept: Concept } | null> {
+export async function findConcept(db: D1Database, preview: boolean, key: string): Promise<{ lesson: LessonRow; concept: CardConcept } | null> {
   if (!CONCEPT_KEY.test(key)) return null;
   const lesson = await visibleLesson(db, preview, resourceOfKey(key));
   if (!lesson) return null;
-  const { results } = await db.prepare('SELECT position, type, body FROM content_blocks WHERE resource_id = ?').bind(lesson.id).all<RawBlock>();
-  const concept = (await conceptsOf(lesson.id, results)).find((c) => c.key === key);
+  const { results } = await db.prepare('SELECT position, type, body, media_asset_id FROM content_blocks WHERE resource_id = ?').bind(lesson.id).all<{ position: number; type: string; body: string; media_asset_id: string | null }>();
+  const blocks: RawBlock[] = results.map((r) => ({ position: r.position, type: r.type, body: r.body, mediaAssetId: r.media_asset_id }));
+  const concept = (await cardConceptsOf(lesson.id, blocks)).find((c) => c.key === key);
   return concept ? { lesson, concept } : null;
 }
 
@@ -137,10 +138,10 @@ export async function findConcept(db: D1Database, preview: boolean, key: string)
 
 const CARD_SELECT = `
   SELECT f.id, f.question_id, f.concept_key, f.resource_id, f.curriculum_node_id, f.chapter_node_id, f.test_paper_id, f.block_type, f.lesson_title, f.section,
-    f.front, f.back, f.latex, f.due_on, f.interval_days, f.ease, f.reps, f.lapses, f.last_rating, f.last_reviewed_at, f.created_at,
+    f.front, f.back, f.latex, f.media_asset_id, lr.verification AS lesson_verification, f.due_on, f.interval_days, f.ease, f.reps, f.lapses, f.last_rating, f.last_reviewed_at, f.created_at,
     tp.name AS paper, ch.title AS chapter, ch.position AS chapter_position, tn.title AS topic, tn.position AS topic_position
   FROM flashcards f LEFT JOIN test_papers tp ON tp.id = f.test_paper_id LEFT JOIN curriculum_nodes ch ON ch.id = f.chapter_node_id
-    LEFT JOIN curriculum_nodes tn ON tn.id = f.curriculum_node_id`;
+    LEFT JOIN curriculum_nodes tn ON tn.id = f.curriculum_node_id LEFT JOIN learning_resources lr ON lr.id = f.resource_id`;
 
 type CardRow = Record<string, string | number | null>;
 const cardOut = (r: CardRow, day: string) => ({
@@ -172,6 +173,10 @@ const cardOut = (r: CardRow, day: string) => ({
   front: r.front as string,
   back: r.back as string,
   latex: r.latex as string | null,
+  /** Figure cards: the image on the front. */
+  mediaAssetId: (r.media_asset_id as string | null) ?? null,
+  /** Cards are made from lessons that no subject expert has reviewed yet; they are labelled as drafts until the lesson is verified. */
+  draft: r.lesson_verification !== 'VERIFIED',
   dueOn: r.due_on as string,
   due: String(r.due_on) <= day,
   intervalDays: Number(r.interval_days),
@@ -323,15 +328,15 @@ export async function questionCardState(db: D1Database, userId: string, ids: str
   return out;
 }
 
-function insertCard(db: D1Database, userId: string, lesson: LessonRow, chapterId: string | null, c: Concept, day: string, now: string): D1PreparedStatement {
+function insertCard(db: D1Database, userId: string, lesson: LessonRow, chapterId: string | null, c: CardConcept, day: string, now: string): D1PreparedStatement {
   return db
     .prepare(
-      `INSERT INTO flashcards (id, user_id, concept_key, resource_id, curriculum_node_id, chapter_node_id, test_paper_id, block_type, lesson_title, section, front, back, latex,
+      `INSERT INTO flashcards (id, user_id, concept_key, resource_id, curriculum_node_id, chapter_node_id, test_paper_id, block_type, lesson_title, section, front, back, latex, media_asset_id,
          due_on, interval_days, ease, reps, lapses, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 2.5, 0, 0, ?, ?)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 2.5, 0, 0, ?, ?)
        ON CONFLICT (user_id, concept_key) DO NOTHING`,
     )
-    .bind(newId('fc'), userId, c.key, lesson.id, lesson.curriculum_node_id, chapterId, lesson.test_paper_id, c.type, lesson.title, c.section, c.front, c.back, c.latex, day, now, now);
+    .bind(newId('fc'), userId, c.key, lesson.id, lesson.curriculum_node_id, chapterId, lesson.test_paper_id, c.type, lesson.title, c.section, c.front, c.back, c.latex, c.mediaAssetId, day, now, now);
 }
 
 async function cardByKey(db: D1Database, userId: string, key: string, day: string) {
@@ -371,9 +376,9 @@ export async function importCards(db: D1Database, preview: boolean, userId: stri
         .all<LessonRow>()
     ).results;
   }
-  const types = new Set<string>(input.types ?? CONCEPT_TYPES);
-  const byLesson = await conceptsOfResources(db, lessons.map((l) => l.id));
-  const wanted: { lesson: LessonRow; concept: Concept }[] = [];
+  const types = new Set<string>(input.types ?? CARD_TYPES);
+  const byLesson = await cardConceptsOfResources(db, lessons.map((l) => l.id));
+  const wanted: { lesson: LessonRow; concept: CardConcept }[] = [];
   for (const lesson of lessons) for (const concept of byLesson.get(lesson.id) ?? []) if (types.has(concept.type)) wanted.push({ lesson, concept });
   const total = wanted.length;
   // Which of these the student already has.
@@ -497,7 +502,7 @@ export async function topicCards(db: D1Database, preview: boolean, userId: strin
       .bind(userId, day, nodeId)
       .first<{ cards: number; due: number }>(),
   ]);
-  const byLesson = await conceptsOfResources(db, lessons.results.map((l) => l.id));
+  const byLesson = await cardConceptsOfResources(db, lessons.results.map((l) => l.id));
   let concepts = 0;
   for (const list of byLesson.values()) concepts += list.length;
   return { nodeId: node.id, title: node.title, paperId: node.paper_id, day, concepts, cards: mine?.cards ?? 0, due: mine?.due ?? 0 };

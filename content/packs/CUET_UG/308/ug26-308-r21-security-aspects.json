@@ -150,6 +150,14 @@
     "text": "A firewall can filter packets by IP address, port number or protocol. It protects against unauthorised access and some attacks, but it cannot remove a virus already inside a file you have downloaded, and it cannot protect against careless users. It is therefore used together with antivirus software."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "firewall-position"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: A firewall sits at the boundary of a network and allows or blocks traffic according to rules. It controls access but does not remove a virus that is already inside the network, which is the job of antivirus software."
+   },
+   {
     "type": "TEXT",
     "text": "**HTTP versus HTTPS.** HTTP (HyperText Transfer Protocol) sends data in plain text, so someone watching the network can read the passwords and card numbers typed on a page. HTTPS (HTTP Secure) is HTTP running over an encrypted connection protected by SSL/TLS and a digital certificate that proves the identity of the site."
    },
@@ -334,7 +342,15 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "firewall-position",
+   "file": "diagrams/ug26-308-r21-security-firewall.svg",
+   "alt": "The Internet on the left, a firewall in the middle and a private network of four computers on the right, with an allowed arrow passing through the firewall and a blocked arrow stopped by it",
+   "caption": "A firewall between the Internet and a private network",
+   "description": "A firewall stands between the Internet and a private network. Traffic that meets the security rules passes through to the private network, and traffic that breaks them is blocked at the firewall. The rules can use the IP address, the port number or the protocol."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r21-security-aspects-q01",

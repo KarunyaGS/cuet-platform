@@ -3,10 +3,11 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, Navigate, useSearchParams } from 'react-router';
 import { api, type CardRating, type Flashcard } from '../api';
 import { DisplayMath, Rich } from '../rich';
+import { Figure } from '../question';
 import { QuestionBack, QuestionFront, sourceLabel, sourceLink as cardSourceLink } from '../revision';
-import { Button, ButtonLink, Empty, ErrorBox, Loading, Meter, PageHeader, StatGroup, useAuth, useLoad } from '../ui';
+import { Badge, Button, ButtonLink, Empty, ErrorBox, Loading, Meter, PageHeader, StatGroup, useAuth, useLoad } from '../ui';
 
-const PROMPT: Record<string, string> = { DEFINITION: 'Define', FORMULA: 'Recall the formula', KEY_POINT: 'Explain', IMPORTANT_FACT: 'Recall', CONCEPT: 'Explain' };
+const PROMPT: Record<string, string> = { FIGURE: 'Identify the figure', COMPARISON: 'Compare', DEFINITION: 'Define', FORMULA: 'Recall the formula', KEY_POINT: 'Explain', IMPORTANT_FACT: 'Recall', CONCEPT: 'Explain' };
 
 const dayLabel = (day: string) => new Date(`${day}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
 const scopeQuery = (paperId?: string | null, chapterId?: string | null, nodeId?: string | null, resourceId?: string | null) =>
@@ -167,11 +168,17 @@ export function FlashcardReviewPage() {
           <Face side="front" hidden={flipped}>
             <div className="mb-3 flex flex-wrap items-center gap-2 text-[13px] font-semibold text-ink-2">
               <span>{c.kind === 'QUESTION' ? 'Question' : (PROMPT[c.type] ?? 'Recall')}</span>
+              {c.draft && <Badge tone="amber">Draft - unverified</Badge>}
               {c.section && c.type !== 'FORMULA' && <span className="font-normal text-ink-3">{c.section}</span>}
             </div>
             {c.kind === 'QUESTION' && c.question ? (
               <div className="my-auto">
                 <QuestionFront card={c} />
+              </div>
+            ) : c.type === 'FIGURE' && c.mediaAssetId ? (
+              <div className="my-auto text-center">
+                <Figure id={c.mediaAssetId} alt={c.lesson} className="mx-auto max-h-72" />
+                <div className="mt-3 text-lg font-semibold text-ink">{c.front}</div>
               </div>
             ) : c.type === 'FORMULA' && c.section && c.front !== `Formula: ${c.section}` ? (
               <div className="my-auto text-center">

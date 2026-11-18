@@ -53,6 +53,14 @@
         "text": "Valid when $f(x)\\ge0$ on $[a,b]$. Each strip has area $y\\,dx$; the integral adds all strips. For a region between the curve and the $y$-axis, with $x=g(y)\\ge0$ between $y=c$ and $y=d$, use $A=\\int_c^d x\\,dy$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "area-under-curve"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The area under a curve is the sum of the areas y dx of thin strips from x = a to x = b, which is the definite integral. Here the area under y = x² from 0 to 2 is [x³/3] from 0 to 2 = 8/3."
+      },
+      {
         "type": "TEXT",
         "text": "If the curve lies **below** the $x$-axis ($f(x)\\le0$), the integral is negative, but an area cannot be negative. So the area is $\\left|\\int_a^bf(x)\\,dx\\right|$. If the curve crosses the axis in $[a,b]$, split the interval at each crossing, find each piece's area with its own sign made positive, and add."
       },
@@ -102,6 +110,14 @@
         "type": "FORMULA",
         "latex": "\\text{Area between }y^2=4ax\\text{ and }x^2=4ay:\\quad A=\\frac{16a^2}{3}",
         "text": "The curves meet at $(0,0)$ and $(4a,4a)$. Area $=\\int_0^{4a}\\left(2\\sqrt{ax}-\\dfrac{x^2}{4a}\\right)dx$."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "area-between-parabolas"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: To find the area between two curves, first solve for the points where they meet, then integrate (upper curve − lower curve) between those x values. Here the limits are 0 and 4 and the area is 16/3."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -157,7 +173,22 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "area-under-curve",
+      "file": "diagrams/ug26-319-r23-integrals-area-under-curve.svg",
+      "alt": "Graph of y = x squared from x = 0 to x = 2 with the region under the curve shaded and one thin vertical strip marked",
+      "caption": "The area under a curve as a sum of thin strips",
+      "description": "The curve y = x squared rises from the origin. The region between the curve, the x-axis and the vertical lines x = 0 and x = 2 is shaded, and one thin strip of width dx and height y is drawn. The area is the integral of f(x) from a to b, which for this curve equals 8/3, about 2.67 square units."
+    },
+    {
+      "key": "area-between-parabolas",
+      "file": "diagrams/ug26-319-r23-integrals-area-between-parabolas.svg",
+      "alt": "Graph of the parabolas y squared equals 4x and x squared equals 4y meeting at the origin and at the point (4, 4), with the region between them shaded",
+      "caption": "Area enclosed by the parabolas y² = 4x and x² = 4y",
+      "description": "The parabola y² = 4x opens to the right and x² = 4y opens upwards. They meet at (0, 0) and (4, 4). The region between them is shaded. For x from 0 to 4 the upper curve is y = 2√x and the lower curve is y = x²/4, so the area is the integral of (2√x − x²/4) dx from 0 to 4, which is 16/3."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r23-applications-of-the-integrals-q01",

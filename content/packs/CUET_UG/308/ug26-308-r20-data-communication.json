@@ -126,6 +126,14 @@
     ]
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "transmission-modes"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The mode of communication depends on the direction in which data can flow and whether both directions can be used together. Simplex is one way, half duplex takes turns and full duplex works in both directions at once."
+   },
+   {
     "type": "TEXT",
     "text": "**Switching techniques.** In a large network the sender and receiver are not directly joined, so the data passes through intermediate switching nodes. Two methods are in common use."
    },
@@ -164,6 +172,14 @@
       "The Internet"
      ]
     ]
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "circuit-packet-switching"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Circuit switching reserves one path for the whole communication, which causes a setup delay and wastes the line when it is idle. Packet switching shares the line and lets packets take different routes, so it uses the network better and is how the Internet works."
    },
    {
     "type": "TEXT",
@@ -463,7 +479,22 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "transmission-modes",
+   "file": "diagrams/ug26-308-r20-datacomm-transmission-modes.svg",
+   "alt": "Three pairs of devices joined by arrows: one arrow in one direction for simplex, arrows in both directions but taking turns for half duplex, and two arrows in both directions at once for full duplex",
+   "caption": "Simplex, half duplex and full duplex",
+   "description": "Simplex: data flows one way only, from the sender to the receiver, for example a keyboard to a computer or a TV broadcast. Half duplex: data flows both ways but only one direction at a time, for example a walkie-talkie. Full duplex: data flows both ways at the same time, for example a telephone call."
+  },
+  {
+   "key": "circuit-packet-switching",
+   "file": "diagrams/ug26-308-r20-datacomm-switching.svg",
+   "alt": "Two diagrams of a network of switches between A and B: in circuit switching one reserved path joins A to B, in packet switching the message is split into packets that take different routes",
+   "caption": "Circuit switching compared with packet switching",
+   "description": "Circuit switching: a dedicated path from A to B through the switches is set up before the data is sent and kept for the whole call, so the line stays reserved even when idle. Packet switching: the message is broken into packets, each packet can follow a different route through the switches, and the packets are put back in order at B."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r20-data-communication-q01",

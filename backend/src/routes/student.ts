@@ -21,7 +21,7 @@ import {
 } from '../services/email';
 import {
   activitySchema, addBookmark, addPlanItem, BOOKMARK_KINDS, bookmarkSchema, bookmarkState, dailySchema, dashboard, dashboardQuery, deletePlanItem, getGoal, getProfile, goalSchema, listBookmarks,
-  listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
+  chapterVisuals, listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
 } from '../services/student-tools';
 import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, subjectSummary, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
 import { deleteOne, editOne, editSchema, listAll, listForSurface, listForSurfaces, saveBatch, saveSchema } from '../services/annotations';
@@ -32,6 +32,7 @@ import { examPreview, previewQuery, recordViolation, violationSchema } from '../
 import { chatMessageSchema, createTicket, getChat, listTickets, replySchema, replyTicket, sendChat, storeAttachment, studentAttachment, ticketDetail, ticketSchema, unreadCount, CATEGORIES } from '../services/support';
 import { examActive, keeper, paperInScope, scienceOnly, UG_SCIENCE_PAPER_CODES } from '../lib/scope';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
+import { flashcardDecks } from '../services/decks';
 import { answerSchema, getSession, marksSchema, progress, questionCounts, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 
 const preview = (env: AppEnv['Bindings']) => env.CONTENT_PREVIEW === 'true';
@@ -200,6 +201,7 @@ learn.get('/pyq/:year/:slug', async (c) => {
 learn.get('/question-counts', async (c) =>
   c.json(await questionCounts(c.env.DB, preview(c.env), { paperId: c.req.query('paperId') || undefined, nodeIds: (c.req.query('nodeIds') ?? '').split(',').map((x) => x.trim()).filter(Boolean).slice(0, 30), difficulty: (c.req.query('difficulty') ?? '').split(',').filter(Boolean), types: (c.req.query('types') ?? '').split(',').filter(Boolean) })),
 );
+learn.get('/topics/:nodeId/visuals', async (c) => c.json(await chapterVisuals(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 learn.get('/topics/:nodeId/revision', async (c) => c.json(await revisionNotes(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 
 export const student = new Hono<AppEnv>();
@@ -303,6 +305,7 @@ student.delete('/annotations/:id', async (c) => c.json(await deleteOne(c.env.DB,
 const cardFilters = (c: { req: { query(name: string): string | undefined } }) =>
   cardQuery.parse(Object.fromEntries(['day', 'paperId', 'chapterId', 'nodeId', 'resourceId', 'due', 'limit'].map((k) => [k, c.req.query(k) || undefined])));
 student.get('/flashcards', async (c) => c.json(await listCards(c.env.DB, preview(c.env), c.get('user').id, cardFilters(c))));
+student.get('/flashcards/decks', async (c) => c.json(await flashcardDecks(c.env.DB, preview(c.env), c.get('user').id, assertDay(cardFilters(c).day), cardFilters(c).paperId)));
 student.get('/flashcards/summary', async (c) => c.json(await cardSummary(c.env.DB, preview(c.env), c.get('user').id, assertDay(cardFilters(c).day))));
 student.get('/flashcards/topic/:nodeId', async (c) => c.json(await topicCards(c.env.DB, preview(c.env), c.get('user').id, c.req.param('nodeId'), assertDay(cardFilters(c).day))));
 student.get('/flashcards/queue', async (c) => c.json(await reviewQueue(c.env.DB, preview(c.env), c.get('user').id, cardFilters(c))));

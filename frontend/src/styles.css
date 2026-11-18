@@ -124,3 +124,12 @@ h3 {
     scroll-behavior: auto !important;
   }
 }
+
+/* Printing a study page (diagrams and tables, revision sheets): only the content, on white, with no site chrome. */
+@media print {
+  body { background: #fff !important; }
+  header, nav, aside, [data-no-print], [role='dialog'] { display: none !important; }
+  main { padding: 0 !important; max-width: none !important; }
+  [data-print-sheet] figure, [data-print-sheet] table, [data-print-sheet] section { break-inside: avoid; }
+  [data-print-sheet] img { max-height: 11cm; }
+}

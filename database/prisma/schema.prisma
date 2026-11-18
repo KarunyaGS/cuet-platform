@@ -1130,6 +1130,8 @@ model Bookmark {
 model Flashcard {
   id               String            @id @default(cuid())
   userId           String            @map("user_id")
+  /// Figure-identification cards: the image shown on the front (added by migration 0039).
+  mediaAssetId     String?           @map("media_asset_id")
   /// "<lesson id>.<hash of what identifies the concept>": stable across re-imports of the lesson.
   conceptKey       String            @map("concept_key")
   /// Plain references (no foreign key): a card outlives its lesson.

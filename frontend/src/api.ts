@@ -191,7 +191,7 @@ export interface Flashcard {
   id: string; conceptKey: string; resourceId: string; anchor: string; lesson: string; section: string | null; type: string;
   paperId: string | null; paper: string | null; chapterId: string | null; chapter: string | null; chapterPosition: number | null;
   topicId: string | null; topic: string | null; topicPosition: number | null; savedAt: string; status: 'NEW' | 'NEED_REVISION' | 'KNOW';
-  front: string; back: string; latex: string | null;
+  front: string; back: string; latex: string | null; mediaAssetId: string | null; draft: boolean;
   dueOn: string; due: boolean; intervalDays: number; reps: number; lapses: number; lastRating: CardRating | null; lastReviewedAt: string | null;
   stage: 'NEW' | 'LEARNING' | 'KNOWN';
 }
@@ -201,7 +201,14 @@ export interface CardSummary {
 }
 export interface TopicCards { nodeId: string; title: string; paperId: string; day: string; concepts: number; cards: number; due: number }
 export interface CardImport { total: number; added: number; existing: number; notAdded: number; limit: number }
-export type ConceptType = 'DEFINITION' | 'FORMULA' | 'KEY_POINT' | 'IMPORTANT_FACT' | 'CONCEPT';
+export type ConceptType = 'DEFINITION' | 'FORMULA' | 'KEY_POINT' | 'IMPORTANT_FACT' | 'CONCEPT' | 'FIGURE' | 'COMPARISON';
+export interface DeckChapter {
+  chapterId: string; chapter: string; lessons: number; draft: boolean;
+  available: { total: number; definitions: number; formulas: number; concepts: number; figures: number; comparisons: number };
+  added: number; due: number; fresh: number; learning: number; known: number; mastery: number; startedPct: number;
+}
+export interface DeckSubject { paperId: string | null; paper: string; available: number; added: number; due: number; known: number; chapters: DeckChapter[] }
+export interface FlashcardDecks { day: string; totals: { available: number; added: number; due: number; known: number }; subjects: DeckSubject[] }
 export interface Goal { questionsPerDay: number; lessonsPerDay: number; custom: boolean }
 export type PlanKind = 'TOPIC' | 'LESSON' | 'PRACTICE' | 'MOCK' | 'CUSTOM';
 export interface PlanItem { id: string; day: string; kind: PlanKind; refId: string | null; title: string; done: boolean }
@@ -216,6 +223,15 @@ export interface Dashboard {
   bookmarks: number;
   flashcards: { total: number; due: number };
 }
+export type VisualItem =
+  | { kind: 'DIAGRAM'; lessonId: string; lesson: string; position: number; verified: boolean; mediaAssetId: string | null; caption: string; alt: string; description: string | null; learn: string | null }
+  | { kind: 'TABLE'; lessonId: string; lesson: string; position: number; verified: boolean; table: { caption: string | null; columns: string[]; rows: string[][] } };
+export interface ChapterVisuals {
+  topic: { id: string; title: string; kind: string; label: string | null; paperId: string; paper: string };
+  counts: { diagrams: number; tables: number };
+  items: VisualItem[];
+}
+
 export interface RevisionNotes {
   topic: { id: string; title: string; kind: string; label: string | null; paperId: string; paper: string };
   lessons: { resourceId: string; lesson: string; blocks: { type: string; body: string; position: number; conceptKey: string | null; anchor: string | null }[] }[];
@@ -381,6 +397,7 @@ export const api = {
   createQuestionCard: (questionId: string) => request<{ created: boolean; card: Flashcard }>('POST', '/api/student/flashcards/questions', { questionId, day: localDay() }),
   questionCardState: (ids: string[]) => request<{ questionId: string; id: string; reviewed: boolean }[]>('POST', '/api/student/flashcards/questions/state', { ids }),
   createCard: (conceptKey: string) => request<{ created: boolean; card: Flashcard }>('POST', '/api/student/flashcards', { conceptKey, day: localDay() }),
+  flashcardDecks: () => request<FlashcardDecks>('GET', `/api/student/flashcards/decks?day=${localDay()}`),
   importCards: (from: { resourceId: string } | { nodeId: string }, types?: ConceptType[]) => request<CardImport>('POST', '/api/student/flashcards/import', { ...from, ...(types ? { types } : {}), day: localDay() }),
   /** `early`: marked from a list before the card's due day. */
   reviewCard: (id: string, rating: CardRating, early = false) => request<Flashcard>('POST', `/api/student/flashcards/${id}/review`, { rating, day: localDay(), ...(early ? { early: true } : {}) }),
@@ -390,6 +407,7 @@ export const api = {
   addPlan: (b: { day: string; kind: PlanKind; refId?: string | null; title: string }) => request<{ id: string }>('POST', '/api/student/plan', b),
   updatePlan: (id: string, b: { day?: string; title?: string; done?: boolean }) => request<{ id: string }>('PATCH', `/api/student/plan/${id}`, b),
   deletePlan: (id: string) => request<{ deleted: boolean }>('DELETE', `/api/student/plan/${id}`),
+  visuals: (nodeId: string) => request<ChapterVisuals>('GET', `/api/learn/topics/${nodeId}/visuals`),
   revision: (nodeId: string) => request<RevisionNotes>('GET', `/api/learn/topics/${nodeId}/revision`),
   preferences: () => request<Preferences>('GET', '/api/student/preferences'),
   setPreferences: (b: { examCode: ExamCode | null; targetYear: number | null; paperIds: string[] }) => request<Preferences>('PUT', '/api/student/preferences', b),

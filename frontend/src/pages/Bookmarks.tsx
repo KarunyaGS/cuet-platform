@@ -145,6 +145,9 @@ export function BookmarksPage() {
         title="My bookmarks"
         subtitle="Everything you saved, in one place: revision cards from saved definitions, formulas, key points and practice questions, and your own highlights and notes."
       />
+      <p className="mb-4 text-sm">
+        <Link to="/bookmarks/decks" className="font-medium text-accent hover:underline">Ready-made chapter decks: study now</Link>
+      </p>
       <div className="mb-5">
         <Segmented
           label="What to show"

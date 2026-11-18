@@ -274,6 +274,50 @@ export async function startDailyPractice(db: D1Database, preview: boolean, userI
   return createSession(db, userId, { mode: 'PRACTICE', paperId: chosen, nodeId: null, ids: results.map((r) => r.id) });
 }
 
+// ---------------------------------------------------------------- diagrams and tables
+
+/** Every figure and table in the lessons under a chapter or topic, in lesson order, with the note that says what to learn from a figure. */
+export async function chapterVisuals(db: D1Database, preview: boolean, nodeId: string) {
+  const node = await db
+    .prepare(`SELECT n.id, n.title, n.kind, n.label, tp.id AS paper_id, tp.name AS paper FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id JOIN test_papers tp ON tp.id = v.test_paper_id WHERE n.id = ?2 AND ${VISIBLE_SYLLABUS('v')}`)
+    .bind(preview ? 1 : 0, nodeId)
+    .first<Record<string, string | null>>();
+  if (!node) throw notFound('Topic');
+  const { results } = await db
+    .prepare(
+      `WITH RECURSIVE sub(id) AS (SELECT ?2 UNION ALL SELECT n.id FROM curriculum_nodes n JOIN sub ON n.parent_id = sub.id)
+       SELECT r.id AS resource_id, r.title AS lesson, r.verification AS lesson_verification, b.position, b.type, b.body, b.media_asset_id,
+              m.alt_text, m.caption AS media_caption, m.long_description, nb.body AS note
+       FROM learning_resources r JOIN content_blocks b ON b.resource_id = r.id
+       LEFT JOIN media_assets m ON m.id = b.media_asset_id
+       LEFT JOIN content_blocks nb ON nb.resource_id = r.id AND nb.position = b.position + 1 AND nb.type = 'CALLOUT' AND nb.body LIKE 'What to learn from this figure%'
+       WHERE r.curriculum_node_id IN (SELECT id FROM sub) AND ${VISIBLE_CONTENT('r')} AND b.type IN ('DIAGRAM','TABLE')
+       ORDER BY r.title, b.position`,
+    )
+    .bind(preview ? 1 : 0, nodeId)
+    .all<Record<string, string | number | null>>();
+  const items = results.map((r) => {
+    const base = { lessonId: String(r['resource_id']), lesson: String(r['lesson']), position: Number(r['position']), verified: r['lesson_verification'] === 'VERIFIED' };
+    if (r['type'] === 'TABLE') {
+      let table: { caption: string | null; columns: string[]; rows: string[][] } | null = null;
+      try {
+        const j = JSON.parse(String(r['body'])) as { caption?: string | null; columns?: string[]; rows?: string[][] } | string[][];
+        table = Array.isArray(j) ? { caption: null, columns: j[0] ?? [], rows: j.slice(1) } : { caption: j.caption ?? null, columns: j.columns ?? [], rows: j.rows ?? [] };
+      } catch { /* a table that cannot be read is left out */ }
+      return table ? { ...base, kind: 'TABLE' as const, table } : null;
+    }
+    return {
+      ...base, kind: 'DIAGRAM' as const, mediaAssetId: (r['media_asset_id'] as string | null) ?? null, caption: String(r['media_caption'] ?? r['body'] ?? ''), alt: String(r['alt_text'] ?? ''),
+      description: (r['long_description'] as string | null) ?? null, learn: r['note'] ? String(r['note']).replace(/^What to learn from this figure:\s*/, '') : null,
+    };
+  }).filter((x): x is NonNullable<typeof x> => x !== null);
+  return {
+    topic: { id: node['id'], title: node['title'], kind: node['kind'], label: node['label'], paperId: node['paper_id'], paper: node['paper'] },
+    counts: { diagrams: items.filter((i) => i.kind === 'DIAGRAM').length, tables: items.filter((i) => i.kind === 'TABLE').length },
+    items,
+  };
+}
+
 // ---------------------------------------------------------------- revision notes
 
 /** The revision essentials of a topic and everything under it: definitions, formulas, key points, facts, exam tips. */

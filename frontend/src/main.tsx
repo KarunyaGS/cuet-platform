@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router/dom';
 import { Layout } from './Layout';
 import { AuthPage } from './pages/Auth';
 import { BookmarksPage } from './pages/Bookmarks';
+import { DecksPage } from './pages/Decks';
 import { VisualPage } from './pages/Visual';
 import { FlashcardReviewPage, OldFlashcardsLink } from './pages/Flashcards';
 import { UpdatesPage } from './pages/Updates';
@@ -19,6 +20,7 @@ import { PlannerPage } from './pages/Planner';
 import { PlansPage } from './pages/Plans';
 import { ExamInstructionsPage } from './pages/ExamInstructions';
 import { PracticePage } from './pages/Practice';
+import { VisualsPage } from './pages/Visuals';
 import { PracticeCentrePage } from './pages/PracticeCentre';
 import { MockTopicPage } from './pages/MockTopic';
 import { FullMockPage } from './pages/FullMock';
@@ -116,6 +118,7 @@ const router = createBrowserRouter([
       { path: '/admissions/programmes/:id', element: lazyPage(<ProgrammePage />) },
       { path: '/pyq', element: <PyqPage /> },
       { path: '/pyq/view/:id', element: <PyqViewerPage /> },
+      { path: '/bookmarks/decks', element: <DecksPage /> },
       { path: '/bookmarks/review', element: <FlashcardReviewPage /> },
       // Old addresses: flashcards are part of My bookmarks now.
       { path: '/flashcards', element: <OldFlashcardsLink to="/bookmarks" /> },
@@ -132,6 +135,7 @@ const router = createBrowserRouter([
       { path: '/past-papers', element: <PastPapersPage /> },
       { path: '/past-papers/:id', element: <PastPaperPage /> },
       { path: '/revise/:nodeId', element: <RevisePage /> },
+      { path: '/visuals/:nodeId', element: <VisualsPage /> },
       {
         path: '/review',
         element: lazyPage(<ReviewLayout />),
