@@ -33,6 +33,7 @@ import { chatMessageSchema, createTicket, getChat, listTickets, replySchema, rep
 import { examActive, keeper, paperInScope, scienceOnly, UG_SCIENCE_PAPER_CODES } from '../lib/scope';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { flashcardDecks } from '../services/decks';
+import { chapterSheet, subjectSheet, weakSheet } from '../services/sheets';
 import { answerSchema, getSession, marksSchema, progress, questionCounts, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 
 const preview = (env: AppEnv['Bindings']) => env.CONTENT_PREVIEW === 'true';
@@ -202,6 +203,12 @@ learn.get('/question-counts', async (c) =>
   c.json(await questionCounts(c.env.DB, preview(c.env), { paperId: c.req.query('paperId') || undefined, nodeIds: (c.req.query('nodeIds') ?? '').split(',').map((x) => x.trim()).filter(Boolean).slice(0, 30), difficulty: (c.req.query('difficulty') ?? '').split(',').filter(Boolean), types: (c.req.query('types') ?? '').split(',').filter(Boolean) })),
 );
 learn.get('/topics/:nodeId/visuals', async (c) => c.json(await chapterVisuals(c.env.DB, preview(c.env), c.req.param('nodeId'))));
+learn.get('/topics/:nodeId/sheet', async (c) => c.json(await chapterSheet(c.env.DB, preview(c.env), c.req.param('nodeId'))));
+learn.get('/subjects/:paperId/last-day-sheet', async (c) => {
+  const out = await paperOutline(c.env.DB, preview(c.env), c.req.param('paperId'));
+  if (!paperInScope(c.env, String(out.paper.exam), String(out.paper.code))) throw notFound('Subject');
+  return c.json(await subjectSheet(c.env.DB, preview(c.env), c.req.param('paperId')));
+});
 learn.get('/topics/:nodeId/revision', async (c) => c.json(await revisionNotes(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 
 export const student = new Hono<AppEnv>();
@@ -305,6 +312,7 @@ student.delete('/annotations/:id', async (c) => c.json(await deleteOne(c.env.DB,
 const cardFilters = (c: { req: { query(name: string): string | undefined } }) =>
   cardQuery.parse(Object.fromEntries(['day', 'paperId', 'chapterId', 'nodeId', 'resourceId', 'due', 'limit'].map((k) => [k, c.req.query(k) || undefined])));
 student.get('/flashcards', async (c) => c.json(await listCards(c.env.DB, preview(c.env), c.get('user').id, cardFilters(c))));
+student.get('/sheets/weak', async (c) => c.json(await weakSheet(c.env.DB, preview(c.env), c.get('user').id, c.req.query('paperId') || undefined)));
 student.get('/flashcards/decks', async (c) => c.json(await flashcardDecks(c.env.DB, preview(c.env), c.get('user').id, assertDay(cardFilters(c).day), cardFilters(c).paperId)));
 student.get('/flashcards/summary', async (c) => c.json(await cardSummary(c.env.DB, preview(c.env), c.get('user').id, assertDay(cardFilters(c).day))));
 student.get('/flashcards/topic/:nodeId', async (c) => c.json(await topicCards(c.env.DB, preview(c.env), c.get('user').id, c.req.param('nodeId'), assertDay(cardFilters(c).day))));

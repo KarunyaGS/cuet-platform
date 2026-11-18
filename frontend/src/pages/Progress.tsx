@@ -34,6 +34,11 @@ export function ProgressPage() {
       <div className="grid-cols-1 mb-7 grid gap-x-8 gap-y-7 lg:grid-cols-2">
         <section aria-labelledby="weak">
           <SectionTitle id="weak">Weak topics to revise</SectionTitle>
+          {d.weakTopics.length > 0 && (
+            <p className="mb-2 text-sm">
+              <Link to="/sheets/weak" className="font-medium text-accent hover:underline">Make a revision sheet from these topics</Link>
+            </p>
+          )}
           {d.weakTopics.length === 0 ? (
             <Empty icon={<CircleCheck />}>No weak topics yet. A topic appears here when your accuracy is under 60% after at least 3 attempts.</Empty>
           ) : (

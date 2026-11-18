@@ -63,7 +63,7 @@ try {
       }
       if (c.type === 'COMPARISON') {
         const vals = c.back.split('\n').map((x) => x.replace(/^- \*\*[^*]+:\*\* /, ''));
-        if (new Set(vals.map((v) => normaliseText(v))).size < vals.length) add('COMPARISON_SAME_VALUES', l, subject, c);
+        if (new Set(vals.map((v) => normaliseText(v))).size === 1 && vals.length > 1) add('COMPARISON_SAME_VALUES', l, subject, c);
         if (vals.some((v) => v.length < 2)) add('COMPARISON_EMPTY_VALUE', l, subject, c);
       }
       const fk = `${chapter}|${normaliseText(c.front)}`;

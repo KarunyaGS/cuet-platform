@@ -6,6 +6,7 @@ import { Layout } from './Layout';
 import { AuthPage } from './pages/Auth';
 import { BookmarksPage } from './pages/Bookmarks';
 import { DecksPage } from './pages/Decks';
+import { SheetPage } from './pages/Sheet';
 import { VisualPage } from './pages/Visual';
 import { FlashcardReviewPage, OldFlashcardsLink } from './pages/Flashcards';
 import { UpdatesPage } from './pages/Updates';
@@ -119,6 +120,9 @@ const router = createBrowserRouter([
       { path: '/pyq', element: <PyqPage /> },
       { path: '/pyq/view/:id', element: <PyqViewerPage /> },
       { path: '/bookmarks/decks', element: <DecksPage /> },
+      { path: '/sheets/chapter/:nodeId', element: <SheetPage mode="chapter" /> },
+      { path: '/sheets/subject/:paperId', element: <SheetPage mode="subject" /> },
+      { path: '/sheets/weak', element: <SheetPage mode="weak" /> },
       { path: '/bookmarks/review', element: <FlashcardReviewPage /> },
       // Old addresses: flashcards are part of My bookmarks now.
       { path: '/flashcards', element: <OldFlashcardsLink to="/bookmarks" /> },

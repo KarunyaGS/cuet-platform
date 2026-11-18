@@ -83,6 +83,10 @@ export function SubjectSyllabusPage() {
         }
       />
       {err && <ErrorBox error={err} />}
+      <p data-sheet-links className="mb-4 flex flex-wrap gap-x-5 gap-y-1 text-sm font-medium">
+        <Link to={`/sheets/subject/${paperId}`} className="text-accent hover:underline">Last-day revision sheet (3 pages)</Link>
+        <Link to={`/sheets/weak?paperId=${paperId}`} className="text-accent hover:underline">My weak-topic sheet</Link>
+      </p>
       <AreaCards exam={exam} paperId={paperId} />
       <SubjectCards paperId={paperId} />
       {p.name === 'Physics' && (
@@ -176,6 +180,10 @@ export function SubjectSyllabusPage() {
                   <Link to={`/revise/${active.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-medium text-ink-2 hover:bg-ink/5 hover:text-ink">
                     <ListChecks aria-hidden className="size-4" />
                     Revise
+                  </Link>
+                  <Link to={`/sheets/chapter/${active.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-medium text-ink-2 hover:bg-ink/5 hover:text-ink">
+                    <ListChecks aria-hidden className="size-4" />
+                    Sheet
                   </Link>
                   <Link to={`/visuals/${active.id}`} className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-medium text-ink-2 hover:bg-ink/5 hover:text-ink">
                     <Shapes aria-hidden className="size-4" />

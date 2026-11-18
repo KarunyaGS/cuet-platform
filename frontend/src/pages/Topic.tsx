@@ -186,11 +186,18 @@ export function TopicPage() {
             </Link>
           )}
           {(d.resources.length > 0 || d.children.length > 0) && (
+            <>
+            <Link to={`/sheets/chapter/${d.topic.id}`} className="group flex items-center gap-2 rounded-lg bg-ink/[0.035] px-3 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-ink/[0.07]">
+              <ListChecks aria-hidden className="size-4 shrink-0 text-accent" />
+              <span className="min-w-0 flex-1 truncate group-hover:text-accent">One-page revision sheet</span>
+              <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />
+            </Link>
             <Link to={`/visuals/${d.topic.id}`} className="group flex items-center gap-2 rounded-lg bg-ink/[0.035] px-3 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-ink/[0.07]">
               <Shapes aria-hidden className="size-4 shrink-0 text-accent" />
               <span className="min-w-0 flex-1 truncate group-hover:text-accent">Diagrams and tables</span>
               <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-3" />
             </Link>
+            </>
           )}
         </aside>
       </div>

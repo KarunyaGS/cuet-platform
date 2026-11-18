@@ -132,4 +132,16 @@ h3 {
   main { padding: 0 !important; max-width: none !important; }
   [data-print-sheet] figure, [data-print-sheet] table, [data-print-sheet] section { break-inside: avoid; }
   [data-print-sheet] img { max-height: 11cm; }
+  /* Quick revision sheets: small print so a chapter fits one page and a subject three. */
+  [data-sheet] { font-size: 10px; line-height: 1.25; max-width: none !important; }
+  [data-sheet] h1 { font-size: 16px; }
+  [data-sheet] h2 { font-size: 12px; margin-bottom: 3px; }
+  [data-sheet] [data-sheet-notes] { column-count: 2; column-gap: 14px; font-size: 10px; }
+  [data-sheet] [data-sheet-notes] * { font-size: inherit; line-height: inherit; margin-top: 0; margin-bottom: 1px; }
+  [data-sheet] figure img { max-height: 3.6cm !important; }
+  [data-sheet] figcaption { font-size: 8.5px; }
+  [data-sheet] table { font-size: 9px; }
+  [data-sheet] [data-sheet-section] { margin-bottom: 6px; break-inside: auto; }
+  [data-sheet] .grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 6px !important; }
+  @page { margin: 10mm; }
 }

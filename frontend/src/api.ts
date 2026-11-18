@@ -202,6 +202,12 @@ export interface CardSummary {
 export interface TopicCards { nodeId: string; title: string; paperId: string; day: string; concepts: number; cards: number; due: number }
 export interface CardImport { total: number; added: number; existing: number; notAdded: number; limit: number }
 export type ConceptType = 'DEFINITION' | 'FORMULA' | 'KEY_POINT' | 'IMPORTANT_FACT' | 'CONCEPT' | 'FIGURE' | 'COMPARISON';
+export interface SheetSection {
+  id: string; title: string; practice: { attempted: number; correct: number; accuracy: number } | null;
+  definitions: { type: string; body: string }[]; formulas: { type: string; body: string }[]; points: { type: string; body: string }[];
+  figures: { mediaAssetId: string; caption: string; alt: string; learn: string | null }[]; tables: { caption: string; columns: string[]; rows: string[][] }[];
+}
+export interface Sheet { kind: 'CHAPTER' | 'SUBJECT' | 'WEAK'; title: string; paper: string | null; paperId: string | null; draft: boolean; lessons: number; version: string; maxPages: number; sections: SheetSection[]; empty: string | null }
 export interface DeckChapter {
   chapterId: string; chapter: string; lessons: number; draft: boolean;
   available: { total: number; definitions: number; formulas: number; concepts: number; figures: number; comparisons: number };
@@ -397,6 +403,9 @@ export const api = {
   createQuestionCard: (questionId: string) => request<{ created: boolean; card: Flashcard }>('POST', '/api/student/flashcards/questions', { questionId, day: localDay() }),
   questionCardState: (ids: string[]) => request<{ questionId: string; id: string; reviewed: boolean }[]>('POST', '/api/student/flashcards/questions/state', { ids }),
   createCard: (conceptKey: string) => request<{ created: boolean; card: Flashcard }>('POST', '/api/student/flashcards', { conceptKey, day: localDay() }),
+  chapterSheet: (nodeId: string) => request<Sheet>('GET', `/api/learn/topics/${nodeId}/sheet`),
+  subjectSheet: (paperId: string) => request<Sheet>('GET', `/api/learn/subjects/${paperId}/last-day-sheet`),
+  weakSheet: (paperId?: string) => request<Sheet>('GET', `/api/student/sheets/weak${paperId ? `?paperId=${paperId}` : ''}`),
   flashcardDecks: () => request<FlashcardDecks>('GET', `/api/student/flashcards/decks?day=${localDay()}`),
   importCards: (from: { resourceId: string } | { nodeId: string }, types?: ConceptType[]) => request<CardImport>('POST', '/api/student/flashcards/import', { ...from, ...(types ? { types } : {}), day: localDay() }),
   /** `early`: marked from a list before the card's due day. */
