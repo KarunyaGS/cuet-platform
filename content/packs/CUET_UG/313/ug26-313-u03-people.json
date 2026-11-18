@@ -65,6 +65,14 @@
     "text": "The units are persons per square kilometre. Physiological density replaces the denominator with net cultivated area; agricultural density replaces the numerator with the agricultural population as well."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "three-densities"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The three densities differ only in what is counted on top and what area is used underneath. Arithmetic density uses all people over total area. Physiological density keeps all people but divides by the cultivated area, so it shows the pressure on farmland. Agricultural density counts only farmers over the cultivated area."
+   },
+   {
     "type": "TEXT",
     "text": "**Factors affecting distribution and density** can be grouped into three sets.\n\n1. **Geographical factors**: availability of water (rivers and plains with fresh water attract people), landforms (plains are favoured over steep mountains), climate (extreme heat or cold repel people) and soils (fertile soils support agriculture and dense settlement).\n2. **Economic factors**: minerals (mining areas attract workers), urbanisation (cities offer jobs, services and amenities) and industrialisation (factories draw large populations).\n3. **Social, cultural and political factors**: religious or cultural centres attract people, while war, insecurity and unfavourable government policies drive them away; some governments provide incentives for settling in certain regions."
    },
@@ -93,12 +101,71 @@
     "text": "$B$ births, $D$ deaths, $I$ in-migrants, $E$ out-migrants for the same area and period. The change is *positive* when births plus in-migrants exceed deaths plus out-migrants, and *negative* otherwise."
    },
    {
+    "type": "TABLE",
+    "caption": "Natural growth and actual growth",
+    "columns": [
+     "Measure",
+     "Formula",
+     "Is migration included?"
+    ],
+    "rows": [
+     [
+      "Natural growth",
+      "Births - deaths (B - D)",
+      "No"
+     ],
+     [
+      "Actual growth",
+      "(B - D) + (I - E)",
+      "Yes: in-migrants are added and out-migrants subtracted"
+     ]
+    ]
+   },
+   {
     "type": "TEXT",
     "text": "Growth is not even in time or space. The world's population grew very slowly for most of history. It began to rise sharply after the industrial revolution and especially in the twentieth century, when improved food supply, hygiene and medicines reduced death rates. Today the growth rate is high in many countries of Africa, Asia and Latin America and low in many countries of Europe, where in some of them the population is stable or falling."
    },
    {
     "type": "TEXT",
     "text": "The **demographic transition theory** describes the changes a country passes through as it develops:\n\n1. **Stage 1**: high birth rates and high death rates, so growth is low. People are mostly agricultural; epidemics and famines keep numbers in check.\n2. **Stage 2**: death rates fall because of better health and food, but birth rates stay high. The population grows rapidly (the early expanding stage).\n3. **Stage 3**: birth rates also fall, because of urbanisation, education and family planning, and both rates are low. Growth is slow or the population is stable."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "demographic-transition"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Follow the two lines. The death rate falls first (stage 2), which opens the gap and gives rapid growth. The birth rate falls later (stage 3), which closes the gap again. Growth is therefore low in stage 1, high in stage 2 and slow or stable in stage 3."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Stages of the demographic transition",
+    "columns": [
+     "Stage",
+     "Birth rate",
+     "Death rate",
+     "Population growth"
+    ],
+    "rows": [
+     [
+      "Stage 1",
+      "High",
+      "High (epidemics and famines keep numbers in check)",
+      "Low"
+     ],
+     [
+      "Stage 2",
+      "Stays high",
+      "Falls, because of better health and food",
+      "Rapid (early expanding stage)"
+     ],
+     [
+      "Stage 3",
+      "Falls, because of urbanisation, education and family planning",
+      "Low",
+      "Slow or stable"
+     ]
+    ]
    },
    {
     "type": "SOLVED_PROBLEM",
@@ -128,6 +195,14 @@
     "text": "An **age-sex pyramid** shows the age and sex structure by horizontal bars, with males on one side and females on the other and age groups stacked from the youngest at the bottom. Its shape tells the story of a population. An *expanding* pyramid has a very broad base (many children) and narrows quickly to the top, as in Nigeria (as per NCERT). A *constant* pyramid, as in Australia, has a nearly equal width at most ages. A *declining* pyramid has a narrow base and a wide middle, as in Japan, showing a falling birth rate and an ageing population."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "age-sex-pyramids"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Read the shape from the base. A very wide base means many children and a high birth rate (expanding). Nearly equal widths mean a steady population (constant). A narrow base with a wide middle means fewer births and an ageing population (declining)."
+   },
+   {
     "type": "CALLOUT",
     "text": "Do not mix up natural growth (births minus deaths) with actual growth (which includes migration). Also remember that the sex ratio in the census is females per 1,000 males, not males per 1,000 females."
    },
@@ -153,6 +228,14 @@
     "text": "The **Human Development Index (HDI)** ranks countries on three key indicators, with a value between 0 and 1 (higher is better):\n\n- **Health**: life expectancy at birth.\n- **Knowledge (education)**: years of schooling (or literacy and enrolment in earlier measures).\n- **Resources (standard of living)**: income per person (gross national income per capita, adjusted for purchasing power).\n\nEach dimension is turned into an index between 0 and 1 and the three are combined."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "hdi-components"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The HDI is built from three indicators, health, knowledge and resources, and each is first turned into an index between 0 and 1 using fixed minimum and maximum values. So income is only one third of the picture; a country with high income can still score lower if its health or education is weak."
+   },
+   {
     "type": "FORMULA",
     "latex": "\\text{Dimension index}=\\frac{\\text{actual value}-\\text{minimum value}}{\\text{maximum value}-\\text{minimum value}}",
     "text": "The minimum and maximum values (goalposts) are fixed by UNDP for each indicator. The three dimension indices are then combined to get the HDI."
@@ -173,7 +256,36 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "three-densities",
+   "file": "diagrams/ug26-313-u03-people-world-three-densities.svg",
+   "alt": "A rectangle for the total area with a green inner rectangle for net cultivated area, blue and red dots for people and farmers, and three rows giving the numerator and denominator of arithmetic, physiological and agricultural density",
+   "caption": "Arithmetic, physiological and agricultural density: same people and land, different denominators",
+   "description": "A large grey rectangle represents the total area of a region. Inside it a green rectangle represents the net cultivated or net sown area. Twenty-four dots represent people: twelve red dots are people who depend on farming and twelve blue dots are people in other occupations, spread both inside and outside the green rectangle. A legend explains the dots and rectangles. Three rows follow. Arithmetic density equals all people divided by total area. Physiological density equals all people divided by net cultivated area. Agricultural density equals farmers, the red dots, divided by net sown area. The dots are illustrative and not to scale."
+  },
+  {
+   "key": "demographic-transition",
+   "file": "diagrams/ug26-313-u03-people-world-demographic-transition.svg",
+   "alt": "Schematic graph of birth and death rates across the three stages of the demographic transition, with the gap shaded as natural increase and widest in stage 2",
+   "caption": "The three stages of the demographic transition (schematic)",
+   "description": "A schematic graph with time on the horizontal axis, divided into Stage 1, Stage 2 and Stage 3 by dashed lines, and birth and death rates on the vertical axis with no values. In Stage 1, labelled low growth, both rates are high and the death rate rises and falls, so the gap is thin. In Stage 2, labelled rapid growth, the death rate falls while the birth rate stays high, so the shaded gap labelled natural increase becomes wide. In Stage 3, labelled slow or stable, the birth rate also falls towards the low death rate and the gap closes. A note says the figure shows the shape of change, not data for any country."
+  },
+  {
+   "key": "age-sex-pyramids",
+   "file": "diagrams/ug26-313-u03-people-world-age-sex-pyramids.svg",
+   "alt": "Three schematic age-sex pyramids side by side: expanding with a very broad base, constant with nearly equal width at most ages, and declining with a narrow base and wide middle",
+   "caption": "Expanding, constant and declining age-sex pyramids (schematic)",
+   "description": "Three pyramids are drawn from stacked horizontal bars with males in blue on the left of a centre line and females in amber on the right, and age increasing upwards along an arrow on the left. The expanding pyramid, with the example of Nigeria, has a very broad base that narrows quickly to a small top, meaning many children. The constant pyramid, with the example of Australia, has nearly equal width at most ages and narrows only at the top. The declining pyramid, with the example of Japan, has a narrow base, a wide middle and a narrow top, showing falling births and an ageing population. A note says these are schematic shapes, not data, and that the country examples are those named in the lesson as per NCERT."
+  },
+  {
+   "key": "hdi-components",
+   "file": "diagrams/ug26-313-u03-people-world-hdi-components.svg",
+   "alt": "Three boxes for health (life expectancy at birth), knowledge (years of schooling) and resources (income per person), each turned into an index from 0 to 1 and combined into the Human Development Index",
+   "caption": "How the Human Development Index is built from three dimensions",
+   "description": "Three boxes sit in a row. Health: life expectancy at birth. Knowledge: years of schooling (education). Resources: income per person, standard of living, gross national income per capita adjusted for purchasing power. An arrow from each box leads to a smaller box reading index 0 to 1, and arrows from the three index boxes converge on a box reading Human Development Index, a value between 0 and 1 where higher is better. Beneath it the rule is written: each index equals actual value minus minimum, divided by maximum minus minimum, and UNDP fixes the minimum and maximum values, called goalposts."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-313-u03-people-q01",

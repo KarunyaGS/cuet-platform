@@ -91,6 +91,14 @@
         "answer": "Maximum $Z = 235/19$ at $(20/19,\\,45/19)$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "lp-bounded-maximum"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The feasible region is the green polygon, and Z is evaluated only at its corner points O, P, Q and R. Slide the dashed Z-line in the direction in which Z grows: the last point of the region it touches is the optimum, here the corner Q where the two boundary lines meet."
+      },
+      {
         "type": "CALLOUT",
         "text": "Always check the inequality sign when shading. For $\\ge$ constraints (such as a minimum diet requirement) the feasible side usually lies away from the origin. Many wrong answers come from shading the origin side by habit."
       },
@@ -177,16 +185,40 @@
         "answer": "Minimum $Z = 15$ at $(0,5)$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "lp-greater-than-shading"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: For a $\\ge$ constraint the origin often fails the test ($0\\ge10$ is false), so the feasible side lies away from the origin. Here the constraints enclose a small bounded triangle, and the smallest value of $Z$ among its corners, $15$ at $(0,5)$, is the minimum."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Minimise $Z = 2x + 3y$ subject to $x + 2y \\ge 8,\\; 3x + y \\ge 9,\\; x \\ge 0,\\; y \\ge 0$. Is there a maximum?",
         "solution": "The region lies above both lines, so it is unbounded. The lines meet at $(2,3)$ because $x = 8-2y$ gives $24 - 6y + y = 9$, so $y=3$, $x=2$. Corner points: $(0,9)$, $(2,3)$, $(8,0)$. Values of $Z$: $27$, $13$, $16$. The smallest is $M = 13$. Because the region is unbounded we must test the open half-plane $2x + 3y < 13$. Write $2x+3y = \\tfrac{7}{5}(x+2y) + \\tfrac{1}{5}(3x+y)$. On the region, $x+2y \\ge 8$ and $3x+y \\ge 9$, so $2x+3y \\ge \\tfrac{56}{5} + \\tfrac{9}{5} = 13$. Hence no feasible point lies in $2x+3y<13$, and $13$ is the minimum. For a maximum, $Z$ grows without limit along the unbounded direction, so no maximum exists.",
         "answer": "Minimum $Z = 13$ at $(2,3)$; there is no maximum."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "lp-unbounded-minimum"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: When the region has no upper limit, the smallest corner value (13 at Q) is a minimum only if the open half-plane $2x+3y<13$ has no point in common with the region. Here the amber half-plane misses it, so 13 is the minimum. For a maximum the test fails, because $Z$ keeps growing as you move outwards."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Maximise $Z = 2x + 4y$ subject to $x + 2y \\le 10,\\; x \\ge 0,\\; y \\ge 0$.",
         "solution": "The feasible region is the triangle with corner points $(0,0)$, $(10,0)$ and $(0,5)$. Values of $Z$: $0$, $20$ and $20$. Two corner points give the same maximum because the objective line $2x+4y=20$ is parallel to the constraint line $x+2y=10$ (it is exactly twice that line). Every point of the segment joining $(10,0)$ and $(0,5)$ also gives $Z = 20$.",
         "answer": "Maximum $Z = 20$, attained at infinitely many points (the whole segment from $(10,0)$ to $(0,5)$)."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "lp-special-cases"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: These are the two outcomes in the lesson that have no single answer. If the half-planes do not overlap, there is no feasible region and no solution. If the $Z$-line is parallel to a boundary line, as in $Z=2x+4y$ against $x+2y=10$, every point of that edge is optimal, so there are infinitely many solutions."
       },
       {
         "type": "TABLE",
@@ -228,7 +260,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "lp-bounded-maximum",
+      "file": "diagrams/ug26-319-r10-lp-bounded-maximum.svg",
+      "alt": "Graph of the feasible quadrilateral O(0,0), P(2,0), Q(20/19, 45/19) and R(0,3) for 3x + 5y <= 15 and 5x + 2y <= 10, with dashed lines Z = 6 and Z = 235/19 and a table of Z at the corners",
+      "caption": "Graphical method: feasible region, corner points and the objective line sliding out to the optimum",
+      "description": "A graph in the first quadrant. The line 3x + 5y = 15 (blue) runs from (0, 3) to (5, 0) and the line 5x + 2y = 10 (amber) from (0, 5) to (2, 0). The feasible region, shaded green, is the quadrilateral with corners O (0, 0), P (2, 0), Q (20/19, 45/19) and R (0, 3). A grey dashed line Z = 5x + 3y = 6 crosses the region. A red dashed line Z = 235/19 touches the region only at Q. A red arrow shows the direction in which Z grows. A table gives Z at the corners: 0 at O, 10 at P, 235/19 (about 12.37) at Q, which is the maximum, and 9 at R."
+    },
+    {
+      "key": "lp-greater-than-shading",
+      "file": "diagrams/ug26-319-r10-lp-greater-than-shading.svg",
+      "alt": "Graph of the triangle with corners P(0,5), Q(0,6) and R(4,3) bounded by x + 2y >= 10 and 3x + 4y <= 24, with the origin marked and a note that 0 >= 10 is false, plus a table of Z = 4x + 3y at the corners",
+      "caption": "Shading a \"greater than or equal\" constraint: the test point (0, 0) fails, so the feasible side is away from the origin",
+      "description": "A graph in the first quadrant with the line x + 2y = 10 (blue, from (0, 5) to (10, 0)) and the line 3x + 4y = 24 (amber, from (0, 6) to (8, 0)). The feasible region, shaded green, is a thin triangle with corners P (0, 5), Q (0, 6) and R (4, 3), above the blue line and below the amber line. The origin is marked in red with a note: testing (0, 0) in x + 2y >= 10 gives 0 >= 10, which is false, so the feasible side is away from the origin. A table gives Z = 4x + 3y: 15 at P (minimum), 18 at Q and 25 at R."
+    },
+    {
+      "key": "lp-unbounded-minimum",
+      "file": "diagrams/ug26-319-r10-lp-unbounded-minimum.svg",
+      "alt": "Graph of an unbounded feasible region above x + 2y = 8 and 3x + y = 9 with corners P(0,9), Q(2,3) and R(8,0); the dashed line 2x + 3y = 13 passes through Q and the amber half-plane 2x + 3y < 13 does not meet the region",
+      "caption": "Unbounded region: the open half-plane test for a minimum",
+      "description": "A graph of x and y from 0 to 10. The line x + 2y = 8 (blue) runs from (0, 4) to (8, 0) and the line 3x + y = 9 (purple) from (0, 9) to (3, 0). The feasible region, shaded green, lies above both lines and continues without limit upwards and to the right, shown by two green arrows. Its corners are P (0, 9), Q (2, 3) and R (8, 0). A red dashed line 2x + 3y = 13 passes through Q. The amber triangle below it is the open half-plane 2x + 3y < 13, labelled as containing no feasible point. A table gives Z = 2x + 3y: 27 at P, 13 at Q (minimum) and 16 at R."
+    },
+    {
+      "key": "lp-special-cases",
+      "file": "diagrams/ug26-319-r10-lp-special-cases.svg",
+      "alt": "Two panels: (a) the half-planes x + y <= 3 and x + y >= 7 do not overlap so no point is feasible; (b) the triangle with corners (0,0), (10,0), (0,5) where Z = 2x + 4y equals 20 along the whole edge from (10,0) to (0,5)",
+      "caption": "Two special outcomes: an empty feasible region and infinitely many optimal solutions",
+      "description": "Panel (a): a graph with the shaded half-plane x + y <= 3 (blue, a small triangle near the origin) and the shaded half-plane x + y >= 7 (red, the large region at upper right). The two shaded parts are separated by a white band and do not meet, so there is no feasible point. Panel (b): the triangle with corners (0, 0), (10, 0) and (0, 5) for x + 2y <= 10, x >= 0, y >= 0. The edge from (10, 0) to (0, 5), drawn thick red, is parallel to the lines Z = 2x + 4y = const and has Z = 20 at every point, so every point of that edge is a maximum."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r10-linear-programming-q01",

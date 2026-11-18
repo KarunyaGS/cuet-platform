@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 330" font-family="Arial, Helvetica, sans-serif">
+<text x="340" y="26" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">Chain rule: the derivative of a chain is the product of its links</text>
+<rect x="30" y="60" width="160" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+<text x="110" y="95" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">x</text>
+<rect x="260" y="60" width="160" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+<text x="340" y="95" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">u = x²</text>
+<rect x="490" y="60" width="160" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+<text x="570" y="95" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">y = sin u</text>
+<line x1="190" y1="88" x2="250.8" y2="88" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
+<polygon points="258,88 249,84.22 249,91.78" fill="#1f2937"/>
+<line x1="420" y1="88" x2="480.8" y2="88" stroke="#1f2937" stroke-width="2" stroke-linecap="round"/>
+<polygon points="488,88 479,84.22 479,91.78" fill="#1f2937"/>
+<text x="224" y="76" font-size="14" fill="#6b7280" text-anchor="middle">inner g</text>
+<text x="454" y="76" font-size="14" fill="#6b7280" text-anchor="middle">outer f</text>
+<text x="110" y="140" font-size="14" fill="#6b7280" text-anchor="middle">at x = 1</text>
+<text x="340" y="140" font-size="14" fill="#6b7280" text-anchor="middle">u = 1</text>
+<text x="570" y="140" font-size="14" fill="#6b7280" text-anchor="middle">y = sin 1 ≈ 0.841</text>
+<rect x="185" y="170" width="155" height="52" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="262.5" y="193" font-size="15" fill="#d97706" text-anchor="middle" font-weight="bold">du/dx = 2x</text>
+<text x="262.5" y="212" font-size="14" fill="#d97706" text-anchor="middle">= 2</text>
+<rect x="430" y="170" width="170" height="52" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<text x="515" y="193" font-size="15" fill="#d97706" text-anchor="middle" font-weight="bold">dy/du = cos u</text>
+<text x="515" y="212" font-size="14" fill="#d97706" text-anchor="middle">= cos 1 ≈ 0.5403</text>
+<text x="385" y="204" font-size="24" fill="#1f2937" text-anchor="middle" font-weight="bold">×</text>
+<rect x="110" y="252" width="460" height="56" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+<text x="340" y="276" font-size="15" fill="#059669" text-anchor="middle" font-weight="bold">dy/dx = dy/du × du/dx = 0.5403 × 2</text>
+<text x="340" y="297" font-size="14" fill="#059669" text-anchor="middle">≈ 1.0806   (for y = sin x², at x = 1)</text>
+</svg>

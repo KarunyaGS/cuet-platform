@@ -230,6 +230,14 @@
         "text": "If $F$ is an antiderivative of a continuous function $f$ on $[a,b]$, then $\\displaystyle\\int_a^b f(x)\\,dx = F(b)-F(a)$. The numbers $a$ and $b$ are the lower and upper limits. This is the **second fundamental theorem of calculus**. It is also the limit of the sum of areas of thin rectangles, so the value is the signed area between the curve and the $x$-axis."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "riemann-sums"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the area is trapped between the lower and upper rectangle sums, and thinner rectangles squeeze the gap until both equal the integral, here 7/3. This is why the definite integral is described as the limit of a sum of areas of thin rectangles."
+      },
+      {
         "type": "FORMULA",
         "latex": "\\int_a^b f(x)\\,dx = \\Big[F(x)\\Big]_a^b = F(b)-F(a)",
         "text": "$F'(x)=f(x)$ on $[a,b]$. The constant $C$ cancels and is not written. When you use substitution in a definite integral, either change the limits to the new variable or convert back before applying the old limits."
@@ -273,6 +281,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "odd-even-symmetric"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: an odd function is balanced about the origin, so the positive and negative parts cancel and the integral over [-a, a] is 0. An even function is mirror-symmetric, so you can double the integral from 0 to a."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Evaluate $\\displaystyle\\int_0^{\\pi/2}\\dfrac{\\sin x}{\\sin x+\\cos x}\\,dx$.",
         "solution": "Let $I=\\int_0^{\\pi/2}\\dfrac{\\sin x}{\\sin x+\\cos x}dx$. By P5, replace $x$ by $\\dfrac\\pi2-x$:\n\n$I=\\int_0^{\\pi/2}\\dfrac{\\cos x}{\\cos x+\\sin x}dx$.\n\nAdd the two forms: $2I=\\int_0^{\\pi/2}\\dfrac{\\sin x+\\cos x}{\\sin x+\\cos x}dx=\\int_0^{\\pi/2}1\\,dx=\\dfrac\\pi2$.\n\nHence $I=\\dfrac\\pi4$.",
@@ -302,6 +318,14 @@
         "text": "Split the interval at the points where the curve crosses the $x$-axis and add the absolute values of the pieces. Example: the area of $y=\\sin x$ over $[0,2\\pi]$ is $2+2=4$, although $\\int_0^{2\\pi}\\sin x\\,dx=0$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "area-sine-two-parts"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: an integral counts area below the axis as negative, so the two arches cancel to 0. For a real area, split the interval where the curve crosses the axis and add the absolute values of the pieces: 2 + 2 = 4."
+      },
+      {
         "type": "TEXT",
         "text": "For area measured against the $y$-axis (curve $x=g(y)$ between $y=c$ and $y=d$), use $A=\\int_c^d x\\,dy$. A rough sketch of the curve always helps: it shows which side of the axis the region lies on and where the curve cuts the axis."
       },
@@ -310,6 +334,14 @@
         "problem": "Find the area bounded by $y=4x-x^2$ and the $x$-axis.",
         "solution": "The curve cuts the $x$-axis where $4x-x^2=0$, that is $x=0$ and $x=4$. For $0<x<4$, $y>0$, so the region is above the axis.\n\n$A=\\int_0^4(4x-x^2)\\,dx=\\left[2x^2-\\dfrac{x^3}{3}\\right]_0^4=32-\\dfrac{64}{3}=\\dfrac{32}{3}$ square units.",
         "answer": "$\\dfrac{32}{3}$ square units"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "area-parabola-axis"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: first find where the curve cuts the x-axis, since those points become the limits (0 and 4). The curve lies above the axis between them, so the integral is already positive and equals the area, 32/3."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -331,7 +363,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "riemann-sums",
+      "file": "diagrams/ug26-319-r05-integration-applications-riemann-sums.svg",
+      "alt": "Two graphs of y = x squared from x = 1 to 2 with four rectangles under the curve (lower sum 1.969) and four rectangles above it (upper sum 2.719), and a table showing the sums closing in on 7/3",
+      "caption": "Area as the limit of rectangle sums for y = x squared on [1, 2]",
+      "description": "Left: four equal-width rectangles drawn with their top-left corner on the curve y = x squared lie below the curve, total area 1.969. Right: four rectangles with the top-right corner on the curve lie above the curve, total 2.719. A table gives the lower and upper sums for 4, 16, 100 and 1000 rectangles, which close in on the exact value 7/3 = 2.3333."
+    },
+    {
+      "key": "odd-even-symmetric",
+      "file": "diagrams/ug26-319-r05-integration-applications-odd-even-symmetric.svg",
+      "alt": "Two graphs over -2 to 2: y = x cubed with equal and opposite shaded areas that cancel, and y = x squared with two equal shaded areas that add",
+      "caption": "Odd and even functions over symmetric limits",
+      "description": "Left: the odd function y = x cubed from -2 to 2 has an area of +4 above the axis on the right and an area of -4 below the axis on the left, so the integral is 0. Right: the even function y = x squared has two equal shaded areas of 8/3, one each side of the y-axis, so the integral over -2 to 2 is 16/3, twice the integral from 0 to 2."
+    },
+    {
+      "key": "area-sine-two-parts",
+      "file": "diagrams/ug26-319-r05-integration-applications-area-sine-two-parts.svg",
+      "alt": "Graph of y = sin x from 0 to 2 pi with the arch above the axis shaded blue and labelled +2 and the arch below shaded red and labelled -2",
+      "caption": "Area of y = sin x over [0, 2 pi]: integral 0 but area 4",
+      "description": "The sine curve from 0 to 2 pi has one arch above the x-axis, shaded blue with integral +2, and one arch below, shaded red with integral -2. The integral over the whole interval is 2 + (-2) = 0, but the area is |2| + |-2| = 4."
+    },
+    {
+      "key": "area-parabola-axis",
+      "file": "diagrams/ug26-319-r05-integration-applications-area-parabola-axis.svg",
+      "alt": "Graph of y = 4x - x squared meeting the x-axis at x = 0 and x = 4 with the region above the axis shaded and labelled area 32/3",
+      "caption": "Area between y = 4x - x squared and the x-axis",
+      "description": "The downward parabola y = 4x - x squared, with its highest point at (2, 4), crosses the x-axis at x = 0 and x = 4. The region between the curve and the x-axis from 0 to 4 is shaded and labelled area 32/3, about 10.67 square units."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r05-integration-applications-q01",

@@ -362,6 +362,14 @@
     "answer": "7, 6, 30, 450, 5, 3"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "aggregates-null"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: COUNT(*) counts rows, but COUNT(column), SUM and AVG ignore NULL. The average divides by the 6 values that exist (30 / 6 = 5), not by all 7 rows."
+   },
+   {
     "type": "HEADING",
     "text": "GROUP BY, HAVING and ORDER BY"
    },
@@ -414,10 +422,26 @@
     "answer": "Two rows: (Bag, 2250) and (Book, 1080)"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "sum-having-order"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The query works in stages: multiply per row, group and add per Item, drop groups with HAVING, then sort. NULL * Price is NULL, so SUM skips that row and Pen totals only 50 + 30 = 80."
+   },
+   {
     "type": "SOLVED_PROBLEM",
     "problem": "Evaluate `SELECT City, COUNT(*) FROM SALES WHERE Price >= 100 GROUP BY City HAVING COUNT(*) >= 2 ORDER BY City DESC;`",
     "solution": "WHERE is applied first and keeps rows 2 (Delhi), 4 (Pune), 5 (Goa) and 6 (Delhi). Grouping by City gives Delhi with 2 rows, Pune with 1 row and Goa with 1 row. HAVING keeps groups with at least 2 rows, leaving Delhi only.",
     "answer": "One row: (Delhi, 2)"
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "where-group-having"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: WHERE works on single rows before any grouping; HAVING works on whole groups after they are counted. Here WHERE drops 3 rows first, and then HAVING drops 2 of the 3 groups."
    },
    {
     "type": "CALLOUT",
@@ -485,10 +509,26 @@
     "text": "STAFF(EmpNo, Name, DeptNo) has rows (1, Anil, 10), (2, Bina, 20), (3, Chet, 10), (4, Dia, 40). DEPT(DeptNo, DName) has rows (10, Sales), (20, HR), (30, IT)."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "product-join-pairs"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: A Cartesian product pairs everything with everything (4 rows x 3 rows = 12). A join keeps only the pairs where the common column matches, here 3 of the 12."
+   },
+   {
     "type": "SOLVED_PROBLEM",
     "problem": "For STAFF and DEPT above, give the number of rows and columns of the Cartesian product, the equi-join and the natural join.",
     "solution": "Cartesian product: 4 x 3 = 12 rows and 3 + 2 = 5 columns.\n\nEqui-join on DeptNo: Anil and Chet match 10 (Sales), Bina matches 20 (HR), Dia has DeptNo 40 which does not exist in DEPT, and DeptNo 30 of DEPT has no staff. So 3 rows; the columns are still 5 because both DeptNo columns are shown.\n\nNatural join: the same 3 rows, but DeptNo appears once, so 4 columns.",
     "answer": "Cartesian product 12 rows x 5 columns; equi-join 3 rows x 5 columns; natural join 3 rows x 4 columns"
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "equi-natural-join"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Both joins return the same 3 rows. The only difference is the columns: the equi-join shows the matching column from each table (5 columns), the natural join shows it once (4 columns)."
    },
    {
     "type": "CALLOUT",
@@ -500,7 +540,43 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "aggregates-null",
+   "file": "diagrams/ug26-308-r00-sqlquery-aggregates-null.svg",
+   "alt": "The SALES table with its Qty column highlighted and the results of COUNT(*), COUNT(Qty), SUM(Qty) and AVG(Qty) beside it",
+   "caption": "COUNT(*) and COUNT(Qty) differ when a value is NULL",
+   "description": "The seven SALES rows (SID, Item, Qty) are shown with the Qty column highlighted; the last row has NULL in Qty. To the right the four results: COUNT(*) is 7 because it counts every row, COUNT(Qty) is 6 because it skips the NULL, SUM(Qty) is 30 (10+4+6+2+5+3) and AVG(Qty) is 5 because 30 is divided by 6, not 7."
+  },
+  {
+   "key": "sum-having-order",
+   "file": "diagrams/ug26-308-r00-sqlquery-sum-having-order.svg",
+   "alt": "Three small tables showing Qty times Price for each SALES row, the grouped sums per Item with HAVING applied, and the final sorted result",
+   "caption": "From rows to groups: SUM, HAVING and ORDER BY on SALES",
+   "description": "First table: each SALES row with Qty*Price (50, 480, 30, 900, 600, 1350, and NULL for the row with no Qty). Second table: the sums by Item, Pen 80 (dropped by HAVING SUM >= 500), Book 1080 (kept), Bag 2250 (kept). Third table: the kept rows ordered by the second column in descending order, Bag 2250 then Book 1080."
+  },
+  {
+   "key": "where-group-having",
+   "file": "diagrams/ug26-308-r00-sqlquery-where-group-having.svg",
+   "alt": "Four stages of one query on SALES: rows filtered by WHERE, grouped by City, filtered by HAVING and sorted",
+   "caption": "WHERE removes rows before grouping, HAVING removes groups after",
+   "description": "The SALES rows (SID, Price, City) are shown first with Price >= 100 as the WHERE test: rows 2, 4, 5 and 6 are kept and rows 1, 3 and 7 are dropped. The kept rows are then grouped by City with counts Delhi 2, Pune 1 and Goa 1. HAVING COUNT(*) >= 2 keeps only Delhi, and ORDER BY City DESC gives the single result row (Delhi, 2)."
+  },
+  {
+   "key": "product-join-pairs",
+   "file": "diagrams/ug26-308-r00-sqlquery-product-join-pairs.svg",
+   "alt": "A grid of every STAFF row against every DEPT row with the three matching pairs shaded green",
+   "caption": "All 12 pairs of STAFF and DEPT, and the 3 that survive a join",
+   "description": "Rows of the grid are Anil (10), Bina (20), Chet (10) and Dia (40); columns are Sales (10), HR (20) and IT (30). Each of the 12 cells is one pair. The pairs where the department numbers are equal (Anil-Sales, Bina-HR, Chet-Sales) are shaded green; Dia has no partner and IT has no partner."
+  },
+  {
+   "key": "equi-natural-join",
+   "file": "diagrams/ug26-308-r00-sqlquery-equi-natural-join.svg",
+   "alt": "Two result tables of the STAFF and DEPT join: the equi-join with five columns and the natural join with four columns",
+   "caption": "Equi-join keeps both DeptNo columns, natural join keeps one",
+   "description": "Top table: equi-join on STAFF.DeptNo = DEPT.DeptNo with columns EmpNo, Name, STAFF.DeptNo, DEPT.DeptNo and DName and three rows (Anil Sales, Bina HR, Chet Sales). Bottom table: natural join with the common column DeptNo shown once, so four columns and the same three rows. A note says Dia (DeptNo 40) and IT (30) have no partner and do not appear."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r00-sql-functions-grouping-joins-q01",

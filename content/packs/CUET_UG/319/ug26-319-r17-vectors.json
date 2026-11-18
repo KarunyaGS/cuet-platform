@@ -151,9 +151,25 @@
         "text": "**Triangle law:** if $\\overrightarrow{OA}=\\vec a$ and $\\overrightarrow{AB}=\\vec b$ then $\\overrightarrow{OB}=\\vec a+\\vec b$. **Parallelogram law:** if two vectors are the adjacent sides of a parallelogram from the same point, their sum is the diagonal from that point. In components, add corresponding components."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "vector-addition-laws"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: both laws give the same result, and in components you simply add matching components. The length of a + b is less than the sum of the lengths unless the vectors point the same way, which is the triangle inequality."
+      },
+      {
         "type": "FORMULA",
         "latex": "\\vec a+\\vec b=(a_1+b_1)\\hat i+(a_2+b_2)\\hat j+(a_3+b_3)\\hat k,\\quad \\lambda\\vec a=\\lambda a_1\\hat i+\\lambda a_2\\hat j+\\lambda a_3\\hat k",
         "text": "$\\lambda$ is a real scalar. Multiplying by $\\lambda$ scales the magnitude by $|\\lambda|$: $|\\lambda\\vec a|=|\\lambda||\\vec a|$; the direction is kept if $\\lambda>0$ and reversed if $\\lambda<0$. Vector addition is commutative and associative, and $\\vec a+\\vec0=\\vec a$, $\\vec a+(-\\vec a)=\\vec0$."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "scalar-multiples-line"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: multiplying by a positive number stretches or shrinks the vector without turning it; a negative number also reverses it. The length is always scaled by |k|."
       },
       {
         "type": "TEXT",
@@ -167,6 +183,14 @@
         "type": "FORMULA",
         "latex": "\\text{Internal: }\\vec r=\\frac{m\\vec b+n\\vec a}{m+n},\\qquad \\text{External: }\\vec r=\\frac{m\\vec b-n\\vec a}{m-n}",
         "text": "$P$ divides the segment joining $A(\\vec a)$ and $B(\\vec b)$ in the ratio $m:n$, i.e. $AP:PB=m:n$. Internal division lies between $A$ and $B$; external division lies on the extended line, and $m\\neq n$. The midpoint corresponds to $m=n=1$: $\\vec r=\\tfrac{\\vec a+\\vec b}{2}$."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "section-formula-line"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: for the ratio m : n the formula puts m with the far end B and n with the near end A. Internal division gives a point between A and B; external division gives a point on the extended line outside the segment (here beyond B, because the share 2 for B is the larger one)."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -190,6 +214,14 @@
       {
         "type": "TEXT",
         "text": "**Geometrical interpretation.** The **projection** of $\\vec a$ on $\\vec b$ (the scalar length of the shadow of $\\vec a$ along $\\vec b$) is $\\dfrac{\\vec a\\cdot\\vec b}{|\\vec b|}$, and the vector projection is $\\dfrac{\\vec a\\cdot\\vec b}{|\\vec b|^2}\\vec b$. So $\\vec a\\cdot\\vec b=|\\vec a|\\times$(projection of $\\vec b$ on $\\vec a$). The angle is found from $\\cos\\theta=\\dfrac{\\vec a\\cdot\\vec b}{|\\vec a||\\vec b|}$."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "dot-product-projection"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the dot product is the length of b times the length of the shadow of a on b, and the shadow is |a| cos θ. When the vectors are perpendicular the shadow vanishes, which is why a dot b = 0 tests for perpendicularity."
       },
       {
         "type": "TABLE",
@@ -239,6 +271,14 @@
         "type": "DEFINITION",
         "term": "Vector product",
         "text": "For non-zero, non-parallel $\\vec a,\\vec b$, $\\vec a\\times\\vec b=|\\vec a||\\vec b|\\sin\\theta\\,\\hat n$, where $\\hat n$ is the unit vector perpendicular to both, chosen by the **right-hand rule** (from $\\vec a$ towards $\\vec b$). It is a **vector**. In components,\n$$\\vec a\\times\\vec b=\\begin{vmatrix}\\hat i&\\hat j&\\hat k\\\\a_1&a_2&a_3\\\\b_1&b_2&b_3\\end{vmatrix}.$$"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "cross-product-right-hand"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: a cross b is perpendicular to both vectors, its direction follows the right-hand rule (curl the fingers from a to b, thumb points along a cross b), and its length equals the area of the parallelogram on a and b. Reversing the order reverses the direction."
       },
       {
         "type": "TABLE",
@@ -295,7 +335,43 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "vector-addition-laws",
+      "file": "diagrams/ug26-319-r17-vectors-addition-laws.svg",
+      "alt": "Two coordinate grids showing vectors a = (3, 1) and b = (1, 2) added by the triangle law and by the parallelogram law, both giving (4, 3)",
+      "caption": "Triangle law and parallelogram law of vector addition",
+      "description": "Left: vector a from the origin to (3, 1), then vector b from (3, 1) to (4, 3), with a + b drawn from the origin to (4, 3). Right: a and b both drawn from the origin as adjacent sides of a parallelogram, with the diagonal from the origin to (4, 3) as a + b. Below the grids: |a| is about 3.162, |b| about 2.236, |a + b| = 5, which is less than |a| + |b|, about 5.398."
+    },
+    {
+      "key": "scalar-multiples-line",
+      "file": "diagrams/ug26-319-r17-vectors-scalar-multiples.svg",
+      "alt": "The vector a = (2, 1) with its multiples 2a, half of a and minus a drawn along one line through the origin, with a table of components and lengths",
+      "caption": "Scalar multiples of a vector lie on one line",
+      "description": "On a grid, the vector a = (2, 1) from the origin, 2a = (4, 2) in the same direction twice as long, half of a = (1, 0.5) in the same direction half as long, and minus a = (-2, -1) in the opposite direction with the same length as a. The table gives the lengths 2.24, 4.47, 1.12 and 2.24, computed as |k| times |a| with |a| = square root of 5."
+    },
+    {
+      "key": "section-formula-line",
+      "file": "diagrams/ug26-319-r17-vectors-section-formula.svg",
+      "alt": "A line with points A(1, 2, 3), P(3, 4, 5), B(4, 5, 6) and Q(7, 8, 9), showing internal division at P and external division at Q in the ratio 2 to 1",
+      "caption": "Section formula: internal and external division in the ratio 2 : 1",
+      "description": "A and B are marked on a line. P divides AB internally in the ratio 2 : 1, so P lies two thirds of the way from A to B, at (3, 4, 5). Q divides AB externally in the ratio 2 : 1, so Q lies beyond B with QA twice QB, at (7, 8, 9). The formulas and the check that AP : PB and AQ : BQ both equal 2 : 1 are written below. The drawing is schematic: the three coordinates are collapsed onto one line."
+    },
+    {
+      "key": "dot-product-projection",
+      "file": "diagrams/ug26-319-r17-vectors-dot-projection.svg",
+      "alt": "Vectors a = (3, 4) and b = (5, 2) from the origin with a dashed perpendicular from the tip of a onto b, marking the projection of a on b as about 4.271",
+      "caption": "Dot product as a projection",
+      "description": "On a grid, a = (3, 4) in blue and b = (5, 2) in red from the origin. A dashed line from the tip of a meets the line of b at a right angle, and the green segment along b is the projection of a on b, with length a dot b divided by the length of b, 23 / 5.385 which is about 4.271. The angle between them is about 31.3 degrees."
+    },
+    {
+      "key": "cross-product-right-hand",
+      "file": "diagrams/ug26-319-r17-vectors-cross-right-hand.svg",
+      "alt": "A schematic three-dimensional drawing: vector a along the x-axis, vector b along the y-axis, a curved arrow from a to b, and the vector a cross b pointing up the z-axis",
+      "caption": "Direction of a cross b by the right-hand rule (schematic)",
+      "description": "Oblique drawing of three axes. Vector a of length 2 lies along the x-axis and vector b of length 1.5 along the y-axis; the shaded parallelogram between them has area 3. A curved arrow turns from a to b, and a cross b points up the z-axis, perpendicular to both. The note below says b cross a would point the opposite way."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r17-vectors-q01",

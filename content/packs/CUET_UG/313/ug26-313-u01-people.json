@@ -78,6 +78,14 @@
     "text": "Density is a better measure of crowding than total population, because it takes the size of the area into account. As per NCERT the density of India in 2011 was 382 persons per square kilometre. Among states, Bihar has the highest density and Arunachal Pradesh the lowest, whereas Delhi, among the Union Territories, is the most densely populated. The Northern Plains, the Kerala coast and the east-coast deltas have high density; the Himalayan states, the north-eastern hills and the desert of western Rajasthan show low density."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "density-vs-distribution"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Both regions have the same area and the same number of people, so the density D = P / A is identical. Yet the people are spread very differently. Distribution says where people live; density says how many per square kilometre on average, so a single density figure can hide an uneven distribution."
+   },
+   {
     "type": "CALLOUT",
     "text": "A state with the largest total population (for example Uttar Pradesh) is not necessarily the one with the highest density. Total population and density answer two different questions: how many, and how crowded."
    },
@@ -110,12 +118,54 @@
     "text": "$B$ births, $D$ deaths, $I$ in-migrants and $E$ out-migrants during the period. For a country, the migration term is usually small compared with natural increase."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "growth-components"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Population changes in only three ways: births and in-migrants add people, deaths and out-migrants remove them. Natural increase uses births and deaths only; migration is the second part. For a country as a whole, the migration term is usually small, so natural increase does most of the work."
+   },
+   {
     "type": "TEXT",
     "text": "Growth in India in the twentieth century is traditionally divided into four phases:\n\n1. **1901 to 1921**, a stagnant phase with a very low growth rate, because high birth rates were offset by high death rates caused by famines and epidemics.\n2. **1921 to 1951**, steady growth. Better health care and sanitation reduced the death rate while the birth rate stayed high. The year 1921 is called the **year of the great divide**, because after it India's population has not declined between two Censuses.\n3. **1951 to 1981**, rapid growth, often called the population explosion. Death rates fell sharply thanks to improved health and food supply, but birth rates remained high; immigration from neighbouring countries added to the growth.\n4. **1981 onwards**, growth continues but the growth *rate* has been slowly declining as birth rates fall, for example through education, later marriage and family planning."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "growth-phases"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The shaded gap between the birth rate and the death rate is natural increase, and it explains each phase. The gap was thin in the stagnant phase, opened as the death rate fell, was widest in the rapid-growth phase, and narrowed after 1981 as the birth rate fell. The growth rate falls after 1981, but the gap does not close, which is why the population still adds a very large number of people."
+   },
+   {
     "type": "KEY_POINT",
     "text": "The growth rate has declined since 1981, but because the population base is already huge, the absolute number of people added in every decade remains very large."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Absolute increase, growth rate and natural increase",
+    "columns": [
+     "Measure",
+     "What it tells you",
+     "How it is expressed"
+    ],
+    "rows": [
+     [
+      "Absolute increase",
+      "The actual number of people added in a period",
+      "A number of persons"
+     ],
+     [
+      "Growth rate",
+      "The increase as a percentage of the population at the start (the decadal growth rate compares two successive Censuses)",
+      "Per cent for the period, per cent per decade for Census data"
+     ],
+     [
+      "Natural increase",
+      "Births minus deaths; it leaves out migration",
+      "A number of persons"
+     ]
+    ]
    },
    {
     "type": "SOLVED_PROBLEM",
@@ -209,7 +259,29 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "density-vs-distribution",
+   "file": "diagrams/ug26-313-u01-people-density-vs-distribution.svg",
+   "alt": "Two equal squares, Region A with 24 dots spread evenly and Region B with the same 24 dots crowded in one corner; the note says both have the same density but a different distribution",
+   "caption": "Density and distribution are different ideas: same total, different spread",
+   "description": "Two squares of equal size represent two regions of equal area. Region A holds 24 blue dots arranged evenly across the whole square. Region B holds the same 24 dots packed tightly into its lower-left corner, with the rest of the square empty. A boxed note says that the same area and the same number of people give the same density, D = P / A, and a line below says the distribution, meaning how people are spread, is different. One dot stands for a fixed number of people; the drawing is schematic and not to scale."
+  },
+  {
+   "key": "growth-components",
+   "file": "diagrams/ug26-313-u01-people-growth-components.svg",
+   "alt": "Boxes showing births and in-migrants added to a population, deaths and out-migrants removed, and natural increase B minus D plus net migration I minus E equals total change",
+   "caption": "The three components of population change",
+   "description": "A central box represents the population of an area during one period. Two green arrows enter it from the left, labelled births (B) and in-migrants (I), under the heading Added to the population. Two red arrows leave it to the right, labelled deaths (D) and out-migrants (E), under the heading Removed from the population. Below, three boxes read: natural increase B - D, plus net migration I - E, equals total change (B - D) + (I - E). A note says the change is positive when B + I is greater than D + E."
+  },
+  {
+   "key": "growth-phases",
+   "file": "diagrams/ug26-313-u01-people-growth-phases.svg",
+   "alt": "Schematic graph of birth rate and death rate across the four phases of India's twentieth-century population growth, with the gap between them shaded as natural increase",
+   "caption": "Birth and death rates behind the four phases of growth in India (schematic)",
+   "description": "A schematic graph with time on the horizontal axis, divided by dashed lines at 1921, 1951 and 1981, and birth and death rates on the vertical axis with no values. In Phase 1, 1901 to 1921, the birth rate line is high and flat and the death rate line is almost as high, with ups and downs, so the shaded gap between them is very thin. In Phase 2, 1921 to 1951, the death rate falls steadily while the birth rate stays high, so the gap opens. In Phase 3, 1951 to 1981, the death rate falls sharply and the gap is at its widest. In Phase 4, from 1981, the birth rate falls and the gap narrows but is still present. The shaded gap is labelled natural increase, birth rate minus death rate. A note says the figure shows the shape of change only, not Census values."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-313-u01-people-q01",

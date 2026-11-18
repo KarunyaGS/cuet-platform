@@ -214,6 +214,14 @@
     "text": "**Hub versus switch.** If computer A sends data to computer C through a hub, the hub passes the data to B, C, D and every other port; only C keeps it. A switch consults its MAC address table and sends the data to the port of C alone. So a switch gives better bandwidth and security."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "hub-vs-switch"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: A hub repeats data to every other port, which wastes bandwidth and lets everyone see it. A switch learns MAC addresses and forwards each frame to the correct port only."
+   },
+   {
     "type": "TEXT",
     "text": "**Router versus gateway.** A router connects networks that speak the same family of protocols (usually IP) and decides the route of each packet. A gateway is needed when the two sides use different protocols, as when a LAN is linked to a very different type of network."
    },
@@ -274,6 +282,14 @@
    {
     "type": "TEXT",
     "text": "**Mesh arithmetic.** In a full mesh of n nodes each node has n - 1 links and the total number of links is $\\frac{n(n-1)}{2}$. For 6 nodes, each node needs 5 ports and the network needs $\\frac{6 \\times 5}{2} = 15$ cables. For 8 nodes it is $\\frac{8 \\times 7}{2} = 28$ cables. This quick growth is the reason mesh is used only for a small number of very important nodes."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "mesh-link-count"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Each of the n nodes links to n - 1 others, but a link joins two nodes, so divide by 2: links = n(n - 1) / 2. Doubling the nodes more than doubles the cost."
    },
    {
     "type": "SOLVED_PROBLEM",
@@ -340,6 +356,14 @@
     ]
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "address-anatomy"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: An IPv4 address is 32 bits written as four numbers 0 to 255; a MAC address is 48 bits written as six hexadecimal pairs. The IP address is logical and can change; the MAC address belongs to the card."
+   },
+   {
     "type": "TEXT",
     "text": "IPv4 has $2^{32} = 4\\,294\\,967\\,296$ possible addresses, about 4.3 billion, which is not enough for the number of devices today. That is why IPv6, with $2^{128}$ addresses, is being introduced. Each of the four numbers of an IPv4 address is 8 bits, so it ranges from 0 to 255; an address such as 192.168.1.300 is invalid."
    },
@@ -401,6 +425,14 @@
     "text": "A hierarchical, distributed naming system that translates human readable domain names (for example www.example.com) into the IP addresses that computers use to locate each other."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "dns-lookup"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: DNS is a chain of questions that gets more specific each time (root, then top-level domain, then the domain's own server). The answer is cached afterwards so the next lookup is faster."
+   },
+   {
     "type": "SOLVED_PROBLEM",
     "problem": "A browser has to open www.example.in. List in order what happens before the page is requested.",
     "solution": "1. The browser checks its own cache for the IP address of www.example.in. 2. If it is not there, the request goes to the DNS resolver of the ISP. 3. The resolver, if it has no cached entry, queries the DNS servers: the root server directs it to the .in TLD server, which directs it to the authoritative server for example.in. 4. That server returns the IP address. 5. The browser connects to that IP address and sends the HTTP request.",
@@ -416,7 +448,36 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "mesh-link-count",
+   "file": "diagrams/ug26-308-r19-computer-networks-mesh-link-count.svg",
+   "alt": "Two full-mesh diagrams of 4 and 6 nodes with the link count worked out for each",
+   "caption": "Links in a full mesh: n(n - 1) / 2",
+   "description": "A full mesh of 4 nodes has 4 x 3 / 2 = 6 links and each node has 3 ports. A full mesh of 6 nodes has 6 x 5 / 2 = 15 links and each node has 5 ports. For 8 nodes: 8 x 7 / 2 = 28 links. The note says each node needs n - 1 ports so the cost grows quickly (schematic)."
+  },
+  {
+   "key": "address-anatomy",
+   "file": "diagrams/ug26-308-r19-computer-networks-address-anatomy.svg",
+   "alt": "An IPv4 address split into four 8-bit parts and a MAC address split into six hexadecimal pairs",
+   "caption": "Anatomy of an IPv4 address and a MAC address",
+   "description": "IPv4 example 192.168.1.10: four parts of 8 bits each, each from 0 to 255, so 4 x 8 = 32 bits; a part above 255 makes the address invalid, so 192.168.1.300 is not valid. MAC example 2C:54:91:88:C9:E3: six pairs of hexadecimal digits = 12 hex digits = 48 bits; the first part is the manufacturer (OUI) and the rest the serial number. It is fixed in the network card and works inside a local network."
+  },
+  {
+   "key": "dns-lookup",
+   "file": "diagrams/ug26-308-r19-computer-networks-dns-lookup.svg",
+   "alt": "The browser, an ISP resolver, a root server, a TLD server and an authoritative server joined by numbered lookup steps",
+   "caption": "How DNS finds the IP address of a domain",
+   "description": "The browser has no cached IP address, so it asks the ISP resolver (1). The resolver asks a root server (2), which points to the .in TLD server (3). The resolver asks the .in TLD server (4), which points to the server for example.in (5). The resolver asks that authoritative server (6), which returns the IP address of www.example.in (7) and the resolver passes it back to the browser (8)."
+  },
+  {
+   "key": "hub-vs-switch",
+   "file": "diagrams/ug26-308-r19-computer-networks-hub-vs-switch.svg",
+   "alt": "Two diagrams in which computer A sends data to computer C, once through a hub that copies it to B, C and D and once through a switch that sends it to C only",
+   "caption": "A hub copies to every port, a switch forwards to one",
+   "description": "Hub: A sends data to C; the hub has no addresses, so B and D also get a copy and ignore it. Switch: the switch uses the MAC table and the MAC address of C, so only C receives the data and B and D get nothing."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r19-computer-networks-q01",

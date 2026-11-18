@@ -56,6 +56,14 @@
     "text": "Find HCF and LCM by prime factorisation. Write each number as a product of primes. The HCF takes each common prime with its **smaller** power; the LCM takes every prime with its **larger** power. For 36 and 48 we have $36 = 2^2\\times 3^2$ and $48 = 2^4\\times 3$, so the HCF is $2^2\\times 3 = 12$ and the LCM is $2^4\\times 3^2 = 144$. Check: $12\\times 144 = 1728 = 36\\times 48$."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "hcf-lcm-prime-venn"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: the HCF is the shared part and the LCM is the shared part together with everything left over. Use the check HCF x LCM = product of the two numbers to catch mistakes."
+   },
+   {
     "type": "TEXT",
     "text": "Divisibility tests save time. A number is divisible by 2 if its last digit is even, by 3 if the sum of its digits is divisible by 3, by 4 if its last two digits are divisible by 4, by 5 if it ends in 0 or 5, by 9 if the digit sum is divisible by 9, and by 11 if the difference between the sums of alternate digits is 0 or a multiple of 11."
    },
@@ -101,9 +109,25 @@
     "text": "Basic geometry facts: angles on a straight line add to 180 degrees; angles around a point add to 360 degrees; vertically opposite angles are equal; the angles of a triangle add to 180 degrees; the angles of a quadrilateral add to 360 degrees; an exterior angle of a triangle equals the sum of the two opposite interior angles. If two angles of a triangle are 50 and 60 degrees, the third is $180-50-60=70$ degrees."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "triangle-angles-exterior"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: the three interior angles add to 180, so two known angles give the third. The exterior angle equals the sum of the two interior angles that are not next to it (120 = 50 + 70), which is often faster than subtracting."
+   },
+   {
     "type": "FORMULA",
     "latex": "a^2+b^2=c^2",
     "text": "Pythagoras theorem: in a right-angled triangle with legs $a$ and $b$, the hypotenuse $c$ is the side opposite the right angle. Common triples are 3-4-5, 5-12-13, 8-15-17 and their multiples, so legs 9 and 12 give hypotenuse 15."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "pythagoras-9-12-15"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: the hypotenuse is always the side opposite the right angle and the longest side. Square the two legs, add, then take the square root. Spotting a multiple of 3-4-5 saves time."
    },
    {
     "type": "TEXT",
@@ -169,6 +193,14 @@
     "answer": "Volume 1540 cm^3 and curved surface area 440 cm^2"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "cylinder-curved-surface"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: the curved surface is just a rectangle, so its area is circumference times height (2 pi r h). Volume uses the base area pi r squared times the height. Keep the units different: cm squared for area and cm cubed for volume."
+   },
+   {
     "type": "SOLVED_PROBLEM",
     "problem": "The length of a rectangle is 3 times its breadth and its perimeter is 64 cm. Find its area.",
     "solution": "Step 1: let the breadth be b, so the length is 3b and the perimeter 2(3b + b) = 8b. Step 2: 8b = 64, so b = 8 cm and the length is 24 cm. Step 3: area = length x breadth = 24 x 8 = 192 cm^2.",
@@ -190,6 +222,14 @@
     "answer": "Mean 12, median 11, mode 15"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "mean-median-mode-dotplot"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: the mode sits where the dots pile up, the median is the middle dot of the ordered data and the mean is the balance point. They are three different values here (11, 12 and 15), so do not assume they are equal."
+   },
+   {
     "type": "TEXT",
     "text": "The **range** is the largest value minus the smallest (here 16 - 8 = 8). For two groups, the combined mean is the weighted mean: $\\frac{n_1\\bar{x}_1+n_2\\bar{x}_2}{n_1+n_2}$. For example, 20 students with mean 60 and 30 students with mean 70 together have mean $\\frac{1200+2100}{50}=66$, not the simple average 65."
    },
@@ -199,7 +239,43 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "hcf-lcm-prime-venn",
+   "file": "diagrams/ug26-501-t03-hcf-lcm-prime-venn.svg",
+   "alt": "Venn diagram of the prime factors of 36 and 48 with the shared part giving the HCF 12 and the LCM 144",
+   "caption": "Prime factors of 36 and 48 in a Venn diagram",
+   "description": "Two overlapping circles. The 36 circle holds the factor 3 on its own; the 48 circle holds 2 x 2 on its own; the overlap holds 2 x 2 x 3. The overlap multiplied together is the HCF, 12. The overlap times the leftover factors, 12 x 3 x 4, is the LCM, 144. Check: 12 x 144 = 1728 = 36 x 48."
+  },
+  {
+   "key": "triangle-angles-exterior",
+   "file": "diagrams/ug26-501-t03-triangle-angles-exterior.svg",
+   "alt": "Triangle PQR with angles 50, 60 and 70 degrees and an exterior angle of 120 degrees at Q",
+   "caption": "Angle sum and exterior angle of a triangle",
+   "description": "Triangle PQR with interior angles 50 degrees at P, 60 degrees at Q and 70 degrees at R, which add to 180 degrees. The side PQ is extended beyond Q. The exterior angle at Q is 120 degrees, which equals the sum of the two opposite interior angles, 50 plus 70."
+  },
+  {
+   "key": "pythagoras-9-12-15",
+   "file": "diagrams/ug26-501-t03-pythagoras-9-12-15.svg",
+   "alt": "Right-angled triangle with legs 9 and 12 and hypotenuse 15",
+   "caption": "Pythagoras theorem with legs 9 and 12",
+   "description": "A right-angled triangle ABC with the right angle at B. The vertical leg AB is 9, the horizontal leg BC is 12 and the hypotenuse AC, opposite the right angle, is 15. Beside it: 9 squared plus 12 squared is 81 plus 144, which is 225, which is 15 squared. It is the 3-4-5 triple multiplied by 3."
+  },
+  {
+   "key": "cylinder-curved-surface",
+   "file": "diagrams/ug26-501-t03-cylinder-curved-surface.svg",
+   "alt": "A cylinder of radius 7 cm and height 10 cm next to its curved surface opened out into a 44 cm by 10 cm rectangle",
+   "caption": "Cylinder volume and curved surface area",
+   "description": "On the left, a cylinder with radius 7 cm and height 10 cm. On the right, its curved surface opened flat into a rectangle whose width is the circumference 2 pi r = 44 cm and whose height is 10 cm, so the area is 44 x 10 = 440 square centimetres. Below, the volume is pi r squared h = 22/7 x 7 x 7 x 10 = 1540 cubic centimetres."
+  },
+  {
+   "key": "mean-median-mode-dotplot",
+   "file": "diagrams/ug26-501-t03-mean-median-mode-dotplot.svg",
+   "alt": "Dot plot of the data 8, 9, 10, 11, 15, 15, 16 with the mean 12, median 11 and mode 15 marked",
+   "caption": "Mean, median and mode on a dot plot",
+   "description": "A dot plot on a number line from 7 to 17. There is one dot each at 8, 9, 10, 11 and 16 and two dots at 15. A solid line marks the median, 11; a dashed line marks the mean, 12; another line marks the mode, 15, where the dots are stacked."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-501-t03-reasoning-simple-application-of-basic--q01",

@@ -247,6 +247,14 @@
     "text": "Properties of a relation: each attribute has a unique name; every cell holds a single (atomic) value; the order of tuples and of attributes does not matter; and **no two tuples are identical**, since a relation is a set."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "relational-terms"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Relation = table, attribute = column, tuple = row. Degree counts columns (4) and cardinality counts rows (5); do not swap them."
+   },
+   {
     "type": "CALLOUT",
     "text": "Do not mix up degree and cardinality: degree = columns, cardinality = rows. Adding a new row changes the cardinality only; adding a column changes the degree only."
    },
@@ -325,6 +333,14 @@
     "answer": "Candidate keys: BookNo, ISBN. Primary key: BookNo (or ISBN). Alternate key: the other one."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "keys"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Every candidate key could identify a row; the designer picks one as the primary key and the others become alternate keys. A foreign key points to a primary key in another table and, unlike a primary key, can repeat or be NULL."
+   },
+   {
     "type": "CALLOUT",
     "text": "A foreign key is not unique in the child table, and it is **not** the same as the primary key of that table. A primary key can never be NULL, but a foreign key can."
    },
@@ -351,6 +367,14 @@
     "problem": "For the STUDENT relation above, evaluate $\\sigma_{Class='XII' \\wedge City='Delhi'}(STUDENT)$, $\\pi_{City}(STUDENT)$ and $\\pi_{Name}(\\sigma_{Class='XII'}(STUDENT))$.",
     "solution": "First expression: pick tuples with Class XII and City Delhi. Only Meena (3, Meena, XII, Delhi) satisfies both, so the result has 1 tuple and 4 attributes.\n\nSecond expression: take only City: Pune, Delhi, Delhi, Pune, Goa. Duplicates are removed, leaving Pune, Delhi, Goa: 3 tuples, 1 attribute.\n\nThird expression: select Class XII first (Asha, Meena, Sia), then project Name: 3 tuples, 1 attribute.",
     "answer": "Cardinalities and degrees: (1 tuple, degree 4), (3 tuples, degree 1) with values Pune, Delhi, Goa, and (3 tuples, degree 1) with Asha, Meena, Sia."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "select-project"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Selection is a horizontal cut (some rows, all columns). Projection is a vertical cut (some columns, all rows) and removes duplicate rows from the result, so 5 cities become 3."
    },
    {
     "type": "CALLOUT",
@@ -405,6 +429,14 @@
     "answer": "R x S has degree 5 and cardinality 20; union 7 tuples; A - B 3 tuples; B - A 1 tuple."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "product-join"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: In a Cartesian product the degrees add (2 + 2 = 4) and the cardinalities multiply (3 x 3 = 9). Choosing only the rows where the Roll numbers match turns the product into a join."
+   },
+   {
     "type": "TEXT",
     "text": "Because attribute names may clash in a Cartesian product, they are qualified with the relation name (for example STUDENT.Roll and MARKS.Roll). A selection on a Cartesian product, such as $\\sigma_{STUDENT.Roll = MARKS.Roll}(STUDENT \\times MARKS)$, gives only the meaningful pairs and is how a join is built from basic operations."
    },
@@ -414,7 +446,36 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "relational-terms",
+   "file": "diagrams/ug26-308-r02-dbconcepts-relational-terms.svg",
+   "alt": "The STUDENT table with arrows naming the relation, an attribute, a tuple, the degree, the cardinality and a domain",
+   "caption": "The STUDENT relation with its relational terms labelled",
+   "description": "The STUDENT table has columns Roll, Name, Class and City and five rows (Asha, Ravi, Meena, Karan, Sia). Labels mark the whole table as the relation, a column name as an attribute, one row as a tuple, 4 attributes as the degree, 5 tuples as the cardinality, and show that the domain of Class is {XI, XII}."
+  },
+  {
+   "key": "keys",
+   "file": "diagrams/ug26-308-r02-dbconcepts-keys.svg",
+   "alt": "The EMP table with its candidate keys marked and a foreign key arrow from EMP.DeptNo to the primary key of the DEPT table",
+   "caption": "Candidate, primary, alternate and foreign keys in EMP and DEPT",
+   "description": "EMP has columns EmpID, Aadhaar, Email, Name and DeptNo with three rows. EmpID, Aadhaar and Email are marked as candidate keys; EmpID is chosen as the primary key and Aadhaar and Email are the alternate keys. An arrow runs from EMP.DeptNo to DEPT.DeptNo, the primary key of the DEPT table (10 Sales, 20 HR, 30 IT). A note says the foreign key may repeat (10 appears twice) and may be NULL."
+  },
+  {
+   "key": "select-project",
+   "file": "diagrams/ug26-308-r02-dbconcepts-select-project.svg",
+   "alt": "Two copies of the STUDENT table: one with a row highlighted for selection and one with the City column highlighted for projection",
+   "caption": "Selection picks rows, projection picks columns",
+   "description": "Top: the selection sigma Class = XII AND City = Delhi on STUDENT keeps one row (3, Meena, XII, Delhi), so 1 tuple of 5 and still degree 4. Bottom: the projection pi City keeps only the City column and, because duplicate values are removed, gives three tuples: Pune, Delhi and Goa."
+  },
+  {
+   "key": "product-join",
+   "file": "diagrams/ug26-308-r02-dbconcepts-product-join.svg",
+   "alt": "The STUDENT and MARKS tables and their 9-row Cartesian product with the three matching rows shaded green",
+   "caption": "Cartesian product of STUDENT and MARKS, and the rows a join keeps",
+   "description": "STUDENT has degree 2 and 3 tuples; MARKS has degree 2 and 3 tuples. Their product lists every STUDENT tuple with every MARKS tuple: 9 rows and 4 columns. The rows where STUDENT.Roll equals MARKS.Roll are shaded green; the figure notes degree 2 + 2 = 4 and cardinality 3 x 3 = 9."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r02-database-concepts-relational-algebra-q01",
@@ -431,9 +492,9 @@
    "answer": 2,
    "explanation": "A file system keeps a separate file for each application, so the same fact (such as a student address) may be stored many times. When one copy is updated and another is not, the data becomes inconsistent. A DBMS stores data once and shares it.",
    "optionRationale": {
+    "1": "This is false for files; each new kind of access usually needs a program.",
     "3": "That is a DBMS feature, not a file system feature.",
-    "4": "In a file system each program has to implement its own rules.",
-    "1": "This is false for files; each new kind of access usually needs a program."
+    "4": "In a file system each program has to implement its own rules."
    },
    "objective": "Identify problems of the file system"
   },
@@ -515,9 +576,9 @@
    "answer": 3,
    "explanation": "An attribute that refers to the primary key of another relation is a foreign key. It links the child table ORDERS to the parent table CUSTOMER and supports referential integrity. Checking the other options: Option 1: A candidate key identifies tuples in its own table. Option 2: An alternate key is a candidate key not chosen as primary key, not a link to another table. Option 4: This is not a key in the relational model.",
    "optionRationale": {
+    "1": "A candidate key identifies tuples in its own table.",
     "2": "An alternate key is a candidate key not chosen as primary key, not a link to another table.",
-    "4": "This is not a key in the relational model.",
-    "1": "A candidate key identifies tuples in its own table."
+    "4": "This is not a key in the relational model."
    },
    "objective": "Recognise a foreign key"
   },

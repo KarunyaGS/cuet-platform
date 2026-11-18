@@ -131,6 +131,14 @@
         "answer": "Increasing on $(-\\infty,1)$ and $(2,\\infty)$; decreasing on $(1,2)$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "increasing-decreasing-signs"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Where f' is positive the curve rises and where it is negative the curve falls. The curve changes direction at the points where f' = 0."
+      },
+      {
         "type": "HEADING",
         "text": "Maxima and minima"
       },
@@ -194,6 +202,14 @@
         "answer": "Local maximum $16$ at $x=-2$; local minimum $-16$ at $x=2$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "first-second-derivative-tests"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A critical point is a maximum if f' changes + to - (or f'' < 0) and a minimum if f' changes - to + (or f'' > 0). The two tests always agree when they both apply."
+      },
+      {
         "type": "HEADING",
         "text": "Second derivative test"
       },
@@ -217,6 +233,14 @@
         "answer": "Absolute maximum $2$ at $x=2$; absolute minimum $-2$ at $x=1$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "absolute-extrema-closed-interval"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: On a closed interval, compare f at the critical points and at both end points; the smallest value is the absolute minimum and the largest the absolute maximum. The maximum here is at an end point, not at a turning point."
+      },
+      {
         "type": "HEADING",
         "text": "Real-life optimisation and rate problems"
       },
@@ -231,10 +255,26 @@
         "answer": "$x=3\\ \\text{cm}$, maximum volume $432\\ \\text{cm}^3$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "open-box-volume-maximum"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Write the quantity to maximise as a function of one variable, give its domain (0 < x < 9), and find where its derivative is zero. The peak of the graph at x = 3 confirms the maximum volume 432 cm^3."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "A ladder $5\\ \\text{m}$ long leans against a wall. Its foot is pulled away along the ground at $2\\ \\text{m/s}$. How fast is the top sliding down when the foot is $3\\ \\text{m}$ from the wall?",
         "solution": "Let the foot be $x$ from the wall and the top $y$ high: $x^2+y^2=25$. Differentiate with respect to $t$: $2x\\dfrac{dx}{dt}+2y\\dfrac{dy}{dt}=0$. When $x=3$, $y=4$ (since $9+16=25$). So $3(2)+4\\dfrac{dy}{dt}=0$, giving $\\dfrac{dy}{dt}=-\\dfrac{6}{4}=-1.5$. The negative sign means $y$ is decreasing.",
         "answer": "The top slides down at $1.5\\ \\text{m/s}$"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "ladder-related-rates"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Related rates start from a fixed relation between the quantities (here the ladder length). Differentiate with respect to time first, then substitute the values. The negative sign shows the top is moving down."
       },
       {
         "type": "CALLOUT",
@@ -250,7 +290,43 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "increasing-decreasing-signs",
+      "file": "diagrams/ug26-319-r21-derivs-increasing-decreasing-signs.svg",
+      "alt": "The curve of f(x) = 2x^3 - 9x^2 + 12x + 1 with green rising parts, a red falling part and the stationary points at x = 1 and x = 2",
+      "caption": "The sign of f' shows where f rises and falls",
+      "description": "The curve rises (green) for x < 1, falls (red) between x = 1 and x = 2 and rises again for x > 2. At x = 1 there is a local maximum f(1) = 6 and at x = 2 a local minimum f(2) = 5, and f' = 0 at both points."
+    },
+    {
+      "key": "first-second-derivative-tests",
+      "file": "diagrams/ug26-319-r21-derivs-first-second-derivative-tests.svg",
+      "alt": "The curve of f(x) = x^3 - 12x with a local maximum at x = -2 and a local minimum at x = 2 and the sign of f' and f'' marked",
+      "caption": "First and second derivative tests on f(x) = x^3 - 12x",
+      "description": "The curve is green where f' > 0 and red where f' < 0. At x = -2 the sign of f' goes from + to -, a local maximum with f(-2) = 16 and f''(-2) = -12 < 0 (cap shape). At x = 2 it goes from - to +, a local minimum with f(2) = -16 and f''(2) = 12 > 0 (cup shape). Because f''(x) = 6x, its sign at each critical point decides the type."
+    },
+    {
+      "key": "absolute-extrema-closed-interval",
+      "file": "diagrams/ug26-319-r21-derivs-absolute-extrema-closed-interval.svg",
+      "alt": "The graph of f(x) = x^3 - 3x on the interval 0 to 2 with the end points and the critical point x = 1 marked",
+      "caption": "Absolute extrema of f(x) = x^3 - 3x on [0, 2]",
+      "description": "On the interval [0, 2] the candidates are the end points x = 0 and x = 2 and the critical point x = 1. The values are f(0) = 0 (end point), f(1) = -2 (absolute minimum) and f(2) = 2 (absolute maximum)."
+    },
+    {
+      "key": "open-box-volume-maximum",
+      "file": "diagrams/ug26-319-r21-derivs-open-box-volume-maximum.svg",
+      "alt": "A graph of V = x(18 - 2x)^2 against x for 0 < x < 9 with the maximum at x = 3 and a small sketch of the open box",
+      "caption": "Open box from a square sheet: volume against x",
+      "description": "The curve V = x(18 - 2x)^2 rises from 0, peaks at x = 3 with V = 432 cm^3 and falls to 0 at x = 9. An inset sketch of the box shows a base of (18 - 2x) by (18 - 2x) and height x, cut from an 18 cm square sheet with square corners of side x removed (drawn for x = 3)."
+    },
+    {
+      "key": "ladder-related-rates",
+      "file": "diagrams/ug26-319-r21-derivs-ladder-related-rates.svg",
+      "alt": "A ladder 5 m long leaning on a wall with the foot 3 m from the wall, the top 4 m high and their rates of change marked",
+      "caption": "The sliding ladder: x^2 + y^2 = 25 differentiated with respect to time",
+      "description": "A 5 m ladder rests with its foot x = 3 m from the wall and its top y = 4 m up the wall. The foot moves away at dx/dt = +2 m/s and the top moves down at dy/dt = -1.5 m/s. Below, the relation x^2 + y^2 = 25 is differentiated to x dx/dt + y dy/dt = 0 (schematic, not to scale)."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r21-applications-of-derivatives-q01",

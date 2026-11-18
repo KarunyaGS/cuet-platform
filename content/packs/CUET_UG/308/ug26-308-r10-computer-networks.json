@@ -160,6 +160,14 @@
         "text": "Quick comparison: a hub repeats to everyone, a switch sends only to the right device on the same network, a router sends between networks, and a gateway converts between different protocols."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "devices-in-place"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Inside one network a switch passes data to the right computer; between networks a router chooses the path; a modem connects to the ISP and a gateway translates between different protocols."
+      },
+      {
         "type": "CALLOUT",
         "text": "Typical exam trap: calling a switch an \"intelligent hub\" and then saying it uses IP addresses. A switch works with MAC addresses inside one network; the router uses IP addresses between networks."
       },
@@ -217,6 +225,22 @@
             "If the root or a backbone link fails, a large part of the network is cut off."
           ]
         ]
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "topologies-bus-star-ring"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A topology is the layout of the links. Learn each one with its weak point: the backbone for a bus, the central device for a star, and any single break for a simple ring."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "topologies-tree-mesh"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A tree is stars joined in layers, so its weak point is the top. A mesh is very reliable because there are many paths, but it needs many links."
       },
       {
         "type": "TEXT",
@@ -335,7 +359,29 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "devices-in-place",
+      "file": "diagrams/ug26-308-r10-computer-networks-devices-in-place.svg",
+      "alt": "A network diagram placing computers, a repeater, a switch, a router, a modem and a gateway between a local network and the Internet",
+      "caption": "Where each network device sits",
+      "description": "Computers with network cards (NIC) connect through a switch inside one network (using MAC addresses and sending data only to the intended receiver, unlike a hub that copies to every port). A repeater regenerates a weak signal on a long cable. A router joins the network to other networks using IP addresses; a modem converts digital to analog and back for the ISP line to the Internet; a gateway joins networks that use different protocols."
+    },
+    {
+      "key": "topologies-bus-star-ring",
+      "file": "diagrams/ug26-308-r10-computer-networks-topologies-bus-star-ring.svg",
+      "alt": "Three network layouts, a bus, a star and a ring, each with a red cross showing where a failure hurts",
+      "caption": "Bus, star and ring topologies and their failure points",
+      "description": "Bus: nodes hang off one backbone cable with a terminator at each end; a break in the backbone stops the whole network. Star: every node joins a central hub or switch; a cut cable isolates only that node, but if the central device fails the whole network fails. Ring: each node has exactly two neighbours in a closed loop and data usually flows one way; in a simple ring one broken link or node can stop the network."
+    },
+    {
+      "key": "topologies-tree-mesh",
+      "file": "diagrams/ug26-308-r10-computer-networks-topologies-tree-mesh.svg",
+      "alt": "A tree of switches under a root node and a mesh in which every node links to every other, with failure points marked",
+      "caption": "Tree and mesh topologies",
+      "description": "Tree: several star networks joined in a hierarchy under a root node (a bus and star combined); if the root or backbone link fails, a large part of the network is cut off. Mesh: every node is joined directly to every other node, so if one link fails data takes another path; the cost is very many links and ports."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-308-r10-computer-networks-q01",

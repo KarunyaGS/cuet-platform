@@ -126,6 +126,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "figure-anatomy"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Each visible part of a chart has its own pyplot function. The legend only appears if the plot call has a label=."
+      },
+      {
         "type": "HEADING",
         "text": "Showing and saving a plot"
       },
@@ -166,6 +174,14 @@
         "text": "Bar graph: separate categories, bars do not touch, bar height shows the value. Histogram: continuous classes, bars touch, bar height shows the frequency."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "bar-and-barh"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Use a bar graph to compare separate categories. bar puts the categories on the x axis and barh on the y axis, and in both the bar length shows the value."
+      },
+      {
         "type": "HEADING",
         "text": "Histogram"
       },
@@ -190,6 +206,14 @@
         "text": "A value that lies exactly on an inner bin edge goes into the bin to its **right** (3 above is counted in [3, 6), not in [0, 3)). Only the final edge is inclusive on both sides."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "histogram-bin-edges"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Bins are half open, [a, b): the left edge is included and the right edge is not. Only the very last bin includes both edges."
+      },
+      {
         "type": "HEADING",
         "text": "Frequency polygon"
       },
@@ -206,6 +230,14 @@
         "text": "Histogram = bars; frequency polygon = line joining the tops of the bars at the class mid-points."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "histogram-polygon"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: In a histogram the bars touch because the classes are continuous. The frequency polygon is the line through the middle of the top of each bar, closed to zero at both ends."
+      },
+      {
         "type": "HEADING",
         "text": "Pie chart"
       },
@@ -218,6 +250,14 @@
         "problem": "A pie chart is drawn for the values 20, 30 and 50 with `autopct=\"%1.1f%%\"`. What labels are printed and what are the angles of the wedges?",
         "solution": "Total = 20 + 30 + 50 = 100.\nPercentages: 20%, 30% and 50%, printed with one decimal place as 20.0%, 30.0% and 50.0%.\nAngles: 20/100 x 360 = 72 degrees; 30/100 x 360 = 108 degrees; 50/100 x 360 = 180 degrees.\nThe angles add up to 360 degrees.",
         "answer": "Labels 20.0%, 30.0%, 50.0%; angles 72, 108 and 180 degrees."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "pie-wedges"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The size of a wedge is its share of the total. Multiply the share by 360 to get the angle; the angles always add to 360."
       },
       {
         "type": "CALLOUT",
@@ -240,6 +280,14 @@
         "text": "For the data 1, 2, 3, ..., 9, 100 the quartiles are Q1 = 3.25, median = 5.5 and Q3 = 7.75, so IQR = 4.5. The upper limit for the whisker is 7.75 + 1.5 x 4.5 = 14.5, and 100 lies beyond it, so 100 is shown as an outlier point."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "boxplot-parts"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The box spans Q1 to Q3 with the median inside; whiskers reach the furthest values within 1.5 x IQR of the box, and anything beyond is plotted as an outlier."
+      },
+      {
         "type": "KEY_POINT",
         "text": "Box plot: median line, box from Q1 to Q3, whiskers, outlier points. It is the best of these plots to show spread and outliers, and for comparing several groups side by side."
       },
@@ -250,6 +298,14 @@
       {
         "type": "TEXT",
         "text": "`plt.scatter(x, y)` marks each pair (x, y) as a separate dot with no lines joining them. It is used to see whether two variables are related: dots rising from left to right show a positive relation, dots falling show a negative relation, and a shapeless cloud shows little relation. Examples are hours of study against marks, or height against weight. Size and colour of the dots can be set with `s=` and `c=` or `color=`."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "scatter-patterns"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: plt.scatter marks each (x, y) pair as a separate dot. The overall direction of the cloud shows whether the variables rise together, move opposite ways, or are unrelated."
       },
       {
         "type": "HEADING",
@@ -307,7 +363,57 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "figure-anatomy",
+      "file": "diagrams/ug26-308-r09-figure-anatomy.svg",
+      "alt": "A simple line plot with numbered callouts for the title, axis labels, legend, ticks, grid and data line and the pyplot command for each",
+      "caption": "Parts of a Matplotlib figure and the command for each",
+      "description": "A line plot of y = 2x with markers. Seven numbered callouts name the parts and the command that makes each: 1 title (plt.title), 2 y-axis label (plt.ylabel), 3 x-axis label (plt.xlabel), 4 legend (plt.legend, uses label=), 5 ticks and tick labels (automatic or plt.xticks), 6 grid lines (plt.grid(True)) and 7 data line with markers (plt.plot)."
+    },
+    {
+      "key": "bar-and-barh",
+      "file": "diagrams/ug26-308-r09-bar-and-barh.svg",
+      "alt": "Two bar charts of the same four categories, one with vertical bars from plt.bar and one with horizontal bars from plt.barh",
+      "caption": "bar draws vertical bars, barh horizontal bars",
+      "description": "Categories A, B, C and D have values 12, 20, 8 and 15. The left chart uses plt.bar(names, vals) with categories on the x axis; the right uses plt.barh(names, vals) with categories on the y axis. Bars do not touch because the categories are separate."
+    },
+    {
+      "key": "histogram-bin-edges",
+      "file": "diagrams/ug26-308-r09-histogram-bin-edges.svg",
+      "alt": "A histogram with bins 0 to 3, 3 to 6 and 6 to 9 showing where the value 3 is counted",
+      "caption": "A value on a bin edge goes into the bin on its right",
+      "description": "The data are 1, 2, 2, 3, 3, 3, 4, 4, 5, 9 with bins=[0, 3, 6, 9]. The bins are [0, 3) with frequency 3, [3, 6) with frequency 6 and [6, 9] with frequency 1. The three 3s lie on an edge and are counted in the right bin [3, 6); only the last bin also includes its right edge, so 9 is counted."
+    },
+    {
+      "key": "histogram-polygon",
+      "file": "diagrams/ug26-308-r09-histogram-and-polygon.svg",
+      "alt": "A histogram with classes 10 to 30, 30 to 50 and 50 to 70 and a dashed frequency polygon joining the class mid-points",
+      "caption": "A histogram and its frequency polygon",
+      "description": "plt.hist(data, bins=[10, 30, 50, 70]) draws touching bars of height 3, 4 and 3 for the three classes. A red dashed line, the frequency polygon, joins the mid-points 20, 40 and 60 at the bar heights and returns to zero at empty classes at both ends. Ticks on the axis mark the ten data values."
+    },
+    {
+      "key": "pie-wedges",
+      "file": "diagrams/ug26-308-r09-pie-chart-wedges.svg",
+      "alt": "A pie chart of 20, 30 and 50 with wedge percentages and the angle of each wedge worked out",
+      "caption": "Each pie wedge is value / total x 360 degrees",
+      "description": "plt.pie([20, 30, 50], labels=[\"A\", \"B\", \"C\"], autopct=\"%1.1f%%\") gives wedges A 20.0%, B 30.0% and C 50.0%. The angles are 20/100 x 360 = 72 degrees, 30/100 x 360 = 108 degrees and 50/100 x 360 = 180 degrees, 360 degrees in all. By default the first wedge starts at the 3 o'clock position and the wedges run anticlockwise."
+    },
+    {
+      "key": "boxplot-parts",
+      "file": "diagrams/ug26-308-r09-boxplot-parts.svg",
+      "alt": "A box plot of the data 1 to 9 and 100 with the box, median, whiskers, upper limit and the outlier 100 labelled",
+      "caption": "Reading a box plot: box, median, whiskers and outlier",
+      "description": "For the data 1, 2, ..., 9, 100: Q1 = 3.25, median = 5.5 and Q3 = 7.75, so the box (the IQR) is 4.5 long. The upper limit is Q3 + 1.5 x IQR = 14.5, so the upper whisker stops at the largest value inside it, 9, and the value 100 is drawn as a separate outlier point. The lower whisker ends at the minimum, 1. The vertical axis is broken between 16 and 100."
+    },
+    {
+      "key": "scatter-patterns",
+      "file": "diagrams/ug26-308-r09-scatter-patterns.svg",
+      "alt": "Three scatter plots showing a rising, a falling and a shapeless pattern of dots",
+      "caption": "Scatter plots show whether two variables are related",
+      "description": "Three panels each use x = 1 to 10 and different y values. The first shows dots rising to the right (a positive relation), the second dots falling (a negative relation) and the third a shapeless cloud (little relation). Dots are not joined by lines."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-308-r09-matplotlib-q01",

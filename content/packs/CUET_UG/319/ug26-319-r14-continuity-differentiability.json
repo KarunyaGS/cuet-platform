@@ -68,6 +68,14 @@
         "text": "Polynomials, sine, cosine, exponential functions are continuous everywhere. Rational functions are continuous wherever the denominator is not zero. Sums, differences, products and compositions of continuous functions are continuous, and a quotient is continuous where the denominator is non-zero."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "discontinuity-types"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: continuity at a point needs the left limit, the right limit and the value to be one and the same finite number. In the removable case the limit exists but the value is wrong or missing, in the jump case the two limits disagree, and in the infinite case there is no finite limit at all. In exam questions, find which of these three conditions breaks."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Find $k$ if $f(x) = \\dfrac{x^2 - 9}{x - 3}$ for $x \\ne 3$ and $f(3) = k$ is continuous at $x = 3$.",
         "solution": "For $x \\ne 3$, $\\dfrac{x^2-9}{x-3} = \\dfrac{(x-3)(x+3)}{x-3} = x + 3$. Hence $\\lim_{x \\to 3} f(x) = 3 + 3 = 6$. For continuity the limit must equal $f(3) = k$, so $k = 6$.",
@@ -89,6 +97,14 @@
         "text": "**Every differentiable function is continuous, but a continuous function need not be differentiable.** The function $f(x) = |x|$ is continuous at $0$, but its left derivative is $-1$ and its right derivative is $+1$, so it has a corner at $0$ and is not differentiable there."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "corner-abs-x"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the graph has no break, so |x| is continuous at 0, but the slope from the left is -1 and the slope from the right is +1. Differentiability needs these two one-sided slopes to be equal, so a corner means \"continuous but not differentiable\". This is the standard example behind the statement that the converse of \"differentiable implies continuous\" is false."
+      },
+      {
         "type": "CALLOUT",
         "text": "When a question asks whether a function is differentiable at a point, first check continuity (if it fails, the answer is no), then compare left and right derivatives. Note that $f(x) = x|x|$ **is** differentiable at $0$, with $f'(0) = \\lim_{h\\to0} \\dfrac{h|h|}{h} = \\lim_{h \\to 0}|h| = 0$."
       },
@@ -99,6 +115,14 @@
       {
         "type": "CONCEPT",
         "text": "**Chain rule.** If $y = f(u)$ and $u = g(x)$, where both are differentiable, then $\\dfrac{dy}{dx} = \\dfrac{dy}{du}\\cdot\\dfrac{du}{dx}$. In words: differentiate the outer function, keeping the inside unchanged, then multiply by the derivative of the inside."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "chain-rule-flow"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: break a composite function into links, differentiate each link with respect to its own input, and multiply. The inner derivative du/dx must be included; forgetting it is the most common chain-rule mistake."
       },
       {
         "type": "TABLE",
@@ -248,6 +272,14 @@
         "text": "Here $t$ is the parameter, $dx/dt \\ne 0$. For the circle $x = a\\cos\\theta$, $y = a\\sin\\theta$ this gives $\\dfrac{dy}{dx} = \\dfrac{a\\cos\\theta}{-a\\sin\\theta} = -\\cot\\theta$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "parametric-tangent"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: for a curve given by x(t) and y(t), the slope of the tangent is the ratio of the two t-derivatives. Both t = 1 and t = -1 give the same x = 1, but the slopes have opposite signs because dx/dt changes sign, so always substitute the parameter value, not just x."
+      },
+      {
         "type": "HEADING",
         "text": "Second-order derivatives"
       },
@@ -273,7 +305,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "discontinuity-types",
+      "file": "diagrams/ug26-319-r14-continuity-differentiability-discontinuities.svg",
+      "alt": "Three small graphs: a removable discontinuity with a hole and a displaced point, a jump discontinuity with different left and right limits, and an infinite discontinuity next to a vertical asymptote",
+      "caption": "Three ways continuity at a point can fail",
+      "description": "Left graph: the line y = x + 3 with an open circle at (3, 6) and a separate filled point at (3, 4), so the limit 6 differs from f(3) = 4 (removable). Middle graph: y = x squared up to x = 2 ending at a filled point at height 4, then the horizontal line y = 3 starting from an open circle, so the left limit 4 differs from the right limit 3 (jump). Right graph: the two branches of y = 1/(x - 2) either side of the dashed vertical line x = 2, growing without bound (infinite). The marked values are computed from the formulas."
+    },
+    {
+      "key": "corner-abs-x",
+      "file": "diagrams/ug26-319-r14-continuity-differentiability-corner.svg",
+      "alt": "Graph of y = |x| with a corner at the origin, a slope triangle of slope minus 1 on the left branch, a slope triangle of slope plus 1 on the right branch, and a table of difference quotients",
+      "caption": "Why |x| is not differentiable at 0",
+      "description": "The graph of y = |x| from x = -3 to 3 is a V with its corner at the origin. A red triangle on the left branch shows run 1 and fall 1 (slope -1). A green triangle on the right branch shows run 1 and rise 1 (slope +1). A table of (f(0 + h) - f(0)) / h gives -1 for h = -0.1 and -0.01 and +1 for h = 0.01 and 0.1, so the left and right derivatives at 0 are different."
+    },
+    {
+      "key": "chain-rule-flow",
+      "file": "diagrams/ug26-319-r14-continuity-differentiability-chain-flow.svg",
+      "alt": "Flow diagram of the chain rule for y = sin of x squared: x goes to u = x squared, then to y = sin u, with du/dx = 2 and dy/du = cos 1 multiplied at x = 1",
+      "caption": "Chain rule as a flow: multiply the derivative of each link",
+      "description": "Three boxes joined by arrows: x, then u = x squared (inner function), then y = sin u (outer function). Below them, du/dx = 2x = 2 at x = 1 and dy/du = cos u = cos 1, about 0.5403, are multiplied to give dy/dx of about 1.0806 for y = sin of x squared at x = 1. The numbers are computed and agree with a numerical derivative."
+    },
+    {
+      "key": "parametric-tangent",
+      "file": "diagrams/ug26-319-r14-continuity-differentiability-parametric-tangent.svg",
+      "alt": "Graph of the parametric curve x = t squared, y = t cubed with tangent lines at t = 1 and t = -1 and the slope calculations beside it",
+      "caption": "Tangent slope of a parametric curve: dy/dx = (dy/dt)/(dx/dt)",
+      "description": "The curve x = t squared, y = t cubed for t from -1.3 to 1.3 has a cusp at the origin and two branches. At t = 1 the point is (1, 1), dx/dt = 2 and dy/dt = 3, so the tangent slope is 1.5. At t = -1 the point is (1, -1), dx/dt = -2 and dy/dt = 3, so the slope is -1.5. Dashed tangent lines are drawn at both points."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r14-continuity-differentiability-q01",

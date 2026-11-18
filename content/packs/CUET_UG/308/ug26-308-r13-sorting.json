@@ -132,6 +132,14 @@
     "text": "Inside pass 1: 5>1 swap gives [1,5,4,2,8]; 5>4 swap gives [1,4,5,2,8]; 5>2 swap gives [1,4,2,5,8]; 5<8 no swap. So 3 swaps and the 5 has moved right."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "bubble-passes"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: After each pass the largest unsorted value has bubbled to the end. If a whole pass makes no swap the list is already sorted, so a flag lets the algorithm stop early."
+   },
+   {
     "type": "DEFINITION",
     "term": "Optimised bubble sort",
     "text": "A bubble sort that keeps a flag (for example swapped = False at the start of each pass) and stops as soon as a pass finishes with no swap, because the list is then sorted."
@@ -194,6 +202,14 @@
     "text": "Selection sort always makes $\\frac{n(n-1)}{2}$ comparisons, because it must scan the whole unsorted part even if the list is already sorted, but it makes at most $n-1$ swaps, which is fewer than bubble sort. This is useful when moving data is expensive."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "selection-passes"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Selection sort scans the unsorted part for the minimum and puts it in the next place. It always makes n(n-1)/2 comparisons, however the data is arranged."
+   },
+   {
     "type": "CALLOUT",
     "text": "Selection sort does not stop early on sorted input: there is no flag. Its best, average and worst case comparisons are all the same, $\\frac{n(n-1)}{2}$."
    },
@@ -239,6 +255,14 @@
       "[1, 3, 4, 5, 9]"
      ]
     ]
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "insertion-passes"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The left part is always sorted; each new key is slid left past larger elements until it fits. The work depends on how out of order the list is."
    },
    {
     "type": "SOLVED_PROBLEM",
@@ -295,6 +319,14 @@
     "text": "Best case of insertion sort and flag-based bubble sort is a sorted list (order n). Worst case of both is a list in reverse order. Selection sort has no best case advantage."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "sorting-counts"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Flagged bubble sort and insertion sort do very little on sorted data, but selection sort makes the same 10 comparisons whatever the order."
+   },
+   {
     "type": "SOLVED_PROBLEM",
     "problem": "Insertion sort is applied on the sorted list [1, 2, 3, 4, 5] and on the reverse list [5, 4, 3, 2, 1]. Count the shifts in each.",
     "solution": "Sorted list: for every key the element to its left is not larger, so the while loop stops at once. 4 comparisons (one per pass) and 0 shifts: best case.\n\nReverse list: pass 1 key 4 shifts 1 element; key 3 shifts 2; key 2 shifts 3; key 1 shifts 4. Shifts = 1+2+3+4 = 10 = $\\frac{5\\times 4}{2}$: worst case.",
@@ -338,7 +370,36 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "bubble-passes",
+   "file": "diagrams/ug26-308-r13-sorting-bubble-passes.svg",
+   "alt": "Bubble sort on [5, 1, 4, 2, 8] with every comparison shown, the swaps made in each pass and the early stop",
+   "caption": "Bubble sort pass by pass",
+   "description": "Pass 1 makes 3 swaps (5>1, 5>4, 5>2) and 5<8 is not swapped. Pass 2 makes 1 swap (4>2). Pass 3 makes no swap, so the flagged version stops. The totals are 9 comparisons and 4 swaps (without the flag the algorithm would still make another pass)."
+  },
+  {
+   "key": "selection-passes",
+   "file": "diagrams/ug26-308-r13-sorting-selection-passes.svg",
+   "alt": "Selection sort on [64, 25, 12, 22, 11] showing the minimum found in each pass and the swap that follows",
+   "caption": "Selection sort pass by pass",
+   "description": "Pass 1 finds the minimum 11 (4 comparisons) and swaps index 4 with index 0. Pass 2 finds 12 (3 comparisons) and swaps index 2 with index 1. Pass 3 finds 22 (2 comparisons) and swaps index 3 with index 2. Pass 4 finds that 25 is already at index 3 (1 comparison) so there is no swap. In all, 10 comparisons and 3 swaps that moved something."
+  },
+  {
+   "key": "insertion-passes",
+   "file": "diagrams/ug26-308-r13-sorting-insertion-passes.svg",
+   "alt": "Insertion sort on [9, 5, 1, 4, 3] showing the key inserted in each pass, the elements shifted right and the growing sorted prefix",
+   "caption": "Insertion sort pass by pass",
+   "description": "Start: [9] is the sorted part. Key 5 takes 1 comparison and 1 shift; key 1 takes 2 comparisons and 2 shifts; key 4 takes 3 comparisons and 2 shifts; key 3 takes 4 comparisons and 3 shifts. The total is 10 comparisons and 8 shifts. Red is the key inserted, amber the elements shifted right and green the sorted prefix."
+  },
+  {
+   "key": "sorting-counts",
+   "file": "diagrams/ug26-308-r13-sorting-counts.svg",
+   "alt": "Two tables comparing comparisons and swaps or shifts of bubble (flag), selection and insertion sort on a sorted list and a reversed list of five",
+   "caption": "Best and worst case counts for the three sorts",
+   "description": "For the sorted list [1, 2, 3, 4, 5]: flagged bubble sort 4 comparisons and 0 swaps, selection sort 10 and 0, insertion sort 4 and 0. For the reversed list [5, 4, 3, 2, 1]: bubble 10 and 10, selection 10 and 2, insertion 10 and 10. Selection counts only exchanges that moved an element."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r13-sorting-q01",

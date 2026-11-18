@@ -97,8 +97,24 @@
         "text": "Cutting the vector and the source DNA with the same restriction enzyme gives the same kind of sticky ends, and DNA ligase can then join them to make the recombinant DNA. Because a six-base recognition sequence is made of four possible bases, it occurs on average once in $4^6 = 4096$ base pairs of random DNA."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "ecori-cut"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: EcoRI recognises GAATTC and cuts each strand between G and A, but the two cuts are staggered. This leaves short single-stranded AATT overhangs called sticky ends. Any two pieces of DNA cut with the same enzyme have matching sticky ends, so DNA ligase can join them into recombinant DNA."
+      },
+      {
         "type": "TEXT",
         "text": "**Separation and isolation of DNA fragments** is done by **gel electrophoresis**. DNA is negatively charged, so the fragments move towards the positive electrode (anode) through an agarose gel (agarose is a natural polymer extracted from sea weeds). The gel acts as a sieve, so the fragments separate according to their size: the smaller fragments move farther. The DNA is stained with **ethidium bromide** and seen as orange bands under UV light. The bands are cut out of the gel and the DNA is extracted from the gel piece, a step called **elution**."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "gel-electrophoresis"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: DNA is negatively charged, so it moves towards the positive electrode (anode), and smaller fragments move farther through the gel. The 12 kb DNA cut at three EcoRI sites gives fragments of 2, 3, 4 and 3 kb. The two 3 kb fragments run together as one thick band, so you see three bands for four fragments; the sizes add up to 12 kb."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -122,6 +138,14 @@
       {
         "type": "TEXT",
         "text": "The well-known *E. coli* cloning vector **pBR322** has ori, two antibiotic resistance genes (*amp*^R and *tet*^R) and the *rop* gene, which codes for proteins involved in the replication of the plasmid. The restriction sites *Hind* III, *Eco*RI, *Bam*HI, *Sal*I, *Pvu*II, *Pst*I and *Cla*I are within the two antibiotic resistance genes; for instance, *Bam*HI and *Sal*I lie in *tet*^R, and *Pst*I and *Pvu*I lie in *amp*^R."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "pbr322-vector"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: pBR322 carries an origin of replication (ori), the rop gene and two antibiotic resistance genes. A foreign gene ligated into the BamHI site breaks (inactivates) the tet gene, so recombinant cells lose tetracycline resistance but keep ampicillin resistance. This difference is how recombinants are picked out."
       },
       {
         "type": "TEXT",
@@ -177,6 +201,14 @@
         "text": "The enzyme used is a **thermostable DNA polymerase, Taq polymerase, isolated from the bacterium *Thermus aquaticus***. It remains active during the high temperature of the denaturation step. With the repeated cycles, the amount of DNA doubles with every cycle, so there is an exponential increase, and after $n$ cycles, one molecule gives $2^n$ copies. The amplified fragment is used to ligate with a vector for cloning, and PCR is also used in the detection of pathogens and genetic disorders."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "pcr-cycles"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: One PCR cycle has three steps: denaturation (about 94 degrees Celsius), annealing of primers (50 to 60 degrees) and extension by the polymerase (about 72 degrees). Each cycle doubles the DNA, so one template gives 2, 4, 8 ... copies, that is 2 raised to the power n after n cycles. Taq polymerase is heat-stable, so it is not destroyed by the 94 degree step."
+      },
+      {
         "type": "FORMULA",
         "latex": "N = N_0 \\times 2^{n}",
         "text": "$N$ is the number of copies after $n$ cycles of PCR, $N_0$ is the number of starting template molecules, and each cycle doubles the number of copies (ideal efficiency)."
@@ -226,7 +258,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "ecori-cut",
+      "file": "diagrams/ug26-304-t04-ecori-cut.svg",
+      "alt": "The sequence GAATTC / CTTAAG cut by EcoRI between G and A on each strand, leaving AATT sticky ends",
+      "caption": "EcoRI cut and sticky ends (schematic)",
+      "description": "Top: double-stranded DNA with the palindromic EcoRI site, 5'-GAATTC-3' on the upper strand and 3'-CTTAAG-5' on the lower strand. The enzyme cuts the upper strand between G and A and the lower strand between A and G, a staggered cut. Bottom: the two fragments each have a single-stranded AATT overhang, the sticky ends."
+    },
+    {
+      "key": "gel-electrophoresis",
+      "file": "diagrams/ug26-304-t04-gel-electrophoresis.svg",
+      "alt": "Agarose gel with a marker lane, an uncut 12 kb DNA lane and an EcoRI digest lane showing bands of 4, 3 and 2 kb",
+      "caption": "Gel electrophoresis of the EcoRI digest (schematic)",
+      "description": "Schematic agarose gel with wells at the negative end at the top and the anode at the bottom. Lane 1 holds size markers, lane 2 holds uncut 12 kb DNA as one band near the top, and lane 3 holds the digest with a 4 kb band, a thicker 3 kb band containing two fragments, and a 2 kb band. Smaller fragments have moved farther."
+    },
+    {
+      "key": "pbr322-vector",
+      "file": "diagrams/ug26-304-t04-pbr322-vector.svg",
+      "alt": "Circular map of the pBR322 plasmid showing ori, rop, ampR with PstI and PvuI sites, and tetR with BamHI and SalI sites",
+      "caption": "pBR322 cloning vector (schematic)",
+      "description": "Circular plasmid map. The tetracycline resistance gene (tetR) carries the BamHI and SalI sites; the ampicillin resistance gene (ampR) carries the PstI and PvuI sites. The origin of replication (ori) and the rop gene complete the map. Not all restriction sites of pBR322 are shown."
+    },
+    {
+      "key": "pcr-cycles",
+      "file": "diagrams/ug26-304-t04-pcr-cycles.svg",
+      "alt": "Temperature against time graph of three PCR cycles, each with denaturation, annealing and extension, with copy numbers 2, 4 and 8",
+      "caption": "Three PCR cycles: temperature steps and copy number",
+      "description": "Graph of temperature against time showing three repeated cycles. Each cycle holds about 94 degrees Celsius (denaturation), then a lower annealing temperature of 50 to 60 degrees (55 drawn), then about 72 degrees (extension). Copy numbers above the cycles show doubling from one template: 2, 4 and 8."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-304-t04-biotechnology-q01",

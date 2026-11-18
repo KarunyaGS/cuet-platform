@@ -94,6 +94,14 @@
         "text": "Linear search needs no sorting, is simple, and is suitable for short or unsorted lists. Its cost grows in direct proportion to the list length."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "linear-trace"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Linear search checks from the start until it finds the key or runs out of elements. A missing key costs n comparisons."
+      },
+      {
         "type": "HEADING",
         "text": "Binary search"
       },
@@ -116,6 +124,14 @@
         "problem": "Dry run the same list for the key 10 (absent) and for the key 47 (the last element).",
         "solution": "Key 10: low = 0, high = 7, mid = 3, a[3] = 19 > 10 so high = 2. Then mid = 1, a[1] = 8 < 10 so low = 2. Then mid = 2, a[2] = 12 > 10 so high = 1. Now low = 2 > high = 1, so the loop stops: not found after 3 comparisons, returns -1.\nKey 47: mid = 3 (19 < 47) so low = 4; mid = 5 (31 < 47) so low = 6; mid = 6 (40 < 47) so low = 7; mid = 7 (47 = 47) found. That is 4 comparisons.",
         "answer": "Key 10: not found after 3 comparisons (-1). Key 47: found at index 7 after 4 comparisons."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "binary-trace"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Each comparison with the middle element throws away half of the remaining list. It only works if the list is sorted."
       },
       {
         "type": "CALLOUT",
@@ -172,6 +188,14 @@
       {
         "type": "TEXT",
         "text": "**How binary search grows.** Halving a list repeatedly until one element is left takes about log2(n) steps. Doubling n adds only one more comparison. A list of 1000 sorted items needs at most 10 comparisons, while a linear search may need 1000. For small lists, or for a list which would first have to be sorted, linear search can still be the better choice."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "search-comparisons"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Linear search grows in step with n, but binary search grows by only one for every doubling, which is why it wins on big sorted lists."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -232,6 +256,14 @@
         "text": "With chaining the same keys give: slot 5 holds the list 25, 35, 45 and slot 2 holds the list 12, 22. Chaining never fills the table, while linear probing fails when the table is full and tends to form long runs of occupied slots (clustering)."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "hash-tables"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A collision happens when two keys give the same slot. Linear probing moves to the next free slot; chaining keeps a list in the slot. A search must follow the same path as the insert."
+      },
+      {
         "type": "CALLOUT",
         "text": "In linear probing, the search for a key must follow the same probe order as insertion: start at h(key), and stop at an empty slot (key absent). Starting from slot 0, or giving up at the first non-matching slot, is wrong."
       },
@@ -241,7 +273,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "linear-trace",
+      "file": "diagrams/ug26-308-r11-searching-linear-trace.svg",
+      "alt": "Two traces of linear search on a list of five numbers, one finding the key 22 after four comparisons and one failing to find 8 after five",
+      "caption": "Linear search step by step",
+      "description": "List [14, 7, 9, 22, 5]. Key 22: comparisons 14, 7 and 9 are not equal (grey), the fourth finds 22 at index 3, so 4 comparisons and it returns 3. Key 8: every one of the five elements is compared and none equals 8, so 5 comparisons and it returns -1."
+    },
+    {
+      "key": "binary-trace",
+      "file": "diagrams/ug26-308-r11-searching-binary-trace.svg",
+      "alt": "Two traces of binary search on [3, 8, 12, 19, 25, 31, 40, 47] with the low, mid and high positions marked, one finding 31 and one failing to find 10",
+      "caption": "Binary search on a sorted list",
+      "description": "Key 31: low = 0, high = 7, mid = 3; a[3] = 19 is less than 31 so low becomes 4; mid = 5 and a[5] = 31, found after 2 comparisons at index 5. Key 10: a[3] = 19 is greater than 10 so high = 2; a[1] = 8 is less than 10 so low = 2; a[2] = 12 is greater than 10 so the range empties and the search ends with -1."
+    },
+    {
+      "key": "search-comparisons",
+      "file": "diagrams/ug26-308-r11-searching-comparisons.svg",
+      "alt": "A bar chart comparing the worst-case number of comparisons of linear and binary search for 8, 16, 32 and 64 elements",
+      "caption": "Worst-case comparisons: linear against binary",
+      "description": "For n = 8, 16, 32 and 64 the linear search worst case is 8, 16, 32 and 64 comparisons and the binary search worst case is 4, 5, 6 and 7. Doubling n adds one comparison to binary search; a sorted list is needed."
+    },
+    {
+      "key": "hash-tables",
+      "file": "diagrams/ug26-308-r11-searching-hash-tables.svg",
+      "alt": "Two hash tables of ten slots holding the keys 25, 35, 45, 12 and 22, one placed with linear probing and one with chaining",
+      "caption": "Collision resolution: linear probing and chaining",
+      "description": "With h(key) = key % 10, the keys 25, 35 and 45 all want slot 5. Linear probing places 25 in slot 5, 35 in slot 6 and 45 in slot 7; 12 goes in slot 2 and 22, finding slot 2 taken, in slot 3. With chaining every slot holds a list, so slot 5 holds 25, 35, 45 and slot 2 holds 12, 22. Amber marks keys placed away from their home slot."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-308-r11-searching-q01",

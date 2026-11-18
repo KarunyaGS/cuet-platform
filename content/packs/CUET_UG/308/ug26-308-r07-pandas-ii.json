@@ -132,6 +132,14 @@
         "text": "The three values Q1, Q2 and Q3 that divide sorted data into four equal parts. Q1 = quantile(0.25), Q2 = quantile(0.50) = median, Q3 = quantile(0.75). The interquartile range is Q3 - Q1."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "quartiles-number-line"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The three quartiles split the sorted data into four equal parts, and the IQR (Q3 - Q1) measures the spread of the middle half. Q1 is 4.5 because pandas interpolates between 4 and 5."
+      },
+      {
         "type": "TEXT",
         "text": "**Standard deviation and variance.** The variance measures the average squared distance of the values from their mean; the standard deviation is its square root and has the same unit as the data. Pandas uses the **sample** formula by default (denominator n - 1, written ddof=1). NumPy uses the population formula (denominator n) unless told otherwise. For the data 2, 4, 4, 4, 5, 5, 7, 9 (mean 5) the sum of squared deviations is 32, so `var()` = 32/7 = 4.571 and `std()` = 2.138, whereas the population values would be 32/8 = 4 and 2.0."
       },
@@ -158,6 +166,14 @@
       {
         "type": "TEXT",
         "text": "- `df.groupby(\"Dept\")[\"Salary\"].mean()` gives HR 32500.0, IT 50000.0, Sales 40000.0.\n- `df.groupby(\"Dept\")[\"Salary\"].sum()` gives HR 65000, IT 50000, Sales 120000.\n- `df.groupby(\"Dept\").size()` gives HR 2, IT 1, Sales 3 (number of rows in each group).\n- `df.groupby(\"Dept\")[\"Salary\"].agg([\"min\", \"max\"])` produces one row per department with the columns min and max (HR 30000 and 35000, IT 50000 and 50000, Sales 35000 and 45000).\n- Group keys become the **index** of the result and are sorted in ascending order by default."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "groupby-split-apply-combine"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: groupby works in three steps: split into groups, apply a function to each, combine the answers. The group keys become the index of the result, sorted in ascending order."
       },
       {
         "type": "TEXT",
@@ -230,6 +246,14 @@
         "problem": "A sales table is\n\n```\nsales = pd.DataFrame({\n    \"Region\": [\"N\", \"N\", \"S\", \"S\", \"N\"],\n    \"Item\":   [\"pen\", \"pad\", \"pen\", \"pad\", \"pen\"],\n    \"Qty\":    [10, 5, 7, 3, 4]\n})\n```\n\nWhat does `sales.pivot_table(index=\"Region\", columns=\"Item\", values=\"Qty\", aggfunc=\"sum\")` give, and why does `sales.pivot(index=\"Region\", columns=\"Item\", values=\"Qty\")` fail?",
         "solution": "Group by (Region, Item) and add Qty: (N, pen) = 10 + 4 = 14; (N, pad) = 5; (S, pen) = 7; (S, pad) = 3.\nRows are N and S, columns are pad and pen (alphabetical order), so the table is:\nN: pad 5, pen 14\nS: pad 3, pen 7.\nWith pivot() the pair (N, pen) appears twice (rows 0 and 4), so pandas cannot place two values in one cell and raises ValueError: Index contains duplicate entries, cannot reshape.",
         "answer": "pivot_table gives N: pad 5, pen 14 and S: pad 3, pen 7. pivot fails with a ValueError because (N, pen) is repeated."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "pivot-table"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: pivot only rearranges and needs each (row, column) pair to be unique. pivot_table also aggregates, so repeated pairs such as (N, pen) are added together."
       },
       {
         "type": "KEY_POINT",
@@ -351,7 +375,29 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "quartiles-number-line",
+      "file": "diagrams/ug26-308-r07-quartiles-number-line.svg",
+      "alt": "A number line with the sorted values 3, 4, 5, 6, 8, 8, 10 and the marks for Q1 4.5, median 6 and Q3 8",
+      "caption": "Quartiles and the IQR on a number line",
+      "description": "The Series [4, 8, 6, 5, 3, 8, 10] sorted is 3, 4, 5, 6, 8, 8, 10. Marks on a number line show Q1 = 4.5, the median = 6 and Q3 = 8; the interquartile range is Q3 - Q1 = 8 - 4.5 = 3.5. The quantile calls 0.25, 0.50 and 0.75 give the three quartiles."
+    },
+    {
+      "key": "groupby-split-apply-combine",
+      "file": "diagrams/ug26-308-r07-groupby-split-apply-combine.svg",
+      "alt": "A salary table split into HR, IT and Sales groups, a mean computed for each group and the means combined into a Series",
+      "caption": "groupby: split, apply, combine",
+      "description": "df.groupby(\"Dept\")[\"Salary\"].mean(). Step 1 splits the six rows into groups HR (35000, 30000), IT (50000) and Sales (40000, 45000, 35000). Step 2 applies the mean to each group. Step 3 combines the results into a Series indexed by Dept: HR 32500.0, IT 50000.0 and Sales 40000.0."
+    },
+    {
+      "key": "pivot-table",
+      "file": "diagrams/ug26-308-r07-pivot-table.svg",
+      "alt": "A long sales table turned into a Region by Item table with pivot_table and sum",
+      "caption": "pivot_table aggregates repeated pairs; pivot would fail",
+      "description": "A long table of five sales rows (Region, Item, Qty) is turned into a wide table with regions N and S as rows and items pad and pen as columns. Rows 0 and 4 are both (N, pen), so pivot() would fail; pivot_table with aggfunc=\"sum\" adds 10 + 4 = 14. Result: N pad 5 pen 14, S pad 3 pen 7."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-308-r07-pandas-ii-q01",

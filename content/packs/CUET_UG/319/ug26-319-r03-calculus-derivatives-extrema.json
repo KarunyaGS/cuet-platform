@@ -144,6 +144,14 @@
         "answer": "Increasing on $(-\\infty,1)$ and $(2,\\infty)$; decreasing on $(1,2)$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "increasing-decreasing"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: where f prime is above the x-axis, f is rising; where it is below, f is falling. The points where f prime = 0 (here x = 1 and x = 2) are the boundaries between the intervals, so test the sign of f prime in each interval between them."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Show that $f(x)=x^3-3x^2+3x-5$ is increasing on $\\mathbb{R}$.",
         "solution": "$f'(x)=3x^2-6x+3=3(x-1)^2\\ge0$ for all $x$, and $f'(x)=0$ only at $x=1$. So $f$ is increasing on the whole real line, even though its slope is momentarily 0 at $x=1$.",
@@ -216,6 +224,14 @@
         "answer": "Local maximum value $2$ at $x=-1$; local minimum value $-2$ at $x=1$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "first-derivative-test"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: at the maximum f prime changes from + to -, and at the minimum from - to +; the tangent is flat at both. The second derivative agrees: f double prime(-1) = -6 < 0 (maximum) and f double prime(1) = 6 > 0 (minimum)."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Find the local maximum and local minimum values of $f(x)=2x^3-15x^2+36x+1$.",
         "solution": "$f'(x)=6x^2-30x+36=6(x-2)(x-3)$, so the critical points are $x=2,3$. $f''(x)=12x-30$.\n\n$f''(2)=-6<0$: local maximum, $f(2)=16-60+72+1=29$.\n\n$f''(3)=6>0$: local minimum, $f(3)=54-135+108+1=28$.",
@@ -233,6 +249,14 @@
         "answer": "Absolute maximum $0$ (at $x=0$ and $x=3$); absolute minimum $-20$ (at $x=-2$)"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "absolute-extrema"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the absolute minimum here is at an end point, not at a critical point, which is why you must evaluate f at both end points and at every critical point inside the interval, then compare: -20, 0, -4, 0."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "A farmer has 200 m of fencing to enclose a rectangular field along a straight river; no fence is needed along the river. Find the maximum area.",
         "solution": "Let the two sides perpendicular to the river have length $x$ and the side parallel to it $y$. Then $2x+y=200$, so $y=200-2x$.\n\nArea $A=x(200-2x)=200x-2x^2$. $A'=200-4x=0\\Rightarrow x=50$, $y=100$. $A''=-4<0$, so this is a maximum.\n\n$A=50\\times100=5000$.",
@@ -245,6 +269,14 @@
         "answer": "$128\\ \\text{cm}^3$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "open-box-volume"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: cutting very small or very large corners gives a small volume, so there is a best size in between. The maximum is where V prime = 0 (x = 2), and the graph confirms V(2) = 128 cm cubed is the highest point of the permitted range 0 < x < 6."
+      },
+      {
         "type": "CALLOUT",
         "text": "A local maximum value can be smaller than a local minimum value of the same function (for example $f(x)=x+\\tfrac1x$ has local maximum $-2$ at $x=-1$ and local minimum $2$ at $x=1$). Also, $f''(c)=0$ does not tell you there is no extremum."
       },
@@ -254,7 +286,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "increasing-decreasing",
+      "file": "diagrams/ug26-319-r03-calculus-derivatives-extrema-increasing-decreasing.svg",
+      "alt": "Top graph of f(x) = 2x cubed - 9x squared + 12x + 5 coloured blue where it rises and red between x = 1 and x = 2 where it falls; bottom graph of f prime(x) = 6(x-1)(x-2), positive, negative, positive",
+      "caption": "The sign of f prime decides where f rises or falls",
+      "description": "Two graphs share the same x-axis. The top graph is f(x) = 2x cubed - 9x squared + 12x + 5, rising up to the point (1, 10), falling to (2, 9) in red, then rising again. The bottom graph is f prime(x) = 6(x-1)(x-2), a parabola above the axis for x less than 1, below it between 1 and 2, and above it for x greater than 2, with dashed lines linking x = 1 and x = 2 to the top graph."
+    },
+    {
+      "key": "first-derivative-test",
+      "file": "diagrams/ug26-319-r03-calculus-derivatives-extrema-first-derivative-test.svg",
+      "alt": "Graph of f(x) = x cubed - 3x with a local maximum at (-1, 2) and a local minimum at (1, -2), horizontal tangents there, signs of f prime above and concavity labels below",
+      "caption": "First and second derivative tests on f(x) = x cubed - 3x",
+      "description": "The curve y = x cubed - 3x is drawn in amber for x less than 0 (bending downwards) and blue for x greater than 0 (bending upwards). Short green horizontal segments are tangents at the local maximum (-1, 2) and the local minimum (1, -2). Above the graph the sign of f prime is positive, negative, positive, separated at x = -1 and x = 1. Below, f double prime = 6x is negative for x less than 0 and positive for x greater than 0."
+    },
+    {
+      "key": "absolute-extrema",
+      "file": "diagrams/ug26-319-r03-calculus-derivatives-extrema-absolute-extrema.svg",
+      "alt": "Graph of f(x) = x cubed - 3x squared on [-2, 3] with the lowest point (-2, -20) marked red and the highest value 0 reached at x = 0 and x = 3 marked green",
+      "caption": "Absolute maximum and minimum on a closed interval",
+      "description": "The curve y = x cubed - 3x squared is drawn from x = -2 to x = 3. The end point (-2, -20) is the absolute minimum, marked red with a dashed line at y = -20. The critical point (0, 0) and the end point (3, 0) both give the absolute maximum 0, marked green with a dashed line at y = 0. The critical point (2, -4) is shown in grey as a local minimum that is not the absolute minimum."
+    },
+    {
+      "key": "open-box-volume",
+      "file": "diagrams/ug26-319-r03-calculus-derivatives-extrema-open-box-volume.svg",
+      "alt": "A 12 cm square sheet with a square of side x cut from each corner, and a graph of the volume V = x(12 - 2x) squared against x with its maximum 128 at x = 2",
+      "caption": "Open box from a square sheet: volume against cut-out size",
+      "description": "Top: a square sheet of side 12 cm with a small red square of side x removed at each corner; the remaining base has side 12 - 2x and the flaps fold up to height x. Bottom: the graph of V = x(12 - 2x) squared for x between 0 and 6 rises from 0, peaks at x = 2 with V = 128 cubic cm, marked by dashed lines, and falls back to 0 at x = 6."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r03-calculus-derivatives-extrema-q01",

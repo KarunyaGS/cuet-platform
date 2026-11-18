@@ -137,6 +137,14 @@
         "text": "$Y$ is the observed value, $T$ the trend, $S$ seasonal, $C$ cyclical and $I$ irregular component. In the additive model all components are in the unit of $Y$ and can be positive or negative. In the multiplicative model $T$ is in the unit of $Y$, while $S,C,I$ are ratios close to 1 (for example $1.10$ means 10% above the trend)."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "timeseries-trend-seasonal"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The dashed line is the trend, the long-term direction. The up-and-down pattern that returns inside every year, high in Q1 and low in Q3, is the seasonal part. In the additive model each observed value is trend plus seasonal effect, $Y=T+S$."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "In an additive model, the trend value of sales in a year is Rs 120 thousand, the seasonal effect is $+10$, the cyclical effect is $-5$ and the irregular effect is $+3$ (all in Rs thousand). Find the observed sales. In a multiplicative model with $T=200$, $S=1.10$, $C=0.90$ and $I=1.00$, find $Y$.",
         "solution": "Additive model: all four components are added, so $Y=T+S+C+I=120+10-5+3=128$, keeping the negative sign of the cyclical effect.\n\nMultiplicative model: the components are multiplied, so $Y=200\\times1.10\\times0.90\\times1.00=200\\times0.99=198$, because the seasonal rise of 10% and the cyclical fall of 10% do not cancel exactly.",
@@ -145,6 +153,14 @@
       {
         "type": "CALLOUT",
         "text": "Do not confuse the cyclical and the seasonal component. A seasonal pattern repeats **within every year** (for example every winter), while a cycle spans **several years** and its length is not fixed. A sudden flood is irregular, not cyclical."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "timeseries-cycle-irregular"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A cycle is a slow wave around the trend that takes several years to repeat and has no fixed length, unlike a seasonal pattern that repeats within a year. The sudden fall in year 4 belongs to no pattern, so it is the irregular component. This is the distinction in the callout above."
       },
       {
         "type": "HEADING",
@@ -204,6 +220,14 @@
         "answer": "$7,\\ 8,\\ 9.33,\\ 10.67,\\ 12$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "timeseries-moving-average"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Each red point is the mean of three neighbouring values, placed against the middle one, so the zigzag is smoothed out. Seven observations give only five averages: for period 3, two values are lost, one at each end."
+      },
+      {
         "type": "TEXT",
         "text": "When the period is **even** (for example 4), the average of four values falls between two time points. To bring it back to a time point we **centre** it: take the average of two consecutive 4-yearly averages. Equivalently, the centred value is $\\dfrac{\\frac12y_1+y_2+y_3+y_4+\\frac12y_5}{4}$."
       },
@@ -227,6 +251,14 @@
         "problem": "The sales (Rs lakh) in the years 2018 to 2022 are $10,14,16,20,25$. Fit a straight-line trend by least squares and estimate the trend value for 2023.",
         "solution": "Take 2020 as the origin, so $x=-2,-1,0,1,2$. Then $\\sum x=0$ and $\\sum x^2=4+1+0+1+4=10$.\n\n$\\sum y=10+14+16+20+25=85$, so $a=\\dfrac{85}{5}=17$.\n\n$\\sum xy=(-2)(10)+(-1)(14)+0+(1)(20)+(2)(25)=-20-14+0+20+50=36$, so $b=\\dfrac{36}{10}=3.6$.\n\nTrend equation: $y=17+3.6x$ (origin 2020, unit one year).\n\nFor 2023, $x=3$: $y=17+3.6\\times3=27.8$ lakh.",
         "answer": "$y=17+3.6x$; trend value for 2023 is $27.8$ lakh"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "timeseries-least-squares"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The least-squares line is the line for which the sum of the squares of the vertical gaps is smallest, and the gaps themselves add up to zero. Putting $x=3$ (the year 2023) in $y=17+3.6x$ gives the trend value $27.8$; such a forecast is reliable only if the past pattern continues."
       },
       {
         "type": "CALLOUT",
@@ -273,7 +305,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "timeseries-trend-seasonal",
+      "file": "diagrams/ug26-319-r08-timeseries-trend-seasonal.svg",
+      "alt": "Line graph of 16 quarterly values over four years rising along a dashed straight trend line, with the first-quarter points marked as seasonal highs and the third-quarter points as seasonal lows",
+      "caption": "A time series made of a rising trend and a repeating seasonal pattern (additive model)",
+      "description": "A line graph of sales against time for 16 quarters grouped into Year 1 to Year 4. A dashed amber straight line, the trend T = 100 + 2.5t, rises steadily. The blue observed line Y = T + S zigzags around it in the same pattern every year: the seasonal effect is +10 in Q1 (red points, highest), -6 in Q2, -12 in Q3 (green points, lowest) and +8 in Q4. The values are illustrative and computed from this model."
+    },
+    {
+      "key": "timeseries-cycle-irregular",
+      "file": "diagrams/ug26-319-r08-timeseries-cycle-irregular.svg",
+      "alt": "Line graph of 12 yearly values with a rising dashed trend, a slow grey wave of about 6 years around it, and one sharp isolated fall in year 4 marked as an irregular shock",
+      "caption": "Cyclical variation takes several years to repeat, while an irregular shock is a one-off",
+      "description": "A line graph of output against years 1 to 12. A dashed amber straight line is the trend T = 50 + 2t. A grey dotted wave shows trend plus a cycle that repeats every 6 years, and a green double arrow from year 1 to year 7 marks one full cycle. The blue observed line follows the wave except in year 4, where a red ringed point shows a sharp one-off fall of 14 units, labelled the irregular shock (flood). Values are illustrative: Y = T + C + I."
+    },
+    {
+      "key": "timeseries-moving-average",
+      "file": "diagrams/ug26-319-r08-timeseries-moving-average.svg",
+      "alt": "Line graph of the data 5, 7, 9, 8, 11, 13, 12 in blue and its five 3-yearly moving averages 7, 8, 9.33, 10.67 and 12 in red, which form a smoother line starting at observation 2",
+      "caption": "Three-yearly moving averages smooth the data and lose the two end values",
+      "description": "A graph with the observation number 1 to 7 on the horizontal axis. The blue zigzag line joins the data 5, 7, 9, 8, 11, 13, 12. The red line joins the moving averages 7, 8, 9.33, 10.67 and 12, placed against observations 2 to 6; it is smoother and rises steadily. There is no red point at observations 1 and 7 because a full group of three is not available there."
+    },
+    {
+      "key": "timeseries-least-squares",
+      "file": "diagrams/ug26-319-r08-timeseries-least-squares.svg",
+      "alt": "Scatter of sales for 2018 to 2022 (10, 14, 16, 20, 25) with the straight trend line y = 17 + 3.6x passing close to the points, small amber gaps between points and line, and the 2023 trend value 27.8 marked on the line",
+      "caption": "The least-squares trend line, the gaps it minimises, and the trend value for 2023",
+      "description": "A graph of sales in rupees lakh against the years 2018 to 2023; the vertical axis starts at 8. Five blue points show sales of 10, 14, 16, 20 and 25. A green straight line y = 17 + 3.6x (x = 0 in 2020, unit one year) passes through the middle of the points. Short amber vertical segments show the gaps between each point and the line: in order from 2018 to 2022 the data lie 0.2 above, 0.6 above, 1.0 below, 0.6 below and 0.8 above the line, and these gaps add up to zero. A hollow green circle at 2023 marks the trend value 27.8."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r08-time-based-data-q01",

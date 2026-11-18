@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" font-family="Arial, Helvetica, sans-serif">
+<path d="M90,100 V250 H200 V100" fill="none" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="98" y="217" width="94" height="30" rx="3" fill="#ffffff" stroke="#1f2937" stroke-width="2"/><text x="145" y="237.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">10</text>
+<rect x="98" y="181" width="94" height="30" rx="3" fill="#ffffff" stroke="#1f2937" stroke-width="2"/><text x="145" y="201.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">20</text>
+<rect x="98" y="145" width="94" height="30" rx="3" fill="#ffffff" stroke="#1f2937" stroke-width="2"/><text x="145" y="165.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">30</text>
+<rect x="98" y="109" width="94" height="30" rx="3" fill="#fee2e2" stroke="#1f2937" stroke-width="2"/><text x="145" y="129.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">40</text>
+<line x1="145" y1="14" x2="145" y2="84" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/><polygon points="145.0,92.0 140.5,82.0 149.5,82.0" fill="#dc2626"/>
+<text x="157" y="30" font-size="15" fill="#dc2626" font-weight="bold">PUSH 50</text>
+<text x="145" y="276" font-size="17" fill="#dc2626" text-anchor="middle" font-weight="bold">Overflow</text>
+<text x="145" y="296" font-size="14" fill="#1f2937" text-anchor="middle">full, no room for 50</text>
+<text x="145" y="314" font-size="14" fill="#6b7280" text-anchor="middle">(size 4 is illustrative)</text>
+<path d="M390,100 V250 H500 V100" fill="none" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="445" y1="120" x2="445" y2="22" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 4"/><polygon points="445.0,14.0 449.5,24.0 440.5,24.0" fill="#dc2626"/>
+<text x="457" y="30" font-size="15" fill="#dc2626" font-weight="bold">POP</text>
+<text x="445" y="230" font-size="15" fill="#6b7280" text-anchor="middle" font-weight="bold">empty</text>
+<text x="445" y="276" font-size="17" fill="#dc2626" text-anchor="middle" font-weight="bold">Underflow</text>
+<text x="445" y="296" font-size="14" fill="#1f2937" text-anchor="middle">nothing to remove</text>
+<text x="445" y="314" font-size="14" fill="#dc2626" text-anchor="middle">IndexError: pop from empty list</text>
+<line x1="300" y1="40" x2="300" y2="320" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round"/>
+</svg>

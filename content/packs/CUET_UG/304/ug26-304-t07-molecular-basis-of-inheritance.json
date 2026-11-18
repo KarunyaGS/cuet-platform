@@ -83,6 +83,14 @@
         "text": "- The two strands are polynucleotide chains with sugar-phosphate backbones on the outside and bases pointing inwards.\n- The strands are **antiparallel**: one runs 5' to 3' and the other 3' to 5'.\n- The bases pair by hydrogen bonds: A with T by two bonds and G with C by three bonds.\n- The helix is right-handed. The pitch is 3.4 nm, there are about 10 base pairs in each turn, and so the distance between adjacent base pairs is 0.34 nm.\n- The two strands are complementary, and this allows each to act as a template for the other."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "dna-double-helix"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The two strands are antiparallel (one 5' to 3', the other 3' to 5'), with the sugar-phosphate backbone outside and the bases inside. A pairs with T by two hydrogen bonds and G pairs with C by three. One turn is 3.4 nm and holds about 10 base pairs, so adjacent base pairs are 0.34 nm apart."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "The human haploid genome has about $6.6 \\times 10^{9}$ base pairs in a diploid cell, and the bacterium *E. coli* has $4.6 \\times 10^{6}$ base pairs. Using 0.34 nm between base pairs, find the length of each DNA if stretched, and the number of turns of the helix in the human DNA.",
         "solution": "Length equals the number of base pairs multiplied by 0.34 nm, which is $0.34 \\times 10^{-9}$ m. For the human cell, $6.6 \\times 10^{9} \\times 0.34 \\times 10^{-9} = 2.244$ m, about 2.2 m. For *E. coli*, $4.6 \\times 10^{6} \\times 0.34 \\times 10^{-9} = 1.564 \\times 10^{-3}$ m, about 1.56 mm. With 10 base pairs per turn, the human DNA has $6.6 \\times 10^{9} / 10 = 6.6 \\times 10^{8}$ turns. A cell of a few micrometres holds a DNA metres long, which is why DNA must be packaged.",
@@ -163,6 +171,14 @@
         "text": "**Meselson and Stahl (1958)** proved this in *E. coli*. They grew the bacteria for many generations in a medium containing **15NH4Cl** (heavy nitrogen) as the only nitrogen source, so all the DNA became heavy. They then transferred the cells to a medium with the normal **14NH4Cl** and took samples at intervals. The DNA was separated by **caesium chloride (CsCl) density gradient centrifugation**, in which the DNA forms a band at the position of its own density. Results: the DNA of the cells before transfer was heavy (15N/15N). After one generation (20 minutes) the DNA was of intermediate density (a hybrid, 15N/14N). After two generations (40 minutes) there were equal amounts of hybrid DNA and light DNA (14N/14N). This is exactly what semiconservative replication predicts. A similar experiment by Taylor on *Vicia faba* (faba beans) used radioactive thymidine and showed that eukaryotic chromosomes also replicate semiconservatively."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "meselson-stahl"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Read the tubes from left to right. After one generation in normal 14N medium all the DNA is a single hybrid band, and after two generations half is hybrid and half is light. This is what semiconservative replication predicts, because every new molecule keeps one old strand. A fully heavy band never returns."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "In the Meselson and Stahl experiment, all the DNA is initially 15N/15N. The cells are shifted to 14N medium and allowed to divide. What fraction of the DNA molecules is hybrid and what fraction is light after 3 generations? How many DNA molecules are present if one starts with a single molecule?",
         "solution": "Replication is semiconservative, so the two original heavy strands always stay in just two daughter molecules, and these two are hybrid (15N/14N). After $n$ generations the number of DNA molecules is $2^{n}$. For $n = 3$, there are $2^{3} = 8$ molecules, of which 2 are hybrid and the remaining $8 - 2 = 6$ are light (14N/14N). The fraction hybrid is $2/8 = 1/4 = 25\\%$ and the fraction light is $6/8 = 75\\%$. No fully heavy molecule remains after the first generation. After 2 generations the ratio was 2 hybrid to 2 light, matching the 1:1 observed experimentally.",
@@ -171,6 +187,50 @@
       {
         "type": "TEXT",
         "text": "The enzymes of replication include **helicase**, which unwinds the helix at the **origin of replication (ori)** to form a replication fork, and **DNA-dependent DNA polymerase**, which adds nucleotides only in the 5' to 3' direction. A primer is needed (supplied by primase as a short RNA). On the template with 3' to 5' direction the new strand grows continuously; this is the **leading strand**. On the other template, the **lagging strand**, the new strand is made in short pieces called **Okazaki fragments**, which are later joined by **DNA ligase**. The rate of polymerisation is fast: a polymerase can add about 2000 bases per second in a bacterium. Deoxyribonucleoside triphosphates serve as both the substrates and the source of energy."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "replication-fork"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Helicase opens the fork. DNA polymerase can only add nucleotides in the 5' to 3' direction, so the leading strand is made in one piece towards the fork, while the lagging strand is made away from the fork in short Okazaki fragments. Each fragment starts from a primer and the fragments are later joined by DNA ligase."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Leading strand and lagging strand compared",
+        "columns": [
+          "Point",
+          "Leading strand",
+          "Lagging strand"
+        ],
+        "rows": [
+          [
+            "Template",
+            "The template with 3' to 5' polarity",
+            "The other template (5' to 3' polarity)"
+          ],
+          [
+            "How it is made",
+            "Continuously, in one piece",
+            "In short pieces called Okazaki fragments"
+          ],
+          [
+            "Direction of synthesis",
+            "5' to 3', towards the fork",
+            "5' to 3', away from the fork"
+          ],
+          [
+            "Primers",
+            "One primer starts the strand",
+            "A new primer for every fragment"
+          ],
+          [
+            "Joining",
+            "Not needed",
+            "DNA ligase joins the fragments"
+          ]
+        ]
       },
       {
         "type": "HEADING",
@@ -184,6 +244,14 @@
       {
         "type": "TEXT",
         "text": "A **transcription unit** in DNA is defined by three regions: a **promoter**, the **structural gene** and a **terminator**. The strand with polarity 3' to 5' acts as the **template strand**, because DNA-dependent RNA polymerase can make RNA only in the 5' to 3' direction. The other strand, with polarity 5' to 3', has the same sequence as the RNA (except T in place of U) and is the **coding strand** (non-template strand). The **promoter** lies at the 5' end (upstream) of the structural gene and provides the binding site for RNA polymerase. The **terminator** lies at the 3' end (downstream) of the coding strand and marks the end of transcription."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "transcription-unit"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A transcription unit has three regions in order: promoter (upstream, where RNA polymerase binds), structural gene and terminator (downstream). The template strand is read, and the RNA made is a copy of the coding strand with U in place of T. In the zoomed sequences, template 3'-TAC-5' gives mRNA 5'-AUG-3'."
       },
       {
         "type": "DEFINITION",
@@ -245,6 +313,14 @@
         "text": "- **Triplet**: three bases make one codon; there are 64 codons.\n- 61 codons code for amino acids and 3 are **stop codons** (UAA, UAG, UGA) that do not code for any amino acid.\n- **AUG** codes for methionine and also acts as the **start codon**.\n- The code is **degenerate**: some amino acids are coded by more than one codon.\n- It is **unambiguous and specific**: one codon codes for only one amino acid.\n- It is **non-overlapping** and **comma-less**, read continuously in the 5' to 3' direction.\n- It is nearly **universal**: the same codon codes for the same amino acid from bacteria to humans."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "genetic-code-table"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: To decode, find the first base on the left, the second base along the top, then the third base inside the cell. Notice that AUG is both methionine and the start codon, UAA, UAG and UGA are stop codons, and many amino acids have more than one codon (a degenerate code). Try the lesson example: AUG GCU AAA UAA reads Met, Ala, Lys, stop."
+      },
+      {
         "type": "DEFINITION",
         "term": "Mutation",
         "text": "A change in the DNA sequence of a gene. A **point mutation** is a change in a single base pair. A **frame-shift mutation** is the insertion or deletion of one or two bases, which changes the reading frame of every codon after that point."
@@ -300,6 +376,14 @@
         "text": "When **lactose is absent**, the repressor binds to the operator and prevents RNA polymerase from transcribing the structural genes; the operon is switched off. When **lactose** (the **inducer**; in practice its isomer allolactose) is present, it binds to the repressor and inactivates it. The repressor can no longer bind to the operator, the RNA polymerase moves along and transcribes the structural genes into a single polycistronic mRNA, and the three enzymes are made. The regulation is **negative**, because the repressor switches the genes off, and the substrate induces the operon. The enzymes are made only when lactose is available, which saves energy for the cell."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "lac-operon"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: With no lactose, the repressor made by the i gene sits on the operator and blocks RNA polymerase, so z, y and a are not transcribed. With lactose, the inducer binds the repressor and inactivates it, RNA polymerase moves on and makes one mRNA for all three genes, so beta-galactosidase, permease and transacetylase are made. Control is negative because the repressor switches the genes off."
+      },
+      {
         "type": "KEY_POINT",
         "text": "Lac operon: i gene makes the repressor; the repressor binds to the operator and blocks transcription of z, y and a; lactose (inducer) binds the repressor and switches the operon on. Glucose or galactose cannot induce the operon."
       },
@@ -341,7 +425,50 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "dna-double-helix",
+      "file": "diagrams/ug26-304-t07-dna-double-helix.svg",
+      "alt": "Schematic DNA double helix with antiparallel strands, 3.4 nm pitch of about 10 base pairs, and A-T and G-C pairs with 2 and 3 hydrogen bonds",
+      "caption": "DNA double helix (schematic)",
+      "description": "A double helix of two antiparallel strands, one running 5' to 3' and the other 3' to 5'. The sugar-phosphate backbones are on the outside and the base pairs are rungs inside. A bracket marks one turn: pitch 3.4 nm with about 10 base pairs, so 0.34 nm per base pair. A panel shows A pairing with T by two hydrogen bonds and G pairing with C by three."
+    },
+    {
+      "key": "meselson-stahl",
+      "file": "diagrams/ug26-304-t07-meselson-stahl.svg",
+      "alt": "Four caesium chloride gradient tubes showing heavy DNA before transfer, then hybrid after one generation, equal hybrid and light after two, and 25 percent hybrid and 75 percent light after three",
+      "caption": "Meselson and Stahl: density bands over generations",
+      "description": "Tubes after centrifugation in a CsCl gradient. Before transfer to 14N medium: one heavy band. After one generation: one hybrid band. After two generations: half hybrid and half light. After three generations (calculated): 25 percent hybrid and 75 percent light. Icons above each tube show old 15N strands in red and new 14N strands in blue."
+    },
+    {
+      "key": "replication-fork",
+      "file": "diagrams/ug26-304-t07-replication-fork.svg",
+      "alt": "Replication fork with helicase, continuous leading strand, lagging strand in Okazaki fragments, RNA primers and DNA ligase",
+      "caption": "Replication fork: leading and lagging strands (schematic)",
+      "description": "Parental DNA enters from the right and is unwound by helicase at the fork, which moves to the right. The upper new strand (leading) is one continuous piece made towards the fork. The lower new strand (lagging) is made as short Okazaki fragments, each starting from an RNA primer, made away from the fork and joined by DNA ligase. DNA polymerase is shown as green ovals and all new strands grow 5' to 3'."
+    },
+    {
+      "key": "transcription-unit",
+      "file": "diagrams/ug26-304-t07-transcription-unit.svg",
+      "alt": "Transcription unit with promoter, structural gene and terminator, and a worked sequence of coding strand, template strand and mRNA",
+      "caption": "Transcription unit and the RNA it makes",
+      "description": "Top: a double-stranded DNA with the coding strand (5' to 3') above and the template strand (3' to 5') below, and three regions in order: promoter, structural gene and terminator. Bottom: the sequences 5'-ATG GCT AAA TAA-3' (coding), 3'-TAC CGA TTT ATT-5' (template) and 5'-AUG GCU AAA UAA-3' (mRNA)."
+    },
+    {
+      "key": "genetic-code-table",
+      "file": "diagrams/ug26-304-t07-genetic-code-table.svg",
+      "alt": "Table of the 64 mRNA codons by first, second and third base with amino acid names, AUG highlighted as start and UAA, UAG, UGA highlighted as stop",
+      "caption": "The genetic code: 64 codons",
+      "description": "A 4 by 4 grid. Rows are the first base U, C, A, G; columns are the second base; each cell lists the four codons with the third base U, C, A, G and the amino acid each codes for. AUG (Met, start) is highlighted green and the stop codons UAA, UAG and UGA are highlighted red. 61 codons code for amino acids."
+    },
+    {
+      "key": "lac-operon",
+      "file": "diagrams/ug26-304-t07-lac-operon.svg",
+      "alt": "Two panels of the lac operon: lactose absent with the repressor on the operator, and lactose present with the repressor inactivated and one mRNA made",
+      "caption": "Lac operon: off without lactose, on with lactose (schematic)",
+      "description": "Both panels show the regulator gene i, promoter p, operator o and structural genes z, y and a along DNA. Panel A, lactose absent: the repressor sits on the operator and RNA polymerase is blocked, so no mRNA is made. Panel B, lactose present: lactose binds the repressor and inactivates it, RNA polymerase transcribes z, y and a into one mRNA, and beta-galactosidase, permease and transacetylase are made."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-304-t07-molecular-basis-of-inheritance-q01",

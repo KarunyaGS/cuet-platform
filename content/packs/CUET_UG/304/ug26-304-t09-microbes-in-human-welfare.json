@@ -210,6 +210,50 @@
         "text": "When the BOD of the effluent has fallen, it is passed into a settling tank. The flocs settle to the bottom and the sediment is called **activated sludge**. A small part of it is pumped back into the aeration tank as the **inoculum**, to keep the process going. The major part is sent to large tanks called **anaerobic sludge digesters**, where anaerobic bacteria digest the bacteria and fungi of the sludge. During this digestion a mixture of gases (methane, hydrogen sulphide and carbon dioxide) is produced, which forms biogas. The treated effluent from the settling tank is released into rivers or streams."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "t09-sewage-treatment"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: primary treatment only removes things physically, and the microbes do their work in the aeration tank of secondary treatment, where the BOD falls. Notice the two fates of activated sludge: a small part is recycled as inoculum and the major part is digested without air to give biogas."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Primary and secondary sewage treatment",
+        "columns": [
+          "Feature",
+          "Primary treatment",
+          "Secondary (biological) treatment"
+        ],
+        "rows": [
+          [
+            "Type of process",
+            "Physical",
+            "Biological"
+          ],
+          [
+            "Main steps",
+            "Filtration of floating debris, sedimentation of grit",
+            "Aeration tank with flocs, then a settling tank"
+          ],
+          [
+            "Microbes involved",
+            "None needed; the process is purely physical",
+            "Aerobic microbes in flocs consume the organic matter"
+          ],
+          [
+            "Solid and liquid products",
+            "Primary sludge and primary effluent",
+            "Activated sludge and treated effluent"
+          ],
+          [
+            "Effect on BOD",
+            "Effluent goes on to the next stage",
+            "BOD of the effluent falls greatly"
+          ]
+        ]
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "A sewage sample entering an aeration tank has a BOD of 300 mg per litre. After secondary treatment the BOD of the effluent is 24 mg per litre. Calculate the percentage reduction in BOD and say which stage is mainly responsible.",
         "solution": "Reduction in BOD = 300 - 24 = 276 mg per litre. Percentage reduction = 276 / 300 x 100 = 92 per cent. The fall in BOD happens in the aeration tank of the secondary treatment, because the aerobic flocs of bacteria and fungal filaments oxidise the organic matter. Primary treatment removes only solids physically and does not lower the BOD of the dissolved matter much.",
@@ -230,6 +274,14 @@
       {
         "type": "TEXT",
         "text": "The process runs in a biogas plant, a concrete tank of 10 to 15 feet depth, into which a slurry of dung is fed. A floating cover on top rises as gas collects. The gas is drawn off through an outlet pipe for cooking and lighting, and the spent slurry is removed through another outlet and used as manure. The technology was developed in India mainly by the Indian Agricultural Research Institute (IARI) and the Khadi and Village Industries Commission (KVIC)."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "t09-biogas-plant"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the gas is made in the slurry without oxygen by methanogens, and the floating cover rises as gas builds up. Two products leave the plant: biogas (a fuel) through the top pipe and spent slurry (manure) through the outlet."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -312,7 +364,22 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "t09-sewage-treatment",
+      "file": "diagrams/ug26-304-t09-microbes-sewage-treatment.svg",
+      "alt": "Flow chart of sewage treatment from raw sewage through filtration and sedimentation, then aeration tank and settling tank, with activated sludge sent to an anaerobic digester to make biogas and a small part returned as inoculum",
+      "caption": "Sewage treatment plant: primary and secondary treatment",
+      "description": "A flow chart in two bands. The primary band (physical) shows raw sewage, then filtration to remove floating debris, then sedimentation where grit settles; the liquid leaving is the primary effluent. The secondary band (biological) shows the primary effluent entering an aeration tank, then a settling tank. From the settling tank the treated effluent goes to a river or stream. The settled activated sludge is split: a small part returns to the aeration tank as inoculum and the major part goes to an anaerobic digester that produces biogas."
+    },
+    {
+      "key": "t09-biogas-plant",
+      "file": "diagrams/ug26-304-t09-microbes-biogas-plant.svg",
+      "alt": "Cross-section of a biogas plant: a mixing tank feeds dung slurry into an underground tank under a floating gas cover, with a gas outlet pipe and an outlet for spent slurry",
+      "caption": "A biogas plant (schematic cross-section)",
+      "description": "A drawing of an underground tank half full of dung slurry, where methanogens work without oxygen. A floating cover sits over the slurry and rises as gas collects. A mixing tank on the left feeds fresh dung and water through an inlet pipe. A gas outlet pipe leaves the top of the cover and leads to the stove and lamps. On the right the spent slurry leaves through an outlet pipe into an outlet tank and is used as manure."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-304-t09-microbes-in-human-welfare-q01",

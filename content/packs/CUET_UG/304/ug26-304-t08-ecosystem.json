@@ -127,6 +127,37 @@
         "text": "The sequence of organisms in which one is eaten by the next is called a **food chain**. There are two types. In the **grazing food chain (GFC)**, the first trophic level is the green plants, and the energy flows from producers to herbivores and then to carnivores; this is the major conduit for energy flow in aquatic ecosystems. In the **detritus food chain (DFC)**, the energy begins with dead organic matter, which is acted on by decomposers (fungi and bacteria) and detritivores, and then goes to the organisms that feed on them. In terrestrial ecosystems, a much larger fraction of energy flows through the detritus food chain than through the grazing food chain. The decomposers are also called **saprotrophs**, which secrete digestive enzymes that break down dead and waste materials into simple, inorganic materials, which are absorbed by them."
       },
       {
+        "type": "TABLE",
+        "caption": "Grazing and detritus food chains",
+        "columns": [
+          "Feature",
+          "Grazing food chain (GFC)",
+          "Detritus food chain (DFC)"
+        ],
+        "rows": [
+          [
+            "Starts with",
+            "Green plants (producers)",
+            "Dead organic matter (detritus)"
+          ],
+          [
+            "Who acts first",
+            "Herbivores eat the plants",
+            "Decomposers (fungi, bacteria) and detritivores act on the detritus"
+          ],
+          [
+            "Energy then goes to",
+            "Herbivores, then carnivores",
+            "The organisms that feed on the decomposers and detritivores"
+          ],
+          [
+            "Where it is the main route",
+            "The major conduit for energy flow in aquatic ecosystems",
+            "In terrestrial ecosystems a much larger fraction of energy flows through the DFC than through the GFC"
+          ]
+        ]
+      },
+      {
         "type": "TEXT",
         "text": "The **standing crop** is the mass of living organisms at each trophic level at a particular time, measured as biomass or number in a unit area. The amount of energy at each trophic level decreases as we go up. According to **Lindeman's ten per cent law**, only about 10 per cent of the energy at one trophic level is transferred to the next higher level; the rest is lost as heat in respiration and as unconsumed or unassimilated matter. Because of this loss, food chains are usually short, with 3 to 4 trophic levels at most, as the energy left at the top level is too little to support more levels."
       },
@@ -136,8 +167,24 @@
         "text": "$E_n$ is the energy at trophic level $n$ and $E_{n+1}$ the energy that reaches the next level, under the ten per cent law."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "t08-energy-flow"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: at every step only about 10 per cent of the energy moves up and the other 90 per cent leaves as heat in respiration or as unused matter. Because the energy shrinks so fast, a food chain rarely has more than 3 to 4 trophic levels."
+      },
+      {
         "type": "TEXT",
         "text": "In nature, food chains are interconnected, because one organism may be eaten by several different consumers and may itself eat several different foods. These interlinked food chains form a **food web**. In a food web, an organism can occupy more than one trophic level. For example, an omnivore that eats plants and herbivores is both a primary and a secondary consumer. A web is more stable than a chain because if one food source is lost, the consumer can switch to another."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "t08-chain-vs-web"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: a chain is one path, a web is many linked paths. In the web the snake eats a mouse (a herbivore, so the snake is at T3) and a frog (so it is at T4), which shows that one organism can sit at more than one trophic level. If one food source is lost, the consumer can switch to another, which is why a web is more stable."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -184,6 +231,14 @@
         "text": "In the sea, the pyramid of biomass is inverted because the standing crop of phytoplankton, the main producers, is small at any moment. They reproduce very fast, so their **productivity** is high even though their biomass at a given time is less than that of the zooplankton and fish. The pyramid of energy considers the rate of energy flow over time and not the standing crop, so it is always upright."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "t08-pyramids"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: only the pyramid of energy is always upright. Biomass can be inverted in the sea because the phytoplankton have a small standing crop at any moment but reproduce very fast, and the number pyramid is spindle shaped when one big tree supports thousands of insects."
+      },
+      {
         "type": "TEXT",
         "text": "Pyramids have some **limitations**: they do not take into account the same species belonging to two or more trophic levels; they assume a simple food chain, which almost never exists in nature, and so they do not accommodate a food web; and saprophytes, which play a vital role in the ecosystem, are not given a place in ecological pyramids even though they are as important as the other trophic levels."
       },
@@ -199,7 +254,29 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "t08-energy-flow",
+      "file": "diagrams/ug26-304-t08-ecosystem-energy-flow.svg",
+      "alt": "Four boxes for the trophic levels T1 to T4 with energy values 40, 4, 0.4 and 0.04, ten per cent arrows between them and red arrows for heat and unused energy",
+      "caption": "Energy falls to about one tenth at each trophic level",
+      "description": "Four boxes in a row stand for producers (T1), herbivores (T2), primary carnivores (T3) and secondary carnivores (T4). The boxes get smaller from left to right. The energy values, in kilojoules per square metre per day, are 40, 4, 0.4 and 0.04. Black arrows labelled 10 per cent link each box to the next, and a red arrow under every box shows energy leaving as heat and unused matter. The values are illustrative and come from the worked example."
+    },
+    {
+      "key": "t08-chain-vs-web",
+      "file": "diagrams/ug26-304-t08-ecosystem-chain-vs-web.svg",
+      "alt": "A straight food chain from grass to snake beside a food web where grass feeds a grasshopper, a mouse and a rabbit, and a frog, snake and hawk feed on them",
+      "caption": "Food chain compared with food web",
+      "description": "On the left a food chain with four steps: grass (T1), grasshopper (T2), frog (T3) and snake (T4), with arrows pointing up from food to eater. On the right a food web: grass is eaten by a grasshopper, a mouse and a rabbit; the grasshopper is eaten by a frog; the frog and the mouse are eaten by a snake; and the snake, the mouse and the rabbit are eaten by a hawk. Arrows point from the food to the eater."
+    },
+    {
+      "key": "t08-pyramids",
+      "file": "diagrams/ug26-304-t08-ecosystem-pyramids.svg",
+      "alt": "Four panels of stacked bars: an upright pyramid of biomass on land, an inverted pyramid of biomass in the sea, a spindle-shaped pyramid of number for one tree, and an upright pyramid of energy",
+      "caption": "Upright and inverted ecological pyramids",
+      "description": "Four panels, each with stacked horizontal bars. Biomass on land is upright: the producers bar is widest and each higher level is narrower. Biomass in the sea is inverted: the phytoplankton bar is narrow and the zooplankton and fish bars are wider. Number for one tree is spindle shaped: one tree at the base, 5000 caterpillars in the middle and 40 birds on top. Energy is upright. Bar widths are schematic."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-304-t08-ecosystem-q01",

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 504" font-family="Arial, Helvetica, sans-serif">
+<text x="30" y="30" font-size="15" fill="#6b7280" text-anchor="middle" font-weight="bold">Symbol</text>
+<text x="70" y="30" font-size="15" fill="#6b7280" font-weight="bold">Action</text>
+<text x="348" y="30" font-size="15" fill="#6b7280" font-weight="bold">Operator stack</text>
+<text x="348" y="48" font-size="14" fill="#6b7280">(bottom to top)</text>
+<text x="500" y="30" font-size="15" fill="#6b7280" font-weight="bold">Output so far</text>
+<line x1="10" y1="58" x2="630" y2="58" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round"/>
+<text x="30" y="85" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">(</text>
+<text x="70" y="85" font-size="14" fill="#1f2937">push</text>
+<rect x="348" y="67" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="362" y="85.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(</text>
+<text x="500" y="85" font-size="16" fill="#6b7280">(empty)</text>
+<line x1="10" y1="96" x2="630" y2="96" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="30" y="117" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">A</text>
+<text x="70" y="117" font-size="14" fill="#059669">output A</text>
+<rect x="348" y="99" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="362" y="117.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(</text>
+<text x="500" y="117" font-size="16" fill="#1f2937" font-weight="bold">A</text>
+<line x1="10" y1="128" x2="630" y2="128" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="30" y="149" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">+</text>
+<text x="70" y="149" font-size="14" fill="#1f2937">push + (top is a bracket)</text>
+<rect x="348" y="131" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="362" y="149.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(</text>
+<rect x="380" y="131" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="394" y="149.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">+</text>
+<text x="500" y="149" font-size="16" fill="#1f2937" font-weight="bold">A</text>
+<line x1="10" y1="160" x2="630" y2="160" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="30" y="181" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">B</text>
+<text x="70" y="181" font-size="14" fill="#059669">output B</text>
+<rect x="348" y="163" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="362" y="181.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">(</text>
+<rect x="380" y="163" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="394" y="181.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">+</text>
+<text x="500" y="181" font-size="16" fill="#1f2937" font-weight="bold">AB</text>
+<line x1="10" y1="192" x2="630" y2="192" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="30" y="213" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">)</text>
+<text x="70" y="213" font-size="14" fill="#dc2626">pop + to output, drop (</text>
+<text x="500" y="213" font-size="16" fill="#1f2937" font-weight="bold">AB+</text>
+<line x1="10" y1="224" x2="630" y2="224" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="30" y="245" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">*</text>
+<text x="70" y="245" font-size="14" fill="#1f2937">push *</text>
+<rect x="348" y="227" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="362" y="245.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">*</text>
+<text x="500" y="245" font-size="16" fill="#1f2937" font-weight="bold">AB+</text>
+<line x1="10" y1="256" x2="630" y2="256" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="30" y="277" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">C</text>
+<text x="70" y="277" font-size="14" fill="#059669">output C</text>
+<rect x="348" y="259" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="362" y="277.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">*</text>
+<text x="500" y="277" font-size="16" fill="#1f2937" font-weight="bold">AB+C</text>
+<line x1="10" y1="288" x2="630" y2="288" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="30" y="309" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">-</text>
+<text x="70" y="309" font-size="14" fill="#dc2626">pop * to output; push -</text>
+<rect x="348" y="291" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="362" y="309.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">-</text>
+<text x="500" y="309" font-size="16" fill="#1f2937" font-weight="bold">AB+C*</text>
+<line x1="10" y1="320" x2="630" y2="320" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="30" y="341" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">D</text>
+<text x="70" y="341" font-size="14" fill="#059669">output D</text>
+<rect x="348" y="323" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="362" y="341.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">-</text>
+<text x="500" y="341" font-size="16" fill="#1f2937" font-weight="bold">AB+C*D</text>
+<line x1="10" y1="352" x2="630" y2="352" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="30" y="373" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">/</text>
+<text x="70" y="373" font-size="14" fill="#1f2937">push / (binds tighter)</text>
+<rect x="348" y="355" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="362" y="373.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">-</text>
+<rect x="380" y="355" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="394" y="373.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">/</text>
+<text x="500" y="373" font-size="16" fill="#1f2937" font-weight="bold">AB+C*D</text>
+<line x1="10" y1="384" x2="630" y2="384" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="30" y="405" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">E</text>
+<text x="70" y="405" font-size="14" fill="#059669">output E</text>
+<rect x="348" y="387" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="362" y="405.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">-</text>
+<rect x="380" y="387" width="28" height="26" rx="3" fill="#dbeafe" stroke="#1f2937" stroke-width="1.5"/><text x="394" y="405.2" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">/</text>
+<text x="500" y="405" font-size="16" fill="#1f2937" font-weight="bold">AB+C*DE</text>
+<line x1="10" y1="416" x2="630" y2="416" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="30" y="437" font-size="17" fill="#1f2937" text-anchor="middle" font-weight="bold">end</text>
+<text x="70" y="437" font-size="14" fill="#dc2626">pop / then -</text>
+<text x="500" y="437" font-size="16" fill="#1f2937" font-weight="bold">AB+C*DE/-</text>
+<line x1="10" y1="448" x2="630" y2="448" stroke="#e5e7eb" stroke-width="1" stroke-linecap="round"/>
+<text x="320" y="496" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">Result: AB+C*DE/-</text>
+</svg>

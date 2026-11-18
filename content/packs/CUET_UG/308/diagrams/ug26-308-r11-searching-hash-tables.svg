@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 558" font-family="Arial, Helvetica, sans-serif">
+<text x="20" y="26" font-size="17" fill="#1f2937" font-weight="bold">Linear probing (next free slot)</text>
+<text x="77" y="54" font-size="14" fill="#6b7280" text-anchor="middle">0</text>
+<text x="133" y="54" font-size="14" fill="#6b7280" text-anchor="middle">1</text>
+<text x="189" y="54" font-size="14" fill="#6b7280" text-anchor="middle">2</text>
+<text x="245" y="54" font-size="14" fill="#6b7280" text-anchor="middle">3</text>
+<text x="301" y="54" font-size="14" fill="#6b7280" text-anchor="middle">4</text>
+<text x="357" y="54" font-size="14" fill="#6b7280" text-anchor="middle">5</text>
+<text x="413" y="54" font-size="14" fill="#6b7280" text-anchor="middle">6</text>
+<text x="469" y="54" font-size="14" fill="#6b7280" text-anchor="middle">7</text>
+<text x="525" y="54" font-size="14" fill="#6b7280" text-anchor="middle">8</text>
+<text x="581" y="54" font-size="14" fill="#6b7280" text-anchor="middle">9</text>
+<rect x="50" y="60" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="77" y="83.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<rect x="106" y="60" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="133" y="83.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<rect x="162" y="60" width="54" height="36" rx="3" fill="#d1fae5" stroke="#059669" stroke-width="2.5"/><text x="189" y="83.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">12</text>
+<rect x="218" y="60" width="54" height="36" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><text x="245" y="83.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">22</text>
+<rect x="274" y="60" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="301" y="83.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<rect x="330" y="60" width="54" height="36" rx="3" fill="#d1fae5" stroke="#059669" stroke-width="2.5"/><text x="357" y="83.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">25</text>
+<rect x="386" y="60" width="54" height="36" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><text x="413" y="83.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">35</text>
+<rect x="442" y="60" width="54" height="36" rx="3" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/><text x="469" y="83.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">45</text>
+<rect x="498" y="60" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="525" y="83.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<rect x="554" y="60" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="581" y="83.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<text x="40" y="124" font-size="15" fill="#1f2937">25: 25 % 10 = 5, slot 5 is free, placed in 5</text>
+<text x="40" y="148" font-size="15" fill="#1f2937">35: 35 % 10 = 5, slot 5 taken, placed in 6</text>
+<text x="40" y="172" font-size="15" fill="#1f2937">45: 45 % 10 = 5, slots 5 and 6 taken, placed in 7</text>
+<text x="40" y="196" font-size="15" fill="#1f2937">12: 12 % 10 = 2, slot 2 is free, placed in 2</text>
+<text x="40" y="220" font-size="15" fill="#1f2937">22: 22 % 10 = 2, slot 2 taken, placed in 3</text>
+<text x="40" y="246" font-size="14" fill="#6b7280">Amber = placed away from its home slot by a collision.</text>
+<line x1="10" y1="270" x2="630" y2="270" stroke="#e5e7eb" stroke-width="2" stroke-linecap="round"/>
+<text x="20" y="294" font-size="17" fill="#1f2937" font-weight="bold">Chaining (a list at each slot)</text>
+<text x="77" y="322" font-size="14" fill="#6b7280" text-anchor="middle">0</text>
+<text x="133" y="322" font-size="14" fill="#6b7280" text-anchor="middle">1</text>
+<text x="189" y="322" font-size="14" fill="#6b7280" text-anchor="middle">2</text>
+<text x="245" y="322" font-size="14" fill="#6b7280" text-anchor="middle">3</text>
+<text x="301" y="322" font-size="14" fill="#6b7280" text-anchor="middle">4</text>
+<text x="357" y="322" font-size="14" fill="#6b7280" text-anchor="middle">5</text>
+<text x="413" y="322" font-size="14" fill="#6b7280" text-anchor="middle">6</text>
+<text x="469" y="322" font-size="14" fill="#6b7280" text-anchor="middle">7</text>
+<text x="525" y="322" font-size="14" fill="#6b7280" text-anchor="middle">8</text>
+<text x="581" y="322" font-size="14" fill="#6b7280" text-anchor="middle">9</text>
+<rect x="50" y="328" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="77" y="351.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<rect x="106" y="328" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="133" y="351.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<rect x="162" y="328" width="54" height="36" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="189" y="351.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<line x1="189" y1="364" x2="189" y2="371.6" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/><polygon points="189.0,378.0 185.4,370.0 192.6,370.0" fill="#2563eb"/>
+<rect x="162" y="378" width="54" height="36" rx="3" fill="#ffffff" stroke="#1f2937" stroke-width="2"/><text x="189" y="401.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">12</text>
+<line x1="189" y1="414" x2="189" y2="421.6" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/><polygon points="189.0,428.0 185.4,420.0 192.6,420.0" fill="#2563eb"/>
+<rect x="162" y="428" width="54" height="36" rx="3" fill="#ffffff" stroke="#1f2937" stroke-width="2"/><text x="189" y="451.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">22</text>
+<rect x="218" y="328" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="245" y="351.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<rect x="274" y="328" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="301" y="351.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<rect x="330" y="328" width="54" height="36" rx="3" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/><text x="357" y="351.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<line x1="357" y1="364" x2="357" y2="371.6" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/><polygon points="357.0,378.0 353.4,370.0 360.6,370.0" fill="#2563eb"/>
+<rect x="330" y="378" width="54" height="36" rx="3" fill="#ffffff" stroke="#1f2937" stroke-width="2"/><text x="357" y="401.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">25</text>
+<line x1="357" y1="414" x2="357" y2="421.6" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/><polygon points="357.0,428.0 353.4,420.0 360.6,420.0" fill="#2563eb"/>
+<rect x="330" y="428" width="54" height="36" rx="3" fill="#ffffff" stroke="#1f2937" stroke-width="2"/><text x="357" y="451.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">35</text>
+<line x1="357" y1="464" x2="357" y2="471.6" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/><polygon points="357.0,478.0 353.4,470.0 360.6,470.0" fill="#2563eb"/>
+<rect x="330" y="478" width="54" height="36" rx="3" fill="#ffffff" stroke="#1f2937" stroke-width="2"/><text x="357" y="501.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold">45</text>
+<rect x="386" y="328" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="413" y="351.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<rect x="442" y="328" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="469" y="351.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<rect x="498" y="328" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="525" y="351.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<rect x="554" y="328" width="54" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/><text x="581" y="351.6" font-size="16" fill="#1f2937" text-anchor="middle" font-weight="bold"></text>
+<text x="620" y="548" font-size="14" fill="#6b7280" text-anchor="end">Keys that share a slot join its list.</text>
+</svg>

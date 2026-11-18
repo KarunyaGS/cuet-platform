@@ -174,6 +174,14 @@
         "text": "If $A$ is $m\\times n$ and $B$ is $n\\times p$, the product $AB$ is the $m\\times p$ matrix whose $(i,k)$ entry is $\\sum_{j=1}^{n}a_{ij}b_{jk}$ (row $i$ of $A$ times column $k$ of $B$). $AB$ exists only when the number of columns of $A$ equals the number of rows of $B$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "row-by-column"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the entry in row i, column k of AB uses only row i of A and column k of B, multiplying matching entries and adding. The two matching lengths (3 columns of A, 3 rows of B) are why the product exists, and the outer numbers 2 and 2 give the order of AB."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "If $A=\\begin{bmatrix}2&-1\\\\3&0\\end{bmatrix}$ find $A^2-2A+3I$.",
         "solution": "$A^2=\\begin{bmatrix}2\\cdot2+(-1)3&2(-1)+(-1)0\\\\3\\cdot2+0\\cdot3&3(-1)+0\\end{bmatrix}=\\begin{bmatrix}1&-2\\\\6&-3\\end{bmatrix}$.\n\n$2A=\\begin{bmatrix}4&-2\\\\6&0\\end{bmatrix}$, so $A^2-2A=\\begin{bmatrix}-3&0\\\\0&-3\\end{bmatrix}=-3I$.\n\nTherefore $A^2-2A+3I=-3I+3I=O$.",
@@ -261,6 +269,14 @@
         "text": "A square matrix is **singular** if $|A|=0$ and **non-singular** if $|A|\\neq0$. Only non-singular matrices have an inverse."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "determinant-area"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: for a 2 by 2 matrix, ad - bc measures the area of the parallelogram formed by its two columns. When the columns lie along one line the area collapses to 0, which is exactly the singular case |A| = 0 that has no inverse. (The area picture is extra intuition; the exam uses the ad - bc rule.)"
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Find $k$ for which $\\begin{bmatrix}1&2&3\\\\4&5&6\\\\7&8&k\\end{bmatrix}$ is singular.",
         "solution": "Expand along row 1:\n\n$|A|=1(5k-48)-2(4k-42)+3(32-35)=5k-48-8k+84-9=27-3k.$\n\nSingular means $|A|=0$, so $27-3k=0$ and $k=9$.",
@@ -312,6 +328,14 @@
         "text": "If $|A|\\neq0$ the system is **consistent with a unique solution** $X=A^{-1}B$. If $|A|=0$, compute $(\\operatorname{adj}A)B$: if it is the zero matrix the system has infinitely many solutions; if it is not zero the system is inconsistent (no solution)."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "three-cases"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: |A| not equal to 0 means the lines cross once (unique solution). If |A| = 0, the lines are parallel or the same line, and the test (adj A)B decides: not zero means parallel (no solution), zero means the same line (infinitely many)."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Solve $x+y+z=6,\\ x-y+z=2,\\ 2x+y-z=1$ by the matrix method.",
         "solution": "$A=\\begin{bmatrix}1&1&1\\\\1&-1&1\\\\2&1&-1\\end{bmatrix}$, $|A|=1(1-1)-1(-1-2)+1(1+2)=6\\neq0$.\n\nCofactors give $\\operatorname{adj}A=\\begin{bmatrix}0&2&2\\\\3&-3&0\\\\3&1&-2\\end{bmatrix}$, so $X=\\tfrac16\\operatorname{adj}A\\begin{bmatrix}6\\\\2\\\\1\\end{bmatrix}=\\tfrac16\\begin{bmatrix}0+4+2\\\\18-6+0\\\\18+2-2\\end{bmatrix}=\\begin{bmatrix}1\\\\2\\\\3\\end{bmatrix}$.\n\nCheck in equation 3: $2(1)+2-3=1$. Correct.",
@@ -327,7 +351,29 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "row-by-column",
+      "file": "diagrams/ug26-319-r00-matrices-determinants-algebra-row-by-column.svg",
+      "alt": "A 2 by 3 matrix A and a 3 by 2 matrix B arranged so that row 2 of A and column 1 of B are shaded and meet at the entry 139 of the 2 by 2 product AB",
+      "caption": "Matrix multiplication: row of A times column of B",
+      "description": "Matrix A with entries 1, 2, 3 in row 1 and 4, 5, 6 in row 2 sits at lower left. Matrix B with rows 7 8, 9 10 and 11 12 sits above the product. Row 2 of A and column 1 of B are shaded blue, and the product entry in row 2, column 1 is highlighted: 4 times 7 plus 5 times 9 plus 6 times 11 equals 139. The product AB is 58, 64, 139, 154. The orders 2 by 3 and 3 by 2 give a 2 by 2 product."
+    },
+    {
+      "key": "determinant-area",
+      "file": "diagrams/ug26-319-r00-matrices-determinants-algebra-determinant-area.svg",
+      "alt": "Two panels: the columns (3,1) and (1,2) of a 2 by 2 matrix span a parallelogram of area 5; the columns (2,1) and (4,2) lie on one line and enclose no area",
+      "caption": "Determinant of a 2 by 2 matrix as the area of a parallelogram",
+      "description": "Left panel: the two columns of the matrix with a = 3, c = 1 and b = 1, d = 2 are drawn as arrows u = (3, 1) and v = (1, 2) from the origin, and the parallelogram they span is shaded with area 5, equal to the determinant 3 times 2 minus 1 times 1. Right panel: the columns (2, 1) and (4, 2) point along the same line, so the parallelogram collapses to a segment with area 0, matching the determinant 2 times 2 minus 4 times 1 equals 0."
+    },
+    {
+      "key": "three-cases",
+      "file": "diagrams/ug26-319-r00-matrices-determinants-algebra-three-cases.svg",
+      "alt": "Three pairs of lines: two lines crossing at one point, two parallel lines, and two coinciding lines, each with its determinant and adj A times B result",
+      "caption": "Two equations as lines: unique, no and infinitely many solutions",
+      "description": "Top: x + y = 3 and x - y = 1 cross at the point (2, 1); the determinant is -2, which is not 0. Middle: x + y = 2 and x + y = 4 are parallel; the determinant is 0 and (adj A)B is [-2, 2], not zero. Bottom: x + y = 2 and 2x + 2y = 4 are the same line; the determinant is 0 and (adj A)B is the zero matrix."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r00-matrices-determinants-algebra-q01",

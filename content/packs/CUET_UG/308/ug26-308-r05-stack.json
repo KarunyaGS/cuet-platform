@@ -102,6 +102,14 @@
     "text": "Stack = LIFO. Both PUSH and POP work only at the top. Underflow means popping an empty stack; overflow means pushing into a full fixed-size stack."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "stack-structure"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Everything happens at the top: push adds there and pop removes from there. That is why the last item in is the first one out."
+   },
+   {
     "type": "HEADING",
     "text": "PUSH and POP: implementing a stack with a Python list"
    },
@@ -128,12 +136,28 @@
     "answer": "Popped value 30; final list [10, 20, 40]; top 40; size 3."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "stack-trace-list"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The list end is the top. Each push appends at the end and each pop removes the last item, so after a pop the previous item becomes the top again."
+   },
+   {
     "type": "CALLOUT",
     "text": "Common mistake: using `st.pop(0)` or `st.insert(0, x)`. Those work at the bottom (index 0) and turn the structure into a queue-like mixture. For a stack, always push with `append()` and pop with `pop()` on the same end."
    },
    {
     "type": "EXAMPLE",
     "text": "Popping an empty list is the underflow case. Running `st = []` and then `st.pop()` inside try/except IndexError prints the message: pop from empty list. A well-written `pop` function checks `isEmpty` first instead of letting this error happen."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "stack-overflow-underflow"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Overflow is pushing onto a full stack and underflow is popping from an empty one. A Python list has no fixed size, so the size 4 is only an illustration, but popping an empty list does raise an error."
    },
    {
     "type": "HEADING",
@@ -213,6 +237,14 @@
     "problem": "Convert `A + B * C` into prefix and postfix by hand.",
     "solution": "Multiplication has higher precedence, so group it first: `A + (B * C)`.\n\nPostfix: write `B C *` for the product, then the sum becomes `A (B C *) +`, which is `A B C * +`.\n\nPrefix: the product becomes `* B C`, then the sum is `+ A (* B C)`, which is `+ A * B C`.",
     "answer": "Postfix: `A B C * +`; prefix: `+ A * B C`."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "infix-postfix"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Operands go to the output at once. An operator waits on the stack until an operator of lower or equal precedence arrives, and a closing bracket pops everything back to its opening bracket."
    },
    {
     "type": "CALLOUT",
@@ -317,6 +349,14 @@
     "answer": "37"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "postfix-eval"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Push operands; for an operator pop twice (the first pop is the right operand B, the second is A), compute A op B and push the result back. One value left at the end is the answer."
+   },
+   {
     "type": "KEY_POINT",
     "text": "For a postfix expression: operand => push; operator => pop B, pop A, push (A op B). The popped order is B first, then A. The final single item is the value."
    },
@@ -419,7 +459,43 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "stack-structure",
+   "file": "diagrams/ug26-308-r05-stack-structure.svg",
+   "alt": "A vertical container holding 10, 20 and 30 with the top, the bottom, and the PUSH and POP arrows at the top end",
+   "caption": "A stack is open at one end only (LIFO)",
+   "description": "A tall open box holds three items, 10 at index 0 (the bottom), 20 at index 1 and 30 at index 2 (the top, st[-1]). PUSH with st.append(x) enters from the top and POP with st.pop() leaves from the top. The caption says the last item pushed is the first popped (LIFO)."
+  },
+  {
+   "key": "stack-trace-list",
+   "file": "diagrams/ug26-308-r05-stack-trace-list.svg",
+   "alt": "A sequence of stack pictures after push 10, push 20, push 30, pop and push 40 with the matching Python list written beside each",
+   "caption": "Tracing push and pop on a list-based stack",
+   "description": "The stack starts empty []. After push 10 it is [10], after push 20 it is [10, 20], after push 30 it is [10, 20, 30] with top 30. Pop returns 30 and leaves [10, 20]. Push 40 gives [10, 20, 40]. The newly pushed item is green and the popped item is drawn dashed red."
+  },
+  {
+   "key": "stack-overflow-underflow",
+   "file": "diagrams/ug26-308-r05-stack-overflow-underflow.svg",
+   "alt": "A full stack of four items refusing PUSH 50 as overflow and an empty stack refusing POP as underflow",
+   "caption": "Overflow when full, underflow when empty",
+   "description": "Left: a stack of size 4 already holding 10, 20, 30 and 40; PUSH 50 has no room and is labelled overflow. Right: an empty stack where POP has nothing to remove and is labelled underflow, with the Python message IndexError: pop from empty list."
+  },
+  {
+   "key": "infix-postfix",
+   "file": "diagrams/ug26-308-r05-stack-infix-postfix.svg",
+   "alt": "A step-by-step table converting an infix expression to postfix showing each symbol, the action, the operator stack and the output so far",
+   "caption": "Converting an infix expression to postfix with an operator stack",
+   "description": "The expression is (A+B)*C-D/E. For each symbol the table shows what happens: operands go straight to the output; ( is pushed; + is pushed because the top is a bracket; ) pops + and drops the bracket; * waits on the stack until - arrives and pops it, and / waits until the end. The final output is AB+C*DE/-."
+  },
+  {
+   "key": "postfix-eval",
+   "file": "diagrams/ug26-308-r05-stack-postfix-eval.svg",
+   "alt": "Columns showing the stack after each symbol of a postfix expression until the single result 37 remains",
+   "caption": "Evaluating a postfix expression with a stack",
+   "description": "The expression is 5 6 2 + * 12 4 / -. Operands are pushed (green). At + the stack 5, 6, 2 pops 2 and 6 and pushes 8; at * it pops 8 and 5 and pushes 40; 12 and 4 are pushed and / gives 3; finally - pops 3 and 40 and pushes 37. The last stack holds the single value 37."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r05-stack-lifo-postfix-q01",
@@ -437,8 +513,8 @@
    "explanation": "A stack allows insertion and deletion only at the top. The item pushed most recently sits on top and is therefore popped first, which is the Last In, First Out rule. FIFO belongs to queues.",
    "optionRationale": {
     "1": "FIFO describes a queue, where the oldest item leaves first.",
-    "3": "That is a priority queue, not a stack.",
-    "2": "A stack does not order items by value; removal depends only on insertion order."
+    "2": "A stack does not order items by value; removal depends only on insertion order.",
+    "3": "That is a priority queue, not a stack."
    },
    "objective": "State the LIFO rule of a stack"
   },

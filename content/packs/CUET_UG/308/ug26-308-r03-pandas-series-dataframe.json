@@ -125,6 +125,14 @@
     "text": "NumPy = arrays and numeric maths. Pandas = labelled data (Series and DataFrame). Matplotlib = plotting."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "series-anatomy"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: A Series has two parts, labels (index) and values, and every value has an automatic position as well. You can reach the same element by label (s[\"b\"]) or by position (s.iloc[1])."
+   },
+   {
     "type": "HEADING",
     "text": "Pandas data structures: Series and DataFrame"
    },
@@ -213,6 +221,14 @@
     "problem": "Create `a = pd.Series([4, 5, 6], index=[\"p\", \"q\", \"r\"])`, `b = pd.Series({\"x\": 1, \"y\": 2})` and `c = pd.Series(7, index=[\"u\", \"v\", \"w\"])`. Evaluate `a[\"q\"]`, `b.index.tolist()`, `c.sum()` and `len(c)`.",
     "solution": "`a[\"q\"]` looks up the label q, which holds 5.\n\nIn `b` the keys of the dictionary become the index, so `b.index.tolist()` is the list [\"x\", \"y\"].\n\n`c` repeats the scalar 7 for three labels, so its sum is 21 and its length is 3.\n\nPrinted together: 5 ['x', 'y'] 21 3.",
     "answer": "5 ['x', 'y'] 21 3"
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "dataframe-axes"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: axis=0 means \"down the rows\" and axis=1 means \"across the columns\". For drop() the default is rows, so you must write axis=1 to remove a column."
    },
    {
     "type": "CALLOUT",
@@ -367,10 +383,26 @@
     "text": "- `df.loc[row_labels, col_labels]`: label based; slices **include** the end label.\n- `df.iloc[row_positions, col_positions]`: integer position based; slices **exclude** the end.\n- `df[condition]` or `df.loc[condition]`: **Boolean indexing** keeps the rows where the condition is True.\n- Combine conditions with `&` (and), `|` (or), `~` (not), each condition **in brackets**: `df[(df[\"m\"] > 60) & (df[\"s\"] == \"A\")]`. The words `and` / `or` cannot be used with Series."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "loc-vs-iloc"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Label slices with loc include the end label (3 rows for 10:12), while position slices with iloc stop before the end position (2 rows for 0:2)."
+   },
+   {
     "type": "SOLVED_PROBLEM",
     "problem": "For `df` with name [Ana, Ben, Cia, Dev], m [55, 72, 68, 90], s [A, B, A, A] and index [10, 11, 12, 13], evaluate: `df.loc[11, \"name\"]`, `df.iloc[1, 1]`, `df.loc[10:12, \"m\"]`, `df.iloc[0:2, 1]`, the names where `(m > 60) & (s == \"A\")`, and the row count of `(m > 90) | (s == \"B\")`.",
     "solution": "`loc[11, \"name\"]` uses the label 11: Ben.\n\n`iloc[1, 1]` is row position 1, column position 1 (m): 72.\n\n`loc[10:12, \"m\"]` includes label 12: 55, 72, 68.\n\n`iloc[0:2, 1]` excludes position 2: 55, 72.\n\nm > 60 is True for Ben, Cia, Dev, and s == \"A\" for Ana, Cia, Dev; both together: Cia and Dev.\n\nm > 90 is False for everyone, s == \"B\" only for Ben, so 1 row.\n\nPrinted: Ben 72 [55, 72, 68] [55, 72]; ['Cia', 'Dev'] 1.",
     "answer": "Ben 72 [55, 72, 68] [55, 72]; ['Cia', 'Dev'] 1"
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "boolean-filter"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: A Boolean mask is a column of True and False; only rows with True survive. With & both conditions must be True, and each condition must be in its own brackets."
    },
    {
     "type": "HEADING",
@@ -426,6 +458,22 @@
     "answer": "(2, 3) (4, 3) 1; (6, 3) [0, 1, 2, 3, 4, 5] (3, 4)"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "merge-inner-left-outer"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: inner keeps only keys present in both tables, left keeps every row of the left table, outer keeps every key from either table. Missing values appear as NaN."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "concat-axis"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: concat only glues tables together; it never checks key values. Use merge when rows must be matched on a key, and ignore_index=True when you want fresh row labels."
+   },
+   {
     "type": "CALLOUT",
     "text": "`pd.concat` stacks or places side by side; it does not look at key values. `merge` is for matching keys, like a SQL join. Keep the roles separate."
    },
@@ -470,7 +518,50 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "series-anatomy",
+   "file": "diagrams/ug26-308-r03-pandas-series-anatomy.svg",
+   "alt": "A Series printed with its index labels a, b, c, its values 10, 20, 30 and the hidden positions 0, 1, 2",
+   "caption": "A Series is an index plus values",
+   "description": "The code s = pd.Series([10, 20, 30], index=[\"a\", \"b\", \"c\"]) and its printed output with the index column (a, b, c), the values column (10, 20, 30) and the dtype line int64. Positions 0, 1, 2 are shown beside the labels, and s[\"b\"] and s.iloc[1] both give 20."
+  },
+  {
+   "key": "dataframe-axes",
+   "file": "diagrams/ug26-308-r03-dataframe-axes.svg",
+   "alt": "A small DataFrame with arrows for axis 0 down the rows and axis 1 across the columns and two drop examples",
+   "caption": "Rows are axis 0 and columns are axis 1",
+   "description": "A DataFrame with columns qty and price and row labels a, b, c holds the values 2, 3, 5 and 10, 20, 30. An arrow down the rows is labelled axis=0 and an arrow across the columns axis=1; the shape is (3, 2). Two lines show that df.drop(\"a\", axis=0) removes a row and df.drop(\"price\", axis=1) removes a column."
+  },
+  {
+   "key": "loc-vs-iloc",
+   "file": "diagrams/ug26-308-r03-loc-vs-iloc.svg",
+   "alt": "The same DataFrame twice, one showing a loc slice by labels 10 to 12 and one showing an iloc slice by positions 0 to 1",
+   "caption": "loc uses labels and includes the end; iloc uses positions and excludes the end",
+   "description": "A DataFrame with row labels 10 to 13 (positions 0 to 3) and columns name, m, s. Top: df.loc[10:12, \"m\"] selects labels 10, 11 and 12 and gives three values 55, 72, 68. Bottom: df.iloc[0:2, 1] selects positions 0 and 1 and gives two values 55, 72."
+  },
+  {
+   "key": "boolean-filter",
+   "file": "diagrams/ug26-308-r03-boolean-filter.svg",
+   "alt": "A DataFrame with True and False columns for two conditions and the two rows that remain after combining them with &",
+   "caption": "Boolean indexing keeps rows where every condition is True",
+   "description": "df[(df[\"m\"] > 60) & (df[\"s\"] == \"A\")] on four students. Separate columns show m > 60 and s == \"A\" as True or False and a third column \"both\". Rows 12 (Cia, 68, A) and 13 (Dev, 90, A) are True in both and are kept; rows 10 and 11 are dropped. A note says each condition needs its own brackets and that & is and, | is or, ~ is not."
+  },
+  {
+   "key": "merge-inner-left-outer",
+   "file": "diagrams/ug26-308-r03-merge-inner-left-outer.svg",
+   "alt": "Two small DataFrames a and b and the results of merging them on id with how set to inner, left and outer",
+   "caption": "merge: inner, left and outer give different rows",
+   "description": "Frame a has ids 1, 2, 3 with n = x, y, z and frame b has ids 2, 3, 4 with p = 20, 30, 40. Inner merge returns ids 2 and 3 only (2 rows). Left merge returns ids 1, 2, 3 with NaN for p where there is no match (3 rows). Outer merge returns ids 1, 2, 3, 4 with NaN where missing (4 rows)."
+  },
+  {
+   "key": "concat-axis",
+   "file": "diagrams/ug26-308-r03-concat-axis0-axis1.svg",
+   "alt": "Two DataFrames a and b joined once with axis=0 into six stacked rows and once with axis=1 into four side-by-side columns",
+   "caption": "concat stacks (axis=0) or sits side by side (axis=1) without matching keys",
+   "description": "With the same a and b as in the merge figure, pd.concat([a, b]) stacks six rows with NaN in the columns that one frame lacks, and the old row labels repeat. pd.concat([a, b], axis=1) places the frames side by side to give shape (3, 4) with the id column appearing twice."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r03-pandas-series-dataframe-q01",

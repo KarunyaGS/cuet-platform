@@ -83,6 +83,14 @@
         "text": "$N_t$ is the density at time $t$; $B$ is the number of births, $I$ the immigrants, $D$ the deaths and $E$ the emigrants during the interval from $t$ to $t+1$. The population increases if $B + I$ is greater than $D + E$, and decreases otherwise."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "population-change"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Four processes change population size: births and immigration add individuals, deaths and emigration remove them. The population grows only when births plus immigration exceed deaths plus emigration (B + I greater than D + E)."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "A population of 500 field mice in a meadow has 60 births and 30 deaths in one month. During the same month 20 mice move in from a neighbouring field and 10 move out. Find the population at the end of the month and the natality and mortality per individual per month.",
         "solution": "Use $N_{t+1} = N_t + [(B + I) - (D + E)]$. Here $N_t = 500$, $B = 60$, $I = 20$, $D = 30$ and $E = 10$. Then $(B + I) = 80$ and $(D + E) = 40$, so the net change is $80 - 40 = +40$. The new population is $500 + 40 = 540$. Natality per individual is $60/500 = 0.12$ per month, and mortality per individual is $30/500 = 0.06$ per month. The difference of these two rates, $0.12 - 0.06 = 0.06$, is the growth rate excluding migration, so the population would grow by 6 per cent a month without migration.",
@@ -125,6 +133,14 @@
             "Small pre-reproductive group; the population shrinks as old individuals die and are not replaced"
           ]
         ]
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "age-pyramids"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Read the shape: a broad base (many young) means an expanding population; a bell shape, with young and adult groups about equal, means a stable population; a narrow base with a wider middle (urn shape) means a declining population. The bottom bar is the pre-reproductive group, so it predicts future growth. The percentages are invented to show the shapes."
       },
       {
         "type": "KEY_POINT",
@@ -183,6 +199,22 @@
       {
         "type": "TEXT",
         "text": "Logistic growth is the more realistic model because resources are limited. Growth is fastest at the middle of the S-curve, when $N = K/2$, and the growth rate is zero at $N = 0$ and at $N = K$."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "growth-curves"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The red J-shaped curve (exponential growth) keeps rising steeply because resources are assumed to be unlimited. The blue S-shaped curve (logistic growth) starts slowly (lag), speeds up, slows down and levels off at the carrying capacity K. The orange dot marks where the logistic curve is steepest, at N = K/2."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "logistic-growth-rate"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: This graph shows how fast the population grows at each size. Growth rate is zero at N = 0 and at N = K, and it is greatest at N = K/2. So the steepest part of the S-curve in the previous figure occurs at half the carrying capacity."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -292,7 +324,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "population-change",
+      "file": "diagrams/ug26-304-t05-population-change.svg",
+      "alt": "Diagram of births and immigration adding to a population and deaths and emigration removing from it, with the equation for N(t+1)",
+      "caption": "Four processes that change population density",
+      "description": "A central box for population density N(t). Arrows into it show births (B) and immigration (I); arrows out show deaths (D) and emigration (E). The equation N(t+1) = N(t) + [(B + I) - (D + E)] is written below."
+    },
+    {
+      "key": "age-pyramids",
+      "file": "diagrams/ug26-304-t05-age-pyramids.svg",
+      "alt": "Three age-sex pyramids: expanding with a broad base, stable and bell shaped, declining with a narrow base",
+      "caption": "Age pyramids: expanding, stable and declining (illustrative)",
+      "description": "Three horizontal bar charts with males on the left and females on the right and five age groups from 0-14 at the bottom to 60 and over at the top. Expanding: bars shrink steadily upward from a wide base. Stable: young and adult bars about equal. Declining: narrow base and wider middle. The percentages are invented to show the shapes."
+    },
+    {
+      "key": "growth-curves",
+      "file": "diagrams/ug26-304-t05-growth-curves.svg",
+      "alt": "Graph of population size against time with a J-shaped exponential curve and an S-shaped logistic curve levelling off at carrying capacity K",
+      "caption": "Exponential (J) and logistic (S) growth",
+      "description": "Both curves start at 20 with r = 0.15. The red J-shaped exponential curve keeps rising ever more steeply. The blue S-shaped logistic curve rises slowly, then fast, then levels off at the carrying capacity K = 1000. An orange dot marks the steepest point of the logistic curve at N = K/2. The numbers are illustrative."
+    },
+    {
+      "key": "logistic-growth-rate",
+      "file": "diagrams/ug26-304-t05-logistic-growth-rate.svg",
+      "alt": "Graph of growth rate against population size: a hump that is zero at N = 0 and N = K and highest at N = K/2",
+      "caption": "Logistic growth rate against population size",
+      "description": "Graph of dN/dt = rN(1 - N/K) against N, drawn with r = 0.15 and K = 1000. The curve starts at zero, rises to a maximum at N = K/2 and falls back to zero at N = K."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-304-t05-organisms-and-populations-q01",

@@ -92,6 +92,14 @@
     "answer": "18.75 days (about 19 days)"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "canal-route-distances"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: A canal acts as a short cut: it cuts the distance, so it cuts the time and fuel at a given speed. Use the figure to check your working in the problem above, and always take distances from the question."
+   },
+   {
     "type": "HEADING",
     "text": "Air transport and intercontinental routes"
    },
@@ -100,12 +108,62 @@
     "text": "Air transport is the fastest, and the most costly, mode. It is especially suited for perishable goods, mail, high-value cargo and long-distance passengers, and for places that cannot be reached by land. It is also the most affected by weather and needs airports and costly aircraft. The densest **intercontinental air routes** are those that join the great industrial and commercial regions: the North Atlantic route between North America and Europe is the busiest, followed by the routes between Europe and Asia, and across the Pacific between North America and East Asia. Large hub airports in cities such as London, New York and Singapore serve as transfer points."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "hub-vs-point-to-point"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: A hub lets a few routes connect many places, because passengers change planes at the hub. Direct routes between every pair need many more links, which is why large hub airports serve as transfer points."
+   },
+   {
     "type": "HEADING",
     "text": "Oil and gas pipelines"
    },
    {
     "type": "TEXT",
     "text": "**Pipelines** carry liquids and gases such as crude oil, natural gas and water, and also solids in the form of slurry (for example coal mixed with water). They are most useful for moving oil and gas from fields to refineries and ports and then to consumers, without a break in the journey. They need a heavy investment, but running costs are low and losses are small. In the United States, long pipelines link the Gulf coast oil and gas fields to the cities of the north-east. In Russia, pipelines carry oil and gas from the fields of Siberia to Europe. A fixed route and the risk of leaks are the drawbacks."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Modes of transport compared",
+    "columns": [
+     "Mode",
+     "Best used for",
+     "Strength",
+     "Limit"
+    ],
+    "rows": [
+     [
+      "Roads",
+      "Short distances",
+      "Flexible; door-to-door service",
+      "Not the best for very heavy goods over long distances"
+     ],
+     [
+      "Railways",
+      "Heavy goods and many passengers over long distances",
+      "Carry bulk on a dense network where traffic is large",
+      "Need heavy investment in tracks"
+     ],
+     [
+      "Water transport",
+      "Heavy, bulky goods; most long-distance trade by volume (ocean routes)",
+      "Cheapest; little fuel per tonne; ocean routes need no track",
+      "Inland waterways need navigable, deep water"
+     ],
+     [
+      "Air transport",
+      "Perishable goods, mail, high-value cargo, remote places",
+      "Fastest",
+      "Costliest; most affected by weather"
+     ],
+     [
+      "Pipelines",
+      "Oil, gas, water and slurry from field to refinery to consumer",
+      "Low running cost; small losses; no break in the journey",
+      "Heavy investment; fixed route; risk of leaks"
+     ]
+    ]
    },
    {
     "type": "HEADING",
@@ -122,6 +180,52 @@
    {
     "type": "TEXT",
     "text": "Trade between countries rests on three main bases: **differences in national resources** such as minerals, climate and soil; **differences in the stage of economic development and in skills**; and the **extent of foreign investment and the transport facilities** available. A country that can make a good at a lower opportunity cost than another has a comparative advantage in it, so both gain from specialisation and exchange. Trade may be bilateral, between two countries, or multilateral, between many. Over time the pattern has changed. The share of manufactured goods has risen, services and information trade have grown, and the volume of trade among developing countries has increased."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "bilateral-multilateral"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Bilateral means two trading partners; multilateral means many. The WTO works at the multilateral level, with rules that apply to many members together."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Comparative advantage worked with illustrative numbers",
+    "columns": [
+     "Country",
+     "Wheat made in 1 day of work",
+     "Cloth made in 1 day of work",
+     "Cost of 1 unit of cloth (wheat given up)",
+     "Cost of 1 unit of wheat (cloth given up)"
+    ],
+    "rows": [
+     [
+      "A",
+      "6 units",
+      "3 units",
+      "2 units of wheat",
+      "0.5 unit of cloth"
+     ],
+     [
+      "B",
+      "2 units",
+      "2 units",
+      "1 unit of wheat",
+      "1 unit of cloth"
+     ],
+     [
+      "Lower opportunity cost",
+      "Wheat: A (0.5 is less than 1)",
+      "Cloth: B (1 is less than 2)",
+      "B has the comparative advantage in cloth",
+      "A has the comparative advantage in wheat"
+     ]
+    ]
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this table: the numbers are made up for illustration. Country A is better at making both goods, yet each country gains by specialising in the good where its opportunity cost is lower, A in wheat and B in cloth, and then trading. Comparative advantage depends on opportunity cost, not on who produces more."
    },
    {
     "type": "TEXT",
@@ -146,7 +250,29 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "canal-route-distances",
+   "file": "diagrams/ug26-313-u08-transport-trade-canal-route-distances.svg",
+   "alt": "Two bars comparing a 21,000 km route round the Cape with a 12,000 km route through a canal, with the 9,000 km saving marked",
+   "caption": "Distance saved by using a canal (numbers from the worked problem)",
+   "description": "Two horizontal bars. The upper bar is 21,000 km, labelled round the Cape. The lower bar is 12,000 km, labelled through the canal. A red arrow under the bars marks the 9,000 km saving. A note says these distances are from the worked problem only and are not real route lengths."
+  },
+  {
+   "key": "hub-vs-point-to-point",
+   "file": "diagrams/ug26-313-u08-transport-trade-hub-vs-point-to-point.svg",
+   "alt": "Two network diagrams for five airports: hub-and-spoke with 4 routes through a hub, and point-to-point with 10 direct routes",
+   "caption": "Hub-and-spoke and point-to-point air networks",
+   "description": "Left panel: one hub airport H in the centre joined by four lines to four other airports, so five airports are linked by 4 routes and passengers transfer at the hub. Right panel: five airports each joined directly to every other, which needs 10 routes. Schematic."
+  },
+  {
+   "key": "bilateral-multilateral",
+   "file": "diagrams/ug26-313-u08-transport-trade-bilateral-multilateral.svg",
+   "alt": "Two diagrams: trade between two countries (bilateral) and trade links among five countries (multilateral)",
+   "caption": "Bilateral and multilateral trade",
+   "description": "Left panel: two circles, A and B, joined by a double-headed arrow, labelled bilateral, between two countries. Right panel: five circles A to E, each joined to every other, labelled multilateral, among many countries. A note says the lines show trade links, not amounts."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-313-u08-transport-communication-and-trade-q01",

@@ -150,6 +150,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "special-matrix-patterns"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the names describe a pattern of zeros relative to the main diagonal. Each type is a special case of the one before it: identity, then scalar, then diagonal, then square. Check the pattern of zeros first and the diagonal values second."
+      },
+      {
         "type": "CONCEPT",
         "text": "Each type is a special case of the one before it: identity $\\subset$ scalar $\\subset$ diagonal $\\subset$ square. So every identity matrix is a scalar matrix, and every scalar matrix is diagonal, but a diagonal matrix such as $\\mathrm{diag}(3,-1)$ is not scalar."
       },
@@ -176,6 +184,14 @@
         "text": "If $A=\\begin{pmatrix}1&2&3\\\\4&5&6\\end{pmatrix}$ ($2\\times3$), then $A'=\\begin{pmatrix}1&4\\\\2&5\\\\3&6\\end{pmatrix}$ ($3\\times2$)."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "transpose-picture"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the entry in row i, column j moves to row j, column i, and the order changes from m by n to n by m. A non-square matrix therefore changes shape when transposed."
+      },
+      {
         "type": "FORMULA",
         "latex": "(A')'=A,\\quad (kA)'=kA',\\quad (A+B)'=A'+B',\\quad (AB)'=B'A'",
         "text": "$A,B$ are matrices of orders for which the sum or product exists and $k$ is a scalar. **Note the reversal of order** in $(AB)'=B'A'$: if $A$ is $m\\times n$ and $B$ is $n\\times p$ then $AB$ is $m\\times p$, $(AB)'$ is $p\\times m$, and $B'$ ($p\\times n$) times $A'$ ($n\\times m$) matches this order, whereas $A'B'$ would generally not even be defined."
@@ -197,6 +213,14 @@
       {
         "type": "TEXT",
         "text": "Useful facts, for any square matrix $A$ of real numbers:\n- $A+A'$ is symmetric because $(A+A')'=A'+A=A+A'$.\n- $A-A'$ is skew symmetric because $(A-A')'=A'-A=-(A-A')$.\n- The zero matrix is both symmetric and skew symmetric, and it is the only matrix that is both.\n- **Every square matrix is uniquely the sum of a symmetric and a skew symmetric matrix:** $A=\\tfrac12(A+A')+\\tfrac12(A-A')$."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "symmetric-skew-patterns"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: for a symmetric matrix the mirror partner of each entry is equal; for a skew symmetric matrix it is the negative. Because an entry must equal its own negative on the diagonal, every diagonal entry of a skew symmetric matrix is 0."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -268,6 +292,14 @@
         "type": "DEFINITION",
         "term": "Product of two matrices",
         "text": "The product $AB$ is defined only when the number of **columns of $A$ equals the number of rows of $B$**. If $A$ is $m\\times n$ and $B$ is $n\\times p$, then $AB$ is $m\\times p$ and $(AB)_{ij}=\\sum_{k=1}^{n}a_{ik}b_{kj}$: the $(i,j)$ element is the sum of products of row $i$ of $A$ with column $j$ of $B$."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "row-by-column"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: check the orders first, writing them side by side; the inner numbers must be equal, and the outer numbers tell you the order of the answer. Each entry of AB is one row of A multiplied term by term with one column of B and added."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -390,7 +422,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "special-matrix-patterns",
+      "file": "diagrams/ug26-319-r15-matrices-special-types.svg",
+      "alt": "Six 3 by 3 matrices coloured to show where the zeros sit: diagonal, scalar, identity, upper triangular, lower triangular and zero matrix",
+      "caption": "Where the zeros sit in special square matrices",
+      "description": "Six small 3 by 3 grids. Diagonal: only the main diagonal entries can be non-zero. Scalar: diagonal entries all equal to 4. Identity: diagonal entries all 1. Upper triangular: zeros below the main diagonal. Lower triangular: zeros above the main diagonal. Zero matrix: every entry 0. Entries that may be non-zero are shaded; forced zeros are grey."
+    },
+    {
+      "key": "transpose-picture",
+      "file": "diagrams/ug26-319-r15-matrices-transpose.svg",
+      "alt": "A 2 by 3 matrix with its first row in blue and second row in red, and its 3 by 2 transpose where those rows have become columns",
+      "caption": "Transpose: rows become columns",
+      "description": "The matrix A with rows (1, 2, 3) and (4, 5, 6) has order 2 by 3. Its transpose A prime has order 3 by 2: the blue first row becomes the first column (1, 2, 3) and the red second row becomes the second column (4, 5, 6). Examples a12 = 2 becoming a prime 21 = 2 and a23 = 6 becoming a prime 32 = 6 are written below."
+    },
+    {
+      "key": "symmetric-skew-patterns",
+      "file": "diagrams/ug26-319-r15-matrices-symmetric-skew.svg",
+      "alt": "Two 3 by 3 matrices with mirror pairs about the main diagonal shown in matching colours: a symmetric matrix with equal mirror entries and a skew symmetric matrix with opposite mirror entries and zero diagonal",
+      "caption": "Symmetric and skew symmetric matrices as mirror patterns",
+      "description": "Left: the symmetric matrix with rows (2, 5, -1), (5, 3, 4), (-1, 4, 0). Entries that mirror each other across the main diagonal have the same colour and the same value. Right: the skew symmetric matrix with rows (0, 2, -3), (-2, 0, 4), (3, -4, 0). Mirror entries have the same colour but opposite signs and the whole diagonal is 0. The diagonal cells are outlined in red."
+    },
+    {
+      "key": "row-by-column",
+      "file": "diagrams/ug26-319-r15-matrices-row-by-column.svg",
+      "alt": "A 2 by 3 matrix times a 3 by 2 matrix giving a 2 by 2 matrix, with row 2 of the first and column 1 of the second highlighted and the entry computed as 6 + 0 + 4 = 10",
+      "caption": "Matrix multiplication: the order rule and one entry computed",
+      "description": "A is 2 by 3 with rows (1, 2, 0) and (3, -1, 4). B is 3 by 2 with rows (2, 1), (0, 3), (1, -1). The inner numbers (3 and 3) match and the outer numbers (2 and 2) give the order of AB. The second row of A is paired with the first column of B: 3 times 2 plus (-1) times 0 plus 4 times 1 equals 10, which is the entry in row 2, column 1 of AB. The product has rows (2, 7) and (10, -4)."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r15-matrices-q01",

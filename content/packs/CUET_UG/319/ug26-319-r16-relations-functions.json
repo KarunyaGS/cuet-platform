@@ -63,6 +63,14 @@
         "answer": "$64$ relations; $R=\\{(1,a),(1,b),(3,a),(3,b)\\}$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "relation-subset-grid"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A times B has n(A) times n(B) pairs, and a relation is any selection from them, so there are 2 to the power n(A)n(B) relations. A relation need not use every pair or every element."
+      },
+      {
         "type": "HEADING",
         "text": "Reflexive, symmetric and transitive relations"
       },
@@ -112,6 +120,14 @@
         "problem": "On $A=\\{1,2,3\\}$ let $R=\\{(1,1),(2,2),(3,3),(1,2)\\}$. Decide whether $R$ is reflexive, symmetric and transitive.",
         "solution": "**Reflexive:** $(1,1),(2,2),(3,3)$ are all present, so yes. **Symmetric:** $(1,2)\\in R$ but $(2,1)\\notin R$, so no. **Transitive:** the chains are $(1,1),(1,2)\\Rightarrow(1,2)\\in R$; $(1,2),(2,2)\\Rightarrow(1,2)\\in R$; all chains using only diagonal pairs are trivial. So it is transitive.",
         "answer": "Reflexive and transitive, not symmetric"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "relation-directed-graph"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: reflexive means a loop on every point, symmetric means every arrow comes with a return arrow, and transitive means any two-step path has a direct arrow too. Adding the one missing pair (2, 1) turned this relation into an equivalence relation."
       },
       {
         "type": "CALLOUT",
@@ -218,6 +234,22 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "mapping-diagrams"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: first check that every point of A has exactly one arrow (function), then look at B. If no point of B has two arrows the function is one-one; if every point of B is hit it is onto. Both together make a bijection."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "line-tests-graphs"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: a vertical line meeting the graph in more than one point means it is not a function; a horizontal line meeting a function's graph in more than one point means it is not one-one. One test line that fails is enough to show the property does not hold."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Show that $f:\\mathbb R\\to\\mathbb R$, $f(x)=3x-7$ is one-one and onto.",
         "solution": "**One-one:** if $f(x_1)=f(x_2)$ then $3x_1-7=3x_2-7$, so $3x_1=3x_2$ and $x_1=x_2$. **Onto:** take any $y\\in\\mathbb R$ and solve $3x-7=y$, giving $x=\\dfrac{y+7}{3}\\in\\mathbb R$, and $f\\!\\left(\\dfrac{y+7}{3}\\right)=y$. Every real number has a pre-image, so $f$ is onto. Hence $f$ is bijective.",
@@ -256,7 +288,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "relation-subset-grid",
+      "file": "diagrams/ug26-319-r16-relations-functions-cartesian-subset.svg",
+      "alt": "A 3 by 2 grid of the ordered pairs of A times B with the four pairs having an odd first element highlighted in green",
+      "caption": "A relation is a subset of A times B",
+      "description": "A is {1, 2, 3} and B is {a, b}. The six ordered pairs of A times B are drawn as a grid. The four pairs (1, a), (1, b), (3, a), (3, b), where the first element is odd, are highlighted as the relation R. Each of the six pairs may be in or out of a relation, which gives 2 to the power 6 = 64 relations."
+    },
+    {
+      "key": "relation-directed-graph",
+      "file": "diagrams/ug26-319-r16-relations-functions-directed-graph-tests.svg",
+      "alt": "Two directed graphs on the points 1, 2 and 3: one with loops at every point and an arrow from 1 to 2 only, and one that also has the return arrow from 2 to 1; ticks and crosses list reflexive, symmetric and transitive",
+      "caption": "Testing reflexive, symmetric and transitive by drawing arrows",
+      "description": "Left graph: the relation {(1,1), (2,2), (3,3), (1,2)} drawn with a loop at each point and one arrow from 1 to 2. It is reflexive and transitive but not symmetric because there is no arrow from 2 back to 1. Right graph: the pair (2,1) is added, giving a return arrow. All three properties now hold, so it is an equivalence relation. The checks are computed from the pairs."
+    },
+    {
+      "key": "mapping-diagrams",
+      "file": "diagrams/ug26-319-r16-relations-functions-mapping-diagrams.svg",
+      "alt": "Five arrow diagrams between two sets: not a function, one-one but not onto, onto but not one-one, one-one and onto, and neither",
+      "caption": "Mapping diagrams for one-one and onto",
+      "description": "Five pairs of ovals joined by arrows. Not a function: one element of A has two arrows and another has none. One-one but not onto: three elements map to three different elements of a four-element B, so d is never hit. Onto but not one-one: four elements map onto two, with two arrows sharing each target. One-one and onto: three elements map to three elements in a perfect pairing. Neither: two arrows land on a and nothing lands on c."
+    },
+    {
+      "key": "line-tests-graphs",
+      "file": "diagrams/ug26-319-r16-relations-functions-line-tests.svg",
+      "alt": "Three graphs, y = x squared, y = x cubed and a circle, each with a vertical and a horizontal test line and dots where the lines meet the curve",
+      "caption": "Vertical line test and horizontal line test",
+      "description": "For y = x squared a vertical line at x = 1 meets the curve once (so it is a function) and a horizontal line at y = 1.5 meets it twice (so it is not one-one on the real numbers). For y = x cubed both lines meet the curve once, so it is a function and one-one. For the circle x squared plus y squared = 4 the vertical line x = 1 meets it at two points (y = plus or minus 1.73), so y is not a function of x."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r16-relations-functions-q01",

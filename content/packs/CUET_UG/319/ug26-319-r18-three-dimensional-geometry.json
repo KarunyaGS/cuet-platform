@@ -47,6 +47,14 @@
         "text": "In three dimensions a point is given by coordinates $(x,y,z)$ and a straight line is described by a point on it together with a direction. The direction of a line is measured by the angles it makes with the coordinate axes."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "point-in-space-box"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the three coordinates are distances measured along the three axes. The length of OP follows from Pythagoras applied twice, giving the square root of x squared plus y squared plus z squared."
+      },
+      {
         "type": "DEFINITION",
         "term": "Direction cosines (DCs)",
         "text": "If a directed line makes angles $\\alpha,\\beta,\\gamma$ with the positive $x,y,z$ axes, then $l=\\cos\\alpha,\\ m=\\cos\\beta,\\ n=\\cos\\gamma$ are its **direction cosines**, and $l^2+m^2+n^2=1$. Reversing the direction changes all three signs. The axes themselves have DCs $(1,0,0)$, $(0,1,0)$, $(0,0,1)$."
@@ -55,6 +63,14 @@
         "type": "DEFINITION",
         "term": "Direction ratios (DRs)",
         "text": "Any three numbers $a,b,c$ proportional to $l,m,n$ are **direction ratios** of the line. So $l=\\dfrac{a}{\\sqrt{a^2+b^2+c^2}},\\ m=\\dfrac{b}{\\sqrt{a^2+b^2+c^2}},\\ n=\\dfrac{c}{\\sqrt{a^2+b^2+c^2}}$ (all signs together reversed for the opposite direction)."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "direction-cosines-figure"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: direction cosines are the cosines of the angles with the axes, and for a vector from the origin they are the coordinates divided by the length. Their squares always add up to 1, which is a quick check."
       },
       {
         "type": "FORMULA",
@@ -107,6 +123,14 @@
         "answer": "$\\dfrac{x-2}{3}=\\dfrac{y+1}{4}=\\dfrac{z-1}{-2}$; yes"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "line-vector-equation"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: a fixes one point on the line and b fixes the direction; every value of lambda gives a different point. That is why (5, 3, -1) is on the line from the example: it is the point with lambda = 1."
+      },
+      {
         "type": "CALLOUT",
         "text": "Signs matter when moving between forms: the point (2, -1, 1) gives numerators x - 2, y + 1, z - 1. Also the coefficients of lambda are the denominators, not the numerators."
       },
@@ -123,6 +147,14 @@
         "type": "FORMULA",
         "latex": "\\cos\\theta=\\frac{|a_1a_2+b_1b_2+c_1c_2|}{\\sqrt{a_1^2+b_1^2+c_1^2}\\,\\sqrt{a_2^2+b_2^2+c_2^2}}\\qquad\\left(\\text{vector form: }\\cos\\theta=\\frac{|\\vec b_1\\cdot\\vec b_2|}{|\\vec b_1||\\vec b_2|}\\right)",
         "text": "$(a_1,b_1,c_1)$ and $(a_2,b_2,c_2)$ are direction ratios of the two lines; for direction cosines the denominator is $1$ and $\\cos\\theta=|l_1l_2+m_1m_2+n_1n_2|$. The modulus makes the angle acute."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "angle-between-lines"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: only the directions matter, so slide both lines to meet at a point and measure the angle between their direction vectors. Take the modulus of the dot product to get the acute angle between the lines."
       },
       {
         "type": "TABLE",
@@ -165,6 +197,14 @@
         "type": "DEFINITION",
         "term": "Skew lines",
         "text": "Two lines in space are **skew** if they are **neither parallel nor intersecting**; equivalently, they do not lie in a common plane. Lines that lie in one plane (parallel or intersecting) are coplanar and are not skew. Skew lines exist only in three or more dimensions, for example a road and a railway line passing over it on a bridge."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "skew-lines-figure"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: two lines that look as if they cross on paper may be skew in space. The shortest distance between skew lines is along the common perpendicular, and the scalar triple product formula gives its length without finding the closest points."
       },
       {
         "type": "FORMULA",
@@ -249,7 +289,43 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "point-in-space-box",
+      "file": "diagrams/ug26-319-r18-three-dimensional-geometry-point-coordinates.svg",
+      "alt": "A schematic three-dimensional drawing of axes with the point P(3, 2, 4) at the corner of a dashed box and the distance OP shown as the square root of 29",
+      "caption": "A point in space: coordinates along the three axes",
+      "description": "Oblique drawing of the x, y and z axes with the x-axis pointing towards the viewer. The point P(3, 2, 4) is the far corner of a dashed box with edges 3 along x, 2 along y and 4 along z. The distance from the origin is the square root of 3 squared plus 2 squared plus 4 squared, which is the square root of 29, about 5.385."
+    },
+    {
+      "key": "direction-cosines-figure",
+      "file": "diagrams/ug26-319-r18-three-dimensional-geometry-direction-cosines.svg",
+      "alt": "A schematic drawing of the line from the origin to P(2, 3, 6) with the angles alpha, beta and gamma marked against the three axes and the direction cosines 2/7, 3/7 and 6/7 listed",
+      "caption": "Direction cosines of the line from O to P(2, 3, 6)",
+      "description": "The line OP has length 7. The angles it makes with the positive x, y and z axes are alpha about 73.4 degrees, beta about 64.6 degrees and gamma about 31.0 degrees, so the direction cosines are 2/7, 3/7 and 6/7, about 0.286, 0.429 and 0.857. Their squares add to 1. The oblique drawing is schematic and does not preserve the sizes of the angles."
+    },
+    {
+      "key": "line-vector-equation",
+      "file": "diagrams/ug26-319-r18-three-dimensional-geometry-vector-equation.svg",
+      "alt": "A line through A(2, -1, 1) in the direction (3, 4, -2) with points marked for lambda = -1, 0, 1 and 2 and their coordinates",
+      "caption": "The line r = a + lambda b: one point for each value of lambda",
+      "description": "A schematic oblique drawing with the axes in grey. The green arrow is the position vector a = (2, -1, 1) from the origin to A, which is lambda = 0. Moving along the line by lambda times b = (3, 4, -2) gives (-1, -5, 3) for lambda = -1, (5, 3, -1) for lambda = 1 and (8, 7, -3) for lambda = 2."
+    },
+    {
+      "key": "angle-between-lines",
+      "file": "diagrams/ug26-319-r18-three-dimensional-geometry-angle-between-lines.svg",
+      "alt": "Two direction vectors (1, 2, 2) and (2, 3, 6) from one point in a schematic three-dimensional drawing with the angle between them marked and its calculation beside it",
+      "caption": "Angle between two lines is the angle between their directions",
+      "description": "The direction vectors d1 = (1, 2, 2) and d2 = (2, 3, 6) are drawn from the origin. The arc marked theta is the angle between them. d1 dot d2 = 20, the lengths are 3 and 7, so cos theta = 20/21 and theta is about 17.8 degrees."
+    },
+    {
+      "key": "skew-lines-figure",
+      "file": "diagrams/ug26-319-r18-three-dimensional-geometry-skew-lines.svg",
+      "alt": "Two lines drawn in a schematic oblique projection that appear to cross, joined by a short green segment showing the shortest distance between them",
+      "caption": "Skew lines and their shortest distance",
+      "description": "Line 1 through (1, 2, 3) with direction (1, -3, 2) and line 2 through (4, 5, 6) with direction (2, 3, 1) are not parallel and never meet. A short green segment joins the closest points of the two lines and is perpendicular to both. Its length is 9 divided by the square root of 171, which is 3 over the square root of 19, about 0.688. The drawing is schematic."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r18-three-dimensional-geometry-q01",

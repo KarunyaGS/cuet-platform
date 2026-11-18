@@ -52,6 +52,14 @@
     "text": "There are four types of statements: **All A are B** (universal affirmative), **No A is B** (universal negative), **Some A are B** (particular affirmative) and **Some A are not B** (particular negative). Draw one circle for each term. 'All A are B' is a circle A inside circle B. 'Some A are B' means the circles overlap. 'No A is B' means separate circles."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "syllogism-four-statements"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: draw each statement as one of these four pictures before judging a conclusion. A conclusion follows only if it is true in every picture you can draw from the given statements."
+   },
+   {
     "type": "TEXT",
     "text": "Useful rules: 'Some A are B' can be reversed to 'Some B are A'. 'No A is B' can be reversed to 'No B is A'. 'All A are B' can only be reversed to 'Some B are A', never to 'All B are A'. Two particular statements ('some', 'some') give no conclusion. From 'All A are B' and 'All B are C' we conclude 'All A are C'."
    },
@@ -60,6 +68,14 @@
     "problem": "Statements: All pens are books. Some books are cups. Which conclusions follow? (I) Some cups are books. (II) Some pens are cups. (III) All pens are cups.",
     "solution": "Step 1: draw pens as a circle inside the circle of books. Step 2: some books are cups, so the cups circle overlaps the books circle, but it may overlap only the part of books that lies outside pens. Step 3: (I) reverses the second statement, so it follows. (II) and (III) need pens and cups to overlap, which is possible but not forced, so they do not follow.",
     "answer": "Only conclusion (I) follows."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "syllogism-pens-books-cups"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: the same two statements allow more than one picture. A conclusion follows only if it holds in all of them, so only (I) follows. If you can draw one picture where a conclusion fails, reject it."
    },
    {
     "type": "KEY_POINT",
@@ -96,6 +112,14 @@
     "answer": "10 km, north-east of the starting point"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "direction-compass-path"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: a right turn while facing north points east. The two legs make a right angle, so the distance from the start is the hypotenuse, 10 km, and the end point is to the north-east. Always draw with north at the top."
+   },
+   {
     "type": "TEXT",
     "text": "In **blood relation** questions, convert each clue into a family tree. Key terms: father's or mother's brother is an uncle (paternal or maternal), father's or mother's sister is an aunt, brother's wife is a sister-in-law, the mother's mother is the maternal grandmother, and the sister's son is a nephew. Work step by step from the person who is named."
    },
@@ -104,6 +128,14 @@
     "problem": "Pointing to a man, a woman says, 'His mother is the only daughter of my mother.' How is the man related to the woman?",
     "solution": "Step 1: the woman's mother has only one daughter, and the woman is a daughter of that mother, so 'the only daughter of my mother' is the woman herself. Step 2: so the man's mother is the woman. Step 3: therefore the man is the woman's son.",
     "answer": "The man is the woman's son."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "blood-relation-tree"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: the only daughter of the woman's mother is the woman herself, so the man's mother is the woman and he is her son. Turn each clue into a drawn tree, starting from the named person, and the answer can be read off."
    },
    {
     "type": "HEADING",
@@ -118,6 +150,14 @@
     "text": "In a row of 40 persons, if A is 14th from the left and B is 19th from the right, B's position from the left is $40-19+1=22$, so there are $22-14-1=7$ persons between them."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "ranking-row"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: the position from one end plus the position from the other end is always one more than the total. To count the people between two positions, subtract the positions and then subtract 1."
+   },
+   {
     "type": "TEXT",
     "text": "**Seating arrangements** are solved by fixing the definite clues first. Write fixed positions in a row of boxes, cross out impossible placements, and place the rest by elimination."
    },
@@ -126,6 +166,14 @@
     "problem": "Five friends P, Q, R, S and T sit in a row facing north. T is at the left end and S is at the right end. P sits immediately to the left of R. Q does not sit next to T. Who sits in the middle?",
     "solution": "Step 1: place T in position 1 and S in position 5, leaving positions 2, 3, 4 for P, Q and R. Step 2: P and R must be adjacent, with P on the left, so they take positions 2-3 or 3-4. Step 3: Q cannot be in position 2 because that is next to T, and if Q were in position 3 then P and R could not be adjacent. So Q is in position 4, P in 2 and R in 3. The order is T, P, R, Q, S.",
     "answer": "R sits in the middle."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "seating-row"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: place the fixed clues first (the two ends), then the pairs that must sit together, and place the last person by elimination. The solved row T, P, R, Q, S puts R in the middle."
    },
    {
     "type": "HEADING",
@@ -142,8 +190,24 @@
     "answer": "Only B is truthful."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "truth-teller-table"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: assume one person is truthful, follow every consequence and mark whether it fits. A case that leads to a contradiction is dropped. Here only the case with B truthful survives."
+   },
+   {
     "type": "TEXT",
     "text": "For the **calendar**, count the days between two dates and divide by 7. The remainder gives the number of odd days, so the later date falls that many days after the weekday of the earlier date. If 26 January 2026 is a Monday, then 15 August 2026 is 201 days later; $201 = 28\\times 7 + 5$, so the weekday is 5 days after Monday, which is Saturday."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "calendar-weekday-wheel"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: after any whole number of weeks the weekday is the same, so divide the number of days by 7 and use only the remainder. Count that many steps around the weekdays from the starting day."
    },
    {
     "type": "CALLOUT",
@@ -151,7 +215,64 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "syllogism-four-statements",
+   "file": "diagrams/ug26-501-t04-syllogism-four-statements.svg",
+   "alt": "Four Venn diagrams for All A are B, No A is B, Some A are B and Some A are not B",
+   "caption": "The four statement types as Venn diagrams",
+   "description": "Four panels. All A are B: circle A completely inside circle B. No A is B: two separate circles. Some A are B: two overlapping circles with a dot in the overlap. Some A are not B: two overlapping circles with a dot in the part of A outside B."
+  },
+  {
+   "key": "syllogism-pens-books-cups",
+   "file": "diagrams/ug26-501-t04-syllogism-pens-books-cups.svg",
+   "alt": "Two possible Venn diagrams for All pens are books and Some books are cups, with the three conclusions tested",
+   "caption": "Testing conclusions on two possible diagrams",
+   "description": "Two diagrams. In both, the pens circle lies inside the books circle and the cups circle overlaps the books circle. In Diagram 1 the cups circle overlaps only the part of books outside pens, so pens and cups are apart. In Diagram 2 the cups circle also overlaps pens. Conclusion I (some cups are books) is true in both; II (some pens are cups) is false in Diagram 1; III (all pens are cups) is false in both."
+  },
+  {
+   "key": "direction-compass-path",
+   "file": "diagrams/ug26-501-t04-direction-compass-path.svg",
+   "alt": "Path of 8 km north then 6 km east on a compass with the straight-line distance of 10 km",
+   "caption": "Direction sense: 8 km north then 6 km east",
+   "description": "A compass rose with north at the top. From the start, an arrow goes 8 km north, then a right turn gives an arrow 6 km east. A dashed line from the start to the end is the straight-line distance, 10 km, from 8 squared plus 6 squared equals 100. The end lies north-east of the start."
+  },
+  {
+   "key": "blood-relation-tree",
+   "file": "diagrams/ug26-501-t04-blood-relation-tree.svg",
+   "alt": "Family tree of three people: the woman's mother, the woman, and the man who is the woman's son",
+   "caption": "Blood relation clue turned into a family tree",
+   "description": "A vertical family tree. At the top is a circle for the woman's mother. Below her is a circle for the woman who is speaking, joined by a line labelled her only daughter. Below the woman is a square for the man she points to, joined by a line labelled her son. Circles are female and squares are male."
+  },
+  {
+   "key": "ranking-row",
+   "file": "diagrams/ug26-501-t04-ranking-row.svg",
+   "alt": "A bar of 40 persons showing A 14th from the left, B 19th from the right, and 7 persons between them",
+   "caption": "Ranking in a row of 40 persons",
+   "description": "A bar divided into five parts: 13 persons, then A, then 7 persons, then B, then 18 persons, making 40 in all. Brackets show that A is 14th from the left, B is 19th from the right, so B is 40 minus 19 plus 1 = 22nd from the left. The persons between A and B number 22 minus 14 minus 1 = 7."
+  },
+  {
+   "key": "seating-row",
+   "file": "diagrams/ug26-501-t04-seating-row.svg",
+   "alt": "Five seats in a row filled T, P, R, Q, S with R in the middle seat",
+   "caption": "Seating arrangement solved by fixing clues",
+   "description": "Five boxes numbered seats 1 to 5 hold T, P, R, Q and S in that order. T at the left end and S at the right end are marked as given. P and R fill seats 2 and 3 because P sits immediately to the left of R. Q takes seat 4 because Q cannot sit next to T. R is in the middle seat."
+  },
+  {
+   "key": "truth-teller-table",
+   "file": "diagrams/ug26-501-t04-truth-teller-table.svg",
+   "alt": "Table testing two cases of the truth-teller puzzle, one consistent and one contradictory",
+   "caption": "Truth-teller puzzle solved with a case table",
+   "description": "A table with two rows. Case 1 assumes B is truthful, which makes A a liar and C a liar, and everything is consistent. Case 2 assumes B is a liar, which makes C truthful and so A and B both liars, but then A's claim that B is a liar would be true, which is a contradiction. Only Case 1 survives."
+  },
+  {
+   "key": "calendar-weekday-wheel",
+   "file": "diagrams/ug26-501-t04-calendar-weekday-wheel.svg",
+   "alt": "Weekday wheel counting 5 odd days from Monday to reach Saturday",
+   "caption": "Counting odd days from Monday",
+   "description": "A circle of the seven weekdays in order, Monday to Sunday. Five arrows count steps from Monday (start) to Saturday (answer). Beside it: 26 January 2026 is a Monday, 15 August 2026 is 201 days later, 201 = 28 x 7 + 5, so 28 whole weeks change nothing and only the 5 odd days count: Monday plus 5 days is Saturday."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-501-t04-logical-and-analytical-reasoning-q01",

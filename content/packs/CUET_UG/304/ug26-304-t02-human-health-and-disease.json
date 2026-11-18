@@ -180,8 +180,68 @@
         "text": "**Acquired immunity** is pathogen-specific and is characterised by **memory**. When the body encounters a pathogen for the first time, it produces a **primary response** of low intensity. A second encounter with the same pathogen produces a **secondary (anamnestic) response** that is highly intensified, because the body remembers the first encounter. The primary and secondary responses are carried out by two special types of lymphocytes, the **B-lymphocytes** and **T-lymphocytes**. B cells produce proteins in response to pathogens, called **antibodies**, which fight the pathogens. T cells themselves do not secrete antibodies but help B cells to produce them."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "primary-secondary-response"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Compare the two peaks: a second exposure to the same antigen gives a faster and much larger antibody rise than the first. This is the memory of acquired immunity, and it is the principle on which vaccination works. The numbers on the graph are only illustrative."
+      },
+      {
         "type": "TEXT",
         "text": "An antibody molecule has four peptide chains, two small **light chains** and two longer **heavy chains**, so it is written H2L2. Different types of antibodies are produced in our body, such as IgA, IgM, IgE and IgG. The B cell response is called the **humoral immune response (HIR)**, because the antibodies are in the body fluids. The second is the **cell-mediated immune response (CMI)**, carried out by T cells. This system lets the body differentiate between self and non-self, so CMI is responsible for graft rejection. In organ transplantation, the tissue matching and blood group matching and immunosuppressants are used to prevent the rejection."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "antibody-structure"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A basic antibody has four peptide chains: two long heavy chains and two short light chains (H2L2). Each arm of the Y has an antigen-binding site, so the molecule can attach to antigens. The stem is made of heavy chains only."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "acquired-immunity-arms"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: B cells give the humoral response (HIR) by making antibodies that circulate in body fluids. T cells give the cell-mediated response (CMI); they do not secrete antibodies themselves but they help B cells to make them. CMI is the response responsible for graft rejection."
+      },
+      {
+        "type": "TABLE",
+        "caption": "Innate and acquired immunity compared",
+        "columns": [
+          "Point",
+          "Innate immunity",
+          "Acquired immunity"
+        ],
+        "rows": [
+          [
+            "When present",
+            "At birth",
+            "Develops after the body meets a pathogen"
+          ],
+          [
+            "Specificity",
+            "Non-specific: the same barriers act against all microbes",
+            "Specific to a particular pathogen"
+          ],
+          [
+            "Memory",
+            "None",
+            "Yes: a second encounter gives an intensified response"
+          ],
+          [
+            "Main parts",
+            "Four barriers: physical, physiological, cellular and cytokine",
+            "B-lymphocytes (antibodies) and T-lymphocytes"
+          ],
+          [
+            "Examples",
+            "Skin, stomach acid, neutrophils and macrophages, interferons",
+            "Antibodies against one pathogen; graft rejection by T cells"
+          ]
+        ]
       },
       {
         "type": "TEXT",
@@ -270,6 +330,14 @@
         "text": "After entering the body, the virus enters **macrophages**, where its RNA genome is converted to viral DNA by the enzyme **reverse transcriptase**. The viral DNA is incorporated into the host cell's DNA and directs the infected cells to produce virus particles. The macrophages continue to produce virus and thus act as an HIV factory. Meanwhile, HIV enters **helper T-lymphocytes (TH)**, replicates and produces progeny viruses, which attack other helper T cells. The number of TH cells progressively decreases, and the person becomes immune-deficient, suffering from infections of bacteria, especially *Mycobacterium*, viruses, fungi and the parasite *Toxoplasma*, and cannot defend against even minor infections."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "hiv-infection-sequence"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Follow the steps in order: reverse transcriptase copies the viral RNA into DNA, that DNA joins the host DNA, and the infected cell then makes new viruses. The viruses keep attacking helper T cells, so their number falls and the person becomes immune-deficient. HIV is a retrovirus: here RNA is copied into DNA, the reverse of the usual direction."
+      },
+      {
         "type": "TEXT",
         "text": "The diagnostic test widely used is **ELISA** (enzyme-linked immuno-sorbent assay). Treatment with antiretroviral drugs is only partially effective, so prevention is the best option. Prevention involves making blood from safe, HIV-free donors available, using disposable needles and syringes, free distribution of condoms, controlling drug abuse, advocating safe sex, and regular check-ups. The National AIDS Control Organisation (NACO) and other NGOs educate people about AIDS."
       },
@@ -330,7 +398,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "primary-secondary-response",
+      "file": "diagrams/ug26-304-t02-primary-secondary-response.svg",
+      "alt": "Graph of antibody level against time: a small slow first peak and a larger faster second peak after the second exposure",
+      "caption": "Primary and secondary antibody responses (illustrative)",
+      "description": "Illustrative graph of antibody level in the blood against time in days. After the first exposure to an antigen the antibody level rises slowly to a low peak and falls. After a second exposure to the same antigen the antibody level rises faster and to a much higher peak. The curve shape is illustrative, not measured data."
+    },
+    {
+      "key": "antibody-structure",
+      "file": "diagrams/ug26-304-t02-antibody-structure.svg",
+      "alt": "Y-shaped antibody made of two heavy chains and two light chains, with an antigen-binding site on each arm",
+      "caption": "Antibody structure: H2L2 (schematic)",
+      "description": "Schematic Y-shaped antibody. Two long heavy chains form the stem and run up both arms; two short light chains lie alongside the upper part of each arm. Each arm ends in an antigen-binding site, shown with an antigen docked on it."
+    },
+    {
+      "key": "acquired-immunity-arms",
+      "file": "diagrams/ug26-304-t02-acquired-immunity-arms.svg",
+      "alt": "Flow chart: an antigen leads to B-lymphocytes (antibodies, humoral response) and T-lymphocytes (cell-mediated response), with T cells helping B cells",
+      "caption": "Two arms of acquired immunity",
+      "description": "Flow chart. A pathogen or antigen stimulates B-lymphocytes, which secrete antibodies into the body fluids and give the humoral immune response, and T-lymphocytes, which act directly and give the cell-mediated immune response. A dashed arrow shows that T cells help B cells."
+    },
+    {
+      "key": "hiv-infection-sequence",
+      "file": "diagrams/ug26-304-t02-hiv-infection-sequence.svg",
+      "alt": "Six-step flow chart from HIV entering a macrophage or helper T cell to immune deficiency",
+      "caption": "Sequence of HIV infection (schematic)",
+      "description": "Six boxes joined by arrows. HIV, a retrovirus with an RNA genome, enters a macrophage or helper T-lymphocyte; reverse transcriptase makes viral DNA from the viral RNA; the viral DNA is incorporated into the host DNA; the cell makes new viral RNA and proteins and releases progeny viruses; these attack more helper T cells while macrophages keep producing virus; the number of helper T cells falls and immune deficiency (AIDS) results."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-304-t02-human-health-and-disease-q01",

@@ -217,6 +217,14 @@
         "answer": "$k = 20$; first four positions are $9,\\,29,\\,49,\\,69$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "inference-systematic-sampling"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: In systematic sampling the interval is $k=N/n=20$ and the only random step is the start (here the 9th name). After that the picks $9,29,49,69,\\dots$ are fixed, so a hidden pattern in the list that repeats every 20 names could bias the sample."
+      },
+      {
         "type": "CALLOUT",
         "text": "In systematic sampling only the starting point is random. After it is fixed the whole sample is fixed. If the list has a hidden pattern repeating every $k$ units, the sample can be biased, whereas in simple random sampling each unit is chosen independently of position."
       },
@@ -279,6 +287,14 @@
         "problem": "A population has mean $\\mu = 80$ and standard deviation $\\sigma = 15$. Samples of size $n = 36$ are drawn. State the mean and standard error of the sampling distribution of $\\bar{x}$ and the likely shape.",
         "solution": "By the central limit theorem the mean of the sampling distribution is $\\mu_{\\bar{x}} = \\mu = 80$. The standard error is $\\sigma/\\sqrt{n} = 15/\\sqrt{36} = 15/6 = 2.5$. Since $n = 36 \\ge 30$, the distribution of $\\bar{x}$ is approximately normal.",
         "answer": "Mean $= 80$, SE $= 2.5$, approximately normal."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "inference-sampling-distribution"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The sample mean has the same centre as the population ($\\mu=80$) but a much smaller spread, the standard error $\\sigma/\\sqrt n$. Because of the square root, $n$ must be multiplied by 4, not by 2, to halve the standard error ($36\\to144$ takes it from 2.5 to 1.25)."
       },
       {
         "type": "KEY_POINT",
@@ -396,6 +412,14 @@
         "answer": "$t \\approx 2.83$, $\\text{df} = 7$: reject $H_0$ at 5%, but not at 1%."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "inference-t-rejection-region"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The two red tails together hold 5% of the area; if the calculated $t$ falls in them, reject $H_0$. In (a) the value $2.00$ lies inside $\\pm2.306$, so $H_0$ is not rejected; in (b) the value $2.83$ lies beyond $2.365$, so it is rejected. Always compare $|t|$ with the table value for $\\text{df}=n-1$."
+      },
+      {
         "type": "CALLOUT",
         "text": "Common mistakes: using $n$ instead of $n-1$ in $s$; using $n$ instead of $n-1$ as the degrees of freedom; comparing a negative $t$ with a positive critical value without taking $|t|$; and saying \"H0 is proved true\" when it is not rejected. Failing to reject only means the sample gives insufficient evidence against it."
       },
@@ -405,7 +429,29 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "inference-systematic-sampling",
+      "file": "diagrams/ug26-319-r11-inference-systematic-sampling.svg",
+      "alt": "Four rows of 20 numbered boxes for positions 1 to 80, with positions 9, 29, 49 and 69 highlighted to show every 20th name after a random start of 9",
+      "caption": "Systematic random sampling with N = 800, n = 40, k = 20 and a start at 9",
+      "description": "Positions 1 to 80 of the list are drawn as four rows of twenty boxes. In every row the ninth box (positions 9, 29, 49 and 69) is highlighted in green. Text explains that the start 9 is random from 1 to 20, that the interval is k = 800 / 40 = 20, that the selected positions are 9, 29, 49, 69, ... and that the 40th pick is 9 + 39 x 20 = 789."
+    },
+    {
+      "key": "inference-sampling-distribution",
+      "file": "diagrams/ug26-319-r11-inference-sampling-distribution.svg",
+      "alt": "Three bell curves centred at 80: a wide flat one for the population with sigma 15, a taller narrower one for sample means with n = 36 and standard error 2.5, and a very narrow tall one for n = 144 with standard error 1.25",
+      "caption": "Sampling distribution of the mean: the same centre, a smaller spread as n grows",
+      "description": "Three normal curves are drawn on one horizontal axis from 40 to 120 with a dashed vertical line at the mean 80. The grey curve is the population with standard deviation 15, low and wide. The blue curve is the distribution of the sample mean for n = 36, with standard error 15 divided by the square root of 36, which is 2.5; it is much taller and narrower. The green curve is the sample mean for n = 144, with standard error 1.25, taller and narrower again. All three are centred at 80. Schematic; the population is drawn normal for illustration."
+    },
+    {
+      "key": "inference-t-rejection-region",
+      "file": "diagrams/ug26-319-r11-inference-t-rejection-region.svg",
+      "alt": "Two t-distribution curves with the 5% two-tailed rejection regions shaded red: (a) df = 8, critical values plus and minus 2.306 and the computed t = 2.00 inside the acceptance region; (b) df = 7, critical values plus and minus 2.365 and the computed t = 2.83 inside the right rejection region",
+      "caption": "Hypothesis test: rejection regions of the t-distribution and where the two lesson examples fall",
+      "description": "Two stacked graphs of the t-distribution, each shaded blue in the middle 95% (do not reject H0) and red in the two tails of area 0.025 each (reject H0). Graph (a), the bulb example with df = 8, has dashed critical lines at -2.306 and 2.306; the computed t = 2.00 is drawn as a green vertical line inside the blue region, so H0 is not rejected. Graph (b), the battery example with df = 7, has critical lines at -2.365 and 2.365; the computed t = 2.83 is a red vertical line inside the right red tail, so H0 is rejected at the 5% level. The curves are computed from the t-distribution formula."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r11-inferential-statistics-q01",

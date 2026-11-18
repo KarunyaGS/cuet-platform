@@ -64,6 +64,14 @@
         "answer": "$\\dfrac16$ in both cases"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "probability-two-dice-grid"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Counting highlighted cells gives the probability directly: 6 cells out of 36 in each case, so $\\tfrac16$. The cells for sum 7 lie on a diagonal because each outcome $(a,b)$ has its mirror image $(b,a)$ as a separate cell, which is why there are 36 outcomes and not 21."
+      },
+      {
         "type": "TABLE",
         "caption": "Common sample spaces",
         "columns": [
@@ -123,6 +131,14 @@
         "answer": "$\\dfrac9{20}$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "probability-venn-union"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The number 15 lies in both circles, so adding $n(A)=6$ and $n(B)=4$ counts it twice; subtracting the overlap gives $n(A\\cup B)=9$. This is the picture behind $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Three fair coins are tossed. Find the probability of getting at least one head.",
         "solution": "The sample space has 8 outcomes. The only outcome with no head is TTT, so $P(\\text{no head})=\\dfrac18$.\n\n$P(\\text{at least one head})=1-\\dfrac18=\\dfrac78$.",
@@ -152,6 +168,14 @@
         "problem": "Three fair coins are tossed. Find the probability of exactly two heads given that at least one head has appeared.",
         "solution": "Let $A$ be \"exactly two heads\" and $B$ be \"at least one head\".\n\n$P(B)=\\dfrac78$. $A=\\{HHT,HTH,THH\\}$ and $A\\subset B$, so $P(A\\cap B)=P(A)=\\dfrac38$.\n\n$P(A\\mid B)=\\dfrac{3/8}{7/8}=\\dfrac37$.\n\nCheck by reduced sample space: $B$ has 7 outcomes and 3 of them have exactly two heads, so $\\dfrac37$.",
         "answer": "$\\dfrac37$"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "probability-conditional-coins"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Knowing that $B$ has happened removes TTT and leaves 7 equally likely outcomes. Of these, 3 have exactly two heads, so $P(A\\mid B)=\\tfrac37$. The denominator is the size of $B$, not the size of the whole sample space."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -215,6 +239,14 @@
         "answer": "$P(\\text{red})=\\dfrac25$ and $P(A\\mid\\text{red})=\\dfrac34$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "probability-tree-bags"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Multiply along a branch to get the probability of that whole path, then add the paths that end in red to get $P(\\text{red})=\\tfrac25$. For \"given red\", keep only the red ends: the share that comes from bag A is $\\dfrac{3/10}{4/10}=\\tfrac34$, which is Bayes' theorem."
+      },
+      {
         "type": "HEADING",
         "text": "From simple probability to probability distributions"
       },
@@ -232,7 +264,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "probability-two-dice-grid",
+      "file": "diagrams/ug26-319-r09-probability-two-dice-grid.svg",
+      "alt": "Two 6 by 6 grids of the 36 outcomes of two dice with each cell showing the sum; in the first the six cells with sum 7 are highlighted and in the second the six cells with sum at least 10",
+      "caption": "Sample space of two dice: the events \"sum = 7\" and \"sum at least 10\" highlighted",
+      "description": "Two 6 by 6 grids. Rows are the number on die 1 and columns the number on die 2; each cell shows the sum. In grid (a) the six cells with sum 7 are highlighted in blue and lie on a diagonal from row 1, column 6 to row 6, column 1. In grid (b) the six cells with sum 10, 11 or 12 are highlighted in red in the lower right corner: sum 10 in three cells, sum 11 in two cells and sum 12 in one cell. Under each grid it says 6 of 36 = 1/6."
+    },
+    {
+      "key": "probability-venn-union",
+      "file": "diagrams/ug26-319-r09-probability-venn-union.svg",
+      "alt": "Venn diagram of the numbers 1 to 20 with circle A for multiples of 3 and circle B for multiples of 5; the overlap contains 15 only, and eleven numbers lie outside both circles",
+      "caption": "Venn diagram of \"multiple of 3 or multiple of 5\" among 1 to 20",
+      "description": "A rectangle for the sample space S = {1, 2, ..., 20} with two overlapping circles. The blue circle A holds the multiples of 3: 3, 6, 9, 12, 18 outside the overlap and 15 inside it. The green circle B holds the multiples of 5: 5, 10, 20 outside the overlap and 15 inside it. The overlap A intersect B contains only 15. The eleven numbers outside both circles are 1, 2, 4, 7, 8, 11, 13, 14, 16, 17 and 19. Text below gives n(A) = 6, n(B) = 4, n(A intersect B) = 1, so n(A union B) = 9 and the probability is 9/20."
+    },
+    {
+      "key": "probability-conditional-coins",
+      "file": "diagrams/ug26-319-r09-probability-conditional-coins.svg",
+      "alt": "The eight outcomes of three coin tosses in two rows of four boxes: the three outcomes with exactly two heads in green, the other four outcomes with at least one head in blue, and TTT in grey",
+      "caption": "Conditional probability by reducing the sample space: exactly two heads, given at least one head",
+      "description": "Eight boxes show the equally likely outcomes of three coin tosses: HHH, HHT, HTH, THH in the top row and HTT, THT, TTH, TTT in the bottom row. The green boxes HHT, HTH and THH are the event A (exactly two heads) and also lie in the event B (at least one head). The blue boxes HHH, HTT, THT and TTH are in B only. The grey box TTT is not in B. B has 7 outcomes, 3 of which are in A, so P(A | B) = 3/7, the same as (3/8) divided by (7/8)."
+    },
+    {
+      "key": "probability-tree-bags",
+      "file": "diagrams/ug26-319-r09-probability-tree-bags.svg",
+      "alt": "Tree diagram: a bag is chosen (A or B, probability 1/2 each) and then a ball drawn; branch probabilities red 3/5 and blue 2/5 for bag A, red 1/5 and blue 4/5 for bag B; the four end products are 3/10, 1/5, 1/10 and 2/5",
+      "caption": "Tree diagram for two bags: total probability of red and Bayes reversal",
+      "description": "A tree that starts on the left and splits into Bag A and Bag B, each with probability 1/2. From Bag A the branches are red with probability 3/5 and blue with 2/5; from Bag B they are red with 1/5 and blue with 4/5. The end of each path shows the product: A and red 1/2 x 3/5 = 3/10, A and blue 1/2 x 2/5 = 1/5, B and red 1/2 x 1/5 = 1/10, B and blue 1/2 x 4/5 = 2/5. A note adds the two red ends to get P(red) = 2/5 and divides the red end of bag A by it to get P(A | red) = 3/4."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r09-simple-probability-q01",

@@ -104,6 +104,14 @@
         "text": "Integration undoes differentiation. To check any integral, differentiate your answer; you must get back the integrand. Geometrically, $F(x)+C$ is a **family of curves**, each obtained from another by shifting up or down."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "family-of-antiderivatives"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: All the curves have the same derivative 2x, so every one is an antiderivative of 2x. The integral therefore gives a whole family, which is why +C is needed."
+      },
+      {
         "type": "TABLE",
         "caption": "Basic integrals",
         "columns": [
@@ -164,6 +172,14 @@
         "problem": "Evaluate $\\displaystyle\\int 2x\\cos(x^2)\\,dx$.",
         "solution": "Let $t=x^2$, so $dt=2x\\,dx$. The integral becomes $\\int\\cos t\\,dt=\\sin t+C=\\sin(x^2)+C$. Check: $\\dfrac{d}{dx}\\sin(x^2)=2x\\cos(x^2)$.",
         "answer": "$\\sin(x^2)+C$"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "substitution-flow"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Look for an inner function (x^2) whose derivative (2x) is also present. Replace both with t and dt, integrate in t, then go back to x, and check by differentiating."
       },
       {
         "type": "HEADING",
@@ -342,6 +358,14 @@
         "text": "**Fundamental Theorem of Calculus (without proof).** If $f$ is continuous on $[a,b]$ and $F$ is any antiderivative of $f$, then $\\displaystyle\\int_a^bf(x)\\,dx=F(b)-F(a)$. The value does not depend on which antiderivative is used, because the constant $C$ cancels. The first part says $\\dfrac{d}{dx}\\int_a^xf(t)\\,dt=f(x)$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "riemann-strips"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A definite integral is the limit of sums of thin strips. As the strips get narrower, the lower and upper sums close in on the same number, the area 8/3."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Evaluate $\\displaystyle\\int_1^e x\\ln x\\,dx$.",
         "solution": "By parts with $u=\\ln x$, $v=x$: $\\int x\\ln x\\,dx=\\dfrac{x^2}2\\ln x-\\int\\dfrac1x\\cdot\\dfrac{x^2}2dx=\\dfrac{x^2}2\\ln x-\\dfrac{x^2}4$. At $x=e$: $\\dfrac{e^2}2-\\dfrac{e^2}4=\\dfrac{e^2}4$. At $x=1$: $0-\\dfrac14=-\\dfrac14$. So the value is $\\dfrac{e^2}4-\\left(-\\dfrac14\\right)=\\dfrac{e^2+1}4$.",
@@ -390,6 +414,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "even-odd-limits"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: This is property P7: for an even function the integral from -a to a is twice the integral from 0 to a; for an odd function the two halves cancel to 0."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Evaluate $\\displaystyle I=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sin x+\\cos x}\\,dx$.",
         "solution": "Using P5, $I=\\int_0^{\\pi/2}\\dfrac{\\sin(\\pi/2-x)}{\\sin(\\pi/2-x)+\\cos(\\pi/2-x)}dx=\\int_0^{\\pi/2}\\dfrac{\\cos x}{\\cos x+\\sin x}dx$. Adding the two forms: $2I=\\int_0^{\\pi/2}\\dfrac{\\sin x+\\cos x}{\\sin x+\\cos x}dx=\\int_0^{\\pi/2}1\\,dx=\\dfrac\\pi2$. So $I=\\dfrac\\pi4$.",
@@ -415,7 +447,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "family-of-antiderivatives",
+      "file": "diagrams/ug26-319-r22-integrals-family-of-antiderivatives.svg",
+      "alt": "Five parabolas y = x^2 + C for C from -2 to 2 with the tangent at x = 1 drawn on each",
+      "caption": "Why the constant C: a family of antiderivatives",
+      "description": "The curves y = x^2 + C for C = -2, -1, 0, 1 and 2 are copies of one parabola shifted up or down. At x = 1 the tangent to every curve (amber) is parallel, with slope 2x = 2."
+    },
+    {
+      "key": "substitution-flow",
+      "file": "diagrams/ug26-319-r22-integrals-substitution-flow.svg",
+      "alt": "A flow of boxes for the integral of 2x cos(x^2) dx from substitution t = x^2 to the result sin(x^2) + C and a check by differentiation",
+      "caption": "Integration by substitution step by step",
+      "description": "Start with the integral of 2x cos(x^2) dx. Let t = x^2 so that dt = 2x dx. The new integral is the integral of cos t dt, which is sin t + C. Replace t by x^2 to get sin(x^2) + C. The check d/dx sin(x^2) = cos(x^2) x 2x confirms it."
+    },
+    {
+      "key": "riemann-strips",
+      "file": "diagrams/ug26-319-r22-integrals-riemann-strips-x-squared.svg",
+      "alt": "Two pictures of y = x^2 on 0 to 2 with 8 strips, one using left end heights and one using right end heights",
+      "caption": "Area under y = x^2 squeezed between left-end and right-end strips",
+      "description": "With n = 8 strips, the left-end strips lie below the curve and add up to 2.1875, and the right-end strips lie above the curve and add up to 3.1875. The exact area of the integral from 0 to 2 of x^2 dx is 8/3, about 2.6667, which lies between them. With n = 200 strips the bounds are 2.6467 and 2.6867."
+    },
+    {
+      "key": "even-odd-limits",
+      "file": "diagrams/ug26-319-r22-integrals-even-odd-symmetric-limits.svg",
+      "alt": "Two graphs over -2 to 2, the even function x^2 with equal shaded halves and the odd function x^3 with a positive right half and a negative left half",
+      "caption": "Even and odd functions over limits -a to a",
+      "description": "(a) y = x^2 is even: both halves have area 8/3, so the integral from -2 to 2 is 2 x 8/3 = 16/3, about 5.333. (b) y = x^3 is odd: the right half has signed area +4 and the left half -4, so the integral from -2 to 2 is 0. The signed areas were computed numerically."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r22-integrals-q01",

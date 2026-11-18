@@ -132,6 +132,14 @@
         "answer": "₹80,000 must be deposited."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "finance-perpetuity"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A perpetuity works because the interest on the capital, $3\\%\\times80{,}000=2400$, is exactly the payment, so the capital never falls. That is why $PV=C/i$ contains no number of periods."
+      },
+      {
         "type": "DEFINITION",
         "term": "Sinking fund",
         "text": "A fund built up by making equal deposits at regular intervals, which earn compound interest, so that a required sum is available at a fixed future date, for example to repay a debt or replace an asset. Its purpose is fixed in advance, and the deposits are set aside for that purpose alone."
@@ -146,6 +154,22 @@
         "problem": "A company wants a sinking fund of ₹5,00,000 at the end of 5 years to replace a machine. Deposits are made at the end of every year and earn 8% p.a. compounded annually. Find the annual deposit.",
         "solution": "$A = 5{,}00{,}000$, $i = 0.08$, $n = 5$. First $(1.08)^5 = 1.469328$, so $(1+i)^n - 1 = 0.469328$. Then $C = \\dfrac{5{,}00{,}000 \\times 0.08}{0.469328} = \\dfrac{40{,}000}{0.469328} \\approx 85{,}228$.",
         "answer": "About ₹85,228 must be deposited each year."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "finance-sinking-fund-timeline"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Each equal deposit grows for a different number of years: the first for 4 years, the last for none. Adding the five grown amounts gives the target ₹5,00,000, which is exactly the sum that the formula $A=\\dfrac{C[(1+i)^n-1]}{i}$ computes in one step."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "finance-sinking-fund-growth"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The fund grows faster each year because the interest (amber) is earned on a larger balance. By year 5 about ₹4,26,141 comes from the deposits and about ₹73,859 from interest."
       },
       {
         "type": "TABLE",
@@ -212,8 +236,24 @@
         "answer": "Flat rate EMI about ₹9,333; reducing balance EMI about ₹8,885."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "finance-emi-split"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Every bar has the same height, the EMI, but its colours change: the interest part (amber) shrinks each month because it is charged on the falling balance, and the principal part (blue) grows. After the 12th instalment the loan balance is zero."
+      },
+      {
         "type": "KEY_POINT",
         "text": "For the same quoted rate, the reducing balance EMI is smaller than the flat rate EMI, because interest is charged only on what is still owed. A \"flat\" rate of $r\\%$ is therefore effectively dearer than a reducing rate of $r\\%$."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "finance-flat-vs-reducing"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: For the same quoted 12%, the flat rate method charges ₹12,000 interest and the reducing balance method only about ₹6,619, so the flat-rate EMI is higher. The flat method takes interest on the whole principal for the whole period; the reducing method takes it only on what is still owed."
       },
       {
         "type": "HEADING",
@@ -271,6 +311,14 @@
         "answer": "Growth rates $+20\\%$ and $-10\\%$; CAGR $\\approx 3.92\\%$ per year."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "finance-cagr-vs-average"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The plain average of $+20\\%$ and $-10\\%$ is $5\\%$, but growing 5% twice gives $110.25$, not the actual $108$. The CAGR of about $3.92\\%$ is the constant yearly rate that really takes 100 to 108 in two years."
+      },
+      {
         "type": "CALLOUT",
         "text": "CAGR is not the arithmetic average of annual growth rates. For rates $+20\\%$ and $-10\\%$ the average is $5\\%$ but the true compound rate is only about $3.92\\%$. Also remember the exponent is $1/n$, with $n$ equal to the number of years between the two values."
       },
@@ -298,6 +346,14 @@
         "problem": "A machine costs ₹1,20,000, has a useful life of 8 years and a residual value of ₹20,000. Find the yearly depreciation and the book value after 5 years.",
         "solution": "Depreciable amount $= 1{,}20{,}000 - 20{,}000 = 1{,}00{,}000$. $D = 1{,}00{,}000/8 = 12{,}500$ per year. After 5 years, accumulated depreciation $= 5 \\times 12{,}500 = 62{,}500$, so book value $= 1{,}20{,}000 - 62{,}500 = 57{,}500$.",
         "answer": "Depreciation ₹12,500 per year; book value after 5 years ₹57,500."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "finance-linear-depreciation"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Straight-line depreciation takes the same amount off each year, so the book value falls along a straight line from the cost to the residual value at the end of the useful life. The yearly amount uses (cost $-$ residual value), not the full cost."
       },
       {
         "type": "KEY_POINT",
@@ -356,10 +412,75 @@
       {
         "type": "IMPORTANT_FACT",
         "text": "If the required yield is higher than the coupon rate, the bond is worth less than its face value (it sells at a discount). If the yield equals the coupon rate, the value equals the face value. If the yield is lower, the bond sells at a premium."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "finance-bond-value-yield"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The bond price falls as the required yield rises. At 8%, equal to the coupon rate, the price is the face value, ₹1,000. At 10% it is about ₹950.26 (a discount) and at 6% about ₹1,053.46 (a premium)."
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "finance-perpetuity",
+      "file": "diagrams/ug26-319-r12-finance-perpetuity.svg",
+      "alt": "A blue bar labelled capital stays 80,000 rupees with three orange arrows leaving it at 6, 12 and 18 months, each labelled 2,400 rupees paid",
+      "caption": "Perpetuity: the interest pays the amount, so the capital is never used up",
+      "description": "A horizontal blue bar shows the capital of ₹80,000 for ever. Along a time line at start, 6 months, 12 months and 18 months, an orange arrow leaves the bar at each of the three later times, labelled ₹2,400 paid. Text beneath gives the half-year rate 3% and the interest 3% x 80,000 = ₹2,400, equal to the payout, and the result PV = 2,400 / 0.03 = ₹80,000."
+    },
+    {
+      "key": "finance-sinking-fund-timeline",
+      "file": "diagrams/ug26-319-r12-finance-sinking-fund-timeline.svg",
+      "alt": "Time line for 5 years with a deposit arrow of 85,228 rupees at the end of each year and, below, the value of each deposit at the end of year 5: 1,15,952; 1,07,363; 99,410; 92,046 and 85,228, which add up to about 5,00,000 rupees",
+      "caption": "Sinking fund: each equal deposit grows for a different number of years",
+      "description": "A time line from the start to the end of year 5 with five blue arrows pointing down at the ends of years 1 to 5, each labelled with the deposit of ₹85,228. Below, a row shows what each deposit is worth at the end of year 5 at 8% compound interest: C x 1.08^4 = ₹1,15,952, C x 1.08^3 = ₹1,07,363, C x 1.08^2 = ₹99,410, C x 1.08 = ₹92,046 and C x 1 = ₹85,228. The sum is about ₹5,00,000, equal to the target (amounts are rounded to the rupee)."
+    },
+    {
+      "key": "finance-sinking-fund-growth",
+      "file": "diagrams/ug26-319-r12-finance-sinking-fund-growth.svg",
+      "alt": "Stacked bars for years 1 to 5 showing the fund balance in rupees thousand, 85, 177, 277, 384 and 500, split into deposits (blue) and interest (amber) that grows each year",
+      "caption": "Sinking fund growth: deposits and the interest earned on them",
+      "description": "Five bars for the year-ends 1 to 5 show the balance of the fund in ₹ thousand: 85, 177, 277, 384 and 500. Each bar has a blue lower part for the deposits made so far (the number of deposits times ₹85,228) and an amber upper part for the interest earned, which is nil in year 1 and grows each year. By year 5 the deposits are about ₹4,26,141 and the interest about ₹73,859, making ₹5,00,000."
+    },
+    {
+      "key": "finance-emi-split",
+      "file": "diagrams/ug26-319-r12-finance-emi-split.svg",
+      "alt": "Twelve equal-height bars for the monthly EMI of about 8,885 rupees, each split into a blue principal part that grows and an amber interest part that shrinks from 1,000 rupees in month 1 to 88 rupees in month 12",
+      "caption": "EMI by the reducing balance method: the same instalment, a changing split",
+      "description": "Twelve bars for months 1 to 12 all have the same height, the EMI of ₹8,885, marked by a dashed line. Each bar is split into a blue lower part for repayment of the loan (principal) and an amber upper part for interest on the balance still owed. The amber part is ₹1,000 in month 1 and falls month by month to about ₹88 in month 12, while the blue part grows. The loan is ₹1,00,000 at 12% a year for 12 months; the total interest is about ₹6,619 and the balance is zero after the last instalment."
+    },
+    {
+      "key": "finance-flat-vs-reducing",
+      "file": "diagrams/ug26-319-r12-finance-flat-vs-reducing.svg",
+      "alt": "Paired bars for a loan of 1,00,000 rupees at 12% for one year: EMI 9,333 rupees (flat) against 8,885 rupees (reducing balance), and total interest 12,000 rupees (flat) against about 6,619 rupees (reducing balance)",
+      "caption": "Flat rate versus reducing balance for the same quoted rate",
+      "description": "Two groups of bars. In the group Monthly EMI the red bar for the flat rate method is ₹9,333 and the green bar for the reducing balance method is ₹8,885. In the group Total interest paid the red flat-rate bar is ₹12,000 and the green reducing-balance bar is about ₹6,619. The loan is ₹1,00,000 at 12% a year for one year."
+    },
+    {
+      "key": "finance-cagr-vs-average",
+      "file": "diagrams/ug26-319-r12-finance-cagr-vs-average.svg",
+      "alt": "Graph over two years of three paths from 100: the actual path 100, 120, 108 in blue, the constant-rate path through 103.92 to 108 in green (CAGR about 3.92%), and a red dashed path growing at the average of the rates, 5% a year, that overshoots to 110.25",
+      "caption": "CAGR compared with the simple average of the yearly growth rates",
+      "description": "A graph of value against year 0, 1 and 2. The blue line shows the actual values 100, 120 (+20%) and 108 (-10% in year 2). The green line grows at a constant rate, the CAGR = square root of 1.08 minus 1, about 3.92%, through 103.92 and ends at 108. The red dashed line grows at the simple average rate of 5% a year and ends at 100 x 1.05 x 1.05 = 110.25, which is wrong because it does not match the actual 108."
+    },
+    {
+      "key": "finance-linear-depreciation",
+      "file": "diagrams/ug26-319-r12-finance-linear-depreciation.svg",
+      "alt": "Straight line falling from 1,20,000 rupees at year 0 to 20,000 rupees at year 8, with the book value after 5 years marked as 57,500 rupees and the residual value shown as a dashed line",
+      "caption": "Linear (straight-line) depreciation: equal fall each year down to the residual value",
+      "description": "A graph of book value in ₹ thousand against years 0 to 8. A blue straight line with a point at each year falls from 120 at year 0 (cost ₹1,20,000) by 12.5 each year to 20 at year 8. A dashed grey horizontal line marks the residual value ₹20,000. At year 5 a red point is marked with the book value ₹57,500 and a dotted line down to the year axis. A note gives D = (1,20,000 - 20,000) / 8 = ₹12,500 and V = 1,20,000 - 12,500 t."
+    },
+    {
+      "key": "finance-bond-value-yield",
+      "file": "diagrams/ug26-319-r12-finance-bond-value-yield.svg",
+      "alt": "Falling curve of the value of a 3-year bond with face value 1,000 rupees and 8% coupon against the market yield: 1,053.46 rupees at 6% (premium), 1,000 at 8% (par) and 950.26 at 10% (discount)",
+      "caption": "Bond value against required yield: premium, par and discount",
+      "description": "A graph of the value of the bond in rupees (vertical axis, 900 to 1,100) against the market yield from 4% to 14%. The blue curve falls from left to right. A dashed grey line marks the face value ₹1,000. Three points are marked: at 6% the value is ₹1,053.46, above face value (premium); at 8%, equal to the coupon rate, the value is ₹1,000; at 10% the value is ₹950.26, below face value (discount). The bond has face value ₹1,000, a coupon of 8% (₹80 a year), 3 years to maturity and is redeemed at par."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r12-financial-mathematics-q01",

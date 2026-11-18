@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 232" font-family="Arial, Helvetica, sans-serif">
+  <text x="8" y="20" font-size="15" fill="#2563eb" text-anchor="start" font-weight="bold">DELETE FROM PRODUCT;</text>
+  <text x="8" y="40" font-size="14" fill="#1f2937" text-anchor="start">DML: rows go, table stays</text>
+  <rect x="8" y="56" width="90" height="28" rx="0" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="53" y="75" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="bold">PName</text>
+  <rect x="98" y="56" width="60" height="28" rx="0" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="128" y="75" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="bold">Price</text>
+  <rect x="158" y="56" width="60" height="28" rx="0" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="188" y="75" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="bold">Stock</text>
+  <rect x="8" y="84" width="210" height="56" rx="0" fill="none" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="113" y="118" font-size="14" fill="#6b7280" text-anchor="middle" font-style="italic">no rows left</text>
+  <text x="232" y="20" font-size="15" fill="#2563eb" text-anchor="start" font-weight="bold">ALTER ... DROP COLUMN</text>
+  <text x="232" y="40" font-size="14" fill="#1f2937" text-anchor="start">DDL: one column goes</text>
+  <rect x="232" y="56" width="90" height="28" rx="0" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="277" y="75" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="bold">PName</text>
+  <rect x="322" y="56" width="60" height="28" rx="0" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="352" y="75" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="bold">Price</text>
+  <rect x="232" y="84" width="90" height="28" rx="0" fill="none" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="277" y="103" font-size="14" fill="#1f2937" text-anchor="middle">Notebook</text>
+  <rect x="322" y="84" width="60" height="28" rx="0" fill="none" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="352" y="103" font-size="14" fill="#1f2937" text-anchor="middle">45</text>
+  <rect x="232" y="112" width="90" height="28" rx="0" fill="none" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="277" y="131" font-size="14" fill="#1f2937" text-anchor="middle">Pencil</text>
+  <rect x="322" y="112" width="60" height="28" rx="0" fill="none" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="352" y="131" font-size="14" fill="#1f2937" text-anchor="middle">8</text>
+  <rect x="382" y="56" width="56" height="84" rx="0" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="410" y="104" font-size="13" fill="#dc2626" text-anchor="middle" font-weight="bold">Stock</text>
+  <text x="466" y="20" font-size="15" fill="#2563eb" text-anchor="start" font-weight="bold">DROP TABLE PRODUCT;</text>
+  <text x="466" y="40" font-size="14" fill="#1f2937" text-anchor="start">DDL: whole table goes</text>
+  <rect x="466" y="56" width="205" height="112" rx="0" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="568" y="106" font-size="14" fill="#dc2626" text-anchor="middle" font-weight="bold">PRODUCT no longer</text>
+  <text x="568" y="124" font-size="14" fill="#dc2626" text-anchor="middle" font-weight="bold">exists</text>
+  <text x="10" y="196" font-size="14" fill="#1f2937" text-anchor="start">Both DROP commands remove structure: one column, or the whole table.</text>
+  <text x="10" y="216" font-size="14" fill="#1f2937" text-anchor="start">DELETE keeps the empty table; DROP TABLE removes structure and rows.</text>
+</svg>

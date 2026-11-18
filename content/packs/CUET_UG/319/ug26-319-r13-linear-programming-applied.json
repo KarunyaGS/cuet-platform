@@ -204,10 +204,26 @@
         "answer": "Minimum cost ₹28 with 4 units of P and 2 units of Q."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "lp-applied-diet"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Because both constraints are $\\ge$, the region has no upper limit and the corners are P, Q and R. The smallest cost among the corners is ₹28 at Q $(4,2)$, and the half-plane $5x+4y<28$ misses the region, so ₹28 is really the minimum."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Two godowns G1 and G2 hold 40 units each. Two shops S1 and S2 need 35 units each. Transport cost per unit is ₹4 (G1 to S1), ₹6 (G1 to S2), ₹5 (G2 to S1) and ₹3 (G2 to S2). Formulate and find the minimum cost plan.",
         "solution": "Let $x$ units go from G1 to S1 and $y$ units from G1 to S2. Then G2 sends $35-x$ units to S1 and $35-y$ to S2. Cost $Z = 4x + 6y + 5(35-x) + 3(35-y) = -x + 3y + 280$. Constraints: G1 supply $x + y \\le 40$; G2 supply $(35-x)+(35-y) \\le 40$, that is $x + y \\ge 30$; demands give $0 \\le x \\le 35$ and $0 \\le y \\le 35$. The corner points are $(30,0)$, $(35,0)$, $(35,5)$, $(5,35)$, $(0,35)$, $(0,30)$ with $Z = 250, 245, 260, 380, 385, 370$. The least value is $245$ at $(35,0)$.",
         "answer": "G1 sends all 35 units to S1, G2 sends 35 units to S2: minimum cost ₹245."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "lp-applied-transport"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Here the supply and demand conditions cut out a region with six corners, so $Z$ is evaluated at all six. The least cost, ₹245, is at B $(35,0)$: G1 sends 35 units to S1 and G2 sends 35 units to S2."
       },
       {
         "type": "HEADING",
@@ -261,6 +277,14 @@
         "answer": "Make 20 tables and 30 chairs for a maximum weekly profit of ₹17,000."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "lp-applied-workshop"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The best plan is the corner Q (20 tables, 30 chairs), where the carpentry limit $3x+2y=120$ and the finishing limit $x+y=50$ are both fully used, giving a profit of ₹17,000. Corner R gives only ₹15,000, so always compare the value at every corner."
+      },
+      {
         "type": "CALLOUT",
         "text": "After solving, put the answer back into every original constraint. A corner point read wrongly from a rough graph often fails this check. Also state the answer in words with units (tables, chairs, rupees)."
       },
@@ -270,7 +294,29 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "lp-applied-diet",
+      "file": "diagrams/ug26-319-r13-lp-applied-diet.svg",
+      "alt": "Graph of the unbounded region above 2x + y = 10 and x + 2y = 8 with corners P(0,10), Q(4,2) and R(8,0); the dashed line 5x + 4y = 28 passes through Q and the half-plane 5x + 4y < 28 does not meet the region",
+      "caption": "Diet problem: an unbounded region and the minimum cost corner",
+      "description": "A graph of x (units of food P) and y (units of food Q) from 0 to 10. The line 2x + y = 10 (blue) runs from (0, 10) to (5, 0) and the line x + 2y = 8 (purple) from (0, 4) to (8, 0). The feasible region, shaded green, lies above both lines and goes on without limit upwards and to the right, shown by arrows. Its corners are P (0, 10), Q (4, 2) and R (8, 0). A red dashed line 5x + 4y = 28 passes through Q, and the amber area below it is the open half-plane 5x + 4y < 28, which has no feasible point. A table gives Z = 5x + 4y: 40 at P, 28 at Q (minimum) and 40 at R."
+    },
+    {
+      "key": "lp-applied-transport",
+      "file": "diagrams/ug26-319-r13-lp-applied-transport.svg",
+      "alt": "Graph of a six-cornered feasible region between x + y = 30 and x + y = 40 and inside x <= 35, y <= 35, with corners A(30,0), B(35,0), C(35,5), D(5,35), E(0,35), F(0,30) and a table of costs 250, 245, 260, 380, 385 and 370 rupees",
+      "caption": "Transportation problem: the six corner points and the least-cost plan",
+      "description": "A graph of x (units sent from G1 to S1) and y (units sent from G1 to S2). The feasible region, shaded green, is a slanted six-cornered strip between the lines x + y = 30 (amber, G2 supply) and x + y = 40 (blue, G1 supply), cut off by the purple lines x = 35 and y = 35 (the demands). The corners are A (30, 0), B (35, 0), C (35, 5), D (5, 35), E (0, 35) and F (0, 30). A table gives the cost Z = -x + 3y + 280 in rupees: 250, 245, 260, 380, 385 and 370. The minimum is ₹245 at B (35, 0); a red dashed line Z = 245 passes through B and an arrow shows the direction in which cost falls."
+    },
+    {
+      "key": "lp-applied-workshop",
+      "file": "diagrams/ug26-319-r13-lp-applied-workshop.svg",
+      "alt": "Graph of the feasible region for the workshop with corners O(0,0), P(40,0), Q(20,30) and R(0,50), bounded by 3x + 2y <= 120 and x + y <= 50, with the profit line Z = 17,000 touching it at Q and a table of profits 0, 16,000, 17,000 and 15,000 rupees",
+      "caption": "Manufacturing problem: tables and chairs, the feasible region and the best corner",
+      "description": "A graph of x (tables per week) and y (chairs per week). The line 3x + 2y = 120 (blue) runs from (0, 60) to (40, 0) and the line x + y = 50 (amber) from (0, 50) to (50, 0). The feasible region, shaded green, is the quadrilateral with corners O (0, 0), P (40, 0), Q (20, 30) and R (0, 50). A grey dashed profit line Z = 6,000 crosses the region and a red dashed line Z = 17,000 touches it only at Q; an arrow shows that profit grows towards the upper right. A table gives Z = 400x + 300y in rupees: 0 at O, 16,000 at P, 17,000 at Q (maximum) and 15,000 at R."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r13-linear-programming-applied-q01",

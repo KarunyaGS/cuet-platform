@@ -96,6 +96,14 @@
         "text": "A queue has two ends. New items always join at the **rear**; items always leave from the **front**. The element that has waited longest is always the next one to be deleted."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "queue-structure"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: New items always join at the rear and leave from the front, so the first item in is the first out."
+      },
+      {
         "type": "HEADING",
         "text": "Operations on a queue: INSERT and DELETE"
       },
@@ -172,6 +180,14 @@
         "problem": "Trace the program.\n\n```\nq = []\nq.append(10)\nq.append(20)\nq.append(30)\nq.pop(0)\nq.append(40)\nprint(q)\n```",
         "solution": "Step 1: q = [].\nStep 2: append(10) -> [10].\nStep 3: append(20) -> [10, 20].\nStep 4: append(30) -> [10, 20, 30].\nStep 5: pop(0) removes the front element 10 -> [20, 30].\nStep 6: append(40) adds at the rear -> [20, 30, 40].",
         "answer": "The output is [20, 30, 40]."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "queue-trace"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: enqueue is append() at the end of the list and dequeue is pop(0) at the start. The front moves forward each time something is removed."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -283,6 +299,14 @@
         "answer": "Output: [10, 7, 4]"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "deque-trace"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A deque lets you add and remove at either end. For every statement write the list and mark which end changed, exactly as the exam trace asks."
+      },
+      {
         "type": "CALLOUT",
         "text": "Exam tip: for any deque trace, write the list after every statement and mark which end is front (left) and which is rear (right). Most errors come from mixing up `insert(0, x)` (front) with `append(x)` (rear), and `pop(0)` (front) with `pop()` (rear)."
       },
@@ -292,7 +316,29 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "queue-structure",
+      "file": "diagrams/ug26-308-r06-queue-structure.svg",
+      "alt": "A horizontal queue holding 10, 20 and 30 with dequeue at the front and enqueue at the rear",
+      "caption": "A queue has a front and a rear (FIFO)",
+      "description": "Three items 10, 20 and 30 sit in a row. The front (q[0]) is on the left where DEQUEUE with q.pop(0) removes an item; the rear (q[-1]) is on the right where ENQUEUE with q.append(x) adds one. The note says items leave in the order they joined, FIFO."
+    },
+    {
+      "key": "queue-trace",
+      "file": "diagrams/ug26-308-r06-queue-trace.svg",
+      "alt": "A statement-by-statement trace of a list used as a queue, showing which item is added at the rear and which leaves from the front",
+      "caption": "Tracing enqueue and dequeue on a list-based queue",
+      "description": "q starts as []. append(10), append(20) and append(30) give [10, 20, 30] with each new item green at the rear. q.pop(0) returns 10 and removes it from the front (dashed red), leaving [20, 30]. append(40) then adds 40 at the rear, giving [20, 30, 40]."
+    },
+    {
+      "key": "deque-trace",
+      "file": "diagrams/ug26-308-r06-queue-deque-trace.svg",
+      "alt": "A statement-by-statement trace of a list used as a deque showing insertions and removals at the front and the rear",
+      "caption": "Tracing a deque: insert and remove at both ends",
+      "description": "d starts empty. append(4) gives [4]; insert(0, 7) puts 7 at the front; insert(0, 9) puts 9 at the front, giving [9, 7, 4]; append(1) adds at the rear. x = d.pop(0) removes 9 from the front, y = d.pop() removes 1 from the rear, and insert(0, x + y) adds 10 at the front, leaving [10, 7, 4]."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-308-r06-queue-q01",

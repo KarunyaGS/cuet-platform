@@ -71,6 +71,14 @@
         "text": "**Useful properties** (for a determinant of order $n$): $|A'|=|A|$; interchanging two rows (or columns) changes the sign; a determinant with two identical or proportional rows (columns) is $0$; adding a multiple of one row to another leaves the value unchanged; multiplying one row by $k$ multiplies the value by $k$, so $|kA|=k^n|A|$; and $|AB|=|A||B|$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "determinant-properties-example"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: swapping two rows flips the sign, scaling one row scales the determinant, adding a multiple of one row to another changes nothing, and equal rows give zero. Scaling a 3 by 3 matrix by k multiplies the determinant by k cubed, not by k."
+      },
+      {
         "type": "CALLOUT",
         "text": "|kA| = k^n |A|, not k|A|. For a 3 x 3 matrix, |2A| = 8|A|. Also |A + B| is not |A| + |B|."
       },
@@ -100,6 +108,14 @@
         "answer": "$M_{23}=-6,\\ A_{23}=6$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "cofactor-sign-pattern"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: a minor is the determinant left after deleting one row and one column, and the cofactor is the minor with the chessboard sign. Positions with i + j odd flip the sign, so the cofactor A23 is the negative of the minor M23."
+      },
+      {
         "type": "HEADING",
         "text": "Applications of determinants: area of a triangle"
       },
@@ -117,6 +133,14 @@
         "problem": "Find the value of $k$ if the area of the triangle with vertices $(2,-6)$, $(5,4)$ and $(k,4)$ is $35$ square units.",
         "solution": "Area $=\\tfrac12|2(4-4)+5(4-(-6))+k(-6-4)|=\\tfrac12|0+50-10k|=35$. So $|50-10k|=70$. Case 1: $50-10k=70\\Rightarrow k=-2$. Case 2: $50-10k=-70\\Rightarrow k=12$.",
         "answer": "$k=-2$ or $k=12$"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "triangle-area-determinant"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the area is half the modulus of the determinant, so a negative determinant is not a problem; it only tells you the vertices were taken clockwise. Setting the area equal to 35 gives two equations, which is why there are two values of k."
       },
       {
         "type": "HEADING",
@@ -191,6 +215,14 @@
         "text": "Equations x + y = 2 and 2x + 2y = 5 describe parallel lines: no solution. Equations x + y = 2 and 2x + 2y = 4 describe the same line: infinitely many solutions. A zero determinant alone does not say which."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "two-by-two-system-lines"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: a non-zero determinant means the lines cross at exactly one point. A zero determinant means the lines have the same slope, and then you must check whether they are the same line (infinitely many solutions) or parallel (no solution), as in the callout above."
+      },
+      {
         "type": "HEADING",
         "text": "Solving linear equations in two or three variables using the inverse"
       },
@@ -224,7 +256,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "determinant-properties-example",
+      "file": "diagrams/ug26-319-r19-determinants-properties-example.svg",
+      "alt": "Six 3 by 3 determinants built from one matrix with value minus 22: swapping rows gives 22, transposing gives minus 22, multiplying a row by 3 gives minus 66, adding twice one row to another gives minus 22, two equal rows give 0, and doubling the whole matrix gives minus 176",
+      "caption": "Determinant properties checked on one matrix",
+      "description": "The matrix with rows (2, 0, 1), (3, 1, 4), (1, 5, 2) has determinant -22. Interchanging rows 1 and 2 gives 22; transposing gives -22; multiplying row 1 by 3 gives -66; replacing row 2 by row 2 plus twice row 1 gives -22; making rows 1 and 3 equal gives 0. Doubling every entry gives 2 cubed times -22 = -176. Every value is computed by expansion."
+    },
+    {
+      "key": "cofactor-sign-pattern",
+      "file": "diagrams/ug26-319-r19-determinants-cofactor-signs.svg",
+      "alt": "A 3 by 3 chessboard of plus and minus signs beside a matrix with row 2 and column 3 greyed out, showing the minor M23 = -6 and cofactor A23 = 6",
+      "caption": "Cofactor sign pattern and how a minor is formed",
+      "description": "Left: the sign pattern (-1) to the power (i + j) as a 3 by 3 chessboard with plus at the corners and centre. Right: the matrix with rows (1, 2, 3), (4, 5, 6), (7, 8, 10) with row 2 and column 3 deleted; the remaining entries 1, 2, 7, 8 give the minor M23 = 1 times 8 minus 2 times 7 = -6. Position (2, 3) has sign minus, so the cofactor A23 = -(-6) = 6."
+    },
+    {
+      "key": "triangle-area-determinant",
+      "file": "diagrams/ug26-319-r19-determinants-triangle-area.svg",
+      "alt": "Graph of two triangles with vertices (2, -6), (5, 4) and a third vertex at (-2, 4) or (12, 4), each with area 35, and the determinant values 70 and -70",
+      "caption": "Area of a triangle from a determinant: two possible values of k",
+      "description": "On a coordinate grid, the points (2, -6) and (5, 4) are fixed and the third vertex lies on the line y = 4. For k = -2 the determinant of rows (x, y, 1) is 70 and the area is half of that, 35. For k = 12 the determinant is -70, the area is half of its modulus, 35. Both triangles are drawn."
+    },
+    {
+      "key": "two-by-two-system-lines",
+      "file": "diagrams/ug26-319-r19-determinants-system-lines.svg",
+      "alt": "Three graphs of pairs of lines: two lines meeting at the point (1, 2), two parallel lines, and two coinciding lines, with the determinant of the coefficients for each",
+      "caption": "What the determinant says about two linear equations",
+      "description": "Left: 3x + 2y = 7 and x + 4y = 9 meet at (1, 2); the coefficient determinant is 3 times 4 minus 2 times 1 = 10, not zero. Middle: x + y = 2 and 2x + 2y = 5 are parallel, with determinant 0 and no solution. Right: x + y = 2 and 2x + 2y = 4 are the same line, with determinant 0 and infinitely many solutions."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r19-determinants-q01",

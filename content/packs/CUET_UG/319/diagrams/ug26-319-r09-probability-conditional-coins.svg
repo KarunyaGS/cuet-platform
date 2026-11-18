@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" width="700" height="420" font-family="Arial, Helvetica, sans-serif">
+<text x="350" y="30" font-size="15" fill="#1f2937" text-anchor="middle" font-weight="bold">Three coins: 8 equally likely outcomes</text>
+<rect x="60" y="50" width="120" height="54" fill="#bfdbfe" stroke="#2563eb" stroke-width="2.5" rx="6"/>
+<text x="120" y="83" font-size="18" fill="#1f2937" text-anchor="middle" font-weight="bold">HHH</text>
+<rect x="202" y="50" width="120" height="54" fill="#a7f3d0" stroke="#059669" stroke-width="3" rx="6"/>
+<text x="262" y="83" font-size="18" fill="#1f2937" text-anchor="middle" font-weight="bold">HHT</text>
+<rect x="344" y="50" width="120" height="54" fill="#a7f3d0" stroke="#059669" stroke-width="3" rx="6"/>
+<text x="404" y="83" font-size="18" fill="#1f2937" text-anchor="middle" font-weight="bold">HTH</text>
+<rect x="486" y="50" width="120" height="54" fill="#a7f3d0" stroke="#059669" stroke-width="3" rx="6"/>
+<text x="546" y="83" font-size="18" fill="#1f2937" text-anchor="middle" font-weight="bold">THH</text>
+<rect x="60" y="128" width="120" height="54" fill="#bfdbfe" stroke="#2563eb" stroke-width="2.5" rx="6"/>
+<text x="120" y="161" font-size="18" fill="#1f2937" text-anchor="middle" font-weight="bold">HTT</text>
+<rect x="202" y="128" width="120" height="54" fill="#bfdbfe" stroke="#2563eb" stroke-width="2.5" rx="6"/>
+<text x="262" y="161" font-size="18" fill="#1f2937" text-anchor="middle" font-weight="bold">THT</text>
+<rect x="344" y="128" width="120" height="54" fill="#bfdbfe" stroke="#2563eb" stroke-width="2.5" rx="6"/>
+<text x="404" y="161" font-size="18" fill="#1f2937" text-anchor="middle" font-weight="bold">TTH</text>
+<rect x="486" y="128" width="120" height="54" fill="#ffffff" stroke="#9ca3af" stroke-width="2" rx="6"/>
+<text x="546" y="161" font-size="18" fill="#9ca3af" text-anchor="middle" font-weight="bold">TTT</text>
+<rect x="60" y="220" width="22" height="16" fill="#a7f3d0" stroke="#059669" stroke-width="2.5" rx="3"/>
+<text x="92" y="234" font-size="14" fill="#059669" font-weight="bold">A and B: exactly two heads (3 outcomes)</text>
+<rect x="60" y="250" width="22" height="16" fill="#bfdbfe" stroke="#2563eb" stroke-width="2.5" rx="3"/>
+<text x="92" y="264" font-size="14" fill="#2563eb" font-weight="bold">in B only: at least one head, but not exactly two (4 outcomes)</text>
+<rect x="60" y="280" width="22" height="16" fill="#ffffff" stroke="#9ca3af" stroke-width="2" rx="3"/>
+<text x="92" y="294" font-size="14" fill="#6b7280" font-weight="bold">not in B: TTT (no head), ruled out once B is known</text>
+<text x="60" y="330" font-size="14" fill="#1f2937">B = at least one head has 7 outcomes.  A = exactly two heads has 3 outcomes, all inside B.</text>
+<text x="60" y="356" font-size="14" fill="#dc2626" font-weight="bold">P(A | B) = 3/7  (3 of the 7 outcomes left in B).  Same as (3/8) ÷ (7/8).</text>
+</svg>

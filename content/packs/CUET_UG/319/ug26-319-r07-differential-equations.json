@@ -169,6 +169,14 @@
         "answer": "$y=e^{x^2}$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "diffeq-direction-field"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Every curve of the general solution $y = Ae^{x^2}$ runs along the grey slope marks, so the constant $A$ labels one curve of the family. The condition $y(0)=1$ fixes $A=1$ and leaves a single curve, the particular solution $y=e^{x^2}$ of the solved problem."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Solve $\\dfrac{dy}{dx}=\\dfrac{1+y^2}{1+x^2}$ with $y(0)=1$ and find $y$ when $x=\\tfrac13$.",
         "solution": "Separate: $\\dfrac{dy}{1+y^2}=\\dfrac{dx}{1+x^2}$.\n\nIntegrate: $\\tan^{-1}y=\\tan^{-1}x+C$.\n\nAt $x=0,\\ y=1$: $\\tan^{-1}1=\\tan^{-1}0+C$, so $C=\\dfrac\\pi4$.\n\nThus $\\tan^{-1}y=\\tan^{-1}x+\\dfrac\\pi4$.\n\nAt $x=\\dfrac13$: $y=\\tan\\!\\left(\\tan^{-1}\\tfrac13+\\tfrac\\pi4\\right)=\\dfrac{\\tfrac13+1}{1-\\tfrac13\\cdot1}=\\dfrac{4/3}{2/3}=2$.",
@@ -211,6 +219,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "diffeq-growth-decay"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: For $\\dfrac{dy}{dx}=ky$ the solution is $y=Ae^{kx}$: the sign of $k$ decides growth or decay and $A$ is the value at $x=0$. Equal steps in $x$ multiply $y$ by the same factor (3 in the growth panel, $\\tfrac12$ in the decay panel), which is why $y(0)=2,\\ y(1)=6$ leads to $y(2)=18$."
+      },
+      {
         "type": "CALLOUT",
         "text": "The equation $\\dfrac{dy}{dx}=x+y$ is **not** variable separable, because $x+y$ cannot be written as a product $f(x)g(y)$. In contrast $\\dfrac{dy}{dx}=e^{x+y}=e^x\\cdot e^y$ is separable. Always try to factor the right-hand side first. And do not drop the constant of integration before using the initial condition."
       },
@@ -228,7 +244,22 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "diffeq-direction-field",
+      "file": "diagrams/ug26-319-r07-diffeq-direction-field.svg",
+      "alt": "Short grey slope marks on a grid for dy/dx = 2xy, with four U-shaped solution curves y = A e^(x squared) for A = 0.25, 0.5, 1 and 2; the point (0, 1) on the A = 1 curve is marked",
+      "caption": "Slope field of dy/dx = 2xy: the general solution is a family of curves and the initial condition picks one",
+      "description": "A grid of short grey line segments, each drawn with the slope 2xy at its centre. The segments are horizontal on the line x = 0 and on y = 0, tilt downward for x < 0 and upward for x > 0, and get steeper as x and y grow. Four U-shaped curves, y = A e^(x squared) for A = 0.25 (green), 0.5 (amber), 1 (red) and 2 (blue), follow the segments, each with its lowest point on x = 0 at height A. The point (0, 1) is marked on the red curve and labelled \"y(0) = 1 picks A = 1\". The horizontal axis is x from -1.2 to 1.2 and the vertical axis is y from 0 to 5. Schematic, not to scale."
+    },
+    {
+      "key": "diffeq-growth-decay",
+      "file": "diagrams/ug26-319-r07-diffeq-growth-decay.svg",
+      "alt": "Two graphs: (a) a growth curve y = 2e^(kx) with e^k = 3 through (0, 2), (1, 6) and (2, 18); (b) a decay curve y = 2e^(kx) with e^k = 1/2 through (0, 2), (1, 1) and (2, 0.5)",
+      "caption": "Solutions of dy/dx = ky: growth for k > 0 and decay for k < 0",
+      "description": "Two side-by-side graphs with x on the horizontal axis and y on the vertical axis. Panel (a), growth with k > 0: the blue curve y = 2e^(kx) with e^k = 3 rises ever more steeply through the marked points (0, 2), (1, 6) and (2, 18); y triples for each step of 1 in x. Panel (b), decay with k < 0: the green curve y = 2e^(kx) with e^k = 1/2 falls towards the x-axis through (0, 2), (1, 1), (2, 0.5) and (3, 0.25); y halves for each step of 1 in x. Values are illustrative; both curves satisfy dy/dx = ky."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r07-differential-equations-q01",

@@ -64,6 +64,14 @@
     "text": "The area from which a port draws its exports and to which it sends its imports; the region served by the port through its road, rail and river links."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "port-hinterland"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The hinterland is the area from which a port draws its exports and to which it sends its imports, through road, rail and river links. A port with a larger and better connected hinterland has more trade to handle."
+   },
+   {
     "type": "HEADING",
     "text": "Roads"
    },
@@ -120,6 +128,14 @@
     "text": "The railway is the principal mode for long-distance passenger and freight traffic, and it carries bulk goods such as coal, ores, cement and food grains cheaply. The first passenger train ran in 1853 from Mumbai (Bori Bunder) to Thane, a distance of 34 km. The Indian Railways network is organised into zones. The track uses three gauges (distance between the rails): **broad gauge** (1.676 m), **metre gauge** (1.000 m) and **narrow gauge** (0.762 m and 0.610 m); the programme of gauge conversion is replacing the others by broad gauge. The Konkan Railway, built along the west coast in the 1990s, is an engineering achievement because it crosses many rivers and hills."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "rail-gauges"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Gauge is the distance between the two rails, and broad gauge is the widest. The drawn lengths show how much wider 1.676 m is than the narrow gauges, which helps you remember the order broad, metre, narrow."
+   },
+   {
     "type": "HEADING",
     "text": "Waterways and pipelines"
    },
@@ -138,6 +154,48 @@
    {
     "type": "TEXT",
     "text": "Air transport is the fastest mode, and it is the only practical link to remote and hilly regions such as the North-East and Jammu and Kashmir. It is also used for high-value, urgent and perishable goods. It is also the costliest mode, and it depends on weather. Air India, formed in the early 1950s after the nationalisation of airlines, and later other carriers, serve domestic and international routes, while international airports at the metropolitan cities connect India to the world."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Five modes of transport in India compared",
+    "columns": [
+     "Mode",
+     "Strengths (from the lesson)",
+     "Limits (from the lesson)",
+     "Best suited to"
+    ],
+    "rows": [
+     [
+      "Roads",
+      "Door-to-door service; cheaper to build than railways; cross hills; reach villages",
+      "Less suitable for bulky heavy goods over very long distances; accidents and congestion",
+      "Short and medium distances"
+     ],
+     [
+      "Railways",
+      "Carry bulk goods cheaply",
+      "Run only on track, with three gauges in use",
+      "Long-distance passengers and freight such as coal, ores, cement, food grains"
+     ],
+     [
+      "Waterways",
+      "Cheapest for heavy bulky goods; use less fuel",
+      "Slow; depend on the depth of water",
+      "Heavy, bulky goods"
+     ],
+     [
+      "Airways",
+      "Fastest; the only practical link to remote hilly regions",
+      "Costliest; depend on weather",
+      "High-value, urgent and perishable goods"
+     ],
+     [
+      "Pipelines",
+      "Very low running cost; little loss; safe and continuous",
+      "High initial cost; fixed route; leaks hard to repair",
+      "Crude oil, petroleum products, natural gas"
+     ]
+    ]
    },
    {
     "type": "SOLVED_PROBLEM",
@@ -161,6 +219,14 @@
     "type": "DEFINITION",
     "term": "International trade",
     "text": "The exchange of goods and services between countries. The difference between the value of exports and imports is the balance of trade. If imports are larger it is a trade deficit, and if exports are larger it is a trade surplus."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "balance-of-trade"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Balance of trade is exports minus imports. A positive value is a surplus and a negative value is a deficit. It is a difference in value, not a profit, which is a common exam mistake."
    },
    {
     "type": "TEXT",
@@ -194,7 +260,29 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "port-hinterland",
+   "file": "diagrams/ug26-313-u07-transport-india-port-hinterland.svg",
+   "alt": "Schematic showing towns and farms inland connected by road, rail and river to a port, with exports leaving and imports arriving by sea",
+   "caption": "A port and its hinterland",
+   "description": "A schematic with no real coastline. A large dashed green area on the left is labelled Hinterland, the area the port serves. Five small circles for farms and towns inside it are joined to a square labelled Port on a straight coast by lines for road, rail and river. To the right of the coast is the sea, with an arrow for exports leaving and an arrow for imports arriving. Not to scale."
+  },
+  {
+   "key": "rail-gauges",
+   "file": "diagrams/ug26-313-u07-transport-india-rail-gauges.svg",
+   "alt": "Four pairs of rails drawn with the gap between them in proportion to broad gauge 1.676 m, metre gauge 1.000 m and narrow gauge 0.762 m and 0.610 m",
+   "caption": "Railway gauges compared",
+   "description": "Four rows, each showing two rails with a double-headed arrow between them and a sleeper beneath. The width of each gap is proportional to the gauge value in the lesson: broad gauge 1.676 m, metre gauge 1.000 m, narrow gauge 0.762 m and the smaller narrow gauge 0.610 m. A footer notes that gauge conversion replaces the others by broad gauge."
+  },
+  {
+   "key": "balance-of-trade",
+   "file": "diagrams/ug26-313-u07-transport-india-balance-of-trade.svg",
+   "alt": "Three pairs of bars showing a trade surplus, a balanced trade and a trade deficit",
+   "caption": "Trade surplus, balanced trade and trade deficit (illustrative)",
+   "description": "Three panels, each with a blue bar for exports and an amber bar for imports. In the first panel exports are taller than imports and the label reads trade surplus. In the second both bars are equal and the label reads balanced. In the third imports are taller and the label reads trade deficit. Bar heights are illustrative."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-313-u07-transport-communication-and-internatio-q01",

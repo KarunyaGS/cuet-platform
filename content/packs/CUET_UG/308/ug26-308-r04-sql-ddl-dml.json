@@ -136,6 +136,14 @@
     "text": "DDL = structure (CREATE, ALTER, DROP). DML = rows (INSERT, UPDATE, DELETE). DQL = reading data (SELECT)."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "ddl-dml-classes"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Ask what a command touches. Structure (tables, columns) is DDL, rows are DML, and only reading is DQL."
+   },
+   {
     "type": "HEADING",
     "text": "MySQL, databases and data types"
    },
@@ -301,6 +309,14 @@
     "text": "DROP TABLE removes the table itself; `DELETE FROM PRODUCT;` removes only the rows and keeps the empty table. `DROP COLUMN` (inside ALTER) removes one column, not the whole table."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "drop-vs-delete"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: DELETE removes rows but the table stays. DROP removes structure: DROP COLUMN one column, DROP TABLE the whole table with its rows."
+   },
+   {
     "type": "HEADING",
     "text": "Data manipulation: INSERT, UPDATE and DELETE"
    },
@@ -405,6 +421,14 @@
     "answer": "4 rows; Lunchbox 260 and Bottle 185; sum of Stock 220"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "update-delete"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The WHERE clause decides which rows change. Without it UPDATE or DELETE would act on every row, and a NULL in a condition has to be tested with IS NULL."
+   },
+   {
     "type": "HEADING",
     "text": "Data query: SELECT, FROM and WHERE"
    },
@@ -462,6 +486,14 @@
     "problem": "On the original PRODUCT table find the PName values returned by (a) `WHERE PName LIKE \"_o%\"`, (b) `WHERE Price BETWEEN 30 AND 250` and (c) `WHERE Stock IS NULL`.",
     "solution": "(a) `_o%` means the second letter is o. Notebook (N-o...) and Bottle (B-o...) qualify; Pencil, Backpack, Marker and Lunchbox do not.\n\n(b) BETWEEN includes both ends, so Prices 45, 30, 250 and 175 qualify: Notebook, Marker, Lunchbox, Bottle.\n\n(c) Only Marker has a NULL Stock.",
     "answer": "(a) Notebook, Bottle; (b) Notebook, Marker, Lunchbox, Bottle; (c) Marker"
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "where-tests"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: LIKE \"_o%\" means any first letter, then o, then anything. BETWEEN includes both end values, and a NULL is found only with IS NULL, never with = NULL."
    },
    {
     "type": "CALLOUT",
@@ -595,7 +627,36 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "ddl-dml-classes",
+   "file": "diagrams/ug26-308-r04-ddl-dml-classes.svg",
+   "alt": "Three panels for DDL, DML and DQL listing their commands and what each one changes",
+   "caption": "DDL, DML and DQL: what each group of SQL commands changes",
+   "description": "DDL (Data Definition Language) defines and changes structure with CREATE, ALTER and DROP and changes tables, columns and databases. DML (Data Manipulation Language) adds, changes and removes data with INSERT, UPDATE and DELETE and changes rows inside tables. DQL (Data Query Language) reads data with SELECT and changes nothing."
+  },
+  {
+   "key": "drop-vs-delete",
+   "file": "diagrams/ug26-308-r04-ddl-dml-drop-vs-delete.svg",
+   "alt": "Three PRODUCT tables showing DELETE leaving an empty table, DROP COLUMN removing one column and DROP TABLE removing the table",
+   "caption": "DELETE empties a table, DROP removes structure",
+   "description": "DELETE FROM PRODUCT leaves the table with its columns PName, Price and Stock but no rows (DML). ALTER TABLE ... DROP COLUMN removes one column, here Stock, and keeps the rows (DDL). DROP TABLE PRODUCT removes the whole table so it no longer exists (DDL)."
+  },
+  {
+   "key": "update-delete",
+   "file": "diagrams/ug26-308-r04-ddl-dml-update-delete.svg",
+   "alt": "The PRODUCT table before and after an UPDATE that raises Kitchen prices by 10 and a DELETE of two rows",
+   "caption": "UPDATE and DELETE with WHERE on the PRODUCT table",
+   "description": "Step 1 UPDATE raises Price by 10 for the Kitchen rows: Lunchbox becomes 260 and Bottle 185. Step 2 DELETE removes the rows where Stock is NULL or Price is below 10: Pencil (price 8) and Marker (Stock NULL) leave and four rows remain."
+  },
+  {
+   "key": "where-tests",
+   "file": "diagrams/ug26-308-r04-ddl-dml-where-tests.svg",
+   "alt": "A table of PRODUCT rows with yes or no columns for a LIKE test, a BETWEEN test and an IS NULL test",
+   "caption": "Which PRODUCT rows pass LIKE, BETWEEN and IS NULL",
+   "description": "The six PRODUCT rows are tested separately by (a) PName LIKE \"_o%\", (b) Price BETWEEN 30 AND 250 and (c) Stock IS NULL. Notebook and Bottle pass (a); Notebook, Marker, Lunchbox and Bottle pass (b); only Marker passes (c). Green yes cells mark rows each condition would return."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r04-sql-ddl-dml-select-functions-q01",

@@ -58,8 +58,24 @@
     "answer": "Final velocity 10 m/s, distance 25 m"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "velocity-time-graph"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: on a velocity-time graph the slope is the acceleration and the area under the line is the distance. Both numbers agree with the worked answer: 2 m/s squared and 25 m."
+   },
+   {
     "type": "TEXT",
     "text": "**Energy** exists in many forms and is conserved. Kinetic energy is $\\frac{1}{2}mv^2$, so doubling the speed makes it four times as large: a 2 kg body moving at 3 m/s has 9 J, and at 6 m/s it has 36 J. Potential energy near the Earth is $mgh$. Work is force times displacement in the direction of the force, and power is work per unit time (watt)."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "kinetic-energy-curve"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: kinetic energy depends on the square of the speed, so the graph is a curve, not a straight line. Doubling the speed from 3 to 6 m/s multiplies the energy by 4 (9 J to 36 J)."
    },
    {
     "type": "FORMULA",
@@ -71,6 +87,22 @@
     "problem": "A 12 V battery is connected across a 4 ohm resistor. Find the current and the power.",
     "solution": "Step 1: by Ohm's law I = V / R = 12 / 4 = 3 A. Step 2: power P = V x I = 12 x 3 = 36 W. Step 3: check with P = I^2 R = 9 x 4 = 36 W, which agrees.",
     "answer": "Current 3 A, power 36 W"
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "simple-circuit"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: learn the two symbols (battery plates and the zigzag resistor) and the current arrow. Put V and R into I = V / R first, then use P = V x I for the power."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "series-parallel-resistors"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: one path means the resistances add; two paths mean the reciprocals add. In a parallel pair the total ends up smaller than either resistor, which is a quick way to check your answer."
    },
    {
     "type": "KEY_POINT",
@@ -98,6 +130,14 @@
     "problem": "Find the pH of a 0.001 M solution of hydrochloric acid, a strong acid that ionises completely. State whether it is acidic.",
     "solution": "Step 1: hydrochloric acid ionises completely, so the hydrogen ion concentration equals 0.001 M = 10^-3 mol per litre. Step 2: pH = -log10(10^-3) = 3. Step 3: since 3 is less than 7, the solution is acidic. Each unit of pH change is a tenfold change in hydrogen ion concentration.",
     "answer": "pH = 3, acidic"
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "ph-scale"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: pH 3 for the 0.001 M acid sits well to the acidic side of 7. Each step down the scale means ten times more hydrogen ions, so pH 3 is much more acidic than pH 5."
    },
    {
     "type": "TEXT",
@@ -175,6 +215,14 @@
     "answer": "2000 J, 200 J and 20 J"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "energy-pyramid"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: each level keeps only about one tenth of the energy of the level below, so the amounts shrink 20000, 2000, 200, 20. This is why food chains are short and few top carnivores can be supported."
+   },
+   {
     "type": "TEXT",
     "text": "**Biomagnification** is the increase in the concentration of non-degradable substances such as DDT and mercury at successive trophic levels, because they are not broken down or excreted. Biodiversity means the variety of species, genes and ecosystems. Habitat loss is the biggest cause of species decline."
    },
@@ -204,7 +252,50 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "velocity-time-graph",
+   "file": "diagrams/ug26-501-t05-velocity-time-graph.svg",
+   "alt": "Velocity-time graph of a car starting from rest and reaching 10 metres per second in 5 seconds",
+   "caption": "Velocity-time graph for uniform acceleration",
+   "description": "A straight line from the origin to the point 5 seconds, 10 metres per second, on axes of time in seconds and velocity in metres per second. The slope, 10 divided by 5, is the acceleration 2 metres per second squared. The shaded triangle under the line has area half x 5 x 10 = 25 metres, the distance covered."
+  },
+  {
+   "key": "kinetic-energy-curve",
+   "file": "diagrams/ug26-501-t05-kinetic-energy-curve.svg",
+   "alt": "Curve of kinetic energy against speed for a 2 kg body with points 9 J at 3 m/s and 36 J at 6 m/s",
+   "caption": "Kinetic energy grows with the square of the speed",
+   "description": "A curve rising more and more steeply on axes of speed in metres per second and kinetic energy in joules, for a mass of 2 kg. Two points are marked: 9 joules at 3 metres per second and 36 joules at 6 metres per second. Doubling the speed makes the kinetic energy four times as large."
+  },
+  {
+   "key": "simple-circuit",
+   "file": "diagrams/ug26-501-t05-simple-circuit.svg",
+   "alt": "Circuit with a 12 volt battery and a 4 ohm resistor carrying a current of 3 amperes",
+   "caption": "A simple circuit: 12 V battery and 4 ohm resistor",
+   "description": "A rectangular circuit. A battery of 12 volts, drawn as a long and a short plate, is on the left and a zigzag resistor of 4 ohms is on the right. An arrow on the top wire shows the current, 3 amperes. Below: I = V / R = 12 / 4 = 3 A and P = V x I = 12 x 3 = 36 W. A key explains the symbols."
+  },
+  {
+   "key": "series-parallel-resistors",
+   "file": "diagrams/ug26-501-t05-series-parallel-resistors.svg",
+   "alt": "Two resistors R1 and R2 in series and in parallel with the formulas for the total resistance",
+   "caption": "Resistors in series and in parallel",
+   "description": "Two circuits. In the first, R1 and R2 are joined end to end on one path, and the total is R = R1 + R2. In the second, R1 and R2 are on two separate paths between the same two points, and the total satisfies 1/R = 1/R1 + 1/R2. A note says the parallel total is less than the smaller of R1 and R2."
+  },
+  {
+   "key": "ph-scale",
+   "file": "diagrams/ug26-501-t05-ph-scale.svg",
+   "alt": "pH scale from 0 to 14 with 0.001 M hydrochloric acid at pH 3 and neutral at pH 7",
+   "caption": "The pH scale and a 0.001 M acid",
+   "description": "A colour bar from pH 0 to pH 14. Below 7 is labelled acidic and above 7 is labelled basic, at 25 degrees Celsius. An arrow marks 0.001 M hydrochloric acid at pH 3 and another arrow marks neutral at pH 7. A note says each step of 1 is a tenfold change in hydrogen ion concentration."
+  },
+  {
+   "key": "energy-pyramid",
+   "file": "diagrams/ug26-501-t05-energy-pyramid.svg",
+   "alt": "Energy pyramid with 20000 J in producers, 2000 J, 200 J and 20 J in the consumer levels",
+   "caption": "Energy falls tenfold at each trophic level",
+   "description": "A four-step pyramid. From the bottom: producers (green plants) 20000 J, primary consumers 2000 J, secondary consumers 200 J, tertiary consumers 20 J. Between each pair of levels the label says times 10 percent. A note says the rest of the energy is lost as heat and the pyramid is not drawn to scale."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-501-t05-general-science-and-environment-litera-q01",

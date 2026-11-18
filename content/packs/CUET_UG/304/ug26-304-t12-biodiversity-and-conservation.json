@@ -102,6 +102,14 @@
         "text": "Diversity is not spread evenly over the Earth. The most important pattern is the **latitudinal gradient**: species diversity decreases as we move from the equator towards the poles. The tropics, between 23.5 degrees north and 23.5 degrees south, have more species than temperate and polar areas. For example, Colombia, which lies on the equator, has about 1,400 species of birds, New York (41 degrees north) has about 105 species and Greenland (71 degrees north) only about 56. The tropical Amazonian rain forest has the greatest biodiversity on the earth, with more than 40,000 species of plants, 3,000 of fishes, 1,300 of birds, 427 of mammals, 427 of amphibians, 378 of reptiles and over 125,000 invertebrates."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "t12-latitude-gradient"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: species richness falls steeply as latitude increases. The figures here are the ones quoted in the lesson, and the pattern is called the latitudinal gradient."
+      },
+      {
         "type": "TEXT",
         "text": "Three hypotheses have been given for the greater richness of the tropics. First, the tropics have remained relatively undisturbed for millions of years, so there has been a long **evolutionary time** for species to diversify, whereas temperate regions were subject to glaciation. Second, tropical environments are less seasonal, relatively more constant and predictable, which promotes niche specialisation and greater species diversity. Third, there is more solar energy, which means higher productivity and, indirectly, greater diversity."
       },
@@ -113,6 +121,14 @@
         "type": "FORMULA",
         "latex": "\\log S = \\log C + Z \\log A \\quad\\Longleftrightarrow\\quad S = C A^{Z}",
         "text": "S is species richness, A is the area, Z is the slope of the line (the regression coefficient) and C is the Y-intercept. Z is about 0.1 to 0.2 whatever the taxonomic group or the region, but for very large areas such as whole continents the slope is steeper, with Z between 0.6 and 1.2."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "t12-species-area-loglog"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: on log-log axes the species-area relationship is a straight line and Z is its slope. Z is small (0.1 to 0.2) within a region but steeper (0.6 to 1.2) across continents, so large areas gain species faster."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -216,6 +232,14 @@
         "text": "**Biodiversity hotspots** are regions with very high levels of species richness, high **endemism** (species that are confined to a region and not found anywhere else) and accelerating habitat loss. There are 34 hotspots in the world (the figure given in NCERT), and the three that cover our country are the Western Ghats and Sri Lanka, Indo-Burma and the Himalaya. Together they have a very high proportion of the world's species on a small proportion of the world's land area, so protecting them is the most economical way of protecting a large number of species."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "t12-hotspot-criteria"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: a place is called a hotspot only when all three conditions hold, not just high richness. Endemism means the species live nowhere else, and accelerating habitat loss is what makes protection urgent."
+      },
+      {
         "type": "DEFINITION",
         "term": "Endemism",
         "text": "The condition of a species being restricted to one particular region and found nowhere else, for example many amphibians of the Western Ghats."
@@ -235,6 +259,40 @@
       {
         "type": "TEXT",
         "text": "Modern techniques now help. The **gametes of threatened species** can be preserved in a viable and fertile condition for long periods using **cryopreservation** techniques, in which the material is stored at very low temperature (in liquid nitrogen, at about minus 196 degrees Celsius). Eggs can later be fertilised in vitro, and plants can be propagated using tissue culture methods. Seeds of different genetic strains of crop plants and wild relatives are kept in seed banks for long-term storage."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "t12-in-situ-ex-situ"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: sort every example by one question, is the species still in its natural habitat? If yes it is in situ, if it has been taken out it is ex situ, even for a large safari park."
+      },
+      {
+        "type": "TABLE",
+        "caption": "In situ and ex situ conservation",
+        "columns": [
+          "Feature",
+          "In situ (on site)",
+          "Ex situ (off site)"
+        ],
+        "rows": [
+          [
+            "Where",
+            "The whole ecosystem is protected in its natural habitat",
+            "Threatened plants and animals are taken out of their habitat into special settings"
+          ],
+          [
+            "Examples",
+            "National parks, wildlife sanctuaries, biosphere reserves, biodiversity hotspots, sacred groves",
+            "Zoological parks, botanical gardens, wildlife safari parks, seed banks, cryopreservation of gametes"
+          ],
+          [
+            "Advantage",
+            "Species, including those not yet known, stay in the environment to which they are adapted",
+            "Threatened species get special care and can be preserved for long periods, for example gametes in liquid nitrogen"
+          ]
+        ]
       },
       {
         "type": "TEXT",
@@ -262,7 +320,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "t12-latitude-gradient",
+      "file": "diagrams/ug26-304-t12-biodiversity-latitude-gradient.svg",
+      "alt": "Three horizontal bars showing about 1400 bird species in Colombia on the equator, about 105 in New York and about 56 in Greenland",
+      "caption": "Bird species fall from the equator towards the pole",
+      "description": "A horizontal bar chart with bar length proportional to the number of bird species on a linear scale. Colombia, on the equator, has about 1400, New York at 41 degrees north has about 105, and Greenland at 71 degrees north has about 56."
+    },
+    {
+      "key": "t12-species-area-loglog",
+      "file": "diagrams/ug26-304-t12-biodiversity-species-area-loglog.svg",
+      "alt": "Log-log graph of species richness against area showing two straight lines: a shallow line for Z = 0.15 and a steep line for Z = 1.0",
+      "caption": "Species-area relationship on a log-log plot",
+      "description": "A graph with area A on a logarithmic horizontal axis from 1 to 1000 and species richness S on a logarithmic vertical axis. Because log S equals log C plus Z log A, the relationship is a straight line whose slope is Z. A shallow green line has slope 0.15, typical of areas within a region, and a steep red line has slope 1.0, within the range for whole continents. Both lines start at the same intercept so that only the slopes are compared. The lines were computed by a script."
+    },
+    {
+      "key": "t12-hotspot-criteria",
+      "file": "diagrams/ug26-304-t12-biodiversity-hotspot-criteria.svg",
+      "alt": "Three boxes, very high species richness, high endemism and accelerating habitat loss, with arrows pointing to a box labelled biodiversity hotspot",
+      "caption": "The three conditions that define a biodiversity hotspot",
+      "description": "A concept diagram without a map. Three boxes at the top read very high species richness, high endemism (species found nowhere else) and accelerating habitat loss. Arrows from all three converge on a box labelled biodiversity hotspot. Text below says there are 34 hotspots in the world, three of which cover India: the Western Ghats and Sri Lanka, Indo-Burma and the Himalaya."
+    },
+    {
+      "key": "t12-in-situ-ex-situ",
+      "file": "diagrams/ug26-304-t12-biodiversity-in-situ-ex-situ.svg",
+      "alt": "Tree diagram: conservation of biodiversity splits into in situ methods (national parks, sanctuaries, biosphere reserves, hotspots, sacred groves) and ex situ methods (zoos, botanical gardens, safari parks, seed banks, cryopreservation)",
+      "caption": "In situ and ex situ conservation",
+      "description": "A tree diagram. The top box reads conservation of biodiversity and splits into two. In situ (on site) protects the whole ecosystem in its natural habitat and lists national parks, wildlife sanctuaries, biosphere reserves, biodiversity hotspots and sacred groves. Ex situ (off site) moves species to special care and lists zoological parks, botanical gardens, wildlife safari parks, seed banks and cryopreservation of gametes."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-304-t12-biodiversity-and-conservation-q01",

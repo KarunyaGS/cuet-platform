@@ -141,6 +141,14 @@
         "answer": "$2$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "modulo-cycle"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: once a power gives remainder 1, the remainders repeat in the same order. To handle a large power, divide the exponent by the cycle length and use the leftover: 20 leaves remainder 2 on division by 6, so 3 to the 20 behaves like 3 squared."
+      },
+      {
         "type": "CALLOUT",
         "text": "When a power is large, look for the first power that gives remainder 1 (or $-1$); the pattern then repeats. Do not compute the full number."
       },
@@ -224,6 +232,14 @@
         "answer": "$3:2$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "allegation-cross"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: take each difference along the diagonal, so the cheaper price gets the distance of the dearer price from the mean (55 - 46 = 9) and the other way round. The mean is closer to Rs 40, so more kilograms of the Rs 40 rice are used: the ratio 3 : 2."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "A vessel holds 20 L of wine. 4 L are drawn out and replaced by water. The step is repeated once more. How much wine is left?",
         "solution": "Each step leaves a fraction $1-\\tfrac{4}{20}=0.8$ of the wine. After two steps: $20\\times0.8^2=20\\times0.64=12.8$ L.\n\nCheck: after the first step 16 L wine and 4 L water remain; the second draw removes $4\\times\\tfrac{16}{20}=3.2$ L wine, leaving $12.8$ L.",
@@ -248,10 +264,26 @@
         "answer": "$16\\tfrac23\\%$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "percent-bars"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the gap between the two quantities is the same 20 units, but the percentage depends on which quantity you divide by. Always divide by the one that comes after \"than\" (the base), here B for \"A is more\" and A for \"B is less\"."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "A car travels 120 km at 60 km/h and returns at 40 km/h. Find the average speed for the whole trip.",
         "solution": "Time going $=120/60=2$ h; time returning $=120/40=3$ h. Total distance $240$ km, total time $5$ h.\n\nAverage speed $=240/5=48$ km/h (not the simple average 50 km/h).",
         "answer": "$48$ km/h"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "average-speed"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: average speed is the slope of the single straight line from the start to the end (total distance over total time), not the middle of 60 and 40. The slower leg takes more time, so it pulls the average below 50 towards 40."
       },
       {
         "type": "KEY_POINT",
@@ -362,6 +394,14 @@
         "answer": "$x\\le-4$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "inequality-line"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: dividing by -2 turned \"at least\" into \"at most\", so the solution points left. Test one value from each side of the boundary, as the green and red dots do, to catch a sign error quickly."
+      },
+      {
         "type": "CALLOUT",
         "text": "Reverse the inequality sign whenever you multiply or divide by a negative number. Reciprocals reverse the sign only when both numbers have the same sign: $-1<2$ but $\\tfrac1{-1}<\\tfrac12$."
       },
@@ -371,7 +411,43 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "modulo-cycle",
+      "file": "diagrams/ug26-319-r01-numerical-applications-modulo-cycle.svg",
+      "alt": "Six circles in a ring showing the remainders 3, 2, 6, 4, 5, 1 of the powers 3 to the 1 up to 3 to the 6 modulo 7, with arrows around the ring",
+      "caption": "Powers of 3 modulo 7 repeat every 6 steps",
+      "description": "A ring of six circles joined by arrows. Going clockwise from the top the circles hold 3, 2, 6, 4, 5 and 1, the remainders of 3 to the powers 1 to 6 divided by 7. After the 1 the cycle returns to 3. Notes beside the ring give 20 equals 6 times 3 plus 2, so 3 to the 20 is congruent to 3 squared, which is 2 modulo 7."
+    },
+    {
+      "key": "allegation-cross",
+      "file": "diagrams/ug26-319-r01-numerical-applications-allegation-cross.svg",
+      "alt": "Cross diagram with Rs 40 and Rs 55 on the left, the mean Rs 46 in the middle and the differences 9 and 6 on the right, plus a price line from 40 to 55 split at 46 into 6 and 9",
+      "caption": "Rule of allegation: cross diagram and price line",
+      "description": "On the left the cheaper price Rs 40 sits above the dearer price Rs 55 and the mean price Rs 46 is in a box between them. Diagonal lines cross to the right side: 55 minus 46 gives 9 for the cheaper item and 46 minus 40 gives 6 for the dearer item, so cheaper to dearer is 9 to 6, which is 3 to 2. Below, a price line from Rs 40 to Rs 55 is split at Rs 46 into lengths 6 and 9."
+    },
+    {
+      "key": "percent-bars",
+      "file": "diagrams/ug26-319-r01-numerical-applications-percent-bars.svg",
+      "alt": "Two bars: A is 120 units long and B is 100 units long; the extra 20 units are 20 percent of B but 16 and two thirds percent of A",
+      "caption": "Bar model: 20% more is not the same as 16 2/3% less",
+      "description": "Two horizontal bars. The top bar A has a 100-unit part and an extra shaded 20-unit part, total 120. The bottom bar B is 100 units with a dashed empty box of 20 units showing the gap to A. Text states that 20 divided by 100 is 20 percent with base B, and 20 divided by 120 is 16 and two thirds percent with base A."
+    },
+    {
+      "key": "average-speed",
+      "file": "diagrams/ug26-319-r01-numerical-applications-average-speed.svg",
+      "alt": "Distance against time graph: a steeper blue segment for 2 hours at 60 km/h, a flatter red segment for 3 hours at 40 km/h, and a dashed green straight line to (5 h, 240 km) with slope 48 km/h",
+      "caption": "Distance-time graph of the round trip and its average speed",
+      "description": "The graph plots distance travelled in km against time in hours. The blue segment runs from the origin to (2 h, 120 km) with slope 60 km/h. The red segment continues to (5 h, 240 km) with slope 40 km/h. A dashed green line from the origin to (5 h, 240 km) has slope 240 divided by 5, which is 48 km/h, the average speed."
+    },
+    {
+      "key": "inequality-line",
+      "file": "diagrams/ug26-319-r01-numerical-applications-inequality-line.svg",
+      "alt": "Number line from -8 to 2 with a closed dot at -4 and a thick blue ray going left, with test values x = -5 true and x = 0 false",
+      "caption": "Solution of -2x + 3 >= 11 on the number line",
+      "description": "A number line labelled from minus 8 to 2. A closed dot at minus 4 and a thick ray pointing left show x less than or equal to minus 4. Below it, x equal to minus 5 gives minus 2 times minus 5 plus 3, which is 13, and 13 is at least 11, so it is true. x equal to 0 gives 3, which is not at least 11, so it is false."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r01-numerical-applications-q01",

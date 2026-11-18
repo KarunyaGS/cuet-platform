@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 440" font-family="Arial, Helvetica, sans-serif">
+  <text x="320" y="28" font-size="14" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">df = pd.DataFrame({"qty": [2, 3, 5], "price": [10, 20, 30]},</text>
+  <text x="320" y="48" font-size="14" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">                  index=["a", "b", "c"])</text>
+  <text x="310" y="72" font-size="15" fill="#059669" text-anchor="middle" font-weight="bold">column labels (df.columns)</text>
+  <rect x="200" y="92" width="110" height="38" rx="0" fill="#d1fae5" stroke="#6b7280" stroke-width="1.3"/>
+  <text x="255" y="118" font-size="17" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">qty</text>
+  <rect x="310" y="92" width="110" height="38" rx="0" fill="#d1fae5" stroke="#6b7280" stroke-width="1.3"/>
+  <text x="365" y="118" font-size="17" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">price</text>
+  <rect x="110" y="130" width="90" height="46" rx="0" fill="#dbeafe" stroke="#6b7280" stroke-width="1.3"/>
+  <text x="155" y="160" font-size="17" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">a</text>
+  <rect x="200" y="130" width="110" height="46" rx="0" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+  <text x="255" y="160" font-size="17" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">2</text>
+  <rect x="310" y="130" width="110" height="46" rx="0" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+  <text x="365" y="160" font-size="17" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">10</text>
+  <rect x="110" y="176" width="90" height="46" rx="0" fill="#dbeafe" stroke="#6b7280" stroke-width="1.3"/>
+  <text x="155" y="206" font-size="17" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">b</text>
+  <rect x="200" y="176" width="110" height="46" rx="0" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+  <text x="255" y="206" font-size="17" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">3</text>
+  <rect x="310" y="176" width="110" height="46" rx="0" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+  <text x="365" y="206" font-size="17" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">20</text>
+  <rect x="110" y="222" width="90" height="46" rx="0" fill="#dbeafe" stroke="#6b7280" stroke-width="1.3"/>
+  <text x="155" y="252" font-size="17" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">c</text>
+  <rect x="200" y="222" width="110" height="46" rx="0" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+  <text x="255" y="252" font-size="17" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">5</text>
+  <rect x="310" y="222" width="110" height="46" rx="0" fill="none" stroke="#6b7280" stroke-width="1.3"/>
+  <text x="365" y="252" font-size="17" fill="#1f2937" text-anchor="middle" font-family="Courier New, monospace">30</text>
+  <text x="30" y="193" font-size="15" fill="#2563eb" text-anchor="start" font-weight="bold">index</text>
+  <text x="30" y="213" font-size="15" fill="#2563eb" text-anchor="start">(row labels)</text>
+  <line x1="460" y1="134" x2="460" y2="255" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="460.0,264.0 455.5,255.0 464.5,255.0" fill="#dc2626" stroke="none" stroke-width="1.5"/>
+  <text x="474" y="185" font-size="16" fill="#dc2626" text-anchor="start" font-weight="bold">axis=0</text>
+  <text x="474" y="206" font-size="15" fill="#dc2626" text-anchor="start">down the rows</text>
+  <line x1="204" y1="288" x2="407" y2="288" stroke="#d97706" stroke-width="2.5"/>
+  <polygon points="416.0,288.0 407.0,292.5 407.0,283.5" fill="#d97706" stroke="none" stroke-width="1.5"/>
+  <text x="310" y="314" font-size="16" fill="#d97706" text-anchor="middle" font-weight="bold">axis=1: across the columns</text>
+  <text x="310" y="336" font-size="15" fill="#6b7280" text-anchor="middle">df.shape = (3, 2)</text>
+  <text x="20" y="372" font-size="14" fill="#dc2626" text-anchor="start" font-family="Courier New, monospace">df.drop("a", axis=0)       removes the ROW labelled a</text>
+  <text x="20" y="398" font-size="14" fill="#d97706" text-anchor="start" font-family="Courier New, monospace">df.drop("price", axis=1)   removes the COLUMN price</text>
+</svg>

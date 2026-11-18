@@ -187,6 +187,14 @@
         "text": "If $A$ is $m\\times n$, its transpose $A^T$ is the $n\\times m$ matrix obtained by writing the rows of $A$ as columns. The element $a_{ij}$ moves to position $(j,i)$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "transpose"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the order flips from 2 by 3 to 3 by 2, and each row is rewritten as a column in the same order. Check the order first: if A is m by n, then A transpose is n by m."
+      },
+      {
         "type": "FORMULA",
         "latex": "(A^T)^T=A,\\quad (A\\pm B)^T=A^T\\pm B^T,\\quad (AB)^T=B^TA^T",
         "text": "The orders must allow the sum or product. In the product rule the factors are written in the reverse order."
@@ -195,6 +203,14 @@
         "type": "DEFINITION",
         "term": "Symmetric and skew-symmetric matrices",
         "text": "A square matrix $A$ is **symmetric** when $A^T=A$ ($a_{ij}=a_{ji}$) and **skew-symmetric** when $A^T=-A$ ($a_{ij}=-a_{ji}$, which forces zeros on the main diagonal)."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "symmetric-skew"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: for a symmetric matrix the mirror partners are equal; for a skew-symmetric matrix they are negatives of each other, so the main diagonal must be 0. This is the quickest way to find missing entries or to check which type a matrix is."
       },
       {
         "type": "CONCEPT",
@@ -222,6 +238,14 @@
       {
         "type": "EXAMPLE",
         "text": "Sales (kg) of rice and wheat in two shops: $S=\\begin{bmatrix}10&20\\\\15&5\\end{bmatrix}$ (rows: shop A, shop B). Prices in rupees per kg: $P=\\begin{bmatrix}40\\\\30\\end{bmatrix}$. Then $SP=\\begin{bmatrix}10\\cdot40+20\\cdot30\\\\15\\cdot40+5\\cdot30\\end{bmatrix}=\\begin{bmatrix}1000\\\\750\\end{bmatrix}$, so the revenues are Rs 1000 and Rs 750."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "shop-product"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: each revenue is a row of sales multiplied by the column of prices and added up, which is exactly row-by-column multiplication. The columns of S (items) match the rows of P (items), so the product makes sense."
       },
       {
         "type": "SOLVED_PROBLEM",
@@ -360,6 +384,14 @@
         "text": "Write the equations as $AX=B$. If $|A|\\neq0$ then $X=A^{-1}B$. This course uses non-homogeneous systems with up to three unknowns. If $|A|=0$, find $(\\operatorname{adj}A)B$: if it is the zero matrix there are infinitely many solutions, otherwise there is no solution."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "three-cases"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the algebra test matches the picture. A non-zero |A| gives one crossing point. With |A| = 0 you must compute (adj A)B: a non-zero result means parallel lines (inconsistent), a zero result means the lines coincide."
+      },
+      {
         "type": "SOLVED_PROBLEM",
         "problem": "Solve $x+y+z=6,\\ 2x-y+3z=12,\\ x+3y-z=2$.",
         "solution": "$A=\\begin{bmatrix}1&1&1\\\\2&-1&3\\\\1&3&-1\\end{bmatrix}$, $|A|=1(1-9)-1(-2-3)+1(6+1)=-8+5+7=4$.\n\nBy elimination as a check: subtract equation 1 from equation 3: $2y-2z=-4$, so $y=z-2$. Equation 2 minus twice equation 1: $-3y+z=0$, so $z=3y$. Then $y=3y-2$, $y=1$, $z=3$, and $x=6-1-3=2$.\n\nVerify equation 2: $4-1+9=12$ and equation 3: $2+3-3=2$.",
@@ -377,7 +409,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "transpose",
+      "file": "diagrams/ug26-319-r02-applied-algebra-matrices-transpose.svg",
+      "alt": "A 2 by 3 matrix with rows 1 2 3 and 4 5 6 and its 3 by 2 transpose with columns 1 2 3 and 4 5 6; row 1 and column 1 are blue, row 2 and column 2 are red",
+      "caption": "Transpose: rows of A become columns of A transpose",
+      "description": "On the left a 2 by 3 matrix A with row 1 shaded blue (1, 2, 3) and row 2 shaded red (4, 5, 6). An arrow labelled swap rows and columns leads to the 3 by 2 matrix A transpose, whose first column (blue) holds 1, 2, 3 and whose second column (red) holds 4, 5, 6."
+    },
+    {
+      "key": "symmetric-skew",
+      "file": "diagrams/ug26-319-r02-applied-algebra-matrices-symmetric-skew.svg",
+      "alt": "A symmetric 3 by 3 matrix and a skew-symmetric 3 by 3 matrix with mirror-image entries coloured in matching pairs and the zero diagonal of the skew matrix in red",
+      "caption": "Symmetric and skew-symmetric matrices compared",
+      "description": "Left: the symmetric matrix with rows 2 5 7, 5 3 1 and 7 1 4; entries that mirror each other across the main diagonal have the same colour and the same value. Right: the skew-symmetric matrix with rows 0 4 -3, -4 0 6 and 3 -6 0; mirror entries have the same colour but opposite signs, and the diagonal cells are shaded red because they are all 0."
+    },
+    {
+      "key": "shop-product",
+      "file": "diagrams/ug26-319-r02-applied-algebra-matrices-shop-product.svg",
+      "alt": "Sales matrix S with rows 10 20 and 15 5 times the price column 40, 30 gives the revenue column 1000, 750, with the shop A row and price column shaded",
+      "caption": "Sales matrix times price column gives revenue",
+      "description": "The sales matrix S (rows shop A and shop B, columns rice kg and wheat kg) is 10 20 over 15 5. The price column P is 40 for rice and 30 for wheat. The product SP is the revenue column 1000 for shop A and 750 for shop B. The shop A row of S and the price column are shaded and the entry 1000 is highlighted: 10 times 40 plus 20 times 30."
+    },
+    {
+      "key": "three-cases",
+      "file": "diagrams/ug26-319-r02-applied-algebra-matrices-three-cases.svg",
+      "alt": "Three pairs of lines: two lines crossing at (2, 1), two parallel lines, and two coinciding lines, labelled with the determinant condition and the result of adj A times B",
+      "caption": "Matrix method for two equations: three cases as lines",
+      "description": "Top: 2x + y = 5 and x - y = 1 cross at (2, 1); the determinant is -3, not 0, so the solution is unique. Middle: x + 2y = 4 and 2x + 4y = 12 are parallel; the determinant is 0 and (adj A)B is [-8, 4], not zero, so there is no solution. Bottom: x - y = 1 and 3x - 3y = 3 are the same line; the determinant is 0 and (adj A)B is zero, so there are infinitely many solutions."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r02-applied-algebra-matrices-q01",

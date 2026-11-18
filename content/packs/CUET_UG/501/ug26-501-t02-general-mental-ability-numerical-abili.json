@@ -94,6 +94,14 @@
     "answer": "63"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "series-differences-steps"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: when the steps between terms keep growing, write the differences under the terms. Here the differences 4, 8, 16 double each time, so the next difference is 32 and the next term is 31 + 32 = 63."
+   },
+   {
     "type": "TEXT",
     "text": "Letter series work the same way once you convert letters to positions: A=1, B=2, ... Z=26. Write the positions, look at the differences, and convert back. The letters wrap around: after Z comes A again."
    },
@@ -120,6 +128,14 @@
     "answer": "EPH"
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "coding-letter-shift"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: turn each letter into its position, apply the rule to the numbers, then turn the numbers back into letters. Working out the rule from the given example (CAT to DBU) and then applying it to DOG gives EPH."
+   },
+   {
     "type": "HEADING",
     "text": "Percentages, ratio and average"
    },
@@ -133,8 +149,24 @@
     "text": "A frequent trap is successive change. A price that rises by 20% and then falls by 20% does not return to the original: multiply the factors, $1.2 \\times 0.8 = 0.96$, which is a net fall of 4%. Likewise, if a quantity rises by 25%, it must fall by $\\frac{25}{125}\\times 100 = 20\\%$ to return to its starting value, because the fall is measured on the larger new value."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "successive-percentage-change"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: a percentage fall is taken on the new, larger value, so a 20% rise followed by a 20% fall does not come back to 100. A 25% rise needs a 20% fall to come back, which is why the percentage change must always be measured against the original value."
+   },
+   {
     "type": "TEXT",
     "text": "A **ratio** compares two quantities of the same kind. To divide an amount in the ratio $a:b:c$, add the parts, find the value of one part and multiply. For example, 360 divided in the ratio 2:3:4 has 9 parts, each worth 40, so the shares are 80, 120 and 160. The **average** is the sum of the quantities divided by their number, so the sum equals average times number. When a number is removed, find the new sum and subtract."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "ratio-pie"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: add the parts first (2 + 3 + 4 = 9), find the value of one part (360 / 9 = 40), then multiply. The three shares add back to the whole, 80 + 120 + 160 = 360, which is a quick check."
    },
    {
     "type": "SOLVED_PROBLEM",
@@ -165,6 +197,14 @@
     "problem": "Find the simple interest and the compound interest (compounded yearly) on 8000 rupees at 10% per annum for 2 years, and their difference.",
     "solution": "Step 1: simple interest = 8000 x 10 x 2 / 100 = 1600 rupees. Step 2: amount with compound interest = 8000 x (1.1)^2 = 8000 x 1.21 = 9680 rupees, so compound interest = 9680 - 8000 = 1680 rupees. Step 3: difference = 1680 - 1600 = 80 rupees. A shortcut for two years is difference = P x (R/100)^2 = 8000 x 0.01 = 80, which agrees.",
     "answer": "SI = 1600 rupees, CI = 1680 rupees, difference = 80 rupees"
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "si-vs-ci-growth"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: in the first year simple and compound interest are the same. From the second year compound interest is higher because interest is also earned on the earlier interest. Here the gap after two years is 80 rupees, matching the shortcut P x (R/100) squared."
    },
    {
     "type": "HEADING",
@@ -199,7 +239,43 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "series-differences-steps",
+   "file": "diagrams/ug26-501-t02-series-differences-steps.svg",
+   "alt": "Bar steps for the series 3, 7, 15, 31 and the next term 63 with the differences 4, 8, 16, 32",
+   "caption": "Series 3, 7, 15, 31, 63: the differences double",
+   "description": "Five bars of increasing height show the terms 3, 7, 15, 31 and 63. Below them a row marks the differences between neighbouring bars: plus 4, plus 8, plus 16 and plus 32. A second row shows that each difference is 2 times the one before. The last bar, 63, is the answer."
+  },
+  {
+   "key": "coding-letter-shift",
+   "file": "diagrams/ug26-501-t02-coding-letter-shift.svg",
+   "alt": "Two tables showing each letter of CAT and DOG moved one step forward to give DBU and EPH",
+   "caption": "Letter-shift coding: CAT to DBU, DOG to EPH",
+   "description": "Two tables. In the first, the letters C, A, T have positions 3, 1, 20; adding 1 gives 4, 2, 21, which are the letters D, B, U. In the second, the letters D, O, G have positions 4, 15, 7; adding 1 gives 5, 16, 8, which are E, P, H."
+  },
+  {
+   "key": "successive-percentage-change",
+   "file": "diagrams/ug26-501-t02-successive-percentage-change.svg",
+   "alt": "Two bar charts starting from 100 showing a rise of 20 percent then a fall of 20 percent, and a rise of 25 percent then a fall of 20 percent",
+   "caption": "Successive percentage changes measured on a starting value of 100",
+   "description": "Two groups of three bars on a value axis, each starting at 100 (illustrative). Left group: 100, then 120 after a 20 percent rise, then 96 after a 20 percent fall, a net fall of 4 percent. Right group: 100, then 125 after a 25 percent rise, then 100 after a 20 percent fall, back to the start. A dashed line marks the level 100."
+  },
+  {
+   "key": "ratio-pie",
+   "file": "diagrams/ug26-501-t02-ratio-pie.svg",
+   "alt": "Pie chart of 360 divided in the ratio 2 to 3 to 4 into shares 80, 120 and 160",
+   "caption": "Dividing 360 in the ratio 2 : 3 : 4",
+   "description": "A pie chart with three slices labelled 80, 120 and 160. The legend shows share 1 is 2 parts, 2 x 40 = 80; share 2 is 3 parts, 3 x 40 = 120; share 3 is 4 parts, 4 x 40 = 160. The total is 9 parts, which equal 360, so one part is 360 divided by 9, which is 40."
+  },
+  {
+   "key": "si-vs-ci-growth",
+   "file": "diagrams/ug26-501-t02-si-vs-ci-growth.svg",
+   "alt": "Line graph of the amount on 8000 rupees at 10 percent over two years, simple interest and compound interest",
+   "caption": "Simple and compound interest on 8000 rupees at 10% for two years",
+   "description": "A line graph with time in years on the horizontal axis (0, 1, 2) and the amount in rupees on the vertical axis, which starts at 8000. Both lines start at 8000 and reach 8800 after one year. After two years simple interest gives 9600 and compound interest gives 9680, so compound interest is 80 rupees more."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-501-t02-general-mental-ability-numerical-abili-q01",

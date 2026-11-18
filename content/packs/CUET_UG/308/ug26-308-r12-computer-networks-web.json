@@ -185,6 +185,14 @@
     "text": "Size grows as PAN < LAN < MAN < WAN. A LAN is usually owned and run by one organisation and offers the highest speed and lowest cost per user; a WAN is built from many networks, often owned by telecom companies, and is slower and costlier."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "area-rings"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Networks are named by the area they cover, from a personal space to the whole world. Remember the order PAN < LAN < MAN < WAN; a city-wide network is a MAN, not a LAN."
+   },
+   {
     "type": "KEY_POINT",
     "text": "The Internet is the largest WAN: it is a network of networks. Do not call a college campus network a WAN just because it has many buildings; if it stays within one campus it is a LAN."
    },
@@ -352,6 +360,22 @@
     ]
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "url-anatomy"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: A URL is the address of one resource: how to ask (protocol), who to ask (domain name) and what to ask for (path)."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "web-page-request"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The browser is the client and the web server is the server. DNS first turns the name into an IP address; only then can the browser ask the server for the page."
+   },
+   {
     "type": "TEXT",
     "text": "**Applications of the Internet**"
    },
@@ -490,7 +514,29 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "area-rings",
+   "file": "diagrams/ug26-308-r12-computer-networks-web-area-rings.svg",
+   "alt": "Four nested rings labelled PAN, LAN, MAN and WAN from smallest to largest with a note on the area each covers",
+   "caption": "PAN, LAN, MAN and WAN as growing rings",
+   "description": "The innermost ring PAN covers a few metres around one person; the next, LAN, a room, building or campus; the next, MAN, a city or large town; the outermost, WAN, countries and continents. The Internet is the largest WAN. Size grows PAN < LAN < MAN < WAN (schematic, not to scale)."
+  },
+  {
+   "key": "url-anatomy",
+   "file": "diagrams/ug26-308-r12-computer-networks-web-url-anatomy.svg",
+   "alt": "A URL broken into protocol, domain name and path with a one-line meaning for each",
+   "caption": "The parts of a URL",
+   "description": "The example https://www.example.com/courses/index.html is split into the protocol (scheme) https, the separator ://, the domain name www.example.com and the path /courses/index.html. The protocol is the rule used to fetch the page (HTTPS is HTTP made secure with encryption), the domain name names the web server and DNS turns it into an IP address, and the path gives the folder and file on the server."
+  },
+  {
+   "key": "web-page-request",
+   "file": "diagrams/ug26-308-r12-computer-networks-web-page-request.svg",
+   "alt": "A browser, a DNS server and a web server joined by four numbered arrows showing the lookup, the reply, the request and the page returned",
+   "caption": "What happens when you open a web page",
+   "description": "Step 1: the browser asks DNS for the IP address of www.example.com. Step 2: DNS replies with the IP address (illustrative 192.0.2.10). Step 3: the browser sends an HTTP or HTTPS request to that address for the page. Step 4: the web server sends the page back and the browser displays it. Solid arrows are requests and dashed arrows are replies."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r12-computer-networks-web-q01",

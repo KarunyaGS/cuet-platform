@@ -188,6 +188,14 @@
         "answer": "Variance $0.81$, standard deviation $0.9$"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "expectation-balance"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the mean is the probability-weighted centre of the bars, so it sits closer to the taller bars and need not be a value that X takes (1.7 is not a possible value). The variance 0.81 measures how widely the bars spread around that centre."
+      },
+      {
         "type": "CALLOUT",
         "text": "Common slip: writing $\\operatorname{Var}(X)=E(X^2)-E(X)$ or forgetting to square the mean. The variance can never be negative; if you get a negative value, recheck $E(X^2)$ and $[E(X)]^2$."
       },
@@ -221,6 +229,14 @@
         "problem": "The probability that a bulb is defective is $0.2$. In a box of 5 bulbs, find the probability that at least one is defective.",
         "solution": "$X\\sim B(5,0.2)$. \"At least one\" is easier through the complement.\n\n$P(X\\ge1)=1-P(X=0)=1-(0.8)^5=1-0.32768=0.67232$.",
         "answer": "$0.67232$"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "binomial-histogram"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: \"at least one\" is all the red bars together, so it is faster to take 1 minus the single green bar. The bars are skewed to the right because p is small, and the tallest bars are near the mean np = 1."
       },
       {
         "type": "CALLOUT",
@@ -275,6 +291,14 @@
         "problem": "A shop receives on average 3 telephone calls per hour (Poisson). Find the probability of no call in an hour and of at most one call in an hour. Use $e^{-3}=0.0498$.",
         "solution": "Here $\\lambda=3$.\n\n$P(X=0)=e^{-3}=0.0498$.\n\n$P(X=1)=3e^{-3}=0.1494$.\n\n$P(X\\le1)=e^{-3}(1+3)=4e^{-3}=0.1991$ (approximately).",
         "answer": "$P(0)\\approx0.0498$ and $P(X\\le1)\\approx0.199$"
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "poisson-histogram"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the Poisson bars peak near lambda and have no upper limit, unlike a binomial. The red bars show \"at most one call\", P(0) + P(1) = 0.1991, the answer to the lesson problem."
       },
       {
         "type": "CALLOUT",
@@ -332,6 +356,14 @@
         "answer": "$Z=2$ and $Z=-2$; about 95%"
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "normal-curve-areas"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: most values lie close to the mean, with about 68% within one standard deviation and about 95% within two. In the lesson problem the marks 56 to 88 are exactly mu +/- 2 sigma, so about 95% of students scored there."
+      },
+      {
         "type": "CALLOUT",
         "text": "Divide by the **standard deviation**, not the variance, in $Z=(X-\\mu)/\\sigma$. If a question gives variance 64, then $\\sigma=8$. Also remember that the normal curve is symmetric, so $P(X<\\mu)=0.5$ and $P(Z<-a)=P(Z>a)$."
       },
@@ -341,7 +373,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "expectation-balance",
+      "file": "diagrams/ug26-319-r06-probability-distributions-applied-expectation-balance.svg",
+      "alt": "Bar chart of the distribution x = 0, 1, 2, 3 with probabilities 0.1, 0.3, 0.4, 0.2 and a red triangle at 1.7 marking the mean",
+      "caption": "A probability distribution and its mean as the balance point",
+      "description": "Four bars at x = 0, 1, 2, 3 have heights 0.1, 0.3, 0.4 and 0.2, adding to 1. A red triangle below the axis at 1.7 marks E(X) = 1.7, the balance point of the bars. Worked values underneath: E(X squared) = 3.7, variance 3.7 - 1.7 squared = 0.81 and standard deviation 0.9."
+    },
+    {
+      "key": "binomial-histogram",
+      "file": "diagrams/ug26-319-r06-probability-distributions-applied-binomial-histogram.svg",
+      "alt": "Bar chart of the binomial distribution with n = 5 and p = 0.2: probabilities 0.328, 0.410, 0.205, 0.051, 0.006 and 0.0003 for 0 to 5 defective bulbs, with the bar for 0 green and the other bars red",
+      "caption": "Binomial distribution for n = 5 bulbs with p = 0.2",
+      "description": "Bars for r = 0 to 5 defective bulbs show P(X = r) = 0.328, 0.410, 0.205, 0.051, 0.006 and 0.0003. The bar for r = 0 is green and the five bars for r = 1 to 5 are red. Text states P(X = 0) = 0.8 to the power 5 = 0.32768, so P(at least one) = 1 - 0.32768 = 0.67232, with mean np = 1 and variance npq = 0.8."
+    },
+    {
+      "key": "poisson-histogram",
+      "file": "diagrams/ug26-319-r06-probability-distributions-applied-poisson-histogram.svg",
+      "alt": "Bar chart of the Poisson distribution with lambda = 3 for 0 to 10 calls, with the bars for 0 and 1 in red and a dashed line at the mean 3",
+      "caption": "Poisson distribution with an average of 3 calls per hour",
+      "description": "Bars for r = 0 to 10 calls give P(X = r) = e to the minus 3 times 3 to the r over r factorial. The bars for 0 and 1 are red: 0.0498 and 0.1494, together 0.1991. The two tallest bars are at 2 and 3, a dashed line marks the mean and variance 3, and the bars shrink slowly to the right."
+    },
+    {
+      "key": "normal-curve-areas",
+      "file": "diagrams/ug26-319-r06-probability-distributions-applied-normal-curve-areas.svg",
+      "alt": "Bell-shaped normal curve with nested shaded regions for mean plus or minus 1, 2 and 3 standard deviations, labelled 68.3, 95.4 and 99.7 percent, with a second axis of marks from 48 to 96",
+      "caption": "Normal curve: areas within 1, 2 and 3 standard deviations of the mean",
+      "description": "A symmetric bell curve centred at the mean. The central region from mu - sigma to mu + sigma is shaded darkest and holds 68.3 percent of the area; mu +/- 2 sigma holds 95.4 percent and mu +/- 3 sigma holds 99.7 percent. Two scales under the curve give the distance from the mean in standard deviations and, as an illustrative example, test marks with mean 72 and standard deviation 8, from 48 to 96."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r06-probability-distributions-applied-q01",

@@ -71,6 +71,14 @@
         "text": "The **Oparin-Haldane theory** suggests that life came from pre-existing non-living organic molecules, and that the formation of life was preceded by **chemical evolution**: the formation of diverse organic molecules from inorganic constituents. In 1953 **S. L. Miller**, an American scientist, set up a closed flask containing CH$_4$, H$_2$, NH$_3$ and water vapour at 800 degrees Celsius and created an electric discharge in it. He observed the formation of **amino acids**. In similar experiments, other scientists observed the formation of sugars, nitrogen bases, pigments and fats. Miller's experiment therefore supported the idea that the building blocks of life could form from simple gases under the conditions of the early Earth. The first non-cellular forms of life are thought to have arisen about 3 billion years ago, as giant molecules such as RNA, protein and polysaccharides, and the first cellular forms of life appeared in the oceans."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "t11-miller-apparatus"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: Miller put the gases of the early reducing atmosphere (CH4, NH3, H2 and water vapour) into a closed system and gave them an electric discharge, and amino acids formed. This supports chemical evolution, the idea that the building blocks of life formed from simple gases."
+      },
+      {
         "type": "DEFINITION",
         "term": "Chemical evolution",
         "text": "The gradual formation of simple and then complex organic molecules (amino acids, sugars, nitrogen bases) from the inorganic gases of the early Earth, before the first living cells arose."
@@ -132,6 +140,14 @@
       {
         "type": "TEXT",
         "text": "**Comparative anatomy and morphology.** Organs with the same fundamental structure but different functions are **homologous organs**. The forelimbs of whales, bats, cheetah and humans have the same bones (humerus, radius, ulna, carpals, metacarpals and phalanges) but are used for swimming, flying, running and holding. The thorn of *Bougainvillea* and the tendril of *Cucurbita* are homologous plant structures. Homology shows common ancestry and shows **divergent evolution**: the same structure develops differently in different directions. In contrast, **analogous organs** have different structures but similar functions. The wings of a butterfly and of a bird, the eyes of an octopus and of a mammal, and the flippers of penguins and dolphins are analogous. Sweet potato (a modified root) and potato (a modified stem) are analogous. Analogy shows **convergent evolution**: different structures evolve to perform the same function in similar habitats."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "t11-homologous-analogous"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: homologous means same origin and structure but different jobs (divergent evolution). Analogous means different origin and structure but the same job (convergent evolution). Judge by structure and origin, not by function alone."
       },
       {
         "type": "TEXT",
@@ -228,6 +244,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "t11-selection-curves"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: compare the coloured curve with the dashed one. Stabilising squeezes the peak at the mean, directional moves the peak to one side, and disruptive makes two peaks with the middle value becoming rare."
+      },
+      {
         "type": "TEXT",
         "text": "Variation is the raw material. Its main sources are **mutation** (a change in the DNA of a cell) and **genetic recombination** during sexual reproduction (crossing over and independent assortment). In a changing environment selection favours some of the variants, and these become more common. Isolation of populations, so that they cannot interbreed, can finally produce new species. The mechanisms of evolution therefore include mutation, recombination, gene flow, genetic drift and natural selection."
       },
@@ -243,6 +267,14 @@
         "type": "FORMULA",
         "latex": "p + q = 1 \\qquad p^{2} + 2pq + q^{2} = 1",
         "text": "p is the frequency of allele A and q of allele a. $p^2$ is the frequency of AA, $2pq$ of Aa and $q^2$ of aa. The principle holds only when mating is random, the population is large, and there is no migration, mutation or selection."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "t11-hardy-weinberg-graph"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: the three genotype frequencies always add up to 1. Heterozygotes (2pq) are at most 0.5, reached when p and q are both 0.5. The marked point (q = 0.4) matches the worked example in which 16 per cent aa gives q = 0.4 and 48 per cent heterozygotes."
       },
       {
         "type": "TEXT",
@@ -299,6 +331,14 @@
         ]
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "t11-geological-timeline"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: learn the order Palaeozoic, Mesozoic, Cenozoic and what dominated in each (pteridophytes and fishes, then gymnosperms and reptiles, then angiosperms and mammals). The Cenozoic is a very short part of the time line."
+      },
+      {
         "type": "TEXT",
         "text": "Some important points follow. About 500 million years ago invertebrates were formed and were active, and jawless fish probably evolved around 350 million years ago. The first organisms to invade land were plants. Fish with stout and strong fins could move on land and go back to water. This was about 350 million years ago. In 1938 a fish caught in South Africa turned out to be a coelacanth, a lobefin thought to be extinct. Lobefins evolved into the first amphibians, which lived on both land and water, and the amphibians evolved into reptiles. Reptiles of different shapes and sizes dominated the earth, and the largest dinosaur of the group was *Tyrannosaurus rex*. About 65 million years ago the dinosaurs suddenly disappeared. Some of the land reptiles went back into water to evolve into fish-like reptiles, such as the ichthyosaurs, and mammals evolved from reptiles. Birds are believed to have evolved from reptiles. The first mammals were small, shrew-like animals."
       },
@@ -353,7 +393,43 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "t11-miller-apparatus",
+      "file": "diagrams/ug26-304-t11-evolution-miller-apparatus.svg",
+      "alt": "Miller apparatus: a flask of boiling water sends vapour to a large flask of methane, ammonia and hydrogen with an electric spark, then through a condenser to a trap where amino acids collect",
+      "caption": "Miller experiment (1953)",
+      "description": "A closed loop of glassware. A flask of boiling water is heated and its water vapour rises through a pipe into a large flask holding methane, ammonia and hydrogen, where an electric spark passes between two electrodes. The gases pass down through a cooling condenser into a trap that collects the products, and the liquid returns to the boiling flask. Amino acids were found in the trap."
+    },
+    {
+      "key": "t11-homologous-analogous",
+      "file": "diagrams/ug26-304-t11-evolution-homologous-analogous.svg",
+      "alt": "Top: a common ancestor leads to whale flipper, bat wing, cheetah forelimb and human arm, which have different functions. Bottom: butterfly wing and bird wing have different structures but the same function, flying",
+      "caption": "Homologous organs and analogous organs",
+      "description": "The top panel shows homologous organs. A common ancestor with a forelimb built from the same bones gives rise to the whale flipper (swimming), bat wing (flying), cheetah forelimb (running) and human arm (holding). This is divergent evolution. The bottom panel shows analogous organs. The butterfly wing and the bird wing have different structures but arise separately and both serve for flying. This is convergent evolution."
+    },
+    {
+      "key": "t11-selection-curves",
+      "file": "diagrams/ug26-304-t11-evolution-selection-curves.svg",
+      "alt": "Three bell-curve panels comparing the distribution before selection (dashed) with after selection: stabilising makes the peak higher and narrower, directional shifts it to one side, disruptive splits it into two peaks",
+      "caption": "Stabilising, directional and disruptive selection",
+      "description": "Three graphs of number of individuals against trait value. Each has a dashed grey bell curve for the population before selection. In stabilising selection the new curve is higher and narrower around the mean. In directional selection the new curve has the same shape but shifted to one side. In disruptive selection the new curve has two peaks at the two ends and a dip at the mean. The curves are computed from normal distributions and the total number of individuals is kept the same."
+    },
+    {
+      "key": "t11-hardy-weinberg-graph",
+      "file": "diagrams/ug26-304-t11-evolution-hardy-weinberg-graph.svg",
+      "alt": "Graph of genotype frequency against allele frequency q: AA falls as (1-q) squared, Aa is a hump 2pq peaking at 0.5, aa rises as q squared; at q = 0.4 the values are 0.36, 0.48 and 0.16",
+      "caption": "Hardy-Weinberg genotype frequencies as q changes",
+      "description": "A graph with allele frequency q on the horizontal axis from 0 to 1 and genotype frequency on the vertical axis from 0 to 1. The blue curve for AA starts at 1 and falls to 0. The green curve for Aa is an arch that peaks at 0.5 when q is 0.5. The red curve for aa starts at 0 and rises to 1. A dashed line at q equal to 0.4 marks AA 0.36, Aa 0.48 and aa 0.16, which sum to 1. The curves were computed from p squared, 2pq and q squared."
+    },
+    {
+      "key": "t11-geological-timeline",
+      "file": "diagrams/ug26-304-t11-evolution-geological-timeline.svg",
+      "alt": "Timeline bar of the Palaeozoic, Mesozoic and Cenozoic eras with approximate ages and cards listing the dominant plants and vertebrates of each era",
+      "caption": "Geological eras with dominant plants and vertebrates",
+      "description": "A horizontal bar divided into three eras drawn to scale: the Palaeozoic from about 541 to 252 million years ago, the Mesozoic from about 252 to 66, and the Cenozoic from about 66 million years ago to the present. Below are three cards. Palaeozoic: algae then bryophytes and pteridophytes; fishes, amphibians and first reptiles. Mesozoic: gymnosperms dominant; reptiles and dinosaurs dominant, first birds and mammals. Cenozoic: angiosperms dominant; mammals diversify and humans appear."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-304-t11-evolution-q01",

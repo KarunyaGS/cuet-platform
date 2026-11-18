@@ -55,6 +55,14 @@
         "text": "For example, $\\sin x$ is increasing and takes every value from $-1$ to $1$ exactly once on $\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]$. So the restricted function $\\sin:\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]\\to[-1,1]$ is a bijection and has an inverse."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "why-restrict-branch"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: An inverse needs each output to come from exactly one input. y = 1/2 is reached 4 times on [-2 pi, 2 pi], so we keep only the branch [-pi/2, pi/2], where every value from -1 to 1 occurs once."
+      },
+      {
         "type": "HEADING",
         "text": "Definition of the inverse trigonometric functions"
       },
@@ -271,6 +279,30 @@
         "text": "Reading values from the graph is a quick check. On $y=\\cos^{-1}x$, the point $(0,\\tfrac{\\pi}{2})$ shows $\\cos^{-1}0=\\tfrac{\\pi}{2}$. On $y=\\tan^{-1}x$, large positive $x$ gives values approaching but never reaching $\\tfrac{\\pi}{2}$, so $\\tan^{-1}x<\\tfrac{\\pi}{2}$ for every real $x$."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "sin-and-inverse"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The graph of an inverse is the mirror image of the restricted graph in the line y = x: every point (a, b) becomes (b, a), so the domain and range swap."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "cos-and-inverse"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: cos x is restricted to [0, pi] where it is decreasing. So cos-1 x is also decreasing, runs from pi down to 0, and passes through (0, pi/2)."
+      },
+      {
+        "type": "DIAGRAM",
+        "diagram": "tan-and-inverse"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: The vertical asymptotes of tan x become the horizontal asymptotes y = +-pi/2 of tan-1 x. That is why tan-1 x is defined for every real x but never reaches pi/2."
+      },
+      {
         "type": "KEY_POINT",
         "text": "Principal ranges to remember: $\\sin^{-1}$: $[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}]$; $\\cos^{-1}$: $[0,\\pi]$; $\\tan^{-1}$: $(-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2})$; $\\cot^{-1}$: $(0,\\pi)$. Square brackets mean the end values are attained; round brackets mean they are not."
       },
@@ -284,7 +316,36 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "why-restrict-branch",
+      "file": "diagrams/ug26-319-r20-inverse-trig-why-restrict-branch.svg",
+      "alt": "The graph of y = sin x from -2 pi to 2 pi with the line y = 1/2 cutting it four times and the branch from -pi/2 to pi/2 drawn in blue",
+      "caption": "Why sin x must be restricted before it has an inverse",
+      "description": "The whole curve y = sin x on [-2 pi, 2 pi] is drawn in grey and the branch [-pi/2, pi/2] in blue. A horizontal line y = 1/2 meets the grey curve at four red dots but meets the blue branch only once. Axis values are in radians."
+    },
+    {
+      "key": "sin-and-inverse",
+      "file": "diagrams/ug26-319-r20-inverse-trig-sin-and-inverse.svg",
+      "alt": "The restricted sine curve and the inverse sine curve drawn as mirror images in the line y = x with matching points marked",
+      "caption": "y = sin x on its branch and its mirror image y = sin-1 x",
+      "description": "Two curves and the line y = x. The restricted sine curve on [-pi/2, pi/2] passes through (-pi/2, -1), (0, 0) and (pi/2, 1). Its mirror image, y = sin-1 x with domain [-1, 1] and range [-pi/2, pi/2], passes through (-1, -pi/2), (0, 0) and (1, pi/2)."
+    },
+    {
+      "key": "cos-and-inverse",
+      "file": "diagrams/ug26-319-r20-inverse-trig-cos-and-inverse.svg",
+      "alt": "The restricted cosine curve on 0 to pi and the inverse cosine curve as mirror images in the line y = x",
+      "caption": "y = cos x on [0, pi] and its mirror image y = cos-1 x",
+      "description": "The restricted cosine curve falls from (0, 1) to (pi, -1). Its mirror image y = cos-1 x, with domain [-1, 1] and range [0, pi], falls from (-1, pi) through (0, pi/2) to (1, 0). The line y = x is shown as the mirror."
+    },
+    {
+      "key": "tan-and-inverse",
+      "file": "diagrams/ug26-319-r20-inverse-trig-tan-and-inverse.svg",
+      "alt": "The restricted tangent curve and the inverse tangent curve as mirror images in the line y = x with the pair of points (1.2, 2.57) and (2.57, 1.2)",
+      "caption": "y = tan x on (-pi/2, pi/2) and its mirror image y = tan-1 x",
+      "description": "The tangent curve on (-pi/2, pi/2) climbs without bound near the vertical asymptotes. Its mirror image, y = tan-1 x defined for all real x with range (-pi/2, pi/2), flattens towards the horizontal lines y = pi/2 and y = -pi/2. The points (1.2, 2.57) and (2.57, 1.2) are mirror images."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-319-r20-inverse-trigonometric-functions-q01",
