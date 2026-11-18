@@ -117,6 +117,20 @@ export async function applyReview(db: D1Database, input: ReviewInput, actor: str
       .all<{ id: string }>();
     if (missing.results.length) throw conflict('Questions need an answer key and an explanation before approval', missing.results.map((r) => r.id));
   }
+  // A bulk management approval rests on automated format checks only. It never lets a question be approved or published:
+  // a person has to verify the question individually first (that moves its bulk record to SUPERSEDED).
+  if ((input.action === 'APPROVED' || input.action === 'PUBLISHED') && input.entityType === 'QUESTION') {
+    const bulkOnly = await db
+      .prepare(`SELECT DISTINCT question_id AS id FROM bulk_approval_items WHERE state = 'ACTIVE' AND question_id IN (${placeholders})`)
+      .bind(...ids)
+      .all<{ id: string }>();
+    if (bulkOnly.results.length) {
+      throw conflict(
+        'These questions are verified only by a bulk management approval (automated format checks). A reviewer must verify each one individually before it can be approved or published.',
+        bulkOnly.results.map((r) => r.id),
+      );
+    }
+  }
 
   const now = nowIso();
   const statements: D1PreparedStatement[] = [];

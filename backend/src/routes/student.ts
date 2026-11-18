@@ -32,7 +32,7 @@ import { examPreview, previewQuery, recordViolation, violationSchema } from '../
 import { chatMessageSchema, createTicket, getChat, listTickets, replySchema, replyTicket, sendChat, storeAttachment, studentAttachment, ticketDetail, ticketSchema, unreadCount, CATEGORIES } from '../services/support';
 import { examActive, keeper, paperInScope, scienceOnly, UG_SCIENCE_PAPER_CODES } from '../lib/scope';
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
-import { answerSchema, getSession, marksSchema, progress, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
+import { answerSchema, getSession, marksSchema, progress, questionCounts, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 
 const preview = (env: AppEnv['Bindings']) => env.CONTENT_PREVIEW === 'true';
 const inApp = (env: AppEnv['Bindings']) => env.OFFICIAL_IN_APP_VIEWING === 'on';
@@ -197,6 +197,9 @@ learn.get('/pyq/:year/:slug', async (c) => {
   if ((r.subject.code === null && scienceOnly(c.env)) || !paperInScope(c.env, exam, r.subject.code)) throw notFound('Papers for this subject and year');
   return c.json(r);
 });
+learn.get('/question-counts', async (c) =>
+  c.json(await questionCounts(c.env.DB, preview(c.env), { paperId: c.req.query('paperId') || undefined, nodeIds: (c.req.query('nodeIds') ?? '').split(',').map((x) => x.trim()).filter(Boolean).slice(0, 30), difficulty: (c.req.query('difficulty') ?? '').split(',').filter(Boolean), types: (c.req.query('types') ?? '').split(',').filter(Boolean) })),
+);
 learn.get('/topics/:nodeId/revision', async (c) => c.json(await revisionNotes(c.env.DB, preview(c.env), c.req.param('nodeId'))));
 
 export const student = new Hono<AppEnv>();

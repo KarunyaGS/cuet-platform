@@ -2,6 +2,7 @@ import { BookOpenCheck, CircleCheckBig, History } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 import { api, type ExamCode } from '../api';
 import { ErrorBox, Loading, useAuth, useLoad } from '../ui';
+import { CustomPractice } from './CustomPractice';
 import { NotFoundPage } from './Search';
 
 /**
@@ -13,6 +14,7 @@ export function SubjectPage() {
   const { user } = useAuth();
   const subjects = useLoad(() => api.subjects(exam as ExamCode, 2026), [exam]);
   const summary = useLoad(() => (user ? api.subjectSummary(paperId) : Promise.resolve(null)), [paperId, user?.id]);
+  const outline = useLoad(() => api.outline(paperId), [paperId]);
   if (subjects.loading && !subjects.data) return <Loading />;
   if (subjects.error) return <ErrorBox error={subjects.error} onRetry={subjects.reload} />;
   const subject = subjects.data?.find((s) => s.paperId === paperId);
@@ -67,6 +69,14 @@ export function SubjectPage() {
             <div className="num mt-2 text-3xl font-semibold text-ink">{user ? (d?.testsCompleted ?? 0) : '–'}</div>
           </li>
         </ul>
+      )}
+      {subject.questions > 0 && (
+        <div className="mt-4">
+          <CustomPractice
+            paperId={paperId}
+            chapters={(outline.data?.nodes ?? []).filter((n) => n.parent_id === null && n.kind !== 'NOTE').map((n) => ({ id: n.id, title: n.title.length > 60 ? `${n.title.slice(0, 58)}…` : n.title }))}
+          />
+        </div>
       )}
     </div>
   );

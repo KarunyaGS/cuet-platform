@@ -66,6 +66,9 @@ export interface Subject {
   available: boolean; preview: boolean; verification: string | null; units: number; sections: number; topics: number; questions: number;
 }
 export interface OutlineNode { id: string; parent_id: string | null; kind: string; label: string | null; title: string; depth: number; position: number; source_page: number | null; resources: number; questions: number }
+export type Difficulty = 'EASY' | 'MEDIUM' | 'HARD';
+export type QuestionTypeName = 'MCQ_SINGLE' | 'MCQ_MULTI' | 'ASSERTION_REASON' | 'MATCH_THE_FOLLOWING' | 'STATEMENT_BASED' | 'PASSAGE_BASED' | 'DIAGRAM_BASED' | 'NUMERICAL';
+export interface QuestionCounts { total: number; matching: number; byDifficulty: Record<string, number>; byType: Record<string, number> }
 export interface Outline { paper: Record<string, string | number | null>; nodes: OutlineNode[] }
 export interface TopicDetail {
   topic: { id: string; kind: string; label: string | null; title: string; body: string | null; sourcePage: number | null; verification: string; preview: boolean };
@@ -126,7 +129,7 @@ export interface EmailSettings { email: string; emailVerified: boolean; emailRem
 export interface SessionQuestion {
   number: number; id: string; type: string; stem: string; difficulty: string; preview: boolean; origin: string;
   passage: { title: string | null; body: string } | null; structure: unknown;
-  options: { position: number; label: string; text: string; mediaAssetId: string | null }[];
+  options: { position: number; label: string; text: string; mediaAssetId: string | null; alt?: string | null }[];
   answer: { selectedPositions: number[] | null; numericAnswer: number | null } | null;
   review: { outcome: string; score: number; correctOptionPositions: number[] | null; correctNumericAnswer: number | null; explanation: string | null; optionRationale: Record<string, string> | null } | null;
 }
@@ -139,6 +142,8 @@ export interface PracticeSession {
     /** Set when the attempt is a fixed paper: one of our mock papers, or an official previous-year paper. */
     source: { kind: 'MOCK_PAPER' | 'PAST_PAPER'; id: string; title: string } | null;
     result: { score: number; maxScore: number; correct: number; incorrect: number; unattempted: number; submittedAt: string } | null;
+    /** How a finished attempt went by unit and by difficulty, and how long it took. */
+    analysis: { timeTakenSeconds: number | null; byUnit: { id: string; title: string; correct: number; incorrect: number; unattempted: number; accuracy: number | null }[]; byDifficulty: { difficulty: string; correct: number; incorrect: number; unattempted: number; accuracy: number | null }[] } | null;
     /** Why the attempt ended: SUBMITTED, TIME_UP or TERMINATED_<incident>. Null while it is running. */
     endReason: string | null;
     /** Examination mode (mock tests): the rules in force and every incident reported during the attempt. Null for practice. */
@@ -148,7 +153,7 @@ export interface PracticeSession {
 }
 export interface ExamPreview { mode: 'TOPIC_TEST' | 'MOCK_TEST'; title: string; subject: string | null; questions: number; durationMinutes: number; marking: { correct: number; incorrect: number }; maxMarks: number; policy: { maxIncidents: number; returnSeconds: number; mergeSeconds: number } }
 export interface ViolationResult { action: 'WARNED' | 'TERMINATED' | 'MERGED' | 'IGNORED'; incidents: number; ended: boolean; endReason: string | null; policy: ExamPreview['policy'] }
-export interface Feedback { outcome?: string; score?: number; correctOptionPositions?: number[] | null; explanation?: string | null; saved: boolean }
+export interface Feedback { outcome?: string; score?: number; correctOptionPositions?: number[] | null; correctNumericAnswer?: number | null; explanation?: string | null; optionRationale?: Record<string, string> | null; saved: boolean }
 export interface Progress {
   totals: { sessions: number; correct: number; incorrect: number; unattempted: number; answered: number; accuracy: number | null };
   topics: { id: string; title: string; kind: string; paper: string; paper_code: string; attempted: number; correct: number; incorrect: number; accuracy: number; last_attempt_at: string }[];
@@ -334,10 +339,11 @@ export const api = {
   logout: () => request<unknown>('POST', '/api/auth/logout'),
   exams: () => request<Exam[]>('GET', '/api/learn/exams'),
   subjects: (exam: ExamCode, year: number) => request<Subject[]>('GET', `/api/learn/exams/${exam}/subjects?year=${year}`),
+  questionCounts: (q: { paperId?: string; nodeIds?: string[]; difficulty?: Difficulty[]; types?: QuestionTypeName[] }) => request<QuestionCounts>('GET', `/api/learn/question-counts?${new URLSearchParams({ ...(q.paperId ? { paperId: q.paperId } : {}), ...(q.nodeIds?.length ? { nodeIds: q.nodeIds.join(',') } : {}), ...(q.difficulty?.length ? { difficulty: q.difficulty.join(',') } : {}), ...(q.types?.length ? { types: q.types.join(',') } : {}) })}`),
   outline: (paperId: string) => request<Outline>('GET', `/api/learn/subjects/${paperId}`),
   topic: (id: string) => request<TopicDetail>('GET', `/api/learn/topics/${id}`),
   resource: (id: string) => request<ResourceDetail>('GET', `/api/learn/resources/${id}`),
-  startPractice: (b: { mode: PracticeSession['session']['mode']; nodeId?: string; paperId?: string; count?: number }) => request<PracticeSession>('POST', '/api/student/practice', b),
+  startPractice: (b: { mode: PracticeSession['session']['mode']; nodeId?: string; nodeIds?: string[]; paperId?: string; count?: number; difficulty?: Difficulty[]; types?: QuestionTypeName[] }) => request<PracticeSession>('POST', '/api/student/practice', b),
   session: (id: string) => request<PracticeSession>('GET', `/api/student/practice/${id}`),
   answer: (id: string, b: { questionId: string; selectedPositions?: number[]; numericAnswer?: number | null }) => request<Feedback>('POST', `/api/student/practice/${id}/answers`, b),
   examPreview: (q: { mode: 'TOPIC_TEST' | 'MOCK_TEST'; nodeId?: string; paperId?: string }) => request<ExamPreview>('GET', `/api/student/exam/preview?${new URLSearchParams(Object.entries(q).filter(([, v]) => v) as [string, string][])}`),

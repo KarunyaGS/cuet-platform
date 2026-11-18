@@ -11,14 +11,23 @@ import { insertRows, nowIso } from '../lib/sql';
 import { VISIBLE_CONTENT } from './learning';
 import { evaluateResponse, markingFromRules, type QuestionType } from './scoring';
 
+export const DIFFICULTIES = ['EASY', 'MEDIUM', 'HARD'] as const;
+export const QUESTION_TYPES = ['MCQ_SINGLE', 'MCQ_MULTI', 'ASSERTION_REASON', 'MATCH_THE_FOLLOWING', 'STATEMENT_BASED', 'PASSAGE_BASED', 'DIAGRAM_BASED', 'NUMERICAL'] as const;
+
 export const startSchema = z
   .object({
     mode: z.enum(['PRACTICE', 'TOPIC_TEST', 'MOCK_TEST']),
     nodeId: z.string().max(100).optional(),
+    /** Several chapters or topics of one subject at once (each includes everything under it). */
+    nodeIds: z.array(z.string().max(100)).min(1).max(30).optional(),
     paperId: z.string().max(100).optional(),
     count: z.number().int().min(1).max(90).optional(), // D1 allows 100 bound values in one statement
+    /** Optional filters for practice sets and topic tests. A full mock paper is never filtered. */
+    difficulty: z.array(z.enum(DIFFICULTIES)).min(1).max(3).optional(),
+    types: z.array(z.enum(QUESTION_TYPES)).min(1).max(8).optional(),
   })
-  .refine((s) => s.nodeId || s.paperId, 'Choose a topic or a subject');
+  .refine((s) => s.nodeId || s.nodeIds || s.paperId, 'Choose a topic or a subject')
+  .refine((s) => s.mode !== 'MOCK_TEST' || (!s.difficulty && !s.types && !s.nodeIds), 'A full mock test uses the whole paper; difficulty, type and chapter filters apply to practice sets and topic tests');
 
 export const answerSchema = z.object({
   questionId: z.string().max(100),
@@ -53,31 +62,76 @@ export async function paperAndRules(db: D1Database, nodeId?: string, paperId?: s
   return { paperId: row.paper_id, rulesJson: row.rules_json, rules: JSON.parse(row.rules_json ?? '{}') as Rules };
 }
 
+/** The SQL pieces and bound values that narrow a question search by difficulty and type (placeholders numbered from `first`). */
+function filterSql(f: { difficulty?: readonly string[]; types?: readonly string[] }, first: number) {
+  const binds: string[] = [];
+  const parts: string[] = [];
+  let n = first;
+  if (f.difficulty?.length) parts.push(`AND q.difficulty IN (${f.difficulty.map((d) => (binds.push(d), `?${n++}`)).join(',')})`);
+  if (f.types?.length) parts.push(`AND q.type IN (${f.types.map((t) => (binds.push(t), `?${n++}`)).join(',')})`);
+  return { sql: parts.join(' '), binds, next: n };
+}
+
+/** Topic ids picked by the student (one `nodeId` or several `nodeIds`); they must all belong to one subject. */
+async function pickedNodes(db: D1Database, input: { nodeId?: string; nodeIds?: string[] }) {
+  const ids = [...new Set([...(input.nodeIds ?? []), ...(input.nodeId ? [input.nodeId] : [])])];
+  if (!ids.length) return ids;
+  const { results } = await db
+    .prepare(`SELECT n.id, v.test_paper_id AS paper FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id WHERE n.id IN (${ids.map(() => '?').join(',')})`)
+    .bind(...ids)
+    .all<{ id: string; paper: string }>();
+  if (results.length !== ids.length) throw notFound('Topic');
+  if (new Set(results.map((r) => r.paper)).size > 1) throw invalid('Choose chapters of one subject at a time');
+  return ids;
+}
+
+/** Visible questions matching a topic/subject selection and the filters, as ids (random order) or as counts. */
+async function selectQuestions(db: D1Database, preview: boolean, sel: { nodes: string[]; paperId?: string; difficulty?: readonly string[]; types?: readonly string[] }, limit: number | null) {
+  const flt = filterSql(sel, sel.nodes.length ? sel.nodes.length + 2 : 3);
+  const lim = limit === null ? '' : ` ORDER BY random() LIMIT ${Math.max(1, Math.floor(limit))}`;
+  const base = sel.nodes.length
+    ? {
+        sql: `WITH RECURSIVE sub(id) AS (SELECT id FROM curriculum_nodes WHERE id IN (${sel.nodes.map((_, i) => `?${i + 2}`).join(',')}) UNION ALL SELECT n.id FROM curriculum_nodes n JOIN sub ON n.parent_id = sub.id)
+           SELECT DISTINCT q.id, q.type, q.difficulty FROM questions q JOIN question_topics qt ON qt.question_id = q.id
+           WHERE qt.curriculum_node_id IN (SELECT id FROM sub) AND ${VISIBLE_CONTENT('q')} ${flt.sql}`,
+        binds: [preview ? 1 : 0, ...sel.nodes, ...flt.binds],
+      }
+    : {
+        sql: `SELECT DISTINCT q.id, q.type, q.difficulty FROM questions q LEFT JOIN question_topics qt ON qt.question_id = q.id LEFT JOIN curriculum_nodes n ON n.id = qt.curriculum_node_id
+           LEFT JOIN syllabus_versions v ON v.id = n.syllabus_version_id
+           WHERE (q.test_paper_id = ?2 OR v.test_paper_id = ?2) AND ${VISIBLE_CONTENT('q')} ${flt.sql}`,
+        binds: [preview ? 1 : 0, sel.paperId ?? '', ...flt.binds],
+      };
+  const { results } = await db.prepare(base.sql + lim).bind(...base.binds).all<{ id: string; type: string; difficulty: string }>();
+  return results;
+}
+
+/** How many questions a student can practise for a selection, split by difficulty and type (for the filter panel). */
+export async function questionCounts(db: D1Database, preview: boolean, q: { paperId?: string; nodeIds: string[]; difficulty?: string[]; types?: string[] }) {
+  if (!q.paperId && !q.nodeIds.length) throw invalid('Choose a topic or a subject');
+  const nodes = await pickedNodes(db, { nodeIds: q.nodeIds.length ? q.nodeIds : undefined });
+  const rows = await selectQuestions(db, preview, { nodes, paperId: q.paperId }, null);
+  const byDifficulty: Record<string, number> = { EASY: 0, MEDIUM: 0, HARD: 0 };
+  const byType: Record<string, number> = {};
+  for (const r of rows) {
+    byDifficulty[r.difficulty] = (byDifficulty[r.difficulty] ?? 0) + 1;
+    byType[r.type] = (byType[r.type] ?? 0) + 1;
+  }
+  const matching = rows.filter((r) => (!q.difficulty?.length || q.difficulty.includes(r.difficulty)) && (!q.types?.length || q.types.includes(r.type))).length;
+  return { total: rows.length, matching, byDifficulty, byType };
+}
+
 export async function startSession(db: D1Database, preview: boolean, userId: string, input: z.infer<typeof startSchema>) {
-  const { paperId, rulesJson, rules } = await paperAndRules(db, input.nodeId, input.paperId);
-  const marking = markingFromRules(rulesJson);
+  const nodes = await pickedNodes(db, input);
+  const { paperId, rulesJson, rules } = await paperAndRules(db, nodes[0], input.paperId);
   const full = rules.questionsPerPaper ?? 50;
   const want = input.count ?? (input.mode === 'MOCK_TEST' ? full : input.mode === 'TOPIC_TEST' ? 15 : 10);
-  // Questions linked to the topic and everything under it, or to any topic of the subject.
-  const { results } = input.nodeId
-    ? await db
-        .prepare(
-          `WITH RECURSIVE sub(id) AS (SELECT ?2 UNION ALL SELECT n.id FROM curriculum_nodes n JOIN sub ON n.parent_id = sub.id)
-           SELECT DISTINCT q.id FROM questions q JOIN question_topics qt ON qt.question_id = q.id
-           WHERE qt.curriculum_node_id IN (SELECT id FROM sub) AND ${VISIBLE_CONTENT('q')} ORDER BY random() LIMIT ?3`,
-        )
-        .bind(preview ? 1 : 0, input.nodeId, want)
-        .all<{ id: string }>()
-    : await db
-        .prepare(
-          `SELECT DISTINCT q.id FROM questions q LEFT JOIN question_topics qt ON qt.question_id = q.id LEFT JOIN curriculum_nodes n ON n.id = qt.curriculum_node_id
-           LEFT JOIN syllabus_versions v ON v.id = n.syllabus_version_id
-           WHERE (q.test_paper_id = ?2 OR v.test_paper_id = ?2) AND ${VISIBLE_CONTENT('q')} ORDER BY random() LIMIT ?3`,
-        )
-        .bind(preview ? 1 : 0, paperId, want)
-        .all<{ id: string }>();
-  if (!results.length) throw new ApiError(404, 'NO_QUESTIONS', 'No questions are available for this selection yet');
-  return createSession(db, userId, { mode: input.mode, paperId, nodeId: input.nodeId ?? null, ids: results.map((r) => r.id) }, { rulesJson, rules });
+  // Questions linked to the chosen topics and everything under them, or to any topic of the subject, narrowed by the filters.
+  const results = await selectQuestions(db, preview, { nodes, paperId: input.paperId, difficulty: input.difficulty, types: input.types }, want);
+  if (!results.length) {
+    throw new ApiError(404, 'NO_QUESTIONS', input.difficulty || input.types ? 'No questions match these filters. Try more difficulty levels or question types.' : 'No questions are available for this selection yet');
+  }
+  return createSession(db, userId, { mode: input.mode, paperId, nodeId: nodes[0] ?? null, ids: results.map((r) => r.id) }, { rulesJson, rules });
 }
 
 /**
@@ -106,6 +160,51 @@ export async function createSession(
     }]),
   );
   return getSession(db, userId, id);
+}
+
+/** How a finished attempt went by unit (the top-level syllabus row of each question's topic) and by difficulty, and how long it took. */
+async function analyseAttempt(db: D1Database, ids: string[], questions: Record<string, unknown>[], answers: Record<string, unknown>[], startedAt: unknown, submittedAt: unknown) {
+  const mark = new Map(answers.map((a) => [a.question_id as string, String(a.outcome)]));
+  const topicOf = new Map<string, string>();
+  for (let i = 0; i < ids.length; i += 80) {
+    const part = ids.slice(i, i + 80);
+    const { results } = await db.prepare(`SELECT question_id, curriculum_node_id FROM question_topics WHERE is_primary = 1 AND question_id IN (${part.map(() => '?').join(',')})`).bind(...part).all<{ question_id: string; curriculum_node_id: string }>();
+    for (const r of results) topicOf.set(r.question_id, r.curriculum_node_id);
+  }
+  const nodeIds = [...new Set(topicOf.values())];
+  const rootOf = new Map<string, { id: string; title: string }>();
+  for (let i = 0; i < nodeIds.length; i += 80) {
+    const part = nodeIds.slice(i, i + 80);
+    const { results } = await db
+      .prepare(`WITH RECURSIVE up(start_id, id, parent_id, title, depth) AS (
+          SELECT n.id, n.id, n.parent_id, n.title, n.depth FROM curriculum_nodes n WHERE n.id IN (${part.map(() => '?').join(',')})
+          UNION ALL SELECT up.start_id, p.id, p.parent_id, p.title, p.depth FROM curriculum_nodes p JOIN up ON p.id = up.parent_id)
+        SELECT start_id, id, title FROM up WHERE parent_id IS NULL`)
+      .bind(...part)
+      .all<{ start_id: string; id: string; title: string }>();
+    for (const r of results) rootOf.set(r.start_id, { id: r.id, title: r.title });
+  }
+  type Tally = { correct: number; incorrect: number; unattempted: number };
+  const blank = (): Tally => ({ correct: 0, incorrect: 0, unattempted: 0 });
+  const add = (t: Tally, outcome: string) => void (outcome === 'CORRECT' ? t.correct++ : outcome === 'INCORRECT' ? t.incorrect++ : t.unattempted++);
+  const units = new Map<string, Tally & { id: string; title: string }>();
+  const levels: Record<string, Tally> = { EASY: blank(), MEDIUM: blank(), HARD: blank() };
+  for (const q of questions) {
+    const outcome = mark.get(q.id as string) ?? 'UNATTEMPTED';
+    add(levels[String(q.difficulty)] ?? (levels[String(q.difficulty)] = blank()), outcome);
+    const root = rootOf.get(topicOf.get(q.id as string) ?? '');
+    const key = root?.id ?? 'none';
+    const u = units.get(key) ?? { id: key, title: root?.title ?? 'Not linked to a syllabus unit', ...blank() };
+    add(u, outcome);
+    units.set(key, u);
+  }
+  const seconds = startedAt && submittedAt ? Math.max(0, Math.round((new Date(String(submittedAt)).getTime() - new Date(String(startedAt)).getTime()) / 1000)) : null;
+  const rate = (t: Tally) => (t.correct + t.incorrect ? Math.round((100 * t.correct) / (t.correct + t.incorrect)) : null);
+  return {
+    timeTakenSeconds: seconds,
+    byUnit: [...units.values()].map((u) => ({ ...u, accuracy: rate(u) })).sort((a, b) => b.correct + b.incorrect + b.unattempted - (a.correct + a.incorrect + a.unattempted)),
+    byDifficulty: Object.entries(levels).filter(([, t]) => t.correct + t.incorrect + t.unattempted > 0).map(([difficulty, t]) => ({ difficulty, ...t, accuracy: rate(t) })),
+  };
 }
 
 export async function loadSession(db: D1Database, userId: string, id: string) {
@@ -144,6 +243,15 @@ export async function getSession(db: D1Database, userId: string, id: string) {
     ? await db.prepare(`SELECT a.question_id, a.correct_option_positions, a.numeric_answer, e.body AS explanation, e.option_rationale_json FROM answer_keys a LEFT JOIN explanations e ON e.question_id = a.question_id WHERE a.question_id IN (${placeholders})`).bind(...ids).all<Record<string, unknown>>()
     : { results: [] as Record<string, unknown>[] };
   const byQ = new Map(qs.results.map((q) => [q.id as string, q]));
+  // Figures of the questions (stem figure and option images): their descriptions, for the screen's alt text.
+  const mediaIds = [...new Set([...qs.results.map((q) => (q.structure_json ? (JSON.parse(q.structure_json as string) as { mediaAssetId?: string }).mediaAssetId : undefined)), ...opts.results.map((o) => o.media_asset_id as string | null)].filter((x): x is string => Boolean(x)))];
+  const alts = new Map<string, string>();
+  for (let i = 0; i < mediaIds.length; i += 80) {
+    const part = mediaIds.slice(i, i + 80);
+    const { results } = await db.prepare(`SELECT id, alt_text FROM media_assets WHERE id IN (${part.map(() => '?').join(',')})`).bind(...part).all<{ id: string; alt_text: string }>();
+    for (const r of results) alts.set(r.id, r.alt_text);
+  }
+  const analysis = submitted ? await analyseAttempt(db, ids, qs.results, answers.results, s.started_at, s.submitted_at) : null;
   return {
     session: {
       id: s.id, mode: s.mode, status: s.status, startedAt: s.started_at, durationSeconds: s.duration_seconds,
@@ -155,15 +263,16 @@ export async function getSession(db: D1Database, userId: string, id: string) {
       endReason: s.end_reason,
       exam: exam ? { ...EXAM_POLICY, incidents: violations.filter((v) => v.action === 'WARNED' || v.action === 'TERMINATED').length, violations } : null,
       result: submitted ? { score: s.score, maxScore: s.max_score, correct: s.correct_count, incorrect: s.incorrect_count, unattempted: s.unattempted_count, submittedAt: s.submitted_at } : null,
+      analysis,
     },
     questions: ids.filter((qid) => byQ.has(qid)).map((qid, i) => {
       const q = byQ.get(qid)!;
       const a = answers.results.find((x) => x.question_id === qid);
       const k = keys.results.find((x) => x.question_id === qid);
       return {
-        number: i + 1, id: qid, type: q.type, stem: q.stem, difficulty: q.difficulty, structure: q.structure_json ? JSON.parse(q.structure_json as string) : null,
+        number: i + 1, id: qid, type: q.type, stem: q.stem, difficulty: q.difficulty, structure: q.structure_json ? (() => { const st = JSON.parse(q.structure_json as string) as { mediaAssetId?: string }; return st.mediaAssetId ? { ...st, alt: alts.get(st.mediaAssetId) ?? null } : st; })() : null,
         passage: q.passage_body ? { title: q.passage_title, body: q.passage_body } : null, origin: q.origin, preview: q.status !== 'PUBLISHED',
-        options: opts.results.filter((o) => o.question_id === qid).map((o) => ({ position: o.position, label: o.label, text: o.text, mediaAssetId: o.media_asset_id })),
+        options: opts.results.filter((o) => o.question_id === qid).map((o) => ({ position: o.position, label: o.label, text: o.text, mediaAssetId: o.media_asset_id, alt: o.media_asset_id ? (alts.get(o.media_asset_id as string) ?? null) : null })),
         answer: a ? { selectedPositions: a.selected_positions_json ? JSON.parse(a.selected_positions_json as string) : null, numericAnswer: a.numeric_answer } : null,
         review: submitted
           ? {

@@ -18,7 +18,7 @@ import { insertRows, nowIso, type Row } from '../lib/sql';
 import { createSession } from './practice';
 import { OPTION_COUNT, shapeProblems } from './question-audit';
 
-const CHOICE_TYPES = ['MCQ_SINGLE', 'MCQ_MULTI', 'ASSERTION_REASON', 'MATCH_THE_FOLLOWING', 'STATEMENT_BASED'] as const;
+const CHOICE_TYPES = ['MCQ_SINGLE', 'MCQ_MULTI', 'ASSERTION_REASON', 'MATCH_THE_FOLLOWING', 'STATEMENT_BASED', 'DIAGRAM_BASED'] as const;
 
 const sourceSchema = z.object({
   title: z.string().trim().min(3).max(300),
@@ -38,7 +38,10 @@ const storedQuestion = z.object({
   dropped: z.literal(false).optional(),
   type: z.enum([...CHOICE_TYPES, 'NUMERICAL']),
   stem: z.string().min(3).max(10000),
-  options: z.array(z.object({ label: z.string().min(1).max(10), text: z.string().min(1).max(4000) })).max(OPTION_COUNT).default([]),
+  /** A figure the question depends on (drawn in the question). The image is uploaded first as a media asset with this key. */
+  figure: z.object({ mediaKey: z.string().trim().min(3).max(200) }).optional(),
+  /** An option can be an image (a graph); its text is then a short fallback such as "Graph 1". */
+  options: z.array(z.object({ label: z.string().min(1).max(10), text: z.string().min(1).max(4000), figure: z.object({ mediaKey: z.string().trim().min(3).max(200) }).optional() })).max(OPTION_COUNT).default([]),
   correctOptionPositions: z.array(z.number().int().min(1)).max(OPTION_COUNT).optional(),
   numericAnswer: z.number().nullable().optional(),
   numericTolerance: z.number().min(0).nullable().optional(),
@@ -46,6 +49,8 @@ const storedQuestion = z.object({
   officialKey: z.array(z.number().int().min(1)).max(10).optional(),
   officialQuestionId: z.string().trim().max(40).optional(),
   sourcePage: z.number().int().min(1),
+  /** The syllabus topic this question belongs to (a curriculum node of the same subject). The question stays hidden from students until the paper is published. */
+  topicNodeId: z.string().trim().max(100).optional(),
   /** Our own explanation, if one has been written. The official papers carry none. */
   explanation: z.string().min(10).max(20000).optional(),
 });
@@ -68,6 +73,8 @@ export const pastPaperPackSchema = z.object({
   answerKeySource: sourceSchema.optional(),
   keyVersion: z.enum(['FINAL', 'PROVISIONAL']).default('FINAL'),
   notes: z.string().max(2000).optional(),
+  /** Questions of the paper that are not imported yet (for example because they depend on a figure). They are accounted for, create no record, and block publishing until they are imported. */
+  deferred: z.array(z.object({ position: z.number().int().min(1).max(500), sourcePage: z.number().int().min(1), reason: z.string().trim().min(3).max(200), topicNodeId: z.string().trim().max(100).optional() })).default([]),
   questions: z.array(z.union([droppedQuestion, storedQuestion])).min(1).max(500),
 });
 export type PastPaperPack = z.infer<typeof pastPaperPackSchema>;
@@ -102,6 +109,12 @@ export function checkPack(pack: PastPaperPack): { errors: string[]; warnings: st
       if (key.length > 1 && s.type !== 'MCQ_MULTI') warnings.push(`Question ${s.position}: more than one option is accepted as correct (allowed when the official key says so)`);
     }
   }
+  for (const d of pack.deferred) {
+    if (seen.has(d.position)) errors.push(`Question ${d.position} appears twice (stored or dropped, and deferred)`);
+    seen.add(d.position);
+    if (d.position > pack.rules.questionsInPaper) errors.push(`Deferred question ${d.position} is beyond the paper's ${pack.rules.questionsInPaper} questions`);
+  }
+  if (pack.deferred.length) warnings.push(`${pack.deferred.length} question(s) are deferred and not imported (${pack.deferred.map((d) => d.position).join(', ')}); the paper cannot be published until they are`);
   const missing = [];
   for (let i = 1; i <= pack.rules.questionsInPaper; i++) if (!seen.has(i)) missing.push(i);
   if (missing.length) errors.push(`Not every question is accounted for. Missing: ${missing.slice(0, 20).join(', ')}${missing.length > 20 ? '…' : ''} (store it, or mark it dropped)`);
@@ -137,6 +150,19 @@ export async function importPastPaper(db: D1Database, body: unknown, actor: stri
   const permission = await db.prepare('SELECT id, code, name, public_display FROM usage_permissions WHERE code = ?').bind(pack.usagePermission).first<{ id: string; code: string; name: string; public_display: number }>();
   if (!permission) errors.push(`Usage permission "${pack.usagePermission}" is not registered`);
   else if (!permission.public_display) warnings.push(`The permission "${permission.name}" does not allow showing the paper to students; it can be stored for reference but not published`);
+  const topicIds = [...new Set([...pack.questions.map((q) => (q as Stored).topicNodeId), ...pack.deferred.map((d) => d.topicNodeId)].filter((x): x is string => Boolean(x)))];
+  if (topicIds.length) {
+    const found = await db.prepare(`SELECT n.id FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id JOIN test_papers tp ON tp.id = v.test_paper_id WHERE tp.code = ? AND n.id IN (${topicIds.map(() => '?').join(',')})`).bind(pack.subjectCode, ...topicIds).all<{ id: string }>();
+    const ok = new Set(found.results.map((r) => r.id));
+    for (const t of topicIds) if (!ok.has(t)) errors.push(`Topic ${t} is not a syllabus topic of subject ${pack.subjectCode}`);
+  }
+  const mediaKeys = [...new Set(pack.questions.flatMap((q) => (q.dropped ? [] : [(q as Stored).figure?.mediaKey, ...(q as Stored).options.map((o) => o.figure?.mediaKey)])).filter((x): x is string => Boolean(x)))];
+  const mediaIds = new Map<string, string>();
+  if (mediaKeys.length) {
+    const found = await db.prepare(`SELECT id, external_key FROM media_assets WHERE external_key IN (${mediaKeys.map(() => '?').join(',')})`).bind(...mediaKeys).all<{ id: string; external_key: string }>();
+    for (const r of found.results) mediaIds.set(r.external_key, r.id);
+    for (const k of mediaKeys) if (!mediaIds.has(k)) (dryRun ? warnings : errors).push(`Figure "${k}" is not uploaded yet (the import uploads it first)`);
+  }
   const key = packKey(pack);
   const stored = pack.questions.filter((q) => !q.dropped) as Stored[];
   const summary = { key, questions: stored.length, dropped: pack.questions.length - stored.length, warnings };
@@ -166,6 +192,8 @@ export async function importPastPaper(db: D1Database, body: unknown, actor: stri
   const keyRows: Row[] = [];
   const explanationRows: Row[] = [];
   const entryRows: Row[] = [];
+  const topicRows: Row[] = [];
+  const figureLinks: { media: string; page: number }[] = [];
   for (const q of pack.questions) {
     if (q.dropped) {
       entryRows.push({ id: newId('ppq'), past_paper_id: paperId, position: q.position, question_id: null, official_question_id: q.officialQuestionId ?? null, source_page: q.sourcePage ?? null, dropped: 1, official_key_json: null, created_at: now });
@@ -174,11 +202,13 @@ export async function importPastPaper(db: D1Database, body: unknown, actor: stri
     const s = q as Stored;
     const id = newId('q');
     questionRows.push({
-      id, test_paper_id: null, type: s.type, stem: s.stem, language: pack.language, translation_group_id: null, passage_id: null, difficulty: 'MEDIUM', learning_objective: null, structure_json: null,
+      id, test_paper_id: null, type: s.type, stem: s.stem, language: pack.language, translation_group_id: null, passage_id: null, difficulty: 'MEDIUM', learning_objective: null, structure_json: s.figure ? JSON.stringify({ mediaAssetId: mediaIds.get(s.figure.mediaKey) }) : null,
       origin: 'PAST_PAPER', usage_permission_id: permission!.id, source_document_id: qp.id, source_locator: `Question ${s.position}, page ${s.sourcePage}`, status: 'DRAFT', verification: 'UNVERIFIED',
       is_demonstration: 0, content_hash: await sha256Hex(`past-paper|${key}|${s.position}|${normaliseText(s.stem)}`), version: 1, external_key: `pyq:${key}:${s.position}`, created_at: now, updated_at: now,
     });
-    s.options.forEach((o, i) => optionRows.push({ id: newId('opt'), question_id: id, position: i + 1, label: o.label, text: o.text, media_asset_id: null, created_at: now, updated_at: now }));
+    if (s.topicNodeId) topicRows.push({ question_id: id, curriculum_node_id: s.topicNodeId, is_primary: 1 });
+    for (const fk of [s.figure?.mediaKey, ...s.options.map((o) => o.figure?.mediaKey)]) if (fk) figureLinks.push({ media: mediaIds.get(fk)!, page: s.sourcePage });
+    s.options.forEach((o, i) => optionRows.push({ id: newId('opt'), question_id: id, position: i + 1, label: o.label, text: o.text, media_asset_id: o.figure ? mediaIds.get(o.figure.mediaKey)! : null, created_at: now, updated_at: now }));
     keyRows.push({ id: newId('ans'), question_id: id, correct_option_positions: s.type === 'NUMERICAL' ? null : JSON.stringify(s.correctOptionPositions ?? []), numeric_answer: s.type === 'NUMERICAL' ? s.numericAnswer ?? null : null, numeric_tolerance: s.type === 'NUMERICAL' ? s.numericTolerance ?? 0 : null, verified_by: null, verified_at: null, created_at: now, updated_at: now });
     if (s.explanation) explanationRows.push({ id: newId('exp'), question_id: id, body: s.explanation, option_rationale_json: null, created_at: now, updated_at: now });
     entryRows.push({ id: newId('ppq'), past_paper_id: paperId, position: s.position, question_id: id, official_question_id: s.officialQuestionId ?? null, source_page: s.sourcePage, dropped: 0, official_key_json: s.officialKey ? JSON.stringify(s.officialKey) : null, created_at: now });
@@ -186,7 +216,7 @@ export async function importPastPaper(db: D1Database, body: unknown, actor: stri
   const paperRow: Row = {
     exam_code: pack.exam, year: pack.year, subject_code: pack.subjectCode, subject_name: pack.subjectName, test_paper_id: paperLink?.id ?? null, exam_date: pack.examDate ?? null, shift: pack.shift ?? null,
     language: pack.language, title: pack.title, question_paper_source_id: qp.id, answer_key_source_id: ak?.id ?? null, key_version: pack.keyVersion, usage_permission_id: permission!.id,
-    questions_in_paper: pack.rules.questionsInPaper, duration_minutes: pack.rules.durationMinutes, marks_correct: pack.rules.marksCorrect, marks_incorrect: pack.rules.marksIncorrect, notes: pack.notes ?? null, updated_at: now,
+    questions_in_paper: pack.rules.questionsInPaper, duration_minutes: pack.rules.durationMinutes, marks_correct: pack.rules.marksCorrect, marks_incorrect: pack.rules.marksIncorrect, notes: [pack.notes, pack.deferred.length ? `Not imported yet: ${pack.deferred.map((d) => `Q${d.position} (${d.reason})`).join('; ')}` : null].filter(Boolean).join(String.fromCharCode(10)) || null, updated_at: now,
   };
   await db.batch([
     ...qp.statements,
@@ -204,6 +234,9 @@ export async function importPastPaper(db: D1Database, body: unknown, actor: stri
     ...insertRows(db, 'answer_keys', keyRows),
     ...insertRows(db, 'explanations', explanationRows),
     ...insertRows(db, 'past_paper_questions', entryRows),
+    ...insertRows(db, 'question_topics', topicRows),
+    // Each figure remembers the source PDF and the page it was cut from.
+    ...figureLinks.map((f) => db.prepare('UPDATE media_assets SET source_document_id = ?, source_page = ?, updated_at = ? WHERE id = ?').bind(qp.id, f.page, now, f.media)),
     db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, existing ? 'REPLACE_PAST_PAPER' : 'IMPORT_PAST_PAPER', 'PAST_PAPER', paperId, JSON.stringify({ key, questions: stored.length, dropped: summary.dropped }), now),
   ]);
   return { ...summary, id: paperId, outcome: existing ? ('REPLACED' as const) : ('CREATED' as const) };
@@ -277,12 +310,18 @@ export async function startPastPaper(db: D1Database, userId: string, id: string,
 
 // ---------------------------------------------------------------- staff
 
+/** The figures (question images and option images) of one past paper, for a statement that binds the paper id as ?1. */
+const PAPER_MEDIA = `SELECT json_extract(q.structure_json, '$.mediaAssetId') FROM questions q JOIN past_paper_questions e ON e.question_id = q.id WHERE e.past_paper_id = ?1 AND json_extract(q.structure_json, '$.mediaAssetId') IS NOT NULL
+  UNION SELECT o.media_asset_id FROM question_options o JOIN past_paper_questions e ON e.question_id = o.question_id WHERE e.past_paper_id = ?1 AND o.media_asset_id IS NOT NULL`;
+
 export async function listPastPapersAdmin(db: D1Database) {
   const { results } = await db
     .prepare(
       `SELECT ${PAPER_COLUMNS}, pp.status, pp.external_key, pp.answer_key_source_id, pp.published_at, perm.name AS permission, perm.public_display, qs.url AS source_url,
          (SELECT COUNT(*) FROM past_paper_questions e JOIN questions q ON q.id = e.question_id WHERE e.past_paper_id = pp.id AND q.verification = 'VERIFIED') AS verified,
-         (SELECT COUNT(*) FROM past_paper_questions e JOIN questions q ON q.id = e.question_id WHERE e.past_paper_id = pp.id AND q.verification IN ('REJECTED','NEEDS_CHANGES')) AS flagged
+         (SELECT COUNT(*) FROM past_paper_questions e JOIN questions q ON q.id = e.question_id WHERE e.past_paper_id = pp.id AND q.verification IN ('REJECTED','NEEDS_CHANGES')) AS flagged,
+         (SELECT COUNT(*) FROM media_assets m WHERE m.id IN (${PAPER_MEDIA.split('?1').join('pp.id')})) AS figures,
+         (SELECT COUNT(*) FROM media_assets m WHERE m.verification = 'VERIFIED' AND m.id IN (${PAPER_MEDIA.split('?1').join('pp.id')})) AS figures_verified
        FROM past_papers pp JOIN usage_permissions perm ON perm.id = pp.usage_permission_id JOIN source_documents qs ON qs.id = pp.question_paper_source_id ORDER BY pp.year DESC, pp.subject_name, pp.exam_date, pp.shift`,
     )
     .all<PaperRow>();
@@ -297,6 +336,10 @@ function blockers(r: PaperRow): string[] {
   const open = Number(r['questions']) - Number(r['verified']);
   if (open > 0) out.push(`${open} of ${r['questions']} questions are not yet verified by a reviewer`);
   if (Number(r['questions']) === 0) out.push('The paper has no questions');
+  const openFigures = Number(r['figures'] ?? 0) - Number(r['figures_verified'] ?? 0);
+  if (openFigures > 0) out.push(`${openFigures} of ${r['figures']} figures are not yet verified by a reviewer`);
+  const missing = Number(r['questions_in_paper']) - Number(r['questions']) - Number(r['dropped']);
+  if (missing > 0) out.push(`${missing} of the paper's ${r['questions_in_paper']} questions are not imported yet`);
   return out;
 }
 
@@ -317,6 +360,7 @@ export async function setPastPaperStatus(db: D1Database, id: string, input: z.in
       db.prepare(`UPDATE past_papers SET status = 'PUBLISHED', published_at = ?2, published_by = ?3, updated_at = ?2 WHERE id = ?1 AND status = 'DRAFT'`).bind(id, now, actor),
       // From now on the questions belong to the subject, so they can also appear in ordinary practice.
       db.prepare(`UPDATE questions SET status = 'PUBLISHED', test_paper_id = (SELECT test_paper_id FROM past_papers WHERE id = ?1), updated_at = ?2 WHERE id IN (${ids})`).bind(id, now),
+      db.prepare(`UPDATE media_assets SET status = 'PUBLISHED', updated_at = ?2 WHERE id IN (${PAPER_MEDIA})`).bind(id, now),
       audit('PUBLISH_PAST_PAPER'),
     ]);
   } else {
@@ -324,6 +368,7 @@ export async function setPastPaperStatus(db: D1Database, id: string, input: z.in
     await db.batch([
       db.prepare(`UPDATE past_papers SET status = ?2, updated_at = ?3 WHERE id = ?1`).bind(id, input.action === 'ARCHIVE' ? 'ARCHIVED' : 'DRAFT', now),
       db.prepare(`UPDATE questions SET status = ?3, test_paper_id = NULL, updated_at = ?2 WHERE id IN (${ids})`).bind(id, now, input.action === 'ARCHIVE' ? 'ARCHIVED' : 'DRAFT'),
+      db.prepare(`UPDATE media_assets SET status = 'DRAFT', updated_at = ?2 WHERE id IN (${PAPER_MEDIA})`).bind(id, now),
       audit(input.action === 'ARCHIVE' ? 'ARCHIVE_PAST_PAPER' : 'UNPUBLISH_PAST_PAPER'),
     ]);
   }

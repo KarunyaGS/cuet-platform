@@ -1,6 +1,6 @@
 # Previous-year papers
 
-Status on 13 November 2026: the module is built and tested locally. **No paper has been imported**, because no source that permits it exists yet (see "Source position").
+Status on 18 November 2026: one pilot paper (CUET UG 2024 Physics, 39 of 50 questions, draft) is imported locally, see `docs/completion/pyq-pilot-physics-2024-2026-11-18.md`. Status on 13 November 2026: the module is built and tested locally. **No other paper has been imported**, because no source that permits it exists yet (see "Source position").
 
 ## Source position
 

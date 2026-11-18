@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router';
 import { api, type Feedback, type PracticeSession, type SessionQuestion } from '../api';
 import { QuestionStem } from '../question';
 import { Rich } from '../rich';
+import { parseNumericAnswer } from '../numeric';
+import { EnlargeButton, mediaSrc } from '../question';
 import { BookmarkButton } from '../tools';
 import { SaveForRevision } from '../revision';
 import { Badge, Button, ErrorBox, Loading, useLoad } from '../ui';
@@ -40,6 +42,67 @@ const CELL: Record<Exclude<Cell, 'current'>, { cls: string; label: string }> = {
 };
 
 /** The test screen: distraction-free, with a CBT-style question palette, timer and a check before submitting. */
+
+/** Answer box for a numerical question: type the value, then save it (exam) or check it (practice). */
+function NumericAnswer({ question, locked, practice, onSave }: { question: SessionQuestion; locked: boolean; practice: boolean; onSave: (value: number | null) => Promise<void> }) {
+  const saved = question.answer?.numericAnswer;
+  const [text, setText] = useState(saved === null || saved === undefined ? '' : String(saved));
+  const [problem, setProblem] = useState<string | null>(null);
+  const [working, setWorking] = useState(false);
+  const submit = async (clear: boolean) => {
+    const value = clear ? null : parseNumericAnswer(text);
+    if (!clear && value === null) return setProblem('Enter a number, for example 12, -3.5 or 2e-3.');
+    setProblem(null);
+    setWorking(true);
+    try {
+      await onSave(value);
+      if (clear) setText('');
+    } finally {
+      setWorking(false);
+    }
+  };
+  return (
+    <div className="mt-5" data-numeric-answer>
+      <label htmlFor={`num-${question.id}`} className="block text-sm font-medium text-ink">
+        Your answer (a number)
+      </label>
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <input
+          id={`num-${question.id}`}
+          inputMode="decimal"
+          autoComplete="off"
+          value={text}
+          disabled={locked}
+          onChange={(e) => {
+            setText(e.target.value);
+            setProblem(null);
+          }}
+          onKeyDown={(e) => e.key === 'Enter' && !locked && void submit(false)}
+          aria-invalid={problem ? true : undefined}
+          aria-describedby={problem ? `num-err-${question.id}` : undefined}
+          className="num h-10 w-44 rounded-lg border border-rule bg-surface px-3 text-base text-ink disabled:opacity-60"
+        />
+        {!locked && (
+          <Button kind="secondary" onClick={() => void submit(false)} disabled={working || !text.trim()}>
+            {practice ? 'Check answer' : 'Save answer'}
+          </Button>
+        )}
+        {!locked && !practice && saved !== null && saved !== undefined && (
+          <Button kind="secondary" onClick={() => void submit(true)} disabled={working}>
+            Clear
+          </Button>
+        )}
+      </div>
+      {problem && (
+        <p id={`num-err-${question.id}`} role="alert" className="mt-1.5 text-sm text-wrong">
+          {problem}
+        </p>
+      )}
+      {!practice && saved !== null && saved !== undefined && !problem && <p className="mt-1.5 text-sm text-ink-3">Saved: {saved}</p>}
+    </div>
+  );
+}
+
 export function PracticePage({ exam = false }: { exam?: boolean }) {
   const { sessionId = '' } = useParams();
   const navigate = useNavigate();
@@ -157,7 +220,7 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
       setConfirming(false);
     }
   }
-  const answered = (x: SessionQuestion) => Boolean(x.answer?.selectedPositions?.length);
+  const answered = (x: SessionQuestion) => Boolean(x.answer?.selectedPositions?.length) || (x.answer?.numericAnswer !== null && x.answer?.numericAnswer !== undefined);
   const cellOf = (x: SessionQuestion): Exclude<Cell, 'current'> => {
     const f = feedback[x.id]?.outcome;
     if (practice && f === 'CORRECT') return 'correct';
@@ -269,7 +332,7 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
                     : 'border-rule hover:border-rule-strong hover:bg-paper';
                 const dot = showResult ? (right ? 'border-correct bg-correct text-white' : chosen ? 'border-wrong bg-wrong text-white' : 'border-rule-strong text-ink-2') : chosen ? 'border-accent bg-accent text-white' : 'border-rule-strong text-ink-2';
                 return (
-                  <li key={o.position}>
+                  <li key={o.position} className="relative">
                     <button
                       role={q.type === 'MCQ_MULTI' ? 'checkbox' : 'radio'}
                       aria-checked={chosen}
@@ -280,16 +343,46 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
                         {o.label}
                       </span>
                       <span className="min-w-0 flex-1 pt-0.5" data-annot-block={`opt-${o.position}`}>
-                        <Rich text={o.text} inline className="min-w-0" />
+                        {o.mediaAssetId ? (
+                          <>
+                            <span className="sr-only">{o.text}</span>
+                            <img src={mediaSrc(o.mediaAssetId)} alt={o.alt || o.text} loading="lazy" className="max-h-44 w-auto max-w-full rounded border border-rule bg-white p-1" />
+                          </>
+                        ) : (
+                          <Rich text={o.text} inline className="min-w-0" />
+                        )}
                       </span>
                       {showResult && right && <CircleCheck aria-label="Correct answer" className="mt-1 size-5 shrink-0 text-correct" />}
                       {showResult && chosen && !right && <CircleX aria-label="Your answer" className="mt-1 size-5 shrink-0 text-wrong" />}
                       {!showResult && <span className="sr-only">Press {String.fromCharCode(65 + k)}</span>}
                     </button>
+                    {o.mediaAssetId && (
+                      <span className="absolute right-2 bottom-2">
+                        <EnlargeButton id={o.mediaAssetId} alt={o.alt || o.text} />
+                      </span>
+                    )}
                   </li>
                 );
               })}
             </ul>
+            {q.type === 'NUMERICAL' && (
+              <NumericAnswer
+                key={q.id}
+                question={q}
+                practice={practice}
+                locked={practice && Boolean(fb?.outcome)}
+                onSave={async (value) => {
+                  try {
+                    setErr(null);
+                    const res = await api.answer(sessionId, { questionId: q.id, numericAnswer: value });
+                    setData((d) => d && { ...d, questions: d.questions.map((x) => (x.id === q.id ? { ...x, answer: { selectedPositions: null, numericAnswer: value } } : x)) });
+                    if (practice && res.outcome) setFeedback((f) => ({ ...f, [q.id]: res }));
+                  } catch (e) {
+                    setErr(e as Error);
+                  }
+                }}
+              />
+            )}
             {practice && q.type === 'MCQ_MULTI' && !fb?.outcome && (
               <div className="mt-4">
                 <Button
@@ -316,6 +409,9 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
                     {fb.score} marks)
                   </span>
                 </div>
+                {q.type === 'NUMERICAL' && fb.correctNumericAnswer !== null && fb.correctNumericAnswer !== undefined && (
+                  <p className="num mt-1.5 text-[15px] text-ink">Correct answer: {fb.correctNumericAnswer}</p>
+                )}
                 {fb.explanation && (
                   <div data-annot-block="explanation">
                     <Rich text={fb.explanation} className="mt-2 text-[15px] leading-relaxed text-ink" />

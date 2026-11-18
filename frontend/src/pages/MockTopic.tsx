@@ -2,6 +2,7 @@ import { ChevronRight, PencilLine, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api } from '../api';
+import { CustomPractice } from './CustomPractice';
 import { Button, Empty, ErrorBox, kindLabel, Loading, SectionTitle, useAuth, useLoad } from '../ui';
 
 /**
@@ -100,6 +101,7 @@ export function MockTopicPage() {
               </div>
             </section>
           ))}
+          {d.paper && <CustomPractice paperId={d.paper.id} fixedNodeId={nodeId} heading="Practise this topic with filters" />}
         </div>
       )}
       {err && <ErrorBox error={err} />}

@@ -9,7 +9,7 @@ import { CONCEPT_TYPES_SQL, conceptsOf, conceptsOfResources, type RawBlock } fro
 
 export const VISIBLE_SYLLABUS = (alias: string) => `${alias}.verification IN ('MACHINE_VERIFIED','VERIFIED') AND ${alias}.status != 'ARCHIVED' AND (${alias}.status = 'PUBLISHED' OR ?1 = 1)`;
 export const VISIBLE_CONTENT = (alias: string) =>
-  `${alias}.is_demonstration = 0 AND ${alias}.verification NOT IN ('REJECTED','NEEDS_CHANGES') AND (${alias}.status = 'PUBLISHED' OR (?1 = 1 AND ${alias}.status != 'ARCHIVED'))`;
+  `${alias}.is_demonstration = 0 AND ${alias}.verification NOT IN ('REJECTED','NEEDS_CHANGES') AND (${alias}.status = 'PUBLISHED' OR (?1 = 1 AND ${alias}.status != 'ARCHIVED' AND ${alias}.origin != 'PAST_PAPER'))`;
 
 const LATEST_VISIBLE_VERSION = `
   SELECT sv.* FROM syllabus_versions sv
@@ -226,8 +226,8 @@ export async function resourceDetail(db: D1Database, preview: boolean, id: strin
 }
 
 export async function mediaObject(db: D1Database, bucket: R2Bucket, preview: boolean, id: string) {
-  const m = await db.prepare(`SELECT r2_key, mime_type, status, verification FROM media_assets WHERE id = ?`).bind(id).first<{ r2_key: string | null; mime_type: string; status: string; verification: string }>();
-  if (!m || !m.r2_key || m.verification === 'REJECTED' || (m.status !== 'PUBLISHED' && !preview)) throw notFound('Media');
+  const m = await db.prepare(`SELECT r2_key, mime_type, status, verification, source_document_id FROM media_assets WHERE id = ?`).bind(id).first<{ r2_key: string | null; mime_type: string; status: string; verification: string; source_document_id: string | null }>();
+  if (!m || !m.r2_key || m.verification === 'REJECTED' || (m.status !== 'PUBLISHED' && !preview) || (m.source_document_id && m.status !== 'PUBLISHED')) throw notFound('Media'); // a figure cut from an official paper is never shown until its paper is published
   const obj = await bucket.get(m.r2_key);
   if (!obj) throw notFound('Media file');
   return new Response(obj.body, {

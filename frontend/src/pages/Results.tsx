@@ -4,7 +4,7 @@ import { ChartNoAxesColumn, CircleCheck, CircleMinus, CircleX } from 'lucide-rea
 import { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { api } from '../api';
-import { QuestionStem } from '../question';
+import { Figure, QuestionStem } from '../question';
 import { Rich } from '../rich';
 import { BookmarkToggle, useBookmarks } from '../tools';
 import { ButtonLink, Empty, ErrorBox, Loading, Meter, PageHeader, Segmented, useLoad } from '../ui';
@@ -143,6 +143,48 @@ export function ResultsPage() {
         </div>
       </section>
 
+      {d.session.analysis && (
+        <section aria-labelledby="analysis" className="mb-7 rounded-xl border border-rule bg-surface p-5" data-analysis>
+          <h2 id="analysis" className="text-base font-semibold text-ink">
+            Performance analysis
+          </h2>
+          {d.session.analysis.timeTakenSeconds !== null && (
+            <p className="num mt-1 text-sm text-ink-2">
+              Time taken: {Math.floor(d.session.analysis.timeTakenSeconds / 60)} min {d.session.analysis.timeTakenSeconds % 60} s
+            </p>
+          )}
+          {([['By unit', d.session.analysis.byUnit.map((u) => ({ key: u.id, label: u.title, ...u }))], ['By difficulty', d.session.analysis.byDifficulty.map((u) => ({ key: u.difficulty, label: u.difficulty.charAt(0) + u.difficulty.slice(1).toLowerCase(), ...u }))]] as const).map(([title, rows]) =>
+            rows.length === 0 ? null : (
+              <div key={title} className="mt-4 overflow-x-auto">
+                <table className="num w-full text-[13px] sm:text-sm">
+                  <caption className="mb-1 text-left text-sm font-medium text-ink">{title}</caption>
+                  <thead>
+                    <tr className="text-left text-ink-3">
+                      <th scope="col" className="py-1 pr-3 font-normal">{title === 'By unit' ? 'Unit' : 'Level'}</th>
+                      <th scope="col" className="px-1.5 py-1 text-right font-normal sm:px-2">Right</th>
+                      <th scope="col" className="px-1.5 py-1 text-right font-normal sm:px-2">Wrong</th>
+                      <th scope="col" className="px-1.5 py-1 text-right font-normal sm:px-2">Skipped</th>
+                      <th scope="col" className="py-1 pl-1.5 text-right font-normal sm:pl-2">Acc.</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-rule">
+                    {rows.map((u) => (
+                      <tr key={u.key}>
+                        <th scope="row" className="max-w-[8rem] py-1.5 pr-2 text-left font-normal text-ink sm:max-w-[16rem] sm:pr-3">{u.label}</th>
+                        <td className="px-1.5 py-1.5 text-right sm:px-2 text-correct">{u.correct}</td>
+                        <td className="px-1.5 py-1.5 text-right sm:px-2 text-wrong">{u.incorrect}</td>
+                        <td className="px-1.5 py-1.5 text-right sm:px-2 text-ink-2">{u.unattempted}</td>
+                        <td className="py-1.5 pl-1.5 text-right font-medium text-ink sm:pl-2">{u.accuracy === null ? '–' : `${u.accuracy}%`}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ),
+          )}
+        </section>
+      )}
+
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-base font-semibold text-ink">Answer review</h2>
         <Segmented
@@ -178,9 +220,21 @@ export function ResultsPage() {
                 </span>
               </div>
               <Annotatable kind="QUESTION" id={q.id} preload={marks.data ? marks.data.filter((a) => a.surfaceId === q.id) : null} className="px-4 py-4">
+                {q.passage && (
+                  <div className="mb-3 max-h-48 overflow-y-auto rounded-lg border border-rule bg-paper p-3 font-serif text-sm leading-relaxed text-ink">
+                    {q.passage.title && <div className="mb-1 font-sans font-semibold">{q.passage.title}</div>}
+                    {q.passage.body}
+                  </div>
+                )}
                 <div data-annot-block="stem">
                   <QuestionStem stem={q.stem} structure={q.structure} compact />
                 </div>
+                {q.type === 'NUMERICAL' && (
+                  <dl className="num mt-3 grid gap-1 text-sm">
+                    <div className="flex gap-2"><dt className="text-ink-3">Your answer:</dt><dd className={rv.outcome === 'CORRECT' ? 'font-medium text-correct' : 'font-medium text-wrong'}>{q.answer?.numericAnswer ?? 'not answered'}</dd></div>
+                    <div className="flex gap-2"><dt className="text-ink-3">Correct answer:</dt><dd className="font-medium text-ink">{rv.correctNumericAnswer ?? '–'}</dd></div>
+                  </dl>
+                )}
                 <ul className="grid-cols-1 mt-3 grid gap-2 sm:grid-cols-2">
                   {q.options.map((o) => {
                     const right = rv.correctOptionPositions?.includes(o.position);
@@ -192,7 +246,7 @@ export function ResultsPage() {
                       >
                         <span className="font-semibold">{o.label}.</span>
                         <span className="min-w-0 flex-1" data-annot-block={`opt-${o.position}`}>
-                          <Rich text={o.text} inline />
+                          {o.mediaAssetId ? <Figure id={o.mediaAssetId} alt={o.alt || o.text} /> : <Rich text={o.text} inline />}
                         </span>
                         {right && <span className="shrink-0 text-xs font-medium text-correct">Answer</span>}
                         {chosen && !right && <span className="shrink-0 text-xs font-medium text-wrong">Your answer</span>}

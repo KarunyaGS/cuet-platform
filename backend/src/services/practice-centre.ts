@@ -217,20 +217,22 @@ async function candidates(db: D1Database, paperId: string, versionId: string, op
          UNION ALL SELECT c.id, tree.root FROM curriculum_nodes c JOIN tree ON c.parent_id = tree.id)
        SELECT q.id, q.difficulty, q.type, q.verification, q.content_hash, t.root AS unit, qt.curriculum_node_id AS topic,
          (SELECT COUNT(*) FROM question_options o WHERE o.question_id = q.id) AS options,
-         EXISTS (SELECT 1 FROM mock_paper_questions m JOIN mock_papers mp ON mp.id = m.mock_paper_id WHERE m.question_id = q.id AND mp.status != 'ARCHIVED') AS used
+         EXISTS (SELECT 1 FROM mock_paper_questions m JOIN mock_papers mp ON mp.id = m.mock_paper_id WHERE m.question_id = q.id AND mp.status != 'ARCHIVED') AS used,
+         EXISTS (SELECT 1 FROM bulk_approval_items b WHERE b.question_id = q.id AND b.state = 'ACTIVE') AS bulk_only
        FROM questions q JOIN question_topics qt ON qt.question_id = q.id JOIN tree t ON t.id = qt.curriculum_node_id
        WHERE q.is_demonstration = 0 AND q.status != 'ARCHIVED' AND q.origin != 'PAST_PAPER' AND (q.test_paper_id = ?2 OR q.test_paper_id IS NULL)
          AND EXISTS (SELECT 1 FROM answer_keys a WHERE a.question_id = q.id) AND EXISTS (SELECT 1 FROM explanations x WHERE x.question_id = q.id)
        GROUP BY q.id ORDER BY q.content_hash`,
     )
     .bind(versionId, paperId)
-    .all<Candidate & { verification: string; options: number; used: number }>();
+    .all<Candidate & { verification: string; options: number; used: number; bulk_only: number }>();
   const fits = results.filter((q) => q.type === 'NUMERICAL' || q.options === optionsPerQuestion);
   return {
     bank: results.length,
     wrongOptionCount: results.length - fits.length,
-    approved: fits.filter((q) => q.verification === 'VERIFIED').length,
-    eligible: fits.filter((q) => (!onlyVerified || q.verification === 'VERIFIED') && !q.used) as Candidate[],
+    approved: fits.filter((q) => q.verification === 'VERIFIED' && !q.bulk_only).length,
+    // A question verified only by a bulk management approval (automated format checks) is never used in a mock paper: a person must verify it first.
+    eligible: fits.filter((q) => (!onlyVerified || (q.verification === 'VERIFIED' && !q.bulk_only)) && !q.used) as Candidate[],
   };
 }
 
@@ -303,7 +305,7 @@ export async function buildMockPaper(db: D1Database, paperId: string, actor: str
   return mockPaperAdmin(db, id);
 }
 
-const ALL_VERIFIED = `NOT EXISTS (SELECT 1 FROM mock_paper_questions m JOIN questions q ON q.id = m.question_id WHERE m.mock_paper_id = mp.id AND (q.verification != 'VERIFIED' OR q.status = 'ARCHIVED'))`;
+const ALL_VERIFIED = `NOT EXISTS (SELECT 1 FROM mock_paper_questions m JOIN questions q ON q.id = m.question_id WHERE m.mock_paper_id = mp.id AND (q.verification != 'VERIFIED' OR q.status = 'ARCHIVED' OR EXISTS (SELECT 1 FROM bulk_approval_items b WHERE b.question_id = q.id AND b.state = 'ACTIVE')))`;
 
 export async function listMockPapersAdmin(db: D1Database, paperId?: string) {
   const { results } = await db

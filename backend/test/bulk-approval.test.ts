@@ -185,4 +185,34 @@ describe('bulk management approval of questions', () => {
     const sum = (await call('GET', '/api/review/bulk-approval/summary', undefined, reviewer.auth)).json;
     expect(sum.questions).toMatchObject({ bulkApproved: 0, individuallyVerified: 1 });
   });
+
+  it('a question verified only by bulk approval can never be approved or published; individual verification unlocks it', async () => {
+    const id = await make('Bulk gate question: which statement is correct here?', 1);
+    const batchId = (await env.DB.prepare('SELECT id FROM bulk_approval_batches').first<{ id: string }>())!.id;
+    // The state a bulk approval leaves behind: verified, still in the bulk batch, in review.
+    await env.DB.prepare("UPDATE questions SET verification = 'VERIFIED', status = 'IN_REVIEW' WHERE id = ?").bind(id).run();
+    await env.DB.prepare("INSERT INTO bulk_approval_items (id, batch_id, question_id, from_verification, state, created_at) VALUES (?, ?, ?, 'UNVERIFIED', 'ACTIVE', ?)").bind(`bulk_item_gate_${Date.now()}`, batchId, id, new Date().toISOString()).run();
+    const refused = await call('POST', '/api/admin/review', { entityType: 'QUESTION', entityIds: [id], action: 'APPROVED' }, ADMIN);
+    expect(refused.status, JSON.stringify(refused.json)).toBe(409);
+    expect(JSON.stringify(refused.json)).toMatch(/bulk management approval/);
+    expect((await row(id))!.status).toBe('IN_REVIEW');
+    // A person looks at it: the bulk record is superseded and approval is allowed.
+    expect((await call('POST', '/api/review/decide', { entityType: 'QUESTION', entityIds: [id], action: 'VERIFIED', checklist: { answerCorrect: true } }, reviewer.auth)).status).toBe(200);
+    const ok = await call('POST', '/api/admin/review', { entityType: 'QUESTION', entityIds: [id], action: 'APPROVED' }, ADMIN);
+    expect(ok.status, JSON.stringify(ok.json)).toBe(200);
+    expect((await row(id))!.status).toBe('APPROVED');
+  });
+  it('a question verified only by bulk approval does not count towards a mock paper until a person verifies it', async () => {
+    const { mockPaperReadiness } = await import('../src/services/practice-centre');
+    const id = await make('Bulk mock gate question: which statement is correct here?', 2);
+    const eligible = async () => (await mockPaperReadiness(env.DB, paperId)).bank.eligibleUnused;
+    const before = await eligible();
+    await env.DB.prepare("UPDATE questions SET verification = 'VERIFIED' WHERE id = ?").bind(id).run();
+    expect(await eligible()).toBe(before + 1);
+    const batchId = (await env.DB.prepare('SELECT id FROM bulk_approval_batches').first<{ id: string }>())!.id;
+    await env.DB.prepare("INSERT INTO bulk_approval_items (id, batch_id, question_id, from_verification, state, created_at) VALUES (?, ?, ?, 'UNVERIFIED', 'ACTIVE', ?)").bind(`bulk_item_mock_${Date.now()}`, batchId, id, new Date().toISOString()).run();
+    expect(await eligible()).toBe(before);
+    await env.DB.prepare("UPDATE bulk_approval_items SET state = 'SUPERSEDED' WHERE question_id = ?").bind(id).run();
+    expect(await eligible()).toBe(before + 1);
+  });
 });

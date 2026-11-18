@@ -78,6 +78,35 @@ function childRows(db: D1Database, questionId: string, q: QuestionInput, now: st
   ];
 }
 
+export const passageInputSchema = z.object({
+  title: z.string().max(300).nullable().optional(),
+  body: z.string().min(80).max(20000),
+  language: z.string().min(2).max(10).default('en'),
+  origin: z.enum(ORIGINS),
+  usagePermissionId: z.string().max(100),
+  sourceDocumentId: z.string().max(100).nullable().optional(),
+});
+
+/** Stores a reading passage once (by its text); questions refer to it with passageId. The passage starts as an unverified draft. */
+export async function upsertPassage(db: D1Database, input: z.infer<typeof passageInputSchema>, actor: string) {
+  if (input.origin === 'DEMONSTRATION') throw invalid('Demonstration passages are not accepted');
+  const hash = await sha256Hex([normaliseText(input.title ?? ''), normaliseText(input.body)].join('|'));
+  const dup = await db.prepare('SELECT id FROM passages WHERE content_hash = ?').bind(hash).first<{ id: string }>();
+  if (dup) return { id: dup.id, outcome: 'UNCHANGED' as const };
+  const perm = await db.prepare('SELECT id FROM usage_permissions WHERE id = ?').bind(input.usagePermissionId).first();
+  if (!perm) throw invalid('Unknown usage permission');
+  const id = newId('pas');
+  const now = nowIso();
+  await db.batch([
+    ...insertRows(db, 'passages', [{
+      id, title: input.title ?? null, body: input.body, language: input.language, origin: input.origin, usage_permission_id: input.usagePermissionId,
+      source_document_id: input.sourceDocumentId ?? null, status: 'DRAFT', verification: 'UNVERIFIED', content_hash: hash, created_at: now, updated_at: now,
+    }]),
+    db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, 'CREATE_PASSAGE', 'PASSAGE', id, JSON.stringify({ title: input.title ?? null }), now),
+  ]);
+  return { id, outcome: 'CREATED' as const };
+}
+
 export async function createQuestion(db: D1Database, q: QuestionInput, actor: string) {
   await checkTopics(db, q.topicNodeIds);
   const hash = await questionHash(q);
