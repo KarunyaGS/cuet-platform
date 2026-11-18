@@ -12,7 +12,7 @@ A separate Worker for walkthroughs, with demo data only. **Nothing here is share
 Config: `env.preview` in `backend/wrangler.jsonc` (purely additive). Payments, email, notice fetching and cron are off. The site sends `X-Robots-Tag: noindex`.
 
 ## What is in the preview
-- Everything except people's data: syllabus, 787 Physics questions, 200 Chemistry questions and 10 Chemistry lessons, notices, admissions, universities, plans, 6 sample PDFs (3 NTA, 3 SelfStudys). Documents whose PDF was not uploaded keep their record but are hidden.
+- Everything except people's data: syllabus, 1,000 Physics questions (787 of them verified) and 600 Chemistry questions, with their lessons (see `docs/question-counts.md`), notices, admissions, universities, plans, 6 sample PDFs (3 NTA, 3 SelfStudys). Documents whose PDF was not uploaded keep their record but are hidden.
 - Accounts: only two synthetic demo accounts (student, admin). **The address is public: anyone who opens it can also sign up**; those sign-ups live only in the preview database.
 
 ## Rebuild the data
