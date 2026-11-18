@@ -147,6 +147,7 @@ export function paperHtml(d: Draft, images: Map<string, string>, generatedOn: Da
   .key table { border-collapse: collapse; width: 100%; font-size: 10pt; }
   .key td { border: 1px solid #c6ccd6; padding: 3pt 6pt; width: 10%; text-align: center; }
   .key td b { color: #45505f; font-weight: 400; margin-right: 4pt; }
+  table.chapters { border-collapse: collapse; width: 100%; font-size: 10pt; } table.chapters th, table.chapters td { border: 1px solid #c6ccd6; padding: 3pt 6pt; text-align: left; vertical-align: top; } table.chapters th { background: #f1f4f8; font-weight: 600; } table.chapters td.chap { width: 42%; font-weight: 600; }
 </style></head><body>
 <header class="cover">
   <div class="brand">${logoTag()} Prepora</div>
@@ -159,9 +160,23 @@ export function paperHtml(d: Draft, images: Map<string, string>, generatedOn: Da
 <main>${d.questions.map((q, i) => (d.mode === 'CHAPTER' && (i === 0 || d.questions[i - 1]!.unit !== q.unit) ? `<h2 class="topic">${esc(q.unit)}</h2>` : '') + question(q)).join('\n')}</main>
 <section class="key"><h2>Answer key</h2>
 <table><tbody>${Array.from({ length: Math.ceil(d.answerKey.length / 10) }, (_, r) => `<tr>${d.answerKey.slice(r * 10, r * 10 + 10).map((a) => `<td><b>${a.number}.</b>(${esc(a.correct.join(', '))})</td>`).join('')}</tr>`).join('')}</tbody></table>
+${revisionByChapter(d)}
 <p class="rights" style="margin-top:10pt">${esc(footer)}. © Prepora.</p></section>
 <script>for (const o of document.querySelectorAll('ol.opts')) if ([...o.children].some((li) => li.textContent.length > 46 || li.querySelector('.katex-display'))) o.classList.add('long');</script>
 </body></html>`;
+}
+
+/**
+ * On a mixed-topic set the answer key page also says which questions came from which chapter, so a student who marks their paper can
+ * see at once which chapters to revise. The tags are the ones every question already has; nothing new is stored.
+ */
+function revisionByChapter(d: Draft): string {
+  if (d.mode === 'CHAPTER') return '';
+  const byUnit = new Map<string, number[]>();
+  for (const q of d.questions) byUnit.set(q.unit, [...(byUnit.get(q.unit) ?? []), q.number]);
+  if (byUnit.size < 2) return '';
+  const rows = [...byUnit].map(([unit, nums]) => `<tr><td class="chap">${esc(unit)}</td><td class="nums">${nums.join(', ')}</td></tr>`).join('');
+  return `<h2 style="margin-top:14pt">Revise by chapter</h2><p class="rights" style="margin:0 0 4pt">This paper mixes every chapter. Mark your answers, then see which chapters your wrong answers fall in.</p><table class="chapters"><thead><tr><th>Chapter</th><th>Question numbers</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 function chromePath(): string {
