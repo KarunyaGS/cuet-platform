@@ -372,6 +372,14 @@
         "text": "- **Equi-join / inner join**: `SELECT SName, CName FROM S, CL WHERE S.CID = CL.CID;` or `SELECT SName, CName FROM S JOIN CL ON S.CID = CL.CID;` gives (A, X), (B, Y), (C, X). Student D has CID 99 with no match, and class Z has no student, so both are left out. The result has 3 rows.\n- **Natural join**: `S NATURAL JOIN CL` joins automatically on all columns with the same name (CID) and shows the common column only once.\n- A join without any condition is a Cartesian product (12 rows here).\n- Qualify a column name with its table (`S.CID`) when both tables have a column of that name."
       },
       {
+        "type": "DIAGRAM",
+        "diagram": "join-gap"
+      },
+      {
+        "type": "CALLOUT",
+        "text": "What to learn from this figure: A join is a Cartesian product followed by a condition. Without the condition you get all 12 rows; with it you get the 3 rows that belong together."
+      },
+      {
         "type": "CALLOUT",
         "text": "If you forget the join condition in the WHERE clause, MySQL returns the full Cartesian product (12 rows in this example) instead of the 3 meaningful rows. This is a very common exam question."
       },
@@ -381,7 +389,15 @@
       }
     ]
   },
-  "diagrams": [],
+  "diagrams": [
+    {
+      "key": "join-gap",
+      "file": "diagrams/ug26-308-r08-sql-join.svg",
+      "alt": "Table S with four rows and table CL with three rows go into a Cartesian product of 12 rows, then the condition S.CID equals CL.CID keeps three rows: A with X, B with Y and C with X",
+      "caption": "From Cartesian product to join",
+      "description": "S has 4 rows and CL has 3 rows, so their Cartesian product has 12 rows. The condition S.CID = CL.CID keeps only the 3 meaningful pairs (A, X), (B, Y) and (C, X). Student D (CID 99) and class Z (CID 30) have no partner and are left out of an inner join."
+    }
+  ],
   "questions": [
     {
       "key": "ug26-308-r08-sql-ii-q01",

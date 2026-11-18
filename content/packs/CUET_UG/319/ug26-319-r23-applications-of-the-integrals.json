@@ -74,6 +74,28 @@
         "text": "Area between two curves: upper curve minus lower curve. The limits are the $x$-coordinates of the intersection points, found by solving $f(x)=g(x)$."
       },
       {
+        "type": "TABLE",
+        "caption": "Area formulas used in this lesson",
+        "columns": [
+          "Region",
+          "Area"
+        ],
+        "rows": [
+          [
+            "Under $y=f(x)$ from $x=a$ to $x=b$, with $f(x)\\ge 0$",
+            "$\\displaystyle\\int_a^b f(x)\\,dx$"
+          ],
+          [
+            "Between the curve $x=g(y)$ and the $y$-axis, from $y=c$ to $y=d$",
+            "$\\displaystyle\\int_c^d g(y)\\,dy$"
+          ],
+          [
+            "Between $y=f(x)$ above $y=g(x)$, from $x=a$ to $x=b$",
+            "$\\displaystyle\\int_a^b \\left[f(x)-g(x)\\right]dx$"
+          ]
+        ]
+      },
+      {
         "type": "HEADING",
         "text": "Areas bounded by lines"
       },

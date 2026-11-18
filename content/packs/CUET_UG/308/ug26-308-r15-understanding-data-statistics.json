@@ -230,6 +230,14 @@
     ]
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "central-gap"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: One extreme value (an outlier) pulls the mean towards it, while the median and mode stay near the bulk of the data. This is why the median is preferred when the data has outliers."
+   },
+   {
     "type": "SOLVED_PROBLEM",
     "problem": "Find the mean, median and mode of the marks [2, 4, 4, 4, 5, 5, 7, 9].",
     "solution": "Sum = 2+4+4+4+5+5+7+9 = 40 and n = 8, so mean = 40/8 = 5.\n\nThe data is already in order. n is even, so the median is the average of the 4th and 5th values: (4 + 5)/2 = 4.5.\n\nThe value 4 appears three times, more than any other, so the mode is 4.",
@@ -332,7 +340,15 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "central-gap",
+   "file": "diagrams/ug26-308-r15-mean-median-mode.svg",
+   "alt": "Dots at 2, 3, 3, 4, 5, 7 and 16 on a number line with the mode at 3, the median at 4 and the mean at about 5.7, with 16 marked as an outlier",
+   "caption": "Mean, median and mode of the same data",
+   "description": "For the data 2, 3, 3, 4, 5, 7, 16 the mode is 3 because it occurs twice, the median is 4 because it is the fourth of the seven ordered values, and the mean is 40 divided by 7, about 5.7. The value 16 is an outlier."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r15-understanding-data-statistics-q01",

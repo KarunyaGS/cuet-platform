@@ -597,6 +597,14 @@
     "text": "Order in which the clauses are written: `SELECT ... FROM ... WHERE ... GROUP BY ... HAVING ... ORDER BY ...`. Every non-aggregate column in SELECT should also appear in GROUP BY."
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "clauses-gap"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: WHERE acts on single rows before grouping, so it cannot use aggregate functions. HAVING acts on the groups after they are formed, so it can. This order explains why the two clauses are used differently."
+   },
+   {
     "type": "SOLVED_PROBLEM",
     "problem": "From the 8-row EMP table (Sales: 30000, 45000, 28000; IT: 60000, 52000, 48000; HR: 38000, 41000), list the departments having more than two employees, with the number of employees.\n\nQuery: `SELECT Dept, COUNT(*) FROM EMP GROUP BY Dept HAVING COUNT(*) > 2;`",
     "solution": "GROUP BY forms three groups: Sales (3 rows), IT (3 rows) and HR (2 rows). HAVING COUNT(*) > 2 keeps groups with a count above 2, so HR (count 2) is removed.",
@@ -679,7 +687,15 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "clauses-gap",
+   "file": "diagrams/ug26-308-r18-sql-clause-order.svg",
+   "alt": "Six boxes in the written order SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY above six numbered boxes in the processing order FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY with a note under each",
+   "caption": "Written order and processing order of the clauses of a SELECT query",
+   "description": "A query is written starting with SELECT but is processed starting with FROM. WHERE filters rows first, GROUP BY then makes groups, HAVING filters those groups, SELECT chooses the columns and works out the aggregates, and ORDER BY sorts the result last."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r18-structured-query-language-q01",

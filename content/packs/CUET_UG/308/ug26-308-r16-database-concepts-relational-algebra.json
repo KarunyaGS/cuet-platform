@@ -317,6 +317,14 @@
     ]
    },
    {
+    "type": "DIAGRAM",
+    "diagram": "keys-gap"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Of all candidate keys, one becomes the primary key and the others are alternate keys. A foreign key is the link to another table: it refers to that table's primary key, but it can repeat and can be NULL."
+   },
+   {
     "type": "SOLVED_PROBLEM",
     "problem": "A relation PERSON(PersonID, PanNo, Email, Name) has unique values in PersonID, PanNo and Email, while Name may repeat. If PersonID is made the primary key, find the candidate keys and alternate keys.",
     "solution": "Attributes that identify each tuple uniquely: PersonID, PanNo, Email. Name repeats, so it cannot be a key.\n\nCandidate keys = PersonID, PanNo, Email (3 keys).\n\nPrimary key = PersonID. Alternate keys = the remaining candidate keys = PanNo and Email (3 - 1 = 2 keys).",
@@ -442,7 +450,15 @@
    }
   ]
  },
- "diagrams": [],
+ "diagrams": [
+  {
+   "key": "keys-gap",
+   "file": "diagrams/ug26-308-r16-database-keys.svg",
+   "alt": "The STUDENT table with RollNo as primary key, AadhaarNo as alternate key and DeptCode as foreign key, linked by an arrow to the DEPARTMENT table where DeptCode is the primary key",
+   "caption": "Keys in a STUDENT table and its link to DEPARTMENT",
+   "description": "STUDENT(RollNo, AadhaarNo, Name, Class, DeptCode) has two candidate keys, RollNo and AadhaarNo. RollNo is chosen as the primary key, so AadhaarNo is the alternate key. DeptCode in STUDENT is a foreign key that refers to the primary key DeptCode of DEPARTMENT; its value D1 appears twice."
+  }
+ ],
  "questions": [
   {
    "key": "ug26-308-r16-database-concepts-relational-algebra-q01",
