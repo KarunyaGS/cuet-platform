@@ -17,6 +17,7 @@ import { SyllogismLabPage } from './pages/SyllogismLab';
 import { PopulationLabPage } from './pages/PopulationLab';
 import { GeneticsLabPage } from './pages/GeneticsLab';
 import { LabsPage } from './pages/Labs';
+import { SpecLabPage } from './visual/engine/SpecLab';
 import { LensLabPage } from './pages/LensLab';
 import { installPopClick } from './popClick';
 import { VisualPage } from './pages/Visual';
@@ -138,6 +139,8 @@ const router = createBrowserRouter([
       // Interactive Physics lab (pilot): thin lens image formation.
       // The Practical Labs page: every hands-on lab, by subject.
       { path: '/labs', element: <LabsPage /> },
+      // One dedicated lab per chapter, described by a spec (visual/specs/*): /lab/c/<id>.
+      { path: '/lab/c/:id', element: <SpecLabPage /> },
       { path: '/lab/lens', element: <LensLabPage /> },
       // Interactive Physics lab (pilot): single-slit diffraction.
       { path: '/lab/diffraction', element: <DiffractionLabPage /> },
