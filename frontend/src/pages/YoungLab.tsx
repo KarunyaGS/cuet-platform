@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight, Minus, Pause, Play, Plus, RotateCcw, Zap } f
 import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { DisplayMath } from '../rich';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useSteps } from '../visual/labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps } from '../visual/labkit';
 import {
   APPLY, classify, fringeWidth, angularFringeWidth, intensity, LIMITS, nearestOrder, pathOrder, PREDICTS, samplePattern, START, wavelengthRgb, windowHalf, type YoungState,
 } from '../visual/young';
@@ -95,6 +95,7 @@ let goalSeq = 1;
 
 export function YoungLabPage() {
   const { lessonId, back } = useLabOrigin();
+  useScrollTopOnOpen();
   const [tab, setTab] = useState<Tab>('learn');
   const [s, setS] = useState<YoungState>(START);
   const [view, setView] = useState<Mode>('apparatus');

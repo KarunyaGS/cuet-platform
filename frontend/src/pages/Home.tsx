@@ -150,7 +150,7 @@ function MapNodes({ subjects, pts, tall, pick, left }: { subjects: MapSubject[];
         return (
           <Link key={s.paperId} to={`/${EXAM}/subject/${s.paperId}`} data-map-node={s.name} aria-label={`${s.name}: ${meta}${s.attempted ? `, ${s.attempted} answered` : ''}`} className="group absolute size-0" style={{ left: `${pts[i]!.x}%`, top: `${pts[i]!.y}%` }}>
             <span
-              className={`absolute grid -translate-x-1/2 -translate-y-1/2 place-items-center transition-transform duration-200 group-hover:scale-105 group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-forest ${here ? 'bg-forest text-lime shadow-[0_0_0_4px_#e5ecb4,0_14px_28px_-10px_rgb(24_68_59/0.55)]' : 'text-charcoal/80 shadow-[0_0_0_3px_rgb(255_255_255/0.75),0_10px_22px_-12px_rgb(32_44_40/0.45)]'}`}
+              className={`absolute grid -translate-x-1/2 -translate-y-1/2 place-items-center transition-transform duration-200 group-hover:scale-105 group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-forest ${here ? 'bg-forest text-lime shadow-[0_0_0_4px_#e6f28e,0_14px_28px_-10px_rgb(24_68_59/0.55)]' : 'text-charcoal/80 shadow-[0_0_0_3px_rgb(255_255_255/0.75),0_10px_22px_-12px_rgb(32_44_40/0.45)]'}`}
               style={{ width: size, height: size, borderRadius: BLOBS[i % BLOBS.length], background: here ? undefined : tone.node }}
             >
               <Icon aria-hidden className={here ? 'size-[26px]' : 'size-[22px]'} strokeWidth={1.6} />
@@ -182,19 +182,19 @@ function StudyMap({ subjects, pick, left, count, prefs }: { subjects: MapSubject
   );
   return (
     <section aria-labelledby="study-map" className="relative overflow-hidden rounded-[22px] bg-sage shadow-[0_1px_0_rgb(255_255_255/0.6)_inset,0_24px_40px_-32px_rgb(32_44_40/0.35)]" data-study-map>
-      <div aria-hidden className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'radial-gradient(28% 34% at 12% 92%, rgb(229 236 180 / 0.85), transparent 70%), radial-gradient(26% 30% at 60% 22%, rgb(216 205 230 / 0.55), transparent 70%), radial-gradient(24% 28% at 96% 96%, rgb(236 187 165 / 0.55), transparent 70%), radial-gradient(rgb(32 44 40 / 0.13) 1px, transparent 1.3px)', backgroundSize: 'auto, auto, auto, 18px 18px' }} />
+      <div aria-hidden className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'radial-gradient(28% 34% at 12% 92%, rgb(230 242 142 / 0.85), transparent 70%), radial-gradient(26% 30% at 60% 22%, rgb(216 205 230 / 0.55), transparent 70%), radial-gradient(24% 28% at 96% 96%, rgb(236 187 165 / 0.55), transparent 70%), radial-gradient(rgb(32 44 40 / 0.13) 1px, transparent 1.3px)', backgroundSize: 'auto, auto, auto, 18px 18px' }} />
       <div className="relative flex items-start justify-between gap-4 px-6 pt-6 sm:px-7">
         <div>
           <h2 id="study-map" className="text-[19px] font-bold tracking-tight text-charcoal">
             Your study map
           </h2>
-          <p className="mt-2 text-[12.5px] text-mute">
+          <p className="mt-1.5 font-label text-[11px] tracking-[0] text-mute sm:text-[11.5px] sm:tracking-[0.02em]">
             {count} {count === 1 ? 'subject' : 'subjects'} · follow your curiosity
           </p>
         </div>
         <div className="text-right">
           <div className="label text-[10.5px] text-mute">{prefs?.examCode ? `${prefs.examCode === 'CUET_UG' ? 'CUET UG' : 'CUET PG'}${prefs.targetYear ? ` · ${prefs.targetYear}` : ''}` : 'CUET UG'}</div>
-          <Link to="/profile" className="mt-1.5 inline-block text-[12px] font-medium text-terracotta-deep underline-offset-2 hover:underline">
+          <Link to="/profile" className="mt-1.5 inline-block whitespace-nowrap text-[12px] font-medium text-terracotta-deep underline-offset-2 hover:underline">
             Change subjects
           </Link>
         </div>
@@ -206,7 +206,7 @@ function StudyMap({ subjects, pick, left, count, prefs }: { subjects: MapSubject
       ) : (
         <>
           {/* Wide: a wave across the map. */}
-          <div className="relative mx-auto hidden h-[24rem] max-w-[60rem] sm:block md:h-[26rem] xl:h-[26rem]">
+          <div className="relative mx-auto hidden h-[22rem] max-w-[60rem] sm:block md:h-[21rem] xl:h-[20rem]">
             {path(wide)}
             <div className="absolute inset-x-[2%] inset-y-0">
               <MapNodes subjects={subjects} pts={wide} tall={false} pick={pick} left={left} />
@@ -219,7 +219,7 @@ function StudyMap({ subjects, pick, left, count, prefs }: { subjects: MapSubject
             {path(tall)}
             <MapNodes subjects={subjects} pts={tall} tall pick={pick} left={left} />
           </div>
-          <p aria-hidden className="label pointer-events-none relative mr-8 mb-5 hidden -rotate-[3deg] text-right text-[10px] tracking-[0.18em] text-mute/70 sm:block">
+          <p aria-hidden className="label pointer-events-none relative mr-8 mb-4 hidden -rotate-[3deg] text-right text-[10px] tracking-[0.18em] text-mute/70 sm:block">
             Your own pace · your own path
           </p>
         </>
@@ -231,7 +231,7 @@ function StudyMap({ subjects, pick, left, count, prefs }: { subjects: MapSubject
 function PracticeCard({ rec, subject, none, onStart, busy, error }: { rec: Recommendation | null; subject: MapSubject | null; none: boolean; onStart: () => void; busy: boolean; error: Error | null }) {
   const Icon = subjectIcon(subject?.name ?? '');
   return (
-    <section aria-labelledby="practice-card" className="relative flex min-h-[19rem] flex-col overflow-hidden rounded-[22px] bg-terracotta p-6 text-white shadow-[0_24px_40px_-26px_rgb(181_97_72/0.75)] sm:p-7" data-recommended style={{ backgroundImage: 'linear-gradient(160deg, rgb(255 255 255 / 0.07), transparent 45%)' }}>
+    <section aria-labelledby="practice-card" className="relative flex min-h-[17rem] flex-col overflow-hidden rounded-[22px] bg-terracotta p-6 text-white shadow-[0_24px_40px_-26px_rgb(196_94_66/0.75)] sm:p-7" data-recommended style={{ backgroundImage: 'linear-gradient(160deg, rgb(255 255 255 / 0.07), transparent 45%)' }}>
       <div aria-hidden className="pointer-events-none absolute -right-24 top-[22%] size-[21rem] rounded-full border border-white/[0.12] bg-white/[0.035]" />
       <div aria-hidden className="pointer-events-none absolute -right-14 top-[32%] size-[15rem] rounded-full border border-white/[0.14] bg-white/[0.03]" />
       <div aria-hidden className="pointer-events-none absolute -right-4 top-[42%] size-[9rem] rounded-full border border-white/[0.16]" />
@@ -241,10 +241,10 @@ function PracticeCard({ rec, subject, none, onStart, busy, error }: { rec: Recom
           <span aria-hidden className="relative mt-5 grid size-12 place-items-center bg-lime text-forest" style={{ borderRadius: '42% 36% 44% 38% / 38% 44% 36% 42%' }}>
             <Icon className="size-[22px]" strokeWidth={1.7} />
           </span>
-          <h2 id="practice-card" className="relative mt-4 text-[29px] leading-[1.05] font-bold tracking-[-0.035em] text-white">
+          <h2 id="practice-card" className="relative mt-4 text-[24px] leading-[1.05] font-bold tracking-[-0.03em] text-white">
             {rec.title}
           </h2>
-          <p className="relative mt-2.5 max-w-[24ch] text-[13.5px] leading-[1.5] text-white/85">{rec.body}</p>
+          <p className="relative mt-2.5 max-w-[26ch] text-[12.5px] leading-[1.5] text-white/85">{rec.body}</p>
           <div className="relative mt-auto pt-8">
             {error && (
               <p role="alert" className="mb-3 rounded-lg bg-black/15 px-3 py-2 text-[12.5px] text-white">
@@ -366,21 +366,21 @@ export function Home() {
           <div className="label text-[15px]! font-medium tracking-[0.16em] text-terracotta sm:text-[17px]!" data-date>
             {dateLabel()}
           </div>
-          <h1 className="mt-3 text-[clamp(38px,4.6vw,68px)] leading-[0.98] font-bold tracking-[-0.045em] text-charcoal">
+          <h1 className="mt-3 text-[clamp(36px,4.1vw,62px)] leading-[0.98] font-bold tracking-[-0.045em] text-charcoal">
             Follow a question.
             <span className="block pb-1 font-editorial text-[1.06em] leading-[1.02] font-medium tracking-[-0.02em] text-terracotta italic">Find your way.</span>
           </h1>
-          <p className="mt-3 max-w-[40rem] text-[14.5px] leading-snug text-mute">
+          <p className="mt-3 max-w-[40rem] text-[13.5px] leading-snug text-mute">
             {greeting()}
             {first ? `, ${first}` : ''}. Choose a path, then take it one question at a time.
           </p>
         </div>
         {streak && (
-          <div className="flex items-center gap-4 border-l border-line pl-6 sm:mb-2" data-streak>
-            <span className="grid size-[3.3rem] place-items-center rounded-2xl bg-terracotta text-[21px] font-bold text-white num">{streak.capped ? `${streak.days}+` : String(streak.days).padStart(2, '0')}</span>
-            <span className="leading-tight">
-              <span className="label block text-[10.5px] text-mute">Your streak</span>
-              <span className="mt-1 block text-[14px] font-bold text-charcoal">{streak.days === 1 ? 'day' : 'days'} in a row</span>
+          <div className="flex items-center gap-3 border-l border-line py-1.5 pl-4 sm:mb-2" data-streak>
+            <span className="grid size-10 shrink-0 place-items-center rounded-[13px] bg-terracotta text-[16px] leading-none font-bold text-white num">{streak.capped ? `${streak.days}+` : String(streak.days).padStart(2, '0')}</span>
+            <span className="flex flex-col justify-center gap-1 leading-none">
+              <span className="label block text-[10.5px] leading-none text-mute">Your streak</span>
+              <span className="block text-[13px] leading-none font-bold text-charcoal">{streak.days === 1 ? 'day' : 'days'} in a row</span>
             </span>
           </div>
         )}
@@ -391,12 +391,12 @@ export function Home() {
           <ErrorBox error={failure} onRetry={() => (dash.error ? dash.reload() : subjectsLoad.reload())} />
         </div>
       ) : loading ? (
-        <div className="mt-8 grid gap-5 xl:grid-cols-[minmax(0,2.06fr)_minmax(0,1fr)]" role="status" aria-label="Loading your study map">
+        <div className="mt-6 grid gap-5 xl:grid-cols-[minmax(0,2.06fr)_minmax(0,1fr)]" role="status" aria-label="Loading your study map">
           <div className="h-[28rem] animate-pulse rounded-[22px] bg-sage/70" />
           <div className="h-[28rem] animate-pulse rounded-[22px] bg-terracotta/40" />
         </div>
       ) : (
-        <div className="mt-8 grid items-stretch gap-5 xl:grid-cols-[minmax(0,2.06fr)_minmax(0,1fr)]">
+        <div className="mt-6 grid items-stretch gap-5 xl:grid-cols-[minmax(0,2.06fr)_minmax(0,1fr)]">
           <StudyMap subjects={mapSubjects} pick={rec?.paperId ?? null} left={rec?.left ?? null} count={mapSubjects.length} prefs={prefs.data} />
           <PracticeCard rec={rec} subject={recSubject} none={mapSubjects.length === 0} onStart={start} busy={busy} error={startError} />
         </div>

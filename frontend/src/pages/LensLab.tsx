@@ -1,7 +1,7 @@
 import { RotateCcw } from 'lucide-react';
 import { useMemo, useRef, useState } from 'react';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useSteps } from '../visual/labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
 import { APPLY, describe, LIMITS, PREDICTS, reading, signedF, solveLens, type LensKind, type LensState, type Reading } from '../visual/lens';
 
 const n1 = (x: number) => (Math.abs(x) < 0.05 ? '0.0' : x.toFixed(1));
@@ -217,6 +217,7 @@ function Graph({ rows, f }: { rows: Reading[]; f: number }) {
 
 export function LensLabPage() {
   const { lessonId, back } = useLabOrigin();
+  useScrollTopOnOpen();
   const [s, setS] = useState<LensState>({ kind: 'convex', f: 10, u: 25, h: 2 });
   const { step, seen, go } = useSteps();
   const [pi, setPi] = useState(0);
@@ -228,7 +229,12 @@ export function LensLabPage() {
   const r = solveLens(s);
   const meanF = useMemo(() => (rows.length ? rows.reduce((a, x) => a + x.f, 0) / rows.length : null), [rows]);
   const finished = Object.keys(ans).length === APPLY.length;
-  const saved = useLabCompletion(finished, lessonId);
+  // The lab counts as completed only when the whole practical has been done, not just the questions.
+  const pending = [
+    ...(Object.keys(tested).length < PREDICTS.length ? ['test all four predictions'] : []),
+    ...(rows.length < 3 ? ['record at least three readings in the Measure step'] : []),
+  ];
+  const saved = useLabCompletion(finished && pending.length === 0, lessonId);
   const fill = (i: number) => {
     const setup = (PREDICTS[i] ?? PREDICTS[0]!).setup;
     const sol = solveLens(setup);
@@ -421,7 +427,7 @@ export function LensLabPage() {
             </section>
           )}
 
-          {step === 6 && <ApplyCard questions={APPLY} ans={ans} onAnswer={(id, o) => setAns((x) => ({ ...x, [id]: o }))} saved={saved} backTo={lessonId ? back.to : null} />}
+          {step === 6 && <ApplyCard questions={APPLY} ans={ans} onAnswer={(id, o) => setAns((x) => ({ ...x, [id]: o }))} saved={saved} backTo={lessonId ? back.to : null} pending={pending} />}
         </div>
       </div>
     </div>

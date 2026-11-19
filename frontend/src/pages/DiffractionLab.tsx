@@ -1,7 +1,7 @@
 import { RotateCcw } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useSteps } from '../visual/labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
 import {
   angularWidth, APPLY, curve, fresnelDistance, fresnelNumber, intensityAt, LIMITS, maxOrder, minimumPosition, pathOrder, posFromSlit, PREDICTS,
   regime, regimeLabel, screenDistance, slitFromPos, START, wavelengthRgb, widthFormula, widthMeasured, type DiffState,
@@ -269,6 +269,7 @@ const startState: DiffState = { ...START };
 
 export function DiffractionLabPage() {
   const { lessonId, back } = useLabOrigin();
+  useScrollTopOnOpen();
   const [s, setS] = useState<DiffState>(startState);
   const [probe, setProbe] = useState(0);
   const [showFar, setShowFar] = useState(false);
@@ -280,12 +281,17 @@ export function DiffractionLabPage() {
   const [ans, setAns] = useState<Record<string, number>>({});
   const set = (p: Partial<DiffState>) => setS((x) => ({ ...x, ...p }));
   const finished = Object.keys(ans).length === APPLY.length;
-  const saved = useLabCompletion(finished, lessonId);
   const reg = regime(s);
   const last = rows[rows.length - 1];
   const sameSetup = last ? rows.filter((r) => r.lambda === last.lambda && r.dist === last.dist && r.lens === last.lens) : [];
   const distinctWidths = new Set(sameSetup.map((r) => r.a)).size;
   const canFit = distinctWidths >= 3;
+  // The lab counts as completed only when the whole practical has been done, not just the questions.
+  const pending = [
+    ...(Object.keys(tested).length < PREDICTS.length ? ['test all four predictions'] : []),
+    ...(!canFit ? ['record at least three readings with different slit widths (same colour and screen) in the Measure step'] : []),
+  ];
+  const saved = useLabCompletion(finished && pending.length === 0, lessonId);
   const done = [true, Object.keys(tested).length === PREDICTS.length, Object.keys(tested).length === PREDICTS.length, rows.length >= 3, canFit, true, finished];
 
   const choosePredict = (i: number) => {
@@ -490,7 +496,7 @@ export function DiffractionLabPage() {
             </section>
           )}
 
-          {step === 6 && <ApplyCard questions={APPLY} ans={ans} onAnswer={(id, o) => setAns((x) => ({ ...x, [id]: o }))} saved={saved} backTo={lessonId ? back.to : null} />}
+          {step === 6 && <ApplyCard questions={APPLY} ans={ans} onAnswer={(id, o) => setAns((x) => ({ ...x, [id]: o }))} saved={saved} backTo={lessonId ? back.to : null} pending={pending} />}
         </div>
       </div>
     </div>

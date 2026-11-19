@@ -6,8 +6,8 @@
  * Status of all lab content: Draft - unverified.
  */
 import { Check, Circle, X } from 'lucide-react';
-import { useEffect, useState, type ReactNode } from 'react';
-import { Link, useSearchParams } from 'react-router';
+import { useEffect, useLayoutEffect, useState, type ReactNode } from 'react';
+import { Link, useNavigationType, useSearchParams } from 'react-router';
 import { api } from '../api';
 
 export const panel = 'rounded-lg border border-rule bg-surface';
@@ -67,6 +67,19 @@ export function StepNav({ step, seen, done, go, names = STEPS }: { step: number;
       ))}
     </ol>
   );
+}
+
+/**
+ * A lab opened from a lesson card starts at the top of the page, not wherever the lesson was scrolled to.
+ * Only for forward navigation (clicking a link): when the student uses the browser's Back or Forward button
+ * (a POP), the position is left alone so the browser's own history behaviour is not broken.
+ */
+export function useScrollTopOnOpen() {
+  const type = useNavigationType();
+  useLayoutEffect(() => {
+    if (type !== 'POP') window.scrollTo(0, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 }
 
 /** Where the lab was opened from: the lesson and section it belongs to (both optional). */

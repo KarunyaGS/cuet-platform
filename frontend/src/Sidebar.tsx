@@ -363,7 +363,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
               open={isOpen}
               state={onSubject ? 'selected' : inside || areaRoute?.paperId === s.paperId ? 'parent' : 'idle'}
               pad="pl-3"
-              size="h-9"
+              size="h-11"
               onSelect={() => {
                 expand([sKey]);
                 setOpen((o) => {
@@ -467,7 +467,7 @@ type RowState = 'selected' | 'parent' | 'idle';
 function SplitRow({ to, label, title, open, state, onSelect, onToggle, pad, kind, size = 'h-8' }: { to: string; label: React.ReactNode; title?: string; open: boolean; state: RowState; onSelect?: () => void; onToggle: () => void; pad: string; kind?: string; size?: string }) {
   return (
     <div className={`${rowBase} ${state === 'selected' ? selectedRow : state === 'parent' ? parentRow : 'text-ink'}`}>
-      <Link to={to} onClick={onSelect} aria-current={state === 'selected' ? 'page' : undefined} data-kind={kind} title={title} className={`flex min-h-8 min-w-0 flex-1 items-center py-1.5 pr-1 text-[13px] leading-snug ${pad} ${size === 'h-9' ? 'min-h-9' : ''}`}>
+      <Link to={to} onClick={onSelect} aria-current={state === 'selected' ? 'page' : undefined} data-kind={kind} title={title} className={`flex min-h-8 min-w-0 flex-1 items-center py-1.5 pr-1 text-[13px] leading-snug ${pad} ${size === 'h-11' ? 'min-h-11' : ''}`}>
         <span className="min-w-0 flex-1">{label}</span>
       </Link>
       <button type="button" aria-expanded={open} aria-label={open ? 'Collapse' : 'Expand'} onClick={onToggle} className="mr-1 grid size-8 shrink-0 place-items-center rounded-md">
@@ -641,7 +641,7 @@ function BrandMark() {
 export { BrandMark };
 
 const initial = (name: string) => name.trim().charAt(0).toUpperCase() || '?';
-const navRow = 'flex h-10 items-center gap-3 rounded-lg px-3 text-[13px] transition-colors hover:bg-white/[0.06]';
+const navRow = 'flex h-11 items-center gap-3 rounded-lg px-3 text-[13px] transition-colors hover:bg-white/[0.06]';
 
 /** The student's learning space: brand, workspace links, every subject, today's goal and who is signed in. */
 export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => void; className?: string }) {
@@ -667,7 +667,7 @@ export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => voi
       to={to}
       end={end}
       onClick={onNavigate}
-      className={({ isActive }) => `${navRow} ${isActive ? 'bg-lime font-medium text-forest' : 'text-[var(--color-forest-soft)] hover:text-white'}`}
+      className={({ isActive }) => `${navRow} ${isActive ? 'bg-lime-bright font-semibold text-forest shadow-[inset_3px_0_0_var(--color-coral-edge)]' : 'text-[var(--color-forest-soft)] hover:text-white'}`}
     >
       <span aria-hidden className="shrink-0 [&>svg]:size-4 [&>svg]:stroke-[1.6]">
         {icon}
@@ -680,10 +680,10 @@ export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => voi
     <aside
       aria-label="Student learning space"
       data-sidebar
-      className={`flex-col bg-forest font-display text-[var(--color-forest-soft)] [--color-accent:#e5ecb4] [--color-ink-3:#86a594] [--color-ink:#c5d8cb] ${className}`}
+      className={`flex-col bg-forest font-display text-[var(--color-forest-soft)] [--color-accent:#e6f28e] [--color-ink-3:#86a594] [--color-ink:#c5d8cb] ${className}`}
       style={{ backgroundImage: 'radial-gradient(120% 55% at 0% 0%, rgb(255 255 255 / 0.07), transparent 60%)' }}
     >
-      <div className="shrink-0 px-5 pt-5 pb-4">
+      <div className="shrink-0 px-5 pt-6 pb-9">
         <Link to="/" onClick={onNavigate} className="flex items-center gap-3 rounded-lg" aria-label="Prepora home">
           <BrandMark />
           <span className="flex min-w-0 flex-col leading-tight">

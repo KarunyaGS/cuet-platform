@@ -29,9 +29,11 @@
   --color-forest-deep: #123229;
   --color-forest-soft: #a9c3b3; /* muted light-green labels on forest */
   --color-ivory: #f5f1e7;
-  --color-terracotta: #b56148;
-  --color-terracotta-deep: #a3533b;
-  --color-lime: #e5ecb4;
+  --color-terracotta: #c45e42;
+  --color-terracotta-deep: #c45e42;
+  --color-lime: #e6f28e;
+  --color-lime-bright: #e6f28e; /* the selected sidebar item in the reference design */
+  --color-coral-edge: #c45e42; /* the thin accent on the selected item's left edge */
   --color-sage: #e7e8d9;
   --color-charcoal: #202c28;
   --color-mute: #6b7a72; /* secondary text, metadata */
@@ -62,7 +64,7 @@ body {
 }
 /* The student homepage: the shared blue accent becomes terracotta, and panels sit softly on ivory, so the Today sections beneath the map belong to the page. */
 [data-home] {
-  --color-accent: #a3533b;
+  --color-accent: #c45e42;
   --color-accent-strong: #8c4430;
   --color-accent-soft: #f1e1d7;
   --color-surface: #fbf9f3;

@@ -47,6 +47,26 @@ export const LABS: LabEntry[] = [
     can: ['Rotate, zoom and inspect the laser, the slit plate and the screen', 'Watch waves from two coherent sources add and cancel', 'Predict, measure and fit the fringe width β = λD/d'],
     minutes: 20,
   },
+  {
+    id: 'efield',
+    lessonTitleStartsWith: 'Electric charges',
+    afterHeading: 'Forces between multiple charges: the superposition principle',
+    path: '/lab/efield',
+    title: 'Electric Field Lab',
+    blurb: 'Drag positive and negative charges around, see the Coulomb forces and the field lines change live, and measure how the force depends on distance.',
+    can: ['Drag charges and watch the force arrows and field lines', 'Predict, then test: distance, charge size, attraction and repulsion', 'Measure F at three distances and find k from a straight-line graph'],
+    minutes: 15,
+  },
+  {
+    id: 'efield',
+    lessonTitleStartsWith: 'Electric field, field lines',
+    afterHeading: 'Electric field lines',
+    path: '/lab/efield',
+    title: 'Electric Field Lab',
+    blurb: 'Place charges, drag a field probe around them, and see how the field lines, the field arrows and a dipole behave.',
+    can: ['Watch field lines run from + to − with density proportional to charge', 'Move a probe and read the field from every charge added together', 'Try the dipole and compare its axial and equatorial fields'],
+    minutes: 15,
+  },
 ];
 
 export const labFor = (lessonTitle: string, heading: string) => LABS.find((l) => lessonTitle.startsWith(l.lessonTitleStartsWith) && l.afterHeading === heading);

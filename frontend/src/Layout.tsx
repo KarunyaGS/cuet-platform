@@ -181,7 +181,7 @@ function UserMenu() {
         aria-haspopup="menu"
         className="flex items-center gap-2 rounded-full p-0.5 text-sm text-ink-2 transition-colors hover:bg-ink/5"
       >
-        <span aria-hidden className="grid size-9 place-items-center rounded-full bg-[#ecbba5] text-[13px] font-bold text-forest">
+        <span aria-hidden className="grid size-[34px] place-items-center rounded-full bg-[#ecbba5] text-[13px] font-bold text-forest">
           {initials(user.displayName).charAt(0)}
         </span>
         <span className="sr-only">Account menu, {user.displayName}</span>
@@ -281,10 +281,10 @@ function ExamSelector() {
 
 /** The top bar beside the sidebar: search, notifications and the account. */
 function StudioBar({ path, onMenu, drawer }: { path: string; onMenu: () => void; drawer: boolean }) {
-  const pill = 'inline-flex h-9 items-center gap-2 rounded-lg border border-line bg-ivory px-3 text-[13px] font-medium text-charcoal transition-colors hover:bg-white/70';
+  const pill = 'inline-flex h-9 items-center gap-[10px] rounded-lg border border-line bg-white/30 px-[14px] text-[12px] font-medium text-charcoal transition-colors hover:bg-white/70';
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-ivory">
-      <div className="flex h-14 items-center gap-2 px-4 sm:px-8 md:h-[4.3rem] lg:px-12">
+    <header className="sticky top-0 z-30 bg-ivory">
+      <div className="flex h-14 items-center gap-2 px-4 sm:px-8 md:h-[70px] lg:px-12">
         <button type="button" onClick={onMenu} aria-label="Open subjects menu" aria-expanded={drawer} className="-ml-1 grid size-9 place-items-center rounded-lg text-charcoal hover:bg-ink/5 md:hidden">
           <Menu aria-hidden className="size-5" />
         </button>
@@ -294,9 +294,9 @@ function StudioBar({ path, onMenu, drawer }: { path: string; onMenu: () => void;
           </span>
           <span className="text-[15px] font-bold tracking-tight text-charcoal">Prepora</span>
         </Link>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-2.5">
           <NavLink to="/search" title="Search the syllabus" className={pill}>
-            <Search aria-hidden className="size-4" />
+            <Search aria-hidden className="size-[11px]" strokeWidth={1.8} />
             <span className="hidden sm:inline">Search</span>
             <span className="sr-only sm:hidden">Search the syllabus</span>
           </NavLink>

@@ -1,6 +1,6 @@
 import { BookMarked, ChevronDown, ChevronLeft, FlaskConical, Lightbulb, ListChecks, Sigma, Target } from 'lucide-react';
 import { Fragment, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { Link, useLocation, useNavigate, useParams } from 'react-router';
+import { Link, useLocation, useNavigate, useNavigationType, useParams } from 'react-router';
 import { api, type Block } from '../api';
 import { DisplayMath, parseBody, Rich } from '../rich';
 import { Annotatable, blockKey } from '../annotate';
@@ -172,7 +172,7 @@ export function BlockView({ b, solvedNo }: { b: Block; solvedNo: number }) {
 }
 
 /** "Try it" card for an interactive lab, shown at the end of the section it belongs to. */
-function LabCard({ lab, href }: { lab: LabEntry; href: string }) {
+function LabCard({ lab, href, lessonId }: { lab: LabEntry; href: string; lessonId: string }) {
   return (
     <aside aria-label={`Interactive: ${lab.title}`} data-lab-card={lab.id} className="relative overflow-hidden rounded-xl border border-accent/30 bg-gradient-to-br from-accent-soft to-surface p-4 sm:p-5">
       <div className="flex flex-wrap items-start gap-4">
@@ -192,7 +192,7 @@ function LabCard({ lab, href }: { lab: LabEntry; href: string }) {
             ))}
           </ul>
           <div className="mt-3 flex flex-wrap items-center gap-3">
-            <Link to={href} data-lab-launch className="inline-flex h-10 items-center gap-2 rounded-md bg-accent px-4 text-sm font-semibold text-white hover:bg-accent-strong">
+            <Link to={href} onClick={() => { try { sessionStorage.setItem(`prepora-scroll:${lessonId}`, String(Math.round(window.scrollY))); } catch { /* private mode: the lesson simply opens at the top */ } }} data-lab-launch className="inline-flex h-10 items-center gap-2 rounded-md bg-accent px-4 text-sm font-semibold text-white hover:bg-accent-strong">
               Open {lab.title}
             </Link>
             <span className="text-xs text-ink-3">About {lab.minutes} minutes · works on phones</span>
@@ -237,6 +237,24 @@ export function LearnPage() {
   const concepts = useConcepts(conceptKeys);
   // Arriving from a flashcard, a bookmark or search: go to that concept and mark it for a moment.
   const { hash } = useLocation();
+  const navType = useNavigationType();
+  // Coming back from a lab: "Back to lesson" lands on the section it belongs to, and the browser's Back button returns to where the student was.
+  useEffect(() => {
+    if (!r.data) return;
+    const t = window.setTimeout(() => {
+      if (hash && !hash.startsWith('#c-')) {
+        const el = document.getElementById(decodeURIComponent(hash.slice(1)));
+        if (el) return el.scrollIntoView({ block: 'start' });
+      }
+      if (navType === 'POP') {
+        let y = 0;
+        try { y = Number(sessionStorage.getItem(`prepora-scroll:${resourceId}`)); } catch { /* ignore */ }
+        if (y > 0) window.scrollTo(0, y);
+      }
+    }, 150);
+    return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [r.data]);
   const wanted = hash.startsWith('#c-') ? hash.slice(1) : null;
   const found = wanted ? (r.data?.blocks ?? []).some((b) => b.anchor === wanted) : false;
   useEffect(() => {
@@ -264,7 +282,7 @@ export function LearnPage() {
     const labDef = labHeadingAt >= 0 ? labFor(d.resource.title, d.blocks[labHeadingAt]!.body) : undefined;
     const nextHeading = labDef ? d.blocks.findIndex((x, i) => i > labHeadingAt && x.type === 'HEADING') : -1;
     const labInsertAt = labDef ? (nextHeading < 0 ? d.blocks.length : nextHeading) : -1;
-    const labAt = (i: number) => (labDef && i === labInsertAt ? <LabCard lab={labDef} href={labHref(labDef, d.resource.id, slug(d.blocks[labHeadingAt]!.body))} /> : null);
+    const labAt = (i: number) => (labDef && i === labInsertAt ? <LabCard lab={labDef} href={labHref(labDef, d.resource.id, slug(d.blocks[labHeadingAt]!.body))} lessonId={d.resource.id} /> : null);
   const practise = async () => {
     if (!d.topic) return;
     if (!user) return navigate('/signin');

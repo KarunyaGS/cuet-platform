@@ -8,6 +8,7 @@ import { BookmarksPage } from './pages/Bookmarks';
 import { DecksPage } from './pages/Decks';
 import { SheetPage } from './pages/Sheet';
 import { DiffractionLabPage } from './pages/DiffractionLab';
+import { EFieldLabPage } from './pages/EFieldLab';
 import { LensLabPage } from './pages/LensLab';
 import { installPopClick } from './popClick';
 import { VisualPage } from './pages/Visual';
@@ -130,6 +131,8 @@ const router = createBrowserRouter([
       { path: '/lab/lens', element: <LensLabPage /> },
       // Interactive Physics lab (pilot): single-slit diffraction.
       { path: '/lab/diffraction', element: <DiffractionLabPage /> },
+      // Interactive Physics lab: electric field and Coulomb's law.
+      { path: '/lab/efield', element: <EFieldLabPage /> },
       // Interactive 3D Physics lab (prototype): Young's double slit. Three.js is loaded only on this page.
       { path: '/lab/young', element: lazyPage(<YoungLabPage />) },
       { path: '/updates', element: <UpdatesPage /> },
