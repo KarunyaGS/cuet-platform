@@ -152,13 +152,7 @@ export function BlockView({ b, solvedNo }: { b: Block; solvedNo: number }) {
       );
     }
     case 'OFFICIAL_TEXT': {
-      const j = parseBody<{ text: string; page: number | null; paper: string }>(b.body);
-      return (
-        <blockquote className="border-l-2 border-rule-strong py-1 pl-4">
-          <div className="mb-0.5 text-[13px] font-medium text-ink-2">Official syllabus{j?.page ? `, page ${j.page}` : ''}</div>
-          <p className="font-serif text-[15px] text-ink">{j ? j.text : b.body}</p>
-        </blockquote>
-      );
+      return null;
     }
     default: {
       const t = tone[b.type] ?? { label: b.type, rule: 'border-rule-strong', icon: <Lightbulb /> };
@@ -299,18 +293,18 @@ export function LearnPage() {
   };
   const seenKeys = new Map<string, number>();
   return (
-    <div className="grid grid-cols-1 gap-x-10 gap-y-5 lg:grid-cols-[minmax(0,50rem)_minmax(0,20rem)] lg:justify-center xl:gap-x-14" data-lesson-layout>
+    <div className="mx-auto grid w-full max-w-[78rem] grid-cols-1 gap-x-8 gap-y-4 lg:grid-cols-[minmax(0,1fr)_17rem] lg:justify-center xl:grid-cols-[minmax(0,56rem)_18rem] xl:gap-x-10" data-lesson-layout>
       {/* The title first on every screen; on a wide screen it spans the text and the side rail. */}
-      <header className="border-b border-rule pb-4 lg:col-span-2" data-lesson-header>
+      <header className="pb-0 lg:col-span-2" data-lesson-header>
           {/* A fixed-width back area, then the heading: the heading always starts at the same place, however long it is. The back area is exactly one heading line tall, so the arrow sits on the first line. */}
-          <div className="flex items-start gap-1.5" data-lesson-title-row>
+          <div className="relative flex items-start" data-lesson-title-row>
             {/* The back area uses the heading's own font size and line height, so it is always exactly one heading line tall (h-lh). It is there on every lesson, even without a topic, so the title never moves. */}
             {d.topic ? (
-              <Link to={`/topic/${d.topic.id}`} aria-label={`Back to ${d.topic.title}`} data-lesson-back className="grid h-lh w-8 shrink-0 place-items-center rounded-lg text-[1.75rem] leading-tight text-ink-3 transition-colors hover:bg-accent-soft hover:text-accent">
+              <Link to={`/topic/${d.topic.id}`} aria-label={`Back to ${d.topic.title}`} data-lesson-back className="absolute top-0 right-full mr-1 grid h-lh w-8 shrink-0 place-items-center rounded-lg text-[1.75rem] leading-tight text-ink-3 transition-colors hover:bg-accent-soft hover:text-accent">
                 <ChevronLeft aria-hidden className="size-6" />
               </Link>
             ) : (
-              <span aria-hidden data-lesson-back-slot className="h-lh w-8 shrink-0 text-[1.75rem] leading-tight" />
+              <span aria-hidden data-lesson-back-slot className="hidden" />
             )}
             <h1 className="min-w-0 flex-1 text-[1.75rem] leading-tight font-semibold text-ink">{d.resource.title}</h1>
           </div>
@@ -323,24 +317,28 @@ export function LearnPage() {
           </div>
       </header>
       {/* The side column: saved cards and the contents list. On a phone it sits between the title and the text. */}
-      <aside className="min-w-0 space-y-5 lg:sticky lg:top-20 lg:col-start-2 lg:row-start-2 lg:self-start" data-lesson-rail>
+      <aside className="min-w-0 space-y-3 lg:sticky lg:top-20 lg:col-start-2 lg:row-start-2 lg:self-start" data-lesson-rail>
       {toc.length > 0 && (
-        <nav aria-label="On this page" className="hidden lg:block">
-          <div>
-            <div className="mb-2 text-sm font-semibold text-ink">On this page</div>
-            <ol className="space-y-0.5 border-l border-rule text-sm">
+        <nav aria-label="On this page">
+          <details className="group overflow-hidden rounded-xl border border-rule bg-surface/80">
+            <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2.5 px-3 text-sm marker:hidden [&::-webkit-details-marker]:hidden">
+              <span className="min-w-0 flex-1 font-semibold text-ink">On this page</span>
+              <span className="rounded-full bg-paper px-2 py-0.5 text-[10px] text-ink-3">{toc.length} sections</span>
+              <ChevronDown aria-hidden className="size-4 shrink-0 text-ink-3 transition-transform group-open:rotate-180" />
+            </summary>
+            <ol className="max-h-[min(60vh,32rem)] space-y-0.5 overflow-y-auto border-t border-rule p-2 text-[12px]">
               {toc.map((h, i) => {
                 const on = current === tocIds[i];
                 return (
                   <li key={h}>
-                    <a href={`#${tocIds[i]}`} aria-current={on ? 'location' : undefined} className={`-ml-px block border-l-2 py-1 pl-3 transition-colors ${on ? 'border-accent text-accent' : 'border-transparent text-ink-2 hover:text-ink'}`}>
+                    <a href={`#${tocIds[i]}`} aria-current={on ? 'location' : undefined} className={`block rounded-lg px-2.5 py-2 leading-snug transition-colors ${on ? 'bg-accent-soft font-semibold text-accent' : 'text-ink-2 hover:bg-paper hover:text-ink'}`}>
                       {h}
                     </a>
                   </li>
                 );
               })}
             </ol>
-          </div>
+          </details>
         </nav>
       )}
       </aside>

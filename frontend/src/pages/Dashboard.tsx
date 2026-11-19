@@ -60,6 +60,7 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
   const d = useLoad(api.dashboard, [user?.id]);
   const prefs = useLoad(api.preferences, [user?.id]);
   const [paperId, setPaperId] = useState('');
+  const [showAllInProgress, setShowAllInProgress] = useState(false);
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<Error | null>(null);
@@ -192,9 +193,13 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
       </div>
       {x.inProgress.length > 0 && (
         <section aria-labelledby="unfinished" className="mt-7" data-unfinished>
-          <SectionTitle id="unfinished">Unfinished tests</SectionTitle>
-          <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
-            {x.inProgress.map((t) => (
+          <SectionTitle id="unfinished" action={x.inProgress.length > 2 ? (
+            <button type="button" aria-expanded={showAllInProgress} aria-controls="unfinished-test-list" onClick={() => setShowAllInProgress((value) => !value)} className="rounded-full px-2.5 py-1 text-[11px] font-semibold text-accent transition-colors hover:bg-accent-soft">
+              {showAllInProgress ? 'Show less' : `Show more (${x.inProgress.length - 2})`}
+            </button>
+          ) : undefined}>Unfinished tests</SectionTitle>
+          <ul id="unfinished-test-list" className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
+            {(showAllInProgress ? x.inProgress : x.inProgress.slice(0, 2)).map((t) => (
               <li key={t.id} className={row}>
                 <PlayCircle aria-hidden className="size-4 shrink-0 text-ink-3" />
                 <span className="min-w-0 flex-1 truncate text-ink">

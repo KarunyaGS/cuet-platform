@@ -254,12 +254,12 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
   const startSubmit = () => (practice || answeredCount === total ? void submit() : setConfirming(true));
 
   return (
-    <div className={exam ? 'mx-auto min-h-dvh max-w-[84rem] px-4 pb-8 sm:px-6' : undefined} data-exam-screen={exam ? '' : undefined}>
+    <div className={exam ? 'mx-auto min-h-dvh w-full max-w-none px-3 pb-6 sm:px-5 lg:px-8' : undefined} data-exam-screen={exam ? '' : undefined}>
       {examining && data.session.exam && (
         <ExamGuard sessionId={sessionId} policy={data.session.exam} incidentsSoFar={data.session.exam.incidents} onEnded={() => navigate(`/results/${sessionId}`, { replace: true })} />
       )}
       {/* Test bar */}
-      <div className={`sticky ${exam ? 'top-0' : 'top-14'} z-20 -mx-4 mb-5 border-b border-rule bg-paper px-4 py-3 sm:-mx-6 sm:px-6`}>
+      <div className={`sticky ${exam ? 'top-0' : 'top-14'} z-20 -mx-4 mb-4 border-b border-rule bg-paper px-4 py-2.5 sm:-mx-6 sm:px-6`}>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2 font-semibold text-ink">
@@ -294,9 +294,9 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
         )}
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_19rem]">
-        <section className="min-w-0 overflow-hidden rounded-xl border border-rule bg-surface" aria-label={`Question ${q.number} of ${total}`}>
-          <div className="flex items-center justify-between gap-3 border-b border-rule px-5 py-3">
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_16rem] xl:gap-4">
+        <section key={q.id} data-question-card className="min-w-0 overflow-hidden rounded-xl border border-rule bg-surface lg:flex lg:min-h-[min(70dvh,43rem)] lg:flex-col" aria-label={`Question ${q.number} of ${total}`}>
+          <div className="flex items-center justify-between gap-3 border-b border-rule px-4 py-2.5">
             <span className="num text-sm font-semibold text-ink">
               Question {q.number} <span className="font-normal text-ink-3">of {total}</span>
             </span>
@@ -306,9 +306,9 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
               {!exam && <BookmarkButton kind="QUESTION" id={q.id} compact />}
             </span>
           </div>
-          <Annotatable key={q.id} kind="QUESTION" id={q.id} className="px-5 py-5" off={exam}>
+          <Annotatable key={q.id} kind="QUESTION" id={q.id} className="px-4 py-3.5 sm:px-5 lg:flex lg:flex-1 lg:flex-col" off={exam}>
             {q.passage && (
-              <div className="mb-4 max-h-64 overflow-y-auto rounded-lg border border-rule bg-paper p-4 font-serif text-[15px] leading-relaxed text-ink">
+              <div className="mb-3 max-h-64 overflow-y-auto rounded-lg border border-rule bg-paper p-3 font-serif text-[14px] leading-relaxed text-ink">
                 {q.passage.title && <div className="mb-1 font-sans font-semibold">{q.passage.title}</div>}
                 {q.passage.body}
               </div>
@@ -316,7 +316,7 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
             <div data-annot-block="stem">
               <QuestionStem stem={q.stem} structure={q.structure} />
             </div>
-            <ul className="mt-5 space-y-2.5" role={q.type === 'MCQ_MULTI' ? 'group' : 'radiogroup'} aria-label="Options">
+            <ul className="mt-4 space-y-2 lg:flex lg:flex-1 lg:flex-col lg:justify-evenly" role={q.type === 'MCQ_MULTI' ? 'group' : 'radiogroup'} aria-label="Options">
               {q.options.map((o, k) => {
                 const chosen = Boolean(q.answer?.selectedPositions?.includes(o.position));
                 const right = fb?.correctOptionPositions?.includes(o.position);
@@ -332,14 +332,14 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
                     : 'border-rule hover:border-rule-strong hover:bg-paper';
                 const dot = showResult ? (right ? 'border-correct bg-correct text-white' : chosen ? 'border-wrong bg-wrong text-white' : 'border-rule-strong text-ink-2') : chosen ? 'border-accent bg-accent text-white' : 'border-rule-strong text-ink-2';
                 return (
-                  <li key={o.position} className="relative">
+                  <li key={o.position} data-question-option className="relative">
                     <button
                       role={q.type === 'MCQ_MULTI' ? 'checkbox' : 'radio'}
                       aria-checked={chosen}
                       onClick={() => choose(q, o.position)}
-                      className={`flex w-full items-start gap-3 rounded-xl border px-4 py-3 text-left text-[15px] text-ink transition-colors ${state}`}
+                      className={`flex min-h-11 w-full items-start gap-3 rounded-xl border px-3.5 py-3 text-left text-[14px] text-ink transition-colors ${state}`}
                     >
-                      <span aria-hidden className={`grid size-7 shrink-0 place-items-center rounded-full border text-[13px] font-semibold ${dot}`}>
+                      <span aria-hidden className={`grid size-6 shrink-0 place-items-center rounded-full border text-[12px] font-semibold ${dot}`}>
                         {o.label}
                       </span>
                       <span className="min-w-0 flex-1 pt-0.5" data-annot-block={`opt-${o.position}`}>
@@ -400,33 +400,25 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
               </div>
             )}
             {fb?.outcome && (
-              <div aria-live="polite" className={`mt-5 rounded-xl border px-4 py-3 ${fb.outcome === 'CORRECT' ? 'border-correct/30 bg-correct-soft' : 'border-wrong/30 bg-wrong-soft'}`}>
-                <div className={`flex items-center gap-2 font-semibold ${fb.outcome === 'CORRECT' ? 'text-correct' : 'text-wrong'}`}>
-                  {fb.outcome === 'CORRECT' ? <CircleCheck aria-hidden className="size-5" /> : <CircleX aria-hidden className="size-5" />}
-                  {fb.outcome === 'CORRECT' ? 'Correct' : fb.outcome === 'INCORRECT' ? 'Not quite' : 'Skipped'}
-                  <span className="num font-normal">
-                    ({fb.score! > 0 ? '+' : ''}
-                    {fb.score} marks)
+              <div aria-live="polite" className={`mt-4 overflow-hidden rounded-2xl border shadow-[0_8px_20px_-18px_rgba(24,68,59,0.25)] ${fb.outcome === 'CORRECT' ? 'border-[#c8dfd1] bg-[#f1f7f1]' : 'border-[#e8c9b8] bg-[#fcf5ee]'}`}>
+                <div className={`flex flex-wrap items-center gap-2.5 px-4 py-3 ${fb.outcome === 'CORRECT' ? 'bg-[#e7f1e8]' : 'bg-[#f6e7dc]'}`}>
+                  <span className={`grid size-8 place-items-center rounded-full ${fb.outcome === 'CORRECT' ? 'bg-white text-correct' : 'bg-white text-terracotta'}`}>
+                    {fb.outcome === 'CORRECT' ? <CircleCheck aria-hidden className="size-[18px]" /> : <CircleX aria-hidden className="size-[18px]" />}
                   </span>
+                  <span className={`font-semibold ${fb.outcome === 'CORRECT' ? 'text-forest' : 'text-[#994631]'}`}>{fb.outcome === 'CORRECT' ? 'Correct answer' : fb.outcome === 'INCORRECT' ? 'Not quite' : 'Skipped'}</span>
+                  <span className={`num rounded-full bg-white/80 px-2.5 py-1 text-[11px] font-semibold ${fb.outcome === 'CORRECT' ? 'text-correct' : 'text-[#994631]'}`}>{fb.score! > 0 ? '+' : ''}{fb.score} marks</span>
+                  <span className="ml-auto hidden text-[10px] font-medium uppercase tracking-[0.12em] text-ink-3 sm:inline">{fb.outcome === 'CORRECT' ? 'Well done' : 'Review the key idea'}</span>
                 </div>
-                {q.type === 'NUMERICAL' && fb.correctNumericAnswer !== null && fb.correctNumericAnswer !== undefined && (
-                  <p className="num mt-1.5 text-[15px] text-ink">Correct answer: {fb.correctNumericAnswer}</p>
-                )}
-                {fb.explanation && (
-                  <div data-annot-block="explanation">
-                    <Rich text={fb.explanation} className="mt-2 text-[15px] leading-relaxed text-ink" />
-                  </div>
-                )}
-                {fb.outcome !== 'UNATTEMPTED' && (
-                  <div className="mt-3">
-                    <SaveForRevision questionId={q.id} compact />
-                  </div>
-                )}
+                {(fb.explanation || (q.type === 'NUMERICAL' && fb.correctNumericAnswer !== null && fb.correctNumericAnswer !== undefined)) && <div className="px-4 py-3.5 sm:px-5">
+                  {q.type === 'NUMERICAL' && fb.correctNumericAnswer !== null && fb.correctNumericAnswer !== undefined && <p className="num mb-2 text-[13px] font-semibold text-forest">Correct answer: {fb.correctNumericAnswer}</p>}
+                  {fb.explanation && <div data-annot-block="explanation" className="border-l-2 border-terracotta/50 pl-3"><p className="mb-1 text-[9px] font-bold uppercase tracking-[0.14em] text-ink-3">Explanation</p><Rich text={fb.explanation} className="text-[14px] leading-relaxed text-ink" /></div>}
+                </div>}
+                {fb.outcome !== 'UNATTEMPTED' && <div className="border-t border-forest/10 px-4 py-2.5"><SaveForRevision questionId={q.id} compact /></div>}
               </div>
             )}
             {err && <ErrorBox error={err} />}
           </Annotatable>
-          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-rule px-5 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-rule px-4 py-2.5">
             <Button kind="ghost" onClick={() => setI(Math.max(0, i - 1))} disabled={i === 0} icon={<ChevronLeft aria-hidden />}>
               Previous
             </Button>
@@ -450,9 +442,9 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
         </section>
 
         <aside className={`lg:sticky ${exam ? 'lg:top-24' : 'lg:top-36'} lg:self-start`} aria-label="Question palette">
-          <div className="rounded-xl border border-rule bg-surface p-4">
+          <div className="rounded-xl border border-rule bg-surface p-3.5">
             <h2 className="text-sm font-semibold text-ink">Questions</h2>
-            <div className="mt-3 grid grid-cols-8 gap-1.5 sm:grid-cols-10 lg:grid-cols-6">
+            <div className="mt-2.5 grid grid-cols-8 gap-1 sm:grid-cols-10 lg:grid-cols-6">
               {data.questions.map((x, k) => {
                 const c = cellOf(x);
                 return (
@@ -461,14 +453,14 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
                     onClick={() => setI(k)}
                     aria-label={`Question ${x.number}, ${CELL[c].label.toLowerCase()}`}
                     aria-current={k === i ? 'true' : undefined}
-                    className={`num h-9 rounded-lg text-[13px] font-semibold transition-shadow ${CELL[c].cls} ${k === i ? 'ring-2 ring-accent ring-offset-2 ring-offset-surface' : ''}`}
+                    className={`num h-8 rounded-lg text-[12px] font-semibold transition-shadow ${CELL[c].cls} ${k === i ? 'ring-2 ring-accent ring-offset-2 ring-offset-surface' : ''}`}
                   >
                     {x.number}
                   </button>
                 );
               })}
             </div>
-            <ul className="mt-4 space-y-1.5 border-t border-rule pt-3 text-[13px]">
+            <ul className="mt-3 space-y-1 border-t border-rule pt-2.5 text-[12px]">
               {legend.map((k) => (
                 <li key={k} className="flex items-center gap-2 text-ink-2">
                   <span aria-hidden className={`size-4 rounded ${CELL[k].cls}`} />

@@ -3,6 +3,7 @@ import { useState, type FormEvent, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router';
 import { api, ApiError } from '../api';
 import { inputClass, useAuth } from '../ui';
+import { PreporaSpark } from '../brand';
 
 type Mode = 'signin' | 'signup';
 
@@ -30,7 +31,7 @@ function Logo({ light = false }: { light?: boolean }) {
   return (
     <span className="flex items-center gap-2 font-semibold tracking-tight">
       <span className={`grid size-9 shrink-0 place-items-center rounded-lg ${light ? 'bg-white' : ''}`}>
-        <img src="/prepora-logo.png" alt="" aria-hidden width={32} height={32} className="size-8 object-contain" />
+        <PreporaSpark className="size-8" />
       </span>
       <span className="text-lg">
         {light ? (
@@ -234,7 +235,7 @@ export function AuthPage({ mode }: { mode: Mode }) {
               disabled={busy || mismatch}
               className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-accent px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-accent-strong disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {busy && <span aria-hidden className="size-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />}
+              {busy && <PreporaSpark className="size-4" animated />}
               {busy ? (signup ? 'Creating your account…' : 'Signing in…') : signup ? 'Create Account' : 'Sign In'}
             </button>
           </form>

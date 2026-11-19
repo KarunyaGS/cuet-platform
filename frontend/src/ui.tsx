@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
 import { ChevronLeft, CircleAlert, Search } from 'lucide-react';
 import { Link, Navigate, useLocation } from 'react-router';
 import { api, ApiError, UNAUTHORIZED_EVENT, type User } from './api';
+import { PreporaSpark } from './brand';
 
 /** Load data once per dependency change; exposes loading, error and a reload function. */
 export function useLoad<T>(load: () => Promise<T>, deps: unknown[]) {
@@ -21,7 +22,7 @@ export function useLoad<T>(load: () => Promise<T>, deps: unknown[]) {
 export function Loading({ label = 'Loading' }: { label?: string }) {
   return (
     <div className="flex items-center gap-2.5 py-8 text-sm text-ink-3" role="status">
-      <span aria-hidden className="size-4 animate-spin rounded-full border-2 border-rule border-t-accent" />
+      <PreporaSpark className="size-5" animated />
       {label}…
     </div>
   );
@@ -58,8 +59,8 @@ export function ErrorBox({ error, onRetry }: { error: Error; onRetry?: () => voi
 /** What to show when a list has nothing in it: a short explanation and, where possible, the next step. */
 export function Empty({ children, icon, action }: { children: ReactNode; icon?: ReactNode; action?: ReactNode }) {
   return (
-    <div className="flex items-start gap-3 rounded-lg border border-dashed border-rule-strong bg-surface/60 px-4 py-4 text-sm text-ink-2">
-      {icon && <span aria-hidden className="mt-0.5 shrink-0 text-ink-3 [&>svg]:size-5">{icon}</span>}
+    <div className="flex items-start gap-3 rounded-2xl border border-dashed border-[#cbd5bd] bg-gradient-to-br from-[#eef2e4] to-surface px-4 py-4 text-sm leading-relaxed text-ink-2">
+      {icon && <span aria-hidden className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-xl bg-forest text-lime [&>svg]:size-[18px]">{icon}</span>}
       <div className="min-w-0">
         <div>{children}</div>
         {action && <div className="mt-2">{action}</div>}
@@ -92,17 +93,14 @@ export function PreviewBadge(_props: { what?: string }) {
 /** Page title block: title, one line of context, actions on the right, and an optional way back. */
 export function PageHeader({ title, subtitle, actions, back }: { title: ReactNode; subtitle?: ReactNode; actions?: ReactNode; back?: { to: string; label: string } }) {
   return (
-    <header className="mb-4">
-      {back && (
-        <Link to={back.to} className="mb-1 inline-flex items-center gap-1 text-sm text-ink-2 hover:text-accent">
-          <ChevronLeft aria-hidden className="size-4" />
-          {back.label}
-        </Link>
-      )}
+    <header className="mb-5" data-page-header>
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2.5">
-        <div className="min-w-0 max-w-[60rem]">
-          <h1 className="text-[1.375rem] leading-snug font-semibold text-ink sm:text-2xl">{title}</h1>
-          {subtitle && <div className="mt-1 text-[15px] text-ink-2">{subtitle}</div>}
+        <div className="flex min-w-0 max-w-[60rem] items-start gap-1.5">
+          {back && <Link to={back.to} aria-label={back.label} title={back.label} className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg text-ink-3 transition-colors hover:bg-accent-soft hover:text-accent"><ChevronLeft aria-hidden className="size-5" /></Link>}
+          <div className="min-w-0">
+            <h1 className="font-display text-[clamp(1.7rem,2.4vw,2.35rem)] leading-[1.08] font-bold tracking-[-0.04em] text-ink">{title}</h1>
+            {subtitle && <div className="mt-2 max-w-3xl text-[14px] leading-relaxed text-ink-2">{subtitle}</div>}
+          </div>
         </div>
         {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
       </div>
@@ -114,7 +112,7 @@ export function PageHeader({ title, subtitle, actions, back }: { title: ReactNod
 export function SectionTitle({ children, action, id }: { children: ReactNode; action?: ReactNode; id?: string }) {
   return (
     <div className="mb-2.5 flex items-baseline justify-between gap-3">
-      <h2 id={id} className="text-base font-semibold text-ink">
+      <h2 id={id} className="font-display text-[16px] font-semibold tracking-[-0.02em] text-forest">
         {children}
       </h2>
       {action && <div className="shrink-0 text-sm">{action}</div>}
@@ -124,18 +122,18 @@ export function SectionTitle({ children, action, id }: { children: ReactNode; ac
 
 /** The one surface style: white, hairline border, small radius. Use for groups of related content, not for every block. */
 export function Panel({ children, className = '', as: As = 'div' }: { children: ReactNode; className?: string; as?: 'div' | 'section' | 'ul' | 'ol' | 'aside' }) {
-  return <As className={`rounded-xl border border-rule bg-surface ${className}`}>{children}</As>;
+  return <As className={`rounded-2xl border border-rule bg-surface shadow-[0_8px_22px_rgba(31,56,46,0.045)] ${className}`}>{children}</As>;
 }
 
 /** Several key numbers in one panel, separated by hairlines rather than boxed one by one. */
 export function StatGroup({ items }: { items: { label: string; value: ReactNode; hint?: ReactNode; tone?: 'correct' | 'wrong' | 'muted' }[] }) {
   const tone = { correct: 'text-correct', wrong: 'text-wrong', muted: 'text-ink-3' };
   return (
-    <dl className="grid grid-cols-2 divide-rule rounded-xl border border-rule bg-surface sm:grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] sm:divide-x [&>div:nth-child(n+3)]:border-t [&>div:nth-child(n+3)]:border-rule sm:[&>div:nth-child(n+3)]:border-t-0">
+    <dl className="grid grid-cols-2 divide-rule rounded-2xl border border-rule bg-surface shadow-[0_8px_22px_rgba(31,56,46,0.045)] sm:grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] sm:divide-x [&>div:nth-child(n+3)]:border-t [&>div:nth-child(n+3)]:border-rule sm:[&>div:nth-child(n+3)]:border-t-0">
       {items.map((s) => (
-        <div key={s.label} className="px-4 py-3">
+        <div key={s.label} className="px-4 py-3.5">
           <dt className="text-[13px] text-ink-2">{s.label}</dt>
-          <dd className={`num mt-0.5 text-xl font-semibold ${s.tone ? tone[s.tone] : 'text-ink'}`}>{s.value}</dd>
+          <dd className={`num mt-1 text-[1.35rem] font-bold tracking-tight ${s.tone ? tone[s.tone] : 'text-forest'}`}>{s.value}</dd>
           {s.hint && <dd className="mt-0.5 text-xs text-ink-3">{s.hint}</dd>}
         </div>
       ))}
@@ -157,14 +155,14 @@ export const accuracyTone = (v: number | null) => (v === null ? 'accent' : v >= 
 
 type ButtonKind = 'primary' | 'secondary' | 'ghost' | 'danger';
 const buttonKinds: Record<ButtonKind, string> = {
-  primary: 'bg-accent text-white shadow-sm hover:bg-accent-strong',
+  primary: 'bg-forest text-lime shadow-[0_5px_14px_rgb(24_68_59/0.18)] hover:bg-forest-deep hover:shadow-[0_8px_20px_rgb(24_68_59/0.24)]',
   secondary: 'bg-surface text-ink ring-1 ring-inset ring-rule-strong hover:bg-paper',
   ghost: 'text-ink-2 hover:bg-ink/5 hover:text-ink',
   danger: 'bg-surface text-wrong ring-1 ring-inset ring-wrong/30 hover:bg-wrong-soft',
 };
 const buttonSizes = { sm: 'h-8 gap-1.5 px-2.5 text-[13px]', md: 'h-9 gap-2 px-3.5 text-sm' };
 export const buttonClass = (kind: ButtonKind = 'primary', size: 'sm' | 'md' = 'md') =>
-  `inline-flex shrink-0 items-center justify-center rounded-lg font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 [&>svg]:size-4 ${buttonSizes[size]} ${buttonKinds[kind]}`;
+  `inline-flex shrink-0 items-center justify-center rounded-xl font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 [&>svg]:size-4 ${buttonSizes[size]} ${buttonKinds[kind]}`;
 
 export function Button({
   children,
@@ -175,6 +173,7 @@ export function Button({
   type = 'button',
   icon,
   title,
+  className = '',
 }: {
   children: ReactNode;
   onClick?: () => void;
@@ -184,9 +183,10 @@ export function Button({
   type?: 'button' | 'submit';
   icon?: ReactNode;
   title?: string;
+  className?: string;
 }) {
   return (
-    <button type={type} onClick={onClick} disabled={disabled} title={title} className={buttonClass(kind, size)}>
+    <button type={type} onClick={onClick} disabled={disabled} title={title} className={`${buttonClass(kind, size)} ${className}`}>
       {icon}
       {children}
     </button>

@@ -43,7 +43,28 @@ async function pick(db: D1Database, preview: boolean, nodeId: string, lim: Limit
     return true;
   };
   const all = notes.lessons.flatMap((l) => l.blocks);
-  const short = (b: { type: string; body: string }): Note => ({ type: b.type, body: clip(strip(b.body), lim.chars) });
+  const short = (b: { type: string; body: string }): Note => {
+    if (b.body.startsWith('{') || b.body.startsWith('[')) {
+      try {
+        const value: unknown = JSON.parse(b.body);
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+          const fields = value as Record<string, unknown>;
+          if (b.type === 'DEFINITION' && typeof fields.term === 'string' && typeof fields.text === 'string') {
+            return { type: b.type, body: JSON.stringify({ term: strip(fields.term), text: clip(strip(fields.text), lim.chars) }) };
+          }
+          if (b.type === 'FORMULA' && typeof fields.latex === 'string') {
+            return { type: b.type, body: JSON.stringify({ latex: fields.latex, text: typeof fields.text === 'string' ? clip(strip(fields.text), lim.chars) : null }) };
+          }
+          if (typeof fields.text === 'string') return { type: b.type, body: clip(strip(fields.text), lim.chars) };
+          return { type: b.type, body: JSON.stringify(value) };
+        }
+        return { type: b.type, body: JSON.stringify(value) };
+      } catch {
+        // Older notes may contain malformed JSON; fall back to a readable plain-text excerpt.
+      }
+    }
+    return { type: b.type, body: clip(strip(b.body), lim.chars) };
+  };
   const defs = all.filter((b) => b.type === 'DEFINITION' && fresh(b)).slice(0, lim.defs).map(short);
   const formulas = all.filter((b) => b.type === 'FORMULA' && fresh(b)).slice(0, lim.formulas).map(short);
   const points = all

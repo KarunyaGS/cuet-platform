@@ -8,7 +8,15 @@ import { BookmarksPage } from './pages/Bookmarks';
 import { DecksPage } from './pages/Decks';
 import { SheetPage } from './pages/Sheet';
 import { DiffractionLabPage } from './pages/DiffractionLab';
+import { CircuitLabPage } from './pages/CircuitLab';
+import { AlgoLabPage } from './pages/AlgoLab';
 import { EFieldLabPage } from './pages/EFieldLab';
+import { AreaLabPage } from './pages/AreaLab';
+import { GalvanicLabPage } from './pages/GalvanicLab';
+import { SyllogismLabPage } from './pages/SyllogismLab';
+import { PopulationLabPage } from './pages/PopulationLab';
+import { GeneticsLabPage } from './pages/GeneticsLab';
+import { LabsPage } from './pages/Labs';
 import { LensLabPage } from './pages/LensLab';
 import { installPopClick } from './popClick';
 import { VisualPage } from './pages/Visual';
@@ -128,11 +136,25 @@ const router = createBrowserRouter([
       // Visual learning prototype: one Physics topic.
       { path: '/visual/gravitation', element: <VisualPage /> },
       // Interactive Physics lab (pilot): thin lens image formation.
+      // The Practical Labs page: every hands-on lab, by subject.
+      { path: '/labs', element: <LabsPage /> },
       { path: '/lab/lens', element: <LensLabPage /> },
       // Interactive Physics lab (pilot): single-slit diffraction.
       { path: '/lab/diffraction', element: <DiffractionLabPage /> },
       // Interactive Physics lab: electric field and Coulomb's law.
       { path: '/lab/efield', element: <EFieldLabPage /> },
+      // Interactive Mathematics lab: Riemann sums, area between curves and signed area.
+      { path: '/lab/area', element: <AreaLabPage /> },
+      // Interactive Physics lab: cells, Kirchhoff's rules and the Wheatstone bridge.
+      { path: '/lab/circuit', element: <CircuitLabPage /> },
+      // Interactive Computer Science lab: stack, queue, deque, sorting and searching.
+      { path: '/lab/algo', element: <AlgoLabPage /> },
+      { path: '/lab/syllogism', element: <SyllogismLabPage /> },
+      { path: '/lab/galvanic', element: <GalvanicLabPage /> },
+      // Interactive Geography lab: densities, demographic transition, pyramids and the HDI.
+      { path: '/lab/population', element: <PopulationLabPage /> },
+      // Interactive Biology lab: Punnett squares, offspring simulator, Hardy-Weinberg and drift.
+      { path: '/lab/genetics', element: <GeneticsLabPage /> },
       // Interactive 3D Physics lab (prototype): Young's double slit. Three.js is loaded only on this page.
       { path: '/lab/young', element: lazyPage(<YoungLabPage />) },
       { path: '/updates', element: <UpdatesPage /> },

@@ -1,4 +1,4 @@
-import { Download, Printer } from 'lucide-react';
+import { ChevronLeft, Download, Printer } from 'lucide-react';
 import { Link, Navigate, useParams, useSearchParams } from 'react-router';
 import { api, type Sheet, type SheetSection } from '../api';
 import { Figure } from '../question';
@@ -19,7 +19,7 @@ function Section({ s, compact }: { s: SheetSection; compact: boolean }) {
           </span>
         )}
       </h2>
-      <div className={`gap-x-6 text-[14px] leading-snug ${compact ? 'columns-1 sm:columns-2' : 'columns-1 md:columns-2'}`} data-sheet-notes>
+      <div className={`grid grid-cols-1 items-start gap-3 ${compact ? 'sm:grid-cols-2' : 'md:grid-cols-2'}`} data-sheet-notes>
         {notes.map((b, i) => (
           <div key={i} className="mb-2 min-w-0 max-w-full overflow-x-auto break-inside-avoid">
             <BlockView b={asBlock(b, i)} solvedNo={0} />
@@ -61,23 +61,25 @@ function SheetView({ s }: { s: Sheet }) {
   };
   const compact = s.kind !== 'CHAPTER';
   return (
-    <div className="max-w-4xl" data-print-sheet data-sheet={s.kind} data-max-pages={s.maxPages}>
-      <header className="mb-4">
-        <div data-no-print className="mb-2">
-          <Link to={s.kind === 'CHAPTER' && s.sections[0] ? `/topic/${s.sections[0].id}` : s.paperId ? `/subjects/${s.paperId}` : '/progress'} className="text-sm font-medium text-accent hover:underline">
-            Back
+    <div className="w-full max-w-none" data-print-sheet data-sheet={s.kind} data-max-pages={s.maxPages}>
+      <header className="mb-5">
+        <div className="flex flex-wrap items-start gap-2">
+          <Link to={s.kind === 'CHAPTER' && s.sections[0] ? `/topic/${s.sections[0].id}` : s.paperId ? `/subjects/${s.paperId}` : '/progress'} aria-label="Go back" title="Go back" data-no-print className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg text-ink-3 transition-colors hover:bg-accent-soft hover:text-accent">
+            <ChevronLeft aria-hidden className="size-5" />
           </Link>
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <h1 className="text-2xl font-semibold leading-tight text-ink">{s.title}</h1>
+              {s.draft && <Badge tone="amber">Draft - unverified</Badge>}
+            </div>
+            <p className="mt-1 text-sm text-ink-2">
+              {s.paper && s.kind === 'CHAPTER' ? `${s.paper}. ` : ''}
+              Made from {s.lessons} {s.lessons === 1 ? 'lesson' : 'lessons'}; it updates when they change (version <span className="num">{s.version}</span>).
+              {s.draft ? ' These lessons have not been checked by a subject expert yet.' : ''}
+            </p>
+          </div>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <h1 className="text-2xl font-semibold text-ink">{s.title}</h1>
-          {s.draft && <Badge tone="amber">Draft - unverified</Badge>}
-        </div>
-        <p className="mt-1 text-sm text-ink-2">
-          {s.paper && s.kind === 'CHAPTER' ? `${s.paper}. ` : ''}
-          Made from {s.lessons} {s.lessons === 1 ? 'lesson' : 'lessons'}; it updates when they change (version <span className="num">{s.version}</span>).
-          {s.draft ? ' These lessons have not been checked by a subject expert yet.' : ''}
-        </p>
-        <div data-no-print className="mt-3 flex flex-wrap gap-2">
+        <div data-no-print className="mt-3 flex flex-wrap gap-2 pl-10">
           <Button onClick={download} icon={<Download aria-hidden />}>Download PDF</Button>
           <Button kind="secondary" onClick={print} icon={<Printer aria-hidden />}>Print</Button>
         </div>

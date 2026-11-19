@@ -54,11 +54,12 @@ export function VisualsPage() {
   return (
     <div data-visuals data-print-sheet>
       <header className="mb-4">
-        <Link to={`/topic/${d.topic.id}`} className="mb-0.5 inline-flex items-center gap-1 text-sm text-ink-2 hover:text-accent" data-no-print>
-          <ChevronLeft aria-hidden className="size-4" />
-          Full topic
-        </Link>
-        <h1 className="text-base leading-snug font-semibold text-ink sm:text-lg lg:text-xl">Diagrams and tables: {d.topic.title}</h1>
+        <div className="flex min-w-0 items-start gap-1.5">
+          <Link to={`/topic/${d.topic.id}`} aria-label={`Back to ${d.topic.title}`} title={`Back to ${d.topic.title}`} className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg text-ink-3 transition-colors hover:bg-accent-soft hover:text-accent" data-no-print>
+            <ChevronLeft aria-hidden className="size-5" />
+          </Link>
+          <h1 className="text-base leading-snug font-semibold text-ink sm:text-lg lg:text-xl">Diagrams and tables: {d.topic.title}</h1>
+        </div>
         <p className="mt-0.5 text-sm text-ink-2">
           {kindLabel(d.topic.kind, d.topic.label) ? `${kindLabel(d.topic.kind, d.topic.label)}, ` : ''}
           {d.topic.paper}. {d.counts.diagrams} {d.counts.diagrams === 1 ? 'diagram' : 'diagrams'} and {d.counts.tables} {d.counts.tables === 1 ? 'table' : 'tables'}.

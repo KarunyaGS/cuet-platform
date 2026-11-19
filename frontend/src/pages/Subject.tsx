@@ -1,9 +1,9 @@
-import { ChevronRight, FileText, ListChecks, Shapes, Timer } from 'lucide-react';
+import { ArrowUpRight, ChevronRight, FileText, ListChecks, Shapes, Timer } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { api, ApiError, type OutlineNode } from '../api';
 import { NotFoundPage } from './Search';
-import { Button, Empty, ErrorBox, kindLabel, Loading, PageHeader, useAuth, useLoad } from '../ui';
+import { Button, Empty, ErrorBox, kindLabel, Loading, useAuth, useLoad } from '../ui';
 import { SubjectCards } from '../tools';
 import { AreaCards } from './SubjectArea';
 
@@ -58,30 +58,22 @@ export function SubjectSyllabusPage() {
   const examName = exam === 'CUET_UG' ? 'CUET-UG' : 'CUET-PG';
   const unitQuestions = active ? countQuestions(active.id) + active.questions : 0;
   return (
-    <div>
-      <PageHeader
-        back={{ to: `/${exam}`, label: `${examName} subjects` }}
-        title={
-          <span className="flex flex-wrap items-baseline gap-x-3">
-            {String(p.name)} <span className="num text-base font-normal text-ink-3">{String(p.code)}</span>
-          </span>
-        }
-        subtitle={
-          p.source_url ? (
-            <a href={String(p.source_url)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-accent hover:underline">
-              <FileText aria-hidden className="size-4" />
-              Official NTA syllabus PDF, {String(p.page_count)} pages
-            </a>
-          ) : (
-            'The official syllabus PDF is not yet available.'
-          )
-        }
-        actions={
-          <Button onClick={() => startMock()} disabled={busy || !p.version_id} icon={<Timer aria-hidden />}>
-            {busy ? 'Starting…' : `Full mock test, ${String(p.question_count ?? '')} questions in ${String(p.duration_minutes ?? '')} min`}
-          </Button>
-        }
-      />
+    <div data-subject-syllabus>
+      <header data-subject-hero className="relative mb-5 overflow-hidden rounded-[22px] border border-[#dce4cd] bg-gradient-to-br from-[#e8eedc] via-[#f7f4e9] to-[#f4e3d8] px-5 py-5 sm:px-6 sm:py-6">
+        <div className="flex flex-wrap items-end justify-between gap-5">
+          <div className="min-w-0 max-w-3xl">
+            <Link to={`/${exam}`} className="label mb-4 inline-flex items-center gap-2 text-[10px] text-terracotta hover:underline"><ChevronRight aria-hidden className="size-3 rotate-180" />{examName} · ALL SUBJECTS</Link>
+            <h1 className="text-[clamp(1.9rem,3.6vw,2.8rem)] leading-[1.02] font-bold tracking-[-0.045em] text-charcoal">{String(p.name)}<span className="font-editorial font-medium tracking-[-0.03em] text-terracotta italic">. Find your way.</span></h1>
+            <p className="mt-3 text-[13px] leading-relaxed text-ink-2">{p.source_url ? <a href={String(p.source_url)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 font-medium text-forest hover:text-terracotta"><FileText aria-hidden className="size-4" />Official NTA syllabus · {String(p.page_count)} pages <ArrowUpRight className="size-3.5" /></a> : 'The official syllabus PDF is not yet available.'}</p>
+            <div className="mt-4 flex flex-wrap gap-2"><span className="rounded-full border border-forest/10 bg-white/55 px-3 py-1.5 text-[11px] font-semibold text-forest">{String(p.code)}</span><span className="rounded-full border border-forest/10 bg-white/55 px-3 py-1.5 text-[11px] font-semibold text-forest">{String(p.question_count ?? '—')} questions</span><span className="rounded-full border border-forest/10 bg-white/55 px-3 py-1.5 text-[11px] font-semibold text-forest">{String(p.duration_minutes ?? '—')} min</span></div>
+          </div>
+          <div className="relative z-10">
+            <Button onClick={() => startMock()} disabled={busy || !p.version_id} icon={<Timer aria-hidden />} className="!h-11 !rounded-xl !bg-forest !px-4 !text-lime !shadow-[0_10px_24px_rgb(24_68_59/0.2)] hover:!bg-forest-deep">
+              {busy ? 'Starting…' : 'Start full mock'}
+            </Button>
+          </div>
+        </div>
+      </header>
       {err && <ErrorBox error={err} />}
       <p data-sheet-links className="mb-4 flex flex-wrap gap-x-5 gap-y-1 text-sm font-medium">
         <Link to={`/sheets/subject/${paperId}`} className="text-accent hover:underline">Last-day revision sheet (3 pages)</Link>

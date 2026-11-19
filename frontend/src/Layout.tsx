@@ -2,6 +2,7 @@ import { BookOpen, ChevronDown, Menu, GalleryVerticalEnd, Landmark, Highlighter,
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
+import { PreporaSpark } from './brand';
 import { BrandMark, Sidebar } from './Sidebar';
 import { SupportWidget } from './support/SupportWidget';
 import { useAuth } from './ui';
@@ -11,7 +12,7 @@ const REVIEW_ROLES = ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'];
 export function Logo() {
   return (
     <span className="flex items-center gap-2.5 text-[15px] font-semibold text-ink">
-      <img src="/prepora-logo.png" alt="" aria-hidden width={32} height={32} className="size-8 shrink-0 object-contain" />
+      <PreporaSpark className="size-8" />
       <span className="flex flex-col leading-tight">
         <span data-brand-name>
           <span className="text-accent">Pre</span>
@@ -284,7 +285,7 @@ function StudioBar({ path, onMenu, drawer }: { path: string; onMenu: () => void;
   const pill = 'inline-flex h-9 items-center gap-[10px] rounded-lg border border-line bg-white/30 px-[14px] text-[12px] font-medium text-charcoal transition-colors hover:bg-white/70';
   return (
     <header className="sticky top-0 z-30 bg-ivory">
-      <div className="flex h-14 items-center gap-2 px-4 sm:px-8 md:h-[70px] lg:px-12">
+      <div className="flex h-14 items-center gap-2 px-4 sm:px-8 lg:px-12">
         <button type="button" onClick={onMenu} aria-label="Open subjects menu" aria-expanded={drawer} className="-ml-1 grid size-9 place-items-center rounded-lg text-charcoal hover:bg-ink/5 md:hidden">
           <Menu aria-hidden className="size-5" />
         </button>
@@ -322,8 +323,8 @@ export function Layout() {
   // One page container for the whole app: wide enough to use a desktop screen, with the same gutters everywhere.
   // Beside the sidebar the page starts at the sidebar's edge and uses the width available (left-aligned, never centred in a narrow box).
   // Without a sidebar (sign-in, staff consoles) the centred, width-limited container stays.
-  const shell = wide ? 'mx-auto max-w-[96rem]' : 'mx-auto max-w-[84rem]';
-  const pageBox = showSidebar ? 'max-w-[120rem] px-5 pt-6 sm:px-8 lg:px-10' : `${shell} px-5 pt-6 sm:px-8 lg:px-10`;
+  const shell = wide ? 'mx-auto max-w-[96rem]' : focus ? 'mx-auto max-w-[120rem]' : 'mx-auto max-w-[84rem]';
+  const pageBox = showSidebar ? 'max-w-[120rem] px-5 pt-3 sm:px-8 lg:px-10' : focus ? `${shell} px-3 pt-2 sm:px-5 lg:px-8` : `${shell} px-5 pt-3 sm:px-8 lg:px-10`;
 
   if (showSidebar) {
     return (
@@ -335,7 +336,7 @@ export function Layout() {
           <Sidebar className="sticky top-0 hidden h-dvh w-60 shrink-0 md:flex lg:w-[17rem]" />
           <div className="min-w-0 flex-1">
             <StudioBar path={path} onMenu={() => setDrawer(true)} drawer={drawer} />
-            <main id="main" key={path} className="page-in px-4 pt-3 pb-24 sm:px-8 md:pb-10 lg:px-12">
+            <main id="main" key={path} className="page-in px-4 pt-2 pb-24 sm:px-8 md:pb-10 lg:px-12">
               <Outlet />
             </main>
           </div>
@@ -362,7 +363,7 @@ export function Layout() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2 focus:text-sm">
         Skip to content
       </a>
-      <header className="sticky top-0 z-30 border-b border-rule bg-paper">
+      <header className="sticky top-0 z-30 bg-paper">
         <div className={`flex h-14 items-center gap-1.5 px-3 sm:gap-2 sm:px-7 lg:px-10 ${showSidebar ? 'max-w-none' : shell}`}>
           {focus ? (
             <>

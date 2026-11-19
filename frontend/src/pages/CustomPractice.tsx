@@ -1,3 +1,4 @@
+import { ChevronDown, SlidersHorizontal } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { api, type Difficulty, type QuestionTypeName } from '../api';
@@ -26,18 +27,63 @@ const toggle = <T,>(set: Set<T>, v: T) => {
   return next;
 };
 
-function Chip({ on, onClick, children, disabled }: { on: boolean; onClick: () => void; children: React.ReactNode; disabled?: boolean }) {
+function MultiSelectDropdown({ label, placeholder, options, selected, onToggle }: {
+  label: string;
+  placeholder: string;
+  options: { id: string; label: string; count?: number }[];
+  selected: Set<string>;
+  onToggle: (id: string) => void;
+}) {
   return (
-    <button
-      type="button"
-      role="checkbox"
-      aria-checked={on}
-      disabled={disabled}
-      onClick={onClick}
-      className={`min-h-9 rounded-full border px-3 py-1 text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${on ? 'border-accent bg-accent-soft font-medium text-ink' : 'border-rule text-ink-2 hover:border-rule-strong hover:bg-paper'}`}
-    >
-      {children}
-    </button>
+    <details className="group min-w-0 overflow-hidden rounded-xl border border-[#cdd7c1] bg-white/75 open:border-forest/40 open:bg-white">
+      <summary className="flex min-h-[58px] cursor-pointer list-none items-center gap-3 px-3.5 py-2.5 marker:hidden [&::-webkit-details-marker]:hidden sm:px-4">
+        <span className="min-w-0 flex-1">
+          <span className="block text-[11px] font-semibold text-ink-2">{label}</span>
+          <span className="mt-0.5 block truncate text-[13px] font-semibold text-forest">{selected.size ? `${selected.size} selected` : placeholder}</span>
+        </span>
+        <ChevronDown aria-hidden className="size-4 shrink-0 text-forest transition-transform duration-200 group-open:rotate-180" />
+      </summary>
+      <div className="max-h-56 overflow-y-auto border-t border-forest/10 p-1.5">
+        {options.map((option) => (
+          <label key={option.id} className="flex min-h-10 cursor-pointer items-center gap-3 rounded-lg px-2.5 text-[13px] text-charcoal transition-colors hover:bg-[#edf2e4] has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-45">
+            <input type="checkbox" checked={selected.has(option.id)} onChange={() => onToggle(option.id)} disabled={option.count === 0} className="size-4 shrink-0 accent-[#18443b]" />
+            <span className="min-w-0 flex-1">{option.label}</span>
+            {option.count !== undefined && <span className="num shrink-0 text-[11px] text-ink-3">{option.count}</span>}
+          </label>
+        ))}
+      </div>
+    </details>
+  );
+}
+
+function SingleSelectDropdown({ label, value, options, onChange }: {
+  label: string;
+  value: string;
+  options: { id: string; label: string; count?: number }[];
+  onChange: (id: string) => void;
+}) {
+  const selected = options.find((option) => option.id === value)?.label ?? 'Any difficulty';
+  return (
+    <details className="group min-w-0 overflow-hidden rounded-xl border border-[#cdd7c1] bg-white/75 open:border-forest/40 open:bg-white">
+      <summary className="flex min-h-[58px] cursor-pointer list-none items-center gap-3 px-3.5 py-2.5 marker:hidden [&::-webkit-details-marker]:hidden sm:px-4">
+        <span className="min-w-0 flex-1">
+          <span className="block text-[11px] font-semibold text-ink-2">{label}</span>
+          <span className="mt-0.5 block truncate text-[13px] font-semibold text-forest">{selected}</span>
+        </span>
+        <ChevronDown aria-hidden className="size-4 shrink-0 text-forest transition-transform duration-200 group-open:rotate-180" />
+      </summary>
+      <div className="border-t border-forest/10 p-1.5">
+        <button type="button" aria-pressed={!value} onClick={(event) => { onChange(''); event.currentTarget.closest('details')?.removeAttribute('open'); }} className={`flex min-h-10 w-full items-center gap-3 rounded-lg px-2.5 text-left text-[13px] transition-colors hover:bg-[#edf2e4] ${!value ? 'bg-[#edf2e4] font-semibold text-forest' : 'text-charcoal'}`}>
+          <span className="flex-1">Any difficulty</span>
+        </button>
+        {options.map((option) => (
+          <button key={option.id} type="button" aria-pressed={value === option.id} disabled={option.count === 0} onClick={(event) => { onChange(option.id); event.currentTarget.closest('details')?.removeAttribute('open'); }} className={`flex min-h-10 w-full items-center gap-3 rounded-lg px-2.5 text-left text-[13px] transition-colors hover:bg-[#edf2e4] disabled:cursor-not-allowed disabled:opacity-40 ${value === option.id ? 'bg-[#edf2e4] font-semibold text-forest' : 'text-charcoal'}`}>
+            <span className="flex-1">{option.label}</span>
+            {option.count !== undefined && <span className="num text-[11px] text-ink-3">{option.count}</span>}
+          </button>
+        ))}
+      </div>
+    </details>
   );
 }
 
@@ -58,6 +104,7 @@ export function CustomPractice({ paperId, chapters, fixedNodeId, heading = 'Prac
   const [levels, setLevels] = useState<Set<Difficulty>>(new Set());
   const [types, setTypes] = useState<Set<QuestionTypeName>>(new Set());
   const [size, setSize] = useState(10);
+  const [expanded, setExpanded] = useState(false);
   const [counts, setCounts] = useState<{ total: number; matching: number; byDifficulty: Record<string, number>; byType: Record<string, number> } | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<Error | null>(null);
@@ -98,70 +145,60 @@ export function CustomPractice({ paperId, chapters, fixedNodeId, heading = 'Prac
 
   const typeList = counts ? Object.entries(counts.byType).filter(([, n]) => n > 0) : [];
   const matching = counts?.matching ?? 0;
+  const hasChapters = !fixedNodeId && Boolean(chapters?.length);
+  const hasTypes = typeList.length > 1;
   return (
-    <section aria-labelledby="custom-practice" className="rounded-xl border border-rule bg-surface p-5" data-card="custom-practice">
-      <h2 id="custom-practice" className="text-base font-semibold text-ink">
-        {heading}
-      </h2>
-      <p className="mt-1 text-sm text-ink-2">Choose what to practise. Leave a group empty to include everything in it.</p>
+    <section aria-labelledby="custom-practice" className="overflow-hidden rounded-[20px] border border-[#d0d9c5] bg-[#eef2e4] shadow-[0_8px_22px_rgba(31,56,46,0.06)]" data-card="custom-practice">
+      <button type="button" aria-expanded={expanded} aria-controls="custom-practice-options" onClick={() => setExpanded((value) => !value)} className="flex w-full items-center gap-3 p-3.5 text-left transition-colors hover:bg-white/35 sm:px-4 sm:py-3.5">
+        <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-[11px] bg-forest text-lime"><SlidersHorizontal className="size-4" /></span>
+        <span className="min-w-0 flex-1">
+          <span id="custom-practice" role="heading" aria-level={2} className="block font-display text-[15px] font-bold tracking-[-0.02em] text-forest">{heading}</span>
+        </span>
+        <span className="hidden shrink-0 rounded-full border border-forest/10 bg-white/55 px-3 py-1.5 text-[11px] font-semibold text-forest sm:inline-flex">{counts ? `${matching} questions` : 'Loading…'}</span>
+        <ChevronDown aria-hidden className={`size-5 shrink-0 text-forest transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`} />
+      </button>
 
-      {!fixedNodeId && chapters && chapters.length > 0 && (
-        <fieldset className="mt-4">
-          <legend className="text-sm font-medium text-ink">Chapters</legend>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {chapters.map((c) => (
-              <Chip key={c.id} on={picked.has(c.id)} onClick={() => setPicked(toggle(picked, c.id))}>
-                {c.title}
-              </Chip>
-            ))}
-          </div>
-        </fieldset>
+      <div id="custom-practice-options" aria-hidden={!expanded} inert={!expanded} className={`grid transition-[grid-template-rows] duration-300 ease-out ${expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+        <div className="min-h-0 overflow-hidden">
+          <div className={`relative border-t border-forest/10 px-3 pb-3 pt-3 transition-opacity duration-200 sm:px-4 sm:pb-4 ${expanded ? 'opacity-100' : 'opacity-0'}`}>
+            <div className={`grid grid-cols-1 gap-2.5 ${hasChapters && hasTypes ? 'sm:grid-cols-[1.5fr_.8fr_1.2fr]' : hasChapters || hasTypes ? 'sm:grid-cols-2' : 'sm:grid-cols-1'}`}>
+      {hasChapters && chapters && (
+        <MultiSelectDropdown label="Chapters" placeholder="All chapters" options={chapters.map((c) => ({ id: c.id, label: c.title }))} selected={picked} onToggle={(id) => setPicked(toggle(picked, id))} />
       )}
 
-      <fieldset className="mt-4">
-        <legend className="text-sm font-medium text-ink">Difficulty</legend>
-        <div className="mt-2 flex flex-wrap gap-2">
-          {LEVELS.map((l) => (
-            <Chip key={l.id} on={levels.has(l.id)} onClick={() => setLevels(toggle(levels, l.id))} disabled={(counts?.byDifficulty[l.id] ?? 0) === 0}>
-              {l.label} <span className="num text-ink-3">{counts?.byDifficulty[l.id] ?? 0}</span>
-            </Chip>
-          ))}
-        </div>
-      </fieldset>
+      <SingleSelectDropdown label="Difficulty" value={levels.values().next().value ?? ''} options={LEVELS.map((level) => ({ id: level.id, label: level.label, count: counts?.byDifficulty[level.id] ?? 0 }))} onChange={(value) => setLevels(value ? new Set([value as Difficulty]) : new Set())} />
 
-      {typeList.length > 1 && (
-        <fieldset className="mt-4">
-          <legend className="text-sm font-medium text-ink">Question type</legend>
-          <div className="mt-2 flex flex-wrap gap-2">
-            {typeList.map(([t, n]) => (
-              <Chip key={t} on={types.has(t as QuestionTypeName)} onClick={() => setTypes(toggle(types, t as QuestionTypeName))}>
-                {TYPE_LABEL[t] ?? t} <span className="num text-ink-3">{n}</span>
-              </Chip>
-            ))}
-          </div>
-        </fieldset>
+      {hasTypes && (
+        <MultiSelectDropdown label="Question type" placeholder="All question types" options={typeList.map(([type, count]) => ({ id: type, label: TYPE_LABEL[type] ?? type, count }))} selected={types} onToggle={(type) => setTypes(toggle(types, type as QuestionTypeName))} />
       )}
 
-      <div className="mt-4 flex flex-wrap items-end gap-x-6 gap-y-3">
-        <label className="text-sm font-medium text-ink">
-          Number of questions
-          <select value={size} onChange={(e) => setSize(Number(e.target.value))} className="mt-1 block h-9 rounded-lg border border-rule bg-surface px-2 text-sm font-normal">
-            {SIZES.map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
-        </label>
-        <div aria-live="polite" className="num text-sm text-ink-2">
-          {counts ? `${matching} question${matching === 1 ? '' : 's'} match` : 'Counting questions…'}
+      <div className="mt-0.5 grid grid-cols-1 gap-2 rounded-xl border border-[#d4ddc8] bg-[#e5edda] p-3 sm:col-span-full sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:px-3.5">
+        <div aria-live="polite" className="min-w-0">
+          <div className="label text-[8px] text-mute">READY TO PRACTISE</div>
+          <div className="num mt-0.5 text-[13px] font-bold text-forest">{counts ? `${matching} question${matching === 1 ? '' : 's'} match` : 'Counting questions…'}</div>
         </div>
-        <Button onClick={start} disabled={busy || matching === 0}>
-          {busy ? 'Starting…' : 'Start practice'}
-        </Button>
+        <div className="flex items-end justify-between gap-2 sm:justify-end">
+          <label className="flex items-center gap-2 text-[10px] font-semibold text-ink-2">
+            Questions
+            <select value={size} onChange={(e) => setSize(Number(e.target.value))} className="h-8 rounded-lg border border-rule-strong bg-surface px-2 text-[12px] font-medium text-ink">
+              {SIZES.map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
+              ))}
+            </select>
+          </label>
+          <Button onClick={start} disabled={busy || matching === 0}>
+            {busy ? 'Starting…' : 'Start practice'}
+          </Button>
+        </div>
       </div>
-      {counts && matching === 0 && <p className="mt-2 text-sm text-wrong">No question matches these choices. Add a difficulty level or a question type.</p>}
-      {err && <div className="mt-3"><ErrorBox error={err} /></div>}
+      {counts && matching === 0 && <p className="text-xs text-wrong sm:col-span-full">No questions match. Adjust difficulty or question type.</p>}
+      {err && <div className="sm:col-span-full"><ErrorBox error={err} /></div>}
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

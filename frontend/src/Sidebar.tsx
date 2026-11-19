@@ -1,9 +1,10 @@
-import { CalendarRange, ChartPie, ChevronRight, House } from 'lucide-react';
+import { CalendarRange, ChartPie, ChevronRight, FlaskConical, House } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
 import { bareChapter, useAuth } from './ui';
 import { subjectTone } from './subjectColors';
 import { api, type ExamCode, type Outline, type OutlineNode, type PyqTree, type Subject } from './api';
+import { PreporaSpark } from './brand';
 
 /**
  * The global, three-level, inline-expanding sidebar.
@@ -629,14 +630,7 @@ function PyqYears({ subject, pyq, activeYear, onNavigate, indent = 'pl-9' }: { s
 
 /** The sidebar frame: its own scroll area, with Plans fixed at the bottom. */
 function BrandMark() {
-  return (
-    <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-xl bg-lime">
-      <svg viewBox="0 0 24 24" className="size-[22px]" fill="#18443b">
-        <path d="M12 2.5c1.1 3.6 1.9 4.4 5.5 5.5-3.6 1.1-4.4 1.9-5.5 5.5-1.1-3.6-1.9-4.4-5.5-5.5C10.1 6.9 10.9 6.1 12 2.5Z" />
-        <path d="M12 10.5c1.1 3.6 1.9 4.4 5.5 5.5-3.6 1.1-4.4 1.9-5.5 5.5-1.1-3.6-1.9-4.4-5.5-5.5 3.6-1.1 4.4-1.9 5.5-5.5Z" opacity=".78" />
-      </svg>
-    </span>
-  );
+  return <PreporaSpark className="size-10" />;
 }
 export { BrandMark };
 
@@ -700,6 +694,7 @@ export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => voi
           {link('/', 'Study map', <House />, true)}
           {link('/progress', 'My progress', <ChartPie />)}
           {link('/planner', 'Study planner', <CalendarRange />)}
+          {link('/labs', 'Practical labs', <FlaskConical />)}
         </nav>
         <div className="label px-2 pt-6 pb-2 text-[10.5px] text-[#7f9d8d]">Your subjects</div>
       </div>
