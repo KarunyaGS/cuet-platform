@@ -279,15 +279,7 @@ function ExamSelector() {
   );
 }
 
-/** The quiet label in the top bar: where in the learning space the student is. */
-const crumb = (path: string) => {
-  if (path === '/') return 'Map';
-  const first = path.split('/').filter(Boolean)[0] ?? '';
-  const names: Record<string, string> = { CUET_UG: 'Subject', CUET_PG: 'Subject', progress: 'Progress', planner: 'Planner', 'practice-centre': 'Practice', bookmarks: 'Bookmarks', topic: 'Topic', learn: 'Lesson', pyq: 'Past papers', profile: 'Profile', plans: 'Plans', search: 'Search', report: 'Report', dashboard: 'Today' };
-  return names[first] ?? first.replace(/[-_]/g, ' ').replace(/^./, (c) => c.toUpperCase());
-};
-
-/** The top bar beside the sidebar: where you are, search, notifications and the account. */
+/** The top bar beside the sidebar: search, notifications and the account. */
 function StudioBar({ path, onMenu, drawer }: { path: string; onMenu: () => void; drawer: boolean }) {
   const pill = 'inline-flex h-9 items-center gap-2 rounded-lg border border-line bg-ivory px-3 text-[13px] font-medium text-charcoal transition-colors hover:bg-white/70';
   return (
@@ -302,9 +294,6 @@ function StudioBar({ path, onMenu, drawer }: { path: string; onMenu: () => void;
           </span>
           <span className="text-[15px] font-bold tracking-tight text-charcoal">Prepora</span>
         </Link>
-        <span className="label hidden text-mute md:block">
-          Study space <span aria-hidden>/</span> {crumb(path)}
-        </span>
         <div className="ml-auto flex items-center gap-2">
           <NavLink to="/search" title="Search the syllabus" className={pill}>
             <Search aria-hidden className="size-4" />
@@ -343,10 +332,10 @@ export function Layout() {
           Skip to content
         </a>
         <div className="flex">
-          <Sidebar className="sticky top-0 hidden h-dvh w-52 shrink-0 md:flex lg:w-[14.5rem]" />
+          <Sidebar className="sticky top-0 hidden h-dvh w-60 shrink-0 md:flex lg:w-[17rem]" />
           <div className="min-w-0 flex-1">
             <StudioBar path={path} onMenu={() => setDrawer(true)} drawer={drawer} />
-            <main id="main" key={path} className="page-in px-4 pt-6 pb-24 sm:px-8 md:pb-10 lg:px-12">
+            <main id="main" key={path} className="page-in px-4 pt-3 pb-24 sm:px-8 md:pb-10 lg:px-12">
               <Outlet />
             </main>
           </div>

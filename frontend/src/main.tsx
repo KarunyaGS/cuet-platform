@@ -9,6 +9,7 @@ import { DecksPage } from './pages/Decks';
 import { SheetPage } from './pages/Sheet';
 import { DiffractionLabPage } from './pages/DiffractionLab';
 import { LensLabPage } from './pages/LensLab';
+import { installPopClick } from './popClick';
 import { VisualPage } from './pages/Visual';
 import { FlashcardReviewPage, OldFlashcardsLink } from './pages/Flashcards';
 import { UpdatesPage } from './pages/Updates';
@@ -211,3 +212,5 @@ createRoot(document.getElementById('root')!).render(
     </AuthProvider>
   </StrictMode>,
 );
+
+installPopClick();

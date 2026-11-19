@@ -177,7 +177,7 @@ function StudyMap({ subjects, pick, left, count, prefs }: { subjects: MapSubject
   const tallHeight = subjects.length * 124 + 70;
   const path = (pts: { x: number; y: number }[]) => (
     <svg aria-hidden className="absolute inset-0 size-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <path d={curve(pts)} fill="none" stroke="#6f8b7e" strokeWidth="1.8" strokeLinecap="round" strokeDasharray="6 7" vectorEffect="non-scaling-stroke" opacity="0.85" />
+      <path className="map-flow" d={curve(pts)} fill="none" stroke="#6f8b7e" strokeWidth="1.8" strokeLinecap="round" strokeDasharray="6 7" vectorEffect="non-scaling-stroke" opacity="0.85" />
     </svg>
   );
   return (
@@ -361,9 +361,9 @@ export function Home() {
 
   return (
     <div data-home className="mx-auto max-w-[84rem]">
-      <header className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6 pt-2 sm:pt-5">
+      <header className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6 pt-0">
         <div className="min-w-0">
-          <div className="label text-[11.5px] text-terracotta" data-date>
+          <div className="label text-[15px]! font-medium tracking-[0.16em] text-terracotta sm:text-[17px]!" data-date>
             {dateLabel()}
           </div>
           <h1 className="mt-3 text-[clamp(38px,4.6vw,68px)] leading-[0.98] font-bold tracking-[-0.045em] text-charcoal">
