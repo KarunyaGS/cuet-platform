@@ -82,8 +82,8 @@ export const spec: Spec = {
           {l2 && <line {...l2} stroke="#c45e42" strokeWidth={2.2} strokeDasharray={k === 1 ? '6 3' : undefined} />}
           {inside && <circle cx={X(s.x)} cy={Y(s.y)} r={5} fill="#2563a8" stroke="#fff" strokeWidth={1.5} />}
         </g>
-        <text x={12} y={14} fontSize={11} fill="#18443b">{fmt(v.a!, 1)}x + {fmt(v.b!, 1)}y = {E}</text>
-        <text x={12} y={28} fontSize={11} fill="#c45e42">{fmt(v.c!, 1)}x + {fmt(v.d!, 1)}y = {fmt(v.f!, 0)}</text>
+        <text x={12} y={14} fontSize={11} fill="#18443b">{fmt(v.a!, 1)}x {v.b! < 0 ? '−' : '+'} {fmt(Math.abs(v.b!), 1)}y = {E}</text>
+        <text x={12} y={28} fontSize={11} fill="#c45e42">{fmt(v.c!, 1)}x {v.d! < 0 ? '−' : '+'} {fmt(Math.abs(v.d!), 1)}y = {fmt(v.f!, 0)}</text>
         <text x={388} y={14} fontSize={12} fontWeight="bold" textAnchor="end" fill="#18443b">|A| = {fmt(o.det!, 2)}</text>
         <text x={388} y={28} textAnchor="end">{k === 0 ? `one solution (${fmt(s.x, 2)}, ${fmt(s.y, 2)})${inside ? '' : ' (off the grid)'}` : k === 1 ? '(adj A)B = O: same line, infinitely many' : '(adj A)B ≠ O: parallel, no solution'}</text>
       </g>

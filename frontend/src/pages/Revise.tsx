@@ -36,7 +36,7 @@ export function RevisePage() {
   const count = d.lessons.reduce((n, l) => n + l.blocks.filter((b) => b.type !== 'OFFICIAL_TEXT').length, 0);
   let remaining = showAllNotes ? filteredCount : Math.min(6, filteredCount);
   return (
-    <div className="mx-auto w-full max-w-[78rem]" data-revise>
+    <div className="mx-0 w-full max-w-none" data-revise>
       <header className="mb-5 grid gap-x-6 gap-y-3 lg:grid-cols-[minmax(0,1fr)_auto]" data-revise-header>
         <div className="min-w-0">
           <div className="flex min-w-0 items-start gap-1.5">

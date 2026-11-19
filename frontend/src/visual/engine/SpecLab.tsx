@@ -112,7 +112,7 @@ function SpecLabBody({ spec }: { spec: Spec }) {
           <div className="grid gap-3 sm:grid-cols-2">
             {sweeps.map(({ g, xs, ys, xv, yo }) => (
               <div key={g.id} className={`${panel} p-2`}>
-                <LineGraph title={g.title} xs={xs} ys={ys} cx={v[g.x]!} cy={yo.fn(v)} xLabel={`${xv.label} (${xv.unit})`} yLabel={`${yo.label} (${yo.unit})`} logX={g.logX} logY={g.logY} />
+                <LineGraph title={g.title} xs={xs} ys={ys} cx={v[g.x]!} cy={yo.fn(v)} xLabel={xv.unit ? `${xv.label} (${xv.unit})` : xv.label} yLabel={yo.unit ? `${yo.label} (${yo.unit})` : yo.label} logX={g.logX} logY={g.logY} />
               </div>
             ))}
           </div>

@@ -637,20 +637,17 @@ export { BrandMark };
 const initial = (name: string) => name.trim().charAt(0).toUpperCase() || '?';
 const navRow = 'flex h-11 items-center gap-3 rounded-lg px-3 text-[13px] transition-colors hover:bg-white/[0.06]';
 
-/** The student's learning space: brand, workspace links, every subject, today's goal and who is signed in. */
+/** The student's learning space: brand, workspace links, every subject and who is signed in. */
 export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => void; className?: string }) {
   const { pathname } = useLocation();
   const { user } = useAuth();
-  const [goal, setGoal] = useState<{ done: number; goal: number } | null>(null);
   const [exam, setExam] = useState<string | null>(null);
   useEffect(() => {
     if (!user) {
-      setGoal(null);
       setExam(null);
       return;
     }
     let live = true;
-    api.dashboard().then((d) => live && setGoal({ done: d.today.questionsAnswered, goal: d.today.goal.questionsPerDay }), () => live && setGoal(null));
     api.preferences().then((p) => live && setExam(p.examCode ? `${p.examCode === 'CUET_UG' ? 'CUET UG' : 'CUET PG'}${p.targetYear ? ` · ${p.targetYear}` : ''}` : null), () => undefined);
     return () => {
       live = false;
@@ -669,7 +666,6 @@ export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => voi
       {label}
     </NavLink>
   );
-  const pct = goal && goal.goal > 0 ? Math.min(100, (100 * goal.done) / goal.goal) : 0;
   return (
     <aside
       aria-label="Student learning space"
@@ -701,26 +697,6 @@ export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => voi
       <nav aria-label="Subjects" className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-3 [scrollbar-color:#2f5d52_transparent] [scrollbar-width:thin]">
         <SidebarNav onNavigate={onNavigate} />
       </nav>
-      {user && (
-        <div className="shrink-0 border-t border-white/10 px-5 pt-4 pb-3">
-          <div className="label text-[10px] text-[#7f9d8d]">Today’s goal</div>
-          {goal ? (
-            <>
-              <div className="label mt-2 flex items-baseline justify-between text-[10px] text-[var(--color-forest-soft)]">
-                <span>Questions</span>
-                <span className="num text-[11px] text-white">
-                  {goal.done} / {goal.goal}
-                </span>
-              </div>
-              <div className="mt-1.5 h-[3px] overflow-hidden rounded-full bg-white/15" role="progressbar" aria-label="Questions against today's goal" aria-valuemin={0} aria-valuemax={goal.goal} aria-valuenow={Math.min(goal.done, goal.goal)}>
-                <div className="h-full rounded-full bg-lime" style={{ width: `${pct}%` }} />
-              </div>
-            </>
-          ) : (
-            <p className="mt-2 text-[11.5px] text-[#86a594]">Goal not available right now.</p>
-          )}
-        </div>
-      )}
       {user && (
         <Link to="/profile" onClick={onNavigate} className="flex shrink-0 items-center gap-3 border-t border-white/10 px-5 py-3.5 transition-colors hover:bg-white/[0.05]">
           <span aria-hidden className="grid size-8 shrink-0 place-items-center rounded-full bg-[#ebb9a3] text-[12px] font-bold text-forest">

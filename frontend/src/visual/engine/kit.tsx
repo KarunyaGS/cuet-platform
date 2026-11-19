@@ -52,7 +52,8 @@ export function LineGraph({ title, xs, ys, cx, cy, xLabel, yLabel, logX, logY }:
   let y1 = Math.max(...pts.map((p) => p.y));
   if (y0 === y1) { y0 -= 1; y1 += 1; }
   const pad = (y1 - y0) * 0.06;
-  y0 -= pad;
+  // quantities that cannot be negative keep a zero baseline instead of a padded axis below zero
+  y0 = y0 >= 0 && !logY ? Math.max(0, y0 - pad) : y0 - pad;
   y1 += pad;
   const X = (x: number) => L + ((tx(x) - x0) / (x1 - x0 || 1)) * (W - L - R);
   const Y = (y: number) => H - B - ((ty(y) - y0) / (y1 - y0)) * (H - T - B);

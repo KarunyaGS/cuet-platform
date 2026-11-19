@@ -52,7 +52,7 @@ export function VisualsPage() {
   const lessons = [...new Set(shown.map((i) => i.lessonId))].map((id) => ({ id, title: shown.find((i) => i.lessonId === id)!.lesson, verified: shown.filter((i) => i.lessonId === id).every((i) => i.verified), items: shown.filter((i) => i.lessonId === id) }));
   const allVerified = d.items.length > 0 && d.items.every((i) => i.verified);
   return (
-    <div data-visuals data-print-sheet>
+    <div className="w-full min-w-0" data-visuals data-print-sheet>
       <header className="mb-4">
         <div className="flex min-w-0 items-start gap-1.5">
           <Link to={`/topic/${d.topic.id}`} aria-label={`Back to ${d.topic.title}`} title={`Back to ${d.topic.title}`} className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg text-ink-3 transition-colors hover:bg-accent-soft hover:text-accent" data-no-print>

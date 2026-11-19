@@ -67,7 +67,7 @@ export const spec: Spec = {
       <g>
         <rect x={70} y={55} width={10} height={130} fill={emit ? '#18443b' : '#7c8595'} />
         <rect x={320} y={55} width={10} height={130} fill="#c45e42" />
-        <text x={75} y={48} fontSize={11} textAnchor="middle" fill="#4d5768">emitter</text>
+        <text x={75} y={196} fontSize={10} textAnchor="middle" fill="#4d5768">emitter</text>
         <text x={325} y={48} fontSize={11} textAnchor="middle" fill="#4d5768">collector {v.V! >= 0 ? '+' : ''}{fmt(v.V!, 1)} V</text>
         {Array.from({ length: photons }, (_, i) => {
           const y = 62 + (i * 116) / Math.max(1, photons - 1);

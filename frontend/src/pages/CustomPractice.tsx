@@ -148,8 +148,8 @@ export function CustomPractice({ paperId, chapters, fixedNodeId, heading = 'Prac
   const hasChapters = !fixedNodeId && Boolean(chapters?.length);
   const hasTypes = typeList.length > 1;
   return (
-    <section aria-labelledby="custom-practice" className="overflow-hidden rounded-[20px] border border-[#d0d9c5] bg-[#eef2e4] shadow-[0_8px_22px_rgba(31,56,46,0.06)]" data-card="custom-practice">
-      <button type="button" aria-expanded={expanded} aria-controls="custom-practice-options" onClick={() => setExpanded((value) => !value)} className="flex w-full items-center gap-3 p-3.5 text-left transition-colors hover:bg-white/35 sm:px-4 sm:py-3.5">
+    <section aria-labelledby="custom-practice" className="flex h-full min-w-0 flex-col overflow-hidden rounded-[20px] border border-[#d0d9c5] bg-[#eef2e4] shadow-[0_8px_22px_rgba(31,56,46,0.06)]" data-card="custom-practice">
+      <button type="button" aria-expanded={expanded} aria-controls="custom-practice-options" onClick={() => setExpanded((value) => !value)} className="flex min-h-[116px] w-full flex-1 items-center gap-3 p-3 text-left transition-colors hover:bg-white/35 sm:px-4 sm:py-3">
         <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-[11px] bg-forest text-lime"><SlidersHorizontal className="size-4" /></span>
         <span className="min-w-0 flex-1">
           <span id="custom-practice" role="heading" aria-level={2} className="block font-display text-[15px] font-bold tracking-[-0.02em] text-forest">{heading}</span>

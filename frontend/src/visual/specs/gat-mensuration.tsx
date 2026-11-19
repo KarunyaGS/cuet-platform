@@ -46,7 +46,7 @@ export const spec: Spec = {
     const ry = rx * 0.3;
     const hp = 20 + v.h! * 4.5;
     const cx = 100;
-    const base = 195;
+    const base = 187;
     const top = base - hp;
     const k = v.k!;
     const ks = [k, k * k, k * k * k];
@@ -58,7 +58,7 @@ export const spec: Spec = {
         <text x={cx + rx / 2} y={top - ry - 3} textAnchor="middle" fill={ACC} fontWeight="bold">r = {v.r}</text>
         <line x1={cx + rx + 8} y1={top} x2={cx + rx + 8} y2={base} stroke={BLUE} strokeWidth={2} />
         <text x={cx + rx + 12} y={(top + base) / 2} fill={BLUE} fontWeight="bold">h = {v.h}</text>
-        <text x={cx} y={222} textAnchor="middle" fill={INK}>V = {fmt(o.V!, 0)} cm³</text>
+        <text x={cx} y={226} textAnchor="middle" fill={INK}>V = {fmt(o.V!, 0)} cm³</text>
         <text x={290} y={22} textAnchor="middle" fill={INK} fontWeight="bold">Scale factor k = {fmt(k, 1)}</text>
         {['length × k', 'area × k²', 'volume × k³'].map((n, i) => (
           <g key={n}>
