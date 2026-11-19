@@ -7,6 +7,8 @@
 export type LabSubject = 'Physics' | 'Chemistry' | 'Biology' | 'Mathematics' | 'Computer Science' | 'Geography' | 'General Aptitude Test';
 export const LAB_SUBJECTS: LabSubject[] = ['Physics', 'Chemistry', 'Biology', 'Mathematics', 'Computer Science', 'Geography', 'General Aptitude Test'];
 
+import { SPECS } from './engine/specs';
+
 export interface LabEntry {
   id: string;
   /** Which subject the lab belongs to (shown on the Practical Labs page). */
@@ -24,7 +26,7 @@ export interface LabEntry {
   minutes: number;
 }
 
-export const LABS: LabEntry[] = [
+const MANUAL: LabEntry[] = [
   {
     id: 'lens',
     subject: 'Physics',
@@ -278,6 +280,21 @@ export const LABS: LabEntry[] = [
     minutes: 20,
   },
 ];
+
+/** Chapter labs described by a spec (visual/specs/*.tsx) are listed automatically: no edit here is needed to add one. */
+const FROM_SPECS: LabEntry[] = SPECS.map((p) => ({
+  id: p.id,
+  subject: p.subject,
+  format: p.format,
+  lessonTitleStartsWith: p.lessonTitleStartsWith,
+  afterHeading: p.afterHeading,
+  path: `/lab/c/${p.id}`,
+  title: p.title,
+  blurb: p.blurb,
+  can: p.can,
+  minutes: p.minutes,
+}));
+export const LABS: LabEntry[] = [...MANUAL, ...FROM_SPECS];
 
 export const labFor = (lessonTitle: string, heading: string) => LABS.find((l) => lessonTitle.startsWith(l.lessonTitleStartsWith) && l.afterHeading === heading);
 export const labHref = (lab: LabEntry, lessonId: string, headingSlug: string) => `${lab.path}${lab.path.includes('?') ? '&' : '?'}lesson=${encodeURIComponent(lessonId)}&section=${encodeURIComponent(headingSlug)}`;
