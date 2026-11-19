@@ -379,7 +379,7 @@ export const api = {
   changePassword: (b: { currentPassword: string; newPassword: string }) => request<{ changed: boolean }>('POST', '/api/student/password', b),
   goals: () => request<Goal>('GET', '/api/student/goals'),
   setGoals: (b: { questionsPerDay: number; lessonsPerDay: number }) => request<Goal>('PUT', '/api/student/goals', b),
-  activity: (b: { kind: 'TOPIC_VIEW' | 'LESSON_VIEW'; nodeId?: string; resourceId?: string }) => request<{ recorded: boolean }>('POST', '/api/student/activity', b),
+  activity: (b: { kind: 'TOPIC_VIEW' | 'LESSON_VIEW' | 'LAB_COMPLETE'; nodeId?: string; resourceId?: string }) => request<{ recorded: boolean }>('POST', '/api/student/activity', b),
   bookmarks: () => request<Bookmark[]>('GET', '/api/student/bookmarks'),
   bookmarkState: (kind: BookmarkKind, ids: string[]) => request<string[]>('GET', `/api/student/bookmarks/state?kind=${kind}&ids=${ids.map(encodeURIComponent).join(',')}`),
   addBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks', b),

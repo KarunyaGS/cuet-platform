@@ -198,7 +198,7 @@ export async function recentlyViewed(db: D1Database, userId: string) {
     .prepare(
       `SELECT a.kind, a.curriculum_node_id AS node_id, a.resource_id, MAX(a.created_at) AS at, n.title AS topic, r.title AS lesson, p.name AS paper
        FROM learning_activity a LEFT JOIN curriculum_nodes n ON n.id = a.curriculum_node_id LEFT JOIN learning_resources r ON r.id = a.resource_id LEFT JOIN test_papers p ON p.id = a.test_paper_id
-       WHERE a.user_id = ? GROUP BY a.kind, COALESCE(a.resource_id, a.curriculum_node_id) ORDER BY at DESC LIMIT 40`,
+       WHERE a.user_id = ? AND a.kind IN ('TOPIC_VIEW', 'LESSON_VIEW') GROUP BY a.kind, COALESCE(a.resource_id, a.curriculum_node_id) ORDER BY at DESC LIMIT 40`,
     )
     .bind(userId)
     .all<Record<string, string | null>>();
@@ -213,7 +213,7 @@ export async function subjectSummary(db: D1Database, userId: string, paperId: st
     .prepare(
       `SELECT a.kind, a.curriculum_node_id AS node_id, a.resource_id, a.created_at AS at, n.title AS topic, r.title AS lesson
        FROM learning_activity a LEFT JOIN curriculum_nodes n ON n.id = a.curriculum_node_id LEFT JOIN learning_resources r ON r.id = a.resource_id
-       WHERE a.user_id = ? AND a.test_paper_id = ? ORDER BY a.created_at DESC LIMIT 1`,
+       WHERE a.user_id = ? AND a.test_paper_id = ? AND a.kind IN ('TOPIC_VIEW', 'LESSON_VIEW') ORDER BY a.created_at DESC LIMIT 1`,
     )
     .bind(userId, paperId)
     .first<{ kind: string; node_id: string | null; resource_id: string | null; at: string; topic: string | null; lesson: string | null }>();

@@ -13,7 +13,7 @@ const ICON: Record<Reminder['kind'], React.ReactNode> = {
   SETUP: <Settings2 className="text-ink-3" />,
 };
 
-export function RemindersBell() {
+export function RemindersBell({ pill = false }: { pill?: boolean } = {}) {
   const [items, setItems] = useState<Reminder[]>([]);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -47,11 +47,12 @@ export function RemindersBell() {
         aria-expanded={open}
         aria-haspopup="dialog"
         title="Reminders"
-        className={`relative grid size-9 place-items-center rounded-full transition-colors ${open ? 'bg-accent-soft text-accent' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
+        className={pill ? `relative inline-flex h-9 items-center gap-2 rounded-lg border border-line bg-ivory px-3 text-[13px] font-medium text-charcoal transition-colors hover:bg-white/70 ${open ? 'bg-white/70' : ''}` : `relative grid size-9 place-items-center rounded-full transition-colors ${open ? 'bg-accent-soft text-accent' : 'text-ink-2 hover:bg-ink/5 hover:text-ink'}`}
       >
-        <Bell aria-hidden className="size-[18px]" />
+        <Bell aria-hidden className={pill ? 'size-4' : 'size-[18px]'} />
+        {pill && <span className="hidden sm:inline">Notifications</span>}
         {items.length > 0 && (
-          <span className="num absolute top-1 right-1 grid min-w-4 place-items-center rounded-full bg-wrong px-1 text-[10px] leading-4 font-semibold text-white">{items.length}</span>
+          <span className={`num absolute grid min-w-4 place-items-center rounded-full bg-terracotta px-1 text-[10px] leading-4 font-semibold text-white ${pill ? '-top-1.5 -right-1.5' : 'top-1 right-1'}`}>{items.length}</span>
         )}
         <span className="sr-only">{items.length ? `${items.length} ${items.length === 1 ? 'reminder' : 'reminders'}` : 'No reminders'}</span>
       </button>

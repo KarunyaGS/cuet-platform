@@ -97,26 +97,26 @@ export async function bookmarkState(db: D1Database, userId: string, kind: string
 
 // ---------------------------------------------------------------- learning activity
 
-export const activitySchema = z.object({ kind: z.enum(['TOPIC_VIEW', 'LESSON_VIEW']), nodeId: z.string().max(100).optional(), resourceId: z.string().max(100).optional() });
+export const activitySchema = z.object({ kind: z.enum(['TOPIC_VIEW', 'LESSON_VIEW', 'LAB_COMPLETE']), nodeId: z.string().max(100).optional(), resourceId: z.string().max(100).optional() });
 
-/** Records an opened topic or lesson (at most once per item every 10 minutes). */
+/** Records an opened topic or lesson, or a finished interactive lab (at most once per item every 10 minutes). A lab is recorded against its lesson. */
 export async function recordActivity(db: D1Database, userId: string, input: z.infer<typeof activitySchema>) {
-  const target = input.kind === 'LESSON_VIEW' ? input.resourceId : input.nodeId;
+  const target = input.kind !== 'TOPIC_VIEW' ? input.resourceId : input.nodeId;
   if (!target) throw invalid('Say which topic or lesson was opened');
   const ctx =
-    input.kind === 'LESSON_VIEW'
+    input.kind !== 'TOPIC_VIEW'
       ? await db.prepare('SELECT r.curriculum_node_id AS node_id, COALESCE(r.test_paper_id, v.test_paper_id) AS paper_id FROM learning_resources r LEFT JOIN curriculum_nodes n ON n.id = r.curriculum_node_id LEFT JOIN syllabus_versions v ON v.id = n.syllabus_version_id WHERE r.id = ?').bind(target).first<{ node_id: string | null; paper_id: string | null }>()
       : await db.prepare('SELECT n.id AS node_id, v.test_paper_id AS paper_id FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id WHERE n.id = ?').bind(target).first<{ node_id: string | null; paper_id: string | null }>();
-  if (!ctx) throw notFound(input.kind === 'LESSON_VIEW' ? 'Lesson' : 'Topic');
+  if (!ctx) throw notFound(input.kind !== 'TOPIC_VIEW' ? 'Lesson' : 'Topic');
   const since = new Date(Date.now() - 10 * 60_000).toISOString();
   const recent = await db
-    .prepare(`SELECT 1 FROM learning_activity WHERE user_id = ? AND kind = ? AND ${input.kind === 'LESSON_VIEW' ? 'resource_id' : 'curriculum_node_id'} = ? AND created_at > ?`)
+    .prepare(`SELECT 1 FROM learning_activity WHERE user_id = ? AND kind = ? AND ${input.kind !== 'TOPIC_VIEW' ? 'resource_id' : 'curriculum_node_id'} = ? AND created_at > ?`)
     .bind(userId, input.kind, target, since)
     .first();
   if (recent) return { recorded: false };
   await db
     .prepare('INSERT INTO learning_activity (id, user_id, kind, curriculum_node_id, resource_id, test_paper_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)')
-    .bind(newId('act'), userId, input.kind, ctx.node_id, input.kind === 'LESSON_VIEW' ? target : null, ctx.paper_id, nowIso())
+    .bind(newId('act'), userId, input.kind, ctx.node_id, input.kind !== 'TOPIC_VIEW' ? target : null, ctx.paper_id, nowIso())
     .run();
   return { recorded: true };
 }
@@ -199,7 +199,7 @@ export async function dashboard(db: D1Database, preview: boolean, userId: string
         `SELECT a.kind, a.curriculum_node_id AS node_id, a.resource_id, MAX(a.created_at) AS at, n.title AS topic, r.title AS lesson, p.name AS paper, p.code AS paper_code
          FROM learning_activity a LEFT JOIN curriculum_nodes n ON n.id = a.curriculum_node_id LEFT JOIN learning_resources r ON r.id = a.resource_id
          LEFT JOIN test_papers p ON p.id = a.test_paper_id
-         WHERE a.user_id = ? GROUP BY a.kind, COALESCE(a.resource_id, a.curriculum_node_id) ORDER BY at DESC LIMIT 6`,
+         WHERE a.user_id = ? AND a.kind IN ('TOPIC_VIEW', 'LESSON_VIEW') GROUP BY a.kind, COALESCE(a.resource_id, a.curriculum_node_id) ORDER BY at DESC LIMIT 6`,
       )
       .bind(userId)
       .all<Record<string, string | null>>(),

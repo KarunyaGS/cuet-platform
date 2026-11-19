@@ -180,3 +180,21 @@ describe('dashboard, daily practice and revision notes', () => {
     expect((await call('GET', '/api/learn/topics/nope/revision')).status).toBe(404);
   });
 });
+
+describe('interactive lab completion', () => {
+  it('records a finished lab against its lesson, throttles it, and keeps it out of continue-learning', async () => {
+    const s = await seed('lab-complete', 'f');
+    const h = await signIn('labdone@example.test');
+    const lesson = await call('POST', '/api/admin/resources', { curriculumNodeId: s.topicId, type: 'LESSON', title: 'Thin lenses (lab test)', origin: 'AUTHORED', usagePermissionId: 'perm_owned', blocks: [{ type: 'TEXT', body: 'A lens bends light.' }] }, ADMIN);
+    const id = lesson.json.id as string;
+    expect((await call('POST', '/api/student/activity', { kind: 'LAB_COMPLETE' }, h)).status).toBe(422);
+    expect((await call('POST', '/api/student/activity', { kind: 'LAB_COMPLETE', resourceId: 'res_missing' }, h)).status).toBe(404);
+    expect((await call('POST', '/api/student/activity', { kind: 'LAB_COMPLETE', resourceId: id }, h)).json).toEqual({ recorded: true });
+    expect((await call('POST', '/api/student/activity', { kind: 'LAB_COMPLETE', resourceId: id }, h)).json).toEqual({ recorded: false });
+    const since = new Date(Date.now() - 60_000).toISOString();
+    const day = new Date().toISOString().slice(0, 10);
+    const d = (await call('GET', `/api/student/dashboard?day=${day}&since=${encodeURIComponent(since)}`, undefined, h)).json;
+    expect(d.continueLearning).toEqual([]);
+    expect(d.today.lessonsOpened).toBe(0);
+  });
+});

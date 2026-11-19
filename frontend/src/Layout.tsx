@@ -1,8 +1,8 @@
-import { BookOpen, ChevronDown, Menu, GalleryVerticalEnd, Landmark, Highlighter, PencilLine, Search, ShieldCheck, Bookmark, CalendarCheck2, CalendarDays, ChartNoAxesColumn, ClipboardCheck, House, LogOut, UserRound, X } from 'lucide-react';
+import { BookOpen, ChevronDown, Menu, GalleryVerticalEnd, Landmark, Highlighter, PencilLine, Search, ShieldCheck, Bookmark, CalendarCheck2, CalendarDays, ChartNoAxesColumn, ClipboardCheck, CreditCard, House, LogOut, UserRound, X } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import { RemindersBell } from './reminders';
-import { Sidebar } from './Sidebar';
+import { BrandMark, Sidebar } from './Sidebar';
 import { SupportWidget } from './support/SupportWidget';
 import { useAuth } from './ui';
 
@@ -179,10 +179,10 @@ function UserMenu() {
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         aria-haspopup="menu"
-        className="flex items-center gap-2 rounded-full p-1 text-sm text-ink-2 transition-colors hover:bg-ink/5"
+        className="flex items-center gap-2 rounded-full p-0.5 text-sm text-ink-2 transition-colors hover:bg-ink/5"
       >
-        <span aria-hidden className="grid size-8 place-items-center rounded-full bg-accent-soft text-xs font-semibold text-accent">
-          {initials(user.displayName)}
+        <span aria-hidden className="grid size-9 place-items-center rounded-full bg-[#ecbba5] text-[13px] font-bold text-forest">
+          {initials(user.displayName).charAt(0)}
         </span>
         <span className="sr-only">Account menu, {user.displayName}</span>
       </button>
@@ -196,6 +196,22 @@ function UserMenu() {
             <Link role="menuitem" to="/profile" className={item}>
               <UserRound aria-hidden />
               Profile and goals
+            </Link>
+            <Link role="menuitem" to="/practice-centre" className={item}>
+              <PencilLine aria-hidden />
+              Practice centre
+            </Link>
+            <Link role="menuitem" to="/bookmarks" className={item}>
+              <Bookmark aria-hidden />
+              My bookmarks
+            </Link>
+            <Link role="menuitem" to="/bookmarks/review" className={item}>
+              <GalleryVerticalEnd aria-hidden />
+              Revision cards
+            </Link>
+            <Link role="menuitem" to="/plans" className={item}>
+              <CreditCard aria-hidden />
+              Plans
             </Link>
             {/* University admissions is hidden for now. Its page, data and routes are unchanged: put the link back here to show it again. */}
             <Link role="menuitem" to="/updates" className={item}>
@@ -263,6 +279,46 @@ function ExamSelector() {
   );
 }
 
+/** The quiet label in the top bar: where in the learning space the student is. */
+const crumb = (path: string) => {
+  if (path === '/') return 'Map';
+  const first = path.split('/').filter(Boolean)[0] ?? '';
+  const names: Record<string, string> = { CUET_UG: 'Subject', CUET_PG: 'Subject', progress: 'Progress', planner: 'Planner', 'practice-centre': 'Practice', bookmarks: 'Bookmarks', topic: 'Topic', learn: 'Lesson', pyq: 'Past papers', profile: 'Profile', plans: 'Plans', search: 'Search', report: 'Report', dashboard: 'Today' };
+  return names[first] ?? first.replace(/[-_]/g, ' ').replace(/^./, (c) => c.toUpperCase());
+};
+
+/** The top bar beside the sidebar: where you are, search, notifications and the account. */
+function StudioBar({ path, onMenu, drawer }: { path: string; onMenu: () => void; drawer: boolean }) {
+  const pill = 'inline-flex h-9 items-center gap-2 rounded-lg border border-line bg-ivory px-3 text-[13px] font-medium text-charcoal transition-colors hover:bg-white/70';
+  return (
+    <header className="sticky top-0 z-30 border-b border-line bg-ivory">
+      <div className="flex h-14 items-center gap-2 px-4 sm:px-8 md:h-[4.3rem] lg:px-12">
+        <button type="button" onClick={onMenu} aria-label="Open subjects menu" aria-expanded={drawer} className="-ml-1 grid size-9 place-items-center rounded-lg text-charcoal hover:bg-ink/5 md:hidden">
+          <Menu aria-hidden className="size-5" />
+        </button>
+        <Link to="/" aria-label="Prepora home" className="flex items-center gap-2 md:hidden">
+          <span className="[&>span]:size-8 [&>span]:rounded-lg">
+            <BrandMark />
+          </span>
+          <span className="text-[15px] font-bold tracking-tight text-charcoal">Prepora</span>
+        </Link>
+        <span className="label hidden text-mute md:block">
+          Study space <span aria-hidden>/</span> {crumb(path)}
+        </span>
+        <div className="ml-auto flex items-center gap-2">
+          <NavLink to="/search" title="Search the syllabus" className={pill}>
+            <Search aria-hidden className="size-4" />
+            <span className="hidden sm:inline">Search</span>
+            <span className="sr-only sm:hidden">Search the syllabus</span>
+          </NavLink>
+          <RemindersBell pill />
+          <UserMenu />
+        </div>
+      </div>
+    </header>
+  );
+}
+
 export function Layout() {
   const location = useLocation();
   const path = location.pathname;
@@ -279,6 +335,38 @@ export function Layout() {
   // Without a sidebar (sign-in, staff consoles) the centred, width-limited container stays.
   const shell = wide ? 'mx-auto max-w-[96rem]' : 'mx-auto max-w-[84rem]';
   const pageBox = showSidebar ? 'max-w-[120rem] px-5 pt-6 sm:px-8 lg:px-10' : `${shell} px-5 pt-6 sm:px-8 lg:px-10`;
+
+  if (showSidebar) {
+    return (
+      <div className="min-h-dvh font-display text-charcoal">
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2 focus:text-sm">
+          Skip to content
+        </a>
+        <div className="flex">
+          <Sidebar className="sticky top-0 hidden h-dvh w-52 shrink-0 md:flex lg:w-[14.5rem]" />
+          <div className="min-w-0 flex-1">
+            <StudioBar path={path} onMenu={() => setDrawer(true)} drawer={drawer} />
+            <main id="main" key={path} className="page-in px-4 pt-6 pb-24 sm:px-8 md:pb-10 lg:px-12">
+              <Outlet />
+            </main>
+          </div>
+        </div>
+        {drawer && (
+          <div className="fixed inset-0 z-40 md:hidden" role="dialog" aria-modal="true" aria-label="Subjects">
+            <button type="button" aria-label="Close subjects menu" onClick={() => setDrawer(false)} className="absolute inset-0 bg-forest-deep/50" />
+            <Sidebar onNavigate={() => setDrawer(false)} className="absolute inset-y-0 left-0 flex w-[85%] max-w-xs shadow-xl" />
+          </div>
+        )}
+        <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-30 flex border-t border-line bg-ivory/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
+          <TabLink to="/" end icon={<House />} label="Home" />
+          <NavMenu up label="Learn" items={LEARN} active={group === 'learn'} icon={<BookOpen />} />
+          <TabLink to="/practice-centre" icon={<PencilLine />} label="Practice" active={group === 'practice'} />
+          <NavMenu up label="My Learning" items={MY} active={group === 'my'} icon={<UserRound />} />
+        </nav>
+        <SupportWidget />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-dvh">

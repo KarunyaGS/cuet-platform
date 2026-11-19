@@ -1,8 +1,8 @@
-import { ChevronRight, CreditCard } from 'lucide-react';
+import { CalendarRange, ChartPie, ChevronRight, House } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router';
-import { SidebarSearchBox, SidebarSearchResults } from './SidebarSearch';
-import { bareChapter } from './ui';
+import { Link, NavLink, useLocation } from 'react-router';
+import { bareChapter, useAuth } from './ui';
+import { subjectTone } from './subjectColors';
 import { api, type ExamCode, type Outline, type OutlineNode, type PyqTree, type Subject } from './api';
 
 /**
@@ -17,10 +17,11 @@ const EXAM: ExamCode = 'CUET_UG';
 const YEAR = 2026;
 const STORE = 'cuet.sidebar.open';
 
-const rowBase = 'relative flex w-full items-center gap-1.5 rounded-lg text-left transition-colors hover:bg-ink/[0.03] focus-visible:bg-ink/[0.04]';
-/** A row that contains the page the student is on (its subject, category or heading): blue text, no block. */
-const parentRow = 'font-medium text-accent';
-const selectedRow = 'bg-accent-soft font-medium text-accent hover:bg-accent-soft before:absolute before:inset-y-1.5 before:left-0 before:w-[3px] before:rounded-full before:bg-accent';
+// The sidebar is forest green: inside it the shared tokens are remapped (see the aside), so inactive labels are muted light green.
+const rowBase = 'relative flex w-full items-center gap-1.5 rounded-lg text-left transition-colors hover:bg-white/[0.06] focus-visible:bg-white/[0.08]';
+/** A row that contains the page the student is on (its subject, category or heading): pale lime text, no block. */
+const parentRow = 'font-medium text-lime';
+const selectedRow = 'bg-lime font-medium !text-forest hover:bg-lime [&_svg]:!text-forest [&_.num]:!text-forest/70';
 
 function Chevron({ open }: { open: boolean }) {
   return <ChevronRight aria-hidden className={`size-3.5 shrink-0 text-ink-3 transition-transform ${open ? 'rotate-90' : ''}`} />;
@@ -339,13 +340,8 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   if (!subjects) return <p className="px-4 py-3 text-xs text-ink-3">Loading subjects…</p>;
 
   return (
-    <ul ref={listRef} className="space-y-0.5" aria-label="CUET UG subjects">
-      <li className="mb-0.5">
-        <Link to="/" onClick={onNavigate} aria-current={pathname === '/' ? 'page' : undefined} data-kind="home" className={`${rowBase} min-h-9 px-3 py-1.5 text-[13px] ${pathname === '/' ? selectedRow : 'text-ink'}`}>
-          Home
-        </Link>
-      </li>
-      {subjects.map((s) => {
+    <ul ref={listRef} className="space-y-px" aria-label="CUET UG subjects">
+      {subjects.map((s, subjectIndex) => {
         const sKey = `s:${s.paperId}`;
         const isOpen = !!open[sKey];
         const onSubject = pathname === `/${EXAM}/subject/${s.paperId}`;
@@ -357,7 +353,12 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
             <SplitRow
               to={`/${EXAM}/subject/${s.paperId}`}
               kind="subject"
-              label={s.name}
+              label={
+                <span className="flex items-center gap-2.5">
+                  <span aria-hidden className="size-1.5 shrink-0 rounded-full" style={{ background: subjectTone(subjectIndex).dot }} />
+                  <span className="min-w-0 flex-1 truncate">{s.name}</span>
+                </span>
+              }
               title={s.name}
               open={isOpen}
               state={onSubject ? 'selected' : inside || areaRoute?.paperId === s.paperId ? 'parent' : 'idle'}
@@ -627,37 +628,115 @@ function PyqYears({ subject, pyq, activeYear, onNavigate, indent = 'pl-9' }: { s
 }
 
 /** The sidebar frame: its own scroll area, with Plans fixed at the bottom. */
+function BrandMark() {
+  return (
+    <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-xl bg-lime">
+      <svg viewBox="0 0 24 24" className="size-[22px]" fill="#18443b">
+        <path d="M12 2.5c1.1 3.6 1.9 4.4 5.5 5.5-3.6 1.1-4.4 1.9-5.5 5.5-1.1-3.6-1.9-4.4-5.5-5.5C10.1 6.9 10.9 6.1 12 2.5Z" />
+        <path d="M12 10.5c1.1 3.6 1.9 4.4 5.5 5.5-3.6 1.1-4.4 1.9-5.5 5.5-1.1-3.6-1.9-4.4-5.5-5.5 3.6-1.1 4.4-1.9 5.5-5.5Z" opacity=".78" />
+      </svg>
+    </span>
+  );
+}
+export { BrandMark };
+
+const initial = (name: string) => name.trim().charAt(0).toUpperCase() || '?';
+const navRow = 'flex h-10 items-center gap-3 rounded-lg px-3 text-[13px] transition-colors hover:bg-white/[0.06]';
+
+/** The student's learning space: brand, workspace links, every subject, today's goal and who is signed in. */
 export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => void; className?: string }) {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const [query, setQuery] = useState('');
-  const searching = query.trim().length >= 2;
-  const done = () => {
-    setQuery('');
-    onNavigate?.();
-  };
+  const { user } = useAuth();
+  const [goal, setGoal] = useState<{ done: number; goal: number } | null>(null);
+  const [exam, setExam] = useState<string | null>(null);
+  useEffect(() => {
+    if (!user) {
+      setGoal(null);
+      setExam(null);
+      return;
+    }
+    let live = true;
+    api.dashboard().then((d) => live && setGoal({ done: d.today.questionsAnswered, goal: d.today.goal.questionsPerDay }), () => live && setGoal(null));
+    api.preferences().then((p) => live && setExam(p.examCode ? `${p.examCode === 'CUET_UG' ? 'CUET UG' : 'CUET PG'}${p.targetYear ? ` · ${p.targetYear}` : ''}` : null), () => undefined);
+    return () => {
+      live = false;
+    };
+  }, [user?.id, pathname]);
+  const link = (to: string, label: string, icon: React.ReactNode, end = false) => (
+    <NavLink
+      to={to}
+      end={end}
+      onClick={onNavigate}
+      className={({ isActive }) => `${navRow} ${isActive ? 'bg-lime font-medium text-forest' : 'text-[var(--color-forest-soft)] hover:text-white'}`}
+    >
+      <span aria-hidden className="shrink-0 [&>svg]:size-4 [&>svg]:stroke-[1.6]">
+        {icon}
+      </span>
+      {label}
+    </NavLink>
+  );
+  const pct = goal && goal.goal > 0 ? Math.min(100, (100 * goal.done) / goal.goal) : 0;
   return (
-    <aside aria-label="Subjects" className={`flex-col border-r border-rule bg-surface ${className}`}>
-      <div className="shrink-0 px-2.5 pt-3">
-        <SidebarSearchBox
-          value={query}
-          onChange={setQuery}
-          onSubmit={() => {
-            const q = query.trim();
-            done();
-            navigate(`/search?q=${encodeURIComponent(q)}`);
-          }}
-        />
-      </div>
-      <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2.5 py-3">
-        {searching ? <SidebarSearchResults query={query.trim()} onPick={done} /> : <SidebarNav onNavigate={onNavigate} />}
-      </nav>
-      <div className="border-t border-rule p-2.5">
-        <Link to="/plans" onClick={onNavigate} aria-current={pathname === '/plans' ? 'page' : undefined} className={`${rowBase} h-10 px-3 text-[13.5px] ${pathname === '/plans' ? selectedRow : 'text-ink'}`}>
-          <CreditCard aria-hidden className={`size-4 ${pathname === '/plans' ? 'text-accent' : 'text-ink-3'}`} />
-          Plans
+    <aside
+      aria-label="Student learning space"
+      data-sidebar
+      className={`flex-col bg-forest font-display text-[var(--color-forest-soft)] [--color-accent:#e5ecb4] [--color-ink-3:#86a594] [--color-ink:#c5d8cb] ${className}`}
+      style={{ backgroundImage: 'radial-gradient(120% 55% at 0% 0%, rgb(255 255 255 / 0.07), transparent 60%)' }}
+    >
+      <div className="shrink-0 px-5 pt-5 pb-4">
+        <Link to="/" onClick={onNavigate} className="flex items-center gap-3 rounded-lg" aria-label="Prepora home">
+          <BrandMark />
+          <span className="flex min-w-0 flex-col leading-tight">
+            <span className="text-[17px] font-bold tracking-tight text-white" data-brand-name>
+              Prepora
+            </span>
+            <span className="truncate text-[11.5px] text-[var(--color-forest-soft)]">Student learning space</span>
+          </span>
         </Link>
       </div>
+      <div className="shrink-0 px-3">
+        <div className="label px-2 pt-4 pb-2 text-[10.5px] text-[#7f9d8d]">Workspace</div>
+        <nav aria-label="Workspace" className="space-y-0.5">
+          {link('/', 'Study map', <House />, true)}
+          {link('/progress', 'My progress', <ChartPie />)}
+          {link('/planner', 'Study planner', <CalendarRange />)}
+        </nav>
+        <div className="label px-2 pt-6 pb-2 text-[10.5px] text-[#7f9d8d]">Your subjects</div>
+      </div>
+      <nav aria-label="Subjects" className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-3 [scrollbar-color:#2f5d52_transparent] [scrollbar-width:thin]">
+        <SidebarNav onNavigate={onNavigate} />
+      </nav>
+      {user && (
+        <div className="shrink-0 border-t border-white/10 px-5 pt-4 pb-3">
+          <div className="label text-[10px] text-[#7f9d8d]">Today’s goal</div>
+          {goal ? (
+            <>
+              <div className="label mt-2 flex items-baseline justify-between text-[10px] text-[var(--color-forest-soft)]">
+                <span>Questions</span>
+                <span className="num text-[11px] text-white">
+                  {goal.done} / {goal.goal}
+                </span>
+              </div>
+              <div className="mt-1.5 h-[3px] overflow-hidden rounded-full bg-white/15" role="progressbar" aria-label="Questions against today's goal" aria-valuemin={0} aria-valuemax={goal.goal} aria-valuenow={Math.min(goal.done, goal.goal)}>
+                <div className="h-full rounded-full bg-lime" style={{ width: `${pct}%` }} />
+              </div>
+            </>
+          ) : (
+            <p className="mt-2 text-[11.5px] text-[#86a594]">Goal not available right now.</p>
+          )}
+        </div>
+      )}
+      {user && (
+        <Link to="/profile" onClick={onNavigate} className="flex shrink-0 items-center gap-3 border-t border-white/10 px-5 py-3.5 transition-colors hover:bg-white/[0.05]">
+          <span aria-hidden className="grid size-8 shrink-0 place-items-center rounded-full bg-[#ebb9a3] text-[12px] font-bold text-forest">
+            {initial(user.displayName)}
+          </span>
+          <span className="flex min-w-0 flex-col leading-tight">
+            <span className="truncate text-[12.5px] font-semibold text-white">{user.displayName}</span>
+            <span className="label truncate text-[10px] text-[#86a594]">{exam ?? 'Choose your exam'}</span>
+          </span>
+        </Link>
+      )}
     </aside>
   );
 }

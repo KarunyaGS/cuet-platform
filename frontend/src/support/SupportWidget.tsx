@@ -514,7 +514,7 @@ export function SupportWidget() {
         aria-label={open ? 'Close help and support' : 'Help and support'}
         aria-expanded={open}
         data-support-button
-        className="relative grid size-13 place-items-center rounded-full bg-accent text-white shadow-lg shadow-ink/20 transition-colors hover:bg-accent-strong"
+        className="relative grid size-13 place-items-center rounded-full bg-forest text-lime shadow-lg shadow-ink/20 transition-colors hover:bg-forest-deep"
       >
         {open ? <X aria-hidden className="size-6" /> : <Headphones aria-hidden className="size-6" />}
         {!open && unread > 0 && (

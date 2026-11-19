@@ -7,6 +7,8 @@ import { AuthPage } from './pages/Auth';
 import { BookmarksPage } from './pages/Bookmarks';
 import { DecksPage } from './pages/Decks';
 import { SheetPage } from './pages/Sheet';
+import { DiffractionLabPage } from './pages/DiffractionLab';
+import { LensLabPage } from './pages/LensLab';
 import { VisualPage } from './pages/Visual';
 import { FlashcardReviewPage, OldFlashcardsLink } from './pages/Flashcards';
 import { UpdatesPage } from './pages/Updates';
@@ -46,6 +48,15 @@ import '@fontsource/ibm-plex-sans-devanagari/600.css';
 import '@fontsource/ibm-plex-serif/400.css';
 import '@fontsource/ibm-plex-serif/400-italic.css';
 import '@fontsource/ibm-plex-serif/600.css';
+import '@fontsource/dm-sans/400.css';
+import '@fontsource/dm-sans/500.css';
+import '@fontsource/dm-sans/600.css';
+import '@fontsource/dm-sans/700.css';
+import '@fontsource/dm-sans/800.css';
+import '@fontsource/playfair-display/500-italic.css';
+import '@fontsource/playfair-display/600-italic.css';
+import '@fontsource/dm-mono/400.css';
+import '@fontsource/dm-mono/500.css';
 import 'katex/dist/katex.min.css';
 import './styles.css';
 
@@ -66,6 +77,7 @@ const AdminBilling = lazy(() => import('./admin/Billing').then((m) => ({ default
 const AdminEmail = lazy(() => import('./admin/Email').then((m) => ({ default: m.AdminEmail })));
 const AdminNotices = lazy(() => import('./admin/Notices').then((m) => ({ default: m.AdminNotices })));
 const AdminAdmissions = lazy(() => import('./admin/Admissions').then((m) => ({ default: m.AdminAdmissions })));
+const YoungLabPage = lazy(() => import('./pages/YoungLab').then((m) => ({ default: m.YoungLabPage })));
 const UniversityPage = lazy(() => import('./pages/University').then((m) => ({ default: m.UniversityPage })));
 const AdmissionsPage = lazy(() => import('./pages/Admissions').then((m) => ({ default: m.AdmissionsPage })));
 const ProgrammePage = lazy(() => import('./pages/Admissions').then((m) => ({ default: m.ProgrammePage })));
@@ -113,6 +125,12 @@ const router = createBrowserRouter([
       { path: '/bookmarks', element: <BookmarksPage /> },
       // Visual learning prototype: one Physics topic.
       { path: '/visual/gravitation', element: <VisualPage /> },
+      // Interactive Physics lab (pilot): thin lens image formation.
+      { path: '/lab/lens', element: <LensLabPage /> },
+      // Interactive Physics lab (pilot): single-slit diffraction.
+      { path: '/lab/diffraction', element: <DiffractionLabPage /> },
+      // Interactive 3D Physics lab (prototype): Young's double slit. Three.js is loaded only on this page.
+      { path: '/lab/young', element: lazyPage(<YoungLabPage />) },
       { path: '/updates', element: <UpdatesPage /> },
       { path: '/universities/:slug', element: lazyPage(<UniversityPage />) },
       { path: '/admissions', element: lazyPage(<AdmissionsPage />) },

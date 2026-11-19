@@ -1,10 +1,11 @@
-import { BookMarked, ChevronDown, ChevronLeft, Lightbulb, ListChecks, Sigma, Target } from 'lucide-react';
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { BookMarked, ChevronDown, ChevronLeft, FlaskConical, Lightbulb, ListChecks, Sigma, Target } from 'lucide-react';
+import { Fragment, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { api, type Block } from '../api';
 import { DisplayMath, parseBody, Rich } from '../rich';
 import { Annotatable, blockKey } from '../annotate';
 import { Figure } from '../question';
+import { labFor, labHref, type LabEntry } from '../visual/labs';
 import { AddCards, AddToPlan, BookmarkButton, ConceptActions, useConcepts, useTrackView } from '../tools';
 import { Button, ErrorBox, Loading, useAuth, useLoad } from '../ui';
 
@@ -170,6 +171,38 @@ export function BlockView({ b, solvedNo }: { b: Block; solvedNo: number }) {
   }
 }
 
+/** "Try it" card for an interactive lab, shown at the end of the section it belongs to. */
+function LabCard({ lab, href }: { lab: LabEntry; href: string }) {
+  return (
+    <aside aria-label={`Interactive: ${lab.title}`} data-lab-card={lab.id} className="relative overflow-hidden rounded-xl border border-accent/30 bg-gradient-to-br from-accent-soft to-surface p-4 sm:p-5">
+      <div className="flex flex-wrap items-start gap-4">
+        <span aria-hidden className="grid size-11 shrink-0 place-items-center rounded-lg bg-accent text-white">
+          <FlaskConical className="size-5" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs font-semibold uppercase tracking-wide text-accent">Try it: interactive</span>
+            <span className="rounded-md bg-marker-soft px-1.5 py-0.5 text-xs font-medium text-marker">Draft – unverified</span>
+          </div>
+          <h3 className="mt-0.5 text-lg font-semibold text-ink">{lab.title}</h3>
+          <p className="mt-1 text-[15px] text-ink-2">{lab.blurb}</p>
+          <ul className="mt-2 list-disc space-y-0.5 pl-5 text-sm text-ink">
+            {lab.can.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <Link to={href} data-lab-launch className="inline-flex h-10 items-center gap-2 rounded-md bg-accent px-4 text-sm font-semibold text-white hover:bg-accent-strong">
+              Open {lab.title}
+            </Link>
+            <span className="text-xs text-ink-3">About {lab.minutes} minutes · works on phones</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
 /** Highlights the table-of-contents entry for the section being read. */
 function useCurrentHeading(ids: string[]) {
   const [current, setCurrent] = useState<string | null>(null);
@@ -225,6 +258,13 @@ export function LearnPage() {
   if (r.error) return <ErrorBox error={r.error} onRetry={r.reload} />;
   const d = r.data!;
   let solved = 0;
+
+    // An interactive lab is placed at the end of its section: just before the next heading, or at the end of the lesson.
+    const labHeadingAt = d.blocks.findIndex((x) => x.type === 'HEADING' && labFor(d.resource.title, x.body));
+    const labDef = labHeadingAt >= 0 ? labFor(d.resource.title, d.blocks[labHeadingAt]!.body) : undefined;
+    const nextHeading = labDef ? d.blocks.findIndex((x, i) => i > labHeadingAt && x.type === 'HEADING') : -1;
+    const labInsertAt = labDef ? (nextHeading < 0 ? d.blocks.length : nextHeading) : -1;
+    const labAt = (i: number) => (labDef && i === labInsertAt ? <LabCard lab={labDef} href={labHref(labDef, d.resource.id, slug(d.blocks[labHeadingAt]!.body))} /> : null);
   const practise = async () => {
     if (!d.topic) return;
     if (!user) return navigate('/signin');
@@ -294,25 +334,33 @@ export function LearnPage() {
         )}
         <Annotatable kind="LESSON" id={d.resource.id} slot="lesson-annotate-slot">
           <div className="space-y-5">
-            {d.blocks.map((b) => {
+            {d.blocks.map((b, bi) => {
               if (b.type === 'SOLVED_PROBLEM') solved++;
+              const labCard = labAt(bi);
               // Each block carries a key made from its own content, so a highlight or a drawing stays with it.
               const k = blockKey(b.type, b.body, seenKeys);
               if (b.conceptKey && b.anchor)
                 return (
-                  <div key={b.position} id={b.anchor} className="scroll-mt-24 rounded-lg transition-shadow duration-700 data-[arrived]:shadow-[0_0_0_3px_var(--color-accent)]">
-                    <div data-annot-block={k}>
-                      <BlockView b={b} solvedNo={solved} />
+                  <Fragment key={b.position}>
+                    {labCard}
+                    <div id={b.anchor} className="scroll-mt-24 rounded-lg transition-shadow duration-700 data-[arrived]:shadow-[0_0_0_3px_var(--color-accent)]">
+                      <div data-annot-block={k}>
+                        <BlockView b={b} solvedNo={solved} />
+                      </div>
+                      <ConceptActions id={b.conceptKey} c={concepts} />
                     </div>
-                    <ConceptActions id={b.conceptKey} c={concepts} />
-                  </div>
+                  </Fragment>
                 );
               return (
-                <div key={b.position} data-annot-block={k}>
-                  <BlockView b={b} solvedNo={solved} />
-                </div>
+                <Fragment key={b.position}>
+                  {labCard}
+                  <div data-annot-block={k}>
+                    <BlockView b={b} solvedNo={solved} />
+                  </div>
+                </Fragment>
               );
             })}
+            {labAt(d.blocks.length)}
           </div>
         </Annotatable>
         {d.topic && (

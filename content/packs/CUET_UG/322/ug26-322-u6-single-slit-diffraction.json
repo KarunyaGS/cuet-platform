@@ -1,0 +1,638 @@
+{
+ "schema": "cuet-content-pack/1",
+ "exam": "CUET_UG",
+ "year": 2026,
+ "paperCode": "322",
+ "origin": "AI_ASSISTED",
+ "node": {
+  "id": "cn_e630b9e729a94a5894536040bf74e5ec",
+  "title": "Diffraction due to a single slit, width of central maxima."
+ },
+ "lesson": {
+  "key": "ug26-322-u6-single-slit-diffraction",
+  "title": "Diffraction of light: single slit and the width of the central maximum",
+  "coverage": [
+   {
+    "phrase": "Diffraction",
+    "section": "What is diffraction?"
+   },
+   {
+    "phrase": "single slit",
+    "section": "Diffraction at a single slit: what you observe"
+   },
+   {
+    "phrase": "width of central maxima",
+    "section": "Width of the central maximum"
+   }
+  ],
+  "blocks": [
+   {
+    "type": "HEADING",
+    "text": "What is diffraction?"
+   },
+   {
+    "type": "TEXT",
+    "text": "Light normally travels in straight lines, which is why a sharp shadow forms behind a large obstacle. But when light passes through a very narrow opening or past a very thin obstacle, it **bends around the edges** and spreads into the region where geometrical optics says there should be darkness. This bending and spreading of waves at an obstacle or an opening is called **diffraction**.\n\nDiffraction is a property of all waves. You hear a person talking around a corner because sound, with a wavelength of about a metre, diffracts easily round door frames. You do not see round the corner because the wavelength of light, about half a micrometre, is far too small compared with a doorway. The rule of thumb is simple: **diffraction is noticeable when the size of the opening or obstacle is comparable with the wavelength**."
+   },
+   {
+    "type": "DEFINITION",
+    "term": "Diffraction of light",
+    "text": "The bending of light around the edges of an obstacle or an aperture, so that light enters the geometrical shadow and a pattern of bright and dark bands is produced on a screen. It is appreciable when the size of the aperture or obstacle is comparable with the wavelength of light."
+   },
+   {
+    "type": "TEXT",
+    "text": "Everyday evidence includes the faint bright and dark fringes at the edge of a shadow, the coloured spread of light from the tracks of a CD, and the fact that a hair or a thin wire held in front of a laser produces a line of spots. Diffraction is also the reason a telescope or a camera cannot form a perfectly sharp point image, because the lens opening itself diffracts light.\n\nThe diffraction pattern you will study here is the one produced by a **single narrow slit**. Light from a distant source (or from a lens) falls on the slit as a plane wave, and a screen far away shows the pattern. This is called **Fraunhofer diffraction**, in which both the source and the screen are effectively at infinite distance from the slit. (When they are close, the situation is called Fresnel diffraction, and it is not part of this syllabus.)"
+   },
+   {
+    "type": "HEADING",
+    "text": "Diffraction at a single slit: what you observe"
+   },
+   {
+    "type": "TEXT",
+    "text": "Let a slit of width $a$ be illuminated by monochromatic light of wavelength $\\lambda$, and let a screen be placed at a distance $D$ from the slit with $D$ much larger than $a$. Instead of one sharp image of the slit, you see:\n\n- a **broad, very bright central band**, called the central maximum;\n- on each side, a series of **much narrower and much fainter** bands, called secondary maxima, separated by dark bands called minima;\n- intensity that falls rapidly from the centre outwards."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "setup"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: A plane wave of wavelength λ falls on a slit of width a. On a screen at distance D, light spreads into the geometrical shadow. The central maximum is the widest and brightest band, and its width is 2λD/a."
+   },
+   {
+    "type": "HEADING",
+    "text": "Why the pattern forms: path differences across the slit"
+   },
+   {
+    "type": "TEXT",
+    "text": "Huygens' principle says every point of the wavefront in the slit acts as a source of secondary wavelets. The wavelets all start in phase, but at an angle $\\theta$ to the axis they travel different distances to reach a given point of the screen, so they arrive with different phases and add up to give a net intensity that depends on $\\theta$.\n\n**Central maximum ($\\theta = 0$).** In the straight-ahead direction all the wavelets travel the same distance, arrive in phase and add constructively. This gives the brightest point of the pattern at the centre.\n\n**First minimum.** Take the angle $\\theta$ at which the wavelet from the top edge of the slit lags the wavelet from the bottom edge by exactly one wavelength. Split the slit into two halves. A wavelet from a point in the top half has a partner in the bottom half exactly $a/2$ lower, and the path difference between these two is $(a/2)\\sin\\theta$. If $(a/2)\\sin\\theta = \\lambda/2$, the pair cancels. Every point of the top half is cancelled by its partner in the lower half, so the whole slit gives zero intensity."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "halves"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The slit is split into two halves. Rays from points a/2 apart differ in path by (a/2) sin θ. When this equals λ/2 the pairs cancel in pairs, so a sin θ = λ marks the first minimum."
+   },
+   {
+    "type": "FORMULA",
+    "latex": "a\\sin\\theta = n\\lambda,\\qquad n = \\pm 1, \\pm 2, \\pm 3, \\dots",
+    "text": "a = slit width (m); θ = angle of the direction from the axis (rad or degree); n = order of the minimum (a whole number, not zero); λ = wavelength of the light (m). This is the condition for the n-th dark band."
+   },
+   {
+    "type": "TEXT",
+    "text": "For the second minimum the slit is divided into four equal parts, and cancellation between neighbouring parts again happens when $a\\sin\\theta = 2\\lambda$. Dividing into $2n$ parts gives the general result above.\n\nNotice what the condition does **not** include: $n = 0$ is not a minimum. At $\\theta = 0$ we have $a\\sin\\theta = 0$, and this is the **central maximum**, not a dark band.\n\n**Secondary maxima.** Between two successive minima there is a maximum. These are located approximately where $a\\sin\\theta = (n + \\tfrac12)\\lambda$ for $n = 1, 2, 3, \\dots$. They arise because, for example, three equal parts of the slit give two parts that cancel and one part left over, so the intensity is not zero. Each secondary maximum is much weaker than the central one, because only a fraction (a third, a fifth, and so on) of the slit contributes uncancelled light."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "intensity"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: Minima occur at sin θ = ±λ/a, ±2λ/a, and so on. The central maximum is twice as wide as every secondary maximum, and the first secondary maximum has only about 5 % of the central intensity."
+   },
+   {
+    "type": "HEADING",
+    "text": "Width of the central maximum"
+   },
+   {
+    "type": "TEXT",
+    "text": "The central maximum extends from the first minimum on one side to the first minimum on the other. The first minimum is at $a\\sin\\theta = \\lambda$. Because $\\lambda$ is much smaller than $a$ in practice, $\\theta$ is small and $\\sin\\theta \\approx \\theta$, giving\n\n$$\\theta_1 = \\frac{\\lambda}{a}.$$\n\nSo the **angular half-width** of the central maximum is $\\lambda/a$ and its **angular width** is $2\\lambda/a$. On a screen at distance $D$ the distance of the first minimum from the centre is $y_1 = D\\tan\\theta_1 \\approx D\\theta_1 = \\lambda D/a$. The linear width of the central maximum is therefore twice this."
+   },
+   {
+    "type": "FORMULA",
+    "latex": "\\beta_0 = \\frac{2\\lambda D}{a}",
+    "text": "β₀ = linear width of the central maximum on the screen (m); λ = wavelength (m); D = distance from the slit to the screen (m); a = slit width (m). Valid for small angles. The angular width is 2λ/a (radian)."
+   },
+   {
+    "type": "FORMULA",
+    "latex": "y_n = \\frac{n\\lambda D}{a}",
+    "text": "y_n = distance of the n-th minimum from the centre of the pattern (m). Each secondary maximum between two minima has width λD/a, which is half the width of the central maximum."
+   },
+   {
+    "type": "TEXT",
+    "text": "**What the formula tells you.** The width depends on three things:\n\n- It is **inversely proportional to the slit width $a$**. A narrower slit gives a *wider* pattern. This surprises many students, but it follows from $a\\sin\\theta = \\lambda$: the smaller $a$ is, the larger $\\sin\\theta$ must be for the same path difference.\n- It is **directly proportional to the wavelength $\\lambda$**. Red light, which has a longer wavelength than blue, gives a wider central band. In white light the pattern is coloured, with a white centre and red on the outer edge of each band.\n- It is **directly proportional to the distance $D$** to the screen.\n\nIf the whole apparatus is immersed in a medium of refractive index $\\mu$, the wavelength becomes $\\lambda/\\mu$ and the width becomes $2\\lambda D/(\\mu a)$, so the pattern shrinks.\n\n**Using a lens.** In the laboratory the screen is often placed at the focal plane of a lens that follows the slit. Then $D$ is replaced by the focal length $f$ of the lens, and the width of the central maximum is $2\\lambda f/a$."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "If the slit is made narrower, the central maximum becomes wider and dimmer. If the slit width is reduced to about λ, the central maximum spreads over a very large angle. If a is much larger than λ, the pattern is squeezed so tightly that light appears to travel in a straight line, which is why ordinary large openings show no visible diffraction."
+   },
+   {
+    "type": "HEADING",
+    "text": "Single-slit versus double-slit (Young) patterns"
+   },
+   {
+    "type": "TEXT",
+    "text": "Students often mix up interference and diffraction. In reality both occur in Young's double-slit experiment: each slit has a finite width, so each one **diffracts** light into a wide pattern, and the two diffracted beams **interfere** where they overlap. The result is a set of closely spaced interference fringes whose brightness follows the single-slit diffraction envelope.\n\nThe figure shows a double slit whose slit separation is $d = 4a$. The fringes lie inside the single-slit envelope. The fourth-order fringe would fall exactly at the first single-slit minimum, so it is missing, and seven bright fringes fit within the central maximum of the envelope."
+   },
+   {
+    "type": "DIAGRAM",
+    "diagram": "envelope"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "What to learn from this figure: The dashed envelope is the single-slit pattern, and the fringes inside it come from interference between the two slits. The fringe spacing depends on the slit separation d, while the width of the envelope depends on the slit width a."
+   },
+   {
+    "type": "TABLE",
+    "caption": "Single-slit diffraction compared with double-slit interference",
+    "columns": [
+     "Feature",
+     "Single-slit diffraction",
+     "Young's double-slit interference"
+    ],
+    "rows": [
+     [
+      "Cause",
+      "Superposition of wavelets from different points of one slit",
+      "Superposition of light from two separate coherent slits"
+     ],
+     [
+      "Central band",
+      "Twice as wide as the other bands and much brighter",
+      "Same width as the other fringes (β = λD/d)"
+     ],
+     [
+      "Fringe widths",
+      "Central maximum 2λD/a; other maxima λD/a",
+      "All fringes equal, each β = λD/d"
+     ],
+     [
+      "Intensity of bands",
+      "Falls rapidly: about 5 % and 2 % for the first two secondary maxima",
+      "Nearly equal for many fringes (ideal narrow slits)"
+     ],
+     [
+      "Minima occur at",
+      "a sin θ = nλ  (n = ±1, ±2, ...)",
+      "d sin θ = (n + 1/2)λ"
+     ],
+     [
+      "Effect of widening the slit",
+      "Pattern becomes narrower",
+      "Slit width changes the envelope, not the fringe spacing"
+     ]
+    ]
+   },
+   {
+    "type": "HEADING",
+    "text": "When does ray optics fail? The Fresnel distance"
+   },
+   {
+    "type": "TEXT",
+    "text": "A beam of light of width $a$ spreads by diffraction through an angle of about $\\lambda/a$. After travelling a distance $z$ the extra spread is about $z\\lambda/a$. This spreading equals the original width $a$ when $z = a^2/\\lambda$. This distance is called the **Fresnel distance**.\n\nFor distances **smaller** than $z_F = a^2/\\lambda$ the beam stays almost as wide as the opening and travels in a straight line, so ray optics works. For distances **larger** than $z_F$ the spreading is significant and ray optics fails. This explains why we can trace rays through lenses of a few centimetres in diameter without worrying about diffraction, but cannot do so through a micrometre-wide slit."
+   },
+   {
+    "type": "FORMULA",
+    "latex": "z_F = \\frac{a^2}{\\lambda}",
+    "text": "z_F = Fresnel distance (m); a = size of the aperture or beam width (m); λ = wavelength (m). Ray optics is valid for distances much less than z_F."
+   },
+   {
+    "type": "HEADING",
+    "text": "Solved examples"
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Light of wavelength 600 nm falls on a slit of width 0.20 mm. The screen is 2.0 m from the slit. Find the width of the central maximum.",
+    "solution": "The width of the central maximum is $2\\lambda D/a$.\n\nWavelength $\\lambda = 600\\ \\text{nm} = 6.0\\times10^{-7}$ m, slit width $a = 0.20\\ \\text{mm} = 2.0\\times10^{-4}$ m, screen distance $D = 2.0$ m.\n\n$\\beta_0 = \\dfrac{2\\times 6.0\\times10^{-7}\\times 2.0}{2.0\\times10^{-4}} = \\dfrac{2.4\\times10^{-6}}{2.0\\times10^{-4}} = 1.2\\times10^{-2}$ m.",
+    "answer": "The central maximum is 1.2 cm wide."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A single slit of width 0.50 mm is illuminated by light of wavelength 500 nm. Find the angular position of the first minimum and the width of the central maximum on a screen 1.0 m away.",
+    "solution": "For the first minimum $a\\sin\\theta = \\lambda$, so $\\sin\\theta = \\lambda/a = \\dfrac{5.0\\times10^{-7}}{5.0\\times10^{-4}} = 1.0\\times10^{-3}$.\n\nThe angle is very small, so $\\theta \\approx 1.0\\times10^{-3}$ rad. The first minimum is at this angle on each side of the axis.\n\nThe width of the central maximum on the screen is $2D\\theta = 2\\times1.0\\times1.0\\times10^{-3} = 2.0\\times10^{-3}$ m.",
+    "answer": "The first minimum is at about 1.0 × 10⁻³ rad (0.057°), and the central maximum is 2.0 mm wide."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "For what slit width does the first minimum of sodium light (589 nm) fall at an angle of 30°?",
+    "solution": "The first minimum satisfies $a\\sin\\theta = \\lambda$, so $a = \\lambda/\\sin\\theta$.\n\n$a = \\dfrac{589\\ \\text{nm}}{\\sin 30^\\circ} = \\dfrac{589\\ \\text{nm}}{0.5} = 1178\\ \\text{nm}$.\n\nThis is about $1.18\\ \\mu\\text{m}$, which is only twice the wavelength, which is why the pattern is spread so widely.",
+    "answer": "a ≈ 1.18 μm (twice the wavelength)."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "In a single-slit experiment the central maximum on a screen is 4.0 mm wide. The whole apparatus is then immersed in water of refractive index 4/3. What is the new width?",
+    "solution": "The width is $2\\lambda D/a$. Immersing the apparatus in a medium of index $\\mu$ changes the wavelength to $\\lambda' = \\lambda/\\mu$, while $a$ and $D$ stay the same.\n\nNew width = $\\dfrac{2\\lambda' D}{a} = \\dfrac{1}{\\mu}\\times\\dfrac{2\\lambda D}{a} = \\dfrac{3}{4}\\times 4.0\\ \\text{mm} = 3.0\\ \\text{mm}$.",
+    "answer": "The central maximum narrows to 3.0 mm."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A lens of focal length 0.50 m is placed just behind a slit of width 0.10 mm illuminated with light of wavelength 500 nm. The pattern is observed in the focal plane of the lens. Find the width of the central maximum.",
+    "solution": "With a lens, the screen distance $D$ is replaced by the focal length $f$. So the width is $2\\lambda f/a$.\n\n$\\beta_0 = \\dfrac{2\\times 5.0\\times10^{-7}\\times 0.50}{1.0\\times10^{-4}} = \\dfrac{5.0\\times10^{-7}}{1.0\\times10^{-4}} = 5.0\\times10^{-3}$ m.",
+    "answer": "The central maximum is 5.0 mm wide."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "Calculate the Fresnel distance for a slit of width 4.0 mm and light of wavelength 500 nm. What does it tell you?",
+    "solution": "The Fresnel distance is $z_F = a^2/\\lambda$.\n\n$z_F = \\dfrac{(4.0\\times10^{-3})^2}{5.0\\times10^{-7}} = \\dfrac{1.6\\times10^{-5}}{5.0\\times10^{-7}} = 32$ m.\n\nFor distances much smaller than 32 m the beam passing through the 4 mm opening stays about as wide as the opening, so ray optics is valid. Beyond about 32 m the spreading by diffraction becomes comparable with the opening itself.",
+    "answer": "z_F = 32 m; ray optics holds for distances well below this."
+   },
+   {
+    "type": "SOLVED_PROBLEM",
+    "problem": "A slit has width $a = 3.5\\lambda$. How many dark minima appear on the screen?",
+    "solution": "A minimum needs $a\\sin\\theta = n\\lambda$ with $\\sin\\theta \\leq 1$, so $n \\leq a/\\lambda = 3.5$. Allowed whole numbers are $n = 1, 2, 3$ on each side of the centre.\n\nThat gives three minima on each side, so six dark minima in all. The next value $n = 4$ would need $\\sin\\theta = 4/3.5 > 1$, which is impossible.",
+    "answer": "Six minima (three on each side of the central maximum)."
+   },
+   {
+    "type": "HEADING",
+    "text": "Common mistakes and examination points"
+   },
+   {
+    "type": "CALLOUT",
+    "text": "Common mistakes: (1) Writing a sin θ = nλ for the central maximum. n = 0 is the central maximum, not a minimum. (2) Saying that a wider slit gives a wider pattern. It is the opposite: width of the central maximum is proportional to 1/a. (3) Forgetting the factor 2: λD/a is only the distance to the first minimum. The width of the central maximum is 2λD/a. (4) Using the Young double-slit fringe width λD/d for a single slit. (5) Forgetting to change λ to λ/μ when the apparatus is in a liquid."
+   },
+   {
+    "type": "KEY_POINT",
+    "text": "For examination: the minima condition a sin θ = nλ; the central maximum is twice as wide as the others; central width = 2λD/a (or 2λf/a with a lens); angular width = 2λ/a; narrower slit gives a wider and dimmer pattern; red light spreads more than violet; in a medium λ becomes λ/μ."
+   },
+   {
+    "type": "IMPORTANT_FACT",
+    "text": "Revision: diffraction is the bending of waves at an aperture or obstacle of size about λ. Single slit: minima at a sin θ = nλ (n = ±1, ±2, ...); central maximum has angular width 2λ/a and linear width 2λD/a; secondary maxima have half this width and about 5 %, 2 %, ... of the central intensity; Fresnel distance z_F = a²/λ; ray optics holds for distances much less than z_F."
+   }
+  ]
+ },
+ "diagrams": [
+  {
+   "key": "setup",
+   "file": "diagrams/ug26-322-u6-diffraction-setup.svg",
+   "alt": "A plane wave falls on a slit of width a in a barrier; the light spreads out to a screen at distance D where a bright central band with fainter side bands and a matching intensity curve are drawn",
+   "caption": "Single-slit diffraction: a bright central maximum of width 2λD/a with weaker bands on either side",
+   "description": "Left: three plane wavefronts of wavelength λ move towards a barrier with a narrow slit of width a. Right: dashed rays spread out from the slit to a screen a distance D away. On the screen a grey-scale strip shows a wide bright central band and fainter side bands, with a red intensity curve beside it. A label marks the central maximum width as 2λD/a."
+  },
+  {
+   "key": "halves",
+   "file": "diagrams/ug26-322-u6-diffraction-halves.svg",
+   "alt": "The slit is divided into two halves; rays from the top edge A, the middle M and the bottom edge B go off at angle theta and the extra path of ray A over ray M is marked as a over 2 times sin theta",
+   "caption": "Why a sin θ = λ gives the first minimum: pairs of points a/2 apart cancel",
+   "description": "A slit of width a with points A at the top, M in the middle and B at the bottom. Three parallel rays leave at angle θ below the axis. A dashed perpendicular from M meets the ray from A, and the thick red segment on ray A shows the extra path (a/2) sin θ. The text states that when this equals λ/2 the pairs cancel and a sin θ = λ marks the first minimum."
+  },
+  {
+   "key": "intensity",
+   "file": "diagrams/ug26-322-u6-diffraction-intensity.svg",
+   "alt": "Graph of intensity against sin theta for a single slit showing a tall central peak between minus lambda over a and plus lambda over a, and much smaller secondary peaks of about five percent and two percent",
+   "caption": "Intensity pattern of a single slit: minima at sin θ = ±nλ/a",
+   "description": "Intensity I is plotted against sin θ. A tall central peak of height I₀ lies between the minima at −λ/a and +λ/a, so its angular width is 2λ/a. On each side the secondary maxima are much smaller: about 5 % of I₀ for the first and about 2 % for the second. The zeros are marked at ±λ/a, ±2λ/a, ±3λ/a and ±4λ/a."
+  },
+  {
+   "key": "envelope",
+   "file": "diagrams/ug26-322-u6-diffraction-envelope.svg",
+   "alt": "Two intensity graphs: a single-slit diffraction pattern and below it the double-slit fringes with a dashed single-slit envelope, showing seven bright fringes inside the central maximum",
+   "caption": "Double-slit fringes inside a single-slit diffraction envelope (d = 4a)",
+   "description": "Top graph: the diffraction pattern of one slit of width a. Bottom graph: the fringes of two such slits with separation d = 4a, drawn in blue inside a dashed red single-slit envelope. Seven bright fringes lie within the central maximum because the fourth-order interference fringe coincides with the first diffraction minimum and is missing."
+  }
+ ],
+ "questions": [
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q01",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "Diffraction of light is most pronounced when the size of the aperture is",
+   "options": [
+    "much larger than the wavelength",
+    "exactly zero",
+    "comparable with the wavelength",
+    "much larger than the distance to the screen"
+   ],
+   "answer": 3,
+   "explanation": "Diffraction is appreciable when the size of the opening or obstacle is of the same order as the wavelength. For apertures much larger than the wavelength, the spreading angle λ/a is tiny, and light seems to travel in straight lines.",
+   "objective": "State the condition for noticeable diffraction"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q02",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "In the diffraction pattern of a single slit, the central maximum is",
+   "options": [
+    "twice as wide as each secondary maximum",
+    "narrower than the secondary maxima",
+    "equal in width to the secondary maxima",
+    "four times as wide as each secondary maximum"
+   ],
+   "answer": 1,
+   "explanation": "The central maximum extends between the first minima on each side, a total angular width of 2λ/a. Each secondary maximum lies between successive minima, so its angular width is λ/a. The central maximum is therefore twice as wide, and it is also much brighter.",
+   "objective": "Compare the width of the central and secondary maxima"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q03",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "conceptual",
+   "stem": "The condition for the n-th minimum in single-slit diffraction (n = 1, 2, 3, ...) is",
+   "options": [
+    "a sin θ = (n + 1/2) λ",
+    "a cos θ = nλ",
+    "a sin θ = nλ/2",
+    "a sin θ = nλ"
+   ],
+   "answer": 4,
+   "explanation": "Dividing the slit into 2n equal parts gives pair-wise cancellation when the path difference between the extreme rays is nλ, so a sin θ = nλ. The form (n + 1/2)λ locates approximately the secondary maxima.",
+   "objective": "Recall the minima condition for a single slit"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q04",
+   "type": "MCQ_SINGLE",
+   "difficulty": "EASY",
+   "skill": "numerical",
+   "stem": "A single slit of width 0.1 mm is illuminated by light of wavelength 500 nm. The first minimum occurs at sin θ equal to",
+   "options": [
+    "5 × 10⁻⁴",
+    "5 × 10⁻³",
+    "2 × 10⁻³",
+    "0.5"
+   ],
+   "answer": 2,
+   "explanation": "For the first minimum a sin θ = λ, so sin θ = λ/a = (5 × 10⁻⁷ m)/(1 × 10⁻⁴ m) = 5 × 10⁻³. The angle is small, so θ is about 5 × 10⁻³ rad.",
+   "objective": "Find the angle of the first minimum"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q05",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "Light of wavelength 600 nm falls on a slit of width 0.30 mm. The width of the central maximum on a screen 1.5 m away is",
+   "options": [
+    "3.0 mm",
+    "1.5 mm",
+    "6.0 mm",
+    "12 mm"
+   ],
+   "answer": 3,
+   "explanation": "Width = 2λD/a = (2 × 6.0 × 10⁻⁷ × 1.5)/(3.0 × 10⁻⁴) = 6.0 × 10⁻³ m = 6.0 mm. The first minimum is 3.0 mm from the centre, and the central maximum extends 3.0 mm on both sides.",
+   "objective": "Calculate the width of the central maximum"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q06",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "If the width of the slit in a single-slit diffraction experiment is halved, the width of the central maximum",
+   "options": [
+    "is doubled",
+    "is halved",
+    "remains the same",
+    "becomes four times larger"
+   ],
+   "answer": 1,
+   "explanation": "The linear width of the central maximum is 2λD/a, which is inversely proportional to a. Halving a doubles the width. A narrower slit produces a wider pattern, because a smaller slit needs a larger angle to give the same path difference.",
+   "objective": "Apply the inverse dependence on slit width"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q07",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "A single-slit diffraction pattern is observed with red light, and then with blue light, all else unchanged. Compared with red light, the central maximum for blue light is",
+   "options": [
+    "wider",
+    "the same width",
+    "absent",
+    "narrower"
+   ],
+   "answer": 4,
+   "explanation": "Blue light has a shorter wavelength than red. The width of the central maximum is proportional to λ, so for blue light it is narrower. With white light the pattern has a white centre with colour at the edges.",
+   "objective": "Relate pattern width to wavelength"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q08",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A single-slit diffraction pattern with a central maximum of width 3.0 mm in air is observed. If the whole apparatus is immersed in a liquid of refractive index 1.5, the width becomes",
+   "options": [
+    "4.5 mm",
+    "2.0 mm",
+    "1.5 mm",
+    "3.0 mm"
+   ],
+   "answer": 2,
+   "explanation": "In a medium of index μ the wavelength becomes λ/μ. The width 2λD/a becomes 1/μ of its value in air. Width = 3.0 mm / 1.5 = 2.0 mm.",
+   "objective": "Find how a medium changes the pattern width"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q09",
+   "type": "MCQ_SINGLE",
+   "difficulty": "MEDIUM",
+   "skill": "numerical",
+   "stem": "A slit has a width equal to 2.5 times the wavelength of the light. The total number of dark minima on the screen is",
+   "options": [
+    "2",
+    "5",
+    "4",
+    "3"
+   ],
+   "answer": 3,
+   "explanation": "A minimum requires a sin θ = nλ with sin θ at most 1, so n is at most a/λ = 2.5. The allowed values are n = 1 and n = 2 on each side of the centre, which gives four minima in all.",
+   "objective": "Count the minima allowed by the slit width"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q10",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "numerical",
+   "stem": "A lens of focal length 40 cm forms the single-slit pattern of a slit of width 0.20 mm in light of wavelength 500 nm in its focal plane. The width of the central maximum is",
+   "options": [
+    "2.0 mm",
+    "1.0 mm",
+    "4.0 mm",
+    "0.5 mm"
+   ],
+   "answer": 1,
+   "explanation": "With a lens, D is replaced by f, so the width is 2λf/a = (2 × 5.0 × 10⁻⁷ × 0.40)/(2.0 × 10⁻⁴) = 2.0 × 10⁻³ m = 2.0 mm.",
+   "objective": "Use the lens form of the central maximum width"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q11",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "The intensity of the first secondary maximum in single-slit diffraction is much smaller than that of the central maximum mainly because",
+   "options": [
+    "the slit absorbs light at larger angles",
+    "the wavelength changes with angle",
+    "the first secondary maximum is wider than the central maximum",
+    "only a fraction of the slit contributes uncancelled light there"
+   ],
+   "answer": 4,
+   "explanation": "At the first secondary maximum, three equal parts of the slit give two that cancel and one that remains, so only about a third of the slit effectively contributes. The resulting intensity is only a few percent of the central intensity.",
+   "objective": "Explain why secondary maxima are faint"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q12",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "application",
+   "stem": "Light of wavelength λ passes through an opening of width a. Ray optics gives a good description of the beam up to a distance of about",
+   "options": [
+    "a/λ",
+    "a²/λ",
+    "λ/a",
+    "λ²/a"
+   ],
+   "answer": 2,
+   "explanation": "Diffraction spreads the beam by about λ/a radians. At distance z the extra width is zλ/a. This equals the width a at z = a²/λ, the Fresnel distance. For distances much less than this, ray optics is a good approximation.",
+   "objective": "Recall the Fresnel distance"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q13",
+   "type": "ASSERTION_REASON",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Assertion (A): The central maximum in single-slit diffraction becomes wider when the slit is made narrower.\nReason (R): The angular width of the central maximum is 2λ/a, which is inversely proportional to the slit width a.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 1,
+   "explanation": "The first minima are at sin θ = ± λ/a. The smaller a is, the larger the angle needed to reach the first minimum, so the central maximum spreads out. The reason states the correct relationship and is the explanation of the assertion.",
+   "objective": "Link slit width to pattern width",
+   "optionRationale": {
+    "2": "The reason directly explains the assertion.",
+    "3": "Both statements are true.",
+    "4": "The assertion is true."
+   }
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q14",
+   "type": "ASSERTION_REASON",
+   "difficulty": "HARD",
+   "skill": "conceptual",
+   "stem": "Assertion (A): n = 0 is a minimum in the single-slit diffraction pattern.\nReason (R): The condition a sin θ = nλ is satisfied by n = 0 at θ = 0.",
+   "options": [
+    "Both (A) and (R) are true and (R) is the correct explanation of (A).",
+    "Both (A) and (R) are true but (R) is not the correct explanation of (A).",
+    "(A) is true but (R) is false.",
+    "(A) is false but (R) is true."
+   ],
+   "answer": 4,
+   "explanation": "The assertion is false: θ = 0 is the position of the central maximum, where all wavelets arrive in phase. The condition a sin θ = nλ gives the minima only for n = ±1, ±2, ..., and n = 0 must be excluded. The reason statement is true as a calculation but it does not describe a minimum.",
+   "objective": "Exclude n = 0 from the minima condition"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q15",
+   "type": "STATEMENT_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "conceptual",
+   "stem": "Consider the following statements about single-slit diffraction.\nA. The central maximum is the brightest band.\nB. The secondary maxima are all as wide as the central maximum.\nC. A narrower slit gives a wider diffraction pattern.\nD. Red light gives a wider pattern than violet light for the same slit.\nWhich statements are correct?",
+   "options": [
+    "A and B only",
+    "A, C and D only",
+    "B, C and D only",
+    "A, B and D only"
+   ],
+   "answer": 2,
+   "explanation": "A is true: the central maximum is the most intense. B is false: each secondary maximum has half the width of the central maximum. C is true since the width is proportional to 1/a. D is true because the width is proportional to the wavelength, and red has the longer wavelength.",
+   "objective": "Evaluate statements about the pattern",
+   "optionRationale": {
+    "1": "B is false, so A and B together is wrong.",
+    "3": "B is false.",
+    "4": "B is false."
+   }
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q16",
+   "type": "STATEMENT_BASED",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Consider these statements about the double-slit pattern of two slits of width a and separation d = 4a.\nA. The interference fringes lie inside a single-slit diffraction envelope.\nB. The envelope's width depends on the slit separation d.\nC. The fourth-order interference fringe coincides with the first diffraction minimum.\nD. Seven bright fringes lie in the central maximum of the envelope.\nWhich statements are correct?",
+   "options": [
+    "A, C and D only",
+    "A and B only",
+    "B, C and D only",
+    "A, B and C only"
+   ],
+   "answer": 1,
+   "explanation": "A, C and D are true. The fourth-order condition d sin θ = 4λ matches a sin θ = λ because d = 4a, so that fringe is missing and the orders 0, ±1, ±2, ±3 remain, which makes seven. B is false: the envelope width depends on the slit width a, while d sets the fringe spacing.",
+   "objective": "Combine interference and diffraction",
+   "optionRationale": {
+    "2": "B is false because the envelope depends on a.",
+    "3": "B is false.",
+    "4": "D is also true, and B is false."
+   }
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q17",
+   "type": "MATCH_THE_FOLLOWING",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "Match each change in a single-slit experiment (List-I) with its effect on the width of the central maximum (List-II).",
+   "options": [
+    "A-II, B-I, C-III, D-IV",
+    "A-I, B-II, C-III, D-IV",
+    "A-II, B-I, C-IV, D-III",
+    "A-III, B-I, C-II, D-IV"
+   ],
+   "answer": 1,
+   "explanation": "Width = 2λD/a. Doubling the slit width a halves the width (A matches II, \"halved\"). Doubling D doubles the width (B matches I, \"doubled\"). Immersing in a medium of index 1.5 makes λ/1.5, so the width becomes two-thirds (C matches III). Replacing red by violet light reduces the wavelength and the width reduces (D matches IV).",
+   "objective": "Predict how each variable changes the width",
+   "list": {
+    "left": [
+     "A. Slit width doubled",
+     "B. Screen distance doubled",
+     "C. Apparatus immersed in liquid of index 1.5",
+     "D. Red light replaced by violet light"
+    ],
+    "right": [
+     "I. Width doubled",
+     "II. Width halved",
+     "III. Width becomes two-thirds",
+     "IV. Width decreases"
+    ]
+   }
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q18",
+   "type": "DIAGRAM_BASED",
+   "difficulty": "MEDIUM",
+   "skill": "application",
+   "stem": "In the figure, the extra path of the ray from the top edge A of the slit over the ray from the middle point M equals λ/2. What is observed in this direction?",
+   "options": [
+    "The central maximum",
+    "The first secondary maximum",
+    "The first minimum",
+    "The second minimum"
+   ],
+   "answer": 3,
+   "explanation": "M is a/2 below A, so the path difference is (a/2) sin θ. When it equals λ/2, a sin θ = λ. This is the condition for the first minimum, because every point in the top half is cancelled by its partner in the lower half.",
+   "objective": "Interpret the path-difference construction",
+   "diagram": "halves"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q19",
+   "type": "DIAGRAM_BASED",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "In the intensity graph of a single slit shown in the figure, the central maximum has angular width",
+   "options": [
+    "2λ/a",
+    "λ/a",
+    "4λ/a",
+    "a/λ"
+   ],
+   "answer": 1,
+   "explanation": "The central peak lies between the first minima at sin θ = −λ/a and sin θ = +λ/a. The angular distance between them is 2λ/a. Secondary maxima between successive minima have width λ/a.",
+   "objective": "Read the angular width from the graph",
+   "diagram": "intensity"
+  },
+  {
+   "key": "ug26-322-u6-single-slit-diffraction-q20",
+   "type": "MCQ_SINGLE",
+   "difficulty": "HARD",
+   "skill": "analytical",
+   "stem": "Two slits each of width a are separated by d = 3a. The number of bright interference fringes inside the central diffraction maximum is",
+   "options": [
+    "3",
+    "7",
+    "9",
+    "5"
+   ],
+   "answer": 4,
+   "explanation": "The first diffraction minimum is at sin θ = λ/a. The fringe orders are given by d sin θ = mλ, so m up to d/a = 3. The third-order fringe lies exactly on the first minimum and is missing, which leaves the orders 0, ±1 and ±2, a total of five fringes.",
+   "objective": "Count fringes inside the diffraction envelope"
+  }
+ ]
+}
