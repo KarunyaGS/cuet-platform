@@ -9,6 +9,7 @@ import { DecksPage } from './pages/Decks';
 import { SheetPage } from './pages/Sheet';
 import { DiffractionLabPage } from './pages/DiffractionLab';
 import { CircuitLabPage } from './pages/CircuitLab';
+import { VpaOhmsLawPage } from './pages/VpaOhmsLaw';
 import { AlgoLabPage } from './pages/AlgoLab';
 import { EFieldLabPage } from './pages/EFieldLab';
 import { AreaLabPage } from './pages/AreaLab';
@@ -147,6 +148,7 @@ const router = createBrowserRouter([
       { path: '/lab/area', element: <AreaLabPage /> },
       // Interactive Physics lab: cells, Kirchhoff's rules and the Wheatstone bridge.
       { path: '/lab/circuit', element: <CircuitLabPage /> },
+      { path: '/lab/vpa/ohms-law', element: <VpaOhmsLawPage /> },
       // Interactive Computer Science lab: stack, queue, deque, sorting and searching.
       { path: '/lab/algo', element: <AlgoLabPage /> },
       { path: '/lab/syllogism', element: <SyllogismLabPage /> },

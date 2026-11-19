@@ -98,6 +98,18 @@ export const LABS: LabEntry[] = [
     minutes: 20,
   },
   {
+    id: 'ohms-vpa',
+    subject: 'Physics',
+    format: 'Virtual practical assessment · circuit builder',
+    lessonTitleStartsWith: "Electric current, drift velocity, Ohm's law",
+    afterHeading: "Ohm's law and resistance",
+    path: '/lab/vpa/ohms-law',
+    title: "Ohm's Law Practical Assessment",
+    blurb: 'Build the circuit yourself, record meter readings at three randomized voltage settings, calculate the unknown resistance and interpret your V–I graph.',
+    can: ['Connect an ammeter in series and voltmeter across the unknown resistor', 'Record measurements from randomized apparatus settings', 'Earn partial marks for procedure, observations, calculation and graph interpretation'],
+    minutes: 15,
+  },
+  {
     id: 'circuit',
     subject: 'Physics',
     format: 'Circuit builder · virtual experiment',

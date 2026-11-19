@@ -68,6 +68,21 @@ export interface Subject {
 export interface OutlineNode { id: string; parent_id: string | null; kind: string; label: string | null; title: string; depth: number; position: number; source_page: number | null; resources: number; questions: number }
 export type Difficulty = 'EASY' | 'MEDIUM' | 'HARD';
 export type QuestionTypeName = 'MCQ_SINGLE' | 'MCQ_MULTI' | 'ASSERTION_REASON' | 'MATCH_THE_FOLLOWING' | 'STATEMENT_BASED' | 'PASSAGE_BASED' | 'DIAGRAM_BASED' | 'NUMERICAL';
+export interface VpaReading { voltage: number; current: number; voltageIndex: number }
+export interface VpaReport {
+  score: number; maxScore: number; passed: boolean;
+  procedure: { score: number; max: number; feedback: string };
+  apparatus: { score: number; max: number; feedback: string; connections: string[] };
+  measurements: { score: number; max: number; feedback: string; readings: VpaReading[] };
+  calculations: { score: number; max: number; feedback: string; expectedResistance: number; submittedResistance: number };
+  graph: { score: number; max: number; feedback: string; expectedSlope: number; submittedSlope: number };
+  incorrectSteps: string[]; recommendedRevision: string[];
+}
+export interface VpaAttempt {
+  attemptId: string; labId: string; chapterId: string; lessonId: string | null;
+  mode: 'GUIDED' | 'INDEPENDENT'; voltageLevels: number[]; status: 'IN_PROGRESS' | 'SUBMITTED';
+  readings: VpaReading[]; meterReadings: VpaReading[]; report: VpaReport | null;
+}
 export interface QuestionCounts { total: number; matching: number; byDifficulty: Record<string, number>; byType: Record<string, number> }
 export interface Outline { paper: Record<string, string | number | null>; nodes: OutlineNode[] }
 export interface TopicDetail {
@@ -380,6 +395,11 @@ export const api = {
   goals: () => request<Goal>('GET', '/api/student/goals'),
   setGoals: (b: { questionsPerDay: number; lessonsPerDay: number }) => request<Goal>('PUT', '/api/student/goals', b),
   activity: (b: { kind: 'TOPIC_VIEW' | 'LESSON_VIEW' | 'LAB_COMPLETE'; nodeId?: string; resourceId?: string }) => request<{ recorded: boolean }>('POST', '/api/student/activity', b),
+  startVpa: (b: { labId?: 'ohms-law'; chapterId?: 'physics-current-electricity-ohms-law'; mode: 'GUIDED' | 'INDEPENDENT'; lessonId?: string }) => request<VpaAttempt>('POST', '/api/student/vpa/attempts', b),
+  vpaAttempt: (id: string) => request<VpaAttempt>('GET', `/api/student/vpa/attempts/${encodeURIComponent(id)}`),
+  measureVpa: (id: string, b: { wires: string[]; voltageIndex: number }) => request<{ valid: boolean; message?: string; reading?: VpaReading; alreadyRecorded?: boolean }>('POST', `/api/student/vpa/attempts/${encodeURIComponent(id)}/measure`, b),
+  recordVpaObservation: (id: string, b: { wires: string[]; voltageIndex: number; observedVoltage: number; observedCurrent: number }) => request<{ recorded: boolean; message?: string; reading?: VpaReading }>('POST', `/api/student/vpa/attempts/${encodeURIComponent(id)}/observations`, b),
+  submitVpa: (id: string, b: { wires: string[]; formula: 'V_OVER_I' | 'I_OVER_V' | 'V_TIMES_I'; calculatedResistance: number; graphShape: 'LINEAR_ORIGIN' | 'LINEAR_OFFSET' | 'CURVED' | 'NO_RELATION'; graphSlope: number }) => request<{ report: VpaReport; progressRecorded: boolean }>('POST', `/api/student/vpa/attempts/${encodeURIComponent(id)}/submit`, b),
   bookmarks: () => request<Bookmark[]>('GET', '/api/student/bookmarks'),
   bookmarkState: (kind: BookmarkKind, ids: string[]) => request<string[]>('GET', `/api/student/bookmarks/state?kind=${kind}&ids=${ids.map(encodeURIComponent).join(',')}`),
   addBookmark: (b: { kind: BookmarkKind; entityId: string }) => request<{ bookmarked: boolean }>('POST', '/api/student/bookmarks', b),

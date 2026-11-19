@@ -35,6 +35,7 @@ import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, p
 import { flashcardDecks } from '../services/decks';
 import { chapterSheet, subjectSheet, weakSheet } from '../services/sheets';
 import { answerSchema, getSession, marksSchema, progress, questionCounts, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
+import { measureVpa, recordVpaObservation, startVpa, submitVpa, vpaDetails, vpaMeasureSchema, vpaRecordSchema, vpaStartSchema, vpaSubmitSchema } from '../services/vpa';
 
 const preview = (env: AppEnv['Bindings']) => env.CONTENT_PREVIEW === 'true';
 const inApp = (env: AppEnv['Bindings']) => env.OFFICIAL_IN_APP_VIEWING === 'on';
@@ -286,6 +287,11 @@ student.get('/dashboard', async (c) => c.json(await dashboard(c.env.DB, preview(
 student.get('/goals', async (c) => c.json(await getGoal(c.env.DB, c.get('user').id)));
 student.put('/goals', async (c) => c.json(await setGoal(c.env.DB, c.get('user').id, await readJson(c, goalSchema))));
 student.post('/activity', async (c) => c.json(await recordActivity(c.env.DB, c.get('user').id, await readJson(c, activitySchema))));
+student.post('/vpa/attempts', async (c) => c.json(await startVpa(c.env.DB, c.get('user').id, await readJson(c, vpaStartSchema)), 201));
+student.get('/vpa/attempts/:id', async (c) => c.json(await vpaDetails(c.env.DB, c.get('user').id, c.req.param('id'))));
+student.post('/vpa/attempts/:id/measure', async (c) => c.json(await measureVpa(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, vpaMeasureSchema))));
+student.post('/vpa/attempts/:id/observations', async (c) => c.json(await recordVpaObservation(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, vpaRecordSchema))));
+student.post('/vpa/attempts/:id/submit', async (c) => c.json(await submitVpa(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, vpaSubmitSchema))));
 
 // Bookmarks
 student.get('/bookmarks', async (c) => c.json(await listBookmarks(c.env.DB, c.get('user').id)));

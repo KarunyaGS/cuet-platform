@@ -1,6 +1,6 @@
 import { RotateCcw } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { useSearchParams } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { Badge, PageHeader } from '../ui';
 import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
 import {
@@ -447,7 +447,7 @@ export function CircuitLabPage() {
 
   return (
     <div data-circuit-lab data-exp={setup.exp}>
-      <PageHeader back={back} title="Circuit Bench: cells, Kirchhoff’s rules and the Wheatstone bridge" subtitle={<span className="inline-flex flex-wrap items-center gap-2">Physics · Current electricity <Badge tone="amber">Draft – unverified</Badge></span>} />
+      <PageHeader back={back} title="Circuit Bench: cells, Kirchhoff’s rules and the Wheatstone bridge" subtitle={<span className="inline-flex flex-wrap items-center gap-2">Physics · Current electricity <Badge tone="amber">Draft – unverified</Badge></span>} actions={<Link to={`/lab/vpa/ohms-law${lessonId ? `?lesson=${encodeURIComponent(lessonId)}` : ''}`} className="inline-flex h-9 items-center rounded-lg bg-[#174d43] px-3.5 text-sm font-semibold text-[#e7f078] hover:bg-[#103d36]">Try Ohm’s law assessment</Link>} />
       <StepNav step={step} seen={seen} done={done} go={go} names={STEP_NAMES} />
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">

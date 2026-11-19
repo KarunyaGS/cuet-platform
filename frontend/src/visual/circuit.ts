@@ -129,6 +129,12 @@ export const maxPower = (emf: number, r: number) => (emf * emf) / (4 * r);
 
 export interface Reading { R: number; I: number; V: number }
 
+/** Ohm's-law meter model shared with Virtual Practical Assessment: meter resolution is 0.01 A. */
+export function ohmsLawReading(voltage: number, resistance: number): { voltage: number; current: number; resistance: number } {
+  if (!Number.isFinite(voltage) || !Number.isFinite(resistance) || voltage < 0 || resistance <= 0) throw new RangeError('Voltage must be non-negative and resistance must be positive');
+  return { voltage, current: Math.round((voltage / resistance) * 100) / 100, resistance };
+}
+
 // ------------------------------------------------------------------ experiment 2: Kirchhoff's rules (two cells, three branches)
 export interface KirchState { e1: number; e2: number; R1: number; R2: number; R3: number }
 export const KIRCH_START: KirchState = { e1: 10, e2: 4, R1: 4, R2: 6, R3: 3 };

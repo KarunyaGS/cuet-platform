@@ -915,15 +915,15 @@ model AuditLog {
 // ---------------------------------------------------------------------------
 
 model User {
-  id              String                   @id @default(cuid())
-  email           String                   @unique
-  displayName     String                   @map("display_name")
-  status          UserStatus               @default(ACTIVE)
-  lastLoginAt     DateTime?                @map("last_login_at")
+  id              String                    @id @default(cuid())
+  email           String                    @unique
+  displayName     String                    @map("display_name")
+  status          UserStatus                @default(ACTIVE)
+  lastLoginAt     DateTime?                 @map("last_login_at")
   /// When the owner of the address confirmed it from an emailed link; null until then.
-  emailVerifiedAt DateTime?                @map("email_verified_at")
-  createdAt       DateTime                 @default(now()) @map("created_at")
-  updatedAt       DateTime                 @updatedAt @map("updated_at")
+  emailVerifiedAt DateTime?                 @map("email_verified_at")
+  createdAt       DateTime                  @default(now()) @map("created_at")
+  updatedAt       DateTime                  @updatedAt @map("updated_at")
   roles           UserRole[]
   credential      UserCredential?
   sessions        UserSession[]
@@ -946,6 +946,7 @@ model User {
   emails          EmailMessage[]
   subscriptions   Subscription[]
   paymentOrders   PaymentOrder[]
+  vpaAttempts     VirtualPracticalAttempt[]
 
   @@map("users")
 }
@@ -1250,6 +1251,29 @@ model LearningActivity {
 
   @@index([userId, createdAt])
   @@map("learning_activity")
+}
+
+/// A separate virtual practical attempt; incomplete assessments never imply lab completion.
+model VirtualPracticalAttempt {
+  id            String    @id
+  userId        String    @map("user_id")
+  labId         String    @map("lab_id")
+  chapterId     String    @map("chapter_id")
+  lessonId      String?   @map("lesson_id")
+  mode          String
+  status        String    @default("IN_PROGRESS")
+  challengeJson String    @map("challenge_json")
+  responsesJson String    @default("{}") @map("responses_json")
+  reportJson    String?   @map("report_json")
+  score         Float?
+  maxScore      Float     @default(100) @map("max_score")
+  startedAt     DateTime  @default(now()) @map("started_at")
+  submittedAt   DateTime? @map("submitted_at")
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, startedAt])
+  @@index([labId, chapterId])
+  @@map("virtual_practical_attempts")
 }
 
 /// A student's own daily targets.
@@ -2238,30 +2262,30 @@ model ExamViolation {
 
 /// A subject expert's check of a representative sample of questions. A SAMPLE: it never changes a question's verification.
 model SampleReview {
-  id               String             @id @default(cuid())
+  id                String             @id @default(cuid())
   /// JSON text: which questions the sample was drawn from (paper).
-  scopeJson        String             @map("scope_json")
-  method           String
+  scopeJson         String             @map("scope_json")
+  method            String
   /// Makes the draw repeatable: the same seed over the same questions picks the same sample.
-  seed             String
-  targetSize       Int                @map("target_size")
-  populationCount  Int                @map("population_count")
-  sampleCount      Int                @map("sample_count")
+  seed              String
+  targetSize        Int                @map("target_size")
+  populationCount   Int                @map("population_count")
+  sampleCount       Int                @map("sample_count")
   /// IN_PROGRESS, COMPLETED or CANCELLED.
-  status           String             @default("IN_PROGRESS")
-  createdBy        String             @map("created_by")
-  createdByName    String             @map("created_by_name")
-  createdAt        DateTime           @default(now()) @map("created_at")
-  expertName       String?            @map("expert_name")
-  expertCredentials String?           @map("expert_credentials")
-  completedBy      String?            @map("completed_by")
-  completedByName  String?            @map("completed_by_name")
-  completedAt      DateTime?          @map("completed_at")
+  status            String             @default("IN_PROGRESS")
+  createdBy         String             @map("created_by")
+  createdByName     String             @map("created_by_name")
+  createdAt         DateTime           @default(now()) @map("created_at")
+  expertName        String?            @map("expert_name")
+  expertCredentials String?            @map("expert_credentials")
+  completedBy       String?            @map("completed_by")
+  completedByName   String?            @map("completed_by_name")
+  completedAt       DateTime?          @map("completed_at")
   /// JSON text: counts, problem rate, upper bound and the wording shown to people.
-  resultJson       String?            @map("result_json")
-  cancelReason     String?            @map("cancel_reason")
-  creator          User               @relation(fields: [createdBy], references: [id], onDelete: Restrict)
-  items            SampleReviewItem[]
+  resultJson        String?            @map("result_json")
+  cancelReason      String?            @map("cancel_reason")
+  creator           User               @relation(fields: [createdBy], references: [id], onDelete: Restrict)
+  items             SampleReviewItem[]
 
   @@index([status, createdAt])
   @@map("sample_reviews")

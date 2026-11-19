@@ -189,6 +189,7 @@ function LabCard({ lab, href, lessonId }: { lab: LabEntry; href: string; lessonI
             <Link to={href} onClick={() => { try { sessionStorage.setItem(`prepora-scroll:${lessonId}`, String(Math.round(window.scrollY))); } catch { /* private mode: the lesson simply opens at the top */ } }} data-lab-launch className="inline-flex h-10 items-center gap-2 rounded-md bg-accent px-4 text-sm font-semibold text-white hover:bg-accent-strong">
               Open {lab.title}
             </Link>
+            {lab.id === 'circuit' && <Link to={`/lab/vpa/ohms-law?lesson=${encodeURIComponent(lessonId)}`} onClick={() => { try { sessionStorage.setItem(`prepora-scroll:${lessonId}`, String(Math.round(window.scrollY))); } catch { /* private mode: the lesson simply opens at the top */ } }} className="inline-flex h-10 items-center gap-2 rounded-md border border-accent/40 bg-surface px-4 text-sm font-semibold text-accent hover:bg-accent-soft">Assess Ohm’s law independently</Link>}
             <span className="text-xs text-ink-3">About {lab.minutes} minutes · works on phones</span>
           </div>
         </div>
