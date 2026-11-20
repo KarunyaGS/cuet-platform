@@ -1,7 +1,8 @@
 import { Minus, Plus, RotateCcw, Trash2 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useNarrow, useSteps } from '../visual/labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useNarrow, useSteps, RangeSlider } from '../visual/labkit';
+import { clampTo, stepFor, trim, type Range } from '../visual/ranges';
 import {
   APPLY, dipoleAxial, dipoleEquatorial, dipoleMoment, dist, distinctDistances, fieldAt, fitK, forceMagnitude, forceOn, K, lineEnd, PREDICTS, START, traceLines,
   WORLD, WORLD_NARROW, type Charge, type Reading, type Scenario, type Vec,
@@ -106,7 +107,7 @@ function Canvas({ charges, probe, sel, onSelect, onMove, onProbe, onChange, onRe
       {Array.from({ length: Math.floor(world.w / 10) + 1 }, (_, i) => i * 10).map((x) => (
         <g key={`x${x}`}>
           <line x1={x} y1={0} x2={x} y2={world.h} stroke="#eef0f3" strokeWidth={0.2} />
-          {x % 20 === 0 && <text x={x + 0.6} y={world.h - 0.8} fontSize={fs * 0.8} fill="#9aa3b2">{x}</text>}
+          {x % 20 === 0 && (x + 4 < world.w ? <text x={x + 0.6} y={world.h - 0.8} fontSize={fs * 0.8} fill="#9aa3b2">{x}</text> : <text x={x - 0.6} y={world.h - 0.8} fontSize={fs * 0.8} fill="#9aa3b2" textAnchor="end">{x}</text>)}
         </g>
       ))}
       {Array.from({ length: Math.floor(world.h / 10) + 1 }, (_, i) => i * 10).map((y) => <line key={`y${y}`} x1={0} y1={y} x2={world.w} y2={y} stroke="#eef0f3" strokeWidth={0.2} />)}
@@ -225,17 +226,20 @@ function ForceGraph({ q1, q2, r }: { q1: number; q2: number; r: number }) {
   const pts = Array.from({ length: 60 }, (_, i) => lo * Math.pow(hi / lo, i / 59)).map((x) => `${X(x).toFixed(1)},${Y(forceMagnitude(q1, q2, x)).toFixed(1)}`).join(' ');
   const rr = clamp(r, lo, hi);
   return (
-    <svg viewBox="0 0 380 140" className="w-full max-w-lg" role="img" aria-label="Log-log graph of force against distance for the first two charges: a straight line of slope minus two.">
+    <>
+    <svg viewBox="0 -6 380 150" className="w-full max-w-lg" role="img" aria-label="Log-log graph of force against distance for the first two charges: a straight line of slope minus two.">
       <rect x={36} y={14} width={320} height={96} fill="#fff" stroke="#e5e5e5" />
       <polyline points={pts} fill="none" stroke="#b42318" strokeWidth={1.8} />
       {[3, 10, 30, 60].map((t) => (
-        <g key={t}><line x1={X(t)} y1={110} x2={X(t)} y2={114} stroke="#7c8595" /><text x={X(t)} y={125} fontSize={9} textAnchor="middle" fill="#4d5768">{t}</text></g>
+        <g key={t}><line x1={X(t)} y1={110} x2={X(t)} y2={114} stroke="#7c8595" /><text x={X(t)} y={126} fontSize={12} textAnchor="middle" fill="#4d5768">{t}</text></g>
       ))}
-      <text x={356} y={136} fontSize={9} textAnchor="end" fill="#4d5768">distance r (cm), log scale</text>
-      <text x={38} y={10} fontSize={9} fill="#4d5768">force F (N), log scale: {fN(fMax)} at 3 cm … {fN(fMin)} at 60 cm</text>
+      <text x={356} y={137} fontSize={12} textAnchor="end" fill="#4d5768">r (cm), log scale</text>
+      <text x={38} y={10} fontSize={12} fill="#4d5768">force F (N), log scale</text>
       <line x1={X(rr)} y1={14} x2={X(rr)} y2={110} stroke="#1a2233" strokeWidth={0.8} strokeDasharray="3 3" />
       <circle cx={X(rr)} cy={Y(forceMagnitude(q1, q2, rr))} r={4} fill="#1a2233" />
     </svg>
+    <p className="text-xs text-ink-3">The force runs from {fN(fMax)} at 3 cm to {fN(fMin)} at 60 cm.</p>
+    </>
   );
 }
 
@@ -253,9 +257,9 @@ function FitGraph({ rows }: { rows: Reading[] }) {
         <rect x={40} y={22} width={330} height={108} fill="#fff" stroke="#e5e5e5" />
         <line x1={X(0)} y1={Y(0)} x2={X(xm)} y2={Y(slope * xm)} stroke="#2347a8" strokeWidth={1.2} opacity={0.65} />
         {rows.map((r, i) => <circle key={i} cx={X(xs[i]!)} cy={Y(r.F)} r={3.4} fill="#b42318" />)}
-        <text x={370} y={148} fontSize={9} textAnchor="end" fill="#4d5768">1/r² (m⁻²)</text>
-        <text x={42} y={16} fontSize={9} fill="#4d5768">force F (N)</text>
-        <text x={40} y={160} fontSize={8.5} fill="#7c8595">Line: F = (k q₁q₂) × (1/r²). Dots: your readings.</text>
+        <text x={370} y={148} fontSize={11} textAnchor="end" fill="#4d5768">1/r² (m⁻²)</text>
+        <text x={42} y={16} fontSize={11} fill="#4d5768">force F (N)</text>
+        <text x={40} y={160} fontSize={10.5} fill="#7c8595">Line: F = (k q₁q₂) × (1/r²). Dots: your readings.</text>
       </svg>
       <p className="text-[15px] text-ink">
         The dots lie on a straight line through the origin: <em>the force is proportional to 1/r²</em>. The slope is kq₁q₂, which gives <strong className="num">k = {sci(k, 2)} N m² C⁻²</strong> ({Math.abs(err) < 0.05 ? 'matching' : `${err > 0 ? '+' : ''}${err.toFixed(1)} % from`} the accepted 8.99 × 10⁹).
@@ -273,6 +277,10 @@ export function EFieldLabPage() {
   const [charges, setCharges] = useState<Charge[]>(() => clone(START.charges));
   const [probe, setProbe] = useState<Vec>({ ...START.probe });
   const [sel, setSel] = useState<number | null>(1);
+  // The student's own range for the size of a charge; the lab's range is -10 to +10 µC.
+  const Q_DESIGN: Range = { min: -10, max: 10 };
+  const [qRange, setQRange] = useState<Range>(Q_DESIGN);
+  const qStep = stepFor(0.5, qRange);
   const [showLines, setShowLines] = useState(true);
   const [showMap, setShowMap] = useState(false);
   const [showForces, setShowForces] = useState(true);
@@ -297,9 +305,9 @@ export function EFieldLabPage() {
   const move = (id: number, p: Vec) => setCharges((cs) => cs.map((c) => (c.id === id ? { ...c, ...p } : c)));
   const change = (id: number, dq: number) => setCharges((cs) => cs.map((c) => {
     if (c.id !== id) return c;
-    let q = Math.round((c.q + dq) * 2) / 2;
-    if (q === 0) q = dq > 0 ? 0.5 : -0.5;
-    return { ...c, q: clamp(q, -10, 10) };
+    let q = Number((Math.round((c.q + dq) / qStep) * qStep).toPrecision(10));
+    if (q === 0) q = dq > 0 ? qStep : -qStep;
+    return { ...c, q: clampTo(q, qRange) };
   }));
   const remove = (id: number) => setCharges((cs) => {
     if (cs.length <= 1) return cs;
@@ -319,6 +327,7 @@ export function EFieldLabPage() {
     return [...cs, { id, x: best.x, y: best.y, q: sign * 2 }];
   });
   const preset = (name: 'opposite' | 'like' | 'dipole' | 'three') => {
+    setQRange(Q_DESIGN);
     const cy = world.h / 2;
     const mk = (list: [number, number, number][]): Charge[] => list.map(([x, y, q], i) => ({ id: nextId.current++, x, y, q }));
     if (name === 'opposite') setScenario({ charges: mk([[35, cy, 3], [65, cy, -3]]), probe: { x: 50, y: cy - 16 } });
@@ -362,7 +371,7 @@ export function EFieldLabPage() {
     if (rows.some((x) => x.q1 === row.q1 && x.q2 === row.q2 && x.r.toFixed(2) === row.r.toFixed(2))) return;
     setRows((x) => [...x, row]);
   };
-  const reset = () => { setScenario(START); };
+  const reset = () => { setQRange(Q_DESIGN); setScenario(START); };
   void centre;
 
   return (
@@ -386,7 +395,7 @@ export function EFieldLabPage() {
                 <button type="button" className={btn} onClick={reset}><RotateCcw aria-hidden className="size-4" />Reset</button>
               </div>
               <div className="sm:col-span-2">
-                <Slider id="ef-q" label={sc ? `Selected charge (${charges.findIndex((c) => c.id === sc.id) + 1}) size` : 'Select a charge to change its size'} unit="µC" value={sc ? sc.q : 0} min={-10} max={10} step={0.5} shown={sc ? (sc.q > 0 ? '+' : '−') + Math.abs(sc.q) : '—'} onChange={(v) => sc && change(sc.id, v - sc.q || (sc.q > 0 ? -0.5 : 0.5))} />
+                <RangeSlider id="ef-q" label={sc ? `Selected charge (${charges.findIndex((c) => c.id === sc.id) + 1}) size` : 'Select a charge to change its size'} unit="µC" value={sc ? sc.q : 0} min={qRange.min} max={qRange.max} step={qStep} shown={sc ? (sc.q > 0 ? '+' : '−') + trim(Math.abs(sc.q)) : '—'} design={Q_DESIGN} range={qRange} onRange={(r) => { setQRange(r); setCharges((cs) => cs.map((c) => { const q = clampTo(c.q, r); return { ...c, q: q === 0 ? (r.max > 0 ? Math.min(stepFor(0.5, r), r.max) : r.max) : q }; })); }} onChange={(v) => sc && change(sc.id, v - sc.q || (sc.q > 0 ? -0.5 : 0.5))} />
               </div>
               <div className="flex flex-wrap items-center gap-2 sm:col-span-2" role="group" aria-label="Presets">
                 <span className="text-sm text-ink-2">Presets:</span>
