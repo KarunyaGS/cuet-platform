@@ -383,38 +383,51 @@ export function EFieldLabPage() {
       />
       <StepNav step={step} seen={seen} done={done} go={go} />
 
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+      <div className="space-y-4">
         <div className="min-w-0 space-y-3">
           <div className={`${panel} overflow-hidden`}>
             <Canvas charges={charges} probe={probe} sel={sel} onSelect={setSel} onMove={move} onProbe={setProbe} onChange={change} onRemove={remove} showLines={showLines} showMap={showMap} showForces={showForces} narrow={narrow} />
-            <div className="grid gap-x-6 gap-y-3 border-t border-rule px-3 py-3 sm:grid-cols-2">
-              <div className="sm:col-span-2 flex flex-wrap items-center gap-2" role="group" aria-label="Add or remove charges">
-                <button type="button" className={btn} onClick={() => add(1)} disabled={charges.length >= 5} data-add-pos><Plus aria-hidden className="size-4" />Add + charge</button>
-                <button type="button" className={btn} onClick={() => add(-1)} disabled={charges.length >= 5} data-add-neg><Minus aria-hidden className="size-4" />Add − charge</button>
-                <button type="button" className={btn} onClick={() => sc && remove(sc.id)} disabled={!sc || charges.length <= 1}><Trash2 aria-hidden className="size-4" />Remove selected</button>
-                <button type="button" className={btn} onClick={reset}><RotateCcw aria-hidden className="size-4" />Reset</button>
-              </div>
-              <div className="sm:col-span-2">
-                <RangeSlider id="ef-q" label={sc ? `Selected charge (${charges.findIndex((c) => c.id === sc.id) + 1}) size` : 'Select a charge to change its size'} unit="µC" value={sc ? sc.q : 0} min={qRange.min} max={qRange.max} step={qStep} shown={sc ? (sc.q > 0 ? '+' : '−') + trim(Math.abs(sc.q)) : '—'} design={Q_DESIGN} range={qRange} onRange={(r) => { setQRange(r); setCharges((cs) => cs.map((c) => { const q = clampTo(c.q, r); return { ...c, q: q === 0 ? (r.max > 0 ? Math.min(stepFor(0.5, r), r.max) : r.max) : q }; })); }} onChange={(v) => sc && change(sc.id, v - sc.q || (sc.q > 0 ? -0.5 : 0.5))} />
-              </div>
-              <div className="flex flex-wrap items-center gap-2 sm:col-span-2" role="group" aria-label="Presets">
-                <span className="text-sm text-ink-2">Presets:</span>
+            <div className="flex flex-wrap items-center gap-2 border-t border-rule px-3 py-3" role="group" aria-label="Presets">
+                <span className="text-xs font-semibold text-ink-2">Try:</span>
                 {([['opposite', 'Opposite charges'], ['like', 'Like charges'], ['dipole', 'Dipole'], ['three', 'Three charges']] as const).map(([k, l]) => (
-                  <button key={k} type="button" className={btn} onClick={() => preset(k)} data-preset={k}>{l}</button>
+                  <button key={k} type="button" className={`${btn} !min-h-8 !px-2.5 !py-1.5 !text-xs`} onClick={() => preset(k)} data-preset={k}>{l}</button>
                 ))}
-              </div>
-              <div className="flex flex-wrap items-center gap-4 sm:col-span-2">
-                {([['Field lines', showLines, setShowLines], ['Field arrows map', showMap, setShowMap], ['Force arrows', showForces, setShowForces]] as const).map(([l, v, set]) => (
-                  <label key={l} className="inline-flex items-center gap-1.5 text-sm text-ink"><input type="checkbox" checked={v} onChange={(e) => set(e.target.checked)} className="size-4 accent-[var(--color-accent)]" />{l}</label>
-                ))}
-              </div>
-              <p className="text-xs text-ink-3 sm:col-span-2">Drag a charge or the green probe (or focus one and use the arrow keys; + and − change a charge, Delete removes it). Red is positive, blue is negative. Lines run from + to −, and their number is proportional to the charge. Amber arrows are the Coulomb forces. Units: charges in µC, distances in cm; forces in N, fields in N/C.</p>
+                <details className="group ml-auto min-w-0 basis-full rounded-xl border border-rule/70 bg-white/55 px-3 py-2 sm:ml-2 sm:basis-auto" data-efield-more>
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-xs font-semibold text-forest marker:hidden [&::-webkit-details-marker]:hidden"><span>More controls &amp; guidance</span><span className="text-ink-3 transition-transform group-open:rotate-180">⌄</span></summary>
+                  <div className="mt-3 grid gap-3 border-t border-rule/70 pt-3 sm:grid-cols-2">
+                    <div className="flex flex-wrap items-center gap-2 sm:col-span-2" role="group" aria-label="Add or remove charges">
+                      <button type="button" className={btn} onClick={() => add(1)} disabled={charges.length >= 5} data-add-pos><Plus aria-hidden className="size-4" />Add + charge</button>
+                      <button type="button" className={btn} onClick={() => add(-1)} disabled={charges.length >= 5} data-add-neg><Minus aria-hidden className="size-4" />Add − charge</button>
+                      <button type="button" className={btn} onClick={() => sc && remove(sc.id)} disabled={!sc || charges.length <= 1}><Trash2 aria-hidden className="size-4" />Remove selected</button>
+                      <button type="button" className={btn} onClick={reset}><RotateCcw aria-hidden className="size-4" />Reset</button>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <RangeSlider id="ef-q" label={sc ? `Selected charge (${charges.findIndex((c) => c.id === sc.id) + 1}) size` : 'Select a charge to change its size'} unit="µC" value={sc ? sc.q : 0} min={qRange.min} max={qRange.max} step={qStep} shown={sc ? (sc.q > 0 ? '+' : '−') + trim(Math.abs(sc.q)) : '—'} design={Q_DESIGN} range={qRange} onRange={(r) => { setQRange(r); setCharges((cs) => cs.map((c) => { const q = clampTo(c.q, r); return { ...c, q: q === 0 ? (r.max > 0 ? Math.min(stepFor(0.5, r), r.max) : r.max) : q }; })); }} onChange={(v) => sc && change(sc.id, v - sc.q || (sc.q > 0 ? -0.5 : 0.5))} />
+                    </div>
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:col-span-2">
+                      {([['Field lines', showLines, setShowLines], ['Field arrows map', showMap, setShowMap], ['Force arrows', showForces, setShowForces]] as const).map(([l, v, set]) => (
+                        <label key={l} className="inline-flex items-center gap-1.5 text-xs text-ink"><input type="checkbox" checked={v} onChange={(e) => set(e.target.checked)} className="size-4 accent-[var(--color-accent)]" />{l}</label>
+                      ))}
+                    </div>
+                    <p className="text-xs leading-relaxed text-ink-3 sm:col-span-2">Drag a charge or the green probe; use arrow keys when focused. Red is positive, blue is negative. Lines run from + to −. Units: charge in µC, distance in cm, force in N, field in N/C.</p>
+                  </div>
+                </details>
             </div>
           </div>
 
-          <div className={`${panel} p-3`} aria-live="polite" data-readout>
-            <h3 className="text-sm font-semibold text-ink">Measured now</h3>
-            <dl className="mt-2 grid grid-cols-1 gap-x-4 gap-y-0.5 text-sm sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4" aria-live="polite" data-readout-summary>
+            {([
+              ['Charges', `${charges.length} · net ${net > 0 ? '+' : net < 0 ? '−' : ''}${Math.abs(net)} µC`],
+              ['Distance', r === null ? '—' : `${r.toFixed(1)} cm`],
+              ['Force', F12 === null ? 'Use two charges' : fN(F12)],
+              ['Field at probe', `${E.mag < 1 ? '0' : sci(E.mag)} N/C`],
+            ] as const).map(([label, value]) => <div key={label} className={`${panel} min-w-0 p-3`}><p className="text-[11px] font-medium text-ink-2">{label}</p><p className="num mt-1 truncate text-sm font-bold text-forest" title={value}>{value}</p></div>)}
+          </div>
+
+          <details className={`${panel} group p-3`} data-readout>
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-ink marker:hidden [&::-webkit-details-marker]:hidden"><span>All measurements &amp; explanation</span><span className="text-xs font-medium text-ink-3">{two ? 'Show details' : 'More details'} <span className="inline-block transition-transform group-open:rotate-180">⌄</span></span></summary>
+            <div className="mt-3 border-t border-rule pt-3">
+            <dl className="grid grid-cols-1 gap-x-4 gap-y-0.5 text-sm sm:grid-cols-2">
               {([
                 ['Charges', `${charges.length} · net ${net > 0 ? '+' : net < 0 ? '−' : ''}${Math.abs(net)} µC`],
                 ['Distance between 1 and 2, r', r === null ? '—' : `${r.toFixed(1)} cm`],
@@ -434,17 +447,17 @@ export function EFieldLabPage() {
                 <strong>Dipole.</strong> p = q d = {dip.q} µC × {dip.d.toFixed(1)} cm = <span className="num">{sci(dip.p, 2)} C m</span> (from − to +). At the probe’s distance ({dip.rp.toFixed(1)} cm from the centre): on-axis field <span className="num">{sci(dip.axial, 2)} N/C</span>, equatorial field <span className="num">{sci(dip.equatorial, 2)} N/C</span>; the axial value is about twice the equatorial one when r is large.
               </div>
             )}
-          </div>
-          {two && (
-            <div className={`${panel} p-3`}>
-              <h3 className="text-sm font-semibold text-ink">Force against distance for charges 1 and 2</h3>
-              <ForceGraph q1={charges[0]!.q} q2={charges[1]!.q} r={r!} />
-              <p className="text-xs text-ink-3">On this log–log graph, F ∝ 1/r² is a straight line of slope −2. The dot is where your charges are now.</p>
             </div>
+          </details>
+          {two && (
+            <details className={`${panel} group p-3`} data-force-graph>
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-ink marker:hidden [&::-webkit-details-marker]:hidden"><span>Force–distance graph</span><span className="text-xs font-medium text-ink-3">Explore relationship <span className="inline-block transition-transform group-open:rotate-180">⌄</span></span></summary>
+              <div className="mt-3 border-t border-rule pt-3"><ForceGraph q1={charges[0]!.q} q2={charges[1]!.q} r={r!} /><p className="text-xs text-ink-3">On this log–log graph, F ∝ 1/r² is a straight line of slope −2. The dot is where your charges are now.</p></div>
+            </details>
           )}
         </div>
 
-        <div className="min-w-0 space-y-4">
+        <div className="min-w-0">
           {step === 0 && (
             <section className={`${panel} space-y-2 p-4`}>
               <h2 className="text-lg font-semibold text-ink">Discover</h2>
