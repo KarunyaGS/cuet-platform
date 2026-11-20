@@ -1,5 +1,5 @@
 /** University admissions: browse programmes by university type, CUET subject and year, and read one programme's requirements with their sources. */
-import { ChevronDown, ExternalLink, Info, SearchX, Sparkles } from 'lucide-react';
+import { ArrowRight, CalendarDays, Check, ChevronDown, CircleHelp, ExternalLink, Info, SearchX, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
 import { api, ApiError, type AdmissionFact, type Cycle, type ExamCode, type Progress, type ProgrammeSummary, type Reliability } from '../api';
@@ -38,26 +38,57 @@ function matchesSubject(required: string, paper: string) {
 function Card({ p, targeted, onTarget }: { p: ProgrammeSummary; targeted?: boolean; onTarget?: () => void }) {
   const rule = parseRule(p.ruleText);
   const lines = rule ? ruleLines(rule) : p.subjects;
-  const subjectSummary = lines?.length ? lines[0] + (lines.length > 1 ? ` + ${lines.length - 1} alternative${lines.length > 2 ? 's' : ''}` : '') : 'Subject requirements not published';
+  const subjectSummary = lines?.length ? lines[0] + (lines.length > 1 ? ` + ${lines.length - 1} alternative${lines.length > 2 ? 's' : ''}` : '') : 'No subject rule in our verified records yet';
+  const availability = [
+    ['Eligibility', p.known.eligibility],
+    ['CUET papers', p.known.subjects],
+    ['Application steps', p.known.procedure],
+    ['Counselling', p.known.counselling],
+    ['Deadline', p.known.deadline],
+    ['Past cut-offs', p.known.cutoffs],
+  ] as const;
   return (
     <li>
-      <Panel className="p-4 transition-shadow hover:shadow-md">
-        <div data-programme={p.id}>
-          <div className="flex flex-wrap items-center gap-2 text-xs">
-            {p.universityType && <Badge>{p.universityType}</Badge>}
-            <Badge tone="accent">{examName(p.exam)}</Badge>
+      <Panel className="admission-programme-card group relative overflow-hidden p-0 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-28px_rgb(24_68_59/0.45)]" data-programme={p.id}>
+        <div className="h-1.5 bg-gradient-to-r from-forest via-[#91a94a] to-lime" />
+        <div className="p-4 sm:p-5">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+                {p.universityType && <Badge>{p.universityType}</Badge>}
+                <Badge tone="accent">{examName(p.exam)}</Badge>
+                <Badge tone={p.cycle.status === 'PREVIOUS' ? 'amber' : 'zinc'}>{p.academicYear} cycle</Badge>
+              </div>
+              <h3 className="mt-3 text-lg font-bold leading-snug tracking-[-0.02em] text-forest">{p.programmeName}</h3>
+              <Link to={`/universities/${p.universitySlug}`} className="mt-1 inline-flex text-sm text-ink-2 hover:text-accent hover:underline">
+                {p.universityName}
+              </Link>
+            </div>
+            <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-[#eef3d2] text-forest transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105"><Sparkles aria-hidden className="size-4" /></span>
+          </div>
+          <div className="mt-4 rounded-2xl border border-[#dce5b5] bg-gradient-to-br from-[#f7f9e9] to-[#fffdf4] p-3.5" data-card-subjects>
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-forest/65">CUET subject combination</p>
+            <p className="mt-1.5 text-sm font-semibold leading-relaxed text-forest">{subjectSummary}</p>
+          </div>
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+            {p.nextDeadline ? <span className="inline-flex items-center gap-1.5 rounded-full border border-[#ead6a7] bg-[#fff6df] px-2.5 py-1.5 font-medium text-[#715918]"><CalendarDays aria-hidden className="size-3.5" />{p.nextDeadline.label}: {dayLabel(p.nextDeadline.date)}</span> : p.lastDeadline ? <span className="inline-flex items-center gap-1.5 rounded-full bg-paper px-2.5 py-1.5 text-ink-3"><CalendarDays aria-hidden className="size-3.5" />Last listed deadline: {dayLabel(p.lastDeadline.date)}</span> : <span className="inline-flex items-center gap-1.5 rounded-full bg-paper px-2.5 py-1.5 text-ink-3"><CalendarDays aria-hidden className="size-3.5" />No deadline in our verified records</span>}
             <ReliabilityBadge r={p.reliability} on={p.lastVerifiedOn} cycle={p.cycle} />
           </div>
-          <h3 className="mt-2 text-base font-semibold text-ink">{p.programmeName}</h3>
-          <Link to={`/universities/${p.universitySlug}`} className="text-sm text-ink-2 hover:text-accent hover:underline">
-            {p.universityName}
-          </Link>
-          <p className="mt-3 truncate text-sm text-ink-2" data-card-subjects><span className="font-medium text-ink">CUET subjects:</span> {subjectSummary}</p>
-          <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-3">
-            <Link to={`/admissions/programmes/${p.id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline" aria-label={`View admission details for ${p.programmeName}`}>
-              View admission details <ExternalLink aria-hidden className="size-3.5" />
+          <div className="mt-4 border-t border-rule/80 pt-3.5">
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-ink-3">Admission details</p>
+              <span className="text-[10px] text-ink-3">{availability.filter(([, ready]) => ready).length} of {availability.length} sections sourced</span>
+            </div>
+            <ul className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2 sm:grid-cols-3" aria-label="Admission details available">
+              {availability.map(([label, ready]) => <li key={label} className={`flex items-center gap-1.5 text-[11px] ${ready ? 'text-forest' : 'text-ink-3'}`}><span className={`grid size-4 shrink-0 place-items-center rounded-full ${ready ? 'bg-[#e8f1df]' : 'bg-paper'}`}>{ready ? <Check aria-hidden className="size-3" /> : <CircleHelp aria-hidden className="size-3" />}</span>{label}<span className="sr-only">{ready ? 'available' : 'not in our verified records'}</span></li>)}
+            </ul>
+            <p className="mt-2 text-[10px] leading-relaxed text-ink-3">A missing item means Prepora has not added a source-checked detail yet; it does not mean the university has not published one.</p>
+          </div>
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-3">
+            <Link to={`/admissions/programmes/${p.id}`} className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-forest px-3.5 text-sm font-semibold text-lime transition hover:bg-forest-deep" aria-label={`View admission details for ${p.programmeName}`}>
+              Explore programme <ArrowRight aria-hidden className="size-4" />
             </Link>
-          {onTarget && <TargetButton programmeId={p.id} targeted={Boolean(targeted)} onChange={onTarget} />}
+            {onTarget && <TargetButton programmeId={p.id} targeted={Boolean(targeted)} onChange={onTarget} />}
           </div>
         </div>
       </Panel>
@@ -85,12 +116,27 @@ export function AdmissionsPage() {
   const sel = `${inputClass} h-9 w-auto py-0`;
   return (
     <div className="w-full">
-      <PageHeader
-        title="University admissions"
-        subtitle="Find a programme, check its CUET subject requirements, and open its verified admission details."
-      />
+      <section className="admissions-hero relative mb-5 overflow-hidden rounded-[26px] border border-forest/10 bg-forest px-5 py-6 text-white shadow-[0_18px_48px_-30px_rgb(24_68_59/0.65)] sm:px-7 sm:py-7" data-admissions-hero>
+        <span aria-hidden className="admissions-hero-orb absolute -right-12 -top-24 size-64 rounded-full border border-white/10 bg-white/[0.04]" />
+        <span aria-hidden className="absolute right-20 top-16 size-20 rounded-full border border-lime/20" />
+        <div className="relative max-w-3xl">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.08] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.17em] text-lime"><Sparkles aria-hidden className="size-3.5" />Find your next step</div>
+          <h1 className="mt-3 text-[clamp(28px,4vw,42px)] font-bold leading-[1.04] tracking-[-0.045em]">A clearer path to your <span className="font-editorial font-medium italic text-lime">target course.</span></h1>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/75">Compare CUET subject combinations, see what each university has published, and open a programme for sourced admission details.</p>
+          <div className="mt-4 flex flex-wrap gap-2 text-[11px] text-white/80">
+            <span className="rounded-full border border-white/15 bg-white/[0.07] px-3 py-1.5">Official-source references</span>
+            <span className="rounded-full border border-white/15 bg-white/[0.07] px-3 py-1.5">Cycle and date labels</span>
+            <span className="rounded-full border border-white/15 bg-white/[0.07] px-3 py-1.5">No guessed cut-offs</span>
+          </div>
+        </div>
+      </section>
       {targets.data && <MyTargets data={targets.data} reload={targets.reload} />}
-      <div className="mb-3 flex flex-wrap items-center gap-2" data-programme-filters>
+      <div className="admissions-filter-panel mb-4 rounded-2xl border border-[#dfe5c8] bg-[#f8f9ef] p-3 sm:p-4" data-programme-filters>
+        <div className="mb-2 flex items-center justify-between gap-2 px-1">
+          <p className="text-xs font-bold uppercase tracking-[0.13em] text-forest">Find a programme</p>
+          <span className="text-[11px] text-ink-3">Filter by course, university or CUET paper</span>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
         <SearchInput value={f.q} onChange={(v) => set('q', v)} placeholder="Search programme or university" label="Search programmes" />
         <label>
           <span className="sr-only">University type</span>
@@ -125,6 +171,7 @@ export function AdmissionsPage() {
             ))}
           </select>
         </label>
+        </div>
       </div>
       {f.university && (
         <p className="mb-3 text-sm text-ink-2">
@@ -154,9 +201,10 @@ export function AdmissionsPage() {
               <p className="mt-0.5 text-ink-2">Every programme on this page shows what the university required for CUET UG 2026. <strong>None of it is confirmed for CUET UG 2027.</strong> Check the university's official page for the current cycle.</p>
             </div>
           )}
-          <p className="mb-3 text-sm text-ink-2" data-programme-count>
-            {total} {total === 1 ? 'programme' : 'programmes'}
-          </p>
+          <div className="mb-3 flex flex-wrap items-end justify-between gap-2" data-programme-count>
+            <div><p className="text-lg font-bold tracking-tight text-forest">{total} {total === 1 ? 'programme' : 'programmes'}</p><p className="text-xs text-ink-3">Open a programme to review its full details and source links.</p></div>
+            {f.university && <span className="rounded-full bg-[#eaf0d5] px-3 py-1 text-[11px] font-medium text-forest">One university selected</span>}
+          </div>
           <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">{shown.map((p) => <Card key={p.id} p={p} targeted={followed.has(p.id)} onTarget={targets.data ? refreshTargets : undefined} />)}</ul>
           {shown.length < total && (
             <div className="mt-4">
@@ -205,14 +253,14 @@ function Facts({ title, id, facts, missing, official, fallback }: { title: strin
       <summary id={id} className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-ink marker:hidden">
         <span>{title}</span>
         <span className="flex items-center gap-2 text-xs font-normal text-ink-3">
-          {facts.length && !missing ? `${facts.length} verified item${facts.length === 1 ? '' : 's'}` : 'Details not yet published'}
+          {facts.length && !missing ? `${facts.length} sourced item${facts.length === 1 ? '' : 's'}` : 'Not in our records yet'}
           <ChevronDown aria-hidden className="admission-chevron size-4 shrink-0" />
         </span>
       </summary>
       <div className="border-t border-rule p-3 sm:p-4">
         {facts.length === 0 || missing ? (
           <div className="rounded-xl border border-dashed border-rule-strong bg-paper/70 px-4 py-3 text-sm text-ink-2" data-unavailable>
-            {fallback ?? 'Not yet available. We have not published this for the programme.'}{' '}
+            {fallback ?? 'We have not added a source-checked detail for this section yet. This does not confirm that the university has not published it.'}{' '}
             {official && <a href={official} target="_blank" rel="noreferrer noopener" className="font-medium text-accent hover:underline">Check the university’s official page</a>}
           </div>
         ) : (
@@ -320,60 +368,50 @@ export function ProgrammePage() {
   const deadlineSummary = deadlines.find((fact) => fact.eventDate)?.eventDate;
   return (
     <div className="w-full">
-      <PageHeader
-        back={{ to: '/admissions', label: 'All programmes' }}
-        title={p.programmeName}
-        subtitle={
-          <>
-            <Link to={`/universities/${p.universitySlug}`} className="font-medium text-accent hover:underline">
-              {p.universityName}
-            </Link>
-            {p.universityType ? `, ${p.universityType}` : ''}. {examName(p.exam)}, {p.academicYear} admissions{p.degree ? `, ${p.degree}` : ''}.
-          </>
-        }
-      />
+      <section className="admission-detail-hero relative mb-5 overflow-hidden rounded-[26px] border border-forest/10 bg-gradient-to-br from-[#173f37] via-forest to-[#315d4c] p-5 text-white shadow-[0_20px_50px_-32px_rgb(24_68_59/0.75)] sm:p-7" data-admission-detail-hero>
+        <span aria-hidden className="absolute -right-10 -top-20 size-56 rounded-full border border-white/10 bg-white/[0.035]" />
+        <div className="relative">
+          <Link to="/admissions" className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/70 transition hover:text-lime"><ArrowRight aria-hidden className="size-3.5 rotate-180" />All programmes</Link>
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-[11px]">
+            <span className="rounded-full border border-white/15 bg-white/[0.08] px-2.5 py-1">{p.universityType ?? 'University'}</span>
+            <span className="rounded-full border border-white/15 bg-white/[0.08] px-2.5 py-1">{examName(p.exam)}</span>
+            <span className="rounded-full border border-lime/25 bg-lime/10 px-2.5 py-1 text-lime">{p.academicYear} admissions</span>
+          </div>
+          <h1 className="mt-3 max-w-4xl text-[clamp(27px,4vw,42px)] font-bold leading-[1.05] tracking-[-0.045em]">{p.programmeName}</h1>
+          <Link to={`/universities/${p.universitySlug}`} className="mt-2 inline-flex items-center gap-1 text-sm text-white/75 hover:text-lime hover:underline">{p.universityName}<ExternalLink aria-hidden className="size-3" /></Link>
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
+            <ReliabilityBadge r={p.reliability} on={p.lastVerifiedOn} cycle={p.cycle} />
+            {p.sourceUrl && <a href={p.sourceUrl} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/[0.08] px-2.5 py-1.5 text-white/85 hover:bg-white/15">{p.sourceTitle ?? 'Official source'}{p.sourcePage ? ` · p. ${p.sourcePage}` : ''}<ExternalLink aria-hidden className="size-3" /></a>}
+          </div>
+        </div>
+      </section>
       {p.cycle.status === 'PREVIOUS' && (
         <div role="note" data-previous-cycle-banner className="mb-5 rounded-xl border border-marker/40 bg-marker-soft px-4 py-3 text-sm text-ink">
           <p className="font-semibold">{p.cycle.label}: historical reference only</p>
           <p className="mt-0.5 text-ink-2">This is what {p.universityName} required in its {p.academicYear} admission cycle (CUET UG {p.academicYear.slice(0, 4)}). It is <strong>not confirmed for CUET UG 2027</strong> (2027–28 admissions): the requirements, subjects and dates may change. Check the university's official page when its next bulletin is published.</p>
         </div>
       )}
-      <div className="mb-6 flex flex-wrap items-center gap-2 text-sm text-ink-2 [overflow-wrap:anywhere]" data-programme-meta>
-        <ReliabilityBadge r={p.reliability} on={p.lastVerifiedOn} cycle={p.cycle} />
-        {p.sourceUrl && (
-          <a href={p.sourceUrl} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1 hover:text-accent hover:underline">
-            Source: {p.sourceTitle}
-            {p.sourcePage ? `, page ${p.sourcePage}` : ''}{p.sourceLocator ? `, ${p.sourceLocator}` : ''}
-            <ExternalLink aria-hidden className="size-3" />
-          </a>
-        )}
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4" data-admission-overview>
+        <div className="admission-overview-tile rounded-2xl border border-[#dce5b5] bg-gradient-to-br from-[#f7f9e9] to-surface p-3.5 sm:p-4"><p className="text-[10px] font-bold uppercase tracking-[0.12em] text-forest/65">CUET subjects</p><p className="mt-1.5 line-clamp-3 text-sm font-semibold leading-snug text-forest">{subjectSummary}</p><p className="mt-1 text-[10px] text-ink-3">{p.academicYear} cycle</p></div>
+        <div className="admission-overview-tile rounded-2xl border border-rule bg-surface p-3.5 sm:p-4"><p className="text-[10px] font-bold uppercase tracking-[0.12em] text-ink-3">Past cut-offs</p><p className="mt-1.5 text-sm font-semibold text-forest">{d.historicalCutoffs.length ? `${d.historicalCutoffs.length} sourced record${d.historicalCutoffs.length === 1 ? '' : 's'}` : 'No record in our sources'}</p><p className="mt-1 text-[10px] text-ink-3">Historical figures only</p></div>
+        <div className="admission-overview-tile rounded-2xl border border-rule bg-surface p-3.5 sm:p-4"><p className="text-[10px] font-bold uppercase tracking-[0.12em] text-ink-3">Application date</p><p className="mt-1.5 text-sm font-semibold text-forest">{deadlineSummary ? dayLabel(deadlineSummary) : 'Not in our records'}</p><p className="mt-1 text-[10px] text-ink-3">Confirm with university</p></div>
+        <div className="admission-overview-tile rounded-2xl border border-rule bg-surface p-3.5 sm:p-4"><p className="text-[10px] font-bold uppercase tracking-[0.12em] text-ink-3">CUET exam dates</p>{examDates.length ? <p className="mt-1.5 text-sm font-semibold text-forest">{examDates.map((fact) => fact.eventDate ? `${fact.label}: ${dayLabel(fact.eventDate)}` : fact.label).join(' · ')}</p> : <p className="mt-1.5 text-sm font-semibold text-forest">See NTA notices</p>}<Link to="/updates" className="mt-1 inline-flex text-[10px] font-semibold text-accent hover:underline">Open official updates <ExternalLink aria-hidden className="ml-1 size-3" /></Link></div>
       </div>
+      <div className="my-4 rounded-xl border border-[#e4e8c7] bg-[#f8f9ef] px-3.5 py-3 text-xs leading-relaxed text-ink-2"><span className="font-semibold text-forest">What we have and what is missing.</span> Each section below shows all source-checked information we hold. “Not in our records” means we have not added a verified detail; it does not mean the university has not published it. Historical cut-offs show their year and scoring basis and are not current targets.</div>
 
-      <Panel className="mb-4 overflow-hidden p-0" data-admission-overview>
-        <div className="grid grid-cols-1 divide-y divide-rule sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-4">
-          <div className="min-w-0 p-4">
-            <p className="text-xs font-medium text-ink-3">Required CUET subjects</p>
-            <p className="mt-1 line-clamp-2 text-sm font-semibold text-ink">{subjectSummary}</p>
-            <p className="mt-1 text-[11px] text-ink-3">{p.academicYear} cycle</p>
-          </div>
-          <div className="min-w-0 p-4">
-            <p className="text-xs font-medium text-ink-3">Published historical cut-offs</p>
-            <p className="mt-1 text-sm font-semibold text-ink">{d.historicalCutoffs.length ? `${d.historicalCutoffs.length} source record${d.historicalCutoffs.length === 1 ? '' : 's'}` : 'No verified record yet'}</p>
-            <p className="mt-1 text-[11px] text-ink-3">Past figures are not a current-cycle score target.</p>
-          </div>
-          <div className="min-w-0 p-4">
-            <p className="text-xs font-medium text-ink-3">Application deadline</p>
-            <p className="mt-1 text-sm font-semibold text-ink">{deadlineSummary ? dayLabel(deadlineSummary) : 'Not verified yet'}</p>
-            <p className="mt-1 text-[11px] text-ink-3">University-level date for this cycle</p>
-          </div>
-          <div className="min-w-0 p-4">
-            <p className="text-xs font-medium text-ink-3">CUET exam date & marking scheme</p>
-            {examDates.length ? <p className="mt-1 text-sm font-semibold text-ink">{examDates.map((fact) => fact.eventDate ? `${fact.label}: ${dayLabel(fact.eventDate)}` : fact.label).join(' · ')}</p> : <p className="mt-1 text-sm font-semibold text-ink">Check the latest NTA notice</p>}
-            <Link to="/updates" className="mt-1 inline-flex text-[11px] font-semibold text-accent hover:underline">Official CUET updates <ExternalLink aria-hidden className="ml-1 size-3" /></Link>
-          </div>
-        </div>
-      </Panel>
-      <p className="mb-4 text-xs text-ink-3">When a deadline, exam date, marking rule or cut-off has not been verified for this cycle, we leave it blank rather than estimate it. Historical cut-offs are shown with their year, round and scoring basis.</p>
+      <section className="mb-5 rounded-2xl border border-rule bg-surface p-4 sm:p-5" aria-label="Admission information checklist" data-admission-coverage>
+        <div className="flex flex-wrap items-end justify-between gap-2"><div><p className="text-[10px] font-bold uppercase tracking-[0.14em] text-terracotta">At a glance</p><h2 className="mt-1 text-base font-bold text-forest">Information checklist</h2></div><span className="text-xs text-ink-3">Open a section below to read the source details</span></div>
+        <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+          {[
+            ['Subject combinations', d.current.subjects.length > 0 || Boolean(parsedSubjectRule)],
+            ['Eligibility rules', d.current.eligibility.length > 0],
+            ['Application process', d.current.procedure.length > 0],
+            ['Counselling', d.current.counselling.length > 0],
+            ['Application date', deadlines.length > 0],
+            ['Past cut-offs', d.historicalCutoffs.length > 0],
+          ].map(([label, available]) => <li key={String(label)} className={`rounded-xl border px-2.5 py-2 ${available ? 'border-[#dce5b5] bg-[#f7f9e9]' : 'border-rule bg-paper/55'}`}><span className={`block text-[11px] font-semibold ${available ? 'text-forest' : 'text-ink-2'}`}>{String(label)}</span><span className={`mt-1 block text-[10px] ${available ? 'text-forest/70' : 'text-ink-3'}`}>{available ? 'Source added' : 'Not in records yet'}</span></li>)}
+        </ul>
+      </section>
 
       <details className="admission-disclosure mb-3 overflow-hidden rounded-xl border border-rule bg-surface" data-section="pg-fit">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-ink marker:hidden">

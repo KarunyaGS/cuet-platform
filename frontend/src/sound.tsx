@@ -103,9 +103,10 @@ export function installGlobalUiSounds() {
     clickSoundHandled = false;
     const target = event.target as Element | null;
     lastGestureAt = performance.now();
-    queueMicrotask(() => {
+    // After the click's own effects (a section opening, a state change) have happened, so the sound matches what the click did.
+    const kind = soundForElement(target); // decided now: the control may disable itself or disappear as a result of the click
+    window.setTimeout(() => {
       if (clickSoundHandled || !target) return;
-      const kind = soundForElement(target);
       if (kind) return playUiSound(kind);
       if (target.closest('[data-no-sound], [data-exam-screen]')) return;
       const toggle = target.closest<HTMLElement>('summary, [aria-expanded]');
@@ -113,7 +114,7 @@ export function installGlobalUiSounds() {
         const open = toggle.tagName === 'SUMMARY' ? Boolean(toggle.closest('details')?.open) : toggle.getAttribute('aria-expanded') === 'true';
         playUiSound(open ? 'open' : 'close');
       }
-    });
+    }, 0);
   }, true);
 
   // Native controls give state-aware feedback. Text entry and range sliders stay silent.

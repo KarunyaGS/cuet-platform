@@ -421,6 +421,21 @@ a[href],
 .admission-advice > summary:focus-visible { outline: 2px solid #8d9b39; outline-offset: -3px; }
 @media (prefers-reduced-motion: reduce) { .admission-chevron { transition: none; } }
 
+/* Gently orient the student toward today's planned work. */
+@keyframes planner-today-pop {
+  0% { opacity: 0.78; transform: translateY(7px) scale(0.975); }
+  62% { opacity: 1; transform: translateY(0) scale(1.012); }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes task-dialog-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes task-dialog-enter { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.planner-today-arrive { animation: planner-today-pop 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.task-dialog-backdrop { animation: task-dialog-fade 150ms ease-out both; }
+.task-dialog-card { animation: task-dialog-enter 210ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .planner-today-arrive, .task-dialog-backdrop, .task-dialog-card { animation: none; }
+}
+
 /* Milestone celebration: one calm entrance, a ring that fills, a soft glow. No confetti, nothing flashing. Reduced motion gets the final state at once. */
 @keyframes milestone-in { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: none; } }
 @keyframes milestone-fade { from { opacity: 0; } to { opacity: 1; } }
