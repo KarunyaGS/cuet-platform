@@ -51,6 +51,53 @@ export function solveLens(s: LensState): LensResult {
   };
 }
 
+/** Bench geometry (all in cm, y up, optical centre at x = 0). The page only draws what this returns. */
+export const BENCH = {
+  /** Half-width of the bench: the view runs from -x to +x. */
+  x: 50,
+  /** Half-height of the lens, in cm. A ray that would cross the lens plane beyond this misses the lens. */
+  aperture: 9.5,
+};
+
+export type RayId = 'parallel' | 'centre' | 'focal';
+export interface BenchRay {
+  id: RayId;
+  /** Height at which the ray meets the lens plane. */
+  y0: number;
+  /** Slope dy/dx of the ray after the lens (light moving to the right). */
+  slope: number;
+}
+export interface BenchGeometry {
+  object: { x: number; y: number };
+  /** Image tip, or null when the image is at infinity. */
+  image: { x: number; y: number } | null;
+  rays: BenchRay[];
+  /** Rays left out because they would miss the lens. */
+  hidden: RayId[];
+}
+
+export function benchGeometry(s: LensState): BenchGeometry {
+  const f = signedF(s.kind, s.f);
+  const u = -Math.abs(s.u);
+  const r = solveLens(s);
+  const image = r.v === null ? null : { x: r.v, y: r.hImage! };
+  const slopeFrom = (y0: number) => (image ? (image.y - y0) / image.x : s.h / u);
+  const candidates: { id: RayId; y0: number | null }[] = [
+    { id: 'parallel', y0: s.h },
+    { id: 'centre', y0: 0 },
+    // The ray aimed at the focus on the object side (convex) or the far side (concave); it leaves parallel to the axis.
+    { id: 'focal', y0: Math.abs(u + f) < 1e-9 ? null : (s.h * f) / (u + f) },
+  ];
+  const rays: BenchRay[] = [];
+  const hidden: RayId[] = [];
+  for (const c of candidates) {
+    if (c.y0 === null) continue; // object at the focus: this ray is the parallel ray again
+    if (Math.abs(c.y0) > BENCH.aperture) hidden.push(c.id);
+    else rays.push({ id: c.id, y0: c.y0, slope: slopeFrom(c.y0) });
+  }
+  return { object: { x: u, y: s.h }, image, rays, hidden };
+}
+
 /** What the student sees in words for the current setting. */
 export function describe(r: LensResult): string {
   if (r.v === null) return 'No image forms: the refracted rays leave parallel, so the image is at infinity.';

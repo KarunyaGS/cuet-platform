@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { APPLY, focalFromUV, PREDICTS, reading, solveLens } from './lens';
+import { APPLY, BENCH, benchGeometry, focalFromUV, LIMITS, PREDICTS, reading, solveLens, type LensKind } from './lens';
 
 const near = (a: number | null, b: number) => {
   expect(a).not.toBeNull();
@@ -63,5 +63,57 @@ describe('teaching data', () => {
     expect(solveLens({ kind: 'convex', f: 12, u: 24, h: 1 }).size).toBe('same size');
     const answers = APPLY.map((q) => q.options[q.answer]);
     expect(answers).toEqual(['30 cm', '6 cm from the lens, virtual, on the object side', '15 cm', '12 cm']);
+  });
+});
+
+describe('bench geometry', () => {
+  const yAt = (g: ReturnType<typeof benchGeometry>, i: number, x: number) => g.rays[i]!.y0 + g.rays[i]!.slope * x;
+  it('every drawn ray, after the lens, passes through the image tip (real and virtual, both lenses)', () => {
+    for (const kind of ['convex', 'concave'] as LensKind[]) {
+      for (let f = LIMITS.f.min; f <= LIMITS.f.max; f += 2) {
+        for (let u = LIMITS.u.min; u <= LIMITS.u.max; u += 2) {
+          for (const h of [1, 2.5, 4]) {
+            const g = benchGeometry({ kind, f, u, h });
+            if (!g.image) continue;
+            expect(g.rays.length).toBeGreaterThanOrEqual(2);
+            g.rays.forEach((_, i) => expect(yAt(g, i, g.image!.x)).toBeCloseTo(g.image!.y, 6));
+          }
+        }
+      }
+    }
+  });
+  it('the focal ray leaves parallel to the principal axis', () => {
+    const g = benchGeometry({ kind: 'convex', f: 10, u: 25, h: 2 });
+    expect(g.rays.find((r) => r.id === 'focal')!.slope).toBeCloseTo(0, 9);
+    const c = benchGeometry({ kind: 'concave', f: 10, u: 25, h: 2 });
+    expect(c.rays.find((r) => r.id === 'focal')!.slope).toBeCloseTo(0, 9);
+  });
+  it('the central ray is undeviated and the parallel ray starts at the object height', () => {
+    const g = benchGeometry({ kind: 'convex', f: 10, u: 25, h: 3 });
+    const centre = g.rays.find((r) => r.id === 'centre')!;
+    expect(centre.y0).toBe(0);
+    expect(centre.slope).toBeCloseTo(g.object.y / g.object.x, 9);
+    expect(g.rays.find((r) => r.id === 'parallel')!.y0).toBe(3);
+  });
+  it('object at the focus: image at infinity, all refracted rays parallel to each other', () => {
+    const g = benchGeometry({ kind: 'convex', f: 10, u: 10, h: 2 });
+    expect(g.image).toBeNull();
+    expect(g.rays.map((r) => r.id)).toEqual(['parallel', 'centre']);
+    expect(g.rays[0]!.slope).toBeCloseTo(g.rays[1]!.slope, 9);
+  });
+  it('just inside and just outside the focus: image far away, on opposite sides', () => {
+    const out = benchGeometry({ kind: 'convex', f: 10, u: 10.5, h: 2 });
+    const inn = benchGeometry({ kind: 'convex', f: 10, u: 9.5, h: 2 });
+    expect(out.image!.x).toBeCloseTo(210, 6);
+    expect(inn.image!.x).toBeCloseTo(-190, 6);
+  });
+  it('a ray that would miss the lens is hidden, never clamped', () => {
+    const g = benchGeometry({ kind: 'convex', f: 5, u: 5.5, h: 2 });
+    expect(g.hidden).toContain('focal');
+    g.rays.forEach((r) => expect(Math.abs(r.y0)).toBeLessThanOrEqual(BENCH.aperture));
+  });
+  it('every control limit keeps the object on the bench', () => {
+    expect(LIMITS.u.max).toBeLessThan(BENCH.x);
+    expect(LIMITS.h.max).toBeLessThanOrEqual(BENCH.aperture);
   });
 });
