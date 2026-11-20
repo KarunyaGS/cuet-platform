@@ -6,7 +6,7 @@
  * Status of all lab content: Draft - unverified.
  */
 import { Check, Circle, SlidersHorizontal, X } from 'lucide-react';
-import { useEffect, useLayoutEffect, useState, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, useNavigationType, useSearchParams } from 'react-router';
 import { api } from '../api';
 import { rangeLimits, trim, validateRange, type Range, type RangeRules } from './ranges';
@@ -26,6 +26,26 @@ export function useNarrow() {
     return () => mq.removeEventListener('change', on);
   }, []);
   return n;
+}
+
+/**
+ * True when the element is narrower than `limit` pixels. Pictures use this, not the screen width, because on a tablet
+ * the picture's column can be much narrower than the screen (a sidebar takes room) and its text would shrink too far.
+ */
+export function useContainerNarrow<T extends Element>(limit = 560) {
+  const ref = useRef<T>(null);
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const on = (w: number) => setNarrow(w > 0 && w < limit);
+    on(el.getBoundingClientRect().width);
+    if (typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(([e]) => e && on(e.contentRect.width));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [limit]);
+  return [ref, narrow] as const;
 }
 
 export interface SliderProps { label: string; unit: string; value: number; min: number; max: number; step: number; onChange: (v: number) => void; id: string; shown?: string }

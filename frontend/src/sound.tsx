@@ -300,7 +300,7 @@ export function SoundToggle({ compact = false }: { compact?: boolean }) {
   return (
     <button
       type="button"
-      role={compact ? undefined : 'menuitemcheckbox'}
+      role={compact ? undefined : 'switch'}
       aria-label={enabled ? 'Turn sound effects off' : 'Turn sound effects on'}
       aria-checked={compact ? undefined : enabled}
       aria-pressed={compact ? enabled : undefined}
@@ -310,7 +310,7 @@ export function SoundToggle({ compact = false }: { compact?: boolean }) {
         if (!enabled) playUiSound('toggle-on');
       }}
       data-no-sound
-      className={compact ? 'inline-flex size-9 items-center justify-center rounded-lg text-ink-2 hover:bg-paper' : 'flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-ink hover:bg-paper [&>svg]:size-4 [&>svg]:text-ink-3'}
+      className={compact ? 'inline-flex size-9 items-center justify-center rounded-lg text-ink-2 hover:bg-paper' : `inline-flex min-h-10 items-center gap-2 rounded-xl border px-3.5 py-2 text-sm font-semibold transition-colors ${enabled ? 'border-forest/15 bg-[#eef3d8] text-forest hover:bg-[#e5edc7]' : 'border-rule bg-paper text-ink-2 hover:bg-[#f0eee5]'}`}
     >
       <Icon aria-hidden className={compact ? 'size-4' : undefined} />
       {!compact && (enabled ? 'Sound effects on' : 'Sound effects off')}

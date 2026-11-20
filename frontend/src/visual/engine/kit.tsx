@@ -40,6 +40,9 @@ export function linearFit(pts: { x: number; y: number }[]): { slope: number; int
 const show = (v: number) => (Math.abs(v) >= 1e4 || (Math.abs(v) < 0.01 && v !== 0) ? v.toExponential(1) : String(Number(v.toPrecision(3))));
 
 /** A small line graph: the curve of one output against one swept variable, with the current setting marked. */
+/** Axis titles must fit their axis: a long title is cut with an ellipsis (the full text stays in the tooltip). */
+const fitText = (t: string, max: number) => (t.length > max ? `${t.slice(0, max - 1).trimEnd()}…` : t);
+
 export function LineGraph({ title, xs, ys, cx, cy, xLabel, yLabel, logX, logY }: { title: string; xs: number[]; ys: number[]; cx: number; cy: number; xLabel: string; yLabel: string; logX?: boolean; logY?: boolean }) {
   const W = 360, H = 190, L = 50, R = 12, T = 14, B = 36;
   const tx = (x: number) => (logX ? Math.log(x) : x);
@@ -79,8 +82,8 @@ export function LineGraph({ title, xs, ys, cx, cy, xLabel, yLabel, logX, logY }:
         <text x={L - 4} y={H - B} fontSize={10} textAnchor="end" fill="#4d5768">{show(rawY(y0))}</text>
         <text x={L} y={H - B + 12} fontSize={10} fill="#4d5768">{show(rawX(x0))}</text>
         <text x={W - R} y={H - B + 12} fontSize={10} textAnchor="end" fill="#4d5768">{show(rawX(x1))}</text>
-        <text x={(L + W - R) / 2} y={H - 4} fontSize={11} textAnchor="middle" fill="#4d5768">{xLabel}</text>
-        <text x={11} y={(T + H - B) / 2} fontSize={11} fill="#4d5768" textAnchor="middle" transform={`rotate(-90 11 ${(T + H - B) / 2})`}>{yLabel}</text>
+        <text x={(L + W - R) / 2} y={H - 4} fontSize={11} textAnchor="middle" fill="#4d5768"><title>{xLabel}</title>{fitText(xLabel, 62)}</text>
+        <text x={11} y={(T + H - B) / 2} fontSize={11} fill="#4d5768" textAnchor="middle" transform={`rotate(-90 11 ${(T + H - B) / 2})`}><title>{yLabel}</title>{fitText(yLabel, 30)}</text>
       </svg>
       <figcaption className="text-center text-xs text-ink-2">{title}</figcaption>
     </figure>
@@ -109,8 +112,8 @@ export function FitGraph({ pts, fit, xLabel, yLabel }: { pts: { x: number; y: nu
       <text x={L - 4} y={H - B} fontSize={10} textAnchor="end" fill="#4d5768">{show(y0)}</text>
       <text x={L} y={H - B + 12} fontSize={10} fill="#4d5768">{show(x0)}</text>
       <text x={W - R} y={H - B + 12} fontSize={10} textAnchor="end" fill="#4d5768">{show(x1)}</text>
-      <text x={(L + W - R) / 2} y={H - 4} fontSize={11} textAnchor="middle" fill="#4d5768">{xLabel}</text>
-      <text x={11} y={(T + H - B) / 2} fontSize={11} fill="#4d5768" textAnchor="middle" transform={`rotate(-90 11 ${(T + H - B) / 2})`}>{yLabel}</text>
+      <text x={(L + W - R) / 2} y={H - 4} fontSize={11} textAnchor="middle" fill="#4d5768"><title>{xLabel}</title>{fitText(xLabel, 62)}</text>
+      <text x={11} y={(T + H - B) / 2} fontSize={11} fill="#4d5768" textAnchor="middle" transform={`rotate(-90 11 ${(T + H - B) / 2})`}><title>{yLabel}</title>{fitText(yLabel, 30)}</text>
     </svg>
   );
 }

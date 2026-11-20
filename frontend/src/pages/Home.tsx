@@ -207,7 +207,7 @@ function StudyMilestone({ currentPlan }: { currentPlan: CurrentPlan | null }) {
   const reached = percent >= 100 ? 'Milestone reached' : percent >= 75 ? 'Almost there' : percent >= 50 ? 'Halfway there' : percent >= 25 ? 'First steps done' : 'Ready when you are';
   const marker = pointOnMilestonePath(percent);
   return (
-    <div className="study-milestone-panel relative isolate mt-6 w-full overflow-hidden rounded-[22px] border border-forest/10 px-4 py-4 shadow-[0_18px_36px_-30px_rgb(32_44_40/0.42)] sm:px-6 sm:py-5" style={{ backgroundImage: 'radial-gradient(35% 90% at 0% 100%, rgb(230 242 142 / 0.34), transparent 100%), radial-gradient(30% 80% at 100% 0%, rgb(236 187 165 / 0.20), transparent 100%), linear-gradient(125deg, #edf1df 0%, #f5f2e8 58%, #f1eee1 100%)' }} data-study-milestone data-period={period}>
+    <div className="study-milestone-panel relative isolate mt-6 w-full overflow-hidden rounded-[22px] border border-forest/10 px-4 py-4 shadow-[0_18px_36px_-30px_rgb(32_44_40/0.42)] sm:px-6 sm:py-5" style={{ backgroundImage: 'radial-gradient(24% 80% at 8% 100%, rgb(230 242 142 / 0.48), transparent 100%), radial-gradient(24% 70% at 38% 0%, rgb(244 168 78 / 0.18), transparent 100%), radial-gradient(26% 82% at 72% 100%, rgb(94 165 145 / 0.18), transparent 100%), radial-gradient(24% 78% at 100% 0%, rgb(153 124 190 / 0.20), transparent 100%), linear-gradient(120deg, #f4f7e9 0%, #f9f1e8 53%, #eff5eb 100%)' }} data-study-milestone data-period={period}>
       <span aria-hidden className="study-milestone-sheen" />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
@@ -224,10 +224,30 @@ function StudyMilestone({ currentPlan }: { currentPlan: CurrentPlan | null }) {
           <path className="study-milestone-route" d="M18 92 C110 18 220 18 360 65 C500 112 600 95 702 24" pathLength="100" fill="none" stroke="#8da293" strokeOpacity=".38" strokeWidth="5" strokeLinecap="round" />
           <path className="study-milestone-flow" d="M18 92 C110 18 220 18 360 65 C500 112 600 95 702 24" pathLength="100" fill="none" stroke="#fffdf3" strokeOpacity=".82" strokeWidth="2" strokeLinecap="round" strokeDasharray="1 5" />
           <path className="study-milestone-trail" d="M18 92 C110 18 220 18 360 65 C500 112 600 95 702 24" pathLength="100" fill="none" stroke="url(#studyMilestoneTrail)" strokeWidth="6" strokeLinecap="round" style={{ strokeDasharray: `${percent} 100` }} />
-          {[25, 50, 75, 100].map((mark) => { const p = pointOnMilestonePath(mark); return <g key={mark} transform={`translate(${p.x} ${p.y})`} data-milestone-mark={mark}><circle className={percent >= mark ? 'study-milestone-checkpoint is-reached' : 'study-milestone-checkpoint'} r="11" fill={percent >= mark ? '#1b4a3f' : '#f8faee'} stroke={percent >= mark ? '#e5ef86' : '#aab8a5'} strokeWidth="2.5" /><text y="3.5" textAnchor="middle" fontSize="8" fontWeight="700" fill={percent >= mark ? '#e5ef86' : '#7e8d83'}>{percent >= mark ? '✓' : mark}</text></g>; })}
+          {[25, 50, 75, 100].map((mark) => {
+            const p = pointOnMilestonePath(mark);
+            if (mark === 100) return (
+              <g key={mark} transform={`translate(${p.x} ${p.y})`} data-milestone-mark={mark} className={`study-milestone-trophy ${percent >= 100 ? 'is-achieved' : ''}`}>
+                <title>{percent >= 100 ? 'Milestone 1 achieved' : 'Milestone 1: complete all tasks'}</title>
+                <circle className="study-milestone-trophy-halo" r="18" fill="#efa84f" fillOpacity=".16" stroke="#efa84f" strokeOpacity=".45" />
+                <circle r="13" fill="url(#studyMilestoneBrand)" stroke="#fffdf3" strokeWidth="2.5" />
+                <g className="study-milestone-trophy-icon" fill="none" stroke="#1b4a3f" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M-4.5-5h9v4.2c0 3-2 4.8-4.5 4.8S-4.5 2.2-4.5-.8V-5Zm0 2h-2.2v1.6c0 1.8 1.1 2.8 3.1 3.1m8-4.7h2.2v1.6c0 1.8-1.1 2.8-3.1 3.1M0 4v2.3m-3 1.2h6" /></g>
+              </g>
+            );
+            const color = mark === 25 ? '#e97855' : mark === 50 ? '#9878bf' : '#3f9c8b';
+            return <g key={mark} transform={`translate(${p.x} ${p.y})`} data-milestone-mark={mark}><circle className="study-milestone-halo" r="17" fill={color} fillOpacity=".15" stroke={color} strokeOpacity=".5" /><circle className={percent >= mark ? 'study-milestone-checkpoint is-reached' : 'study-milestone-checkpoint'} r="12" fill={color} stroke="#fffdf3" strokeWidth="2.5" /><text y="3.5" textAnchor="middle" fontSize="9" fontWeight="800" fill="#fffdf3">{mark / 25}</text></g>;
+          })}
           <circle className="study-milestone-glow" cx={marker.x} cy={marker.y} r="25" fill="url(#studyMilestoneGlow)" />
           <g className="study-milestone-marker" transform={`translate(${marker.x} ${marker.y})`}><circle r="13" fill="#1b4a3f" stroke="#e6f28e" strokeWidth="3" /><g className="study-milestone-brand" transform="scale(.45) translate(-24 -24)"><path d="M24 2.5C27.2 14.2 33.8 20.8 45.5 24 33.8 27.2 27.2 33.8 24 45.5 20.8 33.8 14.2 27.2 2.5 24 14.2 20.8 20.8 14.2 24 2.5Z" fill="url(#studyMilestoneBrand)" /><path d="M24 8.5C26.4 17.6 30.4 21.6 39.5 24 30.4 26.4 26.4 30.4 24 39.5 21.6 30.4 17.6 26.4 8.5 24 17.6 21.6 21.6 17.6 24 8.5Z" fill="#FFD777" fillOpacity=".48" /></g></g>
         </svg>
+      </div>
+      <div className="-mt-1 mb-2 grid grid-cols-4 gap-1 text-center" role="group" aria-label="Milestone checkpoints">
+        {[
+          { name: 'Milestone 1', value: '25%', color: '#e97855' },
+          { name: 'Milestone 2', value: '50%', color: '#9878bf' },
+          { name: 'Milestone 3', value: '75%', color: '#3f9c8b' },
+          { name: 'Milestone 4', value: 'Finish', color: '#d18b31' },
+        ].map((item) => <div key={item.name} className="flex flex-col items-center gap-0.5"><span className="text-[10px] font-bold leading-tight sm:text-[11px]" style={{ color: item.color }}>{item.name}</span><span className="text-[9px] font-medium leading-tight text-forest/55 sm:text-[10px]">{item.value}</span></div>)}
       </div>
       <div className="mt-[-2px] flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-sm">
         <p className="font-semibold text-forest"><span className="study-milestone-count num inline-block text-xl">{done}/{total}</span> {total === 1 ? 'task' : 'tasks'} complete <span className="mx-1 text-forest/35">·</span>{percent}%</p>

@@ -26,7 +26,7 @@ function Face({ side, hidden, children }: { side: 'front' | 'back'; hidden: bool
     <div
       aria-hidden={hidden}
       data-face={side}
-      className={`col-start-1 row-start-1 flex min-h-[16rem] flex-col rounded-2xl border border-rule bg-surface p-6 shadow-sm [backface-visibility:hidden] sm:min-h-[18rem] sm:p-8 ${side === 'back' ? '[transform:rotateY(180deg)]' : ''}`}
+      className={`col-start-1 row-start-1 flex min-h-[19rem] flex-col rounded-[24px] border border-[#e0e6d7] bg-gradient-to-br from-white via-white to-[#fbfbf5] p-6 shadow-[0_18px_40px_-34px_rgb(24_68_59/0.45)] [backface-visibility:hidden] sm:min-h-[22rem] sm:p-9 lg:p-10 ${side === 'back' ? '[transform:rotateY(180deg)]' : ''}`}
     >
       {children}
     </div>
@@ -153,8 +153,11 @@ export function FlashcardReviewPage() {
 
   const c = step.card;
   return (
-    <div className="max-w-4xl">
-      <PageHeader back={{ to: back, label: backLabel }} title="Revise" subtitle={[c.paper, c.chapter].filter(Boolean).join(', ') || undefined} />
+    <div className="mx-auto w-full max-w-6xl" data-revision-studio>
+      <PageHeader back={{ to: back, label: backLabel }} title="Revise" subtitle={[c.paper, c.chapter].filter(Boolean).join(', ') || 'One card at a time, with spaced revision.'} actions={<Badge tone="accent">Spaced revision</Badge>} />
+      <section className="relative overflow-hidden rounded-[28px] border border-[#dce5b5] bg-gradient-to-br from-[#f2f5e7] via-[#f7f7ed] to-[#f8efe4] p-3 sm:p-5 lg:p-7">
+      <div aria-hidden className="pointer-events-none absolute -right-14 -top-24 size-72 rounded-full border border-forest/10 bg-white/20" />
+      <div className="relative mx-auto max-w-5xl">
       <div className="mb-4">
         <div className="num mb-1.5 flex items-center justify-between text-sm text-ink-2">
           <span>{step.again ? 'One more look' : `Card ${Math.min(done + 1, total)} of ${total}`}</span>
@@ -236,6 +239,8 @@ export function FlashcardReviewPage() {
         )}
         <p className="mt-3 hidden text-xs text-ink-3 sm:block">{flipped ? 'Keys: 1 for Need revision, 2 for Know.' : 'Key: Space to show the answer.'}</p>
       </div>
+      </div>
+      </section>
     </div>
   );
 }

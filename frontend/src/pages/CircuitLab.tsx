@@ -1,8 +1,9 @@
 import { RotateCcw } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode, Children } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps, RangeSlider } from '../visual/labkit';
+import { clampTo, stepFor, trim, type Range } from '../visual/ranges';
 import {
   APPLY, balanceR, CELL_LIMITS, cellCircuit, fitLine, KIRCH_LIMITS, kirchhoff, maxPower, PREDICTS, START, WHEAT_LIMITS, wheatstone,
   type Arrangement, type CellState, type Exp, type KirchState, type Setup, type WheatState,
@@ -37,9 +38,20 @@ function zig(x1: number, y1: number, x2: number, y2: number, amp = 2.2, teeth = 
   return d + ` L ${(x1 + ux * e).toFixed(2)} ${(y1 + uy * e).toFixed(2)} L ${x2} ${y2}`;
 }
 const line = (pts: [number, number][]) => pts.map((p, k) => `${k ? 'L' : 'M'} ${p[0]} ${p[1]}`).join(' ');
-const T = ({ x, y, children, fs, anchor = 'middle', fill = '#1a2233', bold = false }: { x: number; y: number; children: ReactNode; fs: number; anchor?: 'start' | 'middle' | 'end'; fill?: string; bold?: boolean }) => (
-  <text x={x} y={y} fontSize={fs} textAnchor={anchor} fill={fill} fontWeight={bold ? 700 : 400} {...halo}>{children}</text>
-);
+/**
+ * A label on the board (120 units wide). A long number (a student's own range can make one) is moved inward just far
+ * enough that the whole label stays on the board instead of being cut off at the edge.
+ */
+const BOARD_W = 120;
+const T = ({ x, y, children, fs, anchor = 'middle', fill = '#1a2233', bold = false }: { x: number; y: number; children: ReactNode; fs: number; anchor?: 'start' | 'middle' | 'end'; fill?: string; bold?: boolean }) => {
+  const w = Children.toArray(children).join('').length * fs * (bold ? 0.62 : 0.56);
+  const lo = anchor === 'start' ? 0.8 : anchor === 'middle' ? w / 2 + 0.8 : w + 0.8;
+  const hi = anchor === 'start' ? BOARD_W - 0.8 - w : anchor === 'middle' ? BOARD_W - 0.8 - w / 2 : BOARD_W - 0.8;
+  const ax = hi < lo ? lo : Math.min(hi, Math.max(lo, x));
+  return (
+    <text x={ax} y={y} fontSize={fs} textAnchor={anchor} fill={fill} fontWeight={bold ? 700 : 400} {...halo}>{children}</text>
+  );
+};
 /** A cell: the long plate is positive. `up` puts the + plate on top. */
 const CellSymbol = ({ x, y, up = true, label, fs, right = false }: { x: number; y: number; up?: boolean; label: string; fs: number; right?: boolean }) => (
   <g>
@@ -339,11 +351,11 @@ function CellGraph({ c, readings }: { c: CellState; readings: Reading[] }) {
     </svg>
   );
 }
-function WheatGraph({ w }: { w: WheatState }) {
+function WheatGraph({ w, lo, hi }: { w: WheatState; lo: number; hi: number }) {
   const pts: string[] = [];
   let mx = 0;
-  const vals = Array.from({ length: 100 }, (_, k) => { const R = 10 + (k * 990) / 99; const I = wheatstone({ ...w, R }).Ig * 1000; mx = Math.max(mx, Math.abs(I)); return { R, I }; });
-  const X = (R: number) => 30 + ((R - 10) / 990) * 160;
+  const vals = Array.from({ length: 100 }, (_, k) => { const R = lo + (k * (hi - lo)) / 99; const I = wheatstone({ ...w, R }).Ig * 1000; mx = Math.max(mx, Math.abs(I)); return { R, I }; });
+  const X = (R: number) => 30 + ((R - lo) / (hi - lo)) * 160;
   const Y = (I: number) => 46 - (I / (mx || 1)) * 30;
   vals.forEach((q) => pts.push(`${X(q.R).toFixed(1)},${Y(q.I).toFixed(1)}`));
   const now = wheatstone(w).Ig * 1000;
@@ -353,9 +365,11 @@ function WheatGraph({ w }: { w: WheatState }) {
       <rect x={30} y={14} width={160} height={64} fill="#fff" stroke="#e5e5e5" />
       <line x1={30} y1={46} x2={190} y2={46} stroke="#c9ced8" />
       <polyline points={pts.join(' ')} fill="none" stroke="#b42318" strokeWidth={1.3} />
-      {bal >= 10 && bal <= 1000 && <line x1={X(bal)} y1={14} x2={X(bal)} y2={78} stroke="#1d7a4b" strokeDasharray="2 2" />}
-      <circle cx={X(Math.min(1000, Math.max(10, w.R)))} cy={Y(now)} r={3.2} fill="none" stroke="#2347a8" strokeWidth={1.4} />
+      {bal >= lo && bal <= hi && <line x1={X(bal)} y1={14} x2={X(bal)} y2={78} stroke="#1d7a4b" strokeDasharray="2 2" />}
+      <circle cx={X(Math.min(hi, Math.max(lo, w.R)))} cy={Y(now)} r={3.2} fill="none" stroke="#2347a8" strokeWidth={1.4} />
       <text x={190} y={92} fontSize={7} textAnchor="end" fill="#4d5768">R (Ω)</text>
+      <text x={30} y={87} fontSize={6.5} fill="#7c8595">{trim(lo)}</text>
+      <text x={190} y={87} fontSize={6.5} textAnchor="end" fill="#7c8595">{trim(hi)}</text>
       <text x={32} y={10} fontSize={7} fill="#4d5768">galvanometer current (mA)</text>
       <text x={32} y={97} fontSize={6.2} fill="#7c8595">Zero crossing: the bridge balances. Ring: now.</text>
     </svg>
@@ -412,6 +426,38 @@ export function CircuitLabPage() {
   const [rows, setRows] = useState<Reading[]>([]);
   const [ans, setAns] = useState<Record<string, number>>({});
   const set = (p: Partial<Setup>) => setSetup((s) => ({ ...s, ...p }));
+  // The student's own range for any control, by control id; a control not listed uses the lab's range.
+  const [ranges, setRanges] = useState<Record<string, Range>>({});
+  const wheatR = ranges['w-R'] ?? { min: WHEAT_LIMITS.R.min, max: WHEAT_LIMITS.R.max };
+  const rs = (id: string, label: string, unit: string, value: number, design: { min: number; max: number; step: number }, apply: (v: number) => void) => {
+    const r = ranges[id] ?? { min: design.min, max: design.max };
+    const step = ranges[id] ? stepFor(design.step, r) : design.step;
+    return (
+      <RangeSlider
+        key={id}
+        id={id}
+        label={label}
+        unit={unit}
+        value={value}
+        min={r.min}
+        max={r.max}
+        step={step}
+        shown={trim(value)}
+        onChange={(v) => apply(Number(v.toPrecision(8)))}
+        design={{ min: design.min, max: design.max }}
+        range={r}
+        onRange={(nr) => {
+          setRanges((cur) => {
+            const next = { ...cur };
+            if (nr.min === design.min && nr.max === design.max) delete next[id];
+            else next[id] = nr;
+            return next;
+          });
+          apply(clampTo(value, nr));
+        }}
+      />
+    );
+  };
   const fs = narrow ? 4.1 : 3.3;
   const board = useMemo(() => (setup.exp === 'cell' ? cellBoard(setup.cell, fs) : setup.exp === 'kirch' ? kirchBoard(setup.kirch, fs) : wheatBoard(setup.wheat, fs)), [setup, fs]);
   const pr: [number, number] = [Math.min(probes[0], board.nodes.length - 1), Math.min(probes[1], board.nodes.length - 1)];
@@ -431,14 +477,14 @@ export function CircuitLabPage() {
   const saved = useLabCompletion(finished && pending.length === 0, lessonId);
   const done = [true, Object.keys(tested).length === PREDICTS.length, seen[2] ?? false, rows.length >= 3, canFit, seen[5] ?? false, finished];
 
-  const choose = (i: number) => { const p = PREDICTS[i] ?? PREDICTS[0]!; setPi(i); setSetup(p.base); setBranch(''); };
+  const choose = (i: number) => { const p = PREDICTS[i] ?? PREDICTS[0]!; setPi(i); setRanges({}); setSetup(p.base); setBranch(''); };
   const record = () => {
     if (setup.exp !== 'cell') return;
     const rd: Reading = { emf: setup.cell.emf, r: setup.cell.r, R: cr.Rext, I: cr.I, V: cr.Vt };
     if (rows.some((x) => x.emf === rd.emf && x.r === rd.r && Math.abs(x.I - rd.I) < 1e-9)) return;
     setRows((x) => [...x, rd]);
   };
-  const reset = () => { setSetup((s) => ({ ...START, exp: s.exp })); setProbes([2, 0]); setBranch(''); };
+  const reset = () => { setRanges({}); setSetup((s) => ({ ...START, exp: s.exp })); setProbes([2, 0]); setBranch(''); };
   const sw = (exp: Exp) => { set({ exp }); setProbes([exp === 'cell' ? 2 : 0, exp === 'cell' ? 0 : 1]); setBranch(''); };
   const setCell = (p: Partial<CellState>) => setSetup((s) => ({ ...s, cell: { ...s.cell, ...p } }));
   const setKirch = (p: Partial<KirchState>) => setSetup((s) => ({ ...s, kirch: { ...s.kirch, ...p } }));
@@ -462,9 +508,9 @@ export function CircuitLabPage() {
             <div className="grid gap-x-6 gap-y-3 border-t border-rule px-3 py-3 sm:grid-cols-2" data-controls>
               {setup.exp === 'cell' && (
                 <>
-                  <Slider id="c-emf" label="Emf ε" unit="V" value={setup.cell.emf} {...CELL_LIMITS.emf} onChange={(v) => setCell({ emf: v })} />
-                  <Slider id="c-r" label="Internal resistance r" unit="Ω" value={setup.cell.r} {...CELL_LIMITS.r} onChange={(v) => setCell({ r: v })} />
-                  <Slider id="c-R1" label="Resistor R₁" unit="Ω" value={setup.cell.R1} {...CELL_LIMITS.R} onChange={(v) => setCell({ R1: v })} />
+                  {rs('c-emf', 'Emf ε', 'V', setup.cell.emf, CELL_LIMITS.emf, (v) => setCell({ emf: v }))}
+                  {rs('c-r', 'Internal resistance r', 'Ω', setup.cell.r, CELL_LIMITS.r, (v) => setCell({ r: v }))}
+                  {rs('c-R1', 'Resistor R₁', 'Ω', setup.cell.R1, CELL_LIMITS.R, (v) => setCell({ R1: v }))}
                   <div className="text-sm">
                     <span className="text-ink">Add a second resistor</span>
                     <div role="group" aria-label="Second resistor" className="mt-1 inline-flex w-full gap-0.5 rounded-md bg-ink/5 p-0.5">
@@ -473,25 +519,25 @@ export function CircuitLabPage() {
                       ))}
                     </div>
                   </div>
-                  {setup.cell.mode !== 'single' && <Slider id="c-R2" label="Resistor R₂" unit="Ω" value={setup.cell.R2} {...CELL_LIMITS.R} onChange={(v) => setCell({ R2: v })} />}
+                  {setup.cell.mode !== 'single' && rs('c-R2', 'Resistor R₂', 'Ω', setup.cell.R2, CELL_LIMITS.R, (v) => setCell({ R2: v }))}
                 </>
               )}
               {setup.exp === 'kirch' && (
                 <>
-                  <Slider id="k-e1" label="Cell 1, ε₁" unit="V" value={setup.kirch.e1} {...KIRCH_LIMITS.e} onChange={(v) => setKirch({ e1: v })} />
-                  <Slider id="k-e2" label="Cell 2, ε₂ (negative = reversed)" unit="V" value={setup.kirch.e2} {...KIRCH_LIMITS.e} onChange={(v) => setKirch({ e2: v })} />
-                  <Slider id="k-R1" label="R₁" unit="Ω" value={setup.kirch.R1} {...KIRCH_LIMITS.R} onChange={(v) => setKirch({ R1: v })} />
-                  <Slider id="k-R2" label="R₂" unit="Ω" value={setup.kirch.R2} {...KIRCH_LIMITS.R} onChange={(v) => setKirch({ R2: v })} />
-                  <Slider id="k-R3" label="R₃" unit="Ω" value={setup.kirch.R3} {...KIRCH_LIMITS.R} onChange={(v) => setKirch({ R3: v })} />
+                  {rs('k-e1', 'Cell 1, ε₁', 'V', setup.kirch.e1, KIRCH_LIMITS.e, (v) => setKirch({ e1: v }))}
+                  {rs('k-e2', 'Cell 2, ε₂ (negative = reversed)', 'V', setup.kirch.e2, KIRCH_LIMITS.e, (v) => setKirch({ e2: v }))}
+                  {rs('k-R1', 'R₁', 'Ω', setup.kirch.R1, KIRCH_LIMITS.R, (v) => setKirch({ R1: v }))}
+                  {rs('k-R2', 'R₂', 'Ω', setup.kirch.R2, KIRCH_LIMITS.R, (v) => setKirch({ R2: v }))}
+                  {rs('k-R3', 'R₃', 'Ω', setup.kirch.R3, KIRCH_LIMITS.R, (v) => setKirch({ R3: v }))}
                 </>
               )}
               {setup.exp === 'wheat' && (
                 <>
-                  <Slider id="w-R" label="Variable resistor R (decade box)" unit="Ω" value={setup.wheat.R} min={WHEAT_LIMITS.R.min} max={WHEAT_LIMITS.R.max} step={5} onChange={(v) => setWheat({ R: v })} />
-                  <Slider id="w-S" label="Unknown resistor S" unit="Ω" value={setup.wheat.S} {...WHEAT_LIMITS.ratio} onChange={(v) => setWheat({ S: v })} />
-                  <Slider id="w-P" label="Ratio arm P" unit="Ω" value={setup.wheat.P} {...WHEAT_LIMITS.ratio} onChange={(v) => setWheat({ P: v })} />
-                  <Slider id="w-Q" label="Ratio arm Q" unit="Ω" value={setup.wheat.Q} {...WHEAT_LIMITS.ratio} onChange={(v) => setWheat({ Q: v })} />
-                  <Slider id="w-emf" label="Battery emf ε" unit="V" value={setup.wheat.emf} min={1} max={12} step={0.5} onChange={(v) => setWheat({ emf: v })} />
+                  {rs('w-R', 'Variable resistor R (decade box)', 'Ω', setup.wheat.R, { ...WHEAT_LIMITS.R, step: 5 }, (v) => setWheat({ R: v }))}
+                  {rs('w-S', 'Unknown resistor S', 'Ω', setup.wheat.S, WHEAT_LIMITS.ratio, (v) => setWheat({ S: v }))}
+                  {rs('w-P', 'Ratio arm P', 'Ω', setup.wheat.P, WHEAT_LIMITS.ratio, (v) => setWheat({ P: v }))}
+                  {rs('w-Q', 'Ratio arm Q', 'Ω', setup.wheat.Q, WHEAT_LIMITS.ratio, (v) => setWheat({ Q: v }))}
+                  {rs('w-emf', 'Battery emf ε', 'V', setup.wheat.emf, { min: 1, max: 12, step: 0.5 }, (v) => setWheat({ emf: v }))}
                 </>
               )}
               <div className="flex flex-wrap items-center gap-2 sm:col-span-2">
@@ -560,7 +606,7 @@ export function CircuitLabPage() {
                 <div key={k} className="flex items-baseline justify-between gap-2 border-b border-rule py-1"><dt className="text-ink-2">{k}</dt><dd className="num font-semibold text-ink">{v}</dd></div>
               ))}
             </dl>
-            <div className="mt-3">{setup.exp === 'cell' ? <CellGraph c={setup.cell} readings={rows} /> : setup.exp === 'wheat' ? <WheatGraph w={setup.wheat} /> : <p className="text-xs text-ink-3">Check Kirchhoff’s rules: the three sums above stay at zero for every setting. Try reversing cell 2 with a negative ε₂.</p>}</div>
+            <div className="mt-3">{setup.exp === 'cell' ? <CellGraph c={setup.cell} readings={rows} /> : setup.exp === 'wheat' ? <WheatGraph w={setup.wheat} lo={wheatR.min} hi={wheatR.max} /> : <p className="text-xs text-ink-3">Check Kirchhoff’s rules: the three sums above stay at zero for every setting. Try reversing cell 2 with a negative ε₂.</p>}</div>
             <p className="mt-2 text-xs text-ink-3">Currents are conventional (from + round the circuit to −). Values are exact for ideal wires and meters.</p>
           </div>
         </div>
@@ -582,7 +628,7 @@ export function CircuitLabPage() {
             <PredictCard
               items={PREDICTS} index={pi} picked={picked} tested={tested}
               onSelect={choose} onPick={(id, o) => setPicked((x) => ({ ...x, [id]: o }))}
-              onLock={(i) => { const p = PREDICTS[i] ?? PREDICTS[0]!; setSetup(p.test); setBranch(''); setTested((x) => ({ ...x, [p.id]: true })); }}
+              onLock={(i) => { const p = PREDICTS[i] ?? PREDICTS[0]!; setRanges({}); setSetup(p.test); setBranch(''); setTested((x) => ({ ...x, [p.id]: true })); }}
               explain={(i) => { const p = PREDICTS[i] ?? PREDICTS[0]!; return p.why({ base: p.base, test: p.test }); }}
               onNext={() => choose(pi + 1)} onDone={() => go(2)}
             />

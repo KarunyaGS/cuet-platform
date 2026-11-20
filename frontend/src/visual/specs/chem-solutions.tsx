@@ -29,10 +29,10 @@ export const spec: Spec = {
   minutes: 10,
   vars: [
     { id: 'm', label: 'Molality m', unit: 'mol/kg', min: 0.05, max: 2, step: 0.05, start: 0.5, digits: 2 },
-    { id: 'n', label: 'Ions per formula unit n', unit: '', min: 1, max: 3, step: 1, start: 2, digits: 0 },
-    { id: 'a', label: 'Degree of dissociation α', unit: '', min: 0, max: 1, step: 0.05, start: 1, digits: 2 },
-    { id: 's', label: 'Solvent (0 = water, 1 = benzene)', unit: '', min: 0, max: 1, step: 1, start: 0, digits: 0 },
-    { id: 'T', label: 'Temperature T', unit: 'K', min: 273, max: 323, step: 5, start: 298, digits: 0 },
+    { id: 'n', label: 'Ions per formula unit n', unit: '', min: 1, max: 3, step: 1, start: 2, digits: 0, choice: true },
+    { id: 'a', label: 'Degree of dissociation α', unit: '', min: 0, max: 1, step: 0.05, start: 1, digits: 2, bounds: { min: 0, max: 1 } },
+    { id: 's', label: 'Solvent (0 = water, 1 = benzene)', unit: '', min: 0, max: 1, step: 1, start: 0, digits: 0, choice: true },
+    { id: 'T', label: 'Temperature T', unit: 'K', min: 273, max: 323, step: 5, start: 298, digits: 0, bounds: { min: 1, max: 5000 } },
   ],
   outs: [
     { id: 'i', label: "van't Hoff factor i = 1 + α(n − 1)", unit: '', fn: (v) => iOf(v.n!, v.a!), digits: 2 },

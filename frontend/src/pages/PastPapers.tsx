@@ -1,9 +1,10 @@
-/** Previous-year papers: browse by exam, year and subject, then attempt a paper as it was set or as untimed practice. */
+/** Previous-year papers: browse by exam, year and subject, then choose exam pace or self-paced before starting. */
 import { ExternalLink, FileText, Timer } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router';
 import { api, type ExamCode, type PastPaper } from '../api';
 import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, useLoad } from '../ui';
+import { TimerChoiceDialog } from './TimerChoiceDialog';
 
 const select = 'h-9 rounded-lg border border-rule-strong bg-surface px-2.5 text-sm text-ink focus:border-accent focus:outline-none';
 const day = (d: string | null) => (d ? new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }) : null);
@@ -25,7 +26,7 @@ export function PastPapersPage() {
   };
   return (
     <div>
-      <PageHeader title="Official previous-year papers" subtitle="Official papers from earlier years, with the official answer key. Attempt one under exam conditions, or practise without a timer." back={{ to: `/practice-centre?exam=${exam}`, label: 'Practice Centre' }} />
+      <PageHeader title="Official previous-year papers" subtitle="Official papers from earlier years, with the official answer key. Choose exam pace or take a paper without a timer." back={{ to: `/practice-centre?exam=${exam}`, label: 'Practice Centre' }} />
       <div className="mb-5 flex flex-wrap items-center gap-3">
         {list.data && list.data.years.length > 0 && (
           <>
@@ -85,15 +86,17 @@ export function PastPaperPage() {
   const navigate = useNavigate();
   const d = useLoad(() => api.pastPaper(id), [id]);
   const [busy, setBusy] = useState('');
+  const [timerOpen, setTimerOpen] = useState(false);
   const [err, setErr] = useState<Error | null>(null);
   if (d.loading && !d.data) return <Loading />;
   if (d.error) return <ErrorBox error={d.error} onRetry={d.reload} />;
   const p = d.data!;
-  const start = async (mode: 'PRACTICE' | 'MOCK_TEST') => {
-    setBusy(mode);
+  const start = async (timed: boolean) => {
+    setTimerOpen(false);
+    setBusy('MOCK_TEST');
     setErr(null);
     try {
-      const s = await api.startPastPaper(id, mode);
+      const s = await api.startPastPaper(id, 'MOCK_TEST', timed);
       navigate(`/practice/${s.session.id}`);
     } catch (e) {
       setErr(e as Error);
@@ -127,13 +130,11 @@ export function PastPaperPage() {
         </p>
       )}
       <div className="mt-6 flex flex-wrap gap-3">
-        <Button onClick={() => void start('MOCK_TEST')} disabled={busy !== ''} icon={<Timer aria-hidden />}>
-          {busy === 'MOCK_TEST' ? 'Starting…' : `Attempt under exam conditions (${asked} min)`}
-        </Button>
-        <Button kind="secondary" onClick={() => void start('PRACTICE')} disabled={busy !== ''}>
-          {busy === 'PRACTICE' ? 'Starting…' : 'Practise without a timer'}
+        <Button onClick={() => setTimerOpen(true)} disabled={busy !== ''} icon={<Timer aria-hidden />}>
+          {busy === 'MOCK_TEST' ? 'Starting…' : 'Attempt this paper'}
         </Button>
       </div>
+      <TimerChoiceDialog open={timerOpen} onClose={() => setTimerOpen(false)} onChoose={(timed) => void start(timed)} busy={busy !== ''} title="Choose your pace for this paper" />
       {err && <ErrorBox error={err} />}
       <section aria-labelledby="pp-source" className="mt-8 rounded-xl border border-rule bg-surface p-5 text-sm">
         <h2 id="pp-source" className="text-base font-semibold text-ink">

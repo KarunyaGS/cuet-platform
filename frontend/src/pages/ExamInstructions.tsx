@@ -6,6 +6,7 @@ import { Logo } from '../Layout';
 import { SchemeDetails, marksLine } from '../marking';
 import { ErrorBox, Loading, buttonClass, useLoad } from '../ui';
 import { enterFullscreen } from './ExamGuard';
+import { TimerChoiceDialog } from './TimerChoiceDialog';
 
 const RULES = [
   'The test will run in full-screen mode.',
@@ -24,6 +25,7 @@ export function ExamInstructionsPage() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const mode = params.get('mode') === 'MOCK_TEST' ? 'MOCK_TEST' : 'TOPIC_TEST';
+  const [timed, setTimed] = useState<boolean | null>(() => params.has('timed') ? params.get('timed') === 'true' : null);
   const nodeId = params.get('nodeId') ?? undefined;
   const paperId = params.get('paperId') ?? undefined;
   const info = useLoad(() => api.examPreview({ mode, nodeId, paperId }), [mode, nodeId, paperId]);
@@ -42,7 +44,7 @@ export function ExamInstructionsPage() {
       return;
     }
     try {
-      const s = await api.startPractice({ mode, nodeId, paperId });
+      const s = await api.startPractice({ mode, nodeId, paperId, timed: timed ?? true });
       navigate(`/exam/${s.session.id}`, { replace: true });
     } catch (e) {
       if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
@@ -70,7 +72,7 @@ export function ExamInstructionsPage() {
               {[
                 ['Exam', d.title],
                 ['Subject', d.subject ?? '–'],
-                ['Duration', `${d.durationMinutes} minutes`],
+                ['Duration', timed === false ? 'No timer' : `${d.durationMinutes} minutes`],
                 ['Total questions', String(d.questions)],
                 ['Maximum marks', `${d.maxMarks} (${d.questions} questions × ${d.marking.correct})`],
                 ['Marking scheme', marksLine(d.scheme)],
@@ -101,7 +103,7 @@ export function ExamInstructionsPage() {
                 ))}
               </ul>
               <p className="mt-3 text-sm text-ink-2">
-                Choosing an option saves it straight away; there is no separate Save button. Next and Previous only move between questions and never change an answer. Clear response puts a question back to not answered, and Mark for review is a reminder for you that does not affect your marks. The question palette shows what you have answered and marked, and you can jump to any question from it. If you refresh the page you can continue where you were, and the clock keeps running. When the time ends the test is submitted automatically.
+                Choosing an option saves it straight away; there is no separate Save button. Next and Previous only move between questions and never change an answer. Clear response puts a question back to not answered, and Mark for review is a reminder for you that does not affect your marks. The question palette shows what you have answered and marked, and you can jump to any question from it. If you refresh the page you can continue where you were.{timed === false ? ' This test has no timer; submit when you are ready.' : ' The clock keeps running after a refresh, and the test is submitted automatically when time ends.'}
               </p>
             </section>
 
@@ -137,6 +139,7 @@ export function ExamInstructionsPage() {
           </>
         )}
       </main>
+      <TimerChoiceDialog open={timed === null} onClose={() => navigate(-1)} onChoose={setTimed} />
     </div>
   );
 }

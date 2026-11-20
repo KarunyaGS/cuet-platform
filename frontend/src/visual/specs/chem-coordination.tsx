@@ -55,8 +55,8 @@ export const spec: Spec = {
   can: ['Decide high spin or low spin by comparing Δo with P', 'Count unpaired electrons and compute μ = √(n(n+2))', 'Convert the splitting to the absorbed wavelength and the colour you see'],
   minutes: 12,
   vars: [
-    { id: 'nd', label: 'd electrons of the metal ion', unit: '', min: 0, max: 10, step: 1, start: 6, digits: 0 },
-    { id: 'L', label: 'Ligand position in the spectrochemical series (0 = I⁻ … 8 = H₂O … 11 = NH₃ … 14 = CO)', unit: '', min: 0, max: 14, step: 1, start: 8, digits: 0 },
+    { id: 'nd', label: 'd electrons of the metal ion', unit: '', min: 0, max: 10, step: 1, start: 6, digits: 0, choice: true },
+    { id: 'L', label: 'Ligand position in the spectrochemical series (0 = I⁻ … 8 = H₂O … 11 = NH₃ … 14 = CO)', unit: '', min: 0, max: 14, step: 1, start: 8, digits: 0, choice: true },
     { id: 'g', label: 'Metal factor (larger for higher oxidation state, 4d and 5d metals)', unit: '', min: 1, max: 1.5, step: 0.1, start: 1, digits: 1 },
     { id: 'P', label: 'Pairing energy P (illustrative)', unit: 'cm⁻¹', min: 10000, max: 30000, step: 1000, start: 17000, digits: 0 },
   ],
@@ -93,7 +93,7 @@ export const spec: Spec = {
     return (
       <g>
         <line x1={30} y1={yMid} x2={80} y2={yMid} stroke="#7c8595" strokeDasharray="3 3" />
-        <text x={28} y={yMid - 4} fontSize={9} textAnchor="end" fill="#7c8595">average</text>
+        <text x={31} y={yMid - 4} fontSize={9} textAnchor="start" fill="#7c8595">average</text>
         {[0, 1].map((j) => orb(110 + j * 40, yE, f.e > j, f.e > j + 2, `e${j}`))}
         {[0, 1, 2].map((j) => orb(90 + j * 40, yT, f.t > j, f.t > j + 3, `t${j}`))}
         <text x={235} y={yE - 2} fontSize={10} fill="#4d5768">e_g (+0.6 Δo)</text>

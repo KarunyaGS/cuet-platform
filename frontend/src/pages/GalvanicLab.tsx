@@ -1,7 +1,8 @@
 import { Play, RotateCcw } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { clampTo, stepFor, trim, type Range } from '../visual/ranges';
+import { ApplyCard, btn, btnMain, panel, PredictCard, RangeSlider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
 import {
   APPLY, canFit as canFitRows, conc, electrolysis, electrolyte, ELECTROLYTES, ELEC_LIMITS, electronsFromSlope, electronsLeaveFrom, fmtC, galvanic, HALVES, half, O2, P_MAX, P_MIN, P_STEP, pairKey,
   PREDICTS, readingOf, recover, saltBridge, SLOPE, slopeThroughOrigin, START, fitSet, R_INT, R_LOAD, type CellInput, type CellResult, type ElecInput, type Reading, type Setup,
@@ -95,7 +96,7 @@ function CellScene({ input, res, reveal, closed, fs }: { input: CellInput; res: 
     const sign = isAnode ? '−' : '+';
     return (
       <g key={which}>
-        <rect x={x - 19} y={40} width={38} height={30} fill={h.liquid} opacity={0.55 + 0.3 * ((p - P_MIN) / (P_MAX - P_MIN))} />
+        <rect x={x - 19} y={40} width={38} height={30} fill={h.liquid} opacity={0.55 + 0.3 * Math.min(1, Math.max(0, (p - P_MIN) / (P_MAX - P_MIN)))} />
         <path d={`M ${x - 19} 30 V 70 H ${x + 19} V 30`} fill="none" stroke="#7c8595" strokeWidth={0.7} />
         <rect x={x - 2} y={20} width={4} height={44} fill={h.rod} stroke="#4d5768" strokeWidth={0.4} />
         {h.gas && Array.from({ length: 4 }, (_, k) => <circle key={k} cx={x + 3.5 + (k % 2) * 2} cy={60 - ((off * 0.5 + k * 6) % 20)} r={0.8} fill="#fff" stroke="#7c8595" strokeWidth={0.3} />)}
@@ -150,7 +151,7 @@ function ElecScene({ input, frac, fs }: { input: ElecInput; frac: number; fs: nu
   const deposit = e.id === 'cu' ? '#c9773f' : e.id === 'ag' ? '#dfe4ea' : null;
   const bubble = (x: number, k: number, col = '#fff') => <circle key={`${x}-${k}`} cx={x + ((k * 3) % 5) - 2} cy={62 - ((off * 0.8 + k * 7) % 24)} r={0.9} fill={col} stroke="#7c8595" strokeWidth={0.3} />;
   return (
-    <svg viewBox="0 -7 120 92" className="block w-full select-none bg-surface" role="img" data-elec-scene aria-label={`Electrolysis of ${e.name} between two platinum electrodes with a battery and a balance reading the cathode mass`}>
+    <svg viewBox="0 -11 120 96" className="block w-full select-none bg-surface" role="img" data-elec-scene aria-label={`Electrolysis of ${e.name} between two platinum electrodes with a battery and a balance reading the cathode mass`}>
       <rect x={27} y={40} width={66} height={30} fill={e.liquid} opacity={0.7} />
       <path d="M 27 30 V 70 H 93 V 30" fill="none" stroke="#7c8595" strokeWidth={0.7} />
       {/* ions drifting: cations to the cathode (left), anions to the anode (right) */}
@@ -290,6 +291,10 @@ export function GalvanicLabPage() {
   const key = pairKey(cell.left, cell.right);
   const known = identified.includes(key);
   const set = (p: Partial<Setup>) => setSetup((s) => ({ ...s, ...p }));
+  // The student's own ranges. Concentration is entered in mol/L (the slider itself moves on the log scale).
+  const C_DESIGN: Range = { min: Math.pow(10, P_MIN), max: Math.pow(10, P_MAX) };
+  const [cRanges, setCRanges] = useState<{ left?: Range; right?: Range }>({});
+  const [eRanges, setERanges] = useState<{ I?: Range; t?: Range }>({});
   const setCell = (p: Partial<CellInput>) => { setSetup((s) => ({ ...s, cell: { ...s.cell, ...p } })); setWrongTry(false); setDupe(false); };
   const setElec = (p: Partial<ElecInput>) => { setSetup((s) => ({ ...s, elec: { ...s.elec, ...p } })); setRunning(false); setFrac(1); };
 
@@ -318,9 +323,11 @@ export function GalvanicLabPage() {
   const saved = useLabCompletion(finished && pending.length === 0, lessonId);
   const done = [true, Object.keys(tested).length === PREDICTS.length, seen[2] ?? false, rows.length >= 3, fit, seen[5] ?? false, finished];
 
-  const choose = (i: number) => { const p = PREDICTS[i] ?? PREDICTS[0]!; setPi(i); setSetup(p.base); setRunning(false); setFrac(1); };
+  const choose = (i: number) => { const p = PREDICTS[i] ?? PREDICTS[0]!; setPi(i); setCRanges({}); setERanges({}); setSetup(p.base); setRunning(false); setFrac(1); };
   const lock = (i: number) => {
     const p = PREDICTS[i] ?? PREDICTS[0]!;
+    setCRanges({});
+    setERanges({});
     setSetup(p.test);
     setRunning(false);
     setFrac(1);
@@ -337,7 +344,7 @@ export function GalvanicLabPage() {
     setDupe(false);
     setRows((x) => [...x, { ...rd, cAnode: res.cAnode, cCathode: res.cCathode, anodeIon: res.anode.ion, cathodeIon: res.cathode.ion }]);
   };
-  const reset = () => { setSetup((s) => ({ ...START, mode: s.mode })); setWrongTry(false); setDupe(false); setClosed(true); setRunning(false); setFrac(1); };
+  const reset = () => { setCRanges({}); setERanges({}); setSetup((s) => ({ ...START, mode: s.mode })); setWrongTry(false); setDupe(false); setClosed(true); setRunning(false); setFrac(1); };
   const pickHalf = (side: 'left' | 'right', id: string) => {
     const other = side === 'left' ? cell.right : cell.left;
     const mine = side === 'left' ? cell.left : cell.right;
@@ -382,7 +389,32 @@ export function GalvanicLabPage() {
                           {HALVES.map((o) => <option key={o.id} value={o.id}>{o.el === 'Pt' ? 'Pt | H₂ | H⁺' : `${o.el} | ${o.ion}`}  (E° {o.E0 >= 0 ? '+' : '−'}{Math.abs(o.E0).toFixed(2)} V)</option>)}
                         </select>
                       </label>
-                      <Slider id={`p-${side}`} label={`[${h.ion}]`} unit="mol/L" value={p} min={P_MIN} max={P_MAX} step={P_STEP} shown={fmtC(conc(p))} onChange={(v) => setCell(side === 'left' ? { pLeft: roundP(v) } : { pRight: roundP(v) })} />
+                      <RangeSlider
+                        id={`p-${side}`}
+                        label={`[${h.ion}]`}
+                        unit="mol/L"
+                        value={p}
+                        min={cRanges[side] ? Math.log10(cRanges[side]!.min) : P_MIN}
+                        max={cRanges[side] ? Math.log10(cRanges[side]!.max) : P_MAX}
+                        step={P_STEP}
+                        shown={fmtC(conc(p))}
+                        onChange={(v) => setCell(side === 'left' ? { pLeft: roundP(v) } : { pRight: roundP(v) })}
+                        design={C_DESIGN}
+                        range={cRanges[side] ?? C_DESIGN}
+                        rules={{ log: true, cap: 20 }}
+                        onRange={(r) => {
+                          setCRanges((cur) => {
+                            const next = { ...cur };
+                            if (r.min === C_DESIGN.min && r.max === C_DESIGN.max) delete next[side];
+                            else next[side] = r;
+                            return next;
+                          });
+                          const lo = Math.log10(r.min);
+                          const hi = Math.log10(r.max);
+                          const q = clampTo(p, { min: lo, max: hi });
+                          setCell(side === 'left' ? { pLeft: Math.round(q * 10) / 10 } : { pRight: Math.round(q * 10) / 10 });
+                        }}
+                      />
                     </div>
                   );
                 })}
@@ -413,8 +445,8 @@ export function GalvanicLabPage() {
                     ))}
                   </div>
                 </div>
-                <Slider id="e-I" label="Current I" unit="A" value={setup.elec.I} {...ELEC_LIMITS.I} onChange={(v) => setElec({ I: v })} />
-                <Slider id="e-t" label="Time t" unit="s" value={setup.elec.t} {...ELEC_LIMITS.t} onChange={(v) => setElec({ t: v })} />
+                <RangeSlider id="e-I" label="Current I" unit="A" value={setup.elec.I} min={(eRanges.I ?? ELEC_LIMITS.I).min} max={(eRanges.I ?? ELEC_LIMITS.I).max} step={eRanges.I ? stepFor(ELEC_LIMITS.I.step, eRanges.I) : ELEC_LIMITS.I.step} shown={trim(setup.elec.I)} onChange={(v) => setElec({ I: Number(v.toPrecision(8)) })} design={ELEC_LIMITS.I} range={eRanges.I ?? ELEC_LIMITS.I} onRange={(r) => { setERanges((c) => { const n = { ...c }; if (r.min === ELEC_LIMITS.I.min && r.max === ELEC_LIMITS.I.max) delete n.I; else n.I = r; return n; }); setElec({ I: clampTo(setup.elec.I, r) }); }} />
+                <RangeSlider id="e-t" label="Time t" unit="s" value={setup.elec.t} min={(eRanges.t ?? ELEC_LIMITS.t).min} max={(eRanges.t ?? ELEC_LIMITS.t).max} step={eRanges.t ? stepFor(ELEC_LIMITS.t.step, eRanges.t) : ELEC_LIMITS.t.step} shown={trim(setup.elec.t)} onChange={(v) => setElec({ t: Number(v.toPrecision(8)) })} design={ELEC_LIMITS.t} range={eRanges.t ?? ELEC_LIMITS.t} onRange={(r) => { setERanges((c) => { const n = { ...c }; if (r.min === ELEC_LIMITS.t.min && r.max === ELEC_LIMITS.t.max) delete n.t; else n.t = r; return n; }); setElec({ t: clampTo(setup.elec.t, r) }); }} />
                 <div className="flex flex-wrap items-center gap-2 sm:col-span-2">
                   <button type="button" className={btnMain} onClick={() => { setFrac(0); setRunning(true); }} data-run><Play aria-hidden className="size-4" /> Run the electrolysis</button>
                   <button type="button" className={btn} onClick={recordMass} data-record-mass>Record this mass</button>

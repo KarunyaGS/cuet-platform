@@ -55,4 +55,10 @@ describe('custom ranges', () => {
     expect(digitsFor(0.01, 0)).toBe(2);
     expect(digitsFor(0.5, 2)).toBe(2);
   });
+  it('a count needs whole-number ends', () => {
+    expect(validateRange({ min: 2, max: 40 }, { min: 1, max: 20 }, { integer: true })).toBeNull();
+    expect(validateRange({ min: 2.5, max: 40 }, { min: 1, max: 20 }, { integer: true })).not.toBeNull();
+    expect(validateRange({ min: 2, max: 40.5 }, { min: 1, max: 20 }, { integer: true })).not.toBeNull();
+    expect(validateRange({ min: 2.5, max: 40.5 }, { min: 1, max: 20 })).toBeNull();
+  });
 });

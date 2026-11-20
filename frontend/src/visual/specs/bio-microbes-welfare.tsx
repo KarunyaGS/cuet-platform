@@ -11,9 +11,9 @@ import { mkPred, mkQ } from './_bio-util';
 const vars: VarDef[] = [
   { id: 'bod0', label: 'BOD of the effluent entering the aeration tank', unit: 'mg/L', min: 100, max: 600, step: 10, start: 300, digits: 0 },
   { id: 't', label: 'Time in the aeration tank', unit: 'h', min: 0, max: 12, step: 0.5, start: 8, digits: 1 },
-  { id: 'floc', label: 'Activated sludge returned as inoculum', unit: '%', min: 1, max: 20, step: 1, start: 5, digits: 0 },
-  { id: 'T', label: 'Temperature', unit: '°C', min: 10, max: 35, step: 1, start: 25, digits: 0 },
-  { id: 'air', label: 'Air supply (1 = fully aerated)', unit: '', min: 0.1, max: 1, step: 0.1, start: 1, digits: 1 },
+  { id: 'floc', label: 'Activated sludge returned as inoculum', unit: '%', min: 1, max: 20, step: 1, start: 5, digits: 0, bounds: { min: 0, max: 100 } },
+  { id: 'T', label: 'Temperature', unit: '°C', min: 10, max: 35, step: 1, start: 25, digits: 0, bounds: { min: -5, max: 80 } },
+  { id: 'air', label: 'Air supply (1 = fully aerated)', unit: '', min: 0.1, max: 1, step: 0.1, start: 1, digits: 1, bounds: { min: 0.01, max: 1 } },
 ];
 const k = (v: Values) => 0.2 * (0.5 + v.floc! / 10) * Math.pow(1.07, v.T! - 20) * v.air!;
 const bod = (v: Values) => v.bod0! * Math.exp(-k(v) * v.t!);

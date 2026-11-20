@@ -38,9 +38,9 @@ export const spec: Spec = {
   can: ['Find the isoelectric point where the net charge is zero', 'See which way an amino acid moves in an electric field at a given pH', 'Count peptide bonds and compute the molar mass of a peptide'],
   minutes: 10,
   vars: [
-    { id: 'a', label: 'Amino acid (0 glycine, 1 alanine, 2 aspartic acid, 3 lysine)', unit: '', min: 0, max: 3, step: 1, start: 0, digits: 0 },
-    { id: 'pH', label: 'pH of the solution', unit: '', min: 0, max: 14, step: 0.25, start: 7, digits: 2 },
-    { id: 'n', label: 'Amino acid residues in the peptide n', unit: '', min: 1, max: 10, step: 1, start: 3, digits: 0 },
+    { id: 'a', label: 'Amino acid (0 glycine, 1 alanine, 2 aspartic acid, 3 lysine)', unit: '', min: 0, max: 3, step: 1, start: 0, digits: 0, choice: true },
+    { id: 'pH', label: 'pH of the solution', unit: '', min: 0, max: 14, step: 0.25, start: 7, digits: 2, bounds: { min: -2, max: 16 } },
+    { id: 'n', label: 'Amino acid residues in the peptide n', unit: '', min: 1, max: 10, step: 1, start: 3, digits: 0, choice: true },
   ],
   outs: [
     { id: 'q', label: 'Net charge of the amino acid', unit: '', fn: (v) => charge(v.a!, v.pH!), digits: 2 },

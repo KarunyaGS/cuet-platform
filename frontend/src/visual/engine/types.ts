@@ -24,6 +24,15 @@ export interface VarDef {
   log?: boolean;
   /** decimals to show */
   digits?: number;
+  /**
+   * A pick from a list or a count (a compound, a solvent, a number of ions). It keeps the lab's own range: a student
+   * range would index past the list or have no meaning.
+   */
+  choice?: boolean;
+  /** a count of things (cells, cycles, turns): a custom range uses whole numbers and a step of at least 1 */
+  integer?: boolean;
+  /** hard physical limits a student's own range must stay inside (a fraction cannot pass 1, a pH has a real scale) */
+  bounds?: { min?: number; max?: number };
 }
 export interface OutDef {
   id: string;

@@ -26,7 +26,7 @@ export const spec: Spec = {
     { id: 'I', label: 'Current I', unit: 'A', min: 1, max: 10, step: 0.5, start: 4, digits: 1 },
     { id: 'R', label: 'Coil radius R', unit: 'cm', min: 2, max: 15, step: 1, start: 5, digits: 0 },
     { id: 'x', label: 'Distance along the axis x', unit: 'cm', min: 0, max: 30, step: 1, start: 5, digits: 0 },
-    { id: 'N', label: 'Number of turns N', unit: '', min: 1, max: 50, step: 1, start: 10, digits: 0 },
+    { id: 'N', label: 'Number of turns N', unit: '', min: 1, max: 50, step: 1, start: 10, digits: 0, integer: true },
   ],
   outs: [
     { id: 'Bx', label: 'Field on the axis at x', unit: 'µT', fn: (v) => axisB(v.N!, v.I!, v.R!, v.x!) * 1e6, digits: 2 },

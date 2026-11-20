@@ -26,7 +26,7 @@ export const spec: Spec = {
     { id: 'l', label: 'Rod length l', unit: 'cm', min: 5, max: 50, step: 5, start: 20, digits: 0 },
     { id: 'v', label: 'Speed of the rod v', unit: 'm/s', min: 1, max: 10, step: 1, start: 4, digits: 0 },
     { id: 'R', label: 'Circuit resistance R', unit: 'Ω', min: 1, max: 20, step: 1, start: 5, digits: 0 },
-    { id: 'th', label: 'Angle of B to the loop normal θ', unit: '°', min: 0, max: 80, step: 10, start: 0, digits: 0 },
+    { id: 'th', label: 'Angle of B to the loop normal θ', unit: '°', min: 0, max: 80, step: 10, start: 0, digits: 0, bounds: { min: 0, max: 90 } },
   ],
   outs: [
     { id: 'e', label: 'Induced emf ε = Blv cosθ', unit: 'mV', fn: (v) => emf(v.B!, v.l!, v.v!, v.th!) * 1e3, digits: 1 },

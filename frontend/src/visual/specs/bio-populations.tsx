@@ -8,7 +8,7 @@ import type { OutDef, Spec, Values, VarDef } from '../engine/types';
 import { clamp, mkPred, mkQ, pathOf } from './_bio-util';
 
 const vars: VarDef[] = [
-  { id: 'N0', label: 'Starting population N₀', unit: 'individuals', min: 1, max: 400, step: 1, start: 10, digits: 0 },
+  { id: 'N0', label: 'Starting population N₀', unit: 'individuals', min: 1, max: 400, step: 1, start: 10, digits: 0, integer: true },
   { id: 'b', label: 'Birth rate per individual b', unit: 'per unit time', min: 0.3, max: 1, step: 0.05, start: 0.5, digits: 2 },
   { id: 'd', label: 'Death rate per individual d', unit: 'per unit time', min: 0.05, max: 0.3, step: 0.05, start: 0.1, digits: 2 },
   { id: 'K', label: 'Carrying capacity K', unit: 'individuals', min: 400, max: 2000, step: 50, start: 1000, digits: 0 },

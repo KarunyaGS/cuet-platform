@@ -25,7 +25,7 @@ export const spec: Spec = {
   vars: [
     { id: 'A', label: 'Plate area A', unit: 'cm²', min: 50, max: 500, step: 10, start: 200, digits: 0 },
     { id: 'd', label: 'Plate separation d', unit: 'mm', min: 0.5, max: 10, step: 0.5, start: 2, digits: 1 },
-    { id: 'K', label: 'Dielectric constant K', unit: '', min: 1, max: 10, step: 1, start: 1, digits: 0 },
+    { id: 'K', label: 'Dielectric constant K', unit: '', min: 1, max: 10, step: 1, start: 1, digits: 0, bounds: { min: 1, max: 1000 } },
     { id: 'V', label: 'Battery voltage V', unit: 'V', min: 1, max: 24, step: 1, start: 12, digits: 0 },
   ],
   outs: [

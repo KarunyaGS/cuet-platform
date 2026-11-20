@@ -434,7 +434,7 @@ export function LensLabPage() {
 
       <StepNav step={step} seen={seen} done={done} go={go} />
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.75fr)_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,1.75fr)_minmax(0,1fr)]">
         <div className="min-w-0 space-y-3">
           <section className={`${panel} overflow-hidden`} aria-label="Simulation">
             <Scene s={s} setup={setup} onU={(u) => set({ u })} onStretch={setStretch} />
@@ -476,17 +476,28 @@ export function LensLabPage() {
           <Results s={s} />
 
           {step === 0 && (
-            <section className={`${panel} space-y-2 p-4`}>
-              <h2 className="text-lg font-semibold text-ink">Discover</h2>
-              <p className="text-[15px] text-ink">A lens bends light so that rays from one point of an object meet again at one point: the image. Play with the bench for a minute.</p>
-              <ul className="list-disc space-y-1 pl-5 text-[15px] text-ink">
-                <li>Drag the object towards the lens. Watch the image move and change size.</li>
-                <li>Find the object position where the image flips to the other side of the lens.</li>
-                <li>Switch to a concave lens and try the same.</li>
-              </ul>
-              <button type="button" className={btnMain} onClick={() => go(1)}>
-                Start predicting
-              </button>
+            <section className={`${panel} border-l-[3px] border-l-accent bg-gradient-to-br from-[#fffaf0] to-[#f5f5e9] p-3`} aria-label="Discover the lens">
+              <div className="flex items-center justify-between gap-2">
+                <p className="label text-[10px] tracking-[0.14em] text-accent">STEP 1 · DISCOVER</p>
+                <span className="rounded-full bg-accent-soft px-2 py-1 text-[10px] font-semibold text-accent">Quick start</span>
+              </div>
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <h2 className="text-base font-semibold text-ink">Try the bench</h2>
+                  <p className="mt-0.5 text-sm text-ink-2">Drag the object arrow. Watch the image move.</p>
+                </div>
+                <button type="button" className={btnMain} onClick={() => go(1)}>
+                  Make a prediction <span aria-hidden>→</span>
+                </button>
+              </div>
+              <details className="mt-2 border-t border-rule/70 pt-2 text-sm">
+                <summary className="cursor-pointer text-xs font-medium text-ink-2">What to notice</summary>
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2">
+                  <li>Move the object closer and watch the image size change.</li>
+                  <li>Notice when the image switches from real to virtual.</li>
+                  <li>Try the concave lens and compare.</li>
+                </ul>
+              </details>
             </section>
           )}
 
@@ -510,17 +521,23 @@ export function LensLabPage() {
           )}
 
           {step === 2 && (
-            <section className={`${panel} space-y-2 p-4`}>
-              <h2 className="text-lg font-semibold text-ink">Experiment</h2>
-              <p className="text-[15px] text-ink">Take a convex lens of any focal length. Move the object slowly from far away towards the lens and watch the image distance and the magnification in Results.</p>
-              <ul className="list-disc space-y-1 pl-5 text-[15px] text-ink">
-                <li>Where is the object when m = −1? How does that compare with f?</li>
-                <li>What happens to v as |u| gets closer to f from the far side? And just inside f?</li>
-                <li>Does a concave lens ever give a real image?</li>
-              </ul>
-              <button type="button" className={btnMain} onClick={() => go(3)}>
-                Now measure
-              </button>
+            <section className={`${panel} border-l-[3px] border-l-accent bg-gradient-to-br from-[#fffaf0] to-[#f5f5e9] p-3`} aria-label="Experiment">
+              <p className="label text-[10px] tracking-[0.14em] text-accent">STEP 3 · EXPERIMENT</p>
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <h2 className="text-base font-semibold text-ink">Explore the pattern</h2>
+                  <p className="mt-0.5 text-sm text-ink-2">Move the object toward f. Track v and m in Results.</p>
+                </div>
+                <button type="button" className={btnMain} onClick={() => go(3)}>Start measuring <span aria-hidden>→</span></button>
+              </div>
+              <details className="mt-2 border-t border-rule/70 pt-2 text-sm">
+                <summary className="cursor-pointer text-xs font-medium text-ink-2">Questions to explore</summary>
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink-2">
+                  <li>When is the image the same size as the object?</li>
+                  <li>How does v change near the focal point?</li>
+                  <li>Can a concave lens form a real image?</li>
+                </ul>
+              </details>
             </section>
           )}
 

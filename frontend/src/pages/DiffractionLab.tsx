@@ -1,7 +1,7 @@
 import { RotateCcw } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, RangeEditor, RangeSlider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, RangeEditor, RangeSlider, StepNav, useContainerNarrow, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps } from '../visual/labkit';
 import { clampTo, digitsFor, stepFor, trim, type Range } from '../visual/ranges';
 import {
   angularWidth, APPLY, curve, fresnelDistance, fresnelNumber, intensityAt, LIMITS, maxOrder, minimumPosition, pathOrder, posFromSlit, PREDICTS,
@@ -21,7 +21,7 @@ function niceStep(range: number) {
 }
 
 function Pattern({ s, probe, setProbe, showFar }: { s: DiffState; probe: number; setProbe: (f: number) => void; showFar: boolean }) {
-  const narrow = useNarrow();
+  const [box, narrow] = useContainerNarrow<HTMLDivElement>(560);
   const W = narrow ? 360 : 600;
   const H = narrow ? 260 : 240;
   const L = 36;
@@ -75,7 +75,7 @@ function Pattern({ s, probe, setProbe, showFar }: { s: DiffState; probe: number;
   const fs = narrow ? 11 : 12;
 
   return (
-    <div>
+    <div ref={box}>
       <div className="relative bg-black" style={{ height: 58 }} aria-hidden>
         <canvas ref={canvas} width={540} height={4} className="absolute inset-y-0 h-full" style={{ left: `${(L / W) * 100}%`, width: `${((R - L) / W) * 100}%` }} />
         <span className="absolute left-2 top-1 text-[11px] text-white/70">screen (what you see)</span>
@@ -84,7 +84,7 @@ function Pattern({ s, probe, setProbe, showFar }: { s: DiffState; probe: number;
       <svg
         ref={svg}
         viewBox={`0 0 ${W} ${H}`}
-        className="block w-full touch-none select-none bg-surface"
+        className="block w-full touch-pan-y select-none bg-surface"
         role="img"
         aria-label={`Intensity pattern on the screen. Slit ${s.a} micrometres, wavelength ${s.lambda} nanometres, screen ${fmt(screenDistance(s))} metres. ${regimeLabel(reg)}.`}
         onPointerDown={(e) => moveTo(e.clientX)}

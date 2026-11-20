@@ -61,7 +61,7 @@ export const spec: Spec = {
   minutes: 12,
   vars: [
     { id: 'Vrms', label: 'Secondary voltage (rms; each half for full-wave)', unit: 'V', min: 6, max: 24, step: 1, start: 12, digits: 0 },
-    { id: 'full', label: 'Rectifier type (0 = half-wave, 1 = full-wave)', unit: '', min: 0, max: 1, step: 1, start: 1, digits: 0 },
+    { id: 'full', label: 'Rectifier type (0 = half-wave, 1 = full-wave)', unit: '', min: 0, max: 1, step: 1, start: 1, digits: 0, choice: true },
     { id: 'C', label: 'Filter capacitor C (0 = no filter)', unit: 'µF', min: 0, max: 2200, step: 10, start: 100, digits: 0 },
     { id: 'RL', label: 'Load resistance R_L', unit: 'Ω', min: 200, max: 5000, step: 100, start: 1000, digits: 0 },
     { id: 'f', label: 'Input frequency f', unit: 'Hz', min: 50, max: 200, step: 10, start: 50, digits: 0 },

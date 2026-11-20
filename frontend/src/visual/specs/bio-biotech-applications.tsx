@@ -12,9 +12,9 @@ import { mkPred, mkQ } from './_bio-util';
 const vars: VarDef[] = [
   { id: 'aux', label: 'Auxin in the medium', unit: 'mg/L', min: 0.1, max: 5, step: 0.1, start: 1, digits: 1 },
   { id: 'cyt', label: 'Cytokinin in the medium', unit: 'mg/L', min: 0.1, max: 5, step: 0.1, start: 1, digits: 1 },
-  { id: 'm', label: 'Shoots a responding culture gives per subculture', unit: 'shoots', min: 2, max: 8, step: 1, start: 4, digits: 0 },
-  { id: 'n', label: 'Subculture cycles', unit: 'cycles', min: 0, max: 8, step: 1, start: 4, digits: 0 },
-  { id: 'ex', label: 'Starting explants', unit: 'explants', min: 1, max: 20, step: 1, start: 5, digits: 0 },
+  { id: 'm', label: 'Shoots a responding culture gives per subculture', unit: 'shoots', min: 2, max: 8, step: 1, start: 4, digits: 0, integer: true },
+  { id: 'n', label: 'Subculture cycles', unit: 'cycles', min: 0, max: 8, step: 1, start: 4, digits: 0, integer: true },
+  { id: 'ex', label: 'Starting explants', unit: 'explants', min: 1, max: 20, step: 1, start: 5, digits: 0, integer: true },
 ];
 const sig = (z: number) => 1 / (1 + Math.exp(-z));
 const lr = (v: Values) => Math.log10(v.aux! / v.cyt!);

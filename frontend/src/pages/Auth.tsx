@@ -10,7 +10,7 @@ type Mode = 'signin' | 'signup';
 const HIGHLIGHTS = [
   { icon: <FileCheck2 />, title: 'Official syllabus', text: 'Every CUET-UG subject, unit and topic, with the NTA source page.' },
   { icon: <BookOpen />, title: 'Learn and revise', text: 'Lessons, formulas and quick revision notes for each topic.' },
-  { icon: <Timer />, title: 'Practise like the exam', text: 'Instant-feedback practice, unit tests and timed mocks with CUET marking.' },
+  { icon: <Timer />, title: 'Practise like the exam', text: 'Instant-feedback practice, unit tests and mocks with CUET marking. Choose whether to use a timer.' },
   { icon: <ChartNoAxesColumn />, title: 'Stay on track', text: 'Daily goals, a study planner, bookmarks and progress by subject.' },
 ];
 

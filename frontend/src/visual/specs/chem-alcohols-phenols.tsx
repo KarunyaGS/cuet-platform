@@ -27,11 +27,11 @@ export const spec: Spec = {
   can: ['See why phenol dissolves in NaOH and ethanol does not', 'Plot log([A⁻]/[HA]) against pH and read pKa from the intercept', 'Link the speed of the Lucas test to the class of the alcohol'],
   minutes: 10,
   vars: [
-    { id: 'type', label: 'Compound (0 = alcohol, 1 = phenol)', unit: '', min: 0, max: 1, step: 1, start: 1, digits: 0 },
-    { id: 'sub', label: 'Ring substituent on the phenol (−1 = CH₃, 0 = none, 1 to 3 = NO₂ groups)', unit: '', min: -1, max: 3, step: 1, start: 0, digits: 0 },
-    { id: 'cls', label: 'Class of the alcohol (1°, 2°, 3°)', unit: '', min: 1, max: 3, step: 1, start: 2, digits: 0 },
-    { id: 'pH', label: 'pH of the aqueous medium', unit: '', min: 7, max: 14, step: 0.5, start: 11, digits: 1 },
-    { id: 'hx', label: 'Acid in the Lucas reagent (0 = HCl, 1 = HBr, 2 = HI)', unit: '', min: 0, max: 2, step: 1, start: 0, digits: 0 },
+    { id: 'type', label: 'Compound (0 = alcohol, 1 = phenol)', unit: '', min: 0, max: 1, step: 1, start: 1, digits: 0, choice: true },
+    { id: 'sub', label: 'Ring substituent on the phenol (−1 = CH₃, 0 = none, 1 to 3 = NO₂ groups)', unit: '', min: -1, max: 3, step: 1, start: 0, digits: 0, choice: true },
+    { id: 'cls', label: 'Class of the alcohol (1°, 2°, 3°)', unit: '', min: 1, max: 3, step: 1, start: 2, digits: 0, choice: true },
+    { id: 'pH', label: 'pH of the aqueous medium', unit: '', min: 7, max: 14, step: 0.5, start: 11, digits: 1, bounds: { min: -2, max: 16 } },
+    { id: 'hx', label: 'Acid in the Lucas reagent (0 = HCl, 1 = HBr, 2 = HI)', unit: '', min: 0, max: 2, step: 1, start: 0, digits: 0, choice: true },
   ],
   outs: [
     { id: 'pKa', label: 'pKa of the compound', unit: '', fn: (v) => pKaOf(v.type!, v.cls!, v.sub!), digits: 2 },

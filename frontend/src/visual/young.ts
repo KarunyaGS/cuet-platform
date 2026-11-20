@@ -180,7 +180,11 @@ export function fillWaveGrid(m: WaveModel, s: Pick<YoungState, 'slit1' | 'slit2'
 
 // ------------------------------------------------------------------ colour
 /** Approximate sRGB colour of light of the given wavelength (nm). */
+/** True for wavelengths the eye can see; outside this the colour is shown neutral grey. */
+export const isVisibleLight = (l: number) => l >= 395 && l <= 760;
+
 export function wavelengthRgb(l: number): [number, number, number] {
+  if (!isVisibleLight(l)) return [150, 150, 150];
   let r = 0, g = 0, b = 0;
   if (l < 440) { r = (440 - l) / 60; b = 1; }
   else if (l < 490) { g = (l - 440) / 50; b = 1; }

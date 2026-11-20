@@ -6,6 +6,7 @@ import { NotFoundPage } from './Search';
 import { Button, Empty, ErrorBox, kindLabel, Loading, useAuth, useLoad } from '../ui';
 import { SubjectCards } from '../tools';
 import { AreaCards } from './SubjectArea';
+import { TimerChoiceDialog } from './TimerChoiceDialog';
 
 /** Subject page: units on the left, the selected unit's topics and subtopics on the right. */
 export function SubjectSyllabusPage() {
@@ -16,6 +17,8 @@ export function SubjectSyllabusPage() {
   const [unitId, setUnitId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<Error | null>(null);
+  const [timerOpen, setTimerOpen] = useState(false);
+  const [testUnit, setTestUnit] = useState<string | undefined>();
 
   const { roots, childrenOf } = useMemo(() => {
     const nodes = outline.data?.nodes ?? [];
@@ -36,12 +39,22 @@ export function SubjectSyllabusPage() {
   const testWord = active && (active.kind === 'UNIT' || active.kind === 'CHAPTER') ? 'Unit test' : active && ['PART', 'SECTION', 'COURSE'].includes(active.kind) ? 'Section test' : 'Topic test';
   const countQuestions = (id: string): number => (childrenOf.get(id) ?? []).reduce((n, c) => n + c.questions + countQuestions(c.id), 0);
 
-  const startMock = async (unit?: string) => {
+  const requestTest = (unit?: string) => {
     if (!user) return navigate('/signin');
+    setTestUnit(unit);
+    setTimerOpen(true);
+  };
+  const startMock = async (timed: boolean) => {
+    const unit = testUnit;
+    setTimerOpen(false);
     setBusy(true);
     setErr(null);
     try {
-      const s = await api.startPractice(unit ? { mode: 'TOPIC_TEST', nodeId: unit } : { mode: 'MOCK_TEST', paperId });
+      if (!unit) {
+        navigate(`/exam/start?mode=MOCK_TEST&paperId=${encodeURIComponent(paperId)}&timed=${timed ? 'true' : 'false'}`);
+        return;
+      }
+      const s = await api.startPractice({ mode: 'TOPIC_TEST', nodeId: unit, timed });
       navigate(`/practice/${s.session.id}`);
     } catch (e) {
       setErr(e as Error);
@@ -68,7 +81,7 @@ export function SubjectSyllabusPage() {
             <div className="mt-4 flex flex-wrap gap-2"><span className="rounded-full border border-forest/10 bg-white/55 px-3 py-1.5 text-[11px] font-semibold text-forest">{String(p.code)}</span><span className="rounded-full border border-forest/10 bg-white/55 px-3 py-1.5 text-[11px] font-semibold text-forest">{String(p.question_count ?? '—')} questions</span><span className="rounded-full border border-forest/10 bg-white/55 px-3 py-1.5 text-[11px] font-semibold text-forest">{String(p.duration_minutes ?? '—')} min</span></div>
           </div>
           <div className="relative z-10">
-            <Button onClick={() => startMock()} disabled={busy || !p.version_id} icon={<Timer aria-hidden />} className="!h-11 !rounded-xl !bg-forest !px-4 !text-lime !shadow-[0_10px_24px_rgb(24_68_59/0.2)] hover:!bg-forest-deep">
+            <Button onClick={() => requestTest()} disabled={busy || !p.version_id} icon={<Timer aria-hidden />} className="!h-11 !rounded-xl !bg-forest !px-4 !text-lime !shadow-[0_10px_24px_rgb(24_68_59/0.2)] hover:!bg-forest-deep">
               {busy ? 'Starting…' : 'Start full mock'}
             </Button>
           </div>
@@ -182,7 +195,7 @@ export function SubjectSyllabusPage() {
                     Figures
                   </Link>
                   {unitQuestions > 0 && (
-                    <Button kind="secondary" size="sm" onClick={() => startMock(active.id)} disabled={busy} icon={<Timer aria-hidden />}>
+                    <Button kind="secondary" size="sm" onClick={() => requestTest(active.id)} disabled={busy} icon={<Timer aria-hidden />}>
                       {testWord}
                     </Button>
                   )}
@@ -194,6 +207,7 @@ export function SubjectSyllabusPage() {
           </section>
         </div>
       )}
+      <TimerChoiceDialog open={timerOpen} onClose={() => setTimerOpen(false)} onChoose={(timed) => void startMock(timed)} busy={busy} />
     </div>
   );
 }

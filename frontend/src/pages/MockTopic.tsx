@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { api } from '../api';
 import { CustomPractice } from './CustomPractice';
 import { Button, Empty, ErrorBox, kindLabel, Loading, SectionTitle, useAuth, useLoad } from '../ui';
+import { TimerChoiceDialog } from './TimerChoiceDialog';
 
 /**
  * The centre page of Subject → Mock Tests → chapter → topic: the practice that exists for one topic, started the same way as always
@@ -15,12 +16,12 @@ export function MockTopicPage() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [busy, setBusy] = useState<'PRACTICE' | 'TOPIC_TEST' | null>(null);
+  const [timerOpen, setTimerOpen] = useState(false);
   const [err, setErr] = useState<Error | null>(null);
 
   const start = async (mode: 'PRACTICE' | 'TOPIC_TEST') => {
     if (!user) return navigate('/signin');
-    // A mock test (the timed one) starts from the examination instructions; practice starts straight away.
-    if (mode === 'TOPIC_TEST') return navigate(`/exam/start?mode=TOPIC_TEST&nodeId=${encodeURIComponent(nodeId)}`);
+    if (mode === 'TOPIC_TEST') { setTimerOpen(true); return; }
     setErr(null);
     setBusy(mode);
     try {
@@ -32,6 +33,11 @@ export function MockTopicPage() {
     }
   };
 
+  const startWithTimerChoice = (timed: boolean) => {
+    setTimerOpen(false);
+    navigate(`/exam/start?mode=TOPIC_TEST&nodeId=${encodeURIComponent(nodeId)}&timed=${timed ? 'true' : 'false'}`);
+  };
+
   if (t.loading && !t.data) return <Loading />;
   if (t.error) return <ErrorBox error={t.error} onRetry={t.reload} />;
   const d = t.data!;
@@ -39,7 +45,7 @@ export function MockTopicPage() {
   const none = d.questionCount === 0;
   const sets: { mode: 'PRACTICE' | 'TOPIC_TEST'; heading: string; title: string; text: string; action: string; icon: React.ReactNode }[] = [
     { mode: 'PRACTICE', heading: 'Practice Test', title: 'Practise with instant feedback', text: 'Questions one at a time, with the correct answer and the explanation shown straight after you answer.', action: 'Start practice test', icon: <PencilLine aria-hidden className="size-4" /> },
-    { mode: 'TOPIC_TEST', heading: 'Mock Test', title: 'Timed mock test', text: 'The same questions against the clock. Your result and a review come at the end.', action: 'Start mock test', icon: <Timer aria-hidden className="size-4" /> },
+    { mode: 'TOPIC_TEST', heading: 'Mock Test', title: 'Test mode', text: 'Your result and answer review appear at the end. Choose a timer when you start.', action: 'Start test', icon: <Timer aria-hidden className="size-4" /> },
   ];
   return (
     <div data-mock-topic>
@@ -105,6 +111,7 @@ export function MockTopicPage() {
         </div>
       )}
       {err && <ErrorBox error={err} />}
+      <TimerChoiceDialog open={timerOpen} onClose={() => setTimerOpen(false)} onChoose={startWithTimerChoice} />
 
     </div>
   );

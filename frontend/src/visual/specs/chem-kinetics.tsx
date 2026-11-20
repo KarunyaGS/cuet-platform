@@ -26,11 +26,11 @@ export const spec: Spec = {
   can: ['Tell zero order from first order by how the half-life depends on [R]₀', 'Raise T and see k climb exponentially, not linearly', 'Fit ln k against 1/T and read Ea from the slope'],
   minutes: 12,
   vars: [
-    { id: 'n', label: 'Order of reaction (0 or 1)', unit: '', min: 0, max: 1, step: 1, start: 1, digits: 0 },
+    { id: 'n', label: 'Order of reaction (0 or 1)', unit: '', min: 0, max: 1, step: 1, start: 1, digits: 0, choice: true },
     { id: 'R0', label: 'Initial concentration [R]₀', unit: 'mol/L', min: 0.2, max: 2, step: 0.1, start: 1, digits: 1 },
     { id: 'Ea', label: 'Activation energy Ea (no catalyst)', unit: 'kJ/mol', min: 50, max: 120, step: 5, start: 85, digits: 0 },
     { id: 'cat', label: 'Lowering of Ea by a catalyst', unit: 'kJ/mol', min: 0, max: 40, step: 5, start: 0, digits: 0 },
-    { id: 'T', label: 'Temperature T', unit: 'K', min: 280, max: 400, step: 5, start: 310, digits: 0 },
+    { id: 'T', label: 'Temperature T', unit: 'K', min: 280, max: 400, step: 5, start: 310, digits: 0, bounds: { min: 1, max: 5000 } },
   ],
   outs: [
     { id: 'k', label: 'Rate constant k = A e^(−Ea/RT) (mol/L/s if order 0, s⁻¹ if order 1)', unit: '', fn: (v) => kOf(v.Ea!, v.cat!, v.T!), sci: true },

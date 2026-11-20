@@ -11,9 +11,9 @@ import { mkPred, mkQ } from './_bio-util';
 
 const vars: VarDef[] = [
   { id: 'L', label: 'Length of the DNA to digest', unit: 'kb', min: 5, max: 50, step: 1, start: 20, digits: 0 },
-  { id: 'sites', label: 'Restriction sites actually cut', unit: 'sites', min: 0, max: 8, step: 1, start: 3, digits: 0 },
-  { id: 'cycles', label: 'PCR cycles', unit: 'cycles', min: 0, max: 35, step: 1, start: 25, digits: 0 },
-  { id: 'Ta', label: 'Annealing temperature', unit: '°C', min: 40, max: 70, step: 1, start: 55, digits: 0 },
+  { id: 'sites', label: 'Restriction sites actually cut', unit: 'sites', min: 0, max: 8, step: 1, start: 3, digits: 0, integer: true },
+  { id: 'cycles', label: 'PCR cycles', unit: 'cycles', min: 0, max: 35, step: 1, start: 25, digits: 0, integer: true },
+  { id: 'Ta', label: 'Annealing temperature', unit: '°C', min: 40, max: 70, step: 1, start: 55, digits: 0, bounds: { min: 1, max: 120 } },
 ];
 /** fragment sizes (bp) of a linear DNA cut at `sites` places */
 export const fragments = (v: Values): number[] => {

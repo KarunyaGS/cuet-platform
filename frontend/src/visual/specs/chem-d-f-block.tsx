@@ -31,9 +31,9 @@ export const spec: Spec = {
   can: ['Write the d configuration of an ion by removing 4s electrons first', 'Compute μ = √(n(n+2)) BM from the unpaired electrons', 'Measure the steady fall of Ln³⁺ radius across the lanthanoids'],
   minutes: 10,
   vars: [
-    { id: 'z', label: 'Element of the 3d series (atomic number 21 Sc … 30 Zn)', unit: '', min: 21, max: 30, step: 1, start: 26, digits: 0 },
-    { id: 'ox', label: 'Oxidation state of the ion', unit: '+', min: 1, max: 7, step: 1, start: 3, digits: 0 },
-    { id: 'k', label: 'Lanthanoid position (0 = La, 7 = Gd, 14 = Lu)', unit: '', min: 0, max: 14, step: 1, start: 0, digits: 0 },
+    { id: 'z', label: 'Element of the 3d series (atomic number 21 Sc … 30 Zn)', unit: '', min: 21, max: 30, step: 1, start: 26, digits: 0, choice: true },
+    { id: 'ox', label: 'Oxidation state of the ion', unit: '+', min: 1, max: 7, step: 1, start: 3, digits: 0, choice: true },
+    { id: 'k', label: 'Lanthanoid position (0 = La, 7 = Gd, 14 = Lu)', unit: '', min: 0, max: 14, step: 1, start: 0, digits: 0, choice: true },
   ],
   outs: [
     { id: 'nd', label: 'd electrons of the ion', unit: '', fn: (v) => dOf(v.z!, v.ox!), digits: 0 },

@@ -166,12 +166,16 @@ export function ExamInfo() {
             ) : (
               meta.sections.map((key) => {
                 const s = section(d.data!, key);
-                return s ? (
-                  <section key={key} aria-labelledby={`s-${key}`}>
-                    {(meta.sections.length > 1 || meta.slug === '') && <SectionTitle id={`s-${key}`}>{s.title}</SectionTitle>}
-                    <FactList items={s.items} />
-                  </section>
-                ) : null;
+                if (!s) return null;
+                if (meta.slug === 'universities') return (
+                  <details key={key} className="group mb-5 overflow-hidden rounded-2xl border border-rule bg-surface">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-forest marker:hidden hover:bg-paper sm:px-5">
+                      <span>About NTA’s university list</span><span className="text-xs font-medium text-ink-3">{s.items.length} source notes <ChevronDown aria-hidden className="ml-1 inline size-4 transition-transform group-open:rotate-180" /></span>
+                    </summary>
+                    <div className="border-t border-rule p-3 sm:p-4"><FactList items={s.items} /></div>
+                  </details>
+                );
+                return <section key={key} aria-labelledby={`s-${key}`}>{(meta.sections.length > 1 || meta.slug === '') && <SectionTitle id={`s-${key}`}>{s.title}</SectionTitle>}<FactList items={s.items} /></section>;
               })
             )}
 
@@ -269,77 +273,48 @@ function Faq({ d, k }: { d: OfficialInfo; k: 'ug' | 'pg' }) {
 function UniversityBrowser({ k }: { k: 'ug' | 'pg' }) {
   const [q, setQ] = useState('');
   const [type, setType] = useState('');
+  const [visible, setVisible] = useState(24);
   const list = useLoad(() => api.universities(EXAMS[k].code, q || undefined, type || undefined), [k, q, type]);
   const all = list.data?.total ?? 0;
+  const filtered = list.data?.universities ?? [];
+  const activeTypeCount = type ? list.data?.types.find((item) => item.type === type)?.count ?? 0 : all;
   return (
-    <section aria-labelledby="uni-list">
-      <SectionTitle id="uni-list">Universities listed by NTA</SectionTitle>
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <SearchInput value={q} onChange={setQ} placeholder="Search by university name" label="Search universities" />
-        <label className="flex items-center gap-2 text-sm text-ink-2">
-          Type
-          <select value={type} onChange={(ev) => setType(ev.target.value)} className="h-9 rounded-lg border border-rule-strong bg-surface px-2.5 text-sm text-ink focus:border-accent focus:outline-none">
+    <section aria-labelledby="uni-list" className="overflow-hidden rounded-[24px] border border-[#dce5b5] bg-surface shadow-[0_16px_38px_-30px_rgb(24_68_59/0.38)]" data-university-browser>
+      <div className="relative overflow-hidden bg-gradient-to-br from-forest via-[#245548] to-[#456b51] px-5 py-5 text-white sm:px-6 sm:py-6">
+        <span aria-hidden className="pointer-events-none absolute -right-8 -top-24 size-56 rounded-full border border-white/10 bg-white/[0.035]" />
+        <div className="relative flex flex-wrap items-start justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-white/10 text-lime"><GraduationCap aria-hidden className="size-6" /></span>
+            <div><h2 id="uni-list" className="text-lg font-bold tracking-tight sm:text-xl">Find a participating university</h2><p className="mt-1 max-w-xl text-sm text-white/75">Search NTA’s official list. Open a university for its sourced admissions information when available.</p></div>
+          </div>
+          {list.data && <div className="relative rounded-2xl border border-white/15 bg-white/[0.08] px-4 py-2 text-right"><span className="num block text-2xl font-bold text-lime">{all}</span><span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/65">listed by NTA</span></div>}
+        </div>
+        {list.data && <div className="relative mt-4 flex flex-wrap gap-2" aria-label="University groups">
+          {list.data.types.map((t) => <button key={t.type} type="button" aria-pressed={type === t.type} onClick={() => { setType(type === t.type ? '' : t.type); setVisible(24); }} className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${type === t.type ? 'border-lime bg-lime text-forest' : 'border-white/20 bg-white/[0.08] text-white/85 hover:bg-white/[0.16]'}`}>{t.type}<span className="ml-1.5 opacity-75">{t.count}</span></button>)}
+        </div>}
+      </div>
+      <div className="border-b border-rule bg-[#fafaf4] px-4 py-4 sm:px-5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <SearchInput value={q} onChange={(value) => { setQ(value); setVisible(24); }} placeholder="Search by university name" label="Search universities" />
+          <label className="flex items-center gap-2 text-sm text-ink-2"><span>Type</span><select value={type} onChange={(ev) => { setType(ev.target.value); setVisible(24); }} className="h-10 rounded-xl border border-rule-strong bg-surface px-3 text-sm text-ink focus:border-accent focus:outline-none">
             <option value="">All types ({all})</option>
-            {list.data?.types.map((t) => (
-              <option key={t.type} value={t.type}>
-                {t.type} ({t.count})
-              </option>
-            ))}
-          </select>
-        </label>
+            {list.data?.types.map((t) => <option key={t.type} value={t.type}>{t.type} ({t.count})</option>)}
+          </select></label>
+        </div>
+        {list.data && <p className="mt-3 text-xs text-ink-3">Showing {filtered.length} {type ? `of ${activeTypeCount} ${type.toLowerCase()} universities` : `of ${all} participating universities`}{list.data.cycle ? ` · ${list.data.cycle} cycle` : ''}. NTA participation is not an admission guarantee.</p>}
       </div>
       {list.error && <ErrorBox error={list.error} onRetry={list.reload} />}
-      {list.loading && !list.data && <Loading />}
-      {list.data &&
-        (list.data.universities.length === 0 ? (
-          <Empty icon={<SearchX />}>No university matches. Try part of the name, such as a city.</Empty>
-        ) : (
-          <div className="overflow-x-auto rounded-xl border border-rule bg-surface">
-            <table className="w-full text-sm">
-              <caption className="border-b border-rule px-5 py-3 text-left text-[13px] text-ink-2">
-                Showing {list.data.universities.length} of {all} universities in the {list.data.cycle} list. NTA’s list does not give the state.
-              </caption>
-              <thead>
-                <tr className="border-b border-rule text-left text-[13px] text-ink-2">
-                  <th scope="col" className="px-5 py-2.5 font-medium">
-                    University
-                  </th>
-                  <th scope="col" className="px-5 py-2.5 font-medium">
-                    Type (as NTA lists it)
-                  </th>
-                  <th scope="col" className="px-5 py-2.5 font-medium">
-                    <span className="sr-only">Source</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-rule">
-                {list.data.universities.map((u) => (
-                  <tr key={u.name}>
-                    <td className="px-5 py-2.5 text-ink">
-                      {u.hasAdmissionInfo ? (
-                        <Link to={`/universities/${u.slug}`} className="font-medium text-accent hover:underline" data-university-link>
-                          {u.name}
-                        </Link>
-                      ) : (
-                        u.name
-                      )}
-                    </td>
-                    <td className="px-5 py-2.5 text-ink-2">{u.type}</td>
-                    <td className="px-5 py-2.5 text-right">
-                      <a href={u.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[13px] text-ink-3 hover:text-accent">
-                        NTA list
-                        <ExternalLink aria-hidden className="size-3" />
-                      </a>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ))}
-      <p className="mt-3 text-sm text-ink-2">
-        Universities in blue have an official admission page we have checked, and may show dates, eligibility and cut-offs that were read from it. For the others, this is NTA’s participating list only. <Link to="/updates" className="font-medium text-accent hover:underline">Latest government updates</Link>
-      </p>
+      {list.loading && !list.data && <div className="px-5 py-6"><Loading /></div>}
+      {list.data && (filtered.length === 0 ? <div className="p-4 sm:p-5"><Empty icon={<SearchX />}>No university matches. Try part of the name, such as a city.</Empty></div> : <>
+        <ul className="grid gap-2.5 p-4 sm:grid-cols-2 sm:p-5 2xl:grid-cols-3">
+          {filtered.slice(0, visible).map((u) => <li key={u.name} className="group flex min-h-[124px] flex-col justify-between rounded-2xl border border-rule bg-[#fffefa] p-3.5 transition duration-200 hover:-translate-y-0.5 hover:border-[#cfdc9a] hover:shadow-[0_12px_26px_-22px_rgb(24_68_59/0.45)]">
+            <div className="flex items-start gap-3"><span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-xl bg-[#eef2df] text-forest"><GraduationCap className="size-5" /></span><div className="min-w-0"><p className="text-sm font-semibold leading-snug text-ink">{u.hasAdmissionInfo ? <Link to={`/universities/${u.slug}`} className="hover:text-accent hover:underline" data-university-link>{u.name}</Link> : u.name}</p><span className="mt-1.5 inline-flex rounded-full bg-[#f2f3e8] px-2 py-0.5 text-[10px] font-semibold text-ink-2">{u.type}</span></div></div>
+            <div className="mt-3 flex items-center justify-between gap-2 border-t border-rule pt-2.5"><span className={`text-[10px] font-medium ${u.hasAdmissionInfo ? 'text-correct' : 'text-ink-3'}`}>{u.hasAdmissionInfo ? 'Admission information checked' : 'NTA participant listing'}</span><a href={u.sourceUrl} target="_blank" rel="noreferrer noopener" className="inline-flex shrink-0 items-center gap-1 text-[11px] font-semibold text-accent hover:underline">NTA source <ExternalLink aria-hidden className="size-3" /></a></div>
+          </li>)}
+        </ul>
+        {filtered.length > visible && <div className="px-4 pb-5 text-center sm:px-5"><button type="button" onClick={() => setVisible((n) => n + 24)} className="rounded-xl border border-rule-strong bg-surface px-4 py-2 text-sm font-semibold text-forest transition hover:bg-paper">Show {Math.min(24, filtered.length - visible)} more universities</button></div>}
+      </>)}
+      <p className="border-t border-rule px-4 py-3 text-xs text-ink-3 sm:px-5">An NTA listing confirms participation only. Prepora’s admission details appear where an official admission source has been checked. <Link to="/updates" className="font-semibold text-accent hover:underline">Latest government updates</Link></p>
     </section>
   );
 }

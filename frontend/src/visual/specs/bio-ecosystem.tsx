@@ -9,10 +9,10 @@ import { mkPred, mkQ } from './_bio-util';
 
 const vars: VarDef[] = [
   { id: 'rad', label: 'Incident solar radiation', unit: 'kJ m⁻² day⁻¹', min: 1000, max: 8000, step: 250, start: 4000, digits: 0 },
-  { id: 'cap', label: 'Share of PAR captured by producers', unit: '%', min: 1, max: 10, step: 0.5, start: 2, digits: 1 },
-  { id: 'resp', label: 'Share of GPP used in the plants\' respiration', unit: '%', min: 10, max: 70, step: 5, start: 40, digits: 0 },
-  { id: 'eff', label: 'Energy passed to the next trophic level', unit: '%', min: 5, max: 20, step: 1, start: 10, digits: 0 },
-  { id: 'n', label: 'Trophic level examined (1 = producers)', unit: 'level', min: 1, max: 5, step: 1, start: 3, digits: 0 },
+  { id: 'cap', label: 'Share of PAR captured by producers', unit: '%', min: 1, max: 10, step: 0.5, start: 2, digits: 1, bounds: { min: 0.01, max: 100 } },
+  { id: 'resp', label: 'Share of GPP used in the plants\' respiration', unit: '%', min: 10, max: 70, step: 5, start: 40, digits: 0, bounds: { min: 0, max: 100 } },
+  { id: 'eff', label: 'Energy passed to the next trophic level', unit: '%', min: 5, max: 20, step: 1, start: 10, digits: 0, bounds: { min: 0.1, max: 100 } },
+  { id: 'n', label: 'Trophic level examined (1 = producers)', unit: 'level', min: 1, max: 5, step: 1, start: 3, digits: 0, choice: true },
 ];
 const PAR = 0.5;
 const gpp = (v: Values) => v.rad! * PAR * (v.cap! / 100);
@@ -55,7 +55,7 @@ export const spec: Spec = {
           return (
             <g key={k}>
               <rect x={150 - w / 2} y={y} width={w} height={30} fill={on ? '#c45e42' : '#4a8f3c'} opacity={on ? 0.9 : 0.55} stroke="#18443b" />
-              <text x={300} y={y + 18} fontSize={9.5} fill="#4d5768">{names[k - 1]}: {fmt(level(v, k), 3)}</text>
+              <text x={396} y={y + 18} fontSize={9.5} textAnchor="end" fill="#4d5768">{names[k - 1]}: {fmt(level(v, k), 3)}</text>
             </g>
           );
         })}

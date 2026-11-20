@@ -10,11 +10,11 @@ import { mkPred, mkQ, pathOf } from './_bio-util';
 
 const N0 = 350; // million, India 1947 (lesson)
 const vars: VarDef[] = [
-  { id: 'r', label: 'Annual growth rate of the population', unit: '%', min: 0.5, max: 3, step: 0.1, start: 2, digits: 1 },
+  { id: 'r', label: 'Annual growth rate of the population', unit: '%', min: 0.5, max: 3, step: 0.1, start: 2, digits: 1, bounds: { min: 0, max: 50 } },
   { id: 't', label: 'Years (growth horizon and years of method use)', unit: 'years', min: 0, max: 60, step: 1, start: 20, digits: 0 },
   { id: 'women', label: 'Women using the method', unit: 'thousand', min: 1, max: 100, step: 1, start: 10, digits: 0 },
-  { id: 'fail', label: 'Failure rate of the method', unit: 'pregnancies per 100 woman-years', min: 0.5, max: 25, step: 0.5, start: 5, digits: 1 },
-  { id: 'cycle', label: 'Length of the menstrual cycle', unit: 'days', min: 24, max: 35, step: 1, start: 28, digits: 0 },
+  { id: 'fail', label: 'Failure rate of the method', unit: 'pregnancies per 100 woman-years', min: 0.5, max: 25, step: 0.5, start: 5, digits: 1, bounds: { min: 0, max: 100 } },
+  { id: 'cycle', label: 'Length of the menstrual cycle', unit: 'days', min: 24, max: 35, step: 1, start: 28, digits: 0, bounds: { min: 10, max: 60 } },
 ];
 const pop = (v: Values) => N0 * Math.pow(1 + v.r! / 100, v.t!);
 const outs: OutDef[] = [
@@ -69,7 +69,7 @@ export const spec: Spec = {
         {Array.from({ length: 40 }, (_, i) => (
           <circle key={i} cx={205 + (i % 10) * 18} cy={110 + Math.floor(i / 10) * 18} r={5.5} fill={i < red ? '#c45e42' : '#18443b'} opacity={i < red ? 0.95 : 0.35} />
         ))}
-        <text x={295} y={196} fontSize={10} textAnchor="middle" fill="#4d5768">{v.fail} in every 100 women conceive each year (red)</text>
+        <text x={268} y={196} fontSize={10} textAnchor="middle" fill="#4d5768">{v.fail} in every 100 women conceive each year (red)</text>
       </g>
     );
   },

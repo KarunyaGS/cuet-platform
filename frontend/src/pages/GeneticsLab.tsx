@@ -2,7 +2,8 @@ import { RotateCcw } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, RangeSlider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { clampTo, stepFor, trim, type Range, type RangeRules } from '../visual/ranges';
 import {
   alleleFreqFromCounts, APPLY, buildSquare, checkMystery, checkP, CROSS_ORDER, CROSSES, deterministicPath, deviation, genotypeText, hwExpectedCounts, hwFreqs, HW_DATASETS, inEquilibrium, linearFit, logLogSlope,
   MEASURE_CROSS, MEASURE_SIZES, measureRow, meanDrift, mysteryTask, NO_FACTORS, pairText, PREDICTS, phenotypeOf, raiseOffspring, ratioText, simulateDrift, subSeed, tally,
@@ -40,7 +41,7 @@ function HwBars({ p }: { p: number }) {
   const f = hwFreqs(p);
   const bars = [{ k: 'AA', v: f.AA, c: COL.a, f: 'p²' }, { k: 'Aa', v: f.Aa, c: COL.d, f: '2pq' }, { k: 'aa', v: f.aa, c: COL.b, f: 'q²' }];
   return (
-    <svg viewBox="0 0 200 118" className="w-full max-w-md" role="img" aria-label={`Genotype frequencies for p = ${f2(p)}: AA ${f2(f.AA)}, Aa ${f2(f.Aa)}, aa ${f2(f.aa)}`} data-hwbars>
+    <svg viewBox="0 -5 200 123" className="w-full max-w-md" role="img" aria-label={`Genotype frequencies for p = ${f2(p)}: AA ${f2(f.AA)}, Aa ${f2(f.Aa)}, aa ${f2(f.aa)}`} data-hwbars>
       <rect x={30} y={10} width={160} height={78} fill="#fff" stroke="#e5e5e5" />
       {[0, 0.5, 1].map((t) => (
         <g key={t}>
@@ -208,6 +209,38 @@ export function GeneticsLabPage() {
   const [s, setS] = useState(0);
   const [u, setU] = useState(0);
   const [m, setM] = useState(0);
+  // The student's own ranges for the Hardy-Weinberg controls, by control id.
+  const [hwRanges, setHwRanges] = useState<Record<string, Range>>({});
+  const rs = (id: string, label: string, unit: string, value: number, design: { min: number; max: number; step: number }, apply: (v: number) => void, rules: RangeRules, shown?: string) => {
+    const r = hwRanges[id] ?? { min: design.min, max: design.max };
+    const step = hwRanges[id] ? (rules.integer ? Math.max(1, Math.round(stepFor(design.step, r))) : stepFor(design.step, r)) : design.step;
+    return (
+      <RangeSlider
+        key={id}
+        id={id}
+        label={label}
+        unit={unit}
+        value={value}
+        min={r.min}
+        max={r.max}
+        step={step}
+        shown={hwRanges[id] ? trim(value) : shown}
+        onChange={(v) => apply(Number(v.toPrecision(8)))}
+        design={{ min: design.min, max: design.max }}
+        range={r}
+        rules={rules}
+        onRange={(nr) => {
+          setHwRanges((cur) => {
+            const next = { ...cur };
+            if (nr.min === design.min && nr.max === design.max) delete next[id];
+            else next[id] = nr;
+            return next;
+          });
+          apply(clampTo(value, nr));
+        }}
+      />
+    );
+  };
   const [hseed, setHseed] = useState(11);
   const factors = useMemo(() => ({ ...NO_FACTORS, s, u, m, pm: 0.5 }), [s, u, m]);
   const reps = useMemo(() => Array.from({ length: 5 }, (_, k) => simulateDrift({ p0: p, N, gens, seed: subSeed(hseed, k), factors })), [p, N, gens, hseed, factors]);
@@ -242,8 +275,8 @@ export function GeneticsLabPage() {
     const pr = PREDICTS[i] ?? PREDICTS[0]!;
     if (pr.id === 'g1') { setTab('cross'); chooseCross('di'); revealAll2('di'); }
     if (pr.id === 'g2') { setTab('cross'); chooseCross('test'); revealAll2('test'); }
-    if (pr.id === 'g3') { setTab('hw'); setP(0.3); }
-    if (pr.id === 'g4') { setTab('hw'); setP(0.5); setN(10); setGens(50); setS(0); setU(0); setM(0); setDriftCmp({ small: meanDrift(0.5, 10, 50, 100, 1), large: meanDrift(0.5, 1000, 50, 100, 1) }); }
+    if (pr.id === 'g3') { setTab('hw'); setHwRanges({}); setP(0.3); }
+    if (pr.id === 'g4') { setTab('hw'); setHwRanges({}); setP(0.5); setN(10); setGens(50); setS(0); setU(0); setM(0); setDriftCmp({ small: meanDrift(0.5, 10, 50, 100, 1), large: meanDrift(0.5, 1000, 50, 100, 1) }); }
     setTested((x) => ({ ...x, [pr.id]: true }));
   };
   /** Reveal the whole square of the default cross after the state change has settled. */
@@ -295,7 +328,7 @@ export function GeneticsLabPage() {
 
   const reset = () => {
     if (tab === 'cross') { chooseCross('mono'); setSeedState(7); setMKind('mono'); setMSeed(3); setMRes(null); setMTries(0); }
-    else { setP(0.5); setN(50); setGens(60); setS(0); setU(0); setM(0); setHseed(11); chooseDs(0); }
+    else { setHwRanges({}); setP(0.5); setN(50); setGens(60); setS(0); setU(0); setM(0); setHseed(11); chooseDs(0); }
   };
 
   const measureSq = MEASURE_CROSS();
@@ -478,7 +511,7 @@ export function GeneticsLabPage() {
                   <h3 className="text-[15px] font-semibold text-ink">Hardy-Weinberg proportions</h3>
                   <p className="text-sm text-ink-2">Two alleles, A and a, with frequencies p and q = 1 − p. In a large randomly mating population with no other forces, the genotypes are p² + 2pq + q² = 1.</p>
                   <div className="mt-2 grid gap-x-4 gap-y-2 sm:grid-cols-2">
-                    <Slider id="hw-p" label="p (frequency of A)" unit="" value={p} min={0} max={1} step={0.01} onChange={setP} shown={f2(p)} />
+                    {rs('hw-p', 'p (frequency of A)', '', p, { min: 0, max: 1, step: 0.01 }, setP, { cap: 1 }, f2(p))}
                     <div className="num flex items-end pb-1 text-sm text-ink" data-q>q = 1 − p = <strong className="ml-1">{f2(1 - p)}</strong></div>
                   </div>
                   <HwBars p={p} />
@@ -489,11 +522,11 @@ export function GeneticsLabPage() {
                   <h3 className="text-[15px] font-semibold text-ink">Change over generations</h3>
                   <p className="text-sm text-ink-2">Five populations start at the same p. Each generation the forces act, then N individuals (2N alleles) are chosen by chance: that sampling is genetic drift. The dashed line is an infinite population, where only the forces you switch on matter.</p>
                   <div className="mt-2 grid gap-x-4 gap-y-2 sm:grid-cols-2">
-                    <Slider id="hw-n" label="Population size N" unit="individuals" value={N} min={10} max={1000} step={10} onChange={setN} />
-                    <Slider id="hw-g" label="Generations" unit="" value={gens} min={10} max={200} step={10} onChange={setGens} />
-                    <Slider id="hw-s" label="Selection against aa (s)" unit="" value={s} min={0} max={1} step={0.05} onChange={setS} shown={f2(s)} />
-                    <Slider id="hw-u" label="Mutation A → a per generation" unit="" value={u} min={0} max={0.02} step={0.001} onChange={setU} shown={u.toFixed(3)} />
-                    <Slider id="hw-m" label="Gene flow: migrants (their p = 0.5)" unit="" value={m} min={0} max={0.2} step={0.01} onChange={setM} shown={f2(m)} />
+                    {rs('hw-n', 'Population size N', 'individuals', N, { min: 10, max: 1000, step: 10 }, setN, { floor: 2, cap: 5000, integer: true })}
+                    {rs('hw-g', 'Generations', '', gens, { min: 10, max: 200, step: 10 }, setGens, { floor: 1, cap: 500, integer: true })}
+                    {rs('hw-s', 'Selection against aa (s)', '', s, { min: 0, max: 1, step: 0.05 }, setS, { cap: 1 }, f2(s))}
+                    {rs('hw-u', 'Mutation A → a per generation', '', u, { min: 0, max: 0.02, step: 0.001 }, setU, { cap: 1 }, u.toFixed(3))}
+                    {rs('hw-m', 'Gene flow: migrants (their p = 0.5)', '', m, { min: 0, max: 0.2, step: 0.01 }, setM, { cap: 1 }, f2(m))}
                     <div className="flex items-end gap-2">
                       <label className="block text-sm text-ink">Seed
                         <input type="number" inputMode="numeric" min={1} max={99999} aria-label="Random seed for the populations" data-hseed className={`${input} num mt-1 w-28`} value={hseed} onChange={(e) => { const v = Math.floor(Number(e.target.value)); if (Number.isFinite(v) && v >= 1 && v <= 99999) setHseed(v); }} />

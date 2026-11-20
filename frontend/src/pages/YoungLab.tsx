@@ -2,9 +2,10 @@ import { ChevronLeft, ChevronRight, Minus, Pause, Play, Plus, RotateCcw, Zap } f
 import { Component, lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { DisplayMath } from '../rich';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { clampTo, stepFor, trim, type Range } from '../visual/ranges';
+import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useContainerNarrow, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps, RangeEditor, RangeSlider } from '../visual/labkit';
 import {
-  APPLY, classify, fringeWidth, angularFringeWidth, intensity, LIMITS, nearestOrder, pathOrder, PREDICTS, samplePattern, START, wavelengthRgb, windowHalf, type YoungState,
+  APPLY, classify, fringeWidth, isVisibleLight, angularFringeWidth, intensity, LIMITS, nearestOrder, pathOrder, PREDICTS, samplePattern, START, wavelengthRgb, windowHalf, type YoungState,
 } from '../visual/young';
 import type { CameraApi, CamGoal, Mode, Part, WaveView } from '../visual/young3d/YoungScene';
 import { DERIVATION, fullCam, TOURS, topCam, type Cam } from '../visual/young3d/tours';
@@ -45,15 +46,16 @@ function Pattern2D({ s, wide, probe }: { s: YoungState; wide: boolean; probe: nu
   const X = (y: number) => L + ((y + half) / (2 * half)) * (R - L);
   const Y = (i: number) => B - (B - T) * i;
   const c = wavelengthRgb(s.lambda);
+  const [box2d, narrow2d] = useContainerNarrow<HTMLDivElement>(520);
   return (
-    <div data-fallback-2d className="bg-surface p-3">
+    <div data-fallback-2d className="bg-surface p-3" ref={box2d}>
       <p className="mb-2 text-sm text-ink-2">This device cannot show the 3D laboratory, so here is the same experiment as a flat picture. All numbers come from the same physics.</p>
       <div className="h-10 w-full rounded" style={{ background: `linear-gradient(90deg, ${Array.from(p.i).filter((_, k) => k % 10 === 0).map((v, k, a) => `rgb(${c.map((x) => Math.round(x * Math.pow(v, 0.55))).join(',')}) ${((k / (a.length - 1)) * 100).toFixed(1)}%`).join(',')})` }} />
       <svg viewBox={`0 0 ${W} ${H}`} className="mt-2 w-full" role="img" aria-label="Intensity against position on the screen">
         <rect x={L} y={T} width={R - L} height={B - T} fill="#fff" stroke="#e5e5e5" />
         <polyline points={Array.from(p.y).map((y, k) => `${X(y).toFixed(1)},${Y(p.i[k]!).toFixed(1)}`).join(' ')} fill="none" stroke="#b42318" strokeWidth={1.6} />
         <line x1={X(probe * half)} y1={T} x2={X(probe * half)} y2={B} stroke="#1a2233" strokeWidth={1.4} />
-        <text x={(L + R) / 2} y={182} fontSize={12} textAnchor="middle" fill="#4d5768">position on the screen (mm): window ±{(half * 1000).toFixed(1)}</text>
+        <text x={(L + R) / 2} y={182} fontSize={narrow2d ? 19 : 12} textAnchor="middle" fill="#4d5768">position on the screen (mm): window ±{(half * 1000).toFixed(1)}</text>
       </svg>
     </div>
   );
@@ -77,9 +79,9 @@ function FitGraph({ runs }: { runs: Run[] }) {
         <rect x={40} y={20} width={340} height={110} fill="#fff" stroke="#e5e5e5" />
         <line x1={X(0)} y1={Y(0)} x2={X(xm)} y2={Y(slope * xm)} stroke="#2347a8" strokeWidth={1.2} opacity={0.65} />
         {xs.map((x, i) => <circle key={i} cx={X(x)} cy={Y(ys[i]!)} r={3.4} fill="#b42318" />)}
-        <text x={380} y={148} fontSize={9} textAnchor="end" fill="#4d5768">1/d (mm⁻¹)</text>
-        <text x={42} y={15} fontSize={9} fill="#4d5768">measured fringe width (mm)</text>
-        <text x={40} y={160} fontSize={8.5} fill="#7c8595">Line: β = (λD) × (1/d). Dots: your runs.</text>
+        <text x={380} y={148} fontSize={11} textAnchor="end" fill="#4d5768">1/d (mm⁻¹)</text>
+        <text x={42} y={15} fontSize={11} fill="#4d5768">measured fringe width (mm)</text>
+        <text x={40} y={160} fontSize={10.5} fill="#7c8595">Line: β = (λD) × (1/d). Dots: your runs.</text>
       </svg>
       <p className="text-[15px] text-ink">
         The dots lie on a straight line through the origin: the fringe width is <em>inversely proportional to the slit separation</em>. The slope is λD, which gives a wavelength of <strong className="num">{lam.toFixed(0)} nm</strong>. You set {r0.lambda} nm.
@@ -98,6 +100,22 @@ export function YoungLabPage() {
   useScrollTopOnOpen();
   const [tab, setTab] = useState<Tab>('learn');
   const [s, setS] = useState<YoungState>(START);
+  // The student's own range for any control; a control not listed uses the lab's range.
+  const [ranges, setRanges] = useState<Partial<Record<'lambda' | 'd' | 'D', Range>>>({});
+  const rng = (k: 'lambda' | 'd' | 'D'): Range => ranges[k] ?? { min: LIMITS[k].min, max: LIMITS[k].max };
+  const stp = (k: 'lambda' | 'd' | 'D') => (ranges[k] ? stepFor(LIMITS[k].step, ranges[k]!) : LIMITS[k].step);
+  const changeRange = (k: 'lambda' | 'd' | 'D', r: Range) => {
+    setRanges((cur) => {
+      const next = { ...cur };
+      if (r.min === LIMITS[k].min && r.max === LIMITS[k].max) delete next[k];
+      else next[k] = r;
+      return next;
+    });
+    setS((x) => ({ ...x, [k]: clampTo(x[k], r) }));
+  };
+  const [graphBox, narrowGraph] = useContainerNarrow<HTMLDivElement>(520);
+  const rangesRef = useRef(ranges);
+  rangesRef.current = ranges;
   const [view, setView] = useState<Mode>('apparatus');
   const [plateX, setPlateX] = useState(0);
   const [laserOn, setLaserOn] = useState(true);
@@ -118,7 +136,10 @@ export function YoungLabPage() {
   const [viewOverride, setViewOverride] = useState<Mode | null>(null);
   const apiRef = useRef<CameraApi | null>(null);
 
-  const screenX = plateX + s.D * X_PER_M;
+  // The 3D bench is drawn for values inside the lab's own range so a wide custom range can never break it. Every number and the pattern graph use the exact values.
+  const sDraw: YoungState = { ...s, lambda: clampTo(s.lambda, LIMITS.lambda), d: clampTo(s.d, LIMITS.d), D: clampTo(s.D, LIMITS.D) };
+  const drawCapped = sDraw.lambda !== s.lambda || sDraw.d !== s.d || sDraw.D !== s.D;
+  const screenX = plateX + sDraw.D * X_PER_M;
   const mid = (plateX + screenX) / 2;
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const aspectNow = () => (wrapRef.current && wrapRef.current.clientHeight > 0 ? wrapRef.current.clientWidth / wrapRef.current.clientHeight : 1.6);
@@ -140,7 +161,7 @@ export function YoungLabPage() {
 
   useEffect(() => {
     if (!learn) return;
-    const ctx = { plateX, screenX: plateX + s.D * X_PER_M, aspect: aspectNow() };
+    const ctx = { plateX, screenX: plateX + sDraw.D * X_PER_M, aspect: aspectNow() };
     flyTo(st.cam(ctx));
     setS((c) => ({ ...c, slit1: st.slits?.slit1 ?? true, slit2: st.slits?.slit2 ?? true }));
     setViewOverride(null);
@@ -181,6 +202,7 @@ export function YoungLabPage() {
 
   const enterPractical = () => {
     setTab('practical');
+    setRanges({});
     setS(START);
     setView('apparatus');
     setLaserOn(false);
@@ -193,6 +215,7 @@ export function YoungLabPage() {
   const choosePredict = (i: number) => {
     const p = PREDICTS[i] ?? PREDICTS[0]!;
     setPi(i);
+    setRanges({});
     setS(p.base);
     setLaserOn(true);
   };
@@ -208,9 +231,11 @@ export function YoungLabPage() {
   }, [snap, half, sEff]);
   const onDrag = useCallback((kind: 'screen' | 'plate', x: number) => {
     setS((cur) => {
-      if (kind === 'screen') return { ...cur, D: Math.max(LIMITS.D.min, Math.min(LIMITS.D.max, Number(((x - plateX) / X_PER_M).toFixed(2)))) };
+      const own = rangesRef.current.D ?? LIMITS.D;
+      if (cur.D < LIMITS.D.min || cur.D > LIMITS.D.max) return cur; // drawn capped: dragging would jump, so use the slider
+      if (kind === 'screen') return { ...cur, D: clampTo(Number(((x - plateX) / X_PER_M).toFixed(2)), { min: Math.max(LIMITS.D.min, own.min), max: Math.min(LIMITS.D.max, own.max) }) };
       const sx = plateX + cur.D * X_PER_M;
-      const nd = Math.max(LIMITS.D.min, Math.min(LIMITS.D.max, Number(((sx - x) / X_PER_M).toFixed(2))));
+      const nd = clampTo(Number(((sx - x) / X_PER_M).toFixed(2)), { min: Math.max(LIMITS.D.min, own.min), max: Math.min(LIMITS.D.max, own.max) });
       setPlateX(sx - nd * X_PER_M);
       return { ...cur, D: nd };
     });
@@ -270,7 +295,7 @@ export function YoungLabPage() {
   const scene = (
     <Suspense fallback={<div className="grid h-full place-items-center bg-[#e9edf4] text-sm text-ink-2">Loading the 3D laboratory…</div>}>
       <YoungScene
-        s={sEff} mode={eff.view} plateX={plateX} laserOn={eff.laser} wide={eff.wide} probe={probe} markers={learn ? { a: null, b: null } : markers}
+        s={{ ...sEff, lambda: sDraw.lambda, d: sDraw.d, D: sDraw.D }} mode={eff.view} plateX={plateX} laserOn={eff.laser} wide={eff.wide} probe={probe} markers={learn ? { a: null, b: null } : markers}
         waveView={eff.waveView} surface={surface} playing={playing} speed={speed} selected={selected} onSelect={setSelected} onProbe={onProbe} onDrag={onDrag}
         onToggleSlit={onToggleSlit} goal={goal} quality={quality} onQuality={setQuality} onFps={setFps} onUserCamera={onUserCamera}
         geometry={eff.geometry} fans={eff.fans} hotspots={eff.hotspots} apiRef={apiRef}
@@ -327,17 +352,20 @@ export function YoungLabPage() {
               <label className="block text-sm">
                 <span className="flex items-center justify-between text-ink">Wavelength λ
                   <span className="num inline-flex items-center gap-1.5 font-semibold"><span aria-hidden className="inline-block size-3.5 rounded-sm ring-1 ring-black/10" style={{ background: `rgb(${color.join(',')})` }} />{s.lambda} nm</span></span>
-                <input id="young-l" type="range" {...LIMITS.lambda} value={s.lambda} onChange={(e) => setS({ ...s, lambda: Number(e.target.value) })} className="mt-1 h-6 w-full accent-[var(--color-accent)]" />
+                <input id="young-l" type="range" min={rng('lambda').min} max={rng('lambda').max} step={stp('lambda')} value={s.lambda} onChange={(e) => setS({ ...s, lambda: Number(e.target.value) })} className="mt-1 h-6 w-full accent-[var(--color-accent)]" />
+                <RangeEditor id="young-l" unit="nm" design={LIMITS.lambda} range={rng('lambda')} rules={{ floor: 1, cap: 100000 }} onRange={(r) => changeRange('lambda', r)} />
+                {!isVisibleLight(s.lambda) && <span className="mt-1 block text-xs text-ink-3">Outside visible light, so shown in grey.</span>}
               </label>
-              <Slider id="young-d" label="Slit separation d" unit="mm" value={s.d} {...LIMITS.d} shown={s.d.toFixed(2)} onChange={(v) => setS({ ...s, d: Number(v.toFixed(2)) })} />
-              <Slider id="young-D" label="Screen distance D" unit="m" value={s.D} {...LIMITS.D} shown={s.D.toFixed(2)} onChange={(v) => setS({ ...s, D: Number(v.toFixed(2)) })} />
+              <RangeSlider id="young-d" label="Slit separation d" unit="mm" value={s.d} min={rng('d').min} max={rng('d').max} step={stp('d')} shown={trim(s.d)} onChange={(v) => setS({ ...s, d: Number(v.toPrecision(6)) })} design={LIMITS.d} range={rng('d')} onRange={(r) => changeRange('d', r)} />
+              <RangeSlider id="young-D" label="Screen distance D" unit="m" value={s.D} min={rng('D').min} max={rng('D').max} step={stp('D')} shown={trim(s.D)} onChange={(v) => setS({ ...s, D: Number(v.toPrecision(6)) })} design={LIMITS.D} range={rng('D')} onRange={(r) => changeRange('D', r)} />
               <Slider id="young-p" label="Probe position on the screen" unit="mm" value={Math.round(probe * 100)} min={-100} max={100} step={1} shown={(y * 1000).toFixed(2)} onChange={(v) => onProbe(v / 100)} />
+              {drawCapped && <p className="text-xs text-ink-3 sm:col-span-2">Your values are beyond the range the 3D bench is drawn for, so the bench stops at its edge. The pattern, the readouts and all numbers are exact.</p>}
               <div className="flex flex-wrap items-center gap-2 sm:col-span-2">
                 <button type="button" className={btn} aria-pressed={!s.slit1} onClick={() => onToggleSlit(1)}>{s.slit1 ? 'Cover slit 1' : 'Uncover slit 1'}</button>
                 <button type="button" className={btn} aria-pressed={!s.slit2} onClick={() => onToggleSlit(2)}>{s.slit2 ? 'Cover slit 2' : 'Uncover slit 2'}</button>
                 <label className="inline-flex items-center gap-1.5 text-sm text-ink"><input type="checkbox" checked={wide} onChange={(e) => setWide(e.target.checked)} className="size-4 accent-[var(--color-accent)]" />Wide view (show the single-slit envelope)</label>
                 <label className="inline-flex items-center gap-1.5 text-sm text-ink"><input type="checkbox" checked={snap} onChange={(e) => setSnap(e.target.checked)} className="size-4 accent-[var(--color-accent)]" />Snap probe to bright fringes</label>
-                <button type="button" className={btn} onClick={() => { setS(START); setPlateX(0); setProbe(0.3); setMarkers({ a: null, b: null }); }}><RotateCcw aria-hidden className="size-4" /> Reset</button>
+                <button type="button" className={btn} onClick={() => { setRanges({}); setS(START); setPlateX(0); setProbe(0.3); setMarkers({ a: null, b: null }); }}><RotateCcw aria-hidden className="size-4" /> Reset</button>
               </div>
               {eff.view === 'wave' && (
                 <div className="flex flex-wrap items-center gap-2 sm:col-span-2" data-wave-controls>
@@ -376,12 +404,14 @@ export function YoungLabPage() {
                 <div key={k} className="flex items-baseline justify-between gap-2 border-b border-rule py-1"><dt className="text-ink-2">{k}</dt><dd className="num font-semibold text-ink">{v}</dd></div>
               ))}
             </dl>
+            <div ref={graphBox}>
             <svg viewBox="0 0 600 110" className="mt-2 w-full" role="img" aria-label="Intensity against position on the screen with the probe marked">
               <rect x={30} y={8} width={550} height={80} fill="#fff" stroke="#e5e5e5" />
               <polyline points={Array.from(pat.y).map((yy, k) => `${(30 + ((yy + half) / (2 * half)) * 550).toFixed(1)},${(88 - 80 * pat.i[k]!).toFixed(1)}`).join(' ')} fill="none" stroke="#b42318" strokeWidth={1.4} />
               <line x1={30 + (y + half) / (2 * half) * 550} y1={8} x2={30 + (y + half) / (2 * half) * 550} y2={88} stroke="#1a2233" strokeWidth={1.4} />
-              <text x={305} y={104} fontSize={11} textAnchor="middle" fill="#4d5768">position on the screen, ±{(half * 1000).toFixed(1)} mm</text>
+              <text x={305} y={104} fontSize={narrowGraph ? 19 : 11} textAnchor="middle" fill="#4d5768">position on the screen, ±{(half * 1000).toFixed(1)} mm</text>
             </svg>
+            </div>
             <p className="mt-1 text-xs text-ink-3">The screen shows the real pattern for these numbers. The 3D bench draws the slit separation larger than life, and the wave view is a magnified model (its geometry is exact; its wavelength and separation are not to scale).</p>
           </div>
         </div>
@@ -428,7 +458,7 @@ export function YoungLabPage() {
                 <PredictCard
                   items={PREDICTS} index={pi} picked={picked} tested={tested}
                   onSelect={choosePredict} onPick={(id, o) => setPicked((x) => ({ ...x, [id]: o }))}
-                  onLock={(i) => { const p = PREDICTS[i] ?? PREDICTS[0]!; setS(p.test); setTested((x) => ({ ...x, [p.id]: true })); }}
+                  onLock={(i) => { const p = PREDICTS[i] ?? PREDICTS[0]!; setRanges({}); setS(p.test); setTested((x) => ({ ...x, [p.id]: true })); }}
                   explain={(i) => { const p = PREDICTS[i] ?? PREDICTS[0]!; return p.why({ base: p.base, test: p.test }); }}
                   onNext={() => choosePredict(pi + 1)} onDone={() => go(1)}
                 />

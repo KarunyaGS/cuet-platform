@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router';
 import { api, type ExamCode } from '../api';
 import { Button, ErrorBox, inputClass, Loading, PageHeader, useAuth, useLoad } from '../ui';
+import { SoundToggle } from '../sound';
 import { LatestUpdates } from './Updates';
 
 /** A settings group: title and short description on the left, the form on the right (stacked on phones). */
@@ -333,6 +334,16 @@ export function ProfilePage() {
             </div>
             {errFor('name')}
           </form>
+        </Section>
+
+        <Section title="Sound effects" description="Choose whether Prepora plays quiet sounds when you use buttons and controls. This setting is saved in this browser.">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold text-ink">Interface sounds</p>
+              <p className="mt-1 text-xs text-ink-3">Subtle feedback for navigation, actions and completed tasks.</p>
+            </div>
+            <SoundToggle />
+          </div>
         </Section>
 
         <Section title="Exam and subjects" description="What you are preparing for. Your home page and daily practice start with these subjects.">

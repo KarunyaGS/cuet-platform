@@ -28,9 +28,9 @@ export const spec: Spec = {
   can: ['Watch orbit radius grow as n² and speed fall as 1/n', 'Pick a jump and read off its wavelength and series (Lyman, Balmer, Paschen)', 'Fit 1/λ against (1/n_f² − 1/n_i²) to recover the Rydberg constant'],
   minutes: 12,
   vars: [
-    { id: 'nf', label: 'Lower (final) level n_f', unit: '', min: 1, max: 4, step: 1, start: 2, digits: 0 },
-    { id: 'k', label: 'Levels above: n_i − n_f', unit: '', min: 1, max: 6, step: 1, start: 2, digits: 0 },
-    { id: 'Z', label: 'Nuclear charge Z (1 = H, 2 = He⁺, 3 = Li²⁺)', unit: '', min: 1, max: 3, step: 1, start: 1, digits: 0 },
+    { id: 'nf', label: 'Lower (final) level n_f', unit: '', min: 1, max: 4, step: 1, start: 2, digits: 0, choice: true },
+    { id: 'k', label: 'Levels above: n_i − n_f', unit: '', min: 1, max: 6, step: 1, start: 2, digits: 0, choice: true },
+    { id: 'Z', label: 'Nuclear charge Z (1 = H, 2 = He⁺, 3 = Li²⁺)', unit: '', min: 1, max: 3, step: 1, start: 1, digits: 0, choice: true },
   ],
   outs: [
     { id: 'ni', label: 'Upper (initial) level n_i', unit: '', fn: (v) => ni(v.nf!, v.k!), digits: 0 },

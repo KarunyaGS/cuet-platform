@@ -9,9 +9,9 @@ import type { OutDef, Spec, Values, VarDef } from '../engine/types';
 import { mkPred, mkQ } from './_bio-util';
 
 const vars: VarDef[] = [
-  { id: 'gen', label: 'Generations in 14N medium (after 15N)', unit: 'generations', min: 0, max: 6, step: 1, start: 3, digits: 0 },
+  { id: 'gen', label: 'Generations in 14N medium (after 15N)', unit: 'generations', min: 0, max: 6, step: 1, start: 3, digits: 0, integer: true },
   { id: 'genome', label: 'Genome length', unit: 'Mb', min: 1, max: 10, step: 0.1, start: 4.6, digits: 1 },
-  { id: 'origins', label: 'Origins of replication (each makes two forks)', unit: 'origins', min: 1, max: 10, step: 1, start: 1, digits: 0 },
+  { id: 'origins', label: 'Origins of replication (each makes two forks)', unit: 'origins', min: 1, max: 10, step: 1, start: 1, digits: 0, integer: true },
   { id: 'frag', label: 'Okazaki fragment length', unit: 'bp', min: 500, max: 3000, step: 100, start: 1500, digits: 0 },
   { id: 'speed', label: 'Fork speed (illustrative)', unit: 'bp/s', min: 200, max: 1000, step: 50, start: 500, digits: 0 },
 ];
@@ -51,7 +51,7 @@ export const spec: Spec = {
     const band = (y: number, share: number, col: string, lab: string) => (
       <g>
         <rect x={290} y={y} width={60} height={Math.max(0, 3 + (share / 100) * 22)} fill={col} opacity={share > 0 ? 0.9 : 0.1} />
-        <text x={354} y={y + 8} fontSize={9} fill="#4d5768">{lab} {fmt(share, 0)}%</text>
+        <text x={362} y={y + 8} fontSize={9} fill="#4d5768">{lab} {fmt(share, 0)}%</text>
       </g>
     );
     return (
@@ -67,13 +67,15 @@ export const spec: Spec = {
           return <line key={i} x1={x + 2} x2={x + w - 2} y1={172 + (i % 2) * 6} y2={172 + (i % 2) * 6} stroke="#2563a8" strokeWidth={3} />;
         })}
         <text x={30} y={80} fontSize={10} fill="#18443b">parental DNA</text>
-        <text x={200} y={46} fontSize={10} fill="#c45e42">leading strand (continuous)</text>
+        <text x={130} y={40} fontSize={10} fill="#c45e42">leading strand</text>
         <text x={150} y={198} fontSize={10} fill="#2563a8">lagging strand: {fmt(o.okf!, 0)} Okazaki fragments per fork</text>
-        <rect x={285} y={22} width={70} height={110} fill="none" stroke="#18443b" rx={8} />
-        {band(34, heavy, '#7a2d2d', 'heavy')}
-        {band(66, hyb, '#8a6bb8', 'hybrid')}
-        {band(98, light, '#d8a24a', 'light')}
-        <text x={320} y={146} fontSize={10} textAnchor="middle" fill="#4d5768">{fmt(o.mol!, 0)} molecules</text>
+        <g transform="translate(-30 0)">
+          <rect x={285} y={22} width={70} height={110} fill="none" stroke="#18443b" rx={8} />
+          {band(34, heavy, '#7a2d2d', 'heavy')}
+          {band(66, hyb, '#8a6bb8', 'hybrid')}
+          {band(98, light, '#d8a24a', 'light')}
+          <text x={320} y={146} fontSize={10} textAnchor="middle" fill="#4d5768">{fmt(o.mol!, 0)} molecules</text>
+        </g>
       </g>
     );
   },

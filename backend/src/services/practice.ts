@@ -17,6 +17,8 @@ export const QUESTION_TYPES = ['MCQ_SINGLE', 'MCQ_MULTI', 'ASSERTION_REASON', 'M
 export const startSchema = z
   .object({
     mode: z.enum(['PRACTICE', 'TOPIC_TEST', 'MOCK_TEST']),
+    /** Keep exam scoring while allowing a self-paced session. */
+    timed: z.boolean().optional(),
     nodeId: z.string().max(100).optional(),
     /** Several chapters or topics of one subject at once (each includes everything under it). */
     nodeIds: z.array(z.string().max(100)).min(1).max(30).optional(),
@@ -133,7 +135,7 @@ export async function startSession(db: D1Database, preview: boolean, userId: str
   if (!results.length) {
     throw new ApiError(404, 'NO_QUESTIONS', input.difficulty || input.types ? 'No questions match these filters. Try more difficulty levels or question types.' : 'No questions are available for this selection yet');
   }
-  return createSession(db, userId, { mode: input.mode, paperId, nodeId: nodes[0] ?? null, ids: results.map((r) => r.id) }, { rulesJson, rules, year, examCode });
+  return createSession(db, userId, { mode: input.mode, paperId, nodeId: nodes[0] ?? null, ids: results.map((r) => r.id), timed: input.timed }, { rulesJson, rules, year, examCode });
 }
 
 /**
@@ -143,7 +145,7 @@ export async function startSession(db: D1Database, preview: boolean, userId: str
 export async function createSession(
   db: D1Database,
   userId: string,
-  s: { mode: 'PRACTICE' | 'TOPIC_TEST' | 'MOCK_TEST'; paperId: string | null; nodeId: string | null; ids: string[] },
+  s: { mode: 'PRACTICE' | 'TOPIC_TEST' | 'MOCK_TEST'; paperId: string | null; nodeId: string | null; ids: string[]; timed?: boolean },
   known?: { rulesJson: string | null; rules: Rules; year?: number; examCode?: string },
   source?: { kind: 'MOCK_PAPER' | 'PAST_PAPER'; id: string; title: string },
 ) {
@@ -160,7 +162,7 @@ export async function createSession(
   const marking = scheme;
   const full = rules.questionsPerPaper ?? 50;
   const perQuestion = ((rules.durationMinutes ?? 60) * 60) / full;
-  const duration = s.mode === 'PRACTICE' ? null : Math.ceil(perQuestion * s.ids.length);
+  const duration = s.mode === 'PRACTICE' || s.timed === false ? null : Math.ceil(perQuestion * s.ids.length);
   const id = newId('ps');
   await db.batch(
     insertRows(db, 'practice_sessions', [{

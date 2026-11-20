@@ -9,11 +9,11 @@ import type { OutDef, Spec, Values, VarDef } from '../engine/types';
 import { clamp, mkPred, mkQ } from './_bio-util';
 
 const vars: VarDef[] = [
-  { id: 'grains', label: 'Pollen grains landing on the stigma', unit: 'grains', min: 10, max: 500, step: 10, start: 120, digits: 0 },
+  { id: 'grains', label: 'Pollen grains landing on the stigma', unit: 'grains', min: 10, max: 500, step: 10, start: 120, digits: 0, integer: true },
   { id: 't', label: 'Time since the pollen was shed', unit: 'min', min: 0, max: 120, step: 5, start: 20, digits: 0 },
   { id: 'half', label: 'Pollen viability half-life', unit: 'min', min: 10, max: 10000, step: 1, start: 60, log: true, digits: 0 },
-  { id: 'compat', label: 'Pollen compatible with the pistil', unit: '%', min: 0, max: 100, step: 5, start: 80, digits: 0 },
-  { id: 'ovules', label: 'Ovules in the ovary', unit: 'ovules', min: 1, max: 100, step: 1, start: 20, digits: 0 },
+  { id: 'compat', label: 'Pollen compatible with the pistil', unit: '%', min: 0, max: 100, step: 5, start: 80, digits: 0, bounds: { min: 0, max: 100 } },
+  { id: 'ovules', label: 'Ovules in the ovary', unit: 'ovules', min: 1, max: 100, step: 1, start: 20, digits: 0, integer: true },
 ];
 const viable = (v: Values) => 100 * Math.pow(0.5, v.t! / v.half!);
 const tubes = (v: Values) => ((v.grains! * viable(v)) / 100) * (v.compat! / 100);

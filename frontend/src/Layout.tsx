@@ -6,7 +6,6 @@ import { PreporaSpark } from './brand';
 import { BrandMark, Sidebar } from './Sidebar';
 import { SupportWidget } from './support/SupportWidget';
 import { useAuth } from './ui';
-import { SoundToggle } from './sound';
 
 const REVIEW_ROLES = ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'];
 
@@ -215,7 +214,6 @@ function UserMenu() {
               <CreditCard aria-hidden />
               Plans
             </Link>
-            <SoundToggle />
             <Link role="menuitem" to="/updates" className={item}>
               <Landmark aria-hidden />
               Official Government Updates
@@ -302,7 +300,6 @@ function StudioBar({ path, onMenu, drawer }: { path: string; onMenu: () => void;
             <span className="hidden sm:inline">Search</span>
             <span className="sr-only sm:hidden">Search the syllabus</span>
           </NavLink>
-          <SoundToggle compact />
           <RemindersBell pill />
           <UserMenu />
         </div>

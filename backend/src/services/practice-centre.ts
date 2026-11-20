@@ -379,14 +379,14 @@ export async function listMockPapers(db: D1Database, f: { exam?: string; paperId
   });
 }
 
-export const startMockSchema = z.object({ mode: z.enum(['PRACTICE', 'MOCK_TEST']).default('MOCK_TEST') });
+export const startMockSchema = z.object({ mode: z.enum(['PRACTICE', 'MOCK_TEST']).default('MOCK_TEST'), timed: z.boolean().optional() });
 
 export async function startMockPaper(db: D1Database, userId: string, id: string, input: z.infer<typeof startMockSchema>) {
   const p = (await listMockPapers(db, {})).find((x) => x.id === id);
   if (!p) throw notFound('Mock paper');
   const { results } = await db.prepare('SELECT question_id FROM mock_paper_questions WHERE mock_paper_id = ? ORDER BY position').bind(id).all<{ question_id: string }>();
   const rules = { questionsPerPaper: p.questions, durationMinutes: p.durationMinutes, marksCorrect: p.marksCorrect, marksIncorrect: p.marksIncorrect };
-  return createSession(db, userId, { mode: input.mode, paperId: p.paperId as string, nodeId: null, ids: results.map((r) => r.question_id) }, { rulesJson: JSON.stringify(rules), rules }, { kind: 'MOCK_PAPER', id, title: String(p.title) });
+  return createSession(db, userId, { mode: input.mode, paperId: p.paperId as string, nodeId: null, ids: results.map((r) => r.question_id), timed: input.timed }, { rulesJson: JSON.stringify(rules), rules }, { kind: 'MOCK_PAPER', id, title: String(p.title) });
 }
 
 // ---------------------------------------------------------------- official paper directory

@@ -8,10 +8,10 @@ import type { OutDef, Spec, Values, VarDef } from '../engine/types';
 import { mkPred, mkQ, pathOf } from './_bio-util';
 
 const vars: VarDef[] = [
-  { id: 'C', label: 'Intercept C (species in 1 ha)', unit: 'species', min: 5, max: 50, step: 1, start: 15, digits: 0 },
+  { id: 'C', label: 'Intercept C (species in 1 ha)', unit: 'species', min: 5, max: 50, step: 1, start: 15, digits: 0, integer: true },
   { id: 'z', label: 'Slope Z of the log-log line', unit: '', min: 0.1, max: 1.2, step: 0.05, start: 0.2, digits: 2 },
   { id: 'A', label: 'Area explored A', unit: 'ha', min: 1, max: 10000, step: 1, start: 100, log: true, digits: 0 },
-  { id: 'lost', label: 'Habitat destroyed', unit: '%', min: 0, max: 90, step: 5, start: 30, digits: 0 },
+  { id: 'lost', label: 'Habitat destroyed', unit: '%', min: 0, max: 90, step: 5, start: 30, digits: 0, bounds: { min: 0, max: 99 } },
 ];
 const S = (v: Values, A = v.A!) => v.C! * Math.pow(A, v.z!);
 const left = (v: Values) => v.A! * (1 - v.lost! / 100);

@@ -9,11 +9,11 @@ import type { OutDef, Spec, Values, VarDef } from '../engine/types';
 import { mkPred, mkQ, pathOf } from './_bio-util';
 
 const vars: VarDef[] = [
-  { id: 'cycle', label: 'Cycle length', unit: 'days', min: 21, max: 35, step: 1, start: 28, digits: 0 },
-  { id: 'luteal', label: 'Luteal phase (ovulation to next menstruation)', unit: 'days', min: 12, max: 16, step: 1, start: 14, digits: 0 },
-  { id: 'day', label: 'Day of the cycle you examine', unit: 'day', min: 1, max: 35, step: 1, start: 14, digits: 0 },
-  { id: 'fert', label: 'Ovum fertilised and implanted? (0 = no, 1 = yes)', unit: '', min: 0, max: 1, step: 1, start: 0, digits: 0 },
-  { id: 'cells', label: 'Primary spermatocytes (and primary oocytes) starting meiosis', unit: 'cells', min: 1, max: 1000, step: 1, start: 100, digits: 0 },
+  { id: 'cycle', label: 'Cycle length', unit: 'days', min: 21, max: 35, step: 1, start: 28, digits: 0, bounds: { min: 10, max: 60 } },
+  { id: 'luteal', label: 'Luteal phase (ovulation to next menstruation)', unit: 'days', min: 12, max: 16, step: 1, start: 14, digits: 0, bounds: { min: 1, max: 30 } },
+  { id: 'day', label: 'Day of the cycle you examine', unit: 'day', min: 1, max: 35, step: 1, start: 14, digits: 0, integer: true },
+  { id: 'fert', label: 'Ovum fertilised and implanted? (0 = no, 1 = yes)', unit: '', min: 0, max: 1, step: 1, start: 0, digits: 0, choice: true },
+  { id: 'cells', label: 'Primary spermatocytes (and primary oocytes) starting meiosis', unit: 'cells', min: 1, max: 1000, step: 1, start: 100, digits: 0, integer: true },
 ];
 const g = (x: number, m: number, s: number) => Math.exp(-(((x - m) / s) ** 2));
 const ov = (v: Values) => v.cycle! - v.luteal!;

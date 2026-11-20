@@ -12,9 +12,9 @@ const K = 2; // titre units per unit of antigen dose in a primary response
 const TP1 = 10; // days to the primary peak
 const TP2 = 4; // days to the secondary peak (memory cells respond faster)
 const vars: VarDef[] = [
-  { id: 'dose', label: 'First antigen dose', unit: 'units', min: 1, max: 100, step: 1, start: 20, digits: 0 },
+  { id: 'dose', label: 'First antigen dose', unit: 'units', min: 1, max: 100, step: 1, start: 20, digits: 0, bounds: { min: 0.001, max: 1000000.0 } },
   { id: 'gap', label: 'Days until the second exposure', unit: 'days', min: 20, max: 200, step: 5, start: 60, digits: 0 },
-  { id: 'dose2', label: 'Second antigen dose', unit: 'units', min: 1, max: 100, step: 1, start: 20, digits: 0 },
+  { id: 'dose2', label: 'Second antigen dose', unit: 'units', min: 1, max: 100, step: 1, start: 20, digits: 0, bounds: { min: 0.001, max: 1000000.0 } },
   { id: 'boost', label: 'Memory boost of the second response', unit: '×', min: 2, max: 50, step: 1, start: 10, digits: 0 },
   { id: 'half', label: 'Antibody half-life', unit: 'days', min: 10, max: 60, step: 1, start: 25, digits: 0 },
 ];
@@ -74,7 +74,7 @@ export const spec: Spec = {
         <text x={X(v.gap!) + 3} y={42} fontSize={10} fill="#18443b">2nd exposure</text>
         <text x={X(o.peakday!)} y={Y(o.peak2!) - 4} fontSize={10} textAnchor="middle" fill="#c45e42">{fmt(o.peak2!, 0)}</text>
         <text x={203} y={216} fontSize={10} textAnchor="middle" fill="#4d5768">days (grey dashed = response if met only once)</text>
-        <text x={8} y={115} fontSize={10} fill="#4d5768" transform="rotate(-90 8 115)" textAnchor="middle">antibody titre</text>
+        <text x={12} y={115} fontSize={10} fill="#4d5768" transform="rotate(-90 12 115)" textAnchor="middle">antibody titre</text>
       </g>
     );
   },

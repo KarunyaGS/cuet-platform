@@ -78,7 +78,10 @@ export function AdmissionsPage() {
   const [params, setParams] = useSearchParams();
   const f = { type: params.get('type') ?? '', subject: params.get('subject') ?? '', year: params.get('year') ?? '', exam: params.get('exam') ?? '', q: params.get('q') ?? '', university: params.get('university') ?? '' };
   const [more, setMore] = useState(0);
+  const [directoryType, setDirectoryType] = useState('');
   const filters = useLoad(api.admissionFilters, []);
+  const platformSubjects = useLoad(() => api.subjects('CUET_UG', 2026), []);
+  const universities = useLoad(() => api.universities('CUET_UG'), []);
   const list = useLoad(() => api.programmes({ ...f, offset: 0 }), [f.type, f.subject, f.year, f.exam, f.q, f.university]);
   const extra = useLoad(() => (more ? api.programmes({ ...f, offset: more }) : Promise.resolve(null)), [more, f.type, f.subject, f.year, f.exam, f.q, f.university]);
   const set = (k: string, v: string) => {
@@ -92,6 +95,18 @@ export function AdmissionsPage() {
   const followed = new Set((targets.data?.targets ?? []).map((t) => t.programmeId));
   const refreshTargets = () => { targets.reload(); };
   const sel = `${inputClass} h-9 w-auto py-0`;
+  const subjectChoices = new Map<string, number>();
+  for (const s of platformSubjects.data?.filter((subject) => subject.available) ?? []) {
+    subjectChoices.set(s.name, filters.data?.subjects.find((item) => item.subject.toLowerCase() === s.name.toLowerCase())?.count ?? 0);
+  }
+  for (const s of filters.data?.subjects ?? []) if (!subjectChoices.has(s.subject)) subjectChoices.set(s.subject, s.count);
+  const typeChoices = new Map<string, number>((filters.data?.types ?? []).map((item) => [item.type, item.count]));
+  for (const t of universities.data?.types ?? []) if (!typeChoices.has(t.type)) typeChoices.set(t.type, 0);
+  const listedUniversities = universities.data
+    ? directoryType
+      ? universities.data.universities.filter((u) => u.type === directoryType).slice(0, 6)
+      : universities.data.types.map((t) => universities.data!.universities.find((u) => u.type === t.type)).filter((u): u is NonNullable<typeof u> => Boolean(u))
+    : [];
   return (
     <div className="w-full">
       <section className="admissions-hero relative mb-5 overflow-hidden rounded-[26px] border border-forest/10 bg-forest px-5 py-6 text-white shadow-[0_18px_48px_-30px_rgb(24_68_59/0.65)] sm:px-7 sm:py-7" data-admissions-hero>
@@ -120,9 +135,9 @@ export function AdmissionsPage() {
           <span className="sr-only">University type</span>
           <select value={f.type} onChange={(e) => set('type', e.target.value)} className={sel} data-filter="type">
             <option value="">All university types</option>
-            {(filters.data?.types ?? []).map((t) => (
-              <option key={t.type} value={t.type}>
-                {t.type} ({t.count})
+            {[...typeChoices.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([type, count]) => (
+              <option key={type} value={type}>
+                {type}{count ? ` (${count} programmes)` : ' · no published programmes yet'}
               </option>
             ))}
           </select>
@@ -131,9 +146,9 @@ export function AdmissionsPage() {
           <span className="sr-only">Required CUET subject</span>
           <select value={f.subject} onChange={(e) => set('subject', e.target.value)} className={sel} data-filter="subject">
             <option value="">Any CUET subject</option>
-            {(filters.data?.subjects ?? []).map((s) => (
-              <option key={s.subject} value={s.subject}>
-                {s.subject} ({s.count})
+            {[...subjectChoices.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([subject, count]) => (
+              <option key={subject} value={subject}>
+                {subject}{count ? ` (${count} programmes)` : ' · no published match yet'}
               </option>
             ))}
           </select>
@@ -193,6 +208,29 @@ export function AdmissionsPage() {
           )}
         </>
       )}
+      <section className="mt-7 overflow-hidden rounded-2xl border border-rule bg-surface" aria-labelledby="participating-universities" data-participating-universities>
+        <div className="border-b border-rule bg-[#f8f9ef] px-4 py-3.5 sm:px-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 id="participating-universities" className="text-base font-bold text-forest">More CUET universities</h2>
+              <p className="mt-0.5 text-xs text-ink-2">Browse NTA’s participating institutions across university types.</p>
+            </div>
+            <Link to="/cuet/ug/universities" className="inline-flex items-center gap-1 text-xs font-semibold text-accent hover:underline">Full university directory <ArrowRight aria-hidden className="size-3.5" /></Link>
+          </div>
+          {universities.data && <div className="mt-3 flex flex-wrap gap-1.5" aria-label="Filter universities by type">
+            <button type="button" onClick={() => setDirectoryType('')} aria-pressed={!directoryType} className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${!directoryType ? 'bg-forest text-lime' : 'bg-white text-ink-2 hover:bg-paper'}`}>All types · {universities.data.total}</button>
+            {universities.data.types.map((t) => <button key={t.type} type="button" onClick={() => setDirectoryType(t.type)} aria-pressed={directoryType === t.type} className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${directoryType === t.type ? 'bg-forest text-lime' : 'bg-white text-ink-2 hover:bg-paper'}`}>{t.type} · {t.count}</button>)}
+          </div>}
+        </div>
+        {universities.loading && !universities.data ? <div className="px-4 py-4 text-sm text-ink-3">Loading the NTA university list…</div> : universities.error ? <div className="p-4"><ErrorBox error={universities.error} onRetry={universities.reload} /></div> : universities.data && <ul className="divide-y divide-rule">
+          {listedUniversities.map((u) => <li key={`${u.type}-${u.name}`} className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 sm:px-5">
+            <span className="min-w-0"><span className="block text-sm font-semibold text-ink">{u.hasAdmissionInfo ? <Link to={`/universities/${u.slug}`} className="hover:text-accent hover:underline">{u.name}</Link> : u.name}</span><span className="mt-0.5 block text-[11px] text-ink-3">{u.type}{u.state ? ` · ${u.state}` : ''} · {u.hasAdmissionInfo ? 'Sourced admission page available' : 'Admission details not yet checked'}</span></span>
+            <a href={u.sourceUrl} target="_blank" rel="noreferrer noopener" className="inline-flex shrink-0 items-center gap-1 text-xs font-medium text-accent hover:underline">NTA listing <ExternalLink aria-hidden className="size-3" /></a>
+          </li>)}
+          {listedUniversities.length === 0 && <li className="px-4 py-4 text-sm text-ink-3">No university entries are available for this type yet.</li>}
+        </ul>}
+        <p className="border-t border-rule px-4 py-2.5 text-[11px] text-ink-3 sm:px-5">The NTA list confirms participation only. We show programme requirements and cut-offs only when we have source-checked records.</p>
+      </section>
       <p className="mt-6 text-xs text-ink-3">
         Rely on the university’s own notice for anything that affects you. <Link to="/updates" className="text-accent hover:underline">Latest government updates</Link>
       </p>
@@ -280,21 +318,25 @@ function Facts({ title, id, facts, missing, official, fallback }: { title: strin
 }
 
 function PreporaAdvice({ programmeName, subjects, progress, loading, error }: { programmeName: string; subjects: string[]; progress?: Progress; loading: boolean; error?: Error | null }) {
+  const [open, setOpen] = useState(false);
   const subjectSignals = subjects.map((required) => {
     const score = progress?.subjects.find((subject) => matchesSubject(required, subject.paper));
     const weak = score ? progress?.weakTopics.filter((topic) => matchesSubject(required, topic.paper)).sort((a, b) => a.accuracy - b.accuracy)[0] : undefined;
     return { required, score, weak };
   });
   return (
-    <details className="admission-advice my-8 overflow-hidden rounded-2xl border border-[#d9e69a] bg-gradient-to-br from-[#f5f8df] via-[#f8f8e9] to-[#fff8e0]" data-prepora-expert-advice>
-      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-4 marker:hidden sm:px-5">
-        <span className="flex min-w-0 items-center gap-3">
-          <span className="grid size-9 shrink-0 place-items-center rounded-full bg-white/80 text-[#657522]"><Sparkles aria-hidden className="size-4" /></span>
-          <span><span className="block text-sm font-semibold text-ink">Prepora expert advice</span><span className="mt-0.5 block text-xs text-ink-2">See how your practice maps to {programmeName}</span></span>
-        </span>
-        <ChevronDown aria-hidden className="admission-chevron size-4 shrink-0 text-ink-3" />
-      </summary>
-      <div className="border-t border-[#d9e69a] px-4 py-4 sm:px-5" data-admission-practice-context>
+    <section className="admission-advice mb-5 overflow-hidden rounded-2xl border-2 border-[#d9e69a] bg-gradient-to-br from-[#f5f8df] via-[#f8f8e9] to-[#fff8e0] shadow-[0_14px_35px_-27px_rgb(83_102_36/0.45)]" data-prepora-expert-advice>
+      <div className="flex flex-wrap items-center gap-3 px-4 py-3.5 sm:px-5">
+        <button type="button" className="flex min-w-0 flex-1 cursor-pointer items-center justify-between gap-3 text-left" aria-expanded={open} aria-controls="admission-practice-context" onClick={() => setOpen((value) => !value)}>
+          <span className="flex min-w-0 items-center gap-3">
+            <span className="grid size-9 shrink-0 place-items-center rounded-full bg-white/80 text-[#657522]"><Sparkles aria-hidden className="size-4" /></span>
+            <span><span className="block text-sm font-semibold text-ink">Prepora expert advice</span><span className="mt-0.5 block text-xs text-ink-2">See how your practice maps to {programmeName}</span></span>
+          </span>
+          <ChevronDown aria-hidden className={`admission-chevron size-4 shrink-0 text-ink-3 transition-transform ${open ? 'rotate-180' : ''}`} />
+        </button>
+        <Link to="/planner" className="inline-flex min-h-10 shrink-0 items-center gap-2 rounded-xl bg-forest px-4 text-sm font-semibold text-lime transition hover:bg-forest-deep" data-target-plan-link>Make your study plan <ArrowRight aria-hidden className="size-4" /></Link>
+      </div>
+      <div id="admission-practice-context" hidden={!open} className="border-t border-[#d9e69a] px-4 py-4 sm:px-5" data-admission-practice-context>
         {loading ? <p className="text-sm text-ink-2">Loading your practice snapshot…</p> : error ? <p className="text-sm text-ink-2">Your practice snapshot is temporarily unavailable. Your programme requirements are still shown above.</p> : subjects.length === 0 ? (
           <p className="text-sm text-ink-2">This programme accepts subject combinations rather than naming every subject. Choose your CUET papers in your profile, then build practice history to get course-specific advice.</p>
         ) : !progress?.subjects.length ? (
@@ -321,12 +363,8 @@ function PreporaAdvice({ programmeName, subjects, progress, loading, error }: { 
             </ul>
           </>
         )}
-        <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-[#d9e69a] pt-4">
-          <Button kind="secondary" disabled data-target-plan-coming-soon>Plan for this programme</Button>
-          <span className="max-w-xl text-xs text-ink-2">A target-aware plan can use these subject requirements and your practice gaps. Programme planning will be connected here next.</span>
-        </div>
       </div>
-    </details>
+    </section>
   );
 }
 
@@ -380,6 +418,7 @@ export function ProgrammePage() {
           </div>
         </div>
       </section>
+      <PreporaAdvice programmeName={p.programmeName} subjects={requiredSubjects} progress={performance.data ?? undefined} loading={performance.loading} error={performance.error} />
       {p.cycle.status === 'PREVIOUS' && (
         <div role="note" data-previous-cycle-banner className="mb-5 rounded-xl border border-marker/40 bg-marker-soft px-4 py-3 text-sm text-ink">
           <p className="font-semibold">{p.cycle.label}: historical reference only</p>
@@ -493,8 +532,6 @@ export function ProgrammePage() {
         )}
         </div>
       </details>
-
-      <PreporaAdvice programmeName={p.programmeName} subjects={requiredSubjects} progress={performance.data ?? undefined} loading={performance.loading} error={performance.error} />
 
       <details className="admission-disclosure mb-4 overflow-hidden rounded-xl border border-rule bg-surface" data-section="pg-official">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-ink marker:hidden"><span>Official pages</span><span className="flex items-center gap-2 text-xs font-normal text-ink-3">{d.officialPages.length} sources<ChevronDown aria-hidden className="admission-chevron size-4" /></span></summary>

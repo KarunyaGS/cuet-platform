@@ -17,6 +17,8 @@ export interface RangeRules {
   floor?: number;
   /** extra upper cap */
   cap?: number;
+  /** a count: both ends must be whole numbers */
+  integer?: boolean;
 }
 
 /** The outer limits for a control, given its design range. */
@@ -36,6 +38,7 @@ export function rangeLimits(design: Range, rules: RangeRules = {}): Range {
 export function validateRange(r: Range, design: Range, rules: RangeRules = {}): string | null {
   if (!Number.isFinite(r.min) || !Number.isFinite(r.max)) return 'Enter a number in both boxes.';
   if (r.min >= r.max) return 'The smallest value must be below the largest.';
+  if (rules.integer && (!Number.isInteger(r.min) || !Number.isInteger(r.max))) return 'This is a count, so use whole numbers.';
   const lim = rangeLimits(design, rules);
   if ((design.min > 0 || rules.log) && r.min <= 0) return 'This quantity must stay above zero.';
   if (design.min >= 0 && r.min < lim.min) return `The smallest value cannot go below ${trim(lim.min)}.`;

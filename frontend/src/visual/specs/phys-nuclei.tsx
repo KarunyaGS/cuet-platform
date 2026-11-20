@@ -26,7 +26,7 @@ export const spec: Spec = {
   can: ['Grow the nucleus and watch R follow the cube root of A', 'Turn a mass defect in u into binding energy in MeV', 'Fit R against A^(1/3) to recover the constant R0'],
   minutes: 11,
   vars: [
-    { id: 'A', label: 'Mass number A', unit: '', min: 4, max: 240, step: 1, start: 236, digits: 0 },
+    { id: 'A', label: 'Mass number A', unit: '', min: 4, max: 240, step: 1, start: 236, digits: 0, integer: true },
     { id: 'x', label: 'Mass defect per nucleon ΔM / A', unit: 'u', min: 0.005, max: 0.0095, step: 0.0001, start: 0.0082, digits: 4 },
     { id: 'frag', label: 'Binding energy per nucleon of the fragments', unit: 'MeV', min: 7, max: 9, step: 0.1, start: 8.4, digits: 1 },
   ],

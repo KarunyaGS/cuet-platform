@@ -30,7 +30,7 @@ export const spec: Spec = {
     { id: 'I2', label: 'Current I₂ in the second wire', unit: 'A', min: 1, max: 20, step: 1, start: 10, digits: 0 },
     { id: 'd', label: 'Distance between the wires d', unit: 'cm', min: 1, max: 20, step: 1, start: 5, digits: 0 },
     { id: 'B', label: 'Magnetic field B', unit: 'mT', min: 10, max: 500, step: 10, start: 100, digits: 0 },
-    { id: 'th', label: 'Angle θ (wire to B; coil normal to B)', unit: '°', min: 0, max: 90, step: 5, start: 90, digits: 0 },
+    { id: 'th', label: 'Angle θ (wire to B; coil normal to B)', unit: '°', min: 0, max: 90, step: 5, start: 90, digits: 0, bounds: { min: 0, max: 180 } },
   ],
   outs: [
     { id: 'F', label: 'Force on a 20 cm wire, F = BIl sinθ', unit: 'mN', fn: (v) => force(v.B!, v.I1!, v.th!) * 1e3, digits: 2 },

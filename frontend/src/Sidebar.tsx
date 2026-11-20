@@ -1,7 +1,7 @@
 import { CalendarRange, ChartPie, ChevronRight, FlaskConical, House } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router';
-import { bareChapter, useAuth } from './ui';
+import { bareChapter } from './ui';
 import { subjectTone } from './subjectColors';
 import { api, type ExamCode, type Outline, type OutlineNode, type PyqTree, type Subject } from './api';
 import { PreporaSpark } from './brand';
@@ -634,25 +634,11 @@ function BrandMark() {
 }
 export { BrandMark };
 
-const initial = (name: string) => name.trim().charAt(0).toUpperCase() || '?';
 const navRow = 'flex h-11 items-center gap-3 rounded-lg px-3 text-[13px] transition-colors';
 
 /** The student's learning space: brand, workspace links, every subject and who is signed in. */
 export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => void; className?: string }) {
   const { pathname } = useLocation();
-  const { user } = useAuth();
-  const [exam, setExam] = useState<string | null>(null);
-  useEffect(() => {
-    if (!user) {
-      setExam(null);
-      return;
-    }
-    let live = true;
-    api.preferences().then((p) => live && setExam(p.examCode ? `${p.examCode === 'CUET_UG' ? 'CUET UG' : 'CUET PG'}${p.targetYear ? ` · ${p.targetYear}` : ''}` : null), () => undefined);
-    return () => {
-      live = false;
-    };
-  }, [user?.id, pathname]);
   const link = (to: string, label: string, icon: React.ReactNode, end = false) => (
     <NavLink
       to={to}
@@ -697,17 +683,6 @@ export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => voi
       <nav aria-label="Subjects" className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-3 [scrollbar-color:#2f5d52_transparent] [scrollbar-width:thin]">
         <SidebarNav onNavigate={onNavigate} />
       </nav>
-      {user && (
-        <Link to="/profile" onClick={onNavigate} className="flex shrink-0 items-center gap-3 border-t border-white/10 px-5 py-3.5 transition-colors hover:bg-white/[0.05]">
-          <span aria-hidden className="grid size-8 shrink-0 place-items-center rounded-full bg-[#ebb9a3] text-[12px] font-bold text-forest">
-            {initial(user.displayName)}
-          </span>
-          <span className="flex min-w-0 flex-col leading-tight">
-            <span className="truncate text-[12.5px] font-semibold text-white">{user.displayName}</span>
-            <span className="label truncate text-[10px] text-[#86a594]">{exam ?? 'Choose your exam'}</span>
-          </span>
-        </Link>
-      )}
     </aside>
   );
 }
