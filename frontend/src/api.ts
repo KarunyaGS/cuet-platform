@@ -523,6 +523,9 @@ export const api = {
   previewPlan: (b: PlanGoal & { labs: PlanLab[] }) => request<PlanPreview>('POST', '/api/student/planner/preview', b),
   createPlan: (b: PlanGoal & { labs: PlanLab[]; replace?: boolean; fingerprint?: string }) => request<{ id: string }>('POST', '/api/student/planner/plans', b),
   currentPlan: (asOf: string) => request<CurrentPlan>('GET', `/api/student/planner/plans/current?asOf=${asOf}`),
+  milestones: () => request<MilestonesOut>('GET', '/api/student/milestones'),
+  milestoneShown: (id: string) => request<{ ok: boolean }>('POST', `/api/student/milestones/${id}/shown`),
+  milestoneDismiss: (id: string) => request<{ ok: boolean }>('POST', `/api/student/milestones/${id}/dismiss`),
   adjustPlan: (id: string, asOf: string) => request<{ changes: PlanChange[] }>('POST', `/api/student/planner/plans/${id}/adjust`, { asOf }),
   pausePlan: (id: string, asOf: string) => request<{ status: string }>('POST', `/api/student/planner/plans/${id}/pause`, { asOf }),
   resumePlan: (id: string, asOf: string) => request<{ status: string; shiftedDays: number }>('POST', `/api/student/planner/plans/${id}/resume`, { asOf }),
@@ -607,3 +610,7 @@ export const api = {
   universities: (exam: ExamCode, q?: string, type?: string) =>
     request<UniversityList>('GET', `/api/public/universities?exam=${exam}${q ? `&q=${encodeURIComponent(q)}` : ''}${type ? `&type=${encodeURIComponent(type)}` : ''}`),
 };
+
+/** A milestone reached in the expert study plan, with the wording and the counts it is built from. */
+export interface MilestoneView { id: string; kind: string; subjectCode: string | null; heading: string; message: string; figure: string; done: number; total: number; percent: number | null; planDone: number | null; planTotal: number | null; reachedAt: string }
+export interface MilestonesOut { pending: MilestoneView | null; history: (MilestoneView & { status: string })[] }

@@ -4,7 +4,7 @@
  */
 import { useState } from 'react';
 import { api, localDay } from '../../api';
-import { buttonClass, ErrorBox, Loading, useLoad } from '../../ui';
+import { ErrorBox, Loading, useLoad } from '../../ui';
 import { ActivePlan } from './ActivePlan';
 import { StudyGoals } from './StudyGoals';
 
@@ -19,9 +19,6 @@ export function PlanSection({ onChange }: { onChange: () => void }) {
   if (mode === 'change') return <StudyGoals regenerateId={data.plan.id} initial={data.plan.goal} onDone={() => { setMode('view'); refresh(); }} onCancel={() => setMode('view')} />;
   if (mode === 'new') return <StudyGoals replacing onDone={() => { setMode('view'); refresh(); }} onCancel={() => setMode('view')} />;
   return (
-    <>
-      <ActivePlan key={`${data.plan.id}-${data.plan.version}`} data={data} reload={refresh} onChangeGoal={() => setMode('change')} />
-      <div className="-mt-3 mb-6 flex justify-end"><button type="button" onClick={() => setMode('new')} data-new-plan className={buttonClass('ghost')}>Start a different plan</button></div>
-    </>
+    <ActivePlan key={`${data.plan.id}-${data.plan.version}`} data={data} reload={refresh} onChangeGoal={() => setMode('change')} onNewPlan={() => setMode('new')} />
   );
 }

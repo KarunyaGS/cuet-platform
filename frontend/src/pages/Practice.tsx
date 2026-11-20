@@ -165,9 +165,6 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
     if (left === 0 && data?.session.status === 'IN_PROGRESS') void submit(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [left]);
-  useEffect(() => {
-    if (left === 300 || left === 60) playUiSound('warning');
-  }, [left]);
   const qid = data?.questions[i]?.id;
   useEffect(() => {
     if (qid) setVisited((v) => (v.has(qid) ? v : new Set(v).add(qid)));

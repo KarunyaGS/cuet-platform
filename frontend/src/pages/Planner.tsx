@@ -6,6 +6,7 @@ import { Button, ErrorBox, Loading, Meter, useAuth, useLoad } from '../ui';
 import { PlanLink } from './Dashboard';
 import { PLAN_KIND_LABEL } from '../planLinks';
 import { PlanSection } from './planner/PlanSection';
+import { playUiSound } from '../sound';
 
 const KIND_LABEL: Record<string, string> = { ...PLAN_KIND_LABEL, TOPIC: 'Topic', LESSON: 'Lesson', PRACTICE: 'Practice', MOCK: 'Mock' };
 
@@ -91,7 +92,7 @@ export function PlannerPage() {
       ) : plan.error ? (
         <ErrorBox error={plan.error} onRetry={plan.reload} />
       ) : (
-        <div data-planner-grid className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div id="planner-calendar" data-planner-grid className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {days.map((day) => (
             <DayColumn key={day} day={day} today={day === today} past={day < today} items={byDay.get(day) ?? []} act={act} />
           ))}
@@ -114,9 +115,9 @@ function DayColumn({ day, today, past, items, act }: { day: string; today: boole
       </h2>
       <ul className="flex-1 space-y-1.5 p-2">
         {items.map((p) => (
-          <li key={p.id} data-plan-item className={`group flex items-start gap-2 rounded-[12px] border p-2 text-[12px] transition duration-200 hover:-translate-y-0.5 hover:shadow-sm ${p.done ? 'border-forest/10 bg-[#f0f3e8]/70' : 'border-rule/60 bg-white/80 hover:border-forest/20'}`}>
+          <li key={p.id} data-plan-item data-expert-plan={p.planId ? 'true' : undefined} className={`group flex items-start gap-2 rounded-[12px] border p-2 text-[12px] transition duration-200 hover:-translate-y-0.5 hover:shadow-sm ${p.planId ? 'border-[#d5df98] bg-[#fbfced]' : 'border-rule/60 bg-white/80'} ${p.done ? 'border-forest/10 bg-[#f0f3e8]/70' : 'hover:border-forest/20'}`}>
             <label className={`mt-0.5 grid size-[17px] shrink-0 cursor-pointer place-items-center rounded-md border transition-colors ${p.done ? 'border-forest bg-forest text-lime' : 'border-rule-strong bg-surface text-transparent hover:border-forest'}`}>
-              <input type="checkbox" checked={p.done} onChange={(e) => act(() => api.updatePlan(p.id, { done: e.target.checked }))} aria-label={`Mark “${p.title}” done`} className="peer sr-only" />
+              <input type="checkbox" checked={p.done} onChange={(e) => { if (e.target.checked) playUiSound('complete'); void act(() => api.updatePlan(p.id, { done: e.target.checked })); }} aria-label={`Mark “${p.title}” done`} className="peer sr-only" />
               <Check aria-hidden className="size-3.5 scale-75 transition-transform peer-checked:scale-100" />
             </label>
             <span className="min-w-0 flex-1">
@@ -125,9 +126,10 @@ function DayColumn({ day, today, past, items, act }: { day: string; today: boole
               </PlanLink>
               <span className="mt-1 flex items-center justify-between gap-2">
                 <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${p.kind === 'PRACTICE' || p.kind === 'MOCK' ? 'bg-[#f6e5db] text-terracotta' : 'bg-[#e9eedf] text-forest'}`}>{KIND_LABEL[p.kind] ?? p.kind}</span>
+                {p.planId && <span className="rounded-full bg-[#f1f4d9] px-1.5 py-0.5 text-[9px] font-semibold text-forest">Study plan</span>}
             <span className="flex shrink-0 gap-0.5 opacity-70 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
               {!p.done && (
-                <button type="button" title="Move to the next day" aria-label="Move to the next day" onClick={() => act(() => api.updatePlan(p.id, { day: addDays(day, 1) }))} className="grid size-6 place-items-center rounded-md text-ink-3 hover:bg-ink/5 hover:text-ink">
+                <button type="button" title="Move to the next day" data-sound="move" aria-label="Move to the next day" onClick={() => act(() => api.updatePlan(p.id, { day: addDays(day, 1) }))} className="grid size-6 place-items-center rounded-md text-ink-3 hover:bg-ink/5 hover:text-ink">
                   <ArrowRight aria-hidden className="size-3.5" />
                 </button>
               )}
@@ -147,6 +149,7 @@ function DayColumn({ day, today, past, items, act }: { day: string; today: boole
           onSubmit={(e) => {
             e.preventDefault();
             if (!title.trim()) return;
+            playUiSound('add');
             void act(() => api.addPlan({ day, kind: 'CUSTOM', title: title.trim() })).then(() => setTitle(''));
           }}
         >

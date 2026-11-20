@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { useState } from 'react';
 import { api } from '../api';
 import { subjectTone } from '../subjectColors';
+import { MilestoneCelebration } from './planner/MilestoneCelebration';
 import { accuracyTone, Empty, ErrorBox, Loading, Meter, useLoad } from '../ui';
 
 const MODE: Record<string, string> = { PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' };
@@ -63,6 +64,7 @@ export function ProgressPage() {
   };
   return (
     <div data-home data-progress className="mx-auto max-w-[84rem]">
+      <MilestoneCelebration />
       <header data-progress-hero className="relative mb-6 overflow-hidden rounded-[20px] border border-[#e6c1a8] bg-gradient-to-br from-[#f3d9c7] via-[#f5e4d6] to-[#f7eddc] px-5 py-4 text-forest shadow-[0_12px_28px_-24px_rgb(137_78_51/0.24)] sm:px-6 sm:py-4">
         <div className="flex flex-wrap items-center justify-between gap-5">
           <div className="min-w-0 max-w-3xl">

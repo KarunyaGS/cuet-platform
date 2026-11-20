@@ -22,7 +22,7 @@ const STORE = 'cuet.sidebar.open';
 const rowBase = 'relative flex w-full items-center gap-1.5 rounded-lg text-left transition-colors hover:bg-white/[0.06] focus-visible:bg-white/[0.08]';
 /** A row that contains the page the student is on (its subject, category or heading): pale lime text, no block. */
 const parentRow = 'font-medium text-lime';
-const selectedRow = 'bg-lime font-medium !text-forest hover:bg-lime [&_svg]:!text-forest [&_.num]:!text-forest/70';
+const selectedRow = 'bg-lime font-medium !text-forest hover:!bg-lime focus-visible:!bg-lime [&_svg]:!text-forest [&_.num]:!text-forest/70';
 
 function Chevron({ open }: { open: boolean }) {
   return <ChevronRight aria-hidden className={`size-3.5 shrink-0 text-ink-3 transition-transform ${open ? 'rotate-90' : ''}`} />;
@@ -635,7 +635,7 @@ function BrandMark() {
 export { BrandMark };
 
 const initial = (name: string) => name.trim().charAt(0).toUpperCase() || '?';
-const navRow = 'flex h-11 items-center gap-3 rounded-lg px-3 text-[13px] transition-colors hover:bg-white/[0.06]';
+const navRow = 'flex h-11 items-center gap-3 rounded-lg px-3 text-[13px] transition-colors';
 
 /** The student's learning space: brand, workspace links, every subject and who is signed in. */
 export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => void; className?: string }) {
@@ -658,7 +658,7 @@ export function Sidebar({ onNavigate, className = '' }: { onNavigate?: () => voi
       to={to}
       end={end}
       onClick={onNavigate}
-      className={({ isActive }) => `${navRow} ${isActive ? 'bg-lime-bright font-semibold text-forest shadow-[inset_3px_0_0_var(--color-coral-edge)]' : 'text-[var(--color-forest-soft)] hover:text-white'}`}
+      className={({ isActive }) => `${navRow} ${isActive ? 'bg-lime-bright font-semibold text-forest hover:!bg-lime-bright focus-visible:!bg-lime-bright shadow-[inset_3px_0_0_var(--color-coral-edge)]' : 'text-[var(--color-forest-soft)] hover:bg-white/[0.06] focus-visible:bg-white/[0.08] hover:text-white'}`}
     >
       <span aria-hidden className="shrink-0 [&>svg]:size-4 [&>svg]:stroke-[1.6]">
         {icon}

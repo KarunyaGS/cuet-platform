@@ -29,7 +29,7 @@ export function StudyGoals({ replacing = false, regenerateId = null, initial = n
   const options = useLoad(api.plannerOptions, []);
   const [step, setStep] = useState(0);
   const [path, setPath] = useState(initial?.path ?? '');
-  const [paperIds, setPaperIds] = useState<string[] | null>(initial?.paperIds ?? null);
+  const [paperIds, setPaperIds] = useState<string[]>(initial?.paperIds ?? []);
   const [objectives, setObjectives] = useState<string[]>(initial?.objectives ?? []);
   const [days, setDays] = useState<7 | 14 | 30>(initial?.durationDays ?? 14);
   const [minutes, setMinutes] = useState(initial?.minutesPerDay ?? 120);
@@ -41,7 +41,7 @@ export function StudyGoals({ replacing = false, regenerateId = null, initial = n
   const [saving, setSaving] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
   const o = options.data;
-  const chosen = paperIds ?? o?.defaults.paperIds ?? [];
+  const chosen = paperIds;
 
   useEffect(() => { panel.current?.focus({ preventScroll: true }); }, [step, phase]);
 
@@ -62,7 +62,7 @@ export function StudyGoals({ replacing = false, regenerateId = null, initial = n
       const [pv] = await Promise.all([api.previewPlan({ ...goal(), labs: planLabs() }), new Promise((r) => window.setTimeout(r, 1700))]);
       setPreview(pv);
       setPhase('preview');
-      playUiSound('select');
+      playUiSound('generate');
     } catch (e) {
       setErr(e as Error);
       setPhase('choose');
@@ -78,7 +78,7 @@ export function StudyGoals({ replacing = false, regenerateId = null, initial = n
     try {
       if (regenerateId) await api.regeneratePlan(regenerateId, { asOf: localDay(), path, paperIds: chosen, objectives, durationDays: days, minutesPerDay: minutes, coverage, labs: planLabs() });
       else await api.createPlan({ ...preview.goal, labs: planLabs(), fingerprint: preview.fingerprint, replace: replacing });
-      playUiSound('complete');
+      playUiSound('success');
       setPhase('saved');
       window.setTimeout(onDone, 1100);
     } catch (e) {

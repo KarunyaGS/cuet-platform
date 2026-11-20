@@ -1384,6 +1384,29 @@ model StudyPlanEvent {
   @@map("study_plan_events")
 }
 
+/// A milestone the student reached in their expert study plan, kept so its celebration is shown once.
+/// PENDING (waiting for My Progress), SHOWN, DISMISSED, or SUPERSEDED (reached together with a more meaningful one).
+model PlanMilestone {
+  id           String    @id @default(cuid())
+  userId       String    @map("user_id")
+  planId       String    @map("plan_id")
+  /// Unique per student: what was reached, in which plan (for example "plan:abc:pct:50").
+  milestoneKey String    @map("milestone_key")
+  kind         String
+  subjectCode  String?   @map("subject_code")
+  priority     Int
+  /// The counts the message is built from (done, total, subject name...), so the wording is always backed by numbers.
+  detailJson   String    @map("detail_json")
+  status       String    @default("PENDING")
+  reachedAt    DateTime  @default(now()) @map("reached_at")
+  shownAt      DateTime? @map("shown_at")
+  dismissedAt  DateTime? @map("dismissed_at")
+
+  @@unique([userId, milestoneKey])
+  @@index([userId, status])
+  @@map("plan_milestones")
+}
+
 /// One fact from the official NTA information for an exam cycle (eligibility, pattern, dates, fees, ...),
 /// with the document and page it came from. Shown on the public information pages; replaced as a whole
 /// for an exam and cycle when NTA publishes new information.

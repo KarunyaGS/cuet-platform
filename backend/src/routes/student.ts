@@ -40,6 +40,7 @@ import { examActive, keeper, paperInScope, scienceOnly, UG_SCIENCE_PAPER_CODES }
 import { listExams, listSubjects, searchConcepts, searchSyllabus, mediaObject, paperOutline, resourceDetail, topicDetail } from '../services/learning';
 import { flashcardDecks } from '../services/decks';
 import { chapterSheet, subjectSheet, weakSheet } from '../services/sheets';
+import { detectMilestones, markMilestone, pendingMilestone } from '../services/milestones';
 import { answerSchema, getSession, marksSchema, progress, questionCounts, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 import { measureVpa, recordVpaObservation, startVpa, submitVpa, vpaDetails, vpaMeasureSchema, vpaRecordSchema, vpaStartSchema, vpaSubmitSchema } from '../services/vpa';
 import { topicWeightage } from '../services/topic-weightage';
@@ -403,7 +404,16 @@ student.get('/subject-summary/:paperId', async (c) => c.json(await subjectSummar
 // Study planner
 student.get('/plan', async (c) => c.json(await listPlan(c.env.DB, c.get('user').id, c.req.query('from') ?? '', c.req.query('to') ?? '')));
 student.post('/plan', async (c) => c.json(await addPlanItem(c.env.DB, c.get('user').id, await readJson(c, planItemSchema)), 201));
-student.patch('/plan/:id', async (c) => c.json(await updatePlanItem(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, planUpdateSchema))));
+student.patch('/plan/:id', async (c) => {
+  const out = await updatePlanItem(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, planUpdateSchema));
+  // Note a milestone at the moment it is reached (the celebration itself waits for My Progress). A failure here never blocks ticking a task.
+  await detectMilestones(c.env.DB, c.get('user').id).catch(() => undefined);
+  return c.json(out);
+});
+// Milestones from the expert study plan: the one celebration waiting for My Progress, and its seen / dismissed state.
+student.get('/milestones', async (c) => c.json(await pendingMilestone(c.env.DB, c.get('user').id)));
+student.post('/milestones/:id/shown', async (c) => c.json(await markMilestone(c.env.DB, c.get('user').id, c.req.param('id'), 'SHOWN')));
+student.post('/milestones/:id/dismiss', async (c) => c.json(await markMilestone(c.env.DB, c.get('user').id, c.req.param('id'), 'DISMISSED')));
 student.delete('/plan/:id', async (c) => c.json(await deletePlanItem(c.env.DB, c.get('user').id, c.req.param('id'))));
 // Expert-guided study plans: goals in, a deterministic plan out, then the student customises it and the platform keeps it on track.
 const planCtx = (c: { env: AppEnv['Bindings'] }) => ({ preview: preview(c.env), keep: keeper(c.env) });
