@@ -1,5 +1,5 @@
 /** University admissions: browse programmes by university type, CUET subject and year, and read one programme's requirements with their sources. */
-import { ArrowRight, CalendarDays, Check, ChevronDown, CircleHelp, ExternalLink, Info, SearchX, Sparkles } from 'lucide-react';
+import { ArrowRight, CalendarDays, ChevronDown, ExternalLink, Info, SearchX, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
 import { api, ApiError, type AdmissionFact, type Cycle, type ExamCode, type Progress, type ProgrammeSummary, type Reliability } from '../api';
@@ -39,54 +39,32 @@ function Card({ p, targeted, onTarget }: { p: ProgrammeSummary; targeted?: boole
   const rule = parseRule(p.ruleText);
   const lines = rule ? ruleLines(rule) : p.subjects;
   const subjectSummary = lines?.length ? lines[0] + (lines.length > 1 ? ` + ${lines.length - 1} alternative${lines.length > 2 ? 's' : ''}` : '') : 'No subject rule in our verified records yet';
-  const availability = [
-    ['Eligibility', p.known.eligibility],
-    ['CUET papers', p.known.subjects],
-    ['Application steps', p.known.procedure],
-    ['Counselling', p.known.counselling],
-    ['Deadline', p.known.deadline],
-    ['Past cut-offs', p.known.cutoffs],
-  ] as const;
   return (
     <li>
       <Panel className="admission-programme-card group relative overflow-hidden p-0 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-28px_rgb(24_68_59/0.45)]" data-programme={p.id}>
-        <div className="h-1.5 bg-gradient-to-r from-forest via-[#91a94a] to-lime" />
-        <div className="p-4 sm:p-5">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-                {p.universityType && <Badge>{p.universityType}</Badge>}
-                <Badge tone="accent">{examName(p.exam)}</Badge>
-                <Badge tone={p.cycle.status === 'PREVIOUS' ? 'amber' : 'zinc'}>{p.academicYear} cycle</Badge>
-              </div>
-              <h3 className="mt-3 text-lg font-bold leading-snug tracking-[-0.02em] text-forest">{p.programmeName}</h3>
-              <Link to={`/universities/${p.universitySlug}`} className="mt-1 inline-flex text-sm text-ink-2 hover:text-accent hover:underline">
-                {p.universityName}
-              </Link>
+        <div className="h-1 bg-gradient-to-r from-forest via-[#91a94a] to-lime" />
+        <div className="p-3.5 sm:p-4">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-1.5 text-[10px]">
+              {p.universityType && <Badge>{p.universityType}</Badge>}
+              <Badge tone="accent">{examName(p.exam)}</Badge>
+              <Badge tone={p.cycle.status === 'PREVIOUS' ? 'amber' : 'zinc'}>{p.cycle.status === 'PREVIOUS' ? p.cycle.label ?? `${p.academicYear} · previous cycle` : `${p.academicYear} cycle`}</Badge>
             </div>
-            <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-[#eef3d2] text-forest transition-transform duration-300 group-hover:rotate-3 group-hover:scale-105"><Sparkles aria-hidden className="size-4" /></span>
+            <h3 className="mt-2.5 text-base font-bold leading-snug tracking-[-0.02em] text-forest">{p.programmeName}</h3>
+            <Link to={`/universities/${p.universitySlug}`} className="mt-0.5 inline-flex text-[13px] text-ink-2 hover:text-accent hover:underline">
+              {p.universityName}
+            </Link>
           </div>
-          <div className="mt-4 rounded-2xl border border-[#dce5b5] bg-gradient-to-br from-[#f7f9e9] to-[#fffdf4] p-3.5" data-card-subjects>
-            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-forest/65">CUET subject combination</p>
-            <p className="mt-1.5 text-sm font-semibold leading-relaxed text-forest">{subjectSummary}</p>
+          <div className="mt-3 rounded-xl border border-[#dce5b5] bg-gradient-to-br from-[#f7f9e9] to-[#fffdf4] px-3 py-2.5" data-card-subjects>
+            <p className="text-[9px] font-bold uppercase tracking-[0.13em] text-forest/65">CUET subjects</p>
+            <p className="mt-1 line-clamp-2 text-[13px] font-semibold leading-snug text-forest">{subjectSummary}</p>
           </div>
-          <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
-            {p.nextDeadline ? <span className="inline-flex items-center gap-1.5 rounded-full border border-[#ead6a7] bg-[#fff6df] px-2.5 py-1.5 font-medium text-[#715918]"><CalendarDays aria-hidden className="size-3.5" />{p.nextDeadline.label}: {dayLabel(p.nextDeadline.date)}</span> : p.lastDeadline ? <span className="inline-flex items-center gap-1.5 rounded-full bg-paper px-2.5 py-1.5 text-ink-3"><CalendarDays aria-hidden className="size-3.5" />Last listed deadline: {dayLabel(p.lastDeadline.date)}</span> : <span className="inline-flex items-center gap-1.5 rounded-full bg-paper px-2.5 py-1.5 text-ink-3"><CalendarDays aria-hidden className="size-3.5" />No deadline in our verified records</span>}
-            <ReliabilityBadge r={p.reliability} on={p.lastVerifiedOn} cycle={p.cycle} />
-          </div>
-          <div className="mt-4 border-t border-rule/80 pt-3.5">
-            <div className="flex items-center justify-between gap-2">
-              <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-ink-3">Admission details</p>
-              <span className="text-[10px] text-ink-3">{availability.filter(([, ready]) => ready).length} of {availability.length} sections sourced</span>
-            </div>
-            <ul className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2 sm:grid-cols-3" aria-label="Admission details available">
-              {availability.map(([label, ready]) => <li key={label} className={`flex items-center gap-1.5 text-[11px] ${ready ? 'text-forest' : 'text-ink-3'}`}><span className={`grid size-4 shrink-0 place-items-center rounded-full ${ready ? 'bg-[#e8f1df]' : 'bg-paper'}`}>{ready ? <Check aria-hidden className="size-3" /> : <CircleHelp aria-hidden className="size-3" />}</span>{label}<span className="sr-only">{ready ? 'available' : 'not in our verified records'}</span></li>)}
-            </ul>
-            <p className="mt-2 text-[10px] leading-relaxed text-ink-3">A missing item means Prepora has not added a source-checked detail yet; it does not mean the university has not published one.</p>
-          </div>
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-3">
-            <Link to={`/admissions/programmes/${p.id}`} className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-forest px-3.5 text-sm font-semibold text-lime transition hover:bg-forest-deep" aria-label={`View admission details for ${p.programmeName}`}>
-              Explore programme <ArrowRight aria-hidden className="size-4" />
+          {(p.nextDeadline || p.lastDeadline) && (
+            <p className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-ink-3"><CalendarDays aria-hidden className="size-3.5" />{p.nextDeadline ? `${p.nextDeadline.label}: ${dayLabel(p.nextDeadline.date)}` : `Last listed: ${dayLabel(p.lastDeadline!.date)}`}</p>
+          )}
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-2.5">
+            <Link to={`/admissions/programmes/${p.id}`} className="inline-flex min-h-9 items-center gap-1.5 rounded-xl bg-forest px-3 text-[13px] font-semibold text-lime transition hover:bg-forest-deep" aria-label={`View admission details for ${p.programmeName}`}>
+              Programme details <ArrowRight aria-hidden className="size-3.5" />
             </Link>
             {onTarget && <TargetButton programmeId={p.id} targeted={Boolean(targeted)} onChange={onTarget} />}
           </div>
