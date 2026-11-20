@@ -64,6 +64,7 @@ const MY: MenuItem[] = [
   { to: '/bookmarks/review', label: 'Revision Cards', hint: 'Revise the cards that are due', icon: <GalleryVerticalEnd aria-hidden /> },
   { to: '/planner', label: 'Study Planner', hint: 'Your plan, day by day', icon: <CalendarDays aria-hidden /> },
   { to: '/progress', label: 'Learning Progress', hint: 'Accuracy, coverage and weak topics', icon: <ChartNoAxesColumn aria-hidden /> },
+  { to: '/admissions', label: 'University Admissions', hint: 'Programme requirements and your practice context', icon: <Landmark aria-hidden /> },
 ];
 const startsWithAny = (path: string, list: string[]) => list.some((p) => path === p || path.startsWith(`${p}/`));
 /** Which top-level group the current page belongs to, so the header can show where the student is. */
@@ -71,7 +72,7 @@ export const navGroup = (path: string): 'home' | 'learn' | 'practice' | 'my' | n
   path === '/' ? 'home'
     : startsWithAny(path, ['/CUET_UG', '/CUET_PG', '/topic', '/learn', '/revise', '/visual', '/search']) ? 'learn'
     : startsWithAny(path, ['/practice-centre', '/pyq', '/results', '/past-papers']) ? 'practice'
-    : startsWithAny(path, ['/dashboard', '/bookmarks', '/planner', '/progress', '/report', '/flashcards']) ? 'my'
+    : startsWithAny(path, ['/dashboard', '/bookmarks', '/planner', '/progress', '/report', '/flashcards', '/admissions', '/universities']) ? 'my'
     : null;
 
 /**
@@ -214,7 +215,6 @@ function UserMenu() {
               <CreditCard aria-hidden />
               Plans
             </Link>
-            {/* University admissions is hidden for now. Its page, data and routes are unchanged: put the link back here to show it again. */}
             <Link role="menuitem" to="/updates" className={item}>
               <Landmark aria-hidden />
               Official Government Updates

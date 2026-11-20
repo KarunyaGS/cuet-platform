@@ -2,7 +2,7 @@
 import { ExternalLink, Info, SearchX } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
-import { api, ApiError, type AdmissionFact, type Cycle, type ExamCode, type ProgrammeSummary, type Reliability } from '../api';
+import { api, ApiError, type AdmissionFact, type Cycle, type ExamCode, type Progress, type ProgrammeSummary, type Reliability } from '../api';
 import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Panel, SearchInput, SectionTitle, inputClass, useLoad } from '../ui';
 import { BASIS, Source } from './University';
 import { parseRule, ruleLines, type Rule } from '../subject-rule';
@@ -27,8 +27,19 @@ const NOT_AVAILABLE: Record<string, string> = {
   cutoffs: 'Previous years’ cut-offs',
 };
 
-function Card({ p }: { p: ProgrammeSummary }) {
+function matchesSubject(required: string, paper: string) {
+  const normalize = (value: string) => value.toLowerCase().replace(/\([^)]*\)/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  const names = required.split(/[\/|]/).map(normalize).filter(Boolean);
+  const actual = normalize(paper);
+  return names.some((name) => name === actual || name.startsWith(`${actual} `) || actual.startsWith(`${name} `));
+}
+
+function Card({ p, progress }: { p: ProgrammeSummary; progress?: Progress }) {
   const d = p.nextDeadline ? `Apply by ${dayLabel(p.nextDeadline.date)}` : p.lastDeadline ? `Deadline was ${dayLabel(p.lastDeadline.date)}` : null;
+  const subjectPerformance = (p.subjects ?? []).flatMap((required) => {
+    const result = progress?.subjects.find((subject) => matchesSubject(required, subject.paper));
+    return result ? [{ required, ...result }] : [];
+  });
   return (
     <li>
       <Panel className="p-4" >
@@ -73,6 +84,19 @@ function Card({ p }: { p: ProgrammeSummary }) {
           <p className="mt-2 text-xs text-ink-3">
             Eligibility {p.known.eligibility ? 'given' : 'not yet available'} · procedure {p.known.procedure ? 'given' : 'not yet available'} · counselling {p.known.counselling ? 'given' : 'not yet available'} · cut-offs {p.known.cutoffs ? 'given' : 'not yet available'}
           </p>
+          {subjectPerformance.length > 0 && (
+            <div className="mt-3 rounded-lg border border-rule bg-paper/70 px-3 py-2.5" data-admission-practice-context>
+              <p className="text-xs font-semibold text-ink">Your practice context for listed subjects</p>
+              <ul className="mt-1 space-y-1 text-xs text-ink-2">
+                {subjectPerformance.map((s) => (
+                  <li key={`${p.id}-${s.paperCode}`}>
+                    {s.paper}: {s.accuracy === null ? 'no accuracy yet' : `${s.accuracy}% accuracy`} across {s.attempted} answered questions
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-1 text-[11px] text-ink-3">Practice history is a revision signal, not an official CUET score, eligibility decision or admission prediction.</p>
+            </div>
+          )}
         </div>
       </Panel>
     </li>
@@ -84,6 +108,7 @@ export function AdmissionsPage() {
   const f = { type: params.get('type') ?? '', subject: params.get('subject') ?? '', year: params.get('year') ?? '', exam: params.get('exam') ?? '', q: params.get('q') ?? '', university: params.get('university') ?? '' };
   const [more, setMore] = useState(0);
   const filters = useLoad(api.admissionFilters, []);
+  const performance = useLoad(api.progress, []);
   const list = useLoad(() => api.programmes({ ...f, offset: 0 }), [f.type, f.subject, f.year, f.exam, f.q, f.university]);
   const extra = useLoad(() => (more ? api.programmes({ ...f, offset: more }) : Promise.resolve(null)), [more, f.type, f.subject, f.year, f.exam, f.q, f.university]);
   const set = (k: string, v: string) => {
@@ -99,6 +124,17 @@ export function AdmissionsPage() {
         title="University admissions"
         subtitle="Programmes, required CUET subjects, eligibility and cut-offs, each taken from the university’s own pages. We publish a detail only after a person has checked it against the official source, and we say plainly when something is not yet available."
       />
+      <Panel className="mb-4 border-accent/20 bg-accent-soft/30 p-4" data-admission-guidance>
+        <h2 className="text-sm font-semibold text-ink">Connect your preparation to programme requirements</h2>
+        <p className="mt-1 text-sm text-ink-2">
+          Published programme cards can show your practice accuracy for required CUET subjects when you have attempted questions in those subjects. Use it to decide what to revise; it does not estimate your CUET result or admission chance.
+        </p>
+        <p className="mt-1 text-xs text-ink-3">Historical cutoff records are not yet available in the published dataset, so no A/B/C competitiveness label is shown. The available programme records are clearly marked by admission cycle.</p>
+        {performance.error && <p className="mt-2 text-xs text-ink-3">Practice context is temporarily unavailable. Programme information is still available.</p>}
+        {!performance.error && performance.data?.subjects.length === 0 && !performance.loading && (
+          <p className="mt-2 text-xs text-ink-3">Submit a practice set to see subject-level context here. <Link to="/progress" className="font-medium text-accent hover:underline">Open your progress</Link>.</p>
+        )}
+      </Panel>
       <div className="mb-3 flex flex-wrap items-center gap-2" data-programme-filters>
         <SearchInput value={f.q} onChange={(v) => set('q', v)} placeholder="Search programme or university" label="Search programmes" />
         <label>
@@ -166,7 +202,7 @@ export function AdmissionsPage() {
           <p className="mb-3 text-sm text-ink-2" data-programme-count>
             {total} {total === 1 ? 'programme' : 'programmes'}
           </p>
-          <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">{shown.map((p) => <Card key={p.id} p={p} />)}</ul>
+          <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">{shown.map((p) => <Card key={p.id} p={p} progress={performance.data} />)}</ul>
           {shown.length < total && (
             <div className="mt-4">
               <Button kind="secondary" onClick={() => setMore(shown.length)} disabled={extra.loading}>

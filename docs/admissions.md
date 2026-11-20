@@ -1,6 +1,6 @@
 # Admissions information
 
-**Built 16 November 2026 (local only; nothing deployed).** This implements the first phase of `docs/admissions-design.md` in a smaller form: a register of official sources, and facts that each cite an approved source. No admissions fact has been entered or published. Students see nothing from this until a member of staff approves a source and publishes a fact.
+**Built 16 November 2026 (local only; nothing deployed).** This implements the first phase of `docs/admissions-design.md` in a smaller form: a register of official sources, and facts that each cite an approved source. The implementation and local data have since advanced; see the 20 November status below.
 
 ## The rules
 
@@ -67,3 +67,10 @@ University course finder, eligibility checker, programme rules by CUET paper, ad
 - **Review flags.** A draft fact may carry `reviewFlag`: something still to be checked against the official documents. A flagged fact cannot be published until a person gives a `reason` saying how it was resolved; the flag and the resolution stay in the record.
 - **Import pack.** `docs/admissions-import-2026-11-16/pack.json` is exactly what was loaded into the local database, with `backend/scripts/import-admissions-pack.mts` (`npx tsx scripts/import-admissions-pack.mts <pack> [--check]`). It uses the same service functions and rules as the admin console, adds only DRAFT records, and cannot change an existing row. It was run against the local database only.
 - **What was loaded.** Three approved sources (Delhi, BHU, JNU, "Official – Use with Care"), 109 programmes and 185 facts, all DRAFT and about the 2026-27 cycle. No cut-offs, no dates, no PG, no individual B.A. combinations.
+
+## 20 November 2026: restored student entry point and practice context
+
+- The `/admissions` and programme detail routes, APIs, admin review flow, and local records remain in the application. The Admissions link is available under the student's **My Learning** menu.
+- The programme list uses the existing submitted practice history to show accuracy and answered-question counts for explicitly listed required CUET subjects when a matching paper is present. This is labelled as practice context only; it is not an official score, an eligibility decision, a cutoff comparison, or an admission prediction.
+- Current local database snapshot: 109 programmes (4 published, 105 drafts) and 186 facts (8 published, 178 drafts). Published items are Delhi 2026–27 records. There are no cutoff facts. Reconcile the current 186-fact count with the original 185-row import pack before further imports.
+- No A/B/C recommendation bands, student target-programme profile, official-score verification, admission-specific notifications, or notice-to-programme synchronization have been implemented. Keep current-cycle requirements unavailable until official sources publish and staff review them.
