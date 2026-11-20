@@ -124,7 +124,7 @@ export function CardRow({ card: c, onChange, here = false, grouped = false }: { 
           </Link>
         )}
         {msg && (
-          <span role="status" className={msg.bad ? 'text-wrong' : 'text-ink-2'}>
+          <span role="status" data-ui-sound-notification={msg.bad ? 'error' : 'success'} className={msg.bad ? 'text-wrong' : 'text-ink-2'}>
             {msg.text}
           </span>
         )}
@@ -362,7 +362,7 @@ export function SaveForRevision({ questionId, compact = false }: { questionId: s
   return (
     <span className="inline-flex flex-wrap items-center gap-2" data-save-for-revision={state}>
       {state === 'saved' ? (
-        <span className="inline-flex items-center gap-1.5 text-sm text-correct" role="status">
+        <span className="inline-flex items-center gap-1.5 text-sm text-correct" role="status" data-ui-sound-notification="success">
           <Check aria-hidden className="size-4" />
           Saved for revision
           <Link to="/bookmarks" className="font-medium text-accent hover:underline">
@@ -376,7 +376,7 @@ export function SaveForRevision({ questionId, compact = false }: { questionId: s
         </button>
       )}
       {msg && (
-        <span role="status" className="text-sm text-wrong">
+        <span role="status" data-ui-sound-notification="error" className="text-sm text-wrong">
           {msg}
         </span>
       )}

@@ -129,6 +129,9 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
   const [draft, setDraft] = useState<string | null>(null);
   const [pendingMove, setPendingMove] = useState<number | null>(null);
   const [showScheme, setShowScheme] = useState(false);
+  const [stuckGuide, setStuckGuide] = useState(false);
+  const [guideDismissed, setGuideDismissed] = useState(false);
+  const [activityVersion, setActivityVersion] = useState(0);
   useEffect(() => {
     setData(loaded.data);
     // Marks for review are kept on the server, so they come back after a reload or on another device.
@@ -172,6 +175,32 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
 
   const practice = data?.session.mode === 'PRACTICE';
   const examining = exam && !!data && data.session.mode !== 'PRACTICE' && data.session.status === 'IN_PROGRESS';
+  useEffect(() => {
+    setStuckGuide(false);
+    setGuideDismissed(false);
+  }, [qid, sessionId]);
+  useEffect(() => {
+    if (!examining || confirming || draft !== null || guideDismissed) {
+      setStuckGuide(false);
+      return;
+    }
+    const showGuide = () => setStuckGuide(true);
+    const timer = window.setTimeout(showGuide, 10_000);
+    const reset = () => {
+      setStuckGuide(false);
+      setGuideDismissed(false);
+      setActivityVersion((v) => v + 1);
+    };
+    window.addEventListener('pointerdown', reset, { passive: true });
+    window.addEventListener('keydown', reset);
+    window.addEventListener('input', reset, true);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('pointerdown', reset);
+      window.removeEventListener('keydown', reset);
+      window.removeEventListener('input', reset, true);
+    };
+  }, [examining, confirming, draft, guideDismissed, activityVersion, qid]);
   const choose = useCallback(
     async (question: SessionQuestion, position: number) => {
       if (practice && feedback[question.id]?.outcome) return; // locked after feedback
@@ -345,6 +374,24 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
             </Button>
           </div>
         </div>
+        {stuckGuide && !confirming && !draft && examining && (
+          <div className="stuck-guide mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl border border-[#dbe789] px-3 py-2.5 sm:px-4" role="status" aria-live="polite" data-stuck-guide>
+            <span className="stuck-guide-spark grid size-9 shrink-0 place-items-center rounded-full bg-white/80 text-[#53621a]" aria-hidden="true">✦</span>
+            <div className="min-w-[12rem] flex-1">
+              <p className="text-sm font-semibold text-[#34411b]">{answeredCount === total || i === total - 1 ? 'Ready to finish your test?' : 'Need a next step?'}</p>
+              <p className="text-xs text-[#55613a]">{answeredCount === total ? 'All questions are answered. Review them, then confirm your submission.' : i === total - 1 ? 'You’re at the last question. Review your answers, then confirm submission.' : 'Continue to the next question, or use the question numbers to jump around.'}</p>
+            </div>
+            <svg className="stuck-guide-path hidden h-8 w-12 text-[#87952e] sm:block" viewBox="0 0 48 32" fill="none" aria-hidden="true">
+              <path d="M2 3C19 3 12 27 43 27" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeDasharray="2 5" />
+              <path d="m37 22 6 5-7 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <Button className="stuck-guide-action" onClick={() => (answeredCount === total || i === total - 1 ? startSubmit() : goTo(Math.min(total - 1, i + 1)))} disabled={busy}>
+              {answeredCount === total || i === total - 1 ? 'Review & submit' : 'Next question'}
+              {answeredCount !== total && i !== total - 1 && <ChevronRight aria-hidden className="size-4" />}
+            </Button>
+            <button type="button" className="grid size-8 shrink-0 place-items-center rounded-full text-sm text-[#55613a] hover:bg-white/70" aria-label="Dismiss guidance" onClick={() => { setStuckGuide(false); setGuideDismissed(true); }}>×</button>
+          </div>
+        )}
         {showScheme && (
           <div className="mt-2 max-h-40 overflow-y-auto rounded-lg border border-rule bg-surface p-3" data-scheme-panel>
             <SchemeDetails scheme={data.session.scheme} compact />

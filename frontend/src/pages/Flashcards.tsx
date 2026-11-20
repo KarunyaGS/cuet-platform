@@ -158,7 +158,7 @@ export function FlashcardReviewPage() {
       <div className="mb-4">
         <div className="num mb-1.5 flex items-center justify-between text-sm text-ink-2">
           <span>{step.again ? 'One more look' : `Card ${Math.min(done + 1, total)} of ${total}`}</span>
-          {last && <span role="status">{last}</span>}
+          {last && <span role="status" data-ui-sound-notification="success">{last}</span>}
         </div>
         <Meter value={total ? Math.round((done / total) * 100) : 0} label={`${done} of ${total} cards revised`} />
       </div>

@@ -142,42 +142,81 @@ export async function setGoal(db: D1Database, userId: string, input: z.infer<typ
 // ---------------------------------------------------------------- planner
 
 const daySchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
+export const PLAN_KINDS = ['TOPIC', 'LESSON', 'PRACTICE', 'MOCK', 'CUSTOM', 'REVISE', 'LAB', 'REVIEW', 'CHECKPOINT'] as const;
 export const planItemSchema = z.object({
   day: daySchema,
-  kind: z.enum(['TOPIC', 'LESSON', 'PRACTICE', 'MOCK', 'CUSTOM']),
+  kind: z.enum(PLAN_KINDS),
   refId: z.string().max(100).nullable().optional(),
   title: z.string().trim().min(1).max(200),
+  /** Set when the task is added to a generated plan. */
+  planId: z.string().max(100).nullable().optional(),
+  minutes: z.number().int().min(5).max(240).nullable().optional(),
+  targetCount: z.number().int().min(1).max(200).nullable().optional(),
+  subjectCode: z.string().max(20).nullable().optional(),
 });
-export const planUpdateSchema = z.object({ day: daySchema.optional(), title: z.string().trim().min(1).max(200).optional(), done: z.boolean().optional() });
+export const planUpdateSchema = z.object({
+  day: daySchema.optional(),
+  title: z.string().trim().min(1).max(200).optional(),
+  done: z.boolean().optional(),
+  minutes: z.number().int().min(5).max(240).nullable().optional(),
+  position: z.number().int().min(0).max(100).optional(),
+  /** Replacing an activity with another one. */
+  kind: z.enum(PLAN_KINDS).optional(),
+  refId: z.string().max(100).nullable().optional(),
+  targetCount: z.number().int().min(1).max(200).nullable().optional(),
+});
+
+interface PlanRowOut { id: string; day: string; kind: string; ref_id: string | null; title: string; done: number; plan_id: string | null; origin: string; original_day: string | null; subject_code: string | null; minutes: number | null; target_count: number | null; note: string | null; evidence: string | null; position: number; pinned: number; status: string; done_by: string | null }
 
 export async function listPlan(db: D1Database, userId: string, from: string, to: string) {
   daySchema.parse(from);
   daySchema.parse(to);
   const { results } = await db
-    .prepare('SELECT id, day, kind, ref_id, title, done FROM study_plan_items WHERE user_id = ? AND day BETWEEN ? AND ? ORDER BY day, created_at')
+    .prepare(`SELECT id, day, kind, ref_id, title, done, plan_id, origin, original_day, subject_code, minutes, target_count, note, evidence, position, pinned, status, done_by FROM study_plan_items WHERE user_id = ? AND day BETWEEN ? AND ? AND status = 'SCHEDULED' ORDER BY day, position, created_at`)
     .bind(userId, from, to)
-    .all<{ id: string; day: string; kind: string; ref_id: string | null; title: string; done: number }>();
-  return results.map((r) => ({ id: r.id, day: r.day, kind: r.kind, refId: r.ref_id, title: r.title, done: Boolean(r.done) }));
+    .all<PlanRowOut>();
+  return results.map((r) => ({
+    id: r.id, day: r.day, kind: r.kind, refId: r.ref_id, title: r.title, done: Boolean(r.done), planId: r.plan_id, minutes: r.minutes, targetCount: r.target_count, subjectCode: r.subject_code, note: r.note,
+    evidence: r.evidence, origin: r.origin, moved: Boolean(r.original_day && r.original_day !== r.day), doneBy: r.done_by,
+  }));
 }
 
 export async function addPlanItem(db: D1Database, userId: string, input: z.infer<typeof planItemSchema>) {
-  const count = await db.prepare('SELECT COUNT(*) AS n FROM study_plan_items WHERE user_id = ? AND day = ?').bind(userId, input.day).first<{ n: number }>();
+  const count = await db.prepare('SELECT COUNT(*) AS n, COALESCE(MAX(position), -1) AS last FROM study_plan_items WHERE user_id = ? AND day = ?').bind(userId, input.day).first<{ n: number; last: number }>();
   if ((count?.n ?? 0) >= 30) throw invalid('A day can hold at most 30 plan items');
+  if (input.planId) {
+    const own = await db.prepare('SELECT id FROM study_plans WHERE id = ? AND user_id = ?').bind(input.planId, userId).first();
+    if (!own) throw notFound('Plan');
+  }
   const id = newId('plan');
   const now = nowIso();
   await db
-    .prepare('INSERT INTO study_plan_items (id, user_id, day, kind, ref_id, title, done, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?)')
-    .bind(id, userId, input.day, input.kind, input.refId ?? null, input.title, now, now)
+    .prepare(
+      `INSERT INTO study_plan_items (id, user_id, day, kind, ref_id, title, done, plan_id, origin, minutes, target_count, subject_code, position, pinned, status, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, 0, ?, 'STUDENT', ?, ?, ?, ?, ?, 'SCHEDULED', ?, ?)`,
+    )
+    .bind(id, userId, input.day, input.kind, input.refId ?? null, input.title, input.planId ?? null, input.minutes ?? null, input.targetCount ?? null, input.subjectCode ?? null, (count?.last ?? -1) + 1, input.planId ? 1 : 0, now, now)
     .run();
   return { id };
 }
 
 export async function updatePlanItem(db: D1Database, userId: string, id: string, input: z.infer<typeof planUpdateSchema>) {
-  const cur = await db.prepare('SELECT day, title, done FROM study_plan_items WHERE id = ? AND user_id = ?').bind(id, userId).first<{ day: string; title: string; done: number }>();
+  const cur = await db.prepare('SELECT day, title, done, kind, ref_id, minutes, plan_id, position, target_count FROM study_plan_items WHERE id = ? AND user_id = ?').bind(id, userId).first<{ day: string; title: string; done: number; kind: string; ref_id: string | null; minutes: number | null; plan_id: string | null; position: number; target_count: number | null }>();
   if (!cur) throw notFound('Plan item');
+  const done = input.done === undefined ? cur.done : input.done ? 1 : 0;
+  const edited = input.day !== undefined && input.day !== cur.day || input.minutes !== undefined || input.kind !== undefined || input.refId !== undefined || (input.title !== undefined && input.title !== cur.title);
+  const now = nowIso();
   await db
-    .prepare('UPDATE study_plan_items SET day = ?, title = ?, done = ?, updated_at = ? WHERE id = ? AND user_id = ?')
-    .bind(input.day ?? cur.day, input.title ?? cur.title, input.done === undefined ? cur.done : input.done ? 1 : 0, nowIso(), id, userId)
+    .prepare(
+      `UPDATE study_plan_items SET day = ?1, title = ?2, done = ?3, kind = ?4, ref_id = ?5, minutes = ?6, target_count = ?7, position = ?8,
+         pinned = CASE WHEN ?9 = 1 AND plan_id IS NOT NULL THEN 1 ELSE pinned END,
+         status = CASE WHEN status = 'DEFERRED' AND ?1 <> day THEN 'SCHEDULED' ELSE status END,
+         done_by = CASE WHEN ?3 = 1 AND done = 0 THEN 'STUDENT' WHEN ?3 = 0 THEN NULL ELSE done_by END,
+         done_at = CASE WHEN ?3 = 1 AND done = 0 THEN ?10 WHEN ?3 = 0 THEN NULL ELSE done_at END,
+         updated_at = ?10 WHERE id = ?11 AND user_id = ?12`,
+    )
+    .bind(input.day ?? cur.day, input.title ?? cur.title, done, input.kind ?? cur.kind, input.refId === undefined ? cur.ref_id : input.refId, input.minutes === undefined ? cur.minutes : input.minutes,
+      input.targetCount === undefined ? cur.target_count : input.targetCount, input.position ?? cur.position, edited ? 1 : 0, now, id, userId)
     .run();
   return { id };
 }

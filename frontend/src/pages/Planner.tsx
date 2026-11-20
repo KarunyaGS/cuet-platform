@@ -4,8 +4,10 @@ import { Navigate } from 'react-router';
 import { api, localDay, type PlanItem } from '../api';
 import { Button, ErrorBox, Loading, Meter, useAuth, useLoad } from '../ui';
 import { PlanLink } from './Dashboard';
+import { PLAN_KIND_LABEL } from '../planLinks';
+import { PlanSection } from './planner/PlanSection';
 
-const KIND_LABEL: Record<string, string> = { TOPIC: 'Topic', LESSON: 'Lesson', PRACTICE: 'Practice', MOCK: 'Mock', CUSTOM: 'Task' };
+const KIND_LABEL: Record<string, string> = { ...PLAN_KIND_LABEL, TOPIC: 'Topic', LESSON: 'Lesson', PRACTICE: 'Practice', MOCK: 'Mock' };
 
 function addDays(day: string, n: number) {
   const [y, m, d] = day.split('-').map(Number);
@@ -82,6 +84,7 @@ export function PlannerPage() {
           <span className="num min-w-14 rounded-full bg-terracotta px-2.5 py-1 text-right text-[10px] font-bold tracking-wide text-white shadow-sm">{total ? `${Math.round((100 * done) / total)}%` : 'READY'}</span>
         </div>
       </header>
+      <PlanSection onChange={plan.reload} />
       {err && <ErrorBox error={err} />}
       {plan.loading && !plan.data ? (
         <Loading />
@@ -117,7 +120,7 @@ function DayColumn({ day, today, past, items, act }: { day: string; today: boole
               <Check aria-hidden className="size-3.5 scale-75 transition-transform peer-checked:scale-100" />
             </label>
             <span className="min-w-0 flex-1">
-              <PlanLink kind={p.kind} refId={p.refId} className={`block leading-snug break-words ${p.done ? 'text-ink-3 line-through' : 'text-ink'}`}>
+              <PlanLink kind={p.kind} refId={p.refId} targetCount={p.targetCount} className={`block leading-snug break-words ${p.done ? 'text-ink-3 line-through' : 'text-ink'}`}>
                 {p.title}
               </PlanLink>
               <span className="mt-1 flex items-center justify-between gap-2">

@@ -475,7 +475,7 @@ export function YoungLabPage() {
                     <button type="button" className={btn} onClick={() => setMarkers({ a: null, b: null })}>Clear</button>
                   </div>
                   <label className="inline-flex items-center gap-2 text-sm text-ink">Fringe widths between A and B
-                    <input type="number" min={1} max={20} value={count} onChange={(e) => setCount(Math.max(1, Math.min(20, Number(e.target.value) || 1)))} className="num h-8 w-16 rounded-md border border-rule-strong px-2" data-count />
+                    <input type="number" min={1} max={20} value={count} onChange={(e) => setCount(Math.max(1, Math.min(20, Number(e.target.value) || 1)))} className="num h-8 w-16 rounded-md border border-rule-strong px-2" data-count data-ui-sound-stepper="up" />
                   </label>
                   <div className="rounded-md bg-ink/5 p-2 text-sm" data-measured>
                     {measured === null ? 'Place both markers.' : <>Measured β = |y<sub>B</sub> − y<sub>A</sub>| ÷ {count} = <strong className="num">{mm(measured)}</strong> · theory λD/d = <span className="num">{mm(beta)}</span> · difference <span className="num">{(((measured - beta) / beta) * 100).toFixed(1)} %</span></>}

@@ -21,7 +21,7 @@ const input = inputClass;
 const label = 'mb-1.5 block text-sm font-medium text-ink';
 const Saved = ({ show, children = 'Saved' }: { show: boolean; children?: React.ReactNode }) =>
   show ? (
-    <span className="inline-flex items-center gap-1.5 text-sm text-correct" role="status">
+    <span className="inline-flex items-center gap-1.5 text-sm text-correct" role="status" data-ui-sound-notification="success">
       <CircleCheck aria-hidden className="size-4" />
       {children}
     </span>
@@ -154,7 +154,7 @@ function EmailSection() {
         </label>
         <ExamDateField current={d.examDate} remindersOn={d.emailReminders} busy={busy} act={act} />
         {note && (
-          <p className="text-sm text-ink-2" role="status">
+          <p className="text-sm text-ink-2" role="status" data-ui-sound-notification="success">
             {note}
           </p>
         )}

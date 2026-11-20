@@ -1,4 +1,5 @@
 import { BookOpen, CalendarPlus, CircleCheck, Layers, PlayCircle, Zap } from 'lucide-react';
+import { planHref } from '../planLinks';
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router';
 import { api, type Dashboard } from '../api';
@@ -275,8 +276,8 @@ export function SubjectTable({ subjects }: { subjects: Dashboard['subjects'] }) 
 }
 
 /** Links a plan item to what it refers to, when it refers to something. */
-export function PlanLink({ kind, refId, className, children }: { kind: string; refId: string | null; className?: string; children: React.ReactNode }) {
-  const to = refId ? ({ TOPIC: `/topic/${refId}`, LESSON: `/learn/${refId}` } as Record<string, string>)[kind] : undefined;
+export function PlanLink({ kind, refId, targetCount, latestSessionId, className, children }: { kind: string; refId: string | null; targetCount?: number | null; latestSessionId?: string | null; className?: string; children: React.ReactNode }) {
+  const to = planHref({ kind, refId, targetCount, latestSessionId }) ?? undefined;
   return to ? (
     <Link to={to} className={`${className ?? ''} hover:text-accent`}>
       {children}

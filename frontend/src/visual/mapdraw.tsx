@@ -130,7 +130,7 @@ export function MapDrawing({ nodes, selected, handlers }: { nodes: Placed[]; sel
                 </>,
               )}
               {kids > 0 && live && (
-                <g role="button" tabIndex={0} aria-label={p.hidden ? `Open ${p.node.label}: ${kids} ideas` : `Fold ${p.node.label}`} data-map-toggle={p.node.id} onClick={() => handlers?.onToggle?.(p.node.id)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), handlers?.onToggle?.(p.node.id))} transform={`translate(${p.side * (HALF + 16)} 22)`} style={{ cursor: 'pointer', outline: 'none' }} className="vl-node">
+                <g role="button" tabIndex={0} aria-label={p.hidden ? `Open ${p.node.label}: ${kids} ideas` : `Fold ${p.node.label}`} data-map-toggle={p.node.id} data-ui-sound-toggle={p.hidden ? 'true' : 'false'} onClick={() => handlers?.onToggle?.(p.node.id)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), handlers?.onToggle?.(p.node.id))} transform={`translate(${p.side * (HALF + 16)} 22)`} style={{ cursor: 'pointer', outline: 'none' }} className="vl-node">
                   <circle r={11} fill="white" stroke={p.color} strokeWidth={1.4} />
                   <text textAnchor="middle" y={4} fontSize={p.hidden ? 11 : 15} fontWeight={600} fill={p.color}>
                     {p.hidden ? `+${p.hidden}` : '−'}

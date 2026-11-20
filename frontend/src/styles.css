@@ -384,3 +384,29 @@ a[href],
   [data-sheet] .grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 6px !important; }
   @page { margin: 10mm; }
 }
+
+/* Study plan: calm transitions for the goal steps, the progress bars and completed activities. Switched off for people who ask for less motion. */
+@keyframes plan-step-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes plan-pop-in { 0% { transform: scale(1); } 40% { transform: scale(1.015); background-color: #e6f1d4; } 100% { transform: scale(1); } }
+@keyframes plan-dot-pulse { 0%, 100% { opacity: 0.35; transform: scale(0.85); } 50% { opacity: 1; transform: scale(1.15); } }
+.plan-step { animation: plan-step-in 220ms ease-out both; }
+.plan-pop { animation: plan-pop-in 600ms ease-out both; }
+.plan-dot { animation: plan-dot-pulse 900ms ease-in-out infinite; }
+.plan-bar { transition: width 500ms cubic-bezier(0.22, 1, 0.36, 1), height 500ms cubic-bezier(0.22, 1, 0.36, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .plan-step, .plan-pop, .plan-dot { animation: none; }
+  .plan-bar { transition: none; }
+  .plan-card { transition: none; transform: none !important; }
+}
+
+/* A quiet, contextual nudge for students who pause during a test. */
+@keyframes stuck-guide-in { from { opacity:  0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes stuck-guide-spark { to { transform: rotate(360deg); } }
+@keyframes stuck-guide-dash { to { stroke-dashoffset: -14; } }
+.stuck-guide { background: linear-gradient(105deg, #f4f8d9 0%, #f1f6d7 58%, #fff8d8 100%); animation: stuck-guide-in 240ms ease-out both; }
+.stuck-guide-spark { animation: stuck-guide-spark 7s linear infinite; }
+.stuck-guide-path path:first-child { animation: stuck-guide-dash 1.8s linear infinite; }
+.stuck-guide-action { box-shadow: 0 0 0 3px rgb(230 242 142 / 72%), 0 4px 14px rgb(73 91 27 / 14%); }
+@media (prefers-reduced-motion: reduce) {
+  .stuck-guide, .stuck-guide-spark, .stuck-guide-path path:first-child { animation: none; }
+}

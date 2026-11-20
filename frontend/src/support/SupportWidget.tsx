@@ -8,6 +8,7 @@ import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
 import { Link } from 'react-router';
 import { api, type SupportAttachment, type SupportConversation, type SupportMessage, type SupportThread } from '../api';
 import { useAuth } from '../ui';
+import { playUiSound } from '../sound';
 
 type View = 'home' | 'chat' | 'new' | 'tickets' | 'ticket';
 const MAX_BYTES = 3 * 1024 * 1024;
@@ -145,9 +146,11 @@ function Composer({ draftKey, placeholder, onSend, label }: { draftKey: string; 
     if (!text.trim() || busy) return;
     setBusy(true);
     setErr(null);
+    playUiSound('progress-start');
     try {
-      const attachment = file ? await api.supportUpload(file) : undefined;
+      const attachment = file ? await api.supportUpload(file).then((value) => (playUiSound('progress-tick'), value)) : undefined;
       await onSend(text.trim(), attachment);
+      playUiSound('progress-complete');
       setText('');
       setFile(null);
     } catch (x) {
@@ -182,7 +185,7 @@ function Composer({ draftKey, placeholder, onSend, label }: { draftKey: string; 
         <AttachPicker file={file} onFile={setFile} error={fileErr} onError={setFileErr} />
       </div>
       {err && (
-        <p role="alert" className="mt-1 text-xs text-wrong">
+        <p role="alert" data-ui-sound-notification="error" className="mt-1 text-xs text-wrong">
           {err}
         </p>
       )}
@@ -241,9 +244,11 @@ function NewTicket({ onCreated }: { onCreated: (t: SupportThread) => void }) {
     if (!ready || busy) return;
     setBusy(true);
     setErr(null);
+    playUiSound('progress-start');
     try {
-      const attachment = file ? await api.supportUpload(file) : undefined;
+      const attachment = file ? await api.supportUpload(file).then((value) => (playUiSound('progress-tick'), value)) : undefined;
       const r = await api.supportRaise({ category: form.category, title: form.title.trim(), description: form.description.trim(), attachment });
+      playUiSound('progress-complete');
       setForm({ category: '', title: '', description: '' });
       setFile(null);
       setMade(r.thread);
@@ -291,7 +296,7 @@ function NewTicket({ onCreated }: { onCreated: (t: SupportThread) => void }) {
       </label>
       <AttachPicker file={file} onFile={setFile} error={fileErr} onError={setFileErr} />
       {err && (
-        <p role="alert" className="text-xs text-wrong">
+        <p role="alert" data-ui-sound-notification="error" className="text-xs text-wrong">
           {err}
         </p>
       )}

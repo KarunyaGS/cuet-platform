@@ -243,8 +243,54 @@ export interface DeckChapter {
 export interface DeckSubject { paperId: string | null; paper: string; available: number; added: number; due: number; known: number; chapters: DeckChapter[] }
 export interface FlashcardDecks { day: string; totals: { available: number; added: number; due: number; known: number }; subjects: DeckSubject[] }
 export interface Goal { questionsPerDay: number; lessonsPerDay: number; custom: boolean }
-export type PlanKind = 'TOPIC' | 'LESSON' | 'PRACTICE' | 'MOCK' | 'CUSTOM';
-export interface PlanItem { id: string; day: string; kind: PlanKind; refId: string | null; title: string; done: boolean }
+export type PlanKind = 'TOPIC' | 'LESSON' | 'PRACTICE' | 'MOCK' | 'CUSTOM' | 'REVISE' | 'LAB' | 'REVIEW' | 'CHECKPOINT';
+export type PlanEvidence = 'PERSONAL' | 'SYLLABUS' | 'METHOD' | 'VERIFIED_TREND';
+export interface PlanItem {
+  id: string; day: string; kind: PlanKind; refId: string | null; title: string; done: boolean;
+  /** Present for items of a generated plan. */
+  planId?: string | null; minutes?: number | null; targetCount?: number | null; subjectCode?: string | null; note?: string | null; evidence?: PlanEvidence | null; origin?: string; moved?: boolean; doneBy?: string | null;
+}
+export interface PlannerOptions {
+  exams: { code: 'CUET_UG'; name: string; year: number; supported: boolean }[];
+  notOffered: { name: string; reason: string }[];
+  subjects: { paperId: string; code: string; name: string; category: string | null; topics: number; questions: number; verified: boolean }[];
+  paths: { id: string; label: string; blurb: string; objectives: string[] }[];
+  objectives: { id: string; label: string; blurb: string }[];
+  durations: { days: 7 | 14 | 30; id: string; label: string; blurb: string; phases: { fromDay: number; toDay: number; focus: string }[] }[];
+  defaults: { paperIds: string[]; minutesPerDay: number; minutesBounds: { min: number; max: number } };
+  methodReview: { status: string; note: string };
+}
+export interface PlanGoal { examCode: 'CUET_UG'; path: string; paperIds: string[]; objectives: string[]; durationDays: 7 | 14 | 30; minutesPerDay: number; coverage: 'LIGHT' | 'STANDARD' | 'FULL'; startDay: string }
+export interface PlanLab { id: string; subject: string; lessonTitleStartsWith: string; title: string; minutes: number }
+export interface BuiltItem { key: string; day: number; date: string; kind: PlanKind; refId: string | null; subjectCode: string | null; title: string; minutes: number; targetCount: number | null; note: string; evidence: PlanEvidence; dependsOn: string | null; position: number }
+export interface BuiltPlan {
+  items: BuiltItem[];
+  days: { day: number; date: string; capacity: number; minutes: number; light: boolean }[];
+  warnings: string[];
+  summary: {
+    durationDays: number; minutesPerDay: number; totalMinutes: number; byKind: Record<string, number>; objectives: string[]; phases: { fromDay: number; toDay: number; focus: string }[]; usedPersonalData: boolean;
+    subjects: { code: string; name: string; topicsInSyllabus: number; topicsPlanned: number; minutes: number; sharePercent: number; firstTopic: string | null; lastTopic: string | null; accuracy: number | null; attempted: number; weakTopics: number; notReached: number }[];
+    trends: { used: boolean; topics: number; note: string }; methodReview: string;
+  };
+}
+export interface PlanPreview { goal: PlanGoal; plan: BuiltPlan; fingerprint: string; generatorVersion: string; methodReview: { status: string; note: string } }
+export interface LivePlanItem extends PlanItem {
+  planId: string; origin: 'EXPERT' | 'STUDENT'; originalDay: string | null; pinned: boolean; status: 'SCHEDULED' | 'DEFERRED'; suggestionKey: string | null; dependsOn: string | null; position: number; latestSessionId: string | null; minutes: number | null;
+}
+export interface CurrentPlan {
+  plan: null | {
+    id: string; title: string; status: 'ACTIVE' | 'PAUSED'; pausedOn: string | null; startDay: string; endDay: string; durationDays: number; minutesPerDay: number; version: number; goal: PlanGoal; lightDays: string[];
+    summary: BuiltPlan['summary']; warnings: string[]; methodReview: { status: string; note: string }; createdAt: string;
+  };
+  items?: LivePlanItem[];
+  removed?: { suggestionKey: string; day: string; kind: PlanKind; title: string; minutes: number }[];
+  progress?: {
+    totalItems: number; doneItems: number; totalMinutes: number; doneMinutes: number; percent: number; deferred: number; detected: number;
+    byDay: { day: string; planned: number; done: number; items: number; doneItems: number }[]; bySubject: { code: string; planned: number; done: number }[]; byKind: { kind: string; planned: number; done: number }[];
+  };
+  events?: { action: string; note: string | null; detail: unknown; at: string }[];
+}
+export interface PlanChange { id: string; from: string; to: string; status: string; reason: 'MISSED' | 'OVER_TIME' | 'PULLED_FORWARD' | 'RESTORED'; title: string }
 export interface Dashboard {
   continueLearning: { kind: 'TOPIC_VIEW' | 'LESSON_VIEW'; nodeId: string | null; resourceId: string | null; title: string | null; paper: string | null; paperCode: string | null; at: string }[];
   inProgress: { id: string; mode: string; paper: string | null; topic: string | null; startedAt: string }[];
@@ -471,8 +517,21 @@ export const api = {
   /** A card that has been revised is removed only with `confirm` (the student agreed to lose its progress). */
   deleteCard: (id: string, confirm = false) => request<{ deleted: boolean; reviewsRemoved: number }>('DELETE', `/api/student/flashcards/${id}${confirm ? '?confirm=1' : ''}`),
   plan: (from: string, to: string) => request<PlanItem[]>('GET', `/api/student/plan?from=${from}&to=${to}`),
-  addPlan: (b: { day: string; kind: PlanKind; refId?: string | null; title: string }) => request<{ id: string }>('POST', '/api/student/plan', b),
-  updatePlan: (id: string, b: { day?: string; title?: string; done?: boolean }) => request<{ id: string }>('PATCH', `/api/student/plan/${id}`, b),
+  addPlan: (b: { day: string; kind: PlanKind; refId?: string | null; title: string; planId?: string | null; minutes?: number | null; targetCount?: number | null; subjectCode?: string | null }) => request<{ id: string }>('POST', '/api/student/plan', b),
+  updatePlan: (id: string, b: { day?: string; title?: string; done?: boolean; minutes?: number | null; position?: number; kind?: PlanKind; refId?: string | null; targetCount?: number | null }) => request<{ id: string }>('PATCH', `/api/student/plan/${id}`, b),
+  plannerOptions: () => request<PlannerOptions>('GET', '/api/student/planner/options'),
+  previewPlan: (b: PlanGoal & { labs: PlanLab[] }) => request<PlanPreview>('POST', '/api/student/planner/preview', b),
+  createPlan: (b: PlanGoal & { labs: PlanLab[]; replace?: boolean; fingerprint?: string }) => request<{ id: string }>('POST', '/api/student/planner/plans', b),
+  currentPlan: (asOf: string) => request<CurrentPlan>('GET', `/api/student/planner/plans/current?asOf=${asOf}`),
+  adjustPlan: (id: string, asOf: string) => request<{ changes: PlanChange[] }>('POST', `/api/student/planner/plans/${id}/adjust`, { asOf }),
+  pausePlan: (id: string, asOf: string) => request<{ status: string }>('POST', `/api/student/planner/plans/${id}/pause`, { asOf }),
+  resumePlan: (id: string, asOf: string) => request<{ status: string; shiftedDays: number }>('POST', `/api/student/planner/plans/${id}/resume`, { asOf }),
+  archivePlan: (id: string, asOf: string) => request<{ status: string }>('POST', `/api/student/planner/plans/${id}/archive`, { asOf }),
+  setPlanMinutes: (id: string, minutesPerDay: number, asOf: string) => request<{ changes: PlanChange[] }>('PATCH', `/api/student/planner/plans/${id}`, { minutesPerDay, asOf }),
+  regeneratePlan: (id: string, b: Partial<PlanGoal> & { asOf: string; labs: PlanLab[] }) => request<{ id: string; version: number }>('POST', `/api/student/planner/plans/${id}/regenerate`, b),
+  restoreSuggestion: (id: string, suggestionKey: string) => request<{ restored: boolean }>('POST', `/api/student/planner/plans/${id}/restore`, { suggestionKey }),
+  reorderPlanDay: (id: string, day: string, ids: string[]) => request<{ ordered: boolean }>('PUT', `/api/student/planner/plans/${id}/order`, { day, ids }),
+  planAlternatives: (itemId: string) => request<{ alternatives: { kind: PlanKind; refId: string | null; title: string; minutes: number; targetCount: number | null; reason: string }[] }>('GET', `/api/student/planner/items/${itemId}/alternatives`),
   deletePlan: (id: string) => request<{ deleted: boolean }>('DELETE', `/api/student/plan/${id}`),
   visuals: (nodeId: string) => request<ChapterVisuals>('GET', `/api/learn/topics/${nodeId}/visuals`),
   revision: (nodeId: string) => request<RevisionNotes>('GET', `/api/learn/topics/${nodeId}/revision`),

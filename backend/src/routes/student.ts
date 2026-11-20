@@ -6,6 +6,7 @@
  * Answers are scored only against stored answer keys. No external AI service is called.
  */
 import { Hono } from 'hono';
+import { z } from 'zod';
 import { rateLimit } from '../lib/rate-limit';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import type { AppEnv } from '../types';
@@ -23,6 +24,10 @@ import {
   activitySchema, addBookmark, addPlanItem, BOOKMARK_KINDS, bookmarkSchema, bookmarkState, dailySchema, dashboard, dashboardQuery, deletePlanItem, getGoal, getProfile, goalSchema, listBookmarks,
   chapterVisuals, listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
 } from '../services/student-tools';
+import {
+  adjustPlan, alternatives, createPlan, currentPlan, goalSchema as planGoalSchema, orderSchema as planOrderSchema, plannerOptions, previewPlan, regeneratePlan, regenerateSchema, reorderDay, restoreSchema, restoreSuggestion,
+  setPlanStatus, settingsSchema as planSettingsSchema, updateSettings,
+} from '../services/study-plans';
 import { addTarget, eligibilityFor, listTargets, removeTarget, studentPaperCodes, targetInputSchema } from '../services/admission-review';
 import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, subjectSummary, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
 import { deleteOne, editOne, editSchema, listAll, listForSurface, listForSurfaces, saveBatch, saveSchema } from '../services/annotations';
@@ -400,3 +405,27 @@ student.get('/plan', async (c) => c.json(await listPlan(c.env.DB, c.get('user').
 student.post('/plan', async (c) => c.json(await addPlanItem(c.env.DB, c.get('user').id, await readJson(c, planItemSchema)), 201));
 student.patch('/plan/:id', async (c) => c.json(await updatePlanItem(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, planUpdateSchema))));
 student.delete('/plan/:id', async (c) => c.json(await deletePlanItem(c.env.DB, c.get('user').id, c.req.param('id'))));
+// Expert-guided study plans: goals in, a deterministic plan out, then the student customises it and the platform keeps it on track.
+const planCtx = (c: { env: AppEnv['Bindings'] }) => ({ preview: preview(c.env), keep: keeper(c.env) });
+const ugYear = async (db: D1Database) => {
+  const x = (await listExams(db)).find((e) => e.code === 'CUET_UG');
+  if (!x) throw notFound('Exam');
+  return Number((x as unknown as { year: number }).year);
+};
+student.get('/planner/options', async (c) => c.json(await plannerOptions(c.env.DB, planCtx(c), c.get('user').id, await ugYear(c.env.DB))));
+student.post('/planner/preview', async (c) => c.json(await previewPlan(c.env.DB, planCtx(c), c.get('user').id, await readJson(c, planGoalSchema), await ugYear(c.env.DB))));
+student.post('/planner/plans', async (c) => {
+  const body = await readJson(c, planGoalSchema.extend({ replace: z.boolean().default(false), fingerprint: z.string().max(40).optional() }));
+  const { replace, fingerprint, ...goal } = body;
+  return c.json(await createPlan(c.env.DB, planCtx(c), c.get('user').id, goal, await ugYear(c.env.DB), { replace, fingerprint }), 201);
+});
+student.get('/planner/plans/current', async (c) => c.json(await currentPlan(c.env.DB, c.get('user').id, c.req.query('asOf') ?? '')));
+student.post('/planner/plans/:id/adjust', async (c) => c.json(await adjustPlan(c.env.DB, c.get('user').id, c.req.param('id'), (await readJson(c, z.object({ asOf: z.string() }))).asOf)));
+student.post('/planner/plans/:id/pause', async (c) => c.json(await setPlanStatus(c.env.DB, c.get('user').id, c.req.param('id'), 'PAUSE', (await readJson(c, z.object({ asOf: z.string() }))).asOf)));
+student.post('/planner/plans/:id/resume', async (c) => c.json(await setPlanStatus(c.env.DB, c.get('user').id, c.req.param('id'), 'RESUME', (await readJson(c, z.object({ asOf: z.string() }))).asOf)));
+student.post('/planner/plans/:id/archive', async (c) => c.json(await setPlanStatus(c.env.DB, c.get('user').id, c.req.param('id'), 'ARCHIVE', (await readJson(c, z.object({ asOf: z.string() }))).asOf)));
+student.patch('/planner/plans/:id', async (c) => c.json(await updateSettings(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, planSettingsSchema))));
+student.post('/planner/plans/:id/regenerate', async (c) => c.json(await regeneratePlan(c.env.DB, planCtx(c), c.get('user').id, c.req.param('id'), await readJson(c, regenerateSchema), await ugYear(c.env.DB))));
+student.post('/planner/plans/:id/restore', async (c) => c.json(await restoreSuggestion(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, restoreSchema))));
+student.put('/planner/plans/:id/order', async (c) => c.json(await reorderDay(c.env.DB, c.get('user').id, c.req.param('id'), await readJson(c, planOrderSchema))));
+student.get('/planner/items/:id/alternatives', async (c) => c.json(await alternatives(c.env.DB, planCtx(c), c.get('user').id, c.req.param('id'), await ugYear(c.env.DB))));

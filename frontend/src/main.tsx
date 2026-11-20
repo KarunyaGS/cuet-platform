@@ -39,12 +39,14 @@ import { PracticePage } from './pages/Practice';
 import { VisualsPage } from './pages/Visuals';
 import { PracticeCentrePage } from './pages/PracticeCentre';
 import { MockTopicPage } from './pages/MockTopic';
+import { PracticeStartPage } from './pages/PracticeStart';
 import { FullMockPage } from './pages/FullMock';
 import { SubjectAreaPage } from './pages/SubjectArea';
 import { OfficialViewerPage } from './pages/OfficialViewer';
 import { ProfilePage } from './pages/Profile';
 import { ProgressPage } from './pages/Progress';
 import { ResultsPage } from './pages/Results';
+import { ResultsReviewPage } from './pages/ResultsReview';
 import { ReportPage } from './pages/Report';
 import { ForgotPasswordPage, ResetPasswordPage, UnsubscribePage, VerifyEmailPage } from './pages/Reset';
 import { RevisePage } from './pages/Revise';
@@ -185,6 +187,7 @@ const router = createBrowserRouter([
       { path: '/plans', element: <PlansPage /> },
       { path: '/practice-centre', element: <PracticeCentrePage /> },
       { path: '/mock-tests/topic/:nodeId', element: <MockTopicPage /> },
+      { path: '/practice/start', element: <PracticeStartPage /> },
       { path: '/mock-tests/full/:paperId', element: <FullMockPage /> },
       { path: '/official-papers/view/:id', element: <OfficialViewerPage /> },
       { path: '/past-papers', element: <PastPapersPage /> },
@@ -230,6 +233,7 @@ const router = createBrowserRouter([
       { path: '/learn/:resourceId', element: <LearnPage /> },
       { path: '/practice/:sessionId', element: <PracticePage /> },
       { path: '/results/:sessionId', element: <ResultsPage /> },
+      { path: '/results/:sessionId/review', element: <ResultsReviewPage /> },
       { path: '/:exam', element: <Subjects /> },
       { path: '/:exam/subject/:paperId', element: <SubjectPage /> },
       { path: '/:exam/subject/:paperId/:area', element: <SubjectAreaPage /> },

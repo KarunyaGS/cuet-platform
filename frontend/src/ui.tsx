@@ -33,7 +33,7 @@ export function ErrorBox({ error, onRetry }: { error: Error; onRetry?: () => voi
   const signIn = error instanceof ApiError && error.status === 401;
   const planLimit = error instanceof ApiError && error.code === 'PLAN_LIMIT';
   return (
-    <div className="my-4 flex items-start gap-2.5 rounded-lg border border-wrong/25 bg-wrong-soft px-3.5 py-2.5 text-sm text-wrong" role="alert">
+    <div className="my-4 flex items-start gap-2.5 rounded-lg border border-wrong/25 bg-wrong-soft px-3.5 py-2.5 text-sm text-wrong" role="alert" data-ui-sound-notification="error">
       <CircleAlert aria-hidden className="mt-0.5 size-4 shrink-0" />
       <div className="min-w-0">
         {error.message}

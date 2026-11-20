@@ -1297,21 +1297,91 @@ model DailyGoal {
 
 /// One entry in a student's study planner, on a calendar day.
 model StudyPlanItem {
-  id        String   @id @default(cuid())
-  userId    String   @map("user_id")
+  id            String    @id @default(cuid())
+  userId        String    @map("user_id")
   /// YYYY-MM-DD in the student's own calendar.
-  day       String
-  /// TOPIC, LESSON, PRACTICE, MOCK or CUSTOM.
-  kind      String
-  refId     String?  @map("ref_id")
-  title     String
-  done      Boolean  @default(false)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  day           String
+  /// TOPIC, LESSON, PRACTICE, MOCK, CUSTOM, or (for generated plans) REVISE, LAB, REVIEW or CHECKPOINT.
+  kind          String
+  refId         String?   @map("ref_id")
+  title         String
+  done          Boolean   @default(false)
+  /// The generated plan this item belongs to (null for a task the student added to the loose planner).
+  planId        String?   @map("plan_id")
+  /// EXPERT (suggested by the plan builder) or STUDENT (added or replaced by the student).
+  origin        String    @default("STUDENT")
+  /// The day the plan builder first put it on, so a move is visible.
+  originalDay   String?   @map("original_day")
+  /// A stable key for the suggestion, so a removed suggestion can be restored and a dependency can be named.
+  suggestionKey String?   @map("suggestion_key")
+  /// The suggestion this one must come after (practice after learning, revision after learning).
+  dependsOn     String?   @map("depends_on")
+  subjectCode   String?   @map("subject_code")
+  minutes       Int?
+  /// Number of questions, when the activity is practice or a test.
+  targetCount   Int?      @map("target_count")
+  /// Why the builder suggested it, in words, and the kind of evidence behind it: PERSONAL, SYLLABUS, METHOD or VERIFIED_TREND.
+  note          String?
+  evidence      String?
+  position      Int       @default(0)
+  /// A student's own move or edit: the builder never moves it again.
+  pinned        Boolean   @default(false)
+  /// SCHEDULED, or DEFERRED when an adjustment could not fit it before the plan ends.
+  status        String    @default("SCHEDULED")
+  /// STUDENT (ticked by hand) or ACTIVITY (found in the student's own activity on the platform).
+  doneBy        String?   @map("done_by")
+  doneAt        DateTime? @map("done_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, day])
+  @@index([planId])
   @@map("study_plan_items")
+}
+
+/// A study plan the student chose: the goal, the original expert suggestion (never changed) and its state. The live, customised version is the
+/// student's study_plan_items for the plan.
+model StudyPlan {
+  id               String   @id @default(cuid())
+  userId           String   @map("user_id")
+  title            String
+  examCode         String   @map("exam_code")
+  durationDays     Int      @map("duration_days")
+  startDay         String   @map("start_day")
+  endDay           String   @map("end_day")
+  minutesPerDay    Int      @map("minutes_per_day")
+  /// The student's choices: path, subjects, objectives, duration, coverage.
+  goalJson         String   @map("goal_json")
+  /// The plan exactly as the builder first suggested it.
+  originalJson     String   @map("original_json")
+  /// What the plan was built from: syllabus, the student's own results, verified trends if any, and the method's review status.
+  evidenceJson     String   @map("evidence_json")
+  generatorVersion String   @map("generator_version")
+  /// ACTIVE, PAUSED, COMPLETED or ARCHIVED.
+  status           String   @default("ACTIVE")
+  pausedOn         String?  @map("paused_on")
+  /// Days of the plan with less time (consolidation days), as day numbers from 1.
+  lightDaysJson    String   @default("[]") @map("light_days_json")
+  version          Int      @default(1)
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@index([userId, status])
+  @@map("study_plans")
+}
+
+/// What happened to a plan: created, adjusted (what moved and why), paused, resumed, regenerated, completed.
+model StudyPlanEvent {
+  id         String   @id @default(cuid())
+  planId     String   @map("plan_id")
+  action     String
+  note       String?
+  detailJson String?  @map("detail_json")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([planId, createdAt])
+  @@map("study_plan_events")
 }
 
 /// One fact from the official NTA information for an exam cycle (eligibility, pattern, dates, fees, ...),

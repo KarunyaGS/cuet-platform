@@ -101,7 +101,7 @@ export function PlansPage() {
         </p>
       )}
       {notice && (
-        <p role="status" className={`mb-5 flex items-start gap-2 rounded-lg border px-3.5 py-2.5 text-sm ${notice.ok ? 'border-correct/30 bg-correct-soft text-correct' : 'border-wrong/25 bg-wrong-soft text-wrong'}`}>
+        <p role="status" data-ui-sound-notification={notice.ok ? 'success' : 'error'} className={`mb-5 flex items-start gap-2 rounded-lg border px-3.5 py-2.5 text-sm ${notice.ok ? 'border-correct/30 bg-correct-soft text-correct' : 'border-wrong/25 bg-wrong-soft text-wrong'}`}>
           {notice.ok && <CircleCheck aria-hidden className="mt-0.5 size-4 shrink-0" />}
           {notice.text}
         </p>
