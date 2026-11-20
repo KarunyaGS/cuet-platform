@@ -430,10 +430,14 @@ a[href],
 @keyframes task-dialog-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes task-dialog-enter { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .planner-today-arrive { animation: planner-today-pop 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes today-callout-in { from { opacity: 0; transform: translateY(8px) scale(0.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes today-task-glow { 0%, 100% { box-shadow: 0 0 0 0 rgb(230 242 142 / 0.5), 0 4px 12px rgb(24 68 59 / 0.2); } 50% { box-shadow: 0 0 0 5px rgb(230 242 142 / 0.28), 0 7px 16px rgb(24 68 59 / 0.22); } }
+.today-task-callout { animation: today-callout-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.today-task-pulse { animation: today-task-glow 2.8s ease-in-out infinite; }
 .task-dialog-backdrop { animation: task-dialog-fade 150ms ease-out both; }
 .task-dialog-card { animation: task-dialog-enter 210ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 @media (prefers-reduced-motion: reduce) {
-  .planner-today-arrive, .task-dialog-backdrop, .task-dialog-card { animation: none; }
+  .planner-today-arrive, .today-task-callout, .today-task-pulse, .task-dialog-backdrop, .task-dialog-card { animation: none; }
 }
 
 /* Milestone celebration: one calm entrance, a ring that fills, a soft glow. No confetti, nothing flashing. Reduced motion gets the final state at once. */

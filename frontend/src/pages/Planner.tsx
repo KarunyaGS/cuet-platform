@@ -60,6 +60,8 @@ export function PlannerPage() {
   const total = plan.data?.length ?? 0;
   const done = plan.data?.filter((p) => p.done).length ?? 0;
   const todayTasks = byDay.get(today) ?? [];
+  const doneToday = todayTasks.filter((item) => item.done).length;
+  const isCurrentWeek = week === mondayOf(today);
   const selectedTask = plan.data?.find((item) => item.id === selectedTaskId) ?? null;
   const openDay = (day: string, trigger: HTMLElement) => {
     taskTrigger.current = trigger;
@@ -94,7 +96,14 @@ export function PlannerPage() {
           <div className="min-w-0">
             <div className="label inline-flex items-center gap-2 rounded-full border border-forest/10 bg-white/55 px-3 py-1.5 text-[10px] tracking-[0.18em] text-forest"><Sparkles aria-hidden className="size-3 text-terracotta" />MAKE ROOM FOR WHAT MATTERS</div>
             <h1 className="mt-3 text-[clamp(27px,3vw,38px)] leading-[1.04] font-bold tracking-[-0.045em]">Your week, <span className="font-editorial font-medium text-terracotta italic">in focus.</span></h1>
-            <p className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-ink-2"><CalendarDays aria-hidden className="size-4 text-forest" />{weekLabel(days[0]!, days[6]!)}<span className="rounded-full border border-forest/10 bg-white/70 px-2.5 py-1 text-[11px] font-semibold text-forest">{todayTasks.length ? `${todayTasks.length} tasks for today` : 'No tasks for today'}</span><span className="hidden text-forest/30 sm:inline">·</span><span className="hidden sm:inline">{total ? `${done} of ${total} tasks complete` : 'A little planning goes a long way'}</span></p>
+            <p className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-ink-2"><CalendarDays aria-hidden className="size-4 text-forest" />{weekLabel(days[0]!, days[6]!)}<span className="hidden text-forest/30 sm:inline">·</span><span className="hidden sm:inline">{total ? `${done} of ${total} tasks complete` : 'A little planning goes a long way'}</span></p>
+            {isCurrentWeek && todayTasks.length > 0 && (
+              <button type="button" onClick={(event) => openDay(today, event.currentTarget)} aria-haspopup="dialog" data-today-task-callout className="today-task-callout group mt-4 flex w-full max-w-xl items-center gap-3 rounded-2xl border-2 border-[#d9e86f] bg-gradient-to-r from-[#eff7a7] via-[#f5f8cd] to-[#fff7ca] px-3.5 py-3 text-left text-forest shadow-[0_12px_26px_-16px_rgb(70_92_38/0.45)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-18px_rgb(70_92_38/0.55)] sm:px-4" data-sound="open">
+                <span className="today-task-pulse grid size-10 shrink-0 place-items-center rounded-xl bg-forest text-lime shadow-[0_4px_12px_rgb(24_68_59/0.2)]"><CalendarDays aria-hidden className="size-5" /></span>
+                <span className="min-w-0 flex-1"><span className="block text-sm font-extrabold tracking-[-0.01em] sm:text-base">You have {todayTasks.length} tasks for today</span><span className="mt-0.5 block text-[11px] font-medium text-forest/75">{doneToday ? `${doneToday} complete · ${todayTasks.length - doneToday} to go` : 'Your study plan is ready · Tap to view'}</span></span>
+                <ArrowRight aria-hidden className="size-5 shrink-0 text-forest transition-transform group-hover:translate-x-1" />
+              </button>
+            )}
           </div>
           <div className="flex flex-wrap items-center justify-end gap-3">
             <div aria-hidden data-week-widget className="hidden items-center gap-1.5 rounded-[18px] border border-white/80 bg-[#fffaf0]/90 px-3 py-2 shadow-[0_8px_22px_rgb(24_68_59/0.08)] sm:flex">
@@ -268,15 +277,15 @@ function DayColumn({ day, today, past, items, act, onOpenDay }: { day: string; t
   const [weekday, date] = label(day).split(', ');
   const dayNumber = Number(day.slice(-2));
   return (
-    <section data-planner-day data-today={today ? '' : undefined} className={`group/day flex min-h-[148px] flex-col overflow-hidden rounded-[20px] border transition duration-300 ${today ? 'planner-today-arrive is-today border-forest/25 bg-gradient-to-b from-[#f0f5df] to-surface shadow-[0_18px_40px_-26px_rgb(24_68_59/0.55)] ring-2 ring-lime' : 'border-rule/80 bg-surface shadow-[0_12px_30px_-26px_rgb(24_68_59/0.4)]'} ${past ? 'opacity-75' : ''}`}>
+    <section data-planner-day data-today={today ? '' : undefined} className={`group/day flex min-h-[148px] flex-col overflow-hidden rounded-[20px] border transition duration-300 ${today ? 'planner-today-arrive is-today border-[#bfd143] bg-gradient-to-b from-[#f0f68c] via-[#f8f9d9] to-surface shadow-[0_22px_48px_-22px_rgb(24_68_59/0.48)] ring-[3px] ring-[#e6f28e]' : 'border-rule/80 bg-surface shadow-[0_12px_30px_-26px_rgb(24_68_59/0.4)]'} ${past ? 'opacity-75' : ''}`}>
       <div className={`flex items-center gap-3 border-b px-3 py-2.5 ${today ? 'border-forest/10' : 'border-rule/70'}`}>
         <span className={`grid size-11 shrink-0 place-items-center rounded-[15px] text-lg font-bold tracking-tight transition-transform duration-300 group-hover/day:-rotate-6 group-hover/day:scale-105 ${today ? 'bg-forest text-lime shadow-[0_6px_14px_rgb(24_68_59/0.2)]' : 'bg-paper text-forest'}`}>{dayNumber}</span>
         <span className="min-w-0 flex-1"><span className="block text-[13px] font-bold text-forest">{weekday}</span><span className="mt-0.5 block text-[11px] font-normal text-ink-3">{date}</span></span>
         <span className={`rounded-full px-2 py-1 text-[10px] font-bold ${today ? 'bg-lime text-forest' : 'bg-paper text-ink-3'}`}>{today ? items.length ? `TODAY · ${items.length} TASKS` : 'TODAY' : `${items.length} ${items.length === 1 ? 'TASK' : 'TASKS'}`}</span>
       </div>
       <div className="flex flex-1 items-center justify-center p-3">
-        <button type="button" onClick={(event) => onOpenDay(day, event.currentTarget)} aria-haspopup="dialog" data-sound="open" className={`group/day-open inline-flex min-h-10 items-center gap-2 rounded-full border px-3.5 text-xs font-semibold transition hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest ${items.length ? today ? 'border-[#d5df98] bg-[#f8fadf] text-forest hover:bg-lime/70' : 'border-rule bg-white/70 text-forest hover:border-forest/25 hover:bg-[#f7f9e9]' : 'border-dashed border-rule bg-transparent text-ink-3 hover:border-forest/30 hover:text-forest'}`}>
-          {items.length ? <><CalendarDays aria-hidden className="size-3.5" />View day’s tasks<ArrowRight aria-hidden className="size-3.5 transition-transform group-hover/day-open:translate-x-0.5" /></> : <>No tasks planned<Plus aria-hidden className="size-3.5" /></>}
+        <button type="button" onClick={(event) => onOpenDay(day, event.currentTarget)} aria-haspopup="dialog" data-sound="open" className={`group/day-open inline-flex min-h-10 items-center gap-2 rounded-full border px-3.5 text-xs font-semibold transition hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest ${items.length ? today ? 'border-[#b9cb39] bg-[#e8f28b] px-4 text-forest shadow-[0_5px_14px_rgb(76_91_25/0.18)] hover:bg-[#e1ed70]' : 'border-rule bg-white/70 text-forest hover:border-forest/25 hover:bg-[#f7f9e9]' : 'border-dashed border-rule bg-transparent text-ink-3 hover:border-forest/30 hover:text-forest'}`}>
+          {items.length ? <><CalendarDays aria-hidden className="size-3.5" />{today ? `You have ${items.length} tasks today · View` : 'View day’s tasks'}<ArrowRight aria-hidden className="size-3.5 transition-transform group-hover/day-open:translate-x-0.5" /></> : <>No tasks planned<Plus aria-hidden className="size-3.5" /></>}
         </button>
       </div>
       {!past && (
