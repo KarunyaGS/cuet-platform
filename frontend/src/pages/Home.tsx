@@ -356,8 +356,10 @@ export function Home() {
     }
   };
 
-  const loading = (dash.loading && !d) || (subjectsLoad.loading && !subjectsLoad.data);
-  const failure = dash.error ?? subjectsLoad.error;
+  // Keep the full catalogue off-screen until preferences arrive. Otherwise the map briefly
+  // renders every subject while the saved selection is still loading, then jumps to the subset.
+  const loading = (dash.loading && !d) || (subjectsLoad.loading && !subjectsLoad.data) || (prefs.loading && !prefs.data);
+  const failure = dash.error ?? subjectsLoad.error ?? prefs.error;
 
   return (
     <div data-home className="mx-auto max-w-[84rem]">
@@ -388,7 +390,7 @@ export function Home() {
 
       {failure ? (
         <div className="mt-8">
-          <ErrorBox error={failure} onRetry={() => (dash.error ? dash.reload() : subjectsLoad.reload())} />
+          <ErrorBox error={failure} onRetry={() => (dash.error ? dash.reload() : subjectsLoad.error ? subjectsLoad.reload() : prefs.reload())} />
         </div>
       ) : loading ? (
         <div className="mt-6 grid gap-5 xl:grid-cols-[minmax(0,2.06fr)_minmax(0,1fr)]" role="status" aria-label="Loading your study map">
