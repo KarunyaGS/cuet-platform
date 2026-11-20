@@ -6,6 +6,7 @@ import { PreporaSpark } from './brand';
 import { BrandMark, Sidebar } from './Sidebar';
 import { SupportWidget } from './support/SupportWidget';
 import { useAuth } from './ui';
+import { SoundToggle } from './sound';
 
 const REVIEW_ROLES = ['REVIEWER', 'EDITOR', 'CONTENT_ADMIN', 'SUPER_ADMIN'];
 
@@ -215,6 +216,7 @@ function UserMenu() {
               <CreditCard aria-hidden />
               Plans
             </Link>
+            <SoundToggle />
             <Link role="menuitem" to="/updates" className={item}>
               <Landmark aria-hidden />
               Official Government Updates

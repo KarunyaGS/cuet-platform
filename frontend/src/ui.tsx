@@ -3,6 +3,7 @@ import { ChevronLeft, CircleAlert, Search } from 'lucide-react';
 import { Link, Navigate, useLocation } from 'react-router';
 import { api, ApiError, UNAUTHORIZED_EVENT, type User } from './api';
 import { PreporaSpark } from './brand';
+import { playUiSound } from './sound';
 
 /** Load data once per dependency change; exposes loading, error and a reload function. */
 export function useLoad<T>(load: () => Promise<T>, deps: unknown[]) {
@@ -186,7 +187,7 @@ export function Button({
   className?: string;
 }) {
   return (
-    <button type={type} onClick={onClick} disabled={disabled} title={title} className={`${buttonClass(kind, size)} ${className}`}>
+    <button type={type} onClick={() => { playUiSound('tap'); onClick?.(); }} disabled={disabled} title={title} className={`${buttonClass(kind, size)} ${className}`}>
       {icon}
       {children}
     </button>
@@ -196,7 +197,7 @@ export function Button({
 /** A link that looks like a button (for navigation, not actions). */
 export function ButtonLink({ to, children, kind = 'secondary', size = 'md', icon }: { to: string; children: ReactNode; kind?: ButtonKind; size?: 'sm' | 'md'; icon?: ReactNode }) {
   return (
-    <Link to={to} className={buttonClass(kind, size)}>
+    <Link to={to} onClick={() => playUiSound('tap')} className={buttonClass(kind, size)}>
       {icon}
       {children}
     </Link>

@@ -11,6 +11,7 @@ import { BookmarkButton } from '../tools';
 import { SaveForRevision } from '../revision';
 import { Badge, Button, ErrorBox, Loading, useLoad } from '../ui';
 import { ExamGuard } from './ExamGuard';
+import { playUiSound, SoundToggle } from '../sound';
 
 function useCountdown(deadline: string | null) {
   const [now, setNow] = useState(Date.now());
@@ -148,6 +149,9 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
     if (left === 0 && data?.session.status === 'IN_PROGRESS') void submit(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [left]);
+  useEffect(() => {
+    if (left === 300 || left === 60) playUiSound('warning');
+  }, [left]);
   const qid = data?.questions[i]?.id;
   useEffect(() => {
     if (qid) setVisited((v) => (v.has(qid) ? v : new Set(v).add(qid)));
@@ -158,13 +162,17 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
   const choose = useCallback(
     async (question: SessionQuestion, position: number) => {
       if (practice && feedback[question.id]?.outcome) return; // locked after feedback
+      playUiSound('select');
       setErr(null);
       const selected = question.type === 'MCQ_MULTI' ? toggle(question.answer?.selectedPositions ?? [], position) : [position];
       setData((d) => d && { ...d, questions: d.questions.map((x) => (x.id === question.id ? { ...x, answer: { selectedPositions: selected, numericAnswer: null } } : x)) });
       if (question.type === 'MCQ_MULTI' && practice) return; // multi-select: confirm with the Check button
       try {
         const res = await api.answer(sessionId, { questionId: question.id, selectedPositions: selected });
-        if (practice) setFeedback((f) => ({ ...f, [question.id]: res }));
+        if (practice) {
+          setFeedback((f) => ({ ...f, [question.id]: res }));
+          playUiSound(res.outcome === 'CORRECT' ? 'correct' : res.outcome === 'INCORRECT' ? 'incorrect' : 'select');
+        }
       } catch (e) {
         setErr(e as Error);
       }
@@ -213,6 +221,7 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
     setBusy(true);
     try {
       await api.submit(sessionId, timedOut);
+      playUiSound('complete');
       navigate(`/results/${sessionId}`);
     } catch (e) {
       setErr(e as Error);
@@ -276,6 +285,7 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
             <span className="num hidden text-sm text-ink-2 sm:inline">
               {answeredCount} of {total} answered
             </span>
+            <SoundToggle compact />
             {left !== null && (
               <span role="timer" aria-label="Time left" className={`num inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-semibold ring-1 ${timeTone}`}>
                 <Clock aria-hidden className="size-4" />
@@ -376,7 +386,10 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
                     setErr(null);
                     const res = await api.answer(sessionId, { questionId: q.id, numericAnswer: value });
                     setData((d) => d && { ...d, questions: d.questions.map((x) => (x.id === q.id ? { ...x, answer: { selectedPositions: null, numericAnswer: value } } : x)) });
-                    if (practice && res.outcome) setFeedback((f) => ({ ...f, [q.id]: res }));
+                    if (practice && res.outcome) {
+                      setFeedback((f) => ({ ...f, [q.id]: res }));
+                      playUiSound(res.outcome === 'CORRECT' ? 'correct' : res.outcome === 'INCORRECT' ? 'incorrect' : 'select');
+                    }
                   } catch (e) {
                     setErr(e as Error);
                   }
@@ -389,7 +402,9 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
                   kind="secondary"
                   onClick={async () => {
                     try {
-                      setFeedback({ ...feedback, [q.id]: await api.answer(sessionId, { questionId: q.id, selectedPositions: q.answer?.selectedPositions ?? [] }) });
+                      const res = await api.answer(sessionId, { questionId: q.id, selectedPositions: q.answer?.selectedPositions ?? [] });
+                      setFeedback({ ...feedback, [q.id]: res });
+                      playUiSound(res.outcome === 'CORRECT' ? 'correct' : res.outcome === 'INCORRECT' ? 'incorrect' : 'select');
                     } catch (e) {
                       setErr(e as Error);
                     }
