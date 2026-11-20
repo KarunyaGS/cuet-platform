@@ -330,6 +330,18 @@ a[href],
 .pop-anim {
   animation: pop 0.3s cubic-bezier(0.3, 0.7, 0.4, 1);
 }
+@keyframes test-complete-in {
+  0% { opacity: 0; transform: translateY(9px) scale(0.99); }
+  70% { opacity: 1; transform: translateY(-2px) scale(1.005); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.test-complete-callout { animation: test-complete-in 0.45s cubic-bezier(0.2, 0.75, 0.3, 1) both; }
+@keyframes result-reveal-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.result-reveal { animation: result-reveal-in 0.5s ease-out both; }
+.result-reveal-later { animation-delay: 0.12s; }
 button:not(:disabled):active,
 a[href]:active,
 [role='tab']:active {

@@ -129,6 +129,16 @@ export const consoleApi = {
   addProgramme: (b: unknown) => request<{ id: string }>('POST', '/api/console/admissions/programmes', b),
   decideProgramme: (id: string, b: { action: 'PUBLISH' | 'REJECT' | 'WITHDRAW'; reason?: string }) => request<unknown>('POST', `/api/console/admissions/programmes/${id}/decision`, b),
   admissionOutdated: () => request<Outdated>('GET', '/api/console/admissions/outdated'),
+  requirements: (q: { status?: string; university?: string; q?: string; all?: boolean; offset?: number } = {}) =>
+    request<ReqList>('GET', `/api/console/admissions/requirements?${new URLSearchParams({ limit: '40', ...Object.fromEntries(Object.entries({ ...q, all: q.all ? '1' : '' }).filter(([, v]) => v !== undefined && v !== '' && v !== 0).map(([k, v]) => [k, String(v)])) })}`),
+  requirement: (id: string) => request<ReqDetail>('GET', `/api/console/admissions/requirements/${id}`),
+  readRequirements: (dryRun: boolean) => request<{ examined: number; created: number; unchanged: number; noPrintedRule: number; superseded: number; byStatus: Record<string, number>; dryRun: boolean }>('POST', `/api/console/admissions/requirements/propose${dryRun ? '?dryRun=1' : ''}`, {}),
+  decideRequirement: (id: string, b: { action: 'APPROVE' | 'REJECT' | 'NEEDS_UNIVERSITY_CONFIRMATION' | 'REOPEN'; note: string }) => request<ReqDetail>('POST', `/api/console/admissions/requirements/${id}/decision`, b),
+  reviseRequirement: (id: string, b: unknown) => request<ReqDetail>('POST', `/api/console/admissions/requirements/${id}/revise`, b),
+  admissionGroups: () => request<GroupRow[]>('GET', '/api/console/admissions/groups'),
+  admissionGroup: (id: string) => request<GroupDetailAdmin>('GET', `/api/console/admissions/groups/${id}`),
+  decideGroup: (id: string, b: { action: 'PUBLISH' | 'REJECT' | 'WITHDRAW'; note: string; confirmMembers?: string[] }) => request<GroupDetailAdmin>('POST', `/api/console/admissions/groups/${id}/decision`, b),
+  admissionValidation: () => request<AdmissionValidation>('GET', '/api/console/admissions/validation'),
   noticeDecision: (id: string, b: { action: 'PUBLISH' | 'REJECT' | 'FLAG' | 'WITHDRAW'; exam?: 'CUET_UG'; reason?: string }) => request<{ id: string; status: string }>('POST', `/api/console/notices/${id}/decision`, b),
   officialLinks: () => request<AdminOfficialLink[]>('GET', '/api/console/official-papers'),
   officialLinkStatus: (id: string, b: { action: 'PUBLISH' | 'UNPUBLISH' | 'ARCHIVE' | 'ALLOW_IN_APP' | 'DISALLOW_IN_APP'; linkingBasis?: string; embedBasis?: string; conditionsChecked?: boolean }) => request<AdminOfficialLink>('POST', `/api/console/official-papers/${id}/status`, b),
@@ -140,6 +150,9 @@ export const consoleApi = {
   pastPapers: () => request<AdminPastPaper[]>('GET', '/api/console/past-papers'),
   pastPaper: (id: string) => request<AdminPastPaperQuestions>('GET', `/api/console/past-papers/${id}`),
   pastPaperStatus: (id: string, action: 'PUBLISH' | 'UNPUBLISH' | 'ARCHIVE') => request<AdminPastPaper>('POST', `/api/console/past-papers/${id}/status`, { action }),
+  topicMappingQueue: (f: { paperId?: string; page?: number; pageSize?: number }) => request<TopicMappingQueue>('GET', `/api/console/topic-weightage/queue?${qs(f)}`),
+  saveTopicMapping: (entryId: string, b: { action: 'SUGGEST' | 'VERIFY' | 'UNRESOLVED' | 'REJECT'; curriculumNodeId?: string | null; confidence?: 'HIGH' | 'MEDIUM' | 'LOW' | null; method?: 'MANUAL' | 'AI_ASSISTED'; evidenceNote?: string | null; sourceChecked?: boolean }) => request<unknown>('POST', `/api/console/topic-weightage/${entryId}/decision`, b),
+  topicWeightageReport: (f: { exam?: string; paperId?: string }) => request<WeightageReport[]>('GET', `/api/console/topic-weightage/report?${qs(f)}`),
   billing: () => request<BillingOverview>('GET', '/api/console/billing'),
   plans: () => request<AdminPlan[]>('GET', '/api/console/billing/plans'),
   updatePlan: (id: string, b: PlanInput) => request<AdminPlan>('PUT', `/api/console/billing/plans/${id}`, b),
@@ -227,6 +240,23 @@ export interface AdminPastPaperQuestions {
   paper: AdminPastPaper;
   questions: { position: number; dropped: boolean; officialQuestionId: string | null; sourcePage: number | null; questionId: string | null; type: string | null; stem: string | null; verification: string | null; options: { position: number; label: string; text: string }[]; key: number[] | null; numericAnswer: number | null; officialKey: number[] | null }[];
 }
+export interface TopicMappingQueue {
+  page: number; pageSize: number; total: number; pages: number;
+  items: {
+    entryId: string; position: number; officialQuestionId: string | null; sourcePage: number | null; paperId: string;
+    exam: string; year: number; subjectCode: string; subjectName: string; paperTitle: string; paperStatus: string; keyVersion: string;
+    sourceUrl: string | null; questionId: string; stem: string; origin: string; questionVerification: string; sourceLocator: string | null;
+    exactTestPaperId: string | null; syllabusVersionId: string | null; syllabusVersionNumber: number | null; syllabusStatus: string | null; syllabusVerification: string | null;
+    mapping: { id: string; nodeId: string | null; status: string; confidence: string | null; method: string; evidenceNote: string | null; title: string | null; kind: string | null } | null;
+    syllabusUrl: string | null; topics: { id: string; title: string; kind: string; depth: number; path: string; sourcePage: number | null }[]; historyCount: number;
+  }[];
+}
+export interface WeightageReport {
+  exam: string; year: number; subjectCode: string; subjectName: string; testPaperId: string; syllabusVersionId: string; syllabusVersionNumber: number;
+  sampleSize: number; mappedCount: number; paperCount: number; mappingCoveragePercent: number; yearCoverage: number[];
+  sourcePapers: { title: string; year: number; examDate: string | null; shift: string | null; subjectCode: string; sourceUrl: string }[];
+  topics: { id: string; title: string; kind: string; questionCount: number; percentOfPaperSample: number | null }[];
+}
 export interface AdminOfficialLink { id: string; exam: string; year: number; subjectCode: string | null; subjectName: string | null; session: string | null; kind: string; available: boolean; url: string | null; title: string; note: string | null; checkedOn: string; status: string; key: string; linkingBasis: string | null; linkingCheckedBy: string | null; publishedAt: string | null; embedBasis: string | null; viewerMode: 'DIRECT' | 'PROXY' | 'NEW_TAB' | null; inAppViewing: boolean }
 export interface MockBlueprint { basis: string; pattern: { questions: number; durationMinutes: number; marksCorrect: number; marksIncorrect: number; optionsPerQuestion: number }; units: { id: string; label: string | null; title: string; syllabusRows: number; questions: number }[]; result: { difficulty: Record<string, number>; formats: Record<string, number>; topicsCovered: number } }
 export interface AdminMockPaper { id: string; paperId: string; subjectCode: string; subjectName: string; exam: string; number: number; title: string; status: string; questions: number; allQuestionsApproved: boolean; blueprint: MockBlueprint; approvedBy: string | null; approvedAt: string | null; approvalNote: string | null; publishedAt: string | null }
@@ -245,3 +275,29 @@ export interface EmailOverview {
   readiness: { key: string; label: string; ok: boolean }[];
 }
 export const when = (iso: string | null) => (iso ? new Date(iso.includes('T') ? iso : `${iso.replace(' ', 'T')}Z`).toLocaleString(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }) : 'Never');
+
+export interface ReqIssue { code: string; severity: 'BLOCKING' | 'REVIEW' | 'INFO'; message: string; text?: string }
+export interface ReqRule {
+  family: string; status: string; evaluable: boolean; groupsNeeded: string[];
+  combinations: { label: string; requirements: unknown[]; effective: unknown[] }[];
+  extraTests: { kind: string; text: string }[];
+  resolutions?: Record<string, { note: string; sourceUrl?: string; by: string; at: string }>;
+}
+export interface ReqItem {
+  id: string; version: number; status: string; origin: string; family: string; parserVersion: string;
+  programme: { id: string; name: string; university: string; universitySlug: string; status: string; degree: string | null; campus: string | null };
+  source: { sourceUrl: string; sourceTitle: string; sourceStatus: string; sourcePage: number | null; sourceLocator: string | null; academicYear: string; examCode: string; lastVerifiedOn: string; factId: string | null; factStatus: string | null };
+  printedText: string; printedTextChanged: boolean; factFlagged: boolean; factFlag: string | null;
+  rule: ReqRule; openIssues: ReqIssue[]; approvalBlockers: ReqIssue[]; canApprove: boolean;
+  reviewNote: string | null; reviewedBy: string | null; reviewedAt: string | null; createdBy: string; createdAt: string;
+}
+export interface ReviewEvent { action: string; actor: string; from_status: string | null; to_status: string | null; note: string | null; created_at: string; snapshot: unknown }
+export interface ReqDetail extends ReqItem { history: ReviewEvent[]; versions: { id: string; version: number; status: string; origin: string }[] }
+export interface ReqList { total: number; byStatus: Record<string, number>; items: ReqItem[] }
+export interface GroupRow { id: string; university_slug: string; group_code: string; title: string; academic_year: string; exam_code: string; version: number; status: string; source_page: number | null; checked_on: string; members: number; needs_attention: number }
+export interface GroupDetailAdmin {
+  id: string; university_slug: string; group_code: string; title: string; academic_year: string; version: number; status: string; source_url: string; source_title: string; source_page: number | null; source_locator: string | null; checked_on: string;
+  members: { id: string; position: number; printed_name: string; paper_code: string | null; mapping_status: string; note: string | null }[];
+  history: ReviewEvent[];
+}
+export interface AdmissionValidation { summary: Record<string, number>; findings: { level: string; severity: 'ERROR' | 'WARNING' | 'INFO'; id: string; label: string; message: string }[] }

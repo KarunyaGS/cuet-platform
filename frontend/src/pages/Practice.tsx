@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import { api, type Feedback, type PracticeSession, type SessionQuestion } from '../api';
 import { QuestionStem } from '../question';
 import { Rich } from '../rich';
+import { SchemeDetails, marksLine } from '../marking';
 import { parseNumericAnswer } from '../numeric';
 import { EnlargeButton, mediaSrc } from '../question';
 import { BookmarkButton } from '../tools';
@@ -45,11 +46,18 @@ const CELL: Record<Exclude<Cell, 'current'>, { cls: string; label: string }> = {
 /** The test screen: distraction-free, with a CBT-style question palette, timer and a check before submitting. */
 
 /** Answer box for a numerical question: type the value, then save it (exam) or check it (practice). */
-function NumericAnswer({ question, locked, practice, onSave }: { question: SessionQuestion; locked: boolean; practice: boolean; onSave: (value: number | null) => Promise<void> }) {
+function NumericAnswer({ question, locked, practice, onSave, onDraft }: { question: SessionQuestion; locked: boolean; practice: boolean; onSave: (value: number | null) => Promise<void>; onDraft: (text: string | null) => void }) {
   const saved = question.answer?.numericAnswer;
   const [text, setText] = useState(saved === null || saved === undefined ? '' : String(saved));
   const [problem, setProblem] = useState<string | null>(null);
   const [working, setWorking] = useState(false);
+  // Tell the test screen when what is typed differs from what is saved, so leaving the question cannot silently drop it.
+  const savedText = saved === null || saved === undefined ? '' : String(saved);
+  useEffect(() => {
+    onDraft(!practice && !locked && text.trim() !== savedText ? text : null);
+    return () => onDraft(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text, savedText, practice, locked]);
   const submit = async (clear: boolean) => {
     const value = clear ? null : parseNumericAnswer(text);
     if (!clear && value === null) return setProblem('Enter a number, for example 12, -3.5 or 2e-3.');
@@ -116,6 +124,11 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
   const [err, setErr] = useState<Error | null>(null);
   const [busy, setBusy] = useState(false);
   const [confirming, setConfirming] = useState(false);
+  const [confirmText, setConfirmText] = useState('');
+  // A typed numerical answer that is not saved yet, and the question the student tried to move to meanwhile.
+  const [draft, setDraft] = useState<string | null>(null);
+  const [pendingMove, setPendingMove] = useState<number | null>(null);
+  const [showScheme, setShowScheme] = useState(false);
   useEffect(() => {
     setData(loaded.data);
     // Marks for review are kept on the server, so they come back after a reload or on another device.
@@ -165,6 +178,7 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
       playUiSound('select');
       setErr(null);
       const selected = question.type === 'MCQ_MULTI' ? toggle(question.answer?.selectedPositions ?? [], position) : [position];
+      const previous = question.answer;
       setData((d) => d && { ...d, questions: d.questions.map((x) => (x.id === question.id ? { ...x, answer: { selectedPositions: selected, numericAnswer: null } } : x)) });
       if (question.type === 'MCQ_MULTI' && practice) return; // multi-select: confirm with the Check button
       try {
@@ -174,6 +188,8 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
           playUiSound(res.outcome === 'CORRECT' ? 'correct' : res.outcome === 'INCORRECT' ? 'incorrect' : 'select');
         }
       } catch (e) {
+        // Not saved: show the question as it really is (the server still has the earlier answer), and say so.
+        setData((d) => d && { ...d, questions: d.questions.map((x) => (x.id === question.id ? { ...x, answer: previous } : x)) });
         setErr(e as Error);
       }
     },
@@ -189,8 +205,8 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
       if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
       const q = data.questions[i];
       if (!q) return;
-      if (e.key === 'ArrowRight') setI((k) => Math.min(data.questions.length - 1, k + 1));
-      else if (e.key === 'ArrowLeft') setI((k) => Math.max(0, k - 1));
+      if (e.key === 'ArrowRight') goTo(Math.min(data.questions.length - 1, i + 1));
+      else if (e.key === 'ArrowLeft') goTo(Math.max(0, i - 1));
       else {
         // CUET questions have four options, A to D (keys 1 to 4 or A to D).
         const k = /^[1-4]$/.test(e.key) ? Number(e.key) - 1 : /^[a-d]$/i.test(e.key) ? e.key.toLowerCase().charCodeAt(0) - 97 : -1;
@@ -203,7 +219,8 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [data, i, choose, confirming]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, i, choose, confirming, draft]);
 
   useEffect(() => {
     if (!confirming) return;
@@ -260,7 +277,37 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
   const source = data.session.source;
   const official = source?.kind === 'PAST_PAPER';
   const timeTone = left === null ? '' : left < 60 ? 'bg-wrong-soft text-wrong ring-wrong/30' : left < 300 ? 'bg-marker-soft text-marker ring-marker/30' : 'bg-surface text-ink ring-rule';
-  const startSubmit = () => (practice || answeredCount === total ? void submit() : setConfirming(true));
+  // A practice set ends at once; a test always asks first, because a submitted test cannot be reopened (even when every question is answered).
+  const startSubmit = () => {
+    if (practice) return void submit();
+    if (draft !== null) return void setPendingMove(-1);
+    setConfirmText('');
+    setConfirming(true);
+  };
+  /** Moves to another question. A typed numerical answer that is not saved yet is never dropped silently: the student chooses. */
+  function goTo(k: number) {
+    if (k === i) return;
+    if (draft !== null && data) return void setPendingMove(k);
+    setI(k);
+  }
+  const resolveDraft = async (save: boolean) => {
+    const target = pendingMove;
+    setPendingMove(null);
+    if (save) {
+      const value = parseNumericAnswer(draft ?? '');
+      if (value === null) return setErr(new Error('The number you typed could not be read, so it was not saved. Fix it or clear the box.'));
+      try {
+        setErr(null);
+        await api.answer(sessionId, { questionId: q.id, numericAnswer: value });
+        setData((d) => d && { ...d, questions: d.questions.map((x) => (x.id === q.id ? { ...x, answer: { selectedPositions: null, numericAnswer: value } } : x)) });
+      } catch (e) {
+        return setErr(e as Error);
+      }
+    }
+    setDraft(null);
+    if (target === -1) { setConfirmText(''); setConfirming(true); }
+    else if (target !== null) setI(target);
+  };
 
   return (
     <div className={exam ? 'mx-auto min-h-dvh w-full max-w-none px-3 pb-6 sm:px-5 lg:px-8' : undefined} data-exam-screen={exam ? '' : undefined}>
@@ -268,7 +315,7 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
         <ExamGuard sessionId={sessionId} policy={data.session.exam} incidentsSoFar={data.session.exam.incidents} onEnded={() => navigate(`/results/${sessionId}`, { replace: true })} />
       )}
       {/* Test bar */}
-      <div className={`sticky ${exam ? 'top-0' : 'top-14'} z-20 -mx-4 mb-4 border-b border-rule bg-paper px-4 py-2.5 sm:-mx-6 sm:px-6`}>
+      <div className={`sticky ${exam ? 'top-0 -mx-3 px-3 sm:-mx-5 sm:px-5 lg:-mx-8 lg:px-8' : 'top-14 -mx-4 px-4 sm:-mx-6 sm:px-6'} z-20 mb-4 border-b border-rule bg-paper py-2.5`}>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2 font-semibold text-ink">
@@ -276,9 +323,10 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
               <Badge tone={official ? 'accent' : exam ? 'amber' : 'green'}>{official ? 'Official previous-year paper' : exam ? 'Examination in progress' : 'Practice questions'}</Badge>
             </div>
             <div className="num text-xs text-ink-3">
-              {total} questions, marking {data.session.marking.correct > 0 ? '+' : ''}
-              {data.session.marking.correct} / {data.session.marking.incorrect < 0 ? '−' : ''}
-              {Math.abs(data.session.marking.incorrect)}
+              {total} questions · {marksLine({ ...data.session.marking, unattempted: 0 })}
+              <button type="button" onClick={() => setShowScheme((v) => !v)} aria-expanded={showScheme} className="ml-2 underline underline-offset-2 hover:text-ink" data-scheme-toggle>
+                {showScheme ? 'Hide marking scheme' : 'Marking scheme'}
+              </button>
             </div>
           </div>
           <div className="ml-auto flex items-center gap-3">
@@ -297,12 +345,28 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
             </Button>
           </div>
         </div>
+        {showScheme && (
+          <div className="mt-2 max-h-40 overflow-y-auto rounded-lg border border-rule bg-surface p-3" data-scheme-panel>
+            <SchemeDetails scheme={data.session.scheme} compact />
+          </div>
+        )}
         {left !== null && (left === 300 || left === 60) && (
           <span className="sr-only" aria-live="assertive">
             {left === 60 ? 'One minute left' : 'Five minutes left'}
           </span>
         )}
       </div>
+
+      {!practice && answeredCount === total && (
+        <section aria-labelledby="all-answered-title" className="test-complete-callout mb-4 flex flex-wrap items-center gap-3 rounded-2xl border border-correct/30 bg-correct-soft p-4 sm:p-5" data-all-answered>
+          <span aria-hidden className="grid size-11 shrink-0 place-items-center rounded-full bg-surface text-correct shadow-sm"><CircleCheck className="size-6" /></span>
+          <div className="min-w-0 flex-1">
+            <h2 id="all-answered-title" className="text-base font-bold text-ink sm:text-lg">All questions answered</h2>
+            <p className="mt-0.5 text-sm text-ink-2">Your answers are saved. Review them if you like, then finish from the button above or here.</p>
+          </div>
+          <Button onClick={startSubmit} disabled={busy} data-finish-completed-test>Review and submit</Button>
+        </section>
+      )}
 
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_16rem] xl:gap-4">
         <section key={q.id} data-question-card className="min-w-0 overflow-hidden rounded-xl border border-rule bg-surface lg:flex lg:min-h-[min(70dvh,43rem)] lg:flex-col" aria-label={`Question ${q.number} of ${total}`}>
@@ -346,7 +410,7 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
                     <button
                       role={q.type === 'MCQ_MULTI' ? 'checkbox' : 'radio'}
                       aria-checked={chosen}
-                      onClick={() => choose(q, o.position)}
+                      onClick={() => void choose(q, o.position)}
                       className={`flex min-h-11 w-full items-start gap-3 rounded-xl border px-3.5 py-3 text-left text-[14px] text-ink transition-colors ${state}`}
                     >
                       <span aria-hidden className={`grid size-6 shrink-0 place-items-center rounded-full border text-[12px] font-semibold ${dot}`}>
@@ -379,6 +443,7 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
               <NumericAnswer
                 key={q.id}
                 question={q}
+                onDraft={setDraft}
                 practice={practice}
                 locked={practice && Boolean(fb?.outcome)}
                 onSave={async (value) => {
@@ -434,7 +499,7 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
             {err && <ErrorBox error={err} />}
           </Annotatable>
           <div className="flex flex-wrap items-center justify-between gap-2 border-t border-rule px-4 py-2.5">
-            <Button kind="ghost" onClick={() => setI(Math.max(0, i - 1))} disabled={i === 0} icon={<ChevronLeft aria-hidden />}>
+            <Button kind="ghost" onClick={() => goTo(Math.max(0, i - 1))} disabled={i === 0} icon={<ChevronLeft aria-hidden />}>
               Previous
             </Button>
             <div className="flex items-center gap-2">
@@ -448,12 +513,38 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
                   {marked.has(q.id) ? 'Marked for review' : 'Mark for review'}
                 </Button>
               )}
-              <Button kind="secondary" onClick={() => setI(Math.min(total - 1, i + 1))} disabled={i === total - 1}>
-                Next
-                <ChevronRight aria-hidden />
-              </Button>
+              {!practice && answeredCount === total ? (
+                <Button kind="secondary" onClick={startSubmit} disabled={busy} data-review-and-submit>
+                  Review and submit
+                </Button>
+              ) : i === total - 1 && !practice ? (
+                <Button kind="secondary" onClick={startSubmit} disabled={busy} data-review-and-submit>
+                  Review and submit
+                </Button>
+              ) : (
+                <Button kind="secondary" onClick={() => goTo(Math.min(total - 1, i + 1))} disabled={i === total - 1}>
+                  Next
+                  <ChevronRight aria-hidden />
+                </Button>
+              )}
             </div>
           </div>
+          {pendingMove !== null && (
+            <div role="alertdialog" aria-labelledby="draft-title" className="border-t border-marker/40 bg-marker-soft px-4 py-3 text-sm text-ink" data-unsaved-answer>
+              <p id="draft-title" className="font-semibold">You typed an answer that is not saved yet.</p>
+              <p className="mt-0.5 text-ink-2">Moving away without saving would lose it.</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                <Button onClick={() => void resolveDraft(true)}>{pendingMove === -1 ? 'Save and review' : 'Save and continue'}</Button>
+                <Button kind="ghost" onClick={() => void resolveDraft(false)}>Discard it</Button>
+                <Button kind="ghost" onClick={() => setPendingMove(null)}>Stay on this question</Button>
+              </div>
+            </div>
+          )}
+          {!practice && (
+            <p className="border-t border-rule px-4 py-2 text-xs text-ink-3" data-nav-guidance>
+              {q.type === 'NUMERICAL' ? 'A typed number is saved with Save answer.' : 'Choosing an option saves it straight away.'} Previous and the question palette let you review answers. {answeredCount === total ? 'All questions are answered: use Review and submit to finish.' : i === total - 1 ? 'This is the last question: Review and submit checks your answers before the test ends.' : 'You can come back to any question from the palette.'}
+            </p>
+          )}
         </section>
 
         <aside className={`lg:sticky ${exam ? 'lg:top-24' : 'lg:top-36'} lg:self-start`} aria-label="Question palette">
@@ -465,12 +556,14 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
                 return (
                   <button
                     key={x.id}
-                    onClick={() => setI(k)}
+                    onClick={() => goTo(k)}
                     aria-label={`Question ${x.number}, ${CELL[c].label.toLowerCase()}`}
                     aria-current={k === i ? 'true' : undefined}
                     className={`num h-8 rounded-lg text-[12px] font-semibold transition-shadow ${CELL[c].cls} ${k === i ? 'ring-2 ring-accent ring-offset-2 ring-offset-surface' : ''}`}
                   >
                     {x.number}
+                    {(c === 'marked' || c === 'answered-marked') && <span aria-hidden className="ml-0.5 align-super text-[8px]">⚑</span>}
+                    {c === 'answered' && <span aria-hidden className="ml-0.5 align-super text-[8px]">✓</span>}
                   </button>
                 );
               })}
@@ -485,17 +578,22 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
               ))}
             </ul>
             <p className="mt-3 hidden text-xs text-ink-3 lg:block">Keys: A–D choose an option, ← → move between questions.</p>
+            {!practice && <p className="mt-2 text-xs text-ink-3">✓ answered · ⚑ marked for review</p>}
           </div>
         </aside>
       </div>
 
       {confirming && (
         <div className="fixed inset-0 z-50 grid place-items-center bg-ink/40 p-4" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
-          <div className="w-full max-w-sm rounded-xl border border-rule bg-surface p-5 shadow-xl">
-            <h2 id="confirm-title" className="text-lg font-semibold text-ink">
-              Submit this test?
-            </h2>
-            <p className="mt-1 text-sm text-ink-2">You cannot change answers after submitting.</p>
+          <div className="w-full max-w-lg rounded-2xl border border-correct/30 bg-surface p-5 shadow-2xl sm:p-7">
+            <div className="flex items-start gap-3">
+              <span aria-hidden className="grid size-11 shrink-0 place-items-center rounded-full bg-correct-soft text-correct"><CircleCheck className="size-6" /></span>
+              <div>
+                <h2 id="confirm-title" className="text-xl font-bold text-ink sm:text-2xl">Submit this test?</h2>
+                <p className="mt-1 text-sm text-ink-2">{answeredCount === total ? 'All questions are answered. ' : ''}You cannot change answers after submitting.</p>
+              </div>
+            </div>
+            <p className="mt-1 text-sm text-ink-2">{answeredCount === total ? 'All questions are answered. ' : ''}You cannot change answers after submitting.</p>
             <dl className="num mt-4 space-y-1.5 text-sm">
               <div className="flex justify-between">
                 <dt className="text-ink-2">Answered</dt>
@@ -509,13 +607,20 @@ export function PracticePage({ exam = false }: { exam?: boolean }) {
                 <dt className="text-ink-2">Marked for review</dt>
                 <dd className="font-semibold text-marker">{marked.size}</dd>
               </div>
+              {data.questions.some((x) => marked.has(x.id) && !answered(x)) && (
+                <p className="text-xs text-ink-2">{data.questions.filter((x) => marked.has(x.id) && !answered(x)).length} of the marked questions are still unanswered.</p>
+              )}
+              <p className="pt-1 text-xs text-ink-3">{marksLine({ ...data.session.marking, unattempted: 0 })}. Unanswered questions cost nothing.</p>
             </dl>
-            <div className="mt-5 flex justify-end gap-2">
-              <Button kind="ghost" onClick={() => setConfirming(false)} disabled={busy}>
+            <label htmlFor="confirm-submit-text" className="mt-5 block text-sm font-semibold text-ink">Type <span className="rounded bg-paper px-1.5 py-0.5 font-mono tracking-wider">SUBMIT</span> to see your result</label>
+            <input id="confirm-submit-text" autoFocus autoComplete="off" spellCheck={false} value={confirmText} onChange={(e) => setConfirmText(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && confirmText.trim().toUpperCase() === 'SUBMIT' && !busy && void submit()} aria-describedby="confirm-submit-hint" className="mt-2 h-12 w-full rounded-xl border border-rule-strong bg-paper px-3 font-mono text-lg tracking-[0.15em] text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent/20" />
+            <p id="confirm-submit-hint" className="mt-1 text-xs text-ink-3">This extra confirmation prevents an accidental submission.</p>
+            <div className="mt-5 flex flex-wrap justify-end gap-2">
+              <Button kind="ghost" onClick={() => { setConfirming(false); setConfirmText(''); }} disabled={busy}>
                 Keep answering
               </Button>
-              <Button onClick={() => void submit()} disabled={busy}>
-                {busy ? 'Submitting…' : 'Submit test'}
+              <Button onClick={() => void submit()} disabled={busy || confirmText.trim().toUpperCase() !== 'SUBMIT'}>
+                {busy ? 'Submitting…' : 'Submit test and view result'}
               </Button>
             </div>
           </div>

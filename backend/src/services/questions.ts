@@ -4,6 +4,7 @@ import { conflict, invalid, notFound } from '../lib/errors';
 import { newId, normaliseText, sha256Hex } from '../lib/hash';
 import { insertRows, nowIso } from '../lib/sql';
 import { OPTION_COUNT, shapeProblems } from './question-audit';
+import { rescoreSession } from './practice';
 import { evaluateResponse, markingFromRules, type QuestionType } from './scoring';
 
 const TYPES = ['MCQ_SINGLE', 'MCQ_MULTI', 'ASSERTION_REASON', 'MATCH_THE_FOLLOWING', 'STATEMENT_BASED', 'PASSAGE_BASED', 'DIAGRAM_BASED', 'NUMERICAL'] as const;
@@ -168,6 +169,42 @@ export async function deleteQuestion(db: D1Database, id: string, actor: string) 
     db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, created_at) VALUES (?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, 'DELETE_QUESTION', 'QUESTION', id, nowIso()),
   ]);
   return { deleted: true };
+}
+
+export const keyStatusSchema = z.object({ status: z.enum(['ACTIVE', 'DROPPED']), reason: z.string().trim().max(300).optional() });
+
+/**
+ * Records that a question was found wrong or was dropped (ACTIVE puts it back). Under the NTA rule every candidate who appeared gets the
+ * full marks for it, so attempts already submitted that contain it are re-totalled.
+ */
+export async function setKeyStatus(db: D1Database, questionId: string, input: z.infer<typeof keyStatusSchema>, actor: string) {
+  const key = await db.prepare('SELECT id, key_status FROM answer_keys WHERE question_id = ?').bind(questionId).first<{ id: string; key_status: string }>();
+  if (!key) throw notFound('Answer key');
+  await db.batch([
+    db.prepare('UPDATE answer_keys SET key_status = ?, updated_at = ? WHERE id = ?').bind(input.status, nowIso(), key.id),
+    db.prepare('INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, detail_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)').bind(newId('aud'), actor, input.status === 'DROPPED' ? 'DROP_QUESTION' : 'RESTORE_QUESTION', 'QUESTION', questionId, JSON.stringify({ reason: input.reason ?? null, was: key.key_status }), nowIso()),
+  ]);
+  const { results } = await db.prepare(`SELECT id FROM practice_sessions WHERE status = 'SUBMITTED' AND question_ids_json LIKE ?`).bind(`%"${questionId}"%`).all<{ id: string }>();
+  for (const r of results) await rescoreSession(db, r.id);
+  // Per-topic progress counted this question's answer when it was live. Dropping it removes that answer from the counters; restoring adds it back.
+  // Only a real change of status moves the counters, so repeating the same request never moves them twice.
+  if (key.key_status !== input.status) {
+    const sign = input.status === 'DROPPED' ? -1 : 1;
+    const { results: links } = await db.prepare('SELECT curriculum_node_id FROM question_topics WHERE question_id = ?').bind(questionId).all<{ curriculum_node_id: string }>();
+    const { results: answered } = await db
+      .prepare(`SELECT ps.user_id, pa.outcome FROM practice_sessions ps JOIN practice_answers pa ON pa.session_id = ps.id AND pa.question_id = ?1 WHERE ps.status = 'SUBMITTED' AND ps.question_ids_json LIKE ?2 AND pa.outcome IN ('CORRECT','INCORRECT')`)
+      .bind(questionId, `%"${questionId}"%`)
+      .all<{ user_id: string; outcome: string }>();
+    const moves = answered.flatMap((a) =>
+      links.map((l) =>
+        db
+          .prepare('UPDATE topic_progress SET attempted = MAX(0, attempted + ?1), correct = MAX(0, correct + ?2), incorrect = MAX(0, incorrect + ?3) WHERE user_id = ?4 AND curriculum_node_id = ?5')
+          .bind(sign, a.outcome === 'CORRECT' ? sign : 0, a.outcome === 'INCORRECT' ? sign : 0, a.user_id, l.curriculum_node_id),
+      ),
+    );
+    for (let i = 0; i < moves.length; i += 50) await db.batch(moves.slice(i, i + 50));
+  }
+  return { status: input.status, rescored: results.length };
 }
 
 /** Full record for staff, including the answer key. */

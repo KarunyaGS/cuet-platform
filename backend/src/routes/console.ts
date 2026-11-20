@@ -24,6 +24,10 @@ import { deleteQuestion, getQuestionAdmin, questionInputSchema, updateQuestion }
 import { deleteResource, getResource, resourceInputSchema, updateResource } from '../services/resources';
 import { applyReview, reviewHistory, reviewSchema } from '../services/review';
 import { admissionsOverview, createFact, createSource, decideFact, decideSource, factDecisionSchema, factInputSchema, importFacts, importSchema, listFacts, listSources, loadProposedSources, sourceDecisionSchema, sourceInputSchema, createProgramme, decideProgramme, importProgrammes, listProgrammesAdmin, outdatedItems, programmeDecisionSchema, programmeImportSchema, programmeInputSchema } from '../services/admissions';
+import {
+  createGroup, decideGroup, decideRequirement, groupDecisionSchema, groupDetail, groupInputSchema, listGroups, listRequirements, proposeRequirements, requirementDecisionSchema, requirementDetail, requirementQuery,
+  reviseRequirement, revisionSchema, validateAdmissionData,
+} from '../services/admission-review';
 import { replySchema as supportReplySchema, staffAttachment, staffReply, staffSetStatus, staffStatusSchema, staffThread, staffThreads, staffThreadsQuery } from '../services/support';
 import { emailOverview, previewEmail, previewSchema, sendTestEmails } from '../services/email';
 import { TEMPLATE_NAMES } from '../services/email-templates';
@@ -33,6 +37,7 @@ import {
   billingOverview, cancelSchema, cancelSubscription, createPlan, grantAccess, grantSchema, listOrders, listPlans, listSubscriptions, manualRefundSchema, orderDetail, orderQuery, planCreateSchema,
   planInputSchema, reconcileOrders, recordManualRefund, subscriptionQuery, updatePlan,
 } from '../services/billing';
+import { listTopicMappingQueue, saveTopicMapping, verifiedWeightageReport, weightageDecisionSchema, weightageQueueQuery } from '../services/topic-weightage';
 
 const consoleAuth: MiddlewareHandler<AppEnv> = async (c, next) => {
   const user = await userFromToken(c.env.DB, getCookie(c, SESSION_COOKIE) ?? c.req.header('authorization')?.replace(/^Bearer\s+/i, ''));
@@ -114,6 +119,18 @@ admin.post('/admissions/programmes/import', async (c) => (needPermission(me(c), 
 admin.post('/admissions/programmes/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'publish programmes'), c.json(await decideProgramme(c.env.DB, c.req.param('id'), await readJson(c, programmeDecisionSchema), c.get('actor')))));
 admin.get('/admissions/outdated', async (c) => c.json(await outdatedItems(c.env.DB)));
 admin.post('/admissions/facts/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'publish admission facts'), c.json(await decideFact(c.env.DB, c.req.param('id'), await readJson(c, factDecisionSchema), c.get('actor')))));
+// Structured subject requirements: the server's reading of each printed rule, reviewed beside the printed text. Nothing here is shown to students
+// until a person approves it, and the lists a rule refers to (List A, List B) are published separately from the university's own document.
+admin.get('/admissions/requirements', async (c) => c.json(await listRequirements(c.env.DB, requirementQuery.parse(query(c)))));
+admin.post('/admissions/requirements/propose', async (c) => (needPermission(me(c), 'content:write', 'read requirements'), c.json(await proposeRequirements(c.env.DB, c.get('actor'), { dryRun: c.req.query('dryRun') === '1' }))));
+admin.get('/admissions/requirements/:id', async (c) => c.json(await requirementDetail(c.env.DB, c.req.param('id'))));
+admin.post('/admissions/requirements/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'approve or reject requirements'), c.json(await decideRequirement(c.env.DB, c.req.param('id'), await readJson(c, requirementDecisionSchema), c.get('actor')))));
+admin.post('/admissions/requirements/:id/revise', async (c) => (needPermission(me(c), 'content:write', 'revise requirements'), c.json(await reviseRequirement(c.env.DB, c.req.param('id'), await readJson(c, revisionSchema), c.get('actor')), 201)));
+admin.get('/admissions/groups', async (c) => c.json(await listGroups(c.env.DB, { slug: c.req.query('university') || undefined, status: c.req.query('status') || undefined })));
+admin.get('/admissions/groups/:id', async (c) => c.json(await groupDetail(c.env.DB, c.req.param('id'))));
+admin.post('/admissions/groups', async (c) => (needPermission(me(c), 'content:write', 'add subject lists'), c.json(await createGroup(c.env.DB, await readJson(c, groupInputSchema), c.get('actor')), 201)));
+admin.post('/admissions/groups/:id/decision', async (c) => (needPermission(me(c), 'content:publish', 'publish subject lists'), c.json(await decideGroup(c.env.DB, c.req.param('id'), await readJson(c, groupDecisionSchema), c.get('actor')))));
+admin.get('/admissions/validation', async (c) => c.json(await validateAdmissionData(c.env.DB)));
 admin.post('/notices/fetch', async (c) => (needPermission(me(c), 'content:publish', 'fetch official notices'), c.json(await syncNotices(c.env, { force: true }))));
 admin.get('/notices', async (c) => c.json(await adminNotices(c.env.DB, adminNoticeQuery.parse(Object.fromEntries(Object.entries(c.req.query()).filter(([, v]) => v !== ''))), c.env.ACTIVE_EXAMS ? activeExams(c.env) : undefined)));
 admin.get('/notices/:id/history', async (c) => c.json(await noticeHistory(c.env.DB, c.req.param('id'))));
@@ -132,6 +149,15 @@ admin.post('/mock-papers/:id/status', async (c) => c.json(await setMockPaperStat
 admin.get('/past-papers', async (c) => c.json(await listPastPapersAdmin(c.env.DB)));
 admin.get('/past-papers/:id', async (c) => c.json(await pastPaperQuestionsAdmin(c.env.DB, c.req.param('id'))));
 admin.post('/past-papers/:id/status', async (c) => (needPermission(me(c), 'content:publish', 'publish previous-year papers'), c.json(await setPastPaperStatus(c.env.DB, c.req.param('id'), await readJson(c, paperActionSchema), c.get('actor')))));
+// Chapter/topic frequency is computed only from high-confidence reviewer-verified mappings to the exact paper-year syllabus.
+admin.get('/topic-weightage/queue', async (c) => c.json(await listTopicMappingQueue(c.env.DB, weightageQueueQuery.parse(query(c)))));
+admin.post('/topic-weightage/:entryId/decision', async (c) => {
+  needPermission(me(c), 'content:write', 'review topic mappings');
+  const input = await readJson(c, weightageDecisionSchema);
+  if (input.action === 'VERIFY') needPermission(me(c), 'content:publish', 'verify topic mappings');
+  return c.json(await saveTopicMapping(c.env.DB, c.req.param('entryId'), input, c.get('actor')));
+});
+admin.get('/topic-weightage/report', async (c) => c.json(await verifiedWeightageReport(c.env.DB, { exam: c.req.query('exam') || undefined, paperId: c.req.query('paperId') || undefined })));
 
 // Plans, subscriptions and payments (billing:manage). Prices and limits are data, changed here and logged.
 const billing = (c: Parameters<typeof me>[0], what: string) => needPermission(me(c), 'billing:manage', what);

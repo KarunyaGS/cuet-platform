@@ -59,13 +59,12 @@ interface MenuItem { to: string; label: string; hint: string; icon: ReactNode }
 const LEARN: MenuItem[] = [
   { to: '/CUET_UG', label: 'CUET UG', hint: 'Undergraduate: subjects, units and topics', icon: <BookOpen aria-hidden /> },
 ];
-/** My Learning: everything that is the student's own. Each item opens a page that already exists. */
+/** My Learning: tools and activity that belong to the student. */
 const MY: MenuItem[] = [
   { to: '/bookmarks', label: 'My Bookmarks', hint: 'Everything you saved', icon: <Bookmark aria-hidden /> },
   { to: '/bookmarks/review', label: 'Revision Cards', hint: 'Revise the cards that are due', icon: <GalleryVerticalEnd aria-hidden /> },
   { to: '/planner', label: 'Study Planner', hint: 'Your plan, day by day', icon: <CalendarDays aria-hidden /> },
   { to: '/progress', label: 'Learning Progress', hint: 'Accuracy, coverage and weak topics', icon: <ChartNoAxesColumn aria-hidden /> },
-  { to: '/admissions', label: 'University Admissions', hint: 'Programme requirements and your practice context', icon: <Landmark aria-hidden /> },
 ];
 const startsWithAny = (path: string, list: string[]) => list.some((p) => path === p || path.startsWith(`${p}/`));
 /** Which top-level group the current page belongs to, so the header can show where the student is. */
@@ -221,6 +220,10 @@ function UserMenu() {
               <Landmark aria-hidden />
               Official Government Updates
             </Link>
+            <Link role="menuitem" to="/admissions" className={item}>
+              <Landmark aria-hidden />
+              University Admissions
+            </Link>
             {user.roles.some((r) => r === 'SUPER_ADMIN' || r === 'CONTENT_ADMIN') && (
               <Link role="menuitem" to="/admin" className={item}>
                 <ShieldCheck aria-hidden />
@@ -303,6 +306,7 @@ function StudioBar({ path, onMenu, drawer }: { path: string; onMenu: () => void;
             <span className="hidden sm:inline">Search</span>
             <span className="sr-only sm:hidden">Search the syllabus</span>
           </NavLink>
+          <SoundToggle compact />
           <RemindersBell pill />
           <UserMenu />
         </div>

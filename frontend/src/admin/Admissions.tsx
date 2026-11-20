@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Panel, SectionTitle, StatGroup, inputClass, useLoad } from '../ui';
 import { consoleApi, when } from './api';
 import { AdminNeedsAttention, AdminProgrammes } from './AdmissionsDirectory';
+import { AdminAdmissionChecks, AdminGroups, AdminRequirementsReview } from './AdmissionsReview';
 
 const REC: Record<string, { label: string; tone: 'green' | 'amber' | 'red' | 'zinc' }> = {
   USE: { label: 'Review: use', tone: 'green' },
@@ -230,7 +231,10 @@ export function AdminAdmissions() {
         )}
       </section>
       <AdminProgrammes sources={sources.data ?? []} list={programmes} />
+      <AdminRequirementsReview />
+      <AdminGroups />
       <AdminNeedsAttention />
+      <AdminAdmissionChecks />
     </div>
   );
 }

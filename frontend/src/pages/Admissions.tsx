@@ -2,10 +2,11 @@
 import { ExternalLink, Info, SearchX } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
-import { api, ApiError, type AdmissionFact, type Cycle, type ExamCode, type Progress, type ProgrammeSummary, type Reliability } from '../api';
+import { api, ApiError, type AdmissionFact, type Cycle, type EligibilityOut, type ExamCode, type Progress, type ProgrammeSummary, type Reliability } from '../api';
 import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Panel, SearchInput, SectionTitle, inputClass, useLoad } from '../ui';
 import { BASIS, Source } from './University';
 import { parseRule, ruleLines, type Rule } from '../subject-rule';
+import { EligibilityLine, MyTargets, TargetButton } from './AdmissionEligibility';
 
 const dayLabel = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
 const examName = (e: ExamCode) => (e === 'CUET_UG' ? 'CUET (UG)' : 'CUET (PG)');
@@ -34,7 +35,7 @@ function matchesSubject(required: string, paper: string) {
   return names.some((name) => name === actual || name.startsWith(`${actual} `) || actual.startsWith(`${name} `));
 }
 
-function Card({ p, progress }: { p: ProgrammeSummary; progress?: Progress }) {
+function Card({ p, progress, eligibility, targeted, onTarget }: { p: ProgrammeSummary; progress?: Progress; eligibility?: EligibilityOut; targeted?: boolean; onTarget?: () => void }) {
   const d = p.nextDeadline ? `Apply by ${dayLabel(p.nextDeadline.date)}` : p.lastDeadline ? `Deadline was ${dayLabel(p.lastDeadline.date)}` : null;
   const subjectPerformance = (p.subjects ?? []).flatMap((required) => {
     const result = progress?.subjects.find((subject) => matchesSubject(required, subject.paper));
@@ -97,6 +98,8 @@ function Card({ p, progress }: { p: ProgrammeSummary; progress?: Progress }) {
               <p className="mt-1 text-[11px] text-ink-3">Practice history is a revision signal, not an official CUET score, eligibility decision or admission prediction.</p>
             </div>
           )}
+          <EligibilityLine e={eligibility} />
+          {onTarget && <TargetButton programmeId={p.id} targeted={Boolean(targeted)} onChange={onTarget} />}
         </div>
       </Panel>
     </li>
@@ -117,6 +120,13 @@ export function AdmissionsPage() {
   };
   const shown = [...(list.data?.programmes ?? []), ...(more ? (extra.data?.programmes ?? []) : [])];
   const total = list.data?.total ?? 0;
+  // Minimum subject eligibility (only from rules a person has checked) and the programmes the student follows.
+  const idKey = shown.map((x) => x.id).join(',');
+  const elig = useLoad(() => (idKey ? api.eligibility(idKey.split(',')) : Promise.resolve(null)), [idKey]);
+  const targets = useLoad(api.admissionTargets, []);
+  const eligOf = new Map((elig.data?.results ?? []).map((e) => [e.programmeId, e]));
+  const followed = new Set((targets.data?.targets ?? []).map((t) => t.programmeId));
+  const refreshTargets = () => { targets.reload(); };
   const sel = `${inputClass} h-9 w-auto py-0`;
   return (
     <div className="w-full">
@@ -135,6 +145,7 @@ export function AdmissionsPage() {
           <p className="mt-2 text-xs text-ink-3">Submit a practice set to see subject-level context here. <Link to="/progress" className="font-medium text-accent hover:underline">Open your progress</Link>.</p>
         )}
       </Panel>
+      {targets.data && <MyTargets data={targets.data} reload={targets.reload} />}
       <div className="mb-3 flex flex-wrap items-center gap-2" data-programme-filters>
         <SearchInput value={f.q} onChange={(v) => set('q', v)} placeholder="Search programme or university" label="Search programmes" />
         <label>
@@ -202,7 +213,7 @@ export function AdmissionsPage() {
           <p className="mb-3 text-sm text-ink-2" data-programme-count>
             {total} {total === 1 ? 'programme' : 'programmes'}
           </p>
-          <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">{shown.map((p) => <Card key={p.id} p={p} progress={performance.data} />)}</ul>
+          <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">{shown.map((p) => <Card key={p.id} p={p} progress={performance.data ?? undefined} eligibility={eligOf.get(p.id)} targeted={followed.has(p.id)} onTarget={targets.data ? refreshTargets : undefined} />)}</ul>
           {shown.length < total && (
             <div className="mt-4">
               <Button kind="secondary" onClick={() => setMore(shown.length)} disabled={extra.loading}>
@@ -291,6 +302,8 @@ function Facts({ title, id, facts, missing, official, fallback }: { title: strin
 export function ProgrammePage() {
   const { id = '' } = useParams();
   const r = useLoad(() => api.programme(id), [id]);
+  const elig = useLoad(() => api.eligibility([id]), [id]);
+  const targets = useLoad(api.admissionTargets, []);
   if (r.loading && !r.data) return <Loading />;
   if (r.error) {
     return r.error instanceof ApiError && r.error.status === 404 ? (
@@ -339,6 +352,12 @@ export function ProgrammePage() {
         )}
       </div>
 
+      <section aria-labelledby="pg-fit" className="mb-6" data-section="pg-fit">
+        <SectionTitle id="pg-fit">Do my subjects meet this?</SectionTitle>
+        <EligibilityLine e={elig.data?.results[0]} />
+        {elig.error && <p className="mt-2 text-xs text-ink-3">The subject check is temporarily unavailable. The university's own requirement is below.</p>}
+        {targets.data && <TargetButton programmeId={id} targeted={targets.data.targets.some((t) => t.programmeId === id)} onChange={targets.reload} />}
+      </section>
       <h2 className="mb-3 text-lg font-semibold text-ink">{p.cycle.status === 'PREVIOUS' ? `Historical reference: the ${p.academicYear} admission cycle` : `This admission year (${p.academicYear})`}</h2>
       {d.current.subjects.length === 0 && d.current.eligibility.some((f) => parseRule(f.valueText)) ? (
         <section aria-labelledby="pg-subjects" className="mb-7" data-section="pg-subjects">

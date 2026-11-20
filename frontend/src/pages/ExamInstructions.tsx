@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { api } from '../api';
 import { Logo } from '../Layout';
+import { SchemeDetails, marksLine } from '../marking';
 import { ErrorBox, Loading, buttonClass, useLoad } from '../ui';
 import { enterFullscreen } from './ExamGuard';
 
@@ -51,7 +52,6 @@ export function ExamInstructionsPage() {
   };
 
   const d = info.data;
-  const sign = (n: number) => (n > 0 ? `+${n}` : n < 0 ? `−${Math.abs(n)}` : '0');
   return (
     <div className="min-h-dvh bg-paper" data-exam-instructions>
       <header className="border-b border-rule bg-paper px-5 py-3 sm:px-8">
@@ -72,8 +72,8 @@ export function ExamInstructionsPage() {
                 ['Subject', d.subject ?? '–'],
                 ['Duration', `${d.durationMinutes} minutes`],
                 ['Total questions', String(d.questions)],
-                ['Maximum marks', String(d.maxMarks)],
-                ['Marking scheme', `${sign(d.marking.correct)} for a correct answer, ${sign(d.marking.incorrect)} for a wrong answer, 0 if not attempted`],
+                ['Maximum marks', `${d.maxMarks} (${d.questions} questions × ${d.marking.correct})`],
+                ['Marking scheme', marksLine(d.scheme)],
               ].map(([k, v]) => (
                 <div key={k} className="bg-surface px-4 py-3">
                   <dt className="text-xs text-ink-3">{k}</dt>
@@ -81,6 +81,15 @@ export function ExamInstructionsPage() {
                 </div>
               ))}
             </dl>
+
+            <section className="mt-5 rounded-xl border border-rule bg-surface p-5" aria-labelledby="exam-marking" data-exam-marking>
+              <h2 id="exam-marking" className="text-base font-semibold text-ink">
+                Marking scheme
+              </h2>
+              <div className="mt-2">
+                <SchemeDetails scheme={d.scheme} weightageNote={d.mode === 'TOPIC_TEST'} />
+              </div>
+            </section>
 
             <section className="mt-5 rounded-xl border border-rule bg-surface p-5" aria-labelledby="exam-rules">
               <h2 id="exam-rules" className="text-base font-semibold text-ink">
@@ -92,7 +101,7 @@ export function ExamInstructionsPage() {
                 ))}
               </ul>
               <p className="mt-3 text-sm text-ink-2">
-                Your answers are saved as you go. If you refresh the page you can continue where you were, and the clock keeps running. When the time ends the test is submitted automatically.
+                Choosing an option saves it straight away; there is no separate Save button. Next and Previous only move between questions and never change an answer. Clear response puts a question back to not answered, and Mark for review is a reminder for you that does not affect your marks. The question palette shows what you have answered and marked, and you can jump to any question from it. If you refresh the page you can continue where you were, and the clock keeps running. When the time ends the test is submitted automatically.
               </p>
             </section>
 

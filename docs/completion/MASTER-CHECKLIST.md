@@ -13,6 +13,35 @@ Legend: DONE = finished and verified here · PARTIAL = part done, rest named · 
 | 1.6 | No unverified import/publication | DONE | published: Delhi 4 programmes + 8 facts only |
 | 1.7 | Admissions completion report | DONE | |
 
+## University Admission Intelligence — remaining work (20 Nov 2026)
+
+Phase 1 audit and Phase 2A dry run are completed and are not repeated as open tasks. The Phase 2A reader examined 109 programmes: 106 fully parsed, 3 partially parsed, 0 unparsed. These are parser results only; they do **not** mean criteria are officially verified, saved as draft records, approved, or published. No Phase 2A records were persisted.
+
+| # | Item | Status | Detail |
+|---|---|---|---|
+| AI-2B.1 | Persist structured admission requirements as draft records | NOT DONE | Phase 2B; retain original text, parser output, source, academic year, and unresolved issues. Draft/flagged rules must not affect student eligibility. |
+| AI-2B.2 | Admin comparison and review interface | NOT DONE | Show original university eligibility text beside parsed requirements; support approve, reject, revise, and revision history. |
+| AI-2B.3 | Import and verify Delhi List A / List B membership | NOT DONE | Use official Delhi documentation; record source URL, applicable academic year, and verification history. |
+| AI-2B.4 | Resolve BHU subject-selection ambiguity | NOT DONE | Verify from official BHU documentation whether numbered subject requirements mean all papers or alternatives. |
+| AI-2B.5 | Resolve three partially parsed programme requirements | NOT DONE | Manually verify the source wording and record each resolution; do not treat parser output as approval. |
+| AI-2B.6 | Preserve criterion provenance and verification history | NOT DONE | Keep source URL, academic year, verification state, reviewer, and revision history for every criterion. |
+| AI-2B.7 | Validate admission data at university, programme, and campus levels | NOT DONE | Reject or flag inconsistent parent/child records and missing provenance. |
+| AI-2B.8 | Student target-university and target-programme workflow | NOT DONE | Let students select and manage targets without implying eligibility when criteria are missing or unverified. |
+| AI-2B.9 | Safe handling of missing, outdated, and unverified criteria | NOT DONE | Show status and source age; avoid a positive eligibility result when required criteria are unavailable or unresolved. |
+| AI-2B.10 | Eligibility evaluation and safeguards | NOT DONE | Cover mandatory subjects, alternatives, and any-N-of-list rules; prove draft or flagged criteria never affect student results. |
+
+## Chapter & Topic Weightage — additional work
+
+| # | Item | Status | Detail |
+|---|---|---|---|
+| W.1 | Build verified paper-to-question-to-syllabus-topic mapping | NOT DONE | Keep source paper, question identity, topic, syllabus version, and mapping evidence traceable. |
+| W.2 | Identify low-confidence and unmapped questions | NOT DONE | Preserve an explicit unresolved state; do not assign uncertain mappings to inflate topic counts. |
+| W.3 | Separate official questions from AI-assisted or manually created questions | NOT DONE | Track provenance and report official-paper frequencies from verified official questions only. |
+| W.4 | Handle syllabus changes across examination years | NOT DONE | Version syllabus topics by year and retain each paper's applicable syllabus mapping. |
+| W.5 | Prevent comparisons across incompatible syllabus versions | NOT DONE | Compare frequencies only where topic definitions are demonstrably comparable; otherwise show separate series. |
+| W.6 | Display sample size and year coverage with every frequency statistic | NOT DONE | Show number of papers/questions included and the years represented alongside the statistic. |
+| W.7 | Validate extracted frequencies against original question papers | NOT DONE | Reconcile mapped counts with the source papers and record reviewer/evidence for corrections. |
+
 ## P2 Email and notifications
 | # | Item | Status | Detail |
 |---|---|---|---|

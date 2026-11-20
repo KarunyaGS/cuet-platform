@@ -321,22 +321,23 @@ model TestPaper {
 }
 
 model SyllabusVersion {
-  id               String             @id @default(cuid())
-  testPaperId      String             @map("test_paper_id")
-  versionNumber    Int                @map("version_number")
-  sourceDocumentId String?            @map("source_document_id")
-  status           PublishStatus      @default(DRAFT)
-  verification     VerificationStatus @default(UNVERIFIED)
+  id                 String              @id @default(cuid())
+  testPaperId        String              @map("test_paper_id")
+  versionNumber      Int                 @map("version_number")
+  sourceDocumentId   String?             @map("source_document_id")
+  status             PublishStatus       @default(DRAFT)
+  verification       VerificationStatus  @default(UNVERIFIED)
   /// True for records created only to demonstrate the system. Never shown as real curriculum.
-  isDemonstration  Boolean            @default(false) @map("is_demonstration")
-  extractedAt      DateTime?          @map("extracted_at")
-  publishedAt      DateTime?          @map("published_at")
-  notes            String?
-  createdAt        DateTime           @default(now()) @map("created_at")
-  updatedAt        DateTime           @updatedAt @map("updated_at")
-  testPaper        TestPaper          @relation(fields: [testPaperId], references: [id], onDelete: Restrict)
-  sourceDocument   SourceDocument?    @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
-  nodes            CurriculumNode[]
+  isDemonstration    Boolean             @default(false) @map("is_demonstration")
+  extractedAt        DateTime?           @map("extracted_at")
+  publishedAt        DateTime?           @map("published_at")
+  notes              String?
+  createdAt          DateTime            @default(now()) @map("created_at")
+  updatedAt          DateTime            @updatedAt @map("updated_at")
+  testPaper          TestPaper           @relation(fields: [testPaperId], references: [id], onDelete: Restrict)
+  sourceDocument     SourceDocument?     @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+  nodes              CurriculumNode[]
+  paperTopicMappings PaperTopicMapping[]
 
   @@unique([testPaperId, versionNumber])
   @@index([sourceDocumentId])
@@ -348,40 +349,41 @@ model SyllabusVersion {
 // ---------------------------------------------------------------------------
 
 model CurriculumNode {
-  id                String               @id @default(cuid())
-  syllabusVersionId String               @map("syllabus_version_id")
-  parentId          String?              @map("parent_id")
-  kind              CurriculumNodeKind
-  label             String?
-  title             String
-  body              String?
-  position          Int
-  depth             Int
-  sourcePage        Int?                 @map("source_page")
+  id                 String               @id @default(cuid())
+  syllabusVersionId  String               @map("syllabus_version_id")
+  parentId           String?              @map("parent_id")
+  kind               CurriculumNodeKind
+  label              String?
+  title              String
+  body               String?
+  position           Int
+  depth              Int
+  sourcePage         Int?                 @map("source_page")
   /// Comma-separated extraction warnings, e.g. heading_inferred_from_formatting.
-  extractionFlags   String?              @map("extraction_flags")
+  extractionFlags    String?              @map("extraction_flags")
   /// sha256 of the normalised path + kind + label + title + body. Unique per version: blocks duplicate imports.
-  contentHash       String               @map("content_hash")
-  verification      VerificationStatus   @default(UNVERIFIED)
+  contentHash        String               @map("content_hash")
+  verification       VerificationStatus   @default(UNVERIFIED)
   /// JSON text: this row's automatic check against its source page (words not found there, second-extractor agreement, blocking flags).
-  checkJson         String?              @map("check_json")
+  checkJson          String?              @map("check_json")
   /// User id of the person who typed this row (manual transcription or an added row). NULL for machine-extracted rows.
-  authoredBy        String?              @map("authored_by")
+  authoredBy         String?              @map("authored_by")
   /// User id of the last person who corrected this row.
-  editedBy          String?              @map("edited_by")
-  createdAt         DateTime             @default(now()) @map("created_at")
-  updatedAt         DateTime             @updatedAt @map("updated_at")
-  syllabusVersion   SyllabusVersion      @relation(fields: [syllabusVersionId], references: [id], onDelete: Cascade)
-  parent            CurriculumNode?      @relation("NodeTree", fields: [parentId], references: [id], onDelete: Cascade)
-  children          CurriculumNode[]     @relation("NodeTree")
-  outgoingRelations CurriculumRelation[] @relation("RelationFrom")
-  incomingRelations CurriculumRelation[] @relation("RelationTo")
-  learningResources LearningResource[]
-  questionTopics    QuestionTopic[]
-  mediaAssets       MediaAsset[]
-  sourceTables      SourceTable[]
-  practiceSessions  PracticeSession[]
-  progress          TopicProgress[]
+  editedBy           String?              @map("edited_by")
+  createdAt          DateTime             @default(now()) @map("created_at")
+  updatedAt          DateTime             @updatedAt @map("updated_at")
+  syllabusVersion    SyllabusVersion      @relation(fields: [syllabusVersionId], references: [id], onDelete: Cascade)
+  parent             CurriculumNode?      @relation("NodeTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children           CurriculumNode[]     @relation("NodeTree")
+  outgoingRelations  CurriculumRelation[] @relation("RelationFrom")
+  incomingRelations  CurriculumRelation[] @relation("RelationTo")
+  learningResources  LearningResource[]
+  questionTopics     QuestionTopic[]
+  paperTopicMappings PaperTopicMapping[]
+  mediaAssets        MediaAsset[]
+  sourceTables       SourceTable[]
+  practiceSessions   PracticeSession[]
+  progress           TopicProgress[]
 
   @@unique([syllabusVersionId, contentHash])
   @@index([syllabusVersionId, parentId, position])
@@ -716,6 +718,8 @@ model AnswerKey {
   correctOptionPositions String?   @map("correct_option_positions")
   numericAnswer          Float?    @map("numeric_answer")
   numericTolerance       Float?    @map("numeric_tolerance")
+  /// ACTIVE, or DROPPED when NTA (or a reviewer) found the question wrong or dropped it: everyone who appeared is credited the full marks.
+  keyStatus              String    @default("ACTIVE") @map("key_status")
   verifiedBy             String?   @map("verified_by")
   verifiedAt             DateTime? @map("verified_at")
   createdAt              DateTime  @default(now()) @map("created_at")
@@ -1004,6 +1008,10 @@ model PracticeSession {
   submittedAt      DateTime?        @map("submitted_at")
   /// Why the attempt ended: SUBMITTED, TIME_UP or TERMINATED_<incident type>.
   endReason        String?          @map("end_reason")
+  /// The marking scheme applied (marks, bulletin year and source, special-case rules), kept so later rule changes never alter an old result.
+  schemeJson       String?          @map("scheme_json")
+  /// Questions credited because they were wrong or dropped.
+  creditedCount    Int              @default(0) @map("credited_count")
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   testPaper        TestPaper?       @relation(fields: [testPaperId], references: [id], onDelete: SetNull)
   curriculumNode   CurriculumNode?  @relation(fields: [curriculumNodeId], references: [id], onDelete: SetNull)
@@ -1854,24 +1862,67 @@ model PastPaper {
 /// One numbered question of a previous-year paper. A question NTA dropped keeps its place and number but has no
 /// stored question: it is never asked, and the paper says how many were dropped.
 model PastPaperQuestion {
-  id                 String    @id @default(cuid())
-  pastPaperId        String    @map("past_paper_id")
+  id                 String              @id @default(cuid())
+  pastPaperId        String              @map("past_paper_id")
   /// Question number in the paper, from 1.
   position           Int
-  questionId         String?   @unique @map("question_id")
+  questionId         String?             @unique @map("question_id")
   /// NTA's own question id from the answer key, when the source gives it.
-  officialQuestionId String?   @map("official_question_id")
+  officialQuestionId String?             @map("official_question_id")
   /// Page of the question paper the question is printed on.
-  sourcePage         Int?      @map("source_page")
-  dropped            Boolean   @default(false)
+  sourcePage         Int?                @map("source_page")
+  dropped            Boolean             @default(false)
   /// Correct option position(s) exactly as the official key gives them (JSON array), kept beside the stored key.
-  officialKeyJson    String?   @map("official_key_json")
-  createdAt          DateTime  @default(now()) @map("created_at")
-  pastPaper          PastPaper @relation(fields: [pastPaperId], references: [id], onDelete: Cascade)
-  question           Question? @relation(fields: [questionId], references: [id], onDelete: SetNull)
+  officialKeyJson    String?             @map("official_key_json")
+  createdAt          DateTime            @default(now()) @map("created_at")
+  pastPaper          PastPaper           @relation(fields: [pastPaperId], references: [id], onDelete: Cascade)
+  question           Question?           @relation(fields: [questionId], references: [id], onDelete: SetNull)
+  topicMappings      PaperTopicMapping[]
 
   @@unique([pastPaperId, position])
   @@map("past_paper_questions")
+}
+
+/// Reviewer decisions mapping one official question to one exact syllabus version. Only VERIFIED rows feed frequencies.
+model PaperTopicMapping {
+  id                  String                   @id
+  pastPaperQuestionId String                   @map("past_paper_question_id")
+  syllabusVersionId   String                   @map("syllabus_version_id")
+  curriculumNodeId    String?                  @map("curriculum_node_id")
+  status              String                   @default("UNMAPPED")
+  confidence          String?
+  method              String                   @default("MANUAL")
+  evidenceNote        String?                  @map("evidence_note")
+  verifiedBy          String?                  @map("verified_by")
+  verifiedAt          String?                  @map("verified_at")
+  createdBy           String                   @map("created_by")
+  createdAt           DateTime                 @map("created_at")
+  updatedAt           DateTime                 @map("updated_at")
+  paperQuestion       PastPaperQuestion        @relation(fields: [pastPaperQuestionId], references: [id], onDelete: Cascade)
+  syllabusVersion     SyllabusVersion          @relation(fields: [syllabusVersionId], references: [id], onDelete: Restrict)
+  curriculumNode      CurriculumNode?          @relation(fields: [curriculumNodeId], references: [id], onDelete: Restrict)
+  events              PaperTopicMappingEvent[]
+
+  @@unique([pastPaperQuestionId, syllabusVersionId])
+  @@index([syllabusVersionId, status])
+  @@index([curriculumNodeId, status])
+  @@map("paper_topic_mappings")
+}
+
+/// Append-only history of mapping proposals and reviewer decisions.
+model PaperTopicMappingEvent {
+  id           String            @id
+  mappingId    String            @map("mapping_id")
+  action       String
+  previousJson String?           @map("previous_json")
+  nextJson     String            @map("next_json")
+  note         String?
+  actor        String
+  createdAt    DateTime          @map("created_at")
+  mapping      PaperTopicMapping @relation(fields: [mappingId], references: [id], onDelete: Cascade)
+
+  @@index([mappingId, createdAt])
+  @@map("paper_topic_mapping_events")
 }
 
 /// A link to an official document on the exam body's own site, or a notice that a document is not published.
@@ -2124,35 +2175,154 @@ model AdmissionFact {
 
 /// One programme at one university for one admission year, taken from an approved source. Eligibility, subjects, procedure and so on are AdmissionFacts about it.
 model AdmissionProgramme {
-  id             String          @id @default(cuid())
-  universitySlug String          @map("university_slug")
-  universityName String          @map("university_name")
+  id             String                 @id @default(cuid())
+  universitySlug String                 @map("university_slug")
+  universityName String                 @map("university_name")
   /// As NTA lists the university (Central Universities, State Universities, ...).
-  universityType String?         @map("university_type")
-  programmeName  String          @map("programme_name")
+  universityType String?                @map("university_type")
+  programmeName  String                 @map("programme_name")
   degree         String?
   /// UG or PG.
-  level          String          @default("UG")
+  level          String                 @default("UG")
   /// For example 2026-27.
-  academicYear   String          @map("academic_year")
-  examCode       String          @map("exam_code")
-  sourceId       String          @map("source_id")
-  sourcePage     Int?            @map("source_page")
-  sourceLocator  String?         @map("source_locator")
-  lastVerifiedOn String          @map("last_verified_on")
+  academicYear   String                 @map("academic_year")
+  examCode       String                 @map("exam_code")
+  sourceId       String                 @map("source_id")
+  sourcePage     Int?                   @map("source_page")
+  sourceLocator  String?                @map("source_locator")
+  lastVerifiedOn String                 @map("last_verified_on")
   /// DRAFT, PUBLISHED, REJECTED or WITHDRAWN.
-  status         String          @default("DRAFT")
-  createdBy      String          @map("created_by")
-  publishedBy    String?         @map("published_by")
-  publishedAt    DateTime?       @map("published_at")
-  statusNote     String?         @map("status_note")
-  createdAt      DateTime        @default(now()) @map("created_at")
-  updatedAt      DateTime        @updatedAt @map("updated_at")
-  source         AdmissionSource @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+  status         String                 @default("DRAFT")
+  createdBy      String                 @map("created_by")
+  publishedBy    String?                @map("published_by")
+  publishedAt    DateTime?              @map("published_at")
+  statusNote     String?                @map("status_note")
+  /// The campus or college the programme is taught at, when the source says so. Null means the source does not say.
+  campus         String?
+  createdAt      DateTime               @default(now()) @map("created_at")
+  updatedAt      DateTime               @updatedAt @map("updated_at")
+  source         AdmissionSource        @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+  requirements   AdmissionRequirement[]
+  targets        AdmissionTarget[]
 
   @@unique([universitySlug, programmeName, academicYear, examCode])
   @@index([status, universityType])
   @@map("admission_programmes")
+}
+
+/// A university subject rule, read by the server from the printed text and kept as a DRAFT until a person approves it.
+/// Only an APPROVED requirement can influence a student's eligibility result, and only while its printed source is still published and unflagged.
+model AdmissionRequirement {
+  id             String             @id @default(cuid())
+  programmeId    String             @map("programme_id")
+  /// The published or draft fact whose printed text this was read from.
+  sourceFactId   String?            @map("source_fact_id")
+  /// The printed text exactly as it was when read, and its hash. A changed fact makes the requirement stale.
+  sourceText     String             @map("source_text")
+  sourceTextHash String             @map("source_text_hash")
+  parserVersion  String             @map("parser_version")
+  family         String
+  /// The structured reading (combinations, tests set by the university, lists needed).
+  parsedJson     String             @map("parsed_json")
+  /// Everything the reader was unsure of.
+  issuesJson     String             @map("issues_json")
+  version        Int                @default(1)
+  /// DRAFT, NEEDS_UNIVERSITY_CONFIRMATION, APPROVED, REJECTED or SUPERSEDED.
+  status         String             @default("DRAFT")
+  /// PARSER (read by the server) or REVIEWER (edited by a person).
+  origin         String             @default("PARSER")
+  supersedesId   String?            @map("supersedes_id")
+  reviewNote     String?            @map("review_note")
+  reviewedBy     String?            @map("reviewed_by")
+  reviewedAt     DateTime?          @map("reviewed_at")
+  createdBy      String             @map("created_by")
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
+  programme      AdmissionProgramme @relation(fields: [programmeId], references: [id], onDelete: Cascade)
+
+  @@unique([programmeId, version])
+  @@index([status])
+  @@map("admission_requirements")
+}
+
+/// Everything that happened to a requirement or a group: read, revised, approved, rejected, published, withdrawn. Each row keeps what the
+/// record said and where it came from (source address, document title, page, admission year) at that moment.
+model AdmissionReviewEvent {
+  id           String   @id @default(cuid())
+  /// REQUIREMENT or GROUP.
+  entityType   String   @map("entity_type")
+  entityId     String   @map("entity_id")
+  action       String
+  actor        String
+  fromStatus   String?  @map("from_status")
+  toStatus     String?  @map("to_status")
+  note         String?
+  snapshotJson String?  @map("snapshot_json")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@index([entityType, entityId, createdAt])
+  @@map("admission_review_events")
+}
+
+/// A named list a university's rules refer to ("List A: Languages", "List B: Domain Specific Subjects"), as that university prints it.
+model AdmissionGroup {
+  id             String                 @id @default(cuid())
+  universitySlug String                 @map("university_slug")
+  /// LIST_A or LIST_B.
+  groupCode      String                 @map("group_code")
+  title          String
+  academicYear   String                 @map("academic_year")
+  examCode       String                 @map("exam_code")
+  sourceId       String                 @map("source_id")
+  sourcePage     Int?                   @map("source_page")
+  sourceLocator  String?                @map("source_locator")
+  checkedOn      String                 @map("checked_on")
+  version        Int                    @default(1)
+  /// DRAFT, PUBLISHED, REJECTED or WITHDRAWN.
+  status         String                 @default("DRAFT")
+  reviewNote     String?                @map("review_note")
+  createdBy      String                 @map("created_by")
+  publishedBy    String?                @map("published_by")
+  publishedAt    DateTime?              @map("published_at")
+  createdAt      DateTime               @default(now()) @map("created_at")
+  updatedAt      DateTime               @updatedAt @map("updated_at")
+  members        AdmissionGroupMember[]
+
+  @@unique([universitySlug, groupCode, academicYear, examCode, version])
+  @@index([status])
+  @@map("admission_groups")
+}
+
+model AdmissionGroupMember {
+  id            String         @id @default(cuid())
+  groupId       String         @map("group_id")
+  position      Int
+  /// As the university prints it.
+  printedName   String         @map("printed_name")
+  /// NTA's paper code and our canonical subject id, when the name has been matched to a paper.
+  paperCode     String?        @map("paper_code")
+  subjectId     String?        @map("subject_id")
+  /// MAPPED, NEEDS_CONFIRMATION (a person must confirm the match) or UNMAPPED (no NTA paper).
+  mappingStatus String         @map("mapping_status")
+  note          String?
+  group         AdmissionGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@index([groupId])
+  @@map("admission_group_members")
+}
+
+/// A programme a student has chosen to follow. Only published programmes can be chosen.
+model AdmissionTarget {
+  id          String             @id @default(cuid())
+  userId      String             @map("user_id")
+  programmeId String             @map("programme_id")
+  note        String?
+  createdAt   DateTime           @default(now()) @map("created_at")
+  programme   AdmissionProgramme @relation(fields: [programmeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, programmeId])
+  @@index([userId])
+  @@map("admission_targets")
 }
 
 model RateLimit {

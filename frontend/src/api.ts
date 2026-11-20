@@ -94,6 +94,11 @@ export interface TopicDetail {
   resources: { id: string; type: string; title: string; origin: string; status: string; verification: string }[];
   questionCount: number;
 }
+export interface StudentTopicWeightage {
+  topicId: string; title: string; exam: ExamCode; year: number; subjectCode: string; syllabusVersionId: string; syllabusVersionNumber: number;
+  sampleSize: number; paperCount: number; mappedCount: number; frequency: number; mappingCoveragePercent: number; yearCoverage: number[];
+  method: string; note: string;
+}
 export interface Block {
   position: number; type: string; body: string; media_asset_id: string | null; alt_text: string | null; caption: string | null; media_kind: string | null;
   /** Set on a definition, formula, key point, fact or concept: it can be bookmarked and made into a flashcard on its own. */
@@ -148,17 +153,24 @@ export interface SessionQuestion {
   answer: { selectedPositions: number[] | null; numericAnswer: number | null } | null;
   review: { outcome: string; score: number; correctOptionPositions: number[] | null; correctNumericAnswer: number | null; explanation: string | null; optionRationale: Record<string, string> | null } | null;
 }
+/** The marking scheme kept with an attempt: marks, which bulletin and year it comes from, and the special-case rules. */
+export interface MarkingScheme {
+  kind: 'CUET_SIMULATION' | 'PRACTICE'; exam: string | null; year: number | null; correct: number; incorrect: number; unattempted: number;
+  sourceLabel: string; sourceUrl: string | null; anyCorrectOption: boolean; creditDroppedQuestions: boolean;
+}
 export interface PracticeSession {
   session: {
     id: string; mode: 'PRACTICE' | 'TOPIC_TEST' | 'MOCK_TEST'; status: string; startedAt: string; durationSeconds: number | null; deadline: string | null;
     marking: { correct: number; incorrect: number };
+    /** Null only for attempts made before schemes were stored. */
+    scheme: MarkingScheme | null;
     /** Question ids marked for review (kept on the server). */
     marked: string[];
     /** Set when the attempt is a fixed paper: one of our mock papers, or an official previous-year paper. */
     source: { kind: 'MOCK_PAPER' | 'PAST_PAPER'; id: string; title: string } | null;
-    result: { score: number; maxScore: number; correct: number; incorrect: number; unattempted: number; submittedAt: string } | null;
+    result: { score: number; maxScore: number; correct: number; incorrect: number; unattempted: number; credited: number; marked: number; submittedAt: string } | null;
     /** How a finished attempt went by unit and by difficulty, and how long it took. */
-    analysis: { timeTakenSeconds: number | null; byUnit: { id: string; title: string; correct: number; incorrect: number; unattempted: number; accuracy: number | null }[]; byDifficulty: { difficulty: string; correct: number; incorrect: number; unattempted: number; accuracy: number | null }[] } | null;
+    analysis: { timeTakenSeconds: number | null; byUnit: { id: string; title: string; correct: number; incorrect: number; unattempted: number; credited: number; accuracy: number | null }[]; byDifficulty: { difficulty: string; correct: number; incorrect: number; unattempted: number; credited: number; accuracy: number | null }[] } | null;
     /** Why the attempt ended: SUBMITTED, TIME_UP or TERMINATED_<incident>. Null while it is running. */
     endReason: string | null;
     /** Examination mode (mock tests): the rules in force and every incident reported during the attempt. Null for practice. */
@@ -166,11 +178,11 @@ export interface PracticeSession {
   };
   questions: SessionQuestion[];
 }
-export interface ExamPreview { mode: 'TOPIC_TEST' | 'MOCK_TEST'; title: string; subject: string | null; questions: number; durationMinutes: number; marking: { correct: number; incorrect: number }; maxMarks: number; policy: { maxIncidents: number; returnSeconds: number; mergeSeconds: number } }
+export interface ExamPreview { mode: 'TOPIC_TEST' | 'MOCK_TEST'; title: string; subject: string | null; questions: number; durationMinutes: number; marking: { correct: number; incorrect: number }; scheme: MarkingScheme; maxMarks: number; policy: { maxIncidents: number; returnSeconds: number; mergeSeconds: number } }
 export interface ViolationResult { action: 'WARNED' | 'TERMINATED' | 'MERGED' | 'IGNORED'; incidents: number; ended: boolean; endReason: string | null; policy: ExamPreview['policy'] }
 export interface Feedback { outcome?: string; score?: number; correctOptionPositions?: number[] | null; correctNumericAnswer?: number | null; explanation?: string | null; optionRationale?: Record<string, string> | null; saved: boolean }
 export interface Progress {
-  totals: { sessions: number; correct: number; incorrect: number; unattempted: number; answered: number; accuracy: number | null };
+  totals: { sessions: number; correct: number; incorrect: number; unattempted: number; credited: number; answered: number; accuracy: number | null };
   topics: { id: string; title: string; kind: string; paper: string; paper_code: string; attempted: number; correct: number; incorrect: number; accuracy: number; last_attempt_at: string }[];
   weakTopics: Progress['topics'];
   recentSessions: { id: string; mode: string; status: string; score: number | null; max_score: number | null; correct_count: number; incorrect_count: number; unattempted_count: number; started_at: string; paper: string | null }[];
@@ -316,6 +328,31 @@ export interface AdmissionFact {
 }
 /** `PREVIOUS` means the information is about an admission cycle before the one students are preparing for. */
 export interface Cycle { status: 'PREVIOUS' | 'CURRENT' | 'FUTURE'; label: string | null }
+export type EligibilityVerdict = 'MEETS' | 'DOES_NOT_MEET' | 'CANNOT_TELL';
+export interface EligibilityOut {
+  programmeId: string;
+  available: boolean;
+  unavailable: { code: string; message: string } | null;
+  result: null | {
+    verdict: EligibilityVerdict;
+    combinations: { label: string; state: 'SATISFIED' | 'NOT_SATISFIED' | 'UNKNOWN'; missing: string[]; unknownBecause: string[] }[];
+    matched: string | null;
+    additionalRequirements: string[];
+    reasons: string[];
+  };
+  basis: null | { academicYear: string; cycle: Cycle; checkedOn: string; sourceUrl: string; sourceTitle: string; sourcePage: number | null; requirementVersion: number; approvedAt: string | null; reliability: Reliability };
+  papersUsed: string[];
+  caveats: string[];
+}
+export interface TargetsOut {
+  papers: string[];
+  limit: number;
+  targets: {
+    programmeId: string; programmeName: string; university: string; universitySlug: string; academicYear: string; exam: string; addedAt: string; note: string | null; available: boolean;
+    information: { cycle: Cycle; stale: boolean; lastVerifiedOn: string; message: string | null };
+    eligibility: EligibilityOut;
+  }[];
+}
 export type Reliability = 'VERIFIED_OFFICIAL' | 'OUTDATED' | 'UNVERIFIED' | 'SOURCE_NOT_APPROVED';
 export interface ProgrammeSummary {
   id: string; universitySlug: string; universityName: string; universityType: string | null; programmeName: string; degree: string | null; level: string; academicYear: string; exam: ExamCode;
@@ -379,6 +416,7 @@ export const api = {
   questionCounts: (q: { paperId?: string; nodeIds?: string[]; difficulty?: Difficulty[]; types?: QuestionTypeName[] }) => request<QuestionCounts>('GET', `/api/learn/question-counts?${new URLSearchParams({ ...(q.paperId ? { paperId: q.paperId } : {}), ...(q.nodeIds?.length ? { nodeIds: q.nodeIds.join(',') } : {}), ...(q.difficulty?.length ? { difficulty: q.difficulty.join(',') } : {}), ...(q.types?.length ? { types: q.types.join(',') } : {}) })}`),
   outline: (paperId: string) => request<Outline>('GET', `/api/learn/subjects/${paperId}`),
   topic: (id: string) => request<TopicDetail>('GET', `/api/learn/topics/${id}`),
+  topicWeightage: (id: string) => request<StudentTopicWeightage>('GET', `/api/learn/topics/${id}/weightage`),
   resource: (id: string) => request<ResourceDetail>('GET', `/api/learn/resources/${id}`),
   startPractice: (b: { mode: PracticeSession['session']['mode']; nodeId?: string; nodeIds?: string[]; paperId?: string; count?: number; difficulty?: Difficulty[]; types?: QuestionTypeName[] }) => request<PracticeSession>('POST', '/api/student/practice', b),
   session: (id: string) => request<PracticeSession>('GET', `/api/student/practice/${id}`),
@@ -501,6 +539,11 @@ export const api = {
     return request<ProgrammeList>('GET', `/api/public/admissions/programmes?${qs}`);
   },
   programme: (id: string) => request<ProgrammeDetail>('GET', `/api/public/admissions/programmes/${encodeURIComponent(id)}`),
+  /** Minimum subject eligibility from approved, published rules only. Papers are CUET paper codes; without them the subjects chosen in the profile are used. */
+  eligibility: (ids: string[], papers: string[] = []) => request<{ papers: string[]; results: EligibilityOut[] }>('GET', `/api/student/admissions/eligibility?ids=${ids.map(encodeURIComponent).join(',')}${papers.length ? `&papers=${papers.join(',')}` : ''}`),
+  admissionTargets: () => request<TargetsOut>('GET', '/api/student/admissions/targets'),
+  addAdmissionTarget: (programmeId: string, note?: string) => request<{ added: boolean }>('POST', '/api/student/admissions/targets', { programmeId, ...(note ? { note } : {}) }),
+  removeAdmissionTarget: (programmeId: string) => request<{ removed: boolean }>('DELETE', `/api/student/admissions/targets/${encodeURIComponent(programmeId)}`),
   universityAdmissions: (slug: string) => request<UniversityAdmissions>('GET', `/api/public/admissions/universities/${encodeURIComponent(slug)}`),
   universities: (exam: ExamCode, q?: string, type?: string) =>
     request<UniversityList>('GET', `/api/public/universities?exam=${exam}${q ? `&q=${encodeURIComponent(q)}` : ''}${type ? `&type=${encodeURIComponent(type)}` : ''}`),

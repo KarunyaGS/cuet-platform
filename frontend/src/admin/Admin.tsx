@@ -52,6 +52,9 @@ export function AdminLayout() {
         <NavLink to="/admin/past-papers" className={tab}>
           Previous-year papers
         </NavLink>
+        <NavLink to="/admin/weightage" className={tab}>
+          Topic weightage
+        </NavLink>
         {can(m, 'billing:manage') && (
           <NavLink to="/admin/billing" className={tab}>
             Plans and payments

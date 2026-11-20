@@ -1,5 +1,5 @@
 import { ChevronDown, SlidersHorizontal } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { api, type Difficulty, type QuestionTypeName } from '../api';
 import { Button, ErrorBox, useAuth } from '../ui';
@@ -62,6 +62,7 @@ function SingleSelectDropdown({ label, value, options, onChange }: {
   options: { id: string; label: string; count?: number }[];
   onChange: (id: string) => void;
 }) {
+  const groupId = useId();
   const selected = options.find((option) => option.id === value)?.label ?? 'Any difficulty';
   return (
     <details className="group min-w-0 overflow-hidden rounded-xl border border-[#cdd7c1] bg-white/75 open:border-forest/40 open:bg-white">
@@ -72,15 +73,17 @@ function SingleSelectDropdown({ label, value, options, onChange }: {
         </span>
         <ChevronDown aria-hidden className="size-4 shrink-0 text-forest transition-transform duration-200 group-open:rotate-180" />
       </summary>
-      <div className="border-t border-forest/10 p-1.5">
-        <button type="button" aria-pressed={!value} onClick={(event) => { onChange(''); event.currentTarget.closest('details')?.removeAttribute('open'); }} className={`flex min-h-10 w-full items-center gap-3 rounded-lg px-2.5 text-left text-[13px] transition-colors hover:bg-[#edf2e4] ${!value ? 'bg-[#edf2e4] font-semibold text-forest' : 'text-charcoal'}`}>
+      <div role="radiogroup" aria-label="Difficulty" className="border-t border-forest/10 p-1.5">
+        <label className={`flex min-h-10 w-full cursor-pointer items-center gap-3 rounded-lg px-2.5 text-[13px] transition-colors hover:bg-[#edf2e4] ${!value ? 'bg-[#edf2e4] font-semibold text-forest' : 'text-charcoal'}`}>
+          <input type="radio" name={groupId} checked={!value} onChange={() => onChange('')} className="size-4 shrink-0 accent-[#18443b]" />
           <span className="flex-1">Any difficulty</span>
-        </button>
+        </label>
         {options.map((option) => (
-          <button key={option.id} type="button" aria-pressed={value === option.id} disabled={option.count === 0} onClick={(event) => { onChange(option.id); event.currentTarget.closest('details')?.removeAttribute('open'); }} className={`flex min-h-10 w-full items-center gap-3 rounded-lg px-2.5 text-left text-[13px] transition-colors hover:bg-[#edf2e4] disabled:cursor-not-allowed disabled:opacity-40 ${value === option.id ? 'bg-[#edf2e4] font-semibold text-forest' : 'text-charcoal'}`}>
+          <label key={option.id} className={`flex min-h-10 w-full items-center gap-3 rounded-lg px-2.5 text-[13px] transition-colors hover:bg-[#edf2e4] has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-40 ${value === option.id ? 'bg-[#edf2e4] font-semibold text-forest' : 'text-charcoal'}`}>
+            <input type="radio" name={groupId} checked={value === option.id} disabled={option.count === 0} onChange={() => onChange(option.id)} className="size-4 shrink-0 accent-[#18443b]" />
             <span className="flex-1">{option.label}</span>
             {option.count !== undefined && <span className="num text-[11px] text-ink-3">{option.count}</span>}
-          </button>
+          </label>
         ))}
       </div>
     </details>

@@ -126,6 +126,7 @@ function MainColumn({ d }: { d: TopicDetail }) {
 export function TopicPage() {
   const { nodeId = '' } = useParams();
   const t = useLoad(() => api.topic(nodeId), [nodeId]);
+  const weightage = useLoad(() => api.topicWeightage(nodeId), [nodeId]);
   useTrackView('TOPIC_VIEW', t.data ? nodeId : null);
 
   if (t.loading) return <Loading />;
@@ -178,6 +179,13 @@ export function TopicPage() {
         <MainColumn key={d.topic.id} d={d} />
 
         <aside className="min-w-0 space-y-2 lg:sticky lg:top-4 lg:self-start" data-topic-side>
+          {weightage.data && weightage.data.sampleSize > 0 && (
+            <section aria-label="Verified past-paper topic frequency" className="rounded-xl border border-rule bg-surface p-3.5" data-topic-weightage>
+              <h2 className="text-[13px] font-semibold text-ink">Past-paper frequency</h2>
+              <p className="mt-1 text-sm text-ink">{weightage.data.frequency} of {weightage.data.sampleSize} questions · {weightage.data.yearCoverage.join(', ')}</p>
+              <p className="mt-1 text-[11px] leading-relaxed text-ink-3">Based on {weightage.data.paperCount} verified official paper{weightage.data.paperCount === 1 ? '' : 's'} for this exact syllabus version. {weightage.data.mappingCoveragePercent}% of the sample is mapped. This is historical frequency, not a prediction of future marks; NTA does not set fixed chapter weightage.</p>
+            </section>
+          )}
           {d.resources.length > 0 && (
             <Link to={`/revise/${d.topic.id}`} className="group flex items-center gap-2 rounded-lg bg-ink/[0.035] px-3 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-ink/[0.07]">
               <ListChecks aria-hidden className="size-4 shrink-0 text-accent" />

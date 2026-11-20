@@ -6,13 +6,13 @@ import { Link, useParams } from 'react-router';
 import { api } from '../api';
 import { Figure, QuestionStem } from '../question';
 import { Rich } from '../rich';
+import { SchemeDetails, signed } from '../marking';
 import { BookmarkToggle, useBookmarks } from '../tools';
 import { ButtonLink, Empty, ErrorBox, Loading, Meter, PageHeader, Segmented, useLoad } from '../ui';
 
 const MODE: Record<string, string> = { PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' };
-const signed = (n: number) => (n > 0 ? `+${n}` : n < 0 ? `−${Math.abs(n)}` : '0');
 const END_TEXT: Record<string, string> = { TAB_HIDDEN: 'you switched to another tab or window', WINDOW_BLUR: 'the examination window lost focus', FULLSCREEN_EXIT: 'you left full-screen mode', RETURN_TIMEOUT: 'you did not return to full-screen mode in time' };
-type Filter = 'all' | 'CORRECT' | 'INCORRECT' | 'UNATTEMPTED';
+type Filter = 'all' | 'CORRECT' | 'INCORRECT' | 'UNATTEMPTED' | 'CREDITED';
 
 /** Result of a submitted test: the score, how it was built from the marking scheme, and every answer reviewed. */
 export function ResultsPage() {
@@ -36,14 +36,18 @@ export function ResultsPage() {
   }
   const pct = r.maxScore ? Math.round((100 * r.score) / r.maxScore) : 0;
   const m = d.session.marking;
-  const shown = d.questions.filter((q) => filter === 'all' || q.review?.outcome === filter || (filter === 'UNATTEMPTED' && q.review?.outcome !== 'CORRECT' && q.review?.outcome !== 'INCORRECT'));
+  const shown = d.questions.filter((q) => filter === 'all' || (q.review?.outcome ?? 'UNATTEMPTED') === filter);
+  // Attempted = answered (right or wrong). Not answered questions are never counted as wrong, so they stay out of the accuracy.
   const attempted = r.correct + r.incorrect;
+  const scheme = d.session.scheme;
+  const simulation = scheme?.kind === 'CUET_SIMULATION';
+  const accuracy = attempted ? Math.round((1000 * r.correct) / attempted) / 10 : null;
 
   return (
     <div>
       <PageHeader
         title={`${MODE[d.session.mode]} result`}
-        subtitle={`Submitted ${new Date(r.submittedAt).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}`}
+        subtitle={`${simulation ? 'CUET-style simulation' : 'Practice score, not a CUET simulation'} · Submitted ${new Date(r.submittedAt).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}`}
         actions={
           <ButtonLink to="/progress" icon={<ChartNoAxesColumn aria-hidden />}>
             Topic-wise progress
@@ -80,7 +84,7 @@ export function ResultsPage() {
         </div>
       )}
 
-      <section aria-label="Score" className="grid-cols-1 mb-7 grid overflow-hidden rounded-xl border border-rule bg-surface md:grid-cols-[16rem_minmax(0,1fr)]">
+      <section aria-label="Score" className="result-reveal grid-cols-1 mb-7 grid overflow-hidden rounded-xl border border-rule bg-surface md:grid-cols-[16rem_minmax(0,1fr)]" data-result-reveal>
         <div className="border-b border-rule p-5 md:border-r md:border-b-0">
           <div className="text-sm text-ink-2">Score</div>
           <div className="num mt-1 text-4xl font-semibold text-ink">
@@ -91,10 +95,26 @@ export function ResultsPage() {
             <Meter value={pct} tone={pct >= 60 ? 'correct' : pct >= 40 ? 'marker' : 'wrong'} label="Score as a percentage of the maximum" />
           </div>
           <div className="num mt-2 text-sm text-ink-2">
-            {pct}% of the maximum{attempted ? `, ${Math.round((100 * r.correct) / attempted)}% of attempted answers correct` : ''}
+            {pct}% of the maximum
+          </div>
+          <div className="num mt-1 text-sm text-ink-2" data-accuracy>
+            {accuracy === null ? 'Accuracy: no question was answered' : `Accuracy ${accuracy}% = ${r.correct} correct ÷ ${attempted} answered`}
           </div>
         </div>
         <div className="p-5">
+          <dl className="num mb-4 grid grid-cols-2 gap-2 text-sm sm:grid-cols-3 lg:grid-cols-6" data-counts>
+            {([['Attempted', r.correct + r.incorrect], ['Not attempted', r.unattempted], ['Correct', r.correct], ['Wrong', r.incorrect], ...(r.credited ? [['Credited', r.credited]] : []), ['Marked for review', r.marked]] as [string, number][]).map(([k, v]) => (
+              <div key={k} className="rounded-lg border border-rule px-3 py-2">
+                <dt className="text-xs text-ink-3">{k}</dt>
+                <dd className="font-semibold text-ink">{v}</dd>
+              </div>
+            ))}
+          </dl>
+          {r.correct + r.incorrect === 0 && (
+            <p className="mb-3 rounded-lg bg-paper px-3 py-2 text-sm text-ink-2" data-empty-attempt>
+              {r.credited ? 'No question was answered; the score comes only from credited questions.' : 'No question was answered, so the score is 0 and nothing was lost.'}
+            </p>
+          )}
           <div className="mb-2 text-sm text-ink-2">How the score was worked out</div>
           <table className="num w-full text-sm">
             <tbody className="divide-y divide-rule">
@@ -132,6 +152,20 @@ export function ResultsPage() {
                 <td className="py-2 text-right text-ink-2">{r.unattempted} × 0</td>
                 <td className="py-2 text-right font-semibold text-ink-3">0</td>
               </tr>
+              {r.credited > 0 && (
+                <tr>
+                  <td className="py-2">
+                    <span className="inline-flex items-center gap-2 text-ink">
+                      <CircleCheck aria-hidden className="size-4 text-correct" />
+                      Credited (question dropped or found wrong)
+                    </span>
+                  </td>
+                  <td className="py-2 text-right text-ink-2">
+                    {r.credited} × {signed(m.correct)}
+                  </td>
+                  <td className="py-2 text-right font-semibold text-correct">{signed(r.credited * m.correct)}</td>
+                </tr>
+              )}
               <tr className="border-t-2 border-rule-strong">
                 <td className="py-2 font-semibold text-ink" colSpan={2}>
                   Total
@@ -140,14 +174,25 @@ export function ResultsPage() {
               </tr>
             </tbody>
           </table>
+          <p className="num mt-2 text-xs text-ink-3" data-formula>
+            {r.correct} × {m.correct} {m.incorrect < 0 ? '−' : '+'} {r.incorrect} × {Math.abs(m.incorrect)}
+            {r.credited ? ` + ${r.credited} × ${m.correct} (credited)` : ''} = {r.score}. Maximum {r.maxScore} = {d.questions.length} questions × {m.correct}.
+          </p>
+          <details className="mt-3 text-sm text-ink-2">
+            <summary className="cursor-pointer font-medium text-ink">Marking scheme used</summary>
+            <div className="mt-2">
+              <SchemeDetails scheme={scheme} />
+            </div>
+          </details>
         </div>
       </section>
 
       {d.session.analysis && (
-        <section aria-labelledby="analysis" className="mb-7 rounded-xl border border-rule bg-surface p-5" data-analysis>
+        <section aria-labelledby="analysis" className="result-reveal result-reveal-later mb-7 rounded-xl border border-rule bg-surface p-5" data-analysis>
           <h2 id="analysis" className="text-base font-semibold text-ink">
             Performance analysis
           </h2>
+          <p className="mt-1 text-xs text-ink-3">Units come from each question main syllabus topic, so every question is counted once and the rows add up to the totals above. Acc. = right ÷ (right + wrong).</p>
           {d.session.analysis.timeTakenSeconds !== null && (
             <p className="num mt-1 text-sm text-ink-2">
               Time taken: {Math.floor(d.session.analysis.timeTakenSeconds / 60)} min {d.session.analysis.timeTakenSeconds % 60} s
@@ -164,7 +209,8 @@ export function ResultsPage() {
                       <th scope="col" className="px-1.5 py-1 text-right font-normal sm:px-2">Right</th>
                       <th scope="col" className="px-1.5 py-1 text-right font-normal sm:px-2">Wrong</th>
                       <th scope="col" className="px-1.5 py-1 text-right font-normal sm:px-2">Skipped</th>
-                      <th scope="col" className="py-1 pl-1.5 text-right font-normal sm:pl-2">Acc.</th>
+                      {r.credited > 0 && <th scope="col" className="px-1.5 py-1 text-right font-normal sm:px-2">Credited</th>}
+                      <th scope="col" className="py-1 pl-1.5 text-right font-normal sm:pl-2" title="Right ÷ (right + wrong). Skipped questions are not counted as wrong.">Acc.</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-rule">
@@ -174,6 +220,7 @@ export function ResultsPage() {
                         <td className="px-1.5 py-1.5 text-right sm:px-2 text-correct">{u.correct}</td>
                         <td className="px-1.5 py-1.5 text-right sm:px-2 text-wrong">{u.incorrect}</td>
                         <td className="px-1.5 py-1.5 text-right sm:px-2 text-ink-2">{u.unattempted}</td>
+                        {r.credited > 0 && <td className="px-1.5 py-1.5 text-right sm:px-2 text-ink-2">{u.credited}</td>}
                         <td className="py-1.5 pl-1.5 text-right font-medium text-ink sm:pl-2">{u.accuracy === null ? '–' : `${u.accuracy}%`}</td>
                       </tr>
                     ))}
@@ -196,6 +243,7 @@ export function ResultsPage() {
             { value: 'INCORRECT', label: `Wrong (${r.incorrect})` },
             { value: 'UNATTEMPTED', label: `Not answered (${r.unattempted})` },
             { value: 'CORRECT', label: `Correct (${r.correct})` },
+            ...(r.credited ? [{ value: 'CREDITED' as const, label: `Credited (${r.credited})` }] : []),
           ]}
         />
       </div>
@@ -205,13 +253,14 @@ export function ResultsPage() {
           const rv = q.review!;
           const ok = rv.outcome === 'CORRECT';
           const bad = rv.outcome === 'INCORRECT';
+          const credited = rv.outcome === 'CREDITED';
           return (
             <li key={q.id} className="overflow-hidden rounded-xl border border-rule bg-surface">
               <div className="flex items-center gap-3 border-b border-rule px-4 py-2.5">
                 <span className="num text-sm font-semibold text-ink">Question {q.number}</span>
-                <span className={`inline-flex items-center gap-1 text-sm font-medium ${ok ? 'text-correct' : bad ? 'text-wrong' : 'text-ink-3'}`}>
-                  {ok ? <CircleCheck aria-hidden className="size-4" /> : bad ? <CircleX aria-hidden className="size-4" /> : <CircleMinus aria-hidden className="size-4" />}
-                  {ok ? 'Correct' : bad ? 'Wrong' : 'Not answered'}
+                <span className={`inline-flex items-center gap-1 text-sm font-medium ${ok || credited ? 'text-correct' : bad ? 'text-wrong' : 'text-ink-3'}`}>
+                  {ok || credited ? <CircleCheck aria-hidden className="size-4" /> : bad ? <CircleX aria-hidden className="size-4" /> : <CircleMinus aria-hidden className="size-4" />}
+                  {ok ? 'Correct' : bad ? 'Wrong' : credited ? 'Credited (question dropped or found wrong)' : 'Not answered'}
                   <span className="num font-normal text-ink-3">({signed(rv.score)})</span>
                 </span>
                 <span className="ml-auto flex items-center gap-3">

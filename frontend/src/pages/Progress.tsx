@@ -108,7 +108,7 @@ export function ProgressPage() {
           label="Accuracy"
           value={d.totals.accuracy === null ? '–' : `${d.totals.accuracy}%`}
           tone="text-terracotta"
-          hint={`${d.totals.correct} correct, ${d.totals.incorrect} wrong`}
+          hint={`${d.totals.correct} correct of ${d.totals.answered} answered; unanswered questions are not counted as wrong`}
           bar={d.totals.accuracy}
           barTone="bg-terracotta"
         />

@@ -9,7 +9,7 @@ import { ApiError, conflict, invalid, notFound } from '../lib/errors';
 import { newId } from '../lib/hash';
 import { insertRows, nowIso } from '../lib/sql';
 import { VISIBLE_CONTENT } from './learning';
-import { evaluateResponse, markingFromRules, type QuestionType } from './scoring';
+import { buildScheme, evaluateResponse, markingFromRules, scoreAttempt, type MarkingScheme, type Outcome, type QuestionType } from './scoring';
 
 export const DIFFICULTIES = ['EASY', 'MEDIUM', 'HARD'] as const;
 export const QUESTION_TYPES = ['MCQ_SINGLE', 'MCQ_MULTI', 'ASSERTION_REASON', 'MATCH_THE_FOLLOWING', 'STATEMENT_BASED', 'PASSAGE_BASED', 'DIAGRAM_BASED', 'NUMERICAL'] as const;
@@ -54,12 +54,14 @@ export async function violationsOf(db: D1Database, sessionId: string) {
   return results.map((v) => ({ type: v.type, at: v.occurred_at, recordedAt: v.recorded_at, action: v.action }));
 }
 
+interface CycleRow { paper_id: string; rules_json: string | null; year: number; exam_code: string }
+
 export async function paperAndRules(db: D1Database, nodeId?: string, paperId?: string) {
   const row = nodeId
-    ? await db.prepare(`SELECT tp.id AS paper_id, ec.rules_json FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id JOIN test_papers tp ON tp.id = v.test_paper_id JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id WHERE n.id = ?`).bind(nodeId).first<{ paper_id: string; rules_json: string | null }>()
-    : await db.prepare(`SELECT tp.id AS paper_id, ec.rules_json FROM test_papers tp JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id WHERE tp.id = ?`).bind(paperId).first<{ paper_id: string; rules_json: string | null }>();
+    ? await db.prepare(`SELECT tp.id AS paper_id, ec.rules_json, ec.year, e.code AS exam_code FROM curriculum_nodes n JOIN syllabus_versions v ON v.id = n.syllabus_version_id JOIN test_papers tp ON tp.id = v.test_paper_id JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id WHERE n.id = ?`).bind(nodeId).first<CycleRow>()
+    : await db.prepare(`SELECT tp.id AS paper_id, ec.rules_json, ec.year, e.code AS exam_code FROM test_papers tp JOIN exam_cycles ec ON ec.id = tp.exam_cycle_id JOIN exams e ON e.id = ec.exam_id WHERE tp.id = ?`).bind(paperId).first<CycleRow>();
   if (!row) throw notFound(nodeId ? 'Topic' : 'Subject');
-  return { paperId: row.paper_id, rulesJson: row.rules_json, rules: JSON.parse(row.rules_json ?? '{}') as Rules };
+  return { paperId: row.paper_id, rulesJson: row.rules_json, rules: JSON.parse(row.rules_json ?? '{}') as Rules, year: row.year, examCode: row.exam_code };
 }
 
 /** The SQL pieces and bound values that narrow a question search by difficulty and type (placeholders numbered from `first`). */
@@ -123,7 +125,7 @@ export async function questionCounts(db: D1Database, preview: boolean, q: { pape
 
 export async function startSession(db: D1Database, preview: boolean, userId: string, input: z.infer<typeof startSchema>) {
   const nodes = await pickedNodes(db, input);
-  const { paperId, rulesJson, rules } = await paperAndRules(db, nodes[0], input.paperId);
+  const { paperId, rulesJson, rules, year, examCode } = await paperAndRules(db, nodes[0], input.paperId);
   const full = rules.questionsPerPaper ?? 50;
   const want = input.count ?? (input.mode === 'MOCK_TEST' ? full : input.mode === 'TOPIC_TEST' ? 15 : 10);
   // Questions linked to the chosen topics and everything under them, or to any topic of the subject, narrowed by the filters.
@@ -131,7 +133,7 @@ export async function startSession(db: D1Database, preview: boolean, userId: str
   if (!results.length) {
     throw new ApiError(404, 'NO_QUESTIONS', input.difficulty || input.types ? 'No questions match these filters. Try more difficulty levels or question types.' : 'No questions are available for this selection yet');
   }
-  return createSession(db, userId, { mode: input.mode, paperId, nodeId: nodes[0] ?? null, ids: results.map((r) => r.id) }, { rulesJson, rules });
+  return createSession(db, userId, { mode: input.mode, paperId, nodeId: nodes[0] ?? null, ids: results.map((r) => r.id) }, { rulesJson, rules, year, examCode });
 }
 
 /**
@@ -142,11 +144,20 @@ export async function createSession(
   db: D1Database,
   userId: string,
   s: { mode: 'PRACTICE' | 'TOPIC_TEST' | 'MOCK_TEST'; paperId: string | null; nodeId: string | null; ids: string[] },
-  known?: { rulesJson: string | null; rules: Rules },
+  known?: { rulesJson: string | null; rules: Rules; year?: number; examCode?: string },
   source?: { kind: 'MOCK_PAPER' | 'PAST_PAPER'; id: string; title: string },
 ) {
-  const { rulesJson, rules } = known ?? (await paperAndRules(db, undefined, s.paperId ?? undefined));
-  const marking = markingFromRules(rulesJson);
+  // The cycle (exam and year) is always looked up; a paper that carries its own recorded rules keeps them.
+  // A paper that carries its own recorded rules keeps them; the cycle (exam and year) is looked up when the paper is known.
+  const looked = known?.examCode || (known && !s.paperId) ? null : await paperAndRules(db, undefined, s.paperId ?? undefined);
+  const { rulesJson, rules } = (known ?? looked)!;
+  const cycle = known?.examCode ? { year: known.year ?? null, examCode: known.examCode } : looked ? { year: looked.year, examCode: looked.examCode } : { year: null, examCode: null };
+  // The scheme is built once, here, and stored with the attempt. A past paper carries its own recorded rules, so the bulletin link is not claimed for it.
+  const scheme = buildScheme(rulesJson, {
+    kind: s.mode === 'PRACTICE' ? 'PRACTICE' : 'CUET_SIMULATION', exam: cycle.examCode, year: cycle.year,
+    ...(source?.kind === 'PAST_PAPER' ? { sourceLabel: 'Marking as recorded for this previous-year paper', useCycleSource: false } : {}),
+  });
+  const marking = scheme;
   const full = rules.questionsPerPaper ?? 50;
   const perQuestion = ((rules.durationMinutes ?? 60) * 60) / full;
   const duration = s.mode === 'PRACTICE' ? null : Math.ceil(perQuestion * s.ids.length);
@@ -156,15 +167,16 @@ export async function createSession(
       id, user_id: userId, mode: s.mode, test_paper_id: s.paperId, curriculum_node_id: s.nodeId, status: 'IN_PROGRESS',
       question_ids_json: JSON.stringify(s.ids), duration_seconds: duration, marks_correct: marking.correct, marks_incorrect: marking.incorrect,
       score: null, max_score: null, correct_count: 0, incorrect_count: 0, unattempted_count: 0, started_at: nowIso(), submitted_at: null,
-      marked_json: null, source_json: source ? JSON.stringify(source) : null,
+      marked_json: null, source_json: source ? JSON.stringify(source) : null, scheme_json: JSON.stringify(scheme), credited_count: 0,
     }]),
   );
   return getSession(db, userId, id);
 }
 
 /** How a finished attempt went by unit (the top-level syllabus row of each question's topic) and by difficulty, and how long it took. */
-async function analyseAttempt(db: D1Database, ids: string[], questions: Record<string, unknown>[], answers: Record<string, unknown>[], startedAt: unknown, submittedAt: unknown) {
+async function analyseAttempt(db: D1Database, ids: string[], questions: Record<string, unknown>[], answers: Record<string, unknown>[], dropped: Set<string>, startedAt: unknown, submittedAt: unknown) {
   const mark = new Map(answers.map((a) => [a.question_id as string, String(a.outcome)]));
+  for (const d of dropped) mark.set(d, 'CREDITED');
   const topicOf = new Map<string, string>();
   for (let i = 0; i < ids.length; i += 80) {
     const part = ids.slice(i, i + 80);
@@ -184,9 +196,9 @@ async function analyseAttempt(db: D1Database, ids: string[], questions: Record<s
       .all<{ start_id: string; id: string; title: string }>();
     for (const r of results) rootOf.set(r.start_id, { id: r.id, title: r.title });
   }
-  type Tally = { correct: number; incorrect: number; unattempted: number };
-  const blank = (): Tally => ({ correct: 0, incorrect: 0, unattempted: 0 });
-  const add = (t: Tally, outcome: string) => void (outcome === 'CORRECT' ? t.correct++ : outcome === 'INCORRECT' ? t.incorrect++ : t.unattempted++);
+  type Tally = { correct: number; incorrect: number; unattempted: number; credited: number };
+  const blank = (): Tally => ({ correct: 0, incorrect: 0, unattempted: 0, credited: 0 });
+  const add = (t: Tally, outcome: string) => void (outcome === 'CORRECT' ? t.correct++ : outcome === 'INCORRECT' ? t.incorrect++ : outcome === 'CREDITED' ? t.credited++ : t.unattempted++);
   const units = new Map<string, Tally & { id: string; title: string }>();
   const levels: Record<string, Tally> = { EASY: blank(), MEDIUM: blank(), HARD: blank() };
   for (const q of questions) {
@@ -202,8 +214,8 @@ async function analyseAttempt(db: D1Database, ids: string[], questions: Record<s
   const rate = (t: Tally) => (t.correct + t.incorrect ? Math.round((100 * t.correct) / (t.correct + t.incorrect)) : null);
   return {
     timeTakenSeconds: seconds,
-    byUnit: [...units.values()].map((u) => ({ ...u, accuracy: rate(u) })).sort((a, b) => b.correct + b.incorrect + b.unattempted - (a.correct + a.incorrect + a.unattempted)),
-    byDifficulty: Object.entries(levels).filter(([, t]) => t.correct + t.incorrect + t.unattempted > 0).map(([difficulty, t]) => ({ difficulty, ...t, accuracy: rate(t) })),
+    byUnit: [...units.values()].map((u) => ({ ...u, accuracy: rate(u) })).sort((a, b) => b.correct + b.incorrect + b.unattempted + b.credited - (a.correct + a.incorrect + a.unattempted + a.credited)),
+    byDifficulty: Object.entries(levels).filter(([, t]) => t.correct + t.incorrect + t.unattempted + t.credited > 0).map(([difficulty, t]) => ({ difficulty, ...t, accuracy: rate(t) })),
   };
 }
 
@@ -214,9 +226,12 @@ export async function loadSession(db: D1Database, userId: string, id: string) {
     id: string; mode: string; status: string; question_ids_json: string; duration_seconds: number | null; started_at: string;
     marks_correct: number; marks_incorrect: number; score: number | null; max_score: number | null; correct_count: number;
     incorrect_count: number; unattempted_count: number; submitted_at: string | null; test_paper_id: string | null; curriculum_node_id: string | null;
-    marked_json: string | null; source_json: string | null; end_reason: string | null;
+    marked_json: string | null; source_json: string | null; end_reason: string | null; scheme_json: string | null; credited_count: number;
   };
 }
+
+/** The scheme stored with an attempt (null for attempts made before schemes were stored). */
+export const schemeOf = (s: { scheme_json: string | null }) => (s.scheme_json ? (JSON.parse(s.scheme_json) as MarkingScheme) : null);
 
 const deadline = (s: { started_at: string; duration_seconds: number | null }) =>
   s.duration_seconds === null ? null : new Date(new Date(s.started_at).getTime() + (s.duration_seconds + GRACE_SECONDS) * 1000);
@@ -240,7 +255,7 @@ export async function getSession(db: D1Database, userId: string, id: string) {
   const exam = s.mode !== 'PRACTICE';
   const violations = exam ? await violationsOf(db, id) : [];
   const keys = submitted
-    ? await db.prepare(`SELECT a.question_id, a.correct_option_positions, a.numeric_answer, e.body AS explanation, e.option_rationale_json FROM answer_keys a LEFT JOIN explanations e ON e.question_id = a.question_id WHERE a.question_id IN (${placeholders})`).bind(...ids).all<Record<string, unknown>>()
+    ? await db.prepare(`SELECT a.question_id, a.correct_option_positions, a.numeric_answer, a.key_status, e.body AS explanation, e.option_rationale_json FROM answer_keys a LEFT JOIN explanations e ON e.question_id = a.question_id WHERE a.question_id IN (${placeholders})`).bind(...ids).all<Record<string, unknown>>()
     : { results: [] as Record<string, unknown>[] };
   const byQ = new Map(qs.results.map((q) => [q.id as string, q]));
   // Figures of the questions (stem figure and option images): their descriptions, for the screen's alt text.
@@ -251,18 +266,22 @@ export async function getSession(db: D1Database, userId: string, id: string) {
     const { results } = await db.prepare(`SELECT id, alt_text FROM media_assets WHERE id IN (${part.map(() => '?').join(',')})`).bind(...part).all<{ id: string; alt_text: string }>();
     for (const r of results) alts.set(r.id, r.alt_text);
   }
-  const analysis = submitted ? await analyseAttempt(db, ids, qs.results, answers.results, s.started_at, s.submitted_at) : null;
+  const dropped = new Set(keys.results.filter((k) => k.key_status === 'DROPPED').map((k) => k.question_id as string));
+  const analysis = submitted ? await analyseAttempt(db, ids, qs.results, answers.results, dropped, s.started_at, s.submitted_at) : null;
+  const scheme = s.scheme_json ? (JSON.parse(s.scheme_json) as MarkingScheme) : null;
   return {
     session: {
       id: s.id, mode: s.mode, status: s.status, startedAt: s.started_at, durationSeconds: s.duration_seconds,
       deadline: dl?.toISOString() ?? null, marking: { correct: s.marks_correct, incorrect: s.marks_incorrect },
+      // The scheme kept with this attempt (marks, bulletin year and source, special-case rules). Null only for attempts made before schemes were stored.
+      scheme,
       // Questions marked for review (kept on the server, so a reload or another device shows them) and what the attempt is.
       marked: s.marked_json ? (JSON.parse(s.marked_json) as string[]).filter((q) => ids.includes(q)) : [],
       source: s.source_json ? (JSON.parse(s.source_json) as { kind: string; id: string; title: string }) : null,
       // Examination mode (mock tests): why the attempt ended, the rules in force, and what was reported during it.
       endReason: s.end_reason,
       exam: exam ? { ...EXAM_POLICY, incidents: violations.filter((v) => v.action === 'WARNED' || v.action === 'TERMINATED').length, violations } : null,
-      result: submitted ? { score: s.score, maxScore: s.max_score, correct: s.correct_count, incorrect: s.incorrect_count, unattempted: s.unattempted_count, submittedAt: s.submitted_at } : null,
+      result: submitted ? { score: s.score, maxScore: s.max_score, correct: s.correct_count, incorrect: s.incorrect_count, unattempted: s.unattempted_count, credited: s.credited_count, marked: (s.marked_json ? (JSON.parse(s.marked_json) as string[]).filter((q) => ids.includes(q)).length : 0), submittedAt: s.submitted_at } : null,
       analysis,
     },
     questions: ids.filter((qid) => byQ.has(qid)).map((qid, i) => {
@@ -276,7 +295,7 @@ export async function getSession(db: D1Database, userId: string, id: string) {
         answer: a ? { selectedPositions: a.selected_positions_json ? JSON.parse(a.selected_positions_json as string) : null, numericAnswer: a.numeric_answer } : null,
         review: submitted
           ? {
-              outcome: (a?.outcome as string) ?? 'UNATTEMPTED', score: (a?.score as number) ?? 0,
+              outcome: dropped.has(qid) ? 'CREDITED' : ((a?.outcome as string) ?? 'UNATTEMPTED'), score: dropped.has(qid) ? s.marks_correct : ((a?.score as number) ?? 0),
               correctOptionPositions: k?.correct_option_positions ? JSON.parse(k.correct_option_positions as string) : null, correctNumericAnswer: k?.numeric_answer ?? null,
               explanation: k?.explanation ?? null, optionRationale: k?.option_rationale_json ? JSON.parse(k.option_rationale_json as string) : null,
             }
@@ -306,7 +325,7 @@ export async function saveAnswer(db: D1Database, userId: string, sessionId: stri
   }
   if (!(JSON.parse(s.question_ids_json) as string[]).includes(input.questionId)) throw invalid('That question is not part of this session');
   const { type, key } = await keyFor(db, input.questionId);
-  const result = evaluateResponse(type, key, input, { correct: s.marks_correct, incorrect: s.marks_incorrect, unattempted: 0 });
+  const result = evaluateResponse(type, key, input, { correct: s.marks_correct, incorrect: s.marks_incorrect, unattempted: 0 }, { anyCorrectOption: schemeOf(s)?.anyCorrectOption ?? s.mode !== 'PRACTICE' });
   await db
     .prepare(
       `INSERT INTO practice_answers (id, session_id, question_id, selected_positions_json, numeric_answer, outcome, score, answered_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -348,44 +367,78 @@ export async function submitSession(db: D1Database, userId: string, sessionId: s
     else if (reason === 'TIME_UP' && !nearEnd) reason = 'SUBMITTED';
   }
   const ids = JSON.parse(s.question_ids_json) as string[];
-  const { results: answers } = await db.prepare('SELECT question_id, outcome, score FROM practice_answers WHERE session_id = ?').bind(sessionId).all<{ question_id: string; outcome: string; score: number }>();
-  const correct = answers.filter((a) => a.outcome === 'CORRECT').length;
-  const incorrect = answers.filter((a) => a.outcome === 'INCORRECT').length;
-  const score = answers.reduce((n, a) => n + a.score, 0);
-  const now = nowIso();
   const placeholders = ids.map(() => '?').join(',');
-  const { results: links } = await db.prepare(`SELECT question_id, curriculum_node_id FROM question_topics WHERE question_id IN (${placeholders})`).bind(...ids).all<{ question_id: string; curriculum_node_id: string }>();
+  const [{ results: answers }, { results: keyRows }, { results: links }] = await Promise.all([
+    db.prepare('SELECT question_id, outcome FROM practice_answers WHERE session_id = ?').bind(sessionId).all<{ question_id: string; outcome: Outcome }>(),
+    db.prepare(`SELECT question_id FROM answer_keys WHERE key_status = 'DROPPED' AND question_id IN (${placeholders})`).bind(...ids).all<{ question_id: string }>(),
+    db.prepare(`SELECT question_id, curriculum_node_id FROM question_topics WHERE question_id IN (${placeholders})`).bind(...ids).all<{ question_id: string; curriculum_node_id: string }>(),
+  ]);
+  const dropped = new Set(keyRows.map((k) => k.question_id));
+  // One function totals the attempt: the same numbers feed the stored result, the result screen and Progress.
+  const stored = schemeOf(s);
+  const t = scoreAttempt(
+    ids.map((id) => ({ id, dropped: dropped.has(id) })),
+    answers.map((a) => ({ questionId: a.question_id, outcome: a.outcome })),
+    { correct: s.marks_correct, incorrect: s.marks_incorrect, unattempted: stored?.unattempted ?? 0, creditDroppedQuestions: stored?.creditDroppedQuestions ?? true },
+  );
+  const now = nowIso();
+  // Claim the submission first. Only the request that changes the row goes on to record progress, so a second submit (time-up arriving
+  // together with a rule-violation ending, a double click, a retry after a reload) can never count the attempt twice.
+  const claim = await db
+    .prepare(`UPDATE practice_sessions SET status = 'SUBMITTED', score = ?, max_score = ?, correct_count = ?, incorrect_count = ?, unattempted_count = ?, credited_count = ?, submitted_at = ?, end_reason = ? WHERE id = ? AND status = 'IN_PROGRESS'`)
+    .bind(t.score, t.maxScore, t.correct, t.incorrect, t.unattempted, t.credited, now, reason, sessionId)
+    .run();
+  if (!claim.meta.changes) return getSession(db, userId, sessionId);
   const perTopic = new Map<string, { attempted: number; correct: number; incorrect: number }>();
   for (const l of links) {
     const a = answers.find((x) => x.question_id === l.question_id);
-    if (!a || a.outcome === 'UNATTEMPTED') continue;
-    const t = perTopic.get(l.curriculum_node_id) ?? { attempted: 0, correct: 0, incorrect: 0 };
-    t.attempted++;
-    if (a.outcome === 'CORRECT') t.correct++;
-    else t.incorrect++;
-    perTopic.set(l.curriculum_node_id, t);
+    if (!a || a.outcome === 'UNATTEMPTED' || dropped.has(l.question_id)) continue;
+    const p = perTopic.get(l.curriculum_node_id) ?? { attempted: 0, correct: 0, incorrect: 0 };
+    p.attempted++;
+    if (a.outcome === 'CORRECT') p.correct++;
+    else p.incorrect++;
+    perTopic.set(l.curriculum_node_id, p);
   }
-  await db.batch([
-    db
-      .prepare(`UPDATE practice_sessions SET status = 'SUBMITTED', score = ?, max_score = ?, correct_count = ?, incorrect_count = ?, unattempted_count = ?, submitted_at = ?, end_reason = ? WHERE id = ? AND status = 'IN_PROGRESS'`)
-      .bind(score, ids.length * s.marks_correct, correct, incorrect, ids.length - correct - incorrect, now, reason, sessionId),
-    ...[...perTopic].map(([nodeId, t]) =>
-      db
-        .prepare(
-          `INSERT INTO topic_progress (user_id, curriculum_node_id, attempted, correct, incorrect, last_attempt_at) VALUES (?, ?, ?, ?, ?, ?)
-           ON CONFLICT(user_id, curriculum_node_id) DO UPDATE SET attempted = attempted + excluded.attempted, correct = correct + excluded.correct,
-             incorrect = incorrect + excluded.incorrect, last_attempt_at = excluded.last_attempt_at`,
-        )
-        .bind(userId, nodeId, t.attempted, t.correct, t.incorrect, now),
-    ),
-  ]);
+  if (perTopic.size) {
+    await db.batch(
+      [...perTopic].map(([nodeId, p]) =>
+        db
+          .prepare(
+            `INSERT INTO topic_progress (user_id, curriculum_node_id, attempted, correct, incorrect, last_attempt_at) VALUES (?, ?, ?, ?, ?, ?)
+             ON CONFLICT(user_id, curriculum_node_id) DO UPDATE SET attempted = attempted + excluded.attempted, correct = correct + excluded.correct,
+               incorrect = incorrect + excluded.incorrect, last_attempt_at = excluded.last_attempt_at`,
+          )
+          .bind(userId, nodeId, p.attempted, p.correct, p.incorrect, now),
+      ),
+    );
+  }
   return getSession(db, userId, sessionId);
+}
+
+/**
+ * Re-totals an already submitted attempt from its saved answers and the current answer keys. Used when a question is later found wrong or
+ * dropped, so everyone who appeared is credited. Answers are not touched; per-topic progress counters are left as they were.
+ */
+export async function rescoreSession(db: D1Database, sessionId: string) {
+  const s = await db.prepare('SELECT * FROM practice_sessions WHERE id = ?').bind(sessionId).first<Awaited<ReturnType<typeof loadSession>>>();
+  if (!s || s.status !== 'SUBMITTED') return null;
+  const ids = JSON.parse(s.question_ids_json) as string[];
+  const placeholders = ids.map(() => '?').join(',');
+  const [{ results: answers }, { results: keyRows }] = await Promise.all([
+    db.prepare('SELECT question_id, outcome FROM practice_answers WHERE session_id = ?').bind(sessionId).all<{ question_id: string; outcome: Outcome }>(),
+    db.prepare(`SELECT question_id FROM answer_keys WHERE key_status = 'DROPPED' AND question_id IN (${placeholders})`).bind(...ids).all<{ question_id: string }>(),
+  ]);
+  const dropped = new Set(keyRows.map((k) => k.question_id));
+  const stored = schemeOf(s);
+  const t = scoreAttempt(ids.map((id) => ({ id, dropped: dropped.has(id) })), answers.map((a) => ({ questionId: a.question_id, outcome: a.outcome })), { correct: s.marks_correct, incorrect: s.marks_incorrect, unattempted: stored?.unattempted ?? 0, creditDroppedQuestions: stored?.creditDroppedQuestions ?? true });
+  await db.prepare('UPDATE practice_sessions SET score = ?, max_score = ?, correct_count = ?, incorrect_count = ?, unattempted_count = ?, credited_count = ? WHERE id = ?').bind(t.score, t.maxScore, t.correct, t.incorrect, t.unattempted, t.credited, sessionId).run();
+  return t;
 }
 
 /** Overall progress, per-topic accuracy and weak topics (accuracy under 60% after at least 3 attempts). */
 export async function progress(db: D1Database, userId: string) {
-  const [totals, topics, recent] = await Promise.all([
-    db.prepare(`SELECT COUNT(*) AS sessions, COALESCE(SUM(correct_count),0) AS correct, COALESCE(SUM(incorrect_count),0) AS incorrect, COALESCE(SUM(unattempted_count),0) AS unattempted FROM practice_sessions WHERE user_id = ? AND status = 'SUBMITTED'`).bind(userId).first<Record<string, number>>(),
+  const [totals, topics, recent, subjectRows] = await Promise.all([
+    db.prepare(`SELECT COUNT(*) AS sessions, COALESCE(SUM(correct_count),0) AS correct, COALESCE(SUM(incorrect_count),0) AS incorrect, COALESCE(SUM(unattempted_count),0) AS unattempted, COALESCE(SUM(credited_count),0) AS credited FROM practice_sessions WHERE user_id = ? AND status = 'SUBMITTED'`).bind(userId).first<Record<string, number>>(),
     db
       .prepare(
         `SELECT tp.curriculum_node_id AS id, n.title, n.kind, p.name AS paper, p.code AS paper_code, tp.attempted, tp.correct, tp.incorrect,
@@ -396,18 +449,18 @@ export async function progress(db: D1Database, userId: string) {
       .bind(userId)
       .all<Record<string, unknown>>(),
     db.prepare(`SELECT ps.id, ps.mode, ps.status, ps.score, ps.max_score, ps.correct_count, ps.incorrect_count, ps.unattempted_count, ps.started_at, ps.submitted_at, p.name AS paper FROM practice_sessions ps LEFT JOIN test_papers p ON p.id = ps.test_paper_id WHERE ps.user_id = ? ORDER BY ps.started_at DESC LIMIT 20`).bind(userId).all(),
+    db.prepare(`SELECT p.code, p.name AS paper, SUM(ps.correct_count) AS correct, SUM(ps.incorrect_count) AS incorrect FROM practice_sessions ps JOIN test_papers p ON p.id = ps.test_paper_id WHERE ps.user_id = ? AND ps.status = 'SUBMITTED' GROUP BY p.id, p.code, p.name`).bind(userId).all<Record<string, unknown>>(),
   ]);
-  const bySubject = new Map<string, { paper: string; paperCode: string; topics: number; attempted: number; correct: number }>();
-  for (const t of topics.results) {
-    const k = String(t.paper_code);
-    const cur = bySubject.get(k) ?? { paper: String(t.paper), paperCode: k, topics: 0, attempted: 0, correct: 0 };
-    cur.topics++;
-    cur.attempted += Number(t.attempted);
-    cur.correct += Number(t.correct);
-    bySubject.set(k, cur);
-  }
-  const subjects = [...bySubject.values()]
-    .map((x) => ({ ...x, accuracy: x.attempted ? Math.round((1000 * x.correct) / x.attempted) / 10 : null }))
+  // Subject totals come from the submitted attempts themselves (each question counted once), so they add up to the overall totals.
+  // The topic table is a per-topic view: a question linked to two topics appears under both, so it is never summed for a subject.
+  const topicsPerSubject = new Map<string, number>();
+  for (const t of topics.results) topicsPerSubject.set(String(t.paper_code), (topicsPerSubject.get(String(t.paper_code)) ?? 0) + 1);
+  const subjects = subjectRows.results
+    .map((r) => {
+      const attempted = Number(r.correct) + Number(r.incorrect);
+      return { paper: String(r.paper), paperCode: String(r.code), topics: topicsPerSubject.get(String(r.code)) ?? 0, attempted, correct: Number(r.correct), accuracy: attempted ? Math.round((1000 * Number(r.correct)) / attempted) / 10 : null };
+    })
+    .filter((x) => x.attempted > 0)
     .sort((x, y) => y.attempted - x.attempted);
   const answered = (totals?.correct ?? 0) + (totals?.incorrect ?? 0);
   return {

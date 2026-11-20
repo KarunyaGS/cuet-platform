@@ -85,6 +85,7 @@ const AdminCompletion = lazy(() => import('./admin/Admin').then((m) => ({ defaul
 const AdminStaff = lazy(() => import('./admin/Admin').then((m) => ({ default: m.AdminStaff })));
 const AdminPracticeCentre = lazy(() => import('./admin/PracticeCentre').then((m) => ({ default: m.AdminPracticeCentre })));
 const AdminPastPapers = lazy(() => import('./admin/PastPapers').then((m) => ({ default: m.AdminPastPapers })));
+const AdminTopicWeightage = lazy(() => import('./admin/TopicWeightage').then((m) => ({ default: m.AdminTopicWeightage })));
 const AdminSupport = lazy(() => import('./admin/Support').then((m) => ({ default: m.AdminSupport })));
 const AdminBilling = lazy(() => import('./admin/Billing').then((m) => ({ default: m.AdminBilling })));
 const AdminEmail = lazy(() => import('./admin/Email').then((m) => ({ default: m.AdminEmail })));
@@ -215,6 +216,7 @@ const router = createBrowserRouter([
           { path: 'staff', element: lazyPage(<AdminStaff />) },
           { path: 'practice-centre', element: lazyPage(<AdminPracticeCentre />) },
           { path: 'past-papers', element: lazyPage(<AdminPastPapers />) },
+          { path: 'weightage', element: lazyPage(<AdminTopicWeightage />) },
           { path: 'billing', element: lazyPage(<AdminBilling />) },
           { path: 'support', element: lazyPage(<AdminSupport />) },
           { path: 'email', element: lazyPage(<AdminEmail />) },

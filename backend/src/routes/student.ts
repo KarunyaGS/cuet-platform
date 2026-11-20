@@ -23,6 +23,7 @@ import {
   activitySchema, addBookmark, addPlanItem, BOOKMARK_KINDS, bookmarkSchema, bookmarkState, dailySchema, dashboard, dashboardQuery, deletePlanItem, getGoal, getProfile, goalSchema, listBookmarks,
   chapterVisuals, listPlan, planItemSchema, planUpdateSchema, profileSchema, recordActivity, removeBookmark, revisionNotes, setGoal, startDailyPractice, updatePlanItem, updateProfile,
 } from '../services/student-tools';
+import { addTarget, eligibilityFor, listTargets, removeTarget, studentPaperCodes, targetInputSchema } from '../services/admission-review';
 import { dismissReminder, dismissSchema, getPreferences, preferencesSchema, recentlyViewed, subjectSummary, reminders, remindersQuery, setPreferences, weeklyQuery, weeklyReport } from '../services/student-portal';
 import { deleteOne, editOne, editSchema, listAll, listForSurface, listForSurfaces, saveBatch, saveSchema } from '../services/annotations';
 import { cardQuery, cardState, cardSummary, assertDay, createCard, createCardSchema, createQuestionCard, createQuestionCardSchema, deleteCard, importCards, importCardsSchema, listCards, questionCardState, reviewCard, reviewQueue, reviewSchema, topicCards } from '../services/flashcards';
@@ -36,6 +37,7 @@ import { flashcardDecks } from '../services/decks';
 import { chapterSheet, subjectSheet, weakSheet } from '../services/sheets';
 import { answerSchema, getSession, marksSchema, progress, questionCounts, saveAnswer, saveMarks, startSchema, startSession, submitSession } from '../services/practice';
 import { measureVpa, recordVpaObservation, startVpa, submitVpa, vpaDetails, vpaMeasureSchema, vpaRecordSchema, vpaStartSchema, vpaSubmitSchema } from '../services/vpa';
+import { topicWeightage } from '../services/topic-weightage';
 
 const preview = (env: AppEnv['Bindings']) => env.CONTENT_PREVIEW === 'true';
 const inApp = (env: AppEnv['Bindings']) => env.OFFICIAL_IN_APP_VIEWING === 'on';
@@ -137,6 +139,7 @@ learn.get('/subjects/:paperId', async (c) => {
   return c.json(out);
 });
 learn.get('/topics/:nodeId', async (c) => c.json(await topicDetail(c.env.DB, preview(c.env), c.req.param('nodeId'))));
+learn.get('/topics/:nodeId/weightage', async (c) => c.json(await topicWeightage(c.env.DB, c.req.param('nodeId'))));
 learn.get('/resources/:id', async (c) => c.json(await resourceDetail(c.env.DB, preview(c.env), c.req.param('id'))));
 learn.get('/media/:id', async (c) => mediaObject(c.env.DB, c.env.MEDIA, preview(c.env), c.req.param('id')));
 // Practice Centre: links to official documents (published, with a recorded linking basis) and our own published mock papers.
@@ -348,6 +351,17 @@ student.post('/flashcards/:id/review', async (c) => c.json(await reviewCard(c.en
 student.delete('/flashcards/:id', async (c) => c.json(await deleteCard(c.env.DB, c.get('user').id, c.req.param('id'), c.req.query('confirm') === '1')));
 
 // Preferences, weekly report, reminders, recently viewed
+// University admissions: minimum eligibility from approved, published subject rules only, and the programmes a student follows.
+student.get('/admissions/eligibility', async (c) => {
+  const ids = (c.req.query('ids') ?? '').split(',').map((x) => x.trim()).filter(Boolean).slice(0, 60);
+  // Optional "what if I took these papers" (paper codes). Without it, the subjects chosen in the student's profile are used.
+  const asked = (c.req.query('papers') ?? '').split(',').map((x) => x.trim()).filter(Boolean);
+  const papers = asked.length ? asked : await studentPaperCodes(c.env.DB, c.get('user').id);
+  return c.json({ papers, results: await eligibilityFor(c.env.DB, ids, papers) });
+});
+student.get('/admissions/targets', async (c) => c.json(await listTargets(c.env.DB, c.get('user').id)));
+student.post('/admissions/targets', async (c) => c.json(await addTarget(c.env.DB, c.get('user').id, await readJson(c, targetInputSchema)), 201));
+student.delete('/admissions/targets/:programmeId', async (c) => c.json(await removeTarget(c.env.DB, c.get('user').id, c.req.param('programmeId'))));
 student.get('/preferences', async (c) => c.json(await getPreferences(c.env.DB, c.get('user').id)));
 student.put('/preferences', async (c) => c.json(await setPreferences(c.env.DB, c.get('user').id, await readJson(c, preferencesSchema))));
 student.get('/report/weekly', async (c) => c.json(await weeklyReport(c.env.DB, c.get('user').id, weeklyQuery.parse({ start: c.req.query('start'), from: c.req.query('from'), tz: c.req.query('tz') }))));

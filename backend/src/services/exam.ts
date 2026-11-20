@@ -18,7 +18,7 @@ import { newId } from '../lib/hash';
 import { nowIso } from '../lib/sql';
 import { VISIBLE_CONTENT } from './learning';
 import { EXAM_POLICY, loadSession, paperAndRules, submitSession } from './practice';
-import { markingFromRules } from './scoring';
+import { buildScheme } from './scoring';
 
 export { EXAM_POLICY };
 export const VIOLATION_TYPES = ['TAB_HIDDEN', 'WINDOW_BLUR', 'FULLSCREEN_EXIT', 'RETURN_TIMEOUT'] as const;
@@ -64,8 +64,9 @@ export const previewQuery = z.object({ mode: z.enum(['TOPIC_TEST', 'MOCK_TEST'])
 
 /** What the student is told on the instructions screen, worked out the same way the attempt will be built. */
 export async function examPreview(db: D1Database, preview: boolean, input: z.infer<typeof previewQuery>) {
-  const { paperId, rulesJson, rules } = await paperAndRules(db, input.nodeId, input.paperId);
-  const marking = markingFromRules(rulesJson);
+  const { paperId, rulesJson, rules, year, examCode } = await paperAndRules(db, input.nodeId, input.paperId);
+  // The same scheme the attempt will be scored with (it is stored on the attempt when it starts).
+  const marking = buildScheme(rulesJson, { kind: 'CUET_SIMULATION', exam: examCode, year });
   const full = rules.questionsPerPaper ?? 50;
   const want = input.count ?? (input.mode === 'MOCK_TEST' ? full : 15);
   const available = input.nodeId
@@ -94,6 +95,8 @@ export async function examPreview(db: D1Database, preview: boolean, input: z.inf
     questions,
     durationMinutes: Math.ceil(seconds / 60),
     marking: { correct: marking.correct, incorrect: marking.incorrect },
+    scheme: marking,
+    // Worked out from the questions this test will actually contain.
     maxMarks: questions * marking.correct,
     policy: EXAM_POLICY,
   };

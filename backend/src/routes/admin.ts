@@ -9,7 +9,7 @@ import { examCoverage, paperCoverage, topicCoverage } from '../services/coverage
 import { editNode, listExams, listPapers, nodeEditSchema, overview, paperDetail, versionNodes } from '../services/curriculum';
 import { importSyllabus, syllabusBundleSchema } from '../services/imports';
 import {
-  createQuestion, deleteQuestion, evaluateQuestion, evaluateSchema, getQuestionAdmin, listQuestions, passageInputSchema, questionInputSchema, updateQuestion, upsertPassage,
+  createQuestion, deleteQuestion, evaluateQuestion, evaluateSchema, getQuestionAdmin, listQuestions, keyStatusSchema, passageInputSchema, questionInputSchema, setKeyStatus, updateQuestion, upsertPassage,
 } from '../services/questions';
 import { jobReportSchema, paperRegistrySchema, registerPapers, reportJob } from '../services/registry';
 import { createResource, deleteResource, getResource, listResources, resourceInputSchema, updateResource } from '../services/resources';
@@ -121,6 +121,7 @@ admin.post('/passages', async (c) => c.json(await upsertPassage(c.env.DB, await 
 admin.post('/questions', async (c) => c.json(await createQuestion(c.env.DB, await readJson(c, questionInputSchema), c.get('actor')), 201));
 admin.get('/questions/:id', async (c) => c.json(await getQuestionAdmin(c.get('prisma'), c.req.param('id'))));
 admin.put('/questions/:id', async (c) => c.json(await updateQuestion(c.env.DB, c.req.param('id'), await readJson(c, questionInputSchema), c.get('actor'))));
+admin.post('/questions/:id/key-status', async (c) => c.json(await setKeyStatus(c.env.DB, c.req.param('id'), await readJson(c, keyStatusSchema), c.get('actor'))));
 admin.delete('/questions/:id', async (c) => c.json(await deleteQuestion(c.env.DB, c.req.param('id'), c.get('actor'))));
 admin.post('/questions/:id/preview-evaluate', async (c) =>
   c.json(await evaluateQuestion(c.get('prisma'), c.req.param('id'), await readJson(c, evaluateSchema), { allowUnpublished: true })),

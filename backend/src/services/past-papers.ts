@@ -299,7 +299,14 @@ export async function pastPaperDetail(db: D1Database, id: string) {
 
 export const startPastPaperSchema = z.object({ mode: z.enum(['PRACTICE', 'MOCK_TEST']) });
 
-/** Starts the paper as it was set: its own questions in their own order, its own time and marking. Dropped questions are left out. */
+/**
+ * Starts the paper as it was set: its own questions in their own order, its own time and marking. Dropped questions are left out.
+ *
+ * Audit note (Nov 2026; year-by-year evidence and proposal in docs/completion/past-paper-dropped-questions-2026-11-20.md): this is NOT NTA's evaluation. For a dropped question NTA credits the full marks to every candidate, so an official
+ * score stays out of the full maximum; here the dropped questions leave the paper and the maximum falls by their marks. The paper's own
+ * marking rules are stored per paper and have not been checked against each year's bulletin, so the behaviour is kept as it was until the
+ * rules for that year are verified and approved. Papers with dropped questions: none in the current data.
+ */
 export async function startPastPaper(db: D1Database, userId: string, id: string, input: z.infer<typeof startPastPaperSchema>) {
   const p = await visiblePaper(db, id);
   const { results } = await db.prepare('SELECT question_id FROM past_paper_questions WHERE past_paper_id = ? AND dropped = 0 AND question_id IS NOT NULL ORDER BY position').bind(id).all<{ question_id: string }>();
