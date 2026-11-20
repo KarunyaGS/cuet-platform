@@ -250,8 +250,24 @@ function Facts({ title, id, facts, missing, official, fallback }: { title: strin
                     <span className="text-sm font-semibold text-ink">{f.kind === 'EVENT' && f.eventDate ? `${dayLabel(f.eventDate)}: ${f.label}` : f.label}</span>
                     <ReliabilityBadge r={f.reliability} on={f.checkedOn} cycle={f.cycle} />
                   </div>
-                  {f.valueText && <blockquote className="mt-1.5 whitespace-pre-line border-l-2 border-accent pl-3 text-[15px] leading-relaxed text-ink">{f.valueText.replace(/\s+(?=Combination [IVX]+\s*:)/g, '\n').replace(/\s+(?=(?:OR|AND)\s)/g, '\n').replace(/\s+(?=Merit will be)/g, '\n').replace(/\s+(?=Candidates? must appear in any one language)/g, '\n')}</blockquote>}
-                  {f.kind === 'SUBJECTS' && (parseRule(f.valueText) ? <RuleBreakdown rule={parseRule(f.valueText)!} /> : f.subjects && <div className="mt-2 flex flex-wrap gap-1.5">{f.subjects.map((s) => <Badge key={s} tone="accent">{s}</Badge>)}</div>)}
+                  {(f.kind === 'SUBJECTS' || f.kind === 'ELIGIBILITY') && parseRule(f.valueText) ? (
+                    <>
+                      <RuleBreakdown rule={parseRule(f.valueText)!} />
+                      <details className="mt-2 rounded-lg border border-rule bg-paper/60 px-3 py-2" data-official-wording>
+                        <summary className="cursor-pointer text-xs font-semibold text-ink-2">Read the university’s wording</summary>
+                        <p className="mt-2 whitespace-pre-line text-xs leading-relaxed text-ink-2">{f.valueText}</p>
+                      </details>
+                    </>
+                  ) : f.kind === 'SUBJECTS' ? (
+                    f.subjects && <div className="mt-2 flex flex-wrap gap-1.5">{f.subjects.map((s) => <Badge key={s} tone="accent">{s}</Badge>)}</div>
+                  ) : f.valueText ? (
+                    f.kind === 'ELIGIBILITY' ? (
+                      <details className="mt-2 rounded-lg border border-rule bg-paper/60 px-3 py-2" data-official-wording>
+                        <summary className="cursor-pointer text-xs font-semibold text-ink-2">Read the university’s wording</summary>
+                        <p className="mt-2 whitespace-pre-line text-xs leading-relaxed text-ink-2">{f.valueText}</p>
+                      </details>
+                    ) : <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-ink-2">{f.valueText}</p>
+                  ) : null}
                   <div className="mt-2"><Source f={f} /></div>
                 </Panel>
               </li>
@@ -333,6 +349,7 @@ export function ProgrammePage() {
   }
   const d = r.data!;
   const p = d.programme;
+  const duHistorical = p.universitySlug === 'university-of-delhi' && p.cycle.status === 'PREVIOUS';
   const official = d.officialPages[0]?.url ?? p.sourceUrl;
   const miss = (k: string) => d.unavailable.includes(k);
   const deadlines = d.current.dates.filter((f) => f.category === 'APPLICATION_DEADLINE');
@@ -383,13 +400,33 @@ export function ProgrammePage() {
           {[
             ['Subject combinations', d.current.subjects.length > 0 || Boolean(parsedSubjectRule)],
             ['Eligibility rules', d.current.eligibility.length > 0],
-            ['Application process', d.current.procedure.length > 0],
-            ['Counselling', d.current.counselling.length > 0],
+            ['Application process', d.current.procedure.length > 0 || duHistorical],
+            ['Counselling', d.current.counselling.length > 0 || duHistorical],
             ['Application date', deadlines.length > 0],
             ['Past cut-offs', d.historicalCutoffs.length > 0],
-          ].map(([label, available]) => <li key={String(label)} className={`rounded-xl border px-2.5 py-2 ${available ? 'border-[#dce5b5] bg-[#f7f9e9]' : 'border-rule bg-paper/55'}`}><span className={`block text-[11px] font-semibold ${available ? 'text-forest' : 'text-ink-2'}`}>{String(label)}</span><span className={`mt-1 block text-[10px] ${available ? 'text-forest/70' : 'text-ink-3'}`}>{available ? 'Source added' : 'Not in records yet'}</span></li>)}
+          ].map(([label, available]) => <li key={String(label)} className={`rounded-xl border px-2.5 py-2 ${available ? 'border-[#dce5b5] bg-[#f7f9e9]' : 'border-rule bg-paper/55'}`}><span className={`block text-[11px] font-semibold ${available ? 'text-forest' : 'text-ink-2'}`}>{String(label)}</span><span className={`mt-1 block text-[10px] ${available ? 'text-forest/70' : 'text-ink-3'}`}>{available ? (duHistorical && (label === 'Application process' || label === 'Counselling') && !(label === 'Application process' ? d.current.procedure.length : d.current.counselling.length) ? 'Overview above' : 'Source added') : 'Not in records yet'}</span></li>)}
         </ul>
       </section>
+
+      {duHistorical && (
+        <details className="admission-disclosure mb-4 overflow-hidden rounded-xl border border-[#dce5b5] bg-[#f8f9ef]" data-du-admission-path>
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-forest marker:hidden">
+            <span>How DU admissions worked · 2026–27 reference</span><ChevronDown aria-hidden className="admission-chevron size-4 shrink-0" />
+          </summary>
+          <div className="border-t border-[#dce5b5] px-4 py-3.5">
+            <ol className="space-y-2 text-sm leading-relaxed text-ink-2">
+              <li><strong className="text-forest">1. Check eligibility.</strong> Choose CUET papers that match the programme and subjects you passed in Class XII.</li>
+              <li><strong className="text-forest">2. Apply in DU CSAS separately.</strong> After CUET, submit the DU CSAS (UG) form and enter your programme and college preferences.</li>
+              <li><strong className="text-forest">3. Follow each allocation notice.</strong> DU uses CUET scores for merit; Class XII marks are used for minimum eligibility and tie-breaking. Dates and actions vary by the official round schedule.</li>
+            </ol>
+            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+              <a href="https://admission.uod.ac.in/userfiles/downloads/2026/17052026_Updated_FAQsUG%202026-final.pdf" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1 font-semibold text-accent hover:underline">DU UG FAQ 2026–27 <ExternalLink aria-hidden className="size-3" /></a>
+              <a href="https://admission.uod.ac.in/userfiles/downloads/2026/02072026_CSAS-UG-Schedule_compressed.pdf" target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1 font-semibold text-accent hover:underline">Official CSAS schedule <ExternalLink aria-hidden className="size-3" /></a>
+            </p>
+            <p className="mt-2 text-[11px] text-ink-3">This explains the 2026–27 cycle only. It is not a current-cycle deadline or a prediction of the next process.</p>
+          </div>
+        </details>
+      )}
 
       <details className="admission-disclosure mb-3 overflow-hidden rounded-xl border border-rule bg-surface" data-section="pg-fit">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-ink marker:hidden">
@@ -411,8 +448,8 @@ export function ProgrammePage() {
         <Facts title="Required CUET subjects" id="pg-subjects" facts={d.current.subjects} missing={miss('subjects')} official={official} />
       )}
       <Facts title="Eligibility, as the university prints it" id="pg-elig" facts={d.current.eligibility} missing={miss('eligibility')} official={official} />
-      <Facts title="How to apply" id="pg-proc" facts={d.current.procedure} missing={miss('procedure')} official={official} />
-      <Facts title="Counselling" id="pg-couns" facts={d.current.counselling} missing={miss('counselling')} official={official} />
+      <Facts title="How to apply" id="pg-proc" facts={d.current.procedure} missing={miss('procedure')} official={official} fallback={duHistorical ? 'A short historical overview is above. Cycle-specific steps and dates are not yet in our source-checked records.' : undefined} />
+      <Facts title="Counselling" id="pg-couns" facts={d.current.counselling} missing={miss('counselling')} official={official} fallback={duHistorical ? 'A short historical overview is above. Detailed actions depend on the official round notice and are not yet in our source-checked records.' : undefined} />
       <Facts title="Application deadline" id="pg-deadline" facts={deadlines} missing={miss('deadline')} official={official} />
       {examDates.length > 0 && <Facts title="CUET exam dates" id="pg-exam-dates" facts={examDates} missing={false} official={official} />}
       {otherDates.length > 0 && <Facts title="Other important dates" id="pg-dates" facts={otherDates} missing={false} official={official} />}
@@ -441,7 +478,7 @@ export function ProgrammePage() {
             <tbody className="divide-y divide-rule">
               {d.historicalCutoffs.map((f) => (
                 <tr key={f.id} className="align-top">
-                  <td className="px-4 py-2.5 text-ink-2">{f.year}, {f.round}</td>
+                  <td className="px-4 py-2.5 text-ink-2">{f.year}, {f.round}{f.label && <span className="mt-0.5 block text-xs text-ink-3">{f.label}</span>}</td>
                   <td className="px-4 py-2.5 text-ink-2">{f.category}</td>
                   <td className="num px-4 py-2.5 text-right text-ink">
                     {f.valueNumber}
