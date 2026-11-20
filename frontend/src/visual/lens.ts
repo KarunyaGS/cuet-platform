@@ -76,7 +76,7 @@ export interface BenchGeometry {
   hidden: RayId[];
 }
 
-export function benchGeometry(s: LensState): BenchGeometry {
+export function benchGeometry(s: LensState, aperture: number = BENCH.aperture): BenchGeometry {
   const f = signedF(s.kind, s.f);
   const u = -Math.abs(s.u);
   const r = solveLens(s);
@@ -92,10 +92,27 @@ export function benchGeometry(s: LensState): BenchGeometry {
   const hidden: RayId[] = [];
   for (const c of candidates) {
     if (c.y0 === null) continue; // object at the focus: this ray is the parallel ray again
-    if (Math.abs(c.y0) > BENCH.aperture) hidden.push(c.id);
+    if (Math.abs(c.y0) > aperture) hidden.push(c.id);
     else rays.push({ id: c.id, y0: c.y0, slope: slopeFrom(c.y0) });
   }
   return { object: { x: u, y: s.h }, image, rays, hidden };
+}
+
+/** How much bench to show for the ranges the student chose: wide enough for the farthest object, tall enough for the tallest. */
+export interface BenchView { xr: number; aperture: number }
+export function viewFor(uMax: number, hMax: number): BenchView {
+  return {
+    xr: Math.max(BENCH.x, Math.ceil((uMax * 1.1) / 5) * 5),
+    aperture: Math.max(BENCH.aperture, hMax * 1.5),
+  };
+}
+
+/** A 1-2-5 ruler step that gives about nine ticks across `span`. */
+export function niceStep(span: number): number {
+  const raw = span / 9;
+  const p = 10 ** Math.floor(Math.log10(raw));
+  const m = raw / p;
+  return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p;
 }
 
 /** What the student sees in words for the current setting. */

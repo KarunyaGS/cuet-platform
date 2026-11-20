@@ -1,4 +1,4 @@
-import { ExternalLink, FileText, Megaphone } from 'lucide-react';
+import { ExternalLink, FileText, Landmark, Megaphone } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { api, type ExamCode, type GovNotice, type NoticeAuthority, type NoticeCategory, type RevisionKind } from '../api';
@@ -109,6 +109,20 @@ export function UpdatesPage() {
           </>
         }
       />
+      <Link
+        to="/admissions"
+        className="mb-5 flex items-center justify-between gap-3 rounded-xl border border-forest/15 bg-[#f5f7e9] px-4 py-3 transition hover:border-accent/40 hover:bg-accent-soft"
+        data-university-admissions-link
+      >
+        <span className="flex min-w-0 items-center gap-3">
+          <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-forest text-lime"><Landmark aria-hidden className="size-4" /></span>
+          <span className="min-w-0">
+            <span className="block text-sm font-semibold text-ink">University admissions</span>
+            <span className="block text-xs text-ink-2">Explore CUET subject requirements and sourced programme details</span>
+          </span>
+        </span>
+        <ExternalLink aria-hidden className="size-4 shrink-0 text-ink-3" />
+      </Link>
       <div className="mb-5 flex flex-wrap items-center gap-3">
         <Segmented
           label="Issued by"

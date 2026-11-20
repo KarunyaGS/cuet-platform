@@ -1,10 +1,11 @@
 import { RotateCcw } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, RangeEditor, RangeSlider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { clampTo, digitsFor, stepFor, trim, type Range } from '../visual/ranges';
 import {
   angularWidth, APPLY, curve, fresnelDistance, fresnelNumber, intensityAt, LIMITS, maxOrder, minimumPosition, pathOrder, posFromSlit, PREDICTS,
-  regime, regimeLabel, screenDistance, slitFromPos, START, wavelengthRgb, widthFormula, widthMeasured, type DiffState,
+  isVisibleLight, posFromSlitIn, regime, regimeLabel, screenDistance, slitFromPosIn, START, wavelengthRgb, widthFormula, widthMeasured, type DiffState,
 } from '../visual/diffraction';
 
 const mm = (m: number, d = 2) => `${(m * 1000).toFixed(d)} mm`;
@@ -280,6 +281,20 @@ export function DiffractionLabPage() {
   const [rows, setRows] = useState<Row[]>([]);
   const [ans, setAns] = useState<Record<string, number>>({});
   const set = (p: Partial<DiffState>) => setS((x) => ({ ...x, ...p }));
+  // The student's own range for any control; a control not listed uses the lab's range.
+  const [ranges, setRanges] = useState<Partial<Record<'a' | 'lambda' | 'D' | 'f', Range>>>({});
+  const design = { a: { min: 5, max: 2000 }, lambda: LIMITS.lambda, D: LIMITS.D, f: LIMITS.f };
+  const rng = (k: 'a' | 'lambda' | 'D' | 'f'): Range => ranges[k] ?? { min: design[k].min, max: design[k].max };
+  const stp = (k: 'lambda' | 'D' | 'f') => (ranges[k] ? stepFor(LIMITS[k].step, ranges[k]!) : LIMITS[k].step);
+  const changeRange = (k: 'a' | 'lambda' | 'D' | 'f', r: Range) => {
+    setRanges((cur) => {
+      const next = { ...cur };
+      if (r.min === design[k].min && r.max === design[k].max) delete next[k];
+      else next[k] = r;
+      return next;
+    });
+    setS((x) => ({ ...x, [k]: clampTo(x[k], r) }));
+  };
   const finished = Object.keys(ans).length === APPLY.length;
   const reg = regime(s);
   const last = rows[rows.length - 1];
@@ -297,6 +312,7 @@ export function DiffractionLabPage() {
   const choosePredict = (i: number) => {
     const p = PREDICTS[i] ?? PREDICTS[0]!;
     setPi(i);
+    setRanges({});
     setS(p.base);
   };
   const record = () => {
@@ -325,7 +341,7 @@ export function DiffractionLabPage() {
           <div className={`${panel} overflow-hidden`}>
             <Pattern s={s} probe={probe} setProbe={setProbe} showFar={showFar} />
             <div className="grid gap-x-6 gap-y-3 border-t border-rule px-3 py-3 sm:grid-cols-2">
-              <Slider id="diff-a" label="Slit width a" unit="µm" value={posFromSlit(s.a)} min={LIMITS.aPos.min} max={LIMITS.aPos.max} step={LIMITS.aPos.step} shown={String(s.a)} onChange={(v) => set({ a: slitFromPos(v) })} />
+              <RangeSlider id="diff-a" label="Slit width a" unit="µm" value={posFromSlitIn(rng('a'), s.a)} min={LIMITS.aPos.min} max={LIMITS.aPos.max} step={LIMITS.aPos.step} shown={trim(s.a)} onChange={(v) => set({ a: slitFromPosIn(rng('a'), v) })} design={design.a} range={rng('a')} rules={{ log: true, floor: 0.5, cap: 20000 }} onRange={(r) => changeRange('a', r)} />
               <label className="block text-sm">
                 <span className="flex items-center justify-between text-ink">
                   Wavelength λ
@@ -334,12 +350,16 @@ export function DiffractionLabPage() {
                     {s.lambda} nm
                   </span>
                 </span>
-                <input id="diff-l" type="range" min={LIMITS.lambda.min} max={LIMITS.lambda.max} step={LIMITS.lambda.step} value={s.lambda} onChange={(e) => set({ lambda: Number(e.target.value) })} className="mt-1 h-6 w-full accent-[var(--color-accent)]" />
+                <input id="diff-l" type="range" min={rng('lambda').min} max={rng('lambda').max} step={stp('lambda')} value={s.lambda} onChange={(e) => set({ lambda: Number(e.target.value) })} className="mt-1 h-6 w-full accent-[var(--color-accent)]" />
               </label>
+              <div className="sm:col-span-2 -mt-2">
+                <RangeEditor id="diff-l" unit="nm" design={design.lambda} range={rng('lambda')} rules={{ floor: 1, cap: 100000 }} onRange={(r) => changeRange('lambda', r)} />
+                {!isVisibleLight(s.lambda) && <p className="mt-1 text-xs text-ink-3">This wavelength is outside visible light, so the pattern is drawn in grey.</p>}
+              </div>
               {s.lens ? (
-                <Slider id="diff-f" label="Lens focal length f" unit="m" value={s.f} {...LIMITS.f} onChange={(v) => set({ f: Number(v.toFixed(2)) })} />
+                <RangeSlider id="diff-f" label="Lens focal length f" unit="m" value={s.f} min={rng('f').min} max={rng('f').max} step={stp('f')} shown={trim(s.f)} onChange={(v) => set({ f: Number(v.toPrecision(6)) })} design={design.f} range={rng('f')} onRange={(r) => changeRange('f', r)} />
               ) : (
-                <Slider id="diff-d" label="Screen distance D" unit="m" value={s.D} {...LIMITS.D} onChange={(v) => set({ D: Number(v.toFixed(1)) })} />
+                <RangeSlider id="diff-d" label="Screen distance D" unit="m" value={s.D} min={rng('D').min} max={rng('D').max} step={stp('D')} shown={trim(s.D)} onChange={(v) => set({ D: Number(v.toPrecision(6)) })} design={design.D} range={rng('D')} onRange={(r) => changeRange('D', r)} />
               )}
               <div className="text-sm">
                 <span className="text-ink">Observe</span>
@@ -352,7 +372,7 @@ export function DiffractionLabPage() {
                 </div>
               </div>
               <div className="flex flex-wrap items-center gap-3 sm:col-span-2">
-                <button type="button" className={btn} onClick={() => { setS(startState); setProbe(0); }}>
+                <button type="button" className={btn} onClick={() => { setS(startState); setProbe(0); setRanges({}); }}>
                   <RotateCcw aria-hidden className="size-4" /> Reset
                 </button>
                 <label className="inline-flex items-center gap-2 text-sm text-ink">
@@ -392,6 +412,7 @@ export function DiffractionLabPage() {
               onPick={(id, o) => setPicked((x) => ({ ...x, [id]: o }))}
               onLock={(i) => {
                 const p = PREDICTS[i] ?? PREDICTS[0]!;
+                setRanges({});
                 setS(p.test);
                 setTested((x) => ({ ...x, [p.id]: true }));
               }}

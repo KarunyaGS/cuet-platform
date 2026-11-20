@@ -2,10 +2,11 @@ import { RotateCcw } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import { Badge, PageHeader } from '../../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps } from '../labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, RangeSlider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps } from '../labkit';
 import { FitGraph, fmt, fromPos, LineGraph, linearFit, startValues, toPos, withValues } from './kit';
+import { clampTo, digitsFor, stepFor, type Range } from '../ranges';
 import { specById } from './specs';
-import type { Outs, Spec, Values } from './types';
+import type { Outs, Spec, Values, VarDef } from './types';
 
 const computeOuts = (spec: Spec, v: Values): Outs => Object.fromEntries(spec.outs.map((o) => [o.id, o.fn(v)]));
 const sweepPoints = 60;
@@ -17,7 +18,24 @@ function SpecLabBody({ spec }: { spec: Spec }) {
   const { lessonId, back } = useLabOrigin();
   useScrollTopOnOpen();
   const [v, setV] = useState<Values>(() => startValues(spec.vars));
+  // The student's own range for any control. Anything not listed here uses the lab's own range.
+  const [ranges, setRanges] = useState<Record<string, Range>>({});
+  const evars = useMemo<VarDef[]>(
+    () =>
+      spec.vars.map((d) => {
+        const r = ranges[d.id];
+        if (!r) return d;
+        const step = d.log ? d.step : stepFor(d.step, r);
+        return { ...d, min: r.min, max: r.max, step, digits: digitsFor(step, d.digits ?? 2) };
+      }),
+    [spec, ranges],
+  );
   const o = useMemo(() => computeOuts(spec, v), [spec, v]);
+  // The picture is drawn for values inside the lab's own range, so a wide custom range can never break the drawing.
+  // Every number, table and graph still uses the exact values.
+  const sv = useMemo<Values>(() => Object.fromEntries(spec.vars.map((d) => [d.id, clampTo(v[d.id]!, { min: d.min, max: d.max })])), [spec, v]);
+  const so = useMemo(() => computeOuts(spec, sv), [spec, sv]);
+  const sceneCapped = spec.vars.some((d) => sv[d.id] !== v[d.id]);
   const { step, seen, go } = useSteps();
   const [pi, setPi] = useState(0);
   const [picked, setPicked] = useState<Record<string, number>>({});
@@ -37,13 +55,14 @@ function SpecLabBody({ spec }: { spec: Spec }) {
     const p = spec.preds[i] ?? spec.preds[0]!;
     setPi(i);
     setV(withValues(spec.vars, p.base));
+    setRanges({});
   };
   const record = () => {
     const key = Number((v[spec.measure.vary] ?? 0).toPrecision(6));
     if (rows.some((r) => Number((r.v[spec.measure.vary] ?? 0).toPrecision(6)) === key)) return;
     setRows((r) => [...r, { v: { ...v }, o: { ...o } }]);
   };
-  const varDef = (id: string) => spec.vars.find((x) => x.id === id)!;
+  const varDef = (id: string) => evars.find((x) => x.id === id)!;
   const outDef = (id: string) => spec.outs.find((x) => x.id === id)!;
   const fit = useMemo(() => {
     const f = spec.measure.fit;
@@ -62,7 +81,7 @@ function SpecLabBody({ spec }: { spec: Spec }) {
         return { g, xs, ys, xv, yo };
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [spec, v],
+    [spec, v, evars],
   );
 
   return (
@@ -81,18 +100,55 @@ function SpecLabBody({ spec }: { spec: Spec }) {
         <div className="min-w-0 space-y-3">
           <div className={`${panel} overflow-hidden`}>
             {spec.scene && (
-              <svg viewBox="0 0 400 230" className="block w-full bg-surface" role="img" aria-label={spec.sceneAlt ?? spec.title} data-scene>
-                {spec.scene({ v, o })}
-              </svg>
+              // On a phone the 400-wide picture would shrink its labels below a readable size, so it keeps a minimum
+              // width and scrolls sideways inside its own card instead of squeezing the text.
+              <div className="@container">
+                <p className="hidden px-3 pt-2 text-[11px] text-ink-3 @max-[519px]:block">Swipe the picture sideways to see all of it.</p>
+                <div className="overflow-x-auto" data-scene-scroll>
+                <svg viewBox="0 0 400 230" className="block w-full min-w-[520px] bg-surface" role="img" aria-label={spec.sceneAlt ?? spec.title} data-scene>
+                  {spec.scene({ v: sv, o: so })}
+                </svg>
+                </div>
+              </div>
             )}
             <div className="grid gap-x-6 gap-y-3 border-t border-rule px-3 py-3 sm:grid-cols-2">
-              {spec.vars.map((d) => (
-                <Slider key={d.id} id={`spec-${d.id}`} label={d.label} unit={d.unit} value={toPos(d, v[d.id]!)} min={0} max={1000} step={1} shown={fmt(v[d.id]!, d.digits ?? 2)} onChange={(p) => set(d.id, fromPos(d, p))} />
-              ))}
+              {evars.map((d, i) => {
+                const design = spec.vars[i]!;
+                return (
+                  <RangeSlider
+                    key={d.id}
+                    id={`spec-${d.id}`}
+                    label={d.label}
+                    unit={d.unit}
+                    value={toPos(d, v[d.id]!)}
+                    min={0}
+                    max={1000}
+                    step={1}
+                    shown={fmt(v[d.id]!, d.digits ?? 2)}
+                    onChange={(p) => set(d.id, fromPos(d, p))}
+                    design={{ min: design.min, max: design.max }}
+                    range={{ min: d.min, max: d.max }}
+                    rules={{ log: design.log }}
+                    onRange={(r) => {
+                      setRanges((cur) => {
+                        const next = { ...cur };
+                        if (r.min === design.min && r.max === design.max) delete next[d.id];
+                        else next[d.id] = r;
+                        return next;
+                      });
+                      setV((cur) => ({ ...cur, [d.id]: clampTo(cur[d.id]!, r) }));
+                    }}
+                  />
+                );
+              })}
               <div className="sm:col-span-2">
-                <button type="button" className={btn} onClick={() => setV(startValues(spec.vars))}>
+                <button type="button" className={btn} onClick={() => {
+                    setV(startValues(spec.vars));
+                    setRanges({});
+                  }}>
                   <RotateCcw aria-hidden className="size-4" /> Reset
                 </button>
+                {sceneCapped && <p className="mt-2 text-xs text-ink-3">Your values are beyond the range the picture is drawn for, so the picture stops at its edge. All numbers and graphs are exact.</p>}
               </div>
             </div>
           </div>
@@ -143,6 +199,7 @@ function SpecLabBody({ spec }: { spec: Spec }) {
               onLock={(i) => {
                 const p = spec.preds[i] ?? spec.preds[0]!;
                 setV(withValues(spec.vars, p.base, p.test));
+                setRanges({});
                 setTested((x) => ({ ...x, [p.id]: true }));
               }}
               explain={(i) => {

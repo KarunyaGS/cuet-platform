@@ -57,14 +57,24 @@ export function LineGraph({ title, xs, ys, cx, cy, xLabel, yLabel, logX, logY }:
   y1 += pad;
   const X = (x: number) => L + ((tx(x) - x0) / (x1 - x0 || 1)) * (W - L - R);
   const Y = (y: number) => H - B - ((ty(y) - y0) / (y1 - y0)) * (H - T - B);
+  // Only points that can be drawn; a value that is infinite or undefined splits the curve instead of breaking it.
+  const runs: string[][] = [[]];
+  xs.forEach((x, i) => {
+    const px = X(x);
+    const py = Y(ys[i]!);
+    if (Number.isFinite(px) && Number.isFinite(py)) runs[runs.length - 1]!.push(`${px.toFixed(1)},${py.toFixed(1)}`);
+    else if (runs[runs.length - 1]!.length) runs.push([]);
+  });
   const rawY = (t: number) => (logY ? Math.exp(t) : t);
   const rawX = (t: number) => (logX ? Math.exp(t) : t);
   return (
     <figure className="m-0" data-graph>
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label={`${title}: ${yLabel} against ${xLabel}`}>
         <rect x={L} y={T} width={W - L - R} height={H - T - B} fill="#fff" stroke="#e5e5e5" />
-        <polyline points={xs.map((x, i) => `${X(x).toFixed(1)},${Y(ys[i]!).toFixed(1)}`).join(' ')} fill="none" stroke="#c45e42" strokeWidth={2} />
-        <circle cx={X(cx)} cy={Y(cy)} r={4.5} fill="#18443b" stroke="#fff" strokeWidth={1.5} />
+        {runs.map((run, k) => (
+          <polyline key={k} points={run.join(' ')} fill="none" stroke="#c45e42" strokeWidth={2} />
+        ))}
+        {Number.isFinite(X(cx)) && Number.isFinite(Y(cy)) && <circle cx={X(cx)} cy={Y(cy)} r={4.5} fill="#18443b" stroke="#fff" strokeWidth={1.5} />}
         <text x={L - 4} y={T + 8} fontSize={10} textAnchor="end" fill="#4d5768">{show(rawY(y1))}</text>
         <text x={L - 4} y={H - B} fontSize={10} textAnchor="end" fill="#4d5768">{show(rawY(y0))}</text>
         <text x={L} y={H - B + 12} fontSize={10} fill="#4d5768">{show(rawX(x0))}</text>

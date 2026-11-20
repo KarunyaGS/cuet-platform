@@ -1,8 +1,9 @@
 import { RotateCcw, X } from 'lucide-react';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps } from '../visual/labkit';
-import { APPLY, BENCH, benchGeometry, describe, LIMITS, PREDICTS, reading, signedF, solveLens, type LensKind, type LensState, type Reading } from '../visual/lens';
+import { ApplyCard, btn, btnMain, panel, PredictCard, RangeSlider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { APPLY, benchGeometry, describe, LIMITS, niceStep, PREDICTS, reading, signedF, solveLens, viewFor, type LensKind, type LensState, type Reading } from '../visual/lens';
+import { clampTo, digitsFor, stepFor, trim, type Range } from '../visual/ranges';
 
 const n1 = (x: number) => (Math.abs(x) < 0.05 ? '0.0' : x.toFixed(1));
 const n2 = (x: number) => x.toFixed(2);
@@ -29,12 +30,15 @@ function useWidth<T extends Element>() {
   return [ref, w] as const;
 }
 
+/** What the bench needs to know about the student's ranges. */
+interface Setup { xr: number; aperture: number; uMin: number; uMax: number; uStep: number }
+
 /**
- * The bench. Distances along the axis are drawn to scale (1 unit = 1 cm, 100 cm across). Heights are drawn with one
- * vertical stretch (shown on screen) so small objects stay visible; a stretch keeps every straight line straight,
- * so the rays, the image and the focal points stay exactly aligned. Text and strokes are sized in screen pixels.
+ * The bench. Distances along the axis share one scale (the bench is 2 × xr cm wide). Heights use one vertical stretch
+ * (shown on screen) so small objects stay visible; a stretch keeps every straight line straight, so the rays, the image
+ * and the focal points stay exactly aligned. Text and strokes are sized in screen pixels.
  */
-function Scene({ s, onU, onStretch }: { s: LensState; onU: (u: number) => void; onStretch: (k: number) => void }) {
+function Scene({ s, setup, onU, onStretch }: { s: LensState; setup: Setup; onU: (u: number) => void; onStretch: (k: number) => void }) {
   const [box, width] = useWidth<HTMLDivElement>();
   const svg = useRef<SVGSVGElement>(null);
   const dragging = useRef(false);
@@ -42,10 +46,12 @@ function Scene({ s, onU, onStretch }: { s: LensState; onU: (u: number) => void; 
   const clipId = useId();
 
   const compact = width > 0 && width < 520;
-  const KY = compact ? 3 : 2; // vertical stretch
   const H = compact ? 30 : 22; // half-height of the drawing area, in units
-  useEffect(() => onStretch(KY), [KY, onStretch]);
-  const XR = BENCH.x;
+  const XR = 50; // half-width of the drawing area, in units
+  const sx = XR / setup.xr; // units per cm along the axis
+  const ky = H / (setup.aperture * 1.15); // units per cm of height
+  const stretch = Number((ky / sx).toPrecision(2));
+  useEffect(() => onStretch(stretch), [stretch, onStretch]);
   const ppu = (width || 640) / (2 * XR); // pixels per unit
   const px = (p: number) => p / ppu; // pixels to units
   const fs = px(compact ? 12 : 12.5);
@@ -54,21 +60,21 @@ function Scene({ s, onU, onStretch }: { s: LensState; onU: (u: number) => void; 
   const vb = { x: -XR, y: -H - px(4), w: 2 * XR, h: vbH };
 
   const r = solveLens(s);
-  const f = signedF(s.kind, s.f);
-  const g = useMemo(() => benchGeometry(s), [s]);
+  const g = useMemo(() => benchGeometry(s, setup.aperture), [s, setup.aperture]);
   const virtual = r.real === false;
-  const Y = (y: number) => -y * KY;
-  const xr = (x: number) => x;
-  const imgInView = g.image !== null && Math.abs(g.image.x) <= XR - 2 && Math.abs(Y(g.image.y)) <= H - 1;
-  const A = Y(BENCH.aperture); // negative: top of the lens
+  const X = (x: number) => x * sx;
+  const Y = (y: number) => -y * ky;
+  const imgInView = g.image !== null && Math.abs(X(g.image.x)) <= XR - 2 && Math.abs(Y(g.image.y)) <= H - 1;
+  const A = Y(setup.aperture); // negative: top of the lens
   const lensW = px(7);
 
   const drag = (clientX: number) => {
     const el = svg.current;
     if (!el) return;
     const b = el.getBoundingClientRect();
-    const x = ((clientX - b.left) / b.width) * vb.w + vb.x;
-    onU(Math.min(LIMITS.u.max, Math.max(LIMITS.u.min, Math.round(-x * 2) / 2)));
+    const x = (((clientX - b.left) / b.width) * vb.w + vb.x) / sx; // cm
+    const snapped = Math.round(-x / setup.uStep) * setup.uStep;
+    onU(Number(Math.min(setup.uMax, Math.max(setup.uMin, snapped)).toPrecision(10)));
   };
 
   const arrow = (x: number, tipY: number, colour: string, dashed: boolean) => {
@@ -85,14 +91,37 @@ function Scene({ s, onU, onStretch }: { s: LensState; onU: (u: number) => void; 
   };
 
   // The marked points, symmetric about the lens, named by side so they read the same for both lens types.
-  const marks = [
+  const allMarks = [
     { x: -2 * s.f, label: '2F₁' },
     { x: -s.f, label: 'F₁' },
     { x: s.f, label: 'F₂' },
     { x: 2 * s.f, label: '2F₂' },
-  ];
-  const ticks = [-40, -30, -20, -10, 0, 10, 20, 30, 40];
+  ].filter((m) => Math.abs(X(m.x)) <= XR);
+  // Names are dropped when two sit too close to read; the dots stay, and the Results panel gives f.
+  const named = new Set<string>();
+  let lastX = -Infinity;
+  for (const m of allMarks) {
+    if (X(m.x) - lastX >= px(30)) {
+      named.add(m.label);
+      lastX = X(m.x);
+    }
+  }
+  let step = niceStep(2 * setup.xr);
+  // Widen the ruler step (1, 2, 5, 10 ...) until the longest number fits between ticks.
+  for (let guard = 0; guard < 6; guard++) {
+    const longest = Math.max(...[step, Math.floor(setup.xr / step) * step].map((t) => trim(t).length));
+    if (step * sx >= px(longest * 7.5 + 14)) break;
+    const m = step / 10 ** Math.floor(Math.log10(step));
+    step *= m < 1.5 ? 2 : m < 3.5 ? 2.5 : 2;
+  }
+  const top = Math.floor(setup.xr / step);
+  // Labels stop short of the two edges so none is cut off.
+  const ticks = Array.from({ length: 2 * top + 1 }, (_, i) => (i - top) * step).filter((t) => Math.abs(t) < setup.xr - step * 0.3);
 
+  // Names stay fully inside the picture, and the image name moves below the axis when it would sit on the object name.
+  const keepIn = (x: number) => Math.min(XR - px(26), Math.max(-XR + px(26), x));
+  const sameSpot = g.image !== null && Math.abs(keepIn(X(g.object.x)) - keepIn(X(g.image.x))) < px(56);
+  const imageLabelY = g.image === null ? 0 : g.image.y < 0 ? Y(g.image.y) + px(15) : sameSpot ? px(16) : Y(g.image.y) - px(7);
   const status = g.image === null ? 'No image: rays leave parallel' : `${r.real ? 'Real' : 'Virtual'} image`;
   const off = g.image !== null && !imgInView;
 
@@ -120,8 +149,8 @@ function Scene({ s, onU, onStretch }: { s: LensState; onU: (u: number) => void; 
           {/* principal axis */}
           <line x1={-XR} y1={0} x2={XR} y2={0} stroke="#7c8595" strokeWidth={1.2} vectorEffect="non-scaling-stroke" />
           {/* faint guides from each marked point down to its label */}
-          {marks.map((m) => (
-            <line key={m.label} x1={m.x} y1={0} x2={m.x} y2={H} stroke="#e8d3b0" strokeWidth={1} strokeDasharray="2 3" vectorEffect="non-scaling-stroke" />
+          {allMarks.map((m) => (
+            <line key={m.label} x1={X(m.x)} y1={0} x2={X(m.x)} y2={H} stroke="#e8d3b0" strokeWidth={1} strokeDasharray="2 3" vectorEffect="non-scaling-stroke" />
           ))}
 
           {/* lens */}
@@ -130,27 +159,27 @@ function Scene({ s, onU, onStretch }: { s: LensState; onU: (u: number) => void; 
           ) : (
             <path d={`M ${-lensW} ${-A} Q ${lensW * 0.1} 0 ${-lensW} ${A} L ${lensW} ${A} Q ${-lensW * 0.1} 0 ${lensW} ${-A} Z`} fill="#e6edfb" stroke="#2347a8" strokeWidth={1.6} vectorEffect="non-scaling-stroke" />
           )}
-          {/* arrowheads on the lens tips mark the kind at a glance */}
 
           {/* rays before the lens */}
           {g.rays.map((ray) => (
-            <line key={`a${ray.id}`} x1={xr(g.object.x)} y1={Y(g.object.y)} x2={0} y2={Y(ray.y0)} stroke={RAY_COLOUR[ray.id]} strokeWidth={1.6} vectorEffect="non-scaling-stroke" />
+            <line key={`a${ray.id}`} x1={X(g.object.x)} y1={Y(g.object.y)} x2={0} y2={Y(ray.y0)} stroke={RAY_COLOUR[ray.id]} strokeWidth={1.6} vectorEffect="non-scaling-stroke" />
           ))}
           {/* rays after the lens, drawn to the edge of the bench */}
           {g.rays.map((ray) => (
-            <line key={`b${ray.id}`} x1={0} y1={Y(ray.y0)} x2={XR} y2={Y(ray.y0 + ray.slope * XR)} stroke={RAY_COLOUR[ray.id]} strokeWidth={1.6} vectorEffect="non-scaling-stroke" />
+            <line key={`b${ray.id}`} x1={0} y1={Y(ray.y0)} x2={XR} y2={Y(ray.y0 + ray.slope * setup.xr)} stroke={RAY_COLOUR[ray.id]} strokeWidth={1.6} vectorEffect="non-scaling-stroke" />
           ))}
           {/* a virtual image: dashed backward extensions to where the rays seem to come from */}
           {virtual &&
             g.image &&
-            g.rays.map((ray) => <line key={`c${ray.id}`} x1={0} y1={Y(ray.y0)} x2={g.image!.x} y2={Y(g.image!.y)} stroke={RAY_COLOUR[ray.id]} strokeWidth={1.3} strokeDasharray="5 4" vectorEffect="non-scaling-stroke" />)}
+            Math.abs(X(g.image.x)) < 4 * XR &&
+            g.rays.map((ray) => <line key={`c${ray.id}`} x1={0} y1={Y(ray.y0)} x2={X(g.image!.x)} y2={Y(g.image!.y)} stroke={RAY_COLOUR[ray.id]} strokeWidth={1.3} strokeDasharray="5 4" vectorEffect="non-scaling-stroke" />)}
 
           {/* image */}
-          {g.image && imgInView && arrow(g.image.x, Y(g.image.y), '#b42318', virtual)}
+          {g.image && imgInView && arrow(X(g.image.x), Y(g.image.y), '#b42318', virtual)}
 
           {/* focal points on the axis */}
-          {marks.map((m) => (
-            <circle key={m.label} cx={m.x} cy={0} r={px(3.2)} fill="#a86100" />
+          {allMarks.map((m) => (
+            <circle key={m.label} cx={X(m.x)} cy={0} r={px(3.2)} fill="#a86100" />
           ))}
 
           {/* object: draggable */}
@@ -160,19 +189,19 @@ function Scene({ s, onU, onStretch }: { s: LensState; onU: (u: number) => void; 
             role="slider"
             aria-label="Object distance from the lens. Left and right arrow keys move it; hold Shift for bigger steps."
             aria-orientation="horizontal"
-            aria-valuemin={LIMITS.u.min}
-            aria-valuemax={LIMITS.u.max}
+            aria-valuemin={setup.uMin}
+            aria-valuemax={setup.uMax}
             aria-valuenow={s.u}
             aria-valuetext={`${s.u} centimetres from the lens. ${describe(r)}`}
             data-object-handle
             onFocus={() => setFocus(true)}
             onBlur={() => setFocus(false)}
             onKeyDown={(e) => {
-              const step = e.shiftKey ? 5 : LIMITS.u.step;
-              const next = e.key === 'ArrowLeft' || e.key === 'ArrowDown' ? s.u + step : e.key === 'ArrowRight' || e.key === 'ArrowUp' ? s.u - step : e.key === 'Home' ? LIMITS.u.min : e.key === 'End' ? LIMITS.u.max : null;
+              const st = e.shiftKey ? setup.uStep * 10 : setup.uStep;
+              const next = e.key === 'ArrowLeft' || e.key === 'ArrowDown' ? s.u + st : e.key === 'ArrowRight' || e.key === 'ArrowUp' ? s.u - st : e.key === 'Home' ? setup.uMin : e.key === 'End' ? setup.uMax : null;
               if (next === null) return;
               e.preventDefault();
-              onU(Math.min(LIMITS.u.max, Math.max(LIMITS.u.min, next)));
+              onU(Number(Math.min(setup.uMax, Math.max(setup.uMin, next)).toPrecision(10)));
             }}
             onPointerDown={(e) => {
               dragging.current = true;
@@ -180,35 +209,37 @@ function Scene({ s, onU, onStretch }: { s: LensState; onU: (u: number) => void; 
               drag(e.clientX);
             }}
           >
-            <rect x={g.object.x - px(14)} y={-H} width={px(28)} height={2 * H} fill="transparent" stroke={focus ? '#2347a8' : 'none'} strokeWidth={1.5} strokeDasharray="5 3" vectorEffect="non-scaling-stroke" />
-            {arrow(g.object.x, Y(g.object.y), ink, false)}
+            <rect x={X(g.object.x) - px(14)} y={-H} width={px(28)} height={2 * H} fill="transparent" stroke={focus ? '#2347a8' : 'none'} strokeWidth={1.5} strokeDasharray="5 3" vectorEffect="non-scaling-stroke" />
+            {arrow(X(g.object.x), Y(g.object.y), ink, false)}
           </g>
         </g>
 
         {/* labels: outside the clip so they are never cut */}
-        <text x={xr(g.object.x)} y={Y(g.object.y) - px(7)} fontSize={fs} textAnchor="middle" fill={ink} {...halo} strokeWidth={px(3)}>
+        <text x={keepIn(X(g.object.x))} y={Y(g.object.y) - px(7)} fontSize={fs} textAnchor="middle" fill={ink} {...halo} strokeWidth={px(3)}>
           Object
         </text>
         {g.image && imgInView && (
-          <text x={g.image.x} y={Y(g.image.y) + (g.image.y >= 0 ? -px(7) : px(15))} fontSize={fs} textAnchor="middle" fill="#b42318" {...halo} strokeWidth={px(3)}>
+          <text x={keepIn(X(g.image.x))} y={imageLabelY} fontSize={fs} textAnchor="middle" fill="#b42318" {...halo} strokeWidth={px(3)}>
             Image
           </text>
         )}
         <text x={-XR + px(8)} y={-H + px(17)} fontSize={fs} fill={off ? '#b42318' : '#4d5768'} fontWeight={600} {...halo} strokeWidth={px(3)}>
-          {off ? `${status} is outside the view (v = ${n1(g.image!.x)} cm)` : status}
+          {off ? `${status} is outside the view (v = ${trim(g.image!.x)} cm)` : status}
         </text>
 
         {/* label strip under the plot: marked points, then the ruler in cm */}
-        {marks.map((m) => (
-          <text key={m.label} x={m.x} y={stripY} fontSize={fs} textAnchor="middle" fill="#a86100" fontWeight={600}>
-            {m.label}
-          </text>
-        ))}
+        {allMarks
+          .filter((m) => named.has(m.label))
+          .map((m) => (
+            <text key={m.label} x={X(m.x)} y={stripY} fontSize={fs} textAnchor="middle" fill="#a86100" fontWeight={600}>
+              {m.label}
+            </text>
+          ))}
         {ticks.map((t) => (
           <g key={t}>
-            <line x1={t} y1={H} x2={t} y2={H + px(4)} stroke="#9aa3b2" strokeWidth={1} vectorEffect="non-scaling-stroke" />
-            <text x={t} y={H + px(34)} fontSize={fs * 0.9} textAnchor="middle" fill="#7c8595">
-              {t === 0 ? '0 cm' : t}
+            <line x1={X(t)} y1={H} x2={X(t)} y2={H + px(4)} stroke="#9aa3b2" strokeWidth={1} vectorEffect="non-scaling-stroke" />
+            <text x={X(t)} y={H + px(34)} fontSize={fs * 0.9} textAnchor="middle" fill="#7c8595">
+              {t === 0 ? '0 cm' : trim(t)}
             </text>
           </g>
         ))}
@@ -283,7 +314,8 @@ function Results({ s }: { s: LensState }) {
 
 function Graph({ rows, f }: { rows: Reading[]; f: number }) {
   // 1/v against 1/u: the lens formula says all points lie on a straight line of slope 1 and intercept 1/f.
-  const lim = 0.5;
+  // The axes grow with the readings so a wide custom range still plots every dot in the right place.
+  const lim = Math.max(0.5, ...rows.flatMap((r) => [Math.abs(r.invU), Math.abs(r.invV)]), Math.abs(1 / f)) * 1.1;
   const X = (x: number) => 20 + ((x + lim) / (2 * lim)) * 160;
   const Y = (y: number) => 110 - ((y + lim) / (2 * lim)) * 100;
   const c = 1 / f;
@@ -325,6 +357,30 @@ export function LensLabPage() {
   useScrollTopOnOpen();
   const [s, setS] = useState<LensState>(START);
   const [stretch, setStretch] = useState(2);
+  // The student's own range for any control; a control not listed here uses the lab's range.
+  const [ranges, setRanges] = useState<Partial<Record<'u' | 'f' | 'h', Range>>>({});
+  const eff = (k: 'u' | 'f' | 'h') => {
+    const d = LIMITS[k];
+    const r = ranges[k];
+    if (!r) return { ...d, digits: undefined as number | undefined };
+    const step = stepFor(d.step, r);
+    return { min: r.min, max: r.max, step, digits: digitsFor(step, 0) };
+  };
+  const eu = eff('u');
+  const ef = eff('f');
+  const eh = eff('h');
+  const view = viewFor(eu.max, eh.max);
+  const setup = { xr: view.xr, aperture: view.aperture, uMin: eu.min, uMax: eu.max, uStep: eu.step };
+  const setRange = (k: 'u' | 'f' | 'h', r: Range) => {
+    const d = LIMITS[k];
+    setRanges((cur) => {
+      const next = { ...cur };
+      if (r.min === d.min && r.max === d.max) delete next[k];
+      else next[k] = r;
+      return next;
+    });
+    setS((x) => ({ ...x, [k]: clampTo(x[k], r) }));
+  };
   const { step, seen, go } = useSteps();
   const [pi, setPi] = useState(0);
   const [picked, setPicked] = useState<Record<string, number>>({});
@@ -334,7 +390,7 @@ export function LensLabPage() {
   const [ans, setAns] = useState<Record<string, number>>({});
   const set = (p: Partial<LensState>) => setS((x) => ({ ...x, ...p }));
   const r = solveLens(s);
-  const geo = useMemo(() => benchGeometry(s), [s]);
+  const geo = useMemo(() => benchGeometry(s, view.aperture), [s, view.aperture]);
   const meanF = useMemo(() => (rows.length ? rows.reduce((a, x) => a + x.f, 0) / rows.length : null), [rows]);
   const finished = Object.keys(ans).length === APPLY.length;
   // The lab counts as completed only when the whole practical has been done, not just the questions.
@@ -352,6 +408,7 @@ export function LensLabPage() {
 
   const choosePredict = (i: number) => {
     setPi(i);
+    setRanges({});
     setS((PREDICTS[i] ?? PREDICTS[0]!).setup);
   };
   const guessNum = guess.trim() === '' ? null : Number(guess);
@@ -380,7 +437,7 @@ export function LensLabPage() {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.75fr)_minmax(0,1fr)]">
         <div className="min-w-0 space-y-3">
           <section className={`${panel} overflow-hidden`} aria-label="Simulation">
-            <Scene s={s} onU={(u) => set({ u })} onStretch={setStretch} />
+            <Scene s={s} setup={setup} onU={(u) => set({ u })} onStretch={setStretch} />
             <Legend hidden={geo.hidden} stretch={stretch} />
           </section>
 
@@ -396,14 +453,21 @@ export function LensLabPage() {
                   ))}
                 </div>
               </div>
-              <button type="button" className={btn} onClick={() => setS(START)}>
+              <button
+                type="button"
+                className={btn}
+                onClick={() => {
+                  setS(START);
+                  setRanges({});
+                }}
+              >
                 <RotateCcw aria-hidden className="size-4" /> Reset
               </button>
             </div>
             <div className="mt-3 grid gap-x-5 gap-y-2 sm:grid-cols-3">
-              <Slider id="lens-u" label="Object distance |u|" unit="cm" value={s.u} {...LIMITS.u} onChange={(v) => set({ u: v })} />
-              <Slider id="lens-f" label="Focal length |f|" unit="cm" value={s.f} {...LIMITS.f} onChange={(v) => set({ f: v })} />
-              <Slider id="lens-h" label="Object height h" unit="cm" value={s.h} {...LIMITS.h} onChange={(v) => set({ h: v })} />
+              <RangeSlider id="lens-u" label="Object distance |u|" unit="cm" value={s.u} min={eu.min} max={eu.max} step={eu.step} shown={trim(s.u)} onChange={(v) => set({ u: v })} design={LIMITS.u} range={{ min: eu.min, max: eu.max }} onRange={(r) => setRange('u', r)} />
+              <RangeSlider id="lens-f" label="Focal length |f|" unit="cm" value={s.f} min={ef.min} max={ef.max} step={ef.step} shown={trim(s.f)} onChange={(v) => set({ f: v })} design={LIMITS.f} range={{ min: ef.min, max: ef.max }} onRange={(r) => setRange('f', r)} />
+              <RangeSlider id="lens-h" label="Object height h" unit="cm" value={s.h} min={eh.min} max={eh.max} step={eh.step} shown={trim(s.h)} onChange={(v) => set({ h: v })} design={LIMITS.h} range={{ min: eh.min, max: eh.max }} onRange={(r) => setRange('h', r)} />
             </div>
           </section>
         </div>
@@ -435,6 +499,7 @@ export function LensLabPage() {
               onSelect={choosePredict}
               onPick={(id, o) => setPicked((x) => ({ ...x, [id]: o }))}
               onLock={(i) => {
+                setRanges({});
                 setS((PREDICTS[i] ?? PREDICTS[0]!).setup);
                 setTested((x) => ({ ...x, [(PREDICTS[i] ?? PREDICTS[0]!).id]: true }));
               }}

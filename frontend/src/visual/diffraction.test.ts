@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { angularWidth, APPLY, curve, farField, fresnelCS, fresnelDistance, fresnelField, fresnelNumber, intensityAt, maxOrder, minimumPosition, posFromSlit, PREDICTS, regime, sig2, slitFromPos, START, widthFormula, widthMeasured, type DiffState } from './diffraction';
+import { isVisibleLight, posFromSlitIn, slitFromPosIn, wavelengthRgb, angularWidth, APPLY, curve, farField, fresnelCS, fresnelDistance, fresnelField, fresnelNumber, intensityAt, maxOrder, minimumPosition, posFromSlit, PREDICTS, regime, sig2, slitFromPos, START, widthFormula, widthMeasured, type DiffState } from './diffraction';
 
 const S = (o: Partial<DiffState> = {}): DiffState => ({ ...START, ...o });
 
@@ -135,5 +135,46 @@ describe('slider mapping and teaching data', () => {
     expect(a5.options[a5.answer]).toBe('8 m');
     for (const q of APPLY) expect(new Set(q.options).size).toBe(4);
     expect(APPLY.map((q) => q.answer)).toEqual([1, 3, 0, 2, 1]);
+  });
+});
+
+describe('custom slit-width and wavelength ranges', () => {
+  const def = { min: 5, max: 2000 };
+  it('the default range keeps the original slider mapping exactly', () => {
+    for (let pos = 0; pos <= 100; pos += 5) {
+      expect(slitFromPosIn(def, pos)).toBe(slitFromPos(pos));
+      expect(posFromSlitIn(def, slitFromPos(pos))).toBe(posFromSlit(slitFromPos(pos)));
+    }
+  });
+  it('a custom range reaches both of its ends', () => {
+    for (const r of [{ min: 1, max: 50 }, { min: 90, max: 110 }, { min: 0.5, max: 20000 }]) {
+      expect(slitFromPosIn(r, 0)).toBeCloseTo(r.min, 1);
+      expect(slitFromPosIn(r, 100) / r.max).toBeGreaterThan(0.98);
+      expect(slitFromPosIn(r, 100) / r.max).toBeLessThan(1.02);
+    }
+  });
+  it('a narrow custom range keeps neighbouring slider positions distinct', () => {
+    const r = { min: 90, max: 110 };
+    const values = new Set(Array.from({ length: 101 }, (_, p) => slitFromPosIn(r, p)));
+    expect(values.size).toBeGreaterThan(20);
+  });
+  it('the pattern is finite at extreme custom values', () => {
+    for (const s of [
+      { a: 0.5, lambda: 5000, D: 3000, lens: false, f: 0.5 },
+      { a: 20000, lambda: 1, D: 0.0003, lens: false, f: 0.5 },
+      { a: 100, lambda: 550, D: 2, lens: true, f: 0.0002 },
+      { a: 100, lambda: 550, D: 2, lens: true, f: 1000 },
+    ] as DiffState[]) {
+      const c = curve(s);
+      expect(c.i.every(Number.isFinite)).toBe(true);
+      expect(Number.isFinite(c.half) && c.half > 0).toBe(true);
+    }
+  });
+  it('light outside the visible spectrum is drawn grey, visible light is coloured', () => {
+    expect(isVisibleLight(550)).toBe(true);
+    expect(isVisibleLight(200)).toBe(false);
+    expect(isVisibleLight(1500)).toBe(false);
+    expect(wavelengthRgb(1500)).toEqual([150, 150, 150]);
+    expect(wavelengthRgb(550)).not.toEqual([150, 150, 150]);
   });
 });

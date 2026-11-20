@@ -65,7 +65,7 @@ export const spec: Spec = {
         {Array.from({ length: tp }, (_, i) => <line key={i} x1={228} y1={52 + (i * 112) / Math.max(tp, 1)} x2={244} y2={58 + (i * 112) / Math.max(tp, 1)} stroke="#2563a8" strokeWidth={2.2} />)}
         {Array.from({ length: ts }, (_, i) => <line key={i} x1={356} y1={52 + (i * 112) / Math.max(ts, 1)} x2={372} y2={58 + (i * 112) / Math.max(ts, 1)} stroke="#c45e42" strokeWidth={2.2} />)}
         <text x={235} y={198} fontSize={11} textAnchor="middle" fill="#2563a8">Np = {v.Np} · {fmt(o.Vp!, 0)} V</text>
-        <text x={372} y={198} fontSize={11} textAnchor="middle" fill="#c45e42">Ns = {v.Ns} · {fmt(o.Vs!, 0)} V</text>
+        <text x={398} y={198} fontSize={11} textAnchor="end" fill="#c45e42">Ns = {v.Ns} · {fmt(o.Vs!, 0)} V</text>
         <text x={300} y={220} fontSize={11} textAnchor="middle" fill="#4d5768">{v.Ns! > v.Np! ? 'step-up' : v.Ns! < v.Np! ? 'step-down' : 'one to one'}: Ip = {fmt(o.Ip!, 2)} A, Is = {fmt(o.Is!, 2)} A</text>
       </g>
     );

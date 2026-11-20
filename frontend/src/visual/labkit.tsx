@@ -5,10 +5,11 @@
  * and the "back to lesson" and "save completion" logic. What stays in each lab: its physics, its picture and its measurements.
  * Status of all lab content: Draft - unverified.
  */
-import { Check, Circle, X } from 'lucide-react';
+import { Check, Circle, SlidersHorizontal, X } from 'lucide-react';
 import { useEffect, useLayoutEffect, useState, type ReactNode } from 'react';
 import { Link, useNavigationType, useSearchParams } from 'react-router';
 import { api } from '../api';
+import { rangeLimits, trim, validateRange, type Range, type RangeRules } from './ranges';
 
 export const panel = 'rounded-lg border border-rule bg-surface';
 export const btn = 'inline-flex h-9 items-center gap-1.5 rounded-md bg-surface px-3 text-sm font-medium text-ink ring-1 ring-inset ring-rule-strong hover:bg-paper disabled:opacity-40';
@@ -25,6 +26,92 @@ export function useNarrow() {
     return () => mq.removeEventListener('change', on);
   }, []);
   return n;
+}
+
+export interface SliderProps { label: string; unit: string; value: number; min: number; max: number; step: number; onChange: (v: number) => void; id: string; shown?: string }
+
+/** The "Range a–b" line and its two number boxes. Used by RangeSlider, and by labs whose control has its own look. */
+export function RangeEditor({ id, unit, design, range, onRange, rules }: { id: string; unit: string; design: Range; range: Range; onRange: (r: Range) => void; rules?: RangeRules }) {
+  const [open, setOpen] = useState(false);
+  const [lo, setLo] = useState(String(range.min));
+  const [hi, setHi] = useState(String(range.max));
+  const custom = range.min !== design.min || range.max !== design.max;
+  // Follow outside changes (Reset, a prediction setup) without fighting what the student is typing.
+  useEffect(() => {
+    if (Number(lo) !== range.min) setLo(String(range.min));
+    if (Number(hi) !== range.max) setHi(String(range.max));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [range.min, range.max]);
+  const num = (t: string) => (t.trim() === '' ? NaN : Number(t));
+  const error = validateRange({ min: num(lo), max: num(hi) }, design, rules);
+  const lim = rangeLimits(design, rules);
+  const edit = (which: 'min' | 'max', text: string) => {
+    if (which === 'min') setLo(text);
+    else setHi(text);
+    const next = { min: which === 'min' ? num(text) : num(lo), max: which === 'max' ? num(text) : num(hi) };
+    if (validateRange(next, design, rules) === null) onRange(next);
+  };
+  const box = 'mt-0.5 h-8 w-full rounded-md bg-surface px-2 text-sm num ring-1 ring-inset ring-rule-strong';
+  return (
+    <div>
+      <button type="button" aria-expanded={open} aria-controls={`${id}-range`} onClick={() => setOpen((o) => !o)} className="inline-flex items-center gap-1 rounded text-xs text-ink-2 hover:text-ink">
+        <SlidersHorizontal aria-hidden className="size-3" />
+        Range {trim(range.min)}–{trim(range.max)} {unit}
+        {custom && <span className="rounded bg-accent-soft px-1 text-[10px] font-medium text-ink">yours</span>}
+      </button>
+      {open && (
+        <div id={`${id}-range`} className="mt-1 rounded-md bg-paper p-2">
+          <div className="grid grid-cols-2 gap-2">
+            <label className="text-xs text-ink-2">
+              Smallest ({unit || 'value'})
+              <input type="number" inputMode="decimal" step="any" value={lo} onChange={(e) => edit('min', e.target.value)} className={box} aria-invalid={!!error} />
+            </label>
+            <label className="text-xs text-ink-2">
+              Largest ({unit || 'value'})
+              <input type="number" inputMode="decimal" step="any" value={hi} onChange={(e) => edit('max', e.target.value)} className={box} aria-invalid={!!error} />
+            </label>
+          </div>
+          {error ? (
+            <p role="alert" className="mt-1 text-xs text-wrong">
+              {error}
+            </p>
+          ) : (
+            <p className="mt-1 text-xs text-ink-3">
+              Allowed: {trim(lim.min)} to {trim(lim.max)}.
+            </p>
+          )}
+          {custom && (
+            <button
+              type="button"
+              className="mt-1 text-xs font-medium text-accent underline"
+              onClick={() => {
+                setLo(String(design.min));
+                setHi(String(design.max));
+                onRange(design);
+              }}
+            >
+              Back to the lab’s range
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * A slider the student can re-range. `design` is the lab's own range, `range` the one in use now. The slider props
+ * (min, max, step, value) are in the slider's own coordinates, so a lab with a position slider can still use it.
+ */
+export function RangeSlider({ design, range, onRange, rules, ...slider }: SliderProps & { design: Range; range: Range; onRange: (r: Range) => void; rules?: RangeRules }) {
+  return (
+    <div>
+      <Slider {...slider} />
+      <div className="-mt-0.5">
+        <RangeEditor id={slider.id} unit={slider.unit} design={design} range={range} onRange={onRange} rules={rules} />
+      </div>
+    </div>
+  );
 }
 
 export function Slider({ label, unit, value, min, max, step, onChange, id, shown }: { label: string; unit: string; value: number; min: number; max: number; step: number; onChange: (v: number) => void; id: string; shown?: string }) {

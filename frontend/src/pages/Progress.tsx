@@ -76,12 +76,12 @@ export function ProgressPage() {
           </div>
           <div className="progress-actions-widget flex w-full flex-col gap-2 rounded-[16px] border border-[#e4c8b2] bg-white/75 p-3 sm:w-auto sm:min-w-[14rem]">
             <div className="progress-score-widget flex items-center gap-3 px-1 py-1">
-              <div className="relative grid size-12 shrink-0 place-items-center">
+              <div className="relative grid size-14 shrink-0 place-items-center">
                 <svg aria-hidden viewBox="0 0 64 64" className="progress-score-ring size-full -rotate-90">
                   <circle cx="32" cy="32" r="25" fill="none" stroke="rgb(24 68 59 / 0.12)" strokeWidth="5" />
                   <circle cx="32" cy="32" r="25" fill="none" stroke="#c45e42" strokeLinecap="round" strokeWidth="5" pathLength="100" strokeDasharray="100" strokeDashoffset={100 - accuracy} />
                 </svg>
-                <span className="num absolute text-[13px] font-bold text-forest">{accuracy}%</span>
+                <span className="num absolute text-[12px] leading-none font-bold tracking-[-0.03em] text-forest">{Math.round(accuracy)}%</span>
               </div>
               <div className="min-w-0">
                 <span className="label block text-[9px] tracking-[0.14em] text-forest">OVERALL ACCURACY</span>

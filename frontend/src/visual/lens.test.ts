@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { APPLY, BENCH, benchGeometry, focalFromUV, LIMITS, PREDICTS, reading, solveLens, type LensKind } from './lens';
+import { APPLY, BENCH, benchGeometry, niceStep, viewFor, focalFromUV, LIMITS, PREDICTS, reading, solveLens, type LensKind } from './lens';
 
 const near = (a: number | null, b: number) => {
   expect(a).not.toBeNull();
@@ -115,5 +115,35 @@ describe('bench geometry', () => {
   it('every control limit keeps the object on the bench', () => {
     expect(LIMITS.u.max).toBeLessThan(BENCH.x);
     expect(LIMITS.h.max).toBeLessThanOrEqual(BENCH.aperture);
+  });
+});
+
+describe('bench view for custom ranges', () => {
+  it('the default ranges give the original 50 cm bench', () => {
+    expect(viewFor(LIMITS.u.max, LIMITS.h.max)).toEqual({ xr: 50, aperture: BENCH.aperture });
+  });
+  it('a longer object range widens the bench; a taller one raises the lens', () => {
+    expect(viewFor(200, 4).xr).toBeGreaterThanOrEqual(200 * 1.1);
+    expect(viewFor(44, 30).aperture).toBeGreaterThanOrEqual(30);
+  });
+  it('the farthest and tallest object always fit', () => {
+    for (const [u, h] of [[44, 4], [1, 1], [500, 20], [44000, 3]] as const) {
+      const v = viewFor(u, h);
+      expect(v.xr).toBeGreaterThan(u);
+      expect(v.aperture).toBeGreaterThanOrEqual(h);
+    }
+  });
+  it('ruler steps are 1-2-5 and give a sensible tick count', () => {
+    for (const span of [100, 220, 400, 1000, 88000]) {
+      const st = niceStep(span);
+      expect(/^[125]0*$/.test(String(st).replace('.', '').replace(/^0+/, '')) || [1, 2, 5].includes(Number(String(st).replace(/0+$/, '')))).toBe(true);
+      expect(span / st).toBeGreaterThanOrEqual(5);
+      expect(span / st).toBeLessThanOrEqual(20);
+    }
+  });
+  it('a wide aperture keeps rays that a narrow lens would hide', () => {
+    const s = { kind: 'convex' as LensKind, f: 5, u: 5.5, h: 2 };
+    expect(benchGeometry(s).hidden).toContain('focal');
+    expect(benchGeometry(s, 40).hidden).toEqual([]);
   });
 });

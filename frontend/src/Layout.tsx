@@ -220,10 +220,6 @@ function UserMenu() {
               <Landmark aria-hidden />
               Official Government Updates
             </Link>
-            <Link role="menuitem" to="/admissions" className={item}>
-              <Landmark aria-hidden />
-              University Admissions
-            </Link>
             {user.roles.some((r) => r === 'SUPER_ADMIN' || r === 'CONTENT_ADMIN') && (
               <Link role="menuitem" to="/admin" className={item}>
                 <ShieldCheck aria-hidden />

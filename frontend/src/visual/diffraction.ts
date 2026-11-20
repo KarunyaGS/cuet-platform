@@ -34,6 +34,17 @@ export const sig2 = (x: number) => Number(x.toPrecision(2));
 export const slitFromPos = (pos: number) => sig2(5 * Math.pow(400, pos / 100));
 export const posFromSlit = (a: number) => Math.round((100 * Math.log(a / 5)) / Math.log(400));
 
+/**
+ * The same log slider for any slit-width range [min, max] in µm. The default range (5 to 2000) gives exactly the
+ * original mapping; a narrow custom range keeps three significant figures so neighbouring positions stay distinct.
+ */
+const sigFor = (r: { min: number; max: number }) => (r.max / r.min >= 10 ? 2 : 3);
+export const slitFromPosIn = (r: { min: number; max: number }, pos: number) => Number((r.min * Math.pow(r.max / r.min, pos / 100)).toPrecision(sigFor(r)));
+export const posFromSlitIn = (r: { min: number; max: number }, a: number) => Math.round((100 * Math.log(a / r.min)) / Math.log(r.max / r.min));
+
+/** True for wavelengths the eye can see; outside this the pattern is drawn in grey. */
+export const isVisibleLight = (l: number) => l >= 395 && l <= 760;
+
 // ---------------------------------------------------------------- Fresnel integrals
 // C(x) = ∫0^x cos(πt²/2) dt, S(x) = ∫0^x sin(πt²/2) dt. Tabulated once, interpolated, and asymptotic beyond the table.
 const H = 0.005;
@@ -192,6 +203,7 @@ export function pathOrder(s: DiffState, y: number): number {
 
 /** Approximate sRGB colour of light of the given wavelength (nm). */
 export function wavelengthRgb(l: number): [number, number, number] {
+  if (!isVisibleLight(l)) return [150, 150, 150]; // ultraviolet or infrared: not a colour, so shown neutral
   let r = 0, g = 0, b = 0;
   if (l < 440) { r = (440 - l) / 60; b = 1; }
   else if (l < 490) { g = (l - 440) / 50; b = 1; }
