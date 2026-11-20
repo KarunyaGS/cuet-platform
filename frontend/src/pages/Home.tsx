@@ -1,7 +1,7 @@
-import { Atom, BookOpen, Calculator, FlaskConical, Globe, Landmark, Languages, Leaf, Sigma, ArrowUpRight, type LucideIcon } from 'lucide-react';
+import { Atom, BookOpen, Calculator, FlaskConical, Globe, Landmark, Languages, Leaf, Sigma, ArrowUpRight, Sparkles, type LucideIcon } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { api, localDay, type Dashboard, type Preferences, type Subject } from '../api';
+import { api, localDay, type CurrentPlan, type Dashboard, type Preferences, type Subject } from '../api';
 import { computeStreak } from '../streak';
 import { subjectTone } from '../subjectColors';
 import { Empty, ErrorBox, useAuth, useLoad } from '../ui';
@@ -171,6 +171,82 @@ function MapNodes({ subjects, pts, tall, pick, left }: { subjects: MapSubject[];
   );
 }
 
+type MilestonePeriod = 'day' | 'week' | 'month';
+function dateShift(day: string, n: number) {
+  const [y, m, d] = day.split('-').map(Number);
+  const date = new Date(y!, m! - 1, d! + n, 12);
+  return localDay(date);
+}
+function milestoneRange(period: MilestonePeriod, today: string) {
+  if (period === 'day') return { from: today, to: today, label: 'Today' };
+  const [year, month, date] = today.split('-').map(Number);
+  const weekday = new Date(year!, month! - 1, date!, 12).getDay();
+  if (period === 'week') {
+    const from = dateShift(today, -((weekday + 6) % 7));
+    return { from, to: dateShift(from, 6), label: 'This week' };
+  }
+  const from = localDay(new Date(year!, month! - 1, 1, 12));
+  return { from, to: localDay(new Date(year!, month!, 0, 12)), label: 'This month' };
+}
+function pointOnMilestonePath(percent: number) {
+  const t = percent <= 50 ? percent / 50 : (percent - 50) / 50;
+  const p = percent <= 50 ? [[18, 92], [110, 18], [220, 18], [360, 65]] : [[360, 65], [500, 112], [600, 95], [702, 24]];
+  const u = 1 - t;
+  const x = u ** 3 * p[0]![0]! + 3 * u ** 2 * t * p[1]![0]! + 3 * u * t ** 2 * p[2]![0]! + t ** 3 * p[3]![0]!;
+  const y = u ** 3 * p[0]![1]! + 3 * u ** 2 * t * p[1]![1]! + 3 * u * t ** 2 * p[2]![1]! + t ** 3 * p[3]![1]!;
+  return { x, y };
+}
+function StudyMilestone({ currentPlan }: { currentPlan: CurrentPlan | null }) {
+  const [period, setPeriod] = useState<MilestonePeriod>('day');
+  const today = localDay();
+  const range = milestoneRange(period, today);
+  const tasks = (currentPlan?.items ?? []).filter((item) => item.origin === 'EXPERT' && item.status === 'SCHEDULED' && item.day >= range.from && item.day <= range.to);
+  const done = tasks.filter((item) => item.done).length;
+  const total = tasks.length;
+  const percent = total ? Math.round((done / total) * 100) : 0;
+  const next = tasks.find((item) => !item.done);
+  const reached = percent >= 100 ? 'Milestone reached' : percent >= 75 ? 'Almost there' : percent >= 50 ? 'Halfway there' : percent >= 25 ? 'First steps done' : 'Ready when you are';
+  const guidance = !currentPlan?.plan
+    ? 'Create your Prepora expert-suggested plan to see milestones based on your study tasks.'
+    : total === 0
+      ? `No expert-plan tasks are scheduled ${period === 'day' ? 'today' : period === 'week' ? 'this week' : 'this month'}. Open your planner to see the full schedule.`
+      : percent === 100
+        ? `You completed all ${total} expert-suggested ${total === 1 ? 'task' : 'tasks'} ${period === 'day' ? 'today' : period === 'week' ? 'this week' : 'this month'}. Take a breath, then keep your next study session steady.`
+        : done === 0
+          ? `Your next step is “${next?.title}”. Prepora placed it first in your expert-suggested plan for ${range.label.toLowerCase()}.`
+          : `${done} of ${total} expert-suggested tasks complete. Next, continue with “${next?.title}”.`;
+  const marker = pointOnMilestonePath(percent);
+  return (
+    <div className="relative mt-6 w-full px-1 sm:px-2" data-study-milestone data-period={period}>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="label text-[10px] tracking-[0.15em] text-forest/60">YOUR EXPERT-PLAN MILESTONE</p>
+          <h3 className="mt-1 text-lg font-bold text-forest">{range.label} · {reached}</h3>
+        </div>
+        <div role="tablist" aria-label="Milestone period" className="flex items-center gap-1">
+          {(['day', 'week', 'month'] as const).map((key) => <button key={key} type="button" role="tab" aria-selected={period === key} onClick={() => setPeriod(key)} className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${period === key ? 'bg-forest text-lime' : 'text-forest/65 hover:bg-forest/5 hover:text-forest'}`}>{key === 'day' ? 'Today' : key === 'week' ? 'Week' : 'Month'}</button>)}
+        </div>
+      </div>
+      <div className="mt-2">
+        <svg viewBox="0 0 720 126" className="study-milestone-graphic block h-[118px] w-full overflow-visible sm:h-[142px] lg:h-[156px]" role="img" aria-label={`${done} of ${total} expert-plan tasks completed, ${percent}%`}>
+          <defs><linearGradient id="studyMilestoneTrail" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor="#97a849" /><stop offset="100%" stopColor="#e5ef86" /></linearGradient><radialGradient id="studyMilestoneGlow"><stop stopColor="#eff8a8" stopOpacity=".9" /><stop offset="1" stopColor="#eff8a8" stopOpacity="0" /></radialGradient></defs>
+          <path d="M18 92 C110 18 220 18 360 65 C500 112 600 95 702 24" fill="none" stroke="#8da293" strokeOpacity=".38" strokeWidth="5" strokeLinecap="round" />
+          <path className="study-milestone-trail" d="M18 92 C110 18 220 18 360 65 C500 112 600 95 702 24" pathLength="100" fill="none" stroke="url(#studyMilestoneTrail)" strokeWidth="6" strokeLinecap="round" style={{ strokeDasharray: `${percent} 100` }} />
+          {[25, 50, 75, 100].map((mark) => { const p = pointOnMilestonePath(mark); return <g key={mark} transform={`translate(${p.x} ${p.y})`} data-milestone-mark={mark}><circle r="10" fill={percent >= mark ? '#1b4a3f' : '#f8faee'} stroke={percent >= mark ? '#e5ef86' : '#aab8a5'} strokeWidth="2.5" /><text y="3.5" textAnchor="middle" fontSize="8" fontWeight="700" fill={percent >= mark ? '#e5ef86' : '#7e8d83'}>{percent >= mark ? '✓' : mark}</text></g>; })}
+          <circle className="study-milestone-glow" cx={marker.x} cy={marker.y} r="25" fill="url(#studyMilestoneGlow)" />
+          <g className="study-milestone-marker" transform={`translate(${marker.x} ${marker.y})`}><circle r="12" fill="#e6f28e" stroke="#1b4a3f" strokeWidth="3" /><path d="m0 -6 1.8 4.2 4.5.4-3.4 3 1 4.4L0 7.8-3.9 10l.8-4.4-3.3-3 4.4-.4Z" transform="scale(.68)" fill="#1b4a3f" /></g>
+        </svg>
+      </div>
+      <div className="mt-[-2px] flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-sm">
+        <p className="font-semibold text-forest"><span className="num text-xl">{done}/{total}</span> {total === 1 ? 'task' : 'tasks'} complete <span className="mx-1 text-forest/35">·</span>{percent}%</p>
+        <Link to="/planner" className="inline-flex items-center gap-1 font-semibold text-terracotta-deep hover:underline">View expert plan <ArrowUpRight aria-hidden className="size-3.5" /></Link>
+      </div>
+      <p className="mt-2 max-w-4xl text-sm leading-relaxed text-mute" aria-live="polite">{guidance}</p>
+      <p className="mt-1.5 flex items-center gap-1.5 text-xs font-medium text-forest/60"><Sparkles aria-hidden className="size-3.5" />Organized from your Prepora expert-suggested plan and checked-off tasks.</p>
+    </div>
+  );
+}
+
 function StudyMap({ subjects, pick, left, count, prefs }: { subjects: MapSubject[]; pick: string | null; left: number | null; count: number; prefs: Preferences | null }) {
   const wide = place(subjects.length, false);
   const tall = place(subjects.length, true);
@@ -288,6 +364,7 @@ function PracticeCard({ rec, subject, none, onStart, busy, error }: { rec: Recom
 export function Home() {
   const dash = useLoad(api.dashboard, []);
   const prefs = useLoad(api.preferences, []);
+  const currentPlan = useLoad(() => api.currentPlan(localDay()), []);
   const subjectsLoad = useLoad(() => api.subjects(EXAM, YEAR), []);
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -403,6 +480,8 @@ export function Home() {
           <PracticeCard rec={rec} subject={recSubject} none={mapSubjects.length === 0} onStart={start} busy={busy} error={startError} />
         </div>
       )}
+
+      {!failure && !loading && <StudyMilestone currentPlan={currentPlan.data ?? null} />}
 
       {last && (
         <p className="mt-6 text-[13.5px] text-mute" data-last-opened>
