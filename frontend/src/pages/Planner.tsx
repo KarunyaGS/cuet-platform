@@ -91,14 +91,14 @@ export function PlannerPage() {
 
   return (
     <div>
-      <header data-planner-hero className="relative mb-6 w-full overflow-hidden rounded-[22px] border border-[#d5df98] bg-[#e8edb8] px-4 py-4 text-forest shadow-[0_12px_28px_-24px_rgb(70_92_38/0.3)] sm:px-5 sm:py-5">
+      <header data-planner-hero className="relative mb-6 w-full overflow-hidden rounded-[22px] border border-[#d5df98] bg-[#e8edb8] px-4 py-3.5 text-forest shadow-[0_12px_28px_-24px_rgb(70_92_38/0.3)] sm:px-5 sm:py-4">
         <div className="flex flex-wrap items-center justify-between gap-5">
           <div className="min-w-0">
             <div className="label inline-flex items-center gap-2 rounded-full border border-forest/10 bg-white/55 px-3 py-1.5 text-[10px] tracking-[0.18em] text-forest"><Sparkles aria-hidden className="size-3 text-terracotta" />MAKE ROOM FOR WHAT MATTERS</div>
-            <h1 className="mt-3 text-[clamp(27px,3vw,38px)] leading-[1.04] font-bold tracking-[-0.045em]">Your week, <span className="font-editorial font-medium text-terracotta italic">in focus.</span></h1>
+            <h1 className="mt-2.5 text-[clamp(27px,3vw,38px)] leading-[1.04] font-bold tracking-[-0.045em]">Your week, <span className="font-editorial font-medium text-terracotta italic">in focus.</span></h1>
             <p className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-ink-2"><CalendarDays aria-hidden className="size-4 text-forest" />{weekLabel(days[0]!, days[6]!)}<span className="hidden text-forest/30 sm:inline">·</span><span className="hidden sm:inline">{total ? `${done} of ${total} tasks complete` : 'A little planning goes a long way'}</span></p>
             {isCurrentWeek && todayTasks.length > 0 && (
-              <button type="button" onClick={(event) => openDay(today, event.currentTarget)} aria-haspopup="dialog" data-today-task-callout className="today-task-callout group mt-4 flex w-full max-w-xl items-center gap-3 rounded-2xl border-2 border-[#d9e86f] bg-gradient-to-r from-[#eff7a7] via-[#f5f8cd] to-[#fff7ca] px-3.5 py-3 text-left text-forest shadow-[0_12px_26px_-16px_rgb(70_92_38/0.45)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-18px_rgb(70_92_38/0.55)] sm:px-4" data-sound="open">
+              <button type="button" onClick={(event) => openDay(today, event.currentTarget)} aria-haspopup="dialog" data-today-task-callout className="today-task-callout group mt-3 flex w-full max-w-xl items-center gap-3 rounded-2xl border-2 border-[#d9e86f] bg-gradient-to-r from-[#eff7a7] via-[#f5f8cd] to-[#fff7ca] px-3.5 py-2.5 text-left text-forest shadow-[0_12px_26px_-16px_rgb(70_92_38/0.45)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-18px_rgb(70_92_38/0.55)] sm:px-4" data-sound="open">
                 <span className="today-task-pulse grid size-10 shrink-0 place-items-center rounded-xl bg-forest text-lime shadow-[0_4px_12px_rgb(24_68_59/0.2)]"><CalendarDays aria-hidden className="size-5" /></span>
                 <span className="min-w-0 flex-1"><span className="block text-sm font-extrabold tracking-[-0.01em] sm:text-base">You have {todayTasks.length} tasks for today</span><span className="mt-0.5 block text-[11px] font-medium text-forest/75">{doneToday ? `${doneToday} complete · ${todayTasks.length - doneToday} to go` : 'Your study plan is ready · Tap to view'}</span></span>
                 <ArrowRight aria-hidden className="size-5 shrink-0 text-forest transition-transform group-hover:translate-x-1" />
@@ -121,7 +121,7 @@ export function PlannerPage() {
             </div>
           </div>
         </div>
-        <div className="relative mt-6 flex items-center gap-3 border-t border-forest/15 pt-4">
+        <div className="relative mt-4 flex items-center gap-3 border-t border-forest/15 pt-3">
           <div className="h-2 flex-1 overflow-hidden rounded-full bg-forest/20"><div className="planner-progress h-full rounded-full bg-forest shadow-[0_0_14px_rgb(24_68_59/0.28)]" style={{ width: `${total ? (100 * done) / total : 0}%` }} /></div>
           <span className="num min-w-14 rounded-full bg-terracotta px-2.5 py-1 text-right text-[10px] font-bold tracking-wide text-white shadow-sm">{total ? `${Math.round((100 * done) / total)}%` : 'READY'}</span>
         </div>
