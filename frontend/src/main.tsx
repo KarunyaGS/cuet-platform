@@ -21,6 +21,7 @@ import { LabsPage } from './pages/Labs';
 import { SpecLabPage } from './visual/engine/SpecLab';
 import { LensLabPage } from './pages/LensLab';
 import { installPopClick } from './popClick';
+import { installGlobalUiSounds } from './sound';
 import { VisualPage } from './pages/Visual';
 import { FlashcardReviewPage, OldFlashcardsLink } from './pages/Flashcards';
 import { UpdatesPage } from './pages/Updates';
@@ -244,3 +245,4 @@ createRoot(document.getElementById('root')!).render(
 );
 
 installPopClick();
+installGlobalUiSounds();

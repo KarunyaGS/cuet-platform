@@ -5,6 +5,25 @@ const STORAGE_KEY = 'prepora.ui-sounds';
 const CHANGE_EVENT = 'prepora-ui-sound-change';
 let context: AudioContext | null = null;
 let memoryEnabled: boolean | null = null;
+let clickSoundHandled = false;
+
+/** Adds a quiet default tap to interactive controls throughout the app. A more specific
+ * sound played by the control itself (answer feedback, completion, etc.) takes precedence. */
+export function installGlobalUiSounds() {
+  if (typeof document === 'undefined' || (window as unknown as { __uiSoundsInstalled?: boolean }).__uiSoundsInstalled) return;
+  (window as unknown as { __uiSoundsInstalled?: boolean }).__uiSoundsInstalled = true;
+  document.addEventListener('click', (event) => {
+    clickSoundHandled = false;
+    const target = event.target as Element | null;
+    queueMicrotask(() => {
+      if (!clickSoundHandled && target && !target.closest('[data-no-sound]')) {
+        const control = target.closest('button, a[href], [role="button"], [role="tab"], [role="menuitem"], summary, input[type="checkbox"], input[type="radio"]') as HTMLButtonElement | null;
+        if (control && !control.disabled && control.getAttribute('aria-disabled') !== 'true') playUiSound('tap');
+      }
+      clickSoundHandled = false;
+    });
+  }, true);
+}
 
 function enabledFromStorage() {
   try {
@@ -16,6 +35,7 @@ function enabledFromStorage() {
 }
 
 export function playUiSound(kind: 'tap' | 'select' | 'correct' | 'incorrect' | 'complete' | 'warning' | 'toggle') {
+  clickSoundHandled = true;
   if (typeof window === 'undefined' || !enabledFromStorage()) return;
   try {
     const AudioContextClass = window.AudioContext;
@@ -82,6 +102,7 @@ export function SoundToggle({ compact = false }: { compact?: boolean }) {
         setUiSoundsEnabled(!enabled);
         if (!enabled) playUiSound('toggle');
       }}
+      data-no-sound
       className={compact ? 'inline-flex size-9 items-center justify-center rounded-lg text-ink-2 hover:bg-paper' : 'flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm text-ink hover:bg-paper [&>svg]:size-4 [&>svg]:text-ink-3'}
     >
       <Icon aria-hidden className={compact ? 'size-4' : undefined} />
