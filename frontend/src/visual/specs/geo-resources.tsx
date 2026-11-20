@@ -22,10 +22,10 @@ export const spec: Spec = {
   minutes: 9,
   vars: [
     { id: 'N', label: 'Net sown area (illustrative district)', unit: 'ha', min: 1000, max: 20000, step: 500, start: 8000, digits: 0 },
-    { id: 'p', label: 'Share of the net sown area sown more than once', unit: '%', min: 0, max: 100, step: 5, start: 50, digits: 0 },
+    { id: 'p', label: 'Share of the net sown area sown more than once', unit: '%', min: 0, max: 100, step: 5, start: 50, digits: 0, bounds: { min: 0, max: 100 } },
     { id: 'A', label: 'Roof area A', unit: 'm²', min: 20, max: 500, step: 10, start: 100, digits: 0 },
     { id: 'R', label: 'Annual rainfall R', unit: 'm', min: 0.2, max: 2, step: 0.1, start: 0.6, digits: 1 },
-    { id: 'c', label: 'Runoff coefficient c (fraction not lost)', unit: '', min: 0.3, max: 0.95, step: 0.05, start: 0.8, digits: 2 },
+    { id: 'c', label: 'Runoff coefficient c (fraction not lost)', unit: '', min: 0.3, max: 0.95, step: 0.05, start: 0.8, digits: 2, bounds: { min: 0, max: 1 } },
   ],
   outs: [
     { id: 'G', label: 'Gross cropped area = net sown area + area sown more than once', unit: 'ha', fn: (v) => gca(v.N!, v.p!), digits: 0 },

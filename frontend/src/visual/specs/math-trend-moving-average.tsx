@@ -41,8 +41,8 @@ export const spec: Spec = {
     { id: 'b0', label: 'True trend: change per year', unit: 'units/yr', min: -2, max: 6, step: 0.5, start: 3, digits: 1 },
     { id: 'C', label: 'Cyclical swing (5-year cycle) amplitude', unit: 'units', min: 0, max: 10, step: 1, start: 5, digits: 0 },
     { id: 'I', label: 'Irregular (random) bumps size', unit: 'units', min: 0, max: 6, step: 1, start: 2, digits: 0 },
-    { id: 'm', label: 'Period of the moving average', unit: 'years', min: 3, max: 7, step: 2, start: 3, digits: 0 },
-    { id: 'h', label: 'Forecast: years beyond the last year', unit: 'years', min: 1, max: 5, step: 1, start: 1, digits: 0 },
+    { id: 'm', label: 'Period of the moving average', unit: 'years', min: 3, max: 7, step: 2, start: 3, digits: 0, choice: true },
+    { id: 'h', label: 'Forecast: years beyond the last year', unit: 'years', min: 1, max: 5, step: 1, start: 1, digits: 0, integer: true },
   ],
   outs: [
     { id: 'b', label: 'Least-squares slope b = Σxy/Σx²', unit: 'units/yr', fn: (v) => ls(series(v.b0!, v.C!, v.I!)).b, digits: 3 },
@@ -82,7 +82,7 @@ export const spec: Spec = {
         {ma.map((y, i) => <circle key={i} cx={PX(XS[i + half]!)} cy={PY(y)} r={2.6} fill="#c45e42" />)}
         <circle cx={PX(fcx)} cy={PY(o.fc!)} r={5} fill="#fff" stroke="#18443b" strokeWidth={2.2} />
         <text x={PX(fcx) - 6} y={PY(o.fc!) - 8} textAnchor="end" fill="#18443b">forecast {fmt(o.fc!, 1)}</text>
-        <text x={30} y={16} fontSize={11}><tspan fill="#4d5768">dots: data</tspan> · <tspan fill="#18443b">green: least-squares y = {fmt(r.a, 1)} + {fmt(r.b, 2)}x</tspan> · <tspan fill="#c45e42">orange: {m}-year moving average</tspan></text>
+        <text x={30} y={16} fontSize={9.5}><tspan fill="#4d5768">dots: data</tspan> · <tspan fill="#18443b">green: least squares y = {fmt(r.a, 1)} + {fmt(r.b, 2)}x</tspan> · <tspan fill="#c45e42">orange: {m}-yr moving avg</tspan></text>
         <text x={30} y={30}>{`only ${ma.length} averages from 11 years (m − 1 = ${m - 1} lost at the ends)`}</text>
         <text x={PX(0)} y={218} textAnchor="middle">middle year (x = 0)</text>
         <text x={PX(5)} y={218} textAnchor="middle">last year</text>

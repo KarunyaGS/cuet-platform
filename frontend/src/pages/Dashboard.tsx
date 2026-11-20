@@ -1,11 +1,10 @@
-import { Activity, BookOpen, CalendarPlus, CircleCheck, Layers, PlayCircle, Target, Zap } from 'lucide-react';
+import { Activity, BookOpen, CalendarPlus, CircleCheck, Layers, Target, Zap } from 'lucide-react';
 import { planHref } from '../planLinks';
 import { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router';
 import { api, type Dashboard } from '../api';
 import { accuracyTone, Button, Empty, ErrorBox, Loading, Meter, PageHeader, SectionTitle, useAuth, useLoad } from '../ui';
 
-const MODE: Record<string, string> = { PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' };
 const today = () => new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
 
 /** One goal: count against target with a bar. */
@@ -59,7 +58,6 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
   const [paperId, setPaperId] = useState('');
   const [showAllPlan, setShowAllPlan] = useState(false);
   const [showAllWeak, setShowAllWeak] = useState(false);
-  const [showAllInProgress, setShowAllInProgress] = useState(false);
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<Error | null>(null);
@@ -91,8 +89,6 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
       setErr(e as Error);
     }
   };
-  const nothingYet = x.inProgress.length === 0 && x.continueLearning.length === 0;
-
   return (
     <div>
       <TodayHead
@@ -138,19 +134,19 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
       </section>
 
 
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.85fr)]" data-today-columns>
-        <section aria-labelledby="plan" className="min-w-0 rounded-2xl border border-rule bg-[linear-gradient(145deg,#f5f7e8_0%,#fffaf1_58%,#f2f4e9_100%)] p-4 sm:p-5">
+      <div className="grid items-stretch gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.85fr)]" data-today-columns>
+        <section aria-labelledby="plan" className="h-full min-w-0 rounded-2xl border border-rule bg-[linear-gradient(145deg,#f5f7e8_0%,#fffaf1_58%,#f2f4e9_100%)] p-4">
           <SectionTitle id="plan" action={<Link to="/planner" className="rounded-full bg-white/70 px-3 py-1.5 text-xs font-semibold text-accent transition-colors hover:bg-accent-soft">Open planner</Link>}>
             Today’s focus
           </SectionTitle>
-          <p className="-mt-2 mb-3 text-xs text-ink-2">A few useful steps to keep your day moving.</p>
+          <p className="-mt-2 mb-2.5 text-xs text-ink-2">A few useful steps to keep your day moving.</p>
           {x.plan.length === 0 ? (
             <Empty icon={<CalendarPlus />}>Nothing planned for today. Add a task in your planner or from a lesson.</Empty>
           ) : (
             <>
-              <ul className="grid gap-2" id="today-plan-list">
+              <ul className="grid gap-1.5" id="today-plan-list">
                 {(showAllPlan ? x.plan : x.plan.slice(0, 3)).map((p, i) => (
-                  <li key={p.id} className={`flex min-w-0 items-start gap-3 rounded-xl border px-3 py-3 transition-colors ${p.done ? 'border-[#dce8c8] bg-[#f0f5e6]' : 'border-white/80 bg-white/75 hover:border-[#dce6b0]'}`}>
+                  <li key={p.id} className={`flex min-w-0 items-start gap-3 rounded-xl border px-3 py-2 transition-colors ${p.done ? 'border-[#dce8c8] bg-[#f0f5e6]' : 'border-white/80 bg-white/75 hover:border-[#dce6b0]'}`}>
                     <input type="checkbox" checked={p.done} onChange={(e) => togglePlan(p.id, e.target.checked)} aria-label={`Mark “${p.title}” done`} className="mt-0.5 size-4 shrink-0 accent-accent" />
                     <span aria-hidden className={`grid size-6 shrink-0 place-items-center rounded-lg text-[10px] font-bold ${p.done ? 'bg-[#dfe9ce] text-forest' : 'bg-[#f5e6d5] text-[#a65a3a]'}`}>{String(i + 1).padStart(2, '0')}</span>
                     <PlanLink kind={p.kind} refId={p.refId} className={`min-w-0 flex-1 text-sm leading-snug ${p.done ? 'text-ink-3 line-through' : 'text-ink'}`}>
@@ -164,7 +160,7 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
           )}
         </section>
 
-        <aside className="grid min-w-0 gap-4">
+        <aside className="grid min-w-0 content-start gap-4">
           <section aria-labelledby="weak" className="rounded-2xl border border-rule bg-surface p-4" data-focus-subject={selectedSubject?.code ?? 'all'}>
             <SectionTitle id="weak" action={focusTopics.length > 2 ? <button type="button" aria-expanded={showAllWeak} aria-controls="weak-topic-list" onClick={() => setShowAllWeak((value) => !value)} className="rounded-full px-2 py-1 text-[11px] font-semibold text-accent hover:bg-accent-soft">{showAllWeak ? 'Less' : `+${focusTopics.length - 2}`}</button> : undefined}>{selectedSubject ? `Focus next · ${selectedSubject.name}` : 'Focus next'}</SectionTitle>
             {focusTopics.length === 0 ? (
@@ -180,13 +176,6 @@ export function DashboardPage({ embedded = false }: { embedded?: boolean }) {
               </ul>
             )}
           </section>
-
-          {x.inProgress.length > 0 && <section aria-labelledby="unfinished" className="rounded-2xl border border-rule bg-surface p-4" data-unfinished>
-            <SectionTitle id="unfinished" action={x.inProgress.length > 2 ? <button type="button" aria-expanded={showAllInProgress} aria-controls="unfinished-test-list" onClick={() => setShowAllInProgress((value) => !value)} className="rounded-full px-2 py-1 text-[11px] font-semibold text-accent hover:bg-accent-soft">{showAllInProgress ? 'Less' : `+${x.inProgress.length - 2}`}</button> : undefined}>Pick up again</SectionTitle>
-            <ul id="unfinished-test-list" className="grid gap-2">
-              {(showAllInProgress ? x.inProgress : x.inProgress.slice(0, 2)).map((t) => <li key={t.id} className="flex items-center gap-2 rounded-xl bg-[#f3f3ef] px-3 py-2.5"><PlayCircle aria-hidden className="size-4 shrink-0 text-forest/60" /><span className="min-w-0 flex-1 truncate text-xs text-ink">{{ PRACTICE: 'Practice', TOPIC_TEST: 'Topic test', MOCK_TEST: 'Mock test' }[t.mode] ?? 'Test'} · {t.topic ?? t.paper}</span><Link to={`/practice/${t.id}`} className="shrink-0 rounded-full bg-white px-2.5 py-1 text-[11px] font-semibold text-accent">Resume</Link></li>)}
-            </ul>
-          </section>}
 
           <Link to={x.flashcards.due > 0 ? '/bookmarks/review' : '/bookmarks'} data-saved-cards className="flex items-center gap-3 rounded-2xl border border-[#e9d7a6] bg-[linear-gradient(110deg,#fcf5dc,#fffaf0)] p-4 transition-transform hover:-translate-y-0.5">
             <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#f3e4af] text-[#93651b]"><BookOpen aria-hidden className="size-4" /></span>

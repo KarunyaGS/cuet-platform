@@ -35,7 +35,7 @@ export const spec: Spec = {
     { id: 'c1', label: 'Cost coefficient c₁', unit: 'Rs/unit', min: 10, max: 30, step: 1, start: 20, digits: 0 },
     { id: 'p', label: 'Revenue coefficient p (R = px − qx²)', unit: 'Rs/unit', min: 40, max: 70, step: 2, start: 50, digits: 0 },
     { id: 'q', label: 'Revenue coefficient q', unit: '', min: 0.3, max: 1, step: 0.1, start: 0.5, digits: 1 },
-    { id: 'x', label: 'Output level x', unit: 'units', min: 0, max: 100, step: 1, start: 20, digits: 0 },
+    { id: 'x', label: 'Output level x', unit: 'units', min: 0, max: 100, step: 1, start: 20, digits: 0, bounds: { min: 0, max: 100000 } },
   ],
   outs: [
     { id: 'mc', label: 'Marginal cost MC = 2c₂x + c₁', unit: 'Rs', fn: (v) => MC(v.c2!, v.c1!, v.x!), digits: 2 },
@@ -77,7 +77,7 @@ export const spec: Spec = {
         <circle cx={PX(v.x!)} cy={PY(clampY(o.mc!))} r={4.5} fill="#2563a8" stroke="#fff" strokeWidth={1.5} />
         <circle cx={PX(v.x!)} cy={PY(clampY(o.mr!))} r={4.5} fill="#c45e42" stroke="#fff" strokeWidth={1.5} />
         <text x={34} y={16} fontSize={11}><tspan fill="#2563a8">MC rises</tspan> · <tspan fill="#c45e42">MR falls</tspan> · dashed: x* = {fmt(o.xs!, 1)}</text>
-        <text x={34} y={228} fontSize={10}>output x from 0 to 100 · green area: MR &gt; MC, profit rising · orange: MR &lt; MC, profit falling</text>
+        <text x={34} y={228} fontSize={9}>x from 0 to 100 · green: MR &gt; MC, profit rising · orange: MR &lt; MC, falling</text>
         <text x={380} y={PY(0) - 3} textAnchor="end">0</text>
       </g>
     );

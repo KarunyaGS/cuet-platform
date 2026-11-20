@@ -152,13 +152,19 @@ export function CustomPractice({ paperId, chapters, fixedNodeId, heading = 'Prac
   const hasTypes = typeList.length > 1;
   return (
     <section aria-labelledby="custom-practice" className="flex h-full min-w-0 flex-col overflow-hidden rounded-[20px] border border-[#d0d9c5] bg-[#eef2e4] shadow-[0_8px_22px_rgba(31,56,46,0.06)]" data-card="custom-practice">
-      <button type="button" aria-expanded={expanded} aria-controls="custom-practice-options" onClick={() => setExpanded((value) => !value)} className="flex min-h-[116px] w-full flex-1 items-center gap-3 p-3 text-left transition-colors hover:bg-white/35 sm:px-4 sm:py-3">
-        <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-[11px] bg-forest text-lime"><SlidersHorizontal className="size-4" /></span>
-        <span className="min-w-0 flex-1">
-          <span id="custom-practice" role="heading" aria-level={2} className="block font-display text-[15px] font-bold tracking-[-0.02em] text-forest">{heading}</span>
+      <button type="button" aria-expanded={expanded} aria-controls="custom-practice-options" onClick={() => setExpanded((value) => !value)} className="group flex min-h-[116px] w-full flex-1 flex-col justify-between gap-3 p-3 text-left transition-colors hover:bg-white/35 sm:px-4 sm:py-3">
+        <span className="flex min-w-0 items-center gap-2.5">
+          <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-[11px] bg-forest text-lime"><SlidersHorizontal className="size-4" /></span>
+          <span className="min-w-0 flex-1">
+            <span id="custom-practice" role="heading" aria-level={2} className="label block text-[10px] tracking-[0.13em] text-forest">{heading}</span>
+            <span className="mt-0.5 block text-[12px] text-ink-2">Build a set around what you need to practise</span>
+          </span>
+          <span className="hidden shrink-0 rounded-full border border-forest/10 bg-white/55 px-3 py-1.5 text-[11px] font-semibold text-forest sm:inline-flex">{counts ? `${matching} questions` : 'Loading…'}</span>
         </span>
-        <span className="hidden shrink-0 rounded-full border border-forest/10 bg-white/55 px-3 py-1.5 text-[11px] font-semibold text-forest sm:inline-flex">{counts ? `${matching} questions` : 'Loading…'}</span>
-        <ChevronDown aria-hidden className={`size-5 shrink-0 text-forest transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`} />
+        <span className="flex w-full items-center justify-between gap-3 pl-[47px]">
+          <span className="min-w-0 text-[13px] font-bold leading-snug text-forest">Choose chapters, difficulty and question types</span>
+          <span className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-forest px-3 py-2 text-[11px] font-bold text-lime transition-colors group-hover:bg-forest-deep">{expanded ? 'Hide filters' : 'Choose filters'}<ChevronDown aria-hidden className={`size-4 transition-transform duration-300 ${expanded ? 'rotate-180' : ''}`} /></span>
+        </span>
       </button>
 
       <div id="custom-practice-options" aria-hidden={!expanded} inert={!expanded} className={`grid transition-[grid-template-rows] duration-300 ease-out ${expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>

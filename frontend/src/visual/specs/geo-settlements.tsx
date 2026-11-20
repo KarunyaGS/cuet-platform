@@ -26,8 +26,8 @@ export const spec: Spec = {
   vars: [
     { id: 'P', label: 'Population of the place', unit: 'persons', min: 1000, max: 2000000, step: 1, start: 7500, log: true, digits: 0 },
     { id: 'A', label: 'Area of the place', unit: 'km²', min: 1, max: 200, step: 1, start: 15, digits: 0 },
-    { id: 'N', label: 'Male main workers in non-agricultural work', unit: '%', min: 0, max: 100, step: 5, start: 80, digits: 0 },
-    { id: 'S', label: 'Has a municipality, corporation or cantonment board (1 = yes)', unit: '', min: 0, max: 1, step: 1, start: 0, digits: 0 },
+    { id: 'N', label: 'Male main workers in non-agricultural work', unit: '%', min: 0, max: 100, step: 5, start: 80, digits: 0, bounds: { min: 0, max: 100 } },
+    { id: 'S', label: 'Has a municipality, corporation or cantonment board (1 = yes)', unit: '', min: 0, max: 1, step: 1, start: 0, digits: 0, choice: true },
   ],
   outs: [
     { id: 'D', label: 'Density = population ÷ area', unit: 'persons/km²', fn: (v) => dens(v.P!, v.A!), digits: 0 },

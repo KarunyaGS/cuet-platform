@@ -105,7 +105,7 @@ function SpecLabBody({ spec }: { spec: Spec }) {
               <div className="@container">
                 <p className="hidden px-3 pt-2 text-[11px] text-ink-3 @max-[519px]:block">Swipe the picture sideways to see all of it.</p>
                 <div className="overflow-x-auto" data-scene-scroll>
-                <svg viewBox="0 0 400 230" className="block w-full min-w-[520px] bg-surface" role="img" aria-label={spec.sceneAlt ?? spec.title} data-scene>
+                <svg viewBox="0 0 400 238" className="block w-full min-w-[520px] bg-surface" role="img" aria-label={spec.sceneAlt ?? spec.title} data-scene>
                   {spec.scene({ v: sv, o: so })}
                 </svg>
                 </div>
@@ -114,7 +114,7 @@ function SpecLabBody({ spec }: { spec: Spec }) {
             <div className="grid gap-x-6 gap-y-3 border-t border-rule px-3 py-3 sm:grid-cols-2">
               {evars.map((d, i) => {
                 const design = spec.vars[i]!;
-                if (design.choice || !(spec.subject === 'Physics' || spec.subject === 'Chemistry' || spec.subject === 'Biology')) {
+                if (design.choice || !(spec.subject === 'Physics' || spec.subject === 'Chemistry' || spec.subject === 'Biology' || spec.subject === 'Mathematics' || spec.subject === 'Geography' || spec.subject === 'General Aptitude Test')) {
                   // a pick from a list, or a subject whose labs keep fixed ranges: the lab's own range only
                   return <Slider key={d.id} id={`spec-${d.id}`} label={d.label} unit={d.unit} value={toPos(d, v[d.id]!)} min={0} max={1000} step={1} shown={fmt(v[d.id]!, d.digits ?? 2)} onChange={(p) => set(d.id, fromPos(d, p))} />;
                 }

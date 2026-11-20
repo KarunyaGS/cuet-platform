@@ -75,10 +75,10 @@ export const spec: Spec = {
   can: ['See the standard error σ/√n fall as the sample grows', 'Compute t = (x̄ − μ₀)/(s/√n) and compare |t| with the critical value for df = n − 1', 'Record SE for three sample sizes and read s from the slope against 1/√n'],
   minutes: 12,
   vars: [
-    { id: 'n', label: 'Sample size n', unit: '', min: 4, max: 40, step: 1, start: 9, digits: 0 },
+    { id: 'n', label: 'Sample size n', unit: '', min: 4, max: 40, step: 1, start: 9, digits: 0, choice: true },
     { id: 's', label: 'Sample standard deviation s', unit: '', min: 1, max: 8, step: 0.5, start: 3, digits: 1 },
     { id: 'xbar', label: 'Sample mean x̄ (H₀ says μ = 50)', unit: '', min: 45, max: 55, step: 0.5, start: 52, digits: 1 },
-    { id: 'al', label: 'Level of significance α', unit: '%', min: 1, max: 10, step: 1, start: 5, digits: 0 },
+    { id: 'al', label: 'Level of significance α', unit: '%', min: 1, max: 10, step: 1, start: 5, digits: 0, choice: true },
   ],
   outs: [
     { id: 'se', label: 'Standard error SE = s/√n', unit: '', fn: (v) => sOf(v), digits: 3 },

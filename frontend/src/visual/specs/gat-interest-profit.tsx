@@ -22,7 +22,7 @@ export const spec: Spec = {
   minutes: 8,
   vars: [
     { id: 'P', label: 'Principal P', unit: '₹', min: 1000, max: 20000, step: 500, start: 8000, digits: 0 },
-    { id: 'R', label: 'Rate R per year', unit: '%', min: 2, max: 20, step: 1, start: 10, digits: 0 },
+    { id: 'R', label: 'Rate R per year', unit: '%', min: 2, max: 20, step: 1, start: 10, digits: 0, bounds: { min: 0, max: 200 } },
     { id: 'T', label: 'Time T', unit: 'years', min: 1, max: 10, step: 1, start: 2, digits: 0 },
   ],
   outs: [

@@ -28,10 +28,10 @@ export const spec: Spec = {
   can: ['Switch between arithmetic, geometric and difference-of-differences rules', 'Read the differences and ratio to spot which rule is at work', 'Record the n-th term for three values of n and fit the common difference'],
   minutes: 9,
   vars: [
-    { id: 'k', label: 'Rule (1 = add d, 2 = multiply by d, 3 = differences d, 2d, 4d …)', unit: '', min: 1, max: 3, step: 1, start: 1, digits: 0 },
-    { id: 'a', label: 'First term a', unit: '', min: 1, max: 20, step: 1, start: 2, digits: 0 },
-    { id: 'd', label: 'Step d', unit: '', min: 1, max: 6, step: 1, start: 3, digits: 0 },
-    { id: 'n', label: 'Term number n', unit: '', min: 1, max: 20, step: 1, start: 6, digits: 0 },
+    { id: 'k', label: 'Rule (1 = add d, 2 = multiply by d, 3 = differences d, 2d, 4d …)', unit: '', min: 1, max: 3, step: 1, start: 1, digits: 0, choice: true },
+    { id: 'a', label: 'First term a', unit: '', min: 1, max: 20, step: 1, start: 2, digits: 0, integer: true },
+    { id: 'd', label: 'Step d', unit: '', min: 1, max: 6, step: 1, start: 3, digits: 0, integer: true },
+    { id: 'n', label: 'Term number n', unit: '', min: 1, max: 20, step: 1, start: 6, digits: 0, integer: true },
   ],
   outs: [
     { id: 'tn', label: 'The n-th term', unit: '', fn: (v) => term(v.k!, v.a!, v.d!, v.n!), digits: 0 },

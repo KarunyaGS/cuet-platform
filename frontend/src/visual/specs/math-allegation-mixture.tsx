@@ -24,9 +24,9 @@ export const spec: Spec = {
   can: ['Balance the cheaper and dearer quantities about the mean price like a seesaw', 'Predict how the ratio changes when a price or the target mean moves', 'Record the cost of the mixture for three total quantities and read the mean price from the slope'],
   minutes: 9,
   vars: [
-    { id: 'p1', label: 'Cheaper price', unit: 'Rs/kg', min: 20, max: 45, step: 1, start: 40, digits: 0 },
-    { id: 'p2', label: 'Dearer price', unit: 'Rs/kg', min: 55, max: 100, step: 1, start: 55, digits: 0 },
-    { id: 'm', label: 'Required mean price m of the mixture', unit: 'Rs/kg', min: 46, max: 54, step: 1, start: 46, digits: 0 },
+    { id: 'p1', label: 'Cheaper price', unit: 'Rs/kg', min: 20, max: 45, step: 1, start: 40, digits: 0, choice: true },
+    { id: 'p2', label: 'Dearer price', unit: 'Rs/kg', min: 55, max: 100, step: 1, start: 55, digits: 0, choice: true },
+    { id: 'm', label: 'Required mean price m of the mixture', unit: 'Rs/kg', min: 46, max: 54, step: 1, start: 46, digits: 0, choice: true },
     { id: 'T', label: 'Total quantity of the mixture', unit: 'kg', min: 5, max: 50, step: 5, start: 5, digits: 0 },
   ],
   outs: [

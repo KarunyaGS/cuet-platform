@@ -2,7 +2,8 @@ import { Pause, Play, RotateCcw, SkipBack, SkipForward } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import { useSearchParams } from 'react-router';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, RangeSlider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { clampTo, stepFor, trim, type Range } from '../visual/ranges';
 import {
   APPLY, applyOp, binarySteps, binaryWorst, BRACKET_STRINGS, checkMiddle, checkStudentSwap, cleanTaskText, codeFor, countSort, expectedAction, linearSteps, MEASURE_LIMITS, measureRow,
   newDS, newTask, nextSwapIndex, OPS, parseArray, PRED_PUSHES, PRED_SORT_ARRAY, PRED_SWAPS_ARRAY, PREDICTS, pythonList, randomDistinct, REVERSE_WORDS, runOps, searchStats,
@@ -261,6 +262,9 @@ export function AlgoLabPage() {
   const [tested, setTested] = useState<Record<string, boolean>>({});
   const [rows, setRows] = useState<MeasureRow[]>([]);
   const [measureN, setMeasureN] = useState(16);
+  // The student's own ranges for the two list-size controls (whole numbers; the lab's own range is the default).
+  const [sizeRange, setSizeRange] = useState<Range>({ min: 5, max: 24 });
+  const [measureRange, setMeasureRange] = useState<Range>({ min: MEASURE_LIMITS.min, max: MEASURE_LIMITS.max });
   const [measureNote, setMeasureNote] = useState('');
   const [ans, setAns] = useState<Record<string, number>>({});
   const [announce, setAnnounce] = useState('');
@@ -671,7 +675,7 @@ export function AlgoLabPage() {
                       <button type="button" aria-pressed={qMode === 'do'} data-qmode="do" onClick={() => { setQMode('do'); qReset(); }} className={seg(qMode === 'do')}>{qAlg === 'binary' ? 'I choose the middle' : 'I choose the next'}</button>
                     </div>
                   </div>
-                  <Slider id="a-n" label="List size n" unit="elements" value={sn} min={5} max={24} step={1} onChange={(v) => { setSn(v); setKeyIdx(-1); qReset(); }} />
+                  <RangeSlider id="a-n" label="List size n" unit="elements" value={sn} min={sizeRange.min} max={sizeRange.max} step={Math.max(1, Math.round(stepFor(1, sizeRange)))} shown={trim(sn)} onChange={(v) => { setSn(v); setKeyIdx(-1); qReset(); }} design={{ min: 5, max: 24 }} range={sizeRange} rules={{ integer: true, floor: 2, cap: 60 }} onRange={(r) => { setSizeRange(r); setSn((c) => clampTo(c, r)); setKeyIdx(-1); qReset(); }} />
                   <label className="block text-sm text-ink">Key to find
                     <select aria-label="Key to find" data-key className="mt-1 h-9 w-full rounded-md border border-rule-strong bg-surface px-2" value={keyIdx} onChange={(e) => { setKeyIdx(Number(e.target.value)); qReset(); }}>
                       <option value={-1}>{absentKey + 1} (not in the list)</option>
@@ -766,7 +770,7 @@ export function AlgoLabPage() {
             <section className={`${panel} space-y-3 p-4`} data-measure>
               <h2 className="text-lg font-semibold text-ink">Measure</h2>
               <p className="text-[15px] text-ink">Choose a list size and run the algorithms on it. The three sorts get the same shuffled list; both searches are run once for every key of a sorted list of that size. Record at least three <em>different</em> sizes, for example 16, 64 and 256.</p>
-              <Slider id="m-n" label="List size n" unit="elements" value={measureN} min={MEASURE_LIMITS.min} max={MEASURE_LIMITS.max} step={MEASURE_LIMITS.step} onChange={(v) => { setMeasureN(v); setMeasureNote(''); }} />
+              <RangeSlider id="m-n" label="List size n" unit="elements" value={measureN} min={measureRange.min} max={measureRange.max} step={Math.max(1, Math.round(stepFor(MEASURE_LIMITS.step, measureRange)))} shown={trim(measureN)} onChange={(v) => { setMeasureN(v); setMeasureNote(''); }} design={{ min: MEASURE_LIMITS.min, max: MEASURE_LIMITS.max }} range={measureRange} rules={{ integer: true, floor: 2, cap: 2000 }} onRange={(r) => { setMeasureRange(r); setMeasureN((c) => clampTo(c, r)); setMeasureNote(''); }} />
               <div className="flex flex-wrap gap-2">
                 <button type="button" className={btnMain} onClick={addRow} data-record>Run and record</button>
                 {rows.length > 0 && <button type="button" className={btn} onClick={() => { setRows([]); setMeasureNote(''); }}>Clear table</button>}

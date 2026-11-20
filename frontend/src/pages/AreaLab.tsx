@@ -3,7 +3,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { DisplayMath, Rich } from '../rich';
 import { Badge, PageHeader } from '../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps } from '../visual/labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, Slider, StepNav, useLabCompletion, useLabOrigin, useNarrow, useScrollTopOnOpen, useSteps, RangeEditor } from '../visual/labkit';
+import { clampTo, stepFor, type Range } from '../visual/ranges';
 import {
   APPLY, betweenAreas, convergenceSeries, distinctN, enclosedArea, exactIntegral, fitLogLog, FUNCTIONS, getFn, getPair, intersections, PAIRS, POLY_DEFAULT, PREDICTS, riemann,
   RULE_COLOUR, RULE_LABEL, RULE_NAME, RULES, sameGroup, signedAreas, slopeNote, START, strips, textbookSlope, type Fn, type Mode, type Pair, type Reading, type Rule, type Setup,
@@ -65,9 +66,10 @@ interface CanvasProps {
 }
 
 function Canvas({ mode, fn, pair, a, b, n, rule, narrow, onA, onB }: CanvasProps) {
-  const H = narrow ? 92 : 68;
-  const fs = narrow ? 4.4 : 3.1;
-  const L = 10, R = W - 4, T = 5, B = H - 9;
+  const H = narrow ? 100 : 70;
+  const fs = narrow ? 5 : 3.1;
+  // The bottom margin holds the tick numbers and the a / b labels, so it grows with the text size.
+  const R = W - 4, T = 5, B = H - Math.round(fs * 3.4);
   const lo = mode === 'between' ? pair.lo : fn.lo;
   const hi = mode === 'between' ? pair.hi : fn.hi;
   const pad = (hi - lo) * 0.03;
@@ -88,6 +90,8 @@ function Canvas({ mode, fn, pair, a, b, n, rule, narrow, onA, onB }: CanvasProps
     return { ymin: mn < 0 ? mn - padY : 0, ymax: mx + padY };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, fn, pair, vx0, vx1]);
+  // The left margin grows with the longest y-axis number, so big coefficients never push the numbers off the edge.
+  const L = Math.max(10, Math.max(...ticks(ymin, ymax).map((t) => String(r2(t)).length)) * fs * 0.85 * 0.6 + 2.5);
   const Y = (v: number) => B - ((v - ymin) / (ymax - ymin)) * (B - T);
   const y0 = Y(0);
 
@@ -243,11 +247,11 @@ function SumGraph({ fn, a, b, n }: { fn: Fn; a: number; b: number; n: number }) 
       <rect x={34} y={18} width={330} height={104} fill="#fff" stroke="#e5e5e5" />
       {data.map(({ r, s }) => <polyline key={r} points={s.map((p) => `${X(p.n).toFixed(1)},${Y(p.sum).toFixed(1)}`).join(' ')} fill="none" stroke={RULE_COLOUR[r]} strokeWidth={1.3} />)}
       <line x1={34} x2={364} y1={Y(exact)} y2={Y(exact)} stroke="#1a2233" strokeWidth={0.9} strokeDasharray="4 3" />
-      <text x={362} y={Y(exact) - 3} fontSize={9} textAnchor="end" fill="#1a2233" {...halo} strokeWidth={2}>exact = {num(exact)}</text>
+      <text x={362} y={Y(exact) - 3} fontSize={12} textAnchor="end" fill="#1a2233" {...halo} strokeWidth={2}>exact = {num(exact)}</text>
       <line x1={X(n)} x2={X(n)} y1={18} y2={122} stroke="#7c8595" strokeWidth={0.8} strokeDasharray="2 3" />
-      {[1, 50, 100, 150, 200].map((t) => <text key={t} x={X(t)} y={134} fontSize={9} textAnchor="middle" fill="#4d5768">{t}</text>)}
-      <text x={364} y={146} fontSize={9} textAnchor="end" fill="#4d5768">number of strips n</text>
-      <text x={34} y={12} fontSize={9} fill="#4d5768">sum (the vertical axis is cut off at ±50% of the exact value)</text>
+      {[1, 50, 100, 150, 200].map((t) => <text key={t} x={X(t)} y={134} fontSize={12} textAnchor="middle" fill="#4d5768">{t}</text>)}
+      <text x={364} y={146} fontSize={12} textAnchor="end" fill="#4d5768">number of strips n</text>
+      <text x={34} y={12} fontSize={12} fill="#4d5768">sum (axis cut at ±50% of exact)</text>
     </svg>
   );
 }
@@ -268,9 +272,9 @@ function ErrGraph({ fn, a, b, n, rule }: { fn: Fn; a: number; b: number; n: numb
       <rect x={34} y={18} width={330} height={104} fill="#fff" stroke="#e5e5e5" />
       {data.map(({ r, pts }) => pts.length > 1 && <polyline key={r} points={pts.map((p) => `${X(p.n).toFixed(1)},${Y(p.e).toFixed(1)}`).join(' ')} fill="none" stroke={RULE_COLOUR[r]} strokeWidth={1.3} />)}
       {cur > 1e-12 && <circle cx={X(n)} cy={Y(cur)} r={3.6} fill={RULE_COLOUR[rule]} stroke="#fff" strokeWidth={1} />}
-      {[1, 10, 100, 200].map((t) => <text key={t} x={X(t)} y={134} fontSize={9} textAnchor="middle" fill="#4d5768">{t}</text>)}
-      <text x={364} y={146} fontSize={9} textAnchor="end" fill="#4d5768">n (log scale)</text>
-      <text x={34} y={12} fontSize={9} fill="#4d5768">|error| (log scale): {num(Math.pow(10, eHi - 0.2), 3)} at the top, {num(Math.pow(10, eLo + 0.2), 3)} at the bottom</text>
+      {[1, 10, 100, 200].map((t) => <text key={t} x={X(t)} y={134} fontSize={12} textAnchor="middle" fill="#4d5768">{t}</text>)}
+      <text x={364} y={146} fontSize={12} textAnchor="end" fill="#4d5768">n (log scale)</text>
+      <text x={34} y={12} fontSize={12} fill="#4d5768">|error| (log): {num(Math.pow(10, eHi - 0.2), 3)} top, {num(Math.pow(10, eLo + 0.2), 3)} bottom</text>
     </svg>
   );
 }
@@ -304,9 +308,9 @@ function FitGraph({ rows, fn, a, b }: { rows: Reading[]; fn: Fn; a: number; b: n
         <rect x={40} y={22} width={320} height={100} fill="#fff" stroke="#e5e5e5" />
         <line x1={X(x0)} y1={Y(line(x0))} x2={X(x1)} y2={Y(line(x1))} stroke={BLUE} strokeWidth={1.2} opacity={0.7} />
         {ok.map((p, i) => <circle key={i} cx={X(xs[i]!)} cy={Y(ys[i]!)} r={3.6} fill={RED} />)}
-        {ok.map((p, i) => <text key={`t${i}`} x={X(xs[i]!)} y={134} fontSize={9} textAnchor="middle" fill="#4d5768">{p.n}</text>)}
-        <text x={360} y={146} fontSize={9} textAnchor="end" fill="#4d5768">n (log scale)</text>
-        <text x={42} y={16} fontSize={9} fill="#4d5768">|error| (log scale). Line: slope {fit.slope.toFixed(2)}</text>
+        {ok.map((p, i) => <text key={`t${i}`} x={X(xs[i]!)} y={134} fontSize={12} textAnchor="middle" fill="#4d5768">{p.n}</text>)}
+        <text x={360} y={146} fontSize={12} textAnchor="end" fill="#4d5768">n (log scale)</text>
+        <text x={42} y={16} fontSize={12} fill="#4d5768">|error| (log scale). Line: slope {fit.slope.toFixed(2)}</text>
       </svg>
       <p className="text-[15px] text-ink">
         The dots lie close to a straight line on the log-log graph, so the error behaves like a power of n. Its fitted slope is <strong className="num" data-slope>{fit.slope.toFixed(2).replace('-', '−')}</strong>; the textbook value for the {RULE_NAME[rule]} rule is <span className="num">{tb < 0 ? '−' : ''}{Math.abs(tb)}</span>.
@@ -324,6 +328,10 @@ export function AreaLabPage() {
   const [mode, setMode] = useState<Mode>(first === 'between' || first === 'signed' ? first : 'riemann');
   const [fnId, setFnId] = useState('x2');
   const [coeffs, setCoeffs] = useState<number[]>(POLY_DEFAULT);
+  // The student's own range for the polynomial coefficients (one range for all four).
+  const COEF_DESIGN: Range = { min: -3, max: 3 };
+  const [coefRange, setCoefRange] = useState<Range>(COEF_DESIGN);
+  const coefStep = stepFor(0.5, coefRange);
   const [pairId, setPairId] = useState('par-line');
   const [fnIv, setFnIv] = useState<{ a: number; b: number }>({ a: START.a, b: START.b });
   const snap = (p: Pair) => { const r = intersections(p); return { a: r[0]!, b: r[r.length - 1]! }; };
@@ -355,7 +363,7 @@ export function AreaLabPage() {
     if (s.mode === 'between') { setPairId(s.pair); setPairIv({ a: s.a, b: s.b }); }
     else { setFnId(s.fn); setFnIv({ a: s.a, b: s.b }); }
   };
-  const reset = () => { setMode('riemann'); setFnId('x2'); setCoeffs(POLY_DEFAULT); setFnIv({ a: START.a, b: START.b }); setPairId('par-line'); setPairIv(snap(getPair('par-line'))); setN(START.n); setRule(START.rule); };
+  const reset = () => { setCoefRange(COEF_DESIGN); setMode('riemann'); setFnId('x2'); setCoeffs(POLY_DEFAULT); setFnIv({ a: START.a, b: START.b }); setPairId('par-line'); setPairIv(snap(getPair('par-line'))); setN(START.n); setRule(START.rule); };
 
   // numbers shown
   const exact = exactIntegral(fn, a, b);
@@ -419,8 +427,11 @@ export function AreaLabPage() {
                   {fnId === 'poly' && (
                     <div className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2" data-poly>
                       {['c₀ (constant)', 'c₁ (x)', 'c₂ (x²)', 'c₃ (x³)'].map((l, i) => (
-                        <Slider key={l} id={`ar-c${i}`} label={l} unit="" value={coeffs[i] ?? 0} min={-3} max={3} step={0.5} onChange={(v) => setCoeffs((c) => c.map((x, j) => (j === i ? v : x)))} />
+                        <Slider key={l} id={`ar-c${i}`} label={l} unit="" value={coeffs[i] ?? 0} min={coefRange.min} max={coefRange.max} step={coefStep} onChange={(v) => setCoeffs((c) => c.map((x, j) => (j === i ? v : x)))} />
                       ))}
+                    <div className="col-span-2">
+                        <RangeEditor id="ar-coef" unit="" design={COEF_DESIGN} range={coefRange} onRange={(r) => { setCoefRange(r); setCoeffs((c) => c.map((x) => clampTo(x, r))); }} />
+                      </div>
                     </div>
                   )}
                 </div>

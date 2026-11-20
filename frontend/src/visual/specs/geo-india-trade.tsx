@@ -23,9 +23,9 @@ export const spec: Spec = {
   vars: [
     { id: 'X', label: 'Exports now (illustrative units)', unit: 'units', min: 100, max: 2000, step: 20, start: 540, digits: 0 },
     { id: 'M', label: 'Imports now (illustrative units)', unit: 'units', min: 100, max: 2000, step: 20, start: 720, digits: 0 },
-    { id: 'gx', label: 'Yearly growth of exports', unit: '% per year', min: 0, max: 15, step: 1, start: 6, digits: 0 },
-    { id: 'gm', label: 'Yearly growth of imports', unit: '% per year', min: 0, max: 15, step: 1, start: 4, digits: 0 },
-    { id: 't', label: 'Years from now', unit: 'years', min: 0, max: 10, step: 1, start: 5, digits: 0 },
+    { id: 'gx', label: 'Yearly growth of exports', unit: '% per year', min: 0, max: 15, step: 1, start: 6, digits: 0, bounds: { min: 0, max: 100 } },
+    { id: 'gm', label: 'Yearly growth of imports', unit: '% per year', min: 0, max: 15, step: 1, start: 4, digits: 0, bounds: { min: 0, max: 100 } },
+    { id: 't', label: 'Years from now', unit: 'years', min: 0, max: 10, step: 1, start: 5, digits: 0, integer: true, bounds: { min: 0, max: 100 } },
   ],
   outs: [
     { id: 'B', label: 'Balance of trade now = exports − imports', unit: 'units', fn: (v) => v.X! - v.M!, digits: 0 },

@@ -25,9 +25,9 @@ export const spec: Spec = {
   minutes: 8,
   vars: [
     { id: 'W', label: 'Total workers (illustrative country)', unit: 'million', min: 10, max: 200, step: 10, start: 80, digits: 0 },
-    { id: 'p', label: 'Share in primary activities', unit: '%', min: 5, max: 70, step: 5, start: 35, digits: 0 },
-    { id: 's', label: 'Share in secondary activities', unit: '%', min: 5, max: 30, step: 5, start: 25, digits: 0 },
-    { id: 'q', label: 'Quaternary share of the remaining (tertiary + quaternary) workers', unit: '%', min: 0, max: 50, step: 5, start: 20, digits: 0 },
+    { id: 'p', label: 'Share in primary activities', unit: '%', min: 5, max: 70, step: 5, start: 35, digits: 0, choice: true },
+    { id: 's', label: 'Share in secondary activities', unit: '%', min: 5, max: 30, step: 5, start: 25, digits: 0, choice: true },
+    { id: 'q', label: 'Quaternary share of the remaining (tertiary + quaternary) workers', unit: '%', min: 0, max: 50, step: 5, start: 20, digits: 0, bounds: { min: 0, max: 100 } },
   ],
   outs: [
     { id: 'P', label: 'Primary workers', unit: 'million', fn: (v) => nP(v.W!, v.p!), digits: 1 },

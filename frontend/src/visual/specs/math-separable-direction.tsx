@@ -29,7 +29,7 @@ export const spec: Spec = {
     { id: 'k', label: 'Constant k in dy/dx = k xⁿ y', unit: '', min: -2, max: 2, step: 0.05, start: 1.1, digits: 2 },
     { id: 'y0', label: 'Initial value y₀ = y(x₀)', unit: '', min: 0.5, max: 4, step: 0.5, start: 2, digits: 1 },
     { id: 'x0', label: 'Starting x₀', unit: '', min: -1, max: 1, step: 0.5, start: 0, digits: 1 },
-    { id: 'n', label: 'Equation: n = 0 gives dy/dx = ky, n = 1 gives dy/dx = kxy', unit: '', min: 0, max: 1, step: 1, start: 0, digits: 0 },
+    { id: 'n', label: 'Equation: n = 0 gives dy/dx = ky, n = 1 gives dy/dx = kxy', unit: '', min: 0, max: 1, step: 1, start: 0, digits: 0, choice: true },
     { id: 'x', label: 'Where to read the solution, x', unit: '', min: -2, max: 2, step: 0.25, start: 1, digits: 2 },
   ],
   outs: [

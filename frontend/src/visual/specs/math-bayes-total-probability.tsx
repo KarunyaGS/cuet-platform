@@ -24,9 +24,9 @@ export const spec: Spec = {
   can: ['Build P(A) by adding the two branches of the probability tree', 'Reverse the conditioning with Bayes theorem and see how the prior P(E₁) matters', 'Find when A and E₁ are independent, so that P(A|E₁) = P(A)'],
   minutes: 11,
   vars: [
-    { id: 'pe', label: 'Prior probability P(E₁)', unit: '', min: 0.05, max: 0.95, step: 0.05, start: 0.5, digits: 2 },
-    { id: 'a1', label: 'Conditional P(A | E₁)', unit: '', min: 0, max: 1, step: 0.05, start: 0.6, digits: 2 },
-    { id: 'a2', label: 'Conditional P(A | E₂)', unit: '', min: 0, max: 1, step: 0.05, start: 0.2, digits: 2 },
+    { id: 'pe', label: 'Prior probability P(E₁)', unit: '', min: 0.05, max: 0.95, step: 0.05, start: 0.5, digits: 2, bounds: { min: 0.001, max: 0.999 } },
+    { id: 'a1', label: 'Conditional P(A | E₁)', unit: '', min: 0, max: 1, step: 0.05, start: 0.6, digits: 2, bounds: { min: 0, max: 1 } },
+    { id: 'a2', label: 'Conditional P(A | E₂)', unit: '', min: 0, max: 1, step: 0.05, start: 0.2, digits: 2, bounds: { min: 0, max: 1 } },
   ],
   outs: [
     { id: 'pA', label: 'Total probability P(A)', unit: '', fn: (v) => total(v.pe!, v.a1!, v.a2!), digits: 4 },
@@ -55,7 +55,7 @@ export const spec: Spec = {
         <text x={X0 + w1 + (W - w1) / 2} y={Y0 - 10} textAnchor="middle" fill="#c45e42" fontWeight="bold">E₂: {fmt(1 - v.pe!, 2)}</text>
         {h1 > 12 && w1 > 40 && <text x={X0 + w1 / 2} y={Y0 + H - h1 / 2 + 4} textAnchor="middle" fill="#fff">{fmt(o.j1!, 3)}</text>}
         {h2 > 12 && W - w1 > 40 && <text x={X0 + w1 + (W - w1) / 2} y={Y0 + H - h2 / 2 + 4} textAnchor="middle" fill="#fff">{fmt((1 - v.pe!) * v.a2!, 3)}</text>}
-        <text x={X0} y={Y0 + H + 18}>shaded height in each column = P(A | that cause); shaded area = P(A and cause)</text>
+        <text x={X0} y={Y0 + H + 18}>height of shading = P(A | cause) · area = P(A and cause)</text>
         <text x={200} y={Y0 + H + 36} textAnchor="middle" fontSize={12} fontWeight="bold" fill="#18443b">P(A) = {fmt(o.pA!, 3)} · P(E₁|A) = {fmt(o.post!, 3)} (green share of the shaded area)</text>
       </g>
     );

@@ -33,9 +33,9 @@ export const spec: Spec = {
   can: ['See how n and p reshape the bars P(X = r) of a binomial distribution', 'Read the mean np and the variance npq and see that the variance is smaller than the mean', 'Record the mean for three values of n and read p from the slope'],
   minutes: 10,
   vars: [
-    { id: 'n', label: 'Number of trials n', unit: '', min: 1, max: 20, step: 1, start: 4, digits: 0 },
-    { id: 'p', label: 'Probability of success p', unit: '', min: 0.05, max: 0.95, step: 0.05, start: 0.5, digits: 2 },
-    { id: 'r', label: 'Number of successes r (counted as n if larger)', unit: '', min: 0, max: 20, step: 1, start: 2, digits: 0 },
+    { id: 'n', label: 'Number of trials n', unit: '', min: 1, max: 20, step: 1, start: 4, digits: 0, integer: true, bounds: { min: 1, max: 60 } },
+    { id: 'p', label: 'Probability of success p', unit: '', min: 0.05, max: 0.95, step: 0.05, start: 0.5, digits: 2, bounds: { min: 0.001, max: 0.999 } },
+    { id: 'r', label: 'Number of successes r (counted as n if larger)', unit: '', min: 0, max: 20, step: 1, start: 2, digits: 0, integer: true, bounds: { min: 0, max: 60 } },
   ],
   outs: [
     { id: 'pr', label: 'P(X = r) = ⁿCr pʳ qⁿ⁻ʳ', unit: '', fn: (v) => pmf(v.n!, v.p!, Math.min(v.r!, v.n!)), digits: 4 },

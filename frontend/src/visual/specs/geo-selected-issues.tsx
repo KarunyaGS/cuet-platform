@@ -26,8 +26,8 @@ export const spec: Spec = {
   vars: [
     { id: 'P', label: 'Population of the city (illustrative)', unit: 'million', min: 0.5, max: 20, step: 0.5, start: 2, digits: 1 },
     { id: 'w', label: 'Solid waste per person per day', unit: 'kg', min: 0.1, max: 1.0, step: 0.05, start: 0.5, digits: 2 },
-    { id: 'c', label: 'Compostable share of the waste', unit: '%', min: 20, max: 80, step: 5, start: 60, digits: 0 },
-    { id: 'r', label: 'Share of the non-compostable waste that is recycled', unit: '%', min: 0, max: 80, step: 5, start: 0, digits: 0 },
+    { id: 'c', label: 'Compostable share of the waste', unit: '%', min: 20, max: 80, step: 5, start: 60, digits: 0, bounds: { min: 0, max: 100 } },
+    { id: 'r', label: 'Share of the non-compostable waste that is recycled', unit: '%', min: 0, max: 80, step: 5, start: 0, digits: 0, bounds: { min: 0, max: 100 } },
   ],
   outs: [
     { id: 'T', label: 'Total solid waste', unit: 'tonnes/day', fn: (v) => total(v.P!, v.w!), digits: 0 },

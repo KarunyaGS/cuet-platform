@@ -22,8 +22,8 @@ export const spec: Spec = {
   minutes: 8,
   vars: [
     { id: 'E', label: 'Energy stored by the producers (illustrative)', unit: 'J', min: 1000, max: 100000, step: 1, start: 20000, log: true, digits: 0 },
-    { id: 'e', label: 'Share of energy passed to the next level', unit: '%', min: 5, max: 20, step: 1, start: 10, digits: 0 },
-    { id: 'n', label: 'Consumer level examined (1 = primary consumers)', unit: '', min: 1, max: 5, step: 1, start: 3, digits: 0 },
+    { id: 'e', label: 'Share of energy passed to the next level', unit: '%', min: 5, max: 20, step: 1, start: 10, digits: 0, bounds: { min: 0.1, max: 100 } },
+    { id: 'n', label: 'Consumer level examined (1 = primary consumers)', unit: '', min: 1, max: 5, step: 1, start: 3, digits: 0, choice: true },
   ],
   outs: [
     { id: 'E1', label: 'Energy at the primary consumers', unit: 'J', fn: (v) => level(v.E!, v.e!, 1), digits: 1 },
@@ -51,7 +51,7 @@ export const spec: Spec = {
             <g key={name}>
               <rect x={200 - w / 2} y={y} width={w} height={26} rx={3} fill={hi ? ACC : i === 0 ? '#6aa84f' : BLUE} opacity={hi ? 1 : 0.7} />
               <text x={200} y={y + 17} fill={w > 150 ? '#fff' : INK} fontWeight="bold" dy={0}>{w > 150 ? `${name}: ${fmt(E, E >= 100 ? 0 : 2)} J` : ''}</text>
-              {w <= 150 && <text x={200 + w / 2 + 6} y={y + 17} textAnchor="start" fill={INK}>{name}: {fmt(E, E >= 100 ? 0 : E >= 1 ? 1 : 3)} J</text>}
+              {w <= 150 && <text x={200 + w / 2 + 6} y={y + 17} textAnchor="start" fill={INK}>{name.replace(' consumers', '')}: {fmt(E, E >= 100 ? 0 : E >= 1 ? 1 : 3)} J</text>}
             </g>
           );
         })}

@@ -258,7 +258,7 @@ function DayTasksDialog({ day, items, onClose, onSelectTask }: { day: string; it
                 <li key={task.id}>
                   <button type="button" onClick={() => onSelectTask(task.id)} aria-label={`View task ${index + 1}: ${task.title}${task.done ? ', completed' : ''}`} className={`group flex w-full items-center gap-3 rounded-2xl border p-3.5 text-left transition hover:-translate-y-0.5 hover:shadow-sm ${task.done ? 'border-forest/15 bg-[#f0f3e8]/75' : task.planId ? 'border-[#d5df98] bg-[#fbfced]' : 'border-rule/70 bg-white/80 hover:border-forest/20'}`}>
                     <span className={`grid size-9 shrink-0 place-items-center rounded-xl text-xs font-bold ${task.done ? 'bg-forest text-lime' : 'bg-[#eef3d2] text-forest'}`}>{task.done ? <Check aria-hidden className="size-4" /> : index + 1}</span>
-                    <span className="min-w-0 flex-1"><span className={`block text-sm font-semibold leading-snug ${task.done ? 'text-ink-3 line-through' : 'text-ink'}`}>{task.title}</span><span className="mt-1 block text-[11px] text-ink-3">{KIND_LABEL[task.kind] ?? task.kind}{task.minutes ? ` · ${task.minutes} min` : ''}{task.targetCount ? ` · ${task.targetCount} questions` : ''}{task.planId ? ' · Study plan' : ''}</span></span>
+                    <span className="min-w-0 flex-1"><span className={`block text-sm font-semibold leading-snug ${task.done ? 'text-ink-3 line-through' : 'text-ink'}`}>{task.title}</span>{task.kind === 'REVISE' && task.refId && <RevisionFocus nodeId={task.refId} />}<span className="mt-1 block text-[11px] text-ink-3">{KIND_LABEL[task.kind] ?? task.kind}{task.minutes ? ` · ${task.minutes} min` : ''}{task.targetCount ? ` · ${task.targetCount} questions` : ''}{task.planId ? ' · Study plan' : ''}</span></span>
                     {task.done && <span className="rounded-full bg-[#e5efdc] px-2 py-1 text-[10px] font-semibold text-forest">Done</span>}
                     <ArrowRight aria-hidden className="size-4 shrink-0 text-ink-3 transition-transform group-hover:translate-x-0.5" />
                   </button>
@@ -270,6 +270,29 @@ function DayTasksDialog({ day, items, onClose, onSelectTask }: { day: string; it
       </section>
     </div>
   );
+}
+
+/** For revision tasks, show the actual syllabus points under the topic title in the day list. */
+function RevisionFocus({ nodeId }: { nodeId: string }) {
+  const [focus, setFocus] = useState<string | null>(null);
+  useEffect(() => {
+    let active = true;
+    void api.topic(nodeId).then((detail) => {
+      if (!active) return;
+      const children = detail.children
+        .filter((child) => child.kind !== 'NOTE')
+        .map((child) => child.title.trim())
+        .filter(Boolean);
+      const syllabusDetail = [detail.topic.body?.trim().replace(/\s+/g, ' '), ...children].filter(Boolean).join(' · ');
+      setFocus(syllabusDetail ? `${syllabusDetail.slice(0, 220)}${syllabusDetail.length > 220 ? '…' : ''}` : null);
+    }).catch(() => {
+      if (active) setFocus(null);
+    });
+    return () => { active = false; };
+  }, [nodeId]);
+
+  if (!focus) return null;
+  return <span className="mt-1.5 block text-[11px] leading-snug text-forest/75"><span className="font-bold text-forest">Focus:</span> {focus}</span>;
 }
 
 function DayColumn({ day, today, past, items, act, onOpenDay }: { day: string; today: boolean; past: boolean; items: PlanItem[]; act: (f: () => Promise<unknown>) => Promise<void>; onOpenDay: (day: string, trigger: HTMLElement) => void }) {
