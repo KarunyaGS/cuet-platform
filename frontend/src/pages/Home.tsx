@@ -1,4 +1,4 @@
-import { Atom, BookOpen, Calculator, FlaskConical, Globe, Landmark, Languages, Leaf, Sigma, ArrowUpRight, Sparkles, type LucideIcon } from 'lucide-react';
+import { Atom, BookOpen, Calculator, FlaskConical, Globe, Landmark, Languages, Leaf, Sigma, ArrowUpRight, type LucideIcon } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { api, localDay, type CurrentPlan, type Dashboard, type Preferences, type Subject } from '../api';
@@ -204,45 +204,35 @@ function StudyMilestone({ currentPlan }: { currentPlan: CurrentPlan | null }) {
   const done = tasks.filter((item) => item.done).length;
   const total = tasks.length;
   const percent = total ? Math.round((done / total) * 100) : 0;
-  const next = tasks.find((item) => !item.done);
   const reached = percent >= 100 ? 'Milestone reached' : percent >= 75 ? 'Almost there' : percent >= 50 ? 'Halfway there' : percent >= 25 ? 'First steps done' : 'Ready when you are';
-  const guidance = !currentPlan?.plan
-    ? 'Create your Prepora expert-suggested plan to see milestones based on your study tasks.'
-    : total === 0
-      ? `No expert-plan tasks are scheduled ${period === 'day' ? 'today' : period === 'week' ? 'this week' : 'this month'}. Open your planner to see the full schedule.`
-      : percent === 100
-        ? `You completed all ${total} expert-suggested ${total === 1 ? 'task' : 'tasks'} ${period === 'day' ? 'today' : period === 'week' ? 'this week' : 'this month'}. Take a breath, then keep your next study session steady.`
-        : done === 0
-          ? `Your next step is “${next?.title}”. Prepora placed it first in your expert-suggested plan for ${range.label.toLowerCase()}.`
-          : `${done} of ${total} expert-suggested tasks complete. Next, continue with “${next?.title}”.`;
   const marker = pointOnMilestonePath(percent);
   return (
-    <div className="relative mt-6 w-full px-1 sm:px-2" data-study-milestone data-period={period}>
+    <div className="study-milestone-panel relative isolate mt-6 w-full overflow-hidden rounded-[22px] border border-forest/10 px-4 py-4 shadow-[0_18px_36px_-30px_rgb(32_44_40/0.42)] sm:px-6 sm:py-5" style={{ backgroundImage: 'radial-gradient(35% 90% at 0% 100%, rgb(230 242 142 / 0.34), transparent 100%), radial-gradient(30% 80% at 100% 0%, rgb(236 187 165 / 0.20), transparent 100%), linear-gradient(125deg, #edf1df 0%, #f5f2e8 58%, #f1eee1 100%)' }} data-study-milestone data-period={period}>
+      <span aria-hidden className="study-milestone-sheen" />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="label text-[10px] tracking-[0.15em] text-forest/60">YOUR EXPERT-PLAN MILESTONE</p>
           <h3 className="mt-1 text-lg font-bold text-forest">{range.label} · {reached}</h3>
         </div>
         <div role="tablist" aria-label="Milestone period" className="flex items-center gap-1">
-          {(['day', 'week', 'month'] as const).map((key) => <button key={key} type="button" role="tab" aria-selected={period === key} onClick={() => setPeriod(key)} className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${period === key ? 'bg-forest text-lime' : 'text-forest/65 hover:bg-forest/5 hover:text-forest'}`}>{key === 'day' ? 'Today' : key === 'week' ? 'Week' : 'Month'}</button>)}
+          {(['day', 'week', 'month'] as const).map((key) => <button key={key} type="button" role="tab" aria-selected={period === key} onClick={() => setPeriod(key)} className={`study-milestone-tab rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${period === key ? 'is-active bg-forest text-lime' : 'text-forest/65 hover:bg-forest/5 hover:text-forest'}`}>{key === 'day' ? 'Today' : key === 'week' ? 'Week' : 'Month'}</button>)}
         </div>
       </div>
       <div className="mt-2">
         <svg viewBox="0 0 720 126" className="study-milestone-graphic block h-[118px] w-full overflow-visible sm:h-[142px] lg:h-[156px]" role="img" aria-label={`${done} of ${total} expert-plan tasks completed, ${percent}%`}>
-          <defs><linearGradient id="studyMilestoneTrail" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor="#97a849" /><stop offset="100%" stopColor="#e5ef86" /></linearGradient><radialGradient id="studyMilestoneGlow"><stop stopColor="#eff8a8" stopOpacity=".9" /><stop offset="1" stopColor="#eff8a8" stopOpacity="0" /></radialGradient></defs>
-          <path d="M18 92 C110 18 220 18 360 65 C500 112 600 95 702 24" fill="none" stroke="#8da293" strokeOpacity=".38" strokeWidth="5" strokeLinecap="round" />
+          <defs><linearGradient id="studyMilestoneTrail" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor="#97a849" /><stop offset="100%" stopColor="#e5ef86" /></linearGradient><linearGradient id="studyMilestoneBrand" x1="10" y1="5" x2="38" y2="44" gradientUnits="userSpaceOnUse"><stop stopColor="#F2D76E" /><stop offset=".56" stopColor="#F4A84E" /><stop offset="1" stopColor="#E97545" /></linearGradient><radialGradient id="studyMilestoneGlow"><stop stopColor="#eff8a8" stopOpacity=".9" /><stop offset="1" stopColor="#eff8a8" stopOpacity="0" /></radialGradient></defs>
+          <path className="study-milestone-route" d="M18 92 C110 18 220 18 360 65 C500 112 600 95 702 24" pathLength="100" fill="none" stroke="#8da293" strokeOpacity=".38" strokeWidth="5" strokeLinecap="round" />
+          <path className="study-milestone-flow" d="M18 92 C110 18 220 18 360 65 C500 112 600 95 702 24" pathLength="100" fill="none" stroke="#fffdf3" strokeOpacity=".82" strokeWidth="2" strokeLinecap="round" strokeDasharray="1 5" />
           <path className="study-milestone-trail" d="M18 92 C110 18 220 18 360 65 C500 112 600 95 702 24" pathLength="100" fill="none" stroke="url(#studyMilestoneTrail)" strokeWidth="6" strokeLinecap="round" style={{ strokeDasharray: `${percent} 100` }} />
-          {[25, 50, 75, 100].map((mark) => { const p = pointOnMilestonePath(mark); return <g key={mark} transform={`translate(${p.x} ${p.y})`} data-milestone-mark={mark}><circle r="10" fill={percent >= mark ? '#1b4a3f' : '#f8faee'} stroke={percent >= mark ? '#e5ef86' : '#aab8a5'} strokeWidth="2.5" /><text y="3.5" textAnchor="middle" fontSize="8" fontWeight="700" fill={percent >= mark ? '#e5ef86' : '#7e8d83'}>{percent >= mark ? '✓' : mark}</text></g>; })}
+          {[25, 50, 75, 100].map((mark) => { const p = pointOnMilestonePath(mark); return <g key={mark} transform={`translate(${p.x} ${p.y})`} data-milestone-mark={mark}><circle className={percent >= mark ? 'study-milestone-checkpoint is-reached' : 'study-milestone-checkpoint'} r="11" fill={percent >= mark ? '#1b4a3f' : '#f8faee'} stroke={percent >= mark ? '#e5ef86' : '#aab8a5'} strokeWidth="2.5" /><text y="3.5" textAnchor="middle" fontSize="8" fontWeight="700" fill={percent >= mark ? '#e5ef86' : '#7e8d83'}>{percent >= mark ? '✓' : mark}</text></g>; })}
           <circle className="study-milestone-glow" cx={marker.x} cy={marker.y} r="25" fill="url(#studyMilestoneGlow)" />
-          <g className="study-milestone-marker" transform={`translate(${marker.x} ${marker.y})`}><circle r="12" fill="#e6f28e" stroke="#1b4a3f" strokeWidth="3" /><path d="m0 -6 1.8 4.2 4.5.4-3.4 3 1 4.4L0 7.8-3.9 10l.8-4.4-3.3-3 4.4-.4Z" transform="scale(.68)" fill="#1b4a3f" /></g>
+          <g className="study-milestone-marker" transform={`translate(${marker.x} ${marker.y})`}><circle r="13" fill="#1b4a3f" stroke="#e6f28e" strokeWidth="3" /><g className="study-milestone-brand" transform="scale(.45) translate(-24 -24)"><path d="M24 2.5C27.2 14.2 33.8 20.8 45.5 24 33.8 27.2 27.2 33.8 24 45.5 20.8 33.8 14.2 27.2 2.5 24 14.2 20.8 20.8 14.2 24 2.5Z" fill="url(#studyMilestoneBrand)" /><path d="M24 8.5C26.4 17.6 30.4 21.6 39.5 24 30.4 26.4 26.4 30.4 24 39.5 21.6 30.4 17.6 26.4 8.5 24 17.6 21.6 21.6 17.6 24 8.5Z" fill="#FFD777" fillOpacity=".48" /></g></g>
         </svg>
       </div>
       <div className="mt-[-2px] flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-sm">
-        <p className="font-semibold text-forest"><span className="num text-xl">{done}/{total}</span> {total === 1 ? 'task' : 'tasks'} complete <span className="mx-1 text-forest/35">·</span>{percent}%</p>
+        <p className="font-semibold text-forest"><span className="study-milestone-count num inline-block text-xl">{done}/{total}</span> {total === 1 ? 'task' : 'tasks'} complete <span className="mx-1 text-forest/35">·</span>{percent}%</p>
         <Link to="/planner" className="inline-flex items-center gap-1 font-semibold text-terracotta-deep hover:underline">View expert plan <ArrowUpRight aria-hidden className="size-3.5" /></Link>
       </div>
-      <p className="mt-2 max-w-4xl text-sm leading-relaxed text-mute" aria-live="polite">{guidance}</p>
-      <p className="mt-1.5 flex items-center gap-1.5 text-xs font-medium text-forest/60"><Sparkles aria-hidden className="size-3.5" />Organized from your Prepora expert-suggested plan and checked-off tasks.</p>
     </div>
   );
 }
