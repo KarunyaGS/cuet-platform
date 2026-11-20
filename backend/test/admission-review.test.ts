@@ -142,7 +142,7 @@ describe('structured requirements: reading, review, publication and use', () => 
     await call('POST', '/api/console/admissions/sources/load-reviewed', {}, staff);
     du = ((await call('GET', '/api/console/admissions/sources', undefined, staff)).json.find((s: { url: string }) => s.url === 'https://admission.uod.ac.in')).id;
     await call('POST', `/api/console/admissions/sources/${du}/decision`, { action: 'APPROVE', checkedOn: TODAY, note: 'Opened the page' }, staff);
-  });
+  }, 90_000); // password hashing is slow when many test files run at once
 
   it('is for staff only, and a student can use the student routes only', async () => {
     for (const [m, p] of [['GET', '/api/console/admissions/requirements'], ['GET', '/api/console/admissions/groups'], ['GET', '/api/console/admissions/validation'], ['POST', '/api/console/admissions/requirements/propose']] as const) {

@@ -110,7 +110,8 @@ describe('bookmarks, goals and the planner', () => {
     expect((await call('POST', '/api/student/plan', { day: '12-11-2026', kind: 'CUSTOM', title: 'x' }, h)).status).toBe(400);
     const a = (await call('POST', '/api/student/plan', { day: '2026-11-12', kind: 'CUSTOM', title: 'Revise Coulomb' }, h)).json;
     await call('POST', '/api/student/plan', { day: '2026-11-14', kind: 'MOCK', title: 'Physics mock' }, h);
-    expect((await call('GET', '/api/student/plan?from=2026-11-12&to=2026-11-13', undefined, h)).json).toEqual([
+    // The original fields are unchanged; generated plans add optional ones (minutes, evidence, origin and so on), which a loose task leaves empty.
+    expect((await call('GET', '/api/student/plan?from=2026-11-12&to=2026-11-13', undefined, h)).json).toMatchObject([
       { id: a.id, day: '2026-11-12', kind: 'CUSTOM', refId: null, title: 'Revise Coulomb', done: false },
     ]);
     expect((await call('GET', '/api/student/plan?from=bad&to=2026-11-13', undefined, h)).status).toBe(400);
