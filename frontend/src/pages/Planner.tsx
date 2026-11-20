@@ -40,6 +40,7 @@ export function PlannerPage() {
   const days = Array.from({ length: 7 }, (_, i) => addDays(week, i));
   const plan = useLoad(() => api.plan(days[0]!, days[6]!), [week, user?.id]);
   const [err, setErr] = useState<Error | null>(null);
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
   const [savingTask, setSavingTask] = useState(false);
   const taskTrigger = useRef<HTMLElement | null>(null);
@@ -60,11 +61,13 @@ export function PlannerPage() {
   const done = plan.data?.filter((p) => p.done).length ?? 0;
   const todayTasks = byDay.get(today) ?? [];
   const selectedTask = plan.data?.find((item) => item.id === selectedTaskId) ?? null;
-  const openTask = (id: string, trigger: HTMLElement) => {
+  const openDay = (day: string, trigger: HTMLElement) => {
     taskTrigger.current = trigger;
-    setSelectedTaskId(id);
+    setSelectedDay(day);
+    setSelectedTaskId(null);
   };
   const closeTask = () => {
+    setSelectedDay(null);
     setSelectedTaskId(null);
     window.requestAnimationFrame(() => taskTrigger.current?.focus());
   };
@@ -123,7 +126,7 @@ export function PlannerPage() {
       ) : (
         <div id="planner-calendar" data-planner-grid className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {days.map((day) => (
-            <DayColumn key={day} day={day} today={day === today} past={day < today} items={byDay.get(day) ?? []} act={act} onOpenTask={openTask} />
+            <DayColumn key={day} day={day} today={day === today} past={day < today} items={byDay.get(day) ?? []} act={act} onOpenDay={openDay} />
           ))}
         </div>
       )}
@@ -133,6 +136,7 @@ export function PlannerPage() {
           saving={savingTask}
           error={err}
           onClose={closeTask}
+          onBack={() => setSelectedTaskId(null)}
           onToggleComplete={() => void toggleTaskComplete()}
           onMoveToNextDay={async () => {
             try { await api.updatePlan(selectedTask.id, { day: addDays(selectedTask.day, 1) }); plan.reload(); closeTask(); }
@@ -144,15 +148,24 @@ export function PlannerPage() {
           }}
         />
       )}
+      {selectedDay && !selectedTask && (
+        <DayTasksDialog
+          day={selectedDay}
+          items={byDay.get(selectedDay) ?? []}
+          onClose={closeTask}
+          onSelectTask={(id) => setSelectedTaskId(id)}
+        />
+      )}
     </div>
   );
 }
 
-function TaskDetailDialog({ task, saving, error, onClose, onToggleComplete, onMoveToNextDay, onRemove }: {
+function TaskDetailDialog({ task, saving, error, onClose, onBack, onToggleComplete, onMoveToNextDay, onRemove }: {
   task: PlanItem;
   saving: boolean;
   error: Error | null;
   onClose: () => void;
+  onBack: () => void;
   onToggleComplete: () => void;
   onMoveToNextDay: () => Promise<void>;
   onRemove: () => Promise<void>;
@@ -179,8 +192,9 @@ function TaskDetailDialog({ task, saving, error, onClose, onToggleComplete, onMo
               <p id="planner-task-meta" className="text-xs font-semibold text-ink-3">{KIND_LABEL[task.kind] ?? task.kind}{task.minutes ? ` · ${task.minutes} min` : ''}{task.targetCount ? ` · ${task.targetCount} questions` : ''}</p>
               <h2 id="planner-task-title" className="mt-1 text-lg leading-snug font-bold text-forest">{task.title}</h2>
             </div>
-            <button ref={closeButton} type="button" onClick={onClose} aria-label="Close task details" className="grid size-8 shrink-0 place-items-center rounded-full text-ink-3 hover:bg-paper hover:text-ink"><X aria-hidden className="size-4" /></button>
+            <button ref={closeButton} type="button" onClick={onClose} aria-label="Close task details" className="grid size-9 shrink-0 place-items-center rounded-full border border-rule bg-white/80 text-ink-3 shadow-sm transition hover:bg-paper hover:text-ink"><X aria-hidden className="size-4" /></button>
           </div>
+          <button type="button" onClick={onBack} className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-forest/70 hover:text-forest"><ChevronLeft aria-hidden className="size-3.5" />Back to the day’s tasks</button>
           {task.note && <p className="mt-4 rounded-xl border border-rule bg-paper/60 px-3.5 py-3 text-sm leading-relaxed text-ink-2">{task.note}</p>}
           {task.planId && <p className="mt-3 text-xs text-ink-3">Suggested for your study plan, based on your selected subjects and progress.</p>}
           {error && <p role="alert" className="mt-3 rounded-lg bg-wrong-soft px-3 py-2 text-sm text-wrong">{error.message}</p>}
@@ -211,30 +225,60 @@ function TaskDetailDialog({ task, saving, error, onClose, onToggleComplete, onMo
   );
 }
 
-function DayColumn({ day, today, past, items, act, onOpenTask }: { day: string; today: boolean; past: boolean; items: PlanItem[]; act: (f: () => Promise<unknown>) => Promise<void>; onOpenTask: (id: string, trigger: HTMLElement) => void }) {
+function DayTasksDialog({ day, items, onClose, onSelectTask }: { day: string; items: PlanItem[]; onClose: () => void; onSelectTask: (id: string) => void }) {
+  const closeButton = useRef<HTMLButtonElement>(null);
+  const [weekday, date] = label(day).split(', ');
+  useEffect(() => {
+    closeButton.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [onClose]);
+  return (
+    <div className="task-dialog-backdrop fixed inset-0 z-[60] grid place-items-center bg-forest-deep/45 p-4 backdrop-blur-sm" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }} data-task-dialog-overlay>
+      <section role="dialog" aria-modal="true" aria-labelledby="planner-day-title" className="task-dialog-card relative max-h-[min(82dvh,720px)] w-full max-w-lg overflow-y-auto rounded-[24px] border border-line/80 bg-surface shadow-[0_30px_70px_-30px_rgb(15_45_38/0.6)]" data-day-tasks-dialog>
+        <div className="h-1.5 bg-gradient-to-r from-forest via-[#91a94a] to-lime" />
+        <div className="p-5 sm:p-6">
+          <div className="flex items-start gap-3">
+            <div className="min-w-0 flex-1"><p className="text-[10px] font-bold uppercase tracking-[0.16em] text-terracotta">Your plan for {weekday}</p><h2 id="planner-day-title" className="mt-1 text-xl font-bold text-forest">{date}</h2><p className="mt-1 text-xs text-ink-3">{items.length} {items.length === 1 ? 'task' : 'tasks'} planned · choose one to view its details</p></div>
+            <button ref={closeButton} type="button" onClick={onClose} aria-label="Close day tasks" className="grid size-9 shrink-0 place-items-center rounded-full border border-rule bg-white/80 text-ink-3 shadow-sm transition hover:bg-paper hover:text-ink"><X aria-hidden className="size-4" /></button>
+          </div>
+          {items.length ? (
+            <ul className="mt-5 space-y-2.5">
+              {items.map((task, index) => (
+                <li key={task.id}>
+                  <button type="button" onClick={() => onSelectTask(task.id)} aria-label={`View task ${index + 1}: ${task.title}${task.done ? ', completed' : ''}`} className={`group flex w-full items-center gap-3 rounded-2xl border p-3.5 text-left transition hover:-translate-y-0.5 hover:shadow-sm ${task.done ? 'border-forest/15 bg-[#f0f3e8]/75' : task.planId ? 'border-[#d5df98] bg-[#fbfced]' : 'border-rule/70 bg-white/80 hover:border-forest/20'}`}>
+                    <span className={`grid size-9 shrink-0 place-items-center rounded-xl text-xs font-bold ${task.done ? 'bg-forest text-lime' : 'bg-[#eef3d2] text-forest'}`}>{task.done ? <Check aria-hidden className="size-4" /> : index + 1}</span>
+                    <span className="min-w-0 flex-1"><span className={`block text-sm font-semibold leading-snug ${task.done ? 'text-ink-3 line-through' : 'text-ink'}`}>{task.title}</span><span className="mt-1 block text-[11px] text-ink-3">{KIND_LABEL[task.kind] ?? task.kind}{task.minutes ? ` · ${task.minutes} min` : ''}{task.targetCount ? ` · ${task.targetCount} questions` : ''}{task.planId ? ' · Study plan' : ''}</span></span>
+                    {task.done && <span className="rounded-full bg-[#e5efdc] px-2 py-1 text-[10px] font-semibold text-forest">Done</span>}
+                    <ArrowRight aria-hidden className="size-4 shrink-0 text-ink-3 transition-transform group-hover:translate-x-0.5" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : <div className="mt-5 rounded-2xl border border-dashed border-rule-strong bg-paper/60 p-5 text-center"><p className="text-sm font-semibold text-forest">Nothing planned for this day</p><p className="mt-1 text-xs text-ink-3">Add a task from the calendar whenever you’re ready.</p></div>}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function DayColumn({ day, today, past, items, act, onOpenDay }: { day: string; today: boolean; past: boolean; items: PlanItem[]; act: (f: () => Promise<unknown>) => Promise<void>; onOpenDay: (day: string, trigger: HTMLElement) => void }) {
   const [title, setTitle] = useState('');
   const [weekday, date] = label(day).split(', ');
   const dayNumber = Number(day.slice(-2));
   return (
     <section data-planner-day data-today={today ? '' : undefined} className={`group/day flex min-h-[148px] flex-col overflow-hidden rounded-[20px] border transition duration-300 ${today ? 'planner-today-arrive is-today border-forest/25 bg-gradient-to-b from-[#f0f5df] to-surface shadow-[0_18px_40px_-26px_rgb(24_68_59/0.55)] ring-2 ring-lime' : 'border-rule/80 bg-surface shadow-[0_12px_30px_-26px_rgb(24_68_59/0.4)]'} ${past ? 'opacity-75' : ''}`}>
-      <h2 className={`flex items-center gap-3 border-b px-3 py-2.5 ${today ? 'border-forest/10' : 'border-rule/70'}`}>
+      <div className={`flex items-center gap-3 border-b px-3 py-2.5 ${today ? 'border-forest/10' : 'border-rule/70'}`}>
         <span className={`grid size-11 shrink-0 place-items-center rounded-[15px] text-lg font-bold tracking-tight transition-transform duration-300 group-hover/day:-rotate-6 group-hover/day:scale-105 ${today ? 'bg-forest text-lime shadow-[0_6px_14px_rgb(24_68_59/0.2)]' : 'bg-paper text-forest'}`}>{dayNumber}</span>
         <span className="min-w-0 flex-1"><span className="block text-[13px] font-bold text-forest">{weekday}</span><span className="mt-0.5 block text-[11px] font-normal text-ink-3">{date}</span></span>
         <span className={`rounded-full px-2 py-1 text-[10px] font-bold ${today ? 'bg-lime text-forest' : 'bg-paper text-ink-3'}`}>{today ? items.length ? `TODAY · ${items.length} TASKS` : 'TODAY' : `${items.length} ${items.length === 1 ? 'TASK' : 'TASKS'}`}</span>
-      </h2>
-      <ul className="flex-1 space-y-1.5 p-2">
-        {items.map((p, index) => (
-          <li key={p.id} data-plan-item data-expert-plan={p.planId ? 'true' : undefined}>
-            <button type="button" onClick={(event) => onOpenTask(p.id, event.currentTarget)} aria-label={`Open task ${index + 1}: ${p.title}${p.done ? ', completed' : ''}`} data-sound="open" aria-haspopup="dialog" className={`group/task flex min-h-11 w-full items-center gap-2.5 rounded-xl border px-2.5 py-2 text-left transition duration-200 hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest ${p.done ? 'border-forest/15 bg-[#f0f3e8]/75 text-ink-3' : p.planId ? 'border-[#d5df98] bg-[#fbfced] text-ink hover:border-forest/25' : 'border-rule/60 bg-white/80 text-ink hover:border-forest/20'}`} data-task-trigger>
-              <span className={`grid size-7 shrink-0 place-items-center rounded-lg text-xs font-bold ${p.done ? 'bg-forest text-lime' : 'bg-paper text-forest group-hover/task:bg-lime'}`}>{p.done ? <Check aria-hidden className="size-4" /> : index + 1}</span>
-              <span className="min-w-0 flex-1 text-xs font-semibold">Task {index + 1}</span>
-              {p.done && <span className="text-[10px] font-medium text-forest">Done</span>}
-              <ArrowRight aria-hidden className="size-3.5 shrink-0 text-ink-3 transition-transform group-hover/task:translate-x-0.5" />
-            </button>
-          </li>
-        ))}
-        {items.length === 0 && <li className="flex min-h-8 items-center justify-between rounded-lg px-1.5 py-1 text-[10px] text-ink-3"><span>Nothing planned</span><span className="rounded-full bg-paper px-2 py-0.5 font-medium">0 tasks</span></li>}
-      </ul>
+      </div>
+      <div className="flex flex-1 items-center justify-center p-3">
+        <button type="button" onClick={(event) => onOpenDay(day, event.currentTarget)} aria-haspopup="dialog" data-sound="open" className={`group/day-open inline-flex min-h-10 items-center gap-2 rounded-full border px-3.5 text-xs font-semibold transition hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest ${items.length ? today ? 'border-[#d5df98] bg-[#f8fadf] text-forest hover:bg-lime/70' : 'border-rule bg-white/70 text-forest hover:border-forest/25 hover:bg-[#f7f9e9]' : 'border-dashed border-rule bg-transparent text-ink-3 hover:border-forest/30 hover:text-forest'}`}>
+          {items.length ? <><CalendarDays aria-hidden className="size-3.5" />View day’s tasks<ArrowRight aria-hidden className="size-3.5 transition-transform group-hover/day-open:translate-x-0.5" /></> : <>No tasks planned<Plus aria-hidden className="size-3.5" /></>}
+        </button>
+      </div>
       {!past && (
         <form
           className="flex gap-1.5 border-t border-rule/70 bg-paper/55 p-2.5"
