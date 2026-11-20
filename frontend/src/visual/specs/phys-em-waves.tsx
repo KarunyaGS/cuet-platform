@@ -26,7 +26,7 @@ export const spec: Spec = {
     { id: 'nu', label: 'Frequency ν', unit: 'MHz', min: 1, max: 10000, step: 1, start: 40, log: true, digits: 1 },
     { id: 'E0', label: 'Electric-field amplitude E0', unit: 'V/m', min: 5, max: 300, step: 5, start: 60, digits: 0 },
     { id: 'A', label: 'Area of the surface hit by the wave A', unit: 'm²', min: 0.5, max: 5, step: 0.5, start: 2, digits: 1 },
-    { id: 'refl', label: 'Surface (0 = absorbs, 1 = reflects)', unit: '', min: 0, max: 1, step: 1, start: 0, digits: 0 },
+    { id: 'refl', label: 'Surface (0 = absorbs, 1 = reflects)', unit: '', min: 0, max: 1, step: 1, start: 0, digits: 0, choice: true },
   ],
   outs: [
     { id: 'lam', label: 'Wavelength λ = c / ν', unit: 'm', fn: (v) => C / (v.nu! * 1e6), digits: 3 },

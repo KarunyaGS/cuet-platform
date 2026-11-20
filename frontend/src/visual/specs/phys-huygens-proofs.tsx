@@ -26,7 +26,7 @@ export const spec: Spec = {
   can: ['Watch AE = v₂τ and BC = v₁τ set the angle of refraction', 'See that reflection gives i = r and refraction gives sin i / sin r = v₁/v₂', 'Fit AE against BC to recover the speed ratio v₂/v₁'],
   minutes: 12,
   vars: [
-    { id: 'i', label: 'Angle of incidence i', unit: '°', min: 5, max: 80, step: 1, start: 50, digits: 0 },
+    { id: 'i', label: 'Angle of incidence i', unit: '°', min: 5, max: 80, step: 1, start: 50, digits: 0, bounds: { min: 0.1, max: 89.5 } },
     { id: 'v1', label: 'Speed in medium 1, v₁', unit: '× 10⁸ m/s', min: 1, max: 3, step: 0.1, start: 3, digits: 1 },
     { id: 'v2', label: 'Speed in medium 2, v₂', unit: '× 10⁸ m/s', min: 1, max: 3, step: 0.1, start: 2, digits: 1 },
     { id: 'AC', label: 'Length AC along the boundary', unit: 'cm', min: 2, max: 10, step: 0.5, start: 6, digits: 1 },

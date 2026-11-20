@@ -28,7 +28,7 @@ export const spec: Spec = {
     { id: 'r', label: 'Distance from the centre r', unit: 'cm', min: 8, max: 40, step: 1, start: 20, digits: 0 },
     { id: 'l', label: 'Half-length l', unit: 'cm', min: 1, max: 5, step: 0.5, start: 2, digits: 1 },
     { id: 'B', label: 'Uniform field B', unit: 'mT', min: 1, max: 100, step: 1, start: 20, digits: 0 },
-    { id: 'th', label: 'Angle θ between m and B', unit: '°', min: 0, max: 180, step: 5, start: 60, digits: 0 },
+    { id: 'th', label: 'Angle θ between m and B', unit: '°', min: 0, max: 180, step: 5, start: 60, digits: 0, bounds: { min: 0, max: 180 } },
   ],
   outs: [
     { id: 'Bax', label: 'Axial field at r', unit: 'µT', fn: (v) => axial(v.m!, v.r!, v.l!) * 1e6, digits: 2 },

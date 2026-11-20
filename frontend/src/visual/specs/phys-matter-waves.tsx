@@ -26,7 +26,7 @@ export const spec: Spec = {
   vars: [
     { id: 'V', label: 'Accelerating voltage V', unit: 'V', min: 10, max: 5000, step: 1, start: 100, log: true, digits: 0 },
     { id: 'mr', label: 'Mass of the particle in electron masses (m / mₑ)', unit: '', min: 1, max: 8000, step: 1, start: 1, log: true, digits: 0 },
-    { id: 'q', label: 'Charge of the particle (in units of e)', unit: 'e', min: 1, max: 2, step: 1, start: 1, digits: 0 },
+    { id: 'q', label: 'Charge of the particle (in units of e)', unit: 'e', min: 1, max: 2, step: 1, start: 1, digits: 0, choice: true },
     { id: 'd', label: 'Atomic spacing of the crystal d', unit: 'Å', min: 0.5, max: 5, step: 0.1, start: 2, digits: 1 },
   ],
   outs: [

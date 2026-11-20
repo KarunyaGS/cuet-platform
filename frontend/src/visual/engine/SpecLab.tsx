@@ -2,7 +2,7 @@ import { RotateCcw } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import { Badge, PageHeader } from '../../ui';
-import { ApplyCard, btn, btnMain, panel, PredictCard, RangeSlider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps } from '../labkit';
+import { ApplyCard, btn, btnMain, panel, PredictCard, RangeSlider, Slider, StepNav, useLabCompletion, useLabOrigin, useScrollTopOnOpen, useSteps } from '../labkit';
 import { FitGraph, fmt, fromPos, LineGraph, linearFit, startValues, toPos, withValues } from './kit';
 import { clampTo, digitsFor, stepFor, type Range } from '../ranges';
 import { specById } from './specs';
@@ -114,6 +114,10 @@ function SpecLabBody({ spec }: { spec: Spec }) {
             <div className="grid gap-x-6 gap-y-3 border-t border-rule px-3 py-3 sm:grid-cols-2">
               {evars.map((d, i) => {
                 const design = spec.vars[i]!;
+                if (design.choice || !(spec.subject === 'Physics' || spec.subject === 'Chemistry')) {
+                  // a pick from a list, or a subject whose labs keep fixed ranges: the lab's own range only
+                  return <Slider key={d.id} id={`spec-${d.id}`} label={d.label} unit={d.unit} value={toPos(d, v[d.id]!)} min={0} max={1000} step={1} shown={fmt(v[d.id]!, d.digits ?? 2)} onChange={(p) => set(d.id, fromPos(d, p))} />;
+                }
                 return (
                   <RangeSlider
                     key={d.id}
@@ -128,7 +132,7 @@ function SpecLabBody({ spec }: { spec: Spec }) {
                     onChange={(p) => set(d.id, fromPos(d, p))}
                     design={{ min: design.min, max: design.max }}
                     range={{ min: d.min, max: d.max }}
-                    rules={{ log: design.log }}
+                    rules={{ log: design.log, floor: design.bounds?.min, cap: design.bounds?.max }}
                     onRange={(r) => {
                       setRanges((cur) => {
                         const next = { ...cur };

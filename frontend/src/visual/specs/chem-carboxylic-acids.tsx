@@ -41,9 +41,9 @@ export const spec: Spec = {
   can: ['See how −I substituents (F, Cl) and +I groups change the pKa and the pH', 'Compare carboxylic acids with phenol and ethanol on one scale', 'Plot pH against log([A⁻]/[HA]) and read the pKa from the intercept'],
   minutes: 10,
   vars: [
-    { id: 'a', label: 'Acid (0 HCOOH, 1 C₆H₅COOH, 2 CH₃COOH, 3 FCH₂COOH, 4 ClCH₂COOH, 5 phenol, 6 ethanol)', unit: '', min: 0, max: 6, step: 1, start: 2, digits: 0 },
+    { id: 'a', label: 'Acid (0 HCOOH, 1 C₆H₅COOH, 2 CH₃COOH, 3 FCH₂COOH, 4 ClCH₂COOH, 5 phenol, 6 ethanol)', unit: '', min: 0, max: 6, step: 1, start: 2, digits: 0, choice: true },
     { id: 'c', label: 'Total concentration c', unit: 'mol/L', min: 0.001, max: 1, step: 0.001, start: 0.1, log: true, digits: 3 },
-    { id: 'f', label: 'Fraction of the acid neutralised by NaOH', unit: '', min: 0.05, max: 0.95, step: 0.05, start: 0.05, digits: 2 },
+    { id: 'f', label: 'Fraction of the acid neutralised by NaOH', unit: '', min: 0.05, max: 0.95, step: 0.05, start: 0.05, digits: 2, bounds: { min: 0.001, max: 0.99 } },
   ],
   outs: [
     { id: 'pKa', label: 'pKa (lesson value)', unit: '', fn: (v) => AC[v.a!]!.pKa, digits: 2 },

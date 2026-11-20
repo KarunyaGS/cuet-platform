@@ -42,9 +42,9 @@ export const spec: Spec = {
   can: ['Rank amines by pKb and see why aniline is far weaker than ammonia', 'Watch the pH of an amine solution against concentration and added acid', 'Predict the Hinsberg result for primary, secondary and tertiary amines'],
   minutes: 10,
   vars: [
-    { id: 'a', label: 'Amine (0 PhNH₂, 1 CH₃NH₂, 2 (CH₃)₂NH, 3 (CH₃)₃N, 4 C₂H₅NH₂, 5 (C₂H₅)₂NH, 6 (C₂H₅)₃N)', unit: '', min: 0, max: 6, step: 1, start: 1, digits: 0 },
+    { id: 'a', label: 'Amine (0 PhNH₂, 1 CH₃NH₂, 2 (CH₃)₂NH, 3 (CH₃)₃N, 4 C₂H₅NH₂, 5 (C₂H₅)₂NH, 6 (C₂H₅)₃N)', unit: '', min: 0, max: 6, step: 1, start: 1, digits: 0, choice: true },
     { id: 'c', label: 'Total amine concentration c', unit: 'mol/L', min: 0.01, max: 1, step: 0.01, start: 0.1, log: true, digits: 2 },
-    { id: 'f', label: 'Fraction of the amine neutralised by HCl', unit: '', min: 0, max: 0.9, step: 0.05, start: 0, digits: 2 },
+    { id: 'f', label: 'Fraction of the amine neutralised by HCl', unit: '', min: 0, max: 0.9, step: 0.05, start: 0, digits: 2, bounds: { min: 0, max: 0.99 } },
   ],
   outs: [
     { id: 'pKb', label: 'pKb of the amine (lesson data, in water)', unit: '', fn: (v) => AM[v.a!]!.pKb, digits: 2 },

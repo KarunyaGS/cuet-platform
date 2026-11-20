@@ -28,9 +28,9 @@ export const spec: Spec = {
   minutes: 11,
   vars: [
     { id: 'lam1', label: 'Wavelength in medium 1, λ₁', unit: 'nm', min: 300, max: 800, step: 10, start: 500, digits: 0 },
-    { id: 'n1', label: 'Refractive index of medium 1, n₁', unit: '', min: 1, max: 2.5, step: 0.05, start: 1, digits: 2 },
-    { id: 'n2', label: 'Refractive index of medium 2, n₂', unit: '', min: 1, max: 2.5, step: 0.05, start: 1.5, digits: 2 },
-    { id: 'i', label: 'Angle of incidence i', unit: '°', min: 1, max: 85, step: 1, start: 45, digits: 0 },
+    { id: 'n1', label: 'Refractive index of medium 1, n₁', unit: '', min: 1, max: 2.5, step: 0.05, start: 1, digits: 2, bounds: { min: 1, max: 10 } },
+    { id: 'n2', label: 'Refractive index of medium 2, n₂', unit: '', min: 1, max: 2.5, step: 0.05, start: 1.5, digits: 2, bounds: { min: 1, max: 10 } },
+    { id: 'i', label: 'Angle of incidence i', unit: '°', min: 1, max: 85, step: 1, start: 45, digits: 0, bounds: { min: 0.1, max: 89.5 } },
     { id: 't', label: 'Time after the lamp flash in medium 1, τ', unit: 'ns', min: 1, max: 20, step: 1, start: 5, digits: 0 },
   ],
   outs: [

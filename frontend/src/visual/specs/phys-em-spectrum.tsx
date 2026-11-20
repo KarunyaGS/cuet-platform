@@ -31,7 +31,7 @@ export const spec: Spec = {
   minutes: 10,
   vars: [
     { id: 'lam', label: 'Wavelength in vacuum λ', unit: 'nm', min: 1e-4, max: 1e12, step: 1, start: 550, log: true, digits: 2 },
-    { id: 'n', label: 'Refractive index of the medium n', unit: '', min: 1, max: 2.5, step: 0.05, start: 1, digits: 2 },
+    { id: 'n', label: 'Refractive index of the medium n', unit: '', min: 1, max: 2.5, step: 0.05, start: 1, digits: 2, bounds: { min: 1, max: 10 } },
     { id: 'dist', label: 'Radar target distance d', unit: 'km', min: 1, max: 200, step: 1, start: 30, digits: 0 },
   ],
   outs: [

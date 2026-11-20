@@ -28,11 +28,11 @@ export const spec: Spec = {
   can: ['See that SN2 rate depends on [Nu] and SN1 rate does not', 'Find which substrate class and solvent push the reaction towards SN1 or SN2', 'Read inversion against racemisation from the mechanism share'],
   minutes: 12,
   vars: [
-    { id: 'c', label: 'Haloalkane class (0 = CH₃X, 1 = 1°, 2 = 2°, 3 = 3°)', unit: '', min: 0, max: 3, step: 1, start: 2, digits: 0 },
+    { id: 'c', label: 'Haloalkane class (0 = CH₃X, 1 = 1°, 2 = 2°, 3 = 3°)', unit: '', min: 0, max: 3, step: 1, start: 2, digits: 0, choice: true },
     { id: 'rx', label: 'Concentration [RX]', unit: 'mol/L', min: 0.05, max: 1, step: 0.05, start: 0.1, digits: 2 },
     { id: 'nu', label: 'Concentration of nucleophile [Nu⁻]', unit: 'mol/L', min: 0.1, max: 2, step: 0.1, start: 0.2, digits: 1 },
-    { id: 's', label: 'Solvent (0 = polar protic, 1 = polar aprotic)', unit: '', min: 0, max: 1, step: 1, start: 1, digits: 0 },
-    { id: 'lg', label: 'Leaving group (0 = Cl, 1 = Br, 2 = I)', unit: '', min: 0, max: 2, step: 1, start: 1, digits: 0 },
+    { id: 's', label: 'Solvent (0 = polar protic, 1 = polar aprotic)', unit: '', min: 0, max: 1, step: 1, start: 1, digits: 0, choice: true },
+    { id: 'lg', label: 'Leaving group (0 = Cl, 1 = Br, 2 = I)', unit: '', min: 0, max: 2, step: 1, start: 1, digits: 0, choice: true },
   ],
   outs: [
     { id: 'r1', label: 'SN1 rate = k₁[RX] (relative units)', unit: '', fn: (v) => rSN1(v.c!, v.rx!, v.s!, v.lg!), sci: true },
