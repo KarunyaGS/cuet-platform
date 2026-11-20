@@ -7,6 +7,7 @@
  */
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { api, type MilestoneView } from '../../api';
 import { playUiSound } from '../../sound';
 
@@ -46,8 +47,9 @@ export function MilestoneCelebration() {
   if (!m) return null;
   const pct = m.percent ?? Math.round((100 * m.done) / Math.max(1, m.total));
   const ring = 2 * Math.PI * 44;
-  return (
-    <div className={`fixed inset-0 z-50 grid place-items-center bg-forest-deep/45 p-4 backdrop-blur-[2px] ${leaving ? 'milestone-out' : 'milestone-backdrop'}`} data-milestone-overlay>
+  // In the page body, above the sidebar, top bar, tab bar and help button, so the whole screen is dimmed and the dialog is truly centred.
+  return createPortal(
+    <div className={`fixed inset-0 z-[80] grid max-h-dvh place-items-center overflow-y-auto bg-forest-deep/45 p-4 backdrop-blur-[2px] ${leaving ? 'milestone-out' : 'milestone-backdrop'}`} data-milestone-overlay>
       <div role="dialog" aria-modal="true" aria-labelledby="milestone-title" aria-describedby="milestone-text" data-milestone data-kind={m.kind}
         className={`relative w-full max-w-md overflow-hidden rounded-[24px] border border-line/80 bg-surface px-6 pb-6 pt-8 text-center shadow-[0_30px_70px_-30px_rgb(15_45_38/0.6)] ${leaving ? 'milestone-out' : 'milestone-card'}`}>
         <span aria-hidden className="milestone-glow pointer-events-none absolute -top-24 left-1/2 size-64 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgb(214_233_117/0.55),transparent_70%)]" />
@@ -64,12 +66,13 @@ export function MilestoneCelebration() {
         <p className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-[#f1f5df] px-3 py-1 text-[11px] font-bold tracking-[0.08em] text-forest uppercase"><Sparkles aria-hidden className="size-3.5" />Milestone reached</p>
         <h2 id="milestone-title" className="mt-3 text-xl font-bold tracking-tight text-forest" data-milestone-heading>{m.heading}</h2>
         <p id="milestone-text" className="mt-2 text-[15px] leading-relaxed text-ink" data-milestone-message>{m.message}</p>
-        <p className="num mt-3 text-xs text-ink-2" data-milestone-figure>{m.figure}{m.planTotal ? ` · plan: ${m.planDone} of ${m.planTotal} activities` : ''}</p>
+        <p className="num mt-3 text-xs text-ink-2" data-milestone-figure>{m.figure}{m.planTotal && m.kind !== 'PLAN_PERCENT' ? ` · whole plan: ${m.planDone} of ${m.planTotal} activities` : ''}</p>
         <button ref={button} type="button" onClick={() => void close()} data-sound="press" data-milestone-continue
           className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-forest text-sm font-semibold text-lime transition-colors hover:bg-forest-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest">
           Continue<ArrowRight aria-hidden className="size-4" />
         </button>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
