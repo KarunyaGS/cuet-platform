@@ -410,3 +410,13 @@ a[href],
 @media (prefers-reduced-motion: reduce) {
   .stuck-guide, .stuck-guide-spark, .stuck-guide-path path:first-child { animation: none; }
 }
+
+/* Admissions uses disclosure for long official text so programme discovery stays compact. */
+.admission-disclosure > summary::-webkit-details-marker { display: none; }
+.admission-disclosure > summary::marker { content: ''; }
+.admission-disclosure > summary:focus-visible { outline: 2px solid #c45e42; outline-offset: -3px; }
+.admission-disclosure[open] > summary { background: rgb(245 241 231 / 65%); }
+.admission-chevron { transition: transform 180ms ease; }
+.admission-disclosure[open] .admission-chevron { transform: rotate(180deg); }
+.admission-advice > summary:focus-visible { outline: 2px solid #8d9b39; outline-offset: -3px; }
+@media (prefers-reduced-motion: reduce) { .admission-chevron { transition: none; } }

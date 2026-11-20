@@ -1,9 +1,9 @@
 /** University admissions: browse programmes by university type, CUET subject and year, and read one programme's requirements with their sources. */
-import { ExternalLink, Info, SearchX } from 'lucide-react';
+import { ChevronDown, ExternalLink, Info, SearchX, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
-import { api, ApiError, type AdmissionFact, type Cycle, type EligibilityOut, type ExamCode, type Progress, type ProgrammeSummary, type Reliability } from '../api';
-import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Panel, SearchInput, SectionTitle, inputClass, useLoad } from '../ui';
+import { api, ApiError, type AdmissionFact, type Cycle, type ExamCode, type Progress, type ProgrammeSummary, type Reliability } from '../api';
+import { Badge, Button, Empty, ErrorBox, Loading, PageHeader, Panel, SearchInput, inputClass, useLoad } from '../ui';
 import { BASIS, Source } from './University';
 import { parseRule, ruleLines, type Rule } from '../subject-rule';
 import { EligibilityLine, MyTargets, TargetButton } from './AdmissionEligibility';
@@ -35,71 +35,30 @@ function matchesSubject(required: string, paper: string) {
   return names.some((name) => name === actual || name.startsWith(`${actual} `) || actual.startsWith(`${name} `));
 }
 
-function Card({ p, progress, eligibility, targeted, onTarget }: { p: ProgrammeSummary; progress?: Progress; eligibility?: EligibilityOut; targeted?: boolean; onTarget?: () => void }) {
-  const d = p.nextDeadline ? `Apply by ${dayLabel(p.nextDeadline.date)}` : p.lastDeadline ? `Deadline was ${dayLabel(p.lastDeadline.date)}` : null;
-  const subjectPerformance = (p.subjects ?? []).flatMap((required) => {
-    const result = progress?.subjects.find((subject) => matchesSubject(required, subject.paper));
-    return result ? [{ required, ...result }] : [];
-  });
+function Card({ p, targeted, onTarget }: { p: ProgrammeSummary; targeted?: boolean; onTarget?: () => void }) {
+  const rule = parseRule(p.ruleText);
+  const lines = rule ? ruleLines(rule) : p.subjects;
+  const subjectSummary = lines?.length ? lines[0] + (lines.length > 1 ? ` + ${lines.length - 1} alternative${lines.length > 2 ? 's' : ''}` : '') : 'Subject requirements not published';
   return (
     <li>
-      <Panel className="p-4" >
+      <Panel className="p-4 transition-shadow hover:shadow-md">
         <div data-programme={p.id}>
           <div className="flex flex-wrap items-center gap-2 text-xs">
             {p.universityType && <Badge>{p.universityType}</Badge>}
-            <Badge tone="accent">{examName(p.exam)} · {p.academicYear}</Badge>
+            <Badge tone="accent">{examName(p.exam)}</Badge>
             <ReliabilityBadge r={p.reliability} on={p.lastVerifiedOn} cycle={p.cycle} />
           </div>
-          <h3 className="mt-2 text-base font-semibold text-ink">
-            <Link to={`/admissions/programmes/${p.id}`} className="hover:text-accent">
-              {p.programmeName}
-            </Link>
-          </h3>
+          <h3 className="mt-2 text-base font-semibold text-ink">{p.programmeName}</h3>
           <Link to={`/universities/${p.universitySlug}`} className="text-sm text-ink-2 hover:text-accent hover:underline">
             {p.universityName}
           </Link>
-          <dl className="mt-3 grid gap-x-6 gap-y-1.5 text-sm sm:grid-cols-2">
-            <div>
-              <dt className="text-xs text-ink-3">Required CUET subjects</dt>
-              <dd className="text-ink" data-card-subjects>
-                {(() => {
-                  const rule = parseRule(p.ruleText);
-                  if (rule) {
-                    const l = ruleLines(rule);
-                    return l.length === 1 ? l[0] : (
-                      <>
-                        <span className="text-ink-2">Choose one:</span>
-                        <ul className="list-disc pl-4">{l.slice(0, 4).map((x) => <li key={x}>{x}</li>)}</ul>
-                      </>
-                    );
-                  }
-                  return p.subjects ? p.subjects.join(', ') : p.known.eligibility ? <span className="text-ink-2">See the eligibility on the programme page</span> : <span className="text-ink-3">Not yet available</span>;
-                })()}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-xs text-ink-3">Application deadline</dt>
-              <dd className="text-ink">{d ?? <span className="text-ink-3">Not yet available</span>}</dd>
-            </div>
-          </dl>
-          <p className="mt-2 text-xs text-ink-3">
-            Eligibility {p.known.eligibility ? 'given' : 'not yet available'} · procedure {p.known.procedure ? 'given' : 'not yet available'} · counselling {p.known.counselling ? 'given' : 'not yet available'} · cut-offs {p.known.cutoffs ? 'given' : 'not yet available'}
-          </p>
-          {subjectPerformance.length > 0 && (
-            <div className="mt-3 rounded-lg border border-rule bg-paper/70 px-3 py-2.5" data-admission-practice-context>
-              <p className="text-xs font-semibold text-ink">Your practice context for listed subjects</p>
-              <ul className="mt-1 space-y-1 text-xs text-ink-2">
-                {subjectPerformance.map((s) => (
-                  <li key={`${p.id}-${s.paperCode}`}>
-                    {s.paper}: {s.accuracy === null ? 'no accuracy yet' : `${s.accuracy}% accuracy`} across {s.attempted} answered questions
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-1 text-[11px] text-ink-3">Practice history is a revision signal, not an official CUET score, eligibility decision or admission prediction.</p>
-            </div>
-          )}
-          <EligibilityLine e={eligibility} />
+          <p className="mt-3 truncate text-sm text-ink-2" data-card-subjects><span className="font-medium text-ink">CUET subjects:</span> {subjectSummary}</p>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-rule pt-3">
+            <Link to={`/admissions/programmes/${p.id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline" aria-label={`View admission details for ${p.programmeName}`}>
+              View admission details <ExternalLink aria-hidden className="size-3.5" />
+            </Link>
           {onTarget && <TargetButton programmeId={p.id} targeted={Boolean(targeted)} onChange={onTarget} />}
+          </div>
         </div>
       </Panel>
     </li>
@@ -111,7 +70,6 @@ export function AdmissionsPage() {
   const f = { type: params.get('type') ?? '', subject: params.get('subject') ?? '', year: params.get('year') ?? '', exam: params.get('exam') ?? '', q: params.get('q') ?? '', university: params.get('university') ?? '' };
   const [more, setMore] = useState(0);
   const filters = useLoad(api.admissionFilters, []);
-  const performance = useLoad(api.progress, []);
   const list = useLoad(() => api.programmes({ ...f, offset: 0 }), [f.type, f.subject, f.year, f.exam, f.q, f.university]);
   const extra = useLoad(() => (more ? api.programmes({ ...f, offset: more }) : Promise.resolve(null)), [more, f.type, f.subject, f.year, f.exam, f.q, f.university]);
   const set = (k: string, v: string) => {
@@ -120,11 +78,8 @@ export function AdmissionsPage() {
   };
   const shown = [...(list.data?.programmes ?? []), ...(more ? (extra.data?.programmes ?? []) : [])];
   const total = list.data?.total ?? 0;
-  // Minimum subject eligibility (only from rules a person has checked) and the programmes the student follows.
-  const idKey = shown.map((x) => x.id).join(',');
-  const elig = useLoad(() => (idKey ? api.eligibility(idKey.split(',')) : Promise.resolve(null)), [idKey]);
+  // The programme list stays compact. Eligibility and preparation context load on the detail view.
   const targets = useLoad(api.admissionTargets, []);
-  const eligOf = new Map((elig.data?.results ?? []).map((e) => [e.programmeId, e]));
   const followed = new Set((targets.data?.targets ?? []).map((t) => t.programmeId));
   const refreshTargets = () => { targets.reload(); };
   const sel = `${inputClass} h-9 w-auto py-0`;
@@ -132,19 +87,8 @@ export function AdmissionsPage() {
     <div className="w-full">
       <PageHeader
         title="University admissions"
-        subtitle="Programmes, required CUET subjects, eligibility and cut-offs, each taken from the university’s own pages. We publish a detail only after a person has checked it against the official source, and we say plainly when something is not yet available."
+        subtitle="Find a programme, check its CUET subject requirements, and open its verified admission details."
       />
-      <Panel className="mb-4 border-accent/20 bg-accent-soft/30 p-4" data-admission-guidance>
-        <h2 className="text-sm font-semibold text-ink">Connect your preparation to programme requirements</h2>
-        <p className="mt-1 text-sm text-ink-2">
-          Published programme cards can show your practice accuracy for required CUET subjects when you have attempted questions in those subjects. Use it to decide what to revise; it does not estimate your CUET result or admission chance.
-        </p>
-        <p className="mt-1 text-xs text-ink-3">Historical cutoff records are not yet available in the published dataset, so no A/B/C competitiveness label is shown. The available programme records are clearly marked by admission cycle.</p>
-        {performance.error && <p className="mt-2 text-xs text-ink-3">Practice context is temporarily unavailable. Programme information is still available.</p>}
-        {!performance.error && performance.data?.subjects.length === 0 && !performance.loading && (
-          <p className="mt-2 text-xs text-ink-3">Submit a practice set to see subject-level context here. <Link to="/progress" className="font-medium text-accent hover:underline">Open your progress</Link>.</p>
-        )}
-      </Panel>
       {targets.data && <MyTargets data={targets.data} reload={targets.reload} />}
       <div className="mb-3 flex flex-wrap items-center gap-2" data-programme-filters>
         <SearchInput value={f.q} onChange={(v) => set('q', v)} placeholder="Search programme or university" label="Search programmes" />
@@ -213,7 +157,7 @@ export function AdmissionsPage() {
           <p className="mb-3 text-sm text-ink-2" data-programme-count>
             {total} {total === 1 ? 'programme' : 'programmes'}
           </p>
-          <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">{shown.map((p) => <Card key={p.id} p={p} progress={performance.data ?? undefined} eligibility={eligOf.get(p.id)} targeted={followed.has(p.id)} onTarget={targets.data ? refreshTargets : undefined} />)}</ul>
+          <ul className="grid grid-cols-1 gap-3 lg:grid-cols-2">{shown.map((p) => <Card key={p.id} p={p} targeted={followed.has(p.id)} onTarget={targets.data ? refreshTargets : undefined} />)}</ul>
           {shown.length < total && (
             <div className="mt-4">
               <Button kind="secondary" onClick={() => setMore(shown.length)} disabled={extra.loading}>
@@ -257,45 +201,90 @@ function RuleBreakdown({ rule }: { rule: Rule }) {
 
 function Facts({ title, id, facts, missing, official, fallback }: { title: string; id: string; facts: AdmissionFact[]; missing: boolean; official: string | null; fallback?: string }) {
   return (
-    <section aria-labelledby={id} className="mb-7" data-section={id}>
-      <SectionTitle id={id}>{title}</SectionTitle>
-      {facts.length === 0 || missing ? (
-        <div className="rounded-xl border border-dashed border-rule-strong bg-surface/60 px-4 py-3 text-sm text-ink-2" data-unavailable>
-          {fallback ?? 'Not yet available. We have not published this for the programme.'}{' '}
-          {official && (
-            <a href={official} target="_blank" rel="noreferrer noopener" className="font-medium text-accent hover:underline">
-              Check the university’s official page
-            </a>
-          )}
-        </div>
-      ) : (
-        <ul className="space-y-3">
-          {facts.map((f) => (
-            <li key={f.id}>
-              <Panel className="p-4">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-semibold text-ink">{f.kind === 'EVENT' && f.eventDate ? `${dayLabel(f.eventDate)}: ${f.label}` : f.label}</span>
-                  <ReliabilityBadge r={f.reliability} on={f.checkedOn} cycle={f.cycle} />
-                </div>
-                {f.valueText && <blockquote className="mt-1.5 whitespace-pre-line border-l-2 border-accent pl-3 text-[15px] leading-relaxed text-ink">{f.valueText.replace(/\s+(?=Combination [IVX]+\s*:)/g, '\n').replace(/\s+(?=(?:OR|AND)\s)/g, '\n').replace(/\s+(?=Merit will be)/g, '\n').replace(/\s+(?=Candidates? must appear in any one language)/g, '\n')}</blockquote>}
-                {f.kind === 'SUBJECTS' && (parseRule(f.valueText) ? <RuleBreakdown rule={parseRule(f.valueText)!} /> : f.subjects && (
-                  <div className="mt-2 flex flex-wrap gap-1.5">
-                    {f.subjects.map((s) => (
-                      <Badge key={s} tone="accent">
-                        {s}
-                      </Badge>
-                    ))}
+    <details aria-labelledby={id} className="admission-disclosure mb-3 overflow-hidden rounded-xl border border-rule bg-surface" data-section={id}>
+      <summary id={id} className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-ink marker:hidden">
+        <span>{title}</span>
+        <span className="flex items-center gap-2 text-xs font-normal text-ink-3">
+          {facts.length && !missing ? `${facts.length} verified item${facts.length === 1 ? '' : 's'}` : 'Details not yet published'}
+          <ChevronDown aria-hidden className="admission-chevron size-4 shrink-0" />
+        </span>
+      </summary>
+      <div className="border-t border-rule p-3 sm:p-4">
+        {facts.length === 0 || missing ? (
+          <div className="rounded-xl border border-dashed border-rule-strong bg-paper/70 px-4 py-3 text-sm text-ink-2" data-unavailable>
+            {fallback ?? 'Not yet available. We have not published this for the programme.'}{' '}
+            {official && <a href={official} target="_blank" rel="noreferrer noopener" className="font-medium text-accent hover:underline">Check the university’s official page</a>}
+          </div>
+        ) : (
+          <ul className="space-y-3">
+            {facts.map((f) => (
+              <li key={f.id}>
+                <Panel className="p-4">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-sm font-semibold text-ink">{f.kind === 'EVENT' && f.eventDate ? `${dayLabel(f.eventDate)}: ${f.label}` : f.label}</span>
+                    <ReliabilityBadge r={f.reliability} on={f.checkedOn} cycle={f.cycle} />
                   </div>
-                ))}
-                <div className="mt-1.5">
-                  <Source f={f} />
-                </div>
-              </Panel>
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
+                  {f.valueText && <blockquote className="mt-1.5 whitespace-pre-line border-l-2 border-accent pl-3 text-[15px] leading-relaxed text-ink">{f.valueText.replace(/\s+(?=Combination [IVX]+\s*:)/g, '\n').replace(/\s+(?=(?:OR|AND)\s)/g, '\n').replace(/\s+(?=Merit will be)/g, '\n').replace(/\s+(?=Candidates? must appear in any one language)/g, '\n')}</blockquote>}
+                  {f.kind === 'SUBJECTS' && (parseRule(f.valueText) ? <RuleBreakdown rule={parseRule(f.valueText)!} /> : f.subjects && <div className="mt-2 flex flex-wrap gap-1.5">{f.subjects.map((s) => <Badge key={s} tone="accent">{s}</Badge>)}</div>)}
+                  <div className="mt-2"><Source f={f} /></div>
+                </Panel>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </details>
+  );
+}
+
+function PreporaAdvice({ programmeName, subjects, progress, loading, error }: { programmeName: string; subjects: string[]; progress?: Progress; loading: boolean; error?: Error | null }) {
+  const subjectSignals = subjects.map((required) => {
+    const score = progress?.subjects.find((subject) => matchesSubject(required, subject.paper));
+    const weak = score ? progress?.weakTopics.filter((topic) => matchesSubject(required, topic.paper)).sort((a, b) => a.accuracy - b.accuracy)[0] : undefined;
+    return { required, score, weak };
+  });
+  return (
+    <details className="admission-advice my-8 overflow-hidden rounded-2xl border border-[#d9e69a] bg-gradient-to-br from-[#f5f8df] via-[#f8f8e9] to-[#fff8e0]" data-prepora-expert-advice>
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-4 marker:hidden sm:px-5">
+        <span className="flex min-w-0 items-center gap-3">
+          <span className="grid size-9 shrink-0 place-items-center rounded-full bg-white/80 text-[#657522]"><Sparkles aria-hidden className="size-4" /></span>
+          <span><span className="block text-sm font-semibold text-ink">Prepora expert advice</span><span className="mt-0.5 block text-xs text-ink-2">See how your practice maps to {programmeName}</span></span>
+        </span>
+        <ChevronDown aria-hidden className="admission-chevron size-4 shrink-0 text-ink-3" />
+      </summary>
+      <div className="border-t border-[#d9e69a] px-4 py-4 sm:px-5" data-admission-practice-context>
+        {loading ? <p className="text-sm text-ink-2">Loading your practice snapshot…</p> : error ? <p className="text-sm text-ink-2">Your practice snapshot is temporarily unavailable. Your programme requirements are still shown above.</p> : subjects.length === 0 ? (
+          <p className="text-sm text-ink-2">This programme accepts subject combinations rather than naming every subject. Choose your CUET papers in your profile, then build practice history to get course-specific advice.</p>
+        ) : !progress?.subjects.length ? (
+          <div className="rounded-xl border border-[#e4e8c7] bg-white/70 p-3.5">
+            <p className="text-sm font-semibold text-ink">Your course-specific practice baseline is not available yet.</p>
+            <p className="mt-1 text-sm text-ink-2">Complete a few questions in the required CUET subjects. We’ll use your answers to point out topics to revisit.</p>
+            <Link to="/practice-centre" className="mt-2 inline-flex text-sm font-semibold text-accent hover:underline">Start subject practice <ExternalLink aria-hidden className="ml-1 size-3.5" /></Link>
+          </div>
+        ) : (
+          <>
+            <p className="mb-3 text-xs text-ink-2">Practice signals below are from your submitted Prepora sets. They are not an official CUET score, cutoff target, eligibility decision or admission prediction.</p>
+            <ul className="space-y-2">
+              {subjectSignals.map(({ required, score, weak }) => (
+                <li key={required} className="rounded-xl border border-[#e4e8c7] bg-white/70 p-3.5">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="text-sm font-semibold text-ink">{required}</span>
+                    <span className="text-xs font-medium text-ink-2">{!score ? 'No practice data yet' : score.attempted < 3 ? `${score.attempted} answered · early signal` : `${score.accuracy ?? 0}% accuracy · ${score.attempted} answered`}</span>
+                  </div>
+                  {!score ? <p className="mt-1 text-xs text-ink-2">Start with a short question set in this subject.</p> : score.attempted < 3 ? <p className="mt-1 text-xs text-ink-2">Try a few more questions before relying on this early result.</p> : weak ? (
+                    <p className="mt-1 text-xs text-ink-2">Next focus: <Link to={`/revise/${weak.id}`} className="font-semibold text-accent hover:underline">{weak.title}</Link> ({weak.accuracy}% practice accuracy).</p>
+                  ) : score.accuracy !== null && score.accuracy < 75 ? <p className="mt-1 text-xs text-ink-2">Review missed answers, then try a mixed set to strengthen recall across topics.</p> : <p className="mt-1 text-xs text-ink-2">Keep this subject active with mixed-topic practice and review new mistakes.</p>}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-[#d9e69a] pt-4">
+          <Button kind="secondary" disabled data-target-plan-coming-soon>Plan for this programme</Button>
+          <span className="max-w-xl text-xs text-ink-2">A target-aware plan can use these subject requirements and your practice gaps. Programme planning will be connected here next.</span>
+        </div>
+      </div>
+    </details>
   );
 }
 
@@ -304,6 +293,7 @@ export function ProgrammePage() {
   const r = useLoad(() => api.programme(id), [id]);
   const elig = useLoad(() => api.eligibility([id]), [id]);
   const targets = useLoad(api.admissionTargets, []);
+  const performance = useLoad(api.progress, []);
   if (r.loading && !r.data) return <Loading />;
   if (r.error) {
     return r.error instanceof ApiError && r.error.status === 404 ? (
@@ -320,7 +310,14 @@ export function ProgrammePage() {
   const official = d.officialPages[0]?.url ?? p.sourceUrl;
   const miss = (k: string) => d.unavailable.includes(k);
   const deadlines = d.current.dates.filter((f) => f.category === 'APPLICATION_DEADLINE');
-  const otherDates = d.current.dates.filter((f) => f.category !== 'APPLICATION_DEADLINE');
+  const examDates = d.current.dates.filter((f) => /CUET.*(exam|test)|exam date|test date/i.test(f.label));
+  const otherDates = d.current.dates.filter((f) => f.category !== 'APPLICATION_DEADLINE' && !examDates.includes(f));
+  const parsedSubjectRule = parseRule(p.ruleText) ?? parseRule(d.current.subjects.find((f) => f.valueText)?.valueText) ?? parseRule(d.current.eligibility.find((f) => parseRule(f.valueText))?.valueText);
+  const requiredSubjects = parsedSubjectRule
+    ? [...new Set(parsedSubjectRule.combos.flatMap((combo) => combo.items.filter((item) => item.named).flatMap((item) => item.text.split(/[\/|]/).map((subject) => subject.trim()).filter(Boolean))))]
+    : [...new Set([...((p.subjects ?? [])), ...d.current.subjects.flatMap((fact) => fact.subjects ?? [])])];
+  const subjectSummary = parsedSubjectRule ? ruleLines(parsedSubjectRule).join(' · OR · ') : requiredSubjects.length ? requiredSubjects.join(', ') : 'Not yet available';
+  const deadlineSummary = deadlines.find((fact) => fact.eventDate)?.eventDate;
   return (
     <div className="w-full">
       <PageHeader
@@ -352,21 +349,48 @@ export function ProgrammePage() {
         )}
       </div>
 
-      <section aria-labelledby="pg-fit" className="mb-6" data-section="pg-fit">
-        <SectionTitle id="pg-fit">Do my subjects meet this?</SectionTitle>
-        <EligibilityLine e={elig.data?.results[0]} />
-        {elig.error && <p className="mt-2 text-xs text-ink-3">The subject check is temporarily unavailable. The university's own requirement is below.</p>}
-        {targets.data && <TargetButton programmeId={id} targeted={targets.data.targets.some((t) => t.programmeId === id)} onChange={targets.reload} />}
-      </section>
-      <h2 className="mb-3 text-lg font-semibold text-ink">{p.cycle.status === 'PREVIOUS' ? `Historical reference: the ${p.academicYear} admission cycle` : `This admission year (${p.academicYear})`}</h2>
+      <Panel className="mb-4 overflow-hidden p-0" data-admission-overview>
+        <div className="grid grid-cols-1 divide-y divide-rule sm:grid-cols-2 sm:divide-x sm:divide-y-0 xl:grid-cols-4">
+          <div className="min-w-0 p-4">
+            <p className="text-xs font-medium text-ink-3">Required CUET subjects</p>
+            <p className="mt-1 line-clamp-2 text-sm font-semibold text-ink">{subjectSummary}</p>
+            <p className="mt-1 text-[11px] text-ink-3">{p.academicYear} cycle</p>
+          </div>
+          <div className="min-w-0 p-4">
+            <p className="text-xs font-medium text-ink-3">Published historical cut-offs</p>
+            <p className="mt-1 text-sm font-semibold text-ink">{d.historicalCutoffs.length ? `${d.historicalCutoffs.length} source record${d.historicalCutoffs.length === 1 ? '' : 's'}` : 'No verified record yet'}</p>
+            <p className="mt-1 text-[11px] text-ink-3">Past figures are not a current-cycle score target.</p>
+          </div>
+          <div className="min-w-0 p-4">
+            <p className="text-xs font-medium text-ink-3">Application deadline</p>
+            <p className="mt-1 text-sm font-semibold text-ink">{deadlineSummary ? dayLabel(deadlineSummary) : 'Not verified yet'}</p>
+            <p className="mt-1 text-[11px] text-ink-3">University-level date for this cycle</p>
+          </div>
+          <div className="min-w-0 p-4">
+            <p className="text-xs font-medium text-ink-3">CUET exam date & marking scheme</p>
+            {examDates.length ? <p className="mt-1 text-sm font-semibold text-ink">{examDates.map((fact) => fact.eventDate ? `${fact.label}: ${dayLabel(fact.eventDate)}` : fact.label).join(' · ')}</p> : <p className="mt-1 text-sm font-semibold text-ink">Check the latest NTA notice</p>}
+            <Link to="/updates" className="mt-1 inline-flex text-[11px] font-semibold text-accent hover:underline">Official CUET updates <ExternalLink aria-hidden className="ml-1 size-3" /></Link>
+          </div>
+        </div>
+      </Panel>
+      <p className="mb-4 text-xs text-ink-3">When a deadline, exam date, marking rule or cut-off has not been verified for this cycle, we leave it blank rather than estimate it. Historical cut-offs are shown with their year, round and scoring basis.</p>
+
+      <details className="admission-disclosure mb-3 overflow-hidden rounded-xl border border-rule bg-surface" data-section="pg-fit">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-ink marker:hidden">
+          <span>Check whether your CUET subjects fit</span><span className="flex items-center gap-2 text-xs font-normal text-ink-3">Based on your profile<ChevronDown aria-hidden className="admission-chevron size-4" /></span>
+        </summary>
+        <div className="border-t border-rule p-4">
+          <EligibilityLine e={elig.data?.results[0]} />
+          {elig.error && <p className="mt-2 text-xs text-ink-3">The subject check is temporarily unavailable. The university’s own requirement is below.</p>}
+          {targets.data && <TargetButton programmeId={id} targeted={targets.data.targets.some((t) => t.programmeId === id)} onChange={targets.reload} />}
+        </div>
+      </details>
+      <h2 className="mb-3 mt-6 text-lg font-semibold text-ink">Admission requirements & process</h2>
       {d.current.subjects.length === 0 && d.current.eligibility.some((f) => parseRule(f.valueText)) ? (
-        <section aria-labelledby="pg-subjects" className="mb-7" data-section="pg-subjects">
-          <SectionTitle id="pg-subjects">Required CUET subjects</SectionTitle>
-          <Panel className="p-4">
-            <p className="text-sm text-ink-2">Laid out from the programme-specific eligibility printed below.</p>
-            <RuleBreakdown rule={parseRule(d.current.eligibility.find((f) => parseRule(f.valueText))!.valueText)!} />
-          </Panel>
-        </section>
+        <details className="admission-disclosure mb-3 overflow-hidden rounded-xl border border-rule bg-surface" data-section="pg-subjects">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-ink marker:hidden">Required CUET subject combinations<ChevronDown aria-hidden className="admission-chevron size-4" /></summary>
+          <div className="border-t border-rule p-4"><p className="text-sm text-ink-2">Arranged from the programme-specific eligibility text.</p><RuleBreakdown rule={parseRule(d.current.eligibility.find((f) => parseRule(f.valueText))!.valueText)!} /></div>
+        </details>
       ) : (
         <Facts title="Required CUET subjects" id="pg-subjects" facts={d.current.subjects} missing={miss('subjects')} official={official} />
       )}
@@ -374,15 +398,20 @@ export function ProgrammePage() {
       <Facts title="How to apply" id="pg-proc" facts={d.current.procedure} missing={miss('procedure')} official={official} />
       <Facts title="Counselling" id="pg-couns" facts={d.current.counselling} missing={miss('counselling')} official={official} />
       <Facts title="Application deadline" id="pg-deadline" facts={deadlines} missing={miss('deadline')} official={official} />
+      {examDates.length > 0 && <Facts title="CUET exam dates" id="pg-exam-dates" facts={examDates} missing={false} official={official} />}
       {otherDates.length > 0 && <Facts title="Other important dates" id="pg-dates" facts={otherDates} missing={false} official={official} />}
 
-      <h2 className="mt-10 mb-1 text-lg font-semibold text-ink">Previous years’ cut-offs</h2>
-      <p className="mb-3 text-sm text-ink-2">Historical figures the university published for earlier rounds and years. They are shown for reference, are never a prediction for this year, and are kept apart from the information above.</p>
-      {d.historicalCutoffs.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-rule-strong bg-surface/60 px-4 py-3 text-sm text-ink-2" data-unavailable>
-          Not yet available. No cut-off has been published for this programme. {official && <a href={official} target="_blank" rel="noreferrer noopener" className="font-medium text-accent hover:underline">Check the university’s official page</a>}
-        </div>
-      ) : (
+      <details className="admission-disclosure mb-5 overflow-hidden rounded-xl border border-rule bg-surface" data-section="pg-cutoffs">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-ink marker:hidden">
+          <span>Previous years’ cut-offs</span><span className="flex items-center gap-2 text-xs font-normal text-ink-3">{d.historicalCutoffs.length ? `${d.historicalCutoffs.length} historical records` : 'Not verified yet'}<ChevronDown aria-hidden className="admission-chevron size-4" /></span>
+        </summary>
+        <div className="border-t border-rule p-4">
+        <p className="mb-3 text-sm text-ink-2">Published figures from earlier years and counselling rounds. They are reference points only, not this year’s required score or a guarantee of admission. Compare figures only when the year, category, round and scoring basis match.</p>
+        {d.historicalCutoffs.length === 0 ? (
+          <div className="rounded-xl border border-dashed border-rule-strong bg-paper/70 px-4 py-3 text-sm text-ink-2" data-unavailable>
+            No cut-off has been verified for this programme yet. {official && <a href={official} target="_blank" rel="noreferrer noopener" className="font-medium text-accent hover:underline">Check the university’s official page</a>}
+          </div>
+        ) : (
         <div className="overflow-x-auto rounded-xl border border-rule bg-surface" data-historical-cutoffs>
           <table className="w-full text-sm">
             <thead>
@@ -408,10 +437,15 @@ export function ProgrammePage() {
             </tbody>
           </table>
         </div>
-      )}
+        )}
+        </div>
+      </details>
 
-      <section aria-labelledby="pg-official" className="mt-10">
-        <SectionTitle id="pg-official">Official pages</SectionTitle>
+      <PreporaAdvice programmeName={p.programmeName} subjects={requiredSubjects} progress={performance.data ?? undefined} loading={performance.loading} error={performance.error} />
+
+      <details className="admission-disclosure mb-4 overflow-hidden rounded-xl border border-rule bg-surface" data-section="pg-official">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-ink marker:hidden"><span>Official pages</span><span className="flex items-center gap-2 text-xs font-normal text-ink-3">{d.officialPages.length} sources<ChevronDown aria-hidden className="admission-chevron size-4" /></span></summary>
+        <div className="border-t border-rule px-4">
         <ul className="divide-y divide-rule overflow-hidden rounded-xl border border-rule bg-surface">
           {d.officialPages.map((o) => (
             <li key={o.url} className="px-4 py-3">
@@ -424,7 +458,8 @@ export function ProgrammePage() {
             </li>
           ))}
         </ul>
-      </section>
+        </div>
+      </details>
       <p className="mt-6 flex items-start gap-2 text-xs text-ink-3">
         <Info aria-hidden className="mt-0.5 size-3.5 shrink-0" />
         {d.note}

@@ -3,7 +3,7 @@
  * programmes. Nothing here predicts an admission: it compares the CUET subjects a student plans to take with the university's published subject
  * rule, and only when that rule has been checked by a person. Otherwise it says plainly why no result is shown.
  */
-import { Target, X } from 'lucide-react';
+import { ChevronDown, Target, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router';
 import { api, type EligibilityOut, type TargetsOut } from '../api';
@@ -93,9 +93,12 @@ export function TargetButton({ programmeId, targeted, onChange }: { programmeId:
 export function MyTargets({ data, reload }: { data: TargetsOut; reload: () => void }) {
   if (data.targets.length === 0) return null;
   return (
-    <div data-my-targets>
-    <Panel className="mb-4 p-4">
-      <h2 className="text-sm font-semibold text-ink">My target programmes ({data.targets.length} of {data.limit})</h2>
+    <details className="admission-disclosure mb-4 overflow-hidden rounded-xl border border-rule bg-surface" data-my-targets>
+    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-semibold text-ink marker:hidden">
+      My target programmes <span className="flex items-center gap-2 text-xs font-normal text-ink-3">{data.targets.length} saved <ChevronDown aria-hidden className="admission-chevron size-4" /></span>
+    </summary>
+    <Panel className="border-0 border-t border-rule p-4 shadow-none">
+      <h2 className="sr-only">My target programmes ({data.targets.length} of {data.limit})</h2>
       <p className="mt-1 text-xs text-ink-3">
         {data.papers.length ? 'Compared with the CUET subjects chosen in your profile.' : <>Choose the CUET subjects you plan to take in <Link to="/profile" className="text-accent hover:underline">your profile</Link> to see how they compare.</>}
       </p>
@@ -122,6 +125,6 @@ export function MyTargets({ data, reload }: { data: TargetsOut; reload: () => vo
         ))}
       </ul>
     </Panel>
-    </div>
+    </details>
   );
 }
